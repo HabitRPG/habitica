@@ -23,16 +23,17 @@ describe('GET /groups/:groupId/chat', () => {
         privacy: 'public',
       }, {
         chat: [
-          {text: 'Hello', flags: {}},
-          {text: 'Welcome to the Guild', flags: {}},
+          {text: 'Hello', flags: {}, id: 1},
+          {text: 'Welcome to the Guild', flags: {}, id: 2},
         ],
       });
     });
 
     it('returns Guild chat', async () => {
-      let chat = await user.get(`/groups/${group._id}/chat`);
+      const chat = await user.get(`/groups/${group._id}/chat`);
 
-      expect(chat).to.eql(group.chat);
+      expect(chat[0].id).to.eql(group.chat[0].id);
+      expect(chat[1].id).to.eql(group.chat[1].id);
     });
   });
 

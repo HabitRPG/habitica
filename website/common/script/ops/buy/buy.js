@@ -1,16 +1,17 @@
-import i18n from '../../i18n';
 import get from 'lodash/get';
 import {
   BadRequest,
 } from '../../libs/errors';
-import buyHealthPotion from './buyHealthPotion';
-import buyArmoire from './buyArmoire';
-import buyGear from './buyGear';
+import {BuyArmoireOperation} from './buyArmoire';
+import {BuyHealthPotionOperation} from './buyHealthPotion';
+import {BuyMarketGearOperation} from './buyMarketGear';
 import buyMysterySet from './buyMysterySet';
-import buyQuest from './buyQuest';
+import {BuyQuestWithGoldOperation} from './buyQuest';
 import buySpecialSpell from './buySpecialSpell';
 import purchaseOp from './purchase';
 import hourglassPurchase from './hourglassPurchase';
+import errorMessage from '../../libs/errorMessage';
+import {BuyGemOperation} from './buyGem';
 
 // @TODO: remove the req option style. Dependency on express structure is an anti-pattern
 // We should either have more parms or a set structure validated by a Type checker
@@ -19,7 +20,7 @@ import hourglassPurchase from './hourglassPurchase';
 
 module.exports = function buy (user, req = {}, analytics) {
   let key = get(req, 'params.key');
-  if (!key) throw new BadRequest(i18n.t('missingKeyParam', req.language));
+  if (!key) throw new BadRequest(errorMessage('missingKeyParam'));
 
   // @TODO: Slowly remove the need for key and use type instead
   // This should evenutally be the 'factory' function with vendor classes
@@ -30,37 +31,54 @@ module.exports = function buy (user, req = {}, analytics) {
   let buyRes;
 
   switch (type) {
-    case 'armoire':
-      buyRes = buyArmoire(user, req, analytics);
+    case 'armoire': {
+      const buyOp = new BuyArmoireOperation(user, req, analytics);
+
+      buyRes = buyOp.purchase();
       break;
+    }
     case 'mystery':
       buyRes = buyMysterySet(user, req, analytics);
       break;
-    case 'potion':
-      buyRes = buyHealthPotion(user, req, analytics);
+    case 'potion': {
+      const buyOp = new BuyHealthPotionOperation(user, req, analytics);
+
+      buyRes = buyOp.purchase();
       break;
+    }
+    case 'gems': {
+      const buyOp = new BuyGemOperation(user, req, analytics);
+
+      buyRes = buyOp.purchase();
+      break;
+    }
     case 'eggs':
     case 'hatchingPotions':
     case 'food':
     case 'quests':
     case 'gear':
     case 'bundles':
-    case 'gems':
       buyRes = purchaseOp(user, req, analytics);
       break;
     case 'pets':
     case 'mounts':
       buyRes = hourglassPurchase(user, req, analytics);
       break;
-    case 'quest':
-      buyRes = buyQuest(user, req, analytics);
+    case 'quest': {
+      const buyOp = new BuyQuestWithGoldOperation(user, req, analytics);
+
+      buyRes = buyOp.purchase();
       break;
+    }
     case 'special':
       buyRes = buySpecialSpell(user, req, analytics);
       break;
-    default:
-      buyRes = buyGear(user, req, analytics);
+    default: {
+      const buyOp = new BuyMarketGearOperation(user, req, analytics);
+
+      buyRes = buyOp.purchase();
       break;
+    }
   }
 
   return buyRes;

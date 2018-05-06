@@ -142,9 +142,8 @@ export function getFilteredTaskList ({state, getters}) {
       requestedTasks = orderSingleTypeTasks(requestedTasks, taskOrderForType);
     }
 
-    // filter requested tasks by filter type
     let selectedFilter = getActiveFilter(type, filterType);
-    // @TODO find a way (probably thru currying) to implicitly pass user preference data to task filters
+    // Pass user preferences to the filter function which uses currying
     if (type === 'daily' && (filterType === 'due' || filterType === 'notDue')) {
       selectedFilter = {
         ...selectedFilter,

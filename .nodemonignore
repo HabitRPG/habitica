@@ -4,6 +4,7 @@ node_modules/**
 .bower-registry/**
 website/client-old/**
 website/client/**
+website/client/store/**
 website/views/**
 website/build/**
 dist/**
@@ -16,3 +17,4 @@ CHANGELOG.md
 newrelic_agent.log
 *.swp
 *.swx
+website/raw_sprites/**

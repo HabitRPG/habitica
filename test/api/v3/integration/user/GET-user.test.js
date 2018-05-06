@@ -34,6 +34,8 @@ describe('GET /user', () => {
     expect(returnedUser._id).to.equal(user._id);
     expect(returnedUser.achievements).to.exist;
     expect(returnedUser.items.mounts).to.exist;
+    // Notifications are always returned
+    expect(returnedUser.notifications).to.exist;
     expect(returnedUser.stats).to.not.exist;
   });
 });

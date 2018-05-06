@@ -36,7 +36,7 @@ describe('shared.ops.sell', () => {
       sell(user, {params: { type } });
     } catch (err) {
       expect(err).to.be.an.instanceof(BadRequest);
-      expect(err.message).to.equal(i18n.t('keyRequired'));
+      expect(err.message).to.equal(i18n.t('missingKeyParam'));
       done();
     }
   });
@@ -71,6 +71,16 @@ describe('shared.ops.sell', () => {
     } catch (err) {
       expect(err).to.be.an.instanceof(NotFound);
       expect(err.message).to.equal(i18n.t('userItemsNotEnough', {type}));
+      done();
+    }
+  });
+
+  it('returns an error when the requested amount is negative', (done) => {
+    try {
+      sell(user, {params: { type, key }, query: {amount: -42} });
+    } catch (err) {
+      expect(err).to.be.an.instanceof(BadRequest);
+      expect(err.message).to.equal(i18n.t('positiveAmountRequired', {type}));
       done();
     }
   });

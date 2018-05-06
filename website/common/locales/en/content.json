@@ -231,6 +231,10 @@
   "questEggBadgerMountText": "Badger",
   "questEggBadgerAdjective": "bustling",
 
+  "questEggSquirrelText": "Squirrel",
+  "questEggSquirrelMountText": "Squirrel",
+  "questEggSquirrelAdjective": "bushy-tailed",
+
   "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
 
   "hatchingPotionBase": "Base",
@@ -256,6 +260,7 @@
   "hatchingPotionShimmer": "Shimmer",
   "hatchingPotionFairy": "Fairy",
   "hatchingPotionStarryNight": "Starry Night",
+  "hatchingPotionRainbow": "Rainbow",
 
   "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%= potText(locale) %> pet.",
   "premiumPotionAddlNotes": "Not usable on quest pet eggs.",

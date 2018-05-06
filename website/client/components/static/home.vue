@@ -10,7 +10,7 @@
           .col-12.col-sm-6.col-md-6.col-lg-6
             img(src='~assets/images/home/home-main@3x.png', width='357px')
             h1 {{$t('motivateYourself')}}
-            p.section-main {{$t('timeToGetThingsDone')}}
+            p.section-main {{$t('timeToGetThingsDone', {userCountInMillions})}}
           .col-12.col-sm-6.col-md-6.col-lg-6
             h3.text-center {{$t('singUpForFree')}}
             div.text-center
@@ -565,7 +565,7 @@
           makeuseof,
           thenewyorktimes,
         }),
-        userCount: 1000000,
+        userCountInMillions: 3,
         username: '',
         password: '',
         passwordConfirm: '',
@@ -652,7 +652,13 @@
         });
         this.$router.push('/register');
       },
+      // @TODO: Abstract hello in to action or lib
       async socialAuth (network) {
+        try {
+          await hello(network).logout();
+        } catch (e) {} // eslint-disable-line
+
+
         const url = window.location.href;
 
         let auth = await hello(network).login({

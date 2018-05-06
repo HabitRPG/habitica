@@ -121,9 +121,10 @@
     "questBundles": "Наборы квестов со скидкой",
     "buyQuestBundle": "Купить набор квестов",
     "noQuestToStart": "Не можете найти подходящий квест? Посетите магазин квестов на рынке. Возможно, что там есть новинки!",
-    "pendingDamage": "<%= damage %> pending damage",
-    "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Health",
-    "rageAttack": "Rage Attack:",
-    "bossRage": "<%= currentRage %> / <%= maxRage %> Rage",
-    "rageStrikes": "Rage Strikes"
+    "pendingDamage": "<%= damage %> ожидаемого урона",
+    "pendingDamageLabel": "ожидаемый урон",
+    "bossHealth": "<%= currentHealth %> / <%= maxHealth %> здоровья",
+    "rageAttack": "Атака при ярости:",
+    "bossRage": "<%= currentRage %> / <%= maxRage %> ярости",
+    "rageStrikes": "Нападения"
 }

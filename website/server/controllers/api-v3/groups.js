@@ -1,5 +1,4 @@
 import { authWithHeaders } from '../../middlewares/auth';
-import Bluebird from 'bluebird';
 import _ from 'lodash';
 import nconf from 'nconf';
 import {
@@ -22,11 +21,11 @@ import { encrypt } from '../../libs/encryption';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
 import pusher from '../../libs/pusher';
 import common from '../../../common';
-import payments from '../../libs/payments';
-import stripePayments from '../../libs/stripePayments';
-import amzLib from '../../libs/amazonPayments';
+import payments from '../../libs/payments/payments';
+import stripePayments from '../../libs/payments/stripe';
+import amzLib from '../../libs/payments/amazon';
 import shared from '../../../common';
-import apiMessages from '../../libs/apiMessages';
+import apiError from '../../libs/apiError';
 
 const MAX_EMAIL_INVITES_BY_USER = 200;
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
@@ -79,9 +78,10 @@ let api = {};
  *       "privacy": "private"
  *     }
  *
- * @apiError (400) {NotAuthorized} messageInsufficientGems User does not have enough gems (4)
- * @apiError (400) {NotAuthorized} partyMustbePrivate Party must have privacy set to private
- * @apiError (400) {NotAuthorized} messageGroupAlreadyInParty
+ * @apiError (401) {NotAuthorized} messageInsufficientGems User does not have enough gems (4)
+ * @apiError (401) {NotAuthorized} partyMustbePrivate Party must have privacy set to private
+ * @apiError (401) {NotAuthorized} messageGroupAlreadyInParty
+ * @apiError (401) {NotAuthorized} cannotCreatePublicGuildWhenMuted You cannot create a public guild because your chat privileges have been revoked.
  *
  * @apiSuccess (201) {Object} data The created group (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
  *
@@ -109,13 +109,16 @@ let api = {};
 api.createGroup = {
   method: 'POST',
   url: '/groups',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let group = new Group(Group.sanitize(req.body));
     group.leader = user._id;
 
     if (group.type === 'guild') {
+      if (group.privacy === 'public' && user.flags.chatRevoked) throw new NotAuthorized(res.t('cannotCreatePublicGuildWhenMuted'));
       if (user.balance < 1) throw new NotAuthorized(res.t('messageInsufficientGems'));
 
       group.balance = 1;
@@ -137,7 +140,7 @@ api.createGroup = {
       user.party._id = group._id;
     }
 
-    let results = await Bluebird.all([user.save(), group.save()]);
+    let results = await Promise.all([user.save(), group.save()]);
     let savedGroup = results[1];
 
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
@@ -179,7 +182,9 @@ api.createGroup = {
 api.createGroupPlan = {
   method: 'POST',
   url: '/groups/create-plan',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let group = new Group(Group.sanitize(req.body.groupToCreate));
@@ -194,7 +199,7 @@ api.createGroupPlan = {
     group.leader = user._id;
     user.guilds.push(group._id);
 
-    let results = await Bluebird.all([user.save(), group.save()]);
+    let results = await Promise.all([user.save(), group.save()]);
     let savedGroup = results[1];
 
     // Analytics
@@ -274,7 +279,7 @@ api.createGroupPlan = {
  *
  * @apiError (400) {BadRequest} groupTypesRequired Group types are required
  * @apiError (400) {BadRequest} guildsPaginateBooleanString Paginate query parameter must be a boolean (true or false)
- * @apiError (400) {BadRequest} guildsPageInteger Page query parameter must be a positive integer
+ * @apiError (400) {BadRequest} queryPageInteger Page query parameter must be a positive integer
  * @apiError (400) {BadRequest} guildsOnlyPaginate Only public guilds support pagination
  *
  * @apiSuccess {Object[]} data An array of the requested groups (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
@@ -288,14 +293,16 @@ api.createGroupPlan = {
 api.getGroups = {
   method: 'GET',
   url: '/groups',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
     req.checkQuery('type', res.t('groupTypesRequired')).notEmpty();
     // pagination options, can only be used with public guilds
-    req.checkQuery('paginate').optional().isIn(['true', 'false'], apiMessages('guildsPaginateBooleanString'));
-    req.checkQuery('page').optional().isInt({min: 0}, apiMessages('guildsPageInteger'));
+    req.checkQuery('paginate').optional().isIn(['true', 'false'], apiError('guildsPaginateBooleanString'));
+    req.checkQuery('page').optional().isInt({min: 0}, apiError('queryPageInteger'));
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -304,7 +311,7 @@ api.getGroups = {
 
     let paginate = req.query.paginate === 'true' ? true : false;
     if (paginate && !_.includes(types, 'publicGuilds')) {
-      throw new BadRequest(apiMessages('guildsOnlyPaginate'));
+      throw new BadRequest(apiError('guildsOnlyPaginate'));
     }
 
     let groupFields = basicGroupFields.concat(' description memberCount balance');
@@ -337,7 +344,7 @@ api.getGroups = {
 
     if (req.query.search) {
       filters.$or = [];
-      const searchWords = req.query.search.split(' ').join('|');
+      const searchWords = _.escapeRegExp(req.query.search).split(' ').join('|');
       const searchQuery = { $regex: new RegExp(`${searchWords}`, 'i') };
       filters.$or.push({name: searchQuery});
       filters.$or.push({description: searchQuery});
@@ -376,11 +383,13 @@ api.getGroups = {
 api.getGroup = {
   method: 'GET',
   url: '/groups/:groupId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -391,7 +400,7 @@ api.getGroup = {
       throw new NotFound(res.t('groupNotFound'));
     }
 
-    let groupJson = Group.toJSONCleanChat(group, user);
+    let groupJson = await Group.toJSONCleanChat(group, user);
 
     if (groupJson.leader === user._id) {
       groupJson.purchased.plan = group.purchased.plan.toObject();
@@ -434,11 +443,13 @@ api.getGroup = {
 api.updateGroup = {
   method: 'PUT',
   url: '/groups/:groupId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -455,7 +466,7 @@ api.updateGroup = {
     _.assign(group, _.merge(group.toObject(), Group.sanitizeUpdate(req.body)));
 
     let savedGroup = await group.save();
-    let response = Group.toJSONCleanChat(savedGroup, user);
+    let response = await Group.toJSONCleanChat(savedGroup, user);
 
     // If the leader changed fetch new data, otherwise use authenticated user
     if (response.leader !== user._id) {
@@ -497,12 +508,14 @@ api.updateGroup = {
 api.joinGroup = {
   method: 'POST',
   url: '/groups/:groupId/join',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let inviter;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -519,6 +532,18 @@ api.joinGroup = {
       if (inviterParty) {
         inviter = inviterParty.inviter;
 
+        // If user was in a different party (when partying solo you can be invited to a new party)
+        // make them leave that party before doing anything
+        if (user.party._id) {
+          let userPreviousParty = await Group.getGroup({user, groupId: user.party._id});
+
+          if (userPreviousParty.memberCount === 1 && user.party.quest.key) {
+            throw new NotAuthorized(res.t('messageCannotLeaveWhileQuesting'));
+          }
+
+          if (userPreviousParty) await userPreviousParty.leave(user);
+        }
+
         // Clear all invitations of new user
         user.invitations.parties = [];
         user.invitations.party = {};
@@ -529,13 +554,6 @@ api.joinGroup = {
           user.party.quest.key = group.quest.key;
           group.quest.members[user._id] = null;
           group.markModified('quest.members');
-        }
-
-        // If user was in a different party (when partying solo you can be invited to a new party)
-        // make them leave that party before doing anything
-        if (user.party._id) {
-          let userPreviousParty = await Group.getGroup({user, groupId: user.party._id});
-          if (userPreviousParty) await userPreviousParty.leave(user);
         }
 
         user.party._id = group._id; // Set group as user's party
@@ -555,7 +573,7 @@ api.joinGroup = {
 
     if (isUserInvited && group.type === 'guild') {
       if (user.guilds.indexOf(group._id) !== -1) { // if user is already a member (party is checked previously)
-        throw new NotAuthorized(res.t('userAlreadyInGroup'));
+        throw new NotAuthorized(res.t('youAreAlreadyInGroup'));
       }
       user.guilds.push(group._id); // Add group to user's guilds
       if (!user.achievements.joinedGuild) {
@@ -617,9 +635,9 @@ api.joinGroup = {
       }
     }
 
-    promises = await Bluebird.all(promises);
+    promises = await Promise.all(promises);
 
-    let response = Group.toJSONCleanChat(promises[0], user);
+    let response = await Group.toJSONCleanChat(promises[0], user);
     let leader = await User.findById(response.leader).select(nameFields).exec();
     if (leader) {
       response.leader = leader.toJSON({minimize: true});
@@ -663,11 +681,13 @@ api.joinGroup = {
 api.rejectGroupInvite = {
   method: 'POST',
   url: '/groups/:groupId/reject-invite',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -738,13 +758,15 @@ function _removeMessagesFromMember (member, groupId) {
 api.leaveGroup = {
   method: 'POST',
   url: '/groups/:groupId/leave',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
     // When removing the user from challenges, should we keep the tasks?
-    req.checkQuery('keep', res.t('keepOrRemoveAll')).optional().isIn(['keep-all', 'remove-all']);
-    req.checkBody('keepChallenges', res.t('remainOrLeaveChallenges')).optional().isIn(['remain-in-challenges', 'leave-challenges']);
+    req.checkQuery('keep', apiError('keepOrRemoveAll')).optional().isIn(['keep-all', 'remove-all']);
+    req.checkBody('keepChallenges', apiError('groupRemainOrLeaveChallenges')).optional().isIn(['remain-in-challenges', 'leave-challenges']);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -825,11 +847,13 @@ function _sendMessageToRemoved (group, removedUser, message, isInGroup) {
 api.removeGroupMember = {
   method: 'POST',
   url: '/groups/:groupId/removeMember/:memberId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
     req.checkParams('memberId', res.t('userIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
@@ -915,7 +939,7 @@ api.removeGroupMember = {
     let message = req.query.message || req.body.message;
     _sendMessageToRemoved(group, member, message, isInGroup);
 
-    await Bluebird.all([
+    await Promise.all([
       member.save(),
       group.save(),
     ]);
@@ -1134,6 +1158,7 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
  *
  * @apiError (401) {NotAuthorized} UserAlreadyInvited The user has already been invited to the group.
  * @apiError (401) {NotAuthorized} UserAlreadyInGroup The user is already a member of the group.
+ * @apiError (401) {NotAuthorized} CannotInviteWhenMuted You cannot invite anyone to a guild or party because your chat privileges have been revoked.
  *
  * @apiUse GroupNotFound
  * @apiUse UserNotFound
@@ -1142,11 +1167,15 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
 api.inviteToGroup = {
   method: 'POST',
   url: '/groups/:groupId/invite',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    if (user.flags.chatRevoked) throw new NotAuthorized(res.t('cannotInviteWhenMuted'));
+
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
 
     if (user.invitesSent >= MAX_EMAIL_INVITES_BY_USER) throw new NotAuthorized(res.t('inviteLimitReached', { techAssistanceEmail: TECH_ASSISTANCE_EMAIL }));
 
@@ -1167,7 +1196,7 @@ api.inviteToGroup = {
 
     if (uuids) {
       let uuidInvites = uuids.map((uuid) => _inviteByUUID(uuid, group, user, req, res));
-      let uuidResults = await Bluebird.all(uuidInvites);
+      let uuidResults = await Promise.all(uuidInvites);
       results.push(...uuidResults);
     }
 
@@ -1175,7 +1204,7 @@ api.inviteToGroup = {
       let emailInvites = emails.map((invite) => _inviteByEmail(invite, group, user, req, res));
       user.invitesSent += emails.length;
       await user.save();
-      let emailResults = await Bluebird.all(emailInvites);
+      let emailResults = await Promise.all(emailInvites);
       results.push(...emailResults);
     }
 
@@ -1203,13 +1232,15 @@ api.inviteToGroup = {
 api.addGroupManager = {
   method: 'POST',
   url: '/groups/:groupId/add-manager',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let managerId = req.body.managerId;
 
-    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
-    req.checkBody('managerId', apiMessages('managerIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
+    req.checkBody('managerId', apiError('managerIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -1252,13 +1283,15 @@ api.addGroupManager = {
 api.removeGroupManager = {
   method: 'POST',
   url: '/groups/:groupId/remove-manager',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let managerId = req.body.managerId;
 
-    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
-    req.checkBody('managerId', apiMessages('managerIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
+    req.checkBody('managerId', apiError('managerIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -1305,7 +1338,9 @@ api.removeGroupManager = {
 api.getGroupPlans = {
   method: 'GET',
   url: '/group-plans',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 

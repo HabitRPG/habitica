@@ -3,7 +3,6 @@ import * as Tasks from '../models/task';
 import {
   BadRequest,
 } from './errors';
-import Bluebird from 'bluebird';
 import _ from 'lodash';
 import shared from '../../common';
 
@@ -18,9 +17,9 @@ async function _validateTaskAlias (tasks, res) {
     throw new BadRequest(res.t('taskAliasAlreadyUsed'));
   }
 
-  await Bluebird.map(tasksWithAliases, (task) => {
+  await Promise.all(tasksWithAliases.map((task) => {
     return task.validate();
-  });
+  }));
 }
 
 export function setNextDue (task, user, dueDateOption) {
@@ -78,6 +77,9 @@ export async function createTasks (req, res, options = {}) {
 
   let toSave = Array.isArray(req.body) ? req.body : [req.body];
 
+  // Return if no tasks are passed, avoids errors with mongo $push being empty
+  if (toSave.length === 0) return [];
+
   let taskOrderToAdd = {};
 
   toSave = toSave.map(taskData => {
@@ -86,11 +88,6 @@ export async function createTasks (req, res, options = {}) {
 
     let taskType = taskData.type;
     let newTask = new Tasks[taskType](Tasks.Task.sanitize(taskData));
-
-    // Attempt to round priority
-    if (newTask.priority && !Number.isNaN(Number.parseFloat(newTask.priority))) {
-      newTask.priority = Number(newTask.priority.toFixed(1));
-    }
 
     if (challenge) {
       newTask.challenge.id = challenge.id;
@@ -128,7 +125,7 @@ export async function createTasks (req, res, options = {}) {
 
   await owner.update(taskOrderUpdateQuery).exec();
 
-  // tasks with aliases need to be validated asyncronously
+  // tasks with aliases need to be validated asynchronously
   await _validateTaskAlias(toSave, res);
 
   toSave = toSave.map(task => task.save({ // If all tasks are valid (this is why it's not in the previous .map()), save everything, withough running validation again
@@ -137,7 +134,7 @@ export async function createTasks (req, res, options = {}) {
 
   toSave.unshift(owner.save());
 
-  let tasks = await Bluebird.all(toSave);
+  let tasks = await Promise.all(toSave);
   tasks.splice(0, 1); // Remove user, challenge, or group promise
   return tasks;
 }
@@ -151,6 +148,7 @@ export async function createTasks (req, res, options = {}) {
  * @param  options.user  The user that these tasks belong to
  * @param  options.challenge  The challenge that these tasks belong to
  * @param  options.group  The group that these tasks belong to
+ * @param  options.dueDate
  * @return The tasks found
  */
 export async function getTasks (req, res, options = {}) {

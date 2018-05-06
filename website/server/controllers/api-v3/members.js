@@ -18,7 +18,6 @@ import {
   getUserInfo,
   sendTxn as sendTxnEmail,
 } from '../../libs/email';
-import Bluebird from 'bluebird';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
 import { achievements } from '../../../../website/common/';
 
@@ -313,7 +312,9 @@ function _getMembersForItem (type) {
 api.getMembersForGroup = {
   method: 'GET',
   url: '/groups/:groupId/members',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   handler: _getMembersForItem('group-members'),
 };
 
@@ -334,7 +335,9 @@ api.getMembersForGroup = {
 api.getInvitesForGroup = {
   method: 'GET',
   url: '/groups/:groupId/invites',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   handler: _getMembersForItem('group-invites'),
 };
 
@@ -360,7 +363,9 @@ api.getInvitesForGroup = {
 api.getMembersForChallenge = {
   method: 'GET',
   url: '/challenges/:challengeId/members',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   handler: _getMembersForItem('challenge-members'),
 };
 
@@ -380,7 +385,9 @@ api.getMembersForChallenge = {
 api.getChallengeMemberProgress = {
   method: 'GET',
   url: '/challenges/:challengeId/members/:memberId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
     req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
@@ -552,7 +559,7 @@ api.transferGems = {
     receiver.balance += amount;
     sender.balance -= amount;
     let promises = [receiver.save(), sender.save()];
-    await Bluebird.all(promises);
+    await Promise.all(promises);
 
     // generate the message in both languages, so both users can understand it
     let receiverLang = receiver.preferences.language;

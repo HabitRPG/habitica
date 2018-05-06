@@ -6,10 +6,9 @@
     :withPin="true",
     @change="resetItemToBuy($event)"
     v-if='type === "reward"')
-  .d-flex
-    h2.tasks-column-title
-      | {{ $t(typeLabel) }}
-      .badge.badge-pill.badge-purple.column-badge(v-if="badgeCount > 0") {{ badgeCount }}
+  .d-flex.align-items-center
+    h2.column-title {{ $t(typeLabel) }}
+    .badge.badge-pill.badge-purple.column-badge.mx-1(v-if="badgeCount > 0") {{ badgeCount }}
     .filters.d-flex.justify-content-end
       .filter.small-text(
         v-for="filter in typeFilters",
@@ -26,7 +25,7 @@
     )
     transition(name="quick-add-tip-slide")
       .quick-add-tip.small-text(v-show="quickAddFocused", v-html="$t('addMultipleTip')")
-    clear-completed-todos(v-if="activeFilter.label === 'complete2'")
+    clear-completed-todos(v-if="activeFilter.label === 'complete2' && isUser === true")
     .column-background(
       v-if="isUser === true",
       :class="{'initial-description': initialColumnDescription}",
@@ -37,8 +36,9 @@
       .small-text {{$t(`${type}sDesc`)}}
     draggable.sortable-tasks(
       ref="tasksList",
-      @update='sorted',
+      @update='taskSorted',
       :options='{disabled: activeFilter.label === "scheduled"}',
+      class="sortable-tasks"
     )
       task(
         v-for="task in taskList",
@@ -49,12 +49,19 @@
         :group='group',
       )
     template(v-if="hasRewardsList")
-      .reward-items
+      draggable(
+        ref="rewardsList",
+        @update="rewardSorted",
+        @start="rewardDragStart",
+        @end="rewardDragEnd",
+        class="reward-items",
+      )
         shopItem(
           v-for="reward in inAppRewards",
           :item="reward",
           :key="reward.key",
           :highlightBorder="reward.isSuggested",
+          :showPopover="showPopovers"
           @click="openBuyDialog(reward)",
           :popoverPosition="'left'"
         )
@@ -152,21 +159,22 @@
 
   .quick-add-tip-slide-enter, .quick-add-tip-slide-leave-to {
     max-height: 0;
-    padding: 0px 16px;
+    padding: 0 16px;
   }
 
-  .tasks-column-title {
-    margin-bottom: 8px;
-    position: relative;
+  .column-title {
+    margin-bottom: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .column-badge {
-    top: -5px;
-    right: -24px;
+    position: static;
   }
 
   .filters {
-    flex-grow: 1;
+    margin-left: auto;
   }
 
   .filter {
@@ -175,6 +183,7 @@
     font-style: normal;
     padding: 8px;
     cursor: pointer;
+    white-space: nowrap;
 
     &:hover {
       color: $purple-200;
@@ -280,7 +289,20 @@ export default {
     shopItem,
     draggable,
   },
-  props: ['type', 'isUser', 'searchText', 'selectedTags', 'taskListOverride', 'group'], // @TODO: maybe we should store the group on state?
+  // Set default values for props
+  // allows for better control of props values
+  // allows for better control of where this component is called
+  props: {
+    type: {},
+    isUser: {
+      type: Boolean,
+      default: false,
+    },
+    searchText: {},
+    selectedTags: {},
+    taskListOverride: {},
+    group: {},
+  }, // @TODO: maybe we should store the group on state?
   data () {
     const icons = Object.freeze({
       habit: habitIcon,
@@ -306,6 +328,7 @@ export default {
       quickAddText: '',
       quickAddFocused: false,
       quickAddRows: 1,
+      showPopovers: true,
 
       selectedItemToBuy: {},
     };
@@ -330,8 +353,7 @@ export default {
     }),
     taskList () {
       // @TODO: This should not default to user's tasks. It should require that you pass options in
-
-      let filteredTaskList = isEmpty(this.taskListOverride) ?
+      let filteredTaskList = this.isUser ?
         this.getFilteredTaskList({
           type: this.type,
           filterType: this.activeFilter.label,
@@ -380,12 +402,6 @@ export default {
 
       return this.taskList.length === 0;
     },
-    dailyDueDefaultView () {
-      if (this.type === 'daily' && this.user.preferences.dailyDueDefaultView) {
-        this.activateFilter('daily', this.typeFilters[1]);
-      }
-      return this.user.preferences.dailyDueDefaultView;
-    },
     quickAddPlaceholder () {
       const type = this.$t(this.type);
       return this.$t('addATask', {type});
@@ -416,12 +432,6 @@ export default {
       }, 250),
       deep: true,
     },
-    dailyDueDefaultView () {
-      if (!this.dailyDueDefaultView) return;
-      if (this.type === 'daily' && this.dailyDueDefaultView) {
-        this.activateFilter('daily', this.typeFilters[1]);
-      }
-    },
     quickAddFocused (newValue) {
       if (newValue) this.quickAddRows = this.quickAddText.split('\n').length;
       if (!newValue) this.quickAddRows = 1;
@@ -450,7 +460,7 @@ export default {
       loadCompletedTodos: 'tasks:fetchCompletedTodos',
       createTask: 'tasks:create',
     }),
-    async sorted (data) {
+    async taskSorted (data) {
       const filteredList = this.taskList;
       const taskToMove = filteredList[data.oldIndex];
       const taskIdToMove = taskToMove._id;
@@ -494,6 +504,23 @@ export default {
       });
       this.user.tasksOrder[`${this.type}s`] = newOrder;
     },
+    async rewardSorted (data) {
+      const rewardsList = this.inAppRewards;
+      const rewardToMove = rewardsList[data.oldIndex];
+
+      let newOrder = await this.$store.dispatch('user:movePinnedItem', {
+        path: rewardToMove.path,
+        position: data.newIndex,
+      });
+      this.user.pinnedItemsOrder = newOrder;
+    },
+    rewardDragStart () {
+      // We need to stop popovers from interfering with our dragging
+      this.showPopovers = false;
+    },
+    rewardDragEnd () {
+      this.showPopovers = true;
+    },
     quickAdd (ev) {
       // Add a new line if Shift+Enter Pressed
       if (ev.shiftKey) {
@@ -514,7 +541,7 @@ export default {
         return task;
       });
 
-      this.quickAddText = null;
+      this.quickAddText = '';
       this.quickAddRows = 1;
       this.createTask(tasks);
     },
@@ -527,7 +554,13 @@ export default {
         this.loadCompletedTodos();
       }
 
-      // this.activeFilters[type] = filter;
+      // the only time activateFilter is called with filter==='' is when the component is first created
+      // this can be used to check If the user has set 'due' as default filter for daily
+      // and set the filter as 'due' only when the component first loads and not on subsequent reloads.
+      if (type === 'daily' && filter === '' && this.user.preferences.dailyDueDefaultView) {
+        filter = 'due';
+      }
+
       this.activeFilter = getActiveFilter(type, filter);
     },
     setColumnBackgroundVisibility () {
@@ -558,7 +591,7 @@ export default {
     },
     filterByTagList (taskList, tagList = []) {
       let filteredTaskList = taskList;
-      // fitler requested tasks by tags
+      // filter requested tasks by tags
       if (!isEmpty(tagList)) {
         filteredTaskList = taskList.filter(
           task => tagList.every(tag => task.tags.indexOf(tag) !== -1)
@@ -578,7 +611,7 @@ export default {
             /* eslint-disable no-extra-parens */
             return (
               task.text.toLowerCase().indexOf(searchTextLowerCase) > -1 ||
-              (task.note && task.note.toLowerCase().indexOf(searchTextLowerCase) > -1) ||
+              (task.notes && task.notes.toLowerCase().indexOf(searchTextLowerCase) > -1) ||
               (task.checklist && task.checklist.length > 0 &&
                 task.checklist.some(checkItem => checkItem.text.toLowerCase().indexOf(searchTextLowerCase) > -1))
             );
@@ -614,6 +647,11 @@ export default {
       }
     },
     togglePinned (item) {
+      if (!item.pinType) {
+        this.error(this.$t('errorTemporaryItem'));
+        return;
+      }
+
       try {
         if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
           this.text(this.$t('unpinnedItem', {item: item.text}));

@@ -6,8 +6,8 @@ import {
 } from '../../../../../../helpers/api-unit.helper.js';
 import { model as User } from '../../../../../../../website/server/models/user';
 import { model as Coupon } from '../../../../../../../website/server/models/coupon';
-import stripePayments from '../../../../../../../website/server/libs/stripePayments';
-import payments from '../../../../../../../website/server/libs/payments';
+import stripePayments from '../../../../../../../website/server/libs/payments/stripe';
+import payments from '../../../../../../../website/server/libs/payments/payments';
 import common from '../../../../../../../website/common';
 
 const i18n = common.i18n;
@@ -227,6 +227,11 @@ describe('checkout with subscription', () => {
     sub = data.sub;
     groupId = group._id;
     email = 'test@test.com';
+
+    // Add user to group
+    user.guilds.push(groupId);
+    await user.save();
+
     headers = {};
 
     await stripePayments.checkout({
@@ -267,9 +272,15 @@ describe('checkout with subscription', () => {
     groupId = group._id;
     email = 'test@test.com';
     headers = {};
+
+    // Add user to group
+    user.guilds.push(groupId);
+    await user.save();
+
     user = new User();
     user.guilds.push(groupId);
     await user.save();
+
     group.memberCount = 2;
     await group.save();
 

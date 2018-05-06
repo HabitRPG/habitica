@@ -1,5 +1,4 @@
 import { authWithHeaders } from '../../../middlewares/auth';
-import Bluebird from 'bluebird';
 import * as Tasks from '../../../models/task';
 import { model as Group } from '../../../models/group';
 import { model as User } from '../../../models/user';
@@ -13,6 +12,7 @@ import {
   getTasks,
   moveTask,
 } from '../../../libs/taskManager';
+import apiError from '../../../libs/apiError';
 
 let requiredGroupFields = '_id leader tasksOrder name';
 let types = Tasks.tasksTypes.map(type => `${type}s`);
@@ -39,9 +39,11 @@ let api = {};
 api.createGroupTasks = {
   method: 'POST',
   url: '/tasks/group/:groupId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty().isUUID();
 
     let reqValidationErrors = req.validationErrors();
     if (reqValidationErrors) throw reqValidationErrors;
@@ -83,10 +85,12 @@ api.createGroupTasks = {
 api.getGroupTasks = {
   method: 'GET',
   url: '/tasks/group/:groupId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
-    req.checkQuery('type', res.t('invalidTaskType')).optional().isIn(types);
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty().isUUID();
+    req.checkQuery('type', res.t('invalidTasksType')).optional().isIn(types);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -116,9 +120,11 @@ api.getGroupTasks = {
 api.groupMoveTask = {
   method: 'POST',
   url: '/group-tasks/:taskId/move/to/:position',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
     req.checkParams('position', res.t('positionRequired')).notEmpty().isNumeric();
 
     let reqValidationErrors = req.validationErrors();
@@ -167,9 +173,11 @@ api.groupMoveTask = {
 api.assignTask = {
   method: 'POST',
   url: '/tasks/:taskId/assign/:assignedUserId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('assignedUserId', res.t('userIdRequired')).notEmpty().isUUID();
 
     let reqValidationErrors = req.validationErrors();
@@ -196,16 +204,18 @@ api.assignTask = {
 
     if (canNotEditTasks(group, user, assignedUserId)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
+    let promises = [];
+
     // User is claiming the task
     if (user._id === assignedUserId) {
       let message = res.t('userIsClamingTask', {username: user.profile.name, task: task.text});
-      group.sendChat(message);
+      const newMessage = group.sendChat(message);
+      promises.push(newMessage.save());
     }
 
-    let promises = [];
     promises.push(group.syncTask(task, assignedUser));
     promises.push(group.save());
-    await Bluebird.all(promises);
+    await Promise.all(promises);
 
     res.respond(200, task);
   },
@@ -225,9 +235,11 @@ api.assignTask = {
 api.unassignTask = {
   method: 'POST',
   url: '/tasks/:taskId/unassign/:assignedUserId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('assignedUserId', res.t('userIdRequired')).notEmpty().isUUID();
 
     let reqValidationErrors = req.validationErrors();
@@ -275,9 +287,11 @@ api.unassignTask = {
 api.approveTask = {
   method: 'POST',
   url: '/tasks/:taskId/approve/:userId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('userId', res.t('userIdRequired')).notEmpty().isUUID();
 
     let reqValidationErrors = req.validationErrors();
@@ -350,7 +364,7 @@ api.approveTask = {
 
     managerPromises.push(task.save());
     managerPromises.push(assignedUser.save());
-    await Bluebird.all(managerPromises);
+    await Promise.all(managerPromises);
 
     res.respond(200, task);
   },
@@ -371,9 +385,11 @@ api.approveTask = {
 api.taskNeedsWork = {
   method: 'POST',
   url: '/tasks/:taskId/needs-work/:userId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('userId', res.t('userIdRequired')).notEmpty().isUUID();
 
     let reqValidationErrors = req.validationErrors();
@@ -468,9 +484,11 @@ api.taskNeedsWork = {
 api.getGroupApprovals = {
   method: 'GET',
   url: '/approvals/group/:groupId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;

@@ -24,6 +24,19 @@ describe('Post /groups/:groupId/invite', () => {
   });
 
   describe('user id invites', () => {
+    it('returns an error when inviter has no chat privileges', async () => {
+      let inviterMuted = await inviter.update({'flags.chatRevoked': true});
+      let userToInvite = await generateUser();
+      await expect(inviterMuted.post(`/groups/${group._id}/invite`, {
+        uuids: [userToInvite._id],
+      }))
+        .to.eventually.be.rejected.and.eql({
+          code: 401,
+          error: 'NotAuthorized',
+          message: t('cannotInviteWhenMuted'),
+        });
+    });
+
     it('returns an error when invited user is not found', async () => {
       let fakeID = generateUUID();
 
@@ -159,6 +172,19 @@ describe('Post /groups/:groupId/invite', () => {
 
   describe('email invites', () => {
     let testInvite = {name: 'test', email: 'test@habitica.com'};
+
+    it('returns an error when inviter has no chat privileges', async () => {
+      let inviterMuted = await inviter.update({'flags.chatRevoked': true});
+      await expect(inviterMuted.post(`/groups/${group._id}/invite`, {
+        emails: [testInvite],
+        inviter: 'inviter name',
+      }))
+        .to.eventually.be.rejected.and.eql({
+          code: 401,
+          error: 'NotAuthorized',
+          message: t('cannotInviteWhenMuted'),
+        });
+    });
 
     it('returns an error when invite is missing an email', async () => {
       await expect(inviter.post(`/groups/${group._id}/invite`, {
@@ -321,6 +347,19 @@ describe('Post /groups/:groupId/invite', () => {
   });
 
   describe('guild invites', () => {
+    it('returns an error when inviter has no chat privileges', async () => {
+      let inviterMuted = await inviter.update({'flags.chatRevoked': true});
+      let userToInvite = await generateUser();
+      await expect(inviterMuted.post(`/groups/${group._id}/invite`, {
+        uuids: [userToInvite._id],
+      }))
+        .to.eventually.be.rejected.and.eql({
+          code: 401,
+          error: 'NotAuthorized',
+          message: t('cannotInviteWhenMuted'),
+        });
+    });
+
     it('returns an error when invited user is already invited to the group', async () => {
       let userToInvite = await generateUser();
       await inviter.post(`/groups/${group._id}/invite`, {
@@ -396,6 +435,19 @@ describe('Post /groups/:groupId/invite', () => {
         name: 'Test Party',
         type: 'party',
       });
+    });
+
+    it('returns an error when inviter has no chat privileges', async () => {
+      let inviterMuted = await inviter.update({'flags.chatRevoked': true});
+      let userToInvite = await generateUser();
+      await expect(inviterMuted.post(`/groups/${party._id}/invite`, {
+        uuids: [userToInvite._id],
+      }))
+        .to.eventually.be.rejected.and.eql({
+          code: 401,
+          error: 'NotAuthorized',
+          message: t('cannotInviteWhenMuted'),
+        });
     });
 
     it('returns an error when invited user has a pending invitation to the party', async () => {

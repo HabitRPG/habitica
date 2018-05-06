@@ -54,10 +54,15 @@ export function generateReq (options = {}) {
     body: {},
     query: {},
     headers: {},
-    header: sandbox.stub().returns(null),
+    header (header) {
+      return this.headers[header];
+    },
+    session: {},
   };
 
-  return defaultsDeep(options, defaultReq);
+  const req = defaultsDeep(options, defaultReq);
+
+  return req;
 }
 
 export function generateNext (func) {
@@ -107,4 +112,20 @@ export function generateDaily (user) {
   task.save();
 
   return task;
+}
+
+export function defer () {
+  let resolve;
+  let reject;
+
+  let promise = new Promise((resolveParam, rejectParam) => {
+    resolve = resolveParam;
+    reject = rejectParam;
+  });
+
+  return {
+    resolve,
+    reject,
+    promise,
+  };
 }

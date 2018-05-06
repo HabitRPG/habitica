@@ -93,7 +93,9 @@ function hasBackupAuth (user, networkToRemove) {
  */
 api.registerLocal = {
   method: 'POST',
-  middlewares: [authWithHeaders(true)],
+  middlewares: [authWithHeaders({
+    optional: true,
+  })],
   url: '/user/auth/local/register',
   async handler (req, res) {
     let existingUser = res.locals.user; // If adding local auth to social user
@@ -247,7 +249,7 @@ api.loginLocal = {
     let username = req.body.username;
     let password = req.body.password;
 
-    if (validator.isEmail(username)) {
+    if (validator.isEmail(String(username))) {
       login = {'auth.local.email': username.toLowerCase()}; // Emails are stored lowercase
     } else {
       login = {'auth.local.username': username};
@@ -299,7 +301,9 @@ function _passportProfile (network, accessToken) {
 // Called as a callback by Facebook (or other social providers). Internal route
 api.loginSocial = {
   method: 'POST',
-  middlewares: [authWithHeaders(true)],
+  middlewares: [authWithHeaders({
+    optional: true,
+  })],
   url: '/user/auth/social', // this isn't the most appropriate url but must be the same as v2
   async handler (req, res) {
     let existingUser = res.locals.user;
@@ -384,7 +388,9 @@ api.loginSocial = {
  */
 api.pusherAuth = {
   method: 'POST',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/auth/pusher',
   async handler (req, res) {
     let user = res.locals.user;
@@ -410,7 +416,7 @@ api.pusherAuth = {
     }
 
     resourceId = resourceId.join('-'); // the split at the beginning had split resourceId too
-    if (!validator.isUUID(resourceId)) {
+    if (!validator.isUUID(String(resourceId))) {
       throw new BadRequest('Invalid Pusher resource id, must be a UUID.');
     }
 
@@ -452,7 +458,9 @@ api.pusherAuth = {
  **/
 api.updateUsername = {
   method: 'PUT',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/auth/update-username',
   async handler (req, res) {
     let user = res.locals.user;
@@ -506,7 +514,9 @@ api.updateUsername = {
  **/
 api.updatePassword = {
   method: 'PUT',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/auth/update-password',
   async handler (req, res) {
     let user = res.locals.user;
@@ -616,7 +626,9 @@ api.resetPassword = {
  */
 api.updateEmail = {
   method: 'PUT',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/auth/update-email',
   async handler (req, res) {
     let user = res.locals.user;
@@ -629,7 +641,7 @@ api.updateEmail = {
     if (validationErrors) throw validationErrors;
 
     let emailAlreadyInUse = await User.findOne({
-      'auth.local.email': req.body.newEmail,
+      'auth.local.email': req.body.newEmail.toLowerCase(),
     }).select({_id: 1}).lean().exec();
 
     if (emailAlreadyInUse) throw new NotAuthorized(res.t('cannotFulfillReq', { techAssistanceEmail: TECH_ASSISTANCE_EMAIL }));
@@ -643,7 +655,7 @@ api.updateEmail = {
       await passwordUtils.convertToBcrypt(user, password);
     }
 
-    user.auth.local.email = req.body.newEmail;
+    user.auth.local.email = req.body.newEmail.toLowerCase();
     await user.save();
 
     return res.respond(200, { email: user.auth.local.email });
@@ -703,7 +715,9 @@ api.resetPasswordSetNewOne = {
 api.deleteSocial = {
   method: 'DELETE',
   url: '/user/auth/social/:network',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let network = req.params.network;

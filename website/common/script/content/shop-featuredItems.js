@@ -1,3 +1,6 @@
+// Magic Hatching Potions are configured like this:
+// type: 'premiumHatchingPotion',  // note no "s" at the end
+// path: 'premiumHatchingPotions.Rainbow',
 const featuredItems = {
   market: [
     {
@@ -6,36 +9,32 @@ const featuredItems = {
     },
     {
       type: 'hatchingPotions',
-      path: 'hatchingPotions.CottonCandyPink',
+      path: 'hatchingPotions.Red',
     },
     {
       type: 'hatchingPotions',
-      path: 'hatchingPotions.Cupid',
+      path: 'hatchingPotions.Golden',
     },
     {
       type: 'card',
-      path: 'cardTypes.valentine',
+      path: 'cardTypes.goodluck',
     },
   ],
   quests: [
     {
       type: 'quests',
-      path: 'quests.pterodactyl',
+      path: 'quests.squirrel',
     },
     {
       type: 'quests',
-      path: 'quests.stoikalmCalamity1',
+      path: 'quests.taskwoodsTerror1',
     },
     {
       type: 'quests',
-      path: 'quests.badger',
-    },
-    {
-      type: 'quests',
-      path: 'quests.dilatoryDistress1',
+      path: 'quests.bunny',
     },
   ],
-  seasonal: 'summerMage',
+  seasonal: '',
   timeTravelers: [
     // TODO
   ],

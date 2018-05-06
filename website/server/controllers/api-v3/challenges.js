@@ -16,7 +16,6 @@ import {
   NotAuthorized,
 } from '../../libs/errors';
 import * as Tasks from '../../models/task';
-import Bluebird from 'bluebird';
 import csvStringify from '../../libs/csvStringify';
 import {
   createTasks,
@@ -28,6 +27,7 @@ import {
   createChallenge,
   cleanUpTask,
 } from '../../libs/challenges';
+import apiError from '../../libs/apiError';
 
 let api = {};
 
@@ -69,7 +69,7 @@ let api = {};
 
 /**
  * @apiDefine ChallengeSuccessExample
- * @apiSuccessExample {json} Sucessfull response with single challenge
+ * @apiSuccessExample {json} Successful response with single challenge
  {
    "data": {
      "group": {
@@ -113,7 +113,7 @@ let api = {};
 
 /**
  * @apiDefine ChallengeArrayExample
- * @apiSuccessExample {json} Sucessful response with array of challenges
+ * @apiSuccessExample {json} Successful response with array of challenges
  {
    "data": [{
      "group": {
@@ -162,7 +162,7 @@ let api = {};
  * @apiDescription Creates a challenge. Cannot create associated tasks with this route. See <a href="#api-Task-CreateChallengeTasks">CreateChallengeTasks</a>.
  *
  * @apiParam (Body) {Object} challenge An object representing the challenge to be created
- * @apiParam (Body) {UUID} challenge.groupId The id of the group to which the challenge belongs
+ * @apiParam (Body) {UUID} challenge.group The id of the group to which the challenge belongs
  * @apiParam (Body) {String} challenge.name The full name of the challenge
  * @apiParam (Body) {String} challenge.shortName A shortened name for the challenge, to be used as a tag
  * @apiParam (Body) {String} [challenge.summary] A short summary advertising the main purpose of the challenge; maximum 250 characters; if not supplied, challenge.name will be used
@@ -184,11 +184,13 @@ let api = {};
 api.createChallenge = {
   method: 'POST',
   url: '/challenges',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkBody('group', res.t('groupIdRequired')).notEmpty();
+    req.checkBody('group', apiError('groupIdRequired')).notEmpty();
 
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -233,7 +235,9 @@ api.createChallenge = {
 api.joinChallenge = {
   method: 'POST',
   url: '/challenges/:challengeId/join',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -254,7 +258,7 @@ api.joinChallenge = {
     addUserJoinChallengeNotification(user);
 
     // Add all challenge's tasks to user's tasks and save the challenge
-    let results = await Bluebird.all([challenge.syncToUser(user), challenge.save()]);
+    let results = await Promise.all([challenge.syncToUser(user), challenge.save()]);
 
     let response = results[1].toJSON();
     response.group = getChallengeGroupResponse(group);
@@ -290,7 +294,9 @@ api.joinChallenge = {
 api.leaveChallenge = {
   method: 'POST',
   url: '/challenges/:challengeId/leave',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let keep = req.body.keep === 'remove-all' ? 'remove-all' : 'keep-all';
@@ -306,7 +312,7 @@ api.leaveChallenge = {
     if (!challenge.isMember(user)) throw new NotAuthorized(res.t('challengeMemberNotFound'));
 
     // Unlink challenge's tasks from user's tasks and save the challenge
-    await Bluebird.all([challenge.unlinkTasks(user, keep), challenge.save()]);
+    await Promise.all([challenge.unlinkTasks(user, keep), challenge.save()]);
 
     res.analytics.track('challenge leave', {
       uuid: user._id,
@@ -339,13 +345,22 @@ api.leaveChallenge = {
 api.getUserChallenges = {
   method: 'GET',
   url: '/challenges/user',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
-    let user = res.locals.user;
+    const CHALLENGES_PER_PAGE = 10;
+    const page = req.query.page;
+
+    const user = res.locals.user;
     let orOptions = [
       {_id: {$in: user.challenges}}, // Challenges where the user is participating
-      {leader: user._id}, // Challenges where I'm the leader
     ];
+
+    const owned = req.query.owned;
+    if (!owned)  {
+      orOptions.push({leader: user._id});
+    }
 
     if (!req.query.member) {
       orOptions.push({
@@ -353,19 +368,56 @@ api.getUserChallenges = {
       }); // Challenges in groups where I'm a member
     }
 
-    let challenges = await Challenge.find({
-      $or: orOptions,
-    })
-      .sort('-official -createdAt')
-      // see below why we're not using populate
-      // .populate('group', basicGroupFields)
-      // .populate('leader', nameFields)
-      .exec();
+    let query = {
+      $and: [{$or: orOptions}],
+    };
+
+    if (owned && owned === 'not_owned') {
+      query.$and.push({leader: {$ne: user._id}});
+    }
+
+    if (owned && owned === 'owned') {
+      query.$and.push({leader: user._id});
+    }
+
+    if (req.query.search) {
+      const searchOr = {$or: []};
+      const searchWords = _.escapeRegExp(req.query.search).split(' ').join('|');
+      const searchQuery = { $regex: new RegExp(`${searchWords}`, 'i') };
+      searchOr.$or.push({name: searchQuery});
+      searchOr.$or.push({description: searchQuery});
+      query.$and.push(searchOr);
+    }
+
+    if (req.query.categories) {
+      let categorySlugs = req.query.categories.split(',');
+      query.categories = { $elemMatch: { slug: {$in: categorySlugs} } };
+    }
+
+    let mongoQuery = Challenge.find(query)
+      .sort('-createdAt');
+
+    if (page) {
+      mongoQuery = mongoQuery
+        .limit(CHALLENGES_PER_PAGE)
+        .skip(CHALLENGES_PER_PAGE * page);
+    }
+
+    // see below why we're not using populate
+    // .populate('group', basicGroupFields)
+    // .populate('leader', nameFields)
+    const challenges = await mongoQuery.exec();
+
 
     let resChals = challenges.map(challenge => challenge.toJSON());
+
+    resChals = _.orderBy(resChals, [challenge => {
+      return challenge.categories.map(category => category.slug).includes('habitica_official');
+    }], ['desc']);
+
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
-    await Bluebird.all(resChals.map((chal, index) => {
-      return Bluebird.all([
+    await Promise.all(resChals.map((chal, index) => {
+      return Promise.all([
         User.findById(chal.leader).select(nameFields).exec(),
         Group.findById(chal.group).select(basicGroupFields).exec(),
       ]).then(populatedData => {
@@ -396,12 +448,14 @@ api.getUserChallenges = {
 api.getGroupChallenges = {
   method: 'GET',
   url: '/challenges/groups/:groupId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -413,13 +467,18 @@ api.getGroupChallenges = {
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     let challenges = await Challenge.find({group: groupId})
-      .sort('-official -createdAt')
+      .sort('-createdAt')
       // .populate('leader', nameFields) // Only populate the leader as the group is implicit
       .exec();
 
     let resChals = challenges.map(challenge => challenge.toJSON());
+
+    resChals = _.orderBy(resChals, [challenge => {
+      return challenge.categories.map(category => category.slug).includes('habitica_official');
+    }], ['desc']);
+
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
-    await Bluebird.all(resChals.map((chal, index) => {
+    await Promise.all(resChals.map((chal, index) => {
       return User
         .findById(chal.leader)
         .select(nameFields)
@@ -449,7 +508,9 @@ api.getGroupChallenges = {
 api.getChallenge = {
   method: 'GET',
   url: '/challenges/:challengeId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
 
@@ -511,7 +572,7 @@ api.exportChallengeCsv = {
     // In v2 this used the aggregation framework to run some computation on MongoDB but then iterated through all
     // results on the server so the perf difference isn't that big (hopefully)
 
-    let [members, tasks] = await Bluebird.all([
+    let [members, tasks] = await Promise.all([
       User.find({challenges: challengeId})
         .select(nameFields)
         .sort({_id: 1})
@@ -531,6 +592,16 @@ api.exportChallengeCsv = {
     let lastUserId;
     let index = -1;
     tasks.forEach(task => {
+      /**
+       * Occasional error does not unlink a user's challenge tasks from that challenge's data
+       * after the user leaves that challenge, which previously caused a failure when exporting
+       * to a CSV. The following if statement makes sure that the task's attached user still
+       * belongs to the challenge.
+       * See more at https://github.com/HabitRPG/habitica/issues/8350
+       */
+      if (!resArray.map(line => line[0]).includes(task.userId)) {
+        return;
+      }
       while (task.userId !== lastUserId) {
         index++;
         lastUserId = resArray[index][0]; // resArray[index][0] is an user id
@@ -593,7 +664,9 @@ api.exportChallengeCsv = {
 api.updateChallenge = {
   method: 'PUT',
   url: '/challenges/:challengeId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
 
@@ -635,7 +708,9 @@ api.updateChallenge = {
 api.deleteChallenge = {
   method: 'DELETE',
   url: '/challenges/:challengeId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -680,7 +755,9 @@ api.deleteChallenge = {
 api.selectChallengeWinner = {
   method: 'POST',
   url: '/challenges/:challengeId/selectWinner/:winnerId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -729,7 +806,9 @@ api.selectChallengeWinner = {
 api.cloneChallenge = {
   method: 'POST',
   url: '/challenges/:challengeId/clone',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 

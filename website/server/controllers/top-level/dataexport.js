@@ -11,7 +11,6 @@ import js2xml from 'js2xmlparser';
 import Pageres from 'pageres';
 import nconf from 'nconf';
 import got from 'got';
-import Bluebird from 'bluebird';
 import md from 'habitica-markdown';
 import {
   S3,
@@ -144,7 +143,12 @@ api.exportUserDataXml = {
       'Content-Type': 'text/xml',
       'Content-disposition': 'attachment; filename=habitica-user-data.xml',
     });
-    res.status(200).send(js2xml('user', userData));
+    res.status(200).send(js2xml.parse('user', userData, {
+      cdataInvalidChars: true,
+      declaration: {
+        include: false,
+      },
+    }));
   },
 };
 
@@ -239,7 +243,7 @@ api.exportUserAvatarPng = {
       Body: stream,
     });
 
-    let s3res = await new Bluebird((resolve, reject) => {
+    let s3res = await new Promise((resolve, reject) => {
       s3upload.send((err, s3uploadRes) => {
         if (err) {
           reject(err);

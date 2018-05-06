@@ -633,6 +633,48 @@ let backgrounds = {
       notes: t('backgroundRoseGardenNotes'),
     },
   },
+  backgrounds032018: {
+    driving_a_coach: {
+      text: t('backgroundDrivingACoachText'),
+      notes: t('backgroundDrivingACoachNotes'),
+    },
+    elegant_balcony: {
+      text: t('backgroundElegantBalconyText'),
+      notes: t('backgroundElegantBalconyNotes'),
+    },
+    gorgeous_greenhouse: {
+      text: t('backgroundGorgeousGreenhouseText'),
+      notes: t('backgroundGorgeousGreenhouseNotes'),
+    },
+  },
+  backgrounds042018: {
+    flying_over_an_ancient_forest: {
+      text: t('backgroundFlyingOverAncientForestText'),
+      notes: t('backgroundFlyingOverAncientForestNotes'),
+    },
+    flying_over_a_field_of_wildflowers: {
+      text: t('backgroundFlyingOverWildflowerFieldText'),
+      notes: t('backgroundFlyingOverWildflowerFieldNotes'),
+    },
+    tulip_garden: {
+      text: t('backgroundTulipGardenText'),
+      notes: t('backgroundTulipGardenNotes'),
+    },
+  },
+  backgrounds052018: {
+    champions_colosseum: {
+      text: t('backgroundChampionsColosseumText'),
+      notes: t('backgroundChampionsColosseumNotes'),
+    },
+    fantastical_shoe_store: {
+      text: t('backgroundFantasticalShoeStoreText'),
+      notes: t('backgroundFantasticalShoeStoreNotes'),
+    },
+    terraced_rice_field: {
+      text: t('backgroundTerracedRiceFieldText'),
+      notes: t('backgroundTerracedRiceFieldNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),

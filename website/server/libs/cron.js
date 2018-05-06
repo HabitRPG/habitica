@@ -1,8 +1,8 @@
 import moment from 'moment';
-import Bluebird from 'bluebird';
 import { model as User } from '../models/user';
 import common from '../../common/';
 import { preenUserHistory } from '../libs/preening';
+import sleep from '../libs/sleep';
 import _ from 'lodash';
 import cloneDeep from 'lodash/cloneDeep';
 import nconf from 'nconf';
@@ -29,7 +29,7 @@ function setIsDueNextDue (task, user, now) {
 export async function recoverCron (status, locals) {
   let {user} = locals;
 
-  await Bluebird.delay(300);
+  await sleep(0.3);
 
   let reloadedUser = await User.findOne({_id: user._id}).exec();
 
@@ -59,6 +59,7 @@ let CLEAR_BUFFS = {
 };
 
 function grantEndOfTheMonthPerks (user, now) {
+  const SUBSCRIPTION_BASIC_BLOCK_LENGTH = 3; // multi-month subscriptions are for multiples of 3 months
   let plan = user.purchased.plan;
   let subscriptionEndDate = moment(plan.dateTerminated).isBefore() ? moment(plan.dateTerminated).startOf('month') : moment(now).startOf('month');
   let dateUpdatedMoment = moment(plan.dateUpdated).startOf('month');
@@ -70,16 +71,49 @@ function grantEndOfTheMonthPerks (user, now) {
     // If they already got perks for those blocks (eg, 6mo subscription, subscription gifts, etc) - then dec the offset until it hits 0
     _.defaults(plan.consecutive, {count: 0, offset: 0, trinkets: 0, gemCapExtra: 0});
 
+    let planMonthsLength = 1; // 1 for one-month recurring or gift subscriptions; later set to 3 for 3-month recurring, etc.
+
     for (let i = 0; i < elapsedMonths; i++) {
       plan.consecutive.count++;
 
-      if (plan.consecutive.offset > 1) {
-        plan.consecutive.offset--;
-      } else if (plan.consecutive.count % 3 === 0) { // every 3 months
-        if (plan.consecutive.offset === 1) plan.consecutive.offset--;
-        plan.consecutive.trinkets++;
-        plan.consecutive.gemCapExtra += 5;
-        if (plan.consecutive.gemCapExtra > 25) plan.consecutive.gemCapExtra = 25; // cap it at 50 (hard 25 limit + extra 25)
+      plan.consecutive.offset--;
+      // If offset is now greater than 0, the user is within a period for which they have already been given the consecutive months perks.
+      //
+      // If offset now equals 0, this is the final month for which the user has already been given the consecutive month perks.
+      // We do not give them more perks yet because they might cancel the subscription before the next payment is taken.
+      //
+      // If offset is now less than 0, the user EITHER has a single-month recurring subscription and MIGHT be due for perks,
+      // OR has a multi-month subscription that renewed some time in the previous calendar month and so they are due for a new set of perks
+      // (strictly speaking, they should have been given the perks at the time that next payment was taken, but we don't have support for
+      // tracking payments like that - giving the perks when offset is < 0 is a workaround).
+
+      if (plan.consecutive.offset < 0) {
+        if (plan.planId) {
+          // NB gift subscriptions don't have a planID (which doesn't matter because we don't need to reapply perks for them and by this point they should have expired anyway)
+          let planIdRegExp = new RegExp('_([0-9]+)mo'); // e.g., matches 'google_6mo' / 'basic_12mo' and captures '6' / '12'
+          let match = plan.planId.match(planIdRegExp);
+          if (match !== null && match[0] !== null) {
+            planMonthsLength = match[1]; // 3 for 3-month recurring subscription, etc
+          }
+        }
+
+        let perkAmountNeeded = 0; // every 3 months you get one set of perks - this variable records how many sets you need
+        if (planMonthsLength === 1) {
+          // User has a single-month recurring subscription and are due for perks IF they've been subscribed for a multiple of 3 months.
+          if (plan.consecutive.count % SUBSCRIPTION_BASIC_BLOCK_LENGTH === 0) { // every 3 months
+            perkAmountNeeded = 1;
+          }
+          plan.consecutive.offset = 0; // allow the same logic to be run next month
+        } else {
+          // User has a multi-month recurring subscription and it renewed in the previous calendar month.
+          perkAmountNeeded = planMonthsLength / SUBSCRIPTION_BASIC_BLOCK_LENGTH; // e.g., for a 6-month subscription, give two sets of perks
+          plan.consecutive.offset = planMonthsLength - 1; // don't need to check for perks again for this many months (subtract 1 because we should have run this when the payment was taken last month)
+        }
+        if (perkAmountNeeded > 0) {
+          plan.consecutive.trinkets += perkAmountNeeded; // one Hourglass every 3 months
+          plan.consecutive.gemCapExtra += 5 * perkAmountNeeded; // 5 extra Gems every 3 months
+          if (plan.consecutive.gemCapExtra > 25) plan.consecutive.gemCapExtra = 25; // cap it at 50 (hard 25 limit + extra 25)
+        }
       }
     }
   }

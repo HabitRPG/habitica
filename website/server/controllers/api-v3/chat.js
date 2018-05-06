@@ -1,12 +1,12 @@
 import { authWithHeaders } from '../../middlewares/auth';
 import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
+import { model as Chat } from '../../models/chat';
 import {
   BadRequest,
   NotFound,
   NotAuthorized,
 } from '../../libs/errors';
-import _ from 'lodash';
 import { removeFromArray } from '../../libs/collectionManipulators';
 import { getUserInfo, getGroupUrl, sendTxn } from '../../libs/email';
 import slack from '../../libs/slack';
@@ -14,11 +14,11 @@ import pusher from '../../libs/pusher';
 import { getAuthorEmailFromMessage } from '../../libs/chat';
 import { chatReporterFactory } from '../../libs/chatReporting/chatReporterFactory';
 import nconf from 'nconf';
-import Bluebird from 'bluebird';
 import bannedWords from '../../libs/bannedWords';
 import guildsAllowingBannedWords from '../../libs/guildsAllowingBannedWords';
 import { getMatchesByWordArray } from '../../libs/stringUtils';
 import bannedSlurs from '../../libs/bannedSlurs';
+import apiError from '../../libs/apiError';
 
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
   return { email, canSend: true };
@@ -62,19 +62,23 @@ function textContainsBannedSlur (message) {
 api.getChat = {
   method: 'GET',
   url: '/groups/:groupId/chat',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'chat'});
+    const groupId = req.params.groupId;
+    let group = await Group.getGroup({user, groupId, fields: 'chat'});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    res.respond(200, Group.toJSONCleanChat(group, user).chat);
+    const groupChat = await Group.toJSONCleanChat(group, user);
+    res.respond(200, groupChat.chat);
   },
 };
 
@@ -94,18 +98,20 @@ function getBannedWordsFromText (message) {
  *
  * @apiUse GroupNotFound
  * @apiUse GroupIdRequired
- * @apiError (400) {NotFound} ChatPriviledgesRevoked Your chat privileges have been revoked
+ * @apiError (400) {NotAuthorized} chatPriviledgesRevoked You cannot do that because your chat privileges have been revoked.
  */
 api.postChat = {
   method: 'POST',
   url: '/groups/:groupId/chat',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;
     let chatUpdated;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
     req.sanitize('message').trim();
     req.checkBody('message', res.t('messageGroupChatBlankMessage')).notEmpty();
 
@@ -161,42 +167,39 @@ api.postChat = {
     if (group.privacy !== 'private' && !guildsAllowingBannedWords[group._id]) {
       let matchedBadWords = getBannedWordsFromText(req.body.message);
       if (matchedBadWords.length > 0) {
-        // @TODO replace this split mechanism with something that works properly in translations
-        let message = res.t('bannedWordUsed').split('.');
-        message[0] += ` (${matchedBadWords.join(', ')})`;
-        throw new BadRequest(message.join('.'));
+        throw new BadRequest(res.t('bannedWordUsed', {swearWordsUsed: matchedBadWords.join(', ')}));
       }
     }
 
-    let lastClientMsg = req.query.previousMsg;
+    const chatRes = await Group.toJSONCleanChat(group, user);
+    const lastClientMsg = req.query.previousMsg;
     chatUpdated = lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg ? true : false;
 
     if (group.checkChatSpam(user)) {
       throw new NotAuthorized(res.t('messageGroupChatSpam'));
     }
 
-    let newChatMessage = group.sendChat(req.body.message, user);
-
-    let toSave = [group.save()];
+    const newChatMessage = group.sendChat(req.body.message, user);
+    let toSave = [newChatMessage.save()];
 
     if (group.type === 'party') {
-      user.party.lastMessageSeen = group.chat[0].id;
+      user.party.lastMessageSeen = newChatMessage.id;
       toSave.push(user.save());
     }
 
-    let [savedGroup] = await Bluebird.all(toSave);
+    await Promise.all(toSave);
 
-    // realtime chat is only enabled for private groups (for now only for parties)
-    if (savedGroup.privacy === 'private' && savedGroup.type === 'party') {
+    // @TODO: rethink if we want real-time
+    if (group.privacy === 'private' && group.type === 'party') {
       // req.body.pusherSocketId is sent from official clients to identify the sender user's real time socket
       // see https://pusher.com/docs/server_api_guide/server_excluding_recipients
-      pusher.trigger(`presencegroup${savedGroup._id}`, 'newchat', newChatMessage, req.body.pusherSocketId);
+      pusher.trigger(`presence-group-${group._id}`, 'new-chat', newChatMessage, req.body.pusherSocketId);
     }
 
     if (chatUpdated) {
-      res.respond(200, {chat: Group.toJSONCleanChat(savedGroup, user).chat});
+      res.respond(200, {chat: chatRes.chat});
     } else {
-      res.respond(200, {message: savedGroup.chat[0]});
+      res.respond(200, {message: newChatMessage});
     }
 
     group.sendGroupChatReceivedWebhooks(newChatMessage);
@@ -223,12 +226,14 @@ api.postChat = {
 api.likeChat = {
   method: 'POST',
   url: '/groups/:groupId/chat/:chatId/like',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
     req.checkParams('chatId', res.t('chatIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
@@ -237,22 +242,16 @@ api.likeChat = {
     let group = await Group.getGroup({user, groupId});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    let message = _.find(group.chat, {id: req.params.chatId});
+    let message = await Chat.findOne({_id: req.params.chatId}).exec();
     if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
-    // TODO correct this error type
+    // @TODO correct this error type
     if (message.uuid === user._id) throw new NotFound(res.t('messageGroupChatLikeOwnMessage'));
 
-    let update = {$set: {}};
-
     if (!message.likes) message.likes = {};
-
     message.likes[user._id] = !message.likes[user._id];
-    update.$set[`chat.$.likes.${user._id}`] = message.likes[user._id];
+    message.markModified('likes');
+    await message.save();
 
-    await Group.update(
-      {_id: group._id, 'chat.id': message.id},
-      update
-    ).exec();
     res.respond(200, message); // TODO what if the message is flagged and shouldn't be returned?
   },
 };
@@ -286,7 +285,9 @@ api.likeChat = {
 api.flagChat = {
   method: 'POST',
   url: '/groups/:groupId/chat/:chatId/flag',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     const chatReporter = chatReporterFactory('Group', req, res);
     const message = await chatReporter.flag();
@@ -315,13 +316,15 @@ api.flagChat = {
 api.clearChatFlags = {
   method: 'Post',
   url: '/groups/:groupId/chat/:chatId/clearflags',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;
     let chatId = req.params.chatId;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
     req.checkParams('chatId', res.t('chatIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
@@ -338,15 +341,11 @@ api.clearChatFlags = {
     });
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    let message = _.find(group.chat, {id: chatId});
+    let message = await Chat.findOne({_id: chatId}).exec();
     if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
 
     message.flagCount = 0;
-
-    await Group.update(
-      {_id: group._id, 'chat.id': message.id},
-      {$set: {'chat.$.flagCount': message.flagCount}}
-    ).exec();
+    await message.save();
 
     let adminEmailContent = getUserInfo(user, ['email']).email;
     let authorEmail = getAuthorEmailFromMessage(message);
@@ -389,12 +388,14 @@ api.clearChatFlags = {
 api.seenChat = {
   method: 'POST',
   url: '/groups/:groupId/chat/seen',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -455,13 +456,15 @@ api.seenChat = {
 api.deleteChat = {
   method: 'DELETE',
   url: '/groups/:groupId/chat/:chatId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;
     let chatId = req.params.chatId;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
     req.checkParams('chatId', res.t('chatIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
@@ -470,25 +473,22 @@ api.deleteChat = {
     let group = await Group.getGroup({user, groupId, fields: 'chat'});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    let message = _.find(group.chat, {id: chatId});
+    let message = await Chat.findOne({_id: chatId}).exec();
     if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
 
     if (user._id !== message.uuid && !user.contributor.admin) {
       throw new NotAuthorized(res.t('onlyCreatorOrAdminCanDeleteChat'));
     }
 
-    let lastClientMsg = req.query.previousMsg;
-    let chatUpdated = lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg ? true : false;
+    const chatRes = await Group.toJSONCleanChat(group, user);
+    const lastClientMsg = req.query.previousMsg;
+    const chatUpdated = lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg ? true : false;
 
-    await Group.update(
-      {_id: group._id},
-      {$pull: {chat: {id: chatId}}}
-    ).exec();
+    await Chat.remove({_id: message._id}).exec();
 
     if (chatUpdated) {
-      let chatRes = Group.toJSONCleanChat(group, user).chat;
-      removeFromArray(chatRes, {id: chatId});
-      res.respond(200, chatRes);
+      removeFromArray(chatRes.chat, {id: chatId});
+      res.respond(200, chatRes.chat);
     } else {
       res.respond(200, {});
     }

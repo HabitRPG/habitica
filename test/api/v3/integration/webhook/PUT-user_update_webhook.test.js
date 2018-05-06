@@ -3,6 +3,7 @@ import {
   translate as t,
 } from '../../../../helpers/api-integration/v3';
 import { v4 as generateUUID} from 'uuid';
+import apiError from '../../../../../website/server/libs/apiError';
 
 describe('PUT /user/webhook/:id', () => {
   let user, webhookToUpdate;
@@ -34,7 +35,7 @@ describe('PUT /user/webhook/:id', () => {
   });
 
   it('returns an error if validation fails', async () => {
-    await expect(user.put(`/user/webhook/${webhookToUpdate.id}`, { url: 'foo', enabled: true })).to.eventually.be.rejected.and.eql({
+    await expect(user.put(`/user/webhook/${webhookToUpdate.id}`, { url: 'foo_invalid', enabled: true })).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
       message: 'User validation failed',
@@ -95,6 +96,7 @@ describe('PUT /user/webhook/:id', () => {
     let webhook = await user.put(`/user/webhook/${webhookToUpdate.id}`, {type, options});
 
     expect(webhook.options).to.eql({
+      checklistScored: false, // starting value
       created: true, // starting value
       updated: false,
       deleted: true,
@@ -126,7 +128,7 @@ describe('PUT /user/webhook/:id', () => {
     await expect(user.put(`/user/webhook/${webhookToUpdate.id}`, {type, options})).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
-      message: t('groupIdRequired'),
+      message: apiError('groupIdRequired'),
     });
   });
 });

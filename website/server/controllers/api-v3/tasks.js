@@ -20,10 +20,10 @@ import {
   setNextDue,
 } from '../../libs/taskManager';
 import common from '../../../common';
-import Bluebird from 'bluebird';
 import _ from 'lodash';
 import logger from '../../libs/logger';
 import moment from 'moment';
+import apiError from '../../libs/apiError';
 
 const MAX_SCORE_NOTES_LENGTH = 256;
 
@@ -159,7 +159,9 @@ let requiredGroupFields = '_id leader tasksOrder name';
 api.createUserTasks = {
   method: 'POST',
   url: '/tasks/user',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let tasks = await createTasks(req, res, {user});
@@ -177,7 +179,7 @@ api.createUserTasks = {
         });
       }
 
-      taskActivityWebhook.send(user.webhooks, {
+      taskActivityWebhook.send(user, {
         type: 'created',
         task,
       });
@@ -230,7 +232,9 @@ api.createUserTasks = {
 api.createChallengeTasks = {
   method: 'POST',
   url: '/tasks/challenge/:challengeId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
 
@@ -271,6 +275,7 @@ api.createChallengeTasks = {
  * @apiGroup Task
  *
  * @apiParam (Query) {String="habits","dailys","todos","rewards","completedTodos"} type Optional query parameter to return just a type of tasks. By default all types will be returned except completed todos that must be requested separately. The "completedTodos" type returns only the 30 most recently completed.
+ * @apiParam (Query) [dueDate]
  *
  * @apiSuccess {Array} data An array of tasks
  *
@@ -283,11 +288,13 @@ api.createChallengeTasks = {
 api.getUserTasks = {
   method: 'GET',
   url: '/tasks/user',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let types = Tasks.tasksTypes.map(type => `${type}s`);
     types.push('completedTodos', '_allCompletedTodos'); // _allCompletedTodos is currently in BETA and is likely to be removed in future
-    req.checkQuery('type', res.t('invalidTaskType')).optional().isIn(types);
+    req.checkQuery('type', res.t('invalidTasksTypeExtra')).optional().isIn(types);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -321,11 +328,13 @@ api.getUserTasks = {
 api.getChallengeTasks = {
   method: 'GET',
   url: '/tasks/challenge/:challengeId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
     let types = Tasks.tasksTypes.map(type => `${type}s`);
-    req.checkQuery('type', res.t('invalidTaskType')).optional().isIn(types);
+    req.checkQuery('type', res.t('invalidTasksType')).optional().isIn(types);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -371,7 +380,9 @@ api.getChallengeTasks = {
 api.getTask = {
   method: 'GET',
   url: '/tasks/:taskId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let taskId = req.params.taskId;
@@ -425,12 +436,14 @@ api.getTask = {
 api.updateTask = {
   method: 'PUT',
   url: '/tasks/:taskId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let challenge;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -458,7 +471,6 @@ api.updateTask = {
     let oldCheckList = task.checklist;
     // we have to convert task to an object because otherwise things don't get merged correctly. Bad for performances?
     let [updatedTaskObj] = common.ops.updateTask(task.toObject(), req);
-
     // Sanitize differently user tasks linked to a challenge
     let sanitizedObj;
 
@@ -471,6 +483,7 @@ api.updateTask = {
     }
 
     _.assign(task, sanitizedObj);
+
     // console.log(task.modifiedPaths(), task.toObject().repeat === tep)
     // repeat is always among modifiedPaths because mongoose changes the other of the keys when using .toObject()
     // see https://github.com/Automattic/mongoose/issues/2749
@@ -481,7 +494,6 @@ api.updateTask = {
     }
 
     setNextDue(task, user);
-
     let savedTask = await task.save();
 
     if (group && task.group.id && task.group.assignedUsers.length > 0) {
@@ -503,7 +515,7 @@ api.updateTask = {
     } else if (group && task.group.id && task.group.assignedUsers.length > 0) {
       await group.updateTask(savedTask);
     } else {
-      taskActivityWebhook.send(user.webhooks, {
+      taskActivityWebhook.send(user, {
         type: 'updated',
         task: savedTask,
       });
@@ -538,7 +550,9 @@ api.updateTask = {
 api.scoreTask = {
   method: 'POST',
   url: '/tasks/:taskId/score/:direction',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     req.checkParams('direction', res.t('directionUpDown')).notEmpty().isIn(['up', 'down']);
 
@@ -598,7 +612,7 @@ api.scoreTask = {
       });
 
       managerPromises.push(task.save());
-      await Bluebird.all(managerPromises);
+      await Promise.all(managerPromises);
 
       throw new NotAuthorized(res.t('taskApprovalHasBeenRequested'));
     }
@@ -647,7 +661,7 @@ api.scoreTask = {
       task.save(),
     ];
     if (taskOrderPromise) promises.push(taskOrderPromise);
-    let results = await Bluebird.all(promises);
+    let results = await Promise.all(promises);
 
     let savedUser = results[0];
 
@@ -655,7 +669,7 @@ api.scoreTask = {
     let resJsonData = _.assign({delta, _tmp: user._tmp}, userStats);
     res.respond(200, resJsonData);
 
-    taskScoredWebhook.send(user.webhooks, {
+    taskScoredWebhook.send(user, {
       task,
       direction,
       delta,
@@ -709,9 +723,11 @@ api.scoreTask = {
 api.moveTask = {
   method: 'POST',
   url: '/tasks/:taskId/move/to/:position',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
     req.checkParams('position', res.t('positionRequired')).notEmpty().isNumeric();
 
     let validationErrors = req.validationErrors();
@@ -778,13 +794,15 @@ api.moveTask = {
 api.addChecklistItem = {
   method: 'POST',
   url: '/tasks/:taskId/checklist',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let challenge;
     let group;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -838,11 +856,13 @@ api.addChecklistItem = {
 api.scoreCheckListItem = {
   method: 'POST',
   url: '/tasks/:taskId/checklist/:itemId/score',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
@@ -861,6 +881,12 @@ api.scoreCheckListItem = {
     let savedTask = await task.save();
 
     res.respond(200, savedTask);
+
+    taskActivityWebhook.send(user, {
+      type: 'checklistScored',
+      task: savedTask,
+      item,
+    });
   },
 };
 
@@ -886,13 +912,15 @@ api.scoreCheckListItem = {
 api.updateChecklistItem = {
   method: 'PUT',
   url: '/tasks/:taskId/checklist/:itemId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let challenge;
     let group;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
@@ -951,13 +979,15 @@ api.updateChecklistItem = {
 api.removeChecklistItem = {
   method: 'DELETE',
   url: '/tasks/:taskId/checklist/:itemId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let challenge;
     let group;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
@@ -1014,11 +1044,13 @@ api.removeChecklistItem = {
 api.addTagToTask = {
   method: 'POST',
   url: '/tasks/:taskId/tags/:tagId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
     let userTags = user.tags.map(tag => tag.id);
     req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID().isIn(userTags);
 
@@ -1063,11 +1095,13 @@ api.addTagToTask = {
 api.removeTagFromTask = {
   method: 'DELETE',
   url: '/tasks/:taskId/tags/:tagId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
     req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
@@ -1108,10 +1142,12 @@ api.removeTagFromTask = {
 api.unlinkAllTasks = {
   method: 'POST',
   url: '/tasks/unlink-all/:challengeId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
-    req.checkQuery('keep', res.t('keepOrRemoveAll')).notEmpty().isIn(['keep-all', 'remove-all']);
+    req.checkQuery('keep', apiError('keepOrRemoveAll')).notEmpty().isIn(['keep-all', 'remove-all']);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -1132,7 +1168,7 @@ api.unlinkAllTasks = {
     if (!validTasks) throw new BadRequest(res.t('cantOnlyUnlinkChalTask'));
 
     if (keep === 'keep-all') {
-      await Bluebird.all(tasks.map(task => {
+      await Promise.all(tasks.map(task => {
         task.challenge = {};
         return task.save();
       }));
@@ -1149,7 +1185,7 @@ api.unlinkAllTasks = {
 
       toSave.push(user.save());
 
-      await Bluebird.all(toSave);
+      await Promise.all(toSave);
     }
 
     res.respond(200, {});
@@ -1175,10 +1211,12 @@ api.unlinkAllTasks = {
 api.unlinkOneTask = {
   method: 'POST',
   url: '/tasks/unlink-one/:taskId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
-    req.checkQuery('keep', res.t('keepOrRemove')).notEmpty().isIn(['keep', 'remove']);
+    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty().isUUID();
+    req.checkQuery('keep', apiError('keepOrRemove')).notEmpty().isIn(['keep', 'remove']);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -1199,7 +1237,7 @@ api.unlinkOneTask = {
     } else { // remove
       if (task.type !== 'todo' || !task.completed) { // eslint-disable-line no-lonely-if
         removeFromArray(user.tasksOrder[`${task.type}s`], taskId);
-        await Bluebird.all([user.save(), task.remove()]);
+        await Promise.all([user.save(), task.remove()]);
       } else {
         await task.remove();
       }
@@ -1225,7 +1263,9 @@ api.unlinkOneTask = {
 api.clearCompletedTodos = {
   method: 'POST',
   url: '/tasks/clearCompletedTodos',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -1276,7 +1316,9 @@ api.clearCompletedTodos = {
 api.deleteTask = {
   method: 'DELETE',
   url: '/tasks/:taskId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let challenge;
@@ -1317,7 +1359,7 @@ api.deleteTask = {
       // See https://github.com/HabitRPG/habitica/pull/9321#issuecomment-354187666 for more info
       if (!challenge) user._v++;
 
-      await Bluebird.all([taskOrderUpdate, task.remove()]);
+      await Promise.all([taskOrderUpdate, task.remove()]);
     } else {
       await task.remove();
     }
@@ -1327,7 +1369,7 @@ api.deleteTask = {
     if (challenge) {
       challenge.removeTask(task);
     } else {
-      taskActivityWebhook.send(user.webhooks, {
+      taskActivityWebhook.send(user, {
         type: 'deleted',
         task,
       });

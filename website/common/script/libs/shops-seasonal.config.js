@@ -5,7 +5,7 @@ module.exports = {
 
   currentSeason: 'Closed',
 
-  dateRange: { start: '2017-12-19', end: '2018-01-31' },
+  dateRange: { start: '2018-03-20', end: '2018-04-30' },
 
   availableSets: [
   ],
@@ -19,5 +19,5 @@ module.exports = {
   availableQuests: [
   ],
 
-  featuredSet: 'yetiSet',
+  featuredSet: 'comfortingKittySet',
 };

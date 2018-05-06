@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import Bluebird from 'bluebird';
 import { authWithHeaders } from '../../middlewares/auth';
 import analytics from '../../libs/analyticsService';
 import {
@@ -18,6 +17,7 @@ import {
 } from '../../libs/email';
 import common from '../../../common';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
+import apiError from '../../libs/apiError';
 
 const questScrolls = common.content.quests;
 
@@ -55,13 +55,15 @@ let api = {};
 api.inviteToQuest = {
   method: 'POST',
   url: '/groups/:groupId/quests/invite/:questKey',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let questKey = req.params.questKey;
     let quest = questScrolls[questKey];
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -70,7 +72,7 @@ api.inviteToQuest = {
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
-    if (!quest) throw new NotFound(res.t('questNotFound', { key: questKey }));
+    if (!quest) throw new NotFound(apiError('questNotFound', { key: questKey }));
     if (!user.items.quests[questKey]) throw new NotAuthorized(res.t('questNotOwned'));
     if (user.stats.lvl < quest.lvl) throw new NotAuthorized(res.t('questLevelTooHigh', { level: quest.lvl }));
     if (group.quest.key) throw new NotAuthorized(res.t('questAlreadyUnderway'));
@@ -109,7 +111,7 @@ api.inviteToQuest = {
       await group.startQuest(user);
     }
 
-    let [savedGroup] = await Bluebird.all([
+    let [savedGroup] = await Promise.all([
       group.save(),
       user.save(),
     ]);
@@ -169,11 +171,13 @@ api.inviteToQuest = {
 api.acceptQuest = {
   method: 'POST',
   url: '/groups/:groupId/quests/accept',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -228,11 +232,13 @@ api.acceptQuest = {
 api.rejectQuest = {
   method: 'POST',
   url: '/groups/:groupId/quests/reject',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -291,11 +297,13 @@ api.rejectQuest = {
 api.forceStart = {
   method: 'POST',
   url: '/groups/:groupId/quests/force-start',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -312,7 +320,7 @@ api.forceStart = {
 
     await group.startQuest(user);
 
-    let [savedGroup] = await Bluebird.all([
+    let [savedGroup] = await Promise.all([
       group.save(),
       user.save(),
     ]);
@@ -349,7 +357,9 @@ api.forceStart = {
 api.cancelQuest = {
   method: 'POST',
   url: '/groups/:groupId/quests/cancel',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     // Cancel a quest BEFORE it has begun (i.e., in the invitation stage)
     // Quest scroll has not yet left quest owner's inventory so no need to return it.
@@ -357,7 +367,7 @@ api.cancelQuest = {
     let user = res.locals.user;
     let groupId = req.params.groupId;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -372,7 +382,7 @@ api.cancelQuest = {
     group.quest = Group.cleanGroupQuest();
     group.markModified('quest');
 
-    let [savedGroup] = await Bluebird.all([
+    let [savedGroup] = await Promise.all([
       group.save(),
       User.update(
         {'party._id': groupId},
@@ -403,13 +413,15 @@ api.cancelQuest = {
 api.abortQuest = {
   method: 'POST',
   url: '/groups/:groupId/quests/abort',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     // Abort a quest AFTER it has begun (see questCancel for BEFORE)
     let user = res.locals.user;
     let groupId = req.params.groupId;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -422,7 +434,8 @@ api.abortQuest = {
     if (user._id !== group.leader && user._id !== group.quest.leader) throw new NotAuthorized(res.t('onlyLeaderAbortQuest'));
 
     let questName = questScrolls[group.quest.key].text('en');
-    group.sendChat(`\`${user.profile.name} aborted the party quest ${questName}.\``);
+    const newChatMessage = group.sendChat(`\`${user.profile.name} aborted the party quest ${questName}.\``);
+    await newChatMessage.save();
 
     let memberUpdates = User.update({
       'party._id': groupId,
@@ -441,7 +454,7 @@ api.abortQuest = {
     group.quest = Group.cleanGroupQuest();
     group.markModified('quest');
 
-    let [groupSaved] = await Bluebird.all([group.save(), memberUpdates, questLeaderUpdate]);
+    let [groupSaved] = await Promise.all([group.save(), memberUpdates, questLeaderUpdate]);
 
     res.respond(200, groupSaved.quest);
   },
@@ -462,12 +475,14 @@ api.abortQuest = {
 api.leaveQuest = {
   method: 'POST',
   url: '/groups/:groupId/quests/leave',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -486,7 +501,7 @@ api.leaveQuest = {
     user.party.quest = Group.cleanQuestProgress();
     user.markModified('party.quest');
 
-    let [savedGroup] = await Bluebird.all([
+    let [savedGroup] = await Promise.all([
       group.save(),
       user.save(),
     ]);

@@ -27,8 +27,8 @@
     "royalPurpleGryphon": "Gryphon Ungu Kerajaan",
     "phoenix": "Phoenix",
     "magicalBee": "Lebah Ajaib",
-    "hopefulHippogriffPet": "Hopeful Hippogriff",
-    "hopefulHippogriffMount": "Hopeful Hippogriff",
+    "hopefulHippogriffPet": "Hippogriff Penuh Pengharapan",
+    "hopefulHippogriffMount": "Hippogriff Penuh Pengharapan",
     "royalPurpleJackalope": "Jackalope Ungu Kerajaan",
     "invisibleAether": "Aether Tembus Pandang",
     "rarePetPop1": "Klik tapak emas untuk mengetahui lebih lanjut bagaimana kamu bisa mendapatkan peliharaan langka ini dengan berkontribusi ke Habitica!",
@@ -77,7 +77,7 @@
     "hatchAPot": "Tetaskan seekor <%= egg %><%= potion %> baru?",
     "hatchedPet": "Kamu menetaskan <%= egg %> <%= potion %>!",
     "hatchedPetGeneric": "Kamu menetaskan seekor peliharaan baru!",
-    "hatchedPetHowToUse": "Kunjungi [Istal](/inventori/istal) untuk memberi makan dan menggunakan peliharaan terbarumu!",
+    "hatchedPetHowToUse": "Kunjungi [Istal](/inventory/stable) untuk memberi makan dan menggunakan peliharaan terbarumu!",
     "displayNow": "Tampilkan Sekarang",
     "displayLater": "Tampilkan Nanti",
     "petNotOwned": "Kamu tidak memiliki peliharaan ini.",
@@ -138,5 +138,8 @@
     "dragThisPotion": "Tarik <%= potionName %> ini ke sebuah Telur dan tetaskan peliharaan baru!",
     "clickOnEggToHatch": "Klik sebuah Telur untuk menggunakan ramuan penetas <%= potionName %>-mu dan tetaskan peliharaan baru!",
     "hatchDialogText": "Tuangkan ramuan penetas <%= potionName %>-mu diatas telur <%= eggName %>-mu, dan ia akan menetas menjadi seekor <%= petName %>.",
-    "clickOnPotionToHatch": "Klik sebuah ramuan penetas untuk menggunakannya pada telur <%= eggName %>-mu dan tetaskan peliharaan baru!"
+    "clickOnPotionToHatch": "Klik sebuah ramuan penetas untuk menggunakannya pada telur <%= eggName %>-mu dan tetaskan peliharaan baru!",
+    "notEnoughPets": "You have not collected enough pets",
+    "notEnoughMounts": "You have not collected enough mounts",
+    "notEnoughPetsMounts": "You have not collected enough pets and mounts"
 }

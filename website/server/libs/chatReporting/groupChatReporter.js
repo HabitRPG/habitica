@@ -1,4 +1,3 @@
-import find from 'lodash/find';
 import nconf from 'nconf';
 
 import ChatReporter from './chatReporter';
@@ -9,6 +8,8 @@ import {
 import { getGroupUrl, sendTxn } from '../email';
 import slack from '../slack';
 import { model as Group } from '../../models/group';
+import { model as Chat } from '../../models/chat';
+import apiError from '../apiError';
 
 const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
@@ -24,7 +25,7 @@ export default class GroupChatReporter extends ChatReporter {
   }
 
   async validate () {
-    this.req.checkParams('groupId', this.res.t('groupIdRequired')).notEmpty();
+    this.req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
     this.req.checkParams('chatId', this.res.t('chatIdRequired')).notEmpty();
 
     let validationErrors = this.req.validationErrors();
@@ -37,22 +38,25 @@ export default class GroupChatReporter extends ChatReporter {
     });
     if (!group) throw new NotFound(this.res.t('groupNotFound'));
 
-    let message = find(group.chat, {id: this.req.params.chatId});
+    const message = await Chat.findOne({_id: this.req.params.chatId}).exec();
     if (!message) throw new NotFound(this.res.t('messageGroupChatNotFound'));
     if (message.uuid === 'system') throw new BadRequest(this.res.t('messageCannotFlagSystemMessages', {communityManagerEmail: COMMUNITY_MANAGER_EMAIL}));
 
-    return {message, group};
+    const userComment = this.req.body.comment;
+
+    return {message, group, userComment};
   }
 
-  async notify (group, message) {
+  async notify (group, message, userComment) {
     await super.notify(group, message);
 
     const groupUrl = getGroupUrl(group);
-    sendTxn(FLAG_REPORT_EMAILS, 'flag-report-to-mods', this.emailVariables.concat([
+    sendTxn(FLAG_REPORT_EMAILS, 'flag-report-to-mods-with-comments', this.emailVariables.concat([
       {name: 'GROUP_NAME', content: group.name},
       {name: 'GROUP_TYPE', content: group.type},
       {name: 'GROUP_ID', content: group._id},
       {name: 'GROUP_URL', content: groupUrl},
+      {name: 'REPORTER_COMMENT', content: userComment || ''},
     ]));
 
     slack.sendFlagNotification({
@@ -60,17 +64,17 @@ export default class GroupChatReporter extends ChatReporter {
       flagger: this.user,
       group,
       message,
+      userComment,
     });
   }
 
   async flagGroupMessage (group, message) {
-    let update = {$set: {}};
     // Log user ids that have flagged the message
     if (!message.flags) message.flags = {};
     // TODO fix error type
     if (message.flags[this.user._id] && !this.user.contributor.admin) throw new NotFound(this.res.t('messageGroupChatFlagAlreadyReported'));
     message.flags[this.user._id] = true;
-    update.$set[`chat.$.flags.${this.user._id}`] = true;
+    message.markModified('flags');
 
     // Log total number of flags (publicly viewable)
     if (!message.flagCount) message.flagCount = 0;
@@ -80,18 +84,14 @@ export default class GroupChatReporter extends ChatReporter {
     } else {
       message.flagCount++;
     }
-    update.$set['chat.$.flagCount'] = message.flagCount;
 
-    await Group.update(
-      {_id: group._id, 'chat.id': message.id},
-      update
-    ).exec();
+    await message.save();
   }
 
   async flag () {
-    let {message, group} = await this.validate();
+    let {message, group, userComment} = await this.validate();
     await this.flagGroupMessage(group, message);
-    await this.notify(group, message);
+    await this.notify(group, message, userComment);
     return message;
   }
 }

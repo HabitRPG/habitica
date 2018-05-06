@@ -7,12 +7,6 @@ if (process.env.NODE_ENV !== 'production') {
   require('babel-register');
 }
 
-// The BabelJS polyfill is needed in production too
-require('babel-polyfill');
-
-// Setup Bluebird as the global promise library
-global.Promise = require('bluebird');
-
 // Initialize configuration BEFORE anything
 const setupNconf = require('./libs/setupNconf');
 setupNconf();

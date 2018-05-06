@@ -2,9 +2,17 @@ import nconf from 'nconf';
 import logger from './libs/logger';
 import express from 'express';
 import http from 'http';
-import Bluebird from 'bluebird';
 
-global.Promise = Bluebird;
+try {
+  // @TODO: May need to remove - testing
+  const memwatch = require('memwatch-next'); // eslint-disable-line global-require
+  memwatch.on('leak', (info) => {
+    const message = 'Memory leak detected.';
+    logger.error(message, info);
+  });
+} catch (err) {
+  logger.info('"memwatch-next" couldn\'t be loaded.');
+}
 
 const server = http.createServer();
 const app = express();

@@ -1,12 +1,14 @@
 import common from '../../../common';
 import _ from 'lodash';
 import moment from 'moment';
-import Bluebird from 'bluebird';
 import baseModel from '../../libs/baseModel';
 import * as Tasks from '../task';
 import {
   model as UserNotification,
 } from '../userNotification';
+import {
+  userActivityWebhook,
+} from '../../libs/webhook';
 
 import schema from './schema';
 
@@ -58,7 +60,7 @@ function _populateDefaultTasks (user, taskTypes) {
   // @TODO: default tasks are handled differently now, and not during registration. We should move this code
 
   let tasksToCreate = [];
-  if (user.registeredThrough === 'habitica-web') return Bluebird.all(tasksToCreate);
+  if (user.registeredThrough === 'habitica-web') return Promise.all(tasksToCreate);
 
   if (tagsI !== -1) {
     taskTypes = _.clone(taskTypes);
@@ -89,7 +91,7 @@ function _populateDefaultTasks (user, taskTypes) {
     tasksToCreate.push(...tasksOfType);
   });
 
-  return Bluebird.all(tasksToCreate)
+  return Promise.all(tasksToCreate)
     .then((tasksCreated) => {
       _.each(tasksCreated, (task) => {
         user.tasksOrder[`${task.type}s`].push(task._id);
@@ -140,8 +142,6 @@ function _setUpNewUser (user) {
   user.items.quests.dustbunnies = 1;
   user.purchased.background.violet = true;
   user.preferences.background = 'violet';
-  user.items.gear.owned.armor_special_birthday = true; // eslint-disable-line camelcase
-  user.items.gear.equipped.body = 'armor_special_birthday';
 
   if (user.registeredThrough === 'habitica-web') {
     taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];
@@ -211,19 +211,11 @@ schema.pre('save', true, function preSaveUser (next, done) {
   // we do not want to run any hook that relies on user.items because it will
   // use the default values defined in the user schema and not the real ones.
   //
-  // To check if a field was selected Document.isSelected('field') can be used.
-  // more info on its usage can be found at http://mongoosejs.com/docs/api.html#document_Document-isSelected
-  // IMPORTANT NOTE2 : due to a bug in mongoose (https://github.com/Automattic/mongoose/issues/5063)
-  // document.isSelected('items') will return true even if only a sub field (like 'items.mounts')
-  // was selected. So this fix only works as long as the entire subdoc is selected
-  // For example in the code below it won't work if only `achievements.beastMasterCount` is selected
-  // which is why we should only ever select the full paths and not subdocs,
-  // or if we really have to do the document.isSelected() calls should check for
-  // every specific subpath (items.mounts, items.pets, ...) but it's better to avoid it
-  // since it'll break as soon as a new field is added to the schema but not here.
+  // To check if a field was selected Document.isDirectSelected('field') can be used.
+  // more info on its usage can be found at http://mongoosejs.com/docs/api.html#document_Document-isDirectSelected
 
   // do not calculate achievements if items or achievements are not selected
-  if (this.isSelected('items') && this.isSelected('achievements')) {
+  if (this.isDirectSelected('items') && this.isDirectSelected('achievements')) {
     // Determines if Beast Master should be awarded
     let beastMasterProgress = common.count.beastMasterProgress(this.items.pets);
 
@@ -252,58 +244,97 @@ schema.pre('save', true, function preSaveUser (next, done) {
     // this.items.pets['JackOLantern-Base'] = 5;
   }
 
-  // Manage unallocated stats points notifications
-  if (this.isSelected('stats') && this.isSelected('notifications')) {
-    const pointsToAllocate = this.stats.points;
+  // Filter notifications, remove unvalid and not necessary, handle the ones that have special requirements
+  if ( // Make sure all the data is loaded
+    this.isDirectSelected('notifications') &&
+    this.isDirectSelected('webhooks') &&
+    this.isDirectSelected('stats') &&
+    this.isDirectSelected('flags') &&
+    this.isDirectSelected('preferences')
+  ) {
+    const lvlUpNotifications = [];
+    const unallocatedPointsNotifications = [];
 
-    // Sometimes there can be more than 1 notification
-    const existingNotifications = this.notifications.filter(notification => {
-      return notification && notification.type === 'UNALLOCATED_STATS_POINTS';
+    this.notifications = this.notifications.filter(notification => {
+      // Remove corrupt notifications
+      if (!notification || !notification.type) return false;
+
+      // Remove level up notifications, as they're only used to send webhooks
+      // Sometimes there can be more than 1 notification
+      if (notification && notification.type === 'LEVELED_UP') {
+        lvlUpNotifications.push(notification);
+        return false;
+      }
+
+      // Remove all unsallocated stats points
+      if (notification && notification.type === 'UNALLOCATED_STATS_POINTS') {
+        unallocatedPointsNotifications.push(notification);
+        return false;
+      }
+      // Keep all the others
+      return true;
     });
 
-    const existingNotificationsLength = existingNotifications.length;
+
+    // Send lvl up notifications
+    if (lvlUpNotifications.length > 0) {
+      const firstLvlNotification = lvlUpNotifications[0];
+      const lastLvlNotification = lvlUpNotifications[lvlUpNotifications.length - 1];
+
+      const initialLvl = firstLvlNotification.data.initialLvl;
+      const finalLvl = lastLvlNotification.data.newLvl;
+
+      // Delayed so we don't block the user saving
+      setTimeout(() => {
+        userActivityWebhook.send(this, {
+          type: 'leveledUp',
+          initialLvl,
+          finalLvl,
+        });
+      }, 50);
+    }
+
+    // Handle unallocated stats points notifications (keep only one and up to date)
+    const pointsToAllocate = this.stats.points;
+    const classNotEnabled = !this.flags.classSelected || this.preferences.disableClasses;
+
     // Take the most recent notification
-    const lastExistingNotification = existingNotificationsLength > 0 ? existingNotifications[existingNotificationsLength - 1] : null;
+    const lastExistingNotification = unallocatedPointsNotifications[unallocatedPointsNotifications.length - 1];
+
     // Decide if it's outdated or not
     const outdatedNotification = !lastExistingNotification || lastExistingNotification.data.points !== pointsToAllocate;
 
-    // If the notification is outdated, remove all the existing notifications, otherwise all of them except the last
-    let notificationsToRemove = outdatedNotification ? existingNotificationsLength : existingNotificationsLength - 1;
-
     // If there are points to allocate and the notification is outdated, add a new notifications
-    if (pointsToAllocate > 0 && outdatedNotification) {
-      this.addNotification('UNALLOCATED_STATS_POINTS', { points: pointsToAllocate });
-    }
-
-    // Remove the outdated notifications
-    if (notificationsToRemove > 0) {
-      let notificationsRemoved = 0;
-
-      this.notifications = this.notifications.filter(notification => {
-        if (notification && notification.type !== 'UNALLOCATED_STATS_POINTS') return true;
-        if (notificationsRemoved === notificationsToRemove) return true;
-
-        notificationsRemoved++;
-        return false;
-      });
+    if (pointsToAllocate > 0 && !classNotEnabled) {
+      if (outdatedNotification) {
+        this.addNotification('UNALLOCATED_STATS_POINTS', { points: pointsToAllocate });
+      } else { // otherwise add back the last one
+        this.notifications.push(lastExistingNotification);
+      }
     }
   }
 
-  // Enable weekly recap emails for old users who sign in
-  if (this.flags.lastWeeklyRecapDiscriminator) {
-    // Enable weekly recap emails in 24 hours
-    this.flags.lastWeeklyRecap = moment().subtract(6, 'days').toDate();
-    // Unset the field so this is run only once
-    this.flags.lastWeeklyRecapDiscriminator = undefined;
+  if (this.isDirectSelected('flags')) {
+    // Enable weekly recap emails for old users who sign in
+    if (this.flags.lastWeeklyRecapDiscriminator) {
+      // Enable weekly recap emails in 24 hours
+      this.flags.lastWeeklyRecap = moment().subtract(6, 'days').toDate();
+      // Unset the field so this is run only once
+      this.flags.lastWeeklyRecapDiscriminator = undefined;
+    }
   }
 
-  if (_.isNaN(this.preferences.dayStart) || this.preferences.dayStart < 0 || this.preferences.dayStart > 23) {
-    this.preferences.dayStart = 0;
+  if (this.isDirectSelected('preferences')) {
+    if (_.isNaN(this.preferences.dayStart) || this.preferences.dayStart < 0 || this.preferences.dayStart > 23) {
+      this.preferences.dayStart = 0;
+    }
   }
 
   // our own version incrementer
-  if (_.isNaN(this._v) || !_.isNumber(this._v)) this._v = 0;
-  this._v++;
+  if (this.isDirectSelected('_v')) {
+    if (_.isNaN(this._v) || !_.isNumber(this._v)) this._v = 0;
+    this._v++;
+  }
 
   // Populate new users with default content
   if (this.isNew) {

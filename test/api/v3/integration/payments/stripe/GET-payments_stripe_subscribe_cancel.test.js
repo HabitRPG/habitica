@@ -3,7 +3,7 @@ import {
   generateGroup,
   translate as t,
 } from '../../../../../helpers/api-integration/v3';
-import stripePayments from '../../../../../../website/server/libs/stripePayments';
+import stripePayments from '../../../../../../website/server/libs/payments/stripe';
 
 describe('payments - stripe - #subscribeCancel', () => {
   let endpoint = '/stripe/subscribe/cancel?redirect=none';

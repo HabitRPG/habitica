@@ -1,14 +1,14 @@
 require('babel-register');
-require('babel-polyfill');
 
 // This file must use ES5, everything required can be in ES6
 
 function setUpServer () {
   const nconf = require('nconf'); // eslint-disable-line global-require, no-unused-vars
   const mongoose = require('mongoose'); // eslint-disable-line global-require, no-unused-vars
-  const Bluebird = require('bluebird'); // eslint-disable-line global-require, no-unused-vars
   const setupNconf = require('../website/server/libs/setupNconf'); // eslint-disable-line global-require
+
   setupNconf();
+
   // We require src/server and npt src/index because
   // 1. nconf is already setup
   // 2. we don't need clustering
@@ -17,5 +17,5 @@ function setUpServer () {
 setUpServer();
 
 // Replace this with your migration
-const processUsers = require('./20180125_clean_new_notifications.js');
+const processUsers = require('./groups/migrate-chat.js');
 processUsers();

@@ -32,7 +32,7 @@
     "resetAccPop": "從頭開始，移除所有等級、金幣、裝備、歷史和任務。",
     "deleteAccount": "刪除帳號",
     "deleteAccPop": "取消並移除你的 Habitica 帳號。",
-    "feedback": "If you'd like to give us feedback, please enter it below - we'd love to know what you liked or didn't like about Habitica! It will be anonymous unless you choose to enter your contact details. Don't speak English well? No problem! Use the language you prefer.",
+    "feedback": "If you'd like to give us feedback, please enter it below - we'd love to know what you liked or didn't like about Habitica! Don't speak English well? No problem! Use the language you prefer.",
     "qrCode": "QR Code",
     "dataExport": "匯出資料",
     "saveData": "這裡有幫助你儲存資料的訊息。",
@@ -179,13 +179,13 @@
     "consecutiveSubscription": "連續訂閱",
     "consecutiveMonths": "連續月份",
     "gemCapExtra": "寶石增量：",
-    "mysticHourglasses": "神秘沙漏",
-    "mysticHourglassesTooltip": "Mystic Hourglasses",
+    "mysticHourglasses": "神秘沙漏：",
+    "mysticHourglassesTooltip": "神秘沙漏",
     "paypal": "PayPal",
     "amazonPayments": "Amazon Payments",
     "timezone": "時區",
     "timezoneUTC": "Habitica 使用您電腦的時區，現在是：<strong><%= utc %></strong>",
     "timezoneInfo": "If that time zone is wrong, first reload this page using your browser's reload or refresh button to ensure that Habitica has the most recent information. If it is still wrong, adjust the time zone on your PC and then reload this page again.<br><br> <strong>If you use Habitica on other PCs or mobile devices, the time zone must be the same on them all.</strong> If your Dailies have been resetting at the wrong time, repeat this check on all other PCs and on a browser on your mobile devices.",
     "push": "壓",
-    "about": "About"
+    "about": "關於"
 }

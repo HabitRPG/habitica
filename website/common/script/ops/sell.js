@@ -17,12 +17,16 @@ module.exports = function sell (user, req = {}) {
   let type = get(req.params, 'type');
   let amount = get(req.query, 'amount', 1);
 
+  if (amount < 0) {
+    throw new BadRequest(i18n.t('positiveAmountRequired', req.language));
+  }
+
   if (!type) {
     throw new BadRequest(i18n.t('typeRequired', req.language));
   }
 
   if (!key) {
-    throw new BadRequest(i18n.t('keyRequired', req.language));
+    throw new BadRequest(i18n.t('missingKeyParam', req.language));
   }
 
   if (ACCEPTEDTYPES.indexOf(type) === -1) {

@@ -131,6 +131,14 @@ TaskSchema.plugin(baseModel, {
       delete taskObj.value;
     }
 
+    if (taskObj.priority) {
+      let parsedFloat = Number.parseFloat(taskObj.priority);
+
+      if (!Number.isNaN(parsedFloat)) {
+        taskObj.priority = parsedFloat.toFixed(1);
+      }
+    }
+
     return taskObj;
   },
   private: [],
@@ -144,7 +152,7 @@ TaskSchema.statics.findByIdOrAlias = async function findByIdOrAlias (identifier,
 
   let query = _.cloneDeep(additionalQueries);
 
-  if (validator.isUUID(identifier)) {
+  if (validator.isUUID(String(identifier))) {
     query._id = identifier;
   } else {
     query.userId = userId;
