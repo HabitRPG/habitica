@@ -19,7 +19,9 @@
                 :withBackground='false',
                 :overrideAvatarGear='classGear(heroClass)',
                 :hideClassBadge='true',
-                :spritesMargin='"1.8em 1.5em"',
+                :spritesWidth='spriteSize(heroClass).width'
+                :spritesHeight='spriteSize(heroClass).height'
+                :spritesMargin='spriteSize(heroClass).margin',
                 :overrideTopPadding='"0px"',
                 :showVisualBuffs='false',
                 :class='selectionBox(selectedClass, heroClass)',
@@ -43,6 +45,14 @@
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
+
+  .avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 4px solid transparent;
+    transition: none;
+  }
 
   .class-badge {
     $badge-size: 32px;
@@ -95,7 +105,7 @@
 
   .selection-box {
     width: 140px;
-    height: 148px;
+    height: 147px;
     border-radius: 16px;
     border: solid 4px $purple-300;
   }
@@ -196,6 +206,33 @@ export default {
         return 'selection-box';
       }
     },
+    spriteSize (heroClass) {
+      if (heroClass === 'rogue') {
+        return {
+          width: '110px',
+          height: '94px',
+          margin: '1.8em 0.7em',
+        };
+      } else if (heroClass === 'healer') {
+        return {
+          width: '90px',
+          height: '106px',
+          margin: '1.8em 1.5em',
+        };
+      } else if (heroClass === 'wizard') {
+        return {
+          width: '104px',
+          height: '110px',
+          margin: '1.8em 1em',
+        };
+      } else {
+        return {
+          width: '90px',
+          height: '90px',
+          margin: '1.8em 1.5em',
+        };
+      }
+    }
   },
 };
 </script>
