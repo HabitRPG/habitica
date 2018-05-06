@@ -73,7 +73,6 @@
 </style>
 
 <script>
-import * as Analytics from 'client/libs/analytics';
 import hello from 'hellojs';
 import { setUpAxios } from 'client/libs/auth';
 
@@ -104,26 +103,31 @@ export default {
       // windows: WINDOWS_CLIENT_ID,
       google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
     });
-
-    Analytics.track({
-      hitType: 'event',
-      eventCategory: 'group-plans-static',
-      eventAction: 'view',
-      eventLabel: 'view-auth-form',
-    });
   },
   methods: {
+    // @TODO: Abstract hello in to action or lib
     async socialAuth (network) {
-      let auth = await hello(network).login({
-        scope: 'email',
-        redirect_uri: '', // eslint-disable-line camelcase
-      });
+      try {
+        await hello(network).logout();
+      } catch (e) {} // eslint-disable-line
 
-      await this.$store.dispatch('auth:socialAuth', {
-        auth,
-      });
+      try {
+        let auth = await hello(network).login({
+          scope: 'email',
+          redirect_uri: '', // eslint-disable-line camelcase
+        });
 
-      await this.finishAuth();
+        await this.$store.dispatch('auth:socialAuth', {
+          auth,
+        });
+
+        await this.finishAuth();
+      } catch (err) {
+        console.error(err); // eslint-disable-line no-console
+        // logout the user
+        await hello(network).logout();
+        this.socialAuth(network); // login again
+      }
     },
     async register () {
       if (!this.email) {

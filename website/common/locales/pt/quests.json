@@ -122,6 +122,7 @@
     "buyQuestBundle": "Comprar Conjunto de Missões",
     "noQuestToStart": "Não encontra uma missão para começar? Tente ver se na Loja de Missões no Mercado há novas missões lançadas!",
     "pendingDamage": "<%= damage %> de dano pendente",
+    "pendingDamageLabel": "dano pendente",
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Vida",
     "rageAttack": "Ataque de Raiva:",
     "bossRage": "<%= currentRage %> / <%= maxRage %> Raiva",

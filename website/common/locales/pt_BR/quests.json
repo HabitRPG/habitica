@@ -122,6 +122,7 @@
     "buyQuestBundle": "Comprar Pacote de Missões",
     "noQuestToStart": "Não consegue achar uma missão? Experimente visitar a Loja de Missões no Mercado e veja os novos lançamentos!",
     "pendingDamage": "<%= damage %> de dano acumulado",
+    "pendingDamageLabel": "dano pendente",
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Vida",
     "rageAttack": "Ataque de Fúria: ",
     "bossRage": "<%= currentRage %> / <%= maxRage %> Fúria",

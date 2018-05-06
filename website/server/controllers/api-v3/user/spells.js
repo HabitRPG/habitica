@@ -14,6 +14,7 @@ import {
   castPartySpell,
   castUserSpell,
 } from '../../../libs/spells';
+import apiError from '../../../libs/apiError';
 
 const partyMembersFields = 'profile.name stats achievements items.special';
 
@@ -85,7 +86,7 @@ api.castSpell = {
     let klass = common.content.spells.special[spellId] ? 'special' : user.stats.class;
     let spell = common.content.spells[klass][spellId];
 
-    if (!spell) throw new NotFound(res.t('spellNotFound', {spellId}));
+    if (!spell) throw new NotFound(apiError('spellNotFound', {spellId}));
     if (spell.mana > user.stats.mp) throw new NotAuthorized(res.t('notEnoughMana'));
     if (spell.value > user.stats.gp && !spell.previousPurchase) throw new NotAuthorized(res.t('messageNotEnoughGold'));
     if (spell.lvl > user.stats.lvl) throw new NotAuthorized(res.t('spellLevelTooHigh', {level: spell.lvl}));
@@ -130,8 +131,8 @@ api.castSpell = {
 
       if (party && !spell.silent) {
         let message = `\`${user.profile.name} casts ${spell.text()}${targetType === 'user' ? ` on ${partyMembers.profile.name}` : ' for the party'}.\``;
-        party.sendChat(message);
-        await party.save();
+        const newChatMessage = party.sendChat(message);
+        await newChatMessage.save();
       }
     }
   },

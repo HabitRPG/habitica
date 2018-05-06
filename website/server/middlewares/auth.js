@@ -9,13 +9,22 @@ import url from 'url';
 
 const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
 
-function getUserFields (userFieldProjection, req) {
-  if (userFieldProjection) return `notifications ${userFieldProjection}`;
+function getUserFields (userFieldsToExclude, req) {
+  // A list of user fields that aren't needed for the route and are not loaded from the db.
+  // Must be an array
+  if (userFieldsToExclude) {
+    return userFieldsToExclude.map(field => {
+      return `-${field}`; // -${field} means exclude ${field} in mongodb
+    }).join(' ');
+  }
 
+  // Allows GET requests to /user to specify a list of user fields to return instead of the entire doc
+  // Notifications are always included
   const urlPath = url.parse(req.url).pathname;
-  if (!req.query.userFields || urlPath !== '/user') return '';
+  const userFields = req.query.userFields;
+  if (!userFields || urlPath !== '/user') return '';
 
-  const userFieldOptions = req.query.userFields.split(',');
+  const userFieldOptions = userFields.split(',');
   if (userFieldOptions.length === 0) return '';
 
   return `notifications ${userFieldOptions.join(' ')}`;
@@ -25,10 +34,11 @@ function getUserFields (userFieldProjection, req) {
 
 // Authenticate a request through the x-api-user and x-api key header
 // If optional is true, don't error on missing authentication
-export function authWithHeaders (optional = false, userFieldProjection = '') {
+export function authWithHeaders (options = {}) {
   return function authWithHeadersHandler (req, res, next) {
-    let userId = req.header('x-api-user');
-    let apiToken = req.header('x-api-key');
+    const userId = req.header('x-api-user');
+    const apiToken = req.header('x-api-key');
+    const optional = options.optional || false;
 
     if (!userId || !apiToken) {
       if (optional) return next();
@@ -40,8 +50,8 @@ export function authWithHeaders (optional = false, userFieldProjection = '') {
       apiToken,
     };
 
-    const fields = getUserFields(userFieldProjection, req);
-    const findPromise = fields ? User.findOne(userQuery, fields) : User.findOne(userQuery);
+    const fields = getUserFields(options.userFieldsToExclude, req);
+    const findPromise = fields ? User.findOne(userQuery).select(fields) : User.findOne(userQuery);
 
     return findPromise
       .exec()

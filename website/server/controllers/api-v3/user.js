@@ -12,6 +12,9 @@ import * as Tasks from '../../models/task';
 import _ from 'lodash';
 import * as passwordUtils from '../../libs/password';
 import {
+  userActivityWebhook,
+} from '../../libs/webhook';
+import {
   getUserInfo,
   sendTxn as txnEmail,
 } from '../../libs/email';
@@ -54,6 +57,11 @@ let api = {};
  * Stats (standard RPG stats, class, buffs, xp, etc..)
  * Tags
  * TasksOrder (list of all ids for dailys, habits, rewards and todos)
+ *
+ * @apiParam (Query) {UUID} userFields A list of comma separated user fields to be returned instead of the entire document. Notifications are always returned.
+ *
+ * @apiExample {curl} Example use:
+ * curl -i https://habitica.com/api/v3/user?userFields=achievements,items.mounts
  *
  * @apiSuccess {Object} data The user object
  *
@@ -117,7 +125,9 @@ api.getUser = {
  */
 api.getBuyList = {
   method: 'GET',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/inventory/buy',
   async handler (req, res) {
     let list = _.cloneDeep(common.updateStore(res.locals.user));
@@ -160,7 +170,9 @@ api.getBuyList = {
  */
 api.getInAppRewardsList = {
   method: 'GET',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/in-app-rewards',
   async handler (req, res) {
     let list = common.inAppRewards(res.locals.user);
@@ -541,7 +553,9 @@ api.getUserAnonymized = {
  */
 api.sleep = {
   method: 'POST',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/sleep',
   async handler (req, res) {
     let user = res.locals.user;
@@ -585,7 +599,9 @@ const buyKnownKeys = ['armoire', 'mystery', 'potion', 'quest', 'special'];
  */
 api.buy = {
   method: 'POST',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/buy/:key',
   async handler (req, res) {
     let user = res.locals.user;
@@ -649,7 +665,9 @@ api.buy = {
  */
 api.buyGear = {
   method: 'POST',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/buy-gear/:key',
   async handler (req, res) {
     let user = res.locals.user;
@@ -689,7 +707,9 @@ api.buyGear = {
  */
 api.buyArmoire = {
   method: 'POST',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/buy-armoire',
   async handler (req, res) {
     let user = res.locals.user;
@@ -729,7 +749,9 @@ api.buyArmoire = {
  */
 api.buyHealthPotion = {
   method: 'POST',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/buy-health-potion',
   async handler (req, res) {
     let user = res.locals.user;
@@ -771,7 +793,9 @@ api.buyHealthPotion = {
  */
 api.buyMysterySet = {
   method: 'POST',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/buy-mystery-set/:key',
   async handler (req, res) {
     let user = res.locals.user;
@@ -812,7 +836,9 @@ api.buyMysterySet = {
  */
 api.buyQuest = {
   method: 'POST',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/buy-quest/:key',
   async handler (req, res) {
     let user = res.locals.user;
@@ -852,7 +878,9 @@ api.buyQuest = {
  */
 api.buySpecialSpell = {
   method: 'POST',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/buy-special-spell/:key',
   async handler (req, res) {
     let user = res.locals.user;
@@ -896,13 +924,26 @@ api.buySpecialSpell = {
  */
 api.hatch = {
   method: 'POST',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/hatch/:egg/:hatchingPotion',
   async handler (req, res) {
     let user = res.locals.user;
     let hatchRes = common.ops.hatch(user, req);
+
     await user.save();
+
     res.respond(200, ...hatchRes);
+
+    // Send webhook
+    const petKey = `${req.params.egg}-${req.params.hatchingPotion}`;
+
+    userActivityWebhook.send(user, {
+      type: 'petHatched',
+      pet: petKey,
+      message: hatchRes[1],
+    });
   },
 };
 
@@ -937,7 +978,9 @@ api.hatch = {
  */
 api.equip = {
   method: 'POST',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/equip/:type/:key',
   async handler (req, res) {
     let user = res.locals.user;
@@ -972,13 +1015,28 @@ api.equip = {
  */
 api.feed = {
   method: 'POST',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/feed/:pet/:food',
   async handler (req, res) {
     let user = res.locals.user;
     let feedRes = common.ops.feed(user, req);
+
     await user.save();
+
     res.respond(200, ...feedRes);
+
+    // Send webhook
+    const petValue = feedRes[0];
+
+    if (petValue === -1) { // evolved to mount
+      userActivityWebhook.send(user, {
+        type: 'mountRaised',
+        pet: req.params.pet,
+        message: feedRes[1],
+      });
+    }
   },
 };
 
@@ -1003,7 +1061,9 @@ api.feed = {
  */
 api.changeClass = {
   method: 'POST',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/change-class',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1024,7 +1084,9 @@ api.changeClass = {
  */
 api.disableClasses = {
   method: 'POST',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/disable-classes',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1056,7 +1118,9 @@ api.disableClasses = {
  */
 api.purchase = {
   method: 'POST',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/purchase/:type/:key',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1103,7 +1167,9 @@ api.purchase = {
  */
 api.userPurchaseHourglass = {
   method: 'POST',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/purchase-hourglass/:type/:key',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1155,7 +1221,9 @@ api.userPurchaseHourglass = {
  */
 api.readCard = {
   method: 'POST',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/read-card/:cardType',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1197,7 +1265,9 @@ api.readCard = {
  */
 api.userOpenMysteryItem = {
   method: 'POST',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/open-mystery-item',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1229,7 +1299,9 @@ api.userOpenMysteryItem = {
  */
 api.userReleasePets = {
   method: 'POST',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/release-pets',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1278,7 +1350,9 @@ api.userReleasePets = {
  */
 api.userReleaseBoth = {
   method: 'POST',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/release-both',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1314,7 +1388,9 @@ api.userReleaseBoth = {
  */
 api.userReleaseMounts = {
   method: 'POST',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/release-mounts',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1344,7 +1420,9 @@ api.userReleaseMounts = {
  */
 api.userSell = {
   method: 'POST',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/sell/:type/:key',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1387,7 +1465,9 @@ api.userSell = {
  */
 api.userUnlock = {
   method: 'POST',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/unlock',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1413,7 +1493,9 @@ api.userUnlock = {
  */
 api.userRevive = {
   method: 'POST',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/revive',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1453,7 +1535,9 @@ api.userRevive = {
  */
 api.userRebirth = {
   method: 'POST',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/rebirth',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1611,7 +1695,9 @@ api.markPmsRead = {
  */
 api.userReroll = {
   method: 'POST',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/reroll',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1655,7 +1741,9 @@ api.userReroll = {
  */
 api.userReset = {
   method: 'POST',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/reset',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1706,7 +1794,9 @@ api.userReset = {
  */
 api.setCustomDayStart = {
   method: 'POST',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/custom-day-start',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1744,7 +1834,9 @@ api.setCustomDayStart = {
  */
 api.togglePinnedItem = {
   method: 'GET',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/toggle-pinned-item/:type/:path',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1761,6 +1853,72 @@ api.togglePinnedItem = {
       pinnedItems: userJson.pinnedItems,
       unpinnedItems: userJson.unpinnedItems,
     });
+  },
+};
+
+/**
+ * @api {post} /api/v3/user/move-pinned-item/:type/:path/move/to/:position Move a pinned item in the rewards column to a new position after being sorted
+ * @apiName MovePinnedItem
+ * @apiGroup User
+ *
+ * @apiParam (Path) {String} path The unique item path used for pinning
+ * @apiParam (Path) {Number} position Where to move the task. 0 = top of the list. -1 = bottom of the list.  (-1 means push to bottom). First position is 0
+ *
+ * @apiSuccess {Array} data The new pinned items order.
+ *
+ * @apiSuccessExample {json}
+ * {"success":true,"data":{"path":"quests.mayhemMistiflying3","type":"quests","_id": "5a32d357232feb3bc94c2bdf"},"notifications":[]}
+ *
+ * @apiUse TaskNotFound
+ */
+api.movePinnedItem = {
+  method: 'POST',
+  url: '/user/move-pinned-item/:path/move/to/:position',
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
+  async handler (req, res) {
+    req.checkParams('path', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('position', res.t('positionRequired')).notEmpty().isNumeric();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let user = res.locals.user;
+    let path = req.params.path;
+    let position = Number(req.params.position);
+
+    // If something has been added or removed from the inAppRewards, we need
+    // to reset pinnedItemsOrder to have the correct length. Since inAppRewards
+    // Uses the current pinnedItemsOrder to return these in the right order,
+    // the new reset array will be in the right order before we do the swap
+    let currentPinnedItems = common.inAppRewards(user);
+    if (user.pinnedItemsOrder.length !== currentPinnedItems.length) {
+      user.pinnedItemsOrder = currentPinnedItems.map(item => item.path);
+    }
+
+    // Adjust the order
+    let currentIndex = user.pinnedItemsOrder.findIndex(item => item === path);
+    let currentPinnedItemPath = user.pinnedItemsOrder[currentIndex];
+
+    if (currentIndex === -1) {
+      throw new BadRequest(res.t('wrongItemPath', req.language));
+    }
+
+    // Remove the one we will move
+    user.pinnedItemsOrder.splice(currentIndex, 1);
+
+    // reinsert the item in position (or just at the end)
+    if (position === -1) {
+      user.pinnedItemsOrder.push(currentPinnedItemPath);
+    } else {
+      user.pinnedItemsOrder.splice(position, 0, currentPinnedItemPath);
+    }
+
+    await user.save();
+    let userJson = user.toJSON();
+
+    res.respond(200, userJson.pinnedItemsOrder);
   },
 };
 

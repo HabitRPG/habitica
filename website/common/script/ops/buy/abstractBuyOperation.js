@@ -1,6 +1,8 @@
 import i18n from '../../i18n';
 import {
-  NotAuthorized, NotImplementedError,
+  NotAuthorized,
+  NotImplementedError,
+  BadRequest,
 } from '../../libs/errors';
 import _merge from 'lodash/merge';
 import _get from 'lodash/get';
@@ -16,7 +18,10 @@ export class AbstractBuyOperation {
     this.req = req || {};
     this.analytics = analytics;
 
-    this.quantity = _get(req, 'quantity', 1);
+    let quantity = _get(req, 'quantity');
+
+    this.quantity = quantity ? Number(quantity) : 1;
+    if (isNaN(this.quantity)) throw new BadRequest(this.i18n('invalidQuantity'));
   }
 
   /**
@@ -69,6 +74,10 @@ export class AbstractBuyOperation {
     return resultObj;
   }
 
+  analyticsLabel () {
+    return 'acquire item';
+  }
+
   sendToAnalytics (additionalData = {}) {
     // spread-operator produces an "unexpected token" error
     let analyticsData = _merge(additionalData, {
@@ -82,7 +91,7 @@ export class AbstractBuyOperation {
       analyticsData.quantityPurchased = this.quantity;
     }
 
-    this.analytics.track('acquire item', analyticsData);
+    this.analytics.track(this.analyticsLabel(), analyticsData);
   }
 }
 
@@ -95,6 +104,10 @@ export class AbstractGoldItemOperation extends AbstractBuyOperation {
     return item.value;
   }
 
+  getIemKey (item) {
+    return item.key;
+  }
+
   canUserPurchase (user, item) {
     this.item = item;
     let itemValue = this.getItemValue(item);
@@ -105,20 +118,20 @@ export class AbstractGoldItemOperation extends AbstractBuyOperation {
       throw new NotAuthorized(this.i18n('messageNotEnoughGold'));
     }
 
-    if (item.canOwn && !item.canOwn(user)) {
+    if (item && item.canOwn && !item.canOwn(user)) {
       throw new NotAuthorized(this.i18n('cannotBuyItem'));
     }
   }
 
-  subtractCurrency (user, item, quantity = 1) {
+  subtractCurrency (user, item) {
     let itemValue = this.getItemValue(item);
 
-    user.stats.gp -= itemValue * quantity;
+    user.stats.gp -= itemValue * this.quantity;
   }
 
   analyticsData () {
     return {
-      itemKey: this.item.key,
+      itemKey: this.getIemKey(this.item),
       itemType: 'Market',
       acquireMethod: 'Gold',
       goldCost: this.getItemValue(this.item),

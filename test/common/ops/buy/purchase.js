@@ -1,5 +1,5 @@
 import purchase from '../../../../website/common/script/ops/buy/purchase';
-import planGemLimits from '../../../../website/common/script/libs/planGemLimits';
+import pinnedGearUtils from '../../../../website/common/script/ops/pinnedGearUtils';
 import {
   BadRequest,
   NotAuthorized,
@@ -16,7 +16,6 @@ describe('shared.ops.purchase', () => {
   const SEASONAL_FOOD = 'Meat';
   let user;
   let goldPoints = 40;
-  let gemsBought = 40;
   let analytics = {track () {}};
 
   before(() => {
@@ -25,10 +24,12 @@ describe('shared.ops.purchase', () => {
 
   beforeEach(() => {
     sinon.stub(analytics, 'track');
+    sinon.spy(pinnedGearUtils, 'removeItemByPath');
   });
 
   afterEach(() => {
     analytics.track.restore();
+    pinnedGearUtils.removeItemByPath.restore();
   });
 
   context('failure conditions', () => {
@@ -42,63 +43,6 @@ describe('shared.ops.purchase', () => {
       }
     });
 
-    it('returns an error when key is not provided', (done) => {
-      try {
-        purchase(user, {params: {type: 'gems'}});
-      } catch (err) {
-        expect(err).to.be.an.instanceof(BadRequest);
-        expect(err.message).to.equal(i18n.t('keyRequired'));
-        done();
-      }
-    });
-
-    it('prevents unsubscribed user from buying gems', (done) => {
-      try {
-        purchase(user, {params: {type: 'gems', key: 'gem'}});
-      } catch (err) {
-        expect(err).to.be.an.instanceof(NotAuthorized);
-        expect(err.message).to.equal(i18n.t('mustSubscribeToPurchaseGems'));
-        done();
-      }
-    });
-
-    it('prevents user with not enough gold from buying gems', (done) => {
-      user.purchased.plan.customerId = 'customer-id';
-
-      try {
-        purchase(user, {params: {type: 'gems', key: 'gem'}});
-      } catch (err) {
-        expect(err).to.be.an.instanceof(NotAuthorized);
-        expect(err.message).to.equal(i18n.t('messageNotEnoughGold'));
-        done();
-      }
-    });
-
-    it('prevents user that have reached the conversion cap from buying gems', (done) => {
-      user.stats.gp = goldPoints;
-      user.purchased.plan.gemsBought = gemsBought;
-
-      try {
-        purchase(user, {params: {type: 'gems', key: 'gem'}});
-      } catch (err) {
-        expect(err).to.be.an.instanceof(NotAuthorized);
-        expect(err.message).to.equal(i18n.t('reachedGoldToGemCap', {convCap: planGemLimits.convCap}));
-        done();
-      }
-    });
-
-    it('prevents user from buying an invalid quantity', (done) => {
-      user.stats.gp = goldPoints;
-      user.purchased.plan.gemsBought = gemsBought;
-
-      try {
-        purchase(user, {params: {type: 'gems', key: 'gem'}, quantity: 'a'});
-      } catch (err) {
-        expect(err).to.be.an.instanceof(BadRequest);
-        expect(err.message).to.equal(i18n.t('invalidQuantity'));
-        done();
-      }
-    });
 
     it('returns error when unknown type is provided', (done) => {
       try {
@@ -174,25 +118,12 @@ describe('shared.ops.purchase', () => {
       user.stats.gp = goldPoints;
       user.purchased.plan.gemsBought = 0;
       user.purchased.plan.customerId = 'customer-id';
-    });
-
-    it('purchases gems', () => {
-      let [, message] = purchase(user, {params: {type: 'gems', key: 'gem'}}, analytics);
-
-      expect(message).to.equal(i18n.t('plusOneGem'));
-      expect(user.balance).to.equal(userGemAmount + 0.25);
-      expect(user.purchased.plan.gemsBought).to.equal(1);
-      expect(user.stats.gp).to.equal(goldPoints - planGemLimits.convRate);
-      expect(analytics.track).to.be.calledOnce;
-    });
-
-    it('purchases gems with a different language than the default', () => {
-      let [, message] = purchase(user, {params: {type: 'gems', key: 'gem'}, language: 'de'});
-
-      expect(message).to.equal(i18n.t('plusOneGem', 'de'));
-      expect(user.balance).to.equal(userGemAmount + 0.5);
-      expect(user.purchased.plan.gemsBought).to.equal(2);
-      expect(user.stats.gp).to.equal(goldPoints - planGemLimits.convRate * 2);
+      user.pinnedItems.push({type: 'eggs', key: 'Wolf'});
+      user.pinnedItems.push({type: 'hatchingPotions', key: 'Base'});
+      user.pinnedItems.push({type: 'food', key: SEASONAL_FOOD});
+      user.pinnedItems.push({type: 'quests', key: 'gryphon'});
+      user.pinnedItems.push({type: 'gear', key: 'headAccessory_special_tigerEars'});
+      user.pinnedItems.push({type: 'bundles', key: 'featheredFriends'});
     });
 
     it('purchases eggs', () => {
@@ -202,6 +133,7 @@ describe('shared.ops.purchase', () => {
       purchase(user, {params: {type, key}}, analytics);
 
       expect(user.items[type][key]).to.equal(1);
+      expect(pinnedGearUtils.removeItemByPath.notCalled).to.equal(true);
       expect(analytics.track).to.be.calledOnce;
     });
 
@@ -212,6 +144,7 @@ describe('shared.ops.purchase', () => {
       purchase(user, {params: {type, key}});
 
       expect(user.items[type][key]).to.equal(1);
+      expect(pinnedGearUtils.removeItemByPath.notCalled).to.equal(true);
     });
 
     it('purchases food', () => {
@@ -221,6 +154,7 @@ describe('shared.ops.purchase', () => {
       purchase(user, {params: {type, key}});
 
       expect(user.items[type][key]).to.equal(1);
+      expect(pinnedGearUtils.removeItemByPath.notCalled).to.equal(true);
     });
 
     it('purchases quests', () => {
@@ -230,6 +164,7 @@ describe('shared.ops.purchase', () => {
       purchase(user, {params: {type, key}});
 
       expect(user.items[type][key]).to.equal(1);
+      expect(pinnedGearUtils.removeItemByPath.notCalled).to.equal(true);
     });
 
     it('purchases gear', () => {
@@ -239,6 +174,7 @@ describe('shared.ops.purchase', () => {
       purchase(user, {params: {type, key}});
 
       expect(user.items.gear.owned[key]).to.be.true;
+      expect(pinnedGearUtils.removeItemByPath.calledOnce).to.equal(true);
     });
 
     it('purchases quest bundles', () => {
@@ -261,6 +197,7 @@ describe('shared.ops.purchase', () => {
 
       expect(user.balance).to.equal(startingBalance - price);
 
+      expect(pinnedGearUtils.removeItemByPath.notCalled).to.equal(true);
       clock.restore();
     });
   });
@@ -290,18 +227,6 @@ describe('shared.ops.purchase', () => {
         expect(err.message).to.equal(i18n.t('notEnoughGems'));
         done();
       }
-    });
-
-    it('makes bulk purchases of gems', () => {
-      let [, message] = purchase(user, {
-        params: {type: 'gems', key: 'gem'},
-        quantity: 2,
-      });
-
-      expect(message).to.equal(i18n.t('plusOneGem'));
-      expect(user.balance).to.equal(userGemAmount + 0.50);
-      expect(user.purchased.plan.gemsBought).to.equal(2);
-      expect(user.stats.gp).to.equal(goldPoints - planGemLimits.convRate * 2);
     });
 
     it('makes bulk purchases of eggs', () => {

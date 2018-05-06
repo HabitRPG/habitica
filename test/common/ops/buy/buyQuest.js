@@ -1,17 +1,24 @@
 import {
   generateUser,
 } from '../../../helpers/common.helper';
-import buyQuest from '../../../../website/common/script/ops/buy/buyQuest';
+import {BuyQuestWithGoldOperation} from '../../../../website/common/script/ops/buy/buyQuest';
 import {
   BadRequest,
   NotAuthorized,
   NotFound,
 } from '../../../../website/common/script/libs/errors';
 import i18n from '../../../../website/common/script/i18n';
+import errorMessage from '../../../../website/common/script/libs/errorMessage';
 
 describe('shared.ops.buyQuest', () => {
   let user;
   let analytics = {track () {}};
+
+  function buyQuest (_user, _req, _analytics) {
+    const buyOp = new BuyQuestWithGoldOperation(_user, _req, _analytics);
+
+    return buyOp.purchase();
+  }
 
   beforeEach(() => {
     user = generateUser();
@@ -100,7 +107,7 @@ describe('shared.ops.buyQuest', () => {
       });
     } catch (err) {
       expect(err).to.be.an.instanceof(NotFound);
-      expect(err.message).to.equal(i18n.t('questNotFound', {key: 'snarfblatter'}));
+      expect(err.message).to.equal(errorMessage('questNotFound', {key: 'snarfblatter'}));
       expect(user.items.quests).to.eql({});
       expect(user.stats.gp).to.equal(9999);
       done();
@@ -145,7 +152,7 @@ describe('shared.ops.buyQuest', () => {
       buyQuest(user);
     } catch (err) {
       expect(err).to.be.an.instanceof(BadRequest);
-      expect(err.message).to.equal(i18n.t('missingKeyParam'));
+      expect(err.message).to.equal(errorMessage('missingKeyParam'));
       done();
     }
   });

@@ -2,8 +2,8 @@
 
 import {
   generateUser,
-  translate as t,
 } from '../../../../../helpers/api-integration/v3';
+import apiError from '../../../../../../website/server/libs/apiError';
 
 describe('POST /user/buy-gear/:key', () => {
   let user;
@@ -21,7 +21,7 @@ describe('POST /user/buy-gear/:key', () => {
       .to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
-        message: t('itemNotFound', {key: 'notExisting'}),
+        message: apiError('itemNotFound', {key: 'notExisting'}),
       });
   });
 

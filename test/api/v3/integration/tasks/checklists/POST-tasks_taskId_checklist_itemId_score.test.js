@@ -1,6 +1,8 @@
 import {
   generateUser,
   translate as t,
+  server,
+  sleep,
 } from '../../../../../helpers/api-integration/v3';
 import { v4 as generateUUID } from 'uuid';
 
@@ -92,6 +94,51 @@ describe('POST /tasks/:taskId/checklist/:itemId/score', () => {
       code: 404,
       error: 'NotFound',
       message: t('checklistItemNotFound'),
+    });
+  });
+
+  context('sending task activity webhooks', () => {
+    before(async () => {
+      await server.start();
+    });
+
+    after(async () => {
+      await server.close();
+    });
+
+    it('sends task activity webhooks', async () => {
+      let uuid = generateUUID();
+
+      await user.post('/user/webhook', {
+        url: `http://localhost:${server.port}/webhooks/${uuid}`,
+        type: 'taskActivity',
+        enabled: true,
+        options: {
+          checklistScored: true,
+          updated: false,
+        },
+      });
+
+      let task = await user.post('/tasks/user', {
+        text: 'test daily',
+        type: 'daily',
+      });
+
+      let updatedTask = await user.post(`/tasks/${task.id}/checklist`, {
+        text: 'checklist item text',
+      });
+
+      let checklistItem = updatedTask.checklist[0];
+
+      let scoredItemTask = await user.post(`/tasks/${task.id}/checklist/${checklistItem.id}/score`);
+
+      await sleep();
+
+      let body = server.getWebhookData(uuid);
+
+      expect(body.type).to.eql('checklistScored');
+      expect(body.task).to.eql(scoredItemTask);
+      expect(body.item).to.eql(scoredItemTask.checklist[0]);
     });
   });
 });
