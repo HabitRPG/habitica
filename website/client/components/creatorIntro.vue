@@ -1337,28 +1337,33 @@ export default {
       * @returns {boolean} - Determines whether the "Purchase All" button is needed (true) or not (false).
     */
     isPurchaseAllNeeded (types, keySets) {
-      const allItemsLengths = [];
       const purchasedItemsLengths = [];
-
-      // Key set must be specify correctly
-      keySets.forEach((keySet) => {
-        allItemsLengths.push(Object.keys(this[keySet]).length);
-      });
-      const allItems = allItemsLengths.reduce((acc, val) => acc + val);
-
-      // Type can be undefined, so we must check it
+      // Types can be undefined, so we must check them.
       types.forEach((type) => {
         if (this.user.purchased.hair[type]) {
           purchasedItemsLengths
             .push(Object.keys(this.user.purchased.hair[type]).length);
         }
       });
-      if (purchasedItemsLengths.length > 0) {
-        const purchasedItems = purchasedItemsLengths.reduce((acc, val) => acc + val);
-        const unpurchasedItems = allItems - purchasedItems;
-        return unpurchasedItems > 2;
+      // We don't need to count the key sets (below)
+      // if there are no purchased items at all.
+      if (purchasedItemsLengths.length === 0) {
+        return true;
       }
-      return true;
+
+      const allItemsLengths = [];
+      // Key sets must be specify correctly.
+      keySets.forEach((keySet) => {
+        allItemsLengths.push(Object.keys(this[keySet]).length);
+      });
+
+      // Simply sum all the length values and
+      // write them into variables for the convenience.
+      const allItems = allItemsLengths.reduce((acc, val) => acc + val);
+      const purchasedItems = purchasedItemsLengths.reduce((acc, val) => acc + val);
+
+      const unpurchasedItems = allItems - purchasedItems;
+      return unpurchasedItems > 2;
     },
     prev () {
       this.modalPage -= 1;
