@@ -42,7 +42,7 @@ sidebar-section(:title="$t('questDetailsTitle')")
           .row
             .col-12
               .grey-progress-bar
-                .boss-health-bar(:style="{width: (group.quest.progress.hp / questData.boss.hp) * 100 + '%'}")
+                .boss-health-bar(:style="{width: bossHpPercent + '%'}")
           .row.boss-details
             .col-6
               span.float-left
