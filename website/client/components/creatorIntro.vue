@@ -164,26 +164,26 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             .bangs.sprite.customize-option(:class="`hair_bangs_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.bangs": option})')
       #facialhair.row(v-if='activeSubPage === "facialhair"')
         .col-12.customize-options(v-if='editing')
-          .head_0.option(@click='set({"preferences.hair.beard": 0})', :class="[{ active: user.preferences.hair.beard === 0 }, 'hair_base_0_' + user.preferences.hair.color]")
-          .option(v-for='option in baseHair5',
-            :class='{active: option.active, locked: option.locked}')
-            .base.sprite.customize-option(:class="`hair_beard_${option.key}_${user.preferences.hair.color}`", @click='option.click')
-            .gem-lock(v-if='option.locked')
-              .svg-icon.gem(v-html='icons.gem')
-              span 2
-        .col-12.customize-options(v-if='editing')
           .head_0.option(@click='set({"preferences.hair.mustache": 0})', :class="[{ active: user.preferences.hair.mustache === 0 }, 'hair_base_0_' + user.preferences.hair.color]")
-          .option(v-for='option in baseHair6',
+          .option(v-for='option in baseHair5',
             :class='{active: option.active, locked: option.locked}')
             .base.sprite.customize-option(:class="`hair_mustache_${option.key}_${user.preferences.hair.color}`", @click='option.click')
             .gem-lock(v-if='option.locked')
               .svg-icon.gem(v-html='icons.gem')
               span 2
-          .col-12.text-center(v-if='!userOwnsSet("hair", baseHair6Keys, "mustache")')
+        .col-12.customize-options(v-if='editing')
+          .head_0.option(@click='set({"preferences.hair.beard": 0})', :class="[{ active: user.preferences.hair.beard === 0 }, 'hair_base_0_' + user.preferences.hair.color]")
+          .option(v-for='option in baseHair6',
+            :class='{active: option.active, locked: option.locked}')
+            .base.sprite.customize-option(:class="`hair_beard_${option.key}_${user.preferences.hair.color}`", @click='option.click')
+            .gem-lock(v-if='option.locked')
+              .svg-icon.gem(v-html='icons.gem')
+              span 2
+          .col-12.text-center(v-if="isPurchaseAllNeeded(['mustache', 'beard'], ['baseHair5', 'baseHair6'])")
             .gem-lock
               .svg-icon.gem(v-html='icons.gem')
               span 5
-            button.btn.btn-secondary.purchase-all(@click='unlock(`hair.beard.${baseHair5Keys.join(",hair.beard.")},hair.mustache.${baseHair6Keys.join(",hair.mustache.")}`)') {{ $t('purchaseAll') }}
+            button.btn.btn-secondary.purchase-all(@click='unlock(`hair.mustache.${baseHair5Keys.join(",hair.mustache.")},hair.beard.${baseHair6Keys.join(",hair.beard.")}`)') {{ $t('purchaseAll') }}
     #extra.section.container.customize-section(v-if='activeTopPage === "extra"')
       .row.sub-menu
         .col-3.offset-1.text-center.sub-menu-item(@click='changeSubPage("glasses")', :class='{active: activeSubPage === "glasses"}')
@@ -1005,8 +1005,8 @@ export default {
       baseHair2Keys: [2, 4, 5, 6, 7, 8],
       baseHair3Keys: [9, 10, 11, 12, 13, 14],
       baseHair4Keys: [15, 16, 17, 18, 19, 20],
-      baseHair5Keys: [1, 2, 3],
-      baseHair6Keys: [1, 2],
+      baseHair5Keys: [1, 2],
+      baseHair6Keys: [1, 2, 3],
       animalEarsKeys: ['bearEars', 'cactusEars', 'foxEars', 'lionEars', 'pandaEars', 'pigEars', 'tigerEars', 'wolfEars'],
       icons: Object.freeze({
         logoPurple,
@@ -1223,7 +1223,7 @@ export default {
       let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
       let keys = this.baseHair5Keys;
       let options = keys.map(key => {
-        return this.mapKeysToOption(key, 'hair', 'beard');
+        return this.mapKeysToOption(key, 'hair', 'mustache');
       });
       return options;
     },
@@ -1232,7 +1232,7 @@ export default {
       let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
       let keys = this.baseHair6Keys;
       let options = keys.map(key => {
-        return this.mapKeysToOption(key, 'hair', 'mustache');
+        return this.mapKeysToOption(key, 'hair', 'beard');
       });
       return options;
     },
@@ -1329,6 +1329,36 @@ export default {
       });
 
       return owns;
+    },
+    /**
+      * Allows you to find out whether you need the "Purchase All" button or not. If there are more than 2 unpurchased items, returns true, otherwise returns false.
+      * @param {string[]} types - The items types.
+      * @param {string[]} keySets - The items keySets.
+      * @returns {boolean} - Determines whether the "Purchase All" button is needed (true) or not (false).
+    */
+    isPurchaseAllNeeded (types, keySets) {
+      const allItemsLengths = [];
+      const purchasedItemsLengths = [];
+
+      // Key set must be specify correctly
+      keySets.forEach((keySet) => {
+        allItemsLengths.push(Object.keys(this[keySet]).length);
+      });
+      const allItems = allItemsLengths.reduce((acc, val) => acc + val);
+
+      // Type can be undefined, so we must check it
+      types.forEach((type) => {
+        if (this.user.purchased.hair[type]) {
+          purchasedItemsLengths
+            .push(Object.keys(this.user.purchased.hair[type]).length);
+        }
+      });
+      if (purchasedItemsLengths.length > 0) {
+        const purchasedItems = purchasedItemsLengths.reduce((acc, val) => acc + val);
+        const unpurchasedItems = allItems - purchasedItems;
+        return unpurchasedItems > 2;
+      }
+      return true;
     },
     prev () {
       this.modalPage -= 1;
