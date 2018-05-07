@@ -14,7 +14,7 @@
       .owner-item
         strong {{ $t('createdBy') }}:
         user-link.mx-1(:user="challenge.leader")
-      .owner-item(v-if="challenge.group && challenge.group.name !== 'Tavern'")
+      .owner-item(v-if="challenge.group && !isTavern(challenge.group)")
         strong {{ $t(challenge.group.type) }}:
         group-link.mx-1(:group="challenge.group")
     .meta
@@ -212,6 +212,7 @@
 </style>
 
 <script>
+  import { TAVERN_ID } from '../../../common/script/constants';
   import {mapState} from 'client/libs/store';
   import userLink from '../userLink';
   import groupLink from '../groupLink';
@@ -264,6 +265,9 @@
       },
       isOfficial (category) {
         return category.name === 'habitica_official';
+      },
+      isTavern (group) {
+        return group._id === TAVERN_ID;
       },
     },
   };
