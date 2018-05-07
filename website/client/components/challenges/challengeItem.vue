@@ -26,31 +26,15 @@
           .svg-icon(v-html="icons.calendarIcon")
           strong.mx-1 {{ $t('endDate')}}:
           span {{challenge.endDate}}
-  category-tags(:categories="challenge.categories", :owner-id="challenge.leader._id", v-once)
+  category-tags.challenge-categories(:categories="challenge.categories", :owner-id="challenge.leader._id", v-once)
   .challenge-description {{challenge.summary}}
   .well-wrapper(v-if="fullLayout")
     .well
-      div(:class="{'muted': challenge.tasksOrder.habits.length === 0}")
+      div(v-for="task in tasksData", :class="{'muted': task.value === 0}", v-once)
         .number
-          .svg-icon.habit-icon(v-html="icons.habitIcon")
-          span.value {{challenge.tasksOrder.habits.length}}
-        .label {{$t('habit')}}
-      div(:class="{'muted': challenge.tasksOrder.dailys.length === 0}")
-        .number
-          .svg-icon.daily-icon(v-html="icons.dailyIcon")
-          span.value {{challenge.tasksOrder.dailys.length}}
-        .label {{$t('daily')}}
-      div(:class="{'muted': challenge.tasksOrder.todos.length === 0}")
-        .number
-          .svg-icon.todo-icon(v-html="icons.todoIcon")
-          span.value {{challenge.tasksOrder.todos.length}}
-        div {{$t('todo')}}
-      div(:class="{'muted': challenge.tasksOrder.rewards.length === 0}")
-        .number
-          .svg-icon.reward-icon(v-html="icons.rewardIcon")
-          span.value {{challenge.tasksOrder.rewards.length}}
-        .label {{$t('reward')}}
-
+          .svg-icon(v-html="task.icon", :class="task.label + '-icon'")
+          span.value {{ task.value }}
+        .label {{$t(task.label)}}
 </template>
 
 <style lang="scss">
@@ -143,6 +127,13 @@
       }
     }
 
+    .challenge-categories {
+      clear: right;
+      display: flex;
+      padding: 0 1.5em 1em;
+      flex-wrap: wrap;
+    }
+
     .user-icon {
       width: 20px !important;
     }
@@ -161,17 +152,6 @@
 
     .reward-icon {
       width: 26px;
-    }
-
-    .categories {
-      clear: right;
-      display: flex;
-      padding: 0 1.5em 1em;
-      flex-wrap: wrap;
-    }
-
-    .category-label {
-      margin-top: .5em;
     }
 
     .challenge-description {
@@ -238,21 +218,43 @@
       groupLink,
       categoryTags,
     },
+    directives: {
+      markdown: markdownDirective,
+    },
     data () {
       return {
         icons: Object.freeze({
           gemIcon,
           memberIcon,
           calendarIcon,
-          habitIcon,
-          todoIcon,
-          dailyIcon,
-          rewardIcon,
         }),
       };
     },
-    directives: {
-      markdown: markdownDirective,
+    computed: {
+      tasksData () {
+        return [
+          {
+            icon: habitIcon,
+            label: 'habit',
+            value: this.challenge.tasksOrder.habits.length,
+          },
+          {
+            icon: dailyIcon,
+            label: 'daily',
+            value: this.challenge.tasksOrder.dailys.length,
+          },
+          {
+            icon: todoIcon,
+            label: 'todo',
+            value: this.challenge.tasksOrder.todos.length,
+          },
+          {
+            icon: rewardIcon,
+            label: 'reward',
+            value: this.challenge.tasksOrder.rewards.length,
+          },
+        ];
+      },
     },
     methods: {
       isTavern (group) {
