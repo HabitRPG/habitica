@@ -15,7 +15,7 @@
   background-color: $gray-600;
   padding: .5em;
   display: inline-block;
-  margin-right: .5em;
+  margin: .25em;
   font-size: 12px;
   font-weight: 500;
   line-height: 1.33;
@@ -31,6 +31,11 @@
 .category-label-blue {
   color: white;
   background: $blue-50;
+}
+
+.category-label-green {
+  color: white;
+  background: $green-50;
 }
 
 .category-select {

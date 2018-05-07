@@ -24,7 +24,7 @@ router-link.card-link(:to="{ name: 'guild', params: { groupId: guild._id } }")
                 span.count {{ guild.balance * 4 }}
               div.guild-bank(v-if='displayGemBank', v-once) {{$t('guildBank')}}
           .row
-            category-tags.col-md-12(:categories="guild.categories", :owner-id="guild.leader", v-once)
+            category-tags.col-md-12(:categories="guild.categories", :owner="isOwner", v-once)
               span.recommend-text(v-if='showSuggested(guild._id)') Suggested because you’re new to Habitica.
 </template>
 
@@ -146,6 +146,9 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    isOwner () {
+      return this.guild.leader && this.guild.leader === this.user._id;
+    },
     isMember () {
       return this.isMemberOfGroup(this.user, this.guild);
     },

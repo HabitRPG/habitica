@@ -1,7 +1,9 @@
 <template lang="pug">
   .categories
-    span.category-label.category-label-blue(v-if='isOwner')
-     | {{ $t('owned') }}
+    span.category-label.category-label-blue(v-if='owner')
+      | {{ $t('owned') }}
+    span.category-label.category-label-green(v-if='member')
+      | {{ $t('joined') }}
     span.category-label(
       v-for='category in categories',
       :class="{'category-label-purple':isOfficial(category)}"
@@ -11,21 +13,16 @@
 </template>
 
 <script>
-  import {mapState} from 'client/libs/store';
-
   export default {
     props: {
       categories: {
         required: true,
       },
-      ownerId: {
-        default: null,
+      owner: {
+        default: false,
       },
-    },
-    computed: {
-      ...mapState({user: 'user.data'}),
-      isOwner () {
-        return this.ownerId && this.ownerId === this.user._id;
+      member: {
+        default: false,
       },
     },
     methods: {

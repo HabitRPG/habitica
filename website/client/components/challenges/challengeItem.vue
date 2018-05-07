@@ -26,7 +26,7 @@
           .svg-icon(v-html="icons.calendarIcon")
           strong.mx-1 {{ $t('endDate')}}:
           span {{challenge.endDate}}
-  category-tags.challenge-categories(:categories="challenge.categories", :owner-id="challenge.leader._id", v-once)
+  category-tags.challenge-categories(:categories="challenge.categories", :owner="isOwner", :member="isMember" v-once)
   .challenge-description {{challenge.summary}}
   .well-wrapper(v-if="fullLayout")
     .well
@@ -195,6 +195,7 @@
   import groupLink from '../groupLink';
   import categoryTags from '../categories/categoryTags';
   import markdownDirective from 'client/directives/markdown';
+  import {mapState} from 'client/libs/store';
 
   import gemIcon from 'assets/svg/gem.svg';
   import memberIcon from 'assets/svg/member-icon.svg';
@@ -231,6 +232,13 @@
       };
     },
     computed: {
+      ...mapState({user: 'user.data'}),
+      isOwner () {
+        return this.challenge.leader && this.challenge.leader._id === this.user._id;
+      },
+      isMember () {
+        return this.user.challenges.indexOf(this.challenge._id) !== -1;
+      },
       tasksData () {
         return [
           {
