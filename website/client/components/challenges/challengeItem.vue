@@ -26,9 +26,7 @@
           .svg-icon(v-html="icons.calendarIcon")
           strong.mx-1 {{ $t('endDate')}}:
           span {{challenge.endDate}}
-  .categories
-    span.category-label.category-label-blue(v-if='isLeader(challenge)') {{ $t('owned') }}
-    span.category-label(v-for='category in challenge.categories', :class="{'category-label-purple':isOfficial(category)}") {{ $t(category.name) }}
+  category-tags(:categories="challenge.categories", :owner-id="challenge.leader._id", v-once)
   .challenge-description {{challenge.summary}}
   .well-wrapper(v-if="fullLayout")
     .well
@@ -213,9 +211,9 @@
 
 <script>
   import { TAVERN_ID } from '../../../common/script/constants';
-  import {mapState} from 'client/libs/store';
   import userLink from '../userLink';
   import groupLink from '../groupLink';
+  import categoryTags from '../categories/categoryTags';
   import markdownDirective from 'client/directives/markdown';
 
   import gemIcon from 'assets/svg/gem.svg';
@@ -238,6 +236,7 @@
     components: {
       userLink,
       groupLink,
+      categoryTags,
     },
     data () {
       return {
@@ -252,20 +251,10 @@
         }),
       };
     },
-    computed: {
-      ...mapState({user: 'user.data'}),
-    },
     directives: {
       markdown: markdownDirective,
     },
     methods: {
-      isLeader (challenge) {
-        if (!challenge.leader) return false;
-        return this.user._id === challenge.leader._id;
-      },
-      isOfficial (category) {
-        return category.name === 'habitica_official';
-      },
       isTavern (group) {
         return group._id === TAVERN_ID;
       },
