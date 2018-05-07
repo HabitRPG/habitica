@@ -179,7 +179,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             .gem-lock(v-if='option.locked')
               .svg-icon.gem(v-html='icons.gem')
               span 2
-          .col-12.text-center(v-if="isPurchaseAllNeeded(['mustache', 'beard'], ['baseHair5', 'baseHair6'])")
+          .col-12.text-center(v-if="isPurchaseAllNeeded('hair', ['baseHair5', 'baseHair6'], ['mustache', 'beard'])")
             .gem-lock
               .svg-icon.gem(v-html='icons.gem')
               span 5
@@ -1332,19 +1332,46 @@ export default {
     },
     /**
       * Allows you to find out whether you need the "Purchase All" button or not. If there are more than 2 unpurchased items, returns true, otherwise returns false.
-      * @param {string[]} types - The items types.
+      * @param {string} category - The selected category.
       * @param {string[]} keySets - The items keySets.
+      * @param {string[]} [types] - The items types (subcategories). Optional.
       * @returns {boolean} - Determines whether the "Purchase All" button is needed (true) or not (false).
     */
-    isPurchaseAllNeeded (types, keySets) {
+    isPurchaseAllNeeded (category, keySets, types) {
       const purchasedItemsLengths = [];
-      // Types can be undefined, so we must check them.
-      types.forEach((type) => {
-        if (this.user.purchased.hair[type]) {
-          purchasedItemsLengths
-            .push(Object.keys(this.user.purchased.hair[type]).length);
+      // If item types are specified, count them
+      if (types && types.length > 0) {
+        // Types can be undefined, so we must check them.
+        types.forEach((type) => {
+          if (this.user.purchased[category][type]) {
+            purchasedItemsLengths
+              .push(Object.keys(this.user.purchased[category][type]).length);
+          }
+        });
+      } else {
+        let purchasedItemsCounter = 0;
+
+        // If types are not specified, recursively
+        // search for purchased items in the category
+        const findPurchasedItems = (item) => {
+          if (typeof(item) === 'object') {
+            Object.values(item)
+              .forEach((innerItem) => {
+                if (typeof(innerItem) === 'boolean' && innerItem === true) {
+                  purchasedItemsCounter += 1;
+                }
+                return findPurchasedItems(innerItem);
+              });
+          }
+          return counter;
+        };
+
+        findPurchasedItems(this.user.purchased[category]);
+        if (purchasedItemsCounter > 0) {
+          purchasedItemsLengths.push(purchasedItemsCounter);
         }
-      });
+      }
+
       // We don't need to count the key sets (below)
       // if there are no purchased items at all.
       if (purchasedItemsLengths.length === 0) {
