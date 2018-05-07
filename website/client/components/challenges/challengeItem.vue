@@ -26,7 +26,12 @@
           .svg-icon(v-html="icons.calendarIcon")
           strong.mx-1 {{ $t('endDate')}}:
           span {{challenge.endDate}}
-  category-tags.challenge-categories(:categories="challenge.categories", :owner="isOwner", :member="isMember" v-once)
+  category-tags.challenge-categories(
+    :categories="challenge.categories",
+    :owner="isOwner",
+    :member="isMember",
+    v-once
+  )
   .challenge-description {{challenge.summary}}
   .well-wrapper(v-if="fullLayout")
     .well
