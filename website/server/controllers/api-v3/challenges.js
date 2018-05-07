@@ -1,4 +1,5 @@
 import { authWithHeaders, authWithSession } from '../../middlewares/auth';
+import {MAX_SUMMARY_SIZE_FOR_CHALLENGES} from '../../../common/script/constants.js';
 import _ from 'lodash';
 import cloneDeep from 'lodash/cloneDeep';
 import { model as Challenge } from '../../models/challenge';
@@ -191,6 +192,7 @@ api.createChallenge = {
     let user = res.locals.user;
 
     req.checkBody('group', apiError('groupIdRequired')).notEmpty();
+    req.checkBody('summary', res.t('summaryTooLong')).isLength({max: MAX_SUMMARY_SIZE_FOR_CHALLENGES});
 
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -455,7 +457,7 @@ api.getGroupChallenges = {
     let user = res.locals.user;
     let groupId = req.params.groupId;
 
-    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -669,6 +671,7 @@ api.updateChallenge = {
   })],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+    req.checkBody('summary', res.t('summaryTooLong')).isLength({max: MAX_SUMMARY_SIZE_FOR_CHALLENGES});
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;

@@ -2,18 +2,19 @@ import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-v3-integration.helper';
+import {MAX_SUMMARY_SIZE_FOR_GUILDS} from '../../../../../website/common/script/constants.js';
 
 describe('POST /group', () => {
   let user;
 
   beforeEach(async () => {
-    user = await generateUser({ balance: 10 });
+    user = await generateUser({balance: 10});
   });
 
   context('All Groups', () => {
     it('it returns validation error when type is not provided', async () => {
       await expect(
-        user.post('/groups', { name: 'Test Group Without Type' })
+        user.post('/groups', {name: 'Test Group Without Type'})
       ).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
@@ -23,7 +24,7 @@ describe('POST /group', () => {
 
     it('it returns validation error when type is not supported', async () => {
       await expect(
-        user.post('/groups', { name: 'Group with unsupported type', type: 'foo' })
+        user.post('/groups', {name: 'Group with unsupported type', type: 'foo'})
       ).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
@@ -70,11 +71,26 @@ describe('POST /group', () => {
 
       expect(updatedGroup.summary).to.eql(summary);
     });
+
+    it('returns error when summary is too long', async () => {
+      const name = 'Test Group';
+      let invalidSummary = '#'.repeat(MAX_SUMMARY_SIZE_FOR_GUILDS + 1);
+
+      await expect(user.post('/groups', {
+        name,
+        type: 'guild',
+        summary: invalidSummary,
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('invalidReqParams'),
+      });
+    });
   });
 
   context('Guilds', () => {
     it('returns an error when a user with insufficient funds attempts to create a guild', async () => {
-      await user.update({ balance: 0 });
+      await user.update({balance: 0});
 
       await expect(
         user.post('/groups', {
@@ -138,7 +154,7 @@ describe('POST /group', () => {
       });
 
       it('returns an error when a user with no chat privileges attempts to create a public guild', async () => {
-        await user.update({ 'flags.chatRevoked': true });
+        await user.update({'flags.chatRevoked': true});
 
         await expect(
           user.post('/groups', {
@@ -180,7 +196,7 @@ describe('POST /group', () => {
       });
 
       it('creates a private guild when the user has no chat privileges', async () => {
-        await user.update({ 'flags.chatRevoked': true });
+        await user.update({'flags.chatRevoked': true});
         let privateGuild = await user.post('/groups', {
           name: groupName,
           type: groupType,
@@ -229,7 +245,7 @@ describe('POST /group', () => {
     });
 
     it('creates a party when the user has no chat privileges', async () => {
-      await user.update({ 'flags.chatRevoked': true });
+      await user.update({'flags.chatRevoked': true});
       let party = await user.post('/groups', {
         name: partyName,
         type: partyType,
@@ -239,7 +255,7 @@ describe('POST /group', () => {
     });
 
     it('does not require gems to create a party', async () => {
-      await user.update({ balance: 0 });
+      await user.update({balance: 0});
 
       let party = await user.post('/groups', {
         name: partyName,

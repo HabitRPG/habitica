@@ -1,3 +1,4 @@
+import {MAX_SUMMARY_SIZE_FOR_GUILDS} from '../../../common/script/constants.js';
 import { authWithHeaders } from '../../middlewares/auth';
 import _ from 'lodash';
 import nconf from 'nconf';
@@ -113,6 +114,11 @@ api.createGroup = {
     userFieldsToExclude: ['inbox'],
   })],
   async handler (req, res) {
+    req.checkBody('summary', res.t('summaryTooLong')).isLength({max: MAX_SUMMARY_SIZE_FOR_GUILDS});
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
     let user = res.locals.user;
     let group = new Group(Group.sanitize(req.body));
     group.leader = user._id;
@@ -190,6 +196,7 @@ api.createGroupPlan = {
     let group = new Group(Group.sanitize(req.body.groupToCreate));
 
     req.checkBody('paymentType', res.t('paymentTypeRequired')).notEmpty();
+    req.checkBody('summary', res.t('summaryTooLong')).isLength({max: MAX_SUMMARY_SIZE_FOR_GUILDS});
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -279,7 +286,7 @@ api.createGroupPlan = {
  *
  * @apiError (400) {BadRequest} groupTypesRequired Group types are required
  * @apiError (400) {BadRequest} guildsPaginateBooleanString Paginate query parameter must be a boolean (true or false)
- * @apiError (400) {BadRequest} queryPageInteger Page query parameter must be a positive integer
+ * @apiError (400) {BadRequest} guildsPageInteger Page query parameter must be a positive integer
  * @apiError (400) {BadRequest} guildsOnlyPaginate Only public guilds support pagination
  *
  * @apiSuccess {Object[]} data An array of the requested groups (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
@@ -450,6 +457,7 @@ api.updateGroup = {
     let user = res.locals.user;
 
     req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
+    req.checkBody('summary', res.t('summaryTooLong')).isLength({max: MAX_SUMMARY_SIZE_FOR_GUILDS});
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;

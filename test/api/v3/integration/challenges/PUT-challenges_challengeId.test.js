@@ -4,6 +4,7 @@ import {
   createAndPopulateGroup,
   translate as t,
 } from '../../../../helpers/api-v3-integration.helper';
+import {MAX_SUMMARY_SIZE_FOR_CHALLENGES} from '../../../../../website/common/script/constants.js';
 
 describe('PUT /challenges/:challengeId', () => {
   let privateGuild, user, nonMember, challenge, member;
@@ -44,6 +45,18 @@ describe('PUT /challenges/:challengeId', () => {
         error: 'NotAuthorized',
         message: t('onlyLeaderUpdateChal'),
       });
+  });
+
+  it('returns error when summary is too long', async () => {
+    let invalidSummary = '#'.repeat(MAX_SUMMARY_SIZE_FOR_CHALLENGES + 1);
+
+    await expect(user.put(`/challenges/${challenge._id}`, {
+      summary: invalidSummary,
+    })).to.eventually.be.rejected.and.eql({
+      code: 400,
+      error: 'BadRequest',
+      message: t('invalidReqParams'),
+    });
   });
 
   it('only updates allowed fields', async () => {
