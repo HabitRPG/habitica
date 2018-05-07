@@ -457,7 +457,7 @@ api.getGroupChallenges = {
     let user = res.locals.user;
     let groupId = req.params.groupId;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
