@@ -6,9 +6,6 @@ import * as Tasks from '../task';
 import {
   model as UserNotification,
 } from '../userNotification';
-import {
-  userActivityWebhook,
-} from '../../libs/webhook';
 
 import schema from './schema';
 
