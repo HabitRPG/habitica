@@ -63,17 +63,17 @@
           // @TODO: V2 button.btn.btn-primary(v-once, v-if='!isLeader') {{$t('messageGuildLeader')}} // Suggest making the button visible to the leader too - useful for them to test how the feature works or to send a note to themself. -- Alys
         .button-container
           // @TODO: V2 button.btn.btn-primary(v-once, v-if='isMember && !isParty') {{$t('donateGems')}} // Suggest removing the isMember restriction - it's okay if non-members donate to a public guild. Also probably allow it for parties if parties can buy imagery. -- Alys
-    quest-sidebar-section(:group='group', v-if='isParty')
-    sidebar-section(:title="$t('guildSummary')", v-if='!isParty')
-      p(v-markdown='group.summary')
-    sidebar-section(:title="$t('groupDescription')")
-      p(v-markdown='group.description')
-    sidebar-section(
-      :title="$t('challenges')",
-      :tooltip="isParty ? $t('challengeDetails') : $t('privateDescription')"
-      :last="true"
-    )
-      group-challenges(:groupId='searchId')
+    div
+      quest-sidebar-section(:group='group', v-if='isParty')
+      sidebar-section(:title="$t('guildSummary')", v-if='!isParty')
+        p(v-markdown='group.summary')
+      sidebar-section(:title="$t('groupDescription')")
+        p(v-markdown='group.description')
+      sidebar-section(
+        :title="$t('challenges')",
+        :tooltip="isParty ? $t('challengeDetails') : $t('privateDescription')"
+      )
+        group-challenges(:groupId='searchId')
     div.text-center
       button.btn.btn-danger(v-if='isMember', @click='clickLeave()') {{ isParty ? $t('leaveParty') : $t('leaveGroup') }}
 </template>

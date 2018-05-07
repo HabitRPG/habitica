@@ -70,13 +70,11 @@
       button.btn.btn-primary(v-once, @click='exportChallengeCsv()') {{$t('exportChallengeCsv')}}
     .button-container(v-if='isLeader || isAdmin')
       button.btn.btn-danger(v-once, @click='closeChallenge()') {{$t('endChallenge')}}
-    sidebar-section(:title="$t('challengeSummary')")
-      p(v-markdown='challenge.summary')
-    sidebar-section(
-      :title="$t('challengeDescription')"
-      :last="true"
-    )
-      p(v-markdown='challenge.description')
+    div
+      sidebar-section(:title="$t('challengeSummary')")
+        p(v-markdown='challenge.summary')
+      sidebar-section(:title="$t('challengeDescription')")
+        p(v-markdown='challenge.description')
     .text-center(v-if='isMember')
       button.btn.btn-danger(v-once, @click='leaveChallenge()') {{$t('leaveChallenge')}}
 </template>

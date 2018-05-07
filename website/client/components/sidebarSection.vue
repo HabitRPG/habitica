@@ -1,5 +1,5 @@
 <template lang="pug">
-  .section(:class="{'section-last': last}")
+  .section
       .section-header.d-flex.align-items-center
         h3.mb-0(v-once)
           | {{ title }}
@@ -29,7 +29,7 @@
     padding-top: 1em;
   }
 
-  .section-last {
+  .section:last-of-type {
     border-bottom: 1px solid #e1e0e3;
     margin-bottom: 1em;
     padding-bottom: 1em;
@@ -69,9 +69,6 @@
       },
       show: {
         default: true,
-      },
-      last: {
-        default: false,
       },
     },
     data () {
