@@ -58,6 +58,7 @@
   import upIcon from 'assets/svg/up.svg';
   import downIcon from 'assets/svg/down.svg';
   import informationIcon from 'assets/svg/information.svg';
+  import bTooltip from 'bootstrap-vue/es/components/tooltip/tooltip';
 
   export default {
     props: {
@@ -70,6 +71,9 @@
       show: {
         default: true,
       },
+    },
+    components: {
+      bTooltip,
     },
     data () {
       return {
