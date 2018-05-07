@@ -74,9 +74,9 @@
 
   .challenge {
     background-color: $white;
-    box-shadow: 0 2px 2px 0 $gray-400, 0 1px 4px 0 $gray-500;
+    box-shadow: 0 2px 2px 0 rgba($black, 0.15), 0 1px 4px 0 rgba($black, 0.1);
     margin-bottom: 1em;
-    border-radius: .3em;
+    border-radius: 4px;
     padding-bottom: .5em;
 
     .number {
@@ -106,7 +106,7 @@
       padding: 1em 1.5em;
       margin-left: 1em;
       background: #eefaf6;
-      border-bottom-left-radius: .3em;
+      border-bottom-left-radius: 4px;
 
       .svg-icon {
         width: 32px;
