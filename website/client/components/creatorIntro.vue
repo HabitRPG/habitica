@@ -1354,16 +1354,16 @@ export default {
         // If types are not specified, recursively
         // search for purchased items in the category
         const findPurchasedItems = (item) => {
-          if (typeof(item) === 'object') {
+          if (typeof item === 'object') {
             Object.values(item)
               .forEach((innerItem) => {
-                if (typeof(innerItem) === 'boolean' && innerItem === true) {
+                if (typeof innerItem === 'boolean' && innerItem === true) {
                   purchasedItemsCounter += 1;
                 }
                 return findPurchasedItems(innerItem);
               });
           }
-          return counter;
+          return purchasedItemsCounter;
         };
 
         findPurchasedItems(this.user.purchased[category]);
