@@ -82,48 +82,48 @@ describe('POST /tasks/:id/score/:direction', () => {
       expect(body.delta).to.be.greaterThan(0);
     });
 
-    context('sending user activity webhooks', () => {
-      before(async () => {
-        await server.start();
-      });
-
-      after(async () => {
-        await server.close();
-      });
-
-      it('sends user activity webhook when the user levels up', async () => {
-        let uuid = generateUUID();
-
-        await user.post('/user/webhook', {
-          url: `http://localhost:${server.port}/webhooks/${uuid}`,
-          type: 'userActivity',
-          enabled: true,
-          options: {
-            leveledUp: true,
-          },
-        });
-
-        const initialLvl = user.stats.lvl;
-
-        await user.update({
-          'stats.exp': 3000,
-        });
-        let task = await user.post('/tasks/user', {
-          text: 'test habit',
-          type: 'habit',
-        });
-
-        await user.post(`/tasks/${task.id}/score/up`);
-        await user.sync();
-        await sleep();
-
-        let body = server.getWebhookData(uuid);
-
-        expect(body.type).to.eql('leveledUp');
-        expect(body.initialLvl).to.eql(initialLvl);
-        expect(body.finalLvl).to.eql(user.stats.lvl);
-      });
-    });
+    // context('sending user activity webhooks', () => {
+    //   before(async () => {
+    //     await server.start();
+    //   });
+    //
+    //   after(async () => {
+    //     await server.close();
+    //   });
+    //
+    //   it('sends user activity webhook when the user levels up', async () => {
+    //     let uuid = generateUUID();
+    //
+    //     await user.post('/user/webhook', {
+    //       url: `http://localhost:${server.port}/webhooks/${uuid}`,
+    //       type: 'userActivity',
+    //       enabled: true,
+    //       options: {
+    //         leveledUp: true,
+    //       },
+    //     });
+    //
+    //     const initialLvl = user.stats.lvl;
+    //
+    //     await user.update({
+    //       'stats.exp': 3000,
+    //     });
+    //     let task = await user.post('/tasks/user', {
+    //       text: 'test habit',
+    //       type: 'habit',
+    //     });
+    //
+    //     await user.post(`/tasks/${task.id}/score/up`);
+    //     await user.sync();
+    //     await sleep();
+    //
+    //     let body = server.getWebhookData(uuid);
+    //
+    //     expect(body.type).to.eql('leveledUp');
+    //     expect(body.initialLvl).to.eql(initialLvl);
+    //     expect(body.finalLvl).to.eql(user.stats.lvl);
+    //   });
+    // });
   });
 
   context('todos', () => {
