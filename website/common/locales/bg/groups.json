@@ -252,7 +252,7 @@
     "userRequestsApproval": "<%= userName %> иска одобрение",
     "userCountRequestsApproval": "<%= userCount %> потребители искат одобрение",
     "youAreRequestingApproval": "Вие искате одобрение",
-    "chatPrivilegesRevoked": "You cannot do that because your chat privileges have been revoked.",
+    "chatPrivilegesRevoked": "Не можете да направите това, защото привилегиите Ви в чата са Ви били отнети.",
     "cannotCreatePublicGuildWhenMuted": "Не можете да създадете обществена гилдия, защото привилегиите Ви в чата са Ви били отнети.",
     "cannotInviteWhenMuted": "Не можете да изпратите покана за гилдия или група, защото привилегиите Ви в чата са Ви били отнети.",
     "newChatMessagePlainNotification": "Има ново съобщение в <%= groupName %> от <%= authorName %>. Щракнете тук, за да отворите страницата!",

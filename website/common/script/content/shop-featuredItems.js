@@ -31,7 +31,11 @@ const featuredItems = {
     },
     {
       type: 'quests',
-      path: 'quests.bunny',
+      path: 'quests.butterfly',
+    },
+    {
+      type: 'bundles',
+      path: 'bundles.cuddleBuddies',
     },
   ],
   seasonal: '',

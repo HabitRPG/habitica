@@ -87,7 +87,7 @@
     "positiveAmountRequired": "Dodatnia ilość jest wymagana",
     "notAccteptedType": "Typ musi zostać być jednym z: [eggs, hatchingPotions, premiumHatchingPotions, food, quests, gear]",
     "contentKeyNotFound": "Nie znaleziono klawisza dla <%= type %>",
-    "plusGem": "+<%= count %> Gem",
+    "plusGem": "+  <%= count %> Klejnotów",
     "typeNotSellable": "Gatunek nie jest na sprzedaż. Musi być jednym z <%= acceptedTypes %>",
     "userItemsKeyNotFound": "Klawisz nie został znaleziony dla user.items <%= type %>",
     "userItemsNotEnough": "Nie masz wystarczająco <%= type %>",

@@ -4,6 +4,12 @@
   width: 141px;
   height: 441px;
 }
+.promo_bundle_cuddleBuddies {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -426px -587px;
+  width: 141px;
+  height: 441px;
+}
 .promo_ios {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: -532px 0px;
@@ -12,7 +18,7 @@
 }
 .promo_mystery_201804 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -340px -383px;
+  background-position: -1099px -296px;
   width: 114px;
   height: 90px;
 }
@@ -24,19 +30,19 @@
 }
 .promo_seasonalshop_spring {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -340px -244px;
+  background-position: -858px -492px;
   width: 162px;
   height: 138px;
 }
 .promo_shimmer_pastel {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -426px -735px;
+  background-position: -858px -148px;
   width: 354px;
   height: 147px;
 }
 .promo_shiny_seeds {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -426px -587px;
+  background-position: -858px 0px;
   width: 360px;
   height: 147px;
 }
@@ -48,9 +54,15 @@
 }
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -340px -474px;
+  background-position: -1099px -387px;
   width: 114px;
   height: 87px;
+}
+.scene_casting_spells {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -532px -337px;
+  width: 312px;
+  height: 222px;
 }
 .scene_positivity {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
@@ -60,7 +72,7 @@
 }
 .scene_todos {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -532px -337px;
+  background-position: -858px -296px;
   width: 240px;
   height: 195px;
 }
