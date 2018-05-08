@@ -304,7 +304,7 @@
     "alreadyHaveAccountLogin": "Вече имате регистрация? <strong>Влезте.</strong>",
     "dontHaveAccountSignup": "Нямате регистрация? <strong>Регистрирайте се.</strong>",
     "motivateYourself": "Мотивирайте се, за да изпълните целите си.",
-    "timeToGetThingsDone": "It's time to have fun when you get things done! Join over <%= userCountInMillions %> million Habiticans and improve your life one task at a time.",
+    "timeToGetThingsDone": "Време е да започнете да се забавлявате, докато вършите нещата си! Присъединете се към над <%= userCountInMillions %> милиона хабитиканци и подобрете живота си, задача по задача.",
     "singUpForFree": "Регистрирайте се безплатно",
     "or": "ИЛИ",
     "gamifyYourLife": "Превърнете живота си в игра",
