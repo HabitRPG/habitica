@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import nconf from 'nconf';
-// @TODO remove this lib and use directly the apn module
 import { Provider, Notification } from 'apn';
 import logger from './logger';
 import {
