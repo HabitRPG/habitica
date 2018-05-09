@@ -5,7 +5,7 @@
         h1 {{ $t('frequentlyAskedQuestions') }}
         .faq-question(v-for='(heading, index) in headings')
           h2.accordion(:ref='uniqueRef(index)')
-            a(href="#", :id='heading', @click.stop.prevent='setActivePage(heading)') {{ $t(`faqQuestion${index}`) }}
+            a(v-bind:href="`#${heading}`", id='heading', @click.stop.prevent='setActivePage(heading)') {{ $t(`faqQuestion${index}`) }}
           div(:class='classObject(heading)', v-markdown="$t('webFaqAnswer' + index, replacements)")
         hr
         p(v-markdown="$t('webFaqStillNeedHelp')")
