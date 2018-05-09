@@ -6,7 +6,9 @@ import * as Tasks from '../task';
 import {
   model as UserNotification,
 } from '../userNotification';
-
+import {
+  userActivityWebhook,
+} from '../../libs/webhook';
 import schema from './schema';
 
 schema.plugin(baseModel, {
@@ -15,6 +17,11 @@ schema.plugin(baseModel, {
   private: ['auth.local.hashed_password', 'auth.local.passwordHashMethod', 'auth.local.salt', '_cronSignature', '_ABtests'],
   toJSONTransform: function userToJSON (plainObj, originalDoc) {
     plainObj._tmp = originalDoc._tmp; // be sure to send down drop notifs
+
+    if (plainObj._tmp && plainObj._tmp.leveledUp) {
+      delete plainObj._tmp.leveledUp;
+    }
+
     delete plainObj.filters;
 
     if (originalDoc.notifications) {
@@ -313,4 +320,24 @@ schema.pre('save', true, function preSaveUser (next, done) {
 
 schema.pre('update', function preUpdateUser () {
   this.update({}, {$inc: {_v: 1}});
+});
+
+schema.post('save', function postSaveUser () {
+  // Send a webhook notification when the user has leveled up
+  if (this._tmp && this._tmp.leveledUp && this._tmp.leveledUp.length > 0) {
+    const lvlUpNotifications = this._tmp.leveledUp;
+    const firstLvlNotification = lvlUpNotifications[0];
+    const lastLvlNotification = lvlUpNotifications[lvlUpNotifications.length - 1];
+
+    const initialLvl = firstLvlNotification.initialLvl;
+    const finalLvl = lastLvlNotification.newLvl;
+
+    userActivityWebhook.send(this, {
+      type: 'leveledUp',
+      initialLvl,
+      finalLvl,
+    });
+
+    this._tmp.leveledUp = [];
+  }
 });
