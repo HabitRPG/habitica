@@ -20,7 +20,7 @@ module.exports = function updateStats (user, stats, req = {}, analytics) {
   if (stats.exp >= experienceToNextLevel) {
     user.stats.exp = stats.exp;
 
-    // const initialLvl = user.stats.lvl;
+    const initialLvl = user.stats.lvl;
 
     while (stats.exp >= experienceToNextLevel) {
       stats.exp -= experienceToNextLevel;
@@ -50,13 +50,12 @@ module.exports = function updateStats (user, stats, req = {}, analytics) {
       }
     }
 
-    // @TODO: Tmp disable to see if this is causing concurrency
-    // const newLvl = user.stats.lvl;
-    //
-    // if (user.addNotification) user.addNotification('LEVELED_UP', {
-    //   initialLvl,
-    //   newLvl,
-    // });
+    const newLvl = user.stats.lvl;
+    if (!user._tmp.leveledUp) user._tmp.leveledUp = [];
+    user._tmp.leveledUp.push({
+      initialLvl,
+      newLvl,
+    });
   }
 
   user.stats.exp = stats.exp;

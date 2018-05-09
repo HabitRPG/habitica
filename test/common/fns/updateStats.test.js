@@ -8,7 +8,7 @@ describe('common.fns.updateStats', () => {
 
   beforeEach(() => {
     user = generateUser();
-    // user.addNotification = sinon.spy();
+    user.addNotification = sinon.spy();
   });
 
   context('No Hp', () => {
@@ -110,26 +110,25 @@ describe('common.fns.updateStats', () => {
       expect(user.stats.points).to.eql(10);
     });
 
-    xit('add user notification when drops are enabled', () => {
+    it('add user notification when drops are enabled', () => {
       user.stats.lvl = 3;
       updateStats(user, { });
       expect(user.addNotification).to.be.calledOnce;
       expect(user.addNotification).to.be.calledWith('DROPS_ENABLED');
     });
 
-    xit('add user notification when the user levels up', () => {
+    it('add user notification when the user levels up', () => {
       const initialLvl = user.stats.lvl;
       updateStats(user, {
         exp: 3000,
       });
-      expect(user.addNotification).to.be.calledTwice; // once is for drops enabled
-      expect(user.addNotification).to.be.calledWith('LEVELED_UP', {
+      expect(user._tmp.leveledUp).to.eql([{
         initialLvl,
         newLvl: user.stats.lvl,
-      });
+      }]);
     });
 
-    xit('add user notification when rebirth is enabled', () => {
+    it('add user notification when rebirth is enabled', () => {
       user.stats.lvl = 51;
       updateStats(user, { });
       expect(user.addNotification).to.be.calledTwice; // once is for drops enabled
