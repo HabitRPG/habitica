@@ -597,6 +597,7 @@ let schema = new Schema({
     type: {type: String},
   }],
 }, {
+  skipVersioning: { notifications: true },
   strict: true,
   minimize: false, // So empty objects are returned
 });
