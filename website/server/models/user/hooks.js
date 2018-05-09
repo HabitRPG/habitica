@@ -286,25 +286,6 @@ schema.pre('save', true, function preSaveUser (next, done) {
     }
   }
 
-  // Send a webhook notification when the user has leveled up
-  if (this._tmp && this._tmp.leveledUp && this._tmp.leveledUp.length > 0) {
-    const lvlUpNotifications = this._tmp.leveledUp;
-    const firstLvlNotification = lvlUpNotifications[0];
-    const lastLvlNotification = lvlUpNotifications[lvlUpNotifications.length - 1];
-
-    const initialLvl = firstLvlNotification.initialLvl;
-    const finalLvl = lastLvlNotification.newLvl;
-
-    // Delayed so we don't block the user saving
-    setTimeout(() => {
-      userActivityWebhook.send(this, {
-        type: 'leveledUp',
-        initialLvl,
-        finalLvl,
-      });
-    });
-  }
-
   if (this.isDirectSelected('flags')) {
     // Enable weekly recap emails for old users who sign in
     if (this.flags.lastWeeklyRecapDiscriminator) {
@@ -339,4 +320,24 @@ schema.pre('save', true, function preSaveUser (next, done) {
 
 schema.pre('update', function preUpdateUser () {
   this.update({}, {$inc: {_v: 1}});
+});
+
+schema.post('save', function postSaveUser () {
+  // Send a webhook notification when the user has leveled up
+  if (this._tmp && this._tmp.leveledUp && this._tmp.leveledUp.length > 0) {
+    const lvlUpNotifications = this._tmp.leveledUp;
+    const firstLvlNotification = lvlUpNotifications[0];
+    const lastLvlNotification = lvlUpNotifications[lvlUpNotifications.length - 1];
+
+    const initialLvl = firstLvlNotification.initialLvl;
+    const finalLvl = lastLvlNotification.newLvl;
+
+    userActivityWebhook.send(this, {
+      type: 'leveledUp',
+      initialLvl,
+      finalLvl,
+    });
+
+    this._tmp.leveledUp = [];
+  }
 });
