@@ -87,7 +87,7 @@
     "positiveAmountRequired": "Es necesaria una cantidad positiva",
     "notAccteptedType": "El tipo debe estar en [huevos, Pociones de eclosión, comida, misiones, equipación]",
     "contentKeyNotFound": "Llave no encontrada para Contenido <%= type %>",
-    "plusGem": "+<%= count %> Gem",
+    "plusGem": "+<%= count %> gemas",
     "typeNotSellable": "Tipo no vendible. Debe ser alguno de los siguientes <%= acceptedTypes %>",
     "userItemsKeyNotFound": "Llave no encontrada para user.items <%= type %>",
     "userItemsNotEnough": "No tienes suficiente <%= type %>",

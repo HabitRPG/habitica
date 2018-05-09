@@ -87,7 +87,7 @@
     "positiveAmountRequired": "Изисква се положително количество",
     "notAccteptedType": "Типът трябва да бъде един от следните: eggs, hatchingPotions, premiumHatchingPotions, food, quests, gear",
     "contentKeyNotFound": "Ключът не е открит за съдържанието <%= type %>",
-    "plusGem": "+<%= count %> Gem",
+    "plusGem": "+<%= count %> диамант",
     "typeNotSellable": "Този тип не може да се продава. Трябва да бъде един от следните: <%= acceptedTypes %>",
     "userItemsKeyNotFound": "Ключът не е намерен за user.items <%= type %>",
     "userItemsNotEnough": "Нямате достатъчно <%= type %>",

@@ -87,7 +87,7 @@
     "positiveAmountRequired": "Un montant positif est requis",
     "notAccteptedType": "Le Type doit faire partie de [eggs, hatchingPotions, premiumHatchingPotions, food, quests, gear]",
     "contentKeyNotFound": "Clé non trouvée pour le contenu <%= type %>",
-    "plusGem": "+<%= count %> Gem",
+    "plusGem": "+<%= count %> Gemmes",
     "typeNotSellable": "Type n'est pas vendable. Il doit faire partie des types suivants <%= acceptedTypes %>",
     "userItemsKeyNotFound": "Clé non trouvée pour user.items <%= type %>",
     "userItemsNotEnough": "Vous n'avez pas assez de <%= type %>.",

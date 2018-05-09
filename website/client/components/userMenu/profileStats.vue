@@ -55,7 +55,6 @@
 
             h3(v-if="label !== 'skip'") {{ label }}
             h3(v-else) {{ $t('background') }}
-
     .row.pet-mount-row
       .col-12.col-md-6
         h2.text-center(v-once) {{ $t('pets') }}
@@ -134,15 +133,15 @@
       .row
         .col-12.col-md-3(v-for='(statInfo, stat) in allocateStatsList')
           .box.white.row.col-12
-            .col-12.col-md-8
+            .col-12.col-md-9
               div(:class='stat') {{ $t(stats[stat].title) }}
               .number {{ user.stats[stat] }}
               .points {{$t('pts')}}
-            .col-12.col-md-4
+            .col-12.col-md-3
               div
                 .up(v-if='user.stats.points', @click='allocate(stat)')
               div
-                .down(@click='deallocate(stat)')
+                .down(@click='deallocate(stat)', v-if='user.stats.points')
       .row.save-row
         .col-12.col-md-6.offset-md-3.text-center
           button.btn.btn-primary(@click='saveAttributes()', :disabled='loading') {{ this.loading ?  $t('loading') : $t('save') }}
@@ -212,7 +211,7 @@
             popover: 'perText',
           },
         },
-        statsAtStart: {
+        statUpdates: {
           str: 0,
           int: 0,
           con: 0,
@@ -220,9 +219,6 @@
         },
         content: Content,
       };
-    },
-    mounted () {
-      this.statsAtStart = Object.assign({}, this.user.stats);
     },
     computed: {
       ...mapState({
@@ -291,19 +287,20 @@
       },
       allocate (stat) {
         allocate(this.user, {query: { stat }});
+        this.statUpdates[stat] += 1;
       },
       deallocate (stat) {
         if (this.user.stats[stat] === 0) return;
         this.user.stats[stat] -= 1;
         this.user.stats.points += 1;
+        this.statUpdates[stat] -= 1;
       },
       async saveAttributes () {
         this.loading = true;
 
         const statUpdates = {};
         ['str', 'int', 'per', 'con'].forEach(stat => {
-          const diff = this.user.stats[stat] - this.statsAtStart[stat];
-          statUpdates[stat] = diff;
+          if (this.statUpdates[stat] > 0) statUpdates[stat] = this.statUpdates[stat];
         });
 
         await axios.post('/api/v3/user/allocate-bulk', {
