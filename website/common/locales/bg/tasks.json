@@ -145,7 +145,6 @@
     "rewardHelp3": "По време на световни събития, тук ще се появява специалната екипировка.",
     "rewardHelp4": "Не се притеснявайте да си създадете свои собствени награди! Вижте <a href='http://habitica.wikia.com/wiki/Sample_Custom_Rewards' target='_blank'>примерите тук</a>.",
     "clickForHelp": "Щракнете за помощ",
-    "taskIdRequired": "„taskId“ трябва да бъде правилно форматиран идентификатор UUID.",
     "taskAliasAlreadyUsed": "Псевдонимът на задачата вече се използва за друга задача.",
     "taskNotFound": "Задачата не е намерена.",
     "invalidTaskType": "Типът на задачата трябва да бъде един от следните: „habit“, „daily“, „todo“, „reward“.",

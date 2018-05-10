@@ -51,7 +51,6 @@
     "spellSpecialSeafoamNotes": "Verwandle einen Freund in ein Meereslebewesen!",
     "spellSpecialSandText": "Sand",
     "spellSpecialSandNotes": "Hebe den Spruch auf, der einen Seestern aus Dir gemacht hat.",
-    "spellNotFound": "Fähigkeit \"<%= spellId %>\" nicht gefunden.",
     "partyNotFound": "Gruppe nicht gefunden",
     "targetIdUUID": "\"targetId\" muss eine gültige Benutzer-ID sein.",
     "challengeTasksNoCast": "Fähigkeiten auf Wettbewerbsaufgaben anzuwenden ist nicht erlaubt.",

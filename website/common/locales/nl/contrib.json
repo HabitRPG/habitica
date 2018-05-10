@@ -49,7 +49,6 @@
     "UUID": "Gebruikers ID",
     "loadUser": "Gebruiker laden",
     "noAdminAccess": "Je hebt geen beheerderstoegang.",
-    "pageMustBeNumber": "req.query.page moet een nummer zijn",
     "userNotFound": "Gebruiker niet gevonden.",
     "invalidUUID": "UUID moet geldig zijn",
     "title": "Titel",

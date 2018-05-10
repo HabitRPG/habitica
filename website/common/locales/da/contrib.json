@@ -49,7 +49,6 @@
     "UUID": "BrugerID",
     "loadUser": "Indlæs bruger",
     "noAdminAccess": "Du har ikke administrator-adgang.",
-    "pageMustBeNumber": "req.query.page skal være et tal",
     "userNotFound": "Bruger ikke fundet.",
     "invalidUUID": "UUID skal være gyldigt",
     "title": "Titel",

@@ -49,7 +49,6 @@
     "UUID": "帳戶ID",
     "loadUser": "載入玩家",
     "noAdminAccess": "您沒有管理員權限。",
-    "pageMustBeNumber": "req.query.page 必須是一個數字",
     "userNotFound": "找不到帳戶。",
     "invalidUUID": "必須用有效的UUID",
     "title": "頭銜",

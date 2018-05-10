@@ -96,7 +96,6 @@
     "questInvitationDoesNotExist": "No quest invitation has been sent out yet.",
     "questInviteNotFound": "No quest invitation found.",
     "guildQuestsNotSupported": "Ships cannot sail to adventures without a crew.",
-    "questNotFound": "Quest \"<%= key %>\" not found.",
     "questNotOwned": "You don't own that quest scroll.",
     "questNotGoldPurchasable": "Quest \"<%= key %>\" is not a Gold-purchasable quest.",
     "questLevelTooHigh": "You must be level <%= level %> to begin this quest.",

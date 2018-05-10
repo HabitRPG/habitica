@@ -145,7 +145,6 @@
     "rewardHelp3": "Özel ekipman, Dünya Etkinlikleri süresince burada belirir.",
     "rewardHelp4": "Özel Ödüller eklemekten çekinme! <a href='http://tr.habitica.wikia.com/wiki/Örnek_Özel_Ödüller' target='_blank'>Bazı örnekleri buradan</a> görebilirsin.",
     "clickForHelp": "Yardım için tıkla",
-    "taskIdRequired": "\"taskID\" geçerli bir UUID olmalıdır.",
     "taskAliasAlreadyUsed": "İşin takma adı başka bir işte kullanılmakta.",
     "taskNotFound": "Görev bulunamadı.",
     "invalidTaskType": "İş türü bunlardan biri olmalıdır: \"habit\", \"daily\", \"todo\", \"reward\".",

@@ -96,7 +96,6 @@
     "questInvitationDoesNotExist": "Ingen gästinbjudan har blivit utskickad än.",
     "questInviteNotFound": "Ingen uppdragsinbjudan hittad.",
     "guildQuestsNotSupported": "Gillen kan inte bli inbjudna till uppdrag.",
-    "questNotFound": "Uppdrag \"<%= key %>\" hittas inte.",
     "questNotOwned": "Du äger inte den där uppdragsskriftrullen.",
     "questNotGoldPurchasable": "Uppdrag \"<%= key %>\" går inte att köpa med Guld.",
     "questLevelTooHigh": "Du måste vara nivå <%= level %> för att påbörja det här uppdraget.",

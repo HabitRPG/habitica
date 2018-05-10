@@ -201,7 +201,6 @@
     "showQuickAllocation": "Pokaż przydział Statystyk",
     "hideQuickAllocation": "Ukryj przydział Statystyk",
     "quickAllocationLevelPopover": "Każdy zdobyty poziom daje Ci jeden punkt, który możesz przydzielić do wybranej przez siebie statystyki. Możesz zrobić to ręcznie lub pozwolić, by gra zdecydowała za Ciebie, używając jednej z opcji automatycznego przydzielania, którą znajdziesz klikając Ikonę Użytkownika > Statystyki",
-    "invalidAttribute": "\"<%= attr %>\" nie jest poprawną Statystyką.",
     "notEnoughAttrPoints": "Nie masz wystarczająco Punktów Statystyk.",
     "style": "Styl",
     "facialhair": "Zarost",
@@ -219,6 +218,5 @@
     "mainHand": "Główna ręka",
     "offHand": "Druga ręka",
     "pointsAvailable": "Dostępne punkty",
-    "pts": "pkt",
-    "statsObjectRequired": "Wymagana jest aktualizacja statystyk"
+    "pts": "pkt"
 }

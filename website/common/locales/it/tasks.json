@@ -145,7 +145,6 @@
     "rewardHelp3": "Gli equipaggiamenti speciali compariranno qui durante gli Eventi Globali.",
     "rewardHelp4": "Non aver paura di creare le tue ricompense! Guarda <a href='http://habitica.wikia.com/wiki/Sample_Custom_Rewards' target='_blank'>qualche esempio qui</a>.",
     "clickForHelp": "Fai click per suggerimenti",
-    "taskIdRequired": "\"taskId\" deve essere un UUID valido.",
     "taskAliasAlreadyUsed": "Alias Attività già usato su un'altra attività.",
     "taskNotFound": "Attività non trovata.",
     "invalidTaskType": "Il tipo di attività può essere solo uno tra \"Abitudine\", \"Daily\", \"Cosa Da Fare\", \"Ricompensa\".",

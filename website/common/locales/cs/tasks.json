@@ -145,7 +145,6 @@
     "rewardHelp3": "V průběhu světových událostí se speciální vybavení zobrazí zde.",
     "rewardHelp4": "Neboj se vytvořit si své Odměny! Koukni na <a href='http://habitica.wikia.com/wiki/Sample_Custom_Rewards' target='_blank'>na ukázku tady</a>.",
     "clickForHelp": "Klikni pro nápovědu",
-    "taskIdRequired": "\"taskId\" musí být platné UUID.",
     "taskAliasAlreadyUsed": "Alias úkolu byl již použit na jiném úkolu.",
     "taskNotFound": "Úkol nenalezen.",
     "invalidTaskType": "Typ úkolu musí být „zvyk\", „denní úkol\", „úkol\" nebo „odměna\".",

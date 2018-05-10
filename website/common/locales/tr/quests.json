@@ -96,7 +96,6 @@
     "questInvitationDoesNotExist": "Henüz hiçbir görev daveti gönderilmedi.",
     "questInviteNotFound": "Herhangi bir görev daveti bulunamadı.",
     "guildQuestsNotSupported": "Loncalar göreve davet edilemezler.",
-    "questNotFound": "\"<%= key %>\" görevi bulunamadı.",
     "questNotOwned": "Bu görev parşömenine sahip değilsin.",
     "questNotGoldPurchasable": "\"<%= key %>\" görevi Altın ile satın alınabilen bir görev değildir.",
     "questLevelTooHigh": "Bu göreve başlamak için <%= level %>. seviye olmalısın.",

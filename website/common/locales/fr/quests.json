@@ -96,7 +96,6 @@
     "questInvitationDoesNotExist": "Aucune invitation à la quête n'a été envoyée pour l'instant.",
     "questInviteNotFound": "Aucune invitation à la quête trouvée.",
     "guildQuestsNotSupported": "Les guildes ne peuvent pas être invitées à joindre une quête.",
-    "questNotFound": "Quête \"<%= key %>\" introuvable.",
     "questNotOwned": "Vous ne possédez pas ce parchemin de quête.",
     "questNotGoldPurchasable": "La quête \"<%= key %>\" n'est pas achetable avec de l'or.",
     "questLevelTooHigh": "Vous devez être au moins au niveau <%= level %> pour commencer cette quête.",

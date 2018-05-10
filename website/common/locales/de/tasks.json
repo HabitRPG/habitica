@@ -145,7 +145,6 @@
     "rewardHelp3": "Während Welt-Events wird hier Spezialausrüstung erscheinen.",
     "rewardHelp4": "Scheue Dich nicht davor eigene Belohnungen hinzuzufügen! Sieh Dir einige <a href='http://de.habitica.wikia.com/wiki/Beispiele_f%C3%BCr_selbsterstellte_Belohnungen' target='_blank'>Beispielbelohnungen</a> durch.",
     "clickForHelp": "Klicke hier für Hilfe",
-    "taskIdRequired": "\"taskId\" muss eine gültige UUID sein.",
     "taskAliasAlreadyUsed": "Dieser Aufgaben Alias wird bereits verwendet.",
     "taskNotFound": "Aufgabe nicht gefunden.",
     "invalidTaskType": "Aufgabenart muss eines der folgenden sein: \"Gewohnheit\", \"tägliche Aufgabe\", \"To-Do\", \"Belohnung\".",

@@ -51,7 +51,6 @@
     "spellSpecialSeafoamNotes": "Ubah teman menjadi makhluk laut!",
     "spellSpecialSandText": "Pasir",
     "spellSpecialSandNotes": "Menghilangkan efek mantra yang mengubahmu menjadi bintang laut.",
-    "spellNotFound": "Kemampuan \"<%= spellId %>\"  tidak ditemukan.",
     "partyNotFound": "Party tidak ditemukan",
     "targetIdUUID": "\"targetId\" harsu merupakan ID Pengguna valid.",
     "challengeTasksNoCast": "Menggunakan kemampuan pada tantangan tidak diperbolehkan.",

@@ -145,7 +145,6 @@
     "rewardHelp3": "Specjalne elementy wyposażenia będą się pojawiały podczas wydarzeń o skali światowej.",
     "rewardHelp4": "Nie bój się ustalać własnych nagród! Sprawdź <a href='http://habitica.wikia.com/wiki/Sample_Custom_Rewards' target='_blank'>przykłady tutaj</a>.",
     "clickForHelp": "Kliknij po pomoc",
-    "taskIdRequired": "\"taskId\" musi być prawidłowym UUID.",
     "taskAliasAlreadyUsed": "Alias zadania jest już używany dla innego zadania.",
     "taskNotFound": "Nie znaleziono zadania.",
     "invalidTaskType": "Zadanie musi być typu \"nawyk\", \"codzienne\", \"do zrobienia\" lub \"nagroda\".",

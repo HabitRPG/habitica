@@ -201,7 +201,6 @@
     "showQuickAllocation": "Mostrar Distribuição de Atributos",
     "hideQuickAllocation": "Esconder Distribuição de Atributos",
     "quickAllocationLevelPopover": "A cada nível que alcançar você terá um Ponto para distribuir em um atributo à sua escolha. Você pode fazer isso manualmente, ou deixar o jogo decidir por você usando uma das opções de Distribuição Automática encontradas em Usuário > Atributos.",
-    "invalidAttribute": "\"<%= attr %>\" não é um Atributo válido.",
     "notEnoughAttrPoints": "Você não possui Pontos de Atributos suficientes.",
     "style": "Estilo",
     "facialhair": "Facial",
@@ -219,6 +218,5 @@
     "mainHand": "Mão Primária",
     "offHand": "Mão Secundária",
     "pointsAvailable": "Pontos Disponíveis",
-    "pts": "pts",
-    "statsObjectRequired": "É necessário atualizar os atributos"
+    "pts": "pts"
 }

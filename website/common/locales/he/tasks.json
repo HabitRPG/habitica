@@ -145,7 +145,6 @@
     "rewardHelp3": "ציוד מיוחד יופיע כאן בזמן ״אירועים עולמיים״.",
     "rewardHelp4": "אל תחשושו להכין פרסים מותאמים אישית! ראו <a href='http://habitica.wikia.com/wiki/Sample_Custom_Rewards' target='_blank'>כמה דוגמאות כאן</a>.",
     "clickForHelp": "לחצו לעזרה",
-    "taskIdRequired": "\"taskId\" חייב להיות UUID - זהות משתמש ייחודי - תקף.",
     "taskAliasAlreadyUsed": "כינוי זה כבר בשימוש עבור משימה אחרת.",
     "taskNotFound": "משימה לא נמצאה.",
     "invalidTaskType": "סוג המטלה חייב להיות אחד מבין \"habit\", \"daily\", \"todo\", \"reward\".",
