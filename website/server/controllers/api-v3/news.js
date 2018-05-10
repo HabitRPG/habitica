@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'CUDDLE BUDDIES QUEST BUNDLE AND TIPS FOR PARTY MOTIVATION';
+const LAST_ANNOUNCEMENT_TITLE = 'USE CASE SPOTLIGHT AND GUILD SPOTLIGHT ON MENTAL HEALTH AND WELLNESS';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -26,32 +26,21 @@ api.getNews = {
     res.status(200).send({
       html: `
       <div class="bailey">
-        <div class="media align-items-center">
+        <div class="media">
+          <div class="align-self-center mr-3 ${baileyClass}"></div>
           <div class="media-body">
-            <div class="media">
-              <div class="align-self-center mr-3 ${baileyClass}"></div>
-              <div class="media-body">
-                <h1 class="align-self-center">${res.t('newStuff')}</h1>
-              </div>
-            </div>
-            <h2>5/8/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
-            <hr/>
-            <h3>New Discounted Pet Quest Bundle: Cuddle Buddies!</h3>
-            <p>If you are looking to add some pets to your Habitica stable, you're in luck! From now until 31-May, you can purchase the Cuddle Buddies Pet Quest Bundle and receive the Bunny, Ferret, and Guinea Pig quests, all for only 7 Gems! That's a discount of 5 Gems from the price of purchasing them separately. Check it out in the <a href="/shops/quests" target="_blank">Quest Shop</a> today!</p>
-            <div class="small">by Beffymaroo and SabreCat</div>
-            <div class="small">Art by Willow the Witty, mewrose, Stefalupagus, Pandah, UncommonCriminal, Gully, Draayder, Teto Forever, PainterProphet, Beffymaroo, Faye, RBrinks, Pocketmole, and James Danger</div>
-            <div class="small mb-3">Writing by Lilith of Alfheim, Teto Forever, and Bartelmy</div>
-          </div>
-          <div class="promo_bundle_cuddleBuddies ml-3"></div>
-        </div>
-        <div class="media align-items-center">
-          <div class="scene_casting_spells mr-3 mb-3"></div>
-          <div class="media-body">
-            <h3>Blog Post: Keeping Parties Motivated</h3>
-            <p>Did you catch our latest <a href="https://habitica.wordpress.com/2018/04/25/keeping-parties-motivated/" target="_blank">featured Wiki article</a>? It's about Keeping Parties Motivated! We hope that it will help you as you battle Habitica's bosses and your tasks with your friends. Be sure to check it out, and let us know what you think by reaching out on <a href="https://twitter.com/habitica" target="_blank">Twitter</a>, <a href="http://blog.habitrpg.com" target="_blank">Tumblr</a>, and <a href="https://facebook.com/habitica" target="_blank">Facebook</a>.</p>
-            <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
+            <h1 class="align-self-center">${res.t('newStuff')}</h1>
           </div>
         </div>
+        <h2>5/10/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+        <hr/>
+        <div class="media">
+          <div class="media-body">
+            <p>In honor of Mental Health Awareness Month, we've got new posts on the blog all about ways to explore better mental health and wellness through Habitica! First, there's a <a href='https://habitica.wordpress.com/2018/05/10/caring-for-the-mind-guilds-for-mental-health-and-wellness/' target='_blank'>Guild Spotlight</a> that highlights the Guilds that can help you as you explore the path to better mental health. We've also posted a <a href='https://habitica.wordpress.com/2018/05/10/use-case-spotlight-mental-health-and-wellness/' target='_blank'>Use Case Spotlight</a> featuring a number of great suggestions for using Habitica's task system to manage mental health and wellness! These suggestions were submitted by Habiticans in the <a href='/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6' target='_blank'>Use Case Spotlights Guild</a>.</p>
+          </div>
+          <div class="scene_meditation"></div>
+        </div>
+        <p>Plus, we're collecting user submissions for the next Use Case Spotlight! How do you use Habitica to manage parenting and/or family life? We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!</p>
       </div>
       `,
     });
