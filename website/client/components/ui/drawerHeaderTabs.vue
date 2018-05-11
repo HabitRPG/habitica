@@ -1,14 +1,14 @@
 <template lang="pug">
-div.header-tabs
-  .drawer-tab-container
-    .drawer-tab(v-for="(tab, index) in tabs")
+nav.header-tabs
+  ul.drawer-tab-container
+    li.drawer-tab(v-for="(tab, index) in tabs")
       a.drawer-tab-text(
         @click="changeTab(index)",
         :class="{'drawer-tab-text-active': selectedTabPosition === index}",
         :title="tab.label"
       ) {{ tab.label }}
 
-  span.right-item
+  aside.help-item
     slot(name="right-item")
 </template>
 
@@ -28,9 +28,10 @@ div.header-tabs
   .drawer-tab-container {
     max-width: 50%;
     margin: 0 auto;
+    padding: 0;
   }
 
-  .right-item {
+  .help-item {
     position: absolute;
     right: -11px;
     top: -2px;
