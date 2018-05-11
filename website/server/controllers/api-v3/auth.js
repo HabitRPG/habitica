@@ -327,7 +327,12 @@ api.loginSocial = {
     } else { // Create new user
       user = {
         auth: {
-          [network]: profile,
+          [network]: {
+            id: profile.id,
+          },
+        },
+        profile: {
+          name: profile.displayName || profile.name || profile.username,
         },
         preferences: {
           language: req.language,
