@@ -29,7 +29,7 @@
       .col-12
         h3(v-once) {{ $t('chat') }}
         .row.new-message-row
-          textarea(:placeholder="!isParty ? $t('chatPlaceholder') : $t('partyChatPlaceholder')", v-model='newMessage', @keydown='updateCarretPosition', @keyup.ctrl.enter='sendMessage()')
+          textarea(:placeholder="!isParty ? $t('chatPlaceholder') : $t('partyChatPlaceholder')", v-model='newMessage', @keydown='updateCarretPosition', @keyup.ctrl.enter='sendMessageShortcut()', @paste='disableMessageSendShortcut()')
           autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :chat='group.chat')
         .row.chat-actions
           .col-6.chat-receive-actions
@@ -397,6 +397,10 @@ export default {
         description: true,
         challenges: true,
       },
+      chat: {
+        submitDisable: false,
+        submitTimeout: null,
+      },
       newMessage: '',
       coords: {
         TOP: 0,
@@ -551,6 +555,28 @@ export default {
       this.$store.state.memberModalOptions.viewingMembers = this.members;
       this.$store.state.memberModalOptions.fetchMoreMembers = this.loadMembers;
       this.$root.$emit('bv::show::modal', 'members-modal');
+    },
+    disableMessageSendShortcut () {
+      // Some users were experiencing accidental sending of messages after pasting
+      // So, after pasting, disable the shortcut for a second.
+      this.chat.submitDisable = true;
+
+      if (this.chat.submitTimeout) {
+        // If someone pastes during the disabled period, prevent early re-enable
+        clearTimeout(this.chat.submitTimeout);
+        this.chat.submitTimeout = null;
+      }
+
+      this.chat.submitTimeout = window.setTimeout(() => {
+        this.chat.submitTimeout = null;
+        this.chat.submitDisable = false;
+      }, 500);
+    },
+    async sendMessageShortcut () {
+      // If the user recently pasted in the text field, don't submit
+      if (!this.chat.submitDisable) {
+        this.sendMessage();
+      }
     },
     async sendMessage () {
       if (!this.newMessage) return;
