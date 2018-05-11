@@ -1,5 +1,5 @@
 <template lang="pug">
-nav.header-tabs
+.header-tabs
   ul.drawer-tab-container
     li.drawer-tab(v-for="(tab, index) in tabs")
       a.drawer-tab-text(
@@ -26,20 +26,26 @@ nav.header-tabs
   }
 
   .drawer-tab-container {
-    max-width: 50%;
-    margin: 0 auto;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    justify-self: center;
+    margin: 0;
     padding: 0;
   }
 
   .help-item {
-    position: absolute;
+    grid-column-start: 3;
+    justify-self: end;
+    position: relative;
     right: -11px;
+    text-align: right;
     top: -2px;
   }
 
   .header-tabs {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     position: relative;
-    display: flex;
   }
 </style>
 
