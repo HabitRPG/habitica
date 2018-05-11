@@ -1,38 +1,6 @@
 
 @import '~client/assets/scss/colors.scss';
 
-#start-quest-modal, #buy-quest-modal {
-  @media only screen and (max-width: 1200px) {
-    .modal-dialog {
-      max-width: 33%;
-
-      .left-panel {
-        left: initial;
-        width: 100%;
-        right: 100%;
-
-        .col-4 {
-          width: 100px;
-        }
-      }
-
-      .side-panel, .right-sidebar {
-        left: calc(100% - 10px);
-        max-width: 100%;
-        right: initial;
-
-        .questRewards {
-          width: 90%;
-
-          .reward-item {
-            width: 100%;
-          }
-        }
-      }
-    }
-  }
-}
-
 @mixin centeredModal() {
   display: flex;
   justify-content: center;
@@ -67,5 +35,36 @@
     overflow-y: hidden;
     text-overflow: ellipsis;
   }
+}
 
+#start-quest-modal, #buy-quest-modal {
+  @media only screen and (max-width: 1200px) {
+    .modal-dialog {
+      max-width: 33%;
+
+      .left-panel {
+        left: initial;
+        width: 100%;
+        right: 100%;
+
+        .col-4 {
+          width: 100px;
+        }
+      }
+
+      .side-panel, .right-sidebar {
+        left: calc(100% - 10px);
+        max-width: 100%;
+        right: initial;
+
+        .questRewards {
+          width: 90%;
+
+          .reward-item {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
 }
