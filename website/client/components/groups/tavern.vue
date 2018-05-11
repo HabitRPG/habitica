@@ -15,11 +15,11 @@
           textarea(:placeholder="$t('tavernCommunityGuidelinesPlaceholder')", v-model='newMessage', :class='{"user-entry": newMessage}', @keydown='updateCarretPosition', @keyup.ctrl.enter='sendMessage()')
           autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :chat='group.chat')
 
-        .row
-          .col-6
+        .row.chat-actions
+          .col-6.chat-receive-actions
             button.btn.btn-secondary.float-left.fetch(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
             button.btn.btn-secondary.float-left(v-once, @click='reverseChat()') {{ $t('reverseChat') }}
-          .col-6
+          .col-6.chat-send-actions
             button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
 
         community-guidelines
@@ -204,6 +204,26 @@
 <style lang='scss' scoped>
   @import '~client/assets/scss/colors.scss';
   @import '~client/assets/scss/variables.scss';
+
+  .chat-actions {
+    margin-top: 1em;
+
+    .chat-receive-actions {
+      padding-left: 0;
+
+      button {
+        margin-bottom: 1em;
+
+        &:not(:last-child) {
+          margin-right: 1em;
+        }
+      }
+    }
+
+    .chat-send-actions {
+      padding-right: 0;
+    }
+  }
 
   .chat-row {
     position: relative;
