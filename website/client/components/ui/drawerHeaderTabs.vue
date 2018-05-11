@@ -14,15 +14,15 @@
 
 <style lang="scss" scoped>
   .drawer-tab-text {
-    overflow-x: hidden;
     display: block;
+    overflow-x: hidden;
     text-overflow: ellipsis;
   }
 
   .drawer-tab {
-    white-space: nowrap;
-    overflow-x: hidden;
     flex: inherit;
+    overflow-x: hidden;
+    white-space: nowrap;
   }
 
   .drawer-tab-container {
