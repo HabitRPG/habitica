@@ -39,6 +39,8 @@ let schema = new Schema({
     slug: {type: String},
     name: {type: String},
   }],
+  flags: {type: Object, default: {}},
+  flagCount: {type: Number, default: 0, min: 0},
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
@@ -55,6 +57,7 @@ schema.pre('init', function ensureSummaryIsFetched (chal) {
   // When any challenge without a summary is fetched from the database, this code
   // supplies the name as the summary. This can be removed when all challenges have
   // a summary and the API makes it mandatory (a breaking change!)
+
   if (!chal.summary) {
     chal.summary = chal.name ? chal.name.substring(0, MAX_SUMMARY_SIZE_FOR_CHALLENGES) : ' ';
   }
