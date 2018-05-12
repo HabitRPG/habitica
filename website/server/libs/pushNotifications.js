@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import nconf from 'nconf';
-import { Provider, Notification } from 'apn';
+import apn from 'apn';
 import logger from './logger';
 import {
   S3,
@@ -11,37 +11,27 @@ const FCM_API_KEY = nconf.get('PUSH_CONFIGS:FCM_SERVER_API_KEY');
 
 const fcmSender = FCM_API_KEY ? new gcmLib.Sender(FCM_API_KEY) : undefined;
 
-let apn;
-
+let apnProvider;
 // Load APN certificate and key from S3
 const APN_ENABLED = nconf.get('PUSH_CONFIGS:APN_ENABLED') === 'true';
 const S3_BUCKET = nconf.get('S3:bucket');
 
 if (APN_ENABLED) {
-  Promise.all([
-    S3.getObject({
-      Bucket: S3_BUCKET,
-      Key: 'apple_apn/cert.pem',
-    }).promise(),
-    S3.getObject({
-      Bucket: S3_BUCKET,
-      Key: 'apple_apn/key.pem',
-    }).promise(),
-  ])
-    .then(([certObj, keyObj]) => {
-      let cert = certObj.Body.toString();
-      let key = keyObj.Body.toString();
+  S3.getObject({
+    Bucket: S3_BUCKET,
+    Key: 'apple_apn/APNsAuthKey.p8',
+  }).promise().then((data) => {
+    const key = data.Body.toString();
 
-      apn = new Provider({
+    apnProvider = APN_ENABLED ? new apn.Provider({
+      token: {
         key,
-        cert,
-      });
-
-      apn.on('error', err => logger.error('APN error', err));
-      apn.on('transmissionError', (errorCode, notification, device) => {
-        logger.error('APN transmissionError', errorCode, notification, device);
-      });
-    });
+        keyId: 'key-id',
+        teamId: 'developer-team-id',
+      },
+      production: nconf.get('IS_PROD'),
+    }) : undefined;
+  });
 }
 
 function sendNotification (user, details = {}) {
@@ -75,14 +65,23 @@ function sendNotification (user, details = {}) {
         break;
 
       case 'ios':
-        if (apn) {
-          const notification = new Notification({
+        if (apnProvider) {
+          const notification = new apn.Notification({
             alert: details.message,
             sound: 'default',
             category: details.category,
             payload,
           });
-          apn.send(notification, pushDevice.regId);
+          apnProvider.send(notification, pushDevice.regId)
+            .then((response) => {
+              response.failed.forEach((failure) => {
+                if (failure.error) {
+                  logger.error('APN error', failure.error);
+                } else {
+                  logger.error('APN transmissionError', failure.status, notification, failure.device);
+                }
+              });
+            });
         }
         break;
     }

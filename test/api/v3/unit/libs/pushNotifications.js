@@ -1,6 +1,6 @@
 import { model as User } from '../../../../../website/server/models/user';
 import requireAgain from 'require-again';
-import apn from 'apn';
+import apn from 'apn/mock';
 import nconf from 'nconf';
 import gcmLib from 'node-gcm'; // works with FCM notifications too
 
