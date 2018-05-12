@@ -37,7 +37,7 @@
   }
 }
 
-#start-quest-modal, #buy-quest-modal {
+#start-quest-modal {
   @media only screen and (max-width: 1200px) {
     .modal-dialog {
       max-width: 33%;
@@ -62,6 +62,55 @@
 
           .reward-item {
             width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  @media only screen and (max-width: 1000px) {
+    .modal-dialog {
+      max-width: 80%;
+
+      .modal-body {
+        flex-direction: column;
+        display: flex;
+
+        div:nth-child(1) { order: 3; }
+        div:nth-child(2) { order: 1; }
+        div:nth-child(3) { order: 4; }
+        div:nth-child(4) { order: 5; }
+        div:nth-child(5) { order: 2; }
+
+        .left-panel {
+          border-radius: 8px;
+          position: static;
+          right: initial;
+          margin: 20px 0;
+          height: auto;
+          width: 100%;
+          z-index: 0;
+          order: 3;
+
+          .col-4 {
+            max-width: 100px;
+          }
+        }
+
+        .side-panel, .right-sidebar {
+          margin: 20px 0 0 0;
+          position: static;
+          box-shadow: none;
+          height: auto;
+          width: 100%;
+          z-index: 0;
+          order: 2;
+          left: 0;
+
+          .questRewards {
+            padding: 0 2em 2em 2em;
+            width: 100%;
+            z-index: 0;
           }
         }
       }
