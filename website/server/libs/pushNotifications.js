@@ -26,8 +26,8 @@ if (APN_ENABLED) {
     apnProvider = APN_ENABLED ? new apn.Provider({
       token: {
         key,
-        keyId: 'key-id',
-        teamId: 'developer-team-id',
+        keyId: nconf.get('PUSH_CONFIGS:APN_KEY_ID'),
+        teamId: nconf.get('PUSH_CONFIGS:APN_TEAM_ID'),
       },
       production: nconf.get('IS_PROD'),
     }) : undefined;
