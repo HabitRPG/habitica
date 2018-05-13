@@ -64,7 +64,7 @@
               type="checkbox",
               :checked="item.completed",
               @change="toggleChecklistItem(item)",
-              :disabled="castingSpell",
+              :disabled="castingSpell || !isUser",
               :id="`checklist-${item.id}`"
             )
             label.custom-control-label(v-markdown="item.text", :for="`checklist-${item.id}`")
