@@ -44,7 +44,14 @@
   .header-tabs {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
-    position: relative;
+  }
+
+  // MS Edge
+  @supports (-ms-ime-align: auto) {
+    .help-item {
+      align-self: center;
+      top: 1px;
+    }
   }
 </style>
 
