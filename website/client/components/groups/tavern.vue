@@ -102,18 +102,9 @@
           li(v-once) {{ $t('sleepBullet4') }}
         button.btn.btn-secondary.pause-button(v-if='!user.preferences.sleep', @click='toggleSleep()', v-once) {{ $t('pauseDailies') }}
         button.btn.btn-secondary.pause-button(v-if='user.preferences.sleep', @click='toggleSleep()', v-once) {{ $t('unpauseDailies') }}
-
-    .below-header-sections
-      .section-header
+    .px-3
+      sidebar-section(:title="$t('staffAndModerators')")
         .row
-          .col-10
-            h3(v-once) {{ $t('staffAndModerators') }}
-          .col-2
-            .toggle-up(@click="sections.staff = !sections.staff", v-if="sections.staff")
-              .svg-icon(v-html="icons.upIcon")
-            .toggle-down(@click="sections.staff = !sections.staff", v-if="!sections.staff")
-              .svg-icon(v-html="icons.downIcon")
-        .section.row(v-if="sections.staff")
           .col-4.staff(v-for='user in staff', :class='{staff: user.type === "Staff", moderator: user.type === "Moderator", bailey: user.name === "It\'s Bailey"}')
             div
               a.title(@click="viewStaffProfile(user.uuid)") {{user.name}}
@@ -122,50 +113,33 @@
               .svg-icon.npc-icon(v-html="icons.tierNPC", v-if='user.name === "It\'s Bailey"')
             .type {{user.type}}
 
-      .section-header
-        .row
-          .col-10
-            h3(v-once) {{ $t('helpfulLinks') }}
-          .col-2
-            .toggle-up(@click="sections.helpfulLinks = !sections.helpfulLinks", v-if="sections.helpfulLinks")
-              .svg-icon(v-html="icons.upIcon")
-            .toggle-down(@click="sections.helpfulLinks = !sections.helpfulLinks", v-if="!sections.helpfulLinks")
-              .svg-icon(v-html="icons.downIcon")
-        .section.row(v-if="sections.helpfulLinks")
-          ul
-            li
-              a(href='', @click.prevent='modForm()') {{ $t('contactForm') }}
-            li
-             router-link(to='/static/community-guidelines', v-once) {{ $t('communityGuidelinesLink') }}
-            li
-              router-link(to="/groups/guild/f2db2a7f-13c5-454d-b3ee-ea1f5089e601") {{ $t('lookingForGroup') }}
-            li
-             router-link(to='/static/faq', v-once) {{ $t('faq') }}
-            li
-              a(href='', v-html="$t('glossary')")
-            li
-              a(href='http://habitica.wikia.com/wiki/Habitica_Wiki', v-once) {{ $t('wiki') }}
-            li
-              a(href='https://oldgods.net/habitrpg/habitrpg_user_data_display.html', v-once) {{ $t('dataDisplayTool') }}
-            li
-              router-link(to="/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac") {{ $t('reportProblem') }}
-            li
-              a(href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents', v-once) {{ $t('requestFeature') }}
-            li
-              a(href='', v-html="$t('communityForum')")
-            li
-              router-link(to="/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a") {{ $t('askQuestionGuild') }}
+      sidebar-section(:title="$t('helpfulLinks')")
+        ul
+          li
+            a(href='', @click.prevent='modForm()') {{ $t('contactForm') }}
+          li
+           router-link(to='/static/community-guidelines', v-once) {{ $t('communityGuidelinesLink') }}
+          li
+            router-link(to="/groups/guild/f2db2a7f-13c5-454d-b3ee-ea1f5089e601") {{ $t('lookingForGroup') }}
+          li
+           router-link(to='/static/faq', v-once) {{ $t('faq') }}
+          li
+            a(href='', v-html="$t('glossary')")
+          li
+            a(href='http://habitica.wikia.com/wiki/Habitica_Wiki', v-once) {{ $t('wiki') }}
+          li
+            a(href='https://oldgods.net/habitrpg/habitrpg_user_data_display.html', v-once) {{ $t('dataDisplayTool') }}
+          li
+            router-link(to="/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac") {{ $t('reportProblem') }}
+          li
+            a(href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents', v-once) {{ $t('requestFeature') }}
+          li
+            a(href='', v-html="$t('communityForum')")
+          li
+            router-link(to="/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a") {{ $t('askQuestionGuild') }}
 
-      .section-header
+      sidebar-section(:title="$t('playerTiers')")
         .row
-          .col-10
-            h3(v-once) {{ $t('playerTiers') }}
-          .col-2
-            .toggle-up(@click="sections.playerTiers = !sections.playerTiers", v-if="sections.playerTiers")
-              .svg-icon(v-html="icons.upIcon")
-            .toggle-down(@click="sections.playerTiers = !sections.playerTiers", v-if="!sections.playerTiers")
-              .svg-icon(v-html="icons.downIcon")
-        .section.row(v-if="sections.playerTiers")
           .col-12
             p(v-once) {{ $t('playerTiersDesc') }}
             ul.tier-list
@@ -285,10 +259,6 @@
     background-color: #ffb445 !important;
     color: $white;
     width: 100%;
-  }
-
-  .section-header {
-    margin-top: 2em;
   }
 
   .grassy-meadow-backdrop {
@@ -545,17 +515,16 @@ import autocomplete from '../chat/autoComplete';
 import communityGuidelines from './communityGuidelines';
 import worldBossInfoModal from '../world-boss/worldBossInfoModal';
 import worldBossRageModal from '../world-boss/worldBossRageModal';
+import sidebarSection from '../sidebarSection';
 
 import challengeIcon from 'assets/svg/challenge.svg';
 import chevronIcon from 'assets/svg/chevron-red.svg';
-import downIcon from 'assets/svg/down.svg';
 import gemIcon from 'assets/svg/gem.svg';
 import healthIcon from 'assets/svg/health.svg';
 import informationIconRed from 'assets/svg/information-red.svg';
 import questBackground from 'assets/svg/quest-background-border.svg';
 import rageIcon from 'assets/svg/rage.svg';
 import swordIcon from 'assets/svg/sword.svg';
-import upIcon from 'assets/svg/up.svg';
 
 import tier1 from 'assets/svg/tier-1.svg';
 import tier2 from 'assets/svg/tier-2.svg';
@@ -577,6 +546,7 @@ export default {
     communityGuidelines,
     worldBossInfoModal,
     worldBossRageModal,
+    sidebarSection,
   },
   data () {
     return {
@@ -584,7 +554,6 @@ export default {
       icons: Object.freeze({
         challengeIcon,
         chevronIcon,
-        downIcon,
         gem: gemIcon,
         healthIcon,
         informationIcon: informationIconRed,
@@ -601,7 +570,6 @@ export default {
         tierMod,
         tierNPC,
         tierStaff,
-        upIcon,
       }),
       chat: {
         submitDisable: false,
@@ -611,9 +579,6 @@ export default {
         chat: [],
       },
       sections: {
-        staff: true,
-        helpfulLinks: true,
-        playerTiers: true,
         worldBoss: true,
       },
       staff: [

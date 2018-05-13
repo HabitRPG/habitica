@@ -6,7 +6,7 @@
   form
     h2(v-once) {{ $t('filter') }}
     .form-group
-      h3 Category
+      h3 {{ $t('category') }}
       .form-check(
         v-for="group in categoryOptions",
         :key="group.key",
@@ -15,7 +15,7 @@
           input.custom-control-input(type="checkbox", :value='group.key' v-model="categoryFilters", :id="group.key")
           label.custom-control-label(v-once, :for="group.key") {{ $t(group.label) }}
     .form-group
-      h3 Role
+      h3 {{ $t('role') }}
       .form-check(
         v-for="group in roleOptions",
         :key="group.key",
@@ -24,7 +24,7 @@
           input.custom-control-input(type="checkbox", :value='group.key' v-model="roleFilters", :id="group.key")
           label.custom-control-label(v-once, :for="group.key") {{ $t(group.label) }}
     .form-group
-      h3 Guild Size
+      h3 {{ $t('guildSize') }}
       .form-check(
         v-for="group in guildSizeOptions",
         :key="group.key",
