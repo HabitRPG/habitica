@@ -14,7 +14,7 @@ import errorMessage from '../../libs/errorMessage';
 import {BuyGemOperation} from './buyGem';
 
 // @TODO: remove the req option style. Dependency on express structure is an anti-pattern
-// We should either have more parms or a set structure validated by a Type checker
+// We should either have more params or a set structure validated by a Type checker
 
 // @TODO: when we are sure buy is the only function used, let's move the buy files to a folder
 
@@ -23,7 +23,7 @@ module.exports = function buy (user, req = {}, analytics) {
   if (!key) throw new BadRequest(errorMessage('missingKeyParam'));
 
   // @TODO: Slowly remove the need for key and use type instead
-  // This should evenutally be the 'factory' function with vendor classes
+  // This should eventually be the 'factory' function with vendor classes
   let type = get(req, 'type');
   if (!type) type = get(req, 'params.type');
   if (!type) type = key;
