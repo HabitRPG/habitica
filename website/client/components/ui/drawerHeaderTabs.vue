@@ -35,7 +35,6 @@
 
   .help-item {
     grid-column-start: 3;
-    justify-self: end;
     position: relative;
     right: -11px;
     text-align: right;
