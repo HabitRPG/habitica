@@ -3,7 +3,7 @@ div
   inbox-modal
   creator-intro
   profile
-  b-navbar.navbar.navbar-inverse.fixed-top.navbar-expand-lg(type="dark")
+  b-navbar.navbar.navbar-inverse.fixed-top.navbar-expand-lg(type="dark", :class="navbarZIndexClass")
     .navbar-header
       .logo.svg-icon.d-none.d-xl-block(v-html="icons.logo")
       .svg-icon.gryphon.d-md-block.d-none.d-xl-none
@@ -145,7 +145,16 @@ div
     padding-right: 12.5px;
     height: 56px;
     box-shadow: 0 1px 2px 0 rgba($black, 0.24);
-    z-index: 1042; // To stay above snakbar notifications and modals
+  }
+
+  .navbar-z-index {
+    &-normal {
+      z-index: 1080;
+    }
+
+    &-modal {
+      z-index: 1035;
+    }
   }
 
   .navbar-header {
@@ -327,7 +336,14 @@ export default {
       user: 'user.data',
       userHourglasses: 'user.data.purchased.plan.consecutive.trinkets',
       groupPlans: 'groupPlans',
+      modalStack: 'modalStack',
     }),
+    navbarZIndexClass () {
+      if (this.modalStack.length > 0) {
+        return 'navbar-z-index-modal';
+      }
+      return 'navbar-z-index-normal';
+    },
   },
   mounted () {
     this.getUserGroupPlans();
