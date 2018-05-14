@@ -27,25 +27,16 @@
               .svg-icon.gem(v-html="icons.gem")
               span.number {{group.balance * 4}}
               div(v-once) {{ $t('guildBank') }}
-    .row.chat-row
-      .col-12
-        h3(v-once) {{ $t('chat') }}
-        .row.new-message-row
-          textarea(:placeholder="!isParty ? $t('chatPlaceholder') : $t('partyChatPlaceholder')", v-model='newMessage', @keydown='updateCarretPosition', @keyup.ctrl.enter='sendMessageShortcut()', @paste='disableMessageSendShortcut()')
-          autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :chat='group.chat')
-        .row.chat-actions
-          .col-6.chat-receive-actions
-            button.btn.btn-secondary.float-left.fetch(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
-            button.btn.btn-secondary.float-left(v-once, @click='reverseChat()') {{ $t('reverseChat') }}
-          .col-6.chat-send-actions
-            button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
-        community-guidelines
+    chatTextarea(
+      :label="$t('chat')",
+      :group="group",
+      :placeholder="!isParty ? $t('chatPlaceholder') : $t('partyChatPlaceholder')",
+      @fetchRecentMessages="fetchRecentMessages()"
+    )
+      template(slot="additionRow")
         .row(v-if='showNoNotificationsMessage')
           .col-12.no-notifications
             | {{$t('groupNoNotifications')}}
-        .row
-          .col-12.hr
-          chat-message(:chat.sync='group.chat', :group-id='group._id', :group-name='group.name')
   .col-12.col-sm-4.sidebar
     .row(:class='{"guild-background": !isParty}')
       .col-12
@@ -271,13 +262,11 @@ import startQuestModal from './startQuestModal';
 import questDetailsModal from './questDetailsModal';
 import groupFormModal from './groupFormModal';
 import inviteModal from './inviteModal';
-import chatMessage from '../chat/chatMessages';
-import autocomplete from '../chat/autoComplete';
 import groupChallenges from '../challenges/groupChallenges';
 import groupGemsModal from 'client/components/groups/groupGemsModal';
 import questSidebarSection from 'client/components/groups/questSidebarSection';
 import markdownDirective from 'client/directives/markdown';
-import communityGuidelines from './communityGuidelines';
+import chatTextarea from './chatTextarea';
 import sidebarSection from '../sidebarSection';
 import userLink from '../userLink';
 
@@ -300,16 +289,14 @@ export default {
     membersModal,
     startQuestModal,
     groupFormModal,
-    chatMessage,
     inviteModal,
     groupChallenges,
-    autocomplete,
     questDetailsModal,
     groupGemsModal,
     questSidebarSection,
-    communityGuidelines,
     sidebarSection,
     userLink,
+    chatTextarea,
   },
   directives: {
     markdown: markdownDirective,
@@ -336,11 +323,6 @@ export default {
       chat: {
         submitDisable: false,
         submitTimeout: null,
-      },
-      newMessage: '',
-      coords: {
-        TOP: 0,
-        LEFT: 0,
       },
     };
   },
@@ -391,13 +373,6 @@ export default {
   },
   beforeRouteUpdate (to, from, next) {
     this.$set(this, 'searchId', to.params.groupId);
-
-    // Reset chat
-    this.newMessage = '';
-    this.coords = {
-      TOP: 0,
-      LEFT: 0,
-    };
 
     next();
   },
@@ -450,40 +425,6 @@ export default {
 
       return this.$store.dispatch('members:getGroupMembers', payload);
     },
-
-    // @TODO: abstract autocomplete
-    // https://medium.com/@_jh3y/how-to-where-s-the-caret-getting-the-xy-position-of-the-caret-a24ba372990a
-    getCoord (e, text) {
-      let carPos = text.selectionEnd;
-      let div = document.createElement('div');
-      let span = document.createElement('span');
-      let copyStyle = getComputedStyle(text);
-
-      [].forEach.call(copyStyle, (prop) => {
-        div.style[prop] = copyStyle[prop];
-      });
-
-      div.style.position = 'absolute';
-      document.body.appendChild(div);
-      div.textContent = text.value.substr(0, carPos);
-      span.textContent = text.value.substr(carPos) || '.';
-      div.appendChild(span);
-      this.coords = {
-        TOP: span.offsetTop,
-        LEFT: span.offsetLeft,
-      };
-      document.body.removeChild(div);
-    },
-    updateCarretPosition: debounce(function updateCarretPosition (eventUpdate) {
-      this._updateCarretPosition(eventUpdate);
-    }, 250),
-    _updateCarretPosition (eventUpdate) {
-      let text = eventUpdate.target;
-      this.getCoord(eventUpdate, text);
-    },
-    selectedAutocomplete (newText) {
-      this.newMessage = newText;
-    },
     showMemberModal () {
       this.$store.state.memberModalOptions.groupId = this.group._id;
       this.$store.state.memberModalOptions.group = this.group;
@@ -492,43 +433,8 @@ export default {
       this.$store.state.memberModalOptions.fetchMoreMembers = this.loadMembers;
       this.$root.$emit('bv::show::modal', 'members-modal');
     },
-    disableMessageSendShortcut () {
-      // Some users were experiencing accidental sending of messages after pasting
-      // So, after pasting, disable the shortcut for a second.
-      this.chat.submitDisable = true;
-
-      if (this.chat.submitTimeout) {
-        // If someone pastes during the disabled period, prevent early re-enable
-        clearTimeout(this.chat.submitTimeout);
-        this.chat.submitTimeout = null;
-      }
-
-      this.chat.submitTimeout = window.setTimeout(() => {
-        this.chat.submitTimeout = null;
-        this.chat.submitDisable = false;
-      }, 500);
-    },
-    async sendMessageShortcut () {
-      // If the user recently pasted in the text field, don't submit
-      if (!this.chat.submitDisable) {
-        this.sendMessage();
-      }
-    },
-    async sendMessage () {
-      if (!this.newMessage) return;
-
-      let response = await this.$store.dispatch('chat:postChat', {
-        group: this.group,
-        message: this.newMessage,
-      });
-      this.group.chat.unshift(response.message);
-      this.newMessage = '';
-    },
     fetchRecentMessages () {
       this.fetchGuild();
-    },
-    reverseChat () {
-      this.group.chat.reverse();
     },
     updateGuild () {
       this.$store.state.editingGroup = this.group;

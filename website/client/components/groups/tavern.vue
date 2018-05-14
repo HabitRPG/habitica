@@ -7,26 +7,12 @@
       .col-6.title-details
         h1(v-once) {{ $t('welcomeToTavern') }}
 
-    .row.chat-row
-      .col-12
-        h3(v-once) {{ $t('tavernChat') }}
-
-        .row
-          textarea(:placeholder="$t('tavernCommunityGuidelinesPlaceholder')", v-model='newMessage', :class='{"user-entry": newMessage}', @keydown='updateCarretPosition', @keyup.ctrl.enter='sendMessageShortcut()', @paste='disableMessageSendShortcut()')
-          autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :chat='group.chat')
-
-        .row.chat-actions
-          .col-6.chat-receive-actions
-            button.btn.btn-secondary.float-left.fetch(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
-            button.btn.btn-secondary.float-left(v-once, @click='reverseChat()') {{ $t('reverseChat') }}
-          .col-6.chat-send-actions
-            button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
-
-        community-guidelines
-
-        .row
-          .hr.col-12
-          chat-message(:chat.sync='group.chat', :group-id='group._id', :group-name='group.name')
+    chatTextarea(
+      :label="$t('tavernChat')",
+      :group="group",
+      :placeholder="$t('tavernCommunityGuidelinesPlaceholder')",
+      @fetchRecentMessages="fetchRecentMessages()"
+    )
   .col-12.col-sm-4.sidebar
     .section
       .grassy-meadow-backdrop
@@ -178,69 +164,6 @@
 <style lang='scss' scoped>
   @import '~client/assets/scss/colors.scss';
   @import '~client/assets/scss/variables.scss';
-
-  .chat-actions {
-    margin-top: 1em;
-
-    .chat-receive-actions {
-      padding-left: 0;
-
-      button {
-        margin-bottom: 1em;
-
-        &:not(:last-child) {
-          margin-right: 1em;
-        }
-      }
-    }
-
-    .chat-send-actions {
-      padding-right: 0;
-    }
-  }
-
-  .chat-row {
-    position: relative;
-
-    textarea {
-      height: 150px;
-      width: 100%;
-      background-color: $white;
-      border: solid 1px $gray-400;
-      font-size: 16px;
-      font-style: italic;
-      line-height: 1.43;
-      color: $gray-300;
-      padding: .5em;
-    }
-
-    .user-entry {
-      font-style: normal;
-      color: $black;
-    }
-
-    .hr {
-      width: 100%;
-      height: 20px;
-      border-bottom: 1px solid $gray-500;
-      text-align: center;
-      margin: 2em 0;
-    }
-
-    .hr-middle {
-      font-size: 16px;
-      font-weight: bold;
-      font-family: 'Roboto Condensed';
-      line-height: 1.5;
-      text-align: center;
-      color: $gray-200;
-      background-color: $gray-700;
-      padding: .2em;
-      margin-top: .2em;
-      display: inline-block;
-      width: 100px;
-    }
-  }
 
   h1 {
     color: $purple-200;
@@ -505,17 +428,16 @@
 </style>
 
 <script>
-import debounce from 'lodash/debounce';
 import { mapState } from 'client/libs/store';
 import { goToModForm } from 'client/libs/modform';
 
 import { TAVERN_ID } from '../../../common/script/constants';
-import chatMessage from '../chat/chatMessages';
-import autocomplete from '../chat/autoComplete';
-import communityGuidelines from './communityGuidelines';
 import worldBossInfoModal from '../world-boss/worldBossInfoModal';
 import worldBossRageModal from '../world-boss/worldBossRageModal';
 import sidebarSection from '../sidebarSection';
+import chatTextarea from './chatTextarea';
+
+import staffList from './staffList';
 
 import challengeIcon from 'assets/svg/challenge.svg';
 import chevronIcon from 'assets/svg/chevron-red.svg';
@@ -541,12 +463,10 @@ import quests from 'common/script/content/quests';
 
 export default {
   components: {
-    chatMessage,
-    autocomplete,
-    communityGuidelines,
     worldBossInfoModal,
     worldBossRageModal,
     sidebarSection,
+    chatTextarea,
   },
   data () {
     return {
@@ -571,118 +491,13 @@ export default {
         tierNPC,
         tierStaff,
       }),
-      chat: {
-        submitDisable: false,
-        submitTimeout: null,
-      },
       group: {
         chat: [],
       },
       sections: {
         worldBoss: true,
       },
-      staff: [
-        {
-          name: 'beffymaroo',
-          type: 'Staff',
-          uuid: '9fe7183a-4b79-4c15-9629-a1aee3873390',
-        },
-        // {
-        //   name: 'lefnire',
-        //   type: 'Staff',
-        //   uuid: '00000000-0000-4000-9000-000000000000',
-        // },
-        {
-          name: 'Lemoness',
-          type: 'Staff',
-          uuid: '7bde7864-ebc5-4ee2-a4b7-1070d464cdb0',
-        },
-        {
-          name: 'paglias',
-          type: 'Staff',
-          uuid: 'ed4c688c-6652-4a92-9d03-a5a79844174a',
-        },
-        {
-          name: 'redphoenix',
-          type: 'Staff',
-          uuid: 'cb46ad54-8c78-4dbc-a8ed-4e3185b2b3ff',
-        },
-        {
-          name: 'SabreCat',
-          type: 'Staff',
-          uuid: '7f14ed62-5408-4e1b-be83-ada62d504931',
-        },
-        {
-          name: 'TheHollidayInn',
-          type: 'Staff',
-          uuid: '206039c6-24e4-4b9f-8a31-61cbb9aa3f66',
-        },
-        {
-          name: 'viirus',
-          type: 'Staff',
-          uuid: 'a327d7e0-1c2e-41be-9193-7b30b484413f',
-        },
-        {
-          name: 'It\'s Bailey',
-          type: 'Moderator',
-          uuid: '9da65443-ed43-4c21-804f-d260c1361596',
-        },
-        {
-          name: 'Alys',
-          type: 'Moderator',
-          uuid: 'd904bd62-da08-416b-a816-ba797c9ee265',
-        },
-        {
-          name: 'Blade',
-          type: 'Moderator',
-          uuid: '75f270e8-c5db-4722-a5e6-a83f1b23f76b',
-        },
-        {
-          name: 'Breadstrings',
-          type: 'Moderator',
-          uuid: '3b675c0e-d7a6-440c-8687-bc67cd0bf4e9',
-        },
-        {
-          name: 'Cantras',
-          type: 'Moderator',
-          uuid: '28771972-ca6d-4c03-8261-e1734aa7d21d',
-        },
-        // {
-        //   name: 'Daniel the Bard',
-        //   type: 'Moderator',
-        //   uuid: '1f7c4a74-03a3-4b2c-b015-112d0acbd593',
-        // },
-        {
-          name: 'deilann 5.0.5b',
-          type: 'Moderator',
-          uuid: 'e7b5d1e2-3b6e-4192-b867-8bafdb03eeec',
-        },
-        {
-          name: 'Dewines',
-          type: 'Moderator',
-          uuid: '262a7afb-6b57-4d81-88e0-80d2e9f6cbdc',
-        },
-        {
-          name: 'Fox_town',
-          type: 'Moderator',
-          uuid: 'a05f0152-d66b-4ef1-93ac-4adb195d0031',
-        },
-        {
-          name: 'Megan',
-          type: 'Moderator',
-          uuid: '73e5125c-2c87-4004-8ccd-972aeac4f17a',
-        },
-        {
-          name: 'shanaqui',
-          type: 'Moderator',
-          uuid: 'bb089388-28ae-4e42-a8fa-f0c2bfb6f779',
-        },
-      ],
-      newMessage: '',
-      coords: {
-        TOP: 0,
-        LEFT: 0,
-      },
+      staff: staffList,
     };
   },
   computed: {
@@ -699,81 +514,10 @@ export default {
     modForm () {
       goToModForm(this.user);
     },
-    // https://medium.com/@_jh3y/how-to-where-s-the-caret-getting-the-xy-position-of-the-caret-a24ba372990a
-    getCoord (e, text) {
-      let carPos = text.selectionEnd;
-      let div = document.createElement('div');
-      let span = document.createElement('span');
-      let copyStyle = getComputedStyle(text);
-
-      [].forEach.call(copyStyle, (prop) => {
-        div.style[prop] = copyStyle[prop];
-      });
-
-      div.style.position = 'absolute';
-      document.body.appendChild(div);
-      div.textContent = text.value.substr(0, carPos);
-      span.textContent = text.value.substr(carPos) || '.';
-      div.appendChild(span);
-      this.coords = {
-        TOP: span.offsetTop,
-        LEFT: span.offsetLeft,
-      };
-      document.body.removeChild(div);
-    },
-    updateCarretPosition: debounce(function updateCarretPosition (eventUpdate) {
-      this._updateCarretPosition(eventUpdate);
-    }, 250),
-    _updateCarretPosition (eventUpdate) {
-      let text = eventUpdate.target;
-      this.getCoord(eventUpdate, text);
-    },
-    selectedAutocomplete (newText) {
-      this.newMessage = newText;
-    },
     toggleSleep () {
       this.$store.dispatch('user:sleep');
     },
-    disableMessageSendShortcut () {
-      // Some users were experiencing accidental sending of messages after pasting
-      // So, after pasting, disable the shortcut for a second.
-      this.chat.submitDisable = true;
 
-      if (this.chat.submitTimeout) {
-        // If someone pastes during the disabled period, prevent early re-enable
-        clearTimeout(this.chat.submitTimeout);
-        this.chat.submitTimeout = null;
-      }
-
-      this.chat.submitTimeout = window.setTimeout(() => {
-        this.chat.submitTimeout = null;
-        this.chat.submitDisable = false;
-      }, 500);
-    },
-    async sendMessageShortcut () {
-      // If the user recently pasted in the text field, don't submit
-      if (!this.chat.submitDisable) {
-        this.sendMessage();
-      }
-    },
-    async sendMessage () {
-      let response = await this.$store.dispatch('chat:postChat', {
-        group: this.group,
-        message: this.newMessage,
-      });
-      this.group.chat.unshift(response.message);
-      this.newMessage = '';
-
-      // @TODO: I would like to not reload everytime we send. Realtime/Firebase?
-      let chat = await this.$store.dispatch('chat:getChat', {groupId: this.group._id});
-      this.group.chat = chat;
-    },
-    async fetchRecentMessages () {
-      this.group = await this.$store.dispatch('guilds:getGroup', {groupId: TAVERN_ID});
-    },
-    reverseChat () {
-      this.group.chat.reverse();
-    },
     pendingDamage () {
       if (!this.user.party.quest.progress.up) return 0;
       return this.$options.filters.floor(this.user.party.quest.progress.up, 10);
@@ -805,6 +549,10 @@ export default {
         user: staffDetails.data.data,
         startingPage: 'profile',
       });
+    },
+
+    async fetchRecentMessages () {
+      this.group = await this.$store.dispatch('guilds:getGroup', {groupId: TAVERN_ID});
     },
   },
 };
