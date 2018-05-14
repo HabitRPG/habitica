@@ -251,7 +251,6 @@
 <script>
 // @TODO: Break this down into components
 
-import debounce from 'lodash/debounce';
 import extend from 'lodash/extend';
 import groupUtilities from 'client/mixins/groupsUtilities';
 import styleHelper from 'client/mixins/styleHelper';

@@ -4,11 +4,11 @@ export default [
     type: 'Staff',
     uuid: '9fe7183a-4b79-4c15-9629-a1aee3873390',
   },
-// {
-//   name: 'lefnire',
-//   type: 'Staff',
-//   uuid: '00000000-0000-4000-9000-000000000000',
-// },
+  // {
+  //   name: 'lefnire',
+  //   type: 'Staff',
+  //   uuid: '00000000-0000-4000-9000-000000000000',
+  // },
   {
     name: 'Lemoness',
     type: 'Staff',
@@ -64,11 +64,11 @@ export default [
     type: 'Moderator',
     uuid: '28771972-ca6d-4c03-8261-e1734aa7d21d',
   },
-// {
-//   name: 'Daniel the Bard',
-//   type: 'Moderator',
-//   uuid: '1f7c4a74-03a3-4b2c-b015-112d0acbd593',
-// },
+  // {
+  //   name: 'Daniel the Bard',
+  //   type: 'Moderator',
+  //   uuid: '1f7c4a74-03a3-4b2c-b015-112d0acbd593',
+  // },
   {
     name: 'deilann 5.0.5b',
     type: 'Moderator',

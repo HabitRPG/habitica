@@ -150,7 +150,7 @@
 
       next();
     },
-  }
+  };
 </script>
 
 <style scoped lang="scss">
