@@ -7,7 +7,7 @@
       .col-6.title-details
         h1(v-once) {{ $t('welcomeToTavern') }}
 
-    chatTextarea(
+    chat(
       :label="$t('tavernChat')",
       :group="group",
       :placeholder="$t('tavernCommunityGuidelinesPlaceholder')",
@@ -435,7 +435,7 @@ import { TAVERN_ID } from '../../../common/script/constants';
 import worldBossInfoModal from '../world-boss/worldBossInfoModal';
 import worldBossRageModal from '../world-boss/worldBossRageModal';
 import sidebarSection from '../sidebarSection';
-import chatTextarea from './chatTextarea';
+import chat from './chat';
 
 
 import challengeIcon from 'assets/svg/challenge.svg';
@@ -466,7 +466,7 @@ export default {
     worldBossInfoModal,
     worldBossRageModal,
     sidebarSection,
-    chatTextarea,
+    chat,
   },
   data () {
     return {

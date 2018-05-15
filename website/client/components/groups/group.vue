@@ -27,7 +27,7 @@
               .svg-icon.gem(v-html="icons.gem")
               span.number {{group.balance * 4}}
               div(v-once) {{ $t('guildBank') }}
-    chatTextarea(
+    chat(
       :label="$t('chat')",
       :group="group",
       :placeholder="!isParty ? $t('chatPlaceholder') : $t('partyChatPlaceholder')",
@@ -265,7 +265,7 @@ import groupChallenges from '../challenges/groupChallenges';
 import groupGemsModal from 'client/components/groups/groupGemsModal';
 import questSidebarSection from 'client/components/groups/questSidebarSection';
 import markdownDirective from 'client/directives/markdown';
-import chatTextarea from './chatTextarea';
+import chat from './chat';
 import sidebarSection from '../sidebarSection';
 import userLink from '../userLink';
 
@@ -295,7 +295,7 @@ export default {
     questSidebarSection,
     sidebarSection,
     userLink,
-    chatTextarea,
+    chat,
   },
   directives: {
     markdown: markdownDirective,
