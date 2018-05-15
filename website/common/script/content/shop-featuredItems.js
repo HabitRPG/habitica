@@ -12,8 +12,8 @@ const featuredItems = {
       path: 'hatchingPotions.Red',
     },
     {
-      type: 'hatchingPotions',
-      path: 'hatchingPotions.Golden',
+      type: 'premiumHatchingPotion',
+      path: 'premiumHatchingPotions.Fairy',
     },
     {
       type: 'card',
