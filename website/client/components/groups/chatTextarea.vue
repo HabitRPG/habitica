@@ -52,7 +52,6 @@
     data () {
       return {
         newMessage: '',
-        icons: Object.freeze({}),
         chat: {
           submitDisable: false,
           submitTimeout: null,
