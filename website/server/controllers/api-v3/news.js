@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'USE CASE SPOTLIGHT AND GUILD SPOTLIGHT ON MENTAL HEALTH AND WELLNESS';
+const LAST_ANNOUNCEMENT_TITLE = 'FAIRY HATCHING POTIONS RETURN!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -32,15 +32,12 @@ api.getNews = {
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
           </div>
         </div>
-        <h2>5/10/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+        <h2>5/15/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
-        <div class="media">
-          <div class="media-body">
-            <p>In honor of Mental Health Awareness Month, we've got new posts on the blog all about ways to explore better mental health and wellness through Habitica! First, there's a <a href='https://habitica.wordpress.com/2018/05/10/caring-for-the-mind-guilds-for-mental-health-and-wellness/' target='_blank'>Guild Spotlight</a> that highlights the Guilds that can help you as you explore the path to better mental health. We've also posted a <a href='https://habitica.wordpress.com/2018/05/10/use-case-spotlight-mental-health-and-wellness/' target='_blank'>Use Case Spotlight</a> featuring a number of great suggestions for using Habitica's task system to manage mental health and wellness! These suggestions were submitted by Habiticans in the <a href='/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6' target='_blank'>Use Case Spotlights Guild</a>.</p>
-          </div>
-          <div class="scene_meditation"></div>
-        </div>
-        <p>Plus, we're collecting user submissions for the next Use Case Spotlight! How do you use Habitica to manage parenting and/or family life? We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!</p>
+        <p>They're back! Between now and May 31, you can buy Fairy Hatching Potions from <a href='/shops/market' target='_blank'>the Market</a> and use them to hatch any standard pet egg. (Magic Hatching Potions do not work on Quest Pet eggs.) Fairy Potion Pets aren't picky, so they'll happily eat any kind of food that you feed them!</p>
+        <p>After they're gone, it will be at least a year before the Fairy Hatching Potions are available again, so be sure to get them now!</p>
+        <div class="small mb-3">by Edge, Willow the Witty, and SabreCat</div>
+        <div class="promo_fairy_potions center-block"></div>
       </div>
       `,
     });

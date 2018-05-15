@@ -128,7 +128,7 @@
     "pmHeading": "Mensagem privada para <%= name %>",
     "pmsMarkedRead": "Suas mensagens privadas foram marcadas como lidas.",
     "possessiveParty": "Equipa de <%= name %>",
-    "clearAll": "Deletar Todas as Mensagens",
+    "clearAll": "Eliminar Todas as Mensagens",
     "confirmDeleteAllMessages": "Tem certeza que desja deletar todas as mensagens na sua caixa de entrada? Outros usuários ainda irão ver as mensagens que você enviou para eles.",
     "optOutPopover": "Não gosta de mensagens privadas? Clique para desativar completamente",
     "PMPlaceholderTitle": "Nothing Here Yet",

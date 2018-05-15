@@ -211,5 +211,5 @@
     "repeatDayError": "请在一周中至少选择一天",
     "searchTasks": "搜索标题和描述说明...",
     "sessionOutdated": "你的会期已过期。请刷新或同步。",
-    "errorTemporaryItem": "This item is temporary and cannot be pinned."
+    "errorTemporaryItem": "这件物品是限定的不能被固定。"
 }
