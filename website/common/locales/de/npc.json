@@ -80,7 +80,7 @@
     "positiveAmountRequired": "Positiver Betrag benötigt",
     "notAccteptedType": "Typ muss eins der Folgenden sein: [Eier, Schlüpftränke, Premium-Schlüpftränke, Futter, Quests, Ausrüstung]",
     "contentKeyNotFound": "Schlüssel für Inhalt <%= type %> nicht gefunden",
-    "plusGem": "+<%= count %> Gem",
+    "plusGem": "+<%= count %> Edelstein",
     "typeNotSellable": "Typ ist nicht verkäuflich. Dieser muss einer der Folgenden sein: <%= acceptedTypes %>",
     "userItemsKeyNotFound": "Schlüssel für user.items <%= type %> nicht gefunden",
     "userItemsNotEnough": "Du hast nicht genug <%= type %>",

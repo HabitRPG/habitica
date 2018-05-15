@@ -25,7 +25,7 @@
     "questInvitation": "任务邀请：",
     "questInvitationTitle": "任务邀请",
     "questInvitationInfo": "探索任务邀请<%= quest %>",
-    "invitedToQuest": "You were invited to the Quest <span class=\"notification-bold-blue\"><%= quest %></span>",
+    "invitedToQuest": "你被邀请加入任务<span class=\"notification-bold-blue\"><%= quest %></span>",
     "askLater": "稍后再问",
     "questLater": "后续任务",
     "buyQuest": "购买任务",
@@ -120,10 +120,10 @@
     "questBundles": "打折的任务包",
     "buyQuestBundle": "购买任务包",
     "noQuestToStart": "找不到一个可以开始的任务？ 尝试查看市场上新版本的任务商店！",
-    "pendingDamage": "<%= damage %> pending damage",
-    "pendingDamageLabel": "pending damage",
-    "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Health",
-    "rageAttack": "Rage Attack:",
-    "bossRage": "<%= currentRage %> / <%= maxRage %> Rage",
-    "rageStrikes": "Rage Strikes"
+    "pendingDamage": "即将对Boss造成<%= damage %>点伤害",
+    "pendingDamageLabel": "即将造成的伤害",
+    "bossHealth": "<%= currentHealth %>/ <%= maxHealth %> 生命值",
+    "rageAttack": "狂暴攻击：",
+    "bossRage": "<%= currentRage %> / <%= maxRage %> 愤怒值",
+    "rageStrikes": "狂暴打击"
 }
