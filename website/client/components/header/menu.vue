@@ -14,43 +14,40 @@ div
       notification-menu.item-with-icon
       user-dropdown.item-with-icon
     b-collapse#menu_collapse.collapse.navbar-collapse
-      .menu-list.ul.navbar-nav
-        router-link.topbar-item.nav-item(tag="li", :to="{name: 'tasks'}", exact)
-          a.topbar-link.nav-link(v-once) {{ $t('tasks') }}
-        router-link.topbar-item.nav-item.dropdown(tag="li", :to="{name: 'items'}", :class="{'active': $route.path.startsWith('/inventory')}")
-          a.topbar-link.nav-link(v-once) {{ $t('inventory') }}
-          .dropdown-menu
-            router-link.dropdown-item(:to="{name: 'items'}", exact) {{ $t('items') }}
-            router-link.dropdown-item(:to="{name: 'equipment'}") {{ $t('equipment') }}
-            router-link.dropdown-item(:to="{name: 'stable'}") {{ $t('stable') }}
+      b-navbar-nav.menu-list
+        b-nav-item.topbar-item(tag="li", :to="{name: 'tasks'}", exact) {{ $t('tasks') }}
+        li.topbar-item.nav-item(:class="{'active': $route.path.startsWith('/inventory')}")
+          router-link.nav-link(:to="{name: 'items'}") {{ $t('inventory') }}
+          .topbar-dropdown
+            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'items'}", exact) {{ $t('items') }}
+            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'equipment'}") {{ $t('equipment') }}
+            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'stable'}") {{ $t('stable') }}
         router-link.topbar-item.nav-item.dropdown(tag="li", :to="{name: 'market'}", :class="{'active': $route.path.startsWith('/shop')}")
-          a.topbar-link.nav-link(v-once) {{ $t('shops') }}
+          a.nav-link(v-once) {{ $t('shops') }}
           .dropdown-menu
             router-link.dropdown-item(:to="{name: 'market'}", exact) {{ $t('market') }}
             router-link.dropdown-item(:to="{name: 'quests'}") {{ $t('quests') }}
             router-link.dropdown-item(:to="{name: 'seasonal'}") {{ $t('titleSeasonalShop') }}
             router-link.dropdown-item(:to="{name: 'time'}") {{ $t('titleTimeTravelers') }}
-        router-link.topbar-item.nav-item(tag="li", :to="{name: 'party'}", v-if='this.user.party._id')
-          a.topbar-link.nav-link(v-once) {{ $t('party') }}
-        .nav-item(@click='openPartyModal()', v-if='!this.user.party._id')
-          a.topbar-link.nav-link(v-once) {{ $t('party') }}
+        b-nav-item.topbar-item(tag="li", :to="{name: 'party'}", v-if='this.user.party._id') {{ $t('party') }}
+        b-nav-item.topbar-item(@click='openPartyModal()', v-if='!this.user.party._id') {{ $t('party') }}
         router-link.topbar-item.nav-item.dropdown(tag="li", :to="{name: 'tavern'}", :class="{'active': $route.path.startsWith('/guilds')}")
-          a.topbar-link.nav-link(v-once) {{ $t('guilds') }}
+          a.nav-link(v-once) {{ $t('guilds') }}
           .dropdown-menu
             router-link.dropdown-item(:to="{name: 'tavern'}") {{ $t('tavern') }}
             router-link.dropdown-item(:to="{name: 'myGuilds'}") {{ $t('myGuilds') }}
             router-link.dropdown-item(:to="{name: 'guildsDiscovery'}") {{ $t('guildsDiscovery') }}
         router-link.topbar-item.nav-item.dropdown(tag="li", :to="{name: 'groupPlan'}", :class="{'active': $route.path.startsWith('/group-plans')}")
-          a.topbar-link.nav-link(v-once) {{ $t('group') }}
+          a.nav-link(v-once) {{ $t('group') }}
           .dropdown-menu
             router-link.dropdown-item(v-for='group in groupPlans', :key='group._id', :to="{name: 'groupPlanDetailTaskInformation', params: {groupId: group._id}}") {{ group.name }}
         router-link.topbar-item.nav-item.dropdown(tag="li", :to="{name: 'myChallenges'}", :class="{'active': $route.path.startsWith('/challenges')}")
-          a.topbar-link.nav-link(v-once) {{ $t('challenges') }}
+          a.nav-link(v-once) {{ $t('challenges') }}
           .dropdown-menu
             router-link.dropdown-item(:to="{name: 'myChallenges'}") {{ $t('myChallenges') }}
             router-link.dropdown-item(:to="{name: 'findChallenges'}") {{ $t('findChallenges') }}
         router-link.topbar-item.nav-item.dropdown(tag="li", :class="{'active': $route.path.startsWith('/help')}", :to="{name: 'faq'}")
-          a.topbar-link.nav-link(v-once) {{ $t('help') }}
+          a.nav-link(v-once) {{ $t('help') }}
           .dropdown-menu
             router-link.dropdown-item(:to="{name: 'faq'}") {{ $t('faq') }}
             router-link.dropdown-item(:to="{name: 'overview'}") {{ $t('overview') }}
@@ -81,7 +78,7 @@ div
   @import '~client/assets/scss/utils.scss';
 
   @media only screen and (max-width: 1305px) {
-    .topbar-link {
+    .topbar-item>a {
       padding: .8em 1em !important;
     }
   }
@@ -94,12 +91,10 @@ div
       background-size: cover;
       color: $white;
       margin: 0 auto;
-
     }
 
-    .topbar-item .topbar-link {
+    .topbar-item {
       font-size: 14px !important;
-      padding: 16px 12px !important;
     }
   }
 
@@ -109,8 +104,22 @@ div
     }
 
     .topbar {
+      max-height: 56px;
+
       .currency-tray {
         margin-left: auto;
+      }
+
+      .topbar-item {
+        height: 56px;
+
+        &.active:not(:hover) {
+          box-shadow: 0px -4px 0px $purple-300 inset;
+        }
+      }
+
+      .topbar-dropdown {
+        position: absolute;
       }
     }
   }
@@ -147,7 +156,6 @@ div
 
   .topbar {
     background: $purple-100 url(~assets/svg/for-css/bits.svg) right top no-repeat;
-    padding: 0 12.5px 0 25px;
     min-height: 56px;
     box-shadow: 0 1px 2px 0 rgba($black, 0.24);
   }
@@ -163,6 +171,7 @@ div
   }
 
   .logo {
+    padding-left: 10px;
     width: 128px;
     height: 28px;
   }
@@ -177,63 +186,51 @@ div
   }
 
   .topbar-item {
-    .topbar-link {
-      font-size: 16px;
-      color: $white !important;
-      font-weight: bold;
-      line-height: 1.5;
-      padding: 16px 20px;
-      transition: none;
+    font-size: 16px;
+    color: $white !important;
+    font-weight: bold;
+    transition: none;
+
+    .topbar-dropdown {
+      display: none; // Display is set to block on hover.
     }
 
     &:hover {
-      .topbar-link {
-        color: $white !important;
+      color: $white !important;
+      background: $purple-200;
+
+      .topbar-dropdown {
+        display: block; // Open drop-down on hover.
+        margin-top: 0; // Remove gap between navbar and drop-down. 
         background: $purple-200;
-      }
-    }
+        border-radius: 0px;
+        border: none;
+        box-shadow: none;
+        padding: 0px;
 
-    &.active:not(:hover) {
-      .topbar-link {
-        box-shadow: 0px -4px 0px $purple-300 inset;
-      }
-    }
-  }
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
 
-  // Make the dropdown menu open on hover
-  .dropdown:hover .dropdown-menu {
-   display: block;
-   margin-top: 0; // remove the gap so it doesn't close
-  }
+        .topbar-dropdown-item {
+          font-size: 16px;
+          box-shadow: none;
+          color: $white;
+          border: none;
+          line-height: 1.5;
+          display: list-item;
 
-  .dropdown-menu {
-    background: $purple-200;
-    border-radius: 0px;
-    border: none;
-    box-shadow: none;
-    padding: 0px;
+          &.active {
+            background: $purple-300;
+          }
 
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
+          &:hover {
+            background: $purple-300;
 
-    .dropdown-item {
-      font-size: 16px;
-      box-shadow: none;
-      color: $white;
-      border: none;
-      line-height: 1.5;
-
-      &.active {
-        background: $purple-300;
-      }
-
-      &:hover {
-        background: $purple-300;
-        color: $white;
-
-        &:last-child {
-          border-bottom-right-radius: 5px;
-          border-bottom-left-radius: 5px;
+            &:last-child {
+              border-bottom-right-radius: 5px;
+              border-bottom-left-radius: 5px;
+            }
+          }
         }
       }
     }
@@ -390,6 +387,7 @@ export default {
 
       this.$root.$emit('bv::show::modal', 'buy-gems', {alreadyTracked: true});
     },
+
   },
 };
 </script>
