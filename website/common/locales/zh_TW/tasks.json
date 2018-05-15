@@ -145,7 +145,6 @@
     "rewardHelp3": "在世界事件發生時，特殊的裝備會出現。",
     "rewardHelp4": "不知道要怎麼自訂獎勵嗎？ 點擊這裡<a href='http://habitica.wikia.com/wiki/Sample_Custom_Rewards' target='_blank'>有一些參考範例</a>。",
     "clickForHelp": "點選獲得協助",
-    "taskIdRequired": "\"taskld\" 必須是有效的UUID",
     "taskAliasAlreadyUsed": "這個任務的別名已經被其他任務使用了。",
     "taskNotFound": "找不到任務。",
     "invalidTaskType": "任務的類型必須屬於「習慣」、「每日任務」、「代辦事項」或是「獎勵」的其中一種。",

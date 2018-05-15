@@ -145,7 +145,6 @@
     "rewardHelp3": "Equipamiento especial aparecerá aquí durante Eventos Globales.",
     "rewardHelp4": "¡No tengas miedo de crear Recompensas personalizadas! Echa un vistazo a <a href='http://habitica.wikia.com/wiki/Sample_Custom_Rewards' target='_blank'>algunos ejemplos aquí</a>.",
     "clickForHelp": "Clic para obtener ayuda",
-    "taskIdRequired": "\"taskid\" tiene que ser un UUID valido.",
     "taskAliasAlreadyUsed": "El alias de la tarea ya ha sido utilizado en otra.",
     "taskNotFound": "Tarea no encontrada.",
     "invalidTaskType": "El tipo de tarea debe ser:\"Habitos\",\"Diarias\",\"Pendientes\" o \"Recompensas\".",

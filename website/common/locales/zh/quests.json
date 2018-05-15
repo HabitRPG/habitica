@@ -96,7 +96,6 @@
     "questInvitationDoesNotExist": "还没有发出任何探索任务邀请。",
     "questInviteNotFound": "找不到探索任务邀请。",
     "guildQuestsNotSupported": "公会不能被邀请参加探索任务。",
-    "questNotFound": "找不到探索任务\"<%= key %>\"。",
     "questNotOwned": "你还没拥有那个探索任务卷轴。",
     "questNotGoldPurchasable": "探索任务\"<%= key %>\"不能用金币购买。",
     "questLevelTooHigh": "你必须达到等级<%= level %>来开始这个探索任务。",

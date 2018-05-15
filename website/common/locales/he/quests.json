@@ -96,7 +96,6 @@
     "questInvitationDoesNotExist": "לא נשלחה עדיין הזמנה להרפתקה.",
     "questInviteNotFound": "לא נמצאה הזמנה להרפתקה.",
     "guildQuestsNotSupported": "לא ניתן להזמין גילדות להרפתקה.",
-    "questNotFound": "ההרפתקה ״<%= key %>״ לא נמצאה.",
     "questNotOwned": "אין ברשותכם את המגילה הזו.",
     "questNotGoldPurchasable": "ההרפתקה ״<%= key %>״ אינה ניתנת לרכישה באמצעות זהב.",
     "questLevelTooHigh": "עליכם להיות בדרגה <%= level %> כדי להתחיל את ההרפתקה הזו.",

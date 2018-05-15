@@ -17,6 +17,7 @@ import {
 } from '../../libs/email';
 import common from '../../../common';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
+import apiError from '../../libs/apiError';
 
 const questScrolls = common.content.quests;
 
@@ -62,7 +63,7 @@ api.inviteToQuest = {
     let questKey = req.params.questKey;
     let quest = questScrolls[questKey];
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -71,7 +72,7 @@ api.inviteToQuest = {
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
-    if (!quest) throw new NotFound(res.t('questNotFound', { key: questKey }));
+    if (!quest) throw new NotFound(apiError('questNotFound', { key: questKey }));
     if (!user.items.quests[questKey]) throw new NotAuthorized(res.t('questNotOwned'));
     if (user.stats.lvl < quest.lvl) throw new NotAuthorized(res.t('questLevelTooHigh', { level: quest.lvl }));
     if (group.quest.key) throw new NotAuthorized(res.t('questAlreadyUnderway'));
@@ -176,7 +177,7 @@ api.acceptQuest = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -237,7 +238,7 @@ api.rejectQuest = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -302,7 +303,7 @@ api.forceStart = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -366,7 +367,7 @@ api.cancelQuest = {
     let user = res.locals.user;
     let groupId = req.params.groupId;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -420,7 +421,7 @@ api.abortQuest = {
     let user = res.locals.user;
     let groupId = req.params.groupId;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -481,7 +482,7 @@ api.leaveQuest = {
     let user = res.locals.user;
     let groupId = req.params.groupId;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;

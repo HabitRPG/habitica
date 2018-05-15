@@ -96,7 +96,6 @@
     "questInvitationDoesNotExist": "尚未發送任何任務邀請。",
     "questInviteNotFound": "找不到任務邀請。",
     "guildQuestsNotSupported": "公會不能邀請任務。",
-    "questNotFound": "找不到任務 \"<%= key %>\"。",
     "questNotOwned": "你不擁有這件任務卷軸。",
     "questNotGoldPurchasable": "任務 \"<%= key %>\" 不是可用金幣購買的任務。",
     "questLevelTooHigh": "你必須達到等級 <%= level %> 才能開始這個任務。",

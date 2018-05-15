@@ -51,7 +51,6 @@
     "spellSpecialSeafoamNotes": "友達を海の生き物に変えよう!",
     "spellSpecialSandText": "砂",
     "spellSpecialSandNotes": "海の泡の効果を取り消す。",
-    "spellNotFound": "スキル\"<%= spellId %>\" が見つかりません。",
     "partyNotFound": "パーティが見つかりません。",
     "targetIdUUID": "\"targetId\" のUserIDが無効です。",
     "challengeTasksNoCast": "スキルはチャレンジのタスクには唱えられません。",

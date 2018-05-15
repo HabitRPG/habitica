@@ -102,7 +102,7 @@
     "questGoldenknight2Text": "A Cavaleira Dourada, Parte 2: Cavaleira Dourada",
     "questGoldenknight2Notes": "Em posse de centenas de testemunhos de habiticanos, você finalmente confronta a Cavaleira Dourada. Você começa a recitar as reclamações de habiticanos para ela, uma a uma. \"E @Pfeffernusse diz que seu enorme ego-\" A Cavaleira levanta sua mão para te silenciar e zomba, \"Por favor, essas pessoas estão somente com inveja do meu sucesso. Ao invés de reclamar, elas deveriam simplesmente se esforçar tanto quanto eu! Talvez eu deva mostrar-lhes o poder que vocês podem alcançar através de uma dedicação como a minha!\" Ela levanta sua maça e se prepara para te atacar!",
     "questGoldenknight2Boss": "Cavaleira Dourada",
-    "questGoldenknight2Completion": "The Golden Knight lowers her Morningstar in consternation. “I apologize for my rash outburst,” she says. “The truth is, it’s painful to think that I’ve been inadvertently hurting others, and it made me lash out in defense… but perhaps I can still apologize?",
+    "questGoldenknight2Completion": "The Golden Knight lowers her Morningstar in consternation. “I apologize for my rash outburst,” she says. “The truth is, it’s painful to think that I’ve been inadvertently hurting others, and it made me lash out in defense… but perhaps I can still apologize?”",
     "questGoldenknight2DropGoldenknight3Quest": "O Cavaleiro Dourado Parte 3: O Cavaleiro de Ferro (Pergaminho)",
     "questGoldenknight3Text": "A Cavaleira Dourada, Parte 3: O Cavaleiro de Ferro",
     "questGoldenknight3Notes": "@Jon Arinbjorn grita para conseguir sua atenção. Após a sua batalha, uma nova figura apareceu. Um cavaleiro coberto por ferro escurecido lentamente se aproxima de você com espada em mãos. A Cavaleira Dourada grita para a figura \"Pai, não!\", mas o cavaleiro não mostra sinais de parar. Ela se vira para você e diz \"Me desculpe, eu fui uma tola, com uma cabeça grande demais para ver  quão cruel eu tenho sido. Mas meu pai é mais cruel do que eu jamais poderia ser. Se ele não for parado, ele nos destruirá a todos. Aqui, use minha maça e pare o Cavaleiro de Ferro!\"",
@@ -600,5 +600,7 @@
     "questSquirrelCompletion": "With a gentle approach, offers of trade, and a few soothing spells, you’re able to coax the squirrel away from its hoard and back to the stables, which @Shtut has just finished de-acorning. They’ve set aside a few of the acorns on a worktable. “These ones are squirrel eggs! Maybe you can raise some that don’t play with their food quite so much.”",
     "questSquirrelBoss": "Sneaky Squirrel",
     "questSquirrelDropSquirrelEgg": "Squirrel (Egg)",
-    "questSquirrelUnlockText": "Unlocks purchasable Squirrel eggs in the Market"
+    "questSquirrelUnlockText": "Unlocks purchasable Squirrel eggs in the Market",
+    "cuddleBuddiesText": "Cuddle Buddies Quest Bundle",
+    "cuddleBuddiesNotes": "Contains 'The Killer Bunny', 'The Nefarious Ferret', and 'The Guinea Pig Gang'. Available until May 31."
 }

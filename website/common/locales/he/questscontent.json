@@ -102,7 +102,7 @@
     "questGoldenknight2Text": "האבירה הזהובה, חלק 2: אבירת זהב",
     "questGoldenknight2Notes": "Armed with dozens of Habiticans' testimonies, you finally confront the Golden Knight. You begin to recite the Habitcans' complaints to her, one by one. \"And @Pfeffernusse says that your constant bragging-\" The knight raises her hand to silence you and scoffs, \"Please, these people are merely jealous of my success. Instead of complaining, they should simply work as hard as I! Perhaps I shall show you the power you can attain through diligence such as mine!\" She raises her morningstar and prepares to attack you!",
     "questGoldenknight2Boss": "אבירת זהב",
-    "questGoldenknight2Completion": "The Golden Knight lowers her Morningstar in consternation. “I apologize for my rash outburst,” she says. “The truth is, it’s painful to think that I’ve been inadvertently hurting others, and it made me lash out in defense… but perhaps I can still apologize?",
+    "questGoldenknight2Completion": "The Golden Knight lowers her Morningstar in consternation. “I apologize for my rash outburst,” she says. “The truth is, it’s painful to think that I’ve been inadvertently hurting others, and it made me lash out in defense… but perhaps I can still apologize?”",
     "questGoldenknight2DropGoldenknight3Quest": "האבירה הזהובה חלק 3: אביר הברזל (מגילה)",
     "questGoldenknight3Text": "האבירה הזהובה, חלק 3: אביר הברזל",
     "questGoldenknight3Notes": "@Jon Arinbjorn קורא לעברכם כדי למשוך את תשומת לבכם. בהשלכות הקרב, דמות חדשה הופיעה. אביר מצופה ברזל שחור מתקרב אליכם עם חרב בידו. האבירה הזהובה צועקת לעבר הדמות, ״אבא, לא!״ אך האביר לא מראה סימנים שהוא מפסיק. היא פונה אליכם ואומרת, ״צר לי. הייתי טיפשה, עם ראש גדול מכדי להבחין כמה אכזרית הייתי. אך אבא שלי אכזר יותר ממה שאני יכולתי אי פעם להיות. אם לא יעצרו אותו הוא יהרוס את כולנו. הנה, השתמשו בכוכב-הבוקר שלי ועכבו את אביר הברזל!",
@@ -600,5 +600,7 @@
     "questSquirrelCompletion": "With a gentle approach, offers of trade, and a few soothing spells, you’re able to coax the squirrel away from its hoard and back to the stables, which @Shtut has just finished de-acorning. They’ve set aside a few of the acorns on a worktable. “These ones are squirrel eggs! Maybe you can raise some that don’t play with their food quite so much.”",
     "questSquirrelBoss": "Sneaky Squirrel",
     "questSquirrelDropSquirrelEgg": "Squirrel (Egg)",
-    "questSquirrelUnlockText": "Unlocks purchasable Squirrel eggs in the Market"
+    "questSquirrelUnlockText": "Unlocks purchasable Squirrel eggs in the Market",
+    "cuddleBuddiesText": "Cuddle Buddies Quest Bundle",
+    "cuddleBuddiesNotes": "Contains 'The Killer Bunny', 'The Nefarious Ferret', and 'The Guinea Pig Gang'. Available until May 31."
 }

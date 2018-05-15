@@ -145,7 +145,6 @@
     "rewardHelp3": "Speciale uitrusting verschijnt hier tijdens wereldwijde evenementen.",
     "rewardHelp4": "Wees niet bang om je eigen beloningen toe te voegen! Kijk ook eens naar <a href='http://nl.habitica.wikia.com/wiki/Voorbeelden_van_aangepaste_beloningen' target='_blank'>de voorbeelden hier</a>.",
     "clickForHelp": "Klik hier voor hulp",
-    "taskIdRequired": "\"taskId\" moet een geldige UUID zijn.",
     "taskAliasAlreadyUsed": "Taakalias al in gebruik bij een andere taak.",
     "taskNotFound": "Taak niet gevonden.",
     "invalidTaskType": "Taaktype moet een \"habit\",  \"daily\", \"todo\" of \"reward\" zijn.",

@@ -102,7 +102,7 @@
     "questGoldenknight2Text": "Zlatá rytířka, část 2: Zašlé zlato",
     "questGoldenknight2Notes": "Vyzbrojen stovkami svědectví Habiťanů se konečně postavíš Zlaté Rytířce. Začneš jí předčítat námitky Habiťanů jednu po druhé. \"A @Pfeffernusse říká, že tvé neustálé vychloubání-\" Rytířka zvedne ruku, aby tě umlčela a vysmívá se \"Prosím, tihle lidé jsou pouze žárliví. Místo stěžování si by prostě měli pilně pracovat jako já! Možná bych ti měla ukázat moc, kterou získáš za píli, jako je ta moje!\" Pozvedne svůj řemdih a chystá se tě napadnout!",
     "questGoldenknight2Boss": "Zlatá rytířka",
-    "questGoldenknight2Completion": "The Golden Knight lowers her Morningstar in consternation. “I apologize for my rash outburst,” she says. “The truth is, it’s painful to think that I’ve been inadvertently hurting others, and it made me lash out in defense… but perhaps I can still apologize?",
+    "questGoldenknight2Completion": "The Golden Knight lowers her Morningstar in consternation. “I apologize for my rash outburst,” she says. “The truth is, it’s painful to think that I’ve been inadvertently hurting others, and it made me lash out in defense… but perhaps I can still apologize?”",
     "questGoldenknight2DropGoldenknight3Quest": "Zlatá Rytířka, část 3: Železný Rytíř (svitek)",
     "questGoldenknight3Text": "Zlatá rytířka, část 3: Železný rytíř",
     "questGoldenknight3Notes": "@Jon Arinbjorn zakřičí, aby získal tvou pozornost. V dohře bitvy se objevila další postava. Rytíř pokrytý černým železem se k tobě blíží a v ruce drží meč. Zlatá rytířka na postavu zakřičí \"Otče, ne!\" ale rytíř nevypadá, že by chtěl zastavit. Otočí se na tebe a říká \"Omlouvám se. Byla jsem bláznivá, neviděla jsem si do své kruté pusy. Ale můj otec je ještě krutější než bych kdy já mohla být. Pokud nebude zastaven, zničí nás všechny. Tady, použij můj řemdih a zastav Železného rytíře!\"",
@@ -600,5 +600,7 @@
     "questSquirrelCompletion": "With a gentle approach, offers of trade, and a few soothing spells, you’re able to coax the squirrel away from its hoard and back to the stables, which @Shtut has just finished de-acorning. They’ve set aside a few of the acorns on a worktable. “These ones are squirrel eggs! Maybe you can raise some that don’t play with their food quite so much.”",
     "questSquirrelBoss": "Sneaky Squirrel",
     "questSquirrelDropSquirrelEgg": "Squirrel (Egg)",
-    "questSquirrelUnlockText": "Unlocks purchasable Squirrel eggs in the Market"
+    "questSquirrelUnlockText": "Unlocks purchasable Squirrel eggs in the Market",
+    "cuddleBuddiesText": "Cuddle Buddies Quest Bundle",
+    "cuddleBuddiesNotes": "Contains 'The Killer Bunny', 'The Nefarious Ferret', and 'The Guinea Pig Gang'. Available until May 31."
 }

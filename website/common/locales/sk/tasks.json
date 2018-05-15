@@ -145,7 +145,6 @@
     "rewardHelp3": "Špeciálny výstroj sa objaví tu počas Podujatí.",
     "rewardHelp4": "Neboj sa vlastných odmien! Pozri si <a href='http://habitica.wikia.com/wiki/Sample_Custom_Rewards' target='_blank'>zopár ich ukážok</a>.",
     "clickForHelp": "Klikni pre pomoc",
-    "taskIdRequired": "\"taskId\" musí byť platné UUID.",
     "taskAliasAlreadyUsed": "Alias úloha už je použitá na inej úlohe. ",
     "taskNotFound": "Úloha nebola nájdená.",
     "invalidTaskType": "Typ úlohy musí byť jeden z \"habit\", \"daily\", \"todo\", \"reward\".",

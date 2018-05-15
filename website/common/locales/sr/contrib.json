@@ -49,7 +49,6 @@
     "UUID": "User ID",
     "loadUser": "Učitati korisnika",
     "noAdminAccess": "You don't have admin access.",
-    "pageMustBeNumber": "req.query.page mora biti broj",
     "userNotFound": "Korisnik nije pronađen.",
     "invalidUUID": "UUID mora biti validan.",
     "title": "Titula",

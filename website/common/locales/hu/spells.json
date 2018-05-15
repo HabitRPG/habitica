@@ -51,7 +51,6 @@
     "spellSpecialSeafoamNotes": "Változtass át egy barátot tengeri lénnyé!",
     "spellSpecialSandText": "Homok",
     "spellSpecialSandNotes": "Reverse the spell that made you a sea star.",
-    "spellNotFound": "Varázslat \"<%= spellId %>\" nem található.",
     "partyNotFound": "A Csapat nem található",
     "targetIdUUID": "\"targetId\" érvényes felhasználói azonosító kell, hogy legyen.",
     "challengeTasksNoCast": "Kihívásokhoz tartozó feladatokon nem használhatsz varázslatokat.",

@@ -85,7 +85,7 @@ let loggerInterface = {
 // Logs unhandled promises errors
 // when no catch is attached to a promise a unhandledRejection event will be triggered
 process.on('unhandledRejection', function handlePromiseRejection (reason) {
-  loggerInterface.error(reason);
+  loggerInterface.error('unhandledPromiseRejection', reason);
 });
 
 module.exports = loggerInterface;

@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'APRIL SUBSCRIBER ITEMS: SPIFFY SQUIRRELS!';
+const LAST_ANNOUNCEMENT_TITLE = 'USE CASE SPOTLIGHT AND GUILD SPOTLIGHT ON MENTAL HEALTH AND WELLNESS';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -32,17 +32,15 @@ api.getNews = {
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
           </div>
         </div>
-        <h2>4/24/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+        <h2>5/10/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
         <div class="media">
           <div class="media-body">
-            <h3>April Subscriber Items Revealed!</h3>
-            <p>The April Subscriber Items have been revealed: the Spiffy Squirrel Item Set! You only have until April 30 to <a href='/user/settings/subscription' target='_blank'>receive the item set when you subscribe</a>. If you're already an active subscriber, reload the site and then head to Inventory > Items to claim your gear!</p>
+            <p>In honor of Mental Health Awareness Month, we've got new posts on the blog all about ways to explore better mental health and wellness through Habitica! First, there's a <a href='https://habitica.wordpress.com/2018/05/10/caring-for-the-mind-guilds-for-mental-health-and-wellness/' target='_blank'>Guild Spotlight</a> that highlights the Guilds that can help you as you explore the path to better mental health. We've also posted a <a href='https://habitica.wordpress.com/2018/05/10/use-case-spotlight-mental-health-and-wellness/' target='_blank'>Use Case Spotlight</a> featuring a number of great suggestions for using Habitica's task system to manage mental health and wellness! These suggestions were submitted by Habiticans in the <a href='/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6' target='_blank'>Use Case Spotlights Guild</a>.</p>
           </div>
-          <div class="promo_mystery_201804"></div>
+          <div class="scene_meditation"></div>
         </div>
-        <p>Subscribers also receive the ability to buy gems for gold -- the longer you subscribe, the more gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
-        <div class="small mb-3">by Beffymaroo</div>
+        <p>Plus, we're collecting user submissions for the next Use Case Spotlight! How do you use Habitica to manage parenting and/or family life? We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!</p>
       </div>
       `,
     });

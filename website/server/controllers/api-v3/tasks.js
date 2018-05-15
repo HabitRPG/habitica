@@ -23,6 +23,7 @@ import common from '../../../common';
 import _ from 'lodash';
 import logger from '../../libs/logger';
 import moment from 'moment';
+import apiError from '../../libs/apiError';
 
 const MAX_SCORE_NOTES_LENGTH = 256;
 
@@ -158,7 +159,9 @@ let requiredGroupFields = '_id leader tasksOrder name';
 api.createUserTasks = {
   method: 'POST',
   url: '/tasks/user',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let tasks = await createTasks(req, res, {user});
@@ -229,7 +232,9 @@ api.createUserTasks = {
 api.createChallengeTasks = {
   method: 'POST',
   url: '/tasks/challenge/:challengeId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
 
@@ -283,7 +288,9 @@ api.createChallengeTasks = {
 api.getUserTasks = {
   method: 'GET',
   url: '/tasks/user',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let types = Tasks.tasksTypes.map(type => `${type}s`);
     types.push('completedTodos', '_allCompletedTodos'); // _allCompletedTodos is currently in BETA and is likely to be removed in future
@@ -321,7 +328,9 @@ api.getUserTasks = {
 api.getChallengeTasks = {
   method: 'GET',
   url: '/tasks/challenge/:challengeId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
     let types = Tasks.tasksTypes.map(type => `${type}s`);
@@ -371,7 +380,9 @@ api.getChallengeTasks = {
 api.getTask = {
   method: 'GET',
   url: '/tasks/:taskId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let taskId = req.params.taskId;
@@ -425,12 +436,14 @@ api.getTask = {
 api.updateTask = {
   method: 'PUT',
   url: '/tasks/:taskId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let challenge;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -537,7 +550,9 @@ api.updateTask = {
 api.scoreTask = {
   method: 'POST',
   url: '/tasks/:taskId/score/:direction',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     req.checkParams('direction', res.t('directionUpDown')).notEmpty().isIn(['up', 'down']);
 
@@ -708,9 +723,11 @@ api.scoreTask = {
 api.moveTask = {
   method: 'POST',
   url: '/tasks/:taskId/move/to/:position',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
     req.checkParams('position', res.t('positionRequired')).notEmpty().isNumeric();
 
     let validationErrors = req.validationErrors();
@@ -777,13 +794,15 @@ api.moveTask = {
 api.addChecklistItem = {
   method: 'POST',
   url: '/tasks/:taskId/checklist',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let challenge;
     let group;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -837,11 +856,13 @@ api.addChecklistItem = {
 api.scoreCheckListItem = {
   method: 'POST',
   url: '/tasks/:taskId/checklist/:itemId/score',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
@@ -891,13 +912,15 @@ api.scoreCheckListItem = {
 api.updateChecklistItem = {
   method: 'PUT',
   url: '/tasks/:taskId/checklist/:itemId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let challenge;
     let group;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
@@ -956,13 +979,15 @@ api.updateChecklistItem = {
 api.removeChecklistItem = {
   method: 'DELETE',
   url: '/tasks/:taskId/checklist/:itemId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let challenge;
     let group;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
@@ -1019,11 +1044,13 @@ api.removeChecklistItem = {
 api.addTagToTask = {
   method: 'POST',
   url: '/tasks/:taskId/tags/:tagId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
     let userTags = user.tags.map(tag => tag.id);
     req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID().isIn(userTags);
 
@@ -1068,11 +1095,13 @@ api.addTagToTask = {
 api.removeTagFromTask = {
   method: 'DELETE',
   url: '/tasks/:taskId/tags/:tagId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
     req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
@@ -1113,10 +1142,12 @@ api.removeTagFromTask = {
 api.unlinkAllTasks = {
   method: 'POST',
   url: '/tasks/unlink-all/:challengeId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
-    req.checkQuery('keep', res.t('keepOrRemoveAll')).notEmpty().isIn(['keep-all', 'remove-all']);
+    req.checkQuery('keep', apiError('keepOrRemoveAll')).notEmpty().isIn(['keep-all', 'remove-all']);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -1180,10 +1211,12 @@ api.unlinkAllTasks = {
 api.unlinkOneTask = {
   method: 'POST',
   url: '/tasks/unlink-one/:taskId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
-    req.checkQuery('keep', res.t('keepOrRemove')).notEmpty().isIn(['keep', 'remove']);
+    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty().isUUID();
+    req.checkQuery('keep', apiError('keepOrRemove')).notEmpty().isIn(['keep', 'remove']);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -1230,7 +1263,9 @@ api.unlinkOneTask = {
 api.clearCompletedTodos = {
   method: 'POST',
   url: '/tasks/clearCompletedTodos',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -1281,7 +1316,9 @@ api.clearCompletedTodos = {
 api.deleteTask = {
   method: 'DELETE',
   url: '/tasks/:taskId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let challenge;

@@ -102,7 +102,7 @@
     "questGoldenknight2Text": "Den Gyldne Ridder, Del 2: Gylden Ridder",
     "questGoldenknight2Notes": "Armed with dozens of Habiticans' testimonies, you finally confront the Golden Knight. You begin to recite the Habitcans' complaints to her, one by one. \"And @Pfeffernusse says that your constant bragging-\" The knight raises her hand to silence you and scoffs, \"Please, these people are merely jealous of my success. Instead of complaining, they should simply work as hard as I! Perhaps I shall show you the power you can attain through diligence such as mine!\" She raises her morningstar and prepares to attack you!",
     "questGoldenknight2Boss": "Gylden Ridder",
-    "questGoldenknight2Completion": "The Golden Knight lowers her Morningstar in consternation. “I apologize for my rash outburst,” she says. “The truth is, it’s painful to think that I’ve been inadvertently hurting others, and it made me lash out in defense… but perhaps I can still apologize?",
+    "questGoldenknight2Completion": "The Golden Knight lowers her Morningstar in consternation. “I apologize for my rash outburst,” she says. “The truth is, it’s painful to think that I’ve been inadvertently hurting others, and it made me lash out in defense… but perhaps I can still apologize?”",
     "questGoldenknight2DropGoldenknight3Quest": "Den Gyldne Ridder, Del 3: Jernridderen (Skriftrulle)",
     "questGoldenknight3Text": "Den Gyldne Ridder, Del 3: Jernridderen",
     "questGoldenknight3Notes": "@Jon Arinbjorn råber for at få din opmærksomhed. Efter kampen er en ny skikkelse dukket op. En ridder dækket af sortplettet jern går langsomt mod dig med løftet sværd. Den Gyldne Ridder råber til skikkelsen, \"Fader! Nej!\" men ridderen viser ikke tegn på at stoppe. Hun vender sig mod dig og siger, \"Undskyld! Jeg har været et fjols, og alt for selvoptaget til at se hvor ond jeg har været. Men min far er ondere end jeg nogen sinde kunne være. Hvis han ikke bliver stoppet vil han ødelægge os alle. Her, brug min morgenstjerne, og stop Jernridderen!\"",
@@ -600,5 +600,7 @@
     "questSquirrelCompletion": "With a gentle approach, offers of trade, and a few soothing spells, you’re able to coax the squirrel away from its hoard and back to the stables, which @Shtut has just finished de-acorning. They’ve set aside a few of the acorns on a worktable. “These ones are squirrel eggs! Maybe you can raise some that don’t play with their food quite so much.”",
     "questSquirrelBoss": "Sneaky Squirrel",
     "questSquirrelDropSquirrelEgg": "Squirrel (Egg)",
-    "questSquirrelUnlockText": "Unlocks purchasable Squirrel eggs in the Market"
+    "questSquirrelUnlockText": "Unlocks purchasable Squirrel eggs in the Market",
+    "cuddleBuddiesText": "Cuddle Buddies Quest Bundle",
+    "cuddleBuddiesNotes": "Contains 'The Killer Bunny', 'The Nefarious Ferret', and 'The Guinea Pig Gang'. Available until May 31."
 }

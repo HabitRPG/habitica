@@ -49,7 +49,7 @@ export class BuyGemOperation extends AbstractGoldItemOperation {
       throw new NotAuthorized(this.i18n('reachedGoldToGemCap', {convCap: this.convCap}));
     }
 
-    if (user.purchased.plan.gemsBought + this.quantity >= this.convCap) {
+    if (user.purchased.plan.gemsBought + this.quantity > this.convCap) {
       throw new NotAuthorized(this.i18n('reachedGoldToGemCapQuantity', {
         convCap: this.convCap,
         quantity: this.quantity,

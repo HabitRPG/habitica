@@ -1,8 +1,8 @@
 {
-  "noItemsAvailableForType": "Nemáš ziaden <%= type %>.",
-  "foodItemType": "Food",
-  "eggsItemType": "Eggs",
-  "hatchingPotionsItemType": "Hatching Potions",
-  "specialItemType": "Special items",
-  "lockedItem": "Locked Item"
+  "noItemsAvailableForType": "Nemáš žiadne <%= type %>.",
+  "foodItemType": "Jedlo",
+  "eggsItemType": "Vajíčka",
+  "hatchingPotionsItemType": "Liahoxíry",
+  "specialItemType": "Špeciálne predmety",
+  "lockedItem": "Zamknutý predmet"
 }

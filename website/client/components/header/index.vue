@@ -18,7 +18,7 @@ div
       @resized="setPartyMembersWidth($event)"
     )
       member-details(
-        v-for="(member, $index) in partyMembers",
+        v-for="(member, $index) in sortedPartyMembers",
         :key="member._id",
         v-if="member._id !== user._id && $index < membersToShow",
         :member="member",
@@ -107,6 +107,7 @@ div
 </style>
 
 <script>
+import orderBy from 'lodash/orderBy';
 import { mapGetters, mapActions } from 'client/libs/store';
 import MemberDetails from '../memberDetails';
 import createPartyModal from '../groups/createPartyModal';
@@ -139,6 +140,9 @@ export default {
     },
     membersToShow () {
       return Math.floor(this.currentWidth / 140) + 1;
+    },
+    sortedPartyMembers () {
+      return orderBy(this.partyMembers, [this.user.party.order], [this.user.party.orderAscending]);
     },
   },
   methods: {

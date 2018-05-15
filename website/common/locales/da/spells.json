@@ -51,7 +51,6 @@
     "spellSpecialSeafoamNotes": "Gør en ven til et søuhyre!",
     "spellSpecialSandText": "Sand",
     "spellSpecialSandNotes": "Reverse the spell that made you a sea star.",
-    "spellNotFound": "Evne \"<%= spellId %>\" blev ikke fundet.",
     "partyNotFound": "Gruppe blev ikke fundet",
     "targetIdUUID": "\"targetId\" skal være et gyldigt Bruger ID.",
     "challengeTasksNoCast": "Det er ikke tilladt at kaste evner på en udfordrings-opgave.",

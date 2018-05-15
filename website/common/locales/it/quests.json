@@ -96,7 +96,6 @@
     "questInvitationDoesNotExist": "Non è stato ancora mandato alcun invito ad una missione.",
     "questInviteNotFound": "Nessun invito ad una missione trovato.",
     "guildQuestsNotSupported": "Le Gilde non possono essere invitate a partecipare ad una missione.",
-    "questNotFound": "Missione \"<%= key %>\" non trovata.",
     "questNotOwned": "Non possiedi questa pergamena.",
     "questNotGoldPurchasable": "La Missione \"<%= key %>\" non può essere comprata con Oro.",
     "questLevelTooHigh": "Devi essere almeno al livello <%= level %> per iniziare questa missione.",

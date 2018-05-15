@@ -51,7 +51,6 @@
     "spellSpecialSeafoamNotes": "Přeměň svého kamaráda na mořskou příšerku!",
     "spellSpecialSandText": "Písek",
     "spellSpecialSandNotes": "Zvrať kouzlo, které z tebe udělalo mořskou hvězdu.",
-    "spellNotFound": "Schopnost „<%= spellId %>\" nenalezena.",
     "partyNotFound": "Družina nenalezena",
     "targetIdUUID": "„cílovéId\" musí být platné ID uživatele. ",
     "challengeTasksNoCast": "Použití schopnosti na úkol z výzvy není povoleno.",

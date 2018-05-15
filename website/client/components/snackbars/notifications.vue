@@ -1,6 +1,6 @@
 <template lang="pug">
-.notifications
-  div(v-for='notification in notifications', :key='notification.uuid')
+.notifications(:class="notificationsTopPos")
+  div(v-for='notification in notificationStore', :key='notification.uuid')
     notification(:notification='notification')
 </template>
 
@@ -8,13 +8,23 @@
   .notifications {
     position: fixed;
     right: 10px;
-    top: 65px;
     width: 350px;
-    z-index: 1041; // 1041 is above modal backgrounds
+    z-index: 1070; // 1070 is above modal backgrounds
+
+    &-top-pos {
+      &-normal {
+        top: 65px;
+      }
+
+      &-sleeping {
+        top: 105px;
+      }
+    }
   }
 </style>
 
 <script>
+import { mapState } from 'client/libs/store';
 import notification from './notification';
 
 export default {
@@ -22,8 +32,19 @@ export default {
     notification,
   },
   computed: {
-    notifications () {
-      return this.$store.state.notificationStore;
+    ...mapState({
+      notificationStore: 'notificationStore',
+      userSleeping: 'user.data.preferences.sleep',
+    }),
+    notificationsTopPos () {
+      const base = 'notifications-top-pos-';
+      let modifier = '';
+      if (this.userSleeping) {
+        modifier = 'sleeping';
+      } else {
+        modifier = 'normal';
+      }
+      return `${base}${modifier}`;
     },
   },
 };

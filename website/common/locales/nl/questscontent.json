@@ -102,7 +102,7 @@
     "questGoldenknight2Text": "De Gouden Ridder, deel 2: Gouden Ridder",
     "questGoldenknight2Notes": "Bewapend met tientallen getuigenverklaringen van Habiticanen ga je eindelijk de confrontatie aan met de Gouden Ridder. Je begint één voor één de klachten van de Habiticanen op te noemen. \"En @Pfeffernusse vindt dat je constante opschepperij-\" De ridder heft haar hand om je tot stilte te manen en hoont, \"Kom nou, deze mensen zijn gewoon jaloers op mijn succes. Ze zouden minder moeten zeuren en gewoon net zo hard moeten werken als ik! Ik zal je laten zien hoeveel macht je kunt verzamelen door zo ijverig te zijn als ik!\" Ze heft haar morgenster en bereidt zich voor om je aan te vallen!",
     "questGoldenknight2Boss": "Gouden Ridder",
-    "questGoldenknight2Completion": "The Golden Knight lowers her Morningstar in consternation. “I apologize for my rash outburst,” she says. “The truth is, it’s painful to think that I’ve been inadvertently hurting others, and it made me lash out in defense… but perhaps I can still apologize?",
+    "questGoldenknight2Completion": "The Golden Knight lowers her Morningstar in consternation. “I apologize for my rash outburst,” she says. “The truth is, it’s painful to think that I’ve been inadvertently hurting others, and it made me lash out in defense… but perhaps I can still apologize?”",
     "questGoldenknight2DropGoldenknight3Quest": "De Gouden Ridder, deel 3: The IJzeren Ridder (Rol)",
     "questGoldenknight3Text": "De Gouden Ridder, deel 3: De IJzeren Ridder",
     "questGoldenknight3Notes": "@Jon Arinbjorn trekt je aandacht met een luide schreeuw. In de nasleep van je strijd is er een nieuw figuur verschenen. Een ridder bekleed met gebrandschilderd zwart ijzer komt met getrokken zwaard langzaam op je af. \"Vader, nee!\" schreeuwt de Gouden Ridder naar het figuur, maar de ridder weigert te stoppen. Ze keert zich naar jou en zegt, \"Het spijt me. Ik ben een idioot geweest, met zo'n grote ego dat ik niet zag hoe wreed ik ben geweest. Maar mijn vader is wreder dan ik ooit zou kunnen zijn. Als hij niet wordt gestopt, zal hij ons allemaal vernietigen. Hier, gebruik mijn morgenster en stop de IJzeren Ridder!\"",
@@ -600,5 +600,7 @@
     "questSquirrelCompletion": "With a gentle approach, offers of trade, and a few soothing spells, you’re able to coax the squirrel away from its hoard and back to the stables, which @Shtut has just finished de-acorning. They’ve set aside a few of the acorns on a worktable. “These ones are squirrel eggs! Maybe you can raise some that don’t play with their food quite so much.”",
     "questSquirrelBoss": "Sneaky Squirrel",
     "questSquirrelDropSquirrelEgg": "Squirrel (Egg)",
-    "questSquirrelUnlockText": "Unlocks purchasable Squirrel eggs in the Market"
+    "questSquirrelUnlockText": "Unlocks purchasable Squirrel eggs in the Market",
+    "cuddleBuddiesText": "Cuddle Buddies Quest Bundle",
+    "cuddleBuddiesNotes": "Contains 'The Killer Bunny', 'The Nefarious Ferret', and 'The Guinea Pig Gang'. Available until May 31."
 }

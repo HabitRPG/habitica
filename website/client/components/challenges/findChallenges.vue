@@ -15,7 +15,7 @@
           .svg-icon.positive-icon(v-html="icons.positiveIcon")
           span(v-once) {{$t('createChallenge')}}
     .row
-      .col-12.col-md-6(v-for='challenge in filteredChallenges', v-if='!memberOf(challenge)')
+      .col-12.col-md-6(v-for='challenge in filteredChallenges')
         challenge-item(:challenge='challenge')
     .row
       .col-12.text-center
@@ -105,9 +105,6 @@ export default {
     },
   },
   methods: {
-    memberOf (challenge) {
-      return this.user.challenges.indexOf(challenge._id) !== -1;
-    },
     updateSearch (eventData) {
       this.search = eventData.searchTerm;
       this.page = 0;

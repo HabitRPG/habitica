@@ -9,6 +9,7 @@ import {
   generateUser,
 } from '../../../helpers/common.helper';
 import content from '../../../../website/common/script/content/index';
+import errorMessage from '../../../../website/common/script/libs/errorMessage';
 
 describe('shared.ops.buySpecialSpell', () => {
   let user;
@@ -33,7 +34,7 @@ describe('shared.ops.buySpecialSpell', () => {
       buySpecialSpell(user);
     } catch (err) {
       expect(err).to.be.an.instanceof(BadRequest);
-      expect(err.message).to.equal(i18n.t('missingKeyParam'));
+      expect(err.message).to.equal(errorMessage('missingKeyParam'));
       done();
     }
   });
@@ -47,7 +48,7 @@ describe('shared.ops.buySpecialSpell', () => {
       });
     } catch (err) {
       expect(err).to.be.an.instanceof(NotFound);
-      expect(err.message).to.equal(i18n.t('spellNotFound', {spellId: 'notExisting'}));
+      expect(err.message).to.equal(errorMessage('spellNotFound', {spellId: 'notExisting'}));
       done();
     }
   });
