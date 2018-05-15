@@ -7,6 +7,7 @@ import {
   NotFound,
 } from '../../libs/errors';
 import {AbstractGoldItemOperation} from './abstractBuyOperation';
+import errorMessage from '../../libs/errorMessage';
 
 export class BuySpellOperation extends AbstractGoldItemOperation {
   constructor (user, req, analytics) {
@@ -23,10 +24,10 @@ export class BuySpellOperation extends AbstractGoldItemOperation {
 
   extractAndValidateParams (user, req) {
     let key = this.key = get(req, 'params.key');
-    if (!key) throw new BadRequest(this.i18n('missingKeyParam'));
+    if (!key) throw new BadRequest(errorMessage('missingKeyParam'));
 
     let item = content.special[key];
-    if (!item) throw new NotFound(this.i18n('spellNotFound', {spellId: key}));
+    if (!item) throw new NotFound(errorMessage('spellNotFound', {spellId: key}));
 
     this.canUserPurchase(user, item);
   }

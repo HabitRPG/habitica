@@ -610,7 +610,7 @@ api.buy = {
     // @TODO: Remove this when mobile passes type in body
     let type = req.params.key;
     if (buySpecialKeys.indexOf(type) !== -1) {
-      req.type = 'spells';
+      req.type = 'special';
     } else if (buyKnownKeys.indexOf(type) === -1) {
       req.type = 'marketGear';
     }
@@ -884,7 +884,7 @@ api.buySpecialSpell = {
   url: '/user/buy-special-spell/:key',
   async handler (req, res) {
     let user = res.locals.user;
-    req.type = 'spells';
+    req.type = 'special';
     let buySpecialSpellRes = common.ops.buy(user, req);
     await user.save();
     res.respond(200, ...buySpecialSpellRes);

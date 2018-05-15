@@ -70,7 +70,7 @@ module.exports = function buy (user, req = {}, analytics) {
       buyRes = buyOp.purchase();
       break;
     }
-    case 'spells': {
+    case 'special': {
       const buyOp = new BuySpellOperation(user, req, analytics);
 
       buyRes = buyOp.purchase();
