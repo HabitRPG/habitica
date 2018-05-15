@@ -4,10 +4,10 @@ div
   creator-intro
   profile
   b-navbar.topbar.navbar-inverse.static-top.navbar-expand-lg(type="dark")
-    b-navbar-brand
+    b-navbar-brand.brand
       .logo.svg-icon.d-none.d-xl-block(v-html="icons.logo")
       .svg-icon.gryphon.d-xs-block.d-xl-none
-    b-nav-toggle(target='menu_collapse')
+    b-nav-toggle(target='menu_collapse').menu-toggle
     .quick-menu.mobile-only.form-inline
       a.item-with-icon(@click="sync", v-b-tooltip.hover.bottom="$t('sync')")
         .top-menu-icon.svg-icon(v-html="icons.sync")
@@ -16,7 +16,7 @@ div
     b-collapse#menu_collapse.collapse.navbar-collapse
       b-navbar-nav.menu-list
         b-nav-item.topbar-item(tag="li", :to="{name: 'tasks'}", exact) {{ $t('tasks') }}
-        li.topbar-item.nav-item(:class="{'active': $route.path.startsWith('/inventory')}")
+        li.topbar-item(:class="{'active': $route.path.startsWith('/inventory')}")
           router-link.nav-link(:to="{name: 'items'}") {{ $t('inventory') }}
           .topbar-dropdown
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'items'}", exact) {{ $t('items') }}
@@ -111,6 +111,7 @@ div
       }
 
       .topbar-item {
+        padding-top: 5px;
         height: 56px;
 
         &.active:not(:hover) {
@@ -125,6 +126,10 @@ div
   }
 
   @media only screen and (max-width: 992px) {
+    .brand {
+      margin: 0;
+    }
+
     .gryphon {
       position: absolute;
       left: calc(50% - 30px);
@@ -132,8 +137,7 @@ div
     }
 
     #menu_collapse {
-      margin-top: 0.6em;
-      max-height: 320px;
+      margin: 0.6em -16px -8px;
       overflow: auto;
       flex-direction: column;
       background-color: $purple-100;
@@ -141,12 +145,38 @@ div
       .menu-list {
         width: 100%;
         order: 1;
+        text-align: center;
+
+        .topbar-dropdown-item {
+          background: #432874;
+          border-bottom: #6133b4 solid 1px;
+        }
+
+        .topbar-item {
+          &.active {
+            background: #6133b4;
+          }
+
+          background: #4f2a93;
+          border-bottom: #6133b4 solid 1px;
+        }
       }
+    }
+
+    .currency-tray {
+      justify-content: center;
+      min-height: 40px;
+      background: #271b3d;
+      width: 100%;
     }
 
     .desktop-only {
       display: none !important;
     }
+  }
+
+  .menu-toggle {
+    border: none;
   }
 
   #menu_collapse {
@@ -158,6 +188,10 @@ div
     background: $purple-100 url(~assets/svg/for-css/bits.svg) right top no-repeat;
     min-height: 56px;
     box-shadow: 0 1px 2px 0 rgba($black, 0.24);
+
+    a {
+      color: white !important;
+    }
   }
 
   .navbar-z-index {
@@ -167,7 +201,7 @@ div
 
     &-modal {
       z-index: 1035;
-    }
+    z-index: 1042; // To stay above snakbar notifications and modals
   }
 
   .logo {
