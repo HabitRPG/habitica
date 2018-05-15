@@ -22,37 +22,37 @@ div
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'items'}", exact) {{ $t('items') }}
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'equipment'}") {{ $t('equipment') }}
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'stable'}") {{ $t('stable') }}
-        router-link.topbar-item.nav-item.dropdown(tag="li", :to="{name: 'market'}", :class="{'active': $route.path.startsWith('/shop')}")
-          a.nav-link(v-once) {{ $t('shops') }}
-          .dropdown-menu
-            router-link.dropdown-item(:to="{name: 'market'}", exact) {{ $t('market') }}
-            router-link.dropdown-item(:to="{name: 'quests'}") {{ $t('quests') }}
-            router-link.dropdown-item(:to="{name: 'seasonal'}") {{ $t('titleSeasonalShop') }}
-            router-link.dropdown-item(:to="{name: 'time'}") {{ $t('titleTimeTravelers') }}
+        li.topbar-item(:class="{'active': $route.path.startsWith('/shop')}")
+          router-link.nav-link(:to="{name: 'market'}") {{ $t('shops') }}
+          .topbar-dropdown
+            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'market'}", exact) {{ $t('market') }}
+            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'quests'}") {{ $t('quests') }}
+            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'seasonal'}") {{ $t('titleSeasonalShop') }}
+            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'time'}") {{ $t('titleTimeTravelers') }}
         b-nav-item.topbar-item(tag="li", :to="{name: 'party'}", v-if='this.user.party._id') {{ $t('party') }}
         b-nav-item.topbar-item(@click='openPartyModal()', v-if='!this.user.party._id') {{ $t('party') }}
-        router-link.topbar-item.nav-item.dropdown(tag="li", :to="{name: 'tavern'}", :class="{'active': $route.path.startsWith('/guilds')}")
-          a.nav-link(v-once) {{ $t('guilds') }}
-          .dropdown-menu
-            router-link.dropdown-item(:to="{name: 'tavern'}") {{ $t('tavern') }}
-            router-link.dropdown-item(:to="{name: 'myGuilds'}") {{ $t('myGuilds') }}
-            router-link.dropdown-item(:to="{name: 'guildsDiscovery'}") {{ $t('guildsDiscovery') }}
-        router-link.topbar-item.nav-item.dropdown(tag="li", :to="{name: 'groupPlan'}", :class="{'active': $route.path.startsWith('/group-plans')}")
-          a.nav-link(v-once) {{ $t('group') }}
-          .dropdown-menu
-            router-link.dropdown-item(v-for='group in groupPlans', :key='group._id', :to="{name: 'groupPlanDetailTaskInformation', params: {groupId: group._id}}") {{ group.name }}
-        router-link.topbar-item.nav-item.dropdown(tag="li", :to="{name: 'myChallenges'}", :class="{'active': $route.path.startsWith('/challenges')}")
-          a.nav-link(v-once) {{ $t('challenges') }}
-          .dropdown-menu
-            router-link.dropdown-item(:to="{name: 'myChallenges'}") {{ $t('myChallenges') }}
-            router-link.dropdown-item(:to="{name: 'findChallenges'}") {{ $t('findChallenges') }}
-        router-link.topbar-item.nav-item.dropdown(tag="li", :class="{'active': $route.path.startsWith('/help')}", :to="{name: 'faq'}")
-          a.nav-link(v-once) {{ $t('help') }}
-          .dropdown-menu
-            router-link.dropdown-item(:to="{name: 'faq'}") {{ $t('faq') }}
-            router-link.dropdown-item(:to="{name: 'overview'}") {{ $t('overview') }}
-            router-link.dropdown-item(to="/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac") {{ $t('reportBug') }}
-            router-link.dropdown-item(to="/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a") {{ $t('askAQuestion') }}
+        li.topbar-item(:class="{'active': $route.path.startsWith('/guilds')}")
+          router-link.nav-link(:to="{name: 'tavern'}") {{ $t('guilds') }}
+          .topbar-dropdown
+            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'tavern'}") {{ $t('tavern') }}
+            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'myGuilds'}") {{ $t('myGuilds') }}
+            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'guildsDiscovery'}") {{ $t('guildsDiscovery') }}
+        li.topbar-item(:class="{'active': $route.path.startsWith('/group-plans')}")
+          router-link.nav-link(:to="{name: 'groupPlan'}") {{ $t('group') }}
+          .topbar-dropdown
+            router-link.topbar-dropdown-item.dropdown-item(v-for='group in groupPlans', :key='group._id', :to="{name: 'groupPlanDetailTaskInformation', params: {groupId: group._id}}") {{ group.name }}
+        li.topbar-item(:class="{'active': $route.path.startsWith('/challenges')}")
+          router-link.nav-link(:to="{name: 'myChallenges'}") {{ $t('challenges') }}
+          .topbar-dropdown
+            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'myChallenges'}") {{ $t('myChallenges') }}
+            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'findChallenges'}") {{ $t('findChallenges') }}
+        li.topbar-item(:class="{'active': $route.path.startsWith('/help')}")
+          router-link.nav-link(:to="{name: 'faq'}") {{ $t('help') }}
+          .topbar-dropdown
+            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'faq'}") {{ $t('faq') }}
+            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'overview'}") {{ $t('overview') }}
+            router-link.topbar-dropdown-item.dropdown-item(to="/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac") {{ $t('reportBug') }}
+            router-link.topbar-dropdown-item.dropdown-item(to="/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a") {{ $t('askAQuestion') }}
             a.dropdown-item(href="https://trello.com/c/odmhIqyW/440-read-first-table-of-contents", target='_blank') {{ $t('requestAF') }}
             a.dropdown-item(href="http://habitica.wikia.com/wiki/Contributing_to_Habitica", target='_blank') {{ $t('contributing') }}
             a.dropdown-item(href="http://habitica.wikia.com/wiki/Habitica_Wiki", target='_blank') {{ $t('wiki') }}
@@ -76,12 +76,6 @@ div
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
   @import '~client/assets/scss/utils.scss';
-
-  @media only screen and (max-width: 1305px) {
-    .topbar-item>a {
-      padding: .8em 1em !important;
-    }
-  }
 
   @media only screen and (max-width: 1200px) {
     .gryphon {
@@ -227,6 +221,10 @@ div
 
     .topbar-dropdown {
       display: none; // Display is set to block on hover.
+    }
+    
+    >a {
+      padding: .8em 1em !important;
     }
 
     &:hover {
