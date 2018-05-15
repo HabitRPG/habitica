@@ -307,6 +307,13 @@
           stats: statUpdates,
         });
 
+        this.statUpdates = {
+          str: 0,
+          int: 0,
+          con: 0,
+          per: 0,
+        };
+
         this.loading = false;
       },
       allocateNow () {
