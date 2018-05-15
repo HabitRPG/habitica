@@ -64,7 +64,7 @@
     "mongoose": "^5.1.1",
     "morgan": "^1.7.0",
     "nconf": "^0.10.0",
-    "node-gcm": "^0.14.4",
+    "node-gcm": "^1.0.0",
     "node-sass": "^4.9.0",
     "nodemailer": "^4.6.4",
     "ora": "^2.1.0",
