@@ -948,12 +948,12 @@ api.hatch = {
 };
 
 /**
- * @api {post} /api/v3/user/equip/:type/:key Equip an item
+ * @api {post} /api/v3/user/equip/:type/:key Equip or unequip an item
  * @apiName UserEquip
  * @apiGroup User
  *
- * @apiParam (Path) {String="mount","pet","costume","equipped"} type The type of item to equip
- * @apiParam (Path) {String} key The item to equip
+ * @apiParam (Path) {String="mount","pet","costume","equipped"} type The type of item to equip or unequip
+ * @apiParam (Path) {String} key The item to equip or unequip
  *
  * @apiParamExample {URL} Example-URL
  * https://habitica.com/api/v3/user/equip/equipped/weapon_warrior_2
