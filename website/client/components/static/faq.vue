@@ -1,12 +1,14 @@
 <template lang="pug">
-  .container-fluid
+  .container-fluid(role="tablist")
     .row
       .col-12.col-md-6.offset-md-3
         h1 {{ $t('frequentlyAskedQuestions') }}
         .faq-question(v-for='(heading, index) in headings')
-          h2.accordion(:ref='uniqueRef(index)')
-            a(v-bind:href="`#${heading}`", id='heading', @click.stop.prevent='setActivePage(heading)') {{ $t(`faqQuestion${index}`) }}
-          div(:class='classObject(heading)', v-markdown="$t('webFaqAnswer' + index, replacements)")
+          b-card(no-body)
+            h2.accordion(role="tab" :ref="heading")
+              a(v-bind:href="`#${heading}`", v-b-toggle="heading", role="tabpanel" variant="info") {{ $t(`faqQuestion${index}`) }}
+            b-collapse(:id='heading', accordion="faq", role="tabpanel", :visible='isVisible(heading)')
+              b-card-body(v-markdown="$t('webFaqAnswer' + index, replacements)")
         hr
         p(v-markdown="$t('webFaqStillNeedHelp')")
 </template>
@@ -14,6 +16,19 @@
 <style lang='scss' scoped>
   .faq-question {
     margin-bottom: 1em;
+  }
+
+  .faq-question .card {
+    background: none;
+    border: none;
+  }
+
+  .faq-question .card-body {
+    padding: 0;
+  }
+
+  .static-wrapper .faq-question h2 {
+    margin: 0;
   }
 
   .faq-question a {
@@ -34,6 +49,7 @@
   const NAVBAR_HEIGHT = 56;
 
   import Vue from 'vue';
+
   import markdownDirective from 'client/directives/markdown';
 
   export default {
@@ -57,14 +73,7 @@
         'world-boss',
       ];
 
-      let pageState = {};
-      for (let index in headings) {
-        let heading = headings[index];
-        pageState[heading] = false;
-      }
-
       return  {
-        pageState,
         headings,
         replacements: {
           techAssistanceEmail: TECH_ASSISTANCE_EMAIL,
@@ -78,25 +87,19 @@
       };
     },
     methods: {
-      setActivePage (page) {
-        this.pageState[page] = !this.pageState[page];
-      },
-      classObject (heading) {
-        return { 'd-none': !this.pageState[heading] };
-      },
-      uniqueRef (index) {
-        return this.headings[index];
+      isVisible (heading) {
+        const hash = window.location.hash.replace('#', '');
+        return hash && this.headings.includes(hash) && hash === heading;
       },
     },
     mounted () {
       const hash = window.location.hash.replace('#', '');
       if (hash && this.headings.includes(hash)) {
-        this.setActivePage(hash);
+        Vue.nextTick(() => {
+          if (!this.$refs[hash] || !this.$refs[hash][0]) return;
+          window.scroll(0, this.$refs[hash][0].getBoundingClientRect().top - NAVBAR_HEIGHT);
+        });
       }
-      Vue.nextTick(() => {
-        if (!this.$refs[hash] || !this.$refs[hash][0]) return;
-        window.scroll(0, this.$refs[hash][0].getBoundingClientRect().top - NAVBAR_HEIGHT);
-      });
     },
   };
 </script>
