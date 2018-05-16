@@ -600,5 +600,7 @@
     "questSquirrelCompletion": "With a gentle approach, offers of trade, and a few soothing spells, you’re able to coax the squirrel away from its hoard and back to the stables, which @Shtut has just finished de-acorning. They’ve set aside a few of the acorns on a worktable. “These ones are squirrel eggs! Maybe you can raise some that don’t play with their food quite so much.”",
     "questSquirrelBoss": "Podstępna Wiewiórka",
     "questSquirrelDropSquirrelEgg": "Wiewiórka (jajo)",
-    "questSquirrelUnlockText": "Odblokowuje dostęp do kupna wiewiórczych jaj na Targu"
+    "questSquirrelUnlockText": "Odblokowuje dostęp do kupna wiewiórczych jaj na Targu",
+    "cuddleBuddiesText": "Cuddle Buddies Quest Bundle",
+    "cuddleBuddiesNotes": "Contains 'The Killer Bunny', 'The Nefarious Ferret', and 'The Guinea Pig Gang'. Available until May 31."
 }

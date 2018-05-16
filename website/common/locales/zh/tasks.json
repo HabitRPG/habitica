@@ -145,7 +145,6 @@
     "rewardHelp3": "特殊装备会在世界性事件中出现。",
     "rewardHelp4": "别害怕，大胆地为自己设置自定义奖励！来这里看看 <a href='http://habitica.wikia.com/wiki/Sample_Custom_Rewards' target='_blank'>一些简单例子</a>。",
     "clickForHelp": "点击获取帮助",
-    "taskIdRequired": "\"taskId\"必须是一个有效的UUID。",
     "taskAliasAlreadyUsed": "任务别名已经被用于另一个任务。",
     "taskNotFound": "找不到任务。",
     "invalidTaskType": "任务类型必须是\"习惯\"，\"每日任务\"，\"待办事项\"，\"奖励\"中的一个。",
@@ -212,5 +211,5 @@
     "repeatDayError": "请在一周中至少选择一天",
     "searchTasks": "搜索标题和描述说明...",
     "sessionOutdated": "你的会期已过期。请刷新或同步。",
-    "errorTemporaryItem": "This item is temporary and cannot be pinned."
+    "errorTemporaryItem": "这件物品是限定的不能被固定。"
 }

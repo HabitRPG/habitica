@@ -201,7 +201,6 @@
     "showQuickAllocation": "Show Stat Allocation",
     "hideQuickAllocation": "Hide Stat Allocation",
     "quickAllocationLevelPopover": "Each level earns you one Point to assign to a Stat of your choice. You can do so manually, or let the game decide for you using one of the Automatic Allocation options found in User Icon > Stats.",
-    "invalidAttribute": "\"<%= attr %>\" is not a valid Stat.",
     "notEnoughAttrPoints": "You don't have enough Stat Points.",
     "style": "樣式",
     "facialhair": "臉部",
@@ -219,6 +218,5 @@
     "mainHand": "主手",
     "offHand": "副手",
     "pointsAvailable": "可用點數",
-    "pts": "點",
-    "statsObjectRequired": "Stats update is required"
+    "pts": "點"
 }

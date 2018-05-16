@@ -96,7 +96,6 @@
     "questInvitationDoesNotExist": "Nem lett még Küldetés meghívó kiküldve.",
     "questInviteNotFound": "Nincs Küldetés meghívód.",
     "guildQuestsNotSupported": "Céhet nem lehet meghívni küldetésre.",
-    "questNotFound": "A \"<%= key %>\" Küldetés nem található.",
     "questNotOwned": "Nem rendelkezel ezzel a Küldetés tekerccsel.",
     "questNotGoldPurchasable": "A \"<%= key %>\" Küldetést nem lehet megvenni aranyért.",
     "questLevelTooHigh": "A <%= level %> Szinten kell lenned, hogy elkezdhesd ezt a Küldetést.",

@@ -51,7 +51,6 @@
     "spellSpecialSeafoamNotes": "¡Convierte a un amigo en una criatura marina!",
     "spellSpecialSandText": "Arena",
     "spellSpecialSandNotes": "Deshaz el hechizo que te convirtió en estrella de mar.",
-    "spellNotFound": "Habilidad \"<%= spellId %>\" no encontrada.",
     "partyNotFound": "Equipo no encontrado",
     "targetIdUUID": "\"targetId\" debe ser un ID de usuario válido.",
     "challengeTasksNoCast": "Conjurar esta habilidad en tareas de desafío no está permitido.",

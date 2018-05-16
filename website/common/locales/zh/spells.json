@@ -51,7 +51,6 @@
     "spellSpecialSeafoamNotes": "把一位好友变成海洋生物",
     "spellSpecialSandText": "沙子",
     "spellSpecialSandNotes": "取消海泡石的效果",
-    "spellNotFound": "找不到技能\"<%= spellId %>\"。",
     "partyNotFound": "找不到队伍",
     "targetIdUUID": "\"targetId\" 必须是有效ID。",
     "challengeTasksNoCast": "不允许在挑战任务上使用技能。",

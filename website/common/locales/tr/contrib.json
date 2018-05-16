@@ -49,7 +49,6 @@
     "UUID": "Kullanıcı ID'si",
     "loadUser": "Kullanıcı Yükle",
     "noAdminAccess": "Yönetici erişimin bulunmuyor.",
-    "pageMustBeNumber": "req.query.page bir sayı olmak zorundadır",
     "userNotFound": "Kullanıcı bulunamadı.",
     "invalidUUID": "UUID geçerli olmalıdır",
     "title": "Başlık",

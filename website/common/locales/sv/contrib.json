@@ -49,7 +49,6 @@
     "UUID": "Användar-ID",
     "loadUser": "Ladda Användare",
     "noAdminAccess": "Du har inte administratörstillgång.",
-    "pageMustBeNumber": "req.query.page måste vara ett nummer",
     "userNotFound": "Användare hittades inte.",
     "invalidUUID": "UUID måste vara giltig",
     "title": "Titel",

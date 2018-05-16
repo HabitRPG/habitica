@@ -51,7 +51,6 @@
     "spellSpecialSeafoamNotes": "Transforma um amigo em uma criatura marinha!",
     "spellSpecialSandText": "Areia",
     "spellSpecialSandNotes": "Reverte a magia de estrela do mar.",
-    "spellNotFound": "Habilidade \"<%= spellId %>\" não encontrada.",
     "partyNotFound": "Grupo não encontrado.",
     "targetIdUUID": "\"targetId\" precisa ser um ID de usuário válido.",
     "challengeTasksNoCast": "O uso de habilidades em tarefas de desafio não é permitido.",

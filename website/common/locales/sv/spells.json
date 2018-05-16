@@ -51,7 +51,6 @@
     "spellSpecialSeafoamNotes": "Förvandla en vän till ett sjödjur!",
     "spellSpecialSandText": "Sand",
     "spellSpecialSandNotes": "Omvänd trollformeln som gjorde dig till en sjöstjärna.",
-    "spellNotFound": "Färdighet \"<%= spellId %>\" inte hittad.",
     "partyNotFound": "Sällskap inte hittat",
     "targetIdUUID": "\"targetId\" måste vara ett giltigt Användar-ID.",
     "challengeTasksNoCast": "Att kasta en färdighet på Utmaningsuppgifter är inte tillåtet.",

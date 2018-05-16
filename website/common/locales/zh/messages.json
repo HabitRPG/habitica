@@ -59,7 +59,7 @@
     "messageUserOperationProtected": "路径 `<%= operation %>`因受到保护未保存。",
     "messageUserOperationNotFound": "<%= operation %> 无法找到此操作。",
     "messageNotificationNotFound": "找不到消息",
-    "messageNotAbleToBuyInBulk": "This item cannot be purchased in quantities above 1.",
+    "messageNotAbleToBuyInBulk": "这件物品不能以大于1的数量购买。",
     "notificationsRequired": "需要Notification ids",
     "unallocatedStatsPoints": "你有<span class=\"notification-bold-blue\"><%= points %>没分配的属性点</span>",
     "beginningOfConversation": "现在开始和<%= userName %>愉快的聊天吧！记住要善待和尊重他人并遵守社区准则！"

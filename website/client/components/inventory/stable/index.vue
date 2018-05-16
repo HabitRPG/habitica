@@ -47,7 +47,7 @@
               label.custom-control-label(v-once, :for="mountGroup.key") {{ mountGroup.label }}
 
         div.form-group.clearfix
-          h3.float-left Hide Missing
+          h3.float-left {{ $t('hideMissing') }}
           toggle-switch.float-right(
             :checked="hideMissing",
             @change="updateHideMissing"

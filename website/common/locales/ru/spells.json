@@ -51,7 +51,6 @@
     "spellSpecialSeafoamNotes": "Превратите друга в морское создание!",
     "spellSpecialSandText": "Песок",
     "spellSpecialSandNotes": "Снять заклинание, которое превратило вас в морскую звезду",
-    "spellNotFound": "Навык \"<%= spellId %>\" не найден.",
     "partyNotFound": "Команда не найдена",
     "targetIdUUID": "\"targetId\" должен быть действительным ID пользователя.",
     "challengeTasksNoCast": "Нельзя использовать навык на задания испытания.",
