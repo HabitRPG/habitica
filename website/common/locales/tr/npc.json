@@ -48,6 +48,7 @@
     "featuredItems": "Öne Çıkan Eşyalar!",
     "hideLocked": "Kilidi açılmamış olanları gizle",
     "hidePinned": "Hide pinned",
+    "hideMissing": "Hide Missing",
     "amountExperience": "<%= amount %>tecrübe",
     "amountGold": "<%= amount %>Altın",
     "namedHatchingPotion": "<%= type %>Kuluçka İksiri",

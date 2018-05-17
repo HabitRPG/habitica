@@ -48,6 +48,7 @@
     "featuredItems": "Препоръчани предмети!",
     "hideLocked": "Скриване на заключените",
     "hidePinned": "Скриване на закачените",
+    "hideMissing": "Hide Missing",
     "amountExperience": "<%= amount %> точки опит",
     "amountGold": "<%= amount %> злато",
     "namedHatchingPotion": "Излюпваща отвара с(ъс) <%= type %>",

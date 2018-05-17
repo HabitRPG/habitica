@@ -48,6 +48,7 @@
     "featuredItems": "Barang Sorotan!",
     "hideLocked": "Sembunyikan yang terkunci",
     "hidePinned": "Sembunyikan yang sudah disematkan",
+    "hideMissing": "Hide Missing",
     "amountExperience": "<%= amount %> Pengalaman",
     "amountGold": "<%= amount %> Koin Emas",
     "namedHatchingPotion": "Ramuan Penetas <%= type %>",

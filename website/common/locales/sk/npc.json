@@ -48,6 +48,7 @@
     "featuredItems": "Špeciálne Predmety!",
     "hideLocked": "Ukry zamknuté",
     "hidePinned": "Ukry pripnuté",
+    "hideMissing": "Hide Missing",
     "amountExperience": "<%= amount %>Skúseností",
     "amountGold": "<%= amount %>Zlata",
     "namedHatchingPotion": "<%= type %>Liahoxír",

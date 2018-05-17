@@ -334,7 +334,7 @@
     "weaponArmoireScepterOfDiamondsNotes": "Este ceptro reluz em tons quentes e avermelhados enquanto intensifica a tua força de vontade. Aumenta Força em <%= str %>. Armário Encantado: Conjunto de Rei de Ouros (Item 3 de 3).",
     "weaponArmoireFlutteryArmyText": "Exército Tremulante",
     "weaponArmoireFlutteryArmyNotes": "Este grupo desconexo de lepidópteros está pronto a bater asas ferozmente para arrefecer as suas tarefas mais vermelhas! Aumenta Constituição, Inteligência e Força em <%= attrs %> cada. Armário Encantado: Conjunto do Traje Tremulante (Item 3 de 3).",
-    "weaponArmoireCobblersHammerText": "Cobbler's Hammer",
+    "weaponArmoireCobblersHammerText": "Martelo do Sapateiro",
     "weaponArmoireCobblersHammerNotes": "This hammer is specially made for leatherwork. It can do a real number on a red Daily in a pinch, though. Increases Constitution and Strength by <%= attrs %> each. Enchanted Armoire: Cobbler Set (Item 2 of 3).",
     "armor": "armadura",
     "armorCapitalized": "Armadura",
@@ -1524,7 +1524,7 @@
     "eyewearMystery301703Notes": "Perfeita para um baile de máscaras elegante ou para se mover de forma furtiva numa multidão particularmente bem vestida. Não confere benefícios. Item de Assinante de Março de 3017.",
     "eyewearArmoirePlagueDoctorMaskText": "Máscara Doutor Praga",
     "eyewearArmoirePlagueDoctorMaskNotes": "An authentic mask worn by the doctors who battle the Plague of Procrastination. Increases Constitution and Intelligence by <%= attrs %> each. Enchanted Armoire: Plague Doctor Set (Item 2 of 3).",
-    "eyewearArmoireGoofyGlassesText": "Goofy Glasses",
-    "eyewearArmoireGoofyGlassesNotes": "Perfect for going incognito or just making your partymates giggle. Increases Perception by <%= per %>. Enchanted Armoire: Independent Item.",
-    "twoHandedItem": "Two-handed item."
+    "eyewearArmoireGoofyGlassesText": "Óculos Tontos",
+    "eyewearArmoireGoofyGlassesNotes": "Perfeitos para andar incógnito ou simplesmente fazer os teus colegas de equipa rir. Aumenta a Percepção em <%= per %>. Armário Encantado: Item Solto.",
+    "twoHandedItem": "Item de duas mãos."
 }

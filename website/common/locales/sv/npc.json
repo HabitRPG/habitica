@@ -48,6 +48,7 @@
     "featuredItems": "Utvalda Objekt!",
     "hideLocked": "Göm låsta",
     "hidePinned": "Göm fastnålade objekt",
+    "hideMissing": "Hide Missing",
     "amountExperience": "<%= amount %> Erfarenhet",
     "amountGold": "<%= amount %> Guld",
     "namedHatchingPotion": "<%= type %> Kläckningsdryck",

@@ -48,6 +48,7 @@
     "featuredItems": "注目アイテム！",
     "hideLocked": "ロックされたアイテムを隠す",
     "hidePinned": "ピン留めされたアイテムを隠す",
+    "hideMissing": "Hide Missing",
     "amountExperience": "<%= amount %> 経験値",
     "amountGold": "<%= amount %> ゴールド",
     "namedHatchingPotion": "<%= type %>  たまごがえしの薬",

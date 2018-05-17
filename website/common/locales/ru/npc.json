@@ -48,6 +48,7 @@
     "featuredItems": "Особенные предметы!",
     "hideLocked": "Скрыть заблокированное",
     "hidePinned": "Скрыть закреплённое",
+    "hideMissing": "Hide Missing",
     "amountExperience": "<%= amount %> опыта",
     "amountGold": "<%= amount %> золота",
     "namedHatchingPotion": "<%= type %> инкубационный эликсир",

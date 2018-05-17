@@ -48,6 +48,7 @@
     "featuredItems": "Featured Items!",
     "hideLocked": "Hide locked",
     "hidePinned": "Hide pinned",
+    "hideMissing": "Hide Missing",
     "amountExperience": "<%= amount %> Experience",
     "amountGold": "<%= amount %> Gold",
     "namedHatchingPotion": "<%= type %> Hatching Potion",
