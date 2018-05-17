@@ -3,7 +3,7 @@ div
   inbox-modal
   creator-intro
   profile
-  b-navbar.topbar.navbar-inverse.static-top.navbar-expand-lg(type="dark")
+  b-navbar.topbar.navbar-inverse.static-top.navbar-expand-lg(type="dark", :class="navbarZIndexClass")
     b-navbar-brand.brand
       .logo.svg-icon.d-none.d-xl-block(v-html="icons.logo")
       .svg-icon.gryphon.d-xs-block.d-xl-none
@@ -196,6 +196,7 @@ div
     &-modal {
       z-index: 1035;
     z-index: 1042; // To stay above snakbar notifications and modals
+    }
   }
 
   .logo {
