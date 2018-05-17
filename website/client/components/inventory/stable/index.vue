@@ -935,7 +935,20 @@
         }
       },
       async feedAction (petKey, foodKey) {
-        const result = await this.$store.dispatch('common:feed', {pet: petKey, food: foodKey});
+        let result;
+        try {
+          result = await this.$store.dispatch('common:feed', {pet: petKey, food: foodKey});
+        } catch (e) {
+          const errorMessage = e.message || e;
+
+          this.$store.dispatch('snackbars:add', {
+            title: 'Habitica',
+            text: errorMessage,
+            type: 'error',
+            timeout: true,
+          });
+        }
+
         if (result.message) this.text(result.message);
         if (this.user.preferences.suppressModals.raisePet) return;
         if (this.user.items.pets[petKey] === -1) this.$root.$emit('habitica::mount-raised', petKey);
