@@ -32,7 +32,7 @@
     :member="isMember",
     v-once
   )
-  .challenge-description {{challenge.summary}}
+  .challenge-description(v-markdown='challenge.summary')
   .well-wrapper(v-if="fullLayout")
     .well
       div(v-for="task in tasksData", :class="{'muted': task.value === 0}", v-once)
@@ -162,7 +162,7 @@
     .challenge-description {
       color: $gray-200;
       margin: 0 1.5em;
-      word-break: break-all;
+      word-break: break-word;
     }
 
     .well {
