@@ -15,7 +15,7 @@ import {
 import shared from '../../../common';
 import stripeConstants from './stripe/constants';
 import { checkout } from './stripe/checkout';
-import { stripe, setStripeApi } from './stripe/api';
+import { getStripeApi, setStripeApi } from './stripe/api';
 
 const i18n = shared.i18n;
 
@@ -55,7 +55,7 @@ api.editSubscription = async function editSubscription (options, stripeInc) {
   let customerId;
 
   // @TODO: We need to mock this, but curently we don't have correct Dependency Injection. And the Stripe Api doesn't seem to be a singleton?
-  let stripeApi = stripe;
+  let stripeApi = getStripeApi();
   if (stripeInc) stripeApi = stripeInc;
 
   if (groupId) {
@@ -99,7 +99,7 @@ api.cancelSubscription = async function cancelSubscription (options, stripeInc) 
   let customerId;
 
   // @TODO: We need to mock this, but curently we don't have correct Dependency Injection. And the Stripe Api doesn't seem to be a singleton?
-  let stripeApi = stripe;
+  let stripeApi = getStripeApi();
   if (stripeInc) stripeApi = stripeInc;
 
   if (groupId) {
@@ -150,7 +150,7 @@ api.cancelSubscription = async function cancelSubscription (options, stripeInc) 
 };
 
 api.chargeForAdditionalGroupMember = async function chargeForAdditionalGroupMember (group) {
-  let stripeApi = stripe;
+  let stripeApi = getStripeApi();
   let plan = shared.content.subscriptionBlocks.group_monthly;
 
   await stripeApi.subscriptions.update(
@@ -177,7 +177,7 @@ api.handleWebhooks = async function handleWebhooks (options, stripeInc) {
   let {requestBody} = options;
 
   // @TODO: We need to mock this, but curently we don't have correct Dependency Injection. And the Stripe Api doesn't seem to be a singleton?
-  let stripeApi = stripe;
+  let stripeApi = getStripeApi();
   if (stripeInc) stripeApi = stripeInc;
 
   // Verify the event by fetching it from Stripe

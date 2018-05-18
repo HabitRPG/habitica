@@ -7,4 +7,8 @@ function setStripeApi (stripeInc) {
   stripe = stripeInc;
 }
 
-module.exports = { stripe, setStripeApi };
+function getStripeApi () {
+  return stripe;
+}
+
+module.exports = { getStripeApi, setStripeApi };

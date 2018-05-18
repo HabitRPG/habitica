@@ -1,6 +1,6 @@
 import cc from 'coupon-code';
 
-import { stripe } from './api';
+import { getStripeApi } from './api';
 import { model as User } from '../../../models/user';
 import { model as Coupon } from '../../../models/coupon';
 import {
@@ -109,7 +109,7 @@ async function checkout (options, stripeInc) {
   let subscriptionId;
 
   // @TODO: We need to mock this, but curently we don't have correct Dependency Injection. And the Stripe Api doesn't seem to be a singleton?
-  let stripeApi = stripe;
+  let stripeApi = getStripeApi();
   if (stripeInc) stripeApi = stripeInc;
 
   if (!token) throw new BadRequest('Missing req.body.id');
