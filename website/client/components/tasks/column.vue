@@ -24,7 +24,7 @@
       @focus="quickAddFocused = true", @blur="quickAddFocused = false",
     )
     transition(name="quick-add-tip-slide")
-      .quick-add-tip.small-text(v-show="quickAddFocused", v-html="$t('addMultipleTip')")
+      .quick-add-tip.small-text(v-show="quickAddFocused", v-html="$t('addMultipleTip', {taskType: $t(typeLabel)})")
     clear-completed-todos(v-if="activeFilter.label === 'complete2' && isUser === true")
     .column-background(
       v-if="isUser === true",
@@ -370,7 +370,7 @@ export default {
       let rewards = inAppRewards(this.user);
 
       // Add season rewards if user is affected
-      // @TODO: Add buff coniditional
+      // @TODO: Add buff conditional
       const seasonalSkills = {
         snowball: 'salt',
         spookySparkles: 'opaquePotion',
