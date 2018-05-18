@@ -503,9 +503,8 @@ describe('Group Model', () => {
 
           expect(Group.prototype.sendChat).to.be.calledOnce;
           expect(Group.prototype.sendChat).to.be.calledWithMatch({
-            // message: "`Participating Member found \d* Broken Twigs, \d* Tracks.`",
+            message: sinon.match(/`Participating Member found/).and(sinon.match(/\d* (Tracks|Broken Twigs)/)),
             info: {
-              // items: { branches: \d*, tracks: \d* },
               quest: 'evilsanta2',
               type: 'user_found_items',
               user: 'Participating Member',
