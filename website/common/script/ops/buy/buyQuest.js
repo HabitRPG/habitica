@@ -25,6 +25,10 @@ export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation {
       user.achievements.quests.taskwoodsTerror3;
   }
 
+  getItemKey () {
+    return this.key;
+  }
+
   getItemValue (item) {
     return item.goldValue;
   }
@@ -60,14 +64,5 @@ export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation {
         itemText: item.text(req.language),
       }),
     ];
-  }
-
-  analyticsData () {
-    return {
-      itemKey: this.key,
-      itemType: 'Market',
-      acquireMethod: 'Gold',
-      goldCost: this.getItemValue(this.item.goldValue),
-    };
   }
 }
