@@ -935,9 +935,12 @@
         }
       },
       async feedAction (petKey, foodKey) {
-        let result;
         try {
-          result = await this.$store.dispatch('common:feed', {pet: petKey, food: foodKey});
+          const result = await this.$store.dispatch('common:feed', {pet: petKey, food: foodKey});
+
+          if (result.message) this.text(result.message);
+          if (this.user.preferences.suppressModals.raisePet) return;
+          if (this.user.items.pets[petKey] === -1) this.$root.$emit('habitica::mount-raised', petKey);
         } catch (e) {
           const errorMessage = e.message || e;
 
@@ -948,10 +951,6 @@
             timeout: true,
           });
         }
-
-        if (result.message) this.text(result.message);
-        if (this.user.preferences.suppressModals.raisePet) return;
-        if (this.user.items.pets[petKey] === -1) this.$root.$emit('habitica::mount-raised', petKey);
       },
       closeHatchPetDialog () {
         this.$root.$emit('bv::hide::modal', 'hatching-modal');
