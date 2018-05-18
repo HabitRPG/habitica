@@ -125,7 +125,7 @@ div
     }
 
     #app-header {
-      margin-top: 96px !important;
+      margin-top: 40px !important;
     }
 
   }
