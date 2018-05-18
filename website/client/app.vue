@@ -317,7 +317,7 @@ export default {
           title: 'Habitica',
           text: errorMessage,
           type: 'error',
-          timeout: true,
+          timeout: false,
         });
       }
 
