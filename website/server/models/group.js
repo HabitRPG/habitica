@@ -348,7 +348,7 @@ schema.statics.toJSONCleanChat = async function groupToJSONCleanChat (group, use
   toJSON.chat.forEach(chat => {
     // old chats are saved with a numeric timestamp
     // new chats use `Date` which then has to be converted to the numeric timestamp
-    if (chat.timestamp.getTime) {
+    if (chat.timestamp && chat.timestamp.getTime) {
       chat.timestamp = chat.timestamp.getTime();
     }
   });
