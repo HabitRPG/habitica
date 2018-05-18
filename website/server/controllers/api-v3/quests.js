@@ -434,10 +434,13 @@ api.abortQuest = {
     if (user._id !== group.leader && user._id !== group.quest.leader) throw new NotAuthorized(res.t('onlyLeaderAbortQuest'));
 
     let questName = questScrolls[group.quest.key].text('en');
-    const newChatMessage = group.sendChat(`\`${common.i18n.t('chatQuestAborted', {username: user.profile.name, questName}, 'en')}\``, null, null, {
-      type: 'quest_abort',
-      user: user.profile.name,
-      quest: group.quest.key,
+    const newChatMessage = group.sendChat({
+      message: `\`${common.i18n.t('chatQuestAborted', {username: user.profile.name, questName}, 'en')}\``,
+      info: {
+        type: 'quest_abort',
+        user: user.profile.name,
+        quest: group.quest.key,
+      },
     });
     await newChatMessage.save();
 

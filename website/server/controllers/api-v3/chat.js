@@ -179,7 +179,7 @@ api.postChat = {
       throw new NotAuthorized(res.t('messageGroupChatSpam'));
     }
 
-    const newChatMessage = group.sendChat(req.body.message, user);
+    const newChatMessage = group.sendChat({message: req.body.message, user});
     let toSave = [newChatMessage.save()];
 
     if (group.type === 'party') {

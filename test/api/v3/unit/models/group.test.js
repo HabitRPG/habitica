@@ -205,7 +205,16 @@ describe('Group Model', () => {
           party = await Group.findOne({_id: party._id});
 
           expect(Group.prototype.sendChat).to.be.calledOnce;
-          expect(Group.prototype.sendChat).to.be.calledWith('`Participating Member attacks Wailing Whale for 5.0 damage. Wailing Whale attacks party for 7.5 damage.`');
+          expect(Group.prototype.sendChat).to.be.calledWith({
+            message: '`Participating Member attacks Wailing Whale for 5.0 damage. Wailing Whale attacks party for 7.5 damage.`',
+            info: {
+              bossDamage: '7.5',
+              quest: 'whale',
+              type: 'boss_damage',
+              user: 'Participating Member',
+              userDamage: '5.0',
+            },
+          });
         });
 
         it('applies damage only to participating members of party', async () => {
@@ -271,7 +280,10 @@ describe('Group Model', () => {
           party = await Group.findOne({_id: party._id});
 
           expect(Group.prototype.sendChat).to.be.calledTwice;
-          expect(Group.prototype.sendChat).to.be.calledWith('`You defeated Wailing Whale! Questing party members receive the rewards of victory.`');
+          expect(Group.prototype.sendChat).to.be.calledWith({
+            message: '`You defeated Wailing Whale! Questing party members receive the rewards of victory.`',
+            info: { quest: 'whale', type: 'boss_defeated' },
+          });
         });
 
         it('calls finishQuest when boss has <= 0 hp', async () => {
@@ -314,7 +326,10 @@ describe('Group Model', () => {
 
             party = await Group.findOne({_id: party._id});
 
-            expect(Group.prototype.sendChat).to.be.calledWith(quest.boss.rage.effect('en'));
+            expect(Group.prototype.sendChat).to.be.calledWith({
+              message: quest.boss.rage.effect('en'),
+              info: { quest: 'trex_undead', type: 'boss_rage' },
+            });
             expect(party.quest.progress.hp).to.eql(383.5);
             expect(party.quest.progress.rage).to.eql(0);
           });
@@ -364,7 +379,10 @@ describe('Group Model', () => {
 
             party = await Group.findOne({_id: party._id});
 
-            expect(Group.prototype.sendChat).to.be.calledWith(quest.boss.rage.effect('en'));
+            expect(Group.prototype.sendChat).to.be.calledWith({
+              message: quest.boss.rage.effect('en'),
+              info: { quest: 'lostMasterclasser4', type: 'boss_rage' },
+            });
             expect(party.quest.progress.rage).to.eql(0);
 
             let drainedUser = await User.findById(participatingMember._id);
@@ -415,7 +433,15 @@ describe('Group Model', () => {
           party = await Group.findOne({_id: party._id});
 
           expect(Group.prototype.sendChat).to.be.calledOnce;
-          expect(Group.prototype.sendChat).to.be.calledWith('`Participating Member found 5 Bars of Soap.`');
+          expect(Group.prototype.sendChat).to.be.calledWith({
+            message: '`Participating Member found 5 Bars of Soap.`',
+            info: {
+              items: { soapBars: 5 },
+              quest: 'atom1',
+              type: 'user_found_items',
+              user: 'Participating Member',
+            },
+          });
         });
 
         it('sends a chat message if no progress is made', async () => {
@@ -426,7 +452,15 @@ describe('Group Model', () => {
           party = await Group.findOne({_id: party._id});
 
           expect(Group.prototype.sendChat).to.be.calledOnce;
-          expect(Group.prototype.sendChat).to.be.calledWith('`Participating Member found 0 Bars of Soap.`');
+          expect(Group.prototype.sendChat).to.be.calledWith({
+            message: '`Participating Member found 0 Bars of Soap.`',
+            info: {
+              items: { soapBars: 0 },
+              quest: 'atom1',
+              type: 'user_found_items',
+              user: 'Participating Member',
+            },
+          });
         });
 
         it('sends a chat message if no progress is made on quest with multiple items', async () => {
@@ -443,9 +477,15 @@ describe('Group Model', () => {
           party = await Group.findOne({_id: party._id});
 
           expect(Group.prototype.sendChat).to.be.calledOnce;
-          expect(Group.prototype.sendChat).to.be.calledWithMatch(/`Participating Member found/);
-          expect(Group.prototype.sendChat).to.be.calledWithMatch(/0 Blue Fins/);
-          expect(Group.prototype.sendChat).to.be.calledWithMatch(/0 Fire Coral/);
+          expect(Group.prototype.sendChat).to.be.calledWith({
+            message: '`Participating Member found 0 Fire Coral, 0 Blue Fins.`',
+            info: {
+              items: { blueFins: 0, fireCoral: 0 },
+              quest: 'dilatoryDistress1',
+              type: 'user_found_items',
+              user: 'Participating Member',
+            },
+          });
         });
 
         it('handles collection quests with multiple items', async () => {
@@ -462,8 +502,15 @@ describe('Group Model', () => {
           party = await Group.findOne({_id: party._id});
 
           expect(Group.prototype.sendChat).to.be.calledOnce;
-          expect(Group.prototype.sendChat).to.be.calledWithMatch(/`Participating Member found/);
-          expect(Group.prototype.sendChat).to.be.calledWithMatch(/\d* (Tracks|Broken Twigs)/);
+          expect(Group.prototype.sendChat).to.be.calledWithMatch({
+            // message: "`Participating Member found \d* Broken Twigs, \d* Tracks.`",
+            info: {
+              // items: { branches: \d*, tracks: \d* },
+              quest: 'evilsanta2',
+              type: 'user_found_items',
+              user: 'Participating Member',
+            },
+          });
         });
 
         it('sends message about victory', async () => {
@@ -474,7 +521,10 @@ describe('Group Model', () => {
           party = await Group.findOne({_id: party._id});
 
           expect(Group.prototype.sendChat).to.be.calledTwice;
-          expect(Group.prototype.sendChat).to.be.calledWith('`All items found! Party has received their rewards.`');
+          expect(Group.prototype.sendChat).to.be.calledWith({
+            message: '`All items found! Party has received their rewards.`',
+            info: { type: 'all_items_found' },
+          });
         });
 
         it('calls finishQuest when all items are found', async () => {
@@ -1123,20 +1173,22 @@ describe('Group Model', () => {
       });
 
       it('formats message', () => {
-        const chatMessage = party.sendChat('a new message', {
-          _id: 'user-id',
-          profile: { name: 'user name' },
-          contributor: {
-            toObject () {
-              return 'contributor object';
+        const chatMessage = party.sendChat({
+          message: 'a new message', user: {
+            _id: 'user-id',
+            profile: { name: 'user name' },
+            contributor: {
+              toObject () {
+                return 'contributor object';
+              },
             },
-          },
-          backer: {
-            toObject () {
-              return 'backer object';
+            backer: {
+              toObject () {
+                return 'backer object';
+              },
             },
-          },
-        });
+          }}
+        );
 
         const chat = chatMessage;
 
@@ -1153,7 +1205,7 @@ describe('Group Model', () => {
       });
 
       it('formats message as system if no user is passed in', () => {
-        const chat = party.sendChat('a system message');
+        const chat = party.sendChat({message: 'a system message'});
 
         expect(chat.text).to.eql('a system message');
         expect(validator.isUUID(chat.id)).to.eql(true);
@@ -1174,7 +1226,7 @@ describe('Group Model', () => {
 
         expect(party.chat).to.have.a.lengthOf(220);
 
-        party.sendChat('message');
+        party.sendChat({message: 'message'});
 
         expect(party.chat).to.have.a.lengthOf(200);
       });
@@ -1188,13 +1240,13 @@ describe('Group Model', () => {
 
         expect(party.chat).to.have.a.lengthOf(420);
 
-        party.sendChat('message');
+        party.sendChat({message: 'message'});
 
         expect(party.chat).to.have.a.lengthOf(400);
       });
 
       it('updates users about new messages in party', () => {
-        party.sendChat('message');
+        party.sendChat({message: 'message'});
 
         expect(User.update).to.be.calledOnce;
         expect(User.update).to.be.calledWithMatch({
@@ -1208,7 +1260,7 @@ describe('Group Model', () => {
           type: 'guild',
         });
 
-        group.sendChat('message');
+        group.sendChat({message: 'message'});
 
         expect(User.update).to.be.calledOnce;
         expect(User.update).to.be.calledWithMatch({
@@ -1218,7 +1270,7 @@ describe('Group Model', () => {
       });
 
       it('does not send update to user that sent the message', () => {
-        party.sendChat('message', {_id: 'user-id', profile: { name: 'user' }});
+        party.sendChat({message: 'message', user: {_id: 'user-id', profile: { name: 'user' }}});
 
         expect(User.update).to.be.calledOnce;
         expect(User.update).to.be.calledWithMatch({
@@ -1230,7 +1282,7 @@ describe('Group Model', () => {
       it('skips sending new message notification for guilds with > 5000 members', () => {
         party.memberCount = 5001;
 
-        party.sendChat('message');
+        party.sendChat({message: 'message'});
 
         expect(User.update).to.not.be.called;
       });
@@ -1238,7 +1290,7 @@ describe('Group Model', () => {
       it('skips sending messages to the tavern', () => {
         party._id = TAVERN_ID;
 
-        party.sendChat('message');
+        party.sendChat({message: 'message'});
 
         expect(User.update).to.not.be.called;
       });
