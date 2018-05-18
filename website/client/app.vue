@@ -116,7 +116,7 @@ div
 
   /* Push progress bar above modals */
   #nprogress .bar {
-    z-index: 1043 !important; /* Must stay above nav bar */
+    z-index: 1090 !important; /* Must stay above nav bar */
   }
 
   .restingInn {
