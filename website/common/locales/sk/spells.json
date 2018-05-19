@@ -51,7 +51,6 @@
     "spellSpecialSeafoamNotes": "Premení tvojho priateľa na morského tvora!",
     "spellSpecialSandText": "Piesok",
     "spellSpecialSandNotes": "Reverse the spell that made you a sea star.",
-    "spellNotFound": "Kúzlo \"<%= spellId %>\" nebolo nájdené.",
     "partyNotFound": "Družina nebola nájdená",
     "targetIdUUID": "\"targetId\" musí byť platné používateľské ID.",
     "challengeTasksNoCast": "Zoslanie kúzla na úlohu z výzvy nie je povolené.",

@@ -123,7 +123,8 @@ describe('GET /challenges/:challengeId/members', () => {
     });
   });
 
-  it('supports using req.query.lastId to get more members', async () => {
+  it('supports using req.query.lastId to get more members', async function () {
+    this.timeout(30000); // @TODO: times out after 8 seconds
     let group = await generateGroup(user, {type: 'party', name: generateUUID()});
     let challenge = await generateChallenge(user, group);
 

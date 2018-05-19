@@ -55,10 +55,6 @@
       .custom-control-label {
         color: $gray-50 !important;
         font-weight: normal;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: pre;
-        width: 8em;
       }
     }
 

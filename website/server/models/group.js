@@ -437,7 +437,11 @@ schema.statics.toJSONCleanChat = async function groupToJSONCleanChat (group, use
 
   // Convert to timestamps because Android expects it
   toJSON.chat.forEach(chat => {
-    chat.timestamp = chat.timestamp ? chat.timestamp.getTime() : new Date().getTime();
+    // old chats are saved with a numeric timestamp
+    // new chats use `Date` which then has to be converted to the numeric timestamp
+    if (chat.timestamp && chat.timestamp.getTime) {
+      chat.timestamp = chat.timestamp.getTime();
+    }
   });
 
   return toJSON;

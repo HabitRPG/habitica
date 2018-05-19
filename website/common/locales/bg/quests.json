@@ -96,7 +96,6 @@
     "questInvitationDoesNotExist": "Няма изпратени покани за мисията.",
     "questInviteNotFound": "Няма намерени покани за мисията.",
     "guildQuestsNotSupported": "Гилдиите не могат да бъдат канени в мисии.",
-    "questNotFound": "Мисията „<%= key %>“ не беше намерена.",
     "questNotOwned": "Не притежавате този свитък с мисия.",
     "questNotGoldPurchasable": "Мисията „<%= key %>“ не може да бъде купена със злато.",
     "questLevelTooHigh": "Трябва да бъдете ниво <%= level %>, за да започнете тази мисия.",

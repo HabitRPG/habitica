@@ -51,7 +51,6 @@
     "spellSpecialSeafoamNotes": "Transformez un ami en une créature marine !",
     "spellSpecialSandText": "Sable",
     "spellSpecialSandNotes": "Inverse le sort qui vous a transformé en étoile de mer.",
-    "spellNotFound": "Compétence \"<%= spellId %>\" introuvable.",
     "partyNotFound": "Équipe non trouvée.",
     "targetIdUUID": "\"targetId\" doit être un nom d'utilisateur valide.",
     "challengeTasksNoCast": "Utiliser une compétence sur des tâches de défi est interdit.",

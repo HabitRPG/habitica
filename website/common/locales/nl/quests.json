@@ -96,7 +96,6 @@
     "questInvitationDoesNotExist": "Er is nog geen queesteuitnodiging verstuurd.",
     "questInviteNotFound": "Geen queesteuitnodiging gevonden.",
     "guildQuestsNotSupported": "Gilden kunnen niet uitgenodigd worden op queestes.",
-    "questNotFound": "Queeste \\\"<%= key %>\\\" niet gevonden.",
     "questNotOwned": "Je bezit deze queesterol niet.",
     "questNotGoldPurchasable": "Deze queeste \\\"<%= key %>\\\" is niet met goud verkrijgbaar.",
     "questLevelTooHigh": "Je moet niveau <%= level %> zijn om deze queeste te beginnen.",

@@ -51,7 +51,6 @@
     "spellSpecialSeafoamNotes": "Zamień przyjaciela w morskie stworzenie!",
     "spellSpecialSandText": "Piasek",
     "spellSpecialSandNotes": "Cofnij zaklęcie, które zamieniło Cię w rozgwiazdę.",
-    "spellNotFound": "Nie znaleziono umiejętności „<%= spellId %>”.",
     "partyNotFound": "Nie znaleziono drużyny.",
     "targetIdUUID": "\"targetId\" musi być prawidłowym ID użytkownika.",
     "challengeTasksNoCast": "Rzucanie czaru na zadania z wyzwań nie jest dozwolone.",

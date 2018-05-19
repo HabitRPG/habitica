@@ -304,7 +304,7 @@
     "alreadyHaveAccountLogin": "Уже есть учётная запись в Habitica? <strong>Войдите.</strong>",
     "dontHaveAccountSignup": "Нет учётной записи в Habitica? <strong>Зарегистрируйтесь.</strong>",
     "motivateYourself": "Мотивируйте себя на достижение ваших целей.",
-    "timeToGetThingsDone": "It's time to have fun when you get things done! Join over <%= userCountInMillions %> million Habiticans and improve your life one task at a time.",
+    "timeToGetThingsDone": "Пора повеселиться, делая дела! Присоединяйся к более чем <%= userCountInMillions %> миллионам Хабитиканцев и улучшай свою жизнь, выполняя задания одно за другим.",
     "singUpForFree": "Бесплатная регистрация",
     "or": "ИЛИ",
     "gamifyYourLife": "Живи играючи",

@@ -201,7 +201,6 @@
     "showQuickAllocation": "割り当てを表示",
     "hideQuickAllocation": "割り当てを非表示",
     "quickAllocationLevelPopover": "レベルが1上がるごとに、能力値のどれかに割り当てられるポイントを1獲得します。割り当ては手動で行うほかに、ユーザーアイコン > 設定の「自動割り当て」設定でシステムに任せることもできます。",
-    "invalidAttribute": "\"<%= attr %>\" は有効なパラメータではありません。",
     "notEnoughAttrPoints": "割り当てるポイントが足りません",
     "style": "体型",
     "facialhair": "顔",
@@ -219,6 +218,5 @@
     "mainHand": "利き手",
     "offHand": "反対の手",
     "pointsAvailable": "利用可能なポイント",
-    "pts": "ポイント",
-    "statsObjectRequired": "ステータスの更新が必要です"
+    "pts": "ポイント"
 }

@@ -49,7 +49,6 @@
     "UUID": "Felhasználói azonosító",
     "loadUser": "Felhasználó betöltése",
     "noAdminAccess": "Nincs adminisztrátori hozzáférésed.",
-    "pageMustBeNumber": "req.query.page számot kell tartalmaznia",
     "userNotFound": "Felhasználó nem található.",
     "invalidUUID": "Érvényes UUID szükséges",
     "title": "Rang",

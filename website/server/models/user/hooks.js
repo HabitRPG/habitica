@@ -9,7 +9,6 @@ import {
 import {
   userActivityWebhook,
 } from '../../libs/webhook';
-
 import schema from './schema';
 
 schema.plugin(baseModel, {
@@ -18,6 +17,11 @@ schema.plugin(baseModel, {
   private: ['auth.local.hashed_password', 'auth.local.passwordHashMethod', 'auth.local.salt', '_cronSignature', '_ABtests'],
   toJSONTransform: function userToJSON (plainObj, originalDoc) {
     plainObj._tmp = originalDoc._tmp; // be sure to send down drop notifs
+
+    if (plainObj._tmp && plainObj._tmp.leveledUp) {
+      delete plainObj._tmp.leveledUp;
+    }
+
     delete plainObj.filters;
 
     if (originalDoc.notifications) {
@@ -247,24 +251,15 @@ schema.pre('save', true, function preSaveUser (next, done) {
   // Filter notifications, remove unvalid and not necessary, handle the ones that have special requirements
   if ( // Make sure all the data is loaded
     this.isDirectSelected('notifications') &&
-    this.isDirectSelected('webhooks') &&
     this.isDirectSelected('stats') &&
     this.isDirectSelected('flags') &&
     this.isDirectSelected('preferences')
   ) {
-    const lvlUpNotifications = [];
     const unallocatedPointsNotifications = [];
 
     this.notifications = this.notifications.filter(notification => {
       // Remove corrupt notifications
       if (!notification || !notification.type) return false;
-
-      // Remove level up notifications, as they're only used to send webhooks
-      // Sometimes there can be more than 1 notification
-      if (notification && notification.type === 'LEVELED_UP') {
-        lvlUpNotifications.push(notification);
-        return false;
-      }
 
       // Remove all unsallocated stats points
       if (notification && notification.type === 'UNALLOCATED_STATS_POINTS') {
@@ -274,25 +269,6 @@ schema.pre('save', true, function preSaveUser (next, done) {
       // Keep all the others
       return true;
     });
-
-
-    // Send lvl up notifications
-    if (lvlUpNotifications.length > 0) {
-      const firstLvlNotification = lvlUpNotifications[0];
-      const lastLvlNotification = lvlUpNotifications[lvlUpNotifications.length - 1];
-
-      const initialLvl = firstLvlNotification.data.initialLvl;
-      const finalLvl = lastLvlNotification.data.newLvl;
-
-      // Delayed so we don't block the user saving
-      setTimeout(() => {
-        userActivityWebhook.send(this, {
-          type: 'leveledUp',
-          initialLvl,
-          finalLvl,
-        });
-      }, 50);
-    }
 
     // Handle unallocated stats points notifications (keep only one and up to date)
     const pointsToAllocate = this.stats.points;
@@ -348,4 +324,24 @@ schema.pre('save', true, function preSaveUser (next, done) {
 
 schema.pre('update', function preUpdateUser () {
   this.update({}, {$inc: {_v: 1}});
+});
+
+schema.post('save', function postSaveUser () {
+  // Send a webhook notification when the user has leveled up
+  if (this._tmp && this._tmp.leveledUp && this._tmp.leveledUp.length > 0) {
+    const lvlUpNotifications = this._tmp.leveledUp;
+    const firstLvlNotification = lvlUpNotifications[0];
+    const lastLvlNotification = lvlUpNotifications[lvlUpNotifications.length - 1];
+
+    const initialLvl = firstLvlNotification.initialLvl;
+    const finalLvl = lastLvlNotification.newLvl;
+
+    userActivityWebhook.send(this, {
+      type: 'leveledUp',
+      initialLvl,
+      finalLvl,
+    });
+
+    this._tmp.leveledUp = [];
+  }
 });

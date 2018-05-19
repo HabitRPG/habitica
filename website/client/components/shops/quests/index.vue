@@ -139,7 +139,7 @@
                     h4.popover-content-title(v-else) {{ item.text }}
                     .popover-content-text(v-if='item.locked && item.key === "lostMasterclasser1"') {{ `${$t('questUnlockLostMasterclasser')}` }}
                     .popover-content-text(v-if='item.locked && item.unlockCondition && item.unlockCondition.incentiveThreshold') {{ `${$t('loginIncentiveQuest', {count: item.unlockCondition.incentiveThreshold})}` }}
-                    .popover-content-text(v-if='item.locked && item.previous') {{ `${$t('unlockByQuesting', {title: item.previous})}` }}
+                    .popover-content-text(v-if='item.locked && item.previous && isBuyingDependentOnPrevious(item)') {{ `${$t('unlockByQuesting', {title: item.previous})}` }}
                     .popover-content-text(v-if='item.lvl > user.stats.lvl') {{ `${$t('mustLvlQuest', {level: item.lvl})}` }}
                     questInfo(v-if='!item.locked', :quest="item")
 
@@ -485,6 +485,11 @@ export default {
         this.selectedItemToBuy = item;
 
         this.$root.$emit('bv::show::modal', 'buy-quest-modal');
+      },
+      isBuyingDependentOnPrevious (item) {
+        let questsNotDependentToPrevious = ['moon2', 'moon3'];
+        if (item.key in questsNotDependentToPrevious) return false;
+        return true;
       },
     },
   };

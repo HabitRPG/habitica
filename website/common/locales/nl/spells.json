@@ -51,7 +51,6 @@
     "spellSpecialSeafoamNotes": "Verander een vriend in een zeedier!",
     "spellSpecialSandText": "Zand",
     "spellSpecialSandNotes": "Draai de spreuk terug die je in een zeester veranderde.",
-    "spellNotFound": "Vaardigheid \"<%= spellId %>\" niet gevonden.",
     "partyNotFound": "Groep niet gevonden",
     "targetIdUUID": "\"targetId\" moet een geldige gebruikers-ID zijn.",
     "challengeTasksNoCast": "Het uitspreken van een vaardigheid op uitdagingstaken is niet toegestaan.",

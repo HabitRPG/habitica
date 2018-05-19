@@ -47,7 +47,7 @@
               label.custom-control-label(v-once, :for="mountGroup.key") {{ mountGroup.label }}
 
         div.form-group.clearfix
-          h3.float-left Hide Missing
+          h3.float-left {{ $t('hideMissing') }}
           toggle-switch.float-right(
             :checked="hideMissing",
             @change="updateHideMissing"
@@ -935,10 +935,22 @@
         }
       },
       async feedAction (petKey, foodKey) {
-        const result = await this.$store.dispatch('common:feed', {pet: petKey, food: foodKey});
-        if (result.message) this.text(result.message);
-        if (this.user.preferences.suppressModals.raisePet) return;
-        if (this.user.items.pets[petKey] === -1) this.$root.$emit('habitica::mount-raised', petKey);
+        try {
+          const result = await this.$store.dispatch('common:feed', {pet: petKey, food: foodKey});
+
+          if (result.message) this.text(result.message);
+          if (this.user.preferences.suppressModals.raisePet) return;
+          if (this.user.items.pets[petKey] === -1) this.$root.$emit('habitica::mount-raised', petKey);
+        } catch (e) {
+          const errorMessage = e.message || e;
+
+          this.$store.dispatch('snackbars:add', {
+            title: 'Habitica',
+            text: errorMessage,
+            type: 'error',
+            timeout: true,
+          });
+        }
       },
       closeHatchPetDialog () {
         this.$root.$emit('bv::hide::modal', 'hatching-modal');

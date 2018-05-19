@@ -63,8 +63,6 @@
 </style>
 
 <script>
-import { mapState } from 'client/libs/store';
-
 import Sidebar from './sidebar';
 import ChallengeItem from './challengeItem';
 import challengeModal from './challengeModal';
@@ -111,23 +109,17 @@ export default {
         },
       ],
       search: '',
-      filters: {
-        roles: ['participating'], // This is required for my challenges
-      },
+      filters: {},
     };
   },
   mounted () {
     this.loadchallanges();
   },
   computed: {
-    ...mapState({user: 'user.data'}),
     filteredChallenges () {
       let search = this.search;
       let filters = this.filters;
       let user = this.$store.state.user.data;
-
-      // Always filter by member on this page:
-      filters.roles = ['participating'];
 
       // @TODO: Move this to the server
       return this.challenges.filter((challenge) => {
@@ -136,9 +128,6 @@ export default {
     },
   },
   methods: {
-    memberOf (challenge) {
-      return this.user.challenges.indexOf(challenge._id) !== -1;
-    },
     updateSearch (eventData) {
       this.search = eventData.searchTerm;
     },

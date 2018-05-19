@@ -51,7 +51,6 @@
     "spellSpecialSeafoamNotes": "Arkadaşını bir deniz canlısına çevir!",
     "spellSpecialSandText": "Kum",
     "spellSpecialSandNotes": "Seni deniz yıldızına çeviren büyüyü geri al. ",
-    "spellNotFound": "\"<%= spellId %>\" adlı yetenek bulunamadı.",
     "partyNotFound": "Takım bulunamadı.",
     "targetIdUUID": "\"targetId\" geçerli bir Kullanıcı ID'si olmalıdır.",
     "challengeTasksNoCast": "Mücadele işlerine büyü yapamazsın.",

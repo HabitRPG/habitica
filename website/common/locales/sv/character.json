@@ -201,7 +201,6 @@
     "showQuickAllocation": "Visa poängfördelning",
     "hideQuickAllocation": "Göm poängfördelning",
     "quickAllocationLevelPopover": "För varje nivå tjänar du ett poäng som du kan tilldela till en egenskap av ditt val. Du kan göra det manuellt eller så kan du låta spelet välja åt dig med hjälp av Automatisk Tilldelning som finns under Användarikon > Egenskaper.",
-    "invalidAttribute": "\"<%= attr %>\" är inte en godkänd egenskap.",
     "notEnoughAttrPoints": "Du har inte tillräckligt med egenskapspoäng.",
     "style": "Stil",
     "facialhair": "Ansikte",
@@ -219,6 +218,5 @@
     "mainHand": "Huvudhand",
     "offHand": "Off-Hand",
     "pointsAvailable": "Tillgängliga Poäng",
-    "pts": "poäng",
-    "statsObjectRequired": "Egenskapsuppdatering krävs"
+    "pts": "poäng"
 }

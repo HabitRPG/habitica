@@ -82,7 +82,7 @@
     "buyMoreGems": "Comprar Mais Gemas",
     "notEnoughGems": "Gemas insuficientes",
     "alreadyHave": "Eeepa! Você já tem esse item. Não precisa comprar de novo!",
-    "delete": "Deletar",
+    "delete": "Eliminar",
     "gemsPopoverTitle": "Gemas",
     "gems": "Gemas",
     "gemButton": "Você tem <%= number %> Gemas.",

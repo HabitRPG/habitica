@@ -44,8 +44,6 @@ div
             router-view
         app-footer
         audio#sound(autoplay, ref="sound")
-          source#oggSource(type="audio/ogg", :src="sound.oggSource")
-          source#mp3Source(type="audio/mp3", :src="sound.mp3Source")
 </template>
 
 <style lang='scss' scoped>
@@ -118,7 +116,7 @@ div
 
   /* Push progress bar above modals */
   #nprogress .bar {
-    z-index: 1043 !important; /* Must stay above nav bar */
+    z-index: 1090 !important; /* Must stay above nav bar */
   }
 
   .restingInn {
@@ -127,7 +125,7 @@ div
     }
 
     #app-header {
-      margin-top: 96px !important;
+      margin-top: 40px !important;
     }
 
   }
@@ -220,10 +218,9 @@ export default {
       selectedItemToBuy: null,
       selectedSpellToBuy: null,
 
-      sound: {
-        oggSource: '',
-        mp3Source: '',
-      },
+      audioSource: null,
+      audioSuffix: null,
+
       loading: true,
       currentTipNumber: 0,
       bannerHidden: false,
@@ -259,11 +256,22 @@ export default {
         return;
       }
 
-      let file =  `/static/audio/${theme}/${sound}`;
-      this.sound = {
-        oggSource: `${file}.ogg`,
-        mp3Source: `${file}.mp3`,
-      };
+      let file = `/static/audio/${theme}/${sound}`;
+
+      if (this.audioSuffix === null) {
+        this.audioSource = document.createElement('source');
+        if (this.$refs.sound.canPlayType('audio/ogg')) {
+          this.audioSuffix = '.ogg';
+          this.audioSource.type = 'audio/ogg';
+        } else {
+          this.audioSuffix = '.mp3';
+          this.audioSource.type = 'audio/mp3';
+        }
+        this.audioSource.src = file + this.audioSuffix;
+        this.$refs.sound.appendChild(this.audioSource);
+      } else {
+        this.audioSource.src = file + this.audioSuffix;
+      }
 
       this.$refs.sound.load();
     });
@@ -317,7 +325,7 @@ export default {
           title: 'Habitica',
           text: errorMessage,
           type: 'error',
-          timeout: true,
+          timeout: false,
         });
       }
 

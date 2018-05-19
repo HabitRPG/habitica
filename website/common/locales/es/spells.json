@@ -51,7 +51,6 @@
     "spellSpecialSeafoamNotes": "¡Transforma a un amigo en una criatura marina!",
     "spellSpecialSandText": "Arena",
     "spellSpecialSandNotes": "Invierte el hechizo que te transformó en estrella de mar.",
-    "spellNotFound": "No se ha encontrado el hechizo \"<%= spellId %>\".",
     "partyNotFound": "Grupo no encontrado.",
     "targetIdUUID": "\"targetId\" debe ser un ID de Usuario válido.",
     "challengeTasksNoCast": "No se pueden lanzar hechizos sobre tareas de desafíos.",
