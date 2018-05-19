@@ -664,7 +664,7 @@
         let auth = await hello(network).login({
           scope: 'email',
           // explicitly pass the redirect url or it might redirect to /home
-          redirect_uri: url, // eslint-disable-line camelcase
+          redirect_uri: '', // eslint-disable-line camelcase
         });
 
         await this.$store.dispatch('auth:socialAuth', {
