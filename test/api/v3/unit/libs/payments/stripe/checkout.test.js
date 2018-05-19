@@ -37,6 +37,22 @@ describe('checkout', () => {
     payments.createSubscription.restore();
   });
 
+  it('should error if there is no token', async () => {
+    await expect(stripePayments.checkout({
+      user,
+      gift,
+      groupId,
+      email,
+      headers,
+      coupon,
+    }, stripe))
+      .to.eventually.be.rejected.and.to.eql({
+        httpCode: 400,
+        message: 'Missing req.body.id',
+        name: 'BadRequest',
+      });
+  });
+
   it('should error if gem amount is too low', async () => {
     let receivingUser = new User();
     receivingUser.save();
@@ -63,7 +79,6 @@ describe('checkout', () => {
         name: 'BadRequest',
       });
   });
-
 
   it('should error if user cannot get gems', async () => {
     gift = undefined;
