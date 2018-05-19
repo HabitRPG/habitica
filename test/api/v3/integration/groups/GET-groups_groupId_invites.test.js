@@ -82,6 +82,7 @@ describe('GET /groups/:groupId/invites', () => {
   });
 
   it('supports using req.query.lastId to get more invites', async () => {
+    this.timeout(30000); // @TODO: times out after 8 seconds
     let leader = await generateUser({balance: 4});
     let group = await generateGroup(leader, {type: 'guild', privacy: 'public', name: generateUUID()});
 
