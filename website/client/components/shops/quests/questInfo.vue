@@ -25,6 +25,7 @@
   text-align: left;
   font-weight: bold;
   white-space: nowrap;
+  margin-top: 0;
 }
 
 .col-8 {
