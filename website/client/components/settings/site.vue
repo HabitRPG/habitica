@@ -345,7 +345,7 @@ export default {
       const newLang = e.target.value;
       this.user.preferences.language = newLang;
       await this.set('language');
-      setTimeout(() => window.location.href = '/');
+      setTimeout(() => window.location.reload(true));
     },
     async changeUser (attribute, updates) {
       await axios.put(`/api/v3/user/auth/update-${attribute}`, updates);
