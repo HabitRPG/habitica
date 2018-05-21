@@ -167,7 +167,7 @@ gulp.task('test:content:safe', gulp.series('test:prepare:build', (cb) => {
 
 gulp.task('test:api-v3:unit', (done) => {
   let runner = exec(
-    testBin('node_modules/.bin/istanbul cover --dir coverage/api-v3-unit node_modules/mocha/bin/_mocha -- test/api/v3/unit --recursive --require ./test/helpers/start-server'),
+    testBin('node_modules/.bin/istanbul cover --dir coverage/api-v3-unit node_modules/mocha-parallel-tests/dist/bin/cli.js -- test/api/v3/unit --recursive --require ./test/helpers/start-server'),
     (err) => {
       if (err) {
         process.exit(1);
@@ -185,7 +185,7 @@ gulp.task('test:api-v3:unit:watch', () => {
 
 gulp.task('test:api-v3:integration', (done) => {
   let runner = exec(
-    testBin('node_modules/.bin/istanbul cover --dir coverage/api-v3-integration --report lcovonly node_modules/mocha/bin/_mocha -- test/api/v3/integration --recursive --require ./test/helpers/start-server'),
+    testBin('node_modules/.bin/istanbul cover --dir coverage/api-v3-integration --report lcovonly node_modules/mocha-parallel-tests/dist/bin/cli.js -- test/api/v3/integration --recursive --require ./test/helpers/start-server'),
     {maxBuffer: 500 * 1024},
     (err) => {
       if (err) {
