@@ -92,6 +92,7 @@ describe('POST /challenges/:challengeId/join', () => {
     });
 
     it('increases memberCount of challenge', async () => {
+      await challenge.sync();
       let oldMemberCount = challenge.memberCount;
 
       await authorizedUser.post(`/challenges/${challenge._id}/join`);

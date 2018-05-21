@@ -37,6 +37,7 @@ describe('GET /challenges/:challengeId', () => {
     });
 
     it('should return challenge data', async () => {
+      await challenge.sync();
       let chal = await user.get(`/challenges/${challenge._id}`);
       expect(chal.memberCount).to.equal(challenge.memberCount);
       expect(chal.name).to.equal(challenge.name);
