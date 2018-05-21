@@ -43,6 +43,7 @@ describe('POST /challenges/:challengeId/join', () => {
       authorizedUser = populatedGroup.members[0];
 
       challenge = await generateChallenge(groupLeader, group);
+      await groupLeader.post(`/challenges/${challenge._id}/join`);
     });
 
     it('returns an error when user doesn\'t have permissions to access the challenge', async () => {

@@ -24,6 +24,7 @@ describe('GET /challenges/:challengeId/export/csv', () => {
     members = populatedGroup.members;
 
     challenge = await generateChallenge(groupLeader, group);
+    await groupLeader.post(`/challenges/${challenge._id}/join`);
     await members[0].post(`/challenges/${challenge._id}/join`);
     await members[1].post(`/challenges/${challenge._id}/join`);
     await members[2].post(`/challenges/${challenge._id}/join`);
