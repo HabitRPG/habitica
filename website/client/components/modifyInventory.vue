@@ -6,10 +6,10 @@
       .container-fluid
         .row
           .col-xs-12
-            button.btn.btn-secondary.pull-right(ng-if="!showInv.gear", @click="showInv.gear = true") Show Gear
-            button.btn.btn-secondary.pull-right(ng-if="showInv.gear", @click="showInv.gear = false") Hide Gear
+            button.btn.btn-secondary.pull-right(v-if="!showInv.gear", @click="showInv.gear = true") Show Gear
+            button.btn.btn-secondary.pull-right(v-if="showInv.gear", @click="showInv.gear = false") Hide Gear
             h4 Gear
-            div(ng-if="showInv.gear")
+            div(v-if="showInv.gear")
               button.btn.btn-secondary(@click="setAllItems('gear', true)") Own All
               button.btn.btn-secondary(@click="setAllItems('gear', false)") Previously Own All
               button.btn.btn-secondary(@click="setAllItems('gear', undefined)") Never Own All
@@ -23,23 +23,23 @@
 
                   .clearfix
                     label.radio-inline
-                      input(type="radio", :name="'gear-' + item.key" ng-model="inv.gear[item.key]" ng-value="true")
+                      input(type="radio", :name="'gear-' + item.key" v-model="inv.gear[item.key]" ng-value="true")
                       | Owned
                     label.radio-inline
-                      input(type="radio", :name="'gear-' + item.key" ng-model="inv.gear[item.key]" ng-value="false")
+                      input(type="radio", :name="'gear-' + item.key" v-model="inv.gear[item.key]" ng-value="false")
                       | Previously Owned
                     label.radio-inline
-                      input(type="radio", :name="'gear-' + item.key" ng-model="inv.gear[item.key]" ng-value="undefined")
+                      input(type="radio", :name="'gear-' + item.key" v-model="inv.gear[item.key]" ng-value="undefined")
                       | Never Owned
 
         hr
 
         .row
           .col-xs-12
-            button.btn.btn-secondary.pull-right(ng-if="!showInv.special", @click="showInv.special = true") Show Special Items
-            button.btn.btn-secondary.pull-right(ng-if="showInv.special", @click="showInv.special = false") Hide Special Items
+            button.btn.btn-secondary.pull-right(v-if="!showInv.special", @click="showInv.special = true") Show Special Items
+            button.btn.btn-secondary.pull-right(v-if="showInv.special", @click="showInv.special = false") Hide Special Items
             h4 Special Items
-            div(ng-if="showInv.special")
+            div(v-if="showInv.special")
               button.btn.btn-secondary(@click="setAllItems('special', 999)") Set All to 999
               button.btn.btn-secondary(@click="setAllItems('special', 0)") Set All to 0
               button.btn.btn-secondary(@click="setAllItems('special', undefined)") Set All to undefined
@@ -47,20 +47,20 @@
               hr
 
               ul.list-group
-                li.list-group-item(v-for="item in content.special" ng-init="inv.special[item.key] = user.items.special[item.key]" ng-if="item.value === 15")
+                li.list-group-item(v-for="item in content.special" ng-init="inv.special[item.key] = user.items.special[item.key]" v-if="item.value === 15")
                   .form-inline.clearfix
                     .pull-left(:class="'inventory_special_' + item.key" style="margin-right: 10px")
                     p {{item.text()}}
-                    input.form-control(type="number" ng-model="inv.special[item.key]")
+                    input.form-control(type="number" v-model="inv.special[item.key]")
 
         hr
 
         .row
           .col-xs-12
-            button.btn.btn-secondary.pull-right(ng-if="!showInv.pets", @click="showInv.pets = true") Show Pets
-            button.btn.btn-secondary.pull-right(ng-if="showInv.pets", @click="showInv.pets = false") Hide Pets
+            button.btn.btn-secondary.pull-right(v-if="!showInv.pets", @click="showInv.pets = true") Show Pets
+            button.btn.btn-secondary.pull-right(v-if="showInv.pets", @click="showInv.pets = false") Hide Pets
             h4 Pets
-            div(ng-if="showInv.pets")
+            div(v-if="showInv.pets")
               button.btn.btn-secondary(@click="setAllItems('pets', 45)") Set All to 45
               button.btn.btn-secondary(@click="setAllItems('pets', 0)") Set All to 0
               button.btn.btn-secondary(@click="setAllItems('pets', -1)") Set All to -1
@@ -74,7 +74,7 @@
                   .form-inline.clearfix
                     .pull-left(:class="'Pet-' + pet", style="margin-right: 10px")
                     p {{pet}}
-                    input.form-control(type="number" ng-model="inv.pets[pet]")
+                    input.form-control(type="number" v-model="inv.pets[pet]")
 
               h5 Quest Pets
               ul.list-group
@@ -82,7 +82,7 @@
                   .form-inline.clearfix
                     .pull-left(:class="'Pet-' + pet", style="margin-right: 10px")
                     p {{pet}}
-                    input.form-control(type="number" ng-model="inv.pets[pet]")
+                    input.form-control(type="number" v-model="inv.pets[pet]")
 
               h5 Special Pets
               ul.list-group
@@ -90,7 +90,7 @@
                   .form-inline.clearfix
                     .pull-left(:class="'Pet-' + pet", style="margin-right: 10px")
                     p {{pet}}
-                    input.form-control(type="number" ng-model="inv.pets[pet]")
+                    input.form-control(type="number" v-model="inv.pets[pet]")
 
               h5 Premium Pets
               ul.list-group
@@ -98,16 +98,16 @@
                   .form-inline.clearfix
                     .pull-left(:class="'Pet-' + pet", style="margin-right: 10px")
                     p {{pet}}
-                    input.form-control(type="number" ng-model="inv.pets[pet]")
+                    input.form-control(type="number" v-model="inv.pets[pet]")
 
         hr
 
         .row
           .col-xs-12
-            button.btn.btn-secondary.pull-right(ng-if="!showInv.mounts", @click="showInv.mounts = true") Show Mounts
-            button.btn.btn-secondary.pull-right(ng-if="showInv.mounts", @click="showInv.mounts = false") Hide Mounts
+            button.btn.btn-secondary.pull-right(v-if="!showInv.mounts", @click="showInv.mounts = true") Show Mounts
+            button.btn.btn-secondary.pull-right(v-if="showInv.mounts", @click="showInv.mounts = false") Hide Mounts
             h4 Mounts
-            div(ng-if="showInv.mounts")
+            div(v-if="showInv.mounts")
               button.btn.btn-secondary(@click="setAllItems('mounts', true)") Set all to Owned
               button.btn.btn-secondary(@click="setAllItems('mounts', undefined)") Set all to Not Owned
 
@@ -120,10 +120,10 @@
                   | {{mount}}
                   .clearfix
                     label.radio-inline
-                      input(type="radio" , :name="'mounts-' + mount", ng-model="inv.mounts[mount]" ng-value="true")
+                      input(type="radio" , :name="'mounts-' + mount", v-model="inv.mounts[mount]" ng-value="true")
                       | Owned
                     label.radio-inline
-                      input(type="radio" , :name="'mounts-' + mount", ng-model="inv.mounts[mount]" ng-value="undefined")
+                      input(type="radio" , :name="'mounts-' + mount", v-model="inv.mounts[mount]" ng-value="undefined")
                       | Not Owned
 
               h5 Quest Mounts
@@ -133,10 +133,10 @@
                   | {{mount}}
                   .clearfix
                     label.radio-inline
-                      input(type="radio" , :name="'mounts-' + mount", ng-model="inv.mounts[mount]" ng-value="true")
+                      input(type="radio" , :name="'mounts-' + mount", v-model="inv.mounts[mount]" ng-value="true")
                       | Owned
                     label.radio-inline
-                      input(type="radio" , :name="'mounts-' + mount", ng-model="inv.mounts[mount]" ng-value="undefined")
+                      input(type="radio" , :name="'mounts-' + mount", v-model="inv.mounts[mount]" ng-value="undefined")
                       | Not Owned
 
               h5 Special Mounts
@@ -146,10 +146,10 @@
                   | {{mount}}
                   .clearfix
                     label.radio-inline
-                      input(type="radio" , :name="'mounts-' + mount", ng-model="inv.mounts[mount]" ng-value="true")
+                      input(type="radio" , :name="'mounts-' + mount", v-model="inv.mounts[mount]" ng-value="true")
                       | Owned
                     label.radio-inline
-                      input(type="radio" , :name="'mounts-' + mount", ng-model="inv.mounts[mount]" ng-value="undefined")
+                      input(type="radio" , :name="'mounts-' + mount", v-model="inv.mounts[mount]" ng-value="undefined")
                       | Not Owned
 
               h5 Premium Mounts
@@ -159,20 +159,20 @@
                   | {{mount}}
                   .clearfix
                     label.radio-inline
-                      input(type="radio" , :name="'mounts-' + mount", ng-model="inv.mounts[mount]" ng-value="true")
+                      input(type="radio" , :name="'mounts-' + mount", v-model="inv.mounts[mount]" ng-value="true")
                       | Owned
                     label.radio-inline
-                      input(type="radio" , :name="'mounts-' + mount", ng-model="inv.mounts[mount]" ng-value="undefined")
+                      input(type="radio" , :name="'mounts-' + mount", v-model="inv.mounts[mount]" ng-value="undefined")
                       | Not Owned
 
         hr
 
         .row
           .col-xs-12
-            button.btn.btn-secondary.pull-right(ng-if="!showInv.hatchingPotions", @click="showInv.hatchingPotions = true") Show Hatching Potions
-            button.btn.btn-secondary.pull-right(ng-if="showInv.hatchingPotions", @click="showInv.hatchingPotions = false") Hide Hatching Potions
+            button.btn.btn-secondary.pull-right(v-if="!showInv.hatchingPotions", @click="showInv.hatchingPotions = true") Show Hatching Potions
+            button.btn.btn-secondary.pull-right(v-if="showInv.hatchingPotions", @click="showInv.hatchingPotions = false") Hide Hatching Potions
             h4 Hatching Potions
-            div(ng-if="showInv.hatchingPotions")
+            div(v-if="showInv.hatchingPotions")
               button.btn.btn-secondary(@click="setAllItems('hatchingPotions', 999)") Set All to 999
               button.btn.btn-secondary(@click="setAllItems('hatchingPotions', 0)") Set All to 0
               button.btn.btn-secondary(@click="setAllItems('hatchingPotions', undefined)") Set All to undefined
@@ -184,16 +184,16 @@
                   .form-inline.clearfix
                     .pull-left(:class="'Pet_HatchingPotion_' + item.key" style="margin-right: 10px")
                     p {{item.text()}}
-                    input.form-control(type="number" ng-model="inv.hatchingPotions[item.key]")
+                    input.form-control(type="number" v-model="inv.hatchingPotions[item.key]")
 
         hr
 
         .row
           .col-xs-12
-            button.btn.btn-secondary.pull-right(ng-if="!showInv.eggs", @click="showInv.eggs = true") Show Eggs
-            button.btn.btn-secondary.pull-right(ng-if="showInv.eggs", @click="showInv.eggs = false") Hide Eggs
+            button.btn.btn-secondary.pull-right(v-if="!showInv.eggs", @click="showInv.eggs = true") Show Eggs
+            button.btn.btn-secondary.pull-right(v-if="showInv.eggs", @click="showInv.eggs = false") Hide Eggs
             h4 Eggs
-            div(ng-if="showInv.eggs")
+            div(v-if="showInv.eggs")
               button.btn.btn-secondary(@click="setAllItems('eggs', 999)") Set All to 999
               button.btn.btn-secondary(@click="setAllItems('eggs', 0)") Set All to 0
               button.btn.btn-secondary(@click="setAllItems('eggs', undefined)") Set All to undefined
@@ -205,16 +205,16 @@
                   .form-inline.clearfix
                     .pull-left(:class="'Pet_Egg_' + item.key" style="margin-right: 10px")
                     p {{item.text()}}
-                    input.form-control(type="number" ng-model="inv.eggs[item.key]")
+                    input.form-control(type="number" v-model="inv.eggs[item.key]")
 
         hr
 
         .row
           .col-xs-12
-            button.btn.btn-secondary.pull-right(ng-if="!showInv.food", @click="showInv.food = true") Show Food
-            button.btn.btn-secondary.pull-right(ng-if="showInv.food", @click="showInv.food = false") Hide Food
+            button.btn.btn-secondary.pull-right(v-if="!showInv.food", @click="showInv.food = true") Show Food
+            button.btn.btn-secondary.pull-right(v-if="showInv.food", @click="showInv.food = false") Hide Food
             h4 Food
-            div(ng-if="showInv.food")
+            div(v-if="showInv.food")
               button.btn.btn-secondary(@click="setAllItems('food', 999)") Set All to 999
               button.btn.btn-secondary(@click="setAllItems('food', 0)") Set All to 0
               button.btn.btn-secondary(@click="setAllItems('food', undefined)") Set All to undefined
@@ -226,16 +226,16 @@
                   .form-inline.clearfix
                     .pull-left(:class="'Pet_Food_' + item.key" style="margin-right: 10px")
                     p {{item.text()}}
-                    input.form-control(type="number" ng-model="inv.food[item.key]")
+                    input.form-control(type="number" v-model="inv.food[item.key]")
 
         hr
 
         .row
           .col-xs-12
-            button.btn.btn-secondary.pull-right(ng-if="!showInv.quests", @click="showInv.quests = true") Show Quests
-            button.btn.btn-secondary.pull-right(ng-if="showInv.quests", @click="showInv.quests = false") Hide Quests
+            button.btn.btn-secondary.pull-right(v-if="!showInv.quests", @click="showInv.quests = true") Show Quests
+            button.btn.btn-secondary.pull-right(v-if="showInv.quests", @click="showInv.quests = false") Hide Quests
             h4 Quests
-            div(ng-if="showInv.quests")
+            div(v-if="showInv.quests")
               button.btn.btn-secondary(@click="setAllItems('quests', 999)") Set All to 999
               button.btn.btn-secondary(@click="setAllItems('quests', 0)") Set All to 0
               button.btn.btn-secondary(@click="setAllItems('quests', undefined)") Set All to undefined
@@ -243,11 +243,11 @@
               hr
 
               ul.list-group
-                li.list-group-item(v-for="item in content.quests" ng-init="inv.quests[item.key] = user.items.quests[item.key]" ng-if="item.category !== 'world'")
+                li.list-group-item(v-for="item in content.quests" ng-init="inv.quests[item.key] = user.items.quests[item.key]" v-if="item.category !== 'world'")
                   .form-inline.clearfix
                     .pull-left(:class="'inventory_quest_scroll_' + item.key" style="margin-right: 10px")
                     p {{item.text()}}
-                    input.form-control(type="number" ng-model="inv.quests[item.key]")
+                    input.form-control(type="number" v-model="inv.quests[item.key]")
     .modal-footer
       button.btn.btn-secondary(@click="close()") {{ $t('close') }}
       button.btn.btn-primary(@click="close();modifyInventory()") Apply Changes
