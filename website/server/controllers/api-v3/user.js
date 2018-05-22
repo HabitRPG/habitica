@@ -8,6 +8,9 @@ import {
   basicFields as basicGroupFields,
   model as Group,
 } from '../../models/group';
+import {
+  model as User,
+} from '../../models/user';
 import * as Tasks from '../../models/task';
 import _ from 'lodash';
 import * as passwordUtils from '../../libs/password';
@@ -80,17 +83,17 @@ api.getUser = {
   middlewares: [authWithHeaders()],
   url: '/user',
   async handler (req, res) {
-    let user = res.locals.user;
-    let userToJSON = user.toJSON();
+    const user = res.locals.user;
+    const userToJSON = user.toJSON ? user.toJSON() : user;
 
     // Remove apiToken from response TODO make it private at the user level? returned in signup/login
     delete userToJSON.apiToken;
 
     if (!req.query.userFields) {
-      let {daysMissed} = user.daysUserHasMissed(new Date(), req);
+      let { daysMissed } = User.daysUserHasMissed(new Date(), req, user);
       userToJSON.needsCron = false;
       if (daysMissed > 0) userToJSON.needsCron = true;
-      user.addComputedStatsToJSONObj(userToJSON.stats);
+      User.addComputedStatsToJSONObj(userToJSON.stats, user);
     }
 
     return res.respond(200, userToJSON);

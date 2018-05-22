@@ -2,6 +2,7 @@ import common from '../../../common';
 import _ from 'lodash';
 import moment from 'moment';
 import baseModel from '../../libs/baseModel';
+import { setUserCache } from '../../libs/userRepository';
 import * as Tasks from '../task';
 import {
   model as UserNotification,
@@ -344,4 +345,6 @@ schema.post('save', function postSaveUser () {
 
     this._tmp.leveledUp = [];
   }
+
+  setUserCache(this);
 });
