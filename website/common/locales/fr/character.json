@@ -201,7 +201,6 @@
     "showQuickAllocation": "Voir la répartition des attributs",
     "hideQuickAllocation": "Cacher la répartition des attributs",
     "quickAllocationLevelPopover": "Chaque niveau vous rapporte un point que vous pouvez assigner à un attribut de votre choix. Vous pouvez le faire manuellement ou laissez le jeu décider pour vous, en utilisant les options d'attribution automatique qui se trouvent dans l'icône utilisateur -> caractéristiques.",
-    "invalidAttribute": "\"<%= attr %>\" n'est pas un attribut valide.",
     "notEnoughAttrPoints": "Vous n'avez pas assez de points d'attribut.",
     "style": "Style",
     "facialhair": "Pilosité faciale",
@@ -219,6 +218,5 @@
     "mainHand": "Main principale",
     "offHand": "Main secondaire",
     "pointsAvailable": "Points disponibles",
-    "pts": "pts",
-    "statsObjectRequired": "Une mise à jour des caractéristiques est requise"
+    "pts": "pts"
 }

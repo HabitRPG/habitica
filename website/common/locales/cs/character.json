@@ -201,7 +201,6 @@
     "showQuickAllocation": "Zobrazit přidělení vlastnostních bodů",
     "hideQuickAllocation": "Skrýt přidělení vlastnostních bodů",
     "quickAllocationLevelPopover": "S každou další úrovní získáš jeden bod, který můžeš přiřadit k libovolné vlastnosti. Přiřadit body můžeš buď manuálně anebo můžeš nechat hru rozhodnout za tebe na základě některé z možností Automatického Přiřazení, které nalezneš v Uživatel -> Statistiky.",
-    "invalidAttribute": "\"<%= attr %>\" není platný atribut.",
     "notEnoughAttrPoints": "Nemáš dostatek vlastnostních bodů",
     "style": "Styl",
     "facialhair": "Vousy",
@@ -219,6 +218,5 @@
     "mainHand": "Hlavní ruka",
     "offHand": "Druhá ruka",
     "pointsAvailable": "Dostupné body",
-    "pts": "Body",
-    "statsObjectRequired": "Je požadována aktualizace atributů"
+    "pts": "Body"
 }

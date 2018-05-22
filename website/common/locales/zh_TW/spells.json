@@ -51,7 +51,6 @@
     "spellSpecialSeafoamNotes": "把朋友變成海洋生物！",
     "spellSpecialSandText": "沙子",
     "spellSpecialSandNotes": "Reverse the spell that made you a sea star.",
-    "spellNotFound": "找不到技能 \"<%= spellId %>\"。",
     "partyNotFound": "找不到隊伍。",
     "targetIdUUID": "\"targetId\"必須是有效的UUID。",
     "challengeTasksNoCast": "你無法在挑戰任務上使用技能。",

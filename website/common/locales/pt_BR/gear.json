@@ -327,7 +327,7 @@
     "weaponArmoireWeaversCombText": "Pente do Tecelão",
     "weaponArmoireWeaversCombNotes": "Use esse pente para juntar seus fios em um tecido bem trançado. Aumenta Percepção em <%= per %> e Força em <%= str %>. Armário Encantado: Conjunto do Tecelão ( Item 2 de 3).",
     "weaponArmoireLamplighterText": "Acendedor de Lampiões",
-    "weaponArmoireLamplighterNotes": "This long pole has a wick on one end for lighting lamps, and a hook on the other end for putting them out. Increases Constitution by <%= con %> and Perception by <%= per %>. Enchanted Armoire: Lamplighter's Set (Item 1 of 4)",
+    "weaponArmoireLamplighterNotes": "Esta longa vara tem um pavio em uma extremidade para lâmpadas de iluminação e um gancho na outra extremidade para colocá-las para fora. Aumenta Constituição em <%= con %> e Percepção em <%= per %>. Armário Encantado: Conjunto do Lampião (Item 1 de 4)",
     "weaponArmoireCoachDriversWhipText": "Chicote do Carroceiro",
     "weaponArmoireCoachDriversWhipNotes": "Your steeds know what they're doing, so this whip is just for show (and the neat snapping sound!). Increases Intelligence by <%= int %> and Strength by <%= str %>. Enchanted Armoire: Coach Driver Set (Item 3 of 3).",
     "weaponArmoireScepterOfDiamondsText": "Cetro de Diamantes",

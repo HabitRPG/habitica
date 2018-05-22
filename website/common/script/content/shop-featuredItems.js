@@ -12,8 +12,8 @@ const featuredItems = {
       path: 'hatchingPotions.Red',
     },
     {
-      type: 'hatchingPotions',
-      path: 'hatchingPotions.Golden',
+      type: 'premiumHatchingPotion',
+      path: 'premiumHatchingPotions.Fairy',
     },
     {
       type: 'card',
@@ -31,7 +31,11 @@ const featuredItems = {
     },
     {
       type: 'quests',
-      path: 'quests.bunny',
+      path: 'quests.butterfly',
+    },
+    {
+      type: 'bundles',
+      path: 'bundles.cuddleBuddies',
     },
   ],
   seasonal: '',

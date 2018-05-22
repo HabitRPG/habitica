@@ -96,7 +96,6 @@
     "questInvitationDoesNotExist": "Ingen quest invitation er blevet udsendt endnu.",
     "questInviteNotFound": "Ingen questinvitation fundet.",
     "guildQuestsNotSupported": "Klaner kan ikke blive inviteret på quests.",
-    "questNotFound": "Quest \"<%= key %>\" ikke fundet.",
     "questNotOwned": "Du ejer ikke den quest-skriftrulle",
     "questNotGoldPurchasable": "Quest \"<%= key %>\" er ikke en quest, der kan købes for Guld.",
     "questLevelTooHigh": "Du skal være niveau <%= level %> for at starte denne quest.",

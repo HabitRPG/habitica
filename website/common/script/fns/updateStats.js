@@ -51,8 +51,8 @@ module.exports = function updateStats (user, stats, req = {}, analytics) {
     }
 
     const newLvl = user.stats.lvl;
-
-    if (user.addNotification) user.addNotification('LEVELED_UP', {
+    if (!user._tmp.leveledUp) user._tmp.leveledUp = [];
+    user._tmp.leveledUp.push({
       initialLvl,
       newLvl,
     });

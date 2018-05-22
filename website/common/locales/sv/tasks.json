@@ -145,7 +145,6 @@
     "rewardHelp3": "Speciell utrustning kommer finnas här under globala evenemang.",
     "rewardHelp4": "Var inte rädd för att sätta personliga belöningar! Spana in <a href='http://habitica.wikia.com/wiki/Sample_Custom_Rewards' target='_blank'>några exempel här</a>.",
     "clickForHelp": "Klicka För Hjälp",
-    "taskIdRequired": "\"taskId\" måste vara en giltig UUID",
     "taskAliasAlreadyUsed": "Uppgifts-alias har redan blivit använd på en anna uppgift.",
     "taskNotFound": "Uppgift hittades inte.",
     "invalidTaskType": "Uppgiftstyp måste vara en av \"vana\", \"daglig uppgift\", \"att-göra\", \"belöning\".",

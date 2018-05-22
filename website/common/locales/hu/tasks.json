@@ -145,7 +145,6 @@
     "rewardHelp3": "A különleges felszerelések itt jelennek meg a nagy eseményekkor.",
     "rewardHelp4": "Ne légy rest saját jutalmakat beállítani! Nézz meg néhány <a href='http://habitica.wikia.com/wiki/Sample_Custom_Rewards' target='_blank'>példát jutalmakra</a>.",
     "clickForHelp": "Kattints ide segítségért",
-    "taskIdRequired": "\"taskId\" valódi UUID-nek kell lennie.",
     "taskAliasAlreadyUsed": "Ezt a feladatcímkét már használod egy másik feladathoz.",
     "taskNotFound": "A feladat nem található.",
     "invalidTaskType": "A feladat típusa \"Szokás\", \"Napi\" \"Cél\" vagy \"Jutalom\" lehet.",

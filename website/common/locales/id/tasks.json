@@ -145,7 +145,6 @@
     "rewardHelp3": "Perlengkapan Khusus akan muncul di sini selama Acara Sedunia.",
     "rewardHelp4": "Jangan takut untuk menentukan Hadiah Pribadi! Cek <a href='http://habitica.wikia.com/wiki/Sample_Custom_Rewards' target='_blank'>beberapa contoh disini</a>.",
     "clickForHelp": "Klik untuk bantuan",
-    "taskIdRequired": "\"taskId\" harus merupakan UUID yang valid.",
     "taskAliasAlreadyUsed": "Nama alias tugas telah digunakan pada tugas lain.",
     "taskNotFound": "Tugas tidak ditemukan.",
     "invalidTaskType": "Tipe tugas harus merupakan salah satu dari \"habit\", \"daily\", \"todo\", \"reward\".",

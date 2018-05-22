@@ -632,6 +632,15 @@ describe('payments/index', () => {
         expect(user.sendMessage).to.be.calledWith(recipient, { receiverMsg: msg, senderMsg: msg });
       });
 
+      it('sends a message from purchaser to recipient wtih custom message', async () => {
+        data.gift.message = 'giftmessage';
+
+        await api.buyGems(data);
+
+        const msg = `\`Hello recipient, sender has sent you 4 gems!\` ${data.gift.message}`;
+        expect(user.sendMessage).to.be.calledWith(recipient, { receiverMsg: msg, senderMsg: msg });
+      });
+
       it('sends a push notification if user did not gift to self', async () => {
         await api.buyGems(data);
         expect(notifications.sendNotification).to.be.calledOnce;

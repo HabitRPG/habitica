@@ -96,7 +96,6 @@
     "questInvitationDoesNotExist": "Tidak ada undangan misi yang dikirimkan.",
     "questInviteNotFound": "Tidak ada undangan misi yang ditemukan.",
     "guildQuestsNotSupported": "Guild tidak dapat diundang dalam misi.",
-    "questNotFound": "Misi \"<%= key %>\" tidak ditemukan.",
     "questNotOwned": "Kamu tidak memiliki gulungan misi tersebut.",
     "questNotGoldPurchasable": "Misi \"<%= key %>\" tidak dapat dibeli dengan Emas.",
     "questLevelTooHigh": "Kamu harus berada di level <%= level %> untuk memulai misi ini.",

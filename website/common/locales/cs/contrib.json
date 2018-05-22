@@ -49,7 +49,6 @@
     "UUID": "ID uživatele",
     "loadUser": "Načíst uživatele",
     "noAdminAccess": "Nemáte adminský přístup.",
-    "pageMustBeNumber": "req.query.page musí být číslo",
     "userNotFound": "Uživatel nenalezen.",
     "invalidUUID": "UUID musí být platné.",
     "title": "Název",

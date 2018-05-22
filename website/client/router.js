@@ -7,7 +7,6 @@ import getStore from 'client/store';
 
 // TODO Dummy elements used as placeholder until real components are implemented
 import ParentPage from './components/parentPage';
-import Logout from './components/logout';
 // Static Pages
 const StaticWrapper = () => import(/* webpackChunkName: "entry" */ './components/static/staticWrapper');
 const HomePage = () => import(/* webpackChunkName: "entry" */ './components/static/home');
@@ -358,7 +357,6 @@ router.beforeEach(function routerGuard (to, from, next) {
       },
     });
   }
-
 
   /*
   Analytics.track({

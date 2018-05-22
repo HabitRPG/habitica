@@ -96,7 +96,6 @@
     "questInvitationDoesNotExist": "No se ha enviado invitación de misión todavía.",
     "questInviteNotFound": "Invitación a misión no encontrada.",
     "guildQuestsNotSupported": "Los gremios no pueden ser invitados a las misiones.",
-    "questNotFound": "Misión \"<%= key %>\" no encontrada.",
     "questNotOwned": "No posees ese pergamino de misión.",
     "questNotGoldPurchasable": "La misión \"<%= key %>\" no es una misión por oro.",
     "questLevelTooHigh": "Debes ser nivel <%= level %> para empezar esta misión",

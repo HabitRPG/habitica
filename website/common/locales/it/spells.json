@@ -51,7 +51,6 @@
     "spellSpecialSeafoamNotes": "Trasforma un amico in una creatura del mare!",
     "spellSpecialSandText": "Sabbia",
     "spellSpecialSandNotes": "Annulla la magia che ti ha trasformato in una stella marina.",
-    "spellNotFound": "Abilità \"<%= spellId %>\" non trovata.",
     "partyNotFound": "Squadra non trovata.",
     "targetIdUUID": "\"targetId\" deve essere un ID Utente valido.",
     "challengeTasksNoCast": "Non è possibile usare abilità sulle attività delle sfide.",

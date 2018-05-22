@@ -1,44 +1,57 @@
 <template lang="pug">
-div.header-tabs
-  .drawer-tab-container
-    .drawer-tab(v-for="(tab, index) in tabs")
+.header-tabs
+  ul.drawer-tab-container
+    li.drawer-tab(v-for="(tab, index) in tabs")
       a.drawer-tab-text(
         @click="changeTab(index)",
         :class="{'drawer-tab-text-active': selectedTabPosition === index}",
         :title="tab.label"
       ) {{ tab.label }}
 
-  span.right-item
+  aside.help-item
     slot(name="right-item")
 </template>
 
 <style lang="scss" scoped>
   .drawer-tab-text {
-    overflow-x: hidden;
     display: block;
+    overflow-x: hidden;
     text-overflow: ellipsis;
   }
 
   .drawer-tab {
-    white-space: nowrap;
-    overflow-x: hidden;
     flex: inherit;
+    overflow-x: hidden;
+    white-space: nowrap;
   }
 
   .drawer-tab-container {
-    max-width: 50%;
-    margin: 0 auto;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    justify-self: center;
+    margin: 0;
+    padding: 0;
   }
 
-  .right-item {
-    position: absolute;
+  .help-item {
+    grid-column-start: 3;
+    position: relative;
     right: -11px;
+    text-align: right;
     top: -2px;
   }
 
   .header-tabs {
-    position: relative;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+  }
+
+  // MS Edge
+  @supports (-ms-ime-align: auto) {
+    .help-item {
+      align-self: center;
+      top: 1px;
+    }
   }
 </style>
 

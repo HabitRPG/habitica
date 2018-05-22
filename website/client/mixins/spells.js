@@ -133,23 +133,6 @@ export default {
 
 
       this.markdown(msg); // @TODO: mardown directive?
-
-      // If using mpheal and there are other mages in the party, show extra notification
-      if (type === 'party' && spell.key === 'mpheal') {
-        // Counting mages
-        let magesCount = 0;
-        for (let i = 0; i < target.length; i++) {
-          if (target[i].stats.class === 'wizard') {
-            magesCount++;
-          }
-        }
-        // If there are mages, show message telling that the mpheal don't work on other mages
-        // The count must be bigger than 1 because the user casting the spell is a mage
-        if (magesCount > 1) {
-          this.markdown(this.$t('spellWizardNoEthOnMage'));
-        }
-      }
-
       if (!beforeQuestProgress) return;
       let questProgress = this.questProgress() - beforeQuestProgress;
       if (questProgress > 0) {

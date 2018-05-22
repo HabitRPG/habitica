@@ -592,13 +592,15 @@
     "questDysheartenerBossRageQuests": "`心蝕のディスハートナーは強烈なハートブレイクを使った！`\n\nああああ!!　またもや私たちが日課を終わらせずに残してしまい、ディスハートナーは愛すべき店主たちに向けて放つ最後の一撃のエネルギーを溜めました。クエストマスターのIanがいる郊外は強烈なハートブレイクによってずたずたに破壊され、Ianは恐るべき光景に徹底的に打ちのめされています。怪物が倒れるときは近づいています……急ぎましょう！　止まっている暇はありません！",
     "questDysheartenerDropHippogriffPet": "希望に満ちたヒッポグリフ(ペット)",
     "questDysheartenerDropHippogriffMount": "希望に満ちたヒッポグリフ(乗騎)",
-    "dysheartenerArtCredit": "イラスト作成：@AnnDeLune",
-    "hugabugText": "「虫さんと仲良し」クエストセット",
+    "dysheartenerArtCredit": "イラスト：@AnnDeLune",
+    "hugabugText": "「虫にムチュウ」クエストセット",
     "hugabugNotes": "「クリティカル・バグ」「タンタン泥地のカタツムリ」「バイバイ、蝶々さん」のセット。3月31日まで購入できます。",
     "questSquirrelText": "コソコソリス",
     "questSquirrelNotes": "あなたは目を覚まし、寝過ごしたことに気づきました！なんで目覚ましが鳴らなかったんだ？ ．．．目覚ましにドングリが詰まっているがどうしてこうなった？<br><br>あなたが朝食を作ろうとすると、トースターがドングリで一杯になっている。乗騎を取りに行くと、@Shtut がそこにいて、動物小屋の鍵を開けようとしているがうまくいかない。二人は鍵穴を覗き込む。\"ドングリが詰まってないか？\"<br><br>@randomdaisy が叫ぶ \"なんてこと！私のペットのリス達が逃げ出したのはわかっていたけど、こんなトラブルを引き起こすなんて思わなかった！あの子達がこれ以上の面倒を起こす前に捕まえるのを手伝ってくれない？\" <br><br>いたずらに置かれたドングリの跡をたどり、@Cantrasの助けも借りて手慣れた様子で一匹ずつ確保してゆき、あなたはわがままなリス達を捕まえてゆく。しかしあなたがもう少しで終わりそうだと思ったところで、ドングリがあなたのヘルメットにコツンとあたった！ あなたが見上げると、そこには巨大なリスの化け物が、うず高く積まれた種を守りながら身を屈めている。<br><br> \"ああ、なんてこと\" @randomdaisy がそっとささやく \"あの子はいつも防衛本能が強いのよ。慎重に進まないと！\"あなたはパーティーの仲間と共に取り囲み、準備は整った！",
     "questSquirrelCompletion": "With a gentle approach, offers of trade, and a few soothing spells, you’re able to coax the squirrel away from its hoard and back to the stables, which @Shtut has just finished de-acorning. They’ve set aside a few of the acorns on a worktable. “These ones are squirrel eggs! Maybe you can raise some that don’t play with their food quite so much.”",
     "questSquirrelBoss": "コソコソリス",
     "questSquirrelDropSquirrelEgg": "リス ( たまご )",
-    "questSquirrelUnlockText": "市場でリスのたまごを買えるようにする"
+    "questSquirrelUnlockText": "市場でリスのたまごを買えるようにする",
+    "cuddleBuddiesText": "「抱っこ仲間」クエストセット",
+    "cuddleBuddiesNotes": "「殺し屋ウサギ」「ふとどきなフェレット」「モルモットギャング団」のセット。5月31日まで購入できます。"
 }

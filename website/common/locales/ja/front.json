@@ -304,7 +304,7 @@
     "alreadyHaveAccountLogin": "Habiticaのアカウントをお持ちですか？<strong>ここからログイン</strong>",
     "dontHaveAccountSignup": "Habiticaのアカウントはまだお持ちでないですか？<strong>ここから登録</strong>",
     "motivateYourself": "やる気を出して目標を達成しよう",
-    "timeToGetThingsDone": "It's time to have fun when you get things done! Join over <%= userCountInMillions %> million Habiticans and improve your life one task at a time.",
+    "timeToGetThingsDone": "楽しみながら仕事を片付けよう！<%= userCountInMillions %>00万人を超えるHabiticaの冒険者達と一緒にあなたの人生もタスクも一気に改善しましょう。",
     "singUpForFree": "無料で登録する",
     "or": "あるいは",
     "gamifyYourLife": "あなたの人生がゲームに",

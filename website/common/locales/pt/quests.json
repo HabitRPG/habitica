@@ -96,7 +96,6 @@
     "questInvitationDoesNotExist": "Nenhum convite para missão foi enviado ainda.",
     "questInviteNotFound": "Nenhum convite para missão encontrado.",
     "guildQuestsNotSupported": "Guildas não podem ser convidadas para missão.",
-    "questNotFound": "Missão \"<%= key %>\" não encontrada.",
     "questNotOwned": "Você não possui esse pergaminho de missão.",
     "questNotGoldPurchasable": "Missão \"<%= key %>\" não é comprável com ouro.",
     "questLevelTooHigh": "Você precisa ter nível <%= level %> para iniciar essa missão.",

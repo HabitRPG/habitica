@@ -554,7 +554,7 @@
     "armorSpecialFall2017MageNotes": "What masquerade ensemble would be complete without dramatic and sweeping robes? Increases Intelligence by <%= int %>. Limited Edition 2017 Autumn Gear.",
     "armorSpecialFall2017HealerText": "Haunted House Armor",
     "armorSpecialFall2017HealerNotes": "Your heart is an open door. And your shoulders are roofing tiles! Increases Constitution by <%= con %>. Limited Edition 2017 Autumn Gear.",
-    "armorSpecialWinter2018RogueText": "Reindeer Costume",
+    "armorSpecialWinter2018RogueText": "Geyik Kostümü",
     "armorSpecialWinter2018RogueNotes": "You look so cute and fuzzy, who could suspect you are after holiday loot? Increases Perception by <%= per %>. Limited Edition 2017-2018 Winter Gear.",
     "armorSpecialWinter2018WarriorText": "Wrapping Paper Armor",
     "armorSpecialWinter2018WarriorNotes": "Don't let the papery feel of this armor fool you. It's nearly impossible to rip! Increases Constitution by <%= con %>. Limited Edition 2017-2018 Winter Gear.",

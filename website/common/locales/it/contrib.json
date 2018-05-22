@@ -49,7 +49,6 @@
     "UUID": "ID Utente",
     "loadUser": "Carica utente",
     "noAdminAccess": "Non puoi accedere come amministratore.",
-    "pageMustBeNumber": "req.query.page deve essere un numero",
     "userNotFound": "Utente non trovato.",
     "invalidUUID": "UUID deve essere valido",
     "title": "Titolo",

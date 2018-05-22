@@ -1,11 +1,11 @@
 import nconf from 'nconf';
+import url from 'url';
 
 const IS_PROD = nconf.get('IS_PROD');
 const IGNORE_REDIRECT = nconf.get('IGNORE_REDIRECT') === 'true';
 const BASE_URL = nconf.get('BASE_URL');
 
-let baseUrlSplit = BASE_URL.split('//');
-const BASE_URL_HOST = baseUrlSplit[1];
+const BASE_URL_HOST = url.parse(BASE_URL).hostname;
 
 function isHTTP (req) {
   return ( // eslint-disable-line no-extra-parens
