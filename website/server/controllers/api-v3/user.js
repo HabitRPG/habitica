@@ -912,7 +912,7 @@ api.buySpecialSpell = {
  * }
  *
  * @apiError {NotAuthorized} messageAlreadyPet Already have the specific pet combination
- * @apiError {NotFound} messageMissingEggPotion One or both of the ingrediants are missing.
+ * @apiError {NotFound} messageMissingEggPotion One or both of the ingredients are missing.
  * @apiError {NotFound} messageInvalidEggPotionCombo Cannot use that combination of egg and potion.
  *
  * @apiErrorExample {json} Already have that pet.
