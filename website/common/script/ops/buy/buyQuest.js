@@ -18,7 +18,7 @@ export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation {
     return true;
   }
 
-  static userAbleToStartMasterClasser (user) {
+  userAbleToStartMasterClasser (user) {
     return user.achievements.quests.dilatoryDistress3 &&
       user.achievements.quests.mayhemMistiflying3 &&
       user.achievements.quests.stoikalmCalamity3 &&
@@ -52,7 +52,7 @@ export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation {
 
   checkPrerequisites (user, questKey) {
     const item = content.quests[questKey];
-    if (questKey === 'lostMasterclasser1' && !self.userAbleToStartMasterClasser(user)) {
+    if (questKey === 'lostMasterclasser1' && !this.userAbleToStartMasterClasser(user)) {
       throw new NotAuthorized(this.i18n('questUnlockLostMasterclasser'));
     }
 
