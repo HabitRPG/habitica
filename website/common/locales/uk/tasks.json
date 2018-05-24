@@ -5,7 +5,7 @@
     "sureDeleteCompletedTodos": "Are you sure you want to delete your completed To-Dos?",
     "lotOfToDos": "Тут показані останні 30 виконаних задач. Побачити більше ви можете за шляхом Дані > Інструмент відображення даних або Дані > Експорт даних > Дані користувача.",
     "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted, except for To-Dos from active challenges and Group Plans. Export them first if you want to keep a record of them.",
-    "addMultipleTip": "<strong>Tip:</strong> To add multiple Tasks, separate each one using a line break (Shift + Enter) and then press \"Enter.\"",
+    "addMultipleTip": "<strong>Tip:</strong> To add multiple <%= taskType %>, separate each one using a line break (Shift + Enter) and then press \"Enter.\"",
     "addsingle": "Додати одне",
     "addATask": "Add a <%= type %>",
     "editATask": "Edit a <%= type %>",

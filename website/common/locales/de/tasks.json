@@ -5,7 +5,7 @@
     "sureDeleteCompletedTodos": "Bist Du sicher, dass Du Deine abgeschlossenen To-Dos löschen willst?",
     "lotOfToDos": "Hier siehst Du Deine 30 neuesten erledigten Aufgaben. Ältere erledigte Aufgaben kannst Du hier einsehen: Daten > Werkzeug zur Datenanzeige > Daten exportieren > Benutzerdaten.",
     "deleteToDosExplanation": "Wenn Du auf diesen Knopf klickst, werden alle Deine erfüllten und archivierten To-Dos dauerhaft gelöscht, mit Außnahme von To-Dos aus aktiven Wettbewerben und Gruppenplänen. Exportiere sie vorher, wenn Du sie nicht verlieren möchtest.",
-    "addMultipleTip": "<strong>Tipp:</strong> Um mehrere Aufgaben hinzuzufügen, trenne sie mit einem Zeilenumbruch (Umschalt + Enter) und drücke dann \"Enter\".",
+    "addMultipleTip": "<strong>Tip:</strong> To add multiple <%= taskType %>, separate each one using a line break (Shift + Enter) and then press \"Enter.\"",
     "addsingle": "Einzelne hinzufügen",
     "addATask": "<%= type %> hinzufügen",
     "editATask": "Ein/e <%= type %> bearbeiten",

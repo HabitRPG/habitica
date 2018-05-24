@@ -5,7 +5,7 @@
     "sureDeleteCompletedTodos": "Jesteś pewien, że chcesz usunąć zakończone Do-Zrobienia?",
     "lotOfToDos": "Ostatnie 30 skończonych Zadań jest widoczne tutaj. Możesz zobaczyć starsze skończone Zadania w Dane > Narzędzie wyświetlania danych lub Dane > Eksport danych > Dane użytkownika.",
     "deleteToDosExplanation": "Jeśli wciśniesz ten przycisk, to wszystkie twoje zakończone i zarchiwizowane Do-Zrobienia zostaną na zawsze usunięte. Nie dotyczyny do Do-Zrobienia z aktywnych wyzwań oraz planów grupowych. Eksoportuj je najpierw, jeśli chcesz je zachować.",
-    "addMultipleTip": "<strong>Rada:</strong> W celu dodania wielu zadań, oddziel każde z nich wstawiając znak końca linii (Shift + Enter), a następnie wciśnij \"Enter\".",
+    "addMultipleTip": "<strong>Tip:</strong> To add multiple <%= taskType %>, separate each one using a line break (Shift + Enter) and then press \"Enter.\"",
     "addsingle": "Dodaj pojedyncze",
     "addATask": "Dodaj <%= type %>",
     "editATask": "Edytuj <%= type %>",

@@ -124,7 +124,7 @@
     "eventAvailability": "Disponibile fino al <%= date(locale) %>.",
     "dateEndMarch": "30 aprile",
     "dateEndApril": "19 aprile",
-    "dateEndMay": "17 maggio",
+    "dateEndMay": "May 31",
     "dateEndJune": "14 giugno",
     "dateEndJuly": "29 luglio",
     "dateEndAugust": "31 agosto",

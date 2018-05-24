@@ -48,7 +48,7 @@
     "featuredItems": "Itens em Destaque!",
     "hideLocked": "Esconder bloqueados",
     "hidePinned": "Esconder fixados",
-    "hideMissing": "Hide Missing",
+    "hideMissing": "Esconder Indisponíveis.",
     "amountExperience": "<%= amount %> de Experiência",
     "amountGold": "<%= amount %> de Ouro",
     "namedHatchingPotion": "Poção de Eclosão <%= type %>",
