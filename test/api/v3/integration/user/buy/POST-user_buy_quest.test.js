@@ -46,7 +46,7 @@ describe('POST /user/buy-quest/:key', () => {
       .to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: apiError('mustComplete', {key: 'notExisting'}),
+        message: apiError('mustComplete', {key: 'dilatoryDistress1'}),
       });
   });
 
@@ -57,7 +57,7 @@ describe('POST /user/buy-quest/:key', () => {
 
     const achievementName = `achievements.quests.${prerequisite}`;
 
-    await user.update({[achievementName]: true});
+    await user.update({[achievementName]: true, 'stats.gp': 9999});
     let res = await user.post(`/user/buy-quest/${key}`);
     await user.sync();
 
