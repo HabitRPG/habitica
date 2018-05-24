@@ -443,8 +443,7 @@ describe('Purchasing a group plan for group', () => {
 
     await api.createSubscription(data);
 
-    let updatedUser = await User.findById(recipient._id).exec();
-
+    const updatedUser = await User.findById(recipient._id).exec();
     expect(updatedUser.purchased.plan.extraMonths).to.within(2, 3);
   });
 

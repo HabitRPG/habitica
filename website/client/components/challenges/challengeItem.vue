@@ -30,7 +30,6 @@
     :categories="challenge.categories",
     :owner="isOwner",
     :member="isMember",
-    v-once
   )
   .challenge-description(v-markdown='challenge.summary')
   .well-wrapper(v-if="fullLayout")

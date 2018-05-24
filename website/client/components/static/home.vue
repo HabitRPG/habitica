@@ -7,11 +7,11 @@
     #intro-signup.purple-1
       .container
         .row
-          .col-12.col-sm-6.col-md-6.col-lg-6
+          .col-12.col-md-6.col-lg-6
             img(src='~assets/images/home/home-main@3x.png', width='357px')
             h1 {{$t('motivateYourself')}}
             p.section-main {{$t('timeToGetThingsDone', {userCountInMillions})}}
-          .col-12.col-sm-6.col-md-6.col-lg-6
+          .col-12.col-md-6.col-lg-6
             h3.text-center {{$t('singUpForFree')}}
             div.text-center
               button.social-button(@click='socialAuth("facebook")')
@@ -42,15 +42,15 @@
             h2 {{$t('gamifyYourLife')}}
             p.section-main {{$t('aboutHabitica')}}
         .row
-          .col-12.col-sm-4
+          .col-12.col-md-4
             img.track-habits(src='~assets/images/home/track-habits@3x.png', width='354px', height='228px')
             strong {{$t('trackYourGoals')}}
             p {{$t('trackYourGoalsDesc')}}
-          .col-12.col-sm-4
+          .col-12.col-md-4
             img(src='~assets/images/home/earn-rewards@3x.png', width='316px', height='244px')
             strong {{$t('earnRewards')}}
             p {{$t('earnRewardsDesc')}}
-          .col-12.col-sm-4
+          .col-12.col-md-4
             img(src='~assets/images/home/battle-monsters@3x.png', width='303px', height='244px')
             strong {{$t('battleMonsters')}}
             p {{$t('battleMonstersDesc')}}
@@ -83,9 +83,9 @@
     #level-up-anywhere.purple-3
       .container
         .row
-          .col-12.col-sm-6.col-md-6.col-lg-6
+          .col-12.col-md-6.col-lg-6
             .iphones
-          .col-12.col-sm-6.col-md-6.col-lg-6.text-column
+          .col-12.col-md-6.col-lg-6.text-column
             h2 {{ $t('levelUpAnywhere') }}
             p {{ $t('levelUpAnywhereDesc') }}
             a.app.svg-icon(v-html='icons.googlePlay', href='https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica', target='_blank')
@@ -345,6 +345,9 @@
     text-align: center;
 
     img {
+      max-width: 100%;
+      display: block;
+      margin: 0 auto;
       margin-top: 1em;
       margin-bottom: 1.5em;
     }
@@ -387,6 +390,8 @@
     .iphones {
       width: 436px;
       height: 520px;
+      max-width: 100%;
+      background-repeat: no-repeat;
       background-size: 100%;
       background-image: url('~assets/images/home/mobile-preview@3x.png');
     }
@@ -658,13 +663,10 @@
           await hello(network).logout();
         } catch (e) {} // eslint-disable-line
 
-
-        const url = window.location.href;
-
-        let auth = await hello(network).login({
+        const auth = await hello(network).login({
           scope: 'email',
           // explicitly pass the redirect url or it might redirect to /home
-          redirect_uri: url, // eslint-disable-line camelcase
+          redirect_uri: '', // eslint-disable-line camelcase
         });
 
         await this.$store.dispatch('auth:socialAuth', {
