@@ -830,7 +830,9 @@ api.buyMysterySet = {
  *
  * @apiErrorExample {json} Quest chosen does not exist
  * {"success":false,"error":"NotFound","message":"Quest \"dilatoryDistress99\" not found."}
- *  @apiErrorExample {json} NotAuthorized Not enough gold
+ * @apiErrorExample {json} You must first complete this quest's prerequisites
+ * {"success":false,"error":"NotAuthorized","message":"You must first complete dilatoryDistress2."}
+ * @apiErrorExample {json} NotAuthorized Not enough gold
  * {"success":false,"error":"NotAuthorized","message":"Not Enough Gold"}
  *
  */
