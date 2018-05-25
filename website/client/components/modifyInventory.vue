@@ -17,19 +17,19 @@
               hr
 
               ul.list-group
-                li.list-group-item(v-for="item in content.gear.flat" ng-init="inv.gear[item.key] = user.items.gear.owned[item.key]")
+                li.list-group-item(v-for="item in content.gear.flat")
                   .pull-left(:class="'shop_' + item.key" style="margin-right: 10px")
                   | {{item.text()}}
 
                   .clearfix
                     label.radio-inline
-                      input(type="radio", :name="'gear-' + item.key" v-model="inv.gear[item.key]" ng-value="true")
+                      input(type="radio", :name="'gear-' + item.key" v-model="inv.gear[item.key]" value="true")
                       | Owned
                     label.radio-inline
-                      input(type="radio", :name="'gear-' + item.key" v-model="inv.gear[item.key]" ng-value="false")
+                      input(type="radio", :name="'gear-' + item.key" v-model="inv.gear[item.key]" value="false")
                       | Previously Owned
                     label.radio-inline
-                      input(type="radio", :name="'gear-' + item.key" v-model="inv.gear[item.key]" ng-value="undefined")
+                      input(type="radio", :name="'gear-' + item.key" v-model="inv.gear[item.key]" value="undefined")
                       | Never Owned
 
         hr
@@ -47,7 +47,7 @@
               hr
 
               ul.list-group
-                li.list-group-item(v-for="item in content.special" ng-init="inv.special[item.key] = user.items.special[item.key]" v-if="item.value === 15")
+                li.list-group-item(v-for="item in content.special" v-if="item.value === 15")
                   .form-inline.clearfix
                     .pull-left(:class="'inventory_special_' + item.key" style="margin-right: 10px")
                     p {{item.text()}}
@@ -70,7 +70,7 @@
 
               h5 Drop Pets
               ul.list-group
-                li.list-group-item(v-for="(pet, value) in content.pets" ng-init="inv.pets[pet] = user.items.pets[pet]")
+                li.list-group-item(v-for="(value, pet) in content.pets")
                   .form-inline.clearfix
                     .pull-left(:class="'Pet-' + pet", style="margin-right: 10px")
                     p {{pet}}
@@ -78,7 +78,7 @@
 
               h5 Quest Pets
               ul.list-group
-                li.list-group-item(v-for="(pet, value) in content.questPets" ng-init="inv.pets[pet] = user.items.pets[pet]")
+                li.list-group-item(v-for="(value, pet) in content.questPets")
                   .form-inline.clearfix
                     .pull-left(:class="'Pet-' + pet", style="margin-right: 10px")
                     p {{pet}}
@@ -86,7 +86,7 @@
 
               h5 Special Pets
               ul.list-group
-                li.list-group-item(v-for="(pet, value) in content.specialPets" ng-init="inv.pets[pet] = user.items.pets[pet]")
+                li.list-group-item(v-for="(value, pet) in content.specialPets")
                   .form-inline.clearfix
                     .pull-left(:class="'Pet-' + pet", style="margin-right: 10px")
                     p {{pet}}
@@ -94,7 +94,7 @@
 
               h5 Premium Pets
               ul.list-group
-                li.list-group-item(v-for="(pet, value) in content.premiumPets" ng-init="inv.pets[pet] = user.items.pets[pet]")
+                li.list-group-item(v-for="(value, pet) in content.premiumPets")
                   .form-inline.clearfix
                     .pull-left(:class="'Pet-' + pet", style="margin-right: 10px")
                     p {{pet}}
@@ -115,54 +115,54 @@
 
               h5 Drop Mounts
               ul.list-group
-                li.list-group-item(v-for="(mount, value) in content.mounts" ng-init="inv.mounts[mount] = user.items.mounts[mount]")
+                li.list-group-item(v-for="(value, mount) in content.mounts")
                   .pull-left(:class="'Mount_Icon_' + mount", style="margin-right: 10px")
                   | {{mount}}
                   .clearfix
                     label.radio-inline
-                      input(type="radio" , :name="'mounts-' + mount", v-model="inv.mounts[mount]" ng-value="true")
+                      input(type="radio" , :name="'mounts-' + mount", v-model="inv.mounts[mount]" value="true")
                       | Owned
                     label.radio-inline
-                      input(type="radio" , :name="'mounts-' + mount", v-model="inv.mounts[mount]" ng-value="undefined")
+                      input(type="radio" , :name="'mounts-' + mount", v-model="inv.mounts[mount]" value="undefined")
                       | Not Owned
 
               h5 Quest Mounts
               ul.list-group
-                li.list-group-item(v-for="(mount, value) in content.questMounts" ng-init="inv.mounts[mount] = user.items.mounts[mount]")
+                li.list-group-item(v-for="(value, mount) in content.questMounts")
                   .pull-left(:class="'Mount_Icon_' + mount", style="margin-right: 10px")
                   | {{mount}}
                   .clearfix
                     label.radio-inline
-                      input(type="radio" , :name="'mounts-' + mount", v-model="inv.mounts[mount]" ng-value="true")
+                      input(type="radio" , :name="'mounts-' + mount", v-model="inv.mounts[mount]" value="true")
                       | Owned
                     label.radio-inline
-                      input(type="radio" , :name="'mounts-' + mount", v-model="inv.mounts[mount]" ng-value="undefined")
+                      input(type="radio" , :name="'mounts-' + mount", v-model="inv.mounts[mount]" value="undefined")
                       | Not Owned
 
               h5 Special Mounts
               ul.list-group
-                li.list-group-item(v-for="(mount, value) in content.specialMounts" ng-init="inv.mounts[mount] = user.items.mounts[mount]")
+                li.list-group-item(v-for="(value, mount) in content.specialMounts")
                   .pull-left(:class="'Mount_Icon_' + mount", style="margin-right: 10px")
                   | {{mount}}
                   .clearfix
                     label.radio-inline
-                      input(type="radio" , :name="'mounts-' + mount", v-model="inv.mounts[mount]" ng-value="true")
+                      input(type="radio" , :name="'mounts-' + mount", v-model="inv.mounts[mount]" value="true")
                       | Owned
                     label.radio-inline
-                      input(type="radio" , :name="'mounts-' + mount", v-model="inv.mounts[mount]" ng-value="undefined")
+                      input(type="radio" , :name="'mounts-' + mount", v-model="inv.mounts[mount]" value="undefined")
                       | Not Owned
 
               h5 Premium Mounts
               ul.list-group
-                li.list-group-item(v-for="(mount, value) in content.premiumMounts" ng-init="inv.mounts[mount] = user.items.mounts[mount]")
+                li.list-group-item(v-for="(value, mount) in content.premiumMounts")
                   .pull-left(:class="'Mount_Icon_' + mount", style="margin-right: 10px")
                   | {{mount}}
                   .clearfix
                     label.radio-inline
-                      input(type="radio" , :name="'mounts-' + mount", v-model="inv.mounts[mount]" ng-value="true")
+                      input(type="radio" , :name="'mounts-' + mount", v-model="inv.mounts[mount]" value="true")
                       | Owned
                     label.radio-inline
-                      input(type="radio" , :name="'mounts-' + mount", v-model="inv.mounts[mount]" ng-value="undefined")
+                      input(type="radio" , :name="'mounts-' + mount", v-model="inv.mounts[mount]" value="undefined")
                       | Not Owned
 
         hr
@@ -180,7 +180,7 @@
               hr
 
               ul.list-group
-                li.list-group-item(v-for="item in content.hatchingPotions" ng-init="inv.hatchingPotions[item.key] = user.items.hatchingPotions[item.key]")
+                li.list-group-item(v-for="item in content.hatchingPotions")
                   .form-inline.clearfix
                     .pull-left(:class="'Pet_HatchingPotion_' + item.key" style="margin-right: 10px")
                     p {{item.text()}}
@@ -201,7 +201,7 @@
               hr
 
               ul.list-group
-                li.list-group-item(v-for="item in content.eggs" ng-init="inv.eggs[item.key] = user.items.eggs[item.key]")
+                li.list-group-item(v-for="item in content.eggs")
                   .form-inline.clearfix
                     .pull-left(:class="'Pet_Egg_' + item.key" style="margin-right: 10px")
                     p {{item.text()}}
@@ -222,7 +222,7 @@
               hr
 
               ul.list-group
-                li.list-group-item(v-for="item in content.food" ng-init="inv.food[item.key] = user.items.food[item.key]")
+                li.list-group-item(v-for="item in content.food")
                   .form-inline.clearfix
                     .pull-left(:class="'Pet_Food_' + item.key" style="margin-right: 10px")
                     p {{item.text()}}
@@ -243,7 +243,7 @@
               hr
 
               ul.list-group
-                li.list-group-item(v-for="item in content.quests" ng-init="inv.quests[item.key] = user.items.quests[item.key]" v-if="item.category !== 'world'")
+                li.list-group-item(v-for="item in content.quests" v-if="item.category !== 'world'")
                   .form-inline.clearfix
                     .pull-left(:class="'inventory_quest_scroll_' + item.key" style="margin-right: 10px")
                     p {{item.text()}}
@@ -264,6 +264,19 @@ export default {
   computed: {
     ...mapState({user: 'user.data'}),
   },
+  created () {
+    // Get items from user's inventory
+    for (let groupName in this.inv) {
+      let group = this.user.items[groupName];
+      // Gear is special case
+      if (groupName === 'gear') {
+        group = this.user.items.gear.owned;
+      }
+      for (const item in group) {
+        this.inv[groupName][item] = group[item];
+      }
+    }
+  },
   data () {
     let showInv = {};
     let inv = {
@@ -276,6 +289,43 @@ export default {
       food: {},
       quests: {},
     };
+
+    // Item groups
+    for (const groupName in inv) {
+      showInv[groupName] = false;
+      let group = Content[groupName];
+      // Gear is special case
+      if (groupName === 'gear') {
+        group = Content.gear.flat;
+      }
+      for (const item in group) {
+        inv[groupName][item] = null;
+      }
+    }
+
+    // Pets
+    const pets = [
+      'questPets',
+      'specialPets',
+      'premiumPets',
+    ];
+    for (const petGroup of pets) {
+      for (const pet in Content[petGroup]) {
+        inv.pets[pet] = null;
+      }
+    }
+
+    // Mounts
+    const mounts = [
+      'questMounts',
+      'specialMounts',
+      'premiumMounts',
+    ];
+    for (const mountGroup of mounts) {
+      for (const mount in Content[mountGroup]) {
+        inv.mounts[mount] = null;
+      }
+    }
 
     return {
       showInv,
