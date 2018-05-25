@@ -166,7 +166,7 @@ describe('shared.ops.buyQuest', () => {
       });
     } catch (err) {
       expect(err).to.be.an.instanceof(NotAuthorized);
-      expect(err.message).to.equal(i18n.t('mustComplete', 'dilatoryDistress2'));
+      expect(err.message).to.equal(i18n.t('mustComplete', {quest: 'dilatoryDistress2'}));
       expect(user.items.quests).to.eql({});
       done();
     }

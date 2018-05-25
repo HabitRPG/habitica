@@ -98,6 +98,20 @@ describe('POST /groups/:groupId/quests/invite/:questKey', () => {
       });
     });
 
+    it('does not issue invites if the user has not met its prerequisites', async () => {
+      const TIERED_QUEST = 'dilatoryDistress3';
+      const leaderUpdate = {};
+      leaderUpdate[`items.quests.${TIERED_QUEST}`] = 1;
+
+      await leader.update(leaderUpdate);
+
+      await expect(leader.post(`/groups/${questingGroup._id}/quests/invite/${TIERED_QUEST}`)).to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('mustComplete', {quest: questScrolls[TIERED_QUEST].previous}),
+      });
+    });
+
     it('does not issue invites if a quest is already underway', async () => {
       const QUEST_IN_PROGRESS = 'atom1';
       const leaderUpdate = {};

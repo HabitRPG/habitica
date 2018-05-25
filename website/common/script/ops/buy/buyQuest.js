@@ -57,7 +57,7 @@ export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation {
     }
 
     if (item && item.previous && !user.achievements.quests[item.previous]) {
-      throw new NotAuthorized(this.i18n('mustComplete', item.previous));
+      throw new NotAuthorized(this.i18n('mustComplete', {quest: item.previous}));
     }
   }
 

@@ -76,6 +76,7 @@ api.inviteToQuest = {
     if (!user.items.quests[questKey]) throw new NotAuthorized(res.t('questNotOwned'));
     if (user.stats.lvl < quest.lvl) throw new NotAuthorized(res.t('questLevelTooHigh', { level: quest.lvl }));
     if (group.quest.key) throw new NotAuthorized(res.t('questAlreadyUnderway'));
+    if (quest.previous && !user.achievements.quests[quest.previous]) throw new NotAuthorized(res.t('mustComplete', {quest: quest.previous}));
 
     let members = await User.find({
       'party._id': group._id,
