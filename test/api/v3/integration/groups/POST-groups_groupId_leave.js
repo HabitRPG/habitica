@@ -93,6 +93,7 @@ describe('POST /groups/:groupId/leave', () => {
 
         beforeEach(async () => {
           challenge = await generateChallenge(leader, groupToLeave);
+          await leader.post(`/challenges/${challenge._id}/join`);
 
           await leader.post(`/tasks/challenge/${challenge._id}`, {
             text: 'test habit',
