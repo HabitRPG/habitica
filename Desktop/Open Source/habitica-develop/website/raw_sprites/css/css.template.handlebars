@@ -1,0 +1,16 @@
+{{#sprites}}
+.{{name}} {
+  background-image: url('~assets/images/sprites/{{{escaped_image}}}');
+  background-position: {{px.offset_x}} {{px.offset_y}};
+  width: {{px.width}};
+  height: {{px.height}};
+}
+{{#if custom}}
+.customize-option.{{name}} {
+  background-image: url('~assets/images/sprites/{{{escaped_image}}}');
+  background-position: {{custom.px.offsetX}} {{custom.px.offsetY}};
+  width: {{custom.px.width}};
+  height: {{custom.px.height}};
+}
+{{/if}}
+{{/sprites}}

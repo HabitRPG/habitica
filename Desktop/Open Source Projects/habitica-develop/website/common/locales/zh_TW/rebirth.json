@@ -1,0 +1,15 @@
+{
+    "rebirthNew": "重生：開始新的冒險！",
+    "rebirthUnlock": "你解鎖了「重生」！這個特殊的商品讓你可以回到 1 級重新開始遊戲，並保留你的任務、成就、寵物等紀錄。如果你覺得已經達成了所有目標，就用它來開啟全新的視角，體驗新的人生吧！",
+    "rebirthAchievement": "你開始了一段新冒險！這是你的第<%= number %>次冒險，你曾經獲得的最高級別是<%= level %>級。要累積這個成就，你要在獲得更高等級之後，再開始下一次冒險！",
+    "rebirthAchievement100": "開始了一趟新的冒險旅程！這是你第 <%= number %> 次重生，而你的最高等級達到了 100 以上。要完成這個成就，在你等級至少 100 後開啟新的一趟旅程吧！",
+    "rebirthBegan": "已開始新的冒險",
+    "rebirthText": "開始<%= rebirths %> 次新的冒險",
+    "rebirthOrb": "使用一個重生球在達到水平後重新開始 <%= level %>。",
+    "rebirthOrb100": "使用重生球在達到100級或更高級別後重新開始。",
+    "rebirthOrbNoLevel": "使用了重生球來重生。",
+    "rebirthPop": "Instantly restart your character at Level 1 while retaining achievements, collectibles, equipment, and tasks with history. This will take effect immediately.",
+    "rebirthName": "重生之球",
+    "reborn": "重生，最高級別 <%= reLevel %>",
+    "rebirthComplete": "你已經重生了！"
+}

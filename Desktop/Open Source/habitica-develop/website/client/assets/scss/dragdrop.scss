@@ -1,0 +1,9 @@
+[draggable] {
+  cursor: move; /* fallback if grab cursor is unsupported */
+  cursor: grab;
+}
+
+/* (Optional) Apply a "closed-hand" cursor during drag operation. */
+[draggable]:active {
+  cursor: grabbing;
+}

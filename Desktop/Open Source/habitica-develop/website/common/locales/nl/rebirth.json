@@ -1,0 +1,15 @@
+{
+    "rebirthNew": "Hergeboorte: nieuw avontuur beschikbaar!",
+    "rebirthUnlock": "Je hebt Hergeboorte vrijgespeeld! Dit speciale marktvoorwerp stelt je in staat om een nieuw spel te beginnen vanaf niveau 1 terwijl je je taken, prestaties, dieren, en meer behoudt. Gebruik het om nieuw leven in Habitica te blazen als je voelt dat je alles al bereikt hebt, of om nieuwe spelonderdelen te beleven met de frisse blik van een beginnend personage!",
+    "rebirthAchievement": "Je bent een nieuw avontuur begonnen! Dit is hergeboorte <%= number %> voor jou en het hoogste niveau dat je behaald hebt is <%= level %>.  Begin je volgende nieuwe avontuur als je een nog hoger niveau hebt bereikt om deze prestatie nog een keer te behalen!",
+    "rebirthAchievement100": "Je bent een nieuw avontuur begonnen! Dit is hergeboorte <%= number %> voor je en het hoogste niveau dat je hebt bereikt is 100 of hoger. Om deze prestatie te stapelen, begin dan je nieuwe avontuur wanneer je op zijn minst level 100 hebt bereikt!",
+    "rebirthBegan": "Is een nieuw avontuur begonnen",
+    "rebirthText": "Is <%= rebirths %> nieuwe avonturen begonnen",
+    "rebirthOrb": "Heeft een Bol der Hergeboorte gebruikt om opnieuw te beginnen na het bereiken van niveau <%= level %>.",
+    "rebirthOrb100": "Heeft een Bol der Hergeboorte gebruikt om opnieuw te beginnen na het bereiken van niveau 100 of hoger.",
+    "rebirthOrbNoLevel": "Heeft een Bol der Hergeboorte gebruikt om opnieuw te beginnen.",
+    "rebirthPop": "Instantly restart your character at Level 1 while retaining achievements, collectibles, equipment, and tasks with history. This will take effect immediately.",
+    "rebirthName": "Bol der Hergeboorte",
+    "reborn": "Herboren, maximale niveau <%= reLevel %>",
+    "rebirthComplete": "Je bent herboren!"
+}

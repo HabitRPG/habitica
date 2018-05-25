@@ -1,0 +1,10 @@
+{
+  "presets": ["es2015"],
+  "plugins": [
+    "transform-object-rest-spread",
+    ["transform-async-to-module-method", {
+      "module": "bluebird",
+      "method": "coroutine"
+    }]
+  ]
+}

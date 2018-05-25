@@ -1,0 +1,21 @@
+{
+  "env": {
+    "test": {
+      "presets": [
+        ["es2015"],
+      ],
+      plugins: [
+        ["istanbul"],
+      ],
+    },
+  },
+  "presets": [
+    ["es2015", { modules: false }]
+  ],
+  "plugins": [
+    "transform-object-rest-spread",
+    "syntax-async-functions",
+    "syntax-dynamic-import",
+    "transform-regenerator",
+  ],
+}

@@ -1,0 +1,13 @@
+web:
+  build: .
+  ports:
+    - "3000:3000"
+  links:
+    - mongo
+  environment:
+    - NODE_DB_URI=mongodb://mongo/habitrpg
+
+mongo:
+  image: mongo
+  ports:
+    - "27017:27017"

@@ -1,0 +1,39 @@
+
+@import '~client/assets/scss/colors.scss';
+
+@mixin centeredModal() {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  header, footer {
+    border: 0;
+  }
+}
+
+.modal-dialog {
+  width: auto;
+
+  .title {
+    min-height: 24px;
+    margin-top: 24px;
+    font-family: 'Roboto Condensed';
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1.2;
+    text-align: center;
+    color: $gray-50;
+  }
+
+  .text {
+    min-height: 60px;
+    font-family: Roboto;
+    font-size: 14px;
+    line-height: 1.43;
+    text-align: center;
+    color: $gray-100;
+    overflow-y: hidden;
+    text-overflow: ellipsis;
+  }
+
+}

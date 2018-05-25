@@ -1,0 +1,139 @@
+@mixin btn-focus-hover-shadow () {
+  box-shadow: 0 4px 4px 0 rgba($black, 0.16), 0 1px 8px 0 rgba($black, 0.12);
+}
+
+.btn {
+  cursor: pointer;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1.5;
+  border: 1px solid transparent !important;
+  padding: 7.5px 15.5px;
+  border-radius: 2px;
+  box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
+  color: $white;
+
+  &:focus:not(.btn-flat) {
+    outline: none;
+    border-color: $purple-400;
+    @include btn-focus-hover-shadow();
+  }
+
+  &:hover:not(.btn-flat) {
+    @include btn-focus-hover-shadow();
+    border-color: transparent;
+  }
+
+  &:active:not(.btn-flat), &.active:not(.btn-flat) {
+    box-shadow: none !important;
+    border: 1px solid transparent;
+  }
+}
+
+.btn-warning:hover, .btn-warning:focus, .btn-warning:active {
+  color: $white !important;
+}
+
+.btn:disabled, .btn.disabled {
+  box-shadow: none;
+  opacity: 0.64;
+  border-color: transparent;
+}
+
+.btn-primary {
+  background: $purple-200;
+
+  &:disabled {
+    background: $purple-200;
+  }
+
+  &:hover:not(:disabled), &:active, &.active, &:focus {
+    background: #5d3b9c !important;
+    color: $white;
+  }
+}
+
+.btn-secondary, .dropdown > .btn-secondary {
+  color: $gray-50;
+  background: $white !important;
+
+  &:hover:not(:disabled):not(.disabled), &:active, &.active, &:focus {
+    color: $purple-200 !important;
+  }
+
+  &:active, &:focus, &.active {
+    border-color: $purple-500 !important;
+  }
+
+  &:disabled, &.disabled {
+    background: $gray-500 !important;
+    color: $gray-100 !important;
+  }
+}
+
+.btn-success {
+  background: $green-10;
+
+  &:disabled {
+    background: $green-10;
+  }
+
+  &:hover:not(:disabled), &:active, &.active {
+    background: $green-50;
+  }
+}
+
+.show > .btn-success.dropdown-toggle {
+  background: $green-50;
+}
+
+.btn-info {
+  background: $blue-50;
+
+  &:disabled {
+    background: $blue-50;
+  }
+
+  &:hover:not(:disabled), &:active, &.active {
+    background: $blue-100;
+  }
+}
+
+.btn-danger {
+  background: $red-50;
+
+  &:disabled {
+    background: $red-50;
+  }
+
+  &:hover:not(:disabled), &:active, &.active {
+    background: $red-100;
+  }
+}
+
+.btn-show-more {
+  display: block;
+  width: 50%;
+  max-width: 448px;
+  margin: 0 auto;
+  margin-top: 12px;
+  padding: 8px;
+  font-size: 14px;
+  line-height: 1.43;
+  font-weight: bold;
+  text-align: center;
+  background: $gray-600;
+  color: $gray-200 !important; // Otherwise it gets ignored when used on an A element
+  box-shadow: none;
+
+  &:hover {
+    box-shadow: none;
+    color: inherit !important;
+  }
+}
+
+.btn-flat {
+  border: 0;
+  box-shadow: none;
+}

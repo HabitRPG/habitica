@@ -1,0 +1,15 @@
+{
+    "rebirthNew": "Renascimento: Disponível Nova Aventura!",
+    "rebirthUnlock": "Você liberou o Renascimento! Esse item especial do Mercado o permite começar um novo jogo do nível 1 mantendo suas tarefas, conquistas, mascotes, e mais. Use-o para respirar uma vida nova em Habitica se sentir que já conquistou tudo, ou para experimentar novas funcionalidades com olhos frescos de um personagem iniciante!",
+    "rebirthAchievement": "Você iniciou uma nova aventura! Esse é o seu Renascimento número <%= number %>, e o nível mais alto que você atingiu foi <%= level %>. Para acumular essa Conquista, comece sua próxima nova aventura quando atingir um Nível ainda maior!",
+    "rebirthAchievement100": "Você iniciou uma nova aventura! Esse é seu <%= number %> º Renascimento, e o nível mais alto que você atingiu foi 100 ou maior. Para acumular essa Conquista, comece sua próxima aventura quando atingir pelo menos nível 100!",
+    "rebirthBegan": "Iniciou uma Nova Aventura",
+    "rebirthText": "Iniciou <%= rebirths %> Novas Aventuras",
+    "rebirthOrb": "Use uma Orbe de Renascimento para recomeçar tudo outra vez depois de alcançar o nível <%= level %>.",
+    "rebirthOrb100": "Use uma Orbe de Renascimento para recomeçar tudo outra vez depois de alcançar nível 100 ou mais.",
+    "rebirthOrbNoLevel": "Utilizou uma Orbe de Renascimento para recomeçar tudo outra vez.",
+    "rebirthPop": "Instantly restart your character at Level 1 while retaining achievements, collectibles, equipment, and tasks with history. This will take effect immediately.",
+    "rebirthName": "Orbe do Renascimento",
+    "reborn": "Renascido, nível max <%= reLevel %>",
+    "rebirthComplete": "Você renasceu!"
+}

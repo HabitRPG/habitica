@@ -1,0 +1,51 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  color: $gray-50;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 14px;
+  line-height: 1.43;
+}
+
+.small-text {
+  font-size: 12px;
+  font-style: italic;
+  line-height: 1.33;
+  color: $gray-200;
+}
+
+a {
+  cursor: pointer;
+}
+
+// Headers
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: bold;
+  color: $gray-10;
+}
+
+h1 {
+  font-size: 24px;
+  line-height: 1.67;
+  margin-bottom: 24px;
+}
+
+h2 {
+  font-size: 20px;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+h3 {
+  font-size: 16px;
+  line-height: 1.5;
+  color: $gray-50;
+  margin-bottom: 9px;
+}
+
+h4 {
+  font-size: 14px;
+  line-height: 1.43;
+}

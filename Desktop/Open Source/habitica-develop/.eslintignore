@@ -1,0 +1,21 @@
+# Compiled and vendored files
+coverage/
+database_reports/
+website/build/
+website/transpiled-babel/
+website/common/transpiled-babel/
+dist/
+dist-client/
+apidoc_build/
+content_cache/
+node_modules/
+
+# Not linted
+website/client-old/
+test/client-old/spec/**/*
+
+# Temporarilly disabled. These should be removed when the linting errors are fixed TODO
+migrations/*
+scripts/*
+website/common/browserify.js
+Gruntfile.js

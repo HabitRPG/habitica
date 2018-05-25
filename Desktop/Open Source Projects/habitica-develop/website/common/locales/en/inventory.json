@@ -1,0 +1,5 @@
+{
+  "noItemsAvailableForType": "You have no <%= type %>.",
+  "foodItemType": "Food",
+  "lockedItem": "Locked Item"
+}

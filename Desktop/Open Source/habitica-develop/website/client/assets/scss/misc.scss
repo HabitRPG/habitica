@@ -1,0 +1,17 @@
+.expand-toggle:after {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  content: "";
+  border-bottom: 4px solid transparent;
+  border-top: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-left: 4px solid;
+}
+
+.expand-toggle.open:after {
+  border-top: 4px solid;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  border-bottom: 0;
+}
