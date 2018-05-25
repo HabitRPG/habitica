@@ -46,7 +46,7 @@ describe('POST /user/buy-quest/:key', () => {
       .to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: apiError('mustComplete', {key: 'dilatoryDistress1'}),
+        message: t('mustComplete', {quest: 'dilatoryDistress1'}),
       });
   });
 
