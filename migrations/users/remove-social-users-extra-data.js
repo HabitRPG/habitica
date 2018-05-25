@@ -60,7 +60,7 @@ function updateUser (user) {
   count++;
 
   const isFacebook = user.auth.facebook && user.auth.facebook.id;
-  const isGoogle = user.auth.facebook && user.auth.facebook.id;
+  const isGoogle = user.auth.google && user.auth.google.id;
 
   const update = { $set: {} };
 
