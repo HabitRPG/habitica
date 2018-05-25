@@ -21,6 +21,7 @@
               h4.gearTitle {{ getGearTitle(equippedItems[key]) }}
               attributesGrid.attributesGrid(
                 :item="content.gear.flat[equippedItems[key]]",
+                :user="user"
               )
 
             h3(v-if="label !== 'skip'") {{ label }}
@@ -51,6 +52,7 @@
               h4.gearTitle {{ getGearTitle(costumeItems[key]) }}
               attributesGrid.attributesGrid(
                :item="content.gear.flat[costumeItems[key]]",
+               :user="user"
               )
 
             h3(v-if="label !== 'skip'") {{ label }}

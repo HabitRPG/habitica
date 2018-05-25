@@ -8,7 +8,7 @@ div
   div(v-else)
     h4.popover-content-title {{ itemText }}
     .popover-content-text {{ itemNotes }}
-    attributesGrid(:item="item")
+    attributesGrid(:user="user", :item="item")
 </template>
 
 <style scoped>
