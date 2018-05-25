@@ -329,7 +329,7 @@ api.loginSocial = {
         auth: {
           [network]: {
             id: profile.id,
-            email: profile.email,
+            emails: profile.emails,
           },
         },
         profile: {
