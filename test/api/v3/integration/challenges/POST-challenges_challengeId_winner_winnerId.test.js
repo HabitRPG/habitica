@@ -58,6 +58,7 @@ describe('POST /challenges/:challengeId/winner/:winnerId', () => {
       challenge = await generateChallenge(groupLeader, group, {
         prize: 1,
       });
+      await groupLeader.post(`/challenges/${challenge._id}/join`);
 
       await groupLeader.post(`/tasks/challenge/${challenge._id}`, [
         {type: 'habit', text: taskText},

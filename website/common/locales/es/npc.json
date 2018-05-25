@@ -48,7 +48,7 @@
     "featuredItems": "¡Objetos patrocinados!",
     "hideLocked": "Ocultar los bloqueados",
     "hidePinned": "Ocultar los fijados",
-    "hideMissing": "Hide Missing",
+    "hideMissing": "Ocultar ausentes",
     "amountExperience": "<%= amount %> de experiencia",
     "amountGold": "<%= amount %>de oro",
     "namedHatchingPotion": "Poción de eclosión de <%= type %>",

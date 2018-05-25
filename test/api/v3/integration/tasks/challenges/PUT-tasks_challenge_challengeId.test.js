@@ -15,6 +15,7 @@ describe('PUT /tasks/:id', () => {
     user = await generateUser();
     guild = await generateGroup(user);
     challenge = await generateChallenge(user, guild);
+    await user.post(`/challenges/${challenge._id}/join`);
   });
 
   context('errors', () => {

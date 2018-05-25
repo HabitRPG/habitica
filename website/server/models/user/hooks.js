@@ -171,29 +171,11 @@ function _setUpNewUser (user) {
   return _populateDefaultTasks(user, taskTypes);
 }
 
-function _getFacebookName (fb) {
-  if (!fb) {
-    return;
-  }
-  let possibleName = fb.displayName || fb.name || fb.username;
-
-  if (possibleName) {
-    return possibleName;
-  }
-
-  if (fb.first_name && fb.last_name) {
-    return `${fb.first_name} ${fb.last_name}`;
-  }
-}
-
 function _setProfileName (user) {
-  let google = user.auth.google;
-
   let localUsername = user.auth.local && user.auth.local.username;
-  let googleUsername = google && google.displayName;
   let anonymous = 'profile name not found';
 
-  return localUsername || _getFacebookName(user.auth.facebook) || googleUsername || anonymous;
+  return localUsername || anonymous;
 }
 
 schema.pre('validate', function preValidateUser (next) {

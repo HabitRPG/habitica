@@ -15,6 +15,7 @@ describe('POST /tasks/:id/score/:direction', () => {
     user = await generateUser();
     guild = await generateGroup(user);
     challenge = await generateChallenge(user, guild);
+    await user.post(`/challenges/${challenge._id}/join`);
   });
 
   context('habits', () => {

@@ -19,7 +19,6 @@ function getUser () {
         emails: [{
           value: 'email@facebook',
         }],
-        displayName: 'fb display name',
       },
     },
     profile: {
@@ -100,7 +99,7 @@ describe('emails', () => {
 
       let data = getUserInfo(user, ['name', 'email', '_id', 'canSend']);
 
-      expect(data).to.have.property('name', user.auth.facebook.displayName);
+      expect(data).to.have.property('name', user.profile.name);
       expect(data).to.have.property('email', user.auth.facebook.emails[0].value);
       expect(data).to.have.property('_id', user._id);
       expect(data).to.have.property('canSend', true);
@@ -110,13 +109,12 @@ describe('emails', () => {
       let attachEmail = requireAgain(pathToEmailLib);
       let getUserInfo = attachEmail.getUserInfo;
       let user = getUser();
-      delete user.profile.name;
       delete user.auth.local.email;
       delete user.auth.facebook;
 
       let data = getUserInfo(user, ['name', 'email', '_id', 'canSend']);
 
-      expect(data).to.have.property('name', user.auth.local.username);
+      expect(data).to.have.property('name', user.profile.name);
       expect(data).not.to.have.property('email');
       expect(data).to.have.property('_id', user._id);
       expect(data).to.have.property('canSend', true);

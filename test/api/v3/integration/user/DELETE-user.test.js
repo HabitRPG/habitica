@@ -117,6 +117,7 @@ describe('DELETE /user', () => {
       let authorizedUser = populatedGroup.members[1];
 
       let challenge = await generateChallenge(populatedGroup.groupLeader, group);
+      await populatedGroup.groupLeader.post(`/challenges/${challenge._id}/join`);
       await authorizedUser.post(`/challenges/${challenge._id}/join`);
 
       await challenge.sync();

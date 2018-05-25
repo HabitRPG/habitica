@@ -92,6 +92,7 @@ describe('DELETE /tasks/:id', () => {
       });
       let guild = await generateGroup(user);
       let challenge = await generateChallenge(user, guild);
+      await user.post(`/challenges/${challenge._id}/join`);
 
       await user.post('/user/webhook', {
         url: `http://localhost:${server.port}/webhooks/${uuid}`,

@@ -5,7 +5,7 @@
     "sureDeleteCompletedTodos": "Biztosan törlöd az elkészült feladataidat?",
     "lotOfToDos": "A legutolsó 30 befejezett feladatod látható itt. A többi befejezett feladatot az Adat > Adat kimutató eszköz vagy az Adat > Adatok exportálása > Felhasználói adatok menü alatt találod meg.",
     "deleteToDosExplanation": "Ha a lenti gombra kattintasz az összes eddigi elvégzett feladat valamint archivált feladat véglegesen törölve lesz,  kivéve feladatok akítv kihívásokból és csoportos tervekből. Először exportáld őket, ha szeretnéd őket megőrizni.",
-    "addMultipleTip": "<strong>Tipp:</strong> Több feladat hozzáadásához válaszd el őket sortöréssel (Shift+Enter) és aztán nyomja Entert.",
+    "addMultipleTip": "<strong>Tip:</strong> To add multiple <%= taskType %>, separate each one using a line break (Shift + Enter) and then press \"Enter.\"",
     "addsingle": "Egy hozzáadása",
     "addATask": "<%= type %> hozzáadása",
     "editATask": "<%= type %> szerkesztése",

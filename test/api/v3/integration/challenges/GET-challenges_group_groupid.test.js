@@ -25,7 +25,9 @@ describe('GET challenges/groups/:groupId', () => {
       nonMember = await generateUser();
 
       challenge = await generateChallenge(user, group);
+      await user.post(`/challenges/${challenge._id}/join`);
       challenge2 = await generateChallenge(user, group);
+      await user.post(`/challenges/${challenge2._id}/join`);
     });
 
     it('should return group challenges for non member with populated leader', async () => {
@@ -73,6 +75,7 @@ describe('GET challenges/groups/:groupId', () => {
       expect(foundChallengeIndex).to.eql(0);
 
       let newChallenge = await generateChallenge(user, publicGuild);
+      await user.post(`/challenges/${newChallenge._id}/join`);
 
       challenges = await user.get(`/challenges/groups/${publicGuild._id}`);
 
@@ -99,7 +102,9 @@ describe('GET challenges/groups/:groupId', () => {
       nonMember = await generateUser();
 
       challenge = await generateChallenge(user, group);
+      await user.post(`/challenges/${challenge._id}/join`);
       challenge2 = await generateChallenge(user, group);
+      await user.post(`/challenges/${challenge2._id}/join`);
     });
 
     it('should prevent non-member from seeing challenges', async () => {
@@ -156,9 +161,12 @@ describe('GET challenges/groups/:groupId', () => {
           slug: 'habitica_official',
         }],
       });
+      await user.post(`/challenges/${officialChallenge._id}/join`);
 
       challenge = await generateChallenge(user, group);
+      await user.post(`/challenges/${challenge._id}/join`);
       challenge2 = await generateChallenge(user, group);
+      await user.post(`/challenges/${challenge2._id}/join`);
     });
 
     it('should return official challenges first', async () => {
@@ -178,6 +186,7 @@ describe('GET challenges/groups/:groupId', () => {
       expect(foundChallengeIndex).to.eql(1);
 
       let newChallenge = await generateChallenge(user, publicGuild);
+      await user.post(`/challenges/${newChallenge._id}/join`);
 
       challenges = await user.get(`/challenges/groups/${publicGuild._id}`);
 
@@ -203,7 +212,9 @@ describe('GET challenges/groups/:groupId', () => {
       nonMember = await generateUser();
 
       challenge = await generateChallenge(user, group);
+      await user.post(`/challenges/${challenge._id}/join`);
       challenge2 = await generateChallenge(user, group);
+      await user.post(`/challenges/${challenge2._id}/join`);
     });
 
     it('should prevent non-member from seeing challenges', async () => {
@@ -263,7 +274,9 @@ describe('GET challenges/groups/:groupId', () => {
       tavern = await user.get(`/groups/${TAVERN_ID}`);
 
       challenge = await generateChallenge(user, tavern, {prize: 1});
+      await user.post(`/challenges/${challenge._id}/join`);
       challenge2 = await generateChallenge(user, tavern, {prize: 1});
+      await user.post(`/challenges/${challenge2._id}/join`);
     });
 
     it('should return tavern challenges with populated leader', async () => {

@@ -42,6 +42,7 @@ describe('GET /tasks/challenge/:challengeId', () => {
     user = await generateUser();
     guild = await generateGroup(user);
     challenge = await generateChallenge(user, guild);
+    await user.post(`/challenges/${challenge._id}/join`);
   });
 
   it('returns error when challenge is not found', async () => {

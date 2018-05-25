@@ -147,11 +147,13 @@
       item: {
         type: Object,
       },
+      user: {
+        type: Object,
+      },
     },
     computed: {
       ...mapState({
         ATTRIBUTES: 'constants.ATTRIBUTES',
-        user: 'user.data',
         flatGear: 'content.gear.flat',
       }),
     },
