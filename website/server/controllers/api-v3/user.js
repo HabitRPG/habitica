@@ -8,6 +8,9 @@ import {
   basicFields as basicGroupFields,
   model as Group,
 } from '../../models/group';
+import {
+  model as User,
+} from '../../models/user';
 import * as Tasks from '../../models/task';
 import _ from 'lodash';
 import * as passwordUtils from '../../libs/password';
@@ -90,7 +93,7 @@ api.getUser = {
       let {daysMissed} = user.daysUserHasMissed(new Date(), req);
       userToJSON.needsCron = false;
       if (daysMissed > 0) userToJSON.needsCron = true;
-      user.addComputedStatsToJSONObj(userToJSON.stats, userToJSON);
+      User.addComputedStatsToJSONObj(userToJSON.stats, userToJSON);
     }
 
     return res.respond(200, userToJSON);
