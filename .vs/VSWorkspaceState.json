@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\website",
+    "\\website\\common",
+    "\\website\\common\\locales",
+    "\\website\\common\\locales\\en",
+    "\\website\\common\\script",
+    "\\website\\common\\script\\content"
+  ],
+  "SelectedNode": "\\website\\common\\locales\\en\\limited.json",
+  "PreviewInSolutionExplorer": false
+}
