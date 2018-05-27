@@ -171,6 +171,16 @@ schema.statics.pushNotification = async function pushNotification (query, type, 
   await this.update(query, {$push: {notifications: newNotification.toObject()}}, {multi: true}).exec();
 };
 
+// Static method to add/remove properties to a JSON User object,
+// For example for when the user is returned using `.lean()` and thus doesn't
+// have access to any mongoose helper
+schema.statics.transformJSONUser = function transformJSONUser (jsonUser, addComputedStats = false) {
+  // Add id property
+  jsonUser.id = jsonUser._id;
+
+  if (addComputedStats) this.addComputedStatsToJSONObj(jsonUser.stats, jsonUser);
+};
+
 // Add stats.toNextLevel, stats.maxMP and stats.maxHealth
 // to a JSONified User stats object
 schema.statics.addComputedStatsToJSONObj = function addComputedStatsToUserJSONObj (userStatsJSON, user) {

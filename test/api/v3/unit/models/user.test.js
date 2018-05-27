@@ -49,6 +49,41 @@ describe('User Model', () => {
     expect(userToJSON.stats.toNextLevel).to.equal(common.tnl(user.stats.lvl));
   });
 
+  it('can transform user object without mongoose helpers', async () => {
+    let user = new User();
+    await user.save();
+    let userToJSON = await User.findById(user._id).lean().exec();
+
+    expect(userToJSON.stats.maxMP).to.not.exist;
+    expect(userToJSON.stats.maxHealth).to.not.exist;
+    expect(userToJSON.stats.toNextLevel).to.not.exist;
+    expect(userToJSON.id).to.not.exist;
+
+    User.transformJSONUser(userToJSON);
+
+    expect(userToJSON.id).to.equal(userToJSON._id);
+    expect(userToJSON.stats.maxMP).to.not.exist;
+    expect(userToJSON.stats.maxHealth).to.not.exist;
+    expect(userToJSON.stats.toNextLevel).to.not.exist;
+  });
+
+  it('can transform user object without mongoose helpers (including computed stats)', async () => {
+    let user = new User();
+    await user.save();
+    let userToJSON = await User.findById(user._id).lean().exec();
+
+    expect(userToJSON.stats.maxMP).to.not.exist;
+    expect(userToJSON.stats.maxHealth).to.not.exist;
+    expect(userToJSON.stats.toNextLevel).to.not.exist;
+
+    User.transformJSONUser(userToJSON, true);
+
+    expect(userToJSON.id).to.equal(userToJSON._id);
+    expect(userToJSON.stats.maxMP).to.exist;
+    expect(userToJSON.stats.maxHealth).to.equal(common.maxHealth);
+    expect(userToJSON.stats.toNextLevel).to.equal(common.tnl(user.stats.lvl));
+  });
+
   context('notifications', () => {
     it('can add notifications without data', () => {
       let user = new User();

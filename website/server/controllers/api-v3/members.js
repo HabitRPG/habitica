@@ -286,10 +286,7 @@ function _getMembersForItem (type) {
       .exec();
 
     // manually call toJSON with minimize: true so empty paths aren't returned
-    members.forEach(member => {
-      if (addComputedStats) User.addComputedStatsToJSONObj(member.stats, member);
-      member.id = member._id;
-    });
+    members.forEach(member => User.transformJSONUser(member, addComputedStats));
     res.respond(200, members);
   };
 }
