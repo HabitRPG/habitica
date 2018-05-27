@@ -173,16 +173,22 @@ schema.statics.pushNotification = async function pushNotification (query, type, 
 
 // Add stats.toNextLevel, stats.maxMP and stats.maxHealth
 // to a JSONified User stats object
-schema.methods.addComputedStatsToJSONObj = function addComputedStatsToUserJSONObj (statsObject) {
+function addComputedStatsToUserJSONObj (statsObject, user) {
+  if (!user) user = this;
   // NOTE: if an item is manually added to this.stats then
   // common/fns/predictableRandom must be tweaked so the new item is not considered.
   // Otherwise the client will have it while the server won't and the results will be different.
-  statsObject.toNextLevel = common.tnl(this.stats.lvl);
+  statsObject.toNextLevel = common.tnl(user.stats.lvl);
   statsObject.maxHealth = common.maxHealth;
-  statsObject.maxMP = common.statsComputed(this).maxMP;
+  statsObject.maxMP = common.statsComputed(user).maxMP;
 
   return statsObject;
-};
+}
+
+schema.methods.addComputedStatsToJSONObj = addComputedStatsToUserJSONObj;
+
+// For calling when the user is not a mongoose object
+schema.statics.addComputedStatsToJSONObj = addComputedStatsToUserJSONObj;
 
 /**
  * Cancels a subscription.
@@ -216,13 +222,14 @@ schema.methods.cancelSubscription = async function cancelSubscription (options =
   return await payments.cancelSubscription(options);
 };
 
-schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
+function daysUserHasMissed (now, req = {}, user) {
+  if (!user) user = this;
   // If the user's timezone has changed (due to travel or daylight savings),
   // cron can be triggered twice in one day, so we check for that and use
   // both timezones to work out if cron should run.
   // CDS = Custom Day Start time.
-  let timezoneOffsetFromUserPrefs = this.preferences.timezoneOffset;
-  let timezoneOffsetAtLastCron = isFinite(this.preferences.timezoneOffsetAtLastCron) ? this.preferences.timezoneOffsetAtLastCron : timezoneOffsetFromUserPrefs;
+  let timezoneOffsetFromUserPrefs = user.preferences.timezoneOffset;
+  let timezoneOffsetAtLastCron = isFinite(user.preferences.timezoneOffsetAtLastCron) ? user.preferences.timezoneOffsetAtLastCron : timezoneOffsetFromUserPrefs;
   let timezoneOffsetFromBrowser = typeof req.header === 'function' && Number(req.header('x-user-timezoneoffset'));
   timezoneOffsetFromBrowser = isFinite(timezoneOffsetFromBrowser) ? timezoneOffsetFromBrowser : timezoneOffsetFromUserPrefs;
   // NB: All timezone offsets can be 0, so can't use `... || ...` to apply non-zero defaults
@@ -235,7 +242,7 @@ schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
   }
 
   // How many days have we missed using the user's current timezone:
-  let daysMissed = daysSince(this.lastCron, defaults({now}, this.preferences));
+  let daysMissed = daysSince(user.lastCron, defaults({now}, user.preferences));
 
   if (timezoneOffsetAtLastCron !== timezoneOffsetFromUserPrefs) {
     // Give the user extra time based on the difference in timezones
@@ -247,7 +254,7 @@ schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
     // Since cron last ran, the user's timezone has changed.
     // How many days have we missed using the old timezone:
     let daysMissedNewZone = daysMissed;
-    let daysMissedOldZone = daysSince(this.lastCron, defaults({
+    let daysMissedOldZone = daysSince(user.lastCron, defaults({
       now,
       timezoneOffsetOverride: timezoneOffsetAtLastCron,
     }, this.preferences));
@@ -284,10 +291,10 @@ schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
         let timezoneOffsetDiff = timezoneOffsetAtLastCron - timezoneOffsetFromUserPrefs;
         // e.g., for dangerous zone change: 240 - 300 = -60 or  -660 - -600 = -60
 
-        this.lastCron = moment(this.lastCron).subtract(timezoneOffsetDiff, 'minutes');
+        user.lastCron = moment(user.lastCron).subtract(timezoneOffsetDiff, 'minutes');
         // NB: We don't change this.auth.timestamps.loggedin so that will still record the time that the previous cron actually ran.
         // From now on we can ignore the old timezone:
-        this.preferences.timezoneOffsetAtLastCron = timezoneOffsetFromUserPrefs;
+        user.preferences.timezoneOffsetAtLastCron = timezoneOffsetFromUserPrefs;
       } else {
         // Both old and new timezones indicate that cron should
         // NOT run.
@@ -302,7 +309,10 @@ schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
   }
 
   return {daysMissed, timezoneOffsetFromUserPrefs};
-};
+}
+
+schema.methods.daysUserHasMissed = daysUserHasMissed;
+schema.statics.daysUserHasMissed = daysUserHasMissed;
 
 async function getUserGroupData (user) {
   const userGroups = user.getGroups();

@@ -4,6 +4,7 @@ import {
 import {
   model as User,
 } from '../models/user';
+import { getUserWithToken } from '../libs/userRepository';
 import nconf from 'nconf';
 import url from 'url';
 
@@ -45,16 +46,10 @@ export function authWithHeaders (options = {}) {
       return next(new NotAuthorized(res.t('missingAuthHeaders')));
     }
 
-    const userQuery = {
-      _id: userId,
-      apiToken,
-    };
-
     const fields = getUserFields(options.userFieldsToExclude, req);
-    const findPromise = fields ? User.findOne(userQuery).select(fields) : User.findOne(userQuery);
+    const findPromise = getUserWithToken(userId, apiToken, fields, req);
 
     return findPromise
-      .exec()
       .then((user) => {
         if (!user) throw new NotAuthorized(res.t('invalidCredentials'));
         if (user.auth.blocked) throw new NotAuthorized(res.t('accountSuspended', {communityManagerEmail: COMMUNITY_MANAGER_EMAIL, userId: user._id}));
