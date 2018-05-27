@@ -55,7 +55,7 @@ api.getMember = {
 
     // manually call toJSON with minimize: true so empty paths aren't returned
     let memberToJSON = member.toJSON({minimize: true});
-    member.addComputedStatsToJSONObj(memberToJSON.stats);
+    User.addComputedStatsToJSONObj(memberToJSON.stats, member);
 
     res.respond(200, memberToJSON);
   },
@@ -282,16 +282,15 @@ function _getMembersForItem (type) {
       .sort({_id: 1})
       .limit(limit)
       .select(fields)
+      .lean()
       .exec();
 
     // manually call toJSON with minimize: true so empty paths aren't returned
-    let membersToJSON = members.map(member => {
-      let memberToJSON = member.toJSON({minimize: true});
-      if (addComputedStats) member.addComputedStatsToJSONObj(memberToJSON.stats);
-
-      return memberToJSON;
+    members.forEach(member => {
+      if (addComputedStats) User.addComputedStatsToJSONObj(member.stats, member);
+      member.id = member._id;
     });
-    res.respond(200, membersToJSON);
+    res.respond(200, members);
   };
 }
 

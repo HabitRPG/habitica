@@ -173,15 +173,15 @@ schema.statics.pushNotification = async function pushNotification (query, type, 
 
 // Add stats.toNextLevel, stats.maxMP and stats.maxHealth
 // to a JSONified User stats object
-schema.methods.addComputedStatsToJSONObj = function addComputedStatsToUserJSONObj (statsObject) {
+schema.statics.addComputedStatsToJSONObj = function addComputedStatsToUserJSONObj (userStatsJSON, user) {
   // NOTE: if an item is manually added to this.stats then
   // common/fns/predictableRandom must be tweaked so the new item is not considered.
   // Otherwise the client will have it while the server won't and the results will be different.
-  statsObject.toNextLevel = common.tnl(this.stats.lvl);
-  statsObject.maxHealth = common.maxHealth;
-  statsObject.maxMP = common.statsComputed(this).maxMP;
+  userStatsJSON.toNextLevel = common.tnl(user.stats.lvl);
+  userStatsJSON.maxHealth = common.maxHealth;
+  userStatsJSON.maxMP = common.statsComputed(user).maxMP;
 
-  return statsObject;
+  return userStatsJSON;
 };
 
 /**

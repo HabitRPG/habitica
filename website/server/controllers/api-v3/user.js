@@ -90,7 +90,7 @@ api.getUser = {
       let {daysMissed} = user.daysUserHasMissed(new Date(), req);
       userToJSON.needsCron = false;
       if (daysMissed > 0) userToJSON.needsCron = true;
-      user.addComputedStatsToJSONObj(userToJSON.stats);
+      user.addComputedStatsToJSONObj(userToJSON.stats, userToJSON);
     }
 
     return res.respond(200, userToJSON);
