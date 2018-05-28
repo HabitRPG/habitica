@@ -1,17 +1,18 @@
 <template lang="pug">
 .row(:class="{'small-version': smallVersion}")
+  dl
   template(v-if="quest.collect")
-    span.title(:class="smallVersion ? 'col-3' : 'col-4'") {{ $t('collect') + ':' }}
-    span.col-8
+    dt(:class="smallVersion ? 'col-3' : 'col-4'") {{ $t('collect') + ':' }}
+    dd.col-8
       div(v-for="(collect, key) of quest.collect")
         span {{ collect.count }} {{ getCollectText(collect) }}
 
   template(v-if="quest.boss")
-    span.title(:class="smallVersion ? 'col-3' : 'col-4'") {{ $t('bossHP') + ':' }}
-    span.col-8 {{ quest.boss.hp }}
+    dt(:class="smallVersion ? 'col-3' : 'col-4'") {{ $t('bossHP') + ':' }}
+    dd.col-8 {{ quest.boss.hp }}
 
-  span.title(:class="smallVersion ? 'col-3' : 'col-4'") {{ $t('difficulty') + ':' }}
-  span.col-8
+  dt(:class="smallVersion ? 'col-3' : 'col-4'") {{ $t('difficulty') + ':' }}
+  dd.col-8
     .svg-icon.inline(
       v-for="star of stars()", v-html="icons[star]",
       :class="smallVersion ? 'icon-12' : 'icon-16'",
@@ -19,13 +20,11 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~client/assets/scss/colors.scss';
-
-.title {
-  text-align: left;
-  font-weight: bold;
-  white-space: nowrap;
-  margin-top: 0;
+dt {
+  font-family: 'Roboto Condensed';
+  font-size: 20px;
+  line-height: 1.2;
+  color: #4E4A57;
 }
 
 .col-8 {
