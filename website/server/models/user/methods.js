@@ -171,17 +171,27 @@ schema.statics.pushNotification = async function pushNotification (query, type, 
   await this.update(query, {$push: {notifications: newNotification.toObject()}}, {multi: true}).exec();
 };
 
+// Static method to add/remove properties to a JSON User object,
+// For example for when the user is returned using `.lean()` and thus doesn't
+// have access to any mongoose helper
+schema.statics.transformJSONUser = function transformJSONUser (jsonUser, addComputedStats = false) {
+  // Add id property
+  jsonUser.id = jsonUser._id;
+
+  if (addComputedStats) this.addComputedStatsToJSONObj(jsonUser.stats, jsonUser);
+};
+
 // Add stats.toNextLevel, stats.maxMP and stats.maxHealth
 // to a JSONified User stats object
-schema.methods.addComputedStatsToJSONObj = function addComputedStatsToUserJSONObj (statsObject) {
+schema.statics.addComputedStatsToJSONObj = function addComputedStatsToUserJSONObj (userStatsJSON, user) {
   // NOTE: if an item is manually added to this.stats then
   // common/fns/predictableRandom must be tweaked so the new item is not considered.
   // Otherwise the client will have it while the server won't and the results will be different.
-  statsObject.toNextLevel = common.tnl(this.stats.lvl);
-  statsObject.maxHealth = common.maxHealth;
-  statsObject.maxMP = common.statsComputed(this).maxMP;
+  userStatsJSON.toNextLevel = common.tnl(user.stats.lvl);
+  userStatsJSON.maxHealth = common.maxHealth;
+  userStatsJSON.maxMP = common.statsComputed(user).maxMP;
 
-  return statsObject;
+  return userStatsJSON;
 };
 
 /**
