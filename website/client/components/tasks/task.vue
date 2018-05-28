@@ -622,7 +622,8 @@ export default {
         this.$t('today') :
         this.timeTillDue.humanize(true);
 
-      return this.$t('dueIn', { dueIn });
+      // this.task && is necessary to make sure the computed property updates correctly
+      return this.task && this.task.date && this.$t('dueIn', { dueIn });
     },
     hasTags () {
       return this.task.tags && this.task.tags.length > 0;
