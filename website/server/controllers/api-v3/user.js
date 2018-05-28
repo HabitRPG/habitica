@@ -1907,7 +1907,7 @@ api.movePinnedItem = {
     let currentPinnedItemPath = user.pinnedItemsOrder[currentIndex];
 
     if (currentIndex === -1) {
-      throw new BadRequest(res.t('wrongItemPath', req.language));
+      throw new BadRequest(res.t('wrongItemPath', {path}, req.language));
     }
 
     // Remove the one we will move
