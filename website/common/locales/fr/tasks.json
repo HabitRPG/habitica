@@ -5,7 +5,7 @@
     "sureDeleteCompletedTodos": "Voulez-vous vraiment effacer vos tâches À faire complétées ?",
     "lotOfToDos": "Vos 30 tâches à faire terminées les plus récentes sont montrées ici. Vous pouvez consulter les tâches plus anciennes depuis Données > Outil d'affichage des données ou Données > Exporter les données > Données utilisateur.",
     "deleteToDosExplanation": "Si vous cliquez sur le bouton ci-dessous, toutes vos tâches À Faire complétées et archivées seront supprimées définitivement, à l'exception des tâches de défis actifs et des offres de groupe. Exportez-les d'abord si vous souhaitez en garder une trace.",
-    "addMultipleTip": "<strong>Tip:</strong> To add multiple <%= taskType %>, separate each one using a line break (Shift + Enter) and then press \"Enter.\"",
+    "addMultipleTip": "<strong>Astuce :</strong> Pour ajouter plusieurs <%= taskType %>, séparez-les par un retour à la ligne (Shift+Entrée) puis tapez sur la touche “Entrée”.",
     "addsingle": "Ajout unitaire",
     "addATask": "Ajouter une <%= type %>",
     "editATask": "Éditer une <%= type %>",

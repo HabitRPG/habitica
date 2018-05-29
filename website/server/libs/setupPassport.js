@@ -19,6 +19,7 @@ passport.deserializeUser((obj, done) => done(null, obj));
 passport.use(new FacebookStrategy({
   clientID: nconf.get('FACEBOOK_KEY'),
   clientSecret: nconf.get('FACEBOOK_SECRET'),
+  profileFields: ['email'],
   // callbackURL: nconf.get("BASE_URL") + "/auth/facebook/callback"
 }, (accessToken, refreshToken, profile, done) => done(null, profile)));
 

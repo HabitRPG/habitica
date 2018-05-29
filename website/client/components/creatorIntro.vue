@@ -191,11 +191,13 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
         .col-4.text-center.sub-menu-item(@click='changeSubPage("wheelchair")', :class='{active: activeSubPage === "wheelchair"}')
           strong(v-once) {{$t('wheelchair')}}
         .col-3.text-center.sub-menu-item(@click='changeSubPage("flower")', :class='{active: activeSubPage === "flower"}')
-          strong(v-once) {{$t('flower')}}
+          strong(v-once) {{$t('accent')}}
       .row.sub-menu(v-if='editing')
-        .col-4.offset-4.text-center.sub-menu-item(@click='changeSubPage("ears")' :class='{active: activeSubPage === "ears"}')
+        .col-4.offset-2.text-center.sub-menu-item(@click='changeSubPage("ears")' :class='{active: activeSubPage === "ears"}')
           strong(v-once) {{$t('animalEars')}}
-      .row(v-if='activeSubPage === "glasses"')
+        .col-4.text-center.sub-menu-item(@click='changeSubPage("headband")' :class='{active: activeSubPage === "headband"}')
+          strong(v-once) {{$t('headband')}}
+      #glasses.row(v-if='activeSubPage === "glasses"')
         .col-12.customize-options
           .option(v-for='option in eyewear', :class='{active: option.active}')
             .sprite.customize-option(:class="`eyewear_special_${option.key}`", @click='option.click')
@@ -212,6 +214,10 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
               .svg-icon.gem(v-html='icons.gem')
               span 5
             button.btn.btn-secondary.purchase-all(@click='unlock(animalEarsUnlockString)') {{ $t('purchaseAll') }}
+      #headband.row(v-if='activeSubPage === "headband"')
+        .col-12.customize-options
+          .option(v-for='option in headbands', :class='{active: option.active}')
+            .sprite.customize-option(:class="`headAccessory_special_${option.key}`", @click='option.click')
       #wheelchairs.row(v-if='activeSubPage === "wheelchair"')
         .col-12.customize-options
           .option(@click='set({"preferences.chair": "none"})', :class='{active: user.preferences.chair === "none"}')
@@ -222,7 +228,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       #flowers.row(v-if='activeSubPage === "flower"')
         .col-12.customize-options
           .head_0.option(@click='set({"preferences.hair.flower":0})', :class='{active: user.preferences.hair.flower === 0}')
-          .option(v-for='option in [1, 2, 3, 4, 5, 6]',
+          .option(v-for='option in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]',
             :class='{active: user.preferences.hair.flower === option}')
             .sprite.customize-option(:class="`hair_flower_${option}`", @click='set({"preferences.hair.flower": option})')
       .row(v-if='activeSubPage === "flower"')
@@ -1038,6 +1044,21 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    headbands () {
+      let keys = ['blackHeadband', 'blueHeadband', 'greenHeadband', 'pinkHeadband', 'redHeadband', 'whiteHeadband', 'yellowHeadband'];
+      let options = keys.map(key => {
+        let newKey = `headAccessory_special_${key}`;
+        let option = {};
+        option.key = key;
+        option.active = this.user.preferences.costume ? this.user.items.gear.costume.headAccessory === newKey : this.user.items.gear.equipped.headAccessory === newKey;
+        option.click = () => {
+          let type = this.user.preferences.costume ? 'costume' : 'equipped';
+          return this.equip(newKey, type);
+        };
+        return option;
+      });
+      return options;
+    },
     eyewear () {
       let keys = ['blackTopFrame', 'blueTopFrame', 'greenTopFrame', 'pinkTopFrame', 'redTopFrame', 'whiteTopFrame', 'yellowTopFrame'];
       let options = keys.map(key => {
