@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'MAY SUBSCRIBER ITEMS AND USER SPOTLIGHT!';
+const LAST_ANNOUNCEMENT_TITLE = 'NEW AVATAR CUSTOMIZATIONS: EARRINGS AND HEADBANDS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -34,22 +34,12 @@ api.getNews = {
         </div>
         <h2>5/24/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
-        <div class="media">
+        <div class="media align-items-center">
           <div class="media-body">
-            <h3>May Subscriber Items Revealed!</h3>
-            <p>The May Subscriber Item Set has been revealed: the Phenomenal Peacock Item Set! You only have until May 31 to receive the item set when you <a href="/user/settings/subscription" target="_blank">subscribe</a>. If you're already an active subscriber, reload the site and then head to Inventory > Items to claim your gear!</p>
+            <p>There are new free customizations available for your avatar! Check out our new sets of earrings and headbands in a variety of colors to match every outfit. You can find them under User > Edit Avatar. Enjoy!</p>
+            <div class="small mb-3">by Breadstrings, AnnDeLune, Beffymaroo, and SabreCat</div>
           </div>
-          <div class="promo_mystery_201805 ml-3"></div>
-        </div>
-        <p>Subscribers also receive the ability to buy Gems for Gold -- the longer you subscribe, the more Gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
-        <div class="small mb-3">by Beffymaroo</div>
-        <div class="media">
-          <div class="promo_take_this mr-3"></div>
-          <div class="media-body">
-            <h3>User Spotlight: Dr. B of Take This!</h3>
-            <p>There's a new User Spotlight on the blog! We've interviewed Dr.B of Take This about his Habitica setup, gaming, mental health + more! <a href="https://habitica.wordpress.com/2018/05/24/user-spotlight-dr-b-of-take-this/" target="_blank">Check it out</a>.</p>
-            <div class="small mb-3">by Dr. B and Beffymaroo</div>
-          </div>
+          <div class="promo_earrings_headbands mb-3"></div>
         </div>
       </div>
       `,
