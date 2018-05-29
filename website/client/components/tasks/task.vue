@@ -144,6 +144,14 @@
     &.has-notes {
       padding-bottom: 4px;
     }
+
+    /**
+    * Fix flex-wrapping for IE 11
+    * https://github.com/HabitRPG/habitica/issues/9754
+    */
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+      flex: 1;
+    }
   }
 
   .task-clickable-area {
