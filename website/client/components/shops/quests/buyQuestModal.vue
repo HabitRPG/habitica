@@ -70,13 +70,12 @@
 
     .inner-content {
       margin: 33px auto auto;
-      width: 400px;
     }
+
 
     .questInfo {
       width: 70%;
-      margin: 0 auto;
-      margin-bottom: 10px;
+      margin: 0 auto 10px auto;
     }
 
     .right-sidebar {
@@ -97,9 +96,7 @@
     span.svg-icon.inline.icon-32 {
       height: 32px;
       width: 32px;
-
       margin-right: 8px;
-
       vertical-align: middle;
     }
 
@@ -110,7 +107,6 @@
       font-size: 24px;
       font-weight: bold;
       line-height: 1.33;
-
       vertical-align: middle;
 
       &.gems {
@@ -159,7 +155,6 @@
       }
     }
 
-
     .notEnough {
       pointer-events: none;
       opacity: 0.55;
@@ -192,52 +187,6 @@
           pointer-events: none;
           position: absolute;
           right: 0;
-        }
-      }
-    }
-
-    @media only screen and (max-width: 1200px) {
-      .modal-dialog {
-        max-width: 33%;
-
-        .right-sidebar {
-          left: calc(100% - 10px);
-          max-width: 100%;
-          right: initial;
-
-          .questRewards {
-            width: 90%;
-
-            .reward-item {
-              width: 100%;
-            }
-          }
-        }
-      }
-    }
-
-    @media only screen and (max-width: 1000px) {
-      .modal-dialog {
-        max-width: 80%;
-        width: 80%;
-
-        .modal-body {
-          flex-direction: column;
-          display: flex;
-
-          .right-sidebar {
-            position: static;
-            box-shadow: none;
-            width: 100%;
-            z-index: 0;
-            left: 0;
-
-            .questRewards {
-              padding: 0 2em 2em 2em;
-              width: 100%;
-              z-index: 0;
-            }
-          }
         }
       }
     }
