@@ -124,7 +124,7 @@
     "eventAvailability": "Доступно для покупки до <%= date(locale) %>.",
     "dateEndMarch": "Апрель 30",
     "dateEndApril": "Апрель 19",
-    "dateEndMay": "May 31",
+    "dateEndMay": "Май 31",
     "dateEndJune": "14 Июня",
     "dateEndJuly": "29 июля",
     "dateEndAugust": "31 августа",
