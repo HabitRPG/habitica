@@ -133,7 +133,7 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, o
   sender.markModified('inbox.messages');
 
   if (saveUsers) {
-    await Promise.all(userToReceiveMessage.save(), sender.save());
+    await Promise.all([userToReceiveMessage.save(), sender.save()]);
   }
 };
 
