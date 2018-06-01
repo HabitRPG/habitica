@@ -202,7 +202,7 @@ div
 import orderBy from 'lodash/orderBy';
 import isEmpty from 'lodash/isEmpty';
 import { mapState } from 'client/libs/store';
-
+import debounce from 'lodash/debounce';
 import removeMemberModal from 'client/components/members/removeMemberModal';
 import MemberDetails from '../memberDetails';
 import removeIcon from 'assets/members/remove.svg';
@@ -327,13 +327,13 @@ export default {
     },
     // Watches `searchTerm` and if present, performs a `searchMembers` action
     // and usual `getMembers` otherwise
-    searchTerm () {
-      if (this.searchTerm) {
-        this.searchMembers(this.searchTerm);
+    searchTerm: debounce(function searchTerm (newSearch) {
+      if (newSearch) {
+        this.searchMembers(newSearch);
       } else {
         this.getMembers();
       }
-    },
+    }, 500),
   },
   methods: {
     sendMessage (member) {

@@ -400,7 +400,7 @@ export default {
       }
       await this.fetchGuild();
       // Fetch group members on load
-      this.members = await this.loadMembers({
+      this.members = await this.$store.dispatch('members:getGroupMembers', {
         groupId: this.group._id,
         includeAllPublicFields: true,
       });
@@ -409,27 +409,11 @@ export default {
         this.$set(this.group, updatedGroup);
       });
     },
-
-    /**
-     * Method for loading members of a group, with optional parameters for
-     * modifying requests.
-     *
-     * @param {Object}  payload     Used for modifying requests for members
-     */
-    loadMembers (payload = null) {
-      // Remove unnecessary data
-      if (payload && payload.challengeId) {
-        delete payload.challengeId;
-      }
-
-      return this.$store.dispatch('members:getGroupMembers', payload);
-    },
     showMemberModal () {
       this.$store.state.memberModalOptions.groupId = this.group._id;
       this.$store.state.memberModalOptions.group = this.group;
       this.$store.state.memberModalOptions.memberCount = this.group.memberCount;
       this.$store.state.memberModalOptions.viewingMembers = this.members;
-      this.$store.state.memberModalOptions.fetchMoreMembers = this.loadMembers;
       this.$root.$emit('bv::show::modal', 'members-modal');
     },
     fetchRecentMessages () {
