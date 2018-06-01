@@ -12,7 +12,7 @@
 }
 .promo_earrings_headbands {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -565px -223px;
+  background-position: -142px -534px;
   width: 297px;
   height: 147px;
 }
@@ -36,9 +36,9 @@
 }
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -716px -371px;
-  width: 114px;
-  height: 87px;
+  background-position: -326px -348px;
+  width: 96px;
+  height: 69px;
 }
 .scene_casting_spells {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
@@ -46,9 +46,15 @@
   width: 312px;
   height: 222px;
 }
+.scene_hiking {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -565px -223px;
+  width: 258px;
+  height: 258px;
+}
 .scene_meditation {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -565px -371px;
+  background-position: -326px -197px;
   width: 150px;
   height: 150px;
 }
