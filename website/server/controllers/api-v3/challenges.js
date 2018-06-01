@@ -312,7 +312,7 @@ api.leaveChallenge = {
     if (!challenge.isMember(user)) throw new NotAuthorized(res.t('challengeMemberNotFound'));
 
     // Unlink challenge's tasks from user's tasks and save the challenge
-    await Promise.all([challenge.unlinkTasks(user, keep), challenge.save()]);
+    await challenge.unlinkTasks(user, keep);
 
     res.analytics.track('challenge leave', {
       uuid: user._id,
