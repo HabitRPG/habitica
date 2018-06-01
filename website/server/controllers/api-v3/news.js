@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'NEW AVATAR CUSTOMIZATIONS: EARRINGS AND HEADBANDS!';
+const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE FOR FAIRY POTIONS AND PEACOCK SET';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -32,15 +32,21 @@ api.getNews = {
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
           </div>
         </div>
-        <h2>5/24/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+        <h2>5/31/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
         <div class="media align-items-center">
           <div class="media-body">
-            <p>There are new free customizations available for your avatar! Check out our new sets of earrings and headbands in a variety of colors to match every outfit. You can find them under User > Edit Avatar. Enjoy!</p>
-            <div class="small mb-3">by Breadstrings, AnnDeLune, Beffymaroo, and SabreCat</div>
+            <h3>Last Chance for Phenomenal Peacock Set</h3>
+            <p>Reminder: this is the final day to <a href='/user/settings/subscription' target='_blank'>subscribe</a> and receive the Phenomenal Peacock Set! Subscribing also lets you buy Gems for Gold. The longer your subscription, the more Gems you get!</p>
           </div>
-          <div class="promo_earrings_headbands mb-3"></div>
+          <div class="promo_mystery_201805"></div>
         </div>
+        <p>Thanks so much for your support! You help keep Habitica running.</p>
+        <div class="small mb-3">by Beffymaroo</div>
+        <h3>Last Chance for Fairy Hatching Potions</h3>
+        <p>Reminder: this is the final day to <a href='/shops/market' target='_blank'>buy Fairy Hatching Potions</a>! If they come back, it won't be until next year at the earliest, so don't delay!</p>
+        <div class="small mb-3">by Edge</div>
+        <div class="promo_fairy_potions center-block"></div>
       </div>
       `,
     });
