@@ -629,7 +629,7 @@ describe('payments/index', () => {
         await api.buyGems(data);
         let msg = '\`Hello recipient, sender has sent you 4 gems!\`';
 
-        expect(user.sendMessage).to.be.calledWith(recipient, { receiverMsg: msg, senderMsg: msg });
+        expect(user.sendMessage).to.be.calledWith(recipient, { receiverMsg: msg, senderMsg: msg, save: false });
       });
 
       it('sends a message from purchaser to recipient wtih custom message', async () => {
