@@ -99,6 +99,8 @@ schema.methods.getObjectionsToInteraction = function getObjectionsToInteraction 
 schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, options) {
   let sender = this;
   let senderMsg = options.senderMsg || options.receiverMsg;
+  // whether to save users after sending the message, defaults to true
+  let saveUsers = options.save === false ? false : true;
 
   common.refPush(userToReceiveMessage.inbox.messages, chatDefaults(options.receiverMsg, sender));
   userToReceiveMessage.inbox.newMessages++;
@@ -130,8 +132,9 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, o
   common.refPush(sender.inbox.messages, defaults({sent: true}, chatDefaults(senderMsg, userToReceiveMessage)));
   sender.markModified('inbox.messages');
 
-  let promises = [userToReceiveMessage.save(), sender.save()];
-  await Promise.all(promises);
+  if (saveUsers) {
+    await Promise.all(userToReceiveMessage.save(), sender.save());
+  }
 };
 
 /**
