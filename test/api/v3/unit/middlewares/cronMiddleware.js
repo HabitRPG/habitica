@@ -176,7 +176,7 @@ describe('cron middleware', () => {
     user.lastCron = moment(new Date()).subtract({days: 2});
     let todo = generateTodo(user);
     let todoValueBefore = todo.value;
-    await user.save();
+    await Promise.all([todo.save(), user.save()]);
 
     await new Promise((resolve, reject) => {
       cronMiddleware(req, res, (err) => {
