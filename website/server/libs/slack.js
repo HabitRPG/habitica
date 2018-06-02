@@ -8,6 +8,10 @@ const SLACK_FLAGGING_URL = nconf.get('SLACK:FLAGGING_URL');
 const SLACK_FLAGGING_FOOTER_LINK = nconf.get('SLACK:FLAGGING_FOOTER_LINK');
 const SLACK_SUBSCRIPTIONS_URL = nconf.get('SLACK:SUBSCRIPTIONS_URL');
 const BASE_URL = nconf.get('BASE_URL');
+const IS_PRODUCTION = nconf.get('IS_PROD');
+
+const SKIP_FLAG_METHODS = IS_PRODUCTION && !SLACK_FLAGGING_URL;
+const SKIP_SUB_METHOD = IS_PRODUCTION && !SLACK_SUBSCRIPTIONS_URL;
 
 let flagSlack;
 let subscriptionSlack;
@@ -17,6 +21,14 @@ try {
   subscriptionSlack = new IncomingWebhook(SLACK_SUBSCRIPTIONS_URL);
 } catch (err) {
   logger.error(err);
+
+  if (!IS_PRODUCTION) {
+    flagSlack = subscriptionSlack = {
+      send (data) {
+        logger.info('Data sent to slack', data);
+      },
+    };
+  }
 }
 
 function sendFlagNotification ({
@@ -26,7 +38,7 @@ function sendFlagNotification ({
   message,
   userComment,
 }) {
-  if (!SLACK_FLAGGING_URL) {
+  if (SKIP_FLAG_METHODS) {
     return;
   }
   let titleLink;
@@ -76,7 +88,7 @@ function sendSubscriptionNotification ({
   months,
   groupId,
 }) {
-  if (!SLACK_SUBSCRIPTIONS_URL) {
+  if (SKIP_SUB_METHOD) {
     return;
   }
   let text;
@@ -94,18 +106,13 @@ function sendSubscriptionNotification ({
   });
 }
 
-module.exports = {
-  sendFlagNotification,
-  sendSubscriptionNotification,
-};
-
 function sendSlurNotification ({
   authorEmail,
   author,
   group,
   message,
 }) {
-  if (!SLACK_FLAGGING_URL) {
+  if (SKIP_FLAG_METHODS) {
     return;
   }
   let titleLink;
@@ -142,5 +149,7 @@ function sendSlurNotification ({
 }
 
 module.exports = {
-  sendFlagNotification, sendSubscriptionNotification, sendSlurNotification,
+  sendFlagNotification,
+  sendSubscriptionNotification,
+  sendSlurNotification,
 };
