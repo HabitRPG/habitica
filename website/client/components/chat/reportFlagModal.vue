@@ -111,7 +111,7 @@ export default {
       this.$root.$emit('bv::hide::modal', 'report-flag');
     },
     async reportAbuse () {
-      this.notify('Thank you for reporting this violation. The moderators have been notified.');
+      this.text('Thank you for reporting this violation. The moderators have been notified.');
 
       await this.$store.dispatch('chat:flag', {
         groupId: this.groupId,

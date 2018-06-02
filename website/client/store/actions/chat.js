@@ -69,7 +69,14 @@ export async function like (store, payload) {
 }
 
 export async function flag (store, payload) {
-  const url = `/api/v3/groups/${payload.groupId}/chat/${payload.chatId}/flag`;
+  let url = '';
+
+  if (payload.groupId === 'privateMessage') {
+    url = `/api/v3/members/flag-private-message/${payload.chatId}`;
+  } else {
+    url = `/api/v3/groups/${payload.groupId}/chat/${payload.chatId}/flag`;
+  }
+
   const response = await axios.post(url, {
     comment: payload.comment,
   });
