@@ -124,7 +124,7 @@
     "eventAvailability": "Налично за купуване до <%= date(locale) %>.",
     "dateEndMarch": "30 април",
     "dateEndApril": "19 април",
-    "dateEndMay": "May 31",
+    "dateEndMay": "31 май",
     "dateEndJune": "14 юни",
     "dateEndJuly": "29 юли",
     "dateEndAugust": "31 август",

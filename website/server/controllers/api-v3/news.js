@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'MAY SUBSCRIBER ITEMS AND USER SPOTLIGHT!';
+const LAST_ANNOUNCEMENT_TITLE = 'JUNE 2018 RESOLUTION SUCCESS CHALLENGE AND TAKE THIS CHALLENGE';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -32,25 +32,24 @@ api.getNews = {
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
           </div>
         </div>
-        <h2>5/24/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+        <h2>6/1/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
         <div class="media">
           <div class="media-body">
-            <h3>May Subscriber Items Revealed!</h3>
-            <p>The May Subscriber Item Set has been revealed: the Phenomenal Peacock Item Set! You only have until May 31 to receive the item set when you <a href="/user/settings/subscription" target="_blank">subscribe</a>. If you're already an active subscriber, reload the site and then head to Inventory > Items to claim your gear!</p>
+            <p>The Habitica team has launched a special official Challenge series hosted in the <a href='/groups/guild/6e6a8bd3-9f5f-4351-9188-9f11fcd80a99' target='_blank'>Official New Year's Resolution Guild</a>. These Challenges are designed to help you build and maintain goals that are destined for success and then stick with them as the year progresses. For this month's Challenge, <a href='/challenges/07f492bc-3d0a-460e-a525-165dd219a91d' target='_blank'>Mark Your Journey</a>, we're reflecting on your achievements since January and looking ahead to the rest of the year! It has a 15 Gem prize, which will be awarded to five lucky winners on July 2nd.</p>
+            <p>Congratulations to the winners of the May Challenge, RubberSoul, Carolee, MyNameIsNotRyn, Rapunculus IV, and notunremarkable!</p>
           </div>
-          <div class="promo_mystery_201805 ml-3"></div>
+          <div class="scene_hiking ml-3"></div>
         </div>
-        <p>Subscribers also receive the ability to buy Gems for Gold -- the longer you subscribe, the more Gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
-        <div class="small mb-3">by Beffymaroo</div>
+        <p>The next Take This Challenge has also launched, <a href='/challenges/f0481f95-1dde-4ae7-a876-d19502a45d61' target='_blank'>Hero's Triumph!</a>, with a focus on volunteer efforts. Be sure to check it out to earn additional pieces of the Take This armor set!</p>
         <div class="media">
-          <div class="promo_take_this mr-3"></div>
+          <div class="promo_take_this mr-3 mb-3"></div>
           <div class="media-body">
-            <h3>User Spotlight: Dr. B of Take This!</h3>
-            <p>There's a new User Spotlight on the blog! We've interviewed Dr.B of Take This about his Habitica setup, gaming, mental health + more! <a href="https://habitica.wordpress.com/2018/05/24/user-spotlight-dr-b-of-take-this/" target="_blank">Check it out</a>.</p>
-            <div class="small mb-3">by Dr. B and Beffymaroo</div>
+            <p><a href='http://www.takethis.org/' target='_blank'>Take This</a> is a nonprofit that seeks to inform the gamer community about mental health issues, to provide education about mental disorders and mental illness prevention, and to reduce the stigma of mental illness.</p>
           </div>
         </div>
+        <p>Congratulations to the winners of the last Take This Challenge, "Keep Calm and Carry On!": grand prize winner Betsy, and runners-up Caiwan (Sári Péter), tebrilas, Christopher, eeyoregirl, and Serenity. Plus, all participants in that Challenge have received a piece of the <a href='http://habitica.wikia.com/wiki/Event_Item_Sequences#Take_This_Armor_Set' target='_blank'>Take This item set</a> if they hadn't collected all the pieces already. It is located in your Rewards column. Enjoy!</p>
+        <div class="small mb-3">by Doctor B, the Take This team, Lemoness, Beffymaroo, and SabreCat</div>
       </div>
       `,
     });
