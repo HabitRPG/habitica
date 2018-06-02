@@ -475,7 +475,7 @@ describe('cron', () => {
       // user3g has a 3-month gift subscription starting today
       user3g.purchased.plan.customerId = 'Gift';
       user3g.purchased.plan.dateUpdated = moment().toDate();
-      user3g.purchased.plan.dateTerminated = moment().add(3, 'months').toDate();
+      user3g.purchased.plan.dateTerminated = moment().startOf('month').add(3, 'months').add(15, 'days').toDate();
       user3g.purchased.plan.planId = null;
       user3g.purchased.plan.consecutive.count = 0;
       user3g.purchased.plan.consecutive.offset = 3;
