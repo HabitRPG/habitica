@@ -15,9 +15,8 @@
     )
   .col-12.col-sm-4.sidebar
     .section
-      .grassy-meadow-container
-        .grassy-meadow-backdrop
-          .daniel_front
+      .grassy-meadow-backdrop
+        .daniel_front
 
       .boss-section
         .world-boss(v-if='group && group.quest && group.quest.active', :style="{background: questData.colors.dark, 'border-color': questData.colors.extralight, 'outline-color': questData.colors.light}")
@@ -173,7 +172,6 @@
   .sidebar {
     background-color: $gray-600;
     padding: 0em;
-    padding-top: 2.8em;
 
     .below-header-sections {
       padding: 1em 1.75em 1em 1.75em;
@@ -184,10 +182,6 @@
     background-color: #ffb445 !important;
     color: $white;
     width: 100%;
-  }
-
-  .grassy-meadow-container {
-    padding: 0em 1em;
   }
 
   .grassy-meadow-backdrop {
