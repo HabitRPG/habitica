@@ -8,6 +8,9 @@ module.exports = {
 
   missingTypeKeyEquip: '"key" and "type" are required parameters.',
 
+  chatIdRequired: 'req.params.chatId must contain a chatId.',
+  messageIdRequired: 'req.params.messageId must contain a message ID.',
+
   guildsOnlyPaginate: 'Only public guilds support pagination.',
   guildsPaginateBooleanString: 'req.query.paginate must be a boolean string.',
   groupIdRequired: 'req.params.groupId must contain a groupId.',

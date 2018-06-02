@@ -234,7 +234,7 @@ api.likeChat = {
     let groupId = req.params.groupId;
 
     req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
-    req.checkParams('chatId', res.t('chatIdRequired')).notEmpty();
+    req.checkParams('chatId', apiError('chatIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -325,7 +325,7 @@ api.clearChatFlags = {
     let chatId = req.params.chatId;
 
     req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
-    req.checkParams('chatId', res.t('chatIdRequired')).notEmpty();
+    req.checkParams('chatId', apiError('chatIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -465,7 +465,7 @@ api.deleteChat = {
     let chatId = req.params.chatId;
 
     req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
-    req.checkParams('chatId', res.t('chatIdRequired')).notEmpty();
+    req.checkParams('chatId', apiError('chatIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;

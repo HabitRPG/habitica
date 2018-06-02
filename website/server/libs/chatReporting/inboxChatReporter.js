@@ -16,17 +16,15 @@ const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email)
   return { email, canSend: true };
 });
 
-export default class GroupChatReporter extends ChatReporter {
+export default class InboxChatReporter extends ChatReporter {
   constructor (req, res) {
     super(req, res);
 
     this.user = res.locals.user;
-    this.groupId = req.params.groupId;
   }
 
   async validate () {
-    this.req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
-    this.req.checkParams('chatId', apiError('chatIdRequired')).notEmpty();
+    this.req.checkParams('messageId', apiError('messageIdRequired')).notEmpty();
 
     let validationErrors = this.req.validationErrors();
     if (validationErrors) throw validationErrors;
