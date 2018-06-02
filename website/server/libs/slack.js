@@ -44,7 +44,7 @@ function sendFlagNotification ({
   let titleLink;
   let authorName;
   let title = `Flag in ${group.name}`;
-  let text = `${flagger.profile.name} (${flagger.id}; language: ${flagger.preferences.language}) flagged a message`;
+  let text = `${flagger.profile.name} (${flagger.id}; language: ${flagger.preferences.language}) flagged a group message`;
 
   if (userComment) {
     text += ` and commented: ${userComment}`;
@@ -74,6 +74,66 @@ function sendFlagNotification ({
       title_link: titleLink,
       text: message.text,
       footer: `<${SLACK_FLAGGING_FOOTER_LINK}?groupId=${group.id}&chatId=${message.id}|Flag this message>`,
+      mrkdwn_in: [
+        'text',
+      ],
+    }],
+  });
+}
+
+function sendInboxFlagNotification ({
+  authorEmail,
+  flagger,
+  message,
+  userComment,
+}) {
+  if (SKIP_FLAG_METHODS) {
+    return;
+  }
+  let titleLink;
+  let authorName;
+  let title = `Flag in ${flagger.profile.name}'s Inbox`;
+  let text = `${flagger.profile.name} (${flagger.id}; language: ${flagger.preferences.language}) flagged a PM`;
+
+  if (userComment) {
+    text += ` and commented: ${userComment}`;
+  }
+
+  if (!message.user && message.uuid === 'system') {
+    authorName = 'System Message';
+  } else {
+    authorName = `${message.user} - ${authorEmail} - ${message.uuid}`;
+  }
+
+  let messageText = message.text;
+
+  if (flagger.id === message.uuid) {
+    messageText += `: ${flagger.profile.name} is writing to itself.`;
+  } else {
+    let sender = '';
+    let recipient = '';
+
+    if (message.sent) {
+      sender = flagger.profile.name;
+      recipient = message.user;
+    } else {
+      sender = message.user;
+      recipient = flagger.profile.name;
+    }
+
+    messageText += `: ${sender} is writing this message to ${recipient}.`;
+  }
+
+  flagSlack.send({
+    text,
+    attachments: [{
+      fallback: 'Flag Message',
+      color: 'danger',
+      author_name: authorName,
+      title,
+      title_link: titleLink,
+      text: messageText,
+      footer: `<${SLACK_FLAGGING_FOOTER_LINK}?groupId=privateMessages&chatId=${message.id}|Flag this message>`,
       mrkdwn_in: [
         'text',
       ],
@@ -150,6 +210,7 @@ function sendSlurNotification ({
 
 module.exports = {
   sendFlagNotification,
+  sendInboxFlagNotification,
   sendSubscriptionNotification,
   sendSlurNotification,
 };

@@ -2,16 +2,14 @@ import nconf from 'nconf';
 
 import ChatReporter from './chatReporter';
 import {
-  BadRequest,
   NotFound,
 } from '../errors';
 import { getGroupUrl, sendTxn } from '../email';
 import slack from '../slack';
-import { model as Group } from '../../models/group';
-import { model as Chat } from '../../models/chat';
 import apiError from '../apiError';
 
-const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
+import _find from 'lodash/find';
+
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
   return { email, canSend: true };
 });
@@ -29,23 +27,21 @@ export default class InboxChatReporter extends ChatReporter {
     let validationErrors = this.req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({
-      user: this.user,
-      groupId: this.groupId,
-      optionalMembership: this.user.contributor.admin,
-    });
-    if (!group) throw new NotFound(this.res.t('groupNotFound'));
+    let messages = this.user.inbox.messages;
 
-    const message = await Chat.findOne({_id: this.req.params.chatId}).exec();
+    const message = _find(messages, (m) => m.id === this.req.params.messageId);
     if (!message) throw new NotFound(this.res.t('messageGroupChatNotFound'));
-    if (message.uuid === 'system') throw new BadRequest(this.res.t('messageCannotFlagSystemMessages', {communityManagerEmail: COMMUNITY_MANAGER_EMAIL}));
 
     const userComment = this.req.body.comment;
 
-    return {message, group, userComment};
+    return {message, userComment};
   }
 
-  async notify (group, message, userComment) {
+  async notify (message, userComment) {
+    const group = {
+      type: 'private messages',
+    };
+
     await super.notify(group, message);
 
     const groupUrl = getGroupUrl(group);
@@ -57,22 +53,20 @@ export default class InboxChatReporter extends ChatReporter {
       {name: 'REPORTER_COMMENT', content: userComment || ''},
     ]));
 
-    slack.sendFlagNotification({
+    slack.sendInboxFlagNotification({
       authorEmail: this.authorEmail,
       flagger: this.user,
-      group,
       message,
       userComment,
     });
   }
 
-  async flagGroupMessage (group, message) {
+  async flagInboxMessage (message) {
     // Log user ids that have flagged the message
     if (!message.flags) message.flags = {};
     // TODO fix error type
     if (message.flags[this.user._id] && !this.user.contributor.admin) throw new NotFound(this.res.t('messageGroupChatFlagAlreadyReported'));
     message.flags[this.user._id] = true;
-    message.markModified('flags');
 
     // Log total number of flags (publicly viewable)
     if (!message.flagCount) message.flagCount = 0;
@@ -83,13 +77,16 @@ export default class InboxChatReporter extends ChatReporter {
       message.flagCount++;
     }
 
-    await message.save();
+    this.user.inbox.messages[message.id] = message;
+    this.user.markModified('inbox.messages');
+
+    await this.user.save();
   }
 
   async flag () {
-    let {message, group, userComment} = await this.validate();
-    await this.flagGroupMessage(group, message);
-    await this.notify(group, message, userComment);
+    let {message, userComment} = await this.validate();
+    await this.flagInboxMessage(message);
+    await this.notify(message, userComment);
     return message;
   }
 }
