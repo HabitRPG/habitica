@@ -7,7 +7,7 @@ import {BuyHealthPotionOperation} from './buyHealthPotion';
 import {BuyMarketGearOperation} from './buyMarketGear';
 import buyMysterySet from './buyMysterySet';
 import {BuyQuestWithGoldOperation} from './buyQuest';
-import buySpecialSpell from './buySpecialSpell';
+import {BuySpellOperation} from './buySpell';
 import purchaseOp from './purchase';
 import hourglassPurchase from './hourglassPurchase';
 import errorMessage from '../../libs/errorMessage';
@@ -23,7 +23,7 @@ module.exports = function buy (user, req = {}, analytics) {
   if (!key) throw new BadRequest(errorMessage('missingKeyParam'));
 
   // @TODO: Slowly remove the need for key and use type instead
-  // This should evenutally be the 'factory' function with vendor classes
+  // This should eventually be the 'factory' function with vendor classes
   let type = get(req, 'type');
   if (!type) type = get(req, 'params.type');
   if (!type) type = key;
@@ -70,9 +70,12 @@ module.exports = function buy (user, req = {}, analytics) {
       buyRes = buyOp.purchase();
       break;
     }
-    case 'special':
-      buyRes = buySpecialSpell(user, req, analytics);
+    case 'special': {
+      const buyOp = new BuySpellOperation(user, req, analytics);
+
+      buyRes = buyOp.purchase();
       break;
+    }
     default: {
       const buyOp = new BuyMarketGearOperation(user, req, analytics);
 

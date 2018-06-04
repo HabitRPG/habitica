@@ -304,6 +304,12 @@ let back = {
     mystery: '201804',
     value: 0,
   },
+  201805: {
+    text: t('backMystery201805Text'),
+    notes: t('backMystery201805Notes'),
+    mystery: '201805',
+    value: 0,
+  },
 };
 
 let body = {
@@ -569,6 +575,12 @@ let head = {
     text: t('headMystery201803Text'),
     notes: t('headMystery201803Notes'),
     mystery: '201803',
+    value: 0,
+  },
+  201805: {
+    text: t('headMystery201805Text'),
+    notes: t('headMystery201805Notes'),
+    mystery: '201805',
     value: 0,
   },
   301404: {

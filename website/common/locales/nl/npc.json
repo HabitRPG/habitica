@@ -48,6 +48,7 @@
     "featuredItems": "Uitgelichte items!",
     "hideLocked": "Verberg vergrendelde",
     "hidePinned": "Vastgepinde verbergen",
+    "hideMissing": "Hide Missing",
     "amountExperience": "<%= amount %> ervaring",
     "amountGold": "<%= amount %> goud",
     "namedHatchingPotion": "<%= type %> uitbroeddrank",

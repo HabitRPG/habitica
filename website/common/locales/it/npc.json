@@ -48,6 +48,7 @@
     "featuredItems": "Oggetti in vetrina!",
     "hideLocked": "Nascondi bloccati",
     "hidePinned": "Nascondi Preferiti",
+    "hideMissing": "Hide Missing",
     "amountExperience": "<%= amount %> Esperienza",
     "amountGold": "<%= amount %> Oro",
     "namedHatchingPotion": "Pozione di schiusura <%= type %>",

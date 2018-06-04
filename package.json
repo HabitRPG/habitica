@@ -1,7 +1,7 @@
 {
   "name": "habitica",
   "description": "A habit tracker app which treats your goals like a Role Playing Game.",
-  "version": "4.42.4",
+  "version": "4.44.3",
   "main": "./website/server/index.js",
   "dependencies": {
     "@slack/client": "^3.8.1",
@@ -61,7 +61,7 @@
     "method-override": "^2.3.5",
     "moment": "^2.22.1",
     "moment-recur": "^1.0.7",
-    "mongoose": "^5.1.1",
+    "mongoose": "^5.1.2",
     "morgan": "^1.7.0",
     "nconf": "^0.10.0",
     "node-gcm": "^0.14.4",
@@ -90,6 +90,8 @@
     "svgo": "^1.0.5",
     "svgo-loader": "^2.1.0",
     "universal-analytics": "^0.4.16",
+    "update": "^0.7.4",
+    "upgrade": "^1.1.0",
     "url-loader": "^1.0.0",
     "useragent": "^2.1.9",
     "uuid": "^3.0.1",

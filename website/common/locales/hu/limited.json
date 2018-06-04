@@ -124,7 +124,7 @@
     "eventAvailability": "Megvásárolható <%= date(locale) %>-ig.",
     "dateEndMarch": "April 30",
     "dateEndApril": "április 19",
-    "dateEndMay": "május 17",
+    "dateEndMay": "May 31",
     "dateEndJune": "június 14",
     "dateEndJuly": "július 29",
     "dateEndAugust": "augusztus 31",

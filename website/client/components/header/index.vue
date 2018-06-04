@@ -55,7 +55,6 @@ div
   }
 
   #app-header {
-    margin-top: 56px;
     padding-left: 24px;
     padding-top: 9px;
     padding-bottom: 8px;

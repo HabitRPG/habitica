@@ -1,7 +1,6 @@
 import axios from 'axios';
 import buyOp from 'common/script/ops/buy/buy';
 import content from 'common/script/content/index';
-import purchaseOp from 'common/script/ops/buy/purchaseWithSpell';
 import hourglassPurchaseOp from 'common/script/ops/buy/hourglassPurchase';
 import sellOp from 'common/script/ops/sell';
 import unlockOp from 'common/script/ops/unlock';
@@ -91,7 +90,7 @@ async function buyArmoire (store, params) {
 export function purchase (store, params) {
   const quantity = params.quantity || 1;
   const user = store.state.user.data;
-  let opResult = purchaseOp(user, {params, quantity});
+  let opResult = buyOp(user, {params, quantity});
 
   return {
     result: opResult,

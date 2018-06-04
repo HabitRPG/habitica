@@ -48,6 +48,7 @@
     "featuredItems": "Zmíněné předměty!",
     "hideLocked": "Hide locked",
     "hidePinned": "Hide pinned",
+    "hideMissing": "Hide Missing",
     "amountExperience": "<%= amount %> Zkušenost",
     "amountGold": "<%= amount %> Zlato",
     "namedHatchingPotion": "<%= type %> Líhnoucí lektvar",

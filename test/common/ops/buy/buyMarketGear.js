@@ -64,6 +64,13 @@ describe('shared.ops.buyMarketGear', () => {
         eyewear_special_redTopFrame: true,
         eyewear_special_whiteTopFrame: true,
         eyewear_special_yellowTopFrame: true,
+        headAccessory_special_blackHeadband: true,
+        headAccessory_special_blueHeadband: true,
+        headAccessory_special_greenHeadband: true,
+        headAccessory_special_pinkHeadband: true,
+        headAccessory_special_redHeadband: true,
+        headAccessory_special_whiteHeadband: true,
+        headAccessory_special_yellowHeadband: true,
       });
       expect(analytics.track).to.be.calledOnce;
     });

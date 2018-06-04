@@ -124,7 +124,7 @@
     "eventAvailability": "Disponible para compra hasta el <%= date(locale) %>.",
     "dateEndMarch": "April 30",
     "dateEndApril": "19 de Abril",
-    "dateEndMay": "17 de Mayo",
+    "dateEndMay": "May 31",
     "dateEndJune": "14 de junio",
     "dateEndJuly": "29 de julio",
     "dateEndAugust": "31 de Agosto",
