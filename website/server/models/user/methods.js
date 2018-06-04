@@ -8,6 +8,8 @@ import {
 
 import {
   messageDefaults,
+  setUserStyles,
+  inboxModel as Inbox,
 } from '../message';
 
 import { defaults, map, flatten, flow, compact, uniq, partialRight } from 'lodash';
@@ -100,15 +102,19 @@ schema.methods.getObjectionsToInteraction = function getObjectionsToInteraction 
  * @return N/A
  */
 schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, options) {
-  let sender = this;
-  let senderMsg = options.senderMsg || options.receiverMsg;
+  const sender = this;
+  const senderMsg = options.senderMsg || options.receiverMsg;
   // whether to save users after sending the message, defaults to true
-  let saveUsers = options.save === false ? false : true;
+  const saveUsers = options.save === false ? false : true;
 
-  common.refPush(userToReceiveMessage.inbox.messages, messageDefaults(options.receiverMsg, sender));
+  const newReceiverMessage = new Inbox({
+    ownerId: userToReceiveMessage._id,
+  });
+  Object.assign(newReceiverMessage, messageDefaults(options.receiverMsg, sender));
+  setUserStyles(newReceiverMessage, sender);
+
   userToReceiveMessage.inbox.newMessages++;
   userToReceiveMessage._v++;
-  userToReceiveMessage.markModified('inbox.messages');
 
   /* @TODO disabled until mobile is ready
 
@@ -132,12 +138,20 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, o
 
   */
 
-  common.refPush(sender.inbox.messages, defaults({sent: true}, messageDefaults(senderMsg, userToReceiveMessage)));
-  sender.markModified('inbox.messages');
+  const newSenderMessage = new Inbox({
+    sent: true,
+    ownerId: sender._id,
+  });
+  Object.assign(newSenderMessage, messageDefaults(senderMsg, userToReceiveMessage));
+  setUserStyles(newSenderMessage, userToReceiveMessage);
+
+  const promises = [newSenderMessage.save(), newReceiverMessage.save()];
 
   if (saveUsers) {
-    await Promise.all([userToReceiveMessage.save(), sender.save()]);
+    promises.push(userToReceiveMessage.save(), sender.save());
   }
+
+  await Promise.all(promises);
 };
 
 /**

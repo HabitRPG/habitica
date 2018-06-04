@@ -557,12 +557,9 @@ let schema = new Schema({
   notifications: [UserNotificationSchema],
   tags: [TagSchema],
 
-  inbox: {
+  inbox: { // messages are stored in the Inbox collection
     newMessages: {type: Number, default: 0},
     blocks: {type: Array, default: () => []},
-    messages: {type: Schema.Types.Mixed, default: () => {
-      return {};
-    }},
     optOut: {type: Boolean, default: false},
   },
   tasksOrder: {
