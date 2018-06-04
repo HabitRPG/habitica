@@ -294,7 +294,9 @@ let checkPreferencePurchase = (user, path, item) => {
  */
 api.updateUser = {
   method: 'PUT',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox.messages'],
+  })],
   url: '/user',
   async handler (req, res) {
     let user = res.locals.user;
