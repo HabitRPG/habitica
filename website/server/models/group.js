@@ -7,7 +7,11 @@ import {
 import shared from '../../common';
 import _  from 'lodash';
 import { model as Challenge} from './challenge';
-import { model as Chat } from './chat';
+import {
+  chatModel as Chat,
+  setUserStyles,
+  messageDefaults,
+} from './message';
 import * as Tasks from './task';
 import validator from 'validator';
 import { removeFromArray } from '../libs/collectionManipulators';
@@ -473,81 +477,8 @@ schema.methods.getMemberCount = async function getMemberCount () {
   return await User.count(query).exec();
 };
 
-export function chatDefaults (msg, user) {
-  const id = shared.uuid();
-  const message = {
-    id,
-    _id: id,
-    text: msg,
-    timestamp: Number(new Date()),
-    likes: {},
-    flags: {},
-    flagCount: 0,
-  };
-
-  if (user) {
-    _.defaults(message, {
-      uuid: user._id,
-      contributor: user.contributor && user.contributor.toObject(),
-      backer: user.backer && user.backer.toObject(),
-      user: user.profile.name,
-    });
-  } else {
-    message.uuid = 'system';
-  }
-
-  return message;
-}
-
-function setUserStyles (newMessage, user) {
-  let userStyles = {};
-  userStyles.items = {gear: {}};
-
-  let userCopy = user;
-  if (user.toObject) userCopy = user.toObject();
-
-  if (userCopy.items) {
-    userStyles.items.gear = {};
-    userStyles.items.gear.costume = Object.assign({}, userCopy.items.gear.costume);
-    userStyles.items.gear.equipped = Object.assign({}, userCopy.items.gear.equipped);
-
-    userStyles.items.currentMount = userCopy.items.currentMount;
-    userStyles.items.currentPet = userCopy.items.currentPet;
-  }
-
-
-  if (userCopy.preferences) {
-    userStyles.preferences = {};
-    if (userCopy.preferences.style) userStyles.preferences.style = userCopy.preferences.style;
-    userStyles.preferences.hair = userCopy.preferences.hair;
-    userStyles.preferences.skin = userCopy.preferences.skin;
-    userStyles.preferences.shirt = userCopy.preferences.shirt;
-    userStyles.preferences.chair = userCopy.preferences.chair;
-    userStyles.preferences.size = userCopy.preferences.size;
-    userStyles.preferences.chair = userCopy.preferences.chair;
-    userStyles.preferences.background = userCopy.preferences.background;
-    userStyles.preferences.costume = userCopy.preferences.costume;
-  }
-
-  if (userCopy.stats) {
-    userStyles.stats = {};
-    userStyles.stats.class = userCopy.stats.class;
-    if (userCopy.stats.buffs) {
-      userStyles.stats.buffs = {
-        seafoam: userCopy.stats.buffs.seafoam,
-        shinySeed: userCopy.stats.buffs.shinySeed,
-        spookySparkles: userCopy.stats.buffs.spookySparkles,
-        snowball: userCopy.stats.buffs.snowball,
-      };
-    }
-  }
-
-  newMessage.userStyles = userStyles;
-  newMessage.markModified('userStyles');
-}
-
 schema.methods.sendChat = function sendChat (message, user, metaData) {
-  let newMessage = chatDefaults(message, user);
+  let newMessage = messageDefaults(message, user);
   let newChatMessage = new Chat();
   newChatMessage = Object.assign(newChatMessage, newMessage);
   newChatMessage.groupId = this._id;

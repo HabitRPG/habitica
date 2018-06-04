@@ -1,7 +1,7 @@
 import { authWithHeaders } from '../../middlewares/auth';
 import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
-import { model as Chat } from '../../models/chat';
+import { chatModel as Chat } from '../../models/message';
 import {
   BadRequest,
   NotFound,

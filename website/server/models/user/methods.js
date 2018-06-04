@@ -2,10 +2,13 @@ import moment from 'moment';
 import common from '../../../common';
 
 import {
-  chatDefaults,
   TAVERN_ID,
   model as Group,
 } from '../group';
+
+import {
+  messageDefaults,
+} from '../message';
 
 import { defaults, map, flatten, flow, compact, uniq, partialRight } from 'lodash';
 import { model as UserNotification } from '../userNotification';
@@ -102,7 +105,7 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, o
   // whether to save users after sending the message, defaults to true
   let saveUsers = options.save === false ? false : true;
 
-  common.refPush(userToReceiveMessage.inbox.messages, chatDefaults(options.receiverMsg, sender));
+  common.refPush(userToReceiveMessage.inbox.messages, messageDefaults(options.receiverMsg, sender));
   userToReceiveMessage.inbox.newMessages++;
   userToReceiveMessage._v++;
   userToReceiveMessage.markModified('inbox.messages');
@@ -129,7 +132,7 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, o
 
   */
 
-  common.refPush(sender.inbox.messages, defaults({sent: true}, chatDefaults(senderMsg, userToReceiveMessage)));
+  common.refPush(sender.inbox.messages, defaults({sent: true}, messageDefaults(senderMsg, userToReceiveMessage)));
   sender.markModified('inbox.messages');
 
   if (saveUsers) {
