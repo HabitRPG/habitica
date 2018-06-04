@@ -40,7 +40,8 @@ inboxSchema.plugin(baseModel, {
 });
 
 export const chatModel = mongoose.model('Chat', chatSchema);
-export const inboxModel = mongoose.model('Inbox', inboxSchema);
+// @TODO disabled until inbox is moved outside the user model
+// export const inboxModel = mongoose.model('Inbox', inboxSchema);
 
 export function setUserStyles (newMessage, user) {
   let userStyles = {};
