@@ -548,6 +548,7 @@ api.transferGems = {
 
     receiver.balance += amount;
     sender.balance -= amount;
+    // @TODO necessary? Also saved when sending the inbox message
     let promises = [receiver.save(), sender.save()];
     await Promise.all(promises);
 
