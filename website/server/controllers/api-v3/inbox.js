@@ -1,4 +1,5 @@
 import { authWithHeaders } from '../../middlewares/auth';
+import { toArray, orderBy } from 'lodash';
 
 let api = {};
 
@@ -10,7 +11,7 @@ let api = {};
  * @apiGroup Inbox
  * @apiDescription Get inbox messages for a user
  *
- * @apiSuccess {Array} data An array of chat messages
+ * @apiSuccess {Array} data An array of inbox messages
  */
 api.getInboxMessages = {
   method: 'GET',
@@ -18,9 +19,8 @@ api.getInboxMessages = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     const messagesObj = res.locals.user.inbox.messages;
-    const messagesArray = [];
+    const messagesArray = orderBy(toArray(messagesObj), ['timestamp'], ['desc']);
 
-    Object.keys(messagesObj).forEach(k => messagesArray.push(messagesObj[k]));
     res.respond(200, messagesArray);
   },
 };
