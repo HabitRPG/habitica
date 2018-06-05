@@ -480,17 +480,6 @@ schema.methods.sendChat = function sendChat (message, user, metaData) {
     newChatMessage._meta = metaData;
   }
 
-  // @TODO: Completely remove the code below after migration
-  // this.chat.unshift(newMessage);
-
-  let maxCount = MAX_CHAT_COUNT;
-
-  if (this.isSubscribed()) {
-    maxCount = MAX_SUBBED_GROUP_CHAT_COUNT;
-  }
-
-  this.chat.splice(maxCount);
-
   // do not send notifications for guilds with more than 5000 users and for the tavern
   if (NO_CHAT_NOTIFICATIONS.indexOf(this._id) !== -1 || this.memberCount > LARGE_GROUP_COUNT_MESSAGE_CUTOFF) {
     return newChatMessage;
