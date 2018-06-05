@@ -47,7 +47,7 @@ let api = {};
  * Flags (including armoire, tutorial, tour etc...)
  * Guilds
  * History (including timestamps and values)
- * Inbox (includes message history)
+ * Inbox
  * Invitations (to parties/guilds)
  * Items (character's full inventory)
  * New Messages (flags for groups/guilds that have new messages)
@@ -506,9 +506,6 @@ api.getUserAnonymized = {
     delete user.achievements.challenges;
     delete user.notifications;
 
-    _.forEach(user.inbox.messages, (msg) => {
-      msg.text = 'inbox message text';
-    });
     _.forEach(user.tags, (tag) => {
       tag.name = 'tag';
       tag.challenge = 'challenge';
