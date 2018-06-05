@@ -1,18 +1,18 @@
-.promo_armoire_backgrounds_201805 {
+.promo_armoire_backgrounds_201806 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -878px 0px;
+  background-position: -565px 0px;
   width: 141px;
   height: 441px;
 }
 .promo_bundle_cuddleBuddies {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -534px;
+  background-position: -707px 0px;
   width: 141px;
   height: 441px;
 }
 .promo_earrings_headbands {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -142px -534px;
+  background-position: 0px -534px;
   width: 297px;
   height: 147px;
 }
@@ -30,31 +30,19 @@
 }
 .promo_mystery_201805 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -878px -442px;
+  background-position: -707px -442px;
   width: 114px;
   height: 90px;
 }
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -326px -348px;
+  background-position: -565px -442px;
   width: 96px;
   height: 69px;
 }
-.scene_casting_spells {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -565px 0px;
-  width: 312px;
-  height: 222px;
-}
-.scene_hiking {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -565px -223px;
-  width: 258px;
-  height: 258px;
-}
-.scene_meditation {
+.scene_perfect_day {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: -326px -197px;
-  width: 150px;
-  height: 150px;
+  width: 210px;
+  height: 210px;
 }
