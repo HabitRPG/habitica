@@ -76,6 +76,7 @@ export let schema = new Schema({
   leader: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
   type: {type: String, enum: ['guild', 'party'], required: true},
   privacy: {type: String, enum: ['private', 'public'], default: 'private', required: true},
+  chat: Array, // Used for backward compatibility, but messages aren't stored here
   leaderOnly: { // restrict group actions to leader (members can't do them)
     challenges: {type: Boolean, default: false, required: true},
     // invites: {type: Boolean, default: false, required: true},
