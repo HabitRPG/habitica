@@ -308,9 +308,7 @@ function _getMembersForItem (type) {
 api.getMembersForGroup = {
   method: 'GET',
   url: '/groups/:groupId/members',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   handler: _getMembersForItem('group-members'),
 };
 
@@ -331,9 +329,7 @@ api.getMembersForGroup = {
 api.getInvitesForGroup = {
   method: 'GET',
   url: '/groups/:groupId/invites',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   handler: _getMembersForItem('group-invites'),
 };
 
@@ -359,9 +355,7 @@ api.getInvitesForGroup = {
 api.getMembersForChallenge = {
   method: 'GET',
   url: '/challenges/:challengeId/members',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   handler: _getMembersForItem('challenge-members'),
 };
 
@@ -381,9 +375,7 @@ api.getMembersForChallenge = {
 api.getChallengeMemberProgress = {
   method: 'GET',
   url: '/challenges/:challengeId/members/:memberId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
     req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
@@ -490,7 +482,7 @@ api.sendPrivateMessage = {
 
     if (objections.length > 0 && !sender.isAdmin()) throw new NotAuthorized(res.t(objections[0]));
 
-    await sender.sendMessage(receiver, { receiverMsg: message });
+    const messageSent = await sender.sendMessage(receiver, { receiverMsg: message });
 
     if (receiver.preferences.emailNotifications.newPM !== false) {
       sendTxnEmail(receiver, 'new-pm', [
@@ -510,7 +502,9 @@ api.sendPrivateMessage = {
       );
     }
 
-    res.respond(200, {});
+    res.respond(200, {
+      message: messageSent,
+    });
   },
 };
 

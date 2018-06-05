@@ -67,9 +67,7 @@ api.getNews = {
  */
 api.tellMeLaterNews = {
   method: 'POST',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/news/tell-me-later',
   async handler (req, res) {
     const user = res.locals.user;

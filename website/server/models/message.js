@@ -33,7 +33,7 @@ chatSchema.plugin(baseModel, {
 });
 
 const inboxSchema = new mongoose.Schema({
-  sent: {type: Number, default: false}, // if the owner sent this message
+  sent: {type: Boolean, default: false}, // if the owner sent this message
   // the uuid of the user where the message is stored,
   // we store two copies of each inbox messages:
   // one for the sender and one for the receiver
@@ -48,8 +48,7 @@ inboxSchema.plugin(baseModel, {
 });
 
 export const chatModel = mongoose.model('Chat', chatSchema);
-// @TODO disabled until inbox is moved outside the user model
-// export const inboxModel = mongoose.model('Inbox', inboxSchema);
+export const inboxModel = mongoose.model('Inbox', inboxSchema);
 
 export function setUserStyles (newMessage, user) {
   let userStyles = {};

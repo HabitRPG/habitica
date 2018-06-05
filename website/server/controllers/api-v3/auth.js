@@ -394,9 +394,7 @@ api.loginSocial = {
  */
 api.pusherAuth = {
   method: 'POST',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/auth/pusher',
   async handler (req, res) {
     let user = res.locals.user;
@@ -464,9 +462,7 @@ api.pusherAuth = {
  **/
 api.updateUsername = {
   method: 'PUT',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/auth/update-username',
   async handler (req, res) {
     let user = res.locals.user;
@@ -520,9 +516,7 @@ api.updateUsername = {
  **/
 api.updatePassword = {
   method: 'PUT',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/auth/update-password',
   async handler (req, res) {
     let user = res.locals.user;
@@ -632,9 +626,7 @@ api.resetPassword = {
  */
 api.updateEmail = {
   method: 'PUT',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/auth/update-email',
   async handler (req, res) {
     let user = res.locals.user;
@@ -721,9 +713,7 @@ api.resetPasswordSetNewOne = {
 api.deleteSocial = {
   method: 'DELETE',
   url: '/user/auth/social/:network',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let network = req.params.network;

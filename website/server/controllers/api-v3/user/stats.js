@@ -27,9 +27,7 @@ let api = {};
  */
 api.allocate = {
   method: 'POST',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/allocate',
   async handler (req, res) {
     let user = res.locals.user;
@@ -69,9 +67,7 @@ api.allocate = {
  */
 api.allocateBulk = {
   method: 'POST',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/allocate-bulk',
   async handler (req, res) {
     let user = res.locals.user;
@@ -127,9 +123,7 @@ api.allocateBulk = {
  */
 api.allocateNow = {
   method: 'POST',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/allocate-now',
   async handler (req, res) {
     let user = res.locals.user;

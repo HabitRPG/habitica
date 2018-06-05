@@ -128,9 +128,7 @@ api.getUser = {
  */
 api.getBuyList = {
   method: 'GET',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/inventory/buy',
   async handler (req, res) {
     let list = _.cloneDeep(common.updateStore(res.locals.user));
@@ -173,9 +171,7 @@ api.getBuyList = {
  */
 api.getInAppRewardsList = {
   method: 'GET',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/in-app-rewards',
   async handler (req, res) {
     let list = common.inAppRewards(res.locals.user);
@@ -556,9 +552,7 @@ api.getUserAnonymized = {
  */
 api.sleep = {
   method: 'POST',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/sleep',
   async handler (req, res) {
     let user = res.locals.user;
@@ -602,9 +596,7 @@ const buyKnownKeys = ['armoire', 'mystery', 'potion', 'quest', 'special'];
  */
 api.buy = {
   method: 'POST',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/buy/:key',
   async handler (req, res) {
     let user = res.locals.user;
@@ -668,9 +660,7 @@ api.buy = {
  */
 api.buyGear = {
   method: 'POST',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/buy-gear/:key',
   async handler (req, res) {
     let user = res.locals.user;
@@ -710,9 +700,7 @@ api.buyGear = {
  */
 api.buyArmoire = {
   method: 'POST',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/buy-armoire',
   async handler (req, res) {
     let user = res.locals.user;
@@ -752,9 +740,7 @@ api.buyArmoire = {
  */
 api.buyHealthPotion = {
   method: 'POST',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/buy-health-potion',
   async handler (req, res) {
     let user = res.locals.user;
@@ -796,9 +782,7 @@ api.buyHealthPotion = {
  */
 api.buyMysterySet = {
   method: 'POST',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/buy-mystery-set/:key',
   async handler (req, res) {
     let user = res.locals.user;
@@ -841,9 +825,7 @@ api.buyMysterySet = {
  */
 api.buyQuest = {
   method: 'POST',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/buy-quest/:key',
   async handler (req, res) {
     let user = res.locals.user;
@@ -883,9 +865,7 @@ api.buyQuest = {
  */
 api.buySpecialSpell = {
   method: 'POST',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/buy-special-spell/:key',
   async handler (req, res) {
     let user = res.locals.user;
@@ -929,9 +909,7 @@ api.buySpecialSpell = {
  */
 api.hatch = {
   method: 'POST',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/hatch/:egg/:hatchingPotion',
   async handler (req, res) {
     let user = res.locals.user;
@@ -983,9 +961,7 @@ api.hatch = {
  */
 api.equip = {
   method: 'POST',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/equip/:type/:key',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1020,9 +996,7 @@ api.equip = {
  */
 api.feed = {
   method: 'POST',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/feed/:pet/:food',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1066,9 +1040,7 @@ api.feed = {
  */
 api.changeClass = {
   method: 'POST',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/change-class',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1089,9 +1061,7 @@ api.changeClass = {
  */
 api.disableClasses = {
   method: 'POST',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/disable-classes',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1123,9 +1093,7 @@ api.disableClasses = {
  */
 api.purchase = {
   method: 'POST',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/purchase/:type/:key',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1172,9 +1140,7 @@ api.purchase = {
  */
 api.userPurchaseHourglass = {
   method: 'POST',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/purchase-hourglass/:type/:key',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1226,9 +1192,7 @@ api.userPurchaseHourglass = {
  */
 api.readCard = {
   method: 'POST',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/read-card/:cardType',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1270,9 +1234,7 @@ api.readCard = {
  */
 api.userOpenMysteryItem = {
   method: 'POST',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/open-mystery-item',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1304,9 +1266,7 @@ api.userOpenMysteryItem = {
  */
 api.userReleasePets = {
   method: 'POST',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/release-pets',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1355,9 +1315,7 @@ api.userReleasePets = {
  */
 api.userReleaseBoth = {
   method: 'POST',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/release-both',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1393,9 +1351,7 @@ api.userReleaseBoth = {
  */
 api.userReleaseMounts = {
   method: 'POST',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/release-mounts',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1425,9 +1381,7 @@ api.userReleaseMounts = {
  */
 api.userSell = {
   method: 'POST',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/sell/:type/:key',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1470,9 +1424,7 @@ api.userSell = {
  */
 api.userUnlock = {
   method: 'POST',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/unlock',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1498,9 +1450,7 @@ api.userUnlock = {
  */
 api.userRevive = {
   method: 'POST',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/revive',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1540,9 +1490,7 @@ api.userRevive = {
  */
 api.userRebirth = {
   method: 'POST',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/rebirth',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1700,9 +1648,7 @@ api.markPmsRead = {
  */
 api.userReroll = {
   method: 'POST',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/reroll',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1746,9 +1692,7 @@ api.userReroll = {
  */
 api.userReset = {
   method: 'POST',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/reset',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1799,9 +1743,7 @@ api.userReset = {
  */
 api.setCustomDayStart = {
   method: 'POST',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/custom-day-start',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1839,9 +1781,7 @@ api.setCustomDayStart = {
  */
 api.togglePinnedItem = {
   method: 'GET',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/toggle-pinned-item/:type/:path',
   async handler (req, res) {
     let user = res.locals.user;
@@ -1879,9 +1819,7 @@ api.togglePinnedItem = {
 api.movePinnedItem = {
   method: 'POST',
   url: '/user/move-pinned-item/:path/move/to/:position',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('path', res.t('taskIdRequired')).notEmpty();
     req.checkParams('position', res.t('positionRequired')).notEmpty().isNumeric();
