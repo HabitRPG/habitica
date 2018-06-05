@@ -281,8 +281,8 @@
     "backgroundGiantSeashellNotes": "在巨大的貝殼裡面閒逛",
     "backgroundKelpForestText": "Kelp Forest",
     "backgroundKelpForestNotes": "Swim through a Kelp Forest.",
-    "backgroundMidnightLakeText": "Midnight Lake",
-    "backgroundMidnightLakeNotes": "Rest by a Midnight Lake.",
+    "backgroundMidnightLakeText": "午夜湖畔",
+    "backgroundMidnightLakeNotes": "在午夜湖畔旁小憩。",
     "backgrounds082017": "第39組: 2017年八月推出",
     "backgroundBackOfGiantBeastText": "Back of a Giant Beast",
     "backgroundBackOfGiantBeastNotes": "Ride on the Back of a Giant Beast.",
@@ -352,5 +352,12 @@
     "backgroundFantasticalShoeStoreText": "Fantastical Shoe Store",
     "backgroundFantasticalShoeStoreNotes": "Look for fun new footwear in the Fantastical Shoe Store.",
     "backgroundChampionsColosseumText": "Champions' Colosseum",
-    "backgroundChampionsColosseumNotes": "Bask in the glory of the Champions' Colosseum."
+    "backgroundChampionsColosseumNotes": "Bask in the glory of the Champions' Colosseum.",
+    "backgrounds062018": "SET 49: Released June 2018",
+    "backgroundDocksText": "Docks",
+    "backgroundDocksNotes": "Fish from atop the Docks.",
+    "backgroundRowboatText": "Rowboat",
+    "backgroundRowboatNotes": "Sing rounds in a Rowboat.",
+    "backgroundPirateFlagText": "Pirate Flag",
+    "backgroundPirateFlagNotes": "Fly a fearsome Pirate Flag."
 }

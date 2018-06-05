@@ -130,7 +130,7 @@
     "possessiveParty": "<%= name %> csapata",
     "clearAll": "Összes üzenet törlése",
     "confirmDeleteAllMessages": "Biztos hogy ki akarod törölni az összes üzenetedet? A többi felhasználó továbbra is látni fogja az üzeneteket, amiket küldtél.",
-    "PMPlaceholderTitle": "Nothing Here Yet",
+    "PMPlaceholderTitle": "Itt még nincs semmi",
     "PMPlaceholderDescription": "Select a conversation on the left",
     "PMPlaceholderTitleRevoked": "Your chat privileges have been revoked",
     "PMPlaceholderDescriptionRevoked": "You are not able to send private messages because your chat privileges have been revoked. If you have questions or concerns about this, please email <a href=\"mailto:admin@habitica.com\">admin@habitica.com</a> to discuss it with the staff.",

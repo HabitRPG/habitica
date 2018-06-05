@@ -283,7 +283,7 @@
     "approveTask": "Approve Task",
     "needsWork": "Needs Work",
     "viewRequests": "View Requests",
-    "approvalTitle": "<%= userName %>, <%= type %>: \"<%= text %>\" işini tamamladı",
+    "approvalTitle": "<%= userName %>; <%= type %>: \"<%= text %>\" işini tamamladı.",
     "confirmTaskApproval": "<%= username %> adlı kişiyi, bu işi bitirdiği için ödüllendirmek istiyor musun?",
     "groupSubscriptionPrice": "Her ay 9$ + her bir grup üyesi için ek olarak aylık 3$",
     "groupAdditionalUserCost": "+$3.00/ay/kullanıcı",

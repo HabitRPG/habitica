@@ -349,6 +349,24 @@ let armor = {
     set: 'cobbler',
     canOwn: ownsItem('armor_armoire_cobblersCoveralls'),
   },
+  glassblowersCoveralls: {
+    text: t('armorArmoireGlassblowersCoverallsText'),
+    notes: t('armorArmoireGlassblowersCoverallsNotes', { con: 8 }),
+    value: 100,
+    con: 8,
+    set: 'glassblower',
+    canOwn: ownsItem('armor_armoire_glassblowersCoveralls'),
+  },
+  bluePartyDress: {
+    text: t('armorArmoireBluePartyDressText'),
+    notes: t('armorArmoireBluePartyDressNotes', { attrs: 7 }),
+    value: 100,
+    con: 7,
+    per: 7,
+    str: 7,
+    set: 'blueHairbow',
+    canOwn: ownsItem('armor_armoire_bluePartyDress'),
+  },
 };
 
 let body = {
@@ -445,6 +463,7 @@ let head = {
     per: 5,
     int: 5,
     con: 5,
+    set: 'blueHairbow',
     canOwn: ownsItem('head_armoire_blueHairbow'),
   },
   goldenLaurels: {
@@ -767,6 +786,14 @@ let head = {
     int: 10,
     canOwn: ownsItem('head_armoire_birdsNest'),
   },
+  glassblowersHat: {
+    text: t('headArmoireGlassblowersHatText'),
+    notes: t('headArmoireGlassblowersHatNotes', { per: 8 }),
+    value: 100,
+    per: 8,
+    set: 'glassblower',
+    canOwn: ownsItem('head_armoire_glassblowersHat'),
+  },
 };
 
 let shield = {
@@ -933,7 +960,7 @@ let shield = {
     notes: t('shieldArmoireShieldOfDiamondsNotes', { con: 10 }),
     value: 100,
     con: 10,
-    // set: 'kingOfDiamonds',
+    set: 'kingOfDiamonds',
     canOwn: ownsItem('shield_armoire_shieldOfDiamonds'),
   },
   flutteryFan: {
@@ -943,7 +970,7 @@ let shield = {
     con: 5,
     int: 5,
     per: 5,
-    // set: 'fluttery',
+    set: 'fluttery',
     canOwn: ownsItem('shield_armoire_flutteryFan'),
   },
   fancyShoe: {
@@ -954,6 +981,14 @@ let shield = {
     per: 7,
     set: 'cobbler',
     canOwn: ownsItem('shield_armoire_fancyShoe'),
+  },
+  fancyBlownGlassVase: {
+    text: t('shieldArmoireFancyBlownGlassVaseText'),
+    notes: t('shieldArmoireFancyBlownGlassVaseNotes', { int: 6 }),
+    value: 100,
+    int: 6,
+    set: 'glassblower',
+    canOwn: ownsItem('shield_armoire_fancyBlownGlassVase'),
   },
 };
 
@@ -1255,6 +1290,14 @@ let weapon = {
     str: 7,
     set: 'cobbler',
     canOwn: ownsItem('weapon_armoire_cobblersHammer'),
+  },
+  glassblowersBlowpipe: {
+    text: t('weaponArmoireGlassblowersBlowpipeText'),
+    notes: t('weaponArmoireGlassblowersBlowpipeNotes', { str: 6 }),
+    value: 100,
+    str: 6,
+    set: 'glassblower',
+    canOwn: ownsItem('weapon_armoire_glassblowersBlowpipe'),
   },
 };
 
