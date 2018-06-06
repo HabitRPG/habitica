@@ -52,7 +52,7 @@
         // @TODO: Implement new message header here when we fix the above
 
         .new-message-row(v-if='selectedConversation.key && !user.flags.chatRevoked')
-          textarea(v-model='newMessage')
+          textarea(v-model='newMessage', @keyup.ctrl.enter='sendMessageShortcut()')
           button.btn.btn-secondary(@click='sendPrivateMessage()') Send
 </template>
 
@@ -353,6 +353,9 @@ export default {
     },
     toggleOpt () {
       this.$store.dispatch('user:togglePrivateMessagesOpt');
+    },
+	async sendMessageShortcut () {
+        this.sendPrivateMessage();
     },
     selectConversation (key) {
       let convoFound = this.conversations.find((conversation) => {
