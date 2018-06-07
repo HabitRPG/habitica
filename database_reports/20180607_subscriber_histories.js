@@ -1,6 +1,7 @@
 import max from 'lodash/max';
 import mean from 'lodash/mean';
 import monk from 'monk';
+import round from 'lodash/round';
 
 /*
  * Output data on subscribers' task histories, formatted for CSV.
@@ -33,12 +34,13 @@ function usersReport () {
     {
       fields: {_id: 1},
     }
-  ).each((user) => {
+  ).each((user, {close, pause, resume}) => {
     let historyLengths = [];
     let habitCount = 0;
     let dailyCount = 0;
 
-    dbTasks.find(
+    pause();
+    return dbTasks.find(
       {
         userId: user._id,
         $or:
@@ -54,24 +56,24 @@ function usersReport () {
         },
       }
     ).each((task) => {
-      console.log(task._id);
       if (task.type === 'habit') {
-        dataSummary.habitCount++;
+        habitCount++;
       }
       if (task.type === 'daily') {
-        dataSummary.dailyCount++;
+        dailyCount++;
       }
       allHistoryLengths.push(task.history.length);
       historyLengths.push(task.history.length);
     }).then(() => {
       const maxHistory = max(historyLengths);
-      const meanHistory = mean(historyLengths);
+      const meanHistory = round(mean(historyLengths));
       const medianHistory = median(historyLengths);
       console.info(`${user._id},${dailyCount},${habitCount},${maxHistory},${meanHistory},${medianHistory}`);
+      resume();
     });
   }).then(() => {
     console.info(`Largest History Size: ${max(allHistoryLengths)}`);
-    console.info(`Mean of All History Sizes: ${mean(allHistoryLengths)}`);
+    console.info(`Mean of All History Sizes: ${round(mean(allHistoryLengths))}`);
     console.info(`Median of All History Sizes: ${median(allHistoryLengths)}`);
     return process.exit(0);
   });
