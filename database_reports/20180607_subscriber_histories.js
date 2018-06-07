@@ -2,10 +2,11 @@ import max from 'lodash/max';
 import mean from 'lodash/mean';
 import monk from 'monk';
 import round from 'lodash/round';
+import sum from 'lodash/sum';
 
 /*
  * Output data on subscribers' task histories, formatted for CSV.
- * User ID,Count of Dailies,Count of Habits,Max History Size,Mean History Size,Median History Size
+ * User ID,Count of Dailies,Count of Habits,Total History Size,Max History Size,Mean History Size,Median History Size
  */
 const connectionString = 'mongodb://localhost:27017/habitrpg?auto_reconnect=true'; // FOR TEST DATABASE
 
@@ -15,7 +16,7 @@ let dbTasks = monk(connectionString).get('tasks', { castIds: false });
 function usersReport () {
   let allHistoryLengths = [];
 
-  console.info('User ID,Count of Dailies,Count of Habits,Max History Size,Mean History Size,Median History Size');
+  console.info('User ID,Count of Dailies,Count of Habits,Total History Size,Max History Size,Mean History Size,Median History Size');
 
   dbUsers.find(
     {
@@ -62,19 +63,23 @@ function usersReport () {
       if (task.type === 'daily') {
         dailyCount++;
       }
-      allHistoryLengths.push(task.history.length);
-      historyLengths.push(task.history.length);
+      if (task.history.length > 0) {
+        allHistoryLengths.push(task.history.length);
+        historyLengths.push(task.history.length);
+      }
     }).then(() => {
-      const maxHistory = max(historyLengths);
-      const meanHistory = round(mean(historyLengths));
-      const medianHistory = median(historyLengths);
-      console.info(`${user._id},${dailyCount},${habitCount},${maxHistory},${meanHistory},${medianHistory}`);
+      const totalHistory = sum(historyLengths);
+      const maxHistory = historyLengths.length > 0 ? max(historyLengths) : 0;
+      const meanHistory = historyLengths.length > 0 ? round(mean(historyLengths)) : 0;
+      const medianHistory = historyLengths.length > 0 ? median(historyLengths) : 0;
+      console.info(`${user._id},${dailyCount},${habitCount},${totalHistory},${maxHistory},${meanHistory},${medianHistory}`);
       resume();
     });
   }).then(() => {
+    console.info(`Total Subscriber History Entries: ${sum(allHistoryLengths)}`);
     console.info(`Largest History Size: ${max(allHistoryLengths)}`);
-    console.info(`Mean of All History Sizes: ${round(mean(allHistoryLengths))}`);
-    console.info(`Median of All History Sizes: ${median(allHistoryLengths)}`);
+    console.info(`Mean History Size: ${round(mean(allHistoryLengths))}`);
+    console.info(`Median History Size: ${median(allHistoryLengths)}`);
     return process.exit(0);
   });
 }
