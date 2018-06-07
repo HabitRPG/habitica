@@ -724,7 +724,7 @@
     "armorArmoireCobblersCoverallsNotes": "Этот прочный комбинезон имеет множество карманов для инструментов, кусков кожи и другие полезных предметов! Увеличивает Восприятие и Силу на <%= attrs %>. Зачарованный сундук: Набор Сапожника (предмет 1 из 3)",
     "armorArmoireGlassblowersCoverallsText": "Glassblower's Coveralls",
     "armorArmoireGlassblowersCoverallsNotes": "These coveralls will protect you while you're making masterpieces with hot molten glass. Increases Constitution by <%= con %>. Enchanted Armoire: Glassblower Set (Item 2 of 4).",
-    "armorArmoireBluePartyDressText": "Blue Party Dress",
+    "armorArmoireBluePartyDressText": "Синее вечернее платье",
     "armorArmoireBluePartyDressNotes": "You're perceptive, tough, smart, and so fashionable! Increases Perception, Strength, and Constitution by <%= attrs %> each. Enchanted Armoire: Blue Hairbow Set (Item 2 of 2).",
     "headgear": "Головной убор",
     "headgearCapitalized": "Головной убор",

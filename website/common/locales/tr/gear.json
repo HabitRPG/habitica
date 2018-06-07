@@ -317,7 +317,7 @@
     "weaponArmoireForestFungusStaffText": "Orman Mantarı Asası",
     "weaponArmoireForestFungusStaffNotes": "Mikolojik büyü yapmak için bu boğumlu asayı kullan! Zekayı <%= int %> ve Sezgiyi <%= per %> puan arttırır. Efsunlu Gardırop: Bağımsız Eşya.",
     "weaponArmoireFestivalFirecrackerText": "Festival Fişeği",
-    "weaponArmoireFestivalFirecrackerNotes": "Bu enfes parıltıcının keyfini sorumlulukla yaşa. Sezgiyi <%= per %> puan arttırır. Efsunlu Gardırop: Festival Kıyafeti Seti (3 Eşyadan 3'üncüsü).",
+    "weaponArmoireFestivalFirecrackerNotes": "Bu enfes parıltıcının keyfini sorumlulukla yaşa. Sezgiyi <%= per %> puan arttırır. Efsunlu Gardırop: Festival Kıyafeti Seti (3 Eşyadan 3'üncüsü)",
     "weaponArmoireMerchantsDisplayTrayText": "Tüccarın Sergileme Tepsisi",
     "weaponArmoireMerchantsDisplayTrayNotes": "Bu cilalı tepsiyi, satışa sunduğun güzel eşyaları göstermek için kullan. Zekayı <%= int %> puan arttırır. Efsunlu Gardırop: Soytarı Seti (3 Eşyadan 3'üncüsü).",
     "weaponArmoireBattleAxeText": "Kadim Balta",
