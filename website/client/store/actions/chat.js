@@ -80,6 +80,9 @@ export async function flag (store, payload) {
   const response = await axios.post(url, {
     comment: payload.comment,
   });
+
+  console.info('response', response.data.data);
+
   return response.data.data;
 }
 

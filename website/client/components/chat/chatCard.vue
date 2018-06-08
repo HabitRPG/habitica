@@ -13,6 +13,8 @@ div
         .svg-icon(v-html="tierIcon", v-if='showShowTierStyle')
       p.time {{msg.timestamp | timeAgo}}
       .text(v-markdown='msg.text')
+      .reported(v-if="isMessageReported")
+        span(v-once) {{ $t('reportedMessage')}}
       hr
       .action(@click='like()', v-if='!inbox && msg.likes', :class='{active: msg.likes[user._id]}')
         .svg-icon(v-html="icons.like")
@@ -20,13 +22,13 @@ div
         span(v-if='msg.likes[user._id]') {{ $t('liked') }}
       span.action(v-if='!inbox', @click='copyAsTodo(msg)')
         .svg-icon(v-html="icons.copy", v-once)
-        | {{$t('copyAsTodo')}}
-      span.action(v-if='inbox || (user.flags.communityGuidelinesAccepted && msg.uuid !== "system")', @click='report(msg)')
+        span(v-once)  {{$t('copyAsTodo')}}
+      span.action(v-if='inbox || (user.flags.communityGuidelinesAccepted && msg.uuid !== "system" && !isMessageReported)', @click='report(msg)')
         .svg-icon(v-html="icons.report", v-once)
-        | {{$t('report')}}
+        span(v-once) {{$t('report')}}
       span.action(v-if='msg.uuid === user._id || inbox || user.contributor.admin', @click='remove()')
         .svg-icon(v-html="icons.delete", v-once)
-        | {{$t('delete')}}
+        span(v-once) {{$t('delete')}}
       span.action.float-right.liked(v-if='likeCount > 0')
         .svg-icon(v-html="icons.liked")
         | + {{ likeCount }}
@@ -34,6 +36,7 @@ div
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/tiers.scss';
+  @import '~client/assets/scss/colors.scss';
 
   .mentioned-icon {
     width: 16px;
@@ -104,6 +107,10 @@ div
   .action.active, .active .svg-icon {
     color: #46a7d9
   }
+
+  .reported {
+    color: $maroon-50;
+  }
 </style>
 
 <script>
@@ -154,6 +161,7 @@ export default {
         tier9,
         tierNPC,
       }),
+      reported: false,
     };
   },
   directives: {
@@ -218,6 +226,9 @@ export default {
       }
       return this.icons[`tier${message.contributor.level}`];
     },
+    isMessageReported () {
+      return this.msg.reported || this.reported;
+    },
   },
   methods: {
     async like () {
@@ -239,7 +250,15 @@ export default {
     copyAsTodo (message) {
       this.$root.$emit('habitica::copy-as-todo', message);
     },
-    async report () {
+    report () {
+      this.$root.$on('habitica:report-result', data => {
+        if (data.ok) {
+          this.reported = true;
+        }
+
+        this.$root.$off('habitica:report-result');
+      });
+
       this.$root.$emit('habitica::report-chat', {
         message: this.msg,
         groupId: this.groupId || 'privateMessage',

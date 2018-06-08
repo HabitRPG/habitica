@@ -61,32 +61,48 @@ export default class InboxChatReporter extends ChatReporter {
     });
   }
 
-  async flagInboxMessage (message) {
-    // Log user ids that have flagged the message
-    if (!message.flags) message.flags = {};
-    // TODO fix error type
-    if (message.flags[this.user._id] && !this.user.contributor.admin) throw new NotFound(this.res.t('messageGroupChatFlagAlreadyReported'));
-    message.flags[this.user._id] = true;
-
-    // Log total number of flags (publicly viewable)
-    if (!message.flagCount) message.flagCount = 0;
-    if (this.user.contributor.admin) {
-      // Arbitrary amount, higher than 2
-      message.flagCount = 5;
-    } else {
-      message.flagCount++;
-    }
+  updateMessageAndSave (message, updateFunc) {
+    updateFunc(message);
 
     this.user.inbox.messages[message.id] = message;
     this.user.markModified('inbox.messages');
 
-    await this.user.save();
+    return this.user.save();
+  }
+
+  flagInboxMessage (message) {
+    // Log user ids that have flagged the message
+    if (!message.flags) message.flags = {};
+    // TODO fix error type
+    if (message.flags[this.user._id] && !this.user.contributor.admin) {
+      throw new NotFound(this.res.t('messageGroupChatFlagAlreadyReported'));
+    }
+
+    return this.updateMessageAndSave(message, (m) => {
+      m.flags[this.user._id] = true;
+
+      // Log total number of flags (publicly viewable)
+      if (!m.flagCount) m.flagCount = 0;
+      if (this.user.contributor.admin) {
+        // Arbitrary amount, higher than 2
+        m.flagCount = 5;
+      } else {
+        m.flagCount++;
+      }
+    });
+  }
+
+  async markMessageAsReported (message) {
+    return this.updateMessageAndSave(message, (m) => {
+      m.reported = true;
+    });
   }
 
   async flag () {
     let {message, userComment} = await this.validate();
     await this.flagInboxMessage(message);
     await this.notify(message, userComment);
+    await this.markMessageAsReported(message);
     return message;
   }
 }

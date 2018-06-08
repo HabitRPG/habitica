@@ -113,11 +113,21 @@ export default {
     async reportAbuse () {
       this.text('Thank you for reporting this violation. The moderators have been notified.');
 
-      await this.$store.dispatch('chat:flag', {
+      let result = await this.$store.dispatch('chat:flag', {
         groupId: this.groupId,
         chatId: this.abuseObject.id,
         comment: this.reportComment,
       });
+
+
+      console.info('error', result);
+      this.$root.$emit('habitica:report-result', result);
+
+      if (!result.ok && result.error) {
+        alert('errrorororor!');
+        console.info('error', result);
+        this.error(result.error);
+      }
 
       this.close();
     },
