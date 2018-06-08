@@ -3,6 +3,7 @@ div
   inbox-modal
   creator-intro
   profile
+  report-flag-modal
   b-navbar.topbar.navbar-inverse.static-top.navbar-expand-lg(type="dark", :class="navbarZIndexClass")
     b-navbar-brand.brand
       .logo.svg-icon.d-none.d-xl-block(v-html="icons.logo")
@@ -349,6 +350,8 @@ import creatorIntro from '../creatorIntro';
 import profile from '../userMenu/profile';
 import userDropdown from './userDropdown';
 
+import reportFlagModal from '../chat/reportFlagModal';
+
 export default {
   components: {
     userDropdown,
@@ -356,6 +359,7 @@ export default {
     notificationMenu,
     creatorIntro,
     profile,
+    reportFlagModal,
   },
   data () {
     return {
