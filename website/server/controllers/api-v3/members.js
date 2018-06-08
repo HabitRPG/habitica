@@ -543,19 +543,12 @@ api.flagPrivateMessage = {
   url: '/members/flag-private-message/:messageId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    try {
-      const chatReporter = chatReporterFactory('Inbox', req, res);
-      const message = await chatReporter.flag();
-      res.respond(200, {
-        ok: true,
-        message,
-      });
-    } catch (e) {
-      res.respond(500, {
-        ok: false,
-        error: e,
-      });
-    }
+    const chatReporter = chatReporterFactory('Inbox', req, res);
+    const message = await chatReporter.flag();
+    res.respond(200, {
+      ok: true,
+      message,
+    });
   },
 };
 
