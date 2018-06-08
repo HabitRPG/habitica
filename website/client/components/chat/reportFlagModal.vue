@@ -119,15 +119,7 @@ export default {
         comment: this.reportComment,
       });
 
-
-      console.info('error', result);
       this.$root.$emit('habitica:report-result', result);
-
-      if (!result.ok && result.error) {
-        alert('errrorororor!');
-        console.info('error', result);
-        this.error(result.error);
-      }
 
       this.close();
     },
