@@ -212,16 +212,22 @@ module.exports = function scoreTask (options = {}, req = {}) {
     }
     _gainMP(user, max([0.25, 0.0025 * statsComputed(user).maxMP]) * (direction === 'down' ? -1 : 1));
 
+    // Save history entry for habit
     task.history = task.history || [];
+    const lastHistoryEntry = task.history.length > 0 ? task.history[task.history.length - 1] : null;
+    const lastHistoryEntryDate = moment(lastHistoryEntry).zone(timezoneOffset);
 
-    // Add history entry, even more than 1 per day
-    let historyEntry = {
-      date: Number(new Date()),
-      value: task.value,
-    };
-    if (task.scoreNotes) historyEntry.scoreNotes = task.scoreNotes;
+    if (lastHistoryEntry && moment().zone(timezoneOffset).isSame(lastHistoryEntryDate, 'day')) {
+      lastHistoryEntry.value = task.value;
+      lastHistoryEntry.date = Number(new Date());
 
-    task.history.push(historyEntry);
+      if (task.markModified) task.markModified(`history.${task.history.length - 1}`);
+    } else {
+      task.history.push({
+        date: Number(new Date()),
+        value: task.value,
+      });
+    }
 
     _updateCounter(task, direction, times);
   } else if (task.type === 'daily') {

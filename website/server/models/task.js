@@ -208,7 +208,7 @@ TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta
 
       // Only preen task history once a day when the task is scored first
       if (chalTask.history.length > 365) {
-        chalTask.history = preenHistory(chalTask.history, true); // true means the challenge will retain as much entries as a subscribed user
+        chalTask.history = preenHistory(chalTask.history, true); // true means the challenge will retain as many entries as a subscribed user
       }
     }
   }
