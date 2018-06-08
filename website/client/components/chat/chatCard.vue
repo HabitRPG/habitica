@@ -23,7 +23,7 @@ div
       span.action(v-if='!inbox', @click='copyAsTodo(msg)')
         .svg-icon(v-html="icons.copy", v-once)
         span(v-once)  {{$t('copyAsTodo')}}
-      span.action(v-if='inbox || (user.flags.communityGuidelinesAccepted && msg.uuid !== "system" && !isMessageReported)', @click='report(msg)')
+      span.action(v-if='(inbox || (user.flags.communityGuidelinesAccepted && msg.uuid !== "system")) && !isMessageReported', @click='report(msg)')
         .svg-icon(v-html="icons.report", v-once)
         span(v-once) {{$t('report')}}
       span.action(v-if='msg.uuid === user._id || inbox || user.contributor.admin', @click='remove()')
