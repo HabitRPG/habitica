@@ -20,11 +20,13 @@
 </template>
 
 <style lang="scss" scoped>
+@import '~client/assets/scss/colors.scss';
+
 dt {
   font-family: 'Roboto Condensed';
   font-size: 20px;
   line-height: 1.2;
-  color: #4E4A57;
+  color: $gray-50;
 }
 
 .col-8 {
