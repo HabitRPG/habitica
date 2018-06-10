@@ -17,5 +17,5 @@ function setUpServer () {
 setUpServer();
 
 // Replace this with your migration
-const processUsers = require('./users/mystery-items.js');
+const processUsers = require('./tasks/habits-one-history-entry-per-day.js');
 processUsers();

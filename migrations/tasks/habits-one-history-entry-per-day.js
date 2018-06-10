@@ -11,7 +11,7 @@ const _ = require('lodash');
 const moment = require('moment');
 const connectionString = 'mongodb://localhost:27017/habitrpg?auto_reconnect=true'; // FOR TEST DATABASE
 const dbTasks = monk(connectionString).get('tasks', { castIds: false });
-const dbUsers = monk(connectionString).get('tasks', { castIds: false });
+const dbUsers = monk(connectionString).get('users', { castIds: false });
 
 function processUsers (lastId) {
   let query = {};
