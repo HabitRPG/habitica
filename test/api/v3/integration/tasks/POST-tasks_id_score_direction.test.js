@@ -406,7 +406,8 @@ describe('POST /tasks/:id/score/:direction', () => {
       expect(updatedUser.stats.gp).to.be.greaterThan(user.stats.gp);
     });
 
-    it('adds score notes to task', async () => {
+    // not supported anymore
+    it('does not add score notes to task', async () => {
       let scoreNotesString = 'test-notes';
 
       await user.post(`/tasks/${habit._id}/score/up`, {
@@ -414,7 +415,7 @@ describe('POST /tasks/:id/score/:direction', () => {
       });
       let updatedTask = await user.get(`/tasks/${habit._id}`);
 
-      expect(updatedTask.history[0].scoreNotes).to.eql(scoreNotesString);
+      expect(updatedTask.history[0].scoreNotes).to.eql(undefined);
     });
 
     it('errors when score notes are too large', async () => {
