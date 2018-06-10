@@ -55,7 +55,7 @@ function updateUsers (users) {
 
 function updateHabit (habit, timezoneOffset) {
   if (habit && habit.history && habit.history.length > 0) {
-    _.chain(habit.history)
+    habit.history = _.chain(habit.history)
       // processes all entries to identify an up or down score
       .forEach((entry, index) => {
         if (index === 0) { // first entry
