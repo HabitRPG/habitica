@@ -25,8 +25,6 @@ import logger from '../../libs/logger';
 import moment from 'moment';
 import apiError from '../../libs/apiError';
 
-const MAX_SCORE_NOTES_LENGTH = 256;
-
 function canNotEditTasks (group, user, assignedUserId) {
   let isNotGroupLeader = group.leader !== user._id;
   let isManager = Boolean(group.managers[user._id]);

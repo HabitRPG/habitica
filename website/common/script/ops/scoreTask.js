@@ -226,7 +226,7 @@ module.exports = function scoreTask (options = {}, req = {}) {
       lastHistoryEntry.value = task.value;
       lastHistoryEntry.date = Number(new Date());
 
-      // @TODO remove extra check after migration has run to set scoredUp and scoredDown in every task
+      // @TODO remove this extra check after migration has run to set scoredUp and scoredDown in every task
       lastHistoryEntry.scoredUp = lastHistoryEntry.scoredUp || 0;
       lastHistoryEntry.scoredDown = lastHistoryEntry.scoredDown || 0;
 

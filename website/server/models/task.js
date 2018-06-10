@@ -203,7 +203,7 @@ TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta
       lastHistoryEntry.date = Number(new Date());
 
       if (chalTask.type === 'habit') {
-        // @TODO remove extra check after migration has run to set scoredUp and scoredDown in every task
+        // @TODO remove this extra check after migration has run to set scoredUp and scoredDown in every task
         lastHistoryEntry.scoredUp = lastHistoryEntry.scoredUp || 0;
         lastHistoryEntry.scoredDown = lastHistoryEntry.scoredDown || 0;
 
@@ -242,7 +242,11 @@ export let Task = mongoose.model('Task', TaskSchema);
 
 // habits and dailies shared fields
 let habitDailySchema = () => {
-  return {history: Array}; // [{date:Date, value:Number}], // this causes major performance problems
+  // Schema not defined because it causes serious perf problems
+  // date is a date stored as a Number value
+  // value is a Number
+  // scoredUp and scoredDown only exist for habits and are numbers
+  return {history: Array};
 };
 
 // dailys and todos shared fields
