@@ -1,5 +1,6 @@
 import timesLodash from 'lodash/times';
 import reduce from 'lodash/reduce';
+import moment from 'moment';
 import max from 'lodash/max';
 import {
   NotAuthorized,
@@ -214,18 +215,34 @@ module.exports = function scoreTask (options = {}, req = {}) {
 
     // Save history entry for habit
     task.history = task.history || [];
-    const lastHistoryEntry = task.history.length > 0 ? task.history[task.history.length - 1] : null;
-    const lastHistoryEntryDate = moment(lastHistoryEntry).zone(timezoneOffset);
+    const timezoneOffset = user.preferences.timezoneOffset;
+    const historyLength = task.history.length;
+    const lastHistoryEntry = task.history[historyLength - 1];
 
-    if (lastHistoryEntry && moment().zone(timezoneOffset).isSame(lastHistoryEntryDate, 'day')) {
+    if (
+      lastHistoryEntry &&
+      moment().zone(timezoneOffset).isSame(moment(lastHistoryEntry).zone(timezoneOffset), 'day')
+    ) {
       lastHistoryEntry.value = task.value;
       lastHistoryEntry.date = Number(new Date());
 
-      if (task.markModified) task.markModified(`history.${task.history.length - 1}`);
+      // @TODO remove extra check after migration has run to set scoredUp and scoredDown in every task
+      lastHistoryEntry.scoredUp = lastHistoryEntry.scoredUp || 0;
+      lastHistoryEntry.scoredDown = lastHistoryEntry.scoredDown || 0;
+
+      if (direction === 'up') {
+        lastHistoryEntry.scoredUp += times;
+      } else {
+        lastHistoryEntry.scoredDown += times;
+      }
+
+      if (task.markModified) task.markModified(`history.${historyLength - 1}`);
     } else {
       task.history.push({
         date: Number(new Date()),
         value: task.value,
+        scoredUp: direction === 'up' ? 1 : 0,
+        scoredDown: direction === 'down' ? 1 : 0,
       });
     }
 

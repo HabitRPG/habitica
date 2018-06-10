@@ -184,27 +184,49 @@ TaskSchema.statics.sanitizeReminder = function sanitizeReminder (reminderObj) {
   return reminderObj;
 };
 
-TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta) {
+TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta, direction) {
   let chalTask = this;
 
   chalTask.value += delta;
 
   if (chalTask.type === 'habit' || chalTask.type === 'daily') {
     // Add only one history entry per day
-    let lastChallengHistoryIndex = chalTask.history.length - 1;
+    const history = chalTask.history;
+    const lastChallengHistoryIndex = history.length - 1;
+    const lastHistoryEntry = history[lastChallengHistoryIndex];
 
-    if (chalTask.history[lastChallengHistoryIndex] &&
-      moment(chalTask.history[lastChallengHistoryIndex].date).isSame(new Date(), 'day')) {
-      chalTask.history[lastChallengHistoryIndex] = {
+    if (
+      lastHistoryEntry &&
+      moment(lastHistoryEntry.date).isSame(new Date(), 'day')
+    ) {
+      lastHistoryEntry.value = chalTask.value;
+      lastHistoryEntry.date = Number(new Date());
+
+      if (chalTask.type === 'habit') {
+        // @TODO remove extra check after migration has run to set scoredUp and scoredDown in every task
+        lastHistoryEntry.scoredUp = lastHistoryEntry.scoredUp || 0;
+        lastHistoryEntry.scoredDown = lastHistoryEntry.scoredDown || 0;
+
+        if (direction === 'up') {
+          lastHistoryEntry.scoredUp += 1;
+        } else {
+          lastHistoryEntry.scoredDown += 1;
+        }
+      }
+
+      chalTask.markModified(`history.${lastChallengHistoryIndex}`);
+    } else {
+      const historyEntry = {
         date: Number(new Date()),
         value: chalTask.value,
       };
-      chalTask.markModified(`history.${lastChallengHistoryIndex}`);
-    } else {
-      chalTask.history.push({
-        date: Number(new Date()),
-        value: chalTask.value,
-      });
+
+      if (chalTask.type === 'habit') {
+        historyEntry.scoredUp = direction === 'up' ? 1 : 0;
+        historyEntry.scoredDown = direction === 'down' ? 1 : 0;
+      }
+
+      history.push(historyEntry);
 
       // Only preen task history once a day when the task is scored first
       if (chalTask.history.length > 365) {

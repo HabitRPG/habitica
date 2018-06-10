@@ -555,14 +555,14 @@ api.scoreTask = {
   async handler (req, res) {
     req.checkParams('direction', res.t('directionUpDown')).notEmpty().isIn(['up', 'down']);
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let user = res.locals.user;
-    let {taskId} = req.params;
+    const user = res.locals.user;
+    const {taskId} = req.params;
 
-    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id, {userId: user._id});
-    let direction = req.params.direction;
+    const task = await Tasks.Task.findByIdOrAlias(taskId, user._id, {userId: user._id});
+    const direction = req.params.direction;
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
 
@@ -674,13 +674,13 @@ api.scoreTask = {
     if (task.challenge && task.challenge.id && task.challenge.taskId && !task.challenge.broken && task.type !== 'reward') {
       // Wrapping everything in a try/catch block because if an error occurs using `await` it MUST NOT bubble up because the request has already been handled
       try {
-        let chalTask = await Tasks.Task.findOne({
+        const chalTask = await Tasks.Task.findOne({
           _id: task.challenge.taskId,
         }).exec();
 
         if (!chalTask) return;
 
-        await chalTask.scoreChallengeTask(delta);
+        await chalTask.scoreChallengeTask(delta, direction);
       } catch (e) {
         logger.error(e);
       }
