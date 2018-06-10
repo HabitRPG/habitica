@@ -85,8 +85,9 @@ function updateHabit (habit, timezoneOffset) {
             scoredDown += 1;
           }
 
-          // delete the unnecessary scoreDirection prop
+          // delete the unnecessary scoreDirection and scoreNotes prop
           delete entry.scoreDirection;
+          delete entry.scoreNotes;
         });
 
         return {
