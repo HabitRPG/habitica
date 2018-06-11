@@ -11,6 +11,7 @@ const BASE_URL = nconf.get('BASE_URL');
 
 let flagSlack;
 let subscriptionSlack;
+let moment = require('moment');
 
 try {
   flagSlack = new IncomingWebhook(SLACK_FLAGGING_URL);
@@ -29,7 +30,6 @@ function sendFlagNotification ({
   if (!SLACK_FLAGGING_URL) {
     return;
   }
-  let moment = require('moment');
   let titleLink;
   let authorName;
   let timestamp;
@@ -56,7 +56,7 @@ function sendFlagNotification ({
 
   let date = moment(message.timestamp).format('YYYY-MM-DD');
   let time = moment(message.timestamp).utc().format('HH:mm');
-  timestamp = date + " " + time + " UTC";
+  timestamp = `${date} ${time} UTC`;
 
   flagSlack.send({
     text,
