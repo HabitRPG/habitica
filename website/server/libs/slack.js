@@ -29,8 +29,10 @@ function sendFlagNotification ({
   if (!SLACK_FLAGGING_URL) {
     return;
   }
+  let moment = require('moment');
   let titleLink;
   let authorName;
+  let timestamp;
   let title = `Flag in ${group.name}`;
   let text = `${flagger.profile.name} (${flagger.id}; language: ${flagger.preferences.language}) flagged a message`;
 
@@ -52,12 +54,17 @@ function sendFlagNotification ({
     authorName = `${message.user} - ${authorEmail} - ${message.uuid}`;
   }
 
+  let date = moment(message.timestamp).format('YYYY-MM-DD');
+  let time = moment(message.timestamp).utc().format('HH:mm');
+  timestamp = date + " " + time + " UTC";
+
   flagSlack.send({
     text,
     attachments: [{
       fallback: 'Flag Message',
       color: 'danger',
       author_name: authorName,
+      timestamp,
       title,
       title_link: titleLink,
       text: message.text,
