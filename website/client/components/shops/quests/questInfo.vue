@@ -23,7 +23,6 @@
 @import '~client/assets/scss/colors.scss';
 
 dt {
-  font-family: 'Roboto Condensed';
   font-size: 1.3em;
   line-height: 1.2;
   color: $gray-50;
@@ -54,7 +53,6 @@ dt {
 <style lang="scss">
 .questPopover {
   dt {
-    font-family: 'Roboto', sans-serif;
     color: inherit;
     font-size: 1em;
     white-space: nowrap;
