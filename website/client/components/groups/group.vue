@@ -39,7 +39,7 @@
             | {{$t('groupNoNotifications')}}
   .col-12.col-sm-4.sidebar
     .row(:class='{"guild-background": !isParty}')
-      .col-12
+      .col-12.buttons-wrapper
         .button-container
           button.btn.btn-success(class='btn-success', v-if='isLeader && !group.purchased.active', @click='upgradeGroup()')
             | {{ $t('upgrade') }}
@@ -127,6 +127,10 @@
   .sidebar {
     background-color: $gray-600;
     padding-bottom: 2em;
+    
+  }
+
+  .buttons-wrapper {
     padding-top: 2.8em;
   }
 
