@@ -80,6 +80,7 @@ div
       font-size: 14px;
       color: #4e4a57;
       text-align: left !important;
+      min-height: auto !important;
     }
   }
 
@@ -109,7 +110,8 @@ div
   }
 
   .reported {
-    color: $maroon-50;
+    margin-top: 18px;
+    color: $red-50;
   }
 </style>
 
