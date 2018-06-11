@@ -220,8 +220,8 @@ module.exports = function scoreTask (options = {}, req = {}) {
     const lastHistoryEntry = task.history[historyLength - 1];
 
     if (
-      lastHistoryEntry &&
-      moment().zone(timezoneOffset).isSame(moment(lastHistoryEntry).zone(timezoneOffset), 'day')
+      lastHistoryEntry && lastHistoryEntry.date &&
+      moment().zone(timezoneOffset).isSame(moment(lastHistoryEntry.date).zone(timezoneOffset), 'day')
     ) {
       lastHistoryEntry.value = task.value;
       lastHistoryEntry.date = Number(new Date());

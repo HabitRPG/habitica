@@ -196,8 +196,8 @@ TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta
     const lastHistoryEntry = history[lastChallengHistoryIndex];
 
     if (
-      lastHistoryEntry &&
-      moment(lastHistoryEntry.date).isSame(new Date(), 'day')
+      lastHistoryEntry && lastHistoryEntry.date &&
+      moment().isSame(lastHistoryEntry.date, 'day')
     ) {
       lastHistoryEntry.value = chalTask.value;
       lastHistoryEntry.date = Number(new Date());
