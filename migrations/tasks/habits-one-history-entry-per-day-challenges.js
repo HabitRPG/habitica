@@ -106,6 +106,10 @@ function updateChallengeHabit (habit) {
         };
       })
       .value();
+
+    return dbTasks.update({_id: habit._id}, {
+      $set: {history: habit.history},
+    });
   }
 
   if (count % progressCount === 0) console.warn(`${count  } habits processed`);

@@ -104,6 +104,10 @@ function updateHabit (habit, timezoneOffset, dayStart) {
         };
       })
       .value();
+
+    return dbTasks.update({_id: habit._id}, {
+      $set: {history: habit.history},
+    });
   }
 }
 
