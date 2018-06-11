@@ -1,4 +1,5 @@
 import nconf from 'nconf';
+import { model as User } from '../../models/user';
 
 import ChatReporter from './chatReporter';
 import {
@@ -18,7 +19,8 @@ export default class InboxChatReporter extends ChatReporter {
   constructor (req, res) {
     super(req, res);
 
-    this.user = res.locals.user;
+    this.reporter = res.locals.user;
+    this.inboxUser = res.locals.user;
   }
 
   async validate () {
@@ -27,7 +29,11 @@ export default class InboxChatReporter extends ChatReporter {
     let validationErrors = this.req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let messages = this.user.inbox.messages;
+    if (this.reporter.contributor.admin && this.req.query.userId) {
+      this.inboxUser = await User.findOne({_id: this.req.query.userId});
+    }
+
+    let messages = this.inboxUser.inbox.messages;
 
     const message = _find(messages, (m) => m.id === this.req.params.messageId);
     if (!message) throw new NotFound(this.res.t('messageGroupChatNotFound'));
@@ -55,7 +61,7 @@ export default class InboxChatReporter extends ChatReporter {
 
     slack.sendInboxFlagNotification({
       authorEmail: this.authorEmail,
-      flagger: this.user,
+      flagger: this.reporter,
       message,
       userComment,
     });
@@ -64,26 +70,26 @@ export default class InboxChatReporter extends ChatReporter {
   updateMessageAndSave (message, updateFunc) {
     updateFunc(message);
 
-    this.user.inbox.messages[message.id] = message;
-    this.user.markModified('inbox.messages');
+    this.inboxUser.inbox.messages[message.id] = message;
+    this.inboxUser.markModified('inbox.messages');
 
-    return this.user.save();
+    return this.inboxUser.save();
   }
 
   flagInboxMessage (message) {
     // Log user ids that have flagged the message
     if (!message.flags) message.flags = {};
     // TODO fix error type
-    if (message.flags[this.user._id] && !this.user.contributor.admin) {
+    if (message.flags[this.reporter._id] && !this.reporter.contributor.admin) {
       throw new NotFound(this.res.t('messageGroupChatFlagAlreadyReported'));
     }
 
     return this.updateMessageAndSave(message, (m) => {
-      m.flags[this.user._id] = true;
+      m.flags[this.reporter._id] = true;
 
       // Log total number of flags (publicly viewable)
       if (!m.flagCount) m.flagCount = 0;
-      if (this.user.contributor.admin) {
+      if (this.reporter.contributor.admin) {
         // Arbitrary amount, higher than 2
         m.flagCount = 5;
       } else {

@@ -133,7 +133,7 @@ function sendInboxFlagNotification ({
       title,
       title_link: titleLink,
       text: messageText,
-      footer: `<${SLACK_FLAGGING_FOOTER_LINK}?groupId=privateMessages&chatId=${message.id}|Flag this message>`,
+      footer: `<${SLACK_FLAGGING_FOOTER_LINK}?userId=${flagger.id}&chatMessageId=${message.id}|Flag this message>`,
       mrkdwn_in: [
         'text',
       ],

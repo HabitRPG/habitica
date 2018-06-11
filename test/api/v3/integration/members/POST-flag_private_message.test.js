@@ -45,7 +45,6 @@ describe('POST /members/flag-private-message/:messageId', () => {
 
     expect(sendersMessageInReceiversInbox).to.exist;
     await expect(receiver.post(`/members/flag-private-message/${sendersMessageInReceiversInbox.id}`)).to.eventually.be.ok;
-
   });
 
   it('Returns an error when user tries to flag a private message that is already flagged', async () => {
