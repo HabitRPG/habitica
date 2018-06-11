@@ -25,7 +25,7 @@ function processUsers (lastId) {
   dbUsers.find(query, {
     sort: {_id: 1},
     limit: 50, // just 50 users per time since we have to process all their habits as well
-    fields: ['_id', 'preferences.timezoneOffset'],
+    fields: ['_id', 'preferences.timezoneOffset', 'preferences.dayStart'],
   })
     .then(updateUsers)
     .catch((err) => {
@@ -53,7 +53,7 @@ function updateUsers (users) {
     });
 }
 
-function updateHabit (habit, timezoneOffset) {
+function updateHabit (habit, timezoneOffset, dayStart) {
   if (habit && habit.history && habit.history.length > 0) {
     // First remove missing entries
     habit.history = habit.history.filter(entry => Boolean(entry));
@@ -73,7 +73,9 @@ function updateHabit (habit, timezoneOffset) {
         }
       })
       .groupBy(entry => { // group entries by aggregateBy
-        return moment(entry.date).zone(timezoneOffset || 0).format('YYYYMMDD');
+        const entryDate = moment(entry.date).zone(timezoneOffset || 0);
+        if (entryDate.hour() < dayStart) entryDate.subtract(1, 'day');
+        return entryDate.format('YYYYMMDD');
       })
       .toPairs() // [key, entry]
       .sortBy(([key]) => key) // sort by date
@@ -109,6 +111,7 @@ function updateUser (user) {
   count++;
 
   const timezoneOffset = user.preferences.timezoneOffset;
+  const dayStart = user.preferences.dayStart;
 
   if (count % progressCount === 0) console.warn(`${count  } ${  user._id}`);
   if (user._id === authorUuid) console.warn(`${authorName  } being processed`);
@@ -118,7 +121,7 @@ function updateUser (user) {
     userId: user._id,
   })
     .then(habits => {
-      return Promise.all(habits.map(habit => updateHabit(habit, timezoneOffset)));
+      return Promise.all(habits.map(habit => updateHabit(habit, timezoneOffset, dayStart)));
     })
     .catch((err) => {
       console.log(err);
