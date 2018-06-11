@@ -241,6 +241,12 @@ export default {
       this.$store.state.challengeOptions.workingChallenge = Object.assign({}, this.$store.state.challengeOptions.workingChallenge, data.challenge);
       this.$root.$emit('bv::show::modal', 'challenge-modal');
     });
+    this.$root.$on('habitica:update-challenge', (data) => {
+      if (!data.challenge) return;
+      this.cloning = false;
+      this.$store.state.challengeOptions.workingChallenge = Object.assign({}, this.$store.state.challengeOptions.workingChallenge, data.challenge);
+      this.$root.$emit('bv::show::modal', 'challenge-modal');
+    });
   },
   beforeDestroy () {
     this.$root.$off('habitica:clone-challenge');
