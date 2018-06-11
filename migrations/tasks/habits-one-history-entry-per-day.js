@@ -55,13 +55,17 @@ function updateUsers (users) {
 
 function updateHabit (habit, timezoneOffset) {
   if (habit && habit.history && habit.history.length > 0) {
+    // First remove missing entries
+    habit.history = habit.history.filter(entry => Boolean(entry));
+
     habit.history = _.chain(habit.history)
       // processes all entries to identify an up or down score
       .forEach((entry, index) => {
-        if (index === 0) { // first entry
+        if (index === 0) { // first entry doesn't have a previous one
           // first value < 0 identifies a negative score as the first action
           entry.scoreDirection = entry.value >= 0 ? 'up' : 'down';
         } else {
+          // could be missing if the previous entry was null and thus excluded
           const previousEntry = habit.history[index - 1];
           const previousValue = previousEntry.value;
 
@@ -111,6 +115,7 @@ function updateUser (user) {
 
   return dbTasks.find({
     type: 'habit',
+    userId: user._id,
   })
     .then(habits => {
       return Promise.all(habits.map(habit => updateHabit(habit, timezoneOffset)));
