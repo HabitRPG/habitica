@@ -3,6 +3,7 @@ import { IncomingWebhook } from '@slack/client';
 import logger from './logger';
 import { TAVERN_ID } from '../models/group';
 import nconf from 'nconf';
+import moment from 'moment';
 
 const SLACK_FLAGGING_URL = nconf.get('SLACK:FLAGGING_URL');
 const SLACK_FLAGGING_FOOTER_LINK = nconf.get('SLACK:FLAGGING_FOOTER_LINK');
@@ -11,7 +12,6 @@ const BASE_URL = nconf.get('BASE_URL');
 
 let flagSlack;
 let subscriptionSlack;
-let moment = require('moment');
 
 try {
   flagSlack = new IncomingWebhook(SLACK_FLAGGING_URL);
@@ -32,7 +32,6 @@ function sendFlagNotification ({
   }
   let titleLink;
   let authorName;
-  let timestamp;
   let title = `Flag in ${group.name}`;
   let text = `${flagger.profile.name} (${flagger.id}; language: ${flagger.preferences.language}) flagged a message`;
 
@@ -54,9 +53,7 @@ function sendFlagNotification ({
     authorName = `${message.user} - ${authorEmail} - ${message.uuid}`;
   }
 
-  let date = moment(message.timestamp).format('YYYY-MM-DD');
-  let time = moment(message.timestamp).utc().format('HH:mm');
-  timestamp = `${date} ${time} UTC`;
+  const timestamp = `${moment(message.timestamp).utc().format('YYYY-MM-DD HH:mm')} UTC`;
 
   flagSlack.send({
     text,
