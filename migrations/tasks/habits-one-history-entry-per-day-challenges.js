@@ -16,6 +16,7 @@ function processChallengeHabits (lastId) {
   let query = {
     'challenge.id': {$exists: true},
     userId: {$exists: false},
+    type: 'habit',
   };
 
   if (lastId) {
