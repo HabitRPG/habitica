@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'JUNE BACKGROUNDS AND ARMOIRE ITEMS, AND WIKI SPOTLIGHT ON PERFECT DAYS';
+const LAST_ANNOUNCEMENT_TITLE = 'NEW DISCOUNTED PET QUEST BUNDLE: AQUATIC AMIGOS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -32,25 +32,10 @@ api.getNews = {
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
           </div>
         </div>
-        <h2>6/5/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+        <h2>6/12/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
-        <div class="media align-items-center">
-          <div class="media-body">
-            <h3>June Backgrounds and Armoire Items!</h3>
-            <p>We’ve added three new backgrounds to the Background Shop! Now your avatar can sing rounds in a Rowboat, fish at the Docks, or wave a Pirate Flag. Check them out under User Icon > Backgrounds!</p>
-            <p>Plus, there’s new gold-purchasable equipment in the Enchanted Armoire, including the Glass Blower Set and the Blue Party Dress. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)</p>
-            <div class="small mb-3">by ChimeraLiani, Gerald The Pixel, AnnDeLune, CarolinaAsh, eyenne, Alonquian TGW, and Migu the Wanderer</div>
-            <div class="media align-items-center">
-              <div class="scene_perfect_day mr-3"></div>
-              <div class="media-body">
-                <h3>Blog Post: Perfect Day</h3>
-                <p>This month's <a href='https://habitica.wordpress.com/2018/05/30/perfect-day/' target='_blank'>featured Wiki article</a> is about the Perfect Day achievement! We hope that it will help you as you work on finishing all your Dailies. Be sure to check it out, and let us know what you think by reaching out on <a href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a href='https://facebook.com/habitica' target='_blank'>Facebook</a>.</p>
-                <div class="small">by shanaqui and the Wiki Wizards</div>
-              </div>
-            </div>
-          </div>
-          <div class="promo_armoire_backgrounds_201806 ml-3 mb-3"></div>
-        </div>
+        <p>If you're looking to add some pets to your Habitica stable, you're in luck! From now until June 30, you can purchase the Aquatic Amigos Pet Quest Bundle and receive the Axolotl, Cuttlefish, and Octopus quests, all for only 7 Gems! That's a discount of 5 Gems from the price of purchasing them separately. Check it out in the <a href='shops/quests' target='_blank'>Quest Shop</a> today!</p>
+      <div class="promo_bundle_aquaticAmigos center-block"></div>
       </div>
       `,
     });

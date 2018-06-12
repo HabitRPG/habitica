@@ -134,7 +134,7 @@
     "invalidClass": "此職業不存在。請指定\"戰士\"、\"盜賊\"、\"法師\"、或\"醫者\"。",
     "levelPopover": "Each level earns you one Point to assign to a Stat of your choice. You can do so manually, or let the game decide for you using one of the Automatic Allocation options.",
     "unallocated": "未分配屬性點",
-    "haveUnallocated": "你有<%= points %>點未分配屬性點。",
+    "haveUnallocated": "你有<%= points %>點未分配屬性點",
     "autoAllocation": "自動分配",
     "autoAllocationPop": "Places Points into Stats according to your preferences, when you level up.",
     "evenAllocation": "Distribute Stat Points evenly",
