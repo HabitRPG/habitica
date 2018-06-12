@@ -30,7 +30,7 @@ div
         :class-badge-position="'hidden'",
       )
     .no-party.d-flex.justify-content-center.text-center(v-else)
-      .align-self-center(v-once)
+      .align-self-center
         h3 {{ $t('battleWithFriends') }}
         span.small-text(v-html="$t('inviteFriendsParty')")
         br
