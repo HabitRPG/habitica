@@ -107,7 +107,7 @@
     "vuejs-datepicker": "git://github.com/habitrpg/vuejs-datepicker.git#5d237615463a84a23dd6f3f77c6ab577d68593ec",
     "webpack": "^3.12.0",
     "webpack-merge": "^4.0.0",
-    "winston": "^2.4.2",
+    "winston": "^3.0.0",
     "winston-loggly-bulk": "^2.0.2",
     "xml2js": "^0.4.4"
   },
