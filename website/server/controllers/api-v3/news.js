@@ -34,7 +34,7 @@ api.getNews = {
         </div>
         <h2>6/12/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
-        <p>If you're looking to add some pets to your Habitica stable, you're in luck! From now until June 30, you can purchase the Aquatic Amigos Pet Quest Bundle and receive the Axolotl, Cuttlefish, and Octopus quests, all for only 7 Gems! That's a discount of 5 Gems from the price of purchasing them separately. Check it out in the <a href='shops/quests' target='_blank'>Quest Shop</a> today!</p>
+        <p>If you're looking to add some pets to your Habitica stable, you're in luck! From now until June 30, you can purchase the Aquatic Amigos Pet Quest Bundle and receive the Axolotl, Cuttlefish, and Octopus quests, all for only 7 Gems! That's a discount of 5 Gems from the price of purchasing them separately. Check it out in the <a href='/shops/quests' target='_blank'>Quest Shop</a> today!</p>
       <div class="promo_bundle_aquaticAmigos center-block"></div>
       </div>
       `,
