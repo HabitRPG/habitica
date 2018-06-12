@@ -216,12 +216,21 @@ module.exports = function scoreTask (options = {}, req = {}) {
     // Save history entry for habit
     task.history = task.history || [];
     const timezoneOffset = user.preferences.timezoneOffset;
+    const dayStart = user.preferences.dayStart;
     const historyLength = task.history.length;
     const lastHistoryEntry = task.history[historyLength - 1];
 
+    // Adjust the last entry date according to the user's timezone and CDS
+    let lastHistoryEntryDate;
+
+    if (lastHistoryEntry && lastHistoryEntry.date) {
+      lastHistoryEntryDate = moment(lastHistoryEntry.date).zone(timezoneOffset);
+      if (lastHistoryEntryDate.hour() < dayStart) lastHistoryEntryDate.subtract(1, 'day');
+    }
+
     if (
-      lastHistoryEntry && lastHistoryEntry.date &&
-      moment().zone(timezoneOffset).isSame(moment(lastHistoryEntry.date).zone(timezoneOffset), 'day')
+      lastHistoryEntryDate &&
+      moment().zone(timezoneOffset).isSame(lastHistoryEntryDate, 'day')
     ) {
       lastHistoryEntry.value = task.value;
       lastHistoryEntry.date = Number(new Date());
