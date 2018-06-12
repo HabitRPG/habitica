@@ -60,8 +60,7 @@ function sendFlagNotification ({
     attachments: [{
       fallback: 'Flag Message',
       color: 'danger',
-      author_name: authorName,
-      timestamp,
+      author_name: `${authorName}\n${timestamp}`,
       title,
       title_link: titleLink,
       text: message.text,
