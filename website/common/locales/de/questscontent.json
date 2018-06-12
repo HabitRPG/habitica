@@ -469,7 +469,7 @@
     "questButterflyNotes": "Deine Gärtner-Freundin @Megan schickt Dir eine Einladung: \"Diese warmen Tage wären doch perfekt für einen Besuch des Schmetterlingsgartens in Aufgabistan. Komm, lass uns Schmetterlinge beobachten!\" Doch als Du ankommst, ist der Garten verdorrt -- es ist kaum mehr als verbranntes Gras und vertrocknetes Unkraut übrig. Es war so heiß, dass die Habiticaner nicht vorbei gekommen sind, um die Blumen zu gießen, und die dunkelroten täglichen Aufgaben haben alles zu einer trockenen, sonnenverglühten Brandgefahr gemacht. Es ist nur noch ein Schmetterling übrig, aber etwas ist seltsam an ihm...<br><br>\"Oh nein! Das sind perfekte Schlüpfbedingungen für den Entflammten Funkenfalter\", ruft @Leephon.<br><br>\"Wenn wir ihn nicht einfangen, wird er alles zerstören!\" keucht @Eevachu.<br><br>Es wird Zeit, dem Funkenfalter auf Wiedersehen zu sagen!",
     "questButterflyCompletion": "Nach einer lodernden Schlacht ist der Entflammte Funkenfalter gefangen. \"Tolle Leistung, diesen Möchtegern-Brandstifter einzufangen\", sagt @Megan mit einem Seufzer der Erleichterung. \"Dennoch ist es schwer, selbst den fiesesten Falter zu verunglimpfen. Wir sollten diesen Funkenfalter besser an einem sicheren Ort freilassen... wie der Wüste.\"<br><br>Eine der anderen Gärtnerinnen, @Beffymaroo, kommt zu euch, angesengt aber mit einem Lächeln. \"Möchtest Du uns dabei helfen, diese verwaisten Schmetterlingspuppen großzuziehen, die wir gefunden haben? Vielleicht werden wir nächstes Jahr einen grüneren Garten für sie haben.\"",
     "questButterflyBoss": "Entflammter Funkenfalter",
-    "questButterflyDropButterflyEgg": "Rauperich (Ei)",
+    "questButterflyDropButterflyEgg": "Raupe (Ei)",
     "questButterflyUnlockText": "Ermöglicht den Kauf von Raupeneiern auf dem Marktplatz",
     "questGroupMayhemMistiflying": "Chaos in Mistiflying",
     "questMayhemMistiflying1Text": "Chaos in Mistiflying, Teil 1: In welchem Mistiflying unter einer schrecklichen Plage leidet",
@@ -602,5 +602,7 @@
     "questSquirrelDropSquirrelEgg": "Eichörnchen (Ei)",
     "questSquirrelUnlockText": "Ermöglicht den Kauf von Eichörncheneiern auf dem Marktplatz ",
     "cuddleBuddiesText": "\"Kuschelkumpel\" Quest-Paket",
-    "cuddleBuddiesNotes": "Beinhaltet 'Das Killerkaninchen', 'Das Ruchlose Frettchen' und 'Die Meerschweinchen Gang'. Verfügbar bis zum 31. Mai."
+    "cuddleBuddiesNotes": "Beinhaltet 'Das Killerkaninchen', 'Das Ruchlose Frettchen' und 'Die Meerschweinchen Gang'. Verfügbar bis zum 31. Mai.",
+    "aquaticAmigosText": "Aquatic Amigos Quest Bundle",
+    "aquaticAmigosNotes": "Contains 'The Magical Axolotl', 'The Kraken of Inkomplete', and 'The Call of Octothulu'. Available until June 30."
 }
