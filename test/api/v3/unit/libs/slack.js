@@ -34,7 +34,7 @@ describe('slack', () => {
           user: 'Author',
           uuid: 'author-id',
           text: 'some text',
-          timestamp: ISODate("2018-06-09T23:56:26.367Z"),
+          timestamp: Date('2018-06-09T23:56:26.367Z'),
         },
       };
     });
