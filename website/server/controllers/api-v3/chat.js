@@ -39,6 +39,11 @@ const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email)
  * @apiError (404) {badRequest} chatIdRequired A chat ID is required
  */
 
+/**
+ * @apiDefine MessageIdRequired
+ * @apiError (404) {badRequest} messageIdRequired A message ID is required
+ */
+
 let api = {};
 
 function textContainsBannedSlur (message) {

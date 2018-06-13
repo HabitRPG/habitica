@@ -19,7 +19,7 @@ export default class InboxChatReporter extends ChatReporter {
   constructor (req, res) {
     super(req, res);
 
-    this.reporter = res.locals.user;
+    this.user = res.locals.user;
     this.inboxUser = res.locals.user;
   }
 
@@ -29,7 +29,7 @@ export default class InboxChatReporter extends ChatReporter {
     let validationErrors = this.req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    if (this.reporter.contributor.admin && this.req.query.userId) {
+    if (this.user.contributor.admin && this.req.query.userId) {
       this.inboxUser = await User.findOne({_id: this.req.query.userId});
     }
 
@@ -61,7 +61,7 @@ export default class InboxChatReporter extends ChatReporter {
 
     slack.sendInboxFlagNotification({
       authorEmail: this.authorEmail,
-      flagger: this.reporter,
+      flagger: this.user,
       message,
       userComment,
     });
@@ -80,16 +80,16 @@ export default class InboxChatReporter extends ChatReporter {
     // Log user ids that have flagged the message
     if (!message.flags) message.flags = {};
     // TODO fix error type
-    if (message.flags[this.reporter._id] && !this.reporter.contributor.admin) {
+    if (message.flags[this.user._id] && !this.user.contributor.admin) {
       throw new NotFound(this.res.t('messageGroupChatFlagAlreadyReported'));
     }
 
     return this.updateMessageAndSave(message, (m) => {
-      m.flags[this.reporter._id] = true;
+      m.flags[this.user._id] = true;
 
       // Log total number of flags (publicly viewable)
       if (!m.flagCount) m.flagCount = 0;
-      if (this.reporter.contributor.admin) {
+      if (this.user.contributor.admin) {
         // Arbitrary amount, higher than 2
         m.flagCount = 5;
       } else {
