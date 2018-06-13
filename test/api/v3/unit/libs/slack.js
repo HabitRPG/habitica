@@ -34,6 +34,7 @@ describe('slack', () => {
           user: 'Author',
           uuid: 'author-id',
           text: 'some text',
+          timestamp: ISODate("2018-06-09T23:56:26.367Z"),
         },
       };
     });
@@ -51,11 +52,11 @@ describe('slack', () => {
         attachments: [{
           fallback: 'Flag Message',
           color: 'danger',
-          author_name: 'Author - author@example.com - author-id',
+          author_name: 'Author - author@example.com - author-id\n2018-06-09 23:56 UTC',
           title: 'Flag in Some group - (private guild)',
           title_link: undefined,
           text: 'some text',
-          footer: sandbox.match(/<.*?groupId=group-id&chatId=chat-id\|Flag this message>/),
+          footer: sandbox.match(/.*?groupId=group-id&chatId=chat-id\|Flag this message/),
           mrkdwn_in: [
             'text',
           ],
@@ -99,7 +100,7 @@ describe('slack', () => {
 
       expect(IncomingWebhook.prototype.send).to.be.calledWithMatch({
         attachments: [sandbox.match({
-          author_name: 'System Message',
+          author_name: 'System Message\n2018-06-09 23:56 UTC',
         })],
       });
     });
