@@ -30,7 +30,6 @@ function fixGroupPlanMembers () {
         [
           {'purchased.plan.dateTerminated': null},
           {'purchased.plan.dateTerminated': ''},
-          {'purchased.plan.dateTerminated': {$gt: new Date()}},
         ],
     },
     {
