@@ -50,7 +50,13 @@ function fixGroupPlanMembers () {
           ],
       }
     );
-    if (group.memberCount !== canonicalMemberCount || group.purchased.plan.planId === 'group_monthly' && group.purchased.plan.quantity !== group.memberCount + 2) {
+    const incorrectMemberCount = (group.memberCount !== canonicalMemberCount);
+
+    const isMonthlyPlan = (group.purchased.plan.planId === 'group_monthly');
+    const quantityMismatch = (group.purchased.plan.quantity !== group.memberCount + 2);
+    const incorrectQuantity = (isMonthlyPlan && quantityMismatch);
+
+    if (incorrectMemberCount || incorrectQuantity) {
       console.info(`${group._id},${group.purchased.plan.customerId},${group.purchased.plan.planId},${group.purchased.plan.quantity},${group.memberCount},${canonicalMemberCount}`);
       return dbGroups.update(
         {_id: group._id},
@@ -61,6 +67,9 @@ function fixGroupPlanMembers () {
         }
         fixedGroupCount++;
         resume();
+      }).catch((err) => {
+        console.log(err);
+        return process.exit(1);
       });
     } else {
       resume();
