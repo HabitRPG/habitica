@@ -61,9 +61,11 @@ function fixGroupPlanMembers () {
           await stripePayments.chargeForAdditionalGroupMember(group);
         }
         fixedGroupCount++;
+        resume();
       });
+    } else {
+      resume();
     }
-    resume();
   }).then(() => {
     console.info(`Fixed ${fixedGroupCount} out of ${groupPlanCount} active Group Plans`);
     return process.exit(0);
