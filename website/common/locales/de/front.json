@@ -139,7 +139,7 @@
     "playButtonFull": "Betritt Habitica",
     "presskit": "Pressemappe",
     "presskitDownload": "Alle Bilder herunterladen:",
-    "presskitText": "Thanks for your interest in Habitica! The following images can be used for articles or videos about Habitica. For more information, please contact us at <%= pressEnquiryEmail %>.",
+    "presskitText": "Danke für Dein Interesse an Habitica! Die folgenden Bilder dürfen in Artikeln oder Videos über Habitica verwendet werden. Für weitere Informationen kontaktiere uns bitte unter <%= pressEnquiryEmail %>.",
     "pkQuestion1": "Was inspirierte Habitica? Wie hat es begonnen?",
     "pkAnswer1": "Wenn du jemals Zeit investiert hast, einen Charakter in einem Spiel aufzuleveln, hast du dich sicher auch schon mal gefragt, wie großartig dein Leben sein würde, wenn du all die Energie in eine Verbesserung deines echten Lebens gesteckt hättest, anstatt in deinen Avatar. Wir haben Habitica gegründet, um genau dieser Frage nachzugehen. <br /> Habitica startete offiziell 2013 mit einem Kickstarter, und die Idee hob richtig ab. Seitdem ist es zu einem riesigen Projekt herangewachsen, unterstützt von unseren großartigen open-source Freiwilligen und unseren großzügigen Benutzern.",
     "pkQuestion2": "Warum funktioniert Habitica?",

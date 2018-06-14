@@ -169,7 +169,7 @@
     "questEggBadgerAdjective": "hareketli",
     "questEggSquirrelText": "Sincap",
     "questEggSquirrelMountText": "Sincap",
-    "questEggSquirrelAdjective": "bushy-tailed",
+    "questEggSquirrelAdjective": "gür kuyruklu",
     "eggNotes": "Bir kuluçka iksiri bulup bu yumurtanın üzerine döktüğünde yumurtadan <%= eggAdjective(locale) %> <%= eggText(locale) %> çıkacak.",
     "hatchingPotionBase": "Sıradan",
     "hatchingPotionWhite": "Beyaz",
