@@ -5,7 +5,7 @@ import stripePayments from '../../website/server/libs/payments/stripe';
 /*
  * Ensure that group plan billing is accurate by doing the following:
  * 1. Correct the memberCount in all paid groups whose counts are wrong
- * 2. Update the above's subscription counts in Stripe via their API
+ * 2. Where the above uses Stripe, update their subscription counts in Stripe
  */
 
 const CONNECTION_STRING = nconf.get('MIGRATION_CONNECT_STRING');
@@ -36,9 +36,10 @@ function fixGroupPlanMembers () {
         'purchased.plan': 1,
       },
     }
-  ).each((group, {close, pause, resume}) => { // eslint-disable-line no-unused-vars
+  ).each(async (group, {close, pause, resume}) => { // eslint-disable-line no-unused-vars
+    pause();
     groupPlanCount++;
-    const canonicalMemberCount = dbUsers.count(
+    const canonicalMemberCount = await dbUsers.count(
       {
         $or:
           [
@@ -48,7 +49,7 @@ function fixGroupPlanMembers () {
       }
     );
     if (group.memberCount !== canonicalMemberCount) {
-      pause();
+      console.info(`Group ID: ${group._id}, Customer ID: ${group.purchased.plan.customerId}, Recorded Member Count: ${group.memberCount}, Canonical Member Count: ${canonicalMemberCount}`);
       return dbGroups.update(
         {_id: group._id},
         {$set: {memberCount: canonicalMemberCount}}
@@ -57,9 +58,9 @@ function fixGroupPlanMembers () {
           await stripePayments.chargeForAdditionalGroupMember(group);
         }
         fixedGroupCount++;
-        resume();
       });
     }
+    resume();
   }).then(() => {
     console.info(`Fixed ${fixedGroupCount} out of ${groupPlanCount} active Group Plans`);
     return process.exit(0);
