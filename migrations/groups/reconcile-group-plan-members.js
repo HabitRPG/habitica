@@ -28,23 +28,23 @@ function fixGroupPlanMembers () {
           {'purchased.plan.dateTerminated': null},
           {'purchased.plan.dateTerminated': ''},
           {'purchased.plan.dateTerminated': {$gt: new Date()}},
-        ]
+        ],
     },
     {
       fields: {
-        'memberCount': 1,
+        memberCount: 1,
         'purchased.plan': 1,
       },
     }
-  ).each((group, {close, pause, resume}) => {
+  ).each((group, {close, pause, resume}) => { // eslint-disable-line no-unused-vars
     groupPlanCount++;
     const canonicalMemberCount = dbUsers.count(
       {
         $or:
           [
             {'party._id': group._id},
-            {'guilds': group._id},
-          ]
+            {guilds: group._id},
+          ],
       }
     );
     if (group.memberCount !== canonicalMemberCount) {
