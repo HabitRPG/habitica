@@ -13,7 +13,7 @@ const CONNECTION_STRING = nconf.get('MIGRATION_CONNECT_STRING');
 let dbGroups = monk(CONNECTION_STRING).get('groups', { castIds: false });
 let dbUsers = monk(CONNECTION_STRING).get('users', { castIds: false });
 
-async function fixGroupPlanMembers () {
+function fixGroupPlanMembers () {
   let groupPlanCount = 0;
   let fixedGroupCount = 0;
   dbGroups.find(
@@ -52,7 +52,7 @@ async function fixGroupPlanMembers () {
       return dbGroups.update(
         {_id: group._id},
         {$set: {memberCount: canonicalMemberCount}}
-      ).then(() => {
+      ).then(async () => {
         if (group.purchased.plan.paymentMethod === 'Stripe') {
           await stripePayments.chargeForAdditionalGroupMember(group);
         }
