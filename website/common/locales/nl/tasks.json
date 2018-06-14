@@ -79,7 +79,7 @@
     "complete2": "Voltooid",
     "dated": "Met datum",
     "today": "Vandaag",
-    "dueIn": "Vervalt op <%= dueIn %>",
+    "dueIn": "Vervalt <%= dueIn %>",
     "due": "Onvoltooid",
     "notDue": "Verloopt niet",
     "grey": "Grijs",

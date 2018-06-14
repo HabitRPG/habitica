@@ -169,7 +169,7 @@
     "questEggBadgerAdjective": "nyüzsgő",
     "questEggSquirrelText": "Mókus",
     "questEggSquirrelMountText": "Mókus",
-    "questEggSquirrelAdjective": "bushy-tailed",
+    "questEggSquirrelAdjective": "lompos farkú",
     "eggNotes": "Találj egy keltetőfőzetet ehez a tojáshoz, hogy kikeljen belőle egy <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Alap",
     "hatchingPotionWhite": "Fehér",

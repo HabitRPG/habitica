@@ -67,7 +67,7 @@
     "questVice2Text": "Vício, Parte 2: Encontre o Covil do Dragão",
     "questVice2Notes": "Confident in yourselves and your ability to withstand the influence of Vice the Shadow Wyrm, your Party makes its way to Mt. Habitica. You approach the entrance to the mountain's caverns and pause. Swells of shadows, almost like fog, wisp out from the opening. It is near impossible to see anything in front of you. The light from your lanterns seem to end abruptly where the shadows begin. It is said that only magical light can pierce the dragon's infernal haze. If you can find enough light crystals, you could make your way to the dragon.",
     "questVice2CollectLightCrystal": "Cristais de Luz",
-    "questVice2Completion": "As you lift the final crystal aloft, the shadows are dispelled, and your path forward is clear. With a quickening heart, you step forward into the cavern.",
+    "questVice2Completion": "Quando levanta o último cristal acima de si, as sombras desaparecem e o seu caminho em frente torna-se claro. Com o coração a acelerar, você dá um passo em frente para dentro da caverna.",
     "questVice2DropVice3Quest": "Vício Parte 3 (Pergaminho)",
     "questVice3Text": "Vício, Parte 3: O Despertar do Vício",
     "questVice3Notes": "Depois de muito esforço, sua equipe descobriu o covil do Vício. O poderoso monstro olha sua equipe à distância. Conforme a escuridão o cerca, uma voz sussurra na sua cabeça, \"Mais cidadãos tolos de Habitica vieram me parar? Que fofo. Teria sido inteligente não virem.\" O titã escamoso recua sua cabeça e se prepara para atacar. Essa é sua chance! Dê tudo de si e derrote o Vício de uma vez por todas!",
@@ -80,12 +80,12 @@
     "questMoonstone1Text": "Recidivar, Parte 1: A Corrente de Pedras da Lua",
     "questMoonstone1Notes": "Uma doença terrível abateu-se sobre os Habiticanos. Maus hábitos que se pensavam ter sido extintos à muito tempo estão a voltar com intensidade redobrada. Pratos ficam por ser lavados, manuais de estudo não são lidos e preguiça parece estar em toda a parte!<br><br>Seguindo alguns dos teus Maus Hábitos para dentro dos Pântanos da Estagnação, encontras o culpado: a necromante fantasmagórica, Reincidente. Com as armas em punho, confronta-la, mas as armas simplesmente atravessam o seu espectro sem efeito.<br><br>\"Poupa-te o esforço\", sibila ela com uma voz áspera. \"Sem uma corrente de pedras da lua, nada me pode ferir - e o joalheiro @aurakami espalhou as pedras todas por toda Habitica à muito tempo atrás!\" Ofegante, retiras...mas sabes agora o que tens a fazer.",
     "questMoonstone1CollectMoonstone": "Pedras da Lua",
-    "questMoonstone1Completion": "At last, you manage to pull the final moonstone from the swampy sludge. It’s time to go fashion your collection into a weapon that can finally defeat Recidivate!",
+    "questMoonstone1Completion": "Finalmente consegue puxar a última pedra da lua do lamaçal pantanoso. É tempo de usar a sua coleção para criar uma arma capaz de finalmente derrotar Recidivar!",
     "questMoonstone1DropMoonstone2Quest": "Recidivar, Parte 2: Recidivar a Necromante (Pergaminho)",
     "questMoonstone2Text": "Recidivar, Parte 2: Recidivar a Necromante",
     "questMoonstone2Notes": "The brave weaponsmith @InspectorCaracal helps you fashion the enchanted moonstones into a chain. You’re ready to confront Recidivate at last, but as you enter the Swamps of Stagnation, a terrible chill sweeps over you.<br><br>Rotting breath whispers in your ear. \"Back again? How delightful...\" You spin and lunge, and under the light of the moonstone chain, your weapon strikes solid flesh. \"You may have bound me to the world once more,\" Recidivate snarls, \"but now it is time for you to leave it!\"",
     "questMoonstone2Boss": "O Necromante",
-    "questMoonstone2Completion": "Recidivate staggers backwards under your final blow, and for a moment, your heart brightens – but then she throws back her head and lets out a horrible laugh. What’s happening?",
+    "questMoonstone2Completion": "Recidivar cambaleia para trás sob o seu golpe final e, por um momento, o seu coração alegra-se - mas é então que ela mete a cabeça para trás e solta um riso horroroso. O que está a acontecer_",
     "questMoonstone2DropMoonstone3Quest": "Recidivar, Parte 3: Recidivar Transformada (Pergaminho)",
     "questMoonstone3Text": "Recidivar, Parte 3: Recidivar Transformada",
     "questMoonstone3Notes": "Laughing wickedly, Recidivate crumples to the ground, and you strike at her again with the moonstone chain. To your horror, Recidivate seizes the gems, eyes burning with triumph.<br><br>\"Foolish creature of flesh!\" she shouts. \"These moonstones will restore me to a physical form, true, but not as you imagined. As the full moon waxes from the dark, so too does my power flourish, and from the shadows I summon the specter of your most feared foe!\"<br><br>A sickly green fog rises from the swamp, and Recidivate’s body writhes and contorts into a shape that fills you with dread – the undead body of Vice, horribly reborn.",
@@ -602,5 +602,7 @@
     "questSquirrelDropSquirrelEgg": "Esquilo (Ovo)",
     "questSquirrelUnlockText": "Destranca a compra de ovos de Esquilo no Mercado",
     "cuddleBuddiesText": "Cuddle Buddies Quest Bundle",
-    "cuddleBuddiesNotes": "Contains 'The Killer Bunny', 'The Nefarious Ferret', and 'The Guinea Pig Gang'. Available until May 31."
+    "cuddleBuddiesNotes": "Contains 'The Killer Bunny', 'The Nefarious Ferret', and 'The Guinea Pig Gang'. Available until May 31.",
+    "aquaticAmigosText": "Aquatic Amigos Quest Bundle",
+    "aquaticAmigosNotes": "Contains 'The Magical Axolotl', 'The Kraken of Inkomplete', and 'The Call of Octothulu'. Available until June 30."
 }

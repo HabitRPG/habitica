@@ -167,6 +167,21 @@ api.bundles = {
     type: 'quests',
     value: 7,
   },
+  aquaticAmigos: {
+    key: 'aquaticAmigos',
+    text: t('aquaticAmigosText'),
+    notes: t('aquaticAmigosNotes'),
+    bundleKeys: [
+      'axolotl',
+      'kraken',
+      'octopus',
+    ],
+    canBuy () {
+      return moment().isBetween('2018-06-12', '2018-07-02');
+    },
+    type: 'quests',
+    value: 7,
+  },
 };
 
 /*
