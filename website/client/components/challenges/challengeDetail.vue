@@ -365,9 +365,9 @@ export default {
       this.$root.$emit('bv::show::modal', 'close-challenge-modal');
     },
     edit () {
-      // @TODO: set working challenge
-      this.$store.state.challengeOptions.workingChallenge = Object.assign({}, this.$store.state.challengeOptions.workingChallenge, this.challenge);
-      this.$root.$emit('bv::show::modal', 'challenge-modal');
+      this.$root.$emit('habitica:update-challenge', {
+        challenge: this.challenge,
+      });
     },
     // @TODO: view members
     updatedChallenge (eventData) {
