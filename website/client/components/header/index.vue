@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  invite-modal(:group='user.party')
+  invite-modal(:group='inviteModalGroup')
   create-party-modal
   #app-header.row(:class="{'hide-header': $route.name === 'groupPlan'}")
     members-modal(:hide-badge="true")
@@ -129,6 +129,7 @@ export default {
     return {
       expandedMember: null,
       currentWidth: 0,
+      inviteModalGroup: undefined,
     };
   },
   computed: {
@@ -169,7 +170,7 @@ export default {
     },
     createOrInviteParty () {
       if (this.user.party._id) {
-        this.$root.$emit('bv::show::modal', 'invite-modal');
+        this.$root.$emit('inviteModal::inviteToGroup', this.user.party);
       } else {
         this.$root.$emit('bv::show::modal', 'create-party-modal');
       }
@@ -191,6 +192,11 @@ export default {
     if (this.user.party && this.user.party._id) {
       this.$store.state.memberModalOptions.groupId = this.user.party._id;
       this.getPartyMembers();
+
+      this.$root.$on('inviteModal::inviteToGroup', (group) => {
+        this.inviteModalGroup = group;
+        this.$root.$emit('bv::show::modal', 'invite-modal');
+      });
     }
   },
 };
