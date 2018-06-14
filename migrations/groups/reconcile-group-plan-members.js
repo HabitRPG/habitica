@@ -6,6 +6,8 @@ import stripePayments from '../../website/server/libs/payments/stripe';
  * Ensure that group plan billing is accurate by doing the following:
  * 1. Correct the memberCount in all paid groups whose counts are wrong
  * 2. Where the above uses Stripe, update their subscription counts in Stripe
+ *
+ * Provides output on what groups were fixed, which can be piped to CSV.
  */
 
 const CONNECTION_STRING = nconf.get('MIGRATION_CONNECT_STRING');
@@ -14,6 +16,7 @@ let dbGroups = monk(CONNECTION_STRING).get('groups', { castIds: false });
 let dbUsers = monk(CONNECTION_STRING).get('users', { castIds: false });
 
 function fixGroupPlanMembers () {
+  console.info('Group ID,Customer ID,Recorded Member Count,Actual Member Count');
   let groupPlanCount = 0;
   let fixedGroupCount = 0;
   dbGroups.find(
@@ -49,7 +52,7 @@ function fixGroupPlanMembers () {
       }
     );
     if (group.memberCount !== canonicalMemberCount) {
-      console.info(`Group ID: ${group._id}, Customer ID: ${group.purchased.plan.customerId}, Recorded Member Count: ${group.memberCount}, Canonical Member Count: ${canonicalMemberCount}`);
+      console.info(`${group._id},${group.purchased.plan.customerId},${group.memberCount},${canonicalMemberCount}`);
       return dbGroups.update(
         {_id: group._id},
         {$set: {memberCount: canonicalMemberCount}}
