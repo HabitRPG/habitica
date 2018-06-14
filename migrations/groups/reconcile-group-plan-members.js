@@ -58,9 +58,9 @@ async function fixGroupPlanMembers () {
         resume();
       });
     }
-
   }).then(() => {
     console.info(`Fixed ${fixedGroupCount} out of ${groupPlanCount} active Group Plans`);
+    return process.exit(0);
   });
 }
 
