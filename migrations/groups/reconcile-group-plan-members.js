@@ -50,7 +50,7 @@ function fixGroupPlanMembers () {
           ],
       }
     );
-    if (group.memberCount !== canonicalMemberCount || group.purchased.plan.planId === 'group_monthly' && group.memberCount !== group.purchased.plan.quantity + 2) {
+    if (group.memberCount !== canonicalMemberCount || group.purchased.plan.planId === 'group_monthly' && group.purchased.plan.quantity !== group.memberCount + 2) {
       console.info(`${group._id},${group.purchased.plan.customerId},${group.purchased.plan.planId},${group.purchased.plan.quantity},${group.memberCount},${canonicalMemberCount}`);
       return dbGroups.update(
         {_id: group._id},
