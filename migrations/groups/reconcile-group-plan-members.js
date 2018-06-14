@@ -53,7 +53,9 @@ async function fixGroupPlanMembers () {
         {_id: group._id},
         {$set: {memberCount: canonicalMemberCount}}
       ).then(() => {
-        await stripePayments.chargeForAdditionalGroupMember(group);
+        if (group.purchased.plan.paymentMethod === 'Stripe') {
+          await stripePayments.chargeForAdditionalGroupMember(group);
+        }
         fixedGroupCount++;
         resume();
       });
