@@ -61,6 +61,7 @@ describe('Stripe - Upgrade Group Plan', () => {
     await stripePayments.chargeForAdditionalGroupMember(updatedGroup);
 
     expect(spy.calledOnce).to.be.true;
+    updatedGroup = await Group.findById(group._id).exec();
     expect(updatedGroup.purchased.plan.quantity).to.eql(4);
   });
 });
