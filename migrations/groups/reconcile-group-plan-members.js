@@ -52,11 +52,11 @@ function fixGroupPlanMembers () {
           ],
       }
     );
-    const incorrectMemberCount = (group.memberCount !== canonicalMemberCount);
+    const incorrectMemberCount = group.memberCount !== canonicalMemberCount;
 
-    const isMonthlyPlan = (group.purchased.plan.planId === 'group_monthly');
-    const quantityMismatch = (group.purchased.plan.quantity !== group.memberCount + 2);
-    const incorrectQuantity = (isMonthlyPlan && quantityMismatch);
+    const isMonthlyPlan = group.purchased.plan.planId === 'group_monthly';
+    const quantityMismatch = group.purchased.plan.quantity !== group.memberCount + 2;
+    const incorrectQuantity = isMonthlyPlan && quantityMismatch;
 
     if (incorrectMemberCount || incorrectQuantity) {
       console.info(`${group._id},${group.purchased.plan.customerId},${group.purchased.plan.planId},${group.purchased.plan.quantity},${group.memberCount},${canonicalMemberCount}`);
