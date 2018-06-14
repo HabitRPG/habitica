@@ -25,6 +25,8 @@ function fixGroupPlanMembers () {
         [
           {'purchased.plan.planId': {$ne: null}},
           {'purchased.plan.planId': {$ne: ''}},
+          {'purchased.plan.customerId': {$ne: 'cus_9f0DV4g7WHRzpM'}}, // Demo groups
+          {'purchased.plan.customerId': {$ne: 'cus_9maalqDOFTrvqx'}},
         ],
       $or:
         [

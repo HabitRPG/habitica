@@ -161,7 +161,7 @@ api.chargeForAdditionalGroupMember = async function chargeForAdditionalGroupMemb
     }
   );
 
-  group.purchased.plan.quantity = group.memberCount + plan.quantity - 1;
+  await Group.update({_id: group._id}, {'purchased.plan.quantity': group.memberCount + plan.quantity - 1});
 };
 
 /**
