@@ -1,7 +1,6 @@
 <template lang="pug">
 .row(v-if="group._id")
   group-form-modal(v-if='isParty')
-  invite-modal(:group='this.group')
   start-quest-modal(:group='this.group')
   quest-details-modal(:group='this.group')
   group-gems-modal
@@ -264,7 +263,6 @@ import membersModal from './membersModal';
 import startQuestModal from './startQuestModal';
 import questDetailsModal from './questDetailsModal';
 import groupFormModal from './groupFormModal';
-import inviteModal from './inviteModal';
 import groupChallenges from '../challenges/groupChallenges';
 import groupGemsModal from 'client/components/groups/groupGemsModal';
 import questSidebarSection from 'client/components/groups/questSidebarSection';
@@ -292,7 +290,6 @@ export default {
     membersModal,
     startQuestModal,
     groupFormModal,
-    inviteModal,
     groupChallenges,
     questDetailsModal,
     groupGemsModal,
@@ -444,7 +441,7 @@ export default {
       this.$root.$emit('bv::show::modal', 'guild-form');
     },
     showInviteModal () {
-      this.$root.$emit('bv::show::modal', 'invite-modal');
+      this.$root.$emit('inviteModal::inviteToGroup', this.group); // This event listener is initiated in ../header/index.vue
     },
     async fetchGuild () {
       if (this.searchId === 'party' && !this.user.party._id) {

@@ -5,6 +5,7 @@ import slack from '../../../../../website/server/libs/slack';
 import logger from '../../../../../website/server/libs/logger';
 import { TAVERN_ID } from '../../../../../website/server/models/group';
 import nconf from 'nconf';
+import moment from 'moment';
 
 describe('slack', () => {
   describe('sendFlagNotification', () => {
@@ -45,13 +46,15 @@ describe('slack', () => {
     it('sends a slack webhook', () => {
       slack.sendFlagNotification(data);
 
+      const timestamp = `${moment(data.message.timestamp).utc().format('YYYY-MM-DD HH:mm')} UTC`;
+
       expect(IncomingWebhook.prototype.send).to.be.calledOnce;
       expect(IncomingWebhook.prototype.send).to.be.calledWith({
         text: 'flagger (flagger-id; language: flagger-lang) flagged a message',
         attachments: [{
           fallback: 'Flag Message',
           color: 'danger',
-          author_name: 'Author - author@example.com - author-id',
+          author_name: `Author - author@example.com - author-id\n${timestamp}`,
           title: 'Flag in Some group - (private guild)',
           title_link: undefined,
           text: 'some text',
@@ -97,9 +100,11 @@ describe('slack', () => {
 
       slack.sendFlagNotification(data);
 
+      const timestamp = `${moment(data.message.timestamp).utc().format('YYYY-MM-DD HH:mm')} UTC`;
+
       expect(IncomingWebhook.prototype.send).to.be.calledWithMatch({
         attachments: [sandbox.match({
-          author_name: 'System Message',
+          author_name: `System Message\n${timestamp}`,
         })],
       });
     });
