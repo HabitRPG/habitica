@@ -50,6 +50,10 @@ transition(name="fade")
 
   .error {
     background-color: #f74e52;
+    border-radius: 60px;
+    width: 320px !important;
+    padding: 10px 5px;
+    margin-left: 0;
     color: #fff;
   }
 
