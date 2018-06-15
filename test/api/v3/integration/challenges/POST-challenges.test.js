@@ -4,12 +4,27 @@ import {
   translate as t,
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
+import {MAX_SUMMARY_SIZE_FOR_CHALLENGES} from '../../../../../website/common/script/constants.js';
 
 describe('POST /challenges', () => {
   it('returns error when group is empty', async () => {
     let user = await generateUser();
 
     await expect(user.post('/challenges')).to.eventually.be.rejected.and.eql({
+      code: 400,
+      error: 'BadRequest',
+      message: t('invalidReqParams'),
+    });
+  });
+
+  it('returns error when summary is too long', async () => {
+    let user = await generateUser();
+    let invalidSummary = '#'.repeat(MAX_SUMMARY_SIZE_FOR_CHALLENGES + 1);
+
+    await expect(user.post('/challenges', {
+      group: generateUUID(),
+      summary: invalidSummary,
+    })).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
       message: t('invalidReqParams'),

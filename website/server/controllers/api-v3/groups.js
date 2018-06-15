@@ -113,6 +113,11 @@ api.createGroup = {
     userFieldsToExclude: ['inbox'],
   })],
   async handler (req, res) {
+    req.checkBody('summary', res.t('summaryTooLong')).isLength({max: common.constants.MAX_SUMMARY_SIZE_FOR_GUILDS});
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
     let user = res.locals.user;
     let group = new Group(Group.sanitize(req.body));
     group.leader = user._id;
@@ -190,6 +195,7 @@ api.createGroupPlan = {
     let group = new Group(Group.sanitize(req.body.groupToCreate));
 
     req.checkBody('paymentType', res.t('paymentTypeRequired')).notEmpty();
+    req.checkBody('summary', res.t('summaryTooLong')).isLength({max: common.constants.MAX_SUMMARY_SIZE_FOR_GUILDS});
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -450,6 +456,7 @@ api.updateGroup = {
     let user = res.locals.user;
 
     req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
+    req.checkBody('summary', res.t('summaryTooLong')).isLength({max: common.constants.MAX_SUMMARY_SIZE_FOR_GUILDS});
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;

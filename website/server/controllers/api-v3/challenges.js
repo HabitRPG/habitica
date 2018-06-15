@@ -27,6 +27,7 @@ import {
   createChallenge,
   cleanUpTask,
 } from '../../libs/challenges';
+import common from '../../../common';
 import apiError from '../../libs/apiError';
 
 let api = {};
@@ -191,6 +192,7 @@ api.createChallenge = {
     let user = res.locals.user;
 
     req.checkBody('group', apiError('groupIdRequired')).notEmpty();
+    req.checkBody('summary', res.t('summaryTooLong')).isLength({max: common.constants.MAX_SUMMARY_SIZE_FOR_CHALLENGES});
 
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -669,6 +671,7 @@ api.updateChallenge = {
   })],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+    req.checkBody('summary', res.t('summaryTooLong')).isLength({max: common.constants.MAX_SUMMARY_SIZE_FOR_CHALLENGES});
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;

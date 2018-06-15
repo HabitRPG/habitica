@@ -2,6 +2,7 @@ import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-v3-integration.helper';
+import {MAX_SUMMARY_SIZE_FOR_GUILDS} from '../../../../../website/common/script/constants.js';
 
 describe('POST /group', () => {
   let user;
@@ -69,6 +70,21 @@ describe('POST /group', () => {
       const updatedGroup = await user.get(`/groups/${group._id}`);
 
       expect(updatedGroup.summary).to.eql(summary);
+    });
+
+    it('returns error when summary is too long', async () => {
+      const name = 'Test Group';
+      let invalidSummary = '#'.repeat(MAX_SUMMARY_SIZE_FOR_GUILDS + 1);
+
+      await expect(user.post('/groups', {
+        name,
+        type: 'guild',
+        summary: invalidSummary,
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('invalidReqParams'),
+      });
     });
   });
 

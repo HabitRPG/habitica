@@ -3,6 +3,7 @@ import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-v3-integration.helper';
+import {MAX_SUMMARY_SIZE_FOR_GUILDS} from '../../../../../website/common/script/constants.js';
 
 describe('PUT /group', () => {
   let leader, nonLeader, groupToUpdate, adminUser;
@@ -43,6 +44,26 @@ describe('PUT /group', () => {
     expect(updatedGroup.leader._id).to.eql(leader._id);
     expect(updatedGroup.leader.profile.name).to.eql(leader.profile.name);
     expect(updatedGroup.name).to.equal(groupUpdatedName);
+  });
+
+  it('updates a group summary', async () => {
+    let updatedGroup = await leader.put(`/groups/${groupToUpdate._id}`, {
+      summary: 'New summary',
+    });
+
+    expect(updatedGroup.summary).to.equal('New summary');
+  });
+
+  it('returns error when summary is too long', async () => {
+    let invalidSummary = '#'.repeat(MAX_SUMMARY_SIZE_FOR_GUILDS + 1);
+
+    await expect(leader.put(`/groups/${groupToUpdate._id}`, {
+      summary: invalidSummary,
+    })).to.eventually.be.rejected.and.eql({
+      code: 400,
+      error: 'BadRequest',
+      message: t('invalidReqParams'),
+    });
   });
 
   it('updates a group categories', async () => {
