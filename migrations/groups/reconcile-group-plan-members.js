@@ -64,11 +64,19 @@ function fixGroupPlanMembers () {
         {_id: group._id},
         {$set: {memberCount: canonicalMemberCount}}
       ).then(async () => {
+        fixedGroupCount++;
         if (group.purchased.plan.paymentMethod === 'Stripe') {
           await stripePayments.chargeForAdditionalGroupMember(group);
+        } else if (incorrectQuantity) {
+          return dbGroups.update(
+            {_id: group._id},
+            {$set: {'purchased.plan.quantity': canonicalMemberCount + 2}}
+          ).then(() => {
+            resume();
+          });
+        } else {
+          resume();
         }
-        fixedGroupCount++;
-        resume();
       }).catch((err) => {
         console.log(err);
         return process.exit(1);
