@@ -5,7 +5,7 @@ import {
   sleep,
   generateUser,
   translate as t,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 import { v4 as generateUUID } from 'uuid';
 import {
   each,

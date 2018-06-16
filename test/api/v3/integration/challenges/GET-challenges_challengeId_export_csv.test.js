@@ -4,7 +4,7 @@ import {
   generateChallenge,
   translate as t,
   sleep,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 import { v4 as generateUUID } from 'uuid';
 
 describe('GET /challenges/:challengeId/export/csv', () => {
