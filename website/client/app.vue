@@ -102,6 +102,7 @@ div
 </style>
 
 <style lang='scss'>
+<<<<<<< HEAD
 @import '~client/assets/scss/colors.scss';
 
 /* @TODO: The modal-open class is not being removed. Let's try this for now */
@@ -123,6 +124,13 @@ div
 .restingInn {
   .navbar {
     top: 40px;
+=======
+  @import '~client/assets/scss/colors.scss';
+
+  /* @TODO: The modal-open class is not being removed. Let's try this for now */
+  .modal, .modal-open {
+    overflow-y: scroll;
+>>>>>>> upstream/develop
   }
 
   #app-header {
@@ -295,6 +303,7 @@ export default {
     });
 
     // Set up Error interceptors
+<<<<<<< HEAD
     axios.interceptors.response.use(
       (response) => {
         if (this.user && response.data && response.data.notifications) {
@@ -337,6 +346,51 @@ export default {
         }
 
         return Promise.reject(error);
+=======
+    axios.interceptors.response.use((response) => {
+      if (this.user && response.data && response.data.notifications) {
+        this.$set(this.user, 'notifications', response.data.notifications);
+      }
+      return response;
+    }, (error) => {
+      if (error.response.status >= 400) {
+        this.checkForBannedUser(error);
+
+        // Don't show errors from getting user details. These users have delete their account,
+        // but their chat message still exists.
+        let configExists = Boolean(error.response) && Boolean(error.response.config);
+        if (configExists && error.response.config.method === 'get' && error.response.config.url.indexOf('/api/v3/members/') !== -1) {
+          // @TODO: We resolve the promise because we need our caching to cache this user as tried
+          // Chat paging should help this, but maybe we can also find another solution..
+          return Promise.resolve(error);
+        }
+
+        const errorData = error.response.data;
+        const errorMessage = errorData.message || errorData;
+
+        // Check for conditions to reset the user auth
+        const invalidUserMessage = [this.$t('invalidCredentials'), 'Missing authentication headers.'];
+        if (invalidUserMessage.indexOf(errorMessage) !== -1) {
+          this.$store.dispatch('auth:logout');
+        }
+
+        // Most server errors should return is click to dismiss errors, with some exceptions
+        let snackbarTimeout = false;
+        if (error.response.status === 502) snackbarTimeout = true;
+
+        const notificationNotFoundMessage = [
+          this.$t('messageNotificationNotFound'),
+          this.$t('messageNotificationNotFound', 'en'),
+        ];
+        if (notificationNotFoundMessage.indexOf(errorMessage) !== -1) snackbarTimeout = true;
+
+        this.$store.dispatch('snackbars:add', {
+          title: 'Habitica',
+          text: errorMessage,
+          type: 'error',
+          timeout: snackbarTimeout,
+        });
+>>>>>>> upstream/develop
       }
     );
 

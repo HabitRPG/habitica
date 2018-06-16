@@ -41,6 +41,7 @@ describe('DELETE /challenges/:challengeId', () => {
       group = populatedGroup.group;
 
       challenge = await generateChallenge(groupLeader, group);
+      await groupLeader.post(`/challenges/${challenge._id}/join`);
 
       await groupLeader.post(`/tasks/challenge/${challenge._id}`, [
         {type: 'habit', text: taskText},

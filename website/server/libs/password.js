@@ -35,7 +35,7 @@ export function sha1MakeSalt (len = 10) {
 }
 
 // Compare the password for an user
-// Works with bcrypt and sha1 indipendently
+// Works with bcrypt and sha1 independently
 // An async function is used so that a promise is always returned
 // even for comparing sha1 hashed passwords that use a sync method
 export async function compare (user, passwordToCheck) {

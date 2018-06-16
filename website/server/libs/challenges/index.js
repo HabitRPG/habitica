@@ -82,11 +82,9 @@ export async function createChallenge (user, req, res) {
   addUserJoinChallengeNotification(user);
 
   let results = await Promise.all([challenge.save({
-    validateBeforeSave: false, // already validate
-  }), group.save()]);
+    validateBeforeSave: false, // already validated
+  }), group.save(), user.save()]);
   let savedChal = results[0];
-
-  await savedChal.syncToUser(user); // (it also saves the user)
 
   return {savedChal, group};
 }

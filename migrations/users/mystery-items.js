@@ -1,11 +1,11 @@
-const migrationName = 'mystery-items-201802.js'; // Update per month
+const migrationName = 'mystery-items-201805.js'; // Update per month
 const authorName = 'Sabe'; // in case script author needs to know when their ...
 const authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; // ... own data is done
 
 /*
  * Award this month's mystery items to subscribers
  */
-const MYSTERY_ITEMS = ['back_mystery_201804', 'headAccessory_mystery_201804'];
+const MYSTERY_ITEMS = ['back_mystery_201805', 'head_mystery_201805'];
 const connectionString = 'mongodb://localhost:27017/habitrpg?auto_reconnect=true'; // FOR TEST DATABASE
 
 let monk = require('monk');

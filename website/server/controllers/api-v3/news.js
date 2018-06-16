@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'FAIRY HATCHING POTIONS RETURN!';
+const LAST_ANNOUNCEMENT_TITLE = 'NEW DISCOUNTED PET QUEST BUNDLE: AQUATIC AMIGOS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -32,12 +32,10 @@ api.getNews = {
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
           </div>
         </div>
-        <h2>5/15/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+        <h2>6/12/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
-        <p>They're back! Between now and May 31, you can buy Fairy Hatching Potions from <a href='/shops/market' target='_blank'>the Market</a> and use them to hatch any standard pet egg. (Magic Hatching Potions do not work on Quest Pet eggs.) Fairy Potion Pets aren't picky, so they'll happily eat any kind of food that you feed them!</p>
-        <p>After they're gone, it will be at least a year before the Fairy Hatching Potions are available again, so be sure to get them now!</p>
-        <div class="small mb-3">by Edge, Willow the Witty, and SabreCat</div>
-        <div class="promo_fairy_potions center-block"></div>
+        <p>If you're looking to add some pets to your Habitica stable, you're in luck! From now until June 30, you can purchase the Aquatic Amigos Pet Quest Bundle and receive the Axolotl, Cuttlefish, and Octopus quests, all for only 7 Gems! That's a discount of 5 Gems from the price of purchasing them separately. Check it out in the <a href='/shops/quests' target='_blank'>Quest Shop</a> today!</p>
+      <div class="promo_bundle_aquaticAmigos center-block"></div>
       </div>
       `,
     });

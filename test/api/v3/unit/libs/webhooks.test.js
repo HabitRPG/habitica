@@ -8,6 +8,9 @@ import {
   userActivityWebhook,
 } from '../../../../../website/server/libs/webhook';
 import {
+  model as User,
+} from '../../../../../website/server/models/user';
+import {
   generateUser,
 } from '../../../../helpers/api-unit.helper.js';
 import { defer } from '../../../../helpers/api-unit.helper';
@@ -306,17 +309,6 @@ describe('webhooks', () => {
               return this;
             },
           },
-          addComputedStatsToJSONObj () {
-            let mockStats = Object.assign({
-              maxHealth: 50,
-              maxMP: 103,
-              toNextLevel: 40,
-            }, this.stats);
-
-            delete mockStats.toJSON;
-
-            return mockStats;
-          },
         },
         task: {
           text: 'text',
@@ -324,6 +316,15 @@ describe('webhooks', () => {
         direction: 'up',
         delta: 176,
       };
+
+      let mockStats = Object.assign({
+        maxHealth: 50,
+        maxMP: 103,
+        toNextLevel: 40,
+      }, data.user.stats);
+      delete mockStats.toJSON;
+
+      sandbox.stub(User, 'addComputedStatsToJSONObj').returns(mockStats);
     });
 
     it('sends task and stats data', () => {

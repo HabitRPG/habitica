@@ -28,7 +28,7 @@ async function buyGemGift (data) {
 
   const senderMsg = getGiftMessage(data, byUsername, gemAmount, languages[0]);
   const receiverMsg = getGiftMessage(data, byUsername, gemAmount,  languages[1]);
-  data.user.sendMessage(data.gift.member, { receiverMsg, senderMsg });
+  data.user.sendMessage(data.gift.member, { receiverMsg, senderMsg, save: false });
 
   if (data.gift.member.preferences.emailNotifications.giftedGems !== false) {
     txnEmail(data.gift.member, 'gifted-gems', [

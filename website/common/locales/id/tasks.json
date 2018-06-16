@@ -5,7 +5,7 @@
     "sureDeleteCompletedTodos": "Apakah kamu yakin kamu ingin menghapus semua To-do yang telah diselesaikan?",
     "lotOfToDos": "30 To-Do terakhir yang kamu selesaikan ditampilkan di sini. Kamu dapat melihat To-Do lama yang telah kamu selesaikan dari Data > Data Display Tool atau Data > Ekspor Data > Data Pengguna.",
     "deleteToDosExplanation": "Jika kamu menekan tombol di bawah, semua To-Do yang sudah kamu selesaikan dan To-Do di arsip akan dihapus secara permanen, kecuali To-Do dari tantangan yang aktif dan Rencana Grup. Silakan ekspor terlebih dahulu jika kamu mau menyimpan catatan mengenai tugasmu.",
-    "addMultipleTip": "<strong>Tips:</strong> Untuk menambahkan beberapa Tugas sekaligus, pisahkan baris masing-masing tugas (Shift + Enter) lalu tekan \"Enter.\"",
+    "addMultipleTip": "<strong>Tip:</strong> To add multiple <%= taskType %>, separate each one using a line break (Shift + Enter) and then press \"Enter.\"",
     "addsingle": "Tambah Satu",
     "addATask": "Tambahkan sebuah <%= type %>",
     "editATask": "Edit sebuah <%= type %>",

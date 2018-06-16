@@ -51,7 +51,7 @@
     line-height: 1.5em;
     overflow: hidden;
     text-overflow: ellipsis;
-    word-break: break-all;
+    word-break: break-word;
   }
 </style>
 

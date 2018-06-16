@@ -40,6 +40,7 @@ describe('GET /tasks/:taskId', () => {
     user = await generateUser();
     guild = await generateGroup(user);
     challenge = await generateChallenge(user, guild);
+    await user.post(`/challenges/${challenge._id}/join`);
   });
 
   it('returns error when incorrect id is passed', async () => {

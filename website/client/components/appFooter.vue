@@ -67,8 +67,8 @@
             a.social-circle(href='https://www.facebook.com/Habitica', target='_blank')
               .social-icon.facebook.svg-icon(v-html='icons.facebook')
         .row
-          .col-12.col-md-10 {{ $t('donateText3') }}
-          .col-12.col-md-2
+          .col-12.col-md-8 {{ $t('donateText3') }}
+          .col-12.col-md-4
             button.btn.btn-contribute(@click="donate()", v-if="user")
               .svg-icon.heart(v-html="icons.heart")
               .text {{ $t('companyDonate') }}
@@ -161,19 +161,14 @@
     height: 40px;
     border-radius: 50%;
     background-color: #c3c0c7;
-    display: inline-block;
+    display: flex;
     margin-left: 1em;
     float: right;
 
     .social-icon {
       color: #e1e0e3;
       width: 16px;
-      margin: 0 auto;
-      margin-top: 1em;
-    }
-
-    .facebook {
-      margin-top: .7em;
+      margin: auto;
     }
 
     .instagram {
@@ -201,7 +196,12 @@
     box-shadow: none;
     border-radius: 4px;
 
+    a {
+      display: flex;
+    }
+
     .heart {
+      max-height: 25px;
       width: 18px;
       margin-right: .5em;
       margin-bottom: .2em;
@@ -215,6 +215,10 @@
 </style>
 
 <style lang="scss">
+  .heart svg {
+    margin-top: .1em;
+  }
+
   .facebook svg {
     width: 10px;
     margin: 0 auto;

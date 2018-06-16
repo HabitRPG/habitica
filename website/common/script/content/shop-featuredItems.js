@@ -33,10 +33,6 @@ const featuredItems = {
       type: 'quests',
       path: 'quests.butterfly',
     },
-    {
-      type: 'bundles',
-      path: 'bundles.cuddleBuddies',
-    },
   ],
   seasonal: '',
   timeTravelers: [

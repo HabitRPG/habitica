@@ -109,6 +109,7 @@ describe('POST /user/class/cast/:spellId', () => {
   it('returns an error if a challenge task was targeted', async () => {
     let {group, groupLeader} = await createAndPopulateGroup();
     let challenge = await generateChallenge(groupLeader, group);
+    await groupLeader.post(`/challenges/${challenge._id}/join`);
     await groupLeader.post(`/tasks/challenge/${challenge._id}`, [
       {type: 'habit', text: 'task text'},
     ]);
@@ -238,6 +239,7 @@ describe('POST /user/class/cast/:spellId', () => {
   it('searing brightness does not affect challenge or group tasks', async () => {
     let guild = await generateGroup(user);
     let challenge = await generateChallenge(user, guild);
+    await user.post(`/challenges/${challenge._id}/join`);
     await user.post(`/tasks/challenge/${challenge._id}`, {
       text: 'test challenge habit',
       type: 'habit',

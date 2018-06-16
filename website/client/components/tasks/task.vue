@@ -144,6 +144,14 @@
     &.has-notes {
       padding-bottom: 4px;
     }
+
+    /**
+    * Fix flex-wrapping for IE 11
+    * https://github.com/HabitRPG/habitica/issues/9754
+    */
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+      flex: 1;
+    }
   }
 
   .task-clickable-area {
@@ -622,7 +630,8 @@ export default {
         this.$t('today') :
         this.timeTillDue.humanize(true);
 
-      return this.$t('dueIn', { dueIn });
+      // this.task && is necessary to make sure the computed property updates correctly
+      return this.task && this.task.date && this.$t('dueIn', { dueIn });
     },
     hasTags () {
       return this.task.tags && this.task.tags.length > 0;
