@@ -6,6 +6,7 @@ import routes from '../libs/routes';
 import path from 'path';
 
 const API_V3_CONTROLLERS_PATH = path.join(__dirname, '/../controllers/api-v3/');
+const API_V4_CONTROLLERS_PATH = path.join(__dirname, '/../controllers/api-v4/');
 const TOP_LEVEL_CONTROLLERS_PATH = path.join(__dirname, '/../controllers/top-level/');
 
 const app = express();
@@ -27,10 +28,17 @@ const v3Router = express.Router(); // eslint-disable-line new-cap
 routes.walkControllers(v3Router, API_V3_CONTROLLERS_PATH);
 app.use('/api/v3', v3Router);
 
-// API v4 proxies API v3
-// Can also disable or override with its own version v3 routes
+// API v4 proxies API v3 routes by default.
+// It can also disable or override v3 routes
+
+// A list of v3 routes in the format METHOD-URL to skip
+const v4RouterOverrides = [
+  'GET-/status',
+];
+
 const v4Router = express.Router(); // eslint-disable-line new-cap
-routes.walkControllers(v4Router, API_V3_CONTROLLERS_PATH);
+routes.walkControllers(v4Router, API_V3_CONTROLLERS_PATH, v4RouterOverrides);
+routes.walkControllers(v4Router, API_V4_CONTROLLERS_PATH);
 app.use('/api/v4', v4Router);
 
 module.exports = app;
