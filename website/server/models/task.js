@@ -94,13 +94,13 @@ export let TaskSchema = new Schema({
     shortName: {type: String},
     id: {type: String, ref: 'Challenge', validate: [validator.isUUID, 'Invalid uuid.']}, // When set (and userId not set) it's the original task
     taskId: {type: String, ref: 'Task', validate: [validator.isUUID, 'Invalid uuid.']}, // When not set but challenge.id defined it's the original task
-    broken: {type: String, enum: ['CHALLENGE_DELETED', 'TASK_DELETED', 'UNSUBSCRIBED', 'CHALLENGE_CLOSED', 'CHALLENGE_TASK_NOT_FOUND']}, // CHALLENGE_TASK_NOT_FOUND comes from v3 migration
+    broken: {type: String, enum: ['CHALLENGE_DELETED', 'TASK_DELETED', 'CHALLENGE_CLOSED', 'CHALLENGE_TASK_NOT_FOUND']}, // CHALLENGE_TASK_NOT_FOUND comes from v3 migration
     winner: String, // user.profile.name of the winner
   },
 
   group: {
     id: {type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.']},
-    broken: {type: String, enum: ['GROUP_DELETED', 'TASK_DELETED', 'UNSUBSCRIBED']},
+    broken: {type: String, enum: ['GROUP_DELETED', 'TASK_DELETED']},
     assignedUsers: [{type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.']}],
     taskId: {type: String, ref: 'Task', validate: [validator.isUUID, 'Invalid uuid.']},
     approval: {
