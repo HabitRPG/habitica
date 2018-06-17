@@ -39,7 +39,7 @@ describe('shops actions', () => {
 
       let item = getItemInfo(user, 'marketGear', gearItem, getOfficialPinnedItems(user));
 
-      sandbox.stub(axios, 'post').withArgs('/api/v3/user/buy/armor_rogue_1').returns(Promise.resolve({data: {data: {}}}));
+      sandbox.stub(axios, 'post').withArgs('/api/v4/user/buy/armor_rogue_1').returns(Promise.resolve({data: {data: {}}}));
 
       await store.dispatch('shops:genericPurchase', {
         pinType: item.pinType,
