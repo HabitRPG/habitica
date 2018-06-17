@@ -12,7 +12,7 @@ describe('user actions', () => {
     it('loads the user', async () => {
       expect(store.state.user.loadingStatus).to.equal('NOT_LOADED');
       const user = {_id: 1};
-      sandbox.stub(axios, 'get').withArgs('/api/v3/user').returns(Promise.resolve({data: {data: user}}));
+      sandbox.stub(axios, 'get').withArgs('/api/v4/user').returns(Promise.resolve({data: {data: user}}));
 
       await store.dispatch('user:fetch');
 
@@ -28,7 +28,7 @@ describe('user actions', () => {
       };
 
       const user = {_id: 2};
-      sandbox.stub(axios, 'get').withArgs('/api/v3/user').returns(Promise.resolve({data: {data: user}}));
+      sandbox.stub(axios, 'get').withArgs('/api/v4/user').returns(Promise.resolve({data: {data: user}}));
 
       await store.dispatch('user:fetch');
 
@@ -43,7 +43,7 @@ describe('user actions', () => {
       };
 
       const user = {_id: 2};
-      sandbox.stub(axios, 'get').withArgs('/api/v3/user').returns(Promise.resolve({data: {data: user}}));
+      sandbox.stub(axios, 'get').withArgs('/api/v4/user').returns(Promise.resolve({data: {data: user}}));
 
       await store.dispatch('user:fetch', {forceLoad: true});
 
