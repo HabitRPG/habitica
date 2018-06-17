@@ -370,7 +370,7 @@ export default {
       }
 
       // @TODO: implement langauge and invite accepting
-      // var url = ApiUrl.get() + "/api/v3/user/auth/local/register";
+      // var url = ApiUrl.get() + "/api/v4/user/auth/local/register";
       // if (location.search && location.search.indexOf('Invite=') !== -1) { // matches groupInvite and partyInvite
       //   url += location.search;
       // }
@@ -481,7 +481,7 @@ export default {
         return;
       }
 
-      await axios.post('/api/v3/user/reset-password', {
+      await axios.post('/api/v4/user/reset-password', {
         email: this.username,
       });
 
@@ -499,7 +499,7 @@ export default {
         return;
       }
 
-      const res = await axios.post('/api/v3/user/auth/reset-password-set-new-one', {
+      const res = await axios.post('/api/v4/user/auth/reset-password-set-new-one', {
         newPassword: this.password,
         confirmPassword: this.passwordConfirm,
         code: this.resetPasswordSetNewOneData.code,

@@ -1441,7 +1441,7 @@ export default {
       });
 
       // @TODO: Move to the action
-      let response = await axios.post('/api/v3/tasks/user', tasksToCreate);
+      let response = await axios.post('/api/v4/tasks/user', tasksToCreate);
       let tasks = response.data.data;
       tasks.forEach(task => {
         this.$store.state.user.data.tasksOrder[`${task.type}s`].unshift(task._id);
@@ -1512,7 +1512,7 @@ export default {
         }
       }
 
-      await axios.post(`/api/v3/user/unlock?path=${path}`);
+      await axios.post(`/api/v4/user/unlock?path=${path}`);
       try {
         unlock(this.user, {
           query: {
