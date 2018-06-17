@@ -306,7 +306,7 @@ export default {
         // Don't show errors from getting user details. These users have delete their account,
         // but their chat message still exists.
         let configExists = Boolean(error.response) && Boolean(error.response.config);
-        if (configExists && error.response.config.method === 'get' && error.response.config.url.indexOf('/api/v3/members/') !== -1) {
+        if (configExists && error.response.config.method === 'get' && error.response.config.url.indexOf('/api/v4/members/') !== -1) {
           // @TODO: We resolve the promise because we need our caching to cache this user as tried
           // Chat paging should help this, but maybe we can also find another solution..
           return Promise.resolve(error);
@@ -348,20 +348,20 @@ export default {
       const url = response.config.url;
       const method = response.config.method;
 
-      const isApiCall = url.indexOf('api/v3') !== -1;
+      const isApiCall = url.indexOf('api/v4') !== -1;
       const userV = response.data && response.data.userV;
-      const isCron = url.indexOf('/api/v3/cron') === 0 && method === 'post';
+      const isCron = url.indexOf('/api/v4/cron') === 0 && method === 'post';
 
       if (this.isUserLoaded && isApiCall && userV) {
         const oldUserV = this.user._v;
         this.user._v = userV;
 
         // Do not sync again if already syncing
-        const isUserSync = url.indexOf('/api/v3/user') === 0 && method === 'get';
-        const isTasksSync = url.indexOf('/api/v3/tasks/user') === 0 && method === 'get';
+        const isUserSync = url.indexOf('/api/v4/user') === 0 && method === 'get';
+        const isTasksSync = url.indexOf('/api/v4/tasks/user') === 0 && method === 'get';
         // exclude chat seen requests because with real time chat they would be too many
         const isChatSeen = url.indexOf('/chat/seen') !== -1  && method === 'post';
-        // exclude POST /api/v3/cron because the user is synced automatically after cron runs
+        // exclude POST /api/v4/cron because the user is synced automatically after cron runs
 
         // Something has changed on the user object that was not tracked here, sync the user
         if (userV - oldUserV > 1 && !isCron && !isChatSeen && !isUserSync && !isTasksSync) {

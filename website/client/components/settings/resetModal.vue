@@ -20,7 +20,7 @@ export default {
       this.$root.$emit('bv::hide::modal', 'reset');
     },
     async reset () {
-      let response = await axios.post('/api/v3/user/reset');
+      let response = await axios.post('/api/v4/user/reset');
       // @TODO: Not sure if this is correct
       this.$store.user = response.data.data.user;
       this.$router.push('/');

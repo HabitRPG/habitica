@@ -47,7 +47,7 @@ export default {
       this.$root.$emit('bv::hide::modal', 'reset');
     },
     async deleteAccount () {
-      await axios.delete('/api/v3/user', {
+      await axios.delete('/api/v4/user', {
         data: {
           password: this.password,
           feedback: this.feedback,

@@ -206,7 +206,7 @@ export default {
         let url = '/amazon/subscribe';
 
         if (this.amazonPayments.groupToCreate) {
-          url = '/api/v3/groups/create-plan';
+          url = '/api/v4/groups/create-plan';
         }
 
         try {

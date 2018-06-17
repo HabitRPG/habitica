@@ -399,7 +399,7 @@ export default {
     },
     async runYesterDailiesAction () {
       // Run Cron
-      await axios.post('/api/v3/cron');
+      await axios.post('/api/v4/cron');
 
       // Notifications
 
@@ -532,7 +532,7 @@ export default {
       let userReadNotifsPromise = false;
 
       if (notificationsToRead.length > 0) {
-        await axios.post('/api/v3/notifications/read', {
+        await axios.post('/api/v4/notifications/read', {
           notificationIds: notificationsToRead,
         });
       }
