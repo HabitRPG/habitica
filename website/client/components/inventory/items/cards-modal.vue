@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     async readCard () {
-      await axios.post(`/api/v3/user/read-card/${this.cardType}`);
+      await axios.post(`/api/v4/user/read-card/${this.cardType}`);
       this.user.items.special[`${this.cardType}Received`].shift();
       this.user.flags.cardReceived = false;
       this.close();

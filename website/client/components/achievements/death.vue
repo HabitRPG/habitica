@@ -66,7 +66,7 @@ export default {
       this.$root.$emit('bv::hide::modal', 'death');
     },
     async revive () {
-      await axios.post('/api/v3/user/revive');
+      await axios.post('/api/v4/user/revive');
       revive(this.user);
       this.close();
     },

@@ -253,7 +253,7 @@ export default {
       this.$emit('message-removed', message);
 
       if (this.inbox) {
-        axios.delete(`/api/v3/user/messages/${message.id}`);
+        axios.delete(`/api/v4/user/messages/${message.id}`);
         this.$delete(this.user.inbox.messages, message.id);
         return;
       }

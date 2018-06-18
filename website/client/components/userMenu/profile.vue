@@ -507,12 +507,12 @@ export default {
     },
     blockUser () {
       this.userLoggedIn.inbox.blocks.push(this.user._id);
-      axios.post(`/api/v3/user/block/${this.user._id}`);
+      axios.post(`/api/v4/user/block/${this.user._id}`);
     },
     unblockUser () {
       let index = this.userLoggedIn.inbox.blocks.indexOf(this.user._id);
       this.userLoggedIn.inbox.blocks.splice(index, 1);
-      axios.post(`/api/v3/user/block/${this.user._id}`);
+      axios.post(`/api/v4/user/block/${this.user._id}`);
     },
     openSendGemsModal () {
       this.userReceivingGems = this.user;
