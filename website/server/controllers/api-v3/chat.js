@@ -18,6 +18,7 @@ import bannedWords from '../../libs/bannedWords';
 import guildsAllowingBannedWords from '../../libs/guildsAllowingBannedWords';
 import { getMatchesByWordArray } from '../../libs/stringUtils';
 import bannedSlurs from '../../libs/bannedSlurs';
+import apiError from '../../libs/apiError';
 
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
   return { email, canSend: true };
@@ -61,11 +62,13 @@ function textContainsBannedSlur (message) {
 api.getChat = {
   method: 'GET',
   url: '/groups/:groupId/chat',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -100,13 +103,15 @@ function getBannedWordsFromText (message) {
 api.postChat = {
   method: 'POST',
   url: '/groups/:groupId/chat',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;
     let chatUpdated;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
     req.sanitize('message').trim();
     req.checkBody('message', res.t('messageGroupChatBlankMessage')).notEmpty();
 
@@ -221,12 +226,14 @@ api.postChat = {
 api.likeChat = {
   method: 'POST',
   url: '/groups/:groupId/chat/:chatId/like',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
     req.checkParams('chatId', res.t('chatIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
@@ -278,7 +285,9 @@ api.likeChat = {
 api.flagChat = {
   method: 'POST',
   url: '/groups/:groupId/chat/:chatId/flag',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     const chatReporter = chatReporterFactory('Group', req, res);
     const message = await chatReporter.flag();
@@ -307,13 +316,15 @@ api.flagChat = {
 api.clearChatFlags = {
   method: 'Post',
   url: '/groups/:groupId/chat/:chatId/clearflags',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;
     let chatId = req.params.chatId;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
     req.checkParams('chatId', res.t('chatIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
@@ -377,12 +388,14 @@ api.clearChatFlags = {
 api.seenChat = {
   method: 'POST',
   url: '/groups/:groupId/chat/seen',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -443,13 +456,15 @@ api.seenChat = {
 api.deleteChat = {
   method: 'DELETE',
   url: '/groups/:groupId/chat/:chatId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;
     let chatId = req.params.chatId;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
     req.checkParams('chatId', res.t('chatIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();

@@ -20,6 +20,8 @@ module.exports = function updateStats (user, stats, req = {}, analytics) {
   if (stats.exp >= experienceToNextLevel) {
     user.stats.exp = stats.exp;
 
+    const initialLvl = user.stats.lvl;
+
     while (stats.exp >= experienceToNextLevel) {
       stats.exp -= experienceToNextLevel;
       user.stats.lvl++;
@@ -47,6 +49,13 @@ module.exports = function updateStats (user, stats, req = {}, analytics) {
         }
       }
     }
+
+    const newLvl = user.stats.lvl;
+    if (!user._tmp.leveledUp) user._tmp.leveledUp = [];
+    user._tmp.leveledUp.push({
+      initialLvl,
+      newLvl,
+    });
   }
 
   user.stats.exp = stats.exp;

@@ -105,17 +105,29 @@ export default {
     });
   },
   methods: {
+    // @TODO: Abstract hello in to action or lib
     async socialAuth (network) {
-      let auth = await hello(network).login({
-        scope: 'email',
-        redirect_uri: '', // eslint-disable-line camelcase
-      });
+      try {
+        await hello(network).logout();
+      } catch (e) {} // eslint-disable-line
 
-      await this.$store.dispatch('auth:socialAuth', {
-        auth,
-      });
+      try {
+        let auth = await hello(network).login({
+          scope: 'email',
+          redirect_uri: '', // eslint-disable-line camelcase
+        });
 
-      await this.finishAuth();
+        await this.$store.dispatch('auth:socialAuth', {
+          auth,
+        });
+
+        await this.finishAuth();
+      } catch (err) {
+        console.error(err); // eslint-disable-line no-console
+        // logout the user
+        await hello(network).logout();
+        this.socialAuth(network); // login again
+      }
     },
     async register () {
       if (!this.email) {

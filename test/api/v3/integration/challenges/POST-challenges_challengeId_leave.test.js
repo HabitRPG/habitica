@@ -48,6 +48,7 @@ describe('POST /challenges/:challengeId/leave', () => {
       notInGroupLeavingUser = populatedGroup.members[2];
 
       challenge = await generateChallenge(groupLeader, group);
+      await groupLeader.post(`/challenges/${challenge._id}/join`);
 
       taskText = 'A challenge task text';
 

@@ -96,7 +96,6 @@
     "questInvitationDoesNotExist": "Zatím vám nebyla poslána žádná pozvánka na výpravu.",
     "questInviteNotFound": "Nebyla nalezena žádná pozvánka na výpravu.",
     "guildQuestsNotSupported": "Cechy nelze pozvat na výpravy.",
-    "questNotFound": "Výprava „<%= key %>\" nenalezena.",
     "questNotOwned": "Nevlastníte tento svitek výpravy.",
     "questNotGoldPurchasable": "Výpravu „<%= key %>\" nelze koupit na zlato.",
     "questLevelTooHigh": "Pro začátek výpravy musíte mít úroveň <%= level %>.",

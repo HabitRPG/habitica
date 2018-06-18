@@ -10,6 +10,7 @@ import {
   BadRequest, NotAuthorized, NotFound,
 } from '../../../../website/common/script/libs/errors';
 import i18n from '../../../../website/common/script/i18n';
+import errorMessage from '../../../../website/common/script/libs/errorMessage';
 
 function buyGear (user, req, analytics) {
   let buyOp = new BuyMarketGearOperation(user, req, analytics);
@@ -63,6 +64,13 @@ describe('shared.ops.buyMarketGear', () => {
         eyewear_special_redTopFrame: true,
         eyewear_special_whiteTopFrame: true,
         eyewear_special_yellowTopFrame: true,
+        headAccessory_special_blackHeadband: true,
+        headAccessory_special_blueHeadband: true,
+        headAccessory_special_greenHeadband: true,
+        headAccessory_special_pinkHeadband: true,
+        headAccessory_special_redHeadband: true,
+        headAccessory_special_whiteHeadband: true,
+        headAccessory_special_yellowHeadband: true,
       });
       expect(analytics.track).to.be.calledOnce;
     });
@@ -190,7 +198,7 @@ describe('shared.ops.buyMarketGear', () => {
         buyGear(user);
       } catch (err) {
         expect(err).to.be.an.instanceof(BadRequest);
-        expect(err.message).to.equal(i18n.t('missingKeyParam'));
+        expect(err.message).to.equal(errorMessage('missingKeyParam'));
         done();
       }
     });
@@ -202,7 +210,7 @@ describe('shared.ops.buyMarketGear', () => {
         buyGear(user, {params});
       } catch (err) {
         expect(err).to.be.an.instanceof(NotFound);
-        expect(err.message).to.equal(i18n.t('itemNotFound', params));
+        expect(err.message).to.equal(errorMessage('itemNotFound', params));
         done();
       }
     });

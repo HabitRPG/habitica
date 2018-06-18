@@ -62,7 +62,6 @@
 
     .content {
       text-align: center;
-      overflow-y: scroll;
     }
 
     .item-wrapper {
@@ -71,14 +70,12 @@
 
     .inner-content {
       margin: 33px auto auto;
-      width: 400px;
     }
 
 
     .questInfo {
       width: 70%;
-      margin: 0 auto;
-      margin-bottom: 10px;
+      margin: 0 auto 10px auto;
     }
 
     .right-sidebar {
@@ -99,9 +96,7 @@
     span.svg-icon.inline.icon-32 {
       height: 32px;
       width: 32px;
-
       margin-right: 8px;
-
       vertical-align: middle;
     }
 
@@ -112,7 +107,6 @@
       font-size: 24px;
       font-weight: bold;
       line-height: 1.33;
-
       vertical-align: middle;
 
       &.gems {
@@ -160,7 +154,6 @@
         color: $white;
       }
     }
-
 
     .notEnough {
       pointer-events: none;

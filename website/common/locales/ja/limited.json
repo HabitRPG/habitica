@@ -124,7 +124,7 @@
     "eventAvailability": "<%= date(locale) %>まで購入できます。",
     "dateEndMarch": "4月30日",
     "dateEndApril": "4月19日",
-    "dateEndMay": "5月17日",
+    "dateEndMay": "May 31",
     "dateEndJune": "6月14日",
     "dateEndJuly": "7月29日",
     "dateEndAugust": "8月31日",

@@ -3,60 +3,61 @@ div
   inbox-modal
   creator-intro
   profile
-  b-navbar.navbar.navbar-inverse.fixed-top.navbar-expand-lg(type="dark")
-    .navbar-header
+  b-navbar.topbar.navbar-inverse.static-top.navbar-expand-lg(type="dark", :class="navbarZIndexClass")
+    b-navbar-brand.brand
       .logo.svg-icon.d-none.d-xl-block(v-html="icons.logo")
-      .svg-icon.gryphon.d-md-block.d-none.d-xl-none
-      .svg-icon.gryphon.d-sm-block.d-lg-none.d-md-none
-    b-nav-toggle(target='nav_collapse')
-    b-collapse#nav_collapse.collapse.navbar-collapse.justify-content-between.flex-wrap(is-nav)
-      .ul.navbar-nav
-        router-link.nav-item(tag="li", :to="{name: 'tasks'}", exact)
-          a.nav-link(v-once) {{ $t('tasks') }}
-        router-link.nav-item.dropdown(tag="li", :to="{name: 'items'}", :class="{'active': $route.path.startsWith('/inventory')}")
-          a.nav-link(v-once) {{ $t('inventory') }}
-          .dropdown-menu
-            router-link.dropdown-item(:to="{name: 'items'}", exact) {{ $t('items') }}
-            router-link.dropdown-item(:to="{name: 'equipment'}") {{ $t('equipment') }}
-            router-link.dropdown-item(:to="{name: 'stable'}") {{ $t('stable') }}
-        router-link.nav-item.dropdown(tag="li", :to="{name: 'market'}", :class="{'active': $route.path.startsWith('/shop')}")
-          a.nav-link(v-once) {{ $t('shops') }}
-          .dropdown-menu
-            router-link.dropdown-item(:to="{name: 'market'}", exact) {{ $t('market') }}
-            router-link.dropdown-item(:to="{name: 'quests'}") {{ $t('quests') }}
-            router-link.dropdown-item(:to="{name: 'seasonal'}") {{ $t('titleSeasonalShop') }}
-            router-link.dropdown-item(:to="{name: 'time'}") {{ $t('titleTimeTravelers') }}
-        router-link.nav-item(tag="li", :to="{name: 'party'}", v-if='this.user.party._id')
-          a.nav-link(v-once) {{ $t('party') }}
-        .nav-item(@click='openPartyModal()', v-if='!this.user.party._id')
-          a.nav-link(v-once) {{ $t('party') }}
-        router-link.nav-item.dropdown(tag="li", :to="{name: 'tavern'}", :class="{'active': $route.path.startsWith('/guilds')}")
-          a.nav-link(v-once) {{ $t('guilds') }}
-          .dropdown-menu
-            router-link.dropdown-item(:to="{name: 'tavern'}") {{ $t('tavern') }}
-            router-link.dropdown-item(:to="{name: 'myGuilds'}") {{ $t('myGuilds') }}
-            router-link.dropdown-item(:to="{name: 'guildsDiscovery'}") {{ $t('guildsDiscovery') }}
-        router-link.nav-item.dropdown(tag="li", :to="{name: 'groupPlan'}", :class="{'active': $route.path.startsWith('/group-plans')}")
-          a.nav-link(v-once) {{ $t('group') }}
-          .dropdown-menu
-            router-link.dropdown-item(v-for='group in groupPlans', :key='group._id', :to="{name: 'groupPlanDetailTaskInformation', params: {groupId: group._id}}") {{ group.name }}
-        router-link.nav-item.dropdown(tag="li", :to="{name: 'myChallenges'}", :class="{'active': $route.path.startsWith('/challenges')}")
-          a.nav-link(v-once) {{ $t('challenges') }}
-          .dropdown-menu
-            router-link.dropdown-item(:to="{name: 'myChallenges'}") {{ $t('myChallenges') }}
-            router-link.dropdown-item(:to="{name: 'findChallenges'}") {{ $t('findChallenges') }}
-        router-link.nav-item.dropdown(tag="li", :class="{'active': $route.path.startsWith('/help')}", :to="{name: 'faq'}")
-          a.nav-link(v-once) {{ $t('help') }}
-          .dropdown-menu
-            router-link.dropdown-item(:to="{name: 'faq'}") {{ $t('faq') }}
-            router-link.dropdown-item(:to="{name: 'overview'}") {{ $t('overview') }}
-            router-link.dropdown-item(to="/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac") {{ $t('reportBug') }}
-            router-link.dropdown-item(to="/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a") {{ $t('askAQuestion') }}
-            a.dropdown-item(href="https://trello.com/c/odmhIqyW/440-read-first-table-of-contents", target='_blank') {{ $t('requestAF') }}
-            a.dropdown-item(href="http://habitica.wikia.com/wiki/Contributing_to_Habitica", target='_blank') {{ $t('contributing') }}
-            a.dropdown-item(href="http://habitica.wikia.com/wiki/Habitica_Wiki", target='_blank') {{ $t('wiki') }}
-            a.dropdown-item(@click='modForm()') {{ $t('contactForm') }}
-      .user-menu.d-flex.align-items-center
+      .svg-icon.gryphon.d-xs-block.d-xl-none
+    b-nav-toggle(target='menu_collapse').menu-toggle
+    .quick-menu.mobile-only.form-inline
+      a.item-with-icon(@click="sync", v-b-tooltip.hover.bottom="$t('sync')")
+        .top-menu-icon.svg-icon(v-html="icons.sync")
+      notification-menu.item-with-icon
+      user-dropdown.item-with-icon
+    b-collapse#menu_collapse.collapse.navbar-collapse
+      b-navbar-nav.menu-list
+        b-nav-item.topbar-item(tag="li", :to="{name: 'tasks'}", exact) {{ $t('tasks') }}
+        li.topbar-item(:class="{'active': $route.path.startsWith('/inventory')}")
+          router-link.nav-link(:to="{name: 'items'}") {{ $t('inventory') }}
+          .topbar-dropdown
+            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'items'}", exact) {{ $t('items') }}
+            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'equipment'}") {{ $t('equipment') }}
+            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'stable'}") {{ $t('stable') }}
+        li.topbar-item(:class="{'active': $route.path.startsWith('/shop')}")
+          router-link.nav-link(:to="{name: 'market'}") {{ $t('shops') }}
+          .topbar-dropdown
+            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'market'}", exact) {{ $t('market') }}
+            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'quests'}") {{ $t('quests') }}
+            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'seasonal'}") {{ $t('titleSeasonalShop') }}
+            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'time'}") {{ $t('titleTimeTravelers') }}
+        b-nav-item.topbar-item(tag="li", :to="{name: 'party'}", v-if='this.user.party._id') {{ $t('party') }}
+        b-nav-item.topbar-item(@click='openPartyModal()', v-if='!this.user.party._id') {{ $t('party') }}
+        li.topbar-item(:class="{'active': $route.path.startsWith('/guilds')}")
+          router-link.nav-link(:to="{name: 'tavern'}") {{ $t('guilds') }}
+          .topbar-dropdown
+            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'tavern'}") {{ $t('tavern') }}
+            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'myGuilds'}") {{ $t('myGuilds') }}
+            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'guildsDiscovery'}") {{ $t('guildsDiscovery') }}
+        li.topbar-item(:class="{'active': $route.path.startsWith('/group-plans')}")
+          router-link.nav-link(:to="{name: 'groupPlan'}") {{ $t('group') }}
+          .topbar-dropdown
+            router-link.topbar-dropdown-item.dropdown-item(v-for='group in groupPlans', :key='group._id', :to="{name: 'groupPlanDetailTaskInformation', params: {groupId: group._id}}") {{ group.name }}
+        li.topbar-item(:class="{'active': $route.path.startsWith('/challenges')}")
+          router-link.nav-link(:to="{name: 'myChallenges'}") {{ $t('challenges') }}
+          .topbar-dropdown
+            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'myChallenges'}") {{ $t('myChallenges') }}
+            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'findChallenges'}") {{ $t('findChallenges') }}
+        li.topbar-item(:class="{'active': $route.path.startsWith('/help')}")
+          router-link.nav-link(:to="{name: 'faq'}") {{ $t('help') }}
+          .topbar-dropdown
+            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'faq'}") {{ $t('faq') }}
+            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'overview'}") {{ $t('overview') }}
+            router-link.topbar-dropdown-item.dropdown-item(to="/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac") {{ $t('reportBug') }}
+            router-link.topbar-dropdown-item.dropdown-item(to="/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a") {{ $t('askAQuestion') }}
+            a.topbar-dropdown-item.dropdown-item(href="https://trello.com/c/odmhIqyW/440-read-first-table-of-contents", target='_blank') {{ $t('requestAF') }}
+            a.topbar-dropdown-item.dropdown-item(href="http://habitica.wikia.com/wiki/Contributing_to_Habitica", target='_blank') {{ $t('contributing') }}
+            a.topbar-dropdown-item.dropdown-item(href="http://habitica.wikia.com/wiki/Habitica_Wiki", target='_blank') {{ $t('wiki') }}
+            a.topbar-dropdown-item.dropdown-item(@click='modForm()') {{ $t('contactForm') }}
+      .currency-tray.form-inline
         .item-with-icon(v-if="userHourglasses > 0")
           .top-menu-icon.svg-icon(v-html="icons.hourglasses", v-b-tooltip.hover.bottom="$t('mysticHourglassesTooltip')")
           span {{ userHourglasses }}
@@ -66,6 +67,7 @@ div
         .item-with-icon.gold
           .top-menu-icon.svg-icon(v-html="icons.gold", v-b-tooltip.hover.bottom="$t('gold')")
           span {{Math.floor(user.stats.gp * 100) / 100}}
+      .form-inline.desktop-only
         a.item-with-icon(@click="sync", v-b-tooltip.hover.bottom="$t('sync')")
           .top-menu-icon.svg-icon(v-html="icons.sync")
         notification-menu.item-with-icon
@@ -76,16 +78,6 @@ div
   @import '~client/assets/scss/colors.scss';
   @import '~client/assets/scss/utils.scss';
 
-  @media only screen and (max-width: 1305px) {
-    .nav-link {
-      padding: .8em 1em !important;
-    }
-
-    .navbar-header {
-      margin-right: 5px !important;
-    }
-  }
-
   @media only screen and (max-width: 1200px) {
     .gryphon {
       background-image: url('~assets/images/melior@3x.png');
@@ -94,127 +86,185 @@ div
       background-size: cover;
       color: $white;
       margin: 0 auto;
-
     }
 
-    .svg-icon.gryphon.d-sm-block {
-      position: absolute;
-      left: calc(50% - 30px);
-      top: 1em;
-    }
-
-    .nav-item .nav-link {
+    .topbar-item {
       font-size: 14px !important;
-      padding: 16px 12px !important;
     }
   }
 
-  @media only screen and (max-width: 990px) {
-    #nav_collapse {
-      margin-top: 0.6em;
-      flex-direction: row !important;
-      max-height: 650px;
-      overflow: auto;
+  @media only screen and (min-width: 992px) {
+    .mobile-only {
+      display: none !important;
     }
 
-    .navbar-nav {
-      width: 100%;
-      background: $purple-100;
-    }
+    .topbar {
+      max-height: 56px;
 
-    .user-menu {
-      flex-direction: column !important;
-      align-items: left !important;
-      background: $purple-100;
-      width: 100%;
+      .currency-tray {
+        margin-left: auto;
+      }
 
-      .item-with-icon {
-        width: 100%;
-        padding-bottom: 1em;
+      .topbar-item {
+        padding-top: 5px;
+        height: 56px;
+
+        &.active:not(:hover) {
+          box-shadow: 0px -4px 0px $purple-300 inset;
+        }
+      }
+
+      .topbar-dropdown {
+        position: absolute;
       }
     }
   }
 
-  #nav_collapse {
+  @media only screen and (max-width: 992px) {
+    .brand {
+      margin: 0;
+    }
+
+    .gryphon {
+      position: absolute;
+      left: calc(50% - 30px);
+      top: 10px;
+    }
+
+    #menu_collapse {
+      margin: 0.6em -16px -8px;
+      overflow: auto;
+      flex-direction: column;
+      background-color: $purple-100;
+
+      .menu-list {
+        width: 100%;
+        order: 1;
+        text-align: center;
+
+        .topbar-dropdown-item {
+          background: #432874;
+          border-bottom: #6133b4 solid 1px;
+        }
+
+        .topbar-item {
+          &.active {
+            background: #6133b4;
+          }
+
+          background: #4f2a93;
+          border-bottom: #6133b4 solid 1px;
+        }
+      }
+    }
+
+    .currency-tray {
+      justify-content: center;
+      min-height: 40px;
+      background: #271b3d;
+      width: 100%;
+    }
+
+    .desktop-only {
+      display: none !important;
+    }
+  }
+
+  .menu-toggle {
+    border: none;
+  }
+
+  #menu_collapse {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .topbar {
+    background: $purple-100 url(~assets/svg/for-css/bits.svg) right top no-repeat;
+    min-height: 56px;
+    box-shadow: 0 1px 2px 0 rgba($black, 0.24);
+
+    a {
+      color: white !important;
+    }
+  }
+
+  .navbar-z-index {
+    &-normal {
+      z-index: 1080;
+    }
+
+    &-modal {
+      z-index: 1035;
+    z-index: 1042; // To stay above snakbar notifications and modals
+    }
+  }
+
+  .logo {
+    padding-left: 10px;
+    width: 128px;
+    height: 28px;
+  }
+
+  .quick-menu {
+    display: flex;
+    margin-left: auto;
+  }
+
+  .currency-tray {
     display: flex;
   }
 
-  nav.navbar {
-    background: $purple-100 url(~assets/svg/for-css/bits.svg) right no-repeat;
-    padding-left: 25px;
-    padding-right: 12.5px;
-    height: 56px;
-    box-shadow: 0 1px 2px 0 rgba($black, 0.24);
-    z-index: 1042; // To stay above snakbar notifications and modals
-  }
+  .topbar-item {
+    font-size: 16px;
+    color: $white !important;
+    font-weight: bold;
+    transition: none;
 
-  .navbar-header {
-    margin-right: 48px;
-
-    .logo {
-      width: 128px;
-      height: 28px;
+    .topbar-dropdown {
+      display: none; // Display is set to block on hover.
     }
-  }
 
-  .nav-item {
-    .nav-link {
-      font-size: 16px;
-      color: $white !important;
-      font-weight: bold;
-      line-height: 1.5;
-      padding: 16px 20px;
-      transition: none;
+    >a {
+      padding: .8em 1em !important;
     }
 
     &:hover {
-      .nav-link {
-        color: $white !important;
+      color: $white !important;
+      background: $purple-200;
+
+      .topbar-dropdown {
+        display: block; // Open drop-down on hover.
+        margin-top: 0; // Remove gap between navbar and drop-down.
         background: $purple-200;
-      }
-    }
+        border-radius: 0px;
+        border: none;
+        box-shadow: none;
+        padding: 0px;
 
-    &.active:not(:hover) {
-      .nav-link {
-        box-shadow: 0px -4px 0px $purple-300 inset;
-      }
-    }
-  }
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
 
-  // Make the dropdown menu open on hover
-  .dropdown:hover .dropdown-menu {
-   display: block;
-   margin-top: 0; // remove the gap so it doesn't close
-  }
+        .topbar-dropdown-item {
+          font-size: 16px;
+          box-shadow: none;
+          color: $white;
+          border: none;
+          line-height: 1.5;
+          display: list-item;
 
-  .dropdown-menu {
-    background: $purple-200;
-    border-radius: 0px;
-    border: none;
-    box-shadow: none;
-    padding: 0px;
+          &.active {
+            background: $purple-300;
+          }
 
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
+          &:hover {
+            background: $purple-300;
 
-    .dropdown-item {
-      font-size: 16px;
-      box-shadow: none;
-      color: $white;
-      border: none;
-      line-height: 1.5;
-
-      &.active {
-        background: $purple-300;
-      }
-
-      &:hover {
-        background: $purple-300;
-        color: $white;
-
-        &:last-child {
-          border-bottom-right-radius: 5px;
-          border-bottom-left-radius: 5px;
+            &:last-child {
+              border-bottom-right-radius: 5px;
+              border-bottom-left-radius: 5px;
+            }
+          }
         }
       }
     }
@@ -327,7 +377,14 @@ export default {
       user: 'user.data',
       userHourglasses: 'user.data.purchased.plan.consecutive.trinkets',
       groupPlans: 'groupPlans',
+      modalStack: 'modalStack',
     }),
+    navbarZIndexClass () {
+      if (this.modalStack.length > 0) {
+        return 'navbar-z-index-modal';
+      }
+      return 'navbar-z-index-normal';
+    },
   },
   mounted () {
     this.getUserGroupPlans();
@@ -364,6 +421,7 @@ export default {
 
       this.$root.$emit('bv::show::modal', 'buy-gems', {alreadyTracked: true});
     },
+
   },
 };
 </script>

@@ -124,7 +124,7 @@
     "eventAvailability": "<%= date(locale) %> tarihine kadar satın alınabilir. ",
     "dateEndMarch": "April 30",
     "dateEndApril": "19 Nisan",
-    "dateEndMay": "17 Mayıs",
+    "dateEndMay": "May 31",
     "dateEndJune": "14 Haziran",
     "dateEndJuly": "29 Temmuz",
     "dateEndAugust": "31 Ağustos",

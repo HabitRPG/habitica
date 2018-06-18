@@ -1,5 +1,6 @@
 <template lang="pug">
 div
+  invite-modal(:group='inviteModalGroup')
   create-party-modal
   #app-header.row(:class="{'hide-header': $route.name === 'groupPlan'}")
     members-modal(:hide-badge="true")
@@ -9,16 +10,16 @@ div
       :is-header="true",
     )
     .view-party.d-flex.align-items-center(
-      v-if="user.party && user.party._id && partyMembers && partyMembers.length > 1",
+      v-if="hasParty",
     )
-      button.btn.btn-primary.view-party-button(@click='openPartyModal()') {{ $t('viewParty') }}
+      button.btn.btn-primary.view-party-button(@click='showPartyMembers()') {{ $t('viewParty') }}
     .party-members.d-flex(
-      v-if="partyMembers && partyMembers.length > 1",
+      v-if="hasParty",
       v-resize="1500",
       @resized="setPartyMembersWidth($event)"
     )
       member-details(
-        v-for="(member, $index) in partyMembers",
+        v-for="(member, $index) in sortedPartyMembers",
         :key="member._id",
         v-if="member._id !== user._id && $index < membersToShow",
         :member="member",
@@ -29,11 +30,11 @@ div
         :class-badge-position="'hidden'",
       )
     .no-party.d-flex.justify-content-center.text-center(v-else)
-      .align-self-center(v-once)
+      .align-self-center
         h3 {{ $t('battleWithFriends') }}
         span.small-text(v-html="$t('inviteFriendsParty')")
         br
-        button.btn.btn-primary(@click='openPartyModal()') {{ partyMembers && partyMembers.length > 1 ? $t('startAParty') : $t('inviteFriends') }}
+        button.btn.btn-primary(@click='createOrInviteParty()') {{ user.party._id ? $t('inviteFriends') : $t('startAParty') }}
   a.useMobileApp(v-if="isAndroidMobile()", v-once, href="https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica") {{ $t('useMobileApps') }}
   a.useMobileApp(v-if="isIOSMobile()", v-once, href="https://itunes.apple.com/us/app/habitica-gamified-task-manager/id994882113?mt=8") {{ $t('useMobileApps') }}
 </template>
@@ -55,7 +56,6 @@ div
   }
 
   #app-header {
-    margin-top: 56px;
     padding-left: 24px;
     padding-top: 9px;
     padding-bottom: 8px;
@@ -107,9 +107,11 @@ div
 </style>
 
 <script>
+import orderBy from 'lodash/orderBy';
 import { mapGetters, mapActions } from 'client/libs/store';
 import MemberDetails from '../memberDetails';
 import createPartyModal from '../groups/createPartyModal';
+import inviteModal from '../groups/inviteModal';
 import membersModal from '../groups/membersModal';
 import ResizeDirective from 'client/directives/resize.directive';
 
@@ -120,12 +122,14 @@ export default {
   components: {
     MemberDetails,
     createPartyModal,
+    inviteModal,
     membersModal,
   },
   data () {
     return {
       expandedMember: null,
       currentWidth: 0,
+      inviteModalGroup: undefined,
     };
   },
   computed: {
@@ -137,8 +141,14 @@ export default {
       if (this.$store.state.hideHeader) return false;
       return true;
     },
+    hasParty () {
+      return this.user.party && this.user.party._id && this.partyMembers && this.partyMembers.length > 1;
+    },
     membersToShow () {
       return Math.floor(this.currentWidth / 140) + 1;
+    },
+    sortedPartyMembers () {
+      return orderBy(this.partyMembers, [this.user.party.order], [this.user.party.orderAscending]);
     },
   },
   methods: {
@@ -158,16 +168,19 @@ export default {
         this.expandedMember = memberId;
       }
     },
-    openPartyModal () {
+    createOrInviteParty () {
       if (this.user.party._id) {
-        // Set the party details for the members-modal component
-        this.$store.state.memberModalOptions.groupId = this.user.party._id;
-        this.$store.state.memberModalOptions.viewingMembers = this.partyMembers;
-        this.$store.state.memberModalOptions.group = this.user.party;
-        this.$root.$emit('bv::show::modal', 'members-modal');
-        return;
+        this.$root.$emit('inviteModal::inviteToGroup', this.user.party);
+      } else {
+        this.$root.$emit('bv::show::modal', 'create-party-modal');
       }
-      this.$root.$emit('bv::show::modal', 'create-party-modal');
+    },
+    showPartyMembers () {
+      // Set the party details for the members-modal component
+      this.$store.state.memberModalOptions.groupId = this.user.party._id;
+      this.$store.state.memberModalOptions.viewingMembers = this.partyMembers;
+      this.$store.state.memberModalOptions.group = this.user.party;
+      this.$root.$emit('bv::show::modal', 'members-modal');
     },
     setPartyMembersWidth ($event) {
       if (this.currentWidth !== $event.width) {
@@ -179,6 +192,11 @@ export default {
     if (this.user.party && this.user.party._id) {
       this.$store.state.memberModalOptions.groupId = this.user.party._id;
       this.getPartyMembers();
+
+      this.$root.$on('inviteModal::inviteToGroup', (group) => {
+        this.inviteModalGroup = group;
+        this.$root.$emit('bv::show::modal', 'invite-modal');
+      });
     }
   },
 };

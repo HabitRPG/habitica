@@ -44,8 +44,6 @@ div
             router-view
         app-footer
         audio#sound(autoplay, ref="sound")
-          source#oggSource(type="audio/ogg", :src="sound.oggSource")
-          source#mp3Source(type="audio/mp3", :src="sound.mp3Source")
 </template>
 
 <style lang='scss' scoped>
@@ -108,7 +106,7 @@ div
 
   /* @TODO: The modal-open class is not being removed. Let's try this for now */
   .modal, .modal-open {
-    overflow-y: scroll !important;
+    overflow-y: scroll;
   }
 
   .modal-backdrop.show {
@@ -118,7 +116,7 @@ div
 
   /* Push progress bar above modals */
   #nprogress .bar {
-    z-index: 1043 !important; /* Must stay above nav bar */
+    z-index: 1090 !important; /* Must stay above nav bar */
   }
 
   .restingInn {
@@ -127,7 +125,7 @@ div
     }
 
     #app-header {
-      margin-top: 96px !important;
+      margin-top: 40px !important;
     }
 
   }
@@ -220,10 +218,9 @@ export default {
       selectedItemToBuy: null,
       selectedSpellToBuy: null,
 
-      sound: {
-        oggSource: '',
-        mp3Source: '',
-      },
+      audioSource: null,
+      audioSuffix: null,
+
       loading: true,
       currentTipNumber: 0,
       bannerHidden: false,
@@ -259,11 +256,22 @@ export default {
         return;
       }
 
-      let file =  `/static/audio/${theme}/${sound}`;
-      this.sound = {
-        oggSource: `${file}.ogg`,
-        mp3Source: `${file}.mp3`,
-      };
+      let file = `/static/audio/${theme}/${sound}`;
+
+      if (this.audioSuffix === null) {
+        this.audioSource = document.createElement('source');
+        if (this.$refs.sound.canPlayType('audio/ogg')) {
+          this.audioSuffix = '.ogg';
+          this.audioSource.type = 'audio/ogg';
+        } else {
+          this.audioSuffix = '.mp3';
+          this.audioSource.type = 'audio/mp3';
+        }
+        this.audioSource.src = file + this.audioSuffix;
+        this.$refs.sound.appendChild(this.audioSource);
+      } else {
+        this.audioSource.src = file + this.audioSuffix;
+      }
 
       this.$refs.sound.load();
     });
@@ -295,12 +303,6 @@ export default {
       if (error.response.status >= 400) {
         this.checkForBannedUser(error);
 
-        // Check for conditions to reset the user auth
-        const invalidUserMessage = [this.$t('invalidCredentials'), 'Missing authentication headers.'];
-        if (invalidUserMessage.indexOf(error.response.data) !== -1) {
-          this.$store.dispatch('auth:logout');
-        }
-
         // Don't show errors from getting user details. These users have delete their account,
         // but their chat message still exists.
         let configExists = Boolean(error.response) && Boolean(error.response.config);
@@ -313,11 +315,27 @@ export default {
         const errorData = error.response.data;
         const errorMessage = errorData.message || errorData;
 
+        // Check for conditions to reset the user auth
+        const invalidUserMessage = [this.$t('invalidCredentials'), 'Missing authentication headers.'];
+        if (invalidUserMessage.indexOf(errorMessage) !== -1) {
+          this.$store.dispatch('auth:logout');
+        }
+
+        // Most server errors should return is click to dismiss errors, with some exceptions
+        let snackbarTimeout = false;
+        if (error.response.status === 502) snackbarTimeout = true;
+
+        const notificationNotFoundMessage = [
+          this.$t('messageNotificationNotFound'),
+          this.$t('messageNotificationNotFound', 'en'),
+        ];
+        if (notificationNotFoundMessage.indexOf(errorMessage) !== -1) snackbarTimeout = true;
+
         this.$store.dispatch('snackbars:add', {
           title: 'Habitica',
           text: errorMessage,
           type: 'error',
-          timeout: true,
+          timeout: snackbarTimeout,
         });
       }
 

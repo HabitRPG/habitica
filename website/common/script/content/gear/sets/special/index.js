@@ -8,7 +8,7 @@ import takeThisGear from './special-takeThis';
 import wonderconGear from './special-wondercon';
 import t from '../../../translation';
 
-const CURRENT_SEASON = 'spring';
+const CURRENT_SEASON = '_NONE_';
 
 let armor = {
   0: backerGear.armorSpecial0,
@@ -2360,6 +2360,55 @@ let headAccessory = {
     canBuy: () => {
       return CURRENT_SEASON === 'spring';
     },
+  },
+  blackHeadband: {
+    gearSet: 'headband',
+    text: t('headAccessoryBlackHeadbandText'),
+    notes: t('headAccessoryBlackHeadbandNotes'),
+    value: 0,
+    canOwn: ownsItem('headAccessory_special_blackHeadband'),
+  },
+  blueHeadband: {
+    gearSet: 'headband',
+    text: t('headAccessoryBlueHeadbandText'),
+    notes: t('headAccessoryBlueHeadbandNotes'),
+    value: 0,
+    canOwn: ownsItem('headAccessory_special_blueHeadband'),
+  },
+  greenHeadband: {
+    gearSet: 'headband',
+    text: t('headAccessoryGreenHeadbandText'),
+    notes: t('headAccessoryGreenHeadbandNotes'),
+    value: 0,
+    canOwn: ownsItem('headAccessory_special_greenHeadband'),
+  },
+  pinkHeadband: {
+    gearSet: 'headband',
+    text: t('headAccessoryPinkHeadbandText'),
+    notes: t('headAccessoryPinkHeadbandNotes'),
+    value: 0,
+    canOwn: ownsItem('headAccessory_special_pinkHeadband'),
+  },
+  redHeadband: {
+    gearSet: 'headband',
+    text: t('headAccessoryRedHeadbandText'),
+    notes: t('headAccessoryRedHeadbandNotes'),
+    value: 0,
+    canOwn: ownsItem('headAccessory_special_redHeadband'),
+  },
+  whiteHeadband: {
+    gearSet: 'headband',
+    text: t('headAccessoryWhiteHeadbandText'),
+    notes: t('headAccessoryWhiteHeadbandNotes'),
+    value: 0,
+    canOwn: ownsItem('headAccessory_special_whiteHeadband'),
+  },
+  yellowHeadband: {
+    gearSet: 'headband',
+    text: t('headAccessoryYellowHeadbandText'),
+    notes: t('headAccessoryYellowHeadbandNotes'),
+    value: 0,
+    canOwn: ownsItem('headAccessory_special_yellowHeadband'),
   },
 };
 

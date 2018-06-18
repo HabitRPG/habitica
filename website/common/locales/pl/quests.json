@@ -96,7 +96,6 @@
     "questInvitationDoesNotExist": "Nie zostały jeszcze wysłane żadne zaproszenia na misję.",
     "questInviteNotFound": "Nie zostały znalezione żadne zaproszenia na misje.",
     "guildQuestsNotSupported": "Gildie nie mogą być zapraszane na misje.",
-    "questNotFound": "Misja \"<%= key %>\" nie znaleziona.",
     "questNotOwned": "Nie posiadasz tego zwoju misji.",
     "questNotGoldPurchasable": "Misja \"<%= key %>\" nie może być kupiona za złoto.",
     "questLevelTooHigh": "Musisz mieć co najmniej poziom <%= level %>, by rozpocząć tą misję!",

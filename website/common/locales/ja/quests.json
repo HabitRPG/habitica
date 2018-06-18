@@ -96,7 +96,6 @@
     "questInvitationDoesNotExist": "まだクエストへの招待を送っていません。",
     "questInviteNotFound": "クエストへの招待が見つかりませんでした。",
     "guildQuestsNotSupported": "ギルドはクエストに招待できません。",
-    "questNotFound": "\"<%= key %>\" のクエストは見つかりませんでした。",
     "questNotOwned": "クエストの巻物を持っていません。",
     "questNotGoldPurchasable": "\"<%= key %>\" のクエストは、ゴールドで買えるクエストではありません。",
     "questLevelTooHigh": "このクエストに挑戦するにはレベル <%= level %> が必要です。",

@@ -10,7 +10,7 @@ import * as Tasks from '../../../../website/server/models/task';
 // If you need the user to have specific requirements,
 // such as a balance > 0, just pass in the adjustment
 // to the update object. If you want to adjust a nested
-// paramter, such as the number of wolf eggs the user has,
+// parameter, such as the number of wolf eggs the user has,
 // , you can do so by passing in the full path as a string:
 // { 'items.eggs.Wolf': 10 }
 export async function generateUser (update = {}) {

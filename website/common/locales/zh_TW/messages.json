@@ -9,8 +9,8 @@
     "messageCannotFeedPet": "無法餵食這隻寵物。",
     "messageAlreadyMount": "你已經擁有這個坐騎了，試著給其他的寵物。",
     "messageEvolve": "你已經馴服 <%= egg %>，出去兜兜風吧！",
-    "messageLikesFood": "<%= egg %> really likes <%= foodText %>!",
-    "messageDontEnjoyFood": "<%= egg %> eats <%= foodText %> but doesn't seem to enjoy it.",
+    "messageLikesFood": "<%= egg %>真的很喜歡<%= foodText %>！",
+    "messageDontEnjoyFood": "<%= egg %>吃了<%= foodText %>但好像並不喜歡它。",
     "messageBought": "購買了 <%= itemText %>",
     "messageEquipped": "裝備了 <%= itemText %>。",
     "messageUnEquipped": "取下 <%= itemText %> 了。",
@@ -21,7 +21,7 @@
     "messageNotEnoughGold": "金幣不足",
     "messageTwoHandedEquip": "使用 <%= twoHandedText %> 需要用到雙手，所以 <%= offHandedText %> 要解除裝備了。",
     "messageTwoHandedUnequip": "裝備 <%= twoHandedText %> 需要用到雙手，所以 <%= offHandedText %> 要解除裝備了。",
-    "messageDropFood": "You've found <%= dropText %>!",
+    "messageDropFood": "你發現了<%= dropText %>！",
     "messageDropEgg": "您發現了一顆<%= dropText %>蛋！",
     "messageDropPotion": "您發現了一瓶<%= dropText %>孵化藥劑！",
     "messageDropQuest": "發現一個任務 !",
@@ -61,6 +61,6 @@
     "messageNotificationNotFound": "找不到通知",
     "messageNotAbleToBuyInBulk": "This item cannot be purchased in quantities above 1.",
     "notificationsRequired": "通知用ID是必須的。",
-    "unallocatedStatsPoints": "You have <span class=\"notification-bold-blue\"><%= points %> unallocated Stat Points</span>",
+    "unallocatedStatsPoints": "你有<span class=\"notification-bold-blue\"><%= points %>點未分配屬性點</span>",
     "beginningOfConversation": "您與 <%= userName %> 的對話即將開始。記得要和善、尊重，並遵守社群準則！"
 }

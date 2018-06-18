@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'APRIL SUBSCRIBER ITEMS: SPIFFY SQUIRRELS!';
+const LAST_ANNOUNCEMENT_TITLE = 'NEW DISCOUNTED PET QUEST BUNDLE: AQUATIC AMIGOS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -32,17 +32,10 @@ api.getNews = {
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
           </div>
         </div>
-        <h2>4/24/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+        <h2>6/12/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
-        <div class="media">
-          <div class="media-body">
-            <h3>April Subscriber Items Revealed!</h3>
-            <p>The April Subscriber Items have been revealed: the Spiffy Squirrel Item Set! You only have until April 30 to <a href='/user/settings/subscription' target='_blank'>receive the item set when you subscribe</a>. If you're already an active subscriber, reload the site and then head to Inventory > Items to claim your gear!</p>
-          </div>
-          <div class="promo_mystery_201804"></div>
-        </div>
-        <p>Subscribers also receive the ability to buy gems for gold -- the longer you subscribe, the more gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
-        <div class="small mb-3">by Beffymaroo</div>
+        <p>If you're looking to add some pets to your Habitica stable, you're in luck! From now until June 30, you can purchase the Aquatic Amigos Pet Quest Bundle and receive the Axolotl, Cuttlefish, and Octopus quests, all for only 7 Gems! That's a discount of 5 Gems from the price of purchasing them separately. Check it out in the <a href='/shops/quests' target='_blank'>Quest Shop</a> today!</p>
+      <div class="promo_bundle_aquaticAmigos center-block"></div>
       </div>
       `,
     });
@@ -60,7 +53,9 @@ api.getNews = {
  */
 api.tellMeLaterNews = {
   method: 'POST',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/news/tell-me-later',
   async handler (req, res) {
     const user = res.locals.user;

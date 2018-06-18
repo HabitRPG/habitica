@@ -6,7 +6,7 @@
     "defaultHabit3Text": "Choď po schodoch/výťahom (Pre úpravu klikni na ceruzku)",
     "defaultHabit3Notes": "Príklad dobrého alebo zlého návyku: +/- Choď po schodoch/výťahom ; +/- Vypi vodu/sódu",
     "defaultHabit4Text": "Pridaj úlohu do Habiticy",
-    "defaultHabit4Notes": "Either a Habit, a Daily, or a To-Do",
+    "defaultHabit4Notes": "Buď návyk, denná úloha, alebo úloha",
     "defaultHabit5Text": "Klepnutím sem môžeš zmeniť toto na zlozvyk, ktorý by si chcel ukončiť",
     "defaultHabit5Notes": "Alebo odstráň z obrazovky úprav",
     "defaultDaily1Text": "Použi Habiticu na sledovanie tvojich úloh",
@@ -22,7 +22,7 @@
     "defaultTag2": "Cvičenie",
     "defaultTag3": "Zdravie + Wellness",
     "defaultTag4": "Škola",
-    "defaultTag5": "Týmy",
+    "defaultTag5": "Tímy",
     "defaultTag6": "Domáce práce",
     "defaultTag7": "Kreativita"
 }

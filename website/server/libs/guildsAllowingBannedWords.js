@@ -1,5 +1,6 @@
 // Specify guilds that the automatic swearword blocker does not apply to:
 // - religious/atheist/philosophy guilds (legit use of words banned as oaths);
+// - literature guilds (quoting of passages containing words banned as oaths);
 // - food/drink/lifestyle/perfume guilds (alcohol allowed);
 // - guilds dealing with traumatic life events (must be allowed to describe them);
 // - foreign language guilds using the Roman alphabet (avoid accidental banning of non-English words).
@@ -117,6 +118,7 @@ let guildsAllowingBannedWords = {
   '46bc163e-f34e-4216-b916-9062d30a141f': true, // Procurando Grupo Brasil (Pedir Convite)
   '00698a77-cda2-4f49-a59f-f32205078903': true, // Quit Soda Support Group
   '3584819a-a854-4768-ba49-8880fc0dda14': true, // Reiki Br
+  'd7838bfa-4577-4a4f-b922-65834e4a824c': true, // Rhyme Commando
   '68d1ffa9-c4af-4c64-b943-3c6637d4b3ad': true, // Roni
   '8d44f1ab-2615-47dc-a143-3236c93c67b6': true, // Scandinavian Vikings
   'f065a669-9483-42d4-9562-7f8dd5b8adb7': true, // Seasonal Decoration Guild

@@ -45,6 +45,8 @@
     "beard": "Barbe",
     "mustache": "Moustache",
     "flower": "Fleur",
+    "accent": "Accent",
+    "headband": "Bandeau",
     "wheelchair": "Fauteuil roulant",
     "extra": "Extra",
     "basicSkins": "Peaux de base",
@@ -164,7 +166,7 @@
     "dieText": "Vous avez perdu un niveau, tout votre or et une pièce d'équipement aléatoire. Relevez-vous, membre d'Habitica, et essayez encore ! Mettez un frein à ces habitudes négatives, complétez vos tâches Quotidiennes avec vigilance et tenez la mort à distance avec une potion de santé si vous fléchissez !",
     "sureReset": "Confirmez-vous ? Ceci réinitialisera la classe de votre personnage ainsi que vos points alloués (vous les récupérerez tous pour les ré-allouer), et vous coûtera 3 gemmes.",
     "purchaseFor": "Acheter pour <%= cost %> gemmes ?",
-    "purchaseForHourglasses": "Acheter pour <%= cost %> sabilers?",
+    "purchaseForHourglasses": "Acheter pour <%= cost %> sabliers ?",
     "notEnoughMana": "Pas assez de mana.",
     "invalidTarget": "Vous ne pouvez pas utiliser une compétence là-dessus.",
     "youCast": "Vous avez lancé <%= spell %>.",
@@ -201,7 +203,6 @@
     "showQuickAllocation": "Voir la répartition des attributs",
     "hideQuickAllocation": "Cacher la répartition des attributs",
     "quickAllocationLevelPopover": "Chaque niveau vous rapporte un point que vous pouvez assigner à un attribut de votre choix. Vous pouvez le faire manuellement ou laissez le jeu décider pour vous, en utilisant les options d'attribution automatique qui se trouvent dans l'icône utilisateur -> caractéristiques.",
-    "invalidAttribute": "\"<%= attr %>\" n'est pas un attribut valide.",
     "notEnoughAttrPoints": "Vous n'avez pas assez de points d'attribut.",
     "style": "Style",
     "facialhair": "Pilosité faciale",
@@ -219,6 +220,5 @@
     "mainHand": "Main principale",
     "offHand": "Main secondaire",
     "pointsAvailable": "Points disponibles",
-    "pts": "pts",
-    "statsObjectRequired": "Une mise à jour des caractéristiques est requise"
+    "pts": "pts"
 }

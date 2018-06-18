@@ -91,6 +91,7 @@ let bannedWords = [
   'buggery',
   'buggering',
   'buggered',
+  'shiz',
   'shit',
   'shitty',
   'shitting',

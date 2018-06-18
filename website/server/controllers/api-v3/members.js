@@ -55,7 +55,7 @@ api.getMember = {
 
     // manually call toJSON with minimize: true so empty paths aren't returned
     let memberToJSON = member.toJSON({minimize: true});
-    member.addComputedStatsToJSONObj(memberToJSON.stats);
+    User.addComputedStatsToJSONObj(memberToJSON.stats, member);
 
     res.respond(200, memberToJSON);
   },
@@ -282,16 +282,12 @@ function _getMembersForItem (type) {
       .sort({_id: 1})
       .limit(limit)
       .select(fields)
+      .lean()
       .exec();
 
     // manually call toJSON with minimize: true so empty paths aren't returned
-    let membersToJSON = members.map(member => {
-      let memberToJSON = member.toJSON({minimize: true});
-      if (addComputedStats) member.addComputedStatsToJSONObj(memberToJSON.stats);
-
-      return memberToJSON;
-    });
-    res.respond(200, membersToJSON);
+    members.forEach(member => User.transformJSONUser(member, addComputedStats));
+    res.respond(200, members);
   };
 }
 
@@ -312,7 +308,9 @@ function _getMembersForItem (type) {
 api.getMembersForGroup = {
   method: 'GET',
   url: '/groups/:groupId/members',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   handler: _getMembersForItem('group-members'),
 };
 
@@ -333,7 +331,9 @@ api.getMembersForGroup = {
 api.getInvitesForGroup = {
   method: 'GET',
   url: '/groups/:groupId/invites',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   handler: _getMembersForItem('group-invites'),
 };
 
@@ -359,7 +359,9 @@ api.getInvitesForGroup = {
 api.getMembersForChallenge = {
   method: 'GET',
   url: '/challenges/:challengeId/members',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   handler: _getMembersForItem('challenge-members'),
 };
 
@@ -379,7 +381,9 @@ api.getMembersForChallenge = {
 api.getChallengeMemberProgress = {
   method: 'GET',
   url: '/challenges/:challengeId/members/:memberId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
     req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();

@@ -96,7 +96,6 @@
     "questInvitationDoesNotExist": "Приглашение на квест еще не было послано.",
     "questInviteNotFound": "Приглашений на квест не найдено.",
     "guildQuestsNotSupported": "Гильдии нельзя приглашать на квесты.",
-    "questNotFound": "Квест \"<%= key %>\" не найден.",
     "questNotOwned": "У вас ещё нет этого свитка квеста.",
     "questNotGoldPurchasable": "Квест \"<%= key %>\" нельзя купить за золото.",
     "questLevelTooHigh": "Вам нужно достигнуть уровня <%= level %>, чтобы начать этот квест.",

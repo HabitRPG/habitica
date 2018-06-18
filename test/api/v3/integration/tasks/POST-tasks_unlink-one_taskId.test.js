@@ -38,6 +38,7 @@ describe('POST /tasks/unlink-one/:taskId', () => {
     user = await generateUser();
     guild = await generateGroup(user);
     challenge = await generateChallenge(user, guild);
+    await user.post(`/challenges/${challenge._id}/join`);
   });
 
   it('fails if no keep query', async () => {

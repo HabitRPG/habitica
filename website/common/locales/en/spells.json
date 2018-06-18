@@ -4,7 +4,6 @@
 
   "spellWizardMPHealText": "Ethereal Surge",
   "spellWizardMPHealNotes": "You sacrifice Mana so the rest of your Party, except Mages, gains MP! (Based on: INT)",
-  "spellWizardNoEthOnMage": "Your Skill backfires when mixed with another's magic. Only non-Mages gain MP.",
 
   "spellWizardEarthText": "Earthquake",
   "spellWizardEarthNotes": "Your mental power shakes the earth and buffs your Party's Intelligence! (Based on: Unbuffed INT)",
@@ -72,7 +71,6 @@
   "spellSpecialSandText": "Sand",
   "spellSpecialSandNotes": "Reverse the spell that made you a sea star.",
 
-  "spellNotFound": "Skill \"<%= spellId %>\" not found.",
   "partyNotFound": "Party not found",
   "targetIdUUID": "\"targetId\" must be a valid User ID.",
   "challengeTasksNoCast": "Casting a skill on challenge tasks is not allowed.",

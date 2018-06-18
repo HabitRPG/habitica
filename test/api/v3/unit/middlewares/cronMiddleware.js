@@ -166,8 +166,11 @@ describe('cron middleware', () => {
     await new Promise((resolve, reject) => {
       cronMiddleware(req, res, (err) => {
         if (err) return reject(err);
-        expect(user.stats.hp).to.be.lessThan(hpBefore);
-        resolve();
+        User.findOne({_id: user._id}, function (secondErr, updatedUser) {
+          if (secondErr) return reject(secondErr);
+          expect(updatedUser.stats.hp).to.be.lessThan(hpBefore);
+          resolve();
+        });
       });
     });
   });
@@ -176,7 +179,7 @@ describe('cron middleware', () => {
     user.lastCron = moment(new Date()).subtract({days: 2});
     let todo = generateTodo(user);
     let todoValueBefore = todo.value;
-    await user.save();
+    await Promise.all([todo.save(), user.save()]);
 
     await new Promise((resolve, reject) => {
       cronMiddleware(req, res, (err) => {
@@ -217,8 +220,11 @@ describe('cron middleware', () => {
     await new Promise((resolve, reject) => {
       cronMiddleware(req, res, (err) => {
         if (err) return reject(err);
-        expect(user.stats.hp).to.be.lessThan(hpBefore);
-        resolve();
+        User.findOne({_id: user._id}, function (secondErr, updatedUser) {
+          if (secondErr) return reject(secondErr);
+          expect(updatedUser.stats.hp).to.be.lessThan(hpBefore);
+          resolve();
+        });
       });
     });
   });

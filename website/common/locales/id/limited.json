@@ -124,7 +124,7 @@
     "eventAvailability": "Tersedia untuk dibeli hingga <%= date(locale) %>.",
     "dateEndMarch": "April 30",
     "dateEndApril": "19 April",
-    "dateEndMay": "17 Mei",
+    "dateEndMay": "May 31",
     "dateEndJune": "14 Juni",
     "dateEndJuly": "29 Juli",
     "dateEndAugust": "31 Agustus",

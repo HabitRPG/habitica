@@ -1,9 +1,9 @@
 <template lang="pug">
   b-modal#inbox-modal(title="", :hide-footer="true", size='lg')
-    .header-wrap.container(slot="modal-header")
-      .row
+    .header-wrap.container.align-items-center(slot="modal-header")
+      .row.align-items-center
         .col-4
-          .row
+          .row.align-items-center
             .col-2
               .svg-icon.envelope(v-html="icons.messageIcon")
             .col-6
@@ -13,6 +13,12 @@
             //  button.btn.btn-secondary(@click='toggleClick()') +
         .col-4.offset-4
           .svg-icon.close(v-html="icons.svgClose", @click='close()')
+          toggle-switch.float-right(
+            :label="optTextSet.switchDescription",
+            :checked="!this.user.inbox.optOut"
+            :hoverText="optTextSet.popoverText",
+            @change="toggleOpt()"
+          )
         // .col-8.to-form(v-if='displayCreate')
         //   strong To:
         // b-form-input
@@ -23,7 +29,7 @@
         .empty-messages.text-center(v-if='filtersConversations.length === 0')
           .svg-icon.envelope(v-html="icons.messageIcon")
           h4(v-once) {{$t('emptyMessagesLine1')}}
-          p(v-once) {{$t('emptyMessagesLine2')}}
+          p(v-if="!user.flags.chatRevoked") {{$t('emptyMessagesLine2')}}
         .conversations(v-if='filtersConversations.length > 0')
           .conversation(v-for='conversation in filtersConversations', @click='selectConversation(conversation.key)',
             :class="{active: selectedConversation.key === conversation.key}")
@@ -31,18 +37,21 @@
              span(:class="userLevelStyle(conversation)") {{conversation.name}}
              span.timeago {{conversation.date | timeAgo}}
             div {{conversation.lastMessageText ? conversation.lastMessageText.substring(0, 30) : ''}}
-      .col-8.messages
+      .col-8.messages.d-flex.flex-column.justify-content-between
         .empty-messages.text-center(v-if='activeChat.length === 0 && !selectedConversation.key')
           .svg-icon.envelope(v-html="icons.messageIcon")
-          h4(v-once) Nothing Here Yet
-          p(v-once) Select a conversation on the left
+          h4 {{placeholderTexts.title}}
+          p(v-html="placeholderTexts.description")
         .empty-messages.text-center(v-if='activeChat.length === 0 && selectedConversation.key')
           p {{ $t('beginningOfConversation', {userName: selectedConversation.name})}}
-        chat-message.message-scroll(:chat.sync='activeChat', :inbox='true', ref="chatscroll")
+        chat-message.message-scroll(v-if="activeChat.length > 0", :chat.sync='activeChat', :inbox='true', ref="chatscroll")
+        .pm-disabled-caption.text-center(v-if="user.inbox.optOut && selectedConversation.key")
+          h4 {{$t('PMDisabledCaptionTitle')}}
+          p {{$t('PMDisabledCaptionText')}}
 
         // @TODO: Implement new message header here when we fix the above
 
-        .new-message-row(v-if='selectedConversation.key')
+        .new-message-row(v-if='selectedConversation.key && !user.flags.chatRevoked')
           textarea(v-model='newMessage')
           button.btn.btn-secondary(@click='sendPrivateMessage()') Send
 </template>
@@ -50,18 +59,26 @@
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
 
+  .header-wrap {
+    padding: 0.5em;
+
+    h2 {
+      margin: 0;
+      line-height: 1;
+    }
+  }
+
   .envelope {
     color: $gray-400 !important;
-    margin-top: 1em;
+    margin: 0;
   }
 
   .close {
     margin-top: .5em;
     width: 15px;
-  }
-
-  h2 {
-    margin-top: .5em;
+    position: absolute;
+    top: -1.9em;
+    right: 0.3em;
   }
 
   .sidebar {
@@ -83,7 +100,12 @@
 
   .message-scroll {
     max-height: 500px;
-    overflow: scroll;
+    overflow-x: scroll;
+
+    @media (min-width: 992px) {
+      overflow-x: hidden;
+      overflow-y: scroll;
+    }
   }
 
   .to-form input {
@@ -105,6 +127,27 @@
     .envelope {
       width: 30px;
       margin: 0 auto;
+    }
+  }
+
+  .pm-disabled-caption {
+
+    padding-top: 1em;
+    background-color: $gray-700;
+    z-index: 2;
+
+    h4, p {
+      color: $gray-300;
+    }
+
+    h4 {
+      margin-top: 0;
+      margin-bottom: 0.4em;
+    }
+
+    p {
+      font-size: 12px;
+      margin-bottom: 0;
     }
   }
 
@@ -133,7 +176,8 @@
 
   .conversations {
     max-height: 400px;
-    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: scroll;
   }
 
   .conversation {
@@ -163,6 +207,7 @@ import sortBy from 'lodash/sortBy';
 import groupBy from 'lodash/groupBy';
 import { mapState } from 'client/libs/store';
 import styleHelper from 'client/mixins/styleHelper';
+import toggleSwitch from 'client/components/ui/toggleSwitch';
 
 import messageIcon from 'assets/svg/message.svg';
 import chatMessage from '../chat/chatMessages';
@@ -172,6 +217,7 @@ export default {
   mixins: [styleHelper],
   components: {
     chatMessage,
+    toggleSwitch,
   },
   mounted () {
     this.$root.$on('habitica::new-inbox-message', (data) => {
@@ -211,6 +257,7 @@ export default {
       search: '',
       newMessage: '',
       activeChat: [],
+      showPopover: false,
     };
   },
   filters: {
@@ -275,10 +322,37 @@ export default {
         return conversation.name.toLowerCase().indexOf(this.search.toLowerCase()) !== -1;
       });
     },
+    placeholderTexts () {
+      if (this.user.flags.chatRevoked) {
+        return {
+          title: this.$t('PMPlaceholderTitleRevoked'),
+          description: this.$t('PMPlaceholderDescriptionRevoked'),
+        };
+      }
+      return {
+        title: this.$t('PMPlaceholderTitle'),
+        description: this.$t('PMPlaceholderDescription'),
+      };
+    },
+    optTextSet () {
+      if (!this.user.inbox.optOut) {
+        return {
+          switchDescription: this.$t('PMDisable'),
+          popoverText: this.$t('PMEnabledOptPopoverText'),
+        };
+      }
+      return {
+        switchDescription: this.$t('PMEnable'),
+        popoverText: this.$t('PMDisabledOptPopoverText'),
+      };
+    },
   },
   methods: {
     toggleClick () {
       this.displayCreate = !this.displayCreate;
+    },
+    toggleOpt () {
+      this.$store.dispatch('user:togglePrivateMessagesOpt');
     },
     selectConversation (key) {
       let convoFound = this.conversations.find((conversation) => {

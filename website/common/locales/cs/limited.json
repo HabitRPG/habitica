@@ -124,7 +124,7 @@
     "eventAvailability": "Dostupný k zakoupení do <%= date(locale) %>.",
     "dateEndMarch": "Duben 30",
     "dateEndApril": "Duben 19",
-    "dateEndMay": "Květen 17",
+    "dateEndMay": "May 31",
     "dateEndJune": "Červen 14",
     "dateEndJuly": "Červenec 29",
     "dateEndAugust": "Srpen 31",

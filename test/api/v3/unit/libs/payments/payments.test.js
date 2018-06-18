@@ -210,7 +210,7 @@ describe('payments/index', () => {
         let msg = '\`Hello recipient, sender has sent you 3 months of subscription!\`';
 
         expect(user.sendMessage).to.be.calledOnce;
-        expect(user.sendMessage).to.be.calledWith(recipient, { receiverMsg: msg, senderMsg: msg });
+        expect(user.sendMessage).to.be.calledWith(recipient, { receiverMsg: msg, senderMsg: msg, save: false });
       });
 
       it('sends an email about the gift', async () => {
@@ -629,7 +629,16 @@ describe('payments/index', () => {
         await api.buyGems(data);
         let msg = '\`Hello recipient, sender has sent you 4 gems!\`';
 
-        expect(user.sendMessage).to.be.calledWith(recipient, { receiverMsg: msg, senderMsg: msg });
+        expect(user.sendMessage).to.be.calledWith(recipient, { receiverMsg: msg, senderMsg: msg, save: false });
+      });
+
+      it('sends a message from purchaser to recipient wtih custom message', async () => {
+        data.gift.message = 'giftmessage';
+
+        await api.buyGems(data);
+
+        const msg = `\`Hello recipient, sender has sent you 4 gems!\` ${data.gift.message}`;
+        expect(user.sendMessage).to.be.calledWith(recipient, { receiverMsg: msg, senderMsg: msg, save: false });
       });
 
       it('sends a push notification if user did not gift to self', async () => {
@@ -658,7 +667,7 @@ describe('payments/index', () => {
           return `\`${messageContent}\``;
         });
 
-        expect(user.sendMessage).to.be.calledWith(recipient, { receiverMsg: recipientsMessageContent, senderMsg: sendersMessageContent });
+        expect(user.sendMessage).to.be.calledWith(recipient, { receiverMsg: recipientsMessageContent, senderMsg: sendersMessageContent, save: false });
       });
     });
   });

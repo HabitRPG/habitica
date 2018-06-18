@@ -13,6 +13,7 @@ import analytics from '../../../../../website/server/libs/analyticsService';
 let pathToCronLib = '../../../../../website/server/libs/cron';
 
 describe('cron', () => {
+  let clock = null;
   let user;
   let tasksByType = {habits: [], dailys: [], todos: [], rewards: []};
   let daysMissed = 0;
@@ -34,6 +35,8 @@ describe('cron', () => {
   });
 
   afterEach(() => {
+    if (clock !== null)
+      clock.restore();
     analytics.track.restore();
   });
 
@@ -82,14 +85,12 @@ describe('cron', () => {
     });
 
     it('does not reset plan.gemsBought within the month', () => {
-      let clock = sinon.useFakeTimers(moment().startOf('month').add(2, 'days').toDate());
+      clock = sinon.useFakeTimers(moment().startOf('month').add(2, 'days').toDate());
       user.purchased.plan.dateUpdated = moment().startOf('month').toDate();
 
       user.purchased.plan.gemsBought = 10;
       cron({user, tasksByType, daysMissed, analytics});
       expect(user.purchased.plan.gemsBought).to.equal(10);
-
-      clock.restore();
     });
 
     it('resets plan.dateUpdated on a new month', () => {
@@ -156,7 +157,6 @@ describe('cron', () => {
     });
 
     describe('for a 1-month recurring subscription', () => {
-      let clock;
       // create a user that will be used for all of these tests without a reset before each
       let user1 = new User({
         auth: {
@@ -187,7 +187,6 @@ describe('cron', () => {
         expect(user1.purchased.plan.consecutive.offset).to.equal(0);
         expect(user1.purchased.plan.consecutive.trinkets).to.equal(0);
         expect(user1.purchased.plan.consecutive.gemCapExtra).to.equal(0);
-        clock.restore();
       });
 
       it('does not increment consecutive benefits after the second month', () => {
@@ -199,7 +198,6 @@ describe('cron', () => {
         expect(user1.purchased.plan.consecutive.offset).to.equal(0);
         expect(user1.purchased.plan.consecutive.trinkets).to.equal(0);
         expect(user1.purchased.plan.consecutive.gemCapExtra).to.equal(0);
-        clock.restore();
       });
 
       it('increments consecutive benefits after the third month', () => {
@@ -211,7 +209,6 @@ describe('cron', () => {
         expect(user1.purchased.plan.consecutive.offset).to.equal(0);
         expect(user1.purchased.plan.consecutive.trinkets).to.equal(1);
         expect(user1.purchased.plan.consecutive.gemCapExtra).to.equal(5);
-        clock.restore();
       });
 
       it('does not increment consecutive benefits after the fourth month', () => {
@@ -223,7 +220,6 @@ describe('cron', () => {
         expect(user1.purchased.plan.consecutive.offset).to.equal(0);
         expect(user1.purchased.plan.consecutive.trinkets).to.equal(1);
         expect(user1.purchased.plan.consecutive.gemCapExtra).to.equal(5);
-        clock.restore();
       });
 
       it('increments consecutive benefits correctly if user has been absent with continuous subscription', () => {
@@ -233,12 +229,10 @@ describe('cron', () => {
         expect(user1.purchased.plan.consecutive.offset).to.equal(0);
         expect(user1.purchased.plan.consecutive.trinkets).to.equal(3);
         expect(user1.purchased.plan.consecutive.gemCapExtra).to.equal(15);
-        clock.restore();
       });
     });
 
     describe('for a 3-month recurring subscription', () => {
-      let clock;
       let user3 = new User({
         auth: {
           local: {
@@ -266,7 +260,6 @@ describe('cron', () => {
         expect(user3.purchased.plan.consecutive.offset).to.equal(2);
         expect(user3.purchased.plan.consecutive.trinkets).to.equal(1);
         expect(user3.purchased.plan.consecutive.gemCapExtra).to.equal(5);
-        clock.restore();
       });
 
       it('does not increment consecutive benefits in the middle of the period that they already have benefits for', () => {
@@ -276,7 +269,6 @@ describe('cron', () => {
         expect(user3.purchased.plan.consecutive.offset).to.equal(1);
         expect(user3.purchased.plan.consecutive.trinkets).to.equal(1);
         expect(user3.purchased.plan.consecutive.gemCapExtra).to.equal(5);
-        clock.restore();
       });
 
       it('does not increment consecutive benefits in the final month of the period that they already have benefits for', () => {
@@ -286,7 +278,6 @@ describe('cron', () => {
         expect(user3.purchased.plan.consecutive.offset).to.equal(0);
         expect(user3.purchased.plan.consecutive.trinkets).to.equal(1);
         expect(user3.purchased.plan.consecutive.gemCapExtra).to.equal(5);
-        clock.restore();
       });
 
       it('increments consecutive benefits the month after the second paid period has started', () => {
@@ -296,7 +287,6 @@ describe('cron', () => {
         expect(user3.purchased.plan.consecutive.offset).to.equal(2);
         expect(user3.purchased.plan.consecutive.trinkets).to.equal(2);
         expect(user3.purchased.plan.consecutive.gemCapExtra).to.equal(10);
-        clock.restore();
       });
 
       it('does not increment consecutive benefits in the second month of the second period that they already have benefits for', () => {
@@ -306,7 +296,6 @@ describe('cron', () => {
         expect(user3.purchased.plan.consecutive.offset).to.equal(1);
         expect(user3.purchased.plan.consecutive.trinkets).to.equal(2);
         expect(user3.purchased.plan.consecutive.gemCapExtra).to.equal(10);
-        clock.restore();
       });
 
       it('does not increment consecutive benefits in the final month of the second period that they already have benefits for', () => {
@@ -316,7 +305,6 @@ describe('cron', () => {
         expect(user3.purchased.plan.consecutive.offset).to.equal(0);
         expect(user3.purchased.plan.consecutive.trinkets).to.equal(2);
         expect(user3.purchased.plan.consecutive.gemCapExtra).to.equal(10);
-        clock.restore();
       });
 
       it('increments consecutive benefits the month after the third paid period has started', () => {
@@ -326,7 +314,6 @@ describe('cron', () => {
         expect(user3.purchased.plan.consecutive.offset).to.equal(2);
         expect(user3.purchased.plan.consecutive.trinkets).to.equal(3);
         expect(user3.purchased.plan.consecutive.gemCapExtra).to.equal(15);
-        clock.restore();
       });
 
       it('increments consecutive benefits correctly if user has been absent with continuous subscription', () => {
@@ -336,12 +323,10 @@ describe('cron', () => {
         expect(user3.purchased.plan.consecutive.offset).to.equal(2);
         expect(user3.purchased.plan.consecutive.trinkets).to.equal(4);
         expect(user3.purchased.plan.consecutive.gemCapExtra).to.equal(20);
-        clock.restore();
       });
     });
 
     describe('for a 6-month recurring subscription', () => {
-      let clock;
       let user6 = new User({
         auth: {
           local: {
@@ -369,7 +354,6 @@ describe('cron', () => {
         expect(user6.purchased.plan.consecutive.offset).to.equal(5);
         expect(user6.purchased.plan.consecutive.trinkets).to.equal(2);
         expect(user6.purchased.plan.consecutive.gemCapExtra).to.equal(10);
-        clock.restore();
       });
 
       it('does not increment consecutive benefits in the final month of the period that they already have benefits for', () => {
@@ -379,7 +363,6 @@ describe('cron', () => {
         expect(user6.purchased.plan.consecutive.offset).to.equal(0);
         expect(user6.purchased.plan.consecutive.trinkets).to.equal(2);
         expect(user6.purchased.plan.consecutive.gemCapExtra).to.equal(10);
-        clock.restore();
       });
 
       it('increments consecutive benefits the month after the second paid period has started', () => {
@@ -389,7 +372,6 @@ describe('cron', () => {
         expect(user6.purchased.plan.consecutive.offset).to.equal(5);
         expect(user6.purchased.plan.consecutive.trinkets).to.equal(4);
         expect(user6.purchased.plan.consecutive.gemCapExtra).to.equal(20);
-        clock.restore();
       });
 
       it('increments consecutive benefits the month after the third paid period has started', () => {
@@ -399,7 +381,6 @@ describe('cron', () => {
         expect(user6.purchased.plan.consecutive.offset).to.equal(5);
         expect(user6.purchased.plan.consecutive.trinkets).to.equal(6);
         expect(user6.purchased.plan.consecutive.gemCapExtra).to.equal(25);
-        clock.restore();
       });
 
       it('increments consecutive benefits correctly if user has been absent with continuous subscription', () => {
@@ -409,13 +390,10 @@ describe('cron', () => {
         expect(user6.purchased.plan.consecutive.offset).to.equal(5);
         expect(user6.purchased.plan.consecutive.trinkets).to.equal(8);
         expect(user6.purchased.plan.consecutive.gemCapExtra).to.equal(25);
-        clock.restore();
       });
     });
 
     describe('for a 12-month recurring subscription', () => {
-      let clock;
-
       let user12 = new User({
         auth: {
           local: {
@@ -443,7 +421,6 @@ describe('cron', () => {
         expect(user12.purchased.plan.consecutive.offset).to.equal(11);
         expect(user12.purchased.plan.consecutive.trinkets).to.equal(4);
         expect(user12.purchased.plan.consecutive.gemCapExtra).to.equal(20);
-        clock.restore();
       });
 
       it('does not increment consecutive benefits in the final month of the period that they already have benefits for', () => {
@@ -453,7 +430,6 @@ describe('cron', () => {
         expect(user12.purchased.plan.consecutive.offset).to.equal(0);
         expect(user12.purchased.plan.consecutive.trinkets).to.equal(4);
         expect(user12.purchased.plan.consecutive.gemCapExtra).to.equal(20);
-        clock.restore();
       });
 
       it('increments consecutive benefits the month after the second paid period has started', () => {
@@ -463,7 +439,6 @@ describe('cron', () => {
         expect(user12.purchased.plan.consecutive.offset).to.equal(11);
         expect(user12.purchased.plan.consecutive.trinkets).to.equal(8);
         expect(user12.purchased.plan.consecutive.gemCapExtra).to.equal(25);
-        clock.restore();
       });
 
       it('increments consecutive benefits the month after the third paid period has started', () => {
@@ -473,7 +448,6 @@ describe('cron', () => {
         expect(user12.purchased.plan.consecutive.offset).to.equal(11);
         expect(user12.purchased.plan.consecutive.trinkets).to.equal(12);
         expect(user12.purchased.plan.consecutive.gemCapExtra).to.equal(25);
-        clock.restore();
       });
 
       it('increments consecutive benefits correctly if user has been absent with continuous subscription', () => {
@@ -483,12 +457,10 @@ describe('cron', () => {
         expect(user12.purchased.plan.consecutive.offset).to.equal(11);
         expect(user12.purchased.plan.consecutive.trinkets).to.equal(16);
         expect(user12.purchased.plan.consecutive.gemCapExtra).to.equal(25);
-        clock.restore();
       });
     });
 
     describe('for a 3-month gift subscription (non-recurring)', () => {
-      let clock;
       let user3g = new User({
         auth: {
           local: {
@@ -503,7 +475,7 @@ describe('cron', () => {
       // user3g has a 3-month gift subscription starting today
       user3g.purchased.plan.customerId = 'Gift';
       user3g.purchased.plan.dateUpdated = moment().toDate();
-      user3g.purchased.plan.dateTerminated = moment().add(3, 'months').toDate();
+      user3g.purchased.plan.dateTerminated = moment().startOf('month').add(3, 'months').add(15, 'days').toDate();
       user3g.purchased.plan.planId = null;
       user3g.purchased.plan.consecutive.count = 0;
       user3g.purchased.plan.consecutive.offset = 3;
@@ -517,7 +489,6 @@ describe('cron', () => {
         expect(user3g.purchased.plan.consecutive.offset).to.equal(2);
         expect(user3g.purchased.plan.consecutive.trinkets).to.equal(1);
         expect(user3g.purchased.plan.consecutive.gemCapExtra).to.equal(5);
-        clock.restore();
       });
 
       it('does not increment consecutive benefits in the second month of the gift subscription', () => {
@@ -527,7 +498,6 @@ describe('cron', () => {
         expect(user3g.purchased.plan.consecutive.offset).to.equal(1);
         expect(user3g.purchased.plan.consecutive.trinkets).to.equal(1);
         expect(user3g.purchased.plan.consecutive.gemCapExtra).to.equal(5);
-        clock.restore();
       });
 
       it('does not increment consecutive benefits in the third month of the gift subscription', () => {
@@ -537,7 +507,6 @@ describe('cron', () => {
         expect(user3g.purchased.plan.consecutive.offset).to.equal(0);
         expect(user3g.purchased.plan.consecutive.trinkets).to.equal(1);
         expect(user3g.purchased.plan.consecutive.gemCapExtra).to.equal(5);
-        clock.restore();
       });
 
       it('does not increment consecutive benefits in the month after the gift subscription has ended', () => {
@@ -547,12 +516,10 @@ describe('cron', () => {
         expect(user3g.purchased.plan.consecutive.offset).to.equal(0);
         expect(user3g.purchased.plan.consecutive.trinkets).to.equal(1);
         expect(user3g.purchased.plan.consecutive.gemCapExtra).to.equal(0); // erased
-        clock.restore();
       });
     });
 
     describe('for a 6-month recurring subscription where the user has incorrect consecutive month data from prior bugs', () => {
-      let clock;
       let user6x = new User({
         auth: {
           local: {
@@ -580,7 +547,6 @@ describe('cron', () => {
         expect(user6x.purchased.plan.consecutive.offset).to.equal(5);
         expect(user6x.purchased.plan.consecutive.trinkets).to.equal(5);
         expect(user6x.purchased.plan.consecutive.gemCapExtra).to.equal(25);
-        clock.restore();
       });
 
       it('does not increment consecutive benefits in the second month after the fix goes live', () => {
@@ -590,7 +556,6 @@ describe('cron', () => {
         expect(user6x.purchased.plan.consecutive.offset).to.equal(4);
         expect(user6x.purchased.plan.consecutive.trinkets).to.equal(5);
         expect(user6x.purchased.plan.consecutive.gemCapExtra).to.equal(25);
-        clock.restore();
       });
 
       it('does not increment consecutive benefits in the third month after the fix goes live', () => {
@@ -600,7 +565,6 @@ describe('cron', () => {
         expect(user6x.purchased.plan.consecutive.offset).to.equal(3);
         expect(user6x.purchased.plan.consecutive.trinkets).to.equal(5);
         expect(user6x.purchased.plan.consecutive.gemCapExtra).to.equal(25);
-        clock.restore();
       });
 
       it('increments consecutive benefits in the seventh month after the fix goes live', () => {
@@ -610,7 +574,6 @@ describe('cron', () => {
         expect(user6x.purchased.plan.consecutive.offset).to.equal(5);
         expect(user6x.purchased.plan.consecutive.trinkets).to.equal(7);
         expect(user6x.purchased.plan.consecutive.gemCapExtra).to.equal(25);
-        clock.restore();
       });
     });
   });
@@ -627,14 +590,12 @@ describe('cron', () => {
     });
 
     it('does not reset plan.gemsBought within the month', () => {
-      let clock = sinon.useFakeTimers(moment().startOf('month').add(2, 'days').unix());
+      clock = sinon.useFakeTimers(moment().startOf('month').add(2, 'days').unix());
       user.purchased.plan.dateUpdated = moment().startOf('month').toDate();
 
       user.purchased.plan.gemsBought = 10;
       cron({user, tasksByType, daysMissed, analytics});
       expect(user.purchased.plan.gemsBought).to.equal(10);
-
-      clock.restore();
     });
 
     it('does not reset plan.dateUpdated on a new month', () => {
@@ -1040,14 +1001,10 @@ describe('cron', () => {
 
     describe('counters', () => {
       let notStartOfWeekOrMonth = new Date(2016, 9, 28).getTime(); // a Friday
-      let clock;
 
       beforeEach(() => {
         // Replace system clocks so we can get predictable results
         clock = sinon.useFakeTimers(notStartOfWeekOrMonth);
-      });
-      afterEach(() => {
-        return clock.restore();
       });
 
       it('should reset a daily habit counter each day', () => {

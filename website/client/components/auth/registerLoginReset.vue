@@ -427,13 +427,16 @@ export default {
       // ALSO it's the only way to make sure language data is reloaded and correct for the logged in user
       window.location.href = redirectTo;
     },
+    // @TODO: Abstract hello in to action or lib
     async socialAuth (network) {
-      const url = window.location.href;
+      try {
+        await hello(network).logout();
+      } catch (e) {} // eslint-disable-line
 
       let auth = await hello(network).login({
         scope: 'email',
         // explicitly pass the redirect url or it might redirect to /home
-        redirect_uri: url, // eslint-disable-line camelcase
+        redirect_uri: '', // eslint-disable-line camelcase
       });
 
       await this.$store.dispatch('auth:socialAuth', {

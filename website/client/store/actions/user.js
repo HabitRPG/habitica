@@ -1,5 +1,4 @@
 import { loadAsyncResource } from 'client/libs/asyncResource';
-import spellQueue from 'client/libs/spellQueue';
 import setProps from 'lodash/set';
 import axios from 'axios';
 
@@ -118,11 +117,6 @@ export async function movePinnedItem (store, params) {
 }
 
 export function castSpell (store, params) {
-  if (params.pinType !== 'card' && !params.quantity) {
-    spellQueue.queue({key: params.key, targetId: params.targetId}, store);
-    return;
-  }
-
   let spellUrl = `/api/v3/user/class/cast/${params.key}`;
 
   const data = {};
@@ -148,4 +142,14 @@ export async function rebirth () {
   window.location.reload(true);
 
   return result;
+}
+
+export async function togglePrivateMessagesOpt (store) {
+  let response = await axios.put('/api/v3/user',
+    {
+      'inbox.optOut': !store.state.user.data.inbox.optOut,
+    }
+  );
+  store.state.user.data.inbox.optOut = !store.state.user.data.inbox.optOut;
+  return response;
 }

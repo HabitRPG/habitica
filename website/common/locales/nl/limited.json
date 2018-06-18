@@ -124,7 +124,7 @@
     "eventAvailability": "Verkrijgbaar voor aankoop tot <%=date(locale) %>.",
     "dateEndMarch": "30 april",
     "dateEndApril": "19 april",
-    "dateEndMay": "17 mei",
+    "dateEndMay": "May 31",
     "dateEndJune": "14 juni",
     "dateEndJuly": "29 juli",
     "dateEndAugust": "31 augustus",
