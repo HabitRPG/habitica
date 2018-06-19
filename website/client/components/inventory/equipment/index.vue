@@ -218,22 +218,21 @@ export default {
     }, 250),
   },
   mounted () {
-    const values = CONSTANTS.valueConstants;
     const drawerState = getLocalSetting(CONSTANTS.keyConstants.EQUIPMENT_DRAWER_STATE);
-    if (drawerState === values.DRAWER_CLOSED) {
+    if (drawerState === CONSTANTS.drawerStateValues.DRAWER_CLOSED) {
       this.$store.state.equipmentDrawerOpen = false;
     }
 
-    this.costumeMode = getLocalSetting(CONSTANTS.keyConstants.CURRENT_EQUIPMENT_DRAWER_TAB) === values.COSTUME_TAB ? true : false;
+    this.costumeMode = getLocalSetting(CONSTANTS.keyConstants.CURRENT_EQUIPMENT_DRAWER_TAB) === CONSTANTS.equipmentDrawerTabValues.COSTUME_TAB ? true : false;
   },
   methods: {
     selectDrawerTab (tabName) {
       let tabNameValue;
       if (tabName === 'costume') {
-        tabNameValue = CONSTANTS.valueConstants.COSTUME_TAB;
+        tabNameValue = CONSTANTS.equipmentDrawerTabValues.COSTUME_TAB;
         this.costumeMode = true;
       } else {
-        tabNameValue = CONSTANTS.valueConstants.EQUIPMENT_TAB;
+        tabNameValue = CONSTANTS.equipmentDrawerTabValues.EQUIPMENT_TAB;
         this.costumeMode = false;
       }
       setLocalSetting(CONSTANTS.keyConstants.CURRENT_EQUIPMENT_DRAWER_TAB, tabNameValue);
@@ -274,11 +273,11 @@ export default {
       this.$store.state.equipmentDrawerOpen = newState;
 
       if (newState) {
-        setLocalSetting(CONSTANTS.keyConstants.EQUIPMENT_DRAWER_STATE, CONSTANTS.valueConstants.DRAWER_OPEN);
+        setLocalSetting(CONSTANTS.keyConstants.EQUIPMENT_DRAWER_STATE, CONSTANTS.drawerStateValues.DRAWER_OPEN);
         return;
       }
 
-      setLocalSetting(CONSTANTS.keyConstants.EQUIPMENT_DRAWER_STATE, CONSTANTS.valueConstants.DRAWER_CLOSED);
+      setLocalSetting(CONSTANTS.keyConstants.EQUIPMENT_DRAWER_STATE, CONSTANTS.drawerStateValues.DRAWER_CLOSED);
     },
   },
   computed: {

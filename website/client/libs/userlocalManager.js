@@ -5,9 +5,11 @@ const CONSTANTS = {
     EQUIPMENT_DRAWER_STATE: 'equipment-drawer-state',
     CURRENT_EQUIPMENT_DRAWER_TAB: 'current-equipment-drawer-tab',
   },
-  valueConstants: {
+  drawerStateValues: {
     DRAWER_CLOSED: 'drawer-closed',
     DRAWER_OPEN: 'drawer-open',
+  },
+  equipmentDrawerTabValues: {
     COSTUME_TAB: 'costume-tab',
     EQUIPMENT_TAB: 'equipment-tab',
   },
