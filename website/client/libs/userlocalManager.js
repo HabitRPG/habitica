@@ -3,10 +3,13 @@ const CONSTANTS = {
   keyConstants: {
     SPELL_DRAWER_STATE: 'spell-drawer-state',
     EQUIPMENT_DRAWER_STATE: 'equipment-drawer-state',
+    CURRENT_EQUIPMENT_DRAWER_TAB: 'current-equipment-drawer-tab',
   },
   valueConstants: {
     DRAWER_CLOSED: 'drawer-closed',
     DRAWER_OPEN: 'drawer-open',
+    COSTUME_TAB: 'costume-tab',
+    EQUIPMENT_TAB: 'equipment-tab',
   },
 };
 
