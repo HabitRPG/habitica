@@ -131,7 +131,7 @@
 
       div(
         v-for="category in categories",
-        v-if="viewOptions[category.identifier].selected"
+        v-if="viewOptions[category.identifier].selected && category.identifier !== 'equipment'"
       )
         h4 {{ category.text }}
 
