@@ -46,7 +46,7 @@
     "mustache": "Snor",
     "flower": "Bloem",
     "accent": "Accent",
-    "headband": "Headband",
+    "headband": "Hoofdband",
     "wheelchair": "Rolstoel",
     "extra": "Extra",
     "basicSkins": "Basishuidskleuren",
@@ -66,7 +66,7 @@
     "classBonusText": "Your class (Warrior, if you haven't unlocked or selected another class) uses its own equipment more effectively than gear from other classes. Equipped gear from your current class gets a 50% boost to the Stat bonus it grants.",
     "classEquipBonus": "Klassebonus",
     "battleGear": "Strijduitrusting",
-    "gear": "Gear",
+    "gear": "Uitrusting",
     "battleGearText": "Dit is de uitrusting die je in de strijd draagt. Het beïnvloedt scores als je met taken bezig bent.",
     "autoEquipBattleGear": "Automatisch nieuwe uitrusting gebruiken",
     "costume": "Kostuum",
@@ -166,7 +166,7 @@
     "dieText": "Je hebt een niveau, al je goud, en een willekeurig onderdeel van je uitrusting verloren. Herrijs, Habiteer, en probeer het opnieuw! Bedwing die slechte gewoontes, let erop je dagelijkse taken bij te houden en houd de dood van je af met een gezondheidsdrankje als je wankelt!",
     "sureReset": "Are you sure? This will reset your character's class and allocated Stat Points (you'll get them all back to re-allocate), and costs 3 Gems.",
     "purchaseFor": "Kopen voor <%= cost %> edelstenen?",
-    "purchaseForHourglasses": "Purchase for <%= cost %> Hourglasses?",
+    "purchaseForHourglasses": "Koop voor <%= cost %> Zandlopers?",
     "notEnoughMana": "Niet genoeg mana.",
     "invalidTarget": "Je kan daar geen vaardigheid op uitspreken.",
     "youCast": "Je hebt <%= spell %> uitgesproken.",
@@ -219,6 +219,6 @@
     "bodyAccess": "Lichaamsaccess.",
     "mainHand": "Main-Hand",
     "offHand": "Off-Hand",
-    "pointsAvailable": "Points Available",
-    "pts": "pts"
+    "pointsAvailable": "Punten Beschikbaar",
+    "pts": "ptn"
 }
