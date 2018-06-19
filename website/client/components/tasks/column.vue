@@ -19,7 +19,7 @@
     textarea.quick-add(
       :rows="quickAddRows",
       v-if="isUser", :placeholder="quickAddPlaceholder",
-      v-model="quickAddText", @keypress.enter="quickAdd",
+      v-model="quickAddText", @keypress.enter="quickAdd($event); quickAddFocused = false",
       ref="quickAdd",
       @focus="quickAddFocused = true", @blur="quickAddFocused = false",
     )
