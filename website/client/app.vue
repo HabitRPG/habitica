@@ -106,7 +106,7 @@ div
 
   /* @TODO: The modal-open class is not being removed. Let's try this for now */
   .modal, .modal-open {
-    overflow-y: scroll !important;
+    overflow-y: scroll;
   }
 
   .modal-backdrop.show {
@@ -303,12 +303,6 @@ export default {
       if (error.response.status >= 400) {
         this.checkForBannedUser(error);
 
-        // Check for conditions to reset the user auth
-        const invalidUserMessage = [this.$t('invalidCredentials'), 'Missing authentication headers.'];
-        if (invalidUserMessage.indexOf(error.response.data) !== -1) {
-          this.$store.dispatch('auth:logout');
-        }
-
         // Don't show errors from getting user details. These users have delete their account,
         // but their chat message still exists.
         let configExists = Boolean(error.response) && Boolean(error.response.config);
@@ -321,11 +315,27 @@ export default {
         const errorData = error.response.data;
         const errorMessage = errorData.message || errorData;
 
+        // Check for conditions to reset the user auth
+        const invalidUserMessage = [this.$t('invalidCredentials'), 'Missing authentication headers.'];
+        if (invalidUserMessage.indexOf(errorMessage) !== -1) {
+          this.$store.dispatch('auth:logout');
+        }
+
+        // Most server errors should return is click to dismiss errors, with some exceptions
+        let snackbarTimeout = false;
+        if (error.response.status === 502) snackbarTimeout = true;
+
+        const notificationNotFoundMessage = [
+          this.$t('messageNotificationNotFound'),
+          this.$t('messageNotificationNotFound', 'en'),
+        ];
+        if (notificationNotFoundMessage.indexOf(errorMessage) !== -1) snackbarTimeout = true;
+
         this.$store.dispatch('snackbars:add', {
           title: 'Habitica',
           text: errorMessage,
           type: 'error',
-          timeout: false,
+          timeout: snackbarTimeout,
         });
       }
 
@@ -614,4 +624,5 @@ export default {
 <style src="assets/css/sprites/spritesmith-main-19.css"></style>
 <style src="assets/css/sprites/spritesmith-main-20.css"></style>
 <style src="assets/css/sprites/spritesmith-main-21.css"></style>
+<style src="assets/css/sprites/spritesmith-main-22.css"></style>
 <style src="assets/css/sprites.css"></style>

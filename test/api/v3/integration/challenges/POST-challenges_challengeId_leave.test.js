@@ -3,7 +3,7 @@ import {
   generateChallenge,
   createAndPopulateGroup,
   translate as t,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 import { v4 as generateUUID } from 'uuid';
 
 describe('POST /challenges/:challengeId/leave', () => {
@@ -48,6 +48,7 @@ describe('POST /challenges/:challengeId/leave', () => {
       notInGroupLeavingUser = populatedGroup.members[2];
 
       challenge = await generateChallenge(groupLeader, group);
+      await groupLeader.post(`/challenges/${challenge._id}/join`);
 
       taskText = 'A challenge task text';
 

@@ -20,7 +20,7 @@ const app = express();
 app.set('port', nconf.get('PORT'));
 
 // Setup translations
-// Must come before attach middlwares so Mongoose validations can use translations
+// Must come before attach middlewares so Mongoose validations can use translations
 import './libs/i18n';
 
 import attachMiddlewares from './middlewares/index';

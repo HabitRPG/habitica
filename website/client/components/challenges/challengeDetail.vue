@@ -9,10 +9,10 @@
       .col-12.col-md-6
         h1(v-markdown='challenge.name')
         div
-          span.mr-1.ml-0
+          span.mr-1.ml-0.d-block
             strong(v-once) {{ $t('createdBy') }}:
             user-link.mx-1(:user="challenge.leader")
-          span.mr-1.ml-0(v-if="challenge.group && challenge.group.name !== 'Tavern'")
+          span.mr-1.ml-0.d-block(v-if="challenge.group && challenge.group.name !== 'Tavern'")
             strong(v-once) {{ $t(challenge.group.type) }}:
             group-link.mx-1(:group="challenge.group")
           // @TODO: make challenge.author a variable inside the createdBy string (helps with RTL languages)
@@ -84,6 +84,7 @@
 
   h1 {
     color: $purple-200;
+    margin-bottom: 8px;
   }
 
   .margin-left {
@@ -364,9 +365,9 @@ export default {
       this.$root.$emit('bv::show::modal', 'close-challenge-modal');
     },
     edit () {
-      // @TODO: set working challenge
-      this.$store.state.challengeOptions.workingChallenge = Object.assign({}, this.$store.state.challengeOptions.workingChallenge, this.challenge);
-      this.$root.$emit('bv::show::modal', 'challenge-modal');
+      this.$root.$emit('habitica:update-challenge', {
+        challenge: this.challenge,
+      });
     },
     // @TODO: view members
     updatedChallenge (eventData) {

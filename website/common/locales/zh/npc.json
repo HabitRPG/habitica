@@ -48,7 +48,7 @@
     "featuredItems": "特色商品！",
     "hideLocked": "隐藏未解锁的物品",
     "hidePinned": "隐藏固定的物品",
-    "hideMissing": "Hide Missing",
+    "hideMissing": "隐藏未拥有的宠物和坐骑",
     "amountExperience": "<%= amount %>经验值",
     "amountGold": "<%= amount %>金币",
     "namedHatchingPotion": "<%= type %>瓶孵化药水",

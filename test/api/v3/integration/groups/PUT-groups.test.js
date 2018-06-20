@@ -2,7 +2,7 @@ import {
   createAndPopulateGroup,
   generateUser,
   translate as t,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 
 describe('PUT /group', () => {
   let leader, nonLeader, groupToUpdate, adminUser;

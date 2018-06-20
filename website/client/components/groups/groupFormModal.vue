@@ -331,6 +331,8 @@ export default {
 
       this.workingGroup.onlyLeaderCreatesChallenges = editingGroup.leaderOnly.challenges;
 
+      this.workingGroup.leader = editingGroup.leader;
+
       if (editingGroup._id) this.getMembers();
     },
   },

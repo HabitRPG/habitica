@@ -23,7 +23,7 @@ module.exports = function buy (user, req = {}, analytics) {
   if (!key) throw new BadRequest(errorMessage('missingKeyParam'));
 
   // @TODO: Slowly remove the need for key and use type instead
-  // This should evenutally be the 'factory' function with vendor classes
+  // This should eventually be the 'factory' function with vendor classes
   let type = get(req, 'type');
   if (!type) type = get(req, 'params.type');
   if (!type) type = key;

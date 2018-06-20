@@ -48,7 +48,7 @@
     "featuredItems": "Wyróżnione Przedmioty!",
     "hideLocked": "Ukryj niedostępne",
     "hidePinned": "Ukryj przypięte",
-    "hideMissing": "Hide Missing",
+    "hideMissing": "Ukryj brakujące",
     "amountExperience": "<%= amount %> Doświadzenia",
     "amountGold": "<%= amount %> Złota",
     "namedHatchingPotion": "<%= type %> eliksir wyklucia",

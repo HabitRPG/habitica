@@ -2,7 +2,7 @@ import {
   generateUser,
   generateGroup,
   translate as t,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 import { v4 as generateUUID } from 'uuid';
 
 describe('GET /groups/:groupId/invites', () => {
@@ -81,7 +81,8 @@ describe('GET /groups/:groupId/invites', () => {
     });
   });
 
-  it('supports using req.query.lastId to get more invites', async () => {
+  it('supports using req.query.lastId to get more invites', async function () {
+    this.timeout(30000); // @TODO: times out after 8 seconds
     let leader = await generateUser({balance: 4});
     let group = await generateGroup(leader, {type: 'guild', privacy: 'public', name: generateUUID()});
 

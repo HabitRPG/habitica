@@ -30,7 +30,6 @@
     :categories="challenge.categories",
     :owner="isOwner",
     :member="isMember",
-    v-once
   )
   .challenge-description(v-markdown='challenge.summary')
   .well-wrapper(v-if="fullLayout")
@@ -52,7 +51,7 @@
     line-height: 1.5em;
     overflow: hidden;
     text-overflow: ellipsis;
-    word-break: break-all;
+    word-break: break-word;
   }
 </style>
 

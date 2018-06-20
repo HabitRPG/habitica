@@ -90,6 +90,7 @@ describe('POST /user/reset', () => {
   it('does not delete challenge or group tasks', async () => {
     let guild = await generateGroup(user);
     let challenge = await generateChallenge(user, guild);
+    await user.post(`/challenges/${challenge._id}/join`);
     await user.post(`/tasks/challenge/${challenge._id}`, {
       text: 'test challenge habit',
       type: 'habit',

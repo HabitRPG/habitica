@@ -9,6 +9,7 @@ describe('POST /tasks/clearCompletedTodos', () => {
     let user = await generateUser({balance: 1});
     let guild = await generateGroup(user);
     let challenge = await generateChallenge(user, guild);
+    await user.post(`/challenges/${challenge._id}/join`);
 
     let initialTodoCount = user.tasksOrder.todos.length;
     await user.post('/tasks/user', [

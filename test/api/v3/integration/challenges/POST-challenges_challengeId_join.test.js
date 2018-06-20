@@ -3,7 +3,7 @@ import {
   generateChallenge,
   createAndPopulateGroup,
   translate as t,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 import { v4 as generateUUID } from 'uuid';
 
 describe('POST /challenges/:challengeId/join', () => {
@@ -43,6 +43,7 @@ describe('POST /challenges/:challengeId/join', () => {
       authorizedUser = populatedGroup.members[0];
 
       challenge = await generateChallenge(groupLeader, group);
+      await groupLeader.post(`/challenges/${challenge._id}/join`);
     });
 
     it('returns an error when user doesn\'t have permissions to access the challenge', async () => {
@@ -91,6 +92,7 @@ describe('POST /challenges/:challengeId/join', () => {
     });
 
     it('increases memberCount of challenge', async () => {
+      await challenge.sync();
       let oldMemberCount = challenge.memberCount;
 
       await authorizedUser.post(`/challenges/${challenge._id}/join`);

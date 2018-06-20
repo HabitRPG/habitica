@@ -3,7 +3,7 @@ import {
   generateChallenge,
   createAndPopulateGroup,
   translate as t,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 
 describe('PUT /challenges/:challengeId', () => {
   let privateGuild, user, nonMember, challenge, member;
@@ -25,6 +25,7 @@ describe('PUT /challenges/:challengeId', () => {
     member = members[0];
 
     challenge = await generateChallenge(user, group);
+    await user.post(`/challenges/${challenge._id}/join`);
     await member.post(`/challenges/${challenge._id}/join`);
   });
 
