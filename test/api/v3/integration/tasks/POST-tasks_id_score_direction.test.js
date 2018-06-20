@@ -417,6 +417,23 @@ describe('POST /tasks/:id/score/:direction', () => {
 
       expect(updatedTask.history[0].scoreNotes).to.eql(undefined);
     });
+
+    it('records only one history entry per day', async () => {
+      const initialHistoryLength = habit.history.length;
+
+      await user.post(`/tasks/${habit._id}/score/up`);
+      await user.post(`/tasks/${habit._id}/score/up`);
+      await user.post(`/tasks/${habit._id}/score/down`);
+      await user.post(`/tasks/${habit._id}/score/up`);
+
+      const updatedTask = await user.get(`/tasks/${habit._id}`);
+
+      expect(updatedTask.history.length).to.eql(initialHistoryLength + 1);
+
+      const lastHistoryEntry = updatedTask.history[updatedTask.history.length - 1];
+      expect(lastHistoryEntry.scoredUp).to.equal(3);
+      expect(lastHistoryEntry.scoredDown).to.equal(1);
+    });
   });
 
   context('reward', () => {
