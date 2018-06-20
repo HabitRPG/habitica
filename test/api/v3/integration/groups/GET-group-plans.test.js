@@ -1,7 +1,7 @@
 import {
   generateUser,
   generateGroup,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 
 describe('GET /group-plans', () => {
   let user;

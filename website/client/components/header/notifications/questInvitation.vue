@@ -45,18 +45,16 @@ export default {
       this.$router.push({ name: 'party' });
     },
     async questAccept () {
-      let quest = await this.$store.dispatch('quests:sendAction', {
+      this.user.party.quest = await this.$store.dispatch('quests:sendAction', {
         groupId: this.notification.data.partyId,
         action: 'quests/accept',
       });
-      this.user.party.quest = quest;
     },
     async questReject () {
-      let quest = await this.$store.dispatch('quests:sendAction', {
+      this.user.party.quest = await this.$store.dispatch('quests:sendAction', {
         groupId: this.notification.data.partyId,
         action: 'quests/reject',
       });
-      this.user.party.quest = quest;
     },
   },
 };

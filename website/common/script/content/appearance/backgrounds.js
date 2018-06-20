@@ -675,6 +675,20 @@ let backgrounds = {
       notes: t('backgroundTerracedRiceFieldNotes'),
     },
   },
+  backgrounds062018: {
+    at_the_docks: {
+      text: t('backgroundDocksText'),
+      notes: t('backgroundDocksNotes'),
+    },
+    rowboat: {
+      text: t('backgroundRowboatText'),
+      notes: t('backgroundRowboatNotes'),
+    },
+    pirate_flag: {
+      text: t('backgroundPirateFlagText'),
+      notes: t('backgroundPirateFlagNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),

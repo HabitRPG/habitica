@@ -3,7 +3,7 @@ import {
   createAndPopulateGroup,
   translate as t,
   sleep,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 import * as email from '../../../../../website/server/libs/email';
 
 describe('POST /groups/:groupId/removeMember/:memberId', () => {

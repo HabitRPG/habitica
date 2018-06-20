@@ -3,7 +3,7 @@ import { updateDocument } from '../../../../helpers/mongo';
 import {
   requester,
   resetHabiticaDB,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 
 describe('GET /world-state', () => {
   before(async () => {
