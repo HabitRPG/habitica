@@ -112,5 +112,6 @@
       "CLOUDKARAFKA_USERNAME": "",
       "CLOUDKARAFKA_PASSWORD": "",
       "CLOUDKARAFKA_TOPIC_PREFIX": ""
-    }
+    },
+    "MIGRATION_CONNECT_STRING": "mongodb://localhost:27017/habitrpg?auto_reconnect=true"
 }

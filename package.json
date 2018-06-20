@@ -1,7 +1,7 @@
 {
   "name": "habitica",
   "description": "A habit tracker app which treats your goals like a Role Playing Game.",
-  "version": "4.45.1",
+  "version": "4.47.0",
   "main": "./website/server/index.js",
   "dependencies": {
     "@slack/client": "^3.8.1",
@@ -121,9 +121,11 @@
     "test": "npm run lint && gulp test && gulp apidoc",
     "test:build": "gulp test:prepare:build",
     "test:api-v3": "gulp test:api-v3",
-    "test:api-v3:unit": "gulp test:api-v3:unit",
+    "test:api:unit": "gulp test:api:unit",
     "test:api-v3:integration": "gulp test:api-v3:integration",
     "test:api-v3:integration:separate-server": "NODE_ENV=test gulp test:api-v3:integration:separate-server",
+    "test:api-v4:integration": "gulp test:api-v4:integration",
+    "test:api-v4:integration:separate-server": "NODE_ENV=test gulp test:api-v4:integration:separate-server",
     "test:sanity": "istanbul cover --dir coverage/sanity --report lcovonly node_modules/mocha/bin/_mocha -- test/sanity --recursive",
     "test:common": "istanbul cover --dir coverage/common --report lcovonly node_modules/mocha/bin/_mocha -- test/common --recursive",
     "test:content": "istanbul cover --dir coverage/content --report lcovonly node_modules/mocha/bin/_mocha -- test/content --recursive",

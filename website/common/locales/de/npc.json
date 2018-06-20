@@ -48,7 +48,7 @@
     "featuredItems": "Besondere Empfehlungen!",
     "hideLocked": "Gesperrte verbergen",
     "hidePinned": "In der Pinnwand angezeigte verbergen",
-    "hideMissing": "Hide Missing",
+    "hideMissing": "Fehlende ausblenden",
     "amountExperience": "<%= amount %> Erfahrung",
     "amountGold": "<%= amount %> Gold",
     "namedHatchingPotion": "<%= type %> Schlüpfelixier",

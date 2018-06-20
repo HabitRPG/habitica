@@ -1,7 +1,7 @@
 import {
   generateUser,
   translate as t,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 import { find } from 'lodash';
 
 describe('POST /chat/:chatId/flag', () => {

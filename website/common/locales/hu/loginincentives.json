@@ -1,5 +1,5 @@
 {
-  "unlockedReward": "Kaptál egy <%= reward %>-t",
+  "unlockedReward": "Kaptál: <%= reward %>",
   "earnedRewardForDevotion": "Életed megváltoztatásáért kaptál egy <%= reward %>-t.",
   "nextRewardUnlocksIn": "A következő jutalomig ennyi bejelentkezés szükséges: <%= numberOfCheckinsLeft %>",
   "awesome": "Fantasztikus!",
@@ -13,17 +13,17 @@
   "checkinProgressTitle": "Haladás a következőig",
   "incentiveBackgroundsUnlockedWithCheckins": "A lezárt egyszerű hátterek napi bejelentkezésekkel lesznek feloldva.",
   "checkinReceivedAllRewardsMessage": "Megszerezted az összes bejelentkezési jutalmat! Grtaulálunk!",
-  "oneOfAllPetEggs": "egy az összes alap háziállat tojás közül",
-  "twoOfAllPetEggs": "kettő az összes alap háziállat tojás közül",
-  "threeOfAllPetEggs": "három az összes alap háziállat tojás közül",
-  "oneOfAllHatchingPotions": "egy az összes alap keltetőfőzet közül",
-  "threeOfEachFood": "három az összes alap élelem közül",
-  "fourOfEachFood": "négy az összes alap élelem közül",
+  "oneOfAllPetEggs": "egyet az összes alap háziállat tojás közül",
+  "twoOfAllPetEggs": "kettőt az összes alap háziállat tojás közül",
+  "threeOfAllPetEggs": "hármat az összes alap háziállat tojás közül",
+  "oneOfAllHatchingPotions": "egyet az összes alap keltetőfőzet közül",
+  "threeOfEachFood": "hármat az összes alap élelem közül",
+  "fourOfEachFood": "négyet az összes alap élelem közül",
   "twoSaddles": "két nyereg",
   "threeSaddles": "három nyereg",
   "incentiveAchievement": "A hűséges fejedelem kitüntetés",
   "royallyLoyal": "Hűséges fejedelem",
   "royallyLoyalText": "Ez a felhasználó több mint 500 alkalommal jelentkezett be és megszerezte az összes bejelentkezési jutalmat!",
   "checkInRewards": "Bejelentkezési jutalmak",
-  "backloggedCheckInRewards": "Egy új bejelentkezési jutalmat szereztél! Nézd meg a tárgylistán a felszerelés menüben hogy mit szereztél."
+  "backloggedCheckInRewards": "Egy új bejelentkezési jutalmat szereztél! Nézd meg a tárgylista alatt a felszerelés menüben hogy mit szereztél."
 }

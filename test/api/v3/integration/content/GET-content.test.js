@@ -1,7 +1,7 @@
 import {
   requester,
   translate as t,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 import i18n from '../../../../../website/common/script/i18n';
 
 describe('GET /content', () => {

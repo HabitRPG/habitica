@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'JUNE BACKGROUNDS AND ARMOIRE ITEMS, AND WIKI SPOTLIGHT ON PERFECT DAYS';
+const LAST_ANNOUNCEMENT_TITLE = 'SUMMER SPLASH BEGINS: SUMMER CLASS OUTFITS, SEASONAL SHOP, AND NPC DECORATIONS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -32,24 +32,32 @@ api.getNews = {
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
           </div>
         </div>
-        <h2>6/5/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+        <h2>6/19/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
+        <p>To escape the summer heat in Habit City, everyone's moved down to the undersea city of Dilatory. The Summer Splash event has begun!</p>
         <div class="media align-items-center">
           <div class="media-body">
-            <h3>June Backgrounds and Armoire Items!</h3>
-            <p>We’ve added three new backgrounds to the Background Shop! Now your avatar can sing rounds in a Rowboat, fish at the Docks, or wave a Pirate Flag. Check them out under User Icon > Backgrounds!</p>
-            <p>Plus, there’s new gold-purchasable equipment in the Enchanted Armoire, including the Glass Blower Set and the Blue Party Dress. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)</p>
-            <div class="small mb-3">by ChimeraLiani, Gerald The Pixel, AnnDeLune, CarolinaAsh, eyenne, Alonquian TGW, and Migu the Wanderer</div>
+            <h3>Summer Class Outfits</h3>
+            <p>From now until July 31st, limited edition outfits are available in the Rewards column. Depending on your class, you can be a Lionfish Mage, Fisher-Rogue, Betta Fish Warrior, or Merfolk Monarch Healer! You'd better get productive to earn enough gold before they disappear. Good luck!</p>
+            <div class="small mb-3">by Vampitch, Vikte, TheDudeAbides, Lalaitha, and Beffymaroo</div>
             <div class="media align-items-center">
-              <div class="scene_perfect_day mr-3"></div>
+              <div class="promo_seasonal_shop_summer mr-3"></div>
               <div class="media-body">
-                <h3>Blog Post: Perfect Day</h3>
-                <p>This month's <a href='https://habitica.wordpress.com/2018/05/30/perfect-day/' target='_blank'>featured Wiki article</a> is about the Perfect Day achievement! We hope that it will help you as you work on finishing all your Dailies. Be sure to check it out, and let us know what you think by reaching out on <a href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a href='https://facebook.com/habitica' target='_blank'>Facebook</a>.</p>
-                <div class="small">by shanaqui and the Wiki Wizards</div>
+                <h3>Seasonal Shop is Open!</h3>
+                <p>The <a href='/shops/seasonal' target='_blank'>Seasonal Shop</a> has opened! The Seasonal Sorceress is stocking the seasonal edition versions of previous summer outfits, now available for Gems instead of Gold. Plus, there will be more fun things in the shop as the event progresses. The Seasonal Shop will only be open until July 31st, so don't wait!</p>
+                <div class="small mb-3">by SabreCat, Lemoness, AnnDeLune, Vampitch, nonight, tricksy.fox, Giu09, JaizakAripaik, Teto Forever, and Kai</div>
               </div>
             </div>
+            <div class="media align-items-center">
+              <div class="media-body">
+                <h3>NPC Costumes and Shop Decorations</h3>
+                <p>Looks like the NPCs are really getting in to the cheery summer mood around the site. Who wouldn't? After all, there's plenty more celebration to come...</p>
+                <div class="small mb-3">by Lemoness and Beffymaroo</div>
+              </div>
+              <div class="npc_matt ml-3 mb-3"></div>
+            </div>
           </div>
-          <div class="promo_armoire_backgrounds_201806 ml-3 mb-3"></div>
+          <div class="promo_summer_splash_2018 ml-3"></div>
         </div>
       </div>
       `,

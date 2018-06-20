@@ -7,7 +7,7 @@ let authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; // ... own data is done
  */
 
 let monk = require('monk');
-let connectionString = 'mongodb://localhost:27017/habitrpg?auto_reconnect=true'; // FOR TEST DATABASE
+let connectionString = 'mongodb://localhost:27017/habitrpg?auto_reconnect=true';
 let dbTasks = monk(connectionString).get('tasks', { castIds: false });
 
 function processTasks (lastId) {
