@@ -499,8 +499,8 @@ let schema = new Schema({
       streak: {type: Boolean, default: false},
     },
     tasks: {
-      groupByChallenge: {type: Boolean, default: false},
-      confirmScoreNotes: {type: Boolean, default: false},
+      groupByChallenge: {type: Boolean, default: false}, // @TODO remove? not used
+      confirmScoreNotes: {type: Boolean, default: false}, // @TODO remove? not used
     },
     improvementCategories: {
       type: Array,
