@@ -19,7 +19,7 @@
     textarea.quick-add(
       :rows="quickAddRows",
       v-if="isUser", :placeholder="quickAddPlaceholder",
-      v-model="quickAddText", @keypress.enter="quickAdd($event); quickAddFocused = false",
+      v-model="quickAddText", @keypress.enter="quickAdd",
       ref="quickAdd",
       @focus="quickAddFocused = true", @blur="quickAddFocused = false",
     )
@@ -524,6 +524,7 @@ export default {
     quickAdd (ev) {
       // Add a new line if Shift+Enter Pressed
       if (ev.shiftKey) {
+        this.quickAddFocused = true;
         this.quickAddRows++;
         return true;
       }
@@ -544,6 +545,7 @@ export default {
       this.quickAddText = '';
       this.quickAddRows = 1;
       this.createTask(tasks);
+      this.$refs.quickAdd.blur();
     },
     editTask (task) {
       this.$emit('editTask', task);
