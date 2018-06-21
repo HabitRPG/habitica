@@ -524,7 +524,6 @@ export default {
     quickAdd (ev) {
       // Add a new line if Shift+Enter Pressed
       if (ev.shiftKey) {
-        this.quickAddFocused = true;
         this.quickAddRows++;
         return true;
       }
