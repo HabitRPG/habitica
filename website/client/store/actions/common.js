@@ -7,7 +7,7 @@ export function equip (store, params) {
   const user = store.state.user.data;
   equipOp(user, {params});
   axios
-    .post(`/api/v3/user/equip/${params.type}/${params.key}`);
+    .post(`/api/v4/user/equip/${params.type}/${params.key}`);
   // TODO
   // .then((res) => console.log('equip', res))
   // .catch((err) => console.error('equip', err));
@@ -17,7 +17,7 @@ export function hatch (store, params) {
   const user = store.state.user.data;
   hatchOp(user, {params});
   axios
-    .post(`/api/v3/user/hatch/${params.egg}/${params.hatchingPotion}`);
+    .post(`/api/v4/user/hatch/${params.egg}/${params.hatchingPotion}`);
   // TODO
   // .then((res) => console.log('equip', res))
   // .catch((err) => console.error('equip', err));
@@ -27,6 +27,6 @@ export async function feed (store, params) {
   const user = store.state.user.data;
   feedOp(user, {params});
   const response = await axios
-    .post(`/api/v3/user/feed/${params.pet}/${params.food}`);
+    .post(`/api/v4/user/feed/${params.pet}/${params.food}`);
   return response.data;
 }

@@ -38,7 +38,7 @@ export default {
         reward: [],
       };
 
-      let response = await axios.get(`/api/v3/challenges/${this.challengeId}/members/${this.memberId}`);
+      let response = await axios.get(`/api/v4/challenges/${this.challengeId}/members/${this.memberId}`);
       let tasks = response.data.data.tasks;
       tasks.forEach((task) => {
         this.tasksByType[task.type].push(task);

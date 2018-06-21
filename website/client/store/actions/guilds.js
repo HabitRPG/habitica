@@ -17,7 +17,7 @@ export async function getPublicGuilds (store, payload) {
   if (payload.member) params.member = payload.member;
   if (payload.search) params.search = payload.search;
 
-  let response = await axios.get('/api/v3/groups', {
+  let response = await axios.get('/api/v4/groups', {
     params,
   });
 
@@ -29,7 +29,7 @@ export async function getMyGuilds (store) {
     type: 'guilds',
   };
 
-  let response = await axios.get('/api/v3/groups', { params });
+  let response = await axios.get('/api/v4/groups', { params });
 
   let guilds = response.data.data;
   store.state.myGuilds = guilds;
@@ -38,7 +38,7 @@ export async function getMyGuilds (store) {
 }
 
 export async function getGroup (store, payload) {
-  let response = await axios.get(`/api/v3/groups/${payload.groupId}`);
+  let response = await axios.get(`/api/v4/groups/${payload.groupId}`);
   // @TODO: should we store the active group for modifying?
   // let guilds = response.data.data;
   // store.state.myGuilds = guilds;
@@ -57,7 +57,7 @@ export async function join (store, payload) {
 
   let response;
   try {
-    response = await axios.post(`/api/v3/groups/${groupId}/join`);
+    response = await axios.post(`/api/v4/groups/${groupId}/join`);
   } catch (err) {
     alert(err.response.data.message);
     return;
@@ -87,7 +87,7 @@ export async function leave (store, payload) {
     keep: payload.keep,
     keepChallenges: payload.keepChallenges,
   };
-  let response = await axios.post(`/api/v3/groups/${payload.groupId}/leave`, data);
+  let response = await axios.post(`/api/v4/groups/${payload.groupId}/leave`, data);
 
   // @TODO: update for party
   let index = store.state.user.data.guilds.indexOf(payload.groupId);
@@ -107,7 +107,7 @@ export async function leave (store, payload) {
 }
 
 export async function create (store, payload) {
-  let response = await axios.post('/api/v3/groups/', payload.group);
+  let response = await axios.post('/api/v4/groups/', payload.group);
   let newGroup = response.data.data;
 
   if (newGroup.leader._id === store.state.user.data._id || newGroup.privacy === 'private') {
@@ -124,7 +124,7 @@ export async function update (store, payload) {
   let groupDetailsToSend = omit(payload.group, ['chat', 'challenges', 'members', 'invites']);
   if (groupDetailsToSend.leader && groupDetailsToSend.leader._id) groupDetailsToSend.leader = groupDetailsToSend.leader._id;
 
-  let response = await axios.put(`/api/v3/groups/${payload.group.id}`, groupDetailsToSend);
+  let response = await axios.put(`/api/v4/groups/${payload.group.id}`, groupDetailsToSend);
 
   let updatedGroup = response.data.data;
 
@@ -137,7 +137,7 @@ export async function rejectInvite (store, payload) {
   const user = store.state.user.data;
   const invitations = user.invitations;
 
-  let response = await axios.post(`/api/v3/groups/${groupId}/reject-invite`);
+  let response = await axios.post(`/api/v4/groups/${groupId}/reject-invite`);
 
   if (type === 'guild') {
     const invitationI = invitations.guilds.findIndex(i => i.id === groupId);
@@ -151,7 +151,7 @@ export async function rejectInvite (store, payload) {
 }
 
 export async function removeMember (store, payload) {
-  let response = await axios.post(`/api/v3/groups/${payload.groupId}/removeMember/${payload.memberId}`, {
+  let response = await axios.post(`/api/v4/groups/${payload.groupId}/removeMember/${payload.memberId}`, {
     message: payload.message,
   });
 
@@ -161,7 +161,7 @@ export async function removeMember (store, payload) {
 }
 
 export async function invite (store, payload) {
-  let response = await axios.post(`/api/v3/groups/${payload.groupId}/invite`, {
+  let response = await axios.post(`/api/v4/groups/${payload.groupId}/invite`, {
     uuids: payload.invitationDetails.uuids,
     emails: payload.invitationDetails.emails,
   });
@@ -172,7 +172,7 @@ export async function invite (store, payload) {
 }
 
 export async function inviteToQuest (store, payload) {
-  let response = await axios.post(`/api/v3/groups/${payload.groupId}/quests/invite/${payload.key}`);
+  let response = await axios.post(`/api/v4/groups/${payload.groupId}/quests/invite/${payload.key}`);
 
   // @TODO: Any updates?
 
@@ -180,7 +180,7 @@ export async function inviteToQuest (store, payload) {
 }
 
 export async function addManager (store, payload) {
-  let response = await axios.post(`/api/v3/groups/${payload.groupId}/add-manager/`, {
+  let response = await axios.post(`/api/v4/groups/${payload.groupId}/add-manager/`, {
     managerId: payload.memberId,
   });
 
@@ -190,7 +190,7 @@ export async function addManager (store, payload) {
 }
 
 export async function removeManager  (store, payload) {
-  let response = await axios.post(`/api/v3/groups/${payload.groupId}/remove-manager/`, {
+  let response = await axios.post(`/api/v4/groups/${payload.groupId}/remove-manager/`, {
     managerId: payload.memberId,
   });
 
@@ -200,6 +200,6 @@ export async function removeManager  (store, payload) {
 }
 
 export async function getGroupPlans () {
-  let response = await axios.get('/api/v3/group-plans');
+  let response = await axios.get('/api/v4/group-plans');
   return response.data.data;
 }

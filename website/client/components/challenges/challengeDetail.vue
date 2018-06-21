@@ -381,7 +381,7 @@ export default {
       // let response = await this.$store.dispatch('challenges:exportChallengeCsv', {
       //   challengeId: this.searchId,
       // });
-      window.location = `/api/v3/challenges/${this.searchId}/export/csv`;
+      window.location = `/api/v4/challenges/${this.searchId}/export/csv`;
     },
     cloneChallenge () {
       this.$root.$emit('habitica:clone-challenge', {
