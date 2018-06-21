@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'SUMMER SPLASH BEGINS: SUMMER CLASS OUTFITS, SEASONAL SHOP, AND NPC DECORATIONS!';
+const LAST_ANNOUNCEMENT_TITLE = 'JUNE SUBSCRIBER ITEMS AND HABIT HISTORY CHANGES';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -32,33 +32,24 @@ api.getNews = {
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
           </div>
         </div>
-        <h2>6/19/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+        <h2>6/21/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
-        <p>To escape the summer heat in Habit City, everyone's moved down to the undersea city of Dilatory. The Summer Splash event has begun!</p>
         <div class="media align-items-center">
           <div class="media-body">
-            <h3>Summer Class Outfits</h3>
-            <p>From now until July 31st, limited edition outfits are available in the Rewards column. Depending on your class, you can be a Lionfish Mage, Fisher-Rogue, Betta Fish Warrior, or Merfolk Monarch Healer! You'd better get productive to earn enough gold before they disappear. Good luck!</p>
-            <div class="small mb-3">by Vampitch, Vikte, TheDudeAbides, Lalaitha, and Beffymaroo</div>
-            <div class="media align-items-center">
-              <div class="promo_seasonal_shop_summer mr-3"></div>
-              <div class="media-body">
-                <h3>Seasonal Shop is Open!</h3>
-                <p>The <a href='/shops/seasonal' target='_blank'>Seasonal Shop</a> has opened! The Seasonal Sorceress is stocking the seasonal edition versions of previous summer outfits, now available for Gems instead of Gold. Plus, there will be more fun things in the shop as the event progresses. The Seasonal Shop will only be open until July 31st, so don't wait!</p>
-                <div class="small mb-3">by SabreCat, Lemoness, AnnDeLune, Vampitch, nonight, tricksy.fox, Giu09, JaizakAripaik, Teto Forever, and Kai</div>
-              </div>
-            </div>
-            <div class="media align-items-center">
-              <div class="media-body">
-                <h3>NPC Costumes and Shop Decorations</h3>
-                <p>Looks like the NPCs are really getting in to the cheery summer mood around the site. Who wouldn't? After all, there's plenty more celebration to come...</p>
-                <div class="small mb-3">by Lemoness and Beffymaroo</div>
-              </div>
-              <div class="npc_matt ml-3 mb-3"></div>
-            </div>
+            <h3>June Subscriber Items Revealed!</h3>
+            <p>The June Subscriber Item Set has been revealed: the Alluring Anglerfish Item Set! You only have until June 30 to receive the item set when you <a href='/user/settings/subscription' target='_blank'>subscribe</a>. If you're already an active subscriber, reload the site and then head to Inventory > Items to claim your gear!</p>
           </div>
-          <div class="promo_summer_splash_2018 ml-3"></div>
+          <div class="promo_mystery_201806"></div>
         </div>
+        <p>Subscribers also receive the ability to buy Gems for Gold -- the longer you subscribe, the more Gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
+        <div class="small mb-3">by Beffymaroo</div>
+        <h3>Habit History Changes</h3>
+        <p>In a few days we're making a change to the way Habit history is stored in order to improve overall site performance and reduce errors and bugs for folks with lots of task activity.</p>
+        <p>If you view Habit history in a tool such as the <a href='https://oldgods.net/habitrpg/habitrpg_user_data_display.html' target='_blank'>Data Display Tool</a> you will no longer be able to see timestamps showing when you clicked a Habit. You will still see how many times you clicked it in a given day.</p>
+        <p>So, if you are using your Habits for any tasks where the timestamps are critical, just a heads-up and a note to save your data elsewhere as timestamp data will be lost when the change goes live!</p>
+        <p>If you have developed a third-party tool or extension for Habitica, please check out <a href='https://github.com/HabitRPG/habitica/pull/10442#issuecomment-396211978' target='_blank'>these notes on GitHub</a> so that you can update if needed.</p>
+        <p>Thanks for your understanding as we work to make Habitica better. <3</p>
+        <div class="small mb-3">by Paglias</div>
       </div>
       `,
     });
