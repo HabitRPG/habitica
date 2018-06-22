@@ -164,12 +164,6 @@ export default {
   },
   methods: {
     shareUserId () {
-      Analytics.track({
-        hitType: 'event',
-        eventCategory: 'button',
-        eventAction: 'click',
-        eventLabel: 'Health Warning',
-      });
       this.shareUserIdShown = !this.shareUserIdShown;
     },
     async createParty () {
