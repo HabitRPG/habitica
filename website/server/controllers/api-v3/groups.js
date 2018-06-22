@@ -665,14 +665,14 @@ api.joinGroup = {
 };
 
 /**
- * @api {post} /api/v3/groups/:groupId/reject Reject a group invitation
+ * @api {post} /api/v3/groups/:groupId/reject-invite Reject a group invitation
  * @apiName RejectGroupInvite
  * @apiGroup Group
  *
  * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
  * @apiParamExample {String} party:
- *     /api/v3/groups/party/reject
+ *     /api/v3/groups/party/reject-invite
  *
  * @apiSuccess {Object} data An empty object
  *
