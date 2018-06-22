@@ -258,7 +258,7 @@
     "weaponSpecialSpring2018MageNotes": "Essa flor mágica nunca murcha! Aumenta Inteligência em <%= int %> e Percepção em <%= per %>. Equipamento de Edição Limitada. Primavera de 2018.",
     "weaponSpecialSpring2018HealerText": "Bastão de Granada",
     "weaponSpecialSpring2018HealerNotes": "As pedras deste cajado irão focar seu poder quando você lançar feitiços de cura! Aumenta Inteligência em <%= int %>. Equipamento de Edição Limitada. Primavera de 2018.",
-    "weaponSpecialSummer2018RogueText": "Fishing Rod",
+    "weaponSpecialSummer2018RogueText": "Vara de Pescar",
     "weaponSpecialSummer2018RogueNotes": "This lightweight, practically unbreakable rod and reel can be dual-wielded to maximize your DPS (Dragonfish Per Summer). Increases Strength by <%= str %>. Limited Edition 2018 Summer Gear.",
     "weaponSpecialSummer2018WarriorText": "Betta Fish Spear",
     "weaponSpecialSummer2018WarriorNotes": "Mighty enough for battle, elegant enough for ceremony, this exquisitely crafted spear shows you will protect your home surf no matter what! Increases Strength by <%= str %>. Limited Edition 2018 Summer Gear.",

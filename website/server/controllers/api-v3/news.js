@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'JUNE SUBSCRIBER ITEMS AND HABIT HISTORY CHANGES';
+const LAST_ANNOUNCEMENT_TITLE = 'USE CASE SPOTLIGHT AND GUILD SPOTLIGHT ON PARENTING AND FAMILY LIFE, PLUS NEW BEHIND THE SCENES POST!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,26 +30,24 @@ api.getNews = {
           <div class="align-self-center mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
+            <h2>6/22/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
-        <h2>6/21/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
         <div class="media align-items-center">
           <div class="media-body">
-            <h3>June Subscriber Items Revealed!</h3>
-            <p>The June Subscriber Item Set has been revealed: the Alluring Anglerfish Item Set! You only have until June 30 to receive the item set when you <a href='/user/settings/subscription' target='_blank'>subscribe</a>. If you're already an active subscriber, reload the site and then head to Inventory > Items to claim your gear!</p>
+            <p>We've got new posts on the blog all about ways to use Habitica to help with parenting and family-related matters! First, there's a <a href='https://habitica.wordpress.com/2018/06/14/guilds-for-parenting-and-family-life/' target='_blank'>Guild Spotlight</a> that highlights the Guilds that can help you as you explore ways to use Habitica to smooth your home and family life. We've also posted a <a href='https://habitica.wordpress.com/2018/06/14/use-case-spotlight-parenting-and-family-life/' target='blank'>Use Case Spotlight</a> featuring a number of great suggestions for using Habitica's task system to manage parenting and family-related tasks! These suggestions were submitted by Habiticans in the <a href='/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6' target='_blank'>Use Case Spotlights Guild</a>.</p>
           </div>
-          <div class="promo_mystery_201806"></div>
+          <div class="scene_families ml-3 mb-3"></div>
         </div>
-        <p>Subscribers also receive the ability to buy Gems for Gold -- the longer you subscribe, the more Gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
-        <div class="small mb-3">by Beffymaroo</div>
-        <h3>Habit History Changes</h3>
-        <p>In a few days we're making a change to the way Habit history is stored in order to improve overall site performance and reduce errors and bugs for folks with lots of task activity.</p>
-        <p>If you view Habit history in a tool such as the <a href='https://oldgods.net/habitrpg/habitrpg_user_data_display.html' target='_blank'>Data Display Tool</a> you will no longer be able to see timestamps showing when you clicked a Habit. You will still see how many times you clicked it in a given day.</p>
-        <p>So, if you are using your Habits for any tasks where the timestamps are critical, just a heads-up and a note to save your data elsewhere as timestamp data will be lost when the change goes live!</p>
-        <p>If you have developed a third-party tool or extension for Habitica, please check out <a href='https://github.com/HabitRPG/habitica/pull/10442#issuecomment-396211978' target='_blank'>these notes on GitHub</a> so that you can update if needed.</p>
-        <p>Thanks for your understanding as we work to make Habitica better. <3</p>
-        <div class="small mb-3">by Paglias</div>
+        <div class="media align-items-center">
+          <div class="scene_moderators mr-3 mb-3"></div>
+          <div class="media-body">
+            <p>Plus, we're collecting user submissions for the next Use Case Spotlight! How do you use Habitica to build a routine to challenge your brain and keep your mind sharp? We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!</p>
+            <p>There's also a new <a href='https://habitica.wordpress.com/2018/06/21/behind-the-scenes-weird-tales-of-the-mod-slack/' target='_blank'>Behind the Scenes post</a> on the Habitica blog about fun facts and goofy shenanigans from the Moderator Team and their behind-the-scenes chat channel. Check it out!</p>
+            <div class="small mb-3">by Beffymaroo, the Habitica Staff, and the Moderator Team</div>
+          </div>
+        </div>
       </div>
       `,
     });
