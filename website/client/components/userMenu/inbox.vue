@@ -337,12 +337,12 @@ export default {
     optTextSet () {
       if (!this.user.inbox.optOut) {
         return {
-          switchDescription: this.$t('PMDisable'),
+          switchDescription: this.$t('PMReceive'),
           popoverText: this.$t('PMEnabledOptPopoverText'),
         };
       }
       return {
-        switchDescription: this.$t('PMEnable'),
+        switchDescription: this.$t('PMReceive'),
         popoverText: this.$t('PMDisabledOptPopoverText'),
       };
     },
