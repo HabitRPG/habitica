@@ -27,7 +27,7 @@ module.exports = function errorHandler (err, req, res, next) { // eslint-disable
 
   // Handle errors by express-validator
   if (Array.isArray(err) && err[0].param && err[0].msg) {
-    responseErr = new BadRequest(res.t('invalidReqParams'));
+    responseErr = new BadRequest(err[0].msg);
     responseErr.errors = err.map((paramErr) => {
       return {
         message: paramErr.msg,
