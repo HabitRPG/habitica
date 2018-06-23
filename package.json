@@ -153,7 +153,7 @@
     "connect-history-api-fallback": "^1.1.0",
     "coveralls": "^3.0.1",
     "cross-spawn": "^6.0.5",
-    "eslint": "^4.19.1",
+    "eslint": "^5.0.0",
     "eslint-config-habitrpg": "^4.0.0",
     "eslint-friendly-formatter": "^4.0.1",
     "eslint-loader": "^2.0.0",
