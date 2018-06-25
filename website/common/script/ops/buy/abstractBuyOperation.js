@@ -25,6 +25,24 @@ export class AbstractBuyOperation {
   }
 
   /**
+   * Returns the item value
+   * @param item
+   * @returns {number}
+   */
+  getItemValue (item) {
+    return item.value;
+  }
+
+  /**
+   * Returns the item key
+   * @param item
+   * @returns {String}
+   */
+  getIemKey (item) {
+    return item.key;
+  }
+
+  /**
    * Shortcut to get the translated string without passing `req.language`
    * @param {String} key - translation key
    * @param {*=} params
@@ -100,14 +118,6 @@ export class AbstractGoldItemOperation extends AbstractBuyOperation {
     super(user, req, analytics);
   }
 
-  getItemValue (item) {
-    return item.value;
-  }
-
-  getIemKey (item) {
-    return item.key;
-  }
-
   canUserPurchase (user, item) {
     this.item = item;
     let itemValue = this.getItemValue(item);
@@ -135,6 +145,40 @@ export class AbstractGoldItemOperation extends AbstractBuyOperation {
       itemType: 'Market',
       acquireMethod: 'Gold',
       goldCost: this.getItemValue(this.item),
+    };
+  }
+}
+
+export class AbstractGemItemOperation extends AbstractBuyOperation {
+  constructor (user, req, analytics) {
+    super(user, req, analytics);
+  }
+
+  canUserPurchase (user, item) {
+    this.item = item;
+    let itemValue = this.getItemValue(item);
+
+    if (!item.canBuy(user)) {
+      throw new NotAuthorized(this.i18n('messageNotAvailable'));
+    }
+
+    if (!user.balance || user.balance < itemValue * this.quantity) {
+      throw new NotAuthorized(this.i18n('notEnoughGems'));
+    }
+  }
+
+  subtractCurrency (user, item) {
+    let itemValue = this.getItemValue(item);
+
+    user.balance -= itemValue * this.quantity;
+  }
+
+  analyticsData () {
+    return {
+      itemKey: this.getIemKey(this.item),
+      itemType: 'Market',
+      acquireMethod: 'Gems',
+      gemCost: this.getItemValue(this.item) * 4,
     };
   }
 }
