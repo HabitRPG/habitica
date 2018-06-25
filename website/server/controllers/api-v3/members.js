@@ -517,7 +517,7 @@ api.sendPrivateMessage = {
 
 
 /**
- * @api {post} /api/v3//members/flag-private-message/:messageId Flag a private message
+ * @api {post} /api/v3/members/flag-private-message/:messageId Flag a private message
  * @apiDescription A message will be hidden immediately if a moderator flags the message. An email is sent to the moderators about every flagged message.
  * @apiName FlagPrivateMessage
  * @apiGroup Member
