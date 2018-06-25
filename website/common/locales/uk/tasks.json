@@ -194,8 +194,6 @@
     "weeks": "Тижні",
     "year": "Рік",
     "years": "Роки",
-    "confirmScoreNotes": "Confirm task scoring with notes",
-    "taskScoreNotesTooLong": "Запити на завдання за  розміром мають бути не більше 256 символів",
     "groupTasksByChallenge": "Group tasks by challenge title",
     "taskNotes": "Task Notes",
     "monthlyRepeatHelpContent": "This task will be due every X months",
