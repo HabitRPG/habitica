@@ -3,7 +3,7 @@ import {
   generateChallenge,
   createAndPopulateGroup,
   translate as t,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 import { TAVERN_ID } from '../../../../../website/common/script/constants';
 
 describe('GET challenges/groups/:groupId', () => {

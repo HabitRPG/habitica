@@ -254,13 +254,14 @@ describe('shared.ops.scoreTask', () => {
         expect(ref.afterUser.stats.gp).to.be.greaterThan(ref.beforeUser.stats.gp);
       });
 
-      it('adds score notes', () => {
+      // not supported anymore
+      it('does not add score notes to task', () => {
         let scoreNotesString = 'scoreNotes';
         habit.scoreNotes = scoreNotesString;
         options = { user: ref.afterUser, task: habit, direction: 'up', times: 5, cron: false };
         scoreTask(options);
 
-        expect(habit.history[0].scoreNotes).to.eql(scoreNotesString);
+        expect(habit.history[0].scoreNotes).to.eql(undefined);
       });
 
       it('down', () => {

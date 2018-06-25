@@ -84,7 +84,7 @@ function _parseRes (res) {
 
   if (apiVersion === 'v2') {
     return res.body;
-  } else if (apiVersion === 'v3') {
+  } else if (apiVersion === 'v3' || apiVersion === 'v4') {
     if (res.body.message) {
       return {
         data: res.body.data,
@@ -104,7 +104,7 @@ function _parseError (err) {
       code: err.status,
       text: err.response.body.err,
     };
-  } else if (apiVersion === 'v3') {
+  } else if (apiVersion === 'v3' || apiVersion === 'v4') {
     parsedError = {
       code: err.status,
       error: err.response.body.error,

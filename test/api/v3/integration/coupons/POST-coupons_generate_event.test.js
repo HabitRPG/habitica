@@ -2,7 +2,7 @@ import {
   generateUser,
   translate as t,
   resetHabiticaDB,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 import couponCode from 'coupon-code';
 import apiError from '../../../../../website/server/libs/apiError';
 

@@ -305,7 +305,7 @@
           if (this.statUpdates[stat] > 0) statUpdates[stat] = this.statUpdates[stat];
         });
 
-        await axios.post('/api/v3/user/allocate-bulk', {
+        await axios.post('/api/v4/user/allocate-bulk', {
           stats: statUpdates,
         });
 

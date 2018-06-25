@@ -9,9 +9,12 @@ import {
 let _wrapAsyncFn = fn => (...args) => fn(...args).catch(args[2]);
 let noop = (req, res, next) =>  next();
 
-module.exports.readController = function readController (router, controller) {
+module.exports.readController = function readController (router, controller, overrides = []) {
   _.each(controller, (action) => {
     let {method, url, middlewares = [], handler} = action;
+
+    // Allow to specify a list of routes (METHOD + URL) to skip
+    if (overrides.indexOf(`${method}-${url}`) !== -1) return;
 
     // If an authentication middleware is used run getUserLanguage after it, otherwise before
     // for cron instead use it only if an authentication middleware is present
@@ -44,7 +47,7 @@ module.exports.readController = function readController (router, controller) {
   });
 };
 
-module.exports.walkControllers = function walkControllers (router, filePath) {
+module.exports.walkControllers = function walkControllers (router, filePath, overrides) {
   fs
     .readdirSync(filePath)
     .forEach(fileName => {
@@ -52,7 +55,7 @@ module.exports.walkControllers = function walkControllers (router, filePath) {
         walkControllers(router, `${filePath}${fileName}/`);
       } else if (fileName.match(/\.js$/)) {
         let controller = require(filePath + fileName); // eslint-disable-line global-require
-        module.exports.readController(router, controller);
+        module.exports.readController(router, controller, overrides);
       }
     });
 };

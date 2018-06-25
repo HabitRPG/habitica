@@ -161,7 +161,7 @@ export default {
         if (Boolean(uuid) && !this.cachedProfileData[uuid] && !aboutToCache[uuid]) {
           if (uuid === 'system' || this.currentProfileLoadedCount === this.currentProfileLoadedEnd) return;
           aboutToCache[uuid] = {};
-          promises.push(axios.get(`/api/v3/members/${uuid}`));
+          promises.push(axios.get(`/api/v4/members/${uuid}`));
           this.currentProfileLoadedCount += 1;
         }
       });

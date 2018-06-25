@@ -3,6 +3,7 @@ import { IncomingWebhook } from '@slack/client';
 import logger from './logger';
 import { TAVERN_ID } from '../models/group';
 import nconf from 'nconf';
+import moment from 'moment';
 
 const SLACK_FLAGGING_URL = nconf.get('SLACK:FLAGGING_URL');
 const SLACK_FLAGGING_FOOTER_LINK = nconf.get('SLACK:FLAGGING_FOOTER_LINK');
@@ -64,12 +65,14 @@ function sendFlagNotification ({
     authorName = `${message.user} - ${authorEmail} - ${message.uuid}`;
   }
 
+  const timestamp = `${moment(message.timestamp).utc().format('YYYY-MM-DD HH:mm')} UTC`;
+
   flagSlack.send({
     text,
     attachments: [{
       fallback: 'Flag Message',
       color: 'danger',
-      author_name: authorName,
+      author_name: `${authorName}\n${timestamp}`,
       title,
       title_link: titleLink,
       text: message.text,

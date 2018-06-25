@@ -9,32 +9,32 @@ const featuredItems = {
     },
     {
       type: 'hatchingPotions',
-      path: 'hatchingPotions.Red',
+      path: 'hatchingPotions.Desert',
     },
     {
-      type: 'premiumHatchingPotion',
-      path: 'premiumHatchingPotions.Fairy',
+      type: 'food',
+      path: 'food.Fish',
     },
     {
       type: 'card',
-      path: 'cardTypes.goodluck',
+      path: 'cardTypes.congrats',
     },
   ],
   quests: [
     {
       type: 'quests',
-      path: 'quests.squirrel',
+      path: 'quests.dilatory_derby',
     },
     {
       type: 'quests',
-      path: 'quests.taskwoodsTerror1',
+      path: 'quests.dilatoryDistress1',
     },
     {
       type: 'quests',
-      path: 'quests.butterfly',
+      path: 'quests.whale',
     },
   ],
-  seasonal: '',
+  seasonal: 'summerRogue',
   timeTravelers: [
     // TODO
   ],

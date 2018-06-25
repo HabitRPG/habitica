@@ -4,7 +4,7 @@ import { requester } from '../requester';
 requester.setApiVersion('v3');
 export { requester };
 
-import server from './external-server';
+import server from '../external-server';
 export { server };
 
 export { translate } from '../../translate';

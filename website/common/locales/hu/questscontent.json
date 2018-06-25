@@ -59,7 +59,7 @@
     "questSpiderDropSpiderEgg": "Pók (tojás)",
     "questSpiderUnlockText": "Elérhetővé teszi a póktojások megvásárlását a piacon",
     "questGroupVice": "Vice the Shadow Wyrm",
-    "questVice1Text": "Vétek, 1. rész: Szabadúlj meg a sárkány befolyásától",
+    "questVice1Text": "Vétek, 1. rész: Szabadulj meg a sárkány befolyásától",
     "questVice1Notes": "<p>Mendemonda kering egy szörnyű gonoszról ami Habitica hegyének barlangjaiban tanyázik. A szörnyeteg puszta jelenléte a térségben megtöri az erős akaratú hősöket, akik rossz szokásokat kezdenek felvenni és eltunyulnak! A szörnyeteg egy hatalmas sárkány, mérhetetlen hatalommal, árnyakkal körbevéve: Vétek, az állságos Árnyék Wyrm. Bátor kalandorok kerekednek föl, és megkísérlik legyőzni egyszer és mindekorra, de csak akkor ha tényleg hisznek abban, hogy ellen tudnak állni hihetelen hatalmának.</p><h3>Vétek, 1. rész:: </h3><p>Mégis hogyan akartok küzdeni egy olyan szörnyeteggel szemben, ami máris átvette az uralmat felettetek? Ne essetek áldozatúl a lustaságnak és vétkezésnek! Kemény munkával küzdjetek a sárkány sötét befolyásával és rázzátok le azt magatokról!</p>",
     "questVice1Boss": "A Bűn Árnyékában",
     "questVice1Completion": "With Vice's influence over you dispelled, you feel a surge of strength you didn't know you had return to you. Congratulations! But a more frightening foe awaits...",
@@ -602,5 +602,7 @@
     "questSquirrelDropSquirrelEgg": "Squirrel (Egg)",
     "questSquirrelUnlockText": "Unlocks purchasable Squirrel eggs in the Market",
     "cuddleBuddiesText": "Cuddle Buddies Quest Bundle",
-    "cuddleBuddiesNotes": "Contains 'The Killer Bunny', 'The Nefarious Ferret', and 'The Guinea Pig Gang'. Available until May 31."
+    "cuddleBuddiesNotes": "Contains 'The Killer Bunny', 'The Nefarious Ferret', and 'The Guinea Pig Gang'. Available until May 31.",
+    "aquaticAmigosText": "Aquatic Amigos Quest Bundle",
+    "aquaticAmigosNotes": "Contains 'The Magical Axolotl', 'The Kraken of Inkomplete', and 'The Call of Octothulu'. Available until June 30."
 }

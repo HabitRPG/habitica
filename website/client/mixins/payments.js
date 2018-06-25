@@ -73,7 +73,7 @@ export default {
           let url = '/stripe/checkout?a=a'; // just so I can concat &x=x below
 
           if (data.groupToCreate) {
-            url = '/api/v3/groups/create-plan?a=a';
+            url = '/api/v4/groups/create-plan?a=a';
             res.groupToCreate = data.groupToCreate;
             res.paymentType = 'Stripe';
           }

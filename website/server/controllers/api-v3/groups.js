@@ -196,6 +196,7 @@ api.createGroupPlan = {
 
     // @TODO: Change message
     if (group.privacy !== 'private') throw new NotAuthorized(res.t('partyMustbePrivate'));
+    group.memberCount = await User.count({ $or: [{ 'party._id': group._id }, { guilds: group._id }] }).exec();
     group.leader = user._id;
     user.guilds.push(group._id);
 
@@ -664,14 +665,14 @@ api.joinGroup = {
 };
 
 /**
- * @api {post} /api/v3/groups/:groupId/reject Reject a group invitation
+ * @api {post} /api/v3/groups/:groupId/reject-invite Reject a group invitation
  * @apiName RejectGroupInvite
  * @apiGroup Group
  *
  * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
  * @apiParamExample {String} party:
- *     /api/v3/groups/party/reject
+ *     /api/v3/groups/party/reject-invite
  *
  * @apiSuccess {Object} data An empty object
  *

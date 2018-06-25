@@ -67,8 +67,8 @@
             a.social-circle(href='https://www.facebook.com/Habitica', target='_blank')
               .social-icon.facebook.svg-icon(v-html='icons.facebook')
         .row
-          .col-12.col-md-10 {{ $t('donateText3') }}
-          .col-12.col-md-2
+          .col-12.col-md-8 {{ $t('donateText3') }}
+          .col-12.col-md-4
             button.btn.btn-contribute(@click="donate()", v-if="user")
               .svg-icon.heart(v-html="icons.heart")
               .text {{ $t('companyDonate') }}
@@ -308,7 +308,7 @@ export default {
 
       let date = moment(this.user.lastCron).subtract(numberOfDays, 'days').toDate();
 
-      await axios.post('/api/v3/debug/set-cron', {
+      await axios.post('/api/v4/debug/set-cron', {
         lastCron: date,
       });
 
@@ -316,12 +316,12 @@ export default {
       // @TODO: Sync user?
     },
     async addTenGems () {
-      await axios.post('/api/v3/debug/add-ten-gems');
+      await axios.post('/api/v4/debug/add-ten-gems');
       // @TODO: Notification.text('+10 Gems!');
       this.user.balance += 2.5;
     },
     async addHourglass () {
-      await axios.post('/api/v3/debug/add-hourglass');
+      await axios.post('/api/v4/debug/add-hourglass');
       // @TODO: Sync?
     },
     addGold () {
@@ -356,13 +356,13 @@ export default {
       });
     },
     async addQuestProgress () {
-      await axios.post('/api/v3/debug/quest-progress');
+      await axios.post('/api/v4/debug/quest-progress');
 
       //  @TODO:  Notification.text('Quest progress increased');
       //  @TODO:  User.sync();
     },
     async makeAdmin  () {
-      await axios.post('/api/v3/debug/make-admin');
+      await axios.post('/api/v4/debug/make-admin');
 
       // @TODO: Notification.text('You are now an admin! Go to the Hall of Heroes to change your contributor level.');
       // @TODO: sync()

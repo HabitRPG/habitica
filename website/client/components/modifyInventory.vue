@@ -294,7 +294,7 @@ export default {
       }
     },
     async modifyInventory  () {
-      await axios.post('/api/v3/debug/modify-inventory', {
+      await axios.post('/api/v4/debug/modify-inventory', {
         gear: this.showInv.gear ? this.inv.gear : null,
         special: this.showInv.special ? this.inv.special : null,
         pets: this.showInv.pets ? this.inv.pets : null,

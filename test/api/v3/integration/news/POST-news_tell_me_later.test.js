@@ -1,6 +1,6 @@
 import {
   generateUser,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 
 describe('POST /news/tell-me-later', () => {
   let user;

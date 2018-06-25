@@ -17,7 +17,7 @@
     "questGryphonDropGryphonEgg": "Griffon (Œuf)",
     "questGryphonUnlockText": "Déverrouille l'achat d’œufs de griffon au marché",
     "questHedgehogText": "La bête hérissée",
-    "questHedgehogNotes": "Les hérissons sont de drôles d'animaux. Ils font partie des familiers les plus affectueux que puisse posséder un Habiticien, mais on raconte que leur faire boire du lait après minuit les rend assez irritables. Et cinquante fois plus gros. Et <strong>InspectorCaracal</strong> vient juste de le faire. Oups.",
+    "questHedgehogNotes": "Les hérissons sont de drôles d'animaux. Ils font partie des familiers les plus affectueux que puisse posséder un Habiticien. Mais on raconte que leur faire boire du lait après minuit les rend assez irritables. Et cinquante fois plus gros. Et <strong>Inventrix</strong> vient juste de le faire. Oups.",
     "questHedgehogCompletion": "Votre équipe à réussi à calmer le hérisson ! Après avoir repris sa taille normale, elle boitille jusqu'à ses œufs. Elle revient en couinant et pousse vers votre équipe quelques-uns de ses œufs. Heureusement, ceux-ci supportent mieux le lait !",
     "questHedgehogBoss": "Bête hérissée",
     "questHedgehogDropHedgehogEgg": "Hérisson (Œuf)",
@@ -602,5 +602,7 @@
     "questSquirrelDropSquirrelEgg": "Écureuil (Œuf)",
     "questSquirrelUnlockText": "Déverrouille l'achat d'œufs d’écureuils au marché",
     "cuddleBuddiesText": "Lot de quêtes des acolytes à câlins",
-    "cuddleBuddiesNotes": "Contient \"Le lapin tueur\", \"L'abominable furet\", et \"Le gang des cochons d'Inde\". Disponible jusqu'au 31 mai."
+    "cuddleBuddiesNotes": "Contient \"Le lapin tueur\", \"L'abominable furet\", et \"Le gang des cochons d'Inde\". Disponible jusqu'au 31 mai.",
+    "aquaticAmigosText": "Lot de quêtes des amis aquatiques",
+    "aquaticAmigosNotes": "Contient “L’axototl magique”, “Le kraken d’Inkomplet”, et “L’appel d’Octothulu”. Disponible jusqu’au 30 juin."
 }

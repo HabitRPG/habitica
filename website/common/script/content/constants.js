@@ -32,6 +32,7 @@ export const EVENTS = {
   fall2017:   { start: '2017-09-21', end: '2017-11-02' },
   winter2018: { start: '2017-12-19', end: '2018-02-02' },
   spring2018: { start: '2018-03-20', end: '2018-05-02' },
+  summer2018: { start: '2018-06-19', end: '2018-08-02' },
 };
 
 export const SEASONAL_SETS = {
@@ -96,6 +97,37 @@ export const SEASONAL_SETS = {
     'spring2018SunriseWarriorSet',
     'spring2018DucklingRogueSet',
     'spring2018GarnetHealerSet',
+  ],
+  summer: [
+    // summer 2014
+    'daringSwashbucklerSet',
+    'emeraldMermageSet',
+    'reefSeahealerSet',
+    'roguishPirateSet',
+
+    // summer 2015
+    'sunfishWarriorSet',
+    'shipSoothsayerSet',
+    'strappingSailorSet',
+    'reefRenegadeSet',
+
+    // summer 2016
+    'summer2016SharkWarriorSet',
+    'summer2016DolphinMageSet',
+    'summer2016SeahorseHealerSet',
+    'summer2016EelSet',
+
+    // summer 2017
+    'summer2017SandcastleWarriorSet',
+    'summer2017WhirlpoolMageSet',
+    'summer2017SeashellSeahealerSet',
+    'summer2017SeaDragonSet',
+
+    // summer 2018
+    'summer2018BettaFishWarriorSet',
+    'summer2018LionfishMageSet',
+    'summer2018MerfolkMonarchSet',
+    'summer2018FisherRogueSet',
   ],
 };
 

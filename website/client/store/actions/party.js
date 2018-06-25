@@ -4,7 +4,7 @@ export function getMembers (store, forceLoad = false) {
   return loadAsyncResource({
     store,
     path: 'partyMembers',
-    url: '/api/v3/groups/party/members?includeAllPublicFields=true',
+    url: '/api/v4/groups/party/members?includeAllPublicFields=true',
     deserialize (response) {
       return response.data.data;
     },
@@ -16,7 +16,7 @@ export function getParty (store, forceLoad = false) {
   return loadAsyncResource({
     store,
     path: 'party',
-    url: '/api/v3/groups/party',
+    url: '/api/v4/groups/party',
     deserialize (response) {
       return response.data.data;
     },
