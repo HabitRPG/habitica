@@ -261,7 +261,7 @@
     "weaponSpecialSummer2018RogueText": "Canne à pêche",
     "weaponSpecialSummer2018RogueNotes": "Cette canne à pêche, légère et pratiquement incassable, peut-être utilisée avec une autre canne à pêche pour optimiser votre DPS (poisson-Dragon Par Saison). Augmente la Force de <%= str %>. Équipement en édition limitée de l’été 2018.",
     "weaponSpecialSummer2018WarriorText": "Harpon à Betta Splendens",
-    "weaponSpecialSummer2018WarriorNotes": "Mighty enough for battle, elegant enough for ceremony, this exquisitely crafted spear shows you will protect your home surf no matter what! Increases Strength by <%= str %>. Limited Edition 2018 Summer Gear.",
+    "weaponSpecialSummer2018WarriorNotes": "Suffisamment puissant pour le combat, suffisamment élégante pour les cérémonies, cette lance fabriquée avec minutie montre que vous allez protéger votre surf, peu importe le reste ! Augmente la Force de <%= str %>. Équipement en édition limitée de l’été 2018.",
     "weaponSpecialSummer2018MageText": "Lionfish Fin Rays",
     "weaponSpecialSummer2018MageNotes": "Underwater, magic based on fire, ice, or electricity can prove hazardous to the Mage wielding it. Conjuring poisonous spines, however, works brilliantly! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2018 Summer Gear.",
     "weaponSpecialSummer2018HealerText": "Merfolk Monarch Trident",
