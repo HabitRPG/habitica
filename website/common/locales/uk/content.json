@@ -195,6 +195,7 @@
     "hatchingPotionFairy": "Fairy",
     "hatchingPotionStarryNight": "Starry Night",
     "hatchingPotionRainbow": "Rainbow",
+    "hatchingPotionGlass": "Glass",
     "hatchingPotionNotes": "Вилийте це на яйце, і з нього вилупиться улюбленець<%= potText(locale) %>.",
     "premiumPotionAddlNotes": "Неможливо використати на квестових яйцях з улюбленцями.",
     "foodMeat": "М'ясо",
