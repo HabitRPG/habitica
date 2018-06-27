@@ -52,7 +52,7 @@
         // @TODO: Implement new message header here when we fix the above
 
         .new-message-row(v-if='selectedConversation.key && !user.flags.chatRevoked')
-          textarea(v-model='newMessage')
+          textarea(v-model='newMessage', @keyup.ctrl.enter='sendPrivateMessage()')
           button.btn.btn-secondary(@click='sendPrivateMessage()') Send
 </template>
 
