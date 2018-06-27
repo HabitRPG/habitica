@@ -106,7 +106,7 @@ div
 
   /* @TODO: The modal-open class is not being removed. Let's try this for now */
   .modal, .modal-open {
-    overflow-y: scroll;
+    overflow-y: scroll !important;
   }
 
   .modal-backdrop.show {
