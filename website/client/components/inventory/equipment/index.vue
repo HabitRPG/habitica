@@ -36,7 +36,7 @@
 
     drawer(
       :title="$t('equipment')",
-      :errorMessage="(costume && !user.preferences.costume) ? $t('costumeDisabled') : null",
+      :errorMessage="(costumeMode && !user.preferences.costume) ? $t('costumeDisabled') : null",
       :openStatus='openStatus',
       v-on:toggled='drawerToggled'
     )
@@ -44,18 +44,18 @@
         .drawer-tab-container
           .drawer-tab.text-right
             a.drawer-tab-text(
-              @click="costume = false",
-              :class="{'drawer-tab-text-active': costume === false}",
+              @click="selectDrawerTab('equipment')",
+              :class="{'drawer-tab-text-active': !costumeMode}",
             ) {{ $t('equipment') }}
           .clearfix
             .drawer-tab.float-left
               a.drawer-tab-text(
-                @click="costume = true",
-                :class="{'drawer-tab-text-active': costume === true}",
+                @click="selectDrawerTab('costume')",
+                :class="{'drawer-tab-text-active': costumeMode}",
               ) {{ $t('costume') }}
 
             toggle-switch.float-right.align-with-tab(
-              :label="$t(costume ? 'useCostume' : 'autoEquipBattleGear')",
+              :label="$t(costumeMode ? 'useCostume' : 'autoEquipBattleGear')",
               :checked="user.preferences[drawerPreference]",
               @change="changeDrawerPreference",
               :hoverText="$t(drawerPreference+'PopoverText')",
@@ -77,7 +77,7 @@
           template(slot="itemBadge", slot-scope="context")
             starBadge(
               :selected="true",
-              :show="!costume || user.preferences.costume",
+              :show="!costumeMode || user.preferences.costume",
               @click="equipItem(context.item)",
             )
     div(
@@ -109,7 +109,7 @@
             template(slot="itemBadge", slot-scope="context")
               starBadge(
                 :selected="activeItems[context.item.type] === context.item.key",
-                :show="!costume || user.preferences.costume",
+                :show="!costumeMode || user.preferences.costume",
                 @click="equipItem(context.item)",
               )
             template(slot="popoverContent", slot-scope="context")
@@ -119,7 +119,7 @@
     :item="gearToEquip",
     @equipItem="equipItem($event)",
     @change="changeModalState($event)",
-    :costumeMode="costume",
+    :costumeMode="costumeMode",
     :isEquipped="gearToEquip == null ? false : activeItems[gearToEquip.type] === gearToEquip.key"
   )
 </template>
@@ -185,7 +185,7 @@ export default {
       itemsPerLine: 9,
       searchText: null,
       searchTextThrottled: null,
-      costume: false,
+      costumeMode: false,
       groupBy: 'type', // or 'class'
       gearTypesToStrings: Object.freeze({ // TODO use content.itemList?
         weapon: i18n.t('weaponCapitalized'),
@@ -219,11 +219,24 @@ export default {
   },
   mounted () {
     const drawerState = getLocalSetting(CONSTANTS.keyConstants.EQUIPMENT_DRAWER_STATE);
-    if (drawerState === CONSTANTS.valueConstants.DRAWER_CLOSED) {
+    if (drawerState === CONSTANTS.drawerStateValues.DRAWER_CLOSED) {
       this.$store.state.equipmentDrawerOpen = false;
     }
+
+    this.costumeMode = getLocalSetting(CONSTANTS.keyConstants.CURRENT_EQUIPMENT_DRAWER_TAB) === CONSTANTS.equipmentDrawerTabValues.COSTUME_TAB ? true : false;
   },
   methods: {
+    selectDrawerTab (tabName) {
+      let tabNameValue;
+      if (tabName === 'costume') {
+        tabNameValue = CONSTANTS.equipmentDrawerTabValues.COSTUME_TAB;
+        this.costumeMode = true;
+      } else {
+        tabNameValue = CONSTANTS.equipmentDrawerTabValues.EQUIPMENT_TAB;
+        this.costumeMode = false;
+      }
+      setLocalSetting(CONSTANTS.keyConstants.CURRENT_EQUIPMENT_DRAWER_TAB, tabNameValue);
+    },
     openEquipDialog (item) {
       this.gearToEquip = item;
     },
@@ -233,7 +246,7 @@ export default {
       }
     },
     equipItem (item) {
-      this.$store.dispatch('common:equip', {key: item.key, type: this.costume ? 'costume' : 'equipped'});
+      this.$store.dispatch('common:equip', {key: item.key, type: this.costumeMode ? 'costume' : 'equipped'});
       this.gearToEquip = null;
     },
     changeDrawerPreference (newVal) {
@@ -260,11 +273,11 @@ export default {
       this.$store.state.equipmentDrawerOpen = newState;
 
       if (newState) {
-        setLocalSetting(CONSTANTS.keyConstants.EQUIPMENT_DRAWER_STATE, CONSTANTS.valueConstants.DRAWER_OPEN);
+        setLocalSetting(CONSTANTS.keyConstants.EQUIPMENT_DRAWER_STATE, CONSTANTS.drawerStateValues.DRAWER_OPEN);
         return;
       }
 
-      setLocalSetting(CONSTANTS.keyConstants.EQUIPMENT_DRAWER_STATE, CONSTANTS.valueConstants.DRAWER_CLOSED);
+      setLocalSetting(CONSTANTS.keyConstants.EQUIPMENT_DRAWER_STATE, CONSTANTS.drawerStateValues.DRAWER_CLOSED);
     },
   },
   computed: {
@@ -280,10 +293,10 @@ export default {
       return this.$store.state.equipmentDrawerOpen ? 1 : 0;
     },
     drawerPreference () {
-      return this.costume === true ? 'costume' : 'autoEquip';
+      return this.costumeMode ? 'costume' : 'autoEquip';
     },
     activeItems () {
-      return this.costume === true ? this.costumeItems : this.equippedItems;
+      return this.costumeMode ? this.costumeItems : this.equippedItems;
     },
     gearItemsByType () {
       const searchText = this.searchTextThrottled;
