@@ -165,7 +165,7 @@
     "needsText": "請輸入訊息",
     "needsTextPlaceholder": "在這裡輸入你的訊息",
     "copyMessageAsToDo": "複製訊息為待辦事項",
-    "copyAsTodo": "Copy as To-Do",
+    "copyAsTodo": "複製為待辦事項",
     "messageAddedAsToDo": "已複製訊息為待辦事項。",
     "messageWroteIn": "<%= user %> 在 <%= group %> 發言",
     "msgPreviewHeading": "訊息預覽",

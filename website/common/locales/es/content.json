@@ -195,7 +195,7 @@
     "hatchingPotionFairy": "Hada",
     "hatchingPotionStarryNight": "Noche Estrellada",
     "hatchingPotionRainbow": "Arco-iris",
-    "hatchingPotionGlass": "Glass",
+    "hatchingPotionGlass": "El Vidrio",
     "hatchingPotionNotes": "Vierte esto en un huevo y eclosionará como una mascota <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "No puede usarse en huevos de mascota de misión.",
     "foodMeat": "Carne",
