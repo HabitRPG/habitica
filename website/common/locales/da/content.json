@@ -195,6 +195,7 @@
     "hatchingPotionFairy": "Fe",
     "hatchingPotionStarryNight": "Starry Night",
     "hatchingPotionRainbow": "Rainbow",
+    "hatchingPotionGlass": "Glass",
     "hatchingPotionNotes": "Hæld på et æg, og det vil udklække til et <%= potText(locale) %> kæledyr.",
     "premiumPotionAddlNotes": "Kan ikke bruges på quest-æg.",
     "foodMeat": "Kød",

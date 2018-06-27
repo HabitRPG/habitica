@@ -653,14 +653,14 @@ api.joinGroup = {
 };
 
 /**
- * @api {post} /api/v3/groups/:groupId/reject Reject a group invitation
+ * @api {post} /api/v3/groups/:groupId/reject-invite Reject a group invitation
  * @apiName RejectGroupInvite
  * @apiGroup Group
  *
  * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
  * @apiParamExample {String} party:
- *     /api/v3/groups/party/reject
+ *     /api/v3/groups/party/reject-invite
  *
  * @apiSuccess {Object} data An empty object
  *
@@ -940,6 +940,11 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
     throw new BadRequest(res.t('cannotInviteSelfToGroup'));
   }
 
+  const objections = inviter.getObjectionsToInteraction('group-invitation', userToInvite);
+  if (objections.length > 0) {
+    throw new NotAuthorized(res.t(objections[0], { userId: uuid, username: userToInvite.profile.name}));
+  }
+
   if (group.type === 'guild') {
     if (_.includes(userToInvite.guilds, group._id)) {
       throw new NotAuthorized(res.t('userAlreadyInGroup', { userId: uuid, username: userToInvite.profile.name}));
@@ -1142,6 +1147,7 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
  * @apiError (401) {NotAuthorized} UserAlreadyInvited The user has already been invited to the group.
  * @apiError (401) {NotAuthorized} UserAlreadyInGroup The user is already a member of the group.
  * @apiError (401) {NotAuthorized} CannotInviteWhenMuted You cannot invite anyone to a guild or party because your chat privileges have been revoked.
+ * @apiError (401) {NotAuthorized} NotAuthorizedToSendMessageToThisUser You can't send a message to this player because they have chosen to block messages.
  *
  * @apiUse GroupNotFound
  * @apiUse UserNotFound

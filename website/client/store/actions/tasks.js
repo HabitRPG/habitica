@@ -7,7 +7,7 @@ export function fetchUserTasks (store, options = {}) {
   return loadAsyncResource({
     store,
     path: 'tasks',
-    url: '/api/v3/tasks/user',
+    url: '/api/v4/tasks/user',
     deserialize (response) {
       // Wait for the user to be loaded before deserializing
       // because user.tasksOrder is necessary
@@ -28,7 +28,7 @@ export async function fetchCompletedTodos (store, forceLoad = false) {
   if (loadStatus === 'NOT_LOADED' || forceLoad) {
     store.state.completedTodosStatus = 'LOADING';
 
-    const response = await axios.get('/api/v3/tasks/user?type=completedTodos');
+    const response = await axios.get('/api/v4/tasks/user?type=completedTodos');
     const completedTodos = response.data.data;
     const tasks = store.state.tasks.data;
     // Remove existing completed todos
@@ -51,7 +51,7 @@ export async function fetchCompletedTodos (store, forceLoad = false) {
 }
 
 export async function clearCompletedTodos (store) {
-  await axios.post('/api/v3/tasks/clearCompletedTodos');
+  await axios.post('/api/v4/tasks/clearCompletedTodos');
   store.state.tasks.data.todos = store.state.tasks.data.todos.filter(task => {
     return !task.completed;
   });
@@ -116,7 +116,7 @@ export async function create (store, createdTask) {
     store.state.user.data.tasksOrder[type].unshift(t._id);
   });
 
-  const response = await axios.post('/api/v3/tasks/user', payload);
+  const response = await axios.post('/api/v4/tasks/user', payload);
   const data = Array.isArray(response.data.data) ? response.data.data : [response.data.data];
 
   data.forEach(taskRes => {
@@ -135,17 +135,17 @@ export async function save (store, editedTask) {
   if (originalTask) Object.assign(originalTask, editedTask);
 
   const taskDataToSend = omit(editedTask, ['history']);
-  const response = await axios.put(`/api/v3/tasks/${taskId}`, taskDataToSend);
+  const response = await axios.put(`/api/v4/tasks/${taskId}`, taskDataToSend);
   if (originalTask) Object.assign(originalTask, response.data.data);
 }
 
 export async function scoreChecklistItem (store, {taskId, itemId}) {
-  await axios.post(`/api/v3/tasks/${taskId}/checklist/${itemId}/score`);
+  await axios.post(`/api/v4/tasks/${taskId}/checklist/${itemId}/score`);
 }
 
 export async function collapseChecklist (store, task) {
   task.collapseChecklist = !task.collapseChecklist;
-  await axios.put(`/api/v3/tasks/${task._id}`, {
+  await axios.put(`/api/v4/tasks/${task._id}`, {
     collapseChecklist: task.collapseChecklist,
   });
 }
@@ -158,51 +158,51 @@ export async function destroy (store, task) {
     list.splice(taskIndex, 1);
   }
 
-  await axios.delete(`/api/v3/tasks/${task._id}`);
+  await axios.delete(`/api/v4/tasks/${task._id}`);
 }
 
 export async function getChallengeTasks (store, payload) {
-  let response = await axios.get(`/api/v3/tasks/challenge/${payload.challengeId}`);
+  let response = await axios.get(`/api/v4/tasks/challenge/${payload.challengeId}`);
   return response.data.data;
 }
 
 export async function createChallengeTasks (store, payload) {
-  let response = await axios.post(`/api/v3/tasks/challenge/${payload.challengeId}`, payload.tasks);
+  let response = await axios.post(`/api/v4/tasks/challenge/${payload.challengeId}`, payload.tasks);
   return response.data.data;
 }
 
 export async function getGroupTasks (store, payload) {
-  let response = await axios.get(`/api/v3/tasks/group/${payload.groupId}`);
+  let response = await axios.get(`/api/v4/tasks/group/${payload.groupId}`);
   return response.data.data;
 }
 
 export async function createGroupTasks (store, payload) {
-  let response = await axios.post(`/api/v3/tasks/group/${payload.groupId}`, payload.tasks);
+  let response = await axios.post(`/api/v4/tasks/group/${payload.groupId}`, payload.tasks);
   return response.data.data;
 }
 
 export async function assignTask (store, payload) {
-  let response = await axios.post(`/api/v3/tasks/${payload.taskId}/assign/${payload.userId}`);
+  let response = await axios.post(`/api/v4/tasks/${payload.taskId}/assign/${payload.userId}`);
   return response.data.data;
 }
 
 export async function unassignTask (store, payload) {
-  let response = await axios.post(`/api/v3/tasks/${payload.taskId}/unassign/${payload.userId}`);
+  let response = await axios.post(`/api/v4/tasks/${payload.taskId}/unassign/${payload.userId}`);
   return response.data.data;
 }
 
 export async function needsWork (store, payload) {
-  let response = await axios.post(`/api/v3/tasks/${payload.taskId}/needs-work/${payload.userId}`);
+  let response = await axios.post(`/api/v4/tasks/${payload.taskId}/needs-work/${payload.userId}`);
   return response.data.data;
 }
 
 export async function getGroupApprovals (store, payload) {
-  let response = await axios.get(`/api/v3/approvals/group/${payload.groupId}`);
+  let response = await axios.get(`/api/v4/approvals/group/${payload.groupId}`);
   return response.data.data;
 }
 
 export async function approve (store, payload) {
-  let response = await axios.post(`/api/v3/tasks/${payload.taskId}/approve/${payload.userId}`);
+  let response = await axios.post(`/api/v4/tasks/${payload.taskId}/approve/${payload.userId}`);
   return response.data.data;
 }
 
@@ -217,22 +217,22 @@ export async function unlinkOneTask (store, payload) {
     list.splice(taskIndex, 1);
   }
 
-  let response = await axios.post(`/api/v3/tasks/unlink-one/${payload.task._id}?keep=${payload.keep}`);
+  let response = await axios.post(`/api/v4/tasks/unlink-one/${payload.task._id}?keep=${payload.keep}`);
   return response.data.data;
 }
 
 export async function unlinkAllTasks (store, payload) {
   if (!payload.keep) payload.keep = 'keep-all';
-  let response = await axios.post(`/api/v3/tasks/unlink-all/${payload.challengeId}?keep=${payload.keep}`);
+  let response = await axios.post(`/api/v4/tasks/unlink-all/${payload.challengeId}?keep=${payload.keep}`);
   return response.data.data;
 }
 
 export async function move (store, payload) {
-  let response = await axios.post(`/api/v3/tasks/${payload.taskId}/move/to/${payload.position}`);
+  let response = await axios.post(`/api/v4/tasks/${payload.taskId}/move/to/${payload.position}`);
   return response.data.data;
 }
 
 export async function moveGroupTask (store, payload) {
-  let response = await axios.post(`/api/v3/group-tasks/${payload.taskId}/move/to/${payload.position}`);
+  let response = await axios.post(`/api/v4/group-tasks/${payload.taskId}/move/to/${payload.position}`);
   return response.data.data;
 }

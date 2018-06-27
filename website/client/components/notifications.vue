@@ -211,7 +211,7 @@ export default {
         // @TODO: {keyboard:false, backdrop:'static'}
       } else if (after <= 30 && !this.user.flags.warnedLowHealth) {
         this.$root.$emit('bv::show::modal', 'low-health');
-        // @TODO: {keyboard:false, backdrop:'static', controller:'UserCtrl', track:'Health Warning'}
+        // @TODO: {keyboard:false, backdrop:'static', controller:'UserCtrl'}
       }
       if (after === before) return;
       if (this.user.stats.lvl === 0) return;
@@ -399,7 +399,7 @@ export default {
     },
     async runYesterDailiesAction () {
       // Run Cron
-      await axios.post('/api/v3/cron');
+      await axios.post('/api/v4/cron');
 
       // Notifications
 
@@ -532,7 +532,7 @@ export default {
       let userReadNotifsPromise = false;
 
       if (notificationsToRead.length > 0) {
-        await axios.post('/api/v3/notifications/read', {
+        await axios.post('/api/v4/notifications/read', {
           notificationIds: notificationsToRead,
         });
       }

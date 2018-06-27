@@ -194,8 +194,6 @@
   "weeks": "Weeks",
   "year": "Year",
   "years": "Years",
-  "confirmScoreNotes": "Confirm task scoring with notes",
-  "taskScoreNotesTooLong": "Task score notes must be less than 256 characters",
   "groupTasksByChallenge": "Group tasks by challenge title",
   "taskNotes": "Task Notes",
   "monthlyRepeatHelpContent": "This task will be due every X months",

@@ -195,6 +195,7 @@
     "hatchingPotionFairy": "Fada",
     "hatchingPotionStarryNight": "Noite Estrelada",
     "hatchingPotionRainbow": "Arco-Íris",
+    "hatchingPotionGlass": "Vidro",
     "hatchingPotionNotes": "Use-a em um ovo e ele chocará como um mascote <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "Não utilizável em ovos de mascote de missões.",
     "foodMeat": "Carne",
