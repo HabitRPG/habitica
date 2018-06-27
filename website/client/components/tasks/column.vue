@@ -544,6 +544,7 @@ export default {
       this.quickAddText = '';
       this.quickAddRows = 1;
       this.createTask(tasks);
+      this.$refs.quickAdd.blur();
     },
     editTask (task) {
       this.$emit('editTask', task);
