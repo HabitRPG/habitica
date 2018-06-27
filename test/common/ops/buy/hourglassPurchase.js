@@ -9,10 +9,17 @@ import {
   generateUser,
 } from '../../../helpers/common.helper';
 import errorMessage from '../../../../website/common/script/libs/errorMessage';
+import {BuyHourglassMountOperation} from '../../../../website/common/script/ops/buy/buyMount';
 
 describe('common.ops.hourglassPurchase', () => {
   let user;
   let analytics = {track () {}};
+
+  function buyMount (_user, _req, _analytics) {
+    const buyOp = new BuyHourglassMountOperation(_user, _req, _analytics);
+
+    return buyOp.purchase();
+  }
 
   beforeEach(() => {
     user = generateUser();
@@ -66,7 +73,7 @@ describe('common.ops.hourglassPurchase', () => {
 
     it('does not grant to mounts without Mystic Hourglasses', (done) => {
       try {
-        hourglassPurchase(user, {params: {type: 'mounts', key: 'MantisShrimp-Base'}});
+        buyMount(user, {params: {key: 'MantisShrimp-Base'}});
       } catch (err) {
         expect(err).to.be.an.instanceof(NotAuthorized);
         expect(err.message).to.eql(i18n.t('notEnoughHourglasses'));
@@ -90,7 +97,7 @@ describe('common.ops.hourglassPurchase', () => {
       user.purchased.plan.consecutive.trinkets = 1;
 
       try {
-        hourglassPurchase(user, {params: {type: 'mounts', key: 'Orca-Base'}});
+        buyMount(user, {params: {key: 'Orca-Base'}});
       } catch (err) {
         expect(err).to.be.an.instanceof(NotAuthorized);
         expect(err.message).to.eql(i18n.t('notAllowedHourglass'));
@@ -120,7 +127,7 @@ describe('common.ops.hourglassPurchase', () => {
       };
 
       try {
-        hourglassPurchase(user, {params: {type: 'mounts', key: 'MantisShrimp-Base'}});
+        buyMount(user, {params: {key: 'MantisShrimp-Base'}});
       } catch (err) {
         expect(err).to.be.an.instanceof(NotAuthorized);
         expect(err.message).to.eql(i18n.t('mountsAlreadyOwned'));
@@ -144,7 +151,7 @@ describe('common.ops.hourglassPurchase', () => {
     it('buys a mount', () => {
       user.purchased.plan.consecutive.trinkets = 2;
 
-      let [, message] = hourglassPurchase(user, {params: {type: 'mounts', key: 'MantisShrimp-Base'}});
+      let [, message] = buyMount(user, {params: {key: 'MantisShrimp-Base'}});
       expect(message).to.eql(i18n.t('hourglassPurchase'));
       expect(user.purchased.plan.consecutive.trinkets).to.eql(1);
       expect(user.items.mounts).to.eql({'MantisShrimp-Base': true});
