@@ -27,7 +27,7 @@ module.exports = function errorHandler (err, req, res, next) { // eslint-disable
 
   // Handle errors by express-validator
   if (Array.isArray(err) && err[0].param && err[0].msg) {
-    responseErr = new BadRequest(err[0].msg);
+    responseErr = new BadRequest(res.t('invalidReqParams'));
     responseErr.errors = err.map((paramErr) => {
       return {
         message: paramErr.msg,
@@ -83,6 +83,12 @@ module.exports = function errorHandler (err, req, res, next) { // eslint-disable
 
   if (responseErr.errors) {
     jsonRes.errors = responseErr.errors;
+    jsonRes.message = '';
+    for (let e of responseErr.errors) {
+      if (e.message !== 'Invalid value') {
+        jsonRes.message += `${e.message} `;
+      }
+    }
   }
 
   // In some occasions like when invalid JSON is supplied `res.respond` might be not yet avalaible,
