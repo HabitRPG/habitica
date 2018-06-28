@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'USE CASE SPOTLIGHT AND GUILD SPOTLIGHT ON PARENTING AND FAMILY LIFE, PLUS NEW BEHIND THE SCENES POST!';
+const LAST_ANNOUNCEMENT_TITLE = 'NEW GLASS HATCHING POTIONS, AQUATIC HATCHING POTIONS, AND SEAFOAM!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,24 +30,25 @@ api.getNews = {
           <div class="align-self-center mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>6/22/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>6/26/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
         <div class="media align-items-center">
+          <div class="promo_aquatic_glass_potions mr-3"></div>
           <div class="media-body">
-            <p>We've got new posts on the blog all about ways to use Habitica to help with parenting and family-related matters! First, there's a <a href='https://habitica.wordpress.com/2018/06/14/guilds-for-parenting-and-family-life/' target='_blank'>Guild Spotlight</a> that highlights the Guilds that can help you as you explore ways to use Habitica to smooth your home and family life. We've also posted a <a href='https://habitica.wordpress.com/2018/06/14/use-case-spotlight-parenting-and-family-life/' target='blank'>Use Case Spotlight</a> featuring a number of great suggestions for using Habitica's task system to manage parenting and family-related tasks! These suggestions were submitted by Habiticans in the <a href='/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6' target='_blank'>Use Case Spotlights Guild</a>.</p>
+            <h3>New Glass Magic Hatching Potions and the Return of Aquatic Potions!</h3>
+            <p>There's a new pet breed in town! Between now and July 31, you can buy Glass and Aquatic Hatching Potions from <a href='/shops/market' target='_blank'>the Market</a> and use them to hatch any standard pet egg. (Magic Hatching Potions do not work on Quest Pet eggs.) Magic Potion Pets aren't picky, so they'll happily eat any kind of food that you feed them!</p>
+            <p>After they're gone, it will be at least a year before the Glass and Aquatic Hatching Potions are available again, so be sure to get them now!</p>
+            <div class="small mb-3">by stefalupagus, Beffymaroo, Mako413, Willow The Witty, and SabreCat</div>
+            <h3>Seafoam!</h3>
+            <p>Throw some Seafoam at your friends and they will turn into a cheerful sea star until their next cron! You can buy the Seafoam in the <a href='/shops/seasonal' target='_blank'>Seasonal Shop</a> for Gold. Plus, if you get splashed by Seafoam, you'll receive the Aquatic Friends badge!</p>
           </div>
-          <div class="scene_families ml-3 mb-3"></div>
+          <div class="promo_seafoam ml-3"></div>
         </div>
-        <div class="media align-items-center">
-          <div class="scene_moderators mr-3 mb-3"></div>
-          <div class="media-body">
-            <p>Plus, we're collecting user submissions for the next Use Case Spotlight! How do you use Habitica to build a routine to challenge your brain and keep your mind sharp? We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!</p>
-            <p>There's also a new <a href='https://habitica.wordpress.com/2018/06/21/behind-the-scenes-weird-tales-of-the-mod-slack/' target='_blank'>Behind the Scenes post</a> on the Habitica blog about fun facts and goofy shenanigans from the Moderator Team and their behind-the-scenes chat channel. Check it out!</p>
-            <div class="small mb-3">by Beffymaroo, the Habitica Staff, and the Moderator Team</div>
-          </div>
-        </div>
+        <p>Don't want to be a sea star? Just buy some Sand from your Rewards column to reverse it.</p>
+        <p>Seafoam will be available until July 31st!</p>
+        <div class="small mb-3">by Lemoness</div>
       </div>
       `,
     });

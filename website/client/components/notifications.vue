@@ -211,7 +211,7 @@ export default {
         // @TODO: {keyboard:false, backdrop:'static'}
       } else if (after <= 30 && !this.user.flags.warnedLowHealth) {
         this.$root.$emit('bv::show::modal', 'low-health');
-        // @TODO: {keyboard:false, backdrop:'static', controller:'UserCtrl', track:'Health Warning'}
+        // @TODO: {keyboard:false, backdrop:'static', controller:'UserCtrl'}
       }
       if (after === before) return;
       if (this.user.stats.lvl === 0) return;

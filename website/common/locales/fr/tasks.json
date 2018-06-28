@@ -194,8 +194,6 @@
     "weeks": "Semaines",
     "year": "Année",
     "years": "Années",
-    "confirmScoreNotes": "Confirmer le score des tâches avec les notes",
-    "taskScoreNotesTooLong": "Les notes de score des tâches doivent comprendre moins de 256 caractères",
     "groupTasksByChallenge": "Regrouper les tâches par titre de défis",
     "taskNotes": "Notes de tâche",
     "monthlyRepeatHelpContent": "Cette tâche arrivera à échéance tous les X mois",

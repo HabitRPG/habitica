@@ -1,4 +1,4 @@
-// const migrationName = 'habits-one-history-entry-per-day';
+const migrationName = 'habits-one-history-entry-per-day';
 const authorName = 'paglias'; // in case script author needs to know when their ...
 const authorUuid = 'ed4c688c-6652-4a92-9d03-a5a79844174a'; // ... own data is done
 
@@ -14,7 +14,9 @@ const dbTasks = monk(connectionString).get('tasks', { castIds: false });
 const dbUsers = monk(connectionString).get('users', { castIds: false });
 
 function processUsers (lastId) {
-  let query = {};
+  let query = {
+    migration: {$ne: migrationName},
+  };
 
   if (lastId) {
     query._id = {
@@ -126,6 +128,11 @@ function updateUser (user) {
   })
     .then(habits => {
       return Promise.all(habits.map(habit => updateHabit(habit, timezoneOffset, dayStart)));
+    })
+    .then(() => {
+      return dbUsers.update({_id: user._id}, {
+        $set: {migration: migrationName},
+      });
     })
     .catch((err) => {
       console.log(err);
