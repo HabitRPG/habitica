@@ -297,7 +297,7 @@ router.beforeEach(function routerGuard (to, from, next) {
       name: redirectTo,
       query: redirectTo === 'login' ? {
         redirectTo: to.path,
-      } : null,
+      } : to.query,
     });
   }
 
