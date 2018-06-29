@@ -61,6 +61,6 @@
     "messageNotificationNotFound": "Bildirim bulunamadı.",
     "messageNotAbleToBuyInBulk": "Bu eşya 1 taneden fazla alınamaz.",
     "notificationsRequired": "Bildirm ID'leri gerekmektedir.",
-    "unallocatedStatsPoints": "You have <span class=\"notification-bold-blue\"><%= points %> unallocated Stat Points</span>",
+    "unallocatedStatsPoints": "<span class=\"notification-bold-blue\"><%= points %> adet dağıtılmamış Nitelik Puanın var.</span>",
     "beginningOfConversation": "Bu <%= userName %> ile konuşmanın başlangıcıdır.Kibar ve saygılı olmayı ve Topluluk Kurallarına uymayı unutma."
 }

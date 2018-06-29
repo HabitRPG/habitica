@@ -40,7 +40,7 @@
     "begin": "Indít",
     "bossHP": "Boss HP",
     "bossStrength": "Főellenség ereje",
-    "rage": "Harag",
+    "rage": "Őrjöngés",
     "collect": "Gyűjts be",
     "collected": "Begyűjtve",
     "collectionItems": "<%= number %> <%= items %>",

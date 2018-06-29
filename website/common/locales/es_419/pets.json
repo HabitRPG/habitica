@@ -48,7 +48,7 @@
     "foodText": "comida",
     "food": "Comida y Monturas",
     "noFoodAvailable": "No tienes comida.",
-    "noSaddlesAvailable": "You don't have any Saddles.",
+    "noSaddlesAvailable": "No tienes monturas.",
     "noFood": "No tienes ni comida ni monturas.",
     "dropsExplanation": "Consigue estos objetos más rápido con Gemas si no quieres esperar a que aparezcan cuando completes una tarea. <a href=\"http://habitica.wikia.com/wiki/Drops\">Lee más acerca del sistema de botines.</a>",
     "dropsExplanationEggs": "Usa gemas para conseguir huevos más rápido, si no quieres esperar que los huevos estándar te salgan en el botín ni repetir Misiones para ganar huevos de misión. <a href=\"http://es.habitica.wikia.com/wiki/Botín\">Lee más sobre el sistema de botín.</a>",
@@ -139,7 +139,7 @@
     "clickOnEggToHatch": "Click on an Egg to use your <%= potionName %> hatching potion and hatch a new pet!",
     "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %>.",
     "clickOnPotionToHatch": "Click on a hatching potion to use it on your <%= eggName %> and hatch a new pet!",
-    "notEnoughPets": "You have not collected enough pets",
+    "notEnoughPets": "No has collectado suficientes mascotas ",
     "notEnoughMounts": "You have not collected enough mounts",
     "notEnoughPetsMounts": "You have not collected enough pets and mounts"
 }

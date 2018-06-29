@@ -585,7 +585,7 @@
     "armorSpecialSummer2018WarriorText": "Хвостовые доспехи бойцовской рыбы",
     "armorSpecialSummer2018WarriorNotes": "Ослепите зрителей головокружительными яркими кружевами, и скорее ныряйте в воду. Как смел злодей даже напасть на эту красоту? Увеличивает телосложение на <%= con %>. Ограниченный выпуск лета 2018.",
     "armorSpecialSummer2018MageText": "Крылатковый панцирь",
-    "armorSpecialSummer2018MageNotes": "Venom magic has a reputation for subtlety. Not so this colorful armor, whose message is clear to beast and task alike: watch out! Increases Intelligence by <%= int %>. Limited Edition 2018 Summer Gear.",
+    "armorSpecialSummer2018MageNotes": "Магия ядов относится к навыкам хитрости. Но броня ярких оттенков, давая ясно понять хищнику: я ядовитый! Увеличивает интеллект на <%= int %>. Ограниченный выпуск лета 2018.",
     "armorSpecialSummer2018HealerText": "Роба Амфибии",
     "armorSpecialSummer2018HealerNotes": "Эти лазурные облачения приоткрывают тайну, что у вас есть ноги для ходьбы по суше. Ну... Даже монарх не настолько идеальный. Увеличивает телосложение на <%= con %>. Ограниченный выпуск лета 2018.",
     "armorMystery201402Text": "Облачение посланника",
