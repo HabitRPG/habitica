@@ -83,11 +83,14 @@ module.exports = function errorHandler (err, req, res, next) { // eslint-disable
 
   if (responseErr.errors) {
     jsonRes.errors = responseErr.errors;
-    jsonRes.message = '';
-    for (let e of responseErr.errors) {
-      if (e.message !== 'Invalid value') {
-        jsonRes.message += `${e.message} `;
+    if (jsonRes.message === res.t('invalidReqParams')) {
+      jsonRes.message = '';
+      for (let e of responseErr.errors) {
+        if (e.message !== 'Invalid value') {
+          jsonRes.message += `${e.message} `;
+        }
       }
+      jsonRes.message = jsonRes.message.trim();
     }
   }
 

@@ -123,7 +123,7 @@ describe('errorHandler', () => {
     expect(res.json).to.be.calledWith({
       success: false,
       error: 'BadRequest',
-      message: 'Invalid request parameters.',
+      message: 'invalid param',
       errors: [
         { param: error[0].param, value: error[0].value, message: error[0].msg },
       ],

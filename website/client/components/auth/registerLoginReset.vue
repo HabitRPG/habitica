@@ -402,11 +402,6 @@ export default {
       window.location.href = redirectTo;
     },
     async login () {
-      if (!this.username) {
-        alert('Email is required');
-        return;
-      }
-
       await this.$store.dispatch('auth:login', {
         username: this.username,
         // email: this.email,
