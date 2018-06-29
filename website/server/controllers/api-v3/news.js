@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'NEW GLASS HATCHING POTIONS, AQUATIC HATCHING POTIONS, AND SEAFOAM!';
+const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE FOR ALLURING ANGLERFISH SET AND AQUATIC AMIGOS QUEST BUNDLE; FEATURED WIKI ON GUILD CREATION';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -35,20 +35,25 @@ api.getNews = {
         </div>
         <hr/>
         <div class="media align-items-center">
-          <div class="promo_aquatic_glass_potions mr-3"></div>
           <div class="media-body">
-            <h3>New Glass Magic Hatching Potions and the Return of Aquatic Potions!</h3>
-            <p>There's a new pet breed in town! Between now and July 31, you can buy Glass and Aquatic Hatching Potions from <a href='/shops/market' target='_blank'>the Market</a> and use them to hatch any standard pet egg. (Magic Hatching Potions do not work on Quest Pet eggs.) Magic Potion Pets aren't picky, so they'll happily eat any kind of food that you feed them!</p>
-            <p>After they're gone, it will be at least a year before the Glass and Aquatic Hatching Potions are available again, so be sure to get them now!</p>
-            <div class="small mb-3">by stefalupagus, Beffymaroo, Mako413, Willow The Witty, and SabreCat</div>
-            <h3>Seafoam!</h3>
-            <p>Throw some Seafoam at your friends and they will turn into a cheerful sea star until their next cron! You can buy the Seafoam in the <a href='/shops/seasonal' target='_blank'>Seasonal Shop</a> for Gold. Plus, if you get splashed by Seafoam, you'll receive the Aquatic Friends badge!</p>
+            <h3>Last Chance for Alluring Anglerfish Set</h3>
+            <p>Reminder: this weekend is your last chance to <a href='/user/settings/subscription' target='_blank'>subscribe</a> and receive the Alluring Anglerfish Set! Subscribing also lets you buy Gems for Gold. The longer your subscription, the more Gems you get!</p>
+            <p>Thanks so much for your support! You help keep Habitica running.</p>
+            <div class="small mb-3">by Beffymaroo</div>
           </div>
-          <div class="promo_seafoam ml-3"></div>
+          <div class="promo_mystery_201806"></div>
         </div>
-        <p>Don't want to be a sea star? Just buy some Sand from your Rewards column to reverse it.</p>
-        <p>Seafoam will be available until July 31st!</p>
-        <div class="small mb-3">by Lemoness</div>
+        <div class="promo_bundle_aquaticAmigos center-block mb-3"></div>
+        <h3>Last Chance for Aquatic Amigos Pet Quest Bundle</h3>
+        <p>This is also the final weekend to buy the discounted Aquatic Amigos Pet Quest Bundle, featuring the Axolotl, Cuttlefish, and Octopus quests all for seven Gems! Be sure to check it out in the <a href='/shops/quests' target='_blank'>Quest Shop</a> before it floats away!</p>
+        <div class="media align-items-center">
+          <div class="media-body">
+            <h3>Blog Post: Guild Creation and Maintenance Tips</h3>
+            <p>This month's <a href='https://habitica.wordpress.com/2018/06/27/guild-creation-and-maintenance-tips/' target='_blank'>featured Wiki article</a> is about Guild Creation and Maintenance! We hope that it will help you as explore Habitica's social spaces. Be sure to check it out, and let us know what you think by reaching out on <a href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a href='https://facebook.com/habitica' target='_blank'>Facebook</a>.</p>
+            <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
+          </div>
+          <div class="scene_tavern"></div>
+        </div>
       </div>
       `,
     });
