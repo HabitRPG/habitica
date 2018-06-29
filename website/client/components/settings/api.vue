@@ -99,13 +99,13 @@ export default {
   },
   methods: {
     receiveMessage (eventFrom) {
-      if (event.origin !== 'https://www.spritely.app') return;
+      if (eventFrom.origin !== 'https://www.spritely.app') return;
 
       const creds = {
         userId: this.user._id,
         apiToken: this.credentials.API_TOKEN,
       };
-      eventFrom.source.postMessage(creds, event.origin);
+      eventFrom.source.postMessage(creds, eventFrom.origin);
     },
     async addWebhook (url) {
       let webhookInfo = {
