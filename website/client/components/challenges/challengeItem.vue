@@ -34,7 +34,7 @@
   .challenge-description(v-markdown='challenge.summary')
   .well-wrapper(v-if="fullLayout")
     .well
-      div(v-for="task in tasksData", :class="{'muted': task.value === 0}", v-once)
+      div(v-for="task in tasksData", :class="{'muted': task.value === 0}")
         .number
           .svg-icon(v-html="task.icon", :class="task.label + '-icon'")
           span.value {{ task.value }}
