@@ -121,28 +121,7 @@ api.registerLocal = {
     });
 
     let validationErrors = req.validationErrors();
-    if (validationErrors) {
-      let errors = [];
-      let usernameCheck = false;
-      let emailCheck = false;
-      let passwordCheck = false;
-      // only show the first error of each param
-      for (let e of validationErrors) {
-        if (!usernameCheck && e.param === 'username') {
-          errors.push(e);
-          usernameCheck = true;
-        }
-        if (!emailCheck && e.param === 'email') {
-          errors.push(e);
-          emailCheck = true;
-        }
-        if (!passwordCheck && e.param === 'password') {
-          errors.push(e);
-          passwordCheck = true;
-        }
-      }
-      throw errors;
-    }
+    if (validationErrors) throw validationErrors;
 
     let { email, username, password } = req.body;
 
