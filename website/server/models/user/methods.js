@@ -382,3 +382,20 @@ schema.methods.isMemberOfGroupPlan = async function isMemberOfGroupPlan () {
 schema.methods.isAdmin = function isAdmin () {
   return this.contributor && this.contributor.admin;
 };
+
+// When converting to json add inbox messages from the Inbox collection
+// for backward compatibility in API v3.
+schema.methods.toJSONWithInbox = async function userToJSONWithInbox () {
+  const user = this;
+  const toJSON = user.toJSON();
+
+  if (!toJSON.inbox.messages) toJSON.inbox.messages = {};
+
+  const messages = await Inbox.find({ownerId: user._id}).exec();
+
+  messages.forEach(msg => {
+    toJSON.inbox.messages[msg._id] = msg.toJSON();
+  });
+
+  return toJSON;
+};
