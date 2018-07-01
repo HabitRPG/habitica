@@ -82,15 +82,28 @@ api.exportUserHistory = {
   },
 };
 
-// Convert user to json and attach tasks divided by type
+// Convert user to json and attach tasks divided by type and inbox messages
 // at user.tasks[`${taskType}s`] (user.tasks.{dailys/habits/...})
 async function _getUserDataForExport (user) {
   let userData = user.toJSON();
   userData.tasks = {};
 
-  let tasks = await Tasks.Task.find({
-    userId: user._id,
-  }).exec();
+  userData.inbox.messages = {};
+
+  const [tasks, messages] = await Promise.all([
+    Tasks.Task.find({
+      userId: user._id,
+    }).exec(),
+
+    Inbox
+      .find({ownerId: user._id})
+      .sort({timestamp: -1})
+      .exec(),
+  ]);
+
+  messages.forEach(msg => {
+    userData.inbox.messages[msg._id] = msg;
+  });
 
   _(tasks)
     .map(task => task.toJSON())
