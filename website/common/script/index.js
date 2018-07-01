@@ -152,7 +152,6 @@ import unlock from './ops/unlock';
 import revive from './ops/revive';
 import rebirth from './ops/rebirth';
 import blockUser from './ops/blockUser';
-import clearPMs from './ops/clearPMs';
 import reroll from './ops/reroll';
 import reset from './ops/reset';
 import markPmsRead from './ops/markPMSRead';
@@ -181,7 +180,6 @@ api.ops = {
   revive,
   rebirth,
   blockUser,
-  clearPMs,
   reroll,
   reset,
   markPmsRead,

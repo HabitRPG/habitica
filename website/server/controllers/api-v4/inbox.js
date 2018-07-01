@@ -53,7 +53,7 @@ api.getInboxMessages = {
 api.deleteMessage = {
   method: 'DELETE',
   middlewares: [authWithHeaders()],
-  url: '/user/messages/:messageId',
+  url: '/inbox/messages/:messageId',
   async handler (req, res) {
     req.checkParams('messageId', apiError('messageIdRequired')).notEmpty().isUUID();
 
@@ -72,5 +72,32 @@ api.deleteMessage = {
   },
 };
 
+/**
+ * @api {delete} /api/v4/inbox/clear Delete all messages
+ * @apiName clearMessages
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} data Empty object
+ *
+ * @apiSuccessExample {json}
+ * {"success":true,"data":{},"notifications":[]}
+ */
+api.clearMessages = {
+  method: 'DELETE',
+  middlewares: [authWithHeaders()],
+  url: '/inbox/messages/clear',
+  async handler (req, res) {
+    const user = res.locals.user;
+
+    user.inbox.newMessages = 0;
+
+    await Promise.all([
+      user.save(),
+      Inbox.remove({ownerId: user._id}).exec(),
+    ]);
+
+    res.respond(200, {});
+  },
+};
 
 module.exports = api;
