@@ -1603,7 +1603,7 @@ api.clearMessages = {
  * @apiName markPmsRead
  * @apiGroup User
  *
- * @apiSuccess {Object} data user.inbox.messages
+ * @apiSuccess {Object} data user.inbox.newMessages
  *
  * @apiSuccessExample {json}
  * {"success":true,"data":[0,"Your private messages have been marked as read"],"notifications":[]}
