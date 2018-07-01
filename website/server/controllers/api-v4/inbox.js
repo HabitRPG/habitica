@@ -1,5 +1,4 @@
 import { authWithHeaders } from '../../middlewares/auth';
-import { toArray, orderBy } from 'lodash';
 import apiError from '../../libs/apiError';
 import {
   inboxModel as Inbox,
@@ -26,10 +25,14 @@ api.getInboxMessages = {
   url: '/inbox/messages',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    const messagesObj = res.locals.user.inbox.messages;
-    const messagesArray = orderBy(toArray(messagesObj), ['timestamp'], ['desc']);
+    const user = res.locals.user;
 
-    res.respond(200, messagesArray);
+    const messages = await Inbox
+      .find({ownerId: user._id})
+      .sort({timestamp: -1})
+      .exec();
+
+    res.respond(200, messages);
   },
 };
 

@@ -29,7 +29,6 @@ describe('GET /inbox/messages', () => {
     const messages = await user.get('/inbox/messages');
 
     expect(messages.length).to.equal(3);
-    expect(messages.length).to.equal(Object.keys(user.inbox.messages).length);
 
     expect(messages[0].text).to.equal('third');
     expect(messages[1].text).to.equal('second');

@@ -269,7 +269,7 @@ api.exportUserPrivateMessages = {
   url: '/export/inbox.html',
   middlewares: [authWithSession],
   async handler (req, res) {
-    let user = res.locals.user;
+    const user = res.locals.user;
 
     const timezoneOffset = user.preferences.timezoneOffset;
     const dateFormat = user.preferences.dateFormat.toUpperCase();
