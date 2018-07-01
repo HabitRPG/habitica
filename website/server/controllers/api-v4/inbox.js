@@ -1,8 +1,6 @@
 import { authWithHeaders } from '../../middlewares/auth';
 import apiError from '../../libs/apiError';
-import {
-  inboxModel as Inbox,
-} from '../../models/message';
+import { inboxModel as Inbox } from '../../models/message';
 import {
   NotFound,
 } from '../../libs/errors';

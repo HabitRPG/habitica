@@ -1,5 +1,6 @@
 import { authWithSession } from '../../middlewares/auth';
 import { model as User } from '../../models/user';
+import { inboxModel as Inbox } from '../../models/message';
 import * as Tasks from '../../models/task';
 import {
   NotFound,
@@ -276,11 +277,10 @@ api.exportUserPrivateMessages = {
     const TO = res.t('to');
     const FROM = res.t('from');
 
-    let inbox = Object.keys(user.inbox.messages).map(key => user.inbox.messages[key]);
-
-    inbox = _.sortBy(inbox, function sortBy (num) {
-      return num.sort * -1;
-    });
+    const inbox = await Inbox
+      .find({ownerId: user._id})
+      .sort({timestamp: -1})
+      .exec();
 
     let messages = '<!DOCTYPE html><html><head></head><body>';
 
