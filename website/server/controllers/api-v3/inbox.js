@@ -1,5 +1,5 @@
 import { authWithHeaders } from '../../middlewares/auth';
-import { inboxModel as Inbox } from '../../models/message';
+import inboxLib from '../../libs/inbox';
 
 let api = {};
 
@@ -20,11 +20,7 @@ api.getInboxMessages = {
   async handler (req, res) {
     const user = res.locals.user;
 
-    const userInbox = await Inbox
-      .find({ownerId: user._id})
-      .sort('-timestamp')
-      .lean()
-      .exec();
+    const userInbox = await inboxLib.getUserInbox(user);
 
     res.respond(200, userInbox);
   },

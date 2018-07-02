@@ -1,6 +1,6 @@
 import { authWithSession } from '../../middlewares/auth';
 import { model as User } from '../../models/user';
-import { inboxModel as Inbox } from '../../models/message';
+import inboxLib from '../../libs/inbox';
 import * as Tasks from '../../models/task';
 import {
   NotFound,
@@ -95,15 +95,10 @@ async function _getUserDataForExport (user) {
       userId: user._id,
     }).exec(),
 
-    Inbox
-      .find({ownerId: user._id})
-      .sort({timestamp: -1})
-      .exec(),
+    inboxLib.getUserInbox(user, false),
   ]);
 
-  messages.forEach(msg => {
-    userData.inbox.messages[msg._id] = msg;
-  });
+  userData.inbox.messages = messages;
 
   _(tasks)
     .map(task => task.toJSON())
@@ -290,10 +285,7 @@ api.exportUserPrivateMessages = {
     const TO = res.t('to');
     const FROM = res.t('from');
 
-    const inbox = await Inbox
-      .find({ownerId: user._id})
-      .sort({timestamp: -1})
-      .exec();
+    const inbox = await inboxLib.getUserInbox(user);
 
     let messages = '<!DOCTYPE html><html><head></head><body>';
 
