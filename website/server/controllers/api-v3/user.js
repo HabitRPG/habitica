@@ -22,6 +22,7 @@ import {
   sendTxn as txnEmail,
 } from '../../libs/email';
 import Queue from '../../libs/queue';
+import inboxLib from '../../libs/inbox';
 import nconf from 'nconf';
 import get from 'lodash/get';
 
@@ -1570,9 +1571,10 @@ api.deleteMessage = {
   url: '/user/messages/:id',
   async handler (req, res) {
     let user = res.locals.user;
-    let deletePMRes = common.ops.deletePM(user, req);
-    await user.save();
-    res.respond(200, ...deletePMRes);
+
+    await inboxLib.clearPMs(user, req.params.id);
+
+    res.respond(200, ...[await inboxLib.getUserInbox(user, false)]);
   },
 };
 
@@ -1592,9 +1594,10 @@ api.clearMessages = {
   url: '/user/messages',
   async handler (req, res) {
     let user = res.locals.user;
-    let clearPMsRes = common.ops.clearPMs(user, req);
-    await user.save();
-    res.respond(200, ...clearPMsRes);
+
+    await inboxLib.clearPMs(user);
+
+    res.respond(200, ...[]);
   },
 };
 
