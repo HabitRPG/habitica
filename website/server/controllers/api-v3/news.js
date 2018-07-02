@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE FOR ALLURING ANGLERFISH SET AND AQUATIC AMIGOS QUEST BUNDLE; FEATURED WIKI ON GUILD CREATION';
+const LAST_ANNOUNCEMENT_TITLE = 'JULY HABITICA CHALLENGES: RESOLUTION SUCCESS AND TAKE THIS';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,30 +30,26 @@ api.getNews = {
           <div class="align-self-center mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>6/26/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>7/2/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
         <div class="media align-items-center">
           <div class="media-body">
-            <h3>Last Chance for Alluring Anglerfish Set</h3>
-            <p>Reminder: this weekend is your last chance to <a href='/user/settings/subscription' target='_blank'>subscribe</a> and receive the Alluring Anglerfish Set! Subscribing also lets you buy Gems for Gold. The longer your subscription, the more Gems you get!</p>
-            <p>Thanks so much for your support! You help keep Habitica running.</p>
-            <div class="small mb-3">by Beffymaroo</div>
+            <p>The Habitica team has launched a special official Challenge series hosted in the <a href='/groups/guild/6e6a8bd3-9f5f-4351-9188-9f11fcd80a99' target='_blank'>Official New Year's Resolution Guild</a>. These Challenges are designed to help you build and maintain goals that are destined for success and then stick with them as the year progresses. For this month's Challenge, <a href='/challenges/17ebcce3-c062-45d5-a037-40d07ac38356' target='_blank'>Convene Your Companions</a>, we're focusing on building accountability with your friends in Habitica's social spaces! It has a 15 Gem prize, which will be awarded to five lucky winners on August 1st.</p>
+            <p>Congratulations to the winners of the June Challenge, Pyrrh Pianissimo, Stephable, Lizzie, zoefcunningham, and Tortoise!</p>
           </div>
-          <div class="promo_mystery_201806"></div>
+          <div class="scene_party_healing"></div>
         </div>
-        <div class="promo_bundle_aquaticAmigos center-block mb-3"></div>
-        <h3>Last Chance for Aquatic Amigos Pet Quest Bundle</h3>
-        <p>This is also the final weekend to buy the discounted Aquatic Amigos Pet Quest Bundle, featuring the Axolotl, Cuttlefish, and Octopus quests all for seven Gems! Be sure to check it out in the <a href='/shops/quests' target='_blank'>Quest Shop</a> before it floats away!</p>
-        <div class="media align-items-center">
+        <div class="media">
+          <div class="promo_take_this mr-3 mb-3"></div>
           <div class="media-body">
-            <h3>Blog Post: Guild Creation and Maintenance Tips</h3>
-            <p>This month's <a href='https://habitica.wordpress.com/2018/06/27/guild-creation-and-maintenance-tips/' target='_blank'>featured Wiki article</a> is about Guild Creation and Maintenance! We hope that it will help you as explore Habitica's social spaces. Be sure to check it out, and let us know what you think by reaching out on <a href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a href='https://facebook.com/habitica' target='_blank'>Facebook</a>.</p>
-            <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
+            <p>The next Take This Challenge has also launched, "<a href='/challenges/081f8912-3526-47d5-984f-f71bbeec77fc' target='_blank'>Multi-Player Co-Op Exercise!</a>", with a focus on partnering up with others for fitness accountability. Be sure to check it out to earn additional pieces of the Take This armor set!</p>
           </div>
-          <div class="scene_tavern"></div>
         </div>
+        <p><a href='http://www.takethis.org/' target='_blank'>Take This</a> is a nonprofit that seeks to inform the gamer community about mental health issues, to provide education about mental disorders and mental illness prevention, and to reduce the stigma of mental illness.</p>
+        <p>Congratulations to the winners of the last Take This Challenge, "Hero's Triumph!": grand prize winner StormyMudd, and runners-up MrPandaChao, likesevenspoon, Maira Severo, Laylah, and panzerkroete. Plus, all participants in that Challenge have received a piece of the <a href='http://habitica.wikia.com/wiki/Event_Item_Sequences#Take_This_Armor_Set' target='_blank'>Take This item set</a> if they hadn't completed it already. It is located in your Rewards column. Enjoy!</p>
+        <div class="small mb-3">by Doctor B, the Take This team, Lemoness, Beffymaroo, and SabreCat</div>
       </div>
       `,
     });

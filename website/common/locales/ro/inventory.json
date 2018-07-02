@@ -2,7 +2,7 @@
   "noItemsAvailableForType": "You have no <%= type %>.",
   "foodItemType": "Food",
   "eggsItemType": "Eggs",
-  "hatchingPotionsItemType": "Hatching Potions",
+  "hatchingPotionsItemType": "Poțiuni de Eclozat",
   "specialItemType": "Special items",
-  "lockedItem": "Locked Item"
+  "lockedItem": "Obiect blocat"
 }
