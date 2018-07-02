@@ -195,7 +195,7 @@
     "hatchingPotionFairy": "Feenhaftes",
     "hatchingPotionStarryNight": "Sternenklare Nacht",
     "hatchingPotionRainbow": "Regenbogen",
-    "hatchingPotionGlass": "Glass",
+    "hatchingPotionGlass": "Glas",
     "hatchingPotionNotes": "Gieße dies über ein Ei und es wird ein <%= potText(locale) %> Haustier daraus schlüpfen.",
     "premiumPotionAddlNotes": "Nicht auf Eier von Quest-Haustieren anwendbar.",
     "foodMeat": "Fleisch",

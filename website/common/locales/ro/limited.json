@@ -9,7 +9,7 @@
     "agriculturalFriends": "Prieteni agricoli",
     "agriculturalFriendsText": "Got transformed into a flower <%= count %> times by party members.",
     "aquaticFriends": "Prieteni acvatici",
-    "aquaticFriendsText": "Got splashed <%= count %> times by party members.",
+    "aquaticFriendsText": "Am fost stropit(ă) de <%= count %> ori de coechipieri.",
     "valentineCard": "Felicitare de Sf. Valentin",
     "valentineCardExplanation": "Pentru că ați suportat un poem atât de dulceag, ambii veți primi insigna „Prieteni adorabili”!",
     "valentineCardNotes": "Send a Valentine's Day card to a party member.",

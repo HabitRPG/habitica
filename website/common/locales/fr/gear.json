@@ -263,7 +263,7 @@
     "weaponSpecialSummer2018WarriorText": "Harpon à Betta Splendens",
     "weaponSpecialSummer2018WarriorNotes": "Suffisamment puissant pour le combat, suffisamment élégante pour les cérémonies, cette lance fabriquée avec minutie montre que vous allez protéger votre surf, peu importe le reste ! Augmente la Force de <%= str %>. Équipement en édition limitée de l’été 2018.",
     "weaponSpecialSummer2018MageText": "Lionfish Fin Rays",
-    "weaponSpecialSummer2018MageNotes": "Underwater, magic based on fire, ice, or electricity can prove hazardous to the Mage wielding it. Conjuring poisonous spines, however, works brilliantly! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2018 Summer Gear.",
+    "weaponSpecialSummer2018MageNotes": "Sous l’eau, la magie du feu, de la glace ou de l’électricité peut être dangereuse pour le mage qui la détient. Soigner le poison des vives, par contre, est très utile ! Augmente l'Intelligence de <%= int %> et la Perception de <%= per %>. Équipement en édition limitée de l’été 2018.",
     "weaponSpecialSummer2018HealerText": "Merfolk Monarch Trident",
     "weaponSpecialSummer2018HealerNotes": "With a benevolent gesture, you command healing water to flow through your dominions in waves. Increases Intelligence by <%= int %>. Limited Edition 2018 Summer Gear.",
     "weaponMystery201411Text": "Fourche festive",
