@@ -13,7 +13,7 @@ export async function getUserInbox (user, asArray = true) {
 
     return orderBy(messages, ['timestamp'], ['desc']);
   } else {
-    messages.forEach(msg => messagesObj[msg._id] = msg.toJSON());
+    messages.forEach(msg => messagesObj[msg._id] = msg);
 
     return messagesObj;
   }
