@@ -1,6 +1,7 @@
 import { authWithHeaders } from '../../middlewares/auth';
 import apiError from '../../libs/apiError';
 import { inboxModel as Inbox } from '../../models/message';
+import inboxLib from '../../libs/inbox';
 import {
   NotFound,
 } from '../../libs/errors';
@@ -25,10 +26,7 @@ api.getInboxMessages = {
   async handler (req, res) {
     const user = res.locals.user;
 
-    const messages = await Inbox
-      .find({ownerId: user._id})
-      .sort({timestamp: -1})
-      .exec();
+    const messages = await inboxLib.getUserInbox(user);
 
     res.respond(200, messages);
   },
@@ -61,10 +59,14 @@ api.deleteMessage = {
     const messageId = req.params.messageId;
     const user = res.locals.user;
 
-    const message = await Inbox.findOne({_id: messageId, ownerId: user._id }).exec();
-    if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
-
-    await Inbox.remove({_id: message._id, ownerId: user._id}).exec();
+    if (user.inbox.messages[messageId]) { // compatibility
+      delete user.inbox.messages[messageId];
+      user.markModified(`inbox.messages.${messageId}`);
+    } else {
+      const message = await Inbox.findOne({_id: messageId, ownerId: user._id }).exec();
+      if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
+      await Inbox.remove({_id: message._id, ownerId: user._id}).exec();
+    }
 
     res.respond(200);
   },
@@ -88,6 +90,10 @@ api.clearMessages = {
     const user = res.locals.user;
 
     user.inbox.newMessages = 0;
+
+    // compatibility
+    user.inbox.messages = {};
+    user.markModified('inbox.messages');
 
     await Promise.all([
       user.save(),
