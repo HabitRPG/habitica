@@ -9,8 +9,10 @@
                   :class='{"user-entry": newMessage}',
                   @keydown='updateCarretPosition',
                   @keyup.ctrl.enter='sendMessageShortcut()',
-                  @paste='disableMessageSendShortcut()'
+                  @paste='disableMessageSendShortcut()',
+                  maxlength='3000'
                 )
+        span {{ currentLength }} / 3000
         autocomplete(
                 :text='newMessage',
                 v-on:select="selectedAutocomplete",
@@ -61,6 +63,11 @@
           LEFT: 0,
         },
       };
+    },
+    computed: {
+      currentLength () {
+        return this.newMessage.length;
+      },
     },
     methods: {
       // https://medium.com/@_jh3y/how-to-where-s-the-caret-getting-the-xy-position-of-the-caret-a24ba372990a
