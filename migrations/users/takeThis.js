@@ -1,4 +1,4 @@
-let migrationName = '20180102_takeThis.js'; // Update per month
+let migrationName = '20180702_takeThis.js'; // Update per month
 let authorName = 'Sabe'; // in case script author needs to know when their ...
 let authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; // ... own data is done
 
@@ -6,15 +6,16 @@ let authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; // ... own data is done
  * Award Take This ladder items to participants in this month's challenge
  */
 
-let monk = require('monk');
-let connectionString = 'mongodb://localhost:27017/habitrpg?auto_reconnect=true'; // FOR TEST DATABASE
-let dbUsers = monk(connectionString).get('users', { castIds: false });
+import monk from 'monk';
+import nconf from 'nconf';
+const CONNECTION_STRING = nconf.get('MIGRATION_CONNECT_STRING'); // FOR TEST DATABASE
+let dbUsers = monk(CONNECTION_STRING).get('users', { castIds: false });
 
 function processUsers (lastId) {
   // specify a query to limit the affected users (empty for all users):
   let query = {
     migration: {$ne: migrationName},
-    challenges: {$in: ['5f70ce5b-2d82-4114-8e44-ca65615aae62']}, // Update per month
+    challenges: {$in: ['f0481f95-1dde-4ae7-a876-d19502a45d61']}, // Update per month
   };
 
   if (lastId) {
