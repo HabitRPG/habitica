@@ -1252,6 +1252,234 @@
   width: 68px;
   height: 68px;
 }
+.headAccessory_special_bearEars {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -969px -182px;
+  width: 90px;
+  height: 90px;
+}
+.customize-option.headAccessory_special_bearEars {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -994px -197px;
+  width: 60px;
+  height: 60px;
+}
+.headAccessory_special_blackHeadband {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -460px -273px;
+  width: 114px;
+  height: 90px;
+}
+.headAccessory_special_blueHeadband {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -460px -455px;
+  width: 114px;
+  height: 90px;
+}
+.headAccessory_special_cactusEars {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -819px -819px;
+  width: 90px;
+  height: 90px;
+}
+.customize-option.headAccessory_special_cactusEars {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -844px -834px;
+  width: 60px;
+  height: 60px;
+}
+.headAccessory_special_foxEars {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -728px -819px;
+  width: 90px;
+  height: 90px;
+}
+.customize-option.headAccessory_special_foxEars {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -753px -834px;
+  width: 60px;
+  height: 60px;
+}
+.headAccessory_special_greenHeadband {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -345px -455px;
+  width: 114px;
+  height: 90px;
+}
+.headAccessory_special_lionEars {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -546px -819px;
+  width: 90px;
+  height: 90px;
+}
+.customize-option.headAccessory_special_lionEars {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -571px -834px;
+  width: 60px;
+  height: 60px;
+}
+.headAccessory_special_pandaEars {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -455px -819px;
+  width: 90px;
+  height: 90px;
+}
+.customize-option.headAccessory_special_pandaEars {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -480px -834px;
+  width: 60px;
+  height: 60px;
+}
+.headAccessory_special_pigEars {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -364px -819px;
+  width: 90px;
+  height: 90px;
+}
+.customize-option.headAccessory_special_pigEars {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -389px -834px;
+  width: 60px;
+  height: 60px;
+}
+.headAccessory_special_pinkHeadband {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -230px -455px;
+  width: 114px;
+  height: 90px;
+}
+.headAccessory_special_redHeadband {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -115px -455px;
+  width: 114px;
+  height: 90px;
+}
+.headAccessory_special_tigerEars {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -91px -819px;
+  width: 90px;
+  height: 90px;
+}
+.customize-option.headAccessory_special_tigerEars {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -116px -834px;
+  width: 60px;
+  height: 60px;
+}
+.headAccessory_special_whiteHeadband {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: 0px -455px;
+  width: 114px;
+  height: 90px;
+}
+.headAccessory_special_wolfEars {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -878px -728px;
+  width: 90px;
+  height: 90px;
+}
+.customize-option.headAccessory_special_wolfEars {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -903px -743px;
+  width: 60px;
+  height: 60px;
+}
+.headAccessory_special_yellowHeadband {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -460px -364px;
+  width: 114px;
+  height: 90px;
+}
+.shop_headAccessory_special_bearEars {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -69px -1412px;
+  width: 68px;
+  height: 68px;
+}
+.shop_headAccessory_special_blackHeadband {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -138px -1412px;
+  width: 68px;
+  height: 68px;
+}
+.shop_headAccessory_special_blueHeadband {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -207px -1412px;
+  width: 68px;
+  height: 68px;
+}
+.shop_headAccessory_special_cactusEars {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -276px -1412px;
+  width: 68px;
+  height: 68px;
+}
+.shop_headAccessory_special_foxEars {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -345px -1412px;
+  width: 68px;
+  height: 68px;
+}
+.shop_headAccessory_special_greenHeadband {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -414px -1412px;
+  width: 68px;
+  height: 68px;
+}
+.shop_headAccessory_special_lionEars {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -483px -1412px;
+  width: 68px;
+  height: 68px;
+}
+.shop_headAccessory_special_pandaEars {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -552px -1412px;
+  width: 68px;
+  height: 68px;
+}
+.shop_headAccessory_special_pigEars {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -1678px -345px;
+  width: 68px;
+  height: 68px;
+}
+.shop_headAccessory_special_pinkHeadband {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -690px -1412px;
+  width: 68px;
+  height: 68px;
+}
+.shop_headAccessory_special_redHeadband {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -759px -1412px;
+  width: 68px;
+  height: 68px;
+}
+.shop_headAccessory_special_tigerEars {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -828px -1412px;
+  width: 68px;
+  height: 68px;
+}
+.shop_headAccessory_special_whiteHeadband {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -897px -1412px;
+  width: 68px;
+  height: 68px;
+}
+.shop_headAccessory_special_wolfEars {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -966px -1412px;
+  width: 68px;
+  height: 68px;
+}
+.shop_headAccessory_special_yellowHeadband {
+  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
+  background-position: -1035px -1412px;
+  width: 68px;
+  height: 68px;
+}
 .head_0 {
   background-image: url('~assets/images/sprites/spritesmith-main-9.png');
   background-position: -273px -1183px;
@@ -1693,234 +1921,6 @@
 .shop_head_wizard_5 {
   background-image: url('~assets/images/sprites/spritesmith-main-9.png');
   background-position: -1471px -345px;
-  width: 68px;
-  height: 68px;
-}
-.headAccessory_special_bearEars {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -969px -182px;
-  width: 90px;
-  height: 90px;
-}
-.customize-option.headAccessory_special_bearEars {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -994px -197px;
-  width: 60px;
-  height: 60px;
-}
-.headAccessory_special_blackHeadband {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -460px -273px;
-  width: 114px;
-  height: 90px;
-}
-.headAccessory_special_blueHeadband {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -460px -455px;
-  width: 114px;
-  height: 90px;
-}
-.headAccessory_special_cactusEars {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -819px -819px;
-  width: 90px;
-  height: 90px;
-}
-.customize-option.headAccessory_special_cactusEars {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -844px -834px;
-  width: 60px;
-  height: 60px;
-}
-.headAccessory_special_foxEars {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -728px -819px;
-  width: 90px;
-  height: 90px;
-}
-.customize-option.headAccessory_special_foxEars {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -753px -834px;
-  width: 60px;
-  height: 60px;
-}
-.headAccessory_special_greenHeadband {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -345px -455px;
-  width: 114px;
-  height: 90px;
-}
-.headAccessory_special_lionEars {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -546px -819px;
-  width: 90px;
-  height: 90px;
-}
-.customize-option.headAccessory_special_lionEars {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -571px -834px;
-  width: 60px;
-  height: 60px;
-}
-.headAccessory_special_pandaEars {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -455px -819px;
-  width: 90px;
-  height: 90px;
-}
-.customize-option.headAccessory_special_pandaEars {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -480px -834px;
-  width: 60px;
-  height: 60px;
-}
-.headAccessory_special_pigEars {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -364px -819px;
-  width: 90px;
-  height: 90px;
-}
-.customize-option.headAccessory_special_pigEars {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -389px -834px;
-  width: 60px;
-  height: 60px;
-}
-.headAccessory_special_pinkHeadband {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -230px -455px;
-  width: 114px;
-  height: 90px;
-}
-.headAccessory_special_redHeadband {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -115px -455px;
-  width: 114px;
-  height: 90px;
-}
-.headAccessory_special_tigerEars {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -91px -819px;
-  width: 90px;
-  height: 90px;
-}
-.customize-option.headAccessory_special_tigerEars {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -116px -834px;
-  width: 60px;
-  height: 60px;
-}
-.headAccessory_special_whiteHeadband {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: 0px -455px;
-  width: 114px;
-  height: 90px;
-}
-.headAccessory_special_wolfEars {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -878px -728px;
-  width: 90px;
-  height: 90px;
-}
-.customize-option.headAccessory_special_wolfEars {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -903px -743px;
-  width: 60px;
-  height: 60px;
-}
-.headAccessory_special_yellowHeadband {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -460px -364px;
-  width: 114px;
-  height: 90px;
-}
-.shop_headAccessory_special_bearEars {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -69px -1412px;
-  width: 68px;
-  height: 68px;
-}
-.shop_headAccessory_special_blackHeadband {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -138px -1412px;
-  width: 68px;
-  height: 68px;
-}
-.shop_headAccessory_special_blueHeadband {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -207px -1412px;
-  width: 68px;
-  height: 68px;
-}
-.shop_headAccessory_special_cactusEars {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -276px -1412px;
-  width: 68px;
-  height: 68px;
-}
-.shop_headAccessory_special_foxEars {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -345px -1412px;
-  width: 68px;
-  height: 68px;
-}
-.shop_headAccessory_special_greenHeadband {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -414px -1412px;
-  width: 68px;
-  height: 68px;
-}
-.shop_headAccessory_special_lionEars {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -483px -1412px;
-  width: 68px;
-  height: 68px;
-}
-.shop_headAccessory_special_pandaEars {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -552px -1412px;
-  width: 68px;
-  height: 68px;
-}
-.shop_headAccessory_special_pigEars {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -1678px -345px;
-  width: 68px;
-  height: 68px;
-}
-.shop_headAccessory_special_pinkHeadband {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -690px -1412px;
-  width: 68px;
-  height: 68px;
-}
-.shop_headAccessory_special_redHeadband {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -759px -1412px;
-  width: 68px;
-  height: 68px;
-}
-.shop_headAccessory_special_tigerEars {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -828px -1412px;
-  width: 68px;
-  height: 68px;
-}
-.shop_headAccessory_special_whiteHeadband {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -897px -1412px;
-  width: 68px;
-  height: 68px;
-}
-.shop_headAccessory_special_wolfEars {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -966px -1412px;
-  width: 68px;
-  height: 68px;
-}
-.shop_headAccessory_special_yellowHeadband {
-  background-image: url('~assets/images/sprites/spritesmith-main-9.png');
-  background-position: -1035px -1412px;
   width: 68px;
   height: 68px;
 }
