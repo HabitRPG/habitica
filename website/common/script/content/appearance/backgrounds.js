@@ -689,6 +689,20 @@ let backgrounds = {
       notes: t('backgroundPirateFlagNotes'),
     },
   },
+  backgrounds072018: {
+    dark_deep: {
+      text: t('backgroundDarkDeepText'),
+      notes: t('backgroundDarkDeepNotes'),
+    },
+    dilatory_city: {
+      text: t('backgroundDilatoryCityText'),
+      notes: t('backgroundDilatoryCityNotes'),
+    },
+    tide_pool: {
+      text: t('backgroundTidePoolText'),
+      notes: t('backgroundTidePoolNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),
