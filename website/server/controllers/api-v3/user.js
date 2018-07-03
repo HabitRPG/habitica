@@ -85,7 +85,7 @@ api.getUser = {
   url: '/user',
   async handler (req, res) {
     let user = res.locals.user;
-    let userToJSON = user.toJSON();
+    let userToJSON = await user.toJSONWithInbox();
 
     // Remove apiToken from response TODO make it private at the user level? returned in signup/login
     delete userToJSON.apiToken;
