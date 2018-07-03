@@ -269,7 +269,7 @@ api.createChallengeTasks = {
  * @apiGroup Task
  *
  * @apiParam (Query) {String="habits","dailys","todos","rewards","completedTodos"} type Optional query parameter to return just a type of tasks. By default all types will be returned except completed todos that must be requested separately. The "completedTodos" type returns only the 30 most recently completed.
- * @apiParam (Query) [dueDate]
+ * @apiParam (Query) [dueDate] type Optional date to use for computing the nextDue field for each returned task.
  *
  * @apiSuccess {Array} data An array of tasks
  *
@@ -584,7 +584,7 @@ api.scoreTask = {
           groupId: group._id,
           taskId: task._id, // user task id, used to match the notification when the task is approved
           userId: user._id,
-          groupTaskId: task.group.id, // the original task id
+          groupTaskId: task.group.taskId, // the original task id
           direction,
         });
         managerPromises.push(manager.save());
