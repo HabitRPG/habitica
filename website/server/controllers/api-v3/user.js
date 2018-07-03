@@ -507,6 +507,10 @@ api.getUserAnonymized = {
     delete user.achievements.challenges;
     delete user.notifications;
 
+    _.forEach(user.inbox.messages, (msg) => {
+      msg.text = 'inbox message text';
+    });
+
     _.forEach(user.tags, (tag) => {
       tag.name = 'tag';
       tag.challenge = 'challenge';
