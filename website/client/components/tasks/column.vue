@@ -81,6 +81,10 @@
     min-height: 556px;
   }
 
+  .sortable-tasks {
+    word-break: break-word;
+  }
+
   .sortable-tasks + .reward-items {
     margin-top: 16px;
   }
