@@ -56,7 +56,7 @@ describe('GET /user/anonymized', () => {
     expect(returnedUser._id).to.equal(user._id);
   });
 
-  it('does not return private paths (and apiToken)', async () => {
+  it.only('does not return private paths (and apiToken)', async () => {
     let returnedUser = await user.get(endpoint);
     let tasks2 = returnedUser.tasks;
     returnedUser = returnedUser.user;

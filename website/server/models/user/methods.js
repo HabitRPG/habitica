@@ -390,7 +390,9 @@ schema.methods.toJSONWithInbox = async function userToJSONWithInbox () {
   const user = this;
   const toJSON = user.toJSON();
 
-  toJSON.inbox.messages = await inboxLib.getUserInbox(user, false);
+  if (toJSON.inbox) {
+    toJSON.inbox.messages = await inboxLib.getUserInbox(user, false);
+  }
 
   return toJSON;
 };

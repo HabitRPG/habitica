@@ -485,7 +485,7 @@ api.getUserAnonymized = {
   middlewares: [authWithHeaders()],
   url: '/user/anonymized',
   async handler (req, res) {
-    let user = res.locals.user.toJSON();
+    let user = await res.locals.user.toJSONWithInbox();
     user.stats.toNextLevel = common.tnl(user.stats.lvl);
     user.stats.maxHealth = common.maxHealth;
     user.stats.maxMP = common.statsComputed(res.locals.user).maxMP;
@@ -1572,7 +1572,7 @@ api.deleteMessage = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    await inboxLib.clearPMs(user, req.params.id);
+    await inboxLib.deleteMessage(user, req.params.id);
 
     res.respond(200, ...[await inboxLib.getUserInbox(user, false)]);
   },

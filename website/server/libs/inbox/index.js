@@ -19,7 +19,7 @@ export async function getUserInbox (user, asArray = true) {
   }
 }
 
-export async function deleteMsg (user, messageId) {
+export async function deleteMessage (user, messageId) {
   if (user.inbox.messages[messageId]) { // compatibility
     delete user.inbox.messages[messageId];
     user.markModified(`inbox.messages.${messageId}`);
