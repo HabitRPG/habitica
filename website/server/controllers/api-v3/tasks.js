@@ -598,7 +598,7 @@ api.scoreTask = {
           groupId: group._id,
           taskId: task._id, // user task id, used to match the notification when the task is approved
           userId: user._id,
-          groupTaskId: task.group.id, // the original task id
+          groupTaskId: task.group.taskId, // the original task id
           direction,
         });
         managerPromises.push(manager.save());
