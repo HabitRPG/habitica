@@ -1,6 +1,6 @@
 import { authWithSession } from '../../middlewares/auth';
 import { model as User } from '../../models/user';
-import inboxLib from '../../libs/inbox';
+import * as inboxLib from '../../libs/inbox';
 import * as Tasks from '../../models/task';
 import {
   NotFound,

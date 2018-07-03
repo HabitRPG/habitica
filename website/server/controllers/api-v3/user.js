@@ -22,7 +22,7 @@ import {
   sendTxn as txnEmail,
 } from '../../libs/email';
 import Queue from '../../libs/queue';
-import inboxLib from '../../libs/inbox';
+import * as inboxLib from '../../libs/inbox';
 import nconf from 'nconf';
 import get from 'lodash/get';
 

@@ -1,5 +1,5 @@
 import { authWithHeaders } from '../../middlewares/auth';
-import inboxLib from '../../libs/inbox';
+import * as inboxLib from '../../libs/inbox';
 
 let api = {};
 

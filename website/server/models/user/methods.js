@@ -16,7 +16,7 @@ import { defaults, map, flatten, flow, compact, uniq, partialRight } from 'lodas
 import { model as UserNotification } from '../userNotification';
 import schema from './schema';
 import payments from '../../libs/payments/payments';
-import inboxLib from '../../libs/inbox';
+import * as inboxLib from '../../libs/inbox';
 import amazonPayments from '../../libs/payments/amazon';
 import stripePayments from '../../libs/payments/stripe';
 import paypalPayments from '../../libs/payments/paypal';

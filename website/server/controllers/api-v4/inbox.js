@@ -1,6 +1,6 @@
 import { authWithHeaders } from '../../middlewares/auth';
 import apiError from '../../libs/apiError';
-import inboxLib from '../../libs/inbox';
+import * as inboxLib from '../../libs/inbox';
 import {
   NotFound,
 } from '../../libs/errors';
