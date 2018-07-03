@@ -159,11 +159,11 @@
         .option.group-options(v-if='groupId')
           .form-group.row
             label.col-12(v-once) {{ $t('assignedTo') }}
-            .col-12
+            .col-12.mt-1
               .category-wrap(@click="showAssignedSelect = !showAssignedSelect")
                 span.category-select(v-if='assignedMembers && assignedMembers.length === 0') {{$t('none')}}
                 span.category-select(v-else)
-                  span(v-for='memberId in assignedMembers') {{memberNamesById[memberId]}}
+                  span.mr-1(v-for='memberId in assignedMembers') {{memberNamesById[memberId]}}
               .category-box(v-if="showAssignedSelect")
                 .container
                   .row
@@ -185,6 +185,15 @@
               :checked="requiresApproval",
               @change="updateRequiresApproval"
             )
+          .form-group
+            label(v-once) Shared Completion
+            b-dropdown.inline-dropdown(:text="$t(sharedCompletion)")
+              b-dropdown-item(
+                v-for="completionOption in ['individualCompletion', 'singleCompletion', 'allAssignedCompletion']",
+                :key="completionOption",
+                @click="sharedCompletion = completionOption",
+                :class="{active: sharedCompletion === completionOption}"
+              ) {{ $t(completionOption) }}
 
         .advanced-settings(v-if="task.type !== 'reward'")
           .advanced-settings-toggle.d-flex.justify-content-between.align-items-center(@click = "showAdvancedOptions = !showAdvancedOptions")
@@ -691,6 +700,7 @@ export default {
         calendar: calendarIcon,
       }),
       requiresApproval: false, // We can't set task.group fields so we use this field to toggle
+      sharedCompletion: 'individualCompletion',
       members: [],
       memberNamesById: {},
       assignedMembers: [],
@@ -708,6 +718,8 @@ export default {
     async task () {
       if (this.groupId && this.task.group && this.task.group.approval && this.task.group.approval.required) {
         this.requiresApproval = true;
+      } else {
+        this.requiresApproval = false;
       }
 
       if (this.groupId) {
@@ -721,6 +733,10 @@ export default {
         });
         this.assignedMembers = [];
         if (this.task.group && this.task.group.assignedUsers) this.assignedMembers = this.task.group.assignedUsers;
+      }
+
+      if (this.groupId && this.task.group && this.task.group.sharedCompletion) {
+        this.sharedCompletion = this.task.group.sharedCompletion;
       }
 
       // @TODO: This whole component is mutating a prop and that causes issues. We need to not copy the prop similar to group modals
@@ -916,7 +932,8 @@ export default {
       } else {
         if (this.groupId) {
           this.task.group.assignedUsers = this.assignedMembers;
-          this.task.requiresApproval = this.requiresApproval;
+          this.task.group.approval.required = this.requiresApproval;
+          this.task.group.sharedCompletion = this.sharedCompletion;
         }
 
         this.saveTask(this.task);

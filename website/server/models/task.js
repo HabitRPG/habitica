@@ -111,6 +111,7 @@ export let TaskSchema = new Schema({
       requested: {type: Boolean, default: false},
       requestedDate: {type: Date},
     },
+    sharedCompletion: {type: String, enum: ['individualCompletion', 'singleCompletion', 'allAssignedCompletion'], default: 'individualCompletion'},
   },
 
   reminders: [{
