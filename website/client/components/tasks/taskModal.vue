@@ -159,11 +159,11 @@
         .option.group-options(v-if='groupId')
           .form-group.row
             label.col-12(v-once) {{ $t('assignedTo') }}
-            .col-12
+            .col-12.mt-2
               .category-wrap(@click="showAssignedSelect = !showAssignedSelect")
                 span.category-select(v-if='assignedMembers && assignedMembers.length === 0') {{$t('none')}}
                 span.category-select(v-else)
-                  span(v-for='memberId in assignedMembers') {{memberNamesById[memberId]}}
+                  span.mr-1(v-for='memberId in assignedMembers') {{memberNamesById[memberId]}}
               .category-box(v-if="showAssignedSelect")
                 .container
                   .row
@@ -176,7 +176,7 @@
                         label.custom-control-label(v-once, :for="`assigned-${member._id}`") {{ member.profile.name }}
 
                   .row
-                    button.btn.btn-primary(@click="showAssignedSelect = !showAssignedSelect") {{$t('close')}}
+                    button.btn.btn-primary(@click.stop.prevent="showAssignedSelect = !showAssignedSelect") {{$t('close')}}
 
         .option.group-options(v-if='groupId')
           .form-group
