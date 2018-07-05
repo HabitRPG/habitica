@@ -37,7 +37,7 @@ transition(name="fade")
     background-color: #24cc8f;
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
     color: white;
-    width: 300px;
+    width: 340px;
     margin-left: 1em;
     margin-bottom: 1em;
   }
