@@ -1,6 +1,6 @@
 <template lang="pug">
   form(v-if="task", @submit.stop.prevent="submit()")
-    b-modal#task-modal(size="sm", @hidden="onClose()", @shown="focusInput()")
+    b-modal#task-modal(size="sm", @hidden="onClose()", @show="handleOpen()", @shown="focusInput()")
       .task-modal-header(slot="modal-header", :class="cssClass('bg')")
         .clearfix
           h1.float-left {{ title }}
@@ -705,26 +705,8 @@ export default {
     };
   },
   watch: {
-    async task () {
-      if (this.groupId && this.task.group && this.task.group.approval && this.task.group.approval.required) {
-        this.requiresApproval = true;
-      }
-
-      if (this.groupId) {
-        let members = await this.$store.dispatch('members:getGroupMembers', {
-          groupId: this.groupId,
-          includeAllPublicFields: true,
-        });
-        this.members = members;
-        this.members.forEach(member => {
-          this.memberNamesById[member._id] = member.profile.name;
-        });
-        this.assignedMembers = [];
-        if (this.task.group && this.task.group.assignedUsers) this.assignedMembers = this.task.group.assignedUsers;
-      }
-
-      // @TODO: This whole component is mutating a prop and that causes issues. We need to not copy the prop similar to group modals
-      if (this.task) this.checklist = clone(this.task.checklist);
+    task () {
+      this.syncTask();
     },
     'task.startDate' () {
       this.calculateMonthlyRepeatDays();
@@ -813,6 +795,30 @@ export default {
   },
   methods: {
     ...mapActions({saveTask: 'tasks:save', destroyTask: 'tasks:destroy', createTask: 'tasks:create'}),
+    async syncTask () {
+      if (this.groupId && this.task.group && this.task.group.approval) {
+        this.requiresApproval = this.task.group.approval.required;
+      }
+
+      if (this.groupId) {
+        let members = await this.$store.dispatch('members:getGroupMembers', {
+          groupId: this.groupId,
+          includeAllPublicFields: true,
+        });
+        this.members = members;
+        this.members.forEach(member => {
+          this.memberNamesById[member._id] = member.profile.name;
+        });
+        this.assignedMembers = [];
+        if (this.task.group && this.task.group.assignedUsers) this.assignedMembers = this.task.group.assignedUsers;
+      }
+
+      // @TODO: This whole component is mutating a prop and that causes issues. We need to not copy the prop similar to group modals
+      if (this.task) this.checklist = clone(this.task.checklist);
+    },
+    async handleOpen () {
+      this.syncTask();
+    },
     cssClass (suffix) {
       return this.getTaskClasses(this.task, `${this.purpose === 'edit' ? 'edit' : 'create'}-modal-${suffix}`);
     },
@@ -917,6 +923,7 @@ export default {
         if (this.groupId) {
           this.task.group.assignedUsers = this.assignedMembers;
           this.task.requiresApproval = this.requiresApproval;
+          this.task.group.approval.required = this.requiresApproval;
         }
 
         this.saveTask(this.task);
