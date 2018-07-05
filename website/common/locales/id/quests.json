@@ -98,6 +98,7 @@
     "guildQuestsNotSupported": "Guild tidak dapat diundang dalam misi.",
     "questNotOwned": "Kamu tidak memiliki gulungan misi tersebut.",
     "questNotGoldPurchasable": "Misi \"<%= key %>\" tidak dapat dibeli dengan Emas.",
+    "questNotGemPurchasable": "Quest \"<%= key %>\" is not a Gem-purchasable quest.",
     "questLevelTooHigh": "Kamu harus berada di level <%= level %> untuk memulai misi ini.",
     "questAlreadyUnderway": "Party-mu telah berada dalam misi. Coba lagi ketika misi telah selesai.",
     "questAlreadyAccepted": "Kamu telah menerima undangan misi.",
