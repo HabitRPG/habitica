@@ -260,7 +260,7 @@
     "weaponSpecialSpring2018HealerNotes": "The stones in this staff will focus your power when you cast healing spells! Increases Intelligence by <%= int %>. Limited Edition 2018 Spring Gear.",
     "weaponSpecialSummer2018RogueText": "釣竿",
     "weaponSpecialSummer2018RogueNotes": "這個輕量、耐用的釣竿和捲線器可以雙重持用以最大化你的DPS（Dragonfish Per Summer，每個夏天釣起的巨口魚）。增加<%= str %>點力量。2018年夏季限量版裝備。",
-    "weaponSpecialSummer2018WarriorText": "搏魚魚叉",
+    "weaponSpecialSummer2018WarriorText": "鬥魚魚叉",
     "weaponSpecialSummer2018WarriorNotes": "強大足以戰鬥，優雅適於儀式，這把精心打造的魚叉顯示出你會從任何危害家園的東西中保護你的家！增加<%= str %>點力量。2018年夏季限量版裝備。",
     "weaponSpecialSummer2018MageText": "獅子魚輻鰭",
     "weaponSpecialSummer2018MageNotes": "在水中，火、冰或電魔法會對施放法術的法師自己造成危害，然而召喚有毒的刺卻可以出色地運作！增加<%= int %>點智力和<%= per %>點感知。2018年夏季限量版裝備。",

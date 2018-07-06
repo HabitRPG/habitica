@@ -1,6 +1,6 @@
 <template lang="pug">
   form(v-if="task", @submit.stop.prevent="submit()")
-    b-modal#task-modal(size="sm", @hidden="onClose()", @shown="focusInput()")
+    b-modal#task-modal(size="sm", @hidden="onClose()", @show="handleOpen()", @shown="focusInput()")
       .task-modal-header(slot="modal-header", :class="cssClass('bg')")
         .clearfix
           h1.float-left {{ title }}
@@ -159,7 +159,7 @@
         .option.group-options(v-if='groupId')
           .form-group.row
             label.col-12(v-once) {{ $t('assignedTo') }}
-            .col-12.mt-1
+            .col-12.mt-2
               .category-wrap(@click="showAssignedSelect = !showAssignedSelect")
                 span.category-select(v-if='assignedMembers && assignedMembers.length === 0') {{$t('none')}}
                 span.category-select(v-else)
@@ -176,7 +176,7 @@
                         label.custom-control-label(v-once, :for="`assigned-${member._id}`") {{ member.profile.name }}
 
                   .row
-                    button.btn.btn-primary(@click="showAssignedSelect = !showAssignedSelect") {{$t('close')}}
+                    button.btn.btn-primary(@click.stop.prevent="showAssignedSelect = !showAssignedSelect") {{$t('close')}}
 
         .option.group-options(v-if='groupId')
           .form-group
@@ -715,32 +715,8 @@ export default {
     };
   },
   watch: {
-    async task () {
-      if (this.groupId && this.task.group && this.task.group.approval && this.task.group.approval.required) {
-        this.requiresApproval = true;
-      } else {
-        this.requiresApproval = false;
-      }
-
-      if (this.groupId) {
-        let members = await this.$store.dispatch('members:getGroupMembers', {
-          groupId: this.groupId,
-          includeAllPublicFields: true,
-        });
-        this.members = members;
-        this.members.forEach(member => {
-          this.memberNamesById[member._id] = member.profile.name;
-        });
-        this.assignedMembers = [];
-        if (this.task.group && this.task.group.assignedUsers) this.assignedMembers = this.task.group.assignedUsers;
-      }
-
-      if (this.groupId && this.task.group && this.task.group.sharedCompletion) {
-        this.sharedCompletion = this.task.group.sharedCompletion;
-      }
-
-      // @TODO: This whole component is mutating a prop and that causes issues. We need to not copy the prop similar to group modals
-      if (this.task) this.checklist = clone(this.task.checklist);
+    task () {
+      this.syncTask();
     },
     'task.startDate' () {
       this.calculateMonthlyRepeatDays();
@@ -829,6 +805,30 @@ export default {
   },
   methods: {
     ...mapActions({saveTask: 'tasks:save', destroyTask: 'tasks:destroy', createTask: 'tasks:create'}),
+    async syncTask () {
+      if (this.groupId && this.task.group && this.task.group.approval) {
+        this.requiresApproval = this.task.group.approval.required;
+      }
+
+      if (this.groupId) {
+        let members = await this.$store.dispatch('members:getGroupMembers', {
+          groupId: this.groupId,
+          includeAllPublicFields: true,
+        });
+        this.members = members;
+        this.members.forEach(member => {
+          this.memberNamesById[member._id] = member.profile.name;
+        });
+        this.assignedMembers = [];
+        if (this.task.group && this.task.group.assignedUsers) this.assignedMembers = this.task.group.assignedUsers;
+      }
+
+      // @TODO: This whole component is mutating a prop and that causes issues. We need to not copy the prop similar to group modals
+      if (this.task) this.checklist = clone(this.task.checklist);
+    },
+    async handleOpen () {
+      this.syncTask();
+    },
     cssClass (suffix) {
       return this.getTaskClasses(this.task, `${this.purpose === 'edit' ? 'edit' : 'create'}-modal-${suffix}`);
     },
@@ -932,8 +932,8 @@ export default {
       } else {
         if (this.groupId) {
           this.task.group.assignedUsers = this.assignedMembers;
+          this.task.requiresApproval = this.requiresApproval;
           this.task.group.approval.required = this.requiresApproval;
-          this.task.group.sharedCompletion = this.sharedCompletion;
         }
 
         this.saveTask(this.task);

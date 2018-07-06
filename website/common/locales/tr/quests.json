@@ -98,6 +98,7 @@
     "guildQuestsNotSupported": "Loncalar göreve davet edilemezler.",
     "questNotOwned": "Bu görev parşömenine sahip değilsin.",
     "questNotGoldPurchasable": "\"<%= key %>\" görevi Altın ile satın alınabilen bir görev değildir.",
+    "questNotGemPurchasable": "Quest \"<%= key %>\" is not a Gem-purchasable quest.",
     "questLevelTooHigh": "Bu göreve başlamak için <%= level %>. seviye olmalısın.",
     "questAlreadyUnderway": "Takımın zaten bir görevde. Şu anki görev sona erdiğinde tekrar dene.",
     "questAlreadyAccepted": "Görev davetini zaten kabul ettin.",

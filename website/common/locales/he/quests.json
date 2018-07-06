@@ -98,6 +98,7 @@
     "guildQuestsNotSupported": "לא ניתן להזמין גילדות להרפתקה.",
     "questNotOwned": "אין ברשותכם את המגילה הזו.",
     "questNotGoldPurchasable": "ההרפתקה ״<%= key %>״ אינה ניתנת לרכישה באמצעות זהב.",
+    "questNotGemPurchasable": "Quest \"<%= key %>\" is not a Gem-purchasable quest.",
     "questLevelTooHigh": "עליכם להיות בדרגה <%= level %> כדי להתחיל את ההרפתקה הזו.",
     "questAlreadyUnderway": "החבורה שלכם נמצאת כבר במהלכה של הרפתקה. נסו שוב כשזו תסתיים.",
     "questAlreadyAccepted": "כבר הסכמתם להזמנה להרפתקה.",

@@ -98,6 +98,7 @@
     "guildQuestsNotSupported": "Céhet nem lehet meghívni küldetéshez.",
     "questNotOwned": "Nem rendelkezel ezzel a küldetés tekerccsel.",
     "questNotGoldPurchasable": "A \"<%= key %>\" küldetést nem lehet aranyért megvenni.",
+    "questNotGemPurchasable": "Quest \"<%= key %>\" is not a Gem-purchasable quest.",
     "questLevelTooHigh": "<%= level %> szinten kell lenned, hogy elkezdhesd ezt a küldetést.",
     "questAlreadyUnderway": "A csapatod már küldetésen van. Próbálkozz újra, amikor az aktuális küldetés befejeződött.",
     "questAlreadyAccepted": "Már elfogadtad ezt a küldetés meghívót.",
