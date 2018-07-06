@@ -115,7 +115,7 @@
             .fast-company.svg-icon(v-html='icons.fastCompany')
             .discover.svg-icon(v-html='icons.discover')
       .container-fluid
-        .seamless_stars_varied_opacity_repeat
+        .row.seamless_stars_varied_opacity_repeat
 </template>
 
 <style lang='scss'>
