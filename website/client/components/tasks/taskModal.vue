@@ -821,6 +821,7 @@ export default {
         });
         this.assignedMembers = [];
         if (this.task.group && this.task.group.assignedUsers) this.assignedMembers = this.task.group.assignedUsers;
+        if (this.task.group) this.sharedCompletion = this.task.group.sharedCompletion || 'individualCompletion';
       }
 
       // @TODO: This whole component is mutating a prop and that causes issues. We need to not copy the prop similar to group modals
@@ -906,6 +907,8 @@ export default {
         this.task.group.assignedUsers = this.assignedMembers;
         this.task.requiresApproval = this.requiresApproval;
         this.task.group.approval.required = this.requiresApproval;
+        this.task.sharedCompletion = this.sharedCompletion;
+        this.task.group.sharedCompletion = this.sharedCompletion;
       }
 
       if (this.purpose === 'create') {

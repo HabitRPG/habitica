@@ -338,7 +338,7 @@ api.approveTask = {
     }
 
     // Remove old notifications
-    let managerPromises = [];
+    let approvalPromises = [];
     managers.forEach((manager) => {
       let notificationIndex = manager.notifications.findIndex(function findNotification (notification) {
         return notification && notification.data && notification.data.taskId === task._id && notification.type === 'GROUP_TASK_APPROVAL';
@@ -346,7 +346,7 @@ api.approveTask = {
 
       if (notificationIndex !== -1) {
         manager.notifications.splice(notificationIndex, 1);
-        managerPromises.push(manager.save());
+        approvalPromises.push(manager.save());
       }
     });
 
@@ -362,9 +362,29 @@ api.approveTask = {
       direction,
     });
 
-    managerPromises.push(task.save());
-    managerPromises.push(assignedUser.save());
-    await Promise.all(managerPromises);
+    // Handle shared completion
+    let masterTask = await Tasks.Task.findOne({
+      _id: taskId,
+    }).exec();
+
+    if (masterTask && masterTask.group && masterTask.group.sharedCompletion === 'singleCompletion') {
+      masterTask.completed = true;
+      approvalPromises.push(masterTask.save());
+      const tasksToRemove = await Tasks.Task.find({
+        'group.taskId': taskId,
+        $and: [
+          {userId: {$exists: true}},
+          {userId: {$ne: assignedUserId}},
+        ],
+      }).exec();
+      tasksToRemove.forEach(async (taskToRemove) => {
+        approvalPromises.push(taskToRemove.remove());
+      });
+    }
+
+    approvalPromises.push(task.save());
+    approvalPromises.push(assignedUser.save());
+    await Promise.all(approvalPromises);
 
     res.respond(200, task);
   },
