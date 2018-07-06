@@ -83,7 +83,7 @@ api.exportUserHistory = {
 
 // Convert user to json and attach tasks divided by type
 // at user.tasks[`${taskType}s`] (user.tasks.{dailys/habits/...})
-async function _getUserDataForExport (user) {
+async function _getUserDataForExport (user, xmlMode = false) {
   let userData = user.toJSON();
   userData.tasks = {};
 
@@ -98,33 +98,32 @@ async function _getUserDataForExport (user) {
       userData.tasks[`${taskType}s`] = tasksPerType;
     });
 
-  // object maps cant be parsed
-  userData.inbox.messages = _(userData.inbox.messages)
-    .map(m => {
-      const flags = Object.keys(m.flags);
-      m.flags = flags;
+  if (xmlMode) {
+    // object maps cant be parsed
+    userData.inbox.messages = _(userData.inbox.messages)
+      .map(m => {
+        const flags = Object.keys(m.flags);
+        m.flags = flags;
 
-      return m;
-    })
-    .value();
+        return m;
+      })
+      .value();
 
-  // _id gets parsed as an bytearray => which gets casted to a chararray => "weird chars"
-  userData.unpinnedItems = userData.unpinnedItems.map(i =>
-  {
-    return {
-    path: i.path,
-      type: i.type,
+    // _id gets parsed as an bytearray => which gets casted to a chararray => "weird chars"
+    userData.unpinnedItems = userData.unpinnedItems.map(i => {
+      return {
+        path: i.path,
+        type: i.type,
+      };
+    });
+
+    userData.pinnedItems = userData.pinnedItems.map(i => {
+      return {
+        path: i.path,
+        type: i.type,
+      };
+    });
   }
-  });
-
-  userData.pinnedItems = userData.pinnedItems.map(i =>
-  {
-    return {
-      path: i.path,
-      type: i.type,
-    }
-  });
-  console.info('data', userData.inbox.messages);
 
   return userData;
 }
@@ -165,7 +164,7 @@ api.exportUserDataXml = {
   url: '/export/userdata.xml',
   middlewares: [authWithSession],
   async handler (req, res) {
-    let userData = await _getUserDataForExport(res.locals.user);
+    let userData = await _getUserDataForExport(res.locals.user, true);
 
     res.set({
       'Content-Type': 'text/xml',
