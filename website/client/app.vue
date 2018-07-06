@@ -116,7 +116,7 @@ div
 
   /* Push progress bar above modals */
   #nprogress .bar {
-    z-index: 1090 !important; /* Must stay above nav bar */
+    z-index: 1600 !important; /* Must stay above nav bar */
   }
 
   .restingInn {
@@ -136,7 +136,7 @@ div
     background-color: $blue-10;
     position: fixed;
     top: 0;
-    z-index: 1030;
+    z-index: 1300;
     display: flex;
 
     .content {
