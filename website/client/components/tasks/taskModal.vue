@@ -902,6 +902,12 @@ export default {
     async submit () {
       if (this.newChecklistItem) this.addChecklistItem();
 
+      if (this.groupId) {
+        this.task.group.assignedUsers = this.assignedMembers;
+        this.task.requiresApproval = this.requiresApproval;
+        this.task.group.approval.required = this.requiresApproval;
+      }
+
       if (this.purpose === 'create') {
         if (this.challengeId) {
           this.$store.dispatch('tasks:createChallengeTasks', {
@@ -922,20 +928,11 @@ export default {
             });
           });
           Promise.all(promises);
-
-          this.task.group.assignedUsers = this.assignedMembers;
-
           this.$emit('taskCreated', this.task);
         } else {
           this.createTask(this.task);
         }
       } else {
-        if (this.groupId) {
-          this.task.group.assignedUsers = this.assignedMembers;
-          this.task.requiresApproval = this.requiresApproval;
-          this.task.group.approval.required = this.requiresApproval;
-        }
-
         this.saveTask(this.task);
         this.$emit('taskEdited', this.task);
       }
