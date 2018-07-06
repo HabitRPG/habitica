@@ -13,7 +13,7 @@
   )
   .row.tasks-navigation
     .col-12.col-md-4
-      h1 Group's Tasks
+      h1 {{ $t('groupTasksTitle') }}
     // @TODO: Abstract to component!
     .col-12.col-md-4
       .input-group
