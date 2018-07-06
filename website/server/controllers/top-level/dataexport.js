@@ -98,6 +98,34 @@ async function _getUserDataForExport (user) {
       userData.tasks[`${taskType}s`] = tasksPerType;
     });
 
+  // object maps cant be parsed
+  userData.inbox.messages = _(userData.inbox.messages)
+    .map(m => {
+      const flags = Object.keys(m.flags);
+      m.flags = flags;
+
+      return m;
+    })
+    .value();
+
+  // _id gets parsed as an bytearray => which gets casted to a chararray => "weird chars"
+  userData.unpinnedItems = userData.unpinnedItems.map(i =>
+  {
+    return {
+    path: i.path,
+      type: i.type,
+  }
+  });
+
+  userData.pinnedItems = userData.pinnedItems.map(i =>
+  {
+    return {
+      path: i.path,
+      type: i.type,
+    }
+  });
+  console.info('data', userData.inbox.messages);
+
   return userData;
 }
 
