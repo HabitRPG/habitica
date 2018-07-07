@@ -475,7 +475,6 @@ export default {
       });
 
       this.$root.$on('bv::modal::hidden', (bvEvent) => {
-
         let modalId = bvEvent.target && bvEvent.target.id;
 
         // sometimes the target isn't passed to the hidden event, fallback is the vueTarget
