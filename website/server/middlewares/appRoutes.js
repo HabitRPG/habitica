@@ -33,6 +33,7 @@ app.use('/api/v3', v3Router);
 
 // A list of v3 routes in the format METHOD-URL to skip
 const v4RouterOverrides = [
+  'GET-/user',
   'GET-/inbox/messages',
 ];
 
