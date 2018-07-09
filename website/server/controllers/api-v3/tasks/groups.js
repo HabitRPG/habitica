@@ -367,7 +367,7 @@ api.approveTask = {
       _id: taskId,
     }).exec();
 
-    if (masterTask && masterTask.group && masterTask.group.sharedCompletion === 'singleCompletion') {
+    if (task.type === 'todo' && masterTask && masterTask.group && masterTask.group.sharedCompletion === 'singleCompletion') {
       masterTask.completed = true;
       approvalPromises.push(masterTask.save());
       const tasksToRemove = await Tasks.Task.find({

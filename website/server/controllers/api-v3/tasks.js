@@ -656,6 +656,49 @@ api.scoreTask = {
       user.save(),
       task.save(),
     ];
+
+    // Handle shared completion
+    if (task.type === 'todo' && direction === 'up' && task.group && task.group.sharedCompletion === 'singleCompletion') {
+      let masterTask = await Tasks.Task.findOne({
+        _id: task.group.taskId,
+      }).exec();
+
+      masterTask.completed = true;
+      promises.push(masterTask.save());
+
+      const tasksToRemove = await Tasks.Task.find({
+        'group.taskId': task.group.taskId,
+        $and: [
+          {userId: {$exists: true}},
+          {userId: {$ne: user._id}},
+        ],
+      }).exec();
+
+      tasksToRemove.forEach(async (taskToRemove) => {
+        promises.push(taskToRemove.remove());
+      });
+    } else if (task.type === 'todo' && direction === 'up' && task.group && task.group.sharedCompletion === 'allAssignedCompletion') {
+      let allAssignedComplete = await _.reduce(task.group.assignedUsers, async (result, id) => {
+        if (result === false || id === user._id) return result;
+        const assignedTask = await Tasks.Task.findOne({
+          userId: id,
+          'group.taskId': task.group.taskId,
+        });
+        if (!assignedTask.completed) return false;
+        return true;
+      });
+
+      if (allAssignedComplete) {
+        let masterTask = await Tasks.Task.findOne({
+          _id: task.group.taskId,
+        }).exec();
+
+        masterTask.completed = true;
+        promises.push(masterTask.save());
+      }
+    }
+
+    // Save results and handle request
     if (taskOrderPromise) promises.push(taskOrderPromise);
     let results = await Promise.all(promises);
 

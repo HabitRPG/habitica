@@ -185,8 +185,8 @@
               :checked="requiresApproval",
               @change="updateRequiresApproval"
             )
-          .form-group
-            label(v-once) Shared Completion
+          .form-group(v-if="task.type === 'todo'")
+            label(v-once) {{ $t('sharedCompletion') }}
             b-dropdown.inline-dropdown(:text="$t(sharedCompletion)")
               b-dropdown-item(
                 v-for="completionOption in ['individualCompletion', 'singleCompletion', 'allAssignedCompletion']",
