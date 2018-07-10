@@ -17,6 +17,9 @@
   .faq-question {
     margin-bottom: 1em;
   }
+  .faq-question h2 {
+      cursor: pointer;
+  }
 
   .faq-question .card {
     background: none;
