@@ -49,9 +49,6 @@
 <script>
   // @TODO:  env.EMAILS.TECH_ASSISTANCE_EMAIL
   const TECH_ASSISTANCE_EMAIL = 'admin@habitica.com';
-  const NAVBAR_HEIGHT = 56;
-
-  import Vue from 'vue';
 
   import markdownDirective from 'client/directives/markdown';
 
@@ -76,12 +73,15 @@
         'world-boss',
       ];
 
+      const hash = window.location.hash.replace('#', '');
+
       return  {
         headings,
         replacements: {
           techAssistanceEmail: TECH_ASSISTANCE_EMAIL,
           wikiTechAssistanceEmail: `mailto:${TECH_ASSISTANCE_EMAIL}`,
         },
+        visible: hash && headings.includes(hash) ? hash : null,
         // @TODO webFaqStillNeedHelp: {
         // linkStart: '[',
         // linkEnd: '](/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a)',
@@ -91,18 +91,13 @@
     },
     methods: {
       isVisible (heading) {
-        const hash = window.location.hash.replace('#', '');
-        return hash && this.headings.includes(hash) && hash === heading;
+        return this.visible && this.visible === heading;
       },
-    },
-    mounted () {
-      const hash = window.location.hash.replace('#', '');
-      if (hash && this.headings.includes(hash)) {
-        Vue.nextTick(() => {
-          if (!this.$refs[hash] || !this.$refs[hash][0]) return;
-          window.scroll(0, this.$refs[hash][0].getBoundingClientRect().top - NAVBAR_HEIGHT);
-        });
-      }
+      handleClick (e) {
+        if (!e) return;
+        const heading = e.originalTarget.nextElementSibling.id;
+        history.pushState({}, heading, `#${heading}`);
+      },
     },
   };
 </script>
