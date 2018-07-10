@@ -89,7 +89,7 @@
       },
       handleClick (e) {
         if (!e) return;
-        const heading = e.originalTarget.nextElementSibling.id;
+        const heading = e.target.nextElementSibling.id;
         history.pushState({}, heading, `#${heading}`);
       },
     },
