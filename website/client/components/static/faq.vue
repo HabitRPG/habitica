@@ -3,32 +3,21 @@
     .row
       .col-12.col-md-6.offset-md-3
         h1#faq-heading {{ $t('frequentlyAskedQuestions') }}
-        b-card.faq-question(no-body, v-for='(heading, index) in headings', :key="index")
+        .faq-question(v-for='(heading, index) in headings', :key="index")
           h2(role="tab", v-b-toggle="heading", @click="handleClick($event)", variant="info") {{ $t(`faqQuestion${index}`) }}
           b-collapse(:id="heading", :visible="isVisible(heading)", accordion="faq", role="tabpanel")
-            b-card-body(v-markdown="$t('webFaqAnswer' + index, replacements)")
+            div.card-body(v-markdown="$t('webFaqAnswer' + index, replacements)")
         hr
         p(v-markdown="$t('webFaqStillNeedHelp')")
 </template>
 
 <style lang='scss' scoped>
-  .card {
-    background: transparent;
-    border: 0;
-    border-radius: 0;
-  }
-
   .card-body {
       margin-bottom: 1em;
   }
 
   .faq-question h2 {
     cursor: pointer;
-  }
-
-  .faq-question .card {
-    background: none;
-    border: none;
   }
 
   .faq-question .card-body {
