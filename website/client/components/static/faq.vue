@@ -4,7 +4,7 @@
       .col-12.col-md-6.offset-md-3
         h1#faq-heading {{ $t('frequentlyAskedQuestions') }}
         b-card.faq-question(no-body, v-for='(heading, index) in headings', :key="index")
-          b-card-header(header-tag="h2", role="tab", v-b-toggle="heading", @click="handleClick($event)", variant="info") {{ $t(`faqQuestion${index}`) }}
+          h2(role="tab", v-b-toggle="heading", @click="handleClick($event)", variant="info") {{ $t(`faqQuestion${index}`) }}
           b-collapse(:id="heading", :visible="isVisible(heading)", accordion="faq", role="tabpanel")
             b-card-body(v-markdown="$t('webFaqAnswer' + index, replacements)")
         hr
