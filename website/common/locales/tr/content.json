@@ -195,7 +195,7 @@
     "hatchingPotionFairy": "Peri",
     "hatchingPotionStarryNight": "Yıldızlı Gece",
     "hatchingPotionRainbow": "Gökkuşağı",
-    "hatchingPotionGlass": "Glass",
+    "hatchingPotionGlass": "Cam",
     "hatchingPotionNotes": "Bunu yumurtanın üstüne döktüğünde <%= potText(locale) %> türünde bir hayvan çıkacak.",
     "premiumPotionAddlNotes": "Görev yumurtalarıyla kullanılamaz.",
     "foodMeat": "Et",
