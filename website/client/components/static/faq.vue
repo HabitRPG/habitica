@@ -12,11 +12,18 @@
 </template>
 
 <style lang='scss' scoped>
-  .faq-question {
-    margin-bottom: 1em;
+  .card {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
   }
+
+  .card-body {
+      margin-bottom: 1em;
+  }
+
   .faq-question h2 {
-      cursor: pointer;
+    cursor: pointer;
   }
 
   .faq-question .card {
@@ -29,7 +36,7 @@
   }
 
   .static-wrapper .faq-question h2 {
-    margin: 0;
+    margin: 0 0 16px 0;
   }
 
   .faq-question a {
