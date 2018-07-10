@@ -13,6 +13,7 @@ import {
   moveTask,
 } from '../../../libs/taskManager';
 import apiError from '../../../libs/apiError';
+import reduce from 'lodash/reduce';
 
 let requiredGroupFields = '_id leader tasksOrder name';
 let types = Tasks.tasksTypes.map(type => `${type}s`);
@@ -380,6 +381,21 @@ api.approveTask = {
       tasksToRemove.forEach(async (taskToRemove) => {
         approvalPromises.push(taskToRemove.remove());
       });
+    } else if (task.type === 'todo' && masterTask && masterTask.group && masterTask.group.sharedCompletion === 'allAssignedCompletion') {
+      let allAssignedComplete = await reduce(masterTask.group.assignedUsers, async (result, id) => {
+        if (result === false || id === assignedUser._id) return result;
+        const assignedTask = await Tasks.Task.findOne({
+          userId: id,
+          'group.taskId': task.group.taskId,
+        });
+        if (!assignedTask.group.approval.approved) return false;
+        return true;
+      });
+
+      if (allAssignedComplete) {
+        masterTask.completed = true;
+        approvalPromises.push(masterTask.save());
+      }
     }
 
     approvalPromises.push(task.save());
