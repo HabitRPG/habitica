@@ -2,13 +2,11 @@
   .container-fluid(role="tablist")
     .row
       .col-12.col-md-6.offset-md-3
-        h1 {{ $t('frequentlyAskedQuestions') }}
-        .faq-question(v-for='(heading, index) in headings')
-          b-card(no-body)
-            h2.accordion(role="tab" :ref="heading")
-              a(v-bind:href="`#${heading}`", v-b-toggle="heading", role="tabpanel" variant="info") {{ $t(`faqQuestion${index}`) }}
-            b-collapse(:id='heading', accordion="faq", role="tabpanel", :visible='isVisible(heading)')
-              b-card-body(v-markdown="$t('webFaqAnswer' + index, replacements)")
+        h1#faq-heading {{ $t('frequentlyAskedQuestions') }}
+        b-card.faq-question(no-body, v-for='(heading, index) in headings', :key="index")
+          b-card-header(header-tag="h2", role="tab", v-b-toggle="heading", @click="handleClick($event)", variant="info") {{ $t(`faqQuestion${index}`) }}
+          b-collapse(:id="heading", :visible="isVisible(heading)", accordion="faq", role="tabpanel")
+            b-card-body(v-markdown="$t('webFaqAnswer' + index, replacements)")
         hr
         p(v-markdown="$t('webFaqStillNeedHelp')")
 </template>
