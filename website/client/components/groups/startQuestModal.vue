@@ -148,8 +148,13 @@ export default {
     };
   },
   mounted () {
-    let questKeys = Object.keys(this.user.items.quests);
-    this.selectedQuest = questKeys[0];
+    const userQuests = this.user.items.quests;
+    for (const key in userQuests) {
+      if (userQuests[key] > 0) {
+        this.selectedQuest = key;
+        break;
+      }
+    }
 
     this.$root.$on('selectQuest', this.selectQuest);
   },

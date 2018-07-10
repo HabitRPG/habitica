@@ -546,7 +546,7 @@ export default {
         eventLabel: 'Start a Quest',
       });
 
-      let hasQuests = find(this.user.items.quests, (quest) => {
+      let hasQuests = this.user.items.quests.some((quest) => {
         return quest > 0;
       });
 
@@ -554,7 +554,6 @@ export default {
         this.$root.$emit('bv::show::modal', 'start-quest-modal');
         return;
       }
-      // $rootScope.$state.go('options.inventory.quests');
     },
     showGroupGems () {
       this.$root.$emit('bv::show::modal', 'group-gems-modal');
