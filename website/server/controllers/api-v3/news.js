@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'JULY BACKGROUNDS AND ARMOIRE ITEMS!';
+const LAST_ANNOUNCEMENT_TITLE = 'SPLASHY SKINS';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -27,21 +27,17 @@ api.getNews = {
       html: `
       <div class="bailey">
         <div class="media align-items-center">
+          <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
-            <div class="media">
-              <div class="align-self-center mr-3 ${baileyClass}"></div>
-              <div class="media-body">
-                <h1 class="align-self-center">${res.t('newStuff')}</h1>
-                <h2>7/3/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
-              </div>
-            </div>
-            <hr/>
-            <p>We’ve added three new backgrounds to the Background Shop! Now your avatar can observe the ocean life near a Tide Pool, meander through the undersea City of Dilatory, or swim in the Dark Deep among bioluminescent critters. Check them out under User Icon > Backgrounds!</p>
-            <p>Plus, there’s new gold-purchasable equipment in the Enchanted Armoire, including the Pirate Princess Set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)</p>
-            <div class="small mb-3">by AnnDeLune, gully, Great and Powerful, Irrevenant, GeraldThePixel, AwsamSwazzy, and RandomGryffindor</div>
+            <h1 class="align-self-center">${res.t('newStuff')}</h1>
+            <h2>7/10/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
-          <div class="promo_armoire_backgrounds_201807 mb-3 ml-3"></div>
+          <div class="promo_splashy_skins"></div>
         </div>
+        <hr/>
+        <p>The Seasonal Edition Splashy Skins are available until July 31st! You can complete your summer avatar look with Clownfish, Deep Ocean, Tropical Water, Mergold, Mergreen, Merblue, Merruby, and Shark Skins.</p>
+        <p>This Seasonal Edition customization set will only be available to purchase until July 31st, after which they'll be gone until next year, so be sure to swoop them up now! You can find them in User > Edit Avatar!</p>
+        <div class="small mb-3">by Lemoness and UncommonCriminal</div>
       </div>
       `,
     });
