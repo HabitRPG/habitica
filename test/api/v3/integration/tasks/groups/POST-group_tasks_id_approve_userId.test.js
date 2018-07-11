@@ -140,4 +140,25 @@ describe('POST /tasks/:id/approve/:userId', () => {
         message: t('canOnlyApproveTaskOnce'),
       });
   });
+
+  it('completes master task when single-completion task is approved', async () => {
+    let sharedCompletionTask = await user.post(`/tasks/group/${guild._id}`, {
+      text: 'shared completion todo',
+      type: 'todo',
+      requiresApproval: true,
+      sharedCompletion: 'singleCompletion',
+    });
+
+    await user.post(`/tasks/${sharedCompletionTask._id}/assign/${member._id}`);
+    await user.post(`/tasks/${sharedCompletionTask._id}/assign/${member2._id}`);
+    await user.post(`/tasks/${sharedCompletionTask._id}/approve/${member._id}`);
+
+    let groupTasks = await user.get(`/tasks/group/${guild._id}`);
+
+    let masterTask = await find(groupTasks, (groupTask) => {
+      return groupTask._id === sharedCompletionTask._id;
+    });
+
+    await expect(masterTask.completed).to.equal(true);
+  });
 });
