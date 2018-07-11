@@ -194,8 +194,6 @@
     "weeks": "Uger",
     "year": "År",
     "years": "År",
-    "confirmScoreNotes": "Godkend opgavens pointgivning med noter",
-    "taskScoreNotesTooLong": "Pointgivningsnoter skal være under 256 tegn",
     "groupTasksByChallenge": "Gruppér opgaver efter udfordrings-titel.",
     "taskNotes": "Opgavenoter",
     "monthlyRepeatHelpContent": "Denne opgave vil være forfalden hver X måneder",

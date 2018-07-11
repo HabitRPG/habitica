@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'SUMMER SPLASH BEGINS: SUMMER CLASS OUTFITS, SEASONAL SHOP, AND NPC DECORATIONS!';
+const LAST_ANNOUNCEMENT_TITLE = 'SPLASHY SKINS';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -26,39 +26,18 @@ api.getNews = {
     res.status(200).send({
       html: `
       <div class="bailey">
-        <div class="media">
-          <div class="align-self-center mr-3 ${baileyClass}"></div>
+        <div class="media align-items-center">
+          <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
+            <h2>7/10/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
+          <div class="promo_splashy_skins"></div>
         </div>
-        <h2>6/19/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
-        <p>To escape the summer heat in Habit City, everyone's moved down to the undersea city of Dilatory. The Summer Splash event has begun!</p>
-        <div class="media align-items-center">
-          <div class="media-body">
-            <h3>Summer Class Outfits</h3>
-            <p>From now until July 31st, limited edition outfits are available in the Rewards column. Depending on your class, you can be a Lionfish Mage, Fisher-Rogue, Betta Fish Warrior, or Merfolk Monarch Healer! You'd better get productive to earn enough gold before they disappear. Good luck!</p>
-            <div class="small mb-3">by Vampitch, Vikte, TheDudeAbides, Lalaitha, and Beffymaroo</div>
-            <div class="media align-items-center">
-              <div class="promo_seasonal_shop_summer mr-3"></div>
-              <div class="media-body">
-                <h3>Seasonal Shop is Open!</h3>
-                <p>The <a href='/shops/seasonal' target='_blank'>Seasonal Shop</a> has opened! The Seasonal Sorceress is stocking the seasonal edition versions of previous summer outfits, now available for Gems instead of Gold. Plus, there will be more fun things in the shop as the event progresses. The Seasonal Shop will only be open until July 31st, so don't wait!</p>
-                <div class="small mb-3">by SabreCat, Lemoness, AnnDeLune, Vampitch, nonight, tricksy.fox, Giu09, JaizakAripaik, Teto Forever, and Kai</div>
-              </div>
-            </div>
-            <div class="media align-items-center">
-              <div class="media-body">
-                <h3>NPC Costumes and Shop Decorations</h3>
-                <p>Looks like the NPCs are really getting in to the cheery summer mood around the site. Who wouldn't? After all, there's plenty more celebration to come...</p>
-                <div class="small mb-3">by Lemoness and Beffymaroo</div>
-              </div>
-              <div class="npc_matt ml-3 mb-3"></div>
-            </div>
-          </div>
-          <div class="promo_summer_splash_2018 ml-3"></div>
-        </div>
+        <p>The Seasonal Edition Splashy Skins are available until July 31st! You can complete your summer avatar look with Clownfish, Deep Ocean, Tropical Water, Mergold, Mergreen, Merblue, Merruby, and Shark Skins.</p>
+        <p>This Seasonal Edition customization set will only be available to purchase until July 31st, after which they'll be gone until next year, so be sure to swoop them up now! You can find them in User > Edit Avatar!</p>
+        <div class="small mb-3">by Lemoness and UncommonCriminal</div>
       </div>
       `,
     });

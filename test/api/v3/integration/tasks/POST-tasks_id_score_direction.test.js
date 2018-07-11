@@ -406,7 +406,8 @@ describe('POST /tasks/:id/score/:direction', () => {
       expect(updatedUser.stats.gp).to.be.greaterThan(user.stats.gp);
     });
 
-    it('adds score notes to task', async () => {
+    // not supported anymore
+    it('does not add score notes to task', async () => {
       let scoreNotesString = 'test-notes';
 
       await user.post(`/tasks/${habit._id}/score/up`, {
@@ -414,20 +415,24 @@ describe('POST /tasks/:id/score/:direction', () => {
       });
       let updatedTask = await user.get(`/tasks/${habit._id}`);
 
-      expect(updatedTask.history[0].scoreNotes).to.eql(scoreNotesString);
+      expect(updatedTask.history[0].scoreNotes).to.eql(undefined);
     });
 
-    it('errors when score notes are too large', async () => {
-      let scoreNotesString = new Array(258).join('a');
+    it('records only one history entry per day', async () => {
+      const initialHistoryLength = habit.history.length;
 
-      await expect(user.post(`/tasks/${habit._id}/score/up`, {
-        scoreNotes: scoreNotesString,
-      }))
-        .to.eventually.be.rejected.and.eql({
-          code: 401,
-          error: 'NotAuthorized',
-          message: t('taskScoreNotesTooLong'),
-        });
+      await user.post(`/tasks/${habit._id}/score/up`);
+      await user.post(`/tasks/${habit._id}/score/up`);
+      await user.post(`/tasks/${habit._id}/score/down`);
+      await user.post(`/tasks/${habit._id}/score/up`);
+
+      const updatedTask = await user.get(`/tasks/${habit._id}`);
+
+      expect(updatedTask.history.length).to.eql(initialHistoryLength + 1);
+
+      const lastHistoryEntry = updatedTask.history[updatedTask.history.length - 1];
+      expect(lastHistoryEntry.scoredUp).to.equal(3);
+      expect(lastHistoryEntry.scoredDown).to.equal(1);
     });
   });
 

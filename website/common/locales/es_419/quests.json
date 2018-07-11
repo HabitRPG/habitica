@@ -98,6 +98,7 @@
     "guildQuestsNotSupported": "Los gremios no pueden ser invitados a misiones.",
     "questNotOwned": "No posees ese pergamino de misión.",
     "questNotGoldPurchasable": "La misión \"<%= key %>\" es una misión no comprable con Oro.",
+    "questNotGemPurchasable": "Quest \"<%= key %>\" is not a Gem-purchasable quest.",
     "questLevelTooHigh": "Debes ser de nivel <%= level %> para empezar esta misión.",
     "questAlreadyUnderway": "Tu equipo ya esta en una misión. Intenta denuevo cuando la misión actual haya terminado.",
     "questAlreadyAccepted": "Ya aceptaste la invitación a la misión.",

@@ -148,7 +148,7 @@ export async function createTasks (req, res, options = {}) {
  * @param  options.user  The user that these tasks belong to
  * @param  options.challenge  The challenge that these tasks belong to
  * @param  options.group  The group that these tasks belong to
- * @param  options.dueDate
+ * @param  options.dueDate The date to use for computing the nextDue field for each returned task
  * @return The tasks found
  */
 export async function getTasks (req, res, options = {}) {

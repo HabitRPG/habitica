@@ -194,8 +194,6 @@
     "weeks": "Minggu",
     "year": "Tahun",
     "years": "Tahun",
-    "confirmScoreNotes": "Pastikan nilai dari tugas dengan catatan",
-    "taskScoreNotesTooLong": "Catatan nilai tugas harus kurang dari 256 karakter",
     "groupTasksByChallenge": "Kelompokkan tugas berdasarkan judul tantangan",
     "taskNotes": "Catatan Tugas",
     "monthlyRepeatHelpContent": "Tugas ini harus diselesaikan setiap X bulan",

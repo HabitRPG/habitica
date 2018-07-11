@@ -446,7 +446,6 @@ export default {
 
     if (this.type !== 'todo') return;
     this.$root.$on('habitica::resync-requested', () => {
-      if (this.activeFilters.todo.label !== 'complete2') return;
       this.loadCompletedTodos(true);
     });
   },
@@ -544,6 +543,7 @@ export default {
       this.quickAddText = '';
       this.quickAddRows = 1;
       this.createTask(tasks);
+      this.$refs.quickAdd.blur();
     },
     editTask (task) {
       this.$emit('editTask', task);

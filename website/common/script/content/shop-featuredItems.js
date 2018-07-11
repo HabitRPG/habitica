@@ -8,8 +8,8 @@ const featuredItems = {
       path: 'armoire',
     },
     {
-      type: 'hatchingPotions',
-      path: 'hatchingPotions.Desert',
+      type: 'premiumHatchingPotion',
+      path: 'premiumHatchingPotions.Glass',
     },
     {
       type: 'food',

@@ -248,7 +248,7 @@ export default {
       });
     },
     async applyCoupon (coupon) {
-      const response = await axios.post(`/api/v3/coupons/validate/${coupon}`);
+      const response = await axios.post(`/api/v4/coupons/validate/${coupon}`);
 
       if (!response.data.data.valid) return;
 

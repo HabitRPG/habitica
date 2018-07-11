@@ -85,6 +85,12 @@ export default {
       showApiToken: false,
     };
   },
+  mounted () {
+    window.addEventListener('message', this.receiveMessage, false);
+  },
+  destroy () {
+    window.removeEventListener('message', this.receiveMessage);
+  },
   computed: {
     ...mapState({user: 'user.data', credentials: 'credentials'}),
     apiToken () {
@@ -92,6 +98,15 @@ export default {
     },
   },
   methods: {
+    receiveMessage (eventFrom) {
+      if (eventFrom.origin !== 'https://www.spritely.app') return;
+
+      const creds = {
+        userId: this.user._id,
+        apiToken: this.credentials.API_TOKEN,
+      };
+      eventFrom.source.postMessage(creds, eventFrom.origin);
+    },
     async addWebhook (url) {
       let webhookInfo = {
         id: uuid(),
