@@ -21,7 +21,7 @@ import {
 } from './redirects';
 import v1 from './v1';
 import v2 from './v2';
-import v3 from './v3';
+import appRoutes from './appRoutes';
 import responseHandler from './response';
 import {
   attachTranslateFunction,
@@ -89,12 +89,11 @@ module.exports = function attachMiddlewares (app, server) {
   }
   app.use('/api/v2', v2);
   app.use('/api/v1', v1);
-  app.use(v3); // the main app, also setup top-level routes
+  app.use(appRoutes); // the main app, also setup top-level routes
   staticMiddleware(app);
 
   app.use(notFoundHandler);
 
   // Error handler middleware, define as the last one.
-  // Used for v3 and v1, v2 will keep using its own error handler
   app.use(errorHandler);
 };

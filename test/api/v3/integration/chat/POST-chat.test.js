@@ -4,7 +4,7 @@ import {
   translate as t,
   sleep,
   server,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 import {
   SPAM_MESSAGE_LIMIT,
   SPAM_MIN_EXEMPT_CONTRIB_LEVEL,

@@ -2,7 +2,7 @@ import {
   generateUser,
   translate as t,
   resetHabiticaDB,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 
 describe('POST /coupons/enter/:code', () => {
   let user;

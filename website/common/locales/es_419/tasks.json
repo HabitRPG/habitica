@@ -194,8 +194,6 @@
     "weeks": "Semanas",
     "year": "Año",
     "years": "Años",
-    "confirmScoreNotes": "Confirma la puntuación de la tarea con notas",
-    "taskScoreNotesTooLong": "La puntuación de la tarea debe tener menos de 256 caracteres",
     "groupTasksByChallenge": "Tareas grupales por título de desafío",
     "taskNotes": "Notas de Tareas",
     "monthlyRepeatHelpContent": "Esta tarea vencerá cada X meses",

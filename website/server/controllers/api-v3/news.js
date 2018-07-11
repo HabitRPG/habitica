@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'NEW DISCOUNTED PET QUEST BUNDLE: AQUATIC AMIGOS!';
+const LAST_ANNOUNCEMENT_TITLE = 'SPLASHY SKINS';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -26,16 +26,18 @@ api.getNews = {
     res.status(200).send({
       html: `
       <div class="bailey">
-        <div class="media">
-          <div class="align-self-center mr-3 ${baileyClass}"></div>
+        <div class="media align-items-center">
+          <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
+            <h2>7/10/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
+          <div class="promo_splashy_skins"></div>
         </div>
-        <h2>6/12/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
-        <p>If you're looking to add some pets to your Habitica stable, you're in luck! From now until June 30, you can purchase the Aquatic Amigos Pet Quest Bundle and receive the Axolotl, Cuttlefish, and Octopus quests, all for only 7 Gems! That's a discount of 5 Gems from the price of purchasing them separately. Check it out in the <a href='/shops/quests' target='_blank'>Quest Shop</a> today!</p>
-      <div class="promo_bundle_aquaticAmigos center-block"></div>
+        <p>The Seasonal Edition Splashy Skins are available until July 31st! You can complete your summer avatar look with Clownfish, Deep Ocean, Tropical Water, Mergold, Mergreen, Merblue, Merruby, and Shark Skins.</p>
+        <p>This Seasonal Edition customization set will only be available to purchase until July 31st, after which they'll be gone until next year, so be sure to swoop them up now! You can find them in User > Edit Avatar!</p>
+        <div class="small mb-3">by Lemoness and UncommonCriminal</div>
       </div>
       `,
     });

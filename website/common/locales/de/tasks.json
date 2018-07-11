@@ -194,8 +194,6 @@
     "weeks": "Wochen",
     "year": "Jahr",
     "years": "Jahre",
-    "confirmScoreNotes": "Bestätige das Erfüllen der Aufgabe mit einer Notiz",
-    "taskScoreNotesTooLong": "Notizen zum Erfüllen einer Aufgabe müssen kürzer als 256 Zeichen sein",
     "groupTasksByChallenge": "Gruppiere die Aufgaben nach Wettbewerbs-Titel",
     "taskNotes": "Aufgabennotizen",
     "monthlyRepeatHelpContent": "Diese Aufgabe wird alle X Monate fällig werden",

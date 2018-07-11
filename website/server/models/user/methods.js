@@ -59,6 +59,10 @@ const INTERACTION_CHECKS = Object.freeze({
     // Unlike private messages, gems can't be sent to oneself
     (sndr, rcvr) => rcvr._id === sndr._id && 'cannotSendGemsToYourself',
   ],
+
+  'group-invitation': [
+    // uses the checks that are in the 'always' array
+  ],
 });
 /* eslint-enable no-unused-vars */
 

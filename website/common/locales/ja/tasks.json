@@ -194,8 +194,6 @@
     "weeks": "週",
     "year": "年",
     "years": "年",
-    "confirmScoreNotes": "タスクのスコアをメモで確認する",
-    "taskScoreNotesTooLong": "タスクのスコアのメモは256文字未満でなければなりません。",
     "groupTasksByChallenge": "タスクをチャレンジのタイトルごとに並べる",
     "taskNotes": "タスクのメモ",
     "monthlyRepeatHelpContent": "このタスクはXか月ごとに期限が訪れます。",

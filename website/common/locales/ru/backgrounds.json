@@ -355,9 +355,16 @@
     "backgroundChampionsColosseumNotes": "Окунитесь в лучах славы на Колизеи Чемпионов.",
     "backgrounds062018": "Набор 49: Выпущен в Июне 2018",
     "backgroundDocksText": "Причал",
-    "backgroundDocksNotes": "Fish from atop the Docks.",
-    "backgroundRowboatText": "Rowboat",
-    "backgroundRowboatNotes": "Sing rounds in a Rowboat.",
+    "backgroundDocksNotes": "Рыбачить с поверхности причала",
+    "backgroundRowboatText": "Гребная лодка",
+    "backgroundRowboatNotes": "Петь песни в гребной лодке",
     "backgroundPirateFlagText": "Пиратский флаг",
-    "backgroundPirateFlagNotes": "Fly a fearsome Pirate Flag."
+    "backgroundPirateFlagNotes": "Расправить устрашающий Пиратский флаг",
+    "backgrounds072018": "Набор 50: Выпущен в Июле 2018",
+    "backgroundDarkDeepText": "Темные глубины",
+    "backgroundDarkDeepNotes": "Ныряйте в Темные глубины средни светящихся обитателей",
+    "backgroundDilatoryCityText": "Город Промедления",
+    "backgroundDilatoryCityNotes": "Побродите по подводному городу Промедления.",
+    "backgroundTidePoolText": "Водоем от прилива",
+    "backgroundTidePoolNotes": "Исследуйте фауну моря возле водоема оставленным приливом"
 }

@@ -1,6 +1,6 @@
 {
   "unlockedReward": "你收到 <%= reward %>",
-  "earnedRewardForDevotion": "You have earned <%= reward %> for being committed to improving your life.",
+  "earnedRewardForDevotion": "你因為致力於改善你的生活而獲得了<%= reward %>。",
   "nextRewardUnlocksIn": "達到你的下個獎品所需的簽到次數: <%= numberOfCheckinsLeft %>",
   "awesome": "讚！",
   "totalCount": "<%= count %> 總數",

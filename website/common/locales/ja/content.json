@@ -195,6 +195,7 @@
     "hatchingPotionFairy": "フェアリーの",
     "hatchingPotionStarryNight": "星降る夜の",
     "hatchingPotionRainbow": "にじ色の",
+    "hatchingPotionGlass": "Glass",
     "hatchingPotionNotes": "これをたまごにかけると、<%= potText(locale) %> ペットが生まれます。",
     "premiumPotionAddlNotes": "クエスト ペットのたまごには使えません。",
     "foodMeat": "肉",

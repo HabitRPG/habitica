@@ -1,7 +1,7 @@
 import {
   createAndPopulateGroup,
   sleep,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 
 describe('POST /groups/:id/chat/seen', () => {
   context('Guild', () => {

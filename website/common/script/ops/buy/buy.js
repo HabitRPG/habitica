@@ -12,6 +12,7 @@ import purchaseOp from './purchase';
 import hourglassPurchase from './hourglassPurchase';
 import errorMessage from '../../libs/errorMessage';
 import {BuyGemOperation} from './buyGem';
+import {BuyQuestWithGemOperation} from './buyQuestGem';
 
 // @TODO: remove the req option style. Dependency on express structure is an anti-pattern
 // We should either have more parms or a set structure validated by a Type checker
@@ -52,10 +53,15 @@ module.exports = function buy (user, req = {}, analytics) {
       buyRes = buyOp.purchase();
       break;
     }
+    case 'quests': {
+      const buyOp = new BuyQuestWithGemOperation(user, req, analytics);
+
+      buyRes = buyOp.purchase();
+      break;
+    }
     case 'eggs':
     case 'hatchingPotions':
     case 'food':
-    case 'quests':
     case 'gear':
     case 'bundles':
       buyRes = purchaseOp(user, req, analytics);

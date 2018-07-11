@@ -194,8 +194,6 @@
     "weeks": "Settimane",
     "year": "Anno",
     "years": "Anni",
-    "confirmScoreNotes": "Conferma valutazione attività con delle note",
-    "taskScoreNotesTooLong": "Le note della valutazione attività devono contenere meno di 256 caratteri",
     "groupTasksByChallenge": "Raggruppa le attività secondo il nome della sfida",
     "taskNotes": "Note dell'Attività",
     "monthlyRepeatHelpContent": "Questa attività andrà completata ogni X mesi.",

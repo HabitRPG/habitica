@@ -25,8 +25,6 @@ import logger from '../../libs/logger';
 import moment from 'moment';
 import apiError from '../../libs/apiError';
 
-const MAX_SCORE_NOTES_LENGTH = 256;
-
 function canNotEditTasks (group, user, assignedUserId) {
   let isNotGroupLeader = group.leader !== user._id;
   let isManager = Boolean(group.managers[user._id]);
@@ -275,7 +273,7 @@ api.createChallengeTasks = {
  * @apiGroup Task
  *
  * @apiParam (Query) {String="habits","dailys","todos","rewards","completedTodos"} type Optional query parameter to return just a type of tasks. By default all types will be returned except completed todos that must be requested separately. The "completedTodos" type returns only the 30 most recently completed.
- * @apiParam (Query) [dueDate]
+ * @apiParam (Query) [dueDate] type Optional date to use for computing the nextDue field for each returned task.
  *
  * @apiSuccess {Array} data An array of tasks
  *
@@ -530,7 +528,6 @@ api.updateTask = {
  *
  * @apiParam (Path) {String} taskId The task _id or alias
  * @apiParam (Path) {String="up","down"} direction The direction for scoring the task
- * @apiParam (Body) {String} scoreNotes Notes explaining the scoring
  *
  * @apiExample {json} Example call:
  * curl -X "POST" https://habitica.com/api/v3/tasks/test-api-params/score/up
@@ -556,18 +553,14 @@ api.scoreTask = {
   async handler (req, res) {
     req.checkParams('direction', res.t('directionUpDown')).notEmpty().isIn(['up', 'down']);
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let user = res.locals.user;
-    let scoreNotes = req.body.scoreNotes;
-    if (scoreNotes && scoreNotes.length > MAX_SCORE_NOTES_LENGTH) throw new NotAuthorized(res.t('taskScoreNotesTooLong'));
-    let {taskId} = req.params;
+    const user = res.locals.user;
+    const {taskId} = req.params;
 
-    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id, {userId: user._id});
-    let direction = req.params.direction;
-
-    if (scoreNotes) task.scoreNotes = scoreNotes;
+    const task = await Tasks.Task.findByIdOrAlias(taskId, user._id, {userId: user._id});
+    const direction = req.params.direction;
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
 
@@ -605,7 +598,7 @@ api.scoreTask = {
           groupId: group._id,
           taskId: task._id, // user task id, used to match the notification when the task is approved
           userId: user._id,
-          groupTaskId: task.group.id, // the original task id
+          groupTaskId: task.group.taskId, // the original task id
           direction,
         });
         managerPromises.push(manager.save());
@@ -679,13 +672,13 @@ api.scoreTask = {
     if (task.challenge && task.challenge.id && task.challenge.taskId && !task.challenge.broken && task.type !== 'reward') {
       // Wrapping everything in a try/catch block because if an error occurs using `await` it MUST NOT bubble up because the request has already been handled
       try {
-        let chalTask = await Tasks.Task.findOne({
+        const chalTask = await Tasks.Task.findOne({
           _id: task.challenge.taskId,
         }).exec();
 
         if (!chalTask) return;
 
-        await chalTask.scoreChallengeTask(delta);
+        await chalTask.scoreChallengeTask(delta, direction);
       } catch (e) {
         logger.error(e);
       }

@@ -80,12 +80,12 @@ describe('async resource', () => {
       const store = generateStore();
       store.state.user = asyncResourceFactory();
 
-      sandbox.stub(axios, 'get').withArgs('/api/v3/user').returns(Promise.resolve({data: {data: {_id: 1}}}));
+      sandbox.stub(axios, 'get').withArgs('/api/v4/user').returns(Promise.resolve({data: {data: {_id: 1}}}));
 
       const resource = await loadAsyncResource({
         store,
         path: 'user',
-        url: '/api/v3/user',
+        url: '/api/v4/user',
         deserialize (response) {
           return response.data.data;
         },
@@ -101,12 +101,12 @@ describe('async resource', () => {
       const store = generateStore();
       store.state.user.loadingStatus = 'LOADED';
 
-      sandbox.stub(axios, 'get').withArgs('/api/v3/user').returns(Promise.resolve({data: {data: {_id: 1}}}));
+      sandbox.stub(axios, 'get').withArgs('/api/v4/user').returns(Promise.resolve({data: {data: {_id: 1}}}));
 
       const resource = await loadAsyncResource({
         store,
         path: 'user',
-        url: '/api/v3/user',
+        url: '/api/v4/user',
         deserialize (response) {
           return response.data.data;
         },
@@ -123,12 +123,12 @@ describe('async resource', () => {
       const store = generateStore();
       store.state.user.loadingStatus = 'LOADING';
 
-      sandbox.stub(axios, 'get').withArgs('/api/v3/user').returns(Promise.resolve({data: {data: {_id: 1}}}));
+      sandbox.stub(axios, 'get').withArgs('/api/v4/user').returns(Promise.resolve({data: {data: {_id: 1}}}));
 
       const resourcePromise = loadAsyncResource({
         store,
         path: 'user',
-        url: '/api/v3/user',
+        url: '/api/v4/user',
         deserialize (response) {
           return response.data.data;
         },

@@ -47,138 +47,130 @@ div
 </template>
 
 <style lang='scss' scoped>
-@import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/colors.scss';
 
-#loading-screen-inapp {
-  #melior {
-    margin: 0 auto;
-    width: 70.9px;
-    margin-bottom: 1em;
+  #loading-screen-inapp {
+    #melior {
+      margin: 0 auto;
+      width: 70.9px;
+      margin-bottom: 1em;
+    }
+
+    .row {
+      width: 100%;
+    }
+
+    h2 {
+      color: $white;
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    p {
+      margin: 0 auto;
+      width: 448px;
+      font-size: 24px;
+      color: #d5c8ff;
+    }
   }
 
-  .row {
-    width: 100%;
+  .casting-spell {
+    cursor: crosshair;
   }
 
-  h2 {
+  .notification {
+    border-radius: 1000px;
+    background-color: $green-10;
+    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+    padding: .5em 1em;
     color: $white;
-    font-size: 32px;
-    font-weight: bold;
+    margin-top: .5em;
+    margin-bottom: .5em;
   }
 
-  p {
-    margin: 0 auto;
-    width: 448px;
-    font-size: 24px;
-    color: #d5c8ff;
+  .container-fluid {
+    overflow-x: hidden;
+    flex: 1 0 auto;
   }
-}
 
-.casting-spell {
-  cursor: crosshair;
-}
-
-.notification {
-  border-radius: 1000px;
-  background-color: $green-10;
-  box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
-  padding: 0.5em 1em;
-  color: $white;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
-}
-
-.container-fluid {
-  overflow-x: hidden;
-  flex: 1 0 auto;
-}
-
-#app {
-  height: calc(100% - 56px); /* 56px is the menu */
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
+  #app {
+    height: calc(100% - 56px); /* 56px is the menu */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
 </style>
 
 <style lang='scss'>
-<<<<<<< HEAD
-@import '~client/assets/scss/colors.scss';
-
-/* @TODO: The modal-open class is not being removed. Let's try this for now */
-.modal,
-.modal-open {
-  overflow-y: scroll !important;
-}
-
-.modal-backdrop.show {
-  opacity: 0.9 !important;
-  background-color: $purple-100 !important;
-}
-
-/* Push progress bar above modals */
-#nprogress .bar {
-  z-index: 1090 !important; /* Must stay above nav bar */
-}
-
-.restingInn {
-  .navbar {
-    top: 40px;
-=======
   @import '~client/assets/scss/colors.scss';
 
   /* @TODO: The modal-open class is not being removed. Let's try this for now */
   .modal, .modal-open {
-    overflow-y: scroll;
->>>>>>> upstream/develop
+    overflow-y: scroll !important;
   }
 
-  #app-header {
-    margin-top: 40px !important;
-  }
-}
-
-.resting-banner {
-  width: 100%;
-  height: 40px;
-  background-color: $blue-10;
-  position: fixed;
-  top: 0;
-  z-index: 1030;
-  display: flex;
-
-  .content {
-    height: 24px;
-    line-height: 1.71;
-    text-align: center;
-    color: $white;
-
-    margin: auto;
+  .modal-backdrop.show {
+    opacity: .9 !important;
+    background-color: $purple-100 !important;
   }
 
-  .closepadding {
-    margin: 11px 24px;
-    display: inline-block;
-    position: absolute;
-    right: 0;
+  /* Push progress bar above modals */
+  #nprogress .bar {
+    z-index: 1600 !important; /* Must stay above nav bar */
+  }
+
+  .restingInn {
+    .navbar {
+      top: 40px;
+    }
+
+    #app-header {
+      margin-top: 40px !important;
+    }
+
+  }
+
+  .resting-banner {
+    width: 100%;
+    height: 40px;
+    background-color: $blue-10;
+    position: fixed;
     top: 0;
-    cursor: pointer;
+    z-index: 1300;
+    display: flex;
 
-    span svg path {
-      stroke: $blue-500;
+    .content {
+      height: 24px;
+      line-height: 1.71;
+      text-align: center;
+      color: $white;
+
+      margin: auto;
+    }
+
+    .closepadding {
+      margin: 11px 24px;
+      display: inline-block;
+      position: absolute;
+      right: 0;
+      top: 0;
+      cursor: pointer;
+
+      span svg path {
+        stroke: $blue-500;
+      }
+    }
+
+    .separator {
+      color: $blue-100;
+      margin: 0px 15px;
+    }
+
+    .resume {
+      font-weight: bold;
+      cursor: pointer;
     }
   }
-
-  .separator {
-    color: $blue-100;
-    margin: 0px 15px;
-  }
-
-  .resume {
-    font-weight: bold;
-    cursor: pointer;
-  }
-}
 </style>
 
 <script>
@@ -198,7 +190,6 @@ import notifications from 'client/mixins/notifications';
 import { setup as setupPayments } from 'client/libs/payments';
 import amazonPaymentsModal from 'client/components/payments/amazonModal';
 import spellsMixin from 'client/mixins/spells';
-import Logout from './components/logout';
 
 import svgClose from 'assets/svg/close.svg';
 import bannedAccountModal from 'client/components/bannedAccountModal';
@@ -219,7 +210,7 @@ export default {
     amazonPaymentsModal,
     bannedAccountModal,
   },
-  data() {
+  data () {
     return {
       icons: Object.freeze({
         close: svgClose,
@@ -237,14 +228,14 @@ export default {
   },
   computed: {
     ...mapState(['isUserLoggedIn', 'browserTimezoneOffset', 'isUserLoaded']),
-    ...mapState({ user: 'user.data' }),
-    isStaticPage() {
+    ...mapState({user: 'user.data'}),
+    isStaticPage () {
       return this.$route.meta.requiresLogin === false ? true : false;
     },
-    castingSpell() {
+    castingSpell () {
       return this.$store.state.spellOptions.castingSpell;
     },
-    currentTip() {
+    currentTip () {
       const numberOfTips = 35 + 1;
       const min = 1;
       const randomNumber = Math.random() * (numberOfTips - min) + min;
@@ -253,11 +244,11 @@ export default {
 
       return this.$t(`tip${tipNumber}`);
     },
-    showRestingBanner() {
+    showRestingBanner () {
       return !this.bannerHidden && this.user.preferences.sleep;
     },
   },
-  created() {
+  created () {
     this.$root.$on('playSound', (sound) => {
       let theme = this.user.preferences.sound;
 
@@ -303,50 +294,6 @@ export default {
     });
 
     // Set up Error interceptors
-<<<<<<< HEAD
-    axios.interceptors.response.use(
-      (response) => {
-        if (this.user && response.data && response.data.notifications) {
-          this.$set(this.user, 'notifications', response.data.notifications);
-        }
-        return response;
-      },
-      (error) => {
-        if (error.response.status >= 400) {
-          this.checkForBannedUser(error);
-
-          // Check for conditions to reset the user auth
-          const invalidUserMessage = [this.$t('invalidCredentials'), 'Missing authentication headers.'];
-          if (invalidUserMessage.indexOf(error.response.data) !== -1) {
-            this.$store.dispatch('auth:logout');
-          }
-
-          // Don't show errors from getting user details. These users have delete their account,
-          // but their chat message still exists.
-          let configExists = Boolean(error.response) && Boolean(error.response.config);
-          if (
-            configExists &&
-            error.response.config.method === 'get' &&
-            error.response.config.url.indexOf('/api/v3/members/') !== -1
-          ) {
-            // @TODO: We resolve the promise because we need our caching to cache this user as tried
-            // Chat paging should help this, but maybe we can also find another solution..
-            return Promise.resolve(error);
-          }
-
-          const errorData = error.response.data;
-          const errorMessage = errorData.message || errorData;
-
-          this.$store.dispatch('snackbars:add', {
-            title: 'Habitica',
-            text: errorMessage,
-            type: 'error',
-            timeout: false,
-          });
-        }
-
-        return Promise.reject(error);
-=======
     axios.interceptors.response.use((response) => {
       if (this.user && response.data && response.data.notifications) {
         this.$set(this.user, 'notifications', response.data.notifications);
@@ -359,7 +306,7 @@ export default {
         // Don't show errors from getting user details. These users have delete their account,
         // but their chat message still exists.
         let configExists = Boolean(error.response) && Boolean(error.response.config);
-        if (configExists && error.response.config.method === 'get' && error.response.config.url.indexOf('/api/v3/members/') !== -1) {
+        if (configExists && error.response.config.method === 'get' && error.response.config.url.indexOf('/api/v4/members/') !== -1) {
           // @TODO: We resolve the promise because we need our caching to cache this user as tried
           // Chat paging should help this, but maybe we can also find another solution..
           return Promise.resolve(error);
@@ -390,9 +337,10 @@ export default {
           type: 'error',
           timeout: snackbarTimeout,
         });
->>>>>>> upstream/develop
       }
-    );
+
+      return Promise.reject(error);
+    });
 
     axios.interceptors.response.use((response) => {
       // Verify that the user was not updated from another browser/app/client
@@ -400,26 +348,26 @@ export default {
       const url = response.config.url;
       const method = response.config.method;
 
-      const isApiCall = url.indexOf('api/v3') !== -1;
+      const isApiCall = url.indexOf('api/v4') !== -1;
       const userV = response.data && response.data.userV;
-      const isCron = url.indexOf('/api/v3/cron') === 0 && method === 'post';
+      const isCron = url.indexOf('/api/v4/cron') === 0 && method === 'post';
 
       if (this.isUserLoaded && isApiCall && userV) {
         const oldUserV = this.user._v;
         this.user._v = userV;
 
         // Do not sync again if already syncing
-        const isUserSync = url.indexOf('/api/v3/user') === 0 && method === 'get';
-        const isTasksSync = url.indexOf('/api/v3/tasks/user') === 0 && method === 'get';
+        const isUserSync = url.indexOf('/api/v4/user') === 0 && method === 'get';
+        const isTasksSync = url.indexOf('/api/v4/tasks/user') === 0 && method === 'get';
         // exclude chat seen requests because with real time chat they would be too many
-        const isChatSeen = url.indexOf('/chat/seen') !== -1 && method === 'post';
-        // exclude POST /api/v3/cron because the user is synced automatically after cron runs
+        const isChatSeen = url.indexOf('/chat/seen') !== -1  && method === 'post';
+        // exclude POST /api/v4/cron because the user is synced automatically after cron runs
 
         // Something has changed on the user object that was not tracked here, sync the user
         if (userV - oldUserV > 1 && !isCron && !isChatSeen && !isUserSync && !isTasksSync) {
           Promise.all([
-            this.$store.dispatch('user:fetch', { forceLoad: true }),
-            this.$store.dispatch('tasks:fetchUserTasks', { forceLoad: true }),
+            this.$store.dispatch('user:fetch', {forceLoad: true}),
+            this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
           ]);
         }
       }
@@ -439,12 +387,9 @@ export default {
     });
 
     // Setup listener for title
-    this.$store.watch(
-      (state) => state.title,
-      (title) => {
-        document.title = title;
-      }
-    );
+    this.$store.watch(state => state.title, (title) => {
+      document.title = title;
+    });
 
     this.$nextTick(() => {
       // Load external scripts after the app has been rendered
@@ -453,49 +398,50 @@ export default {
 
     if (this.isUserLoggedIn && !this.isStaticPage) {
       // Load the user and the user tasks
-      Promise.all([this.$store.dispatch('user:fetch'), this.$store.dispatch('tasks:fetchUserTasks')])
-        .then(() => {
-          this.$store.state.isUserLoaded = true;
-          Analytics.setUser();
-          Analytics.updateUser();
+      Promise.all([
+        this.$store.dispatch('user:fetch'),
+        this.$store.dispatch('tasks:fetchUserTasks'),
+      ]).then(() => {
+        this.$store.state.isUserLoaded = true;
+        Analytics.setUser();
+        Analytics.updateUser();
 
-          this.hideLoadingScreen();
+        this.hideLoadingScreen();
 
-          // Adjust the timezone offset
-          if (this.user.preferences.timezoneOffset !== this.browserTimezoneOffset) {
-            this.$store.dispatch('user:set', {
-              'preferences.timezoneOffset': this.browserTimezoneOffset,
-            });
-          }
-
-          this.$nextTick(() => {
-            // Load external scripts after the app has been rendered
-            setupPayments();
+        // Adjust the timezone offset
+        if (this.user.preferences.timezoneOffset !== this.browserTimezoneOffset) {
+          this.$store.dispatch('user:set', {
+            'preferences.timezoneOffset': this.browserTimezoneOffset,
           });
-        })
-        .catch((err) => {
-          console.error('Impossible to fetch user. Clean up localStorage and refresh.', err); // eslint-disable-line no-console
+        }
+
+        this.$nextTick(() => {
+          // Load external scripts after the app has been rendered
+          setupPayments();
         });
+      }).catch((err) => {
+        console.error('Impossible to fetch user. Clean up localStorage and refresh.', err); // eslint-disable-line no-console
+      });
     } else {
       this.hideLoadingScreen();
     }
 
     this.initializeModalStack();
   },
-  beforeDestroy() {
+  beforeDestroy () {
     this.$root.$off('playSound');
     this.$root.$off('bv::modal::hidden');
     this.$root.$off('bv::show::modal');
     this.$root.$off('buyModal::showItem');
     this.$root.$off('selectMembersModal::showItem');
   },
-  mounted() {
+  mounted () {
     // Remove the index.html loading screen and now show the inapp loading
     const loadingScreen = document.getElementById('loading-screen');
     if (loadingScreen) document.body.removeChild(loadingScreen);
   },
   methods: {
-    checkForBannedUser(error) {
+    checkForBannedUser (error) {
       const AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings');
       const parseSettings = JSON.parse(AUTH_SETTINGS);
       const errorMessage = error.response.data.message;
@@ -514,7 +460,7 @@ export default {
 
       this.$root.$emit('bv::show::modal', 'banned-account');
     },
-    initializeModalStack() {
+    initializeModalStack () {
       // Manage modals
       this.$root.$on('bv::show::modal', (modalId, data = {}) => {
         if (data.fromRoot) return;
@@ -525,7 +471,7 @@ export default {
         // Add new modal to the stack
         const prev = modalStack[modalStack.length - 1];
         const prevId = prev ? prev.modalId : undefined;
-        modalStack.push({ modalId, prev: prevId });
+        modalStack.push({modalId, prev: prevId});
       });
 
       this.$root.$on('bv::modal::hidden', (bvEvent) => {
@@ -547,10 +493,10 @@ export default {
 
         // Get previous modal
         const modalBefore = modalOnTop ? modalOnTop.prev : undefined;
-        if (modalBefore) this.$root.$emit('bv::show::modal', modalBefore, { fromRoot: true });
+        if (modalBefore) this.$root.$emit('bv::show::modal', modalBefore, {fromRoot: true});
       });
     },
-    validStack(modalStack) {
+    validStack (modalStack) {
       const modalsThatCanShowTwice = ['profile'];
       const modalCount = {};
       const prevAndCurrent = 2;
@@ -576,7 +522,7 @@ export default {
 
       return true;
     },
-    trackGemPurchase(modalId, data) {
+    trackGemPurchase (modalId, data) {
       // Track opening of gems modal unless it's been already tracked
       // For example the gems button in the menu already tracks the event by itself
       if (modalId === 'buy-gems' && data.alreadyTracked !== true) {
@@ -588,24 +534,26 @@ export default {
         });
       }
     },
-    resetItemToBuy($event) {
+    resetItemToBuy ($event) {
       // @TODO: Do we need this? I think selecting a new item
       // overwrites. @negue might know
       if (!$event && this.selectedItemToBuy.purchaseType !== 'card') {
         this.selectedItemToBuy = null;
       }
     },
-    itemSelected(item) {
+    itemSelected (item) {
       this.selectedItemToBuy = item;
     },
-    genericPurchase(item) {
-      if (!item) return false;
+    genericPurchase (item) {
+      if (!item)
+        return false;
 
-      if (['card', 'debuffPotion'].includes(item.purchaseType)) return false;
+      if (['card', 'debuffPotion'].includes(item.purchaseType))
+        return false;
 
       return true;
     },
-    customPurchase(item) {
+    customPurchase (item) {
       if (item.purchaseType === 'card') {
         this.selectedSpellToBuy = item;
 
@@ -626,81 +574,55 @@ export default {
         this.castStart(item, this.user);
       }
     },
-    async memberSelected(member) {
+    async memberSelected (member) {
       await this.castStart(this.selectedSpellToBuy, member);
 
       this.selectedSpellToBuy = null;
 
       if (this.user.party._id) {
-        this.$store.dispatch('party:getMembers', { forceLoad: true });
+        this.$store.dispatch('party:getMembers', {forceLoad: true});
       }
 
       this.$root.$emit('bv::hide::modal', 'select-member-modal');
     },
-    hideLoadingScreen() {
+    hideLoadingScreen () {
       this.loading = false;
     },
-    hideBanner() {
+    hideBanner () {
       this.bannerHidden = true;
     },
-    resumeDamage() {
+    resumeDamage () {
       this.$store.dispatch('user:sleep');
     },
   },
 };
 </script>
 
-<style src="intro.js/minified/introjs.min.css">
-</style>
-<style src="axios-progress-bar/dist/nprogress.css">
-</style>
-<style src="assets/scss/index.scss" lang="scss">
-</style>
-<style src="assets/css/sprites/spritesmith-largeSprites-0.css">
-</style>
-<style src="assets/css/sprites/spritesmith-main-0.css">
-</style>
-<style src="assets/css/sprites/spritesmith-main-1.css">
-</style>
-<style src="assets/css/sprites/spritesmith-main-2.css">
-</style>
-<style src="assets/css/sprites/spritesmith-main-3.css">
-</style>
-<style src="assets/css/sprites/spritesmith-main-4.css">
-</style>
-<style src="assets/css/sprites/spritesmith-main-5.css">
-</style>
-<style src="assets/css/sprites/spritesmith-main-6.css">
-</style>
-<style src="assets/css/sprites/spritesmith-main-7.css">
-</style>
-<style src="assets/css/sprites/spritesmith-main-8.css">
-</style>
-<style src="assets/css/sprites/spritesmith-main-9.css">
-</style>
-<style src="assets/css/sprites/spritesmith-main-10.css">
-</style>
-<style src="assets/css/sprites/spritesmith-main-11.css">
-</style>
-<style src="assets/css/sprites/spritesmith-main-12.css">
-</style>
-<style src="assets/css/sprites/spritesmith-main-13.css">
-</style>
-<style src="assets/css/sprites/spritesmith-main-14.css">
-</style>
-<style src="assets/css/sprites/spritesmith-main-15.css">
-</style>
-<style src="assets/css/sprites/spritesmith-main-16.css">
-</style>
-<style src="assets/css/sprites/spritesmith-main-17.css">
-</style>
-<style src="assets/css/sprites/spritesmith-main-18.css">
-</style>
-<style src="assets/css/sprites/spritesmith-main-19.css">
-</style>
-<style src="assets/css/sprites/spritesmith-main-20.css">
-</style>
-<style src="assets/css/sprites/spritesmith-main-21.css">
-</style>
-<style src="assets/css/sprites.css">
-</style>
+<style src="intro.js/minified/introjs.min.css"></style>
+<style src="axios-progress-bar/dist/nprogress.css"></style>
+<style src="assets/scss/index.scss" lang="scss"></style>
+<style src="assets/css/sprites/spritesmith-largeSprites-0.css"></style>
+<style src="assets/css/sprites/spritesmith-main-0.css"></style>
+<style src="assets/css/sprites/spritesmith-main-1.css"></style>
+<style src="assets/css/sprites/spritesmith-main-2.css"></style>
+<style src="assets/css/sprites/spritesmith-main-3.css"></style>
+<style src="assets/css/sprites/spritesmith-main-4.css"></style>
+<style src="assets/css/sprites/spritesmith-main-5.css"></style>
+<style src="assets/css/sprites/spritesmith-main-6.css"></style>
+<style src="assets/css/sprites/spritesmith-main-7.css"></style>
+<style src="assets/css/sprites/spritesmith-main-8.css"></style>
+<style src="assets/css/sprites/spritesmith-main-9.css"></style>
+<style src="assets/css/sprites/spritesmith-main-10.css"></style>
+<style src="assets/css/sprites/spritesmith-main-11.css"></style>
+<style src="assets/css/sprites/spritesmith-main-12.css"></style>
+<style src="assets/css/sprites/spritesmith-main-13.css"></style>
+<style src="assets/css/sprites/spritesmith-main-14.css"></style>
+<style src="assets/css/sprites/spritesmith-main-15.css"></style>
+<style src="assets/css/sprites/spritesmith-main-16.css"></style>
+<style src="assets/css/sprites/spritesmith-main-17.css"></style>
+<style src="assets/css/sprites/spritesmith-main-18.css"></style>
+<style src="assets/css/sprites/spritesmith-main-19.css"></style>
+<style src="assets/css/sprites/spritesmith-main-20.css"></style>
+<style src="assets/css/sprites/spritesmith-main-21.css"></style>
+<style src="assets/css/sprites/spritesmith-main-22.css"></style>
+<style src="assets/css/sprites.css"></style>

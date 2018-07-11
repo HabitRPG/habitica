@@ -98,6 +98,7 @@
     "guildQuestsNotSupported": "Gillen kan inte bli inbjudna till uppdrag.",
     "questNotOwned": "Du äger inte den där uppdragsskriftrullen.",
     "questNotGoldPurchasable": "Uppdrag \"<%= key %>\" går inte att köpa med Guld.",
+    "questNotGemPurchasable": "Quest \"<%= key %>\" is not a Gem-purchasable quest.",
     "questLevelTooHigh": "Du måste vara nivå <%= level %> för att påbörja det här uppdraget.",
     "questAlreadyUnderway": "Ditt sällskap är redan på ett uppdrag. Försök igen när det nuvarande uppdraget har avslutats.",
     "questAlreadyAccepted": "Du har redan accepterat uppdragsinbjudan.",

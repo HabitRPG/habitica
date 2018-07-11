@@ -98,6 +98,7 @@
     "guildQuestsNotSupported": "Gilden können nicht zu Quests eingeladen werden.",
     "questNotOwned": "Du besitzt diese Quest-Schriftrolle nicht.",
     "questNotGoldPurchasable": "Quest \"<%= key %>\" ist nicht mit Gold käuflich.",
+    "questNotGemPurchasable": "Quest \"<%= key %>\" is not a Gem-purchasable quest.",
     "questLevelTooHigh": "Du musst Level <%= level %> haben, um diese Quest zu starten.",
     "questAlreadyUnderway": "Deine Gruppe nimmt bereits an einer Quest teil. Versuche es erneut, wenn die Quest abgeschlossen ist.",
     "questAlreadyAccepted": "Du hast die Questeinladung bereits angenommen.",
