@@ -1,4 +1,6 @@
-import { NotFound } from '../libs/errors';
+import {
+  NotFound,
+} from '../libs/errors';
 import { serveClient } from '../libs/client';
 
 // Serve the client side unless the route starts with one of these strings
@@ -12,7 +14,6 @@ const TOP_LEVEL_ROUTES = [
   '/export',
   '/email',
   '/qr-code',
-  '/logout-server',
   // logout, old-client and /static/user/auth/local/reset-password-set-new-one don't need the not found
   // handler because they don't have any child route
 ];
@@ -20,7 +21,7 @@ const TOP_LEVEL_ROUTES = [
 module.exports = function NotFoundMiddleware (req, res, next) {
   const reqUrl = req.originalUrl;
 
-  const isExistingRoute = TOP_LEVEL_ROUTES.find((routeRoot) => {
+  const isExistingRoute = TOP_LEVEL_ROUTES.find(routeRoot => {
     if (reqUrl.lastIndexOf(routeRoot, 0) === 0) return true; // starts with
     return false;
   });
