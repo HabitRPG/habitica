@@ -6,7 +6,7 @@
 }
 .promo_armoire_backgrounds_201807 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -720px -442px;
+  background-position: -862px 0px;
   width: 141px;
   height: 441px;
 }
@@ -24,13 +24,13 @@
 }
 .promo_seafoam {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -862px 0px;
+  background-position: -720px -442px;
   width: 141px;
   height: 441px;
 }
 .promo_seasonal_shop_summer {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -518px -370px;
+  background-position: -142px -557px;
   width: 162px;
   height: 138px;
 }
@@ -63,4 +63,10 @@
   background-position: 0px 0px;
   width: 393px;
   height: 369px;
+}
+.scene_reading {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -518px -370px;
+  width: 171px;
+  height: 144px;
 }

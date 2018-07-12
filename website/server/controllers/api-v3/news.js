@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'SPLASHY SKINS';
+const LAST_ANNOUNCEMENT_TITLE = 'USE CASE SPOTLIGHT AND GUILD SPOTLIGHT ON TRAINING YOUR BRAIN';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,14 +30,18 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>7/10/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>7/12/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
-          <div class="promo_splashy_skins"></div>
         </div>
         <hr/>
-        <p>The Seasonal Edition Splashy Skins are available until July 31st! You can complete your summer avatar look with Clownfish, Deep Ocean, Tropical Water, Mergold, Mergreen, Merblue, Merruby, and Shark Skins.</p>
-        <p>This Seasonal Edition customization set will only be available to purchase until July 31st, after which they'll be gone until next year, so be sure to swoop them up now! You can find them in User > Edit Avatar!</p>
-        <div class="small mb-3">by Lemoness and UncommonCriminal</div>
+        <div class="media align-items-center">
+          <div class="media-body">
+            <p>We've got new posts on the blog all about ways to use Habitica to help with challenging your mind and keeping it sharp! First, there's a <a href='https://habitica.wordpress.com/2018/07/12/coalitions-of-the-quick-witted-guilds-for-training-your-brain/' target='_blank'>Guild Spotlight</a> that highlights some of the Guilds that can help you as you explore ways to use Habitica to enhance your brain training routine. We've also posted a <a href='https://habitica.wordpress.com/2018/07/12/use-case-spotlight-training-your-brain/' target='_blank'>Use Case Spotlight</a> featuring a number of great suggestions for using Habitica's task system to manage your mind-aerobics! These suggestions were submitted by Habiticans in the <a href='/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6' target='_blank'>Use Case Spotlights Guild</a>.</p>
+          </div>
+          <div class="scene_reading ml-3 mb-3"></div>
+        </div>
+        <p>Plus, we're collecting user submissions for the next Use Case Spotlight! What are your tips for getting involved in Habitica's exciting <a href='https://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'>contributor community</a>? We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!</p>
+        <div class="small mb-3">by Beffymaroo and the Wiki Wizards</div>
       </div>
       `,
     });
