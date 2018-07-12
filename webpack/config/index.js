@@ -62,7 +62,7 @@ module.exports = {
         target: DEV_BASE_URL,
         changeOrigin: true,
       },
-      '/logout': {
+      '/logout-server': {
         target: DEV_BASE_URL,
         changeOrigin: true,
       },
