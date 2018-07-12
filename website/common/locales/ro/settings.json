@@ -72,7 +72,7 @@
     "APIToken": "Tokern API (aceasta este ca o parolă - a se vedea atenționarea de mai sus!)",
     "showAPIToken": "Arată Token-ul API",
     "hideAPIToken": "Ascunde Token-ul API",
-    "APITokenWarning": "If you need a new API Token (e.g., if you accidentally shared it), email <%= hrefTechAssistanceEmail %> with your User ID and current Token. Once it is reset you will need to re-authorize everything by logging out of the website and mobile app and by providing the new Token to any other Habitica tools that you use.",
+    "APITokenWarning": "Dacă ai nevoie de un nou Token API (ex.: dacă l-ai distribuit din greșeală), trimite un email la <%= hrefTechAssistanceEmail %> cu ID-ul tău de Utilizator și Token-ul actual. Odată resetat, va trebui să reautorizezi totul de-logându-te de pe site și de pe aplicația de mobil și folosind noul Token pe oricare alt instrument Habitica pe care-l folosești.",
     "thirdPartyApps": "Aplicații Third Party",
     "dataToolDesc": "O pagină web care arată anumite informații din contul tău Habitica, cum arfi statistici despre sarcini, echipament și abilități.",
     "beeminder": "Beeminder",
@@ -122,7 +122,7 @@
     "invitedParty": "Invited To Party",
     "invitedGuild": "Invited To Guild",
     "importantAnnouncements": "Memento de intrare și completare a sarcinilor, și primire a premiilor",
-    "weeklyRecaps": "Summaries of your account activity in the past week (Note: this is currently disabled due to performance issues, but we hope to have this back up and sending e-mails again soon!)",
+    "weeklyRecaps": "Rezumate ale activității din contul tău în ultima săptămână (Notă: această opțiune este momentan dezactivată din cauza unor probleme legate de performanță, dar sperăm să avem opțiunea disponibilă din nou în curând, la și vom trimite din nou email-uri nu peste mult timp!)",
     "onboarding": "Ghid pentru setarea contului tău Habitica",
     "questStarted": "Your Quest has Begun",
     "invitedQuest": "Invited to Quest",
@@ -185,7 +185,7 @@
     "amazonPayments": "Plată prin Amazon",
     "timezone": "Fus orar",
     "timezoneUTC": "Habitica folosește fusul orar al calculatorului dumneavoastră, anume: <strong><%= utc %></strong>",
-    "timezoneInfo": "If that time zone is wrong, first reload this page using your browser's reload or refresh button to ensure that Habitica has the most recent information. If it is still wrong, adjust the time zone on your PC and then reload this page again.<br><br> <strong>If you use Habitica on other PCs or mobile devices, the time zone must be the same on them all.</strong> If your Dailies have been resetting at the wrong time, repeat this check on all other PCs and on a browser on your mobile devices.",
+    "timezoneInfo": "Dacă acest fus orar este greșit, întâi te rugăm să dai refresh paginii folosind butonul de reload sau refresh, ca să te asiguri că Habitica deține cele mai recente informații. Dacă este în continuare greșit, ajustează fusul orar în PC-ul tău și apoi dă refresh paginii din nou. <br><br><strong>Dacă folosești Habitica pe alte PC-uri sau dispozitive mobile, fusul orar trebuie să fie același pe toate.</strong> Dacă ale tale Cotidiene au fost resetate la momentul nepotrivit, repetă verificarea pe toate PC-urile și într-un broweser al dispozitivelor mobile deținute.",
     "push": "Push",
     "about": "Despre"
 }
