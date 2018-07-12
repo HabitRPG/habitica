@@ -478,7 +478,7 @@ export function chatDefaults (msg, user) {
   const message = {
     id,
     _id: id,
-    text: msg,
+    text: msg.substring(0, 3000),
     timestamp: Number(new Date()),
     likes: {},
     flags: {},
