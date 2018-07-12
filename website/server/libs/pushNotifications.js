@@ -2,9 +2,6 @@ import _ from 'lodash';
 import nconf from 'nconf';
 import apn from 'apn';
 import logger from './logger';
-import {
-  S3,
-} from './aws';
 import gcmLib from 'node-gcm'; // works with FCM notifications too
 
 const FCM_API_KEY = nconf.get('PUSH_CONFIGS:FCM_SERVER_API_KEY');
@@ -14,24 +11,16 @@ const fcmSender = FCM_API_KEY ? new gcmLib.Sender(FCM_API_KEY) : undefined;
 let apnProvider;
 // Load APN certificate and key from S3
 const APN_ENABLED = nconf.get('PUSH_CONFIGS:APN_ENABLED') === 'true';
-const S3_BUCKET = nconf.get('S3:bucket');
 
 if (APN_ENABLED) {
-  S3.getObject({
-    Bucket: S3_BUCKET,
-    Key: 'apple_apn/APNsAuthKey.p8',
-  }).promise().then((data) => {
-    const key = data.Body.toString();
-
-    apnProvider = APN_ENABLED ? new apn.Provider({
-      token: {
-        key,
-        keyId: nconf.get('PUSH_CONFIGS:APN_KEY_ID'),
-        teamId: nconf.get('PUSH_CONFIGS:APN_TEAM_ID'),
-      },
-      production: nconf.get('IS_PROD'),
-    }) : undefined;
-  });
+  apnProvider = APN_ENABLED ? new apn.Provider({
+    token: {
+      key: nconf.get('PUSH_CONFIGS:APN_KEY'),
+      keyId: nconf.get('PUSH_CONFIGS:APN_KEY_ID'),
+      teamId: nconf.get('PUSH_CONFIGS:APN_TEAM_ID'),
+    },
+    production: nconf.get('IS_PROD'),
+  }) : undefined;
 }
 
 function sendNotification (user, details = {}) {
@@ -70,6 +59,7 @@ function sendNotification (user, details = {}) {
             alert: details.message,
             sound: 'default',
             category: details.category,
+            topic: 'com.habitrpg.ios.Habitica',
             payload,
           });
           apnProvider.send(notification, pushDevice.regId)
