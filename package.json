@@ -58,7 +58,7 @@
     "js2xmlparser": "^3.0.0",
     "lodash": "^4.17.10",
     "merge-stream": "^1.0.0",
-    "method-override": "^2.3.5",
+    "method-override": "^3.0.0",
     "moment": "^2.22.1",
     "moment-recur": "^1.0.7",
     "mongoose": "^5.1.2",
