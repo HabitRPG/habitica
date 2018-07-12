@@ -12,8 +12,16 @@
 }
 
 .modal {
-  top: 75px;
+  top: 50px;
 }
+
+.restingInn {
+  .modal {
+    top: 90px;
+  }
+}
+
+
 
 .modal-dialog {
   width: auto;
