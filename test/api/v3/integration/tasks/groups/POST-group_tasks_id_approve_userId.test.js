@@ -153,7 +153,7 @@ describe('POST /tasks/:id/approve/:userId', () => {
     await user.post(`/tasks/${sharedCompletionTask._id}/assign/${member2._id}`);
     await user.post(`/tasks/${sharedCompletionTask._id}/approve/${member._id}`);
 
-    let groupTasks = await user.get(`/tasks/group/${guild._id}`);
+    let groupTasks = await user.get(`/tasks/group/${guild._id}?type=completedTodos`);
 
     let masterTask = await find(groupTasks, (groupTask) => {
       return groupTask._id === sharedCompletionTask._id;

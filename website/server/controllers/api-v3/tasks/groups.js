@@ -16,7 +16,9 @@ import apiError from '../../../libs/apiError';
 import reduce from 'lodash/reduce';
 
 let requiredGroupFields = '_id leader tasksOrder name';
+// @TODO: abstract to task lib
 let types = Tasks.tasksTypes.map(type => `${type}s`);
+types.push('completedTodos', '_allCompletedTodos'); // _allCompletedTodos is currently in BETA and is likely to be removed in future
 
 function canNotEditTasks (group, user, assignedUserId) {
   let isNotGroupLeader = group.leader !== user._id;

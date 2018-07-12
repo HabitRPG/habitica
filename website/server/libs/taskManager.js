@@ -184,11 +184,12 @@ export async function getTasks (req, res, options = {}) {
         limit = 0; // no limit
       }
 
-      query = {
-        userId: user._id,
-        type: 'todo',
-        completed: true,
-      };
+      query.type = 'todo';
+      query.completed = true;
+
+      if (owner._id === user._id) {
+        query.userId = user._id;
+      }
 
       sort = {
         dateCompleted: -1,
