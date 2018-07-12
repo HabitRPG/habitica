@@ -336,19 +336,23 @@ export default {
         let emailCheck = false;
         let passwordCheck = false;
         // show only the first error for each param
-        for (let e of errorData.errors) {
-          if (!usernameCheck && e.param === 'username') {
-            errorsToShow.push(e.message);
-            usernameCheck = true;
+        if (errorData.errors) {
+          for (let e of errorData.errors) {
+            if (!usernameCheck && e.param === 'username') {
+              errorsToShow.push(e.message);
+              usernameCheck = true;
+            }
+            if (!emailCheck && e.param === 'email') {
+              errorsToShow.push(e.message);
+              emailCheck = true;
+            }
+            if (!passwordCheck && e.param === 'password') {
+              errorsToShow.push(e.message);
+              passwordCheck = true;
+            }
           }
-          if (!emailCheck && e.param === 'email') {
-            errorsToShow.push(e.message);
-            emailCheck = true;
-          }
-          if (!passwordCheck && e.param === 'password') {
-            errorsToShow.push(e.message);
-            passwordCheck = true;
-          }
+        } else {
+          errorsToShow.push(errorMessage);
         }
         // dispatch as one snackbar notification
         this.$store.dispatch('snackbars:add', {
