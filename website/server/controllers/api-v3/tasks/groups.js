@@ -384,17 +384,12 @@ api.approveTask = {
         approvalPromises.push(taskToRemove.remove());
       });
     } else if (task.type === 'todo' && masterTask && masterTask.group && masterTask.group.sharedCompletion === 'allAssignedCompletion') {
-      let allAssignedComplete = await reduce(masterTask.group.assignedUsers, async (result, id) => {
-        if (result === false || id === assignedUser._id) return result;
-        const assignedTask = await Tasks.Task.findOne({
-          userId: id,
-          'group.taskId': task.group.taskId,
-        });
-        if (!assignedTask.group.approval.approved) return false;
-        return true;
-      });
+      const completions = await Tasks.Task.count({
+        'group.taskId': task.group.taskId,
+        'group.approval.approved': true,
+      }).exec();
 
-      if (allAssignedComplete) {
+      if (completions >= masterTask.group.assignedUsers.length - 1) {
         masterTask.completed = true;
         approvalPromises.push(masterTask.save());
       }

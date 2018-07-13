@@ -155,10 +155,53 @@ describe('POST /tasks/:id/approve/:userId', () => {
 
     let groupTasks = await user.get(`/tasks/group/${guild._id}?type=completedTodos`);
 
-    let masterTask = await find(groupTasks, (groupTask) => {
+    let masterTask = find(groupTasks, (groupTask) => {
       return groupTask._id === sharedCompletionTask._id;
     });
 
-    await expect(masterTask.completed).to.equal(true);
+    expect(masterTask.completed).to.equal(true);
+  });
+
+  it('does not complete master task when not all user tasks are approved if all assigned must complete', async () => {
+    let sharedCompletionTask = await user.post(`/tasks/group/${guild._id}`, {
+      text: 'shared completion todo',
+      type: 'todo',
+      requiresApproval: true,
+      sharedCompletion: 'allAssignedCompletion',
+    });
+
+    await user.post(`/tasks/${sharedCompletionTask._id}/assign/${member._id}`);
+    await user.post(`/tasks/${sharedCompletionTask._id}/assign/${member2._id}`);
+    await user.post(`/tasks/${sharedCompletionTask._id}/approve/${member._id}`);
+
+    let groupTasks = await user.get(`/tasks/group/${guild._id}`);
+
+    let masterTask = find(groupTasks, (groupTask) => {
+      return groupTask._id === sharedCompletionTask._id;
+    });
+
+    expect(masterTask.completed).to.equal(false);
+  });
+
+  it('completes master task when all user tasks are approved if all assigned must complete', async () => {
+    let sharedCompletionTask = await user.post(`/tasks/group/${guild._id}`, {
+      text: 'shared completion todo',
+      type: 'todo',
+      requiresApproval: true,
+      sharedCompletion: 'allAssignedCompletion',
+    });
+
+    await user.post(`/tasks/${sharedCompletionTask._id}/assign/${member._id}`);
+    await user.post(`/tasks/${sharedCompletionTask._id}/assign/${member2._id}`);
+    await user.post(`/tasks/${sharedCompletionTask._id}/approve/${member._id}`);
+    await user.post(`/tasks/${sharedCompletionTask._id}/approve/${member2._id}`);
+
+    let groupTasks = await user.get(`/tasks/group/${guild._id}?type=completedTodos`);
+
+    let masterTask = find(groupTasks, (groupTask) => {
+      return groupTask._id === sharedCompletionTask._id;
+    });
+
+    expect(masterTask.completed).to.equal(true);
   });
 });

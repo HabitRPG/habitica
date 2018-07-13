@@ -1415,6 +1415,7 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
 
   matchingTask.group.approval.required = taskToSync.group.approval.required;
   matchingTask.group.assignedUsers = taskToSync.group.assignedUsers;
+  matchingTask.group.sharedCompletion = taskToSync.group.sharedCompletion;
 
   //  sync checklist
   if (taskToSync.checklist) {
