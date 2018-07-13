@@ -5,6 +5,7 @@ import {
 } from '../../libs/webhook';
 import { removeFromArray } from '../../libs/collectionManipulators';
 import * as Tasks from '../../models/task';
+import * as groupTasks from '../../libs/groupTasks';
 import { model as Challenge } from '../../models/challenge';
 import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
@@ -657,35 +658,9 @@ api.scoreTask = {
       task.save(),
     ];
 
-    // Handle shared completion
-    if (task.type === 'todo' && direction === 'up' && task.group && !task.group.approval.required && task.group.sharedCompletion === 'singleCompletion') {
-      let masterTask = await Tasks.Task.findOne({
-        _id: task.group.taskId,
-      }).exec();
-
-      masterTask.completed = true;
-      promises.push(masterTask.save());
-
-      await Tasks.Task.deleteMany({
-        'group.taskId': task.group.taskId,
-        $and: [
-          {userId: {$exists: true}},
-          {userId: {$ne: user._id}},
-        ],
-      }).exec();
-    } else if (task.type === 'todo' && direction === 'up' && task.group && !task.group.approval.required && task.group.sharedCompletion === 'allAssignedCompletion') {
-      let masterTask = await Tasks.Task.findOne({
-        _id: task.group.taskId,
-      }).exec();
-      const completions = await Tasks.Task.count({
-        'group.taskId': task.group.taskId,
-        completed: true,
-      }).exec();
-
-      if (completions >= masterTask.group.assignedUsers.length) {
-        masterTask.completed = true;
-        promises.push(masterTask.save());
-      }
+    if (task.group && task.group.taskId) {
+      let masterTask = await groupTasks.handleSharedCompletion(task);
+      if (masterTask) promises.push(masterTask.save());
     }
 
     // Save results and handle request

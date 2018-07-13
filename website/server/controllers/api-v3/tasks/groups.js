@@ -12,6 +12,7 @@ import {
   getTasks,
   moveTask,
 } from '../../../libs/taskManager';
+import * as groupTasks from '../../../libs/groupTasks';
 import apiError from '../../../libs/apiError';
 
 let requiredGroupFields = '_id leader tasksOrder name';
@@ -364,33 +365,8 @@ api.approveTask = {
       direction,
     });
 
-    // Handle shared completion
-    let masterTask = await Tasks.Task.findOne({
-      _id: taskId,
-    }).exec();
-
-    if (task.type === 'todo' && masterTask && masterTask.group && masterTask.group.sharedCompletion === 'singleCompletion') {
-      masterTask.completed = true;
-      approvalPromises.push(masterTask.save());
-
-      await Tasks.Task.deleteMany({
-        'group.taskId': task.group.taskId,
-        $and: [
-          {userId: {$exists: true}},
-          {userId: {$ne: assignedUser._id}},
-        ],
-      }).exec();
-    } else if (task.type === 'todo' && masterTask && masterTask.group && masterTask.group.sharedCompletion === 'allAssignedCompletion') {
-      const completions = await Tasks.Task.count({
-        'group.taskId': task.group.taskId,
-        'group.approval.approved': true,
-      }).exec();
-
-      if (completions >= masterTask.group.assignedUsers.length - 1) {
-        masterTask.completed = true;
-        approvalPromises.push(masterTask.save());
-      }
-    }
+    let masterTask = await groupTasks.handleSharedCompletion(task);
+    if (masterTask) approvalPromises.push(masterTask.save());
 
     approvalPromises.push(task.save());
     approvalPromises.push(assignedUser.save());
