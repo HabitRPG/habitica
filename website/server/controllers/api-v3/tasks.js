@@ -666,17 +666,13 @@ api.scoreTask = {
       masterTask.completed = true;
       promises.push(masterTask.save());
 
-      const tasksToRemove = await Tasks.Task.find({
+      await Tasks.Task.deleteMany({
         'group.taskId': task.group.taskId,
         $and: [
           {userId: {$exists: true}},
           {userId: {$ne: user._id}},
         ],
       }).exec();
-
-      tasksToRemove.forEach(async (taskToRemove) => {
-        promises.push(taskToRemove.remove());
-      });
     } else if (task.type === 'todo' && direction === 'up' && task.group && !task.group.approval.required && task.group.sharedCompletion === 'allAssignedCompletion') {
       let masterTask = await Tasks.Task.findOne({
         _id: task.group.taskId,

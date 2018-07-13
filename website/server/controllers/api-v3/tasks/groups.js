@@ -13,7 +13,6 @@ import {
   moveTask,
 } from '../../../libs/taskManager';
 import apiError from '../../../libs/apiError';
-import reduce from 'lodash/reduce';
 
 let requiredGroupFields = '_id leader tasksOrder name';
 // @TODO: abstract to task lib
@@ -373,16 +372,14 @@ api.approveTask = {
     if (task.type === 'todo' && masterTask && masterTask.group && masterTask.group.sharedCompletion === 'singleCompletion') {
       masterTask.completed = true;
       approvalPromises.push(masterTask.save());
-      const tasksToRemove = await Tasks.Task.find({
-        'group.taskId': taskId,
+
+      await Tasks.Task.deleteMany({
+        'group.taskId': task.group.taskId,
         $and: [
           {userId: {$exists: true}},
-          {userId: {$ne: assignedUserId}},
+          {userId: {$ne: assignedUser._id}},
         ],
       }).exec();
-      tasksToRemove.forEach(async (taskToRemove) => {
-        approvalPromises.push(taskToRemove.remove());
-      });
     } else if (task.type === 'todo' && masterTask && masterTask.group && masterTask.group.sharedCompletion === 'allAssignedCompletion') {
       const completions = await Tasks.Task.count({
         'group.taskId': task.group.taskId,

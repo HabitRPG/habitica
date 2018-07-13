@@ -163,6 +163,33 @@ describe('POST /tasks/:id/score/:direction', () => {
     expect(masterTask.completed).to.equal(true);
   });
 
+  it('deletes other assigned user tasks when single-completion task is completed', async () => {
+    let sharedCompletionTask = await user.post(`/tasks/group/${guild._id}`, {
+      text: 'shared completion todo',
+      type: 'todo',
+      requiresApproval: false,
+      sharedCompletion: 'singleCompletion',
+    });
+
+    await user.post(`/tasks/${sharedCompletionTask._id}/assign/${member._id}`);
+    await user.post(`/tasks/${sharedCompletionTask._id}/assign/${member2._id}`);
+    let memberTasks = await member.get('/tasks/user');
+
+    let syncedTask = find(memberTasks, (memberTask) => {
+      return memberTask.group.taskId === sharedCompletionTask._id;
+    });
+
+    await member.post(`/tasks/${syncedTask._id}/score/up`);
+
+    let member2Tasks = await member2.get('/tasks/user');
+
+    let syncedTask2 = find(member2Tasks, (memberTask) => {
+      return memberTask.group.taskId === sharedCompletionTask._id;
+    });
+
+    expect(syncedTask2).to.equal(undefined);
+  });
+
   it('does not complete master task when not all user tasks are completed if all assigned must complete', async () => {
     let sharedCompletionTask = await user.post(`/tasks/group/${guild._id}`, {
       text: 'shared completion todo',
