@@ -3,7 +3,7 @@
   challenge-modal(v-on:updatedChallenge='updatedChallenge')
   leave-challenge-modal(:challengeId='challenge._id')
   close-challenge-modal(:members='members', :challengeId='challenge._id')
-  challenge-member-progress-modal(:memberId='progressMemberId', :challengeId='challenge._id')
+  challenge-member-progress-modal(:challengeId='challenge._id')
   .col-12.col-md-8.standard-page
     .row
       .col-12.col-md-6
@@ -231,7 +231,6 @@ export default {
       creatingTask: {},
       workingTask: {},
       taskFormPurpose: 'create',
-      progressMemberId: '',
       searchTerm: '',
       memberResults: [],
     };
@@ -345,6 +344,7 @@ export default {
       this.tasksByType[task.type].splice(index, 1);
     },
     showMemberModal () {
+      // @TODO: Change these to options and add a custom event to members modal
       this.$store.state.memberModalOptions.challengeId = this.challenge._id;
       this.$store.state.memberModalOptions.groupId = 'challenge'; // @TODO: change these terrible settings
       this.$store.state.memberModalOptions.group = this.group;
@@ -374,8 +374,9 @@ export default {
       Object.assign(this.challenge, eventData.challenge);
     },
     openMemberProgressModal (member) {
-      this.progressMemberId = member._id;
-      this.$root.$emit('bv::show::modal', 'challenge-member-modal');
+      this.$root.$emit('habitica:challenge:member-progress', {
+        progressMemberId: member._id,
+      });
     },
     async exportChallengeCsv () {
       // let response = await this.$store.dispatch('challenges:exportChallengeCsv', {
