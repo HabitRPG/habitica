@@ -318,7 +318,7 @@ export default {
     async shown () {
       this.groups = await this.$store.dispatch('guilds:getMyGuilds');
 
-      if (this.user.party) {
+      if (this.user.party && this.user.party._id) {
         await this.$store.dispatch('party:getParty');
         const party = this.$store.state.party.data;
         if (party._id) {
