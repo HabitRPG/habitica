@@ -1,6 +1,6 @@
 <template lang="pug">
 transition(name="fade")
-  .notification.callout.animated(:class="classes", v-if='show', @click='show = false')
+  .notification.callout.animated(:class="classes", v-if='show', @click='handleOnClick()')
     .row(v-if='notification.type === "error"')
       .text.col-12
         div(v-html='notification.text')
@@ -141,6 +141,15 @@ export default {
   },
   beforeDestroy () {
     clearTimeout(this.timer);
+  },
+  methods: {
+    handleOnClick () {
+      if (typeof this.notification.onClick === 'function') {
+        this.notification.onClick();
+      }
+
+      this.show = false;
+    },
   },
   watch: {
     show () {
