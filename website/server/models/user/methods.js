@@ -7,8 +7,8 @@ import {
   model as Group,
 } from '../group';
 
-import { defaults, map, flatten, flow, compact, uniq, partialRight } from 'lodash';
-import { model as UserNotification } from '../userNotification';
+import {defaults, map, flatten, flow, compact, uniq, partialRight, filter, isEqual} from 'lodash';
+import {model as UserNotification} from '../userNotification';
 import schema from './schema';
 import payments from '../../libs/payments/payments';
 import amazonPayments from '../../libs/payments/amazon';
@@ -150,11 +150,17 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, o
  * @param  seen  If the notification should be marked as seen
  */
 schema.methods.addNotification = function addUserNotification (type, data = {}, seen = false) {
-  this.notifications.push({
-    type,
-    data,
-    seen,
-  });
+  // only check if chat notification exists
+  const notifactionAlreadyExists = type === 'NEW_CHAT_MESSAGE' ?
+    filter(this.notifications, n => n.type === type && isEqual(n.data, data)) : -1;
+
+  if (notifactionAlreadyExists === -1) {
+    this.notifications.push({
+      type,
+      data,
+      seen,
+    });
+  }
 };
 
 /**
