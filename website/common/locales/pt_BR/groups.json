@@ -255,7 +255,7 @@
     "confirmApproval": "Você tem certeza que quer aprovar esta tarefa?",
     "confirmNeedsWork": "Você tem certeza de que quer marcar esta tarefa para revisão?",
     "userRequestsApproval": "<%= userName %> solicita aprovação",
-    "userCountRequestsApproval": "<%= userCount %> members request approval",
+    "userCountRequestsApproval": "<%= userCount %> membros solicitam aprovação",
     "youAreRequestingApproval": "Você está solicitando a aprovação",
     "chatPrivilegesRevoked": "Você não pode fazer isso pois seus privilégios de chat foram revogados.",
     "cannotCreatePublicGuildWhenMuted": "Você não pode criar uma Guilda pública porque seus privilégios de chat foram revogados",

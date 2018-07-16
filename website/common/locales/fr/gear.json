@@ -347,7 +347,7 @@
     "weaponArmoireGlassblowersBlowpipeText": "Canne de verrier",
     "weaponArmoireGlassblowersBlowpipeNotes": "Utilisez ce tube pour souffler du verre et former des magnifiques vases, ornements ou d’autres trucs fantaisistes. Augmente la Force de <%= str %>. Armoire enchantée : ensemble du souffleur de verre (objet 1 sur 4).",
     "weaponArmoirePoisonedGobletText": "Poisoned Goblet",
-    "weaponArmoirePoisonedGobletNotes": "Use this to build your resistance to iocane powder and other inconceivably dangerous poisons. Increases Intelligence by <%= int %>. Enchanted Armoire: Piratical Princess Set (Item 3 of 4).",
+    "weaponArmoirePoisonedGobletNotes": "Servez-vous de ceci pour augmenter votre résistance à l'iocane en poudre et autres poisons incroyablement dangereux. Augmente l'Intelligence de <%= int %>. Armoire enchantée : ensemble de princesse de la piraterie (objet 3 sur 4).",
     "armor": "armure",
     "armorCapitalized": "Armure",
     "armorBase0Text": "Habit simple",

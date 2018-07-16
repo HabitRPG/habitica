@@ -1162,7 +1162,7 @@
     "headArmoireBigWigNotes": "Някои напудрени перуки придават авторитет, но тази е само за смях! Увеличава силата с <%= str %>. Омагьосан гардероб: независим предмет.",
     "headArmoireGlassblowersHatText": "Шапка на стъклодухач",
     "headArmoireGlassblowersHatNotes": "Тази шапка просто си отива с останалото защитно облекло на стъклодухач! Увеличава усета с <%= per %>. Омагьосан гардероб: комплект „Стъклодухач“ (предмет 3 от 4).",
-    "headArmoirePiraticalPrincessHeaddressText": "Piratical Princess Headdress",
+    "headArmoirePiraticalPrincessHeaddressText": "Украса за глава на пиратска принцеса",
     "headArmoirePiraticalPrincessHeaddressNotes": "Пиратите са известни с причудливите неща, които носят на главите си! Увеличава усета и интелигентността с по <%= attrs %>. Омагьосан гардероб: комплект „Пиратска принцеса“ (предмет 1 от 4).",
     "offhand": "страничен предмет",
     "offhandCapitalized": "Страничен предмет",
