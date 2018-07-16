@@ -450,6 +450,7 @@ export default {
 
     if (this.type !== 'todo') return;
     this.$root.$on('habitica::resync-requested', () => {
+      if (this.activeFilter.label !== 'complete2') return;
       this.loadCompletedTodos(true);
     });
   },
