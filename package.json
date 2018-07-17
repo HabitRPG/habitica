@@ -68,7 +68,7 @@
     "node-gcm": "^0.14.4",
     "node-sass": "^4.9.0",
     "nodemailer": "^4.6.4",
-    "ora": "^2.1.0",
+    "ora": "^3.0.0",
     "pageres": "^4.1.1",
     "passport": "^0.4.0",
     "passport-facebook": "^2.0.0",
