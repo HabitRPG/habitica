@@ -1547,7 +1547,7 @@
     "headAccessoryMystery301405Text": "Lunettes frontales",
     "headAccessoryMystery301405Notes": "\"Les lunettes c'est pour les yeux,\" disaient-ils. \"Personne ne voudrait de lunettes qu'on ne peut porter que sur la tête\" disaient-ils. Ha ! Vous leur avez bien montré ! N'apportent aucun bonus. Équipement d'abonné·e d'août 3015.",
     "headAccessoryArmoireComicalArrowText": "Flèche comique",
-    "headAccessoryArmoireComicalArrowNotes": "Cet objet saugrenu n'apporte aucune amélioration à vos statistiques, mais au moins il fait rire ! Augmente la Force de <%= str %>. Armoire enchantée : objet indépendant.",
+    "headAccessoryArmoireComicalArrowNotes": "Cet objet saugrenu fait rire à coup sûr ! Augmente la Force de <%= str %>. Armoire enchantée : objet indépendant.",
     "eyewear": "Lunettes",
     "eyewearCapitalized": "Lunettes",
     "eyewearBase0Text": "Pas de Lunettes",
