@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'iOS APP UPDATE!';
+const LAST_ANNOUNCEMENT_TITLE = 'NEW PET QUEST: SEA SERPENT!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,18 +30,17 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>7/16/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>7/17/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
         <div class="media align-items-center">
           <div class="media-body">
-            <p>We've updated our <a href='https://itunes.apple.com/us/app/habitica-gamified-taskmanager/id994882113?mt=8' target='_blank'>iOS app</a>! Lots of pages have been upgraded, including Tasks, Equipment, Guilds, and Parties. We’ve also added sound effects, hooray! You can now also delete your account from within the app. We also smashed a number of pesky bugs, including display issues with Parties, Items, and backgrounds, some bugs with To-Do due dates and more!</p>
-            <p>We hope you enjoy the update! Be sure to download it now for a better Habitica experience.</p>
-            <p>If you like the improvements that we’ve been making to our app, please consider reviewing this new version. It really helps us out! Old reviews get hidden with each update, but if you go to the review section you can re-post them again with a single tap.</p>
-            <div class="small mb-3">by viirus and piyo</div>
+            <p>A submersible expedition launching from the Diligent Docks turns to danger when a mighty Sea Serpent swims into the picture! Get the latest pet quest, <a href="/shops/quests" target="_blank">Danger in the Depths: Sea Serpent Strike!</a>, and earn some shimmering Sea Serpent pets by completing your real-life tasks.</p>
+            <div class="small">Art by Aries Faries, Witticaster, *~Seraphina~, Mara, and 1920-kun</div>
+            <div class="small mb-3">Writing by gwyllgi</div>
           </div>
-          <div class="promo_ios ml-3 mb-3"></div>
+          <div class="promo_seaserpent ml-3 mb-3"></div>
         </div>
       </div>
       `,

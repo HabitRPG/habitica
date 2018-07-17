@@ -23,7 +23,7 @@ const featuredItems = {
   quests: [
     {
       type: 'quests',
-      path: 'quests.dilatory_derby',
+      path: 'quests.seaserpent',
     },
     {
       type: 'quests',
