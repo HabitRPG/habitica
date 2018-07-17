@@ -6,8 +6,9 @@ const SHARED_COMPLETION = {
   every: 'allAssignedCompletion',
 };
 
-async function _completeMasterTask (taskId) {
-  await Tasks.Task.update({_id: taskId}, {$set: {completed: true}}).exec();
+async function _completeMasterTask (masterTask) {
+  masterTask.completed = true;
+  await masterTask.save();
 }
 
 async function _deleteUnfinishedTasks (groupMemberTask) {
@@ -35,7 +36,7 @@ async function _evaluateAllAssignedCompletion (masterTask) {
     }).exec();
   }
   if (completions >= masterTask.group.assignedUsers.length) {
-    await _completeMasterTask(masterTask._id);
+    await _completeMasterTask(masterTask);
   }
 }
 
@@ -48,7 +49,7 @@ async function handleSharedCompletion (groupMemberTask) {
 
   if (masterTask.group.sharedCompletion === SHARED_COMPLETION.single) {
     await _deleteUnfinishedTasks(groupMemberTask);
-    await _completeMasterTask(masterTask._id);
+    await _completeMasterTask(masterTask);
   } else if (masterTask.group.sharedCompletion === SHARED_COMPLETION.every) {
     await _evaluateAllAssignedCompletion(masterTask);
   }
