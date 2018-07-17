@@ -12,7 +12,7 @@ import {
   getTasks,
   moveTask,
 } from '../../../libs/taskManager';
-import * as groupTasks from '../../../libs/groupTasks';
+import { handleSharedCompletion } from '../../../libs/groupTasks';
 import apiError from '../../../libs/apiError';
 
 let requiredGroupFields = '_id leader tasksOrder name';
@@ -365,8 +365,7 @@ api.approveTask = {
       direction,
     });
 
-    let masterTask = await groupTasks.handleSharedCompletion(task);
-    if (masterTask) approvalPromises.push(masterTask.save());
+    await handleSharedCompletion(task);
 
     approvalPromises.push(task.save());
     approvalPromises.push(assignedUser.save());

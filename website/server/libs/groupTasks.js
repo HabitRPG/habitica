@@ -1,7 +1,7 @@
 import * as Tasks from '../models/task';
 
 const SHARED_COMPLETION = {
-  default: 'individualCompletion',
+  default: 'recurringCompletion',
   single: 'singleCompletion',
   every: 'allAssignedCompletion',
 };
@@ -35,7 +35,7 @@ async function _evaluateAllAssignedCompletion (masterTask) {
     }).exec();
   }
   if (completions >= masterTask.group.assignedUsers.length) {
-    _completeMasterTask(masterTask._id);
+    await _completeMasterTask(masterTask._id);
   }
 }
 
@@ -47,10 +47,10 @@ async function handleSharedCompletion (groupMemberTask) {
   if (!masterTask || !masterTask.group || masterTask.type !== 'todo') return;
 
   if (masterTask.group.sharedCompletion === SHARED_COMPLETION.single) {
-    _deleteUnfinishedTasks(groupMemberTask);
-    _completeMasterTask(masterTask._id);
+    await _deleteUnfinishedTasks(groupMemberTask);
+    await _completeMasterTask(masterTask._id);
   } else if (masterTask.group.sharedCompletion === SHARED_COMPLETION.every) {
-    _evaluateAllAssignedCompletion();
+    await _evaluateAllAssignedCompletion(masterTask);
   }
 }
 

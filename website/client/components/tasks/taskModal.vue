@@ -189,7 +189,7 @@
             label(v-once) {{ $t('sharedCompletion') }}
             b-dropdown.inline-dropdown(:text="$t(sharedCompletion)")
               b-dropdown-item(
-                v-for="completionOption in ['individualCompletion', 'singleCompletion', 'allAssignedCompletion']",
+                v-for="completionOption in ['recurringCompletion', 'singleCompletion', 'allAssignedCompletion']",
                 :key="completionOption",
                 @click="sharedCompletion = completionOption",
                 :class="{active: sharedCompletion === completionOption}"
@@ -700,7 +700,7 @@ export default {
         calendar: calendarIcon,
       }),
       requiresApproval: false, // We can't set task.group fields so we use this field to toggle
-      sharedCompletion: 'individualCompletion',
+      sharedCompletion: 'recurringCompletion',
       members: [],
       memberNamesById: {},
       assignedMembers: [],
@@ -821,7 +821,7 @@ export default {
         });
         this.assignedMembers = [];
         if (this.task.group && this.task.group.assignedUsers) this.assignedMembers = this.task.group.assignedUsers;
-        if (this.task.group) this.sharedCompletion = this.task.group.sharedCompletion || 'individualCompletion';
+        if (this.task.group) this.sharedCompletion = this.task.group.sharedCompletion || 'recurringCompletion';
       }
 
       // @TODO: This whole component is mutating a prop and that causes issues. We need to not copy the prop similar to group modals
