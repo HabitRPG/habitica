@@ -97,11 +97,6 @@ function sendSubscriptionNotification ({
   });
 }
 
-module.exports = {
-  sendFlagNotification,
-  sendSubscriptionNotification,
-};
-
 function sendSlurNotification ({
   authorEmail,
   author,
