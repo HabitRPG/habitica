@@ -3,6 +3,9 @@ import * as Tasks from '../models/task';
 import {
   BadRequest,
 } from './errors';
+import {
+  SHARED_COMPLETION,
+} from './groupTasks';
 import _ from 'lodash';
 import shared from '../../common';
 
@@ -96,7 +99,7 @@ export async function createTasks (req, res, options = {}) {
       if (taskData.requiresApproval) {
         newTask.group.approval.required = true;
       }
-      newTask.group.sharedCompletion = taskData.sharedCompletion || 'individualCompletion';
+      newTask.group.sharedCompletion = taskData.sharedCompletion || SHARED_COMPLETION.default;
     } else {
       newTask.userId = user._id;
     }

@@ -5,7 +5,7 @@ import {
 } from '../../libs/webhook';
 import { removeFromArray } from '../../libs/collectionManipulators';
 import * as Tasks from '../../models/task';
-import * as groupTasks from '../../libs/groupTasks';
+import { handleSharedCompletion } from '../../libs/groupTasks';
 import { model as Challenge } from '../../models/challenge';
 import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
@@ -659,8 +659,7 @@ api.scoreTask = {
     ];
 
     if (task.group && task.group.taskId) {
-      let masterTask = await groupTasks.handleSharedCompletion(task);
-      if (masterTask) promises.push(masterTask.save());
+      await handleSharedCompletion(task);
     }
 
     // Save results and handle request
