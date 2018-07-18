@@ -483,40 +483,24 @@ export default {
         }
 
         if (!modalId) {
-          console.error('There is no id to on this hidden event');
-          debugger;
           return;
-        } else {
-          console.warn(`Hidden: ModalId = ${modalId}`);
         }
 
         const modalStack = this.$store.state.modalStack;
 
         const modalOnTop = modalStack[modalStack.length - 1];
 
-        console.info('Stack', modalStack, 'modalOnTop', modalOnTop);
-
         // Check for invalid modal. Event systems can send multiples
-        if (!this.validStack(modalStack)) {
-          console.warn(`Hidden: ModalId = ${modalId} was invalid so isn't removed`);
-          return;
-        }
+        if (!this.validStack(modalStack)) return;
 
         // If we are moving forward
-        if (modalOnTop && modalOnTop.prev === modalId) {
-          console.warn(`Hidden: ModalId = ${modalId} modalOnTop.prev === modalId`);
-          return;
-        }
-
-        console.warn(`Hidden: ModalId = ${modalId} - the last modal on stack is removed`);
+        if (modalOnTop && modalOnTop.prev === modalId) return;
 
         // Remove modal from stack
         this.$store.state.modalStack.pop();
 
         // Get previous modal
         const modalBefore = modalOnTop ? modalOnTop.prev : undefined;
-
-        console.info('modalBefore', modalBefore, 'show modal');
 
         if (modalBefore) this.$root.$emit('bv::show::modal', modalBefore, {fromRoot: true});
       });
