@@ -130,8 +130,6 @@ function sendSlurNotification ({
       title,
       title_link: titleLink,
       text: message,
-      // What to replace the footer with?
-      // footer: `<${SLACK_FLAGGING_FOOTER_LINK}?groupId=${group.id}&chatId=${message.id}|Flag this message>`,
       mrkdwn_in: [
         'text',
       ],
