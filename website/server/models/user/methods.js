@@ -150,17 +150,11 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, o
  * @param  seen  If the notification should be marked as seen
  */
 schema.methods.addNotification = function addUserNotification (type, data = {}, seen = false) {
-  // only check if chat notification exists
-  const notifactionAlreadyExists = type === 'NEW_CHAT_MESSAGE' ?
-    filter(this.notifications, n => n.type === type && isEqual(n.data, data)) : -1;
-
-  if (notifactionAlreadyExists === -1) {
-    this.notifications.push({
-      type,
-      data,
-      seen,
-    });
-  }
+  this.notifications.push({
+    type,
+    data,
+    seen,
+  });
 };
 
 /**

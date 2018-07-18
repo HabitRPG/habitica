@@ -2,7 +2,7 @@ import {
   createAndPopulateGroup,
 } from '../../../../helpers/api-integration/v3';
 
-describe.only('Prevent multiple notifications', () => {
+describe('Prevent multiple notifications', () => {
   let partyLeader, partyMembers, party;
 
   before(async () => {
@@ -22,12 +22,13 @@ describe.only('Prevent multiple notifications', () => {
   it('does not add the same notification twice', async () => {
     const multipleChatMessages = [];
 
-    multipleChatMessages.push(
-      partyMembers[0].post(`/groups/${party._id}/chat`, { message: 'Message 1'}),
-      partyMembers[1].post(`/groups/${party._id}/chat`, { message: 'Message 2'}),
-      partyMembers[2].post(`/groups/${party._id}/chat`, { message: 'Message 3'}),
-      partyMembers[3].post(`/groups/${party._id}/chat`, { message: 'Message 4'})
-    );
+    for (let i = 0; i < 4; i++) {
+      for (let memberIndex = 0; memberIndex < partyMembers.length; memberIndex++) {
+        multipleChatMessages.push(
+          partyMembers[memberIndex].post(`/groups/${party._id}/chat`, { message: `Message ${i}_${memberIndex}`}),
+        );
+      }
+    }
 
     await Promise.all(multipleChatMessages);
 
