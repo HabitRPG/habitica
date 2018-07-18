@@ -90,8 +90,8 @@ export default class GroupChatReporter extends ChatReporter {
 
   async flag () {
     let {message, group, userComment} = await this.validate();
-    await this.flagGroupMessage(group, message);
     await this.notify(group, message, userComment);
+    await this.flagGroupMessage(group, message);
     return message;
   }
 }
