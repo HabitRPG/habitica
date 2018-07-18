@@ -590,6 +590,7 @@ export default {
       });
     },
     filterByCompleted (taskList, filter) {
+      if (!taskList) return [];
       return taskList.filter(task => {
         if (filter === 'complete2') return task.completed;
         return !task.completed;
