@@ -358,7 +358,7 @@ export default {
           type: this.type,
           filterType: this.activeFilter.label,
         }) :
-        this.taskListOverride;
+        this.filterByCompleted(this.taskListOverride, this.activeFilter.label);
 
       let taggedList = this.filterByTagList(filteredTaskList, this.selectedTags);
       let searchedList = this.filterBySearchText(taggedList, this.searchText);
@@ -587,6 +587,12 @@ export default {
         } else {
           columnBackgroundStyle.display = 'block';
         }
+      });
+    },
+    filterByCompleted (taskList, filter) {
+      return taskList.filter(task => {
+        if (filter === 'complete2') return task.completed;
+        return !task.completed;
       });
     },
     filterByTagList (taskList, tagList = []) {

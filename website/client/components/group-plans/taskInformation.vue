@@ -359,11 +359,19 @@ export default {
         groupId: this.searchId,
       });
 
+      let completedTodos = await this.$store.dispatch('tasks:getCompletedGroupTasks', {
+        groupId: this.searchId,
+      });
+
       let groupedApprovals = await this.loadApprovals();
 
       tasks.forEach((task) => {
         if (groupedApprovals[task._id] && groupedApprovals[task._id].length > 0) task.approvals = groupedApprovals[task._id];
         this.tasksByType[task.type].push(task);
+      });
+
+      completedTodos.forEach((task) => {
+        this.tasksByType.todo.push(task);
       });
     },
     async loadApprovals () {
