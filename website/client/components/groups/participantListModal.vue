@@ -81,10 +81,7 @@ export default {
     }),
     participants () {
       let partyMembers = this.partyMembers || [];
-      return partyMembers.map(member => {
-        member.accepted = this.group.quest.members[member._id];
-        return member;
-      }).filter(member => member.accepted === true);
+      return partyMembers.filter(member => this.group.quest.members[member._id] === true);
     },
   },
   methods: {
