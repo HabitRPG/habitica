@@ -605,10 +605,10 @@
     "cuddleBuddiesNotes": "Съдържа: „Зайчето-убиец“, „Нечестивият пор“ и „Бандата на морските свинчета“. Наличен до 31 май.",
     "aquaticAmigosText": "Пакет мисии „Водни дружки“",
     "aquaticAmigosNotes": "Съдържа: „Вълшебният саламандър“, „Кракенът на незавършеността“ и „Зовът на Октотулу“. Наличен до 30 юни.",
-    "questSeaSerpentText": "Danger in the Depths: Sea Serpent Strike!",
-    "questSeaSerpentNotes": "Your streaks have you feeling lucky—it’s the perfect time for a trip to the seahorse racetrack. You board the submarine at Diligent Docks and settle in for the trip to Dilatory, but you’ve barely submerged when an impact rocks the sub, sending its occupants tumbling. “What’s going on?” @AriesFaries shouts.<br><br>You glance through a nearby porthole and are shocked by the wall of shimmering scales passing by it. “Sea serpent!” Captain @Witticaster calls through the intercom. “Brace yourselves, it’s coming ‘round again!” As you grip the arms of your seat, your unfinished tasks flash before your eyes. ‘Maybe if we work together and complete them,’ you think, ‘we can drive this monster away!’",
-    "questSeaSerpentCompletion": "Battered by your commitment, the sea serpent flees, disappearing into the depths. When you arrive in Dilatory, you breathe a sigh of relief before noticing @*~Seraphina~ approaching with three translucent eggs cradled in her arms. “Here, you should have these,” she says. “You know how to handle a sea serpent!” As you accept the eggs, you vow anew to remain steadfast in completing your tasks to ensure that there’s not a repeat occurrence.",
-    "questSeaSerpentBoss": "The Mighty Sea Serpent",
-    "questSeaSerpentDropSeaSerpentEgg": "Sea Serpent (Egg)",
-    "questSeaSerpentUnlockText": "Unlocks purchasable Sea Serpent eggs in the Market"
+    "questSeaSerpentText": "Опасност в дълбините: Нападението на морския змей!",
+    "questSeaSerpentNotes": "С всичките си серии се чувстваш като късметлия – и сега е идеално време за посещение на хиподрума за морски кончета. Качваш се на подводницата от пристанище Усърдие и се настаняваш удобно за пътуването до Мудноград, но едва се потапяте, когато нещо удря подводницата и запраща всички пътници на пода. „Какво става“ — крещи @AriesFaries?<br><br>Поглеждаш през близкия люк и ужас виждаш как покрай него преминава стена от блестящи люспи. „Морски змей“ — обявява капитан @Witticaster по вътрешното радио! — „Пригответе се, връща се!“  Сграбчвайки подлакътниците на седалката си, виждаш незавършените си задачи да преминават пред погледа ти. „Може би, ако работим заедно и ги завършим“, мислиш си, „ще прогоним чудовището“.",
+    "questSeaSerpentCompletion": "Сломен от усърдието ви, морският змей отстъпва и изчезва в дълбините. Когато пристигаш в Мудноград, най-после си отдъхваш, и забелязваш, че @*~Seraphina~ се приближава с три яйца. „Ето, вземи ги“ — казва тя. — „Явно знаеш как да се оправяш с морските змейове!“ Когато вземаш яйцата, отново се заричаш да бъдеш по-сериозен със задачите си, за да не се повтори тази случка.",
+    "questSeaSerpentBoss": "Могъщият морски змей",
+    "questSeaSerpentDropSeaSerpentEgg": "Морски змей (яйце)",
+    "questSeaSerpentUnlockText": "Отключва възможността за купуване на яйца на морски змей от пазара."
 }

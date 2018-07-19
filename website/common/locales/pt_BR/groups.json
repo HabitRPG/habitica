@@ -380,7 +380,7 @@
     "bronzeTier": "Nível Bronze",
     "privacySettings": "Opções de Privacidade",
     "onlyLeaderCreatesChallenges": "Apenas o Líder pode criar Desafios",
-    "onlyLeaderCreatesChallengesDetail": "With this option selected, ordinary group members cannot create Challenges for the group.",
+    "onlyLeaderCreatesChallengesDetail": "Com essa opção selecionada, membros comuns do grupo não podem criar Desafios para o grupo.",
     "privateGuild": "Guilda Privada",
     "charactersRemaining": "<%= characters %> personagens restantes",
     "guildSummary": "Resumo",

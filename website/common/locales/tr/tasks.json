@@ -58,7 +58,7 @@
     "repeat": "Tekrar",
     "repeats": "Tekrarlar",
     "repeatEvery": "Tekrarlama Günleri",
-    "repeatOn": "Repeat On",
+    "repeatOn": "Tekrar Eder",
     "repeatHelpTitle": "Bu işi ne kadar sıklıkla tekrar etmen lazım?",
     "dailyRepeatHelpContent": "Bu görev, her X günde bir tekrarlanır. Bu sayıyı aşağıda belirleyebilirsin.",
     "weeklyRepeatHelpContent": "Bu iş, aşağıda işaretli günlerde tekrarlanır. Her bir güne tıklayarak o günü açıp kapatabilirsin.",
