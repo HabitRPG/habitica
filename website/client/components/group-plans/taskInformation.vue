@@ -80,6 +80,7 @@
       :key="column",
       :taskListOverride='tasksByType[column]',
       v-on:editTask="editTask",
+      v-on:loadGroupCompletedTodos="loadGroupCompletedTodos",
       :group='group',
       :searchText="searchText")
 </template>
@@ -359,19 +360,11 @@ export default {
         groupId: this.searchId,
       });
 
-      let completedTodos = await this.$store.dispatch('tasks:getCompletedGroupTasks', {
-        groupId: this.searchId,
-      });
-
       let groupedApprovals = await this.loadApprovals();
 
       tasks.forEach((task) => {
         if (groupedApprovals[task._id] && groupedApprovals[task._id].length > 0) task.approvals = groupedApprovals[task._id];
         this.tasksByType[task.type].push(task);
-      });
-
-      completedTodos.forEach((task) => {
-        this.tasksByType.todo.push(task);
       });
     },
     async loadApprovals () {
@@ -390,6 +383,15 @@ export default {
       // Necessary otherwise the first time the modal is not rendered
       Vue.nextTick(() => {
         this.$root.$emit('bv::show::modal', 'task-modal');
+      });
+    },
+    async loadGroupCompletedTodos () {
+      const completedTodos = await this.$store.dispatch('tasks:getCompletedGroupTasks', {
+        groupId: this.searchId,
+      });
+
+      completedTodos.forEach((task) => {
+        this.tasksByType.todo.push(task);
       });
     },
     createTask (type) {
