@@ -616,11 +616,6 @@
       },
       // @TODO this is totally duplicate from the registerLogin component
       async register () {
-        if (this.password !== this.passwordConfirm) {
-          alert('Passwords must match');
-          return;
-        }
-
         let groupInvite = '';
         if (this.$route.query && this.$route.query.p) {
           groupInvite = this.$route.query.p;
