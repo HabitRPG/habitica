@@ -478,6 +478,6 @@
   "goToTaskBoard": "Go to Task Board",
   "sharedCompletion": "Shared Completion",
   "recurringCompletion": "None - Group task does not complete",
-  "singleCompletion": "Single - One completion finishes group task",
-  "allAssignedCompletion": "All - When all members finish, group task completes"
+  "singleCompletion": "Single - Completes when any assigned user finishes",
+  "allAssignedCompletion": "All - Completes when all assigned users finish"
 }
