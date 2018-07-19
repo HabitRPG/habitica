@@ -391,7 +391,12 @@ export default {
       });
 
       completedTodos.forEach((task) => {
-        this.tasksByType.todo.push(task);
+        const existingTaskIndex = findIndex(this.tasksByType.todo, (todo) => {
+          return todo._id === task._id;
+        });
+        if (existingTaskIndex === -1) {
+          this.tasksByType.todo.push(task);
+        }
       });
     },
     createTask (type) {
