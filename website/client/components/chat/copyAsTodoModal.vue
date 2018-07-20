@@ -1,4 +1,4 @@
-<template lang="pug">
+ <template lang="pug">
   b-modal#copyAsTodo(:title="$t('copyMessageAsToDo')", :hide-footer="true", size='md')
     .form-group
       input.form-control(type='text', v-model='task.text')
@@ -36,9 +36,10 @@ export default {
       task: {},
     };
   },
+
   mounted () {
     this.$root.$on('habitica::copy-as-todo', message => {
-      const notes = `${message.user || 'system message'}${message.user ? ' wrote' : ''} in [${this.groupName}](${baseUrl}/groups/guild/${this.groupId})`;
+      const notes = this.generateURL(message);
       const newTask = {
         text: message.text,
         type: 'todo',
@@ -57,6 +58,13 @@ export default {
     }),
     close () {
       this.$root.$emit('bv::hide::modal', 'copyAsTodo');
+    },
+    generateURL (message) {
+      if (this.groupName === 'Tavern') {
+        return `${message.user || 'system message'}${message.user ? ' wrote' : ''} in [Tavern](${baseUrl}/groups/tavern)`;
+      } else if (this.groupId === ) {
+        return `${message.user || 'system message'}${message.user ? ' wrote' : ''} in [Tavern](${baseUrl}/groups/tavern)`;
+      }
     },
     saveTodo () {
       this.createTask(this.task);
