@@ -327,6 +327,21 @@ export function cron (options = {}) {
   let atLeastOneDailyDue = false; // were any dailies due?
   if (!user.party.quest.progress.down) user.party.quest.progress.down = 0;
 
+  let tasksToEvade;
+  if (true)//cases 0,1- I added it here just so the different versions would be more readable
+    tasksToEvade = user.stats.buffs.stealth;
+  else
+    tasksToEvade = 0;
+  if (false && user.stats.buffs.stealth) { //my idea (case 2)- casts *per = bonus. probably pretty bad, but only code that is placed here can really be limited to a % of the dues
+    let bonus = user._statsComputed.per * (user.stats.buffs.stealth * 3);
+    let dues = 0;
+    tasksByType.dailys.forEach((task) => {
+      if (task.isDue)
+        dues++;
+    });
+    tasksToEvade = Math.ceil(dues / 2 * ((bonus) / (bonus + 55)));
+  }
+  
   tasksByType.dailys.forEach((task) => {
     let completed = task.completed;
     // Deduct points for missed Daily tasks
@@ -349,8 +364,8 @@ export function cron (options = {}) {
         if (shouldDo(thatDay.toDate(), task, user.preferences)) {
           atLeastOneDailyDue = true;
           scheduleMisses++;
-          if (user.stats.buffs.stealth) {
-            user.stats.buffs.stealth--;
+          if (tasksToEvade) { //changed to a local var just to make the different versions less tangled
+            tasksToEvade--;
             EvadeTask++;
           }
         }

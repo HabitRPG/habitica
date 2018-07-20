@@ -215,10 +215,10 @@ export default {
       if (skill === 'frost' && this.user.stats.buffs.streaks) {
         return true;
       }
-      // @TODO: Implement
-      // } else if (skill === 'stealth' && this.user.stats.buffs.stealth >= this.user.dailys.length) {
-      //   return true;
-      // }
+
+      else if (skill === 'stealth' && (this.user.stats.buffs.stealth >= this.user.dailys.length /*0*/ && true || /*1*/false && this.user.stats.buffs.stealth >= this.user.dailys.length / 2)) {
+        return true;
+      }
 
       return false;
     },
@@ -230,14 +230,34 @@ export default {
       } else if (skill.key === 'stealth' && this.spellDisabled(skill.key)) {
         notes = this.$t('spellRogueStealthMaxedOut');
       } else if (skill.key === 'stealth') {
-        notes = this.$t('spellRogueStealthDaliesAvoided', {
-          originalText: notes,
-          number: this.user.stats.buffs.stealth,
-        });
+        if(true) { //0,1
+          notes = this.$t('spellRogueStealthDaliesAvoided', {
+            originalText: notes,
+            number: this.user.stats.buffs.stealth,
+          });
+        } else { //2
+            notes = this.$t('spellRogueStealthDaliesAvoided', {
+                originalText: notes,
+                number: this.diminishingReturns(this.user._statsComputed.per * this.user.stats.buffs.stealth * 3, this.countDues() / 2, 55),
+            });
+        }
+        
       }
 
       return notes;
     },
+    countDues() {
+      var dues = 0;
+      this.user.dailys.forEach((task) => {
+        if (task.isDue)
+          dues++;
+      });
+    },
+    diminishingReturns(bonus, max, halfway) {
+      if (!halfway) halfway = max / 2;
+      return max * (bonus / (bonus + halfway));
+    },
+
     questProgress () {
       let user = this.user;
       if (!user.party.quest) return 0;
