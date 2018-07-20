@@ -278,7 +278,21 @@ export default {
     };
   },
   mounted () {
-    this.getMembers();
+    this.$root.$on('habitica:show-member-modal', (data) => {
+      console.log(data);
+      // @TODO: Remove store
+      this.$store.state.memberModalOptions.challengeId = data.challengeId;
+      this.$store.state.memberModalOptions.groupId = data.groupId;
+      this.$store.state.memberModalOptions.group = data.group;
+      this.$store.state.memberModalOptions.memberCount = data.memberCount;
+      this.$store.state.memberModalOptions.viewingMembers = data.viewingMembers;
+      this.$store.state.memberModalOptions.fetchMoreMembers = data.fetchMoreMembers;
+      this.$root.$emit('bv::show::modal', 'members-modal');
+      this.getMembers();
+    });
+  },
+  destroyed () {
+    this.$root.$off('habitica:show-member-modal');
   },
   computed: {
     ...mapState({user: 'user.data'}),
@@ -363,6 +377,7 @@ export default {
         });
         this.invites = invites;
       }
+      console.log(this.$store.state.memberModalOptions.viewingMembers)
       if (this.$store.state.memberModalOptions.viewingMembers.length > 0) {
         this.members = this.$store.state.memberModalOptions.viewingMembers;
       }

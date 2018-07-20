@@ -126,7 +126,7 @@
   .sidebar {
     background-color: $gray-600;
     padding-bottom: 2em;
-    
+
   }
 
   .buttons-wrapper {
@@ -426,12 +426,13 @@ export default {
       return this.$store.dispatch('members:getGroupMembers', payload);
     },
     showMemberModal () {
-      this.$store.state.memberModalOptions.groupId = this.group._id;
-      this.$store.state.memberModalOptions.group = this.group;
-      this.$store.state.memberModalOptions.memberCount = this.group.memberCount;
-      this.$store.state.memberModalOptions.viewingMembers = this.members;
-      this.$store.state.memberModalOptions.fetchMoreMembers = this.loadMembers;
-      this.$root.$emit('bv::show::modal', 'members-modal');
+      this.$root.$emit('habitica:show-member-modal', {
+        groupId: this.group._id,
+        group: this.group,
+        memberCount: this.group.memberCount,
+        viewingMembers: this.members,
+        fetchMoreMembers: this.loadMembers,
+      });
     },
     fetchRecentMessages () {
       this.fetchGuild();
