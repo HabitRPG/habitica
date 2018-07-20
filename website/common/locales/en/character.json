@@ -224,6 +224,6 @@
   "level": "Level",
   "allocated": "Allocated",
   "buffs": "Buffs",
-  "pointsAvailable": "Points Available",
+  "statPoints": "Stat Points",
   "pts": "pts"
 }
