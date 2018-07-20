@@ -185,6 +185,15 @@
               :checked="requiresApproval",
               @change="updateRequiresApproval"
             )
+          .form-group(v-if="task.type === 'todo'")
+            label(v-once) {{ $t('sharedCompletion') }}
+            b-dropdown.inline-dropdown(:text="$t(sharedCompletion)")
+              b-dropdown-item(
+                v-for="completionOption in ['recurringCompletion', 'singleCompletion', 'allAssignedCompletion']",
+                :key="completionOption",
+                @click="sharedCompletion = completionOption",
+                :class="{active: sharedCompletion === completionOption}"
+              ) {{ $t(completionOption) }}
 
         .advanced-settings(v-if="task.type !== 'reward'")
           .advanced-settings-toggle.d-flex.justify-content-between.align-items-center(@click = "showAdvancedOptions = !showAdvancedOptions")
@@ -691,6 +700,7 @@ export default {
         calendar: calendarIcon,
       }),
       requiresApproval: false, // We can't set task.group fields so we use this field to toggle
+      sharedCompletion: 'recurringCompletion',
       members: [],
       memberNamesById: {},
       assignedMembers: [],
@@ -811,6 +821,7 @@ export default {
         });
         this.assignedMembers = [];
         if (this.task.group && this.task.group.assignedUsers) this.assignedMembers = this.task.group.assignedUsers;
+        if (this.task.group) this.sharedCompletion = this.task.group.sharedCompletion || 'recurringCompletion';
       }
 
       // @TODO: This whole component is mutating a prop and that causes issues. We need to not copy the prop similar to group modals
@@ -892,10 +903,13 @@ export default {
     async submit () {
       if (this.newChecklistItem) this.addChecklistItem();
 
+      // TODO Fix up permissions on task.group so we don't have to keep doing these hacks
       if (this.groupId) {
         this.task.group.assignedUsers = this.assignedMembers;
         this.task.requiresApproval = this.requiresApproval;
         this.task.group.approval.required = this.requiresApproval;
+        this.task.sharedCompletion = this.sharedCompletion;
+        this.task.group.sharedCompletion = this.sharedCompletion;
       }
 
       if (this.purpose === 'create') {

@@ -5,6 +5,7 @@ import {
 } from '../../libs/webhook';
 import { removeFromArray } from '../../libs/collectionManipulators';
 import * as Tasks from '../../models/task';
+import { handleSharedCompletion } from '../../libs/groupTasks';
 import { model as Challenge } from '../../models/challenge';
 import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
@@ -490,6 +491,9 @@ api.updateTask = {
     if (sanitizedObj.requiresApproval) {
       task.group.approval.required = true;
     }
+    if (sanitizedObj.sharedCompletion) {
+      task.group.sharedCompletion = sanitizedObj.sharedCompletion;
+    }
 
     setNextDue(task, user);
     let savedTask = await task.save();
@@ -653,6 +657,12 @@ api.scoreTask = {
       user.save(),
       task.save(),
     ];
+
+    if (task.group && task.group.taskId) {
+      await handleSharedCompletion(task);
+    }
+
+    // Save results and handle request
     if (taskOrderPromise) promises.push(taskOrderPromise);
     let results = await Promise.all(promises);
 

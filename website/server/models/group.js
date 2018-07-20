@@ -1319,6 +1319,7 @@ schema.methods.updateTask = async function updateTask (taskToSync, options = {})
 
   updateCmd.$set['group.approval.required'] = taskToSync.group.approval.required;
   updateCmd.$set['group.assignedUsers'] = taskToSync.group.assignedUsers;
+  updateCmd.$set['group.sharedCompletion'] = taskToSync.group.sharedCompletion;
 
   let taskSchema = Tasks[taskToSync.type];
 
@@ -1414,6 +1415,7 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
 
   matchingTask.group.approval.required = taskToSync.group.approval.required;
   matchingTask.group.assignedUsers = taskToSync.group.assignedUsers;
+  matchingTask.group.sharedCompletion = taskToSync.group.sharedCompletion;
 
   //  sync checklist
   if (taskToSync.checklist) {
