@@ -485,7 +485,9 @@ export default {
             break;
           case 'CHALLENGE_JOINED_ACHIEVEMENT':
             this.playSound('Achievement_Unlocked');
-            this.$root.$emit('bv::show::modal', 'joined-challenge');
+            this.text(`${this.$t('achievement')}: ${this.$t('joinedChallenge')}`, () => {
+              this.$root.$emit('bv::show::modal', 'joined-challenge');
+            }, false);
             break;
           case 'INVITED_FRIEND_ACHIEVEMENT':
             this.playSound('Achievement_Unlocked');
