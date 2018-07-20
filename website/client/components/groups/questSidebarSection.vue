@@ -38,7 +38,7 @@ sidebar-section(:title="$t('questDetailsTitle')")
             .col-6
               h4.float-left(v-once) {{ questData.boss.name() }}
             .col-6
-              button.btn.btn-secondary.float-right(@click="openParticipantList()") {{ $t('participantsTitle') }}
+              a.float-right(@click="openParticipantList()") {{ $t('participantsTitle') }}
           .row
             .col-12
               .grey-progress-bar
