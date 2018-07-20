@@ -317,14 +317,17 @@ export default {
   methods: {
     async shown () {
       this.groups = await this.$store.dispatch('guilds:getMyGuilds');
-      await this.$store.dispatch('party:getParty');
-      const party = this.$store.state.party.data;
-      if (party._id) {
-        this.groups.push({
-          name: party.name,
-          _id: party._id,
-          privacy: 'private',
-        });
+
+      if (this.user.party && this.user.party._id) {
+        await this.$store.dispatch('party:getParty');
+        const party = this.$store.state.party.data;
+        if (party._id) {
+          this.groups.push({
+            name: party.name,
+            _id: party._id,
+            privacy: 'private',
+          });
+        }
       }
 
       this.groups.push({
