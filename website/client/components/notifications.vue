@@ -87,6 +87,7 @@ div
 import axios from 'axios';
 import moment from 'moment';
 import throttle from 'lodash/throttle';
+import debounce from 'lodash/debounce';
 
 import { shouldDo } from '../../common/script/cron';
 import { mapState } from 'client/libs/store';
@@ -116,6 +117,44 @@ import streak from './achievements/streak';
 import ultimateGear from './achievements/ultimateGear';
 import wonChallenge from './achievements/wonChallenge';
 import loginIncentives from './achievements/login-incentives';
+
+const NOTIFICATIONS = {
+  CHALLENGE_JOINED_ACHIEVEMENT: {
+    achievement: true,
+    label: ($t) => `${$t('achievement')}: ${$t('joinedChallenge')}`,
+    modalId: 'joined-challenge',
+  },
+  ULTIMATE_GEAR_ACHIEVEMENT: {
+    achievement: true,
+    label: ($t) => `${$t('achievement')}: ${$t('gearAchievement')}`,
+    modalId: 'ultimate-gear',
+  },
+  REBIRTH_ACHIEVEMENT: {
+    label: ($t) => `${$t('achievement')}: ${$t('rebirthBegan')}`,
+    achievement: true,
+    modalId: 'rebirth',
+  },
+  GUILD_JOINED_ACHIEVEMENT: {
+    label: ($t) => `${$t('achievement')}: ${$t('joinedGuild')}`,
+    achievement: true,
+    modalId: 'joined-guild',
+  },
+  INVITED_FRIEND_ACHIEVEMENT: {
+    achievement: true,
+    label: ($t) => `${$t('achievement')}: ${$t('invitedFriend')}`,
+    modalId: 'invited-friend',
+  },
+  NEW_CONTRIBUTOR_LEVEL: {
+    achievement: true,
+    label: ($t) => $t('modalContribAchievement'),
+    modalId: 'contributor',
+  },
+  DEATH: {
+    sound: 'Death',
+    label: ($t) => $t('lostAllHealth'),
+    modalId: 'death',
+  },
+};
 
 export default {
   mixins: [notifications, guide],
@@ -206,8 +245,8 @@ export default {
     userHp (after, before) {
       if (this.user.needsCron) return;
       if (after <= 0) {
-        this.playSound('Death');
-        this.$root.$emit('bv::show::modal', 'death');
+        alert('userHp');
+        this.showNotificationWithModal('DEATH');
         // @TODO: {keyboard:false, backdrop:'static'}
       } else if (after <= 30 && !this.user.flags.warnedLowHealth) {
         this.$root.$emit('bv::show::modal', 'low-health');
@@ -282,7 +321,7 @@ export default {
       this.$store.dispatch('user:fetch'),
       this.$store.dispatch('tasks:fetchUserTasks'),
     ]).then(() => {
-      this.checkUserAchievements();
+      this.debounceCheckUserAchievements();
 
       // @TODO: This is a timeout to ensure dom is loaded
       window.setTimeout(() => {
@@ -307,6 +346,30 @@ export default {
     document.removeEventListener('keydown', this.checkNextCron);
   },
   methods: {
+    showNotificationWithModal (type, forceToModal) {
+      const config = NOTIFICATIONS[type];
+
+      if (!config) {
+        return;
+      }
+
+      if (config.achievement) {
+        this.playSound('Achievement_Unlocked');
+      } else if (config.sound) {
+        this.playSound(config.sound);
+      }
+
+      if (forceToModal) {
+        this.$root.$emit('bv::show::modal', config.modalId);
+      } else {
+        this.text(config.label(this.$t), () => {
+          this.$root.$emit('bv::show::modal', config.modalId);
+        }, false);
+      }
+    },
+    debounceCheckUserAchievements: debounce(function debounceCheck () {
+      this.checkUserAchievements();
+    }, 700),
     checkUserAchievements () {
       if (this.user.needsCron) return;
 
@@ -317,8 +380,7 @@ export default {
       }
 
       if (this.user.stats.hp <= 0) {
-        this.playSound('Death');
-        this.$root.$emit('bv::show::modal', 'death');
+        this.showNotificationWithModal('DEATH');
       }
 
       if (this.questCompleted) {
@@ -465,35 +527,20 @@ export default {
             this.$root.$emit('bv::show::modal', 'won-challenge');
             break;
           case 'STREAK_ACHIEVEMENT':
-            this.streak(this.user.achievements.streak);
+            this.streak(this.user.achievements.streak, () => {
+              if (!this.user.preferences.suppressModals.streak) {
+                this.$root.$emit('bv::show::modal', 'streak');
+              }
+            });
             this.playSound('Achievement_Unlocked');
-            if (!this.user.preferences.suppressModals.streak) {
-              this.$root.$emit('bv::show::modal', 'streak');
-            }
             break;
           case 'ULTIMATE_GEAR_ACHIEVEMENT':
-            this.playSound('Achievement_Unlocked');
-            this.$root.$emit('bv::show::modal', 'ultimate-gear');
-            break;
           case 'REBIRTH_ACHIEVEMENT':
-            this.playSound('Achievement_Unlocked');
-            this.$root.$emit('bv::show::modal', 'rebirth');
-            break;
           case 'GUILD_JOINED_ACHIEVEMENT':
-            this.playSound('Achievement_Unlocked');
-            this.$root.$emit('bv::show::modal', 'joined-guild');
-            break;
           case 'CHALLENGE_JOINED_ACHIEVEMENT':
-            this.playSound('Achievement_Unlocked');
-            this.$root.$emit('bv::show::modal', 'joined-challenge');
-            break;
           case 'INVITED_FRIEND_ACHIEVEMENT':
-            this.playSound('Achievement_Unlocked');
-            this.$root.$emit('bv::show::modal', 'invited-friend');
-            break;
           case 'NEW_CONTRIBUTOR_LEVEL':
-            this.playSound('Achievement_Unlocked');
-            this.$root.$emit('bv::show::modal', 'contributor');
+            this.showNotificationWithModal(notification.type);
             break;
           case 'CRON':
             if (notification.data) {
@@ -566,7 +613,7 @@ export default {
         });
       }
 
-      this.checkUserAchievements();
+      this.debounceCheckUserAchievements();
     },
   },
 };

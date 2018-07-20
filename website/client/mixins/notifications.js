@@ -53,12 +53,12 @@ export default {
         itemName,
       }));
     },
-    streak (val) {
-      this.notify(`${val}`, 'streak');
+    streak (val, onClick) {
+      this.notify(`${val}`, 'streak', null, null, onClick, typeof onClick === 'undefined');
     },
-    text (val, onClick) {
+    text (val, onClick, timeout) {
       if (!val) return;
-      this.notify(val, 'info', null, null, onClick);
+      this.notify(val, 'info', null, null, onClick, timeout);
     },
     sign (number) {
       return getSign(number);
@@ -66,14 +66,19 @@ export default {
     round (number, nDigits) {
       return round(number, nDigits);
     },
-    notify (html, type, icon, sign) {
+    notify (html, type, icon, sign, onClick, timeout) {
+      if (typeof timeout === 'undefined') {
+        timeout = true;
+      }
+
       this.$store.dispatch('snackbars:add', {
         title: '',
         text: html,
         type,
         icon,
         sign,
-        timeout: true,
+        onClick,
+        timeout,
       });
     },
   },
