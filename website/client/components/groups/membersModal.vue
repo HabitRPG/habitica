@@ -279,7 +279,6 @@ export default {
   },
   mounted () {
     this.$root.$on('habitica:show-member-modal', (data) => {
-      console.log(data);
       // @TODO: Remove store
       this.$store.state.memberModalOptions.challengeId = data.challengeId;
       this.$store.state.memberModalOptions.groupId = data.groupId;
