@@ -12,7 +12,7 @@ describe('tasks actions', () => {
     xit('fetches user tasks', async () => {
       expect(store.state.tasks.loadingStatus).to.equal('NOT_LOADED');
       const tasks = [{_id: 1}];
-      sandbox.stub(axios, 'get').withArgs('/api/v3/tasks/user').returns(Promise.resolve({data: {data: tasks}}));
+      sandbox.stub(axios, 'get').withArgs('/api/v4/tasks/user').returns(Promise.resolve({data: {data: tasks}}));
 
       await store.dispatch('tasks:fetchUserTasks');
 
@@ -28,7 +28,7 @@ describe('tasks actions', () => {
       };
 
       const tasks = [{_id: 2}];
-      sandbox.stub(axios, 'get').withArgs('/api/v3/tasks/user').returns(Promise.resolve({data: {data: tasks}}));
+      sandbox.stub(axios, 'get').withArgs('/api/v4/tasks/user').returns(Promise.resolve({data: {data: tasks}}));
 
       await store.dispatch('tasks:fetchUserTasks');
 
@@ -43,7 +43,7 @@ describe('tasks actions', () => {
       };
 
       const tasks = [{_id: 2}];
-      sandbox.stub(axios, 'get').withArgs('/api/v3/tasks/user').returns(Promise.resolve({data: {data: tasks}}));
+      sandbox.stub(axios, 'get').withArgs('/api/v4/tasks/user').returns(Promise.resolve({data: {data: tasks}}));
 
       await store.dispatch('tasks:fetchUserTasks', true);
 

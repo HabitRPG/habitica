@@ -335,7 +335,7 @@ export default {
     },
     async saveDayStart () {
       this.user.preferences.dayStart = this.newDayStart;
-      await axios.post('/api/v3/user/custom-day-start', {
+      await axios.post('/api/v4/user/custom-day-start', {
         dayStart: this.newDayStart,
       });
       // @TODO
@@ -345,10 +345,10 @@ export default {
       const newLang = e.target.value;
       this.user.preferences.language = newLang;
       await this.set('language');
-      window.location.href = '/';
+      setTimeout(() => window.location.reload(true));
     },
     async changeUser (attribute, updates) {
-      await axios.put(`/api/v3/user/auth/update-${attribute}`, updates);
+      await axios.put(`/api/v4/user/auth/update-${attribute}`, updates);
       alert(this.$t(`${attribute}Success`));
       this.user[attribute] = updates[attribute];
     },
@@ -362,7 +362,7 @@ export default {
       this.$root.$emit('bv::show::modal', 'delete');
     },
     async deleteSocialAuth (network) {
-      await axios.delete(`/api/v3/user/auth/social/${network.key}`);
+      await axios.delete(`/api/v4/user/auth/social/${network.key}`);
       this.text(this.$t('detachedSocial', {network: network.name}));
     },
     async socialAuth (network) {
@@ -378,13 +378,13 @@ export default {
       if (confirmationNeeded && !confirm(this.$t('changeClassConfirmCost'))) return;
       try {
         changeClass(this.user);
-        await axios.post('/api/v3/user/change-class');
+        await axios.post('/api/v4/user/change-class');
       } catch (e) {
         alert(e.message);
       }
     },
     addLocalAuth () {
-      axios.post('/api/v3/user/auth/local/register', this.localAuth, 'addedLocalAuth');
+      axios.post('/api/v4/user/auth/local/register', this.localAuth, 'addedLocalAuth');
     },
   },
 };

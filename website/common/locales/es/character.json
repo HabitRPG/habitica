@@ -45,6 +45,8 @@
     "beard": "Barba",
     "mustache": "Bigote",
     "flower": "Flor",
+    "accent": "Accesorio",
+    "headband": "Diadema",
     "wheelchair": "Silla de ruedas",
     "extra": "Extra",
     "basicSkins": "Pieles básicas",
@@ -201,7 +203,6 @@
     "showQuickAllocation": "Mostrar asignación de puntos ",
     "hideQuickAllocation": "Esconder la asignación de puntos",
     "quickAllocationLevelPopover": "Cada nivel te da un Punto para asignar a la Estadística que quieras. Puedes hacerlo manualmente o dejar que el juego decida por ti, utilizando una de las opciones de Asignación Automática que encontrarás en Icono de Usuario > Estadísticas.",
-    "invalidAttribute": "\"<%= attr %>\" no es una Estadística válida.",
     "notEnoughAttrPoints": "No tienes suficientes puntos de atributo.",
     "style": "Estilo",
     "facialhair": "Facial",
@@ -219,6 +220,5 @@
     "mainHand": "Mano dominante",
     "offHand": "Mano secundaria",
     "pointsAvailable": "Puntos disponibles",
-    "pts": "puntos",
-    "statsObjectRequired": "Es necesario actualizar la Estadísticas"
+    "pts": "puntos"
 }

@@ -1,6 +1,6 @@
 import {
   generateUser,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 import xml2js from 'xml2js';
 import util from 'util';
 
@@ -22,6 +22,17 @@ describe('GET /export/userdata.xml', () => {
       {type: 'todo', text: 'todo 2'},
 
     ]);
+
+    // add pinnedItem
+    await user.get('/user/toggle-pinned-item/marketGear/gear.flat.shield_rogue_5');
+
+    // add a private message
+    let receiver = await generateUser();
+
+    user.post('/members/send-private-message', {
+      message: 'Your first message, hi!',
+      toUserId: receiver._id,
+    });
 
     let response = await user.get('/export/userdata.xml');
     let {user: res} = await parseStringAsync(response, {explicitArray: false});

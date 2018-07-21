@@ -8,7 +8,7 @@ div
         button.btn.btn-secondary.gift-icon(@click='openSendGemsModal()', v-b-tooltip.hover.bottom="$t('sendGems')")
           .svg-icon.gift-icon(v-html="icons.gift")
         button.btn.btn-secondary.remove-icon(v-if='user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) === -1',
-          @click="blockUser()", v-b-tooltip.hover.right="$t('block')")
+          @click="blockUser()", v-b-tooltip.hover.right="$t('blockWarning')")
           .svg-icon.remove-icon(v-html="icons.remove")
         button.btn.btn-secondary.positive-icon(v-if='user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) !== -1',
           @click="unblockUser()", v-b-tooltip.hover.right="$t('unblock')")
@@ -507,12 +507,12 @@ export default {
     },
     blockUser () {
       this.userLoggedIn.inbox.blocks.push(this.user._id);
-      axios.post(`/api/v3/user/block/${this.user._id}`);
+      axios.post(`/api/v4/user/block/${this.user._id}`);
     },
     unblockUser () {
       let index = this.userLoggedIn.inbox.blocks.indexOf(this.user._id);
       this.userLoggedIn.inbox.blocks.splice(index, 1);
-      axios.post(`/api/v3/user/block/${this.user._id}`);
+      axios.post(`/api/v4/user/block/${this.user._id}`);
     },
     openSendGemsModal () {
       this.userReceivingGems = this.user;

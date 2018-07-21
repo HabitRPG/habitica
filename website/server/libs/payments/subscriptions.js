@@ -185,7 +185,7 @@ async function createSubscription (data) {
       senderMsg += ` ${data.gift.message}`;
     }
 
-    data.user.sendMessage(data.gift.member, { receiverMsg, senderMsg });
+    data.user.sendMessage(data.gift.member, { receiverMsg, senderMsg, save: false });
 
     if (data.gift.member.preferences.emailNotifications.giftedSubscription !== false) {
       txnEmail(data.gift.member, 'gifted-subscription', [
@@ -208,12 +208,8 @@ async function createSubscription (data) {
     }
   }
 
-  if (group) {
-    await group.save();
-  } else {
-    await data.user.save();
-  }
-
+  if (group) await group.save();
+  if (data.user && data.user.isModified()) await data.user.save();
   if (data.gift) await data.gift.member.save();
 
   slack.sendSubscriptionNotification({

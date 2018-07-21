@@ -5,7 +5,7 @@
     "sureDeleteCompletedTodos": "确定要删除已经完成的待办事项吗？",
     "lotOfToDos": "你最近完成的30个待办事项显示在这。你可以在数据>数据显示工具或者数据>导出数据>用户数据查看更早完成的代办事项。",
     "deleteToDosExplanation": "如果你点击下方的按钮，除了正在进行的挑战或者团队任务，所有你已完成的待办事项和历史记录将永远删除，如果你想留下这些记录请先把他们导出哦！",
-    "addMultipleTip": "<strong>提示：</strong>要添加多个任务，请使用换行符(Shift + Enter)分隔每个任务，然後按“Enter”键。",
+    "addMultipleTip": "<strong>提示：</strong>要添加多个<%= taskType %>，请使用换行符(Shift + Enter)分隔每个任务，然後按“Enter”键。",
     "addsingle": "添加单个",
     "addATask": "新增一个<%= type %>",
     "editATask": "编辑一个<%= type %>",
@@ -145,7 +145,6 @@
     "rewardHelp3": "特殊装备会在世界性事件中出现。",
     "rewardHelp4": "别害怕，大胆地为自己设置自定义奖励！来这里看看 <a href='http://habitica.wikia.com/wiki/Sample_Custom_Rewards' target='_blank'>一些简单例子</a>。",
     "clickForHelp": "点击获取帮助",
-    "taskIdRequired": "\"taskId\"必须是一个有效的UUID。",
     "taskAliasAlreadyUsed": "任务别名已经被用于另一个任务。",
     "taskNotFound": "找不到任务。",
     "invalidTaskType": "任务类型必须是\"习惯\"，\"每日任务\"，\"待办事项\"，\"奖励\"中的一个。",
@@ -195,8 +194,6 @@
     "weeks": "周",
     "year": "年",
     "years": "年",
-    "confirmScoreNotes": "通过标记确认任务分数",
-    "taskScoreNotesTooLong": "任务分数标记必须少于256",
     "groupTasksByChallenge": "将小组按挑战的标题归类",
     "taskNotes": "任务笔记",
     "monthlyRepeatHelpContent": "这个任务会每隔X月重复",
@@ -212,5 +209,5 @@
     "repeatDayError": "请在一周中至少选择一天",
     "searchTasks": "搜索标题和描述说明...",
     "sessionOutdated": "你的会期已过期。请刷新或同步。",
-    "errorTemporaryItem": "This item is temporary and cannot be pinned."
+    "errorTemporaryItem": "这件物品是限定的不能被固定。"
 }

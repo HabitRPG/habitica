@@ -10,13 +10,18 @@ div
         .col-6
           button(type="button" aria-label="Close" class="close", @click='close()')
             span(aria-hidden="true") ×
-      .row
-        .form-group.col-6
-          input.form-control.search(type="text", :placeholder="$t('search')", v-model='searchTerm')
-        .col-5.offset-1
-          span.dropdown-label {{ $t('sortBy') }}
-          b-dropdown(:text="$t('sort')", right=true)
-            b-dropdown-item(v-for='sortOption in sortOptions', @click='sort(sortOption)', :key='sortOption.value') {{sortOption.text}}
+      .row.d-flex.align-items-center
+        .col-4
+          input.form-control.input-search(type="text", :placeholder="$t('search')", v-model='searchTerm')
+        .col
+          select.form-control(@change='changeSortOption($event)')
+            option(v-for='sortOption in sortOptions', :value='sortOption.value') {{sortOption.text}}
+        .col-3
+          select.form-control(@change='changeSortDirection($event)')
+            option(v-for='sortDirection in sortDirections', :value='sortDirection.value') {{sortDirection.text}}
+
+    .row.apply-options.d-flex.justify-content-center(v-if='sortDirty')
+      a(@click='applySortOptions()') {{ $t('applySortToHeader') }}
     .row(v-if='invites.length > 0')
       .col-6.offset-3.nav
         .nav-item(@click='viewMembers()', :class="{active: selectedPage === 'members'}") {{ $t('members') }}
@@ -48,6 +53,9 @@ div
               span.dropdown-icon-item
                 .svg-icon.inline(v-html="icons.removeIcon")
                 span.text {{$t('removeManager2')}}
+            b-dropdown-item(@click='viewProgress(member)')
+              span.dropdown-icon-item
+                span.text {{ $t('viewProgress') }}
       .row(v-if='isLoadMoreAvailable')
         .col-12.text-center
           button.btn.btn-secondary(@click='loadMoreMembers()') {{ $t('loadMore') }}
@@ -69,12 +77,28 @@ div
 
 <style lang='scss'>
   #members-modal {
+    .modal-header {
+      background-color: #edecee;
+      border-radius: 8px 8px 0 0;
+      box-shadow: 0 1px 2px 0 rgba(26, 24, 29, 0.24);
+    }
+
+    .modal-footer {
+      background-color: #edecee;
+      border-radius: 0 0 8px 8px;
+    }
+
     .small-text, .character-name {
       color: #878190;
     }
 
-    .no-padding-left, .modal-body {
+    .no-padding-left {
       padding-left: 0;
+    }
+
+    .modal-body {
+      padding-left: 0;
+      padding-right: 0;
     }
 
     .member-details {
@@ -88,13 +112,19 @@ div
 </style>
 
 <style lang='scss' scoped>
-  header {
-    background-color: #edecee;
-    border-radius: 4px 4px 0 0;
+  .apply-options {
+    padding: 1em;
+    margin: 0;
+    background-color: #f9f9f9;
+    color: #2995cd;
   }
 
   .header-wrap {
     width: 100%;
+  }
+
+  .form-control {
+    font-size: 0.9rem;
   }
 
   h1 {
@@ -172,7 +202,6 @@ div
 </style>
 
 <script>
-// import sortBy from "lodash/sortBy";
 import orderBy from 'lodash/orderBy';
 import isEmpty from 'lodash/isEmpty';
 import { mapState } from 'client/libs/store';
@@ -193,82 +222,49 @@ export default {
   data () {
     return {
       sortOption: {},
+      sortDirty: false,
       selectedPage: 'members',
       members: [],
       invites: [],
       memberToRemove: {},
       sortOptions: [
         {
-          value: 'class',
-          text: this.$t('class'),
-          order: 'asc',
-          param: 'stats.class',
+          value: 'stats.class',
+          text: this.$t('sortClass'),
         },
         {
-          value: 'background',
-          text: this.$t('background'),
-          order: 'asc',
-          param: 'preferences.background',
+          value: 'preferences.background',
+          text: this.$t('sortBackground'),
         },
         {
-          value: 'date-joined-asc',
-          text: this.$t('sortDateJoinedAsc'),
-          order: 'asc',
-          param: 'auth.timestamps.created',
+          value: 'auth.timestamps.created',
+          text: this.$t('sortDateJoined'),
         },
         {
-          value: 'date-joined-desc',
-          text: this.$t('sortDateJoinedDesc'),
-          order: 'desc',
-          param: 'auth.timestamps.created',
+          value: 'auth.timestamps.loggedin',
+          text: this.$t('sortLogin'),
         },
         {
-          value: 'login-asc',
-          text: this.$t('sortLoginAsc'),
-          order: 'asc',
-          param: 'auth.timestamps.loggedin',
+          value: 'stats.lvl',
+          text: this.$t('sortLevel'),
         },
         {
-          value: 'login-desc',
-          text: this.$t('sortLoginDesc'),
-          order: 'desc',
-          param: 'auth.timestamps.loggedin',
+          value: 'profile.name',
+          text: this.$t('sortName'),
         },
         {
-          value: 'level-asc',
-          text: this.$t('sortLevelAsc'),
-          order: 'asc',
-          param: 'stats.lvl',
+          value: 'contributor.level',
+          text: this.$t('sortTier'),
+        },
+      ],
+      sortDirections: [
+        {
+          value: 'asc',
+          text: this.$t('ascendingAbbrev'),
         },
         {
-          value: 'level-desc',
-          text: this.$t('sortLevelDesc'),
-          order: 'desc',
-          param: 'stats.lvl',
-        },
-        {
-          value: 'name-asc',
-          text: this.$t('sortNameAsc'),
-          order: 'asc',
-          param: 'profile.name',
-        },
-        {
-          value: 'name-desc',
-          text: this.$t('sortNameDesc'),
-          order: 'desc',
-          param: 'profile.name',
-        },
-        {
-          value: 'tier-asc',
-          text: this.$t('sortTierAsc'),
-          order: 'asc',
-          param: 'contributor.level',
-        },
-        {
-          value: 'tier-desc',
-          text: this.$t('sortTierDesc'),
-          order: 'desc',
-          param: 'contributor.level',
+          value: 'desc',
+          text: this.$t('descendingAbbrev'),
         },
       ],
       searchTerm: '',
@@ -318,7 +314,7 @@ export default {
 
       if (!isEmpty(this.sortOption)) {
         // Use the memberlist filtered by searchTerm
-        sortedMembers = orderBy(sortedMembers, [this.sortOption.param], [this.sortOption.order]);
+        sortedMembers = orderBy(sortedMembers, [this.sortOption.value], [this.sortOption.direction]);
       }
 
       return sortedMembers;
@@ -424,8 +420,25 @@ export default {
     close () {
       this.$root.$emit('bv::hide::modal', 'members-modal');
     },
-    sort (option) {
-      this.sortOption = option;
+    changeSortOption (e) {
+      this.sortOption.value = e.target.value;
+      this.sort();
+    },
+    changeSortDirection (e) {
+      this.sortOption.direction = e.target.value;
+      this.sort();
+    },
+    sort () {
+      this.sortDirty = true;
+      this.members = orderBy(this.members, [this.sortOption.value], [this.sortOption.direction]);
+    },
+    async applySortOptions () {
+      const settings = {
+        'party.order': this.sortOption.value,
+        'party.orderAscending': this.sortOption.direction,
+      };
+      await this.$store.dispatch('user:set', settings);
+      this.sortDirty = false;
     },
     async loadMoreMembers () {
       const lastMember = this.members[this.members.length - 1];
@@ -464,6 +477,11 @@ export default {
 
       groupData.leader = member;
       this.$root.$emit('updatedGroup', groupData);
+    },
+    viewProgress (member) {
+      this.$root.$emit('habitica:challenge:member-progress', {
+        progressMemberId: member._id,
+      });
     },
   },
 };

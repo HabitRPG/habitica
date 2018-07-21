@@ -143,6 +143,8 @@
     "mysterySet201802": "Love Bug Set",
     "mysterySet201803": "Daring Dragonfly Set",
     "mysterySet201804": "Spiffy Squirrel Set",
+    "mysterySet201805": "Conjunto del Pavo Real",
+    "mysterySet201806": "Alluring Anglerfish Set",
     "mysterySet301404": "Conjunto Steampunk Estándar ",
     "mysterySet301405": "Conjunto de Accesorios Steampunk",
     "mysterySet301703": "Conjunto Pavo Real Steampunk",
@@ -175,12 +177,6 @@
     "invalidCoupon": "Codigo de cupón invalido.",
     "couponUsed": "El codigo de cupón ya fue usado.",
     "couponCodeRequired": "El codigo de cupón es requerido.",
-    "eventRequired": "\"req.params.event\" es requerido.",
-    "countRequired": "\"req.query.count\" es requerido.",
-    "missingPaymentId": "Falta req.query.paymentId",
-    "missingCustomerId": "Falta req.query.customerId",
-    "missingPaypalBlock": "Falta req.session.paypalBlock",
-    "missingSubKey": "Falta req.query.sub",
     "paypalCanceled": "Tu suscripción fue cancelada.",
     "earnGemsMonthly": "Earn up to **<%= cap %> Gems** per month",
     "receiveMysticHourglass": "¡Recibe un Reloj de arena mística!",
@@ -210,5 +206,5 @@
     "purchaseAll": "Cómpralo todo",
     "gemsPurchaseNote": "Subscribers can buy gems for gold in the Market! For easy access, you can also pin the gem to your Rewards column.",
     "gemsRemaining": "Gemas restantes",
-    "notEnoughGemsToBuy": "You are unable to buy that amount of gems"
+    "notEnoughGemsToBuy": "No puedes comprar ese número de gemas."
 }

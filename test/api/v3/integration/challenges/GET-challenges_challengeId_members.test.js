@@ -3,7 +3,7 @@ import {
   generateGroup,
   generateChallenge,
   translate as t,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 import { v4 as generateUUID } from 'uuid';
 
 describe('GET /challenges/:challengeId/members', () => {
@@ -45,6 +45,7 @@ describe('GET /challenges/:challengeId/members', () => {
     let leader = await generateUser({balance: 4});
     let group = await generateGroup(leader, {type: 'guild', privacy: 'public', name: generateUUID()});
     let challenge = await generateChallenge(leader, group);
+    await leader.post(`/challenges/${challenge._id}/join`);
     let res = await user.get(`/challenges/${challenge._id}/members`);
     expect(res[0]).to.eql({
       _id: leader._id,
@@ -59,6 +60,7 @@ describe('GET /challenges/:challengeId/members', () => {
     let anotherUser = await generateUser({balance: 3});
     let group = await generateGroup(anotherUser, {type: 'guild', privacy: 'public', name: generateUUID()});
     let challenge = await generateChallenge(anotherUser, group);
+    await anotherUser.post(`/challenges/${challenge._id}/join`);
     let res = await user.get(`/challenges/${challenge._id}/members`);
     expect(res[0]).to.eql({
       _id: anotherUser._id,
@@ -72,6 +74,7 @@ describe('GET /challenges/:challengeId/members', () => {
   it('returns only first 30 members if req.query.includeAllMembers is not true', async () => {
     let group = await generateGroup(user, {type: 'party', name: generateUUID()});
     let challenge = await generateChallenge(user, group);
+    await user.post(`/challenges/${challenge._id}/join`);
 
     let usersToGenerate = [];
     for (let i = 0; i < 31; i++) {
@@ -90,6 +93,7 @@ describe('GET /challenges/:challengeId/members', () => {
   it('returns only first 30 members if req.query.includeAllMembers is not defined', async () => {
     let group = await generateGroup(user, {type: 'party', name: generateUUID()});
     let challenge = await generateChallenge(user, group);
+    await user.post(`/challenges/${challenge._id}/join`);
 
     let usersToGenerate = [];
     for (let i = 0; i < 31; i++) {
@@ -108,6 +112,7 @@ describe('GET /challenges/:challengeId/members', () => {
   it('returns all members if req.query.includeAllMembers is true', async () => {
     let group = await generateGroup(user, {type: 'party', name: generateUUID()});
     let challenge = await generateChallenge(user, group);
+    await user.post(`/challenges/${challenge._id}/join`);
 
     let usersToGenerate = [];
     for (let i = 0; i < 31; i++) {
@@ -123,9 +128,11 @@ describe('GET /challenges/:challengeId/members', () => {
     });
   });
 
-  it('supports using req.query.lastId to get more members', async () => {
+  it('supports using req.query.lastId to get more members', async function () {
+    this.timeout(30000); // @TODO: times out after 8 seconds
     let group = await generateGroup(user, {type: 'party', name: generateUUID()});
     let challenge = await generateChallenge(user, group);
+    await user.post(`/challenges/${challenge._id}/join`);
 
     let usersToGenerate = [];
     for (let i = 0; i < 57; i++) {
@@ -146,6 +153,7 @@ describe('GET /challenges/:challengeId/members', () => {
   it('supports using req.query.search to get search members', async () => {
     let group = await generateGroup(user, {type: 'party', name: generateUUID()});
     let challenge = await generateChallenge(user, group);
+    await user.post(`/challenges/${challenge._id}/join`);
 
     let usersToGenerate = [];
     for (let i = 0; i < 3; i++) {

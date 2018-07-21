@@ -1,7 +1,6 @@
 <template lang="pug">
 .row(v-if="group._id")
   group-form-modal(v-if='isParty')
-  invite-modal(:group='this.group')
   start-quest-modal(:group='this.group')
   quest-details-modal(:group='this.group')
   group-gems-modal
@@ -9,8 +8,10 @@
     .row
       .col-12.col-md-6.title-details
         h1 {{group.name}}
-        strong.float-left(v-once) {{$t('groupLeader')}}
-        span.leader.float-left(v-if='group.leader.profile', @click='showMemberProfile(group.leader)') : {{group.leader.profile.name}}
+        div
+          span.mr-1.ml-0
+            strong(v-once) {{$t('groupLeader')}}:
+            user-link.mx-1(:user="group.leader")
       .col-12.col-md-6
         .row.icon-row
           .col-4.offset-4(v-bind:class="{ 'offset-8': isParty }")
@@ -25,28 +26,19 @@
               .svg-icon.gem(v-html="icons.gem")
               span.number {{group.balance * 4}}
               div(v-once) {{ $t('guildBank') }}
-    .row.chat-row
-      .col-12
-        h3(v-once) {{ $t('chat') }}
-        .row.new-message-row
-          textarea(:placeholder="!isParty ? $t('chatPlaceholder') : $t('partyChatPlaceholder')", v-model='newMessage', @keydown='updateCarretPosition', @keyup.ctrl.enter='sendMessage()')
-          autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :chat='group.chat')
-        .row.chat-actions
-          .col-6.chat-receive-actions
-            button.btn.btn-secondary.float-left.fetch(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
-            button.btn.btn-secondary.float-left(v-once, @click='reverseChat()') {{ $t('reverseChat') }}
-          .col-6.chat-send-actions
-            button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
-        community-guidelines
+    chat(
+      :label="$t('chat')",
+      :group="group",
+      :placeholder="!isParty ? $t('chatPlaceholder') : $t('partyChatPlaceholder')",
+      @fetchRecentMessages="fetchRecentMessages()"
+    )
+      template(slot="additionRow")
         .row(v-if='showNoNotificationsMessage')
           .col-12.no-notifications
             | {{$t('groupNoNotifications')}}
-        .row
-          .col-12.hr
-          chat-message(:chat.sync='group.chat', :group-id='group._id', :group-name='group.name')
   .col-12.col-sm-4.sidebar
     .row(:class='{"guild-background": !isParty}')
-      .col-12
+      .col-12.buttons-wrapper
         .button-container
           button.btn.btn-success(class='btn-success', v-if='isLeader && !group.purchased.active', @click='upgradeGroup()')
             | {{ $t('upgrade') }}
@@ -61,47 +53,16 @@
           // @TODO: V2 button.btn.btn-primary(v-once, v-if='!isLeader') {{$t('messageGuildLeader')}} // Suggest making the button visible to the leader too - useful for them to test how the feature works or to send a note to themself. -- Alys
         .button-container
           // @TODO: V2 button.btn.btn-primary(v-once, v-if='isMember && !isParty') {{$t('donateGems')}} // Suggest removing the isMember restriction - it's okay if non-members donate to a public guild. Also probably allow it for parties if parties can buy imagery. -- Alys
-    .section-header(v-if='isParty')
-      quest-sidebar-section(@toggle='toggleQuestSection', :show='sections.quest', :group='group')
-    .section-header(v-if='!isParty')
-      .row
-        .col-10
-          h3(v-once) {{ $t('guildSummary') }}
-        .col-2
-          .toggle-up(@click="sections.summary = !sections.summary", v-if="sections.summary")
-            .svg-icon(v-html="icons.upIcon")
-          .toggle-down(@click="sections.summary = !sections.summary", v-if="!sections.summary")
-            .svg-icon(v-html="icons.downIcon")
-      .section(v-if="sections.summary")
+    div
+      quest-sidebar-section(:group='group', v-if='isParty')
+      sidebar-section(:title="$t('guildSummary')", v-if='!isParty')
         p(v-markdown='group.summary')
-    .section-header
-      .row
-        .col-10
-          h3 {{ $t('groupDescription') }}
-        .col-2
-          .toggle-up(@click="sections.description = !sections.description", v-if="sections.description")
-            .svg-icon(v-html="icons.upIcon")
-          .toggle-down(@click="sections.description = !sections.description", v-if="!sections.description")
-            .svg-icon(v-html="icons.downIcon")
-      .section(v-if="sections.description")
+      sidebar-section(:title="$t('groupDescription')")
         p(v-markdown='group.description')
-    .section-header.challenge
-      .row
-        .col-10.information-header
-          h3(v-once)
-            | {{ $t('challenges') }}
-          #groupPrivateDescOrChallengeInfo.icon.tooltip-wrapper(:title="isParty ? $t('challengeDetails') : $t('privateDescription')")
-            .svg-icon(v-html='icons.information')
-          b-tooltip(
-            :title="isParty ? $t('challengeDetails') : $t('privateDescription')",
-            target="groupPrivateDescOrChallengeInfo",
-          )
-        .col-2
-          .toggle-up(@click="sections.challenges = !sections.challenges", v-if="sections.challenges")
-            .svg-icon(v-html="icons.upIcon")
-          .toggle-down(@click="sections.challenges = !sections.challenges", v-if="!sections.challenges")
-            .svg-icon(v-html="icons.downIcon")
-      .section(v-if="sections.challenges")
+      sidebar-section(
+        :title="$t('challenges')",
+        :tooltip="isParty ? $t('challengeDetails') : $t('privateDescription')"
+      )
         group-challenges(:groupId='searchId')
     div.text-center
       button.btn.btn-danger(v-if='isMember', @click='clickLeave()') {{ isParty ? $t('leaveParty') : $t('leaveGroup') }}
@@ -122,10 +83,6 @@
 
   h1 {
     color: $purple-200;
-  }
-
-  .leader:hover {
-    cursor: pointer;
   }
 
   .button-container {
@@ -169,6 +126,10 @@
   .sidebar {
     background-color: $gray-600;
     padding-bottom: 2em;
+    
+  }
+
+  .buttons-wrapper {
     padding-top: 2.8em;
   }
 
@@ -270,29 +231,6 @@
     margin-right: .3em;
   }
 
-  .information-header {
-    h3, .tooltip-wrapper {
-      display: inline-block;
-    }
-
-    .tooltip-wrapper {
-      width: 15px;
-      margin-left: 1.2em;
-    }
-  }
-
-  .section-header {
-    border-top: 1px solid #e1e0e3;
-    margin-top: 1em;
-    padding-top: 1em;
-  }
-
-  .section-header.challenge {
-    border-bottom: 1px solid #e1e0e3;
-    margin-bottom: 1em;
-    padding-bottom: 1em;
-  }
-
   .hr {
     width: 100%;
     height: 20px;
@@ -316,7 +254,6 @@
 <script>
 // @TODO: Break this down into components
 
-import debounce from 'lodash/debounce';
 import extend from 'lodash/extend';
 import groupUtilities from 'client/mixins/groupsUtilities';
 import styleHelper from 'client/mixins/styleHelper';
@@ -326,14 +263,13 @@ import membersModal from './membersModal';
 import startQuestModal from './startQuestModal';
 import questDetailsModal from './questDetailsModal';
 import groupFormModal from './groupFormModal';
-import inviteModal from './inviteModal';
-import chatMessage from '../chat/chatMessages';
-import autocomplete from '../chat/autoComplete';
 import groupChallenges from '../challenges/groupChallenges';
 import groupGemsModal from 'client/components/groups/groupGemsModal';
 import questSidebarSection from 'client/components/groups/questSidebarSection';
 import markdownDirective from 'client/directives/markdown';
-import communityGuidelines from './communityGuidelines';
+import chat from './chat';
+import sidebarSection from '../sidebarSection';
+import userLink from '../userLink';
 
 import deleteIcon from 'assets/svg/delete.svg';
 import copyIcon from 'assets/svg/copy.svg';
@@ -342,10 +278,7 @@ import likedIcon from 'assets/svg/liked.svg';
 import reportIcon from 'assets/svg/report.svg';
 import gemIcon from 'assets/svg/gem.svg';
 import questIcon from 'assets/svg/quest.svg';
-import informationIcon from 'assets/svg/information.svg';
 import questBackground from 'assets/svg/quest-background-border.svg';
-import upIcon from 'assets/svg/up.svg';
-import downIcon from 'assets/svg/down.svg';
 import goldGuildBadgeIcon from 'assets/svg/gold-guild-badge-small.svg';
 import silverGuildBadgeIcon from 'assets/svg/silver-guild-badge-small.svg';
 import bronzeGuildBadgeIcon from 'assets/svg/bronze-guild-badge-small.svg';
@@ -357,14 +290,13 @@ export default {
     membersModal,
     startQuestModal,
     groupFormModal,
-    chatMessage,
-    inviteModal,
     groupChallenges,
-    autocomplete,
     questDetailsModal,
     groupGemsModal,
     questSidebarSection,
-    communityGuidelines,
+    sidebarSection,
+    userLink,
+    chat,
   },
   directives: {
     markdown: markdownDirective,
@@ -381,26 +313,16 @@ export default {
         gem: gemIcon,
         liked: likedIcon,
         questIcon,
-        information: informationIcon,
         questBackground,
-        upIcon,
-        downIcon,
         goldGuildBadgeIcon,
         silverGuildBadgeIcon,
         bronzeGuildBadgeIcon,
       }),
       members: [],
       selectedQuest: {},
-      sections: {
-        quest: true,
-        summary: true,
-        description: true,
-        challenges: true,
-      },
-      newMessage: '',
-      coords: {
-        TOP: 0,
-        LEFT: 0,
+      chat: {
+        submitDisable: false,
+        submitTimeout: null,
       },
     };
   },
@@ -451,13 +373,6 @@ export default {
   },
   beforeRouteUpdate (to, from, next) {
     this.$set(this, 'searchId', to.params.groupId);
-
-    // Reset chat
-    this.newMessage = '';
-    this.coords = {
-      TOP: 0,
-      LEFT: 0,
-    };
 
     next();
   },
@@ -510,40 +425,6 @@ export default {
 
       return this.$store.dispatch('members:getGroupMembers', payload);
     },
-
-    // @TODO: abstract autocomplete
-    // https://medium.com/@_jh3y/how-to-where-s-the-caret-getting-the-xy-position-of-the-caret-a24ba372990a
-    getCoord (e, text) {
-      let carPos = text.selectionEnd;
-      let div = document.createElement('div');
-      let span = document.createElement('span');
-      let copyStyle = getComputedStyle(text);
-
-      [].forEach.call(copyStyle, (prop) => {
-        div.style[prop] = copyStyle[prop];
-      });
-
-      div.style.position = 'absolute';
-      document.body.appendChild(div);
-      div.textContent = text.value.substr(0, carPos);
-      span.textContent = text.value.substr(carPos) || '.';
-      div.appendChild(span);
-      this.coords = {
-        TOP: span.offsetTop,
-        LEFT: span.offsetLeft,
-      };
-      document.body.removeChild(div);
-    },
-    updateCarretPosition: debounce(function updateCarretPosition (eventUpdate) {
-      this._updateCarretPosition(eventUpdate);
-    }, 250),
-    _updateCarretPosition (eventUpdate) {
-      let text = eventUpdate.target;
-      this.getCoord(eventUpdate, text);
-    },
-    selectedAutocomplete (newText) {
-      this.newMessage = newText;
-    },
     showMemberModal () {
       this.$store.state.memberModalOptions.groupId = this.group._id;
       this.$store.state.memberModalOptions.group = this.group;
@@ -552,28 +433,15 @@ export default {
       this.$store.state.memberModalOptions.fetchMoreMembers = this.loadMembers;
       this.$root.$emit('bv::show::modal', 'members-modal');
     },
-    async sendMessage () {
-      if (!this.newMessage) return;
-
-      let response = await this.$store.dispatch('chat:postChat', {
-        group: this.group,
-        message: this.newMessage,
-      });
-      this.group.chat.unshift(response.message);
-      this.newMessage = '';
-    },
     fetchRecentMessages () {
       this.fetchGuild();
-    },
-    reverseChat () {
-      this.group.chat.reverse();
     },
     updateGuild () {
       this.$store.state.editingGroup = this.group;
       this.$root.$emit('bv::show::modal', 'guild-form');
     },
     showInviteModal () {
-      this.$root.$emit('bv::show::modal', 'invite-modal');
+      this.$root.$emit('inviteModal::inviteToGroup', this.group); // This event listener is initiated in ../header/index.vue
     },
     async fetchGuild () {
       if (this.searchId === 'party' && !this.user.party._id) {
@@ -688,18 +556,8 @@ export default {
       }
       // $rootScope.$state.go('options.inventory.quests');
     },
-    async showMemberProfile (leader) {
-      let heroDetails = await this.$store.dispatch('members:fetchMember', { memberId: leader._id });
-      this.$root.$emit('habitica:show-profile', {
-        user: heroDetails.data.data,
-        startingPage: 'profile',
-      });
-    },
     showGroupGems () {
       this.$root.$emit('bv::show::modal', 'group-gems-modal');
-    },
-    toggleQuestSection () {
-      this.sections.quest = !this.sections.quest;
     },
   },
 };

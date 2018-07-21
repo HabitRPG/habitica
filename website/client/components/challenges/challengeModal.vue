@@ -241,6 +241,12 @@ export default {
       this.$store.state.challengeOptions.workingChallenge = Object.assign({}, this.$store.state.challengeOptions.workingChallenge, data.challenge);
       this.$root.$emit('bv::show::modal', 'challenge-modal');
     });
+    this.$root.$on('habitica:update-challenge', (data) => {
+      if (!data.challenge) return;
+      this.cloning = false;
+      this.$store.state.challengeOptions.workingChallenge = Object.assign({}, this.$store.state.challengeOptions.workingChallenge, data.challenge);
+      this.$root.$emit('bv::show::modal', 'challenge-modal');
+    });
   },
   beforeDestroy () {
     this.$root.$off('habitica:clone-challenge');
@@ -311,14 +317,17 @@ export default {
   methods: {
     async shown () {
       this.groups = await this.$store.dispatch('guilds:getMyGuilds');
-      await this.$store.dispatch('party:getParty');
-      const party = this.$store.state.party.data;
-      if (party._id) {
-        this.groups.push({
-          name: party.name,
-          _id: party._id,
-          privacy: 'private',
-        });
+
+      if (this.user.party && this.user.party._id) {
+        await this.$store.dispatch('party:getParty');
+        const party = this.$store.state.party.data;
+        if (party._id) {
+          this.groups.push({
+            name: party.name,
+            _id: party._id,
+            privacy: 'private',
+          });
+        }
       }
 
       this.groups.push({

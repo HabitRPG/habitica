@@ -511,7 +511,7 @@ let quests = {
     value: 1,
     category: 'pet',
     canBuy () {
-      return true;
+      return false;
     },
     collect: {
       plainEgg: {
@@ -3223,6 +3223,38 @@ let quests = {
       gp: 49,
       exp: 425,
       unlock: t('questSquirrelUnlockText'),
+    },
+  },
+  seaserpent: {
+    text: t('questSeaSerpentText'),
+    notes: t('questSeaSerpentNotes'),
+    completion: t('questSeaSerpentCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questSeaSerpentBoss'),
+      hp: 1200,
+      str: 2.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'SeaSerpent',
+          text: t('questSeaSerpentDropSeaSerpentEgg'),
+        }, {
+          type: 'eggs',
+          key: 'SeaSerpent',
+          text: t('questSeaSerpentDropSeaSerpentEgg'),
+        }, {
+          type: 'eggs',
+          key: 'SeaSerpent',
+          text: t('questSeaSerpentDropSeaSerpentEgg'),
+        },
+      ],
+      gp: 80,
+      exp: 800,
+      unlock: t('questSeaSerpentUnlockText'),
     },
   },
 };

@@ -64,7 +64,7 @@
               type="checkbox",
               :checked="item.completed",
               @change="toggleChecklistItem(item)",
-              :disabled="castingSpell",
+              :disabled="castingSpell || !isUser",
               :id="`checklist-${item.id}`"
             )
             label.custom-control-label(v-markdown="item.text", :for="`checklist-${item.id}`")
@@ -143,6 +143,14 @@
 
     &.has-notes {
       padding-bottom: 4px;
+    }
+
+    /**
+    * Fix flex-wrapping for IE 11
+    * https://github.com/HabitRPG/habitica/issues/9754
+    */
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+      flex: 1;
     }
   }
 
@@ -622,7 +630,8 @@ export default {
         this.$t('today') :
         this.timeTillDue.humanize(true);
 
-      return this.$t('dueIn', { dueIn });
+      // this.task && is necessary to make sure the computed property updates correctly
+      return this.task && this.task.date && this.$t('dueIn', { dueIn });
     },
     hasTags () {
       return this.task.tags && this.task.tags.length > 0;
@@ -709,7 +718,7 @@ export default {
       if (task.group.approval.required) task.group.approval.requested = true;
 
       Analytics.updateUser();
-      const response = await axios.post(`/api/v3/tasks/${task._id}/score/${direction}`);
+      const response = await axios.post(`/api/v4/tasks/${task._id}/score/${direction}`);
       const tmp = response.data.data._tmp || {}; // used to notify drops, critical hits and other bonuses
       const crit = tmp.crit;
       const drop = tmp.drop;

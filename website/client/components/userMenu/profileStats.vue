@@ -21,6 +21,7 @@
               h4.gearTitle {{ getGearTitle(equippedItems[key]) }}
               attributesGrid.attributesGrid(
                 :item="content.gear.flat[equippedItems[key]]",
+                :user="user"
               )
 
             h3(v-if="label !== 'skip'") {{ label }}
@@ -51,11 +52,11 @@
               h4.gearTitle {{ getGearTitle(costumeItems[key]) }}
               attributesGrid.attributesGrid(
                :item="content.gear.flat[costumeItems[key]]",
+               :user="user"
               )
 
             h3(v-if="label !== 'skip'") {{ label }}
             h3(v-else) {{ $t('background') }}
-
     .row.pet-mount-row
       .col-12.col-md-6
         h2.text-center(v-once) {{ $t('pets') }}
@@ -121,7 +122,7 @@
         .col-12.col-md-6
           h3(v-if='userLevel100Plus', v-once, v-html="$t('noMoreAllocate')")
           h3
-            | {{$t('pointsAvailable')}}
+            | {{$t('statPoints')}}
             .counter.badge(v-if='user.stats.points || userLevel100Plus')
               | {{user.stats.points}}&nbsp;
         .col-12.col-md-6
@@ -134,16 +135,16 @@
       .row
         .col-12.col-md-3(v-for='(statInfo, stat) in allocateStatsList')
           .box.white.row.col-12
-            .col-12.col-md-8
+            .col-9
               div(:class='stat') {{ $t(stats[stat].title) }}
               .number {{ user.stats[stat] }}
               .points {{$t('pts')}}
-            .col-12.col-md-4
+            .col-3
               div
-                .up(v-if='user.stats.points', @click='allocate(stat)')
+                .up(v-if='showStatsSave', @click='allocate(stat)')
               div
-                .down(@click='deallocate(stat)')
-      .row.save-row
+                .down(v-if='showStatsSave', @click='deallocate(stat)')
+      .row.save-row(v-if='showStatsSave')
         .col-12.col-md-6.offset-md-3.text-center
           button.btn.btn-primary(@click='saveAttributes()', :disabled='loading') {{ this.loading ?  $t('loading') : $t('save') }}
 </template>
@@ -212,7 +213,7 @@
             popover: 'perText',
           },
         },
-        statsAtStart: {
+        statUpdates: {
           str: 0,
           int: 0,
           con: 0,
@@ -220,9 +221,6 @@
         },
         content: Content,
       };
-    },
-    mounted () {
-      this.statsAtStart = Object.assign({}, this.user.stats);
     },
     computed: {
       ...mapState({
@@ -239,6 +237,10 @@
       },
       userLevel100Plus () {
         return this.user.stats.lvl >= 100;
+      },
+      showStatsSave () {
+        const statsAreBeingUpdated = Object.values(this.statUpdates).find(stat => stat > 0);
+        return Boolean(this.user.stats.points) || statsAreBeingUpdated;
       },
     },
     methods: {
@@ -291,24 +293,32 @@
       },
       allocate (stat) {
         allocate(this.user, {query: { stat }});
+        this.statUpdates[stat] += 1;
       },
       deallocate (stat) {
         if (this.user.stats[stat] === 0) return;
         this.user.stats[stat] -= 1;
         this.user.stats.points += 1;
+        this.statUpdates[stat] -= 1;
       },
       async saveAttributes () {
         this.loading = true;
 
         const statUpdates = {};
         ['str', 'int', 'per', 'con'].forEach(stat => {
-          const diff = this.user.stats[stat] - this.statsAtStart[stat];
-          statUpdates[stat] = diff;
+          if (this.statUpdates[stat] > 0) statUpdates[stat] = this.statUpdates[stat];
         });
 
-        await axios.post('/api/v3/user/allocate-bulk', {
+        await axios.post('/api/v4/user/allocate-bulk', {
           stats: statUpdates,
         });
+
+        this.statUpdates = {
+          str: 0,
+          int: 0,
+          con: 0,
+          per: 0,
+        };
 
         this.loading = false;
       },

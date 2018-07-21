@@ -6,7 +6,7 @@
     "questEvilSantaDropBearCubPolarMount": "Urs polar (Călare)",
     "questEvilSanta2Text": "Găsește puiul",
     "questEvilSanta2Notes": "When Trapper Santa captured the polar bear mount, her cub ran off into the icefields. You hear twig-snaps and snow crunch through the crystalline sound of the forest. Paw prints! You start racing to follow the trail. Find all the prints and broken twigs, and retrieve the cub!",
-    "questEvilSanta2Completion": "You've found the cub! It will keep you company forever.",
+    "questEvilSanta2Completion": "Ai găsit un pui! Va rămâne companionul tău pentru totdeauna. ",
     "questEvilSanta2CollectTracks": "Urme",
     "questEvilSanta2CollectBranches": "Crengi rupte",
     "questEvilSanta2DropBearCubPolarPet": "Urs polar (companion)",
@@ -600,5 +600,15 @@
     "questSquirrelCompletion": "With a gentle approach, offers of trade, and a few soothing spells, you’re able to coax the squirrel away from its hoard and back to the stables, which @Shtut has just finished de-acorning. They’ve set aside a few of the acorns on a worktable. “These ones are squirrel eggs! Maybe you can raise some that don’t play with their food quite so much.”",
     "questSquirrelBoss": "Sneaky Squirrel",
     "questSquirrelDropSquirrelEgg": "Squirrel (Egg)",
-    "questSquirrelUnlockText": "Unlocks purchasable Squirrel eggs in the Market"
+    "questSquirrelUnlockText": "Unlocks purchasable Squirrel eggs in the Market",
+    "cuddleBuddiesText": "Cuddle Buddies Quest Bundle",
+    "cuddleBuddiesNotes": "Contains 'The Killer Bunny', 'The Nefarious Ferret', and 'The Guinea Pig Gang'. Available until May 31.",
+    "aquaticAmigosText": "Aquatic Amigos Quest Bundle",
+    "aquaticAmigosNotes": "Contains 'The Magical Axolotl', 'The Kraken of Inkomplete', and 'The Call of Octothulu'. Available until June 30.",
+    "questSeaSerpentText": "Danger in the Depths: Sea Serpent Strike!",
+    "questSeaSerpentNotes": "Your streaks have you feeling lucky—it’s the perfect time for a trip to the seahorse racetrack. You board the submarine at Diligent Docks and settle in for the trip to Dilatory, but you’ve barely submerged when an impact rocks the sub, sending its occupants tumbling. “What’s going on?” @AriesFaries shouts.<br><br>You glance through a nearby porthole and are shocked by the wall of shimmering scales passing by it. “Sea serpent!” Captain @Witticaster calls through the intercom. “Brace yourselves, it’s coming ‘round again!” As you grip the arms of your seat, your unfinished tasks flash before your eyes. ‘Maybe if we work together and complete them,’ you think, ‘we can drive this monster away!’",
+    "questSeaSerpentCompletion": "Battered by your commitment, the sea serpent flees, disappearing into the depths. When you arrive in Dilatory, you breathe a sigh of relief before noticing @*~Seraphina~ approaching with three translucent eggs cradled in her arms. “Here, you should have these,” she says. “You know how to handle a sea serpent!” As you accept the eggs, you vow anew to remain steadfast in completing your tasks to ensure that there’s not a repeat occurrence.",
+    "questSeaSerpentBoss": "The Mighty Sea Serpent",
+    "questSeaSerpentDropSeaSerpentEgg": "Sea Serpent (Egg)",
+    "questSeaSerpentUnlockText": "Unlocks purchasable Sea Serpent eggs in the Market"
 }

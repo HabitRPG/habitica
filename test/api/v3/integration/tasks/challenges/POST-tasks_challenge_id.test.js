@@ -3,7 +3,7 @@ import {
   generateGroup,
   generateChallenge,
   translate as t,
-} from '../../../../../helpers/api-v3-integration.helper';
+} from '../../../../../helpers/api-integration/v3';
 import { v4 as generateUUID } from 'uuid';
 import { find } from 'lodash';
 
@@ -20,6 +20,7 @@ describe('POST /tasks/challenge/:challengeId', () => {
     user = await generateUser({balance: 1});
     guild = await generateGroup(user);
     challenge = await generateChallenge(user, guild);
+    await user.post(`/challenges/${challenge._id}/join`);
   });
 
   it('returns error when challenge is not found', async () => {

@@ -49,7 +49,6 @@
     "UUID": "מזהה משתמש",
     "loadUser": "טען משתמש",
     "noAdminAccess": "אין לכם הרשאות מנהל.",
-    "pageMustBeNumber": "req.query.page חייב להיות מספר",
     "userNotFound": "משתמש לא נמצא.",
     "invalidUUID": "UUID חייב להיות בתוקף",
     "title": "כותרת",

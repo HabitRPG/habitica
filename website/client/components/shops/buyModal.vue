@@ -39,7 +39,8 @@
         slot(name="additionalInfo", :item="item")
           equipmentAttributesGrid.attributesGrid(
             v-if="showAttributesGrid",
-            :item="item"
+            :item="item",
+            :user="user"
           )
 
         .purchase-amount(v-if='item.value > 0')

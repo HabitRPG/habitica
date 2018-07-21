@@ -211,7 +211,7 @@ export default {
         // @TODO: {keyboard:false, backdrop:'static'}
       } else if (after <= 30 && !this.user.flags.warnedLowHealth) {
         this.$root.$emit('bv::show::modal', 'low-health');
-        // @TODO: {keyboard:false, backdrop:'static', controller:'UserCtrl', track:'Health Warning'}
+        // @TODO: {keyboard:false, backdrop:'static', controller:'UserCtrl'}
       }
       if (after === before) return;
       if (this.user.stats.lvl === 0) return;
@@ -399,7 +399,7 @@ export default {
     },
     async runYesterDailiesAction () {
       // Run Cron
-      await axios.post('/api/v3/cron');
+      await axios.post('/api/v4/cron');
 
       // Notifications
 
@@ -465,7 +465,7 @@ export default {
             this.$root.$emit('bv::show::modal', 'won-challenge');
             break;
           case 'STREAK_ACHIEVEMENT':
-            this.streak(this.user.achievements.streak);
+            this.text(this.user.achievements.streak);
             this.playSound('Achievement_Unlocked');
             if (!this.user.preferences.suppressModals.streak) {
               this.$root.$emit('bv::show::modal', 'streak');
@@ -485,7 +485,9 @@ export default {
             break;
           case 'CHALLENGE_JOINED_ACHIEVEMENT':
             this.playSound('Achievement_Unlocked');
-            this.$root.$emit('bv::show::modal', 'joined-challenge');
+            this.text(`${this.$t('achievement')}: ${this.$t('joinedChallenge')}`, () => {
+              this.$root.$emit('bv::show::modal', 'joined-challenge');
+            }, false);
             break;
           case 'INVITED_FRIEND_ACHIEVEMENT':
             this.playSound('Achievement_Unlocked');
@@ -532,7 +534,7 @@ export default {
       let userReadNotifsPromise = false;
 
       if (notificationsToRead.length > 0) {
-        await axios.post('/api/v3/notifications/read', {
+        await axios.post('/api/v4/notifications/read', {
           notificationIds: notificationsToRead,
         });
       }

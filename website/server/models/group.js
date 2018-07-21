@@ -346,7 +346,11 @@ schema.statics.toJSONCleanChat = async function groupToJSONCleanChat (group, use
 
   // Convert to timestamps because Android expects it
   toJSON.chat.forEach(chat => {
-    chat.timestamp = chat.timestamp ? chat.timestamp.getTime() : new Date().getTime();
+    // old chats are saved with a numeric timestamp
+    // new chats use `Date` which then has to be converted to the numeric timestamp
+    if (chat.timestamp && chat.timestamp.getTime) {
+      chat.timestamp = chat.timestamp.getTime();
+    }
   });
 
   return toJSON;
@@ -474,7 +478,7 @@ export function chatDefaults (msg, user) {
   const message = {
     id,
     _id: id,
-    text: msg,
+    text: msg.substring(0, 3000),
     timestamp: Number(new Date()),
     likes: {},
     flags: {},
@@ -1315,6 +1319,7 @@ schema.methods.updateTask = async function updateTask (taskToSync, options = {})
 
   updateCmd.$set['group.approval.required'] = taskToSync.group.approval.required;
   updateCmd.$set['group.assignedUsers'] = taskToSync.group.assignedUsers;
+  updateCmd.$set['group.sharedCompletion'] = taskToSync.group.sharedCompletion;
 
   let taskSchema = Tasks[taskToSync.type];
 
@@ -1410,6 +1415,7 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
 
   matchingTask.group.approval.required = taskToSync.group.approval.required;
   matchingTask.group.assignedUsers = taskToSync.group.assignedUsers;
+  matchingTask.group.sharedCompletion = taskToSync.group.sharedCompletion;
 
   //  sync checklist
   if (taskToSync.checklist) {

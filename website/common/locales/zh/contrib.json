@@ -49,7 +49,6 @@
     "UUID": "用户ID",
     "loadUser": "载入玩家",
     "noAdminAccess": "你没有管理员权限。",
-    "pageMustBeNumber": "req.query.page必须是一个数字",
     "userNotFound": "找不到用户",
     "invalidUUID": "UUID 必须有效",
     "title": "头衔",

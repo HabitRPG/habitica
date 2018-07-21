@@ -370,7 +370,7 @@ export default {
       }
 
       // @TODO: implement langauge and invite accepting
-      // var url = ApiUrl.get() + "/api/v3/user/auth/local/register";
+      // var url = ApiUrl.get() + "/api/v4/user/auth/local/register";
       // if (location.search && location.search.indexOf('Invite=') !== -1) { // matches groupInvite and partyInvite
       //   url += location.search;
       // }
@@ -402,11 +402,6 @@ export default {
       window.location.href = redirectTo;
     },
     async login () {
-      if (!this.username) {
-        alert('Email is required');
-        return;
-      }
-
       await this.$store.dispatch('auth:login', {
         username: this.username,
         // email: this.email,
@@ -433,12 +428,11 @@ export default {
         await hello(network).logout();
       } catch (e) {} // eslint-disable-line
 
-      const url = window.location.href;
-
+      const redirectUrl = `${window.location.protocol}//${window.location.host}`;
       let auth = await hello(network).login({
         scope: 'email',
         // explicitly pass the redirect url or it might redirect to /home
-        redirect_uri: url, // eslint-disable-line camelcase
+        redirect_uri: redirectUrl, // eslint-disable-line camelcase
       });
 
       await this.$store.dispatch('auth:socialAuth', {
@@ -483,7 +477,7 @@ export default {
         return;
       }
 
-      await axios.post('/api/v3/user/reset-password', {
+      await axios.post('/api/v4/user/reset-password', {
         email: this.username,
       });
 
@@ -501,7 +495,7 @@ export default {
         return;
       }
 
-      const res = await axios.post('/api/v3/user/auth/reset-password-set-new-one', {
+      const res = await axios.post('/api/v4/user/auth/reset-password-set-new-one', {
         newPassword: this.password,
         confirmPassword: this.passwordConfirm,
         code: this.resetPasswordSetNewOneData.code,

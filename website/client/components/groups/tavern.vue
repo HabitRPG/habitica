@@ -7,26 +7,12 @@
       .col-6.title-details
         h1(v-once) {{ $t('welcomeToTavern') }}
 
-    .row.chat-row
-      .col-12
-        h3(v-once) {{ $t('tavernChat') }}
-
-        .row
-          textarea(:placeholder="$t('tavernCommunityGuidelinesPlaceholder')", v-model='newMessage', :class='{"user-entry": newMessage}', @keydown='updateCarretPosition', @keyup.ctrl.enter='sendMessage()')
-          autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :chat='group.chat')
-
-        .row
-          .col-6
-            button.btn.btn-secondary.float-left.fetch(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
-            button.btn.btn-secondary.float-left(v-once, @click='reverseChat()') {{ $t('reverseChat') }}
-          .col-6
-            button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
-
-        community-guidelines
-
-        .row
-          .hr.col-12
-          chat-message(:chat.sync='group.chat', :group-id='group._id', :group-name='group.name')
+    chat(
+      :label="$t('tavernChat')",
+      :group="group",
+      :placeholder="$t('tavernCommunityGuidelinesPlaceholder')",
+      @fetchRecentMessages="fetchRecentMessages()"
+    )
   .col-12.col-sm-4.sidebar
     .section
       .grassy-meadow-backdrop
@@ -102,18 +88,9 @@
           li(v-once) {{ $t('sleepBullet4') }}
         button.btn.btn-secondary.pause-button(v-if='!user.preferences.sleep', @click='toggleSleep()', v-once) {{ $t('pauseDailies') }}
         button.btn.btn-secondary.pause-button(v-if='user.preferences.sleep', @click='toggleSleep()', v-once) {{ $t('unpauseDailies') }}
-
-    .below-header-sections
-      .section-header
+    .px-3
+      sidebar-section(:title="$t('staffAndModerators')")
         .row
-          .col-10
-            h3(v-once) {{ $t('staffAndModerators') }}
-          .col-2
-            .toggle-up(@click="sections.staff = !sections.staff", v-if="sections.staff")
-              .svg-icon(v-html="icons.upIcon")
-            .toggle-down(@click="sections.staff = !sections.staff", v-if="!sections.staff")
-              .svg-icon(v-html="icons.downIcon")
-        .section.row(v-if="sections.staff")
           .col-4.staff(v-for='user in staff', :class='{staff: user.type === "Staff", moderator: user.type === "Moderator", bailey: user.name === "It\'s Bailey"}')
             div
               a.title(@click="viewStaffProfile(user.uuid)") {{user.name}}
@@ -122,50 +99,33 @@
               .svg-icon.npc-icon(v-html="icons.tierNPC", v-if='user.name === "It\'s Bailey"')
             .type {{user.type}}
 
-      .section-header
-        .row
-          .col-10
-            h3(v-once) {{ $t('helpfulLinks') }}
-          .col-2
-            .toggle-up(@click="sections.helpfulLinks = !sections.helpfulLinks", v-if="sections.helpfulLinks")
-              .svg-icon(v-html="icons.upIcon")
-            .toggle-down(@click="sections.helpfulLinks = !sections.helpfulLinks", v-if="!sections.helpfulLinks")
-              .svg-icon(v-html="icons.downIcon")
-        .section.row(v-if="sections.helpfulLinks")
-          ul
-            li
-              a(href='', @click.prevent='modForm()') {{ $t('contactForm') }}
-            li
-             router-link(to='/static/community-guidelines', v-once) {{ $t('communityGuidelinesLink') }}
-            li
-              router-link(to="/groups/guild/f2db2a7f-13c5-454d-b3ee-ea1f5089e601") {{ $t('lookingForGroup') }}
-            li
-             router-link(to='/static/faq', v-once) {{ $t('faq') }}
-            li
-              a(href='', v-html="$t('glossary')")
-            li
-              a(href='http://habitica.wikia.com/wiki/Habitica_Wiki', v-once) {{ $t('wiki') }}
-            li
-              a(href='https://oldgods.net/habitrpg/habitrpg_user_data_display.html', v-once) {{ $t('dataDisplayTool') }}
-            li
-              router-link(to="/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac") {{ $t('reportProblem') }}
-            li
-              a(href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents', v-once) {{ $t('requestFeature') }}
-            li
-              a(href='', v-html="$t('communityForum')")
-            li
-              router-link(to="/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a") {{ $t('askQuestionGuild') }}
+      sidebar-section(:title="$t('helpfulLinks')")
+        ul
+          li
+            a(href='', @click.prevent='modForm()') {{ $t('contactForm') }}
+          li
+           router-link(to='/static/community-guidelines', v-once) {{ $t('communityGuidelinesLink') }}
+          li
+            router-link(to="/groups/guild/f2db2a7f-13c5-454d-b3ee-ea1f5089e601") {{ $t('lookingForGroup') }}
+          li
+           router-link(to='/static/faq', v-once) {{ $t('faq') }}
+          li
+            a(href='', v-html="$t('glossary')")
+          li
+            a(href='http://habitica.wikia.com/wiki/Habitica_Wiki', v-once) {{ $t('wiki') }}
+          li
+            a(href='https://oldgods.net/habitrpg/habitrpg_user_data_display.html', v-once) {{ $t('dataDisplayTool') }}
+          li
+            router-link(to="/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac") {{ $t('reportProblem') }}
+          li
+            a(href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents', v-once) {{ $t('requestFeature') }}
+          li
+            a(href='', v-html="$t('communityForum')")
+          li
+            router-link(to="/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a") {{ $t('askQuestionGuild') }}
 
-      .section-header
+      sidebar-section(:title="$t('playerTiers')")
         .row
-          .col-10
-            h3(v-once) {{ $t('playerTiers') }}
-          .col-2
-            .toggle-up(@click="sections.playerTiers = !sections.playerTiers", v-if="sections.playerTiers")
-              .svg-icon(v-html="icons.upIcon")
-            .toggle-down(@click="sections.playerTiers = !sections.playerTiers", v-if="!sections.playerTiers")
-              .svg-icon(v-html="icons.downIcon")
-        .section.row(v-if="sections.playerTiers")
           .col-12
             p(v-once) {{ $t('playerTiersDesc') }}
             ul.tier-list
@@ -205,49 +165,6 @@
   @import '~client/assets/scss/colors.scss';
   @import '~client/assets/scss/variables.scss';
 
-  .chat-row {
-    position: relative;
-
-    textarea {
-      height: 150px;
-      width: 100%;
-      background-color: $white;
-      border: solid 1px $gray-400;
-      font-size: 16px;
-      font-style: italic;
-      line-height: 1.43;
-      color: $gray-300;
-      padding: .5em;
-    }
-
-    .user-entry {
-      font-style: normal;
-      color: $black;
-    }
-
-    .hr {
-      width: 100%;
-      height: 20px;
-      border-bottom: 1px solid $gray-500;
-      text-align: center;
-      margin: 2em 0;
-    }
-
-    .hr-middle {
-      font-size: 16px;
-      font-weight: bold;
-      font-family: 'Roboto Condensed';
-      line-height: 1.5;
-      text-align: center;
-      color: $gray-200;
-      background-color: $gray-700;
-      padding: .2em;
-      margin-top: .2em;
-      display: inline-block;
-      width: 100px;
-    }
-  }
-
   h1 {
     color: $purple-200;
   }
@@ -265,10 +182,6 @@
     background-color: #ffb445 !important;
     color: $white;
     width: 100%;
-  }
-
-  .section-header {
-    margin-top: 2em;
   }
 
   .grassy-meadow-backdrop {
@@ -515,27 +428,24 @@
 </style>
 
 <script>
-import debounce from 'lodash/debounce';
 import { mapState } from 'client/libs/store';
 import { goToModForm } from 'client/libs/modform';
 
 import { TAVERN_ID } from '../../../common/script/constants';
-import chatMessage from '../chat/chatMessages';
-import autocomplete from '../chat/autoComplete';
-import communityGuidelines from './communityGuidelines';
 import worldBossInfoModal from '../world-boss/worldBossInfoModal';
 import worldBossRageModal from '../world-boss/worldBossRageModal';
+import sidebarSection from '../sidebarSection';
+import chat from './chat';
+
 
 import challengeIcon from 'assets/svg/challenge.svg';
 import chevronIcon from 'assets/svg/chevron-red.svg';
-import downIcon from 'assets/svg/down.svg';
 import gemIcon from 'assets/svg/gem.svg';
 import healthIcon from 'assets/svg/health.svg';
 import informationIconRed from 'assets/svg/information-red.svg';
 import questBackground from 'assets/svg/quest-background-border.svg';
 import rageIcon from 'assets/svg/rage.svg';
 import swordIcon from 'assets/svg/sword.svg';
-import upIcon from 'assets/svg/up.svg';
 
 import tier1 from 'assets/svg/tier-1.svg';
 import tier2 from 'assets/svg/tier-2.svg';
@@ -549,14 +459,14 @@ import tierNPC from 'assets/svg/tier-npc.svg';
 import tierStaff from 'assets/svg/tier-staff.svg';
 
 import quests from 'common/script/content/quests';
+import staffList from '../../libs/staffList';
 
 export default {
   components: {
-    chatMessage,
-    autocomplete,
-    communityGuidelines,
     worldBossInfoModal,
     worldBossRageModal,
+    sidebarSection,
+    chat,
   },
   data () {
     return {
@@ -564,7 +474,6 @@ export default {
       icons: Object.freeze({
         challengeIcon,
         chevronIcon,
-        downIcon,
         gem: gemIcon,
         healthIcon,
         informationIcon: informationIconRed,
@@ -581,119 +490,14 @@ export default {
         tierMod,
         tierNPC,
         tierStaff,
-        upIcon,
       }),
       group: {
         chat: [],
       },
       sections: {
-        staff: true,
-        helpfulLinks: true,
-        playerTiers: true,
         worldBoss: true,
       },
-      staff: [
-        {
-          name: 'beffymaroo',
-          type: 'Staff',
-          uuid: '9fe7183a-4b79-4c15-9629-a1aee3873390',
-        },
-        // {
-        //   name: 'lefnire',
-        //   type: 'Staff',
-        //   uuid: '00000000-0000-4000-9000-000000000000',
-        // },
-        {
-          name: 'Lemoness',
-          type: 'Staff',
-          uuid: '7bde7864-ebc5-4ee2-a4b7-1070d464cdb0',
-        },
-        {
-          name: 'paglias',
-          type: 'Staff',
-          uuid: 'ed4c688c-6652-4a92-9d03-a5a79844174a',
-        },
-        {
-          name: 'redphoenix',
-          type: 'Staff',
-          uuid: 'cb46ad54-8c78-4dbc-a8ed-4e3185b2b3ff',
-        },
-        {
-          name: 'SabreCat',
-          type: 'Staff',
-          uuid: '7f14ed62-5408-4e1b-be83-ada62d504931',
-        },
-        {
-          name: 'TheHollidayInn',
-          type: 'Staff',
-          uuid: '206039c6-24e4-4b9f-8a31-61cbb9aa3f66',
-        },
-        {
-          name: 'viirus',
-          type: 'Staff',
-          uuid: 'a327d7e0-1c2e-41be-9193-7b30b484413f',
-        },
-        {
-          name: 'It\'s Bailey',
-          type: 'Moderator',
-          uuid: '9da65443-ed43-4c21-804f-d260c1361596',
-        },
-        {
-          name: 'Alys',
-          type: 'Moderator',
-          uuid: 'd904bd62-da08-416b-a816-ba797c9ee265',
-        },
-        {
-          name: 'Blade',
-          type: 'Moderator',
-          uuid: '75f270e8-c5db-4722-a5e6-a83f1b23f76b',
-        },
-        {
-          name: 'Breadstrings',
-          type: 'Moderator',
-          uuid: '3b675c0e-d7a6-440c-8687-bc67cd0bf4e9',
-        },
-        {
-          name: 'Cantras',
-          type: 'Moderator',
-          uuid: '28771972-ca6d-4c03-8261-e1734aa7d21d',
-        },
-        // {
-        //   name: 'Daniel the Bard',
-        //   type: 'Moderator',
-        //   uuid: '1f7c4a74-03a3-4b2c-b015-112d0acbd593',
-        // },
-        {
-          name: 'deilann 5.0.5b',
-          type: 'Moderator',
-          uuid: 'e7b5d1e2-3b6e-4192-b867-8bafdb03eeec',
-        },
-        {
-          name: 'Dewines',
-          type: 'Moderator',
-          uuid: '262a7afb-6b57-4d81-88e0-80d2e9f6cbdc',
-        },
-        {
-          name: 'Fox_town',
-          type: 'Moderator',
-          uuid: 'a05f0152-d66b-4ef1-93ac-4adb195d0031',
-        },
-        {
-          name: 'Megan',
-          type: 'Moderator',
-          uuid: '73e5125c-2c87-4004-8ccd-972aeac4f17a',
-        },
-        {
-          name: 'shanaqui',
-          type: 'Moderator',
-          uuid: 'bb089388-28ae-4e42-a8fa-f0c2bfb6f779',
-        },
-      ],
-      newMessage: '',
-      coords: {
-        TOP: 0,
-        LEFT: 0,
-      },
+      staff: staffList,
     };
   },
   computed: {
@@ -710,59 +514,10 @@ export default {
     modForm () {
       goToModForm(this.user);
     },
-    // https://medium.com/@_jh3y/how-to-where-s-the-caret-getting-the-xy-position-of-the-caret-a24ba372990a
-    getCoord (e, text) {
-      let carPos = text.selectionEnd;
-      let div = document.createElement('div');
-      let span = document.createElement('span');
-      let copyStyle = getComputedStyle(text);
-
-      [].forEach.call(copyStyle, (prop) => {
-        div.style[prop] = copyStyle[prop];
-      });
-
-      div.style.position = 'absolute';
-      document.body.appendChild(div);
-      div.textContent = text.value.substr(0, carPos);
-      span.textContent = text.value.substr(carPos) || '.';
-      div.appendChild(span);
-      this.coords = {
-        TOP: span.offsetTop,
-        LEFT: span.offsetLeft,
-      };
-      document.body.removeChild(div);
-    },
-    updateCarretPosition: debounce(function updateCarretPosition (eventUpdate) {
-      this._updateCarretPosition(eventUpdate);
-    }, 250),
-    _updateCarretPosition (eventUpdate) {
-      let text = eventUpdate.target;
-      this.getCoord(eventUpdate, text);
-    },
-    selectedAutocomplete (newText) {
-      this.newMessage = newText;
-    },
     toggleSleep () {
       this.$store.dispatch('user:sleep');
     },
-    async sendMessage () {
-      let response = await this.$store.dispatch('chat:postChat', {
-        group: this.group,
-        message: this.newMessage,
-      });
-      this.group.chat.unshift(response.message);
-      this.newMessage = '';
 
-      // @TODO: I would like to not reload everytime we send. Realtime/Firebase?
-      let chat = await this.$store.dispatch('chat:getChat', {groupId: this.group._id});
-      this.group.chat = chat;
-    },
-    async fetchRecentMessages () {
-      this.group = await this.$store.dispatch('guilds:getGroup', {groupId: TAVERN_ID});
-    },
-    reverseChat () {
-      this.group.chat.reverse();
-    },
     pendingDamage () {
       if (!this.user.party.quest.progress.up) return 0;
       return this.$options.filters.floor(this.user.party.quest.progress.up, 10);
@@ -794,6 +549,10 @@ export default {
         user: staffDetails.data.data,
         startingPage: 'profile',
       });
+    },
+
+    async fetchRecentMessages () {
+      this.group = await this.$store.dispatch('guilds:getGroup', {groupId: TAVERN_ID});
     },
   },
 };

@@ -41,8 +41,12 @@ module.exports = {
     assetsPublicPath: '/',
     staticAssetsDirectory,
     proxyTable: {
-      // proxy all requests starting with /api/v3 to IP:PORT as specified in the top-level config
+      // proxy all requests to the server at IP:PORT as specified in the top-level config
       '/api/v3': {
+        target: DEV_BASE_URL,
+        changeOrigin: true,
+      },
+      '/api/v4': {
         target: DEV_BASE_URL,
         changeOrigin: true,
       },
@@ -58,7 +62,11 @@ module.exports = {
         target: DEV_BASE_URL,
         changeOrigin: true,
       },
-      '/logout': {
+      '/logout-server': {
+        target: DEV_BASE_URL,
+        changeOrigin: true,
+      },
+      '/export': {
         target: DEV_BASE_URL,
         changeOrigin: true,
       },

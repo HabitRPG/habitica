@@ -12,10 +12,13 @@ import {
   getTasks,
   moveTask,
 } from '../../../libs/taskManager';
+import { handleSharedCompletion } from '../../../libs/groupTasks';
 import apiError from '../../../libs/apiError';
 
 let requiredGroupFields = '_id leader tasksOrder name';
+// @TODO: abstract to task lib
 let types = Tasks.tasksTypes.map(type => `${type}s`);
+types.push('completedTodos', '_allCompletedTodos'); // _allCompletedTodos is currently in BETA and is likely to be removed in future
 
 function canNotEditTasks (group, user, assignedUserId) {
   let isNotGroupLeader = group.leader !== user._id;
@@ -338,7 +341,7 @@ api.approveTask = {
     }
 
     // Remove old notifications
-    let managerPromises = [];
+    let approvalPromises = [];
     managers.forEach((manager) => {
       let notificationIndex = manager.notifications.findIndex(function findNotification (notification) {
         return notification && notification.data && notification.data.taskId === task._id && notification.type === 'GROUP_TASK_APPROVAL';
@@ -346,7 +349,7 @@ api.approveTask = {
 
       if (notificationIndex !== -1) {
         manager.notifications.splice(notificationIndex, 1);
-        managerPromises.push(manager.save());
+        approvalPromises.push(manager.save());
       }
     });
 
@@ -362,9 +365,11 @@ api.approveTask = {
       direction,
     });
 
-    managerPromises.push(task.save());
-    managerPromises.push(assignedUser.save());
-    await Promise.all(managerPromises);
+    await handleSharedCompletion(task);
+
+    approvalPromises.push(task.save());
+    approvalPromises.push(assignedUser.save());
+    await Promise.all(approvalPromises);
 
     res.respond(200, task);
   },

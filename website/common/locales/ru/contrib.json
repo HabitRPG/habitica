@@ -49,7 +49,6 @@
     "UUID": "ID пользователя",
     "loadUser": "Загрузить пользователя",
     "noAdminAccess": "У вас нет прав администратора.",
-    "pageMustBeNumber": "req.query.page должна быть цифрой",
     "userNotFound": "Пользователь не найден.",
     "invalidUUID": "UUID должен быть действительным.",
     "title": "Звание",

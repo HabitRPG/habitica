@@ -675,6 +675,34 @@ let backgrounds = {
       notes: t('backgroundTerracedRiceFieldNotes'),
     },
   },
+  backgrounds062018: {
+    at_the_docks: {
+      text: t('backgroundDocksText'),
+      notes: t('backgroundDocksNotes'),
+    },
+    rowboat: {
+      text: t('backgroundRowboatText'),
+      notes: t('backgroundRowboatNotes'),
+    },
+    pirate_flag: {
+      text: t('backgroundPirateFlagText'),
+      notes: t('backgroundPirateFlagNotes'),
+    },
+  },
+  backgrounds072018: {
+    dark_deep: {
+      text: t('backgroundDarkDeepText'),
+      notes: t('backgroundDarkDeepNotes'),
+    },
+    dilatory_city: {
+      text: t('backgroundDilatoryCityText'),
+      notes: t('backgroundDilatoryCityNotes'),
+    },
+    tide_pool: {
+      text: t('backgroundTidePoolText'),
+      notes: t('backgroundTidePoolNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),

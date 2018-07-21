@@ -49,7 +49,6 @@
     "UUID": "ID Pengguna",
     "loadUser": "Muat Pengguna",
     "noAdminAccess": "Anda tidak memiliki akses admin.",
-    "pageMustBeNumber": "req.query.page harus berupa angka",
     "userNotFound": "Pengguna tidak ditemukan.",
     "invalidUUID": "UUID harus valid",
     "title": "Titel",

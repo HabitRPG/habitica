@@ -11,7 +11,7 @@ div
       )
         | {{msg.user}}
         .svg-icon(v-html="tierIcon", v-if='showShowTierStyle')
-      p.time {{msg.timestamp | timeAgo}}
+      p.time(v-b-tooltip="", :title="msg.timestamp | date") {{msg.timestamp | timeAgo}}
       .text(v-markdown='msg.text')
       hr
       .action(@click='like()', v-if='!inbox && msg.likes', :class='{active: msg.likes[user._id]}')
@@ -72,6 +72,7 @@ div
     .time {
       font-size: 12px;
       color: #878190;
+      width: 150px;
     }
 
     .text {
@@ -165,7 +166,7 @@ export default {
       return moment(value).fromNow();
     },
     date (value) {
-      // @TODO: Add user preference
+      // @TODO: Vue doesn't support this so we cant user preference
       return moment(value).toDate();
     },
   },
@@ -253,7 +254,7 @@ export default {
       this.$emit('message-removed', message);
 
       if (this.inbox) {
-        axios.delete(`/api/v3/user/messages/${message.id}`);
+        axios.delete(`/api/v4/user/messages/${message.id}`);
         this.$delete(this.user.inbox.messages, message.id);
         return;
       }

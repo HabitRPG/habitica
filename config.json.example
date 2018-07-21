@@ -78,6 +78,9 @@
     "PUSH_CONFIGS": {
         "GCM_SERVER_API_KEY": "",
         "APN_ENABLED": "false",
+        "APN_KEY_ID": "xxxxxxxxxx",
+        "APN_KEY": "xxxxxxxxxx",
+        "APN_TEAM_ID": "aaabbbcccd",
         "FCM_SERVER_API_KEY": ""
     },
     "SITE_HTTP_AUTH": {
@@ -112,5 +115,6 @@
       "CLOUDKARAFKA_USERNAME": "",
       "CLOUDKARAFKA_PASSWORD": "",
       "CLOUDKARAFKA_TOPIC_PREFIX": ""
-    }
+    },
+    "MIGRATION_CONNECT_STRING": "mongodb://localhost:27017/habitrpg?auto_reconnect=true"
 }

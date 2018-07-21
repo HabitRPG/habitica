@@ -58,7 +58,6 @@
 <script>
 import Avatar from '../avatar';
 import { mapState } from 'client/libs/store';
-import * as Analytics from 'client/libs/analytics';
 import percent from '../../../common/script/libs/percent';
 import {maxHealth} from '../../../common/script/index';
 
@@ -81,14 +80,6 @@ export default {
     healthLeft () {
       return `${Math.ceil(this.user.stats.hp)} / ${this.maxHealth}`;
     },
-  },
-  mounted () {
-    Analytics.track({
-      hitType: 'event',
-      eventCategory: 'button',
-      eventAction: 'click',
-      eventLabel: 'Health Warning',
-    });
   },
   methods: {
     close () {

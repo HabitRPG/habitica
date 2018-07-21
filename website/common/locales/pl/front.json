@@ -304,7 +304,7 @@
     "alreadyHaveAccountLogin": "Masz już konto? <strong>Zaloguj się.</strong>",
     "dontHaveAccountSignup": "Nie masz konta? <strong>Zarejestruj się.</strong>",
     "motivateYourself": "Zmotywuj się by osiągnąć swoje cele.",
-    "timeToGetThingsDone": "It's time to have fun when you get things done! Join over <%= userCountInMillions %> million Habiticans and improve your life one task at a time.",
+    "timeToGetThingsDone": "Nadszedł czas, aby dobrze się bawić podczas wykonywania swoich zadań! Dołącz do <%= userCountInMillions %>  milionów Habitan i popraw swoje życie jednym zadanie naraz.",
     "singUpForFree": "Dołącz za darmo",
     "or": "LUB",
     "gamifyYourLife": "Zgrywalizuj swoje życie",

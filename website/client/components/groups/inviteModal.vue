@@ -54,7 +54,6 @@ import { mapState } from 'client/libs/store';
 import filter from 'lodash/filter';
 import map from 'lodash/map';
 import notifications from 'client/mixins/notifications';
-import * as Analytics from 'client/libs/analytics';
 
 export default {
   mixins: [notifications],
@@ -64,14 +63,6 @@ export default {
       invitees: [],
       emails: [],
     };
-  },
-  mounted () {
-    Analytics.track({
-      hitType: 'event',
-      eventCategory: 'button',
-      eventAction: 'click',
-      eventLabel: 'Invite Friends',
-    });
   },
   computed: {
     ...mapState({user: 'user.data'}),

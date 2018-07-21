@@ -8,6 +8,9 @@ import {
   basicFields as basicGroupFields,
   model as Group,
 } from '../../models/group';
+import {
+  model as User,
+} from '../../models/user';
 import * as Tasks from '../../models/task';
 import _ from 'lodash';
 import * as passwordUtils from '../../libs/password';
@@ -90,7 +93,7 @@ api.getUser = {
       let {daysMissed} = user.daysUserHasMissed(new Date(), req);
       userToJSON.needsCron = false;
       if (daysMissed > 0) userToJSON.needsCron = true;
-      user.addComputedStatsToJSONObj(userToJSON.stats);
+      User.addComputedStatsToJSONObj(userToJSON.stats, userToJSON);
     }
 
     return res.respond(200, userToJSON);
@@ -830,7 +833,9 @@ api.buyMysterySet = {
  *
  * @apiErrorExample {json} Quest chosen does not exist
  * {"success":false,"error":"NotFound","message":"Quest \"dilatoryDistress99\" not found."}
- *  @apiErrorExample {json} NotAuthorized Not enough gold
+ * @apiErrorExample {json} You must first complete this quest's prerequisites
+ * {"success":false,"error":"NotAuthorized","message":"You must first complete dilatoryDistress2."}
+ * @apiErrorExample {json} NotAuthorized Not enough gold
  * {"success":false,"error":"NotAuthorized","message":"Not Enough Gold"}
  *
  */
@@ -912,7 +917,7 @@ api.buySpecialSpell = {
  * }
  *
  * @apiError {NotAuthorized} messageAlreadyPet Already have the specific pet combination
- * @apiError {NotFound} messageMissingEggPotion One or both of the ingrediants are missing.
+ * @apiError {NotFound} messageMissingEggPotion One or both of the ingredients are missing.
  * @apiError {NotFound} messageInvalidEggPotionCombo Cannot use that combination of egg and potion.
  *
  * @apiErrorExample {json} Already have that pet.
@@ -948,12 +953,12 @@ api.hatch = {
 };
 
 /**
- * @api {post} /api/v3/user/equip/:type/:key Equip an item
+ * @api {post} /api/v3/user/equip/:type/:key Equip or unequip an item
  * @apiName UserEquip
  * @apiGroup User
  *
- * @apiParam (Path) {String="mount","pet","costume","equipped"} type The type of item to equip
- * @apiParam (Path) {String} key The item to equip
+ * @apiParam (Path) {String="mount","pet","costume","equipped"} type The type of item to equip or unequip
+ * @apiParam (Path) {String} key The item to equip or unequip
  *
  * @apiParamExample {URL} Example-URL
  * https://habitica.com/api/v3/user/equip/equipped/weapon_warrior_2
@@ -1902,7 +1907,7 @@ api.movePinnedItem = {
     let currentPinnedItemPath = user.pinnedItemsOrder[currentIndex];
 
     if (currentIndex === -1) {
-      throw new BadRequest(res.t('wrongItemPath', req.language));
+      throw new BadRequest(res.t('wrongItemPath', {path}, req.language));
     }
 
     // Remove the one we will move

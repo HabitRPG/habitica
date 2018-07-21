@@ -156,4 +156,19 @@ describe('shared.ops.buyQuest', () => {
       done();
     }
   });
+
+  it('does not buy a quest without completing previous quests', (done) => {
+    try {
+      buyQuest(user, {
+        params: {
+          key: 'dilatoryDistress3',
+        },
+      });
+    } catch (err) {
+      expect(err).to.be.an.instanceof(NotAuthorized);
+      expect(err.message).to.equal(i18n.t('mustComplete', {quest: 'dilatoryDistress2'}));
+      expect(user.items.quests).to.eql({});
+      done();
+    }
+  });
 });

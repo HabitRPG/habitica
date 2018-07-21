@@ -24,9 +24,7 @@ router-link.card-link(:to="{ name: 'guild', params: { groupId: guild._id } }")
                 span.count {{ guild.balance * 4 }}
               div.guild-bank(v-if='displayGemBank', v-once) {{$t('guildBank')}}
           .row
-            .col-md-12
-              .category-label(v-for="category in guild.categorySlugs")
-                | {{$t(category)}}
+            category-tags.col-md-12(:categories="guild.categories", :owner="isOwner", v-once)
               span.recommend-text(v-if='showSuggested(guild._id)') Suggested because you’re new to Habitica.
 </template>
 
@@ -78,10 +76,18 @@ router-link.card-link(:to="{ name: 'guild', params: { groupId: guild._id } }")
 
     .gold {
       color: #fdbb5a;
+
+      .member-count {
+        color: #fdbb5a;
+      }
     }
 
     .silver {
       color: #c2c2c2;
+
+      .member-count {
+        color: #c2c2c2;
+      }
     }
 
     .badge-column {
@@ -128,6 +134,7 @@ router-link.card-link(:to="{ name: 'guild', params: { groupId: guild._id } }")
 <script>
 import moment from 'moment';
 import { mapState } from 'client/libs/store';
+import categoryTags from '../categories/categoryTags';
 import groupUtilities from 'client/mixins/groupsUtilities';
 import markdown from 'client/directives/markdown';
 import gemIcon from 'assets/svg/gem.svg';
@@ -142,8 +149,14 @@ export default {
     markdown,
   },
   props: ['guild', 'displayLeave', 'displayGemBank'],
+  components: {
+    categoryTags,
+  },
   computed: {
     ...mapState({user: 'user.data'}),
+    isOwner () {
+      return this.guild.leader && this.guild.leader === this.user._id;
+    },
     isMember () {
       return this.isMemberOfGroup(this.user, this.guild);
     },

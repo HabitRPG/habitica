@@ -49,7 +49,6 @@
     "UUID": "Benutzer-ID",
     "loadUser": "Spieler laden",
     "noAdminAccess": "Du hast keine Administratorrechte.",
-    "pageMustBeNumber": "req.query.page muss eine Zahl sein",
     "userNotFound": "Benutzer nicht gefunden.",
     "invalidUUID": "UUID muss gültig sein",
     "title": "Titel",

@@ -2,7 +2,7 @@ import {
   generateUser,
   generateGroup,
   translate as t,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 import { v4 as generateUUID } from 'uuid';
 import nconf from 'nconf';
 
@@ -111,6 +111,19 @@ describe('Post /groups/:groupId/invite', () => {
           code: 400,
           error: 'BadRequest',
           message: t('canOnlyInviteMaxInvites', {maxInvites: INVITES_LIMIT}),
+        });
+    });
+
+    it('returns error when recipient has blocked the senders', async () => {
+      const inviterNoBlocks = await inviter.update({'inbox.blocks': []});
+      let userWithBlockedInviter = await generateUser({'inbox.blocks': [inviter._id]});
+      await expect(inviterNoBlocks.post(`/groups/${group._id}/invite`, {
+        uuids: [userWithBlockedInviter._id],
+      }))
+        .to.eventually.be.rejected.and.eql({
+          code: 401,
+          error: 'NotAuthorized',
+          message: t('notAuthorizedToSendMessageToThisUser'),
         });
     });
 

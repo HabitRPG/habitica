@@ -6,6 +6,7 @@ import baseModel from '../libs/baseModel';
 import { InternalServerError } from '../libs/errors';
 import _ from 'lodash';
 import { preenHistory } from '../libs/preening';
+import { SHARED_COMPLETION } from '../libs/groupTasks';
 
 const Schema = mongoose.Schema;
 
@@ -111,6 +112,7 @@ export let TaskSchema = new Schema({
       requested: {type: Boolean, default: false},
       requestedDate: {type: Date},
     },
+    sharedCompletion: {type: String, enum: _.values(SHARED_COMPLETION), default: SHARED_COMPLETION.default},
   },
 
   reminders: [{
@@ -184,31 +186,53 @@ TaskSchema.statics.sanitizeReminder = function sanitizeReminder (reminderObj) {
   return reminderObj;
 };
 
-TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta) {
+TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta, direction) {
   let chalTask = this;
 
   chalTask.value += delta;
 
   if (chalTask.type === 'habit' || chalTask.type === 'daily') {
     // Add only one history entry per day
-    let lastChallengHistoryIndex = chalTask.history.length - 1;
+    const history = chalTask.history;
+    const lastChallengHistoryIndex = history.length - 1;
+    const lastHistoryEntry = history[lastChallengHistoryIndex];
 
-    if (chalTask.history[lastChallengHistoryIndex] &&
-      moment(chalTask.history[lastChallengHistoryIndex].date).isSame(new Date(), 'day')) {
-      chalTask.history[lastChallengHistoryIndex] = {
+    if (
+      lastHistoryEntry && lastHistoryEntry.date &&
+      moment().isSame(lastHistoryEntry.date, 'day')
+    ) {
+      lastHistoryEntry.value = chalTask.value;
+      lastHistoryEntry.date = Number(new Date());
+
+      if (chalTask.type === 'habit') {
+        // @TODO remove this extra check after migration has run to set scoredUp and scoredDown in every task
+        lastHistoryEntry.scoredUp = lastHistoryEntry.scoredUp || 0;
+        lastHistoryEntry.scoredDown = lastHistoryEntry.scoredDown || 0;
+
+        if (direction === 'up') {
+          lastHistoryEntry.scoredUp += 1;
+        } else {
+          lastHistoryEntry.scoredDown += 1;
+        }
+      }
+
+      chalTask.markModified(`history.${lastChallengHistoryIndex}`);
+    } else {
+      const historyEntry = {
         date: Number(new Date()),
         value: chalTask.value,
       };
-      chalTask.markModified(`history.${lastChallengHistoryIndex}`);
-    } else {
-      chalTask.history.push({
-        date: Number(new Date()),
-        value: chalTask.value,
-      });
+
+      if (chalTask.type === 'habit') {
+        historyEntry.scoredUp = direction === 'up' ? 1 : 0;
+        historyEntry.scoredDown = direction === 'down' ? 1 : 0;
+      }
+
+      history.push(historyEntry);
 
       // Only preen task history once a day when the task is scored first
       if (chalTask.history.length > 365) {
-        chalTask.history = preenHistory(chalTask.history, true); // true means the challenge will retain as much entries as a subscribed user
+        chalTask.history = preenHistory(chalTask.history, true); // true means the challenge will retain as many entries as a subscribed user
       }
     }
   }
@@ -220,7 +244,11 @@ export let Task = mongoose.model('Task', TaskSchema);
 
 // habits and dailies shared fields
 let habitDailySchema = () => {
-  return {history: Array}; // [{date:Date, value:Number}], // this causes major performance problems
+  // Schema not defined because it causes serious perf problems
+  // date is a date stored as a Number value
+  // value is a Number
+  // scoredUp and scoredDown only exist for habits and are numbers
+  return {history: Array};
 };
 
 // dailys and todos shared fields

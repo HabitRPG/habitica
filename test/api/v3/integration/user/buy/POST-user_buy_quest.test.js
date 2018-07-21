@@ -38,4 +38,32 @@ describe('POST /user/buy-quest/:key', () => {
       itemText: item.text(),
     }));
   });
+
+  it('returns an error if quest prerequisites are not met', async () => {
+    let key = 'dilatoryDistress2';
+
+    await expect(user.post(`/user/buy-quest/${key}`))
+      .to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('mustComplete', {quest: 'dilatoryDistress1'}),
+      });
+  });
+
+  it('allows purchase of a quest if prerequisites are met', async () => {
+    const prerequisite = 'dilatoryDistress1';
+    const key = 'dilatoryDistress2';
+    const item = content.quests[key];
+
+    const achievementName = `achievements.quests.${prerequisite}`;
+
+    await user.update({[achievementName]: true, 'stats.gp': 9999});
+    let res = await user.post(`/user/buy-quest/${key}`);
+    await user.sync();
+
+    expect(res.data).to.eql(user.items.quests);
+    expect(res.message).to.equal(t('messageBought', {
+      itemText: item.text(),
+    }));
+  });
 });

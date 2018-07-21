@@ -3,7 +3,7 @@ import {
   translate as t,
   generateUser,
   sleep,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 import { model as Chat } from '../../../../../website/server/models/chat';
 
 describe('POST /groups/:groupId/quests/force-start', () => {

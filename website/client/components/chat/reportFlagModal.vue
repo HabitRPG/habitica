@@ -100,6 +100,7 @@ export default {
       if (!data.message || !data.groupId) return;
       this.abuseObject = data.message;
       this.groupId = data.groupId;
+      this.reportComment = '';
       this.$root.$emit('bv::show::modal', 'report-flag');
     });
   },

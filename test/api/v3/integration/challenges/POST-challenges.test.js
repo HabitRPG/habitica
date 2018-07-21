@@ -2,7 +2,7 @@ import {
   generateUser,
   createAndPopulateGroup,
   translate as t,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 import { v4 as generateUUID } from 'uuid';
 
 describe('POST /challenges', () => {
@@ -242,7 +242,6 @@ describe('POST /challenges', () => {
     it('returns an error when challenge validation fails; doesn\'s save user or group', async () => {
       let oldChallengeCount = group.challengeCount;
       let oldUserBalance = groupLeader.balance;
-      let oldUserChallenges = groupLeader.challenges;
       let oldGroupBalance = group.balance;
 
       await expect(groupLeader.post('/challenges', {
@@ -260,7 +259,6 @@ describe('POST /challenges', () => {
       expect(group.challengeCount).to.eql(oldChallengeCount);
       expect(group.balance).to.eql(oldGroupBalance);
       expect(groupLeader.balance).to.eql(oldUserBalance);
-      expect(groupLeader.challenges).to.eql(oldUserChallenges);
     });
 
     it('sets all properites of the challenge as passed', async () => {
@@ -291,18 +289,19 @@ describe('POST /challenges', () => {
         name: group.name,
         type: group.type,
       });
-      expect(challenge.memberCount).to.eql(1);
+      expect(challenge.memberCount).to.eql(0);
       expect(challenge.prize).to.eql(prize);
     });
 
-    it('adds challenge to creator\'s challenges', async () => {
-      let challenge = await groupLeader.post('/challenges', {
+    it('does not add challenge to creator\'s challenges', async () => {
+      await groupLeader.post('/challenges', {
         group: group._id,
         name: 'Test Challenge',
         shortName: 'TC Label',
       });
 
-      await expect(groupLeader.sync()).to.eventually.have.property('challenges').to.include(challenge._id);
+      await groupLeader.sync();
+      expect(groupLeader.challenges.length).to.equal(0);
     });
 
     it('awards achievement if this is creator\'s first challenge', async () => {

@@ -3,7 +3,7 @@ import {
   createAndPopulateGroup,
   generateChallenge,
   translate as t,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 import { v4 as generateUUID } from 'uuid';
 
 describe('GET /challenges/:challengeId', () => {
@@ -33,9 +33,11 @@ describe('GET /challenges/:challengeId', () => {
       group = populatedGroup.group;
 
       challenge = await generateChallenge(groupLeader, group);
+      await groupLeader.post(`/challenges/${challenge._id}/join`);
     });
 
     it('should return challenge data', async () => {
+      await challenge.sync();
       let chal = await user.get(`/challenges/${challenge._id}`);
       expect(chal.memberCount).to.equal(challenge.memberCount);
       expect(chal.name).to.equal(challenge.name);
@@ -80,6 +82,7 @@ describe('GET /challenges/:challengeId', () => {
 
       challenge = await generateChallenge(groupLeader, group);
       await members[0].post(`/challenges/${challenge._id}/join`);
+      await groupLeader.post(`/challenges/${challenge._id}/join`);
     });
 
     it('fails if user doesn\'t have access to the challenge', async () => {
@@ -134,6 +137,7 @@ describe('GET /challenges/:challengeId', () => {
 
       challenge = await generateChallenge(groupLeader, group);
       await members[0].post(`/challenges/${challenge._id}/join`);
+      await groupLeader.post(`/challenges/${challenge._id}/join`);
     });
 
     it('fails if user doesn\'t have access to the challenge', async () => {

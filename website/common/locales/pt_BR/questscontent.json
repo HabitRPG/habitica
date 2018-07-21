@@ -102,7 +102,7 @@
     "questGoldenknight2Text": "A Cavaleira Dourada, Parte 2: Cavaleira De Ouro",
     "questGoldenknight2Notes": "Em posse de centenas de testemunhos de habiticanos, você finalmente confronta a Cavaleira Dourada. Você começa a recitar as reclamações de habiticanos para ela, uma a uma. \"E @Pfeffernusse diz que seu enorme ego-\" A Cavaleira levanta sua mão para te silenciar e zomba, \"Por favor, essas pessoas estão somente com inveja do meu sucesso. Ao invés de reclamar, elas deveriam simplesmente se esforçar tanto quanto eu! Talvez eu deva mostrar-lhes o poder que vocês podem alcançar através de uma dedicação como a minha!\" Ela levanta sua maça e se prepara para te atacar!",
     "questGoldenknight2Boss": "Cavaleira de Ouro",
-    "questGoldenknight2Completion": "The Golden Knight lowers her Morningstar in consternation. “I apologize for my rash outburst,” she says. “The truth is, it’s painful to think that I’ve been inadvertently hurting others, and it made me lash out in defense… but perhaps I can still apologize?”",
+    "questGoldenknight2Completion": "A Cavaleira Dourada abaixa sua Estrela da Manhã em pavor. \"Eu peço perdão pelo meu ataque precipitado,\" ela diz. \"A verdade, é que é doloroso pensar que eu estive machucando os outros sem perceber, e isso me deixa sem defesa alguma... mas talvez eu ainda possa pedir perdão?\"",
     "questGoldenknight2DropGoldenknight3Quest": "A Cavaleira Dourada, Parte 3: O Cavaleiro de Ferro (Pergaminho)",
     "questGoldenknight3Text": "A Cavaleira Dourada, Parte 3: O Cavaleiro de Ferro",
     "questGoldenknight3Notes": "@Jon Arinbjorn grita para conseguir sua atenção. Após a sua batalha, uma nova figura apareceu. Um cavaleiro coberto por ferro escurecido lentamente se aproxima de você com espada em mãos. A Cavaleira Dourada grita para a figura \"Pai, não!\", mas o cavaleiro não mostra sinais de parar. Ela se vira para você e diz \"Me desculpe, eu fui uma tola, com uma cabeça grande demais para ver quão cruel eu tenho sido. Mas meu pai é mais cruel do que eu jamais poderia ser. Se ele não for parado, ele nos destruirá a todos. Aqui, use minha maça e pare o Cavaleiro de Ferro!\"",
@@ -600,5 +600,15 @@
     "questSquirrelCompletion": "Com uma abordagem gentil, ofertas de troca e alguns feitiços tranquilizadores, vocês conseguiram convencer o esquilo a voltar para os estábulos, que tinham acabado de ser desnozificados por @Shtut. Eles tinham separado algumas nozes numa mesa de trabalho. \"Esses aqui são ovos de esquilo! Talvez você consiga criar alguns que não brinquem tanto com a comida.\"",
     "questSquirrelBoss": "Esquilo Traiçoeiro",
     "questSquirrelDropSquirrelEgg": "Esquilo (Ovo)",
-    "questSquirrelUnlockText": "Desbloqueia ovos de Esquilo no Mercado."
+    "questSquirrelUnlockText": "Desbloqueia ovos de Esquilo no Mercado.",
+    "cuddleBuddiesText": "Pacote de Missões Amiguinhos Fofos",
+    "cuddleBuddiesNotes": "Contém 'A Coelhinha Assassina', 'O Furão Nefasto' e 'A Gangue do Porquinho da Índia'. Disponível até 31 de Maio.",
+    "aquaticAmigosText": "Pacote de Missões Amigos Aquáticos",
+    "aquaticAmigosNotes": "Contém 'O Axolote Mágico', 'O Kraken do Incorpleto', e 'O Chamado do Octothulu'. Disponível até 30 de Junho.",
+    "questSeaSerpentText": "Danger in the Depths: Sea Serpent Strike!",
+    "questSeaSerpentNotes": "Your streaks have you feeling lucky—it’s the perfect time for a trip to the seahorse racetrack. You board the submarine at Diligent Docks and settle in for the trip to Dilatory, but you’ve barely submerged when an impact rocks the sub, sending its occupants tumbling. “What’s going on?” @AriesFaries shouts.<br><br>You glance through a nearby porthole and are shocked by the wall of shimmering scales passing by it. “Sea serpent!” Captain @Witticaster calls through the intercom. “Brace yourselves, it’s coming ‘round again!” As you grip the arms of your seat, your unfinished tasks flash before your eyes. ‘Maybe if we work together and complete them,’ you think, ‘we can drive this monster away!’",
+    "questSeaSerpentCompletion": "Battered by your commitment, the sea serpent flees, disappearing into the depths. When you arrive in Dilatory, you breathe a sigh of relief before noticing @*~Seraphina~ approaching with three translucent eggs cradled in her arms. “Here, you should have these,” she says. “You know how to handle a sea serpent!” As you accept the eggs, you vow anew to remain steadfast in completing your tasks to ensure that there’s not a repeat occurrence.",
+    "questSeaSerpentBoss": "The Mighty Sea Serpent",
+    "questSeaSerpentDropSeaSerpentEgg": "Sea Serpent (Egg)",
+    "questSeaSerpentUnlockText": "Unlocks purchasable Sea Serpent eggs in the Market"
 }

@@ -25,6 +25,10 @@ export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation {
       user.achievements.quests.taskwoodsTerror3;
   }
 
+  getItemKey () {
+    return this.key;
+  }
+
   getItemValue (item) {
     return item.goldValue;
   }
@@ -32,10 +36,6 @@ export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation {
   extractAndValidateParams (user, req) {
     let key = this.key = get(req, 'params.key');
     if (!key) throw new BadRequest(errorMessage('missingKeyParam'));
-
-    if (key === 'lostMasterclasser1' && !this.userAbleToStartMasterClasser(user)) {
-      throw new NotAuthorized(this.i18n('questUnlockLostMasterclasser'));
-    }
 
     let item = content.quests[key];
 
@@ -45,7 +45,20 @@ export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation {
       throw new NotAuthorized(this.i18n('questNotGoldPurchasable', {key}));
     }
 
+    this.checkPrerequisites(user, key);
+
     this.canUserPurchase(user, item);
+  }
+
+  checkPrerequisites (user, questKey) {
+    const item = content.quests[questKey];
+    if (questKey === 'lostMasterclasser1' && !this.userAbleToStartMasterClasser(user)) {
+      throw new NotAuthorized(this.i18n('questUnlockLostMasterclasser'));
+    }
+
+    if (item && item.previous && !user.achievements.quests[item.previous]) {
+      throw new NotAuthorized(this.i18n('mustComplete', {quest: item.previous}));
+    }
   }
 
   executeChanges (user, item, req) {
@@ -60,14 +73,5 @@ export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation {
         itemText: item.text(req.language),
       }),
     ];
-  }
-
-  analyticsData () {
-    return {
-      itemKey: this.key,
-      itemType: 'Market',
-      acquireMethod: 'Gold',
-      goldCost: this.getItemValue(this.item.goldValue),
-    };
   }
 }
