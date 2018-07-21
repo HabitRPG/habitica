@@ -449,7 +449,7 @@ api.getGroupChallenges = {
   method: 'GET',
   url: '/challenges/groups/:groupId',
   middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
+    userFieldsToInclude: ['_id', 'party', 'guilds'],
   })],
   async handler (req, res) {
     let user = res.locals.user;
@@ -463,10 +463,10 @@ api.getGroupChallenges = {
     if (groupId === 'party') groupId = user.party._id;
     if (groupId === 'habitrpg') groupId = TAVERN_ID;
 
-    let group = await Group.getGroup({user, groupId});
+    const group = await Group.getGroup({ user, groupId });
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    let challenges = await Challenge.find({group: groupId})
+    const challenges = await Challenge.find({ group: groupId })
       .sort('-createdAt')
       // .populate('leader', nameFields) // Only populate the leader as the group is implicit
       .exec();

@@ -288,7 +288,7 @@ api.getUserTasks = {
   method: 'GET',
   url: '/tasks/user',
   middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
+    userFieldsToInclude: ['_id', 'tasksOrder', 'preferences'],
   })],
   async handler (req, res) {
     let types = Tasks.tasksTypes.map(type => `${type}s`);
@@ -298,10 +298,10 @@ api.getUserTasks = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let user = res.locals.user;
-    let dueDate = req.query.dueDate;
+    const user = res.locals.user;
+    const dueDate = req.query.dueDate;
 
-    let tasks = await getTasks(req, res, {user, dueDate});
+    const tasks = await getTasks(req, res, { user, dueDate });
     return res.respond(200, tasks);
   },
 };
