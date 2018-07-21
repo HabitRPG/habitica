@@ -287,7 +287,7 @@ api.getUserTasks = {
   method: 'GET',
   url: '/tasks/user',
   middlewares: [authWithHeaders({
-    userFieldsToInclude: ['_id'],
+    userFieldsToInclude: ['_id', 'tasksOrder', 'preferences'],
   })],
   async handler (req, res) {
     let types = Tasks.tasksTypes.map(type => `${type}s`);
