@@ -38,7 +38,7 @@ sidebar-section(:title="$t('questDetailsTitle')")
             .col-6
               h4.float-left(v-once) {{ questData.boss.name() }}
             .col-6
-              a.float-right(:style={'font-family': 'Roboto Condensed', 'font-weight': 'bold', 'color': '$gray-10'}, @click="openParticipantList()") {{ $t('participantsTitle') }}
+              a.float-right(@click="openParticipantList()") {{ $t('participantsTitle') }}
           .row
             .col-12
               .grey-progress-bar
@@ -72,6 +72,14 @@ sidebar-section(:title="$t('questDetailsTitle')")
 
   .quest-boss {
     margin: 0 auto;
+  }
+
+  .boss-info {
+    a {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: bold;
+      color: $gray-10;
+    }
   }
 
   .boss-health-bar {
