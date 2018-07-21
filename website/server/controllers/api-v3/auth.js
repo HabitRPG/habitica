@@ -101,21 +101,25 @@ api.registerLocal = {
     let existingUser = res.locals.user; // If adding local auth to social user
 
     req.checkBody({
-      email: {
-        notEmpty: {errorMessage: res.t('missingEmail')},
-        isEmail: {errorMessage: res.t('notAnEmail')},
-      },
       username: {
-        notEmpty: {errorMessage: res.t('missingUsername')},
-        isLength: {options: {min: USERNAME_LENGTH_MIN, max: USERNAME_LENGTH_MAX}, errorMessage: res.t('usernameWrongLength')},
+        notEmpty: true,
+        errorMessage: res.t('missingUsername'),
         // TODO use the constants in the error message above
+        isLength: {options: {min: USERNAME_LENGTH_MIN, max: USERNAME_LENGTH_MAX}, errorMessage: res.t('usernameWrongLength')},
         matches: {options: /^[-_a-zA-Z0-9]+$/, errorMessage: res.t('usernameBadCharacters')},
       },
+      email: {
+        notEmpty: true,
+        errorMessage: res.t('missingEmail'),
+        isEmail: {errorMessage: res.t('notAnEmail')},
+      },
       password: {
-        notEmpty: {errorMessage: res.t('missingPassword')},
+        notEmpty: true,
+        errorMessage: res.t('missingPassword'),
         equals: {options: [req.body.confirmPassword], errorMessage: res.t('passwordConfirmationMatch')},
       },
     });
+
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
@@ -476,7 +480,7 @@ api.updateUsername = {
         notEmpty: {errorMessage: res.t('missingPassword')},
       },
       username: {
-        notEmpty: { errorMessage: res.t('missingUsername') },
+        notEmpty: {errorMessage: res.t('missingUsername')},
       },
     });
 

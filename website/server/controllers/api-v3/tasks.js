@@ -5,6 +5,7 @@ import {
 } from '../../libs/webhook';
 import { removeFromArray } from '../../libs/collectionManipulators';
 import * as Tasks from '../../models/task';
+import { handleSharedCompletion } from '../../libs/groupTasks';
 import { model as Challenge } from '../../models/challenge';
 import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
@@ -287,7 +288,7 @@ api.getUserTasks = {
   method: 'GET',
   url: '/tasks/user',
   middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
+    userFieldsToInclude: ['_id', 'tasksOrder', 'preferences'],
   })],
   async handler (req, res) {
     let types = Tasks.tasksTypes.map(type => `${type}s`);
@@ -297,10 +298,10 @@ api.getUserTasks = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let user = res.locals.user;
-    let dueDate = req.query.dueDate;
+    const user = res.locals.user;
+    const dueDate = req.query.dueDate;
 
-    let tasks = await getTasks(req, res, {user, dueDate});
+    const tasks = await getTasks(req, res, { user, dueDate });
     return res.respond(200, tasks);
   },
 };
@@ -490,6 +491,9 @@ api.updateTask = {
     if (sanitizedObj.requiresApproval) {
       task.group.approval.required = true;
     }
+    if (sanitizedObj.sharedCompletion) {
+      task.group.sharedCompletion = sanitizedObj.sharedCompletion;
+    }
 
     setNextDue(task, user);
     let savedTask = await task.save();
@@ -653,6 +657,12 @@ api.scoreTask = {
       user.save(),
       task.save(),
     ];
+
+    if (task.group && task.group.taskId) {
+      await handleSharedCompletion(task);
+    }
+
+    // Save results and handle request
     if (taskOrderPromise) promises.push(taskOrderPromise);
     let results = await Promise.all(promises);
 

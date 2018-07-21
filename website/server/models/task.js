@@ -6,6 +6,7 @@ import baseModel from '../libs/baseModel';
 import { InternalServerError } from '../libs/errors';
 import _ from 'lodash';
 import { preenHistory } from '../libs/preening';
+import { SHARED_COMPLETION } from '../libs/groupTasks';
 
 const Schema = mongoose.Schema;
 
@@ -111,6 +112,7 @@ export let TaskSchema = new Schema({
       requested: {type: Boolean, default: false},
       requestedDate: {type: Date},
     },
+    sharedCompletion: {type: String, enum: _.values(SHARED_COMPLETION), default: SHARED_COMPLETION.default},
   },
 
   reminders: [{

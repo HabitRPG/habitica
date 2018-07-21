@@ -144,7 +144,7 @@
                 .up(v-if='user.stats.points', @click='allocate(stat)')
               div
                 .down(@click='deallocate(stat)', v-if='user.stats.points')
-      .row.save-row
+      .row.save-row(v-if='showStatsSave')
         .col-12.col-md-6.offset-md-3.text-center
           button.btn.btn-primary(@click='saveAttributes()', :disabled='loading') {{ this.loading ?  $t('loading') : $t('save') }}
 </template>
@@ -237,6 +237,10 @@
       },
       userLevel100Plus () {
         return this.user.stats.lvl >= 100;
+      },
+      showStatsSave () {
+        const statsAreBeingUpdated = Object.values(this.statUpdates).find(stat => stat > 0);
+        return Boolean(this.user.stats.points) || statsAreBeingUpdated;
       },
     },
     methods: {

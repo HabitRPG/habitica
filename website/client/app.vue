@@ -105,7 +105,7 @@ div
   @import '~client/assets/scss/colors.scss';
 
   /* @TODO: The modal-open class is not being removed. Let's try this for now */
-  .modal, .modal-open {
+  .modal {
     overflow-y: scroll !important;
   }
 
@@ -331,9 +331,33 @@ export default {
         ];
         if (notificationNotFoundMessage.indexOf(errorMessage) !== -1) snackbarTimeout = true;
 
+        let errorsToShow = [];
+        let usernameCheck = false;
+        let emailCheck = false;
+        let passwordCheck = false;
+        // show only the first error for each param
+        if (errorData.errors) {
+          for (let e of errorData.errors) {
+            if (!usernameCheck && e.param === 'username') {
+              errorsToShow.push(e.message);
+              usernameCheck = true;
+            }
+            if (!emailCheck && e.param === 'email') {
+              errorsToShow.push(e.message);
+              emailCheck = true;
+            }
+            if (!passwordCheck && e.param === 'password') {
+              errorsToShow.push(e.message);
+              passwordCheck = true;
+            }
+          }
+        } else {
+          errorsToShow.push(errorMessage);
+        }
+        // dispatch as one snackbar notification
         this.$store.dispatch('snackbars:add', {
           title: 'Habitica',
-          text: errorMessage,
+          text: errorsToShow.join(' '),
           type: 'error',
           timeout: snackbarTimeout,
         });
@@ -475,8 +499,16 @@ export default {
       });
 
       this.$root.$on('bv::modal::hidden', (bvEvent) => {
-        const modalId = bvEvent.target && bvEvent.target.id;
-        if (!modalId) return;
+        let modalId = bvEvent.target && bvEvent.target.id;
+
+        // sometimes the target isn't passed to the hidden event, fallback is the vueTarget
+        if (!modalId) {
+          modalId = bvEvent.vueTarget && bvEvent.vueTarget.id;
+        }
+
+        if (!modalId) {
+          return;
+        }
 
         const modalStack = this.$store.state.modalStack;
 
@@ -493,6 +525,7 @@ export default {
 
         // Get previous modal
         const modalBefore = modalOnTop ? modalOnTop.prev : undefined;
+
         if (modalBefore) this.$root.$emit('bv::show::modal', modalBefore, {fromRoot: true});
       });
     },

@@ -48,7 +48,6 @@
   .member-stats {
     padding-left: 12px;
     padding-right: 24px;
-    margin-right: 1px;
     opacity: 1;
     transition: width 0.15s ease-out;
   }
@@ -148,6 +147,7 @@
       right: 100%;
       height: calc(100% + 18px);
       margin-top: -9px;
+      margin-right: 1px;
       padding-top: 9px;
       padding-bottom: 24px;
       padding-right: 16px;

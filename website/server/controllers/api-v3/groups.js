@@ -196,7 +196,6 @@ api.createGroupPlan = {
 
     // @TODO: Change message
     if (group.privacy !== 'private') throw new NotAuthorized(res.t('partyMustbePrivate'));
-    group.memberCount = await User.count({ $or: [{ 'party._id': group._id }, { guilds: group._id }] }).exec();
     group.leader = user._id;
     user.guilds.push(group._id);
 
@@ -385,7 +384,7 @@ api.getGroup = {
   method: 'GET',
   url: '/groups/:groupId',
   middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
+    userFieldsToInclude: ['_id', 'party', 'guilds', 'contributor'],
   })],
   async handler (req, res) {
     let user = res.locals.user;

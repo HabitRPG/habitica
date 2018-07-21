@@ -131,6 +131,7 @@
     "locationRequired": "チャレンジの場所が必要です(「チャレンジを登録する場所」)",
     "categoiresRequired": "1つ以上のカテゴリーを選択する必要があります",
     "viewProgressOf": "進捗を見る",
+    "viewProgress": "View Progress",
     "selectMember": "メンバーを選択",
     "confirmKeepChallengeTasks": "チャレンジのタスクをそのままにしておきますか？",
     "selectParticipant": "参加者を選ぶ"
