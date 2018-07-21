@@ -384,7 +384,7 @@ api.getGroup = {
   method: 'GET',
   url: '/groups/:groupId',
   middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
+    userFieldsToInclude: ['_id', 'party', 'guilds'],
   })],
   async handler (req, res) {
     let user = res.locals.user;
