@@ -122,7 +122,7 @@
         .col-12.col-md-6
           h3(v-if='userLevel100Plus', v-once, v-html="$t('noMoreAllocate')")
           h3
-            | {{$t('pointsAvailable')}}
+            | {{$t('statPoints')}}
             .counter.badge(v-if='user.stats.points || userLevel100Plus')
               | {{user.stats.points}}&nbsp;
         .col-12.col-md-6
