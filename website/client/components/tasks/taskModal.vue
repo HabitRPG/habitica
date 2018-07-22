@@ -1,6 +1,6 @@
 <template lang="pug">
   form(v-if="task", @submit.stop.prevent="submit()")
-    b-modal#task-modal(size="sm", @hidden="onClose()", @show="handleOpen()", @shown="focusInput()")
+    b-modal#task-modal(v-bind:no-close-on-backdrop="showTagsSelect", size="sm", @hidden="onClose()", @show="handleOpen()", @shown="focusInput()")
       .task-modal-header(slot="modal-header", :class="cssClass('bg')")
         .clearfix
           h1.float-left {{ title }}
@@ -803,6 +803,12 @@ export default {
       return this.selectedTags.slice(this.maxTags);
     },
   },
+  created () {
+    document.addEventListener('click', this.handleClick);
+  },
+  destroyed () {
+    document.removeEventListener('click', this.handleClick);
+  },
   methods: {
     ...mapActions({saveTask: 'tasks:save', destroyTask: 'tasks:destroy', createTask: 'tasks:create'}),
     async syncTask () {
@@ -987,6 +993,11 @@ export default {
     },
     focusInput () {
       this.$refs.inputToFocus.focus();
+    },
+    handleClick () {
+      if (this.showTagsSelect) {
+        this.closeTagsPopup();
+      }
     },
   },
 };
