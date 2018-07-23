@@ -10,7 +10,7 @@
     "reachedGoldToGemCapQuantity": "Your requested amount <%= quantity %> exceeds the Gold=>Gem conversion cap <%= convCap %> for this month. We have this to prevent abuse / farming. The cap resets within the first three days of each month.",
     "retainHistory": "保留額外的歷史記錄",
     "retainHistoryText": "讓已完成的代辦事項以及任務的歷史記錄可以保留更久。",
-    "doubleDrops": "Daily drop caps doubled",
+    "doubleDrops": "每日掉落物上限加倍",
     "doubleDropsText": "收集坐騎更快！",
     "mysteryItem": "每個月額外獲得寶物",
     "mysteryItemText": "每個月，每位訂閱者都會獲得一件十分特殊的角色形象物品！還有，每3個連續訂閱就可以透過神秘時空旅行者獲取有歷史性(還有未來性)的角色形象物品。",
@@ -201,10 +201,10 @@
     "subscriptionBenefit5": "Receive the exclusive Royal Purple Jackalope pet!",
     "subscriptionBenefit6": "Earn Mystic Hourglasses for use in the Time Travelers' Shop!",
     "haveCouponCode": "Do you have a coupon code?",
-    "subscriptionAlreadySubscribedLeadIn": "Thanks for subscribing!",
+    "subscriptionAlreadySubscribedLeadIn": "感謝訂閱！",
     "subscriptionAlreadySubscribed1": "To see your subscription details and cancel, renew, or change your subscription, please go to <a href='/user/settings/subscription'>User icon &gt; Settings &gt; Subscription</a>.",
     "purchaseAll": "Purchase All",
     "gemsPurchaseNote": "Subscribers can buy gems for gold in the Market! For easy access, you can also pin the gem to your Rewards column.",
-    "gemsRemaining": "gems remaining",
-    "notEnoughGemsToBuy": "You are unable to buy that amount of gems"
+    "gemsRemaining": "剩餘寶石",
+    "notEnoughGemsToBuy": "你無法購買該數量的寶石"
 }

@@ -176,6 +176,11 @@ export async function getGroupTasks (store, payload) {
   return response.data.data;
 }
 
+export async function getCompletedGroupTasks (store, payload) {
+  let response = await axios.get(`/api/v4/tasks/group/${payload.groupId}?type=completedTodos`);
+  return response.data.data;
+}
+
 export async function createGroupTasks (store, payload) {
   let response = await axios.post(`/api/v4/tasks/group/${payload.groupId}`, payload.tasks);
   return response.data.data;

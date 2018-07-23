@@ -1,6 +1,6 @@
 <template lang="pug">
 transition(name="fade")
-  .notification.callout.animated(:class="classes", v-if='show', @click='show = false')
+  .notification.callout.animated(:class="classes", v-if='show', @click='handleOnClick()')
     .row(v-if='notification.type === "error"')
       .text.col-12
         div(v-html='notification.text')
@@ -50,6 +50,10 @@ transition(name="fade")
 
   .error {
     background-color: #f74e52;
+    border-radius: 60px;
+    width: 320px !important;
+    padding: 10px 5px;
+    margin-left: 0;
     color: #fff;
   }
 
@@ -141,6 +145,15 @@ export default {
   },
   beforeDestroy () {
     clearTimeout(this.timer);
+  },
+  methods: {
+    handleOnClick () {
+      if (typeof this.notification.onClick === 'function') {
+        this.notification.onClick();
+      }
+
+      this.show = false;
+    },
   },
   watch: {
     show () {

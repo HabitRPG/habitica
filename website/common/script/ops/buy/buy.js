@@ -15,7 +15,7 @@ import {BuyGemOperation} from './buyGem';
 import {BuyQuestWithGemOperation} from './buyQuestGem';
 
 // @TODO: remove the req option style. Dependency on express structure is an anti-pattern
-// We should either have more parms or a set structure validated by a Type checker
+// We should either have more params or a set structure validated by a Type checker
 
 // @TODO: when we are sure buy is the only function used, let's move the buy files to a folder
 

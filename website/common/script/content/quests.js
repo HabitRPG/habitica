@@ -3225,6 +3225,38 @@ let quests = {
       unlock: t('questSquirrelUnlockText'),
     },
   },
+  seaserpent: {
+    text: t('questSeaSerpentText'),
+    notes: t('questSeaSerpentNotes'),
+    completion: t('questSeaSerpentCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questSeaSerpentBoss'),
+      hp: 1200,
+      str: 2.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'SeaSerpent',
+          text: t('questSeaSerpentDropSeaSerpentEgg'),
+        }, {
+          type: 'eggs',
+          key: 'SeaSerpent',
+          text: t('questSeaSerpentDropSeaSerpentEgg'),
+        }, {
+          type: 'eggs',
+          key: 'SeaSerpent',
+          text: t('questSeaSerpentDropSeaSerpentEgg'),
+        },
+      ],
+      gp: 80,
+      exp: 800,
+      unlock: t('questSeaSerpentUnlockText'),
+    },
+  },
 };
 
 each(quests, (v, key) => {

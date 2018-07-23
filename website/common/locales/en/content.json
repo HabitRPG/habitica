@@ -235,6 +235,10 @@
   "questEggSquirrelMountText": "Squirrel",
   "questEggSquirrelAdjective": "bushy-tailed",
 
+  "questEggSeaSerpentText": "Sea Serpent",
+  "questEggSeaSerpentMountText": "Sea Serpent",
+  "questEggSeaSerpentAdjective": "shimmering",
+
   "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
 
   "hatchingPotionBase": "Base",

@@ -5,7 +5,7 @@
     "sureDeleteCompletedTodos": "Weet je zeker dat je je voltooide taken wilt verwijderen?",
     "lotOfToDos": "Je meest recente 30 voltooide To-do's worden hier getoond. Je kan oudere voltooide To-do's zien via Gegevens > Gegevens weergeven of Gegevens > Gegevens exporteren > Gebruikersgegevens.",
     "deleteToDosExplanation": "Met de onderstaande knop worden al je voltooide To-do's en gearchiveerde To-do's voorgoed verwijderd, behalve de To-do's van actieve uitdagingen en groepsplannen. Exporteer ze eerst als je ze wil bewaren.",
-    "addMultipleTip": "<strong>Tip:</strong> To add multiple <%= taskType %>, separate each one using a line break (Shift + Enter) and then press \"Enter.\"",
+    "addMultipleTip": "<strong>Tip:</strong> Om meerdere <%= taskType %> toe te voegen, scheid elke met behulp van een 'line break' (Shift + Enter) en druk daarna op 'Enter'.",
     "addsingle": "Voeg een enkele toe",
     "addATask": "Voeg een <%= type %> toe",
     "editATask": "Bewerk een <%= type %>",

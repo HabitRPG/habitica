@@ -15,7 +15,7 @@
           #groupPrivateDescription1.icon(:title="$t('privateDescription')")
             .svg-icon(v-html='icons.information')
           b-tooltip(
-            :title="$t('privateDescription')",
+            :title="$t('onlyLeaderCreatesChallengesDetail')",
             target="groupPrivateDescription1",
           )
 

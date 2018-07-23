@@ -68,5 +68,5 @@ export async function socialAuth (store, params) {
 export function logout () {
   localStorage.removeItem(LOCALSTORAGE_AUTH_KEY);
   localStorage.removeItem(LOCALSTORAGE_SOCIAL_AUTH_KEY);
-  window.location.href = '/logout';
+  window.location.href = '/logout-server';
 }

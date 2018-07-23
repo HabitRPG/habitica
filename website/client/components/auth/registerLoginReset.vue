@@ -402,11 +402,6 @@ export default {
       window.location.href = redirectTo;
     },
     async login () {
-      if (!this.username) {
-        alert('Email is required');
-        return;
-      }
-
       await this.$store.dispatch('auth:login', {
         username: this.username,
         // email: this.email,
@@ -433,10 +428,11 @@ export default {
         await hello(network).logout();
       } catch (e) {} // eslint-disable-line
 
+      const redirectUrl = `${window.location.protocol}//${window.location.host}`;
       let auth = await hello(network).login({
         scope: 'email',
         // explicitly pass the redirect url or it might redirect to /home
-        redirect_uri: '', // eslint-disable-line camelcase
+        redirect_uri: redirectUrl, // eslint-disable-line camelcase
       });
 
       await this.$store.dispatch('auth:socialAuth', {

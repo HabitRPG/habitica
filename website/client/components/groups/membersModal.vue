@@ -53,6 +53,9 @@ div
               span.dropdown-icon-item
                 .svg-icon.inline(v-html="icons.removeIcon")
                 span.text {{$t('removeManager2')}}
+            b-dropdown-item(@click='viewProgress(member)')
+              span.dropdown-icon-item
+                span.text {{ $t('viewProgress') }}
       .row(v-if='isLoadMoreAvailable')
         .col-12.text-center
           button.btn.btn-secondary(@click='loadMoreMembers()') {{ $t('loadMore') }}
@@ -474,6 +477,11 @@ export default {
 
       groupData.leader = member;
       this.$root.$emit('updatedGroup', groupData);
+    },
+    viewProgress (member) {
+      this.$root.$emit('habitica:challenge:member-progress', {
+        progressMemberId: member._id,
+      });
     },
   },
 };

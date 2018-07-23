@@ -67,7 +67,7 @@ export default {
       } else if (assignedUsersLength > 1 && !this.userIsAssigned) {
         return this.$t('assignedToMembers', {userCount: assignedUsersLength});
       } else if (assignedUsersLength > 1 && this.userIsAssigned) {
-        return this.$t('assignedToYouAndMembers', {userCount: assignedUsersLength});
+        return this.$t('assignedToYouAndMembers', {userCount: assignedUsersLength - 1});
       } else if (this.userIsAssigned) {
         return this.$t('youAreAssigned');
       } else if (assignedUsersLength === 0) {

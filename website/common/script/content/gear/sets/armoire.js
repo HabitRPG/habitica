@@ -367,6 +367,14 @@ let armor = {
     set: 'blueHairbow',
     canOwn: ownsItem('armor_armoire_bluePartyDress'),
   },
+  piraticalPrincessGown: {
+    text: t('armorArmoirePiraticalPrincessGownText'),
+    notes: t('armorArmoirePiraticalPrincessGownNotes', { per: 7 }),
+    value: 100,
+    per: 7,
+    set: 'piraticalPrincess',
+    canOwn: ownsItem('armor_armoire_piraticalPrincessGown'),
+  },
 };
 
 let body = {
@@ -794,6 +802,15 @@ let head = {
     set: 'glassblower',
     canOwn: ownsItem('head_armoire_glassblowersHat'),
   },
+  piraticalPrincessHeaddress: {
+    text: t('headArmoirePiraticalPrincessHeaddressText'),
+    notes: t('headArmoirePiraticalPrincessHeaddressNotes', { attrs: 8 }),
+    value: 100,
+    per: 8,
+    int: 8,
+    set: 'piraticalPrincess',
+    canOwn: ownsItem('head_armoire_piraticalPrincessHeaddress'),
+  },
 };
 
 let shield = {
@@ -989,6 +1006,15 @@ let shield = {
     int: 6,
     set: 'glassblower',
     canOwn: ownsItem('shield_armoire_fancyBlownGlassVase'),
+  },
+  piraticalSkullShield: {
+    text: t('shieldArmoirePiraticalSkullShieldText'),
+    notes: t('shieldArmoirePiraticalSkullShieldNotes', { attrs: 4 }),
+    value: 100,
+    per: 4,
+    int: 4,
+    set: 'piraticalPrincess',
+    canOwn: ownsItem('shield_armoire_piraticalSkullShield'),
   },
 };
 
@@ -1298,6 +1324,14 @@ let weapon = {
     str: 6,
     set: 'glassblower',
     canOwn: ownsItem('weapon_armoire_glassblowersBlowpipe'),
+  },
+  poisonedGoblet: {
+    text: t('weaponArmoirePoisonedGobletText'),
+    notes: t('weaponArmoirePoisonedGobletNotes', { int: 7 }),
+    value: 100,
+    int: 7,
+    set: 'piraticalPrincess',
+    canOwn: ownsItem('weapon_armoire_poisonedGoblet'),
   },
 };
 

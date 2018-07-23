@@ -356,8 +356,15 @@
     "backgrounds062018": "Ensemble 49 : sorti en juin 2018",
     "backgroundDocksText": "Docks",
     "backgroundDocksNotes": "Pêchez sur les Docks.",
-    "backgroundRowboatText": "Rowboat",
-    "backgroundRowboatNotes": "Sing rounds in a Rowboat.",
+    "backgroundRowboatText": "Barque",
+    "backgroundRowboatNotes": "Chantent en rond dans une barque.",
     "backgroundPirateFlagText": "Pavillon noir",
-    "backgroundPirateFlagNotes": "Fly a fearsome Pirate Flag."
+    "backgroundPirateFlagNotes": "Le redoutable drapeau pirate flotte.",
+    "backgrounds072018": "Ensemble 50 : sorti en juillet 2018",
+    "backgroundDarkDeepText": "Profondeurs obscures",
+    "backgroundDarkDeepNotes": "Nage dans les profondeurs obscures à coté des créatures bioluminescentes.",
+    "backgroundDilatoryCityText": "La ville de Dilatoiry",
+    "backgroundDilatoryCityNotes": "Serpenter à travers la ville sous-marine de Dilatory.",
+    "backgroundTidePoolText": "Marre résiduelle",
+    "backgroundTidePoolNotes": "Observer la vie océanique dans une marre résiduelle"
 }

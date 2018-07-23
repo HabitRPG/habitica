@@ -81,6 +81,10 @@
     min-height: 556px;
   }
 
+  .sortable-tasks {
+    word-break: break-word;
+  }
+
   .sortable-tasks + .reward-items {
     margin-top: 16px;
   }
@@ -358,7 +362,7 @@ export default {
           type: this.type,
           filterType: this.activeFilter.label,
         }) :
-        this.taskListOverride;
+        this.filterByCompleted(this.taskListOverride, this.activeFilter.label);
 
       let taggedList = this.filterByTagList(filteredTaskList, this.selectedTags);
       let searchedList = this.filterBySearchText(taggedList, this.searchText);
@@ -446,7 +450,7 @@ export default {
 
     if (this.type !== 'todo') return;
     this.$root.$on('habitica::resync-requested', () => {
-      if (this.activeFilters.todo.label !== 'complete2') return;
+      if (this.activeFilter.label !== 'complete2') return;
       this.loadCompletedTodos(true);
     });
   },
@@ -552,7 +556,11 @@ export default {
     activateFilter (type, filter = '') {
       // Needs a separate API call as this data may not reside in store
       if (type === 'todo' && filter === 'complete2') {
-        this.loadCompletedTodos();
+        if (this.group && this.group._id) {
+          this.$emit('loadGroupCompletedTodos');
+        } else {
+          this.loadCompletedTodos();
+        }
       }
 
       // the only time activateFilter is called with filter==='' is when the component is first created
@@ -588,6 +596,13 @@ export default {
         } else {
           columnBackgroundStyle.display = 'block';
         }
+      });
+    },
+    filterByCompleted (taskList, filter) {
+      if (!taskList) return [];
+      return taskList.filter(task => {
+        if (filter === 'complete2') return task.completed;
+        return !task.completed;
       });
     },
     filterByTagList (taskList, tagList = []) {

@@ -359,5 +359,12 @@
     "backgroundRowboatText": "划艇",
     "backgroundRowboatNotes": "在小船上轮唱",
     "backgroundPirateFlagText": "海盗旗",
-    "backgroundPirateFlagNotes": "悬挂起令人生畏的海盗旗"
+    "backgroundPirateFlagNotes": "悬挂起令人生畏的海盗旗",
+    "backgrounds072018": "SET 50: Released July 2018",
+    "backgroundDarkDeepText": "Dark Deep",
+    "backgroundDarkDeepNotes": "Swim in the Dark Deep among bioluminescent critters.",
+    "backgroundDilatoryCityText": "City of Dilatory",
+    "backgroundDilatoryCityNotes": "Meander through the undersea City of Dilatory.",
+    "backgroundTidePoolText": "Tide Pool",
+    "backgroundTidePoolNotes": "Observe the ocean life near a Tide Pool."
 }

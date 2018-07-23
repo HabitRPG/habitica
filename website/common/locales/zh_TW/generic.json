@@ -33,7 +33,7 @@
     "showLess": "顯示更少",
     "expandToolbar": "展開列表",
     "collapseToolbar": "隱藏列表",
-    "markdownHelpLink": "Markdown formatting help",
+    "markdownHelpLink": "Markdown格式說明",
     "showFormattingHelp": "開啟格式使用提示",
     "hideFormattingHelp": "關閉格式使用提示",
     "youType": "輸入 :",
@@ -281,11 +281,11 @@
     "dismissAll": "全部清除",
     "messages": "訊息",
     "emptyMessagesLine1": "你沒有任何訊息",
-    "emptyMessagesLine2": "Send a message to start a conversation!",
-    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> sent you a message",
+    "emptyMessagesLine2": "寄送訊息以開始對話！",
+    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span>寄給你一封訊息",
     "letsgo": "Let's Go!",
     "selected": "Selected",
-    "howManyToBuy": "How many would you like to buy?",
-    "habiticaHasUpdated": "There is a new Habitica update. Refresh to get the latest version!",
-    "contactForm": "Contact the Moderation Team"
+    "howManyToBuy": "你想要購買多少？",
+    "habiticaHasUpdated": "Habitica發布了更新。重新整理以獲得最新的版本！",
+    "contactForm": "聯絡管理員團隊"
 }

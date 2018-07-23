@@ -23,6 +23,17 @@ describe('GET /export/userdata.xml', () => {
 
     ]);
 
+    // add pinnedItem
+    await user.get('/user/toggle-pinned-item/marketGear/gear.flat.shield_rogue_5');
+
+    // add a private message
+    let receiver = await generateUser();
+
+    user.post('/members/send-private-message', {
+      message: 'Your first message, hi!',
+      toUserId: receiver._id,
+    });
+
     let response = await user.get('/export/userdata.xml');
     let {user: res} = await parseStringAsync(response, {explicitArray: false});
 

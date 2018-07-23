@@ -604,5 +604,11 @@
     "cuddleBuddiesText": "Lote de Misiones Compañeros Abrazados",
     "cuddleBuddiesNotes": "Contiene \"El Conejito Asesino\", \"El Hurón Malvado\", y \"La Pandilla de Cobayas\". Disponible hasta el 31 de mayo.",
     "aquaticAmigosText": "Lote de Misiones de Amigos Acuáticos",
-    "aquaticAmigosNotes": "Contiene 'El ajolote mágico', 'El Kraken del Inkompleto' y 'La llamada de Octothulu'. Disponible hasta el 30 de junio."
+    "aquaticAmigosNotes": "Contiene 'El ajolote mágico', 'El Kraken del Inkompleto' y 'La llamada de Octothulu'. Disponible hasta el 30 de junio.",
+    "questSeaSerpentText": "Peligro en las profundidades: ¡Ataque de la serpiente marina!",
+    "questSeaSerpentNotes": "Tus manchas te hacen sentir afortunado: es el momento perfecto para un viaje a la pista de carreras de caballitos de mar. Abordas el submarino en Muelles Diligentes y te acomodas para el viaje a Dilatoria, pero apenas te has sumergido cuando un impacto sacude el submarino, haciendo que sus ocupantes caigan.\n– ¿Qué está pasando?  –grita @AriesFaries. <br><br>Miras a través de un ojo de buey cercano y te sorprende la pared de escamas brillantes que pasan por allí.\n–¡Serpiente de mar! –aclama el capitán @Witticaster a través del intercomunicador–. ¡Preparaos, viene otra vez!\nMientras agarras los brazos de tu asiento, tus tareas inconclusas parpadean ante tus ojos. \"Quizás si trabajamos juntos y los completamos\", piensas, \"¡podemos alejar a este monstruo!\"",
+    "questSeaSerpentCompletion": "Maltrecha por tu compromiso, la serpiente marina huye, desapareciendo en las profundidades. Cuando llegas a Dilatoria, sueltas un suspiro de alivio antes de ver que @*~Seraphina~ se acerca con tres huevos translúcidos acunados en sus brazos. \n– Aquí, debes quedarte con esto –dice ella–. ¡Sabes cómo manejar una serpiente marina!\nAl aceptar los huevos, prometes nuevamente mantenerte firme al completar tus tareas para asegurarte de que no vuelva a ocurrir.",
+    "questSeaSerpentBoss": "La poderosa serpiente marina",
+    "questSeaSerpentDropSeaSerpentEgg": "Serpiente marina (huevo)",
+    "questSeaSerpentUnlockText": "Desbloquear la compra de huevos de serpiente de agua en el Mercado"
 }
