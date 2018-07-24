@@ -58,9 +58,9 @@
     "messageCannotLeaveWhileQuesting": "You cannot accept this party invitation while you are in a quest. If you'd like to join this party, you must first abort your quest, which you can do from your party screen. You will be given back the quest scroll.",
     "messageUserOperationProtected": "path `<%= operation %>` was not saved, as it's a protected path.",
     "messageUserOperationNotFound": "<%= operation %> operation not found",
-    "messageNotificationNotFound": "Notification not found.",
+    "messageNotificationNotFound": "Сповіщеня не знайдено.",
     "messageNotAbleToBuyInBulk": "This item cannot be purchased in quantities above 1.",
     "notificationsRequired": "Notification ids are required.",
-    "unallocatedStatsPoints": "You have <span class=\"notification-bold-blue\"><%= points %> unallocated Stat Points</span>",
+    "unallocatedStatsPoints": "Ви маєте <span class=\"notification-bold-blue\"><%= points %>  нерозподілених Очків Характеристики</span>",
     "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!"
 }
