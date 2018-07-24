@@ -135,7 +135,7 @@
                 input.custom-control-input(type='radio', v-model="repeatsOn", value="dayOfWeek", id="repeat-dayOfWeek" name="repeatsOn")
                 label.custom-control-label(for="repeat-dayOfWeek") {{ $t('dayOfWeek') }}
 
-        .tags-select.option(v-if="isUserTask", ref="tagsBox")
+        .tags-select.option(v-if="isUserTask")
           .tags-inline.form-group.row
             label.col-12(v-once) {{ $t('tags') }}
             .col-12
@@ -147,7 +147,7 @@
                   .category-label(v-for='tagName in truncatedSelectedTags', :title="tagName", v-markdown='tagName')
                   .tags-more(v-if='remainingSelectedTags.length > 0') +{{ $t('more', { count: remainingSelectedTags.length }) }}
                   .dropdown-toggle
-          tags-popup(v-if="showTagsSelect", :tags="user.tags", v-model="task.tags", @close='closeTagsPopup()')
+          tags-popup(ref="popup", v-if="showTagsSelect", :tags="user.tags", v-model="task.tags", @close='closeTagsPopup()')
 
         .option(v-if="task.type === 'habit'")
           .form-group
@@ -989,7 +989,7 @@ export default {
       this.$refs.inputToFocus.focus();
     },
     handleClick (e) {
-      if (this.showTagsSelect && !this.$refs.tagsBox.contains(e.target)) {
+      if (this.$refs.popup && !this.$refs.popup.$el.contains(e.target)) {
         this.closeTagsPopup();
       }
     },
