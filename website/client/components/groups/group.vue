@@ -538,23 +538,6 @@ export default {
       this.$store.state.upgradingGroup = this.group;
       this.$router.push('/group-plans');
     },
-    clickStartQuest () {
-      Analytics.track({
-        hitType: 'event',
-        eventCategory: 'button',
-        eventAction: 'click',
-        eventLabel: 'Start a Quest',
-      });
-
-      let hasQuests = this.user.items.quests.some((quest) => {
-        return quest > 0;
-      });
-
-      if (hasQuests) {
-        this.$root.$emit('bv::show::modal', 'start-quest-modal');
-        return;
-      }
-    },
     showGroupGems () {
       this.$root.$emit('bv::show::modal', 'group-gems-modal');
     },
