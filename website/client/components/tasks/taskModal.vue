@@ -1,7 +1,7 @@
 <template lang="pug">
-  form(v-if="task", @submit.stop.prevent="submit()")
+  form(v-if="task", @submit.stop.prevent="submit()", @click="handleClick($event)")
     b-modal#task-modal(v-bind:no-close-on-backdrop="showTagsSelect", size="sm", @hidden="onClose()", @show="handleOpen()", @shown="focusInput()")
-      .task-modal-header(slot="modal-header", :class="cssClass('bg')")
+      .task-modal-header(slot="modal-header", :class="cssClass('bg')", @click="handleClick($event)")
         .clearfix
           h1.float-left {{ title }}
           .float-right.d-flex.align-items-center
@@ -23,7 +23,7 @@
               a(target="_blank", href="http://habitica.wikia.com/wiki/Markdown_Cheat_Sheet") {{ $t('markdownHelpLink') }}
 
           textarea.form-control(v-model="task.notes", rows="3")
-      .task-modal-content
+      .task-modal-content(@click="handleClick($event)")
         .option.mt-0(v-if="task.type === 'reward'")
           .form-group
             label(v-once) {{ $t('cost') }}
@@ -135,7 +135,7 @@
                 input.custom-control-input(type='radio', v-model="repeatsOn", value="dayOfWeek", id="repeat-dayOfWeek" name="repeatsOn")
                 label.custom-control-label(for="repeat-dayOfWeek") {{ $t('dayOfWeek') }}
 
-        .tags-select.option(v-if="isUserTask")
+        .tags-select.option(v-if="isUserTask", ref="tagsBox")
           .tags-inline.form-group.row
             label.col-12(v-once) {{ $t('tags') }}
             .col-12
@@ -242,7 +242,7 @@
           .svg-icon.d-inline-b(v-html="icons.destroy")
           span {{ $t('deleteTask') }}
 
-      .task-modal-footer.d-flex.justify-content-center.align-items-center(slot="modal-footer")
+      .task-modal-footer.d-flex.justify-content-center.align-items-center(slot="modal-footer", @click="handleClick($event)")
         .cancel-task-btn(v-once, @click="cancel()") {{ $t('cancel') }}
         button.btn.btn-primary(type="submit", v-once) {{ $t('save') }}
 </template>
@@ -803,12 +803,6 @@ export default {
       return this.selectedTags.slice(this.maxTags);
     },
   },
-  created () {
-    document.addEventListener('click', this.handleClick);
-  },
-  destroyed () {
-    document.removeEventListener('click', this.handleClick);
-  },
   methods: {
     ...mapActions({saveTask: 'tasks:save', destroyTask: 'tasks:destroy', createTask: 'tasks:create'}),
     async syncTask () {
@@ -994,8 +988,8 @@ export default {
     focusInput () {
       this.$refs.inputToFocus.focus();
     },
-    handleClick () {
-      if (this.showTagsSelect) {
+    handleClick (e) {
+      if (this.showTagsSelect && !this.$refs.tagsBox.contains(e.target)) {
         this.closeTagsPopup();
       }
     },
