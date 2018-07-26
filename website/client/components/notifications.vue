@@ -465,7 +465,7 @@ export default {
             this.$root.$emit('bv::show::modal', 'won-challenge');
             break;
           case 'STREAK_ACHIEVEMENT':
-            this.streak(this.user.achievements.streak);
+            this.text(this.user.achievements.streak);
             this.playSound('Achievement_Unlocked');
             if (!this.user.preferences.suppressModals.streak) {
               this.$root.$emit('bv::show::modal', 'streak');
@@ -485,7 +485,9 @@ export default {
             break;
           case 'CHALLENGE_JOINED_ACHIEVEMENT':
             this.playSound('Achievement_Unlocked');
-            this.$root.$emit('bv::show::modal', 'joined-challenge');
+            this.text(`${this.$t('achievement')}: ${this.$t('joinedChallenge')}`, () => {
+              this.$root.$emit('bv::show::modal', 'joined-challenge');
+            }, false);
             break;
           case 'INVITED_FRIEND_ACHIEVEMENT':
             this.playSound('Achievement_Unlocked');

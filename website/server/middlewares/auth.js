@@ -9,13 +9,17 @@ import url from 'url';
 
 const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
 
-function getUserFields (userFieldsToExclude, req) {
+function getUserFields (options, req) {
   // A list of user fields that aren't needed for the route and are not loaded from the db.
   // Must be an array
-  if (userFieldsToExclude) {
-    return userFieldsToExclude.map(field => {
+  if (options.userFieldsToExclude) {
+    return options.userFieldsToExclude.map(field => {
       return `-${field}`; // -${field} means exclude ${field} in mongodb
     }).join(' ');
+  }
+
+  if (options.userFieldsToInclude) {
+    return options.userFieldsToInclude.join(' ');
   }
 
   // Allows GET requests to /user to specify a list of user fields to return instead of the entire doc
@@ -50,7 +54,7 @@ export function authWithHeaders (options = {}) {
       apiToken,
     };
 
-    const fields = getUserFields(options.userFieldsToExclude, req);
+    const fields = getUserFields(options, req);
     const findPromise = fields ? User.findOne(userQuery).select(fields) : User.findOne(userQuery);
 
     return findPromise

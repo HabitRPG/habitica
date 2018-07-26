@@ -143,6 +143,7 @@
   "PMDisabledCaptionText": "You can still send messages, but no one can send them to you.",
   "block": "Block",
   "unblock": "Un-block",
+  "blockWarning": "Block - This will have no effect if the player is a moderator now or becomes a moderator in future.",
   "pm-reply": "Send a reply",
   "inbox": "Inbox",
   "messageRequired": "A message is required.",
@@ -475,5 +476,9 @@
   "howToRequireApprovalDesc2": "Group Leaders and Managers can approve completed Tasks directly from the Task Board or from the Notifications panel.",
   "whatIsGroupManager": "What is a Group Manager?",
   "whatIsGroupManagerDesc": "A Group Manager is a user role that do not have access to the group's billing details, but can create, assign, and approve shared Tasks for the Group's members. Promote Group Managers from the Group’s member list.",
-  "goToTaskBoard": "Go to Task Board"
+  "goToTaskBoard": "Go to Task Board",
+  "sharedCompletion": "Shared Completion",
+  "recurringCompletion": "None - Group task does not complete",
+  "singleCompletion": "Single - Completes when any assigned user finishes",
+  "allAssignedCompletion": "All - Completes when all assigned users finish"
 }

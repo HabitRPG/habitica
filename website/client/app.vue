@@ -105,7 +105,7 @@ div
   @import '~client/assets/scss/colors.scss';
 
   /* @TODO: The modal-open class is not being removed. Let's try this for now */
-  .modal, .modal-open {
+  .modal {
     overflow-y: scroll !important;
   }
 
@@ -499,8 +499,16 @@ export default {
       });
 
       this.$root.$on('bv::modal::hidden', (bvEvent) => {
-        const modalId = bvEvent.target && bvEvent.target.id;
-        if (!modalId) return;
+        let modalId = bvEvent.target && bvEvent.target.id;
+
+        // sometimes the target isn't passed to the hidden event, fallback is the vueTarget
+        if (!modalId) {
+          modalId = bvEvent.vueTarget && bvEvent.vueTarget.id;
+        }
+
+        if (!modalId) {
+          return;
+        }
 
         const modalStack = this.$store.state.modalStack;
 
@@ -517,6 +525,7 @@ export default {
 
         // Get previous modal
         const modalBefore = modalOnTop ? modalOnTop.prev : undefined;
+
         if (modalBefore) this.$root.$emit('bv::show::modal', modalBefore, {fromRoot: true});
       });
     },

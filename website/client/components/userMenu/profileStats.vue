@@ -122,7 +122,7 @@
         .col-12.col-md-6
           h3(v-if='userLevel100Plus', v-once, v-html="$t('noMoreAllocate')")
           h3
-            | {{$t('pointsAvailable')}}
+            | {{$t('statPoints')}}
             .counter.badge(v-if='user.stats.points || userLevel100Plus')
               | {{user.stats.points}}&nbsp;
         .col-12.col-md-6
@@ -135,16 +135,16 @@
       .row
         .col-12.col-md-3(v-for='(statInfo, stat) in allocateStatsList')
           .box.white.row.col-12
-            .col-12.col-md-9
+            .col-9
               div(:class='stat') {{ $t(stats[stat].title) }}
               .number {{ user.stats[stat] }}
               .points {{$t('pts')}}
-            .col-12.col-md-3
+            .col-3
               div
-                .up(v-if='user.stats.points', @click='allocate(stat)')
+                .up(v-if='showStatsSave', @click='allocate(stat)')
               div
-                .down(@click='deallocate(stat)', v-if='user.stats.points')
-      .row.save-row
+                .down(v-if='showStatsSave', @click='deallocate(stat)')
+      .row.save-row(v-if='showStatsSave')
         .col-12.col-md-6.offset-md-3.text-center
           button.btn.btn-primary(@click='saveAttributes()', :disabled='loading') {{ this.loading ?  $t('loading') : $t('save') }}
 </template>
@@ -237,6 +237,10 @@
       },
       userLevel100Plus () {
         return this.user.stats.lvl >= 100;
+      },
+      showStatsSave () {
+        const statsAreBeingUpdated = Object.values(this.statUpdates).find(stat => stat > 0);
+        return Boolean(this.user.stats.points) || statsAreBeingUpdated;
       },
     },
     methods: {
