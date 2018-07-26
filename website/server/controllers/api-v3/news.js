@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'ORCAS FOR SUMMER SPLASH AND JULY SUBSCRIBER ITEMS';
+const LAST_ANNOUNCEMENT_TITLE = 'NEW GROUP PLANS FEATURE: SHARED COMPLETION FOR TO-DOS';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,27 +30,18 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>7/24/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>7/26/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
         <div class="media align-items-center">
           <div class="media-body">
-            <h3>Orcas for Everyone!</h3>
-            <p>Sea Serpents aren't the only animals riding the waves around the city of Dilatory: it looks like some friendly Orcas are swimming into Habiticans' stables! In honor of the Summer Splash event, everyone who didn't already have both Orcas gets either the mount or the pet. Enjoy!</p>
-            <div class="small mb-3">by Beffymaroo and UncommonCriminal</div>
+            <p>We've added a new feature for To-Dos in Group Plans: Shared Completion! Now, you can set To-Dos on the Task Board so that the group task is completed when group members finish the task. A "Single" task is done when anyone finishes it (it's a race!), while a task set to "All" is completed when everyone assigned is done. You can find these options by editing To-Dos on your Task Board.</p>
+            <p>Many of you have been eager to see this feature implemented. We hope it'll help you better organize and motivate your Group for success!</p>
+            <div class="small mb-3">by SabreCat, TheHollidayInn, and paglias</div>
           </div>
-          <div class="promo_orcas ml-3 mb-3"></div>
+          <div class="scene_todos ml-3 mb-3"></div>
         </div>
-        <div class="media align-items-center">
-          <div class="promo_mystery_201807"></div>
-          <div class="media-body">
-            <h3>July Subscriber Items Revealed!</h3>
-            <p>The July Subscriber Items have been revealed: the Sea Serpent Set! You only have eight days to receive the item set when you <a href='/user/settings/subscription' target="_blank">subscribe</a>. If you're already an active subscriber, reload the site and then head to Inventory > Items to claim your gear!</p>
-          </div>
-        </div>
-        <p>Subscribers also receive the ability to buy Gems for Gold -- the longer you subscribe, the more gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
-        <div class="small mb-3">by Beffymaroo</div>
       </div>
       `,
     });
