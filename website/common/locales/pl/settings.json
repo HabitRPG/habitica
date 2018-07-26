@@ -183,6 +183,7 @@
     "mysticHourglassesTooltip": "Mistyczne Klepsydry",
     "paypal": "PayPal",
     "amazonPayments": "Płatności Amazon",
+    "amazonPaymentsRecurring": "Ticking the checkbox below is necessary for your subscription to be created. It allows your Amazon account to be used for ongoing payments for <strong>this</strong> subscription. It will not cause your Amazon account to be automatically used for any future purchases.",
     "timezone": "Strefa czasowa",
     "timezoneUTC": "Habitica korzysta ze strefy czasowej ustawionej na twoim komputerze, to znaczy: <strong><%= utc %></strong>",
     "timezoneInfo": "Jeśli strefa czasowa jest błędna, spróbuj najpierw odświeżyć stronę przyciskiem odświeżania w przeglądarce, aby upewnić się, że Habitica ma dostęp do najnowszych danych. Jeśli strefa wciąż jest nieprawidłowa, ustaw ją na swoim komputerze i znów odśwież stronę.<br><br> <strong>Jeśli używasz Habitiki na innych komputerach lub urządzeniach mobilnych, strefa czasowa na każdym z nich musi być taka sama.</strong> Jeśli twoje codzienne zadania resetują się o niewłaściwej porze, sprawdź w ten sam sposób inne komputery oraz przeglądarki w twoich urządzeniach mobilnych.",

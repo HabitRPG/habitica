@@ -219,6 +219,6 @@
     "bodyAccess": "Hiasan Tubuh",
     "mainHand": "Tangan Utama",
     "offHand": "Tangan Lain",
-    "pointsAvailable": "Poin Tersedia",
+    "statPoints": "Stat Points",
     "pts": "poin"
 }

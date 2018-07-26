@@ -219,6 +219,6 @@
     "bodyAccess": "Příslušenství na tělo",
     "mainHand": "Hlavní ruka",
     "offHand": "Druhá ruka",
-    "pointsAvailable": "Dostupné body",
+    "statPoints": "Stat Points",
     "pts": "Body"
 }
