@@ -30,7 +30,6 @@ b-modal#welcome-modal(:ok-only="true",
     }
 
     .content-text {
-      font-family: 'Roboto', sans-serif;
       font-size: 14px;
       font-weight: normal;
       line-height: 1.43;

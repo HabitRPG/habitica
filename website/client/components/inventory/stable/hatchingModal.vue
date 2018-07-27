@@ -31,10 +31,8 @@ b-modal#hatching-modal(@change="resetHatchablePet($event)")
 
     .title {
       margin-top: 24px;
-      font-family: Roboto;
       font-size: 20px;
       font-weight: bold;
-      font-stretch: condensed;
       line-height: 1.2;
       text-align: center;
       color: #4e4a57;
@@ -42,7 +40,6 @@ b-modal#hatching-modal(@change="resetHatchablePet($event)")
 
     .text {
       height: 60px;
-      font-family: Roboto;
       font-size: 14px;
       line-height: 1.43;
       text-align: center;
