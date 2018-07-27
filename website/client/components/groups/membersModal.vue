@@ -376,7 +376,7 @@ export default {
         });
         this.invites = invites;
       }
-      console.log(this.$store.state.memberModalOptions.viewingMembers)
+
       if (this.$store.state.memberModalOptions.viewingMembers.length > 0) {
         this.members = this.$store.state.memberModalOptions.viewingMembers;
       }
