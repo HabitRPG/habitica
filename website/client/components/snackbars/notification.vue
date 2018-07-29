@@ -146,15 +146,6 @@ export default {
   beforeDestroy () {
     clearTimeout(this.timer);
   },
-  methods: {
-    handleOnClick () {
-      if (typeof this.notification.onClick === 'function') {
-        this.notification.onClick();
-      }
-
-      this.show = false;
-    },
-  },
   watch: {
     show () {
       this.$store.dispatch('snackbars:remove', this.notification);
