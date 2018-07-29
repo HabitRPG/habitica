@@ -544,7 +544,7 @@ export default {
             this.$root.$emit('bv::show::modal', 'won-challenge');
             break;
           case 'STREAK_ACHIEVEMENT':
-            this.streak(this.user.achievements.streak, () => {
+            this.text(this.user.achievements.streak, () => {
               if (!this.user.preferences.suppressModals.streak) {
                 this.$root.$emit('bv::show::modal', 'streak');
               }

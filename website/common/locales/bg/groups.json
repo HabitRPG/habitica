@@ -141,6 +141,7 @@
     "PMDisabledCaptionText": "Вие можете да изпращате съобщения, но никой няма да може да изпраща на Вас.",
     "block": "Блокиране",
     "unblock": "Отблокиране",
+    "blockWarning": "Block - This will have no effect if the player is a moderator now or becomes a moderator in future.",
     "pm-reply": "Изпращане на отговор",
     "inbox": "Входяща поща",
     "messageRequired": "Нужно е съобщение.",
@@ -468,5 +469,9 @@
     "howToRequireApprovalDesc2": "Водачите и управителите на групата могат да одобряват завършените задачи направо от дъската със задачи или от областта за известия.",
     "whatIsGroupManager": "Какво е „управител на групата“?",
     "whatIsGroupManagerDesc": "Управител на групата е такъв потребител, който няма достъп до информацията за таксуването на групата, но може да създава, назначава и одобрява споделени задачи за членовете на групата. Можете да определите кои са управителите на групата от списъка с членовете.",
-    "goToTaskBoard": "Към дъската със задачи"
+    "goToTaskBoard": "Към дъската със задачи",
+    "sharedCompletion": "Shared Completion",
+    "recurringCompletion": "None - Group task does not complete",
+    "singleCompletion": "Single - Completes when any assigned user finishes",
+    "allAssignedCompletion": "All - Completes when all assigned users finish"
 }

@@ -219,6 +219,6 @@
     "bodyAccess": "Kroppstillbehör",
     "mainHand": "Huvudhand",
     "offHand": "Off-Hand",
-    "pointsAvailable": "Tillgängliga Poäng",
+    "statPoints": "Stat Points",
     "pts": "poäng"
 }
