@@ -609,31 +609,7 @@ schema.methods.sendChat = function sendChat (message, user, metaData) {
   };
 
   User.update(query, lastSeenUpdateRemoveOld, {multi: true}).exec().then(() => {
-    User.find(query).exec(async (err, users) => {
-      if (err) {
-        throw err;
-      }
-
-      let userChanges = [];
-
-      for (let groupUser of users) {
-        groupUser.newMessages[`${this._id}`] = {name: this.name, value: true};
-
-        const groupNotificationData = { group: { id: this._id, name: this.name } };
-        const notificationAlreadyExists = _.findIndex(groupUser.notifications, n => n.type === 'NEW_CHAT_MESSAGE' && _.isEqual(n.data, groupNotificationData));
-
-        if (notificationAlreadyExists === -1) {
-          groupUser.notifications.push({
-            type: 'NEW_CHAT_MESSAGE',
-            data: groupNotificationData,
-          });
-        }
-
-        userChanges.push(groupUser.save());
-      }
-
-      await Promise.all(userChanges);
-    });
+    User.update(query, lastSeenUpdateAddNew, {multi: true}).exec();
   });
 
   // If the message being sent is a system message (not gone through the api.postChat controller)
