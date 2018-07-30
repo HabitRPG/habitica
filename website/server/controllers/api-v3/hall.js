@@ -143,7 +143,7 @@ api.getHeroes = {
 // Note, while the following routes are called getHero / updateHero
 // they can be used by admins to get/update any user
 
-const heroAdminFields = 'contributor balance profile.name purchased items auth flags.chatRevoked';
+const heroAdminFields = 'contributor balance profile.name purchased items auth flags.chatRevoked flags.chatRevokedEndDate';
 
 /**
  * @api {get} /api/v3/hall/heroes/:heroId Get any user ("hero") given the UUID
@@ -273,8 +273,10 @@ api.updateHero = {
     if (updateData.auth && updateData.auth.blocked === false) {
       hero.auth.blocked = false;
     }
-    if (updateData.flags && _.isBoolean(updateData.flags.chatRevoked)) hero.flags.chatRevoked = updateData.flags.chatRevoked;
 
+    if (updateData.flags && _.isBoolean(updateData.flags.chatRevoked)) hero.flags.chatRevoked = updateData.flags.chatRevoked;
+    if (updateData.flags && updateData.flags.chatRevokedEndDate) hero.flags.chatRevokedEndDate = updateData.flags.chatRevokedEndDate;
+    console.log(updateData.flags, hero.flags)
     let savedHero = await hero.save();
     let heroJSON = savedHero.toJSON();
     let responseHero = {_id: heroJSON._id}; // only respond with important fields

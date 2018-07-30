@@ -1,3 +1,6 @@
+import { IncomingWebhook } from '@slack/client';
+import nconf from 'nconf';
+import moment from 'moment';
 import {
   createAndPopulateGroup,
   generateUser,
@@ -15,8 +18,6 @@ import { getMatchesByWordArray } from '../../../../../website/server/libs/string
 import bannedWords from '../../../../../website/server/libs/bannedWords';
 import guildsAllowingBannedWords from '../../../../../website/server/libs/guildsAllowingBannedWords';
 import * as email from '../../../../../website/server/libs/email';
-import { IncomingWebhook } from '@slack/client';
-import nconf from 'nconf';
 
 const BASE_URL = nconf.get('BASE_URL');
 
@@ -80,12 +81,40 @@ describe('POST /chat', () => {
     });
   });
 
-  it('returns an error when chat privileges are revoked when sending a message to a public guild', async () => {
-    let userWithChatRevoked = await member.update({'flags.chatRevoked': true});
-    await expect(userWithChatRevoked.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
-      code: 401,
-      error: 'NotAuthorized',
-      message: t('chatPrivilegesRevoked'),
+  describe('mute user', () => {
+    it('returns an error when chat privileges are revoked when sending a message to a public guild', async () => {
+      const userWithChatRevoked = await member.update({'flags.chatRevoked': true});
+      await expect(userWithChatRevoked.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('chatPrivilegesRevoked'),
+      });
+    });
+
+    it('returns an error when user is muted with date', async () => {
+      const userWithChatRevoked = await member.update({
+        'flags.chatRevoked': true,
+        'flags.chatRevokedEndDate': moment().add(1, 'days').toDate(),
+      });
+
+      await expect(userWithChatRevoked.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('chatPrivilegesRevoked'),
+      });
+    });
+
+    it('allows a user to chat after revoked time has passed', async () => {
+      const userWithChatRevoked = await member.update({
+        'flags.chatRevoked': true,
+        'flags.chatRevokedEndDate': moment().subtract(1, 'days').toDate(),
+      });
+
+      const newMessage = await userWithChatRevoked.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage});
+      const groupMessages = await userWithChatRevoked.get(`/groups/${groupWithChat._id}/chat`);
+
+      expect(newMessage.message.id).to.exist;
+      expect(groupMessages[0].id).to.exist;
     });
   });
 

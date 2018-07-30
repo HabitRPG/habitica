@@ -55,10 +55,19 @@
               div(v-if="expandAuth")
                 pre {{hero.auth}}
                 .form-group
+                  h5 User Mute Settings
                   .checkbox
                     label
                       input(type='checkbox', v-if='hero.flags', v-model='hero.flags.chatRevoked')
-                      | Chat Privileges Revoked
+                      strong Chat Privileges Revoked
+                  div(v-if='hero.flags.chatRevokedEndDate')
+                    strong User is currently muted until
+                    br
+                    div {{ hero.flags.chatRevokedEndDate }}
+                  div
+                    strong How many days do you want to mute this user?
+                    br
+                    input(type='number', v-model='numberOfDaysToMute')
                 .form-group
                   .checkbox
                     label
@@ -103,7 +112,7 @@
 </style>
 
 <script>
-// import keys from 'lodash/keys';
+import moment from 'moment';
 import each from 'lodash/each';
 
 import markdownDirective from 'client/directives/markdown';
@@ -132,6 +141,7 @@ export default {
       gear,
       expandItems: false,
       expandAuth: false,
+      numberOfDaysToMute: 0,
     };
   },
   directives: {
@@ -184,6 +194,11 @@ export default {
       this.expandAuth = false;
     },
     async saveHero () {
+      if (this.numberOfDaysToMute) {
+        const dayToEndMute = moment().add(this.numberOfDaysToMute, 'days').utc().toDate();
+        this.hero.flags.chatRevokedEndDate = dayToEndMute;
+      }
+
       this.hero.contributor.admin = this.hero.contributor.level > 7 ? true : false;
       let heroUpdated = await this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
       this.text('User updated');
