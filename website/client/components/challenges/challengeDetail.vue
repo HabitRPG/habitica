@@ -344,14 +344,14 @@ export default {
       this.tasksByType[task.type].splice(index, 1);
     },
     showMemberModal () {
-      // @TODO: Change these to options and add a custom event to members modal
-      this.$store.state.memberModalOptions.challengeId = this.challenge._id;
-      this.$store.state.memberModalOptions.groupId = 'challenge'; // @TODO: change these terrible settings
-      this.$store.state.memberModalOptions.group = this.group;
-      this.$store.state.memberModalOptions.memberCount = this.challenge.memberCount;
-      this.$store.state.memberModalOptions.viewingMembers = this.members;
-      this.$store.state.memberModalOptions.fetchMoreMembers = this.loadMembers;
-      this.$root.$emit('bv::show::modal', 'members-modal');
+      this.$root.$emit('habitica:show-member-modal', {
+        challengeId: this.challenge._id,
+        groupId: 'challenge', // @TODO: change these terrible settings
+        group: this.group,
+        memberCount: this.challenge.memberCount,
+        viewingMembers: this.members,
+        fetchMoreMembers: this.loadMembers,
+      });
     },
     async joinChallenge () {
       this.user.challenges.push(this.searchId);

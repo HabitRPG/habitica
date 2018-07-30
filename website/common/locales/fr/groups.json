@@ -141,6 +141,7 @@
     "PMDisabledCaptionText": "You can still send messages, but no one can send them to you.",
     "block": "Bloquer",
     "unblock": "Ne plus bloquer",
+    "blockWarning": "Block - This will have no effect if the player is a moderator now or becomes a moderator in future.",
     "pm-reply": "Répondre",
     "inbox": "Boîte de Réception",
     "messageRequired": "Un message est requis.",
@@ -468,5 +469,9 @@
     "howToRequireApprovalDesc2": "Les meneurs de groupe ou les gestionnaires peuvent approuver les tâches validées directement depuis le tableau des tâches ou depuis le panneau des notifications.",
     "whatIsGroupManager": "Qu'est ce qu'un gestionnaire de groupe ?",
     "whatIsGroupManagerDesc": "Un gestionnaire de groupe est un rôle pour les personnes n'ayant pas accès au détail de la facturation du groupe, mais qui peuvent créer, assigner et approuver les tâches partagées pour les membres du groupe. Vous pouvez promouvoir quelqu'un au titre de gestionnaire depuis la liste des membres du groupe.",
-    "goToTaskBoard": "Aller au tableau des tâches"
+    "goToTaskBoard": "Aller au tableau des tâches",
+    "sharedCompletion": "Shared Completion",
+    "recurringCompletion": "None - Group task does not complete",
+    "singleCompletion": "Single - Completes when any assigned user finishes",
+    "allAssignedCompletion": "All - Completes when all assigned users finish"
 }

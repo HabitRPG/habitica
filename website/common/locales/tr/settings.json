@@ -183,6 +183,7 @@
     "mysticHourglassesTooltip": "Mistik Kum Saatleri",
     "paypal": "PayPal",
     "amazonPayments": "Amazon Payments",
+    "amazonPaymentsRecurring": "Ticking the checkbox below is necessary for your subscription to be created. It allows your Amazon account to be used for ongoing payments for <strong>this</strong> subscription. It will not cause your Amazon account to be automatically used for any future purchases.",
     "timezone": "Zaman Dilimi",
     "timezoneUTC": "Habitica bilgisayarında tanımlı zaman dilimini kullanır: <strong><%= utc %></strong>",
     "timezoneInfo": "Eğer bu zaman dilimi yanlışsa, önce tarayıcının yeniden yükle veya yenile butonunu kullanarak bu sayfayı yeniden yükle ve Habitica'nın en son bilgiye sahip olduğundan emin ol. Eğer hala yanlışsa, bilgisayarındaki zaman dilimini ayarla ve sayfayı tekrar yenile.<br><br> <strong>Eğer Habitica'yı başka bilgisayarlarda ya da mobil cihazlarda da kullanıyorsan, zaman dilimi hepsinde aynı olmalıdır.</strong> Eğer Günlük İşlerin yanlış zamanda sıfırlanıyorsa, bu kontrolü diğer tüm bilgisayarlara ve mobil cihazların tarayıcılarına da uygula.",

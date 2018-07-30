@@ -38,7 +38,7 @@ sidebar-section(:title="$t('questDetailsTitle')")
             .col-6
               h4.float-left(v-once) {{ questData.boss.name() }}
             .col-6
-              span.float-right(v-once) {{ $t('participantsTitle') }}
+              a.float-right(@click="openParticipantList()") {{ $t('participantsTitle') }}
           .row
             .col-12
               .grey-progress-bar
@@ -72,6 +72,14 @@ sidebar-section(:title="$t('questDetailsTitle')")
 
   .quest-boss {
     margin: 0 auto;
+  }
+
+  .boss-info {
+    a {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-weight: bold;
+      color: $gray-10;
+    }
   }
 
   .boss-health-bar {
@@ -257,6 +265,9 @@ export default {
     },
     openQuestDetails () {
       this.$root.$emit('bv::show::modal', 'quest-details');
+    },
+    openParticipantList () {
+      this.$root.$emit('bv::show::modal', 'participant-list');
     },
     async questAbort () {
       if (!confirm(this.$t('sureAbort'))) return;

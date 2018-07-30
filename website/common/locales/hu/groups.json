@@ -141,6 +141,7 @@
     "PMDisabledCaptionText": "Üzenetet tudsz küldeni, de mások nem tudnak neked küldeni.",
     "block": "Letiltás",
     "unblock": "Letiltás feloldása",
+    "blockWarning": "Block - This will have no effect if the player is a moderator now or becomes a moderator in future.",
     "pm-reply": "Válasz küldése",
     "inbox": "Bejövő üzenetek",
     "messageRequired": "Üzenet szükséges.",
@@ -468,5 +469,9 @@
     "howToRequireApprovalDesc2": "A csoportvezető és menedzserek jóvá tudják hagyni a befejezett feladatokat közvetlenül a feladatlistáról vagy az értesítés ablakban.",
     "whatIsGroupManager": "Mi az a csoportmenedzser?",
     "whatIsGroupManagerDesc": "A csoportmenedzser egy olyan személy, akinek nincs felhatalmazása a számlák megtekintéséhez, de feladat létrehozásához, hozzárendeléséhez és jóváhagyásához igen, valamint a csoport tagjai között megosztott feladatokat is elfogadhatja. Léptess elő csoportmenedzserré felhasználót a csoport tagjai közül.",
-    "goToTaskBoard": "Menj a feladatlistához"
+    "goToTaskBoard": "Menj a feladatlistához",
+    "sharedCompletion": "Shared Completion",
+    "recurringCompletion": "None - Group task does not complete",
+    "singleCompletion": "Single - Completes when any assigned user finishes",
+    "allAssignedCompletion": "All - Completes when all assigned users finish"
 }

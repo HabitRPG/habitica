@@ -7,8 +7,8 @@ import {
   model as Group,
 } from '../group';
 
-import { defaults, map, flatten, flow, compact, uniq, partialRight } from 'lodash';
-import { model as UserNotification } from '../userNotification';
+import {defaults, map, flatten, flow, compact, uniq, partialRight} from 'lodash';
+import {model as UserNotification} from '../userNotification';
 import schema from './schema';
 import payments from '../../libs/payments/payments';
 import amazonPayments from '../../libs/payments/amazon';

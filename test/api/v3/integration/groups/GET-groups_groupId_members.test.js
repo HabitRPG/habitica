@@ -77,7 +77,7 @@ describe('GET /groups/:groupId/members', () => {
     expect(Object.keys(memberRes.auth)).to.eql(['timestamps']);
     expect(Object.keys(memberRes.preferences).sort()).to.eql([
       'size', 'hair', 'skin', 'shirt',
-      'chair', 'costume', 'sleep', 'background', 'tasks',
+      'chair', 'costume', 'sleep', 'background', 'tasks', 'disableClasses',
     ].sort());
 
     expect(memberRes.stats.maxMP).to.exist;
@@ -98,7 +98,7 @@ describe('GET /groups/:groupId/members', () => {
     expect(Object.keys(memberRes.auth)).to.eql(['timestamps']);
     expect(Object.keys(memberRes.preferences).sort()).to.eql([
       'size', 'hair', 'skin', 'shirt',
-      'chair', 'costume', 'sleep', 'background', 'tasks',
+      'chair', 'costume', 'sleep', 'background', 'tasks', 'disableClasses',
     ].sort());
 
     expect(memberRes.stats.maxMP).to.exist;

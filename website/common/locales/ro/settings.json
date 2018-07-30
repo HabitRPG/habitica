@@ -183,6 +183,7 @@
     "mysticHourglassesTooltip": "Clepsidre Mistice",
     "paypal": "PayPal",
     "amazonPayments": "Plată prin Amazon",
+    "amazonPaymentsRecurring": "Ticking the checkbox below is necessary for your subscription to be created. It allows your Amazon account to be used for ongoing payments for <strong>this</strong> subscription. It will not cause your Amazon account to be automatically used for any future purchases.",
     "timezone": "Fus orar",
     "timezoneUTC": "Habitica folosește fusul orar al calculatorului dumneavoastră, anume: <strong><%= utc %></strong>",
     "timezoneInfo": "Dacă acest fus orar este greșit, întâi te rugăm să dai refresh paginii folosind butonul de reload sau refresh, ca să te asiguri că Habitica deține cele mai recente informații. Dacă este în continuare greșit, ajustează fusul orar în PC-ul tău și apoi dă refresh paginii din nou. <br><br><strong>Dacă folosești Habitica pe alte PC-uri sau dispozitive mobile, fusul orar trebuie să fie același pe toate.</strong> Dacă ale tale Cotidiene au fost resetate la momentul nepotrivit, repetă verificarea pe toate PC-urile și într-un broweser al dispozitivelor mobile deținute.",
