@@ -714,6 +714,9 @@ export default {
       },
     };
   },
+  mounted () {
+    this.showAdvancedOptions = !this.user.preferences.advancedCollapsed;
+  },
   watch: {
     task () {
       this.syncTask();
