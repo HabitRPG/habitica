@@ -3,6 +3,7 @@
   group-form-modal(v-if='isParty')
   start-quest-modal(:group='this.group')
   quest-details-modal(:group='this.group')
+  participant-list-modal(:group='this.group')
   group-gems-modal
   .col-12.col-sm-8.standard-page
     .row
@@ -262,6 +263,7 @@ import * as Analytics from 'client/libs/analytics';
 import membersModal from './membersModal';
 import startQuestModal from './startQuestModal';
 import questDetailsModal from './questDetailsModal';
+import participantListModal from './participantListModal';
 import groupFormModal from './groupFormModal';
 import groupChallenges from '../challenges/groupChallenges';
 import groupGemsModal from 'client/components/groups/groupGemsModal';
@@ -292,6 +294,7 @@ export default {
     groupFormModal,
     groupChallenges,
     questDetailsModal,
+    participantListModal,
     groupGemsModal,
     questSidebarSection,
     sidebarSection,
