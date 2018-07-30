@@ -379,8 +379,8 @@
   import FoodItem from './foodItem';
   import HatchedPetDialog from './hatchedPetDialog';
   import MountRaisedModal from './mountRaisedModal';
-  import WelcomeModal from './WelcomeModal';
-  import HatchingModal from './HatchingModal';
+  import WelcomeModal from './welcomeModal';
+  import HatchingModal from './hatchingModal';
   import Drawer from 'client/components/ui/drawer';
   import toggleSwitch from 'client/components/ui/toggleSwitch';
   import StarBadge from 'client/components/ui/starBadge';
