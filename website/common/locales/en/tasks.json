@@ -68,6 +68,7 @@
   "days": "Days",
   "restoreStreak": "Adjust Streak",
   "resetStreak": "Reset Streak",
+  "currentStreak": "Current Streak: ",
   "todo": "To-Do",
   "todos": "To-Dos",
   "newTodo": "New To-Do",
