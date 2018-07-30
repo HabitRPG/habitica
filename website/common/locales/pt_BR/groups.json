@@ -141,6 +141,7 @@
     "PMDisabledCaptionText": "Você ainda pode enviar mensagens, mas ninguém pode enviar uma à você.",
     "block": "Bloquear",
     "unblock": "Desbloquear",
+    "blockWarning": "Block - This will have no effect if the player is a moderator now or becomes a moderator in future.",
     "pm-reply": "Enviar uma resposta",
     "inbox": "Caixa de Entrada",
     "messageRequired": "Uma mensagem é necessária.",
@@ -358,8 +359,8 @@
     "chatPlaceholder": "Digite sua mensagem para os membros da Guilda",
     "partyChatPlaceholder": "Digite sua mensagem para os membros do Grupo",
     "fetchRecentMessages": "Atualizar Mensagens",
-    "like": "Gostei",
-    "liked": "Gostei",
+    "like": "Curtir",
+    "liked": "Curti",
     "joinGuild": "Entrar na Guilda",
     "inviteToGuild": "Convidar para Guilda",
     "messageGuildLeader": "Enviar Mensagem ao Líder",
@@ -468,5 +469,9 @@
     "howToRequireApprovalDesc2": "Lideres e Gestores de Time pode aprovar Tarefas concluídas direto Painel de Tarefas ou do menu de Notificações.",
     "whatIsGroupManager": "O que é um Gestor de Time?",
     "whatIsGroupManagerDesc": "Um Gestor de Time é um cargo que não tem acesso aos detalhes da fatura do Time, mas pode criar, atribuir, e aprovar Tarefas compartilhadas para os membros do Time. Promova membros para o cargo de Gestor através da lista de membros do Time.",
-    "goToTaskBoard": "Ir para o Painel de Tarefas"
+    "goToTaskBoard": "Ir para o Painel de Tarefas",
+    "sharedCompletion": "Shared Completion",
+    "recurringCompletion": "None - Group task does not complete",
+    "singleCompletion": "Single - Completes when any assigned user finishes",
+    "allAssignedCompletion": "All - Completes when all assigned users finish"
 }

@@ -37,7 +37,7 @@
     draggable.sortable-tasks(
       ref="tasksList",
       @update='taskSorted',
-      :options='{disabled: activeFilter.label === "scheduled"}',
+      :options='{disabled: activeFilter.label === "scheduled", scrollSensitivity: 64}',
       class="sortable-tasks"
     )
       task(

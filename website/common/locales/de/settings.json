@@ -183,6 +183,7 @@
     "mysticHourglassesTooltip": "Mystische Sanduhren",
     "paypal": "PayPal",
     "amazonPayments": "Amazon-Zahlungen",
+    "amazonPaymentsRecurring": "Ticking the checkbox below is necessary for your subscription to be created. It allows your Amazon account to be used for ongoing payments for <strong>this</strong> subscription. It will not cause your Amazon account to be automatically used for any future purchases.",
     "timezone": "Zeitzone",
     "timezoneUTC": "Habitica verwendet die Zeitzone, welche an Deinem PC eingestellt ist: <strong><%= utc %></strong>",
     "timezoneInfo": "Wenn diese Zeitzone falsch ist, lade die Seite mit Hilfe Deines Browsers erneut, um sicherzustellen, dass Habitica die aktuellen Informationen darstellt. Ist diese immernoch falsch, passe die Zeitzone Deines PCs an und lade die Seite erneut.<br><br> <strong>Wenn Du Habitica auf anderen PCs oder Mobilgeräten verwendest, muss die Zeitzone auf allen übereinstimmen.</strong> Wenn Deine täglichen Aufgaben zur falschen Zeit zurückgesetzt werden, wiederhole diese Prüfung auf allen anderen PCs und in einem Browser Deiner Mobilgeräte.",

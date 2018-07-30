@@ -183,6 +183,7 @@
     "mysticHourglassesTooltip": "Мистические песочные часы",
     "paypal": "PayPal",
     "amazonPayments": "Платеж с помощью Amazon",
+    "amazonPaymentsRecurring": "Ticking the checkbox below is necessary for your subscription to be created. It allows your Amazon account to be used for ongoing payments for <strong>this</strong> subscription. It will not cause your Amazon account to be automatically used for any future purchases.",
     "timezone": "Часовой пояс",
     "timezoneUTC": "Habitica использует часовой пояс, установленный на вашем компьютере. В данный момент это: <strong><%= utc %></strong>",
     "timezoneInfo": "Если часовой пояс определен неверно, сначала следует перезагрузить страницу, нажав на кнопку \"обновить\" в вашем браузере, чтобы убедиться, что Habitica использует самую последнюю информацию. Если время по-прежнему определено неверно, поправьте установки времени на вашем компьютере и снова перезагрузите эту страницу.<br><br> <strong>Если вы используете Habitica на нескольких компьютерах или мобильных устройствах, необходимо установить одинаковый часовой пояс на всех используемых устройствах.</strong>Если ваши Ежедневные задания сбрасываются в неправильное время, повторите эту проверку на всех остальных компьютерах и в браузерах на мобильных устройствах.",

@@ -219,6 +219,6 @@
     "bodyAccess": "Accesorii pentru Corp",
     "mainHand": "Mână dominantă",
     "offHand": "Mână nedominantă",
-    "pointsAvailable": "Puncte Disponibile",
+    "statPoints": "Stat Points",
     "pts": "pcte"
 }

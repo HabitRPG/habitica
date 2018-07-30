@@ -219,6 +219,6 @@
     "bodyAccess": "Test kieg.",
     "mainHand": "Jobbkezes fegyver",
     "offHand": "Balkezes fegyver",
-    "pointsAvailable": "Kiosztható pontok",
+    "statPoints": "Stat Points",
     "pts": "pont"
 }

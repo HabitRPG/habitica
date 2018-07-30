@@ -141,6 +141,7 @@
     "PMDisabledCaptionText": "Вы все еще можете отправлять личные сообщения, но никто не может сможет на них вам ответить.",
     "block": "Блокировать",
     "unblock": "Разблокировать",
+    "blockWarning": "Block - This will have no effect if the player is a moderator now or becomes a moderator in future.",
     "pm-reply": "Ответить",
     "inbox": "Почта",
     "messageRequired": "Требуется сообщение.",
@@ -468,5 +469,9 @@
     "howToRequireApprovalDesc2": "Руководители и менеджеры групп могут утверждать выполненные задачи непосредственно на панели задач или на панели уведомлений.",
     "whatIsGroupManager": "Кто такой руководитель группы?",
     "whatIsGroupManagerDesc": "Руководитель группы - это роль пользователя, которая не имеет доступа к сведениям о выставлении счетов, но может создавать, назначать и утверждать общие задачи для членов группы. Содействуйте руководителям групп из списка участников группы.",
-    "goToTaskBoard": "Перейти к доске заданий"
+    "goToTaskBoard": "Перейти к доске заданий",
+    "sharedCompletion": "Shared Completion",
+    "recurringCompletion": "None - Group task does not complete",
+    "singleCompletion": "Single - Completes when any assigned user finishes",
+    "allAssignedCompletion": "All - Completes when all assigned users finish"
 }
