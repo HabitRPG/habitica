@@ -997,13 +997,13 @@ export default {
     focusInput () {
       this.$refs.inputToFocus.focus();
     },
-<<<<<<< HEAD
     handleEsc (e) {
       if (e.keyCode === 27 && this.showTagsSelect) {
-=======
+        this.closeTagsPopup();
+      }
+    },
     handleClick (e) {
       if (this.$refs.popup && !this.$refs.popup.$el.contains(e.target)) {
->>>>>>> thefifthisa-clickout
         this.closeTagsPopup();
       }
     },
