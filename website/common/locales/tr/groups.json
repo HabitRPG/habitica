@@ -141,7 +141,7 @@
     "PMDisabledCaptionText": "Hala mesaj gönderebilirsin ancak kimse sana mesaj gönderemez.",
     "block": "Engelle",
     "unblock": "Engeli Kaldır",
-    "blockWarning": "Block - This will have no effect if the player is a moderator now or becomes a moderator in future.",
+    "blockWarning": "Engelle - Eğer oyuncu şu anda bir moderatörse veya gelecekte moderatör olursa bunun bir etkisi olmayacaktır.",
     "pm-reply": "Cevap yaz",
     "inbox": "Gelen Kutusu",
     "messageRequired": "Bir mesaj yazılması gerekli.",
@@ -470,8 +470,8 @@
     "whatIsGroupManager": "Grup Yöneticisi nedir?",
     "whatIsGroupManagerDesc": "Grup Yöneticisi grubun ödeme detaylarına erişimi olmayan ancak Grubun üyeleri için paylaşımlı İşler oluşturabilen, bu işleri atayabilen ve onaylayabilen bir roldür. Üyeleri Grubun üye listesinden Grup Yöneticisi pozisyonuna terfi ettirebilirsin.",
     "goToTaskBoard": "İş Panosuna Geri Dön",
-    "sharedCompletion": "Shared Completion",
-    "recurringCompletion": "None - Group task does not complete",
-    "singleCompletion": "Single - Completes when any assigned user finishes",
-    "allAssignedCompletion": "All - Completes when all assigned users finish"
+    "sharedCompletion": "Paylaşımlı Tamamlanma",
+    "recurringCompletion": "Hiçbiri - Grup işi tamamlanmaz",
+    "singleCompletion": "Tekil - Atanmış kullanıcılardan herhangi biri işi bitirdiğinde tamamlanır",
+    "allAssignedCompletion": "Tümü - Atanmış kullanıcıların tümü işi bitirdiğinde tamamlanır"
 }

@@ -183,7 +183,7 @@
     "mysticHourglassesTooltip": "Sabliers mystiques",
     "paypal": "PayPal",
     "amazonPayments": "Paiments Amazon",
-    "amazonPaymentsRecurring": "Ticking the checkbox below is necessary for your subscription to be created. It allows your Amazon account to be used for ongoing payments for <strong>this</strong> subscription. It will not cause your Amazon account to be automatically used for any future purchases.",
+    "amazonPaymentsRecurring": "Cocher la case ci-dessous est nécessaire pour créer votre abonnement. Cela permet à votre compte Amazon d'être utilisé pour les paiements en cours de <strong>cet</strong> abonnement. Cela n'utilisera pas automatiquement votre compte Amazon pour de futurs achats.",
     "timezone": "Fuseau horaire",
     "timezoneUTC": "Habitica utilise le fuseau horaire réglé sur votre PC, qui est le suivant : <strong><%= utc %></strong>",
     "timezoneInfo": "Si ce n'est pas le bon fuseau horaire, commencez par actualiser la page en utilisant le bouton Actualiser de votre navigateur pour vous assurer qu'Habitica est à jour. Si ce n'est toujours pas le bon, réglez le fuseau horaire sur votre PC et actualisez cette page à nouveau. <br><br><strong>Si vous utilisez Habitica sur d'autres PC ou appareils mobiles, le fuseau horaire doit être le même sur tous.</strong> Si vos Quotidiennes continuent d'être réinitialisées à la mauvaise heure, répétez cette vérification sur tous les PCs que vous utilisez et sur le navigateur de vos appareils mobiles.",
