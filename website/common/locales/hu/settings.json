@@ -183,7 +183,7 @@
     "mysticHourglassesTooltip": "Misztikus homokórák",
     "paypal": "PayPal",
     "amazonPayments": "Amazon Payments",
-    "amazonPaymentsRecurring": "Ticking the checkbox below is necessary for your subscription to be created. It allows your Amazon account to be used for ongoing payments for <strong>this</strong> subscription. It will not cause your Amazon account to be automatically used for any future purchases.",
+    "amazonPaymentsRecurring": "Az alábbi doboz kipipálása szükséges az előfizetésed létrehozásához. Ennek a segítségével a jövőben az Amazon fiókodon keresztül tudod fizetni <strong>ezt</strong> az előfizetést. Ez nem jelenti azt, hogy a jövőbeli vásárlásoknál az Amazon fiókod lesz az alapvető fizetőeszköz.",
     "timezone": "Időzóna",
     "timezoneUTC": "A Habitica a számítógépeden beállított időzónát használja, ami a következő: <strong><%= utc %></strong>",
     "timezoneInfo": "Ha ez időzóna téves, frissítsd ezt az oldalt a böngésződ frissítés gombját használva, hogy megbizonyosodj róla hogy a Habitica a legfrissebb információt használja. Ha ezután még mindig téves, változtasd meg az időzónát a számítógépeden és frissítsd újra az oldalt.<br><br><strong> Ha a Habitica-t más számítógépen vagy telefonon is használod, az időzónának mindenhol egyeznie kell.</strong> Ha a napi feladataid rossz időben indulnak újra ismételd meg ezt az összes számítógépen és a telefonod böngészőjében.",
