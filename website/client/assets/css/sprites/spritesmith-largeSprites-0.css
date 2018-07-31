@@ -22,6 +22,12 @@
   width: 114px;
   height: 120px;
 }
+.promo_naming_day_2018 {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -518px -365px;
+  width: 285px;
+  height: 162px;
+}
 .promo_orcas {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: 0px -954px;
@@ -42,7 +48,7 @@
 }
 .promo_seasonal_shop_summer {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -642px -552px;
+  background-position: -142px -811px;
   width: 162px;
   height: 138px;
 }
@@ -72,7 +78,7 @@
 }
 .promo_unconventional_armor {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -518px -365px;
+  background-position: -642px -552px;
   width: 180px;
   height: 180px;
 }
