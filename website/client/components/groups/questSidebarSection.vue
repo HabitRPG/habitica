@@ -24,6 +24,9 @@ sidebar-section(:title="$t('questDetailsTitle')")
       h3(v-once) {{ questData.text() }}
       .quest-box
         .collect-info(v-if='questData.collect')
+          .row
+            .col-12
+              a.float-right(@click="openParticipantList()") {{ $t('participantsTitle') }}
           .row(v-for='(value, key) in questData.collect')
             .col-2
               div(:class="'quest_' + questData.key + '_' + key")
@@ -72,14 +75,6 @@ sidebar-section(:title="$t('questDetailsTitle')")
 
   .quest-boss {
     margin: 0 auto;
-  }
-
-  .boss-info {
-    a {
-      font-family: 'Roboto Condensed', sans-serif;
-      font-weight: bold;
-      color: $gray-10;
-    }
   }
 
   .boss-health-bar {
@@ -141,6 +136,12 @@ sidebar-section(:title="$t('questDetailsTitle')")
       width: 100%;
       padding: .5em;
       margin-bottom: 1em;
+
+      a {
+        font-family: 'Roboto Condensed', sans-serif;
+        font-weight: bold;
+        color: $gray-10;
+      }
 
       svg: {
         width: 100%;
