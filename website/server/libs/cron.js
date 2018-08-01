@@ -172,27 +172,6 @@ function resetHabitCounters (user, tasksByType, now, daysMissed) {
   });
 }
 
-function performSleepTasks (user, tasksByType, now, daysMissed) {
-  user.stats.buffs = _.cloneDeep(CLEAR_BUFFS);
-
-  tasksByType.dailys.forEach((daily) => {
-    let completed = daily.completed;
-    let thatDay = moment(now).subtract({days: 1});
-
-    if (shouldDo(thatDay.toDate(), daily, user.preferences) || completed) {
-      // TODO also untick checklists if the Daily was due on previous missed days, if two or more days were missed at once -- https://github.com/HabitRPG/habitica/pull/7218#issuecomment-219256016
-      if (daily.checklist) {
-        daily.checklist.forEach(box => box.completed = false);
-      }
-    }
-
-    daily.completed = false;
-    setIsDueNextDue(daily, user, now);
-  });
-
-  resetHabitCounters(user, tasksByType, now, daysMissed);
-}
-
 function trackCronAnalytics (analytics, user, _progress, options) {
   analytics.track('Cron', {
     category: 'behavior',
@@ -294,14 +273,6 @@ export function cron (options = {}) {
   user.loginIncentives++;
   awardLoginIncentives(user);
 
-  // User is resting at the inn.
-  // On cron, buffs are cleared and all dailies are reset without performing damage
-  if (user.preferences.sleep === true) {
-    performSleepTasks(user, tasksByType, now, daysMissed);
-    trackCronAnalytics(analytics, user, _progress, options);
-    return;
-  }
-
   let multiDaysCountAsOneDay = true;
   // If the user does not log in for two or more days, cron (mostly) acts as if it were only one day.
   // When site-wide difficulty settings are introduced, this can be a user preference option.
@@ -373,22 +344,24 @@ export function cron (options = {}) {
             dailyDueUnchecked += 1;
           }
 
-          let delta = scoreTask({
-            user,
-            task,
-            direction: 'down',
-            times: multiDaysCountAsOneDay ? 1 : scheduleMisses - EvadeTask,
-            cron: true,
-          });
+          if (!user.preferences.sleep) {
+            let delta = scoreTask({
+              user,
+              task,
+              direction: 'down',
+              times: multiDaysCountAsOneDay ? 1 : scheduleMisses - EvadeTask,
+              cron: true,
+            });
 
-          if (!CRON_SEMI_SAFE_MODE) {
-            // Apply damage from a boss, less damage for Trivial priority (difficulty)
-            user.party.quest.progress.down += delta * (task.priority < 1 ? task.priority : 1);
-            // NB: Medium and Hard priorities do not increase damage from boss. This was by accident
-            // initially, and when we realised, we could not fix it because users are used to
-            // their Medium and Hard Dailies doing an Easy amount of damage from boss.
-            // Easy is task.priority = 1. Anything < 1 will be Trivial (0.1) or any future
-            // setting between Trivial and Easy.
+            if (!CRON_SEMI_SAFE_MODE) {
+              // Apply damage from a boss, less damage for Trivial priority (difficulty)
+              user.party.quest.progress.down += delta * (task.priority < 1 ? task.priority : 1);
+              // NB: Medium and Hard priorities do not increase damage from boss. This was by accident
+              // initially, and when we realised, we could not fix it because users are used to
+              // their Medium and Hard Dailies doing an Easy amount of damage from boss.
+              // Easy is task.priority = 1. Anything < 1 will be Trivial (0.1) or any future
+              // setting between Trivial and Easy.
+            }
           }
         }
       }
@@ -462,15 +435,19 @@ export function cron (options = {}) {
 
   // Add 10 MP, or 10% of max MP if that'd be more. Perform this after Perfect Day for maximum benefit
   // Adjust for fraction of dailies completed
-  if (dailyDueUnchecked === 0 && dailyChecked === 0) dailyChecked = 1;
-  user.stats.mp += _.max([10, 0.1 * common.statsComputed(user).maxMP]) * dailyChecked / (dailyDueUnchecked + dailyChecked);
-  if (user.stats.mp > common.statsComputed(user).maxMP) user.stats.mp = common.statsComputed(user).maxMP;
+  if (!user.preferences.sleep) {
+    if (dailyDueUnchecked === 0 && dailyChecked === 0) dailyChecked = 1;
+    user.stats.mp += _.max([10, 0.1 * common.statsComputed(user).maxMP]) * dailyChecked / (dailyDueUnchecked + dailyChecked);
+    if (user.stats.mp > common.statsComputed(user).maxMP) user.stats.mp = common.statsComputed(user).maxMP;
+  }
 
   // After all is said and done, progress up user's effect on quest, return those values & reset the user's
-  let progress = user.party.quest.progress;
-  _progress = progress.toObject(); // clone the old progress object
-  progress.down = -1300;
-  _.merge(progress, {down: 0, up: 0, collectedItems: 0});
+  if (!user.preferences.sleep) {
+    let progress = user.party.quest.progress;
+    _progress = progress.toObject(); // clone the old progress object
+    progress.down = -1300;
+    _.merge(progress, {down: 0, up: 0, collectedItems: 0});
+  }
 
   // Send notification for changes in HP and MP.
   // First remove a possible previous cron notification because
