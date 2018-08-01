@@ -489,19 +489,6 @@ export function cron (options = {}) {
     mp: user.stats.mp - beforeCronStats.mp - (oldCronNotif ? oldCronNotif.data.mp : 0),
   });
 
-  // TODO: Clean PMs - keep 200 for subscribers and 50 for free users. Should also be done while resting in the inn
-  // let numberOfPMs = Object.keys(user.inbox.messages).length;
-  // if (numberOfPMs > maxPMs) {
-  //   _(user.inbox.messages)
-  //     .sortBy('timestamp')
-  //     .takeRight(numberOfPMs - maxPMs)
-  //     .forEach(pm => {
-  //       delete user.inbox.messages[pm.id];
-  //     })
-  //
-  //   user.markModified('inbox.messages');
-  // }
-
   // Analytics
   user.flags.cronCount++;
   trackCronAnalytics(analytics, user, _progress, options);
