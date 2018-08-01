@@ -144,7 +144,7 @@
     "taskAllocation": "Puanları iş aktivitesine göre dağıt",
     "taskAllocationPop": "Tamamladığın işlerin Güç, Zeka, Bünye ve Sezgi kategorilerine göre Puanları dağıtır.",
     "distributePoints": "Dağıtılmamış Puanları Dağıt",
-    "distributePointsPop": "Kalan Nitelik Puanlarını seçilmiş paylaştırma düzenine göre dağıtır.",
+    "distributePointsPop": "Kalan Nitelik Puanlarını seçilmiş dağıtma düzenine göre paylaştırır.",
     "warriorText": "Savaşçılar, daha çok ve daha güçlü \"kritik vuruş\" yapma şansına sahiptir. Kritik vuruşlar, bir iş tamamladığında fazladan Altın ve Tecrübe kazanmanı sağlar ve eşya bulma ihtimalini arttırır. Savaşçılar aynı zamanda Canavarlara daha fazla hasar verirler. Eğer ikramiye tarzında rastgele ödüller kazanmak ya da canavar Görevlerinde daha çok can yakmak sana motive edici görünüyorsa, bir Savaşçı ile oyna!",
     "wizardText": "Büyücüler, diğer sınıflara nazaran daha hızlı Tecrübe kazanır ve daha sık Seviye atlarlar. Ayrıca özel beceriler için gereken Mana puanları çok daha fazladır. Eğer Habitica'da oyunun taktik yönlerini daha eğlenceli buluyorsan ya da daha hızlı seviye atlayıp ileri özelliklere daha çabuk ulaşmak istiyorsan, bir Büyücü ile oyna!",
     "mageText": "Büyücüler, diğer sınıflara nazaran daha hızlı Tecrübe kazanır ve daha sık Seviye atlarlar. Ayrıca özel beceriler için gereken Mana puanları çok daha fazladır. Eğer Habitica'da oyunun taktik yönlerini daha eğlenceli buluyorsan ya da daha hızlı seviye atlayıp ileri özelliklere daha çabuk ulaşmak istiyorsan, bir Büyücü ile oyna!",
@@ -219,6 +219,6 @@
     "bodyAccess": "Vücut Akses.",
     "mainHand": "Birincil El",
     "offHand": "İkincil El",
-    "statPoints": "Stat Points",
+    "statPoints": "Nitelik Puanları",
     "pts": "puan"
 }

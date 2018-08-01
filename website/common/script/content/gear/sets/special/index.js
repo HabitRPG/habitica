@@ -1110,6 +1110,12 @@ let body = {
     con: 10,
     canOwn: ownsItem('body_special_aetherAmulet'),
   },
+  namingDay2018: {
+    text: t('bodySpecialNamingDay2018Text'),
+    notes: t('bodySpecialNamingDay2018Notes'),
+    value: 0,
+    canOwn: ownsItem('body_special_namingDay2018'),
+  },
 };
 
 let eyewear = {
