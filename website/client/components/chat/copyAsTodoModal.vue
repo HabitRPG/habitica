@@ -55,16 +55,16 @@ export default {
   methods: {
     ...mapActions({
       createTask: 'tasks:create',
-		}),
-		groupPath() {
-			if(this.groupId === TAVERN_ID) {
-				return `${baseUrl}/groups/tavern`
-			} else if(this.groupType === 'party') {
-				return `${baseUrl}/party`
-			} else {
-				return `${baseUrl}/groups/guild/${this.groupId}`
-			}
-		},
+    }),
+    groupPath () {
+      if (this.groupId === TAVERN_ID) {
+        return `${baseUrl}/groups/tavern`;
+      } else if (this.groupType === 'party') {
+        return `${baseUrl}/party`;
+      } else {
+        return `${baseUrl}/groups/guild/${this.groupId}`;
+      }
+    },
     close () {
       this.$root.$emit('bv::hide::modal', 'copyAsTodo');
     },
