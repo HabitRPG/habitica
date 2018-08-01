@@ -321,7 +321,8 @@ export function cron (options = {}) {
     todoTally += task.value;
   });
 
-  // For incomplete Dailys, add value (further incentive), deduct health, keep records for later decreasing the nightly mana gain
+  // For incomplete Dailys, add value (further incentive), deduct health, keep records for later decreasing the nightly mana gain.
+  // The negative effects are not done when resting in the inn.
   let dailyChecked = 0; // how many dailies were checked?
   let dailyDueUnchecked = 0; // how many dailies were un-checked?
   let atLeastOneDailyDue = false; // were any dailies due?
@@ -438,10 +439,10 @@ export function cron (options = {}) {
       return taskType._id === taskOrderId && taskType.completed === false;
     });
   });
+  // TODO also adjust tasksOrder arrays to remove deleted tasks of any kind (including rewards), ensure that all existing tasks are in the arrays, no tasks IDs are duplicated -- https://github.com/HabitRPG/habitica/issues/7645
 
   // preen user history so that it doesn't become a performance problem
   // also for subscribed users but differently
-  // TODO also do while resting in the inn. Note that later we'll be allowing the value/color of tasks to change while sleeping (https://github.com/HabitRPG/habitica/issues/5232), so the code in performSleepTasks() might be best merged back into here for that. Perhaps wait until then to do preen history for sleeping users.
   preenUserHistory(user, tasksByType);
 
   if (perfect && atLeastOneDailyDue) {
@@ -471,10 +472,9 @@ export function cron (options = {}) {
   progress.down = -1300;
   _.merge(progress, {down: 0, up: 0, collectedItems: 0});
 
-  // Send notification for changes in HP and MP
-
-  // First remove a possible previous cron notification
-  // we don't want to flood the users with many cron notifications at once
+  // Send notification for changes in HP and MP.
+  // First remove a possible previous cron notification because
+  // we don't want to flood the users with many cron notifications at once.
   let oldCronNotif = user.notifications.find((notif, index) => {
     if (notif && notif.type === 'CRON') {
       user.notifications.splice(index, 1);
