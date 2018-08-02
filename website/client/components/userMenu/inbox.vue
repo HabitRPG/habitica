@@ -1,5 +1,5 @@
 <template lang="pug">
-  b-modal#inbox-modal(title="", :hide-footer="true", size='lg')
+  b-modal#inbox-modal(title="", :hide-footer="true", size='lg', @shown="onModalShown")
     .header-wrap.container.align-items-center(slot="modal-header")
       .row.align-items-center
         .col-4
@@ -208,6 +208,7 @@ import groupBy from 'lodash/groupBy';
 import { mapState } from 'client/libs/store';
 import styleHelper from 'client/mixins/styleHelper';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
+import axios from 'axios';
 
 import messageIcon from 'assets/svg/message.svg';
 import chatMessage from '../chat/chatMessages';
@@ -258,6 +259,8 @@ export default {
       newMessage: '',
       activeChat: [],
       showPopover: false,
+      messages: [],
+      loaded: false,
     };
   },
   filters: {
@@ -268,7 +271,7 @@ export default {
   computed: {
     ...mapState({user: 'user.data'}),
     conversations () {
-      const inboxGroup = groupBy(this.user.inbox.messages, 'uuid');
+      const inboxGroup = groupBy(this.messages, 'uuid');
 
       // Create conversation objects
       const convos = [];
@@ -348,6 +351,12 @@ export default {
     },
   },
   methods: {
+    async onModalShown () {
+      this.loaded = false;
+      const res = await axios.get('/api/v4/inbox/messages');
+      this.messages = res.data.data;
+      this.loaded = true;
+    },
     toggleClick () {
       this.displayCreate = !this.displayCreate;
     },
