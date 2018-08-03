@@ -15,8 +15,12 @@
 
 <style scoped>
   #AmazonPayButton {
-    margin: 0 auto;
     width: 150px;
+    margin-bottom: 12px;
+  }
+
+  #AmazonPayButton, #AmazonPayWallet, #AmazonPayRecurring {
+    margin: 0 auto;
   }
 
   #AmazonPayRecurring {
