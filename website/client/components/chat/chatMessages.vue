@@ -2,7 +2,7 @@
 .container
   .row
     .col-12
-      copy-as-todo-modal(:group-name='groupName', :group-id='groupId')
+      copy-as-todo-modal(:group-type='groupType', :group-name='groupName', :group-id='groupId')
       report-flag-modal
   div(v-for="(msg, index) in messages", v-if='chat && canViewFlag(msg)')
     // @TODO: is there a different way to do these conditionals? This creates an infinite loop
@@ -87,7 +87,7 @@ import reportFlagModal from './reportFlagModal';
 import chatCard from './chatCard';
 
 export default {
-  props: ['chat', 'groupId', 'groupName', 'inbox'],
+  props: ['chat', 'groupType', 'groupId', 'groupName', 'inbox'],
   components: {
     copyAsTodoModal,
     reportFlagModal,
