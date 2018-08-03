@@ -429,9 +429,6 @@
       drag: DragDropDirective,
       mousePosition: MouseMoveDirective,
     },
-    mounted () {
-      this.$root.$emit('bv::show::modal', 'hatching-modal');
-    },
     data () {
       return {
         viewOptions: {},

@@ -227,7 +227,7 @@
     "backgroundRedNotes": "A rad red backdrop.",
     "backgroundYellowText": "צהוב",
     "backgroundYellowNotes": "A yummy yellow backdrop.",
-    "backgrounds122016": "SET 31: Released December 2016",
+    "backgrounds122016": "סט 31: פורסם בדצמבר 2016",
     "backgroundShimmeringIcePrismText": "Shimmering Ice Prisms",
     "backgroundShimmeringIcePrismNotes": "Dance through the Shimmering Ice Prisms.",
     "backgroundWinterFireworksText": "זיקוקי חורף",
@@ -366,5 +366,12 @@
     "backgroundDilatoryCityText": "City of Dilatory",
     "backgroundDilatoryCityNotes": "Meander through the undersea City of Dilatory.",
     "backgroundTidePoolText": "Tide Pool",
-    "backgroundTidePoolNotes": "Observe the ocean life near a Tide Pool."
+    "backgroundTidePoolNotes": "Observe the ocean life near a Tide Pool.",
+    "backgrounds082018": "SET 51: Released August 2018",
+    "backgroundTrainingGroundsText": "Training Grounds",
+    "backgroundTrainingGroundsNotes": "Spar on the Training Grounds.",
+    "backgroundFlyingOverRockyCanyonText": "Rocky Canyon",
+    "backgroundFlyingOverRockyCanyonNotes": "Look down into a breathtaking scene as you fly over a Rocky Canyon.",
+    "backgroundBridgeText": "Bridge",
+    "backgroundBridgeNotes": "Cross a charming Bridge."
 }

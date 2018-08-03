@@ -11,7 +11,7 @@
     "dailyDueDefaultView": "Afficher par défaut les Quotidiennes de l'onglet \"Restantes\"",
     "dailyDueDefaultViewPop": "Lorsque cette option est activée, les Quotidiennes afficheront par défaut l'onglet \"Restantes\" plutôt que l'onglet \"Tous\"",
     "reverseChatOrder": "Montrer les messages de la discussion dans l'ordre inverse",
-    "startAdvCollapsed": "Paramètres avancés des tâches réduits",
+    "startAdvCollapsed": "Paramètres avancés des tâches réduits par défaut",
     "startAdvCollapsedPop": "Avec cette option cochée, les paramètres avancés seront cachés quand vous modifierez une tâche pour la première fois.",
     "dontShowAgain": "Ne pas montrer ceci de nouveau",
     "suppressLevelUpModal": "Ne pas montrer de popup lors d'un gain de niveau",

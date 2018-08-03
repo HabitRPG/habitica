@@ -15,7 +15,6 @@ function processUsers (lastId) {
   // specify a query to limit the affected users (empty for all users):
   let query = {
     migration: {$ne: migrationName},
-    'auth.timestamps.loggedin': {$gt: new Date('2018-07-01')}, // rerun without date restriction after initial run
   };
 
   if (lastId) {

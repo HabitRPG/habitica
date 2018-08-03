@@ -123,7 +123,7 @@
     "spring2018DucklingRogueSet": "アヒルちゃん盗賊(盗賊)",
     "summer2018BettaFishWarriorSet": "ベタの戦士 (戦士)",
     "summer2018LionfishMageSet": "ミノカサゴの魔道士 (魔道士)",
-    "summer2018MerfolkMonarchSet": "Merfolk Monarch (Healer)",
+    "summer2018MerfolkMonarchSet": "人魚王 (治療師)",
     "summer2018FisherRogueSet": "釣り師の盗賊 (盗賊)",
     "eventAvailability": "<%= date(locale) %>まで購入できます。",
     "dateEndMarch": "4月30日",

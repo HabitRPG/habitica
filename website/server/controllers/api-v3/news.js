@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'HABITICA NAMING DAY; LAST CHANCE FOR SUMMER SPLASH AND JULY SUBSCRIBER ITEMS';
+const LAST_ANNOUNCEMENT_TITLE = 'AUGUST BACKGROUNDS AND ARMOIRE ITEMS, AND QUEST PARTICIPANTS VIEW!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,38 +30,21 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>7/31/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>8/2/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
         <div class="media align-items-center">
           <div class="media-body">
-            <h3>Habitica Naming Day and Purple Gryphon Rewards!</h3>
-            <p>Happy Habitica Naming day! In honor of the day when we changed the name of the app from HabitRPG to Habitica, we've given everyone an achievement, as well as some delicious cake for your pets and mounts.</p>
+            <h3>New Backgrounds and Armoire Items!</h3>
+            <p>We’ve added three new backgrounds to the Background Shop! Now your avatar can fly over a Rocky Canyon, spar on the Training Grounds, and cross a charming Bridge. Check them out under User Icon > Backgrounds!</p>
+            <p>Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the Jeweled Archer Set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)</p>
+            <div class="small mb-3">by Lalaitha, Kiwibot, Balduranne, Irrevenant, DialFforFunky, RandomGryffindor, Mewrose, and CitrineQuartzFox</div>
+            <h3>New! Quest Partipant List</h3>
+            <p>There's a new feature on your Party Page! If you're in a Quest, you can now view all Party members who have joined the Quest via the Participants link in the box where you can see your progress. Enjoy!</p>
+            <div class="small mb-3">by Alys</div>
           </div>
-          <div class="promo_naming_day_2018 ml-3 mb-3"></div>
-        </div>
-        <p>Speaking of pets and mounts, we've given all users Royal Purple Gryphon rewards! Depending on how many Naming Days you've celebrated with us, you've received Melior (a Purple Gryphon mount), his little sister Meliora (a Purple Gryphon pet), a Purple Gryphon Helm, or the Purple Gryphon Wing Cloak !</p>
-        <p>Thanks for being a Habitica user -- you all mean so much to us. We hope that you enjoy your presents!</p>
-        <div class="small mb-3">by Lemoness, Beffymaroo, and Baconsaur</div>
-        <div class="media align-items-center">
-          <div class="media-body">
-            <div class="media align-items-center">
-              <div class="promo_mystery_201807 mr-3"></div>
-              <div class="media-body">
-                <h3>Last Chance for Sea Serpent Set</h3>
-                <p>Reminder: this is the final day to <a href='/user/settings/subscription' target='_blank'>subscribe</a> and receive the Sea Serpent Set! Subscribing also lets you buy Gems for Gold. The longer your subscription, the more Gems you can get!</p>
-                <p>Thanks so much for your support! You help keep Habitica running.</p>
-                <div class="small mb-3">by Beffymaroo</div>
-              </div>
-            </div>
-            <h3>Last Chance for Glass and Aquatic Hatching Potions</h3>
-            <p>Reminder: this is the final day to <a href='/shops/market' target='_blank'>buy Glass and Aquatic Hatching Potions</a> If they come back, it won't be until next year at the earliest, so don't delay!</p>
-            <div class="small mb-3">by stefalupagus, Beffymaroo, Mako413, Willow The Witty, and SabreCat</div>
-            <h3>Last Chance for Summer Splash Goodies!</h3>
-            <p>A reminder that Summer Splash is ending as well! Be sure to grab your special class gear from your Rewards column and any items you've been eyeing in the <a href='/shops/seasonal' target='_blank'>Seasonal Shop</a>!</p>
-          </div>
-          <div class="promo_aquatic_glass_potions ml-3 mb-3"></div>
+          <div class="promo_armoire_backgrounds_201808 ml-3 mb-3"></div>
         </div>
       </div>
       `,
