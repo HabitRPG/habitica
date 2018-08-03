@@ -53,7 +53,7 @@ div
               span.dropdown-icon-item
                 .svg-icon.inline(v-html="icons.removeIcon")
                 span.text {{$t('removeManager2')}}
-            b-dropdown-item(@click='viewProgress(member)')
+            b-dropdown-item(@click='viewProgress(member)', v-if='challengeId')
               span.dropdown-icon-item
                 span.text {{ $t('viewProgress') }}
       .row(v-if='isLoadMoreAvailable')
