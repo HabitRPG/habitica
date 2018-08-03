@@ -42,7 +42,7 @@ api.getNews = {
             <div class="small mb-3">by Lalaitha, Kiwibot, Balduranne, Irrevenant, DialFforFunky, RandomGryffindor, Mewrose, and CitrineQuartzFox</div>
             <h3>New! Quest Partipant List</h3>
             <p>There's a new feature on your Party Page! If you're in a Quest, you can now view all Party members who have joined the Quest via the Participants link in the box where you can see your progress. Enjoy!</p>
-            <div class="small mb-3">by Alys</div>
+            <div class="small mb-3">by thefifthisa</div>
           </div>
           <div class="promo_armoire_backgrounds_201808 ml-3 mb-3"></div>
         </div>
