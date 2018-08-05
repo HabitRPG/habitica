@@ -1,7 +1,6 @@
 import prefill from './prefill.js';
 
 export default prefill({
-  /* eslint-disable quote-props */
   none: {},
   black: {},
   blue: {},
@@ -9,6 +8,7 @@ export default prefill({
   pink: {},
   red: {},
   yellow: {},
+  /* eslint-disable quote-props */
   'handleless_black': {},
   'handleless_blue': {},
   'handleless_green': {},
