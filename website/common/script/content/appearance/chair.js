@@ -15,4 +15,5 @@ export default prefill({
   'handleless_pink': {},
   'handleless_red': {},
   'handleless_yellow': {},
+  /* eslint-enable quote-props */
 });
