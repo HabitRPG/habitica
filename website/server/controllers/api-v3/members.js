@@ -458,7 +458,7 @@ api.getObjectionsToInteraction = {
  * @apiParam (Body) {String} message Body parameter - The message
  * @apiParam (Body) {UUID} toUserId Body parameter - The user to contact
  *
- * @apiSuccess {Object} data An empty Object
+ * @apiSuccess {Object} data.message The message just sent
  *
  * @apiUse UserNotFound
  */
