@@ -5,7 +5,7 @@
     "sureDeleteCompletedTodos": "完了した To-Do を削除します。よろしいですか?",
     "lotOfToDos": "最近完了した 30 件の「To-Do」をここに表示します。より古いものは、「データ > データ表示ツール」または「データ > データをエクスポート > ユーザーデータ」で確認できます。",
     "deleteToDosExplanation": "下のボタンをクリックすると、進行中のチャレンジやグループプランの「To-Do」を除いて、すべての完了した「To-Do」とアーカイブ済の「To-Do」が完全に削除されます。記録を保存しておきたい場合は、まずエクスポートしてください。",
-    "addMultipleTip": "<strong>Tip:</strong> To add multiple <%= taskType %>, separate each one using a line break (Shift + Enter) and then press \"Enter.\"",
+    "addMultipleTip": "<strong>Tip:</strong> 複数の<%= taskType %>を追加するには、改行 (Shift + Enter) でそれぞれを分割し、Enterキーで確定して下さい。",
     "addsingle": "1件追加",
     "addATask": "<%= type %>の追加",
     "editATask": "<%= type %>の編集",

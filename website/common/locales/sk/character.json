@@ -219,6 +219,6 @@
     "bodyAccess": "Body Access.",
     "mainHand": "Main-Hand",
     "offHand": "Off-Hand",
-    "pointsAvailable": "Voľné body",
+    "statPoints": "Stat Points",
     "pts": "body"
 }

@@ -26,7 +26,7 @@
     "jackolantern": "Джек-ліхтар",
     "ghostJackolantern": "Ghost Jack-O-Lantern",
     "seasonalShop": "Сезонна крамниця",
-    "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
+    "seasonalShopClosedTitle": "<%= linkStart %> Leslie <%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Seasonal Sorceress<%= linkEnd %>",
     "seasonalShopClosedText": "The Seasonal Shop is currently closed!! It’s only open during Habitica’s four Grand Galas.",
     "seasonalShopSummerText": "Happy Summer Splash!! Would you like to buy some rare items? They’ll only be available until July 31st!",

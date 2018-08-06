@@ -2,9 +2,13 @@ version: "3"
 services:
 
   client:
+    environment:
+      - NODE_ENV=development
     volumes:
       - '.:/usr/src/habitrpg'
 
   server:
+    environment:
+      - NODE_ENV=development
     volumes:
       - '.:/usr/src/habitrpg'

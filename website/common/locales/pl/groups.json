@@ -141,6 +141,7 @@
     "PMDisabledCaptionText": "Wciąż możesz wysyłać wiadomości, ale nikt nie może ich wysyłać do ciebie.",
     "block": "Blokuj",
     "unblock": "Odblokuj",
+    "blockWarning": "Block - This will have no effect if the player is a moderator now or becomes a moderator in future.",
     "pm-reply": "Wyślij odpowiedź",
     "inbox": "Skrzynka odbiorcza",
     "messageRequired": "Wymagana wiadomość.",
@@ -468,5 +469,9 @@
     "howToRequireApprovalDesc2": "Liderzy Grupy bądź Zarządcy mogą akceptować wykonane Zadania bezpośrednio z Tablicy Zadań albo z panelu z powiadomieniami.",
     "whatIsGroupManager": "Kto to jest Menadżer Grupy?",
     "whatIsGroupManagerDesc": "Zarządca Grupy jest użytkownikiem, który nie ma dostępu do szczegółów płatności, ale może tworzyć, przydzielać i akceptować wspólne Zadania dla członków Grupy. Awansuj Zarządców z listy członków Grupy.",
-    "goToTaskBoard": "Idź do Tablicy Zadań"
+    "goToTaskBoard": "Idź do Tablicy Zadań",
+    "sharedCompletion": "Shared Completion",
+    "recurringCompletion": "None - Group task does not complete",
+    "singleCompletion": "Single - Completes when any assigned user finishes",
+    "allAssignedCompletion": "All - Completes when all assigned users finish"
 }

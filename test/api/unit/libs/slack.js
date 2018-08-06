@@ -58,7 +58,7 @@ describe('slack', () => {
           title: 'Flag in Some group - (private guild)',
           title_link: undefined,
           text: 'some text',
-          footer: sandbox.match(/<.*?groupId=group-id&chatId=chat-id\|Flag this message>/),
+          footer: sandbox.match(/<.*?groupId=group-id&chatId=chat-id\|Flag this message.>/),
           mrkdwn_in: [
             'text',
           ],

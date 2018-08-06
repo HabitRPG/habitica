@@ -141,6 +141,7 @@
     "PMDisabledCaptionText": "Üzenetet tudsz küldeni, de mások nem tudnak neked küldeni.",
     "block": "Letiltás",
     "unblock": "Letiltás feloldása",
+    "blockWarning": "Letiltás - Ennek nincs hatása ha a felhasználó moderátor, vagy a jövőben moderátor lesz.",
     "pm-reply": "Válasz küldése",
     "inbox": "Bejövő üzenetek",
     "messageRequired": "Üzenet szükséges.",
@@ -255,7 +256,7 @@
     "confirmApproval": "Biztos hogy elfogadod ezt a feladatot?",
     "confirmNeedsWork": "Biztos hogy be akarod jelölni hogy ezen a feladaton még dolgozni kell?",
     "userRequestsApproval": "<%= userName %> felhasználó jóváhagyást kér",
-    "userCountRequestsApproval": "<%= userCount %> members request approval",
+    "userCountRequestsApproval": "<%= userCount %> tag jóváhagyást kér",
     "youAreRequestingApproval": "Jóváhagyást kértél",
     "chatPrivilegesRevoked": "Ehhez nincs jogosultságod, mert üzenetküldési kiváltságaid visszavonásra kerültek.",
     "cannotCreatePublicGuildWhenMuted": "Nem tudsz nyilvános céhet létrehozni, mert üzenetküldési kiváltságaid visszavonásra kerültek.",
@@ -380,7 +381,7 @@
     "bronzeTier": "Bronz szint",
     "privacySettings": "Adatvédelmi beállítások",
     "onlyLeaderCreatesChallenges": "Csak a vezető hozhat létre kihívásokat",
-    "onlyLeaderCreatesChallengesDetail": "With this option selected, ordinary group members cannot create Challenges for the group.",
+    "onlyLeaderCreatesChallengesDetail": "Ennek az opciónak a kiválasztásával a csapat tagjai nem hozhatnak létre kihívásokat a csapat számára.",
     "privateGuild": "Privát céh",
     "charactersRemaining": "<%= characters %> megmaradt karakter",
     "guildSummary": "Összefoglalás",
@@ -468,5 +469,9 @@
     "howToRequireApprovalDesc2": "A csoportvezető és menedzserek jóvá tudják hagyni a befejezett feladatokat közvetlenül a feladatlistáról vagy az értesítés ablakban.",
     "whatIsGroupManager": "Mi az a csoportmenedzser?",
     "whatIsGroupManagerDesc": "A csoportmenedzser egy olyan személy, akinek nincs felhatalmazása a számlák megtekintéséhez, de feladat létrehozásához, hozzárendeléséhez és jóváhagyásához igen, valamint a csoport tagjai között megosztott feladatokat is elfogadhatja. Léptess elő csoportmenedzserré felhasználót a csoport tagjai közül.",
-    "goToTaskBoard": "Menj a feladatlistához"
+    "goToTaskBoard": "Menj a feladatlistához",
+    "sharedCompletion": "Megosztott teljesítés",
+    "recurringCompletion": "Semmi - A csoportba tartozó feladat nincs teljesítve.",
+    "singleCompletion": "Egyedüli - A feladat teljesítve lesz ha a hozzárendelt tagok közül valaki elvégzi a feladatot.",
+    "allAssignedCompletion": "Mindenki - A feladat teljesítve lesz ha a hozzárendelt tagok közül mindenki elvégi a feladatot."
 }

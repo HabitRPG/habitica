@@ -219,6 +219,6 @@
     "bodyAccess": "Accesorio para el Cuerpo",
     "mainHand": "Mano Principal",
     "offHand": "Mano Secundaria",
-    "pointsAvailable": "Puntos disponibles",
+    "statPoints": "Stat Points",
     "pts": "pts"
 }

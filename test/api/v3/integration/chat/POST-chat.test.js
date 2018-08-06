@@ -259,7 +259,6 @@ describe('POST /chat', () => {
           title: 'Slur in Test Guild',
           title_link: `${BASE_URL}/groups/guild/${groupWithChat.id}`,
           text: testSlurMessage,
-          // footer: sandbox.match(/<.*?groupId=group-id&chatId=chat-id\|Flag this message>/),
           mrkdwn_in: [
             'text',
           ],
@@ -312,7 +311,6 @@ describe('POST /chat', () => {
           title: 'Slur in Party - (private party)',
           title_link: undefined,
           text: testSlurMessage,
-          // footer: sandbox.match(/<.*?groupId=group-id&chatId=chat-id\|Flag this message>/),
           mrkdwn_in: [
             'text',
           ],

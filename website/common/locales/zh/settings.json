@@ -183,6 +183,7 @@
     "mysticHourglassesTooltip": "神秘沙漏",
     "paypal": "PayPal",
     "amazonPayments": "亚马逊支付",
+    "amazonPaymentsRecurring": "须勾选下方的选项框才能够创造你的订阅。它能够使你的亚马逊账号用于持续地对<strong>这个</strong>订阅付款，不会使你的亚马逊账号被自动地用于任何未来的付款。",
     "timezone": "时区",
     "timezoneUTC": "Habitica直接引用你电脑上的时区设置：<strong><%= utc %></strong>",
     "timezoneInfo": "如果那个时区是错误的，首先用你浏览器的重载或刷新按钮重载这个页面以确保Habitica有最新的信息。如果还是不行，调整你电脑上的时区然后再次重载页面。<br><br> <strong>如果你在其他电脑或移动设备上使用Habitica，它们上的时区必须是一样的才行。</strong>如果你的每日任务已经在错误的时间被重置，在你所有其他的电脑和你移动设备的一个浏览器上重复这个检查。",

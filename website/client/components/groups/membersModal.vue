@@ -53,7 +53,7 @@ div
               span.dropdown-icon-item
                 .svg-icon.inline(v-html="icons.removeIcon")
                 span.text {{$t('removeManager2')}}
-            b-dropdown-item(@click='viewProgress(member)')
+            b-dropdown-item(@click='viewProgress(member)', v-if='challengeId')
               span.dropdown-icon-item
                 span.text {{ $t('viewProgress') }}
       .row(v-if='isLoadMoreAvailable')
@@ -278,7 +278,20 @@ export default {
     };
   },
   mounted () {
-    this.getMembers();
+    this.$root.$on('habitica:show-member-modal', (data) => {
+      // @TODO: Remove store
+      this.$store.state.memberModalOptions.challengeId = data.challengeId;
+      this.$store.state.memberModalOptions.groupId = data.groupId;
+      this.$store.state.memberModalOptions.group = data.group;
+      this.$store.state.memberModalOptions.memberCount = data.memberCount;
+      this.$store.state.memberModalOptions.viewingMembers = data.viewingMembers;
+      this.$store.state.memberModalOptions.fetchMoreMembers = data.fetchMoreMembers;
+      this.$root.$emit('bv::show::modal', 'members-modal');
+      this.getMembers();
+    });
+  },
+  destroyed () {
+    this.$root.$off('habitica:show-member-modal');
   },
   computed: {
     ...mapState({user: 'user.data'}),
@@ -363,6 +376,7 @@ export default {
         });
         this.invites = invites;
       }
+
       if (this.$store.state.memberModalOptions.viewingMembers.length > 0) {
         this.members = this.$store.state.memberModalOptions.viewingMembers;
       }

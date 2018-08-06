@@ -219,6 +219,6 @@
     "bodyAccess": "身体配件",
     "mainHand": "主要",
     "offHand": "副手",
-    "pointsAvailable": "可用的属性点",
+    "statPoints": "属性点",
     "pts": "pts"
 }

@@ -27,8 +27,8 @@ menu-dropdown.item-notifications(:right="true", @toggled="handleOpenStatusChange
       v-if="notificationsCount === 0"
     )
       .svg-icon(v-html="icons.success")
-      h2 You're all caught up!
-      p The notification fairies give you a raucous round of applause! Well done!
+      h2 {{ $t('noNotifications') }}
+      p {{ $t('noNotificationsText') }}
 </template>
 
 <style lang='scss' scoped>

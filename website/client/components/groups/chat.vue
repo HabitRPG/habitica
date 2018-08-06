@@ -34,7 +34,7 @@
 
       .row
         .hr.col-12
-        chat-message(:chat.sync='group.chat', :group-id='group._id', :group-name='group.name')
+        chat-message(:chat.sync='group.chat', :group-type='group.type', :group-id='group._id', :group-name='group.name')
 </template>
 
 <script>
