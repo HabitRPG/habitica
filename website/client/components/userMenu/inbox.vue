@@ -57,7 +57,7 @@
             @keyup.ctrl.enter='sendPrivateMessage()',
             maxlength='3000'
           )
-          button.btn.btn-secondary(@click='sendPrivateMessage()') Send
+          button.btn.btn-secondary(@click='sendPrivateMessage()') {{$t('send')}}
           .row
             span.ml-3 {{ currentLength }} / 3000
 </template>
