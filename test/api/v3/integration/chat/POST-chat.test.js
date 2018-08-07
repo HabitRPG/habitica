@@ -303,6 +303,7 @@ describe('POST /chat', () => {
         message: t('chatPrivilegesRevoked'),
       });
 
+      // @TODO: The next test should not depend on this. We should reset the user test in a beforeEach
       // Restore chat privileges to continue testing
       user.flags.chatRevoked = false;
       await user.update({'flags.chatRevoked': false});

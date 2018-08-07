@@ -9,6 +9,11 @@ function userIsMuted (user) {
   return moment(user.flags.chatRevokedEndDate).isAfter(moment());
 }
 
+function muteUserForLife (user) {
+  user.flags.chatRevokedEndDate = moment().add(1000, 'years').toDate();
+}
+
 module.exports = {
   userIsMuted,
+  muteUserForLife,
 };
