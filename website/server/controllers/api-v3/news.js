@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'AUGUST BACKGROUNDS AND ARMOIRE ITEMS, AND QUEST PARTICIPANTS VIEW!';
+const LAST_ANNOUNCEMENT_TITLE = 'OFFICIAL CHALLENGE: BACK-TO-SCHOOL PREPARATION!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,21 +30,16 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>8/2/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>8/8/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
         <div class="media align-items-center">
           <div class="media-body">
-            <h3>New Backgrounds and Armoire Items!</h3>
-            <p>We’ve added three new backgrounds to the Background Shop! Now your avatar can fly over a Rocky Canyon, spar on the Training Grounds, and cross a charming Bridge. Check them out under User Icon > Backgrounds!</p>
-            <p>Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the Jeweled Archer Set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)</p>
-            <div class="small mb-3">by Lalaitha, Kiwibot, Balduranne, Irrevenant, DialFforFunky, RandomGryffindor, Mewrose, and CitrineQuartzFox</div>
-            <h3>New! Quest Partipant List</h3>
-            <p>There's a new feature on your Party Page! If you're in a Quest, you can now view all Party members who have joined the Quest via the Participants link in the box where you can see your progress. Enjoy!</p>
-            <div class="small mb-3">by thefifthisa</div>
+            <p>The school year is looming large for many scholarly Habiticans, so we've prepared <a href='/challenges/0acb1d56-1660-41a4-af80-9259f080b62b' target='_blank'>a special Back-to-School Challenge</a> to help with the transition between summer and semester. Check it out now for a chance to win: five lucky winners will get a badge for their profile and their choice of a <a href='https://habitica.wikia.com/wiki/Subscription' target='_blank'>gift subscription</a> or Gems!</p>
+            <div class="small mb-3">by Beffymaroo</div>
           </div>
-          <div class="promo_armoire_backgrounds_201808 ml-3 mb-3"></div>
+          <div class="scene_reading ml-3 mb-3"></div>
         </div>
       </div>
       `,
