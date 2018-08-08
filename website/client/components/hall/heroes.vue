@@ -60,12 +60,14 @@
                     label
                       input(type='checkbox', v-if='hero.flags', v-model='hero.flags.chatRevoked')
                       strong Chat Privileges Revoked
-                  div(v-if='hero.flags.chatRevokedEndDate')
+                  div(v-if='hero.flags.chatRevoked && hero.flags.chatRevokedEndDate')
                     strong User is currently muted until
                     br
-                    div {{ hero.flags.chatRevokedEndDate }}
+                    div {{ userRevokedEndDate(hero) }}
+                  div(v-else-if='hero.flags.chatRevoked')
+                    strong User is currently muted indefinitely
                   div
-                    strong How many days do you want to mute this user?
+                    strong For how many days from today do you want to mute this user? Leave as 0 for indefinite.
                     br
                     input(type='number', v-model='numberOfDaysToMute')
                 .form-group
@@ -154,6 +156,10 @@ export default {
     ...mapState({user: 'user.data'}),
   },
   methods: {
+    userRevokedEndDate (hero) {
+      if (moment().isAfter(moment(hero.flags.chatRevokedEndDate))) return 'User is no longer muted';
+      return moment(hero.flags.chatRevokedEndDate).format(this.user.preferences.dateFormat.toUpperCase());
+    },
     getAllItemPaths () {
       // let questsFormat = this.getFormattedItemReference('items.quests', keys(this.quests), 'Numeric Quantity');
       // let mountsFormat = this.getFormattedItemReference('items.mounts', keys(this.mountInfo), 'Boolean');
@@ -184,7 +190,7 @@ export default {
     async loadHero (uuid, heroIndex) {
       this.currentHeroIndex = heroIndex;
       let hero = await this.$store.dispatch('hall:getHero', { uuid });
-      this.hero = Object.assign({}, this.hero, hero);
+      this.hero = Object.assign({}, hero);
       if (!this.hero.flags) {
         this.hero.flags = {
           chatRevoked: false,
@@ -206,6 +212,7 @@ export default {
       this.heroID = -1;
       this.heroes[this.currentHeroIndex] = heroUpdated;
       this.currentHeroIndex = -1;
+      this.numberOfDaysToMute = 0;
     },
     populateContributorInput (id, index) {
       this.heroID = id;
