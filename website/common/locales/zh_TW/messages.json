@@ -43,7 +43,6 @@
     "messageAuthNoUserFound": "找不到戶口。",
     "messageAuthMustBeLoggedIn": "你需要登入。",
     "messageAuthMustIncludeTokens": "您必須在您的請求裏包括令牌和 UID（用戶ID ）",
-    "messageGroupNotFound": "找不到群組或你沒有使用權。",
     "messageGroupAlreadyInParty": "已在一個隊伍，請嘗試刷新畫面。",
     "messageGroupOnlyLeaderCanUpdate": "只有群組領袖可以更新組別！",
     "messageGroupRequiresInvite": "不能加入一個你沒有被邀請參加的群組。",

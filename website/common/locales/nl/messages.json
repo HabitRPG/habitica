@@ -43,7 +43,6 @@
     "messageAuthNoUserFound": "Geen gebruiker gevonden.",
     "messageAuthMustBeLoggedIn": "Je moet ingelogd zijn.",
     "messageAuthMustIncludeTokens": "Je moet een token en gid (gebruikers-ID) bijvoegen in je verzoek",
-    "messageGroupNotFound": "Groep niet gevonden of je hebt geen toegang.",
     "messageGroupAlreadyInParty": "Zit al in een gezelschap, probeer te verversen.",
     "messageGroupOnlyLeaderCanUpdate": "Alleen de groepsleider kan de groep updaten!",
     "messageGroupRequiresInvite": "Je kunt je niet aansluiten bij een groep waar je niet voor bent uitgenodigd.",
