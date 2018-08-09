@@ -43,7 +43,7 @@
     "express-validator": "^5.2.0",
     "extract-text-webpack-plugin": "^3.0.2",
     "glob": "^7.1.2",
-    "got": "^8.3.1",
+    "got": "^9.0.0",
     "gulp": "^4.0.0",
     "gulp-babel": "^7.0.1",
     "gulp-imagemin": "^4.1.0",
