@@ -276,7 +276,7 @@ api.updateHero = {
 
     if (updateData.flags && _.isBoolean(updateData.flags.chatRevoked)) hero.flags.chatRevoked = updateData.flags.chatRevoked;
     if (updateData.flags && updateData.flags.chatRevokedEndDate) hero.flags.chatRevokedEndDate = updateData.flags.chatRevokedEndDate;
-    console.log(updateData.flags, hero.flags)
+
     let savedHero = await hero.save();
     let heroJSON = savedHero.toJSON();
     let responseHero = {_id: heroJSON._id}; // only respond with important fields
