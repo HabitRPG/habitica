@@ -52,8 +52,14 @@
         // @TODO: Implement new message header here when we fix the above
 
         .new-message-row(v-if='selectedConversation.key && !user.flags.chatRevoked')
-          textarea(v-model='newMessage', @keyup.ctrl.enter='sendPrivateMessage()')
-          button.btn.btn-secondary(@click='sendPrivateMessage()') Send
+          textarea(
+            v-model='newMessage',
+            @keyup.ctrl.enter='sendPrivateMessage()',
+            maxlength='3000'
+          )
+          button.btn.btn-secondary(@click='sendPrivateMessage()') {{$t('send')}}
+          .row
+            span.ml-3 {{ currentLength }} / 3000
 </template>
 
 <style lang="scss" scoped>
@@ -324,6 +330,9 @@ export default {
       return filter(this.conversations, (conversation) => {
         return conversation.name.toLowerCase().indexOf(this.search.toLowerCase()) !== -1;
       });
+    },
+    currentLength () {
+      return this.newMessage.length;
     },
     placeholderTexts () {
       if (this.user.flags.chatRevoked) {
