@@ -7,14 +7,16 @@ const authorUuid = 'ed4c688c-6652-4a92-9d03-a5a79844174a'; // ... own data is do
  */
 
 const monk = require('monk');
+const nconf = require('nconf');
+
 const Inbox = require('../website/server/models/message').inboxModel;
-const connectionString = 'mongodb://localhost:27017/habitrpg?auto_reconnect=true'; // FOR TEST DATABASE
+const connectionString = nconf.get('MIGRATION_CONNECT_STRING'); // FOR TEST DATABASE
 const dbInboxes = monk(connectionString).get('inboxes', { castIds: false });
 const dbUsers = monk(connectionString).get('users', { castIds: false });
 
 function processUsers (lastId) {
   let query = {
-    migration: {$ne: migrationName},
+    // migration: {$ne: migrationName},
   };
 
   if (lastId) {
@@ -60,7 +62,7 @@ function updateUser (user) {
   if (count % progressCount === 0) console.warn(`${count  } ${  user._id}`);
   if (user._id === authorUuid) console.warn(`${authorName  } being processed`);
 
-  const oldInboxMessages = user.inbox.messages;
+  const oldInboxMessages = user.inbox.messages || {};
   const oldInboxMessagesIds = Object.keys(oldInboxMessages);
 
   const newInboxMessages = oldInboxMessagesIds.map(msgId => {
@@ -91,7 +93,7 @@ function updateUser (user) {
 }
 
 function displayData () {
-  console.warn(`\n${  count  } tasks processed\n`);
+  console.warn(`\n${  count  } users processed\n`);
   return exiting(0);
 }
 
