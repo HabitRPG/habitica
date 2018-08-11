@@ -16,7 +16,7 @@ const dbUsers = monk(connectionString).get('users', { castIds: false });
 
 function processUsers (lastId) {
   let query = {
-    // migration: {$ne: migrationName},
+    migration: {$ne: migrationName},
   };
 
   if (lastId) {
@@ -27,7 +27,7 @@ function processUsers (lastId) {
 
   dbUsers.find(query, {
     sort: {_id: 1},
-    limit: 100,
+    limit: 1000,
     fields: ['_id', 'inbox'],
   })
     .then(updateUsers)
@@ -39,6 +39,7 @@ function processUsers (lastId) {
 
 let progressCount = 1000;
 let count = 0;
+let msgCount = 0;
 
 function updateUsers (users) {
   if (!users || users.length === 0) {
@@ -60,17 +61,23 @@ function updateUser (user) {
   count++;
 
   if (count % progressCount === 0) console.warn(`${count  } ${  user._id}`);
+  if (msgCount % progressCount === 0) console.warn(`${msgCount  } messages processed`);
   if (user._id === authorUuid) console.warn(`${authorName  } being processed`);
 
   const oldInboxMessages = user.inbox.messages || {};
   const oldInboxMessagesIds = Object.keys(oldInboxMessages);
 
+  msgCount += oldInboxMessagesIds.length;
+
   const newInboxMessages = oldInboxMessagesIds.map(msgId => {
     const msg = oldInboxMessages[msgId];
-    if (!msg || !msg.id || !msg._id) {
-      console.log('missing message or message _id', msg);
+    if (!msg || (!msg.id && !msg._id)) { // eslint-disable-line no-extra-parens
+      console.log('missing message or message _id and id', msg);
       throw new Error('error!');
     }
+
+    if (msg.id && !msg._id) msg._id = msg.id;
+    if (msg._id && !msg.id) msg.id = msg._id;
 
     const newMsg = new Inbox(msg);
     newMsg.ownerId = user._id;
@@ -94,6 +101,7 @@ function updateUser (user) {
 
 function displayData () {
   console.warn(`\n${  count  } users processed\n`);
+  console.warn(`\n${  msgCount  } messages processed\n`);
   return exiting(0);
 }
 
