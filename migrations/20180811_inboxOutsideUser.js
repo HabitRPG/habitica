@@ -67,7 +67,7 @@ function updateUser (user) {
 
   const newInboxMessages = oldInboxMessagesIds.map(msgId => {
     const msg = oldInboxMessages[msgId];
-    if (!msg || !msg.id) {
+    if (!msg || !msg.id || !msg._id) {
       console.log('missing message or message _id', msg);
       throw new Error('error!');
     }
