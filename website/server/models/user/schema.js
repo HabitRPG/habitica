@@ -223,6 +223,7 @@ let schema = new Schema({
       return {};
     }},
     chatRevoked: Boolean,
+    chatRevokedEndDate: Date,
     // Used to track the status of recapture emails sent to each user,
     // can be 0 - no email sent - 1, 2, 3 or 4 - 4 means no more email will be sent to the user
     recaptureEmailsPhase: {type: Number, default: 0},
