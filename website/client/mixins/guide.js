@@ -146,7 +146,7 @@ export default {
       window.amplitude.setUserId(user._id);
       window.ga('set', {userId: user._id});
     },
-    goto (chapter, page, force = true) {
+    goto (chapter, page, force) {
       if (chapter === 'intro' && this.user.flags.welcomed !== true)  {
         // @TODO: Add dispatch User.set({'flags.welcomed': true});
       }
@@ -174,7 +174,7 @@ export default {
       // @TODO: Do we always need to initialize here?
       const intro = introjs();
       intro.setOptions({
-        hidePrev: false,
+        exitOnOverlayClick: false,
         steps: opts.steps,
         doneLabel: this.$t('letsgo'),
       });
