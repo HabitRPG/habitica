@@ -138,7 +138,7 @@ export default {
       return this.user.contributor.admin;
     },
     canViewUnapprovedChat (message) {
-      return !this.approvalRequired(message) || this.user.contributor.admin;
+      return message.uuid === this.user._id || !this.approvalRequired(message) || this.user.contributor.admin;
     },
     loadProfileCache: debounce(function loadProfileCache (screenPosition) {
       this._loadProfileCache(screenPosition);
