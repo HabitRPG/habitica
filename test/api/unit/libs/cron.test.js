@@ -1017,7 +1017,7 @@ describe('cron', () => {
         expect(tasksByType.habits[0].counterDown).to.equal(0);
       });
 
-      it('should reset habit counters even if user is resting in the Inn', () => {
+      it('should reset habit counters even if user is sleeping', () => {
         user.preferences.sleep = true;
         tasksByType.habits[0].counterUp = 1;
         tasksByType.habits[0].counterDown = 1;
@@ -1568,7 +1568,7 @@ describe('cron', () => {
       expect(user.loginIncentives).to.eql(1);
     });
 
-    it('increments loginIncentives by 1 even if user has Dailies paused', () => {
+    it('increments loginIncentives by 1 even if user is sleeping', () => {
       user.preferences.sleep = true;
       cron({user, tasksByType, daysMissed, analytics});
       expect(user.loginIncentives).to.eql(1);
