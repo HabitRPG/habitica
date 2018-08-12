@@ -930,13 +930,23 @@ describe('cron', () => {
       expect(hpDifferenceOfPartiallyIncompleteDaily).to.be.lessThan(hpDifferenceOfFullyIncompleteDaily);
     });
 
-    it('should decrement quest progress down for missing a daily', () => {
+    it('should decrement quest.progress.down for missing a daily', () => {
       daysMissed = 1;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
 
       let progress = cron({user, tasksByType, daysMissed, analytics});
 
       expect(progress.down).to.equal(-1);
+    });
+
+    it('should not decrement quest.progress.down for missing a daily when user is sleeping', () => {
+      user.preferences.sleep = true;
+      daysMissed = 1;
+      tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
+
+      let progress = cron({user, tasksByType, daysMissed, analytics});
+
+      expect(progress.down).to.equal(0);
     });
 
     it('should do damage for only yesterday\'s dailies', () => {
@@ -1369,6 +1379,20 @@ describe('cron', () => {
       stubbedStatsComputed.returns(Object.assign(statsComputedRes, {maxMP: 100}));
       cron({user, tasksByType, daysMissed, analytics});
       expect(user.stats.mp).to.be.greaterThan(mpBefore);
+
+      common.statsComputed.restore();
+    });
+
+    it('should not add mp to user when user is sleeping', () => {
+      const statsComputedRes = common.statsComputed(user);
+      const stubbedStatsComputed = sinon.stub(common, 'statsComputed');
+
+      user.preferences.sleep = true;
+      let mpBefore = user.stats.mp;
+      tasksByType.dailys[0].completed = true;
+      stubbedStatsComputed.returns(Object.assign(statsComputedRes, {maxMP: 100}));
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.stats.mp).to.equal(mpBefore);
 
       common.statsComputed.restore();
     });
