@@ -540,14 +540,9 @@ api.approveChat = {
 
     if (!message.approvalRequired) throw new NotAuthorized(apiMessages('approvalNotRequired'));
 
-    let update = {$set: {}};
     message.approvalRequired = false;
-    update.$set['chat.$.approvalRequired'] = false;
+    await message.save();
 
-    await Group.update(
-      {_id: group._id, 'chat.id': message.id},
-      update
-    ).exec();
     res.respond(200, message);
   },
 };

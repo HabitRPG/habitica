@@ -116,8 +116,7 @@
       "CLOUDKARAFKA_PASSWORD": "",
       "CLOUDKARAFKA_TOPIC_PREFIX": ""
     },
-    "MIGRATION_CONNECT_STRING": "mongodb://localhost:27017/habitrpg?auto_reconnect=true"
-    "STACK_IMPACT_KEY": "aaaabbbbccccddddeeeeffffgggg111100002222",
+    "MIGRATION_CONNECT_STRING": "mongodb://localhost:27017/habitrpg?auto_reconnect=true",
     "CHAT_APPROVAL_REQUIRED": "false",
     "CHAT_APPROVAL_DAYS": "1"
 }

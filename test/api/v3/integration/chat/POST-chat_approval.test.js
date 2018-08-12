@@ -2,7 +2,7 @@ import moment from 'moment';
 
 import {
   createAndPopulateGroup,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 import config from '../../../../../website/server/libs/config';
 
 describe('POST /chat - Chat Approval', () => {
@@ -45,6 +45,6 @@ describe('POST /chat - Chat Approval', () => {
     const message = await memberChatApproval.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage});
 
     expect(message.message.id).to.exist;
-    expect(message.message.approvalRequired).to.not.exist;
+    expect(message.message.approvalRequired).to.eql(false);
   });
 });

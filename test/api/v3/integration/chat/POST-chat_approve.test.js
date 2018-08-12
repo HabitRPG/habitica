@@ -2,7 +2,7 @@ import {
   createAndPopulateGroup,
   generateUser,
   translate as t,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 import config from '../../../../../website/server/libs/config';
 
 describe('POST /chat/:chatId/approve', () => {
