@@ -39,7 +39,7 @@ const v4RouterOverrides = [
   'POST-/user/reset',
   'POST-/user/reroll',
   'GET-/inbox/messages',
-  'GET-/coupons/enter/:code',
+  'POST-/coupons/enter/:code',
 ];
 
 const v4Router = express.Router(); // eslint-disable-line new-cap

@@ -112,7 +112,7 @@ api.userRebirth = {
   middlewares: [authWithHeaders()],
   url: '/user/rebirth',
   async handler (req, res) {
-    await userLib.rebirth(req, res, { isV3: true });
+    await userLib.rebirth(req, res, { isV3: false });
   },
 };
 
@@ -145,7 +145,7 @@ api.userReroll = {
   middlewares: [authWithHeaders()],
   url: '/user/reroll',
   async handler (req, res) {
-    await userLib.reroll(req, res, { isV3: true });
+    await userLib.reroll(req, res, { isV3: false });
   },
 };
 
@@ -177,7 +177,7 @@ api.userReset = {
   middlewares: [authWithHeaders()],
   url: '/user/reset',
   async handler (req, res) {
-    await userLib.reset(req, res, { isV3: true });
+    await userLib.reset(req, res, { isV3: false });
   },
 };
 
