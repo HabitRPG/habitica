@@ -2,7 +2,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 import * as couponsLib from '../../libs/coupons';
 
 /*
-* NOTE most spells routes are still in the v3 controller
+* NOTE most coupons routes are still in the v3 controller
 * here there are only routes that had to be split from the v3 version because of
 * some breaking change (for example because their returned the entire user object).
 */

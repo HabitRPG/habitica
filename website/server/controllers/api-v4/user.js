@@ -1,9 +1,16 @@
 import { authWithHeaders } from '../../middlewares/auth';
+import * as userLib from '../../libs/user';
 import {
   model as User,
 } from '../../models/user';
 
 const api = {};
+
+/*
+* NOTE most user routes are still in the v3 controller
+* here there are only routes that had to be split from the v3 version because of
+* some breaking change (for example because their returned the entire user object).
+*/
 
 /**
  * @api {get} /api/v4/user Get the authenticated user's profile
@@ -67,6 +74,110 @@ api.getUser = {
     }
 
     return res.respond(200, userToJSON);
+  },
+};
+
+/* NOTE this route has also an API v4 version */
+
+/**
+ * @api {post} /api/v4/user/rebirth Use Orb of Rebirth on user
+ * @apiName UserRebirth
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} data.user
+ * @apiSuccess {Array} data.tasks User's modified tasks (no rewards)
+ * @apiSuccess {String} message Success message
+ *
+ * @apiSuccessExample {json}
+ *  {
+ *   "success": true,
+ *   "data": {
+ *   },
+ *   "message": "You have been reborn!"
+ *     {
+ *       "type": "REBIRTH_ACHIEVEMENT",
+ *       "data": {},
+ *       "id": "424d69fa-3a6d-47db-96a4-6db42ed77a43"
+ *     }
+ *   ]
+ * }
+ *
+ * @apiError {NotAuthorized} Not enough gems
+ *
+ * @apiErrorExample {json}
+ * {"success":false,"error":"NotAuthorized","message":"Not enough Gems"}
+ */
+api.userRebirth = {
+  method: 'POST',
+  middlewares: [authWithHeaders()],
+  url: '/user/rebirth',
+  async handler (req, res) {
+    await userLib.rebirth(req, res, { isV3: true });
+  },
+};
+
+/* NOTE this route has also an API v4 version */
+
+/**
+ * @api {post} /api/v4/user/reroll Reroll a user using the Fortify Potion
+ * @apiName UserReroll
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} data.user
+ * @apiSuccess {Object} data.tasks User's modified tasks (no rewards)
+ * @apiSuccess {Object} message Success message
+ *
+ * @apiSuccessExample {json}
+ *  {
+ *   "success": true,
+ *   "data": {
+ *   },
+ *   "message": "Fortify complete!"
+ * }
+ *
+ * @apiError {NotAuthorized} Not enough gems
+ *
+ * @apiErrorExample {json}
+ * {"success":false,"error":"NotAuthorized","message":"Not enough Gems"}
+ */
+api.userReroll = {
+  method: 'POST',
+  middlewares: [authWithHeaders()],
+  url: '/user/reroll',
+  async handler (req, res) {
+    await userLib.reroll(req, res, { isV3: true });
+  },
+};
+
+/* NOTE this route has also an API v4 version */
+
+/**
+ * @api {post} /api/v4/user/reset Reset user
+ * @apiName UserReset
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} data.user
+ * @apiSuccess {Array} data.tasksToRemove IDs of removed tasks
+ * @apiSuccess {String} message Success message
+ *
+ * @apiSuccessExample {json}
+ *  {
+ *   "success": true,
+ *   "data": {--TRUNCATED--},
+ *     "tasksToRemove": [
+ *       "ebb8748c-0565-431e-9036-b908da25c6b4",
+ *       "12a1cecf-68eb-40a7-b282-4f388c32124c"
+ *     ]
+ *   },
+ *   "message": "Reset complete!"
+ * }
+ */
+api.userReset = {
+  method: 'POST',
+  middlewares: [authWithHeaders()],
+  url: '/user/reset',
+  async handler (req, res) {
+    await userLib.reset(req, res, { isV3: true });
   },
 };
 
