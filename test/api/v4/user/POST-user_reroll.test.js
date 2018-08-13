@@ -3,7 +3,7 @@ import {
   generateDaily,
   generateReward,
   translate as t,
-} from '../../../helpers/api-integration/v3';
+} from '../../../helpers/api-integration/v4';
 
 describe('POST /user/reroll', () => {
   let user;
