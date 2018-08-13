@@ -1255,7 +1255,23 @@ describe('cron', () => {
       expect(user.achievements.perfect).to.equal(0);
     });
 
-    it('increments user buffs if all (at least 1) due dailies were completed', () => {
+    it('gives perfect day buff if all (at least 1) due dailies were completed', () => {
+      daysMissed = 1;
+      tasksByType.dailys[0].completed = true;
+      tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
+
+      let previousBuffs = user.stats.buffs.toObject();
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(user.stats.buffs.str).to.be.greaterThan(previousBuffs.str);
+      expect(user.stats.buffs.int).to.be.greaterThan(previousBuffs.int);
+      expect(user.stats.buffs.per).to.be.greaterThan(previousBuffs.per);
+      expect(user.stats.buffs.con).to.be.greaterThan(previousBuffs.con);
+    });
+
+    it('gives perfect day buff if all (at least 1) due dailies were completed when user is sleeping', () => {
+      user.preferences.sleep = true;
       daysMissed = 1;
       tasksByType.dailys[0].completed = true;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
@@ -1368,7 +1384,25 @@ describe('cron', () => {
       expect(user.stats.buffs.streaks).to.be.false;
     });
 
-    it('still grants a perfect day when CRON_SAFE_MODE is set', () => {
+    it('always grants a perfect day buff when CRON_SAFE_MODE is set', () => {
+      sandbox.stub(nconf, 'get').withArgs('CRON_SAFE_MODE').returns('true');
+      let cronOverride = requireAgain(pathToCronLib).cron;
+      daysMissed = 1;
+      tasksByType.dailys[0].completed = false;
+      tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
+
+      let previousBuffs = user.stats.buffs.toObject();
+
+      cronOverride({user, tasksByType, daysMissed, analytics});
+
+      expect(user.stats.buffs.str).to.be.greaterThan(previousBuffs.str);
+      expect(user.stats.buffs.int).to.be.greaterThan(previousBuffs.int);
+      expect(user.stats.buffs.per).to.be.greaterThan(previousBuffs.per);
+      expect(user.stats.buffs.con).to.be.greaterThan(previousBuffs.con);
+    });
+
+    it('always grants a perfect day buff when CRON_SAFE_MODE is set when user is sleeping', () => {
+      user.preferences.sleep = true;
       sandbox.stub(nconf, 'get').withArgs('CRON_SAFE_MODE').returns('true');
       let cronOverride = requireAgain(pathToCronLib).cron;
       daysMissed = 1;
