@@ -35,6 +35,7 @@ app.use('/api/v3', v3Router);
 const v4RouterOverrides = [
   'GET-/user',
   'GET-/inbox/messages',
+  'GET-/coupons/enter/:code',
 ];
 
 const v4Router = express.Router(); // eslint-disable-line new-cap

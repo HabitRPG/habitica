@@ -9,6 +9,8 @@ const api = {};
 
 /* NOTE most inbox routes are either in the user or members controller */
 
+/* NOTE this route has also an API v3 version */
+
 /**
  * @api {get} /api/v4/inbox/messages Get inbox messages for a user
  * @apiPrivate

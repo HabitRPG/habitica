@@ -4,10 +4,11 @@ import {
   authWithSession,
 } from '../../middlewares/auth';
 import { ensureSudo } from '../../middlewares/ensureAccessRight';
-import { model as Coupon } from '../../models/coupon';
 import _ from 'lodash';
+import couponsLib from '../../libs/coupons';
 import couponCode from 'coupon-code';
 import apiError from '../../libs/apiError';
+import { model as Coupon } from '../../models/coupon';
 
 let api = {};
 
@@ -81,6 +82,8 @@ api.generateCoupons = {
   },
 };
 
+/* NOTE this route has also an API v4 version */
+
 /**
  * @api {post} /api/v3/coupons/enter/:code Redeem a coupon code
  * @apiName RedeemCouponCode
@@ -95,15 +98,10 @@ api.enterCouponCode = {
   url: '/coupons/enter/:code',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
-
-    req.checkParams('code', res.t('couponCodeRequired')).notEmpty();
-
-    let validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
-
-    await Coupon.apply(user, req, req.params.code);
-    res.respond(200, user);
+    const user = res.locals.user;
+    await couponsLib.enterCode(req, res, user);
+    const userToJSON = await user.toJSONWithInbox();
+    res.respond(200, userToJSON);
   },
 };
 
