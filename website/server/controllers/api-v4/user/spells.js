@@ -5,10 +5,16 @@ import {
 
 let api = {};
 
-/* NOTE this route has also an API v4 version */
+/*
+* NOTE most spells routes are still in the v3 controller
+* here there are only routes that had to be split from the v3 version because of
+* some breaking change (for example because their returned the entire user object).
+*/
+
+/* NOTE this route has also an API v3 version */
 
 /**
- * @api {post} /api/v3/user/class/cast/:spellId Cast a skill (spell) on a target
+ * @api {post} /api/v4/user/class/cast/:spellId Cast a skill (spell) on a target
  * @apiName UserCast
  * @apiGroup User
  *
