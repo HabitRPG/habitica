@@ -23,6 +23,7 @@ import {
 } from '../../libs/email';
 import Queue from '../../libs/queue';
 import * as inboxLib from '../../libs/inbox';
+import * as userLib from '../../libs/user';
 import nconf from 'nconf';
 import get from 'lodash/get';
 
@@ -1462,6 +1463,8 @@ api.userRevive = {
   },
 };
 
+/* NOTE this route has also an API v4 version */
+
 /**
  * @api {post} /api/v3/user/rebirth Use Orb of Rebirth on user
  * @apiName UserRebirth
@@ -1495,22 +1498,7 @@ api.userRebirth = {
   middlewares: [authWithHeaders()],
   url: '/user/rebirth',
   async handler (req, res) {
-    let user = res.locals.user;
-    let tasks = await Tasks.Task.find({
-      userId: user._id,
-      type: {$in: ['daily', 'habit', 'todo']},
-      ...Tasks.taskIsGroupOrChallengeQuery,
-    }).exec();
-
-    let rebirthRes = common.ops.rebirth(user, tasks, req, res.analytics);
-
-    let toSave = tasks.map(task => task.save());
-
-    toSave.push(user.save());
-
-    await Promise.all(toSave);
-
-    res.respond(200, ...rebirthRes);
+    await userLib.rebirth(req, res, { isV3: true });
   },
 };
 
@@ -1540,6 +1528,8 @@ api.blockUser = {
     res.respond(200, ...blockUserRes);
   },
 };
+
+/* NOTE this route has also an API v4 version */
 
 /**
  * @api {delete} /api/v3/user/messages/:id Delete a message
@@ -1581,6 +1571,8 @@ api.deleteMessage = {
     res.respond(200, ...[await inboxLib.getUserInbox(user, false)]);
   },
 };
+
+/* NOTE this route has also an API v4 version */
 
 /**
  * @api {delete} /api/v3/user/messages Delete all messages
@@ -1628,6 +1620,8 @@ api.markPmsRead = {
   },
 };
 
+/* NOTE this route has also an API v4 version */
+
 /**
  * @api {post} /api/v3/user/reroll Reroll a user using the Fortify Potion
  * @apiName UserReroll
@@ -1655,23 +1649,11 @@ api.userReroll = {
   middlewares: [authWithHeaders()],
   url: '/user/reroll',
   async handler (req, res) {
-    let user = res.locals.user;
-    let query = {
-      userId: user._id,
-      type: {$in: ['daily', 'habit', 'todo']},
-      ...Tasks.taskIsGroupOrChallengeQuery,
-    };
-    let tasks = await Tasks.Task.find(query).exec();
-    let rerollRes = common.ops.reroll(user, tasks, req, res.analytics);
-
-    let promises = tasks.map(task => task.save());
-    promises.push(user.save());
-
-    await Promise.all(promises);
-
-    res.respond(200, ...rerollRes);
+    await userLib.reroll(req, res, { isV3: true });
   },
 };
+
+/* NOTE this route has also an API v4 version */
 
 /**
  * @api {post} /api/v3/user/reset Reset user
@@ -1699,27 +1681,7 @@ api.userReset = {
   middlewares: [authWithHeaders()],
   url: '/user/reset',
   async handler (req, res) {
-    let user = res.locals.user;
-
-    let tasks = await Tasks.Task.find({
-      userId: user._id,
-      ...Tasks.taskIsGroupOrChallengeQuery,
-    }).select('_id type challenge group').exec();
-
-    let resetRes = common.ops.reset(user, tasks);
-
-    await Promise.all([
-      Tasks.Task.remove({_id: {$in: resetRes[0].tasksToRemove}, userId: user._id}),
-      user.save(),
-    ]);
-
-    res.analytics.track('account reset', {
-      uuid: user._id,
-      hitType: 'event',
-      category: 'behavior',
-    });
-
-    res.respond(200, ...resetRes);
+    await userLib.reset(req, res, { isV3: true });
   },
 };
 

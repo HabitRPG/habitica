@@ -66,7 +66,7 @@ api.castSpell = {
   url: '/user/class/cast/:spellId',
   async handler (req, res) {
     await castSpell(req, res, {
-      isV3: true,
+      isV3: false,
     });
   },
 };

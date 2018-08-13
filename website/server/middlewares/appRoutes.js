@@ -35,6 +35,9 @@ app.use('/api/v3', v3Router);
 const v4RouterOverrides = [
   'GET-/user',
   'POST-/user/class/cast/:spellId',
+  'POST-/user/rebirth',
+  'POST-/user/reset',
+  'POST-/user/reroll',
   'GET-/inbox/messages',
   'GET-/coupons/enter/:code',
 ];

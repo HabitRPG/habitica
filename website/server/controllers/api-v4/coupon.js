@@ -1,5 +1,5 @@
 import { authWithHeaders } from '../../middlewares/auth';
-import couponsLib from '../../libs/coupons';
+import * as couponsLib from '../../libs/coupons';
 
 /*
 * NOTE most spells routes are still in the v3 controller

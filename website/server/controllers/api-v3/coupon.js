@@ -5,7 +5,7 @@ import {
 } from '../../middlewares/auth';
 import { ensureSudo } from '../../middlewares/ensureAccessRight';
 import _ from 'lodash';
-import couponsLib from '../../libs/coupons';
+import * as couponsLib from '../../libs/coupons';
 import couponCode from 'coupon-code';
 import apiError from '../../libs/apiError';
 import { model as Coupon } from '../../models/coupon';

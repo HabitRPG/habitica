@@ -5,11 +5,11 @@ import {
   generateGroup,
   generateChallenge,
   sleep,
-} from '../../../../helpers/api-integration/v4';
+} from '../../../helpers/api-integration/v4';
 
 import { v4 as generateUUID } from 'uuid';
 import { find } from 'lodash';
-import apiError from '../../../../../website/server/libs/apiError';
+import apiError from '../../../../website/server/libs/apiError';
 
 describe('POST /user/class/cast/:spellId', () => {
   let user;

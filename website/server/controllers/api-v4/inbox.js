@@ -33,6 +33,8 @@ api.getInboxMessages = {
   },
 };
 
+/* NOTE this route has also an API v3 version */
+
 /**
  * @api {delete} /api/v4/inbox/messages/:messageId Delete a message
  * @apiName deleteMessage
@@ -66,6 +68,8 @@ api.deleteMessage = {
     res.respond(200);
   },
 };
+
+/* NOTE this route has also an API v3 version */
 
 /**
  * @api {delete} /api/v4/inbox/clear Delete all messages
