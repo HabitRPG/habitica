@@ -65,6 +65,12 @@ describe('cron', () => {
     expect(analytics.track.callCount).to.equal(1);
   });
 
+  it('calls analytics when user is sleeping', () => {
+    user.preferences.sleep = true;
+    cron({user, tasksByType, daysMissed, analytics});
+    expect(analytics.track.callCount).to.equal(1);
+  });
+
   describe('end of the month perks', () => {
     beforeEach(() => {
       user.purchased.plan.customerId = 'subscribedId';
@@ -660,31 +666,6 @@ describe('cron', () => {
       user.preferences.sleep = true;
     });
 
-    it('calls analytics', () => {
-      cron({user, tasksByType, daysMissed, analytics});
-      expect(analytics.track.callCount).to.equal(1);
-    });
-
-    it('clears user buffs', () => {
-      user.stats.buffs = {
-        str: 1,
-        int: 1,
-        per: 1,
-        con: 1,
-        stealth: 1,
-        streaks: true,
-      };
-
-      cron({user, tasksByType, daysMissed, analytics});
-
-      expect(user.stats.buffs.str).to.equal(0);
-      expect(user.stats.buffs.int).to.equal(0);
-      expect(user.stats.buffs.per).to.equal(0);
-      expect(user.stats.buffs.con).to.equal(0);
-      expect(user.stats.buffs.stealth).to.equal(0);
-      expect(user.stats.buffs.streaks).to.be.false;
-    });
-
     it('resets all dailies without damaging user', () => {
       let daily = {
         text: 'test daily',
@@ -706,23 +687,6 @@ describe('cron', () => {
       expect(user.stats.hp).to.equal(healthBefore);
     });
 
-    it('sets isDue for daily', () => {
-      let daily = {
-        text: 'test daily',
-        type: 'daily',
-        frequency: 'daily',
-        everyX: 5,
-        startDate: new Date(),
-      };
-
-      let task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line new-cap
-      tasksByType.dailys.push(task);
-      tasksByType.dailys[0].completed = true;
-
-      cron({user, tasksByType, daysMissed, analytics});
-
-      expect(tasksByType.dailys[0].isDue).to.be.exist;
-    });
   });
 
   describe('todos', () => {
@@ -844,6 +808,15 @@ describe('cron', () => {
       tasksByType.dailys[0].startDate = moment().add(1, 'days').toDate();
       cron({user, tasksByType, daysMissed, analytics});
       expect(tasksByType.dailys[0].isDue).to.be.false;
+    });
+
+    it('computes isDue when user is sleeping', () => {
+      user.preferences.sleep = true;
+      tasksByType.dailys[0].frequency = 'daily';
+      tasksByType.dailys[0].everyX = 5;
+      tasksByType.dailys[0].startDate = moment().toDate();
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(tasksByType.dailys[0].isDue).to.exist;
     });
 
     it('computes nextDue', () => {
@@ -1327,7 +1300,57 @@ describe('cron', () => {
       expect(user.stats.buffs.streaks).to.be.false;
     });
 
+    it('clears buffs if user does not have a perfect day (no due dailys) when user is sleeping', () => {
+      user.preferences.sleep = true;
+      daysMissed = 1;
+      tasksByType.dailys[0].completed = true;
+      tasksByType.dailys[0].startDate = moment(new Date()).add({days: 1});
+
+      user.stats.buffs = {
+        str: 1,
+        int: 1,
+        per: 1,
+        con: 1,
+        stealth: 0,
+        streaks: true,
+      };
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(user.stats.buffs.str).to.equal(0);
+      expect(user.stats.buffs.int).to.equal(0);
+      expect(user.stats.buffs.per).to.equal(0);
+      expect(user.stats.buffs.con).to.equal(0);
+      expect(user.stats.buffs.stealth).to.equal(0);
+      expect(user.stats.buffs.streaks).to.be.false;
+    });
+
     it('clears buffs if user does not have a perfect day (at least one due daily not completed)', () => {
+      daysMissed = 1;
+      tasksByType.dailys[0].completed = false;
+      tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
+
+      user.stats.buffs = {
+        str: 1,
+        int: 1,
+        per: 1,
+        con: 1,
+        stealth: 0,
+        streaks: true,
+      };
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      expect(user.stats.buffs.str).to.equal(0);
+      expect(user.stats.buffs.int).to.equal(0);
+      expect(user.stats.buffs.per).to.equal(0);
+      expect(user.stats.buffs.con).to.equal(0);
+      expect(user.stats.buffs.stealth).to.equal(0);
+      expect(user.stats.buffs.streaks).to.be.false;
+    });
+
+    it('clears buffs if user does not have a perfect day (at least one due daily not completed) when user is sleeping', () => {
+      user.preferences.sleep = true;
       daysMissed = 1;
       tasksByType.dailys[0].completed = false;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
