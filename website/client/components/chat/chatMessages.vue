@@ -202,8 +202,17 @@ export default {
 
       if (!profile._id) {
         const result = await this.$store.dispatch('members:fetchMember', { memberId });
-        this.cachedProfileData[memberId] = result.data.data;
-        profile = result.data.data;
+        if (!result.data) {
+          return this.$store.dispatch('snackbars:add', {
+            title: 'Habitica',
+            text: 'Sorry, this user has deleted their account.',
+            type: 'error',
+            timeout: false,
+          });
+        } else {
+          this.cachedProfileData[memberId] = result.data.data;
+          profile = result.data.data;
+        }
       }
 
       // Open the modal only if the data is available
