@@ -202,7 +202,7 @@ export default {
 
       if (!profile._id) {
         const result = await this.$store.dispatch('members:fetchMember', { memberId });
-        if (!result.data) {
+        if (result.response && result.response.status === 404) {
           return this.$store.dispatch('snackbars:add', {
             title: 'Habitica',
             text: 'Sorry, this user has deleted their account.',
