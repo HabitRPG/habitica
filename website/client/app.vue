@@ -104,9 +104,8 @@ div
 <style lang='scss'>
   @import '~client/assets/scss/colors.scss';
 
-  /* @TODO: The modal-open class is not being removed. Let's try this for now */
   .modal {
-    overflow-y: scroll !important;
+    overflow-y: auto !important;
   }
 
   .modal-backdrop.show {
