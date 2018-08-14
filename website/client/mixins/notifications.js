@@ -46,7 +46,7 @@ export default {
       this.notify(parsedMarkdown, 'info');
     },
     mp (val) {
-      this.notify(`${this.sign(val)} ${this.round(val)}`, 'mp', 'glyphicon glyphicon-fire', this.sign(val));
+      this.notify(`${this.sign(val)} ${this.round(val, 2)}`, 'mp', 'glyphicon glyphicon-fire', this.sign(val));
     },
     purchased (itemName) {
       this.text(this.$t('purchasedItem', {
