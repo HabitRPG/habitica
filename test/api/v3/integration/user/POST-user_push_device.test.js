@@ -50,11 +50,21 @@ describe('POST /user/push-devices', () => {
   });
 
   it('adds a push device to the user', async () => {
-    let response = await user.post('/user/push-devices', {type, regId});
+    const response = await user.post('/user/push-devices', {type, regId});
     await user.sync();
 
     expect(response.message).to.equal(t('pushDeviceAdded'));
     expect(user.pushDevices[0].type).to.equal(type);
     expect(user.pushDevices[0].regId).to.equal(regId);
+  });
+
+  it('removes a push device to the user', async () => {
+    await user.post('/user/push-devices', {type, regId});
+
+    const response = await user.del(`/user/push-devices/${regId}`);
+    await user.sync();
+
+    expect(response.message).to.equal(t('pushDeviceRemoved'));
+    expect(user.pushDevices[0]).to.not.exist;
   });
 });

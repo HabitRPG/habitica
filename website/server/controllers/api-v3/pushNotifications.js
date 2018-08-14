@@ -33,9 +33,9 @@ api.addPushDevice = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let pushDevices = user.pushDevices;
+    const pushDevices = user.pushDevices;
 
-    let item = {
+    const item = {
       regId: req.body.regId,
       type: req.body.type,
     };
@@ -44,9 +44,9 @@ api.addPushDevice = {
       throw new NotAuthorized(res.t('pushDeviceAlreadyAdded'));
     }
 
-    pushDevices.push(item);
-
-    await user.save();
+    await user.update({
+      $push: { pushDevices: item },
+    }).exec();
 
     res.respond(200, user.pushDevices, res.t('pushDeviceAdded'));
   },
@@ -87,8 +87,8 @@ api.removePushDevice = {
       throw new NotFound(res.t('pushDeviceNotFound'));
     }
 
-    pushDevices.splice(indexOfPushDevice, 1);
-    await user.save();
+    const pullQuery = { $pull: { pushDevices: { $elemMatch: { regId } } } };
+    await user.update(pullQuery).exec();
 
     res.respond(200, user.pushDevices, res.t('pushDeviceRemoved'));
   },
