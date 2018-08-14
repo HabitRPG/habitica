@@ -166,79 +166,46 @@
         div.fill-height
 
       //- @TODO: Create new InventoryDrawer component and re-use in 'inventory/stable' component.
-      drawer(
-        :title="$t('quickInventory')"
-        :errorMessage="inventoryDrawerErrorMessage(selectedDrawerItemType)"
-      )
-        div(slot="drawer-header")
-          drawer-header-tabs(
-            :tabs="drawerTabs",
-            @changedPosition="tabSelected($event)"
+      inventoryDrawer(:showEggs="true", :showPotions="true")
+        template(slot="item", slot-scope="ctx")
+          item(
+            :item="ctx.item",
+            :itemContentClass="ctx.itemClass",
+            popoverPosition="top",
+            @click="sellItem(ctx)"
           )
-            div(slot="right-item")
-              #petLikeToEatMarket.drawer-help-text(v-once)
-                | {{ $t('petLikeToEat') + ' ' }}
-                span.svg-icon.inline.icon-16(v-html="icons.information")
-              b-popover(
-                target="petLikeToEatMarket",
-                :placement="'top'",
+            template(slot="itemBadge")
+              countBadge(
+                :show="true",
+                :count="ctx.itemCount"
               )
-                .popover-content-text(v-html="$t('petLikeToEatText')", v-once)
-
-        drawer-slider(
-          v-if="hasOwnedItemsForType(selectedDrawerItemType)"
-          :items="ownedItems(selectedDrawerItemType) || []",
-          slot="drawer-slider",
-          :itemWidth=94,
-          :itemMargin=24,
-          :itemType="selectedDrawerTab"
-        )
-          template(slot="item", slot-scope="ctx")
-            item(
-              :item="ctx.item",
-              :itemContentClass="getItemClass(selectedDrawerItemType, ctx.item.key)",
-              popoverPosition="top",
-              @click="selectedItemToSell = ctx.item"
-            )
-              template(slot="itemBadge", slot-scope="ctx")
-                countBadge(
-                  :show="true",
-                  :count="userItems[drawerTabs[selectedDrawerTab].contentType][ctx.item.key] || 0"
-                )
-              span(slot="popoverContent")
-                h4.popover-content-title {{ getItemName(selectedDrawerItemType, ctx.item) }}
+            span(slot="popoverContent")
+              h4.popover-content-title {{ ctx.itemName }}
 
       sellModal(
-        :item="selectedItemToSell",
-        :itemType="selectedDrawerItemType",
-        :itemCount="selectedItemToSell != null ? userItems[drawerTabs[selectedDrawerTab].contentType][selectedItemToSell.key] : 0",
-        :text="selectedItemToSell != null ? getItemName(selectedDrawerItemType, selectedItemToSell) : ''",
+        v-if="selectedItemScopeToSell != null",
+        :item="selectedItemScopeToSell.item",
+        :itemType="selectedItemScopeToSell.itemType",
+        :itemCount="selectedItemScopeToSell.itemCount",
+        :text="selectedItemScopeToSell.itemName",
         @change="resetItemToSell($event)"
       )
         template(slot="item", slot-scope="ctx")
           item.flat(
             :item="ctx.item",
-            :itemContentClass="getItemClass(selectedDrawerItemType, ctx.item.key)",
+            :itemContentClass="selectedItemScopeToSell.itemClass",
             :showPopover="false"
           )
             template(slot="itemBadge", slot-scope="ctx")
               countBadge(
                 :show="true",
-                :count="userItems[drawerTabs[selectedDrawerTab].contentType][ctx.item.key] || 0"
+                :count="selectedItemScopeToSell.itemCount"
               )
 </template>
 
 <style lang="scss">
   @import '~client/assets/scss/colors.scss';
   @import '~client/assets/scss/variables.scss';
-
-  .market .drawer-slider {
-    min-height: 60px;
-
-    .message {
-      top: 10px;
-    }
-  }
 
   .fill-height {
     height: 38px; // button + margin + padding
@@ -360,12 +327,10 @@
   import KeysToKennel from './keysToKennel';
   import Item from 'client/components/inventory/item';
   import CountBadge from 'client/components/ui/countBadge';
-  import Drawer from 'client/components/ui/drawer';
-  import DrawerSlider from 'client/components/ui/drawerSlider';
-  import DrawerHeaderTabs from 'client/components/ui/drawerHeaderTabs';
   import ItemRows from 'client/components/ui/itemRows';
   import toggleSwitch from 'client/components/ui/toggleSwitch';
   import Avatar from 'client/components/avatar';
+  import InventoryDrawer from 'client/components/shared/inventoryDrawer';
 
   import SellModal from './sellModal.vue';
   import EquipmentAttributesGrid from '../../inventory/equipment/attributesGrid.vue';
@@ -394,6 +359,7 @@
   import notifications from 'client/mixins/notifications';
   import buyMixin from 'client/mixins/buy';
   import currencyMixin from '../_currencyMixin';
+  import inventoryUtils from 'client/mixins/inventoryUtils';
 
   const sortGearTypeMap = {
     sortByType: 'type',
@@ -404,21 +370,21 @@
   };
 
 export default {
-    mixins: [notifications, buyMixin, currencyMixin],
+    mixins: [notifications, buyMixin, currencyMixin, inventoryUtils],
     components: {
       ShopItem,
       KeysToKennel,
       Item,
       CountBadge,
-      Drawer,
-      DrawerSlider,
-      DrawerHeaderTabs,
+
       ItemRows,
       toggleSwitch,
 
       SellModal,
       EquipmentAttributesGrid,
       Avatar,
+
+      InventoryDrawer,
 
       SelectMembersModal,
     },
@@ -444,9 +410,6 @@ export default {
           healer: svgHealer,
         }),
 
-        selectedDrawerTab: 0,
-        selectedDrawerItemType: 'eggs',
-
         selectedGroupGearByClass: '',
 
         sortGearBy: sortGearTypes,
@@ -455,7 +418,7 @@ export default {
         sortItemsBy: ['AZ', 'sortByNumber'],
         selectedSortItemsBy: 'AZ',
 
-        selectedItemToSell: null,
+        selectedItemScopeToSell: null,
 
         hideLocked: false,
         hidePinned: false,
@@ -548,46 +511,21 @@ export default {
           return [];
         }
       },
-      drawerTabs () {
-        return [
-          {
-            key: 'eggs',
-            contentType: 'eggs',
-            label: this.$t('eggs'),
-          },
-          {
-            key: 'food',
-            contentType: 'food',
-            label: this.$t('foodTitle'),
-          },
-          {
-            key: 'hatchingPotions',
-            contentType: 'hatchingPotions',
-            label: this.$t('hatchingPotions'),
-          },
-          {
-            key: 'special',
-            contentType: 'food',
-            label: this.$t('special'),
-          },
-        ];
-      },
       gemsLeft () {
         if (!this.user.purchased.plan) return 0;
         return planGemLimits.convCap + this.user.purchased.plan.consecutive.gemCapExtra - this.user.purchased.plan.gemsBought;
       },
     },
     methods: {
+      sellItem (itemScope) {
+        this.selectedItemScopeToSell = itemScope;
+      },
       getClassName (classType) {
         if (classType === 'wizard') {
           return this.$t('mage');
         } else {
           return this.$t(classType);
         }
-      },
-      tabSelected ($event) {
-        this.selectedDrawerTab = $event;
-        this.selectedDrawerItemType = this.drawerTabs[$event].key;
       },
       ownedItems (type) {
         let mappedItems = _filter(this.content[type], i => {
@@ -620,29 +558,7 @@ export default {
           return this.$t('noItemsAvailableForType', { type: this.$t(`${type}ItemType`) });
         }
       },
-      getItemClass (type, itemKey) {
-        switch (type) {
-          case 'food':
-          case 'special':
-            return `Pet_Food_${itemKey}`;
-          case 'eggs':
-            return `Pet_Egg_${itemKey}`;
-          case 'hatchingPotions':
-            return `Pet_HatchingPotion_${itemKey}`;
-          default:
-            return '';
-        }
-      },
-      getItemName (type, item) {
-        switch (type) {
-          case 'eggs':
-            return this.$t('egg', {eggType: item.text()});
-          case 'hatchingPotions':
-            return this.$t('potion', {potionType: item.text()});
-          default:
-            return item.text();
-        }
-      },
+
       filteredGear (groupByClass, searchBy, sortBy, hideLocked, hidePinned) {
         let category = _filter(this.marketGearCategories, ['identifier', groupByClass]);
 
@@ -714,7 +630,7 @@ export default {
       },
       resetItemToSell ($event) {
         if (!$event) {
-          this.selectedItemToSell = null;
+          this.selectedItemScopeToSell = null;
         }
       },
       isGearLocked (gear) {
