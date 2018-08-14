@@ -12,6 +12,7 @@ import { getUserInfo, getGroupUrl, sendTxn } from '../../libs/email';
 import slack from '../../libs/slack';
 import pusher from '../../libs/pusher';
 import { getAuthorEmailFromMessage } from '../../libs/chat';
+import { userIsMuted, muteUserForLife } from '../../libs/chat/mute';
 import { chatReporterFactory } from '../../libs/chatReporting/chatReporterFactory';
 import nconf from 'nconf';
 import bannedWords from '../../libs/bannedWords';
@@ -120,6 +121,7 @@ api.postChat = {
     if (textContainsBannedSlur(req.body.message)) {
       let message = req.body.message;
       user.flags.chatRevoked = true;
+      muteUserForLife(user);
       await user.save();
 
       // Email the mods
@@ -155,7 +157,8 @@ api.postChat = {
     }
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
-    if (group.privacy !== 'private' && user.flags.chatRevoked) {
+
+    if (group.privacy !== 'private' && userIsMuted(user)) {
       throw new NotAuthorized(res.t('chatPrivilegesRevoked'));
     }
 
