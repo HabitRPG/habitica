@@ -5,7 +5,7 @@ import {
 
 import { each, get } from 'lodash';
 
-describe.only('PUT /user', () => {
+describe('PUT /user', () => {
   let user;
 
   beforeEach(async () => {
