@@ -24,37 +24,13 @@
             v-model="hidePinned",
           )
     .standard-page
-      div.featuredItems
-        .background(:class="{broken: broken}")
-        .background(:class="{cracked: broken, broken: broken}")
-          div.npc
-            div.featured-label
-              span.rectangle
-              span.text Alex
-              span.rectangle
-          div.content
-            div.featured-label.with-border
-              span.rectangle
-              span.text {{ market.featured.text }}
-              span.rectangle
-
-            div.items.margin-center
-              shopItem(
-                v-for="item in market.featured.items",
-                :key="item.key",
-                :item="item",
-                :price="item.value",
-                :itemContentClass="'shop_'+item.key",
-                :emptyItem="false",
-                :popoverPosition="'top'",
-                @click="featuredItemSelected(item)"
-              )
-                template(slot="itemBadge", slot-scope="ctx")
-                  span.badge.badge-pill.badge-item.badge-svg(
-                    :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
-                    @click.prevent.stop="togglePinned(ctx.item)"
-                  )
-                    span.svg-icon.inline.icon-12.color(v-html="icons.pin")
+      featuredItemsHeader(
+        :broken="broken",
+        :npcName="'Alex'",
+        :featuredText="market.featured.text",
+        :featuredItems="market.featured.items"
+        @featuredItemSelected="featuredItemSelected($event)"
+      )
 
       h1.mb-4.page-header(v-once) {{ $t('market') }}
 
@@ -217,10 +193,6 @@
     height: 48px;
   }
 
-  .featured-label {
-    margin: 24px auto;
-  }
-
   .item-wrapper.bordered-item .item {
     width: 112px;
     height: 112px;
@@ -237,38 +209,13 @@
     }
 
     .featuredItems {
-      height: 216px;
-
       .background {
         background: url('~assets/images/npc/#{$npc_market_flavor}/market_background.png');
 
         background-repeat: repeat-x;
-
-        width: 100%;
-        height: 216px;
-        position: absolute;
-
-        top: 0;
-        left: 0;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .content {
-        display: flex;
-        flex-direction: column;
-        z-index: 1; // Always cover background.
       }
 
       .npc {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 216px;
         background: url('~assets/images/npc/#{$npc_market_flavor}/market_banner_npc.png');
         background-repeat: no-repeat;
 
@@ -279,23 +226,6 @@
           left: 80px;
         }
       }
-
-      .background.broken {
-        background: url('~assets/images/npc/broken/market_broken_background.png');
-
-        background-repeat: repeat-x;
-      }
-
-      .background.cracked {
-        background: url('~assets/images/npc/broken/market_broken_layer.png');
-
-        background-repeat: repeat-x;
-      }
-
-      .broken .npc {
-        background: url('~assets/images/npc/broken/market_broken_npc.png');
-        background-repeat: no-repeat;
-      }
     }
   }
 
@@ -305,10 +235,6 @@
   }
 
   @media only screen and (max-width: 768px) {
-    .featuredItems .content {
-      display: none !important;
-    }
-
     .filters, .filters-title {
       float: none;
       button {
@@ -331,6 +257,7 @@
   import toggleSwitch from 'client/components/ui/toggleSwitch';
   import Avatar from 'client/components/avatar';
   import InventoryDrawer from 'client/components/shared/inventoryDrawer';
+  import FeaturedItemsHeader from '../featuredItemsHeader';
 
   import SellModal from './sellModal.vue';
   import EquipmentAttributesGrid from '../../inventory/equipment/attributesGrid.vue';
@@ -360,6 +287,7 @@
   import buyMixin from 'client/mixins/buy';
   import currencyMixin from '../_currencyMixin';
   import inventoryUtils from 'client/mixins/inventoryUtils';
+  import pinUtils from 'client/mixins/pinUtils';
 
   const sortGearTypeMap = {
     sortByType: 'type',
@@ -370,7 +298,7 @@
   };
 
 export default {
-    mixins: [notifications, buyMixin, currencyMixin, inventoryUtils],
+    mixins: [notifications, buyMixin, currencyMixin, inventoryUtils, pinUtils],
     components: {
       ShopItem,
       KeysToKennel,
@@ -385,6 +313,7 @@ export default {
       Avatar,
 
       InventoryDrawer,
+      FeaturedItemsHeader,
 
       SelectMembersModal,
     },
@@ -639,11 +568,6 @@ export default {
         }
 
         return false;
-      },
-      togglePinned (item) {
-        if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
-          this.$parent.showUnpinNotification(item);
-        }
       },
       itemSelected (item) {
         this.$root.$emit('buyModal::showItem', item);
