@@ -189,78 +189,7 @@ api.getInAppRewardsList = {
   },
 };
 
-let updatablePaths = [
-  '_ABtests.counter',
-
-  'flags.customizationsNotification',
-  'flags.showTour',
-  'flags.tour',
-  'flags.tutorial',
-  'flags.communityGuidelinesAccepted',
-  'flags.welcomed',
-  'flags.cardReceived',
-  'flags.warnedLowHealth',
-  'flags.newStuff',
-
-  'achievements',
-
-  'party.order',
-  'party.orderAscending',
-  'party.quest.completed',
-  'party.quest.RSVPNeeded',
-
-  'preferences',
-  'profile',
-  'stats',
-  'inbox.optOut',
-  'tags',
-];
-
-// This tells us for which paths users can call `PUT /user`.
-// The trick here is to only accept leaf paths, not root/intermediate paths (see http://goo.gl/OEzkAs)
-let acceptablePUTPaths = _.reduce(require('./../../models/user').schema.paths, (accumulator, val, leaf) => {
-  let found = _.find(updatablePaths, (rootPath) => {
-    return leaf.indexOf(rootPath) === 0;
-  });
-
-  if (found) accumulator[leaf] = true;
-
-  return accumulator;
-}, {});
-
-let restrictedPUTSubPaths = [
-  'stats.class',
-
-  'preferences.disableClasses',
-  'preferences.sleep',
-  'preferences.webhooks',
-];
-
-_.each(restrictedPUTSubPaths, (removePath) => {
-  delete acceptablePUTPaths[removePath];
-});
-
-let requiresPurchase = {
-  'preferences.background': 'background',
-  'preferences.shirt': 'shirt',
-  'preferences.size': 'size',
-  'preferences.skin': 'skin',
-  'preferences.hair.bangs': 'hair.bangs',
-  'preferences.hair.base': 'hair.base',
-  'preferences.hair.beard': 'hair.beard',
-  'preferences.hair.color': 'hair.color',
-  'preferences.hair.flower': 'hair.flower',
-  'preferences.hair.mustache': 'hair.mustache',
-};
-
-let checkPreferencePurchase = (user, path, item) => {
-  let itemPath = `${path}.${item}`;
-  let appearance = _.get(common.content.appearances, itemPath);
-  if (!appearance) return false;
-  if (appearance.price === 0) return true;
-
-  return _.get(user.purchased, itemPath);
-};
+/* NOTE this route has also an API v4 version */
 
 /**
  * @api {put} /api/v3/user Update the user
@@ -295,67 +224,7 @@ api.updateUser = {
   middlewares: [authWithHeaders()],
   url: '/user',
   async handler (req, res) {
-    let user = res.locals.user;
-
-    let promisesForTagsRemoval = [];
-
-    _.each(req.body, (val, key) => {
-      let purchasable = requiresPurchase[key];
-
-      if (purchasable && !checkPreferencePurchase(user, purchasable, val)) {
-        throw new NotAuthorized(res.t('mustPurchaseToSet', { val, key }));
-      }
-
-      if (acceptablePUTPaths[key] && key !== 'tags') {
-        _.set(user, key, val);
-      } else if (key === 'tags') {
-        if (!Array.isArray(val)) throw new BadRequest('mustBeArray');
-
-        const removedTagsIds = [];
-
-        const oldTags = [];
-
-        // Keep challenge and group tags
-        user.tags.forEach(t => {
-          if (t.group) {
-            oldTags.push(t);
-          } else {
-            removedTagsIds.push(t.id);
-          }
-        });
-
-        user.tags = oldTags;
-
-        val.forEach(t => {
-          let oldI = removedTagsIds.findIndex(id => id === t.id);
-          if (oldI > -1) {
-            removedTagsIds.splice(oldI, 1);
-          }
-
-          user.tags.push(t);
-        });
-
-        // Remove from all the tasks
-        // NOTE each tag to remove requires a query
-
-        promisesForTagsRemoval = removedTagsIds.map(tagId => {
-          return Tasks.Task.update({
-            userId: user._id,
-          }, {
-            $pull: {
-              tags: tagId,
-            },
-          }, {multi: true}).exec();
-        });
-      } else {
-        throw new NotAuthorized(res.t('messageUserOperationProtected', { operation: key }));
-      }
-    });
-
-
-    await Promise.all([user.save()].concat(promisesForTagsRemoval));
-
-    return res.respond(200, user);
+    await userLib.update(req, res, { isV3: true });
   },
 };
 

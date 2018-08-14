@@ -77,7 +77,46 @@ api.getUser = {
   },
 };
 
-/* NOTE this route has also an API v4 version */
+/* NOTE this route has also an API v3 version */
+
+/**
+ * @api {put} /api/v4/user Update the user
+ * @apiName UserUpdate
+ * @apiGroup User
+ *
+ * @apiDescription Some of the user items can be updated, such as preferences, flags and stats.
+ ^
+ * @apiParamExample {json} Request-Example:
+ *  {
+ *   "achievements.habitBirthdays": 2,
+ *   "profile.name": "MadPink",
+ *   "stats.hp": 53,
+ *   "flags.warnedLowHealth":false,
+ *   "preferences.allocationMode":"flat",
+ *   "preferences.hair.bangs": 3
+ * }
+ *
+ * @apiSuccess {Object} data The updated user object, the result is identical to the get user call
+ *
+ * @apiError (401) {NotAuthorized} messageUserOperationProtected Returned if the change is not allowed.
+ *
+ * @apiErrorExample {json} Error-Response:
+ *  {
+ *   "success": false,
+ *   "error": "NotAuthorized",
+ *   "message": "path `stats.class` was not saved, as it's a protected path."
+ * }
+ */
+api.updateUser = {
+  method: 'PUT',
+  middlewares: [authWithHeaders()],
+  url: '/user',
+  async handler (req, res) {
+    await userLib.update(req, res, { isV3: false });
+  },
+};
+
+/* NOTE this route has also an API v3 version */
 
 /**
  * @api {post} /api/v4/user/rebirth Use Orb of Rebirth on user
@@ -116,7 +155,7 @@ api.userRebirth = {
   },
 };
 
-/* NOTE this route has also an API v4 version */
+/* NOTE this route has also an API v3 version */
 
 /**
  * @api {post} /api/v4/user/reroll Reroll a user using the Fortify Potion
@@ -149,7 +188,7 @@ api.userReroll = {
   },
 };
 
-/* NOTE this route has also an API v4 version */
+/* NOTE this route has also an API v3 version */
 
 /**
  * @api {post} /api/v4/user/reset Reset user
