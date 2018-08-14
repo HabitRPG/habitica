@@ -929,10 +929,12 @@ export default {
           });
           this.$emit('taskCreated', this.task);
         } else if (this.groupId) {
-          await this.$store.dispatch('tasks:createGroupTasks', {
+          const response = await this.$store.dispatch('tasks:createGroupTasks', {
             groupId: this.groupId,
             tasks: [this.task],
           });
+
+          Object.assign(this.task, response);
 
           let promises = this.assignedMembers.map(memberId => {
             return this.$store.dispatch('tasks:assignTask', {
