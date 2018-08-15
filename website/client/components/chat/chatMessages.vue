@@ -205,7 +205,7 @@ export default {
         if (result.response && result.response.status === 404) {
           return this.$store.dispatch('snackbars:add', {
             title: 'Habitica',
-            text: 'Sorry, this user has deleted their account.',
+            text: this.$t('messageDeletedUser'),
             type: 'error',
             timeout: false,
           });
