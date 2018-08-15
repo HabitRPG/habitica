@@ -142,24 +142,17 @@
             span(slot="popoverContent")
               h4.popover-content-title {{ ctx.itemName }}
 
-      sellModal(
-        v-if="selectedItemScopeToSell != null",
-        :item="selectedItemScopeToSell.item",
-        :itemType="selectedItemScopeToSell.itemType",
-        :itemCount="selectedItemScopeToSell.itemCount",
-        :text="selectedItemScopeToSell.itemName",
-        @change="resetItemToSell($event)"
-      )
+      sellModal
         template(slot="item", slot-scope="ctx")
           item.flat(
             :item="ctx.item",
-            :itemContentClass="selectedItemScopeToSell.itemClass",
+            :itemContentClass="ctx.ctx.itemClass",
             :showPopover="false"
           )
-            template(slot="itemBadge", slot-scope="ctx")
+            template(slot="itemBadge")
               countBadge(
                 :show="true",
-                :count="selectedItemScopeToSell.itemCount"
+                :count="ctx.ctx.itemCount"
               )
 </template>
 
@@ -325,8 +318,6 @@ export default {
         sortItemsBy: sortItems,
         selectedSortItemsBy: sortItems[0],
 
-        selectedItemScopeToSell: null,
-
         hideLocked: false,
         hidePinned: false,
 
@@ -432,7 +423,7 @@ export default {
     },
     methods: {
       sellItem (itemScope) {
-        this.selectedItemScopeToSell = itemScope;
+        this.$root.$emit('sellItem', itemScope);
       },
       getClassName (classType) {
         if (classType === 'wizard') {
@@ -541,11 +532,6 @@ export default {
         }
 
         return result;
-      },
-      resetItemToSell ($event) {
-        if (!$event) {
-          this.selectedItemScopeToSell = null;
-        }
       },
       isGearLocked (gear) {
         if (gear.klass !== this.userStats.class) {
