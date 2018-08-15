@@ -127,7 +127,6 @@
 
             div.fill-height
 
-      //- @TODO: Create new InventoryDrawer component and re-use in 'inventory/stable' component.
       inventoryDrawer(:showEggs="true", :showPotions="true")
         template(slot="item", slot-scope="ctx")
           item(
@@ -536,7 +535,7 @@ export default {
             result = _sortBy(result, item => {
               if (item.showCount === false) return 0;
 
-              return -(this.userItems[item.purchaseType][item.key] || 0);
+              return this.userItems[item.purchaseType][item.key] || 0;
             });
             break;
           }
