@@ -923,19 +923,18 @@ export default {
 
       if (this.purpose === 'create') {
         if (this.challengeId) {
-          this.$store.dispatch('tasks:createChallengeTasks', {
+          const response = await this.$store.dispatch('tasks:createChallengeTasks', {
             challengeId: this.challengeId,
             tasks: [this.task],
           });
+          Object.assign(this.task, response);
           this.$emit('taskCreated', this.task);
         } else if (this.groupId) {
           const response = await this.$store.dispatch('tasks:createGroupTasks', {
             groupId: this.groupId,
             tasks: [this.task],
           });
-
           Object.assign(this.task, response);
-
           let promises = this.assignedMembers.map(memberId => {
             return this.$store.dispatch('tasks:assignTask', {
               taskId: this.task._id,
