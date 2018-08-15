@@ -34,112 +34,98 @@
 
       h1.mb-4.page-header(v-once) {{ $t('market') }}
 
-      .clearfix(v-if="viewOptions['equipment'].selected")
-        h2.float-left.mb-3.filters-title
-          | {{ $t('equipment') }}
+      layout-section(v-if="viewOptions['equipment'].selected", :title="$t('equipment')")
+        div(slot="filters")
+          filter-dropdown(
+            :label="$t('class')",
+            :initialItem="selectedGearCategory",
+            :items="marketGearCategories",
+            :withIcon="true",
+            @selected="selectedGroupGearByClass = $event.id"
+          )
+            span(slot="item", slot-scope="ctx")
+              span.svg-icon.inline.icon-16(v-html="icons[ctx.item.id]")
+              span.text {{ getClassName(ctx.item.id) }}
 
-        .filters.float-right
-          span.dropdown-label {{ $t('class') }}
-          b-dropdown(right=true)
-            span.dropdown-icon-item(slot="text")
-              span.svg-icon.inline.icon-16(v-html="icons[selectedGroupGearByClass]")
-              span.text {{ getClassName(selectedGroupGearByClass) }}
+          filter-dropdown(
+            :label="$t('sortBy')",
+            :initialItem="selectedSortGearBy",
+            :items="sortGearBy",
+            @selected="selectedSortGearBy = $event"
+          )
+            span(slot="item", slot-scope="ctx")
+              span.text {{ $t(ctx.item.id) }}
 
-            b-dropdown-item(
-              v-for="gearCategory in marketGearCategories",
-              @click="selectedGroupGearByClass = gearCategory.identifier",
-              :active="selectedGroupGearByClass === gearCategory.identifier",
-              :key="gearCategory.identifier"
+        itemRows(
+          :items="filteredGear(selectedGroupGearByClass, searchTextThrottled, selectedSortGearBy.id, hideLocked, hidePinned)",
+          :itemWidth=94,
+          :itemMargin=24,
+          :type="'gear'",
+          :noItemsLabel="$t('noGearItemsOfClass')",
+          slot="content"
+        )
+          template(slot="item", slot-scope="ctx")
+            shopItem(
+              :key="ctx.item.key",
+              :item="ctx.item",
+              :emptyItem="userItems.gear[ctx.item.key] === undefined",
+              :popoverPosition="'top'",
+              @click="gearSelected(ctx.item)"
             )
-              span.dropdown-icon-item
-                span.svg-icon.inline.icon-16(v-html="icons[gearCategory.identifier]")
-                span.text {{ gearCategory.text }}
 
-          span.dropdown-label {{ $t('sortBy') }}
-          b-dropdown(:text="$t(selectedSortGearBy)", right=true)
-            b-dropdown-item(
-              v-for="sort in sortGearBy",
-              @click="selectedSortGearBy = sort",
-              :active="selectedSortGearBy === sort",
-              :key="sort"
-            ) {{ $t(sort) }}
+              template(slot="itemBadge", slot-scope="ctx")
+                span.badge.badge-pill.badge-item.badge-svg(
+                  :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
+                  @click.prevent.stop="togglePinned(ctx.item)"
+                )
+                  span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
-      br
-
-      itemRows(
-        :items="filteredGear(selectedGroupGearByClass, searchTextThrottled, selectedSortGearBy, hideLocked, hidePinned)",
-        :itemWidth=94,
-        :itemMargin=24,
-        :type="'gear'",
-        :noItemsLabel="$t('noGearItemsOfClass')",
-        v-if="viewOptions['equipment'].selected"
-      )
-        template(slot="item", slot-scope="ctx")
-          shopItem(
-            :key="ctx.item.key",
-            :item="ctx.item",
-            :emptyItem="userItems.gear[ctx.item.key] === undefined",
-            :popoverPosition="'top'",
-            @click="gearSelected(ctx.item)"
+      layout-section(:title="$t('items')")
+        div(slot="filters")
+          filter-dropdown(
+            :label="$t('sortBy')",
+            :initialItem="selectedSortItemsBy",
+            :items="sortItemsBy",
+            @selected="selectedSortItemsBy = $event"
           )
-
-            template(slot="itemBadge", slot-scope="ctx")
-              span.badge.badge-pill.badge-item.badge-svg(
-                :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
-                @click.prevent.stop="togglePinned(ctx.item)"
-              )
-                span.svg-icon.inline.icon-12.color(v-html="icons.pin")
-
-      .clearfix
-        h2.float-left.mb-3
-          | {{ $t('items') }}
-
-        div.float-right
-          span.dropdown-label {{ $t('sortBy') }}
-          b-dropdown(:text="$t(selectedSortItemsBy)", right=true)
-            b-dropdown-item(
-              v-for="sort in sortItemsBy",
-              @click="selectedSortItemsBy = sort",
-              :active="selectedSortItemsBy === sort",
-              :key="sort"
-            ) {{ $t(sort) }}
-
-
-      div(
-        v-for="category in categories",
-        v-if="viewOptions[category.identifier].selected && category.identifier !== 'equipment'"
-      )
-        h4 {{ category.text }}
-
-        div.items
-          shopItem(
-            v-for="item in sortedMarketItems(category, selectedSortItemsBy, searchTextThrottled, hidePinned)",
-            :key="item.key",
-            :item="item",
-            :emptyItem="false",
-            :popoverPosition="'top'",
-            @click="itemSelected(item)"
+            span(slot="item", slot-scope="ctx")
+              span.text {{ $t(ctx.item.id) }}
+        div(slot="content")
+          div(
+            v-for="category in categories",
+            v-if="viewOptions[category.identifier].selected && category.identifier !== 'equipment'"
           )
-            span(slot="popoverContent")
-              strong(v-if='item.key === "gem" && gemsLeft === 0') {{ $t('maxBuyGems') }}
-              h4.popover-content-title {{ item.text }}
-            template(slot="itemBadge", slot-scope="ctx")
-              countBadge(
-                v-if="item.showCount != false",
-                :show="userItems[item.purchaseType][item.key] != 0",
-                :count="userItems[item.purchaseType][item.key] || 0"
-              )
-              .badge.badge-pill.badge-purple.gems-left(v-if='item.key === "gem"')
-                | {{ gemsLeft }}
-              span.badge.badge-pill.badge-item.badge-svg(
-                :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
-                @click.prevent.stop="togglePinned(ctx.item)"
-              )
-                span.svg-icon.inline.icon-12.color(v-html="icons.pin")
+            h4 {{ category.text }}
 
-          keys-to-kennel(v-if='category.identifier === "special"')
+            div.items
+              shopItem(
+                v-for="item in sortedMarketItems(category, selectedSortItemsBy.id, searchTextThrottled, hidePinned)",
+                :key="item.key",
+                :item="item",
+                :emptyItem="false",
+                :popoverPosition="'top'",
+                @click="itemSelected(item)"
+              )
+                span(slot="popoverContent")
+                  strong(v-if='item.key === "gem" && gemsLeft === 0') {{ $t('maxBuyGems') }}
+                  h4.popover-content-title {{ item.text }}
+                template(slot="itemBadge", slot-scope="ctx")
+                  countBadge(
+                    v-if="item.showCount != false",
+                    :show="userItems[item.purchaseType][item.key] != 0",
+                    :count="userItems[item.purchaseType][item.key] || 0"
+                  )
+                  .badge.badge-pill.badge-purple.gems-left(v-if='item.key === "gem"')
+                    | {{ gemsLeft }}
+                  span.badge.badge-pill.badge-item.badge-svg(
+                    :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
+                    @click.prevent.stop="togglePinned(ctx.item)"
+                  )
+                    span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
-        div.fill-height
+              keys-to-kennel(v-if='category.identifier === "special"')
+
+            div.fill-height
 
       //- @TODO: Create new InventoryDrawer component and re-use in 'inventory/stable' component.
       inventoryDrawer(:showEggs="true", :showPotions="true")
@@ -230,16 +216,6 @@
     right: -.5em;
     top: -.5em;
   }
-
-  @media only screen and (max-width: 768px) {
-    .filters, .filters-title {
-      float: none;
-      button {
-        margin-right: 4em;
-        margin-bottom: 1em;
-      }
-    }
-  }
 </style>
 
 
@@ -256,6 +232,8 @@
   import InventoryDrawer from 'client/components/shared/inventoryDrawer';
   import FeaturedItemsHeader from '../featuredItemsHeader';
   import PageLayout from 'client/components/ui/pageLayout';
+  import LayoutSection from 'client/components/ui/layoutSection';
+  import FilterDropdown from 'client/components/ui/filterDropdown';
 
   import SellModal from './sellModal.vue';
   import EquipmentAttributesGrid from '../../inventory/equipment/attributesGrid.vue';
@@ -279,7 +257,8 @@
   import _map from 'lodash/map';
   import _throttle from 'lodash/throttle';
 
-  const sortGearTypes = ['sortByType', 'sortByPrice', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'];
+  const sortGearTypes = ['sortByType', 'sortByPrice', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'].map(g => ({id: g}));
+  const sortItems = ['AZ', 'sortByNumber'].map(g => ({id: g}));
 
   import notifications from 'client/mixins/notifications';
   import buyMixin from 'client/mixins/buy';
@@ -313,6 +292,8 @@ export default {
       InventoryDrawer,
       FeaturedItemsHeader,
       PageLayout,
+      LayoutSection,
+      FilterDropdown,
 
       SelectMembersModal,
     },
@@ -341,10 +322,10 @@ export default {
         selectedGroupGearByClass: '',
 
         sortGearBy: sortGearTypes,
-        selectedSortGearBy: 'sortByType',
+        selectedSortGearBy: sortGearTypes[0],
 
-        sortItemsBy: ['AZ', 'sortByNumber'],
-        selectedSortItemsBy: 'AZ',
+        sortItemsBy: sortItems,
+        selectedSortItemsBy: sortItems[0],
 
         selectedItemScopeToSell: null,
 
@@ -366,7 +347,14 @@ export default {
         userItems: 'user.data.items',
       }),
       marketGearCategories () {
-        return shops.getMarketGearCategories(this.user);
+        return shops.getMarketGearCategories(this.user).map(c => {
+          c.id = c.identifier;
+
+          return c;
+        });
+      },
+      selectedGearCategory () {
+        return this.marketGearCategories.filter(c => c.id === this.selectedGroupGearByClass)[0];
       },
       market () {
         return shops.getMarketShop(this.user);
@@ -548,7 +536,7 @@ export default {
             result = _sortBy(result, item => {
               if (item.showCount === false) return 0;
 
-              return this.userItems[item.purchaseType][item.key] || 0;
+              return -(this.userItems[item.purchaseType][item.key] || 0);
             });
             break;
           }
