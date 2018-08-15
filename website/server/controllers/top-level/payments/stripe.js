@@ -1,7 +1,6 @@
 import shared from '../../../../common';
 import {
   authWithHeaders,
-  authWithUrl,
 } from '../../../middlewares/auth';
 import stripePayments from '../../../libs/payments/stripe';
 
@@ -74,7 +73,7 @@ api.subscribeEdit = {
 api.subscribeCancel = {
   method: 'GET',
   url: '/stripe/subscribe/cancel',
-  middlewares: [authWithUrl],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.query.groupId;
