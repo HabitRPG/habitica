@@ -1,6 +1,6 @@
 <template lang="pug">
-  .row.market
-    .standard-sidebar.d-none.d-sm-block
+  page-layout.market
+    div(slot="sidebar")
       .form-group
         input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
       .form
@@ -23,8 +23,8 @@
           toggle-switch.float-right(
             v-model="hidePinned",
           )
-    .standard-page
-      featuredItemsHeader(
+    div(slot="page")
+      featured-items-header(
         :broken="broken",
         :npcName="'Alex'",
         :featuredText="market.featured.text",
@@ -204,9 +204,6 @@
       margin: 0 auto;
     }
 
-    .standard-page {
-      position: relative;
-    }
 
     .featuredItems {
       .background {
@@ -258,6 +255,7 @@
   import Avatar from 'client/components/avatar';
   import InventoryDrawer from 'client/components/shared/inventoryDrawer';
   import FeaturedItemsHeader from '../featuredItemsHeader';
+  import PageLayout from 'client/components/ui/pageLayout';
 
   import SellModal from './sellModal.vue';
   import EquipmentAttributesGrid from '../../inventory/equipment/attributesGrid.vue';
@@ -314,6 +312,7 @@ export default {
 
       InventoryDrawer,
       FeaturedItemsHeader,
+      PageLayout,
 
       SelectMembersModal,
     },
