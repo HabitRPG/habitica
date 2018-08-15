@@ -66,6 +66,11 @@ schema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
   return this.sanitize(updateObj, noUpdate);
 };
 
+// Returns true if user is the leader/owner of the challenge
+schema.methods.isLeader = function isChallengeLeader (user) {
+  return this.leader === user._id;
+};
+
 // Returns true if user is a member of the challenge
 schema.methods.isMember = function isChallengeMember (user) {
   return user.challenges.indexOf(this._id) !== -1;
@@ -73,7 +78,7 @@ schema.methods.isMember = function isChallengeMember (user) {
 
 // Returns true if the user can modify (close, selectWinner, ...) the challenge
 schema.methods.canModify = function canModifyChallenge (user) {
-  return user.contributor.admin || this.leader === user._id;
+  return user.contributor.admin || isLeader(user);
 };
 
 // Returns true if user can join the challenge
