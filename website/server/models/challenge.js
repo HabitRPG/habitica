@@ -76,17 +76,17 @@ schema.methods.canModify = function canModifyChallenge (user) {
   return user.contributor.admin || this.leader === user._id;
 };
 
-// Returns true if user has access to the challenge (can join)
-schema.methods.hasAccess = function hasAccessToChallenge (user, group) {
+// Returns true if user can join the challenge
+schema.methods.canJoin = function canJoinChallenge (user, group) {
   if (group.type === 'guild' && group.privacy === 'public') return true;
   return user.getGroups().indexOf(this.group) !== -1;
 };
 
 // Returns true if user can view the challenge
-// Different from hasAccess because you can see challenges of groups you've been removed from if you're partecipating in them
+// Different from canJoin because you can see challenges of groups you've been removed from if you're participating in them
 schema.methods.canView = function canViewChallenge (user, group) {
   if (this.isMember(user)) return true;
-  return this.hasAccess(user, group);
+  return this.canJoin(user, group);
 };
 
 // Sync challenge to user, including tasks and tags.
