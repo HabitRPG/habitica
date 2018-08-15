@@ -55,21 +55,10 @@
               div(v-if="expandAuth")
                 pre {{hero.auth}}
                 .form-group
-                  h5 User Mute Settings
                   .checkbox
                     label
                       input(type='checkbox', v-if='hero.flags', v-model='hero.flags.chatRevoked')
                       strong Chat Privileges Revoked
-                  div(v-if='hero.flags.chatRevoked && hero.flags.chatRevokedEndDate')
-                    strong User is currently muted until
-                    br
-                    div {{ userRevokedEndDate(hero) }}
-                  div(v-else-if='hero.flags.chatRevoked')
-                    strong User is currently muted indefinitely
-                  div
-                    strong For how many days from today do you want to mute this user? Leave as 0 for indefinite.
-                    br
-                    input(type='number', v-model='numberOfDaysToMute')
                 .form-group
                   .checkbox
                     label
@@ -114,7 +103,6 @@
 </style>
 
 <script>
-import moment from 'moment';
 import each from 'lodash/each';
 
 import markdownDirective from 'client/directives/markdown';
@@ -143,7 +131,6 @@ export default {
       gear,
       expandItems: false,
       expandAuth: false,
-      numberOfDaysToMute: 0,
     };
   },
   directives: {
@@ -156,10 +143,6 @@ export default {
     ...mapState({user: 'user.data'}),
   },
   methods: {
-    userRevokedEndDate (hero) {
-      if (moment().isAfter(moment(hero.flags.chatRevokedEndDate))) return 'User is no longer muted';
-      return moment(hero.flags.chatRevokedEndDate).format(this.user.preferences.dateFormat.toUpperCase());
-    },
     getAllItemPaths () {
       // let questsFormat = this.getFormattedItemReference('items.quests', keys(this.quests), 'Numeric Quantity');
       // let mountsFormat = this.getFormattedItemReference('items.mounts', keys(this.mountInfo), 'Boolean');
@@ -200,11 +183,6 @@ export default {
       this.expandAuth = false;
     },
     async saveHero () {
-      if (this.numberOfDaysToMute) {
-        const dayToEndMute = moment().add(this.numberOfDaysToMute, 'days').utc().toDate();
-        this.hero.flags.chatRevokedEndDate = dayToEndMute;
-      }
-
       this.hero.contributor.admin = this.hero.contributor.level > 7 ? true : false;
       let heroUpdated = await this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
       this.text('User updated');
@@ -212,7 +190,6 @@ export default {
       this.heroID = -1;
       this.heroes[this.currentHeroIndex] = heroUpdated;
       this.currentHeroIndex = -1;
-      this.numberOfDaysToMute = 0;
     },
     populateContributorInput (id, index) {
       this.heroID = id;
@@ -225,9 +202,6 @@ export default {
         user: heroDetails.data.data,
         startingPage: 'profile',
       });
-    },
-    userLevelStyle () {
-      // @TODO: implement
     },
   },
 };
