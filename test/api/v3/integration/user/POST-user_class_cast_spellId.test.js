@@ -63,7 +63,7 @@ describe('POST /user/class/cast/:spellId', () => {
       'stats.class': 'healer',
       'stats.lvl': 11,
       'stats.hp': 50,
-      'stats.mp': 200
+      'stats.mp': 200,
     });
     await expect(user.post('/user/class/cast/heal'))
       .to.eventually.be.rejected.and.eql({
