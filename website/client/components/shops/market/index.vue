@@ -90,42 +90,41 @@
           )
             span(slot="item", slot-scope="ctx")
               span.text {{ $t(ctx.item.id) }}
-        div(slot="content")
-          div(
-            v-for="category in categories",
-            v-if="viewOptions[category.identifier].selected && category.identifier !== 'equipment'"
+      div(
+        v-for="category in categories",
+        v-if="viewOptions[category.identifier].selected && category.identifier !== 'equipment'"
+      )
+        h4 {{ category.text }}
+
+        div.items
+          shopItem(
+            v-for="item in sortedMarketItems(category, selectedSortItemsBy.id, searchTextThrottled, hidePinned)",
+            :key="item.key",
+            :item="item",
+            :emptyItem="false",
+            :popoverPosition="'top'",
+            @click="itemSelected(item)"
           )
-            h4 {{ category.text }}
-
-            div.items
-              shopItem(
-                v-for="item in sortedMarketItems(category, selectedSortItemsBy.id, searchTextThrottled, hidePinned)",
-                :key="item.key",
-                :item="item",
-                :emptyItem="false",
-                :popoverPosition="'top'",
-                @click="itemSelected(item)"
+            span(slot="popoverContent")
+              strong(v-if='item.key === "gem" && gemsLeft === 0') {{ $t('maxBuyGems') }}
+              h4.popover-content-title {{ item.text }}
+            template(slot="itemBadge", slot-scope="ctx")
+              countBadge(
+                v-if="item.showCount != false",
+                :show="userItems[item.purchaseType][item.key] != 0",
+                :count="userItems[item.purchaseType][item.key] || 0"
               )
-                span(slot="popoverContent")
-                  strong(v-if='item.key === "gem" && gemsLeft === 0') {{ $t('maxBuyGems') }}
-                  h4.popover-content-title {{ item.text }}
-                template(slot="itemBadge", slot-scope="ctx")
-                  countBadge(
-                    v-if="item.showCount != false",
-                    :show="userItems[item.purchaseType][item.key] != 0",
-                    :count="userItems[item.purchaseType][item.key] || 0"
-                  )
-                  .badge.badge-pill.badge-purple.gems-left(v-if='item.key === "gem"')
-                    | {{ gemsLeft }}
-                  span.badge.badge-pill.badge-item.badge-svg(
-                    :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
-                    @click.prevent.stop="togglePinned(ctx.item)"
-                  )
-                    span.svg-icon.inline.icon-12.color(v-html="icons.pin")
+              .badge.badge-pill.badge-purple.gems-left(v-if='item.key === "gem"')
+                | {{ gemsLeft }}
+              span.badge.badge-pill.badge-item.badge-svg(
+                :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
+                @click.prevent.stop="togglePinned(ctx.item)"
+              )
+                span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
-              keys-to-kennel(v-if='category.identifier === "special"')
+          keys-to-kennel(v-if='category.identifier === "special"')
 
-            div.fill-height
+        div.fill-height
 
       inventoryDrawer(:showEggs="true", :showPotions="true")
         template(slot="item", slot-scope="ctx")
