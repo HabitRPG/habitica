@@ -58,7 +58,7 @@
                   .checkbox
                     label
                       input(type='checkbox', v-if='hero.flags', v-model='hero.flags.chatRevoked')
-                      | Chat Privileges Revoked
+                      strong Chat Privileges Revoked
                 .form-group
                   .checkbox
                     label
@@ -103,7 +103,6 @@
 </style>
 
 <script>
-// import keys from 'lodash/keys';
 import each from 'lodash/each';
 
 import markdownDirective from 'client/directives/markdown';
@@ -174,7 +173,7 @@ export default {
     async loadHero (uuid, heroIndex) {
       this.currentHeroIndex = heroIndex;
       let hero = await this.$store.dispatch('hall:getHero', { uuid });
-      this.hero = Object.assign({}, this.hero, hero);
+      this.hero = Object.assign({}, hero);
       if (!this.hero.flags) {
         this.hero.flags = {
           chatRevoked: false,
@@ -203,9 +202,6 @@ export default {
         user: heroDetails.data.data,
         startingPage: 'profile',
       });
-    },
-    userLevelStyle () {
-      // @TODO: implement
     },
   },
 };
