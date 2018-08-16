@@ -1,6 +1,5 @@
 import { IncomingWebhook } from '@slack/client';
 import nconf from 'nconf';
-import moment from 'moment';
 import {
   createAndPopulateGroup,
   generateUser,
