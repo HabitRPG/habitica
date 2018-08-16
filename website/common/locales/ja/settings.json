@@ -183,7 +183,7 @@
     "mysticHourglassesTooltip": "神秘の砂時計",
     "paypal": "PayPal",
     "amazonPayments": "Amazon ペイメント",
-    "amazonPaymentsRecurring": "Ticking the checkbox below is necessary for your subscription to be created. It allows your Amazon account to be used for ongoing payments for <strong>this</strong> subscription. It will not cause your Amazon account to be automatically used for any future purchases.",
+    "amazonPaymentsRecurring": "寄付をするためには、以下のチェックボックスをチェックする必要があります。これをチェックするとあなたのAmazonアカウントを<strong>寄付のため</strong>の継続した支払いに利用することを承認します。あなたのAmazonアカウントが今後何らかの購入のために自動的に使われてしまうことはありません。",
     "timezone": "タイム ゾーン",
     "timezoneUTC": "Habitica はお使いのPCに設定されたタイム ゾーンを利用します。現在の設定 : <strong><%= utc %></strong>",
     "timezoneInfo": "タイムゾーンの設定が間違っているなら、このページをブラウザのリロード ( 再読み込み ) またはリフレッシュ ( 更新 ) ボタンで、Habitica を最新の状態にしてください。それでもまだ間違っているなら、PC のタイムゾーンを調整し、再度このページをリロード ( 再読み込み ) してください<br><br><strong>もし、別のPCやモバイル機器でも Habitica を使っているなら、すべてを同じタイムゾーンに設定しなくてはなりません。</strong> もし日課がも違った時間にリセットされたら、これまでのチェックを別のすべてのPCとモバイル機器の Web ブラウザでくり返してください。",
