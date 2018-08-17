@@ -103,7 +103,8 @@ div
 
 <style lang='scss'>
   @import '~client/assets/scss/colors.scss';
-
+  @import '~smartbanner.js/dist/smartbanner.min.css';
+  
   /* @TODO: The modal-open class is not being removed. Let's try this for now */
   .modal {
     overflow-y: scroll !important;
