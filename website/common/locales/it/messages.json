@@ -43,7 +43,6 @@
     "messageAuthNoUserFound": "Nessun utente trovato.",
     "messageAuthMustBeLoggedIn": "Devi aver eseguito l'accesso.",
     "messageAuthMustIncludeTokens": "Devi includere una chiave e un UID (ID utente) nella tua richiesta.",
-    "messageGroupNotFound": "Gruppo inesistente o a cui non puoi accedere.",
     "messageGroupAlreadyInParty": "Già in una squadra, prova a ricaricare la pagina.",
     "messageGroupOnlyLeaderCanUpdate": "Solo il leader del gruppo può aggiornare il gruppo!",
     "messageGroupRequiresInvite": "Non puoi unirti ad un gruppo se non sei stato invitato.",

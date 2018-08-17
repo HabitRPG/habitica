@@ -6,21 +6,21 @@ b-modal#login-incentives(:title="data.message", size='md', :hide-footer="true")
     .row.reward-row
       .col-12
         avatar.avatar(:member='user', :avatarOnly='true', :withBackground='true')
-      .text-center.col-12
+      .text-center.col-12(v-if='nextReward')
         .reward-wrap(v-if="!data.rewardText")
           div(v-if="nextReward.rewardKey.length === 1", :class="nextReward.rewardKey[0]")
           .reward(v-for="reward in nextReward.rewardKey", v-if="nextReward.rewardKey.length > 1", :class='reward')
         .reward-wrap(v-if="data.rewardText")
           div(v-if="data.rewardKey.length === 1", :class="data.rewardKey[0]")
           .reward(v-for="reward in data.rewardKey", v-if="data.rewardKey.length > 1", :class='reward')
-      .col-12.text-center(v-if="data.nextRewardAt")
+      .col-12.text-center(v-if="data && data.nextRewardAt")
         h4 {{ $t('countLeft', {count: data.nextRewardAt - user.loginIncentives}) }}
     .row
       .col-12.text-center(v-if='data.rewardText')
         p {{ $t('earnedRewardForDevotion', {reward: data.rewardText}) }}
       .col-12.text-center
         p {{ $t('incentivesDescription') }}
-      .col-12.text-center(v-if="data.nextRewardAt")
+      .col-12.text-center(v-if="data && data.nextRewardAt")
         h3 {{ $t('nextRewardUnlocksIn', {numberOfCheckinsLeft: data.nextRewardAt - user.loginIncentives}) }}
   .modal-footer
     .col-12.text-center
@@ -70,8 +70,9 @@ export default {
       user: 'user.data',
     }),
     nextReward () {
-      let nextRewardKey = this.loginIncentives[this.user.loginIncentives].nextRewardAt;
-      let nextReward = this.loginIncentives[nextRewardKey];
+      if (!this.loginIncentives[this.user.loginIncentives]) return;
+      const nextRewardKey = this.loginIncentives[this.user.loginIncentives].nextRewardAt;
+      const nextReward = this.loginIncentives[nextRewardKey];
       return nextReward;
     },
   },

@@ -43,7 +43,6 @@
     "messageAuthNoUserFound": "Usuário não encontrado.",
     "messageAuthMustBeLoggedIn": "Deve ter a sessão iniciada.",
     "messageAuthMustIncludeTokens": "Você deve incluir o token e uid (ID do Usuário) na sua requisição",
-    "messageGroupNotFound": "Grupo não encontrado ou você não tem acesso.",
     "messageGroupAlreadyInParty": "Já faz parte de uma equipa, tente recarregar.",
     "messageGroupOnlyLeaderCanUpdate": "Apenas o líder do grupo pode atualizar o grupo!",
     "messageGroupRequiresInvite": "Não pode entrar em grupo para o qual não foi convidado.",

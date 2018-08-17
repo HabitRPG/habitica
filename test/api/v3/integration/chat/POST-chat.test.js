@@ -1,3 +1,5 @@
+import { IncomingWebhook } from '@slack/client';
+import nconf from 'nconf';
 import {
   createAndPopulateGroup,
   generateUser,
@@ -15,8 +17,6 @@ import { getMatchesByWordArray } from '../../../../../website/server/libs/string
 import bannedWords from '../../../../../website/server/libs/bannedWords';
 import guildsAllowingBannedWords from '../../../../../website/server/libs/guildsAllowingBannedWords';
 import * as email from '../../../../../website/server/libs/email';
-import { IncomingWebhook } from '@slack/client';
-import nconf from 'nconf';
 
 const BASE_URL = nconf.get('BASE_URL');
 
@@ -80,12 +80,14 @@ describe('POST /chat', () => {
     });
   });
 
-  it('returns an error when chat privileges are revoked when sending a message to a public guild', async () => {
-    let userWithChatRevoked = await member.update({'flags.chatRevoked': true});
-    await expect(userWithChatRevoked.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
-      code: 401,
-      error: 'NotAuthorized',
-      message: t('chatPrivilegesRevoked'),
+  describe('mute user', () => {
+    it('returns an error when chat privileges are revoked when sending a message to a public guild', async () => {
+      const userWithChatRevoked = await member.update({'flags.chatRevoked': true});
+      await expect(userWithChatRevoked.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('chatPrivilegesRevoked'),
+      });
     });
   });
 
@@ -273,6 +275,7 @@ describe('POST /chat', () => {
         message: t('chatPrivilegesRevoked'),
       });
 
+      // @TODO: The next test should not depend on this. We should reset the user test in a beforeEach
       // Restore chat privileges to continue testing
       user.flags.chatRevoked = false;
       await user.update({'flags.chatRevoked': false});

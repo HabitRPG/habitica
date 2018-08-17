@@ -2,7 +2,7 @@
 module.exports = {
   invalidAttribute: '"<%= attr %>" is not a valid Stat.',
 
-  statsObjectRequired: '"stats" update is required',
+  statsObjectRequired: '"stats" object is required',
 
   missingTypeParam: '"req.params.type" is required.',
   missingKeyParam: '"req.params.key" is required.',

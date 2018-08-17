@@ -222,7 +222,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
         .col-12.customize-options
           .option(@click='set({"preferences.chair": "none"})', :class='{active: user.preferences.chair === "none"}')
             | None
-          .option(v-for='option in ["black", "blue", "green", "pink", "red", "yellow"]',
+          .option(v-for='option in chairKeys',
             :class='{active: user.preferences.chair === option}')
             .chair.sprite.customize-option(:class="`button_chair_${option}`", @click='set({"preferences.chair": option})')
       #flowers.row(v-if='activeSubPage === "flower"')
@@ -856,7 +856,7 @@ import isPinned from 'common/script/libs/isPinned';
 const skinsBySet = groupBy(appearance.skin, 'set.key');
 const hairColorBySet = groupBy(appearance.hair.color, 'set.key');
 
-let tasksByCategory = {
+const tasksByCategory = {
   work: [
     {
       type: 'habit',
@@ -1014,6 +1014,7 @@ export default {
       baseHair5Keys: [1, 2],
       baseHair6Keys: [1, 2, 3],
       animalEarsKeys: ['bearEars', 'cactusEars', 'foxEars', 'lionEars', 'pandaEars', 'pigEars', 'tigerEars', 'wolfEars'],
+      chairKeys: ['black', 'blue', 'green', 'pink', 'red', 'yellow', 'handleless_black', 'handleless_blue', 'handleless_green', 'handleless_pink', 'handleless_red', 'handleless_yellow'],
       icons: Object.freeze({
         logoPurple,
         bodyIcon,
