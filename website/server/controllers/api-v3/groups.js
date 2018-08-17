@@ -941,7 +941,7 @@ api.removeGroupMember = {
       group.save(),
     ]);
 
-    if (group.hasNotCancelled())  {
+    if (isInGroup && group.hasNotCancelled())  {
       await group.updateGroupPlan(true);
       await payments.cancelGroupSubscriptionForUser(member, group, true);
     }
