@@ -1089,7 +1089,7 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
   return await Promise.all(promises);
 };
 
-schema.statics.processQuestProgress = async function processQuestProgress (user, progress, analytics, headers) {
+schema.statics.processQuestProgress = async function processQuestProgress (user, progress) {
   let group = await this.getGroup({user, groupId: 'party'});
 
   if (!_isOnQuest(user, progress, group)) return;
@@ -1104,14 +1104,6 @@ schema.statics.processQuestProgress = async function processQuestProgress (user,
     user,
     progress,
     group,
-  });
-
-  analytics.track('quest participation', {
-    category: 'behavior',
-    uuid: user._id,
-    user,
-    headers,
-    questKey: group.quest.key,
   });
 };
 

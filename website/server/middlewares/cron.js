@@ -110,7 +110,7 @@ async function cronAsync (req, res) {
     });
     await Promise.all(toSave);
 
-    await Group.processQuestProgress(user, progress, analytics, req.headers);
+    await Group.processQuestProgress(user, progress);
 
     // Set _cronSignature, lastCron and auth.timestamps.loggedin to signal end of cron
     await User.update({
