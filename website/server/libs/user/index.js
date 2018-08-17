@@ -5,6 +5,30 @@ import {
   BadRequest,
   NotAuthorized,
 } from '../../libs/errors';
+import { model as User } from '../../models/user';
+
+export async function get (req, res, { isV3 = false }) {
+  const user = res.locals.user;
+  let userToJSON;
+
+  if (isV3) {
+    userToJSON = await user.toJSONWithInbox();
+  } else {
+    userToJSON = user.toJSON();
+  }
+
+  // Remove apiToken from response TODO make it private at the user level? returned in signup/login
+  delete userToJSON.apiToken;
+
+  if (!req.query.userFields) {
+    let {daysMissed} = user.daysUserHasMissed(new Date(), req);
+    userToJSON.needsCron = false;
+    if (daysMissed > 0) userToJSON.needsCron = true;
+    User.addComputedStatsToJSONObj(userToJSON.stats, userToJSON);
+  }
+
+  return res.respond(200, userToJSON);
+}
 
 const updatablePaths = [
   '_ABtests.counter',

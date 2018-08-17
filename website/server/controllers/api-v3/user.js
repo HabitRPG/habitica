@@ -8,9 +8,6 @@ import {
   basicFields as basicGroupFields,
   model as Group,
 } from '../../models/group';
-import {
-  model as User,
-} from '../../models/user';
 import * as Tasks from '../../models/task';
 import _ from 'lodash';
 import * as passwordUtils from '../../libs/password';
@@ -36,6 +33,8 @@ const DELETE_CONFIRMATION = 'DELETE';
  */
 
 let api = {};
+
+/* NOTE this route has also an API v4 version */
 
 /**
  * @api {get} /api/v3/user Get the authenticated user's profile
@@ -85,20 +84,7 @@ api.getUser = {
   middlewares: [authWithHeaders()],
   url: '/user',
   async handler (req, res) {
-    let user = res.locals.user;
-    let userToJSON = await user.toJSONWithInbox();
-
-    // Remove apiToken from response TODO make it private at the user level? returned in signup/login
-    delete userToJSON.apiToken;
-
-    if (!req.query.userFields) {
-      let {daysMissed} = user.daysUserHasMissed(new Date(), req);
-      userToJSON.needsCron = false;
-      if (daysMissed > 0) userToJSON.needsCron = true;
-      User.addComputedStatsToJSONObj(userToJSON.stats, userToJSON);
-    }
-
-    return res.respond(200, userToJSON);
+    await userLib.get(req, res, { isV3: true });
   },
 };
 
