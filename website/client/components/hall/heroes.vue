@@ -106,6 +106,7 @@
 import each from 'lodash/each';
 
 import markdownDirective from 'client/directives/markdown';
+import styleHelper from 'client/mixins/styleHelper';
 import { mapState } from 'client/libs/store';
 import quests from 'common/script/content/quests';
 import { mountInfo, petInfo } from 'common/script/content/stable';
@@ -114,7 +115,7 @@ import gear from 'common/script/content/gear';
 import notifications from 'client/mixins/notifications';
 
 export default {
-  mixins: [notifications],
+  mixins: [notifications, styleHelper],
   data () {
     return {
       heroes: [],
