@@ -3,6 +3,7 @@ import {
   NotAuthorized,
   NotFound,
 } from '../../libs/errors';
+import { model as PushDevice } from '../../models/pushDevice';
 
 let api = {};
 
@@ -25,12 +26,12 @@ api.addPushDevice = {
     userFieldsToExclude: ['inbox'],
   })],
   async handler (req, res) {
-    let user = res.locals.user;
+    const user = res.locals.user;
 
     req.checkBody('regId', res.t('regIdRequired')).notEmpty();
     req.checkBody('type', res.t('typeRequired')).notEmpty().isIn(['ios', 'android']);
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
     const pushDevices = user.pushDevices;
@@ -44,9 +45,14 @@ api.addPushDevice = {
       throw new NotAuthorized(res.t('pushDeviceAlreadyAdded'));
     }
 
+    // Concurrency safe update
+    const pushDevice = (new PushDevice(item)).toJSON(); // Create a mongo doc
     await user.update({
-      $push: { pushDevices: item },
+      $push: { pushDevices: pushDevice },
     }).exec();
+
+    // Update the response
+    user.pushDevices.push(pushDevice);
 
     res.respond(200, user.pushDevices, res.t('pushDeviceAdded'));
   },
@@ -70,16 +76,18 @@ api.removePushDevice = {
     userFieldsToExclude: ['inbox'],
   })],
   async handler (req, res) {
-    let user = res.locals.user;
+    const user = res.locals.user;
 
     req.checkParams('regId', res.t('regIdRequired')).notEmpty();
-    let validationErrors = req.validationErrors();
+
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
-    let regId = req.params.regId;
 
-    let pushDevices = user.pushDevices;
+    const regId = req.params.regId;
 
-    let indexOfPushDevice = pushDevices.findIndex((element) => {
+    const pushDevices = user.pushDevices;
+
+    const indexOfPushDevice = pushDevices.findIndex((element) => {
       return element.regId === regId;
     });
 
@@ -87,8 +95,12 @@ api.removePushDevice = {
       throw new NotFound(res.t('pushDeviceNotFound'));
     }
 
+    // Concurrency safe update
     const pullQuery = { $pull: { pushDevices: { $elemMatch: { regId } } } };
     await user.update(pullQuery).exec();
+
+    // Update the response
+    pushDevices.splice(indexOfPushDevice, 1);
 
     res.respond(200, user.pushDevices, res.t('pushDeviceRemoved'));
   },

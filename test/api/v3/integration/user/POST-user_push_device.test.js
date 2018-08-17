@@ -54,6 +54,8 @@ describe('POST /user/push-devices', () => {
     await user.sync();
 
     expect(response.message).to.equal(t('pushDeviceAdded'));
+    expect(response.data[0].type).to.equal(type);
+    expect(response.data[0].regId).to.equal(regId);
     expect(user.pushDevices[0].type).to.equal(type);
     expect(user.pushDevices[0].regId).to.equal(regId);
   });
@@ -65,6 +67,7 @@ describe('POST /user/push-devices', () => {
     await user.sync();
 
     expect(response.message).to.equal(t('pushDeviceRemoved'));
+    expect(response.data[0]).to.not.exist;
     expect(user.pushDevices[0]).to.not.exist;
   });
 });
