@@ -43,7 +43,6 @@
     "messageAuthNoUserFound": "Felhasználó nem található",
     "messageAuthMustBeLoggedIn": "Be kell jelentkezned.",
     "messageAuthMustIncludeTokens": "Mellékelned kell egy kulcsot és uid (felhasználói azonosítót) a kérésedhez.",
-    "messageGroupNotFound": "A csoport nem található, vagy nincs hozzá jogosultságod.",
     "messageGroupAlreadyInParty": "Már csapatban vagy, próbálj frissíteni.",
     "messageGroupOnlyLeaderCanUpdate": "Csak a csoportvezető tudja frissíteni a csoportot!",
     "messageGroupRequiresInvite": "Nem léphetsz be olyan csoportba, ahova nem vagy meghívva.",

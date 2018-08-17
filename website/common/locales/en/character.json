@@ -214,16 +214,11 @@
   "editProfile": "Edit Profile",
   "challengesWon": "Challenges Won",
   "questsCompleted": "Quests Completed",
-  "equipment": "Equipment",
-  "costume": "Costume",
   "headAccess": "Head Access.",
   "backAccess": "Back Access.",
   "bodyAccess": "Body Access.",
   "mainHand": "Main-Hand",
   "offHand": "Off-Hand",
-  "level": "Level",
-  "allocated": "Allocated",
-  "buffs": "Buffs",
   "statPoints": "Stat Points",
   "pts": "pts"
 }

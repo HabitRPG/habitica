@@ -43,7 +43,6 @@
     "messageAuthNoUserFound": "No user c'n be found.",
     "messageAuthMustBeLoggedIn": "Ye must be logged in.",
     "messageAuthMustIncludeTokens": "Ye must include a token and uid (user id) in yer request",
-    "messageGroupNotFound": "Can't be findin' the group. That or ye don't have access.",
     "messageGroupAlreadyInParty": "Already in a party; try refreshin'.",
     "messageGroupOnlyLeaderCanUpdate": "Only th' group leader c'n update th' group!",
     "messageGroupRequiresInvite": "Can't join a group yer not invited to.",

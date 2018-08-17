@@ -43,7 +43,6 @@
     "messageAuthNoUserFound": "Používateľ sa nenašiel.",
     "messageAuthMustBeLoggedIn": "Musíš byť prihlásený/á.",
     "messageAuthMustIncludeTokens": "Tvoja požiadavka musí obsahovať token a uid (id užívateľa)",
-    "messageGroupNotFound": "Skupina sa nenašla alebo k nej nemáš prístup.",
     "messageGroupAlreadyInParty": "Už si v družine. Skús obnoviť stránku.",
     "messageGroupOnlyLeaderCanUpdate": "Len vedúci skupiny môže aktualizovať skupinu!",
     "messageGroupRequiresInvite": "Nemôžeš sa pridať ku skupine, do ktorej nie si pozvaný.",

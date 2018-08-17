@@ -47,7 +47,7 @@
     "hard": "困難",
     "attributes": "屬性",
     "attributeAllocation": "屬性分配",
-    "attributeAllocationHelp": "Stat allocation is an option that provides methods for Habitica to automatically assign an earned Stat Point to a Stat immediately upon level-up. <br/><br/> You can set your Automatic Allocation method to Task Based in the Stats section of your profile.",
+    "attributeAllocationHelp": "屬性點分配是一個功能讓Habitica自動地分配得到的屬性點讓屬性升級，<br/><br/>你可以在你個人檔案的屬性點頁面設定你的自動分配功能為任務取向。",
     "progress": "進度",
     "daily": "每日任務",
     "dailies": "每日任務",
