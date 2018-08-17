@@ -77,12 +77,14 @@ api.subscribeCancel = {
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.query.groupId;
-    let redirect = req.query.redirect;
 
     await stripePayments.cancelSubscription({user, groupId});
 
-    if (redirect === 'none') return res.respond(200, {});
-    return res.redirect('/');
+    if (req.query.noRedirect) {
+      res.respond(200);
+    } else {
+      res.redirect('/');
+    }
   },
 };
 
