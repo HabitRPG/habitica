@@ -66,8 +66,8 @@ async function buyArmoire (store, params) {
     }
 
     if (item.type === 'food') {
-      if (!store.state.user.data.items.gear.owned[item.dropKey]) store.state.user.data.items.gear.owned[item.dropKey] = 0;
-      store.state.user.data.items.gear.owned[item.dropKey] += 1;
+      if (!store.state.user.data.items.food[item.dropKey]) store.state.user.data.items.food[item.dropKey] = 0;
+      store.state.user.data.items.food[item.dropKey] += 1;
     }
 
     store.state.user.data.stats.gp -= armoire.value;
