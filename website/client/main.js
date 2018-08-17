@@ -9,7 +9,7 @@ import getStore from './store';
 import StoreModule from './libs/store';
 import './filters/registerGlobals';
 import i18n from './libs/i18n';
-import smartbanner from 'smartbanner.js/dist/smartbanner'; // eslint-disable-line
+import 'smartbanner.js/dist/smartbanner';
 
 import BootstrapVue from 'bootstrap-vue';
 
