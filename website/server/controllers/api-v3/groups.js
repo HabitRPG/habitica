@@ -631,7 +631,7 @@ api.joinGroup = {
     promises = await Promise.all(promises);
 
     // @TODO: Review the need for this and if still needed, don't base this on memberCount
-    if (!group.hasNotCancelled() && group.memberCount === 0) group.leader = user._id; // If new user is only member -> set as leader
+    if (!group.hasNotCancelled() && group.memberCount === 1) group.leader = user._id; // If new user is only member -> set as leader
 
     if (group.hasNotCancelled())  {
       await payments.addSubToGroupUser(user, group);
