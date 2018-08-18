@@ -176,11 +176,11 @@ export default {
       }
     },
     showPartyMembers () {
-      // Set the party details for the members-modal component
-      this.$store.state.memberModalOptions.groupId = this.user.party._id;
-      this.$store.state.memberModalOptions.viewingMembers = this.partyMembers;
-      this.$store.state.memberModalOptions.group = this.user.party;
-      this.$root.$emit('bv::show::modal', 'members-modal');
+      this.$root.$emit('habitica:show-member-modal', {
+        groupId: this.user.party._id,
+        viewingMembers: this.partyMembers,
+        group: this.user.party,
+      });
     },
     setPartyMembersWidth ($event) {
       if (this.currentWidth !== $event.width) {

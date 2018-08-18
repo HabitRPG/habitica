@@ -43,7 +43,6 @@
     "messageAuthNoUserFound": "Потребителят не е намерен.",
     "messageAuthMustBeLoggedIn": "Трябва да сте влезли в системата.",
     "messageAuthMustIncludeTokens": "Трябва да включите жетон и потребителски идентификатор в заявката си",
-    "messageGroupNotFound": "Групата не е намерена или нямате достъп.",
     "messageGroupAlreadyInParty": "Вече сте в група, опитайте да опресните.",
     "messageGroupOnlyLeaderCanUpdate": "Само водачът на групата може да я актуализира!",
     "messageGroupRequiresInvite": "Не можете да се присъедините към група, за която не сте получили покана.",

@@ -43,7 +43,6 @@
     "messageAuthNoUserFound": "Ingen bruger fundet.",
     "messageAuthMustBeLoggedIn": "Du skal være logget ind først.",
     "messageAuthMustIncludeTokens": "Du skal inkludere en token og uid (bruger ID) i din anmodning",
-    "messageGroupNotFound": "Gruppen blev ikke fundet eller du har ikke adgang.",
     "messageGroupAlreadyInParty": "Allerede i en gruppe, prøv at opdatere.",
     "messageGroupOnlyLeaderCanUpdate": "Kun gruppelederen kan opdatere gruppen!",
     "messageGroupRequiresInvite": "Du kan ikke støde til en gruppe, du ikke er inviteret til.",

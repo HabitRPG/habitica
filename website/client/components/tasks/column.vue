@@ -37,7 +37,7 @@
     draggable.sortable-tasks(
       ref="tasksList",
       @update='taskSorted',
-      :options='{disabled: activeFilter.label === "scheduled"}',
+      :options='{disabled: activeFilter.label === "scheduled", scrollSensitivity: 64}',
       class="sortable-tasks"
     )
       task(
@@ -362,7 +362,7 @@ export default {
           type: this.type,
           filterType: this.activeFilter.label,
         }) :
-        this.filterByCompleted(this.taskListOverride, this.activeFilter.label);
+        this.filterByLabel(this.taskListOverride, this.activeFilter.label);
 
       let taggedList = this.filterByTagList(filteredTaskList, this.selectedTags);
       let searchedList = this.filterBySearchText(taggedList, this.searchText);
@@ -598,10 +598,12 @@ export default {
         }
       });
     },
-    filterByCompleted (taskList, filter) {
+    filterByLabel (taskList, filter) {
       if (!taskList) return [];
       return taskList.filter(task => {
         if (filter === 'complete2') return task.completed;
+        if (filter === 'due') return task.isDue;
+        if (filter === 'notDue') return !task.isDue;
         return !task.completed;
       });
     },

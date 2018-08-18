@@ -375,6 +375,14 @@ let armor = {
     set: 'piraticalPrincess',
     canOwn: ownsItem('armor_armoire_piraticalPrincessGown'),
   },
+  jeweledArcherArmor: {
+    text: t('armorArmoireJeweledArcherArmorText'),
+    notes: t('armorArmoireJeweledArcherArmorNotes', { con: 15 }),
+    value: 100,
+    con: 15,
+    set: 'jeweledArcher',
+    canOwn: ownsItem('armor_armoire_JeweledArcherArmor'),
+  },
 };
 
 let body = {
@@ -810,6 +818,14 @@ let head = {
     int: 8,
     set: 'piraticalPrincess',
     canOwn: ownsItem('head_armoire_piraticalPrincessHeaddress'),
+  },
+  jeweledArcherHelm: {
+    text: t('headArmoireJeweledArcherHelmText'),
+    notes: t('headArmoireJeweledArcherHelmNotes', { int: 15 }),
+    value: 100,
+    int: 15,
+    set: 'jeweledArcher',
+    canOwn: ownsItem('head_armoire_JeweledArcherHelm'),
   },
 };
 
@@ -1332,6 +1348,15 @@ let weapon = {
     int: 7,
     set: 'piraticalPrincess',
     canOwn: ownsItem('weapon_armoire_poisonedGoblet'),
+  },
+  jeweledArcherBow: {
+    text: t('weaponArmoireJeweledArcherBowText'),
+    notes: t('weaponArmoireJeweledArcherBowNotes', { int: 15 }),
+    twoHanded: true,
+    value: 100,
+    int: 15,
+    set: 'jeweledArcher',
+    canOwn: ownsItem('weapon_armoire_JeweledArcherBow'),
   },
 };
 

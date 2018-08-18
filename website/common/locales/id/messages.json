@@ -43,7 +43,6 @@
     "messageAuthNoUserFound": "Tidak ada pengguna yang ditemukan",
     "messageAuthMustBeLoggedIn": "Anda harus masuk.",
     "messageAuthMustIncludeTokens": "Anda harus menyertakan token dan uid (id pengguna) di dalam permintaan",
-    "messageGroupNotFound": "Grup tidak ditemukan atau kamu tidak memiliki akses.",
     "messageGroupAlreadyInParty": "Telah ada di dalam party, coba muat ulang.",
     "messageGroupOnlyLeaderCanUpdate": "Hanya pemimpin grup yang dapat memperbaharui grup!",
     "messageGroupRequiresInvite": "Tidak dapat bergubung ke dalam grup tanpa diundang.",

@@ -43,7 +43,6 @@
     "messageAuthNoUserFound": "Utilisateur introuvable.",
     "messageAuthMustBeLoggedIn": "Vous devez être connecté.",
     "messageAuthMustIncludeTokens": "Votre demande doit contenir un jeton d'API et un ID d'utilisateur.",
-    "messageGroupNotFound": "Groupe introuvable ou vous n'y avez pas accès.",
     "messageGroupAlreadyInParty": "Déjà dans un équipe, essayez d'actualiser.",
     "messageGroupOnlyLeaderCanUpdate": "Seul le responsable du groupe peut mettre à jour le groupe!",
     "messageGroupRequiresInvite": "Vous ne pouvez rejoindre un groupe sans invitation.",

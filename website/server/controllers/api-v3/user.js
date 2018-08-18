@@ -1445,8 +1445,8 @@ api.userSell = {
  * @apiParam (Query) {String} path Full path to unlock. See "content" API call for list of items.
  *
  * @apiParamExample {curl}
- * curl -x POST http://habitica.com/api/v3/user/unlock?path=background.midnight_clouds
- * curl -x POST http://habitica.com/api/v3/user/unlock?path=hair.color.midnight
+ * curl -X POST http://habitica.com/api/v3/user/unlock?path=background.midnight_clouds
+ * curl -X POST http://habitica.com/api/v3/user/unlock?path=hair.color.midnight
  *
  * @apiSuccess {Object} data.purchased
  * @apiSuccess {Object} data.items

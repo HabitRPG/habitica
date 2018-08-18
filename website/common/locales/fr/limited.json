@@ -123,7 +123,7 @@
     "spring2018DucklingRogueSet": "Voleur caneton (Voleur)",
     "summer2018BettaFishWarriorSet": "Poisson-combattant (Guerrier)",
     "summer2018LionfishMageSet": "Mage poisson-lion (Mage)",
-    "summer2018MerfolkMonarchSet": "Merfolk Monarch (Healer)",
+    "summer2018MerfolkMonarchSet": "Sirène Monarque (Guérisseur)",
     "summer2018FisherRogueSet": "Voleur-pêcheur (Voleur)",
     "eventAvailability": "Disponible à l'achat jusqu'au <%= date(locale) %>.",
     "dateEndMarch": "30 avril",

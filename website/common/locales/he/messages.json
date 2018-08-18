@@ -43,7 +43,6 @@
     "messageAuthNoUserFound": "משתמש לא נמצא.",
     "messageAuthMustBeLoggedIn": "אתם חייבים להיות מחוברים.",
     "messageAuthMustIncludeTokens": "אתם חייבים לכלול אסימון ומזהה-משתמש (uid) בבקשה שלכם",
-    "messageGroupNotFound": "קבוצה לא נמצאה או שאין לכם גישה.",
     "messageGroupAlreadyInParty": "כבר בחבורה, נסו לרענן.",
     "messageGroupOnlyLeaderCanUpdate": "רק מנהיג הקבוצה יכול לעדכן את הקבוצה!",
     "messageGroupRequiresInvite": "לא ניתן להצטרף לקבוצה שאתם לא מוזמנים אליה.",
