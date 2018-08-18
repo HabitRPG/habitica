@@ -103,7 +103,6 @@ div
 
 <style lang='scss'>
   @import '~client/assets/scss/colors.scss';
-  @import '~smartbanner.js/dist/smartbanner.min.css';
   
   /* @TODO: The modal-open class is not being removed. Let's try this for now */
   .modal {
@@ -660,3 +659,4 @@ export default {
 <style src="assets/css/sprites/spritesmith-main-21.css"></style>
 <style src="assets/css/sprites/spritesmith-main-22.css"></style>
 <style src="assets/css/sprites.css"></style>
+<style src="smartbanner.js/dist/smartbanner.min.css"></style>
