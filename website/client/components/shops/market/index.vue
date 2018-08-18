@@ -34,51 +34,12 @@
 
       h1.mb-4.page-header(v-once) {{ $t('market') }}
 
-      layout-section(v-if="viewOptions['equipment'].selected", :title="$t('equipment')")
-        div(slot="filters")
-          filter-dropdown(
-            :label="$t('class')",
-            :initialItem="selectedGearCategory",
-            :items="marketGearCategories",
-            :withIcon="true",
-            @selected="selectedGroupGearByClass = $event.id"
-          )
-            span(slot="item", slot-scope="ctx")
-              span.svg-icon.inline.icon-16(v-html="icons[ctx.item.id]")
-              span.text {{ getClassName(ctx.item.id) }}
-
-          filter-dropdown(
-            :label="$t('sortBy')",
-            :initialItem="selectedSortGearBy",
-            :items="sortGearBy",
-            @selected="selectedSortGearBy = $event"
-          )
-            span(slot="item", slot-scope="ctx")
-              span.text {{ $t(ctx.item.id) }}
-
-        itemRows(
-          :items="filteredGear(selectedGroupGearByClass, searchTextThrottled, selectedSortGearBy.id, hideLocked, hidePinned)",
-          :itemWidth=94,
-          :itemMargin=24,
-          :type="'gear'",
-          :noItemsLabel="$t('noGearItemsOfClass')",
-          slot="content"
-        )
-          template(slot="item", slot-scope="ctx")
-            shopItem(
-              :key="ctx.item.key",
-              :item="ctx.item",
-              :emptyItem="userItems.gear[ctx.item.key] === undefined",
-              :popoverPosition="'top'",
-              @click="gearSelected(ctx.item)"
-            )
-
-              template(slot="itemBadge", slot-scope="ctx")
-                span.badge.badge-pill.badge-item.badge-svg(
-                  :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
-                  @click.prevent.stop="togglePinned(ctx.item)"
-                )
-                  span.svg-icon.inline.icon-12.color(v-html="icons.pin")
+      equipment-section(
+        v-if="viewOptions['equipment'].selected",
+        :hidePinned="hidePinned",
+        :hideLocked="hideLocked",
+        :searchBy="searchTextThrottled"
+      )
 
       layout-section(:title="$t('items')")
         div(slot="filters")
@@ -215,6 +176,7 @@
 
   import ShopItem from '../shopItem';
   import KeysToKennel from './keysToKennel';
+  import EquipmentSection from './equipmentSection';
   import Item from 'client/components/inventory/item';
   import CountBadge from 'client/components/ui/countBadge';
   import ItemRows from 'client/components/ui/itemRows';
@@ -234,10 +196,6 @@
   import svgPin from 'assets/svg/pin.svg';
   import svgGem from 'assets/svg/gem.svg';
   import svgInformation from 'assets/svg/information.svg';
-  import svgWarrior from 'assets/svg/warrior.svg';
-  import svgWizard from 'assets/svg/wizard.svg';
-  import svgRogue from 'assets/svg/rogue.svg';
-  import svgHealer from 'assets/svg/healer.svg';
 
   import getItemInfo from 'common/script/libs/getItemInfo';
   import isPinned from 'common/script/libs/isPinned';
@@ -249,7 +207,6 @@
   import _map from 'lodash/map';
   import _throttle from 'lodash/throttle';
 
-  const sortGearTypes = ['sortByType', 'sortByPrice', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'].map(g => ({id: g}));
   const sortItems = ['AZ', 'sortByNumber'].map(g => ({id: g}));
 
   import notifications from 'client/mixins/notifications';
@@ -257,14 +214,6 @@
   import currencyMixin from '../_currencyMixin';
   import inventoryUtils from 'client/mixins/inventoryUtils';
   import pinUtils from 'client/mixins/pinUtils';
-
-  const sortGearTypeMap = {
-    sortByType: 'type',
-    sortByPrice: 'value',
-    sortByCon: 'con',
-    sortByStr: 'str',
-    sortByInt: 'int',
-  };
 
 export default {
     mixins: [notifications, buyMixin, currencyMixin, inventoryUtils, pinUtils],
@@ -287,6 +236,7 @@ export default {
       LayoutSection,
       FilterDropdown,
       Checkbox,
+      EquipmentSection,
 
       SelectMembersModal,
     },
@@ -306,16 +256,7 @@ export default {
           pin: svgPin,
           gem: svgGem,
           information: svgInformation,
-          warrior: svgWarrior,
-          wizard: svgWizard,
-          rogue: svgRogue,
-          healer: svgHealer,
         }),
-
-        selectedGroupGearByClass: '',
-
-        sortGearBy: sortGearTypes,
-        selectedSortGearBy: sortGearTypes[0],
 
         sortItemsBy: sortItems,
         selectedSortItemsBy: sortItems[0],
@@ -337,16 +278,6 @@ export default {
         userStats: 'user.data.stats',
         userItems: 'user.data.items',
       }),
-      marketGearCategories () {
-        return shops.getMarketGearCategories(this.user).map(c => {
-          c.id = c.identifier;
-
-          return c;
-        });
-      },
-      selectedGearCategory () {
-        return this.marketGearCategories.filter(c => c.id === this.selectedGroupGearByClass)[0];
-      },
       market () {
         return shops.getMarketShop(this.user);
       },
@@ -427,13 +358,6 @@ export default {
       sellItem (itemScope) {
         this.$root.$emit('sellItem', itemScope);
       },
-      getClassName (classType) {
-        if (classType === 'wizard') {
-          return this.$t('mage');
-        } else {
-          return this.$t(classType);
-        }
-      },
       ownedItems (type) {
         let mappedItems = _filter(this.content[type], i => {
           return this.userItems[type][i.key] > 0;
@@ -466,34 +390,7 @@ export default {
         }
       },
 
-      filteredGear (groupByClass, searchBy, sortBy, hideLocked, hidePinned) {
-        let category = _filter(this.marketGearCategories, ['identifier', groupByClass]);
 
-        let result = _filter(category[0].items, (gear) => {
-          if (hideLocked && gear.locked) {
-            return false;
-          }
-          if (hidePinned && gear.pinned) {
-            return false;
-          }
-
-          if (searchBy) {
-            let foundPosition = gear.text.toLowerCase().indexOf(searchBy);
-            if (foundPosition === -1) {
-              return false;
-            }
-          }
-
-          // hide already owned
-          return !this.userItems.gear.owned[gear.key];
-        });
-
-        // first all unlocked
-        // then the selected sort
-        result = _sortBy(result, [(item) => item.locked, sortGearTypeMap[sortBy]]);
-
-        return result;
-      },
       sortedMarketItems (category, sortBy, searchBy, hidePinned) {
         let result = _map(category.items, (e) => {
           return {
@@ -547,19 +444,13 @@ export default {
       },
       featuredItemSelected (item) {
         if (item.purchaseType === 'gear') {
-          this.gearSelected(item);
+          if (!item.locked) {
+            this.itemSelected(item);
+          }
         } else {
           this.itemSelected(item);
         }
       },
-      gearSelected (item) {
-        if (!item.locked) {
-          this.$root.$emit('buyModal::showItem', item);
-        }
-      },
-    },
-    created () {
-      this.selectedGroupGearByClass = this.userStats.class;
     },
   };
 </script>
