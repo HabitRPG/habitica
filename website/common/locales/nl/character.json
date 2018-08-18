@@ -141,7 +141,7 @@
     "evenAllocationPop": "Assigns the same number of Points to each Stat.",
     "classAllocation": "Verdeel punten op basis van klasse",
     "classAllocationPop": "Assigns more Points to the Stats important to your Class.",
-    "taskAllocation": "Distribute Points based on task activity",
+    "taskAllocation": "Verdeel punten gebaseerd op taken activiteiten",
     "taskAllocationPop": "Assigns Points based on the Strength, Intelligence, Constitution, and Perception categories associated with the tasks you complete.",
     "distributePoints": "Verdeel niet toegekende punten",
     "distributePointsPop": "Assigns all unallocated Stat Points according to the selected allocation scheme.",
