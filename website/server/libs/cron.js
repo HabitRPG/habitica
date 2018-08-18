@@ -445,7 +445,6 @@ export function cron (options = {}) {
   if (!user.preferences.sleep) {
     let progress = user.party.quest.progress;
     _progress = progress.toObject(); // clone the old progress object
-    progress.down = -1300;
     _.merge(progress, {down: 0, up: 0, collectedItems: 0});
   }
 
