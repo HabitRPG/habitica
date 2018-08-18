@@ -85,7 +85,7 @@ describe('GET /challenges/:challengeId', () => {
       await groupLeader.post(`/challenges/${challenge._id}/join`);
     });
 
-    it('fails if user doesn\'t have access to the challenge', async () => {
+    it('fails if non-challenge-leader user doesn\'t have access to the challenge', async () => {
       await expect(user.get(`/challenges/${challenge._id}`)).to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
@@ -140,7 +140,7 @@ describe('GET /challenges/:challengeId', () => {
       await groupLeader.post(`/challenges/${challenge._id}/join`);
     });
 
-    it('fails if user doesn\'t have access to the challenge', async () => {
+    it('fails if non-challenge-leader user doesn\'t have access to the challenge', async () => {
       await expect(user.get(`/challenges/${challenge._id}`)).to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
