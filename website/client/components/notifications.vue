@@ -118,8 +118,6 @@ import ultimateGear from './achievements/ultimateGear';
 import wonChallenge from './achievements/wonChallenge';
 import loginIncentives from './achievements/login-incentives';
 
-import revive from '../../common/script/ops/revive';
-
 const NOTIFICATIONS = {
   CHALLENGE_JOINED_ACHIEVEMENT: {
     achievement: true,
@@ -150,11 +148,6 @@ const NOTIFICATIONS = {
     achievement: true,
     label: ($t) => $t('modalContribAchievement'),
     modalId: 'contributor',
-  },
-  DEATH: {
-    sound: 'Death',
-    label: ($t) => $t('lostAllHealth'),
-    modalId: 'death',
   },
 };
 
@@ -220,7 +213,6 @@ export default {
       isRunningYesterdailies: false,
       nextCron: null,
       handledNotifications,
-      reviveRunning: false,
     };
   },
   computed: {
@@ -248,7 +240,7 @@ export default {
     userHp (after, before) {
       if (this.user.needsCron) return;
       if (after <= 0) {
-        this.showDeathNotification();
+        this.showDeathModal();
         // @TODO: {keyboard:false, backdrop:'static'}
       } else if (after <= 30 && !this.user.flags.warnedLowHealth) {
         this.$root.$emit('bv::show::modal', 'low-health');
@@ -348,20 +340,9 @@ export default {
     document.removeEventListener('keydown', this.checkNextCron);
   },
   methods: {
-    showDeathNotification () {
-      if (this.reviveRunning) return;
-
-      this.reviveRunning = true;
-      this.showNotificationWithModal('DEATH');
-
-      // if there is an api call still running (which removes health)
-      // a call to "revive" wouldn't do anything since the user is still alive on the server
-      // wait a second until the prior api call is done
-      setTimeout(async () => {
-        await axios.post('/api/v4/user/revive');
-        revive(this.user);
-        this.reviveRunning = false;
-      }, 1000);
+    showDeathModal () {
+      this.playSound('Death');
+      this.$root.$emit('bv::show::modal', 'death');
     },
     showNotificationWithModal (type, forceToModal) {
       const config = NOTIFICATIONS[type];
@@ -397,7 +378,7 @@ export default {
       }
 
       if (this.user.stats.hp <= 0) {
-        this.showDeathNotification();
+        this.showDeathModal();
       }
 
       if (this.questCompleted) {
