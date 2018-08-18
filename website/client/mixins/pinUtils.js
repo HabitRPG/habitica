@@ -1,8 +1,12 @@
 import notifications from 'client/mixins/notifications';
+import isPinned from 'common/script/libs/isPinned';
 
 export default {
   mixins: [notifications],
   methods: {
+    isPinned (item) {
+      return isPinned(this.user, item);
+    },
     togglePinned (item) {
       if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
         this.showUnpinNotification(item);

@@ -56,32 +56,13 @@
         v-if="viewOptions[category.identifier].selected && category.identifier !== 'equipment'"
       )
         h4 {{ category.text }}
-
-        div.items
-          shopItem(
-            v-for="item in sortedMarketItems(category, selectedSortItemsBy.id, searchTextThrottled, hidePinned)",
-            :key="item.key",
-            :item="item",
-            :emptyItem="false",
-            :popoverPosition="'top'",
-            @click="itemSelected(item)"
+          category-row(
+            :hidePinned="hidePinned",
+            :hideLocked="hideLocked",
+            :searchBy="searchTextThrottled",
+            :sortBy="selectedSortItemsBy.id",
+            :category="category"
           )
-            span(slot="popoverContent")
-              strong(v-if='item.key === "gem" && gemsLeft === 0') {{ $t('maxBuyGems') }}
-              h4.popover-content-title {{ item.text }}
-            template(slot="itemBadge", slot-scope="ctx")
-              countBadge(
-                v-if="item.showCount != false",
-                :show="userItems[item.purchaseType][item.key] != 0",
-                :count="userItems[item.purchaseType][item.key] || 0"
-              )
-              .badge.badge-pill.badge-purple.gems-left(v-if='item.key === "gem"')
-                | {{ gemsLeft }}
-              span.badge.badge-pill.badge-item.badge-svg(
-                :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
-                @click.prevent.stop="togglePinned(ctx.item)"
-              )
-                span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
           keys-to-kennel(v-if='category.identifier === "special"')
 
@@ -95,13 +76,12 @@
             popoverPosition="top",
             @click="sellItem(ctx)"
           )
-            template(slot="itemBadge")
-              countBadge(
-                :show="true",
-                :count="ctx.itemCount"
-              )
-            span(slot="popoverContent")
-              h4.popover-content-title {{ ctx.itemName }}
+            countBadge(
+              slot="itemBadge"
+              :show="true",
+              :count="ctx.itemCount"
+            )
+            h4.popover-content-title(slot="popoverContent") {{ ctx.itemName }}
 
       sellModal
         template(slot="item", slot-scope="ctx")
@@ -110,11 +90,11 @@
             :itemContentClass="ctx.ctx.itemClass",
             :showPopover="false"
           )
-            template(slot="itemBadge")
-              countBadge(
-                :show="true",
-                :count="ctx.ctx.itemCount"
-              )
+            countBadge(
+              slot="itemBadge",
+              :show="true",
+              :count="ctx.ctx.itemCount"
+            )
 </template>
 
 <style lang="scss">
@@ -177,6 +157,7 @@
   import ShopItem from '../shopItem';
   import KeysToKennel from './keysToKennel';
   import EquipmentSection from './equipmentSection';
+  import CategoryRow from './categoryRow';
   import Item from 'client/components/inventory/item';
   import CountBadge from 'client/components/ui/countBadge';
   import ItemRows from 'client/components/ui/itemRows';
@@ -198,12 +179,9 @@
   import svgInformation from 'assets/svg/information.svg';
 
   import getItemInfo from 'common/script/libs/getItemInfo';
-  import isPinned from 'common/script/libs/isPinned';
   import shops from 'common/script/libs/shops';
-  import planGemLimits from 'common/script/libs/planGemLimits';
 
   import _filter from 'lodash/filter';
-  import _sortBy from 'lodash/sortBy';
   import _map from 'lodash/map';
   import _throttle from 'lodash/throttle';
 
@@ -237,6 +215,7 @@ export default {
       FilterDropdown,
       Checkbox,
       EquipmentSection,
+      CategoryRow,
 
       SelectMembersModal,
     },
@@ -349,10 +328,6 @@ export default {
           return [];
         }
       },
-      gemsLeft () {
-        if (!this.user.purchased.plan) return 0;
-        return planGemLimits.convCap + this.user.purchased.plan.consecutive.gemCapExtra - this.user.purchased.plan.gemsBought;
-      },
     },
     methods: {
       sellItem (itemScope) {
@@ -388,56 +363,6 @@ export default {
           // @TODO: Change any places using similar locales from `pets.json` and use these new locales from 'inventory.json'
           return this.$t('noItemsAvailableForType', { type: this.$t(`${type}ItemType`) });
         }
-      },
-
-
-      sortedMarketItems (category, sortBy, searchBy, hidePinned) {
-        let result = _map(category.items, (e) => {
-          return {
-            ...e,
-            pinned: isPinned(this.user, e),
-          };
-        });
-
-        result = _filter(result, (item) => {
-          if (hidePinned && item.pinned) {
-            return false;
-          }
-
-          if (searchBy) {
-            let foundPosition = item.text.toLowerCase().indexOf(searchBy);
-            if (foundPosition === -1) {
-              return false;
-            }
-          }
-
-          return true;
-        });
-
-        switch (sortBy) {
-          case 'AZ': {
-            result = _sortBy(result, ['text']);
-
-            break;
-          }
-          case 'sortByNumber': {
-            result = _sortBy(result, item => {
-              if (item.showCount === false) return 0;
-
-              return this.userItems[item.purchaseType][item.key] || 0;
-            });
-            break;
-          }
-        }
-
-        return result;
-      },
-      isGearLocked (gear) {
-        if (gear.klass !== this.userStats.class) {
-          return true;
-        }
-
-        return false;
       },
       itemSelected (item) {
         this.$root.$emit('buyModal::showItem', item);

@@ -1,6 +1,6 @@
 <template lang="pug">
 span.badge.badge-pill.badge-item.badge-count(
-  v-if="show && count != 0",
+  v-if="show && count > 0",
 ) {{ count }}
 </template>
 
