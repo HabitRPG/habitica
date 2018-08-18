@@ -183,7 +183,7 @@
     "mysticHourglassesTooltip": "Mystieke zandlopers",
     "paypal": "PayPal",
     "amazonPayments": "Amazon-betalingen",
-    "amazonPaymentsRecurring": "Ticking the checkbox below is necessary for your subscription to be created. It allows your Amazon account to be used for ongoing payments for <strong>this</strong> subscription. It will not cause your Amazon account to be automatically used for any future purchases.",
+    "amazonPaymentsRecurring": "Het aanvinken van het vakje hieronder is nodig voor het aanmaken van je abbonement. Het laat toe dat je Amazon account wordt gebruikt voor lopende betalingen voor <strong>dit</strong> abbonement. Het zal je Amazon account niet automatisch selecteren voor volgende aankopen. ",
     "timezone": "Tijdzone",
     "timezoneUTC": "Habitica gebruikt de tijdzone die op je PC ingesteld is: <strong><%=utc %></strong>",
     "timezoneInfo": "Als die tijdzone fout is, laad dan eerst deze pagina opnieuw met je browsers herlaad- of verversknop om er zeker van te zijn dat Habitica de meest recente informatie heeft. Als het nog steeds fout is, pas dan de tijdzone op je PC aan en herlaad opnieuw deze pagina. <br><br> <strong> Als je Habitica op andere PC's of mobiele apparaten gebruikt, dan moet de tijdzone overal hetzelfde zijn.</strong>  Als je dagelijkse taken op de verkeerde tijd zijn gereset, herhaal dan deze controle op alle andere PC's en in een browser op je mobiele apparaat.",
