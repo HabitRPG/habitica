@@ -26,6 +26,10 @@ export class BuyQuestWithGemOperation extends AbstractGemItemOperation {
     return item.value / 4;
   }
 
+  getItemType () {
+    return 'quest';
+  }
+
   extractAndValidateParams (user, req) {
     let key = this.key = get(req, 'params.key');
     if (!key) throw new BadRequest(errorMessage('missingKeyParam'));

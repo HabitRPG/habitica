@@ -38,8 +38,20 @@ export class AbstractBuyOperation {
    * @param item
    * @returns {String}
    */
-  getIemKey (item) {
+  getItemKey (item) {
     return item.key;
+  }
+
+  /**
+   * Returns the item type
+   * @param item
+   * @returns {String}
+   */
+  getItemType (item) {
+    if (!item.type)
+      throw new NotImplementedError('item doesn\'t have a type property');
+
+    return item.type;
   }
 
   /**
@@ -141,8 +153,8 @@ export class AbstractGoldItemOperation extends AbstractBuyOperation {
 
   analyticsData () {
     return {
-      itemKey: this.getIemKey(this.item),
-      itemType: 'Market',
+      itemKey: this.getItemKey(this.item),
+      itemType: this.getItemType(this.item),
       acquireMethod: 'Gold',
       goldCost: this.getItemValue(this.item),
     };
@@ -175,8 +187,8 @@ export class AbstractGemItemOperation extends AbstractBuyOperation {
 
   analyticsData () {
     return {
-      itemKey: this.getIemKey(this.item),
-      itemType: 'Market',
+      itemKey: this.getItemKey(this.item),
+      itemType: this.getItemType(this.item),
       acquireMethod: 'Gems',
       gemCost: this.getItemValue(this.item) * 4,
     };
