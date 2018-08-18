@@ -14,23 +14,24 @@ div
       p.time(v-b-tooltip="", :title="msg.timestamp | date") {{msg.timestamp | timeAgo}}
       .text(v-markdown='msg.text')
       hr
-      .action(@click='like()', v-if='!inbox && msg.likes', :class='{active: msg.likes[user._id]}')
-        .svg-icon(v-html="icons.like")
-        span(v-if='!msg.likes[user._id]') {{ $t('like') }}
-        span(v-if='msg.likes[user._id]') {{ $t('liked') }}
-      span.action(v-if='!inbox', @click='copyAsTodo(msg)')
-        .svg-icon(v-html="icons.copy")
-        | {{$t('copyAsTodo')}}
-      span.action(v-if='!inbox && user.flags.communityGuidelinesAccepted && msg.uuid !== "system"', @click='report(msg)')
-        .svg-icon(v-html="icons.report")
-        | {{$t('report')}}
-        // @TODO make flagging/reporting work in the inbox. NOTE: it must work even if the communityGuidelines are not accepted and it MUST work for messages that you have SENT as well as received. -- Alys
-      span.action(v-if='msg.uuid === user._id || inbox || user.contributor.admin', @click='remove()')
-        .svg-icon(v-html="icons.delete")
-        | {{$t('delete')}}
-      span.action.float-right.liked(v-if='likeCount > 0')
-        .svg-icon(v-html="icons.liked")
-        | + {{ likeCount }}
+      div(v-if='msg.id')
+        .action(@click='like()', v-if='!inbox && msg.likes', :class='{active: msg.likes[user._id]}')
+          .svg-icon(v-html="icons.like")
+          span(v-if='!msg.likes[user._id]') {{ $t('like') }}
+          span(v-if='msg.likes[user._id]') {{ $t('liked') }}
+        span.action(v-if='!inbox', @click='copyAsTodo(msg)')
+          .svg-icon(v-html="icons.copy")
+          | {{$t('copyAsTodo')}}
+        span.action(v-if='!inbox && user.flags.communityGuidelinesAccepted && msg.uuid !== "system"', @click='report(msg)')
+          .svg-icon(v-html="icons.report")
+          | {{$t('report')}}
+          // @TODO make flagging/reporting work in the inbox. NOTE: it must work even if the communityGuidelines are not accepted and it MUST work for messages that you have SENT as well as received. -- Alys
+        span.action(v-if='msg.uuid === user._id || inbox || user.contributor.admin', @click='remove()')
+          .svg-icon(v-html="icons.delete")
+          | {{$t('delete')}}
+        span.action.float-right.liked(v-if='likeCount > 0')
+          .svg-icon(v-html="icons.liked")
+          | + {{ likeCount }}
 </template>
 
 <style lang="scss" scoped>
