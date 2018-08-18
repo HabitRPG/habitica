@@ -6,13 +6,13 @@
       .form
         h2(v-once) {{ $t('filter') }}
         .form-group
-          .form-check(
+          checkbox(
             v-for="category in categories",
             :key="category.identifier",
+            :id="`category-${category.identifier}`",
+            :checked.sync="viewOptions[category.identifier].selected",
+            :text="category.text"
           )
-            .custom-control.custom-checkbox
-              input.custom-control-input(type="checkbox", v-model="viewOptions[category.identifier].selected", :id="`category-${category.identifier}`")
-              label.custom-control-label(v-once, :for="`category-${category.identifier}`") {{ category.text }}
         div.form-group.clearfix
           h3.float-left(v-once) {{ $t('hideLocked') }}
           toggle-switch.float-right(
@@ -225,6 +225,7 @@
   import PageLayout from 'client/components/ui/pageLayout';
   import LayoutSection from 'client/components/ui/layoutSection';
   import FilterDropdown from 'client/components/ui/filterDropdown';
+  import Checkbox from 'client/components/ui/checkbox';
 
   import SellModal from './sellModal.vue';
   import EquipmentAttributesGrid from '../../inventory/equipment/attributesGrid.vue';
@@ -285,6 +286,7 @@ export default {
       PageLayout,
       LayoutSection,
       FilterDropdown,
+      Checkbox,
 
       SelectMembersModal,
     },
