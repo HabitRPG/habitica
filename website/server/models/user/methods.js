@@ -167,7 +167,7 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, o
 
   await Promise.all(promises);
 
-  return newSenderMessage;
+  return sendingToYourself ? newReceiverMessage : newSenderMessage;
 };
 
 /**
