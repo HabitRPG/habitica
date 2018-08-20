@@ -1,57 +1,36 @@
 <template lang="pug">
 div.items
-  shopItem(
-    v-for="item in sortedMarketItems",
+  shopItem(v-for="item in sortedMarketItems",
     :key="item.key",
     :item="item",
     :emptyItem="false",
     :popoverPosition="'top'",
-    @click="itemSelected(item)"
-  )
+    @click="itemSelected(item)")
     span(slot="popoverContent")
       strong(v-if='item.key === "gem" && gemsLeft === 0') {{ $t('maxBuyGems') }}
       h4.popover-content-title {{ item.text }}
     template(slot="itemBadge", slot-scope="ctx")
-      countBadge(
-        v-if="item.showCount !== false",
-        :show="true",
-        :count="getCount(ctx.item)"
-      )
-      .badge.badge-pill.badge-purple.gems-left(v-if='item.key === "gem"')
-        | {{ gemsLeft }}
-      span.badge.badge-pill.badge-item.badge-svg(
-        :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
-        @click.prevent.stop="togglePinned(ctx.item)"
-      )
-        span.svg-icon.inline.icon-12.color(v-html="icons.pin")
+      category-item(:item='ctx.item')
 </template>
 
 <script>
-  import {mapState} from 'client/libs/store';
-  import planGemLimits from 'common/script/libs/planGemLimits';
-  import ShopItem from '../shopItem';
-  import CountBadge from 'client/components/ui/countBadge';
-
+  import { mapState } from 'client/libs/store';
   import pinUtils from 'client/mixins/pinUtils';
+  import planGemLimits from 'common/script/libs/planGemLimits';
+
+  import ShopItem from '../shopItem';
+  import CategoryItem from './CategoryItem';
 
   import _filter from 'lodash/filter';
   import _sortBy from 'lodash/sortBy';
   import _map from 'lodash/map';
 
-  import svgPin from 'assets/svg/pin.svg';
   export default {
     mixins: [pinUtils],
     props: ['hideLocked', 'hidePinned', 'searchBy', 'sortBy', 'category'],
     components: {
+      CategoryItem,
       ShopItem,
-      CountBadge,
-    },
-    data () {
-      return {
-        icons: Object.freeze({
-          pin: svgPin,
-        }),
-      };
     },
     computed: {
       ...mapState({
@@ -110,14 +89,6 @@ div.items
       itemSelected (item) {
         this.$root.$emit('buyModal::showItem', item);
       },
-      getCount (item) {
-        console.info('getCount', item.key);
-        return this.userItems[item.purchaseType][item.key] || 0;
-      },
     },
   };
 </script>
-
-<style scoped>
-
-</style>
