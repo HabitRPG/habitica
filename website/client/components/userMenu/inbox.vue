@@ -8,13 +8,16 @@
               .svg-icon.envelope(v-html="icons.messageIcon")
             .col-6
               h2.text-center(v-once) {{ $t('messages') }}
-          .svg-icon.close(v-html="icons.svgClose", @click='close()')
+        .col-4.offset-3
           toggle-switch.float-right(
             :label="optTextSet.switchDescription",
             :checked="!this.user.inbox.optOut"
             :hoverText="optTextSet.popoverText",
             @change="toggleOpt()"
           )
+        .col-1
+          .close
+            span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.svgClose", @click="close()")
     .row
       .col-4.sidebar
         .search-section
@@ -67,14 +70,6 @@
   .envelope {
     color: $gray-400 !important;
     margin: 0;
-  }
-
-  .close {
-    margin-top: .5em;
-    width: 15px;
-    position: absolute;
-    top: -1.9em;
-    right: 0.3em;
   }
 
   .sidebar {
