@@ -143,17 +143,26 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, o
 
   */
 
-  const newSenderMessage = new Inbox({
-    sent: true,
-    ownerId: sender._id,
-  });
-  Object.assign(newSenderMessage, messageDefaults(senderMsg, userToReceiveMessage));
-  setUserStyles(newSenderMessage, userToReceiveMessage);
+  const sendingToYourself = userToReceiveMessage._id === sender._id;
 
-  const promises = [newSenderMessage.save(), newReceiverMessage.save()];
+  // Do not add the message twice when sending it to yourself
+  let newSenderMessage;
+
+  if (!sendingToYourself) {
+    newSenderMessage = new Inbox({
+      sent: true,
+      ownerId: sender._id,
+    });
+    Object.assign(newSenderMessage, messageDefaults(senderMsg, userToReceiveMessage));
+    setUserStyles(newSenderMessage, userToReceiveMessage);
+  }
+
+  const promises = [newReceiverMessage.save()];
+  if (!sendingToYourself) promises.push(newSenderMessage.save());
 
   if (saveUsers) {
-    promises.push(userToReceiveMessage.save(), sender.save());
+    promises.push(sender.save());
+    if (!sendingToYourself) promises.push(userToReceiveMessage.save());
   }
 
   await Promise.all(promises);

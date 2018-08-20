@@ -34,13 +34,19 @@
              span.timeago {{conversation.date | timeAgo}}
             div {{conversation.lastMessageText ? conversation.lastMessageText.substring(0, 30) : ''}}
       .col-8.messages.d-flex.flex-column.justify-content-between
-        .empty-messages.text-center(v-if='activeChat.length === 0 && !selectedConversation.key')
+        .empty-messages.text-center(v-if='!selectedConversation.key')
           .svg-icon.envelope(v-html="icons.messageIcon")
           h4 {{placeholderTexts.title}}
           p(v-html="placeholderTexts.description")
-        .empty-messages.text-center(v-if='activeChat.length === 0 && selectedConversation.key')
+        .empty-messages.text-center(v-if='selectedConversation.key && selectedConversation.messages.length === 0')
           p {{ $t('beginningOfConversation', {userName: selectedConversation.name})}}
-        chat-message.message-scroll(v-if="activeChat.length > 0", :chat.sync='activeChat', :inbox='true', ref="chatscroll")
+        chat-messages.message-scroll(
+          v-if="selectedConversation.messages && selectedConversation.messages.length > 0", 
+          :chat='selectedConversation.messages',
+          :inbox='true',
+          @message-removed='messageRemoved',
+          ref="chatscroll"
+        )
         .pm-disabled-caption.text-center(v-if="user.inbox.optOut && selectedConversation.key")
           h4 {{$t('PMDisabledCaptionTitle')}}
           p {{$t('PMDisabledCaptionText')}}
@@ -196,47 +202,51 @@ import moment from 'moment';
 import filter from 'lodash/filter';
 import sortBy from 'lodash/sortBy';
 import groupBy from 'lodash/groupBy';
-import findIndex from 'lodash/findIndex';
 import { mapState } from 'client/libs/store';
 import styleHelper from 'client/mixins/styleHelper';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
 import axios from 'axios';
 
 import messageIcon from 'assets/svg/message.svg';
-import chatMessage from '../chat/chatMessages';
+import chatMessages from '../chat/chatMessages';
 import svgClose from 'assets/svg/close.svg';
 
 export default {
   mixins: [styleHelper],
   components: {
-    chatMessage,
+    chatMessages,
     toggleSwitch,
   },
   mounted () {
     this.$root.$on('habitica::new-inbox-message', (data) => {
       this.$root.$emit('bv::show::modal', 'inbox-modal');
 
-      const conversation = this.conversations.find(convo => {
-        return convo.key === data.userIdToMessage;
-      });
+      // Wait for messages to be loaded
+      const unwatchLoaded = this.$watch('loaded', (loaded) => {
+        const conversation = this.conversations.find(convo => {
+          return convo.key === data.userIdToMessage;
+        });
+        if (loaded) setImmediate(() => unwatchLoaded());
 
-      if (conversation) {
+        if (conversation) {
+          this.selectConversation(data.userIdToMessage);
+          return;
+        }
+
+        const newMessage = {
+          text: '',
+          timestamp: new Date(),
+          user: data.userName,
+          uuid: data.userIdToMessage,
+          id: '',
+        };
+        this.messages.push(newMessage);
         this.selectConversation(data.userIdToMessage);
-        return;
-      }
-
-      const newMessage = {
-        text: '',
-        timestamp: new Date(),
-        user: data.userName,
-        uuid: data.userIdToMessage,
-        id: '',
-      };
-      this.$set(this.user.inbox.messages, data.userIdToMessage, newMessage);
-      this.selectConversation(data.userIdToMessage);
+      }, {immediate: true});
     });
   },
   destroyed () {
+    this.messages = [];
     this.$root.$off('habitica::new-inbox-message');
   },
   data () {
@@ -249,7 +259,6 @@ export default {
       selectedConversation: {},
       search: '',
       newMessage: '',
-      activeChat: [],
       showPopover: false,
       messages: [],
       loaded: false,
@@ -273,30 +282,28 @@ export default {
         }]);
 
         // Fix poor inbox chat models
-        const newChatModels = convoSorted.map(chat => {
-          let newChat = Object.assign({}, chat);
-          if (newChat.sent) {
-            newChat.toUUID = newChat.uuid;
-            newChat.toUser = newChat.user;
-            newChat.uuid = this.user._id;
-            newChat.user = this.user.profile.name;
-            newChat.contributor = this.user.contributor;
-            newChat.backer = this.user.backer;
+        convoSorted.forEach(chat => {
+          if (chat.sent) {
+            chat.toUUID = chat.uuid;
+            chat.toUser = chat.user;
+            chat.uuid = this.user._id;
+            chat.user = this.user.profile.name;
+            chat.contributor = this.user.contributor;
+            chat.backer = this.user.backer;
           }
-          return newChat;
         });
 
-        const recentMessage = newChatModels[newChatModels.length - 1];
+        const recentMessage = convoSorted[convoSorted.length - 1];
 
         // Special case where we have placeholder message because conversations are just grouped messages for now
         if (!recentMessage.text) {
-          newChatModels.splice(newChatModels.length - 1, 1);
+          convoSorted.splice(convoSorted.length - 1, 1);
         }
 
         const convoModel = {
           name: recentMessage.toUser ? recentMessage.toUser : recentMessage.user, // Handles case where from user sent the only message or the to user sent the only message
           key: recentMessage.toUUID ? recentMessage.toUUID : recentMessage.uuid,
-          messages: newChatModels,
+          messages: convoSorted,
           lastMessageText: recentMessage.text,
           date: recentMessage.timestamp,
         };
@@ -352,6 +359,11 @@ export default {
       this.messages = res.data.data;
       this.loaded = true;
     },
+    messageRemoved (message) {
+      const messageIndex = this.messages.findIndex(msg => msg.id === message.id);
+      if (messageIndex !== -1) this.messages.splice(messageIndex, 1);
+      this.selectConversation(this.selectedConversation.key);
+    },
     toggleClick () {
       this.displayCreate = !this.displayCreate;
     },
@@ -363,14 +375,7 @@ export default {
         return conversation.key === key;
       });
 
-      this.selectedConversation = convoFound;
-      let activeChat = convoFound.messages;
-
-      activeChat = sortBy(activeChat, [(o) => {
-        return moment(o.timestamp).toDate();
-      }]);
-
-      this.$set(this, 'activeChat', activeChat);
+      this.selectedConversation = convoFound || {};
 
       Vue.nextTick(() => {
         if (!this.$refs.chatscroll) return;
@@ -381,11 +386,7 @@ export default {
     sendPrivateMessage () {
       if (!this.newMessage) return;
 
-      const convoFound = this.conversations.find((conversation) => {
-        return conversation.key === this.selectedConversation.key;
-      });
-
-      convoFound.messages.push({
+      this.messages.push({
         text: this.newMessage,
         timestamp: new Date(),
         user: this.user.profile.name,
@@ -393,10 +394,9 @@ export default {
         contributor: this.user.contributor,
       });
 
-      this.activeChat = convoFound.messages;
-
-      convoFound.lastMessageText = this.newMessage;
-      convoFound.date = new Date();
+      this.selectedConversation.lastMessageText = this.newMessage;
+      this.selectedConversation.date = new Date();
+      this.selectConversation(this.selectedConversation.key);
 
       Vue.nextTick(() => {
         if (!this.$refs.chatscroll) return;
@@ -409,8 +409,7 @@ export default {
         message: this.newMessage,
       }).then(response => {
         const newMessage = response.data.data.message;
-        const messageIndex = findIndex(convoFound.messages, msg => !msg.id);
-        convoFound.messages.splice(convoFound.messages.length - 1, messageIndex, newMessage);
+        Object.assign(this.messages[this.messages.length - 1], newMessage);
       });
 
       this.newMessage = '';
