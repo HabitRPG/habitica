@@ -243,7 +243,7 @@
     "weaponSpecialFall2017HealerText": "気味の悪い燭台",
     "weaponSpecialFall2017HealerNotes": "この明かりは恐怖を打ち払い、あなたが助けに来たことを他の人に知らせてくれます。知能が<%= int %>上がります。2017年秋の限定装備。",
     "weaponSpecialWinter2018RogueText": "しましまキャンディのかぎ針",
-    "weaponSpecialWinter2018RogueNotes": "Perfect for climbing walls or distracting your foes with sweet, sweet candy. Increases Strength by <%= str %>. Limited Edition 2017-2018 Winter Gear.",
+    "weaponSpecialWinter2018RogueNotes": "壁を登ったり、甘い甘いキャンディで敵の目をそらしたりするのにうってつけです。力が <%= str %> 上がります。2017-2018年冬の限定装備。",
     "weaponSpecialWinter2018WarriorText": "Holiday Bow Hammer",
     "weaponSpecialWinter2018WarriorNotes": "The sparkly appearance of this bright weapon will dazzle your enemies as you swing it! Increases Strength by <%= str %>. Limited Edition 2017-2018 Winter Gear.",
     "weaponSpecialWinter2018MageText": "祝日の紙吹雪",
