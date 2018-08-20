@@ -1,6 +1,5 @@
 import {
   authWithHeaders,
-  authWithUrl,
 } from '../../../middlewares/auth';
 import {
   BadRequest,
@@ -21,7 +20,7 @@ let api = {};
 api.iapAndroidVerify = {
   method: 'POST',
   url: '/iap/android/verify',
-  middlewares: [authWithUrl],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let iapBody = req.body;
@@ -41,7 +40,7 @@ api.iapAndroidVerify = {
 api.iapSubscriptionAndroid = {
   method: 'POST',
   url: '/iap/android/subscribe',
-  middlewares: [authWithUrl],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     if (!req.body.sku) throw new BadRequest(res.t('missingSubscriptionCode'));
     let user = res.locals.user;
@@ -62,7 +61,7 @@ api.iapSubscriptionAndroid = {
 api.iapCancelSubscriptionAndroid = {
   method: 'GET',
   url: '/iap/android/subscribe/cancel',
-  middlewares: [authWithUrl],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -104,7 +103,7 @@ api.iapiOSVerify = {
 api.iapSubscriptioniOS = {
   method: 'POST',
   url: '/iap/ios/subscribe',
-  middlewares: [authWithUrl],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     if (!req.body.sku) throw new BadRequest(res.t('missingSubscriptionCode'));
     if (!req.body.receipt) throw new BadRequest(res.t('missingReceipt'));
@@ -124,7 +123,7 @@ api.iapSubscriptioniOS = {
 api.iapCancelSubscriptioniOS = {
   method: 'GET',
   url: '/iap/ios/subscribe/cancel',
-  middlewares: [authWithUrl],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
