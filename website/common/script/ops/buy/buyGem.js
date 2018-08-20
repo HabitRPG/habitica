@@ -21,8 +21,12 @@ export class BuyGemOperation extends AbstractGoldItemOperation {
     return planGemLimits.convRate;
   }
 
-  getIemKey () {
+  getItemKey () {
     return 'gem';
+  }
+
+  getItemType () {
+    return 'gems';
   }
 
   extractAndValidateParams (user, req) {
@@ -71,11 +75,5 @@ export class BuyGemOperation extends AbstractGoldItemOperation {
 
   analyticsLabel () {
     return 'purchase gems';
-  }
-
-  analyticsData () {
-    let data = super.analyticsData();
-    data.itemKey = 'gem';
-    return data;
   }
 }
