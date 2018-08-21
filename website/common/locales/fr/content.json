@@ -175,7 +175,7 @@
     "questEggSeaSerpentAdjective": "étincelant",
     "questEggKangarooText": "Kangourou",
     "questEggKangarooMountText": "Kangourou",
-    "questEggKangarooAdjective": "a keen",
+    "questEggKangarooAdjective": "enthousiaste",
     "eggNotes": "Trouvez une potion d’éclosion à verser sur cet œuf et il en sortira <%= eggAdjective(locale) %> bébé <%= eggText(locale) %>.",
     "hatchingPotionBase": "de base",
     "hatchingPotionWhite": "des neiges",
