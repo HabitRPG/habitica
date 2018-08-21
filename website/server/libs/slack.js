@@ -60,7 +60,7 @@ function sendFlagNotification ({
 
   const timestamp = `${moment(message.timestamp).utc().format('YYYY-MM-DD HH:mm')} UTC`;
 
-  flagSlack.send({
+  flagSlack.addOutgoingEvent(true, {
     text,
     attachments: [{
       fallback: 'Flag Message',
@@ -97,7 +97,7 @@ function sendSubscriptionNotification ({
     text = `${buyer.name} ${buyer.id} ${buyer.email} bought a ${months}-month recurring subscription using ${paymentMethod} on ${timestamp}`;
   }
 
-  subscriptionSlack.send({
+  subscriptionSlack.addOutgoingEvent(true, {
     text,
   });
 }
@@ -126,7 +126,7 @@ function sendSlurNotification ({
 
   authorName = `${author.profile.name} - ${authorEmail} - ${author.id}`;
 
-  flagSlack.send({
+  flagSlack.addOutgoingEvent(true, {
     text,
     attachments: [{
       fallback: 'Slur Message',
