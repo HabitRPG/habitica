@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'NEW PET QUEST: KANGAROOS! PLUS SPOTLIGHT ON HABITICA COMMUNITY INVOLVEMENT';
+const LAST_ANNOUNCEMENT_TITLE = 'EMBER HATCHING POTIONS RETURN!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -27,31 +27,21 @@ api.getNews = {
       html: `
       <div class="bailey">
         <div class="media align-items-center">
-          <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
-            <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>8/16/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <div class="media align-items-center">
+              <div class="mr-3 ${baileyClass}"></div>
+              <div class="media-body">
+                <h1 class="align-self-center">${res.t('newStuff')}</h1>
+                <h2>8/21/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+              </div>
+            </div>
+            <hr/>
+            <p>They're back! Between now and September 21, you can buy Ember Hatching Potions from <a href='/shops/market' target='_blank'>the Market</a> and use them to hatch any standard pet egg. (Magic Hatching Potions do not work on Quest Pet eggs.) Ember Pets aren't picky, so they'll happily eat any kind of food that you feed them!</p>
+            <p>After they're gone, it will be at least a year before the Ember Hatching Potions are available again, so be sure to get them now!</p>
+            <div class="small mb-3">by Balduranne and SabreCat</div>
           </div>
+          <div class="promo_ember_potions ml-3 mb-3"></div>
         </div>
-        <hr/>
-        <div class="media align-items-center">
-          <div class="media-body">
-            <h3>New Pet Quest: Kangaroo Catastrophe!</h3>
-            <p>Ever feel like you've dodged a dreaded task, but it just comes back around to brain you like a whirling boomerang? Get the latest pet quest, "Kangaroo Catastrophe," from the <a href='/shops/quests' target='_blank'>Quest Shop</a> and earn some keen kangaroo pets by completing those real-life tasks!</p>
-            <div class="small">Art by stefalupagus, mewrose, LilithofAlfheim, ChrisSpatzerl, Willow the Witty, tricksy.fox, and Beffymaroo</div>
-            <div class="small mb-3">Writing by summra and SabreCat</div>
-          </div>
-          <div class="promo_kangaroo ml-3 mb-3"></div>
-        </div>
-        <div class="media align-items-center">
-          <div class="scene_tavern mr-3"></div>
-          <div class="media-body">
-            <h3>Use Case Spotlight and Guild Spotlight on Getting Involved with Habitica's Community</h3>
-            <p>We've got new posts on the blog all about ways to get involved with Habitica's community! First, there's a <a href='https://habitica.wordpress.com/2018/08/16/getting-involved-in-habitica-guilds-for-contributing/' target='_blank'>Guild Spotlight</a> that highlights the Guilds that can help you earn a place as an esteemed Habitica contributor. We've also posted a <a href='https://habitica.wordpress.com/2018/08/16/use-case-spotlight-get-involved-in-the-habitica-community/' target='_blank'>Use Case Spotlight</a> featuring a number of great suggestions for other ways to get involved with contributing or simply getting social on the site and apps! These suggestions were submitted by Habiticans in the <a href='/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6' target='_blank'>Use Case Spotlights Guild</a>.</p>
-          </div>
-        </div>
-        <p>Plus, we're collecting user submissions for the next Use Case Spotlight! How do you use Habitica as you learn practical and hands-on skills? We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!</p>
-        <div class="small mb-3">by shanaqui</div>
       </div>
       `,
     });

@@ -8,12 +8,12 @@ const featuredItems = {
       path: 'armoire',
     },
     {
-      type: 'food',
-      path: 'food.Saddle',
+      type: 'premiumHatchingPotion',
+      path: 'premiumHatchingPotions.Ember',
     },
     {
-      type: 'food',
-      path: 'food.Fish',
+      type: 'eggs',
+      path: 'eggs.Dragon',
     },
     {
       type: 'card',
@@ -31,7 +31,7 @@ const featuredItems = {
     },
     {
       type: 'quests',
-      path: 'quests.whale',
+      path: 'quests.kangaroo',
     },
   ],
   seasonal: '',
