@@ -7,30 +7,37 @@
       span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close", @click="hideDialog()")
 
     div.content(v-if="item")
-
-      div.inner-content(v-if="item.sellWarningNote")
-        slot(name="item", :item="item" :ctx="itemContextToSell")
+      div.inner-content
+        item.flat(
+          :item="item",
+          :itemContentClass="itemContextToSell.itemClass",
+          :showPopover="false"
+        )
+          countBadge(
+            slot="itemBadge",
+            :show="true",
+            :count="itemContextToSell.itemCount"
+          )
 
         h4.title {{ itemContextToSell.itemName }}
-        div.text {{ item.sellWarningNote() }}
-        br
 
-      div.inner-content(v-else)
-        slot(name="item", :item="item", :ctx="itemContextToSell")
+        div(v-if="item.sellWarningNote")
+          div.text {{ item.sellWarningNote() }}
+          br
 
-        h4.title {{ itemContextToSell.itemName }}
-        div.text {{ item.notes() }}
+        div(v-once)
+          div.text {{ item.notes() }}
 
-        div
-          b.how-many-to-sell {{ $t('howManyToSell') }}
+          div
+            b.how-many-to-sell {{ $t('howManyToSell') }}
 
-        div
-          b-input.itemsToSell(type="number", v-model="selectedAmountToSell", :max="itemContextToSell.itemCount", min="1", @keyup.native="preventNegative($event)", step="1")
+          div
+            b-input.itemsToSell(type="number", v-model="selectedAmountToSell", :max="itemContextToSell.itemCount", min="1", @keyup.native="preventNegative($event)", step="1")
 
-          span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons.gold")
-          span.value {{ item.value }}
+            span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons.gold")
+            span.value {{ item.value }}
 
-        button.btn.btn-primary(@click="sellItems()") {{ $t('sell') }}
+          button.btn.btn-primary(@click="sellItems()") {{ $t('sell') }}
 
     div.clearfix(slot="modal-footer")
       span.balance.float-left {{ $t('yourBalance') }}
@@ -118,10 +125,14 @@
   import svgGem from 'assets/svg/gem.svg';
 
   import BalanceInfo  from '../balanceInfo.vue';
+  import Item from 'client/components/inventory/item';
+  import CountBadge from 'client/components/ui/countBadge';
 
   export default {
     components: {
       BalanceInfo,
+      Item,
+      CountBadge,
     },
     data () {
       return {

@@ -84,17 +84,6 @@
             h4.popover-content-title(slot="popoverContent") {{ ctx.itemName }}
 
       sellModal
-        template(slot="item", slot-scope="ctx")
-          item.flat(
-            :item="ctx.item",
-            :itemContentClass="ctx.ctx.itemClass",
-            :showPopover="false"
-          )
-            countBadge(
-              slot="itemBadge",
-              :show="true",
-              :count="ctx.ctx.itemCount"
-            )
 </template>
 
 <style lang="scss">

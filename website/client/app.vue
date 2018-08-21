@@ -105,7 +105,7 @@ div
   @import '~client/assets/scss/colors.scss';
 
   .modal {
-    overflow-y: auto !important;
+    overflow-y: scroll !important;
   }
 
   .modal-backdrop.show {
