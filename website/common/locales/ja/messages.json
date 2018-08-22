@@ -43,7 +43,6 @@
     "messageAuthNoUserFound": "ユーザーが見つかりませんでした。",
     "messageAuthMustBeLoggedIn": "まずログインしてください。",
     "messageAuthMustIncludeTokens": "トークンとUID ( ユーザーID ) の両方が必要です。",
-    "messageGroupNotFound": "グループが見つからなかったか、アクセスできません。",
     "messageGroupAlreadyInParty": "もし既にパーティに入っているならページを更新してください。",
     "messageGroupOnlyLeaderCanUpdate": "グループ リーダーだけがグループの更新できます。",
     "messageGroupRequiresInvite": "招待されていないグループに参加することはできません。",

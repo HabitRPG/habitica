@@ -58,7 +58,7 @@
                   .checkbox
                     label
                       input(type='checkbox', v-if='hero.flags', v-model='hero.flags.chatRevoked')
-                      | Chat Privileges Revoked
+                      strong Chat Privileges Revoked
                 .form-group
                   .checkbox
                     label
@@ -103,10 +103,10 @@
 </style>
 
 <script>
-// import keys from 'lodash/keys';
 import each from 'lodash/each';
 
 import markdownDirective from 'client/directives/markdown';
+import styleHelper from 'client/mixins/styleHelper';
 import { mapState } from 'client/libs/store';
 import quests from 'common/script/content/quests';
 import { mountInfo, petInfo } from 'common/script/content/stable';
@@ -115,7 +115,7 @@ import gear from 'common/script/content/gear';
 import notifications from 'client/mixins/notifications';
 
 export default {
-  mixins: [notifications],
+  mixins: [notifications, styleHelper],
   data () {
     return {
       heroes: [],
@@ -174,7 +174,7 @@ export default {
     async loadHero (uuid, heroIndex) {
       this.currentHeroIndex = heroIndex;
       let hero = await this.$store.dispatch('hall:getHero', { uuid });
-      this.hero = Object.assign({}, this.hero, hero);
+      this.hero = Object.assign({}, hero);
       if (!this.hero.flags) {
         this.hero.flags = {
           chatRevoked: false,
@@ -203,9 +203,6 @@ export default {
         user: heroDetails.data.data,
         startingPage: 'profile',
       });
-    },
-    userLevelStyle () {
-      // @TODO: implement
     },
   },
 };

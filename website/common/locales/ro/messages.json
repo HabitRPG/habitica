@@ -43,7 +43,6 @@
     "messageAuthNoUserFound": "Niciun utilizator găsit",
     "messageAuthMustBeLoggedIn": "Trebuie să fii autentificat.",
     "messageAuthMustIncludeTokens": "Trebuie să incluzi un token și uid (ID utilizator) în cererea ta",
-    "messageGroupNotFound": "Grup negăsit sau nu ai acces.",
     "messageGroupAlreadyInParty": "Ești deja într-o ceată, reîmprospătează pagina.",
     "messageGroupOnlyLeaderCanUpdate": "Doar șeful de grup poate actualiza grupul!",
     "messageGroupRequiresInvite": "Nu te poți alătura unui grup în care nu ești invitat.",

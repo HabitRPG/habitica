@@ -135,10 +135,4 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation {
       },
     };
   }
-
-  analyticsData () {
-    let data = super.analyticsData();
-    data.itemKey = 'Armoire';
-    return data;
-  }
 }

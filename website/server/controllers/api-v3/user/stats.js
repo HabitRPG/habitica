@@ -5,24 +5,24 @@ import { authWithHeaders } from '../../../middlewares/auth';
 let api = {};
 
 /**
- * @api {post} /api/v3/user/allocate Allocate a single attribute point
+ * @api {post} /api/v3/user/allocate Allocate a single Stat Point (previously called Attribute Point)
  * @apiName UserAllocate
  * @apiGroup User
  *
- * @apiParam (Body) {String="str","con","int","per"} stat Query parameter - Default ='str'
+ * @apiParam (Query) {String="str","con","int","per"} stat The Stat to increase. Default is 'str'
  *
- * @apiParamExample {json} Example request
- * {"stat":"int"}
+ * @apiParamExample {curl}
+ * curl -X POST -d "" https://habitica.com/api/v3/user/allocate?stat=int
  *
- * @apiSuccess {Object} data Returns stats from the user profile
+ * @apiSuccess {Object} data Returns stats and notifications from the user profile
  *
- * @apiError {NotAuthorized} NoPoints Not enough attribute points to increment a stat.
+ * @apiError {NotAuthorized} NoPoints You don't have enough Stat Points.
  *
  * @apiErrorExample {json}
  *  {
  *   "success": false,
  *   "error": "NotAuthorized",
- *   "message": "You don't have enough attribute points."
+ *   "message": "You don't have enough Stat Points."
  * }
  */
 api.allocate = {
@@ -40,7 +40,7 @@ api.allocate = {
 };
 
 /**
- * @api {post} /api/v3/user/allocate-bulk Allocate multiple attribute points
+ * @api {post} /api/v3/user/allocate-bulk Allocate multiple Stat Points
  * @apiName UserAllocateBulk
  * @apiGroup User
  *
@@ -49,22 +49,22 @@ api.allocate = {
  * @apiParamExample {json} Example request
  * {
  *  stats: {
- *    'int': int,
- *    'str': int,
- *    'con': int,
- *    'per': int,
- *  },
+ *    "int": int,
+ *    "str": str,
+ *    "con": con,
+ *    "per": per
+ *  }
  * }
  *
- * @apiSuccess {Object} data Returns stats from the user profile
+ * @apiSuccess {Object} data Returns stats and notifications from the user profile
  *
- * @apiError {NotAuthorized} NoPoints Not enough attribute points to increment a stat.
+ * @apiError {NotAuthorized} NoPoints You don't have enough Stat Points.
  *
  * @apiErrorExample {json}
  *  {
  *   "success": false,
  *   "error": "NotAuthorized",
- *   "message": "You don't have enough attribute points."
+ *   "message": "You don't have enough Stat Points."
  * }
  */
 api.allocateBulk = {
@@ -82,7 +82,7 @@ api.allocateBulk = {
 };
 
 /**
- * @api {post} /api/v3/user/allocate-now Allocate all attribute points
+ * @api {post} /api/v3/user/allocate-now Allocate all Stat Points
  * @apiDescription Uses the user's chosen automatic allocation method, or if none, assigns all to STR. Note: will return success, even if there are 0 points to allocate.
  * @apiName UserAllocateNow
  * @apiGroup User
@@ -119,7 +119,8 @@ api.allocateBulk = {
  *       "per": 0,
  *       "str": 0,
  *       "con": 0
- *     }
+ *     },
+ *     "notifications": [ .... ],
  *   }
  * }
  *
