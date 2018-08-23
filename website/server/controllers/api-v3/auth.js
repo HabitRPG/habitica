@@ -1,82 +1,37 @@
 import validator from 'validator';
 import moment from 'moment';
-import passport from 'passport';
 import nconf from 'nconf';
+
 import {
   authWithHeaders,
 } from '../../middlewares/auth';
+import { model as User } from '../../models/user';
+import { model as EmailUnsubscription } from '../../models/emailUnsubscription';
+import common from '../../../common';
 import {
   NotAuthorized,
   BadRequest,
   NotFound,
 } from '../../libs/errors';
 import * as passwordUtils from '../../libs/password';
-import logger from '../../libs/logger';
-import { model as User } from '../../models/user';
-import { model as Group } from '../../models/group';
-import { model as EmailUnsubscription } from '../../models/emailUnsubscription';
 import { sendTxn as sendTxnEmail } from '../../libs/email';
-import { decrypt, encrypt } from '../../libs/encryption';
+import { encrypt } from '../../libs/encryption';
 import { send as sendEmail } from '../../libs/email';
 import pusher from '../../libs/pusher';
-import common from '../../../common';
 import { validatePasswordResetCodeAndFindUser, convertToBcrypt} from '../../libs/password';
+import {
+  _handleGroupInvitation,
+  hasBackupAuth,
+  _loginRes,
+  _passportProfile,
+} from '../../libs/auth';
 
 const BASE_URL = nconf.get('BASE_URL');
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
-const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
 const USERNAME_LENGTH_MIN = 1;
 const USERNAME_LENGTH_MAX = 20;
 
 let api = {};
-
-// When the user signed up after having been invited to a group, invite them automatically to the group
-async function _handleGroupInvitation (user, invite) {
-  // wrapping the code in a try because we don't want it to prevent the user from signing up
-  // that's why errors are not translated
-  try {
-    let {sentAt, id: groupId, inviter} = JSON.parse(decrypt(invite));
-
-    // check that the invite has not expired (after 7 days)
-    if (sentAt && moment().subtract(7, 'days').isAfter(sentAt)) {
-      let err = new Error('Invite expired.');
-      err.privateData = invite;
-      throw err;
-    }
-
-    let group = await Group.getGroup({user, optionalMembership: true, groupId, fields: 'name type'});
-    if (!group) throw new NotFound('Group not found.');
-
-    if (group.type === 'party') {
-      user.invitations.party = {id: group._id, name: group.name, inviter};
-      user.invitations.parties.push(user.invitations.party);
-    } else {
-      user.invitations.guilds.push({id: group._id, name: group.name, inviter});
-    }
-
-    // award the inviter with 'Invited a Friend' achievement
-    inviter = await User.findById(inviter);
-    if (!inviter.achievements.invitedFriend) {
-      inviter.achievements.invitedFriend = true;
-      inviter.addNotification('INVITED_FRIEND_ACHIEVEMENT');
-      await inviter.save();
-    }
-  } catch (err) {
-    logger.error(err);
-  }
-}
-
-function hasBackupAuth (user, networkToRemove) {
-  if (user.auth.local.username) {
-    return true;
-  }
-
-  let hasAlternateNetwork = common.constants.SUPPORTED_SOCIAL_NETWORKS.find((network) => {
-    return network.key !== networkToRemove && user.auth[network.key].id;
-  });
-
-  return hasAlternateNetwork;
-}
 
 /**
  * @api {post} /api/v3/user/auth/local/register Register
@@ -210,11 +165,6 @@ api.registerLocal = {
   },
 };
 
-function _loginRes (user, req, res) {
-  if (user.auth.blocked) throw new NotAuthorized(res.t('accountSuspended', {communityManagerEmail: COMMUNITY_MANAGER_EMAIL, userId: user._id}));
-  return res.respond(200, {id: user._id, apiToken: user.apiToken, newUser: user.newUser || false});
-}
-
 /**
  * @api {post} /api/v3/user/auth/local/login Login
  * @apiDescription Login a user with email / username and password
@@ -289,18 +239,6 @@ api.loginLocal = {
     return _loginRes(user, ...arguments);
   },
 };
-
-function _passportProfile (network, accessToken) {
-  return new Promise((resolve, reject) => {
-    passport._strategies[network].userProfile(accessToken, (err, profile) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(profile);
-      }
-    });
-  });
-}
 
 // Called as a callback by Facebook (or other social providers). Internal route
 api.loginSocial = {
