@@ -61,5 +61,6 @@
     "messageNotAbleToBuyInBulk": "This item cannot be purchased in quantities above 1.",
     "notificationsRequired": "Id upozornění je potřeba.",
     "unallocatedStatsPoints": "Máš <span class=\"notification-bold-blue\"><%= points %>nepřidělených vlastnostních bodů</span>",
-    "beginningOfConversation": "Toto je začátek tvé konverzace s uživatelem <%= userName %>. Nezapomeň být milý, ucitvý a drž se směrnic komunity!"
+    "beginningOfConversation": "Toto je začátek tvé konverzace s uživatelem <%= userName %>. Nezapomeň být milý, ucitvý a drž se směrnic komunity!",
+    "messageDeletedUser": "Sorry, this user has deleted their account."
 }
