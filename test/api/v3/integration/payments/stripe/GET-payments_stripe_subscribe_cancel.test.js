@@ -6,7 +6,7 @@ import {
 import stripePayments from '../../../../../../website/server/libs/payments/stripe';
 
 describe('payments - stripe - #subscribeCancel', () => {
-  let endpoint = '/stripe/subscribe/cancel?redirect=none';
+  let endpoint = '/stripe/subscribe/cancel?noRedirect=true';
   let user, group, stripeCancelSubscriptionStub;
 
   beforeEach(async () => {

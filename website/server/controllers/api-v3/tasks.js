@@ -173,6 +173,7 @@ api.createUserTasks = {
           hitType: 'event',
           category: 'behavior',
           taskType: task.type,
+          headers: req.headers,
         });
       }
 
@@ -690,6 +691,7 @@ api.scoreTask = {
         category: 'behavior',
         taskType: task.type,
         direction,
+        headers: req.headers,
       });
     }
   },

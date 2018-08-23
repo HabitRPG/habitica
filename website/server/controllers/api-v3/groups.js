@@ -1197,6 +1197,16 @@ api.inviteToGroup = {
       results.push(...emailResults);
     }
 
+    let analyticsObject = {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      groupType: group.type,
+      headers: req.headers,
+    };
+
+    res.analytics.track('group invite', analyticsObject);
+
     res.respond(200, results);
   },
 };
