@@ -1,23 +1,14 @@
 import moment from 'moment';
-import nconf from 'nconf';
-import passport from 'passport';
 
+import { loginSocial } from './social.js';
 import common from '../../../common';
 import logger from '../logger';
 import { decrypt } from '../encryption';
 import {
   NotFound,
-  NotAuthorized,
 } from '../errors';
 import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
-
-const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
-
-function _loginRes (user, req, res) {
-  if (user.auth.blocked) throw new NotAuthorized(res.t('accountSuspended', {communityManagerEmail: COMMUNITY_MANAGER_EMAIL, userId: user._id}));
-  return res.respond(200, {id: user._id, apiToken: user.apiToken, newUser: user.newUser || false});
-}
 
 // When the user signed up after having been invited to a group, invite them automatically to the group
 async function _handleGroupInvitation (user, invite) {
@@ -67,21 +58,8 @@ function hasBackupAuth (user, networkToRemove) {
   return hasAlternateNetwork;
 }
 
-function _passportProfile (network, accessToken) {
-  return new Promise((resolve, reject) => {
-    passport._strategies[network].userProfile(accessToken, (err, profile) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(profile);
-      }
-    });
-  });
-}
-
 module.exports = {
   _handleGroupInvitation,
   hasBackupAuth,
-  _loginRes,
-  _passportProfile,
+  loginSocial,
 };

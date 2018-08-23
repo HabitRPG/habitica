@@ -23,7 +23,7 @@ import {
   _handleGroupInvitation,
   hasBackupAuth,
   _loginRes,
-  _passportProfile,
+  loginSocial,
 } from '../../libs/auth';
 
 const BASE_URL = nconf.get('BASE_URL');
@@ -248,77 +248,7 @@ api.loginSocial = {
   })],
   url: '/user/auth/social', // this isn't the most appropriate url but must be the same as v2
   async handler (req, res) {
-    let existingUser = res.locals.user;
-    let accessToken = req.body.authResponse.access_token;
-    let network = req.body.network;
-
-    let isSupportedNetwork = common.constants.SUPPORTED_SOCIAL_NETWORKS.find(supportedNetwork => {
-      return supportedNetwork.key === network;
-    });
-    if (!isSupportedNetwork) throw new BadRequest(res.t('unsupportedNetwork'));
-
-    let profile = await _passportProfile(network, accessToken);
-
-    let user = await User.findOne({
-      [`auth.${network}.id`]: profile.id,
-    }, {_id: 1, apiToken: 1, auth: 1}).exec();
-
-    // User already signed up
-    if (user) {
-      _loginRes(user, ...arguments);
-    } else { // Create new user
-      user = {
-        auth: {
-          [network]: {
-            id: profile.id,
-            emails: profile.emails,
-          },
-        },
-        profile: {
-          name: profile.displayName || profile.name || profile.username,
-        },
-        preferences: {
-          language: req.language,
-        },
-      };
-      if (existingUser) {
-        existingUser.auth[network] = user.auth[network];
-        user = existingUser;
-      } else {
-        user = new User(user);
-        user.registeredThrough = req.headers['x-client']; // Not saved, used to create the correct tasks based on the device used
-      }
-
-      let savedUser = await user.save();
-
-      if (!existingUser) {
-        user.newUser = true;
-      }
-      _loginRes(user, ...arguments);
-
-      // Clean previous email preferences
-      if (savedUser.auth[network].emails && savedUser.auth[network].emails[0] && savedUser.auth[network].emails[0].value) {
-        EmailUnsubscription
-          .remove({email: savedUser.auth[network].emails[0].value.toLowerCase()})
-          .exec()
-          .then(() => {
-            if (!existingUser) sendTxnEmail(savedUser, 'welcome');
-          }); // eslint-disable-line max-nested-callbacks
-      }
-
-      if (!existingUser) {
-        res.analytics.track('register', {
-          category: 'acquisition',
-          type: network,
-          gaLabel: network,
-          uuid: savedUser._id,
-          headers: req.headers,
-          user: savedUser,
-        });
-      }
-
-      return null;
-    }
+    return await loginSocial(req, res);
   },
 };
 
