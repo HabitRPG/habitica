@@ -1,48 +1,48 @@
 .promo_armoire_backgrounds_201808 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -817px 0px;
+  background-position: -421px -223px;
   width: 141px;
   height: 441px;
 }
 .promo_ember_potions {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -959px 0px;
+  background-position: -563px -223px;
   width: 141px;
   height: 441px;
 }
 .promo_ios {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -441px 0px;
+  background-position: 0px -337px;
   width: 375px;
   height: 361px;
 }
 .promo_kangaroo {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -327px;
+  background-position: 0px 0px;
   width: 420px;
   height: 336px;
 }
-.promo_mystery_201807 {
+.promo_mystery_201808 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -959px -442px;
-  width: 114px;
-  height: 120px;
+  background-position: -734px -251px;
+  width: 78px;
+  height: 81px;
 }
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -959px -563px;
+  background-position: -734px -181px;
   width: 96px;
   height: 69px;
 }
 .promo_unconventional_armor {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -441px -362px;
+  background-position: -734px 0px;
   width: 180px;
   height: 180px;
 }
-.scene_tavern {
+.scene_casting_spells {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px 0px;
-  width: 440px;
-  height: 326px;
+  background-position: -421px 0px;
+  width: 312px;
+  height: 222px;
 }
