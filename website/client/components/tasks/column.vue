@@ -449,9 +449,9 @@ export default {
     });
 
     if (this.type !== 'todo') return;
-    this.$root.$on('habitica::resync-requested', () => {
+    this.$root.$on('habitica::resync-completed', () => {
       if (this.activeFilter.label !== 'complete2') return;
-      this.loadCompletedTodos(true);
+      this.loadCompletedTodos();
     });
   },
   destroyed () {
