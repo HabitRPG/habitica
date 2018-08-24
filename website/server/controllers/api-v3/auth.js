@@ -246,7 +246,7 @@ api.loginSocial = {
   middlewares: [authWithHeaders({
     optional: true,
   })],
-  url: '/user/auth/social', // this isn't the most appropriate url but must be the same as v2
+  url: '/user/auth/social',
   async handler (req, res) {
     return await loginSocial(req, res);
   },

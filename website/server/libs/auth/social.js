@@ -1,6 +1,7 @@
 import passport from 'passport';
 import nconf from 'nconf';
 
+import { generateUsername } from './generateId.js';
 import common from '../../../common';
 import {
   NotAuthorized,
@@ -14,7 +15,14 @@ const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
 
 function _loginRes (user, req, res) {
   if (user.auth.blocked) throw new NotAuthorized(res.t('accountSuspended', {communityManagerEmail: COMMUNITY_MANAGER_EMAIL, userId: user._id}));
-  return res.respond(200, {id: user._id, apiToken: user.apiToken, newUser: user.newUser || false});
+
+  const responseData = {
+    id: user._id,
+    apiToken: user.apiToken,
+    newUser: user.newUser || false,
+    username: user.auth.local.username,
+  };
+  return res.respond(200, responseData);
 }
 
 function _passportProfile (network, accessToken) {
@@ -50,11 +58,17 @@ async function loginSocial (req, res) {
     return _loginRes(user, ...arguments);
   }
 
+  const generatedUsername = generateUsername();
+
   user = {
     auth: {
       [network]: {
         id: profile.id,
         emails: profile.emails,
+      },
+      local: {
+        username: generatedUsername,
+        lowerCaseUsername: generatedUsername,
       },
     },
     profile: {
