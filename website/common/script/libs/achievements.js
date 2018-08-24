@@ -313,6 +313,12 @@ achievs.getAchievementsForProfile = function getAchievementsForProfile (user, la
       achievements: _getSpecialAchievements(user, language),
     },
   };
+
+  return result;
+};
+
+achievs.updateContribText = function updateContribText (user, language) {
+  let result = contribText(user.contributor, user.backer, language);
   return result;
 };
 

@@ -1,6 +1,7 @@
 import { authWithHeaders } from '../../middlewares/auth';
 import { ensureAdmin } from '../../middlewares/ensureAccessRight';
 import { model as User } from '../../models/user';
+
 import {
   NotFound,
 } from '../../libs/errors';
