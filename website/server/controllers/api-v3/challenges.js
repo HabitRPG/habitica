@@ -329,7 +329,7 @@ api.leaveChallenge = {
 };
 
 /**
- * @api {get} /api/v3/challenges/user Get challenges for a user.
+ * @api {get} /api/v3/challenges/user Get challenges for a user
  * @apiName GetUserChallenges
  * @apiGroup Challenge
  * @apiDescription Get challenges the user has access to. Includes public challenges, challenges belonging to the user's group, and challenges the user has already joined.
@@ -640,7 +640,7 @@ api.exportChallengeCsv = {
 };
 
 /**
- * @api {put} /api/v3/challenges/:challengeId Update the name, description, or leader of a challenge.
+ * @api {put} /api/v3/challenges/:challengeId Update the name, description, or leader of a challenge
  *
  * @apiName UpdateChallenge
  * @apiGroup Challenge
