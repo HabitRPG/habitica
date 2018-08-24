@@ -19,7 +19,7 @@
     },
     watch: {
       isChecked (after) {
-        this.$emit('update:checked', after)
+        this.$emit('update:checked', after);
       },
     },
   };
