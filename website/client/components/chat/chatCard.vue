@@ -7,7 +7,7 @@ div
       h3.leader(
         :class='userLevelStyle(msg)',
         @click="showMemberModal(msg.uuid)",
-        v-b-tooltip.hover.top = "('contributor' in msg) ? tierTitle : ''",
+        v-b-tooltip.hover.top="('contributor' in msg) ? tierTitle : ''",
       )
         | {{msg.user}}
         .svg-icon(v-html="tierIcon", v-if='showShowTierStyle')

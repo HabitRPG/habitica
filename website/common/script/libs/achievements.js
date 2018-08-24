@@ -313,7 +313,6 @@ achievs.getAchievementsForProfile = function getAchievementsForProfile (user, la
       achievements: _getSpecialAchievements(user, language),
     },
   };
-
   return result;
 };
 
