@@ -133,7 +133,7 @@ api.getBuyList = {
 };
 
 /**
- * @api {get} /api/v3/user/in-app-rewards Get the in app items appaearing in the user's reward column
+ * @api {get} /api/v3/user/in-app-rewards Get the in app items appearing in the user's reward column
  * @apiName UserGetInAppRewards
  * @apiGroup User
  *

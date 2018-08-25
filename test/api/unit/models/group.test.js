@@ -1379,8 +1379,7 @@ describe('Group Model', () => {
         expect(updatedParticipatingMember.achievements.quests[quest.key]).to.eql(1);
       });
 
-      // Disable test, it fails on TravisCI, but only there
-      xit('gives out super awesome Masterclasser achievement to the deserving', async () => {
+      it('gives out super awesome Masterclasser achievement to the deserving', async () => {
         quest = questScrolls.lostMasterclasser4;
         party.quest.key = quest.key;
 
@@ -1416,8 +1415,7 @@ describe('Group Model', () => {
         expect(updatedParticipatingMember.achievements.lostMasterclasser).to.not.eql(true);
       });
 
-      // Disable test, it fails on TravisCI, but only there
-      xit('gives out super awesome Masterclasser achievement when quests done out of order', async () => {
+      it('gives out super awesome Masterclasser achievement when quests done out of order', async () => {
         quest = questScrolls.lostMasterclasser1;
         party.quest.key = quest.key;
 

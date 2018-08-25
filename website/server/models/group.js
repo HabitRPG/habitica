@@ -823,22 +823,6 @@ schema.methods.finishQuest = async function finishQuest (quest) {
     'lostMasterclasser4',
   ];
 
-  if (masterClasserQuests.includes(questK)) {
-    let lostMasterclasserQuery = {
-      'achievements.lostMasterclasser': {$ne: true},
-    };
-    masterClasserQuests.forEach(questName => {
-      lostMasterclasserQuery[`achievements.quests.${questName}`] = {$gt: 0};
-    });
-    let lostMasterclasserUpdate = {
-      $set: {'achievements.lostMasterclasser': true},
-    };
-
-    promises = promises.concat(participants.map(userId => {
-      return _updateUserWithRetries(userId, lostMasterclasserUpdate, null, lostMasterclasserQuery);
-    }));
-  }
-
   // Send webhooks in background
   // @TODO move the find users part to a worker as well, not just the http request
   User.find({
@@ -864,7 +848,24 @@ schema.methods.finishQuest = async function finishQuest (quest) {
       });
     });
 
-  return await Promise.all(promises);
+  await Promise.all(promises);
+
+  if (masterClasserQuests.includes(questK)) {
+    let lostMasterclasserQuery = {
+      'achievements.lostMasterclasser': {$ne: true},
+    };
+    masterClasserQuests.forEach(questName => {
+      lostMasterclasserQuery[`achievements.quests.${questName}`] = {$gt: 0};
+    });
+    let lostMasterclasserUpdate = {
+      $set: {'achievements.lostMasterclasser': true},
+    };
+
+    let lostMasterClasserPromises = participants.map(userId => {
+      return _updateUserWithRetries(userId, lostMasterclasserUpdate, null, lostMasterclasserQuery);
+    });
+    await Promise.all(lostMasterClasserPromises);
+  }
 };
 
 function _isOnQuest (user, progress, group) {
