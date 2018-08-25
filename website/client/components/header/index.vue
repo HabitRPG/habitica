@@ -175,11 +175,22 @@ export default {
         this.$root.$emit('bv::show::modal', 'create-party-modal');
       }
     },
-    showPartyMembers () {
+    async fetchParty() {
+      await this.$store.dispatch('party:getParty', true);
+      this.group = this.$store.state.party.data;
+      return this.group;
+    },
+    async showPartyMembers () {
+      // If party, retrieve the full party details to allow permissions checks.
+      if (this.user.party._id) {
+        await this.$store.dispatch('party:getParty', true);
+        this.party = this.$store.state.party.data;
+      }
+
       // Set the party details for the members-modal component
-      this.$store.state.memberModalOptions.groupId = this.user.party._id;
+      this.$store.state.memberModalOptions.groupId = this.party._id;
+      this.$store.state.memberModalOptions.group = this.party;
       this.$store.state.memberModalOptions.viewingMembers = this.partyMembers;
-      this.$store.state.memberModalOptions.group = this.user.party;
       this.$root.$emit('bv::show::modal', 'members-modal');
     },
     setPartyMembersWidth ($event) {
