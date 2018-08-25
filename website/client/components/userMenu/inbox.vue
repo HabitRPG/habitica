@@ -1,5 +1,5 @@
 <template lang="pug">
-  b-modal#inbox-modal(title="", :hide-footer="true", size='lg', @shown="onModalShown")
+  b-modal#inbox-modal(title="", :hide-footer="true", size='lg', @shown="onModalShown", @hide="onModalHide")
     .header-wrap.container.align-items-center(slot="modal-header")
       .row.align-items-center
         .col-4
@@ -223,6 +223,8 @@ export default {
 
       // Wait for messages to be loaded
       const unwatchLoaded = this.$watch('loaded', (loaded) => {
+        if (!loaded) return;
+
         const conversation = this.conversations.find(convo => {
           return convo.key === data.userIdToMessage;
         });
@@ -233,21 +235,16 @@ export default {
           return;
         }
 
-        const newMessage = {
-          text: '',
-          timestamp: new Date(),
+        this.initiatedConversation = {
           user: data.userName,
           uuid: data.userIdToMessage,
-          id: '',
         };
-        this.messages.push(newMessage);
 
         this.selectConversation(data.userIdToMessage);
       }, {immediate: true});
     });
   },
   destroyed () {
-    this.messages = [];
     this.$root.$off('habitica::new-inbox-message');
   },
   data () {
@@ -263,6 +260,7 @@ export default {
       showPopover: false,
       messages: [],
       loaded: false,
+      initiatedConversation: null,
     };
   },
   filters: {
@@ -275,6 +273,16 @@ export default {
     conversations () {
       const inboxGroup = groupBy(this.messages, 'uuid');
 
+      // Add placeholder for new conversations
+      if (this.initiatedConversation && this.initiatedConversation.uuid) {
+        inboxGroup[this.initiatedConversation.uuid] = [{
+          id: '',
+          text: '',
+          user: this.initiatedConversation.user,
+          uuid: this.initiatedConversation.uuid,
+          timestamp: new Date(),
+        }];
+      }
       // Create conversation objects
       const convos = [];
       for (let key in inboxGroup) {
@@ -296,12 +304,9 @@ export default {
           return newChat;
         });
 
+        // In case the last message is a placeholder, remove it
         const recentMessage = newChatModels[newChatModels.length - 1];
-
-        // Special case where we have placeholder message because conversations are just grouped messages for now
-        if (!recentMessage.text) {
-          newChatModels.splice(newChatModels.length - 1, 1);
-        }
+        if (!recentMessage.text) newChatModels.splice(newChatModels.length - 1, 1);
 
         const convoModel = {
           name: recentMessage.toUser ? recentMessage.toUser : recentMessage.user, // Handles case where from user sent the only message or the to user sent the only message
@@ -368,9 +373,18 @@ export default {
       this.messages = res.data.data;
       this.loaded = true;
     },
+    onModalHide () {
+      this.messages = [];
+      this.loaded = false;
+      this.initiatedConversation = null;
+    },
     messageRemoved (message) {
       const messageIndex = this.messages.findIndex(msg => msg.id === message.id);
       if (messageIndex !== -1) this.messages.splice(messageIndex, 1);
+      if (this.selectedConversationMessages.length === 0) this.initiatedConversation = {
+        user: this.selectedConversation.name,
+        uuid: this.selectedConversation.key,
+      };
     },
     toggleClick () {
       this.displayCreate = !this.displayCreate;
@@ -402,6 +416,11 @@ export default {
         uuid: this.selectedConversation.key,
         contributor: this.user.contributor,
       });
+
+      // Remove the placeholder message
+      if (this.initiatedConversation && this.initiatedConversation.uuid === this.selectedConversation.key) {
+        this.initiatedConversation = null;
+      }
 
       this.selectedConversation.lastMessageText = this.newMessage;
       this.selectedConversation.date = new Date();
