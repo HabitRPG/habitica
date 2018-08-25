@@ -225,7 +225,7 @@ export default {
     },
     tierTitle () {
       const message = this.msg
-      return achievementsLib.getContribText(message.contributor, message.backer);
+      return achievementsLib.getContribText(message.contributor, message.backer) || '';
     },
   },
   methods: {
