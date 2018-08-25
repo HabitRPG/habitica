@@ -224,7 +224,7 @@ export default {
       return this.icons[`tier${message.contributor.level}`];
     },
     tierTitle () {
-      const message = this.msg
+      const message = this.msg;
       return achievementsLib.getContribText(message.contributor, message.backer) || '';
     },
   },
