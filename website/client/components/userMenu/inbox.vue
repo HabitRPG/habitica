@@ -233,10 +233,15 @@ export default {
           return;
         }
 
-        this.initiatedConversationWith = {
-          uuid: data.userIdToMessage,
+        const newMessage = {
+          text: '',
+          timestamp: new Date(),
           user: data.userName,
+          uuid: data.userIdToMessage,
+          id: '',
         };
+        this.messages.push(newMessage);
+
         this.selectConversation(data.userIdToMessage);
       }, {immediate: true});
     });
@@ -258,7 +263,6 @@ export default {
       showPopover: false,
       messages: [],
       loaded: false,
-      initiatedConversationWith: null,
     };
   },
   filters: {
@@ -271,15 +275,6 @@ export default {
     conversations () {
       const inboxGroup = groupBy(this.messages, 'uuid');
 
-      if (this.initiatedConversationWith) {
-        inboxGroup[this.initiatedConversationWith.uuid] = [{
-          text: '',
-          timestamp: new Date(),
-          user: this.initiatedConversationWith.user,
-          uuid: this.initiatedConversationWith.uuid,
-          id: '',
-        }];
-      }
       // Create conversation objects
       const convos = [];
       for (let key in inboxGroup) {
@@ -302,7 +297,11 @@ export default {
         });
 
         const recentMessage = newChatModels[newChatModels.length - 1];
-        if (!recentMessage.text) newChatModels.splice(newChatModels.length - 1, 1);
+
+        // Special case where we have placeholder message because conversations are just grouped messages for now
+        if (!recentMessage.text) {
+          newChatModels.splice(newChatModels.length - 1, 1);
+        }
 
         const convoModel = {
           name: recentMessage.toUser ? recentMessage.toUser : recentMessage.user, // Handles case where from user sent the only message or the to user sent the only message
