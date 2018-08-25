@@ -33,12 +33,15 @@ app.use('/api/v3', v3Router);
 
 // A list of v3 routes in the format METHOD-URL to skip
 const v4RouterOverrides = [
+  'POST-/user/auth/local/register',
   'GET-/user',
   'PUT-/user',
   'POST-/user/class/cast/:spellId',
   'POST-/user/rebirth',
   'POST-/user/reset',
   'POST-/user/reroll',
+  'DELETE-/user/messages/:id',
+  'DELETE-/user/messages',
   'GET-/inbox/messages',
   'POST-/coupons/enter/:code',
 ];

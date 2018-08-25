@@ -11,60 +11,21 @@ import {
   NotFound,
 } from '../../libs/errors';
 import * as passwordUtils from '../../libs/password';
-import logger from '../../libs/logger';
 import { model as User } from '../../models/user';
-import { model as Group } from '../../models/group';
 import { model as EmailUnsubscription } from '../../models/emailUnsubscription';
 import { sendTxn as sendTxnEmail } from '../../libs/email';
-import { decrypt, encrypt } from '../../libs/encryption';
 import { send as sendEmail } from '../../libs/email';
 import pusher from '../../libs/pusher';
 import common from '../../../common';
 import { validatePasswordResetCodeAndFindUser, convertToBcrypt} from '../../libs/password';
+import { encrypt } from '../../libs/encryption';
+import * as authLib from '../../libs/auth';
 
 const BASE_URL = nconf.get('BASE_URL');
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
 const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
-const USERNAME_LENGTH_MIN = 1;
-const USERNAME_LENGTH_MAX = 20;
 
 let api = {};
-
-// When the user signed up after having been invited to a group, invite them automatically to the group
-async function _handleGroupInvitation (user, invite) {
-  // wrapping the code in a try because we don't want it to prevent the user from signing up
-  // that's why errors are not translated
-  try {
-    let {sentAt, id: groupId, inviter} = JSON.parse(decrypt(invite));
-
-    // check that the invite has not expired (after 7 days)
-    if (sentAt && moment().subtract(7, 'days').isAfter(sentAt)) {
-      let err = new Error('Invite expired.');
-      err.privateData = invite;
-      throw err;
-    }
-
-    let group = await Group.getGroup({user, optionalMembership: true, groupId, fields: 'name type'});
-    if (!group) throw new NotFound('Group not found.');
-
-    if (group.type === 'party') {
-      user.invitations.party = {id: group._id, name: group.name, inviter};
-      user.invitations.parties.push(user.invitations.party);
-    } else {
-      user.invitations.guilds.push({id: group._id, name: group.name, inviter});
-    }
-
-    // award the inviter with 'Invited a Friend' achievement
-    inviter = await User.findById(inviter);
-    if (!inviter.achievements.invitedFriend) {
-      inviter.achievements.invitedFriend = true;
-      inviter.addNotification('INVITED_FRIEND_ACHIEVEMENT');
-      await inviter.save();
-    }
-  } catch (err) {
-    logger.error(err);
-  }
-}
 
 function hasBackupAuth (user, networkToRemove) {
   if (user.auth.local.username) {
@@ -77,6 +38,8 @@ function hasBackupAuth (user, networkToRemove) {
 
   return hasAlternateNetwork;
 }
+
+/* NOTE this route has also an API v4 version */
 
 /**
  * @api {post} /api/v3/user/auth/local/register Register
@@ -98,115 +61,7 @@ api.registerLocal = {
   })],
   url: '/user/auth/local/register',
   async handler (req, res) {
-    let existingUser = res.locals.user; // If adding local auth to social user
-
-    req.checkBody({
-      username: {
-        notEmpty: true,
-        errorMessage: res.t('missingUsername'),
-        // TODO use the constants in the error message above
-        isLength: {options: {min: USERNAME_LENGTH_MIN, max: USERNAME_LENGTH_MAX}, errorMessage: res.t('usernameWrongLength')},
-        matches: {options: /^[-_a-zA-Z0-9]+$/, errorMessage: res.t('usernameBadCharacters')},
-      },
-      email: {
-        notEmpty: true,
-        errorMessage: res.t('missingEmail'),
-        isEmail: {errorMessage: res.t('notAnEmail')},
-      },
-      password: {
-        notEmpty: true,
-        errorMessage: res.t('missingPassword'),
-        equals: {options: [req.body.confirmPassword], errorMessage: res.t('passwordConfirmationMatch')},
-      },
-    });
-
-    let validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
-
-    let { email, username, password } = req.body;
-
-    // Get the lowercase version of username to check that we do not have duplicates
-    // So we can search for it in the database and then reject the choosen username if 1 or more results are found
-    email = email.toLowerCase();
-    username = username.trim();
-    let lowerCaseUsername = username.toLowerCase();
-
-    // Search for duplicates using lowercase version of username
-    let user = await User.findOne({$or: [
-      {'auth.local.email': email},
-      {'auth.local.lowerCaseUsername': lowerCaseUsername},
-    ]}, {'auth.local': 1}).exec();
-
-    if (user) {
-      if (email === user.auth.local.email) throw new NotAuthorized(res.t('emailTaken'));
-      // Check that the lowercase username isn't already used
-      if (lowerCaseUsername === user.auth.local.lowerCaseUsername) throw new NotAuthorized(res.t('usernameTaken'));
-    }
-
-    let hashed_password = await passwordUtils.bcryptHash(password); // eslint-disable-line camelcase
-    let newUser = {
-      auth: {
-        local: {
-          username,
-          lowerCaseUsername,
-          email,
-          hashed_password, // eslint-disable-line camelcase,
-          passwordHashMethod: 'bcrypt',
-        },
-      },
-      preferences: {
-        language: req.language,
-      },
-    };
-
-    if (existingUser) {
-      let hasSocialAuth = common.constants.SUPPORTED_SOCIAL_NETWORKS.find(network => {
-        if (existingUser.auth.hasOwnProperty(network.key)) {
-          return existingUser.auth[network.key].id;
-        }
-      });
-      if (!hasSocialAuth) throw new NotAuthorized(res.t('onlySocialAttachLocal'));
-      existingUser.auth.local = newUser.auth.local;
-      newUser = existingUser;
-    } else {
-      newUser = new User(newUser);
-      newUser.registeredThrough = req.headers['x-client']; // Not saved, used to create the correct tasks based on the device used
-    }
-
-    // we check for partyInvite for backward compatibility
-    if (req.query.groupInvite || req.query.partyInvite) {
-      await _handleGroupInvitation(newUser, req.query.groupInvite || req.query.partyInvite);
-    }
-
-    let savedUser = await newUser.save();
-
-    if (existingUser) {
-      res.respond(200, savedUser.toJSON().auth.local); // We convert to toJSON to hide private fields
-    } else {
-      let userJSON = savedUser.toJSON();
-      userJSON.newUser = true;
-      res.respond(201, userJSON);
-    }
-
-    // Clean previous email preferences and send welcome email
-    EmailUnsubscription
-      .remove({email: savedUser.auth.local.email})
-      .then(() => {
-        if (!existingUser) sendTxnEmail(savedUser, 'welcome');
-      });
-
-    if (!existingUser) {
-      res.analytics.track('register', {
-        category: 'acquisition',
-        type: 'local',
-        gaLabel: 'local',
-        uuid: savedUser._id,
-        headers: req.headers,
-        user: savedUser,
-      });
-    }
-
-    return null;
+    await authLib.registerLocal(req, res, { isV3: true });
   },
 };
 
