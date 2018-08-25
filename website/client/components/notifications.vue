@@ -253,6 +253,8 @@ export default {
       if (!this.$store.getters['members:hasClass'](this.user)) return;
 
       let mana = after - before;
+
+      if (this.user.stats.lvl < 10) return;
       this.mp(mana);
     },
     userLvl (after, before) {
@@ -506,7 +508,7 @@ export default {
           case 'CRON':
             if (notification.data) {
               if (notification.data.hp) this.hp(notification.data.hp, 'hp');
-              if (notification.data.mp) this.mp(notification.data.mp);
+              if (notification.data.mp && this.user.stats.lvl >= 10) this.mp(notification.data.mp);
             }
             break;
           case 'SCORED_TASK':
