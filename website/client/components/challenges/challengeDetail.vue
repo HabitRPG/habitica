@@ -2,7 +2,7 @@
 .row
   challenge-modal(v-on:updatedChallenge='updatedChallenge')
   leave-challenge-modal(:challengeId='challenge._id')
-  close-challenge-modal(:members='members', :challengeId='challenge._id')
+  close-challenge-modal(:members='members', :challengeId='challenge._id', :prize='challenge.prize')
   challenge-member-progress-modal(:challengeId='challenge._id')
   .col-12.col-md-8.standard-page
     .row
