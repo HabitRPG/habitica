@@ -30,7 +30,7 @@
         div.category-wrap(@click.prevent="toggleCategorySelect")
           span.category-select(v-if='workingChallenge.categories.length === 0') {{$t('none')}}
           .category-label(v-for='category in workingChallenge.categories') {{$t(categoriesHashByKey[category])}}
-        .category-box(v-if="showCategorySelect")
+        .category-box(v-if="showCategorySelect && creating")
           .form-check(
             v-for="group in categoryOptions",
             :key="group.key",
