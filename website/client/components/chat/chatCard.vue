@@ -7,7 +7,7 @@ div
       h3.leader(
         :class='userLevelStyle(msg)',
         @click="showMemberModal(msg.uuid)",
-        v-b-tooltip.hover.top="('contributor' in msg) ? tierTitle : ''",
+        v-b-tooltip.hover.top="tierTitle",
       )
         | {{msg.user}}
         .svg-icon(v-html="tierIcon", v-if='showShowTierStyle')
@@ -224,9 +224,8 @@ export default {
       return this.icons[`tier${message.contributor.level}`];
     },
     tierTitle () {
-      const message = this.msg;
-      const isContributor = Boolean(message.contributor && message.contributor.level);
-      return isContributor && achievementsLib.updateContribText(message);
+      const message = this.msg
+      return achievementsLib.getContribText(message.contributor, message.backer);
     },
   },
   methods: {
