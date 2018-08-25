@@ -175,11 +175,6 @@ export default {
         this.$root.$emit('bv::show::modal', 'create-party-modal');
       }
     },
-    async fetchParty() {
-      await this.$store.dispatch('party:getParty', true);
-      this.group = this.$store.state.party.data;
-      return this.group;
-    },
     async showPartyMembers () {
       // If party, retrieve the full party details to allow permissions checks.
       if (this.user.party._id) {
