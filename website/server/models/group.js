@@ -1091,6 +1091,8 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
 };
 
 schema.statics.processQuestProgress = async function processQuestProgress (user, progress) {
+  if (user.preferences.sleep) return;
+
   let group = await this.getGroup({user, groupId: 'party'});
 
   if (!_isOnQuest(user, progress, group)) return;
@@ -1101,7 +1103,7 @@ schema.statics.processQuestProgress = async function processQuestProgress (user,
 
   let questType = quest.boss ? 'Boss' : 'Collection';
 
-  await group[`_process${questType}Quest`]({
+  await group[`_process${questType}Quest`]({ // processBossQuest, processCollectionQuest
     user,
     progress,
     group,
@@ -1131,6 +1133,7 @@ process.nextTick(() => {
 // returns a promise
 schema.statics.tavernBoss = async function tavernBoss (user, progress) {
   if (!progress) return;
+  if (user.preferences.sleep) return;
 
   // hack: prevent crazy damage to world boss
   let dmg = Math.min(900, Math.abs(progress.up || 0));

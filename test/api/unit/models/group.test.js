@@ -20,7 +20,7 @@ import { TAVERN_ID } from '../../../../website/common/script/';
 import shared from '../../../../website/common';
 
 describe('Group Model', () => {
-  let party, questLeader, participatingMember, nonParticipatingMember, undecidedMember;
+  let party, questLeader, participatingMember, sleepingParticipatingMember, nonParticipatingMember, undecidedMember;
 
   beforeEach(async () => {
     sandbox.stub(email, 'sendTxn');
@@ -48,6 +48,11 @@ describe('Group Model', () => {
       party: { _id: party._id },
       profile: { name: 'Participating Member' },
     });
+    sleepingParticipatingMember = new User({
+      party: { _id: party._id },
+      profile: { name: 'Sleeping Participating Member' },
+      preferences: { sleep: true },
+    });
     nonParticipatingMember = new User({
       party: { _id: party._id },
       profile: { name: 'Non-Participating Member' },
@@ -61,6 +66,7 @@ describe('Group Model', () => {
       party.save(),
       questLeader.save(),
       participatingMember.save(),
+      sleepingParticipatingMember.save(),
       nonParticipatingMember.save(),
       undecidedMember.save(),
     ]);
@@ -80,6 +86,7 @@ describe('Group Model', () => {
         party.quest.members = {
           [questLeader._id]: true,
           [participatingMember._id]: true,
+          [sleepingParticipatingMember._id]: true,
           [nonParticipatingMember._id]: false,
           [undecidedMember._id]: null,
         };
@@ -174,6 +181,34 @@ describe('Group Model', () => {
 
           expect(party._processBossQuest).to.not.be.called;
           expect(Group.prototype._processCollectionQuest).to.be.calledOnce;
+        });
+
+        it('does not call _processBossQuest when user is resting in the inn', async () => {
+          party.quest.key = 'whale';
+
+          await party.startQuest(questLeader);
+          await party.save();
+
+          await Group.processQuestProgress(sleepingParticipatingMember, progress);
+
+          party = await Group.findOne({_id: party._id});
+
+          expect(party._processBossQuest).to.not.be.called;
+          expect(party._processCollectionQuest).to.not.be.called;
+        });
+
+        it('does not call _processCollectionQuest when user is resting in the inn', async () => {
+          party.quest.key = 'evilsanta2';
+
+          await party.startQuest(questLeader);
+          await party.save();
+
+          await Group.processQuestProgress(sleepingParticipatingMember, progress);
+
+          party = await Group.findOne({_id: party._id});
+
+          expect(party._processBossQuest).to.not.be.called;
+          expect(party._processCollectionQuest).to.not.be.called;
         });
       });
 
