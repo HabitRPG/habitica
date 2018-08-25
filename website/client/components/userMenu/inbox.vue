@@ -38,11 +38,11 @@
           .svg-icon.envelope(v-html="icons.messageIcon")
           h4 {{placeholderTexts.title}}
           p(v-html="placeholderTexts.description")
-        .empty-messages.text-center(v-if='selectedConversation.key && selectedConversation.messages.length === 0')
+        .empty-messages.text-center(v-if='selectedConversation.key && selectedConversationMessages.length === 0')
           p {{ $t('beginningOfConversation', {userName: selectedConversation.name})}}
         chat-messages.message-scroll(
-          v-if="selectedConversation.messages && selectedConversation.messages.length > 0", 
-          :chat='selectedConversation.messages',
+          v-if="selectedConversation.messages && selectedConversationMessages.length > 0", 
+          :chat='selectedConversationMessages',
           :inbox='true',
           @message-removed='messageRemoved',
           ref="chatscroll"
@@ -233,14 +233,10 @@ export default {
           return;
         }
 
-        const newMessage = {
-          text: '',
-          timestamp: new Date(),
-          user: data.userName,
+        this.initiatedConversationWith = {
           uuid: data.userIdToMessage,
-          id: '',
+          user: data.userName,
         };
-        this.messages.push(newMessage);
         this.selectConversation(data.userIdToMessage);
       }, {immediate: true});
     });
@@ -262,6 +258,7 @@ export default {
       showPopover: false,
       messages: [],
       loaded: false,
+      initiatedConversationWith: null,
     };
   },
   filters: {
@@ -274,6 +271,15 @@ export default {
     conversations () {
       const inboxGroup = groupBy(this.messages, 'uuid');
 
+      if (this.initiatedConversationWith) {
+        inboxGroup[this.initiatedConversationWith.uuid] = [{
+          text: '',
+          timestamp: new Date(),
+          user: this.initiatedConversationWith.user,
+          uuid: this.initiatedConversationWith.uuid,
+          id: '',
+        }];
+      }
       // Create conversation objects
       const convos = [];
       for (let key in inboxGroup) {
@@ -282,28 +288,26 @@ export default {
         }]);
 
         // Fix poor inbox chat models
-        convoSorted.forEach(chat => {
-          if (chat.sent) {
-            chat.toUUID = chat.uuid;
-            chat.toUser = chat.user;
-            chat.uuid = this.user._id;
-            chat.user = this.user.profile.name;
-            chat.contributor = this.user.contributor;
-            chat.backer = this.user.backer;
+        const newChatModels = convoSorted.map(chat => {
+          let newChat = Object.assign({}, chat);
+          if (newChat.sent) {
+            newChat.toUUID = newChat.uuid;
+            newChat.toUser = newChat.user;
+            newChat.uuid = this.user._id;
+            newChat.user = this.user.profile.name;
+            newChat.contributor = this.user.contributor;
+            newChat.backer = this.user.backer;
           }
+          return newChat;
         });
 
-        const recentMessage = convoSorted[convoSorted.length - 1];
-
-        // Special case where we have placeholder message because conversations are just grouped messages for now
-        if (!recentMessage.text) {
-          convoSorted.splice(convoSorted.length - 1, 1);
-        }
+        const recentMessage = newChatModels[newChatModels.length - 1];
+        if (!recentMessage.text) newChatModels.splice(newChatModels.length - 1, 1);
 
         const convoModel = {
           name: recentMessage.toUser ? recentMessage.toUser : recentMessage.user, // Handles case where from user sent the only message or the to user sent the only message
           key: recentMessage.toUUID ? recentMessage.toUUID : recentMessage.uuid,
-          messages: convoSorted,
+          messages: newChatModels,
           lastMessageText: recentMessage.text,
           date: recentMessage.timestamp,
         };
@@ -317,6 +321,12 @@ export default {
       }]);
 
       return conversations.reverse();
+    },
+    // Separate from selectedConversation which is not coputed so messages don't update automatically
+    selectedConversationMessages () {
+      const selectedConversationKey = this.selectedConversation.key;
+      const selectedConversation = this.conversations.find(c => c.key === selectedConversationKey);
+      return selectedConversation ? selectedConversation.messages : [];
     },
     filtersConversations () {
       if (!this.search) return this.conversations;
@@ -362,7 +372,6 @@ export default {
     messageRemoved (message) {
       const messageIndex = this.messages.findIndex(msg => msg.id === message.id);
       if (messageIndex !== -1) this.messages.splice(messageIndex, 1);
-      this.selectConversation(this.selectedConversation.key);
     },
     toggleClick () {
       this.displayCreate = !this.displayCreate;
@@ -387,16 +396,16 @@ export default {
       if (!this.newMessage) return;
 
       this.messages.push({
+        sent: true,
         text: this.newMessage,
         timestamp: new Date(),
-        user: this.user.profile.name,
-        uuid: this.user._id,
+        user: this.selectedConversation.name,
+        uuid: this.selectedConversation.key,
         contributor: this.user.contributor,
       });
 
       this.selectedConversation.lastMessageText = this.newMessage;
       this.selectedConversation.date = new Date();
-      this.selectConversation(this.selectedConversation.key);
 
       Vue.nextTick(() => {
         if (!this.$refs.chatscroll) return;
