@@ -7,21 +7,17 @@
             .col-2
               .svg-icon.envelope(v-html="icons.messageIcon")
             .col-6
-              h2.text-center(v-once) {{$t('messages')}}
-            // @TODO: Implement this after we fix username bug
-            // .col-2.offset-1
-            //  button.btn.btn-secondary(@click='toggleClick()') +
-        .col-4.offset-4
-          .svg-icon.close(v-html="icons.svgClose", @click='close()')
+              h2.text-center(v-once) {{ $t('messages') }}
+        .col-4.offset-3
           toggle-switch.float-right(
             :label="optTextSet.switchDescription",
             :checked="!this.user.inbox.optOut"
             :hoverText="optTextSet.popoverText",
             @change="toggleOpt()"
           )
-        // .col-8.to-form(v-if='displayCreate')
-        //   strong To:
-        // b-form-input
+        .col-1
+          .close
+            span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.svgClose", @click="close()")
     .row
       .col-4.sidebar
         .search-section
@@ -48,9 +44,6 @@
         .pm-disabled-caption.text-center(v-if="user.inbox.optOut && selectedConversation.key")
           h4 {{$t('PMDisabledCaptionTitle')}}
           p {{$t('PMDisabledCaptionText')}}
-
-        // @TODO: Implement new message header here when we fix the above
-
         .new-message-row(v-if='selectedConversation.key && !user.flags.chatRevoked')
           textarea(
             v-model='newMessage',
@@ -77,14 +70,6 @@
   .envelope {
     color: $gray-400 !important;
     margin: 0;
-  }
-
-  .close {
-    margin-top: .5em;
-    width: 15px;
-    position: absolute;
-    top: -1.9em;
-    right: 0.3em;
   }
 
   .sidebar {
@@ -211,6 +196,7 @@ import moment from 'moment';
 import filter from 'lodash/filter';
 import sortBy from 'lodash/sortBy';
 import groupBy from 'lodash/groupBy';
+import findIndex from 'lodash/findIndex';
 import { mapState } from 'client/libs/store';
 import styleHelper from 'client/mixins/styleHelper';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
@@ -386,13 +372,8 @@ export default {
     sendPrivateMessage () {
       if (!this.newMessage) return;
 
-      let convoFound = this.conversations.find((conversation) => {
+      const convoFound = this.conversations.find((conversation) => {
         return conversation.key === this.selectedConversation.key;
-      });
-
-      this.$store.dispatch('members:sendPrivateMessage', {
-        toUserId: this.selectedConversation.key,
-        message: this.newMessage,
       });
 
       convoFound.messages.push({
@@ -408,13 +389,22 @@ export default {
       convoFound.lastMessageText = this.newMessage;
       convoFound.date = new Date();
 
-      this.newMessage = '';
-
       Vue.nextTick(() => {
         if (!this.$refs.chatscroll) return;
         let chatscroll = this.$refs.chatscroll.$el;
         chatscroll.scrollTop = chatscroll.scrollHeight;
       });
+
+      this.$store.dispatch('members:sendPrivateMessage', {
+        toUserId: this.selectedConversation.key,
+        message: this.newMessage,
+      }).then(response => {
+        const newMessage = response.data.data.message;
+        const messageIndex = findIndex(convoFound.messages, msg => !msg.id);
+        convoFound.messages.splice(convoFound.messages.length - 1, messageIndex, newMessage);
+      });
+
+      this.newMessage = '';
     },
     close () {
       this.$root.$emit('bv::hide::modal', 'inbox-modal');

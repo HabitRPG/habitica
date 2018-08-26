@@ -606,25 +606,25 @@ api.sendPrivateMessage = {
     req.checkBody('message', res.t('messageRequired')).notEmpty();
     req.checkBody('toUserId', res.t('toUserIDRequired')).notEmpty().isUUID();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let sender = res.locals.user;
-    let message = req.body.message;
-    let receiver = await User.findById(req.body.toUserId).exec();
+    const sender = res.locals.user;
+    const message = req.body.message;
+    const receiver = await User.findById(req.body.toUserId).exec();
     if (!receiver) throw new NotFound(res.t('userNotFound'));
 
-    let objections = sender.getObjectionsToInteraction('send-private-message', receiver);
-
+    const objections = sender.getObjectionsToInteraction('send-private-message', receiver);
     if (objections.length > 0 && !sender.isAdmin()) throw new NotAuthorized(res.t(objections[0]));
 
-    await sender.sendMessage(receiver, { receiverMsg: message });
+    const newMessage = await sender.sendMessage(receiver, { receiverMsg: message });
 
     if (receiver.preferences.emailNotifications.newPM !== false) {
       sendTxnEmail(receiver, 'new-pm', [
         {name: 'SENDER', content: getUserInfo(sender, ['name']).name},
       ]);
     }
+
     if (receiver.preferences.pushNotifications.newPM !== false) {
       sendPushNotification(
         receiver,
@@ -638,7 +638,7 @@ api.sendPrivateMessage = {
       );
     }
 
-    res.respond(200, {});
+    res.respond(200, { message: newMessage });
   },
 };
 

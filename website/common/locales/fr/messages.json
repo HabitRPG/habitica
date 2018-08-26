@@ -61,5 +61,6 @@
     "messageNotAbleToBuyInBulk": "Cet objet ne peut être acheté en quantités supérieures à 1.",
     "notificationsRequired": "Les numéros d'identification (ID) de notification sont requis.",
     "unallocatedStatsPoints": "Vous avez <span class=\"notification-bold-blue\"><%= points %> points d'attribut non alloués</span>",
-    "beginningOfConversation": "Ceci marque le commencement de votre conversation avec <%= userName %>. N´oubliez pas de communiquer avec politesse et respect, tout en suivant les règles de vie en communauté !"
+    "beginningOfConversation": "Ceci marque le commencement de votre conversation avec <%= userName %>. N´oubliez pas de communiquer avec politesse et respect, tout en suivant les règles de vie en communauté !",
+    "messageDeletedUser": "Sorry, this user has deleted their account."
 }

@@ -61,5 +61,6 @@
     "messageNotAbleToBuyInBulk": "Dit voorwerp kan niet worden gekocht in hoeveelheden boven 1.",
     "notificationsRequired": "Notificatie-id's zijn vereist.",
     "unallocatedStatsPoints": "Je hebt <span class=\"notification-bold-blue\"><%= points %> niet toegekende statuspunten</span>",
-    "beginningOfConversation": "Dit is het begin van je gesprek met <%= userName %>. Denk eraan aardig en respectvol te zijn en de gemeenschapsrichtlijnen te volgen!"
+    "beginningOfConversation": "Dit is het begin van je gesprek met <%= userName %>. Denk eraan aardig en respectvol te zijn en de gemeenschapsrichtlijnen te volgen!",
+    "messageDeletedUser": "Sorry, this user has deleted their account."
 }

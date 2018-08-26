@@ -61,5 +61,6 @@
     "messageNotAbleToBuyInBulk": "这件物品不能以大于1的数量购买。",
     "notificationsRequired": "需要Notification ids",
     "unallocatedStatsPoints": "你有<span class=\"notification-bold-blue\"><%= points %>没分配的属性点</span>",
-    "beginningOfConversation": "现在开始和<%= userName %>愉快的聊天吧！记住要善待和尊重他人并遵守社区准则！"
+    "beginningOfConversation": "现在开始和<%= userName %>愉快的聊天吧！记住要善待和尊重他人并遵守社区准则！",
+    "messageDeletedUser": "Sorry, this user has deleted their account."
 }

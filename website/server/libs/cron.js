@@ -186,6 +186,16 @@ function trackCronAnalytics (analytics, user, _progress, options) {
     headers: options.headers,
     loginIncentives: user.loginIncentives,
   });
+
+  if (user.party && user.party.quest && !user.party.quest.RSVPNeeded && !user.party.quest.completed && user.party.quest.key && !user.preferences.sleep) {
+    analytics.track('quest participation', {
+      category: 'behavior',
+      uuid: user._id,
+      user,
+      questName: user.party.quest.key,
+      headers: options.headers,
+    });
+  }
 }
 
 function awardLoginIncentives (user) {

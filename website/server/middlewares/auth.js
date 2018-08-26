@@ -97,26 +97,3 @@ export function authWithSession (req, res, next) {
     })
     .catch(next);
 }
-
-export function authWithUrl (req, res, next) {
-  let userId = req.query._id;
-  let apiToken = req.query.apiToken;
-
-  // Always allow authentication with headers
-  if (!userId || !apiToken) {
-    if (!req.header('x-api-user') || !req.header('x-api-key')) {
-      return next(new NotAuthorized(res.t('missingAuthParams')));
-    } else {
-      return authWithHeaders()(req, res, next);
-    }
-  }
-
-  return User.findOne({ _id: userId, apiToken }).exec()
-    .then((user) => {
-      if (!user) throw new NotAuthorized(res.t('invalidCredentials'));
-
-      res.locals.user = user;
-      return next();
-    })
-    .catch(next);
-}

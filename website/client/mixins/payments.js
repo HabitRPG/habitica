@@ -13,10 +13,10 @@ export default {
     ...mapState(['credentials']),
     // @TODO refactor into one single computed property
     paypalCheckoutLink () {
-      return `/paypal/checkout?_id=${this.credentials.API_ID}&apiToken=${this.credentials.API_TOKEN}`;
+      return '/paypal/checkout';
     },
     paypalSubscriptionLink () {
-      return `/paypal/subscribe?_id=${this.credentials.API_ID}&apiToken=${this.credentials.API_TOKEN}&sub=${this.subscriptionPlan}`;
+      return `/paypal/subscribe?sub=${this.subscriptionPlan}`;
     },
     paypalPurchaseLink () {
       if (!this.subscription) {
@@ -26,7 +26,7 @@ export default {
       }
       let couponString = '';
       if (this.subscription.coupon) couponString = `&coupon=${this.subscription.coupon}`;
-      return `/paypal/subscribe?_id=${this.credentials.API_ID}&apiToken=${this.credentials.API_TOKEN}&sub=${this.subscription.key}${couponString}`;
+      return `/paypal/subscribe?sub=${this.subscription.key}${couponString}`;
     },
   },
   methods: {
@@ -39,7 +39,7 @@ export default {
       if (!this.checkGemAmount(data)) return;
 
       let gift = this.encodeGift(data.giftedTo, data.gift);
-      const url = `/paypal/checkout?_id=${this.credentials.API_ID}&apiToken=${this.credentials.API_TOKEN}&gift=${gift}`;
+      const url = `/paypal/checkout?gift=${gift}`;
 
       window.open(url, '_blank');
     },
@@ -210,8 +210,6 @@ export default {
       }
 
       let queryParams = {
-        _id: this.user._id,
-        apiToken: this.credentials.API_TOKEN,
         noRedirect: true,
       };
 
