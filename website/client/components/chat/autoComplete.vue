@@ -48,14 +48,14 @@ export default {
   },
   watch: {
     carPos (newCarPos) {
-      var index = newCarPos - 1;
-      var newText = this.text;
+      let index = newCarPos - 1;
+      let newText = this.text;
       if (index >= newText.length) index = newText.length - 1;
       if (!newText[index] || newText[index] === ' ') {
         this.searchActive = false;
         return;
       }
-      var startIndex = index;
+      let startIndex = index;
       while (newText[startIndex] !== '@' && startIndex >= 0) {
         startIndex--;
       }
@@ -89,8 +89,8 @@ export default {
       }
     },
     select (result) {
-      var index = this.carPos;
-      var startIndex = index;
+      let index = this.carPos;
+      let startIndex = index;
       while (this.text[startIndex] !== '@' && startIndex >= 0) {
         startIndex--;
       }
