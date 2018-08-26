@@ -63,8 +63,7 @@ export default {
       if (newText[startIndex] === '@') {
         this.searchActive = true;
         startIndex++;
-      }
-      else return;
+      } else return;
       this.currentSearchPosition = startIndex;
     },
     chat () {
