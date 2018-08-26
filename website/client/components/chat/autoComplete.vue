@@ -57,12 +57,14 @@ export default {
       }
       let startIndex = index;
       while (newText[startIndex] !== '@' && startIndex >= 0) {
+        if (this.text[startIndex] === ' ') break;
         startIndex--;
       }
       if (newText[startIndex] === '@') {
         this.searchActive = true;
         startIndex++;
       }
+      else return;
       this.currentSearchPosition = startIndex;
     },
     chat () {
