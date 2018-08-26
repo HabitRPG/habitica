@@ -9,29 +9,7 @@ const api = {};
 
 /* NOTE most inbox routes are either in the user or members controller */
 
-/* NOTE this route has also an API v3 version */
-
-/**
- * @api {get} /api/v4/inbox/messages Get inbox messages for a user
- * @apiPrivate
- * @apiName GetInboxMessages
- * @apiGroup Inbox
- * @apiDescription Get inbox messages for a user
- *
- * @apiSuccess {Array} data An array of inbox messages
- */
-api.getInboxMessages = {
-  method: 'GET',
-  url: '/inbox/messages',
-  middlewares: [authWithHeaders()],
-  async handler (req, res) {
-    const user = res.locals.user;
-
-    const messages = await inboxLib.getUserInbox(user);
-
-    res.respond(200, messages);
-  },
-};
+/* NOTE the getInboxMessages route is implemented in v3 only */
 
 /* NOTE this route has also an API v3 version */
 

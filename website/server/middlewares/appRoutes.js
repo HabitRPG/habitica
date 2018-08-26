@@ -42,7 +42,6 @@ const v4RouterOverrides = [
   'POST-/user/reroll',
   'DELETE-/user/messages/:id',
   'DELETE-/user/messages',
-  'GET-/inbox/messages',
   'POST-/coupons/enter/:code',
 ];
 
