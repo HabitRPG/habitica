@@ -199,6 +199,9 @@ export default {
     userClassSelect () {
       return !this.user.flags.classSelected && this.user.stats.lvl >= 10;
     },
+    userHasClass () {
+      return this.user.stats.lvl >= 10 && this.user.flags.classSelected && !this.user.preferences.disableClasses;
+    },
     invitedToQuest () {
       return this.user.party.quest.RSVPNeeded && !this.user.party.quest.completed;
     },
@@ -252,9 +255,9 @@ export default {
       if (after === before) return;
       if (!this.$store.getters['members:hasClass'](this.user)) return;
 
-      let mana = after - before;
+      const mana = after - before;
 
-      if (this.user.stats.lvl < 10) return;
+      if (!this.userHasClass) return;
       this.mp(mana);
     },
     userLvl (after, before) {
@@ -508,7 +511,7 @@ export default {
           case 'CRON':
             if (notification.data) {
               if (notification.data.hp) this.hp(notification.data.hp, 'hp');
-              if (notification.data.mp && this.user.stats.lvl >= 10) this.mp(notification.data.mp);
+              if (notification.data.mp && !this.userHasClass) this.mp(notification.data.mp);
             }
             break;
           case 'SCORED_TASK':
