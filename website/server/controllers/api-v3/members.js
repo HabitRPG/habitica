@@ -28,7 +28,7 @@ let api = {};
  * @apiName GetMember
  * @apiGroup Member
  *
- * @apiParam {UUID} memberId The member's id
+ * @apiParam (Path) {UUID} memberId The member's id
  *
  * @apiSuccess {Object} data The member object
  *
@@ -353,9 +353,9 @@ function _getMembersForItem (type) {
  * @apiName GetMembersForGroup
  * @apiGroup Member
  *
- * @apiParam {UUID} groupId The group id
- * @apiParam {UUID} lastId Query parameter to specify the last member returned in a previous request to this route and get the next batch of results
- * @apiParam {Boolean} includeAllPublicFields Query parameter available only when fetching a party. If === `true` then all public fields for members will be returned (like when making a request for a single member)
+ * @apiParam (Path) {UUID} groupId The group id
+ * @apiParam (Query) {UUID} lastId Query parameter to specify the last member returned in a previous request to this route and get the next batch of results
+ * @apiParam (Query) {Boolean} includeAllPublicFields Query parameter available only when fetching a party. If === `true` then all public fields for members will be returned (like when making a request for a single member)
  *
  * @apiSuccess {Array} data An array of members, sorted by _id
  *
@@ -391,8 +391,8 @@ api.getMembersForGroup = {
  * @apiName GetInvitesForGroup
  * @apiGroup Member
  *
- * @apiParam {UUID} groupId The group id
- * @apiParam {UUID} lastId Query parameter to specify the last invite returned in a previous request to this route and get the next batch of results
+ * @apiParam (Path) {UUID} groupId The group id
+ * @apiParam (Query) {UUID} lastId Query parameter to specify the last invite returned in a previous request to this route and get the next batch of results
  *
  * @apiSuccess {array} data An array of invites, sorted by _id
  *
@@ -433,9 +433,9 @@ api.getInvitesForGroup = {
  * @apiName GetMembersForChallenge
  * @apiGroup Member
  *
- * @apiParam {UUID} challengeId The challenge id
- * @apiParam {UUID} lastId Query parameter to specify the last member returned in a previous request to this route and get the next batch of results
- * @apiParam {String} includeAllMembers BETA Query parameter - If 'true' all challenge members are returned
+ * @apiParam (Path) {UUID} challengeId The challenge id
+ * @apiParam (Query) {UUID} lastId Query parameter to specify the last member returned in a previous request to this route and get the next batch of results
+ * @apiParam (Query) {String} includeAllMembers BETA Query parameter - If 'true' all challenge members are returned
 
  * @apiSuccess {Array} data An array of members, sorted by _id
  *
@@ -456,8 +456,8 @@ api.getMembersForChallenge = {
  * @apiName GetChallengeMemberProgress
  * @apiGroup Member
  *
- * @apiParam {UUID} challengeId The challenge _id
- * @apiParam {UUID} memberId The member _id
+ * @apiParam (Path) {UUID} challengeId The challenge _id
+ * @apiParam (Path) {UUID} memberId The member _id
  *
  * @apiSuccess {Object} data Return an object with member _id, profile.name and a tasks object with the challenge tasks for the member
  *
@@ -647,9 +647,9 @@ api.sendPrivateMessage = {
  * @apiName TransferGems
  * @apiGroup Member
  *
- * @apiParam {String} message The message to the user
- * @apiParam {UUID} toUserId The toUser _id
- * @apiParam {Integer} gemAmount The number of gems to send
+ * @apiParam (Body) {String} message The message to the user
+ * @apiParam (Body) {UUID} toUserId The toUser _id
+ * @apiParam (Body) {Integer} gemAmount The number of gems to send
  *
  * @apiSuccess {Object} data An empty Object
  *
