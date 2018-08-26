@@ -8,6 +8,7 @@
                   v-model='newMessage',
                   :class='{"user-entry": newMessage}',
                   @keydown='updateCarretPosition',
+                  @click='updateCarretPosition',
                   @keyup.ctrl.enter='sendMessageShortcut()',
                   @paste='disableMessageSendShortcut()',
                   maxlength='3000'
@@ -17,7 +18,8 @@
                 :text='newMessage',
                 v-on:select="selectedAutocomplete",
                 :coords='coords',
-                :chat='group.chat')
+                :chat='group.chat',
+                :carPos = 'carPos')
 
       .row.chat-actions
         .col-6.chat-receive-actions
@@ -62,6 +64,7 @@
           TOP: 0,
           LEFT: 0,
         },
+        carPos: 0,
       };
     },
     computed: {
@@ -73,6 +76,7 @@
       // https://medium.com/@_jh3y/how-to-where-s-the-caret-getting-the-xy-position-of-the-caret-a24ba372990a
       getCoord (e, text) {
         let carPos = text.selectionEnd;
+        this.carPos = carPos;
         let div = document.createElement('div');
         let span = document.createElement('span');
         let copyStyle = getComputedStyle(text);

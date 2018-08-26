@@ -14,7 +14,7 @@ div.autocomplete-selection(v-if='searchResults.length > 0', :style='autocomplete
 import groupBy from 'lodash/groupBy';
 
 export default {
-  props: ['selections', 'text', 'coords', 'chat'],
+  props: ['selections', 'text', 'coords', 'chat', 'carPos'],
   data () {
     return {
       currentSearch: '',
@@ -37,7 +37,7 @@ export default {
     },
     searchResults () {
       if (!this.searchActive) return [];
-      let currentSearch = this.text.substring(this.currentSearchPosition + 1, this.text.length);
+      let currentSearch = this.text.substring(this.currentSearchPosition, this.carPos);
       return this.tmpSelections.filter((option) => {
         return option.toLowerCase().indexOf(currentSearch.toLowerCase()) !== -1;
       });
@@ -47,14 +47,23 @@ export default {
     this.grabUserNames();
   },
   watch: {
-    text (newText) {
-      if (!newText[newText.length - 1] || newText[newText.length - 1] === ' ') {
+    carPos (newCarPos) {
+      var index = newCarPos - 1;
+      var newText = this.text;
+      if (index >= newText.length) index = newText.length - 1;
+      if (!newText[index] || newText[index] === ' ') {
         this.searchActive = false;
+        return;
       }
-
-      if (newText[newText.length - 1] !== '@') return;
-      this.searchActive = true;
-      this.currentSearchPosition = newText.length - 1;
+      var startIndex = index;
+      while (newText[startIndex] !== '@' && startIndex >= 0) {
+        startIndex--;
+      }
+      if (newText[startIndex] === '@') {
+        this.searchActive = true;
+        startIndex++;
+      }
+      this.currentSearchPosition = startIndex;
     },
     chat () {
       this.resetDefaults();
@@ -80,7 +89,13 @@ export default {
       }
     },
     select (result) {
-      let newText = this.text.slice(0, this.currentSearchPosition + 1) + result;
+      var index = this.carPos;
+      var startIndex = index;
+      while (this.text[startIndex] !== '@' && startIndex >= 0) {
+        startIndex--;
+      }
+      startIndex++;
+      let newText = this.text.slice(0, this.currentSearchPosition) + result + this.text.slice(this.currentSearchPosition + index - startIndex);
       this.searchActive = false;
       this.$emit('select', newText);
     },
