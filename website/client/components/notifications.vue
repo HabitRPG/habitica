@@ -127,7 +127,7 @@ const NOTIFICATIONS = {
   },
   ULTIMATE_GEAR_ACHIEVEMENT: {
     achievement: true,
-    label: ($t) => `${$t('achievement')}: ${$t('gearAchievement')}`,
+    label: ($t) => `${$t('achievement')}: ${$t('gearAchievementNotification')}`,
     modalId: 'ultimate-gear',
   },
   REBIRTH_ACHIEVEMENT: {
