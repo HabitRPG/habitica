@@ -224,14 +224,7 @@ export default {
       if (after < 0) this.playSound('Minus_Habit');
     },
     userExp (after, before) {
-      if (after === before) return;
-      if (this.user.stats.lvl === 0) return;
-
-      let exp = after - before;
-      if (exp < -50) { // recalculate exp if user level up
-        exp = toNextLevel(this.user.stats.lvl - 1) - before + after;
-      }
-      this.exp(exp);
+      this.displayUserExpNotifications(after, before);
     },
     userGp (after, before) {
       if (after === before) return;
@@ -318,6 +311,56 @@ export default {
     document.removeEventListener('keydown', this.checkNextCron);
   },
   methods: {
+    getExpForLevelsEarned (currentExp) {
+      let level = -1;
+      let result = toNextLevel(this.user.stats.lvl + level);
+      let expWithoutLevelExp = currentExp - result;
+
+      level += 1;
+      while (expWithoutLevelExp > toNextLevel(this.user.stats.lvl + level)) {
+        const expForNextLevel = toNextLevel(this.user.stats.lvl + level);
+        result += expForNextLevel;
+        expWithoutLevelExp -= expForNextLevel;
+        level += 1;
+      }
+
+      return result;
+    },
+    displayUserExpNotifications (after, before) {
+      if (after === before) return;
+      if (this.user.stats.lvl === 0) return;
+
+      const exp = after - before;
+
+      if (exp > 0) {
+        this.exp(exp);
+        return;
+      }
+
+      const totalExpUserHadWhenChange = before + after;
+      const expForNextLevel = this.getExpForLevelsEarned(totalExpUserHadWhenChange);
+
+      // Leveled up with exact
+      if (after === 0) {
+        this.exp(expForNextLevel - totalExpUserHadWhenChange);
+        return;
+      }
+
+      // Leveled up with over exact
+      if (totalExpUserHadWhenChange >= expForNextLevel) {
+        // Had less the required exp
+        if (before < expForNextLevel) {
+          const expGainedToLevel = expForNextLevel - before;
+          return this.exp(expGainedToLevel + after);
+        }
+
+        const expAlreadyEarnedAfterLevel = before - expForNextLevel;
+        return this.exp(after - expAlreadyEarnedAfterLevel);
+      }
+
+      // We died, display the xp we lost
+      this.exp(before);
+    },
     checkUserAchievements () {
       if (this.user.needsCron) return;
 
