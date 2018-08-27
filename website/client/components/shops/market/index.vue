@@ -3,26 +3,12 @@
     div(slot="sidebar")
       .form-group
         input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
-      .form
-        h2(v-once) {{ $t('filter') }}
-        .form-group
-          checkbox(
-            v-for="category in categories",
-            :key="category.identifier",
-            :id="`category-${category.identifier}`",
-            :checked.sync="viewOptions[category.identifier].selected",
-            :text="category.text"
-          )
-        div.form-group.clearfix
-          h3.float-left(v-once) {{ $t('hideLocked') }}
-          toggle-switch.float-right(
-            v-model="hideLocked",
-          )
-        div.form-group.clearfix
-          h3.float-left(v-once) {{ $t('hidePinned') }}
-          toggle-switch.float-right(
-            v-model="hidePinned",
-          )
+      market-filter(
+        :categories="categories",
+        :hideLocked.sync="hideLocked",
+        :hidePinned.sync="hidePinned",
+        :viewOptions="viewOptions"
+      )
     div(slot="page")
       featured-items-header(
         :broken="broken",
@@ -150,14 +136,13 @@
   import Item from 'client/components/inventory/item';
   import CountBadge from 'client/components/ui/countBadge';
   import ItemRows from 'client/components/ui/itemRows';
-  import toggleSwitch from 'client/components/ui/toggleSwitch';
   import Avatar from 'client/components/avatar';
   import InventoryDrawer from 'client/components/shared/inventoryDrawer';
   import FeaturedItemsHeader from '../featuredItemsHeader';
   import PageLayout from 'client/components/ui/pageLayout';
   import LayoutSection from 'client/components/ui/layoutSection';
   import FilterDropdown from 'client/components/ui/filterDropdown';
-  import Checkbox from 'client/components/ui/checkbox';
+  import MarketFilter from './filter';
 
   import SellModal from './sellModal.vue';
   import EquipmentAttributesGrid from '../../inventory/equipment/attributesGrid.vue';
@@ -191,7 +176,6 @@ export default {
       CountBadge,
 
       ItemRows,
-      toggleSwitch,
 
       SellModal,
       EquipmentAttributesGrid,
@@ -202,9 +186,9 @@ export default {
       PageLayout,
       LayoutSection,
       FilterDropdown,
-      Checkbox,
       EquipmentSection,
       CategoryRow,
+      MarketFilter,
 
       SelectMembersModal,
     },
