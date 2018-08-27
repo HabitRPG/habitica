@@ -1103,7 +1103,7 @@ schema.statics.processQuestProgress = async function processQuestProgress (user,
 
   let questType = quest.boss ? 'Boss' : 'Collection';
 
-  await group[`_process${questType}Quest`]({ // processBossQuest, processCollectionQuest
+  await group[`_process${questType}Quest`]({ // _processBossQuest, _processCollectionQuest
     user,
     progress,
     group,
