@@ -19,8 +19,11 @@ import { mapState } from 'client/libs/store';
 import CountBadge from 'client/components/ui/countBadge';
 
 import svgPin from 'assets/svg/pin.svg';
+import planGemLimits from 'common/script/libs/planGemLimits';
+import pinUtils from '../../../mixins/pinUtils';
 
 export default {
+  mixins: [pinUtils],
   props: ['item'],
   components: {
     CountBadge,
@@ -38,7 +41,11 @@ export default {
       userItems: 'user.data.items',
     }),
     count () {
-      return this.userItems[this.item.purchaseType][this.item.key] || 0;
+      return this.userItems[this.item.purchaseType][this.item.key];
+    },
+    gemsLeft () {
+      if (!this.user.purchased.plan) return 0;
+      return planGemLimits.convCap + this.user.purchased.plan.consecutive.gemCapExtra - this.user.purchased.plan.gemsBought;
     },
   },
 };
