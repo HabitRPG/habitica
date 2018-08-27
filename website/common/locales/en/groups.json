@@ -446,6 +446,11 @@
   "worldBossBullet2": "The World Boss won’t damage you for missed tasks, but its Rage meter will go up. If the bar fills up, the Boss will attack one of Habitica’s shopkeepers!",
   "worldBossBullet3": "You can continue with normal Quest Bosses, damage will apply to both",
   "worldBossBullet4": "Check the Tavern regularly to see World Boss progress and Rage attacks",
+
+  "approvalNotRequired": "Approval not required",
+  "messagedFlaggedNotHidden": "Message flagged once, not hidden",
+  "messageHidden": "Message hidden",
+  "approvalNotRequired": "Approval not required",
   "worldBoss": "World Boss",
 
   "groupPlanTitle": "Need more for your crew?",
@@ -477,6 +482,10 @@
   "whatIsGroupManager": "What is a Group Manager?",
   "whatIsGroupManagerDesc": "A Group Manager is a user role that do not have access to the group's billing details, but can create, assign, and approve shared Tasks for the Group's members. Promote Group Managers from the Group’s member list.",
   "goToTaskBoard": "Go to Task Board",
+
+  "messagedFlaggedNotHidden": "Message flagged once, not hidden",
+  "messageHidden": "Message hidden",
+  "approvalIsRequired": "Needs Approval",
   "sharedCompletion": "Shared Completion",
   "recurringCompletion": "None - Group task does not complete",
   "singleCompletion": "Single - Completes when any assigned user finishes",
