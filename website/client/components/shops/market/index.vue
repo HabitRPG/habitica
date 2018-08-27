@@ -63,9 +63,7 @@
             :sortBy="selectedSortItemsBy.id",
             :category="category"
           )
-
           keys-to-kennel(v-if='category.identifier === "special"')
-
         div.fill-height
 
       inventoryDrawer(:showEggs="true", :showPotions="true")
@@ -250,72 +248,70 @@ export default {
         return shops.getMarketShop(this.user);
       },
       categories () {
-        if (this.market) {
-          let categories = [
-            ...this.market.categories,
-          ];
+        if (!this.market) return [];
 
-          categories.push({
-            identifier: 'equipment',
-            text: this.$t('equipment'),
-          });
+        let categories = [
+          ...this.market.categories,
+        ];
 
-          categories.push({
-            identifier: 'cards',
-            text: this.$t('cards'),
-            items: _map(_filter(this.content.cardTypes, (value) => {
-              return value.yearRound;
-            }), (value) => {
-              return {
-                ...getItemInfo(this.user, 'card', value),
-                showCount: false,
-              };
-            }),
-          });
+        categories.push({
+          identifier: 'equipment',
+          text: this.$t('equipment'),
+        });
 
-          let specialItems = [{
-            ...getItemInfo(this.user, 'fortify'),
+        categories.push({
+          identifier: 'cards',
+          text: this.$t('cards'),
+          items: _map(_filter(this.content.cardTypes, (value) => {
+            return value.yearRound;
+          }), (value) => {
+            return {
+              ...getItemInfo(this.user, 'card', value),
+              showCount: false,
+            };
+          }),
+        });
+
+        let specialItems = [{
+          ...getItemInfo(this.user, 'fortify'),
+          showCount: false,
+        }];
+
+        if (this.user.purchased.plan.customerId) {
+          let gemItem = getItemInfo(this.user, 'gem');
+
+          specialItems.push({
+            ...gemItem,
             showCount: false,
-          }];
-
-          if (this.user.purchased.plan.customerId) {
-            let gemItem = getItemInfo(this.user, 'gem');
-
-            specialItems.push({
-              ...gemItem,
-              showCount: false,
-            });
-          }
-
-          if (this.user.flags.rebirthEnabled) {
-            let rebirthItem = getItemInfo(this.user, 'rebirth_orb');
-
-            specialItems.push({
-              showCount: false,
-              ...rebirthItem,
-            });
-          }
-
-          if (specialItems.length > 0) {
-            categories.push({
-              identifier: 'special',
-              text: this.$t('special'),
-              items: specialItems,
-            });
-          }
-
-          categories.map((category) => {
-            if (!this.viewOptions[category.identifier]) {
-              this.$set(this.viewOptions, category.identifier, {
-                selected: true,
-              });
-            }
           });
-
-          return categories;
-        } else {
-          return [];
         }
+
+        if (this.user.flags.rebirthEnabled) {
+          let rebirthItem = getItemInfo(this.user, 'rebirth_orb');
+
+          specialItems.push({
+            showCount: false,
+            ...rebirthItem,
+          });
+        }
+
+        if (specialItems.length > 0) {
+          categories.push({
+            identifier: 'special',
+            text: this.$t('special'),
+            items: specialItems,
+          });
+        }
+
+        categories.map((category) => {
+          if (!this.viewOptions[category.identifier]) {
+            this.$set(this.viewOptions, category.identifier, {
+              selected: true,
+            });
+          }
+        });
+
+        return categories;
       },
     },
     methods: {
