@@ -62,7 +62,7 @@ div.featuredItems
       featuredItemSelected (item) {
         this.$emit('featuredItemSelected', item);
       },
-    }
+    },
   };
 </script>
 
