@@ -251,17 +251,20 @@ describe('Group Model', () => {
           let [
             updatedLeader,
             updatedParticipatingMember,
+            updatedSleepingParticipatingMember,
             updatedNonParticipatingMember,
             updatedUndecidedMember,
           ] = await Promise.all([
             User.findById(questLeader._id),
             User.findById(participatingMember._id),
+            User.findById(sleepingParticipatingMember._id),
             User.findById(nonParticipatingMember._id),
             User.findById(undecidedMember._id),
           ]);
 
           expect(updatedLeader.stats.hp).to.eql(42.5);
           expect(updatedParticipatingMember.stats.hp).to.eql(42.5);
+          expect(updatedSleepingParticipatingMember.stats.hp).to.eql(42.5);
           expect(updatedNonParticipatingMember.stats.hp).to.eql(50);
           expect(updatedUndecidedMember.stats.hp).to.eql(50);
         });
@@ -271,6 +274,7 @@ describe('Group Model', () => {
           party.quest.members = {
             [questLeader._id]: true,
             [participatingMember._id]: true,
+            [sleepingParticipatingMember._id]: true,
             [nonParticipatingMember._id]: false,
             [undecidedMember._id]: null,
           };
@@ -283,17 +287,20 @@ describe('Group Model', () => {
           let [
             updatedLeader,
             updatedParticipatingMember,
+            updatedSleepingParticipatingMember,
             updatedNonParticipatingMember,
             updatedUndecidedMember,
           ] = await Promise.all([
             User.findById(questLeader._id),
             User.findById(participatingMember._id),
+            User.findById(sleepingParticipatingMember._id),
             User.findById(nonParticipatingMember._id),
             User.findById(undecidedMember._id),
           ]);
 
           expect(updatedLeader.stats.hp).to.eql(42.5);
           expect(updatedParticipatingMember.stats.hp).to.eql(42.5);
+          expect(updatedSleepingParticipatingMember.stats.hp).to.eql(42.5);
           expect(updatedNonParticipatingMember.stats.hp).to.eql(50);
           expect(updatedUndecidedMember.stats.hp).to.eql(50);
         });
@@ -532,8 +539,10 @@ describe('Group Model', () => {
           let [
             updatedLeader,
             updatedParticipatingMember,
+            updatedSleepingParticipatingMember,
           ] = await Promise.all([
             User.findById(questLeader._id),
+            User.findById(sleepingParticipatingMember._id),
             User.findById(participatingMember._id),
           ]);
 
@@ -543,6 +552,9 @@ describe('Group Model', () => {
           expect(updatedParticipatingMember.achievements.quests[party.quest.key]).to.eql(1);
           expect(updatedParticipatingMember.stats.exp).to.be.greaterThan(0);
           expect(updatedParticipatingMember.stats.gp).to.be.greaterThan(0);
+          expect(updatedSleepingParticipatingMember.achievements.quests[party.quest.key]).to.eql(1);
+          expect(updatedSleepingParticipatingMember.stats.exp).to.be.greaterThan(0);
+          expect(updatedSleepingParticipatingMember.stats.gp).to.be.greaterThan(0);
         });
       });
     });
@@ -682,6 +694,7 @@ describe('Group Model', () => {
       it('returns an array of members whose quest status set to true', () => {
         party.quest.members = {
           [participatingMember._id]: true,
+          [sleepingParticipatingMember._id]: true,
           [questLeader._id]: true,
           [nonParticipatingMember._id]: false,
           [undecidedMember._id]: null,
@@ -689,6 +702,7 @@ describe('Group Model', () => {
 
         expect(party.getParticipatingQuestMembers()).to.eql([
           participatingMember._id,
+          sleepingParticipatingMember._id,
           questLeader._id,
         ]);
       });
@@ -791,11 +805,12 @@ describe('Group Model', () => {
       it('removes user from group quest', async () => {
         party.quest.members = {
           [participatingMember._id]: true,
+          [sleepingParticipatingMember._id]: true,
           [questLeader._id]: true,
           [nonParticipatingMember._id]: false,
           [undecidedMember._id]: null,
         };
-        party.memberCount = 4;
+        party.memberCount = 5;
         await party.save();
 
         await party.leave(participatingMember);
@@ -803,6 +818,7 @@ describe('Group Model', () => {
         party = await Group.findOne({_id: party._id});
         expect(party.quest.members).to.eql({
           [questLeader._id]: true,
+          [sleepingParticipatingMember._id]: true,
           [nonParticipatingMember._id]: false,
           [undecidedMember._id]: null,
         });
@@ -810,6 +826,7 @@ describe('Group Model', () => {
 
       it('deletes a private party when the last member leaves', async () => {
         await party.leave(participatingMember);
+        await party.leave(sleepingParticipatingMember);
         await party.leave(questLeader);
         await party.leave(nonParticipatingMember);
         await party.leave(undecidedMember);
@@ -881,6 +898,7 @@ describe('Group Model', () => {
         party.privacy = 'public';
 
         await party.leave(participatingMember);
+        await party.leave(sleepingParticipatingMember);
         await party.leave(questLeader);
         await party.leave(nonParticipatingMember);
         await party.leave(undecidedMember);
@@ -1109,6 +1127,7 @@ describe('Group Model', () => {
           party.quest.members = {
             [questLeader._id]: true,
             [participatingMember._id]: true,
+            [sleepingParticipatingMember._id]: true,
             [nonParticipatingMember._id]: false,
             [undecidedMember._id]: null,
           };
@@ -1165,6 +1184,7 @@ describe('Group Model', () => {
           let expectedQuestMembers = {};
           expectedQuestMembers[questLeader._id] = true;
           expectedQuestMembers[participatingMember._id] = true;
+          expectedQuestMembers[sleepingParticipatingMember._id] = true;
 
           expect(party.quest.members).to.eql(expectedQuestMembers);
         });
@@ -1183,11 +1203,17 @@ describe('Group Model', () => {
 
           questLeader = await User.findById(questLeader._id);
           participatingMember = await User.findById(participatingMember._id);
+          sleepingParticipatingMember = await User.findById(sleepingParticipatingMember._id);
 
           expect(participatingMember.party.quest.key).to.eql('whale');
           expect(participatingMember.party.quest.progress.down).to.eql(0);
           expect(participatingMember.party.quest.progress.collectedItems).to.eql(0);
           expect(participatingMember.party.quest.completed).to.eql(null);
+
+          expect(sleepingParticipatingMember.party.quest.key).to.eql('whale');
+          expect(sleepingParticipatingMember.party.quest.progress.down).to.eql(0);
+          expect(sleepingParticipatingMember.party.quest.progress.collectedItems).to.eql(0);
+          expect(sleepingParticipatingMember.party.quest.completed).to.eql(null);
 
           expect(questLeader.party.quest.key).to.eql('whale');
           expect(questLeader.party.quest.progress.down).to.eql(0);
@@ -1207,9 +1233,11 @@ describe('Group Model', () => {
 
         it('sends email to participating members that quest has started', async () => {
           participatingMember.preferences.emailNotifications.questStarted = true;
+          sleepingParticipatingMember.preferences.emailNotifications.questStarted = true;
           questLeader.preferences.emailNotifications.questStarted = true;
           await Promise.all([
             participatingMember.save(),
+            sleepingParticipatingMember.save(),
             questLeader.save(),
           ]);
 
@@ -1222,8 +1250,9 @@ describe('Group Model', () => {
           let memberIds = _.map(email.sendTxn.args[0][0], '_id');
           let typeOfEmail = email.sendTxn.args[0][1];
 
-          expect(memberIds).to.have.a.lengthOf(2);
+          expect(memberIds).to.have.a.lengthOf(3);
           expect(memberIds).to.include(participatingMember._id);
+          expect(memberIds).to.include(sleepingParticipatingMember._id);
           expect(memberIds).to.include(questLeader._id);
           expect(typeOfEmail).to.eql('quest-started');
         });
@@ -1231,6 +1260,13 @@ describe('Group Model', () => {
         it('sends webhook to participating members that quest has started', async () => {
           // should receive webhook
           participatingMember.webhooks = [{
+            type: 'questActivity',
+            url: 'http://someurl.com',
+            options: {
+              questStarted: true,
+            },
+          }];
+          sleepingParticipatingMember.webhooks = [{
             type: 'questActivity',
             url: 'http://someurl.com',
             options: {
@@ -1245,13 +1281,13 @@ describe('Group Model', () => {
             },
           }];
 
-          await Promise.all([participatingMember.save(), questLeader.save()]);
+          await Promise.all([participatingMember.save(), sleepingParticipatingMember.save(), questLeader.save()]);
 
           await party.startQuest(nonParticipatingMember);
 
           await sleep(0.5);
 
-          expect(questActivityWebhook.send).to.be.calledTwice; // for 2 participating members
+          expect(questActivityWebhook.send).to.be.calledThrice; // for 3 participating members
 
           let args = questActivityWebhook.send.args[0];
           let webhooks = args[0].webhooks;
@@ -1261,6 +1297,8 @@ describe('Group Model', () => {
           expect(webhooks).to.have.a.lengthOf(1);
           if (webhookOwner === questLeader._id) {
             expect(webhooks[0].id).to.eql(questLeader.webhooks[0].id);
+          } else if (webhookOwner === sleepingParticipatingMember._id) {
+            expect(webhooks[0].id).to.eql(sleepingParticipatingMember.webhooks[0].id);
           } else {
             expect(webhooks[0].id).to.eql(participatingMember.webhooks[0].id);
           }
@@ -1271,9 +1309,11 @@ describe('Group Model', () => {
 
         it('sends email only to members who have not opted out', async () => {
           participatingMember.preferences.emailNotifications.questStarted = false;
+          sleepingParticipatingMember.preferences.emailNotifications.questStarted = false;
           questLeader.preferences.emailNotifications.questStarted = true;
           await Promise.all([
             participatingMember.save(),
+            sleepingParticipatingMember.save(),
             questLeader.save(),
           ]);
 
@@ -1287,14 +1327,17 @@ describe('Group Model', () => {
 
           expect(memberIds).to.have.a.lengthOf(1);
           expect(memberIds).to.not.include(participatingMember._id);
+          expect(memberIds).to.not.include(sleepingParticipatingMember._id);
           expect(memberIds).to.include(questLeader._id);
         });
 
         it('does not send email to initiating member', async () => {
           participatingMember.preferences.emailNotifications.questStarted = true;
+          sleepingParticipatingMember.preferences.emailNotifications.questStarted = true;
           questLeader.preferences.emailNotifications.questStarted = true;
           await Promise.all([
             participatingMember.save(),
+            sleepingParticipatingMember.save(),
             questLeader.save(),
           ]);
 
@@ -1306,8 +1349,9 @@ describe('Group Model', () => {
 
           let memberIds = _.map(email.sendTxn.args[0][0], '_id');
 
-          expect(memberIds).to.have.a.lengthOf(1);
+          expect(memberIds).to.have.a.lengthOf(2);
           expect(memberIds).to.not.include(participatingMember._id);
+          expect(memberIds).to.include(sleepingParticipatingMember._id);
           expect(memberIds).to.include(questLeader._id);
         });
 
@@ -1316,7 +1360,7 @@ describe('Group Model', () => {
 
           await party.startQuest(nonParticipatingMember);
 
-          let members = [questLeader._id, participatingMember._id];
+          let members = [questLeader._id, participatingMember._id, sleepingParticipatingMember._id];
 
           expect(User.update).to.be.calledWith(
             { _id: { $in: members } },
@@ -1381,6 +1425,7 @@ describe('Group Model', () => {
         party.quest.members = {
           [questLeader._id]: true,
           [participatingMember._id]: true,
+          [sleepingParticipatingMember._id]: true,
           [nonParticipatingMember._id]: false,
           [undecidedMember._id]: null,
         };
@@ -1403,7 +1448,7 @@ describe('Group Model', () => {
 
           await party.finishQuest(quest);
 
-          expect(User.update).to.be.calledTwice;
+          expect(User.update).to.be.calledThrice;
         });
 
         it('stops retrying when a successful update has occurred', async () => {
@@ -1413,7 +1458,7 @@ describe('Group Model', () => {
 
           await party.finishQuest(quest);
 
-          expect(User.update).to.be.calledThrice;
+          expect(User.update.callCount).to.equal(4);
         });
 
         it('retries failed updates at most five times per user', async () => {
@@ -1421,7 +1466,7 @@ describe('Group Model', () => {
 
           await expect(party.finishQuest(quest)).to.eventually.be.rejected;
 
-          expect(User.update.callCount).to.eql(10);
+          expect(User.update.callCount).to.eql(15); // for 3 users
         });
       });
 
@@ -1431,13 +1476,16 @@ describe('Group Model', () => {
         let [
           updatedLeader,
           updatedParticipatingMember,
+          updatedSleepingParticipatingMember,
         ] = await Promise.all([
           User.findById(questLeader._id),
           User.findById(participatingMember._id),
+          User.findById(sleepingParticipatingMember._id),
         ]);
 
         expect(updatedLeader.achievements.quests[quest.key]).to.eql(1);
         expect(updatedParticipatingMember.achievements.quests[quest.key]).to.eql(1);
+        expect(updatedSleepingParticipatingMember.achievements.quests[quest.key]).to.eql(1);
       });
 
       it('gives out super awesome Masterclasser achievement to the deserving', async () => {
@@ -1467,9 +1515,11 @@ describe('Group Model', () => {
         let [
           updatedLeader,
           updatedParticipatingMember,
+          updatedSleepingParticipatingMember,
         ] = await Promise.all([
           User.findById(questLeader._id).exec(),
           User.findById(participatingMember._id).exec(),
+          User.findById(sleepingParticipatingMember._id).exec(),
         ]);
 
         expect(updatedLeader.achievements.lostMasterclasser).to.eql(true);
@@ -1503,13 +1553,16 @@ describe('Group Model', () => {
         let [
           updatedLeader,
           updatedParticipatingMember,
+          updatedSleepingParticipatingMember,
         ] = await Promise.all([
           User.findById(questLeader._id).exec(),
           User.findById(participatingMember._id).exec(),
+          User.findById(sleepingParticipatingMember._id).exec(),
         ]);
 
         expect(updatedLeader.achievements.lostMasterclasser).to.eql(true);
         expect(updatedParticipatingMember.achievements.lostMasterclasser).to.not.eql(true);
+        expect(updatedSleepingParticipatingMember.achievements.lostMasterclasser).to.not.eql(true);
       });
 
       it('gives xp and gold', async () => {
@@ -1518,15 +1571,19 @@ describe('Group Model', () => {
         let [
           updatedLeader,
           updatedParticipatingMember,
+          updatedSleepingParticipatingMember,
         ] = await Promise.all([
           User.findById(questLeader._id),
           User.findById(participatingMember._id),
+          User.findById(sleepingParticipatingMember._id),
         ]);
 
         expect(updatedLeader.stats.exp).to.eql(quest.drop.exp);
         expect(updatedLeader.stats.gp).to.eql(quest.drop.gp);
         expect(updatedParticipatingMember.stats.exp).to.eql(quest.drop.exp);
         expect(updatedParticipatingMember.stats.gp).to.eql(quest.drop.gp);
+        expect(updatedSleepingParticipatingMember.stats.exp).to.eql(quest.drop.exp);
+        expect(updatedSleepingParticipatingMember.stats.gp).to.eql(quest.drop.gp);
       });
 
       context('drops', () => {
@@ -1626,12 +1683,15 @@ describe('Group Model', () => {
           sandbox.spy(User, 'update');
           await party.finishQuest(quest);
 
-          expect(User.update).to.be.calledTwice;
+          expect(User.update).to.be.calledThrice;
           expect(User.update).to.be.calledWithMatch({
             _id: questLeader._id,
           });
           expect(User.update).to.be.calledWithMatch({
             _id: participatingMember._id,
+          });
+          expect(User.update).to.be.calledWithMatch({
+            _id: sleepingParticipatingMember._id,
           });
         });
 
@@ -1665,7 +1725,7 @@ describe('Group Model', () => {
           },
         }];
 
-        await Promise.all([participatingMember.save(), questLeader.save()]);
+        await Promise.all([participatingMember.save(), sleepingParticipatingMember.save(), questLeader.save()]);
 
         await party.finishQuest(quest);
 
