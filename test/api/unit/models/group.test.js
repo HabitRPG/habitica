@@ -1524,6 +1524,7 @@ describe('Group Model', () => {
 
         expect(updatedLeader.achievements.lostMasterclasser).to.eql(true);
         expect(updatedParticipatingMember.achievements.lostMasterclasser).to.not.eql(true);
+        expect(updatedSleepingParticipatingMember.achievements.lostMasterclasser).to.not.eql(true);
       });
 
       it('gives out super awesome Masterclasser achievement when quests done out of order', async () => {
