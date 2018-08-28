@@ -48,18 +48,17 @@ export default {
   },
   watch: {
     carPos (newCarPos) {
-      let index = newCarPos - 1;
+      let startIndex = newCarPos - 1;
       let newText = this.text;
-      if (index >= newText.length) index = newText.length - 1;
-      // if ((!newText[index] || newText[index] === ' ') && (!newText[index + 1] || (newText[index + 1] && newText[index + 1] === ' '))) {
-      //   this.searchActive = false;
-      //   return;
-      // }
+      if (startIndex >= newText.length) startIndex = newText.length - 1;
+      if (!newText[startIndex] || newText[startIndex] === ' ') {
+        this.searchActive = false;
+        return;
+      }
       this.searchActive = false;
 
-      let startIndex = index;
       while (newText[startIndex] !== '@' && startIndex >= 0) {
-        // if (!newText[startIndex] || (newText[startIndex] === ' ' && newText[startIndex + 1] === ' ')) return;
+        if (newText[startIndex] === ' ') return;
         startIndex--;
       }
       if (newText[startIndex] === '@') {
@@ -92,8 +91,7 @@ export default {
       }
     },
     select (result) {
-      let index = this.carPos;
-      let startIndex = index;
+      let startIndex = this.carPos;
       while (this.text[startIndex] !== '@' && startIndex >= 0) {
         startIndex--;
       }
