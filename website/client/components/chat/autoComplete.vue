@@ -51,13 +51,15 @@ export default {
       let index = newCarPos - 1;
       let newText = this.text;
       if (index >= newText.length) index = newText.length - 1;
-      if (!newText[index] || newText[index] === ' ') {
-        this.searchActive = false;
-        return;
-      }
+      // if ((!newText[index] || newText[index] === ' ') && (!newText[index + 1] || (newText[index + 1] && newText[index + 1] === ' '))) {
+      //   this.searchActive = false;
+      //   return;
+      // }
+      this.searchActive = false;
+
       let startIndex = index;
       while (newText[startIndex] !== '@' && startIndex >= 0) {
-        if (this.text[startIndex] === ' ') break;
+        // if (!newText[startIndex] || (newText[startIndex] === ' ' && newText[startIndex + 1] === ' ')) return;
         startIndex--;
       }
       if (newText[startIndex] === '@') {
