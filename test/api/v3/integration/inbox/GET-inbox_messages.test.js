@@ -38,7 +38,6 @@ describe('GET /inbox/messages', () => {
 
     // message to yourself
     expect(messages[0].text).to.equal('fourth');
-    expect(messages[0].sent).to.equal(false);
     expect(messages[0].uuid).to.equal(user._id);
 
     expect(messages[1].text).to.equal('third');
