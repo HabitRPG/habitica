@@ -542,8 +542,8 @@ describe('Group Model', () => {
             updatedSleepingParticipatingMember,
           ] = await Promise.all([
             User.findById(questLeader._id),
-            User.findById(sleepingParticipatingMember._id),
             User.findById(participatingMember._id),
+            User.findById(sleepingParticipatingMember._id),
           ]);
 
           expect(updatedLeader.achievements.quests[party.quest.key]).to.eql(1);
