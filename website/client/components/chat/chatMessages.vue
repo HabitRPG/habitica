@@ -230,6 +230,11 @@ export default {
       this.chat.splice(chatIndex, 1, message);
     },
     messageRemoved (message) {
+      if (this.inbox) {
+        this.$emit('message-removed', message);
+        return;
+      }
+
       const chatIndex = findIndex(this.chat, chatMessage => {
         return chatMessage.id === message.id;
       });
