@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'AUGUST SUBSCRIBER ITEMS AND WIKI SPOTLIGHT ON CUSTOMIZING THE HABITICA EXPERIENCE';
+const LAST_ANNOUNCEMENT_TITLE = 'NEW AVATAR CUSTOMIZATIONS: ANIMAL TAILS';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -26,30 +26,20 @@ api.getNews = {
     res.status(200).send({
       html: `
       <div class="bailey">
-        <div class="media align-items-center">
-          <div class="mr-3 ${baileyClass}"></div>
+        <div class="media">
           <div class="media-body">
-            <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>8/23/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <div class="media align-items-center">
+              <div class="mr-3 ${baileyClass}"></div>
+              <div class="media-body">
+                <h1 class="align-self-center">${res.t('newStuff')}</h1>
+                <h2>8/29/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+              </div>
+            </div>
+            <hr/>
+            <p>There are new customizations available for your avatar! Check out our new sets of tails to match the Animal Skins and Ears--you'll match your pets better than ever. You can find them in User > Avatar > Extra. Enjoy!</p>
+            <div class="small">by tricksy.fox, Beffymaroo, and SabreCat</div>
           </div>
-        </div>
-        <hr/>
-        <div class="media align-items-center">
-          <div class="media-body">
-            <h3>August Subscriber Set Revealed!</h3>
-            <p>Subscriber Items for August have been revealed: the Lava Dragon Item Set! You only have until August 31 to receive the item set when you <a href='/user/settings/subscription' target='_blank'>subscribe</a>. If you're already an active subscriber, reload the site and then head to Inventory > Items to claim your gear!</p>
-          </div>
-          <div class="promo_mystery_201808 ml-3"></div>
-        </div>
-        <p>Subscribers also receive the ability to buy Gems for Gold -- the longer you subscribe, the more Gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
-        <div class="small mb-3">by Beffymaroo</div>
-        <div class="media align-items-center">
-          <div class="scene_casting_spells mr-3 mb-3"></div>
-          <div class="media-body">
-            <h3>Blog Post: Creating a Unique Experience</h3>
-            <p>This month's <a href='https://habitica.wordpress.com/2018/08/22/creating-a-unique-experience/' target='_blank'>featured Wiki article</a> is about using Habitica's features to create a unique experience! We hope that it will help you as you customize Habitica to make the app even more motivating and fun. Be sure to check it out, and let us know what you think by reaching out on <a href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a href='https://facebook.com/habitica' target='_blank'>Facebook</a>.</p>
-            <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
-          </div>
+          <div class="promo_animal_tails ml-3 mb-3"></div>
         </div>
       </div>
       `,

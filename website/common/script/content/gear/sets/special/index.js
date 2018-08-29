@@ -1029,6 +1029,86 @@ let back = {
     value: 0,
     canOwn: ownsItem('back_special_turkeyTailBase'),
   },
+  bearTail: {
+    gearSet: 'animal',
+    text: t('backBearTailText'),
+    notes: t('backBearTailNotes'),
+    value: 20,
+    canOwn: ownsItem('back_special_bearTail'),
+    canBuy: () => {
+      return true;
+    },
+  },
+  cactusTail: {
+    gearSet: 'animal',
+    text: t('backCactusTailText'),
+    notes: t('backCactusTailNotes'),
+    value: 20,
+    canOwn: ownsItem('back_special_cactusTail'),
+    canBuy: () => {
+      return true;
+    },
+  },
+  foxTail: {
+    gearSet: 'animal',
+    text: t('backFoxTailText'),
+    notes: t('backFoxTailNotes'),
+    value: 20,
+    canOwn: ownsItem('back_special_foxTail'),
+    canBuy: () => {
+      return true;
+    },
+  },
+  lionTail: {
+    gearSet: 'animal',
+    text: t('backLionTailText'),
+    notes: t('backLionTailNotes'),
+    value: 20,
+    canOwn: ownsItem('back_special_lionTail'),
+    canBuy: () => {
+      return true;
+    },
+  },
+  pandaTail: {
+    gearSet: 'animal',
+    text: t('backPandaTailText'),
+    notes: t('backPandaTailNotes'),
+    value: 20,
+    canOwn: ownsItem('back_special_pandaTail'),
+    canBuy: () => {
+      return true;
+    },
+  },
+  pigTail: {
+    gearSet: 'animal',
+    text: t('backPigTailText'),
+    notes: t('backPigTailNotes'),
+    value: 20,
+    canOwn: ownsItem('back_special_pigTail'),
+    canBuy: () => {
+      return true;
+    },
+  },
+  tigerTail: {
+    gearSet: 'animal',
+    text: t('backTigerTailText'),
+    notes: t('backTigerTailNotes'),
+    value: 20,
+    canOwn: ownsItem('back_special_tigerTail'),
+    canBuy: () => {
+      return true;
+    },
+  },
+  wolfTail: {
+    gearSet: 'animal',
+    text: t('backWolfTailText'),
+    notes: t('backWolfTailNotes'),
+    value: 20,
+    canOwn: ownsItem('back_special_wolfTail'),
+    canBuy: () => {
+      return true;
+    },
+  },
 };
 
 let body = {
