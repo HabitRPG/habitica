@@ -99,7 +99,6 @@ export default {
         this.searchActive = true;
         startIndex++;
       } else return currIndex;
-      console.log(startIndex);
       return startIndex;
     },
   },
