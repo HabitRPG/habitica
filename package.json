@@ -45,7 +45,7 @@
     "glob": "^7.1.2",
     "got": "^9.0.0",
     "gulp": "^4.0.0",
-    "gulp-babel": "^7.0.1",
+    "gulp-babel": "^8.0.0",
     "gulp-imagemin": "^4.1.0",
     "gulp-nodemon": "^2.2.1",
     "gulp.spritesmith": "^6.9.0",
