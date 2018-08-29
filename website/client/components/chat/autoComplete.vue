@@ -48,23 +48,15 @@ export default {
   },
   watch: {
     carPos (newCarPos) {
-      let startIndex = newCarPos - 1;
+      let index = newCarPos - 1;
       let newText = this.text;
-      if (startIndex >= newText.length) startIndex = newText.length - 1;
-      if (!newText[startIndex] || newText[startIndex] === ' ') {
+      if (index >= newText.length) index = newText.length - 1;
+      if (!newText[index] || newText[index] === ' ') {
         this.searchActive = false;
         return;
       }
       this.searchActive = false;
-
-      while (newText[startIndex] !== '@' && startIndex >= 0) {
-        if (newText[startIndex] === ' ') return;
-        startIndex--;
-      }
-      if (newText[startIndex] === '@') {
-        this.searchActive = true;
-        startIndex++;
-      } else return;
+      let startIndex = this.findStartIndex(index);
       this.currentSearchPosition = startIndex;
     },
     chat () {
@@ -91,14 +83,24 @@ export default {
       }
     },
     select (result) {
-      let startIndex = this.carPos;
-      while (this.text[startIndex] !== '@' && startIndex >= 0) {
-        startIndex--;
-      }
-      startIndex++;
-      let newText = this.text.slice(0, this.currentSearchPosition) + result + this.text.slice(this.currentSearchPosition + index - startIndex);
+      let index = this.carPos;
+      let newText = this.text.slice(0, this.currentSearchPosition) + result + this.text.slice(this.currentSearchPosition + index - this.findStartIndex(index));
       this.searchActive = false;
       this.$emit('select', newText);
+    },
+    findStartIndex (currIndex) {
+      let startIndex = currIndex;
+      let newText = this.text;
+      while (newText[startIndex] !== '@' && startIndex >= 0) {
+        if (newText[startIndex] === ' ') return currIndex;
+        startIndex--;
+      }
+      if (newText[startIndex] === '@') {
+        this.searchActive = true;
+        startIndex++;
+      } else return currIndex;
+      console.log(startIndex);
+      return startIndex;
     },
   },
 };
