@@ -183,6 +183,7 @@
     "mysticHourglassesTooltip": "Clessidre Mistiche",
     "paypal": "PayPal",
     "amazonPayments": "Pagamenti su Amazon",
+    "amazonPaymentsRecurring": "Ticking the checkbox below is necessary for your subscription to be created. It allows your Amazon account to be used for ongoing payments for <strong>this</strong> subscription. It will not cause your Amazon account to be automatically used for any future purchases.",
     "timezone": "Fuso orario",
     "timezoneUTC": "Habitica usa il fuso orario impostato sul tuo PC, ovvero: <strong><%= utc %></strong>",
     "timezoneInfo": "Se il fuso orario è sbagliato, ricarica questa pagina tramite il bottone di ricarica o aggiornamento della pagina del browser, per assicurarti che Habitica contenga le informazioni più aggiornate. Se è ancora sbagliato, imposta il fuso orario corretto sul tuo PC e poi ricarica di nuovo questa pagina.<br><br> <strong>Se usi Habitica su altri PC o su altri dispositivi mobili, il fuso orario deve essere identico su ognuno di essi.</strong> Se le tue Daily sono state reimpostate ad un'ora sbagliata, ripeti questo controllo su tutti gli altri PC e su un browser sui tuoi dispositivi mobili.",

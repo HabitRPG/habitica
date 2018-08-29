@@ -43,7 +43,6 @@
     "messageAuthNoUserFound": "Nie znaleziono użytkownika.",
     "messageAuthMustBeLoggedIn": "Musisz się zalogować.",
     "messageAuthMustIncludeTokens": "Musisz dołączyć token i uid (identyfikator użytkownika) do swojego zapytania",
-    "messageGroupNotFound": "Grupa nie została odnaleziona lub nie masz do niej dostępu.",
     "messageGroupAlreadyInParty": "Już jesteś w drużynie. Spróbuj odświeżyć.",
     "messageGroupOnlyLeaderCanUpdate": "Tylko przywódca grupy może edytować grupę!",
     "messageGroupRequiresInvite": "Nie możesz dołączyć do grupy, do której cię nie zaproszono.",
@@ -62,5 +61,6 @@
     "messageNotAbleToBuyInBulk": "Ten przedmiot nie można kupić w liczbie większej niż 1.",
     "notificationsRequired": "Wymagane są identyfikatory powiadomienia",
     "unallocatedStatsPoints": "Masz <span class=\"notification-bold-blue\">nieprzydzielone Punkty Atrybutów: <%= points %></span>",
-    "beginningOfConversation": "To początek Twojej konwersacji z <%= userName %>. Pamiętaj, aby być miłym, odnosić się z szacunkiem i przestrzegać Wytycznych Społeczności!"
+    "beginningOfConversation": "To początek Twojej konwersacji z <%= userName %>. Pamiętaj, aby być miłym, odnosić się z szacunkiem i przestrzegać Wytycznych Społeczności!",
+    "messageDeletedUser": "Sorry, this user has deleted their account."
 }

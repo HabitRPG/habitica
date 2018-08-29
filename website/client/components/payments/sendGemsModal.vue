@@ -1,5 +1,5 @@
 <template lang="pug">
-b-modal#send-gems(:title="title", :hide-footer="true", size='lg')
+b-modal#send-gems(:title="title", :hide-footer="true", size='lg', @hide='onHide()')
   .modal-body(v-if='userReceivingGems')
     .panel.panel-default(
       :class="gift.type === 'gems' ? 'panel-primary' : 'transparent'",
@@ -137,6 +137,9 @@ export default {
       });
       this.text(this.$t('sentGems'));
       this.close();
+    },
+    onHide () {
+      this.gift.message = '';
     },
     close () {
       this.$root.$emit('bv::hide::modal', 'send-gems');

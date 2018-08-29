@@ -1,6 +1,8 @@
 import times from 'lodash/times';
-import Intro from 'intro.js/';
+import introjs from 'intro.js';
 import * as Analytics from 'client/libs/analytics';
+
+let showingTour = false;
 
 export default {
   data () {
@@ -13,6 +15,8 @@ export default {
   },
   watch: {
     $route () {
+      if (showingTour) return;
+      showingTour = true;
       this.routeChange();
     },
   },
@@ -168,13 +172,15 @@ export default {
       });
 
       // @TODO: Do we always need to initialize here?
-      let intro = Intro.introJs();
+      const intro = introjs();
       intro.setOptions({
+        exitOnOverlayClick: false,
         steps: opts.steps,
         doneLabel: this.$t('letsgo'),
       });
       intro.start();
       intro.oncomplete(() => {
+        showingTour = false;
         this.markTourComplete(chapter);
       });
     },
@@ -187,19 +193,6 @@ export default {
         return;
       }
 
-      // if (true) { // -2 indicates complete
-      //   if (chapter === 'intro') {
-      //     // Manually show bunny scroll reward
-      //     // let rewardData = {
-      //     //   reward: [Shared.content.quests.dustbunnies],
-      //     //   rewardKey: ['inventory_quest_scroll_dustbunnies'],
-      //     //   rewardText: Shared.content.quests.dustbunnies.text(),
-      //     //   message: this.$t('checkinEarned'),
-      //     //   nextRewardAt: 1,
-      //     // };
-      //     // @TODO: Notification.showLoginIncentive(this.user, rewardData, Social.loadWidgets);
-      //   }
-
       // Mark tour complete
       ups[`flags.tour.${chapter}`] = -2; // @TODO: Move magic numbers to enum
 
@@ -211,7 +204,6 @@ export default {
         eventValue: lastKnownStep,
         complete: true,
       });
-      // }
 
       this.$store.dispatch('user:set', ups);
     },

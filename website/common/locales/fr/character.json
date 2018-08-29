@@ -219,6 +219,6 @@
     "bodyAccess": "Accessoire de torse",
     "mainHand": "Main principale",
     "offHand": "Main secondaire",
-    "pointsAvailable": "Points disponibles",
+    "statPoints": "Points d'attribut",
     "pts": "pts"
 }

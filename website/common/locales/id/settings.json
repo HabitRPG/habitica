@@ -183,6 +183,7 @@
     "mysticHourglassesTooltip": "Jam Pasir Mistis",
     "paypal": "PayPal",
     "amazonPayments": "Pembayaran Amazon",
+    "amazonPaymentsRecurring": "Ticking the checkbox below is necessary for your subscription to be created. It allows your Amazon account to be used for ongoing payments for <strong>this</strong> subscription. It will not cause your Amazon account to be automatically used for any future purchases.",
     "timezone": "Zona Waktu",
     "timezoneUTC": "Habitica menggunakan set zona waktu pada PC kamu, yakni: <strong><%= utc %></strong>",
     "timezoneInfo": "Jika zona waktu salah, pertama reload halaman ini menggunakan tombol refresh dari perambanmu untuk memastikan bahwa Habitica memiliki informasi terbaru. Jika masih salah, sesuaikan zona waktu pada PC-mu kemudian muat ulang halaman ini lagi. <br><br><strong>Jika kamu menggunakan Habitica pada PC lain atau perangkat mobile, zona waktu harus sama semua.</strong> Jika Keseharianmu diulang pada waktu yang salah, periksa lagi semua PC dan browser pada perangkat mobile yang kamu gunakan.",

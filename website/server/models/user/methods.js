@@ -7,8 +7,8 @@ import {
   model as Group,
 } from '../group';
 
-import { defaults, map, flatten, flow, compact, uniq, partialRight } from 'lodash';
-import { model as UserNotification } from '../userNotification';
+import {defaults, map, flatten, flow, compact, uniq, partialRight} from 'lodash';
+import {model as UserNotification} from '../userNotification';
 import schema from './schema';
 import payments from '../../libs/payments/payments';
 import amazonPayments from '../../libs/payments/amazon';
@@ -106,7 +106,8 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, o
   // whether to save users after sending the message, defaults to true
   let saveUsers = options.save === false ? false : true;
 
-  common.refPush(userToReceiveMessage.inbox.messages, chatDefaults(options.receiverMsg, sender));
+  const newMessage = chatDefaults(options.receiverMsg, sender);
+  common.refPush(userToReceiveMessage.inbox.messages, newMessage);
   userToReceiveMessage.inbox.newMessages++;
   userToReceiveMessage._v++;
   userToReceiveMessage.markModified('inbox.messages');
@@ -139,6 +140,8 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, o
   if (saveUsers) {
     await Promise.all([userToReceiveMessage.save(), sender.save()]);
   }
+
+  return newMessage;
 };
 
 /**

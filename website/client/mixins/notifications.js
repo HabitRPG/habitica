@@ -2,6 +2,12 @@ import habiticaMarkdown from 'habitica-markdown';
 import { mapState } from 'client/libs/store';
 import { getDropClass, getXPMessage, getSign, round } from 'client/libs/notifications';
 
+// See https://stackoverflow.com/questions/4187146/truncate-number-to-two-decimal-places-without-rounding
+function toFixedWithoutRounding (num, fixed) {
+  const re = new RegExp(`^-?\\d+(?:\.\\d{0,${(fixed || -1)}})?`);
+  return num.toString().match(re)[0];
+}
+
 export default {
   computed: {
     ...mapState({notifications: 'notificationStore'}),
@@ -46,7 +52,8 @@ export default {
       this.notify(parsedMarkdown, 'info');
     },
     mp (val) {
-      this.notify(`${this.sign(val)} ${this.round(val)}`, 'mp', 'glyphicon glyphicon-fire', this.sign(val));
+      const cleanMp = `${val}`.replace('-', '').replace('+', '');
+      this.notify(`${this.sign(val)} ${toFixedWithoutRounding(cleanMp, 1)}`, 'mp', 'glyphicon glyphicon-fire', this.sign(val));
     },
     purchased (itemName) {
       this.text(this.$t('purchasedItem', {

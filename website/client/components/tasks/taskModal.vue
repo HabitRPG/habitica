@@ -1,7 +1,7 @@
 <template lang="pug">
-  form(v-if="task", @submit.stop.prevent="submit()")
-    b-modal#task-modal(size="sm", @hidden="onClose()", @show="handleOpen()", @shown="focusInput()")
-      .task-modal-header(slot="modal-header", :class="cssClass('bg')")
+  form(v-if="task", @submit.stop.prevent="submit()", @click="handleClick($event)")
+    b-modal#task-modal(v-bind:no-close-on-esc="showTagsSelect", v-bind:no-close-on-backdrop="showTagsSelect", size="sm", @hidden="onClose()", @show="handleOpen()", @shown="focusInput()")
+      .task-modal-header(slot="modal-header", :class="cssClass('bg')", @click="handleClick($event)")
         .clearfix
           h1.float-left {{ title }}
           .float-right.d-flex.align-items-center
@@ -23,7 +23,7 @@
               a(target="_blank", href="http://habitica.wikia.com/wiki/Markdown_Cheat_Sheet") {{ $t('markdownHelpLink') }}
 
           textarea.form-control(v-model="task.notes", rows="3")
-      .task-modal-content
+      .task-modal-content(@click="handleClick($event)")
         .option.mt-0(v-if="task.type === 'reward'")
           .form-group
             label(v-once) {{ $t('cost') }}
@@ -147,7 +147,7 @@
                   .category-label(v-for='tagName in truncatedSelectedTags', :title="tagName", v-markdown='tagName')
                   .tags-more(v-if='remainingSelectedTags.length > 0') +{{ $t('more', { count: remainingSelectedTags.length }) }}
                   .dropdown-toggle
-          tags-popup(v-if="showTagsSelect", :tags="user.tags", v-model="task.tags", @close='closeTagsPopup()')
+          tags-popup(ref="popup", v-if="showTagsSelect", :tags="user.tags", v-model="task.tags", @close='closeTagsPopup()')
 
         .option(v-if="task.type === 'habit'")
           .form-group
@@ -242,7 +242,7 @@
           .svg-icon.d-inline-b(v-html="icons.destroy")
           span {{ $t('deleteTask') }}
 
-      .task-modal-footer.d-flex.justify-content-center.align-items-center(slot="modal-footer")
+      .task-modal-footer.d-flex.justify-content-center.align-items-center(slot="modal-footer", @click="handleClick($event)")
         .cancel-task-btn(v-once, @click="cancel()") {{ $t('cancel') }}
         button.btn.btn-primary(type="submit", v-once) {{ $t('save') }}
 </template>
@@ -714,6 +714,9 @@ export default {
       },
     };
   },
+  mounted () {
+    this.showAdvancedOptions = !this.user.preferences.advancedCollapsed;
+  },
   watch: {
     task () {
       this.syncTask();
@@ -802,6 +805,12 @@ export default {
     remainingSelectedTags () {
       return this.selectedTags.slice(this.maxTags);
     },
+  },
+  created () {
+    document.addEventListener('keyup', this.handleEsc);
+  },
+  destroyed () {
+    document.removeEventListener('keyup', this.handleEsc);
   },
   methods: {
     ...mapActions({saveTask: 'tasks:save', destroyTask: 'tasks:destroy', createTask: 'tasks:create'}),
@@ -914,17 +923,18 @@ export default {
 
       if (this.purpose === 'create') {
         if (this.challengeId) {
-          this.$store.dispatch('tasks:createChallengeTasks', {
+          const response = await this.$store.dispatch('tasks:createChallengeTasks', {
             challengeId: this.challengeId,
             tasks: [this.task],
           });
+          Object.assign(this.task, response);
           this.$emit('taskCreated', this.task);
         } else if (this.groupId) {
-          await this.$store.dispatch('tasks:createGroupTasks', {
+          const response = await this.$store.dispatch('tasks:createGroupTasks', {
             groupId: this.groupId,
             tasks: [this.task],
           });
-
+          Object.assign(this.task, response);
           let promises = this.assignedMembers.map(memberId => {
             return this.$store.dispatch('tasks:assignTask', {
               taskId: this.task._id,
@@ -987,6 +997,16 @@ export default {
     },
     focusInput () {
       this.$refs.inputToFocus.focus();
+    },
+    handleEsc (e) {
+      if (e.keyCode === 27 && this.showTagsSelect) {
+        this.closeTagsPopup();
+      }
+    },
+    handleClick (e) {
+      if (this.$refs.popup && !this.$refs.popup.$el.contains(e.target)) {
+        this.closeTagsPopup();
+      }
     },
   },
 };

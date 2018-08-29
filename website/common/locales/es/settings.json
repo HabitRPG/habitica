@@ -183,6 +183,7 @@
     "mysticHourglassesTooltip": "Relojes de Arena Místicos",
     "paypal": "PayPal",
     "amazonPayments": "Pagos con Amazon",
+    "amazonPaymentsRecurring": "Marcar la siguiente casilla es necesario para crear tu suscripción. Permite usar tu cuenta de Amazon para pagos continuados para <strong>esta</strong> suscripción. No provocará que se use tu cuenta de Amazon automáticamente para ninguna compra futura.",
     "timezone": "Zona horaria",
     "timezoneUTC": "Habitica usa la zona horaria de tu PC, que es: <strong><%= utc %></strong>",
     "timezoneInfo": "Si esa zona horaria es incorrecta, antes que nada, vuelve a cargar esta página con el botón de actualizar del navegador para asegurarte de que Habitica disponga de la información más reciente. Si sigue siendo errónea, configura la zona horaria en tu PC y, luego, vuelve a cargar esta página una vez más.<br><br> <strong>Si usas Habitica en otros ordenadores o dispositivos móviles, la zona horaria debe ser la misma en todos ellos.</strong> Si tus tareas diarias se restablecen a una hora incorrecta, vuelve a comprobar esto en todos los demás ordenadores y en un navegador de tus dispositivos móviles.",

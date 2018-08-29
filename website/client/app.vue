@@ -295,9 +295,14 @@ export default {
 
     // Set up Error interceptors
     axios.interceptors.response.use((response) => {
-      if (this.user && response.data && response.data.notifications) {
-        this.$set(this.user, 'notifications', response.data.notifications);
-      }
+      const responseHasNotifications = response.data && response.data.notifications;
+      if (!responseHasNotifications) return response;
+
+      const responseIsUpdateUser = this.user && this.user._v >= response.data.userV;
+      if (!responseIsUpdateUser) return response;
+
+      this.$set(this.user, 'notifications', response.data.notifications);
+
       return response;
     }, (error) => {
       if (error.response.status >= 400) {
@@ -659,3 +664,4 @@ export default {
 <style src="assets/css/sprites/spritesmith-main-21.css"></style>
 <style src="assets/css/sprites/spritesmith-main-22.css"></style>
 <style src="assets/css/sprites.css"></style>
+<style src="smartbanner.js/dist/smartbanner.min.css"></style>

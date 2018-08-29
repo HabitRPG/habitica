@@ -8,7 +8,7 @@ div
         button.btn.btn-secondary.gift-icon(@click='openSendGemsModal()', v-b-tooltip.hover.bottom="$t('sendGems')")
           .svg-icon.gift-icon(v-html="icons.gift")
         button.btn.btn-secondary.remove-icon(v-if='user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) === -1',
-          @click="blockUser()", v-b-tooltip.hover.right="$t('block')")
+          @click="blockUser()", v-b-tooltip.hover.right="$t('blockWarning')")
           .svg-icon.remove-icon(v-html="icons.remove")
         button.btn.btn-secondary.positive-icon(v-if='user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) !== -1',
           @click="unblockUser()", v-b-tooltip.hover.right="$t('unblock')")

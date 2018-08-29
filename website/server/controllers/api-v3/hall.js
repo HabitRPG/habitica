@@ -273,6 +273,7 @@ api.updateHero = {
     if (updateData.auth && updateData.auth.blocked === false) {
       hero.auth.blocked = false;
     }
+
     if (updateData.flags && _.isBoolean(updateData.flags.chatRevoked)) hero.flags.chatRevoked = updateData.flags.chatRevoked;
 
     let savedHero = await hero.save();

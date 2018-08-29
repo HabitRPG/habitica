@@ -143,6 +143,7 @@
   "PMDisabledCaptionText": "You can still send messages, but no one can send them to you.",
   "block": "Block",
   "unblock": "Un-block",
+  "blockWarning": "Block - This will have no effect if the player is a moderator now or becomes a moderator in future.",
   "pm-reply": "Send a reply",
   "inbox": "Inbox",
   "messageRequired": "A message is required.",

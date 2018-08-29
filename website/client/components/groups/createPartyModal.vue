@@ -19,19 +19,20 @@ b-modal#create-party-modal(title="Empty", size='lg', hide-footer=true)
         p(v-once) {{$t('wantToJoinPartyDescription')}}
         button.btn.btn-primary(v-once, @click='shareUserId()') {{$t('shartUserId')}}
       .share-userid-options(v-if="shareUserIdShown")
-        .option-item(v-once)
+        .option-item(@click='copyUserId()')
           .svg-icon(v-html="icons.copy")
+          input(type="text", v-model="user._id", id="userIdInput")
           | Copy User ID
-        .option-item(v-once)
+        //.option-item(v-once)
           .svg-icon(v-html="icons.greyBadge")
           | {{$t('lookingForGroup')}}
-        .option-item(v-once)
+        //.option-item(v-once)
           .svg-icon(v-html="icons.qrCode")
           | {{$t('qrCode')}}
-        .option-item(v-once)
+        //.option-item(v-once)
           .svg-icon.facebook(v-html="icons.facebook")
           | Facebook
-        .option-item(v-once)
+        //.option-item(v-once)
           .svg-icon(v-html="icons.twitter")
           | Twitter
 </template>
@@ -108,9 +109,14 @@ b-modal#create-party-modal(title="Empty", size='lg', hide-footer=true)
     border-radius: 2px;
     width: 220px;
     position: absolute;
-    top: -8em;
+    top: 9em;
     left: 4.8em;
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+
+    #userIdInput {
+      position: absolute;
+      left: 1000rem;
+    }
 
     .option-item {
       padding: 1em;
@@ -182,6 +188,12 @@ export default {
 
       this.$root.$emit('bv::hide::modal', 'create-party-modal');
       this.$router.push('/party');
+    },
+    copyUserId () {
+      const copyText = document.getElementById('userIdInput');
+      copyText.select();
+      document.execCommand('copy');
+      alert('User ID has been copied');
     },
   },
 };

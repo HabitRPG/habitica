@@ -8,8 +8,8 @@ menu-dropdown.item-user(:right="true")
     a.dropdown-item.edit-avatar.dropdown-separated(@click='showAvatar()')
       h3 {{ user.profile.name }}
       span.small-text {{ $t('editAvatar') }}
-    a.nav-link.dropdown-item.dropdown-separated(@click.prevent='showInbox()')
-      | {{ $t('messages') }}
+    a.nav-link.dropdown-item.dropdown-separated.d-flex.justify-content-between.align-items-center(@click.prevent='showInbox()')
+      div {{ $t('messages') }}
       message-count(v-if='user.inbox.newMessages > 0', :count="user.inbox.newMessages")
     a.dropdown-item(@click='showAvatar("backgrounds", "2018")') {{ $t('backgrounds') }}
     a.dropdown-item(@click='showProfile("stats")') {{ $t('stats') }}

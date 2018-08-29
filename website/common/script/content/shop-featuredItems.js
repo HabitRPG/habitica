@@ -9,11 +9,11 @@ const featuredItems = {
     },
     {
       type: 'premiumHatchingPotion',
-      path: 'premiumHatchingPotions.Glass',
+      path: 'premiumHatchingPotions.Ember',
     },
     {
-      type: 'food',
-      path: 'food.Fish',
+      type: 'eggs',
+      path: 'eggs.Dragon',
     },
     {
       type: 'card',
@@ -31,10 +31,10 @@ const featuredItems = {
     },
     {
       type: 'quests',
-      path: 'quests.whale',
+      path: 'quests.kangaroo',
     },
   ],
-  seasonal: 'summerRogue',
+  seasonal: '',
   timeTravelers: [
     // TODO
   ],

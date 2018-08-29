@@ -84,8 +84,10 @@ export async function updateChallenge (store, payload) {
 }
 
 export async function deleteChallenge (store, payload) {
-  let response = await axios.delete(`/api/v4/challenges/${payload.challengeId}`);
-
+  const response = await axios.delete(`/api/v4/challenges/${payload.challengeId}`);
+  if (payload.prize) {
+    store.state.user.data.balance += payload.prize / 4;
+  }
   return response.data.data;
 }
 

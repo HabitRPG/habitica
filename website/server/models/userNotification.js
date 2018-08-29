@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import baseModel from '../libs/baseModel';
 import { v4 as uuid } from 'uuid';
 import validator from 'validator';
+import _ from 'lodash';
 
 const NOTIFICATION_TYPES = [
   'DROPS_ENABLED',
@@ -74,13 +75,22 @@ export let schema = new Schema({
 schema.statics.convertNotificationsToSafeJson = function convertNotificationsToSafeJson (notifications) {
   if (!notifications) return notifications;
 
-  return notifications.filter(n => {
+  let filteredNotifications = notifications.filter(n => {
     // Exclude notifications with a nullish value
     if (!n) return false;
     // Exclude notifications without an id or a type
     if (!n.id || !n.type) return false;
     return true;
-  }).map(n => {
+  });
+
+  filteredNotifications = _.uniqWith(filteredNotifications, (val, otherVal) => {
+    if (val.type === otherVal.type && val.type === 'NEW_CHAT_MESSAGE') {
+      return val.data.group.id === otherVal.data.group.id;
+    }
+    return false;
+  });
+
+  return filteredNotifications.map(n => {
     return n.toJSON();
   });
 };

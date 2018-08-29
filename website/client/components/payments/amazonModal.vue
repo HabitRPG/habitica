@@ -3,8 +3,10 @@
     h2.text-center Continue with Amazon
     #AmazonPayButton
     #AmazonPayWallet(v-if="amazonPayments.loggedIn", style="width: 400px; height: 228px;")
-    #AmazonPayRecurring(v-if="amazonPayments.loggedIn && amazonPayments.type === 'subscription'",
-                        style="width: 400px; height: 140px;")
+    template(v-if="amazonPayments.loggedIn && amazonPayments.type === 'subscription'")
+      br
+      p(v-html="$t('amazonPaymentsRecurring')")
+      #AmazonPayRecurring(style="width: 400px; height: 140px;")
     .modal-footer
       .text-center
         button.btn.btn-primary(v-if="amazonPaymentsCanCheckout",
@@ -13,8 +15,12 @@
 
 <style scoped>
   #AmazonPayButton {
-    margin: 0 auto;
     width: 150px;
+    margin-bottom: 12px;
+  }
+
+  #AmazonPayButton, #AmazonPayWallet, #AmazonPayRecurring {
+    margin: 0 auto;
   }
 
   #AmazonPayRecurring {

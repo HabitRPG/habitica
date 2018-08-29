@@ -183,6 +183,7 @@
     "mysticHourglassesTooltip": "Ampulheta Mística",
     "paypal": "PayPal",
     "amazonPayments": "Amazon Payments",
+    "amazonPaymentsRecurring": "É necessário marcar a caixa de seleção abaixo para sua assinatura ser criada. Isso permite que sua conta Amazon seja usada para pagamentos recorrentes para <strong>essa</strong> assinatura. Isso não fará com que sua conta Amazon seja usada automaticamente para outras compras futuras.",
     "timezone": "Fuso Horário",
     "timezoneUTC": "O Habitica usa o fuso horário definido no seu computador, que é <strong><%= utc %></strong>",
     "timezoneInfo": "Se esse fuso horário não for o correto, recarregue esta página utilizando o botão de recarregar do seu navegador para garantir que o Habitica tenha a informação mais recente. Se ainda estiver errado, ajuste o fuso horário no seu computador e recarregue esta página novamente.<br><br><strong>Se você usa o Habitica em outros computadores ou dispositivos móveis, o fuso horário deve ser o mesmo em todos eles.</strong> Se suas Diárias têm sido reiniciadas na hora errada, repita esta operação em todos os outros computadores e em um navegador em seus dispositivos móveis.",
