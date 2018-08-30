@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'NEW AVATAR CUSTOMIZATIONS: ANIMAL TAILS';
+const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE FOR LAVA DRAGON SET AND SPOTLIGHT ON BACK TO SCHOOL';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -26,20 +26,30 @@ api.getNews = {
     res.status(200).send({
       html: `
       <div class="bailey">
-        <div class="media">
+        <div class="media align-items-center">
+          <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
-            <div class="media align-items-center">
-              <div class="mr-3 ${baileyClass}"></div>
-              <div class="media-body">
-                <h1 class="align-self-center">${res.t('newStuff')}</h1>
-                <h2>8/29/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
-              </div>
-            </div>
-            <hr/>
-            <p>There are new customizations available for your avatar! Check out our new sets of tails to match the Animal Skins and Ears--you'll match your pets better than ever. You can find them in User > Avatar > Extra. Enjoy!</p>
-            <div class="small">by tricksy.fox, Beffymaroo, and SabreCat</div>
+            <h1 class="align-self-center">${res.t('newStuff')}</h1>
+            <h2>8/30/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
-          <div class="promo_animal_tails ml-3 mb-3"></div>
+        </div>
+        <hr/>
+        <div class="media align-items-center">
+          <div class="media-body">
+            <h3>Last Chance for Lava Dragon Set</h3>
+            <p>Reminder: this is the final day to <a href='/user/settings/subscription' target='_blank'>subscribe</a> and receive the Lava Dragon Set! Subscribing also lets you buy Gems for Gold. The longer your subscription, the more Gems you get!</p>
+            <p>Thanks so much for your support! You help keep Habitica running.</p>
+            <div class="small mb-3">by Beffymaroo</div>
+          </div>
+          <div class="promo_mystery_201808"></div>
+        </div>
+        <div class="media align-items-center">
+          <div class="scene_studying mb-3 mr-3"></div>
+          <div class="media-body">
+            <h3>User Spotlight Special: Back-To-School Edition</h3>
+            <p>Are you getting ready for school to start (or perhaps school has already begun) and using Habitica to motivate and organize yourself? Check out this special <a href='https://habitica.wordpress.com/2018/08/30/user-spotlight-special-edition-tips-for-back-to-school/' target='_blank'>User Spotlight post</a>, featuring advice from fellow Habiticans! They offer lots of useful tips for using your task lists and more to get a jump-start on your studies (or teaching) for this year.</p>
+            <div class="small mb-3">by shanaqui</div>
+          </div>
         </div>
       </div>
       `,
