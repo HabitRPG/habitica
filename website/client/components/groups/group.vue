@@ -478,11 +478,6 @@ export default {
         return n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === groupId;
       });
     },
-    deleteAllMessages () {
-      if (confirm(this.$t('confirmDeleteAllMessages'))) {
-        // User.clearPMs();
-      }
-    },
     checkForAchievements () {
       // Checks if user's party has reached 2 players for the first time.
       if (!this.user.achievements.partyUp && this.group.memberCount >= 2) {
