@@ -127,6 +127,7 @@ export default {
   },
   data () {
     return {
+      party: {},
       expandedMember: null,
       currentWidth: 0,
       inviteModalGroup: undefined,
@@ -176,8 +177,9 @@ export default {
       }
     },
     async showPartyMembers () {
-      // If party, retrieve the full party details to allow permissions checks.
-      if (this.user.party._id) {
+      // If there is currently no party, retrieve the full party details
+      // to allow permissions checks.
+      if (!this.party._id) {
         await this.$store.dispatch('party:getParty', true);
         this.party = this.$store.state.party.data;
       }
