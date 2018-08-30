@@ -13,7 +13,7 @@
 
 .modal-dialog {
   width: auto;
-  margin-top: 100px;
+  margin-top: 60px;
 
   .title {
     min-height: 24px;
@@ -36,6 +36,10 @@
     overflow-y: hidden;
     text-overflow: ellipsis;
   }
+}
+
+.restingInn .modal-dialog {
+  margin-top: 100px;
 }
 
 #start-quest-modal, #buy-quest-modal {
