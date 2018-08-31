@@ -61,6 +61,9 @@ app.use(hotMiddleware);
 
 // serve pure static assets
 const staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory);
+app.use('/static/icons', express.static(path.posix.join(config.dev.staticAssetsDirectory, 'icons/'), {
+  maxage: '30d',
+}));
 app.use(staticPath, express.static(config.dev.staticAssetsDirectory));
 
 module.exports = app.listen(port, (err) => {
