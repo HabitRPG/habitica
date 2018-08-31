@@ -11,7 +11,7 @@ let api = {};
  * @apiGroup Inbox
  * @apiDescription Get inbox messages for a user
  *
- * @apiSuccess {Array} data An array of <a href='https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js#L51' target='_blank'>chat messages</a>
+ * @apiSuccess {Array} data An array of inbox messages
  */
 api.getInboxMessages = {
   method: 'GET',

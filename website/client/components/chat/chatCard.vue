@@ -7,7 +7,7 @@ div
       h3.leader(
         :class='userLevelStyle(msg)',
         @click="showMemberModal(msg.uuid)",
-        v-b-tooltip.hover.top="('contributor' in msg) ? msg.contributor.text : ''",
+        v-b-tooltip.hover.top="tierTitle",
       )
         | {{msg.user}}
         .svg-icon(v-html="tierIcon", v-if='showShowTierStyle')
@@ -119,6 +119,8 @@ import markdownDirective from 'client/directives/markdown';
 import { mapState } from 'client/libs/store';
 import styleHelper from 'client/mixins/styleHelper';
 
+import achievementsLib from '../../../common/script/libs/achievements';
+
 import deleteIcon from 'assets/svg/delete.svg';
 import copyIcon from 'assets/svg/copy.svg';
 import likeIcon from 'assets/svg/like.svg';
@@ -220,6 +222,10 @@ export default {
         return this.icons.tierNPC;
       }
       return this.icons[`tier${message.contributor.level}`];
+    },
+    tierTitle () {
+      const message = this.msg;
+      return achievementsLib.getContribText(message.contributor, message.backer) || '';
     },
   },
   methods: {
