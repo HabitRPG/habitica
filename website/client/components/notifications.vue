@@ -88,7 +88,6 @@ import axios from 'axios';
 import moment from 'moment';
 import throttle from 'lodash/throttle';
 
-import { toNextLevel } from '../../common/script/statHelpers';
 import { shouldDo } from '../../common/script/cron';
 import { mapState } from 'client/libs/store';
 import notifications from 'client/mixins/notifications';
@@ -223,12 +222,7 @@ export default {
     userExp (after, before) {
       if (after === before) return;
       if (this.user.stats.lvl === 0) return;
-
-      let exp = after - before;
-      if (exp < -50) { // recalculate exp if user level up
-        exp = toNextLevel(this.user.stats.lvl - 1) - before + after;
-      }
-      this.exp(exp);
+      this.exp(after - before);
     },
     userGp (after, before) {
       if (after === before) return;
