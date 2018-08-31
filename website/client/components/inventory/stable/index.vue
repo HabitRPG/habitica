@@ -430,13 +430,16 @@
       mousePosition: MouseMoveDirective,
     },
     data () {
+      let savedSelectedSortBy = 'standard';
+      if (localStorage.getItem('selectedSortBy')) savedSelectedSortBy = JSON.parse(localStorage.getItem('selectedSortBy'));
+
       return {
         viewOptions: {},
         hideMissing: false,
         searchText: null,
         searchTextThrottled: '',
         // sort has the translation-keys as values
-        selectedSortBy: 'standard',
+        selectedSortBy: savedSelectedSortBy,
         sortByItems: [
           'standard',
           'AZ',
@@ -461,6 +464,12 @@
         let search = this.searchText.toLowerCase();
         this.searchTextThrottled = search;
       }, 250),
+      selectedSortBy: {
+        handler () {
+          localStorage.setItem('selectedSortBy', JSON.stringify(this.selectedSortBy));
+        },
+        deep: true,
+      },
     },
     computed: {
       ...mapState({
