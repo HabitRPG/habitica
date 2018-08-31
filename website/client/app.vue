@@ -103,7 +103,7 @@ div
 
 <style lang='scss'>
   @import '~client/assets/scss/colors.scss';
-
+  
   /* @TODO: The modal-open class is not being removed. Let's try this for now */
   .modal {
     overflow-y: scroll !important;
@@ -295,14 +295,9 @@ export default {
 
     // Set up Error interceptors
     axios.interceptors.response.use((response) => {
-      const responseHasNotifications = response.data && response.data.notifications;
-      if (!responseHasNotifications) return response;
-
-      const responseIsUpdateUser = this.user && this.user._v >= response.data.userV;
-      if (!responseIsUpdateUser) return response;
-
-      this.$set(this.user, 'notifications', response.data.notifications);
-
+      if (this.user && response.data && response.data.notifications) {
+        this.$set(this.user, 'notifications', response.data.notifications);
+      }
       return response;
     }, (error) => {
       if (error.response.status >= 400) {
