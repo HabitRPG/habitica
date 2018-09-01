@@ -127,7 +127,6 @@ export default {
   },
   data () {
     return {
-      party: {},
       expandedMember: null,
       currentWidth: 0,
       inviteModalGroup: undefined,
@@ -177,16 +176,12 @@ export default {
       }
     },
     async showPartyMembers () {
-      // If there is currently no party, retrieve the full party details
-      // to allow permissions checks.
-      if (!this.party._id) {
-        await this.$store.dispatch('party:getParty', true);
-        this.party = this.$store.state.party.data;
-      }
+      // Retrieve the full party details
+      const party = await this.$store.dispatch('party:getParty');
 
       // Set the party details for the members-modal component
-      this.$store.state.memberModalOptions.groupId = this.party._id;
-      this.$store.state.memberModalOptions.group = this.party;
+      this.$store.state.memberModalOptions.groupId = party.data._id;
+      this.$store.state.memberModalOptions.group = party.data;
       this.$store.state.memberModalOptions.viewingMembers = this.partyMembers;
       this.$root.$emit('bv::show::modal', 'members-modal');
     },
