@@ -31,7 +31,7 @@ export class BuyMarketGearOperation extends AbstractGoldItemOperation {
     let item = content.gear.flat[key];
     if (!item) throw new NotFound(errorMessage('itemNotFound', {key}));
 
-    if (item.klass && user.stats.class !== item.klass) {
+    if (item.klass && item.klass !== 'special' && item.klass !== user.stats.class) {
       throw new NotAuthorized(this.i18n('cannotBuyItem'));
     }
 
