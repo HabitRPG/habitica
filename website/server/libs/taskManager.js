@@ -89,6 +89,8 @@ export async function createTasks (req, res, options = {}) {
     // Validate that task.type is valid
     if (!taskData || Tasks.tasksTypes.indexOf(taskData.type) === -1) throw new BadRequest(res.t('invalidTaskType'));
 
+    if (taskData.date && !moment(taskData.date).isValid()) throw new BadRequest(res.t('invalidTaskDate'));
+
     let taskType = taskData.type;
     let newTask = new Tasks[taskType](Tasks.Task.sanitize(taskData));
 

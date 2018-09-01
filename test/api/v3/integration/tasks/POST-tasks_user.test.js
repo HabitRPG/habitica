@@ -416,6 +416,19 @@ describe('POST /tasks/user', () => {
   });
 
   context('todos', () => {
+    it('errors if date is invalid', async () => {
+      await expect(user.post('/tasks/user', {
+        text: 'test todo',
+        type: 'todo',
+        notes: 1976,
+        date: 'randome-date',
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('invalidTaskDate'),
+      });
+    });
+
     it('creates a todo', async () => {
       let task = await user.post('/tasks/user', {
         text: 'test todo',
