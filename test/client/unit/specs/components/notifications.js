@@ -1,11 +1,12 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils';
 import NotificationsComponent from 'client/components/notifications.vue';
 import Store from 'client/libs/store';
+import { hasClass } from 'client/store/getters/members';
 
 const localVue = createLocalVue();
 localVue.use(Store);
 
-describe('Notifications', () => {
+describe.only('Notifications', () => {
   let store;
 
   beforeEach(() => {
@@ -29,7 +30,9 @@ describe('Notifications', () => {
         'user:fetch': () => {},
         'tasks:fetchUserTasks': () => {},
       },
-      getters: {},
+      getters: {
+        'members:hasClass': hasClass,
+      },
     });
   });
 
