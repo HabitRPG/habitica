@@ -199,7 +199,7 @@ export default {
       return !this.user.flags.classSelected && this.user.stats.lvl >= 10;
     },
     userHasClass () {
-      return this.user.stats.lvl >= 10 && this.user.flags.classSelected && !this.user.preferences.disableClasses;
+      return this.$store.getters['members:hasClass'](this.user);
     },
     invitedToQuest () {
       return this.user.party.quest.RSVPNeeded && !this.user.party.quest.completed;
@@ -247,11 +247,9 @@ export default {
     },
     userMp (after, before) {
       if (after === before) return;
-      if (!this.$store.getters['members:hasClass'](this.user)) return;
+      if (!this.userHasClass) return;
 
       const mana = after - before;
-
-      if (!this.userHasClass) return;
       this.mp(mana);
     },
     userLvl (after, before) {
