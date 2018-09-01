@@ -145,47 +145,17 @@
       .btn.btn-flat.btn-show-more(@click="setShowMore(mountGroup.key)", v-if='mountGroup.key !== "specialMounts"')
         | {{ $_openedItemRows_isToggled(mountGroup.key) ? $t('showLess') : $t('showMore') }}
 
-    drawer(:title="$t('quickInventory')",
-      :errorMessage="(!hasDrawerTabItems(selectedDrawerTab)) ? ((selectedDrawerTab === 0) ?  $t('noFoodAvailable') : $t('noSaddlesAvailable')) : null")
-      div(slot="drawer-header")
-        .drawer-tab-container
-          .drawer-tab.text-right
-            a.drawer-tab-text(
-              @click="selectedDrawerTab = 0",
-              :class="{'drawer-tab-text-active': selectedDrawerTab === 0}",
-            ) {{ drawerTabs[0].label }}
-          .clearfix
-            .drawer-tab.float-left
-              a.drawer-tab-text(
-                @click="selectedDrawerTab = 1",
-                :class="{ 'drawer-tab-text-active': selectedDrawerTab === 1 }",
-              )  {{ drawerTabs[1].label }}
-
-            #petLikeToEatStable.drawer-help-text(v-once)
-              | {{ $t('petLikeToEat') + ' ' }}
-              span.svg-icon.inline.icon-16(v-html="icons.information")
-            b-popover(
-              target="petLikeToEatStable"
-              placement="top"
-            )
-              .popover-content-text(v-html="$t('petLikeToEatText')", v-once)
-      drawer-slider(
-        :items="drawerTabs[selectedDrawerTab].items",
-        :scrollButtonsVisible="hasDrawerTabItems(selectedDrawerTab)",
-        slot="drawer-slider",
-        :itemWidth=94,
-        :itemMargin=24,
-        :itemType="selectedDrawerTab"
-      )
-        template(slot="item", slot-scope="context")
-          foodItem(
-            :item="context.item",
-            :itemCount="userItems.food[context.item.key]",
-            :active="currentDraggingFood == context.item",
-            @itemDragEnd="onDragEnd()",
-            @itemDragStart="onDragStart($event, context.item)",
-            @itemClick="onFoodClicked($event, context.item)"
-          )
+    inventoryDrawer
+      template(slot="item", slot-scope="ctx")
+        foodItem(
+          :item="ctx.item",
+          :itemCount="ctx.itemCount",
+          :itemContentClass="ctx.itemClass",
+          :active="currentDraggingFood === ctx.item",
+          @itemDragEnd="onDragEnd()",
+          @itemDragStart="onDragStart($event, ctx.item)",
+          @itemClick="onFoodClicked($event, ctx.item)"
+        )
   hatchedPetDialog(:hideText="true")
   div.foodInfo(ref="dragginFoodInfo")
     div(v-if="currentDraggingFood != null")
@@ -284,9 +254,6 @@
     }
   }
 
-  .drawer-slider .items {
-    height: 114px;
-  }
 
   .modal-backdrop.fade.show {
     background-color: $purple-50;
@@ -386,6 +353,7 @@
   import StarBadge from 'client/components/ui/starBadge';
   import CountBadge from 'client/components/ui/countBadge';
   import DrawerSlider from 'client/components/ui/drawerSlider';
+  import InventoryDrawer from 'client/components/shared/inventoryDrawer';
 
   import ResizeDirective from 'client/directives/resize.directive';
   import DragDropDirective from 'client/directives/dragdrop.directive';
@@ -423,6 +391,7 @@
       MountRaisedModal,
       WelcomeModal,
       HatchingModal,
+      InventoryDrawer,
     },
     directives: {
       resize: ResizeDirective,
