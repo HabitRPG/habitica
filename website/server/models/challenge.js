@@ -336,8 +336,6 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
 
   // Run some operations in the background withouth blocking the thread
   let backgroundTasks = [
-    // And it's tasks
-    Tasks.Task.remove({'challenge.id': challenge._id, userId: {$exists: false}}).exec(),
     // Set the challenge tag to non-challenge status and remove the challenge from the user's challenges
     User.update({
       challenges: challenge._id,
