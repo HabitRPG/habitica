@@ -405,6 +405,8 @@ export default {
         this.currentDraggingEgg = egg;
         this.eggClickMode = true;
 
+        // Wait for the div.eggInfo.mouse node to be added to the DOM before
+        // changing its position.
         this.$nextTick(() => {
           this.mouseMoved(lastMouseMoveEvent);
         });
@@ -427,6 +429,8 @@ export default {
         this.currentDraggingPotion = potion;
         this.potionClickMode = true;
 
+        // Wait for the div.hatchingPotionInfo.mouse node to be added to the
+        // DOM before changing its position.
         this.$nextTick(() => {
           this.mouseMoved(lastMouseMoveEvent);
         });
@@ -471,6 +475,11 @@ export default {
     },
 
     mouseMoved ($event) {
+      // Keep track of the last mouse position even in click mode so that we
+      // know where to position the dragged potion/egg info on item click.
+      lastMouseMoveEvent = $event;
+
+      // Update the potion/egg popover if we are already dragging it.
       if (this.potionClickMode) {
         // dragging potioninfo is 180px wide (90 would be centered)
         this.$refs.clickPotionInfo.style.left = `${$event.x - 60}px`;
@@ -479,8 +488,6 @@ export default {
         // dragging eggInfo is 180px wide (90 would be centered)
         this.$refs.clickEggInfo.style.left = `${$event.x - 60}px`;
         this.$refs.clickEggInfo.style.top = `${$event.y + 10}px`;
-      } else {
-        lastMouseMoveEvent = $event;
       }
     },
   },
