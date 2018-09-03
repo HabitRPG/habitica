@@ -849,11 +849,12 @@
         }
       },
       mouseMoved ($event) {
+        // Keep track of the last mouse position even in click mode so that we
+        // know where to position the dragged food icon on click.
+        lastMouseMoveEvent = $event;
         if (this.foodClickMode) {
           this.$refs.clickFoodInfo.style.left = `${$event.x - 70}px`;
           this.$refs.clickFoodInfo.style.top = `${$event.y}px`;
-        } else {
-          lastMouseMoveEvent = $event;
         }
       },
     },
