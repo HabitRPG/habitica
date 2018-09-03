@@ -12,6 +12,7 @@ module.exports = function staticMiddleware (expressApp) {
   expressApp.use('/static/css', express.static(`${BASE_DIR}/dist-client/static/css`, { maxAge: MAX_AGE }));
   expressApp.use('/static/svg', express.static(`${BASE_DIR}/dist-client/static/svg`, { maxAge: MAX_AGE }));
   expressApp.use('/static/images', express.static(`${BASE_DIR}/dist-client/static/images`, { maxAge: MAX_AGE }));
+  expressApp.use('/static/icons', express.static(`${BASE_DIR}/dist-client/static/icons`, { maxAge: MAX_AGE }));
 
   // @TODO img/js/css under /static have their names hashed after every change so they can be cached
   // Not files in /audio and /sprites, that's why we don't cache them.
