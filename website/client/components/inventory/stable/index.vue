@@ -399,6 +399,8 @@
   import openedItemRowsMixin from 'client/mixins/openedItemRows';
   import petMixin from 'client/mixins/petMixin';
 
+  import { CONSTANTS, setLocalSetting, getLocalSetting } from 'client/libs/userlocalManager';
+
   // TODO Normalize special pets and mounts
   // import Store from 'client/store';
   // import deepFreeze from 'client/libs/deepFreeze';
@@ -430,8 +432,7 @@
       mousePosition: MouseMoveDirective,
     },
     data () {
-      let savedSelectedSortBy = 'standard';
-      if (localStorage.getItem('selectedSortBy')) savedSelectedSortBy = JSON.parse(localStorage.getItem('selectedSortBy'));
+      const stableSortState = getLocalSetting(CONSTANTS.keyConstants.STABLE_SORT_STATE) || 'standard';
 
       return {
         viewOptions: {},
@@ -439,7 +440,7 @@
         searchText: null,
         searchTextThrottled: '',
         // sort has the translation-keys as values
-        selectedSortBy: savedSelectedSortBy,
+        selectedSortBy: stableSortState,
         sortByItems: [
           'standard',
           'AZ',
@@ -466,9 +467,8 @@
       }, 250),
       selectedSortBy: {
         handler () {
-          localStorage.setItem('selectedSortBy', JSON.stringify(this.selectedSortBy));
+          setLocalSetting(CONSTANTS.keyConstants.STABLE_SORT_STATE, this.selectedSortBy);
         },
-        deep: true,
       },
     },
     computed: {
