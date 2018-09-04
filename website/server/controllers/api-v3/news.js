@@ -53,7 +53,7 @@ api.getNews = {
         </div>
         <div class="media align-items-center">
           <div class="media-body">
-            <p>The next Take This Challenge has also launched, "<a href='https://habitrpg-staging.herokuapp.com/challenges/32818ef2-18de-48b6-ab6e-2b52640c47f7' target='_blank'>Gaining Inspiration Points</a>", with a focus on creative endeavors. Be sure to check it out to earn additional pieces of the Take This armor set!</p>
+            <p>The next Take This Challenge has also launched, "<a href='/challenges/32818ef2-18de-48b6-ab6e-2b52640c47f7' target='_blank'>Gaining Inspiration Points</a>", with a focus on creative endeavors. Be sure to check it out to earn additional pieces of the Take This armor set!</p>
           </div>
           <div class="promo_take_this mb-3"></div>
         </div>
