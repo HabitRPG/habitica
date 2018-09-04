@@ -1,9 +1,9 @@
-import shortid from 'shortid';
+import shortid from 'short-uuid';
 
-shortid.characters('0123456789abcdefghijklmnopqrstuvwxyzⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ-_');
+const translator = shortid('0123456789abcdefghijklmnopqrstuvwxyz');
 
 function generateUsername () {
-  return shortid.generate();
+  return `hb-${translator.new()}`;
 }
 
 module.exports = { generateUsername };

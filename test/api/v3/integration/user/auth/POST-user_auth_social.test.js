@@ -48,6 +48,7 @@ describe('POST /user/auth/social', () => {
       expect(response.id).to.exist;
       expect(response.newUser).to.be.true;
       expect(response.username).to.exist;
+
       await expect(getProperty('users', response.id, 'profile.name')).to.eventually.equal('a facebook user');
       await expect(getProperty('users', response.id, 'auth.local.lowerCaseUsername')).to.exist;
     });
