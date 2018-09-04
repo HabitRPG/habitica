@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'EMBER HATCHING POTIONS RETURN!';
+const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE FOR LAVA DRAGON SET AND SPOTLIGHT ON BACK TO SCHOOL';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -27,20 +27,29 @@ api.getNews = {
       html: `
       <div class="bailey">
         <div class="media align-items-center">
+          <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
-            <div class="media align-items-center">
-              <div class="mr-3 ${baileyClass}"></div>
-              <div class="media-body">
-                <h1 class="align-self-center">${res.t('newStuff')}</h1>
-                <h2>8/21/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
-              </div>
-            </div>
-            <hr/>
-            <p>They're back! Between now and September 21, you can buy Ember Hatching Potions from <a href='/shops/market' target='_blank'>the Market</a> and use them to hatch any standard pet egg. (Magic Hatching Potions do not work on Quest Pet eggs.) Ember Pets aren't picky, so they'll happily eat any kind of food that you feed them!</p>
-            <p>After they're gone, it will be at least a year before the Ember Hatching Potions are available again, so be sure to get them now!</p>
-            <div class="small mb-3">by Balduranne and SabreCat</div>
+            <h1 class="align-self-center">${res.t('newStuff')}</h1>
+            <h2>8/30/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
-          <div class="promo_ember_potions ml-3 mb-3"></div>
+        </div>
+        <hr/>
+        <div class="media align-items-center">
+          <div class="media-body">
+            <h3>Last Chance for Lava Dragon Set</h3>
+            <p>Reminder: this is the final day to <a href='/user/settings/subscription' target='_blank'>subscribe</a> and receive the Lava Dragon Set! Subscribing also lets you buy Gems for Gold. The longer your subscription, the more Gems you get!</p>
+            <p>Thanks so much for your support! You help keep Habitica running.</p>
+            <div class="small mb-3">by Beffymaroo</div>
+          </div>
+          <div class="promo_mystery_201808"></div>
+        </div>
+        <div class="media align-items-center">
+          <div class="scene_studying mb-3 mr-3"></div>
+          <div class="media-body">
+            <h3>User Spotlight Special: Back-To-School Edition</h3>
+            <p>Are you getting ready for school to start (or perhaps school has already begun) and using Habitica to motivate and organize yourself? Check out this special <a href='https://habitica.wordpress.com/2018/08/30/user-spotlight-special-edition-tips-for-back-to-school/' target='_blank'>User Spotlight post</a>, featuring advice from fellow Habiticans! They offer lots of useful tips for using your task lists and more to get a jump-start on your studies (or teaching) for this year.</p>
+            <div class="small mb-3">by shanaqui</div>
+          </div>
         </div>
       </div>
       `,

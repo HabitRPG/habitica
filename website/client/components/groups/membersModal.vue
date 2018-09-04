@@ -338,6 +338,9 @@ export default {
       // @TOOD: We might not need this since groupId is computed now
       this.getMembers();
     },
+    challengeId () {
+      this.getMembers();
+    },
     group () {
       this.getMembers();
     },
@@ -377,9 +380,7 @@ export default {
         this.invites = invites;
       }
 
-      if (this.$store.state.memberModalOptions.viewingMembers.length > 0) {
-        this.members = this.$store.state.memberModalOptions.viewingMembers;
-      }
+      this.members = this.$store.state.memberModalOptions.viewingMembers;
     },
     async clickMember (uid, forceShow) {
       let user = this.$store.state.user.data;

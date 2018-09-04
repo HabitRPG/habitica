@@ -52,7 +52,8 @@ export default {
       this.notify(parsedMarkdown, 'info');
     },
     mp (val) {
-      this.notify(`${this.sign(val)} ${toFixedWithoutRounding(val, 1)}`, 'mp', 'glyphicon glyphicon-fire', this.sign(val));
+      const cleanMp = `${val}`.replace('-', '').replace('+', '');
+      this.notify(`${this.sign(val)} ${toFixedWithoutRounding(cleanMp, 1)}`, 'mp', 'glyphicon glyphicon-fire', this.sign(val));
     },
     purchased (itemName) {
       this.text(this.$t('purchasedItem', {
