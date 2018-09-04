@@ -24,6 +24,7 @@ import {
   hasBackupAuth,
   _loginRes,
   loginSocial,
+  hasLocalAuth,
 } from '../../libs/auth';
 
 const BASE_URL = nconf.get('BASE_URL');
@@ -355,7 +356,7 @@ api.updateUsername = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    if (!user.auth.local.username) throw new BadRequest(res.t('userHasNoLocalRegistration'));
+    if (!hasLocalAuth(user)) throw new BadRequest(res.t('userHasNoLocalRegistration'));
 
     let password = req.body.password;
     let isValidPassword = await passwordUtils.compare(user, password);

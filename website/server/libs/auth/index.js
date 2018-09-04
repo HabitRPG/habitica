@@ -46,8 +46,12 @@ async function _handleGroupInvitation (user, invite) {
   }
 }
 
+function hasLocalAuth (user) {
+  return user.auth.local.email && user.auth.local.password;
+}
+
 function hasBackupAuth (user, networkToRemove) {
-  if (user.auth.local.username) {
+  if (hasLocalAuth(user)) {
     return true;
   }
 
@@ -62,4 +66,5 @@ module.exports = {
   _handleGroupInvitation,
   hasBackupAuth,
   loginSocial,
+  hasLocalAuth,
 };

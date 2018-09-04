@@ -115,7 +115,7 @@
               button.btn.btn-primary.mb-2(disabled='disabled', v-if='!hasBackupAuthOption(network.key) && user.auth[network.key].id') {{ $t('registeredWithSocial', {network: network.name}) }}
               button.btn.btn-danger(@click='deleteSocialAuth(network)', v-if='hasBackupAuthOption(network.key) && user.auth[network.key].id') {{ $t('detachSocial', {network: network.name}) }}
           hr
-          div(v-if='!user.auth.local.username')
+          div(v-if='!hasLocalAuth')
             p {{ $t('addLocalAuth') }}
             p {{ $t('usernameLimitations') }}
             .form(name='localAuth', novalidate)
@@ -129,8 +129,7 @@
               .form-group
                 input.form-control(type='password', :placeholder="$t('confirmPass')", v-model='localAuth.confirmPassword', required)
               button.btn.btn-primary(type='submit', @click='addLocalAuth()') {{ $t('submit') }}
-
-        .usersettings(v-if='user.auth.local.username')
+        .usersettings(v-if='hasLocalAuth')
           p {{ $t('username') }}
             |: {{user.auth.local.username}}
           p
@@ -275,6 +274,9 @@ export default {
     hasClass () {
       return this.$store.getters['members:hasClass'](this.user);
     },
+    hasLocalAuth () {
+      return this.user.auth.local.email && this.user.auth.local.password;
+    },
   },
   methods: {
     set (preferenceType, subtype) {
@@ -304,7 +306,7 @@ export default {
       this.$root.$emit('bv::show::modal', 'new-stuff');
     },
     hasBackupAuthOption (networkKeyToCheck) {
-      if (this.user.auth.local.username) {
+      if (this.hasLocalAuth) {
         return true;
       }
 
