@@ -1,4 +1,4 @@
-let migrationName = '20180801_takeThis.js'; // Update per month
+let migrationName = '20180904_takeThis.js'; // Update per month
 let authorName = 'Sabe'; // in case script author needs to know when their ...
 let authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; // ... own data is done
 
@@ -15,7 +15,7 @@ function processUsers (lastId) {
   // specify a query to limit the affected users (empty for all users):
   let query = {
     migration: {$ne: migrationName},
-    challenges: {$in: ['081f8912-3526-47d5-984f-f71bbeec77fc']}, // Update per month
+    challenges: {$in: ['1044ec0c-4a85-48c5-9f36-d51c0c62c7d3']}, // Update per month
   };
 
   if (lastId) {
