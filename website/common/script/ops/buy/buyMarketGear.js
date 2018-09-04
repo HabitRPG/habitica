@@ -24,16 +24,16 @@ export class BuyMarketGearOperation extends AbstractGoldItemOperation {
     return false;
   }
 
+  canUserPurchase (user, item) {
+    return super.canUserPurchase(user, item) && (item.klass !== 'special' && item.klass !== user.stats.class);
+  }
+
   extractAndValidateParams (user, req) {
     let key = this.key = get(req, 'params.key');
     if (!key) throw new BadRequest(errorMessage('missingKeyParam'));
 
     let item = content.gear.flat[key];
     if (!item) throw new NotFound(errorMessage('itemNotFound', {key}));
-
-    if (item.klass && item.klass !== 'special' && item.klass !== user.stats.class) {
-      throw new NotAuthorized(this.i18n('cannotBuyItem'));
-    }
 
     this.canUserPurchase(user, item);
 
