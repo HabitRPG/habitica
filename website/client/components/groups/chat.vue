@@ -187,7 +187,7 @@
     position: relative;
 
     textarea {
-      height: 150px;
+      min-height: 150px;
       width: 100%;
       background-color: $white;
       border: solid 1px $gray-400;
