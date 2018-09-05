@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-import { loginSocial } from './social.js';
+import { loginSocial, _loginRes } from './social.js';
 import common from '../../../common';
 import logger from '../logger';
 import { decrypt } from '../encryption';
@@ -47,7 +47,7 @@ async function _handleGroupInvitation (user, invite) {
 }
 
 function hasLocalAuth (user) {
-  return user.auth.local.email && user.auth.local.password;
+  return user.auth.local.email && user.auth.local.hashed_password;
 }
 
 function hasBackupAuth (user, networkToRemove) {
@@ -64,6 +64,7 @@ function hasBackupAuth (user, networkToRemove) {
 
 module.exports = {
   _handleGroupInvitation,
+  _loginRes,
   hasBackupAuth,
   loginSocial,
   hasLocalAuth,

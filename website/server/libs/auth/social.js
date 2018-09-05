@@ -22,6 +22,7 @@ function _loginRes (user, req, res) {
     newUser: user.newUser || false,
     username: user.auth.local.username,
   };
+
   return res.respond(200, responseData);
 }
 
@@ -121,4 +122,5 @@ async function loginSocial (req, res) {
 
 module.exports = {
   loginSocial,
+  _loginRes,
 };
