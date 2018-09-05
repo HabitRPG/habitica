@@ -509,7 +509,7 @@ export default {
           case 'CRON':
             if (notification.data) {
               if (notification.data.hp) this.hp(notification.data.hp, 'hp');
-              if (notification.data.mp && !this.userHasClass) this.mp(notification.data.mp);
+              if (notification.data.mp && this.userHasClass) this.mp(notification.data.mp);
             }
             break;
           case 'SCORED_TASK':
