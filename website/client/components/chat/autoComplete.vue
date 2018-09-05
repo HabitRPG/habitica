@@ -25,9 +25,15 @@ export default {
   },
   computed: {
     autocompleteStyle () {
+      function heightToUse (topCoords) {
+        let textAreaHeight = document.getElementsByClassName('user-entry')[0].clientHeight;
+        return topCoords < textAreaHeight ? topCoords + 30: textAreaHeight + 10;
+      }
       return {
-        top: `${this.coords.TOP + 30}px`,
+        top: `${heightToUse(this.coords.TOP)}px`,
         left: `${this.coords.LEFT + 30}px`,
+        marginLeft: '-28px',
+        marginTop: '28px',
         position: 'absolute',
         minWidth: '100px',
         minHeight: '100px',
@@ -42,6 +48,7 @@ export default {
         return option.toLowerCase().indexOf(currentSearch.toLowerCase()) !== -1;
       });
     },
+
   },
   mounted () {
     this.grabUserNames();
