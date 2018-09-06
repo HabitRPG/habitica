@@ -14,7 +14,7 @@ div.autocomplete-selection(v-if='searchResults.length > 0', :style='autocomplete
 import groupBy from 'lodash/groupBy';
 
 export default {
-  props: ['selections', 'text', 'coords', 'chat'],
+  props: ['selections', 'text', 'coords', 'chat', 'textbox'],
   data () {
     return {
       currentSearch: '',
@@ -25,12 +25,12 @@ export default {
   },
   computed: {
     autocompleteStyle () {
-      function heightToUse (topCoords) {
-        let textAreaHeight = document.getElementsByClassName('user-entry')[0].clientHeight;
-        return topCoords < textAreaHeight ? topCoords + 30 : textAreaHeight + 10;
+      function heightToUse (textBox, topCoords) {
+        let textBoxHeight = textBox['user-entry'].clientHeight;
+        return topCoords < textBoxHeight ? topCoords + 30 : textBoxHeight + 10;
       }
       return {
-        top: `${heightToUse(this.coords.TOP)}px`,
+        top: `${heightToUse(this.textbox, this.coords.TOP)}px`,
         left: `${this.coords.LEFT + 30}px`,
         marginLeft: '-28px',
         marginTop: '28px',

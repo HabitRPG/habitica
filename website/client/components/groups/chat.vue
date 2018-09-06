@@ -6,6 +6,7 @@
       .row
         textarea(:placeholder='placeholder',
                   v-model='newMessage',
+                  ref='user-entry',
                   :class='{"user-entry": newMessage}',
                   @keydown='updateCarretPosition',
                   @keyup.ctrl.enter='sendMessageShortcut()',
@@ -16,6 +17,7 @@
         autocomplete(
                 :text='newMessage',
                 v-on:select="selectedAutocomplete",
+                :textbox='textbox',
                 :coords='coords',
                 :chat='group.chat')
 
@@ -62,6 +64,7 @@
           TOP: 0,
           LEFT: 0,
         },
+        textbox: this.$refs,
       };
     },
     computed: {
