@@ -27,7 +27,7 @@ export default {
     autocompleteStyle () {
       function heightToUse (topCoords) {
         let textAreaHeight = document.getElementsByClassName('user-entry')[0].clientHeight;
-        return topCoords < textAreaHeight ? topCoords + 30: textAreaHeight + 10;
+        return topCoords < textAreaHeight ? topCoords + 30 : textAreaHeight + 10;
       }
       return {
         top: `${heightToUse(this.coords.TOP)}px`,
