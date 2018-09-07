@@ -7,6 +7,7 @@
         textarea(:placeholder='placeholder',
                   v-model='newMessage',
                   :class='{"user-entry": newMessage}',
+                  ref="textarea",
                   @keydown='updateCarretPosition',
                   @click='updateCarretPosition',
                   @keyup.ctrl.enter='sendMessageShortcut()',
@@ -74,7 +75,7 @@
     },
     methods: {
       // https://medium.com/@_jh3y/how-to-where-s-the-caret-getting-the-xy-position-of-the-caret-a24ba372990a
-      getCoord (e, text) {
+      getCoord (text) {
         let carPos = text.selectionEnd;
         this.carPos = carPos;
         let div = document.createElement('div');
@@ -101,7 +102,7 @@
       }, 250),
       _updateCarretPosition (eventUpdate) {
         let text = eventUpdate.target;
-        this.getCoord(eventUpdate, text);
+        this.getCoord(text);
       },
       async sendMessageShortcut () {
         // If the user recently pasted in the text field, don't submit
@@ -139,8 +140,9 @@
         }, 500);
       },
 
-      selectedAutocomplete (newText) {
+      async selectedAutocomplete (newText) {
         this.newMessage = newText;
+        this.$refs.textarea.focus();
       },
 
       fetchRecentMessages () {

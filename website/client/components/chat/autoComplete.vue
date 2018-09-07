@@ -83,8 +83,7 @@ export default {
       }
     },
     select (result) {
-      let index = this.carPos;
-      let newText = this.text.slice(0, this.currentSearchPosition) + result + this.text.slice(this.currentSearchPosition + index - this.findStartIndex(index));
+      let newText = this.text.slice(0, this.currentSearchPosition) + result + this.text.slice(this.carPos);
       this.searchActive = false;
       this.$emit('select', newText);
     },
