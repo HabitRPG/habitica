@@ -125,6 +125,8 @@
 <style lang="scss" scoped>
 @import '~client/assets/scss/colors.scss';
 
+@import url('https://fonts.googleapis.com/css?family=Varela+Round');
+
   #front {
     .form-text a {
       color: #fff !important;
@@ -193,6 +195,11 @@
     .pixel-horizontal-3 {
       color: #271b3d;
     }
+
+    h1, h2, h3, h4, h5, h6, button, .strike > span, input {
+      font-family: 'Varela Round', sans-serif;
+      font-weight: normal;
+    }
   }
 
   #intro-signup {
@@ -255,6 +262,7 @@
     .strike > span {
       position: relative;
       display: inline-block;
+      line-height: 1.14;
     }
 
     .strike > span:before,
@@ -357,13 +365,17 @@
     }
 
     strong {
-      font-size: 20px;
+      font-size: 24px;
+      font-family: 'Varela Round', sans-serif;
+      line-height: 1.33;
     }
   }
 
   #use-cases {
     strong {
-      font-size: 20px;
+      font-size: 24px;
+      font-family: 'Varela Round', sans-serif;
+      line-height: 1.33;
     }
 
     img {
@@ -440,6 +452,11 @@
 
     .featured {
       text-align: center;
+      font-family: 'Varela Round', sans-serif;
+
+      strong {
+        font-size: 12px;
+      }
 
       .svg-icon {
         vertical-align: bottom;

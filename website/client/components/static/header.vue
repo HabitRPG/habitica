@@ -35,11 +35,18 @@
 <style lang='scss' scoped>
   @import '~client/assets/scss/colors.scss';
 
+  @import url('https://fonts.googleapis.com/css?family=Varela+Round');
+
   @media only screen and (max-width : 750px) {
     .login-button {
       margin: 0 auto !important;
       margin-top: 1.8em !important;
     }
+  }
+
+  nav, .btn {
+      font-family: 'Varela Round', sans-serif;
+      font-weight: normal;
   }
 
   .btn-primary.pull-right {
@@ -66,9 +73,8 @@
 
   .nav-item {
     .nav-link {
-      font-size: 16px;
+      font-size: 16px !important;
       color: $white;
-      font-weight: bold;
       line-height: 1.5;
       padding: 16px 24px;
       transition: none;
