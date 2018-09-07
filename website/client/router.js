@@ -89,6 +89,9 @@ const QuestsPage = () => import(/* webpackChunkName: "shops-quest" */'./componen
 const SeasonalPage = () => import(/* webpackChunkName: "shops-seasonal" */'./components/shops/seasonal/index');
 const TimeTravelersPage = () => import(/* webpackChunkName: "shops-timetravelers" */'./components/shops/timeTravelers/index');
 
+// Admin
+const NewsAdminPage = () => import(/* webpackChunkName: "news" */'./components/admin/news');
+
 import NotFoundPage from './components/404';
 
 Vue.use(VueRouter);
@@ -278,6 +281,10 @@ const router = new VueRouter({
         { name: 'patrons', path: 'patrons', component: PatronsPage },
         { name: 'contributors', path: 'contributors', component: HeroesPage },
       ],
+    },
+    {
+      path: '/admin/news',
+      component: NewsAdminPage,
     },
     { path: '*', redirect: { name: 'notFound' } },
   ],

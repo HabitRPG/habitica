@@ -7,7 +7,11 @@
     no-close-on-backdrop
   )
     .modal-body
-      .static-view(v-html='html')
+      div.bailey(v-for='(post, index) in posts')
+        h2 {{ post.title }}
+        div(v-if='post.text' v-markdown='post.text', target='_blank')
+        small(v-if='post.credits' v-markdown='post.credits', target='_blank')
+
     .modal-footer
       a.btn.btn-info(href='http://habitica.wikia.com/wiki/Whats_New', target='_blank') {{ this.$t('newsArchive') }}
       button.btn.btn-secondary(@click='tellMeLater()') {{ this.$t('tellMeLater') }}
@@ -22,27 +26,43 @@
 .modal-body {
   padding-top: 2em;
 }
+.bailey {
+  margin-bottom: 40px;
+}
+.bailey h2 {
+  color: #4F2A93;
+}
+.bailey div {
+  font-size: 16px;
+}
+.bailey img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
 </style>
 
 <script>
-  import axios from 'axios';
   import { mapState } from 'client/libs/store';
+  import markdownDirective from 'client/directives/markdown';
 
   export default {
     data () {
       return {
-        html: '',
+        posts: [],
       };
+    },
+    directives: {
+      markdown: markdownDirective,
     },
     computed: {
       ...mapState({user: 'user.data'}),
     },
     async mounted () {
-      this.$root.$on('bv::show::modal', async (modalId) => {
-        if (modalId !== 'new-stuff') return;
-        let response = await axios.get('/api/v4/news');
-        this.html = response.data.html;
-      });
+      this.posts = await this.$store.dispatch('news:getNews');
+      if (this.posts.length > 2) {
+        this.posts = this.posts.slice(0, 2);
+      }
     },
     destroyed () {
       this.$root.$off('bv::show::modal');

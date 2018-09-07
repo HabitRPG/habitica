@@ -24,4 +24,6 @@ module.exports = {
   missingSubKey: 'Missing "req.query.sub"',
 
   messageIdRequired: '\"messageId\" must be a valid UUID.",',
+
+  postIdRequired: '\"postId\" must be a valid UUID.',
 };
