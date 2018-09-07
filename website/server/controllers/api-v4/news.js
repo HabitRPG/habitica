@@ -1,17 +1,11 @@
 import {authWithHeaders} from '../../middlewares/auth';
 import _ from 'lodash';
 import {langCodes} from '../../libs/i18n';
+import logger from '../../libs/logger';
 import util from 'util';
 import fsCallback from 'fs';
 import path from 'path';
-import apiError from '../../libs/apiError';
-import {model as NewsPost} from '../../models/newsPost';
-import {ensureAdmin} from '../../middlewares/ensureAccessRight';
-import {
-  NotFound,
-  BadRequest,
-  NotAuthorized,
-} from '../../libs/errors';
+
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
@@ -89,98 +83,41 @@ async function saveNewsToDisk (language, content) {
  * @apiSuccess {Object} html Latest Bailey html
  *
  */
+
 api.getNews = {
   method: 'GET',
   url: '/news',
   noLanguage: true,
-  middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
-    let isAdmin = false;
-    if (user && user.contributor) {
-      isAdmin = user.contributor.admin;
+    let language = 'en';
+    let proposedLang = req.query.language && req.query.language.toString();
+
+    if (proposedLang in cachedNewsResponses) {
+      language = proposedLang;
     }
-    let results = await NewsPost.getNews(isAdmin);
-    res.respond(200, results);
-  },
-};
 
-api.createNews = {
-  method: 'POST',
-  url: '/news',
-  middlewares: [authWithHeaders(), ensureAdmin],
-  async handler (req, res) {
-    let validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    let news;
 
-    const postData = {
-      title: req.body.title,
-      publishDate: req.body.publishDate,
-      published: req.body.published,
-      credits: req.body.credits,
-      text: req.body.text,
-    };
+    // is the news response for this language cached?
+    if (cachedNewsResponses[language] === true) {
+      news = await fs.readFile(`${NEWS_CACHE_PATH}${language}.json`, 'utf8');
+    } else { // generate the response
+      news = await readNews();
+      logger.info('NEWS: ', news);
+      news = JSON.stringify(news);
+    }
 
-    const newsPost = new NewsPost(postData);
-    await newsPost.save();
+    res.set({
+      'Content-Type': 'application/json',
+    });
 
-    res.respond(201, newsPost.toJSON());
-  },
-};
+    let jsonResString = `{"success": true, "data": ${news}}`;
+    res.status(200).send(jsonResString);
 
-/**
- * @api {put} /api/v4/news/:postId Update news post
- * @apiName UpdateNewsPost
- * @apiGroup News
- *
- * @apiParam (Path) {String} postId The posts _id
- *
- * @apiSuccess {Object} data The updated group (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
- *
- * @apiSuccessExample {json} Post:
- *     HTTP/1.1 200 OK
- *     {
- *       "title": "News Title",
- *       ...
- *     }
- *
- * @apiUse postIdRequired
- *
- * @apiPermission Admin
- */
-api.updateNews = {
-  method: 'PUT',
-  url: '/news/:postId',
-  middlewares: [authWithHeaders(), ensureAdmin],
-  async handler (req, res) {
-    req.checkParams('postId', apiError('postIdRequired')).notEmpty();
-    let validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
-
-    let newsPost = await NewsPost.findById(req.params.postId);
-    if (!newsPost) throw new NotFound(res.t('newsPostNotFound'));
-
-    _.merge(newsPost, NewsPost.sanitize(req.body));
-    let savedPost = await newsPost.save();
-
-    res.respond(200, savedPost.toJSON());
-  },
-};
-
-api.deleteNews = {
-  method: 'DELETE',
-  url: '/news/:postId',
-  middlewares: [authWithHeaders(), ensureAdmin],
-  async handler (req, res) {
-    let validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
-
-    let newsPost = await NewsPost.findById(req.params.postId);
-    if (!newsPost) throw new NotFound(res.t('newsPostNotFound'));
-
-    await NewsPost.remove({_id: req.params.postId}).exec();
-
-    res.respond(200, {});
+    // save the file in background unless it's already cached or being written right now
+    if (cachedNewsResponses[language] !== true && cacheBeingWritten[language] !== true) {
+      saveNewsToDisk(language, news);
+    }
   },
 };
 
