@@ -9,6 +9,7 @@ import getStore from './store';
 import StoreModule from './libs/store';
 import './filters/registerGlobals';
 import i18n from './libs/i18n';
+import 'smartbanner.js/dist/smartbanner.js';
 
 import BootstrapVue from 'bootstrap-vue';
 
