@@ -34,6 +34,7 @@ app.use('/api/v3', v3Router);
 // A list of v3 routes in the format METHOD-URL to skip
 const v4RouterOverrides = [
   // 'GET-/status', Example to override the GET /status api call
+  'GET-/news',
 ];
 
 const v4Router = express.Router(); // eslint-disable-line new-cap
