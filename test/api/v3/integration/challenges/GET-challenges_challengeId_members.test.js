@@ -11,7 +11,7 @@ describe('GET /challenges/:challengeId/members', () => {
   let user;
 
   beforeEach(async () => {
-    user = await generateUser({'balance':1});
+    user = await generateUser({ balance: 1 });
   });
 
   it('validates optional req.query.lastId to be an UUID', async () => {
@@ -51,7 +51,7 @@ describe('GET /challenges/:challengeId/members', () => {
     let challengeLeader = populatedGroup.members[0];
     let challenge = await generateChallenge(challengeLeader, populatedGroup.group);
     await groupLeader.post(`/challenges/${challenge._id}/join`);
-    await challengeLeader.post(`/groups/party/leave`);
+    await challengeLeader.post('/groups/party/leave');
     await challengeLeader.sync();
     expect(challengeLeader.party._id).to.be.undefined; // check that leaving worked
 

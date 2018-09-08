@@ -193,7 +193,7 @@ describe('GET /challenges/:challengeId', () => {
     });
 
     it('returns challenge data if challenge leader isn\'t in the party or challenge', async () => {
-      await challengeLeader.post(`/groups/party/leave`);
+      await challengeLeader.post('/groups/party/leave');
       await challengeLeader.sync();
       expect(challengeLeader.party._id).to.be.undefined; // check that leaving worked
 
