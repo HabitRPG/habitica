@@ -91,7 +91,7 @@ schema.methods.canJoin = function canJoinChallenge (user, group) {
 // Returns true if user can view the challenge
 // Different from canJoin because you can see challenges of groups you've been removed from if you're participating in them
 schema.methods.canView = function canViewChallenge (user, group) {
-  if (this.isLeader(user) || this.isMember(user)) return true;
+  if (this.isMember(user)) return true;
   return this.canJoin(user, group);
 };
 
