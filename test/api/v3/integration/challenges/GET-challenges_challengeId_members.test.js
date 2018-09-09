@@ -1,6 +1,7 @@
 import {
   generateUser,
   generateGroup,
+  createAndPopulateGroup,
   generateChallenge,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
@@ -10,7 +11,7 @@ describe('GET /challenges/:challengeId/members', () => {
   let user;
 
   beforeEach(async () => {
-    user = await generateUser();
+    user = await generateUser({ balance: 1 });
   });
 
   it('validates optional req.query.lastId to be an UUID', async () => {
@@ -21,7 +22,7 @@ describe('GET /challenges/:challengeId/members', () => {
     });
   });
 
-  it('fails if challenge doesn\'t exists', async () => {
+  it('fails if challenge doesn\'t exist', async () => {
     await expect(user.get(`/challenges/${generateUUID()}/members`)).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
@@ -29,8 +30,8 @@ describe('GET /challenges/:challengeId/members', () => {
     });
   });
 
-  it('fails if user doesn\'t have access to the challenge', async () => {
-    let group = await generateGroup(user);
+  it('fails if user isn\'t in the private group and isn\'t challenge leader', async () => {
+    let group = await generateGroup(user, {type: 'party', privacy: 'private'});
     let challenge = await generateChallenge(user, group);
     let anotherUser = await generateUser();
 
@@ -38,6 +39,27 @@ describe('GET /challenges/:challengeId/members', () => {
       code: 404,
       error: 'NotFound',
       message: t('challengeNotFound'),
+    });
+  });
+
+  it('works if user isn\'t in the private group but is challenge leader', async () => {
+    let populatedGroup = await createAndPopulateGroup({
+      groupDetails: {type: 'party', privacy: 'private'},
+      members: 1,
+    });
+    let groupLeader = populatedGroup.groupLeader;
+    let challengeLeader = populatedGroup.members[0];
+    let challenge = await generateChallenge(challengeLeader, populatedGroup.group);
+    await groupLeader.post(`/challenges/${challenge._id}/join`);
+    await challengeLeader.post('/groups/party/leave');
+    await challengeLeader.sync();
+    expect(challengeLeader.party._id).to.be.undefined; // check that leaving worked
+
+    let res = await challengeLeader.get(`/challenges/${challenge._id}/members`);
+    expect(res[0]).to.eql({
+      _id: groupLeader._id,
+      id: groupLeader._id,
+      profile: {name: groupLeader.profile.name},
     });
   });
 
