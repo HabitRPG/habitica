@@ -1589,27 +1589,6 @@ describe('cron', () => {
         flagCount: 0,
       };
     });
-
-    xit('does not clear pms under 200', () => {
-      cron({user, tasksByType, daysMissed, analytics});
-      expect(user.inbox.messages[lastMessageId]).to.exist;
-    });
-
-    xit('clears pms over 200', () => {
-      let messageId = common.uuid();
-      user.inbox.messages[messageId] = {
-        id: messageId,
-        text: `test ${messageId}`,
-        timestamp: Number(new Date()),
-        likes: {},
-        flags: {},
-        flagCount: 0,
-      };
-
-      cron({user, tasksByType, daysMissed, analytics});
-
-      expect(user.inbox.messages[messageId]).to.not.exist;
-    });
   });
 
   describe('login incentives', () => {
