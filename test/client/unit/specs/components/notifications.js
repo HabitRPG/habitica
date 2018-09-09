@@ -6,7 +6,7 @@ import { hasClass } from 'client/store/getters/members';
 const localVue = createLocalVue();
 localVue.use(Store);
 
-describe.only('Notifications', () => {
+describe('Notifications', () => {
   let store;
 
   beforeEach(() => {
