@@ -94,16 +94,6 @@ describe('POST /challenges', () => {
       });
     });
 
-    it('returns an error when non-leader member creates a challenge in leaderOnly group', async () => {
-      await expect(groupMember.post('/challenges', {
-        group: group._id,
-      })).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('onlyGroupLeaderChal'),
-      });
-    });
-
     it('allows non-leader member to create a challenge', async () => {
       let populatedGroup = await createAndPopulateGroup({
         members: 1,

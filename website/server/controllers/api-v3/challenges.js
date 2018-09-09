@@ -247,7 +247,7 @@ api.joinChallenge = {
     if (challenge.isMember(user)) throw new NotAuthorized(res.t('userAlreadyInChallenge'));
 
     let group = await Group.getGroup({user, groupId: challenge.group, fields: basicGroupFields, optionalMembership: true});
-    if (!group || !challenge.hasAccess(user, group)) throw new NotFound(res.t('challengeNotFound'));
+    if (!group || !challenge.canJoin(user, group)) throw new NotFound(res.t('challengeNotFound'));
 
     challenge.memberCount += 1;
 

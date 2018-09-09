@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE FOR LAVA DRAGON SET AND SPOTLIGHT ON BACK TO SCHOOL';
+const LAST_ANNOUNCEMENT_TITLE = 'NEW BACKGROUNDS, ARMOIRE ITEMS, RESOLUTION SUCCESS CHALLENGE, AND TAKE THIS CHALLENGE';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -27,30 +27,39 @@ api.getNews = {
       html: `
       <div class="bailey">
         <div class="media align-items-center">
-          <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
-            <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>8/30/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <div class="media align-items-center">
+              <div class="mr-3 ${baileyClass}"></div>
+              <div class="media-body">
+                <h1 class="align-self-center">${res.t('newStuff')}</h1>
+                <h2>9/4/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+              </div>
+            </div>
+            <hr/>
+            <h3>September Backgrounds and Armoire Items!</h3>
+            <p>We’ve added three new backgrounds to the Background Shop! Now your avatar can go Apple Picking, stand on a Giant Book, and hang out with your pets and mounts in a Cozy Barn. Check them out under User Icon > Backgrounds!</p>
+            <p>Plus, there’s new gold-purchasable equipment in the Enchanted Armoire, including the Bookbinder Set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)</p>
+            <div class="small mb-3">by GeraldThePixel, Maans, virginiamoon, shanaqui, and fasteagle190</div>
+          </div>
+          <div class="promo_armoire_backgrounds_201809 ml-3 mb-3"></div>
+        </div>
+        <div class="media align-items-center">
+          <div class="scene_perfect_day mr-3"></div>
+          <div class="media-body">
+            <h3>September 2018 Resolution Success Challenge and New Take This Challenge</h3>
+            <p>The Habitica team has launched a special official Challenge series hosted in the <a href='/groups/guild/6e6a8bd3-9f5f-4351-9188-9f11fcd80a99' target='_blank'>Official New Year's Resolution Guild</a>. These Challenges are designed to help you build and maintain goals that are destined for success and then stick with them as the year progresses. For this month's Challenge, <a href='https://habitica.com/challenges/8d08b298-1716-4553-8739-5071ae002de4' target='_blank'>Celebrate your Triumphs</a>, we're focusing on looking back to see all the progress you've made so far! It has a 15 Gem prize, which will be awarded to five lucky winners on October 1st.</p>
+            <p>Congratulations to the winners of the August Challenge, Enkia the Wicked, wondergrrl, renko, Mibbs, and TereLiz!</p>
           </div>
         </div>
-        <hr/>
         <div class="media align-items-center">
           <div class="media-body">
-            <h3>Last Chance for Lava Dragon Set</h3>
-            <p>Reminder: this is the final day to <a href='/user/settings/subscription' target='_blank'>subscribe</a> and receive the Lava Dragon Set! Subscribing also lets you buy Gems for Gold. The longer your subscription, the more Gems you get!</p>
-            <p>Thanks so much for your support! You help keep Habitica running.</p>
-            <div class="small mb-3">by Beffymaroo</div>
+            <p>The next Take This Challenge has also launched, "<a href='/challenges/32818ef2-18de-48b6-ab6e-2b52640c47f7' target='_blank'>Gaining Inspiration Points</a>", with a focus on creative endeavors. Be sure to check it out to earn additional pieces of the Take This armor set!</p>
           </div>
-          <div class="promo_mystery_201808"></div>
+          <div class="promo_take_this mb-3"></div>
         </div>
-        <div class="media align-items-center">
-          <div class="scene_studying mb-3 mr-3"></div>
-          <div class="media-body">
-            <h3>User Spotlight Special: Back-To-School Edition</h3>
-            <p>Are you getting ready for school to start (or perhaps school has already begun) and using Habitica to motivate and organize yourself? Check out this special <a href='https://habitica.wordpress.com/2018/08/30/user-spotlight-special-edition-tips-for-back-to-school/' target='_blank'>User Spotlight post</a>, featuring advice from fellow Habiticans! They offer lots of useful tips for using your task lists and more to get a jump-start on your studies (or teaching) for this year.</p>
-            <div class="small mb-3">by shanaqui</div>
-          </div>
-        </div>
+        <p><a href='http://www.takethis.org/' target='_blank'>Take This</a> is a nonprofit that seeks to inform the gamer community about mental health issues, to provide education about mental disorders and mental illness prevention, and to reduce the stigma of mental illness.</p>
+        <p>Congratulations to the winners of the last Take This Challenge, "Notice Me, Senpai!": grand prize winner Sebem.seme, and runners-up Jessie, MaxClayson, kayote, Madison Walrath, and LaChistosa. Plus, all participants in that Challenge have received a piece of the <a href='http://habitica.wikia.com/wiki/Event_Item_Sequences#Take_This_Armor_Set' target='_blank'>Take This item set</a> if they hadn't completed it already. It is located in your Rewards column. Enjoy!</p>
+        <div class="small mb-3">by Doctor B, the Take This team, Lemoness, Beffymaroo, and SabreCat</div>
       </div>
       `,
     });

@@ -717,6 +717,20 @@ let backgrounds = {
       notes: t('backgroundBridgeNotes'),
     },
   },
+  backgrounds092018: {
+    apple_picking: {
+      text: t('backgroundApplePickingText'),
+      notes: t('backgroundApplePickingNotes'),
+    },
+    giant_book: {
+      text: t('backgroundGiantBookText'),
+      notes: t('backgroundGiantBookNotes'),
+    },
+    cozy_barn: {
+      text: t('backgroundCozyBarnText'),
+      notes: t('backgroundCozyBarnNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),
