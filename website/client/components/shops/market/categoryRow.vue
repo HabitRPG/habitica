@@ -19,7 +19,7 @@ div.items
   import planGemLimits from 'common/script/libs/planGemLimits';
 
   import ShopItem from '../shopItem';
-  import CategoryItem from './CategoryItem';
+  import CategoryItem from './categoryItem';
 
   import _filter from 'lodash/filter';
   import _sortBy from 'lodash/sortBy';
