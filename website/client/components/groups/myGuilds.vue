@@ -42,11 +42,11 @@
   }
 
   .no-guilds {
-    color: $gray-300;
+    color: $gray-200;
     margin-top: 10em;
 
     h2 {
-      color: $gray-300;
+      color: $gray-200;
     }
 
     .svg-icon {
