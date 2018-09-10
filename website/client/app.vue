@@ -29,7 +29,6 @@ div
           buyModal(
             :item="selectedItemToBuy || {}",
             :withPin="true",
-            @change="resetItemToBuy($event)",
             @buyPressed="customPurchase($event)",
             :genericPurchase="genericPurchase(selectedItemToBuy)",
 
@@ -103,7 +102,7 @@ div
 
 <style lang='scss'>
   @import '~client/assets/scss/colors.scss';
-
+  
   /* @TODO: The modal-open class is not being removed. Let's try this for now */
   .modal {
     overflow-y: scroll !important;
@@ -567,13 +566,6 @@ export default {
         });
       }
     },
-    resetItemToBuy ($event) {
-      // @TODO: Do we need this? I think selecting a new item
-      // overwrites. @negue might know
-      if (!$event && this.selectedItemToBuy.purchaseType !== 'card') {
-        this.selectedItemToBuy = null;
-      }
-    },
     itemSelected (item) {
       this.selectedItemToBuy = item;
     },
@@ -659,3 +651,4 @@ export default {
 <style src="assets/css/sprites/spritesmith-main-21.css"></style>
 <style src="assets/css/sprites/spritesmith-main-22.css"></style>
 <style src="assets/css/sprites.css"></style>
+<style src="smartbanner.js/dist/smartbanner.min.css"></style>

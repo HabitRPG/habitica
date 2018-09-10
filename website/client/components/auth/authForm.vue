@@ -49,6 +49,8 @@
 
     .social-button {
       width: 100%;
+      height: 100%;
+      white-space: inherit;
       text-align: center;
 
       .text {

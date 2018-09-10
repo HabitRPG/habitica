@@ -592,11 +592,6 @@ api.joinGroup = {
     // @TODO: Review the need for this and if still needed, don't base this on memberCount
     if (!group.hasNotCancelled() && group.memberCount === 0) group.leader = user._id; // If new user is only member -> set as leader
 
-    if (group.hasNotCancelled())  {
-      await payments.addSubToGroupUser(user, group);
-      await group.updateGroupPlan();
-    }
-
     group.memberCount += 1;
 
     let promises = [group.save(), user.save()];
@@ -639,6 +634,11 @@ api.joinGroup = {
     }
 
     promises = await Promise.all(promises);
+
+    if (group.hasNotCancelled())  {
+      await payments.addSubToGroupUser(user, group);
+      await group.updateGroupPlan();
+    }
 
     let response = await Group.toJSONCleanChat(promises[0], user);
     let leader = await User.findById(response.leader).select(nameFields).exec();
@@ -792,7 +792,6 @@ api.leaveGroup = {
     }
 
     await group.leave(user, req.query.keep, req.body.keepChallenges);
-    if (group.hasNotCancelled()) await group.updateGroupPlan(true);
     _removeMessagesFromMember(user, group._id);
     await user.save();
 
@@ -806,6 +805,7 @@ api.leaveGroup = {
       await payments.cancelGroupSubscriptionForUser(user, group);
     }
 
+    if (group.hasNotCancelled()) await group.updateGroupPlan(true);
     res.respond(200, {});
   },
 };
@@ -894,10 +894,6 @@ api.removeGroupMember = {
 
     if (isInGroup) {
       group.memberCount -= 1;
-      if (group.hasNotCancelled())  {
-        await group.updateGroupPlan(true);
-        await payments.cancelGroupSubscriptionForUser(member, group, true);
-      }
 
       if (group.quest && group.quest.leader === member._id) {
         group.quest.key = undefined;
@@ -946,6 +942,12 @@ api.removeGroupMember = {
       member.save(),
       group.save(),
     ]);
+
+    if (isInGroup && group.hasNotCancelled())  {
+      await group.updateGroupPlan(true);
+      await payments.cancelGroupSubscriptionForUser(member, group, true);
+    }
+
     res.respond(200, {});
   },
 };
@@ -1085,6 +1087,16 @@ api.inviteToGroup = {
       const usernameResults = await Promise.all(usernameInvites);
       results.push(...usernameResults);
     }
+
+    let analyticsObject = {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      groupType: group.type,
+      headers: req.headers,
+    };
+
+    res.analytics.track('group invite', analyticsObject);
 
     res.respond(200, results);
   },

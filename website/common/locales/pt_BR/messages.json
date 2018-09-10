@@ -43,7 +43,6 @@
     "messageAuthNoUserFound": "Usuário não encontrado.",
     "messageAuthMustBeLoggedIn": "Você deve estar logado.",
     "messageAuthMustIncludeTokens": "Você deve incluir o token e uid (ID do Usuário) na sua requisição",
-    "messageGroupNotFound": "Grupo não encontrado ou você não tem acesso.",
     "messageGroupAlreadyInParty": "Já está em um grupo, tente recarregar.",
     "messageGroupOnlyLeaderCanUpdate": "Apenas o líder do grupo pode editar o grupo!",
     "messageGroupRequiresInvite": "Não pode entrar em grupo para o qual não foi convidado.",
@@ -62,5 +61,6 @@
     "messageNotAbleToBuyInBulk": "Esse item não pode ser adquirido em quantidades maiores que 1.",
     "notificationsRequired": "Os IDs de notificação são obrigatórios.",
     "unallocatedStatsPoints": "Você tem <span class=\"notification-bold-blue\"><%= points %></span> Pontos de Atributos não distribuidos",
-    "beginningOfConversation": "Este é o começo de sua conversa com <%= userName %>. Lembre-se da gentileza, respeito e de seguir as Diretrizes da Comunidade."
+    "beginningOfConversation": "Este é o começo de sua conversa com <%= userName %>. Lembre-se da gentileza, respeito e de seguir as Diretrizes da Comunidade.",
+    "messageDeletedUser": "Desculpe, esse usuário deletou sua conta."
 }

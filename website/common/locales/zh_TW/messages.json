@@ -29,11 +29,11 @@
     "messageFoundQuest": "你找到了新任務《<%= questText %>》！",
     "messageAlreadyPurchasedGear": " 你曾經買過這個裝備，但是現在沒有了。你可在獎勵欄裡重買一次。",
     "messageAlreadyOwnGear": "你已經有這個了物品。到裝備頁裡裝備它吧。",
-    "previousGearNotOwned": "You need to purchase a lower level gear before this one.",
+    "previousGearNotOwned": "在購買這件裝備前你需要先購買較低等級的裝備。",
     "messageHealthAlreadyMax": "你的生命力已經是最大值。",
     "messageHealthAlreadyMin": "喔不！您沒有生命值了，購買治療藥水已經來不及了。但別擔心，您還可以復活！",
     "armoireEquipment": "<%= image %> 你在神祕寶箱裡找到稀有的裝備 <%= dropText %>！好棒！",
-    "armoireFood": "<%= image %> You rummage in the Armoire and find <%= dropText %>. What's that doing in here?",
+    "armoireFood": "<%= image %>你在神秘寶箱裡找到了<%= dropText %>。這是什麼?",
     "armoireExp": "你打開神祕寶箱⋯⋯只得到經驗值。",
     "messageInsufficientGems": "寶石不足 !",
     "messageAuthPasswordMustMatch": ":password 和 :confirm密碼不配合。",
@@ -43,7 +43,6 @@
     "messageAuthNoUserFound": "找不到戶口。",
     "messageAuthMustBeLoggedIn": "你需要登入。",
     "messageAuthMustIncludeTokens": "您必須在您的請求裏包括令牌和 UID（用戶ID ）",
-    "messageGroupNotFound": "找不到群組或你沒有使用權。",
     "messageGroupAlreadyInParty": "已在一個隊伍，請嘗試刷新畫面。",
     "messageGroupOnlyLeaderCanUpdate": "只有群組領袖可以更新組別！",
     "messageGroupRequiresInvite": "不能加入一個你沒有被邀請參加的群組。",
@@ -53,7 +52,7 @@
     "messageGroupChatFlagAlreadyReported": "你已經舉報了這個留言。",
     "messageGroupChatNotFound": "找不到留言 !",
     "messageGroupChatAdminClearFlagCount": "只有管理員才可以把標記計數清除！",
-    "messageCannotFlagSystemMessages": "You cannot flag a system message. If you need to report a violation of the Community Guidelines related to this message, please email a screenshot and explanation to Lemoness at <%= communityManagerEmail %>.",
+    "messageCannotFlagSystemMessages": "你無法標記系統訊息。如果你要檢舉違反社群規範的訊息，請以電子郵件傳送截圖以及說明到<%= communityManagerEmail %>給Lemoness。",
     "messageGroupChatSpam": "唉呀，看來您發布了太多訊息！請稍等一分鐘並重新嘗試。酒館聊天一次只能容納 200 個訊息，因此 Habitica 鼓勵發布較長而經過考慮的訊息以及有效的回覆。期待看到您想表達的想法。:)",
     "messageCannotLeaveWhileQuesting": "You cannot accept this party invitation while you are in a quest. If you'd like to join this party, you must first abort your quest, which you can do from your party screen. You will be given back the quest scroll.",
     "messageUserOperationProtected": "路徑`<%= operation %>`沒有保留，因為它是一個受保護的路徑。",
@@ -62,5 +61,6 @@
     "messageNotAbleToBuyInBulk": "This item cannot be purchased in quantities above 1.",
     "notificationsRequired": "通知用ID是必須的。",
     "unallocatedStatsPoints": "你有<span class=\"notification-bold-blue\"><%= points %>點未分配屬性點</span>",
-    "beginningOfConversation": "您與 <%= userName %> 的對話即將開始。記得要和善、尊重，並遵守社群準則！"
+    "beginningOfConversation": "您與 <%= userName %> 的對話即將開始。記得要和善、尊重，並遵守社群準則！",
+    "messageDeletedUser": "Sorry, this user has deleted their account."
 }

@@ -83,6 +83,7 @@ export default {
     removeTask () {
       if (!confirm('Are you sure you want to delete this task?')) return;
       this.destroyTask(this.brokenChallengeTask);
+      this.close();
     },
     close () {
       this.$store.state.brokenChallengeTask = {};

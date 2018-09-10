@@ -21,7 +21,7 @@
       .col-12.col-md-6
         .btn.btn-secondary.social-button(@click='socialAuth("google")')
           .svg-icon.social-icon(v-html="icons.googleIcon")
-          span {{registering ? $t('signUpWithSocial', {social: 'Google'}) : $t('loginWithSocial', {social: 'Google'})}}
+          .text {{registering ? $t('signUpWithSocial', {social: 'Google'}) : $t('loginWithSocial', {social: 'Google'})}}
     .form-group(v-if='registering')
       label(for='usernameInput', v-once) {{$t('username')}}
       input#usernameInput.form-control(type='text', :placeholder='$t("usernamePlaceholder")', v-model='username')
@@ -207,6 +207,8 @@
 
     .social-button {
       width: 100%;
+      height: 100%;
+      white-space: inherit;
       text-align: center;
 
       .text {

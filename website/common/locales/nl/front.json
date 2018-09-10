@@ -295,7 +295,7 @@
     "signUpWithSocial": "Aanmelden met <%= social %>",
     "loginWithSocial": "Inloggen met <%= social %>",
     "confirmPassword": "Wachtwoord bevestigen",
-    "usernameLimitations": "Login Name must be 1 to 20 characters long, containing only letters a to z, or numbers 0 to 9, or hyphens, or underscores.",
+    "usernameLimitations": "De Login Naam moet tussen de 1 en 20 karakters lang zijn, bevat enkel letters a tot z, of nummers 0 tot 9, of hyfen of uncerscores.",
     "usernamePlaceholder": "Bijv., GewoonteDier",
     "emailPlaceholder": "Bijv., dier@voorbeeld.com",
     "passwordPlaceholder": "bijv., ******************",
@@ -327,8 +327,7 @@
     "joinMany": "Join over 2,000,000 people having fun while accomplishing their goals!",
     "joinToday": "Doe vandaag mee met Habitica",
     "signup": "Aanmelden",
-    "getStarted": "Get Started",
+    "getStarted": "Begin",
     "mobileApps": "Mobiele apps",
-    "learnMore": "Meer informatie",
-    "useMobileApps": "Habitica is not optimized for a mobile browser. We recommend downloading our mobile apps."
+    "learnMore": "Meer informatie"
 }

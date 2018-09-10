@@ -43,7 +43,6 @@
     "messageAuthNoUserFound": "没有找到这个用户",
     "messageAuthMustBeLoggedIn": "你必须登入",
     "messageAuthMustIncludeTokens": "你的请求内容里必须包括uid(user id)和勋章",
-    "messageGroupNotFound": "没有找到这个小组，或者你没有权限",
     "messageGroupAlreadyInParty": "你已加入这个队伍，请刷新页面",
     "messageGroupOnlyLeaderCanUpdate": "只有小组长才可以更新小组信息！",
     "messageGroupRequiresInvite": "无法加入没有邀请你的小组",
@@ -62,5 +61,6 @@
     "messageNotAbleToBuyInBulk": "这件物品不能以大于1的数量购买。",
     "notificationsRequired": "需要Notification ids",
     "unallocatedStatsPoints": "你有<span class=\"notification-bold-blue\"><%= points %>没分配的属性点</span>",
-    "beginningOfConversation": "现在开始和<%= userName %>愉快的聊天吧！记住要善待和尊重他人并遵守社区准则！"
+    "beginningOfConversation": "现在开始和<%= userName %>愉快的聊天吧！记住要善待和尊重他人并遵守社区准则！",
+    "messageDeletedUser": "抱歉，此用户已删除其帐户。"
 }

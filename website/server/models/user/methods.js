@@ -106,7 +106,8 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, o
   // whether to save users after sending the message, defaults to true
   let saveUsers = options.save === false ? false : true;
 
-  common.refPush(userToReceiveMessage.inbox.messages, chatDefaults(options.receiverMsg, sender));
+  const newMessageReceiver = chatDefaults(options.receiverMsg, sender);
+  common.refPush(userToReceiveMessage.inbox.messages, newMessageReceiver);
   userToReceiveMessage.inbox.newMessages++;
   userToReceiveMessage._v++;
   userToReceiveMessage.markModified('inbox.messages');
@@ -133,12 +134,15 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, o
 
   */
 
-  common.refPush(sender.inbox.messages, defaults({sent: true}, chatDefaults(senderMsg, userToReceiveMessage)));
+  const newMessage = defaults({sent: true}, chatDefaults(senderMsg, userToReceiveMessage));
+  common.refPush(sender.inbox.messages, newMessage);
   sender.markModified('inbox.messages');
 
   if (saveUsers) {
     await Promise.all([userToReceiveMessage.save(), sender.save()]);
   }
+
+  return newMessage;
 };
 
 /**

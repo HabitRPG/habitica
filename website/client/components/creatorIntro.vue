@@ -193,8 +193,10 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
         .col-3.text-center.sub-menu-item(@click='changeSubPage("flower")', :class='{active: activeSubPage === "flower"}')
           strong(v-once) {{$t('accent')}}
       .row.sub-menu(v-if='editing')
-        .col-4.offset-2.text-center.sub-menu-item(@click='changeSubPage("ears")' :class='{active: activeSubPage === "ears"}')
+        .col-4.text-center.sub-menu-item(@click='changeSubPage("ears")' :class='{active: activeSubPage === "ears"}')
           strong(v-once) {{$t('animalEars')}}
+        .col-4.text-center.sub-menu-item(@click='changeSubPage("tails")' :class='{active: activeSubPage === "tails"}')
+          strong(v-once) {{$t('animalTails')}}
         .col-4.text-center.sub-menu-item(@click='changeSubPage("headband")' :class='{active: activeSubPage === "headband"}')
           strong(v-once) {{$t('headband')}}
       #glasses.row(v-if='activeSubPage === "glasses"')
@@ -203,17 +205,30 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             .sprite.customize-option(:class="`eyewear_special_${option.key}`", @click='option.click')
       #animal-ears.row(v-if='activeSubPage === "ears"')
         .section.col-12.customize-options
-          .option(v-for='option in animalEars',
+          .option(v-for='option in animalItems("headAccessory")',
             :class='{active: option.active, locked: option.locked}')
             .sprite.customize-option(:class="`headAccessory_special_${option.key}`", @click='option.click')
             .gem-lock(v-if='option.locked')
               .svg-icon.gem(v-html='icons.gem')
               span 2
-          .col-12.text-center(v-if='!animalEarsOwned')
+          .col-12.text-center(v-if='!animalItemsOwned("headAccessory")')
             .gem-lock
               .svg-icon.gem(v-html='icons.gem')
               span 5
-            button.btn.btn-secondary.purchase-all(@click='unlock(animalEarsUnlockString)') {{ $t('purchaseAll') }}
+            button.btn.btn-secondary.purchase-all(@click='unlock(animalItemsUnlockString("headAccessory"))') {{ $t('purchaseAll') }}
+      #animal-tails.row(v-if='activeSubPage === "tails"')
+        .section.col-12.customize-options
+          .option(v-for='option in animalItems("back")',
+            :class='{active: option.active, locked: option.locked}')
+            .sprite.customize-option(:class="`icon_back_special_${option.key}`", @click='option.click')
+            .gem-lock(v-if='option.locked')
+              .svg-icon.gem(v-html='icons.gem')
+              span 2
+          .col-12.text-center(v-if='!animalItemsOwned("back")')
+            .gem-lock
+              .svg-icon.gem(v-html='icons.gem')
+              span 5
+            button.btn.btn-secondary.purchase-all(@click='unlock(animalItemsUnlockString("back"))') {{ $t('purchaseAll') }}
       #headband.row(v-if='activeSubPage === "headband"')
         .col-12.customize-options
           .option(v-for='option in headbands', :class='{active: option.active}')
@@ -222,7 +237,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
         .col-12.customize-options
           .option(@click='set({"preferences.chair": "none"})', :class='{active: user.preferences.chair === "none"}')
             | None
-          .option(v-for='option in ["black", "blue", "green", "pink", "red", "yellow"]',
+          .option(v-for='option in chairKeys',
             :class='{active: user.preferences.chair === option}')
             .chair.sprite.customize-option(:class="`button_chair_${option}`", @click='set({"preferences.chair": option})')
       #flowers.row(v-if='activeSubPage === "flower"')
@@ -856,7 +871,7 @@ import isPinned from 'common/script/libs/isPinned';
 const skinsBySet = groupBy(appearance.skin, 'set.key');
 const hairColorBySet = groupBy(appearance.hair.color, 'set.key');
 
-let tasksByCategory = {
+const tasksByCategory = {
   work: [
     {
       type: 'habit',
@@ -1013,7 +1028,11 @@ export default {
       baseHair4Keys: [15, 16, 17, 18, 19, 20],
       baseHair5Keys: [1, 2],
       baseHair6Keys: [1, 2, 3],
-      animalEarsKeys: ['bearEars', 'cactusEars', 'foxEars', 'lionEars', 'pandaEars', 'pigEars', 'tigerEars', 'wolfEars'],
+      animalItemKeys: {
+        back: ['bearTail', 'cactusTail', 'foxTail', 'lionTail', 'pandaTail', 'pigTail', 'tigerTail', 'wolfTail'],
+        headAccessory: ['bearEars', 'cactusEars', 'foxEars', 'lionEars', 'pandaEars', 'pigEars', 'tigerEars', 'wolfEars'],
+      },
+      chairKeys: ['black', 'blue', 'green', 'pink', 'red', 'yellow', 'handleless_black', 'handleless_blue', 'handleless_green', 'handleless_pink', 'handleless_red', 'handleless_yellow'],
       icons: Object.freeze({
         logoPurple,
         bodyIcon,
@@ -1069,44 +1088,6 @@ export default {
         option.click = () => {
           let type = this.user.preferences.costume ? 'costume' : 'equipped';
           return this.equip(newKey, type);
-        };
-        return option;
-      });
-      return options;
-    },
-    animalEarsUnlockString () {
-      let animalItemKeys = this.animalEarsKeys.map(key => {
-        return `items.gear.owned.headAccessory_special_${key}`;
-      });
-
-      return animalItemKeys.join(',');
-    },
-    animalEarsOwned () {
-      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
-      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
-
-      let own = true;
-      this.animalEarsKeys.forEach(key => {
-        if (!this.user.items.gear.owned[`headAccessory_special_${key}`]) own = false;
-      });
-      return own;
-    },
-    animalEars () {
-      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
-      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
-      let keys = this.animalEarsKeys;
-      let options = keys.map(key => {
-        let newKey = `headAccessory_special_${key}`;
-        let userPurchased = this.user.items.gear.owned[newKey];
-        let locked = !userPurchased;
-
-        let option = {};
-        option.key = key;
-        option.active = this.user.preferences.costume ? this.user.items.gear.costume.headAccessory === newKey : this.user.items.gear.equipped.headAccessory === newKey;
-        option.locked = locked;
-        option.click = () => {
-          let type = this.user.preferences.costume ? 'costume' : 'equipped';
-          return locked ? this.unlock(`items.gear.owned.${newKey}`) : this.equip(newKey, type);
         };
         return option;
       });
@@ -1548,6 +1529,44 @@ export default {
     },
     backgroundPurchased () {
       this.backgroundUpdate = new Date();
+    },
+    animalItemsUnlockString (category) {
+      const keys = this.animalItemKeys[category].map(key => {
+        return `items.gear.owned.${category}_special_${key}`;
+      });
+
+      return keys.join(',');
+    },
+    animalItemsOwned (category) {
+      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
+      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+
+      let own = true;
+      this.animalItemKeys[category].forEach(key => {
+        if (!this.user.items.gear.owned[`${category}_special_${key}`]) own = false;
+      });
+      return own;
+    },
+    animalItems (category) {
+      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
+      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+      let keys = this.animalItemKeys[category];
+      let options = keys.map(key => {
+        let newKey = `${category}_special_${key}`;
+        let userPurchased = this.user.items.gear.owned[newKey];
+        let locked = !userPurchased;
+
+        let option = {};
+        option.key = key;
+        option.active = this.user.preferences.costume ? this.user.items.gear.costume[category] === newKey : this.user.items.gear.equipped[category] === newKey;
+        option.locked = locked;
+        option.click = () => {
+          let type = this.user.preferences.costume ? 'costume' : 'equipped';
+          return locked ? this.unlock(`items.gear.owned.${newKey}`) : this.equip(newKey, type);
+        };
+        return option;
+      });
+      return options;
     },
   },
 };
