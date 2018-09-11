@@ -141,7 +141,7 @@
     "PMDisabledCaptionText": "Aún puedes enviar mensajes, pero nadie puede enviártelos.",
     "block": "Bloquear",
     "unblock": "Desbloquear",
-    "blockWarning": "Block - This will have no effect if the player is a moderator now or becomes a moderator in future.",
+    "blockWarning": "Bloqueo - No tendrá efecto si el jugador es un moderador o se convierte en un moderador en el futuro.",
     "pm-reply": "Enviar una respuesta",
     "inbox": "Bandeja de entrada",
     "messageRequired": "Es necesario un mensaje.",
@@ -470,8 +470,8 @@
     "whatIsGroupManager": "¿Qué es un Administrador de Grupo?",
     "whatIsGroupManagerDesc": "Un administrador de grupo es una función para los usuarios que no da acceso a los detalles de facturación del grupo, pero le capacita para crear, asignar y aprobar tareas compartidas para los miembros del grupo. Asciende a los administradores de grupo desde la lista de miembros.",
     "goToTaskBoard": "Ir al Tablón de Tareas",
-    "sharedCompletion": "Shared Completion",
-    "recurringCompletion": "None - Group task does not complete",
-    "singleCompletion": "Single - Completes when any assigned user finishes",
-    "allAssignedCompletion": "All - Completes when all assigned users finish"
+    "sharedCompletion": "Terminación compartida",
+    "recurringCompletion": "Ninguno - La tarea de grupo no ha sido completada",
+    "singleCompletion": "Único - Se completa cuando cualquiera de los usuarios a los que haya sido asignada la termina",
+    "allAssignedCompletion": "Todos - Se completa cuando todos los usuarios a los que ha sido asignada la terminan"
 }

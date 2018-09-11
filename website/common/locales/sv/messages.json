@@ -62,5 +62,5 @@
     "notificationsRequired": "Notifikations-id krävs.",
     "unallocatedStatsPoints": "Du har <span class=\"notification-bold-blue\"><%= points %> outdelat Egenskapspoäng</span>",
     "beginningOfConversation": "Detta är början av din konversation med <%= userName %>. Kom ihåg att vara trevlig, respektfull, och att följa gemenskapens riktlinjer!",
-    "messageDeletedUser": "Sorry, this user has deleted their account."
+    "messageDeletedUser": "Tyvärr har denna användare raderat sitt konto."
 }
