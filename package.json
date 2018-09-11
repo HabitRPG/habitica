@@ -186,7 +186,7 @@
     "sinon": "^4.5.0",
     "sinon-chai": "^3.0.0",
     "sinon-stub-promise": "^4.0.0",
-    "webpack-bundle-analyzer": "^2.12.0",
+    "webpack-bundle-analyzer": "^3.0.0",
     "webpack-dev-middleware": "^2.0.5",
     "webpack-hot-middleware": "^2.22.2"
   },
