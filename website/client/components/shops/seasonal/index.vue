@@ -294,6 +294,7 @@
   import Avatar from 'client/components/avatar';
   import buyMixin from 'client/mixins/buy';
   import currencyMixin from '../_currencyMixin';
+  import pinUtils from 'client/mixins/pinUtils';
 
   import svgPin from 'assets/svg/pin.svg';
   import svgWarrior from 'assets/svg/warrior.svg';
@@ -318,7 +319,7 @@
   import shops from 'common/script/libs/shops';
 
   export default {
-    mixins: [buyMixin, currencyMixin],
+    mixins: [buyMixin, currencyMixin, pinUtils],
     components: {
       ShopItem,
       Item,
@@ -513,11 +514,6 @@
         }
 
         return false;
-      },
-      togglePinned (item) {
-        if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
-          this.$parent.showUnpinNotification(item);
-        }
       },
       itemSelected (item) {
         if (item.locked) return;

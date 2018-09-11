@@ -62,7 +62,7 @@
         p(v-markdown='group.description')
       sidebar-section(
         :title="$t('challenges')",
-        :tooltip="isParty ? $t('challengeDetails') : $t('privateDescription')"
+        :tooltip="$t('challengeDetails')"
       )
         group-challenges(:groupId='searchId')
     div.text-center
