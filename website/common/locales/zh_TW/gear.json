@@ -1166,7 +1166,7 @@
     "headArmoireLamplightersTopHatNotes": "這頂優雅的黑色帽子能幫您完成您的點燈任務! 增加 <%= con %> 點體質。 來自神祕寶箱: 點燈伕套裝(3/4)",
     "headArmoireCoachDriversHatText": "馬車伕禮帽",
     "headArmoireCoachDriversHatNotes": "這頂帽子相當正式，但又不會像高頂禮帽那樣講究。請小心當您在高速駕駛時可別弄丟了帽子! 增加 <%= int %> 點智力。 來自神祕寶箱: 馬車伕套裝(2/3)",
-    "headArmoireCrownOfDiamondsText": "鑽石王冠",
+    "headArmoireCrownOfDiamondsText": "鑽石皇冠",
     "headArmoireCrownOfDiamondsNotes": "這頂閃亮亮的王冠不僅僅是頂好帽子，他也能使你的心靈敏銳!增加<%= int %>點智力。來自神秘寶箱:鑽石之王套裝(2/4)。",
     "headArmoireFlutteryWigText": "飛舞的假髮",
     "headArmoireFlutteryWigNotes": "這頂歐式假髮有喜多空間讓你的蝴蝶在做你的任務而疲倦時休息。增加智力、感知和力量各<%= attrs %>點。來自神秘寶箱飛舞連身裙套裝(2/4)。",

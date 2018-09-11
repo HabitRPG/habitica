@@ -616,5 +616,7 @@
     "questKangarooCompletion": "「今だ！」 あなたはカンガルーに向けてブーメランを投げ返すよう仲間たちに合図しました。当たるたびにあの獣は遠くへ飛び跳ねていき、ついに彼女は逃げ出します。あとには赤黒い土埃が立ち込めて、いくつかのたまごと、いくらかのゴールドしか残されていませんでした。<br><br>@Mewrose はかつてカンガルーが立っていた場所に歩き進みます。「ねぇ、あのブーメランはどこへ行ったの？」<br><br>「あれはたぶん、あの赤黒い土埃が立ち込める中へ消えたんだろう。私たちがそれぞれのタスクを終わらせたときにね。」 @stefalupagus は思いを巡らせました。<br><br> @LilithofAlfheim は地平線を眺めます。「また違うカンガルーの群れが私たちの方に向かってきてない？」 <br><br>あなたたちは全員で一目散にHabiticaの街へ走って帰りました。また後頭部にたんこぶをつくるよりも、難しいタスクに立ち向かった方が良いでしょう！",
     "questKangarooBoss": "カタストロフィック・カンガルー",
     "questKangarooDropKangarooEgg": "カンガルー (たまご)",
-    "questKangarooUnlockText": "市場でカンガルーのたまごを買えるようにする"
+    "questKangarooUnlockText": "市場でカンガルーのたまごを買えるようにする",
+    "forestFriendsText": "Forest Friends Quest Bundle",
+    "forestFriendsNotes": "Contains 'The Spirit of Spring', 'The Hedgebeast', and 'The Tangle Tree'. Available until September 30."
 }
