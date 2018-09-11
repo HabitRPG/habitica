@@ -44,7 +44,7 @@
     "LFG": "To advertise your new Party or find one to join, go to the <%= linkStart %>Party Wanted (Looking for Group)<%= linkEnd %> Guild.",
     "wantExistingParty": "Want to join an existing Party? Go to the <%= linkStart %>Party Wanted Guild<%= linkEnd %> and post this User ID:",
     "joinExistingParty": "Aansluiten bij het gezelschap van iemand anders",
-    "needPartyToStartQuest": "Whoops! You need to <a href='http://habitica.wikia.com/wiki/Party' target='_blank'>create or join a Party</a> before you can start a quest!",
+    "needPartyToStartQuest": "Oeps! Je moet <a href='http://habitica.wikia.com/wiki/Party' target='_blank'>een groep aanmaken of je erbij aansluiten</a> voor je een queeste kan beginnen!",
     "createGroupPlan": "Aanmake",
     "create": "Creëren",
     "userId": "Gebruikers-ID",

@@ -182,6 +182,21 @@ api.bundles = {
     type: 'quests',
     value: 7,
   },
+  forestFriends: {
+    key: 'forestFriends',
+    text: t('forestFriendsText'),
+    notes: t('forestFriendsNotes'),
+    bundleKeys: [
+      'ghost_stag',
+      'hedgehog',
+      'treeling',
+    ],
+    canBuy () {
+      return moment().isBetween('2018-09-11', '2018-10-02');
+    },
+    type: 'quests',
+    value: 7,
+  },
 };
 
 /*
