@@ -22,8 +22,8 @@ const featuredItems = {
   ],
   quests: [
     {
-      type: 'quests',
-      path: 'quests.seaserpent',
+      type: 'bundles',
+      path: 'bundles.forestFriends',
     },
     {
       type: 'quests',
