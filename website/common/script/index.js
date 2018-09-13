@@ -110,6 +110,9 @@ api.achievements = achievements;
 import randomVal from './libs/randomVal';
 api.randomVal = randomVal;
 
+import hasClass from './libs/hasClass';
+api.hasClass = hasClass;
+
 import autoAllocate from './fns/autoAllocate';
 import crit from './fns/crit';
 import handleTwoHanded from './fns/handleTwoHanded';
