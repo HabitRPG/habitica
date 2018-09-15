@@ -63,6 +63,7 @@ layout-section(:title="$t('equipment')")
 
   import _filter from 'lodash/filter';
   import _sortBy from 'lodash/sortBy';
+  import pinUtils from '../../../mixins/pinUtils';
 
   const sortGearTypes = ['sortByType', 'sortByPrice', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'].map(g => ({id: g}));
 
@@ -75,6 +76,7 @@ layout-section(:title="$t('equipment')")
   };
 
   export default {
+    mixins: [pinUtils],
     props: ['hideLocked', 'hidePinned', 'searchBy'],
     components: {
       LayoutSection,
