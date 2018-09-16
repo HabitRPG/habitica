@@ -10,6 +10,7 @@ import {
 } from '../libs/errors';
 
 import { removeItemByPath } from './pinnedGearUtils';
+
 import getItemInfo from '../libs/getItemInfo';
 import content from '../content/index';
 
@@ -73,6 +74,8 @@ module.exports = function unlock (user, req = {}, analytics) {
       if (path.indexOf('gear.') !== -1) {
         // Using Object so path[1] won't create an array but an object {path: {1: value}}
         setWith(user, pathPart, true, Object);
+        let itemName = pathPart.split('.').pop();
+        removeItemByPath(user, `gear.flat.${itemName}`);
       }
 
       // Using Object so path[1] won't create an array but an object {path: {1: value}}
