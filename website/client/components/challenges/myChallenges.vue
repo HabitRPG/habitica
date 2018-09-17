@@ -57,6 +57,7 @@
     }
 
     .svg-icon {
+      color: #C3C0C7;
       width: 88.7px;
       margin: 1em auto;
     }
