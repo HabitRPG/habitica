@@ -591,20 +591,21 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     }
   }
 
-  .text-center .gem-lock {
-    display: inline-block;
-    margin-right: 1em;
-    margin-bottom: 1.6em;
-    vertical-align: bottom;
+  .text-center {
+    .gem-lock, .gold-lock {
+      display: inline-block;
+      margin-right: 1em;
+      margin-bottom: 1.6em;
+      vertical-align: bottom;
+    }
   }
 
-  .gem-lock {
+  .gem-lock, .gold-lock {
     .svg-icon {
       width: 16px;
     }
 
     span {
-      color: #24cc8f;
       font-weight: bold;
       margin-left: .5em;
     }
@@ -615,28 +616,12 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     }
   }
 
-  .text-center .gold-lock {
-    display: inline-block;
-    margin-right: 1em;
-    margin-bottom: 1.6em;
-    vertical-align: bottom;
+  .gem-lock span {
+    color: $green-10
   }
 
-  .gold-lock {
-    .svg-icon {
-      width: 16px;
-    }
-
-    span {
-      color: $yellow-10;
-      font-weight: bold;
-      margin-left: .5em;
-    }
-
-    .svg-icon, span {
-      display: inline-block;
-      vertical-align: bottom;
-    }
+  .gold-lock span {
+    color: $yellow-10
   }
 
   .option.active {
@@ -755,7 +740,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
         color: #24cc8f;
       }
 
-      .gem {
+      .gem, .coin {
         width: 16px;
       }
 
@@ -770,13 +755,13 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
           font-size: 14px;
         }
 
-        .gem {
+        .gem, .coin {
           width: 20px;
         }
       }
     }
 
-    .gem {
+    .gem, .coin {
       margin: 0 .5em;
       display: inline-block;
       vertical-align: bottom;
@@ -1547,10 +1532,14 @@ export default {
         pinType: 'marketGear',
       };
       await axios.post(`/api/v4/user/buy/${item}`, options);
-      buy(this.user, {
-        params: options,
-      });
-      this.backgroundUpdate = new Date();
+      try {
+        buy(this.user, {
+          params: options,
+        });
+        this.backgroundUpdate = new Date();
+      } catch (e) {
+        alert(e.message);
+      }
     },
     setKeys (type, _set) {
       return map(_set, (v, k) => {
