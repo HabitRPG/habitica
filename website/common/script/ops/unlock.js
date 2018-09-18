@@ -10,7 +10,6 @@ import {
 } from '../libs/errors';
 
 import { removeItemByPath } from './pinnedGearUtils';
-
 import getItemInfo from '../libs/getItemInfo';
 import content from '../content/index';
 
