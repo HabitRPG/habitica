@@ -39,7 +39,7 @@ export let schema = new Schema({
   id: {
     type: String,
     default: uuid,
-    validate: [validator.isUUID, 'Invalid uuid.'],
+    validate: [(v) => validator.isUUID(v), 'Invalid uuid.'],
     // @TODO: Add these back once we figure out the issue with notifications
     // See Fix for https://github.com/HabitRPG/habitica/issues/9923
     // required: true,
