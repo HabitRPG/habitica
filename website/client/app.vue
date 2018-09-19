@@ -17,8 +17,9 @@ div
       template(v-if="isUserLoaded")
         div.resting-banner(v-if="showRestingBanner")
           span.content
-            span.label {{ $t('innCheckOutBanner') }}
-            span.separator |
+            span.label(v-if="!isNarrowScreen") {{ $t('innCheckOutBanner') }}
+            span.label(v-if="isNarrowScreen") {{ $t('innCheckOutBannerShort') }}
+            span.separator  |
             span.resume(@click="resumeDamage()") {{ $t('resumeDamage') }}
           div.closepadding(@click="hideBanner()")
             span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close")
@@ -102,7 +103,7 @@ div
 
 <style lang='scss'>
   @import '~client/assets/scss/colors.scss';
-  
+
   /* @TODO: The modal-open class is not being removed. Let's try this for now */
   .modal {
     overflow-y: scroll !important;
@@ -118,20 +119,9 @@ div
     z-index: 1600 !important; /* Must stay above nav bar */
   }
 
-  .restingInn {
-    .navbar {
-      top: 40px;
-    }
-
-    #app-header {
-      margin-top: 40px !important;
-    }
-
-  }
-
   .resting-banner {
     width: 100%;
-    height: 40px;
+    min-height: 40px;
     background-color: $blue-10;
     position: fixed;
     top: 0;
@@ -139,11 +129,10 @@ div
     display: flex;
 
     .content {
-      height: 24px;
       line-height: 1.71;
       text-align: center;
       color: $white;
-
+      padding: 8px 38px 8px 8px;
       margin: auto;
     }
 
@@ -160,6 +149,13 @@ div
       }
     }
 
+    @media only screen and (max-width: 600px) {
+      .content {
+        font-size: 12px;
+        line-height: 1.4;
+      }
+    }
+
     .separator {
       color: $blue-100;
       margin: 0px 15px;
@@ -168,6 +164,7 @@ div
     .resume {
       font-weight: bold;
       cursor: pointer;
+      white-space:nowrap;
     }
   }
 </style>
@@ -245,6 +242,9 @@ export default {
     },
     showRestingBanner () {
       return !this.bannerHidden && this.user.preferences.sleep;
+    },
+    isNarrowScreen () {
+      return screen.width <= 600;
     },
   },
   created () {
@@ -414,6 +414,10 @@ export default {
       document.title = title;
     });
 
+    this.$store.watch(state => state.isUserLoaded, () => {
+      this.setBannerOffset();
+    });
+
     this.$nextTick(() => {
       // Load external scripts after the app has been rendered
       Analytics.load();
@@ -442,6 +446,8 @@ export default {
           // Load external scripts after the app has been rendered
           setupPayments();
         });
+
+        this.setBannerOffset();
       }).catch((err) => {
         console.error('Impossible to fetch user. Clean up localStorage and refresh.', err); // eslint-disable-line no-console
       });
@@ -462,6 +468,9 @@ export default {
     // Remove the index.html loading screen and now show the inapp loading
     const loadingScreen = document.getElementById('loading-screen');
     if (loadingScreen) document.body.removeChild(loadingScreen);
+  },
+  updated () {
+    this.setBannerOffset();
   },
   methods: {
     checkForBannedUser (error) {
@@ -615,9 +624,32 @@ export default {
     },
     hideBanner () {
       this.bannerHidden = true;
+      this.setBannerOffset();
     },
     resumeDamage () {
       this.$store.dispatch('user:sleep');
+    },
+    setBannerOffset () {
+      let restingBanner = document.getElementsByClassName('resting-banner')[0];
+      let contentPlacement = '0px';
+      if (!this.bannerHidden && restingBanner !== undefined) {
+        contentPlacement = `${restingBanner.clientHeight  }px`;
+      }
+      let topMenu = document.getElementsByClassName('restingInn')[0];
+      if (topMenu !== undefined) {
+        let navbar = topMenu.getElementsByClassName('navbar')[0];
+        if (navbar !== undefined) {
+          navbar.style.top = contentPlacement;
+        }
+      }
+      let appHeader = document.getElementById('app-header');
+      if (appHeader !== undefined) {
+        appHeader.style.marginTop = contentPlacement;
+      }
+      let smartBanner = document.getElementsByClassName('smartbanner')[0];
+      if (smartBanner !== undefined) {
+        smartBanner.style.top = contentPlacement;
+      }
     },
   },
 };
