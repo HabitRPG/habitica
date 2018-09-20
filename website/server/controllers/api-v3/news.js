@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'USE CASE SPOTLIGHT AND GUILD SPOTLIGHT ON HANDS-ON SKILLS';
+const LAST_ANNOUNCEMENT_TITLE = 'FALL FESTIVAL BEGINS! LIMITED EDITION FALL EQUIPMENT, SEASONAL SHOP OPENS, AND NPC OUTFITS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,14 +30,21 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>9/18/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>9/20/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <p>We've got new posts on the blog all about ways to use Habitica to help with Hands-on and Practical Skills! First, there's a <a href='https://habitica.wordpress.com/2018/09/18/getting-hands-on-guilds-for-practical-skills/' target='_blank'>Guild Spotlight</a> that highlights the Guilds that can help you as you explore ways to use Habitica to help with hands-on projects. We've also posted a <a href='https://habitica.wordpress.com/2018/09/18/use-case-spotlight-hands-on-and-practical-skills/' target='_blank'>Use Case Spotlight</a> featuring a number of great suggestions for using Habitica's task system to manage these kinds of tasks as well! These suggestions were submitted by Habiticans in the <a href='/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6' target='_blank'>Use Case Spotlights Guild</a>.</p>
-        <p>Plus, we're collecting user submissions for the next Use Case Spotlight! How do you use Habitica to celebrate yourself and your accomplishments? We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!</p>
-        <div class="small mb-3">by shanaqui</div>
-        <div class="scene_tools center-block"></div>
+        <div class="promo_fall_festival_2018 center-block"></div>
+        <h3>Limited Edition Class Outfits!</h3>
+        <p>From now until October 31st, limited edition outfits are available in the Rewards column! Depending on your class, you can be a Minotaur Warrior, an Alter Ego Rogue, a Carnivorous Plant Healer, or a Candymancer Mage. You'd better get productive to earn enough gold before your time runs out...</p>
+        <div class="small mb-3">by AnnDeLune, Vikte, QuartzFox, Beffymaroo, and SabreCat</div>
+        <div class="promo_fall_festival_2017 center-block"></div>
+        <h3>Seasonal Shop Opens</h3>
+        <p>The <a href='/shops/seasonal' target='_blank'>Seasonal Shop</a> has opened! It's stocking autumnal Seasonal Edition goodies at the moment, including past fall outfits. Everything there will be available to purchase during the Fall Festival event each year, but it's only open until October 31st, so be sure to stock up now, or you'll have to wait a year to buy these items again!</p>
+        <div class="small mb-3">by AnnDeLune, ʂʈєƒąʃųƥągųʂ, Katy133, Lilith of Alfheim, Definitely not a villain, ShoGirlGeek. cataclysms, maxpendragon, Lemoness, Beffymaroo, and SabreCat</div>
+        <h3>NPC Outfits</h3>
+        <p>Everyone has hastened down to the Flourishing Fields to celebrate this spooky harvest festival. Be sure to check out all the new outfits that people are sporting!</p>
+        <div class="promo_seasonal_shop center-block"></div>
       </div>
       `,
     });
