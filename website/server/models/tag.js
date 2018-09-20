@@ -9,7 +9,7 @@ export let schema = new Schema({
   id: {
     type: String,
     default: uuid,
-    validate: [(v) => validator.isUUID(v), 'Invalid uuid.'],
+    validate: [validator.isUUID, 'Invalid uuid.'],
     required: true,
   },
   name: {type: String, required: true},

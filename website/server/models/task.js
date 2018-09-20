@@ -76,7 +76,7 @@ export let TaskSchema = new Schema({
   },
   tags: [{
     type: String,
-    validate: [(v) => validator.isUUID(v), 'Invalid uuid.'],
+    validate: [validator.isUUID, 'Invalid uuid.'],
   }],
   value: {type: Number, default: 0, required: true}, // redness or cost for rewards Required because it must be settable (for rewards)
   priority: {
@@ -89,26 +89,26 @@ export let TaskSchema = new Schema({
     ],
   },
   attribute: {type: String, default: 'str', enum: ['str', 'con', 'int', 'per']},
-  userId: {type: String, ref: 'User', validate: [(v) => validator.isUUID(v), 'Invalid uuid.']}, // When not set it belongs to a challenge
+  userId: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.']}, // When not set it belongs to a challenge
 
   challenge: {
     shortName: {type: String},
-    id: {type: String, ref: 'Challenge', validate: [(v) => validator.isUUID(v), 'Invalid uuid.']}, // When set (and userId not set) it's the original task
-    taskId: {type: String, ref: 'Task', validate: [(v) => validator.isUUID(v), 'Invalid uuid.']}, // When not set but challenge.id defined it's the original task
+    id: {type: String, ref: 'Challenge', validate: [validator.isUUID, 'Invalid uuid.']}, // When set (and userId not set) it's the original task
+    taskId: {type: String, ref: 'Task', validate: [validator.isUUID, 'Invalid uuid.']}, // When not set but challenge.id defined it's the original task
     broken: {type: String, enum: ['CHALLENGE_DELETED', 'TASK_DELETED', 'UNSUBSCRIBED', 'CHALLENGE_CLOSED', 'CHALLENGE_TASK_NOT_FOUND']}, // CHALLENGE_TASK_NOT_FOUND comes from v3 migration
     winner: String, // user.profile.name of the winner
   },
 
   group: {
-    id: {type: String, ref: 'Group', validate: [(v) => validator.isUUID(v), 'Invalid uuid.']},
+    id: {type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.']},
     broken: {type: String, enum: ['GROUP_DELETED', 'TASK_DELETED', 'UNSUBSCRIBED']},
-    assignedUsers: [{type: String, ref: 'User', validate: [(v) => validator.isUUID(v), 'Invalid uuid.']}],
-    taskId: {type: String, ref: 'Task', validate: [(v) => validator.isUUID(v), 'Invalid uuid.']},
+    assignedUsers: [{type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.']}],
+    taskId: {type: String, ref: 'Task', validate: [validator.isUUID, 'Invalid uuid.']},
     approval: {
       required: {type: Boolean, default: false},
       approved: {type: Boolean, default: false},
       dateApproved: {type: Date},
-      approvingUser: {type: String, ref: 'User', validate: [(v) => validator.isUUID(v), 'Invalid uuid.']},
+      approvingUser: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.']},
       requested: {type: Boolean, default: false},
       requestedDate: {type: Date},
     },
@@ -117,7 +117,7 @@ export let TaskSchema = new Schema({
 
   reminders: [{
     _id: false,
-    id: {type: String, validate: [(v) => validator.isUUID(v), 'Invalid uuid.'], default: shared.uuid, required: true},
+    id: {type: String, validate: [validator.isUUID, 'Invalid uuid.'], default: shared.uuid, required: true},
     startDate: {type: Date},
     time: {type: Date, required: true},
   }],
@@ -261,7 +261,7 @@ let dailyTodoSchema = () => {
       completed: {type: Boolean, default: false},
       text: {type: String, required: false, default: ''}, // required:false because it can be empty on creation
       _id: false,
-      id: {type: String, default: shared.uuid, required: true, validate: [(v) => validator.isUUID(v), 'Invalid uuid.']},
+      id: {type: String, default: shared.uuid, required: true, validate: [validator.isUUID, 'Invalid uuid.']},
       linkId: {type: String},
     }],
   };
