@@ -69,7 +69,7 @@ export let schema = new Schema({
   name: {type: String, required: true},
   summary: {type: String, maxlength: MAX_SUMMARY_SIZE_FOR_GUILDS},
   description: String,
-  leader: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
+  leader: {type: String, ref: 'User', validate: [(v) => validator.isUUID(v), 'Invalid uuid.'], required: true},
   type: {type: String, enum: ['guild', 'party'], required: true},
   privacy: {type: String, enum: ['private', 'public'], default: 'private', required: true},
   chat: Array,
