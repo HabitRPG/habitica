@@ -31,8 +31,8 @@ let schema = new Schema({
     todos: [{type: String, ref: 'Task'}],
     rewards: [{type: String, ref: 'Task'}],
   },
-  leader: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
-  group: {type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
+  leader: {type: String, ref: 'User', validate: [(v) => validator.isUUID(v), 'Invalid uuid.'], required: true},
+  group: {type: String, ref: 'Group', validate: [(v) => validator.isUUID(v), 'Invalid uuid.'], required: true},
   memberCount: {type: Number, default: 0},
   prize: {type: Number, default: 0, min: 0},
   categories: [{

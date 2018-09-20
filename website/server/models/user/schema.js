@@ -373,7 +373,7 @@ let schema = new Schema({
     return {};
   }},
 
-  challenges: [{type: String, ref: 'Challenge', validate: [validator.isUUID, 'Invalid uuid.']}],
+  challenges: [{type: String, ref: 'Challenge', validate: [(v) => validator.isUUID(v), 'Invalid uuid.']}],
 
   invitations: {
     // Using an array without validation because otherwise mongoose treat this as a subdocument and applies _id by default
@@ -390,7 +390,7 @@ let schema = new Schema({
         type: String,
         ref: 'Group',
         required: true,
-        validate: [validator.isUUID, 'Invalid uuid.'],
+        validate: [(v) => validator.isUUID(v), 'Invalid uuid.'],
       },
       name: {
         type: String,
@@ -400,15 +400,15 @@ let schema = new Schema({
         type: String,
         ref: 'User',
         required: true,
-        validate: [validator.isUUID, 'Invalid uuid.'],
+        validate: [(v) => validator.isUUID(v), 'Invalid uuid.'],
       },
     }],
   },
 
-  guilds: [{type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.']}],
+  guilds: [{type: String, ref: 'Group', validate: [(v) => validator.isUUID(v), 'Invalid uuid.']}],
 
   party: {
-    _id: {type: String, validate: [validator.isUUID, 'Invalid uuid.'], ref: 'Group'},
+    _id: {type: String, validate: [(v) => validator.isUUID(v), 'Invalid uuid.'], ref: 'Group'},
     order: {type: String, default: 'level'},
     orderAscending: {type: String, default: 'ascending'},
     quest: {
