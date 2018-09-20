@@ -34,7 +34,7 @@ export let schema = new Schema({
   id: {
     type: String,
     required: true,
-    validate: [(v) => validator.isUUID(v), shared.i18n.t('invalidWebhookId')],
+    validate: [validator.isUUID, shared.i18n.t('invalidWebhookId')],
     default: uuid,
   },
   type: {

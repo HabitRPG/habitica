@@ -88,7 +88,7 @@ describe('Task Column', () => {
         expect(el).to.eq(taskListOverride[i]);
       });
 
-      wrapper.setProps({ isUser: false });
+      wrapper.setProps({ isUser: false, taskListOverride });
 
       wrapper.vm.taskList.forEach((el, i) => {
         expect(el).to.eq(taskListOverride[i]);
