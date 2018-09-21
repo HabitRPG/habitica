@@ -37,22 +37,22 @@ div
               span.dropdown-icon-item
                 .svg-icon.inline(v-html="icons.messageIcon")
                 span.text {{$t('sendMessage')}}
-            b-dropdown-item(@click='promoteToLeader(member)', v-if='shouldShowPromoteToLeader')
+            b-dropdown-item(@click='promoteToLeader(member)', v-if='shouldShowLeaderFunctions(member._id)')
               span.dropdown-icon-item
                 .svg-icon.inline(v-html="icons.starIcon")
                 span.text {{$t('promoteToLeader')}}
-            b-dropdown-item(@click='addManager(member._id)', v-if='isLeader && groupIsSubscribed && !isManager(member)')
+            b-dropdown-item(@click='addManager(member._id)', v-if='shouldShowAddManager(member._id)')
               span.dropdown-icon-item
                 .svg-icon.inline(v-html="icons.starIcon")
                 span.text {{$t('addManager')}}
-            b-dropdown-item(@click='removeManager(member._id)', v-if='isLeader && groupIsSubscribed && isManager(member)')
+            b-dropdown-item(@click='removeManager(member._id)', v-if='shouldShowRemoveManager(member._id)')
               span.dropdown-icon-item
                 .svg-icon.inline(v-html="icons.removeIcon")
                 span.text {{$t('removeManager2')}}
             b-dropdown-item(@click='viewProgress(member)', v-if='challengeId')
               span.dropdown-icon-item
                 span.text {{ $t('viewProgress') }}
-            b-dropdown-item(@click='removeMember(member, index)', v-if='isLeader')
+            b-dropdown-item(@click='removeMember(member, index)', v-if='shouldShowLeaderFunctions(member._id)')
               span.dropdown-icon-item
                 .svg-icon.inline(v-html="icons.removeIcon", v-if='isLeader')
                 span.text {{$t('removeMember')}}
@@ -295,9 +295,6 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
-    shouldShowPromoteToLeader () {
-      return !this.challengeId && (this.isLeader || this.isAdmin);
-    },
     isLeader () {
       if (!this.group || !this.group.leader) return false;
       return this.user._id === this.group.leader || this.user._id === this.group.leader._id;
@@ -498,8 +495,15 @@ export default {
         progressMemberId: member._id,
       });
     },
-    isManager (member) {
-      return this.group.managers && this.group.managers[member._id];
+    shouldShowAddManager (memberId) {
+      if (memberId === this.group.leader || memberId === this.group.leader._id) return false;
+      return !(this.group.managers && this.group.managers[memberId]);
+    },
+    shouldShowRemoveManager (memberId) {
+      return this.group.managers && this.group.managers[memberId];
+    },
+    shouldShowLeaderFunctions (memberId) {
+      return !this.challengeId && (this.isLeader || this.isAdmin) && this.user._id !== memberId;
     },
   },
 };
