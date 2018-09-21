@@ -1,4 +1,5 @@
 import {
+  BadRequest,
   NotAuthorized,
   NotFound,
 } from '../../libs/errors';
@@ -11,6 +12,7 @@ import logger from '../../libs/logger';
 import { decrypt } from '../../libs/encryption';
 import { model as Group } from '../../models/group';
 import moment from 'moment';
+import {verifyUsername} from '../user';
 
 const USERNAME_LENGTH_MIN = 1;
 const USERNAME_LENGTH_MAX = 20;
@@ -76,6 +78,9 @@ export async function registerLocal (req, res, { isV3 = false }) {
 
   let validationErrors = req.validationErrors();
   if (validationErrors) throw validationErrors;
+
+  const issues = verifyUsername(req.body.username, res);
+  if (issues.length > 0) throw new BadRequest(issues.join(' '));
 
   let { email, username, password } = req.body;
 

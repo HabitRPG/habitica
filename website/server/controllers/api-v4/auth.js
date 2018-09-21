@@ -8,45 +8,9 @@ import {
 } from '../../libs/errors';
 import * as passwordUtils from '../../libs/password';
 import { model as User } from '../../models/user';
-import {getMatchesByWordArray} from '../../libs/stringUtils';
-import bannedSlurs from '../../libs/bannedSlurs';
-import forbiddenUsernames from '../../libs/forbiddenUsernames';
+import {verifyUsername} from '../../libs/user';
 
 const api = {};
-
-const bannedSlurRegexs = bannedSlurs.map((word) => new RegExp(`.*${word}.*`, 'i'));
-
-function usernameContainsSlur (username) {
-  for (let i = 0; i < bannedSlurRegexs.length; i += 1) {
-    const regEx = bannedSlurRegexs[i];
-    const match = username.match(regEx);
-    if (match !== null && match[0] !== null) {
-      return true;
-    }
-  }
-  return false;
-}
-
-function usernameIsForbidden (username) {
-  const forbidddenWordsMatched = getMatchesByWordArray(username, forbiddenUsernames);
-  return forbidddenWordsMatched.length > 0;
-}
-
-const invalidCharsRegex = new RegExp('[^a-z0-9_-]', 'i');
-function usernameContainsInvalidCharacters (username) {
-  let match = username.match(invalidCharsRegex);
-  return match !== null && match[0] !== null;
-}
-
-function verifyUsername (username, res) {
-  let issues = [];
-  if (username.length < 1 || username.length > 20) issues.push(res.t('usernameIssueLength'));
-  if (usernameContainsInvalidCharacters(username)) issues.push(res.t('usernameIssueInvalidCharacters'));
-  if (usernameContainsSlur(username)) issues.push(res.t('usernameIssueSlur'));
-  if (usernameIsForbidden(username)) issues.push(res.t('usernameIssueForbidden'));
-
-  return issues;
-}
 
 /**
  * @api {put} /api/v4/user/auth/update-username Update username
@@ -76,7 +40,7 @@ api.updateUsername = {
 
     const newUsername = req.body.username;
 
-    const issues = await verifyUsername(newUsername, res);
+    const issues = verifyUsername(newUsername, res);
     if (issues.length > 0) throw new BadRequest(res.t('invalidReqParams'));
 
     const password = req.body.password;
@@ -116,7 +80,7 @@ api.verifyUsername = {
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    const issues = await verifyUsername(req.body.username, res);
+    const issues = verifyUsername(req.body.username, res);
 
     const count = await User.count({ 'auth.local.lowerCaseUsername': req.body.username.toLowerCase() });
     if (count > 0)  issues.push(res.t('usernameTaken'));
