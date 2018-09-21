@@ -154,6 +154,8 @@ export async function genericPurchase (store, params) {
     }
     case 'rebirth_orb':
       return store.dispatch('user:rebirth');
+    case 'armory_key':
+      return store.dispatch('user:emptyArmory');
     case 'potion':
     case 'marketGear':
       // 'marketGear' gets `type`= `gear` which is used for gem-purchasable gear

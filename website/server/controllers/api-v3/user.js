@@ -1358,6 +1358,49 @@ api.userRebirth = {
 };
 
 /**
+ * @api {post} /api/v3/user/empty-armory Use Key of Armory on user
+ * @apiName UserEmptyArmory
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} data.user
+ * @apiSuccess {String} message Success message
+ *
+ * @apiSuccessExample {json}
+ *  {
+ *   "success": true,
+ *   "data": {
+ *   },
+ *   "message": "Your armory has been reset!"
+ *     {
+ *       "type": "EMPTY_ARMORY_ACHIEVEMENT",
+ *       "data": {},
+ *       "id": "424d69fa-3a6d-47db-96a4-6db42ed77a43"
+ *     }
+ *   ]
+ * }
+ *
+ * @apiError {NotAuthorized} Not enough gems
+ *
+ * @apiErrorExample {json}
+ * {"success":false,"error":"NotAuthorized","message":"Not enough Gems"}
+ */
+api.userEmptyArmory = {
+  method: 'POST',
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
+  url: '/user/empty-armory',
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    let emptyArmoryRes = common.ops.emptyArmory(user, req, res.analytics);
+    await user.save();
+
+    res.respond(200, ...emptyArmoryRes);
+  },
+};
+
+/**
  * @api {post} /api/v3/user/block/:uuid Block / unblock a user from sending you a PM
  * @apiName BlockUser
  * @apiGroup User

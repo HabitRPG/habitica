@@ -225,6 +225,32 @@ function _getBasicAchievements (user, language) {
     optionalCount: user.achievements.rebirths,
   });
 
+  let emptyArmoryTitle;
+  let emptyArmoryText;
+
+  if (user.achievements.emptyArmorys > 1) {
+    emptyArmoryTitle = i18n.t('emptyArmoryText', {emptyArmorys: user.achievements. emptyArmorys}, language);
+  } else {
+    emptyArmoryTitle = i18n.t('emptyArmoryBegan', language);
+  }
+
+  if (!user.achievements.emptyArmoryLevel) {
+    emptyArmoryText = i18n.t('emptyArmoryKeyNoLevel', language);
+  } else if (user.achievements.emptyArmoryLevel) {
+    emptyArmoryText = i18n.t('emptyArmoryKey', {level: user.achievements.emptyArmoryLevel}, language);
+  } else {
+    emptyArmoryText = i18n.t('emptyArmoryKey100', language);
+  }
+
+  _add(result, {
+    key: 'emptyArmory',
+    title: emptyArmoryTitle,
+    text: emptyArmoryText,
+    icon: 'achievement-emptyArmory',
+    earned: Boolean(user.achievements.emptyArmorys),
+    optionalCount: user.achievements.emptyArmorys,
+  });
+
   return result;
 }
 

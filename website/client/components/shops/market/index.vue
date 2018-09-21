@@ -279,6 +279,15 @@ export default {
           });
         }
 
+        if (this.user.flags.emptyArmoryEnabled) {
+          let armoryKeyItem = getItemInfo(this.user, 'armory_key');
+
+          specialItems.push({
+            showCount: false,
+            ...armoryKeyItem,
+          });
+        }
+
         if (specialItems.length > 0) {
           categories.push({
             identifier: 'special',

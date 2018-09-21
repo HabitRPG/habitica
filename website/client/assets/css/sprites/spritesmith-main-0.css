@@ -106,6 +106,12 @@
   width: 48px;
   height: 52px;
 }
+.achievement-emptyArmory2x {
+  background-image: url('~assets/images/sprites/spritesmith-main-0.png');
+  background-position: -1568px -1628px;
+  width: 48px;
+  height: 52px;
+}
 .achievement-friends2x {
   background-image: url('~assets/images/sprites/spritesmith-main-0.png');
   background-position: -784px -1628px;

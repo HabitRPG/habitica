@@ -13,12 +13,14 @@ div
   testing
   testingletiant
   rebirth-enabled
+  empty-armory-enabled
   drops-enabled
   contributor
   won-challenge
   ultimate-gear
   streak
   rebirth
+  empty-armory
   joined-guild
   joined-challenge
   invited-friend
@@ -108,12 +110,14 @@ import questInvitation from './achievements/questInvitation';
 import testing from './achievements/testing';
 import testingletiant from './achievements/testingletiant';
 import rebirthEnabled from './achievements/rebirthEnabled';
+import emptyArmoryEnabled from './achievements/emptyArmoryEnabled';
 import dropsEnabled from './achievements/dropsEnabled';
 import contributor from './achievements/contributor';
 import invitedFriend from './achievements/invitedFriend';
 import joinedChallenge from './achievements/joinedChallenge';
 import joinedGuild from './achievements/joinedGuild';
 import rebirth from './achievements/rebirth';
+import emptyArmory from './achievements/emptyArmory';
 import streak from './achievements/streak';
 import ultimateGear from './achievements/ultimateGear';
 import wonChallenge from './achievements/wonChallenge';
@@ -134,6 +138,11 @@ const NOTIFICATIONS = {
     label: ($t) => `${$t('achievement')}: ${$t('rebirthBegan')}`,
     achievement: true,
     modalId: 'rebirth',
+  },
+  EMPTY_ARMORY_ACHIEVEMENT: {
+    label: ($t) => `${$t('achievement')}: ${$t('emptyArmoryBegan')}`,
+    achievement: true,
+    modalId: 'empty-armory',
   },
   GUILD_JOINED_ACHIEVEMENT: {
     label: ($t) => `${$t('achievement')}: ${$t('joinedGuild')}`,
@@ -160,6 +169,7 @@ export default {
     ultimateGear,
     streak,
     rebirth,
+    emptyArmory,
     joinedGuild,
     joinedChallenge,
     invitedFriend,
@@ -175,6 +185,7 @@ export default {
     testing,
     testingletiant,
     rebirthEnabled,
+    emptyArmoryEnabled,
     dropsEnabled,
     contributor,
     loginIncentives,
@@ -184,7 +195,7 @@ export default {
     let unlockLevels = {
       3: 'drop system',
       10: 'class system',
-      50: 'Orb of Rebirth',
+      50: 'Orb of Rebirth, Armory Key',
     };
 
     // Avoid showing the same notiication more than once
@@ -199,7 +210,7 @@ export default {
       'GUILD_PROMPT', 'DROPS_ENABLED', 'REBIRTH_ENABLED', 'WON_CHALLENGE', 'STREAK_ACHIEVEMENT',
       'ULTIMATE_GEAR_ACHIEVEMENT', 'REBIRTH_ACHIEVEMENT', 'GUILD_JOINED_ACHIEVEMENT',
       'CHALLENGE_JOINED_ACHIEVEMENT', 'INVITED_FRIEND_ACHIEVEMENT', 'NEW_CONTRIBUTOR_LEVEL',
-      'CRON', 'SCORED_TASK', 'LOGIN_INCENTIVE',
+      'CRON', 'SCORED_TASK', 'LOGIN_INCENTIVE', 'EMPTY_ARMORY_ENABLED', 'EMPTY_ARMORY_ACHIEVEMENT',
     ].forEach(type => {
       handledNotifications[type] = true;
     });
@@ -356,7 +367,7 @@ export default {
         this.playSound(config.sound);
       }
 
-      if (type === 'REBIRTH_ACHIEVEMENT') {
+      if (type === 'REBIRTH_ACHIEVEMENT' || type === 'EMPTY_ARMORY_ACHIEVEMENT') {
         // reload if the user hasn't clicked on the notification
         const timeOut = setTimeout(() => {
           window.location.reload(true);
@@ -560,6 +571,9 @@ export default {
           case 'REBIRTH_ENABLED':
             this.$root.$emit('bv::show::modal', 'rebirth-enabled');
             break;
+          case 'EMPTY_ARMORY_ENABLED':
+            this.$root.$emit('bv::show::modal', 'empty-armory-enabled');
+            break;
           case 'WON_CHALLENGE':
             this.$root.$emit('bv::show::modal', 'won-challenge');
             break;
@@ -573,6 +587,7 @@ export default {
             break;
           case 'ULTIMATE_GEAR_ACHIEVEMENT':
           case 'REBIRTH_ACHIEVEMENT':
+          case 'EMPTY_ARMORY_ACHIEVEMENT':
           case 'GUILD_JOINED_ACHIEVEMENT':
           case 'CHALLENGE_JOINED_ACHIEVEMENT':
           case 'INVITED_FRIEND_ACHIEVEMENT':

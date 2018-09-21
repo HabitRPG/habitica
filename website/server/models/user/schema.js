@@ -100,6 +100,8 @@ let schema = new Schema({
     rebirths: Number,
     rebirthLevel: Number,
     perfect: {$type: Number, default: 0},
+    emptyArmorys: Number,
+    emptyArmoryLevel: Number,
     habitBirthdays: Number,
     valentine: Number,
     nye: Number,
@@ -219,6 +221,7 @@ let schema = new Schema({
     classSelected: {$type: Boolean, default: false},
     mathUpdates: Boolean,
     rebirthEnabled: {$type: Boolean, default: false},
+    emptyArmoryEnabled: {$type: Boolean, default: false},
     levelDrops: {$type: Schema.Types.Mixed, default: () => {
       return {};
     }},

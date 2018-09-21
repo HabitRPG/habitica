@@ -304,6 +304,21 @@ module.exports = function getItemInfo (user, type, item, officialPinnedItems, la
       };
       break;
     }
+    case 'armory_key': {
+      itemInfo = {
+        key: 'armory_key',
+        purchaseType: 'armory_key',
+        class: 'armory_key',
+        text: i18n.t('emptyArmoryName'),
+        notes: i18n.t('emptyArmoryPop'),
+        value: user.stats.lvl < 100 ? 2 : 0,
+        currency: 'gems',
+        path: 'special.armory_key',
+        pinType: 'armory_key',
+        locked: !user.flags.emptyArmoryEnabled,
+      };
+      break;
+    }
     case 'fortify': {
       itemInfo = {
         key: 'fortify',

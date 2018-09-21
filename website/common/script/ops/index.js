@@ -3,6 +3,7 @@ import revive from './revive';
 import reset from './reset';
 import reroll from './reroll';
 import rebirth from './rebirth';
+import emptyArmory from './emptyArmory';
 import allocate from './stats/allocate';
 import allocateBulk from './stats/allocateBulk';
 import allocateNow from './stats/allocateNow';
@@ -38,6 +39,7 @@ module.exports = {
   reset,
   reroll,
   rebirth,
+  emptyArmory,
   allocateNow,
   allocateBulk,
   sortTask,

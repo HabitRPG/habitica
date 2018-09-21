@@ -85,6 +85,7 @@ module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
   flags.dropsEnabled = false;
   flags.classSelected = false;
   flags.rebirthEnabled = false;
+  flags.emptyArmoryEnabled = false;
   flags.levelDrops = {};
 
   if (!user.achievements.rebirths) {

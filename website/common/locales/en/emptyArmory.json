@@ -1,0 +1,22 @@
+{
+    "emptyArmoryNew": "Empty the armory: New Challenge Available!",
+    "emptyArmoryUnlock": "You've unlocked 'Empty the Armory'! This special Market item allows you to reset your equipment. Use it to breathe new challenge into Habitica if you feel you've achieved it all, or if you just like running around naked!",
+    "emptyArmoryBegin": "Empty the armory: Begin a New Challenge",
+    "emptyArmoryStartOver": "Empty the armory resets your equipment to zero.",
+    "emptyArmoryAdvList1": "You return to zero equipment.",
+    "emptyArmoryAdvList2": "Except for zero gold cost equipment (gem items, contributor items, etc)",
+    "emptyArmoryEarnAchievement": "You also earn an Achievement for beginning a new adventure!",
+    "beEmptyArmory": "Empty the armory",
+    "emptyArmoryAchievement": "You've begun a new challenge! This is empty the armory <%= number %> for you, and the highest Level you've attained is <%= level %>. To stack this Achievement, begin your next new challenge when you've reached an even higher Level!",
+    "emptyArmoryAchievement100": "You've begun a new challenge! This is empty the armory <%= number %> for you, and the highest Level you've attained is 100 or higher. To stack this Achievement, begin your next new challenge when you've reached at least 100!",
+    "emptyArmoryBegan": "Began a New Challenge",
+    "emptyArmoryText": "Began <%= emptyArmorys %> New Challenges",
+    "emptyArmoryKey": "Used an armory key to reset equipment after attaining Level <%= level %>.",
+    "emptyArmoryKey100": "Used an armory key to start over after attaining Level 100 or higher.",
+    "emptyArmoryKeyNoLevel": "Used an armory key to start over.",
+    "emptyArmoryPop": "Instantly reset your equipment!",
+    "emptyArmoryName": "Armory key",
+    "reset": "Reset Equipment, max level <%= reLevel %>",
+    "confirmReset": "Are you sure?",
+    "emptyArmoryComplete": "You have reset your equipment!"
+}

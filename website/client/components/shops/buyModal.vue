@@ -287,7 +287,7 @@
   const hideAmountSelectionForPurchaseTypes = [
     'gear', 'backgrounds', 'mystery_set', 'card',
     'rebirth_orb', 'fortify', 'armoire', 'keys',
-    'debuffPotion',
+    'debuffPotion', 'armory_key',
   ];
 
   export default {
@@ -404,6 +404,13 @@
             eventCategory: 'button',
             eventAction: 'click',
             eventLabel: 'Gems > Rebirth',
+          });
+        } else if (this.item.key === 'armory_key') {
+          Analytics.track({
+            hitType: 'event',
+            eventCategory: 'button',
+            eventAction: 'click',
+            eventLabel: 'Gems > Empty Armory',
           });
         }
         this.$root.$emit('bv::show::modal', 'buy-gems');

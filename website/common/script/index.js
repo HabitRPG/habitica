@@ -154,6 +154,7 @@ import sell from './ops/sell';
 import unlock from './ops/unlock';
 import revive from './ops/revive';
 import rebirth from './ops/rebirth';
+import emptyArmory from './ops/emptyArmory';
 import blockUser from './ops/blockUser';
 import reroll from './ops/reroll';
 import reset from './ops/reset';
@@ -182,6 +183,7 @@ api.ops = {
   unlock,
   revive,
   rebirth,
+  emptyArmory,
   blockUser,
   reroll,
   reset,

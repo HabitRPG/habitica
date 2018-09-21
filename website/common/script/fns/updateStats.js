@@ -107,4 +107,8 @@ module.exports = function updateStats (user, stats, req = {}, analytics) {
     if (user.addNotification) user.addNotification('REBIRTH_ENABLED');
     user.flags.rebirthEnabled = true;
   }
+  if (!user.flags.emptyArmoryEnabled && user.stats.lvl >= 50) {
+    if (user.addNotification) user.addNotification('EMPTY_ARMORY_ENABLED');
+    user.flags.emptyArmoryEnabled = true;
+  }
 };

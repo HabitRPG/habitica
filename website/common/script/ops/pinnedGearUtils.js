@@ -123,7 +123,7 @@ function removePinnedItemsByOwnedGear (user) {
   });
 }
 
-const PATHS_WITHOUT_ITEM = ['special.gems', 'special.rebirth_orb', 'special.fortify'];
+const PATHS_WITHOUT_ITEM = ['special.gems', 'special.rebirth_orb', 'special.armory_key', 'special.fortify'];
 
 /**
  * @returns {boolean} TRUE added the item / FALSE removed it
