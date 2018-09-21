@@ -1,5 +1,5 @@
 import { authWithHeaders } from '../../middlewares/auth';
-import { toArray, orderBy } from 'lodash';
+import * as inboxLib from '../../libs/inbox';
 
 let api = {};
 
@@ -7,7 +7,6 @@ let api = {};
 
 /**
  * @api {get} /api/v3/inbox/messages Get inbox messages for a user
- * @apiPrivate
  * @apiName GetInboxMessages
  * @apiGroup Inbox
  * @apiDescription Get inbox messages for a user
@@ -19,10 +18,11 @@ api.getInboxMessages = {
   url: '/inbox/messages',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    const messagesObj = res.locals.user.inbox.messages;
-    const messagesArray = orderBy(toArray(messagesObj), ['timestamp'], ['desc']);
+    const user = res.locals.user;
 
-    res.respond(200, messagesArray);
+    const userInbox = await inboxLib.getUserInbox(user);
+
+    res.respond(200, userInbox);
   },
 };
 

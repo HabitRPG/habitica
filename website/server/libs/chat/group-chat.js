@@ -1,4 +1,4 @@
-import { model as Chat } from '../../models/chat';
+import { chatModel as Chat } from '../../models/message';
 import { MAX_CHAT_COUNT, MAX_SUBBED_GROUP_CHAT_COUNT } from '../../models/group';
 
 // @TODO: Don't use this method when the group can be saved.
