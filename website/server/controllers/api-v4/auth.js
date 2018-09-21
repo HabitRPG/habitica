@@ -26,8 +26,23 @@ function usernameContainsSlur (username) {
 }
 
 function usernameIsForbidden (username) {
-  let bannedSlursMatched = getMatchesByWordArray(username, forbiddenUsernames);
-  return bannedSlursMatched.length > 0;
+  let forbidddenWordsMatched = getMatchesByWordArray(username, forbiddenUsernames);
+  return forbidddenWordsMatched.length > 0;
+}
+
+function usernameContainsInvalidCharacters (username) {
+  let match = username.match(new RegExp('[^a-z0-9_-]', 'i'));
+  return match !== null && match[0] !== null;
+}
+
+async function verifyUsername (username, res) {
+  let issues = [];
+  if (username.length < 1 || username.length > 20) issues.push(res.t('usernameIssueLength'));
+  if (usernameContainsInvalidCharacters(username)) issues.push(res.t('usernameIssueInvalidCharacters'));
+  if (usernameContainsSlur(username)) issues.push(res.t('usernameIssueSlur'));
+  if (usernameIsForbidden(username)) issues.push(res.t('usernameIssueForbidden'));
+
+  return issues;
 }
 
 /**
@@ -60,8 +75,8 @@ api.updateUsername = {
 
     let newUsername = req.body.username;
 
-    if (usernameContainsSlur(newUsername)) throw new BadRequest(res.t('bannedSlurUsedUsername'));
-    if (usernameIsForbidden(newUsername)) throw new BadRequest(res.t('forbiddenUsernameUsed'));
+    let issues = await verifyUsername(newUsername, res);
+    if (issues.length > 0) throw new BadRequest(res.t('invalidReqParams'));
 
     let password = req.body.password;
     if (password !== undefined) {
@@ -69,7 +84,7 @@ api.updateUsername = {
       if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
     }
 
-    let count = await User.count({ 'auth.local.lowerCaseUsername': req.body.username.toLowerCase() });
+    let count = await User.count({ 'auth.local.lowerCaseUsername': newUsername.toLowerCase() });
     if (count > 0) throw new BadRequest(res.t('usernameTaken'));
 
     // if password is using old sha1 encryption, change it
@@ -86,4 +101,31 @@ api.updateUsername = {
     res.respond(200, { username: req.body.username });
   },
 };
+
+api.verifyUsername = {
+  method: 'POST',
+  url: '/user/auth/verify-username',
+  async handler (req, res) {
+    req.checkBody({
+      username: {
+        notEmpty: {errorMessage: res.t('missingUsername')},
+      },
+    });
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let issues = await verifyUsername(req.body.username, res);
+
+    let count = await User.count({ 'auth.local.lowerCaseUsername': req.body.username.toLowerCase() });
+    if (count > 0)  issues.push(res.t('usernameTaken'));
+
+    if (issues.length > 0) {
+      res.respond(200, { isUsable: false, issues });
+    } else {
+      res.respond(200, { isUsable: true });
+    }
+  },
+};
+
 module.exports = api;

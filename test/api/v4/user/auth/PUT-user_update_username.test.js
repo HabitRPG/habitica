@@ -39,6 +39,16 @@ describe('PUT /user/auth/update-username', async () => {
     expect(user.auth.local.username).to.eql(newUsername);
   });
 
+  it('successfully changes username containing number and underscore', async () => {
+    let newUsername = 'new_username9';
+    let response = await user.put(ENDPOINT, {
+      username: newUsername,
+    });
+    expect(response).to.eql({ username: newUsername });
+    await user.sync();
+    expect(user.auth.local.username).to.eql(newUsername);
+  });
+
   it('sets verifiedUsername when changing username', async () => {
     let newUsername = 'new-username-verify';
     let response = await user.put(ENDPOINT, {
@@ -127,31 +137,31 @@ describe('PUT /user/auth/update-username', async () => {
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('bannedSlurUsedUsername'),
+        message: t('invalidReqParams'),
       });
     });
 
     it('errors if new username contains a slur', async () => {
       await expect(user.put(ENDPOINT, {
-        username: 'TESTPLACEHOLDERSLURWORDHERE.otherword',
+        username: 'TESTPLACEHOLDERSLURWORDHERE_otherword',
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('bannedSlurUsedUsername'),
+        message: t('invalidReqParams'),
       });
       await expect(user.put(ENDPOINT, {
         username: 'something_TESTPLACEHOLDERSLURWORDHERE',
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('bannedSlurUsedUsername'),
+        message: t('invalidReqParams'),
       });
       await expect(user.put(ENDPOINT, {
         username: 'somethingTESTPLACEHOLDERSLURWORDHEREotherword',
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('bannedSlurUsedUsername'),
+        message: t('invalidReqParams'),
       });
     });
 
@@ -161,7 +171,7 @@ describe('PUT /user/auth/update-username', async () => {
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('forbiddenUsernameUsed'),
+        message: t('invalidReqParams'),
       });
     });
 
@@ -171,7 +181,41 @@ describe('PUT /user/auth/update-username', async () => {
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('forbiddenUsernameUsed'),
+        message: t('invalidReqParams'),
+      });
+    });
+
+    it('errors if username has incorrect length', async () => {
+      await expect(user.put(ENDPOINT, {
+        username: 'thisisaverylongusernameover20characters',
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('invalidReqParams'),
+      });
+    });
+
+    it('errors if new username contains invalid characters', async () => {
+      await expect(user.put(ENDPOINT, {
+        username: 'Eichhörnchen',
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('invalidReqParams'),
+      });
+      await expect(user.put(ENDPOINT, {
+        username: 'test.name',
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('invalidReqParams'),
+      });
+      await expect(user.put(ENDPOINT, {
+        username: '🤬',
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('invalidReqParams'),
       });
     });
   });
