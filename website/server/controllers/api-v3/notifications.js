@@ -23,9 +23,7 @@ let api = {};
 api.readNotification = {
   method: 'POST',
   url: '/notifications/:notificationId/read',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -67,9 +65,7 @@ api.readNotification = {
 api.readNotifications = {
   method: 'POST',
   url: '/notifications/read',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -117,9 +113,7 @@ api.readNotifications = {
 api.seeNotification = {
   method: 'POST',
   url: '/notifications/:notificationId/see',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -168,9 +162,7 @@ api.seeNotification = {
 api.seeNotifications = {
   method: 'POST',
   url: '/notifications/see',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
