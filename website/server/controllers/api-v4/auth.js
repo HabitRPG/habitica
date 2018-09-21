@@ -14,11 +14,12 @@ import forbiddenUsernames from '../../libs/forbiddenUsernames';
 
 const api = {};
 
+const bannedSlurRegexs = bannedSlurs.map((word) => new RegExp(`.*${word}.*`, 'i'));
+
 function usernameContainsSlur (username) {
-  let wordRegexs = bannedSlurs.map((word) => new RegExp(`.*${word}.*`, 'i'));
-  for (let i = 0; i < wordRegexs.length; i += 1) {
-    let regEx = wordRegexs[i];
-    let match = username.match(regEx);
+  for (let i = 0; i < bannedSlurRegexs.length; i += 1) {
+    const regEx = bannedSlurRegexs[i];
+    const match = username.match(regEx);
     if (match !== null && match[0] !== null) {
       return true;
     }
@@ -27,16 +28,17 @@ function usernameContainsSlur (username) {
 }
 
 function usernameIsForbidden (username) {
-  let forbidddenWordsMatched = getMatchesByWordArray(username, forbiddenUsernames);
+  const forbidddenWordsMatched = getMatchesByWordArray(username, forbiddenUsernames);
   return forbidddenWordsMatched.length > 0;
 }
 
+const invalidCharsRegex = new RegExp('[^a-z0-9_-]', 'i');
 function usernameContainsInvalidCharacters (username) {
-  let match = username.match(new RegExp('[^a-z0-9_-]', 'i'));
+  let match = username.match(invalidCharsRegex);
   return match !== null && match[0] !== null;
 }
 
-async function verifyUsername (username, res) {
+function verifyUsername (username, res) {
   let issues = [];
   if (username.length < 1 || username.length > 20) issues.push(res.t('usernameIssueLength'));
   if (usernameContainsInvalidCharacters(username)) issues.push(res.t('usernameIssueInvalidCharacters'));
@@ -58,12 +60,10 @@ async function verifyUsername (username, res) {
  **/
 api.updateUsername = {
   method: 'PUT',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/auth/update-username',
   async handler (req, res) {
-    let user = res.locals.user;
+    const user = res.locals.user;
 
     req.checkBody({
       username: {
@@ -71,21 +71,21 @@ api.updateUsername = {
       },
     });
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let newUsername = req.body.username;
+    const newUsername = req.body.username;
 
-    let issues = await verifyUsername(newUsername, res);
+    const issues = await verifyUsername(newUsername, res);
     if (issues.length > 0) throw new BadRequest(res.t('invalidReqParams'));
 
-    let password = req.body.password;
+    const password = req.body.password;
     if (password !== undefined) {
       let isValidPassword = await passwordUtils.compare(user, password);
       if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
     }
 
-    let count = await User.count({ 'auth.local.lowerCaseUsername': newUsername.toLowerCase() });
+    const count = await User.count({ 'auth.local.lowerCaseUsername': newUsername.toLowerCase() });
     if (count > 0) throw new BadRequest(res.t('usernameTaken'));
 
     // if password is using old sha1 encryption, change it
@@ -113,12 +113,12 @@ api.verifyUsername = {
       },
     });
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let issues = await verifyUsername(req.body.username, res);
+    const issues = await verifyUsername(req.body.username, res);
 
-    let count = await User.count({ 'auth.local.lowerCaseUsername': req.body.username.toLowerCase() });
+    const count = await User.count({ 'auth.local.lowerCaseUsername': req.body.username.toLowerCase() });
     if (count > 0)  issues.push(res.t('usernameTaken'));
 
     if (issues.length > 0) {
