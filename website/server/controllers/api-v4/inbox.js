@@ -47,4 +47,29 @@ api.deleteMessage = {
   },
 };
 
+/* NOTE this route has also an API v3 version */
+
+/**
+ * @api {delete} /api/v4/inbox/clear Delete all messages
+ * @apiName clearMessages
+ * @apiGroup User
+ *
+ * @apiSuccess {Object} data Empty object
+ *
+ * @apiSuccessExample {json}
+ * {"success":true,"data":{},"notifications":[]}
+ */
+api.clearMessages = {
+  method: 'DELETE',
+  middlewares: [authWithHeaders()],
+  url: '/inbox/clear',
+  async handler (req, res) {
+    const user = res.locals.user;
+
+    await inboxLib.clearPMs(user);
+
+    res.respond(200, {});
+  },
+};
+
 module.exports = api;

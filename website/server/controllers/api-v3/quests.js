@@ -55,9 +55,7 @@ let api = {};
 api.inviteToQuest = {
   method: 'POST',
   url: '/groups/:groupId/quests/invite/:questKey',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let questKey = req.params.questKey;
@@ -171,9 +169,7 @@ api.inviteToQuest = {
 api.acceptQuest = {
   method: 'POST',
   url: '/groups/:groupId/quests/accept',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -232,9 +228,7 @@ api.acceptQuest = {
 api.rejectQuest = {
   method: 'POST',
   url: '/groups/:groupId/quests/reject',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -297,9 +291,7 @@ api.rejectQuest = {
 api.forceStart = {
   method: 'POST',
   url: '/groups/:groupId/quests/force-start',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -357,9 +349,7 @@ api.forceStart = {
 api.cancelQuest = {
   method: 'POST',
   url: '/groups/:groupId/quests/cancel',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     // Cancel a quest BEFORE it has begun (i.e., in the invitation stage)
     // Quest scroll has not yet left quest owner's inventory so no need to return it.
@@ -413,9 +403,7 @@ api.cancelQuest = {
 api.abortQuest = {
   method: 'POST',
   url: '/groups/:groupId/quests/abort',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     // Abort a quest AFTER it has begun (see questCancel for BEFORE)
     let user = res.locals.user;
@@ -475,9 +463,7 @@ api.abortQuest = {
 api.leaveQuest = {
   method: 'POST',
   url: '/groups/:groupId/quests/leave',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;
