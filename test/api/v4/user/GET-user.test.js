@@ -53,6 +53,6 @@ describe('GET /user', () => {
     let returnedUser = await user.get('/user');
 
     expect(returnedUser._id).to.equal(user._id);
-    expect(returnedUser.inbox.messages).to.be.empty;
+    expect(returnedUser.inbox.messages).to.be.undefined;
   });
 });
