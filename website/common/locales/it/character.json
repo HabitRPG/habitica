@@ -45,8 +45,8 @@
     "beard": "Barba",
     "mustache": "Baffi",
     "flower": "Fiore",
-    "accent": "Accent",
-    "headband": "Headband",
+    "accent": "Accento",
+    "headband": "Fascia per Capelli",
     "wheelchair": "Sedia a rotelle",
     "extra": "Extra",
     "basicSkins": "Skin base",
@@ -219,6 +219,6 @@
     "bodyAccess": "Access. busto",
     "mainHand": "Mano principale",
     "offHand": "Mano secondaria",
-    "pointsAvailable": "Punti disponibili",
+    "statPoints": "Punti Statistiche",
     "pts": "punti"
 }

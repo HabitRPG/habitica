@@ -29,7 +29,6 @@ div
           buyModal(
             :item="selectedItemToBuy || {}",
             :withPin="true",
-            @change="resetItemToBuy($event)",
             @buyPressed="customPurchase($event)",
             :genericPurchase="genericPurchase(selectedItemToBuy)",
 
@@ -103,10 +102,10 @@ div
 
 <style lang='scss'>
   @import '~client/assets/scss/colors.scss';
-
+  
   /* @TODO: The modal-open class is not being removed. Let's try this for now */
-  .modal, .modal-open {
-    overflow-y: scroll;
+  .modal {
+    overflow-y: scroll !important;
   }
 
   .modal-backdrop.show {
@@ -116,7 +115,7 @@ div
 
   /* Push progress bar above modals */
   #nprogress .bar {
-    z-index: 1090 !important; /* Must stay above nav bar */
+    z-index: 1600 !important; /* Must stay above nav bar */
   }
 
   .restingInn {
@@ -136,7 +135,7 @@ div
     background-color: $blue-10;
     position: fixed;
     top: 0;
-    z-index: 1030;
+    z-index: 1300;
     display: flex;
 
     .content {
@@ -331,9 +330,33 @@ export default {
         ];
         if (notificationNotFoundMessage.indexOf(errorMessage) !== -1) snackbarTimeout = true;
 
+        let errorsToShow = [];
+        let usernameCheck = false;
+        let emailCheck = false;
+        let passwordCheck = false;
+        // show only the first error for each param
+        if (errorData.errors) {
+          for (let e of errorData.errors) {
+            if (!usernameCheck && e.param === 'username') {
+              errorsToShow.push(e.message);
+              usernameCheck = true;
+            }
+            if (!emailCheck && e.param === 'email') {
+              errorsToShow.push(e.message);
+              emailCheck = true;
+            }
+            if (!passwordCheck && e.param === 'password') {
+              errorsToShow.push(e.message);
+              passwordCheck = true;
+            }
+          }
+        } else {
+          errorsToShow.push(errorMessage);
+        }
+        // dispatch as one snackbar notification
         this.$store.dispatch('snackbars:add', {
           title: 'Habitica',
-          text: errorMessage,
+          text: errorsToShow.join(' '),
           type: 'error',
           timeout: snackbarTimeout,
         });
@@ -475,8 +498,16 @@ export default {
       });
 
       this.$root.$on('bv::modal::hidden', (bvEvent) => {
-        const modalId = bvEvent.target && bvEvent.target.id;
-        if (!modalId) return;
+        let modalId = bvEvent.target && bvEvent.target.id;
+
+        // sometimes the target isn't passed to the hidden event, fallback is the vueTarget
+        if (!modalId) {
+          modalId = bvEvent.vueTarget && bvEvent.vueTarget.id;
+        }
+
+        if (!modalId) {
+          return;
+        }
 
         const modalStack = this.$store.state.modalStack;
 
@@ -493,6 +524,7 @@ export default {
 
         // Get previous modal
         const modalBefore = modalOnTop ? modalOnTop.prev : undefined;
+
         if (modalBefore) this.$root.$emit('bv::show::modal', modalBefore, {fromRoot: true});
       });
     },
@@ -532,13 +564,6 @@ export default {
           eventAction: 'click',
           eventLabel: 'Gems > Wallet',
         });
-      }
-    },
-    resetItemToBuy ($event) {
-      // @TODO: Do we need this? I think selecting a new item
-      // overwrites. @negue might know
-      if (!$event && this.selectedItemToBuy.purchaseType !== 'card') {
-        this.selectedItemToBuy = null;
       }
     },
     itemSelected (item) {
@@ -626,3 +651,4 @@ export default {
 <style src="assets/css/sprites/spritesmith-main-21.css"></style>
 <style src="assets/css/sprites/spritesmith-main-22.css"></style>
 <style src="assets/css/sprites.css"></style>
+<style src="smartbanner.js/dist/smartbanner.min.css"></style>

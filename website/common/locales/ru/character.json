@@ -219,6 +219,6 @@
     "bodyAccess": "Аксессуар на тело",
     "mainHand": "Оружие",
     "offHand": "Защита",
-    "pointsAvailable": "Очков доступно",
+    "statPoints": "Очки характеристик",
     "pts": "очк"
 }

@@ -13,7 +13,7 @@
   )
   .row.tasks-navigation
     .col-12.col-md-4
-      h1 Group's Tasks
+      h1 {{ $t('groupTasksTitle') }}
     // @TODO: Abstract to component!
     .col-12.col-md-4
       .input-group
@@ -80,6 +80,7 @@
       :key="column",
       :taskListOverride='tasksByType[column]',
       v-on:editTask="editTask",
+      v-on:loadGroupCompletedTodos="loadGroupCompletedTodos",
       :group='group',
       :searchText="searchText")
 </template>
@@ -382,6 +383,20 @@ export default {
       // Necessary otherwise the first time the modal is not rendered
       Vue.nextTick(() => {
         this.$root.$emit('bv::show::modal', 'task-modal');
+      });
+    },
+    async loadGroupCompletedTodos () {
+      const completedTodos = await this.$store.dispatch('tasks:getCompletedGroupTasks', {
+        groupId: this.searchId,
+      });
+
+      completedTodos.forEach((task) => {
+        const existingTaskIndex = findIndex(this.tasksByType.todo, (todo) => {
+          return todo._id === task._id;
+        });
+        if (existingTaskIndex === -1) {
+          this.tasksByType.todo.push(task);
+        }
       });
     },
     createTask (type) {

@@ -45,8 +45,8 @@
     "beard": "あごひげ",
     "mustache": "くちひげ",
     "flower": "花",
-    "accent": "Accent",
-    "headband": "Headband",
+    "accent": "飾り",
+    "headband": "ヘアバンド",
     "wheelchair": "車いす",
     "extra": "その他",
     "basicSkins": "基本的な肌の色",
@@ -219,6 +219,6 @@
     "bodyAccess": "胴のアクセ",
     "mainHand": "利き手",
     "offHand": "反対の手",
-    "pointsAvailable": "利用可能なポイント",
+    "statPoints": "ステータスポイント",
     "pts": "ポイント"
 }

@@ -49,6 +49,8 @@
 
     .social-button {
       width: 100%;
+      height: 100%;
+      white-space: inherit;
       text-align: center;
 
       .text {
@@ -112,9 +114,10 @@ export default {
       } catch (e) {} // eslint-disable-line
 
       try {
+        const redirectUrl = `${window.location.protocol}//${window.location.host}`;
         let auth = await hello(network).login({
           scope: 'email',
-          redirect_uri: '', // eslint-disable-line camelcase
+          redirect_uri: redirectUrl, // eslint-disable-line camelcase
         });
 
         await this.$store.dispatch('auth:socialAuth', {

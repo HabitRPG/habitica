@@ -1,7 +1,6 @@
 import shared from '../../../../common';
 import {
   authWithHeaders,
-  authWithUrl,
 } from '../../../middlewares/auth';
 import stripePayments from '../../../libs/payments/stripe';
 
@@ -74,16 +73,18 @@ api.subscribeEdit = {
 api.subscribeCancel = {
   method: 'GET',
   url: '/stripe/subscribe/cancel',
-  middlewares: [authWithUrl],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.query.groupId;
-    let redirect = req.query.redirect;
 
     await stripePayments.cancelSubscription({user, groupId});
 
-    if (redirect === 'none') return res.respond(200, {});
-    return res.redirect('/');
+    if (req.query.noRedirect) {
+      res.respond(200);
+    } else {
+      res.redirect('/');
+    }
   },
 };
 

@@ -43,7 +43,6 @@
     "messageAuthNoUserFound": "Nessun utente trovato.",
     "messageAuthMustBeLoggedIn": "Devi aver eseguito l'accesso.",
     "messageAuthMustIncludeTokens": "Devi includere una chiave e un UID (ID utente) nella tua richiesta.",
-    "messageGroupNotFound": "Gruppo inesistente o a cui non puoi accedere.",
     "messageGroupAlreadyInParty": "Già in una squadra, prova a ricaricare la pagina.",
     "messageGroupOnlyLeaderCanUpdate": "Solo il leader del gruppo può aggiornare il gruppo!",
     "messageGroupRequiresInvite": "Non puoi unirti ad un gruppo se non sei stato invitato.",
@@ -62,5 +61,6 @@
     "messageNotAbleToBuyInBulk": "Non puoi comprare più di 1 unità di questo oggetto.",
     "notificationsRequired": "Sono necessari gli id delle notifiche.",
     "unallocatedStatsPoints": "Hai <span class=\"notification-bold-blue\"><%= points %> Punti Statistica non allocati</span>",
-    "beginningOfConversation": "Stai iniziando una conversazione con <%= userName %>. Ricorda di scrivere con gentilezza e rispetto, seguendo le Linee guida della community!"
+    "beginningOfConversation": "Stai iniziando una conversazione con <%= userName %>. Ricorda di scrivere con gentilezza e rispetto, seguendo le Linee guida della community!",
+    "messageDeletedUser": "Siamo spiacenti, questo utente ha eliminato il suo account."
 }

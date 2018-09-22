@@ -53,6 +53,9 @@ div
               span.dropdown-icon-item
                 .svg-icon.inline(v-html="icons.removeIcon")
                 span.text {{$t('removeManager2')}}
+            b-dropdown-item(@click='viewProgress(member)', v-if='challengeId')
+              span.dropdown-icon-item
+                span.text {{ $t('viewProgress') }}
       .row(v-if='isLoadMoreAvailable')
         .col-12.text-center
           button.btn.btn-secondary(@click='loadMoreMembers()') {{ $t('loadMore') }}
@@ -275,7 +278,20 @@ export default {
     };
   },
   mounted () {
-    this.getMembers();
+    this.$root.$on('habitica:show-member-modal', (data) => {
+      // @TODO: Remove store
+      this.$store.state.memberModalOptions.challengeId = data.challengeId;
+      this.$store.state.memberModalOptions.groupId = data.groupId;
+      this.$store.state.memberModalOptions.group = data.group;
+      this.$store.state.memberModalOptions.memberCount = data.memberCount;
+      this.$store.state.memberModalOptions.viewingMembers = data.viewingMembers;
+      this.$store.state.memberModalOptions.fetchMoreMembers = data.fetchMoreMembers;
+      this.$root.$emit('bv::show::modal', 'members-modal');
+      this.getMembers();
+    });
+  },
+  destroyed () {
+    this.$root.$off('habitica:show-member-modal');
   },
   computed: {
     ...mapState({user: 'user.data'}),
@@ -322,6 +338,9 @@ export default {
       // @TOOD: We might not need this since groupId is computed now
       this.getMembers();
     },
+    challengeId () {
+      this.getMembers();
+    },
     group () {
       this.getMembers();
     },
@@ -360,9 +379,8 @@ export default {
         });
         this.invites = invites;
       }
-      if (this.$store.state.memberModalOptions.viewingMembers.length > 0) {
-        this.members = this.$store.state.memberModalOptions.viewingMembers;
-      }
+
+      this.members = this.$store.state.memberModalOptions.viewingMembers;
     },
     async clickMember (uid, forceShow) {
       let user = this.$store.state.user.data;
@@ -474,6 +492,11 @@ export default {
 
       groupData.leader = member;
       this.$root.$emit('updatedGroup', groupData);
+    },
+    viewProgress (member) {
+      this.$root.$emit('habitica:challenge:member-progress', {
+        progressMemberId: member._id,
+      });
     },
   },
 };

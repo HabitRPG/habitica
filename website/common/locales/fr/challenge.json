@@ -14,7 +14,7 @@
     "challenges": "Défis",
     "challengesLink": "<a href='http://fr.habitica.wikia.com/wiki/Défis' target='_blank'>Défis</a>",
     "challengePrize": "Récompense du défi",
-    "endDate": "Finit le",
+    "endDate": "Prend fin le",
     "noChallenges": "Pas encore de défi, visitez",
     "toCreate": "pour en créer un.",
     "selectWinner": "Désigner un vainqueur et clore le défi :",
@@ -131,6 +131,7 @@
     "locationRequired": "Le lieu du défi est requis ('Ajouter à')",
     "categoiresRequired": "Une ou plusieurs catégories doivent être sélectionnées",
     "viewProgressOf": "Voir la progression de",
+    "viewProgress": "Voir les progrès",
     "selectMember": "Choisir un membre",
     "confirmKeepChallengeTasks": "Voulez-vous conserver les tâches du défi ?",
     "selectParticipant": "Sélectionnez un participant"

@@ -27,6 +27,7 @@ const PrivacyPage = () => import(/* webpackChunkName: "static" */'./components/s
 const TermsPage = () => import(/* webpackChunkName: "static" */'./components/static/terms');
 
 const RegisterLoginReset = () => import(/* webpackChunkName: "auth" */'./components/auth/registerLoginReset');
+const Logout = () => import(/* webpackChunkName: "auth" */'./components/auth/logout');
 
 // User Pages
 // const StatsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/stats');
@@ -105,6 +106,7 @@ const router = new VueRouter({
   routes: [
     { name: 'register', path: '/register', component: RegisterLoginReset, meta: {requiresLogin: false} },
     { name: 'login', path: '/login', component: RegisterLoginReset, meta: {requiresLogin: false} },
+    { name: 'logout', path: '/logout', component: Logout },
     { name: 'resetPassword', path: '/reset-password', component: RegisterLoginReset, meta: {requiresLogin: false} },
     { name: 'tasks', path: '/', component: UserTasks },
     {
@@ -297,7 +299,7 @@ router.beforeEach(function routerGuard (to, from, next) {
       name: redirectTo,
       query: redirectTo === 'login' ? {
         redirectTo: to.path,
-      } : null,
+      } : to.query,
     });
   }
 

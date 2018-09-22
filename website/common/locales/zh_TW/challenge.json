@@ -1,6 +1,6 @@
 {
     "challenge": "挑戰",
-    "challengeDetails": "挑戰是一種社群活動，玩家可以完成一系列相關任務來彼此競爭並贏得獎品。",
+    "challengeDetails": "挑戰是一種社群活動，玩家可以透過完成一系列的相關任務來參與競爭並贏得獎勵。",
     "brokenChaLink": "無效的挑戰連結",
     "brokenTask": "無效的挑戰連結：這項任務本來是一個挑戰的一部份，但是此任務已從該挑戰中移除了。你想怎樣做？",
     "keepIt": "保留",
@@ -14,7 +14,7 @@
     "challenges": "挑戰",
     "challengesLink": "<a href='http://habitica.wikia.com/wiki/Challenges' target='_blank'>挑戰</a>",
     "challengePrize": "挑戰獎品",
-    "endDate": "Ends",
+    "endDate": "結束",
     "noChallenges": "還沒有挑戰，探訪",
     "toCreate": "去建立一個。",
     "selectWinner": "選一位贏家然後結束挑戰：",
@@ -131,6 +131,7 @@
     "locationRequired": "必須填寫挑戰所在位置 (「新增至」)",
     "categoiresRequired": "必須選擇一種以上的類別",
     "viewProgressOf": "查看進度",
+    "viewProgress": "查看進度",
     "selectMember": "選擇成員",
     "confirmKeepChallengeTasks": "你想要保留挑戰任務嗎？",
     "selectParticipant": "選擇一名參與者"

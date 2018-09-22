@@ -61,9 +61,7 @@ let api = {};
 api.getPatrons = {
   method: 'GET',
   url: '/hall/patrons',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkQuery('page').optional().isInt({min: 0}, apiError('queryPageInteger'));
 
@@ -123,9 +121,7 @@ api.getPatrons = {
 api.getHeroes = {
   method: 'GET',
   url: '/hall/heroes',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let heroes = await User
       .find({
@@ -273,6 +269,7 @@ api.updateHero = {
     if (updateData.auth && updateData.auth.blocked === false) {
       hero.auth.blocked = false;
     }
+
     if (updateData.flags && _.isBoolean(updateData.flags.chatRevoked)) hero.flags.chatRevoked = updateData.flags.chatRevoked;
 
     let savedHero = await hero.save();

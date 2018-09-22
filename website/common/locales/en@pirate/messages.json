@@ -43,7 +43,6 @@
     "messageAuthNoUserFound": "No user c'n be found.",
     "messageAuthMustBeLoggedIn": "Ye must be logged in.",
     "messageAuthMustIncludeTokens": "Ye must include a token and uid (user id) in yer request",
-    "messageGroupNotFound": "Can't be findin' the group. That or ye don't have access.",
     "messageGroupAlreadyInParty": "Already in a party; try refreshin'.",
     "messageGroupOnlyLeaderCanUpdate": "Only th' group leader c'n update th' group!",
     "messageGroupRequiresInvite": "Can't join a group yer not invited to.",
@@ -62,5 +61,6 @@
     "messageNotAbleToBuyInBulk": "This item cannot be purchased in quantities above 1.",
     "notificationsRequired": "Notification ids are required.",
     "unallocatedStatsPoints": "You have <span class=\"notification-bold-blue\"><%= points %> unallocated Stat Points</span>",
-    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!"
+    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!",
+    "messageDeletedUser": "Sorry, this user has deleted their account."
 }

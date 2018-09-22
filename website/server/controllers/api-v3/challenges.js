@@ -184,9 +184,7 @@ let api = {};
 api.createChallenge = {
   method: 'POST',
   url: '/challenges',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -235,9 +233,7 @@ api.createChallenge = {
 api.joinChallenge = {
   method: 'POST',
   url: '/challenges/:challengeId/join',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -251,7 +247,7 @@ api.joinChallenge = {
     if (challenge.isMember(user)) throw new NotAuthorized(res.t('userAlreadyInChallenge'));
 
     let group = await Group.getGroup({user, groupId: challenge.group, fields: basicGroupFields, optionalMembership: true});
-    if (!group || !challenge.hasAccess(user, group)) throw new NotFound(res.t('challengeNotFound'));
+    if (!group || !challenge.canJoin(user, group)) throw new NotFound(res.t('challengeNotFound'));
 
     challenge.memberCount += 1;
 
@@ -294,9 +290,7 @@ api.joinChallenge = {
 api.leaveChallenge = {
   method: 'POST',
   url: '/challenges/:challengeId/leave',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let keep = req.body.keep === 'remove-all' ? 'remove-all' : 'keep-all';
@@ -329,7 +323,7 @@ api.leaveChallenge = {
 };
 
 /**
- * @api {get} /api/v3/challenges/user Get challenges for a user.
+ * @api {get} /api/v3/challenges/user Get challenges for a user
  * @apiName GetUserChallenges
  * @apiGroup Challenge
  * @apiDescription Get challenges the user has access to. Includes public challenges, challenges belonging to the user's group, and challenges the user has already joined.
@@ -345,9 +339,7 @@ api.leaveChallenge = {
 api.getUserChallenges = {
   method: 'GET',
   url: '/challenges/user',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     const CHALLENGES_PER_PAGE = 10;
     const page = req.query.page;
@@ -449,7 +441,7 @@ api.getGroupChallenges = {
   method: 'GET',
   url: '/challenges/groups/:groupId',
   middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
+    userFieldsToInclude: ['_id', 'party', 'guilds'],
   })],
   async handler (req, res) {
     let user = res.locals.user;
@@ -463,10 +455,10 @@ api.getGroupChallenges = {
     if (groupId === 'party') groupId = user.party._id;
     if (groupId === 'habitrpg') groupId = TAVERN_ID;
 
-    let group = await Group.getGroup({user, groupId});
+    const group = await Group.getGroup({ user, groupId });
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    let challenges = await Challenge.find({group: groupId})
+    const challenges = await Challenge.find({ group: groupId })
       .sort('-createdAt')
       // .populate('leader', nameFields) // Only populate the leader as the group is implicit
       .exec();
@@ -508,9 +500,7 @@ api.getGroupChallenges = {
 api.getChallenge = {
   method: 'GET',
   url: '/challenges/:challengeId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
 
@@ -640,7 +630,7 @@ api.exportChallengeCsv = {
 };
 
 /**
- * @api {put} /api/v3/challenges/:challengeId Update the name, description, or leader of a challenge.
+ * @api {put} /api/v3/challenges/:challengeId Update the name, description, or leader of a challenge
  *
  * @apiName UpdateChallenge
  * @apiGroup Challenge
@@ -664,9 +654,7 @@ api.exportChallengeCsv = {
 api.updateChallenge = {
   method: 'PUT',
   url: '/challenges/:challengeId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
 
@@ -708,9 +696,7 @@ api.updateChallenge = {
 api.deleteChallenge = {
   method: 'DELETE',
   url: '/challenges/:challengeId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -755,9 +741,7 @@ api.deleteChallenge = {
 api.selectChallengeWinner = {
   method: 'POST',
   url: '/challenges/:challengeId/selectWinner/:winnerId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -806,9 +790,7 @@ api.selectChallengeWinner = {
 api.cloneChallenge = {
   method: 'POST',
   url: '/challenges/:challengeId/clone',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 

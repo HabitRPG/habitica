@@ -116,7 +116,7 @@
     "marketing3Lead2Title": "Integraciones",
     "marketing3Lead2": "Other **3rd Party Tools** tie Habitica into various aspects of your life. Our API provides easy integration for things like the [Chrome Extension](https://chrome.google.com/webstore/detail/habitica/pidkmpibnnnhneohdgjclfdjpijggmjj?hl=en-US), for which you lose points when browsing unproductive websites, and gain points when on productive ones. [See more here](http://habitica.wikia.com/wiki/Extensions,_Add-Ons,_and_Customizations).",
     "marketing4Header": "Uso organizativo",
-    "marketing4Lead1": "Education is one of the best sectors for gamification. We all know how glued to phones and games students are these days; harness that power! Pit your students against each other in friendly competition. Reward good behavior with rare prizes. Watch their grades and behavior soar.",
+    "marketing4Lead1": "La educación es uno de los mejores sectores para convertir en un juego. Todos sabemos lo pegados que estan los estudiantes a los celulares y videojuegos estos días; ¡utiliza ese potencial! Haz que tus alumnos se enfrenten mutuamente en competición amistosa. Recompensa la buena conducta con premios raros. Sé testigo de cómo sus notas y su comportamiento mejoran.",
     "marketing4Lead1Title": "Convierte la educación en un juego",
     "marketing4Lead2": "Los costos de salud están en alza y alguien tiene que ceder. Cientos de programas están diseñados para reducir los costos y mejorar el bienestar. Nosotros creemos que Habitica puede abrir un camino importante a estilos de vida saludables.",
     "marketing4Lead2Title": "Convierte la salud y el bienestar en un juego",
@@ -280,7 +280,7 @@
     "passwordResetEmailSubject": "Reinicio de contraseña para Habitica",
     "passwordResetEmailText": "If you requested a password reset for <%= username %> on Habitica, head to <%= passwordResetLink %> to set a new one. The link will expire after 24 hours. If you haven't requested a password reset, please ignore this email.",
     "passwordResetEmailHtml": "If you requested a password reset for <strong><%= username %></strong> on Habitica, <a href=\"<%= passwordResetLink %>\">click here</a> to set a new one. The link will expire after 24 hours.<br/><br>If you haven't requested a password reset, please ignore this email.",
-    "invalidLoginCredentialsLong": "Uh-oh - your email address / login name or password is incorrect.\n- Make sure they are typed correctly. Your login name and password are case-sensitive.\n- You may have signed up with Facebook or Google-sign-in, not email so double-check by trying them.\n- If you forgot your password, click \"Forgot Password\".",
+    "invalidLoginCredentialsLong": "Uh-oh - tu nombre de usuario o contraseña son incorrectos. \n- Asegúrate de que ambos estén escritos correctamente. Tu nombre de usuario y contraseña son sensibles a las mayúsculas y minúsculas\n- Puede ser que te hayas registrado con Facebook  o Google,no con tu correo electrónico, así que verifícalo intentando iniciar sesión con ambos.\n- Si olvidaste tu contraseña, haz click en \"Olvidé mi contraseña\".",
     "invalidCredentials": "No hay ninguna cuenta que use esas credenciales.",
     "accountSuspended": "This account, User ID \"<%= userId %>\", has been blocked for breaking the [Community Guidelines](https://habitica.com/static/community-guidelines) or [Terms of Service](https://habitica.com/static/terms). For details or to ask to be unblocked, please email our Community Manager at <%= communityManagerEmail %> or ask your parent or guardian to email them. Please copy your User ID into the email and include your Profile Name.",
     "accountSuspendedTitle": "Account has been suspended",
@@ -329,6 +329,5 @@
     "signup": "Regístrate",
     "getStarted": "Empieza",
     "mobileApps": "Aplicaciones Móviles",
-    "learnMore": "Aprende Más",
-    "useMobileApps": "Habitica no esta optimizada para navegadores móviles. Te recomendamos descargar una de nuestras aplicaciones para celular."
+    "learnMore": "Aprende Más"
 }

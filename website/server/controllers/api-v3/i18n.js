@@ -16,7 +16,7 @@ function geti18nBrowserScript (language) {
     availableLanguages,
     language,
     strings: translations[langCode],
-    momentLang: momentLangs[language.momentLangCode],
+    momentLang: momentLangs[langCode],
   })};
   })()`;
 }

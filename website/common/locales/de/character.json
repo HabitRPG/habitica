@@ -219,6 +219,6 @@
     "bodyAccess": "Körper",
     "mainHand": "Haupthand",
     "offHand": "Schildhand",
-    "pointsAvailable": "Verfügbare Punkte",
+    "statPoints": "Attributspunkte",
     "pts": "Pkte"
 }

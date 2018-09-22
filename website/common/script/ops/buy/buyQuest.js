@@ -33,6 +33,10 @@ export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation {
     return item.goldValue;
   }
 
+  getItemType () {
+    return 'quest';
+  }
+
   extractAndValidateParams (user, req) {
     let key = this.key = get(req, 'params.key');
     if (!key) throw new BadRequest(errorMessage('missingKeyParam'));

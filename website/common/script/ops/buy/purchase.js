@@ -63,7 +63,7 @@ function purchaseItem (user, item, price, type, key) {
   }
 }
 
-const acceptedTypes = ['eggs', 'hatchingPotions', 'food', 'quests', 'gear', 'bundles'];
+const acceptedTypes = ['eggs', 'hatchingPotions', 'food', 'gear', 'bundles'];
 const singlePurchaseTypes = ['gear'];
 module.exports = function purchase (user, req = {}, analytics) {
   let type = get(req.params, 'type');
@@ -107,7 +107,7 @@ module.exports = function purchase (user, req = {}, analytics) {
     analytics.track('acquire item', {
       uuid: user._id,
       itemKey: key,
-      itemType: 'Market',
+      itemType: type,
       acquireMethod: 'Gems',
       gemCost: price * 4,
       quantityPurchased: quantity,

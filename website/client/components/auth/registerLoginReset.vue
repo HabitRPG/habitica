@@ -21,7 +21,7 @@
       .col-12.col-md-6
         .btn.btn-secondary.social-button(@click='socialAuth("google")')
           .svg-icon.social-icon(v-html="icons.googleIcon")
-          span {{registering ? $t('signUpWithSocial', {social: 'Google'}) : $t('loginWithSocial', {social: 'Google'})}}
+          .text {{registering ? $t('signUpWithSocial', {social: 'Google'}) : $t('loginWithSocial', {social: 'Google'})}}
     .form-group(v-if='registering')
       label(for='usernameInput', v-once) {{$t('username')}}
       input#usernameInput.form-control(type='text', :placeholder='$t("usernamePlaceholder")', v-model='username')
@@ -207,6 +207,8 @@
 
     .social-button {
       width: 100%;
+      height: 100%;
+      white-space: inherit;
       text-align: center;
 
       .text {
@@ -402,11 +404,6 @@ export default {
       window.location.href = redirectTo;
     },
     async login () {
-      if (!this.username) {
-        alert('Email is required');
-        return;
-      }
-
       await this.$store.dispatch('auth:login', {
         username: this.username,
         // email: this.email,
@@ -433,10 +430,11 @@ export default {
         await hello(network).logout();
       } catch (e) {} // eslint-disable-line
 
+      const redirectUrl = `${window.location.protocol}//${window.location.host}`;
       let auth = await hello(network).login({
         scope: 'email',
         // explicitly pass the redirect url or it might redirect to /home
-        redirect_uri: '', // eslint-disable-line camelcase
+        redirect_uri: redirectUrl, // eslint-disable-line camelcase
       });
 
       await this.$store.dispatch('auth:socialAuth', {

@@ -164,30 +164,30 @@ export default {
     classGear (heroClass) {
       if (heroClass === 'rogue') {
         return {
-          armor: 'armor_special_summer2018Rogue',
-          head: 'head_special_summer2018Rogue',
-          shield: 'shield_special_summer2018Rogue',
-          weapon: 'weapon_special_summer2018Rogue',
+          armor: 'armor_special_fall2018Rogue',
+          head: 'head_special_fall2018Rogue',
+          shield: 'shield_special_fall2018Rogue',
+          weapon: 'weapon_special_fall2018Rogue',
         };
       } else if (heroClass === 'wizard') {
         return {
-          armor: 'armor_special_summer2018Mage',
-          head: 'head_special_summer2018Mage',
-          weapon: 'weapon_special_summer2018Mage',
+          armor: 'armor_special_fall2018Mage',
+          head: 'head_special_fall2018Mage',
+          weapon: 'weapon_special_fall2018Mage',
         };
       } else if (heroClass === 'healer') {
         return {
-          armor: 'armor_special_summer2018Healer',
-          head: 'head_special_summer2018Healer',
-          shield: 'shield_special_summer2018Healer',
-          weapon: 'weapon_special_summer2018Healer',
+          armor: 'armor_special_fall2018Healer',
+          head: 'head_special_fall2018Healer',
+          shield: 'shield_special_fall2018Healer',
+          weapon: 'weapon_special_fall2018Healer',
         };
       } else {
         return {
-          armor: 'armor_special_summer2018Warrior',
-          head: 'head_special_summer2018Warrior',
-          shield: 'shield_special_summer2018Warrior',
-          weapon: 'weapon_special_summer2018Warrior',
+          armor: 'armor_special_fall2018Warrior',
+          head: 'head_special_fall2018Warrior',
+          shield: 'shield_special_fall2018Warrior',
+          weapon: 'weapon_special_fall2018Warrior',
         };
       }
     },

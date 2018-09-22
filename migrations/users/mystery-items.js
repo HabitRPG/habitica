@@ -1,14 +1,14 @@
 import monk from 'monk';
 import nconf from 'nconf';
 
-const migrationName = 'mystery-items-201806.js'; // Update per month
+const migrationName = 'mystery-items-201808.js'; // Update per month
 const authorName = 'Sabe'; // in case script author needs to know when their ...
 const authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; // ... own data is done
 
 /*
  * Award this month's mystery items to subscribers
  */
-const MYSTERY_ITEMS = ['armor_mystery_201806', 'head_mystery_201806'];
+const MYSTERY_ITEMS = ['armor_mystery_201808', 'head_mystery_201808'];
 const CONNECTION_STRING = nconf.get('MIGRATION_CONNECT_STRING');
 
 let dbUsers = monk(CONNECTION_STRING).get('users', { castIds: false });

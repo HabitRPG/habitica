@@ -45,7 +45,7 @@
     "beard": "Barbe",
     "mustache": "Moustache",
     "flower": "Fleur",
-    "accent": "Accent",
+    "accent": "Ornement",
     "headband": "Bandeau",
     "wheelchair": "Fauteuil roulant",
     "extra": "Extra",
@@ -219,6 +219,6 @@
     "bodyAccess": "Accessoire de torse",
     "mainHand": "Main principale",
     "offHand": "Main secondaire",
-    "pointsAvailable": "Points disponibles",
+    "statPoints": "Points d'attribut",
     "pts": "pts"
 }

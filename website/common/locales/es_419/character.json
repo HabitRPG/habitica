@@ -46,7 +46,7 @@
     "mustache": "Bigote",
     "flower": "Flor",
     "accent": "Accent",
-    "headband": "Headband",
+    "headband": "Vincha",
     "wheelchair": "Silla de ruedas",
     "extra": "Extra",
     "basicSkins": "Pieles básicas",
@@ -219,6 +219,6 @@
     "bodyAccess": "Accesorio para el Cuerpo",
     "mainHand": "Mano Principal",
     "offHand": "Mano Secundaria",
-    "pointsAvailable": "Puntos disponibles",
+    "statPoints": "Puntos de estadisticas",
     "pts": "pts"
 }

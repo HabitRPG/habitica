@@ -98,6 +98,7 @@
     "guildQuestsNotSupported": "Gildie nie mogą być zapraszane na misje.",
     "questNotOwned": "Nie posiadasz tego zwoju misji.",
     "questNotGoldPurchasable": "Misja \"<%= key %>\" nie może być kupiona za złoto.",
+    "questNotGemPurchasable": "Misja \"<%= key %>\" nie może być kupiona za Klejnoty.",
     "questLevelTooHigh": "Musisz mieć co najmniej poziom <%= level %>, by rozpocząć tą misję!",
     "questAlreadyUnderway": "Twoja drużyna już jest na misji. Spróbuj ponownie gdy obecna misja się zakończy.",
     "questAlreadyAccepted": "Już zaakceptowałeś zaproszenie na misję.",

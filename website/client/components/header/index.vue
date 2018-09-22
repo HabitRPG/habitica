@@ -35,25 +35,10 @@ div
         span.small-text(v-html="$t('inviteFriendsParty')")
         br
         button.btn.btn-primary(@click='createOrInviteParty()') {{ user.party._id ? $t('inviteFriends') : $t('startAParty') }}
-  a.useMobileApp(v-if="isAndroidMobile()", v-once, href="https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica") {{ $t('useMobileApps') }}
-  a.useMobileApp(v-if="isIOSMobile()", v-once, href="https://itunes.apple.com/us/app/habitica-gamified-task-manager/id994882113?mt=8") {{ $t('useMobileApps') }}
 </template>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
-
-  .useMobileApp {
-    background: red;
-    color: white;
-    z-index: 10;
-    width: 100%;
-    margin: 10px 5px 0 0;
-    height: 64px;
-    text-align: center;
-
-    display: flex;
-    align-items: center;
-  }
 
   #app-header {
     padding-left: 24px;
@@ -155,12 +140,6 @@ export default {
     ...mapActions({
       getPartyMembers: 'party:getMembers',
     }),
-    isAndroidMobile () {
-      return navigator.userAgent.match(/Android/i);
-    },
-    isIOSMobile () {
-      return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-    },
     expandMember (memberId) {
       if (this.expandedMember === memberId) {
         this.expandedMember = null;
@@ -176,11 +155,11 @@ export default {
       }
     },
     showPartyMembers () {
-      // Set the party details for the members-modal component
-      this.$store.state.memberModalOptions.groupId = this.user.party._id;
-      this.$store.state.memberModalOptions.viewingMembers = this.partyMembers;
-      this.$store.state.memberModalOptions.group = this.user.party;
-      this.$root.$emit('bv::show::modal', 'members-modal');
+      this.$root.$emit('habitica:show-member-modal', {
+        groupId: this.user.party._id,
+        viewingMembers: this.partyMembers,
+        group: this.user.party,
+      });
     },
     setPartyMembersWidth ($event) {
       if (this.currentWidth !== $event.width) {
@@ -192,12 +171,16 @@ export default {
     if (this.user.party && this.user.party._id) {
       this.$store.state.memberModalOptions.groupId = this.user.party._id;
       this.getPartyMembers();
-
-      this.$root.$on('inviteModal::inviteToGroup', (group) => {
-        this.inviteModalGroup = group;
-        this.$root.$emit('bv::show::modal', 'invite-modal');
-      });
     }
+  },
+  mounted () {
+    this.$root.$on('inviteModal::inviteToGroup', (group) => {
+      this.inviteModalGroup = group;
+      this.$root.$emit('bv::show::modal', 'invite-modal');
+    });
+  },
+  destroyed () {
+    this.$root.off('inviteModal::inviteToGroup');
   },
 };
 </script>

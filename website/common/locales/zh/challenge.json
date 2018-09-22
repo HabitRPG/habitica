@@ -131,6 +131,7 @@
     "locationRequired": "请选择在哪里发起挑战(‘挑战发起至’)",
     "categoiresRequired": "至少选择一个类别",
     "viewProgressOf": "查看参与者的任务状况",
+    "viewProgress": "查看进度",
     "selectMember": "选择成员",
     "confirmKeepChallengeTasks": "你要保留這個挑戰嗎?",
     "selectParticipant": "選擇一個參加者"

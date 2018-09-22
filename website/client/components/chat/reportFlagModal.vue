@@ -96,15 +96,10 @@ export default {
     };
   },
   created () {
-    this.$root.$on('habitica::report-chat', data => {
-      if (!data.message || !data.groupId) return;
-      this.abuseObject = data.message;
-      this.groupId = data.groupId;
-      this.$root.$emit('bv::show::modal', 'report-flag');
-    });
+    this.$root.$on('habitica::report-chat', this.handleReport);
   },
   destroyed () {
-    this.$root.$off('habitica::report-chat');
+    this.$root.$off('habitica::report-chat', this.handleReport);
   },
   methods: {
     close () {
@@ -129,6 +124,13 @@ export default {
         chatId: this.abuseObject.id,
       });
       this.close();
+    },
+    handleReport (data) {
+      if (!data.message || !data.groupId) return;
+      this.abuseObject = data.message;
+      this.groupId = data.groupId;
+      this.reportComment = '';
+      this.$root.$emit('bv::show::modal', 'report-flag');
     },
   },
 };

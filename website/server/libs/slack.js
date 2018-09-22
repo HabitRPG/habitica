@@ -38,6 +38,7 @@ function sendFlagNotification ({
   group,
   message,
   userComment,
+  automatedComment,
 }) {
   if (SKIP_FLAG_METHODS) {
     return;
@@ -46,9 +47,13 @@ function sendFlagNotification ({
   let authorName;
   let title = `Flag in ${group.name}`;
   let text = `${flagger.profile.name} (${flagger.id}; language: ${flagger.preferences.language}) flagged a group message`;
+  let footer = `<${SLACK_FLAGGING_FOOTER_LINK}?groupId=${group.id}&chatId=${message.id}|Flag this message.>`;
 
   if (userComment) {
     text += ` and commented: ${userComment}`;
+  }
+  if (automatedComment) {
+    footer += ` ${automatedComment}`;
   }
 
   if (group.id === TAVERN_ID) {
@@ -76,7 +81,7 @@ function sendFlagNotification ({
       title,
       title_link: titleLink,
       text: message.text,
-      footer: `<${SLACK_FLAGGING_FOOTER_LINK}?groupId=${group.id}&chatId=${message.id}|Flag this message>`,
+      footer,
       mrkdwn_in: [
         'text',
       ],
@@ -97,6 +102,7 @@ function sendInboxFlagNotification ({
   let authorName;
   let title = `Flag in ${flagger.profile.name}'s Inbox`;
   let text = `${flagger.profile.name} (${flagger.id}; language: ${flagger.preferences.language}) flagged a PM`;
+  let footer = `<${SLACK_FLAGGING_FOOTER_LINK}?userId=${flagger.id}&chatMessageId=${message.id}|Flag this message>`;
 
   if (userComment) {
     text += ` and commented: ${userComment}`;
@@ -136,7 +142,7 @@ function sendInboxFlagNotification ({
       title,
       title_link: titleLink,
       text: messageText,
-      footer: `<${SLACK_FLAGGING_FOOTER_LINK}?userId=${flagger.id}&chatMessageId=${message.id}|Flag this message>`,
+      footer,
       mrkdwn_in: [
         'text',
       ],
@@ -202,8 +208,6 @@ function sendSlurNotification ({
       title,
       title_link: titleLink,
       text: message,
-      // What to replace the footer with?
-      // footer: `<${SLACK_FLAGGING_FOOTER_LINK}?groupId=${group.id}&chatId=${message.id}|Flag this message>`,
       mrkdwn_in: [
         'text',
       ],

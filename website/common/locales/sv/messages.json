@@ -43,7 +43,6 @@
     "messageAuthNoUserFound": "Ingen användare hittades.",
     "messageAuthMustBeLoggedIn": "Du måste vara inloggad.",
     "messageAuthMustIncludeTokens": "Du måste bifoga en token och ett uid (användar id) i din begäran",
-    "messageGroupNotFound": "Gruppen hittades inte eller så har du inte tillgång.",
     "messageGroupAlreadyInParty": "Redan med i ett sällskap, försök ladda om.",
     "messageGroupOnlyLeaderCanUpdate": "Bara gruppledaren kan uppdatera gruppen!",
     "messageGroupRequiresInvite": "Du kan inte gå med i en grupp du inte är inbjuden till.",
@@ -62,5 +61,6 @@
     "messageNotAbleToBuyInBulk": "This item cannot be purchased in quantities above 1.",
     "notificationsRequired": "Notifikations-id krävs.",
     "unallocatedStatsPoints": "Du har <span class=\"notification-bold-blue\"><%= points %> outdelat Egenskapspoäng</span>",
-    "beginningOfConversation": "Detta är början av din konversation med <%= userName %>. Kom ihåg att vara trevlig, respektfull, och att följa gemenskapens riktlinjer!"
+    "beginningOfConversation": "Detta är början av din konversation med <%= userName %>. Kom ihåg att vara trevlig, respektfull, och att följa gemenskapens riktlinjer!",
+    "messageDeletedUser": "Tyvärr har denna användare raderat sitt konto."
 }

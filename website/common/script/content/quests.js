@@ -3225,6 +3225,70 @@ let quests = {
       unlock: t('questSquirrelUnlockText'),
     },
   },
+  seaserpent: {
+    text: t('questSeaSerpentText'),
+    notes: t('questSeaSerpentNotes'),
+    completion: t('questSeaSerpentCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questSeaSerpentBoss'),
+      hp: 1200,
+      str: 2.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'SeaSerpent',
+          text: t('questSeaSerpentDropSeaSerpentEgg'),
+        }, {
+          type: 'eggs',
+          key: 'SeaSerpent',
+          text: t('questSeaSerpentDropSeaSerpentEgg'),
+        }, {
+          type: 'eggs',
+          key: 'SeaSerpent',
+          text: t('questSeaSerpentDropSeaSerpentEgg'),
+        },
+      ],
+      gp: 80,
+      exp: 800,
+      unlock: t('questSeaSerpentUnlockText'),
+    },
+  },
+  kangaroo: {
+    text: t('questKangarooText'),
+    notes: t('questKangarooNotes'),
+    completion: t('questKangarooCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questKangarooBoss'),
+      hp: 700,
+      str: 2,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Kangaroo',
+          text: t('questKangarooDropKangarooEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Kangaroo',
+          text: t('questKangarooDropKangarooEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Kangaroo',
+          text: t('questKangarooDropKangarooEgg'),
+        },
+      ],
+      gp: 49,
+      exp: 425,
+      unlock: t('questKangarooUnlockText'),
+    },
+  },
 };
 
 each(quests, (v, key) => {

@@ -102,7 +102,7 @@
     "allocateInt": "Intelligenciára kiosztott pontok:",
     "allocateIntPop": "Pont hozzáadása az intelligenciádhoz",
     "noMoreAllocate": "Most, hogy elérted a 100-as szintet, nem kapsz több tulajdonság pontot. A szintedet tovább növelheted, vagy egy újabb kalandba kezdhetsz 1. szinttől az <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Újjászületés gömbjével</a>, ami mostantól ingyenesen elérhető a piacon.",
-    "stats": "Statisztika",
+    "stats": "Karakterlap",
     "achievs": "Kitüntetések",
     "strength": "Erő",
     "strText": "Az erő növeli az esélyét a véletlenszerű kritikus csapásoknak valamint az arany, tapasztalati pont és a jutalmak szerzésének lehetőségét. Emellett segít a főellenségek elleni sebzésben is.",
@@ -200,8 +200,8 @@
     "con": "SZÍV",
     "per": "ÉSZ",
     "int": "INT",
-    "showQuickAllocation": "Tulajdonság pont elosztás mutatása",
-    "hideQuickAllocation": "Tulajdonság pont elosztás elrejtése",
+    "showQuickAllocation": "Tulajdonság pont kiosztás mutatása",
+    "hideQuickAllocation": "Tulajdonság pont kiosztás elrejtése",
     "quickAllocationLevelPopover": "Minden szintlépés ad egy pontot, amit elkölthetsz egy általad választott tulajdonságra. Ezt teheted manuálisan, vagy a játékra is bízhatod a döntést valamelyik automatikus kiosztás opciót választva a Felhasználó ikon -> Statisztika menüpontban.",
     "notEnoughAttrPoints": "Nincs elég tulajdonság pontod.",
     "style": "Stílus",
@@ -219,6 +219,6 @@
     "bodyAccess": "Test kieg.",
     "mainHand": "Jobbkezes fegyver",
     "offHand": "Balkezes fegyver",
-    "pointsAvailable": "Kiosztható pontok",
+    "statPoints": "Kiosztható tulajdonság pontok",
     "pts": "pont"
 }

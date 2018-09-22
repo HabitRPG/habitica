@@ -131,6 +131,7 @@
     "locationRequired": "Требуется местонахождение испытания ('Добавить')",
     "categoiresRequired": "Должна быть выбрана как минимум одна категория",
     "viewProgressOf": "Показать прогресс",
+    "viewProgress": "Показать прогресс",
     "selectMember": "Выбрать учасника",
     "confirmKeepChallengeTasks": "Вы хотите оставить задания испытания?",
     "selectParticipant": "Выбрать участника"

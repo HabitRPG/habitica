@@ -147,6 +147,7 @@
       right: 100%;
       height: calc(100% + 18px);
       margin-top: -9px;
+      margin-right: 1px;
       padding-top: 9px;
       padding-bottom: 24px;
       padding-right: 16px;

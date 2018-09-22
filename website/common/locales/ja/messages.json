@@ -43,7 +43,6 @@
     "messageAuthNoUserFound": "ユーザーが見つかりませんでした。",
     "messageAuthMustBeLoggedIn": "まずログインしてください。",
     "messageAuthMustIncludeTokens": "トークンとUID ( ユーザーID ) の両方が必要です。",
-    "messageGroupNotFound": "グループが見つからなかったか、アクセスできません。",
     "messageGroupAlreadyInParty": "もし既にパーティに入っているならページを更新してください。",
     "messageGroupOnlyLeaderCanUpdate": "グループ リーダーだけがグループの更新できます。",
     "messageGroupRequiresInvite": "招待されていないグループに参加することはできません。",
@@ -62,5 +61,6 @@
     "messageNotAbleToBuyInBulk": "このアイテムは1つ以上購入することができません。",
     "notificationsRequired": "通知 ID が必要です。",
     "unallocatedStatsPoints": "<span class=\"notification-bold-blue\"><%= points %>ポイントが割り当てできます。</span>",
-    "beginningOfConversation": "<%= userName %>との会話の始まりです。相手に対して思いやりと敬意を持ち、コミュニティガイドラインを守ることを忘れないでください！"
+    "beginningOfConversation": "<%= userName %>との会話の始まりです。相手に対して思いやりと敬意を持ち、コミュニティガイドラインを守ることを忘れないでください！",
+    "messageDeletedUser": "申し訳ありません。このユーザーはアカウントを削除しています。"
 }

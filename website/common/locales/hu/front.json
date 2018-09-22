@@ -85,7 +85,7 @@
     "landingend": "Még nem győztünk meg?",
     "landingend2": "Lásd részletsebb listánkat az [oldal funkcióiról](/static/overview). Privátabb megközelítést keresel? Nézd meg az [adminisztratív csomagjainkat](/static/plans), ami tökéletes családok, tanárok, támogató csoportok, és vállalatok számára.",
     "landingp1": "A probléma a legtöbbb produktivitást segítő alkalmazással, hogy nem ösztönöznek, hogy folyamatosan használd őket. A Habitica úgy oldja ezt meg, hogy szokásaid felépítését szórakozássá teszi! Sikereid megjutalmazásával és ballépéseid büntetésével a Habitica külső motivációt biztosít mindennapi feladataid elvégzéséhez.",
-    "landingp2": "Amikor megerősítesz egy pozitív szokást, vagy befejezel egy napi feladatot, esetleg elkészülsz egy régi tennivalóval, a Habitica rögtön megjutalmaz tapasztalati pontokkal és arannyal. Tapasztalati pontok szerzésével szintet lépsz, amely növeli a tulajdonságaidat és új funkciókat tesz elérhetővé, pl. kasztok és háziállatok. \nAz aranyat játékbeli tárgyakra költheted, amik megváltoztatják a játékélményed, vagy testre szabott jutalmakat vásárolhatsz, amik motiválnak. Ha a legkisebb siker is jutalommal kecsegtet, akkor kisebb eséllyel fogod a feladataidat halogatni.",
+    "landingp2": "Amikor megerősítesz egy pozitív szokást, vagy befejezel egy napi feladatot, esetleg elkészülsz egy régi tennivalóval, a Habitica rögtön megjutalmaz tapasztalati pontokkal és arannyal. Tapasztalati pontok szerzésével szintet lépsz, amely növeli a tulajdonságaidat és új funkciókat tesz elérhetővé, pl. kasztok és háziállatok. Az aranyat játékbeli tárgyakra költheted, amik megváltoztatják a játékélményed, vagy testre szabott jutalmakat vásárolhatsz, amik motiválnak. Ha a legkisebb siker is jutalommal kecsegtet, akkor kisebb eséllyel fogod a feladataidat halogatni.",
     "landingp2header": "Azonnali jutalom",
     "landingp3": "Amikor engedsz egy rossz szokásnak, vagy nem végzed el a napi feladataidat, életerőt veszítesz. Ha az életerőd elfogy, elveszíted a megszerzett dolgaid egy részét. Az azonnali következmények miatt, a Habitica segít leszokni a rossz szokásokról és a halogatásról, mielőtt problémákat okoznának a való életben.",
     "landingp3header": "Következmények",
@@ -123,7 +123,7 @@
     "marketing4Lead3-1": "Szeretnéd játékká tenni az életed?",
     "marketing4Lead3-2": "Szeretnél egy csoportot vezetni oktatás, wellness, vagy egyéb témában?",
     "marketing4Lead3-3": "Szeretnél többet tudni?",
-    "marketing4Lead3Title": "Játékosíts mindent",
+    "marketing4Lead3Title": "Tegyél mindent játékká",
     "mobileAndroid": "Android",
     "mobileIOS": "iOS",
     "motivate": "Motiváld magad és a csapatod!",
@@ -189,7 +189,7 @@
     "schoolSample5": "1 fejezetet elolvasni",
     "sixteenBitFilQuote": "A megbízásaimmal és feladataimmal rekordidő alatt végzek, hála a [Habiticának]! Mindig vágyom rá, hogy elérhessem a következő szintet!",
     "skysailorQuote": "A csapatom és a küldetéseink segít abban hogy foglalkozzak a játékkal, ami motivál a feladataim elvégzésében és pozitív irányba tereli az életem",
-    "socialTitle": "Habitica - Játékosítsd az életed",
+    "socialTitle": "Habitica - Tedd játékká az életed",
     "supermouse35Quote": "Többet edzek és már hónapok óta nem felejtettem el bevenni a gyógyszereimet! Köszi, Habit. :D",
     "sync": "Szinkronizálás",
     "tasks": "Feladatok",
@@ -329,6 +329,5 @@
     "signup": "Regisztráció",
     "getStarted": "Kezdj hozzá",
     "mobileApps": "Mobil alkalmazások",
-    "learnMore": "Tudj meg többet",
-    "useMobileApps": "A Habitica nem optimális a mobil böngészőben való használathoz. Javasoljuk hogy töltsd le a mobil alkalmazásainkat."
+    "learnMore": "Tudj meg többet"
 }

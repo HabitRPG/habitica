@@ -194,8 +194,6 @@
     "weeks": "Недели",
     "year": "Год",
     "years": "Лет",
-    "confirmScoreNotes": "Подкрепите оценку задания комментарием",
-    "taskScoreNotesTooLong": "Комментарий к заданию должен быть меньше 256 символов",
     "groupTasksByChallenge": "Сгруппируйте задания по тегу испытания",
     "taskNotes": "Примечания к задаче",
     "monthlyRepeatHelpContent": "Это задание будет появляться каждые N месяцев",

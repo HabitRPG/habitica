@@ -43,7 +43,6 @@
     "messageAuthNoUserFound": "Пользователь не найден.",
     "messageAuthMustBeLoggedIn": "Вы должны быть авторизованы.",
     "messageAuthMustIncludeTokens": "Вы должны указать токен и uid (идентификатор пользователя) в своём запросе",
-    "messageGroupNotFound": "Группа не найдена, либо вы не имеете доступа.",
     "messageGroupAlreadyInParty": "Вы уже в команде, попробуйте обновить страницу.",
     "messageGroupOnlyLeaderCanUpdate": "Только лидер группы может обновить её!",
     "messageGroupRequiresInvite": "Невозможно присоединиться к группе, в которую вы не приглашены.",
@@ -62,5 +61,6 @@
     "messageNotAbleToBuyInBulk": "Этот предмет не может быть приобретен в количествах, превышающих 1.",
     "notificationsRequired": "Необходим идентификатор оповещений.",
     "unallocatedStatsPoints": "Вы не распределили <span class=\"notification-bold-blue\"><%= points %> очков</span>",
-    "beginningOfConversation": "Это начало вашего разговора с <%= userName %>. Не забывайте, что общепринятые правила сообщества предписавыют быть добрыми, уважительными!"
+    "beginningOfConversation": "Это начало вашего разговора с <%= userName %>. Не забывайте, что общепринятые правила сообщества предписавыют быть добрыми, уважительными!",
+    "messageDeletedUser": "Приносим свои извинения, этот пользователь удалил свой аккаунт."
 }

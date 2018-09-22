@@ -115,7 +115,7 @@
             .fast-company.svg-icon(v-html='icons.fastCompany')
             .discover.svg-icon(v-html='icons.discover')
       .container-fluid
-        .seamless_stars_varied_opacity_repeat
+        .row.seamless_stars_varied_opacity_repeat
 </template>
 
 <style lang='scss'>
@@ -616,11 +616,6 @@
       },
       // @TODO this is totally duplicate from the registerLogin component
       async register () {
-        if (this.password !== this.passwordConfirm) {
-          alert('Passwords must match');
-          return;
-        }
-
         let groupInvite = '';
         if (this.$route.query && this.$route.query.p) {
           groupInvite = this.$route.query.p;
@@ -663,10 +658,11 @@
           await hello(network).logout();
         } catch (e) {} // eslint-disable-line
 
+        const redirectUrl = `${window.location.protocol}//${window.location.host}`;
         const auth = await hello(network).login({
           scope: 'email',
           // explicitly pass the redirect url or it might redirect to /home
-          redirect_uri: '', // eslint-disable-line camelcase
+          redirect_uri: redirectUrl, // eslint-disable-line camelcase
         });
 
         await this.$store.dispatch('auth:socialAuth', {

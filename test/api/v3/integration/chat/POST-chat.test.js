@@ -1,3 +1,5 @@
+import { IncomingWebhook } from '@slack/client';
+import nconf from 'nconf';
 import {
   createAndPopulateGroup,
   generateUser,
@@ -15,8 +17,6 @@ import { getMatchesByWordArray } from '../../../../../website/server/libs/string
 import bannedWords from '../../../../../website/server/libs/bannedWords';
 import guildsAllowingBannedWords from '../../../../../website/server/libs/guildsAllowingBannedWords';
 import * as email from '../../../../../website/server/libs/email';
-import { IncomingWebhook } from '@slack/client';
-import nconf from 'nconf';
 
 const BASE_URL = nconf.get('BASE_URL');
 
@@ -80,12 +80,14 @@ describe('POST /chat', () => {
     });
   });
 
-  it('returns an error when chat privileges are revoked when sending a message to a public guild', async () => {
-    let userWithChatRevoked = await member.update({'flags.chatRevoked': true});
-    await expect(userWithChatRevoked.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
-      code: 401,
-      error: 'NotAuthorized',
-      message: t('chatPrivilegesRevoked'),
+  describe('mute user', () => {
+    it('returns an error when chat privileges are revoked when sending a message to a public guild', async () => {
+      const userWithChatRevoked = await member.update({'flags.chatRevoked': true});
+      await expect(userWithChatRevoked.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('chatPrivilegesRevoked'),
+      });
     });
   });
 
@@ -259,7 +261,6 @@ describe('POST /chat', () => {
           title: 'Slur in Test Guild',
           title_link: `${BASE_URL}/groups/guild/${groupWithChat.id}`,
           text: testSlurMessage,
-          // footer: sandbox.match(/<.*?groupId=group-id&chatId=chat-id\|Flag this message>/),
           mrkdwn_in: [
             'text',
           ],
@@ -274,6 +275,7 @@ describe('POST /chat', () => {
         message: t('chatPrivilegesRevoked'),
       });
 
+      // @TODO: The next test should not depend on this. We should reset the user test in a beforeEach
       // Restore chat privileges to continue testing
       user.flags.chatRevoked = false;
       await user.update({'flags.chatRevoked': false});
@@ -312,7 +314,6 @@ describe('POST /chat', () => {
           title: 'Slur in Party - (private party)',
           title_link: undefined,
           text: testSlurMessage,
-          // footer: sandbox.match(/<.*?groupId=group-id&chatId=chat-id\|Flag this message>/),
           mrkdwn_in: [
             'text',
           ],
@@ -386,6 +387,23 @@ describe('POST /chat', () => {
 
     expect(newMessage.message.id).to.exist;
     expect(groupMessages[0].id).to.exist;
+  });
+
+  it('creates a chat with a max length of 3000 chars', async () => {
+    const veryLongMessage = `
+    123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789.
+    THIS PART WON'T BE IN THE MESSAGE (over 3000)
+    `;
+
+    const newMessage = await user.post(`/groups/${groupWithChat._id}/chat`, { message: veryLongMessage});
+    const groupMessages = await user.get(`/groups/${groupWithChat._id}/chat`);
+
+    expect(newMessage.message.id).to.exist;
+    expect(groupMessages[0].id).to.exist;
+
+    expect(newMessage.message.text.length).to.eql(3000);
+    expect(newMessage.message.text).to.not.contain('MESSAGE');
+    expect(groupMessages[0].text.length).to.eql(3000);
   });
 
   it('creates a chat with user styles', async () => {
