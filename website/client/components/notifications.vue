@@ -204,7 +204,7 @@ export default {
       return this.user.party.quest.RSVPNeeded && !this.user.party.quest.completed;
     },
     userExpAndLvl () {
-      return `${this.user.stats.exp}|${this.user.stats.lvl}`;
+      return [this.user.stats.exp, this.user.stats.lvl];
     },
   },
   watch: {
@@ -273,10 +273,7 @@ export default {
       this.$root.$emit('bv::show::modal', 'quest-invitation');
     },
     userExpAndLvl (after, before) {
-      const [beforeExp, beforeLvl] = before.split('|');
-      const [afterExp, afterLvl] = after.split('|');
-
-      this.displayUserExpAndLvlNotifications(afterExp, beforeExp, afterLvl, beforeLvl);
+      this.displayUserExpAndLvlNotifications(after[0], before[0], after[1], before[1]);
     },
   },
   mounted () {
