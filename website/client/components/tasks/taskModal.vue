@@ -30,7 +30,7 @@
             .input-group
               .input-group-prepend.input-group-icon.align-items-center
                 .svg-icon.gold(v-html="icons.gold")
-              input.form-control(type="number", v-model="task.value", required, placeholder="Please Enter a Value", step="0.01", min="0")
+              input.form-control(type="number", v-model="task.value", required, placeholder="Enter a Value", step="0.01", min="0")
 
         .option.mt-0(v-if="checklistEnabled")
           label(v-once) {{ $t('checklist') }}
