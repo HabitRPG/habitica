@@ -3,11 +3,11 @@ import {
   resetHabiticaDB,
   generateGroup,
   translate as t,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 import {
   TAVERN_ID,
 } from '../../../../../website/server/models/group';
-import apiMessages from '../../../../../website/server/libs/apiMessages';
+import apiError from '../../../../../website/server/libs/apiError';
 
 describe('GET /groups', () => {
   let user;
@@ -167,7 +167,7 @@ describe('GET /groups', () => {
         .to.eventually.be.rejected.and.eql({
           code: 400,
           error: 'BadRequest',
-          message: apiMessages('guildsOnlyPaginate'),
+          message: apiError('guildsOnlyPaginate'),
         });
     });
 

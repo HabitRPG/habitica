@@ -152,6 +152,51 @@ api.bundles = {
     type: 'quests',
     value: 7,
   },
+  cuddleBuddies: {
+    key: 'cuddleBuddies',
+    text: t('cuddleBuddiesText'),
+    notes: t('cuddleBuddiesNotes'),
+    bundleKeys: [
+      'bunny',
+      'ferret',
+      'guineapig',
+    ],
+    canBuy () {
+      return moment().isBetween('2018-05-08', '2018-06-02');
+    },
+    type: 'quests',
+    value: 7,
+  },
+  aquaticAmigos: {
+    key: 'aquaticAmigos',
+    text: t('aquaticAmigosText'),
+    notes: t('aquaticAmigosNotes'),
+    bundleKeys: [
+      'axolotl',
+      'kraken',
+      'octopus',
+    ],
+    canBuy () {
+      return moment().isBetween('2018-06-12', '2018-07-02');
+    },
+    type: 'quests',
+    value: 7,
+  },
+  forestFriends: {
+    key: 'forestFriends',
+    text: t('forestFriendsText'),
+    notes: t('forestFriendsNotes'),
+    bundleKeys: [
+      'ghost_stag',
+      'hedgehog',
+      'treeling',
+    ],
+    canBuy () {
+      return moment().isBetween('2018-09-11', '2018-10-02');
+    },
+    type: 'quests',
+    value: 7,
+  },
 };
 
 /*

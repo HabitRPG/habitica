@@ -45,6 +45,8 @@
     "beard": "Barba",
     "mustache": "Bigode",
     "flower": "Flor",
+    "accent": "Realce",
+    "headband": "Bandolete",
     "wheelchair": "Cadeira de rodas",
     "extra": "Extra",
     "basicSkins": "Peles Básicas",
@@ -201,7 +203,6 @@
     "showQuickAllocation": "Mostrar Alocação por Característica",
     "hideQuickAllocation": "Esconder Alocação por Característica",
     "quickAllocationLevelPopover": "Cada nível vale-te um Ponto para atribuíres a uma Característica à escolha. Podes fazê-lo manualmente ou deixar o jogo decidir por ti usando uma das opções de Alocação Automática que podes encontrar em Ícone de Utilizador > Características.",
-    "invalidAttribute": "\"<%= attr %>\" não é uma Característica válida.",
     "notEnoughAttrPoints": "Não tens Pontos de Características suficientes.",
     "style": "Estilo",
     "facialhair": "Facial",
@@ -218,7 +219,6 @@
     "bodyAccess": "Acessórios de Corpo.",
     "mainHand": "Mão Principal",
     "offHand": "Mão Oposta",
-    "pointsAvailable": "Pontos Disponíveis",
-    "pts": "pts",
-    "statsObjectRequired": "É necessário atualizar as características"
+    "statPoints": "Pontos de Atributo",
+    "pts": "pts"
 }

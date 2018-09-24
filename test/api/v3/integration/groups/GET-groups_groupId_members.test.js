@@ -2,7 +2,7 @@ import {
   generateUser,
   generateGroup,
   translate as t,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 import { v4 as generateUUID } from 'uuid';
 import common from '../../../../../website/common';
 
@@ -77,7 +77,7 @@ describe('GET /groups/:groupId/members', () => {
     expect(Object.keys(memberRes.auth)).to.eql(['timestamps']);
     expect(Object.keys(memberRes.preferences).sort()).to.eql([
       'size', 'hair', 'skin', 'shirt',
-      'chair', 'costume', 'sleep', 'background', 'tasks',
+      'chair', 'costume', 'sleep', 'background', 'tasks', 'disableClasses',
     ].sort());
 
     expect(memberRes.stats.maxMP).to.exist;
@@ -98,7 +98,7 @@ describe('GET /groups/:groupId/members', () => {
     expect(Object.keys(memberRes.auth)).to.eql(['timestamps']);
     expect(Object.keys(memberRes.preferences).sort()).to.eql([
       'size', 'hair', 'skin', 'shirt',
-      'chair', 'costume', 'sleep', 'background', 'tasks',
+      'chair', 'costume', 'sleep', 'background', 'tasks', 'disableClasses',
     ].sort());
 
     expect(memberRes.stats.maxMP).to.exist;
@@ -142,7 +142,8 @@ describe('GET /groups/:groupId/members', () => {
     });
   });
 
-  it('supports using req.query.lastId to get more members', async () => {
+  it('supports using req.query.lastId to get more members', async function () {
+    this.timeout(30000); // @TODO: times out after 8 seconds
     let leader = await generateUser({balance: 4});
     let group = await generateGroup(leader, {type: 'guild', privacy: 'public', name: generateUUID()});
 

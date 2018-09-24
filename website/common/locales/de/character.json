@@ -45,6 +45,8 @@
     "beard": "Bart",
     "mustache": "Schnurrbart",
     "flower": "Blume",
+    "accent": "Schmuck",
+    "headband": "Haarband",
     "wheelchair": "Rollstuhl",
     "extra": "Extra",
     "basicSkins": "Normale Hautfarben",
@@ -201,7 +203,6 @@
     "showQuickAllocation": "Attributspunkte verteilung anzeigen",
     "hideQuickAllocation": "Attributwertzuweisung ausblenden",
     "quickAllocationLevelPopover": "Mit jedem Level erhältst Du einen Punkt, den Du einem Attribut Deiner Wahl zuweisen kannst. Du kannst Deine Punkte manuell verteilen, oder das Spiel entscheiden lassen, indem Du eines der vorgegebenen Verteilungsmuster unter Benutzer Icon  > Werte wählst.",
-    "invalidAttribute": "\"<%= attr %>\" ist kein gültiges Attribut.",
     "notEnoughAttrPoints": "Du hast nicht genug Attributpunkte.",
     "style": "Stil",
     "facialhair": "Bart",
@@ -218,7 +219,6 @@
     "bodyAccess": "Körper",
     "mainHand": "Haupthand",
     "offHand": "Schildhand",
-    "pointsAvailable": "Verfügbare Punkte",
-    "pts": "Pkte",
-    "statsObjectRequired": "Werte-Update ist erforderlich"
+    "statPoints": "Attributspunkte",
+    "pts": "Pkte"
 }

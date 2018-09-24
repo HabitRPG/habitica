@@ -2,9 +2,9 @@ import {
   generateUser,
   translate as t,
   resetHabiticaDB,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 import couponCode from 'coupon-code';
-import apiMessages from '../../../../../website/server/libs/apiMessages';
+import apiError from '../../../../../website/server/libs/apiError';
 
 describe('POST /coupons/generate/:event', () => {
   let user;
@@ -26,7 +26,7 @@ describe('POST /coupons/generate/:event', () => {
     await expect(user.post('/coupons/generate/aaa')).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
-      message: apiMessages('noSudoAccess'),
+      message: apiError('noSudoAccess'),
     });
   });
 

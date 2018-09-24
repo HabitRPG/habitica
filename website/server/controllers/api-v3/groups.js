@@ -25,7 +25,7 @@ import payments from '../../libs/payments/payments';
 import stripePayments from '../../libs/payments/stripe';
 import amzLib from '../../libs/payments/amazon';
 import shared from '../../../common';
-import apiMessages from '../../libs/apiMessages';
+import apiError from '../../libs/apiError';
 
 const MAX_EMAIL_INVITES_BY_USER = 200;
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
@@ -295,8 +295,8 @@ api.getGroups = {
 
     req.checkQuery('type', res.t('groupTypesRequired')).notEmpty();
     // pagination options, can only be used with public guilds
-    req.checkQuery('paginate').optional().isIn(['true', 'false'], apiMessages('guildsPaginateBooleanString'));
-    req.checkQuery('page').optional().isInt({min: 0}, apiMessages('queryPageInteger'));
+    req.checkQuery('paginate').optional().isIn(['true', 'false'], apiError('guildsPaginateBooleanString'));
+    req.checkQuery('page').optional().isInt({min: 0}, apiError('queryPageInteger'));
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -305,7 +305,7 @@ api.getGroups = {
 
     let paginate = req.query.paginate === 'true' ? true : false;
     if (paginate && !_.includes(types, 'publicGuilds')) {
-      throw new BadRequest(apiMessages('guildsOnlyPaginate'));
+      throw new BadRequest(apiError('guildsOnlyPaginate'));
     }
 
     let groupFields = basicGroupFields.concat(' description memberCount balance');
@@ -377,11 +377,13 @@ api.getGroups = {
 api.getGroup = {
   method: 'GET',
   url: '/groups/:groupId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToInclude: ['_id', 'party', 'guilds', 'contributor'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -392,7 +394,7 @@ api.getGroup = {
       throw new NotFound(res.t('groupNotFound'));
     }
 
-    let groupJson = Group.toJSONCleanChat(group, user);
+    let groupJson = await Group.toJSONCleanChat(group, user);
 
     if (groupJson.leader === user._id) {
       groupJson.purchased.plan = group.purchased.plan.toObject();
@@ -439,7 +441,7 @@ api.updateGroup = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -456,7 +458,7 @@ api.updateGroup = {
     _.assign(group, _.merge(group.toObject(), Group.sanitizeUpdate(req.body)));
 
     let savedGroup = await group.save();
-    let response = Group.toJSONCleanChat(savedGroup, user);
+    let response = await Group.toJSONCleanChat(savedGroup, user);
 
     // If the leader changed fetch new data, otherwise use authenticated user
     if (response.leader !== user._id) {
@@ -503,7 +505,7 @@ api.joinGroup = {
     let user = res.locals.user;
     let inviter;
 
-    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -575,12 +577,8 @@ api.joinGroup = {
     }
     if (!isUserInvited) throw new NotAuthorized(res.t('messageGroupRequiresInvite'));
 
-    if (group.memberCount === 0) group.leader = user._id; // If new user is only member -> set as leader
-
-    if (group.hasNotCancelled())  {
-      await payments.addSubToGroupUser(user, group);
-      await group.updateGroupPlan();
-    }
+    // @TODO: Review the need for this and if still needed, don't base this on memberCount
+    if (!group.hasNotCancelled() && group.memberCount === 0) group.leader = user._id; // If new user is only member -> set as leader
 
     group.memberCount += 1;
 
@@ -625,7 +623,12 @@ api.joinGroup = {
 
     promises = await Promise.all(promises);
 
-    let response = Group.toJSONCleanChat(promises[0], user);
+    if (group.hasNotCancelled())  {
+      await payments.addSubToGroupUser(user, group);
+      await group.updateGroupPlan();
+    }
+
+    let response = await Group.toJSONCleanChat(promises[0], user);
     let leader = await User.findById(response.leader).select(nameFields).exec();
     if (leader) {
       response.leader = leader.toJSON({minimize: true});
@@ -652,14 +655,14 @@ api.joinGroup = {
 };
 
 /**
- * @api {post} /api/v3/groups/:groupId/reject Reject a group invitation
+ * @api {post} /api/v3/groups/:groupId/reject-invite Reject a group invitation
  * @apiName RejectGroupInvite
  * @apiGroup Group
  *
  * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
  * @apiParamExample {String} party:
- *     /api/v3/groups/party/reject
+ *     /api/v3/groups/party/reject-invite
  *
  * @apiSuccess {Object} data An empty object
  *
@@ -673,7 +676,7 @@ api.rejectGroupInvite = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -747,10 +750,10 @@ api.leaveGroup = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
-    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
     // When removing the user from challenges, should we keep the tasks?
-    req.checkQuery('keep', apiMessages('keepOrRemoveAll')).optional().isIn(['keep-all', 'remove-all']);
-    req.checkBody('keepChallenges', apiMessages('groupRemainOrLeaveChallenges')).optional().isIn(['remain-in-challenges', 'leave-challenges']);
+    req.checkQuery('keep', apiError('keepOrRemoveAll')).optional().isIn(['keep-all', 'remove-all']);
+    req.checkBody('keepChallenges', apiError('groupRemainOrLeaveChallenges')).optional().isIn(['remain-in-challenges', 'leave-challenges']);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -773,7 +776,6 @@ api.leaveGroup = {
     }
 
     await group.leave(user, req.query.keep, req.body.keepChallenges);
-    if (group.hasNotCancelled()) await group.updateGroupPlan(true);
     _removeMessagesFromMember(user, group._id);
     await user.save();
 
@@ -787,6 +789,7 @@ api.leaveGroup = {
       await payments.cancelGroupSubscriptionForUser(user, group);
     }
 
+    if (group.hasNotCancelled()) await group.updateGroupPlan(true);
     res.respond(200, {});
   },
 };
@@ -835,7 +838,7 @@ api.removeGroupMember = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
     req.checkParams('memberId', res.t('userIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
@@ -873,10 +876,6 @@ api.removeGroupMember = {
 
     if (isInGroup) {
       group.memberCount -= 1;
-      if (group.hasNotCancelled())  {
-        await group.updateGroupPlan(true);
-        await payments.cancelGroupSubscriptionForUser(member, group, true);
-      }
 
       if (group.quest && group.quest.leader === member._id) {
         group.quest.key = undefined;
@@ -925,6 +924,12 @@ api.removeGroupMember = {
       member.save(),
       group.save(),
     ]);
+
+    if (isInGroup && group.hasNotCancelled())  {
+      await group.updateGroupPlan(true);
+      await payments.cancelGroupSubscriptionForUser(member, group, true);
+    }
+
     res.respond(200, {});
   },
 };
@@ -937,6 +942,11 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
     throw new NotFound(res.t('userWithIDNotFound', {userId: uuid}));
   } else if (inviter._id === userToInvite._id) {
     throw new BadRequest(res.t('cannotInviteSelfToGroup'));
+  }
+
+  const objections = inviter.getObjectionsToInteraction('group-invitation', userToInvite);
+  if (objections.length > 0) {
+    throw new NotAuthorized(res.t(objections[0], { userId: uuid, username: userToInvite.profile.name}));
   }
 
   if (group.type === 'guild') {
@@ -1141,6 +1151,7 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
  * @apiError (401) {NotAuthorized} UserAlreadyInvited The user has already been invited to the group.
  * @apiError (401) {NotAuthorized} UserAlreadyInGroup The user is already a member of the group.
  * @apiError (401) {NotAuthorized} CannotInviteWhenMuted You cannot invite anyone to a guild or party because your chat privileges have been revoked.
+ * @apiError (401) {NotAuthorized} NotAuthorizedToSendMessageToThisUser You can't send a message to this player because they have chosen to block messages.
  *
  * @apiUse GroupNotFound
  * @apiUse UserNotFound
@@ -1155,7 +1166,7 @@ api.inviteToGroup = {
 
     if (user.flags.chatRevoked) throw new NotAuthorized(res.t('cannotInviteWhenMuted'));
 
-    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
 
     if (user.invitesSent >= MAX_EMAIL_INVITES_BY_USER) throw new NotAuthorized(res.t('inviteLimitReached', { techAssistanceEmail: TECH_ASSISTANCE_EMAIL }));
 
@@ -1188,6 +1199,16 @@ api.inviteToGroup = {
       results.push(...emailResults);
     }
 
+    let analyticsObject = {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      groupType: group.type,
+      headers: req.headers,
+    };
+
+    res.analytics.track('group invite', analyticsObject);
+
     res.respond(200, results);
   },
 };
@@ -1217,8 +1238,8 @@ api.addGroupManager = {
     let user = res.locals.user;
     let managerId = req.body.managerId;
 
-    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
-    req.checkBody('managerId', apiMessages('managerIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
+    req.checkBody('managerId', apiError('managerIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -1266,8 +1287,8 @@ api.removeGroupManager = {
     let user = res.locals.user;
     let managerId = req.body.managerId;
 
-    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
-    req.checkBody('managerId', apiMessages('managerIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
+    req.checkBody('managerId', apiError('managerIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;

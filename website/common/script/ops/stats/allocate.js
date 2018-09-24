@@ -7,13 +7,18 @@ import {
   NotAuthorized,
 } from '../../libs/errors';
 import i18n from '../../i18n';
-import apiMessages from '../../../../server/libs/apiMessages';
+import errorMessage from '../../libs/errorMessage';
+import hasClass from '../../libs/hasClass';
 
 module.exports = function allocate (user, req = {}) {
   let stat = get(req, 'query.stat', 'str');
 
   if (ATTRIBUTES.indexOf(stat) === -1) {
-    throw new BadRequest(apiMessages('invalidAttribute', {attr: stat}));
+    throw new BadRequest(errorMessage('invalidAttribute', {attr: stat}));
+  }
+
+  if (!hasClass(user)) {
+    throw new NotAuthorized(i18n.t('classNotSelected', req.language));
   }
 
   if (user.stats.points > 0) {

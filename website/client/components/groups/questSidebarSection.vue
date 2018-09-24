@@ -1,74 +1,68 @@
 <template lang="pug">
-div
-  .row
-    .col-10
-      h3(v-once) {{ $t('questDetailsTitle') }}
+sidebar-section(:title="$t('questDetailsTitle')")
+  .row.no-quest-section(v-if='!onPendingQuest && !onActiveQuest')
+    .col-12.text-center
+      .svg-icon(v-html="icons.questIcon")
+      h4(v-once) {{ $t('youAreNotOnQuest') }}
+      p(v-once) {{ $t('questDescription') }}
+      button.btn.btn-secondary(v-once, @click="openStartQuestModal()") {{ $t('startAQuest') }}
+  .row.quest-active-section(v-if='onPendingQuest && !onActiveQuest')
     .col-2
-      .toggle-up(@click="toggle()", v-if="show")
-        .svg-icon(v-html="icons.upIcon")
-      .toggle-down(@click="toggle()", v-if="!show")
-        .svg-icon(v-html="icons.downIcon")
-  .section(v-if="show")
-    .row.no-quest-section(v-if='!onPendingQuest && !onActiveQuest')
-      .col-12.text-center
-        .svg-icon(v-html="icons.questIcon")
-        h4(v-once) {{ $t('youAreNotOnQuest') }}
-        p(v-once) {{ $t('questDescription') }}
-        button.btn.btn-secondary(v-once, @click="openStartQuestModal()") {{ $t('startAQuest') }}
-    .row.quest-active-section(v-if='onPendingQuest && !onActiveQuest')
-      .col-2
-        .quest(:class='`inventory_quest_scroll_${questData.key}`')
-      .col-6.titles
-        strong {{ questData.text() }}
-        p {{acceptedCount}} / {{group.memberCount}}
-      .col-4
-        button.btn.btn-secondary(@click="openQuestDetails()") {{ $t('details') }}
-    .row.quest-active-section.quest-invite(v-if='user.party.quest && user.party.quest.RSVPNeeded')
-      span {{ $t('wouldYouParticipate') }}
-      button.btn.btn-primary.accept(@click='questAccept(group._id)') {{$t('accept')}}
-      button.btn.btn-primary.reject(@click='questReject(group._id)') {{$t('reject')}}
-    .row.quest-active-section(v-if='!onPendingQuest && onActiveQuest')
-      .col-12.text-center
-        .quest-boss(:class="'quest_' + questData.key")
-        h3(v-once) {{ questData.text() }}
-        .quest-box
-          .collect-info(v-if='questData.collect')
-            .row(v-for='(value, key) in questData.collect')
-              .col-2
-                div(:class="'quest_' + questData.key + '_' + key")
-              .col-10
-                strong {{value.text()}}
-                .grey-progress-bar
-                  .collect-progress-bar(:style="{width: (group.quest.progress.collect[key] / value.count) * 100 + '%'}")
-                strong {{group.quest.progress.collect[key]}} / {{value.count}}
-            div.text-right {{parseFloat(user.party.quest.progress.collectedItems) || 0}} items found
-          .boss-info(v-if='questData.boss')
-            .row
+      .quest(:class='`inventory_quest_scroll_${questData.key}`')
+    .col-6.titles
+      strong {{ questData.text() }}
+      p {{acceptedCount}} / {{group.memberCount}}
+    .col-4
+      button.btn.btn-secondary(@click="openQuestDetails()") {{ $t('details') }}
+  .row.quest-active-section.quest-invite(v-if='user.party.quest && user.party.quest.RSVPNeeded')
+    span {{ $t('wouldYouParticipate') }}
+    button.btn.btn-primary.accept(@click='questAccept(group._id)') {{$t('accept')}}
+    button.btn.btn-primary.reject(@click='questReject(group._id)') {{$t('reject')}}
+  .row.quest-active-section(v-if='!onPendingQuest && onActiveQuest')
+    .col-12.text-center
+      .quest-boss(:class="'quest_' + questData.key")
+      h3(v-once) {{ questData.text() }}
+      .quest-box
+        .collect-info(v-if='questData.collect')
+          .row
+            .col-12
+              a.float-right(@click="openParticipantList()") {{ $t('participantsTitle') }}
+          .row(v-for='(value, key) in questData.collect')
+            .col-2
+              div(:class="'quest_' + questData.key + '_' + key")
+            .col-10
+              strong {{value.text()}}
+              .grey-progress-bar
+                .collect-progress-bar(:style="{width: (group.quest.progress.collect[key] / value.count) * 100 + '%'}")
+              strong {{group.quest.progress.collect[key]}} / {{value.count}}
+          div.text-right {{parseFloat(user.party.quest.progress.collectedItems) || 0}} items found
+        .boss-info(v-if='questData.boss')
+          .row
+            .col-6
+              h4.float-left(v-once) {{ questData.boss.name() }}
+            .col-6
+              a.float-right(@click="openParticipantList()") {{ $t('participantsTitle') }}
+          .row
+            .col-12
+              .grey-progress-bar
+                .boss-health-bar(:style="{width: bossHpPercent + '%'}")
+          .row.boss-details
+            .col-6
+              span.float-left
+                | {{ Math.ceil(parseFloat(group.quest.progress.hp) * 100) / 100 }} / {{ parseFloat(questData.boss.hp).toFixed(2) }}
+                // current boss hp uses ceil so you don't underestimate damage needed to end quest
+            .col-6(v-if='userIsOnQuest')
+              // @TODO: Why do we not sync quest progress on the group doc? Each user could have different progress.
+              span.float-right {{ user.party.quest.progress.up | floor(10) }} {{ $t('pendingDamageLabel') }}
+              // player's pending damage uses floor so you don't overestimate damage you've already done
+          .row.rage-bar-row(v-if='questData.boss.rage')
+            .col-12
+              .grey-progress-bar
+                .boss-health-bar.rage-bar(:style="{width: (group.quest.progress.rage / questData.boss.rage.value) * 100 + '%'}")
+          .row.boss-details.rage-details(v-if='questData.boss.rage')
               .col-6
-                h4.float-left(v-once) {{ questData.boss.name() }}
-              .col-6
-                span.float-right(v-once) {{ $t('participantsTitle') }}
-            .row
-              .col-12
-                .grey-progress-bar
-                  .boss-health-bar(:style="{width: (group.quest.progress.hp / questData.boss.hp) * 100 + '%'}")
-            .row.boss-details
-              .col-6
-                span.float-left
-                  | {{ Math.ceil(parseFloat(group.quest.progress.hp) * 100) / 100 }} / {{ parseFloat(questData.boss.hp).toFixed(2) }}
-                  // current boss hp uses ceil so you don't underestimate damage needed to end quest
-              .col-6(v-if='userIsOnQuest')
-                // @TODO: Why do we not sync quest progress on the group doc? Each user could have different progress.
-                span.float-right {{ user.party.quest.progress.up | floor(10) }} {{ $t('pendingDamageLabel') }}
-                // player's pending damage uses floor so you don't overestimate damage you've already done
-            .row.rage-bar-row(v-if='questData.boss.rage')
-              .col-12
-                .grey-progress-bar
-                  .boss-health-bar.rage-bar(:style="{width: (group.quest.progress.rage / questData.boss.rage.value) * 100 + '%'}")
-            .row.boss-details.rage-details(v-if='questData.boss.rage')
-                .col-6
-                  span.float-left {{ $t('rage') }} {{ parseFloat(group.quest.progress.rage).toFixed(2) }} / {{ questData.boss.rage.value }}
-        button.btn.btn-secondary(v-once, @click="questAbort()", v-if='canEditQuest') {{ $t('abort') }}
+                span.float-left {{ $t('rage') }} {{ parseFloat(group.quest.progress.rage).toFixed(2) }} / {{ questData.boss.rage.value }}
+      button.btn.btn-secondary(v-once, @click="questAbort()", v-if='canEditQuest') {{ $t('abort') }}
 </template>
 
 <style lang="scss" scoped>
@@ -143,6 +137,12 @@ div
       padding: .5em;
       margin-bottom: 1em;
 
+      a {
+        font-family: 'Roboto Condensed', sans-serif;
+        font-weight: bold;
+        color: $gray-10;
+      }
+
       svg: {
         width: 100%;
         height: 100%;
@@ -193,18 +193,18 @@ import { mapState } from 'client/libs/store';
 
 import quests from 'common/script/content/quests';
 import percent from 'common/script/libs/percent';
+import sidebarSection from '../sidebarSection';
 
-import upIcon from 'assets/svg/up.svg';
-import downIcon from 'assets/svg/down.svg';
 import questIcon from 'assets/svg/quest.svg';
 
 export default {
-  props: ['show', 'group'],
+  props: ['group'],
+  components: {
+    sidebarSection,
+  },
   data () {
     return {
       icons: Object.freeze({
-        upIcon,
-        downIcon,
         questIcon,
       }),
     };
@@ -261,14 +261,14 @@ export default {
     },
   },
   methods: {
-    toggle () {
-      this.$emit('toggle');
-    },
     openStartQuestModal () {
       this.$root.$emit('bv::show::modal', 'start-quest-modal');
     },
     openQuestDetails () {
       this.$root.$emit('bv::show::modal', 'quest-details');
+    },
+    openParticipantList () {
+      this.$root.$emit('bv::show::modal', 'participant-list');
     },
     async questAbort () {
       if (!confirm(this.$t('sureAbort'))) return;

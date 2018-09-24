@@ -2,15 +2,21 @@ import moment from 'moment';
 import common from '../../../common';
 
 import {
-  chatDefaults,
   TAVERN_ID,
   model as Group,
 } from '../group';
+
+import {
+  messageDefaults,
+  setUserStyles,
+  inboxModel as Inbox,
+} from '../message';
 
 import { defaults, map, flatten, flow, compact, uniq, partialRight } from 'lodash';
 import { model as UserNotification } from '../userNotification';
 import schema from './schema';
 import payments from '../../libs/payments/payments';
+import * as inboxLib from '../../libs/inbox';
 import amazonPayments from '../../libs/payments/amazon';
 import stripePayments from '../../libs/payments/stripe';
 import paypalPayments from '../../libs/payments/paypal';
@@ -59,6 +65,10 @@ const INTERACTION_CHECKS = Object.freeze({
     // Unlike private messages, gems can't be sent to oneself
     (sndr, rcvr) => rcvr._id === sndr._id && 'cannotSendGemsToYourself',
   ],
+
+  'group-invitation': [
+    // uses the checks that are in the 'always' array
+  ],
 });
 /* eslint-enable no-unused-vars */
 
@@ -97,13 +107,19 @@ schema.methods.getObjectionsToInteraction = function getObjectionsToInteraction 
  * @return N/A
  */
 schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, options) {
-  let sender = this;
-  let senderMsg = options.senderMsg || options.receiverMsg;
+  const sender = this;
+  const senderMsg = options.senderMsg || options.receiverMsg;
+  // whether to save users after sending the message, defaults to true
+  const saveUsers = options.save === false ? false : true;
 
-  common.refPush(userToReceiveMessage.inbox.messages, chatDefaults(options.receiverMsg, sender));
+  const newReceiverMessage = new Inbox({
+    ownerId: userToReceiveMessage._id,
+  });
+  Object.assign(newReceiverMessage, messageDefaults(options.receiverMsg, sender));
+  setUserStyles(newReceiverMessage, sender);
+
   userToReceiveMessage.inbox.newMessages++;
   userToReceiveMessage._v++;
-  userToReceiveMessage.markModified('inbox.messages');
 
   /* @TODO disabled until mobile is ready
 
@@ -127,11 +143,31 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, o
 
   */
 
-  common.refPush(sender.inbox.messages, defaults({sent: true}, chatDefaults(senderMsg, userToReceiveMessage)));
-  sender.markModified('inbox.messages');
+  const sendingToYourself = userToReceiveMessage._id === sender._id;
 
-  let promises = [userToReceiveMessage.save(), sender.save()];
+  // Do not add the message twice when sending it to yourself
+  let newSenderMessage;
+
+  if (!sendingToYourself) {
+    newSenderMessage = new Inbox({
+      sent: true,
+      ownerId: sender._id,
+    });
+    Object.assign(newSenderMessage, messageDefaults(senderMsg, userToReceiveMessage));
+    setUserStyles(newSenderMessage, userToReceiveMessage);
+  }
+
+  const promises = [newReceiverMessage.save()];
+  if (!sendingToYourself) promises.push(newSenderMessage.save());
+
+  if (saveUsers) {
+    promises.push(sender.save());
+    if (!sendingToYourself) promises.push(userToReceiveMessage.save());
+  }
+
   await Promise.all(promises);
+
+  return sendingToYourself ? newReceiverMessage : newSenderMessage;
 };
 
 /**
@@ -171,17 +207,27 @@ schema.statics.pushNotification = async function pushNotification (query, type, 
   await this.update(query, {$push: {notifications: newNotification.toObject()}}, {multi: true}).exec();
 };
 
+// Static method to add/remove properties to a JSON User object,
+// For example for when the user is returned using `.lean()` and thus doesn't
+// have access to any mongoose helper
+schema.statics.transformJSONUser = function transformJSONUser (jsonUser, addComputedStats = false) {
+  // Add id property
+  jsonUser.id = jsonUser._id;
+
+  if (addComputedStats) this.addComputedStatsToJSONObj(jsonUser.stats, jsonUser);
+};
+
 // Add stats.toNextLevel, stats.maxMP and stats.maxHealth
 // to a JSONified User stats object
-schema.methods.addComputedStatsToJSONObj = function addComputedStatsToUserJSONObj (statsObject) {
+schema.statics.addComputedStatsToJSONObj = function addComputedStatsToUserJSONObj (userStatsJSON, user) {
   // NOTE: if an item is manually added to this.stats then
   // common/fns/predictableRandom must be tweaked so the new item is not considered.
   // Otherwise the client will have it while the server won't and the results will be different.
-  statsObject.toNextLevel = common.tnl(this.stats.lvl);
-  statsObject.maxHealth = common.maxHealth;
-  statsObject.maxMP = common.statsComputed(this).maxMP;
+  userStatsJSON.toNextLevel = common.tnl(user.stats.lvl);
+  userStatsJSON.maxHealth = common.maxHealth;
+  userStatsJSON.maxMP = common.statsComputed(user).maxMP;
 
-  return statsObject;
+  return userStatsJSON;
 };
 
 /**
@@ -345,4 +391,17 @@ schema.methods.isMemberOfGroupPlan = async function isMemberOfGroupPlan () {
 
 schema.methods.isAdmin = function isAdmin () {
   return this.contributor && this.contributor.admin;
+};
+
+// When converting to json add inbox messages from the Inbox collection
+// for backward compatibility in API v3.
+schema.methods.toJSONWithInbox = async function userToJSONWithInbox () {
+  const user = this;
+  const toJSON = user.toJSON();
+
+  if (toJSON.inbox) {
+    toJSON.inbox.messages = await inboxLib.getUserInbox(user, false);
+  }
+
+  return toJSON;
 };

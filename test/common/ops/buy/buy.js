@@ -8,7 +8,7 @@ import {
 } from '../../../../website/common/script/libs/errors';
 import i18n from '../../../../website/common/script/i18n';
 import content from '../../../../website/common/script/content/index';
-import apiMessages from '../../../../website/server/libs/apiMessages';
+import errorMessage from '../../../../website/common/script/libs/errorMessage';
 
 describe('shared.ops.buy', () => {
   let user;
@@ -41,7 +41,7 @@ describe('shared.ops.buy', () => {
       buy(user);
     } catch (err) {
       expect(err).to.be.an.instanceof(BadRequest);
-      expect(err.message).to.equal(apiMessages('missingKeyParam'));
+      expect(err.message).to.equal(errorMessage('missingKeyParam'));
       done();
     }
   });
@@ -69,6 +69,13 @@ describe('shared.ops.buy', () => {
       eyewear_special_redTopFrame: true,
       eyewear_special_whiteTopFrame: true,
       eyewear_special_yellowTopFrame: true,
+      headAccessory_special_blackHeadband: true,
+      headAccessory_special_blueHeadband: true,
+      headAccessory_special_greenHeadband: true,
+      headAccessory_special_pinkHeadband: true,
+      headAccessory_special_redHeadband: true,
+      headAccessory_special_whiteHeadband: true,
+      headAccessory_special_yellowHeadband: true,
     });
   });
 

@@ -1,8 +1,9 @@
 {
+  "achievement": "Başarı",
   "share": "Paylaş",
   "onwards": "Devam!",
-  "levelup": "Gerçek hayattaki hedeflerini tamamlayarak, seviye atladın ve canın tamamen yenilendi!",
+  "levelup": "Gerçek hayattaki hedeflerini tamamlayarak seviye atladın ve sağlığın tamamen yenilendi!",
   "reachedLevel": "Seviye <%= level %> oldun",
-  "achievementLostMasterclasser": "Quest Completionist: Masterclasser Series",
-  "achievementLostMasterclasserText": "Completed all sixteen quests in the Masterclasser Quest Series and solved the mystery of the Lost Masterclasser!"
+  "achievementLostMasterclasser": "Görev Tamamlayıcısı: Uzmaneleman Serisi",
+  "achievementLostMasterclasserText": "Uzmaneleman Görev Serisi'ndeki on altı görevin hepsini tamamladı ve Kayıp Uzmanelaman'ın gizemini çözdü!"
 }

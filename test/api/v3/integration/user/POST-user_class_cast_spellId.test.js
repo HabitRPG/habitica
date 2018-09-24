@@ -9,7 +9,7 @@ import {
 
 import { v4 as generateUUID } from 'uuid';
 import { find } from 'lodash';
-import apiMessages from '../../../../../website/server/libs/apiMessages';
+import apiError from '../../../../../website/server/libs/apiError';
 
 describe('POST /user/class/cast/:spellId', () => {
   let user;
@@ -25,7 +25,7 @@ describe('POST /user/class/cast/:spellId', () => {
       .to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
-        message: apiMessages('spellNotFound', {spellId}),
+        message: apiError('spellNotFound', {spellId}),
       });
   });
 
@@ -35,7 +35,7 @@ describe('POST /user/class/cast/:spellId', () => {
       .to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
-        message: apiMessages('spellNotFound', {spellId}),
+        message: apiError('spellNotFound', {spellId}),
       });
   });
 
@@ -55,6 +55,21 @@ describe('POST /user/class/cast/:spellId', () => {
         code: 401,
         error: 'NotAuthorized',
         message: t('messageNotEnoughGold'),
+      });
+  });
+
+  it('returns an error if use Healing Light spell with full health', async () => {
+    await user.update({
+      'stats.class': 'healer',
+      'stats.lvl': 11,
+      'stats.hp': 50,
+      'stats.mp': 200,
+    });
+    await expect(user.post('/user/class/cast/heal'))
+      .to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('messageHealthAlreadyMax'),
       });
   });
 
@@ -109,6 +124,7 @@ describe('POST /user/class/cast/:spellId', () => {
   it('returns an error if a challenge task was targeted', async () => {
     let {group, groupLeader} = await createAndPopulateGroup();
     let challenge = await generateChallenge(groupLeader, group);
+    await groupLeader.post(`/challenges/${challenge._id}/join`);
     await groupLeader.post(`/tasks/challenge/${challenge._id}`, [
       {type: 'habit', text: 'task text'},
     ]);
@@ -181,11 +197,13 @@ describe('POST /user/class/cast/:spellId', () => {
       members: 1,
     });
     await groupLeader.update({'stats.mp': 200, 'stats.class': 'wizard', 'stats.lvl': 13});
+
     await groupLeader.post('/user/class/cast/earth');
     await sleep(1);
-    await group.sync();
-    expect(group.chat[0]).to.exist;
-    expect(group.chat[0].uuid).to.equal('system');
+    const groupMessages = await groupLeader.get(`/groups/${group._id}/chat`);
+
+    expect(groupMessages[0]).to.exist;
+    expect(groupMessages[0].uuid).to.equal('system');
   });
 
   it('Ethereal Surge does not recover mp of other mages', async () => {
@@ -227,7 +245,7 @@ describe('POST /user/class/cast/:spellId', () => {
     await groupLeader.post('/user/class/cast/earth', {quantity: 2});
 
     await sleep(1);
-    await group.sync();
+    group = await groupLeader.get(`/groups/${group._id}`);
 
     expect(group.chat[0]).to.exist;
     expect(group.chat[0].uuid).to.equal('system');
@@ -236,6 +254,7 @@ describe('POST /user/class/cast/:spellId', () => {
   it('searing brightness does not affect challenge or group tasks', async () => {
     let guild = await generateGroup(user);
     let challenge = await generateChallenge(user, guild);
+    await user.post(`/challenges/${challenge._id}/join`);
     await user.post(`/tasks/challenge/${challenge._id}`, {
       text: 'test challenge habit',
       type: 'habit',

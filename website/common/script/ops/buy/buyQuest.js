@@ -5,9 +5,9 @@ import {
 } from '../../libs/errors';
 import content from '../../content/index';
 import get from 'lodash/get';
-import apiMessages from '../../../../server/libs/apiMessages';
 
 import {AbstractGoldItemOperation} from './abstractBuyOperation';
+import errorMessage from '../../libs/errorMessage';
 
 export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation {
   constructor (user, req, analytics) {
@@ -25,27 +25,44 @@ export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation {
       user.achievements.quests.taskwoodsTerror3;
   }
 
+  getItemKey () {
+    return this.key;
+  }
+
   getItemValue (item) {
     return item.goldValue;
   }
 
+  getItemType () {
+    return 'quest';
+  }
+
   extractAndValidateParams (user, req) {
     let key = this.key = get(req, 'params.key');
-    if (!key) throw new BadRequest(apiMessages('missingKeyParam'));
-
-    if (key === 'lostMasterclasser1' && !this.userAbleToStartMasterClasser(user)) {
-      throw new NotAuthorized(this.i18n('questUnlockLostMasterclasser'));
-    }
+    if (!key) throw new BadRequest(errorMessage('missingKeyParam'));
 
     let item = content.quests[key];
 
-    if (!item) throw new NotFound(apiMessages('questNotFound', {key}));
+    if (!item) throw new NotFound(errorMessage('questNotFound', {key}));
 
     if (!(item.category === 'gold' && item.goldValue)) {
       throw new NotAuthorized(this.i18n('questNotGoldPurchasable', {key}));
     }
 
+    this.checkPrerequisites(user, key);
+
     this.canUserPurchase(user, item);
+  }
+
+  checkPrerequisites (user, questKey) {
+    const item = content.quests[questKey];
+    if (questKey === 'lostMasterclasser1' && !this.userAbleToStartMasterClasser(user)) {
+      throw new NotAuthorized(this.i18n('questUnlockLostMasterclasser'));
+    }
+
+    if (item && item.previous && !user.achievements.quests[item.previous]) {
+      throw new NotAuthorized(this.i18n('mustComplete', {quest: item.previous}));
+    }
   }
 
   executeChanges (user, item, req) {
@@ -60,14 +77,5 @@ export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation {
         itemText: item.text(req.language),
       }),
     ];
-  }
-
-  analyticsData () {
-    return {
-      itemKey: this.key,
-      itemType: 'Market',
-      acquireMethod: 'Gold',
-      goldCost: this.getItemValue(this.item.goldValue),
-    };
   }
 }

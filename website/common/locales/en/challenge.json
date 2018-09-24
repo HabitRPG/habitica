@@ -13,7 +13,8 @@
   "challengeWinner": "Was the winner in the following challenges",
   "challenges": "Challenges",
   "challengesLink": "<a href='http://habitica.wikia.com/wiki/Challenges' target='_blank'>Challenges</a>",
-
+  "challengePrize": "Challenge Prize",
+  "endDate": "Ends",
   "noChallenges": "No challenges yet, visit",
   "toCreate": "to create one.",
 
@@ -25,7 +26,9 @@
   "filter": "Filter",
   "groups": "Groups",
   "noNone": "None",
+  "category": "Category",
   "membership": "Membership",
+  "ownership": "Ownership",
   "participating": "Participating",
   "notParticipating": "Not Participating",
   "either": "Either",
@@ -129,6 +132,7 @@
   "locationRequired": "Location of challenge is required ('Add to')",
   "categoiresRequired": "One or more categories must be selected",
   "viewProgressOf": "View Progress Of",
+  "viewProgress": "View Progress",
   "selectMember": "Select Member",
   "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?",
   "selectParticipant": "Select a Participant"

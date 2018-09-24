@@ -4,7 +4,7 @@ import {
   generateChallenge,
   translate as t,
   sleep,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 import { v4 as generateUUID } from 'uuid';
 
 describe('GET /challenges/:challengeId/export/csv', () => {
@@ -24,6 +24,7 @@ describe('GET /challenges/:challengeId/export/csv', () => {
     members = populatedGroup.members;
 
     challenge = await generateChallenge(groupLeader, group);
+    await groupLeader.post(`/challenges/${challenge._id}/join`);
     await members[0].post(`/challenges/${challenge._id}/join`);
     await members[1].post(`/challenges/${challenge._id}/join`);
     await members[2].post(`/challenges/${challenge._id}/join`);
@@ -60,9 +61,9 @@ describe('GET /challenges/:challengeId/export/csv', () => {
   });
 
   it('should return a valid CSV file with export data', async () => {
-    let res = await members[0].get(`/challenges/${challenge._id}/export/csv`);
-    let sortedMembers = _.sortBy([members[0], members[1], members[2], groupLeader], '_id');
-    let splitRes = res.split('\n');
+    const res = await members[0].get(`/challenges/${challenge._id}/export/csv`);
+    const sortedMembers = _.sortBy([members[0], members[1], members[2], groupLeader], '_id');
+    const splitRes = res.split('\n');
 
     expect(splitRes[0]).to.equal('UUID,name,Task,Value,Notes,Streak,Task,Value,Notes,Streak');
     expect(splitRes[1]).to.equal(`${sortedMembers[0]._id},${sortedMembers[0].profile.name},habit:Task 1,0,,0,todo:Task 2,0,,0`);
@@ -70,5 +71,17 @@ describe('GET /challenges/:challengeId/export/csv', () => {
     expect(splitRes[3]).to.equal(`${sortedMembers[2]._id},${sortedMembers[2].profile.name},habit:Task 1,0,,0,todo:Task 2,0,,0`);
     expect(splitRes[4]).to.equal(`${sortedMembers[3]._id},${sortedMembers[3].profile.name},habit:Task 1,0,,0,todo:Task 2,0,,0`);
     expect(splitRes[5]).to.equal('');
+  });
+
+  it('should successfully return when it contains erroneous residue user data', async () => {
+    await members[0].update({challenges: []});
+    const res = await members[1].get(`/challenges/${challenge._id}/export/csv`);
+    const sortedMembers = _.sortBy([members[1], members[2], groupLeader], '_id');
+    const splitRes = res.split('\n');
+    expect(splitRes[0]).to.equal('UUID,name,Task,Value,Notes,Streak,Task,Value,Notes,Streak');
+    expect(splitRes[1]).to.equal(`${sortedMembers[0]._id},${sortedMembers[0].profile.name},habit:Task 1,0,,0,todo:Task 2,0,,0`);
+    expect(splitRes[2]).to.equal(`${sortedMembers[1]._id},${sortedMembers[1].profile.name},habit:Task 1,0,,0,todo:Task 2,0,,0`);
+    expect(splitRes[3]).to.equal(`${sortedMembers[2]._id},${sortedMembers[2].profile.name},habit:Task 1,0,,0,todo:Task 2,0,,0`);
+    expect(splitRes[4]).to.equal('');
   });
 });

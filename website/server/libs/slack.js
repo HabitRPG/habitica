@@ -3,6 +3,7 @@ import { IncomingWebhook } from '@slack/client';
 import logger from './logger';
 import { TAVERN_ID } from '../models/group';
 import nconf from 'nconf';
+import moment from 'moment';
 
 const SLACK_FLAGGING_URL = nconf.get('SLACK:FLAGGING_URL');
 const SLACK_FLAGGING_FOOTER_LINK = nconf.get('SLACK:FLAGGING_FOOTER_LINK');
@@ -25,6 +26,7 @@ function sendFlagNotification ({
   group,
   message,
   userComment,
+  automatedComment,
 }) {
   if (!SLACK_FLAGGING_URL) {
     return;
@@ -33,9 +35,13 @@ function sendFlagNotification ({
   let authorName;
   let title = `Flag in ${group.name}`;
   let text = `${flagger.profile.name} (${flagger.id}; language: ${flagger.preferences.language}) flagged a message`;
+  let footer = `<${SLACK_FLAGGING_FOOTER_LINK}?groupId=${group.id}&chatId=${message.id}|Flag this message.>`;
 
   if (userComment) {
     text += ` and commented: ${userComment}`;
+  }
+  if (automatedComment) {
+    footer += ` ${automatedComment}`;
   }
 
   if (group.id === TAVERN_ID) {
@@ -52,16 +58,18 @@ function sendFlagNotification ({
     authorName = `${message.user} - ${authorEmail} - ${message.uuid}`;
   }
 
+  const timestamp = `${moment(message.timestamp).utc().format('YYYY-MM-DD HH:mm')} UTC`;
+
   flagSlack.send({
     text,
     attachments: [{
       fallback: 'Flag Message',
       color: 'danger',
-      author_name: authorName,
+      author_name: `${authorName}\n${timestamp}`,
       title,
       title_link: titleLink,
       text: message.text,
-      footer: `<${SLACK_FLAGGING_FOOTER_LINK}?groupId=${group.id}&chatId=${message.id}|Flag this message>`,
+      footer,
       mrkdwn_in: [
         'text',
       ],
@@ -93,11 +101,6 @@ function sendSubscriptionNotification ({
     text,
   });
 }
-
-module.exports = {
-  sendFlagNotification,
-  sendSubscriptionNotification,
-};
 
 function sendSlurNotification ({
   authorEmail,
@@ -132,8 +135,6 @@ function sendSlurNotification ({
       title,
       title_link: titleLink,
       text: message,
-      // What to replace the footer with?
-      // footer: `<${SLACK_FLAGGING_FOOTER_LINK}?groupId=${group.id}&chatId=${message.id}|Flag this message>`,
       mrkdwn_in: [
         'text',
       ],

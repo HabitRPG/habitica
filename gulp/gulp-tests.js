@@ -165,9 +165,9 @@ gulp.task('test:content:safe', gulp.series('test:prepare:build', (cb) => {
   pipe(runner);
 }));
 
-gulp.task('test:api-v3:unit', (done) => {
+gulp.task('test:api:unit', (done) => {
   let runner = exec(
-    testBin('node_modules/.bin/istanbul cover --dir coverage/api-v3-unit --report lcovonly node_modules/mocha/bin/_mocha -- test/api/v3/unit --recursive --require ./test/helpers/start-server'),
+    testBin('node_modules/.bin/istanbul cover --dir coverage/api-unit node_modules/mocha/bin/_mocha -- test/api/unit --recursive --require ./test/helpers/start-server'),
     (err) => {
       if (err) {
         process.exit(1);
@@ -179,8 +179,8 @@ gulp.task('test:api-v3:unit', (done) => {
   pipe(runner);
 });
 
-gulp.task('test:api-v3:unit:watch', () => {
-  return gulp.watch(['website/server/libs/*', 'test/api/v3/unit/**/*', 'website/server/controllers/**/*'], gulp.series('test:api-v3:unit', done => done()));
+gulp.task('test:api:unit:watch', () => {
+  return gulp.watch(['website/server/libs/*', 'test/api/v3/unit/**/*', 'website/server/controllers/**/*'], gulp.series('test:api:unit', done => done()));
 });
 
 gulp.task('test:api-v3:integration', (done) => {
@@ -215,17 +215,43 @@ gulp.task('test:api-v3:integration:separate-server', (done) => {
   pipe(runner);
 });
 
+gulp.task('test:api-v4:integration', (done) => {
+  let runner = exec(
+    testBin('node_modules/.bin/istanbul cover --dir coverage/api-v4-integration --report lcovonly node_modules/mocha/bin/_mocha -- test/api/v4 --recursive --require ./test/helpers/start-server'),
+    {maxBuffer: 500 * 1024},
+    (err) => {
+      if (err) {
+        process.exit(1);
+      }
+      done();
+    }
+  );
+
+  pipe(runner);
+});
+
+gulp.task('test:api-v4:integration:separate-server', (done) => {
+  let runner = exec(
+    testBin('mocha test/api/v4 --recursive --require ./test/helpers/start-server', 'LOAD_SERVER=0'),
+    {maxBuffer: 500 * 1024},
+    (err) => done(err)
+  );
+
+  pipe(runner);
+});
+
 gulp.task('test', gulp.series(
   'test:sanity',
   'test:content',
   'test:common',
-  'test:api-v3:unit',
+  'test:api:unit',
   'test:api-v3:integration',
+  'test:api-v4:integration',
   done => done()
 ));
 
 gulp.task('test:api-v3', gulp.series(
-  'test:api-v3:unit',
+  'test:api:unit',
   'test:api-v3:integration',
   done => done()
 ));

@@ -2,13 +2,13 @@
 import paypalPayments from '../../../libs/payments/paypal';
 import shared from '../../../../common';
 import {
-  authWithUrl,
   authWithSession,
+  authWithHeaders,
 } from '../../../middlewares/auth';
 import {
   BadRequest,
 } from '../../../libs/errors';
-import apiMessages from '../../../libs/apiMessages';
+import apiError from '../../../libs/apiError';
 
 let api = {};
 
@@ -21,7 +21,7 @@ let api = {};
 api.checkout = {
   method: 'GET',
   url: '/paypal/checkout',
-  middlewares: [authWithUrl],
+  middlewares: [authWithSession],
   async handler (req, res) {
     let gift = req.query.gift ? JSON.parse(req.query.gift) : undefined;
     req.session.gift = req.query.gift;
@@ -53,8 +53,8 @@ api.checkoutSuccess = {
     let gift = req.session.gift ? JSON.parse(req.session.gift) : undefined;
     delete req.session.gift;
 
-    if (!paymentId) throw new BadRequest(apiMessages('missingPaymentId'));
-    if (!customerId) throw new BadRequest(apiMessages('missingCustomerId'));
+    if (!paymentId) throw new BadRequest(apiError('missingPaymentId'));
+    if (!customerId) throw new BadRequest(apiError('missingCustomerId'));
 
     await paypalPayments.checkoutSuccess({user, gift, paymentId, customerId});
 
@@ -75,9 +75,9 @@ api.checkoutSuccess = {
 api.subscribe = {
   method: 'GET',
   url: '/paypal/subscribe',
-  middlewares: [authWithUrl],
+  middlewares: [authWithSession],
   async handler (req, res) {
-    if (!req.query.sub) throw new BadRequest(apiMessages('missingSubKey'));
+    if (!req.query.sub) throw new BadRequest(apiError('missingSubKey'));
 
     let sub = shared.content.subscriptionBlocks[req.query.sub];
     let coupon = req.query.coupon;
@@ -108,7 +108,7 @@ api.subscribeSuccess = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    if (!req.session.paypalBlock) throw new BadRequest(apiMessages('missingPaypalBlock'));
+    if (!req.session.paypalBlock) throw new BadRequest(apiError('missingPaypalBlock'));
 
     let block = shared.content.subscriptionBlocks[req.session.paypalBlock];
     let groupId = req.session.groupId;
@@ -136,7 +136,7 @@ api.subscribeSuccess = {
 api.subscribeCancel = {
   method: 'GET',
   url: '/paypal/subscribe/cancel',
-  middlewares: [authWithUrl],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.query.groupId;

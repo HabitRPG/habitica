@@ -49,7 +49,6 @@
     "UUID": "ユーザー ID",
     "loadUser": "ユーザーをロード",
     "noAdminAccess": "管理者権限が必要です。",
-    "pageMustBeNumber": "req.query.page は数字でなくてはなりません。",
     "userNotFound": "ユーザーが見つかりませんでした。",
     "invalidUUID": "UUID が無効です。",
     "title": "タイトル",

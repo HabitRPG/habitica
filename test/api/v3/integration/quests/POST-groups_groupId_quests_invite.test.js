@@ -2,10 +2,11 @@ import {
   createAndPopulateGroup,
   translate as t,
   sleep,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 import { v4 as generateUUID } from 'uuid';
 import { quests as questScrolls } from '../../../../../website/common/script/content';
-import apiMessages from '../../../../../website/server/libs/apiMessages';
+import { chatModel as Chat } from '../../../../../website/server/models/message';
+import apiError from '../../../../../website/server/libs/apiError';
 
 describe('POST /groups/:groupId/quests/invite/:questKey', () => {
   let questingGroup;
@@ -69,7 +70,7 @@ describe('POST /groups/:groupId/quests/invite/:questKey', () => {
       await expect(leader.post(`/groups/${questingGroup._id}/quests/invite/${FAKE_QUEST}`)).to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
-        message: apiMessages('questNotFound', {key: FAKE_QUEST}),
+        message: apiError('questNotFound', {key: FAKE_QUEST}),
       });
     });
 
@@ -200,11 +201,11 @@ describe('POST /groups/:groupId/quests/invite/:questKey', () => {
 
       await groupLeader.post(`/groups/${group._id}/quests/invite/${PET_QUEST}`);
 
-      await group.sync();
+      const groupChat = await Chat.find({ groupId: group._id }).exec();
 
-      expect(group.chat[0].text).to.exist;
-      expect(group.chat[0]._meta).to.exist;
-      expect(group.chat[0]._meta).to.have.all.keys(['participatingMembers']);
+      expect(groupChat[0].text).to.exist;
+      expect(groupChat[0]._meta).to.exist;
+      expect(groupChat[0]._meta).to.have.all.keys(['participatingMembers']);
 
       let returnedGroup = await groupLeader.get(`/groups/${group._id}`);
       expect(returnedGroup.chat[0]._meta).to.be.undefined;

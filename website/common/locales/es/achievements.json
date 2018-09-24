@@ -1,8 +1,9 @@
 {
+  "achievement": "Logro",
   "share": "Comparte",
   "onwards": "¡Adelante!",
   "levelup": "Al cumplir tus objetivos de la vida real, ¡subes de nivel y recuperas la salud!",
   "reachedLevel": "Has alcanzado el nivel <%= level %>",
-  "achievementLostMasterclasser": "Completador de Búsquedas: Serie Archimaestra",
-  "achievementLostMasterclasserText": "¡Ha completado las siete pruebas en la Serie Archimaestra y resuelto el misterio de la Archimaestra Perdida!"
+  "achievementLostMasterclasser": "Completador de Búsquedas: Serie Arquimaestra",
+  "achievementLostMasterclasserText": "¡Ha completado las siete misiones en la Serie Arquimaestra y resuelto el misterio de la Arquimaestra Perdida!"
 }

@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'SQUIRREL PET QUEST AND APRIL FOOLS CHALLENGE WINNERS';
+const LAST_ANNOUNCEMENT_TITLE = 'FALL FESTIVAL BEGINS! LIMITED EDITION FALL EQUIPMENT, SEASONAL SHOP OPENS, AND NPC OUTFITS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -26,27 +26,25 @@ api.getNews = {
     res.status(200).send({
       html: `
       <div class="bailey">
-        <div class="media">
-          <div class="align-self-center mr-3 ${baileyClass}"></div>
+        <div class="media align-items-center">
+          <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
+            <h2>9/20/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
-        <h2>4/10/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
-        <div class="media align-items-center">
-          <div class="media-body">
-          <h3>New Pet Quest: The Sneaky Squirrel</h3>
-          <p>Squirrels are loose, jamming up Habitican routines with stray acorns! Find and confront the hoarder in the latest pet quest, <a href='/shops/quests/' target='_blank'>The Sneaky Squirrel</a>, and earn some bushy-tailed squirrel pets by completing your real-life tasks.</p>
-          <div class="small">Art by randomdaisy, Shtut, virginiamoon, confusedcicada, and WillowTheWitty</div>
-          <div class="small mb-3">Writing by Cantras and SabreCat</div>
-          </div>
-          <div class="quest_squirrel ml-3"></div>
-        </div>
-        <h3>April Fool's Challenge Winners and Blog Post!</h3>
-        <p>The winners of the April Fool's Social Media Challenge have been selected! Congratulations to: Al Lith, Frar of the Lonely Mountain, Garwinna, Meakuel, and Koliz!</p>
-        <p>Thank you to everyone who shared their awesome pics with their tiny pets and mounts! You can see a fun <a href='https://habitica.wordpress.com/2018/04/10/its-the-little-things-tiny-pet-and-mount-pics-from-habiticas-april-fools-celebration/' target='_blank'>recap of the shenanigans</a> on our blog. Stay tuned to see what wacky antics the Fool gets up to next year!</p>
-        <div class="small mb-3">by Beffymaroo and SabreCat</div>
+        <div class="promo_fall_festival_2018 center-block"></div>
+        <h3>Limited Edition Class Outfits!</h3>
+        <p>From now until October 31st, limited edition outfits are available in the Rewards column! Depending on your class, you can be a Minotaur Warrior, an Alter Ego Rogue, a Carnivorous Plant Healer, or a Candymancer Mage. You'd better get productive to earn enough gold before your time runs out...</p>
+        <div class="small mb-3">by AnnDeLune, Vikte, QuartzFox, Beffymaroo, and SabreCat</div>
+        <div class="promo_fall_festival_2017 center-block"></div>
+        <h3>Seasonal Shop Opens</h3>
+        <p>The <a href='/shops/seasonal' target='_blank'>Seasonal Shop</a> has opened! It's stocking autumnal Seasonal Edition goodies at the moment, including past fall outfits. Everything there will be available to purchase during the Fall Festival event each year, but it's only open until October 31st, so be sure to stock up now, or you'll have to wait a year to buy these items again!</p>
+        <div class="small mb-3">by AnnDeLune, ʂʈєƒąʃųƥągųʂ, Katy133, Lilith of Alfheim, Definitely not a villain, ShoGirlGeek. cataclysms, maxpendragon, Lemoness, Beffymaroo, and SabreCat</div>
+        <h3>NPC Outfits</h3>
+        <p>Everyone has hastened down to the Flourishing Fields to celebrate this spooky harvest festival. Be sure to check out all the new outfits that people are sporting!</p>
+        <div class="promo_seasonal_shop center-block"></div>
       </div>
       `,
     });

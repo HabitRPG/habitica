@@ -193,6 +193,24 @@ let armor = {
     mystery: '201802',
     value: 0,
   },
+  201806: {
+    text: t('armorMystery201806Text'),
+    notes: t('armorMystery201806Notes'),
+    mystery: '201806',
+    value: 0,
+  },
+  201807: {
+    text: t('armorMystery201807Text'),
+    notes: t('armorMystery201807Notes'),
+    mystery: '201807',
+    value: 0,
+  },
+  201808: {
+    text: t('armorMystery201808Text'),
+    notes: t('armorMystery201808Notes'),
+    mystery: '201808',
+    value: 0,
+  },
   301404: {
     text: t('armorMystery301404Text'),
     notes: t('armorMystery301404Notes'),
@@ -296,6 +314,18 @@ let back = {
     text: t('backMystery201803Text'),
     notes: t('backMystery201803Notes'),
     mystery: '201803',
+    value: 0,
+  },
+  201804: {
+    text: t('backMystery201804Text'),
+    notes: t('backMystery201804Notes'),
+    mystery: '201804',
+    value: 0,
+  },
+  201805: {
+    text: t('backMystery201805Text'),
+    notes: t('backMystery201805Notes'),
+    mystery: '201805',
     value: 0,
   },
 };
@@ -565,6 +595,30 @@ let head = {
     mystery: '201803',
     value: 0,
   },
+  201805: {
+    text: t('headMystery201805Text'),
+    notes: t('headMystery201805Notes'),
+    mystery: '201805',
+    value: 0,
+  },
+  201806: {
+    text: t('headMystery201806Text'),
+    notes: t('headMystery201806Notes'),
+    mystery: '201806',
+    value: 0,
+  },
+  201807: {
+    text: t('headMystery201807Text'),
+    notes: t('headMystery201807Notes'),
+    mystery: '201807',
+    value: 0,
+  },
+  201808: {
+    text: t('headMystery201808Text'),
+    notes: t('headMystery201808Notes'),
+    mystery: '201808',
+    value: 0,
+  },
   301404: {
     text: t('headMystery301404Text'),
     notes: t('headMystery301404Notes'),
@@ -626,6 +680,12 @@ let headAccessory = {
     text: t('headAccessoryMystery201801Text'),
     notes: t('headAccessoryMystery201801Notes'),
     mystery: '201801',
+    value: 0,
+  },
+  201804: {
+    text: t('headAccessoryMystery201804Text'),
+    notes: t('headAccessoryMystery201804Notes'),
+    mystery: '201804',
     value: 0,
   },
   301405: {

@@ -3,6 +3,9 @@ import * as Tasks from '../models/task';
 import {
   BadRequest,
 } from './errors';
+import {
+  SHARED_COMPLETION,
+} from './groupTasks';
 import _ from 'lodash';
 import shared from '../../common';
 
@@ -96,6 +99,7 @@ export async function createTasks (req, res, options = {}) {
       if (taskData.requiresApproval) {
         newTask.group.approval.required = true;
       }
+      newTask.group.sharedCompletion = taskData.sharedCompletion || SHARED_COMPLETION.default;
     } else {
       newTask.userId = user._id;
     }
@@ -125,7 +129,7 @@ export async function createTasks (req, res, options = {}) {
 
   await owner.update(taskOrderUpdateQuery).exec();
 
-  // tasks with aliases need to be validated asyncronously
+  // tasks with aliases need to be validated asynchronously
   await _validateTaskAlias(toSave, res);
 
   toSave = toSave.map(task => task.save({ // If all tasks are valid (this is why it's not in the previous .map()), save everything, withough running validation again
@@ -148,6 +152,7 @@ export async function createTasks (req, res, options = {}) {
  * @param  options.user  The user that these tasks belong to
  * @param  options.challenge  The challenge that these tasks belong to
  * @param  options.group  The group that these tasks belong to
+ * @param  options.dueDate The date to use for computing the nextDue field for each returned task
  * @return The tasks found
  */
 export async function getTasks (req, res, options = {}) {
@@ -182,11 +187,12 @@ export async function getTasks (req, res, options = {}) {
         limit = 0; // no limit
       }
 
-      query = {
-        userId: user._id,
-        type: 'todo',
-        completed: true,
-      };
+      query.type = 'todo';
+      query.completed = true;
+
+      if (owner._id === user._id) {
+        query.userId = user._id;
+      }
 
       sort = {
         dateCompleted: -1,

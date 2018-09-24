@@ -2,10 +2,10 @@ import axios from 'axios';
 // import omit from 'lodash/omit';
 // import findIndex from 'lodash/findIndex';
 
-let apiV3Prefix = '/api/v3';
+let apiv4Prefix = '/api/v4';
 
 export async function getGroupMembers (store, payload) {
-  let url = `${apiV3Prefix}/groups/${payload.groupId}/members`;
+  let url = `${apiv4Prefix}/groups/${payload.groupId}/members`;
 
   const params = {};
 
@@ -26,13 +26,13 @@ export async function getGroupMembers (store, payload) {
 }
 
 export async function fetchMember (store, payload) {
-  let url = `${apiV3Prefix}/members/${payload.memberId}`;
+  let url = `${apiv4Prefix}/members/${payload.memberId}`;
   let response = await axios.get(url);
   return response;
 }
 
 export async function getGroupInvites (store, payload) {
-  let url = `${apiV3Prefix}/groups/${payload.groupId}/invites`;
+  let url = `${apiv4Prefix}/groups/${payload.groupId}/invites`;
   if (payload.includeAllPublicFields) {
     url += '?includeAllPublicFields=true';
   }
@@ -41,7 +41,7 @@ export async function getGroupInvites (store, payload) {
 }
 
 export async function getChallengeMembers (store, payload) {
-  let url = `${apiV3Prefix}/challenges/${payload.challengeId}/members`;
+  let url = `${apiv4Prefix}/challenges/${payload.challengeId}/members`;
 
   const params = {};
 
@@ -62,13 +62,13 @@ export async function getChallengeMembers (store, payload) {
 }
 
 export async function getChallengeMemberProgress (store, payload) {
-  let url = `${apiV3Prefix}/challenges/${payload.challengeId}/members/${payload.memberId}`;
+  let url = `${apiv4Prefix}/challenges/${payload.challengeId}/members/${payload.memberId}`;
   let response = await axios.get(url);
   return response;
 }
 
 export async function sendPrivateMessage (store, payload) {
-  let url = `${apiV3Prefix}/members/send-private-message`;
+  let url = `${apiv4Prefix}/members/send-private-message`;
   let data = {
     message: payload.message,
     toUserId: payload.toUserId,
@@ -78,7 +78,7 @@ export async function sendPrivateMessage (store, payload) {
 }
 
 export async function transferGems (store, payload) {
-  let url = `${apiV3Prefix}/members/transfer-gems`;
+  let url = `${apiv4Prefix}/members/transfer-gems`;
   let data = {
     message: payload.message,
     toUserId: payload.toUserId,
@@ -90,7 +90,7 @@ export async function transferGems (store, payload) {
 }
 
 export async function removeMember (store, payload) {
-  let url = `${apiV3Prefix}/groups/${payload.groupId}/removeMember/${payload.memberId}`;
+  let url = `${apiv4Prefix}/groups/${payload.groupId}/removeMember/${payload.memberId}`;
   let data = {
     message: payload.message,
   };

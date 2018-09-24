@@ -43,7 +43,6 @@
     "messageAuthNoUserFound": "Utilisateur introuvable.",
     "messageAuthMustBeLoggedIn": "Vous devez être connecté.",
     "messageAuthMustIncludeTokens": "Votre demande doit contenir un jeton d'API et un ID d'utilisateur.",
-    "messageGroupNotFound": "Groupe introuvable ou vous n'y avez pas accès.",
     "messageGroupAlreadyInParty": "Déjà dans un équipe, essayez d'actualiser.",
     "messageGroupOnlyLeaderCanUpdate": "Seul le responsable du groupe peut mettre à jour le groupe!",
     "messageGroupRequiresInvite": "Vous ne pouvez rejoindre un groupe sans invitation.",
@@ -55,12 +54,13 @@
     "messageGroupChatAdminClearFlagCount": "Seul un administrateur peut modifier ce compteur !",
     "messageCannotFlagSystemMessages": "Vous ne pouvez pas signaler un message système. Si vous avez besoin de signaler une violation des règles de vie en communauté liée à ce message, veuillez envoyer un courriel avec une capture d'écran à Lemoness à <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "Oups, on dirait que vous postez trop de messages ! Merci d'attendre une minute et d'essayer de nouveau. Le fil de discussion de la taverne ne pouvant contenir que 200 messages, Habitica vous encourage à poster des messages plus longs et plus réfléchis, et à répondre en un seul bloc plutôt qu'en plusieurs petits messages. Nous avons hâte d'entendre ce que vous avez à dire. :)",
-    "messageCannotLeaveWhileQuesting": "Vous ne pouvez pas accepter cette invitation pendant que vous êtes en quête. Si vous voulez rejoindre cette équipe, vous devez d'abord annuler la quête, ce que vous pouvez faire depuis la page d'équipe. Vous récupérerez le parchemin de quête.",
+    "messageCannotLeaveWhileQuesting": "Vous ne pouvez pas accepter cette invitation tant que vous êtes en quête. Si vous voulez rejoindre cette équipe, vous devez d'abord annuler la quête, ce que vous pouvez faire depuis la page d'équipe. Vous récupérerez le parchemin de quête.",
     "messageUserOperationProtected": "chemin `<%= operation %>` n'a pas été sauvegardé car c'est un chemin protégé.",
     "messageUserOperationNotFound": "<%= operation %> opération introuvable",
     "messageNotificationNotFound": "Notification non trouvée.",
     "messageNotAbleToBuyInBulk": "Cet objet ne peut être acheté en quantités supérieures à 1.",
     "notificationsRequired": "Les numéros d'identification (ID) de notification sont requis.",
     "unallocatedStatsPoints": "Vous avez <span class=\"notification-bold-blue\"><%= points %> points d'attribut non alloués</span>",
-    "beginningOfConversation": "Ceci marque le commencement de votre conversation avec <%= userName %>. N´oubliez pas de communiquer avec politesse et respect, tout en suivant les règles de vie en communauté !"
+    "beginningOfConversation": "Ceci marque le commencement de votre conversation avec <%= userName %>. N´oubliez pas de communiquer avec politesse et respect, tout en suivant les règles de vie en communauté !",
+    "messageDeletedUser": "Désolé, cet utilisateur a supprimé son compte."
 }

@@ -661,6 +661,76 @@ let backgrounds = {
       notes: t('backgroundTulipGardenNotes'),
     },
   },
+  backgrounds052018: {
+    champions_colosseum: {
+      text: t('backgroundChampionsColosseumText'),
+      notes: t('backgroundChampionsColosseumNotes'),
+    },
+    fantastical_shoe_store: {
+      text: t('backgroundFantasticalShoeStoreText'),
+      notes: t('backgroundFantasticalShoeStoreNotes'),
+    },
+    terraced_rice_field: {
+      text: t('backgroundTerracedRiceFieldText'),
+      notes: t('backgroundTerracedRiceFieldNotes'),
+    },
+  },
+  backgrounds062018: {
+    at_the_docks: {
+      text: t('backgroundDocksText'),
+      notes: t('backgroundDocksNotes'),
+    },
+    rowboat: {
+      text: t('backgroundRowboatText'),
+      notes: t('backgroundRowboatNotes'),
+    },
+    pirate_flag: {
+      text: t('backgroundPirateFlagText'),
+      notes: t('backgroundPirateFlagNotes'),
+    },
+  },
+  backgrounds072018: {
+    dark_deep: {
+      text: t('backgroundDarkDeepText'),
+      notes: t('backgroundDarkDeepNotes'),
+    },
+    dilatory_city: {
+      text: t('backgroundDilatoryCityText'),
+      notes: t('backgroundDilatoryCityNotes'),
+    },
+    tide_pool: {
+      text: t('backgroundTidePoolText'),
+      notes: t('backgroundTidePoolNotes'),
+    },
+  },
+  backgrounds082018: {
+    training_grounds: {
+      text: t('backgroundTrainingGroundsText'),
+      notes: t('backgroundTrainingGroundsNotes'),
+    },
+    flying_over_rocky_canyon: {
+      text: t('backgroundFlyingOverRockyCanyonText'),
+      notes: t('backgroundFlyingOverRockyCanyonNotes'),
+    },
+    bridge: {
+      text: t('backgroundBridgeText'),
+      notes: t('backgroundBridgeNotes'),
+    },
+  },
+  backgrounds092018: {
+    apple_picking: {
+      text: t('backgroundApplePickingText'),
+      notes: t('backgroundApplePickingNotes'),
+    },
+    giant_book: {
+      text: t('backgroundGiantBookText'),
+      notes: t('backgroundGiantBookNotes'),
+    },
+    cozy_barn: {
+      text: t('backgroundCozyBarnText'),
+      notes: t('backgroundCozyBarnNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),

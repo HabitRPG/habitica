@@ -85,16 +85,32 @@ export default {
 
       // the selected member doesn't have the flags property which sets `cardReceived`
       if (spell.pinType !== 'card') {
-        spell.cast(this.user, target);
+        try {
+          spell.cast(this.user, target);
+        } catch (e) {
+          if (!e.request) {
+            this.$store.dispatch('snackbars:add', {
+              title: '',
+              text: e.message,
+              type: 'error',
+            });
+            return;
+          } else {
+            throw e;
+          }
+        }
       }
 
       let targetId = target ? target._id : null;
 
       let spellText = typeof spell.text === 'function' ? spell.text() : spell.text;
 
-      let apiResult = await this.$store.dispatch('user:castSpell', {key: spell.key, targetId});
+      let apiResult = await this.$store.dispatch('user:castSpell', {
+        key: spell.key,
+        targetId,
+        pinType: spell.pinType,
+      });
       let msg = '';
-
 
       switch (type) {
         case 'task':
@@ -130,25 +146,7 @@ export default {
 
 
       this.markdown(msg); // @TODO: mardown directive?
-
-      // If using mpheal and there are other mages in the party, show extra notification
-      if (type === 'party' && spell.key === 'mpheal') {
-        // Counting mages
-        let magesCount = 0;
-        for (let i = 0; i < target.length; i++) {
-          if (target[i].stats.class === 'wizard') {
-            magesCount++;
-          }
-        }
-        // If there are mages, show message telling that the mpheal don't work on other mages
-        // The count must be bigger than 1 because the user casting the spell is a mage
-        if (magesCount > 1) {
-          this.markdown(this.$t('spellWizardNoEthOnMage'));
-        }
-      }
-
-      // @TODO:
-      if (!beforeQuestProgress) return apiResult;
+      if (!beforeQuestProgress) return;
       let questProgress = this.questProgress() - beforeQuestProgress;
       if (questProgress > 0) {
         let userQuest = this.quests[this.user.party.quest.key];
@@ -159,8 +157,7 @@ export default {
         }
       }
 
-
-      return apiResult;
+      return;
       // @TOOD: User.sync();
     },
     castCancel () {

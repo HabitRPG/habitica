@@ -17,5 +17,5 @@ function setUpServer () {
 setUpServer();
 
 // Replace this with your migration
-const processUsers = require('./20180125_clean_new_notifications.js');
+const processUsers = require('./users/takeThis.js');
 processUsers();

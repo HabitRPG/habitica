@@ -2,7 +2,7 @@ import {
   generateUser,
 } from '../../../../../helpers/api-integration/v3';
 import paypalPayments from '../../../../../../website/server/libs/payments/paypal';
-import apiMessages from '../../../../../../website/server/libs/apiMessages';
+import apiError from '../../../../../../website/server/libs/apiError';
 
 describe('payments : paypal #checkoutSuccess', () => {
   let endpoint = '/paypal/checkout/success';
@@ -17,7 +17,7 @@ describe('payments : paypal #checkoutSuccess', () => {
       .to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: apiMessages('missingPaymentId'),
+        message: apiError('missingPaymentId'),
       });
   });
 
@@ -26,7 +26,7 @@ describe('payments : paypal #checkoutSuccess', () => {
       .to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: apiMessages('missingCustomerId'),
+        message: apiError('missingCustomerId'),
       });
   });
 

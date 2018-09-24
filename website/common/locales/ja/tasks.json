@@ -5,7 +5,7 @@
     "sureDeleteCompletedTodos": "完了した To-Do を削除します。よろしいですか?",
     "lotOfToDos": "最近完了した 30 件の「To-Do」をここに表示します。より古いものは、「データ > データ表示ツール」または「データ > データをエクスポート > ユーザーデータ」で確認できます。",
     "deleteToDosExplanation": "下のボタンをクリックすると、進行中のチャレンジやグループプランの「To-Do」を除いて、すべての完了した「To-Do」とアーカイブ済の「To-Do」が完全に削除されます。記録を保存しておきたい場合は、まずエクスポートしてください。",
-    "addMultipleTip": "<strong>Tip:1</strong>複数のタスクを追加するには、(Shift + Enter)でタスクを分割し、\"Enter\"キーで確定して下さい。",
+    "addMultipleTip": "<strong>Tip:</strong> 複数の<%= taskType %>を追加するには、改行 (Shift + Enter) でそれぞれを分割し、Enterキーで確定して下さい。",
     "addsingle": "1件追加",
     "addATask": "<%= type %>の追加",
     "editATask": "<%= type %>の編集",
@@ -145,7 +145,6 @@
     "rewardHelp3": "世界的なイベントの期間中、スペシャルな装備が出現します。",
     "rewardHelp4": "自分の好みの「ごほうび」を気軽に設定しましょう!　<a href='http://ja.habitica.wikia.com/wiki/%E8%87%AA%E5%88%86%E5%A5%BD%E3%81%BF%E3%81%AE%E3%81%94%E3%81%BB%E3%81%86%E3%81%B3%E3%81%AE%E4%BE%8B' target='_blank'>サンプルがここ</a>にあるので参考にしてください。",
     "clickForHelp": "クリックでヘルプを表示",
-    "taskIdRequired": "\"taskId\" の UUID が無効です。",
     "taskAliasAlreadyUsed": "タスクの別名が、ほかのタスク名で使われています。",
     "taskNotFound": "タスクが見つかりませんでした。",
     "invalidTaskType": "タスクは、\"habit\", \"daily\", \"todo\", \"reward\" のいずれかの種類でなくてはなりません。",
@@ -195,8 +194,6 @@
     "weeks": "週",
     "year": "年",
     "years": "年",
-    "confirmScoreNotes": "タスクのスコアをメモで確認する",
-    "taskScoreNotesTooLong": "タスクのスコアのメモは256文字未満でなければなりません。",
     "groupTasksByChallenge": "タスクをチャレンジのタイトルごとに並べる",
     "taskNotes": "タスクのメモ",
     "monthlyRepeatHelpContent": "このタスクはXか月ごとに期限が訪れます。",
@@ -212,5 +209,5 @@
     "repeatDayError": "曜日を最低1つは選択してください。",
     "searchTasks": "タイトルや内容で検索…",
     "sessionOutdated": "セッションが古くなっています。ページを更新するか、syncボタンを押して下さい。",
-    "errorTemporaryItem": "This item is temporary and cannot be pinned."
+    "errorTemporaryItem": "これは一時的なアイテムなので、ピン留めすることはできません。"
 }

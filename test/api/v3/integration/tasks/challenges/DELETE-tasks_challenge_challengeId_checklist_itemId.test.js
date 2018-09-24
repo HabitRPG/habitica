@@ -15,6 +15,7 @@ describe('DELETE /tasks/:taskId/checklist/:itemId', () => {
     user = await generateUser();
     guild = await generateGroup(user);
     challenge = await generateChallenge(user, guild);
+    await user.post(`/challenges/${challenge._id}/join`);
   });
 
   it('fails on task not found', async () => {

@@ -65,6 +65,7 @@ describe('PUT /tasks/:id', () => {
         fields for challenge tasks owned by a user`, async () => {
       let guild = await generateGroup(user);
       let challenge = await generateChallenge(user, guild);
+      await user.post(`/challenges/${challenge._id}/join`);
 
       let challengeTask = await user.post(`/tasks/challenge/${challenge._id}`, {
         type: 'daily',
@@ -198,6 +199,7 @@ describe('PUT /tasks/:id', () => {
       });
       let guild = await generateGroup(user);
       let challenge = await generateChallenge(user, guild);
+      await user.post(`/challenges/${challenge._id}/join`);
 
       await user.post('/user/webhook', {
         url: `http://localhost:${server.port}/webhooks/${uuid}`,

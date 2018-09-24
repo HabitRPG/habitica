@@ -28,6 +28,7 @@
           span.className.textCondensed(:class="itemClass") {{ getClassName(itemClass) }}
 
         attributesGrid.attributesGrid(
+          :user="user",
           :item="item",
           v-if="attributesGridVisible"
         )

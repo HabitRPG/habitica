@@ -29,7 +29,6 @@ div
           buyModal(
             :item="selectedItemToBuy || {}",
             :withPin="true",
-            @change="resetItemToBuy($event)",
             @buyPressed="customPurchase($event)",
             :genericPurchase="genericPurchase(selectedItemToBuy)",
 
@@ -44,8 +43,6 @@ div
             router-view
         app-footer
         audio#sound(autoplay, ref="sound")
-          source#oggSource(type="audio/ogg", :src="sound.oggSource")
-          source#mp3Source(type="audio/mp3", :src="sound.mp3Source")
 </template>
 
 <style lang='scss' scoped>
@@ -105,9 +102,9 @@ div
 
 <style lang='scss'>
   @import '~client/assets/scss/colors.scss';
-
+  
   /* @TODO: The modal-open class is not being removed. Let's try this for now */
-  .modal, .modal-open {
+  .modal {
     overflow-y: scroll !important;
   }
 
@@ -118,7 +115,7 @@ div
 
   /* Push progress bar above modals */
   #nprogress .bar {
-    z-index: 1043 !important; /* Must stay above nav bar */
+    z-index: 1600 !important; /* Must stay above nav bar */
   }
 
   .restingInn {
@@ -127,7 +124,7 @@ div
     }
 
     #app-header {
-      margin-top: 96px !important;
+      margin-top: 40px !important;
     }
 
   }
@@ -138,7 +135,7 @@ div
     background-color: $blue-10;
     position: fixed;
     top: 0;
-    z-index: 1030;
+    z-index: 1300;
     display: flex;
 
     .content {
@@ -220,10 +217,9 @@ export default {
       selectedItemToBuy: null,
       selectedSpellToBuy: null,
 
-      sound: {
-        oggSource: '',
-        mp3Source: '',
-      },
+      audioSource: null,
+      audioSuffix: null,
+
       loading: true,
       currentTipNumber: 0,
       bannerHidden: false,
@@ -259,11 +255,22 @@ export default {
         return;
       }
 
-      let file =  `/static/audio/${theme}/${sound}`;
-      this.sound = {
-        oggSource: `${file}.ogg`,
-        mp3Source: `${file}.mp3`,
-      };
+      let file = `/static/audio/${theme}/${sound}`;
+
+      if (this.audioSuffix === null) {
+        this.audioSource = document.createElement('source');
+        if (this.$refs.sound.canPlayType('audio/ogg')) {
+          this.audioSuffix = '.ogg';
+          this.audioSource.type = 'audio/ogg';
+        } else {
+          this.audioSuffix = '.mp3';
+          this.audioSource.type = 'audio/mp3';
+        }
+        this.audioSource.src = file + this.audioSuffix;
+        this.$refs.sound.appendChild(this.audioSource);
+      } else {
+        this.audioSource.src = file + this.audioSuffix;
+      }
 
       this.$refs.sound.load();
     });
@@ -295,16 +302,10 @@ export default {
       if (error.response.status >= 400) {
         this.checkForBannedUser(error);
 
-        // Check for conditions to reset the user auth
-        const invalidUserMessage = [this.$t('invalidCredentials'), 'Missing authentication headers.'];
-        if (invalidUserMessage.indexOf(error.response.data) !== -1) {
-          this.$store.dispatch('auth:logout');
-        }
-
         // Don't show errors from getting user details. These users have delete their account,
         // but their chat message still exists.
         let configExists = Boolean(error.response) && Boolean(error.response.config);
-        if (configExists && error.response.config.method === 'get' && error.response.config.url.indexOf('/api/v3/members/') !== -1) {
+        if (configExists && error.response.config.method === 'get' && error.response.config.url.indexOf('/api/v4/members/') !== -1) {
           // @TODO: We resolve the promise because we need our caching to cache this user as tried
           // Chat paging should help this, but maybe we can also find another solution..
           return Promise.resolve(error);
@@ -313,11 +314,51 @@ export default {
         const errorData = error.response.data;
         const errorMessage = errorData.message || errorData;
 
+        // Check for conditions to reset the user auth
+        const invalidUserMessage = [this.$t('invalidCredentials'), 'Missing authentication headers.'];
+        if (invalidUserMessage.indexOf(errorMessage) !== -1) {
+          this.$store.dispatch('auth:logout');
+        }
+
+        // Most server errors should return is click to dismiss errors, with some exceptions
+        let snackbarTimeout = false;
+        if (error.response.status === 502) snackbarTimeout = true;
+
+        const notificationNotFoundMessage = [
+          this.$t('messageNotificationNotFound'),
+          this.$t('messageNotificationNotFound', 'en'),
+        ];
+        if (notificationNotFoundMessage.indexOf(errorMessage) !== -1) snackbarTimeout = true;
+
+        let errorsToShow = [];
+        let usernameCheck = false;
+        let emailCheck = false;
+        let passwordCheck = false;
+        // show only the first error for each param
+        if (errorData.errors) {
+          for (let e of errorData.errors) {
+            if (!usernameCheck && e.param === 'username') {
+              errorsToShow.push(e.message);
+              usernameCheck = true;
+            }
+            if (!emailCheck && e.param === 'email') {
+              errorsToShow.push(e.message);
+              emailCheck = true;
+            }
+            if (!passwordCheck && e.param === 'password') {
+              errorsToShow.push(e.message);
+              passwordCheck = true;
+            }
+          }
+        } else {
+          errorsToShow.push(errorMessage);
+        }
+        // dispatch as one snackbar notification
         this.$store.dispatch('snackbars:add', {
           title: 'Habitica',
-          text: errorMessage,
+          text: errorsToShow.join(' '),
           type: 'error',
-          timeout: true,
+          timeout: snackbarTimeout,
         });
       }
 
@@ -330,20 +371,20 @@ export default {
       const url = response.config.url;
       const method = response.config.method;
 
-      const isApiCall = url.indexOf('api/v3') !== -1;
+      const isApiCall = url.indexOf('api/v4') !== -1;
       const userV = response.data && response.data.userV;
-      const isCron = url.indexOf('/api/v3/cron') === 0 && method === 'post';
+      const isCron = url.indexOf('/api/v4/cron') === 0 && method === 'post';
 
       if (this.isUserLoaded && isApiCall && userV) {
         const oldUserV = this.user._v;
         this.user._v = userV;
 
         // Do not sync again if already syncing
-        const isUserSync = url.indexOf('/api/v3/user') === 0 && method === 'get';
-        const isTasksSync = url.indexOf('/api/v3/tasks/user') === 0 && method === 'get';
+        const isUserSync = url.indexOf('/api/v4/user') === 0 && method === 'get';
+        const isTasksSync = url.indexOf('/api/v4/tasks/user') === 0 && method === 'get';
         // exclude chat seen requests because with real time chat they would be too many
         const isChatSeen = url.indexOf('/chat/seen') !== -1  && method === 'post';
-        // exclude POST /api/v3/cron because the user is synced automatically after cron runs
+        // exclude POST /api/v4/cron because the user is synced automatically after cron runs
 
         // Something has changed on the user object that was not tracked here, sync the user
         if (userV - oldUserV > 1 && !isCron && !isChatSeen && !isUserSync && !isTasksSync) {
@@ -373,6 +414,11 @@ export default {
       document.title = title;
     });
 
+    this.$nextTick(() => {
+      // Load external scripts after the app has been rendered
+      Analytics.load();
+    });
+
     if (this.isUserLoggedIn && !this.isStaticPage) {
       // Load the user and the user tasks
       Promise.all([
@@ -395,7 +441,6 @@ export default {
         this.$nextTick(() => {
           // Load external scripts after the app has been rendered
           setupPayments();
-          Analytics.load();
         });
       }).catch((err) => {
         console.error('Impossible to fetch user. Clean up localStorage and refresh.', err); // eslint-disable-line no-console
@@ -453,8 +498,16 @@ export default {
       });
 
       this.$root.$on('bv::modal::hidden', (bvEvent) => {
-        const modalId = bvEvent.target && bvEvent.target.id;
-        if (!modalId) return;
+        let modalId = bvEvent.target && bvEvent.target.id;
+
+        // sometimes the target isn't passed to the hidden event, fallback is the vueTarget
+        if (!modalId) {
+          modalId = bvEvent.vueTarget && bvEvent.vueTarget.id;
+        }
+
+        if (!modalId) {
+          return;
+        }
 
         const modalStack = this.$store.state.modalStack;
 
@@ -471,6 +524,7 @@ export default {
 
         // Get previous modal
         const modalBefore = modalOnTop ? modalOnTop.prev : undefined;
+
         if (modalBefore) this.$root.$emit('bv::show::modal', modalBefore, {fromRoot: true});
       });
     },
@@ -510,13 +564,6 @@ export default {
           eventAction: 'click',
           eventLabel: 'Gems > Wallet',
         });
-      }
-    },
-    resetItemToBuy ($event) {
-      // @TODO: Do we need this? I think selecting a new item
-      // overwrites. @negue might know
-      if (!$event && this.selectedItemToBuy.purchaseType !== 'card') {
-        this.selectedItemToBuy = null;
       }
     },
     itemSelected (item) {
@@ -602,4 +649,6 @@ export default {
 <style src="assets/css/sprites/spritesmith-main-19.css"></style>
 <style src="assets/css/sprites/spritesmith-main-20.css"></style>
 <style src="assets/css/sprites/spritesmith-main-21.css"></style>
+<style src="assets/css/sprites/spritesmith-main-22.css"></style>
 <style src="assets/css/sprites.css"></style>
+<style src="smartbanner.js/dist/smartbanner.min.css"></style>

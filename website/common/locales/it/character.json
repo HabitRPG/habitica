@@ -45,6 +45,8 @@
     "beard": "Barba",
     "mustache": "Baffi",
     "flower": "Fiore",
+    "accent": "Accento",
+    "headband": "Fascia per Capelli",
     "wheelchair": "Sedia a rotelle",
     "extra": "Extra",
     "basicSkins": "Skin base",
@@ -201,7 +203,6 @@
     "showQuickAllocation": "Mostra allocazione delle Statistiche",
     "hideQuickAllocation": "Nascondi allocazione delle Statistiche",
     "quickAllocationLevelPopover": "Ogni volta che sali di livello ottieni un punto da assegnare ad una Statistica a tua scelta. Puoi farlo manualmente, o lasciare che se ne occupi il gioco selezionando una delle opzioni di allocazione automatica che trovi in (icona utente) > Statistiche.",
-    "invalidAttribute": "\"<%= attr %>\" non è una Statistica valida.",
     "notEnoughAttrPoints": "Non hai abbastanza Punti Statistica.",
     "style": "Stile",
     "facialhair": "Barba e baffi",
@@ -218,7 +219,6 @@
     "bodyAccess": "Access. busto",
     "mainHand": "Mano principale",
     "offHand": "Mano secondaria",
-    "pointsAvailable": "Punti disponibili",
-    "pts": "punti",
-    "statsObjectRequired": "È necessario un aggiornamento delle statistiche"
+    "statPoints": "Punti Statistiche",
+    "pts": "punti"
 }

@@ -8,7 +8,7 @@ import i18n from '../../../website/common/script/i18n';
 import {
   generateUser,
 } from '../../helpers/common.helper';
-import apiMessages from '../../../website/server/libs/apiMessages';
+import errorMessage from '../../../website/common/script/libs/errorMessage';
 
 describe('shared.ops.hatch', () => {
   let user;
@@ -25,7 +25,7 @@ describe('shared.ops.hatch', () => {
           hatch(user);
         } catch (err) {
           expect(err).to.be.an.instanceof(BadRequest);
-          expect(err.message).to.equal(apiMessages('missingEggHatchingPotion'));
+          expect(err.message).to.equal(errorMessage('missingEggHatchingPotion'));
           expect(user.items.pets).to.be.empty;
         }
       });

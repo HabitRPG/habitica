@@ -122,7 +122,8 @@
     "error": "Erro",
     "menu": "Menu",
     "notifications": "Notificações",
-    "noNotifications": "Você não possui novas mensagens.",
+    "noNotifications": "Você está com tudo em dia!",
+    "noNotificationsText": "As fadas da notificação lhe deram uma rodada de aplausos barulhentos! Muito bem!",
     "clear": "Limpar",
     "endTour": "Finalizar Tutorial",
     "audioTheme": "Tema de Áudio",
@@ -167,7 +168,7 @@
     "achievementBurnoutText": "Ajudou a derrotar o Desgaste e recuperar os Espíritos Exaustos durante o Evento Festival de Outono de 2015!",
     "achievementBewilder": "Salvador de Borbópolis",
     "achievementBewilderText": "Ajudou a derrotar o Ilusion-lista durante o Festival de Primavera de 2016!",
-    "achievementDysheartener": "Redentor de O Despedaçado",
+    "achievementDysheartener": "Redentor de O Descouraçado.",
     "achievementDysheartenerText": "Ajudou a derrotar o Descoraçador durante o Dia dos Namorados de 2018!",
     "checkOutProgress": "Veja o meu progresso no Habitica!",
     "cards": "Cartões",
@@ -287,5 +288,5 @@
     "selected": "Selecionado",
     "howManyToBuy": "Qual quantidade gostaria de comprar?",
     "habiticaHasUpdated": "Há uma nova atualização no Habitica. Recarregue a página para obter a versão mais recente!",
-    "contactForm": "Contate a Equipe de Moderação"
+    "contactForm": "Contate os Moderadores"
 }

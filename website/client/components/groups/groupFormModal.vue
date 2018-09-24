@@ -15,7 +15,7 @@
           #groupPrivateDescription1.icon(:title="$t('privateDescription')")
             .svg-icon(v-html='icons.information')
           b-tooltip(
-            :title="$t('privateDescription')",
+            :title="$t('onlyLeaderCreatesChallengesDetail')",
             target="groupPrivateDescription1",
           )
 
@@ -331,6 +331,8 @@ export default {
 
       this.workingGroup.onlyLeaderCreatesChallenges = editingGroup.leaderOnly.challenges;
 
+      this.workingGroup.leader = editingGroup.leader;
+
       if (editingGroup._id) this.getMembers();
     },
   },
@@ -363,13 +365,6 @@ export default {
         alert(this.$t('notEnoughGems'));
         return;
         // @TODO return $rootScope.openModal('buyGems', {track:"Gems > Gems > Create Group"});
-        // @TODO when modal is implemented, enable analytics
-        /* Analytics.track({
-          hitType: 'event',
-          eventCategory: 'button',
-          eventAction: 'click',
-          eventLabel: 'Health Warning',
-        }); */
       }
 
       let errors = [];

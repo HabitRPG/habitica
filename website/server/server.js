@@ -3,13 +3,16 @@ import logger from './libs/logger';
 import express from 'express';
 import http from 'http';
 
-// @TODO: May need to remove - testing
-import memwatch from 'memwatch-next';
-
-memwatch.on('leak', (info) => {
-  const message = 'Memory leak detected.';
-  logger.error(message, info);
-});
+try {
+  // @TODO: May need to remove - testing
+  const memwatch = require('memwatch-next'); // eslint-disable-line global-require
+  memwatch.on('leak', (info) => {
+    const message = 'Memory leak detected.';
+    logger.error(message, info);
+  });
+} catch (err) {
+  logger.info('"memwatch-next" couldn\'t be loaded.');
+}
 
 const server = http.createServer();
 const app = express();
@@ -17,7 +20,7 @@ const app = express();
 app.set('port', nconf.get('PORT'));
 
 // Setup translations
-// Must come before attach middlwares so Mongoose validations can use translations
+// Must come before attach middlewares so Mongoose validations can use translations
 import './libs/i18n';
 
 import attachMiddlewares from './middlewares/index';

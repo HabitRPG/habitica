@@ -6,10 +6,9 @@
     :withPin="true",
     @change="resetItemToBuy($event)"
     v-if='type === "reward"')
-  .d-flex
-    h2.tasks-column-title
-      | {{ $t(typeLabel) }}
-      .badge.badge-pill.badge-purple.column-badge(v-if="badgeCount > 0") {{ badgeCount }}
+  .d-flex.align-items-center
+    h2.column-title {{ $t(typeLabel) }}
+    .badge.badge-pill.badge-purple.column-badge.mx-1(v-if="badgeCount > 0") {{ badgeCount }}
     .filters.d-flex.justify-content-end
       .filter.small-text(
         v-for="filter in typeFilters",
@@ -25,7 +24,7 @@
       @focus="quickAddFocused = true", @blur="quickAddFocused = false",
     )
     transition(name="quick-add-tip-slide")
-      .quick-add-tip.small-text(v-show="quickAddFocused", v-html="$t('addMultipleTip')")
+      .quick-add-tip.small-text(v-show="quickAddFocused", v-html="$t('addMultipleTip', {taskType: $t(typeLabel)})")
     clear-completed-todos(v-if="activeFilter.label === 'complete2' && isUser === true")
     .column-background(
       v-if="isUser === true",
@@ -38,7 +37,7 @@
     draggable.sortable-tasks(
       ref="tasksList",
       @update='taskSorted',
-      :options='{disabled: activeFilter.label === "scheduled"}',
+      :options='{disabled: activeFilter.label === "scheduled", scrollSensitivity: 64}',
       class="sortable-tasks"
     )
       task(
@@ -80,6 +79,10 @@
 
   .tasks-column {
     min-height: 556px;
+  }
+
+  .sortable-tasks {
+    word-break: break-word;
   }
 
   .sortable-tasks + .reward-items {
@@ -160,21 +163,22 @@
 
   .quick-add-tip-slide-enter, .quick-add-tip-slide-leave-to {
     max-height: 0;
-    padding: 0px 16px;
+    padding: 0 16px;
   }
 
-  .tasks-column-title {
-    margin-bottom: 8px;
-    position: relative;
+  .column-title {
+    margin-bottom: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .column-badge {
-    top: -5px;
-    right: -24px;
+    position: static;
   }
 
   .filters {
-    flex-grow: 1;
+    margin-left: auto;
   }
 
   .filter {
@@ -183,6 +187,7 @@
     font-style: normal;
     padding: 8px;
     cursor: pointer;
+    white-space: nowrap;
 
     &:hover {
       color: $purple-200;
@@ -357,7 +362,7 @@ export default {
           type: this.type,
           filterType: this.activeFilter.label,
         }) :
-        this.taskListOverride;
+        this.filterByLabel(this.taskListOverride, this.activeFilter.label);
 
       let taggedList = this.filterByTagList(filteredTaskList, this.selectedTags);
       let searchedList = this.filterBySearchText(taggedList, this.searchText);
@@ -369,7 +374,7 @@ export default {
       let rewards = inAppRewards(this.user);
 
       // Add season rewards if user is affected
-      // @TODO: Add buff coniditional
+      // @TODO: Add buff conditional
       const seasonalSkills = {
         snowball: 'salt',
         spookySparkles: 'opaquePotion',
@@ -444,9 +449,9 @@ export default {
     });
 
     if (this.type !== 'todo') return;
-    this.$root.$on('habitica::resync-requested', () => {
-      if (this.activeFilters.todo.label !== 'complete2') return;
-      this.loadCompletedTodos(true);
+    this.$root.$on('habitica::resync-completed', () => {
+      if (this.activeFilter.label !== 'complete2') return;
+      this.loadCompletedTodos();
     });
   },
   destroyed () {
@@ -543,6 +548,7 @@ export default {
       this.quickAddText = '';
       this.quickAddRows = 1;
       this.createTask(tasks);
+      this.$refs.quickAdd.blur();
     },
     editTask (task) {
       this.$emit('editTask', task);
@@ -550,7 +556,11 @@ export default {
     activateFilter (type, filter = '') {
       // Needs a separate API call as this data may not reside in store
       if (type === 'todo' && filter === 'complete2') {
-        this.loadCompletedTodos();
+        if (this.group && this.group._id) {
+          this.$emit('loadGroupCompletedTodos');
+        } else {
+          this.loadCompletedTodos();
+        }
       }
 
       // the only time activateFilter is called with filter==='' is when the component is first created
@@ -588,9 +598,18 @@ export default {
         }
       });
     },
+    filterByLabel (taskList, filter) {
+      if (!taskList) return [];
+      return taskList.filter(task => {
+        if (filter === 'complete2') return task.completed;
+        if (filter === 'due') return task.isDue;
+        if (filter === 'notDue') return !task.isDue;
+        return !task.completed;
+      });
+    },
     filterByTagList (taskList, tagList = []) {
       let filteredTaskList = taskList;
-      // fitler requested tasks by tags
+      // filter requested tasks by tags
       if (!isEmpty(tagList)) {
         filteredTaskList = taskList.filter(
           task => tagList.every(tag => task.tags.indexOf(tag) !== -1)

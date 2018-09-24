@@ -35,14 +35,6 @@ export function getUserInfo (user, fields = []) {
 
   if (fields.indexOf('name') !== -1) {
     info.name = user.profile && user.profile.name;
-
-    if (!info.name) {
-      if (user.auth.local && user.auth.local.username) {
-        info.name = user.auth.local.username;
-      } else if (user.auth.facebook) {
-        info.name = user.auth.facebook.displayName || user.auth.facebook.username;
-      }
-    }
   }
 
   if (fields.indexOf('email') !== -1) {

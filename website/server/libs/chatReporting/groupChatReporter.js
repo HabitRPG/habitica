@@ -1,5 +1,5 @@
-import find from 'lodash/find';
 import nconf from 'nconf';
+import moment from 'moment';
 
 import ChatReporter from './chatReporter';
 import {
@@ -9,12 +9,14 @@ import {
 import { getGroupUrl, sendTxn } from '../email';
 import slack from '../slack';
 import { model as Group } from '../../models/group';
-import apiMessages from '../apiMessages';
+import { chatModel as Chat } from '../../models/message';
+import apiError from '../apiError';
 
 const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
   return { email, canSend: true };
 });
+const USER_AGE_FOR_FLAGGING = 3; // accounts less than this many days old don't increment flagCount
 
 export default class GroupChatReporter extends ChatReporter {
   constructor (req, res) {
@@ -25,7 +27,7 @@ export default class GroupChatReporter extends ChatReporter {
   }
 
   async validate () {
-    this.req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty();
+    this.req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
     this.req.checkParams('chatId', this.res.t('chatIdRequired')).notEmpty();
 
     let validationErrors = this.req.validationErrors();
@@ -38,7 +40,7 @@ export default class GroupChatReporter extends ChatReporter {
     });
     if (!group) throw new NotFound(this.res.t('groupNotFound'));
 
-    let message = find(group.chat, {id: this.req.params.chatId});
+    const message = await Chat.findOne({_id: this.req.params.chatId}).exec();
     if (!message) throw new NotFound(this.res.t('messageGroupChatNotFound'));
     if (message.uuid === 'system') throw new BadRequest(this.res.t('messageCannotFlagSystemMessages', {communityManagerEmail: COMMUNITY_MANAGER_EMAIL}));
 
@@ -47,7 +49,7 @@ export default class GroupChatReporter extends ChatReporter {
     return {message, group, userComment};
   }
 
-  async notify (group, message, userComment) {
+  async notify (group, message, userComment, automatedComment = '') {
     await super.notify(group, message);
 
     const groupUrl = getGroupUrl(group);
@@ -65,38 +67,43 @@ export default class GroupChatReporter extends ChatReporter {
       group,
       message,
       userComment,
+      automatedComment,
     });
   }
 
-  async flagGroupMessage (group, message) {
-    let update = {$set: {}};
+  async flagGroupMessage (group, message, increaseFlagCount) {
     // Log user ids that have flagged the message
     if (!message.flags) message.flags = {};
     // TODO fix error type
     if (message.flags[this.user._id] && !this.user.contributor.admin) throw new NotFound(this.res.t('messageGroupChatFlagAlreadyReported'));
     message.flags[this.user._id] = true;
-    update.$set[`chat.$.flags.${this.user._id}`] = true;
+    message.markModified('flags');
 
     // Log total number of flags (publicly viewable)
     if (!message.flagCount) message.flagCount = 0;
     if (this.user.contributor.admin) {
       // Arbitrary amount, higher than 2
       message.flagCount = 5;
-    } else {
+    } else if (increaseFlagCount) {
       message.flagCount++;
     }
-    update.$set['chat.$.flagCount'] = message.flagCount;
 
-    await Group.update(
-      {_id: group._id, 'chat.id': message.id},
-      update
-    ).exec();
+    await message.save();
   }
 
   async flag () {
     let {message, group, userComment} = await this.validate();
-    await this.flagGroupMessage(group, message);
-    await this.notify(group, message, userComment);
+
+    let increaseFlagCount = true;
+    let automatedComment = '';
+    if (moment().diff(this.user.auth.timestamps.created, 'days') < USER_AGE_FOR_FLAGGING) {
+      increaseFlagCount = false;
+      automatedComment = `The post's flag count has not been increased because the flagger's account is less than ${USER_AGE_FOR_FLAGGING} days old.`;
+      // This is to prevent trolls from making new accounts to maliciously flag-and-hide.
+    }
+
+    await this.notify(group, message, userComment, automatedComment);
+    await this.flagGroupMessage(group, message, increaseFlagCount);
     return message;
   }
 }

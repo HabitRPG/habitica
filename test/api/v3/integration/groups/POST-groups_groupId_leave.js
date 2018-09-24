@@ -5,7 +5,7 @@ import {
   sleep,
   generateUser,
   translate as t,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 import { v4 as generateUUID } from 'uuid';
 import {
   each,
@@ -93,6 +93,7 @@ describe('POST /groups/:groupId/leave', () => {
 
         beforeEach(async () => {
           challenge = await generateChallenge(leader, groupToLeave);
+          await leader.post(`/challenges/${challenge._id}/join`);
 
           await leader.post(`/tasks/challenge/${challenge._id}`, {
             text: 'test habit',

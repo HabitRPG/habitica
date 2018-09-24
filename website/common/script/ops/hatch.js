@@ -6,14 +6,14 @@ import {
   NotAuthorized,
   NotFound,
 } from '../libs/errors';
-import apiMessages from '../../../server/libs/apiMessages';
+import errorMessage from '../libs/errorMessage';
 
 module.exports = function hatch (user, req = {}) {
   let egg = get(req, 'params.egg');
   let hatchingPotion = get(req, 'params.hatchingPotion');
 
   if (!(egg && hatchingPotion)) {
-    throw new BadRequest(apiMessages('missingEggHatchingPotion'));
+    throw new BadRequest(errorMessage('missingEggHatchingPotion'));
   }
 
   if (!(user.items.eggs[egg] > 0 && user.items.hatchingPotions[hatchingPotion] > 0)) {

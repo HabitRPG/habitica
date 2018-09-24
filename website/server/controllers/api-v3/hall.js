@@ -5,7 +5,7 @@ import {
   NotFound,
 } from '../../libs/errors';
 import _ from 'lodash';
-import apiMessages from '../../libs/apiMessages';
+import apiError from '../../libs/apiError';
 
 let api = {};
 
@@ -63,7 +63,7 @@ api.getPatrons = {
   url: '/hall/patrons',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkQuery('page').optional().isInt({min: 0}, apiMessages('queryPageInteger'));
+    req.checkQuery('page').optional().isInt({min: 0}, apiError('queryPageInteger'));
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -269,6 +269,7 @@ api.updateHero = {
     if (updateData.auth && updateData.auth.blocked === false) {
       hero.auth.blocked = false;
     }
+
     if (updateData.flags && _.isBoolean(updateData.flags.chatRevoked)) hero.flags.chatRevoked = updateData.flags.chatRevoked;
 
     let savedHero = await hero.save();

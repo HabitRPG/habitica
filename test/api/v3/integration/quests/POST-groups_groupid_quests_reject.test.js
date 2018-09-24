@@ -3,8 +3,9 @@ import {
   translate as t,
   generateUser,
   sleep,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 import { v4 as generateUUID } from 'uuid';
+import { chatModel as Chat } from '../../../../../website/server/models/message';
 
 describe('POST /groups/:groupId/quests/reject', () => {
   let questingGroup;
@@ -185,11 +186,12 @@ describe('POST /groups/:groupId/quests/reject', () => {
       await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
       await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
       await partyMembers[1].post(`/groups/${questingGroup._id}/quests/reject`);
-      await questingGroup.sync();
 
-      expect(questingGroup.chat[0].text).to.exist;
-      expect(questingGroup.chat[0]._meta).to.exist;
-      expect(questingGroup.chat[0]._meta).to.have.all.keys(['participatingMembers']);
+      const groupChat = await Chat.find({ groupId: questingGroup._id }).exec();
+
+      expect(groupChat[0].text).to.exist;
+      expect(groupChat[0]._meta).to.exist;
+      expect(groupChat[0]._meta).to.have.all.keys(['participatingMembers']);
 
       let returnedGroup = await leader.get(`/groups/${questingGroup._id}`);
       expect(returnedGroup.chat[0]._meta).to.be.undefined;

@@ -1,8 +1,9 @@
 {
-  "share": "Share",
-  "onwards": "Onwards!",
-  "levelup": "By accomplishing your real life goals, you leveled up and are now fully healed!",
-  "reachedLevel": "You Reached Level <%= level %>",
+  "achievement": "הישג",
+  "share": "שתף",
+  "onwards": "הלאה!",
+  "levelup": "על ידי ביצוע משימות מחייך האמיתיים, עלית רמה והחיים שלך עכשיו מלאים.",
+  "reachedLevel": "הגעת לשלב <%= level %>",
   "achievementLostMasterclasser": "Quest Completionist: Masterclasser Series",
   "achievementLostMasterclasserText": "Completed all sixteen quests in the Masterclasser Quest Series and solved the mystery of the Lost Masterclasser!"
 }

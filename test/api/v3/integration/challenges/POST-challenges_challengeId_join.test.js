@@ -3,7 +3,7 @@ import {
   generateChallenge,
   createAndPopulateGroup,
   translate as t,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 import { v4 as generateUUID } from 'uuid';
 
 describe('POST /challenges/:challengeId/join', () => {
@@ -43,9 +43,10 @@ describe('POST /challenges/:challengeId/join', () => {
       authorizedUser = populatedGroup.members[0];
 
       challenge = await generateChallenge(groupLeader, group);
+      await groupLeader.post(`/challenges/${challenge._id}/join`);
     });
 
-    it('returns an error when user doesn\'t have permissions to access the challenge', async () => {
+    it('returns an error when user isn\'t in the private group and isn\'t challenge leader', async () => {
       let unauthorizedUser = await generateUser();
 
       await expect(unauthorizedUser.post(`/challenges/${challenge._id}/join`)).to.eventually.be.rejected.and.eql({
@@ -53,6 +54,16 @@ describe('POST /challenges/:challengeId/join', () => {
         error: 'NotFound',
         message: t('challengeNotFound'),
       });
+    });
+
+    it('succeeds when user isn\'t in the private group but is challenge leader', async () => {
+      await groupLeader.post(`/challenges/${challenge._id}/leave`);
+      await groupLeader.post(`/groups/${group._id}/leave`);
+      await groupLeader.sync();
+      expect(groupLeader.guilds).to.be.empty; // check that leaving worked
+
+      let res = await groupLeader.post(`/challenges/${challenge._id}/join`);
+      expect(res.name).to.equal(challenge.name);
     });
 
     it('returns challenge data', async () => {
@@ -91,6 +102,7 @@ describe('POST /challenges/:challengeId/join', () => {
     });
 
     it('increases memberCount of challenge', async () => {
+      await challenge.sync();
       let oldMemberCount = challenge.memberCount;
 
       await authorizedUser.post(`/challenges/${challenge._id}/join`);

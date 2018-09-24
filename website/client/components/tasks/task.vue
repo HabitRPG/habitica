@@ -64,7 +64,7 @@
               type="checkbox",
               :checked="item.completed",
               @change="toggleChecklistItem(item)",
-              :disabled="castingSpell",
+              :disabled="castingSpell || !isUser",
               :id="`checklist-${item.id}`"
             )
             label.custom-control-label(v-markdown="item.text", :for="`checklist-${item.id}`")
@@ -81,7 +81,7 @@
                 span.m-0(v-if="task.up && task.down") &nbsp;|&nbsp;
                 span.m-0(v-if="task.down") -{{task.counterDown}}
             .d-flex.align-items-center(v-if="task.challenge && task.challenge.id")
-              .svg-icon.challenge(v-html="icons.challenge", v-if='!task.challenge.broken', v-b-tooltip.hover.bottom="`${task.challenge.shortName}`")
+              .svg-icon.challenge(v-html="icons.challenge", v-if='!task.challenge.broken', v-b-tooltip.hover.bottom="shortName")
               .svg-icon.challenge.broken(v-html="icons.brokenChallengeIcon", v-if='task.challenge.broken', @click='handleBrokenTask(task)', v-b-tooltip.hover.bottom="$t('brokenChaLink')")
             .d-flex.align-items-center(v-if="hasTags", :id="`tags-icon-${task._id}`")
               .svg-icon.tags(v-html="icons.tags")
@@ -143,6 +143,14 @@
 
     &.has-notes {
       padding-bottom: 4px;
+    }
+
+    /**
+    * Fix flex-wrapping for IE 11
+    * https://github.com/HabitRPG/habitica/issues/9754
+    */
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+      flex: 1;
     }
   }
 
@@ -274,7 +282,7 @@
     color: $gray-50;
     font-size: 14px;
     line-height: 1.43;
-    margin-bottom: 10px;
+    margin-bottom: -3px;
     min-height: 0px;
     width: 100%;
     margin-left: 8px;
@@ -622,10 +630,16 @@ export default {
         this.$t('today') :
         this.timeTillDue.humanize(true);
 
-      return this.$t('dueIn', { dueIn });
+      // this.task && is necessary to make sure the computed property updates correctly
+      return this.task && this.task.date && this.$t('dueIn', { dueIn });
     },
     hasTags () {
       return this.task.tags && this.task.tags.length > 0;
+    },
+    shortName () {
+      if (this.task.challenge.broken) return '';
+
+      return this.task.challenge.shortName ? this.task.challenge.shortName.toString() : '';
     },
   },
   methods: {
@@ -704,7 +718,7 @@ export default {
       if (task.group.approval.required) task.group.approval.requested = true;
 
       Analytics.updateUser();
-      const response = await axios.post(`/api/v3/tasks/${task._id}/score/${direction}`);
+      const response = await axios.post(`/api/v4/tasks/${task._id}/score/${direction}`);
       const tmp = response.data.data._tmp || {}; // used to notify drops, critical hits and other bonuses
       const crit = tmp.crit;
       const drop = tmp.drop;

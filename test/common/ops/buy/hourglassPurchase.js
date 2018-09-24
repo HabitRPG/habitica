@@ -8,7 +8,7 @@ import content from '../../../../website/common/script/content/index';
 import {
   generateUser,
 } from '../../../helpers/common.helper';
-import apiMessages from '../../../../website/server/libs/apiMessages';
+import errorMessage from '../../../../website/common/script/libs/errorMessage';
 
 describe('common.ops.hourglassPurchase', () => {
   let user;
@@ -29,7 +29,7 @@ describe('common.ops.hourglassPurchase', () => {
         hourglassPurchase(user, {params: {}});
       } catch (err) {
         expect(err).to.be.an.instanceof(BadRequest);
-        expect(err.message).to.eql(apiMessages('missingKeyParam'));
+        expect(err.message).to.eql(errorMessage('missingKeyParam'));
         done();
       }
     });
@@ -39,7 +39,7 @@ describe('common.ops.hourglassPurchase', () => {
         hourglassPurchase(user, {params: {key: 'Base'}});
       } catch (err) {
         expect(err).to.be.an.instanceof(BadRequest);
-        expect(err.message).to.eql(apiMessages('missingTypeParam'));
+        expect(err.message).to.eql(errorMessage('missingTypeParam'));
         done();
       }
     });

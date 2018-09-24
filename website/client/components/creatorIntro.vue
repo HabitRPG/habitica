@@ -164,31 +164,26 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             .bangs.sprite.customize-option(:class="`hair_bangs_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.bangs": option})')
       #facialhair.row(v-if='activeSubPage === "facialhair"')
         .col-12.customize-options(v-if='editing')
-          .head_0.option(@click='set({"preferences.hair.beard": 0})', :class="[{ active: user.preferences.hair.beard === 0 }, 'hair_base_0_' + user.preferences.hair.color]")
-          .option(v-for='option in baseHair5',
-            :class='{active: option.active, locked: option.locked}')
-            .base.sprite.customize-option(:class="`hair_beard_${option.key}_${user.preferences.hair.color}`", @click='option.click')
-            .gem-lock(v-if='option.locked')
-              .svg-icon.gem(v-html='icons.gem')
-              span 2
-          .col-12.text-center(v-if='!userOwnsSet("hair", baseHair5Keys, "beard")')
-            .gem-lock
-              .svg-icon.gem(v-html='icons.gem')
-              span 5
-            button.btn.btn-secondary.purchase-all(@click='unlock(`hair.beard.${baseHair5Keys.join(",hair.beard.")}`)') {{ $t('purchaseAll') }}
-        .col-12.customize-options(v-if='editing')
           .head_0.option(@click='set({"preferences.hair.mustache": 0})', :class="[{ active: user.preferences.hair.mustache === 0 }, 'hair_base_0_' + user.preferences.hair.color]")
-          .option(v-for='option in baseHair6',
+          .option(v-for='option in baseHair5',
             :class='{active: option.active, locked: option.locked}')
             .base.sprite.customize-option(:class="`hair_mustache_${option.key}_${user.preferences.hair.color}`", @click='option.click')
             .gem-lock(v-if='option.locked')
               .svg-icon.gem(v-html='icons.gem')
               span 2
-          .col-12.text-center(v-if='!userOwnsSet("hair", baseHair6Keys, "mustache")')
+        .col-12.customize-options(v-if='editing')
+          .head_0.option(@click='set({"preferences.hair.beard": 0})', :class="[{ active: user.preferences.hair.beard === 0 }, 'hair_base_0_' + user.preferences.hair.color]")
+          .option(v-for='option in baseHair6',
+            :class='{active: option.active, locked: option.locked}')
+            .base.sprite.customize-option(:class="`hair_beard_${option.key}_${user.preferences.hair.color}`", @click='option.click')
+            .gem-lock(v-if='option.locked')
+              .svg-icon.gem(v-html='icons.gem')
+              span 2
+          .col-12.text-center(v-if="isPurchaseAllNeeded('hair', ['baseHair5', 'baseHair6'], ['mustache', 'beard'])")
             .gem-lock
               .svg-icon.gem(v-html='icons.gem')
               span 5
-            button.btn.btn-secondary.purchase-all(@click='unlock(`hair.mustache.${baseHair6Keys.join(",hair.mustache.")}`)') {{ $t('purchaseAll') }}
+            button.btn.btn-secondary.purchase-all(@click='unlock(`hair.mustache.${baseHair5Keys.join(",hair.mustache.")},hair.beard.${baseHair6Keys.join(",hair.beard.")}`)') {{ $t('purchaseAll') }}
     #extra.section.container.customize-section(v-if='activeTopPage === "extra"')
       .row.sub-menu
         .col-3.offset-1.text-center.sub-menu-item(@click='changeSubPage("glasses")', :class='{active: activeSubPage === "glasses"}')
@@ -196,38 +191,65 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
         .col-4.text-center.sub-menu-item(@click='changeSubPage("wheelchair")', :class='{active: activeSubPage === "wheelchair"}')
           strong(v-once) {{$t('wheelchair')}}
         .col-3.text-center.sub-menu-item(@click='changeSubPage("flower")', :class='{active: activeSubPage === "flower"}')
-          strong(v-once) {{$t('flower')}}
+          strong(v-once) {{$t('accent')}}
       .row.sub-menu(v-if='editing')
-        .col-4.offset-4.text-center.sub-menu-item(@click='changeSubPage("ears")' :class='{active: activeSubPage === "ears"}')
+        .col-4.text-center.sub-menu-item(@click='changeSubPage("ears")' :class='{active: activeSubPage === "ears"}')
           strong(v-once) {{$t('animalEars')}}
-      .row(v-if='activeSubPage === "glasses"')
+        .col-4.text-center.sub-menu-item(@click='changeSubPage("tails")' :class='{active: activeSubPage === "tails"}')
+          strong(v-once) {{$t('animalTails')}}
+        .col-4.text-center.sub-menu-item(@click='changeSubPage("headband")' :class='{active: activeSubPage === "headband"}')
+          strong(v-once) {{$t('headband')}}
+      #glasses.row(v-if='activeSubPage === "glasses"')
         .col-12.customize-options
           .option(v-for='option in eyewear', :class='{active: option.active}')
             .sprite.customize-option(:class="`eyewear_special_${option.key}`", @click='option.click')
       #animal-ears.row(v-if='activeSubPage === "ears"')
         .section.col-12.customize-options
-          .option(v-for='option in animalEars',
+          .option(v-for='option in animalItems("headAccessory")',
             :class='{active: option.active, locked: option.locked}')
             .sprite.customize-option(:class="`headAccessory_special_${option.key}`", @click='option.click')
-            .gem-lock(v-if='option.locked')
+            .gem-lock(v-if='option.gemLocked')
               .svg-icon.gem(v-html='icons.gem')
               span 2
-          .col-12.text-center(v-if='!animalEarsOwned')
+            .gold-lock(v-if='option.goldLocked')
+              .svg-icon.gold(v-html='icons.gold')
+              span 20
+          .col-12.text-center(v-if='!animalItemsOwned("headAccessory")')
             .gem-lock
               .svg-icon.gem(v-html='icons.gem')
               span 5
-            button.btn.btn-secondary.purchase-all(@click='unlock(animalEarsUnlockString)') {{ $t('purchaseAll') }}
+            button.btn.btn-secondary.purchase-all(@click='unlock(animalItemsUnlockString("headAccessory"))') {{ $t('purchaseAll') }}
+      #animal-tails.row(v-if='activeSubPage === "tails"')
+        .section.col-12.customize-options
+          .option(v-for='option in animalItems("back")',
+            :class='{active: option.active, locked: option.locked}')
+            .sprite.customize-option(:class="`icon_back_special_${option.key}`", @click='option.click')
+            .gem-lock(v-if='option.gemLocked')
+              .svg-icon.gem(v-html='icons.gem')
+              span 2
+            .gold-lock(v-if='option.goldLocked')
+              .svg-icon.gold(v-html='icons.gold')
+              span 20
+          .col-12.text-center(v-if='!animalItemsOwned("back")')
+            .gem-lock
+              .svg-icon.gem(v-html='icons.gem')
+              span 5
+            button.btn.btn-secondary.purchase-all(@click='unlock(animalItemsUnlockString("back"))') {{ $t('purchaseAll') }}
+      #headband.row(v-if='activeSubPage === "headband"')
+        .col-12.customize-options
+          .option(v-for='option in headbands', :class='{active: option.active}')
+            .sprite.customize-option(:class="`headAccessory_special_${option.key}`", @click='option.click')
       #wheelchairs.row(v-if='activeSubPage === "wheelchair"')
         .col-12.customize-options
           .option(@click='set({"preferences.chair": "none"})', :class='{active: user.preferences.chair === "none"}')
             | None
-          .option(v-for='option in ["black", "blue", "green", "pink", "red", "yellow"]',
+          .option(v-for='option in chairKeys',
             :class='{active: user.preferences.chair === option}')
             .chair.sprite.customize-option(:class="`button_chair_${option}`", @click='set({"preferences.chair": option})')
       #flowers.row(v-if='activeSubPage === "flower"')
         .col-12.customize-options
           .head_0.option(@click='set({"preferences.hair.flower":0})', :class='{active: user.preferences.hair.flower === 0}')
-          .option(v-for='option in [1, 2, 3, 4, 5, 6]',
+          .option(v-for='option in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]',
             :class='{active: user.preferences.hair.flower === option}')
             .sprite.customize-option(:class="`hair_flower_${option}`", @click='set({"preferences.hair.flower": option})')
       .row(v-if='activeSubPage === "flower"')
@@ -569,20 +591,21 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     }
   }
 
-  .text-center .gem-lock {
-    display: inline-block;
-    margin-right: 1em;
-    margin-bottom: 1.6em;
-    vertical-align: bottom;
+  .text-center {
+    .gem-lock, .gold-lock {
+      display: inline-block;
+      margin-right: 1em;
+      margin-bottom: 1.6em;
+      vertical-align: bottom;
+    }
   }
 
-  .gem-lock {
+  .gem-lock, .gold-lock {
     .svg-icon {
       width: 16px;
     }
 
     span {
-      color: #24cc8f;
       font-weight: bold;
       margin-left: .5em;
     }
@@ -591,6 +614,14 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       display: inline-block;
       vertical-align: bottom;
     }
+  }
+
+  .gem-lock span {
+    color: $green-10
+  }
+
+  .gold-lock span {
+    color: $yellow-10
   }
 
   .option.active {
@@ -709,7 +740,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
         color: #24cc8f;
       }
 
-      .gem {
+      .gem, .coin {
         width: 16px;
       }
 
@@ -724,13 +755,13 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
           font-size: 14px;
         }
 
-        .gem {
+        .gem, .coin {
           width: 20px;
         }
       }
     }
 
-    .gem {
+    .gem, .coin {
       margin: 0 .5em;
       display: inline-block;
       vertical-align: bottom;
@@ -836,6 +867,7 @@ import { mapState } from 'client/libs/store';
 import avatar from './avatar';
 import { getBackgroundShopSets } from '../../common/script/libs/shops';
 import unlock from '../../common/script/ops/unlock';
+import buy from '../../common/script/ops/buy/buy';
 import guide from 'client/mixins/guide';
 import notifications from 'client/mixins/notifications';
 import appearance from 'common/script/content/appearance';
@@ -849,13 +881,14 @@ import skinIcon from 'assets/svg/skin.svg';
 import hairIcon from 'assets/svg/hair.svg';
 import backgroundsIcon from 'assets/svg/backgrounds.svg';
 import gem from 'assets/svg/gem.svg';
+import gold from 'assets/svg/gold.svg';
 import pin from 'assets/svg/pin.svg';
 import isPinned from 'common/script/libs/isPinned';
 
 const skinsBySet = groupBy(appearance.skin, 'set.key');
 const hairColorBySet = groupBy(appearance.hair.color, 'set.key');
 
-let tasksByCategory = {
+const tasksByCategory = {
   work: [
     {
       type: 'habit',
@@ -1010,9 +1043,13 @@ export default {
       baseHair2Keys: [2, 4, 5, 6, 7, 8],
       baseHair3Keys: [9, 10, 11, 12, 13, 14],
       baseHair4Keys: [15, 16, 17, 18, 19, 20],
-      baseHair5Keys: [1, 2, 3],
-      baseHair6Keys: [1, 2],
-      animalEarsKeys: ['bearEars', 'cactusEars', 'foxEars', 'lionEars', 'pandaEars', 'pigEars', 'tigerEars', 'wolfEars'],
+      baseHair5Keys: [1, 2],
+      baseHair6Keys: [1, 2, 3],
+      animalItemKeys: {
+        back: ['bearTail', 'cactusTail', 'foxTail', 'lionTail', 'pandaTail', 'pigTail', 'tigerTail', 'wolfTail'],
+        headAccessory: ['bearEars', 'cactusEars', 'foxEars', 'lionEars', 'pandaEars', 'pigEars', 'tigerEars', 'wolfEars'],
+      },
+      chairKeys: ['black', 'blue', 'green', 'pink', 'red', 'yellow', 'handleless_black', 'handleless_blue', 'handleless_green', 'handleless_pink', 'handleless_red', 'handleless_yellow'],
       icons: Object.freeze({
         logoPurple,
         bodyIcon,
@@ -1022,6 +1059,7 @@ export default {
         backgroundsIcon,
         gem,
         pin,
+        gold,
       }),
       modalPage: 1,
       activeTopPage: 'body',
@@ -1043,6 +1081,21 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    headbands () {
+      let keys = ['blackHeadband', 'blueHeadband', 'greenHeadband', 'pinkHeadband', 'redHeadband', 'whiteHeadband', 'yellowHeadband'];
+      let options = keys.map(key => {
+        let newKey = `headAccessory_special_${key}`;
+        let option = {};
+        option.key = key;
+        option.active = this.user.preferences.costume ? this.user.items.gear.costume.headAccessory === newKey : this.user.items.gear.equipped.headAccessory === newKey;
+        option.click = () => {
+          let type = this.user.preferences.costume ? 'costume' : 'equipped';
+          return this.equip(newKey, type);
+        };
+        return option;
+      });
+      return options;
+    },
     eyewear () {
       let keys = ['blackTopFrame', 'blueTopFrame', 'greenTopFrame', 'pinkTopFrame', 'redTopFrame', 'whiteTopFrame', 'yellowTopFrame'];
       let options = keys.map(key => {
@@ -1053,44 +1106,6 @@ export default {
         option.click = () => {
           let type = this.user.preferences.costume ? 'costume' : 'equipped';
           return this.equip(newKey, type);
-        };
-        return option;
-      });
-      return options;
-    },
-    animalEarsUnlockString () {
-      let animalItemKeys = this.animalEarsKeys.map(key => {
-        return `items.gear.owned.headAccessory_special_${key}`;
-      });
-
-      return animalItemKeys.join(',');
-    },
-    animalEarsOwned () {
-      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
-      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
-
-      let own = true;
-      this.animalEarsKeys.forEach(key => {
-        if (!this.user.items.gear.owned[`headAccessory_special_${key}`]) own = false;
-      });
-      return own;
-    },
-    animalEars () {
-      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
-      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
-      let keys = this.animalEarsKeys;
-      let options = keys.map(key => {
-        let newKey = `headAccessory_special_${key}`;
-        let userPurchased = this.user.items.gear.owned[newKey];
-        let locked = !userPurchased;
-
-        let option = {};
-        option.key = key;
-        option.active = this.user.preferences.costume ? this.user.items.gear.costume.headAccessory === newKey : this.user.items.gear.equipped.headAccessory === newKey;
-        option.locked = locked;
-        option.click = () => {
-          let type = this.user.preferences.costume ? 'costume' : 'equipped';
-          return locked ? this.unlock(`items.gear.owned.${newKey}`) : this.equip(newKey, type);
         };
         return option;
       });
@@ -1228,7 +1243,7 @@ export default {
       let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
       let keys = this.baseHair5Keys;
       let options = keys.map(key => {
-        return this.mapKeysToOption(key, 'hair', 'beard');
+        return this.mapKeysToOption(key, 'hair', 'mustache');
       });
       return options;
     },
@@ -1237,7 +1252,7 @@ export default {
       let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
       let keys = this.baseHair6Keys;
       let options = keys.map(key => {
-        return this.mapKeysToOption(key, 'hair', 'mustache');
+        return this.mapKeysToOption(key, 'hair', 'beard');
       });
       return options;
     },
@@ -1335,6 +1350,68 @@ export default {
 
       return owns;
     },
+    /**
+      * Allows you to find out whether you need the "Purchase All" button or not. If there are more than 2 unpurchased items, returns true, otherwise returns false.
+      * @param {string} category - The selected category.
+      * @param {string[]} keySets - The items keySets.
+      * @param {string[]} [types] - The items types (subcategories). Optional.
+      * @returns {boolean} - Determines whether the "Purchase All" button is needed (true) or not (false).
+    */
+    isPurchaseAllNeeded (category, keySets, types) {
+      const purchasedItemsLengths = [];
+      // If item types are specified, count them
+      if (types && types.length > 0) {
+        // Types can be undefined, so we must check them.
+        types.forEach((type) => {
+          if (this.user.purchased[category][type]) {
+            purchasedItemsLengths
+              .push(Object.keys(this.user.purchased[category][type]).length);
+          }
+        });
+      } else {
+        let purchasedItemsCounter = 0;
+
+        // If types are not specified, recursively
+        // search for purchased items in the category
+        const findPurchasedItems = (item) => {
+          if (typeof item === 'object') {
+            Object.values(item)
+              .forEach((innerItem) => {
+                if (typeof innerItem === 'boolean' && innerItem === true) {
+                  purchasedItemsCounter += 1;
+                }
+                return findPurchasedItems(innerItem);
+              });
+          }
+          return purchasedItemsCounter;
+        };
+
+        findPurchasedItems(this.user.purchased[category]);
+        if (purchasedItemsCounter > 0) {
+          purchasedItemsLengths.push(purchasedItemsCounter);
+        }
+      }
+
+      // We don't need to count the key sets (below)
+      // if there are no purchased items at all.
+      if (purchasedItemsLengths.length === 0) {
+        return true;
+      }
+
+      const allItemsLengths = [];
+      // Key sets must be specify correctly.
+      keySets.forEach((keySet) => {
+        allItemsLengths.push(Object.keys(this[keySet]).length);
+      });
+
+      // Simply sum all the length values and
+      // write them into variables for the convenience.
+      const allItems = allItemsLengths.reduce((acc, val) => acc + val);
+      const purchasedItems = purchasedItemsLengths.reduce((acc, val) => acc + val);
+
+      const unpurchasedItems = allItems - purchasedItems;
+      return unpurchasedItems > 2;
+    },
     prev () {
       this.modalPage -= 1;
     },
@@ -1363,7 +1440,7 @@ export default {
       });
 
       // @TODO: Move to the action
-      let response = await axios.post('/api/v3/tasks/user', tasksToCreate);
+      let response = await axios.post('/api/v4/tasks/user', tasksToCreate);
       let tasks = response.data.data;
       tasks.forEach(task => {
         this.$store.state.user.data.tasksOrder[`${task.type}s`].unshift(task._id);
@@ -1434,12 +1511,30 @@ export default {
         }
       }
 
-      await axios.post(`/api/v3/user/unlock?path=${path}`);
+      await axios.post(`/api/v4/user/unlock?path=${path}`);
       try {
         unlock(this.user, {
           query: {
             path,
           },
+        });
+        this.backgroundUpdate = new Date();
+      } catch (e) {
+        alert(e.message);
+      }
+    },
+    async buy (item) {
+      const options = {
+        currency: 'gold',
+        key: item,
+        type: 'marketGear',
+        quantity: 1,
+        pinType: 'marketGear',
+      };
+      await axios.post(`/api/v4/user/buy/${item}`, options);
+      try {
+        buy(this.user, {
+          params: options,
         });
         this.backgroundUpdate = new Date();
       } catch (e) {
@@ -1470,6 +1565,51 @@ export default {
     },
     backgroundPurchased () {
       this.backgroundUpdate = new Date();
+    },
+    animalItemsUnlockString (category) {
+      const keys = this.animalItemKeys[category].map(key => {
+        return `items.gear.owned.${category}_special_${key}`;
+      });
+
+      return keys.join(',');
+    },
+    animalItemsOwned (category) {
+      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
+      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+
+      let own = true;
+      this.animalItemKeys[category].forEach(key => {
+        if (this.user.items.gear.owned[`${category}_special_${key}`] === undefined) own = false;
+      });
+      return own;
+    },
+    animalItems (category) {
+      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
+      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+      let keys = this.animalItemKeys[category];
+      let options = keys.map(key => {
+        let newKey = `${category}_special_${key}`;
+        let userPurchased = this.user.items.gear.owned[newKey];
+
+        let option = {};
+        option.key = key;
+        option.active = this.user.preferences.costume ? this.user.items.gear.costume[category] === newKey : this.user.items.gear.equipped[category] === newKey;
+        option.gemLocked = userPurchased === undefined;
+        option.goldLocked = userPurchased === false;
+        option.locked = option.gemLocked || option.goldLocked;
+        option.click = () => {
+          if (option.gemLocked) {
+            return this.unlock(`items.gear.owned.${newKey}`);
+          } else if (option.goldLocked) {
+            return this.buy(newKey);
+          } else {
+            let type = this.user.preferences.costume ? 'costume' : 'equipped';
+            return this.equip(newKey, type);
+          }
+        };
+        return option;
+      });
+      return options;
     },
   },
 };

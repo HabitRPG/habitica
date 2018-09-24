@@ -1,7 +1,7 @@
 import {
   generateUser,
 } from '../../../../../helpers/api-integration/v3';
-import apiMessages from '../../../../../../website/server/libs/apiMessages';
+import apiError from '../../../../../../website/server/libs/apiError';
 import paypalPayments from '../../../../../../website/server/libs/payments/paypal';
 
 describe('payments : paypal #subscribeSuccess', () => {
@@ -16,7 +16,7 @@ describe('payments : paypal #subscribeSuccess', () => {
     await expect(user.get(endpoint)).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
-      message: apiMessages('missingPaypalBlock'),
+      message: apiError('missingPaypalBlock'),
     });
   });
 

@@ -252,7 +252,7 @@ let schema = new Schema({
     gear: {
       owned: _.transform(shared.content.gear.flat, (m, v) => {
         m[v.key] = {type: Boolean};
-        if (v.key.match(/(armor|head|shield)_warrior_0/) || v.gearSet === 'glasses') {
+        if (v.key.match(/(armor|head|shield)_warrior_0/) || v.gearSet === 'glasses' || v.gearSet === 'headband') {
           m[v.key].default = true;
         }
       }),
@@ -499,8 +499,8 @@ let schema = new Schema({
       streak: {type: Boolean, default: false},
     },
     tasks: {
-      groupByChallenge: {type: Boolean, default: false},
-      confirmScoreNotes: {type: Boolean, default: false},
+      groupByChallenge: {type: Boolean, default: false}, // @TODO remove? not used
+      confirmScoreNotes: {type: Boolean, default: false}, // @TODO remove? not used
     },
     improvementCategories: {
       type: Array,
@@ -558,11 +558,13 @@ let schema = new Schema({
   tags: [TagSchema],
 
   inbox: {
-    newMessages: {type: Number, default: 0},
-    blocks: {type: Array, default: () => []},
+    // messages are stored in the Inbox collection, this path will be removed
+    // as soon as the migration has run and all the messages have been removed from here
     messages: {type: Schema.Types.Mixed, default: () => {
       return {};
     }},
+    newMessages: {type: Number, default: 0},
+    blocks: {type: Array, default: () => []},
     optOut: {type: Boolean, default: false},
   },
   tasksOrder: {
@@ -597,6 +599,7 @@ let schema = new Schema({
     type: {type: String},
   }],
 }, {
+  skipVersioning: { notifications: true },
   strict: true,
   minimize: false, // So empty objects are returned
 });

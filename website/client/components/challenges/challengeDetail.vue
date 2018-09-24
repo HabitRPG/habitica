@@ -2,15 +2,19 @@
 .row
   challenge-modal(v-on:updatedChallenge='updatedChallenge')
   leave-challenge-modal(:challengeId='challenge._id')
-  close-challenge-modal(:members='members', :challengeId='challenge._id')
-  challenge-member-progress-modal(:memberId='progressMemberId', :challengeId='challenge._id')
+  close-challenge-modal(:members='members', :challengeId='challenge._id', :prize='challenge.prize')
+  challenge-member-progress-modal(:challengeId='challenge._id')
   .col-12.col-md-8.standard-page
     .row
-      .col-12.col-md-8
+      .col-12.col-md-6
         h1(v-markdown='challenge.name')
         div
-          strong(v-once) {{$t('createdBy')}}:
-          span(v-if='challenge.leader && challenge.leader.profile') {{challenge.leader.profile.name}}
+          span.mr-1.ml-0.d-block
+            strong(v-once) {{ $t('createdBy') }}:
+            user-link.mx-1(:user="challenge.leader")
+          span.mr-1.ml-0.d-block(v-if="challenge.group && challenge.group.name !== 'Tavern'")
+            strong(v-once) {{ $t(challenge.group.type) }}:
+            group-link.mx-1(:group="challenge.group")
           // @TODO: make challenge.author a variable inside the createdBy string (helps with RTL languages)
           // @TODO: Implement in V2 strong.margin-left(v-once)
             .svg-icon.calendar-icon(v-html="icons.calendarIcon")
@@ -19,7 +23,7 @@
           // span {{challenge.endDate}}
         .tags
           span.tag(v-for='tag in challenge.tags') {{tag}}
-      .col-12.col-md-4
+      .col-12.col-md-6.text-right
         .box(@click="showMemberModal()")
           .svg-icon.member-icon(v-html="icons.memberIcon")
           | {{challenge.memberCount}}
@@ -29,10 +33,10 @@
           | {{challenge.prize}}
           .details(v-once) {{$t('prize')}}
     .row.challenge-actions
-      .col-12.col-md-7.offset-md-5
-        span.view-progress
-          strong {{ $t('viewProgressOf') }}
+      .col-12.col-md-6
+        strong.view-progress {{ $t('viewProgressOf') }}
         member-search-dropdown(:text="$t('selectParticipant')", :members='members', :challengeId='challengeId', @member-selected='openMemberProgressModal')
+      .col-12.col-md-6.text-right
         span(v-if='isLeader || isAdmin')
           b-dropdown.create-dropdown(:text="$t('addTaskToChallenge')", :variant="'success'")
             b-dropdown-item(v-for="type in columns", :key="type", @click="createTask(type)")
@@ -56,24 +60,23 @@
         v-on:editTask="editTask",
         v-if='tasksByType[column].length > 0')
   .col-12.col-md-4.sidebar.standard-page
-    .acitons
-      div(v-if='canJoin')
-        button.btn.btn-success(v-once, @click='joinChallenge()') {{$t('joinChallenge')}}
-      div(v-if='isMember')
-        button.btn.btn-danger(v-once, @click='leaveChallenge()') {{$t('leaveChallenge')}}
-      div(v-if='isLeader || isAdmin')
-        button.btn.btn-secondary(v-once, @click='edit()') {{$t('editChallenge')}}
-      div(v-if='isLeader || isAdmin')
-        button.btn.btn-danger(v-once, @click='closeChallenge()') {{$t('endChallenge')}}
-      div(v-if='isLeader || isAdmin')
-        button.btn.btn-secondary(v-once, @click='exportChallengeCsv()') {{$t('exportChallengeCsv')}}
-      div(v-if='isLeader || isAdmin')
-        button.btn.btn-secondary(v-once, @click='cloneChallenge()') {{$t('clone')}}
-    .description-section
-      h2 {{$t('challengeSummary')}}
-      p(v-markdown='challenge.summary')
-      h2 {{$t('challengeDescription')}}
-      p(v-markdown='challenge.description')
+    .button-container(v-if='canJoin')
+      button.btn.btn-success(v-once, @click='joinChallenge()') {{$t('joinChallenge')}}
+    .button-container(v-if='isLeader || isAdmin')
+      button.btn.btn-primary(v-once, @click='edit()') {{$t('editChallenge')}}
+    .button-container(v-if='isLeader || isAdmin')
+      button.btn.btn-primary(v-once, @click='cloneChallenge()') {{$t('clone')}}
+    .button-container(v-if='isLeader || isAdmin')
+      button.btn.btn-primary(v-once, @click='exportChallengeCsv()') {{$t('exportChallengeCsv')}}
+    .button-container(v-if='isLeader || isAdmin')
+      button.btn.btn-danger(v-once, @click='closeChallenge()') {{$t('endChallenge')}}
+    div
+      sidebar-section(:title="$t('challengeSummary')")
+        p(v-markdown='challenge.summary')
+      sidebar-section(:title="$t('challengeDescription')")
+        p(v-markdown='challenge.description')
+    .text-center(v-if='isMember')
+      button.btn.btn-danger(v-once, @click='leaveChallenge()') {{$t('leaveChallenge')}}
 </template>
 
 <style lang='scss' scoped>
@@ -81,6 +84,7 @@
 
   h1 {
     color: $purple-200;
+    margin-bottom: 8px;
   }
 
   .margin-left {
@@ -89,6 +93,14 @@
 
   span {
     margin-left: .5em;
+  }
+
+  .button-container {
+    margin-bottom: 1em;
+
+    button {
+      width: 100%;
+    }
   }
 
   .calendar-icon {
@@ -138,35 +150,17 @@
     }
   }
 
-  .acitons {
-    width: 100%;
-
-    div, button {
-      width: 60%;
-      margin: 0 auto;
-      margin-bottom: .5em;
-      text-align: center;
-    }
-  }
-
   .description-section {
     margin-top: 2em;
   }
 
   .challenge-actions {
     margin-top: 1em;
+    margin-bottom: 2em;
 
     .view-progress {
       margin-right: .5em;
     }
-  }
-</style>
-
-<style>
-  .create-dropdown button {
-    width: 100%;
-    font-size: 16px !important;
-    font-weight: bold !important;
   }
 </style>
 
@@ -189,7 +183,9 @@ import challengeModal from './challengeModal';
 import challengeMemberProgressModal from './challengeMemberProgressModal';
 import challengeMemberSearchMixin from 'client/mixins/challengeMemberSearch';
 import leaveChallengeModal from './leaveChallengeModal';
-
+import sidebarSection from '../sidebarSection';
+import userLink from '../userLink';
+import groupLink from '../groupLink';
 import taskDefaults from 'common/script/libs/taskDefaults';
 
 import gemIcon from 'assets/svg/gem.svg';
@@ -208,8 +204,11 @@ export default {
     challengeModal,
     challengeMemberProgressModal,
     memberSearchDropdown,
+    sidebarSection,
     TaskColumn: Column,
     TaskModal,
+    userLink,
+    groupLink,
   },
   data () {
     return {
@@ -232,7 +231,6 @@ export default {
       creatingTask: {},
       workingTask: {},
       taskFormPurpose: 'create',
-      progressMemberId: '',
       searchTerm: '',
       memberResults: [],
     };
@@ -346,13 +344,14 @@ export default {
       this.tasksByType[task.type].splice(index, 1);
     },
     showMemberModal () {
-      this.$store.state.memberModalOptions.challengeId = this.challenge._id;
-      this.$store.state.memberModalOptions.groupId = 'challenge'; // @TODO: change these terrible settings
-      this.$store.state.memberModalOptions.group = this.group;
-      this.$store.state.memberModalOptions.memberCount = this.challenge.memberCount;
-      this.$store.state.memberModalOptions.viewingMembers = this.members;
-      this.$store.state.memberModalOptions.fetchMoreMembers = this.loadMembers;
-      this.$root.$emit('bv::show::modal', 'members-modal');
+      this.$root.$emit('habitica:show-member-modal', {
+        challengeId: this.challenge._id,
+        groupId: 'challenge', // @TODO: change these terrible settings
+        group: this.group,
+        memberCount: this.challenge.memberCount,
+        viewingMembers: this.members,
+        fetchMoreMembers: this.loadMembers,
+      });
     },
     async joinChallenge () {
       this.user.challenges.push(this.searchId);
@@ -366,23 +365,24 @@ export default {
       this.$root.$emit('bv::show::modal', 'close-challenge-modal');
     },
     edit () {
-      // @TODO: set working challenge
-      this.$store.state.challengeOptions.workingChallenge = Object.assign({}, this.$store.state.challengeOptions.workingChallenge, this.challenge);
-      this.$root.$emit('bv::show::modal', 'challenge-modal');
+      this.$root.$emit('habitica:update-challenge', {
+        challenge: this.challenge,
+      });
     },
     // @TODO: view members
     updatedChallenge (eventData) {
       Object.assign(this.challenge, eventData.challenge);
     },
     openMemberProgressModal (member) {
-      this.progressMemberId = member._id;
-      this.$root.$emit('bv::show::modal', 'challenge-member-modal');
+      this.$root.$emit('habitica:challenge:member-progress', {
+        progressMemberId: member._id,
+      });
     },
     async exportChallengeCsv () {
       // let response = await this.$store.dispatch('challenges:exportChallengeCsv', {
       //   challengeId: this.searchId,
       // });
-      window.location = `/api/v3/challenges/${this.searchId}/export/csv`;
+      window.location = `/api/v4/challenges/${this.searchId}/export/csv`;
     },
     cloneChallenge () {
       this.$root.$emit('habitica:clone-challenge', {

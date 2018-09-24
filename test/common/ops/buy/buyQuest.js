@@ -8,7 +8,7 @@ import {
   NotFound,
 } from '../../../../website/common/script/libs/errors';
 import i18n from '../../../../website/common/script/i18n';
-import apiMessages from '../../../../website/server/libs/apiMessages';
+import errorMessage from '../../../../website/common/script/libs/errorMessage';
 
 describe('shared.ops.buyQuest', () => {
   let user;
@@ -107,7 +107,7 @@ describe('shared.ops.buyQuest', () => {
       });
     } catch (err) {
       expect(err).to.be.an.instanceof(NotFound);
-      expect(err.message).to.equal(apiMessages('questNotFound', {key: 'snarfblatter'}));
+      expect(err.message).to.equal(errorMessage('questNotFound', {key: 'snarfblatter'}));
       expect(user.items.quests).to.eql({});
       expect(user.stats.gp).to.equal(9999);
       done();
@@ -152,7 +152,22 @@ describe('shared.ops.buyQuest', () => {
       buyQuest(user);
     } catch (err) {
       expect(err).to.be.an.instanceof(BadRequest);
-      expect(err.message).to.equal(apiMessages('missingKeyParam'));
+      expect(err.message).to.equal(errorMessage('missingKeyParam'));
+      done();
+    }
+  });
+
+  it('does not buy a quest without completing previous quests', (done) => {
+    try {
+      buyQuest(user, {
+        params: {
+          key: 'dilatoryDistress3',
+        },
+      });
+    } catch (err) {
+      expect(err).to.be.an.instanceof(NotAuthorized);
+      expect(err.message).to.equal(i18n.t('mustComplete', {quest: 'dilatoryDistress2'}));
+      expect(user.items.quests).to.eql({});
       done();
     }
   });

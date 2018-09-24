@@ -45,6 +45,8 @@
     "beard": "Janggut",
     "mustache": "Kumis",
     "flower": "Bunga",
+    "accent": "Accent",
+    "headband": "Headband",
     "wheelchair": "Kursi Roda",
     "extra": "Ekstra",
     "basicSkins": "Warna Kulit Biasa",
@@ -201,7 +203,6 @@
     "showQuickAllocation": "Tampilkan Alokasi Atribut",
     "hideQuickAllocation": "Sembunyikan Alokasi Atribut",
     "quickAllocationLevelPopover": "Kamu akan mendapat satu Poin setiap level untuk dialokasikan kepada satu Atribut pilihanmu. Kamu dapat melakukan ini sendiri, atau biarkan permainan ini memutuskannya untukmu dengan menggunakan salah satu pilihan dari Alokasi Otomatis yang dapat ditemukan di Ikon Pengguna > Atribut.",
-    "invalidAttribute": "\"<%= attr %>\" bukan Atribut yang valid.",
     "notEnoughAttrPoints": "Kamu tidak memiliki cukup Poin Atribut.",
     "style": "Gaya",
     "facialhair": "Wajah",
@@ -218,7 +219,6 @@
     "bodyAccess": "Hiasan Tubuh",
     "mainHand": "Tangan Utama",
     "offHand": "Tangan Lain",
-    "pointsAvailable": "Poin Tersedia",
-    "pts": "poin",
-    "statsObjectRequired": "Pembaruan Atribut diperlukan"
+    "statPoints": "Stat Points",
+    "pts": "poin"
 }

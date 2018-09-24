@@ -139,7 +139,7 @@
                     h4.popover-content-title(v-else) {{ item.text }}
                     .popover-content-text(v-if='item.locked && item.key === "lostMasterclasser1"') {{ `${$t('questUnlockLostMasterclasser')}` }}
                     .popover-content-text(v-if='item.locked && item.unlockCondition && item.unlockCondition.incentiveThreshold') {{ `${$t('loginIncentiveQuest', {count: item.unlockCondition.incentiveThreshold})}` }}
-                    .popover-content-text(v-if='item.locked && item.previous') {{ `${$t('unlockByQuesting', {title: item.previous})}` }}
+                    .popover-content-text(v-if='item.locked && item.previous && isBuyingDependentOnPrevious(item)') {{ `${$t('unlockByQuesting', {title: item.previous})}` }}
                     .popover-content-text(v-if='item.lvl > user.stats.lvl') {{ `${$t('mustLvlQuest', {level: item.lvl})}` }}
                     questInfo(v-if='!item.locked', :quest="item")
 
@@ -339,6 +339,7 @@
   import toggleSwitch from 'client/components/ui/toggleSwitch';
   import Avatar from 'client/components/avatar';
   import buyMixin from 'client/mixins/buy';
+  import pinUtils from 'client/mixins/pinUtils';
   import currencyMixin from '../_currencyMixin';
 
   import BuyModal from './buyQuestModal.vue';
@@ -357,7 +358,7 @@
   import _map from 'lodash/map';
 
 export default {
-    mixins: [buyMixin, currencyMixin],
+    mixins: [buyMixin, currencyMixin, pinUtils],
     components: {
       ShopItem,
       Item,
@@ -474,17 +475,17 @@ export default {
 
         return false;
       },
-      togglePinned (item) {
-        if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
-          this.$parent.showUnpinNotification(item);
-        }
-      },
       selectItem (item) {
         if (item.locked) return;
 
         this.selectedItemToBuy = item;
 
         this.$root.$emit('bv::show::modal', 'buy-quest-modal');
+      },
+      isBuyingDependentOnPrevious (item) {
+        let questsNotDependentToPrevious = ['moon2', 'moon3'];
+        if (item.key in questsNotDependentToPrevious) return false;
+        return true;
       },
     },
   };

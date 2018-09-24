@@ -59,6 +59,78 @@ describe('shops', () => {
       expect(specialCategory.items.find((item) => item.key === 'weapon_special_critical'));
       expect(specialCategory.items.find((item) => item.key === 'weapon_armoire_basicCrossbow'));// eslint-disable-line camelcase
     });
+
+    it('does not show gear when it is all owned', () => {
+      let userWithItems = generateUser({
+        stats: {
+          class: 'wizard',
+        },
+        items: {
+          gear: {
+            owned: {
+              weapon_wizard_0: true, // eslint-disable-line camelcase
+              weapon_wizard_1: true, // eslint-disable-line camelcase
+              weapon_wizard_2: true, // eslint-disable-line camelcase
+              weapon_wizard_3: true, // eslint-disable-line camelcase
+              weapon_wizard_4: true, // eslint-disable-line camelcase
+              weapon_wizard_5: true, // eslint-disable-line camelcase
+              weapon_wizard_6: true, // eslint-disable-line camelcase
+              armor_wizard_1: true, // eslint-disable-line camelcase
+              armor_wizard_2: true, // eslint-disable-line camelcase
+              armor_wizard_3: true, // eslint-disable-line camelcase
+              armor_wizard_4: true, // eslint-disable-line camelcase
+              armor_wizard_5: true, // eslint-disable-line camelcase
+              head_wizard_1: true, // eslint-disable-line camelcase
+              head_wizard_2: true, // eslint-disable-line camelcase
+              head_wizard_3: true, // eslint-disable-line camelcase
+              head_wizard_4: true, // eslint-disable-line camelcase
+              head_wizard_5: true, // eslint-disable-line camelcase
+            },
+          },
+        },
+      });
+
+
+      let shopWizardItems = shared.shops.getMarketGearCategories(userWithItems).find(x => x.identifier === 'wizard').items.filter(x => x.klass === 'wizard' && (x.owned === false || x.owned === undefined));
+      expect(shopWizardItems.length).to.eql(0);
+    });
+
+    it('shows available gear not yet purchased and previously owned', () => {
+      let userWithItems = generateUser({
+        stats: {
+          class: 'wizard',
+        },
+        items: {
+          gear: {
+            owned: {
+              weapon_wizard_0: true, // eslint-disable-line camelcase
+              weapon_wizard_1: true, // eslint-disable-line camelcase
+              weapon_wizard_2: true, // eslint-disable-line camelcase
+              weapon_wizard_3: true, // eslint-disable-line camelcase
+              weapon_wizard_4: true, // eslint-disable-line camelcase
+              armor_wizard_1: true, // eslint-disable-line camelcase
+              armor_wizard_2: true, // eslint-disable-line camelcase
+              armor_wizard_3: false, // eslint-disable-line camelcase
+              armor_wizard_4: false, // eslint-disable-line camelcase
+              head_wizard_1: true, // eslint-disable-line camelcase
+              head_wizard_2: false, // eslint-disable-line camelcase
+              head_wizard_3: true, // eslint-disable-line camelcase
+              head_wizard_4: false, // eslint-disable-line camelcase
+              head_wizard_5: true, // eslint-disable-line camelcase
+            },
+          },
+        },
+      });
+
+
+      let shopWizardItems = shared.shops.getMarketGearCategories(userWithItems).find(x => x.identifier === 'wizard').items.filter(x => x.klass === 'wizard' && (x.owned === false || x.owned === undefined));
+      expect(shopWizardItems.find(item => item.key === 'weapon_wizard_5').locked).to.eql(false);
+      expect(shopWizardItems.find(item => item.key === 'weapon_wizard_6').locked).to.eql(true);
+      expect(shopWizardItems.find(item => item.key === 'armor_wizard_3').locked).to.eql(false);
+      expect(shopWizardItems.find(item => item.key === 'armor_wizard_4').locked).to.eql(true);
+      expect(shopWizardItems.find(item => item.key === 'head_wizard_2').locked).to.eql(false);
+      expect(shopWizardItems.find(item => item.key === 'head_wizard_4').locked).to.eql(true);
+    });
   });
 
   describe('questShop', () => {

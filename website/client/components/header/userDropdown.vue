@@ -8,8 +8,8 @@ menu-dropdown.item-user(:right="true")
     a.dropdown-item.edit-avatar.dropdown-separated(@click='showAvatar()')
       h3 {{ user.profile.name }}
       span.small-text {{ $t('editAvatar') }}
-    a.nav-link.dropdown-item.dropdown-separated(@click.prevent='showInbox()')
-      | {{ $t('messages') }}
+    a.nav-link.dropdown-item.dropdown-separated.d-flex.justify-content-between.align-items-center(@click.prevent='showInbox()')
+      div {{ $t('messages') }}
       message-count(v-if='user.inbox.newMessages > 0', :count="user.inbox.newMessages")
     a.dropdown-item(@click='showAvatar("backgrounds", "2018")') {{ $t('backgrounds') }}
     a.dropdown-item(@click='showProfile("stats")') {{ $t('stats') }}
@@ -22,9 +22,8 @@ menu-dropdown.item-user(:right="true")
       .dropdown-item.text-center
         h3.purple {{ $t('needMoreGems') }}
         span.small-text {{ $t('needMoreGemsInfo') }}
-      img.float-left.align-self-end(src='~assets/images/gem-rain.png')
-      button.btn.btn-primary.btn-lg.learn-button Learn More
-      img.float-right.align-self-end(src='~assets/images/gold-rain.png')
+      .learn-background.py-2.text-center
+        button.btn.btn-primary.btn-lg.learn-button {{ $t('learnMore') }}
 </template>
 
 <style lang='scss' scoped>
@@ -42,6 +41,11 @@ menu-dropdown.item-user(:right="true")
 
 .user-dropdown {
   width: 14.75em;
+}
+
+.learn-background {
+    background: url('~assets/images/gem-rain.png') bottom left no-repeat,
+                url('~assets/images/gold-rain.png') bottom right no-repeat;
 }
 
 .learn-button {
@@ -94,7 +98,7 @@ export default {
     },
     showInbox () {
       markPMSRead(this.user);
-      axios.post('/api/v3/user/mark-pms-read');
+      axios.post('/api/v4/user/mark-pms-read');
       this.$root.$emit('bv::show::modal', 'inbox-modal');
     },
     showProfile (startingPage) {

@@ -49,7 +49,6 @@
     "UUID": "ID používateľa",
     "loadUser": "Nahrať používateľa",
     "noAdminAccess": "Nemáš prístup administrátora.",
-    "pageMustBeNumber": "req.query.page musí byť číslo",
     "userNotFound": "Používateľ nebol nájdený.",
     "invalidUUID": "UUID musí byť platné",
     "title": "Titul",
