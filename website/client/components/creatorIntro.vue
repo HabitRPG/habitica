@@ -208,9 +208,12 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
           .option(v-for='option in animalItems("headAccessory")',
             :class='{active: option.active, locked: option.locked}')
             .sprite.customize-option(:class="`headAccessory_special_${option.key}`", @click='option.click')
-            .gem-lock(v-if='option.locked')
+            .gem-lock(v-if='option.gemLocked')
               .svg-icon.gem(v-html='icons.gem')
               span 2
+            .gold-lock(v-if='option.goldLocked')
+              .svg-icon.gold(v-html='icons.gold')
+              span 20
           .col-12.text-center(v-if='!animalItemsOwned("headAccessory")')
             .gem-lock
               .svg-icon.gem(v-html='icons.gem')
@@ -221,9 +224,12 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
           .option(v-for='option in animalItems("back")',
             :class='{active: option.active, locked: option.locked}')
             .sprite.customize-option(:class="`icon_back_special_${option.key}`", @click='option.click')
-            .gem-lock(v-if='option.locked')
+            .gem-lock(v-if='option.gemLocked')
               .svg-icon.gem(v-html='icons.gem')
               span 2
+            .gold-lock(v-if='option.goldLocked')
+              .svg-icon.gold(v-html='icons.gold')
+              span 20
           .col-12.text-center(v-if='!animalItemsOwned("back")')
             .gem-lock
               .svg-icon.gem(v-html='icons.gem')
@@ -585,20 +591,21 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     }
   }
 
-  .text-center .gem-lock {
-    display: inline-block;
-    margin-right: 1em;
-    margin-bottom: 1.6em;
-    vertical-align: bottom;
+  .text-center {
+    .gem-lock, .gold-lock {
+      display: inline-block;
+      margin-right: 1em;
+      margin-bottom: 1.6em;
+      vertical-align: bottom;
+    }
   }
 
-  .gem-lock {
+  .gem-lock, .gold-lock {
     .svg-icon {
       width: 16px;
     }
 
     span {
-      color: #24cc8f;
       font-weight: bold;
       margin-left: .5em;
     }
@@ -607,6 +614,14 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       display: inline-block;
       vertical-align: bottom;
     }
+  }
+
+  .gem-lock span {
+    color: $green-10
+  }
+
+  .gold-lock span {
+    color: $yellow-10
   }
 
   .option.active {
@@ -725,7 +740,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
         color: #24cc8f;
       }
 
-      .gem {
+      .gem, .coin {
         width: 16px;
       }
 
@@ -740,13 +755,13 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
           font-size: 14px;
         }
 
-        .gem {
+        .gem, .coin {
           width: 20px;
         }
       }
     }
 
-    .gem {
+    .gem, .coin {
       margin: 0 .5em;
       display: inline-block;
       vertical-align: bottom;
@@ -852,6 +867,7 @@ import { mapState } from 'client/libs/store';
 import avatar from './avatar';
 import { getBackgroundShopSets } from '../../common/script/libs/shops';
 import unlock from '../../common/script/ops/unlock';
+import buy from '../../common/script/ops/buy/buy';
 import guide from 'client/mixins/guide';
 import notifications from 'client/mixins/notifications';
 import appearance from 'common/script/content/appearance';
@@ -865,6 +881,7 @@ import skinIcon from 'assets/svg/skin.svg';
 import hairIcon from 'assets/svg/hair.svg';
 import backgroundsIcon from 'assets/svg/backgrounds.svg';
 import gem from 'assets/svg/gem.svg';
+import gold from 'assets/svg/gold.svg';
 import pin from 'assets/svg/pin.svg';
 import isPinned from 'common/script/libs/isPinned';
 
@@ -1042,6 +1059,7 @@ export default {
         backgroundsIcon,
         gem,
         pin,
+        gold,
       }),
       modalPage: 1,
       activeTopPage: 'body',
@@ -1505,6 +1523,24 @@ export default {
         alert(e.message);
       }
     },
+    async buy (item) {
+      const options = {
+        currency: 'gold',
+        key: item,
+        type: 'marketGear',
+        quantity: 1,
+        pinType: 'marketGear',
+      };
+      await axios.post(`/api/v4/user/buy/${item}`, options);
+      try {
+        buy(this.user, {
+          params: options,
+        });
+        this.backgroundUpdate = new Date();
+      } catch (e) {
+        alert(e.message);
+      }
+    },
     setKeys (type, _set) {
       return map(_set, (v, k) => {
         if (type === 'background') k = v.key;
@@ -1543,7 +1579,7 @@ export default {
 
       let own = true;
       this.animalItemKeys[category].forEach(key => {
-        if (!this.user.items.gear.owned[`${category}_special_${key}`]) own = false;
+        if (this.user.items.gear.owned[`${category}_special_${key}`] === undefined) own = false;
       });
       return own;
     },
@@ -1554,15 +1590,22 @@ export default {
       let options = keys.map(key => {
         let newKey = `${category}_special_${key}`;
         let userPurchased = this.user.items.gear.owned[newKey];
-        let locked = !userPurchased;
 
         let option = {};
         option.key = key;
         option.active = this.user.preferences.costume ? this.user.items.gear.costume[category] === newKey : this.user.items.gear.equipped[category] === newKey;
-        option.locked = locked;
+        option.gemLocked = userPurchased === undefined;
+        option.goldLocked = userPurchased === false;
+        option.locked = option.gemLocked || option.goldLocked;
         option.click = () => {
-          let type = this.user.preferences.costume ? 'costume' : 'equipped';
-          return locked ? this.unlock(`items.gear.owned.${newKey}`) : this.equip(newKey, type);
+          if (option.gemLocked) {
+            return this.unlock(`items.gear.owned.${newKey}`);
+          } else if (option.goldLocked) {
+            return this.buy(newKey);
+          } else {
+            let type = this.user.preferences.costume ? 'costume' : 'equipped';
+            return this.equip(newKey, type);
+          }
         };
         return option;
       });
