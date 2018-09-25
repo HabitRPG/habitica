@@ -98,4 +98,13 @@ describe('shared.ops.allocate', () => {
     expect(user.stats.int).to.equal(1);
     expect(user.stats.mp).to.equal(11);
   });
+
+  it('does not increase mana when allocating to "int" if flag is set', () => {
+    expect(user.stats.int).to.equal(0);
+    expect(user.stats.mp).to.equal(10);
+    user.stats.points = 1;
+    allocate(user, {query: {stat: 'int', ignoreManaPoints: true}});
+    expect(user.stats.int).to.equal(1);
+    expect(user.stats.mp).to.equal(10);
+  });
 });
