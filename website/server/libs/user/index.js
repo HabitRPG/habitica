@@ -6,6 +6,9 @@ import {
   NotAuthorized,
 } from '../../libs/errors';
 import { model as User } from '../../models/user';
+import bannedSlurs from '../bannedSlurs';
+import {getMatchesByWordArray} from '../stringUtils';
+import forbiddenUsernames from '../forbiddenUsernames';
 
 export async function get (req, res, { isV3 = false }) {
   const user = res.locals.user;
@@ -239,4 +242,38 @@ export async function rebirth (req, res, { isV3 = false }) {
   await Promise.all(toSave);
 
   res.respond(200, ...rebirthRes);
+}
+
+const bannedSlurRegexs = bannedSlurs.map((word) => new RegExp(`.*${word}.*`, 'i'));
+
+function usernameContainsSlur (username) {
+  for (let i = 0; i < bannedSlurRegexs.length; i += 1) {
+    const regEx = bannedSlurRegexs[i];
+    const match = username.match(regEx);
+    if (match !== null && match[0] !== null) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function usernameIsForbidden (username) {
+  const forbidddenWordsMatched = getMatchesByWordArray(username, forbiddenUsernames);
+  return forbidddenWordsMatched.length > 0;
+}
+
+const invalidCharsRegex = new RegExp('[^a-z0-9_-]', 'i');
+function usernameContainsInvalidCharacters (username) {
+  let match = username.match(invalidCharsRegex);
+  return match !== null && match[0] !== null;
+}
+
+export function verifyUsername (username, res) {
+  let issues = [];
+  if (username.length < 1 || username.length > 20) issues.push(res.t('usernameIssueLength'));
+  if (usernameContainsInvalidCharacters(username)) issues.push(res.t('usernameIssueInvalidCharacters'));
+  if (usernameContainsSlur(username)) issues.push(res.t('usernameIssueSlur'));
+  if (usernameIsForbidden(username)) issues.push(res.t('usernameIssueForbidden'));
+
+  return issues;
 }
