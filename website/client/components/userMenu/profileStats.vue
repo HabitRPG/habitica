@@ -299,9 +299,6 @@
         if (this.user.stats[stat] === 0) return;
         this.user.stats[stat] -= 1;
         this.user.stats.points += 1;
-        if (stat === 'int') {
-          this.user.stats.mp--;
-        }
         this.statUpdates[stat] -= 1;
       },
       async saveAttributes () {
