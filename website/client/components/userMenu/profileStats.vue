@@ -296,7 +296,7 @@
         this.statUpdates[stat] += 1;
       },
       deallocate (stat) {
-        if (this.user.stats[stat] === 0) return;
+        if (this.statUpdates[stat] === 0) return;
         this.user.stats[stat] -= 1;
         this.user.stats.points += 1;
         this.statUpdates[stat] -= 1;
