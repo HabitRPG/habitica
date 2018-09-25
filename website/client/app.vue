@@ -413,11 +413,6 @@ export default {
     this.$store.watch(state => state.title, (title) => {
       document.title = title;
     });
-
-    this.$store.watch(state => state.isUserLoaded, () => {
-      this.setBannerOffset();
-    });
-
     this.$nextTick(() => {
       // Load external scripts after the app has been rendered
       Analytics.load();
@@ -447,7 +442,6 @@ export default {
           setupPayments();
         });
 
-        this.setBannerOffset();
       }).catch((err) => {
         console.error('Impossible to fetch user. Clean up localStorage and refresh.', err); // eslint-disable-line no-console
       });
@@ -463,13 +457,13 @@ export default {
     this.$root.$off('bv::show::modal');
     this.$root.$off('buyModal::showItem');
     this.$root.$off('selectMembersModal::showItem');
+    window.removeEventListener('resize', this.setBannerOffset);
   },
   mounted () {
     // Remove the index.html loading screen and now show the inapp loading
     const loadingScreen = document.getElementById('loading-screen');
     if (loadingScreen) document.body.removeChild(loadingScreen);
-  },
-  updated () {
+    window.addEventListener('resize', this.setBannerOffset);
     this.setBannerOffset();
   },
   methods: {
