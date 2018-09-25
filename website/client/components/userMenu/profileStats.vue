@@ -292,7 +292,7 @@
         return display;
       },
       allocate (stat) {
-        allocate(this.user, {query: { stat }});
+        allocate(this.user, {query: { stat, ignoreManaPoints: true }});
         this.statUpdates[stat] += 1;
       },
       deallocate (stat) {
