@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'FALL FESTIVAL BEGINS! LIMITED EDITION FALL EQUIPMENT, SEASONAL SHOP OPENS, AND NPC OUTFITS!';
+const LAST_ANNOUNCEMENT_TITLE = 'SEPTEMBER SUBSCRIBER ITEMS, GHOST AND GLOW-IN-THE-DARK HATCHING POTIONS, AND BLOG POST ON CONTRIBUTING TO HABITICA';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,21 +30,24 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>9/20/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>9/25/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_fall_festival_2018 center-block"></div>
-        <h3>Limited Edition Class Outfits!</h3>
-        <p>From now until October 31st, limited edition outfits are available in the Rewards column! Depending on your class, you can be a Minotaur Warrior, an Alter Ego Rogue, a Carnivorous Plant Healer, or a Candymancer Mage. You'd better get productive to earn enough gold before your time runs out...</p>
-        <div class="small mb-3">by AnnDeLune, Vikte, QuartzFox, Beffymaroo, and SabreCat</div>
-        <div class="promo_fall_festival_2017 center-block"></div>
-        <h3>Seasonal Shop Opens</h3>
-        <p>The <a href='/shops/seasonal' target='_blank'>Seasonal Shop</a> has opened! It's stocking autumnal Seasonal Edition goodies at the moment, including past fall outfits. Everything there will be available to purchase during the Fall Festival event each year, but it's only open until October 31st, so be sure to stock up now, or you'll have to wait a year to buy these items again!</p>
-        <div class="small mb-3">by AnnDeLune, ʂʈєƒąʃųƥągųʂ, Katy133, Lilith of Alfheim, Definitely not a villain, ShoGirlGeek. cataclysms, maxpendragon, Lemoness, Beffymaroo, and SabreCat</div>
-        <h3>NPC Outfits</h3>
-        <p>Everyone has hastened down to the Flourishing Fields to celebrate this spooky harvest festival. Be sure to check out all the new outfits that people are sporting!</p>
-        <div class="promo_seasonal_shop center-block"></div>
+        <div class="promo_mystery_201809 center-block"></div>
+        <h3>September Subscriber Items Revealed!</h3>
+        <p>The September Subscriber Items have been revealed: the Autumnal Armor Item Set! You only have until September 30 to receive the item set <a href='/user/settings/subscription' target='_blank'>when you subscribe</a>. If you're already an active subscriber, reload the site and then head to Inventory > Items to claim your gear!</p>
+        <p>Subscribers also receive the ability to buy Gems for Gold -- the longer you subscribe, the more Gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
+        <div class="small mb-3">by Beffymaroo</div>
+        <div class="promo_ghost_potions center-block"></div>
+        <h3>Ghost and Glow-in-the-Dark Hatching Potions</h3>
+        <p>We've brought back Ghost Potions, and added a brand-new Magic Hatching Potion: Glow-in-the-Dark! Between now and October 31st, you can buy these Hatching Potions from <a href='/shops/market' target='_blank'>the Market</a> and use them to hatch any standard pet egg. (Magic Hatching Potions do not work on Quest Pet eggs.) Magic Hatching Potion Pets aren't picky, so they'll happily eat any kind of food that you feed them!</p>
+        <p>After they're gone, it will be at least a year before the Ghost or Glow-in-the-Dark Hatching Potions are available again, so be sure to get them now!</p>
+        <div class="small mb-3">by Hermi, AaronTheTwin, tricksy.fox, and SabreCat</div>
+        <div class="scene_painting center-block"></div>
+        <h3>Blog Post: Contributing to Habitica</h3>
+        <p>This month's <a href='https://habitica.wordpress.com/2018/09/19/contributing-to-habitica/' target='_blank'>featured Wiki article</a> is about Contributing to Habitica. We hope that it will help you get involved with our open-source project and our great community! Be sure to check it out, and let us know what you think by reaching out on <a href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a href='https://facebook.com/habitica' target='_blank'>Facebook</a>.</p>
+        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
       </div>
       `,
     });
