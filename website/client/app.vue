@@ -246,16 +246,6 @@ export default {
       return !this.bannerHidden && this.user.preferences.sleep;
     },
   },
-  watch: {
-    showRestingBanner () {
-      this.$nextTick(() => {
-        console.log(this.$refs);
-        console.log(this.$refs.restingBanner);
-        console.log(this.showRestingBanner);
-        this.setBannerOffset();
-      });
-    },
-  },
   created () {
     this.$root.$on('playSound', (sound) => {
       let theme = this.user.preferences.sound;
@@ -439,6 +429,14 @@ export default {
 
         this.hideLoadingScreen();
 
+        window.addEventListener('resize', this.setBannerOffset);
+        // Adjust the positioning of the header banners
+        this.$watch('showRestingBanner', () => {
+          this.$nextTick(() => {
+            this.setBannerOffset();
+          });
+        }, {immediate: true});
+
         // Adjust the timezone offset
         if (this.user.preferences.timezoneOffset !== this.browserTimezoneOffset) {
           this.$store.dispatch('user:set', {
@@ -471,8 +469,6 @@ export default {
     // Remove the index.html loading screen and now show the inapp loading
     const loadingScreen = document.getElementById('loading-screen');
     if (loadingScreen) document.body.removeChild(loadingScreen);
-    window.addEventListener('resize', this.setBannerOffset);
-    this.setBannerOffset();
   },
   methods: {
     checkForBannedUser (error) {
@@ -636,7 +632,6 @@ export default {
       if (this.showRestingBanner && this.$refs.restingBanner !== undefined) {
         contentPlacement = this.$refs.restingBanner.clientHeight;
       }
-      console.log(this.showRestingBanner, contentPlacement);
       this.bannerHeight = contentPlacement;
       let smartBanner = document.getElementsByClassName('smartbanner')[0];
       if (smartBanner !== undefined) {
