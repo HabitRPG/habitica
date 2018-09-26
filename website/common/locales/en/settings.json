@@ -196,7 +196,7 @@
     "usernameIssueForbidden": "Usernames may not contain restricted words.",
     "usernameIssueLength": "Usernames must be between 1 and 20 characters.",
     "usernameIssueInvalidCharacters": "Usernames can only contain letters, numbers and underscores.",
-    "currentUsername": "Current username:"
+    "currentUsername": "Current username:",
     "displaynameIssueLength": "Display Names must be between 1 and 30 characters.",
     "displaynameIssueSlur": "Display Names may not contain inappropriate language"
 }
