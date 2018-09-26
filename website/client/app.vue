@@ -15,16 +15,16 @@ div
     router-view(v-if="!isUserLoggedIn || isStaticPage")
     template(v-else)
       template(v-if="isUserLoaded")
-        div.resting-banner(v-if="showRestingBanner")
+        div.resting-banner(v-show="showRestingBanner", ref="restingBanner")
           span.content
-            span.label(v-if="!isNarrowScreen") {{ $t('innCheckOutBanner') }}
-            span.label(v-if="isNarrowScreen") {{ $t('innCheckOutBannerShort') }}
+            span.label.d-inline.d-sm-none {{ $t('innCheckOutBannerShort') }}
+            span.label.d-none.d-sm-inline {{ $t('innCheckOutBanner') }}
             span.separator  |
             span.resume(@click="resumeDamage()") {{ $t('resumeDamage') }}
           div.closepadding(@click="hideBanner()")
             span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close")
         notifications-display
-        app-menu(:class='{"restingInn": showRestingBanner}')
+        app-menu(:class='{"restingInn": showRestingBanner}' v-bind:style="{ marginTop: bannerHeight + 'px' }")
         .container-fluid
           app-header(:class='{"restingInn": showRestingBanner}')
           buyModal(
@@ -149,7 +149,7 @@ div
       }
     }
 
-    @media only screen and (max-width: 600px) {
+    @media only screen and (max-width: 768px) {
       .content {
         font-size: 12px;
         line-height: 1.4;
@@ -220,6 +220,7 @@ export default {
       loading: true,
       currentTipNumber: 0,
       bannerHidden: false,
+      bannerHeight: 0,
     };
   },
   computed: {
@@ -241,10 +242,18 @@ export default {
       return this.$t(`tip${tipNumber}`);
     },
     showRestingBanner () {
+      if (this.user === null) return false;
       return !this.bannerHidden && this.user.preferences.sleep;
     },
-    isNarrowScreen () {
-      return screen.width <= 600;
+  },
+  watch: {
+    showRestingBanner () {
+      this.$nextTick(() => {
+        console.log(this.$refs);
+        console.log(this.$refs.restingBanner);
+        console.log(this.showRestingBanner);
+        this.setBannerOffset();
+      });
     },
   },
   created () {
@@ -441,7 +450,6 @@ export default {
           // Load external scripts after the app has been rendered
           setupPayments();
         });
-
       }).catch((err) => {
         console.error('Impossible to fetch user. Clean up localStorage and refresh.', err); // eslint-disable-line no-console
       });
@@ -624,25 +632,15 @@ export default {
       this.$store.dispatch('user:sleep');
     },
     setBannerOffset () {
-      let restingBanner = document.getElementsByClassName('resting-banner')[0];
-      let contentPlacement = '0px';
-      if (!this.bannerHidden && restingBanner !== undefined) {
-        contentPlacement = `${restingBanner.clientHeight  }px`;
+      let contentPlacement = 0;
+      if (this.showRestingBanner && this.$refs.restingBanner !== undefined) {
+        contentPlacement = this.$refs.restingBanner.clientHeight;
       }
-      let topMenu = document.getElementsByClassName('restingInn')[0];
-      if (topMenu !== undefined) {
-        let navbar = topMenu.getElementsByClassName('navbar')[0];
-        if (navbar !== undefined) {
-          navbar.style.top = contentPlacement;
-        }
-      }
-      let appHeader = document.getElementById('app-header');
-      if (appHeader !== undefined) {
-        appHeader.style.marginTop = contentPlacement;
-      }
+      console.log(this.showRestingBanner, contentPlacement);
+      this.bannerHeight = contentPlacement;
       let smartBanner = document.getElementsByClassName('smartbanner')[0];
       if (smartBanner !== undefined) {
-        smartBanner.style.top = contentPlacement;
+        smartBanner.style.top = `${contentPlacement}px`;
       }
     },
   },
