@@ -54,7 +54,7 @@
     "misc": "Misc",
     "showHeader": "Show Header",
     "changePass": "Change Password",
-    "changeUsername": "Change Login Name",
+    "changeUsername": "Change Username",
     "changeEmail": "Change Email Address",
     "newEmail": "New Email Address",
     "oldPass": "Old Password",
@@ -190,10 +190,13 @@
     "timezoneInfo": "If that time zone is wrong, first reload this page using your browser's reload or refresh button to ensure that Habitica has the most recent information. If it is still wrong, adjust the time zone on your PC and then reload this page again.<br><br> <strong>If you use Habitica on other PCs or mobile devices, the time zone must be the same on them all.</strong> If your Dailies have been resetting at the wrong time, repeat this check on all other PCs and on a browser on your mobile devices.",
     "push": "Push",
     "about": "About",
+    "setUsernameNotificationTitle": "Set your username!",
+    "setUsernameNotificationBody": "We will be transitioning login names to unique, public usernames soon. This username will be used for invitations, @mentions in chat, and messaging.",
     "usernameIssueSlur": "Usernames may not contain inapporpriate language.",
     "usernameIssueForbidden": "Usernames may not contain restricted words.",
     "usernameIssueLength": "Usernames must be between 1 and 20 characters.",
     "usernameIssueInvalidCharacters": "Usernames can only contain letters, numbers and underscores.",
+    "currentUsername": "Current username:"
     "displaynameIssueLength": "Display Names must be between 1 and 30 characters.",
     "displaynameIssueSlur": "Display Names may not contain inappropriate language"
 }
