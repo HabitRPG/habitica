@@ -12,7 +12,7 @@ import logger from '../../libs/logger';
 import { decrypt } from '../../libs/encryption';
 import { model as Group } from '../../models/group';
 import moment from 'moment';
-import {verifyUsername} from '../user';
+import {verifyUsername} from '../user/validation';
 
 const USERNAME_LENGTH_MIN = 1;
 const USERNAME_LENGTH_MAX = 20;

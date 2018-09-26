@@ -54,7 +54,7 @@ describe('PUT /user', () => {
     });
 
 
-    it('profile.name cannot be an empty string or null', async () => {
+    it('validates profile.name', async () => {
       await expect(user.put('/user', {
         'profile.name': ' ', // string should be trimmed
       })).to.eventually.be.rejected.and.eql({
@@ -73,6 +73,22 @@ describe('PUT /user', () => {
 
       await expect(user.put('/user', {
         'profile.name': null,
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: 'User validation failed',
+      });
+
+      await expect(user.put('/user', {
+        'profile.name': 'this is a very long display name that will not be allowed due to length',
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: 'User validation failed',
+      });
+
+      await expect(user.put('/user', {
+        'profile.name': 'TESTPLACEHOLDERSLURWORDHERE',
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',

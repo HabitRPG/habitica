@@ -8,7 +8,7 @@ import {
 } from '../../libs/errors';
 import * as passwordUtils from '../../libs/password';
 import { model as User } from '../../models/user';
-import {verifyUsername} from '../../libs/user';
+import {verifyUsername} from '../../libs/user/validation';
 
 const api = {};
 
