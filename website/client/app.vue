@@ -15,15 +15,16 @@ div
     router-view(v-if="!isUserLoggedIn || isStaticPage")
     template(v-else)
       template(v-if="isUserLoaded")
-        div.resting-banner(v-if="showRestingBanner")
+        div.resting-banner(v-show="showRestingBanner", ref="restingBanner")
           span.content
-            span.label {{ $t('innCheckOutBanner') }}
-            span.separator |
+            span.label.d-inline.d-sm-none {{ $t('innCheckOutBannerShort') }}
+            span.label.d-none.d-sm-inline {{ $t('innCheckOutBanner') }}
+            span.separator  |
             span.resume(@click="resumeDamage()") {{ $t('resumeDamage') }}
           div.closepadding(@click="hideBanner()")
             span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close")
         notifications-display
-        app-menu(:class='{"restingInn": showRestingBanner}')
+        app-menu(:class='{"restingInn": showRestingBanner}' :style="{ marginTop: bannerHeight + 'px' }")
         .container-fluid
           app-header(:class='{"restingInn": showRestingBanner}')
           buyModal(
@@ -102,7 +103,7 @@ div
 
 <style lang='scss'>
   @import '~client/assets/scss/colors.scss';
-  
+
   /* @TODO: The modal-open class is not being removed. Let's try this for now */
   .modal {
     overflow-y: scroll !important;
@@ -118,20 +119,9 @@ div
     z-index: 1600 !important; /* Must stay above nav bar */
   }
 
-  .restingInn {
-    .navbar {
-      top: 40px;
-    }
-
-    #app-header {
-      margin-top: 40px !important;
-    }
-
-  }
-
   .resting-banner {
     width: 100%;
-    height: 40px;
+    min-height: 40px;
     background-color: $blue-10;
     position: fixed;
     top: 0;
@@ -139,11 +129,10 @@ div
     display: flex;
 
     .content {
-      height: 24px;
       line-height: 1.71;
       text-align: center;
       color: $white;
-
+      padding: 8px 38px 8px 8px;
       margin: auto;
     }
 
@@ -160,6 +149,13 @@ div
       }
     }
 
+    @media only screen and (max-width: 768px) {
+      .content {
+        font-size: 12px;
+        line-height: 1.4;
+      }
+    }
+
     .separator {
       color: $blue-100;
       margin: 0px 15px;
@@ -168,6 +164,7 @@ div
     .resume {
       font-weight: bold;
       cursor: pointer;
+      white-space:nowrap;
     }
   }
 </style>
@@ -223,6 +220,7 @@ export default {
       loading: true,
       currentTipNumber: 0,
       bannerHidden: false,
+      bannerHeight: 0,
     };
   },
   computed: {
@@ -413,7 +411,6 @@ export default {
     this.$store.watch(state => state.title, (title) => {
       document.title = title;
     });
-
     this.$nextTick(() => {
       // Load external scripts after the app has been rendered
       Analytics.load();
@@ -430,6 +427,14 @@ export default {
         Analytics.updateUser();
 
         this.hideLoadingScreen();
+
+        window.addEventListener('resize', this.setBannerOffset);
+        // Adjust the positioning of the header banners
+        this.$watch('showRestingBanner', () => {
+          this.$nextTick(() => {
+            this.setBannerOffset();
+          });
+        }, {immediate: true});
 
         // Adjust the timezone offset
         if (this.user.preferences.timezoneOffset !== this.browserTimezoneOffset) {
@@ -457,6 +462,7 @@ export default {
     this.$root.$off('bv::show::modal');
     this.$root.$off('buyModal::showItem');
     this.$root.$off('selectMembersModal::showItem');
+    window.removeEventListener('resize', this.setBannerOffset);
   },
   mounted () {
     // Remove the index.html loading screen and now show the inapp loading
@@ -615,9 +621,21 @@ export default {
     },
     hideBanner () {
       this.bannerHidden = true;
+      this.setBannerOffset();
     },
     resumeDamage () {
       this.$store.dispatch('user:sleep');
+    },
+    setBannerOffset () {
+      let contentPlacement = 0;
+      if (this.showRestingBanner && this.$refs.restingBanner !== undefined) {
+        contentPlacement = this.$refs.restingBanner.clientHeight;
+      }
+      this.bannerHeight = contentPlacement;
+      let smartBanner = document.getElementsByClassName('smartbanner')[0];
+      if (smartBanner !== undefined) {
+        smartBanner.style.top = `${contentPlacement}px`;
+      }
     },
   },
 };
