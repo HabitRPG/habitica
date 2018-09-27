@@ -204,6 +204,7 @@
     "hideQuickAllocation": "Göm poängfördelning",
     "quickAllocationLevelPopover": "För varje nivå tjänar du ett poäng som du kan tilldela till en egenskap av ditt val. Du kan göra det manuellt eller så kan du låta spelet välja åt dig med hjälp av Automatisk Tilldelning som finns under Användarikon > Egenskaper.",
     "notEnoughAttrPoints": "Du har inte tillräckligt med egenskapspoäng.",
+    "classNotSelected": "You must select Class before you can assign Stat Points.",
     "style": "Stil",
     "facialhair": "Ansikte",
     "photo": "Foto",
