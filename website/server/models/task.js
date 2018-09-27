@@ -173,9 +173,8 @@ TaskSchema.statics.sanitizeUserChallengeTask = function sanitizeUserChallengeTas
 
   return _.pick(initialSanitization, [
     'streak', 'checklist', 'attribute', 'reminders',
-    'tags', 'notes', 'text', 'collapseChecklist',
+    'tags', 'notes', 'collapseChecklist',
     'alias', 'yesterDaily', 'counterDown', 'counterUp',
-    'up', 'down',
   ]);
 };
 

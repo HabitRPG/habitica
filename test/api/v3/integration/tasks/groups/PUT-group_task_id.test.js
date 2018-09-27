@@ -38,16 +38,10 @@ describe('PUT /tasks/:id', () => {
 
   it('updates a group task', async () => {
     let savedHabit = await user.put(`/tasks/${task._id}`, {
-      text: 'some new text',
-      up: false,
-      down: false,
       notes: 'some new notes',
     });
 
-    expect(savedHabit.text).to.eql('some new text');
     expect(savedHabit.notes).to.eql('some new notes');
-    expect(savedHabit.up).to.eql(false);
-    expect(savedHabit.down).to.eql(false);
   });
 
   it('updates a group task - approval is required', async () => {
