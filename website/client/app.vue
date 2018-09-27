@@ -24,7 +24,7 @@ div
           div.closepadding(@click="hideBanner()")
             span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close")
         notifications-display
-        app-menu(:class='{"restingInn": showRestingBanner}' v-bind:style="{ marginTop: bannerHeight + 'px' }")
+        app-menu(:class='{"restingInn": showRestingBanner}' :style="{ marginTop: bannerHeight + 'px' }")
         .container-fluid
           app-header(:class='{"restingInn": showRestingBanner}')
           buyModal(
@@ -242,7 +242,6 @@ export default {
       return this.$t(`tip${tipNumber}`);
     },
     showRestingBanner () {
-      if (this.user === null) return false;
       return !this.bannerHidden && this.user.preferences.sleep;
     },
   },
