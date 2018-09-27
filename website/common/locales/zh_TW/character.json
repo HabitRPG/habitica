@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "請記得你的角色名稱，簡介照片以及簡介內容必須遵守<a href='https://habitica.com/static/community-guidelines' target='_blank'>使用者規範</a>(比如說:不可有猥褻行為、不可有成人議題、不可汙辱他人等等)。如果你不確定某些事有沒有合乎規定，歡迎寫信到 <%= hrefBlankCommunityManagerEmail %>!",
+    "communityGuidelinesWarning": "請記得您的角色名稱、簡介照片以及簡介內容皆須遵守<a href='https://habitica.com/static/community-guidelines' target='_blank'>社群守則</a> (比如說: 不允許猥褻行為、不允許成人議題、不允許汙辱他人等等)。如果您不確定某些事有沒有合乎規範，歡迎寫信到 <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "基本資料",
     "avatar": "客制化角色圖像",
     "editAvatar": "編輯角色",
@@ -204,6 +204,7 @@
     "hideQuickAllocation": "隱藏屬性分配",
     "quickAllocationLevelPopover": "每一次升等，你將獲得一點可自由分配的屬性點。你可以手動選擇，或是讓系統依據在玩家圖像>屬性 中的其中一種分配規則來自種分配屬性點。",
     "notEnoughAttrPoints": "你沒足夠的屬性點。",
+    "classNotSelected": "You must select Class before you can assign Stat Points.",
     "style": "樣式",
     "facialhair": "臉部",
     "photo": "照片",

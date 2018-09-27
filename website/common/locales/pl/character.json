@@ -204,6 +204,7 @@
     "hideQuickAllocation": "Ukryj przydział Statystyk",
     "quickAllocationLevelPopover": "Każdy zdobyty poziom daje Ci jeden punkt, który możesz przydzielić do wybranej przez siebie statystyki. Możesz zrobić to ręcznie lub pozwolić, by gra zdecydowała za Ciebie, używając jednej z opcji automatycznego przydzielania, którą znajdziesz klikając Ikonę Użytkownika > Statystyki",
     "notEnoughAttrPoints": "Nie masz wystarczająco Punktów Statystyk.",
+    "classNotSelected": "You must select Class before you can assign Stat Points.",
     "style": "Styl",
     "facialhair": "Zarost",
     "photo": "Zdjęcie",

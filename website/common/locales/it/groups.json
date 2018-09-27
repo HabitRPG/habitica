@@ -6,6 +6,7 @@
     "innText": "Stai riposando nella Locanda! Mentre sei qui, le tue Daily non ti danneggeranno alla fine della giornata, ma si resetteranno comunque ogni giorno. Fai attenzione: se stai partecipando ad una missione Boss, il Boss ti danneggerà comunque per le Daily incomplete dei tuoi compagni di squadra, a meno che non stiano riposando anche loro nella Locanda! Inoltre, il tuo danno al Boss (o la raccolta di oggetti) non avrà effetto finché non lasci la Locanda.",
     "innTextBroken": "Stai riposando nella Locanda, credo... Mentre sei qui, le tue Daily non ti danneggeranno alla fine della giornata, ma si resetteranno comunque ogni giorno... Se stai partecipando ad una missione Boss, il Boss ti danneggerà comunque per le Daily incomplete dei tuoi compagni di squadra... a meno che non stiano riposando anche loro nella Locanda... Inoltre, il tuo danno al Boss (o la raccolta di oggetti) non avrà effetto finché non lasci la Locanda... che stanchezza...",
     "innCheckOutBanner": "Attualmente sei fermo nella locanda. Le tue Daily non ti danneggieranno e non progredirai nelle missioni.",
+    "innCheckOutBannerShort": "You are checked into the Inn.",
     "resumeDamage": "Riattiva Danni",
     "helpfulLinks": "Link utili",
     "communityGuidelinesLink": "Linee guida della community",
