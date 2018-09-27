@@ -204,6 +204,7 @@
     "hideQuickAllocation": "割り当てを非表示",
     "quickAllocationLevelPopover": "レベルが1上がるごとに、能力値のどれかに割り当てられるポイントを1獲得します。割り当ては手動で行うほかに、ユーザーアイコン > 設定の「自動割り当て」設定でシステムに任せることもできます。",
     "notEnoughAttrPoints": "割り当てるポイントが足りません",
+    "classNotSelected": "You must select Class before you can assign Stat Points.",
     "style": "体型",
     "facialhair": "顔",
     "photo": "写真",

@@ -204,6 +204,7 @@
     "hideQuickAllocation": "Verberg verdeling Eigenschapspunten",
     "quickAllocationLevelPopover": "Met ieder niveau verdien je een Punt om toe te wijzen aan een Eigenschap van jouw keuze. Je kunt dit eigenhandig doen of het spel voor je laten bepalen door een van de automatische toewijzingsopties te kiezen in Gebruiker -> Statistieken.",
     "notEnoughAttrPoints": "Je hebt niet genoeg Eigenschapspunten.",
+    "classNotSelected": "You must select Class before you can assign Stat Points.",
     "style": "Stijl",
     "facialhair": "Gezicht",
     "photo": "Foto",

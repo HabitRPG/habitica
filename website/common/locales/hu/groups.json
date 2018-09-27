@@ -6,6 +6,7 @@
     "innText": "A fogadóban pihensz! Amíg itt tartózkodsz a napi feladataid nem okoznak sebzést a nap befejeztével, de új nap kezdetével ugyanúgy frissülnek. Figyelmeztetés: ha egy főellenséggel harcolsz, a csapattagok kihagyott napi feladatai ugyanúgy téged is sebezni fognak, kivéve ha ők is be vannak jelentkezve a fogadóba! A saját sebzésed a főellenség ellen (vagy az összegyűjtött tárgyak) csak akkor lépnek érvénybe ha elhagyod a fogadót.",
     "innTextBroken": "Hát úgy néz ki hogy most a fogadóban pihensz... Amíg itt tartózkodsz a napi feladataid nem okoznak sebzést a nap befejeztével, de új nap kezdetével ugyanúgy frissülnek... Ha egy főellenséggel harcolsz, a csapattagok kihagyott napi feladatai ugyanúgy téged is sebezni fognak... kivéve ha ők is be vannak jelentkezve a fogadóba... Továbbá, a saját sebzésed a főellenség ellen (vagy az összegyűjtött tárgyak) csak akkor lépnek érvénybe ha elhagyod a fogadót... annyira fáradt...",
     "innCheckOutBanner": "Jelenleg be vagy jelentkezve a fogadóba. A napi feladataid nem fognak sebzést okozni és a küldetésekben sem fogsz haladást elérni.",
+    "innCheckOutBannerShort": "You are checked into the Inn.",
     "resumeDamage": "Sebzés folytatása",
     "helpfulLinks": "Hasznos linkek",
     "communityGuidelinesLink": "Közösségi irányelvek",

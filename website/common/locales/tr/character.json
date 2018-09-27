@@ -204,6 +204,7 @@
     "hideQuickAllocation": "Nitelik Dağılımını gizle",
     "quickAllocationLevelPopover": "Her seviye, sana istediğin bir Niteliğe harcaman için bir Puan kazandırır. Bunu elle yapabileceğin gibi, Kullanıcı İkonu -> Nitelikler menüsü altındaki Otomatik Dağıtma ayarlarından biri ile oyunun senin yerine karar vermesini de sağlayabilirsin.",
     "notEnoughAttrPoints": "Yeterince Nitelik Puanın yok.",
+    "classNotSelected": "You must select Class before you can assign Stat Points.",
     "style": "Tarz",
     "facialhair": "Sakal & Bıyık",
     "photo": "Fotoğraf",

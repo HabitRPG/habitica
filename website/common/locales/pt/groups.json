@@ -6,6 +6,7 @@
     "innText": "Está a descansar na Estalagem! Enquanto estiver aí hospedado, as sua Tarefas Diárias não o magoarão ao final do dia, mas continuaram a renovar-se cada dia. Dique avisado: se estiver a participar numa Missão contra Líder, o Líder ainda lhe dará dano pela Tarefas Diárias falhadas pelos seus colegas de Equipa a não ser que também estejam na Estalagem! Adicionalmente, o seu próprio dano ao Líder (ou items colectados) não serão aplicados até sair da Estalagem.",
     "innTextBroken": "Está a descansar na Estalagem, acho... Enquanto estiver lá hospedado, as suas Tarefas Diárias não o magoarão ao final do dia, mas continuaram a renovar-se todos os dias... Se estiver a participar numa Missão contra Líder, este ainda o poderá danificar devido a Tarefas Diárias incompletas dos seus colegas de Equipa... a não ser que também estejam na Estalagem... Adicionalmente, o seu dano ao Líder (ou items colectados) não serão aplicados até sair da Estalagem... tão cansado...",
     "innCheckOutBanner": "Deste entrada na Pousada. As tuas Tarefas Diárias não te vão causar dano e não vais progredir nas Missões.",
+    "innCheckOutBannerShort": "You are checked into the Inn.",
     "resumeDamage": "Retomar Dano",
     "helpfulLinks": "Links Prestáveis",
     "communityGuidelinesLink": "Guia de Comunidade",

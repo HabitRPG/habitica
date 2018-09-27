@@ -202,7 +202,7 @@
     "hatchingPotionStarryNight": "Ночной звездный",
     "hatchingPotionRainbow": "Радужный",
     "hatchingPotionGlass": "Стеклянный",
-    "hatchingPotionGlow": "Glow-in-the-Dark",
+    "hatchingPotionGlow": "Светящийся-ночью",
     "hatchingPotionNotes": "Полейте его на яйцо и из него вылупится <%= potText(locale) %> питомец.",
     "premiumPotionAddlNotes": "Несовместим с яйцами квестовых питомцев.",
     "foodMeat": "Мясо",
