@@ -254,10 +254,10 @@
       getGearTitle (key) {
         return this.flatGear[key].text();
       },
-      totalAllocatedStats(stat) {
+      totalAllocatedStats (stat) {
         return this.user.stats[stat] + this.statUpdates[stat];
       },
-      totalStatPoints(stat) {
+      totalStatPoints (stat) {
         return this.statsComputed[stat] + this.statUpdates[stat];
       },
       totalCount (objectToCount) {
