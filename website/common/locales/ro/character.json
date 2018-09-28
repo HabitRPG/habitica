@@ -204,6 +204,7 @@
     "hideQuickAllocation": "Ascunde Alocarea Punctelor",
     "quickAllocationLevelPopover": "Fiecare nivel îți oferă un punct pe care-l poți repartiza unui atribut la alegere. Poți face acest lucru manual, sau poți lăsa jocul să decidă pentru tine folosind una din opțiunile de Alocare Automată, aflate în Icon-ul Utilizatorului > Stats.",
     "notEnoughAttrPoints": "Nu ai suficiente Puncte.",
+    "classNotSelected": "You must select Class before you can assign Stat Points.",
     "style": "Stil",
     "facialhair": "Facial",
     "photo": "Poză",

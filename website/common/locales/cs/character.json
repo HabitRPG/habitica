@@ -204,6 +204,7 @@
     "hideQuickAllocation": "Skrýt přidělení vlastnostních bodů",
     "quickAllocationLevelPopover": "S každou další úrovní získáš jeden bod, který můžeš přiřadit k libovolné vlastnosti. Přiřadit body můžeš buď manuálně anebo můžeš nechat hru rozhodnout za tebe na základě některé z možností Automatického Přiřazení, které nalezneš v Uživatel -> Statistiky.",
     "notEnoughAttrPoints": "Nemáš dostatek vlastnostních bodů",
+    "classNotSelected": "You must select Class before you can assign Stat Points.",
     "style": "Styl",
     "facialhair": "Vousy",
     "photo": "Fotka",

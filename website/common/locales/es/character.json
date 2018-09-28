@@ -204,6 +204,7 @@
     "hideQuickAllocation": "Esconder la asignación de puntos",
     "quickAllocationLevelPopover": "Cada nivel te da un Punto para asignar a la Estadística que quieras. Puedes hacerlo manualmente o dejar que el juego decida por ti, utilizando una de las opciones de Asignación Automática que encontrarás en Icono de Usuario > Estadísticas.",
     "notEnoughAttrPoints": "No tienes suficientes puntos de atributo.",
+    "classNotSelected": "You must select Class before you can assign Stat Points.",
     "style": "Estilo",
     "facialhair": "Facial",
     "photo": "Foto",

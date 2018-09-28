@@ -6,6 +6,7 @@
     "innText": "Handa dinleniyorsun! Burada iken, Günlük İşlerin gün sonunda sana hasar vermezler ancak her gün yenilenmeye devam ederler. Dikkatli ol: Eğer bir Canavar Görevine katılıyorsan, takım arkadaşların da Handa olmadığı sürece, onların aksattığı Günlük İşler yüzünden Canavar sana da hasar verecektir! Aynı zamanda, Handan ayrılmadığın sürece Canavara vereceğin hasar (veya toplayacağın eşyalar) da sayılmayacaktır.",
     "innTextBroken": "Handa dinleniyorsun, sanırım... Burada iken, Günlük İşlerin gün sonunda sana hasar vermezler ancak her gün yenilenmeye devam ederler... Eğer bir Canavar Görevine katılıyorsan, onların aksattığı Günlük İşler yüzünden Canavar sana da hasar verecektir... takım arkadaşların da Handa olmadığı sürece...  Aynı zamanda, Handan ayrılmadığın sürece Canavara vereceğin hasar (veya toplayacağın eşyalar) da sayılmayacaktır... çok yorgunum...",
     "innCheckOutBanner": "Şu anda Handa dinleniyorsun. Günlük işlerin sana zarar vermez ve görevlere katkıda bulunmazsın.",
+    "innCheckOutBannerShort": "You are checked into the Inn.",
     "resumeDamage": "Handan çıkış yap",
     "helpfulLinks": "Yararlı Bağlantılar",
     "communityGuidelinesLink": "Topluluk Kuralları",
