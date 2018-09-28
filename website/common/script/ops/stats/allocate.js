@@ -24,6 +24,9 @@ module.exports = function allocate (user, req = {}) {
   if (user.stats.points > 0) {
     user.stats[stat]++;
     user.stats.points--;
+    if (stat === 'int') {
+      user.stats.mp++;
+    }
   } else {
     throw new NotAuthorized(i18n.t('notEnoughAttrPoints', req.language));
   }
