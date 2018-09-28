@@ -124,7 +124,7 @@
           h3
             | {{$t('statPoints')}}
             .counter.badge(v-if='user.stats.points || userLevel100Plus')
-              | {{user.stats.points}}&nbsp;
+              | {{pointsRemaining}}&nbsp;
         .col-12.col-md-6
           .float-right
             toggle-switch(
@@ -137,7 +137,7 @@
           .box.white.row.col-12
             .col-9
               div(:class='stat') {{ $t(stats[stat].title) }}
-              .number {{ user.stats[stat] }}
+              .number {{ user.stats[stat] + statUpdates[stat] }}
               .points {{$t('pts')}}
             .col-3
               div
@@ -157,7 +157,7 @@
   import Content from '../../../common/script/content';
   import { beastMasterProgress, mountMasterProgress } from '../../../common/script/count';
   import autoAllocate from '../../../common/script/fns/autoAllocate';
-  import allocate from  '../../../common/script/ops/stats/allocate';
+  import allocateBulk from  '../../../common/script/ops/stats/allocateBulk';
   import statsComputed from  '../../../common/script/libs/statsComputed';
 
   import axios from 'axios';
@@ -239,8 +239,14 @@
         return this.user.stats.lvl >= 100;
       },
       showStatsSave () {
-        const statsAreBeingUpdated = Object.values(this.statUpdates).find(stat => stat > 0);
-        return Boolean(this.user.stats.points) || statsAreBeingUpdated;
+        return Boolean(this.user.stats.points);
+      },
+      pointsRemaining () {
+        let points = this.user.stats.points;
+        Object.values(this.statUpdates).forEach(value => {
+          points -= value;
+        });
+        return points;
       },
     },
     methods: {
@@ -292,14 +298,12 @@
         return display;
       },
       allocate (stat) {
-        allocate(this.user, {query: { stat }});
-        this.statUpdates[stat] += 1;
+        if (this.pointsRemaining === 0) return;
+        this.statUpdates[stat]++;
       },
       deallocate (stat) {
         if (this.statUpdates[stat] === 0) return;
-        this.user.stats[stat] -= 1;
-        this.user.stats.points += 1;
-        this.statUpdates[stat] -= 1;
+        this.statUpdates[stat]--;
       },
       async saveAttributes () {
         this.loading = true;
@@ -309,16 +313,19 @@
           if (this.statUpdates[stat] > 0) statUpdates[stat] = this.statUpdates[stat];
         });
 
-        await axios.post('/api/v4/user/allocate-bulk', {
-          stats: statUpdates,
-        });
-
+        // reset statUpdates to zero before request to avoid display errors while waiting for server
         this.statUpdates = {
           str: 0,
           int: 0,
           con: 0,
           per: 0,
         };
+
+        allocateBulk(this.user, { body: { stats: statUpdates } });
+
+        await axios.post('/api/v4/user/allocate-bulk', {
+          stats: statUpdates,
+        });
 
         this.loading = false;
       },
