@@ -142,7 +142,7 @@
               input.form-control(type='text', :placeholder="$t('newUsername')", v-model='usernameUpdates.username')
             button.btn.btn-primary(type='submit', @click='changeUser("username", usernameUpdates)') {{ $t('submit') }}
 
-          h5 {{ $t('changeEmail') }}
+          h5(v-if='user.auth.local.email') {{ $t('changeEmail') }}
           .form(v-if='user.auth.local.email', name='changeEmail', novalidate)
             .form-group
               input.form-control(type='text', :placeholder="$t('newEmail')", v-model='emailUpdates.newEmail')
@@ -150,7 +150,7 @@
               input.form-control(type='password', :placeholder="$t('password')", v-model='emailUpdates.password')
             button.btn.btn-primary(type='submit', @click='changeUser("email", emailUpdates)') {{ $t('submit') }}
 
-          h5 {{ $t('changePass') }}
+          h5(v-if='user.auth.local.email') {{ $t('changePass') }}
           .form(v-if='user.auth.local.email', name='changePassword', novalidate)
             .form-group
               input.form-control(type='password', :placeholder="$t('oldPass')", v-model='passwordUpdates.password')
