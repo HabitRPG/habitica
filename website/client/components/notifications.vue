@@ -88,7 +88,6 @@ import axios from 'axios';
 import moment from 'moment';
 import throttle from 'lodash/throttle';
 
-import { toNextLevel } from '../../common/script/statHelpers';
 import { shouldDo } from '../../common/script/cron';
 import { mapState } from 'client/libs/store';
 import notifications from 'client/mixins/notifications';
@@ -199,6 +198,9 @@ export default {
     userClassSelect () {
       return !this.user.flags.classSelected && this.user.stats.lvl >= 10;
     },
+    userHasClass () {
+      return this.$store.getters['members:hasClass'](this.user);
+    },
     invitedToQuest () {
       return this.user.party.quest.RSVPNeeded && !this.user.party.quest.completed;
     },
@@ -223,12 +225,7 @@ export default {
     userExp (after, before) {
       if (after === before) return;
       if (this.user.stats.lvl === 0) return;
-
-      let exp = after - before;
-      if (exp < -50) { // recalculate exp if user level up
-        exp = toNextLevel(this.user.stats.lvl - 1) - before + after;
-      }
-      this.exp(exp);
+      this.exp(after - before);
     },
     userGp (after, before) {
       if (after === before) return;
@@ -250,9 +247,9 @@ export default {
     },
     userMp (after, before) {
       if (after === before) return;
-      if (!this.$store.getters['members:hasClass'](this.user)) return;
+      if (!this.userHasClass) return;
 
-      let mana = after - before;
+      const mana = after - before;
       this.mp(mana);
     },
     userLvl (after, before) {
@@ -506,7 +503,7 @@ export default {
           case 'CRON':
             if (notification.data) {
               if (notification.data.hp) this.hp(notification.data.hp, 'hp');
-              if (notification.data.mp) this.mp(notification.data.mp);
+              if (notification.data.mp && this.userHasClass) this.mp(notification.data.mp);
             }
             break;
           case 'SCORED_TASK':

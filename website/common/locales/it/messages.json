@@ -62,5 +62,5 @@
     "notificationsRequired": "Sono necessari gli id delle notifiche.",
     "unallocatedStatsPoints": "Hai <span class=\"notification-bold-blue\"><%= points %> Punti Statistica non allocati</span>",
     "beginningOfConversation": "Stai iniziando una conversazione con <%= userName %>. Ricorda di scrivere con gentilezza e rispetto, seguendo le Linee guida della community!",
-    "messageDeletedUser": "Sorry, this user has deleted their account."
+    "messageDeletedUser": "Siamo spiacenti, questo utente ha eliminato il suo account."
 }

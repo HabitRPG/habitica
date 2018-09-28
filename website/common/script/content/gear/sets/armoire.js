@@ -383,6 +383,15 @@ let armor = {
     set: 'jeweledArcher',
     canOwn: ownsItem('armor_armoire_JeweledArcherArmor'),
   },
+  coverallsOfBookbinding: {
+    text: t('armorArmoireCoverallsOfBookbindingText'),
+    notes: t('armorArmoireCoverallsOfBookbindingNotes', { con: 10, per: 5 }),
+    value: 100,
+    con: 10,
+    per: 5,
+    set: 'bookbinder',
+    canOwn: ownsItem('armor_armoire_coverallsOfBookbinding'),
+  },
 };
 
 let body = {
@@ -1032,6 +1041,14 @@ let shield = {
     set: 'piraticalPrincess',
     canOwn: ownsItem('shield_armoire_piraticalSkullShield'),
   },
+  unfinishedTome: {
+    text: t('shieldArmoireUnfinishedTomeText'),
+    notes: t('shieldArmoireUnfinishedTomeNotes', { int: 10 }),
+    value: 100,
+    int: 10,
+    set: 'bookbinder',
+    canOwn: ownsItem('shield_armoire_unfinishedTome'),
+  },
 };
 
 let headAccessory = {
@@ -1041,6 +1058,14 @@ let headAccessory = {
     value: 100,
     str: 10,
     canOwn: ownsItem('headAccessory_armoire_comicalArrow'),
+  },
+  gogglesOfBookbinding: {
+    text: t('headAccessoryArmoireGogglesOfBookbindingText'),
+    notes: t('headAccessoryArmoireGogglesOfBookbindingNotes', { per: 8 }),
+    value: 100,
+    per: 8,
+    set: 'bookbinder',
+    canOwn: ownsItem('headAccessory_armoire_gogglesOfBookbinding'),
   },
 };
 
@@ -1356,7 +1381,15 @@ let weapon = {
     value: 100,
     int: 15,
     set: 'jeweledArcher',
-    canOwn: ownsItem('weapon_armoire_JeweledArcherBow'),
+    canOwn: ownsItem('weapon_armoire_jeweledArcherBow'),
+  },
+  needleOfBookbinding: {
+    text: t('weaponArmoireNeedleOfBookbindingText'),
+    notes: t('weaponArmoireNeedleOfBookbindingNotes', { str: 8 }),
+    value: 100,
+    str: 8,
+    set: 'bookbinder',
+    canOwn: ownsItem('weapon_armoire_needleOfBookbinding'),
   },
 };
 

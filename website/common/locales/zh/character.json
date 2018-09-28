@@ -204,6 +204,7 @@
     "hideQuickAllocation": "隐藏属性分配的状态",
     "quickAllocationLevelPopover": "每一级您都可以获得一个可自由分配的属性点。你可以手动分配，也可以在用户图标 -> 状态界面中选择让系统为你自动分配。",
     "notEnoughAttrPoints": "您没有足够的属性点数。",
+    "classNotSelected": "You must select Class before you can assign Stat Points.",
     "style": "风格",
     "facialhair": "面部",
     "photo": "图片",

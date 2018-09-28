@@ -204,6 +204,7 @@
     "hideQuickAllocation": "Sembunyikan Alokasi Atribut",
     "quickAllocationLevelPopover": "Kamu akan mendapat satu Poin setiap level untuk dialokasikan kepada satu Atribut pilihanmu. Kamu dapat melakukan ini sendiri, atau biarkan permainan ini memutuskannya untukmu dengan menggunakan salah satu pilihan dari Alokasi Otomatis yang dapat ditemukan di Ikon Pengguna > Atribut.",
     "notEnoughAttrPoints": "Kamu tidak memiliki cukup Poin Atribut.",
+    "classNotSelected": "You must select Class before you can assign Stat Points.",
     "style": "Gaya",
     "facialhair": "Wajah",
     "photo": "Foto",

@@ -4,7 +4,7 @@
     reset-modal
     delete-modal
     h1.col-12 {{ $t('settings') }}
-    .col-6
+    .col-sm-6
       .form-horizontal
         h5 {{ $t('language') }}
         select.form-control(:value='user.preferences.language',
@@ -105,7 +105,7 @@
               p(v-html="$t('timezoneUTC', {utc: timezoneOffsetToUtc})")
               p(v-html="$t('timezoneInfo')")
 
-    .col-6
+    .col-sm-6
       h2 {{ $t('registration') }}
       .panel-body
         div

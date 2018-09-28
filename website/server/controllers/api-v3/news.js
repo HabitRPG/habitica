@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE FOR LAVA DRAGON SET AND SPOTLIGHT ON BACK TO SCHOOL';
+const LAST_ANNOUNCEMENT_TITLE = 'SLEEPY AVATARS; LAST CHANCE FOR AUTUMNAL ARMOR SET AND FOREST FRIENDS BUNDLE';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,27 +30,24 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>8/30/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>9/27/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="media align-items-center">
-          <div class="media-body">
-            <h3>Last Chance for Lava Dragon Set</h3>
-            <p>Reminder: this is the final day to <a href='/user/settings/subscription' target='_blank'>subscribe</a> and receive the Lava Dragon Set! Subscribing also lets you buy Gems for Gold. The longer your subscription, the more Gems you get!</p>
-            <p>Thanks so much for your support! You help keep Habitica running.</p>
-            <div class="small mb-3">by Beffymaroo</div>
-          </div>
-          <div class="promo_mystery_201808"></div>
-        </div>
-        <div class="media align-items-center">
-          <div class="scene_studying mb-3 mr-3"></div>
-          <div class="media-body">
-            <h3>User Spotlight Special: Back-To-School Edition</h3>
-            <p>Are you getting ready for school to start (or perhaps school has already begun) and using Habitica to motivate and organize yourself? Check out this special <a href='https://habitica.wordpress.com/2018/08/30/user-spotlight-special-edition-tips-for-back-to-school/' target='_blank'>User Spotlight post</a>, featuring advice from fellow Habiticans! They offer lots of useful tips for using your task lists and more to get a jump-start on your studies (or teaching) for this year.</p>
-            <div class="small mb-3">by shanaqui</div>
-          </div>
-        </div>
+        <h3>Is Your Avatar Asleep?</h3>
+        <p>Hey Habiticans! You may have noticed we experienced a server outage on 25-September. During this issue, we <a href='https://habitica.wikia.com/wiki/Rest_in_the_Inn' target='_blank'>put all users in the Inn</a> to prevent any unfair damage. To check out of the Inn and resume damage from Dailies as well as boss damage in Quests, go to Menu>Social>Tavern>Details (on mobile) or Guilds>Tavern (on web) and tap the orange banner that says "Resume Damage."</p>
+        <p>Thank you all for your patience and support during the outage. We are always grateful for our exceptionally wonderful community! <3</p>
+        <div class="promo_mystery_201809 center-block"></div>
+        <h3>Last Chance for Autumnal Armor Set</h3>
+        <p>Reminder: this weekend is your last chance to <a href='/user/settings/subscription' target='_blank'>subscribe</a> and receive the Autumnal Set! Subscribing also lets you buy Gems for Gold. The longer your subscription, the more Gems you get!</p>
+        <p>Thanks so much for your support! You help keep Habitica running.</p>
+        <div class="small mb-3">by Beffymaroo</div>
+        <div class="promo_forest_friends_bundle center-block"></div>
+        <h3>Last Chance for Forest Friends Quest Bundle</h3>
+        <p>This is also the final week to buy the discounted Forest Friends Pet Quest Bundle, featuring the Deer, Hedgehog, and Treeling quests all for seven Gems! Be sure to grab this bundle from the <a href='/shops/quests' target='_blank'>Quest Shop</a> before it scampers into the underbrush!</p>
+        <div class="small">by Beffymaroo and SabreCat</div>
+        <div class="small">Art by Uncommon Criminal, InspectorCaracal, Leephon, aurakami, FuzzyTrees, PainterProphet, and plumilla</div>
+        <div class="small mb-3">Writing by Daniel the Bard, Flutter Bee, and Lemoness</div>
       </div>
       `,
     });
@@ -68,9 +65,7 @@ api.getNews = {
  */
 api.tellMeLaterNews = {
   method: 'POST',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/news/tell-me-later',
   async handler (req, res) {
     const user = res.locals.user;

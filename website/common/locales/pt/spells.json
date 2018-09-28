@@ -21,7 +21,7 @@
     "spellRogueBackStabText": "Facada nas Costas",
     "spellRogueBackStabNotes": "Você trai uma tarefa tola e ganha ouro e EXP! (Baseado em: STR)",
     "spellRogueToolsOfTradeText": "Ferramentas do Ofício",
-    "spellRogueToolsOfTradeNotes": "Your tricky talents buff your whole Party's Perception! (Based on: Unbuffed PER)",
+    "spellRogueToolsOfTradeNotes": "Os teus talentos traiçoeiros aumentam a Percepção de toda a tua Equipa! (Baseado em: PER)",
     "spellRogueStealthText": "Furtividade",
     "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change. (Based on: PER)",
     "spellRogueStealthDaliesAvoided": "<%= originalText %>  Número de tarefas diárias evitado: <%= number %>.",

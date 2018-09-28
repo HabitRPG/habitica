@@ -108,6 +108,8 @@ let bannedWords = [
   'fucker',
   'fuckers',
   'f\\*ck',
+  'fuckhead',
+  'fuckheads',
   'motherfucker',
   'motherfuckers',
   'motherfucking',

@@ -204,6 +204,7 @@
     "hideQuickAllocation": "Cacher la répartition des attributs",
     "quickAllocationLevelPopover": "Chaque niveau vous rapporte un point que vous pouvez assigner à un attribut de votre choix. Vous pouvez le faire manuellement ou laissez le jeu décider pour vous, en utilisant les options d'attribution automatique qui se trouvent dans l'icône utilisateur -> caractéristiques.",
     "notEnoughAttrPoints": "Vous n'avez pas assez de points d'attribut.",
+    "classNotSelected": "You must select Class before you can assign Stat Points.",
     "style": "Style",
     "facialhair": "Pilosité faciale",
     "photo": "Photo",
