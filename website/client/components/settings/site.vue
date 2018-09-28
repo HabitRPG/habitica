@@ -130,15 +130,13 @@
                 input.form-control(type='password', :placeholder="$t('confirmPass')", v-model='localAuth.confirmPassword', required)
               button.btn.btn-primary(type='submit', @click='addLocalAuth()') {{ $t('submit') }}
 
-        .usersettings(v-if='user.auth.local.username')
-          p {{ $t('username') }}
-            |: {{user.auth.local.username}}
-          p
-            small.muted
-                | {{ $t('loginNameDescription') }}
-          p {{ $t('email') }}
-            |: {{user.auth.local.email}}
-          hr
+        .usersettings
+          h5 {{ $t('changeDisplayName') }}
+          .form(name='changeDisplayName', novalidate)
+            //-.alert.alert-danger(ng-messages='changeUsername.$error && changeUsername.submitted') {{ $t('fillAll') }}
+            .form-group
+              input.form-control(type='text', :placeholder="$t('newDisplayName')", v-model='displayName')
+            button.btn.btn-primary(type='submit', @click='changeDisplayName(displayName)') {{ $t('submit') }}
 
           h5 {{ $t('changeUsername') }}
           .form(v-if='user.auth.local', name='changeUsername', novalidate)
@@ -224,6 +222,7 @@ export default {
       availableFormats: ['MM/dd/yyyy', 'dd/MM/yyyy', 'yyyy/MM/dd'],
       dayStartOptions,
       newDayStart: 0,
+      displayName: '',
       usernameUpdates: {},
       emailUpdates: {},
       passwordUpdates: {},
@@ -240,6 +239,9 @@ export default {
     // @TODO: We may need to request the party here
     this.party = this.$store.state.party;
     this.newDayStart = this.user.preferences.dayStart;
+    this.usernameUpdates.username = this.user.auth.local.username || null;
+    this.displayName = this.user.profile.name;
+    this.emailUpdates.newEmail = this.user.auth.local.email || null;
     hello.init({
       facebook: process.env.FACEBOOK_KEY, // eslint-disable-line no-process-env
       google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line no-process-env
@@ -351,6 +353,11 @@ export default {
       await axios.put(`/api/v4/user/auth/update-${attribute}`, updates);
       alert(this.$t(`${attribute}Success`));
       this.user[attribute] = updates[attribute];
+    },
+    async changeDisplayName (newName) {
+      await axios.put('/api/v4/user/', {'profile.name': newName});
+      alert(this.$t('displayNameSuccess'));
+      this.user.profile.name = newName;
     },
     openRestoreModal () {
       this.$root.$emit('bv::show::modal', 'restore');
