@@ -99,7 +99,7 @@
             span.hint(:popover-title='$t(statInfo.title)', popover-placement='right',
               :popover='$t(statInfo.popover)', popover-trigger='mouseenter')
             .stat-title(:class='stat') {{ $t(statInfo.title) }}
-            strong.number {{ statsComputed[stat] | floorWholeNumber }}
+            strong.number {{totalStatPoints(stat) | floorWholeNumber}}
           .col-12.col-md-6
             ul.bonus-stats
               li
@@ -113,7 +113,7 @@
                 | {{statsComputed.classBonus[stat]}}
               li
                 strong {{$t('allocated')}}:
-                | {{user.stats[stat]}}
+                | {{totalAllocatedStats(stat)}}
               li
                 strong {{$t('buffs')}}:
                 | {{user.stats.buffs[stat]}}
@@ -137,7 +137,7 @@
           .box.white.row.col-12
             .col-9
               div(:class='stat') {{ $t(stats[stat].title) }}
-              .number {{ user.stats[stat] + statUpdates[stat] }}
+              .number {{totalAllocatedStats(stat)}}
               .points {{$t('pts')}}
             .col-3
               div
@@ -248,10 +248,17 @@
         });
         return points;
       },
+
     },
     methods: {
       getGearTitle (key) {
         return this.flatGear[key].text();
+      },
+      totalAllocatedStats(stat) {
+        return this.user.stats[stat] + this.statUpdates[stat];
+      },
+      totalStatPoints(stat) {
+        return this.statsComputed[stat] + this.statUpdates[stat];
       },
       totalCount (objectToCount) {
         let total = size(objectToCount);
