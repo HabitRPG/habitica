@@ -115,13 +115,10 @@
               button.btn.btn-primary.mb-2(disabled='disabled', v-if='!hasBackupAuthOption(network.key) && user.auth[network.key].id') {{ $t('registeredWithSocial', {network: network.name}) }}
               button.btn.btn-danger(@click='deleteSocialAuth(network)', v-if='hasBackupAuthOption(network.key) && user.auth[network.key].id') {{ $t('detachSocial', {network: network.name}) }}
           hr
-          div(v-if='!user.auth.local.username')
+          div(v-if='!user.auth.local.email')
             p {{ $t('addLocalAuth') }}
-            p {{ $t('usernameLimitations') }}
             .form(name='localAuth', novalidate)
               //-.alert.alert-danger(ng-messages='changeUsername.$error && changeUsername.submitted') {{ $t('fillAll') }}
-              .form-group
-                input.form-control(type='text', :placeholder="$t('username')", v-model='localAuth.username', required)
               .form-group
                 input.form-control(type='text', :placeholder="$t('email')", v-model='localAuth.email', required)
               .form-group
@@ -139,16 +136,14 @@
             button.btn.btn-primary(type='submit', @click='changeDisplayName(displayName)') {{ $t('submit') }}
 
           h5 {{ $t('changeUsername') }}
-          .form(v-if='user.auth.local', name='changeUsername', novalidate)
+          .form(name='changeUsername', novalidate)
             //-.alert.alert-danger(ng-messages='changeUsername.$error && changeUsername.submitted') {{ $t('fillAll') }}
             .form-group
               input.form-control(type='text', :placeholder="$t('newUsername')", v-model='usernameUpdates.username')
-            .form-group
-              input.form-control(type='password', :placeholder="$t('password')", v-model='usernameUpdates.password')
             button.btn.btn-primary(type='submit', @click='changeUser("username", usernameUpdates)') {{ $t('submit') }}
 
           h5 {{ $t('changeEmail') }}
-          .form(v-if='user.auth.local', name='changeEmail', novalidate)
+          .form(v-if='user.auth.local.email', name='changeEmail', novalidate)
             .form-group
               input.form-control(type='text', :placeholder="$t('newEmail')", v-model='emailUpdates.newEmail')
             .form-group
@@ -156,7 +151,7 @@
             button.btn.btn-primary(type='submit', @click='changeUser("email", emailUpdates)') {{ $t('submit') }}
 
           h5 {{ $t('changePass') }}
-          .form(v-if='user.auth.local', name='changePassword', novalidate)
+          .form(v-if='user.auth.local.email', name='changePassword', novalidate)
             .form-group
               input.form-control(type='password', :placeholder="$t('oldPass')", v-model='passwordUpdates.password')
             .form-group
