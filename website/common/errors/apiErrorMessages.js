@@ -25,6 +25,4 @@ module.exports = {
   missingCustomerId: 'Missing "req.query.customerId"',
   missingPaypalBlock: 'Missing "req.session.paypalBlock"',
   missingSubKey: 'Missing "req.query.sub"',
-
-  messageIdRequired: '\"messageId\" must be a valid UUID.",',
 };
