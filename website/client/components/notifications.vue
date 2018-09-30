@@ -363,7 +363,18 @@ export default {
         this.playSound(config.sound);
       }
 
-      if (forceToModal) {
+      if (type === 'REBIRTH_ACHIEVEMENT') {
+        // reload if the user hasn't clicked on the notification
+        const timeOut = setTimeout(() => {
+          window.location.reload(true);
+        }, 60000);
+
+        this.text(config.label(this.$t), () => {
+          // prevent the current reload timeout
+          clearTimeout(timeOut);
+          this.$root.$emit('bv::show::modal', config.modalId);
+        }, false);
+      } else if (forceToModal) {
         this.$root.$emit('bv::show::modal', config.modalId);
       } else {
         this.text(config.label(this.$t), () => {
