@@ -112,6 +112,7 @@ export async function update (req, res, { isV3 = false }) {
 
   if (req.body['profile.name'] !== undefined) {
     const newName = req.body['profile.name'];
+    if (newName === null) throw new BadRequest(res.t('invalidReqParams'));
     if (newName.length > 30) throw new BadRequest(res.t('displaynameIssueLength'));
     if (nameContainsSlur(newName)) throw new BadRequest(res.t('displaynameIssueSlur'));
   }

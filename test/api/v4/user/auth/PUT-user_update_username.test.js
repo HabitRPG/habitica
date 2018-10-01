@@ -137,7 +137,7 @@ describe('PUT /user/auth/update-username', async () => {
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('invalidReqParams'),
+        message: [t('usernameIssueLength'), t('usernameIssueSlur')].join(' '),
       });
     });
 
@@ -147,21 +147,21 @@ describe('PUT /user/auth/update-username', async () => {
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('invalidReqParams'),
+        message: [t('usernameIssueLength'), t('usernameIssueSlur')].join(' '),
       });
       await expect(user.put(ENDPOINT, {
         username: 'something_TESTPLACEHOLDERSLURWORDHERE',
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('invalidReqParams'),
+        message: [t('usernameIssueLength'), t('usernameIssueSlur')].join(' '),
       });
       await expect(user.put(ENDPOINT, {
         username: 'somethingTESTPLACEHOLDERSLURWORDHEREotherword',
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('invalidReqParams'),
+        message: [t('usernameIssueLength'), t('usernameIssueSlur')].join(' '),
       });
     });
 
@@ -171,7 +171,7 @@ describe('PUT /user/auth/update-username', async () => {
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('invalidReqParams'),
+        message: t('usernameIssueForbidden'),
       });
     });
 
@@ -181,7 +181,7 @@ describe('PUT /user/auth/update-username', async () => {
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('invalidReqParams'),
+        message: t('usernameIssueForbidden'),
       });
     });
 
@@ -191,7 +191,7 @@ describe('PUT /user/auth/update-username', async () => {
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('invalidReqParams'),
+        message: t('usernameIssueLength'),
       });
     });
 
@@ -201,21 +201,21 @@ describe('PUT /user/auth/update-username', async () => {
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('invalidReqParams'),
+        message: t('usernameIssueInvalidCharacters'),
       });
       await expect(user.put(ENDPOINT, {
         username: 'test.name',
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('invalidReqParams'),
+        message: t('usernameIssueInvalidCharacters'),
       });
       await expect(user.put(ENDPOINT, {
         username: '🤬',
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('invalidReqParams'),
+        message: t('usernameIssueInvalidCharacters'),
       });
     });
   });

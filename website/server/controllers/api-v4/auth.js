@@ -50,7 +50,7 @@ api.updateUsername = {
     }
 
     const existingUser = await User.findOne({ 'auth.local.lowerCaseUsername': newUsername.toLowerCase() }, {auth: 1}).exec();
-    if (existingUser !== undefined && existingUser._id !== user._id) {
+    if (existingUser !== undefined && existingUser !== null && existingUser._id !== user._id) {
       throw new BadRequest(res.t('usernameTaken'));
     }
 
