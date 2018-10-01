@@ -141,7 +141,8 @@
                 span {{ $t('usernameNotVerified') }}
                 button.btn.btn-secondary.btn-small.float-right(@click='changeUser("username", {username: user.auth.local.username})') {{ $t('confirmUsername') }}
             .form-group
-              input.form-control(type='text', :placeholder="$t('newUsername')", v-model='usernameUpdates.username')
+              input.form-control(type='text', :placeholder="$t('newUsername')", v-model='usernameUpdates.username', :class='{"is-invalid input-invalid": usernameInvalid}')
+              .input-error(v-for="issue in usernameIssues") {{ issue }}
               small.form-text.text-muted {{ $t('changeUsernameDisclaimer') }}
             button.btn.btn-primary(type='submit', @click='changeUser("username", usernameUpdates)') {{ $t('submit') }}
           h5(v-if='user.auth.local.email') {{ $t('changeEmail') }}
@@ -172,7 +173,9 @@
               popover-trigger='mouseenter', v-b-popover.hover.auto="$t('deleteAccPop')") {{ $t('deleteAccount') }}
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+  @import '~client/assets/scss/colors.scss';
+
   .usersettings h5 {
     margin-top: 1em;
   }
@@ -186,6 +189,13 @@
     content: '';
     display: table;
   }
+
+  .input-error {
+    color: $red-50;
+    font-size: 90%;
+    width: 100%;
+    margin-top: 5px;
+  }
 </style>
 
 <script>
@@ -193,7 +203,7 @@ import hello from 'hellojs';
 import moment from 'moment';
 import axios from 'axios';
 import { mapState } from 'client/libs/store';
-
+import debounce from 'lodash/debounce';
 import restoreModal from './restoreModal';
 import resetModal from './resetModal';
 import deleteModal from './deleteModal';
@@ -230,7 +240,7 @@ export default {
       dayStartOptions,
       newDayStart: 0,
       displayName: '',
-      usernameUpdates: {},
+      usernameUpdates: {username: ''},
       emailUpdates: {},
       passwordUpdates: {},
       localAuth: {
@@ -239,6 +249,7 @@ export default {
         password: '',
         confirmPassword: '',
       },
+      usernameIssues: [],
     };
   },
   mounted () {
@@ -287,8 +298,40 @@ export default {
     verifiedUsername () {
       return this.user.flags.verifiedUsername;
     },
+    usernameValid () {
+      if (this.usernameUpdates.username.length <= 3) return false;
+      return this.usernameIssues.length === 0;
+    },
+    usernameInvalid () {
+      if (this.usernameUpdates.username.length <= 3) return false;
+      return !this.usernameValid;
+    },
+  },
+  watch: {
+    usernameUpdates: {
+      handler () {
+        this.validateUsername(this.usernameUpdates.username);
+      },
+      deep: true,
+    },
   },
   methods: {
+    // eslint-disable-next-line func-names
+    validateUsername: debounce(function (username) {
+      if (username.length <= 3 || username === this.user.auth.local.username) {
+        this.usernameIssues = [];
+        return;
+      }
+      this.$store.dispatch('auth:verifyUsername', {
+        username,
+      }).then(res => {
+        if (res.issues !== undefined) {
+          this.usernameIssues = res.issues;
+        } else {
+          this.usernameIssues = [];
+        }
+      });
+    }, 500),
     set (preferenceType, subtype) {
       let settings = {};
       if (!subtype) {
