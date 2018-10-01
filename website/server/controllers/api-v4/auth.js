@@ -9,7 +9,6 @@ import {
 import * as passwordUtils from '../../libs/password';
 import { model as User } from '../../models/user';
 import {verifyUsername} from '../../libs/user/validation';
-import * as authLib from '../../libs/auth';
 
 const api = {};
 
