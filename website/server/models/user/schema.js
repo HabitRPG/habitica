@@ -520,18 +520,6 @@ let schema = new Schema({
       type: String,
       required: true,
       trim: true,
-      validate: [
-        { validator: (newName) => {
-          return newName !== undefined && newName.length <= 30;
-        },
-          msg: shared.i18n.t('displaynameIssueLength'),
-        },
-        { validator: (newName) => {
-          return newName !== undefined && !nameContainsSlur(newName);
-        },
-          msg: shared.i18n.t('displaynameIssueSlur'),
-        },
-      ],
     },
   },
   stats: {
