@@ -204,7 +204,7 @@
     "hideQuickAllocation": "Esconder Distribuição de Atributos",
     "quickAllocationLevelPopover": "A cada nível que alcançar você terá um Ponto para distribuir em um atributo à sua escolha. Você pode fazer isso manualmente, ou deixar o jogo decidir por você usando uma das opções de Distribuição Automática encontradas em Usuário > Atributos.",
     "notEnoughAttrPoints": "Você não possui Pontos de Atributos suficientes.",
-    "classNotSelected": "You must select Class before you can assign Stat Points.",
+    "classNotSelected": " Você deve selecionar uma classe antes de poder distribuir seus Pontos de Atributo",
     "style": "Estilo",
     "facialhair": "Facial",
     "photo": "Foto",

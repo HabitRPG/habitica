@@ -1,6 +1,6 @@
 {
     "spellWizardFireballText": "火焰爆轟",
-    "spellWizardFireballNotes": "你召喚出經驗值並對Boss造成火焰傷害！（基於：智力）",
+    "spellWizardFireballNotes": "您你召喚出經驗值並對魔王造成火焰傷害！（基於：智力）",
     "spellWizardMPHealText": "澎湃靈泉",
     "spellWizardMPHealNotes": "你獻出魔力所以你隊伍裡的其他人，除了法師，獲得了MP！（基於：智力）",
     "spellWizardEarthText": "地震",
@@ -9,7 +9,7 @@
     "spellWizardFrostNotes": "以一個施咒，寒冰凍結了你所有的連擊，所以它們不會在明天歸零！",
     "spellWizardFrostAlreadyCast": "今天你已經用了「極寒霜凍」技能，不需要再用一次了！",
     "spellWarriorSmashText": "致命一擊",
-    "spellWarriorSmashNotes": "你讓一個任務變得更藍/比較不紅並對Boss造成額外的傷害！（基於：力量）",
+    "spellWarriorSmashNotes": "您讓一個任務顏色變得更藍/不那麼深紅，並對魔王造成額外的傷害！（基於：力量）",
     "spellWarriorDefensiveStanceText": "防禦姿態",
     "spellWarriorDefensiveStanceNotes": "你壓低身子並獲得一個對體質的增益效果！（基於：未增益體質）",
     "spellWarriorValorousPresenceText": "英勇現身",
