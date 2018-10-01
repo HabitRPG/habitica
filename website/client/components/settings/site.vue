@@ -130,8 +130,8 @@
           h5 {{ $t('changeDisplayName') }}
           .form(name='changeDisplayName', novalidate)
             .form-group
-              input#changeDisplayname.form-control(type='text', :placeholder="$t('newDisplayName')", v-model='displayName')
-            button.btn.btn-primary(type='submit', @click='changeDisplayName(displayName)') {{ $t('submit') }}
+              input#changeDisplayname.form-control(type='text', :placeholder="$t('newDisplayName')", v-model='temporaryDisplayName')
+            button.btn.btn-primary(type='submit', @click='changeDisplayName(temporaryDisplayName)') {{ $t('submit') }}
 
           h5 {{ $t('changeUsername') }}
           .form(name='changeUsername', novalidate)
@@ -239,7 +239,7 @@ export default {
       availableFormats: ['MM/dd/yyyy', 'dd/MM/yyyy', 'yyyy/MM/dd'],
       dayStartOptions,
       newDayStart: 0,
-      displayName: '',
+      temporaryDisplayName: '',
       usernameUpdates: {username: ''},
       emailUpdates: {},
       passwordUpdates: {},
@@ -258,7 +258,7 @@ export default {
     this.party = this.$store.state.party;
     this.newDayStart = this.user.preferences.dayStart;
     this.usernameUpdates.username = this.user.auth.local.username || null;
-    this.displayName = this.user.profile.name;
+    this.temporaryDisplayName = this.user.profile.name;
     this.emailUpdates.newEmail = this.user.auth.local.email || null;
     hello.init({
       facebook: process.env.FACEBOOK_KEY, // eslint-disable-line no-process-env
@@ -423,6 +423,7 @@ export default {
       await axios.put('/api/v4/user/', {'profile.name': newName});
       alert(this.$t('displayNameSuccess'));
       this.user.profile.name = newName;
+      this.temporaryDisplayName = newName;
     },
     openRestoreModal () {
       this.$root.$emit('bv::show::modal', 'restore');
