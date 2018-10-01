@@ -49,8 +49,11 @@ api.updateUsername = {
       if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
     }
 
-    const count = await User.count({ 'auth.local.lowerCaseUsername': newUsername.toLowerCase() });
-    if (count > 0) throw new BadRequest(res.t('usernameTaken'));
+
+    const existingUser = await User.findOne({ 'auth.local.lowerCaseUsername': newUsername.toLowerCase() }, {auth: 1}).exec();
+    if (existingUser !== undefined && existingUser._id !== user._id) {
+      throw new BadRequest(res.t('usernameTaken'));
+    }
 
     // if password is using old sha1 encryption, change it
     if (user.auth.local.passwordHashMethod === 'sha1' && password !== undefined) {
