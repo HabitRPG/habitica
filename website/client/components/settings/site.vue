@@ -118,7 +118,6 @@
           div(v-if='!user.auth.local.email')
             p {{ $t('addLocalAuth') }}
             .form(name='localAuth', novalidate)
-              //-.alert.alert-danger(ng-messages='changeUsername.$error && changeUsername.submitted') {{ $t('fillAll') }}
               .form-group
                 input.form-control(type='text', :placeholder="$t('email')", v-model='localAuth.email', required)
               .form-group
@@ -130,18 +129,21 @@
         .usersettings
           h5 {{ $t('changeDisplayName') }}
           .form(name='changeDisplayName', novalidate)
-            //-.alert.alert-danger(ng-messages='changeUsername.$error && changeUsername.submitted') {{ $t('fillAll') }}
             .form-group
               input.form-control(type='text', :placeholder="$t('newDisplayName')", v-model='displayName')
             button.btn.btn-primary(type='submit', @click='changeDisplayName(displayName)') {{ $t('submit') }}
 
           h5 {{ $t('changeUsername') }}
           .form(name='changeUsername', novalidate)
-            //-.alert.alert-danger(ng-messages='changeUsername.$error && changeUsername.submitted') {{ $t('fillAll') }}
+            .iconalert.iconalert-success(v-if='verifiedUsername') {{ $t('usernameVerifiedConfirmation') }}
+            .iconalert.iconalert-warning(v-else)
+              div.align-middle
+                span {{ $t('usernameNotVerified') }}
+                button.btn.btn-secondary.btn-small.float-right(@click='changeUser("username", {username: user.auth.local.username})') {{ $t('confirmUsername') }}
             .form-group
+
               input.form-control(type='text', :placeholder="$t('newUsername')", v-model='usernameUpdates.username')
             button.btn.btn-primary(type='submit', @click='changeUser("username", usernameUpdates)') {{ $t('submit') }}
-
           h5(v-if='user.auth.local.email') {{ $t('changeEmail') }}
           .form(v-if='user.auth.local.email', name='changeEmail', novalidate)
             .form-group
@@ -173,6 +175,16 @@
 <style scoped>
   .usersettings h5 {
     margin-top: 1em;
+  }
+
+  .iconalert > div > span {
+    line-height: 25px;
+  }
+
+  .iconalert > div:after {
+    clear: both;
+    content: '';
+    display: table;
   }
 </style>
 
@@ -272,6 +284,9 @@ export default {
     hasClass () {
       return this.$store.getters['members:hasClass'](this.user);
     },
+    verifiedUsername () {
+      return this.user.flags.verifiedUsername;
+    },
   },
   methods: {
     set (preferenceType, subtype) {
@@ -346,8 +361,10 @@ export default {
     },
     async changeUser (attribute, updates) {
       await axios.put(`/api/v4/user/auth/update-${attribute}`, updates);
-      alert(this.$t(`${attribute}Success`));
       this.user[attribute] = updates[attribute];
+      if (attribute === 'username') {
+        this.user.flags.verifiedUsername = true;
+      }
     },
     async changeDisplayName (newName) {
       await axios.put('/api/v4/user/', {'profile.name': newName});

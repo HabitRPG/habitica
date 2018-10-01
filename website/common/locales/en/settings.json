@@ -200,5 +200,7 @@
     "currentUsername": "Current username:",
     "displaynameIssueLength": "Display Names must be between 1 and 30 characters.",
     "displaynameIssueSlur": "Display Names may not contain inappropriate language",
-    "goToSettings": "Go to Settings"
+    "goToSettings": "Go to Settings",
+    "usernameVerifiedConfirmation": "Your username is confirmed!",
+    "usernameNotVerified": "Please confirm your username."
 }
