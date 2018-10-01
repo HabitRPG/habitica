@@ -105,7 +105,7 @@
     "commGuideOnTrello": "負責 Trello 的 <%= trelloName %>",
     "commGuideOnGitHub": "負責 GitHub 的 <%= gitHubName %>",
     "commGuidePara010": "有些管理員會協助工作人員。他們都經過精挑細選，所以請給予尊重並聽取他們的建議。",
-    "commGuidePara011": "現在的工作人員分別是(從左到右)：",
+    "commGuidePara011": "現任的管理員分別是(從左到右)：",
     "commGuidePara011a": "在酒館對話",
     "commGuidePara011b": "在 GitHub/Wikia 上",
     "commGuidePara011c": "在 Wikia 上",

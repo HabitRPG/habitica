@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "請記得您的角色名稱、簡介照片以及簡介內容皆須遵守<a href='https://habitica.com/static/community-guidelines' target='_blank'>社群守則</a> (比如說: 不允許猥褻行為、不允許成人議題、不允許汙辱他人等等)。如果您不確定某些事有沒有合乎規範，歡迎寫信到 <%= hrefBlankCommunityManagerEmail %>!",
+    "communityGuidelinesWarning": "請記得您的暱稱、簡介照片以及簡介內容皆須遵守<a href='https://habitica.com/static/community-guidelines' target='_blank'>社群守則</a> (比如說: 不允許猥褻行為、不允許成人議題、不允許汙辱他人等等)。如果您不確定某些事有沒有合乎規範，歡迎寫信到 <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "基本資料",
     "avatar": "客制化角色圖像",
     "editAvatar": "編輯角色",
@@ -105,7 +105,7 @@
     "stats": "狀態統計",
     "achievs": "成就",
     "strength": "力量",
-    "strText": "力量會增加「會心一擊」、金幣、經驗和物品掉落的機率。力量還能幫助你攻擊傷害 BOSS。",
+    "strText": "力量會增加「會心一擊」、金幣、經驗和物品掉落的機率。力量還能幫助你攻擊傷害魔王怪物。",
     "constitution": "體質",
     "conText": "體質會降低壞習慣和未達成的每日任務造成的傷害。",
     "perception": "感知",
