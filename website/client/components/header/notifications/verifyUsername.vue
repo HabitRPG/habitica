@@ -14,8 +14,7 @@
         label @
         label {{ user.auth.local.username }}
       .notifications-buttons
-        .btn.btn-small.btn-secondary(@click.stop="changeUsername()") {{ $t('changeUsername') }}
-        .btn.btn-small.btn-primary(@click.stop="confirmUsername()") {{ $t('confirmUsername') }}
+        .btn.btn-small.btn-secondary(@click.stop="changeUsername()") {{ $t('goToSettings') }}
 </template>
 <style lang='scss'>
   @import '../../../assets/scss/colors.scss';

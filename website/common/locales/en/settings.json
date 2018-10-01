@@ -198,5 +198,6 @@
     "usernameIssueInvalidCharacters": "Usernames can only contain letters, numbers and underscores.",
     "currentUsername": "Current username:",
     "displaynameIssueLength": "Display Names must be between 1 and 30 characters.",
-    "displaynameIssueSlur": "Display Names may not contain inappropriate language"
+    "displaynameIssueSlur": "Display Names may not contain inappropriate language",
+    "goToSettings": "Go to Settings"
 }
