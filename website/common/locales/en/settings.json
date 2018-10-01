@@ -202,5 +202,6 @@
     "displaynameIssueSlur": "Display Names may not contain inappropriate language",
     "goToSettings": "Go to Settings",
     "usernameVerifiedConfirmation": "Your username is confirmed!",
-    "usernameNotVerified": "Please confirm your username."
+    "usernameNotVerified": "Please confirm your username.",
+    "changeUsernameDisclaimer": "We will be transitioning login names to unique, public usernames soon. This username will be used for invitations, @mentions in chat, and messaging."
 }

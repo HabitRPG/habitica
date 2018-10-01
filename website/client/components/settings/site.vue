@@ -141,8 +141,8 @@
                 span {{ $t('usernameNotVerified') }}
                 button.btn.btn-secondary.btn-small.float-right(@click='changeUser("username", {username: user.auth.local.username})') {{ $t('confirmUsername') }}
             .form-group
-
               input.form-control(type='text', :placeholder="$t('newUsername')", v-model='usernameUpdates.username')
+              small.form-text.text-muted {{ $t('changeUsernameDisclaimer') }}
             button.btn.btn-primary(type='submit', @click='changeUser("username", usernameUpdates)') {{ $t('submit') }}
           h5(v-if='user.auth.local.email') {{ $t('changeEmail') }}
           .form(v-if='user.auth.local.email', name='changeEmail', novalidate)
