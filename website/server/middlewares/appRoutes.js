@@ -41,7 +41,6 @@ const v4RouterOverrides = [
   'POST-/user/class/cast/:spellId',
   'POST-/user/rebirth',
   'POST-/user/reset',
-  'PUT-/user/auth/update-username',
   'POST-/user/reroll',
   'DELETE-/user/messages/:id',
   'DELETE-/user/messages',
