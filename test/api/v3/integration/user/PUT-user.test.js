@@ -76,7 +76,7 @@ describe('PUT /user', () => {
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: 'User validation failed',
+        message: t('invalidReqParams'),
       });
 
       await expect(user.put('/user', {
@@ -84,7 +84,7 @@ describe('PUT /user', () => {
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: 'User validation failed',
+        message: t('displaynameIssueLength'),
       });
 
       await expect(user.put('/user', {
@@ -92,7 +92,7 @@ describe('PUT /user', () => {
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: 'User validation failed',
+        message: t('displaynameIssueSlur'),
       });
     });
   });

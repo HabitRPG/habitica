@@ -11,7 +11,6 @@ import {
 import {
   schema as SubscriptionPlanSchema,
 } from '../subscriptionPlan';
-import {nameContainsSlur} from '../../libs/user/validation';
 
 const Schema = mongoose.Schema;
 
