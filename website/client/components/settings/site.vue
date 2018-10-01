@@ -130,7 +130,7 @@
           h5 {{ $t('changeDisplayName') }}
           .form(name='changeDisplayName', novalidate)
             .form-group
-              input.form-control(type='text', :placeholder="$t('newDisplayName')", v-model='displayName')
+              input#changeDisplayname.form-control(type='text', :placeholder="$t('newDisplayName')", v-model='displayName')
             button.btn.btn-primary(type='submit', @click='changeDisplayName(displayName)') {{ $t('submit') }}
 
           h5 {{ $t('changeUsername') }}
@@ -141,14 +141,14 @@
                 span {{ $t('usernameNotVerified') }}
                 button.btn.btn-secondary.btn-small.float-right(@click='changeUser("username", {username: user.auth.local.username})') {{ $t('confirmUsername') }}
             .form-group
-              input.form-control(type='text', :placeholder="$t('newUsername')", v-model='usernameUpdates.username', :class='{"is-invalid input-invalid": usernameInvalid}')
+              input#changeUsername.form-control(type='text', :placeholder="$t('newUsername')", v-model='usernameUpdates.username', :class='{"is-invalid input-invalid": usernameInvalid}')
               .input-error(v-for="issue in usernameIssues") {{ issue }}
               small.form-text.text-muted {{ $t('changeUsernameDisclaimer') }}
             button.btn.btn-primary(type='submit', @click='changeUser("username", usernameUpdates)') {{ $t('submit') }}
           h5(v-if='user.auth.local.email') {{ $t('changeEmail') }}
           .form(v-if='user.auth.local.email', name='changeEmail', novalidate)
             .form-group
-              input.form-control(type='text', :placeholder="$t('newEmail')", v-model='emailUpdates.newEmail')
+              input#changeEmail.form-control(type='text', :placeholder="$t('newEmail')", v-model='emailUpdates.newEmail')
             .form-group
               input.form-control(type='password', :placeholder="$t('password')", v-model='emailUpdates.password')
             button.btn.btn-primary(type='submit', @click='changeUser("email", emailUpdates)') {{ $t('submit') }}
@@ -156,7 +156,7 @@
           h5(v-if='user.auth.local.email') {{ $t('changePass') }}
           .form(v-if='user.auth.local.email', name='changePassword', novalidate)
             .form-group
-              input.form-control(type='password', :placeholder="$t('oldPass')", v-model='passwordUpdates.password')
+              input#changePassword.form-control(type='password', :placeholder="$t('oldPass')", v-model='passwordUpdates.password')
             .form-group
               input.form-control(type='password', :placeholder="$t('newPass')", v-model='passwordUpdates.newPassword')
             .form-group
@@ -266,6 +266,16 @@ export default {
     }, {
       redirect_uri: '', // eslint-disable-line
     });
+
+    const focusID = this.$route.query.focus;
+    if (focusID !== undefined && focusID !== null) {
+      this.$nextTick(() => {
+        const element = document.getElementById(focusID);
+        if (element !== undefined && element !== null) {
+          element.focus();
+        }
+      });
+    }
   },
   computed: {
     ...mapState({
