@@ -55,6 +55,7 @@ function updateUsers (users) {
   let lastUser = users[users.length - 1];
 
   return Promise.all(userPromises)
+    .then(delay(1500))
     .then(() => {
       processUsers(lastUser._id);
     });
@@ -68,8 +69,8 @@ function updateUser (user) {
   sendTxn(
     user,
     'username-change',
-    [{name: 'UNSUB_EMAIL_TYPE_URL', content: '/user/settings/notifications?unsubFrom=importantAnnouncements'}],
-    [{name: 'LOGIN_NAME', content: user.auth.local.username}]
+    [{name: 'UNSUB_EMAIL_TYPE_URL', content: '/user/settings/notifications?unsubFrom=importantAnnouncements'},
+     {name: 'LOGIN_NAME', content: user.auth.local.username}]
   );
 
   if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
@@ -79,6 +80,12 @@ function updateUser (user) {
 function displayData () {
   console.warn(`\n${count} users processed\n`);
   return exiting(0);
+}
+
+function delay (t, v) {
+  return new Promise(function batchPause (resolve) {
+    setTimeout(resolve.bind(null, v), t);
+  });
 }
 
 function exiting (code, msg) {
