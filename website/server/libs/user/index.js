@@ -6,6 +6,8 @@ import {
   NotAuthorized,
 } from '../../libs/errors';
 import { model as User } from '../../models/user';
+import {nameContainsSlur} from './validation';
+
 
 export async function get (req, res, { isV3 = false }) {
   const user = res.locals.user;
@@ -107,6 +109,13 @@ export async function update (req, res, { isV3 = false }) {
   const user = res.locals.user;
 
   let promisesForTagsRemoval = [];
+
+  if (req.body['profile.name'] !== undefined) {
+    const newName = req.body['profile.name'];
+    if (newName === null) throw new BadRequest(res.t('invalidReqParams'));
+    if (newName.length > 30) throw new BadRequest(res.t('displaynameIssueLength'));
+    if (nameContainsSlur(newName)) throw new BadRequest(res.t('displaynameIssueSlur'));
+  }
 
   _.each(req.body, (val, key) => {
     let purchasable = requiresPurchase[key];

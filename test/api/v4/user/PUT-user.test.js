@@ -76,7 +76,7 @@ describe('PUT /user', () => {
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: 'User validation failed',
+        message: t('invalidReqParams'),
       });
     });
   });
