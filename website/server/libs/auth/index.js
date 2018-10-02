@@ -12,7 +12,9 @@ import logger from '../../libs/logger';
 import { decrypt } from '../../libs/encryption';
 import { model as Group } from '../../models/group';
 import moment from 'moment';
-import {verifyUsername} from '../user/validation';
+import { loginSocial } from './social.js';
+import { loginRes } from './utils';
+import { verifyUsername } from '../user/validation';
 
 const USERNAME_LENGTH_MIN = 1;
 const USERNAME_LENGTH_MAX = 20;
@@ -53,7 +55,23 @@ async function _handleGroupInvitation (user, invite) {
   }
 }
 
-export async function registerLocal (req, res, { isV3 = false }) {
+function hasLocalAuth (user) {
+  return user.auth.local.email && user.auth.local.hashed_password;
+}
+
+function hasBackupAuth (user, networkToRemove) {
+  if (hasLocalAuth(user)) {
+    return true;
+  }
+
+  let hasAlternateNetwork = common.constants.SUPPORTED_SOCIAL_NETWORKS.find((network) => {
+    return network.key !== networkToRemove && user.auth[network.key].id;
+  });
+
+  return hasAlternateNetwork;
+}
+
+async function registerLocal (req, res, { isV3 = false }) {
   const existingUser = res.locals.user; // If adding local auth to social user
 
   req.checkBody({
@@ -176,3 +194,11 @@ export async function registerLocal (req, res, { isV3 = false }) {
 
   return null;
 }
+
+module.exports = {
+  loginRes,
+  hasBackupAuth,
+  hasLocalAuth,
+  loginSocial,
+  registerLocal,
+};

@@ -1,45 +1,34 @@
 import validator from 'validator';
 import moment from 'moment';
-import passport from 'passport';
 import nconf from 'nconf';
+
 import {
   authWithHeaders,
 } from '../../middlewares/auth';
+import { model as User } from '../../models/user';
+import common from '../../../common';
 import {
   NotAuthorized,
   BadRequest,
   NotFound,
 } from '../../libs/errors';
 import * as passwordUtils from '../../libs/password';
-import { model as User } from '../../models/user';
-import { model as EmailUnsubscription } from '../../models/emailUnsubscription';
-import { sendTxn as sendTxnEmail } from '../../libs/email';
 import { send as sendEmail } from '../../libs/email';
 import pusher from '../../libs/pusher';
-import common from '../../../common';
 import { validatePasswordResetCodeAndFindUser, convertToBcrypt} from '../../libs/password';
 import { encrypt } from '../../libs/encryption';
-import * as authLib from '../../libs/auth';
+import {
+  loginRes,
+  hasBackupAuth,
+  hasLocalAuth,
+  loginSocial,
+  registerLocal,
+} from '../../libs/auth';
 
 const BASE_URL = nconf.get('BASE_URL');
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
-const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
 
 let api = {};
-
-function hasBackupAuth (user, networkToRemove) {
-  if (user.auth.local.username) {
-    return true;
-  }
-
-  let hasAlternateNetwork = common.constants.SUPPORTED_SOCIAL_NETWORKS.find((network) => {
-    return network.key !== networkToRemove && user.auth[network.key].id;
-  });
-
-  return hasAlternateNetwork;
-}
-
-/* NOTE this route has also an API v4 version */
 
 /**
  * @api {post} /api/v3/user/auth/local/register Register
@@ -61,14 +50,9 @@ api.registerLocal = {
   })],
   url: '/user/auth/local/register',
   async handler (req, res) {
-    await authLib.registerLocal(req, res, { isV3: true });
+    await registerLocal(req, res, { isV3: true });
   },
 };
-
-function _loginRes (user, req, res) {
-  if (user.auth.blocked) throw new NotAuthorized(res.t('accountSuspended', {communityManagerEmail: COMMUNITY_MANAGER_EMAIL, userId: user._id}));
-  return res.respond(200, {id: user._id, apiToken: user.apiToken, newUser: user.newUser || false});
-}
 
 /**
  * @api {post} /api/v3/user/auth/local/login Login
@@ -141,21 +125,9 @@ api.loginLocal = {
       headers: req.headers,
     });
 
-    return _loginRes(user, ...arguments);
+    return loginRes(user, ...arguments);
   },
 };
-
-function _passportProfile (network, accessToken) {
-  return new Promise((resolve, reject) => {
-    passport._strategies[network].userProfile(accessToken, (err, profile) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(profile);
-      }
-    });
-  });
-}
 
 // Called as a callback by Facebook (or other social providers). Internal route
 api.loginSocial = {
@@ -163,79 +135,9 @@ api.loginSocial = {
   middlewares: [authWithHeaders({
     optional: true,
   })],
-  url: '/user/auth/social', // this isn't the most appropriate url but must be the same as v2
+  url: '/user/auth/social',
   async handler (req, res) {
-    let existingUser = res.locals.user;
-    let accessToken = req.body.authResponse.access_token;
-    let network = req.body.network;
-
-    let isSupportedNetwork = common.constants.SUPPORTED_SOCIAL_NETWORKS.find(supportedNetwork => {
-      return supportedNetwork.key === network;
-    });
-    if (!isSupportedNetwork) throw new BadRequest(res.t('unsupportedNetwork'));
-
-    let profile = await _passportProfile(network, accessToken);
-
-    let user = await User.findOne({
-      [`auth.${network}.id`]: profile.id,
-    }, {_id: 1, apiToken: 1, auth: 1}).exec();
-
-    // User already signed up
-    if (user) {
-      _loginRes(user, ...arguments);
-    } else { // Create new user
-      user = {
-        auth: {
-          [network]: {
-            id: profile.id,
-            emails: profile.emails,
-          },
-        },
-        profile: {
-          name: profile.displayName || profile.name || profile.username,
-        },
-        preferences: {
-          language: req.language,
-        },
-      };
-      if (existingUser) {
-        existingUser.auth[network] = user.auth[network];
-        user = existingUser;
-      } else {
-        user = new User(user);
-        user.registeredThrough = req.headers['x-client']; // Not saved, used to create the correct tasks based on the device used
-      }
-
-      let savedUser = await user.save();
-
-      if (!existingUser) {
-        user.newUser = true;
-      }
-      _loginRes(user, ...arguments);
-
-      // Clean previous email preferences
-      if (savedUser.auth[network].emails && savedUser.auth[network].emails[0] && savedUser.auth[network].emails[0].value) {
-        EmailUnsubscription
-          .remove({email: savedUser.auth[network].emails[0].value.toLowerCase()})
-          .exec()
-          .then(() => {
-            if (!existingUser) sendTxnEmail(savedUser, 'welcome');
-          }); // eslint-disable-line max-nested-callbacks
-      }
-
-      if (!existingUser) {
-        res.analytics.track('register', {
-          category: 'acquisition',
-          type: network,
-          gaLabel: network,
-          uuid: savedUser._id,
-          headers: req.headers,
-          user: savedUser,
-        });
-      }
-
-      return null;
-    }
+    return await loginSocial(req, res);
   },
 };
 
@@ -338,7 +240,7 @@ api.updateUsername = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    if (!user.auth.local.username) throw new BadRequest(res.t('userHasNoLocalRegistration'));
+    if (!hasLocalAuth(user)) throw new BadRequest(res.t('userHasNoLocalRegistration'));
 
     let password = req.body.password;
     let isValidPassword = await passwordUtils.compare(user, password);
