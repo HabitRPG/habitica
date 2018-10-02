@@ -7,7 +7,8 @@ const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
 const translator = shortid('0123456789abcdefghijklmnopqrstuvwxyz');
 
 function generateUsername () {
-  return `hb-${translator.new()}`;
+  let newName = `hb-${translator.new()}`;
+  return newName.substring(0,20);
 }
 
 function loginRes (user, req, res) {
