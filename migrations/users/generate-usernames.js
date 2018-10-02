@@ -16,6 +16,7 @@ function processUsers (lastId) {
   // specify a query to limit the affected users (empty for all users):
   let query = {
     migration: {$ne: migrationName},
+    'auth.local.username': {$exists: false},
     'auth.timestamps.loggedin': {$gt: new Date('2018-04-01')}, // Initial coverage for users active within last 6 months
   };
 
