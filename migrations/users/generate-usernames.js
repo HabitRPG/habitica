@@ -30,7 +30,7 @@ function processUsers (lastId) {
     sort: {_id: 1},
     limit: 250,
     fields: [
-      'items.gear.owned',
+      'auth',
     ], // specify fields we are interested in to limit retrieved data (empty if we're not reading data):
   })
     .then(updateUsers)
@@ -62,8 +62,9 @@ function updateUsers (users) {
 function updateUser (user) {
   count++;
 
-  dbUsers.update({_id: user._id}, {$set: {'auth.local.username': generateUsername() }});
-
+  if (!user.auth.local.username) {
+    dbUsers.update({_id: user._id}, {$set: {'auth.local.username': generateUsername() }});
+  }
   if (count % progressCount === 0) console.warn(`${count  } ${  user._id}`);
   if (user._id === authorUuid) console.warn(`${authorName  } processed`);
 }
