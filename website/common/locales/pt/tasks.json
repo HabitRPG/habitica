@@ -79,7 +79,7 @@
     "complete2": "Feito",
     "dated": "Com data",
     "today": "Hoje",
-    "dueIn": "Prazo<%= dueIn %>",
+    "dueIn": "Prazo <%= dueIn %>",
     "due": "De hoje",
     "notDue": "Não Cumprir",
     "grey": "Cinza",
