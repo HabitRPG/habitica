@@ -115,7 +115,7 @@
               button.btn.btn-primary.mb-2(disabled='disabled', v-if='!hasBackupAuthOption(network.key) && user.auth[network.key].id') {{ $t('registeredWithSocial', {network: network.name}) }}
               button.btn.btn-danger(@click='deleteSocialAuth(network)', v-if='hasBackupAuthOption(network.key) && user.auth[network.key].id') {{ $t('detachSocial', {network: network.name}) }}
           hr
-          div(v-if='!hasLocalAuth')
+          div(v-if='!user.auth.local.email')
             p {{ $t('addLocalAuth') }}
             .form(name='localAuth', novalidate)
               .form-group
@@ -145,23 +145,23 @@
               .input-error(v-for="issue in usernameIssues") {{ issue }}
               small.form-text.text-muted {{ $t('changeUsernameDisclaimer') }}
             button.btn.btn-primary(type='submit', @click='changeUser("username", usernameUpdates)', :disabled='usernameCanSubmit') {{ $t('submit') }}
-          div(v-if='hasLocalAuth')
-            h5 {{ $t('changeEmail') }}
-            .form(name='changeEmail', novalidate)
-              .form-group
-                input#changeEmail.form-control(type='text', :placeholder="$t('newEmail')", v-model='emailUpdates.newEmail')
-              .form-group
-                input.form-control(type='password', :placeholder="$t('password')", v-model='emailUpdates.password')
-              button.btn.btn-primary(type='submit', @click='changeUser("email", emailUpdates)') {{ $t('submit') }}
-            h5 {{ $t('changePass') }}
-            .form(name='changePassword', novalidate)
-              .form-group
-                input#changePassword.form-control(type='password', :placeholder="$t('oldPass')", v-model='passwordUpdates.password')
-              .form-group
-                input.form-control(type='password', :placeholder="$t('newPass')", v-model='passwordUpdates.newPassword')
-              .form-group
-                input.form-control(type='password', :placeholder="$t('confirmPass')", v-model='passwordUpdates.confirmPassword')
-              button.btn.btn-primary(type='submit', @click='changeUser("password", passwordUpdates)') {{ $t('submit')  }}
+          h5(v-if='user.auth.local.email') {{ $t('changeEmail') }}
+          .form(v-if='user.auth.local.email', name='changeEmail', novalidate)
+            .form-group
+              input#changeEmail.form-control(type='text', :placeholder="$t('newEmail')", v-model='emailUpdates.newEmail')
+            .form-group
+              input.form-control(type='password', :placeholder="$t('password')", v-model='emailUpdates.password')
+            button.btn.btn-primary(type='submit', @click='changeUser("email", emailUpdates)') {{ $t('submit') }}
+
+          h5(v-if='user.auth.local.email') {{ $t('changePass') }}
+          .form(v-if='user.auth.local.email', name='changePassword', novalidate)
+            .form-group
+              input#changePassword.form-control(type='password', :placeholder="$t('oldPass')", v-model='passwordUpdates.password')
+            .form-group
+              input.form-control(type='password', :placeholder="$t('newPass')", v-model='passwordUpdates.newPassword')
+            .form-group
+              input.form-control(type='password', :placeholder="$t('confirmPass')", v-model='passwordUpdates.confirmPassword')
+            button.btn.btn-primary(type='submit', @click='changeUser("password", passwordUpdates)') {{ $t('submit')  }}
           hr
 
         div
@@ -323,9 +323,6 @@ export default {
     usernameCanSubmit () {
       if (this.usernameUpdates.username.length <= 1) return true;
       return !this.usernameValid;
-    },
-    hasLocalAuth () {
-      return this.user.auth.local.email && this.user.auth.local.password;
     },
   },
   watch: {
