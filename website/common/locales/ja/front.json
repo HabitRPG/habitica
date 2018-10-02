@@ -271,7 +271,7 @@
     "emailTaken": "このメールアドレスは、すでに登録されています。",
     "newEmailRequired": "新しいメールアドレスがありません。",
     "usernameTime": "あなたのユーザー名を決める時間です！",
-    "usernameInfo": "Your display name hasn't changed, but your old login name will now become your public username. This username will be used for invitations, @mentions in chat, and messaging.<br><br>If you'd like to learn more about this change, visit the wiki's <a href='http://habitica.wikia.com/wiki/Player_Names' target='_blank'>Player Names</a> page.",
+    "usernameInfo": "あなたの表示名は変更されていません。しかし、あなたの古いログイン名はこれからあなたの公開のユーザーネームになります。このユーザーネームは、招待、チャットでの@返信、メッセージのやりとりなどに使われるでしょう。<br><br>もしこの変更についてより詳しく知りたいときは、wikiの<a href='http://habitica.wikia.com/wiki/Player_Names' target='_blank'>Player Names</a>のページをご覧ください。",
     "usernameTOSRequirements": "ユーザー名は、私たちのサービスの条項とコミュニティーガイドラインに従わなければなりません。もしあなたが以前にログイン名を設定していなかった場合、あなたのユーザー名は自動生成されました。",
     "usernameTaken": "そのユーザー名は既に使われています",
     "usernameWrongLength": "ユーザー名は1～20文字以内の長さでなくてはなりません。",
