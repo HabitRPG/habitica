@@ -137,6 +137,8 @@ export async function registerLocal (req, res, { isV3 = false }) {
     await _handleGroupInvitation(newUser, req.query.groupInvite || req.query.partyInvite);
   }
 
+  newUser.flags.verifiedUsername = true;
+
   let savedUser = await newUser.save();
 
   let userToJSON;

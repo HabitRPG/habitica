@@ -50,6 +50,8 @@ describe('PUT /user/auth/update-username', async () => {
   });
 
   it('sets verifiedUsername when changing username', async () => {
+    user.flags.verifiedUsername = false;
+    await user.sync();
     let newUsername = 'new-username-verify';
     let response = await user.put(ENDPOINT, {
       username: newUsername,
