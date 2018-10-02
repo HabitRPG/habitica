@@ -38,7 +38,7 @@
     "messageInsufficientGems": "Ikke nok Ædelsten!",
     "messageAuthPasswordMustMatch": ":password og :confirmPassword er ikke ens",
     "messageAuthCredentialsRequired": ":brugernavn, :e-mail, :kodeord, :valideretKodeord krævet",
-    "messageAuthUsernameTaken": "Loginnavn er allerede taget",
+    "messageAuthUsernameTaken": "Username already taken",
     "messageAuthEmailTaken": "E-mailen er allerede i brug",
     "messageAuthNoUserFound": "Ingen bruger fundet.",
     "messageAuthMustBeLoggedIn": "Du skal være logget ind først.",
