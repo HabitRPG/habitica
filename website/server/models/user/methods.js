@@ -154,7 +154,7 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, o
       ownerId: sender._id,
     });
     Object.assign(newSenderMessage, messageDefaults(senderMsg, userToReceiveMessage));
-    setUserStyles(newSenderMessage, userToReceiveMessage);
+    setUserStyles(newSenderMessage, sender);
   }
 
   const promises = [newReceiverMessage.save()];
