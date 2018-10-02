@@ -1,4 +1,5 @@
 import {
+  BadRequest,
   NotAuthorized,
   NotFound,
 } from '../../libs/errors';
@@ -13,6 +14,7 @@ import { model as Group } from '../../models/group';
 import moment from 'moment';
 import { loginSocial } from './social.js';
 import { loginRes } from './utils';
+import { verifyUsername } from '../user/validation';
 
 const USERNAME_LENGTH_MIN = 1;
 const USERNAME_LENGTH_MAX = 20;
@@ -95,6 +97,9 @@ async function registerLocal (req, res, { isV3 = false }) {
   let validationErrors = req.validationErrors();
   if (validationErrors) throw validationErrors;
 
+  const issues = verifyUsername(req.body.username, res);
+  if (issues.length > 0) throw new BadRequest(issues.join(' '));
+
   let { email, username, password } = req.body;
 
   // Get the lowercase version of username to check that we do not have duplicates
@@ -149,6 +154,8 @@ async function registerLocal (req, res, { isV3 = false }) {
   if (req.query.groupInvite || req.query.partyInvite) {
     await _handleGroupInvitation(newUser, req.query.groupInvite || req.query.partyInvite);
   }
+
+  newUser.flags.verifiedUsername = true;
 
   let savedUser = await newUser.save();
 

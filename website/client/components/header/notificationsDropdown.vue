@@ -93,6 +93,7 @@ import CARD_RECEIVED from './notifications/cardReceived';
 import NEW_INBOX_MESSAGE from './notifications/newInboxMessage';
 import NEW_CHAT_MESSAGE from './notifications/newChatMessage';
 import WORLD_BOSS from './notifications/worldBoss';
+import VERIFY_USERNAME from './notifications/verifyUsername';
 
 export default {
   components: {
@@ -105,6 +106,7 @@ export default {
     UNALLOCATED_STATS_POINTS, NEW_MYSTERY_ITEMS, CARD_RECEIVED,
     NEW_INBOX_MESSAGE, NEW_CHAT_MESSAGE,
     WorldBoss: WORLD_BOSS,
+    VERIFY_USERNAME,
   },
   data () {
     return {
@@ -127,6 +129,7 @@ export default {
         'QUEST_INVITATION', 'GROUP_TASK_APPROVAL', 'GROUP_TASK_APPROVED',
         'NEW_MYSTERY_ITEMS', 'CARD_RECEIVED',
         'NEW_INBOX_MESSAGE', 'NEW_CHAT_MESSAGE', 'UNALLOCATED_STATS_POINTS',
+        'VERIFY_USERNAME',
       ],
     };
   },
@@ -176,6 +179,16 @@ export default {
           },
           // Create a custom id for notifications outside user.notifications (must be unique)
           id: `custom-quest-invitation-${this.user.party._id}`,
+        });
+      }
+
+      if (this.user.flags.verifiedUsername !== true) {
+        notifications.push({
+          type: 'VERIFY_USERNAME',
+          data: {
+            username: this.user.auth.local.username,
+          },
+          id: 'custom-change-username',
         });
       }
 
