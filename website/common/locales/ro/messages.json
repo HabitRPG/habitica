@@ -38,7 +38,7 @@
     "messageInsufficientGems": "Nu ai destule nestemate!",
     "messageAuthPasswordMustMatch": ":password și :confirmPassword nu se potrivesc",
     "messageAuthCredentialsRequired": "sunt necesare :username, :email, :password și :confirmPassword",
-    "messageAuthUsernameTaken": "Login Name already taken",
+    "messageAuthUsernameTaken": "Username already taken",
     "messageAuthEmailTaken": "E-mailul este deja folosit",
     "messageAuthNoUserFound": "Niciun utilizator găsit",
     "messageAuthMustBeLoggedIn": "Trebuie să fii autentificat.",

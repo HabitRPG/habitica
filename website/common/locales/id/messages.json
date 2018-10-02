@@ -38,7 +38,7 @@
     "messageInsufficientGems": "Permata tidak cukup!",
     "messageAuthPasswordMustMatch": ":password dan :confirm Kata Sandi tidak cocok",
     "messageAuthCredentialsRequired": ":username, :email, :password, :confirm Kata Sandi dibutuhkan",
-    "messageAuthUsernameTaken": "Nama Login telah diambil",
+    "messageAuthUsernameTaken": "Username already taken",
     "messageAuthEmailTaken": "Email telah digunakan",
     "messageAuthNoUserFound": "Tidak ada pengguna yang ditemukan",
     "messageAuthMustBeLoggedIn": "Anda harus masuk.",

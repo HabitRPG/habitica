@@ -38,7 +38,7 @@
     "messageInsufficientGems": "Masz za mało klejnotów!",
     "messageAuthPasswordMustMatch": ":password i :confirmPassword nie są identyczne",
     "messageAuthCredentialsRequired": ":username, :email, :password, :confirmPassword wymagane",
-    "messageAuthUsernameTaken": "Login już zajęty",
+    "messageAuthUsernameTaken": "Username already taken",
     "messageAuthEmailTaken": "Adres e-mail już zajęty.",
     "messageAuthNoUserFound": "Nie znaleziono użytkownika.",
     "messageAuthMustBeLoggedIn": "Musisz się zalogować.",

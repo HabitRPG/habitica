@@ -38,7 +38,7 @@
     "messageInsufficientGems": "Nicht genügend Edelsteine!",
     "messageAuthPasswordMustMatch": ":password und :confirmPassword stimmen nicht überein",
     "messageAuthCredentialsRequired": ":username, :email, :password, :confirmPassword erforderlich",
-    "messageAuthUsernameTaken": "Anmeldename ist schon vergeben",
+    "messageAuthUsernameTaken": "Username already taken",
     "messageAuthEmailTaken": "E-Mail existiert bereits",
     "messageAuthNoUserFound": "Kein Benutzer gefunden.",
     "messageAuthMustBeLoggedIn": "Du musst angemeldet sein.",

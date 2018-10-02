@@ -38,7 +38,7 @@
     "messageInsufficientGems": "Niet genoeg edelstenen!",
     "messageAuthPasswordMustMatch": ":password en :confirmPassword komen niet overeen",
     "messageAuthCredentialsRequired": ":username, :email, :password, :confirmPassword required",
-    "messageAuthUsernameTaken": "Loginnaam al bezet",
+    "messageAuthUsernameTaken": "Username already taken",
     "messageAuthEmailTaken": "E-mailadres al in gebruik",
     "messageAuthNoUserFound": "Geen gebruiker gevonden.",
     "messageAuthMustBeLoggedIn": "Je moet ingelogd zijn.",
