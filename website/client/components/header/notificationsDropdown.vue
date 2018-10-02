@@ -188,6 +188,7 @@ export default {
           data: {
             username: this.user.auth.local.username,
           },
+          id: 'custom-change-username',
         });
       }
 
