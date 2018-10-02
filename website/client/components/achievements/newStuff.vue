@@ -7,15 +7,15 @@
     no-close-on-backdrop
   )
     .modal-body
-      div.bailey(v-for='(post, index) in posts')
+      .bailey(v-for='(post, index) in posts')
         h2 {{ post.title }}
-        div(v-if='post.text' v-markdown='post.text', target='_blank')
-        small(v-if='post.credits' v-markdown='post.credits', target='_blank')
+        div(v-markdown='post.text')
+        small(v-markdown='post.credits')
 
     .modal-footer
       a.btn.btn-info(href='http://habitica.wikia.com/wiki/Whats_New', target='_blank') {{ this.$t('newsArchive') }}
       button.btn.btn-secondary(@click='tellMeLater()') {{ this.$t('tellMeLater') }}
-      button.btn.btn-warning(@click='dismissAlert();') {{ this.$t('dismissAlert') }}
+      button.btn.btn-warning(@click='dismissAlert()') {{ this.$t('dismissAlert') }}
 </template>
 
 <style lang='scss'>
@@ -27,19 +27,23 @@
   padding-top: 2em;
 }
 .bailey {
-  margin-bottom: 40px;
+  margin-bottom: 50px;
+
+  h2 {
+    color: #4F2A93;
+  }
+
+  div {
+    font-size: 16px;
+  }
 }
-.bailey h2 {
-  color: #4F2A93;
-}
-.bailey div {
-  font-size: 16px;
-}
-.bailey img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
+</style>
+
+<style>
+  .bailey .markdown-img {
+    display: block;
+    margin: auto;
+  }
 </style>
 
 <script>
