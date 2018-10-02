@@ -214,7 +214,7 @@ let schema = new Schema({
     },
     dropsEnabled: {type: Boolean, default: false},
     itemsEnabled: {type: Boolean, default: false},
-    newStuff: {type: Boolean, default: false},
+    lastNewStuffRead: {type: String, default: ''},
     rewrite: {type: Boolean, default: true},
     classSelected: {type: Boolean, default: false},
     mathUpdates: Boolean,

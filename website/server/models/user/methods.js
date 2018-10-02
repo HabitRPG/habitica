@@ -20,6 +20,7 @@ import * as inboxLib from '../../libs/inbox';
 import amazonPayments from '../../libs/payments/amazon';
 import stripePayments from '../../libs/payments/stripe';
 import paypalPayments from '../../libs/payments/paypal';
+import {model as NewsPost} from '../../models/newsPost';
 
 const daysSince = common.daysSince;
 
@@ -391,6 +392,11 @@ schema.methods.isMemberOfGroupPlan = async function isMemberOfGroupPlan () {
 
 schema.methods.isAdmin = function isAdmin () {
   return this.contributor && this.contributor.admin;
+};
+
+schema.methods.checkNewStuff = async function checkNewStuff () {
+  const lastNewsPostID = await NewsPost.lastNewsPostID();
+  return this.flags.lastNewStuffRead !== lastNewsPostID;
 };
 
 // When converting to json add inbox messages from the Inbox collection

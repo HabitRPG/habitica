@@ -136,6 +136,11 @@ export function newStuffLater (store) {
   return axios.post('/api/v4/news/tell-me-later');
 }
 
+export function newStuffRead (store) {
+  store.state.user.data.flags.newStuff = false;
+  return axios.post('/api/v4/news/read');
+}
+
 export async function rebirth () {
   let result = await axios.post('/api/v4/user/rebirth');
 

@@ -31,4 +31,27 @@ schema.statics.getNews = async function getNews (isAdmin) {
   return posts.sort({publishDate: -1});
 };
 
+let cachedLastNewsPostID = null;
+let cachedLastNewsPostDate = null;
+
+schema.statics.lastNewsPostID = async function lastNewsPostID () {
+  if (cachedLastNewsPostID === null) {
+    const lastPost = (await this.getNews(false))[0];
+    if (lastPost !== undefined && lastPost !== null) {
+      cachedLastNewsPostID = lastPost.id;
+      cachedLastNewsPostDate = lastPost.publishDate;
+    }
+  }
+  return cachedLastNewsPostID;
+};
+
+schema.statics.updateLastNewsPostID = async function updateLastNewsPostID (newID, newDate) {
+  if (cachedLastNewsPostID !== newID) {
+    if (cachedLastNewsPostDate === undefined || cachedLastNewsPostDate < newDate) {
+      cachedLastNewsPostID = newID;
+      cachedLastNewsPostDate = newDate;
+    }
+  }
+};
+
 export let model = mongoose.model('NewsPost', schema);

@@ -77,7 +77,7 @@
         this.$root.$emit('bv::hide::modal', 'new-stuff');
       },
       dismissAlert () {
-        this.$store.dispatch('user:set', {'flags.newStuff': false});
+        this.$store.dispatch('user:newStuffRead');
         this.$root.$emit('bv::hide::modal', 'new-stuff');
       },
     },
