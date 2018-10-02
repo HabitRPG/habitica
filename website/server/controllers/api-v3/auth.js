@@ -18,7 +18,7 @@ import pusher from '../../libs/pusher';
 import { validatePasswordResetCodeAndFindUser, convertToBcrypt} from '../../libs/password';
 import { encrypt } from '../../libs/encryption';
 import {
-  _loginRes,
+  loginRes,
   hasBackupAuth,
   hasLocalAuth,
   loginSocial,
@@ -125,7 +125,7 @@ api.loginLocal = {
       headers: req.headers,
     });
 
-    return _loginRes(user, ...arguments);
+    return loginRes(user, ...arguments);
   },
 };
 

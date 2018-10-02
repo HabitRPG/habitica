@@ -11,7 +11,8 @@ import logger from '../../libs/logger';
 import { decrypt } from '../../libs/encryption';
 import { model as Group } from '../../models/group';
 import moment from 'moment';
-import { loginSocial, _loginRes } from './social.js';
+import { loginSocial } from './social.js';
+import { loginRes } from './utils';
 
 const USERNAME_LENGTH_MIN = 1;
 const USERNAME_LENGTH_MAX = 20;
@@ -188,8 +189,7 @@ async function registerLocal (req, res, { isV3 = false }) {
 }
 
 module.exports = {
-  _handleGroupInvitation,
-  _loginRes,
+  loginRes,
   hasBackupAuth,
   hasLocalAuth,
   loginSocial,

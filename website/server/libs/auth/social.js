@@ -1,30 +1,13 @@
 import passport from 'passport';
-import nconf from 'nconf';
-
-import { generateUsername } from './generateId.js';
 import common from '../../../common';
+import { BadRequest } from '../errors';
 import {
-  NotAuthorized,
-  BadRequest,
-} from '../errors';
+  generateUsername,
+  loginRes,
+} from './utils';
 import { model as User } from '../../models/user';
 import { model as EmailUnsubscription } from '../../models/emailUnsubscription';
 import { sendTxn as sendTxnEmail } from '../email';
-
-const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
-
-function _loginRes (user, req, res) {
-  if (user.auth.blocked) throw new NotAuthorized(res.t('accountSuspended', {communityManagerEmail: COMMUNITY_MANAGER_EMAIL, userId: user._id}));
-
-  const responseData = {
-    id: user._id,
-    apiToken: user.apiToken,
-    newUser: user.newUser || false,
-    username: user.auth.local.username,
-  };
-
-  return res.respond(200, responseData);
-}
 
 function _passportProfile (network, accessToken) {
   return new Promise((resolve, reject) => {
@@ -56,7 +39,7 @@ async function loginSocial (req, res) {
 
   // User already signed up
   if (user) {
-    return _loginRes(user, ...arguments);
+    return loginRes(user, ...arguments);
   }
 
   const generatedUsername = generateUsername();
@@ -94,7 +77,7 @@ async function loginSocial (req, res) {
     user.newUser = true;
   }
 
-  _loginRes(user, ...arguments);
+  loginRes(user, ...arguments);
 
   // Clean previous email preferences
   if (savedUser.auth[network].emails && savedUser.auth[network].emails[0] && savedUser.auth[network].emails[0].value) {
@@ -122,5 +105,4 @@ async function loginSocial (req, res) {
 
 module.exports = {
   loginSocial,
-  _loginRes,
 };
