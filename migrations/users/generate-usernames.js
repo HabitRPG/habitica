@@ -68,7 +68,7 @@ function updateUser (user) {
         {
           'auth.local.username': newName,
           'auth.local.lowerCaseUsername': newName,
-        }
+        },
       }
     );
   }
