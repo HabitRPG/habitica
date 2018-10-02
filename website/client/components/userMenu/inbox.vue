@@ -287,7 +287,7 @@ export default {
       const convos = [];
       for (let key in inboxGroup) {
         const convoSorted = sortBy(inboxGroup[key], [(o) => {
-          return o.timestamp;
+          return (new Date(o.timestamp)).getTime();
         }]);
 
         // Fix poor inbox chat models
