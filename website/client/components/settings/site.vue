@@ -144,7 +144,7 @@
               input#changeUsername.form-control(type='text', :placeholder="$t('newUsername')", v-model='usernameUpdates.username', :class='{"is-invalid input-invalid": usernameInvalid}')
               .input-error(v-for="issue in usernameIssues") {{ issue }}
               small.form-text.text-muted {{ $t('changeUsernameDisclaimer') }}
-            button.btn.btn-primary(type='submit', @click='changeUser("username", usernameUpdates)') {{ $t('submit') }}
+            button.btn.btn-primary(type='submit', @click='changeUser("username", usernameUpdates)', :disabled='usernameInvalid') {{ $t('submit') }}
           h5(v-if='user.auth.local.email') {{ $t('changeEmail') }}
           .form(v-if='user.auth.local.email', name='changeEmail', novalidate)
             .form-group
