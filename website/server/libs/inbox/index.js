@@ -45,3 +45,13 @@ export async function clearPMs (user) {
     Inbox.remove({ownerId: user._id}).exec(),
   ]);
 }
+
+export async function updateMessage (message) {
+  const messagesInDb = await Inbox
+    .find({id: message.id})
+    .exec();
+
+  const messageInDb = messagesInDb[0];
+
+  await messageInDb.update(message);
+}

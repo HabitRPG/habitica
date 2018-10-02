@@ -10,6 +10,7 @@ import slack from '../slack';
 import apiError from '../apiError';
 
 import _find from 'lodash/find';
+import * as inboxLib from '../inbox';
 
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
   return { email, canSend: true };
@@ -33,7 +34,7 @@ export default class InboxChatReporter extends ChatReporter {
       this.inboxUser = await User.findOne({_id: this.req.query.userId});
     }
 
-    let messages = this.inboxUser.inbox.messages;
+    const messages = await inboxLib.getUserInbox(this.inboxUser);
 
     const message = _find(messages, (m) => m.id === this.req.params.messageId);
     if (!message) throw new NotFound(this.res.t('messageGroupChatNotFound'));
@@ -70,10 +71,7 @@ export default class InboxChatReporter extends ChatReporter {
   updateMessageAndSave (message, updateFunc) {
     updateFunc(message);
 
-    this.inboxUser.inbox.messages[message.id] = message;
-    this.inboxUser.markModified('inbox.messages');
-
-    return this.inboxUser.save();
+    return inboxLib.updateMessage(message);
   }
 
   flagInboxMessage (message) {

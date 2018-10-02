@@ -27,7 +27,6 @@ div
         span.action(v-if='(inbox || (user.flags.communityGuidelinesAccepted && msg.uuid !== "system")) && !isMessageReported', @click='report(msg)')
           .svg-icon(v-html="icons.report", v-once)
           span(v-once) {{$t('report')}}
-          // @TODO make flagging/reporting work in the inbox. NOTE: it must work even if the communityGuidelines are not accepted and it MUST work for messages that you have SENT as well as received. -- Alys
         span.action(v-if='msg.uuid === user._id || inbox || user.contributor.admin', @click='remove()')
           .svg-icon(v-html="icons.delete", v-once)
           span(v-once) {{$t('delete')}}
@@ -238,7 +237,7 @@ export default {
       return achievementsLib.getContribText(message.contributor, message.backer) || '';
     },
     isMessageReported () {
-      return this.msg.reported || this.reported;
+      return this.msg.flags && this.msg.flags[this.user.id] || this.reported;
     },
   },
   methods: {
