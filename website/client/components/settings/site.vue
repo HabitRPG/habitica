@@ -135,7 +135,7 @@
 
           h5 {{ $t('changeUsername') }}
           .form(name='changeUsername', novalidate)
-            .iconalert.iconalert-success(v-if='verifiedUsername') {{ $t('usernameVerifiedConfirmation') }}
+            .iconalert.iconalert-success(v-if='verifiedUsername') {{ $t('usernameVerifiedConfirmation', {'username': user.auth.local.username}) }}
             .iconalert.iconalert-warning(v-else)
               div.align-middle
                 span {{ $t('usernameNotVerified') }}
@@ -144,7 +144,7 @@
               input#changeUsername.form-control(type='text', :placeholder="$t('newUsername')", v-model='usernameUpdates.username', :class='{"is-invalid input-invalid": usernameInvalid}')
               .input-error(v-for="issue in usernameIssues") {{ issue }}
               small.form-text.text-muted {{ $t('changeUsernameDisclaimer') }}
-            button.btn.btn-primary(type='submit', @click='changeUser("username", usernameUpdates)', :disabled='usernameInvalid') {{ $t('submit') }}
+            button.btn.btn-primary(type='submit', @click='changeUser("username", usernameUpdates)', :disabled='usernameCanSubmit') {{ $t('submit') }}
           h5(v-if='user.auth.local.email') {{ $t('changeEmail') }}
           .form(v-if='user.auth.local.email', name='changeEmail', novalidate)
             .form-group
@@ -175,6 +175,10 @@
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
+
+  input {
+    color: $gray-50;
+  }
 
   .usersettings h5 {
     margin-top: 1em;
@@ -309,11 +313,15 @@ export default {
       return this.user.flags.verifiedUsername;
     },
     usernameValid () {
-      if (this.usernameUpdates.username.length <= 3) return false;
+      if (this.usernameUpdates.username.length <= 1) return false;
       return this.usernameIssues.length === 0;
     },
     usernameInvalid () {
-      if (this.usernameUpdates.username.length <= 3) return false;
+      if (this.usernameUpdates.username.length <= 1) return false;
+      return !this.usernameValid;
+    },
+    usernameCanSubmit () {
+      if (this.usernameUpdates.username.length <= 1) return true;
       return !this.usernameValid;
     },
   },
@@ -328,7 +336,7 @@ export default {
   methods: {
     // eslint-disable-next-line func-names
     validateUsername: debounce(function (username) {
-      if (username.length <= 3 || username === this.user.auth.local.username) {
+      if (username.length <= 1 || username === this.user.auth.local.username) {
         this.usernameIssues = [];
         return;
       }
@@ -414,9 +422,11 @@ export default {
     },
     async changeUser (attribute, updates) {
       await axios.put(`/api/v4/user/auth/update-${attribute}`, updates);
-      this.user[attribute] = updates[attribute];
       if (attribute === 'username') {
+        this.user.auth.local.username = updates[attribute];
         this.user.flags.verifiedUsername = true;
+      } else if (attribute === 'email') {
+        this.user.auth.local.email = updates[attribute];
       }
     },
     async changeDisplayName (newName) {

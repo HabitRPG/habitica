@@ -201,7 +201,7 @@
     "displaynameIssueLength": "Display Names must be between 1 and 30 characters.",
     "displaynameIssueSlur": "Display Names may not contain inappropriate language",
     "goToSettings": "Go to Settings",
-    "usernameVerifiedConfirmation": "Your username is confirmed!",
+    "usernameVerifiedConfirmation": "Your username, <%= username %>, is confirmed!",
     "usernameNotVerified": "Please confirm your username.",
     "changeUsernameDisclaimer": "We will be transitioning login names to unique, public usernames soon. This username will be used for invitations, @mentions in chat, and messaging."
 }
