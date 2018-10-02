@@ -45,8 +45,11 @@ api.getNews = {
         <div class="promo_forest_friends_bundle center-block"></div>
         <h3>Last Chance for Forest Friends Quest Bundle</h3>
         <p>This is also the final week to buy the discounted Forest Friends Pet Quest Bundle, featuring the Deer, Hedgehog, and Treeling quests all for seven Gems! Be sure to grab this bundle from the <a href='/shops/quests' target='_blank'>Quest Shop</a> before it scampers into the underbrush!</p>
+        <p>After they're gone, it will be at least a year before the Ghost or Glow-in-the-Dark Hatching Potions are available again, so be sure to get them now!</p>
         <div class="small">by Beffymaroo and SabreCat</div>
         <div class="small">Art by Uncommon Criminal, InspectorCaracal, Leephon, aurakami, FuzzyTrees, PainterProphet, and plumilla</div>
+        <h3>Blog Post: Contributing to Habitica</h3>
+        <p>This month's <a href='https://habitica.wordpress.com/2018/09/19/contributing-to-habitica/' target='_blank'>featured Wiki article</a> is about Contributing to Habitica. We hope that it will help you get involved with our open-source project and our great community! Be sure to check it out, and let us know what you think by reaching out on <a href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a href='https://facebook.com/habitica' target='_blank'>Facebook</a>.</p>
         <div class="small mb-3">Writing by Daniel the Bard, Flutter Bee, and Lemoness</div>
       </div>
       `,
