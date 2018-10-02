@@ -271,7 +271,7 @@
     "emailTaken": "Ya existe una cuenta con esa dirección de correo electrónico.",
     "newEmailRequired": "Falta la nueva dirección de correo electrónico.",
     "usernameTime": "¡Es la hora de establecer tu nombre de usuario!",
-    "usernameInfo": "Your display name hasn't changed, but your old login name will now become your public username. This username will be used for invitations, @mentions in chat, and messaging.<br><br>If you'd like to learn more about this change, visit the wiki's <a href='http://habitica.wikia.com/wiki/Player_Names' target='_blank'>Player Names</a> page.",
+    "usernameInfo": "Tu nombre público no ha cambiado, pero tu antiguo nombre de acceso se convertirá en tu nombre de usuario. Este nombre de usuario se utilizará para invitaciones, @menicones en los chats y mensajes. <br><br>Si quieres saber más sobre este cambio, visita la página de la wiki <a href='http://habitica.wikia.com/wiki/Player_Names' target='_blank'>Nombres de los Jugadores</a>.",
     "usernameTOSRequirements": "Los nombre de usuario deben adecuarse a nuestros Términos de Servicio y Normas de la Comunidad. Si no has establecido un nombre de inicio de sesión, tu nombre de usuario será autogenerado.",
     "usernameTaken": "Este nombre de usuario ya está cogido.",
     "usernameWrongLength": "El nombre de usuario debe tener una longitud de entre 1 y 20 caracteres.",

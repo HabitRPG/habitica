@@ -271,7 +271,7 @@
     "emailTaken": "Тази е-поща вече се използва от съществуващ профил.",
     "newEmailRequired": "Липсва нов адрес на е-поща.",
     "usernameTime": "Време е да си създадете потребителско име!",
-    "usernameInfo": "Your display name hasn't changed, but your old login name will now become your public username. This username will be used for invitations, @mentions in chat, and messaging.<br><br>If you'd like to learn more about this change, visit the wiki's <a href='http://habitica.wikia.com/wiki/Player_Names' target='_blank'>Player Names</a> page.",
+    "usernameInfo": "Екранното Ви име не е променено, но старото Ви име за вписване вече ще бъде публичното Ви потребителско име. Това потребителско име ще се използва за покани, @споменавания в чата, и за изпращане на съобщения.<br><br>Ако искате да научите повече за тази промяна, посетете страницата за <a href='http://habitica.wikia.com/wiki/Player_Names' target='_blank'>имената на играчите</a> в уикито ни.",
     "usernameTOSRequirements": "Потребителските имена трябва са съобразени с Условията за ползване и Обществените правила. Ако преди това не сте имали име за вписване, то потребителското Ви име е създадено автоматично.",
     "usernameTaken": "Потребителското име е заето.",
     "usernameWrongLength": "Потребителското име трябва да бъде с дължина между 1 и 20 знака.",
