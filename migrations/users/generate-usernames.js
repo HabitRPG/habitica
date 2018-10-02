@@ -61,7 +61,16 @@ function updateUser (user) {
   count++;
 
   if (!user.auth.local.username) {
-    dbUsers.update({_id: user._id}, {$set: {'auth.local.username': generateUsername() }});
+    const newName = generateUsername();
+    dbUsers.update(
+      {_id: user._id},
+      {$set:
+        {
+          'auth.local.username': newName,
+          'auth.local.lowerCaseUsername': newName,
+        }
+      }
+    );
   }
   if (count % progressCount === 0) console.warn(`${count  } ${  user._id}`);
   if (user._id === authorUuid) console.warn(`${authorName  } processed`);
