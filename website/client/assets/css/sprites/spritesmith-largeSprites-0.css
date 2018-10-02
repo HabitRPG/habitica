@@ -1,18 +1,24 @@
+.achievement-costumeContest6x {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -602px -434px;
+  width: 144px;
+  height: 156px;
+}
 .promo_animal_tails {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -699px;
+  background-position: -284px -699px;
   width: 141px;
   height: 441px;
 }
 .promo_armoire_backgrounds_201809 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -142px -699px;
+  background-position: 0px -699px;
   width: 141px;
   height: 441px;
 }
 .promo_ember_potions {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -284px -699px;
+  background-position: -142px -699px;
   width: 141px;
   height: 441px;
 }
@@ -60,7 +66,7 @@
 }
 .promo_seasonal_shop {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -602px -434px;
+  background-position: -850px -699px;
   width: 162px;
   height: 138px;
 }
