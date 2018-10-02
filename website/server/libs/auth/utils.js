@@ -8,7 +8,7 @@ const translator = shortid('0123456789abcdefghijklmnopqrstuvwxyz');
 
 function generateUsername () {
   let newName = `hb-${translator.new()}`;
-  return newName.substring(0,20);
+  return newName.substring(0, 20);
 }
 
 function loginRes (user, req, res) {
