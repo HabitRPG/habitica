@@ -38,7 +38,6 @@
     "messageInsufficientGems": "寶石不足 !",
     "messageAuthPasswordMustMatch": ":password 和 :confirm密碼不配合。",
     "messageAuthCredentialsRequired": ":username, :email, :password, :confirm需要密碼",
-    "messageAuthUsernameTaken": "Username already taken",
     "messageAuthEmailTaken": "電子郵件已被使用。",
     "messageAuthNoUserFound": "找不到戶口。",
     "messageAuthMustBeLoggedIn": "你需要登入。",

@@ -38,7 +38,6 @@
     "messageInsufficientGems": "Pas assez de gemmes!",
     "messageAuthPasswordMustMatch": ":password et :confirmPassword ne correspondent pas",
     "messageAuthCredentialsRequired": ":username, :email, :password, :confirmPassword requis",
-    "messageAuthUsernameTaken": "Username already taken",
     "messageAuthEmailTaken": "Adresse courriel déjà prise.",
     "messageAuthNoUserFound": "Utilisateur introuvable.",
     "messageAuthMustBeLoggedIn": "Vous devez être connecté.",

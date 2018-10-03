@@ -38,7 +38,6 @@
     "messageInsufficientGems": "Нямате достатъчно диаманти!",
     "messageAuthPasswordMustMatch": ":password и :confirmPassword не съвпадат",
     "messageAuthCredentialsRequired": ":username, :email, :password и :confirmPassword са задължителни",
-    "messageAuthUsernameTaken": "Username already taken",
     "messageAuthEmailTaken": "Е-пощата вече се използва",
     "messageAuthNoUserFound": "Потребителят не е намерен.",
     "messageAuthMustBeLoggedIn": "Трябва да сте влезли в системата.",
