@@ -63,6 +63,7 @@ layout-section(:title="$t('equipment')")
 
   import _filter from 'lodash/filter';
   import _sortBy from 'lodash/sortBy';
+  import _reverse from 'lodash/reverse';
   import pinUtils from '../../../mixins/pinUtils';
 
   const sortGearTypes = ['sortByType', 'sortByPrice', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'].map(g => ({id: g}));
@@ -137,9 +138,17 @@ layout-section(:title="$t('equipment')")
           return !this.userItems.gear.owned[gear.key];
         });
 
-        // first all unlocked
-        // then the selected sort
-        result = _sortBy(result, [(item) => item.locked, sortGearTypeMap[this.selectedSortGearBy.id]]);
+        let selectedSortKey = sortGearTypeMap[this.selectedSortGearBy.id];
+
+        result = _sortBy(result, selectedSortKey);
+
+        if (selectedSortKey !== 'type' && selectedSortKey !== 'value') {
+          // sorting by a stat, need to reverse to get high-to-low sort
+          result = _reverse(result);
+        }
+
+        // put unlocked items first
+        result = _sortBy(result, (item) => item.locked);
 
         return result;
       },
