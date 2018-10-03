@@ -1,4 +1,4 @@
-const MIGRATION_NAME = '20181002_username_email.js';
+const MIGRATION_NAME = '20181003_username_email.js';
 let authorName = 'Sabe'; // in case script author needs to know when their ...
 let authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; // ... own data is done
 
@@ -8,7 +8,7 @@ let authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; // ... own data is done
 
 import monk from 'monk';
 import nconf from 'nconf';
-import { sendTxn } from '../website/server/libs/email';
+import { sendTxn } from '../../website/server/libs/email';
 const CONNECTION_STRING = nconf.get('MIGRATION_CONNECT_STRING');
 let dbUsers = monk(CONNECTION_STRING).get('users', { castIds: false });
 
@@ -26,7 +26,7 @@ function processUsers (lastId) {
 
   dbUsers.find(query, {
     sort: {_id: 1},
-    limit: 250,
+    limit: 100,
     fields: [
       '_id',
       'auth',
@@ -55,7 +55,7 @@ function updateUsers (users) {
   let lastUser = users[users.length - 1];
 
   return Promise.all(userPromises)
-    .then(delay(1500))
+    .then(() => delay(7000))
     .then(() => {
       processUsers(lastUser._id);
     });
