@@ -467,8 +467,9 @@ export default {
         alert(e.message);
       }
     },
-    addLocalAuth () {
-      axios.post('/api/v4/user/auth/local/register', this.localAuth, 'addedLocalAuth');
+    async addLocalAuth () {
+      await axios.post('/api/v4/user/auth/local/register', this.localAuth);
+      alert(this.$t('addedLocalAuth'));
     },
     restoreEmptyUsername () {
       if (this.usernameUpdates.username.length < 1) {
