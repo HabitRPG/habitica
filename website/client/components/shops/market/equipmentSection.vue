@@ -72,6 +72,7 @@ layout-section(:title="$t('equipment')")
     sortByType: 'type',
     sortByPrice: 'value',
     sortByCon: 'con',
+    sortByPer: 'per',
     sortByStr: 'str',
     sortByInt: 'int',
   };
