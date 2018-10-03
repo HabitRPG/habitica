@@ -38,7 +38,6 @@
     "messageInsufficientGems": "Nincs elég drágaköved!",
     "messageAuthPasswordMustMatch": ":password és :confirmPassword nem egyeznek",
     "messageAuthCredentialsRequired": ":username, :email, :password, :confirmPassword szükséges",
-    "messageAuthUsernameTaken": "Username already taken",
     "messageAuthEmailTaken": "Az e-mail cím már foglalt.",
     "messageAuthNoUserFound": "Felhasználó nem található",
     "messageAuthMustBeLoggedIn": "Be kell jelentkezned.",

@@ -38,7 +38,6 @@
     "messageInsufficientGems": "Недостаточно самоцветов!",
     "messageAuthPasswordMustMatch": ":password и :confirmPassword не совпадают",
     "messageAuthCredentialsRequired": ":username, :email, :password, :confirmPassword обязательны",
-    "messageAuthUsernameTaken": "Username already taken",
     "messageAuthEmailTaken": "Электронная почта уже занята",
     "messageAuthNoUserFound": "Пользователь не найден.",
     "messageAuthMustBeLoggedIn": "Вы должны быть авторизованы.",

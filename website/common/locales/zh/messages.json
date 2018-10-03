@@ -38,7 +38,6 @@
     "messageInsufficientGems": "宝石不够了！",
     "messageAuthPasswordMustMatch": "密码不匹配",
     "messageAuthCredentialsRequired": "需要输入用户名，邮箱，密码和确认密码",
-    "messageAuthUsernameTaken": "Username already taken",
     "messageAuthEmailTaken": "邮箱已被使用",
     "messageAuthNoUserFound": "没有找到这个用户",
     "messageAuthMustBeLoggedIn": "你必须登入",
