@@ -139,12 +139,11 @@
             .iconalert.iconalert-warning(v-else)
               div.align-middle
                 span {{ $t('usernameNotVerified') }}
-                button.btn.btn-secondary.btn-small.float-right(@click='changeUser("username", {username: user.auth.local.username})') {{ $t('confirmUsername') }}
             .form-group
-              input#changeUsername.form-control(type='text', :placeholder="$t('newUsername')", v-model='usernameUpdates.username', :class='{"is-invalid input-invalid": usernameInvalid}')
+              input#changeUsername.form-control(@blur='restoreEmptyUsername()',type='text', :placeholder="$t('newUsername')", v-model='usernameUpdates.username', :class='{"is-invalid input-invalid": usernameInvalid}')
               .input-error(v-for="issue in usernameIssues") {{ issue }}
               small.form-text.text-muted {{ $t('changeUsernameDisclaimer') }}
-            button.btn.btn-primary(type='submit', @click='changeUser("username", usernameUpdates)', :disabled='usernameCanSubmit') {{ $t('submit') }}
+            button.btn.btn-primary(type='submit', @click='changeUser("username", usernameUpdates)', :disabled='usernameCannotSubmit') {{ $t('saveAndConfirm') }}
           h5(v-if='user.auth.local.email') {{ $t('changeEmail') }}
           .form(v-if='user.auth.local.email', name='changeEmail', novalidate)
             .form-group
@@ -264,6 +263,7 @@ export default {
     this.usernameUpdates.username = this.user.auth.local.username || null;
     this.temporaryDisplayName = this.user.profile.name;
     this.emailUpdates.newEmail = this.user.auth.local.email || null;
+    this.localAuth.username = this.user.auth.local.username || null;
     hello.init({
       facebook: process.env.FACEBOOK_KEY, // eslint-disable-line no-process-env
       google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line no-process-env
@@ -320,7 +320,7 @@ export default {
       if (this.usernameUpdates.username.length <= 1) return false;
       return !this.usernameValid;
     },
-    usernameCanSubmit () {
+    usernameCannotSubmit () {
       if (this.usernameUpdates.username.length <= 1) return true;
       return !this.usernameValid;
     },
@@ -424,6 +424,7 @@ export default {
       await axios.put(`/api/v4/user/auth/update-${attribute}`, updates);
       if (attribute === 'username') {
         this.user.auth.local.username = updates[attribute];
+        this.localAuth.username = this.user.auth.local.username;
         this.user.flags.verifiedUsername = true;
       } else if (attribute === 'email') {
         this.user.auth.local.email = updates[attribute];
@@ -468,6 +469,11 @@ export default {
     },
     addLocalAuth () {
       axios.post('/api/v4/user/auth/local/register', this.localAuth, 'addedLocalAuth');
+    },
+    restoreEmptyUsername () {
+      if (this.usernameUpdates.username.length < 1) {
+        this.usernameUpdates.username = this.user.auth.local.username;
+      }
     },
   },
 };
