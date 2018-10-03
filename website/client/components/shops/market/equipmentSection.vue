@@ -118,9 +118,38 @@ layout-section(:title="$t('equipment')")
         return this.marketGearCategories.filter(c => c.id === this.selectedGroupGearByClass)[0];
       },
       sortedGearItems () {
-        let category = _filter(this.marketGearCategories, ['identifier', this.selectedGroupGearByClass]);
+        let result = this.filterGearItems();
+        let selectedSortKey = sortGearTypeMap[this.selectedSortGearBy.id];
 
-        let result = _filter(category[0].items, (gear) => {
+        result = _sortBy(result, selectedSortKey);
+
+        if (selectedSortKey !== 'type' && selectedSortKey !== 'value') {
+          // sorting by a stat, need to reverse to get high-to-low sort
+          result = _reverse(result);
+        }
+
+        // put unlocked items first
+        return _sortBy(result, (item) => item.locked);
+      },
+    },
+    methods: {
+      getClassName (classType) {
+        if (classType === 'wizard') {
+          return this.$t('mage');
+        } else {
+          return this.$t(classType);
+        }
+      },
+      gearSelected (item) {
+        if (!item.locked) {
+          this.$root.$emit('buyModal::showItem', item);
+        }
+      },
+      filterGearItems () {
+        let category = _filter(this.marketGearCategories, ['identifier', this.selectedGroupGearByClass]);
+        let items = category[0].items;
+
+        return _filter(items, (gear) => {
           if (this.hideLocked && gear.locked) {
             return false;
           }
@@ -138,34 +167,6 @@ layout-section(:title="$t('equipment')")
           // hide already owned
           return !this.userItems.gear.owned[gear.key];
         });
-
-        let selectedSortKey = sortGearTypeMap[this.selectedSortGearBy.id];
-
-        result = _sortBy(result, selectedSortKey);
-
-        if (selectedSortKey !== 'type' && selectedSortKey !== 'value') {
-          // sorting by a stat, need to reverse to get high-to-low sort
-          result = _reverse(result);
-        }
-
-        // put unlocked items first
-        result = _sortBy(result, (item) => item.locked);
-
-        return result;
-      },
-    },
-    methods: {
-      getClassName (classType) {
-        if (classType === 'wizard') {
-          return this.$t('mage');
-        } else {
-          return this.$t(classType);
-        }
-      },
-      gearSelected (item) {
-        if (!item.locked) {
-          this.$root.$emit('buyModal::showItem', item);
-        }
       },
     },
     created () {
