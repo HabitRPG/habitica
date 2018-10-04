@@ -6,7 +6,7 @@
     "innText": "Vous voici à l'auberge ! Tant que vous y séjournez, vos Quotidiennes non complétées ne vous affectent pas à la fin de la journée ; mais elles vont tout de même se remettre à zéro tous les jours. Attention : si vous êtes en pleine quête contre un boss, il pourra toujours vous blesser pour les Quotidiennes manquées par vos camarades d'équipe, sauf s'ils séjournent aussi à l'auberge ! Et vous ne pourrez vous-même blesser le boss (ou récolter des objets) que lorsque vous quitterez l'auberge.",
     "innTextBroken": "Vous créchez à l'auberge, je suppose... Tant que vous y séjournez, vos Quotidiennes non complétées ne vous affectent pas à la fin de la journée ; mais elles vont tout de même se remettre à zéro tous les jours... Si vous êtes en pleine quête contre un boss, il pourra toujours vous blesser pour les Quotidiennes manquées par vos camarades d'équipe... sauf s'ils séjournent aussi à l'auberge... Et vous ne pourrez vous-même blesser le boss (ou récolter des objets) que lorsque vous quitterez l'auberge... si fatigué...",
     "innCheckOutBanner": "Vous résidez actuellement à l'Auberge. Vos quotidiennes ne vous causeront aucun dégât et vous ne progresserez pas dans vos quêtes.",
-    "innCheckOutBannerShort": "You are checked into the Inn.",
+    "innCheckOutBannerShort": "Vous vous reposez à l'auberge.",
     "resumeDamage": "Réactiver les dommages",
     "helpfulLinks": "Liens utiles",
     "communityGuidelinesLink": "Règles de vie en communauté",
