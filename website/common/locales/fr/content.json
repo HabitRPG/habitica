@@ -202,7 +202,7 @@
     "hatchingPotionStarryNight": "Nuit étoilée",
     "hatchingPotionRainbow": "Arc-en-ciel",
     "hatchingPotionGlass": "Verre",
-    "hatchingPotionGlow": "Glow-in-the-Dark",
+    "hatchingPotionGlow": "phosphorescent",
     "hatchingPotionNotes": "Versez-la sur un œuf et il en sortira un familier <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "N'est pas utilisable sur les œufs de quête.",
     "foodMeat": "Côtelette",

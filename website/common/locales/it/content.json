@@ -202,7 +202,7 @@
     "hatchingPotionStarryNight": "Notte stellata",
     "hatchingPotionRainbow": "Arcobaleno",
     "hatchingPotionGlass": " Vetro",
-    "hatchingPotionGlow": "Glow-in-the-Dark",
+    "hatchingPotionGlow": "Fosforescente",
     "hatchingPotionNotes": "Versa questa pozione su un uovo, e nascerà un animale <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "Non utilizzabile su uova di animali ottenute dalle missioni.",
     "foodMeat": "Carne",
