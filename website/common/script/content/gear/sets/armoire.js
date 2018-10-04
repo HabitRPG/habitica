@@ -392,6 +392,14 @@ let armor = {
     set: 'bookbinder',
     canOwn: ownsItem('armor_armoire_coverallsOfBookbinding'),
   },
+  robeOfSpades: {
+    text: t('armorArmoireRobeOfSpadesText'),
+    notes: t('armorArmoireRobeOfSpadesNotes', { str: 13 }),
+    value: 100,
+    str: 13,
+    set: 'aceOfSpades',
+    canOwn: ownsItem('armor_armoire_robeOfSpades'),
+  },
 };
 
 let body = {
@@ -835,6 +843,14 @@ let head = {
     int: 15,
     set: 'jeweledArcher',
     canOwn: ownsItem('head_armoire_JeweledArcherHelm'),
+  },
+  veilOfSpades: {
+    text: t('headArmoireVeilOfSpadesText'),
+    notes: t('headArmoireVeilOfSpadesNotes', { per: 13 }),
+    value: 100,
+    per: 13,
+    set: 'aceOfSpades',
+    canOwn: ownsItem('head_armoire_veilOfSpades'),
   },
 };
 
@@ -1390,6 +1406,14 @@ let weapon = {
     str: 8,
     set: 'bookbinder',
     canOwn: ownsItem('weapon_armoire_needleOfBookbinding'),
+  },
+  spearOfSpades: {
+    text: t('weaponArmoireSpearOfSpadesText'),
+    notes: t('weaponArmoireSpearOfSpadesNotes', { con: 13 }),
+    value: 100,
+    con: 13,
+    set: 'aceOfSpades',
+    canOwn: ownsItem('weapon_armoire_spearOfSpades'),
   },
 };
 
