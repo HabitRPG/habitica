@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'CHANGES TO USERNAMES';
+const LAST_ANNOUNCEMENT_TITLE = 'OCTOBER BACKGROUNDS AND ARMOIRE ITEMS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,13 +30,14 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>10/02/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>10/04/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="scene_nametag center-block"></div>
-        <p>Hello Habiticans! Many of you will have already received an email about some changes coming to our username system. Your login name will now be a unique, public username! This change will make it easier to find, invite, and mention your friends in Habitica's social spaces, and will also allow us to add new features in the future. If you'd like to view or change your username, you can do so in <a href='/user/settings/site' target='_blank'>Settings</a>.</p>
-        <div class="small mb-3">by Apollo, piyo, viirus, and SabreCat</div>
+        <p>We’ve added three new backgrounds to the Background Shop! Now your avatar can creep through a spooky Dungeon, dare to approach a Creepy Castle and bask in the glow of a firefly-filled Bayou. Check them out under User Icon > Backgrounds!</p>
+        <p>Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the Ace of Spades Set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)</p>
+        <div class="small mb-3">by AnnDeLune, gully, Vampitch, GeraldThePixel, NekoAtsumeLARPer, Shred, and SabreCat</div>
+        <div class="promo_armoire_backgrounds_201810 center-block"></div>
       </div>
       `,
     });
