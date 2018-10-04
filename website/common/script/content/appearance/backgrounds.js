@@ -731,6 +731,20 @@ let backgrounds = {
       notes: t('backgroundCozyBarnNotes'),
     },
   },
+  backgrounds102018: {
+    bayou: {
+      text: t('backgroundBayouText'),
+      notes: t('backgroundBayouNotes'),
+    },
+    creepy_castle: {
+      text: t('backgroundCreepyCastleText'),
+      notes: t('backgroundCreepyCastleNotes'),
+    },
+    dungeon: {
+      text: t('backgroundDungeonText'),
+      notes: t('backgroundDungeonNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),
