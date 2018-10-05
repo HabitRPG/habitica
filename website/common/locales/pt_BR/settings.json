@@ -191,7 +191,7 @@
     "push": "Enviar",
     "about": "Sobre",
     "setUsernameNotificationTitle": "Confirme seu nome de usuário!",
-    "setUsernameNotificationBody": "Faremos a transição de nomes de login para únicos, nomes de usuários públicos em breve. Este nome de usuário será usado para convites, @menções em bate-papo e mensagens.",
+    "setUsernameNotificationBody": "Faremos a transição dos nomes de login para nomes de usuários públicos exclusivos em breve. Este nome de usuário será usado para convites, @menções em bate-papo e mensagens.",
     "usernameIssueSlur": "Nomes de usuários não podem conter linguagem imprópria.",
     "usernameIssueForbidden": "Os nomes de usuários não podem conter palavras restritas.",
     "usernameIssueLength": "Nomes de usuário devem conter entre 1 e 20 caracteres.",
@@ -202,5 +202,5 @@
     "goToSettings": "Ir para Configurações",
     "usernameVerifiedConfirmation": "Seu nome de usuário, <%= username %>, foi confirmado!",
     "usernameNotVerified": "Por favor, confirme seu nome de usuário.",
-    "changeUsernameDisclaimer": "Faremos a transição de nomes de login para únicos, nomes de usuários públicos em breve. Este nome de usuário será usado para convites, @menções em bate-papo e mensagens."
+    "changeUsernameDisclaimer": "Faremos a transição dos nomes de login para nomes de usuários públicos exclusivos em breve. Este nome de usuário será usado para convites, @menções em bate-papo e mensagens."
 }
