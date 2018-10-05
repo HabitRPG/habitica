@@ -1,9 +1,5 @@
 import {authWithHeaders} from '../../middlewares/auth';
 import _ from 'lodash';
-import {langCodes} from '../../libs/i18n';
-import util from 'util';
-import fsCallback from 'fs';
-import path from 'path';
 import apiError from '../../libs/apiError';
 import {model as NewsPost} from '../../models/newsPost';
 import {ensureAdmin} from '../../middlewares/ensureAccessRight';
@@ -28,7 +24,6 @@ api.getNews = {
   method: 'GET',
   url: '/news',
   noLanguage: true,
-  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let isAdmin = false;
@@ -145,7 +140,6 @@ api.MarkNewsRead = {
 
     user.flags.lastNewStuffRead = await NewsPost.lastNewsPostID();
 
-    console.log(user.flags);
     await user.save();
     res.respond(200, {});
   },
