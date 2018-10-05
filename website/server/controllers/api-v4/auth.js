@@ -73,6 +73,8 @@ api.verifyUsername = {
   method: 'POST',
   url: '/user/auth/verify-username',
   async handler (req, res) {
+    const user = res.locals.user;
+
     req.checkBody({
       username: {
         notEmpty: {errorMessage: res.t('missingUsername')},
@@ -84,8 +86,10 @@ api.verifyUsername = {
 
     const issues = verifyUsername(req.body.username, res);
 
-    const count = await User.count({ 'auth.local.lowerCaseUsername': req.body.username.toLowerCase() });
-    if (count > 0)  issues.push(res.t('usernameTaken'));
+    const existingUser = await User.findOne({ 'auth.local.lowerCaseUsername': req.body.username.toLowerCase() }, {auth: 1}).exec();
+    if (existingUser && existingUser._id !== user._id) {
+      issues.push(res.t('usernameTaken'));
+    }
 
     if (issues.length > 0) {
       res.respond(200, { isUsable: false, issues });
