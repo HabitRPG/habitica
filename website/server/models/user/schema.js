@@ -559,11 +559,7 @@ let schema = new Schema({
   tags: [TagSchema],
 
   inbox: {
-    // messages are stored in the Inbox collection, this path will be removed
-    // as soon as the migration has run and all the messages have been removed from here
-    messages: {type: Schema.Types.Mixed, default: () => {
-      return {};
-    }},
+    // messages are stored in the Inbox collection
     newMessages: {type: Number, default: 0},
     blocks: {type: Array, default: () => []},
     optOut: {type: Boolean, default: false},
