@@ -1,24 +1,23 @@
 import {
   generateUser,
 } from '../../../../helpers/api-integration/v3';
+import {model as NewsPost} from '../../../../../website/server/models/newsPost';
 
 describe('POST /news/tell-me-later', () => {
   let user;
 
   beforeEach(async () => {
-    user = await generateUser({
-      'flags.newStuff': true,
-    });
+    user = await generateUser();
   });
 
   it('marks new stuff as read and adds notification', async () => {
-    expect(user.flags.newStuff).to.equal(true);
+    NewsPost.updateLastNewsPostID('1234', new Date());
     const initialNotifications = user.notifications.length;
 
     await user.post('/news/tell-me-later');
     await user.sync();
 
-    expect(user.flags.newStuff).to.equal(false);
+    expect(user.flags.lastNewStuffRead).to.equal('1234');
     expect(user.notifications.length).to.equal(initialNotifications + 1);
 
     const notification = user.notifications[user.notifications.length - 1];

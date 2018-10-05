@@ -12,6 +12,11 @@ let api = {};
 const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE FOR LAVA DRAGON SET AND SPOTLIGHT ON BACK TO SCHOOL';
 
 /**
+ * @apiDefine postIdRequired
+ * @apiError (400) {BadRequest} postIdRequired A postId is required
+ */
+
+/**
  * @api {get} /api/v3/news Get latest Bailey announcement
  * @apiName GetNews
  * @apiGroup News
@@ -72,7 +77,7 @@ api.createNews = {
  *
  * @apiParam (Path) {String} postId The posts _id
  *
- * @apiSuccess {Object} data The updated group (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
+ * @apiSuccess {Object} data The updated news post (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/newsPost.js" target="_blank">/website/server/models/newsPost.js</a>)
  *
  * @apiSuccessExample {json} Post:
  *     HTTP/1.1 200 OK

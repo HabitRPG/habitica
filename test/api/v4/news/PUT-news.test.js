@@ -13,7 +13,7 @@ describe('PUT /news/:newsID', () => {
   };
   beforeEach(async () => {
     user = await generateUser({
-      'contributor.admin': true
+      'contributor.admin': true,
     });
   });
 

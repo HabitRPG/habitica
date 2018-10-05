@@ -33,6 +33,6 @@ describe('POST /news/read', () => {
     expect(response.credits).to.equal(newsPost.credits);
     expect(response.text).to.equal(newsPost.text);
     expect(response.published).to.equal(newsPost.published);
-    expect(response.id).to.exist
+    expect(response.id).to.exist;
   });
 });

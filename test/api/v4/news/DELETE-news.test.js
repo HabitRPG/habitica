@@ -25,7 +25,7 @@ describe('DELETE /news/:newsID', () => {
       message: 'You don\'t have admin access.',
     });
   });
-  
+
   it('deletes news posts', async () => {
     const existingPost = await user.post('/news', newsPost);
     await user.del(`/news/${existingPost.id}`, {
