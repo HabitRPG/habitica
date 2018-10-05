@@ -117,9 +117,6 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, o
   });
   Object.assign(newReceiverMessage, messageDefaults(options.receiverMsg, sender));
   setUserStyles(newReceiverMessage, sender);
-  if (sender.flags.verifiedUsername === true) {
-    newReceiverMessage.username = sender.auth.local.username;
-  }
 
   userToReceiveMessage.inbox.newMessages++;
   userToReceiveMessage._v++;
@@ -160,9 +157,6 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, o
     });
     Object.assign(newSenderMessage, messageDefaults(senderMsg, userToReceiveMessage));
     setUserStyles(newSenderMessage, sender);
-    if (sender.flags.verifiedUsername === true) {
-      newSenderMessage.username = sender.auth.local.username;
-    }
     promises.push(newSenderMessage.save());
   }
 

@@ -151,13 +151,16 @@ describe('POST /members/send-private-message', () => {
     let sendersMessageInSendersInbox = _.find(updatedSender.inbox.messages, (message) => {
       return message.uuid === receiver._id && message.text === messageToSend;
     });
-    expect(response.message.username).to.equal(userToSendMessage.auth.local.username);
+    expect(response.message.username).to.equal(receiver.auth.local.username);
     expect(sendersMessageInReceiversInbox.username).to.equal(userToSendMessage.auth.local.username);
-    expect(sendersMessageInSendersInbox.username).to.equal(userToSendMessage.auth.local.username);
+    expect(sendersMessageInSendersInbox.username).to.equal(receiver.auth.local.username);
   });
 
   it('does not add username if user has not verified', async () => {
-    let receiver = await generateUser();
+    let receiver = await generateUser({
+      'flags.verifiedUsername': false,
+    });
+    receiver.sync();
     const unverifiedUser = await generateUser({
       'flags.verifiedUsername': false,
     });

@@ -117,6 +117,9 @@ export function messageDefaults (msg, user) {
       backer: user.backer && user.backer.toObject(),
       user: user.profile.name,
     });
+    if (user.flags.verifiedUsername === true) {
+      message.username = user.auth.local.username;
+    }
   } else {
     message.uuid = 'system';
   }
