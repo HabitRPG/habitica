@@ -178,7 +178,7 @@ api.postChat = {
 
     const newChatMessage = group.sendChat(req.body.message, user);
 
-    if (user.flags.verifiedUsername === true) {
+    if (user.flags && user.flags.verifiedUsername === true) {
       newChatMessage.username = user.auth.local.username;
     }
 
