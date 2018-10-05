@@ -8,6 +8,7 @@ const authorUuid = 'ed4c688c-6652-4a92-9d03-a5a79844174a'; // ... own data is do
 
 const monk = require('monk');
 const nconf = require('nconf');
+const uuid = require('uuid').v4;
 
 const Inbox = require('../website/server/models/message').inboxModel;
 const connectionString = nconf.get('MIGRATION_CONNECT_STRING'); // FOR TEST DATABASE
@@ -84,16 +85,39 @@ function updateUser (user) {
     return newMsg.toJSON();
   });
 
-  return dbInboxes.insert(newInboxMessages)
-    .then(() => {
+  const promises = newInboxMessages.map(newMsg => {
+    return (async function fn () {
+      const existing = await dbInboxes.find({_id: newMsg._id});
+
+      if (existing.length > 0) {
+        if (
+          existing[0].ownerId === newMsg.ownerId &&
+          existing[0].text === newMsg.text &&
+          existing[0].uuid === newMsg.uuid &&
+          existing[0].sent === newMsg.sent
+        ) {
+          return null;
+        }
+
+        newMsg.id = newMsg._id = uuid();
+      }
+
+      return newMsg;
+    })();
+  });
+
+  return Promise.all(promises)
+    .then((filteredNewMsg) => {
+      filteredNewMsg = filteredNewMsg.filter(m => Boolean(m && m.id && m._id && m.id == m._id));
+      return dbInboxes.insert(filteredNewMsg);
+    }).then(() => {
       return dbUsers.update({_id: user._id}, {
         $set: {
           migration: migrationName,
           'inbox.messages': {},
         },
       });
-    })
-    .catch((err) => {
+    }).catch((err) => {
       console.log(err);
       return exiting(1, `ERROR! ${  err}`);
     });
