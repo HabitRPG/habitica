@@ -23,6 +23,9 @@ const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE FOR LAVA DRAGON SET AND SPOTLIGHT O
 api.getNews = {
   method: 'GET',
   url: '/news',
+  middlewares: [authWithHeaders({
+    optional: true,
+  })],
   noLanguage: true,
   async handler (req, res) {
     let user = res.locals.user;
