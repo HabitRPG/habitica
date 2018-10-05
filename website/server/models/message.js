@@ -10,6 +10,7 @@ const defaultSchema = () => ({
 
   // sender properties
   user: String, // profile name
+  username: String, // unique username
   contributor: {type: mongoose.Schema.Types.Mixed},
   backer: {type: mongoose.Schema.Types.Mixed},
   uuid: String, // sender uuid

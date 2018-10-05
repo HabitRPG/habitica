@@ -448,6 +448,22 @@ describe('POST /chat', () => {
     expect(messageBackerInfo.tokensApplied).to.equal(backerInfo.tokensApplied);
   });
 
+  it('adds username if user has verified', async () => {
+    const newMessage = await user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage});
+
+    expect(newMessage.message.username).to.equal(user.auth.local.username);
+  });
+
+  it('does not add username if user has not verified', async () => {
+    const unverifiedUser = await generateUser({
+      'flags.verifiedUsername': false,
+    });
+    await unverifiedUser.sync();
+    const newMessage = await unverifiedUser.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage});
+
+    expect(newMessage.message.username).to.not.exist;
+  });
+
   it('sends group chat received webhooks', async () => {
     let userUuid = generateUUID();
     let memberUuid = generateUUID();

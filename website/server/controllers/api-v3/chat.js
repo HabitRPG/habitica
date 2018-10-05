@@ -177,6 +177,11 @@ api.postChat = {
     }
 
     const newChatMessage = group.sendChat(req.body.message, user);
+
+    if (user.flags.verifiedUsername === true) {
+      newChatMessage.username = user.auth.local.username;
+    }
+
     let toSave = [newChatMessage.save()];
 
     if (group.type === 'party') {

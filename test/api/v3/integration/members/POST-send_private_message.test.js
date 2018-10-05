@@ -133,6 +133,56 @@ describe('POST /members/send-private-message', () => {
     expect(sendersMessageInSendersInbox).to.exist;
   });
 
+
+  it('adds username if user has verified', async () => {
+    let receiver = await generateUser();
+    const response = await userToSendMessage.post('/members/send-private-message', {
+      message: messageToSend,
+      toUserId: receiver._id,
+    });
+
+    let updatedReceiver = await receiver.get('/user');
+    let updatedSender = await userToSendMessage.get('/user');
+
+    let sendersMessageInReceiversInbox = _.find(updatedReceiver.inbox.messages, (message) => {
+      return message.uuid === userToSendMessage._id && message.text === messageToSend;
+    });
+
+    let sendersMessageInSendersInbox = _.find(updatedSender.inbox.messages, (message) => {
+      return message.uuid === receiver._id && message.text === messageToSend;
+    });
+    expect(response.message.username).to.equal(userToSendMessage.auth.local.username);
+    expect(sendersMessageInReceiversInbox.username).to.equal(userToSendMessage.auth.local.username);
+    expect(sendersMessageInSendersInbox.username).to.equal(userToSendMessage.auth.local.username);
+  });
+
+  it('does not add username if user has not verified', async () => {
+    let receiver = await generateUser();
+    const unverifiedUser = await generateUser({
+      'flags.verifiedUsername': false,
+    });
+    await unverifiedUser.sync();
+    const response = await unverifiedUser.post('/members/send-private-message', {
+      message: messageToSend,
+      toUserId: receiver._id,
+    });
+
+    let updatedReceiver = await receiver.get('/user');
+    let updatedSender = await unverifiedUser.get('/user');
+
+    let sendersMessageInReceiversInbox = _.find(updatedReceiver.inbox.messages, (message) => {
+      return message.uuid === unverifiedUser._id && message.text === messageToSend;
+    });
+
+    let sendersMessageInSendersInbox = _.find(updatedSender.inbox.messages, (message) => {
+      return message.uuid === receiver._id && message.text === messageToSend;
+    });
+
+    expect(response.message.username).to.not.exist;
+    expect(sendersMessageInReceiversInbox.username).to.not.exist;
+    expect(sendersMessageInSendersInbox.username).to.not.exist;
+  });
+
   // @TODO waiting for mobile support
   xit('creates a notification with an excerpt if the message is too long', async () => {
     let receiver = await generateUser();

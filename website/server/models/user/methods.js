@@ -117,6 +117,9 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, o
   });
   Object.assign(newReceiverMessage, messageDefaults(options.receiverMsg, sender));
   setUserStyles(newReceiverMessage, sender);
+  if (sender.flags.verifiedUsername === true) {
+    newReceiverMessage.username = sender.auth.local.username;
+  }
 
   userToReceiveMessage.inbox.newMessages++;
   userToReceiveMessage._v++;
@@ -148,6 +151,8 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, o
   // Do not add the message twice when sending it to yourself
   let newSenderMessage;
 
+  const promises = [newReceiverMessage.save()];
+
   if (!sendingToYourself) {
     newSenderMessage = new Inbox({
       sent: true,
@@ -155,10 +160,11 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, o
     });
     Object.assign(newSenderMessage, messageDefaults(senderMsg, userToReceiveMessage));
     setUserStyles(newSenderMessage, sender);
+    if (sender.flags.verifiedUsername === true) {
+      newSenderMessage.username = sender.auth.local.username;
+    }
+    promises.push(newSenderMessage.save());
   }
-
-  const promises = [newReceiverMessage.save()];
-  if (!sendingToYourself) promises.push(newSenderMessage.save());
 
   if (saveUsers) {
     promises.push(sender.save());
