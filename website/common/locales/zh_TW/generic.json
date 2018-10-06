@@ -104,7 +104,7 @@
     "habitBirthdayPluralText": "慶祝了<%= number %> 次的 Habitica 生日派對！",
     "habiticaDay": "Habitica 命名日",
     "habiticaDaySingularText": "慶祝了 Habitica 命名日! 感謝這位超棒的玩家。",
-    "habiticaDayPluralText": " 慶祝了<%= count %> 命名日! 感謝這位超棒的玩家。",
+    "habiticaDayPluralText": " 慶祝 <%= count %> 命名節! 感謝您成為一位了不起的玩家。",
     "achievementDilatory": "拖延的救世者",
     "achievementDilatoryText": "2014年夏季世界事件中協助打敗了恐怖的拖延巨龍！",
     "costumeContest": "變裝比賽",
