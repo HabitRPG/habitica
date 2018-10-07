@@ -19,9 +19,9 @@ setUpServer();
 // Replace this with your migration
 const processUsers = require('./users/takeThis.js');
 processUsers()
-  .then(
+  .then(function () {
     process.exitCode = 0;
-  )
+  })
   .catch(function (err) {
     console.log(err);
     process.exitCode = 1;
