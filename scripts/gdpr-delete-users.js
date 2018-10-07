@@ -67,14 +67,10 @@ async function _processEmailAddress (email) {
   if (users.length < 1) {
     console.warn(`No users found with email address ${email}`);
   } else {
-    const habiticaPromises = users.map(_deleteHabiticaData);
-    const amplitudePromises = users.map(
-      function processAmplitude (u) {
-        return _deleteAmplitudeData(u._id, email);
-      }
-    );
-    const allPromises = amplitudePromises.concat(habiticaPromises);
-    return Promise.all(allPromises);
+    for (const user of users) {
+      await _deleteAmplitudeData(user._id, email); // eslint-disable-line no-await-in-loop
+      await _deleteHabiticaData(user); // eslint-disable-line no-await-in-loop
+    }
   }
 }
 
