@@ -22,7 +22,7 @@ processUsers()
   .then(
     process.exitCode = 0;
   )
-  .catch(err) {
+  .catch(function (err) {
     console.log(err);
     process.exitCode = 1;
-}
+  });
