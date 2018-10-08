@@ -47,6 +47,8 @@ export default class InboxChatReporter extends ChatReporter {
   async notify (message, userComment) {
     const group = {
       type: 'private messages',
+      name: 'N/A',
+      _id: 'N/A',
     };
 
     await super.notify(group, message);
@@ -56,7 +58,7 @@ export default class InboxChatReporter extends ChatReporter {
       {name: 'GROUP_NAME', content: group.name},
       {name: 'GROUP_TYPE', content: group.type},
       {name: 'GROUP_ID', content: group._id},
-      {name: 'GROUP_URL', content: groupUrl},
+      {name: 'GROUP_URL', content: groupUrl || 'N/A'},
       {name: 'REPORTER_COMMENT', content: userComment || ''},
     ]));
 
@@ -84,15 +86,7 @@ export default class InboxChatReporter extends ChatReporter {
 
     return this.updateMessageAndSave(message, (m) => {
       m.flags[this.user._id] = true;
-
-      // Log total number of flags (publicly viewable)
-      if (!m.flagCount) m.flagCount = 0;
-      if (this.user.contributor.admin) {
-        // Arbitrary amount, higher than 2
-        m.flagCount = 5;
-      } else {
-        m.flagCount++;
-      }
+      m.flagCount = 1;
     });
   }
 

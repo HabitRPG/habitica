@@ -102,17 +102,13 @@ function sendInboxFlagNotification ({
   let authorName;
   let title = `Flag in ${flagger.profile.name}'s Inbox`;
   let text = `${flagger.profile.name} (${flagger.id}; language: ${flagger.preferences.language}) flagged a PM`;
-  let footer = `<${SLACK_FLAGGING_FOOTER_LINK}?userId=${flagger.id}&chatMessageId=${message.id}|Flag this message>`;
+  let footer = '';
 
   if (userComment) {
     text += ` and commented: ${userComment}`;
   }
 
-  if (!message.user && message.uuid === 'system') {
-    authorName = 'System Message';
-  } else {
-    authorName = `${message.user} - ${authorEmail} - ${message.uuid}`;
-  }
+  authorName = `${message.user} - ${authorEmail} - ${message.uuid}`;
 
   let messageText = message.text;
 
