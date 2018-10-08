@@ -154,11 +154,13 @@ export default {
         this.$root.$emit('bv::show::modal', 'create-party-modal');
       }
     },
-    showPartyMembers () {
+    async showPartyMembers () {
+      const party = await this.$store.dispatch('party:getParty');
+
       this.$root.$emit('habitica:show-member-modal', {
-        groupId: this.user.party._id,
+        groupId: party.data._id,
         viewingMembers: this.partyMembers,
-        group: this.user.party,
+        group: party.data,
       });
     },
     setPartyMembersWidth ($event) {
