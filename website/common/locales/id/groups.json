@@ -6,6 +6,7 @@
     "innText": "Kamu beristirahat di Penginapan! Ketika menginap, kamu tidak akan dilukai oleh keseharianmu yang belum selesai, tapi mereka tetap akan diperbarui setiap hari. Ingat: jika kamu sedang ikut misi melawan musuh, musuh masih bisa melukaimu lewat keseharian yang tidak diselesaikan teman Party-mu kecuali mereka ada di Penginapan juga! Selain itu kamu tidak akan bisa menyerang musuh (atau menemukan item misi) hingga kamu keluar dari Penginapan.",
     "innTextBroken": "Kamu beristirahat di dalam Penginapan, kurasa... Ketika menginap, kamu tidak akan dilukai oleh keseharianmu yang belum selesai, tapi mereka masih akan diperbarui setiap hari... Jika kamu sedang ikut misi melawan musuh, musuh masih bisa melukaimu karena tugas yang tidak diselesaikan teman Party-mu... kecuali mereka ada di Penginapan juga... Selain itu kamu tidak akan bisa menyerang musuh (atau menemukan item misi) jika masih di dalam Penginapan... capek banget...",
     "innCheckOutBanner": "You are currently checked into the Inn. Your Dailies won't damage you and you won't make progress towards Quests.",
+    "innCheckOutBannerShort": "You are checked into the Inn.",
     "resumeDamage": "Resume Damage",
     "helpfulLinks": "Tautan Berguna",
     "communityGuidelinesLink": "Pedoman Komunitas",
@@ -141,6 +142,7 @@
     "PMDisabledCaptionText": "You can still send messages, but no one can send them to you.",
     "block": "Blokir",
     "unblock": "Hapus Blokir",
+    "blockWarning": "Block - This will have no effect if the player is a moderator now or becomes a moderator in future.",
     "pm-reply": "Kirimkan balasan",
     "inbox": "Kotak Masuk",
     "messageRequired": "Pesan harus ditulis.",
@@ -468,5 +470,9 @@
     "howToRequireApprovalDesc2": "Group Leaders and Managers can approve completed Tasks directly from the Task Board or from the Notifications panel.",
     "whatIsGroupManager": "What is a Group Manager?",
     "whatIsGroupManagerDesc": "A Group Manager is a user role that do not have access to the group's billing details, but can create, assign, and approve shared Tasks for the Group's members. Promote Group Managers from the Group’s member list.",
-    "goToTaskBoard": "Go to Task Board"
+    "goToTaskBoard": "Go to Task Board",
+    "sharedCompletion": "Shared Completion",
+    "recurringCompletion": "None - Group task does not complete",
+    "singleCompletion": "Single - Completes when any assigned user finishes",
+    "allAssignedCompletion": "All - Completes when all assigned users finish"
 }

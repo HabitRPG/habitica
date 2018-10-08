@@ -8,6 +8,8 @@
     "other": "Anderes",
     "fullName": "Name",
     "displayName": "Angezeigter Name",
+    "changeDisplayName": "Change Display Name",
+    "newDisplayName": "New Display Name",
     "displayPhoto": "Foto",
     "displayBlurb": "Über mich ...",
     "displayBlurbPlaceholder": "Stelle Dich bitte vor",
@@ -181,7 +183,7 @@
     "lostMana": "Du hast etwas Mana verwendet",
     "lostHealth": "Du hast etwas Lebenspunkte verloren",
     "lostExperience": "Dir wurden Erfahrungspunkte abgezogen",
-    "displayNameDescription1": "Dieser wird bei Nachrichten, die Du im Gasthaus postest, sowie im Gruppenchat und auch auf Deinem Avatar angezeigt. Um den Namen anzupassen, verwende den Bearbeiten-Knopf oben. Wenn Du stattdessen Deinen Anmeldenamen ändern willst, gehe zu",
+    "displayNameDescription1": "This is what appears in messages you post in the Tavern, guilds, and party chat, along with what is displayed on your avatar. To change it, click the Edit button above. If instead you want to change your username, go to",
     "displayNameDescription2": "Einstellungen->Seite",
     "displayNameDescription3": "und vergleiche auch den Abschnitt Registrierung.",
     "unequipBattleGear": "Kampfausrüstung ablegen",
@@ -204,6 +206,7 @@
     "hideQuickAllocation": "Attributwertzuweisung ausblenden",
     "quickAllocationLevelPopover": "Mit jedem Level erhältst Du einen Punkt, den Du einem Attribut Deiner Wahl zuweisen kannst. Du kannst Deine Punkte manuell verteilen, oder das Spiel entscheiden lassen, indem Du eines der vorgegebenen Verteilungsmuster unter Benutzer Icon  > Werte wählst.",
     "notEnoughAttrPoints": "Du hast nicht genug Attributpunkte.",
+    "classNotSelected": "You must select Class before you can assign Stat Points.",
     "style": "Stil",
     "facialhair": "Bart",
     "photo": "Foto",
@@ -219,6 +222,6 @@
     "bodyAccess": "Körper",
     "mainHand": "Haupthand",
     "offHand": "Schildhand",
-    "pointsAvailable": "Verfügbare Punkte",
+    "statPoints": "Attributspunkte",
     "pts": "Pkte"
 }

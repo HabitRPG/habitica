@@ -8,6 +8,7 @@ import {
 } from '../../libs/errors';
 import i18n from '../../i18n';
 import errorMessage from '../../libs/errorMessage';
+import hasClass from '../../libs/hasClass';
 
 module.exports = function allocateBulk (user, req = {}) {
   const stats = get(req, 'body.stats');
@@ -19,6 +20,10 @@ module.exports = function allocateBulk (user, req = {}) {
   });
   if (invalidStats.length > 0) {
     throw new BadRequest(errorMessage('invalidAttribute', {attr: invalidStats.join(',')}));
+  }
+
+  if (!hasClass(user)) {
+    throw new NotAuthorized(i18n.t('classNotSelected', req.language));
   }
 
   if (user.stats.points <= 0) {

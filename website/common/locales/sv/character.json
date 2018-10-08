@@ -8,6 +8,8 @@
     "other": "Annat",
     "fullName": "Fullständigt namn",
     "displayName": "Användarnamn",
+    "changeDisplayName": "Change Display Name",
+    "newDisplayName": "New Display Name",
     "displayPhoto": "Foto",
     "displayBlurb": "Några ord om dig",
     "displayBlurbPlaceholder": "Vänligen presentera dig",
@@ -181,7 +183,7 @@
     "lostMana": "Du använde Mana",
     "lostHealth": "Du förlorade Hälsa",
     "lostExperience": "Du förlorade Erfarenhet",
-    "displayNameDescription1": "Det här är vad som visas i meddelanden som du postar i värdshus-, gille- och sällskapschatter, tillsammans med vad som visas på din avatar. För att ändra det, klicka på Ändra-knappen ovanför. Om du istället vill ändra ditt inloggningsnamn, gå till",
+    "displayNameDescription1": "This is what appears in messages you post in the Tavern, guilds, and party chat, along with what is displayed on your avatar. To change it, click the Edit button above. If instead you want to change your username, go to",
     "displayNameDescription2": "Inställningar->Sida",
     "displayNameDescription3": "och kolla i registreringssektionen.",
     "unequipBattleGear": "Ta av stridsutrustning",
@@ -204,6 +206,7 @@
     "hideQuickAllocation": "Göm poängfördelning",
     "quickAllocationLevelPopover": "För varje nivå tjänar du ett poäng som du kan tilldela till en egenskap av ditt val. Du kan göra det manuellt eller så kan du låta spelet välja åt dig med hjälp av Automatisk Tilldelning som finns under Användarikon > Egenskaper.",
     "notEnoughAttrPoints": "Du har inte tillräckligt med egenskapspoäng.",
+    "classNotSelected": "You must select Class before you can assign Stat Points.",
     "style": "Stil",
     "facialhair": "Ansikte",
     "photo": "Foto",
@@ -219,6 +222,6 @@
     "bodyAccess": "Kroppstillbehör",
     "mainHand": "Huvudhand",
     "offHand": "Off-Hand",
-    "pointsAvailable": "Tillgängliga Poäng",
+    "statPoints": "Stat Points",
     "pts": "poäng"
 }

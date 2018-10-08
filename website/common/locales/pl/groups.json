@@ -6,6 +6,7 @@
     "innText": "Odpoczywasz w Gospodzie! Dopóki jesteś zameldowany, twoje Codzienne nie zadadzą ci obrażeń na koniec dnia, jednak w dalszym ciągu codziennie będą się odświeżać. Uważaj: Jeśli uczestniczysz w misji z bossem, wciąż może on zadać tobie obrażenia, jeśli członkowie twojej Drużyny ominą Codzienne, chyba że również odpoczywają w Gospodzie! Również twoje obrażenia zadane bossowi (lub zebrane przedmioty) nie zostaną uwzględnione, dopóki nie wymeldujesz się z Gospody.",
     "innTextBroken": "Odpoczywasz w gospodzie, zgaduję... Dopóki jesteś zameldowany, twoje Codzienne nie zadadzą ci obrażeń na koniec dnia, jednak w dalszym ciągu codziennie będą się odświeżać... Jeśli uczestniczysz w misji z bossem, wciąż może on zadać tobie obrażenia, jeśli członkowie twojej Drużyny ominą Codzienne... chyba że również odpoczywają w gospodzie... Również Twoje obrażenia zadane bossowi (lub zebrane przedmioty) nie zostaną uwzględnione, dopóki nie wymeldujesz się z gospody... jestem taki zmęczony...",
     "innCheckOutBanner": "Wpisałeś się aktualnie do Gospody. Twoje Codzienne nie będą Ciebie ranić i nie będziesz robił postępów w Misjach.",
+    "innCheckOutBannerShort": "You are checked into the Inn.",
     "resumeDamage": "Wznów otrzymywanie obrażeń",
     "helpfulLinks": "Pomocne odnośniki",
     "communityGuidelinesLink": "Wytyczne Społeczności",
@@ -141,6 +142,7 @@
     "PMDisabledCaptionText": "Wciąż możesz wysyłać wiadomości, ale nikt nie może ich wysyłać do ciebie.",
     "block": "Blokuj",
     "unblock": "Odblokuj",
+    "blockWarning": "Block - This will have no effect if the player is a moderator now or becomes a moderator in future.",
     "pm-reply": "Wyślij odpowiedź",
     "inbox": "Skrzynka odbiorcza",
     "messageRequired": "Wymagana wiadomość.",
@@ -468,5 +470,9 @@
     "howToRequireApprovalDesc2": "Liderzy Grupy bądź Zarządcy mogą akceptować wykonane Zadania bezpośrednio z Tablicy Zadań albo z panelu z powiadomieniami.",
     "whatIsGroupManager": "Kto to jest Menadżer Grupy?",
     "whatIsGroupManagerDesc": "Zarządca Grupy jest użytkownikiem, który nie ma dostępu do szczegółów płatności, ale może tworzyć, przydzielać i akceptować wspólne Zadania dla członków Grupy. Awansuj Zarządców z listy członków Grupy.",
-    "goToTaskBoard": "Idź do Tablicy Zadań"
+    "goToTaskBoard": "Idź do Tablicy Zadań",
+    "sharedCompletion": "Shared Completion",
+    "recurringCompletion": "None - Group task does not complete",
+    "singleCompletion": "Single - Completes when any assigned user finishes",
+    "allAssignedCompletion": "All - Completes when all assigned users finish"
 }

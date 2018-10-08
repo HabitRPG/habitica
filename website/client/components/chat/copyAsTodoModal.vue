@@ -18,6 +18,7 @@ import notificationsMixin from 'client/mixins/notifications';
 import Task from 'client/components/tasks/task';
 
 import taskDefaults from 'common/script/libs/taskDefaults';
+import { TAVERN_ID } from '../../../common/script/constants';
 
 const baseUrl = 'https://habitica.com';
 
@@ -29,7 +30,7 @@ export default {
     Task,
   },
   mixins: [notificationsMixin],
-  props: ['copyingMessage', 'groupName', 'groupId'],
+  props: ['copyingMessage', 'groupType', 'groupName', 'groupId'],
   data () {
     return {
       isUser: true,
@@ -38,7 +39,7 @@ export default {
   },
   mounted () {
     this.$root.$on('habitica::copy-as-todo', message => {
-      const notes = `${message.user || 'system message'}${message.user ? ' wrote' : ''} in [${this.groupName}](${baseUrl}/groups/guild/${this.groupId})`;
+      const notes = `${message.user || 'system message'}${message.user ? ' wrote' : ''} in [${this.groupName}](${this.groupPath()})`;
       const newTask = {
         text: message.text,
         type: 'todo',
@@ -55,6 +56,15 @@ export default {
     ...mapActions({
       createTask: 'tasks:create',
     }),
+    groupPath () {
+      if (this.groupId === TAVERN_ID) {
+        return `${baseUrl}/groups/tavern`;
+      } else if (this.groupType === 'party') {
+        return `${baseUrl}/party`;
+      } else {
+        return `${baseUrl}/groups/guild/${this.groupId}`;
+      }
+    },
     close () {
       this.$root.$emit('bv::hide::modal', 'copyAsTodo');
     },

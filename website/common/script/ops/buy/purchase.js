@@ -107,7 +107,7 @@ module.exports = function purchase (user, req = {}, analytics) {
     analytics.track('acquire item', {
       uuid: user._id,
       itemKey: key,
-      itemType: 'Market',
+      itemType: type,
       acquireMethod: 'Gems',
       gemCost: price * 4,
       quantityPurchased: quantity,

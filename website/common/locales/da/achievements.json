@@ -1,8 +1,9 @@
 {
+  "achievement": "Præstation",
   "share": "Del",
   "onwards": "Fremad!",
-  "levelup": "By accomplishing your real life goals, you leveled up and are now fully healed!",
-  "reachedLevel": "Du Har Nået Level <%= level %>",
-  "achievementLostMasterclasser": "Quest Completionist: Masterclasser Series",
-  "achievementLostMasterclasserText": "Completed all sixteen quests in the Masterclasser Quest Series and solved the mystery of the Lost Masterclasser!"
+  "levelup": "Ved at opnå dine mål, fra den virkelige verden, er du steget i level og er nu fuldt helet igen.",
+  "reachedLevel": "Du har nået level <%= level %>",
+  "achievementLostMasterclasser": "Quest færdiggører: Mesterklasse-rækken",
+  "achievementLostMasterclasserText": "Færdiggjort alle 16 quests i mesterklasse quest-rækken og løst alle mysterier fra \"the Lost Masterclasser\"!"
 }

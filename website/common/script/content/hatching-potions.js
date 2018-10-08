@@ -3,7 +3,7 @@ import defaults from 'lodash/defaults';
 import each from 'lodash/each';
 import t from './translation';
 
-const CURRENT_SEASON = 'July';
+const CURRENT_SEASON = 'October';
 
 let drops = {
   Base: {
@@ -88,7 +88,7 @@ let premium = {
     value: 2,
     text: t('hatchingPotionEmber'),
     limited: true,
-    _season: 'August',
+    _season: 'September',
   },
   Thunderstorm: {
     value: 2,
@@ -100,7 +100,7 @@ let premium = {
     value: 2,
     text: t('hatchingPotionSpooky'),
     limited: true,
-    _season: 'October',
+    _season: '_PENDING_',
   },
   Ghost: {
     value: 2,
@@ -137,6 +137,12 @@ let premium = {
     text: t('hatchingPotionGlass'),
     limited: true,
     _season: 'July',
+  },
+  Glow: {
+    value: 2,
+    text: t('hatchingPotionGlow'),
+    limited: true,
+    _season: 'October',
   },
 };
 

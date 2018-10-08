@@ -703,6 +703,48 @@ let backgrounds = {
       notes: t('backgroundTidePoolNotes'),
     },
   },
+  backgrounds082018: {
+    training_grounds: {
+      text: t('backgroundTrainingGroundsText'),
+      notes: t('backgroundTrainingGroundsNotes'),
+    },
+    flying_over_rocky_canyon: {
+      text: t('backgroundFlyingOverRockyCanyonText'),
+      notes: t('backgroundFlyingOverRockyCanyonNotes'),
+    },
+    bridge: {
+      text: t('backgroundBridgeText'),
+      notes: t('backgroundBridgeNotes'),
+    },
+  },
+  backgrounds092018: {
+    apple_picking: {
+      text: t('backgroundApplePickingText'),
+      notes: t('backgroundApplePickingNotes'),
+    },
+    giant_book: {
+      text: t('backgroundGiantBookText'),
+      notes: t('backgroundGiantBookNotes'),
+    },
+    cozy_barn: {
+      text: t('backgroundCozyBarnText'),
+      notes: t('backgroundCozyBarnNotes'),
+    },
+  },
+  backgrounds102018: {
+    bayou: {
+      text: t('backgroundBayouText'),
+      notes: t('backgroundBayouNotes'),
+    },
+    creepy_castle: {
+      text: t('backgroundCreepyCastleText'),
+      notes: t('backgroundCreepyCastleNotes'),
+    },
+    dungeon: {
+      text: t('backgroundDungeonText'),
+      notes: t('backgroundDungeonNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),

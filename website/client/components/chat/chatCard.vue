@@ -7,30 +7,31 @@ div
       h3.leader(
         :class='userLevelStyle(msg)',
         @click="showMemberModal(msg.uuid)",
-        v-b-tooltip.hover.top="('contributor' in msg) ? msg.contributor.text : ''",
+        v-b-tooltip.hover.top="tierTitle",
       )
         | {{msg.user}}
         .svg-icon(v-html="tierIcon", v-if='showShowTierStyle')
-      p.time {{msg.timestamp | timeAgo}}
+      p.time(v-b-tooltip="", :title="msg.timestamp | date") {{msg.timestamp | timeAgo}}
       .text(v-markdown='msg.text')
       hr
-      .action(@click='like()', v-if='!inbox && msg.likes', :class='{active: msg.likes[user._id]}')
-        .svg-icon(v-html="icons.like")
-        span(v-if='!msg.likes[user._id]') {{ $t('like') }}
-        span(v-if='msg.likes[user._id]') {{ $t('liked') }}
-      span.action(v-if='!inbox', @click='copyAsTodo(msg)')
-        .svg-icon(v-html="icons.copy")
-        | {{$t('copyAsTodo')}}
-      span.action(v-if='!inbox && user.flags.communityGuidelinesAccepted && msg.uuid !== "system"', @click='report(msg)')
-        .svg-icon(v-html="icons.report")
-        | {{$t('report')}}
-        // @TODO make flagging/reporting work in the inbox. NOTE: it must work even if the communityGuidelines are not accepted and it MUST work for messages that you have SENT as well as received. -- Alys
-      span.action(v-if='msg.uuid === user._id || inbox || user.contributor.admin', @click='remove()')
-        .svg-icon(v-html="icons.delete")
-        | {{$t('delete')}}
-      span.action.float-right.liked(v-if='likeCount > 0')
-        .svg-icon(v-html="icons.liked")
-        | + {{ likeCount }}
+      div(v-if='msg.id')
+        .action(@click='like()', v-if='!inbox && msg.likes', :class='{active: msg.likes[user._id]}')
+          .svg-icon(v-html="icons.like")
+          span(v-if='!msg.likes[user._id]') {{ $t('like') }}
+          span(v-if='msg.likes[user._id]') {{ $t('liked') }}
+        span.action(v-if='!inbox', @click='copyAsTodo(msg)')
+          .svg-icon(v-html="icons.copy")
+          | {{$t('copyAsTodo')}}
+        span.action(v-if='!inbox && user.flags.communityGuidelinesAccepted && msg.uuid !== "system"', @click='report(msg)')
+          .svg-icon(v-html="icons.report")
+          | {{$t('report')}}
+          // @TODO make flagging/reporting work in the inbox. NOTE: it must work even if the communityGuidelines are not accepted and it MUST work for messages that you have SENT as well as received. -- Alys
+        span.action(v-if='msg.uuid === user._id || inbox || user.contributor.admin', @click='remove()')
+          .svg-icon(v-html="icons.delete")
+          | {{$t('delete')}}
+        span.action.float-right.liked(v-if='likeCount > 0')
+          .svg-icon(v-html="icons.liked")
+          | + {{ likeCount }}
 </template>
 
 <style lang="scss" scoped>
@@ -72,6 +73,7 @@ div
     .time {
       font-size: 12px;
       color: #878190;
+      width: 150px;
     }
 
     .text {
@@ -116,6 +118,8 @@ import escapeRegExp from 'lodash/escapeRegExp';
 import markdownDirective from 'client/directives/markdown';
 import { mapState } from 'client/libs/store';
 import styleHelper from 'client/mixins/styleHelper';
+
+import achievementsLib from '../../../common/script/libs/achievements';
 
 import deleteIcon from 'assets/svg/delete.svg';
 import copyIcon from 'assets/svg/copy.svg';
@@ -165,7 +169,7 @@ export default {
       return moment(value).fromNow();
     },
     date (value) {
-      // @TODO: Add user preference
+      // @TODO: Vue doesn't support this so we cant user preference
       return moment(value).toDate();
     },
   },
@@ -219,6 +223,10 @@ export default {
       }
       return this.icons[`tier${message.contributor.level}`];
     },
+    tierTitle () {
+      const message = this.msg;
+      return achievementsLib.getContribText(message.contributor, message.backer) || '';
+    },
   },
   methods: {
     async like () {
@@ -253,8 +261,7 @@ export default {
       this.$emit('message-removed', message);
 
       if (this.inbox) {
-        axios.delete(`/api/v4/user/messages/${message.id}`);
-        this.$delete(this.user.inbox.messages, message.id);
+        await axios.delete(`/api/v4/inbox/messages/${message.id}`);
         return;
       }
 

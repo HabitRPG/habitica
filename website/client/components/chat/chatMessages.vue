@@ -2,7 +2,7 @@
 .container
   .row
     .col-12
-      copy-as-todo-modal(:group-name='groupName', :group-id='groupId')
+      copy-as-todo-modal(:group-type='groupType', :group-name='groupName', :group-id='groupId')
       report-flag-modal
   div(v-for="(msg, index) in messages", v-if='chat && canViewFlag(msg)')
     // @TODO: is there a different way to do these conditionals? This creates an infinite loop
@@ -87,7 +87,7 @@ import reportFlagModal from './reportFlagModal';
 import chatCard from './chatCard';
 
 export default {
-  props: ['chat', 'groupId', 'groupName', 'inbox'],
+  props: ['chat', 'groupType', 'groupId', 'groupName', 'inbox'],
   components: {
     copyAsTodoModal,
     reportFlagModal,
@@ -202,8 +202,17 @@ export default {
 
       if (!profile._id) {
         const result = await this.$store.dispatch('members:fetchMember', { memberId });
-        this.cachedProfileData[memberId] = result.data.data;
-        profile = result.data.data;
+        if (result.response && result.response.status === 404) {
+          return this.$store.dispatch('snackbars:add', {
+            title: 'Habitica',
+            text: this.$t('messageDeletedUser'),
+            type: 'error',
+            timeout: false,
+          });
+        } else {
+          this.cachedProfileData[memberId] = result.data.data;
+          profile = result.data.data;
+        }
       }
 
       // Open the modal only if the data is available
@@ -221,6 +230,11 @@ export default {
       this.chat.splice(chatIndex, 1, message);
     },
     messageRemoved (message) {
+      if (this.inbox) {
+        this.$emit('message-removed', message);
+        return;
+      }
+
       const chatIndex = findIndex(this.chat, chatMessage => {
         return chatMessage.id === message.id;
       });

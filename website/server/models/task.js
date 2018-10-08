@@ -6,6 +6,7 @@ import baseModel from '../libs/baseModel';
 import { InternalServerError } from '../libs/errors';
 import _ from 'lodash';
 import { preenHistory } from '../libs/preening';
+import { SHARED_COMPLETION } from '../libs/groupTasks';
 
 const Schema = mongoose.Schema;
 
@@ -111,6 +112,7 @@ export let TaskSchema = new Schema({
       requested: {type: Boolean, default: false},
       requestedDate: {type: Date},
     },
+    sharedCompletion: {type: String, enum: _.values(SHARED_COMPLETION), default: SHARED_COMPLETION.default},
   },
 
   reminders: [{
@@ -167,9 +169,13 @@ TaskSchema.statics.findByIdOrAlias = async function findByIdOrAlias (identifier,
 // Sanitize user tasks linked to a challenge
 // See http://habitica.wikia.com/wiki/Challenges#Challenge_Participant.27s_Permissions for more info
 TaskSchema.statics.sanitizeUserChallengeTask = function sanitizeUserChallengeTask (taskObj) {
-  let initialSanitization = this.sanitize(taskObj);
+  const initialSanitization = this.sanitize(taskObj);
 
-  return _.pick(initialSanitization, ['streak', 'checklist', 'attribute', 'reminders', 'tags', 'notes', 'collapseChecklist', 'alias', 'yesterDaily', 'counterDown', 'counterUp']);
+  return _.pick(initialSanitization, [
+    'streak', 'checklist', 'attribute', 'reminders',
+    'tags', 'notes', 'collapseChecklist',
+    'alias', 'yesterDaily', 'counterDown', 'counterUp',
+  ]);
 };
 
 // Sanitize checklist objects (disallowing id)

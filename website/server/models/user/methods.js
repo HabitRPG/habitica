@@ -2,15 +2,21 @@ import moment from 'moment';
 import common from '../../../common';
 
 import {
-  chatDefaults,
   TAVERN_ID,
   model as Group,
 } from '../group';
+
+import {
+  messageDefaults,
+  setUserStyles,
+  inboxModel as Inbox,
+} from '../message';
 
 import { defaults, map, flatten, flow, compact, uniq, partialRight } from 'lodash';
 import { model as UserNotification } from '../userNotification';
 import schema from './schema';
 import payments from '../../libs/payments/payments';
+import * as inboxLib from '../../libs/inbox';
 import amazonPayments from '../../libs/payments/amazon';
 import stripePayments from '../../libs/payments/stripe';
 import paypalPayments from '../../libs/payments/paypal';
@@ -101,15 +107,19 @@ schema.methods.getObjectionsToInteraction = function getObjectionsToInteraction 
  * @return N/A
  */
 schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, options) {
-  let sender = this;
-  let senderMsg = options.senderMsg || options.receiverMsg;
+  const sender = this;
+  const senderMsg = options.senderMsg || options.receiverMsg;
   // whether to save users after sending the message, defaults to true
-  let saveUsers = options.save === false ? false : true;
+  const saveUsers = options.save === false ? false : true;
 
-  common.refPush(userToReceiveMessage.inbox.messages, chatDefaults(options.receiverMsg, sender));
+  const newReceiverMessage = new Inbox({
+    ownerId: userToReceiveMessage._id,
+  });
+  Object.assign(newReceiverMessage, messageDefaults(options.receiverMsg, sender));
+  setUserStyles(newReceiverMessage, sender);
+
   userToReceiveMessage.inbox.newMessages++;
   userToReceiveMessage._v++;
-  userToReceiveMessage.markModified('inbox.messages');
 
   /* @TODO disabled until mobile is ready
 
@@ -133,12 +143,31 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, o
 
   */
 
-  common.refPush(sender.inbox.messages, defaults({sent: true}, chatDefaults(senderMsg, userToReceiveMessage)));
-  sender.markModified('inbox.messages');
+  const sendingToYourself = userToReceiveMessage._id === sender._id;
+
+  // Do not add the message twice when sending it to yourself
+  let newSenderMessage;
+
+  if (!sendingToYourself) {
+    newSenderMessage = new Inbox({
+      sent: true,
+      ownerId: sender._id,
+    });
+    Object.assign(newSenderMessage, messageDefaults(senderMsg, userToReceiveMessage));
+    setUserStyles(newSenderMessage, sender);
+  }
+
+  const promises = [newReceiverMessage.save()];
+  if (!sendingToYourself) promises.push(newSenderMessage.save());
 
   if (saveUsers) {
-    await Promise.all([userToReceiveMessage.save(), sender.save()]);
+    promises.push(sender.save());
+    if (!sendingToYourself) promises.push(userToReceiveMessage.save());
   }
+
+  await Promise.all(promises);
+
+  return sendingToYourself ? newReceiverMessage : newSenderMessage;
 };
 
 /**
@@ -362,4 +391,17 @@ schema.methods.isMemberOfGroupPlan = async function isMemberOfGroupPlan () {
 
 schema.methods.isAdmin = function isAdmin () {
   return this.contributor && this.contributor.admin;
+};
+
+// When converting to json add inbox messages from the Inbox collection
+// for backward compatibility in API v3.
+schema.methods.toJSONWithInbox = async function userToJSONWithInbox () {
+  const user = this;
+  const toJSON = user.toJSON();
+
+  if (toJSON.inbox) {
+    toJSON.inbox.messages = await inboxLib.getUserInbox(user, false);
+  }
+
+  return toJSON;
 };

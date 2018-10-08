@@ -4,7 +4,6 @@ import {
 import amzLib from '../../../libs/payments/amazon';
 import {
   authWithHeaders,
-  authWithUrl,
 } from '../../../middlewares/auth';
 import shared from '../../../../common';
 
@@ -128,7 +127,7 @@ api.subscribe = {
 api.subscribeCancel = {
   method: 'GET',
   url: '/amazon/subscribe/cancel',
-  middlewares: [authWithUrl],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.query.groupId;

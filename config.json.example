@@ -17,7 +17,7 @@
     "NODE_DB_URI":"mongodb://localhost/habitrpg",
     "TEST_DB_URI":"mongodb://localhost/habitrpg_test",
     "NODE_ENV":"development",
-    "ENABLE_CONSOLE_LOGS_IN_TEST": false,
+    "ENABLE_CONSOLE_LOGS_IN_TEST": "false",
     "CRON_SAFE_MODE":"false",
     "CRON_SEMI_SAFE_MODE":"false",
     "MAINTENANCE_MODE": "false",
@@ -39,6 +39,7 @@
     "NEW_RELIC_API_KEY":"NEW_RELIC_API_KEY",
     "GA_ID": "GA_ID",
     "AMPLITUDE_KEY": "AMPLITUDE_KEY",
+    "AMPLITUDE_SECRET": "AMPLITUDE_SECRET",
     "AMAZON_PAYMENTS": {
         "SELLER_ID": "SELLER_ID",
         "CLIENT_ID": "CLIENT_ID",

@@ -8,6 +8,8 @@
     "other": "Outros",
     "fullName": "Nome Completo",
     "displayName": "Nome a Exibir",
+    "changeDisplayName": "Change Display Name",
+    "newDisplayName": "New Display Name",
     "displayPhoto": "Foto",
     "displayBlurb": "Sobre",
     "displayBlurbPlaceholder": "Por favor, apresente-se",
@@ -181,7 +183,7 @@
     "lostMana": "Usou alguma Mana",
     "lostHealth": "Perdeu alguma Vida",
     "lostExperience": "Perdeu alguma Experiência",
-    "displayNameDescription1": "Isto é o que aparece nas mensagens que você postar na Taverna, guildas, e conversa da equipe, junto com o que é exibido no seu avatar. Para alterar, clique em 'Editar' acima. Se quiser alterar o seu nome de login, vá a",
+    "displayNameDescription1": "This is what appears in messages you post in the Tavern, guilds, and party chat, along with what is displayed on your avatar. To change it, click the Edit button above. If instead you want to change your username, go to",
     "displayNameDescription2": "Configurações -> Site",
     "displayNameDescription3": "e veja a secção de Registo.",
     "unequipBattleGear": "Desequipar Equipamento de Batalha",
@@ -204,6 +206,7 @@
     "hideQuickAllocation": "Esconder Alocação por Característica",
     "quickAllocationLevelPopover": "Cada nível vale-te um Ponto para atribuíres a uma Característica à escolha. Podes fazê-lo manualmente ou deixar o jogo decidir por ti usando uma das opções de Alocação Automática que podes encontrar em Ícone de Utilizador > Características.",
     "notEnoughAttrPoints": "Não tens Pontos de Características suficientes.",
+    "classNotSelected": "You must select Class before you can assign Stat Points.",
     "style": "Estilo",
     "facialhair": "Facial",
     "photo": "Foto",
@@ -219,6 +222,6 @@
     "bodyAccess": "Acessórios de Corpo.",
     "mainHand": "Mão Principal",
     "offHand": "Mão Oposta",
-    "pointsAvailable": "Pontos Disponíveis",
+    "statPoints": "Pontos de Atributo",
     "pts": "pts"
 }

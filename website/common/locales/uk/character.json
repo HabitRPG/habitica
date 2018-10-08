@@ -8,6 +8,8 @@
     "other": "Інше",
     "fullName": "Повне ім'я",
     "displayName": "Ім’я на показ",
+    "changeDisplayName": "Change Display Name",
+    "newDisplayName": "New Display Name",
     "displayPhoto": "Світлина",
     "displayBlurb": "Додатково",
     "displayBlurbPlaceholder": "Будь ласка, представтесь",
@@ -181,7 +183,7 @@
     "lostMana": "You used some Mana",
     "lostHealth": "You lost some Health",
     "lostExperience": "You lost some Experience",
-    "displayNameDescription1": "Відображується у повідомленнях, які ви пишете у чаті таверни, гільдії або команди, поруч із вашим аватаром. Для зміни імені натисніть кнопку «Редагувати» вище. Якщо ж ви хочете змінити ім’я профілю, то зайдіть у",
+    "displayNameDescription1": "This is what appears in messages you post in the Tavern, guilds, and party chat, along with what is displayed on your avatar. To change it, click the Edit button above. If instead you want to change your username, go to",
     "displayNameDescription2": "Налаштування->Сайт",
     "displayNameDescription3": "та прогляньте розділ «Реєстрація».",
     "unequipBattleGear": "Зняти бойову екіпіровку",
@@ -204,6 +206,7 @@
     "hideQuickAllocation": "Hide Stat Allocation",
     "quickAllocationLevelPopover": "Each level earns you one Point to assign to a Stat of your choice. You can do so manually, or let the game decide for you using one of the Automatic Allocation options found in User Icon > Stats.",
     "notEnoughAttrPoints": "You don't have enough Stat Points.",
+    "classNotSelected": "You must select Class before you can assign Stat Points.",
     "style": "Стиль",
     "facialhair": "Facial",
     "photo": "Світлина",
@@ -219,6 +222,6 @@
     "bodyAccess": "Body Access.",
     "mainHand": "Main-Hand",
     "offHand": "Off-Hand",
-    "pointsAvailable": "Points Available",
+    "statPoints": "Stat Points",
     "pts": "pts"
 }

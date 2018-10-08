@@ -8,6 +8,8 @@
     "other": "Autres",
     "fullName": "Nom complet",
     "displayName": "Pseudonyme",
+    "changeDisplayName": "Changer le nom affiché",
+    "newDisplayName": "Nouveau nom affiché",
     "displayPhoto": "Photo",
     "displayBlurb": "Résumé",
     "displayBlurbPlaceholder": "Veuillez vous présenter",
@@ -204,6 +206,7 @@
     "hideQuickAllocation": "Cacher la répartition des attributs",
     "quickAllocationLevelPopover": "Chaque niveau vous rapporte un point que vous pouvez assigner à un attribut de votre choix. Vous pouvez le faire manuellement ou laissez le jeu décider pour vous, en utilisant les options d'attribution automatique qui se trouvent dans l'icône utilisateur -> caractéristiques.",
     "notEnoughAttrPoints": "Vous n'avez pas assez de points d'attribut.",
+    "classNotSelected": "Vous devez choisir une classe avant de pouvoir assigner les points de statistique.",
     "style": "Style",
     "facialhair": "Pilosité faciale",
     "photo": "Photo",
@@ -219,6 +222,6 @@
     "bodyAccess": "Accessoire de torse",
     "mainHand": "Main principale",
     "offHand": "Main secondaire",
-    "pointsAvailable": "Points disponibles",
+    "statPoints": "Points d'attribut",
     "pts": "pts"
 }

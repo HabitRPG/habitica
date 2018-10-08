@@ -8,7 +8,7 @@ import takeThisGear from './special-takeThis';
 import wonderconGear from './special-wondercon';
 import t from '../../../translation';
 
-const CURRENT_SEASON = 'summer';
+const CURRENT_SEASON = 'fall';
 
 let armor = {
   0: backerGear.armorSpecial0,
@@ -863,6 +863,9 @@ let armor = {
     notes: t('armorSpecialFall2017RogueNotes', { per: 15 }),
     value: 90,
     per: 15,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fall2017Warrior: {
     event: EVENTS.fall2017,
@@ -872,6 +875,9 @@ let armor = {
     notes: t('armorSpecialFall2017WarriorNotes', { con: 9 }),
     value: 90,
     con: 9,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fall2017Mage: {
     event: EVENTS.fall2017,
@@ -881,6 +887,9 @@ let armor = {
     notes: t('armorSpecialFall2017MageNotes', { int: 9 }),
     value: 90,
     int: 9,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fall2017Healer: {
     event: EVENTS.fall2017,
@@ -890,6 +899,9 @@ let armor = {
     notes: t('armorSpecialFall2017HealerNotes', { con: 15 }),
     value: 90,
     con: 15,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   winter2018Rogue: {
     event: EVENTS.winter2018,
@@ -1005,6 +1017,42 @@ let armor = {
     value: 90,
     con: 15,
   },
+  fall2018Rogue: {
+    event: EVENTS.fall2018,
+    specialClass: 'rogue',
+    set: 'fall2018AlterEgoSet',
+    text: t('armorSpecialFall2018RogueText'),
+    notes: t('armorSpecialFall2018RogueNotes', { per: 15 }),
+    value: 90,
+    per: 15,
+  },
+  fall2018Warrior: {
+    event: EVENTS.fall2018,
+    specialClass: 'warrior',
+    set: 'fall2018MinotaurWarriorSet',
+    text: t('armorSpecialFall2018WarriorText'),
+    notes: t('armorSpecialFall2018WarriorNotes', { con: 9 }),
+    value: 90,
+    con: 9,
+  },
+  fall2018Mage: {
+    event: EVENTS.fall2018,
+    specialClass: 'wizard',
+    set: 'fall2018CandymancerMageSet',
+    text: t('armorSpecialFall2018MageText'),
+    notes: t('armorSpecialFall2018MageNotes', { int: 9 }),
+    value: 90,
+    int: 9,
+  },
+  fall2018Healer: {
+    event: EVENTS.fall2018,
+    specialClass: 'healer',
+    set: 'fall2018CarnivorousPlantSet',
+    text: t('armorSpecialFall2018HealerText'),
+    notes: t('armorSpecialFall2018HealerNotes', { con: 15 }),
+    value: 90,
+    con: 15,
+  },
 };
 
 let back = {
@@ -1028,6 +1076,86 @@ let back = {
     notes: t('backSpecialTurkeyTailBaseNotes'),
     value: 0,
     canOwn: ownsItem('back_special_turkeyTailBase'),
+  },
+  bearTail: {
+    gearSet: 'animal',
+    text: t('backBearTailText'),
+    notes: t('backBearTailNotes'),
+    value: 20,
+    canOwn: ownsItem('back_special_bearTail'),
+    canBuy: () => {
+      return true;
+    },
+  },
+  cactusTail: {
+    gearSet: 'animal',
+    text: t('backCactusTailText'),
+    notes: t('backCactusTailNotes'),
+    value: 20,
+    canOwn: ownsItem('back_special_cactusTail'),
+    canBuy: () => {
+      return true;
+    },
+  },
+  foxTail: {
+    gearSet: 'animal',
+    text: t('backFoxTailText'),
+    notes: t('backFoxTailNotes'),
+    value: 20,
+    canOwn: ownsItem('back_special_foxTail'),
+    canBuy: () => {
+      return true;
+    },
+  },
+  lionTail: {
+    gearSet: 'animal',
+    text: t('backLionTailText'),
+    notes: t('backLionTailNotes'),
+    value: 20,
+    canOwn: ownsItem('back_special_lionTail'),
+    canBuy: () => {
+      return true;
+    },
+  },
+  pandaTail: {
+    gearSet: 'animal',
+    text: t('backPandaTailText'),
+    notes: t('backPandaTailNotes'),
+    value: 20,
+    canOwn: ownsItem('back_special_pandaTail'),
+    canBuy: () => {
+      return true;
+    },
+  },
+  pigTail: {
+    gearSet: 'animal',
+    text: t('backPigTailText'),
+    notes: t('backPigTailNotes'),
+    value: 20,
+    canOwn: ownsItem('back_special_pigTail'),
+    canBuy: () => {
+      return true;
+    },
+  },
+  tigerTail: {
+    gearSet: 'animal',
+    text: t('backTigerTailText'),
+    notes: t('backTigerTailNotes'),
+    value: 20,
+    canOwn: ownsItem('back_special_tigerTail'),
+    canBuy: () => {
+      return true;
+    },
+  },
+  wolfTail: {
+    gearSet: 'animal',
+    text: t('backWolfTailText'),
+    notes: t('backWolfTailNotes'),
+    value: 20,
+    canOwn: ownsItem('back_special_wolfTail'),
+    canBuy: () => {
+      return true;
+    },
   },
 };
 
@@ -1109,6 +1237,12 @@ let body = {
     str: 10,
     con: 10,
     canOwn: ownsItem('body_special_aetherAmulet'),
+  },
+  namingDay2018: {
+    text: t('bodySpecialNamingDay2018Text'),
+    notes: t('bodySpecialNamingDay2018Notes'),
+    value: 0,
+    canOwn: ownsItem('body_special_namingDay2018'),
   },
 };
 
@@ -2056,6 +2190,9 @@ let head = {
     notes: t('headSpecialFall2017RogueNotes', { per: 9 }),
     value: 60,
     per: 9,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fall2017Warrior: {
     event: EVENTS.fall2017,
@@ -2065,6 +2202,9 @@ let head = {
     notes: t('headSpecialFall2017WarriorNotes', { str: 9 }),
     value: 60,
     str: 9,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fall2017Mage: {
     event: EVENTS.fall2017,
@@ -2074,6 +2214,9 @@ let head = {
     notes: t('headSpecialFall2017MageNotes', { per: 7 }),
     value: 60,
     per: 7,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fall2017Healer: {
     event: EVENTS.fall2017,
@@ -2083,6 +2226,9 @@ let head = {
     notes: t('headSpecialFall2017HealerNotes', { int: 7 }),
     value: 60,
     int: 7,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   nye2017: {
     text: t('headSpecialNye2017Text'),
@@ -2195,6 +2341,42 @@ let head = {
     set: 'summer2018MerfolkMonarchSet',
     text: t('headSpecialSummer2018HealerText'),
     notes: t('headSpecialSummer2018HealerNotes', { int: 7 }),
+    value: 60,
+    int: 7,
+  },
+  fall2018Rogue: {
+    event: EVENTS.fall2018,
+    specialClass: 'rogue',
+    set: 'fall2018AlterEgoSet',
+    text: t('headSpecialFall2018RogueText'),
+    notes: t('headSpecialFall2018RogueNotes', { per: 9 }),
+    value: 60,
+    per: 9,
+  },
+  fall2018Warrior: {
+    event: EVENTS.fall2018,
+    specialClass: 'warrior',
+    set: 'fall2018MinotaurWarriorSet',
+    text: t('headSpecialFall2018WarriorText'),
+    notes: t('headSpecialFall2018WarriorNotes', { str: 9 }),
+    value: 60,
+    str: 9,
+  },
+  fall2018Mage: {
+    event: EVENTS.fall2018,
+    specialClass: 'wizard',
+    set: 'fall2018CandymancerMageSet',
+    text: t('headSpecialFall2018MageText'),
+    notes: t('headSpecialFall2018MageNotes', { per: 7 }),
+    value: 60,
+    per: 7,
+  },
+  fall2018Healer: {
+    event: EVENTS.fall2018,
+    specialClass: 'healer',
+    set: 'fall2018CarnivorousPlantSet',
+    text: t('headSpecialFall2018HealerText'),
+    notes: t('headSpecialFall2018HealerNotes', { int: 7 }),
     value: 60,
     int: 7,
   },
@@ -3117,6 +3299,9 @@ let shield = {
     notes: t('shieldSpecialFall2017RogueNotes', { str: 8 }),
     value: 80,
     str: 8,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fall2017Warrior: {
     event: EVENTS.fall2017,
@@ -3126,6 +3311,9 @@ let shield = {
     notes: t('shieldSpecialFall2017WarriorNotes', { con: 7 }),
     value: 70,
     con: 7,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fall2017Healer: {
     event: EVENTS.fall2017,
@@ -3135,6 +3323,9 @@ let shield = {
     notes: t('shieldSpecialFall2017HealerNotes', { con: 9 }),
     value: 70,
     con: 9,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   winter2018Rogue: {
     event: EVENTS.winter2018,
@@ -3214,6 +3405,33 @@ let shield = {
     set: 'summer2018MerfolkMonarchSet',
     text: t('shieldSpecialSummer2018HealerText'),
     notes: t('shieldSpecialSummer2018HealerNotes', { con: 9 }),
+    value: 70,
+    con: 9,
+  },
+  fall2018Rogue: {
+    event: EVENTS.fall2018,
+    specialClass: 'rogue',
+    set: 'fall2018AlterEgoSet',
+    text: t('shieldSpecialFall2018RogueText'),
+    notes: t('shieldSpecialFall2018RogueNotes', { str: 8 }),
+    value: 80,
+    str: 8,
+  },
+  fall2018Warrior: {
+    event: EVENTS.fall2018,
+    specialClass: 'warrior',
+    set: 'fall2018MinotaurWarriorSet',
+    text: t('shieldSpecialFall2018WarriorText'),
+    notes: t('shieldSpecialFall2018WarriorNotes', { con: 7 }),
+    value: 70,
+    con: 7,
+  },
+  fall2018Healer: {
+    event: EVENTS.fall2018,
+    specialClass: 'healer',
+    set: 'fall2018CarnivorousPlantSet',
+    text: t('shieldSpecialFall2018HealerText'),
+    notes: t('shieldSpecialFall2018HealerNotes', { con: 9 }),
     value: 70,
     con: 9,
   },
@@ -4078,6 +4296,9 @@ let weapon = {
     notes: t('weaponSpecialFall2017RogueNotes', { str: 8 }),
     value: 80,
     str: 8,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fall2017Warrior: {
     event: EVENTS.fall2017,
@@ -4087,6 +4308,9 @@ let weapon = {
     notes: t('weaponSpecialFall2017WarriorNotes', { str: 15 }),
     value: 90,
     str: 15,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fall2017Mage: {
     event: EVENTS.fall2017,
@@ -4098,6 +4322,9 @@ let weapon = {
     value: 160,
     int: 15,
     per: 7,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fall2017Healer: {
     event: EVENTS.fall2017,
@@ -4107,6 +4334,9 @@ let weapon = {
     notes: t('weaponSpecialFall2017HealerNotes', { int: 9 }),
     value: 90,
     int: 9,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   winter2018Rogue: {
     event: EVENTS.winter2018,
@@ -4219,6 +4449,44 @@ let weapon = {
     set: 'summer2018MerfolkMonarchSet',
     text: t('weaponSpecialSummer2018HealerText'),
     notes: t('weaponSpecialSummer2018HealerNotes', { int: 9 }),
+    value: 90,
+    int: 9,
+  },
+  fall2018Rogue: {
+    event: EVENTS.fall2018,
+    specialClass: 'rogue',
+    set: 'fall2018AlterEgoSet',
+    text: t('weaponSpecialFall2018RogueText'),
+    notes: t('weaponSpecialFall2018RogueNotes', { str: 8 }),
+    value: 80,
+    str: 8,
+  },
+  fall2018Warrior: {
+    event: EVENTS.fall2018,
+    specialClass: 'warrior',
+    set: 'fall2018MinotaurWarriorSet',
+    text: t('weaponSpecialFall2018WarriorText'),
+    notes: t('weaponSpecialFall2018WarriorNotes', { str: 15 }),
+    value: 90,
+    str: 15,
+  },
+  fall2018Mage: {
+    event: EVENTS.fall2018,
+    specialClass: 'wizard',
+    set: 'fall2018CandymancerMageSet',
+    twoHanded: true,
+    text: t('weaponSpecialFall2018MageText'),
+    notes: t('weaponSpecialFall2018MageNotes', { int: 15, per: 7 }),
+    value: 160,
+    int: 15,
+    per: 7,
+  },
+  fall2018Healer: {
+    event: EVENTS.fall2018,
+    specialClass: 'healer',
+    set: 'fall2018CarnivorousPlantSet',
+    text: t('weaponSpecialFall2018HealerText'),
+    notes: t('weaponSpecialFall2018HealerNotes', { int: 9 }),
     value: 90,
     int: 9,
   },

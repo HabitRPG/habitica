@@ -15,21 +15,21 @@ div
     router-view(v-if="!isUserLoggedIn || isStaticPage")
     template(v-else)
       template(v-if="isUserLoaded")
-        div.resting-banner(v-if="showRestingBanner")
+        div.resting-banner(v-show="showRestingBanner", ref="restingBanner")
           span.content
-            span.label {{ $t('innCheckOutBanner') }}
-            span.separator |
+            span.label.d-inline.d-sm-none {{ $t('innCheckOutBannerShort') }}
+            span.label.d-none.d-sm-inline {{ $t('innCheckOutBanner') }}
+            span.separator  |
             span.resume(@click="resumeDamage()") {{ $t('resumeDamage') }}
           div.closepadding(@click="hideBanner()")
             span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close")
         notifications-display
-        app-menu(:class='{"restingInn": showRestingBanner}')
+        app-menu(:class='{"restingInn": showRestingBanner}' :style="{ marginTop: bannerHeight + 'px' }")
         .container-fluid
           app-header(:class='{"restingInn": showRestingBanner}')
           buyModal(
             :item="selectedItemToBuy || {}",
             :withPin="true",
-            @change="resetItemToBuy($event)",
             @buyPressed="customPurchase($event)",
             :genericPurchase="genericPurchase(selectedItemToBuy)",
 
@@ -105,7 +105,7 @@ div
   @import '~client/assets/scss/colors.scss';
 
   /* @TODO: The modal-open class is not being removed. Let's try this for now */
-  .modal, .modal-open {
+  .modal {
     overflow-y: scroll !important;
   }
 
@@ -119,20 +119,9 @@ div
     z-index: 1600 !important; /* Must stay above nav bar */
   }
 
-  .restingInn {
-    .navbar {
-      top: 40px;
-    }
-
-    #app-header {
-      margin-top: 40px !important;
-    }
-
-  }
-
   .resting-banner {
     width: 100%;
-    height: 40px;
+    min-height: 40px;
     background-color: $blue-10;
     position: fixed;
     top: 0;
@@ -140,11 +129,10 @@ div
     display: flex;
 
     .content {
-      height: 24px;
       line-height: 1.71;
       text-align: center;
       color: $white;
-
+      padding: 8px 38px 8px 8px;
       margin: auto;
     }
 
@@ -161,6 +149,13 @@ div
       }
     }
 
+    @media only screen and (max-width: 768px) {
+      .content {
+        font-size: 12px;
+        line-height: 1.4;
+      }
+    }
+
     .separator {
       color: $blue-100;
       margin: 0px 15px;
@@ -169,6 +164,7 @@ div
     .resume {
       font-weight: bold;
       cursor: pointer;
+      white-space:nowrap;
     }
   }
 </style>
@@ -224,6 +220,7 @@ export default {
       loading: true,
       currentTipNumber: 0,
       bannerHidden: false,
+      bannerHeight: 0,
     };
   },
   computed: {
@@ -332,23 +329,13 @@ export default {
         if (notificationNotFoundMessage.indexOf(errorMessage) !== -1) snackbarTimeout = true;
 
         let errorsToShow = [];
-        let usernameCheck = false;
-        let emailCheck = false;
-        let passwordCheck = false;
         // show only the first error for each param
+        let paramErrorsFound = {};
         if (errorData.errors) {
           for (let e of errorData.errors) {
-            if (!usernameCheck && e.param === 'username') {
+            if (!paramErrorsFound[e.param]) {
               errorsToShow.push(e.message);
-              usernameCheck = true;
-            }
-            if (!emailCheck && e.param === 'email') {
-              errorsToShow.push(e.message);
-              emailCheck = true;
-            }
-            if (!passwordCheck && e.param === 'password') {
-              errorsToShow.push(e.message);
-              passwordCheck = true;
+              paramErrorsFound[e.param] = true;
             }
           }
         } else {
@@ -414,7 +401,6 @@ export default {
     this.$store.watch(state => state.title, (title) => {
       document.title = title;
     });
-
     this.$nextTick(() => {
       // Load external scripts after the app has been rendered
       Analytics.load();
@@ -431,6 +417,14 @@ export default {
         Analytics.updateUser();
 
         this.hideLoadingScreen();
+
+        window.addEventListener('resize', this.setBannerOffset);
+        // Adjust the positioning of the header banners
+        this.$watch('showRestingBanner', () => {
+          this.$nextTick(() => {
+            this.setBannerOffset();
+          });
+        }, {immediate: true});
 
         // Adjust the timezone offset
         if (this.user.preferences.timezoneOffset !== this.browserTimezoneOffset) {
@@ -458,6 +452,7 @@ export default {
     this.$root.$off('bv::show::modal');
     this.$root.$off('buyModal::showItem');
     this.$root.$off('selectMembersModal::showItem');
+    window.removeEventListener('resize', this.setBannerOffset);
   },
   mounted () {
     // Remove the index.html loading screen and now show the inapp loading
@@ -499,8 +494,16 @@ export default {
       });
 
       this.$root.$on('bv::modal::hidden', (bvEvent) => {
-        const modalId = bvEvent.target && bvEvent.target.id;
-        if (!modalId) return;
+        let modalId = bvEvent.target && bvEvent.target.id;
+
+        // sometimes the target isn't passed to the hidden event, fallback is the vueTarget
+        if (!modalId) {
+          modalId = bvEvent.vueTarget && bvEvent.vueTarget.id;
+        }
+
+        if (!modalId) {
+          return;
+        }
 
         const modalStack = this.$store.state.modalStack;
 
@@ -517,6 +520,7 @@ export default {
 
         // Get previous modal
         const modalBefore = modalOnTop ? modalOnTop.prev : undefined;
+
         if (modalBefore) this.$root.$emit('bv::show::modal', modalBefore, {fromRoot: true});
       });
     },
@@ -556,13 +560,6 @@ export default {
           eventAction: 'click',
           eventLabel: 'Gems > Wallet',
         });
-      }
-    },
-    resetItemToBuy ($event) {
-      // @TODO: Do we need this? I think selecting a new item
-      // overwrites. @negue might know
-      if (!$event && this.selectedItemToBuy.purchaseType !== 'card') {
-        this.selectedItemToBuy = null;
       }
     },
     itemSelected (item) {
@@ -614,9 +611,21 @@ export default {
     },
     hideBanner () {
       this.bannerHidden = true;
+      this.setBannerOffset();
     },
     resumeDamage () {
       this.$store.dispatch('user:sleep');
+    },
+    setBannerOffset () {
+      let contentPlacement = 0;
+      if (this.showRestingBanner && this.$refs.restingBanner !== undefined) {
+        contentPlacement = this.$refs.restingBanner.clientHeight;
+      }
+      this.bannerHeight = contentPlacement;
+      let smartBanner = document.getElementsByClassName('smartbanner')[0];
+      if (smartBanner !== undefined) {
+        smartBanner.style.top = `${contentPlacement}px`;
+      }
     },
   },
 };
@@ -649,4 +658,6 @@ export default {
 <style src="assets/css/sprites/spritesmith-main-20.css"></style>
 <style src="assets/css/sprites/spritesmith-main-21.css"></style>
 <style src="assets/css/sprites/spritesmith-main-22.css"></style>
+<style src="assets/css/sprites/spritesmith-main-23.css"></style>
 <style src="assets/css/sprites.css"></style>
+<style src="smartbanner.js/dist/smartbanner.min.css"></style>

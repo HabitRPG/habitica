@@ -9,21 +9,21 @@ const featuredItems = {
     },
     {
       type: 'premiumHatchingPotion',
-      path: 'premiumHatchingPotions.Glass',
+      path: 'premiumHatchingPotions.Ghost',
     },
     {
-      type: 'food',
-      path: 'food.Fish',
+      type: 'premiumHatchingPotion',
+      path: 'premiumHatchingPotions.Glow',
     },
     {
       type: 'card',
-      path: 'cardTypes.congrats',
+      path: 'cardTypes.getwell',
     },
   ],
   quests: [
     {
-      type: 'quests',
-      path: 'quests.seaserpent',
+      type: 'bundles',
+      path: 'bundles.forestFriends',
     },
     {
       type: 'quests',
@@ -31,10 +31,10 @@ const featuredItems = {
     },
     {
       type: 'quests',
-      path: 'quests.whale',
+      path: 'quests.kangaroo',
     },
   ],
-  seasonal: 'summerRogue',
+  seasonal: '',
   timeTravelers: [
     // TODO
   ],

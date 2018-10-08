@@ -1,6 +1,6 @@
 {
   "habiticaBackSoon": "別擔心。Habitica一會兒就回來！",
-  "importantMaintenance": "我們在大約晚間10點鐘(太平洋時間)(UTC的早上5點)前會進行一些重要的維修。",
+  "importantMaintenance": "我們在大約晚間10點鐘(太平洋時間的早上5點)前會進行一些重要的維修。",
   "maintenance": "維修",
   "maintenanceMoreInfo": "你想要更多關於維修的資訊？ <%= linkStart %>去瀏覽我們的資訊頁吧！<%= linkEnd %>.",
   "noDamageKeepStreaks": "你不會受到傷害或失去連擊！",
@@ -10,10 +10,10 @@
 
   "maintenanceInfoTitle": "在Habitica中最近的維修",
   "maintenanceInfoWhat": "發生了甚麼事？",
-  "maintenanceInfoWhatText": "On May 21, Habitica will be down for maintenance for most of the day. You will not take any damage or have your account harmed during that weekend, even if you can’t log in to check off your Dailies in time! We will be working very hard to make the downtime as short as possible, and will be posting regular updates on <a href='https://twitter.com/habitica' target='_blank'>our Twitter account</a>. At the end of the downtime, to thank everyone for their patience, you will all receive a rare pet!",
+  "maintenanceInfoWhatText": "5月21日Habiitca將維護最多一天的時間。那個周末你將不會受到傷害或是使帳戶受損，即使你無法及時登入以勾選你的每日任務!我們會非常努力地使維修時間降到最短，並且更新維修進度在我們的<a href='https://twitter.com/habitica' target='_blank'>推特</a>上。在維修結束後，為了感謝大家的耐心，你們將會每個人收到一隻罕見的寵物!",
   "maintenanceInfoWhy": "為甚麼他會發生？",
-  "maintenanceInfoWhyText": "For the past several months, we have been thoroughly revamping Habitica behind-the-scenes. Specifically, we have rewritten the API. While it may not look much different on the surface, it’s a whole new world underneath. This will allow us WAY more flexibility when we want to build features in the future, and lead to improved performance!",
-  "maintenanceInfoTechDetails": "Want more details on the technical side of the process? Visit <a href='http://devs.habitica.com/' target='_blank'>The Forge, our dev blog</a>.",
+  "maintenanceInfoWhyText": "在過去的幾個月哩，我們在後台徹底改進了Habitica。特別的是我們重新寫了API。雖然在前台可能看起來沒有什麼改變，在後台它已經是一個全新的世界。這將使我們在未來想要寫一個新功能的時候有更大的彈性，並且帶來更好的表現!",
+  "maintenanceInfoTechDetails": "想要知道更多有關這個技術過程嗎?造訪<a href='http://devs.habitica.com/' target='_blank'>The Forge</a>，我們的開發部落格。",
   "maintenanceInfoMore": "更多資訊",
   "maintenanceInfoAccountChanges": "What changes will I see to my account after the rewrite is complete?",
   "maintenanceInfoAccountChangesText": "At first, there won’t be any notable changes aside from performance improvements for features such as Challenges. If you notice any changes that shouldn’t be there, email us at <%= hrefTechAssistanceEmail %> and we will investigate them for you!",
