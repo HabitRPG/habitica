@@ -309,17 +309,6 @@ export default {
     hasClass () {
       return this.$store.getters['members:hasClass'](this.user);
     },
-    verifiedUsername () {
-      return this.user.flags.verifiedUsername;
-    },
-    usernameValid () {
-      if (this.usernameUpdates.username.length <= 1) return false;
-      return this.usernameIssues.length === 0;
-    },
-    usernameInvalid () {
-      if (this.usernameUpdates.username.length <= 1) return false;
-      return !this.usernameValid;
-    },
     usernameCannotSubmit () {
       if (this.usernameUpdates.username.length <= 1) return true;
       return !this.usernameValid;
@@ -327,6 +316,7 @@ export default {
   },
   watch: {
     usernameUpdates: {
+      // validateUsername can be found in the authValidationUtilities mixin
       handler () {
         this.validateUsername(this.usernameUpdates.username);
       },
@@ -334,22 +324,6 @@ export default {
     },
   },
   methods: {
-    // eslint-disable-next-line func-names
-    validateUsername: debounce(function (username) {
-      if (username.length <= 1 || username === this.user.auth.local.username) {
-        this.usernameIssues = [];
-        return;
-      }
-      this.$store.dispatch('auth:verifyUsername', {
-        username,
-      }).then(res => {
-        if (res.issues !== undefined) {
-          this.usernameIssues = res.issues;
-        } else {
-          this.usernameIssues = [];
-        }
-      });
-    }, 500),
     set (preferenceType, subtype) {
       let settings = {};
       if (!subtype) {

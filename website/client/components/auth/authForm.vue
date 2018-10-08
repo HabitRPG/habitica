@@ -81,7 +81,6 @@
 <script>
 import hello from 'hellojs';
 import { setUpAxios } from 'client/libs/auth';
-import debounce from 'lodash/debounce';
 
 import facebookSquareIcon from 'assets/svg/facebook-square.svg';
 import googleIcon from 'assets/svg/google.svg';
@@ -112,50 +111,12 @@ export default {
       google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
     });
   },
-  computed: {
-    emailValid () {
-      if (this.email.length <= 3) return false;
-      return this.validateEmail(this.email);
-    },
-    emailInvalid () {
-      return !this.emailValid;
-    },
-    usernameValid () {
-      if (this.username.length <= 3) return false;
-      return this.usernameIssues.length === 0;
-    },
-    usernameInvalid () {
-      return !this.usernameValid;
-    },
-    passwordConfirmValid () {
-      if (this.passwordConfirm.length <= 3) return false;
-      return this.passwordConfirm === this.password;
-    },
-    passwordConfirmInvalid () {
-      return !this.passwordConfirmValid;
-    },
-  },
   watch: {
     username () {
+      // validateUsername can be found in the authValidationUtilities mixin
       this.validateUsername(this.username);
-    },
   },
   methods: {
-    // eslint-disable-next-line func-names
-    validateUsername: debounce(function (username) {
-      if (username.length <= 3) {
-        return;
-      }
-      this.$store.dispatch('auth:verifyUsername', {
-        username: this.username,
-      }).then(res => {
-        if (res.issues !== undefined) {
-          this.usernameIssues = res.issues;
-        } else {
-          this.usernameIssues = [];
-        }
-      });
-    }, 500),
     // @TODO: Abstract hello in to action or lib
     async socialAuth (network) {
       try {

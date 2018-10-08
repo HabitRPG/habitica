@@ -294,7 +294,6 @@
 <script>
 import axios from 'axios';
 import hello from 'hellojs';
-import debounce from 'lodash/debounce';
 
 import gryphon from 'assets/svg/gryphon.svg';
 import habiticaIcon from 'assets/svg/habitica-logo.svg';
@@ -338,30 +337,6 @@ export default {
       }
       return false;
     },
-    emailValid () {
-      if (this.email.length <= 3) return false;
-      return this.validateEmail(this.email);
-    },
-    emailInvalid () {
-      if (this.email.length <= 3) return false;
-      return !this.emailValid;
-    },
-    usernameValid () {
-      if (this.username.length <= 3) return false;
-      return this.usernameIssues.length === 0;
-    },
-    usernameInvalid () {
-      if (this.username.length <= 3) return false;
-      return !this.usernameValid;
-    },
-    passwordConfirmValid () {
-      if (this.passwordConfirm.length <= 3) return false;
-      return this.passwordConfirm === this.password;
-    },
-    passwordConfirmInvalid () {
-      if (this.passwordConfirm.length <= 3) return false;
-      return !this.passwordConfirmValid;
-    },
   },
   mounted () {
     hello.init({
@@ -396,25 +371,11 @@ export default {
       immediate: true,
     },
     username () {
+      // validateUsername can be found in the authValidationUtilities mixin
       this.validateUsername(this.username);
     },
   },
   methods: {
-    // eslint-disable-next-line func-names
-    validateUsername: debounce(function (username) {
-      if (username.length <= 3 || !this.registering) {
-        return;
-      }
-      this.$store.dispatch('auth:verifyUsername', {
-        username: this.username,
-      }).then(res => {
-        if (res.issues !== undefined) {
-          this.usernameIssues = res.issues;
-        } else {
-          this.usernameIssues = [];
-        }
-      });
-    }, 500),
     async register () {
       // @TODO do not use alert
       if (!this.email) {

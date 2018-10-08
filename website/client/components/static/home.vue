@@ -542,7 +542,6 @@
 
 <script>
   import hello from 'hellojs';
-  import debounce from 'lodash/debounce';
   import googlePlay from 'assets/images/home/google-play-badge.svg';
   import iosAppStore from 'assets/images/home/ios-app-store.svg';
   import iphones from 'assets/images/home/iphones.svg';
@@ -606,34 +605,9 @@
         google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
       });
     },
-    computed: {
-      emailValid () {
-        if (this.email.length <= 3) return false;
-        return this.validateEmail(this.email);
-      },
-      emailInvalid () {
-        if (this.email.length <= 3) return false;
-        return !this.validateEmail(this.email);
-      },
-      usernameValid () {
-        if (this.username.length <= 3) return false;
-        return this.usernameIssues.length === 0;
-      },
-      usernameInvalid () {
-        if (this.username.length <= 3) return false;
-        return !this.usernameValid;
-      },
-      passwordConfirmValid () {
-        if (this.passwordConfirm.length <= 3) return false;
-        return this.passwordConfirm === this.password;
-      },
-      passwordConfirmInvalid () {
-        if (this.passwordConfirm.length <= 3) return false;
-        return this.passwordConfirm !== this.password;
-      },
-    },
     watch: {
       username () {
+        // validateUsername can be found in the authValidationUtilities mixin
         this.validateUsername(this.username);
       },
     },
@@ -642,21 +616,6 @@
         let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
       },
-      // eslint-disable-next-line func-names
-      validateUsername: debounce(function (username) {
-        if (username.length <= 3) {
-          return;
-        }
-        this.$store.dispatch('auth:verifyUsername', {
-          username: this.username,
-        }).then(res => {
-          if (res.issues !== undefined) {
-            this.usernameIssues = res.issues;
-          } else {
-            this.usernameIssues = [];
-          }
-        });
-      }, 500),
       // @TODO this is totally duplicate from the registerLogin component
       async register () {
         let groupInvite = '';
