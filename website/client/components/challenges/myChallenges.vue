@@ -7,6 +7,7 @@
     .row.header-row
       .col-md-8.text-left
         h1(v-once) {{$t('myChallenges')}}
+        h2(v-if='loading && challenges.length === 0') {{ $t('loading') }}
       .col-md-4
         // @TODO: implement sorting span.dropdown-label {{ $t('sortBy') }}
           b-dropdown(:text="$t('sort')", right=true)
@@ -16,7 +17,7 @@
           span(v-once) {{$t('createChallenge')}}
 
     .row
-      .no-challenges.text-center.col-md-6.offset-3(v-if='filteredChallenges.length === 0')
+      .no-challenges.text-center.col-md-6.offset-3(v-if='!loading && challenges.length === 0')
         .svg-icon(v-html="icons.challengeIcon")
         h2(v-once) {{$t('noChallengeTitle')}}
         p(v-once) {{$t('challengeDescription1')}}
@@ -48,14 +49,15 @@
   }
 
   .no-challenges {
-    color: $gray-300;
+    color: $gray-200;
     margin-top: 10em;
 
     h2 {
-      color: $gray-300;
+      color: $gray-200;
     }
 
     .svg-icon {
+      color: #C3C0C7;
       width: 88.7px;
       margin: 1em auto;
     }
@@ -84,6 +86,7 @@ export default {
         challengeIcon,
         positiveIcon,
       }),
+      loading: false,
       challenges: [],
       sort: 'none',
       sortOptions: [
@@ -113,7 +116,7 @@ export default {
     };
   },
   mounted () {
-    this.loadchallanges();
+    this.loadChallenges();
   },
   computed: {
     filteredChallenges () {
@@ -138,10 +141,12 @@ export default {
       this.$store.state.challengeOptions.workingChallenge = {};
       this.$root.$emit('bv::show::modal', 'challenge-modal');
     },
-    async loadchallanges () {
+    async loadChallenges () {
+      this.loading = true;
       this.challenges = await this.$store.dispatch('challenges:getUserChallenges', {
         member: true,
       });
+      this.loading = false;
     },
     challengeCreated (challenge) {
       this.challenges.push(challenge);
