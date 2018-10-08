@@ -188,8 +188,7 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
   };
 
   let specialNonClassGear = filter(content.gear.flat, (gear) => {
-    return user.items.gear.owned[gear.key] === false ||
-      !user.items.gear.owned[gear.key] &&
+    return !user.items.gear.owned[gear.key] &&
       content.classes.indexOf(gear.klass) === -1 &&
       content.classes.indexOf(gear.specialClass) === -1 &&
       (gear.canOwn && gear.canOwn(user));
