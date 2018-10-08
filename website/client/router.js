@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import getStore from 'client/store';
-// import * as Analytics from 'client/libs/analytics';
+import * as Analytics from 'client/libs/analytics';
 
 // import EmptyView from './components/emptyView';
 
@@ -344,15 +344,12 @@ router.beforeEach(function routerGuard (to, from, next) {
     });
   }
 
-
-  /*
   Analytics.track({
     hitType: 'pageview',
     eventCategory: 'navigation',
     eventAction: 'navigate',
     page: to.name || to.path,
   });
-  */
 
   next();
 });

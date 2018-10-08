@@ -46,7 +46,7 @@
     "mustache": "Bigote",
     "flower": "Flor",
     "accent": "Accent",
-    "headband": "Headband",
+    "headband": "Vincha",
     "wheelchair": "Silla de ruedas",
     "extra": "Extra",
     "basicSkins": "Pieles básicas",
@@ -204,6 +204,7 @@
     "hideQuickAllocation": "Ocultar asignación de Puntos de Atributo",
     "quickAllocationLevelPopover": "Cada nivel te otorga un punto para asignarlo al atributo de tu elección. Puedes hacerlo manualmente, o puedes dejar que el juego decida por ti usando una de las opciones de Asignación Automática encontradas en Icono del Usuario > Atributos.",
     "notEnoughAttrPoints": "No tienes suficientes puntos de Estadistica.",
+    "classNotSelected": "You must select Class before you can assign Stat Points.",
     "style": "Estilo",
     "facialhair": "Cara",
     "photo": "Foto",
@@ -219,6 +220,6 @@
     "bodyAccess": "Accesorio para el Cuerpo",
     "mainHand": "Mano Principal",
     "offHand": "Mano Secundaria",
-    "statPoints": "Stat Points",
+    "statPoints": "Puntos de estadisticas",
     "pts": "pts"
 }

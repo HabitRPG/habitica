@@ -1271,32 +1271,6 @@ describe('Group Model', () => {
         expect(chat.user).to.not.exist;
       });
 
-      it('cuts down chat to 200 messages', () => {
-        for (let i = 0; i < 220; i++) {
-          party.chat.push({ text: 'a message' });
-        }
-
-        expect(party.chat).to.have.a.lengthOf(220);
-
-        party.sendChat({message: 'message'});
-
-        expect(party.chat).to.have.a.lengthOf(200);
-      });
-
-      it('cuts down chat to 400 messages when group is subcribed', () => {
-        party.purchased.plan.customerId = 'test-customer-id';
-
-        for (let i = 0; i < 420; i++) {
-          party.chat.push({ text: 'a message' });
-        }
-
-        expect(party.chat).to.have.a.lengthOf(420);
-
-        party.sendChat({message: 'message'});
-
-        expect(party.chat).to.have.a.lengthOf(400);
-      });
-
       it('updates users about new messages in party', () => {
         party.sendChat({message: 'message'});
 

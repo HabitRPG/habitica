@@ -171,12 +171,16 @@ export default {
     if (this.user.party && this.user.party._id) {
       this.$store.state.memberModalOptions.groupId = this.user.party._id;
       this.getPartyMembers();
-
-      this.$root.$on('inviteModal::inviteToGroup', (group) => {
-        this.inviteModalGroup = group;
-        this.$root.$emit('bv::show::modal', 'invite-modal');
-      });
     }
+  },
+  mounted () {
+    this.$root.$on('inviteModal::inviteToGroup', (group) => {
+      this.inviteModalGroup = group;
+      this.$root.$emit('bv::show::modal', 'invite-modal');
+    });
+  },
+  destroyed () {
+    this.$root.off('inviteModal::inviteToGroup');
   },
 };
 </script>

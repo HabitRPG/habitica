@@ -316,4 +316,6 @@ achievs.getAchievementsForProfile = function getAchievementsForProfile (user, la
   return result;
 };
 
+achievs.getContribText = contribText;
+
 module.exports = achievs;
