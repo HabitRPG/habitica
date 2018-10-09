@@ -137,6 +137,34 @@ describe('Notifications', () => {
       expSpy.restore();
     });
 
+    it('when user looses xp', () => {
+      const expSpy = sinon.spy(wrapper.vm, 'exp');
+
+      const userLevel = 10;
+      store.state.user.data.stats.lvl = userLevel;
+
+      const userExpBefore = 10;
+      const userExpAfter = 5;
+      wrapper.vm.displayUserExpAndLvlNotifications(userExpAfter, userExpBefore, userLevel, userLevel);
+
+      expect(expSpy).to.be.calledWith(userExpAfter - userExpBefore);
+      expSpy.restore();
+    });
+
+    it('when user looses xp under 0', () => {
+      const expSpy = sinon.spy(wrapper.vm, 'exp');
+
+      const userLevel = 10;
+      store.state.user.data.stats.lvl = userLevel;
+
+      const userExpBefore = 5;
+      const userExpAfter = -3;
+      wrapper.vm.displayUserExpAndLvlNotifications(userExpAfter, userExpBefore, userLevel, userLevel);
+
+      expect(expSpy).to.be.calledWith(userExpAfter - userExpBefore);
+      expSpy.restore();
+    });
+
     it('when user dies', () => {
       const expSpy = sinon.spy(wrapper.vm, 'exp');
 
