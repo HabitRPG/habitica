@@ -65,7 +65,7 @@ async function _processEmailAddress (email) {
   }).exec();
 
   if (users.length < 1) {
-    console.warn(`No users found with email address ${email}`);
+    console.log(`No users found with email address ${email}`);
   } else {
     for (const user of users) {
       await _deleteAmplitudeData(user._id, email); // eslint-disable-line no-await-in-loop
