@@ -400,6 +400,7 @@
   "noGuildsTitle": "You aren't a member of any Guilds.",
   "noGuildsParagraph1": "Guilds are social groups created by other players that can offer you support,  accountability, and encouraging chat.",
   "noGuildsParagraph2": "Click the Discover tab to see recommended Guilds based on your interests, browse Habitica's public Guilds, or create your own Guild.",
+  "noGuildsMatchFilters": "We couldn't find any matching Guilds.",
   "privateDescription": "A private Guild will not be displayed in Habitica's Guild directory. New members can be added by invitation only.",
   "removeInvite": "Remove Invitation",
   "removeMember": "Remove Member",
