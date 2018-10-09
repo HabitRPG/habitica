@@ -22,8 +22,9 @@
     .row
       .col-12.col-md-6(v-for='challenge in filteredChallenges')
         challenge-item(:challenge='challenge')
+
     .row
-      .col-12.text-center
+      .col-12.text-center(v-if='!loading && filteredChallenges.length > 0')
         button.btn.btn-secondary(@click='loadMore()') {{ $t('loadMore') }}
 </template>
 
