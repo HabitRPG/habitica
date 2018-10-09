@@ -72,9 +72,10 @@ api.updateUsername = {
 api.verifyUsername = {
   method: 'POST',
   url: '/user/auth/verify-username',
+  middlewares: [authWithHeaders({
+    optional: true,
+  })],
   async handler (req, res) {
-    const user = res.locals.user;
-
     req.checkBody({
       username: {
         notEmpty: {errorMessage: res.t('missingUsername')},
@@ -84,11 +85,17 @@ api.verifyUsername = {
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    const issues = verifyUsername(req.body.username, res);
+    const user = res.locals.user;
+    const chosenUsername = req.body.username;
 
-    const existingUser = await User.findOne({ 'auth.local.lowerCaseUsername': req.body.username.toLowerCase() }, {auth: 1}).exec();
-    if (existingUser && existingUser._id !== user._id) {
-      issues.push(res.t('usernameTaken'));
+    const issues = verifyUsername(chosenUsername, res);
+
+    const existingUser = await User.findOne({
+      'auth.local.lowerCaseUsername': chosenUsername.toLowerCase(),
+    }, {auth: 1}).exec();
+
+    if (existingUser) {
+      if (!user ||  existingUser._id !== user._id) issues.push(res.t('usernameTaken'));
     }
 
     if (issues.length > 0) {
