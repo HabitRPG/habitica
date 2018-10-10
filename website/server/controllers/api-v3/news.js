@@ -37,7 +37,8 @@ api.getNews = {
         <h3>New Pet Quest: The Insta-Gator!</h3>
         <p>Drop what you're doing, right now, and head to the Quest Shop!<sup>*</sup> Get the latest pet quest, <a href='/shops/quests' target='_blank'>The Insta-Gator</a>, and earn some cunning alligator pets by completing your real-life tasks.</p>
         <div class="small">Art by gully, mfonda, UncommonCriminal, tabbytoes, and Willow the Witty</div>
-        <div class="small mb-3">Writing by Mike.Antonacci</div>
+        <div class="small">Writing by Mike.Antonacci</div>
+        <div class="small mb-3">*We're kidding! Feel free to tackle your important Dailies and To-Dos first. To do otherwise would be to play right into the Insta-Gator's jaws!</div>
         <div class="promo_alligator center-block"></div>
         <div class="media align-items-center">
           <div class="media-body">
