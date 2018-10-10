@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'OCTOBER BACKGROUNDS AND ARMOIRE ITEMS!';
+const LAST_ANNOUNCEMENT_TITLE = 'ALLIGATOR PET QUEST AND SPOOKY SPARKLES!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,14 +30,24 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>10/04/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>10/09/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <p>We’ve added three new backgrounds to the Background Shop! Now your avatar can creep through a spooky Dungeon, dare to approach a Creepy Castle and bask in the glow of a firefly-filled Bayou. Check them out under User Icon > Backgrounds!</p>
-        <p>Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the Ace of Spades Set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)</p>
-        <div class="small mb-3">by AnnDeLune, gully, Vampitch, GeraldThePixel, NekoAtsumeLARPer, Shred, and SabreCat</div>
-        <div class="promo_armoire_backgrounds_201810 center-block"></div>
+        <h3>New Pet Quest: The Insta-Gator!</h3>
+        <p>Drop what you're doing, right now, and head to the Quest Shop!<sup>*</sup> Get the latest pet quest, <a href='/shops/quests' target='_blank'>The Insta-Gator</a>, and earn some cunning alligator pets by completing your real-life tasks.</p>
+        <div class="small">Art by gully, mfonda, UncommonCriminal, tabbytoes, and Willow the Witty</div>
+        <div class="small mb-3">Writing by Mike.Antonacci</div>
+        <div class="promo_alligator center-block"></div>
+        <div class="media align-items-center">
+          <div class="media-body">
+            <h3>Spooky Sparkles in the Seasonal Shop</h3>
+            <p>There's a new Gold-purchasable item in the <a href='/shops/seasonal' target='_blank'>Seasonal Shop</a>: Spooky Sparkles! Buy some and then cast it on your friends. I wonder what it will do?</p>
+            <p>If you have Spooky Sparkles cast on you, you will receive the "Alarming Friends" badge! Don't worry, any mysterious effects will wear off the next day.... or you can cancel them early by buying an Opaque Potion!</p>
+            <p>While you're at it, be sure to check out all the other items in the Seasonal Shop! There are lots of equipment items from the previous Fall Festivals. The Seasonal Shop will only be open until October 31st, so stock up now.</p>
+          </div>
+          <div class="promo_spooky_sparkles ml-3"></div>
+        </div>
       </div>
       `,
     });

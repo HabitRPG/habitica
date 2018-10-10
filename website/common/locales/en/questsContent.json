@@ -717,5 +717,12 @@
   "questKangarooUnlockText": "Unlocks purchasable Kangaroo eggs in the Market",
 
   "forestFriendsText": "Forest Friends Quest Bundle",
-  "forestFriendsNotes": "Contains 'The Spirit of Spring', 'The Hedgebeast', and 'The Tangle Tree'. Available until September 30."
+  "forestFriendsNotes": "Contains 'The Spirit of Spring', 'The Hedgebeast', and 'The Tangle Tree'. Available until September 30.",
+
+  "questAlligatorText": "The Insta-Gator",
+  "questAlligatorNotes": "“Crikey!” exclaims @gully. “An Insta-Gator in its natural habitat! Careful, it distracts its prey with things that seem urgent THIS INSTANT, and it feeds on the unchecked Dailies that result.” You fall silent to avoid attracting its attention, but to no avail. The Insta-Gator spots you and charges! Distracting voices rise up from Swamps of Stagnation, grabbing for your attention: “Read this post! See this photo! Pay attention to me THIS INSTANT!” You scramble to mount a counterattack, completing your Dailies and bolstering your good Habits to fight off the dreaded Insta-Gator.",
+  "questAlligatorCompletion": "With your attention focused on what’s important and not the Insta-Gator’s distractions, the Insta-Gator flees. Victory! “Are those eggs? They look like gator eggs to me,” asks @mfonda. “If we care for them correctly, they’ll be loyal pets or faithful steeds,” answers @UncommonCriminal, handing you three to care for. Let’s hope so, or else the Insta-Gator might make a return…",
+  "questAlligatorBoss": "Insta-Gator",
+  "questAlligatorDropAlligatorEgg": "Alligator (Egg)",
+  "questAlligatorUnlockText": "Unlocks purchasable Alligator eggs in the Market"
 }
