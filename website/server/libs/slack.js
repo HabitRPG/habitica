@@ -89,6 +89,10 @@ function sendFlagNotification ({
   });
 }
 
+function formatUser (name, email, uuid) {
+  return `${name} (${email}; ${uuid}`;
+}
+
 function sendInboxFlagNotification ({
   authorEmail,
   flagger,
@@ -108,26 +112,22 @@ function sendInboxFlagNotification ({
     text += ` and commented: ${userComment}`;
   }
 
-  authorName = `${message.user} - ${authorEmail} - ${message.uuid}`;
-
   let messageText = message.text;
+  let sender = '';
+  let recipient = '';
 
-  if (flagger.id === message.uuid) {
-    messageText += `: ${flagger.profile.name} is writing to itself.`;
+  const flaggerFormat = formatUser(flagger.profile.name, flagger.auth.local.email, flagger._id);
+  const messageUserFormat = formatUser(message.user, authorEmail, message.uuid);
+
+  if (message.sent) {
+    sender = flaggerFormat;
+    recipient = messageUserFormat;
   } else {
-    let sender = '';
-    let recipient = '';
-
-    if (message.sent) {
-      sender = flagger.profile.name;
-      recipient = message.user;
-    } else {
-      sender = message.user;
-      recipient = flagger.profile.name;
-    }
-
-    messageText += `: ${sender} is writing this message to ${recipient}.`;
+    sender = messageUserFormat;
+    recipient = flaggerFormat;
   }
+
+  authorName = `${sender} is writing this message to ${recipient}.`;
 
   flagSlack.send({
     text,

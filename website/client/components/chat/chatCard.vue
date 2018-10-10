@@ -15,6 +15,8 @@ div
       .text(v-markdown='msg.text')
       .reported(v-if="isMessageReported")
         span(v-once) {{ $t('reportedMessage')}}
+        br
+        span(v-if="inbox") {{ $t('canDeleteNow') }}
       hr
       div(v-if='msg.id')
         .action(@click='like()', v-if='!inbox && msg.likes', :class='{active: msg.likes[user._id]}')
