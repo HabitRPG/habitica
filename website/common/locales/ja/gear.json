@@ -781,7 +781,7 @@
     "armorArmoireCoverallsOfBookbindingText": "製本のカバーオール",
     "armorArmoireCoverallsOfBookbindingNotes": "カバーオールのセットには、あなたが必要なものが全部あります。ゴーグル、小銭、黄金のリング… 全てを入れるポケットも含めてね。体質が <%= con %> 、知覚が <%= per %> 上がります。ラッキー宝箱 : 製本屋さんセット ( 4 個中 2 個目のアイテム)。",
     "armorArmoireRobeOfSpadesText": "スペードのローブ",
-    "armorArmoireRobeOfSpadesNotes": "These luxuriant robes conceal hidden pockets for treasures or weapons--your choice! Increases Strength by <%= str %>. Enchanted Armoire: Ace of Spades Set (Item 2 of 3).",
+    "armorArmoireRobeOfSpadesNotes": "この豪華なローブには、秘密のポケットが隠れています。財宝でも武器でも――あなたのお好みで隠せますよ！ 力が <%= str %> 上がります。ラッキー宝箱 : スペードのエースセット ( 2 個中 3 個目のアイテム)。",
     "headgear": "帽子・兜",
     "headgearCapitalized": "帽子・ヘルメット",
     "headBase0Text": "頭装備なし",

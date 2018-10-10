@@ -359,7 +359,7 @@
     "weaponArmoireJeweledArcherBowText": "Arco Ornamentado do Arqueiro",
     "weaponArmoireJeweledArcherBowNotes": "Este Arco de ouro e gemas irá enviar suas flechas nos seus inimigos em uma incrível velocidade. Aumenta a Inteligência por <%= int %>. Armário Encantado: Conjunto do Arqueiro Ornamentado (Item 3 de 3).",
     "weaponArmoireNeedleOfBookbindingText": " Agulha de Encadernação",
-    "weaponArmoireNeedleOfBookbindingNotes": "Você ficaria surpreso com o quão difíceis livros podem ser. Essa agulha pode penetrar diretamente no coração de suas tarefas. Aumenta Força em <%= str %>. Armário Encantado: Conjunto do Encadernador (Item 3 de 4).",
+    "weaponArmoireNeedleOfBookbindingNotes": "Você ficaria surpreso com o quão duro os livros podem ser. Essa agulha pode penetrar diretamente no coração de suas tarefas. Aumenta Força em <%= str %>. Armário Encantado: Conjunto do Encadernador (Item 3 de 4).",
     "weaponArmoireSpearOfSpadesText": "Lança de Espadas",
     "weaponArmoireSpearOfSpadesNotes": "Esta lança de cavaleiro é perfeita para atacar seus Hábitos e Diárias mais vermelhas. Aumenta Constituição em <%= con %>. Armário Encantado: Conjunto Ás de Espadas (Item 3 de 3).",
     "armor": "armadura",

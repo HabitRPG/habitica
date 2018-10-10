@@ -45,8 +45,6 @@
   "dropEggDragonText": "Dragon",
   "dropEggDragonAdjective": "a mighty",
 
-  "dropEggCactusText": "Cactus",
-
   "dropEggBearCubText": "Bear Cub",
   "dropEggBearCubMountText": "Bear",
   "dropEggBearCubAdjective": "a brave",
@@ -242,6 +240,10 @@
   "questEggKangarooText": "Kangaroo",
   "questEggKangarooMountText": "Kangaroo",
   "questEggKangarooAdjective": "a keen",
+
+  "questEggAlligatorText": "Alligator",
+  "questEggAlligatorMountText": "Alligator",
+  "questEggAlligatorAdjective": "a cunning",
 
   "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
 

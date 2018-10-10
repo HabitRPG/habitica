@@ -128,7 +128,7 @@
     "fall2018MinotaurWarriorSet": "Minotaur (Warrior)",
     "fall2018CandymancerMageSet": "Candymancer (Mage)",
     "fall2018CarnivorousPlantSet": "Carnivorous Plant (Healer)",
-    "fall2018AlterEgoSet": "Alter Ego (Rogue)",
+    "fall2018AlterEgoSet": "İkincil Şahsiyet (Düzenbaz)",
     "eventAvailability": "<%= date(locale) %> tarihine kadar satın alınabilir. ",
     "dateEndMarch": "30 Nisan",
     "dateEndApril": "19 Nisan",

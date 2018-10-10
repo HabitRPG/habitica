@@ -1540,7 +1540,7 @@
     "bodyMystery201711Text": "飛毯駕駛員圍巾",
     "bodyMystery201711Notes": "這條柔軟的針織圍巾在風中飄逸看起來相當雄偉。無屬性加成。 2017年11月訂閱者專屬裝備",
     "bodyArmoireCozyScarfText": "舒適圍巾",
-    "bodyArmoireCozyScarfNotes": "這條上等的圍巾能讓您在寒冷環境下工作時，還能保持溫暖。增加體質和感知各 <%= attrs %> 點。 來自神祕寶箱: 點燈伕套裝(4/4)",
+    "bodyArmoireCozyScarfNotes": "這條上等的圍巾能讓您在寒冷環境下工作時，還能保持溫暖。增加體質、感知各 <%= attrs %> 點。 來自神祕寶箱: 點燈伕套裝(4/4)",
     "headAccessory": "頭部配件",
     "headAccessoryCapitalized": "頭部配件",
     "accessories": "配件",
