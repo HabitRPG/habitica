@@ -1,6 +1,6 @@
 .achievement-costumeContest6x {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -1277px -148px;
+  background-position: -1277px -296px;
   width: 144px;
   height: 156px;
 }
@@ -22,6 +22,12 @@
   width: 423px;
   height: 147px;
 }
+.promo_fall_avatar_customizations {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -394px -723px;
+  width: 336px;
+  height: 207px;
+}
 .promo_fall_festival_2017 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: -481px -495px;
@@ -36,13 +42,13 @@
 }
 .promo_forest_friends_bundle {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -424px -937px;
+  background-position: -1136px 0px;
   width: 423px;
   height: 147px;
 }
 .promo_ghost_potions {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -394px -723px;
+  background-position: -424px -937px;
   width: 423px;
   height: 147px;
 }
@@ -54,25 +60,25 @@
 }
 .promo_mystery_201809 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -1136px 0px;
+  background-position: -1136px -148px;
   width: 306px;
   height: 147px;
 }
 .promo_seasonal_shop {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -1136px -443px;
+  background-position: -1136px -591px;
   width: 162px;
   height: 138px;
 }
 .promo_spooky_sparkles {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -1136px -148px;
+  background-position: -1136px -296px;
   width: 140px;
   height: 294px;
 }
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -1277px -305px;
+  background-position: -1443px -148px;
   width: 96px;
   height: 69px;
 }

@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'ALLIGATOR PET QUEST AND SPOOKY SPARKLES!';
+const LAST_ANNOUNCEMENT_TITLE = 'FALL FESTIVAL AVATAR CUSTOMIZATIONS AND USERNAME FAQS';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,25 +30,28 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>10/09/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>10/11/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <h3>New Pet Quest: The Insta-Gator!</h3>
-        <p>Drop what you're doing, right now, and head to the Quest Shop!<sup>*</sup> Get the latest pet quest, <a href='/shops/quests' target='_blank'>The Insta-Gator</a>, and earn some cunning alligator pets by completing your real-life tasks.</p>
-        <div class="small">Art by gully, mfonda, UncommonCriminal, tabbytoes, and Willow the Witty</div>
-        <div class="small">Writing by Mike.Antonacci</div>
-        <div class="small mb-3">*We're kidding! Feel free to tackle your important Dailies and To-Dos first. To do otherwise would be to play right into the Insta-Gator's jaws!</div>
-        <div class="promo_alligator center-block"></div>
-        <div class="media align-items-center">
-          <div class="media-body">
-            <h3>Spooky Sparkles in the Seasonal Shop</h3>
-            <p>There's a new Gold-purchasable item in the <a href='/shops/seasonal' target='_blank'>Seasonal Shop</a>: Spooky Sparkles! Buy some and then cast it on your friends. I wonder what it will do?</p>
-            <p>If you have Spooky Sparkles cast on you, you will receive the "Alarming Friends" badge! Don't worry, any mysterious effects will wear off the next day.... or you can cancel them early by buying an Opaque Potion!</p>
-            <p>While you're at it, be sure to check out all the other items in the Seasonal Shop! There are lots of equipment items from the previous Fall Festivals. The Seasonal Shop will only be open until October 31st, so stock up now.</p>
-          </div>
-          <div class="promo_spooky_sparkles ml-3"></div>
-        </div>
+        <div class="promo_fall_avatar_customizations center-block"></div>
+        <h3>Supernatural Skins & Haunted Hair Colors</h3>
+        <p>The Seasonal Edition Haunted Hair Colors are now available for purchase! Now you can dye your avatar's hair Pumpkin, Midnight, Candy Corn, Ghost White, Zombie, or Halloween. They’ll vanish after October 31, so be sure to check them out!</p>
+        <p>The Supernatural Skin Set is also available until October 31st! Now your avatar can become an Ogre, Skeleton, Pumpkin, Candy Corn, Reptile, or Dread Shade.</p>
+        <p>Seasonal Edition items recur unchanged every year, but they are only available to purchase during a short period of time. Find these exciting skins and hair colors in User>Edit Avatar. Get them now, or you'll have to wait until next year!</p>
+        <div class="small mb-3">by Lemoness, mariahm, and crystalphoenix</div>
+        <div class="scene_nametag center-block"></div>
+        <h3>Unique Usernames Update and FAQ</h3>
+        <p>It’s been a week since we announced the switch to unique usernames. So far, around half of active Habiticans have confirmed their usernames and are ready to go. Be sure to go to <a href="/user/settings/site" target="_blank">Settings</a> and confirm yours!</p>
+        <p>We’ve seen a few questions floating around the community and wanted to provide some clarification about the change:</p>
+        <ul>
+          <li><strong>Usernames will appear beside your display name</strong> in chats and your profile</li>
+          <li><strong>Usernames must be unique</strong> to be sure you’re inviting or messaging the right person</li>
+          <li><strong>Display names aren’t unique</strong>, and two people can have the same one. Your display name can be the same as or different than your username.</li>
+          <li><strong>You can change your display name and username at any time</strong>, even after confirmation</li>
+          <li><strong>Changes to chat and invitations will roll out gradually</strong> after about a month</li>
+        </ul>
+        <p>If you want to read a more in-depth Q&A on this change and see an example to show how it will work, please <a href="https://habitica.wordpress.com/2018/10/11/coming-soon-unique-usernames/" target="_blank">visit our blog</a>!</p>
       </div>
       `,
     });
