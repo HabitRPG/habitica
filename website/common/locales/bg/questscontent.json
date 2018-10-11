@@ -619,10 +619,10 @@
     "questKangarooUnlockText": "Отключва възможността за купуване на яйца на кенгуру от пазара.",
     "forestFriendsText": "Пакет мисии „Горски приятели“",
     "forestFriendsNotes": "Съдържа: „Пролетен дух“, „Ежко-Звережко“ и „Оплетеното дърво“. Наличен до 30 септември.",
-    "questAlligatorText": "The Insta-Gator",
-    "questAlligatorNotes": "“Crikey!” exclaims @gully. “An Insta-Gator in its natural habitat! Careful, it distracts its prey with things that seem urgent THIS INSTANT, and it feeds on the unchecked Dailies that result.” You fall silent to avoid attracting its attention, but to no avail. The Insta-Gator spots you and charges! Distracting voices rise up from Swamps of Stagnation, grabbing for your attention: “Read this post! See this photo! Pay attention to me THIS INSTANT!” You scramble to mount a counterattack, completing your Dailies and bolstering your good Habits to fight off the dreaded Insta-Gator.",
-    "questAlligatorCompletion": "With your attention focused on what’s important and not the Insta-Gator’s distractions, the Insta-Gator flees. Victory! “Are those eggs? They look like gator eggs to me,” asks @mfonda. “If we care for them correctly, they’ll be loyal pets or faithful steeds,” answers @UncommonCriminal, handing you three to care for. Let’s hope so, or else the Insta-Gator might make a return…",
-    "questAlligatorBoss": "Insta-Gator",
-    "questAlligatorDropAlligatorEgg": "Alligator (Egg)",
-    "questAlligatorUnlockText": "Unlocks purchasable Alligator eggs in the Market"
+    "questAlligatorText": "Ведна-гаторът",
+    "questAlligatorNotes": "„Еха!“ – възкликва @gully. „Ведна-гатор в естествената си среда! Внимавай, той разсейва плячката си с неща, на които изглежда, че трябва да обърнеш внимание ВЕДНАГА, и се храни с неотметнатите ежедневни задачи, които неминуемо са резултат на това разсейване.“ – Ти замлъкваш, за да не привлечеш вниманието му, но безуспешно. Ведна-гаторът те забелязва и се втурва към теб! Разсейващи гласове започват да се чуват откъм Блатата на застоя, привличайки вниманието ти: „Прочети тази публикация! Виж тази снимка! Обърни ми внимание ВЕДНАГА!“ – ти се впускаш в контраатака, като се опитваш да завършиш ежедневните си задачи и да поддържаш добрите си навици, за да отблъснеш проклетия Ведна-гатор.",
+    "questAlligatorCompletion": "След като успяваш да фокусираш вниманието си върху това, което е наистина важно, а не върху разсейванията на Ведна-гатора, той отстъпва. Победа! „Това яйца ли са? Приличат ми на яйца на алигатор“ – пита @mfonda. – „Ако се грижим правилно за тях, те ще се превърнат в лоялни любимци и надеждни превози“ – отговаря @UncommonCriminal, докато ти подава три, за които да се грижиш. Да се надяваме, че всичко ще бъде наред, иначе Ведна-гаторът може пак да се върне…",
+    "questAlligatorBoss": "Ведна-гаторът",
+    "questAlligatorDropAlligatorEgg": "Алигатор (яйце)",
+    "questAlligatorUnlockText": "Отключва възможността за купуване на яйца на алигатор от пазара."
 }

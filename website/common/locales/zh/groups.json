@@ -142,7 +142,7 @@
     "PMDisabledCaptionText": "您仍然可以发送消息，但是没有人可以给您发送消息。",
     "block": "阻止",
     "unblock": "解锁",
-    "blockWarning": "Block - This will have no effect if the player is a moderator now or becomes a moderator in future.",
+    "blockWarning": "屏蔽-如果角色现在是管理员或将来会成为管理员，此功能将无效。",
     "pm-reply": "发送回复",
     "inbox": "收件箱",
     "messageRequired": "请填写信息",
