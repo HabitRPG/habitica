@@ -8,7 +8,7 @@ import nconf from 'nconf';
 import url from 'url';
 import {
   generateUsername,
-} from '../libs/auth';
+} from '../libs/auth/utils';
 
 const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
 
