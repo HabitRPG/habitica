@@ -36,5 +36,39 @@ describe('auth middleware', () => {
         done();
       });
     });
+
+    it('assigns a username if user does not have one', (done) => {
+      const authWithHeaders = authWithHeadersFactory();
+      delete res.locals.user.auth.local.username;
+
+      req.headers['x-api-user'] = user._id;
+      req.headers['x-api-key'] = user.apiToken;
+
+      authWithHeaders(req, res, (err) => {
+        if (err) return done(err);
+
+        const userToJSON = res.locals.user.toJSON();
+        expect(userToJSON.auth.local.username).to.exist;
+
+        done();
+      });
+    });
+
+    it('does not change existing username if user has one', (done) => {
+      const authWithHeaders = authWithHeadersFactory();
+      const existingUsername = res.locals.user.auth.local.username;
+
+      req.headers['x-api-user'] = user._id;
+      req.headers['x-api-key'] = user.apiToken;
+
+      authWithHeaders(req, res, (err) => {
+        if (err) return done(err);
+
+        const userToJSON = res.locals.user.toJSON();
+        expect(userToJSON.auth.local.username).to.eql(existingUsername);
+
+        done();
+      });
+    });
   });
 });

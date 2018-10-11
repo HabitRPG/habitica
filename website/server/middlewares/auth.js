@@ -6,6 +6,9 @@ import {
 } from '../models/user';
 import nconf from 'nconf';
 import url from 'url';
+import {
+  generateUsername,
+} from '../libs/auth/utils';
 
 const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
 
@@ -14,6 +17,7 @@ function getUserFields (options, req) {
   // Must be an array
   if (options.userFieldsToExclude) {
     return options.userFieldsToExclude.map(field => {
+      if (field.indexOf('auth.local') !== -1) return;
       return `-${field}`; // -${field} means exclude ${field} in mongodb
     }).join(' ');
   }
@@ -59,9 +63,15 @@ export function authWithHeaders (options = {}) {
 
     return findPromise
       .exec()
-      .then((user) => {
+      .then(async (user) => {
         if (!user) throw new NotAuthorized(res.t('invalidCredentials'));
         if (user.auth.blocked) throw new NotAuthorized(res.t('accountSuspended', {communityManagerEmail: COMMUNITY_MANAGER_EMAIL, userId: user._id}));
+        if (!user.auth.local.username) {
+          const generatedUsername = generateUsername();
+          user.auth.local.username = generatedUsername;
+          user.auth.local.lowerCaseUsername = generatedUsername;
+          await user.save();
+        }
 
         res.locals.user = user;
 
