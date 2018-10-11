@@ -67,7 +67,9 @@ export function authWithHeaders (options = {}) {
         if (!user) throw new NotAuthorized(res.t('invalidCredentials'));
         if (user.auth.blocked) throw new NotAuthorized(res.t('accountSuspended', {communityManagerEmail: COMMUNITY_MANAGER_EMAIL, userId: user._id}));
         if (!user.auth.local.username) {
-          user.auth.local.username = generateUsername();
+          const generatedUsername = generateUsername();
+          user.auth.local.username = generatedUsername;
+          user.auth.local.lowerCaseUsername = generatedUsername;
           await user.save();
         }
 
