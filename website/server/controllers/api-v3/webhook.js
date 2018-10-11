@@ -31,7 +31,7 @@ let api = {};
  * @apiParam (Body) {String} url The webhook's URL
  * @apiParam (Body) {String} [label] A label to remind you what this webhook does
  * @apiParam (Body) {Boolean} [enabled=true] If the webhook should be enabled
- * @apiParam (Body) {Sring="taskActivity","groupChatReceived","userActivity"} [type="taskActivity"] The webhook's type.
+ * @apiParam (Body) {String="taskActivity","groupChatReceived","userActivity"} [type="taskActivity"] The webhook's type.
  * @apiParam (Body) {Object} [options] The webhook's options. Wil differ depending on type. Required for `groupChatReceived` type. If a webhook supports options, the default values are displayed in the examples below
  * @apiParamExample {json} Task Activity Example
  *   {
@@ -105,7 +105,7 @@ api.addWebhook = {
  * @apiParam (Body) {String} [url] The webhook's URL
  * @apiParam (Body) {String} [label] A label to remind you what this webhook does
  * @apiParam (Body) {Boolean} [enabled] If the webhook should be enabled
- * @apiParam (Body) {Sring="taskActivity","groupChatReceived"} [type] The webhook's type.
+ * @apiParam (Body) {String="taskActivity","groupChatReceived"} [type] The webhook's type.
  * @apiParam (Body) {Object} [options] The webhook's options. Wil differ depending on type. The options are enumerated in the [add webhook examples](#api-Webhook-UserAddWebhook).
  * @apiParamExample {json} Update Enabled and Type Properties
  *   {
