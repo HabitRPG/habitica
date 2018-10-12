@@ -124,9 +124,6 @@ function _setUpNewUser (user) {
   let taskTypes;
   let iterableFlags = user.flags.toObject();
 
-  // A/B test 2017-05-11: Can we encourage people to join Guilds with a pester modal?
-  let testGroup = Math.random();
-
   user.items.quests.dustbunnies = 1;
   user.purchased.background.violet = true;
   user.preferences.background = 'violet';
