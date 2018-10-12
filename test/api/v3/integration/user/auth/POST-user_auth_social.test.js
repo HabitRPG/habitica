@@ -80,7 +80,7 @@ describe('POST /user/auth/social', () => {
       expect(response.newUser).to.be.false;
     });
 
-    it('enrolls a new user in an A/B test', async () => {
+    xit('enrolls a new user in an A/B test', async () => {
       await api.post(endpoint, {
         authResponse: {access_token: randomAccessToken}, // eslint-disable-line camelcase
         network,
@@ -136,7 +136,7 @@ describe('POST /user/auth/social', () => {
       expect(response.newUser).to.be.false;
     });
 
-    it('enrolls a new user in an A/B test', async () => {
+    xit('enrolls a new user in an A/B test', async () => {
       await api.post(endpoint, {
         authResponse: {access_token: randomAccessToken}, // eslint-disable-line camelcase
         network,
