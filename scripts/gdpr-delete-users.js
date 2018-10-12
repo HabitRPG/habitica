@@ -20,9 +20,11 @@ async function _deleteAmplitudeData (userId, email) {
         password: AMPLITUDE_SECRET,
       },
     }
-  );
+  ).catch((err) => {
+    console.log(err.response.data);
+  });
 
-  console.log(`${response.status} ${response.statusText}`);
+  if (response) console.log(`${response.status} ${response.statusText}`);
 }
 
 async function _deleteHabiticaData (user) {
@@ -44,10 +46,14 @@ async function _deleteHabiticaData (user) {
         'x-api-key': user.apiToken,
       },
     }
-  );
+  ).catch((err) => {
+    console.log(err.response.data);
+  });
 
-  console.log(`${response.status} ${response.statusText}`);
-  if (response.status === 200) console.log(`${user._id} removed. Last login: ${user.auth.timestamps.loggedin}`);
+  if (response) {
+    console.log(`${response.status} ${response.statusText}`);
+    if (response.status === 200) console.log(`${user._id} removed. Last login: ${user.auth.timestamps.loggedin}`);
+  }
 }
 
 async function _processEmailAddress (email) {

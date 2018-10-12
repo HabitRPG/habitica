@@ -17,12 +17,12 @@ function setUpServer () {
 setUpServer();
 
 // Replace this with your migration
-const processUsers = require('./users/takeThis.js');
+const processUsers = require('../scripts/gdpr-delete-users.js');
 processUsers()
   .then(function success () {
-    process.exitCode = 0;
+    process.exit(0);
   })
   .catch(function failure (err) {
     console.log(err);
-    process.exitCode = 1;
+    process.exit(1);
   });
