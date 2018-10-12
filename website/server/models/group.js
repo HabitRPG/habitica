@@ -1424,6 +1424,11 @@ schema.methods.hasNotCancelled = function hasNotCancelled () {
   return this.isSubscribed() && !plan.dateTerminated;
 };
 
+schema.methods.hasCancelled = function hasNotCancelled () {
+  let plan = this.purchased.plan;
+  return this.isSubscribed() && plan.dateTerminated;
+};
+
 schema.methods.updateGroupPlan = async function updateGroupPlan (removingMember) {
   // Recheck the group plan count
   let members;

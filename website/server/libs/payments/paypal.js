@@ -257,7 +257,8 @@ api.ipn = async function ipnApi (options = {}) {
     'recurring_payment_failed',
     'recurring_payment_expired',
     'subscr_cancel',
-    'subscr_failed'];
+    'subscr_failed',
+  ];
 
   if (ipnAcceptableTypes.indexOf(txn_type) === -1) return;
   // @TODO: Should this request billing date?
