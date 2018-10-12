@@ -500,6 +500,7 @@ export default {
       return !(this.group.managers && this.group.managers[memberId]);
     },
     shouldShowRemoveManager (memberId) {
+      if !(this.isLeader || this.isAdmin) return false;
       return this.group.managers && this.group.managers[memberId];
     },
     shouldShowLeaderFunctions (memberId) {
