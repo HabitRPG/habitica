@@ -127,10 +127,6 @@ api.createGroup = {
         user.achievements.joinedGuild = true;
         user.addNotification('GUILD_JOINED_ACHIEVEMENT');
       }
-      if (user._ABtests && user._ABtests.guildReminder && user._ABtests.counter !== -1) {
-        user._ABtests.counter = -1;
-        user.markModified('_ABtests');
-      }
     } else {
       if (group.privacy !== 'private') throw new NotAuthorized(res.t('partyMustbePrivate'));
       if (user.party._id) throw new NotAuthorized(res.t('messageGroupAlreadyInParty'));
@@ -569,10 +565,6 @@ api.joinGroup = {
       if (!user.achievements.joinedGuild) {
         user.achievements.joinedGuild = true;
         user.addNotification('GUILD_JOINED_ACHIEVEMENT');
-      }
-      if (user._ABtests && user._ABtests.guildReminder && user._ABtests.counter !== -1) {
-        user._ABtests.counter = -1;
-        user.markModified('_ABtests');
       }
     }
     if (!isUserInvited) throw new NotAuthorized(res.t('messageGroupRequiresInvite'));
