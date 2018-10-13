@@ -33,29 +33,29 @@ div
         .col-1.actions
           b-dropdown(right=true)
             .svg-icon.inline.dots(slot='button-content', v-html="icons.dots")
-            b-dropdown-item(@click='removeMember(member, index)', v-if='isLeader')
-              span.dropdown-icon-item
-                .svg-icon.inline(v-html="icons.removeIcon", v-if='isLeader')
-                span.text {{$t('removeMember')}}
             b-dropdown-item(@click='sendMessage(member)')
               span.dropdown-icon-item
                 .svg-icon.inline(v-html="icons.messageIcon")
                 span.text {{$t('sendMessage')}}
-            b-dropdown-item(@click='promoteToLeader(member)', v-if='shouldShowPromoteToLeader')
+            b-dropdown-item(@click='promoteToLeader(member)', v-if='shouldShowLeaderFunctions(member._id)')
               span.dropdown-icon-item
                 .svg-icon.inline(v-html="icons.starIcon")
                 span.text {{$t('promoteToLeader')}}
-            b-dropdown-item(@click='addManager(member._id)', v-if='isLeader && groupIsSubscribed')
+            b-dropdown-item(@click='addManager(member._id)', v-if='shouldShowAddManager(member._id)')
               span.dropdown-icon-item
                 .svg-icon.inline(v-html="icons.starIcon")
                 span.text {{$t('addManager')}}
-            b-dropdown-item(@click='removeManager(member._id)', v-if='isLeader && groupIsSubscribed')
+            b-dropdown-item(@click='removeManager(member._id)', v-if='shouldShowRemoveManager(member._id)')
               span.dropdown-icon-item
                 .svg-icon.inline(v-html="icons.removeIcon")
                 span.text {{$t('removeManager2')}}
             b-dropdown-item(@click='viewProgress(member)', v-if='challengeId')
               span.dropdown-icon-item
                 span.text {{ $t('viewProgress') }}
+            b-dropdown-item(@click='removeMember(member, index)', v-if='shouldShowLeaderFunctions(member._id)')
+              span.dropdown-icon-item
+                .svg-icon.inline(v-html="icons.removeIcon")
+                span.text {{$t('removeMember')}}
       .row(v-if='isLoadMoreAvailable')
         .col-12.text-center
           button.btn.btn-secondary(@click='loadMoreMembers()') {{ $t('loadMore') }}
@@ -295,9 +295,6 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
-    shouldShowPromoteToLeader () {
-      return !this.challengeId && (this.isLeader || this.isAdmin);
-    },
     isLeader () {
       if (!this.group || !this.group.leader) return false;
       return this.user._id === this.group.leader || this.user._id === this.group.leader._id;
@@ -336,6 +333,9 @@ export default {
   watch: {
     groupId () {
       // @TOOD: We might not need this since groupId is computed now
+      this.getMembers();
+    },
+    challengeId () {
       this.getMembers();
     },
     group () {
@@ -377,9 +377,7 @@ export default {
         this.invites = invites;
       }
 
-      if (this.$store.state.memberModalOptions.viewingMembers.length > 0) {
-        this.members = this.$store.state.memberModalOptions.viewingMembers;
-      }
+      this.members = this.$store.state.memberModalOptions.viewingMembers;
     },
     async clickMember (uid, forceShow) {
       let user = this.$store.state.user.data;
@@ -496,6 +494,17 @@ export default {
       this.$root.$emit('habitica:challenge:member-progress', {
         progressMemberId: member._id,
       });
+    },
+    shouldShowAddManager (memberId) {
+      if (memberId === this.group.leader || memberId === this.group.leader._id) return false;
+      return !(this.group.managers && this.group.managers[memberId]);
+    },
+    shouldShowRemoveManager (memberId) {
+      if (!this.isLeader && !this.isAdmin) return false;
+      return this.group.managers && this.group.managers[memberId];
+    },
+    shouldShowLeaderFunctions (memberId) {
+      return !this.challengeId && (this.isLeader || this.isAdmin) && this.user._id !== memberId;
     },
   },
 };

@@ -62,7 +62,7 @@
         p(v-markdown='group.description')
       sidebar-section(
         :title="$t('challenges')",
-        :tooltip="isParty ? $t('challengeDetails') : $t('privateDescription')"
+        :tooltip="$t('challengeDetails')"
       )
         group-challenges(:groupId='searchId')
     div.text-center
@@ -477,11 +477,6 @@ export default {
       return this.user.notifications.some(n => {
         return n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === groupId;
       });
-    },
-    deleteAllMessages () {
-      if (confirm(this.$t('confirmDeleteAllMessages'))) {
-        // User.clearPMs();
-      }
     },
     checkForAchievements () {
       // Checks if user's party has reached 2 players for the first time.

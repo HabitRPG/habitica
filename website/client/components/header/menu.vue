@@ -396,12 +396,13 @@ export default {
     toggleUserDropdown () {
       this.isUserDropdownOpen = !this.isUserDropdownOpen;
     },
-    sync () {
+    async sync () {
       this.$root.$emit('habitica::resync-requested');
-      return Promise.all([
+      await Promise.all([
         this.$store.dispatch('user:fetch', {forceLoad: true}),
         this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
       ]);
+      this.$root.$emit('habitica::resync-completed');
     },
     async getUserGroupPlans () {
       this.$store.state.groupPlans = await this.$store.dispatch('guilds:getGroupPlans');

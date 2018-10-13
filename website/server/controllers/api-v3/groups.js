@@ -109,9 +109,7 @@ let api = {};
 api.createGroup = {
   method: 'POST',
   url: '/groups',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let group = new Group(Group.sanitize(req.body));
@@ -182,9 +180,7 @@ api.createGroup = {
 api.createGroupPlan = {
   method: 'POST',
   url: '/groups/create-plan',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let group = new Group(Group.sanitize(req.body.groupToCreate));
@@ -293,9 +289,7 @@ api.createGroupPlan = {
 api.getGroups = {
   method: 'GET',
   url: '/groups',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -443,9 +437,7 @@ api.getGroup = {
 api.updateGroup = {
   method: 'PUT',
   url: '/groups/:groupId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -508,9 +500,7 @@ api.updateGroup = {
 api.joinGroup = {
   method: 'POST',
   url: '/groups/:groupId/join',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let inviter;
@@ -590,11 +580,6 @@ api.joinGroup = {
     // @TODO: Review the need for this and if still needed, don't base this on memberCount
     if (!group.hasNotCancelled() && group.memberCount === 0) group.leader = user._id; // If new user is only member -> set as leader
 
-    if (group.hasNotCancelled())  {
-      await payments.addSubToGroupUser(user, group);
-      await group.updateGroupPlan();
-    }
-
     group.memberCount += 1;
 
     let promises = [group.save(), user.save()];
@@ -637,6 +622,11 @@ api.joinGroup = {
     }
 
     promises = await Promise.all(promises);
+
+    if (group.hasNotCancelled())  {
+      await payments.addSubToGroupUser(user, group);
+      await group.updateGroupPlan();
+    }
 
     let response = await Group.toJSONCleanChat(promises[0], user);
     let leader = await User.findById(response.leader).select(nameFields).exec();
@@ -682,9 +672,7 @@ api.joinGroup = {
 api.rejectGroupInvite = {
   method: 'POST',
   url: '/groups/:groupId/reject-invite',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -759,9 +747,7 @@ function _removeMessagesFromMember (member, groupId) {
 api.leaveGroup = {
   method: 'POST',
   url: '/groups/:groupId/leave',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
@@ -790,7 +776,6 @@ api.leaveGroup = {
     }
 
     await group.leave(user, req.query.keep, req.body.keepChallenges);
-    if (group.hasNotCancelled()) await group.updateGroupPlan(true);
     _removeMessagesFromMember(user, group._id);
     await user.save();
 
@@ -804,6 +789,7 @@ api.leaveGroup = {
       await payments.cancelGroupSubscriptionForUser(user, group);
     }
 
+    if (group.hasNotCancelled()) await group.updateGroupPlan(true);
     res.respond(200, {});
   },
 };
@@ -848,9 +834,7 @@ function _sendMessageToRemoved (group, removedUser, message, isInGroup) {
 api.removeGroupMember = {
   method: 'POST',
   url: '/groups/:groupId/removeMember/:memberId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -892,10 +876,6 @@ api.removeGroupMember = {
 
     if (isInGroup) {
       group.memberCount -= 1;
-      if (group.hasNotCancelled())  {
-        await group.updateGroupPlan(true);
-        await payments.cancelGroupSubscriptionForUser(member, group, true);
-      }
 
       if (group.quest && group.quest.leader === member._id) {
         group.quest.key = undefined;
@@ -944,6 +924,12 @@ api.removeGroupMember = {
       member.save(),
       group.save(),
     ]);
+
+    if (isInGroup && group.hasNotCancelled())  {
+      await group.updateGroupPlan(true);
+      await payments.cancelGroupSubscriptionForUser(member, group, true);
+    }
+
     res.respond(200, {});
   },
 };
@@ -1174,7 +1160,7 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
 api.inviteToGroup = {
   method: 'POST',
   url: '/groups/:groupId/invite',
-  middlewares: [authWithHeaders({})],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -1213,6 +1199,16 @@ api.inviteToGroup = {
       results.push(...emailResults);
     }
 
+    let analyticsObject = {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      groupType: group.type,
+      headers: req.headers,
+    };
+
+    res.analytics.track('group invite', analyticsObject);
+
     res.respond(200, results);
   },
 };
@@ -1237,9 +1233,7 @@ api.inviteToGroup = {
 api.addGroupManager = {
   method: 'POST',
   url: '/groups/:groupId/add-manager',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let managerId = req.body.managerId;
@@ -1288,9 +1282,7 @@ api.addGroupManager = {
 api.removeGroupManager = {
   method: 'POST',
   url: '/groups/:groupId/remove-manager',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let managerId = req.body.managerId;
@@ -1343,9 +1335,7 @@ api.removeGroupManager = {
 api.getGroupPlans = {
   method: 'GET',
   url: '/group-plans',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 

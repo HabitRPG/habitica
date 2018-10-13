@@ -38,7 +38,6 @@
     "messageInsufficientGems": "Nu ai destule nestemate!",
     "messageAuthPasswordMustMatch": ":password și :confirmPassword nu se potrivesc",
     "messageAuthCredentialsRequired": "sunt necesare :username, :email, :password și :confirmPassword",
-    "messageAuthUsernameTaken": "Login Name already taken",
     "messageAuthEmailTaken": "E-mailul este deja folosit",
     "messageAuthNoUserFound": "Niciun utilizator găsit",
     "messageAuthMustBeLoggedIn": "Trebuie să fii autentificat.",
@@ -61,5 +60,6 @@
     "messageNotAbleToBuyInBulk": "This item cannot be purchased in quantities above 1.",
     "notificationsRequired": "Notification ids are required.",
     "unallocatedStatsPoints": "You have <span class=\"notification-bold-blue\"><%= points %> unallocated Stat Points</span>",
-    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!"
+    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!",
+    "messageDeletedUser": "Sorry, this user has deleted their account."
 }

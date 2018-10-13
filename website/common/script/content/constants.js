@@ -33,6 +33,7 @@ export const EVENTS = {
   winter2018: { start: '2017-12-19', end: '2018-02-02' },
   spring2018: { start: '2018-03-20', end: '2018-05-02' },
   summer2018: { start: '2018-06-19', end: '2018-08-02' },
+  fall2018:   { start: '2018-09-20', end: '2018-11-02' },
 };
 
 export const SEASONAL_SETS = {
@@ -128,6 +129,37 @@ export const SEASONAL_SETS = {
     'summer2018LionfishMageSet',
     'summer2018MerfolkMonarchSet',
     'summer2018FisherRogueSet',
+  ],
+  fall: [
+    // fall 2014
+    'vampireSmiterSet',
+    'monsterOfScienceSet',
+    'witchyWizardSet',
+    'mummyMedicSet',
+
+    // fall 2015
+    'battleRogueSet',
+    'scarecrowWarriorSet',
+    'stitchWitchSet',
+    'potionerSet',
+
+    // fall 2016
+    'fall2016BlackWidowSet',
+    'fall2016SwampThingSet',
+    'fall2016WickedSorcererSet',
+    'fall2016GorgonHealerSet',
+
+    // fall 2017
+    'fall2017TrickOrTreatSet',
+    'fall2017HabitoweenSet',
+    'fall2017MasqueradeSet',
+    'fall2017HauntedHouseSet',
+
+    // fall 2018
+    'fall2018MinotaurWarriorSet',
+    'fall2018CandymancerMageSet',
+    'fall2018CarnivorousPlantSet',
+    'fall2018AlterEgoSet',
   ],
 };
 

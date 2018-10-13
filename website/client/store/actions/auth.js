@@ -46,6 +46,15 @@ export async function login (store, params) {
   localStorage.setItem(LOCALSTORAGE_AUTH_KEY, userLocalData);
 }
 
+export async function verifyUsername (store, params) {
+  let url = '/api/v4/user/auth/verify-username';
+  let result = await axios.post(url, {
+    username: params.username,
+  });
+
+  return result.data.data;
+}
+
 export async function socialAuth (store, params) {
   let url = '/api/v4/user/auth/social';
   let result = await axios.post(url, {

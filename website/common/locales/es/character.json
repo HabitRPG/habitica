@@ -8,6 +8,8 @@
     "other": "Otro",
     "fullName": "Nombre completo",
     "displayName": "Nombre de usuario",
+    "changeDisplayName": "Change Display Name",
+    "newDisplayName": "New Display Name",
     "displayPhoto": "Foto",
     "displayBlurb": "Biografía",
     "displayBlurbPlaceholder": "Preséntate",
@@ -181,7 +183,7 @@
     "lostMana": "Has utilizado algún Maná",
     "lostHealth": "Has perdido algo de Salud",
     "lostExperience": "Has perdido algo de\nExperiencia",
-    "displayNameDescription1": "Esto es lo que aparece en los mensajes que publicas en la Taberna, los gremios y el chat de grupo, junto con lo que se muestra en tu personaje. Para cambiarlo, haz clic en el botón superior de Editar. En cambio si quieres cambiar tu nombre de inicio de sesión, ve a",
+    "displayNameDescription1": "This is what appears in messages you post in the Tavern, guilds, and party chat, along with what is displayed on your avatar. To change it, click the Edit button above. If instead you want to change your username, go to",
     "displayNameDescription2": "Ajustes->Sitio",
     "displayNameDescription3": "y mira en la sección de Registro.",
     "unequipBattleGear": "Quitarse el equipo de batalla",
@@ -204,6 +206,7 @@
     "hideQuickAllocation": "Esconder la asignación de puntos",
     "quickAllocationLevelPopover": "Cada nivel te da un Punto para asignar a la Estadística que quieras. Puedes hacerlo manualmente o dejar que el juego decida por ti, utilizando una de las opciones de Asignación Automática que encontrarás en Icono de Usuario > Estadísticas.",
     "notEnoughAttrPoints": "No tienes suficientes puntos de atributo.",
+    "classNotSelected": "Debes seleccionar tu Clase antes de asignar los Puntos de Estadística.",
     "style": "Estilo",
     "facialhair": "Facial",
     "photo": "Foto",
@@ -219,6 +222,6 @@
     "bodyAccess": "Accesorio para el Cuerpo",
     "mainHand": "Mano dominante",
     "offHand": "Mano secundaria",
-    "statPoints": "Stat Points",
+    "statPoints": "Puntos de Atributo",
     "pts": "puntos"
 }

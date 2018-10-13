@@ -38,7 +38,6 @@
     "messageInsufficientGems": "Nicht genügend Edelsteine!",
     "messageAuthPasswordMustMatch": ":password und :confirmPassword stimmen nicht überein",
     "messageAuthCredentialsRequired": ":username, :email, :password, :confirmPassword erforderlich",
-    "messageAuthUsernameTaken": "Anmeldename ist schon vergeben",
     "messageAuthEmailTaken": "E-Mail existiert bereits",
     "messageAuthNoUserFound": "Kein Benutzer gefunden.",
     "messageAuthMustBeLoggedIn": "Du musst angemeldet sein.",
@@ -61,5 +60,6 @@
     "messageNotAbleToBuyInBulk": "Dieser Gegenstand kann nicht in größeren Mengen als 1 gekauft werden.",
     "notificationsRequired": "Mitteilungs-IDs werden benötigt.",
     "unallocatedStatsPoints": "Du kannst <span class=\"notification-bold-blue\"><%= points %> Attributpunkt(e)</span> verteilen",
-    "beginningOfConversation": "Dies ist der Anfang Deiner Unterhaltung mit<%= userName %>. Denke an einen freundlichen und respektvollen Umgang und halte Dich an die Community-Richtlinien!"
+    "beginningOfConversation": "Dies ist der Anfang Deiner Unterhaltung mit<%= userName %>. Denke an einen freundlichen und respektvollen Umgang und halte Dich an die Community-Richtlinien!",
+    "messageDeletedUser": "Sorry, this user has deleted their account."
 }

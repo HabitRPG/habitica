@@ -38,7 +38,6 @@
     "messageInsufficientGems": "Niet genoeg edelstenen!",
     "messageAuthPasswordMustMatch": ":password en :confirmPassword komen niet overeen",
     "messageAuthCredentialsRequired": ":username, :email, :password, :confirmPassword required",
-    "messageAuthUsernameTaken": "Loginnaam al bezet",
     "messageAuthEmailTaken": "E-mailadres al in gebruik",
     "messageAuthNoUserFound": "Geen gebruiker gevonden.",
     "messageAuthMustBeLoggedIn": "Je moet ingelogd zijn.",
@@ -61,5 +60,6 @@
     "messageNotAbleToBuyInBulk": "Dit voorwerp kan niet worden gekocht in hoeveelheden boven 1.",
     "notificationsRequired": "Notificatie-id's zijn vereist.",
     "unallocatedStatsPoints": "Je hebt <span class=\"notification-bold-blue\"><%= points %> niet toegekende statuspunten</span>",
-    "beginningOfConversation": "Dit is het begin van je gesprek met <%= userName %>. Denk eraan aardig en respectvol te zijn en de gemeenschapsrichtlijnen te volgen!"
+    "beginningOfConversation": "Dit is het begin van je gesprek met <%= userName %>. Denk eraan aardig en respectvol te zijn en de gemeenschapsrichtlijnen te volgen!",
+    "messageDeletedUser": "Soory, deze gebruiker heeft zijn account verwijderd."
 }

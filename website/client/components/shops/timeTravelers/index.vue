@@ -240,8 +240,10 @@
   import isPinned from 'common/script/libs/isPinned';
   import shops from 'common/script/libs/shops';
 
+  import pinUtils from 'client/mixins/pinUtils';
 
   export default {
+    mixins: [pinUtils],
     components: {
       ShopItem,
       Item,
@@ -368,11 +370,6 @@
       },
       getGrouped (entries) {
         return _groupBy(entries, 'group');
-      },
-      togglePinned (item) {
-        if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
-          this.$parent.showUnpinNotification(item);
-        }
       },
       selectItemToBuy (item) {
         this.$root.$emit('buyModal::showItem', item);

@@ -8,7 +8,11 @@ describe('POST /user/allocate', () => {
   let user;
 
   beforeEach(async () => {
-    user = await generateUser();
+    user = await generateUser({
+      'stats.lvl': 10,
+      'flags.classSelected': true,
+      'preferences.disableClasses': false,
+    });
   });
 
   // More tests in common code unit tests
@@ -28,6 +32,16 @@ describe('POST /user/allocate', () => {
         code: 401,
         error: 'NotAuthorized',
         message: t('notEnoughAttrPoints'),
+      });
+  });
+
+  it('returns an error if the user hasn\'t selected class', async () => {
+    await user.update({'flags.classSelected': false});
+    await expect(user.post('/user/allocate'))
+      .to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('classNotSelected'),
       });
   });
 
