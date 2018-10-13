@@ -88,6 +88,7 @@ import axios from 'axios';
 import moment from 'moment';
 import throttle from 'lodash/throttle';
 
+import { toNextLevel } from '../../common/script/statHelpers';
 import { shouldDo } from '../../common/script/cron';
 import { mapState } from 'client/libs/store';
 import notifications from 'client/mixins/notifications';
@@ -186,10 +187,8 @@ export default {
     ...mapState({
       user: 'user.data',
       userHp: 'user.data.stats.hp',
-      userExp: 'user.data.stats.exp',
       userGp: 'user.data.stats.gp',
       userMp: 'user.data.stats.mp',
-      userLvl: 'user.data.stats.lvl',
       userNotifications: 'user.data.notifications',
       userAchievements: 'user.data.achievements', // @TODO: does this watch deeply?
       armoireEmpty: 'user.data.flags.armoireEmpty',
@@ -203,6 +202,9 @@ export default {
     },
     invitedToQuest () {
       return this.user.party.quest.RSVPNeeded && !this.user.party.quest.completed;
+    },
+    userExpAndLvl () {
+      return [this.user.stats.exp, this.user.stats.lvl];
     },
   },
   watch: {
@@ -221,11 +223,6 @@ export default {
       this.hp(after - before, 'hp');
 
       if (after < 0) this.playSound('Minus_Habit');
-    },
-    userExp (after, before) {
-      if (after === before) return;
-      if (this.user.stats.lvl === 0) return;
-      this.exp(after - before);
     },
     userGp (after, before) {
       if (after === before) return;
@@ -252,10 +249,6 @@ export default {
       const mana = after - before;
       this.mp(mana);
     },
-    userLvl (after, before) {
-      if (after <= before || this.$store.state.isRunningYesterdailies) return;
-      this.showLevelUpNotifications(after);
-    },
     userClassSelect (after) {
       if (this.user.needsCron) return;
       if (!after) return;
@@ -278,6 +271,9 @@ export default {
     invitedToQuest (after) {
       if (after !== true) return;
       this.$root.$emit('bv::show::modal', 'quest-invitation');
+    },
+    userExpAndLvl (after, before) {
+      this.displayUserExpAndLvlNotifications(after[0], before[0], after[1], before[1]);
     },
   },
   mounted () {
@@ -310,6 +306,35 @@ export default {
     document.removeEventListener('keydown', this.checkNextCron);
   },
   methods: {
+    displayUserExpAndLvlNotifications (afterExp, beforeExp, afterLvl, beforeLvl) {
+      if (afterExp === beforeExp && afterLvl === beforeLvl) return;
+
+      // XP evaluation
+      if (afterExp !== beforeExp) {
+        if (this.user.stats.lvl === 0) return;
+
+        const lvlUps = afterLvl - beforeLvl;
+        let exp = afterExp - beforeExp;
+
+        if (lvlUps > 0) {
+          let level = Math.trunc(beforeLvl);
+          exp += toNextLevel(level);
+
+          // loop if more than 1 lvl up
+          for (let i = 1; i < lvlUps; i += 1) {
+            level += 1;
+            exp += toNextLevel(level);
+          }
+        }
+        this.exp(exp);
+      }
+
+      // Lvl evaluation
+      if (afterLvl !== beforeLvl)  {
+        if (afterLvl <= beforeLvl || this.$store.state.isRunningYesterdailies) return;
+        this.showLevelUpNotifications(afterLvl);
+      }
+    },
     checkUserAchievements () {
       if (this.user.needsCron) return;
 
