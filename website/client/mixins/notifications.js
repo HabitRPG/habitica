@@ -58,8 +58,8 @@ export default {
         itemName,
       }));
     },
-    streak (val) {
-      this.notify(`${val}`, 'streak');
+    streak (val, onClick) {
+      this.notify(`${val}`, 'streak', null, null, onClick, typeof onClick === 'undefined');
     },
     text (val, onClick, timeout) {
       if (!val) return;

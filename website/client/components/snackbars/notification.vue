@@ -33,7 +33,7 @@ transition(name="fade")
 
 <style lang="scss" scoped>
   .notification {
-    border-radius: 1000px;
+    border-radius: 30px;
     background-color: #24cc8f;
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
     color: white;
@@ -43,7 +43,6 @@ transition(name="fade")
   }
 
   .info {
-    max-height: 56px;
     background-color: #46a7d9;
     padding-top: .5em;
   }
@@ -146,18 +145,17 @@ export default {
   beforeDestroy () {
     clearTimeout(this.timer);
   },
+  watch: {
+    show () {
+      this.$store.dispatch('snackbars:remove', this.notification);
+    },
+  },
   methods: {
     handleOnClick () {
       if (typeof this.notification.onClick === 'function') {
         this.notification.onClick();
       }
-
       this.show = false;
-    },
-  },
-  watch: {
-    show () {
-      this.$store.dispatch('snackbars:remove', this.notification);
     },
   },
   computed: {
