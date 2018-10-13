@@ -54,7 +54,7 @@ div
                 span.text {{ $t('viewProgress') }}
             b-dropdown-item(@click='removeMember(member, index)', v-if='shouldShowLeaderFunctions(member._id)')
               span.dropdown-icon-item
-                .svg-icon.inline(v-html="icons.removeIcon", v-if='isLeader')
+                .svg-icon.inline(v-html="icons.removeIcon")
                 span.text {{$t('removeMember')}}
       .row(v-if='isLoadMoreAvailable')
         .col-12.text-center
