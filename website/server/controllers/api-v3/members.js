@@ -32,14 +32,14 @@ let api = {};
  *
  * @apiSuccess {Object} data The member object
  *
- * @apiSuccess (Object) data.inbox Basic information about person's inbox
- * @apiSuccess (Object) data.stats Includes current stats and buffs
- * @apiSuccess (Object) data.profile Includes name
- * @apiSuccess (Object) data.preferences Includes info about appearance and public prefs
- * @apiSuccess (Object) data.party Includes basic info about current party and quests
- * @apiSuccess (Object) data.items Basic inventory information includes quests, food, potions, eggs, gear, special items
- * @apiSuccess (Object) data.achievements Lists current achievements
- * @apiSuccess (Object) data.auth Includes latest timestamps
+ * @apiSuccess {Object} data.inbox Basic information about person's inbox
+ * @apiSuccess {Object} data.stats Includes current stats and buffs
+ * @apiSuccess {Object} data.profile Includes name
+ * @apiSuccess {Object} data.preferences Includes info about appearance and public prefs
+ * @apiSuccess {Object} data.party Includes basic info about current party and quests
+ * @apiSuccess {Object} data.items Basic inventory information includes quests, food, potions, eggs, gear, special items
+ * @apiSuccess {Object} data.achievements Lists current achievements
+ * @apiSuccess {Object} data.auth Includes latest timestamps
  *
  * @apiSuccessExample {json} Success-Response:
  * {

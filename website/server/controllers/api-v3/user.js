@@ -62,7 +62,7 @@ let api = {};
  * Tags
  * TasksOrder (list of all ids for dailys, habits, rewards and todos)
  *
- * @apiParam (Query) {UUID} userFields A list of comma separated user fields to be returned instead of the entire document. Notifications are always returned.
+ * @apiParam (Query) {String} [userFields] A list of comma separated user fields to be returned instead of the entire document. Notifications are always returned.
  *
  * @apiExample {curl} Example use:
  * curl -i https://habitica.com/api/v3/user?userFields=achievements,items.mounts
