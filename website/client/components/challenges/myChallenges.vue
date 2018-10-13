@@ -24,6 +24,10 @@
         p(v-once) {{$t('challengeDescription2')}}
 
     .row
+      .no-challenges.text-center.col-md-6.offset-3(v-if='!loading && challenges.length > 0 && filteredChallenges.length === 0')
+        h2(v-once) {{$t('noChallengeMatchFilters')}}
+
+    .row
       .col-12.col-md-6(v-for='challenge in filteredChallenges')
         challenge-item(:challenge='challenge')
 </template>

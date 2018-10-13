@@ -24,6 +24,10 @@
         p(v-once) {{$t('noGuildsParagraph2')}}
 
     .row
+      .no-guilds.text-center.col-md-6.offset-md-3(v-if='!loading && guilds.length > 0 && filteredGuilds.length === 0')
+        h2(v-once) {{$t('noGuildsMatchFilters')}}
+
+    .row
       .col-md-12
         public-guild-item(v-for="guild in filteredGuilds", :key='guild._id', :guild="guild", :display-gem-bank='true')
 </template>
