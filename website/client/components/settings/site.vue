@@ -132,7 +132,7 @@
             .form-group
               input#changeDisplayname.form-control(type='text', :placeholder="$t('newDisplayName')", v-model='temporaryDisplayName', :class='{"is-invalid input-invalid": displayNameInvalid}')
               .mb-3(v-if="displayNameIssues.length > 0")
-                .input-error.text-center(v-for="issue in displayNameIssues") {{ issue }}
+                .input-error(v-for="issue in displayNameIssues") {{ issue }}
             button.btn.btn-primary(type='submit', @click='changeDisplayName(temporaryDisplayName)', :disabled='displayNameCannotSubmit') {{ $t('submit') }}
 
           h5 {{ $t('changeUsername') }}
