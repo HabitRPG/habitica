@@ -83,10 +83,6 @@
     width: 100%;
   }
 
-  .input-error .input-error {
-    margin-bottom: 1rem;
-  }
-
   .input-group-prepend {
     margin-right: 0px;
   }
@@ -155,7 +151,7 @@
       },
       usernameCannotSubmit () {
         if (this.temporaryUsername.length <= 1) return true;
-        return !this.usernameValid;
+        return !this.usernameValid || !this.displayNameValid;
       },
       usernameInvalid () {
         if (this.temporaryUsername.length <= 1) return false;
