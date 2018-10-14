@@ -20,7 +20,6 @@ import {
 } from '../../libs/email';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
 import { achievements } from '../../../../website/common/';
-import {chatReporterFactory} from '../../libs/chatReporting/chatReporterFactory';
 
 let api = {};
 

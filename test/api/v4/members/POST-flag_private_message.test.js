@@ -1,7 +1,7 @@
 import {
   generateUser,
   translate as t,
-} from '../../../../helpers/api-integration/v3';
+} from '../../../helpers/api-integration/v4';
 
 describe('POST /members/flag-private-message/:messageId', () => {
   let userToSendMessage;
@@ -19,9 +19,9 @@ describe('POST /members/flag-private-message/:messageId', () => {
       toUserId: receiver._id,
     });
 
-    let updatedSender = await userToSendMessage.get('/user');
+    let senderMessages = await userToSendMessage.get('/inbox/messages');
 
-    let sendersMessageInSendersInbox = _.find(updatedSender.inbox.messages, (message) => {
+    let sendersMessageInSendersInbox = _.find(senderMessages, (message) => {
       return message.uuid === receiver._id && message.text === messageToSend;
     });
 
@@ -37,9 +37,9 @@ describe('POST /members/flag-private-message/:messageId', () => {
       toUserId: receiver._id,
     });
 
-    let updatedReceiver = await receiver.get('/user');
+    let receiversMessages = await receiver.get('/inbox/messages');
 
-    let sendersMessageInReceiversInbox = _.find(updatedReceiver.inbox.messages, (message) => {
+    let sendersMessageInReceiversInbox = _.find(receiversMessages, (message) => {
       return message.uuid === userToSendMessage._id && message.text === messageToSend;
     });
 
@@ -55,9 +55,9 @@ describe('POST /members/flag-private-message/:messageId', () => {
       toUserId: receiver._id,
     });
 
-    let updatedReceiver = await receiver.get('/user');
+    let receiversMessages = await receiver.get('/inbox/messages');
 
-    let sendersMessageInReceiversInbox = _.find(updatedReceiver.inbox.messages, (message) => {
+    let sendersMessageInReceiversInbox = _.find(receiversMessages, (message) => {
       return message.uuid === userToSendMessage._id && message.text === messageToSend;
     });
 

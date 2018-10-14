@@ -63,7 +63,7 @@ describe('POST /chat/:chatId/flag', () => {
 
     /* eslint-disable camelcase */
     expect(IncomingWebhook.prototype.send).to.be.calledWith({
-      text: `${user.profile.name} (${user.id}; language: en) flagged a message`,
+      text: `${user.profile.name} (${user.id}; language: en) flagged a group message`,
       attachments: [{
         fallback: 'Flag Message',
         color: 'danger',
@@ -98,7 +98,7 @@ describe('POST /chat/:chatId/flag', () => {
 
     /* eslint-disable camelcase */
     expect(IncomingWebhook.prototype.send).to.be.calledWith({
-      text: `${newUser.profile.name} (${newUser.id}; language: en) flagged a message`,
+      text: `${newUser.profile.name} (${newUser.id}; language: en) flagged a group message`,
       attachments: [{
         fallback: 'Flag Message',
         color: 'danger',
