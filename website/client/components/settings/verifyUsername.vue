@@ -28,12 +28,13 @@
         .col-3
           label(for='username') {{ $t('username') }}
         .col-9
-          input#username.form-control(
-            type='text',
-            :placeholder="$t('newUsername')",
-            v-model='temporaryUsername',
-            @blur='restoreEmptyUsername()',
-            :class='{"is-invalid input-invalid": usernameInvalid, "input-valid": usernameValid}')
+          .input-group-prepend.input-group-text @
+            input#username.form-control(
+              type='text',
+              :placeholder="$t('newUsername')",
+              v-model='temporaryUsername',
+              @blur='restoreEmptyUsername()',
+              :class='{"is-invalid input-invalid": usernameInvalid, "input-valid": usernameValid}')
     .mb-3(v-if="usernameIssues.length > 0")
       .input-error.text-center(v-for="issue in usernameIssues") {{ issue }}
     .small.text-center {{ $t('usernameLimitations') }}
@@ -86,6 +87,17 @@
     margin-bottom: 1rem;
   }
 
+  .input-group-prepend {
+    margin-right: 0px;
+  }
+
+  .input-group-text {
+    border: 0px;
+    background-color: $white;
+    color: $gray-300;
+    padding: 0rem 0rem 0rem 0.75rem;
+  }
+
   label {
     font-weight: bold;
     margin-bottom: 0rem;
@@ -115,6 +127,11 @@
     margin-right: -3rem;
     padding: 1rem 4rem 1rem 4rem;
   }
+
+  #username {
+    padding-left: 0.25rem;
+  }
+
 </style>
 
 <script>
