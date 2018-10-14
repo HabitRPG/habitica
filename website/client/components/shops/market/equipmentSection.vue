@@ -62,8 +62,7 @@ layout-section(:title="$t('equipment')")
   import svgHealer from 'assets/svg/healer.svg';
 
   import _filter from 'lodash/filter';
-  import _sortBy from 'lodash/sortBy';
-  import _reverse from 'lodash/reverse';
+  import _orderBy from 'lodash/orderBy';
   import pinUtils from '../../../mixins/pinUtils';
 
   const sortGearTypes = ['sortByType', 'sortByPrice', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'].map(g => ({id: g}));
@@ -120,16 +119,11 @@ layout-section(:title="$t('equipment')")
       sortedGearItems () {
         let result = this.filterGearItems();
         let selectedSortKey = sortGearTypeMap[this.selectedSortGearBy.id];
+        let sortingByStat = selectedSortKey !== 'type' && selectedSortKey !== 'value';
+        let order = sortingByStat ? 'desc' : 'asc';
 
-        result = _sortBy(result, selectedSortKey);
-
-        if (selectedSortKey !== 'type' && selectedSortKey !== 'value') {
-          // sorting by a stat, need to reverse to get high-to-low sort
-          result = _reverse(result);
-        }
-
-        // put unlocked items first
-        return _sortBy(result, (item) => item.locked);
+        // split into unlocked and locked, then apply selected sort
+        return _orderBy(result, ['locked', selectedSortKey], ['asc', order]);
       },
     },
     methods: {
