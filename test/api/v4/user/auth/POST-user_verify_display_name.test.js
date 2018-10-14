@@ -32,26 +32,26 @@ describe('POST /user/auth/verify-display-name', async () => {
 
     it('errors if display name is a slur', async () => {
       await expect(user.post(ENDPOINT, {
-        username: 'TESTPLACEHOLDERSLURWORDHERE',
+        displayName: 'TESTPLACEHOLDERSLURWORDHERE',
       })).to.eventually.eql({ isUsable: false, issues: [t('displaynameIssueSlur')] });
     });
 
     it('errors if display name contains a slur', async () => {
       await expect(user.post(ENDPOINT, {
-        username: 'TESTPLACEHOLDERSLURWORDHERE_otherword',
+        displayName: 'TESTPLACEHOLDERSLURWORDHERE_otherword',
       })).to.eventually.eql({ isUsable: false, issues: [t('displaynameIssueLength'), t('displaynameIssueSlur')] });
       await expect(user.post(ENDPOINT, {
-        username: 'something_TESTPLACEHOLDERSLURWORDHERE',
+        displayName: 'something_TESTPLACEHOLDERSLURWORDHERE',
       })).to.eventually.eql({ isUsable: false, issues: [t('displaynameIssueLength'), t('displaynameIssueSlur')] });
       await expect(user.post(ENDPOINT, {
-        username: 'somethingTESTPLACEHOLDERSLURWORDHEREotherword',
+        displayName: 'somethingTESTPLACEHOLDERSLURWORDHEREotherword',
       })).to.eventually.eql({ isUsable: false, issues: [t('displaynameIssueLength'), t('displaynameIssueSlur')] });
     });
 
     it('errors if display name has incorrect length', async () => {
       await expect(user.post(ENDPOINT, {
-        username: 'this is a very long display name over 30 characters',
-      })).to.eventually.eql({ isUsable: false, issues: [t('displayNameIssueLength')] });
+        displayName: 'this is a very long display name over 30 characters',
+      })).to.eventually.eql({ isUsable: false, issues: [t('displaynameIssueLength')] });
     });
   });
 });
