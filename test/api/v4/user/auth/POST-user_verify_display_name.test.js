@@ -39,13 +39,13 @@ describe('POST /user/auth/verify-display-name', async () => {
     it('errors if display name contains a slur', async () => {
       await expect(user.post(ENDPOINT, {
         username: 'TESTPLACEHOLDERSLURWORDHERE_otherword',
-      })).to.eventually.eql({ isUsable: false, issues: [t('displayNameIssueLength'), t('displaynameIssueSlur')] });
+      })).to.eventually.eql({ isUsable: false, issues: [t('displaynameIssueLength'), t('displaynameIssueSlur')] });
       await expect(user.post(ENDPOINT, {
         username: 'something_TESTPLACEHOLDERSLURWORDHERE',
-      })).to.eventually.eql({ isUsable: false, issues: [t('displayNameIssueLength'), t('displaynameIssueSlur')] });
+      })).to.eventually.eql({ isUsable: false, issues: [t('displaynameIssueLength'), t('displaynameIssueSlur')] });
       await expect(user.post(ENDPOINT, {
         username: 'somethingTESTPLACEHOLDERSLURWORDHEREotherword',
-      })).to.eventually.eql({ isUsable: false, issues: [t('displayNameIssueLength'), t('displaynameIssueSlur')] });
+      })).to.eventually.eql({ isUsable: false, issues: [t('displaynameIssueLength'), t('displaynameIssueSlur')] });
     });
 
     it('errors if display name has incorrect length', async () => {
