@@ -79,8 +79,8 @@ async function registerLocal (req, res, { isV3 = false }) {
       notEmpty: true,
       errorMessage: res.t('missingUsername'),
       // TODO use the constants in the error message above
-      isLength: {options: {min: USERNAME_LENGTH_MIN, max: USERNAME_LENGTH_MAX}, errorMessage: res.t('usernameWrongLength')},
-      matches: {options: /^[-_a-zA-Z0-9]+$/, errorMessage: res.t('usernameBadCharacters')},
+      isLength: {options: {min: USERNAME_LENGTH_MIN, max: USERNAME_LENGTH_MAX}, errorMessage: res.t('usernameIssueLength')},
+      matches: {options: /^[-_a-zA-Z0-9]+$/, errorMessage: res.t('usernameIssueInvalidCharacters')},
     },
     email: {
       notEmpty: true,

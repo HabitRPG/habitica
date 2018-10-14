@@ -28,7 +28,7 @@ function usernameContainsInvalidCharacters (username) {
 
 export function verifyDisplayName (displayName, res) {
   let issues = [];
-  if (displayName.length < 1 || displayName.length > 30) issues.push(res.t('displayNameWrongLength'));
+  if (displayName.length < 1 || displayName.length > 30) issues.push(res.t('displaynameIssueLength'));
   if (nameContainsSlur(displayName)) issues.push(res.t('displaynameIssueSlur'));
 
   return issues;
