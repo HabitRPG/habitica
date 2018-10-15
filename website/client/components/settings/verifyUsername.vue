@@ -20,7 +20,7 @@
             :placeholder="$t('newDisplayName')",
             v-model='temporaryDisplayName',
             @blur='restoreEmptyDisplayName()',
-            :class='{"is-invalid input-invalid": displayNameInvalid, "input-valid": displayNameValid}')
+            :class='{"is-invalid input-invalid": displayNameInvalid, "input-valid": displayNameValid, "text-darker": temporaryDisplayName.length > 0}')
     .mb-3(v-if="displayNameIssues.length > 0")
       .input-error.text-center(v-for="issue in displayNameIssues") {{ issue }}
     .form-group
@@ -34,7 +34,7 @@
               :placeholder="$t('newUsername')",
               v-model='temporaryUsername',
               @blur='restoreEmptyUsername()',
-              :class='{"is-invalid input-invalid": usernameInvalid, "input-valid": usernameValid}')
+              :class='{"is-invalid input-invalid": usernameInvalid, "input-valid": usernameValid, "text-darker": temporaryUsername.length > 0}')
     .mb-3(v-if="usernameIssues.length > 0")
       .input-error.text-center(v-for="issue in usernameIssues") {{ issue }}
     .small.text-center {{ $t('usernameLimitations') }}
@@ -44,10 +44,19 @@
 </template>
 
 <style lang="scss">
-  #verify-username___BV_modal_outer_ .modal-content {
-    width: 566px;
-    padding-left: 2rem;
-    padding-right: 2rem;
+  #verify-username___BV_modal_outer_ {
+    .modal-content {
+      height: 620px;
+      width: 566px;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+    .modal-dialog   {
+      -webkit-transform: translate(-5%, calc(50vh - 60%));
+      -ms-transform: translate(0, 50vh) translate(-5%, -60%);
+      -o-transform: translate(-5%, calc(50vh - 60%));
+      transform: translate(0, 50vh) translate(-5%, -60%);
+    }
   }
 </style>
 
@@ -95,6 +104,7 @@
   }
 
   label {
+    color: $gray-100;
     font-weight: bold;
     margin-bottom: 0rem;
     margin-left: 1rem;
@@ -114,6 +124,10 @@
 
   .small {
     color: $gray-200;
+  }
+
+  .text-darker {
+    color: $gray-50;
   }
 
   .tos-footer {

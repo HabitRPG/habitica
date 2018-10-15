@@ -90,12 +90,14 @@ api.verifyUsername = {
 
     const issues = verifyUsername(chosenUsername, res);
 
-    const existingUser = await User.findOne({
-      'auth.local.lowerCaseUsername': chosenUsername.toLowerCase(),
-    }, {auth: 1}).exec();
+    if (issues.length < 1) {
+      const existingUser = await User.findOne({
+        'auth.local.lowerCaseUsername': chosenUsername.toLowerCase(),
+      }, {auth: 1}).exec();
 
-    if (existingUser) {
-      if (!user ||  existingUser._id !== user._id) issues.push(res.t('usernameTaken'));
+      if (existingUser) {
+        if (!user ||  existingUser._id !== user._id) issues.push(res.t('usernameTaken'));
+      }
     }
 
     if (issues.length > 0) {
