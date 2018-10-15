@@ -434,7 +434,7 @@ describe('payments/index', () => {
         fakeClock.restore();
       });
 
-      it('does not awards mystery items when not within the timeframe for a mystery item', async () => {
+      it('does not add a notification for mystery items if none was awarded', async () => {
         const noMysteryItemTimeframe = 1462183920000; // May 2nd 2016
         let fakeClock = sinon.useFakeTimers(noMysteryItemTimeframe);
         data = { paymentMethod: 'PaymentMethod', user, sub: { key: 'basic_3mo' } };
@@ -442,6 +442,7 @@ describe('payments/index', () => {
         await api.createSubscription(data);
 
         expect(user.purchased.plan.mysteryItems).to.have.a.lengthOf(0);
+        expect(user.notifications.find(n => n.type === 'NEW_MYSTERY_ITEMS')).to.be.undefined;
 
         fakeClock.restore();
       });
