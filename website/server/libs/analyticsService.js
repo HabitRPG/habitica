@@ -70,8 +70,8 @@ let _formatUserData = (user) => {
 
   properties.balance = user.balance;
   properties.balanceGemAmount = properties.balance * 4;
-
   properties.tutorialComplete = user.flags && user.flags.tour && user.flags.tour.intro === -2;
+  properties.verifiedUsername = user.flags && user.flags.verifiedUsername;
 
   if (user.habits && user.dailys && user.todos && user.rewards) {
     properties['Number Of Tasks'] = {
@@ -90,9 +90,6 @@ let _formatUserData = (user) => {
     properties.subscription = user.purchased.plan.planId;
   }
 
-  if (user._ABtest) {
-    properties.ABtest = user._ABtest;
-  }
   if (user._ABtests) {
     properties.ABtests = toArray(user._ABtests);
   }

@@ -619,10 +619,10 @@
     "questKangarooUnlockText": " Déverrouille l'achat d’œufs de kangourou au Marché ",
     "forestFriendsText": "Lot de quête des amis sylvains",
     "forestFriendsNotes": "Contient \"L'esprit du printemps\", \"La bête hérissée\" et \"L'arbre tortueux\". Disponible jusqu'au 30 Septembre.",
-    "questAlligatorText": "The Insta-Gator",
-    "questAlligatorNotes": "“Crikey!” exclaims @gully. “An Insta-Gator in its natural habitat! Careful, it distracts its prey with things that seem urgent THIS INSTANT, and it feeds on the unchecked Dailies that result.” You fall silent to avoid attracting its attention, but to no avail. The Insta-Gator spots you and charges! Distracting voices rise up from Swamps of Stagnation, grabbing for your attention: “Read this post! See this photo! Pay attention to me THIS INSTANT!” You scramble to mount a counterattack, completing your Dailies and bolstering your good Habits to fight off the dreaded Insta-Gator.",
-    "questAlligatorCompletion": "With your attention focused on what’s important and not the Insta-Gator’s distractions, the Insta-Gator flees. Victory! “Are those eggs? They look like gator eggs to me,” asks @mfonda. “If we care for them correctly, they’ll be loyal pets or faithful steeds,” answers @UncommonCriminal, handing you three to care for. Let’s hope so, or else the Insta-Gator might make a return…",
-    "questAlligatorBoss": "Insta-Gator",
+    "questAlligatorText": "L'insti-Gator",
+    "questAlligatorNotes": "\"Crikey !\" s'exclame @gully. \"Un Instia-Gator dans son habitat naturel ! Attention, il distrait sa proie avec des choses qui semblent urgentes A CET INSTANT, et il se nourrit des quotidiennes non contrôlées qui en résultent.\" Vous vous taisez pour éviter d'attirer son attention, mais en vain. L'Insti-Gator vous repère et charge ! Des voix distrayantes s'élèvent du marais de la stagnation, attirant votre attention : \"Lis ce post ! Regarde cette photo ! Fais attention à moi MAINTENANT !\" Vous vous précipitez pour monter une contre-attaque, complétant vos quotidiennes et renforçant vos bonnes habitudes pour combattre le redoutable Insti-Gator.",
+    "questAlligatorCompletion": "Avec votre attention concentrée sur ce qui est important et non sur les distractions de l'Insti-Gator, l'Insti-Gator fuit. Victoire ! \"Ce sont des oeufs ? Ils ressemblent à des œufs d'alligator pour moi \", demande @mfonda. \"Si nous prenons soin d'eux, ils seront des animaux de compagnie loyaux ou des coursiers fidèles\", répond @UncommonCriminal, vous en donnant trois à soigner. Espérons que oui, sinon l'Insti-Gator pourrait revenir...",
+    "questAlligatorBoss": "Insti-Gator",
     "questAlligatorDropAlligatorEgg": "Alligator (Œuf)",
-    "questAlligatorUnlockText": "Unlocks purchasable Alligator eggs in the Market"
+    "questAlligatorUnlockText": " Déverrouille l'achat d’œufs d'alligator au marché "
 }
