@@ -242,6 +242,7 @@ let schema = new Schema({
     cardReceived: {type: Boolean, default: false},
     warnedLowHealth: {type: Boolean, default: false},
     verifiedUsername: {type: Boolean, default: false},
+    isTrustedTestUser: {type: Boolean, default: false},
   },
 
   history: {

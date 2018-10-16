@@ -15,6 +15,7 @@ import moment from 'moment';
 import { loginSocial } from './social.js';
 import { loginRes } from './utils';
 import { verifyUsername } from '../user/validation';
+import nconf from 'nconf';
 
 const USERNAME_LENGTH_MIN = 1;
 const USERNAME_LENGTH_MAX = 20;
@@ -71,7 +72,12 @@ function hasBackupAuth (user, networkToRemove) {
   return hasAlternateNetwork;
 }
 
+const IS_TEST_SERVER = nconf.get('IS_TEST_SERVER');
+
 async function registerLocal (req, res, { isV3 = false }) {
+  if (IS_TEST_SERVER === true) {
+    throw new NotAuthorized(res.t('testServerNoRegistration'));
+  }
   const existingUser = res.locals.user; // If adding local auth to social user
 
   req.checkBody({

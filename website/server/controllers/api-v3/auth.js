@@ -67,11 +67,15 @@ api.registerLocal = {
  * @apiSuccess {String} data.apiToken The user's api token that must be used to authenticate requests.
  * @apiSuccess {Boolean} data.newUser Returns true if the user was just created (always false for local login).
  */
+const IS_TEST_SERVER = nconf.get('IS_TEST_SERVER');
 api.loginLocal = {
   method: 'POST',
   url: '/user/auth/local/login',
   middlewares: [],
   async handler (req, res) {
+    if (IS_TEST_SERVER === true) {
+      throw new NotAuthorized(res.t('testServerNoRegistration'));
+    }
     req.checkBody({
       username: {
         notEmpty: true,
