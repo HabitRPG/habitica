@@ -380,10 +380,7 @@ export default {
       modalStack: 'modalStack',
     }),
     navbarZIndexClass () {
-      if (this.modalStack.length > 0) {
-        return 'navbar-z-index-modal';
-      }
-      return 'navbar-z-index-normal';
+      return 'navbar-z-index-modal';
     },
   },
   mounted () {
