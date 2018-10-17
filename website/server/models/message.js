@@ -116,7 +116,7 @@ export function messageDefaults (msg, user) {
       contributor: user.contributor && user.contributor.toObject(),
       backer: user.backer && user.backer.toObject(),
       user: user.profile.name,
-      username: user.auth.local.username,
+      username: user.auth && user.auth.local && user.auth.local.username,
     });
   } else {
     message.uuid = 'system';
