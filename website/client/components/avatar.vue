@@ -48,7 +48,6 @@
 
   .avatar {
     width: 140px;
-    height: 147px;
     image-rendering: pixelated;
     position: relative;
     cursor: pointer;
