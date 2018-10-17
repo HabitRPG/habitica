@@ -13,7 +13,8 @@ div
       | {{msg.user}}
       .svg-icon(v-html="tierIcon", v-if='showShowTierStyle')
     p.time(v-b-tooltip="", :title="msg.timestamp | date")
-      span(v-if="msg.username") @{{ msg.username }} •
+      span.mr-1(v-if="msg.username") @{{ msg.username }}
+      span.mr-1(v-if="msg.username") •
       span {{ msg.timestamp | timeAgo }}
     .text(v-html='atHighlight(parseMarkdown(msg.text))')
     hr
@@ -29,13 +30,12 @@ div
         .svg-icon(v-html="icons.delete")
         | {{$t('delete')}}
       .ml-auto.d-flex
-        .action.liked.d-flex.align-items-center(v-if='likeCount > 0')
+        .action.d-flex.align-items-center.mr-0(@click='like()', v-if='likeCount > 0', :class='{active: msg.likes[user._id]}')
           .svg-icon(v-html="icons.liked")
-          | + {{ likeCount }}
-        .action.d-flex.align-items-center(@click='like()', v-if='!inbox && msg.likes', :class='{active: msg.likes[user._id]}')
+          | +{{ likeCount }}
+        .action.d-flex.align-items-center.mr-0(@click='like()', v-if='likeCount === 0', :class='{active: msg.likes[user._id]}')
           .svg-icon(v-html="icons.like")
           span(v-if='!msg.likes[user._id]') {{ $t('like') }}
-          span(v-if='msg.likes[user._id]') {{ $t('liked') }}
 </template>
 
 <style lang="scss">
@@ -47,6 +47,7 @@ div
 </style>
 
 <style lang="scss" scoped>
+  @import '~client/assets/scss/colors.scss';
   @import '~client/assets/scss/tiers.scss';
 
   .mentioned-icon {
@@ -72,7 +73,7 @@ div
   }
 
   .card-body {
-    padding: 1rem 1rem 0.5rem 1rem;
+    padding: 1.25rem 1.25rem 0.75rem 1.25rem;
 
     .leader {
       margin-bottom: 0;
@@ -81,7 +82,7 @@ div
     h3 { // this is the user name
       cursor: pointer;
       display: inline-block;
-      font-size: 14px;
+      font-size: 16px;
 
       .svg-icon {
         width: 10px;
@@ -108,25 +109,24 @@ div
     color: #878190;
     margin-right: 1em;
     font-size: 12px;
+
+    :hover {
+      cursor: pointer;
+    }
+
+    .svg-icon {
+      color: #A5A1AC;
+      margin-right: .2em;
+      width: 16px;
+    }
   }
 
-  .action:hover {
-    cursor: pointer;
-  }
+  .active {
+    color: $purple-300;
 
-  .liked:hover {
-    cursor: default;
-  }
-
-  .action .svg-icon {
-    margin-right: .2em;
-    width: 16px;
-    display: inline-block;
-    color: #A5A1AC;
-  }
-
-  .action.active, .active .svg-icon {
-    color: #46a7d9
+    .svg-icon {
+      color: $purple-400;
+    }
   }
 </style>
 
