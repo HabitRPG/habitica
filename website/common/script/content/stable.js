@@ -71,6 +71,7 @@ let specialPets = {
   'Orca-Base': 'orca',
   'Bear-Veteran': 'veteranBear',
   'Hippogriff-Hopeful': 'hopefulHippogriffPet',
+  'Fox-Veteran': 'veteranFox',
 };
 
 let specialMounts = {
