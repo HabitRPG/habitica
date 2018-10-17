@@ -25,6 +25,7 @@ div
   login-incentives(:data='notificationData')
   quest-completed
   quest-invitation
+  verify-username
 </template>
 
 <style lang='scss'>
@@ -118,6 +119,7 @@ import streak from './achievements/streak';
 import ultimateGear from './achievements/ultimateGear';
 import wonChallenge from './achievements/wonChallenge';
 import loginIncentives from './achievements/login-incentives';
+import verifyUsername from './settings/verifyUsername';
 
 const NOTIFICATIONS = {
   CHALLENGE_JOINED_ACHIEVEMENT: {
@@ -178,6 +180,7 @@ export default {
     dropsEnabled,
     contributor,
     loginIncentives,
+    verifyUsername,
   },
   data () {
     // Levels that already display modals and should not trigger generic Level Up
@@ -323,6 +326,8 @@ export default {
         this.goto('intro', 0);
       }, 2000);
 
+      this.forceVerifyUsername();
+
       this.runYesterDailies();
 
       // Do not remove the event listener as it's live for the entire app lifetime
@@ -445,7 +450,8 @@ export default {
         Promise.all([
           this.$store.dispatch('user:fetch', {forceLoad: true}),
           this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
-        ]).then(() => this.runYesterDailies());
+        ]).then(() => this.forceVerifyUsername())
+          .then(() => this.runYesterDailies());
       }
     }, 1000),
     scheduleNextCron () {
@@ -464,6 +470,11 @@ export default {
       // Setup a listener that executes 10 seconds after the next cron time
       this.nextCron = Number(nextCron.format('x'));
       this.$store.state.isRunningYesterdailies = false;
+    },
+    forceVerifyUsername () {
+      if (this.user.flags.verifiedUsername) return;
+
+      this.$root.$emit('bv::show::modal', 'verify-username');
     },
     async runYesterDailies () {
       if (this.$store.state.isRunningYesterdailies) return;
