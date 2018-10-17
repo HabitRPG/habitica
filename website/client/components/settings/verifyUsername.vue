@@ -40,13 +40,15 @@
     .small.text-center {{ $t('usernameLimitations') }}
     .row.justify-content-center
       button.btn.btn-primary(type='submit', @click='submitNames()' :disabled='usernameCannotSubmit') {{ $t('saveAndConfirm') }}
+    .scene_veteran_pets.center-block
+    .small.text-center.mb-3 {{ $t('verifyUsernameVeteranPet') }}
     .small.text-center.tos-footer(v-html="$t('usernameTOSRequirements')")
 </template>
 
 <style lang="scss">
   #verify-username___BV_modal_outer_ {
     .modal-content {
-      height: 620px;
+      height: 650px;
       width: 566px;
       padding-left: 2rem;
       padding-right: 2rem;
@@ -64,7 +66,11 @@
   @import '~client/assets/scss/colors.scss';
 
   button {
-    margin: 2rem;
+    margin: 1rem;
+  }
+
+  .center-block {
+    margin: 0 auto 1em auto;
   }
 
   .col-3 {
