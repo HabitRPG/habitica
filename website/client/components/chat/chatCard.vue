@@ -4,35 +4,47 @@ div
   .message-hidden(v-if='msg.flagCount === 1 && user.contributor.admin') Message flagged once, not hidden
   .message-hidden(v-if='msg.flagCount > 1 && user.contributor.admin') Message hidden
   .card-body
-      h3.leader(
-        :class='userLevelStyle(msg)',
-        @click="showMemberModal(msg.uuid)",
-        v-b-tooltip.hover.top="tierTitle",
-      )
-        | {{msg.user}}
-        .svg-icon(v-html="tierIcon", v-if='showShowTierStyle')
-      p.time(v-b-tooltip="", :title="msg.timestamp | date") {{msg.timestamp | timeAgo}}
-      .text(v-markdown='msg.text')
-      hr
-      div(v-if='msg.id')
-        .action(@click='like()', v-if='!inbox && msg.likes', :class='{active: msg.likes[user._id]}')
+    h3.leader(
+      :class='userLevelStyle(msg)',
+      @click="showMemberModal(msg.uuid)",
+      v-b-tooltip.hover.top="tierTitle",
+      v-if="msg.user"
+    )
+      | {{msg.user}}
+      .svg-icon(v-html="tierIcon", v-if='showShowTierStyle')
+    p.time(v-b-tooltip="", :title="msg.timestamp | date")
+      span(v-if="msg.username") @{{ msg.username }} •
+      span {{ msg.timestamp | timeAgo }}
+    .text(v-html='atHighlight(parseMarkdown(msg.text))')
+    hr
+    .d-flex(v-if='msg.id')
+      .action.d-flex.align-items-center(v-if='!inbox', @click='copyAsTodo(msg)')
+        .svg-icon(v-html="icons.copy")
+        div {{$t('copyAsTodo')}}
+      .action.d-flex.align-items-center(v-if='!inbox && user.flags.communityGuidelinesAccepted && msg.uuid !== "system"', @click='report(msg)')
+        .svg-icon(v-html="icons.report")
+        div {{$t('report')}}
+        // @TODO make flagging/reporting work in the inbox. NOTE: it must work even if the communityGuidelines are not accepted and it MUST work for messages that you have SENT as well as received. -- Alys
+      .action.d-flex.align-items-center(v-if='msg.uuid === user._id || inbox || user.contributor.admin', @click='remove()')
+        .svg-icon(v-html="icons.delete")
+        | {{$t('delete')}}
+      .ml-auto.d-flex
+        .action.liked.d-flex.align-items-center(v-if='likeCount > 0')
+          .svg-icon(v-html="icons.liked")
+          | + {{ likeCount }}
+        .action.d-flex.align-items-center(@click='like()', v-if='!inbox && msg.likes', :class='{active: msg.likes[user._id]}')
           .svg-icon(v-html="icons.like")
           span(v-if='!msg.likes[user._id]') {{ $t('like') }}
           span(v-if='msg.likes[user._id]') {{ $t('liked') }}
-        span.action(v-if='!inbox', @click='copyAsTodo(msg)')
-          .svg-icon(v-html="icons.copy")
-          | {{$t('copyAsTodo')}}
-        span.action(v-if='!inbox && user.flags.communityGuidelinesAccepted && msg.uuid !== "system"', @click='report(msg)')
-          .svg-icon(v-html="icons.report")
-          | {{$t('report')}}
-          // @TODO make flagging/reporting work in the inbox. NOTE: it must work even if the communityGuidelines are not accepted and it MUST work for messages that you have SENT as well as received. -- Alys
-        span.action(v-if='msg.uuid === user._id || inbox || user.contributor.admin', @click='remove()')
-          .svg-icon(v-html="icons.delete")
-          | {{$t('delete')}}
-        span.action.float-right.liked(v-if='likeCount > 0')
-          .svg-icon(v-html="icons.liked")
-          | + {{ likeCount }}
 </template>
+
+<style lang="scss">
+  .at-highlight {
+    background-color: rgba(213, 200, 255, 0.32);
+    color: #6133b4;
+    padding: 0.1rem;
+  }
+</style>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/tiers.scss';
@@ -54,7 +66,14 @@ div
     color: red;
   }
 
+  hr {
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
   .card-body {
+    padding: 1rem 1rem 0.5rem 1rem;
+
     .leader {
       margin-bottom: 0;
     }
@@ -62,6 +81,7 @@ div
     h3 { // this is the user name
       cursor: pointer;
       display: inline-block;
+      font-size: 14px;
 
       .svg-icon {
         width: 10px;
@@ -73,7 +93,7 @@ div
     .time {
       font-size: 12px;
       color: #878190;
-      width: 150px;
+      margin-bottom: 0.5rem;
     }
 
     .text {
@@ -87,6 +107,7 @@ div
     display: inline-block;
     color: #878190;
     margin-right: 1em;
+    font-size: 12px;
   }
 
   .action:hover {
@@ -115,7 +136,7 @@ import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import escapeRegExp from 'lodash/escapeRegExp';
 
-import markdownDirective from 'client/directives/markdown';
+import habiticaMarkdown from 'habitica-markdown';
 import { mapState } from 'client/libs/store';
 import styleHelper from 'client/mixins/styleHelper';
 
@@ -160,9 +181,6 @@ export default {
         tierNPC,
       }),
     };
-  },
-  directives: {
-    markdown: markdownDirective,
   },
   filters: {
     timeAgo (value) {
@@ -272,6 +290,14 @@ export default {
     },
     showMemberModal (memberId) {
       this.$emit('show-member-modal', memberId);
+    },
+    atHighlight (text) {
+      return text.replace(new RegExp(/@\w+\b/g), match => {
+        return `<span class="at-highlight">${match}</span>`;
+      });
+    },
+    parseMarkdown (text) {
+      return habiticaMarkdown.render(text);
     },
   },
 };

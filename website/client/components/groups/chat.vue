@@ -194,7 +194,6 @@
       width: 100%;
       background-color: $white;
       border: solid 1px $gray-400;
-      font-size: 16px;
       font-style: italic;
       line-height: 1.43;
       color: $gray-300;

@@ -9,7 +9,8 @@ const defaultSchema = () => ({
   text: String,
 
   // sender properties
-  user: String, // profile name
+  user: String, // profile name (unfortunately)
+  username: String,
   contributor: {type: mongoose.Schema.Types.Mixed},
   backer: {type: mongoose.Schema.Types.Mixed},
   uuid: String, // sender uuid
@@ -115,6 +116,7 @@ export function messageDefaults (msg, user) {
       contributor: user.contributor && user.contributor.toObject(),
       backer: user.backer && user.backer.toObject(),
       user: user.profile.name,
+      username: user.auth.local.username,
     });
   } else {
     message.uuid = 'system';
