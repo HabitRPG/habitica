@@ -86,7 +86,6 @@
         )
           petItem(
             :item="item",
-            :itemContentClass="getPetItemClass(item)",
             :popoverPosition="'top'",
             :progress="item.progress",
             :emptyItem="!item.isOwned()",
@@ -94,17 +93,6 @@
             :highlightBorder="highlightPet == item.key",
             @click="petClicked(item)"
           )
-            span(slot="popoverContent")
-              div.hatchablePopover(v-if="item.isHatchable()")
-                h4.popover-content-title {{ item.name }}
-                div.popover-content-text(v-html="$t('haveHatchablePet', { potion: item.potionName, egg: item.eggName })")
-                div.potionEggGroup
-                  div.potionEggBackground
-                    div(:class="'Pet_HatchingPotion_'+item.potionKey")
-                  div.potionEggBackground
-                    div(:class="'Pet_Egg_'+item.eggKey")
-              div(v-else)
-                h4.popover-content-title {{ item.name }}
             template(slot="itemBadge", slot-scope="context")
               starBadge(:selected="item.key === currentPet", :show="item.isOwned()", @click="selectPet(item)")
 
@@ -709,21 +697,6 @@
         }
 
         return groupBy(mounts, groupKey);
-      },
-      getPetItemClass (pet) {
-        if (pet.isOwned()) {
-          return `Pet Pet-${pet.key} ${pet.eggKey}`;
-        }
-
-        if (pet.isHatchable()) {
-          return 'PixelPaw';
-        }
-
-        if (pet.mountOwned()) {
-          return `GreyedOut Pet Pet-${pet.key} ${pet.eggKey}`;
-        }
-
-        return 'GreyedOut PixelPaw';
       },
       hasDrawerTabItems (index) {
         return this.drawerTabs && this.drawerTabs[index].items.length !== 0;
