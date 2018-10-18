@@ -261,9 +261,14 @@ api.ipn = async function ipnApi (options = {}) {
   ];
 
   if (ipnAcceptableTypes.indexOf(txn_type) === -1) return;
+
   // @TODO: Should this request billing date?
   let user = await User.findOne({ 'purchased.plan.customerId': recurring_payment_id }).exec();
   if (user) {
+    // If the user has already cancelled the subscription, return
+    // Otherwise the subscription would be cancelled twice resulting in the loss of subscription credits
+    if (user.hasCancelled()) return;
+
     await payments.cancelSubscription({ user, paymentMethod: this.constants.PAYMENT_METHOD });
     return;
   }
@@ -275,6 +280,10 @@ api.ipn = async function ipnApi (options = {}) {
     .exec();
 
   if (group) {
+    // If the group subscription has already been cancelled the subscription, return
+    // Otherwise the subscription would be cancelled twice resulting in the loss of subscription credits
+    if (group.hasCancelled()) return;
+
     await payments.cancelSubscription({ groupId: group._id, paymentMethod: this.constants.PAYMENT_METHOD });
   }
 };

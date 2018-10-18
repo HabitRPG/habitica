@@ -257,9 +257,6 @@ async function cancelSubscription (data) {
     emailType = 'group-cancel-subscription';
     emailMergeData.push({name: 'GROUP_NAME', content: group.name});
 
-    // If the plan is already cancelled, stop
-    if (group.hasCancelled()) throw new NotAuthorized(cantcanceltwice);
-
     await this.cancelGroupUsersSubscription(group);
   } else {
     // cancelling a user subscription
@@ -268,9 +265,6 @@ async function cancelSubscription (data) {
     // When cancelling because the user joined a group plan, no cancel-subscription email is sent
     // because the group-member-join email says the subscription is cancelled.
     if (data.cancellationReason && data.cancellationReason === JOINED_GROUP_PLAN) sendEmail = false;
-
-    // If the plan is already cancelled, stop
-    if (data.user.hasCancelled()) throw new NotAuthorized(cantcanceltwice);
   }
 
   let now = moment();
