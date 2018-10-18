@@ -80,6 +80,7 @@
     "autoEquipPopoverText": "Selecteer deze optie om een uitrusting automatisch aan te trekken als je hem koopt.",
     "costumeDisabled": "Je hebt je kostuum uitgezet.",
     "gearAchievement": "Je hebt de prestatie \"Hoogst haalbare uitrusting\" behaald door de hoogst haalbare uitrusting voor je klasse aan te schaffen! Je hebt de volgende sets compleet gemaakt:",
+    "gearAchievementNotification": "You have earned the \"Ultimate Gear\" Achievement for upgrading to the maximum gear set for a class!",
     "moreGearAchievements": "To attain more Ultimate Gear badges, change classes on <a href='/user/settings/site' target='_blank'>the Settings &gt; Site page</a> and buy your new class's gear!",
     "armoireUnlocked": "Voor meer uitrustingsstukken, kijk in het <strong>betoverde kabinet!</strong> Klik op het betoverde kabinet onder beloningen en maak kans op speciale uitrustingsstukken! Het kabinet kan je ook willekeurig ervaringspunten of voedsel geven.",
     "ultimGearName": "Ultieme uitrusting - <%= ultClass %>",

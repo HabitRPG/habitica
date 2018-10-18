@@ -80,6 +80,7 @@
     "autoEquipPopoverText": "Selecione esta opção para automáticamente equipar os equipamentos assim que você os comprar.",
     "costumeDisabled": "Você desabilitou a Aparência.",
     "gearAchievement": "Você ganhou a conquista \"Equipamento Supremo\" por chegar ao melhor conjunto de equipamentos da sua classe! Você já conseguiu os seguintes conjuntos completos:",
+    "gearAchievementNotification": "You have earned the \"Ultimate Gear\" Achievement for upgrading to the maximum gear set for a class!",
     "moreGearAchievements": "Para atingir mais conquistas de Último Equipamento, mude de classe na <a href='/user/settings/site' target='_blank'>página de configurações do site</a> e compre equipamentos para sua nova classe!",
     "armoireUnlocked": "Para mais equipamentos, dê uma olhada no <strong>Armário Encantado!</strong> Clique na Recompensa do Armário Encantado para uma chance aleatória de aquirir um Equipamento especial! Você também pode conseguir EXP ou comida. ",
     "ultimGearName": "Último Equipamento - <%= ultClass %>",

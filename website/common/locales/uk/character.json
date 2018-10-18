@@ -80,6 +80,7 @@
     "autoEquipPopoverText": "Select this option to automatically equip gear as soon as you purchase it.",
     "costumeDisabled": "You have disabled your costume.",
     "gearAchievement": "Ви заробили досягнення «Найкраще спорядження» за повне вдосконалення набору спорядження для вашого класу! Ви зібрали повні набори для наступних класів:",
+    "gearAchievementNotification": "You have earned the \"Ultimate Gear\" Achievement for upgrading to the maximum gear set for a class!",
     "moreGearAchievements": "To attain more Ultimate Gear badges, change classes on <a href='/user/settings/site' target='_blank'>the Settings &gt; Site page</a> and buy your new class's gear!",
     "armoireUnlocked": "Завітайте до <strong>чарівної скрині</strong>, щоби отримати ще більше спорядження! Натисніть нагороду «Чарівна скриня», щоби отримати випадкове спорядження! Вона також може дати вам випадкову кількість ОД або їжу для улюбленців.",
     "ultimGearName": "<%= ultClass %> — найкраще спорядження",
