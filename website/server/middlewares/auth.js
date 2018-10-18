@@ -34,7 +34,14 @@ function getUserFields (options, req) {
   return `notifications ${userFieldOptions.join(' ')}`;
 }
 
-// Strins won't be translated here because getUserLanguage has not run yet
+const IS_TEST_SERVER = nconf.get('IS_TEST_SERVER') === 'true';
+
+function checkTestServer (user) {
+  if (IS_TEST_SERVER !== true) return;
+  if (user && user.flags.isTrustedTestUser !== true) throw new NotAuthorized('Only test users are authorized');
+}
+
+// Strings won't be translated here because getUserLanguage has not run yet
 
 // Authenticate a request through the x-api-user and x-api key header
 // If optional is true, don't error on missing authentication
@@ -62,6 +69,7 @@ export function authWithHeaders (options = {}) {
       .then((user) => {
         if (!user) throw new NotAuthorized(res.t('invalidCredentials'));
         if (user.auth.blocked) throw new NotAuthorized(res.t('accountSuspended', {communityManagerEmail: COMMUNITY_MANAGER_EMAIL, userId: user._id}));
+        checkTestServer(user);
 
         res.locals.user = user;
 
@@ -91,6 +99,7 @@ export function authWithSession (req, res, next) {
     .exec()
     .then((user) => {
       if (!user) throw new NotAuthorized(res.t('invalidCredentials'));
+      checkTestServer(user);
 
       res.locals.user = user;
       return next();

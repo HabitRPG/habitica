@@ -72,11 +72,11 @@ function hasBackupAuth (user, networkToRemove) {
   return hasAlternateNetwork;
 }
 
-const IS_TEST_SERVER = nconf.get('IS_TEST_SERVER');
+const IS_TEST_SERVER = nconf.get('IS_TEST_SERVER') === 'true';
 
 async function registerLocal (req, res, { isV3 = false }) {
   if (IS_TEST_SERVER === true) {
-    throw new NotAuthorized(res.t('testServerNoRegistration'));
+    throw new NotAuthorized('Test servers don\'t allow registration');
   }
   const existingUser = res.locals.user; // If adding local auth to social user
 
