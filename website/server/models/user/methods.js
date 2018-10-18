@@ -31,12 +31,12 @@ schema.methods.isSubscribed = function isSubscribed () {
 
 schema.methods.hasNotCancelled = function hasNotCancelled () {
   let plan = this.purchased.plan;
-  return this.isSubscribed() && !plan.dateTerminated;
+  return Boolean(this.isSubscribed() && !plan.dateTerminated);
 };
 
 schema.methods.hasCancelled = function hasCancelled () {
   let plan = this.purchased.plan;
-  return this.isSubscribed() && plan.dateTerminated;
+  return Boolean(this.isSubscribed() && plan.dateTerminated);
 };
 
 // Get an array of groups ids the user is member of
