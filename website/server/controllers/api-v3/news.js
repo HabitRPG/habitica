@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'FALL FESTIVAL AVATAR CUSTOMIZATIONS AND USERNAME FAQS';
+const LAST_ANNOUNCEMENT_TITLE = 'HABITICA BLOG: WIKI, USE CASE, AND GUILD SPOTLIGHTS';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,28 +30,19 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>10/11/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>10/18/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_fall_avatar_customizations center-block"></div>
-        <h3>Supernatural Skins & Haunted Hair Colors</h3>
-        <p>The Seasonal Edition Haunted Hair Colors are now available for purchase! Now you can dye your avatar's hair Pumpkin, Midnight, Candy Corn, Ghost White, Zombie, or Halloween. They’ll vanish after October 31, so be sure to check them out!</p>
-        <p>The Supernatural Skin Set is also available until October 31st! Now your avatar can become an Ogre, Skeleton, Pumpkin, Candy Corn, Reptile, or Dread Shade.</p>
-        <p>Seasonal Edition items recur unchanged every year, but they are only available to purchase during a short period of time. Find these exciting skins and hair colors in User>Edit Avatar. Get them now, or you'll have to wait until next year!</p>
-        <div class="small mb-3">by Lemoness, mariahm, and crystalphoenix</div>
-        <div class="scene_nametag center-block"></div>
-        <h3>Unique Usernames Update and FAQ</h3>
-        <p>It’s been a week since we announced the switch to unique usernames. So far, around half of active Habiticans have confirmed their usernames and are ready to go. Be sure to go to <a href="/user/settings/site" target="_blank">Settings</a> and confirm yours!</p>
-        <p>We’ve seen a few questions floating around the community and wanted to provide some clarification about the change:</p>
-        <ul>
-          <li><strong>Usernames will appear beside your display name</strong> in chats and your profile</li>
-          <li><strong>Usernames must be unique</strong> to be sure you’re inviting or messaging the right person</li>
-          <li><strong>Display names aren’t unique</strong>, and two people can have the same one. Your display name can be the same as or different than your username.</li>
-          <li><strong>You can change your display name and username at any time</strong>, even after confirmation</li>
-          <li><strong>Changes to chat and invitations will roll out gradually</strong> after about a month</li>
-        </ul>
-        <p>If you want to read a more in-depth Q&A on this change and see an example to show how it will work, please <a href="https://habitica.wordpress.com/2018/10/11/coming-soon-unique-usernames/" target="_blank">visit our blog</a>!</p>
+        <div class="promo_fall_festival_2018 center-block"></div>
+        <h3>Blog Post: Grand Galas</h3>
+        <p>This month's <a href='https://habitica.wordpress.com/2018/10/17/grand-gala/' target='_blank'>featured Wiki article</a> is about Habitica's Grand Galas! We hope that it will help you as you enjoy Fall Festival and look forward to our other exciting galas. Be sure to check it out, and let us know what you think by reaching out on <a href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a href='https://facebook.com/habitica' target='_blank'>Facebook</a>.</p>
+        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
+        <div class="scene_positivity center-block"></div>
+        <h3>Use Case Spotlight and Guild Spotlight on Celebrating Yourself</h3>
+        <p>We've got new posts on the blog all about ways to use Habitica to help with celebrating yourself and your accomplishments ! First, there's a <a href='https://habitica.wordpress.com/2018/10/18/celebrating-your-achievements-guild-spotlight/' target='_blank'>Guild Spotlight</a> that highlights the Guilds that can help you as you explore ways to share your triumphs. We've also posted a <a href='https://habitica.wordpress.com/2018/10/18/use-case-spotlight-celebrate-yourself/' target='_blank'>Use Case Spotlight</a> featuring a number of great suggestions for using Habitica's task system and other areas to share your pride in your victories! These suggestions were submitted by Habiticans in the <a href='/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6' target='_blank'>Use Case Spotlights Guild</a>.</p>
+        <p>Plus, we're collecting user submissions for the next Use Case Spotlight! How do you use Habitica to manage healthy habits for sleep and rest? We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!</p>
+        <div class="small mb-3">by shanaqui</div>
       </div>
       `,
     });
