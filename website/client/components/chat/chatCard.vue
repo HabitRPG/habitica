@@ -12,10 +12,10 @@ div
     )
       | {{msg.user}}
       .svg-icon(v-html="tierIcon", v-if='showShowTierStyle')
-    p.time(v-b-tooltip="", :title="msg.timestamp | date")
+    p.time
       span.mr-1(v-if="msg.username") @{{ msg.username }}
       span.mr-1(v-if="msg.username") •
-      span {{ msg.timestamp | timeAgo }}
+      span(v-b-tooltip="", :title="msg.timestamp | date") {{ msg.timestamp | timeAgo }}
     .text(v-html='atHighlight(parseMarkdown(msg.text))')
     hr
     .d-flex(v-if='msg.id')
@@ -73,7 +73,7 @@ div
   }
 
   .card-body {
-    padding: 1.25rem 1.25rem 0.75rem 1.25rem;
+    padding: 0.75rem 1.25rem 0.75rem 1.25rem;
 
     .leader {
       margin-bottom: 0;
