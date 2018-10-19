@@ -48,7 +48,7 @@
 <style lang="scss">
   #verify-username___BV_modal_outer_ {
     .modal-content {
-      height: 650px;
+      height: 100%;
       width: 566px;
       padding-left: 2rem;
       padding-right: 2rem;
