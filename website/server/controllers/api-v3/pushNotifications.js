@@ -1,6 +1,5 @@
 import { authWithHeaders } from '../../middlewares/auth';
 import {
-  NotAuthorized,
   NotFound,
 } from '../../libs/errors';
 import { model as PushDevice } from '../../models/pushDevice';
