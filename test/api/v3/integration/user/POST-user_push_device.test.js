@@ -39,7 +39,7 @@ describe('POST /user/push-devices', () => {
       });
   });
 
-  it('fail silently if user already has the push device', async () => {
+  it('fails silently if user already has the push device', async () => {
     await user.post('/user/push-devices', {type, regId});
     const response = await user.post('/user/push-devices', {type, regId});
     await user.sync();
