@@ -5,7 +5,8 @@ div
     .header
       h1.text-center Need more for your Group?
       .row
-        .col-6.offset-3.text-center {{ $t('groupBenefitsDescription') }}
+        .col-8.offset-2.text-center
+          h2.sub-text {{ $t('groupBenefitsDescription') }}
     .container.benefits
       .row
         .col-4
@@ -165,23 +166,32 @@ div
   }
 
   .header {
-    margin-bottom: 3em;
-    margin-top: 4em;
-    background-color: #4f2a93;
+    background: #432874;
+    background: linear-gradient(180deg, #4F2A93 0%, #432874 100%);
     color: #fff;
     padding: 2em;
-    height: 356px;
+    height: 340px;
+    margin-bottom: 2em;
     margin-left: -12px;
     margin-right: -12px;
 
     h1 {
       font-size: 48px;
+      line-height: 1.16;
+      margin-top: 12px;
       color: #fff;
+    }
+
+    h2.sub-text {
+      color: #D5C8FF;
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 1.33;
     }
   }
 
   .benefits {
-    margin-top: -12em;
+    margin-top: -10em;
 
     .box {
       height: 416px;
