@@ -10,7 +10,6 @@ import {
 import { removeFromArray } from '../../libs/collectionManipulators';
 import { getUserInfo, getGroupUrl, sendTxn } from '../../libs/email';
 import slack from '../../libs/slack';
-import pusher from '../../libs/pusher';
 import { getAuthorEmailFromMessage } from '../../libs/chat';
 import { chatReporterFactory } from '../../libs/chatReporting/chatReporterFactory';
 import nconf from 'nconf';
@@ -185,13 +184,6 @@ api.postChat = {
     }
 
     await Promise.all(toSave);
-
-    // @TODO: rethink if we want real-time
-    if (group.privacy === 'private' && group.type === 'party') {
-      // req.body.pusherSocketId is sent from official clients to identify the sender user's real time socket
-      // see https://pusher.com/docs/server_api_guide/server_excluding_recipients
-      pusher.trigger(`presence-group-${group._id}`, 'new-chat', newChatMessage, req.body.pusherSocketId);
-    }
 
     if (chatUpdated) {
       res.respond(200, {chat: chatRes.chat});

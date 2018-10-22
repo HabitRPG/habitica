@@ -29,7 +29,6 @@ import baseModel from '../libs/baseModel';
 import { sendTxn as sendTxnEmail } from '../libs/email';
 import nconf from 'nconf';
 import { sendNotification as sendPushNotification } from '../libs/pushNotifications';
-import pusher from '../libs/pusher';
 import {
   syncableAttrs,
 } from '../libs/taskManager';
@@ -521,12 +520,6 @@ schema.methods.sendChat = function sendChat (message, user, metaData) {
   User.update(query, lastSeenUpdateRemoveOld, {multi: true}).exec().then(() => {
     User.update(query, lastSeenUpdateAddNew, {multi: true}).exec();
   });
-
-  // If the message being sent is a system message (not gone through the api.postChat controller)
-  // then notify Pusher about it (only parties for now)
-  if (newMessage.uuid === 'system' && this.privacy === 'private' && this.type === 'party') {
-    pusher.trigger(`presence-group-${this._id}`, 'new-chat', newMessage);
-  }
 
   return newChatMessage;
 };
@@ -1160,11 +1153,6 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
     promises.push(User.update({_id: user._id}, {$pull: {guilds: group._id}}).exec());
   } else {
     promises.push(User.update({_id: user._id}, {$set: {party: {}}}).exec());
-    // Tell the realtime clients that a user has left
-    // If the user that left is still connected, they'll get disconnected
-    pusher.trigger(`presence-group-${group._id}`, 'user-left', {
-      userId: user._id,
-    });
 
     update.$unset = {[`quest.members.${user._id}`]: 1};
   }
