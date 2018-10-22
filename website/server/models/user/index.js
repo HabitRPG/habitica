@@ -8,7 +8,7 @@ require('./methods');
 // A list of publicly accessible fields (not everything from preferences because there are also a lot of settings tha should remain private)
 export let publicFields = `preferences.size preferences.hair preferences.skin preferences.shirt
   preferences.chair preferences.costume preferences.sleep preferences.background preferences.tasks preferences.disableClasses profile stats
-  achievements party backer contributor auth.timestamps items inbox.optOut loginIncentives flags.classSelected`;
+  achievements party backer contributor auth.timestamps items inbox.optOut loginIncentives flags.classSelected auth.local.username`;
 
 // The minimum amount of data needed when populating multiple users
 export let nameFields = 'profile.name';

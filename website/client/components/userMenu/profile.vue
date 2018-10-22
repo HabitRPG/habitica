@@ -40,11 +40,12 @@ div
     #userProfile.standard-page(v-show='selectedPage === "profile"', v-if='user.profile')
       .row
         .col-12.col-md-8
-          .header
+          .header.mb-3
             h1 {{user.profile.name}}
-            h4
-              strong {{ $t('userId') }}:&nbsp;
-              | {{user._id}}
+            div
+              strong(v-if='user.auth && user.auth.local && user.auth.local.username') @{{ user.auth.local.username }}
+            div
+              strong(v-if='this.userLoggedIn.contributor.admin') {{ user._id }}
         .col-12.col-md-4
           button.btn.btn-secondary(v-if='user._id === userLoggedIn._id', @click='editing = !editing') {{ $t('edit') }}
       .row(v-if='!editing')
@@ -146,7 +147,7 @@ div
   #profile {
     .member-details {
       .character-name, small, .small-text {
-        color: #878190
+        color: #878190;
       }
     }
 
@@ -193,7 +194,7 @@ div
   .gift-icon {
     width: 14px;
     margin: auto;
-    color: #686274;
+    color: $gray-100;
   }
 
   .gift-icon {
@@ -201,13 +202,13 @@ div
   }
 
   .remove-icon {
-    width:16px;
-    color: #686274;
+    width: 16px;
+    color: $gray-100;
   }
 
   .positive-icon {
     width: 14px;
-    color: #686274;
+    color: $gray-100;
   }
 
   .photo img {
@@ -216,11 +217,12 @@ div
 
   .header {
     h1 {
-      color: #4f2a93;
+      color: $purple-200;
+      margin-bottom: 0rem;
     }
 
     h4 {
-      color: #686274;
+      color: $gray-100;
     }
   }
 

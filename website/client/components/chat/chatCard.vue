@@ -11,7 +11,7 @@ div
       v-if="msg.user"
     )
       | {{msg.user}}
-      .svg-icon(v-html="tierIcon", v-if='showShowTierStyle')
+      .svg-icon(v-html="tierIcon")
     p.time
       span.mr-1(v-if="msg.username") @{{ msg.username }}
       span.mr-1(v-if="msg.username") •
@@ -101,6 +101,8 @@ div
       font-size: 14px;
       color: #4e4a57;
       text-align: left !important;
+      min-height: 0rem;
+      margin-bottom: -0.5rem;
     }
   }
 
@@ -226,12 +228,6 @@ export default {
         if (like) likeCount += 1;
       }
       return likeCount;
-    },
-    showShowTierStyle () {
-      const message = this.msg;
-      const isContributor = Boolean(message.contributor && message.contributor.level);
-      const isNPC = Boolean(message.backer && message.backer.npc);
-      return isContributor || isNPC;
     },
     tierIcon () {
       const message = this.msg;
