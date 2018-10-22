@@ -107,7 +107,6 @@
     "vue-template-compiler": "^2.5.16",
     "vuedraggable": "^2.15.0",
     "vuejs-datepicker": "git://github.com/habitrpg/vuejs-datepicker.git#5d237615463a84a23dd6f3f77c6ab577d68593ec",
-    "webpack": "^3.12.0",
     "webpack-merge": "^4.0.0",
     "winston": "^2.4.2",
     "winston-loggly-bulk": "^2.0.2",
@@ -138,7 +137,6 @@
     "client:build": "gulp build:client",
     "client:unit": "cross-env NODE_ENV=test karma start test/client/unit/karma.conf.js --single-run",
     "client:unit:watch": "cross-env NODE_ENV=test karma start test/client/unit/karma.conf.js",
-    "client:e2e": "node test/client/e2e/runner.js",
     "client:test": "npm run client:unit && npm run client:e2e",
     "start": "gulp nodemon",
     "postinstall": "gulp build",
@@ -151,7 +149,6 @@
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "chalk": "^2.4.1",
-    "chromedriver": "^2.38.3",
     "connect-history-api-fallback": "^1.1.0",
     "coveralls": "^3.0.1",
     "cross-spawn": "^6.0.5",
@@ -183,13 +180,9 @@
     "nightwatch": "^0.9.21",
     "puppeteer": "^1.4.0",
     "require-again": "^2.0.0",
-    "selenium-server": "^3.12.0",
     "sinon": "^4.5.0",
     "sinon-chai": "^3.0.0",
-    "sinon-stub-promise": "^4.0.0",
-    "webpack-bundle-analyzer": "^2.12.0",
-    "webpack-dev-middleware": "^2.0.5",
-    "webpack-hot-middleware": "^2.22.2"
+    "sinon-stub-promise": "^4.0.0"
   },
   "optionalDependencies": {
     "memwatch-next": "^0.3.0",
