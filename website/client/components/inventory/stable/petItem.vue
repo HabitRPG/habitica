@@ -8,7 +8,7 @@ div
       span.item-content.hatchAgain(v-if="mountOwned && isHatchable")
         span.egg(:class="eggClass")
         span.potion(:class="potionClass")
-      span.item-content(v-else, :class="getPetItemClass(item)")
+      span.item-content(v-else, :class="getPetItemClass()")
       span.pet-progress-background(v-if="item.isAllowedToFeed() && progress > 0")
         div.pet-progress-bar(v-bind:style="{width: 100 * progress/50 + '%' }")
     span.item-label(v-if="label") {{ label }}
@@ -111,13 +111,13 @@ div
       click () {
         this.$emit('click', {});
       },
-      getPetItemClass (pet) {
+      getPetItemClass () {
         if (this.mountOwned && !this.isHatchable) {
-          return `GreyedOut Pet Pet-${pet.key} ${pet.eggKey}`;
+          return `GreyedOut Pet Pet-${this.item.key} ${this.item.eggKey}`;
         }
 
-        if (this.isOwned) {
-          return `Pet Pet-${pet.key} ${pet.eggKey}`;
+        if (this.item.isOwned()) {
+          return `Pet Pet-${this.item.key} ${this.item.eggKey}`;
         }
 
         if (this.isHatchable) {
@@ -125,7 +125,7 @@ div
         }
 
         if (this.mountOwned) {
-          return `GreyedOut Pet Pet-${pet.key} ${pet.eggKey}`;
+          return `GreyedOut Pet Pet-${this.item.key} ${this.item.eggKey}`;
         }
 
         // Can't hatch
@@ -138,9 +138,6 @@ div
       },
       eggClass () {
         return `Pet_Egg_${this.item.eggKey}`;
-      },
-      isOwned () {
-        return this.item.isOwned();
       },
       isHatchable () {
         return this.item.isHatchable();
