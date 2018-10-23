@@ -42,13 +42,13 @@
 }
 .promo_forest_friends_bundle {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -424px -1009px;
+  background-position: 0px -1009px;
   width: 423px;
   height: 147px;
 }
 .promo_ghost_potions {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -1009px;
+  background-position: -424px -1009px;
   width: 423px;
   height: 147px;
 }
@@ -81,6 +81,12 @@
   background-position: -1158px -798px;
   width: 96px;
   height: 69px;
+}
+.promo_veteran_pets {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -1157px;
+  width: 363px;
+  height: 141px;
 }
 .scene_nametag {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
