@@ -1,8 +1,10 @@
 /* eslint-disable no-console */
-import { model as User } from '../website/server/models/user';
+const MIGRATION_NAME = '20181023_veteran_pet_ladder';
+import { model as User } from '../../website/server/models/user';
 
 function processUsers (lastId) {
   let query = {
+    migration: {$ne: MIGRATION_NAME},
     'flags.verifiedUsername': true,
   };
 
@@ -49,7 +51,7 @@ function updateUsers (users) {
 function updateUser (user) {
   count++;
 
-  let set = {};
+  let set = {migration: MIGRATION_NAME};
 
   if (user.items.pets['Bear-Veteran']) {
     set['items.pets.Fox-Veteran'] = 5;
@@ -65,7 +67,7 @@ function updateUser (user) {
 
   if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
 
-  return User.update({_id: user._id}, {$set: set}).exec();
+  return user.update({_id: user._id}, {$set: set}).exec();
 }
 
 function displayData () {
