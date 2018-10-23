@@ -80,7 +80,7 @@
     "autoEquipPopoverText": "Seleziona questa opzione per equipaggiare automaticamente gli oggetti appena li compri.",
     "costumeDisabled": "Hai disabilitato il tuo costume.",
     "gearAchievement": "Hai ottenuto la medaglia \"Armato fino ai denti\" per aver potenziato al massimo livello l'equipaggiamento per una Classe! Hai completato questi set:",
-    "gearAchievementNotification": "You have earned the \"Ultimate Gear\" Achievement for upgrading to the maximum gear set for a class!",
+    "gearAchievementNotification": "Ti sei guadagnato la medaglia \"Armato fino ai denti\" per aver potenziato al massimo livello l'equipaggiamento per una classe!",
     "moreGearAchievements": "Per ottenere più medaglie \"Armato fino ai denti\", cambia classe nella tua <a href='/user/settings/site' target='_blank'>pagina statistiche</a> e compra l'equipaggiamento per la tua nuova classe!",
     "armoireUnlocked": "Per altro equipaggiamento, prova lo <strong>Scrigno Incantato!</strong> Clicca sulla Ricompensa \"Scrigno Incantato\" per avere la possibilità di ricevere casualmente dell'equipaggiamento speciale! Potrebbe anche darti Esperienza o cibo.",
     "ultimGearName": "Armato fino ai denti - <%= ultClass %>",

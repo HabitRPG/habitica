@@ -80,7 +80,7 @@
     "autoEquipPopoverText": "Zvol tuto možnost pro automatické nasazení koupeného vybavení.",
     "costumeDisabled": "Vypnul jsi svůj kostým",
     "gearAchievement": "Získal jsi Ocenění \"Maximální Vybavení\" za vylepšení výbavy na maximální set vybavení pro povolání! Získal jsi následující kompletní sety:",
-    "gearAchievementNotification": "You have earned the \"Ultimate Gear\" Achievement for upgrading to the maximum gear set for a class!",
+    "gearAchievementNotification": "Získal jsi ocenění \"Ultimátní výbava\" za vylepšení vybavení daného povolání na maximální úroveň!",
     "moreGearAchievements": "Abys získal více ocenění Ultimátního Vybavení, změň své povolání v <a href='/user/settings/site' target='_blank'>Nastavení - Stránka</a>, a nakup si vybavení pro své nové povolání!",
     "armoireUnlocked": "Také jsi odemkl <strong>Začarovanou almaru!</strong> Klikni na Odměnu začarované almary a náhodně získej speciální Vybavení! Také ti může náhodně dát Zkušenostní body nebo jídlo.",
     "ultimGearName": "Ultimátní výbava - <%= ultClass %>",
