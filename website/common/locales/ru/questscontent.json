@@ -619,10 +619,10 @@
     "questKangarooUnlockText": "Позволяет покупать на Рынке яйцо Кенгуру.",
     "forestFriendsText": "Набор квестов «Лесная братва»",
     "forestFriendsNotes": "Содержит квесты «Дух весны», «Еж-монстр» и «Запутанное дерево». Акция доступна до 30 сентября.",
-    "questAlligatorText": "The Insta-Gator",
-    "questAlligatorNotes": "“Crikey!” exclaims @gully. “An Insta-Gator in its natural habitat! Careful, it distracts its prey with things that seem urgent THIS INSTANT, and it feeds on the unchecked Dailies that result.” You fall silent to avoid attracting its attention, but to no avail. The Insta-Gator spots you and charges! Distracting voices rise up from Swamps of Stagnation, grabbing for your attention: “Read this post! See this photo! Pay attention to me THIS INSTANT!” You scramble to mount a counterattack, completing your Dailies and bolstering your good Habits to fight off the dreaded Insta-Gator.",
-    "questAlligatorCompletion": "With your attention focused on what’s important and not the Insta-Gator’s distractions, the Insta-Gator flees. Victory! “Are those eggs? They look like gator eggs to me,” asks @mfonda. “If we care for them correctly, they’ll be loyal pets or faithful steeds,” answers @UncommonCriminal, handing you three to care for. Let’s hope so, or else the Insta-Gator might make a return…",
-    "questAlligatorBoss": "Insta-Gator",
-    "questAlligatorDropAlligatorEgg": "Alligator (Egg)",
-    "questAlligatorUnlockText": "Unlocks purchasable Alligator eggs in the Market"
+    "questAlligatorText": "Олег-атор",
+    "questAlligatorNotes": "«Боже мой!» Восклицает @gully. «Олег-атор в своей естественной среде обитания! Осторожно, он отвлекает от важных задач, а питается он вашими не отмеченными Ежедневными заданиями, которые должны развивать вас». Вы замолкаете, чтобы не накликать беды, но безуспешно. Олег-атор видит вас и бросается с яростью! Отвлекающие голоса доносятся из Болота Застоя от Олега, заставляя обратить внимание: «Читайте посты в ВК! Смотрите фото котят! Обратите внимание на ОЛЕГА!» Вы запрыгиваете на своего скакуна, чтобы контратаковать, завершив свои Ежедневные задачи и выполняя хорошие привычки, чтобы дать отпор Олег-атору.",
+    "questAlligatorCompletion": "С повышенным вниманием к действительно важными вещам, а не забавам Олег-атора, от проигранного боя он уплывает прочь. Победа! «Это что, яйца Олега? Они похожи на яйца аллигатора», - спрашивает @mfonda. «Если мы будем заботиться о них с любовью, то они будут верными питомцами или скакунами», - отвечает @UncommonCriminal, передавая вам три яйца. Будем надеяться, что Олег-атор не вернутся ...",
+    "questAlligatorBoss": "Олег-атор",
+    "questAlligatorDropAlligatorEgg": "Аллигатор (Яйцо)",
+    "questAlligatorUnlockText": "Позволяет покупать на рынке яйца Аллигатора"
 }
