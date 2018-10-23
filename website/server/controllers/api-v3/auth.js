@@ -1,7 +1,6 @@
 import validator from 'validator';
 import moment from 'moment';
 import nconf from 'nconf';
-
 import {
   authWithHeaders,
 } from '../../middlewares/auth';
@@ -10,11 +9,9 @@ import common from '../../../common';
 import {
   NotAuthorized,
   BadRequest,
-  NotFound,
 } from '../../libs/errors';
 import * as passwordUtils from '../../libs/password';
 import { send as sendEmail } from '../../libs/email';
-import pusher from '../../libs/pusher';
 import { validatePasswordResetCodeAndFindUser, convertToBcrypt} from '../../libs/password';
 import { encrypt } from '../../libs/encryption';
 import {
@@ -138,75 +135,6 @@ api.loginSocial = {
   url: '/user/auth/social',
   async handler (req, res) {
     return await loginSocial(req, res);
-  },
-};
-
-/*
- * @apiIgnore Private route
- * @api {post} /api/v3/user/auth/pusher Pusher.com authentication
- * @apiDescription Authentication for Pusher.com private and presence channels
- * @apiName UserAuthPusher
- * @apiGroup User
- *
- * @apiParam (Body) {String} socket_id A unique identifier for the specific client connection to Pusher
- * @apiParam (Body) {String} channel_name The name of the channel being subscribed to
- *
- * @apiSuccess {String} auth The authentication token
- */
-api.pusherAuth = {
-  method: 'POST',
-  middlewares: [authWithHeaders()],
-  url: '/user/auth/pusher',
-  async handler (req, res) {
-    let user = res.locals.user;
-
-    req.checkBody('socket_id').notEmpty();
-    req.checkBody('channel_name').notEmpty();
-
-    let validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
-
-    let socketId = req.body.socket_id;
-    let channelName = req.body.channel_name;
-
-    // Channel names are in the form of {presence|private}-{group|...}-{resourceId}
-    let [channelType, resourceType, ...resourceId] = channelName.split('-');
-
-    if (['presence'].indexOf(channelType) === -1) { // presence is used only for parties, private for guilds
-      throw new BadRequest('Invalid Pusher channel type.');
-    }
-
-    if (resourceType !== 'group') { // only groups are supported
-      throw new BadRequest('Invalid Pusher resource type.');
-    }
-
-    resourceId = resourceId.join('-'); // the split at the beginning had split resourceId too
-    if (!validator.isUUID(String(resourceId))) {
-      throw new BadRequest('Invalid Pusher resource id, must be a UUID.');
-    }
-
-    // Only the user's party is supported for now
-    if (user.party._id !== resourceId) {
-      throw new NotFound('Resource id must be the user\'s party.');
-    }
-
-    let authResult;
-
-    // Max 100 members for presence channel - parties only
-    if (channelType === 'presence') {
-      let presenceData = {
-        user_id: user._id, // eslint-disable-line camelcase
-        // Max 1KB
-        user_info: {}, // eslint-disable-line camelcase
-      };
-
-      authResult = pusher.authenticate(socketId, channelName, presenceData);
-    } else {
-      authResult = pusher.authenticate(socketId, channelName);
-    }
-
-    // Not using res.respond because Pusher requires a different response format
-    res.status(200).json(authResult);
   },
 };
 
