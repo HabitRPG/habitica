@@ -1,7 +1,6 @@
 import validator from 'validator';
 import moment from 'moment';
 import nconf from 'nconf';
-
 import {
   authWithHeaders,
 } from '../../middlewares/auth';
@@ -10,7 +9,6 @@ import common from '../../../common';
 import {
   NotAuthorized,
   BadRequest,
-  NotFound,
 } from '../../libs/errors';
 import * as passwordUtils from '../../libs/password';
 import { send as sendEmail } from '../../libs/email';
