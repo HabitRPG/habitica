@@ -1518,7 +1518,7 @@
     "bodySpecialTakeThisText": "Take This ショルダーガード",
     "bodySpecialTakeThisNotes": "このショルダーガードは、Take This 提供のチャレンジに参加することで手に入れることができます。おめでとう!　すべての能力値が <%= attrs %> 上がります。",
     "bodySpecialAetherAmuletText": "エーテルのアミュレット",
-    "bodySpecialAetherAmuletNotes": "このアミュレットには謎めいた由来があります。体質と知能が <%= attrs %>ずつ上がります。",
+    "bodySpecialAetherAmuletNotes": "このアミュレットには謎めいた由来があります。体質と力が <%= attrs %>ずつ上がります。",
     "bodySpecialSummerMageText": "輝くケープレット",
     "bodySpecialSummerMageNotes": "塩水でも真水でもこの金属製ケープは錆びません。効果なし。2014年夏の限定装備。",
     "bodySpecialSummerHealerText": "サンゴのえり",
