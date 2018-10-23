@@ -47,14 +47,17 @@ export function setNextDue (task, user, dueDateOption) {
   let optionsForShouldDo = user.preferences.toObject();
   optionsForShouldDo.now = now;
   task.isDue = shared.shouldDo(dateTaskIsDue, task, optionsForShouldDo);
+  task.nextDue = task.isDue ? task.isDue.repeat(6) : undefined;
 
-  optionsForShouldDo.nextDue = true;
-  let nextDue = shared.shouldDo(dateTaskIsDue, task, optionsForShouldDo);
-  if (nextDue && nextDue.length > 0) {
-    task.nextDue = nextDue.map((dueDate) => {
-      return dueDate.toISOString();
-    });
-  }
+  // TODO figure out why shouldDo is called twice here
+
+  // optionsForShouldDo.nextDue = true;
+  // let nextDue = shared.shouldDo(dateTaskIsDue, task, optionsForShouldDo);
+  // if (nextDue && nextDue.length > 0) {
+  //   task.nextDue = nextDue.map((dueDate) => {
+  //     return dueDate.toISOString();
+  //   });
+  // }
 }
 
 /**

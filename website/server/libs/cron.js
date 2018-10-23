@@ -19,11 +19,13 @@ const loginIncentives = common.content.loginIncentives;
 function setIsDueNextDue (task, user, now) {
   let optionsForShouldDo = cloneDeep(user.preferences.toObject());
   task.isDue = common.shouldDo(now, task, optionsForShouldDo);
-  optionsForShouldDo.nextDue = true;
-  let nextDue = common.shouldDo(now, task, optionsForShouldDo);
-  if (nextDue && nextDue.length > 0) {
-    task.nextDue = nextDue;
-  }
+  task.nextDue = task.isDue ? task.isDue.next(6): undefined;
+  // optionsForShouldDo.nextDue = true;
+  // // let nextDue = common.shouldDo(now, task, optionsForShouldDo);
+  // let nextDue = task.isDue ? task.isDue.next(6) : [];
+  // if (nextDue && nextDue.length > 0) {
+  //   task.nextDue = nextDue;
+  // }
 }
 
 export async function recoverCron (status, locals) {
