@@ -45,7 +45,7 @@ export default {
         type: 'todo',
         notes,
       };
-      this.task = taskDefaults(newTask);
+      this.task = taskDefaults(newTask, message.user);
       this.$root.$emit('bv::show::modal', 'copyAsTodo');
     });
   },

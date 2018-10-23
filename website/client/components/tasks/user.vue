@@ -445,7 +445,7 @@ export default {
     },
     createTask (type) {
       this.openCreateBtn = false;
-      this.creatingTask = taskDefaults({type, text: ''});
+      this.creatingTask = taskDefaults({type, text: ''}, this.user);
       this.creatingTask.tags = this.selectedTags;
 
       // Necessary otherwise the first time the modal is not rendered

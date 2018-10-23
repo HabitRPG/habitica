@@ -9,7 +9,7 @@ import moment from 'moment';
 
 const tasksTypes = ['habit', 'daily', 'todo', 'reward'];
 
-module.exports = function taskDefaults (task = {}) {
+module.exports = function taskDefaults (task = {}, user = {}) {
   if (!task.type || tasksTypes.indexOf(task.type) === -1) {
     task.type = 'habit';
   }
@@ -76,7 +76,10 @@ module.exports = function taskDefaults (task = {}) {
         s: true,
         su: true,
       },
-      startDate: moment().startOf('day').toDate(),
+      // If cron will happen today, start the daily yesterday
+      startDate: moment().startOf('day').add(user.preferences.dayStart, 'hour').isAfter(moment()) ?
+        moment().startOf('day').subtract(1, 'day').toDate() :
+        moment().startOf('day').toDate(),
       everyX: 1,
       frequency: 'weekly',
       daysOfMonth: [],
