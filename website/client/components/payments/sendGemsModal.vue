@@ -145,7 +145,9 @@ export default {
       this.close();
     },
     onHide () {
-      this.gift.gems.amount = 0;
+      // TODO this breaks amazon purchases because when the amazon modal
+      // is opened this one is closed and the amount reset
+      // this.gift.gems.amount = 0;
       this.gift.message = '';
       this.sendingInProgress = false;
     },
