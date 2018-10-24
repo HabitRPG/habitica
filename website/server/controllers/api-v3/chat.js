@@ -1,7 +1,7 @@
 import { authWithHeaders } from '../../middlewares/auth';
 import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
-import { model as Chat } from '../../models/chat';
+import { chatModel as Chat } from '../../models/message';
 import {
   BadRequest,
   NotFound,
@@ -10,7 +10,6 @@ import {
 import { removeFromArray } from '../../libs/collectionManipulators';
 import { getUserInfo, getGroupUrl, sendTxn } from '../../libs/email';
 import slack from '../../libs/slack';
-import pusher from '../../libs/pusher';
 import { getAuthorEmailFromMessage } from '../../libs/chat';
 import { chatReporterFactory } from '../../libs/chatReporting/chatReporterFactory';
 import nconf from 'nconf';
@@ -62,9 +61,7 @@ function textContainsBannedSlur (message) {
 api.getChat = {
   method: 'GET',
   url: '/groups/:groupId/chat',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -103,9 +100,7 @@ function getBannedWordsFromText (message) {
 api.postChat = {
   method: 'POST',
   url: '/groups/:groupId/chat',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;
@@ -190,13 +185,6 @@ api.postChat = {
 
     await Promise.all(toSave);
 
-    // @TODO: rethink if we want real-time
-    if (group.privacy === 'private' && group.type === 'party') {
-      // req.body.pusherSocketId is sent from official clients to identify the sender user's real time socket
-      // see https://pusher.com/docs/server_api_guide/server_excluding_recipients
-      pusher.trigger(`presence-group-${group._id}`, 'new-chat', newChatMessage, req.body.pusherSocketId);
-    }
-
     if (chatUpdated) {
       res.respond(200, {chat: chatRes.chat});
     } else {
@@ -227,9 +215,7 @@ api.postChat = {
 api.likeChat = {
   method: 'POST',
   url: '/groups/:groupId/chat/:chatId/like',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;
@@ -286,9 +272,7 @@ api.likeChat = {
 api.flagChat = {
   method: 'POST',
   url: '/groups/:groupId/chat/:chatId/flag',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     const chatReporter = chatReporterFactory('Group', req, res);
     const message = await chatReporter.flag();
@@ -317,9 +301,7 @@ api.flagChat = {
 api.clearChatFlags = {
   method: 'Post',
   url: '/groups/:groupId/chat/:chatId/clearflags',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;
@@ -389,9 +371,7 @@ api.clearChatFlags = {
 api.seenChat = {
   method: 'POST',
   url: '/groups/:groupId/chat/seen',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;
@@ -457,9 +437,7 @@ api.seenChat = {
 api.deleteChat = {
   method: 'DELETE',
   url: '/groups/:groupId/chat/:chatId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;

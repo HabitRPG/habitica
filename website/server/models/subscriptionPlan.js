@@ -5,7 +5,7 @@ import validator from 'validator';
 export let schema = new mongoose.Schema({
   planId: String,
   subscriptionId: String,
-  owner: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.']},
+  owner: {type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid.']},
   quantity: {type: Number, default: 1},
   paymentMethod: String, // enum: ['Paypal', 'Stripe', 'Gift', 'Amazon Payments', 'Google', '']}
   customerId: String, // Billing Agreement Id in case of Amazon Payments

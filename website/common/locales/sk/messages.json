@@ -38,7 +38,6 @@
     "messageInsufficientGems": "Nemáš dostatok drahokamov!",
     "messageAuthPasswordMustMatch": ":heslo a :potvrďHeslo sa nezhodujú",
     "messageAuthCredentialsRequired": ":používateľskéMeno, :email, :heslo, :potvrďHeslo sú požadované",
-    "messageAuthUsernameTaken": "Login Name already taken",
     "messageAuthEmailTaken": "Email je už obsadený",
     "messageAuthNoUserFound": "Používateľ sa nenašiel.",
     "messageAuthMustBeLoggedIn": "Musíš byť prihlásený/á.",

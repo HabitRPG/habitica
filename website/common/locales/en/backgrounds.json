@@ -433,5 +433,13 @@
   "backgroundGiantBookText": "Giant Book",
   "backgroundGiantBookNotes": "Read as you walk through the pages of a Giant Book.",
   "backgroundCozyBarnText": "Cozy Barn",
-  "backgroundCozyBarnNotes": "Relax with your pets and mounts in their Cozy Barn."
+  "backgroundCozyBarnNotes": "Relax with your pets and mounts in their Cozy Barn.",
+
+  "backgrounds102018": "SET 53: Released October 2018",
+  "backgroundBayouText": "Bayou",
+  "backgroundBayouNotes": "Bask in the fireflies' glow on the misty Bayou.",
+  "backgroundCreepyCastleText": "Creepy Castle",
+  "backgroundCreepyCastleNotes": "Dare to approach a Creepy Castle.",
+  "backgroundDungeonText": "Dungeon",
+  "backgroundDungeonNotes": "Rescue the prisoners of a spooky Dungeon."
 }

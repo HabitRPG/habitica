@@ -9,7 +9,7 @@ export let schema = new mongoose.Schema({
     required: true,
     trim: true,
     lowercase: true,
-    validator: [validator.isEmail, 'Invalid email.'],
+    validator: [v => validator.isEmail(v), 'Invalid email.'],
   },
 }, {
   strict: true,

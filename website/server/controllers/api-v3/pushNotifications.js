@@ -1,6 +1,5 @@
 import { authWithHeaders } from '../../middlewares/auth';
 import {
-  NotAuthorized,
   NotFound,
 } from '../../libs/errors';
 import { model as PushDevice } from '../../models/pushDevice';
@@ -22,9 +21,7 @@ let api = {};
 api.addPushDevice = {
   method: 'POST',
   url: '/user/push-devices',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     const user = res.locals.user;
 
@@ -41,8 +38,10 @@ api.addPushDevice = {
       type: req.body.type,
     };
 
+    // When adding a duplicate push device, fail silently instead of throwing an error
     if (pushDevices.find(device => device.regId === item.regId)) {
-      throw new NotAuthorized(res.t('pushDeviceAlreadyAdded'));
+      res.respond(200, user.pushDevices, res.t('pushDeviceAdded'));
+      return;
     }
 
     // Concurrency safe update
@@ -72,9 +71,7 @@ api.addPushDevice = {
 api.removePushDevice = {
   method: 'DELETE',
   url: '/user/push-devices/:regId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     const user = res.locals.user;
 

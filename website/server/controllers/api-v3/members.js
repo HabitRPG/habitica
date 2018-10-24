@@ -32,14 +32,14 @@ let api = {};
  *
  * @apiSuccess {Object} data The member object
  *
- * @apiSuccess (Object) data.inbox Basic information about person's inbox
- * @apiSuccess (Object) data.stats Includes current stats and buffs
- * @apiSuccess (Object) data.profile Includes name
- * @apiSuccess (Object) data.preferences Includes info about appearance and public prefs
- * @apiSuccess (Object) data.party Includes basic info about current party and quests
- * @apiSuccess (Object) data.items Basic inventory information includes quests, food, potions, eggs, gear, special items
- * @apiSuccess (Object) data.achievements Lists current achievements
- * @apiSuccess (Object) data.auth Includes latest timestamps
+ * @apiSuccess {Object} data.inbox Basic information about person's inbox
+ * @apiSuccess {Object} data.stats Includes current stats and buffs
+ * @apiSuccess {Object} data.profile Includes name
+ * @apiSuccess {Object} data.preferences Includes info about appearance and public prefs
+ * @apiSuccess {Object} data.party Includes basic info about current party and quests
+ * @apiSuccess {Object} data.items Basic inventory information includes quests, food, potions, eggs, gear, special items
+ * @apiSuccess {Object} data.achievements Lists current achievements
+ * @apiSuccess {Object} data.auth Includes latest timestamps
  *
  * @apiSuccessExample {json} Success-Response:
  * {
@@ -379,9 +379,7 @@ function _getMembersForItem (type) {
 api.getMembersForGroup = {
   method: 'GET',
   url: '/groups/:groupId/members',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   handler: _getMembersForItem('group-members'),
 };
 
@@ -417,9 +415,7 @@ api.getMembersForGroup = {
 api.getInvitesForGroup = {
   method: 'GET',
   url: '/groups/:groupId/invites',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   handler: _getMembersForItem('group-invites'),
 };
 
@@ -445,9 +441,7 @@ api.getInvitesForGroup = {
 api.getMembersForChallenge = {
   method: 'GET',
   url: '/challenges/:challengeId/members',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   handler: _getMembersForItem('challenge-members'),
 };
 
@@ -509,9 +503,7 @@ api.getMembersForChallenge = {
 api.getChallengeMemberProgress = {
   method: 'GET',
   url: '/challenges/:challengeId/members/:memberId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
     req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
@@ -594,7 +586,7 @@ api.getObjectionsToInteraction = {
  * @apiParam (Body) {String} message Body parameter - The message
  * @apiParam (Body) {UUID} toUserId Body parameter - The user to contact
  *
- * @apiSuccess {Object} data An empty Object
+ * @apiSuccess {Object} data.message The message just sent
  *
  * @apiUse UserNotFound
  */
@@ -617,7 +609,7 @@ api.sendPrivateMessage = {
     const objections = sender.getObjectionsToInteraction('send-private-message', receiver);
     if (objections.length > 0 && !sender.isAdmin()) throw new NotAuthorized(res.t(objections[0]));
 
-    const newMessage = await sender.sendMessage(receiver, { receiverMsg: message });
+    const messageSent = await sender.sendMessage(receiver, { receiverMsg: message });
 
     if (receiver.preferences.emailNotifications.newPM !== false) {
       sendTxnEmail(receiver, 'new-pm', [
@@ -638,7 +630,7 @@ api.sendPrivateMessage = {
       );
     }
 
-    res.respond(200, { message: newMessage });
+    res.respond(200, {message: messageSent});
   },
 };
 
@@ -682,6 +674,7 @@ api.transferGems = {
 
     receiver.balance += amount;
     sender.balance -= amount;
+    // @TODO necessary? Also saved when sending the inbox message
     let promises = [receiver.save(), sender.save()];
     await Promise.all(promises);
 

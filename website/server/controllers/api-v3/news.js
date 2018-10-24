@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'NEW BACKGROUNDS, ARMOIRE ITEMS, RESOLUTION SUCCESS CHALLENGE, AND TAKE THIS CHALLENGE';
+const LAST_ANNOUNCEMENT_TITLE = 'VETERAN PETS AND NEW STAFF MEMBERS';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -27,39 +27,28 @@ api.getNews = {
       html: `
       <div class="bailey">
         <div class="media align-items-center">
+          <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
-            <div class="media align-items-center">
-              <div class="mr-3 ${baileyClass}"></div>
-              <div class="media-body">
-                <h1 class="align-self-center">${res.t('newStuff')}</h1>
-                <h2>9/4/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
-              </div>
-            </div>
-            <hr/>
-            <h3>September Backgrounds and Armoire Items!</h3>
-            <p>We’ve added three new backgrounds to the Background Shop! Now your avatar can go Apple Picking, stand on a Giant Book, and hang out with your pets and mounts in a Cozy Barn. Check them out under User Icon > Backgrounds!</p>
-            <p>Plus, there’s new gold-purchasable equipment in the Enchanted Armoire, including the Bookbinder Set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)</p>
-            <div class="small mb-3">by GeraldThePixel, Maans, virginiamoon, shanaqui, and fasteagle190</div>
+            <h1 class="align-self-center">${res.t('newStuff')}</h1>
+            <h2>10/23/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
-          <div class="promo_armoire_backgrounds_201809 ml-3 mb-3"></div>
         </div>
+        <hr/>
+        <div class="promo_veteran_pets center-block"></div>
+        <h3>New Veteran Pet!</h3>
+        <p>Hello Habiticans! Everyone is doing really well with the transition to our new <a href='https://habitica.wordpress.com/2018/10/11/coming-soon-unique-usernames/' target='_blank'>unique username system</a>!</p>
+        <p>As a reward for confirming your username, you've been granted a veteran pet!  If you haven't confimed yet, your new pet will appear in your Stable as soon as you do. Which pet? That depends on how many major changes to Habitica you've been around for.</p>
+        <p>Enjoy, and thank you for being part of our community- it means a lot to us! <3</p>
+        <div class="small mb-3">by Beffymaroo, SabreCat, Apollo, Piyo, viirus, Paglias, and TheHollidayInn</div>
         <div class="media align-items-center">
-          <div class="scene_perfect_day mr-3"></div>
+          <div class="npc_apollo ml-3"></div>
           <div class="media-body">
-            <h3>September 2018 Resolution Success Challenge and New Take This Challenge</h3>
-            <p>The Habitica team has launched a special official Challenge series hosted in the <a href='/groups/guild/6e6a8bd3-9f5f-4351-9188-9f11fcd80a99' target='_blank'>Official New Year's Resolution Guild</a>. These Challenges are designed to help you build and maintain goals that are destined for success and then stick with them as the year progresses. For this month's Challenge, <a href='https://habitica.com/challenges/8d08b298-1716-4553-8739-5071ae002de4' target='_blank'>Celebrate your Triumphs</a>, we're focusing on looking back to see all the progress you've made so far! It has a 15 Gem prize, which will be awarded to five lucky winners on October 1st.</p>
-            <p>Congratulations to the winners of the August Challenge, Enkia the Wicked, wondergrrl, renko, Mibbs, and TereLiz!</p>
+            <h3>New Staff Members: Apollo and Piyo</h3>
+            <p>We're thrilled to announce that our long-time designers Apollo and Piyo will be coming onboard as staff members! They've done a lot of beautiful work on the site and the mobile apps and we couldn't be happier to welcome them aboard. Go congratulate them in <a href='/groups/tavern'>the Tavern</a>!</p>
+            <div class="small mb-3">by the Habitica Team</div>
           </div>
+          <div class="npc_piyo mr-3"></div>
         </div>
-        <div class="media align-items-center">
-          <div class="media-body">
-            <p>The next Take This Challenge has also launched, "<a href='/challenges/32818ef2-18de-48b6-ab6e-2b52640c47f7' target='_blank'>Gaining Inspiration Points</a>", with a focus on creative endeavors. Be sure to check it out to earn additional pieces of the Take This armor set!</p>
-          </div>
-          <div class="promo_take_this mb-3"></div>
-        </div>
-        <p><a href='http://www.takethis.org/' target='_blank'>Take This</a> is a nonprofit that seeks to inform the gamer community about mental health issues, to provide education about mental disorders and mental illness prevention, and to reduce the stigma of mental illness.</p>
-        <p>Congratulations to the winners of the last Take This Challenge, "Notice Me, Senpai!": grand prize winner Sebem.seme, and runners-up Jessie, MaxClayson, kayote, Madison Walrath, and LaChistosa. Plus, all participants in that Challenge have received a piece of the <a href='http://habitica.wikia.com/wiki/Event_Item_Sequences#Take_This_Armor_Set' target='_blank'>Take This item set</a> if they hadn't completed it already. It is located in your Rewards column. Enjoy!</p>
-        <div class="small mb-3">by Doctor B, the Take This team, Lemoness, Beffymaroo, and SabreCat</div>
       </div>
       `,
     });
@@ -77,9 +66,7 @@ api.getNews = {
  */
 api.tellMeLaterNews = {
   method: 'POST',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/news/tell-me-later',
   async handler (req, res) {
     const user = res.locals.user;

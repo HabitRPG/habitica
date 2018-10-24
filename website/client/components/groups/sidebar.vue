@@ -139,8 +139,6 @@ export default {
       this.emitFilters();
     },
     searchTerm: throttle(function searchTerm (newSearch) {
-      if (newSearch.length <= 1) return; // @TODO: eh, should we limit based on length?
-
       this.$emit('search', {
         searchTerm: newSearch,
       });

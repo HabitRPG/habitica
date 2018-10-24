@@ -417,7 +417,7 @@ describe('Post /groups/:groupId/invite', () => {
       expect(await inviter.post(`/groups/${group._id}/invite`, {
         uuids: generatedInvites.map(invite => invite._id),
       })).to.be.an('array');
-    });
+    }).timeout(10000);
 
     // @TODO: Add this after we are able to mock the group plan route
     xit('returns an error when a non-leader invites to a group plan', async () => {
@@ -564,7 +564,7 @@ describe('Post /groups/:groupId/invite', () => {
       expect(await inviter.post(`/groups/${party._id}/invite`, {
         uuids: generatedInvites.map(invite => invite._id),
       })).to.be.an('array');
-    });
+    }).timeout(10000);
 
     it('does not allow 30+ members in a party', async () => {
       let invitesToGenerate = [];
@@ -582,6 +582,6 @@ describe('Post /groups/:groupId/invite', () => {
           error: 'BadRequest',
           message: t('partyExceedsMembersLimit', {maxMembersParty: PARTY_LIMIT_MEMBERS}),
         });
-    });
+    }).timeout(10000);
   });
 });

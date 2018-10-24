@@ -9,25 +9,25 @@ const featuredItems = {
     },
     {
       type: 'premiumHatchingPotion',
-      path: 'premiumHatchingPotions.Ember',
+      path: 'premiumHatchingPotions.Ghost',
     },
     {
-      type: 'eggs',
-      path: 'eggs.Dragon',
+      type: 'premiumHatchingPotion',
+      path: 'premiumHatchingPotions.Glow',
     },
     {
       type: 'card',
-      path: 'cardTypes.congrats',
+      path: 'cardTypes.getwell',
     },
   ],
   quests: [
     {
       type: 'quests',
-      path: 'quests.seaserpent',
+      path: 'quests.alligator',
     },
     {
       type: 'quests',
-      path: 'quests.dilatoryDistress1',
+      path: 'quests.taskwoodsTerror1',
     },
     {
       type: 'quests',

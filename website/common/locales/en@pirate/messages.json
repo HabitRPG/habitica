@@ -38,7 +38,6 @@
     "messageInsufficientGems": "Not enough gems!",
     "messageAuthPasswordMustMatch": ":password and :confirmPassword don' match",
     "messageAuthCredentialsRequired": ":username, :email, :password, :confirmPassword required",
-    "messageAuthUsernameTaken": "Login Name already taken",
     "messageAuthEmailTaken": "Email already taken",
     "messageAuthNoUserFound": "No user c'n be found.",
     "messageAuthMustBeLoggedIn": "Ye must be logged in.",

@@ -71,6 +71,7 @@
     "submit": "送信する",
     "close": "閉じる",
     "saveAndClose": "保存して閉じる",
+    "saveAndConfirm": "保存して承認する",
     "cancel": "キャンセル",
     "ok": "OK",
     "add": "追加",

@@ -19,7 +19,6 @@ import { removeFromArray } from '../../libs/collectionManipulators';
 import { sendTxn as sendTxnEmail } from '../../libs/email';
 import { encrypt } from '../../libs/encryption';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
-import pusher from '../../libs/pusher';
 import common from '../../../common';
 import payments from '../../libs/payments/payments';
 import stripePayments from '../../libs/payments/stripe';
@@ -109,9 +108,7 @@ let api = {};
 api.createGroup = {
   method: 'POST',
   url: '/groups',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let group = new Group(Group.sanitize(req.body));
@@ -128,10 +125,6 @@ api.createGroup = {
       if (!user.achievements.joinedGuild) {
         user.achievements.joinedGuild = true;
         user.addNotification('GUILD_JOINED_ACHIEVEMENT');
-      }
-      if (user._ABtests && user._ABtests.guildReminder && user._ABtests.counter !== -1) {
-        user._ABtests.counter = -1;
-        user.markModified('_ABtests');
       }
     } else {
       if (group.privacy !== 'private') throw new NotAuthorized(res.t('partyMustbePrivate'));
@@ -182,9 +175,7 @@ api.createGroup = {
 api.createGroupPlan = {
   method: 'POST',
   url: '/groups/create-plan',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let group = new Group(Group.sanitize(req.body.groupToCreate));
@@ -293,9 +284,7 @@ api.createGroupPlan = {
 api.getGroups = {
   method: 'GET',
   url: '/groups',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -443,9 +432,7 @@ api.getGroup = {
 api.updateGroup = {
   method: 'PUT',
   url: '/groups/:groupId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -508,9 +495,7 @@ api.updateGroup = {
 api.joinGroup = {
   method: 'POST',
   url: '/groups/:groupId/join',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let inviter;
@@ -579,10 +564,6 @@ api.joinGroup = {
       if (!user.achievements.joinedGuild) {
         user.achievements.joinedGuild = true;
         user.addNotification('GUILD_JOINED_ACHIEVEMENT');
-      }
-      if (user._ABtests && user._ABtests.guildReminder && user._ABtests.counter !== -1) {
-        user._ABtests.counter = -1;
-        user.markModified('_ABtests');
       }
     }
     if (!isUserInvited) throw new NotAuthorized(res.t('messageGroupRequiresInvite'));
@@ -682,9 +663,7 @@ api.joinGroup = {
 api.rejectGroupInvite = {
   method: 'POST',
   url: '/groups/:groupId/reject-invite',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -759,9 +738,7 @@ function _removeMessagesFromMember (member, groupId) {
 api.leaveGroup = {
   method: 'POST',
   url: '/groups/:groupId/leave',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
@@ -848,9 +825,7 @@ function _sendMessageToRemoved (group, removedUser, message, isInGroup) {
 api.removeGroupMember = {
   method: 'POST',
   url: '/groups/:groupId/removeMember/:memberId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -906,12 +881,6 @@ api.removeGroupMember = {
         removeFromArray(member.guilds, group._id);
       }
       if (isInGroup === 'party') {
-        // Tell the realtime clients that a user is being removed
-        // If the user that is being removed is still connected, they'll get disconnected automatically
-        pusher.trigger(`presence-group-${group._id}`, 'user-removed', {
-          userId: user._id,
-        });
-
         member.party._id = undefined; // TODO remove quest information too? Use group.leave()?
       }
 
@@ -1176,7 +1145,7 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
 api.inviteToGroup = {
   method: 'POST',
   url: '/groups/:groupId/invite',
-  middlewares: [authWithHeaders({})],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -1249,9 +1218,7 @@ api.inviteToGroup = {
 api.addGroupManager = {
   method: 'POST',
   url: '/groups/:groupId/add-manager',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let managerId = req.body.managerId;
@@ -1300,9 +1267,7 @@ api.addGroupManager = {
 api.removeGroupManager = {
   method: 'POST',
   url: '/groups/:groupId/remove-manager',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let managerId = req.body.managerId;
@@ -1355,9 +1320,7 @@ api.removeGroupManager = {
 api.getGroupPlans = {
   method: 'GET',
   url: '/group-plans',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 

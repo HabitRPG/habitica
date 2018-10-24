@@ -7,7 +7,11 @@ import {
 import shared from '../../common';
 import _  from 'lodash';
 import { model as Challenge} from './challenge';
-import { model as Chat } from './chat';
+import {
+  chatModel as Chat,
+  setUserStyles,
+  messageDefaults,
+} from './message';
 import * as Tasks from './task';
 import validator from 'validator';
 import { removeFromArray } from '../libs/collectionManipulators';
@@ -25,7 +29,6 @@ import baseModel from '../libs/baseModel';
 import { sendTxn as sendTxnEmail } from '../libs/email';
 import nconf from 'nconf';
 import { sendNotification as sendPushNotification } from '../libs/pushNotifications';
-import pusher from '../libs/pusher';
 import {
   syncableAttrs,
 } from '../libs/taskManager';
@@ -69,20 +72,10 @@ export let schema = new Schema({
   name: {type: String, required: true},
   summary: {type: String, maxlength: MAX_SUMMARY_SIZE_FOR_GUILDS},
   description: String,
-  leader: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
+  leader: {type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid.'], required: true},
   type: {type: String, enum: ['guild', 'party'], required: true},
   privacy: {type: String, enum: ['private', 'public'], default: 'private', required: true},
-  chat: Array,
-  /*
-  #    [{
-  #      timestamp: Date
-  #      user: String
-  #      text: String
-  #      contributor: String
-  #      uuid: String
-  #      id: String
-  #    }]
-  */
+  chat: Array, // Used for backward compatibility, but messages aren't stored here
   leaderOnly: { // restrict group actions to leader (members can't do them)
     challenges: {type: Boolean, default: false, required: true},
     // invites: {type: Boolean, default: false, required: true},
@@ -473,81 +466,8 @@ schema.methods.getMemberCount = async function getMemberCount () {
   return await User.count(query).exec();
 };
 
-export function chatDefaults (msg, user) {
-  const id = shared.uuid();
-  const message = {
-    id,
-    _id: id,
-    text: msg.substring(0, 3000),
-    timestamp: Number(new Date()),
-    likes: {},
-    flags: {},
-    flagCount: 0,
-  };
-
-  if (user) {
-    _.defaults(message, {
-      uuid: user._id,
-      contributor: user.contributor && user.contributor.toObject(),
-      backer: user.backer && user.backer.toObject(),
-      user: user.profile.name,
-    });
-  } else {
-    message.uuid = 'system';
-  }
-
-  return message;
-}
-
-function setUserStyles (newMessage, user) {
-  let userStyles = {};
-  userStyles.items = {gear: {}};
-
-  let userCopy = user;
-  if (user.toObject) userCopy = user.toObject();
-
-  if (userCopy.items) {
-    userStyles.items.gear = {};
-    userStyles.items.gear.costume = Object.assign({}, userCopy.items.gear.costume);
-    userStyles.items.gear.equipped = Object.assign({}, userCopy.items.gear.equipped);
-
-    userStyles.items.currentMount = userCopy.items.currentMount;
-    userStyles.items.currentPet = userCopy.items.currentPet;
-  }
-
-
-  if (userCopy.preferences) {
-    userStyles.preferences = {};
-    if (userCopy.preferences.style) userStyles.preferences.style = userCopy.preferences.style;
-    userStyles.preferences.hair = userCopy.preferences.hair;
-    userStyles.preferences.skin = userCopy.preferences.skin;
-    userStyles.preferences.shirt = userCopy.preferences.shirt;
-    userStyles.preferences.chair = userCopy.preferences.chair;
-    userStyles.preferences.size = userCopy.preferences.size;
-    userStyles.preferences.chair = userCopy.preferences.chair;
-    userStyles.preferences.background = userCopy.preferences.background;
-    userStyles.preferences.costume = userCopy.preferences.costume;
-  }
-
-  if (userCopy.stats) {
-    userStyles.stats = {};
-    userStyles.stats.class = userCopy.stats.class;
-    if (userCopy.stats.buffs) {
-      userStyles.stats.buffs = {
-        seafoam: userCopy.stats.buffs.seafoam,
-        shinySeed: userCopy.stats.buffs.shinySeed,
-        spookySparkles: userCopy.stats.buffs.spookySparkles,
-        snowball: userCopy.stats.buffs.snowball,
-      };
-    }
-  }
-
-  newMessage.userStyles = userStyles;
-  newMessage.markModified('userStyles');
-}
-
 schema.methods.sendChat = function sendChat (message, user, metaData) {
-  let newMessage = chatDefaults(message, user);
+  let newMessage = messageDefaults(message, user);
   let newChatMessage = new Chat();
   newChatMessage = Object.assign(newChatMessage, newMessage);
   newChatMessage.groupId = this._id;
@@ -559,17 +479,6 @@ schema.methods.sendChat = function sendChat (message, user, metaData) {
   if (metaData) {
     newChatMessage._meta = metaData;
   }
-
-  // @TODO: Completely remove the code below after migration
-  // this.chat.unshift(newMessage);
-
-  let maxCount = MAX_CHAT_COUNT;
-
-  if (this.isSubscribed()) {
-    maxCount = MAX_SUBBED_GROUP_CHAT_COUNT;
-  }
-
-  this.chat.splice(maxCount);
 
   // do not send notifications for guilds with more than 5000 users and for the tavern
   if (NO_CHAT_NOTIFICATIONS.indexOf(this._id) !== -1 || this.memberCount > LARGE_GROUP_COUNT_MESSAGE_CUTOFF) {
@@ -611,12 +520,6 @@ schema.methods.sendChat = function sendChat (message, user, metaData) {
   User.update(query, lastSeenUpdateRemoveOld, {multi: true}).exec().then(() => {
     User.update(query, lastSeenUpdateAddNew, {multi: true}).exec();
   });
-
-  // If the message being sent is a system message (not gone through the api.postChat controller)
-  // then notify Pusher about it (only parties for now)
-  if (newMessage.uuid === 'system' && this.privacy === 'private' && this.type === 'party') {
-    pusher.trigger(`presence-group-${this._id}`, 'new-chat', newMessage);
-  }
 
   return newChatMessage;
 };
@@ -1250,11 +1153,6 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
     promises.push(User.update({_id: user._id}, {$pull: {guilds: group._id}}).exec());
   } else {
     promises.push(User.update({_id: user._id}, {$set: {party: {}}}).exec());
-    // Tell the realtime clients that a user has left
-    // If the user that left is still connected, they'll get disconnected
-    pusher.trigger(`presence-group-${group._id}`, 'user-left', {
-      userId: user._id,
-    });
 
     update.$unset = {[`quest.members.${user._id}`]: 1};
   }
@@ -1511,7 +1409,12 @@ schema.methods.isSubscribed = function isSubscribed () {
 
 schema.methods.hasNotCancelled = function hasNotCancelled () {
   let plan = this.purchased.plan;
-  return this.isSubscribed() && !plan.dateTerminated;
+  return Boolean(this.isSubscribed() && !plan.dateTerminated);
+};
+
+schema.methods.hasCancelled = function hasNotCancelled () {
+  let plan = this.purchased.plan;
+  return Boolean(this.isSubscribed() && plan.dateTerminated);
 };
 
 schema.methods.updateGroupPlan = async function updateGroupPlan (removingMember) {

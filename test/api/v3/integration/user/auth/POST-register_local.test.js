@@ -41,6 +41,23 @@ describe('POST /user/auth/local/register', () => {
       expect(user.newUser).to.eql(true);
     });
 
+    it('registers a new user and sets verifiedUsername to true', async () => {
+      let username = generateRandomUserName();
+      let email = `${username}@example.com`;
+      let password = 'password';
+
+      let user = await api.post('/user/auth/local/register', {
+        username,
+        email,
+        password,
+        confirmPassword: password,
+      });
+
+      expect(user._id).to.exist;
+      expect(user.apiToken).to.exist;
+      expect(user.flags.verifiedUsername).to.eql(true);
+    });
+
     xit('remove spaces from username', async () => {
       // TODO can probably delete this test now
       let username = ' usernamewithspaces ';
@@ -259,7 +276,7 @@ describe('POST /user/auth/local/register', () => {
       });
     });
 
-    it('enrolls new users in an A/B test', async () => {
+    xit('enrolls new users in an A/B test', async () => {
       let username = generateRandomUserName();
       let email = `${username}@example.com`;
       let password = 'password';

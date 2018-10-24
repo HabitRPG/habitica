@@ -1,5 +1,6 @@
 import { authWithSession } from '../../middlewares/auth';
 import { model as User } from '../../models/user';
+import * as inboxLib from '../../libs/inbox';
 import * as Tasks from '../../models/task';
 import {
   NotFound,
@@ -81,15 +82,23 @@ api.exportUserHistory = {
   },
 };
 
-// Convert user to json and attach tasks divided by type
+// Convert user to json and attach tasks divided by type and inbox messages
 // at user.tasks[`${taskType}s`] (user.tasks.{dailys/habits/...})
 async function _getUserDataForExport (user, xmlMode = false) {
   let userData = user.toJSON();
   userData.tasks = {};
 
-  let tasks = await Tasks.Task.find({
-    userId: user._id,
-  }).exec();
+  userData.inbox.messages = {};
+
+  const [tasks, messages] = await Promise.all([
+    Tasks.Task.find({
+      userId: user._id,
+    }).exec(),
+
+    inboxLib.getUserInbox(user, false),
+  ]);
+
+  userData.inbox.messages = messages;
 
   _(tasks)
     .map(task => task.toJSON())
@@ -296,18 +305,14 @@ api.exportUserPrivateMessages = {
   url: '/export/inbox.html',
   middlewares: [authWithSession],
   async handler (req, res) {
-    let user = res.locals.user;
+    const user = res.locals.user;
 
     const timezoneOffset = user.preferences.timezoneOffset;
     const dateFormat = user.preferences.dateFormat.toUpperCase();
     const TO = res.t('to');
     const FROM = res.t('from');
 
-    let inbox = Object.keys(user.inbox.messages).map(key => user.inbox.messages[key]);
-
-    inbox = _.sortBy(inbox, function sortBy (num) {
-      return num.sort * -1;
-    });
+    const inbox = await inboxLib.getUserInbox(user);
 
     let messages = '<!DOCTYPE html><html><head></head><body>';
 

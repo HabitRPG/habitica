@@ -113,7 +113,7 @@
   .task {
     margin-bottom: 2px;
     box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
-    background: transparent;
+    background: white;
     border-radius: 2px;
     position: relative;
 
@@ -282,7 +282,7 @@
     color: $gray-50;
     font-size: 14px;
     line-height: 1.43;
-    margin-bottom: 10px;
+    margin-bottom: -3px;
     min-height: 0px;
     width: 100%;
     margin-left: 8px;

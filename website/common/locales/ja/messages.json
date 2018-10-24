@@ -38,7 +38,6 @@
     "messageInsufficientGems": "ジェムが足りません!",
     "messageAuthPasswordMustMatch": ":password と :confirmPassword が一致していません。",
     "messageAuthCredentialsRequired": ":username, :email, :password, :confirmPassword は必須です。",
-    "messageAuthUsernameTaken": "そのユーザー名は既に使われています",
     "messageAuthEmailTaken": "そのEmailアドレスは既に使われています",
     "messageAuthNoUserFound": "ユーザーが見つかりませんでした。",
     "messageAuthMustBeLoggedIn": "まずログインしてください。",

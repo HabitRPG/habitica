@@ -20,6 +20,9 @@ passport.use(new FacebookStrategy({
   clientID: nconf.get('FACEBOOK_KEY'),
   clientSecret: nconf.get('FACEBOOK_SECRET'),
   profileFields: ['id', 'email', 'displayName'],
+  profileURL: 'https://graph.facebook.com/v2.8/me',
+  authorizationURL: 'https://www.facebook.com/v2.8/dialog/oauth',
+  tokenURL: 'https://graph.facebook.com/v2.8/oauth/access_token',
   // callbackURL: nconf.get("BASE_URL") + "/auth/facebook/callback"
 }, (accessToken, refreshToken, profile, done) => done(null, profile)));
 

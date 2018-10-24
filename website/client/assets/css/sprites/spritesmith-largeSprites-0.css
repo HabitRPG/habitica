@@ -1,54 +1,108 @@
+.achievement-costumeContest6x {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -1013px -798px;
+  width: 144px;
+  height: 156px;
+}
+.promo_alligator {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px 0px;
+  width: 480px;
+  height: 360px;
+}
 .promo_animal_tails {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -421px 0px;
+  background-position: -1013px -208px;
   width: 141px;
   height: 441px;
 }
-.promo_armoire_backgrounds_201809 {
+.promo_armoire_backgrounds_201810 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -563px 0px;
-  width: 141px;
-  height: 441px;
+  background-position: -848px -1009px;
+  width: 423px;
+  height: 147px;
 }
-.promo_ember_potions {
+.promo_fall_avatar_customizations {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -705px 0px;
-  width: 141px;
-  height: 441px;
+  background-position: -1013px 0px;
+  width: 336px;
+  height: 207px;
+}
+.promo_fall_festival_2017 {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -481px -453px;
+  width: 414px;
+  height: 210px;
+}
+.promo_fall_festival_2018 {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -367px -723px;
+  width: 393px;
+  height: 213px;
+}
+.promo_forest_friends_bundle {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -1009px;
+  width: 423px;
+  height: 147px;
+}
+.promo_ghost_potions {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -424px -1009px;
+  width: 423px;
+  height: 147px;
 }
 .promo_ios {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -337px;
+  background-position: 0px -361px;
   width: 375px;
   height: 361px;
 }
-.promo_kangaroo {
+.promo_mystery_201809 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px 0px;
-  width: 420px;
-  height: 336px;
+  background-position: -1013px -650px;
+  width: 306px;
+  height: 147px;
 }
-.promo_mystery_201808 {
+.promo_seasonal_shop {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -847px -462px;
-  width: 78px;
-  height: 81px;
+  background-position: -1155px -503px;
+  width: 162px;
+  height: 138px;
+}
+.promo_spooky_sparkles {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -1155px -208px;
+  width: 140px;
+  height: 294px;
 }
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -847px -392px;
+  background-position: -1158px -798px;
   width: 96px;
   height: 69px;
 }
-.promo_unconventional_armor {
+.promo_veteran_pets {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -847px -211px;
-  width: 180px;
-  height: 180px;
+  background-position: 0px -1157px;
+  width: 363px;
+  height: 141px;
 }
-.scene_perfect_day {
+.scene_nametag {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -847px 0px;
-  width: 210px;
-  height: 210px;
+  background-position: -481px -244px;
+  width: 512px;
+  height: 208px;
+}
+.scene_positivity {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -481px 0px;
+  width: 531px;
+  height: 243px;
+}
+.scene_tools {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -723px;
+  width: 366px;
+  height: 285px;
 }

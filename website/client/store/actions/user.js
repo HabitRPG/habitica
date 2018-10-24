@@ -139,8 +139,6 @@ export function newStuffLater (store) {
 export async function rebirth () {
   let result = await axios.post('/api/v4/user/rebirth');
 
-  window.location.reload(true);
-
   return result;
 }
 

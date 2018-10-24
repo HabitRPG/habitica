@@ -616,5 +616,13 @@
     "questKangarooCompletion": "\"AGORA!\" Você avisa para que seu grupo lance os bumerangues de volta à canguru. A besta salta para mais longe com cada golpe até que ela foge, deixando nada mais que uma nuvem vermelha escura de poeira, alguns ovos e moedas de Ouro.<br><br> @Mewrose se adianta até onde a canguru esteve. \"Ei, aonde foram os bumerangues?\"<br><br> \"Eles provavelmente se desfizeram em poeira, deixando aquela nuvem vermelha escura, quando terminamos nossas respectivas tarefas\", especula @stefalupagus.<br><br> @LilithofAlfheim fita o horizonte. \"Aquilo é outro bando de cangurus vindo na nossa direção?\"<br><br> Vocês todos disparam em corrida de volta à Cidade dos Hábitos. É melhor encarar suas tarefas difíceis a ganhar outro calo na cabeça!",
     "questKangarooBoss": "Canguru Catastrófico",
     "questKangarooDropKangarooEgg": "Canguru (Ovo)",
-    "questKangarooUnlockText": "Desbloqueia Ovos de Canguru compráveis no Mercado"
+    "questKangarooUnlockText": "Desbloqueia Ovos de Canguru compráveis no Mercado",
+    "forestFriendsText": "Pacote de Missões Amigos da Floresta",
+    "forestFriendsNotes": "Contém 'O Espírito da Primavera', 'O Monstrouriço' e 'A Árvore Enrolada'. Disponível até o dia 30 de Setembro.",
+    "questAlligatorText": "O Éprajá-caré",
+    "questAlligatorNotes": "\"Uau!\", exclama @gully. \"Um Éprajá-caré no seu habitat natural! Cuidado, ele distrai sua presa com coisas que parecem urgentes NESTE INSTANTE e se alimenta do resultado de diárias não concluídas.\" Você fica em silêncio para evitar atrair a atenção, mas sem sucesso. O Éprajá-caré te vê e te ataca! Vozes distrativas se levantam no Pântano da Estagnação, agarrando sua atenção: \"Leia esta postagem! Veja esta foto! Preste atenção em mim NESTE INSTANTE!\" Você luta para montar um contra-ataque, completando suas Diárias e reforçando os seus Hábitos positivos para lutar contra o temido Éprajá-caré.",
+    "questAlligatorCompletion": "Com sua atenção focada no que é importante e não nas distrações do Éprajá-caré, ele foge. Vitória! \"São esses ovos? Eles se parecem com ovos de jacaré para mim\", pergunta @mfonda. \"Se nos importarmos com eles corretamente, eles serão mascotes leais ou corcéis fiéis\", responde @UncommonCriminal, entregando-lhe três para cuidar. Espero que sim, ou então o Éprajá-caré pode retornar...",
+    "questAlligatorBoss": "Éprajá-caré",
+    "questAlligatorDropAlligatorEgg": "Jacaré (Ovo)",
+    "questAlligatorUnlockText": "Desbloqueia ovos de Jacaré para compra no Mercado"
 }
