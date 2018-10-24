@@ -88,7 +88,6 @@
             :item="item",
             :popoverPosition="'top'",
             :progress="item.progress",
-            :emptyItem="!item.isOwned()",
             :showPopover="currentDraggingFood == null",
             :highlightBorder="highlightPet == item.key",
             @click="petClicked(item)"

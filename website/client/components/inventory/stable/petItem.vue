@@ -8,7 +8,7 @@ div
       span.item-content.hatchAgain(v-if="mountOwned && isHatchable")
         span.egg(:class="eggClass")
         span.potion(:class="potionClass")
-      span.item-content(v-else, :class="getPetItemClass()")
+      span.item-content(v-else, :class="getPetItemClass")
       span.pet-progress-background(v-if="item.isAllowedToFeed() && progress > 0")
         div.pet-progress-bar(v-bind:style="{width: 100 * progress/50 + '%' }")
     span.item-label(v-if="label") {{ label }}
@@ -85,10 +85,6 @@ div
         type: Number,
         default: -1,
       },
-      emptyItem: {
-        type: Boolean,
-        default: false,
-      },
       highlightBorder: {
         type: Boolean,
         default: false,
@@ -111,12 +107,16 @@ div
       click () {
         this.$emit('click', {});
       },
+    },
+    computed: {
+      potionClass () {
+        return `Pet_HatchingPotion_${this.item.potionKey}`;
+      },
+      eggClass () {
+        return `Pet_Egg_${this.item.eggKey}`;
+      },
       getPetItemClass () {
-        if (this.mountOwned && !this.isHatchable) {
-          return `GreyedOut Pet Pet-${this.item.key} ${this.item.eggKey}`;
-        }
-
-        if (this.item.isOwned()) {
+        if (this.item.isOwned() || this.mountOwned && this.isHatchable) {
           return `Pet Pet-${this.item.key} ${this.item.eggKey}`;
         }
 
@@ -131,19 +131,14 @@ div
         // Can't hatch
         return 'GreyedOut PixelPaw';
       },
-    },
-    computed: {
-      potionClass () {
-        return `Pet_HatchingPotion_${this.item.potionKey}`;
-      },
-      eggClass () {
-        return `Pet_Egg_${this.item.eggKey}`;
-      },
       isHatchable () {
         return this.item.isHatchable();
       },
       mountOwned () {
         return this.item.mountOwned();
+      },
+      emptyItem () {
+        return !this.item.isOwned();
       },
     },
   };
