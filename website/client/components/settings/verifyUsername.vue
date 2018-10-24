@@ -206,6 +206,7 @@
         await this.$store.dispatch('user:fetch', {forceLoad: true});
         this.$root.$emit('habitica::resync-completed');
         this.$root.$emit('bv::hide::modal', 'verify-username');
+        this.$router.go(0);
       },
       restoreEmptyDisplayName () {
         if (this.temporaryDisplayName.length < 1) {
