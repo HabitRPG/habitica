@@ -38,15 +38,7 @@
 
   .col-6
     h2 {{ $t('webhooks') }}
-    p
-      | Habitica provides webhooks so that when certain actions occur
-      | in your account, information can be sent to a script on another
-      | website. You can specify those scripts here. Be careful with this
-      | feature because specifying an incorrect URL can cause errors
-      | or slowness in Habitica. For more information, see the wiki's
-      a(href='https://habitica.wikia.com/wiki/Webhooks') Webhooks
-      |  page.
-
+    p(v-html="$t('webhooksInfo')")
     table.table.table-striped
       thead(v-if='user.webhooks.length')
         tr
