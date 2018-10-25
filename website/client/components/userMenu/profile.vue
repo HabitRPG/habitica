@@ -43,9 +43,9 @@ div
           .header.mb-3
             h1 {{user.profile.name}}
             div
-              strong(v-if='user.auth && user.auth.local && user.auth.local.username') @{{ user.auth.local.username }}
+              .name(v-if='user.auth && user.auth.local && user.auth.local.username') @{{ user.auth.local.username }}
             div
-              strong(v-if='this.userLoggedIn.contributor.admin') {{ user._id }}
+              .name(v-if='this.userLoggedIn.contributor.admin') {{ user._id }}
         .col-12.col-md-4
           button.btn.btn-secondary(v-if='user._id === userLoggedIn._id', @click='editing = !editing') {{ $t('edit') }}
       .row(v-if='!editing')
@@ -241,6 +241,11 @@ div
     color: #4f2a93;
     border-bottom: 2px solid #4f2a93;
     cursor: pointer;
+  }
+
+  .name {
+    color: $gray-200;
+    font-size: 16px;
   }
 
   #achievements {
