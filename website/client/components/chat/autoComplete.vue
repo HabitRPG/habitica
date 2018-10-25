@@ -101,7 +101,6 @@ export default {
         marginTop: '28px',
         position: 'absolute',
         minWidth: '100px',
-        minHeight: '100px',
         zIndex: 100,
         backgroundColor: 'white',
       };
