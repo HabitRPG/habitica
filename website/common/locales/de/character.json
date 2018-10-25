@@ -80,7 +80,7 @@
     "autoEquipPopoverText": "Wähle diese Option um Ausrüstung automatisch anzulegen, sobald Du sie erworben hast.",
     "costumeDisabled": "Du hast dein Kostüm deaktiviert. ",
     "gearAchievement": "Du hast den Erfolg \"Ultimative Ausrüstung\" erhalten, da Du die beste Ausrüstung erworben hast! Du hast die folgenden Sets vollständig:",
-    "gearAchievementNotification": "You have earned the \"Ultimate Gear\" Achievement for upgrading to the maximum gear set for a class!",
+    "gearAchievementNotification": "Du hast den \"Ultimative Ausrüstung\" Erfolg erlangt, indem du die beste Ausrüstung erworben hast.",
     "moreGearAchievements": "Um noch mehr Ultimative Ausrüstung Abzeichen zu erhalten, wechsle die Klasse auf der <a href='/user/settings/site' target='_blank'>Einstellungen &gt; Seite Seite</a> und kaufe die Ausrüstung Deiner neuen Klasse!",
     "armoireUnlocked": "Sieh' Dir den <strong>Verzauberten Schrank</strong> für weitere Ausrüstung an! Klicke auf die Belohnung: \"Verzauberter Schrank\" um eine zufällige Ausrüstung zu erhalten! Du kannst auch zufällige Erfahrungspunkte oder Nahrung bekommen.",
     "ultimGearName": "Ultimative Ausrüstung - <%= ultClass %>",
