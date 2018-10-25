@@ -76,6 +76,7 @@
   }
 
   .card {
+    border: 0px;
     margin-bottom: .5em;
     padding: 0rem;
   }
