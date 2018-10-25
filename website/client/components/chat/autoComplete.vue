@@ -68,8 +68,10 @@ export default {
   props: ['selections', 'text', 'coords', 'chat', 'textbox'],
   data () {
     return {
+      atRegex: new RegExp(/@[\w-]+$/),
       currentSearch: '',
       searchActive: false,
+      searchEscaped: false,
       currentSearchPosition: 0,
       tmpSelections: [],
       icons: Object.freeze({
@@ -106,7 +108,10 @@ export default {
     },
     searchResults () {
       if (!this.searchActive) return [];
-      let currentSearch = this.text.substring(this.currentSearchPosition + 1, this.text.length);
+      if (!this.atRegex.exec(this.text)) return [];
+      let currentSearch = this.atRegex.exec(this.text)[0];
+      currentSearch = currentSearch.substring(1, currentSearch.length);
+
       return this.tmpSelections.filter((option) => {
         return option.displayName.toLowerCase().indexOf(currentSearch.toLowerCase()) !== -1 || option.username && option.username.toLowerCase().indexOf(currentSearch.toLowerCase()) !== -1;
       }).slice(0, 4);
@@ -116,13 +121,27 @@ export default {
   mounted () {
     this.grabUserNames();
   },
+  created () {
+    document.addEventListener('keyup', this.handleEsc);
+  },
+  destroyed () {
+    document.removeEventListener('keyup', this.handleEsc);
+  },
   watch: {
     text (newText) {
       if (!newText[newText.length - 1] || newText[newText.length - 1] === ' ') {
         this.searchActive = false;
+        this.searchEscaped = false;
+        return;
       }
+      if (newText[newText.length - 1] === '@') {
+        this.searchActive = false;
+        this.searchEscaped = false;
+      }
+      if (this.searchEscaped) return;
 
-      if (newText[newText.length - 2] !== '@') return;
+      if (!this.atRegex.test(newText)) return;
+
       this.searchActive = true;
       this.currentSearchPosition = newText.length - 2;
     },
@@ -137,6 +156,7 @@ export default {
       // the same parent component. So, reset the data
       this.currentSearch = '';
       this.searchActive = false;
+      this.searchEscaped = false;
       this.currentSearchPosition = 0;
       this.tmpSelections = [];
     },
@@ -178,6 +198,12 @@ export default {
       }
       this.searchActive = false;
       this.$emit('select', newText);
+    },
+    handleEsc (e) {
+      if (e.keyCode === 27) {
+        this.searchActive = false;
+        this.searchEscaped = true;
+      }
     },
   },
   mixins: [styleHelper],
