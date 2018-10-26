@@ -24,11 +24,11 @@
               span {{$t('or')}}
             .form(@keyup.enter="register()")
               p.form-text {{$t('usernameLimitations')}}
-              input#usernameInput.form-control(type='text', placeholder='Login Name', v-model='username', :class='{"input-valid": usernameValid, "input-invalid": usernameInvalid}')
+              input#usernameInput.form-control(type='text', :placeholder='$t("username")', v-model='username', :class='{"input-valid": usernameValid, "input-invalid": usernameInvalid}')
               .input-error(v-for="issue in usernameIssues") {{ issue }}
-              input.form-control(type='email', placeholder='Email', v-model='email', :class='{"input-invalid": emailInvalid, "input-valid": emailValid}')
-              input.form-control(type='password', placeholder='Password', v-model='password', :class='{"input-valid": password.length > 3}')
-              input.form-control(type='password', placeholder='Confirm Password', v-model='passwordConfirm', :class='{"input-invalid": passwordConfirmInvalid, "input-valid": passwordConfirmValid}')
+              input.form-control(type='email', :placeholder='$t("email")', v-model='email', :class='{"input-invalid": emailInvalid, "input-valid": emailValid}')
+              input.form-control(type='password', :placeholder='$t("password")', v-model='password', :class='{"input-valid": password.length > 3}')
+              input.form-control(type='password', :placeholder='$t("confirmPassword")', v-model='passwordConfirm', :class='{"input-invalid": passwordConfirmInvalid, "input-valid": passwordConfirmValid}')
               p.form-text(v-once, v-html="$t('termsAndAgreement')")
               button.sign-up(@click="register()") {{$t('signup')}}
           .col-12

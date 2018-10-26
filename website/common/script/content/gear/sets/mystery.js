@@ -217,6 +217,12 @@ let armor = {
     mystery: '201809',
     value: 0,
   },
+  201810: {
+    text: t('armorMystery201810Text'),
+    notes: t('armorMystery201810Notes'),
+    mystery: '201810',
+    value: 0,
+  },
   301404: {
     text: t('armorMystery301404Text'),
     notes: t('armorMystery301404Notes'),
@@ -629,6 +635,12 @@ let head = {
     text: t('headMystery201809Text'),
     notes: t('headMystery201809Notes'),
     mystery: '201809',
+    value: 0,
+  },
+  201810: {
+    text: t('headMystery201810Text'),
+    notes: t('headMystery201810Notes'),
+    mystery: '201810',
     value: 0,
   },
   301404: {

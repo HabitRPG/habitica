@@ -13,7 +13,7 @@ describe('payments : google #cancelSubscribe', () => {
     let cancelStub;
 
     beforeEach(async () => {
-      cancelStub = sinon.stub(googlePayments, 'cancelSubscribe').returnsPromise().resolves({});
+      cancelStub = sinon.stub(googlePayments, 'cancelSubscribe').resolves({});
     });
 
     afterEach(() => {

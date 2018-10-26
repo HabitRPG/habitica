@@ -80,6 +80,7 @@
     "autoEquipPopoverText": "Select this option to automatically equip gear as soon as you purchase it.",
     "costumeDisabled": "Du har deaktiveret dit kostume",
     "gearAchievement": "Du har gennemført præstationen \"Det Ultimative Udstyr\" ved at opgradere til det maksimale udstyrssæt for din klasse. Du har opnået følgende komplette sæt:",
+    "gearAchievementNotification": "You have earned the \"Ultimate Gear\" Achievement for upgrading to the maximum gear set for a class!",
     "moreGearAchievements": "To attain more Ultimate Gear badges, change classes on <a href='/user/settings/site' target='_blank'>the Settings &gt; Site page</a> and buy your new class's gear!",
     "armoireUnlocked": "For mere udstyr, prøv den <strong>Fortryllede Kiste!</strong> Klik på den Fortryllede Kiste-belønningen for en chance for at få specielt Udstyr! Der er også en chance for XP eller mad.",
     "ultimGearName": "Ultimative Udstyr - <%= ultClass %>",

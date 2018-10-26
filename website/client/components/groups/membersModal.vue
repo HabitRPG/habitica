@@ -496,8 +496,9 @@ export default {
       });
     },
     shouldShowAddManager (memberId) {
+      if (!this.isLeader && !this.isAdmin) return false;
       if (memberId === this.group.leader || memberId === this.group.leader._id) return false;
-      return !(this.group.managers && this.group.managers[memberId]);
+      return this.groupIsSubscribed && !(this.group.managers && this.group.managers[memberId]);
     },
     shouldShowRemoveManager (memberId) {
       if (!this.isLeader && !this.isAdmin) return false;

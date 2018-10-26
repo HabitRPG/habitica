@@ -34,7 +34,7 @@ describe('payments : paypal #checkoutSuccess', () => {
     let checkoutSuccessStub;
 
     beforeEach(async () => {
-      checkoutSuccessStub = sinon.stub(paypalPayments, 'checkoutSuccess').returnsPromise().resolves({});
+      checkoutSuccessStub = sinon.stub(paypalPayments, 'checkoutSuccess').resolves({});
     });
 
     afterEach(() => {

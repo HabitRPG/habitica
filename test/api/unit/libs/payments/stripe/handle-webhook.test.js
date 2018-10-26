@@ -22,7 +22,7 @@ describe('Stripe - Webhooks', () => {
     const eventRetrieved = {type: eventType};
 
     beforeEach(() => {
-      sinon.stub(stripe.events, 'retrieve').returnsPromise().resolves(eventRetrieved);
+      sinon.stub(stripe.events, 'retrieve').resolves(eventRetrieved);
       sinon.stub(logger, 'error');
     });
 
@@ -52,8 +52,8 @@ describe('Stripe - Webhooks', () => {
     const eventType = 'customer.subscription.deleted';
 
     beforeEach(() => {
-      sinon.stub(stripe.customers, 'del').returnsPromise().resolves({});
-      sinon.stub(payments, 'cancelSubscription').returnsPromise().resolves({});
+      sinon.stub(stripe.customers, 'del').resolves({});
+      sinon.stub(payments, 'cancelSubscription').resolves({});
     });
 
     afterEach(() => {
@@ -62,7 +62,7 @@ describe('Stripe - Webhooks', () => {
     });
 
     it('does not do anything if event.request is null (subscription cancelled manually)', async () => {
-      sinon.stub(stripe.events, 'retrieve').returnsPromise().resolves({
+      sinon.stub(stripe.events, 'retrieve').resolves({
         id: 123,
         type: eventType,
         request: 123,
@@ -79,7 +79,7 @@ describe('Stripe - Webhooks', () => {
     describe('user subscription', () => {
       it('throws an error if the user is not found', async () => {
         const customerId = 456;
-        sinon.stub(stripe.events, 'retrieve').returnsPromise().resolves({
+        sinon.stub(stripe.events, 'retrieve').resolves({
           id: 123,
           type: eventType,
           data: {
@@ -113,7 +113,7 @@ describe('Stripe - Webhooks', () => {
         subscriber.purchased.plan.paymentMethod = 'Stripe';
         await subscriber.save();
 
-        sinon.stub(stripe.events, 'retrieve').returnsPromise().resolves({
+        sinon.stub(stripe.events, 'retrieve').resolves({
           id: 123,
           type: eventType,
           data: {
@@ -146,7 +146,7 @@ describe('Stripe - Webhooks', () => {
     describe('group plan subscription', () => {
       it('throws an error if the group is not found', async () => {
         const customerId = 456;
-        sinon.stub(stripe.events, 'retrieve').returnsPromise().resolves({
+        sinon.stub(stripe.events, 'retrieve').resolves({
           id: 123,
           type: eventType,
           data: {
@@ -185,7 +185,7 @@ describe('Stripe - Webhooks', () => {
         subscriber.purchased.plan.paymentMethod = 'Stripe';
         await subscriber.save();
 
-        sinon.stub(stripe.events, 'retrieve').returnsPromise().resolves({
+        sinon.stub(stripe.events, 'retrieve').resolves({
           id: 123,
           type: eventType,
           data: {
@@ -227,7 +227,7 @@ describe('Stripe - Webhooks', () => {
         subscriber.purchased.plan.paymentMethod = 'Stripe';
         await subscriber.save();
 
-        sinon.stub(stripe.events, 'retrieve').returnsPromise().resolves({
+        sinon.stub(stripe.events, 'retrieve').resolves({
           id: 123,
           type: eventType,
           data: {
