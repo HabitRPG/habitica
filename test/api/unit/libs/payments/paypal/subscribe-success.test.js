@@ -28,10 +28,10 @@ describe('subscribeSuccess', () => {
     customerId = 'test-customerId';
 
     paypalBillingAgreementExecuteStub = sinon.stub(paypalPayments, 'paypalBillingAgreementExecute')
-      .returnsPromise({}).resolves({
+      .resolves({
         id: customerId,
       });
-    paymentsCreateSubscritionStub = sinon.stub(payments, 'createSubscription').returnsPromise().resolves({});
+    paymentsCreateSubscritionStub = sinon.stub(payments, 'createSubscription').resolves({});
   });
 
   afterEach(() => {

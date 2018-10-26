@@ -21,7 +21,7 @@ describe('payments : apple #subscribe', () => {
     let subscribeStub;
 
     beforeEach(async () => {
-      subscribeStub = sinon.stub(applePayments, 'subscribe').returnsPromise().resolves({});
+      subscribeStub = sinon.stub(applePayments, 'subscribe').resolves({});
     });
 
     afterEach(() => {

@@ -477,7 +477,7 @@ describe('Group Model', () => {
           party.quest.active = false;
 
           await party.startQuest(questLeader);
-          Group.prototype.sendChat.reset();
+          Group.prototype.sendChat.resetHistory();
           await party.save();
 
           await Group.processQuestProgress(participatingMember, progress);
@@ -496,7 +496,7 @@ describe('Group Model', () => {
           party.quest.active = false;
 
           await party.startQuest(questLeader);
-          Group.prototype.sendChat.reset();
+          Group.prototype.sendChat.resetHistory();
           await party.save();
 
           await Group.processQuestProgress(participatingMember, progress);
