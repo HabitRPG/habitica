@@ -1,8 +1,9 @@
 import taskDefaults from '../../../website/common/script/libs/taskDefaults';
+import { generateUser } from '../../helpers/common.helper';
 
 describe('taskDefaults', () => {
   it('applies defaults to undefined type or habit', () => {
-    let task = taskDefaults();
+    let task = taskDefaults({}, generateUser());
     expect(task.type).to.eql('habit');
     expect(task._id).to.exist;
     expect(task.text).to.eql(task._id);
@@ -18,7 +19,7 @@ describe('taskDefaults', () => {
   });
 
   it('applies defaults to a daily', () => {
-    let task = taskDefaults({ type: 'daily' });
+    let task = taskDefaults({ type: 'daily' }, generateUser());
     expect(task.type).to.eql('daily');
     expect(task._id).to.exist;
     expect(task.text).to.eql(task._id);
@@ -42,7 +43,7 @@ describe('taskDefaults', () => {
   });
 
   it('applies defaults a reward', () => {
-    let task = taskDefaults({ type: 'reward' });
+    let task = taskDefaults({ type: 'reward' }, generateUser());
     expect(task.type).to.eql('reward');
     expect(task._id).to.exist;
     expect(task.text).to.eql(task._id);
@@ -52,7 +53,7 @@ describe('taskDefaults', () => {
   });
 
   it('applies defaults a todo', () => {
-    let task = taskDefaults({ type: 'todo' });
+    let task = taskDefaults({ type: 'todo' }, generateUser());
     expect(task.type).to.eql('todo');
     expect(task._id).to.exist;
     expect(task.text).to.eql(task._id);
