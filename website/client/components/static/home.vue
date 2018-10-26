@@ -560,6 +560,7 @@
 <script>
   import hello from 'hellojs';
   import debounce from 'lodash/debounce';
+  import validator from 'validator';
   import googlePlay from 'assets/images/home/google-play-badge.svg';
   import iosAppStore from 'assets/images/home/ios-app-store.svg';
   import iphones from 'assets/images/home/iphones.svg';
@@ -626,18 +627,18 @@
     computed: {
       emailValid () {
         if (this.email.length <= 3) return false;
-        return this.validateEmail(this.email);
+        return validator.isEmail(this.email);
       },
       emailInvalid () {
         if (this.email.length <= 3) return false;
-        return !this.validateEmail(this.email);
+        return !validator.isEmail(this.email);
       },
       usernameValid () {
-        if (this.username.length <= 3) return false;
+        if (this.username.length < 1) return false;
         return this.usernameIssues.length === 0;
       },
       usernameInvalid () {
-        if (this.username.length <= 3) return false;
+        if (this.username.length < 1) return false;
         return !this.usernameValid;
       },
       passwordConfirmValid () {
@@ -655,13 +656,9 @@
       },
     },
     methods: {
-      validateEmail (email) {
-        let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(email);
-      },
       // eslint-disable-next-line func-names
       validateUsername: debounce(function (username) {
-        if (username.length <= 3) {
+        if (username.length < 1) {
           return;
         }
         this.$store.dispatch('auth:verifyUsername', {

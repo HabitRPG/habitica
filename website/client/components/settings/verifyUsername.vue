@@ -54,9 +54,6 @@
       padding-right: 2rem;
     }
     .modal-dialog   {
-      -webkit-transform: translate(-5%, calc(50vh - 60%));
-      -ms-transform: translate(0, 50vh) translate(-5%, -60%);
-      -o-transform: translate(-5%, calc(50vh - 60%));
       transform: translate(0, 50vh) translate(-5%, -60%);
     }
   }
@@ -162,23 +159,23 @@
         user: 'user.data',
       }),
       displayNameInvalid () {
-        if (this.temporaryDisplayName.length <= 1) return false;
+        if (this.temporaryDisplayName.length < 1) return false;
         return !this.displayNameValid;
       },
       displayNameValid () {
-        if (this.temporaryDisplayName.length <= 1) return false;
+        if (this.temporaryDisplayName.length < 1) return false;
         return this.displayNameIssues.length === 0;
       },
       usernameCannotSubmit () {
-        if (this.temporaryUsername.length <= 1) return true;
+        if (this.temporaryUsername.length < 1) return true;
         return !this.usernameValid || !this.displayNameValid;
       },
       usernameInvalid () {
-        if (this.temporaryUsername.length <= 1) return false;
+        if (this.temporaryUsername.length < 1) return false;
         return !this.usernameValid;
       },
       usernameValid () {
-        if (this.temporaryUsername.length <= 1) return false;
+        if (this.temporaryUsername.length < 1) return false;
         return this.usernameIssues.length === 0;
       },
     },
