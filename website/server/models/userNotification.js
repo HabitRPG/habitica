@@ -2,7 +2,6 @@ import mongoose from 'mongoose';
 import baseModel from '../libs/baseModel';
 import { v4 as uuid } from 'uuid';
 import validator from 'validator';
-import _ from 'lodash';
 
 const NOTIFICATION_TYPES = [
   'DROPS_ENABLED',

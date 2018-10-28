@@ -5,9 +5,6 @@ import {
 import {
   model as User,
 } from '../../models/user';
-import {
-  model as UserNotification,
-} from '../../models/userNotification';
 
 let api = {};
 
