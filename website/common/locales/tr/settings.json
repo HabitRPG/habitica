@@ -151,7 +151,7 @@
     "displayInviteToPartyWhenPartyIs1": "Takımın 1 üyesi varken Takıma Davet Et butonunu göster.",
     "saveCustomDayStart": "Kişisel Gün Başlangıcını Kaydet",
     "registration": "Kayıt",
-    "addLocalAuth": "Add Email and Password Login",
+    "addLocalAuth": "Eposta ve Şifre girişi ekle",
     "generateCodes": "Kod Üret",
     "generate": "Üret",
     "getCodes": "Kod Al",
