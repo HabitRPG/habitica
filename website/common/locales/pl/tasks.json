@@ -201,7 +201,7 @@
     "resets": "Resetowany",
     "summaryStart": "Powtarzaj <%= frequency %> co <%= everyX %> <%= frequencyPlural %>",
     "nextDue": "Następny termin",
-    "checkOffYesterDailies": "Odznacz wszelkie Codzienne, które wczoraj wykonałeś",
+    "checkOffYesterDailies": "Zaznacz wszelkie Codzienne, które wczoraj wykonałeś:",
     "yesterDailiesTitle": "Zostawiłeś wczoraj niezaznaczone Dzienne! Czy chcesz potwierdzić wykonanie któregoś z nich?",
     "yesterDailiesCallToAction": "Rozpocznij nowy dzień!",
     "yesterDailiesOptionTitle": "Zanim otrzymasz obrażenia potwierdź, że \"Codzienne\" nie zostało wykonany",
