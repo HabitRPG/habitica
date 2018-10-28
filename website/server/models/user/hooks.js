@@ -214,6 +214,17 @@ schema.pre('save', true, function preSaveUser (next, done) {
   ) {
     const unallocatedPointsNotifications = [];
 
+    this.notifications = this.notifications.filter(notification => {
+      // Remove all unaallocated stats points
+      if (notification && notification.type === 'UNALLOCATED_STATS_POINTS') {
+        unallocatedPointsNotifications.push(notification);
+        return false;
+      }
+
+      // Keep all the others
+      return true;
+    });
+
     // Handle unallocated stats points notifications (keep only one and up to date)
     const pointsToAllocate = this.stats.points;
     const classNotEnabled = !this.flags.classSelected || this.preferences.disableClasses;
