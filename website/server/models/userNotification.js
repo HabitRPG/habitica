@@ -40,15 +40,11 @@ export let schema = new Schema({
     $type: String,
     default: uuid,
     validate: [v => validator.isUUID(v), 'Invalid uuid.'],
-    // @TODO: Add these back once we figure out the issue with notifications
-    // See Fix for https://github.com/HabitRPG/habitica/issues/9923
-    // required: true,
+    required: true,
   },
   type: {
     $type: String,
-    // @TODO: Add these back once we figure out the issue with notifications
-    // See Fix for https://github.com/HabitRPG/habitica/issues/9923
-    // required: true,
+    required: true,
     enum: NOTIFICATION_TYPES,
   },
   data: {$type: Schema.Types.Mixed, default: () => {
@@ -57,7 +53,7 @@ export let schema = new Schema({
   // A field to mark the notification as seen without deleting it, optional use
   seen: {
     $type: Boolean,
-    // required: true,
+    required: true,
     default: () => false,
   },
 }, {
@@ -67,38 +63,9 @@ export let schema = new Schema({
   typeKey: '$type', // So that we can use fields named `type`
 });
 
-/**
- * Convert notifications to JSON making sure to return only valid data.
- * Fix for https://github.com/HabitRPG/habitica/issues/9923#issuecomment-362869881
- * @TODO Remove once https://github.com/HabitRPG/habitica/issues/9923
- * is fixed
- */
-schema.statics.convertNotificationsToSafeJson = function convertNotificationsToSafeJson (notifications) {
-  if (!notifications) return notifications;
-
-  let filteredNotifications = notifications.filter(n => {
-    // Exclude notifications with a nullish value
-    if (!n) return false;
-    // Exclude notifications without an id or a type
-    if (!n.id || !n.type) return false;
-    return true;
-  });
-
-  filteredNotifications = _.uniqWith(filteredNotifications, (val, otherVal) => {
-    if (val.type === otherVal.type && val.type === 'NEW_CHAT_MESSAGE') {
-      return val.data.group.id === otherVal.data.group.id;
-    }
-    return false;
-  });
-
-  return filteredNotifications.map(n => {
-    return n.toJSON();
-  });
-};
-
 schema.plugin(baseModel, {
   noSet: ['_id', 'id'],
-  // timestamps: true, // Temporarily removed to debug a possible bug
+  timestamps: true,
   _id: false, // use id instead of _id
 });
 

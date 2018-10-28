@@ -90,15 +90,8 @@ describe('response middleware', () => {
   });
 
   it('returns notifications if a user is authenticated', () => {
-    const user = res.locals.user;
-
-    user.notifications = [
-      null, // invalid, not an object
-      {seen: true}, // invalid, no type or id
-      {id: 123}, // invalid, no type
-      // {type: 'ABC'}, // invalid, no id, not included here because the id would be added automatically
-      {type: 'ABC', id: '123'}, // valid
-    ];
+    res.locals.user.notifications.push({type: 'NEW_CONTRIBUTOR_LEVEL'});
+    const notification = res.locals.user.notifications[0].toJSON();
 
     responseMiddleware(req, res, next);
     res.respond(200, {field: 1});
@@ -110,8 +103,8 @@ describe('response middleware', () => {
       data: {field: 1},
       notifications: [
         {
-          type: 'ABC',
-          id: '123',
+          type: notification.type,
+          id: notification.id,
           data: {},
           seen: false,
         },

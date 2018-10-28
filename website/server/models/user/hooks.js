@@ -4,9 +4,6 @@ import moment from 'moment';
 import baseModel from '../../libs/baseModel';
 import * as Tasks from '../task';
 import {
-  model as UserNotification,
-} from '../userNotification';
-import {
   userActivityWebhook,
 } from '../../libs/webhook';
 import schema from './schema';
@@ -23,10 +20,6 @@ schema.plugin(baseModel, {
     }
 
     delete plainObj.filters;
-
-    if (originalDoc.notifications) {
-      plainObj.notifications = UserNotification.convertNotificationsToSafeJson(originalDoc.notifications);
-    }
 
     return plainObj;
   },
@@ -220,19 +213,6 @@ schema.pre('save', true, function preSaveUser (next, done) {
     this.isDirectSelected('preferences')
   ) {
     const unallocatedPointsNotifications = [];
-
-    this.notifications = this.notifications.filter(notification => {
-      // Remove corrupt notifications
-      if (!notification || !notification.type) return false;
-
-      // Remove all unsallocated stats points
-      if (notification && notification.type === 'UNALLOCATED_STATS_POINTS') {
-        unallocatedPointsNotifications.push(notification);
-        return false;
-      }
-      // Keep all the others
-      return true;
-    });
 
     // Handle unallocated stats points notifications (keep only one and up to date)
     const pointsToAllocate = this.stats.points;
