@@ -5,7 +5,7 @@ import baseModel from '../libs/baseModel';
 // A collection used to store mailing list unsubscription for non registered email addresses
 export let schema = new mongoose.Schema({
   email: {
-    type: String,
+    $type: String,
     required: true,
     trim: true,
     lowercase: true,
@@ -14,6 +14,7 @@ export let schema = new mongoose.Schema({
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
+  typeKey: '$type', // So that we can use fields named `type`
 });
 
 schema.plugin(baseModel, {

@@ -20,28 +20,29 @@ const MIN_SHORTNAME_SIZE_FOR_CHALLENGES = shared.constants.MIN_SHORTNAME_SIZE_FO
 const MAX_SUMMARY_SIZE_FOR_CHALLENGES = shared.constants.MAX_SUMMARY_SIZE_FOR_CHALLENGES;
 
 let schema = new Schema({
-  name: {type: String, required: true},
-  shortName: {type: String, required: true, minlength: MIN_SHORTNAME_SIZE_FOR_CHALLENGES},
-  summary: {type: String, maxlength: MAX_SUMMARY_SIZE_FOR_CHALLENGES},
+  name: {$type: String, required: true},
+  shortName: {$type: String, required: true, minlength: MIN_SHORTNAME_SIZE_FOR_CHALLENGES},
+  summary: {$type: String, maxlength: MAX_SUMMARY_SIZE_FOR_CHALLENGES},
   description: String,
-  official: {type: Boolean, default: false},
+  official: {$type: Boolean, default: false},
   tasksOrder: {
-    habits: [{type: String, ref: 'Task'}],
-    dailys: [{type: String, ref: 'Task'}],
-    todos: [{type: String, ref: 'Task'}],
-    rewards: [{type: String, ref: 'Task'}],
+    habits: [{$type: String, ref: 'Task'}],
+    dailys: [{$type: String, ref: 'Task'}],
+    todos: [{$type: String, ref: 'Task'}],
+    rewards: [{$type: String, ref: 'Task'}],
   },
-  leader: {type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid.'], required: true},
-  group: {type: String, ref: 'Group', validate: [v => validator.isUUID(v), 'Invalid uuid.'], required: true},
-  memberCount: {type: Number, default: 0},
-  prize: {type: Number, default: 0, min: 0},
+  leader: {$type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid.'], required: true},
+  group: {$type: String, ref: 'Group', validate: [v => validator.isUUID(v), 'Invalid uuid.'], required: true},
+  memberCount: {$type: Number, default: 0},
+  prize: {$type: Number, default: 0, min: 0},
   categories: [{
-    slug: {type: String},
-    name: {type: String},
+    slug: {$type: String},
+    name: {$type: String},
   }],
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
+  typeKey: '$type', // So that we can use fields named `type`
 });
 
 schema.plugin(baseModel, {
