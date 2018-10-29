@@ -2,14 +2,14 @@
 div
   .item-wrapper(@click="click()", :id="itemId")
     .item.pet-slot(
-      :class="{'item-empty': emptyItem, 'highlight': highlightBorder}",
+      :class="{'item-empty': !isOwned(), 'highlight': highlightBorder}",
     )
       slot(name="itemBadge", :item="item")
       span.item-content.hatchAgain(v-if="mountOwned && isHatchable")
         span.egg(:class="eggClass")
         span.potion(:class="potionClass")
-      span.item-content(v-else, :class="getPetItemClass")
-      span.pet-progress-background(v-if="item.isAllowedToFeed() && progress > 0")
+      span.item-content(v-else, :class="getPetItemClass()")
+      span.pet-progress-background(v-if="isAllowedToFeed() && progress > 0")
         div.pet-progress-bar(v-bind:style="{width: 100 * progress/50 + '%' }")
     span.item-label(v-if="label") {{ label }}
 
@@ -72,6 +72,8 @@ div
 
 <script>
   import uuid from 'uuid';
+  import { mapState } from 'client/libs/store';
+  import {isAllowedToFeed, isHatchable, isOwned} from '../../../libs/createAnimal';
 
   export default {
     props: {
@@ -80,10 +82,6 @@ div
       },
       label: {
         type: String,
-      },
-      progress: {
-        type: Number,
-        default: -1,
       },
       highlightBorder: {
         type: Boolean,
@@ -107,16 +105,14 @@ div
       click () {
         this.$emit('click', {});
       },
-    },
-    computed: {
-      potionClass () {
-        return `Pet_HatchingPotion_${this.item.potionKey}`;
+      isOwned () {
+        return isOwned('pet', this.item, this.userItems);
       },
-      eggClass () {
-        return `Pet_Egg_${this.item.eggKey}`;
+      isAllowedToFeed () {
+        return isAllowedToFeed(this.item, this.userItems);
       },
       getPetItemClass () {
-        if (this.item.isOwned() || this.mountOwned && this.isHatchable) {
+        if (this.isOwned() || this.mountOwned && this.isHatchable) {
           return `Pet Pet-${this.item.key} ${this.item.eggKey}`;
         }
 
@@ -131,14 +127,25 @@ div
         // Can't hatch
         return 'GreyedOut PixelPaw';
       },
+    },
+    computed: {
+      ...mapState({
+        userItems: 'user.data.items',
+      }),
+      potionClass () {
+        return `Pet_HatchingPotion_${this.item.potionKey}`;
+      },
+      eggClass () {
+        return `Pet_Egg_${this.item.eggKey}`;
+      },
       isHatchable () {
-        return this.item.isHatchable();
+        return isHatchable(this.item, this.userItems);
       },
       mountOwned () {
-        return this.item.mountOwned();
+        return isOwned('mount', this.item, this.userItems);
       },
-      emptyItem () {
-        return !this.item.isOwned();
+      progress () {
+        return this.userItems.pets[this.item.key];
       },
     },
   };
