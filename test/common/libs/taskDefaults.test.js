@@ -2,7 +2,6 @@ import moment from 'moment';
 
 import taskDefaults from '../../../website/common/script/libs/taskDefaults';
 import { generateUser } from '../../helpers/common.helper';
-import { constants } from 'os';
 
 describe('taskDefaults', () => {
   it('applies defaults to undefined type or habit', () => {
