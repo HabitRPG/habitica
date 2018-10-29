@@ -1,5 +1,8 @@
+import moment from 'moment';
+
 import taskDefaults from '../../../website/common/script/libs/taskDefaults';
 import { generateUser } from '../../helpers/common.helper';
+import { constants } from 'os';
 
 describe('taskDefaults', () => {
   it('applies defaults to undefined type or habit', () => {
@@ -61,5 +64,19 @@ describe('taskDefaults', () => {
     expect(task.value).to.eql(0);
     expect(task.priority).to.eql(1);
     expect(task.completed).to.eql(false);
+  });
+
+  it('starts a task yesterday if user cron is later today', () => {
+    // Configure to have a day start that's *always* tomorrow.
+    let user = generateUser({'preferences.dayStart': 25});
+    let task = taskDefaults({ type: 'daily' }, user);
+
+    expect(task.startDate).to.eql(
+      moment()
+        .utcOffset(user.preferences.timezoneOffset, 'hour')
+        .startOf('day')
+        .subtract(1, 'day')
+        .toDate()
+    );
   });
 });

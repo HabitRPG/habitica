@@ -65,6 +65,14 @@ module.exports = function taskDefaults (task, user) {
   }
 
   if (task.type === 'daily') {
+    let now = moment().utcOffset(user.preferences.timezoneOffset);
+    let startOfDay = now.clone().startOf('day');
+    let startOfDayWithCDSTime = startOfDay
+      .clone()
+      .add({
+        hours: user.preferences.dayStart,
+      });
+
     defaults(task, {
       streak: 0,
       repeat: {
@@ -77,9 +85,9 @@ module.exports = function taskDefaults (task, user) {
         su: true,
       },
       // If cron will happen today, start the daily yesterday
-      startDate: moment().startOf('day').add(user.preferences.dayStart, 'hour').isAfter(moment()) ?
-        moment().startOf('day').subtract(1, 'day').toDate() :
-        moment().startOf('day').toDate(),
+      startDate: startOfDayWithCDSTime.isAfter(now) ?
+        startOfDay.clone().subtract(1, 'day').toDate() :
+        startOfDay.toDate(),
       everyX: 1,
       frequency: 'weekly',
       daysOfMonth: [],
