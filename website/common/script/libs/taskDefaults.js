@@ -65,7 +65,7 @@ module.exports = function taskDefaults (task, user) {
   }
 
   if (task.type === 'daily') {
-    let now = moment().utcOffset(user.preferences.timezoneOffset);
+    let now = moment().zone(user.preferences.timezoneOffset);
     let startOfDay = now.clone().startOf('day');
     let startOfDayWithCDSTime = startOfDay
       .clone()
