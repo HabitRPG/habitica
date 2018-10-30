@@ -207,7 +207,7 @@ import startQuestModal from '../../groups/startQuestModal';
 import QuestInfo from '../../shops/quests/questInfo.vue';
 
 import { mapState } from 'client/libs/store';
-import createAnimal from 'client/libs/createAnimal';
+import { createAnimal } from 'client/libs/createAnimal';
 
 import notifications from 'client/mixins/notifications';
 import DragDropDirective from 'client/directives/dragdrop.directive';
