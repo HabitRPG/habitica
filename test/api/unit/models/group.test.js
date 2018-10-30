@@ -477,7 +477,7 @@ describe('Group Model', () => {
           party.quest.active = false;
 
           await party.startQuest(questLeader);
-          Group.prototype.sendChat.reset();
+          Group.prototype.sendChat.resetHistory();
           await party.save();
 
           await Group.processQuestProgress(participatingMember, progress);
@@ -496,7 +496,7 @@ describe('Group Model', () => {
           party.quest.active = false;
 
           await party.startQuest(questLeader);
-          Group.prototype.sendChat.reset();
+          Group.prototype.sendChat.resetHistory();
           await party.save();
 
           await Group.processQuestProgress(participatingMember, progress);
@@ -1932,27 +1932,53 @@ describe('Group Model', () => {
 
     context('hasNotCancelled', () => {
       it('returns false if group does not have customer id', () => {
-        expect(party.hasNotCancelled()).to.be.undefined;
+        expect(party.hasNotCancelled()).to.be.false;
       });
 
-      it('returns true if party does not have plan.dateTerminated', () => {
+      it('returns true if group does not have plan.dateTerminated', () => {
         party.purchased.plan.customerId = 'test-id';
 
         expect(party.hasNotCancelled()).to.be.true;
       });
 
-      it('returns false if party if plan.dateTerminated is after today', () => {
+      it('returns false if group if plan.dateTerminated is after today', () => {
         party.purchased.plan.customerId = 'test-id';
         party.purchased.plan.dateTerminated = moment().add(1, 'days').toDate();
 
         expect(party.hasNotCancelled()).to.be.false;
       });
 
-      it('returns false if party if plan.dateTerminated is before today', () => {
+      it('returns false if group if plan.dateTerminated is before today', () => {
         party.purchased.plan.customerId = 'test-id';
         party.purchased.plan.dateTerminated = moment().subtract(1, 'days').toDate();
 
         expect(party.hasNotCancelled()).to.be.false;
+      });
+    });
+
+    context('hasCancelled', () => {
+      it('returns false if group does not have customer id', () => {
+        expect(party.hasCancelled()).to.be.false;
+      });
+
+      it('returns false if group does not have plan.dateTerminated', () => {
+        party.purchased.plan.customerId = 'test-id';
+
+        expect(party.hasCancelled()).to.be.false;
+      });
+
+      it('returns true if group if plan.dateTerminated is after today', () => {
+        party.purchased.plan.customerId = 'test-id';
+        party.purchased.plan.dateTerminated = moment().add(1, 'days').toDate();
+
+        expect(party.hasCancelled()).to.be.true;
+      });
+
+      it('returns false if group if plan.dateTerminated is before today', () => {
+        party.purchased.plan.customerId = 'test-id';
+        party.purchased.plan.dateTerminated = moment().subtract(1, 'days').toDate();
+
+        expect(party.hasCancelled()).to.be.false;
       });
     });
   });

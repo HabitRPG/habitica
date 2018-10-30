@@ -46,8 +46,6 @@ export async function postChat (store, payload) {
     message: payload.message,
   });
 
-  // @TODO: pusherSocketId: $rootScope.pusherSocketId, // to make sure the send doesn't get notified of it's own message
-
   return response.data.data;
 }
 

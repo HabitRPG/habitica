@@ -29,7 +29,6 @@ import baseModel from '../libs/baseModel';
 import { sendTxn as sendTxnEmail } from '../libs/email';
 import nconf from 'nconf';
 import { sendNotification as sendPushNotification } from '../libs/pushNotifications';
-import pusher from '../libs/pusher';
 import {
   syncableAttrs,
 } from '../libs/taskManager';
@@ -70,31 +69,31 @@ export const MAX_CHAT_COUNT = 200;
 export const MAX_SUBBED_GROUP_CHAT_COUNT = 400;
 
 export let schema = new Schema({
-  name: {type: String, required: true},
-  summary: {type: String, maxlength: MAX_SUMMARY_SIZE_FOR_GUILDS},
+  name: {$type: String, required: true},
+  summary: {$type: String, maxlength: MAX_SUMMARY_SIZE_FOR_GUILDS},
   description: String,
-  leader: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
-  type: {type: String, enum: ['guild', 'party'], required: true},
-  privacy: {type: String, enum: ['private', 'public'], default: 'private', required: true},
+  leader: {$type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid.'], required: true},
+  type: {$type: String, enum: ['guild', 'party'], required: true},
+  privacy: {$type: String, enum: ['private', 'public'], default: 'private', required: true},
   chat: Array, // Used for backward compatibility, but messages aren't stored here
   leaderOnly: { // restrict group actions to leader (members can't do them)
-    challenges: {type: Boolean, default: false, required: true},
-    // invites: {type: Boolean, default: false, required: true},
+    challenges: {$type: Boolean, default: false, required: true},
+    // invites: {$type: Boolean, default: false, required: true},
     // Some group plans prevent members from getting gems
-    getGems: {type: Boolean, default: false},
+    getGems: {$type: Boolean, default: false},
   },
-  memberCount: {type: Number, default: 1},
-  challengeCount: {type: Number, default: 0},
-  balance: {type: Number, default: 0},
+  memberCount: {$type: Number, default: 1},
+  challengeCount: {$type: Number, default: 0},
+  balance: {$type: Number, default: 0},
   logo: String,
   leaderMessage: String,
   quest: {
     key: String,
-    active: {type: Boolean, default: false},
-    leader: {type: String, ref: 'User'},
+    active: {$type: Boolean, default: false},
+    leader: {$type: String, ref: 'User'},
     progress: {
       hp: Number,
-      collect: {type: Schema.Types.Mixed, default: () => {
+      collect: {$type: Schema.Types.Mixed, default: () => {
         return {};
       }}, // {feather: 5, ingot: 3}
       rage: Number, // limit break / "energy stored in shell", for explosion-attacks
@@ -103,34 +102,35 @@ export let schema = new Schema({
     // Shows boolean for each party-member who has accepted the quest. Eg {UUID: true, UUID: false}. Once all users click
     // 'Accept', the quest begins. If a false user waits too long, probably a good sign to prod them or boot them.
     // TODO when booting user, remove from .joined and check again if we can now start the quest
-    members: {type: Schema.Types.Mixed, default: () => {
+    members: {$type: Schema.Types.Mixed, default: () => {
       return {};
     }},
-    extra: {type: Schema.Types.Mixed, default: () => {
+    extra: {$type: Schema.Types.Mixed, default: () => {
       return {};
     }},
   },
   tasksOrder: {
-    habits: [{type: String, ref: 'Task'}],
-    dailys: [{type: String, ref: 'Task'}],
-    todos: [{type: String, ref: 'Task'}],
-    rewards: [{type: String, ref: 'Task'}],
+    habits: [{$type: String, ref: 'Task'}],
+    dailys: [{$type: String, ref: 'Task'}],
+    todos: [{$type: String, ref: 'Task'}],
+    rewards: [{$type: String, ref: 'Task'}],
   },
   purchased: {
-    plan: {type: SubscriptionPlanSchema, default: () => {
+    plan: {$type: SubscriptionPlanSchema, default: () => {
       return {};
     }},
   },
-  managers: {type: Schema.Types.Mixed, default: () => {
+  managers: {$type: Schema.Types.Mixed, default: () => {
     return {};
   }},
   categories: [{
-    slug: {type: String},
-    name: {type: String},
+    slug: {$type: String},
+    name: {$type: String},
   }],
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
+  typeKey: '$type', // So that we can use fields named `type`
 });
 
 schema.plugin(baseModel, {
@@ -521,12 +521,6 @@ schema.methods.sendChat = function sendChat (message, user, metaData) {
   User.update(query, lastSeenUpdateRemoveOld, {multi: true}).exec().then(() => {
     User.update(query, lastSeenUpdateAddNew, {multi: true}).exec();
   });
-
-  // If the message being sent is a system message (not gone through the api.postChat controller)
-  // then notify Pusher about it (only parties for now)
-  if (newMessage.uuid === 'system' && this.privacy === 'private' && this.type === 'party') {
-    pusher.trigger(`presence-group-${this._id}`, 'new-chat', newMessage);
-  }
 
   return newChatMessage;
 };
@@ -1160,11 +1154,6 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
     promises.push(User.update({_id: user._id}, {$pull: {guilds: group._id}}).exec());
   } else {
     promises.push(User.update({_id: user._id}, {$set: {party: {}}}).exec());
-    // Tell the realtime clients that a user has left
-    // If the user that left is still connected, they'll get disconnected
-    pusher.trigger(`presence-group-${group._id}`, 'user-left', {
-      userId: user._id,
-    });
 
     update.$unset = {[`quest.members.${user._id}`]: 1};
   }
@@ -1421,7 +1410,12 @@ schema.methods.isSubscribed = function isSubscribed () {
 
 schema.methods.hasNotCancelled = function hasNotCancelled () {
   let plan = this.purchased.plan;
-  return this.isSubscribed() && !plan.dateTerminated;
+  return Boolean(this.isSubscribed() && !plan.dateTerminated);
+};
+
+schema.methods.hasCancelled = function hasNotCancelled () {
+  let plan = this.purchased.plan;
+  return Boolean(this.isSubscribed() && plan.dateTerminated);
 };
 
 schema.methods.updateGroupPlan = async function updateGroupPlan (removingMember) {

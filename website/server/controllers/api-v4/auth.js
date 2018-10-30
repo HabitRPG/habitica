@@ -62,7 +62,20 @@ api.updateUsername = {
     // save username
     user.auth.local.lowerCaseUsername = newUsername.toLowerCase();
     user.auth.local.username = newUsername;
-    user.flags.verifiedUsername = true;
+    if (!user.flags.verifiedUsername) {
+      user.flags.verifiedUsername = true;
+      if (user.items.pets['Bear-Veteran']) {
+        user.items.pets['Fox-Veteran'] = 5;
+      } else if (user.items.pets['Lion-Veteran']) {
+        user.items.pets['Bear-Veteran'] = 5;
+      } else if (user.items.pets['Tiger-Veteran']) {
+        user.items.pets['Lion-Veteran'] = 5;
+      } else if (user.items.pets['Wolf-Veteran']) {
+        user.items.pets['Tiger-Veteran'] = 5;
+      } else {
+        user.items.pets['Wolf-Veteran'] = 5;
+      }
+    }
     await user.save();
 
     res.respond(200, { username: req.body.username });

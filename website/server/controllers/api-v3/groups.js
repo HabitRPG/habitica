@@ -19,7 +19,6 @@ import { removeFromArray } from '../../libs/collectionManipulators';
 import { sendTxn as sendTxnEmail } from '../../libs/email';
 import { encrypt } from '../../libs/encryption';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
-import pusher from '../../libs/pusher';
 import common from '../../../common';
 import payments from '../../libs/payments/payments';
 import stripePayments from '../../libs/payments/stripe';
@@ -126,10 +125,6 @@ api.createGroup = {
       if (!user.achievements.joinedGuild) {
         user.achievements.joinedGuild = true;
         user.addNotification('GUILD_JOINED_ACHIEVEMENT');
-      }
-      if (user._ABtests && user._ABtests.guildReminder && user._ABtests.counter !== -1) {
-        user._ABtests.counter = -1;
-        user.markModified('_ABtests');
       }
     } else {
       if (group.privacy !== 'private') throw new NotAuthorized(res.t('partyMustbePrivate'));
@@ -570,10 +565,6 @@ api.joinGroup = {
         user.achievements.joinedGuild = true;
         user.addNotification('GUILD_JOINED_ACHIEVEMENT');
       }
-      if (user._ABtests && user._ABtests.guildReminder && user._ABtests.counter !== -1) {
-        user._ABtests.counter = -1;
-        user.markModified('_ABtests');
-      }
     }
     if (!isUserInvited) throw new NotAuthorized(res.t('messageGroupRequiresInvite'));
 
@@ -890,12 +881,6 @@ api.removeGroupMember = {
         removeFromArray(member.guilds, group._id);
       }
       if (isInGroup === 'party') {
-        // Tell the realtime clients that a user is being removed
-        // If the user that is being removed is still connected, they'll get disconnected automatically
-        pusher.trigger(`presence-group-${group._id}`, 'user-removed', {
-          userId: user._id,
-        });
-
         member.party._id = undefined; // TODO remove quest information too? Use group.leave()?
       }
 

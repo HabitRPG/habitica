@@ -8,7 +8,7 @@ const authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; // ... own data is do
 /*
  * Award this month's mystery items to subscribers
  */
-const MYSTERY_ITEMS = ['armor_mystery_201809', 'head_mystery_201809'];
+const MYSTERY_ITEMS = ['armor_mystery_201810', 'head_mystery_201810'];
 const CONNECTION_STRING = nconf.get('MIGRATION_CONNECT_STRING');
 
 let dbUsers = monk(CONNECTION_STRING).get('users', { castIds: false });

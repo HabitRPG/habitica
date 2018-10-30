@@ -24,12 +24,12 @@ describe('Google Payments', ()  => {
       headers = {};
 
       iapSetupStub = sinon.stub(iapModule, 'setup')
-        .returnsPromise().resolves();
+        .resolves();
       iapValidateStub = sinon.stub(iapModule, 'validate')
-        .returnsPromise().resolves({});
+        .resolves({});
       iapIsValidatedStub = sinon.stub(iapModule, 'isValidated')
         .returns(true);
-      paymentBuyGemsStub = sinon.stub(payments, 'buyGems').returnsPromise().resolves({});
+      paymentBuyGemsStub = sinon.stub(payments, 'buyGems').resolves({});
     });
 
     afterEach(() => {
@@ -64,7 +64,7 @@ describe('Google Payments', ()  => {
     });
 
     it('should throw an error if user cannot purchase gems', async () => {
-      sinon.stub(user, 'canGetGems').returnsPromise().resolves(false);
+      sinon.stub(user, 'canGetGems').resolves(false);
 
       await expect(googlePayments.verifyGemPurchase(user, receipt, signature, headers))
         .to.eventually.be.rejected.and.to.eql({
@@ -77,7 +77,7 @@ describe('Google Payments', ()  => {
     });
 
     it('purchases gems', async () => {
-      sinon.stub(user, 'canGetGems').returnsPromise().resolves(true);
+      sinon.stub(user, 'canGetGems').resolves(true);
       await googlePayments.verifyGemPurchase(user, receipt, signature, headers);
 
       expect(iapSetupStub).to.be.calledOnce;
@@ -116,12 +116,12 @@ describe('Google Payments', ()  => {
       nextPaymentProcessing = moment.utc().add({days: 2});
 
       iapSetupStub = sinon.stub(iapModule, 'setup')
-        .returnsPromise().resolves();
+        .resolves();
       iapValidateStub = sinon.stub(iapModule, 'validate')
-        .returnsPromise().resolves({});
+        .resolves({});
       iapIsValidatedStub = sinon.stub(iapModule, 'isValidated')
         .returns(true);
-      paymentsCreateSubscritionStub = sinon.stub(payments, 'createSubscription').returnsPromise().resolves({});
+      paymentsCreateSubscritionStub = sinon.stub(payments, 'createSubscription').resolves({});
     });
 
     afterEach(() => {
@@ -193,9 +193,9 @@ describe('Google Payments', ()  => {
       expirationDate = moment.utc();
 
       iapSetupStub = sinon.stub(iapModule, 'setup')
-        .returnsPromise().resolves();
+        .resolves();
       iapValidateStub = sinon.stub(iapModule, 'validate')
-        .returnsPromise().resolves({
+        .resolves({
           expirationDate,
         });
       iapGetPurchaseDataStub = sinon.stub(iapModule, 'getPurchaseData')
@@ -210,7 +210,7 @@ describe('Google Payments', ()  => {
       user.purchased.plan.planId = subKey;
       user.purchased.plan.additionalData = {data: receipt, signature};
 
-      paymentCancelSubscriptionSpy = sinon.stub(payments, 'cancelSubscription').returnsPromise().resolves({});
+      paymentCancelSubscriptionSpy = sinon.stub(payments, 'cancelSubscription').resolves({});
     });
 
     afterEach(function () {

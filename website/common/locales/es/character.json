@@ -80,6 +80,7 @@
     "autoEquipPopoverText": "Selecciona esta opción para ponerte automáticamente el equipamiento en cuanto lo compres.",
     "costumeDisabled": "Has deshabilitado tu disfraz.",
     "gearAchievement": "¡Has obtenido el logro \"Equipamiento definitivo\" por mejorar al máximo el equipamiento de una clase! Has completado estos equipamientos:",
+    "gearAchievementNotification": "You have earned the \"Ultimate Gear\" Achievement for upgrading to the maximum gear set for a class!",
     "moreGearAchievements": "¡Para conseguir más insignias de Equipamiento Definitivo, cambia de clase en <a href='/user/settings/site' target='_blank'>la página  de Ajustes &gt; </a> y compra equipamiento de tu nueva clase!",
     "armoireUnlocked": "¡Para obtener más equipamiento, revisa el <strong>Armario Encantado!</strong> ¡Haz clic en la recompensa del Armario Encantado para tener una oportunidad al azar de conseguir equipamiento especial! También puede que obtengas puntos de experiencia o alimentos al azar.",
     "ultimGearName": "Equipamiento al Máximo - <%= ultClass %>",

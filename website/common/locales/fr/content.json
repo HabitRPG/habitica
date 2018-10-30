@@ -178,7 +178,7 @@
     "questEggKangarooAdjective": "enthousiaste",
     "questEggAlligatorText": "Alligator",
     "questEggAlligatorMountText": "Alligator",
-    "questEggAlligatorAdjective": "a cunning",
+    "questEggAlligatorAdjective": "un rusé",
     "eggNotes": "Trouvez une potion d’éclosion à verser sur cet œuf et il en sortira <%= eggAdjective(locale) %> bébé <%= eggText(locale) %>.",
     "hatchingPotionBase": "de base",
     "hatchingPotionWhite": "des neiges",

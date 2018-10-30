@@ -381,7 +381,7 @@ let armor = {
     value: 100,
     con: 15,
     set: 'jeweledArcher',
-    canOwn: ownsItem('armor_armoire_JeweledArcherArmor'),
+    canOwn: ownsItem('armor_armoire_jeweledArcherArmor'),
   },
   coverallsOfBookbinding: {
     text: t('armorArmoireCoverallsOfBookbindingText'),
@@ -842,7 +842,7 @@ let head = {
     value: 100,
     int: 15,
     set: 'jeweledArcher',
-    canOwn: ownsItem('head_armoire_JeweledArcherHelm'),
+    canOwn: ownsItem('head_armoire_jeweledArcherHelm'),
   },
   veilOfSpades: {
     text: t('headArmoireVeilOfSpadesText'),

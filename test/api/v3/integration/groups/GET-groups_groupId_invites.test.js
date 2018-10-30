@@ -79,7 +79,7 @@ describe('GET /groups/:groupId/invites', () => {
       expect(member).to.have.all.keys(['_id', 'id', 'profile']);
       expect(member.profile).to.have.all.keys(['name']);
     });
-  });
+  }).timeout(10000);
 
   it('supports using req.query.lastId to get more invites', async function () {
     this.timeout(30000); // @TODO: times out after 8 seconds
