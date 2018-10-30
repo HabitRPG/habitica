@@ -72,6 +72,7 @@ let specialPets = {
   'Bear-Veteran': 'veteranBear',
   'Hippogriff-Hopeful': 'hopefulHippogriffPet',
   'Fox-Veteran': 'veteranFox',
+  'JackOLantern-Glow': 'glowJackolantern',
 };
 
 let specialMounts = {
