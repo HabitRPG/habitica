@@ -25,6 +25,7 @@
     "polarBearPup": "Isbjörnsunge",
     "jackolantern": "Lyktgubbe",
     "ghostJackolantern": "Spöklik Pump-lykta",
+    "glowJackolantern": "Glow-in-the-Dark Jack-O-Lantern",
     "seasonalShop": "Säsongsbutik",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Säsongshäxan<%= linkEnd %>",

@@ -25,6 +25,7 @@
     "polarBearPup": "Біле ведмежа",
     "jackolantern": "Джек-ліхтар",
     "ghostJackolantern": "Ghost Jack-O-Lantern",
+    "glowJackolantern": "Glow-in-the-Dark Jack-O-Lantern",
     "seasonalShop": "Сезонна крамниця",
     "seasonalShopClosedTitle": "<%= linkStart %> Leslie <%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Seasonal Sorceress<%= linkEnd %>",

@@ -25,6 +25,7 @@
     "polarBearPup": "Jegesmedvebocs",
     "jackolantern": "Töklámpás",
     "ghostJackolantern": "Szellemes töklámpás",
+    "glowJackolantern": "Glow-in-the-Dark Jack-O-Lantern",
     "seasonalShop": "Szezonális bolt",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Szezonális varázslónő<%= linkEnd %>",

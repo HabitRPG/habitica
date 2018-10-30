@@ -25,6 +25,7 @@
     "polarBearPup": "Niedźwiadek polarny",
     "jackolantern": "Lampion z dyni",
     "ghostJackolantern": "Duch Dyniowa Latarnia",
+    "glowJackolantern": "Glow-in-the-Dark Jack-O-Lantern",
     "seasonalShop": "Sklepik sezonowy",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Sezonowe Czary<%= linkEnd %>",

@@ -25,6 +25,7 @@
     "polarBearPup": "Mladunče belog medveda",
     "jackolantern": "Svetiljka od bundeve",
     "ghostJackolantern": "Ghost Jack-O-Lantern",
+    "glowJackolantern": "Glow-in-the-Dark Jack-O-Lantern",
     "seasonalShop": "Prodavnica sezonskih predmeta",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Sezonska čarobnica<%= linkEnd %>",

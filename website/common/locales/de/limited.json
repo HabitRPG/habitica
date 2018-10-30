@@ -25,6 +25,7 @@
     "polarBearPup": "Eisbärenjunges",
     "jackolantern": "Halloweenkürbis",
     "ghostJackolantern": "Geister-Halloweenkürbis",
+    "glowJackolantern": "Glow-in-the-Dark Jack-O-Lantern",
     "seasonalShop": "Jahreszeitenmarkt",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Saisonzauberin<%= linkEnd %>",
