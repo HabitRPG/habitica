@@ -321,7 +321,6 @@
   import _each from 'lodash/each';
   import _sortBy from 'lodash/sortBy';
   import _filter from 'lodash/filter';
-  import _flatMap from 'lodash/flatMap';
   import _throttle from 'lodash/throttle';
   import groupBy from 'lodash/groupBy';
 
