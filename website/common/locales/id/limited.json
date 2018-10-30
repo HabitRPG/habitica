@@ -25,6 +25,7 @@
     "polarBearPup": "Anak Beruang Kutub",
     "jackolantern": "Jack-O-Lantern",
     "ghostJackolantern": "Hantu Jack-O-Lantern",
+    "glowJackolantern": "Glow-in-the-Dark Jack-O-Lantern",
     "seasonalShop": "Toko musiman",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Penyihir Musiman<%= linkEnd %>",

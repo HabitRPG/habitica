@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'OCTOBER SUBSCRIBER ITEMS REVEALED';
+const LAST_ANNOUNCEMENT_TITLE = 'HABITOWEEN! PLUS LAST CHANCE FOR FALL FESTIVAL AND OCTOBER SUBSCRIBER ITEMS';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,14 +30,26 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>10/25/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>10/30/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
+        <h3>Happy Habitoween!</h3>
+        <p>It's the last day of the Fall Festival, and all the NPCs are looking monstrous. Plus, we have lots of fun things in store...</p>
+        <h3>Jack O' Lantern Pets and Mounts</h3>
+        <p>The Flourishing Fields are full of cute carved pumpkins - and it looks like one has <a href='/inventory/stable' target='_blank'>followed you home</a>! What kind of pumpkin? It all depends on how many Habitoweens you've celebrated with us. Each Habitoween, you'll get a new and exciting pumpkin variety!</p>
+        <div class="small mb-3">by Lemoness and Beffymaroo</div>
+        <div class="promo_jackolanterns center-block"></div>
+        <h3>Candy for Everyone!</h3>
+        <p>It's a feast for your pets and mounts! In honor of the end of the Fall Festival, we've given everyone an assortment of candy. You can feed it to your pets in the <a href='/inventory/stable' target='_blank'>Stable</a>! Enjoy.</p>
+        <div class="small mb-3">by SabreCat and Lemoness</div>
         <div class="promo_mystery_201810 center-block"></div>
-        <p>October's Subscriber Items have been revealed: the <a href='/user/settings/subscription' target='_blank'>Dark Forest Item Set</a>! You only have seven days to receive the item set when you subscribe. If you're already an active subscriber, reload the site and then head to Inventory > Items to claim your gear!</p>
-        <p>Subscribers also receive the ability to buy Gems for Gold -- the longer you subscribe, the more Gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
-        <div class="small mb-3">by Beffymaroo</div>
+        <h3>Last Chance for Fall Festival Items and Dark Forest Set</h3>
+        <p>This is your last chance to get all Fall Festival items before they vanish at the end of October 31st! This includes Limited-Edition Outfits, Seasonal Shop purchases, Seasonal Edition Skins and Hair Colors, and yes, even Ghost and Glow Hatching Potions. Grab them all while you still can!</p>
+        <p>Plus, today is the final day to <a href='/user/settings/subscription' target='_blank'>subscribe</a> and receive the Dark Forest set! Subscribing also lets you buy Gems for Gold and nets you a special Jackalope pet.</p>
+        <p>Thanks so much for your supporting the site -- you're helping us keep Habitica alive. Happy Habitoween!</p>
+        <div class="small mb-3">by Hermi, AaronTheTwin, tricksy.fox, Lemoness, Beffymaroo and SabreCat</div>
+        <div class="promo_ghost_potions center-block"></div>
       </div>
       `,
     });

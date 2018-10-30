@@ -25,6 +25,7 @@
     "polarBearPup": "Полярно мече",
     "jackolantern": "Тиквен фенер",
     "ghostJackolantern": "Призрачен тиквен фенер",
+    "glowJackolantern": "Glow-in-the-Dark Jack-O-Lantern",
     "seasonalShop": "Сезонен магазин",
     "seasonalShopClosedTitle": "<%= linkStart %>Лесли<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Сезонна Магьосница<%= linkEnd %>",

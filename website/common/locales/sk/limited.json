@@ -25,6 +25,7 @@
     "polarBearPup": "Polárne medvieďa",
     "jackolantern": "Jack-O-Lantern",
     "ghostJackolantern": "Ghost Jack-O-Lantern",
+    "glowJackolantern": "Glow-in-the-Dark Jack-O-Lantern",
     "seasonalShop": "Sezónny obchod",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Sezónna kúzelníčka<%= linkEnd %>",

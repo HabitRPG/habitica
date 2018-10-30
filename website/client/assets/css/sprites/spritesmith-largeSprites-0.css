@@ -18,7 +18,7 @@
 }
 .promo_armoire_backgrounds_201810 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -848px -1009px;
+  background-position: 0px -1157px;
   width: 423px;
   height: 147px;
 }
@@ -42,13 +42,13 @@
 }
 .promo_forest_friends_bundle {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -1009px;
+  background-position: -424px -1009px;
   width: 423px;
   height: 147px;
 }
 .promo_ghost_potions {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -424px -1009px;
+  background-position: -848px -1009px;
   width: 423px;
   height: 147px;
 }
@@ -57,6 +57,12 @@
   background-position: 0px -361px;
   width: 375px;
   height: 361px;
+}
+.promo_jackolanterns {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -1009px;
+  width: 423px;
+  height: 147px;
 }
 .promo_mystery_201810 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
@@ -84,7 +90,7 @@
 }
 .promo_veteran_pets {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -1157px;
+  background-position: -424px -1157px;
   width: 363px;
   height: 141px;
 }

@@ -25,6 +25,7 @@
     "polarBearPup": "Isbjørneunge",
     "jackolantern": "Græskarlygte",
     "ghostJackolantern": "Spøgelses Græskarlygte",
+    "glowJackolantern": "Glow-in-the-Dark Jack-O-Lantern",
     "seasonalShop": "Sæson-marked",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Sæson-heksen<%= linkEnd %>",
