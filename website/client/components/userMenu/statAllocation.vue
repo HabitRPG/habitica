@@ -23,40 +23,27 @@
             .points {{$t('pts')}}
           .col-3
             div
-              .up(v-if='showStatsSave', @click='allocate(stat)')
+              .up(@click='allocate(stat)')
             div
-              .down(v-if='showStatsSave', @click='deallocate(stat)')
-    .row.save-row(v-if='showStatsSave')
-      .col-12.col-md-6.offset-md-3.text-center
-        button.btn.btn-primary(@click='saveAttributes()', :disabled='loading') {{ this.loading ?  $t('loading') : $t('save') }}
+              .down(@click='deallocate(stat)')
 </template>
 
 <script>
   import toggleSwitch from 'client/components/ui/toggleSwitch';
-  import allocateBulk from  '../../../common/script/ops/stats/allocateBulk';
-  import axios from 'axios';
 
   export default {
-    props: ['user', 'showAllocation'],
+    props: ['user', 'showAllocation', 'statUpdates'],
     components: {
       toggleSwitch,
     },
     data () {
       return {
-        loading: false,
         allocateStatsList: {
           str: { title: 'allocateStr', popover: 'strengthText', allocatepop: 'allocateStrPop' },
           int: { title: 'allocateInt', popover: 'intText', allocatepop: 'allocateIntPop' },
           con: { title: 'allocateCon', popover: 'conText', allocatepop: 'allocateConPop' },
           per: { title: 'allocatePer', popover: 'perText', allocatepop: 'allocatePerPop' },
         },
-        statUpdates: {
-          str: 0,
-          int: 0,
-          con: 0,
-          per: 0,
-        },
-
         stats: {
           str: {
             title: 'strength',
@@ -81,9 +68,6 @@
       userLevel100Plus () {
         return this.user.stats.lvl >= 100;
       },
-      showStatsSave () {
-        return Boolean(this.user.stats.points);
-      },
       pointsRemaining () {
         let points = this.user.stats.points;
         Object.values(this.statUpdates).forEach(value => {
@@ -106,35 +90,11 @@
       },
       allocate (stat) {
         if (this.pointsRemaining === 0) return;
-        this.statUpdates[stat]++;
+        this.$emit('statUpdate', stat, 1);
       },
       deallocate (stat) {
         if (this.statUpdates[stat] === 0) return;
-        this.statUpdates[stat]--;
-      },
-      async saveAttributes () {
-        this.loading = true;
-
-        const statUpdates = {};
-        ['str', 'int', 'per', 'con'].forEach(stat => {
-          if (this.statUpdates[stat] > 0) statUpdates[stat] = this.statUpdates[stat];
-        });
-
-        // reset statUpdates to zero before request to avoid display errors while waiting for server
-        this.statUpdates = {
-          str: 0,
-          int: 0,
-          con: 0,
-          per: 0,
-        };
-
-        allocateBulk(this.user, { body: { stats: statUpdates } });
-
-        await axios.post('/api/v4/user/allocate-bulk', {
-          stats: statUpdates,
-        });
-
-        this.loading = false;
+        this.$emit('statUpdate', stat, -1);
       },
     },
   };
@@ -212,9 +172,5 @@
     background: #FFFFFF;
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.15), 0 1px 4px 0 rgba(26, 24, 29, 0.1);
     border: 1px solid transparent;
-  }
-
-  .save-row {
-    margin-top: 1em;
   }
 </style>

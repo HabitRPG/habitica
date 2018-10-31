@@ -119,7 +119,12 @@
                 | {{user.stats.buffs[stat]}}
     stat-allocation(
       :user='user',
-      :showAllocation='showAllocation',)
+      :showAllocation='showAllocation',
+      :statUpdates='statUpdates',
+      @statUpdate='statUpdate')
+    .row.save-row(v-if='showStatsSave')
+      .col-12.col-md-6.offset-md-3.text-center
+        button.btn.btn-primary(@click='saveAttributes()', :disabled='loading') {{ this.loading ?  $t('loading') : $t('save') }}
 </template>
 
 <script>
@@ -130,6 +135,8 @@
   import Content from '../../../common/script/content';
   import { beastMasterProgress, mountMasterProgress } from '../../../common/script/count';
   import statsComputed from  '../../../common/script/libs/statsComputed';
+  import allocateBulk from  '../../../common/script/ops/stats/allocateBulk';
+  import axios from 'axios';
 
   import size from 'lodash/size';
   import keys from 'lodash/keys';
@@ -144,6 +151,7 @@
     },
     data () {
       return {
+        loading: false,
         equipTypes: {
           eyewear: this.$t('eyewear'),
           head: this.$t('headgearCapitalized'),
@@ -155,7 +163,12 @@
           _skip: 'skip',
           shield: this.$t('offHand'),
         },
-
+        statUpdates: {
+          str: 0,
+          int: 0,
+          con: 0,
+          per: 0,
+        },
         stats: {
           str: {
             title: 'strength',
@@ -190,8 +203,38 @@
       statsComputed () {
         return statsComputed(this.user);
       },
+      showStatsSave () {
+        return Boolean(this.user.stats.points);
+      },
     },
     methods: {
+      statUpdate (stat, delta) {
+        this.statUpdates[stat] += delta;
+      },
+      async saveAttributes () {
+        this.loading = true;
+
+        const statUpdates = {};
+        ['str', 'int', 'per', 'con'].forEach(stat => {
+          if (this.statUpdates[stat] > 0) statUpdates[stat] = this.statUpdates[stat];
+        });
+
+        // reset statUpdates before request to avoid display errors while waiting for server
+        this.statUpdates = {
+          str: 0, 
+          int: 0,
+          con: 0,
+          per: 0,
+        }
+
+        allocateBulk(this.user, { body: { stats: statUpdates } });
+
+        await axios.post('/api/v4/user/allocate-bulk', {
+          stats: statUpdates,
+        });
+
+        this.loading = false;
+      },
       getGearTitle (key) {
         return this.flatGear[key].text();
       },
@@ -346,5 +389,9 @@
 
   .mount {
     margin-top: -0.2em !important;
+  }
+
+  .save-row {
+    margin-top: 1em;
   }
 </style>
