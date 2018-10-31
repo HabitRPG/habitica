@@ -373,9 +373,12 @@ export default {
       if (potion === null || egg === null)
         return false;
 
-      let petKey = `${egg.key}-${potion.key}`;
+      const petKey = `${egg.key}-${potion.key}`;
 
-      if (!this.content.petInfo[petKey])
+      const petInfo = this.content.petInfo[petKey];
+
+      // Check pet exists and is hatchable
+      if (!petInfo || !petInfo.potion)
         return false;
 
       return !this.userHasPet(potion.key, egg.key);
