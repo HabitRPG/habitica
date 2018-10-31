@@ -40,9 +40,9 @@
 import axios from 'axios';
 import Avatar from '../avatar';
 import { mapState } from 'client/libs/store';
-import revive from '../../../common/script/ops/revive';
 import percent from '../../../common/script/libs/percent';
 import {maxHealth} from '../../../common/script/index';
+import revive from '../../../common/script/ops/revive';
 
 export default {
   components: {
@@ -66,7 +66,7 @@ export default {
       this.$root.$emit('bv::hide::modal', 'death');
     },
     async revive () {
-      await axios.post('/api/v3/user/revive');
+      await axios.post('/api/v4/user/revive');
       revive(this.user);
       this.close();
     },

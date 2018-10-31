@@ -25,7 +25,7 @@ describe('payments - stripe - #subscribeEdit', () => {
     let stripeEditSubscriptionStub;
 
     beforeEach(async () => {
-      stripeEditSubscriptionStub = sinon.stub(stripePayments, 'editSubscription').returnsPromise().resolves({});
+      stripeEditSubscriptionStub = sinon.stub(stripePayments, 'editSubscription').resolves({});
     });
 
     afterEach(() => {

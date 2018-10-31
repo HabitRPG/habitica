@@ -367,6 +367,39 @@ let armor = {
     set: 'blueHairbow',
     canOwn: ownsItem('armor_armoire_bluePartyDress'),
   },
+  piraticalPrincessGown: {
+    text: t('armorArmoirePiraticalPrincessGownText'),
+    notes: t('armorArmoirePiraticalPrincessGownNotes', { per: 7 }),
+    value: 100,
+    per: 7,
+    set: 'piraticalPrincess',
+    canOwn: ownsItem('armor_armoire_piraticalPrincessGown'),
+  },
+  jeweledArcherArmor: {
+    text: t('armorArmoireJeweledArcherArmorText'),
+    notes: t('armorArmoireJeweledArcherArmorNotes', { con: 15 }),
+    value: 100,
+    con: 15,
+    set: 'jeweledArcher',
+    canOwn: ownsItem('armor_armoire_jeweledArcherArmor'),
+  },
+  coverallsOfBookbinding: {
+    text: t('armorArmoireCoverallsOfBookbindingText'),
+    notes: t('armorArmoireCoverallsOfBookbindingNotes', { con: 10, per: 5 }),
+    value: 100,
+    con: 10,
+    per: 5,
+    set: 'bookbinder',
+    canOwn: ownsItem('armor_armoire_coverallsOfBookbinding'),
+  },
+  robeOfSpades: {
+    text: t('armorArmoireRobeOfSpadesText'),
+    notes: t('armorArmoireRobeOfSpadesNotes', { str: 13 }),
+    value: 100,
+    str: 13,
+    set: 'aceOfSpades',
+    canOwn: ownsItem('armor_armoire_robeOfSpades'),
+  },
 };
 
 let body = {
@@ -794,6 +827,31 @@ let head = {
     set: 'glassblower',
     canOwn: ownsItem('head_armoire_glassblowersHat'),
   },
+  piraticalPrincessHeaddress: {
+    text: t('headArmoirePiraticalPrincessHeaddressText'),
+    notes: t('headArmoirePiraticalPrincessHeaddressNotes', { attrs: 8 }),
+    value: 100,
+    per: 8,
+    int: 8,
+    set: 'piraticalPrincess',
+    canOwn: ownsItem('head_armoire_piraticalPrincessHeaddress'),
+  },
+  jeweledArcherHelm: {
+    text: t('headArmoireJeweledArcherHelmText'),
+    notes: t('headArmoireJeweledArcherHelmNotes', { int: 15 }),
+    value: 100,
+    int: 15,
+    set: 'jeweledArcher',
+    canOwn: ownsItem('head_armoire_jeweledArcherHelm'),
+  },
+  veilOfSpades: {
+    text: t('headArmoireVeilOfSpadesText'),
+    notes: t('headArmoireVeilOfSpadesNotes', { per: 13 }),
+    value: 100,
+    per: 13,
+    set: 'aceOfSpades',
+    canOwn: ownsItem('head_armoire_veilOfSpades'),
+  },
 };
 
 let shield = {
@@ -990,6 +1048,23 @@ let shield = {
     set: 'glassblower',
     canOwn: ownsItem('shield_armoire_fancyBlownGlassVase'),
   },
+  piraticalSkullShield: {
+    text: t('shieldArmoirePiraticalSkullShieldText'),
+    notes: t('shieldArmoirePiraticalSkullShieldNotes', { attrs: 4 }),
+    value: 100,
+    per: 4,
+    int: 4,
+    set: 'piraticalPrincess',
+    canOwn: ownsItem('shield_armoire_piraticalSkullShield'),
+  },
+  unfinishedTome: {
+    text: t('shieldArmoireUnfinishedTomeText'),
+    notes: t('shieldArmoireUnfinishedTomeNotes', { int: 10 }),
+    value: 100,
+    int: 10,
+    set: 'bookbinder',
+    canOwn: ownsItem('shield_armoire_unfinishedTome'),
+  },
 };
 
 let headAccessory = {
@@ -999,6 +1074,14 @@ let headAccessory = {
     value: 100,
     str: 10,
     canOwn: ownsItem('headAccessory_armoire_comicalArrow'),
+  },
+  gogglesOfBookbinding: {
+    text: t('headAccessoryArmoireGogglesOfBookbindingText'),
+    notes: t('headAccessoryArmoireGogglesOfBookbindingNotes', { per: 8 }),
+    value: 100,
+    per: 8,
+    set: 'bookbinder',
+    canOwn: ownsItem('headAccessory_armoire_gogglesOfBookbinding'),
   },
 };
 
@@ -1298,6 +1381,39 @@ let weapon = {
     str: 6,
     set: 'glassblower',
     canOwn: ownsItem('weapon_armoire_glassblowersBlowpipe'),
+  },
+  poisonedGoblet: {
+    text: t('weaponArmoirePoisonedGobletText'),
+    notes: t('weaponArmoirePoisonedGobletNotes', { int: 7 }),
+    value: 100,
+    int: 7,
+    set: 'piraticalPrincess',
+    canOwn: ownsItem('weapon_armoire_poisonedGoblet'),
+  },
+  jeweledArcherBow: {
+    text: t('weaponArmoireJeweledArcherBowText'),
+    notes: t('weaponArmoireJeweledArcherBowNotes', { int: 15 }),
+    twoHanded: true,
+    value: 100,
+    int: 15,
+    set: 'jeweledArcher',
+    canOwn: ownsItem('weapon_armoire_jeweledArcherBow'),
+  },
+  needleOfBookbinding: {
+    text: t('weaponArmoireNeedleOfBookbindingText'),
+    notes: t('weaponArmoireNeedleOfBookbindingNotes', { str: 8 }),
+    value: 100,
+    str: 8,
+    set: 'bookbinder',
+    canOwn: ownsItem('weapon_armoire_needleOfBookbinding'),
+  },
+  spearOfSpades: {
+    text: t('weaponArmoireSpearOfSpadesText'),
+    notes: t('weaponArmoireSpearOfSpadesNotes', { con: 13 }),
+    value: 100,
+    con: 13,
+    set: 'aceOfSpades',
+    canOwn: ownsItem('weapon_armoire_spearOfSpades'),
   },
 };
 

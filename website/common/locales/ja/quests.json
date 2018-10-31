@@ -98,6 +98,7 @@
     "guildQuestsNotSupported": "ギルドはクエストに招待できません。",
     "questNotOwned": "クエストの巻物を持っていません。",
     "questNotGoldPurchasable": "\"<%= key %>\" のクエストは、ゴールドで買えるクエストではありません。",
+    "questNotGemPurchasable": "\"<%= key %>\" のクエストは、ジェムで買えるクエストではありません。",
     "questLevelTooHigh": "このクエストに挑戦するにはレベル <%= level %> が必要です。",
     "questAlreadyUnderway": "あなたのパーティーはいま別のクエスト中です。現在のクエストが終わった後に再度実行してください。",
     "questAlreadyAccepted": "あなたはこのクエストの招待をすでに承認しています。",

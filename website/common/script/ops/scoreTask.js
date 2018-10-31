@@ -1,5 +1,6 @@
 import timesLodash from 'lodash/times';
 import reduce from 'lodash/reduce';
+import moment from 'moment';
 import max from 'lodash/max';
 import {
   NotAuthorized,
@@ -212,16 +213,47 @@ module.exports = function scoreTask (options = {}, req = {}) {
     }
     _gainMP(user, max([0.25, 0.0025 * statsComputed(user).maxMP]) * (direction === 'down' ? -1 : 1));
 
+    // Save history entry for habit
     task.history = task.history || [];
+    const timezoneOffset = user.preferences.timezoneOffset;
+    const dayStart = user.preferences.dayStart;
+    const historyLength = task.history.length;
+    const lastHistoryEntry = task.history[historyLength - 1];
 
-    // Add history entry, even more than 1 per day
-    let historyEntry = {
-      date: Number(new Date()),
-      value: task.value,
-    };
-    if (task.scoreNotes) historyEntry.scoreNotes = task.scoreNotes;
+    // Adjust the last entry date according to the user's timezone and CDS
+    let lastHistoryEntryDate;
 
-    task.history.push(historyEntry);
+    if (lastHistoryEntry && lastHistoryEntry.date) {
+      lastHistoryEntryDate = moment(lastHistoryEntry.date).zone(timezoneOffset);
+      if (lastHistoryEntryDate.hour() < dayStart) lastHistoryEntryDate.subtract(1, 'day');
+    }
+
+    if (
+      lastHistoryEntryDate &&
+      moment().zone(timezoneOffset).isSame(lastHistoryEntryDate, 'day')
+    ) {
+      lastHistoryEntry.value = task.value;
+      lastHistoryEntry.date = Number(new Date());
+
+      // @TODO remove this extra check after migration has run to set scoredUp and scoredDown in every task
+      lastHistoryEntry.scoredUp = lastHistoryEntry.scoredUp || 0;
+      lastHistoryEntry.scoredDown = lastHistoryEntry.scoredDown || 0;
+
+      if (direction === 'up') {
+        lastHistoryEntry.scoredUp += times;
+      } else {
+        lastHistoryEntry.scoredDown += times;
+      }
+
+      if (task.markModified) task.markModified(`history.${historyLength - 1}`);
+    } else {
+      task.history.push({
+        date: Number(new Date()),
+        value: task.value,
+        scoredUp: direction === 'up' ? 1 : 0,
+        scoredDown: direction === 'down' ? 1 : 0,
+      });
+    }
 
     _updateCounter(task, direction, times);
   } else if (task.type === 'daily') {

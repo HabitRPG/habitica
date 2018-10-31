@@ -1,7 +1,7 @@
 import {
   generateUser,
   translate as t,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 import { v4 as generateUUID } from 'uuid';
 import common from '../../../../../website/common';
 
@@ -37,7 +37,7 @@ describe('GET /members/:memberId', () => {
     expect(Object.keys(memberRes.auth)).to.eql(['timestamps']);
     expect(Object.keys(memberRes.preferences).sort()).to.eql([
       'size', 'hair', 'skin', 'shirt',
-      'chair', 'costume', 'sleep', 'background', 'tasks',
+      'chair', 'costume', 'sleep', 'background', 'tasks', 'disableClasses',
     ].sort());
 
     expect(memberRes.stats.maxMP).to.exist;

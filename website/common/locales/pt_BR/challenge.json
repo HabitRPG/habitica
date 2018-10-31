@@ -99,6 +99,7 @@
     "noChallengeTitle": "Você não participa de nenhum desafio",
     "challengeDescription1": "Desafios são eventos comunitários em que os jogadores competem e ganham prêmios ao completarem um grupo de tarefas relacionadas a esses desafios.",
     "challengeDescription2": "Encontre Desafios recomendados baseado nos seus interesses. Pesquise nos Desafios Públicos do Habitica ou crie seus próprios Desafios.",
+    "noChallengeMatchFilters": "Não foi possível encontrar nenhum Desafio correspondente.",
     "createdBy": "Criado por:",
     "joinChallenge": "Se juntar ao desafio",
     "leaveChallenge": "Deixar o desafio",
@@ -131,6 +132,7 @@
     "locationRequired": "A localização do desafio é necessária ('Adicionar a')",
     "categoiresRequired": "Uma ou mais categorias devem ser selecionadas",
     "viewProgressOf": "Ver Progresso De",
+    "viewProgress": "Ver Progresso",
     "selectMember": "Selecione um Membro",
     "confirmKeepChallengeTasks": "Deseja manter as tarefas do desafio?",
     "selectParticipant": "Selecione um Participante"

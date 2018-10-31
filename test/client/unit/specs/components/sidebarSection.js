@@ -1,4 +1,4 @@
-import {shallow} from '@vue/test-utils';
+import { shallow } from '@vue/test-utils';
 
 import SidebarSection from 'client/components/sidebarSection.vue';
 

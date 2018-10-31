@@ -98,6 +98,7 @@
     "guildQuestsNotSupported": "Klaner kan ikke blive inviteret på quests.",
     "questNotOwned": "Du ejer ikke den quest-skriftrulle",
     "questNotGoldPurchasable": "Quest \"<%= key %>\" er ikke en quest, der kan købes for Guld.",
+    "questNotGemPurchasable": "Quest \"<%= key %>\" is not a Gem-purchasable quest.",
     "questLevelTooHigh": "Du skal være niveau <%= level %> for at starte denne quest.",
     "questAlreadyUnderway": "Din gruppe er allerede på en quest. Prøv igen når den nuværende quest er afsluttet.",
     "questAlreadyAccepted": "Du har allerede accepteret questinvitationen",

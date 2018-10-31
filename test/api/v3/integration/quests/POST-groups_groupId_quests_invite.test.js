@@ -2,10 +2,10 @@ import {
   createAndPopulateGroup,
   translate as t,
   sleep,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 import { v4 as generateUUID } from 'uuid';
 import { quests as questScrolls } from '../../../../../website/common/script/content';
-import { model as Chat } from '../../../../../website/server/models/chat';
+import { chatModel as Chat } from '../../../../../website/server/models/message';
 import apiError from '../../../../../website/server/libs/apiError';
 
 describe('POST /groups/:groupId/quests/invite/:questKey', () => {

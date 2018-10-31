@@ -17,7 +17,7 @@
     "NODE_DB_URI":"mongodb://localhost/habitrpg",
     "TEST_DB_URI":"mongodb://localhost/habitrpg_test",
     "NODE_ENV":"development",
-    "ENABLE_CONSOLE_LOGS_IN_TEST": false,
+    "ENABLE_CONSOLE_LOGS_IN_TEST": "false",
     "CRON_SAFE_MODE":"false",
     "CRON_SEMI_SAFE_MODE":"false",
     "MAINTENANCE_MODE": "false",
@@ -39,6 +39,7 @@
     "NEW_RELIC_API_KEY":"NEW_RELIC_API_KEY",
     "GA_ID": "GA_ID",
     "AMPLITUDE_KEY": "AMPLITUDE_KEY",
+    "AMPLITUDE_SECRET": "AMPLITUDE_SECRET",
     "AMAZON_PAYMENTS": {
         "SELLER_ID": "SELLER_ID",
         "CLIENT_ID": "CLIENT_ID",
@@ -78,18 +79,15 @@
     "PUSH_CONFIGS": {
         "GCM_SERVER_API_KEY": "",
         "APN_ENABLED": "false",
+        "APN_KEY_ID": "xxxxxxxxxx",
+        "APN_KEY": "xxxxxxxxxx",
+        "APN_TEAM_ID": "aaabbbcccd",
         "FCM_SERVER_API_KEY": ""
     },
     "SITE_HTTP_AUTH": {
         "ENABLED": "false",
         "USERNAME": "admin",
         "PASSWORD": "password"
-    },
-    "PUSHER": {
-        "ENABLED": "false",
-        "APP_ID": "appId",
-        "KEY": "key",
-        "SECRET": "secret"
     },
     "SLACK": {
         "FLAGGING_URL": "https://hooks.slack.com/services/id/id/id",
@@ -112,5 +110,6 @@
       "CLOUDKARAFKA_USERNAME": "",
       "CLOUDKARAFKA_PASSWORD": "",
       "CLOUDKARAFKA_TOPIC_PREFIX": ""
-    }
+    },
+    "MIGRATION_CONNECT_STRING": "mongodb://localhost:27017/habitrpg?auto_reconnect=true"
 }

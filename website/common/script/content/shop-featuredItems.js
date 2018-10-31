@@ -8,22 +8,22 @@ const featuredItems = {
       path: 'armoire',
     },
     {
-      type: 'hatchingPotions',
-      path: 'hatchingPotions.Red',
+      type: 'premiumHatchingPotion',
+      path: 'premiumHatchingPotions.Ghost',
     },
     {
       type: 'premiumHatchingPotion',
-      path: 'premiumHatchingPotions.Fairy',
+      path: 'premiumHatchingPotions.Glow',
     },
     {
       type: 'card',
-      path: 'cardTypes.goodluck',
+      path: 'cardTypes.getwell',
     },
   ],
   quests: [
     {
       type: 'quests',
-      path: 'quests.squirrel',
+      path: 'quests.alligator',
     },
     {
       type: 'quests',
@@ -31,7 +31,7 @@ const featuredItems = {
     },
     {
       type: 'quests',
-      path: 'quests.butterfly',
+      path: 'quests.kangaroo',
     },
   ],
   seasonal: '',

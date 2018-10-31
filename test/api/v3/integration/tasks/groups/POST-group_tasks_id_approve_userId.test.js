@@ -140,4 +140,89 @@ describe('POST /tasks/:id/approve/:userId', () => {
         message: t('canOnlyApproveTaskOnce'),
       });
   });
+
+  it('completes master task when single-completion task is approved', async () => {
+    let sharedCompletionTask = await user.post(`/tasks/group/${guild._id}`, {
+      text: 'shared completion todo',
+      type: 'todo',
+      requiresApproval: true,
+      sharedCompletion: 'singleCompletion',
+    });
+
+    await user.post(`/tasks/${sharedCompletionTask._id}/assign/${member._id}`);
+    await user.post(`/tasks/${sharedCompletionTask._id}/assign/${member2._id}`);
+    await user.post(`/tasks/${sharedCompletionTask._id}/approve/${member._id}`);
+
+    let groupTasks = await user.get(`/tasks/group/${guild._id}?type=completedTodos`);
+
+    let masterTask = find(groupTasks, (groupTask) => {
+      return groupTask._id === sharedCompletionTask._id;
+    });
+
+    expect(masterTask.completed).to.equal(true);
+  });
+
+  it('deletes other assigned user tasks when single-completion task is approved', async () => {
+    let sharedCompletionTask = await user.post(`/tasks/group/${guild._id}`, {
+      text: 'shared completion todo',
+      type: 'todo',
+      requiresApproval: true,
+      sharedCompletion: 'singleCompletion',
+    });
+
+    await user.post(`/tasks/${sharedCompletionTask._id}/assign/${member._id}`);
+    await user.post(`/tasks/${sharedCompletionTask._id}/assign/${member2._id}`);
+    await user.post(`/tasks/${sharedCompletionTask._id}/approve/${member._id}`);
+
+    let member2Tasks = await member2.get('/tasks/user');
+
+    let syncedTask2 = find(member2Tasks, (memberTask) => {
+      return memberTask.group.taskId === sharedCompletionTask._id;
+    });
+
+    expect(syncedTask2).to.equal(undefined);
+  });
+
+  it('does not complete master task when not all user tasks are approved if all assigned must complete', async () => {
+    let sharedCompletionTask = await user.post(`/tasks/group/${guild._id}`, {
+      text: 'shared completion todo',
+      type: 'todo',
+      requiresApproval: true,
+      sharedCompletion: 'allAssignedCompletion',
+    });
+
+    await user.post(`/tasks/${sharedCompletionTask._id}/assign/${member._id}`);
+    await user.post(`/tasks/${sharedCompletionTask._id}/assign/${member2._id}`);
+    await user.post(`/tasks/${sharedCompletionTask._id}/approve/${member._id}`);
+
+    let groupTasks = await user.get(`/tasks/group/${guild._id}`);
+
+    let masterTask = find(groupTasks, (groupTask) => {
+      return groupTask._id === sharedCompletionTask._id;
+    });
+
+    expect(masterTask.completed).to.equal(false);
+  });
+
+  it('completes master task when all user tasks are approved if all assigned must complete', async () => {
+    let sharedCompletionTask = await user.post(`/tasks/group/${guild._id}`, {
+      text: 'shared completion todo',
+      type: 'todo',
+      requiresApproval: true,
+      sharedCompletion: 'allAssignedCompletion',
+    });
+
+    await user.post(`/tasks/${sharedCompletionTask._id}/assign/${member._id}`);
+    await user.post(`/tasks/${sharedCompletionTask._id}/assign/${member2._id}`);
+    await user.post(`/tasks/${sharedCompletionTask._id}/approve/${member._id}`);
+    await user.post(`/tasks/${sharedCompletionTask._id}/approve/${member2._id}`);
+
+    let groupTasks = await user.get(`/tasks/group/${guild._id}?type=completedTodos`);
+
+    let masterTask = find(groupTasks, (groupTask) => {
+      return groupTask._id === sharedCompletionTask._id;
+    });
+
+    expect(masterTask.completed).to.equal(true);
+  });
 });

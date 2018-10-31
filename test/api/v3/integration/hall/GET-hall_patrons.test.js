@@ -2,7 +2,7 @@ import {
   generateUser,
   translate as t,
   resetHabiticaDB,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 import { times } from 'lodash';
 
 describe('GET /hall/patrons', () => {
@@ -56,5 +56,5 @@ describe('GET /hall/patrons', () => {
     expect(morePatrons.length).to.equal(2);
     expect(morePatrons[0].backer.tier).to.equal(2);
     expect(morePatrons[1].backer.tier).to.equal(1);
-  });
+  }).timeout(10000);
 });

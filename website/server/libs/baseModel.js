@@ -3,12 +3,16 @@ import validator from 'validator';
 import _ from 'lodash';
 
 module.exports = function baseModel (schema, options = {}) {
+  if (schema.options.typeKey !== '$type') {
+    throw new Error('Every schema must use $type as the typeKey, see https://mongoosejs.com/docs/guide.html#typeKey');
+  }
+
   if (options._id !== false) {
     schema.add({
       _id: {
-        type: String,
+        $type: String,
         default: uuid,
-        validate: [validator.isUUID, 'Invalid uuid.'],
+        validate: [v => validator.isUUID(v), 'Invalid uuid.'],
       },
     });
   }
@@ -16,11 +20,11 @@ module.exports = function baseModel (schema, options = {}) {
   if (options.timestamps) {
     schema.add({
       createdAt: {
-        type: Date,
+        $type: Date,
         default: Date.now,
       },
       updatedAt: {
-        type: Date,
+        $type: Date,
         default: Date.now,
       },
     });

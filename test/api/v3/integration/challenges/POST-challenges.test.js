@@ -2,7 +2,7 @@ import {
   generateUser,
   createAndPopulateGroup,
   translate as t,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 import { v4 as generateUUID } from 'uuid';
 
 describe('POST /challenges', () => {
@@ -82,16 +82,6 @@ describe('POST /challenges', () => {
       groupLeader = await populatedGroup.groupLeader.sync();
       group = populatedGroup.group;
       groupMember = populatedGroup.members[0];
-    });
-
-    it('returns an error when non-leader member creates a challenge in leaderOnly group', async () => {
-      await expect(groupMember.post('/challenges', {
-        group: group._id,
-      })).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('onlyGroupLeaderChal'),
-      });
     });
 
     it('returns an error when non-leader member creates a challenge in leaderOnly group', async () => {
@@ -304,14 +294,14 @@ describe('POST /challenges', () => {
       expect(groupLeader.challenges.length).to.equal(0);
     });
 
-    it('awards achievement if this is creator\'s first challenge', async () => {
+    it('does not award joinedChallenge achievement for creating a challenge', async () => {
       await groupLeader.post('/challenges', {
         group: group._id,
         name: 'Test Challenge',
         shortName: 'TC Label',
       });
       groupLeader = await groupLeader.sync();
-      expect(groupLeader.achievements.joinedChallenge).to.be.true;
+      expect(groupLeader.achievements.joinedChallenge).to.not.be.true;
     });
 
     it('sets summary to challenges name when not supplied', async () => {

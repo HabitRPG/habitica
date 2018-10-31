@@ -121,7 +121,6 @@ describe('shared.ops.purchase', () => {
       user.pinnedItems.push({type: 'eggs', key: 'Wolf'});
       user.pinnedItems.push({type: 'hatchingPotions', key: 'Base'});
       user.pinnedItems.push({type: 'food', key: SEASONAL_FOOD});
-      user.pinnedItems.push({type: 'quests', key: 'gryphon'});
       user.pinnedItems.push({type: 'gear', key: 'headAccessory_special_tigerEars'});
       user.pinnedItems.push({type: 'bundles', key: 'featheredFriends'});
     });
@@ -150,16 +149,6 @@ describe('shared.ops.purchase', () => {
     it('purchases food', () => {
       let type = 'food';
       let key = SEASONAL_FOOD;
-
-      purchase(user, {params: {type, key}});
-
-      expect(user.items[type][key]).to.equal(1);
-      expect(pinnedGearUtils.removeItemByPath.notCalled).to.equal(true);
-    });
-
-    it('purchases quests', () => {
-      let type = 'quests';
-      let key = 'gryphon';
 
       purchase(user, {params: {type, key}});
 

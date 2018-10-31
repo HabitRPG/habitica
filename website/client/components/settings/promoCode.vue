@@ -40,7 +40,7 @@ export default {
     ...mapState({user: 'user.data', credentials: 'credentials'}),
     getCodesUrl () {
       if (!this.user) return '';
-      return `/api/v3/coupons?_id=${this.user._id}&apiToken=${this.credentials.API_TOKEN}`;
+      return '/api/v4/coupons';
     },
   },
   methods: {
@@ -53,7 +53,7 @@ export default {
       //   })
     },
     async enterCoupon () {
-      let code = await axios.post(`/api/v3/coupons/enter/${this.couponCode}`);
+      let code = await axios.post(`/api/v4/coupons/enter/${this.couponCode}`);
       if (!code) return;
 
       this.$store.state.user.data = code.data.data;

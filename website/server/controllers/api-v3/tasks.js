@@ -5,6 +5,7 @@ import {
 } from '../../libs/webhook';
 import { removeFromArray } from '../../libs/collectionManipulators';
 import * as Tasks from '../../models/task';
+import { handleSharedCompletion } from '../../libs/groupTasks';
 import { model as Challenge } from '../../models/challenge';
 import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
@@ -24,8 +25,6 @@ import _ from 'lodash';
 import logger from '../../libs/logger';
 import moment from 'moment';
 import apiError from '../../libs/apiError';
-
-const MAX_SCORE_NOTES_LENGTH = 256;
 
 function canNotEditTasks (group, user, assignedUserId) {
   let isNotGroupLeader = group.leader !== user._id;
@@ -159,9 +158,7 @@ let requiredGroupFields = '_id leader tasksOrder name';
 api.createUserTasks = {
   method: 'POST',
   url: '/tasks/user',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let tasks = await createTasks(req, res, {user});
@@ -176,6 +173,7 @@ api.createUserTasks = {
           hitType: 'event',
           category: 'behavior',
           taskType: task.type,
+          headers: req.headers,
         });
       }
 
@@ -232,9 +230,7 @@ api.createUserTasks = {
 api.createChallengeTasks = {
   method: 'POST',
   url: '/tasks/challenge/:challengeId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
 
@@ -275,7 +271,7 @@ api.createChallengeTasks = {
  * @apiGroup Task
  *
  * @apiParam (Query) {String="habits","dailys","todos","rewards","completedTodos"} type Optional query parameter to return just a type of tasks. By default all types will be returned except completed todos that must be requested separately. The "completedTodos" type returns only the 30 most recently completed.
- * @apiParam (Query) [dueDate]
+ * @apiParam (Query) [dueDate] type Optional date to use for computing the nextDue field for each returned task.
  *
  * @apiSuccess {Array} data An array of tasks
  *
@@ -289,7 +285,7 @@ api.getUserTasks = {
   method: 'GET',
   url: '/tasks/user',
   middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
+    userFieldsToInclude: ['_id', 'tasksOrder', 'preferences'],
   })],
   async handler (req, res) {
     let types = Tasks.tasksTypes.map(type => `${type}s`);
@@ -299,10 +295,10 @@ api.getUserTasks = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let user = res.locals.user;
-    let dueDate = req.query.dueDate;
+    const user = res.locals.user;
+    const dueDate = req.query.dueDate;
 
-    let tasks = await getTasks(req, res, {user, dueDate});
+    const tasks = await getTasks(req, res, { user, dueDate });
     return res.respond(200, tasks);
   },
 };
@@ -328,9 +324,7 @@ api.getUserTasks = {
 api.getChallengeTasks = {
   method: 'GET',
   url: '/tasks/challenge/:challengeId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
     let types = Tasks.tasksTypes.map(type => `${type}s`);
@@ -380,9 +374,7 @@ api.getChallengeTasks = {
 api.getTask = {
   method: 'GET',
   url: '/tasks/:taskId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let taskId = req.params.taskId;
@@ -436,9 +428,7 @@ api.getTask = {
 api.updateTask = {
   method: 'PUT',
   url: '/tasks/:taskId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let challenge;
@@ -492,6 +482,9 @@ api.updateTask = {
     if (sanitizedObj.requiresApproval) {
       task.group.approval.required = true;
     }
+    if (sanitizedObj.sharedCompletion) {
+      task.group.sharedCompletion = sanitizedObj.sharedCompletion;
+    }
 
     setNextDue(task, user);
     let savedTask = await task.save();
@@ -530,7 +523,6 @@ api.updateTask = {
  *
  * @apiParam (Path) {String} taskId The task _id or alias
  * @apiParam (Path) {String="up","down"} direction The direction for scoring the task
- * @apiParam (Body) {String} scoreNotes Notes explaining the scoring
  *
  * @apiExample {json} Example call:
  * curl -X "POST" https://habitica.com/api/v3/tasks/test-api-params/score/up
@@ -550,24 +542,18 @@ api.updateTask = {
 api.scoreTask = {
   method: 'POST',
   url: '/tasks/:taskId/score/:direction',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('direction', res.t('directionUpDown')).notEmpty().isIn(['up', 'down']);
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let user = res.locals.user;
-    let scoreNotes = req.body.scoreNotes;
-    if (scoreNotes && scoreNotes.length > MAX_SCORE_NOTES_LENGTH) throw new NotAuthorized(res.t('taskScoreNotesTooLong'));
-    let {taskId} = req.params;
+    const user = res.locals.user;
+    const {taskId} = req.params;
 
-    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id, {userId: user._id});
-    let direction = req.params.direction;
-
-    if (scoreNotes) task.scoreNotes = scoreNotes;
+    const task = await Tasks.Task.findByIdOrAlias(taskId, user._id, {userId: user._id});
+    const direction = req.params.direction;
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
 
@@ -605,7 +591,7 @@ api.scoreTask = {
           groupId: group._id,
           taskId: task._id, // user task id, used to match the notification when the task is approved
           userId: user._id,
-          groupTaskId: task.group.id, // the original task id
+          groupTaskId: task.group.taskId, // the original task id
           direction,
         });
         managerPromises.push(manager.save());
@@ -644,22 +630,16 @@ api.scoreTask = {
 
     setNextDue(task, user);
 
-    if (user._ABtests && user._ABtests.guildReminder && user._ABtests.counter !== -1) {
-      user._ABtests.counter++;
-      if (user._ABtests.counter > 1) {
-        if (user._ABtests.guildReminder.indexOf('timing1') !== -1 || user._ABtests.counter > 4) {
-          user._ABtests.counter = -1;
-          let textVariant = user._ABtests.guildReminder.indexOf('text2');
-          user.addNotification('GUILD_PROMPT', {textVariant});
-        }
-      }
-      user.markModified('_ABtests');
-    }
-
     let promises = [
       user.save(),
       task.save(),
     ];
+
+    if (task.group && task.group.taskId) {
+      await handleSharedCompletion(task);
+    }
+
+    // Save results and handle request
     if (taskOrderPromise) promises.push(taskOrderPromise);
     let results = await Promise.all(promises);
 
@@ -679,13 +659,13 @@ api.scoreTask = {
     if (task.challenge && task.challenge.id && task.challenge.taskId && !task.challenge.broken && task.type !== 'reward') {
       // Wrapping everything in a try/catch block because if an error occurs using `await` it MUST NOT bubble up because the request has already been handled
       try {
-        let chalTask = await Tasks.Task.findOne({
+        const chalTask = await Tasks.Task.findOne({
           _id: task.challenge.taskId,
         }).exec();
 
         if (!chalTask) return;
 
-        await chalTask.scoreChallengeTask(delta);
+        await chalTask.scoreChallengeTask(delta, direction);
       } catch (e) {
         logger.error(e);
       }
@@ -699,6 +679,7 @@ api.scoreTask = {
         category: 'behavior',
         taskType: task.type,
         direction,
+        headers: req.headers,
       });
     }
   },
@@ -723,9 +704,7 @@ api.scoreTask = {
 api.moveTask = {
   method: 'POST',
   url: '/tasks/:taskId/move/to/:position',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
     req.checkParams('position', res.t('positionRequired')).notEmpty().isNumeric();
@@ -794,9 +773,7 @@ api.moveTask = {
 api.addChecklistItem = {
   method: 'POST',
   url: '/tasks/:taskId/checklist',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let challenge;
@@ -856,9 +833,7 @@ api.addChecklistItem = {
 api.scoreCheckListItem = {
   method: 'POST',
   url: '/tasks/:taskId/checklist/:itemId/score',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -912,9 +887,7 @@ api.scoreCheckListItem = {
 api.updateChecklistItem = {
   method: 'PUT',
   url: '/tasks/:taskId/checklist/:itemId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let challenge;
@@ -979,9 +952,7 @@ api.updateChecklistItem = {
 api.removeChecklistItem = {
   method: 'DELETE',
   url: '/tasks/:taskId/checklist/:itemId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let challenge;
@@ -1044,9 +1015,7 @@ api.removeChecklistItem = {
 api.addTagToTask = {
   method: 'POST',
   url: '/tasks/:taskId/tags/:tagId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -1095,9 +1064,7 @@ api.addTagToTask = {
 api.removeTagFromTask = {
   method: 'DELETE',
   url: '/tasks/:taskId/tags/:tagId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -1142,9 +1109,7 @@ api.removeTagFromTask = {
 api.unlinkAllTasks = {
   method: 'POST',
   url: '/tasks/unlink-all/:challengeId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
     req.checkQuery('keep', apiError('keepOrRemoveAll')).notEmpty().isIn(['keep-all', 'remove-all']);
@@ -1211,9 +1176,7 @@ api.unlinkAllTasks = {
 api.unlinkOneTask = {
   method: 'POST',
   url: '/tasks/unlink-one/:taskId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('taskId', apiError('taskIdRequired')).notEmpty().isUUID();
     req.checkQuery('keep', apiError('keepOrRemove')).notEmpty().isIn(['keep', 'remove']);
@@ -1263,9 +1226,7 @@ api.unlinkOneTask = {
 api.clearCompletedTodos = {
   method: 'POST',
   url: '/tasks/clearCompletedTodos',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -1316,9 +1277,7 @@ api.clearCompletedTodos = {
 api.deleteTask = {
   method: 'DELETE',
   url: '/tasks/:taskId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let challenge;

@@ -1,8 +1,9 @@
 {
+  "achievement": "Prestatie",
   "share": "Deel",
   "onwards": "Voorwaarts!",
   "levelup": "Door het voltooien van doelen in je echte leven ben je een niveau gestegen en weer volledig genezen!",
   "reachedLevel": "Je hebt niveau <%= level %> bereikt",
   "achievementLostMasterclasser": "Queeste voltooier: de Masterclasser reeks",
-  "achievementLostMasterclasserText": "Alle zestien queesten in de Masterclasser reeks voltooid en het mysterie van de verdwaalde Masterclasser voltooid!"
+  "achievementLostMasterclasserText": "Alle zestien queesten in de Masterclasser reeks voltooid en het mysterie van de Verdwaalde Masterclasser voltooid!"
 }

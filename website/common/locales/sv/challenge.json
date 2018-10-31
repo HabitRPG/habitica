@@ -99,6 +99,7 @@
     "noChallengeTitle": "Du har inte några Utmaningar.",
     "challengeDescription1": "Utmaningar är gemenskapsevangemang där spelare tävlar och tjänar priser genom att slutföra en grupp av relaterade uppgifter.",
     "challengeDescription2": "Hitta rekommenderade Utmaningar baserat på dina intressen, leta bland Habiticas offentliga Utmaningar, eller skapa dina egna Utmaningar.",
+    "noChallengeMatchFilters": "We couldn't find any matching Challenges.",
     "createdBy": "Skapad Av",
     "joinChallenge": "Gå med i Utmaning",
     "leaveChallenge": "Lämna Utmaning",
@@ -131,6 +132,7 @@
     "locationRequired": "Plats av utmaning krävs ('Lägg till')",
     "categoiresRequired": "En eller mer kategorier måste vara valda",
     "viewProgressOf": "Visa Framsteg Av",
+    "viewProgress": "View Progress",
     "selectMember": "Välj Medlem",
     "confirmKeepChallengeTasks": "Vill du behålla utmaningsuppgifterna?",
     "selectParticipant": "Välj en Deltagare"

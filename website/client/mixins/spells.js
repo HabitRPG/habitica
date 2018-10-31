@@ -85,7 +85,20 @@ export default {
 
       // the selected member doesn't have the flags property which sets `cardReceived`
       if (spell.pinType !== 'card') {
-        spell.cast(this.user, target);
+        try {
+          spell.cast(this.user, target);
+        } catch (e) {
+          if (!e.request) {
+            this.$store.dispatch('snackbars:add', {
+              title: '',
+              text: e.message,
+              type: 'error',
+            });
+            return;
+          } else {
+            throw e;
+          }
+        }
       }
 
       let targetId = target ? target._id : null;

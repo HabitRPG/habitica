@@ -1,8 +1,9 @@
 {
+  "achievement": "Úspěch",
   "share": "Sdílet",
   "onwards": "Kupředu!",
-  "levelup": "Díky dosažení tvých cílů v reálném životě jsi se dostal na vyšší úroveň, a jsi díky tomu plně uzdraven!",
+  "levelup": "Dosáhl jsi svých cílů v reálném životě, a proto jsi postoupil na vyšší úroveň a jsi plně uzdraven!",
   "reachedLevel": "Dosáhl jsi úrovně <%= level %>",
   "achievementLostMasterclasser": "Dokončení výprav: Série Mistra třídy",
-  "achievementLostMasterclasserText": "Splň všech šestnáct výprav ve sérii výprav Mistra třídy a vyřeš záhadu Ztraceného Mistra!"
+  "achievementLostMasterclasserText": "Splnil všech šestnáct výprav v sérii výprav Mistra třídy a vyřešil záhadu Ztraceného Mistra!"
 }

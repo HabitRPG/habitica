@@ -1,7 +1,7 @@
 import {
   generateUser,
   translate as t,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 import { v4 as generateUUID } from 'uuid';
 
 describe('POST /members/send-private-message', () => {
@@ -100,7 +100,7 @@ describe('POST /members/send-private-message', () => {
     let receiver = await generateUser();
     // const initialNotifications = receiver.notifications.length;
 
-    await userToSendMessage.post('/members/send-private-message', {
+    const response = await userToSendMessage.post('/members/send-private-message', {
       message: messageToSend,
       toUserId: receiver._id,
     });
@@ -115,6 +115,9 @@ describe('POST /members/send-private-message', () => {
     let sendersMessageInSendersInbox = _.find(updatedSender.inbox.messages, (message) => {
       return message.uuid === receiver._id && message.text === messageToSend;
     });
+
+    expect(response.message.text).to.deep.equal(sendersMessageInSendersInbox.text);
+    expect(response.message.uuid).to.deep.equal(sendersMessageInSendersInbox.uuid);
 
     // @TODO waiting for mobile support
     // expect(updatedReceiver.notifications.length).to.equal(initialNotifications + 1);

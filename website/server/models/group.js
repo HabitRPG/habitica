@@ -7,7 +7,11 @@ import {
 import shared from '../../common';
 import _  from 'lodash';
 import { model as Challenge} from './challenge';
-import { model as Chat } from './chat';
+import {
+  chatModel as Chat,
+  setUserStyles,
+  messageDefaults,
+} from './message';
 import * as Tasks from './task';
 import validator from 'validator';
 import { removeFromArray } from '../libs/collectionManipulators';
@@ -25,7 +29,6 @@ import baseModel from '../libs/baseModel';
 import { sendTxn as sendTxnEmail } from '../libs/email';
 import nconf from 'nconf';
 import { sendNotification as sendPushNotification } from '../libs/pushNotifications';
-import pusher from '../libs/pusher';
 import {
   syncableAttrs,
 } from '../libs/taskManager';
@@ -66,41 +69,31 @@ export const MAX_CHAT_COUNT = 200;
 export const MAX_SUBBED_GROUP_CHAT_COUNT = 400;
 
 export let schema = new Schema({
-  name: {type: String, required: true},
-  summary: {type: String, maxlength: MAX_SUMMARY_SIZE_FOR_GUILDS},
+  name: {$type: String, required: true},
+  summary: {$type: String, maxlength: MAX_SUMMARY_SIZE_FOR_GUILDS},
   description: String,
-  leader: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
-  type: {type: String, enum: ['guild', 'party'], required: true},
-  privacy: {type: String, enum: ['private', 'public'], default: 'private', required: true},
-  chat: Array,
-  /*
-  #    [{
-  #      timestamp: Date
-  #      user: String
-  #      text: String
-  #      contributor: String
-  #      uuid: String
-  #      id: String
-  #    }]
-  */
+  leader: {$type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid.'], required: true},
+  type: {$type: String, enum: ['guild', 'party'], required: true},
+  privacy: {$type: String, enum: ['private', 'public'], default: 'private', required: true},
+  chat: Array, // Used for backward compatibility, but messages aren't stored here
   leaderOnly: { // restrict group actions to leader (members can't do them)
-    challenges: {type: Boolean, default: false, required: true},
-    // invites: {type: Boolean, default: false, required: true},
+    challenges: {$type: Boolean, default: false, required: true},
+    // invites: {$type: Boolean, default: false, required: true},
     // Some group plans prevent members from getting gems
-    getGems: {type: Boolean, default: false},
+    getGems: {$type: Boolean, default: false},
   },
-  memberCount: {type: Number, default: 1},
-  challengeCount: {type: Number, default: 0},
-  balance: {type: Number, default: 0},
+  memberCount: {$type: Number, default: 1},
+  challengeCount: {$type: Number, default: 0},
+  balance: {$type: Number, default: 0},
   logo: String,
   leaderMessage: String,
   quest: {
     key: String,
-    active: {type: Boolean, default: false},
-    leader: {type: String, ref: 'User'},
+    active: {$type: Boolean, default: false},
+    leader: {$type: String, ref: 'User'},
     progress: {
       hp: Number,
-      collect: {type: Schema.Types.Mixed, default: () => {
+      collect: {$type: Schema.Types.Mixed, default: () => {
         return {};
       }}, // {feather: 5, ingot: 3}
       rage: Number, // limit break / "energy stored in shell", for explosion-attacks
@@ -109,34 +102,35 @@ export let schema = new Schema({
     // Shows boolean for each party-member who has accepted the quest. Eg {UUID: true, UUID: false}. Once all users click
     // 'Accept', the quest begins. If a false user waits too long, probably a good sign to prod them or boot them.
     // TODO when booting user, remove from .joined and check again if we can now start the quest
-    members: {type: Schema.Types.Mixed, default: () => {
+    members: {$type: Schema.Types.Mixed, default: () => {
       return {};
     }},
-    extra: {type: Schema.Types.Mixed, default: () => {
+    extra: {$type: Schema.Types.Mixed, default: () => {
       return {};
     }},
   },
   tasksOrder: {
-    habits: [{type: String, ref: 'Task'}],
-    dailys: [{type: String, ref: 'Task'}],
-    todos: [{type: String, ref: 'Task'}],
-    rewards: [{type: String, ref: 'Task'}],
+    habits: [{$type: String, ref: 'Task'}],
+    dailys: [{$type: String, ref: 'Task'}],
+    todos: [{$type: String, ref: 'Task'}],
+    rewards: [{$type: String, ref: 'Task'}],
   },
   purchased: {
-    plan: {type: SubscriptionPlanSchema, default: () => {
+    plan: {$type: SubscriptionPlanSchema, default: () => {
       return {};
     }},
   },
-  managers: {type: Schema.Types.Mixed, default: () => {
+  managers: {$type: Schema.Types.Mixed, default: () => {
     return {};
   }},
   categories: [{
-    slug: {type: String},
-    name: {type: String},
+    slug: {$type: String},
+    name: {$type: String},
   }],
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
+  typeKey: '$type', // So that we can use fields named `type`
 });
 
 schema.plugin(baseModel, {
@@ -473,81 +467,8 @@ schema.methods.getMemberCount = async function getMemberCount () {
   return await User.count(query).exec();
 };
 
-export function chatDefaults (msg, user) {
-  const id = shared.uuid();
-  const message = {
-    id,
-    _id: id,
-    text: msg,
-    timestamp: Number(new Date()),
-    likes: {},
-    flags: {},
-    flagCount: 0,
-  };
-
-  if (user) {
-    _.defaults(message, {
-      uuid: user._id,
-      contributor: user.contributor && user.contributor.toObject(),
-      backer: user.backer && user.backer.toObject(),
-      user: user.profile.name,
-    });
-  } else {
-    message.uuid = 'system';
-  }
-
-  return message;
-}
-
-function setUserStyles (newMessage, user) {
-  let userStyles = {};
-  userStyles.items = {gear: {}};
-
-  let userCopy = user;
-  if (user.toObject) userCopy = user.toObject();
-
-  if (userCopy.items) {
-    userStyles.items.gear = {};
-    userStyles.items.gear.costume = Object.assign({}, userCopy.items.gear.costume);
-    userStyles.items.gear.equipped = Object.assign({}, userCopy.items.gear.equipped);
-
-    userStyles.items.currentMount = userCopy.items.currentMount;
-    userStyles.items.currentPet = userCopy.items.currentPet;
-  }
-
-
-  if (userCopy.preferences) {
-    userStyles.preferences = {};
-    if (userCopy.preferences.style) userStyles.preferences.style = userCopy.preferences.style;
-    userStyles.preferences.hair = userCopy.preferences.hair;
-    userStyles.preferences.skin = userCopy.preferences.skin;
-    userStyles.preferences.shirt = userCopy.preferences.shirt;
-    userStyles.preferences.chair = userCopy.preferences.chair;
-    userStyles.preferences.size = userCopy.preferences.size;
-    userStyles.preferences.chair = userCopy.preferences.chair;
-    userStyles.preferences.background = userCopy.preferences.background;
-    userStyles.preferences.costume = userCopy.preferences.costume;
-  }
-
-  if (userCopy.stats) {
-    userStyles.stats = {};
-    userStyles.stats.class = userCopy.stats.class;
-    if (userCopy.stats.buffs) {
-      userStyles.stats.buffs = {
-        seafoam: userCopy.stats.buffs.seafoam,
-        shinySeed: userCopy.stats.buffs.shinySeed,
-        spookySparkles: userCopy.stats.buffs.spookySparkles,
-        snowball: userCopy.stats.buffs.snowball,
-      };
-    }
-  }
-
-  newMessage.userStyles = userStyles;
-  newMessage.markModified('userStyles');
-}
-
 schema.methods.sendChat = function sendChat (message, user, metaData) {
-  let newMessage = chatDefaults(message, user);
+  let newMessage = messageDefaults(message, user);
   let newChatMessage = new Chat();
   newChatMessage = Object.assign(newChatMessage, newMessage);
   newChatMessage.groupId = this._id;
@@ -559,17 +480,6 @@ schema.methods.sendChat = function sendChat (message, user, metaData) {
   if (metaData) {
     newChatMessage._meta = metaData;
   }
-
-  // @TODO: Completely remove the code below after migration
-  // this.chat.unshift(newMessage);
-
-  let maxCount = MAX_CHAT_COUNT;
-
-  if (this.isSubscribed()) {
-    maxCount = MAX_SUBBED_GROUP_CHAT_COUNT;
-  }
-
-  this.chat.splice(maxCount);
 
   // do not send notifications for guilds with more than 5000 users and for the tavern
   if (NO_CHAT_NOTIFICATIONS.indexOf(this._id) !== -1 || this.memberCount > LARGE_GROUP_COUNT_MESSAGE_CUTOFF) {
@@ -611,12 +521,6 @@ schema.methods.sendChat = function sendChat (message, user, metaData) {
   User.update(query, lastSeenUpdateRemoveOld, {multi: true}).exec().then(() => {
     User.update(query, lastSeenUpdateAddNew, {multi: true}).exec();
   });
-
-  // If the message being sent is a system message (not gone through the api.postChat controller)
-  // then notify Pusher about it (only parties for now)
-  if (newMessage.uuid === 'system' && this.privacy === 'private' && this.type === 'party') {
-    pusher.trigger(`presence-group-${this._id}`, 'new-chat', newMessage);
-  }
 
   return newChatMessage;
 };
@@ -913,22 +817,6 @@ schema.methods.finishQuest = async function finishQuest (quest) {
     'lostMasterclasser4',
   ];
 
-  if (masterClasserQuests.includes(questK)) {
-    let lostMasterclasserQuery = {
-      'achievements.lostMasterclasser': {$ne: true},
-    };
-    masterClasserQuests.forEach(questName => {
-      lostMasterclasserQuery[`achievements.quests.${questName}`] = {$gt: 0};
-    });
-    let lostMasterclasserUpdate = {
-      $set: {'achievements.lostMasterclasser': true},
-    };
-
-    promises = promises.concat(participants.map(userId => {
-      return _updateUserWithRetries(userId, lostMasterclasserUpdate, null, lostMasterclasserQuery);
-    }));
-  }
-
   // Send webhooks in background
   // @TODO move the find users part to a worker as well, not just the http request
   User.find({
@@ -954,7 +842,24 @@ schema.methods.finishQuest = async function finishQuest (quest) {
       });
     });
 
-  return await Promise.all(promises);
+  await Promise.all(promises);
+
+  if (masterClasserQuests.includes(questK)) {
+    let lostMasterclasserQuery = {
+      'achievements.lostMasterclasser': {$ne: true},
+    };
+    masterClasserQuests.forEach(questName => {
+      lostMasterclasserQuery[`achievements.quests.${questName}`] = {$gt: 0};
+    });
+    let lostMasterclasserUpdate = {
+      $set: {'achievements.lostMasterclasser': true},
+    };
+
+    let lostMasterClasserPromises = participants.map(userId => {
+      return _updateUserWithRetries(userId, lostMasterclasserUpdate, null, lostMasterclasserQuery);
+    });
+    await Promise.all(lostMasterClasserPromises);
+  }
 };
 
 function _isOnQuest (user, progress, group) {
@@ -1090,6 +995,8 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
 };
 
 schema.statics.processQuestProgress = async function processQuestProgress (user, progress) {
+  if (user.preferences.sleep) return;
+
   let group = await this.getGroup({user, groupId: 'party'});
 
   if (!_isOnQuest(user, progress, group)) return;
@@ -1100,7 +1007,7 @@ schema.statics.processQuestProgress = async function processQuestProgress (user,
 
   let questType = quest.boss ? 'Boss' : 'Collection';
 
-  await group[`_process${questType}Quest`]({
+  await group[`_process${questType}Quest`]({ // _processBossQuest, _processCollectionQuest
     user,
     progress,
     group,
@@ -1130,6 +1037,7 @@ process.nextTick(() => {
 // returns a promise
 schema.statics.tavernBoss = async function tavernBoss (user, progress) {
   if (!progress) return;
+  if (user.preferences.sleep) return;
 
   // hack: prevent crazy damage to world boss
   let dmg = Math.min(900, Math.abs(progress.up || 0));
@@ -1246,11 +1154,6 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
     promises.push(User.update({_id: user._id}, {$pull: {guilds: group._id}}).exec());
   } else {
     promises.push(User.update({_id: user._id}, {$set: {party: {}}}).exec());
-    // Tell the realtime clients that a user has left
-    // If the user that left is still connected, they'll get disconnected
-    pusher.trigger(`presence-group-${group._id}`, 'user-left', {
-      userId: user._id,
-    });
 
     update.$unset = {[`quest.members.${user._id}`]: 1};
   }
@@ -1319,6 +1222,7 @@ schema.methods.updateTask = async function updateTask (taskToSync, options = {})
 
   updateCmd.$set['group.approval.required'] = taskToSync.group.approval.required;
   updateCmd.$set['group.assignedUsers'] = taskToSync.group.assignedUsers;
+  updateCmd.$set['group.sharedCompletion'] = taskToSync.group.sharedCompletion;
 
   let taskSchema = Tasks[taskToSync.type];
 
@@ -1414,6 +1318,7 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
 
   matchingTask.group.approval.required = taskToSync.group.approval.required;
   matchingTask.group.assignedUsers = taskToSync.group.assignedUsers;
+  matchingTask.group.sharedCompletion = taskToSync.group.sharedCompletion;
 
   //  sync checklist
   if (taskToSync.checklist) {
@@ -1505,7 +1410,12 @@ schema.methods.isSubscribed = function isSubscribed () {
 
 schema.methods.hasNotCancelled = function hasNotCancelled () {
   let plan = this.purchased.plan;
-  return this.isSubscribed() && !plan.dateTerminated;
+  return Boolean(this.isSubscribed() && !plan.dateTerminated);
+};
+
+schema.methods.hasCancelled = function hasNotCancelled () {
+  let plan = this.purchased.plan;
+  return Boolean(this.isSubscribed() && plan.dateTerminated);
 };
 
 schema.methods.updateGroupPlan = async function updateGroupPlan (removingMember) {

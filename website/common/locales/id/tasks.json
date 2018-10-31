@@ -5,7 +5,7 @@
     "sureDeleteCompletedTodos": "Apakah kamu yakin kamu ingin menghapus semua To-do yang telah diselesaikan?",
     "lotOfToDos": "30 To-Do terakhir yang kamu selesaikan ditampilkan di sini. Kamu dapat melihat To-Do lama yang telah kamu selesaikan dari Data > Data Display Tool atau Data > Ekspor Data > Data Pengguna.",
     "deleteToDosExplanation": "Jika kamu menekan tombol di bawah, semua To-Do yang sudah kamu selesaikan dan To-Do di arsip akan dihapus secara permanen, kecuali To-Do dari tantangan yang aktif dan Rencana Grup. Silakan ekspor terlebih dahulu jika kamu mau menyimpan catatan mengenai tugasmu.",
-    "addMultipleTip": "<strong>Tip:</strong> To add multiple <%= taskType %>, separate each one using a line break (Shift + Enter) and then press \"Enter.\"",
+    "addMultipleTip": "<strong>Tips:</strong> Untuk menambahkan beberapa <%= taskType %> sekaligus, pisahkan baris masing-masing tugas (Shift + Enter) lalu tekan \"Enter.\"",
     "addsingle": "Tambah Satu",
     "addATask": "Tambahkan sebuah <%= type %>",
     "editATask": "Edit sebuah <%= type %>",
@@ -194,8 +194,6 @@
     "weeks": "Minggu",
     "year": "Tahun",
     "years": "Tahun",
-    "confirmScoreNotes": "Pastikan nilai dari tugas dengan catatan",
-    "taskScoreNotesTooLong": "Catatan nilai tugas harus kurang dari 256 karakter",
     "groupTasksByChallenge": "Kelompokkan tugas berdasarkan judul tantangan",
     "taskNotes": "Catatan Tugas",
     "monthlyRepeatHelpContent": "Tugas ini harus diselesaikan setiap X bulan",
@@ -211,5 +209,5 @@
     "repeatDayError": "Pastikan bahwa setidaknya ada satu hari dipilih dari minggu tersebut.",
     "searchTasks": "Cari judul dan deskripsi...",
     "sessionOutdated": "Sesi kamu sudah tidak berlaku. Silakan muat ulang laman atau pilih sinkronkan.",
-    "errorTemporaryItem": "This item is temporary and cannot be pinned."
+    "errorTemporaryItem": "Item ini hanya ada untuk sementara dan tidak bisa disematkan."
 }

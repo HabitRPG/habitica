@@ -2,7 +2,7 @@ import {
   generateUser,
   generateGroup,
   translate as t,
-} from '../../../../helpers/api-v3-integration.helper';
+} from '../../../../helpers/api-integration/v3';
 import { v4 as generateUUID } from 'uuid';
 import nconf from 'nconf';
 
@@ -111,6 +111,19 @@ describe('Post /groups/:groupId/invite', () => {
           code: 400,
           error: 'BadRequest',
           message: t('canOnlyInviteMaxInvites', {maxInvites: INVITES_LIMIT}),
+        });
+    });
+
+    it('returns error when recipient has blocked the senders', async () => {
+      const inviterNoBlocks = await inviter.update({'inbox.blocks': []});
+      let userWithBlockedInviter = await generateUser({'inbox.blocks': [inviter._id]});
+      await expect(inviterNoBlocks.post(`/groups/${group._id}/invite`, {
+        uuids: [userWithBlockedInviter._id],
+      }))
+        .to.eventually.be.rejected.and.eql({
+          code: 401,
+          error: 'NotAuthorized',
+          message: t('notAuthorizedToSendMessageToThisUser'),
         });
     });
 
@@ -404,7 +417,7 @@ describe('Post /groups/:groupId/invite', () => {
       expect(await inviter.post(`/groups/${group._id}/invite`, {
         uuids: generatedInvites.map(invite => invite._id),
       })).to.be.an('array');
-    });
+    }).timeout(10000);
 
     // @TODO: Add this after we are able to mock the group plan route
     xit('returns an error when a non-leader invites to a group plan', async () => {
@@ -551,7 +564,7 @@ describe('Post /groups/:groupId/invite', () => {
       expect(await inviter.post(`/groups/${party._id}/invite`, {
         uuids: generatedInvites.map(invite => invite._id),
       })).to.be.an('array');
-    });
+    }).timeout(10000);
 
     it('does not allow 30+ members in a party', async () => {
       let invitesToGenerate = [];
@@ -569,6 +582,6 @@ describe('Post /groups/:groupId/invite', () => {
           error: 'BadRequest',
           message: t('partyExceedsMembersLimit', {maxMembersParty: PARTY_LIMIT_MEMBERS}),
         });
-    });
+    }).timeout(10000);
   });
 });

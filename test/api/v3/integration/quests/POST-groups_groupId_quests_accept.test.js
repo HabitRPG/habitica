@@ -3,8 +3,8 @@ import {
   translate as t,
   generateUser,
   sleep,
-} from '../../../../helpers/api-v3-integration.helper';
-import { model as Chat } from '../../../../../website/server/models/chat';
+} from '../../../../helpers/api-integration/v3';
+import { chatModel as Chat } from '../../../../../website/server/models/message';
 
 describe('POST /groups/:groupId/quests/accept', () => {
   const PET_QUEST = 'whale';

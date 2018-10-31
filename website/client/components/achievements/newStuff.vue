@@ -40,7 +40,7 @@
     async mounted () {
       this.$root.$on('bv::show::modal', async (modalId) => {
         if (modalId !== 'new-stuff') return;
-        let response = await axios.get('/api/v3/news');
+        let response = await axios.get('/api/v4/news');
         this.html = response.data.html;
       });
     },

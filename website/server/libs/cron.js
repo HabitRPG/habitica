@@ -172,27 +172,6 @@ function resetHabitCounters (user, tasksByType, now, daysMissed) {
   });
 }
 
-function performSleepTasks (user, tasksByType, now, daysMissed) {
-  user.stats.buffs = _.cloneDeep(CLEAR_BUFFS);
-
-  tasksByType.dailys.forEach((daily) => {
-    let completed = daily.completed;
-    let thatDay = moment(now).subtract({days: 1});
-
-    if (shouldDo(thatDay.toDate(), daily, user.preferences) || completed) {
-      // TODO also untick checklists if the Daily was due on previous missed days, if two or more days were missed at once -- https://github.com/HabitRPG/habitica/pull/7218#issuecomment-219256016
-      if (daily.checklist) {
-        daily.checklist.forEach(box => box.completed = false);
-      }
-    }
-
-    daily.completed = false;
-    setIsDueNextDue(daily, user, now);
-  });
-
-  resetHabitCounters(user, tasksByType, now, daysMissed);
-}
-
 function trackCronAnalytics (analytics, user, _progress, options) {
   analytics.track('Cron', {
     category: 'behavior',
@@ -207,12 +186,20 @@ function trackCronAnalytics (analytics, user, _progress, options) {
     headers: options.headers,
     loginIncentives: user.loginIncentives,
   });
+
+  if (user.party && user.party.quest && !user.party.quest.RSVPNeeded && !user.party.quest.completed && user.party.quest.key && !user.preferences.sleep) {
+    analytics.track('quest participation', {
+      category: 'behavior',
+      uuid: user._id,
+      user,
+      questName: user.party.quest.key,
+      headers: options.headers,
+    });
+  }
 }
 
 function awardLoginIncentives (user) {
   if (user.loginIncentives > MAX_INCENTIVES) return;
-  // A/B test 2016-12-21: Should we deliver notifications for upcoming incentives on days when users don't receive rewards?
-  if (!loginIncentives[user.loginIncentives].rewardKey && user._ABtests && user._ABtests.checkInModals === '20161221_noCheckInPreviews') return;
 
   //  Remove old notifications if they exists
   user.notifications.forEach((notif, index) => {
@@ -294,14 +281,6 @@ export function cron (options = {}) {
   user.loginIncentives++;
   awardLoginIncentives(user);
 
-  // User is resting at the inn.
-  // On cron, buffs are cleared and all dailies are reset without performing damage
-  if (user.preferences.sleep === true) {
-    performSleepTasks(user, tasksByType, now, daysMissed);
-    trackCronAnalytics(analytics, user, _progress, options);
-    return;
-  }
-
   let multiDaysCountAsOneDay = true;
   // If the user does not log in for two or more days, cron (mostly) acts as if it were only one day.
   // When site-wide difficulty settings are introduced, this can be a user preference option.
@@ -321,7 +300,8 @@ export function cron (options = {}) {
     todoTally += task.value;
   });
 
-  // For incomplete Dailys, add value (further incentive), deduct health, keep records for later decreasing the nightly mana gain
+  // For incomplete Dailys, add value (further incentive), deduct health, keep records for later decreasing the nightly mana gain.
+  // The negative effects are not done when resting in the inn.
   let dailyChecked = 0; // how many dailies were checked?
   let dailyDueUnchecked = 0; // how many dailies were un-checked?
   let atLeastOneDailyDue = false; // were any dailies due?
@@ -372,22 +352,24 @@ export function cron (options = {}) {
             dailyDueUnchecked += 1;
           }
 
-          let delta = scoreTask({
-            user,
-            task,
-            direction: 'down',
-            times: multiDaysCountAsOneDay ? 1 : scheduleMisses - EvadeTask,
-            cron: true,
-          });
+          if (!user.preferences.sleep) {
+            let delta = scoreTask({
+              user,
+              task,
+              direction: 'down',
+              times: multiDaysCountAsOneDay ? 1 : scheduleMisses - EvadeTask,
+              cron: true,
+            });
 
-          if (!CRON_SEMI_SAFE_MODE) {
-            // Apply damage from a boss, less damage for Trivial priority (difficulty)
-            user.party.quest.progress.down += delta * (task.priority < 1 ? task.priority : 1);
-            // NB: Medium and Hard priorities do not increase damage from boss. This was by accident
-            // initially, and when we realised, we could not fix it because users are used to
-            // their Medium and Hard Dailies doing an Easy amount of damage from boss.
-            // Easy is task.priority = 1. Anything < 1 will be Trivial (0.1) or any future
-            // setting between Trivial and Easy.
+            if (!CRON_SEMI_SAFE_MODE) {
+              // Apply damage from a boss, less damage for Trivial priority (difficulty)
+              user.party.quest.progress.down += delta * (task.priority < 1 ? task.priority : 1);
+              // NB: Medium and Hard priorities do not increase damage from boss. This was by accident
+              // initially, and when we realised, we could not fix it because users are used to
+              // their Medium and Hard Dailies doing an Easy amount of damage from boss.
+              // Easy is task.priority = 1. Anything < 1 will be Trivial (0.1) or any future
+              // setting between Trivial and Easy.
+            }
           }
         }
       }
@@ -438,10 +420,10 @@ export function cron (options = {}) {
       return taskType._id === taskOrderId && taskType.completed === false;
     });
   });
+  // TODO also adjust tasksOrder arrays to remove deleted tasks of any kind (including rewards), ensure that all existing tasks are in the arrays, no tasks IDs are duplicated -- https://github.com/HabitRPG/habitica/issues/7645
 
   // preen user history so that it doesn't become a performance problem
   // also for subscribed users but differently
-  // TODO also do while resting in the inn. Note that later we'll be allowing the value/color of tasks to change while sleeping (https://github.com/HabitRPG/habitica/issues/5232), so the code in performSleepTasks() might be best merged back into here for that. Perhaps wait until then to do preen history for sleeping users.
   preenUserHistory(user, tasksByType);
 
   if (perfect && atLeastOneDailyDue) {
@@ -461,20 +443,22 @@ export function cron (options = {}) {
 
   // Add 10 MP, or 10% of max MP if that'd be more. Perform this after Perfect Day for maximum benefit
   // Adjust for fraction of dailies completed
-  if (dailyDueUnchecked === 0 && dailyChecked === 0) dailyChecked = 1;
-  user.stats.mp += _.max([10, 0.1 * common.statsComputed(user).maxMP]) * dailyChecked / (dailyDueUnchecked + dailyChecked);
-  if (user.stats.mp > common.statsComputed(user).maxMP) user.stats.mp = common.statsComputed(user).maxMP;
+  if (!user.preferences.sleep) {
+    if (dailyDueUnchecked === 0 && dailyChecked === 0) dailyChecked = 1;
+    user.stats.mp += _.max([10, 0.1 * common.statsComputed(user).maxMP]) * dailyChecked / (dailyDueUnchecked + dailyChecked);
+    if (user.stats.mp > common.statsComputed(user).maxMP) user.stats.mp = common.statsComputed(user).maxMP;
+  }
 
   // After all is said and done, progress up user's effect on quest, return those values & reset the user's
-  let progress = user.party.quest.progress;
-  _progress = progress.toObject(); // clone the old progress object
-  progress.down = -1300;
-  _.merge(progress, {down: 0, up: 0, collectedItems: 0});
+  if (!user.preferences.sleep) {
+    let progress = user.party.quest.progress;
+    _progress = progress.toObject(); // clone the old progress object
+    _.merge(progress, {down: 0, up: 0, collectedItems: 0});
+  }
 
-  // Send notification for changes in HP and MP
-
-  // First remove a possible previous cron notification
-  // we don't want to flood the users with many cron notifications at once
+  // Send notification for changes in HP and MP.
+  // First remove a possible previous cron notification because
+  // we don't want to flood the users with many cron notifications at once.
   let oldCronNotif = user.notifications.find((notif, index) => {
     if (notif && notif.type === 'CRON') {
       user.notifications.splice(index, 1);
@@ -488,19 +472,6 @@ export function cron (options = {}) {
     hp: user.stats.hp - beforeCronStats.hp - (oldCronNotif ? oldCronNotif.data.hp : 0),
     mp: user.stats.mp - beforeCronStats.mp - (oldCronNotif ? oldCronNotif.data.mp : 0),
   });
-
-  // TODO: Clean PMs - keep 200 for subscribers and 50 for free users. Should also be done while resting in the inn
-  // let numberOfPMs = Object.keys(user.inbox.messages).length;
-  // if (numberOfPMs > maxPMs) {
-  //   _(user.inbox.messages)
-  //     .sortBy('timestamp')
-  //     .takeRight(numberOfPMs - maxPMs)
-  //     .forEach(pm => {
-  //       delete user.inbox.messages[pm.id];
-  //     })
-  //
-  //   user.markModified('inbox.messages');
-  // }
 
   // Analytics
   user.flags.cronCount++;

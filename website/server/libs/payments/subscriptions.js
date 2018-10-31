@@ -36,8 +36,9 @@ function revealMysteryItems (user) {
       pushedItems.push(item.key);
     }
   });
-
-  user.addNotification('NEW_MYSTERY_ITEMS', { items: pushedItems });
+  if (pushedItems.length > 0) {
+    user.addNotification('NEW_MYSTERY_ITEMS', { items: pushedItems });
+  }
 }
 
 // @TODO: Abstract to payment helper

@@ -194,8 +194,6 @@
     "weeks": "Veckor",
     "year": "År",
     "years": "År",
-    "confirmScoreNotes": "Confirm task scoring with notes",
-    "taskScoreNotesTooLong": "Task score notes must be less than 256 characters",
     "groupTasksByChallenge": "Gruppera uppgifter genom utmaningstitel",
     "taskNotes": "Uppgifts-noteringar",
     "monthlyRepeatHelpContent": "Denna uppgift förfaller varje X månader",

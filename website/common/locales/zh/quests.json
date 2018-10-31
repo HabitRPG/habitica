@@ -98,6 +98,7 @@
     "guildQuestsNotSupported": "公会不能被邀请参加探索任务。",
     "questNotOwned": "你还没拥有那个探索任务卷轴。",
     "questNotGoldPurchasable": "探索任务\"<%= key %>\"不能用金币购买。",
+    "questNotGemPurchasable": "探索任务“<%= key %>\"不是可用宝石购买的探索任务",
     "questLevelTooHigh": "你必须达到等级<%= level %>来开始这个探索任务。",
     "questAlreadyUnderway": "你的队伍已经开始一个探索任务。当前探索任务结束后请再试一次。",
     "questAlreadyAccepted": "你已经接收探索任务邀请。",

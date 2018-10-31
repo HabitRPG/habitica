@@ -7,13 +7,13 @@
       .form
         h2(v-once) {{ $t('filter') }}
         .form-group
-          .form-check(
+          checkbox(
             v-for="category in filterCategories",
             :key="category.key",
+            :id="`category-${category.key}`",
+            :checked.sync="viewOptions[category.key].selected",
+            :text="category.value"
           )
-            .custom-control.custom-checkbox
-              input.custom-control-input(type="checkbox", v-model="viewOptions[category.key].selected", :id="`category-${category.identifier}`")
-              label.custom-control-label(v-once, :for="`category-${category.identifier}`") {{ category.value }}
 
         div.form-group.clearfix
           h3.float-left(v-once) {{ $t('hidePinned') }}
@@ -290,10 +290,12 @@
   import Item from 'client/components/inventory/item';
   import CountBadge from 'client/components/ui/countBadge';
   import ItemRows from 'client/components/ui/itemRows';
+  import Checkbox from 'client/components/ui/checkbox';
   import toggleSwitch from 'client/components/ui/toggleSwitch';
   import Avatar from 'client/components/avatar';
   import buyMixin from 'client/mixins/buy';
   import currencyMixin from '../_currencyMixin';
+  import pinUtils from 'client/mixins/pinUtils';
 
   import svgPin from 'assets/svg/pin.svg';
   import svgWarrior from 'assets/svg/warrior.svg';
@@ -318,13 +320,14 @@
   import shops from 'common/script/libs/shops';
 
   export default {
-    mixins: [buyMixin, currencyMixin],
+    mixins: [buyMixin, currencyMixin, pinUtils],
     components: {
       ShopItem,
       Item,
       CountBadge,
       ItemRows,
       toggleSwitch,
+      Checkbox,
 
       Avatar,
     },
@@ -513,11 +516,6 @@
         }
 
         return false;
-      },
-      togglePinned (item) {
-        if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
-          this.$parent.showUnpinNotification(item);
-        }
       },
       itemSelected (item) {
         if (item.locked) return;

@@ -6,14 +6,18 @@
       .row
         textarea(:placeholder='placeholder',
                   v-model='newMessage',
+                  ref='user-entry',
                   :class='{"user-entry": newMessage}',
                   @keydown='updateCarretPosition',
                   @keyup.ctrl.enter='sendMessageShortcut()',
-                  @paste='disableMessageSendShortcut()'
+                  @paste='disableMessageSendShortcut()',
+                  maxlength='3000'
                 )
+        span {{ currentLength }} / 3000
         autocomplete(
                 :text='newMessage',
                 v-on:select="selectedAutocomplete",
+                :textbox='textbox',
                 :coords='coords',
                 :chat='group.chat')
 
@@ -32,7 +36,7 @@
 
       .row
         .hr.col-12
-        chat-message(:chat.sync='group.chat', :group-id='group._id', :group-name='group.name')
+        chat-message(:chat.sync='group.chat', :group-type='group.type', :group-id='group._id', :group-name='group.name')
 </template>
 
 <script>
@@ -60,7 +64,13 @@
           TOP: 0,
           LEFT: 0,
         },
+        textbox: this.$refs,
       };
+    },
+    computed: {
+      currentLength () {
+        return this.newMessage.length;
+      },
     },
     methods: {
       // https://medium.com/@_jh3y/how-to-where-s-the-caret-getting-the-xy-position-of-the-caret-a24ba372990a
@@ -180,7 +190,7 @@
     position: relative;
 
     textarea {
-      height: 150px;
+      min-height: 150px;
       width: 100%;
       background-color: $white;
       border: solid 1px $gray-400;

@@ -356,6 +356,24 @@ let quests = {
     adjective: t('questEggSquirrelAdjective'),
     canBuy: hasQuestAchievementFunction('squirrel'),
   },
+  SeaSerpent: {
+    text: t('questEggSeaSerpentText'),
+    mountText: t('questEggSeaSerpentMountText'),
+    adjective: t('questEggSeaSerpentAdjective'),
+    canBuy: hasQuestAchievementFunction('seaserpent'),
+  },
+  Kangaroo: {
+    text: t('questEggKangarooText'),
+    mountText: t('questEggKangarooMountText'),
+    adjective: t('questEggKangarooAdjective'),
+    canBuy: hasQuestAchievementFunction('kangaroo'),
+  },
+  Alligator: {
+    text: t('questEggAlligatorText'),
+    mountText: t('questEggAlligatorMountText'),
+    adjective: t('questEggAlligatorAdjective'),
+    canBuy: hasQuestAchievementFunction('alligator'),
+  },
 };
 
 applyEggDefaults(drops, {

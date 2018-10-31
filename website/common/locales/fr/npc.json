@@ -48,7 +48,7 @@
     "featuredItems": "Objets du moment !",
     "hideLocked": "Cacher ce qui est verrouillé",
     "hidePinned": "Cacher ce qui est épinglé",
-    "hideMissing": "Hide Missing",
+    "hideMissing": "Masquer les manquants",
     "amountExperience": "<%= amount %> Expérience",
     "amountGold": "<%= amount %> Or",
     "namedHatchingPotion": "Potion d'éclosion <%= type %>",

@@ -99,6 +99,7 @@
     "noChallengeTitle": "Nu ai nici o Provocare",
     "challengeDescription1": "Provocările sunt evenimente comunitare în care jucătorii concurează și câștigă premii prin completarea unui grup de sarcini înrudite.",
     "challengeDescription2": "Găsește Provocări recomandate în funcție de interesele tale, navighează Provocările publice din Habitica  sau crează propriile Provocări.",
+    "noChallengeMatchFilters": "We couldn't find any matching Challenges.",
     "createdBy": "Creat de",
     "joinChallenge": "Alătură-te Provocării",
     "leaveChallenge": "Părăsește Provocarea",
@@ -131,6 +132,7 @@
     "locationRequired": "Este nevoie de Locația Provocării ('Adaugă la')",
     "categoiresRequired": "Trebuie selectată încă o categorie",
     "viewProgressOf": "Vezi Progresul",
+    "viewProgress": "Vezi Progresul",
     "selectMember": "Selectează Participant",
     "confirmKeepChallengeTasks": "Dorești să păstrezi sarcinile provocării?",
     "selectParticipant": "Alege un Participant"

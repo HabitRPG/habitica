@@ -22,7 +22,7 @@
           )
     .standard-page
       div.featuredItems
-        .background
+        .background(:class="{'background-closed': closed, 'background-open': !closed }")
           div.npc(:class="{'closed': closed }")
             div.featured-label
               span.rectangle
@@ -33,8 +33,6 @@
               span.rectangle
               span.text(v-once) {{ $t('timeTravelersPopoverNoSubMobile') }}
               span.rectangle
-
-      h1.mb-4.page-header(v-once) {{ $t('timeTravelers') }}
 
       .clearfix(v-if="!closed")
         div.float-right
@@ -164,12 +162,9 @@
       height: 216px;
 
       .background {
-        background: url('~assets/images/npc/#{$npc_timetravelers_flavor}/time_travelers_background.png');
-
         background-repeat: repeat-x;
 
         width: 100%;
-        height: 216px;
         position: absolute;
 
         top: 0;
@@ -179,6 +174,14 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+      }
+      .background-open {
+        background: url('~assets/images/npc/#{$npc_timetravelers_flavor}/time_travelers_background.png');
+        height: 188px;
+      }
+      .background-closed {
+        background: url('~assets/images/npc/normal/time_travelers_background.png');
+        height: 216px;
       }
 
       .content {
@@ -237,8 +240,10 @@
   import isPinned from 'common/script/libs/isPinned';
   import shops from 'common/script/libs/shops';
 
+  import pinUtils from 'client/mixins/pinUtils';
 
   export default {
+    mixins: [pinUtils],
     components: {
       ShopItem,
       Item,
@@ -365,11 +370,6 @@
       },
       getGrouped (entries) {
         return _groupBy(entries, 'group');
-      },
-      togglePinned (item) {
-        if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
-          this.$parent.showUnpinNotification(item);
-        }
       },
       selectItemToBuy (item) {
         this.$root.$emit('buyModal::showItem', item);

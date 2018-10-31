@@ -98,6 +98,7 @@
     "guildQuestsNotSupported": "Guildas não podem ser convidadas para missão.",
     "questNotOwned": "Você não possui esse pergaminho de missão.",
     "questNotGoldPurchasable": "Missão \"<%= key %>\" não é comprável com ouro.",
+    "questNotGemPurchasable": "A missão \"<%= key %>\" não pode ser comprada com gemas.",
     "questLevelTooHigh": "Você precisa ter nível <%= level %> para iniciar essa missão.",
     "questAlreadyUnderway": "A sua equipa já está numa missão. Tente novamente quando a missão atual tiver terminado.",
     "questAlreadyAccepted": "Você já aceitou o convite para a missão.",

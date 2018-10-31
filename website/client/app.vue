@@ -15,21 +15,21 @@ div
     router-view(v-if="!isUserLoggedIn || isStaticPage")
     template(v-else)
       template(v-if="isUserLoaded")
-        div.resting-banner(v-if="showRestingBanner")
+        div.resting-banner(v-show="showRestingBanner", ref="restingBanner")
           span.content
-            span.label {{ $t('innCheckOutBanner') }}
-            span.separator |
+            span.label.d-inline.d-sm-none {{ $t('innCheckOutBannerShort') }}
+            span.label.d-none.d-sm-inline {{ $t('innCheckOutBanner') }}
+            span.separator  |
             span.resume(@click="resumeDamage()") {{ $t('resumeDamage') }}
           div.closepadding(@click="hideBanner()")
             span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close")
         notifications-display
-        app-menu(:class='{"restingInn": showRestingBanner}')
+        app-menu(:class='{"restingInn": showRestingBanner}' :style="{ marginTop: bannerHeight + 'px' }")
         .container-fluid
           app-header(:class='{"restingInn": showRestingBanner}')
           buyModal(
             :item="selectedItemToBuy || {}",
             :withPin="true",
-            @change="resetItemToBuy($event)",
             @buyPressed="customPurchase($event)",
             :genericPurchase="genericPurchase(selectedItemToBuy)",
 
@@ -105,8 +105,8 @@ div
   @import '~client/assets/scss/colors.scss';
 
   /* @TODO: The modal-open class is not being removed. Let's try this for now */
-  .modal, .modal-open {
-    overflow-y: scroll;
+  .modal {
+    overflow-y: scroll !important;
   }
 
   .modal-backdrop.show {
@@ -116,35 +116,23 @@ div
 
   /* Push progress bar above modals */
   #nprogress .bar {
-    z-index: 1090 !important; /* Must stay above nav bar */
-  }
-
-  .restingInn {
-    .navbar {
-      top: 40px;
-    }
-
-    #app-header {
-      margin-top: 40px !important;
-    }
-
+    z-index: 1600 !important; /* Must stay above nav bar */
   }
 
   .resting-banner {
     width: 100%;
-    height: 40px;
+    min-height: 40px;
     background-color: $blue-10;
     position: fixed;
     top: 0;
-    z-index: 1030;
+    z-index: 1300;
     display: flex;
 
     .content {
-      height: 24px;
       line-height: 1.71;
       text-align: center;
       color: $white;
-
+      padding: 8px 38px 8px 8px;
       margin: auto;
     }
 
@@ -161,6 +149,13 @@ div
       }
     }
 
+    @media only screen and (max-width: 768px) {
+      .content {
+        font-size: 12px;
+        line-height: 1.4;
+      }
+    }
+
     .separator {
       color: $blue-100;
       margin: 0px 15px;
@@ -169,6 +164,7 @@ div
     .resume {
       font-weight: bold;
       cursor: pointer;
+      white-space:nowrap;
     }
   }
 </style>
@@ -224,6 +220,7 @@ export default {
       loading: true,
       currentTipNumber: 0,
       bannerHidden: false,
+      bannerHeight: 0,
     };
   },
   computed: {
@@ -306,7 +303,7 @@ export default {
         // Don't show errors from getting user details. These users have delete their account,
         // but their chat message still exists.
         let configExists = Boolean(error.response) && Boolean(error.response.config);
-        if (configExists && error.response.config.method === 'get' && error.response.config.url.indexOf('/api/v3/members/') !== -1) {
+        if (configExists && error.response.config.method === 'get' && error.response.config.url.indexOf('/api/v4/members/') !== -1) {
           // @TODO: We resolve the promise because we need our caching to cache this user as tried
           // Chat paging should help this, but maybe we can also find another solution..
           return Promise.resolve(error);
@@ -331,9 +328,23 @@ export default {
         ];
         if (notificationNotFoundMessage.indexOf(errorMessage) !== -1) snackbarTimeout = true;
 
+        let errorsToShow = [];
+        // show only the first error for each param
+        let paramErrorsFound = {};
+        if (errorData.errors) {
+          for (let e of errorData.errors) {
+            if (!paramErrorsFound[e.param]) {
+              errorsToShow.push(e.message);
+              paramErrorsFound[e.param] = true;
+            }
+          }
+        } else {
+          errorsToShow.push(errorMessage);
+        }
+        // dispatch as one snackbar notification
         this.$store.dispatch('snackbars:add', {
           title: 'Habitica',
-          text: errorMessage,
+          text: errorsToShow.join(' '),
           type: 'error',
           timeout: snackbarTimeout,
         });
@@ -348,20 +359,20 @@ export default {
       const url = response.config.url;
       const method = response.config.method;
 
-      const isApiCall = url.indexOf('api/v3') !== -1;
+      const isApiCall = url.indexOf('api/v4') !== -1;
       const userV = response.data && response.data.userV;
-      const isCron = url.indexOf('/api/v3/cron') === 0 && method === 'post';
+      const isCron = url.indexOf('/api/v4/cron') === 0 && method === 'post';
 
       if (this.isUserLoaded && isApiCall && userV) {
         const oldUserV = this.user._v;
         this.user._v = userV;
 
         // Do not sync again if already syncing
-        const isUserSync = url.indexOf('/api/v3/user') === 0 && method === 'get';
-        const isTasksSync = url.indexOf('/api/v3/tasks/user') === 0 && method === 'get';
+        const isUserSync = url.indexOf('/api/v4/user') === 0 && method === 'get';
+        const isTasksSync = url.indexOf('/api/v4/tasks/user') === 0 && method === 'get';
         // exclude chat seen requests because with real time chat they would be too many
         const isChatSeen = url.indexOf('/chat/seen') !== -1  && method === 'post';
-        // exclude POST /api/v3/cron because the user is synced automatically after cron runs
+        // exclude POST /api/v4/cron because the user is synced automatically after cron runs
 
         // Something has changed on the user object that was not tracked here, sync the user
         if (userV - oldUserV > 1 && !isCron && !isChatSeen && !isUserSync && !isTasksSync) {
@@ -390,7 +401,6 @@ export default {
     this.$store.watch(state => state.title, (title) => {
       document.title = title;
     });
-
     this.$nextTick(() => {
       // Load external scripts after the app has been rendered
       Analytics.load();
@@ -407,6 +417,14 @@ export default {
         Analytics.updateUser();
 
         this.hideLoadingScreen();
+
+        window.addEventListener('resize', this.setBannerOffset);
+        // Adjust the positioning of the header banners
+        this.$watch('showRestingBanner', () => {
+          this.$nextTick(() => {
+            this.setBannerOffset();
+          });
+        }, {immediate: true});
 
         // Adjust the timezone offset
         if (this.user.preferences.timezoneOffset !== this.browserTimezoneOffset) {
@@ -434,6 +452,7 @@ export default {
     this.$root.$off('bv::show::modal');
     this.$root.$off('buyModal::showItem');
     this.$root.$off('selectMembersModal::showItem');
+    window.removeEventListener('resize', this.setBannerOffset);
   },
   mounted () {
     // Remove the index.html loading screen and now show the inapp loading
@@ -475,8 +494,16 @@ export default {
       });
 
       this.$root.$on('bv::modal::hidden', (bvEvent) => {
-        const modalId = bvEvent.target && bvEvent.target.id;
-        if (!modalId) return;
+        let modalId = bvEvent.target && bvEvent.target.id;
+
+        // sometimes the target isn't passed to the hidden event, fallback is the vueTarget
+        if (!modalId) {
+          modalId = bvEvent.vueTarget && bvEvent.vueTarget.id;
+        }
+
+        if (!modalId) {
+          return;
+        }
 
         const modalStack = this.$store.state.modalStack;
 
@@ -493,6 +520,7 @@ export default {
 
         // Get previous modal
         const modalBefore = modalOnTop ? modalOnTop.prev : undefined;
+
         if (modalBefore) this.$root.$emit('bv::show::modal', modalBefore, {fromRoot: true});
       });
     },
@@ -532,13 +560,6 @@ export default {
           eventAction: 'click',
           eventLabel: 'Gems > Wallet',
         });
-      }
-    },
-    resetItemToBuy ($event) {
-      // @TODO: Do we need this? I think selecting a new item
-      // overwrites. @negue might know
-      if (!$event && this.selectedItemToBuy.purchaseType !== 'card') {
-        this.selectedItemToBuy = null;
       }
     },
     itemSelected (item) {
@@ -590,9 +611,21 @@ export default {
     },
     hideBanner () {
       this.bannerHidden = true;
+      this.setBannerOffset();
     },
     resumeDamage () {
       this.$store.dispatch('user:sleep');
+    },
+    setBannerOffset () {
+      let contentPlacement = 0;
+      if (this.showRestingBanner && this.$refs.restingBanner !== undefined) {
+        contentPlacement = this.$refs.restingBanner.clientHeight;
+      }
+      this.bannerHeight = contentPlacement;
+      let smartBanner = document.getElementsByClassName('smartbanner')[0];
+      if (smartBanner !== undefined) {
+        smartBanner.style.top = `${contentPlacement}px`;
+      }
     },
   },
 };
@@ -624,4 +657,7 @@ export default {
 <style src="assets/css/sprites/spritesmith-main-19.css"></style>
 <style src="assets/css/sprites/spritesmith-main-20.css"></style>
 <style src="assets/css/sprites/spritesmith-main-21.css"></style>
+<style src="assets/css/sprites/spritesmith-main-22.css"></style>
+<style src="assets/css/sprites/spritesmith-main-23.css"></style>
 <style src="assets/css/sprites.css"></style>
+<style src="smartbanner.js/dist/smartbanner.min.css"></style>

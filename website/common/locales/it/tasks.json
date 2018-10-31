@@ -5,7 +5,7 @@
     "sureDeleteCompletedTodos": "Vuoi davvero eliminare le tue Cose Da Fare completate?",
     "lotOfToDos": "Qui puoi vedere le ultime 30 Cose Da Fare che hai portato a termine. Per vedere le altre Cose Da Fare completate, clicca su \"Dati utente > Visualizzazione dati utente\" oppure \"Dati utente > Esporta dati > Dati utente\".",
     "deleteToDosExplanation": "Se clicchi il bottone qua in basso, tutte le tue Cose Da Fare complete o archiviate saranno cancellate permanentemente, eccetto per le Cose Da Fare appartenenti a sfide attive o a piani per gruppi. Se vuoi conservarne una registrazione, devi prima esportarle.",
-    "addMultipleTip": "<strong>Tip:</strong> To add multiple <%= taskType %>, separate each one using a line break (Shift + Enter) and then press \"Enter.\"",
+    "addMultipleTip": "<strong>Consiglio:</strong> per aggiungere varie <%= taskType %>, scrivi ognuna su una riga diversa andando a capo (Shift + Invio) e poi premi Invio.",
     "addsingle": "Aggiungi singola",
     "addATask": "Aggiungi una <%= type %>",
     "editATask": "Modifica una <%= type %>",
@@ -194,8 +194,6 @@
     "weeks": "Settimane",
     "year": "Anno",
     "years": "Anni",
-    "confirmScoreNotes": "Conferma valutazione attività con delle note",
-    "taskScoreNotesTooLong": "Le note della valutazione attività devono contenere meno di 256 caratteri",
     "groupTasksByChallenge": "Raggruppa le attività secondo il nome della sfida",
     "taskNotes": "Note dell'Attività",
     "monthlyRepeatHelpContent": "Questa attività andrà completata ogni X mesi.",
@@ -211,5 +209,5 @@
     "repeatDayError": "Assicurati di aver selezionato almeno un giorno della settimana.",
     "searchTasks": "Cerca titoli e descrizioni...",
     "sessionOutdated": "La tua sessione è obsoleta. Ricarica la pagina o sincronizza.",
-    "errorTemporaryItem": "This item is temporary and cannot be pinned."
+    "errorTemporaryItem": "Questo oggetto è temporaneo e non può essere aggiunto alla Lista dei Desideri."
 }

@@ -4,7 +4,7 @@ const LOCALSTORAGE_AUTH_KEY = 'habit-mobile-settings';
 const LOCALSTORAGE_SOCIAL_AUTH_KEY = 'hello'; // Used by hello.js for social auth
 
 export async function register (store, params) {
-  let url = '/api/v3/user/auth/local/register';
+  let url = '/api/v4/user/auth/local/register';
 
   if (params.groupInvite) url += `?groupInvite=${params.groupInvite}`;
 
@@ -27,7 +27,7 @@ export async function register (store, params) {
 }
 
 export async function login (store, params) {
-  let url = '/api/v3/user/auth/local/login';
+  let url = '/api/v4/user/auth/local/login';
   let result = await axios.post(url, {
     username: params.username,
     // email: params.email,
@@ -46,8 +46,17 @@ export async function login (store, params) {
   localStorage.setItem(LOCALSTORAGE_AUTH_KEY, userLocalData);
 }
 
+export async function verifyUsername (store, params) {
+  let url = '/api/v4/user/auth/verify-username';
+  let result = await axios.post(url, {
+    username: params.username,
+  });
+
+  return result.data.data;
+}
+
 export async function socialAuth (store, params) {
-  let url = '/api/v3/user/auth/social';
+  let url = '/api/v4/user/auth/social';
   let result = await axios.post(url, {
     network: params.auth.network,
     authResponse: params.auth.authResponse,
@@ -68,5 +77,5 @@ export async function socialAuth (store, params) {
 export function logout () {
   localStorage.removeItem(LOCALSTORAGE_AUTH_KEY);
   localStorage.removeItem(LOCALSTORAGE_SOCIAL_AUTH_KEY);
-  window.location.href = '/logout';
+  window.location.href = '/logout-server';
 }

@@ -9,36 +9,50 @@ div(v-if='user.stats.lvl > 10')
       .col-4.mana
         .img(:class='`shop_${spell.key} shop-sprite item-img`')
 
-  drawer(
-    :title="$t('skillsTitle')",
-    v-if='user.stats.class && !user.preferences.disableClasses',
-    v-mousePosition="30",
-    @mouseMoved="mouseMoved($event)",
-    :openStatus='openStatus',
-    @toggled='drawerToggled'
-  )
-    div(slot="drawer-slider")
-      .container.spell-container
-        .row
-          .col-3(
-            @click='castStart(skill)',
-            v-for='(skill, key) in spells[user.stats.class]',
-            v-if='user.stats.lvl >= skill.lvl',
-            v-b-popover.hover.auto='skill.notes()')
-            .spell.col-12.row
-              .col-8.details
-                a(:class='{"disabled": spellDisabled(key)}')
-                div.img(:class='`shop_${skill.key} shop-sprite item-img`')
-                span.title {{skill.text()}}
-              .col-4.mana
-                .mana-text
-                  .svg-icon(v-html="icons.mana")
-                  div {{skill.mana}}
+  .drawer-wrapper.d-flex.justify-content-center
+    drawer(
+      :title="$t('skillsTitle')",
+      v-if='user.stats.class && !user.preferences.disableClasses',
+      v-mousePosition="30",
+      @mouseMoved="mouseMoved($event)",
+      :openStatus='openStatus',
+      @toggled='drawerToggled'
+    )
+      div(slot="drawer-slider")
+        .container.spell-container
+          .row
+            .col-12.col-md-3(
+              @click='castStart(skill)',
+              v-for='(skill, key) in spells[user.stats.class]',
+              v-if='user.stats.lvl >= skill.lvl',
+              v-b-popover.hover.auto='skill.notes()')
+              .spell.col-12.row
+                .col-8.details
+                  a(:class='{"disabled": spellDisabled(key)}')
+                  div.img(:class='`shop_${skill.key} shop-sprite item-img`')
+                  span.title {{skill.text()}}
+                .col-4.mana
+                  .mana-text
+                    .svg-icon(v-html="icons.mana")
+                    div {{skill.mana}}
 </template>
 
 <style lang="scss" scoped>
+  .drawer-wrapper {
+    width: 100vw;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 19;
+
+    .drawer-container {
+      left: auto !important;
+      right: auto !important;
+      min-width: 60%;
+    }
+  }
+
   .drawer-container {
-    left: calc((100% - 978px) / 2);
   }
 
   .drawer-slider {
@@ -190,7 +204,7 @@ export default {
   mounted () {
     // @TODO: should we abstract the drawer state/local store to a library and mixing combo? We use a similar pattern in equipment
     const spellDrawerState = getLocalSetting(CONSTANTS.keyConstants.SPELL_DRAWER_STATE);
-    if (spellDrawerState === CONSTANTS.valueConstants.DRAWER_CLOSED) {
+    if (spellDrawerState === CONSTANTS.drawerStateValues.DRAWER_CLOSED) {
       this.$store.state.spellOptions.spellDrawOpen = false;
     }
   },
@@ -205,11 +219,11 @@ export default {
       this.$store.state.spellOptions.spellDrawOpen = newState;
 
       if (newState) {
-        setLocalSetting(CONSTANTS.keyConstants.SPELL_DRAWER_STATE, CONSTANTS.valueConstants.DRAWER_OPEN);
+        setLocalSetting(CONSTANTS.keyConstants.SPELL_DRAWER_STATE, CONSTANTS.drawerStateValues.DRAWER_OPEN);
         return;
       }
 
-      setLocalSetting(CONSTANTS.keyConstants.SPELL_DRAWER_STATE, CONSTANTS.valueConstants.DRAWER_CLOSED);
+      setLocalSetting(CONSTANTS.keyConstants.SPELL_DRAWER_STATE, CONSTANTS.drawerStateValues.DRAWER_CLOSED);
     },
     spellDisabled (skill) {
       if (skill === 'frost' && this.user.stats.buffs.streaks) {

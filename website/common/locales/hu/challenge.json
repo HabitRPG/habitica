@@ -99,6 +99,7 @@
     "noChallengeTitle": "Nem veszel részt egy kihívásban sem.",
     "challengeDescription1": "A kihívások olyan közösségi események, ahol a játékosok egymáshoz kötődő feladatokat teljesítenek és díjakat nyernek.",
     "challengeDescription2": "Találj kihívásokat az érdeklődési köreid alapján, böngészd a Habitica nyilvános kihívásait, vagy hozd létre a sajátodat.",
+    "noChallengeMatchFilters": "We couldn't find any matching Challenges.",
     "createdBy": "Készítette",
     "joinChallenge": "Csatlakozás kihíváshoz",
     "leaveChallenge": "Kihívás elhagyása",
@@ -130,7 +131,8 @@
     "descriptionRequired": "Leírás szükséges",
     "locationRequired": "Kihívás helyének kiválasztása szükséges ('Hozzáadás')",
     "categoiresRequired": "Egy vagy több katergória kiválasztás kötelező",
-    "viewProgressOf": "Haladás megtekintése",
+    "viewProgressOf": "Állapot megtekintése",
+    "viewProgress": "Állapot megtekintése",
     "selectMember": "Tag kiválasztása",
     "confirmKeepChallengeTasks": "Meg akarod tartani a kihíváshoz tartozó feladatokat?",
     "selectParticipant": "Válassz ki egy résztvevőt"
