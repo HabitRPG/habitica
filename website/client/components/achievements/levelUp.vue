@@ -8,6 +8,7 @@
       p.text {{ $t('levelup') }}
 
       stat-allocation(
+        v-if='!user.preferences.automaticAllocation',
         :user='user',
         :statUpdates='statUpdates',
         @statUpdate='statUpdate')
