@@ -7,6 +7,11 @@
 
       p.text {{ $t('levelup') }}
 
+      stat-allocation(
+        :user='user',
+        :statUpdates='statUpdates',
+        @statUpdate='statUpdate')
+
       button.btn.btn-primary(@click='close()') {{ $t('onwards') }}
       br
       // @TODO: Keep this? .checkbox
@@ -115,11 +120,15 @@
 
 <script>
 import Avatar from '../avatar';
+import statAllocation from '../userMenu/statAllocation';
+
 import { mapState } from 'client/libs/store';
-import {maxHealth} from '../../../common/script/index';
+import allocateBulk from  'common/script/ops/stats/allocateBulk';
+import {maxHealth} from 'common/script/index';
 import styleHelper from 'client/mixins/styleHelper';
 import twitter from 'assets/svg/twitter.svg';
 import facebook from 'assets/svg/facebook.svg';
+import axios from 'axios';
 
 let BASE_URL = 'https://habitica.com';
 
@@ -127,6 +136,7 @@ export default {
   mixins: [styleHelper],
   components: {
     Avatar,
+    statAllocation,
   },
   data () {
     let tweet = this.$t('levelUpShare');
@@ -141,6 +151,12 @@ export default {
       socialLevelLink: `${BASE_URL}/social/level-up`,
       twitterLink: `https://twitter.com/intent/tweet?text=${tweet}&via=habitica&url=${BASE_URL}/social/level-up&count=none`,
       facebookLink: `https://www.facebook.com/sharer/sharer.php?text=${tweet}&u=${BASE_URL}/social/level-up`,
+      statUpdates: {
+        str: 0,
+        int: 0,
+        con: 0,
+        per: 0,
+      },
     };
   },
   mounted () {
@@ -153,7 +169,19 @@ export default {
     },
   },
   methods: {
+    statUpdate (stat, delta) {
+      this.statUpdates[stat] += delta;
+    },      
     close () {
+      for (const stat in this.statUpdates) {
+        if (this.statUpdates[stat] > 0) {
+          allocateBulk(this.user, { body: { stats: this.statUpdates } });
+
+          axios.post('/api/v4/user/allocate-bulk', {
+            stats: this.statUpdates,
+          });
+        }
+      }
       this.$root.$emit('bv::hide::modal', 'level-up');
     },
     loadWidgets () {
