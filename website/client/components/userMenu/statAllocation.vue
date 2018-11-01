@@ -1,5 +1,5 @@
 <template lang="pug">
-  #statAllocation(v-if='hasClass')
+  div(v-if='hasClass')
     .row.title-row
       .col-12.col-md-6
         h3(v-if='userLevel100Plus', v-once, v-html="$t('noMoreAllocate')")
@@ -7,25 +7,21 @@
           | {{$t('statPoints')}}
           .counter.badge(v-if='user.stats.points || userLevel100Plus')
             | {{pointsRemaining}}&nbsp;
-      .col-12.col-md-6
-        .float-right
-          toggle-switch(
-            :label="$t('autoAllocation')",
-            v-model='user.preferences.automaticAllocation',
-            @change='setAutoAllocate()'
-          )
-    .row
-      .col-12.col-md-3(v-for='(statInfo, stat) in allocateStatsList')
-        .box.white.row.col-12
-          .col-9
-            div(:class='stat') {{ $t(stats[stat].title) }}
-            .number {{totalAllocatedStats(stat)}}
-            .points {{$t('pts')}}
-          .col-3
-            div
-              .up(@click='allocate(stat)')
-            div
-              .down(@click='deallocate(stat)')
+      .col-12.col-md-6.minimize
+        toggle-switch.float-right(
+          :label="$t('autoAllocation')",
+          v-model='user.preferences.automaticAllocation',
+          @change='setAutoAllocate()'
+        )
+    .row      
+      .box.white.row.col-12.col-md-3(v-for='(statInfo, stat) in allocateStatsList')
+        div(:class='`stat-title ${stat}`') {{ $t(stats[stat].title) }}
+        .col-9
+          .number {{totalAllocatedStats(stat)}}
+          .points {{$t('pts')}}
+        .col-3
+          span.up(@click='allocate(stat)')
+          span.down(@click='deallocate(stat)')
 </template>
 
 <script>
@@ -103,7 +99,7 @@
   };
 </script>
 
-<style lang='scss'>
+<style lang='scss' scoped>
   @import '~client/assets/scss/colors.scss';
 
   .str {
@@ -120,5 +116,27 @@
 
   .per {
     color: $purple-200;
+  }
+
+  .up, .down {
+    border: solid $gray-300;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+  }
+
+  .up:hover, .down:hover {
+    cursor: pointer;
+  }
+
+  .up {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+    margin-top: 1em;
+  }
+
+  .down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
   }
 </style>

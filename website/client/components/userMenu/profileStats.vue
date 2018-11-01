@@ -117,7 +117,7 @@
               li
                 strong {{$t('buffs')}}:
                 | {{user.stats.buffs[stat]}}
-    stat-allocation(
+    stat-allocation#profileStatAllocation(
       :user='user',
       :statUpdates='statUpdates',
       @statUpdate='statUpdate')
@@ -400,7 +400,7 @@
     border: 1px solid transparent;
   }
 
-  #statAllocation {
+  #profileStatAllocation {
     .title-row {
       margin-top: 1em;
       margin-bottom: 1em;
@@ -419,10 +419,14 @@
     }
 
     .box {
-      width: 148px;
+      max-width: 148px;
       height: 84px;
       padding: .5em;
       margin: 0 auto;
+
+      .stat-title {
+        margin-left: 12px;
+      }
 
       div {
         margin-top: 0;
@@ -442,28 +446,6 @@
         text-align: left;
         color: $gray-200;
         margin-left: .5em;
-      }
-
-      .up, .down {
-        border: solid $gray-300;
-        border-width: 0 3px 3px 0;
-        display: inline-block;
-        padding: 3px;
-      }
-
-      .up:hover, .down:hover {
-        cursor: pointer;
-      }
-
-      .up {
-        transform: rotate(-135deg);
-        -webkit-transform: rotate(-135deg);
-        margin-top: 1em;
-      }
-
-      .down {
-        transform: rotate(45deg);
-        -webkit-transform: rotate(45deg);
       }
     }
   }
