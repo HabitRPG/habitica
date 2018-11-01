@@ -218,13 +218,8 @@
           if (this.statUpdates[stat] > 0) statUpdates[stat] = this.statUpdates[stat];
         });
 
-        // reset statUpdates before request to avoid display errors while waiting for server
-        this.statUpdates = {
-          str: 0,
-          int: 0,
-          con: 0,
-          per: 0,
-        };
+        // reset this.statUpdates before request to avoid display errors while waiting for server
+        this.statUpdates = { str: 0, int: 0, con: 0, per: 0 };
 
         allocateBulk(this.user, { body: { stats: statUpdates } });
 

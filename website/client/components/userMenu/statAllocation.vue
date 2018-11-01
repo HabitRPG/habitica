@@ -19,7 +19,7 @@
         .col-9
           .number {{totalAllocatedStats(stat)}}
           .points {{$t('pts')}}
-        .col-3
+        .col-3(v-if='user.stats.points')
           span.up(@click='allocate(stat)')
           span.down(@click='deallocate(stat)')
 </template>

@@ -234,16 +234,20 @@ export default {
       this.statUpdates[stat] += delta;
     },
     close () {
-      for (const stat in this.statUpdates) {
-        if (this.statUpdates[stat] > 0) {
-          allocateBulk(this.user, { body: { stats: this.statUpdates } });
+      // reset this.statUpdates before request to avoid display errors while waiting for server
+      const statUpdates = this.statUpdates;
+      this.statUpdates = { str: 0, int: 0, con: 0, per: 0 };
+
+      this.$root.$emit('bv::hide::modal', 'level-up');
+      for (const stat in statUpdates) {
+        if (statUpdates[stat] > 0) {
+          allocateBulk(this.user, { body: { stats: statUpdates } });
 
           axios.post('/api/v4/user/allocate-bulk', {
-            stats: this.statUpdates,
+            stats: statUpdates,
           });
         }
       }
-      this.$root.$emit('bv::hide::modal', 'level-up');
     },
     loadWidgets () {
       // @TODO:
