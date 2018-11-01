@@ -65,7 +65,7 @@ import tier9 from 'assets/svg/tier-staff.svg';
 import tierNPC from 'assets/svg/tier-npc.svg';
 
 export default {
-  props: ['selections', 'text', 'coords', 'chat', 'textbox'],
+  props: ['selections', 'text', 'caretPosition', 'coords', 'chat', 'textbox'],
   data () {
     return {
       atRegex: new RegExp(/@[\w-]+$/),
@@ -142,7 +142,7 @@ export default {
       if (!this.atRegex.test(newText)) return;
 
       this.searchActive = true;
-      this.currentSearchPosition = newText.length - 2;
+      this.currentSearchPosition = newText.lastIndexOf('@', this.caretPosition);
     },
     chat () {
       this.resetDefaults();
