@@ -220,11 +220,11 @@
 
         // reset statUpdates before request to avoid display errors while waiting for server
         this.statUpdates = {
-          str: 0, 
+          str: 0,
           int: 0,
           con: 0,
           per: 0,
-        }
+        };
 
         allocateBulk(this.user, { body: { stats: statUpdates } });
 
@@ -292,6 +292,8 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '~client/assets/scss/colors.scss';
+
   #stats {
     .box div {
       margin: 0 auto;
@@ -301,7 +303,7 @@
 
   .stats-column {
     border-radius: 2px;
-    background-color: #ffffff;
+    background-color: $white;
     padding: .5em;
     margin-bottom: 1em;
 
@@ -319,26 +321,26 @@
   }
 
   .str {
-    color: #f74e52;
+    color: $red-50;
   }
 
   .int {
-    color: #2995cd;
+    color: $blue-10;
   }
 
   .con {
-    color: #ffa623;
+    color: $yellow-10;
   }
 
   .per {
-    color: #4f2a93;
+    color: $purple-200;
   }
 
   #attributes {
     .number {
       font-size: 64px;
       font-weight: bold;
-      color: #686274;
+      color: $gray-100;
     }
 
     .attribute-label {
@@ -347,7 +349,7 @@
   }
 
   .well {
-    background-color: #edecee;
+    background-color: $gray-600;
     border-radius: 2px;
     padding: 0.4em;
     padding-top: 1em;
@@ -365,7 +367,7 @@
     width: 94px;
     height: 92px;
     border-radius: 2px;
-    border: dotted 1px #c3c0c7;
+    border: dotted 1px $gray-400;
   }
 
   .item-wrapper {
@@ -389,6 +391,15 @@
 </style>
 
 <style lang="scss">
+  @import '~client/assets/scss/colors.scss';
+
+  .white {
+    border-radius: 2px;
+    background: $white;
+    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.15), 0 1px 4px 0 rgba(26, 24, 29, 0.1);
+    border: 1px solid transparent;
+  }
+
   #statAllocation {
     .title-row {
       margin-top: 1em;
@@ -399,8 +410,8 @@
       position: relative;
       top: -0.25em;
       left: 0.5em;
-      color: #fff;
-      background-color: #ff944c;
+      color: $white;
+      background-color: $orange-100;
       box-shadow: 0 1px 1px 0 rgba(26, 24, 29, 0.12);
       width: 24px;
       height: 24px;
@@ -420,7 +431,7 @@
       .number {
         font-size: 40px;
         text-align: left;
-        color: #686274;
+        color: $gray-100;
         display: inline-block;
       }
 
@@ -429,12 +440,12 @@
         font-weight: bold;
         line-height: 1.67;
         text-align: left;
-        color: #878190;
+        color: $gray-200;
         margin-left: .5em;
       }
 
       .up, .down {
-        border: solid #a5a1ac;
+        border: solid $gray-300;
         border-width: 0 3px 3px 0;
         display: inline-block;
         padding: 3px;
@@ -455,12 +466,5 @@
         -webkit-transform: rotate(45deg);
       }
     }
-  }
-
-  .white {
-    border-radius: 2px;
-    background: #FFFFFF;
-    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.15), 0 1px 4px 0 rgba(26, 24, 29, 0.1);
-    border: 1px solid transparent;
   }
 </style>

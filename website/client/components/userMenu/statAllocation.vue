@@ -102,3 +102,23 @@
     },
   };
 </script>
+
+<style lang='scss'>
+  @import '~client/assets/scss/colors.scss';
+
+  .str {
+    color: $red-50;
+  }
+
+  .int {
+    color: $blue-10;
+  }
+
+  .con {
+    color: $yellow-10;
+  }
+
+  .per {
+    color: $purple-200;
+  }
+</style>
