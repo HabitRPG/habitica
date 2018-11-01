@@ -138,7 +138,6 @@ div
     profileStats(
       :user='user',
       v-show='selectedPage === "stats"',
-      :showAllocation='showAllocation()',
       v-if='user.preferences')
   send-gems-modal(:userReceivingGems='userReceivingGems')
 </template>
@@ -452,9 +451,6 @@ export default {
     startingPageOption () {
       return this.$store.state.profileOptions.startingPage;
     },
-    hasClass () {
-      return this.$store.getters['members:hasClass'](this.userLoggedIn);
-    },
   },
   watch: {
     startingPageOption () {
@@ -558,10 +554,6 @@ export default {
       this.hero = await this.$store.dispatch('hall:getHero', { uuid: this.user._id });
       this.adminToolsLoaded = true;
     },
-    showAllocation () {
-      return this.user._id === this.userLoggedIn._id && this.hasClass;
-    },
-
   },
 };
 </script>

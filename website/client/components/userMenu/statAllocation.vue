@@ -1,5 +1,5 @@
 <template lang="pug">
-  div(v-if='showAllocation')
+  div(v-if='hasClass')
     .row.title-row
       .col-12.col-md-6
         h3(v-if='userLevel100Plus', v-once, v-html="$t('noMoreAllocate')")
@@ -32,7 +32,7 @@
   import toggleSwitch from 'client/components/ui/toggleSwitch';
 
   export default {
-    props: ['user', 'showAllocation', 'statUpdates'],
+    props: ['user', 'statUpdates'],
     components: {
       toggleSwitch,
     },
@@ -74,6 +74,9 @@
           points -= value;
         });
         return points;
+      },
+      hasClass () {
+        return this.$store.getters['members:hasClass'](this.user);
       },
     },
     methods: {
