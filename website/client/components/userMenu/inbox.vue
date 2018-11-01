@@ -261,9 +261,11 @@ export default {
         }
 
         this.initiatedConversation = {
+          uuid: data.userIdToMessage,
           user: data.displayName,
           username: data.username,
-          uuid: data.userIdToMessage,
+          backer: data.backer,
+          contributor: data.contributor,
         };
 
         this.selectConversation(data.userIdToMessage);
@@ -312,11 +314,13 @@ export default {
       // Add placeholder for new conversations
       if (this.initiatedConversation && this.initiatedConversation.uuid) {
         inboxGroup[this.initiatedConversation.uuid] = [{
+          uuid: this.initiatedConversation.uuid,
+          user: this.initiatedConversation.user,
+          username: this.initiatedConversation.username, // ?
+          backer: this.initiatedConversation.backer,
+          contributor: this.initiatedConversation.contributor,
           id: '',
           text: '',
-          user: this.initiatedConversation.user,
-          username: this.initiatedConversation.username,
-          uuid: this.initiatedConversation.uuid,
           timestamp: new Date(),
         }];
       }
@@ -349,12 +353,14 @@ export default {
         const recentMessage = newChatModels[newChatModels.length - 1];
         if (!recentMessage.text) newChatModels.splice(newChatModels.length - 1, 1);
 
+        if (recentMessage.username === this.user.auth.local.username) recentMessage.username = null;
+
         const convoModel = {
-          backer: recentMessage.toUserBacker ? recentMessage.toUserBacker : recentMessage.backer,
-          contributor: recentMessage.toUserContributor ? recentMessage.toUserContributor : recentMessage.contributor,
           key: recentMessage.toUUID ? recentMessage.toUUID : recentMessage.uuid,
           name: recentMessage.toUser ? recentMessage.toUser : recentMessage.user, // Handles case where from user sent the only message or the to user sent the only message
           username: recentMessage.toUserName ? recentMessage.toUserName : recentMessage.username,
+          backer: recentMessage.toUserBacker ? recentMessage.toUserBacker : recentMessage.backer,
+          contributor: recentMessage.toUserContributor ? recentMessage.toUserContributor : recentMessage.contributor,
           date: recentMessage.timestamp,
           lastMessageText: recentMessage.text,
           messages: newChatModels,
@@ -426,9 +432,11 @@ export default {
       const messageIndex = this.messages.findIndex(msg => msg.id === message.id);
       if (messageIndex !== -1) this.messages.splice(messageIndex, 1);
       if (this.selectedConversationMessages.length === 0) this.initiatedConversation = {
+        uuid: this.selectedConversation.key,
         user: this.selectedConversation.name,
         username: this.selectedConversation.username,
-        uuid: this.selectedConversation.key,
+        backer: this.selectedConversation.backer,
+        contributor: this.selectedConversation.contributor,
       };
     },
     toggleClick () {
@@ -491,11 +499,11 @@ export default {
       this.$root.$emit('bv::hide::modal', 'inbox-modal');
     },
     tierIcon (message) {
-      if (!message.contributor) return;
       const isNPC = Boolean(message.backer && message.backer.npc);
       if (isNPC) {
         return this.icons.tierNPC;
       }
+      if (!message.contributor) return;
       return this.icons[`tier${message.contributor.level}`];
     },
   },

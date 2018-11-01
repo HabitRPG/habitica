@@ -472,6 +472,8 @@ export default {
         userIdToMessage: this.user._id,
         displayName: this.user.profile.name,
         username: this.user.auth.local.username,
+        backer: this.user.backer,
+        contributor: this.user.contributor,
       });
     },
     getProgressDisplay () {

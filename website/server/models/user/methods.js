@@ -220,7 +220,7 @@ schema.statics.transformJSONUser = function transformJSONUser (jsonUser, addComp
   jsonUser.id = jsonUser._id;
 
   // Remove username if not verified
-  if (!jsonUser.flags.verifiedUsername) delete jsonUser.auth.local.username;
+  if (!jsonUser.flags.verifiedUsername) jsonUser.auth.local.username = null;
 
   if (addComputedStats) this.addComputedStatsToJSONObj(jsonUser.stats, jsonUser);
 };

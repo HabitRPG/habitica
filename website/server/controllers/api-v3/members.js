@@ -109,7 +109,7 @@ api.getMember = {
 
     if (!member) throw new NotFound(res.t('userWithIDNotFound', {userId: memberId}));
 
-    if (!member.flags.verifiedUsername) delete member.auth.local.username;
+    if (!member.flags.verifiedUsername) member.auth.local.username = null;
 
     // manually call toJSON with minimize: true so empty paths aren't returned
     let memberToJSON = member.toJSON({minimize: true});
@@ -607,6 +607,7 @@ api.sendPrivateMessage = {
     const message = req.body.message;
     const receiver = await User.findById(req.body.toUserId).exec();
     if (!receiver) throw new NotFound(res.t('userNotFound'));
+    if (!receiver.flags.verifiedUsername) delete receiver.auth.local.username;
 
     const objections = sender.getObjectionsToInteraction('send-private-message', receiver);
     if (objections.length > 0 && !sender.isAdmin()) throw new NotAuthorized(res.t(objections[0]));
