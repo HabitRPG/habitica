@@ -33,7 +33,7 @@
               h3(:class="userLevelStyle(conversation)") {{ conversation.name }}
                 .svg-icon(v-html="tierIcon(conversation)")
             .time
-              span.mr-1 @{{ conversation.username }} •
+              span.mr-1(v-if='conversation.username') @{{ conversation.username }} •
               span {{ conversation.date | timeAgo }}
             div {{conversation.lastMessageText ? conversation.lastMessageText.substring(0, 30) : ''}}
       .col-8.messages.d-flex.flex-column.justify-content-between
@@ -261,7 +261,8 @@ export default {
         }
 
         this.initiatedConversation = {
-          user: data.userName,
+          user: data.displayName,
+          username: data.username,
           uuid: data.userIdToMessage,
         };
 
@@ -426,6 +427,7 @@ export default {
       if (messageIndex !== -1) this.messages.splice(messageIndex, 1);
       if (this.selectedConversationMessages.length === 0) this.initiatedConversation = {
         user: this.selectedConversation.name,
+        username: this.selectedConversation.username,
         uuid: this.selectedConversation.key,
       };
     },
@@ -456,6 +458,7 @@ export default {
         text: this.newMessage,
         timestamp: new Date(),
         user: this.selectedConversation.name,
+        username: this.selectedConversation.username,
         uuid: this.selectedConversation.key,
         contributor: this.user.contributor,
       });
@@ -488,6 +491,7 @@ export default {
       this.$root.$emit('bv::hide::modal', 'inbox-modal');
     },
     tierIcon (message) {
+      if (!message.contributor) return;
       const isNPC = Boolean(message.backer && message.backer.npc);
       if (isNPC) {
         return this.icons.tierNPC;

@@ -470,7 +470,8 @@ export default {
     sendMessage () {
       this.$root.$emit('habitica::new-inbox-message', {
         userIdToMessage: this.user._id,
-        userName: this.user.profile.name,
+        displayName: this.user.profile.name,
+        username: this.user.auth.local.username,
       });
     },
     getProgressDisplay () {
