@@ -34,6 +34,43 @@
           b-dropdown-item(@click="groupBy = 'type'", :active="groupBy === 'type'") {{ $t('equipmentType') }}
           b-dropdown-item(@click="groupBy = 'class'", :active="groupBy === 'class'") {{ $t('class') }}
 
+    .clearfix.gear-btn-bar
+      b-btn-group.float-left
+        b-btn(
+          @click="costume = false",
+          :variant="costume ? 'secondary' : 'primary'",
+          class="gear-btn"
+        ) {{ $t('battleGear') }}
+        b-btn(
+          @click="costume = true",
+          :variant="costume ? 'primary' : 'secondary'",
+          class="gear-btn"
+        ) {{ $t('costume') }}
+      .float-right.clearfix
+        toggle-switch(
+          :label="$t(costume ? 'useCostume' : 'autoEquipBattleGear')",
+          :checked="user.preferences[drawerPreference]",
+          @change="changeDrawerPreference",
+          infoId="costumePrefToggleSwitch"
+        )
+            
+        b-popover(
+          target="costumePrefToggleSwitch",
+          triggers="hover",
+          placement="top",
+        )
+          .popover-content-text {{ $t(drawerPreference+'PopoverText') }}
+
+        b-btn(
+          variant="danger",
+          @click="unequipGear",
+        ) {{ $t('unequip'+ (costume ? 'Costume' : 'BattleGear')) }}
+        
+        b-btn(
+          variant="danger",
+          @click="unequipPetMountBackground",
+        ) {{ $t('unequipPetMountBackground') }}
+
     drawer(
       :title="$t('equipment')",
       :errorMessage="(costumeMode && !user.preferences.costume) ? $t('costumeDisabled') : null",
@@ -135,6 +172,18 @@
 
 .drawer-tab-text {
   display: inline-block;
+}
+
+.gear-btn {
+  width: 104px;
+}
+
+.gear-btn-bar {
+  margin-bottom: 24px;
+}
+
+.btn {
+  margin-left: 8px;
 }
 </style>
 
