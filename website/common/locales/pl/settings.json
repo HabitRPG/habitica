@@ -151,7 +151,7 @@
     "displayInviteToPartyWhenPartyIs1": "Wyświetl przycisk Zaproś do drużyny, gdy drużyna ma 1 członka.",
     "saveCustomDayStart": "Zapisz własny początek dnia",
     "registration": "Rejestracja",
-    "addLocalAuth": "Add Email and Password Login",
+    "addLocalAuth": "Dodaj adres e-mail i hasło logowania",
     "generateCodes": "Generuj kody",
     "generate": "Generuj",
     "getCodes": "Zdobądź kody",

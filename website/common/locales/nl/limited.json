@@ -25,6 +25,7 @@
     "polarBearPup": "IJsbeerwelp",
     "jackolantern": "Jack-O-Lantern-pompoen",
     "ghostJackolantern": "Spookachtige Jack-O-Lantern",
+    "glowJackolantern": "Glow-in-the-Dark Jack-O-Lantern",
     "seasonalShop": "Seizoenswinkel",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Seizoenstovenares<%= linkEnd %>",

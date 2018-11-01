@@ -25,6 +25,7 @@
     "polarBearPup": "Yavru Kutup Ayısı",
     "jackolantern": "Balkabağı Feneri",
     "ghostJackolantern": "Hayalet Balkabağı Feneri",
+    "glowJackolantern": "Glow-in-the-Dark Jack-O-Lantern",
     "seasonalShop": "Mevsimsel Dükkan",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Mevsimsel Büyücü<%= linkEnd %>",
