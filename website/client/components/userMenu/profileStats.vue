@@ -368,13 +368,6 @@
     border: dotted 1px #c3c0c7;
   }
 
-  .white {
-    border-radius: 2px;
-    background: #FFFFFF;
-    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.15), 0 1px 4px 0 rgba(26, 24, 29, 0.1);
-    border: 1px solid transparent;
-  }
-
   .item-wrapper {
     h3 {
       text-align: center;
@@ -392,5 +385,82 @@
 
   .save-row {
     margin-top: 1em;
+  }
+</style>
+
+<style lang="scss">
+  #statAllocation {
+    .title-row {
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+
+    .counter.badge {
+      position: relative;
+      top: -0.25em;
+      left: 0.5em;
+      color: #fff;
+      background-color: #ff944c;
+      box-shadow: 0 1px 1px 0 rgba(26, 24, 29, 0.12);
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+    }
+
+    .box {
+      width: 148px;
+      height: 84px;
+      padding: .5em;
+      margin: 0 auto;
+
+      div {
+        margin-top: 0;
+      }
+
+      .number {
+        font-size: 40px;
+        text-align: left;
+        color: #686274;
+        display: inline-block;
+      }
+
+      .points {
+        display: inline-block;
+        font-weight: bold;
+        line-height: 1.67;
+        text-align: left;
+        color: #878190;
+        margin-left: .5em;
+      }
+
+      .up, .down {
+        border: solid #a5a1ac;
+        border-width: 0 3px 3px 0;
+        display: inline-block;
+        padding: 3px;
+      }
+
+      .up:hover, .down:hover {
+        cursor: pointer;
+      }
+
+      .up {
+        transform: rotate(-135deg);
+        -webkit-transform: rotate(-135deg);
+        margin-top: 1em;
+      }
+
+      .down {
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+      }
+    }
+  }
+
+  .white {
+    border-radius: 2px;
+    background: #FFFFFF;
+    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.15), 0 1px 4px 0 rgba(26, 24, 29, 0.1);
+    border: 1px solid transparent;
   }
 </style>
