@@ -82,7 +82,7 @@
 import hello from 'hellojs';
 import { setUpAxios } from 'client/libs/auth';
 import debounce from 'lodash/debounce';
-import validator from 'validator';
+import isEmail from 'validator/lib/isEmail';
 
 import facebookSquareIcon from 'assets/svg/facebook-square.svg';
 import googleIcon from 'assets/svg/google.svg';
@@ -116,7 +116,7 @@ export default {
   computed: {
     emailValid () {
       if (this.email.length <= 3) return false;
-      return validator.isEmail(this.email);
+      return isEmail(this.email);
     },
     emailInvalid () {
       return !this.emailValid;

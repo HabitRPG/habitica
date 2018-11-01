@@ -295,7 +295,7 @@
 import axios from 'axios';
 import hello from 'hellojs';
 import debounce from 'lodash/debounce';
-import validator from 'validator';
+import isEmail from 'validator/lib/isEmail';
 
 import gryphon from 'assets/svg/gryphon.svg';
 import habiticaIcon from 'assets/svg/habitica-logo.svg';
@@ -341,7 +341,7 @@ export default {
     },
     emailValid () {
       if (this.email.length <= 3) return false;
-      return validator.isEmail(this.email);
+      return isEmail(this.email);
     },
     emailInvalid () {
       if (this.email.length <= 3) return false;

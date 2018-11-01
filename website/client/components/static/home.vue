@@ -560,7 +560,7 @@
 <script>
   import hello from 'hellojs';
   import debounce from 'lodash/debounce';
-  import validator from 'validator';
+  import isEmail from 'validator/lib/isEmail';
   import googlePlay from 'assets/images/home/google-play-badge.svg';
   import iosAppStore from 'assets/images/home/ios-app-store.svg';
   import iphones from 'assets/images/home/iphones.svg';
@@ -627,11 +627,11 @@
     computed: {
       emailValid () {
         if (this.email.length <= 3) return false;
-        return validator.isEmail(this.email);
+        return isEmail(this.email);
       },
       emailInvalid () {
         if (this.email.length <= 3) return false;
-        return !validator.isEmail(this.email);
+        return !isEmail(this.email);
       },
       usernameValid () {
         if (this.username.length < 1) return false;
