@@ -219,6 +219,9 @@ schema.statics.transformJSONUser = function transformJSONUser (jsonUser, addComp
   // Add id property
   jsonUser.id = jsonUser._id;
 
+  // Remove username if not verified
+  if (!jsonUser.flags.verifiedUsername) delete jsonUser.auth.local.username;
+
   if (addComputedStats) this.addComputedStatsToJSONObj(jsonUser.stats, jsonUser);
 };
 

@@ -109,6 +109,8 @@ api.getMember = {
 
     if (!member) throw new NotFound(res.t('userWithIDNotFound', {userId: memberId}));
 
+    if (!member.flags.verifiedUsername) delete member.auth.local.username;
+
     // manually call toJSON with minimize: true so empty paths aren't returned
     let memberToJSON = member.toJSON({minimize: true});
     User.addComputedStatsToJSONObj(memberToJSON.stats, member);
