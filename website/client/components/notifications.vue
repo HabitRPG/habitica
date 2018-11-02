@@ -317,18 +317,12 @@ export default {
       this.$store.dispatch('user:fetch'),
       this.$store.dispatch('tasks:fetchUserTasks'),
     ]).then(() => {
-      this.debounceCheckUserAchievements();
-
       // @TODO: This is a timeout to ensure dom is loaded
       window.setTimeout(() => {
-        this.initTour();
-        if (this.user.flags.tour.intro === this.TOUR_END || !this.user.flags.welcomed) return;
-        this.goto('intro', 0);
+        this.runForcedModals();
       }, 2000);
 
-      this.forceVerifyUsername();
-
-      this.runYesterDailies();
+      this.debounceCheckUserAchievements();
 
       // Do not remove the event listener as it's live for the entire app lifetime
       document.addEventListener('mousemove', this.checkNextCron);
@@ -344,6 +338,14 @@ export default {
     document.removeEventListener('keydown', this.checkNextCron);
   },
   methods: {
+    runForcedModals () {
+      if (!this.user.flags.verifiedUsername) return this.$root.$emit('bv::show::modal', 'verify-username');
+
+      this.initTour();
+      if (!(this.user.flags.tour.intro === this.TOUR_END || !this.user.flags.welcomed)) return this.goto('intro', 0);
+
+      return this.runYesterDailies();
+    },
     showDeathModal () {
       this.playSound('Death');
       this.$root.$emit('bv::show::modal', 'death');
@@ -470,11 +472,6 @@ export default {
       // Setup a listener that executes 10 seconds after the next cron time
       this.nextCron = Number(nextCron.format('x'));
       this.$store.state.isRunningYesterdailies = false;
-    },
-    forceVerifyUsername () {
-      if (this.user.flags.verifiedUsername) return;
-
-      this.$root.$emit('bv::show::modal', 'verify-username');
     },
     async runYesterDailies () {
       if (this.$store.state.isRunningYesterdailies) return;
