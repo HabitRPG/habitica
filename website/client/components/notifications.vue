@@ -341,9 +341,6 @@ export default {
     runForcedModals () {
       if (!this.user.flags.verifiedUsername) return this.$root.$emit('bv::show::modal', 'verify-username');
 
-      this.initTour();
-      if (!(this.user.flags.tour.intro === this.TOUR_END || !this.user.flags.welcomed)) return this.goto('intro', 0);
-
       return this.runYesterDailies();
     },
     showDeathModal () {
@@ -420,21 +417,25 @@ export default {
       // List of prompts for user on changes. Sounds like we may need a refactor here, but it is clean for now
       if (!this.user.flags.welcomed) {
         this.$store.state.avatarEditorOptions.editingUser = false;
-        this.$root.$emit('bv::show::modal', 'avatar-modal');
+        return this.$root.$emit('bv::show::modal', 'avatar-modal');
+      }
+
+      if (this.user.flags.newStuff) {
+        return this.$root.$emit('bv::show::modal', 'new-stuff');
       }
 
       if (this.user.stats.hp <= 0) {
-        this.showDeathModal();
+        return this.showDeathModal();
       }
 
       if (this.questCompleted) {
-        this.$root.$emit('bv::show::modal', 'quest-completed');
         this.playSound('Achievement_Unlocked');
+        return this.$root.$emit('bv::show::modal', 'quest-completed');
       }
 
       if (this.userClassSelect) {
-        this.$root.$emit('bv::show::modal', 'choose-class');
         this.playSound('Achievement_Unlocked');
+        return this.$root.$emit('bv::show::modal', 'choose-class');
       }
     },
     showLevelUpNotifications (newlevel) {
@@ -527,10 +528,6 @@ export default {
     },
     async handleUserNotifications (after) {
       if (this.$store.state.isRunningYesterdailies) return;
-
-      if (this.user.flags.newStuff) {
-        this.$root.$emit('bv::show::modal', 'new-stuff');
-      }
 
       if (!after || after.length === 0 || !Array.isArray(after)) return;
 

@@ -5,7 +5,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       h3(v-once) {{$t('welcomeTo')}}
       .svg-icon.logo(v-html='icons.logoPurple')
 
-  .avatar-section.row(v-if='modalPage > 1 || user.auth.local.email', :class='{"page-2": modalPage === 2}')
+  .avatar-section.row(v-if='modalPage > 1', :class='{"page-2": modalPage === 2}')
     .col-6.offset-3
       .user-creation-bg(v-if='!editing')
       avatar(:member='user', :avatarOnly='!editing', :class='{"edit-avatar": editing}')
@@ -366,19 +366,18 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
         .corner-decoration(:style="{bottom: '-2px', left: '-2px'}")
         div(v-if='modalPage === 1')
           p(v-once, v-html='$t("justinIntroMessage1")')
-          p(v-once, v-if='user.auth.local.email') {{ $t('justinIntroMessage2') }}
-          p(v-once, v-if='!user.auth.local.email') {{ $t('justinIntroMessageUsername') }}
+          p(v-once) {{ $t('justinIntroMessageUsername') }}
         div(v-if='modalPage === 2')
           p {{ $t('justinIntroMessageAppearance') }}
         div(v-if='modalPage === 3')
           p(v-once) {{ $t('justinIntroMessage3') }}
       .npc-justin-textbox
-  .section.mr-5.ml-5(v-if='modalPage === 1 && !user.auth.local.email')
+  .section.mr-5.ml-5(v-if='modalPage === 1')
     username-form(@usernameConfirmed='modalPage += 1', :avatarIntro='"true"')
     .small.text-center(v-html="$t('usernameTOSRequirements')")
 
   .section.container.footer
-    .row(v-if='!editing && !(modalPage === 1 && !user.auth.local.email)')
+    .row(v-if='!editing && !(modalPage === 1)')
       .col-3.offset-1.text-center
         div(v-if='modalPage > 1', @click='prev()')
           .prev-arrow
