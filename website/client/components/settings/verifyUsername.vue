@@ -25,7 +25,7 @@
       padding-right: 2rem;
     }
     .modal-dialog   {
-      transform: translate(0, 50vh) translate(-5%, -60%);
+      transform: translate(0, 50vh) translate(-5%, -48%);
     }
   }
 </style>
@@ -63,6 +63,7 @@
     border-radius: 0rem 0rem 0.3rem 0.3rem;
     margin-left: -3rem;
     margin-right: -3rem;
+    margin-top: -0.1rem;
     padding: 1rem 4rem 1rem 4rem;
   }
 </style>

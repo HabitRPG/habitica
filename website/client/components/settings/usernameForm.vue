@@ -25,13 +25,17 @@
               :class='{"is-invalid input-invalid": usernameInvalid, "input-valid": usernameValid, "text-darker": temporaryUsername.length > 0}')
     .mb-3(v-if="usernameIssues.length > 0")
       .input-error.text-center(v-for="issue in usernameIssues") {{ issue }}
-    .small.text-center(v-if='!avatarIntro') {{ $t('usernameLimitations') }}
+    .small.text-center.mb-3(v-if='!avatarIntro') {{ $t('usernameLimitations') }}
     .row.justify-content-center
-      button.btn.btn-primary(type='submit', @click='submitNames()' :disabled='usernameCannotSubmit') {{ $t(avatarIntro ? 'getStarted' : 'saveAndConfirm') }}
+      button.btn.btn-primary.btn-flat(type='submit', @click='submitNames()', :disabled='usernameCannotSubmit') {{ $t(avatarIntro ? 'getStarted' : 'saveAndConfirm') }}
 </template>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
+
+  .btn:disabled {
+    cursor: default;
+  }
 
   button {
     margin: 0.25rem auto 1rem;
@@ -39,6 +43,10 @@
 
   .col-3 {
     padding-right: 0rem;
+  }
+
+  .form-control {
+    height: 2.25rem;
   }
 
   .form-group {
@@ -62,10 +70,11 @@
   }
 
   .input-group-text {
-    border: 0px;
     background-color: $white;
+    border: 0px;
+    border-radius: 0px;
     color: $gray-300;
-    padding: 0rem 0rem 0rem 0.75rem;
+    padding: 0rem 0.1rem 0rem 0.75rem;
   }
 
   label {
