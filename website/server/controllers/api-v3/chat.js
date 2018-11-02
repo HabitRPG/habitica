@@ -190,8 +190,6 @@ api.postChat = {
     } else {
       res.respond(200, {message: newChatMessage});
     }
-
-    group.sendGroupChatReceivedWebhooks(newChatMessage);
   },
 };
 
