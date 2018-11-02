@@ -29,7 +29,7 @@ div
       .action.d-flex.align-items-center(v-if='msg.uuid === user._id || inbox || user.contributor.admin', @click='remove()')
         .svg-icon(v-html="icons.delete")
         | {{$t('delete')}}
-      .ml-auto.d-flex
+      .ml-auto.d-flex(v-if='!inbox')
         .action.d-flex.align-items-center.mr-0(@click='like()', v-if='likeCount > 0', :class='{active: msg.likes[user._id]}')
           .svg-icon(v-html="icons.liked")
           | +{{ likeCount }}

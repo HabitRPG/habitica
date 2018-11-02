@@ -316,9 +316,7 @@ export default {
         inboxGroup[this.initiatedConversation.uuid] = [{
           uuid: this.initiatedConversation.uuid,
           user: this.initiatedConversation.user,
-          username: this.initiatedConversation.username, // ?
-          backer: this.initiatedConversation.backer,
-          contributor: this.initiatedConversation.contributor,
+          username: this.initiatedConversation.username,
           id: '',
           text: '',
           timestamp: new Date(),
@@ -353,14 +351,10 @@ export default {
         const recentMessage = newChatModels[newChatModels.length - 1];
         if (!recentMessage.text) newChatModels.splice(newChatModels.length - 1, 1);
 
-        if (recentMessage.username === this.user.auth.local.username) recentMessage.username = null;
-
         const convoModel = {
           key: recentMessage.toUUID ? recentMessage.toUUID : recentMessage.uuid,
           name: recentMessage.toUser ? recentMessage.toUser : recentMessage.user, // Handles case where from user sent the only message or the to user sent the only message
-          username: recentMessage.toUserName ? recentMessage.toUserName : recentMessage.username,
-          backer: recentMessage.toUserBacker ? recentMessage.toUserBacker : recentMessage.backer,
-          contributor: recentMessage.toUserContributor ? recentMessage.toUserContributor : recentMessage.contributor,
+          username: !recentMessage.text ? recentMessage.username : recentMessage.toUserName,
           date: recentMessage.timestamp,
           lastMessageText: recentMessage.text,
           messages: newChatModels,
