@@ -8,12 +8,12 @@ const featuredItems = {
       path: 'armoire',
     },
     {
-      type: 'premiumHatchingPotion',
-      path: 'premiumHatchingPotions.Ghost',
+      type: 'hatchingPotions',
+      path: 'hatchingPotions.Shade',
     },
     {
-      type: 'premiumHatchingPotion',
-      path: 'premiumHatchingPotions.Glow',
+      type: 'eggs',
+      path: 'eggs.Wolf',
     },
     {
       type: 'card',

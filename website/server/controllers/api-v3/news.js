@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'HABITOWEEN! PLUS LAST CHANCE FOR FALL FESTIVAL AND OCTOBER SUBSCRIBER ITEMS';
+const LAST_ANNOUNCEMENT_TITLE = 'NOVEMBER 2018 RESOLUTION SUCCESS CHALLENGE AND NEW TAKE THIS CHALLENGE';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,26 +30,17 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>10/30/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>11/2/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <h3>Happy Habitoween!</h3>
-        <p>It's the last day of the Fall Festival, and all the NPCs are looking monstrous. Plus, we have lots of fun things in store...</p>
-        <h3>Jack O' Lantern Pets and Mounts</h3>
-        <p>The Flourishing Fields are full of cute carved pumpkins - and it looks like one has <a href='/inventory/stable' target='_blank'>followed you home</a>! What kind of pumpkin? It all depends on how many Habitoweens you've celebrated with us. Each Habitoween, you'll get a new and exciting pumpkin variety!</p>
-        <div class="small mb-3">by Lemoness and Beffymaroo</div>
-        <div class="promo_jackolanterns center-block"></div>
-        <h3>Candy for Everyone!</h3>
-        <p>It's a feast for your pets and mounts! In honor of the end of the Fall Festival, we've given everyone an assortment of candy. You can feed it to your pets in the <a href='/inventory/stable' target='_blank'>Stable</a>! Enjoy.</p>
-        <div class="small mb-3">by SabreCat and Lemoness</div>
-        <div class="promo_mystery_201810 center-block"></div>
-        <h3>Last Chance for Fall Festival Items and Dark Forest Set</h3>
-        <p>This is your last chance to get all Fall Festival items before they vanish at the end of October 31st! This includes Limited-Edition Outfits, Seasonal Shop purchases, Seasonal Edition Skins and Hair Colors, and yes, even Ghost and Glow Hatching Potions. Grab them all while you still can!</p>
-        <p>Plus, today is the final day to <a href='/user/settings/subscription' target='_blank'>subscribe</a> and receive the Dark Forest set! Subscribing also lets you buy Gems for Gold and nets you a special Jackalope pet.</p>
-        <p>Thanks so much for your supporting the site -- you're helping us keep Habitica alive. Happy Habitoween!</p>
-        <div class="small mb-3">by Hermi, AaronTheTwin, tricksy.fox, Lemoness, Beffymaroo and SabreCat</div>
-        <div class="promo_ghost_potions center-block"></div>
+        <p>The Habitica team has launched a special official Challenge series hosted in the <a href='/groups/guild/6e6a8bd3-9f5f-4351-9188-9f11fcd80a99' target='_blank'>Official New Year's Resolution Guild</a>. These Challenges are designed to help you build and maintain goals that are destined for success and then stick with them as the year progresses. For this month's Challenge, <a href='/challenges/21d9aacb-a8c1-4663-babf-e653de3a5475' target='_blank'>Here be Dragons!</a>, we're focusing on obstacles that arise as you reach the end of the year! It has a 15 Gem prize, which will be awarded to five lucky winners on December 3rd.</p>
+        <p>Congratulations to the winners of October's Challenge, REN, drcaptainmaria, Helengoesrogue, Mistress Cerny- Cerny Pie, and Taichi1!</p>
+        <p>The next Take This Challenge has also launched, "<a href='/challenges/00708425-d477-41a5-bf27-6270466e7976' target='_blank'>This One Goes to 11!</a>", with a focus on pausing for calm and focus amid feelings of pressure or overwhelm. Be sure to check it out to earn additional pieces of the Take This armor set!</p>
+        <p><a href='http://www.takethis.org/' target='_blank'>Take This</a> is a nonprofit that seeks to inform the gamer community about mental health issues, to provide education about mental disorders and mental illness prevention, and to reduce the stigma of mental illness.</p>
+        <p>Congratulations to the winners of the last Take This Challenge, "+2 Intelligence Bonus!": grand prize winner PrimordialDream, and runners-up Marieke Bresseleers, Supertest, Keri-Ann Moore, Jobber, and Xaina the ???. Plus, all participants in that Challenge have received a piece of the <a href='http://habitica.wikia.com/wiki/Event_Item_Sequences#Take_This_Armor_Set' target='_blank'>Take This item set</a> if they hadn't completed it already. It is located in your Rewards column. Enjoy!</p>
+        <div class="small mb-3">by Doctor B, the Take This team, Lemoness, Beffymaroo, and SabreCat</div>
+        <div class="promo_seaserpent center-block"></div>
       </div>
       `,
     });

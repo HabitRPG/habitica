@@ -62,6 +62,7 @@ export default {
       ]),
       // list of email-only notifications
       onlyEmailsIds: Object.freeze([
+        'kickedGroup',
         'importantAnnouncements',
         'weeklyRecaps',
         'onboarding',
