@@ -27,15 +27,11 @@
       .input-error.text-center(v-for="issue in usernameIssues") {{ issue }}
     .small.text-center.mb-3(v-if='!avatarIntro') {{ $t('usernameLimitations') }}
     .row.justify-content-center
-      button.btn.btn-primary.btn-flat(type='submit', @click='submitNames()', :disabled='usernameCannotSubmit') {{ $t(avatarIntro ? 'getStarted' : 'saveAndConfirm') }}
+      button.btn.btn-primary(type='submit', @click='submitNames()', :class='{disabled: usernameCannotSubmit}', :disabled='usernameCannotSubmit') {{ $t(avatarIntro ? 'getStarted' : 'saveAndConfirm') }}
 </template>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
-
-  .btn:disabled {
-    cursor: default;
-  }
 
   button {
     margin: 0.25rem auto 1rem;
