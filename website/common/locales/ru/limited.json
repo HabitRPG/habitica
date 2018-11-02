@@ -25,7 +25,7 @@
     "polarBearPup": "Детеныш белого медведя",
     "jackolantern": "Светильник Джека",
     "ghostJackolantern": "Призрачный Cветильник Джека",
-    "glowJackolantern": "Glow-in-the-Dark Jack-O-Lantern",
+    "glowJackolantern": "Светящийся-ночью Cветильник Джека",
     "seasonalShop": "Сезонная лавка",
     "seasonalShopClosedTitle": "<%= linkStart %>Лесли<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Сезонная Чародейка<%= linkEnd %>",

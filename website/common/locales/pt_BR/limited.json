@@ -25,7 +25,7 @@
     "polarBearPup": "Urso Polar Filhote",
     "jackolantern": "Jack da Lanterna",
     "ghostJackolantern": "Fantasma Jack da Lanterna",
-    "glowJackolantern": "Glow-in-the-Dark Jack-O-Lantern",
+    "glowJackolantern": "Brilha-no-Escuro Jack da Lanterna",
     "seasonalShop": "Loja Sazonal",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Feiticeira Sazonal<%= linkEnd %>",
