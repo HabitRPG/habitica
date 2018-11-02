@@ -25,7 +25,7 @@
     "polarBearPup": "シロクマの子",
     "jackolantern": "ジャック･オ･ランタン",
     "ghostJackolantern": "ジャック・オ・ランタンのお化け",
-    "glowJackolantern": "Glow-in-the-Dark Jack-O-Lantern",
+    "glowJackolantern": "暗闇で輝くジャック・オ・ランタン",
     "seasonalShop": "季節の店",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>季節の魔女<%= linkEnd %>",
