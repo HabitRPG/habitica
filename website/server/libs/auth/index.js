@@ -138,6 +138,9 @@ async function registerLocal (req, res, { isV3 = false }) {
     preferences: {
       language: req.language,
     },
+    flags: {
+      verifiedUsername: true,
+    },
   };
 
   if (existingUser) {
@@ -158,8 +161,6 @@ async function registerLocal (req, res, { isV3 = false }) {
   if (req.query.groupInvite || req.query.partyInvite) {
     await _handleGroupInvitation(newUser, req.query.groupInvite || req.query.partyInvite);
   }
-
-  newUser.flags.verifiedUsername = true;
 
   let savedUser = await newUser.save();
 
