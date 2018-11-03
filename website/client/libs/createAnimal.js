@@ -1,4 +1,8 @@
 
+import content from 'common/script/content';
+
+const specialPets = Object.keys(content.specialPets);
+
 function getText (textOrFunction) {
   if (textOrFunction instanceof Function) {
     return textOrFunction();
@@ -18,7 +22,9 @@ export function isHatchable (animal, userItems) {
 }
 
 export function isAllowedToFeed (animal, userItems) {
-  return isOwned('pet', animal, userItems) && !isOwned('mount', animal, userItems);
+  return !specialPets.includes(animal.key) &&
+    isOwned('pet', animal, userItems) &&
+    !isOwned('mount', animal, userItems);
 }
 
 export function createAnimal (egg, potion, type, content, userItems) {
@@ -46,3 +52,4 @@ export function createAnimal (egg, potion, type, content, userItems) {
     },
   };
 }
+
