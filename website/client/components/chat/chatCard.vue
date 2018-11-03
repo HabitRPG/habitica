@@ -29,12 +29,12 @@ div
       .action.d-flex.align-items-center(v-if='msg.uuid === user._id || inbox || user.contributor.admin', @click='remove()')
         .svg-icon(v-html="icons.delete")
         | {{$t('delete')}}
-      .ml-auto.d-flex(v-if='!inbox')
+      .ml-auto.d-flex(v-b-tooltip="{title: likeTooltip(msg.likes[user._id])}", v-if='!inbox')
         .action.d-flex.align-items-center.mr-0(@click='like()', v-if='likeCount > 0', :class='{active: msg.likes[user._id]}')
-          .svg-icon(v-html="icons.liked")
+          .svg-icon(v-html="icons.liked", :title='$t("liked")')
           | +{{ likeCount }}
         .action.d-flex.align-items-center.mr-0(@click='like()', v-if='likeCount === 0', :class='{active: msg.likes[user._id]}')
-          .svg-icon(v-html="icons.like")
+          .svg-icon(v-html="icons.like", :title='$t("like")')
           span(v-if='!msg.likes[user._id]') {{ $t('like') }}
 </template>
 
@@ -258,6 +258,10 @@ export default {
       }
 
       this.$emit('message-liked', message);
+      this.$root.$emit('bv::hide::tooltip');
+    },
+    likeTooltip (likedStatus) {
+      if (!likedStatus) return this.$t('like');
     },
     copyAsTodo (message) {
       this.$root.$emit('habitica::copy-as-todo', message);
