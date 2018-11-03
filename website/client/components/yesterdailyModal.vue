@@ -22,14 +22,6 @@
         button.btn.btn-primary(@click='close()') {{ $t('yesterDailiesCallToAction') }}
 </template>
 
-<style lang="scss">
-  #yesterdaily___BV_modal_outer_ {
-    .modal-dialog   {
-      transform: translate(0, 50vh) translate(-5%, -60%);
-    }
-  }
-</style>
-
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
 

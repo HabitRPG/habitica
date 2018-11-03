@@ -11,8 +11,8 @@ const defaultSchema = () => ({
   // sender properties
   user: String, // profile name (unfortunately)
   username: String,
-  contributor: {type: mongoose.Schema.Types.Mixed},
-  backer: {type: mongoose.Schema.Types.Mixed},
+  contributor: {$type: mongoose.Schema.Types.Mixed},
+  backer: {$type: mongoose.Schema.Types.Mixed},
   uuid: String, // sender uuid
   userStyles: {$type: mongoose.Schema.Types.Mixed},
 
