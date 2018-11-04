@@ -41,7 +41,7 @@ export default {
       let gift = this.encodeGift(data.giftedTo, data.gift);
       const url = `/paypal/checkout?gift=${gift}`;
 
-      window.open(url, '_blank');
+      window.open(url);
     },
     showStripe (data) {
       if (!this.checkGemAmount(data)) return;
