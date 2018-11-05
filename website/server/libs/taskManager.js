@@ -99,7 +99,7 @@ export async function createTasks (req, res, options = {}) {
       if (taskData.requiresApproval) {
         newTask.group.approval.required = true;
       }
-      newTask.group.sharedCompletion = taskData.sharedCompletion || SHARED_COMPLETION.default;
+      newTask.group.sharedCompletion = taskData.sharedCompletion || SHARED_COMPLETION.single;
     } else {
       newTask.userId = user._id;
     }
