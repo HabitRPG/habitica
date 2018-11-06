@@ -387,5 +387,12 @@
     "backgroundCreepyCastleText": "驚悚城堡",
     "backgroundCreepyCastleNotes": "勇敢地進入毛骨悚然的城堡。",
     "backgroundDungeonText": "地牢",
-    "backgroundDungeonNotes": "在幽靈地牢中協助囚犯越獄。"
+    "backgroundDungeonNotes": "在幽靈地牢中協助囚犯越獄。",
+    "backgrounds112018": "SET 54: Released November 2018",
+    "backgroundBackAlleyText": "Back Alley",
+    "backgroundBackAlleyNotes": "Look shady loitering in a Back Alley.",
+    "backgroundGlowingMushroomCaveText": "Glowing Mushroom Cave",
+    "backgroundGlowingMushroomCaveNotes": "Stare in awe at a Glowing Mushroom Cave.",
+    "backgroundCozyBedroomText": "Cozy Bedroom",
+    "backgroundCozyBedroomNotes": "Curl up in a Cozy Bedroom."
 }
