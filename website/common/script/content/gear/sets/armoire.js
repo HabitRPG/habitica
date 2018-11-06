@@ -400,6 +400,15 @@ let armor = {
     set: 'aceOfSpades',
     canOwn: ownsItem('armor_armoire_robeOfSpades'),
   },
+  softBlueSuit: {
+    text: t('armorArmoireSoftBlueSuitText'),
+    notes: t('armorArmoireSoftBlueSuitNotes', { int: 10, per: 5 }),
+    value: 100,
+    int: 10,
+    per: 5,
+    set: 'blueLoungewear',
+    canOwn: ownsItem('armor_armoire_softBlueSuit'),
+  },
 };
 
 let body = {
@@ -569,6 +578,7 @@ let head = {
     per: 7,
     int: 7,
     con: 7,
+    set: 'blueLoungewear',
     canOwn: ownsItem('head_armoire_blueFloppyHat'),
   },
   shepherdHeaddress: {
@@ -1064,6 +1074,14 @@ let shield = {
     int: 10,
     set: 'bookbinder',
     canOwn: ownsItem('shield_armoire_unfinishedTome'),
+  },
+  softBluePillow: {
+    text: t('shieldArmoireSoftBluePillowText'),
+    notes: t('shieldArmoireSoftBluePillowNotes', { con: 10 }),
+    value: 100,
+    con: 10,
+    set: 'blueLoungewear',
+    canOwn: ownsItem('shield_armoire_softBluePillow'),
   },
 };
 
