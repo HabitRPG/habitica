@@ -27,7 +27,7 @@ export function isAllowedToFeed (animal, userItems) {
     !isOwned('mount', animal, userItems);
 }
 
-export function createAnimal (egg, potion, type, content, userItems) {
+export function createAnimal (egg, potion, type, _content, userItems) {
   let animalKey = `${egg.key}-${potion.key}`;
 
   return {
@@ -37,7 +37,7 @@ export function createAnimal (egg, potion, type, content, userItems) {
     eggName: getText(egg.text),
     potionKey: potion.key,
     potionName: getText(potion.text),
-    name: content[`${type}Info`][animalKey].text(),
+    name: _content[`${type}Info`][animalKey].text(),
     isOwned () {
       return isOwned(type, this, userItems);
     },
