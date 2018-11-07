@@ -68,7 +68,7 @@ export default {
   props: ['selections', 'text', 'caretPosition', 'coords', 'chat', 'textbox'],
   data () {
     return {
-      atRegex: new RegExp(/@[\w-]+$/),
+      atRegex: /(?!\b)@[\w-]*$/,
       currentSearch: '',
       searchActive: false,
       searchEscaped: false,
@@ -134,7 +134,6 @@ export default {
         return;
       }
       if (newText[newText.length - 1] === '@') {
-        this.searchActive = false;
         this.searchEscaped = false;
       }
       if (this.searchEscaped) return;
@@ -142,7 +141,6 @@ export default {
       if (!this.atRegex.test(newText)) return;
 
       this.searchActive = true;
-      this.currentSearchPosition = newText.lastIndexOf('@', this.caretPosition);
     },
     chat () {
       this.resetDefaults();
@@ -153,10 +151,8 @@ export default {
     resetDefaults () {
       // Mounted is not called when switching between group pages because they have the
       // the same parent component. So, reset the data
-      this.currentSearch = '';
       this.searchActive = false;
       this.searchEscaped = false;
-      this.currentSearchPosition = 0;
       this.tmpSelections = [];
     },
     grabUserNames () {
@@ -189,13 +185,12 @@ export default {
       return this.icons[`tier${message.contributor.level}`];
     },
     select (result) {
-      let newText = this.text.slice(0, this.currentSearchPosition + 1);
+      let newText = this.text;
       if (result.username) {
-        newText = newText.concat(result.username);
+        newText = `${newText}${result.username} `;
       } else {
-        newText = newText.concat(result.displayName);
+        newText = `${newText}${result.displayName} `;
       }
-      this.searchActive = false;
       this.$emit('select', newText);
     },
     handleEsc (e) {

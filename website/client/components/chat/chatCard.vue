@@ -292,7 +292,7 @@ export default {
       this.$emit('show-member-modal', memberId);
     },
     atHighlight (text) {
-      return text.replace(new RegExp(/@[\w-]+/g), match => {
+      return text.replace(new RegExp(/(?!\b)@[\w-]+/g), match => {
         return `<span class="at-highlight">${match}</span>`;
       });
     },

@@ -373,7 +373,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
           p(v-once) {{ $t('justinIntroMessage3') }}
       .npc-justin-textbox
   .section.mr-5.ml-5(v-if='modalPage === 1')
-    username-form(@usernameConfirmed='modalPage += 1', :avatarIntro='"true"')
+    username-form(@usernameConfirmed='modalPage += 1', :avatarIntro='true')
     .small.text-center(v-html="$t('usernameTOSRequirements')")
 
   .section.container.footer
