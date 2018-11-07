@@ -435,7 +435,7 @@
       cursor: default !important;
     }
 
-    .svg-icon.check {
+    .svg-icon.check:not(.display-check-icon) {
       display: none !important;
     }
   }
