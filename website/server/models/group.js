@@ -350,7 +350,7 @@ schema.statics.toJSONCleanChat = async function groupToJSONCleanChat (group, use
   return toJSON;
 };
 
-function getIniviteError (uuids, emails, usernames) {
+function getInviteError (uuids, emails, usernames) {
   const uuidsIsArray = Array.isArray(uuids);
   const emailsIsArray = Array.isArray(emails);
   const usernamesIsArray = Array.isArray(usernames);
@@ -366,15 +366,11 @@ function getIniviteError (uuids, emails, usernames) {
     errorString = 'uuidsMustBeAnArray';
   } else if (emails && !emailsIsArray) {
     errorString = 'emailsMustBeAnArray';
-  } else if (!emails && emptyUuids) {
-    errorString = 'inviteMissingUuid';
-  } else if (!uuids && emptyEmails) {
-    errorString = 'inviteMissingEmail';
-  } else if (emptyEmails && emptyUuids) {
+  } else if (usernames && !usernamesIsArray) {
+    errorString = 'usernamesMustBeAnArray';
+  } else if (emptyEmails && emptyUuids && emptyUsernames) {
     errorString = 'inviteMustNotBeEmpty';
   }
-
-  if (usernames && emptyUsernames) errorString = 'usernamesMustNotBeEmpty';
 
   return errorString;
 }
@@ -407,8 +403,7 @@ schema.statics.validateInvitations = async function getInvitationError (invites,
     emails,
     usernames,
   } = invites;
-
-  const errorString = getIniviteError(uuids, emails, usernames);
+  const errorString = getInviteError(uuids, emails, usernames);
   if (errorString) throw new BadRequest(res.t(errorString));
 
   const totalInvites = getInviteCount(uuids, emails);

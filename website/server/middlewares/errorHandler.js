@@ -16,7 +16,7 @@ module.exports = function errorHandler (err, req, res, next) { // eslint-disable
   // Otherwise try to identify the type of error (mongoose validation, mongodb unique, ...)
   // If we can't identify it, respond with a generic 500 error
   let responseErr = err instanceof CustomError ? err : null;
-  console.log(err)
+
   // Handle errors created with 'http-errors' or similar that have a status/statusCode property
   if (err.statusCode && typeof err.statusCode === 'number') {
     responseErr = new CustomError();
