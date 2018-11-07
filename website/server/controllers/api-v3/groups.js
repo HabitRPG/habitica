@@ -17,9 +17,9 @@ import {
 import { removeFromArray } from '../../libs/collectionManipulators';
 import { sendTxn as sendTxnEmail } from '../../libs/email';
 import {
-  _inviteByUUID,
-  _inviteByEmail,
-  _inviteByUserName,
+  inviteByUUID,
+  inviteByEmail,
+  inviteByUserName,
 } from '../../libs/invites';
 import common from '../../../common';
 import payments from '../../libs/payments/payments';
@@ -1038,13 +1038,13 @@ api.inviteToGroup = {
     const results = [];
 
     if (uuids) {
-      const uuidInvites = uuids.map((uuid) => _inviteByUUID(uuid, group, user, req, res));
+      const uuidInvites = uuids.map((uuid) => inviteByUUID(uuid, group, user, req, res));
       const uuidResults = await Promise.all(uuidInvites);
       results.push(...uuidResults);
     }
 
     if (emails) {
-      const emailInvites = emails.map((invite) => _inviteByEmail(invite, group, user, req, res));
+      const emailInvites = emails.map((invite) => inviteByEmail(invite, group, user, req, res));
       user.invitesSent += emails.length;
       await user.save();
       const emailResults = await Promise.all(emailInvites);
@@ -1052,7 +1052,7 @@ api.inviteToGroup = {
     }
 
     if (usernames) {
-      const usernameInvites = usernames.map((username) => _inviteByUserName(username, group, user, req, res));
+      const usernameInvites = usernames.map((username) => inviteByUserName(username, group, user, req, res));
       const usernameResults = await Promise.all(usernameInvites);
       results.push(...usernameResults);
     }

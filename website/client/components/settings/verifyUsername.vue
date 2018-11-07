@@ -24,9 +24,6 @@
       padding-left: 2rem;
       padding-right: 2rem;
     }
-    .modal-dialog   {
-      transform: translate(0, 50vh) translate(-5%, -48%);
-    }
   }
 </style>
 

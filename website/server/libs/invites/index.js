@@ -100,7 +100,7 @@ async function inviteUserToParty (userToInvite, group, inviter, res) {
   userToInvite.invitations.party = partyInvite;
 }
 
-async function addInvitiationToUser (userToInvite, group, inviter, res) {
+async function addInvitationToUser (userToInvite, group, inviter, res) {
   const publicGuild = group.type === 'guild' && group.privacy === 'public';
 
   if (group.type === 'guild') {
@@ -123,7 +123,7 @@ async function addInvitiationToUser (userToInvite, group, inviter, res) {
   }
 }
 
-async function _inviteByUUID (uuid, group, inviter, req, res) {
+async function inviteByUUID (uuid, group, inviter, req, res) {
   const userToInvite = await User.findById(uuid).exec();
 
   if (!userToInvite) {
@@ -137,10 +137,10 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
     throw new NotAuthorized(res.t(objections[0], { userId: uuid, username: userToInvite.profile.name}));
   }
 
-  return await addInvitiationToUser(userToInvite, group, inviter, res);
+  return await addInvitationToUser(userToInvite, group, inviter, res);
 }
 
-async function _inviteByEmail (invite, group, inviter, req, res) {
+async function inviteByEmail (invite, group, inviter, req, res) {
   let userReturnInfo;
 
   if (!invite.email) throw new BadRequest(res.t('inviteMissingEmail'));
@@ -154,7 +154,7 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
     .exec();
 
   if (userToContact) {
-    userReturnInfo = await _inviteByUUID(userToContact._id, group, inviter, req, res);
+    userReturnInfo = await inviteByUUID(userToContact._id, group, inviter, req, res);
   } else {
     userReturnInfo = invite.email;
 
@@ -188,7 +188,9 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
   return userReturnInfo;
 }
 
-async function _inviteByUserName (username, group, inviter, req, res) {
+async function inviteByUserName (username, group, inviter, req, res) {
+  if (username.indexOf('@') === 0) username = username.slice(1, username.length);
+  username = username.toLowerCase();
   const userToInvite = await User.findOne({'auth.local.lowerCaseUsername': username}).exec();
 
   if (!userToInvite) {
@@ -199,11 +201,11 @@ async function _inviteByUserName (username, group, inviter, req, res) {
     throw new BadRequest(res.t('cannotInviteSelfToGroup'));
   }
 
-  return await addInvitiationToUser(userToInvite, group, inviter, res);
+  return await addInvitationToUser(userToInvite, group, inviter, res);
 }
 
 module.exports = {
-  _inviteByUUID,
-  _inviteByEmail,
-  _inviteByUserName,
+  inviteByUUID,
+  inviteByEmail,
+  inviteByUserName,
 };

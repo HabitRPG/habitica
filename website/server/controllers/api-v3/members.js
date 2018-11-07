@@ -119,6 +119,33 @@ api.getMember = {
   },
 };
 
+api.getMemberByUsername = {
+  method: 'GET',
+  url: '/members/username/:username',
+  middlewares: [],
+  async handler (req, res) {
+    req.checkParams('username', res.t('invalidReqParams')).notEmpty();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let username = req.params.username.toLowerCase();
+
+    let member = await User
+      .findOne({'auth.local.lowerCaseUsername': username})
+      .select(memberFields)
+      .exec();
+
+    if (!member || !member.flags.verifiedUsername) throw new NotFound(res.t('userNotFound'));
+
+    // manually call toJSON with minimize: true so empty paths aren't returned
+    let memberToJSON = member.toJSON({minimize: true});
+    User.addComputedStatsToJSONObj(memberToJSON.stats, member);
+
+    res.respond(200, memberToJSON);
+  },
+};
+
 /**
  * @api {get} /api/v3/members/:memberId/achievements Get member achievements object
  * @apiName GetMemberAchievements
