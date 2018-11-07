@@ -101,7 +101,7 @@
         button.task-control.habit-control(:class="controlClass.down.inner", @click="(isUser && task.down) ? score('down') : null")
           .svg-icon.negative(v-html="icons.negative")
       // Rewards right side control
-      .right-control.d-flex.align-items-center.justify-content-center.reward-control(v-if="task.type === 'reward'", :class="controlClass.bg", @click="isUser ? score('down') : null")
+      button.right-control.d-flex.align-items-center.justify-content-center.reward-control(v-if="task.type === 'reward'", :class="controlClass.bg", @click="isUser ? score('down') : null")
         .svg-icon(v-html="icons.gold")
         .small-text {{task.value}}
     approval-footer(:task='task', v-if='this.task.group.id', :group='group')
@@ -175,11 +175,14 @@
   }
 
   .task /deep/ .habitica-menu-dropdown .habitica-menu-dropdown-toggle {
+    border: 0;
+    border-radius: 0;
     opacity: 0;
     padding: 0 8px;
     transition: opacity 0.15s ease-in;
   }
 
+  .task /deep/ .habitica-menu-dropdown .habitica-menu-dropdown-toggle:focus,
   .task:hover /deep/ .habitica-menu-dropdown .habitica-menu-dropdown-toggle {
     opacity: 1;
   }
@@ -192,6 +195,7 @@
     }
   }
 
+  .task-clickable-area /deep/ .habitica-menu-dropdown .habitica-menu-dropdown-toggle:focus .svg-icon,
   .task-clickable-area /deep/ .habitica-menu-dropdown .habitica-menu-dropdown-toggle:hover .svg-icon {
     color: $purple-400 !important;
   }
@@ -428,10 +432,13 @@
 
   .task-control, .reward-control {
     align-items: center;
-    border: none;
     cursor: pointer;
     margin: 0;
     padding: 0;
+  }
+
+  .task-control {
+    border: none;
   }
 
   .task-not-scoreable {

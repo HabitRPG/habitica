@@ -4,7 +4,7 @@ A simplified dropdown component that doesn't rely on buttons as toggles  like bo
 
 <template lang="pug">
 .habitica-menu-dropdown.dropdown(@click="toggleDropdown()", :class="{open: isOpen}")
-  .habitica-menu-dropdown-toggle
+  button.habitica-menu-dropdown-toggle
     slot(name="dropdown-toggle")
   .dropdown-menu(:class="{'dropdown-menu-right': right}")
     slot(name="dropdown-content")
