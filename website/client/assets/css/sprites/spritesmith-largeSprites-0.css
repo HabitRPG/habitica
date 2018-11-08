@@ -1,6 +1,6 @@
 .achievement-costumeContest6x {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -142px -727px;
+  background-position: -437px -727px;
   width: 144px;
   height: 156px;
 }
@@ -30,7 +30,7 @@
 }
 .promo_mystery_201810 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -958px -428px;
+  background-position: -142px -727px;
   width: 294px;
   height: 168px;
 }
@@ -42,15 +42,21 @@
 }
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -958px -597px;
+  background-position: -800px -574px;
   width: 96px;
   height: 69px;
 }
 .promo_veteran_pets {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -958px -286px;
+  background-position: -958px -563px;
   width: 363px;
   height: 141px;
+}
+.scene_dailies {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -958px -286px;
+  width: 327px;
+  height: 276px;
 }
 .scene_nametag {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
