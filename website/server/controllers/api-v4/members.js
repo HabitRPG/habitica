@@ -23,7 +23,7 @@ let api = {};
  *
  * @apiUse MessageNotFound
  * @apiUse MessageIdRequired
- * @apiError (404) {NotFound} messageGroupChatFlagAlreadyReported The message has already been flagged
+ * @apiError (400) {BadRequest} messageGroupChatFlagAlreadyReported The message has already been flagged
  */
 api.flagPrivateMessage = {
   method: 'POST',

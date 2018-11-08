@@ -31,17 +31,17 @@ const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email)
 
 /**
  * @apiDefine GroupIdRequired
- * @apiError (404) {badRequest} groupIdRequired A group ID is required
+ * @apiError (400) {badRequest} groupIdRequired A group ID is required
  */
 
 /**
  * @apiDefine ChatIdRequired
- * @apiError (404) {badRequest} chatIdRequired A chat ID is required
+ * @apiError (400) {badRequest} chatIdRequired A chat ID is required
  */
 
 /**
  * @apiDefine MessageIdRequired
- * @apiError (404) {badRequest} messageIdRequired A message ID is required
+ * @apiError (400) {badRequest} messageIdRequired A message ID is required
  */
 
 let api = {};

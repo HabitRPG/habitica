@@ -3,13 +3,12 @@ import { model as User } from '../../models/user';
 
 import ChatReporter from './chatReporter';
 import {
-  NotFound,
+  BadRequest,
 } from '../errors';
 import { getGroupUrl, sendTxn } from '../email';
 import slack from '../slack';
 import apiError from '../apiError';
 
-import _find from 'lodash/find';
 import * as inboxLib from '../inbox';
 
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
@@ -34,10 +33,8 @@ export default class InboxChatReporter extends ChatReporter {
       this.inboxUser = await User.findOne({_id: this.req.query.userId});
     }
 
-    const messages = await inboxLib.getUserInbox(this.inboxUser);
-
-    const message = _find(messages, (m) => m.id === this.req.params.messageId);
-    if (!message) throw new NotFound(this.res.t('messageGroupChatNotFound'));
+    const message = await inboxLib.getUserInboxMessage(this.inboxUser, this.req.params.messageId);
+    if (!message) throw new BadRequest(this.res.t('messageGroupChatNotFound'));
 
     const userComment = this.req.body.comment;
 
@@ -81,7 +78,7 @@ export default class InboxChatReporter extends ChatReporter {
     if (!message.flags) message.flags = {};
     // TODO fix error type
     if (message.flags[this.user._id] && !this.user.contributor.admin) {
-      throw new NotFound(this.res.t('messageGroupChatFlagAlreadyReported'));
+      throw new BadRequest(this.res.t('messageGroupChatFlagAlreadyReported'));
     }
 
     return this.updateMessageAndSave(message, (m) => {

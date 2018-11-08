@@ -19,6 +19,10 @@ export async function getUserInbox (user, asArray = true) {
   }
 }
 
+export async function getUserInboxMessage (user, messageId) {
+  return Inbox.findOne({ownerId: user._id, _id: messageId}).exec();
+}
+
 export async function deleteMessage (user, messageId) {
   if (user.inbox.messages[messageId]) { // compatibility
     delete user.inbox.messages[messageId];
@@ -47,11 +51,7 @@ export async function clearPMs (user) {
 }
 
 export async function updateMessage (message) {
-  const messagesInDb = await Inbox
-    .find({id: message.id})
-    .exec();
-
-  const messageInDb = messagesInDb[0];
-
-  await messageInDb.update(message);
+  await Inbox.update({
+    id: message._id,
+  }, message).exec();
 }
