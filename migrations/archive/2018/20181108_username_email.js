@@ -17,7 +17,6 @@ function processUsers (lastId) {
   // specify a query to limit the affected users (empty for all users):
   let query = {
     migration: {$ne: MIGRATION_NAME},
-    'preferences.emailNotifications.majorUpdates': {$ne: false},
     'flags.verifiedUsername': {$ne: true},
     'auth.timestamps.loggedin': {$gt: new Date('2018-10-25')},
   };
@@ -73,8 +72,7 @@ function updateUser (user) {
   sendTxn(
     user,
     'username-change-follow-up',
-    [{name: 'UNSUB_EMAIL_TYPE_URL', content: '/user/settings/notifications?unsubFrom=majorUpdates'},
-     {name: 'LOGIN_NAME', content: user.auth.local.username},
+    [{name: 'LOGIN_NAME', content: user.auth.local.username},
      {name: 'BASE_URL', content: BASE_URL}]
   );
 
