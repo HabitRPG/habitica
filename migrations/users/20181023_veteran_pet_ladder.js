@@ -8,7 +8,7 @@ function processUsers (lastId) {
     'flags.verifiedUsername': true,
   };
 
-  let fields = {
+  const fields = {
     'items.pets': 1,
   };
 
@@ -22,6 +22,7 @@ function processUsers (lastId) {
     .limit(250)
     .sort({_id: 1})
     .select(fields)
+    .exec()
     .then(updateUsers)
     .catch((err) => {
       console.log(err);
@@ -29,7 +30,7 @@ function processUsers (lastId) {
     });
 }
 
-let progressCount = 1000;
+const progressCount = 1000;
 let count = 0;
 
 function updateUsers (users) {
@@ -44,30 +45,30 @@ function updateUsers (users) {
 
   return Promise.all(userPromises)
     .then(() => {
-      processUsers(lastUser._id);
+      return processUsers(lastUser._id);
     });
 }
 
 function updateUser (user) {
   count++;
 
-  let set = {migration: MIGRATION_NAME};
+  user.migration = MIGRATION_NAME;
 
   if (user.items.pets['Bear-Veteran']) {
-    set['items.pets.Fox-Veteran'] = 5;
+    user.items.pets['Fox-Veteran'] = 5;
   } else if (user.items.pets['Lion-Veteran']) {
-    set['items.pets.Bear-Veteran'] = 5;
+    user.items.pets['Bear-Veteran'] = 5;
   } else if (user.items.pets['Tiger-Veteran']) {
-    set['items.pets.Lion-Veteran'] = 5;
+    user.items.pets['Lion-Veteran'] = 5;
   } else if (user.items.pets['Wolf-Veteran']) {
-    set['items.pets.Tiger-Veteran'] = 5;
+    user.items.pets['Tiger-Veteran'] = 5;
   } else {
-    set['items.pets.Wolf-Veteran'] = 5;
+    user.items.pets['Wolf-Veteran'] = 5;
   }
 
   if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
 
-  return user.update({_id: user._id}, {$set: set}).exec();
+  return user.save();
 }
 
 function displayData () {
