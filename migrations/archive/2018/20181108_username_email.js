@@ -8,7 +8,7 @@ const AUTHOR_UUID = '7f14ed62-5408-4e1b-be83-ada62d504931'; // ... own data is d
 
 import monk from 'monk';
 import nconf from 'nconf';
-import { sendTxn } from '../../website/server/libs/email';
+import { sendTxn } from '../../../website/server/libs/email';
 const CONNECTION_STRING = nconf.get('MIGRATION_CONNECT_STRING');
 const BASE_URL = nconf.get('BASE_URL');
 let dbUsers = monk(CONNECTION_STRING).get('users', { castIds: false });
@@ -72,7 +72,7 @@ function updateUser (user) {
 
   sendTxn(
     user,
-    'username-change-followup',
+    'username-change-follow-up',
     [{name: 'UNSUB_EMAIL_TYPE_URL', content: '/user/settings/notifications?unsubFrom=majorUpdates'},
      {name: 'LOGIN_NAME', content: user.auth.local.username},
      {name: 'BASE_URL', content: BASE_URL}]
