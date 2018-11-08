@@ -17,6 +17,7 @@ function processUsers (lastId) {
   // specify a query to limit the affected users (empty for all users):
   let query = {
     migration: {$ne: MIGRATION_NAME},
+    'preferences.emailNotifications.majorUpdates': {$ne: false},
     'flags.verifiedUsername': {$ne: true},
     'auth.timestamps.loggedin': {$gt: new Date('2018-10-25')},
   };
