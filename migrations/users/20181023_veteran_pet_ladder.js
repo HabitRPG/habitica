@@ -34,7 +34,10 @@ module.exports = async function processUsers () {
   };
 
   const fields = {
+    _id: 1,
     items: 1,
+    migration: 1,
+    flags: 1,
   };
 
   while (true) { // eslint-disable-line no-constant-condition
