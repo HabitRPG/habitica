@@ -5,9 +5,7 @@ import { model as User } from '../../website/server/models/user';
 const progressCount = 1000;
 let count = 0;
 
-const batchSize = 250;
-
-function updateUser (user) {
+async function updateUser (user) {
   count++;
 
   user.migration = MIGRATION_NAME;
@@ -26,7 +24,7 @@ function updateUser (user) {
 
   if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
 
-  return user.save();
+  return await user.save();
 }
 
 module.exports = async function processUsers () {
@@ -42,7 +40,7 @@ module.exports = async function processUsers () {
   while (true) { // eslint-disable-line no-constant-condition
     const users = await User // eslint-disable-line no-await-in-loop
       .find(query)
-      .limit(batchSize)
+      .limit(250)
       .sort({_id: 1})
       .select(fields)
       .exec();
