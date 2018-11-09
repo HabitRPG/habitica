@@ -128,11 +128,12 @@ describe('common.fns.updateStats', () => {
       }]);
     });
 
-    it('add user notification when rebirth is enabled', () => {
+    it('add user notifications when rebirth and empty the armory are enabled', () => {
       user.stats.lvl = 51;
       updateStats(user, { });
-      expect(user.addNotification).to.be.calledTwice; // once is for drops enabled
+      expect(user.addNotification).to.be.calledThrice; // once is for drops enabled
       expect(user.addNotification).to.be.calledWith('REBIRTH_ENABLED');
+      expect(user.addNotification).to.be.calledWith('EMPTY_ARMORY_ENABLED');
     });
 
     context('assigns flags.levelDrops', () => {
