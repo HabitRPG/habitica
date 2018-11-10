@@ -6,12 +6,12 @@ import { mapState } from 'client/libs/store';
 import encodeParams from 'client/libs/encodeParams';
 import notificationsMixin from 'client/mixins/notifications';
 import * as Analytics from 'client/libs/analytics';
+import { CONSTANTS, setLocalSetting } from 'client/libs/userlocalManager';
 
 export default {
   mixins: [notificationsMixin],
   computed: {
     ...mapState(['credentials']),
-    // @TODO refactor into one single computed property
     paypalCheckoutLink () {
       return '/paypal/checkout';
     },
@@ -41,6 +41,14 @@ export default {
       let gift = this.encodeGift(data.giftedTo, data.gift);
       const url = `/paypal/checkout?gift=${gift}`;
 
+      this.openPaypal(url);
+    },
+    openPaypal (url) {
+      const appState = {
+        path: this.$route.fullPath,
+        paymentMethod: 'paypal',
+      };
+      setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
       window.open(url, '_blank');
     },
     showStripe (data) {
