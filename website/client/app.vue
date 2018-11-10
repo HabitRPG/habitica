@@ -190,6 +190,8 @@ import spellsMixin from 'client/mixins/spells';
 import svgClose from 'assets/svg/close.svg';
 import bannedAccountModal from 'client/components/bannedAccountModal';
 
+import { CONSTANTS, getLocalSetting, removeLocalSetting } from 'client/libs/userlocalManager';
+
 const COMMUNITY_MANAGER_EMAIL = process.env.EMAILS.COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
 
 export default {
@@ -607,7 +609,18 @@ export default {
       this.$root.$emit('bv::hide::modal', 'select-member-modal');
     },
     hideLoadingScreen () {
+      this.restoreAppState();
       this.loading = false;
+    },
+    // When the app state was saved, for example when redirected back from a payment provider
+    // restore it
+    restoreAppState () {
+      let previousAppState = getLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE);
+      if (!previousAppState) return;
+      previousAppState = JSON.parse(previousAppState);
+      removeLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE);
+
+      this.$router.replace(previousAppState.path);
     },
     hideBanner () {
       this.bannerHidden = true;
