@@ -9,6 +9,10 @@
   margin-right: 0px;
 }
 
+.item-rows > .items > div {
+  margin: 6px 12px 6px 12px;
+}
+
 .item-wrapper {
   position: relative;
   display: inline-block;
@@ -24,7 +28,7 @@
   @media only screen and (min-width: 1440px){
     margin-right: 1.71em;
   }
-  
+
   // Desktop L (1280)
   @media only screen and (min-width: 1280px) and (max-width: 1439px) {
     margin-right: 0.43em;
