@@ -15,6 +15,15 @@ const Schema = mongoose.Schema;
 
 const RESTRICTED_EMAIL_DOMAINS = Object.freeze(['habitica.com', 'habitrpg.com']);
 
+const defaultOwnedGear = {};
+
+Object.keys(shared.content.gear.flat).forEach(key => {
+  const item = shared.content.gear.flat[key];
+  if (item.key.match(/(armor|head|shield)_warrior_0/) || item.gearSet === 'glasses' || item.gearSet === 'headband') {
+    defaultOwnedGear[item.key] = true;
+  }
+});
+
 // User schema definition
 let schema = new Schema({
   apiToken: {
@@ -251,7 +260,7 @@ let schema = new Schema({
   items: {
     gear: {
       owned: {$type: Schema.Types.Mixed, default: () => {
-        return {};
+        return Object.assign({}, defaultOwnedGear);
       }},
 
       equipped: {
