@@ -2,6 +2,7 @@ import i18n from '../i18n';
 import content from '../content/index';
 import { BadRequest } from './errors';
 import count from '../count';
+import { ARMORY_KEY_GEMS_COST } from '../constants';
 
 import isPinned from './isPinned';
 import getOfficialPinnedItems from './getOfficialPinnedItems';
@@ -311,7 +312,7 @@ module.exports = function getItemInfo (user, type, item, officialPinnedItems, la
         class: 'armory_key',
         text: i18n.t('emptyArmoryName'),
         notes: i18n.t('emptyArmoryPop'),
-        value: user.stats.lvl < 100 ? 2 : 0,
+        value: user.stats.lvl < 100 ? ARMORY_KEY_GEMS_COST : 0,
         currency: 'gems',
         path: 'special.armory_key',
         pinType: 'armory_key',

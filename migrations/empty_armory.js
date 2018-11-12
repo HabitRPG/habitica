@@ -3,7 +3,7 @@ let authorName = 'Arsnael'; // in case script author needs to know when their ..
 let authorUuid = 'bbffb2f4-9bf8-46c4-b749-523e2ca93ef6'; // ... own data is done
 
 /*
- * set the newStuff flag in all user accounts so they see a Bailey message
+ * set the emptyArmoryEnabled flag in all user accounts
  */
 
 let monk = require('monk');

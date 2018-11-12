@@ -1,13 +1,15 @@
 import i18n from '../i18n';
 import { capByLevel } from '../statHelpers';
-import { MAX_LEVEL } from '../constants';
+import { MAX_LEVEL, ARMORY_KEY_GEMS_COST } from '../constants';
 import {
   NotAuthorized,
 } from '../libs/errors';
 import resetGear from '../fns/resetGear';
 
 module.exports = function emptyArmory (user, req = {}, analytics) {
-  if (user.balance < 0.5 && user.stats.lvl < MAX_LEVEL) {
+  let itemBalance = ARMORY_KEY_GEMS_COST / 4;
+
+  if (user.balance < itemBalance && user.stats.lvl < MAX_LEVEL) {
     throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
   }
 
@@ -17,9 +19,9 @@ module.exports = function emptyArmory (user, req = {}, analytics) {
   };
 
   if (user.stats.lvl < MAX_LEVEL) {
-    user.balance -= 0.5;
+    user.balance -= itemBalance;
     analyticsData.acquireMethod = 'Gems';
-    analyticsData.gemCost = 2;
+    analyticsData.gemCost = ARMORY_KEY_GEMS_COST;
   } else {
     analyticsData.gemCost = 0;
     analyticsData.acquireMethod = '> 100';
