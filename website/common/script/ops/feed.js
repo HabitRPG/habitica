@@ -87,6 +87,7 @@ module.exports = function feed (user, req = {}) {
   }
 
   user.items.food[food.key]--;
+  if (user.markModified) user.markModified('items.food');
 
   return [
     userPets[pet.key],
