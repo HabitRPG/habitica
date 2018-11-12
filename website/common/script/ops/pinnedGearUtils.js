@@ -109,6 +109,8 @@ function removePinnedGearAddPossibleNewOnes (user, itemPath, newItemKey) {
     // just change the new gear to owned
     user.items.gear.owned[newItemKey] = true;
   }
+
+  if (user.markModified) user.markModified('items.gear.owned');
 }
 
 /**
