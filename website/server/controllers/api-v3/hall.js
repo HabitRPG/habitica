@@ -255,7 +255,10 @@ api.updateHero = {
     if (updateData.purchased && updateData.purchased.ads) hero.purchased.ads = updateData.purchased.ads;
 
     // give them the Dragon Hydra pet if they're above level 6
-    if (hero.contributor.level >= 6) hero.items.pets['Dragon-Hydra'] = 5;
+    if (hero.contributor.level >= 6) {
+      hero.items.pets['Dragon-Hydra'] = 5;
+      hero.markModified('items.pets');
+    }
     if (updateData.itemPath && updateData.itemVal &&
         updateData.itemPath.indexOf('items.') === 0 &&
         User.schema.paths[updateData.itemPath]) {

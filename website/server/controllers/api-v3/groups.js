@@ -593,6 +593,7 @@ api.joinGroup = {
           inviter.items.quests.basilist = 0;
         }
         inviter.items.quests.basilist++;
+        inviter.markModified('items.quests');
       }
       promises.push(inviter.save());
     }
