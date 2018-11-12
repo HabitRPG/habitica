@@ -9,8 +9,10 @@ import {
 } from '../../website/server/models/task';
 export {translate} from './translate';
 
+import { defaultsDeep } from 'lodash';
+
 export function generateUser (options = {}) {
-  let user = new User(options).toObject();
+  let user = defaultsDeep(new User().toObject(), options);
 
   return user;
 }
