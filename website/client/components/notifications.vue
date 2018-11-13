@@ -453,8 +453,7 @@ export default {
         Promise.all([
           this.$store.dispatch('user:fetch', {forceLoad: true}),
           this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
-        ]).then(() => this.forceVerifyUsername())
-          .then(() => this.runYesterDailies());
+        ]).then(() => this.runYesterDailies());
       }
     }, 1000),
     scheduleNextCron () {

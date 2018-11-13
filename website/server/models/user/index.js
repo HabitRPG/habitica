@@ -12,7 +12,7 @@ export let publicFields = `preferences.size preferences.hair preferences.skin pr
   flags.verifiedUsername auth.local.username`;
 
 // The minimum amount of data needed when populating multiple users
-export let nameFields = 'profile.name';
+export let nameFields = 'profile.name auth.local.username flags.verifiedUsername';
 
 export { schema };
 

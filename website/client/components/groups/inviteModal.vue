@@ -120,6 +120,7 @@
         this.invites = filter(this.invites, (invite) => {
           return invite.text.length > 0;
         });
+        while (this.invites.length < 2) this.invites.push(clone(INVITE_DEFAULTS));
         if (this.invites[this.invites.length - 1].text.length > 0) this.invites.push(clone(INVITE_DEFAULTS));
         forEach(this.invites, (value, index) => {
           if (value.text.length < 1) return this.invites[index].valid = null;

@@ -137,6 +137,7 @@ import axios from 'axios';
 import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import escapeRegExp from 'lodash/escapeRegExp';
+import max from 'lodash/max';
 
 import habiticaMarkdown from 'habitica-markdown';
 import { mapState } from 'client/libs/store';
@@ -197,23 +198,24 @@ export default {
     ...mapState({user: 'user.data'}),
     isUserMentioned () {
       const message = this.msg;
-      let user = this.user;
+      const user = this.user;
 
       if (message.hasOwnProperty('highlight')) return message.highlight;
 
       message.highlight = false;
-      let messagetext = message.text.toLowerCase();
-      let username = user.profile.name;
-      let mentioned = messagetext.indexOf(username.toLowerCase());
-      let escapedUsername = escapeRegExp(username);
-      let pattern = `@${escapedUsername}([^\w]|$){1}`;
-
+      const messageText = message.text.toLowerCase();
+      const displayName = user.profile.name;
+      const username = user.auth.local && user.auth.local.username;
+      const mentioned = max([messageText.indexOf(username.toLowerCase()), messageText.indexOf(displayName.toLowerCase())]);
       if (mentioned === -1) return message.highlight;
 
-      let preceedingchar = messagetext.substring(mentioned - 1, mentioned);
-      if (mentioned === 0 || preceedingchar.trim() === '' || preceedingchar === '@') {
+      const escapedDisplayName = escapeRegExp(displayName);
+      const escapedUsername = escapeRegExp(username);
+      const pattern = `@(${escapedUsername}|${escapedDisplayName})([^\w]|$)`;
+      const precedingChar = messageText.substring(mentioned - 1, mentioned);
+      if (mentioned === 0 || precedingChar.trim() === '' || precedingChar === '@') {
         let regex = new RegExp(pattern, 'i');
-        message.highlight = regex.test(messagetext);
+        message.highlight = regex.test(messageText);
       }
 
       return message.highlight;

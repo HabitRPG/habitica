@@ -45,7 +45,7 @@ div
             div
               .name(v-if='user.auth && user.auth.local && user.auth.local.username') @{{ user.auth.local.username }}
             div
-              .name(v-if='this.userLoggedIn.contributor.admin') {{ user._id }}
+              .name {{ user._id }}
         .col-12.col-md-4
           button.btn.btn-secondary(v-if='user._id === userLoggedIn._id', @click='editing = !editing') {{ $t('edit') }}
       .row(v-if='!editing')

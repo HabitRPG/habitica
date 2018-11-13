@@ -108,11 +108,11 @@ export default {
     searchResults () {
       if (!this.searchActive) return [];
       if (!this.atRegex.exec(this.text)) return [];
-      let currentSearch = this.atRegex.exec(this.text)[0];
-      currentSearch = currentSearch.substring(1, currentSearch.length);
+      this.currentSearch = this.atRegex.exec(this.text)[0];
+      this.currentSearch = this.currentSearch.substring(1, this.currentSearch.length);
 
       return this.tmpSelections.filter((option) => {
-        return option.displayName.toLowerCase().indexOf(currentSearch.toLowerCase()) !== -1 || option.username && option.username.toLowerCase().indexOf(currentSearch.toLowerCase()) !== -1;
+        return option.displayName.toLowerCase().indexOf(this.currentSearch.toLowerCase()) !== -1 || option.username && option.username.toLowerCase().indexOf(this.currentSearch.toLowerCase()) !== -1;
       }).slice(0, 4);
     },
 
@@ -186,11 +186,8 @@ export default {
     },
     select (result) {
       let newText = this.text;
-      if (result.username) {
-        newText = `${newText}${result.username} `;
-      } else {
-        newText = `${newText}${result.displayName} `;
-      }
+      const targetName = `${result.username || result.displayName} `;
+      newText = newText.replace(new RegExp(`${this.currentSearch}$`), targetName);
       this.$emit('select', newText);
     },
     handleEsc (e) {
