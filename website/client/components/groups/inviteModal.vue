@@ -3,16 +3,18 @@
     div
       strong {{ $t('inviteEmailUsername') }}
       .small {{ $t('inviteEmailUsernameInfo') }}
-      .input-group(v-for='(invite, index) in invites')
-        .d-flex.align-items-center.justify-content-center(v-if='index === invites.length - 1 && invite.text.length === 0')
-          .svg-icon.positive-icon(v-html='icons.positiveIcon')
-        input.form-control(
-          type='text',
-          :placeholder='$t("emailOrUsernameInvite")',
-          v-model='invite.text',
-          v-on:change='checkInviteList',
-          :class='{"input-valid": invite.valid, "is-invalid input-invalid": invite.valid === false}',
-        )
+      div(v-for='(invite, index) in invites')
+        .input-group
+          .d-flex.align-items-center.justify-content-center(v-if='index === invites.length - 1 && invite.text.length === 0')
+            .svg-icon.positive-icon(v-html='icons.positiveIcon')
+          input.form-control(
+            type='text',
+            :placeholder='$t("emailOrUsernameInvite")',
+            v-model='invite.text',
+            v-on:change='checkInviteList',
+            :class='{"input-valid": invite.valid, "is-invalid input-invalid": invite.valid === false}',
+          )
+        .input-error.text-center.mt-2(v-if="invite.error") {{ invite.error }}
     .modal-footer.d-flex.justify-content-center
       a.mr-3(@click='close()') {{ $t('cancel') }}
       button.btn.btn-primary(@click='sendInvites()', :class='{disabled: cannotSubmit}', :disabled='cannotSubmit') {{ $t('sendInvitations') }}
@@ -46,6 +48,11 @@
   .form-control {
     border: 0px;
     color: $gray-50;
+  }
+
+  .input-error {
+    color: $red-50;
+    font-size: 90%;
   }
 
   .input-group {
@@ -92,7 +99,7 @@
   import notifications from 'client/mixins/notifications';
   import positiveIcon from 'assets/svg/positive.svg';
 
-  const INVITE_DEFAULTS = {text: '', valid: null};
+  const INVITE_DEFAULTS = {text: '', error: null, valid: null};
 
   export default {
     computed: {
@@ -123,23 +130,33 @@
         while (this.invites.length < 2) this.invites.push(clone(INVITE_DEFAULTS));
         if (this.invites[this.invites.length - 1].text.length > 0) this.invites.push(clone(INVITE_DEFAULTS));
         forEach(this.invites, (value, index) => {
-          if (value.text.length < 1) return this.invites[index].valid = null;
-          if (isEmail(value.text)) return this.invites[index].valid = true;
+          if (value.text.length < 1 || isEmail(value.text)) {
+            return this.fillErrors(index);
+          }
           if (isUUID(value.text)) {
             this.$store.dispatch('user:userLookup', {uuid: value.text})
               .then(res => {
-                if (res.status === 200) return this.invites[index].valid = true;
-                return this.invites[index].valid = false;
+                return this.fillErrors(index, res);
               });
           } else {
-            this.$store.dispatch('user:userLookup', {username: value.text})
+            let searchUsername = value.text;
+            if (searchUsername[0] === '@') searchUsername = searchUsername.slice(1, searchUsername.length);
+            this.$store.dispatch('user:userLookup', {username: searchUsername})
               .then(res => {
-                if (res.status === 200) return this.invites[index].valid = true;
-                return this.invites[index].valid = false;
+                return this.fillErrors(index, res);
               });
           }
         });
       }, 500),
+      fillErrors (index, res) {
+        if (!res || res.status === 200) {
+          this.invites[index].error = null;
+          if (this.invites[index].text.length < 1) return this.invites[index].valid = null;
+          return this.invites[index].valid = true;
+        }
+        this.invites[index].error = res.response.data.message;
+        return this.invites[index].valid = false;
+      },
       close () {
         this.invites = [clone(INVITE_DEFAULTS), clone(INVITE_DEFAULTS)];
         this.$root.$emit('bv::hide::modal', 'invite-modal');
