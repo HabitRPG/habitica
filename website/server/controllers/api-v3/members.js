@@ -130,13 +130,14 @@ api.getMemberByUsername = {
     if (validationErrors) throw validationErrors;
 
     let username = req.params.username.toLowerCase();
+    if (username[0] === '@') username = username.slice(1, username.length);
 
     let member = await User
       .findOne({'auth.local.lowerCaseUsername': username, 'flags.verifiedUsername': true})
       .select(memberFields)
       .exec();
 
-    if (!member || !member.flags.verifiedUsername) throw new NotFound(res.t('userNotFound'));
+    if (!member) throw new NotFound(res.t('userNotFound'));
 
     // manually call toJSON with minimize: true so empty paths aren't returned
     let memberToJSON = member.toJSON({minimize: true});
