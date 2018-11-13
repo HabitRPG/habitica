@@ -132,7 +132,7 @@ api.getMemberByUsername = {
     let username = req.params.username.toLowerCase();
 
     let member = await User
-      .findOne({'auth.local.lowerCaseUsername': username})
+      .findOne({'auth.local.lowerCaseUsername': username, 'flags.verifiedUsername': true})
       .select(memberFields)
       .exec();
 
