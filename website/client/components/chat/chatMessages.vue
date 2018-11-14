@@ -14,6 +14,7 @@
           v-if='msg.userStyles || (cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected)',
           :member="msg.userStyles || cachedProfileData[msg.uuid]",
           :avatarOnly="true",
+          :overrideTopPadding='"14px"',
           :hideClassBadge='true',
           @click.native="showMemberModal(msg.uuid)",
         )
@@ -40,12 +41,17 @@
           :member="msg.userStyles || cachedProfileData[msg.uuid]",
           :avatarOnly="true",
           :hideClassBadge='true',
+          :overrideTopPadding='"14px"',
           @click.native="showMemberModal(msg.uuid)",
         )
 </template>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
+
+  .avatar {
+    margin-left: -1.75rem;
+  }
 
   .hr {
     width: 100%;
@@ -70,7 +76,9 @@
   }
 
   .card {
+    border: 0px;
     margin-bottom: .5em;
+    padding: 0rem;
   }
 </style>
 

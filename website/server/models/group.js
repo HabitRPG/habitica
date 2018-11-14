@@ -350,40 +350,32 @@ schema.statics.toJSONCleanChat = async function groupToJSONCleanChat (group, use
   return toJSON;
 };
 
-/**
- * Checks invitation uuids and emails for possible errors.
- *
- * @param  uuids  An array of user ids
- * @param  emails  An array of emails
- * @param  res  Express res object for use with translations
- * @throws BadRequest An error describing the issue with the invitations
- */
-schema.statics.validateInvitations = async function getInvitationError (uuids, emails, res, group = null) {
-  let uuidsIsArray = Array.isArray(uuids);
-  let emailsIsArray = Array.isArray(emails);
-  let emptyEmails = emailsIsArray && emails.length < 1;
-  let emptyUuids = uuidsIsArray && uuids.length < 1;
+function getInviteError (uuids, emails, usernames) {
+  const uuidsIsArray = Array.isArray(uuids);
+  const emailsIsArray = Array.isArray(emails);
+  const usernamesIsArray = Array.isArray(usernames);
+  const emptyEmails = emailsIsArray && emails.length < 1;
+  const emptyUuids = uuidsIsArray && uuids.length < 1;
+  const emptyUsernames = usernamesIsArray && usernames.length < 1;
 
   let errorString;
 
-  if (!uuids && !emails) {
+  if (!uuids && !emails && !usernames) {
     errorString = 'canOnlyInviteEmailUuid';
   } else if (uuids && !uuidsIsArray) {
     errorString = 'uuidsMustBeAnArray';
   } else if (emails && !emailsIsArray) {
     errorString = 'emailsMustBeAnArray';
-  } else if (!emails && emptyUuids) {
-    errorString = 'inviteMissingUuid';
-  } else if (!uuids && emptyEmails) {
-    errorString = 'inviteMissingEmail';
-  } else if (emptyEmails && emptyUuids) {
+  } else if (usernames && !usernamesIsArray) {
+    errorString = 'usernamesMustBeAnArray';
+  } else if ((!emails || emptyEmails) && (!uuids || emptyUuids) && (!usernames || emptyUsernames)) {
     errorString = 'inviteMustNotBeEmpty';
   }
 
-  if (errorString) {
-    throw new BadRequest(res.t(errorString));
-  }
+  return errorString;
+}
 
+function getInviteCount (uuids, emails) {
   let totalInvites = 0;
 
   if (uuids) {
@@ -394,6 +386,27 @@ schema.statics.validateInvitations = async function getInvitationError (uuids, e
     totalInvites += emails.length;
   }
 
+  return totalInvites;
+}
+
+/**
+ * Checks invitation uuids and emails for possible errors.
+ *
+ * @param  uuids  An array of user ids
+ * @param  emails  An array of emails
+ * @param  res  Express res object for use with translations
+ * @throws BadRequest An error describing the issue with the invitations
+ */
+schema.statics.validateInvitations = async function getInvitationError (invites, res, group = null) {
+  const {
+    uuids,
+    emails,
+    usernames,
+  } = invites;
+  const errorString = getInviteError(uuids, emails, usernames);
+  if (errorString) throw new BadRequest(res.t(errorString));
+
+  const totalInvites = getInviteCount(uuids, emails);
   if (totalInvites > INVITES_LIMIT) {
     throw new BadRequest(res.t('canOnlyInviteMaxInvites', {maxInvites: INVITES_LIMIT}));
   }

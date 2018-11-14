@@ -34,7 +34,7 @@ describe('GET /members/:memberId', () => {
       '_id', 'id', 'preferences', 'profile', 'stats', 'achievements', 'party',
       'backer', 'contributor', 'auth', 'items', 'inbox', 'loginIncentives', 'flags',
     ]);
-    expect(Object.keys(memberRes.auth)).to.eql(['timestamps']);
+    expect(Object.keys(memberRes.auth)).to.eql(['local', 'timestamps']);
     expect(Object.keys(memberRes.preferences).sort()).to.eql([
       'size', 'hair', 'skin', 'shirt',
       'chair', 'costume', 'sleep', 'background', 'tasks', 'disableClasses',

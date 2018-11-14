@@ -355,7 +355,10 @@ export default {
     sendMessage (member) {
       this.$root.$emit('habitica::new-inbox-message', {
         userIdToMessage: member._id,
-        userName: member.profile.name,
+        displayName: member.profile.name,
+        username: member.auth.local.username,
+        backer: member.backer,
+        contributor: member.contributor,
       });
     },
     async searchMembers (searchTerm = '') {
