@@ -53,7 +53,7 @@ describe('GET /groups/:groupId/invites', () => {
       auth: {
         local: {
           username: invited.auth.local.username,
-        }
+        },
       },
       flags: {
         verifiedUsername: true,

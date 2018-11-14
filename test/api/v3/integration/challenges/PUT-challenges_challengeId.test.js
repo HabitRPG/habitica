@@ -82,7 +82,7 @@ describe('PUT /challenges/:challengeId', () => {
       auth: {
         local: {
           username: member.auth.local.username,
-        }
+        },
       },
       flags: {
         verifiedUsername: true,

@@ -59,7 +59,7 @@ describe('GET /groups/:groupId/members', () => {
       auth: {
         local: {
           username: user.auth.local.username,
-        }
+        },
       },
       flags: {
         verifiedUsername: true,
@@ -145,7 +145,7 @@ describe('GET /groups/:groupId/members', () => {
     let res = await user.get('/groups/party/members?includeAllMembers=true');
     expect(res.length).to.equal(30);
     res.forEach(member => {
-      expect(member).to.have.all.keys(['_id', 'id', 'profile']);
+      expect(member).to.have.all.keys(['_id', 'auth', 'flags', 'id', 'profile']);
       expect(member.profile).to.have.all.keys(['name']);
     });
   });

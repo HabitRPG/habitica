@@ -43,7 +43,7 @@ describe('GET challenges/user', () => {
         auth: {
           local: {
             username: user.auth.local.username,
-          }
+          },
         },
         flags: {
           verifiedUsername: true,
@@ -73,7 +73,7 @@ describe('GET challenges/user', () => {
         auth: {
           local: {
             username: user.auth.local.username,
-          }
+          },
         },
         flags: {
           verifiedUsername: true,
@@ -98,7 +98,7 @@ describe('GET challenges/user', () => {
         auth: {
           local: {
             username: user.auth.local.username,
-          }
+          },
         },
         flags: {
           verifiedUsername: true,
@@ -128,7 +128,7 @@ describe('GET challenges/user', () => {
         auth: {
           local: {
             username: user.auth.local.username,
-          }
+          },
         },
         flags: {
           verifiedUsername: true,
@@ -153,7 +153,7 @@ describe('GET challenges/user', () => {
         auth: {
           local: {
             username: user.auth.local.username,
-          }
+          },
         },
         flags: {
           verifiedUsername: true,
