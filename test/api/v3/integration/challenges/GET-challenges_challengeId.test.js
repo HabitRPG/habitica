@@ -50,7 +50,7 @@ describe('GET /challenges/:challengeId', () => {
         auth: {
           local: {
             username: groupLeader.auth.local.username,
-          }
+          },
         },
         flags: {
           verifiedUsername: true,
@@ -116,7 +116,7 @@ describe('GET /challenges/:challengeId', () => {
         auth: {
           local: {
             username: challengeLeader.auth.local.username,
-          }
+          },
         },
         flags: {
           verifiedUsername: true,
@@ -150,7 +150,7 @@ describe('GET /challenges/:challengeId', () => {
         auth: {
           local: {
             username: challengeLeader.auth.local.username,
-          }
+          },
         },
         flags: {
           verifiedUsername: true,
@@ -206,7 +206,7 @@ describe('GET /challenges/:challengeId', () => {
         auth: {
           local: {
             username: challengeLeader.auth.local.username,
-          }
+          },
         },
         flags: {
           verifiedUsername: true,
@@ -240,7 +240,7 @@ describe('GET /challenges/:challengeId', () => {
         auth: {
           local: {
             username: challengeLeader.auth.local.username,
-          }
+          },
         },
         flags: {
           verifiedUsername: true,

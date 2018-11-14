@@ -42,7 +42,7 @@ describe('GET challenges/groups/:groupId', () => {
         auth: {
           local: {
             username: user.auth.local.username,
-          }
+          },
         },
         flags: {
           verifiedUsername: true,
@@ -57,7 +57,7 @@ describe('GET challenges/groups/:groupId', () => {
         auth: {
           local: {
             username: user.auth.local.username,
-          }
+          },
         },
         flags: {
           verifiedUsername: true,
@@ -77,7 +77,7 @@ describe('GET challenges/groups/:groupId', () => {
         auth: {
           local: {
             username: user.auth.local.username,
-          }
+          },
         },
         flags: {
           verifiedUsername: true,
@@ -92,7 +92,7 @@ describe('GET challenges/groups/:groupId', () => {
         auth: {
           local: {
             username: user.auth.local.username,
-          }
+          },
         },
         flags: {
           verifiedUsername: true,
@@ -160,7 +160,7 @@ describe('GET challenges/groups/:groupId', () => {
         auth: {
           local: {
             username: user.auth.local.username,
-          }
+          },
         },
         flags: {
           verifiedUsername: true,
@@ -175,7 +175,7 @@ describe('GET challenges/groups/:groupId', () => {
         auth: {
           local: {
             username: user.auth.local.username,
-          }
+          },
         },
         flags: {
           verifiedUsername: true,
@@ -286,7 +286,7 @@ describe('GET challenges/groups/:groupId', () => {
         auth: {
           local: {
             username: user.auth.local.username,
-          }
+          },
         },
         flags: {
           verifiedUsername: true,
@@ -301,7 +301,7 @@ describe('GET challenges/groups/:groupId', () => {
         auth: {
           local: {
             username: user.auth.local.username,
-          }
+          },
         },
         flags: {
           verifiedUsername: true,
@@ -321,7 +321,7 @@ describe('GET challenges/groups/:groupId', () => {
         auth: {
           local: {
             username: user.auth.local.username,
-          }
+          },
         },
         flags: {
           verifiedUsername: true,
@@ -336,7 +336,7 @@ describe('GET challenges/groups/:groupId', () => {
         auth: {
           local: {
             username: user.auth.local.username,
-          }
+          },
         },
         flags: {
           verifiedUsername: true,
@@ -371,7 +371,7 @@ describe('GET challenges/groups/:groupId', () => {
         auth: {
           local: {
             username: user.auth.local.username,
-          }
+          },
         },
         flags: {
           verifiedUsername: true,
@@ -386,7 +386,7 @@ describe('GET challenges/groups/:groupId', () => {
         auth: {
           local: {
             username: user.auth.local.username,
-          }
+          },
         },
         flags: {
           verifiedUsername: true,
@@ -406,7 +406,7 @@ describe('GET challenges/groups/:groupId', () => {
         auth: {
           local: {
             username: user.auth.local.username,
-          }
+          },
         },
         flags: {
           verifiedUsername: true,
@@ -421,7 +421,7 @@ describe('GET challenges/groups/:groupId', () => {
         auth: {
           local: {
             username: user.auth.local.username,
-          }
+          },
         },
         flags: {
           verifiedUsername: true,

@@ -82,7 +82,7 @@ describe('POST /challenges/:challengeId/join', () => {
         auth: {
           local: {
             username: groupLeader.auth.local.username,
-          }
+          },
         },
         flags: {
           verifiedUsername: true,

@@ -63,7 +63,7 @@ describe('GET /challenges/:challengeId/members', () => {
       auth: {
         local: {
           username: groupLeader.auth.local.username,
-        }
+        },
       },
       flags: {
         verifiedUsername: true,
@@ -84,7 +84,7 @@ describe('GET /challenges/:challengeId/members', () => {
       auth: {
         local: {
           username: leader.auth.local.username,
-        }
+        },
       },
       flags: {
         verifiedUsername: true,
@@ -107,7 +107,7 @@ describe('GET /challenges/:challengeId/members', () => {
       auth: {
         local: {
           username: anotherUser.auth.local.username,
-        }
+        },
       },
       flags: {
         verifiedUsername: true,

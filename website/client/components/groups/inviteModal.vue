@@ -11,7 +11,8 @@
             type='text',
             :placeholder='$t("emailOrUsernameInvite")',
             v-model='invite.text',
-            v-on:keyup='checkInviteList',
+            v-on:keyup='expandInviteList',
+            v-on:change='checkInviteList',
             :class='{"input-valid": invite.valid, "is-invalid input-invalid": invite.valid === false}',
           )
         .input-error.text-center.mt-2(v-if="invite.error") {{ invite.error }}
@@ -124,11 +125,10 @@
     },
     methods: {
       checkInviteList: debounce(function checkList () {
-        this.invites = filter(this.invites, (invite) => {
-          return invite.text.length > 0;
+        this.invites = filter(this.invites, (invite, index) => {
+          return invite.text.length > 0 || index === this.invites.length - 1;
         });
         while (this.invites.length < 2) this.invites.push(clone(INVITE_DEFAULTS));
-        if (this.invites[this.invites.length - 1].text.length > 0) this.invites.push(clone(INVITE_DEFAULTS));
         forEach(this.invites, (value, index) => {
           if (value.text.length < 1 || isEmail(value.text)) {
             return this.fillErrors(index);
@@ -148,6 +148,9 @@
           }
         });
       }, 250),
+      expandInviteList () {
+        if (this.invites[this.invites.length - 1].text.length > 0) this.invites.push(clone(INVITE_DEFAULTS));
+      },
       fillErrors (index, res) {
         if (!res || res.status === 200) {
           this.invites[index].error = null;
