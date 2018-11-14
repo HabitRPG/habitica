@@ -569,7 +569,7 @@ describe('Group Model', () => {
       });
 
       it('throws an error if no uuids or emails are passed in', async () => {
-        await expect(Group.validateInvitations(null, null, res)).to.eventually.be.rejected.and.eql({
+        await expect(Group.validateInvitations({}, res)).to.eventually.be.rejected.and.eql({
           httpCode: 400,
           message: 'Bad request.',
           name: 'BadRequest',
@@ -579,7 +579,7 @@ describe('Group Model', () => {
       });
 
       it('throws an error if only uuids are passed in, but they are not an array', async () => {
-        await expect(Group.validateInvitations({ uuid: 'user-id'}, null, res)).to.eventually.be.rejected.and.eql({
+        await expect(Group.validateInvitations({ uuids: 'user-id'}, res)).to.eventually.be.rejected.and.eql({
           httpCode: 400,
           message: 'Bad request.',
           name: 'BadRequest',
@@ -589,7 +589,7 @@ describe('Group Model', () => {
       });
 
       it('throws an error if only emails are passed in, but they are not an array', async () => {
-        await expect(Group.validateInvitations(null, { emails: 'user@example.com'}, res)).to.eventually.be.rejected.and.eql({
+        await expect(Group.validateInvitations({emails: 'user@example.com'}, res)).to.eventually.be.rejected.and.eql({
           httpCode: 400,
           message: 'Bad request.',
           name: 'BadRequest',
@@ -599,27 +599,27 @@ describe('Group Model', () => {
       });
 
       it('throws an error if emails are not passed in, and uuid array is empty', async () => {
-        await expect(Group.validateInvitations([], null, res)).to.eventually.be.rejected.and.eql({
+        await expect(Group.validateInvitations({uuids: []},  res)).to.eventually.be.rejected.and.eql({
           httpCode: 400,
           message: 'Bad request.',
           name: 'BadRequest',
         });
         expect(res.t).to.be.calledOnce;
-        expect(res.t).to.be.calledWith('inviteMissingUuid');
+        expect(res.t).to.be.calledWith('inviteMustNotBeEmpty');
       });
 
       it('throws an error if uuids are not passed in, and email array is empty', async () => {
-        await expect(Group.validateInvitations(null, [], res)).to.eventually.be.rejected.and.eql({
+        await expect(Group.validateInvitations({emails: []},  res)).to.eventually.be.rejected.and.eql({
           httpCode: 400,
           message: 'Bad request.',
           name: 'BadRequest',
         });
         expect(res.t).to.be.calledOnce;
-        expect(res.t).to.be.calledWith('inviteMissingEmail');
+        expect(res.t).to.be.calledWith('inviteMustNotBeEmpty');
       });
 
       it('throws an error if uuids and emails are passed in as empty arrays', async () => {
-        await expect(Group.validateInvitations([], [], res)).to.eventually.be.rejected.and.eql({
+        await expect(Group.validateInvitations({emails: [], uuids: []}, res)).to.eventually.be.rejected.and.eql({
           httpCode: 400,
           message: 'Bad request.',
           name: 'BadRequest',
@@ -639,7 +639,7 @@ describe('Group Model', () => {
 
         uuids.push('one-more-uuid'); // to put it over the limit
 
-        await expect(Group.validateInvitations(uuids, emails, res)).to.eventually.be.rejected.and.eql({
+        await expect(Group.validateInvitations({uuids, emails}, res)).to.eventually.be.rejected.and.eql({
           httpCode: 400,
           message: 'Bad request.',
           name: 'BadRequest',
@@ -657,33 +657,33 @@ describe('Group Model', () => {
           emails.push(`user-${i}@example.com`);
         }
 
-        await Group.validateInvitations(uuids, emails, res);
+        await Group.validateInvitations({uuids, emails}, res);
         expect(res.t).to.not.be.called;
       });
 
 
       it('does not throw an error if only user ids are passed in', async () => {
-        await Group.validateInvitations(['user-id', 'user-id2'], null, res);
+        await Group.validateInvitations({uuids: ['user-id', 'user-id2']}, res);
         expect(res.t).to.not.be.called;
       });
 
       it('does not throw an error if only emails are passed in', async () => {
-        await Group.validateInvitations(null, ['user1@example.com', 'user2@example.com'], res);
+        await Group.validateInvitations({emails: ['user1@example.com', 'user2@example.com']}, res);
         expect(res.t).to.not.be.called;
       });
 
       it('does not throw an error if both uuids and emails are passed in', async () => {
-        await Group.validateInvitations(['user-id', 'user-id2'], ['user1@example.com', 'user2@example.com'], res);
+        await Group.validateInvitations({uuids: ['user-id', 'user-id2'], emails: ['user1@example.com', 'user2@example.com']}, res);
         expect(res.t).to.not.be.called;
       });
 
       it('does not throw an error if uuids are passed in and emails are an empty array', async () => {
-        await Group.validateInvitations(['user-id', 'user-id2'], [], res);
+        await Group.validateInvitations({uuids: ['user-id', 'user-id2'], emails: []}, res);
         expect(res.t).to.not.be.called;
       });
 
       it('does not throw an error if emails are passed in and uuids are an empty array', async () => {
-        await Group.validateInvitations([], ['user1@example.com', 'user2@example.com'], res);
+        await Group.validateInvitations({uuids: [], emails: ['user1@example.com', 'user2@example.com']}, res);
         expect(res.t).to.not.be.called;
       });
     });

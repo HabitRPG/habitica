@@ -368,7 +368,7 @@ function getInviteError (uuids, emails, usernames) {
     errorString = 'emailsMustBeAnArray';
   } else if (usernames && !usernamesIsArray) {
     errorString = 'usernamesMustBeAnArray';
-  } else if (emptyEmails && emptyUuids && emptyUsernames) {
+  } else if ((!emails || emptyEmails) && (!uuids || emptyUuids) && (!usernames || emptyUsernames)) {
     errorString = 'inviteMustNotBeEmpty';
   }
 
