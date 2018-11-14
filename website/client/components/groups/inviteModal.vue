@@ -11,7 +11,7 @@
             type='text',
             :placeholder='$t("emailOrUsernameInvite")',
             v-model='invite.text',
-            v-on:change='checkInviteList',
+            v-on:keyup='checkInviteList',
             :class='{"input-valid": invite.valid, "is-invalid input-invalid": invite.valid === false}',
           )
         .input-error.text-center.mt-2(v-if="invite.error") {{ invite.error }}
@@ -147,7 +147,7 @@
               });
           }
         });
-      }, 500),
+      }, 250),
       fillErrors (index, res) {
         if (!res || res.status === 200) {
           this.invites[index].error = null;
