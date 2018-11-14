@@ -211,7 +211,7 @@ export default {
 
       const escapedDisplayName = escapeRegExp(displayName);
       const escapedUsername = escapeRegExp(username);
-      const pattern = `@(${escapedUsername}|${escapedDisplayName})([^\w]|$)`;
+      const pattern = `@(${escapedUsername}|${escapedDisplayName})(\\b)`;
       const precedingChar = messageText.substring(mentioned - 1, mentioned);
       if (mentioned === 0 || precedingChar.trim() === '' || precedingChar === '@') {
         let regex = new RegExp(pattern, 'i');
@@ -294,7 +294,7 @@ export default {
       this.$emit('show-member-modal', memberId);
     },
     atHighlight (text) {
-      return text.replace(new RegExp(/(?!\b)@[\w-]+/g), match => {
+      return text.replace(new RegExp(`@(${this.user.auth.local.username}|${this.user.profile.name})(?:\\b)`, 'gi'), match => {
         return `<span class="at-highlight">${match}</span>`;
       });
     },
