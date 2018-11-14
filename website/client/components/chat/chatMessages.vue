@@ -47,7 +47,8 @@
   @import '~client/assets/scss/colors.scss';
 
   .avatar {
-    width: 15%;
+    width: 10%;
+    min-width: 7rem;
   }
 
   .avatar-left {
@@ -58,6 +59,7 @@
   .inbox-avatar-left {
     margin-left: -1rem;
     margin-right: 2.5rem;
+    min-width: 5rem;
   }
 
   .inbox-avatar-right {
@@ -90,7 +92,7 @@
     border: 0px;
     margin-bottom: .5em;
     padding: 0rem;
-    width: 85%;
+    width: 90%;
   }
 </style>
 
