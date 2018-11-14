@@ -200,9 +200,10 @@
     "usernameIssueInvalidCharacters": "Nazwy użytkowników mogą zawierać wyłącznie litery od a do z, cyfry od 0 do 9, myślniki lub podkreślenia.",
     "currentUsername": "Aktualna nazwa użytkownika:",
     "displaynameIssueLength": "Nazwy Graczy muszą zawierać od 1 do 30 znaków.",
-    "displaynameIssueSlur": "Nazwy Graczy nie mogą zawierać wulgaryzmów",
+    "displaynameIssueSlur": "Display Names may not contain inappropriate language.",
     "goToSettings": "Przejdź do ustawień",
     "usernameVerifiedConfirmation": "Twoja nazwa użytkownika, <%= username %>, została potwierdzona!",
     "usernameNotVerified": "Prosimy potwierdzić swoją nazwę użytkownika.",
-    "changeUsernameDisclaimer": "Wkrótce będziemy zmieniać nazwy logowania na unikalne, publiczne nazwy użytkowników. Nowe nazwy użytkowników będą używane do: zaproszeń, wywoływania innych osób na czacie poprzez @nazwę oraz w korespondencji."
+    "changeUsernameDisclaimer": "Wkrótce będziemy zmieniać nazwy logowania na unikalne, publiczne nazwy użytkowników. Nowe nazwy użytkowników będą używane do: zaproszeń, wywoływania innych osób na czacie poprzez @nazwę oraz w korespondencji.",
+    "verifyUsernameVeteranPet": "One of these Veteran Pets will be waiting for you after you've finished confirming!"
 }

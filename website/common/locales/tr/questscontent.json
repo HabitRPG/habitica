@@ -619,10 +619,10 @@
     "questKangarooUnlockText": "Pazardan Kanguru yumurtaları satın alabilmeni sağlar",
     "forestFriendsText": "Orman Arkadaşları Görev Paketi",
     "forestFriendsNotes": "'Baharın Ruhu', 'Kabakirpi' ve 'Sarmaşıklı Ağaç' içerir. 30 Eylül'e kadar yararlanılabilir.",
-    "questAlligatorText": "The Insta-Gator",
-    "questAlligatorNotes": "“Crikey!” exclaims @gully. “An Insta-Gator in its natural habitat! Careful, it distracts its prey with things that seem urgent THIS INSTANT, and it feeds on the unchecked Dailies that result.” You fall silent to avoid attracting its attention, but to no avail. The Insta-Gator spots you and charges! Distracting voices rise up from Swamps of Stagnation, grabbing for your attention: “Read this post! See this photo! Pay attention to me THIS INSTANT!” You scramble to mount a counterattack, completing your Dailies and bolstering your good Habits to fight off the dreaded Insta-Gator.",
-    "questAlligatorCompletion": "With your attention focused on what’s important and not the Insta-Gator’s distractions, the Insta-Gator flees. Victory! “Are those eggs? They look like gator eggs to me,” asks @mfonda. “If we care for them correctly, they’ll be loyal pets or faithful steeds,” answers @UncommonCriminal, handing you three to care for. Let’s hope so, or else the Insta-Gator might make a return…",
-    "questAlligatorBoss": "Insta-Gator",
-    "questAlligatorDropAlligatorEgg": "Alligator (Egg)",
-    "questAlligatorUnlockText": "Unlocks purchasable Alligator eggs in the Market"
+    "questAlligatorText": "Şimdi-Timsah",
+    "questAlligatorNotes": "\"Vay!\" diye haykırdı @gully. \"Doğal habitatında bir Şimdi-Timsah! Dikkatli olun, avını HEMEN ŞİMDİ yapılması gerekiyormuş gibi görünen işlerle oyalayıp, sonucunda tamamlanmamış Günlük İşlerle beslenir.\" Dikkatini çekmemek için sessizleştin ama boşuna. Şimdi-Timsah seni fark etti ve hamle yaptı! Dikkat dağıtan sesler Durağanlık Bataklıklarından yükselmeye başladı ve ilgini ele geçirdi: \"Bu mesajı oku! Bu fotoğrafa bak! Dikkatini bana ver, HEMEN ŞİMDİ!\" Bir karşı saldırı yapmak, haşmetli Şimdi-Timsah'la mücadele etmek adına Günlük İşlerini bitirmek ve olumlu Alışkanlıklarını desteklemek için çabaladın.",
+    "questAlligatorCompletion": "Dikkatini Şimdi-Timsah'ın oyalayıcı şeyleri yerine önemli şeylere verdin ve Şimdi-Timsah kuyruğunu kıstırıp kaçtı. Zafer! \"Bunlar yumurta mı? Timsah yumurtasına benziyorlar,\" dedi @mfonda. \"Eğer dikkatlice bakarsak sadık hayvanlara veya vefalı bineklere dönüşürler,\" diye yanıtladı @UncommonCriminal, üç tanesini ilgilenmen için sana verirken. Bunlara odaklanacağını umalım, yoksa Şimdi-Timsah geri dönebilir...",
+    "questAlligatorBoss": "Şimdi-Timsah",
+    "questAlligatorDropAlligatorEgg": "Timsah (Yumurta)",
+    "questAlligatorUnlockText": "Pazardan Timsah yumurtaları satın alabilmeni sağlar"
 }

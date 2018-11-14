@@ -200,9 +200,10 @@
     "usernameIssueInvalidCharacters": "Gli username possono contenere solo lettere da a a z, numeri da 0 a 9, trattini e trattini bassi.",
     "currentUsername": "Username corrente:",
     "displaynameIssueLength": "Display Names must be between 1 and 30 characters.",
-    "displaynameIssueSlur": "Display Names may not contain inappropriate language",
+    "displaynameIssueSlur": "Display Names may not contain inappropriate language.",
     "goToSettings": "Go to Settings",
     "usernameVerifiedConfirmation": "Il tuo username, <%= username %>, è confermato!",
     "usernameNotVerified": "Per favore, conferma il tuo username.",
-    "changeUsernameDisclaimer": "We will be transitioning login names to unique, public usernames soon. This username will be used for invitations, @mentions in chat, and messaging."
+    "changeUsernameDisclaimer": "We will be transitioning login names to unique, public usernames soon. This username will be used for invitations, @mentions in chat, and messaging.",
+    "verifyUsernameVeteranPet": "One of these Veteran Pets will be waiting for you after you've finished confirming!"
 }

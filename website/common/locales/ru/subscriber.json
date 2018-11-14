@@ -207,7 +207,7 @@
     "haveCouponCode": "У вас есть код купона?",
     "subscriptionAlreadySubscribedLeadIn": "Спасибо за подписку!",
     "subscriptionAlreadySubscribed1": "Чтобы просмотреть свои данные о подписке и отменить, продлить или изменить её, пожалуйста перейдите по <a href='/user/settings/subscription'>Иконке профилья &gt; Настройки &gt; Подписка</a>.",
-    "purchaseAll": "Приобрести всё",
+    "purchaseAll": "Purchase Set",
     "gemsPurchaseNote": "Подписчики могут купить кристаллы за золото! Чтобы было проще, вы можете просто добавить кристалл в колонку наград.",
     "gemsRemaining": "самоцветов осталось",
     "notEnoughGemsToBuy": "Вы не можете купить это количество"

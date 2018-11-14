@@ -127,7 +127,7 @@
     "summer2018MerfolkMonarchSet": "Meervolk-Monarch (Heiler)",
     "summer2018FisherRogueSet": "Fischdieb (Schurke)",
     "fall2018MinotaurWarriorSet": "Minotaurus (Krieger)",
-    "fall2018CandymancerMageSet": "Süssigkeitenbeschwörer (Magier)",
+    "fall2018CandymancerMageSet": "Süßigkeitenbeschwörer (Magier)",
     "fall2018CarnivorousPlantSet": "Fleischfressende Pflanze (Heiler)",
     "fall2018AlterEgoSet": "Alter Ego (Schurke)",
     "eventAvailability": "Zum Kauf verfügbar bis zum <%= date(locale) %>.",

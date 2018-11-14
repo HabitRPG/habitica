@@ -785,7 +785,7 @@
     "armorArmoireRobeOfSpadesText": "Tunique de Pique",
     "armorArmoireRobeOfSpadesNotes": "Cette tunique luxuriante contient des poches dissimulées pour y ranger des trésors ou des armes - c'est vous qui voyez ! Augmente la Force de <%= str %>. Armoire enchantée : Set As de Pique (objet 2 sur 3).",
     "armorArmoireSoftBlueSuitText": "Soft Blue Suit",
-    "armorArmoireSoftBlueSuitNotes": "Blue is a calming colour. So calming, some even wear this soft outfit to sleep... zZz. Increases Intelligence by <%= int %> and Perception by <%= per %>. Enchanted Armoire: Blue Loungewear Set (Item 2 of 3).",
+    "armorArmoireSoftBlueSuitNotes": "Le bleu est une couleur apaisante. À tel point que certains revêtent même cette douce tenue pour dormir... zZz. Augmente l'Intelligence de <%= int %> et la Perception de <%= per %>. Armoire enchantée: Set de Vêtements d'intérieur Bleus (Objet 2 de 3).",
     "headgear": "heaume",
     "headgearCapitalized": "Couvre-chef",
     "headBase0Text": "Pas de couvre-chef",

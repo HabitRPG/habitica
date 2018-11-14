@@ -200,9 +200,10 @@
     "usernameIssueInvalidCharacters": "登陆名只能含有字母a至z，数字0至9，连字符，或者下划线。",
     "currentUsername": "现在的登录名：",
     "displaynameIssueLength": "角色名的长度必须在1至30个字符之间。",
-    "displaynameIssueSlur": "角色名不得含有不恰当的语言。",
+    "displaynameIssueSlur": "Display Names may not contain inappropriate language.",
     "goToSettings": "前往设置。",
     "usernameVerifiedConfirmation": "您的登录名，<%= username %>，已确认！",
     "usernameNotVerified": "请确认您的登录名。",
-    "changeUsernameDisclaimer": "我们很快就会将登录名转换为唯一的公共用户名。 此用户名将用于邀请，聊天中的提到他人的@和消息。"
+    "changeUsernameDisclaimer": "我们很快就会将登录名转换为唯一的公共用户名。 此用户名将用于邀请，聊天中的提到他人的@和消息。",
+    "verifyUsernameVeteranPet": "One of these Veteran Pets will be waiting for you after you've finished confirming!"
 }
