@@ -125,7 +125,7 @@
     "importantAnnouncements": "Lembretes de fazer check-in para completar tarefas e receber recompensas",
     "weeklyRecaps": "Resumos de atividades da sua conta na semana passada (Nota: Atualmente está desativado devido a problemas de desempenho, mas esperamos ter isto funcionando e enviando e-mails novamente em breve!)",
     "onboarding": "Orientações em como preparar sua conta no Habitica",
-    "majorUpdates": "Important announcements",
+    "majorUpdates": "Anúncios importantes",
     "questStarted": "Sua Missão começou",
     "invitedQuest": "Convidado para Missão",
     "kickedGroup": "Expulso do grupo",
@@ -157,7 +157,7 @@
     "generate": "Gerar",
     "getCodes": "Obter Códigos",
     "webhooks": "Webhooks",
-    "webhooksInfo": "Habitica provides webhooks so that when certain actions occur in your account, information can be sent to a script on another website. You can specify those scripts here. Be careful with this feature because specifying an incorrect URL can cause errors or slowness in Habitica. For more information, see the wiki's <a target=\"_blank\" href=\"https://habitica.wikia.com/wiki/Webhooks\">Webhooks</a> page.",
+    "webhooksInfo": "O Habitica fornece webhooks para que, quando certas ações ocorrerem na sua conta, as informações possam ser enviadas para um script em outro site. Você pode especificar esses scripts aqui. Tenha cuidado com esse recurso, pois especificar um URL incorreto pode causar erros ou lentidão no Habitica. Para mais informações, veja <a target=\"_blank\" href=\"https://habitica.wikia.com/wiki/Webhooks\">Webhooks</a>, na página da wiki.",
     "enabled": "Habilitado",
     "webhookURL": "URL do Webhook",
     "invalidUrl": "url inválida",
@@ -200,9 +200,10 @@
     "usernameIssueInvalidCharacters": "Nomes de usuários devem conter apenas letras de A a Z, números de 0 a 9, hífens ou underlines.",
     "currentUsername": "Nome de usuário atual:",
     "displaynameIssueLength": "Os nomes de exibição devem conter entre 1 e 30 caracteres.",
-    "displaynameIssueSlur": "Os nomes de exibição não podem conter linguagem imprópria.",
+    "displaynameIssueSlur": "Display Names may not contain inappropriate language.",
     "goToSettings": "Ir para Configurações",
     "usernameVerifiedConfirmation": "Seu nome de usuário, <%= username %>, foi confirmado!",
     "usernameNotVerified": "Por favor, confirme seu nome de usuário.",
-    "changeUsernameDisclaimer": "Faremos a transição dos nomes de login para nomes de usuários públicos exclusivos em breve. Este nome de usuário será usado para convites, @menções em bate-papo e mensagens."
+    "changeUsernameDisclaimer": "Faremos a transição dos nomes de login para nomes de usuários públicos exclusivos em breve. Este nome de usuário será usado para convites, @menções em bate-papo e mensagens.",
+    "verifyUsernameVeteranPet": "One of these Veteran Pets will be waiting for you after you've finished confirming!"
 }

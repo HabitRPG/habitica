@@ -267,7 +267,7 @@
     "weaponSpecialSummer2018HealerText": "Merfolk Monarch Trident",
     "weaponSpecialSummer2018HealerNotes": "With a benevolent gesture, you command healing water to flow through your dominions in waves. Increases Intelligence by <%= int %>. Limited Edition 2018 Summer Gear.",
     "weaponSpecialFall2018RogueText": "Vial of Clarity",
-    "weaponSpecialFall2018RogueNotes": "When you need to come back to your senses, when you need a little boost to make the right decision, take a deep breath and a sip. It'll be OK! Increases Strength by <%= str %>. Limited Edition 2018 Autumn Gear.",
+    "weaponSpecialFall2018RogueNotes": "Wanneer je weer bij zinnen moet komen, wanneer je een kleine boost nodig hebt om de juiste beslissing te nemen, haal diep adem en neem een slok. Het komt wel goed! Verhoogt kracht met <%= str %>. Beperkte Editie 2018 Herfstuitrusting. ",
     "weaponSpecialFall2018WarriorText": "Zweep van Minos",
     "weaponSpecialFall2018WarriorNotes": "Not quite long enough to unwind behind you for keeping your bearings in a maze. Well, maybe a very small maze. Increases Strength by <%= str %>. Limited Edition 2018 Autumn Gear.",
     "weaponSpecialFall2018MageText": "Staf van Zoetheid",

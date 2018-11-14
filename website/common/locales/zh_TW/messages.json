@@ -61,5 +61,6 @@
     "notificationsRequired": "通知用ID是必須的。",
     "unallocatedStatsPoints": "你有<span class=\"notification-bold-blue\"><%= points %>點未分配屬性點</span>",
     "beginningOfConversation": "您與 <%= userName %> 的對話即將開始。記得要和善、尊重，並遵守社群守則！",
-    "messageDeletedUser": "Sorry, this user has deleted their account."
+    "messageDeletedUser": "Sorry, this user has deleted their account.",
+    "messageMissingDisplayName": "Missing display name."
 }

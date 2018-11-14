@@ -200,9 +200,10 @@
     "usernameIssueInvalidCharacters": "Nama pengguna hanya boleh mengandung huruf a hingga z, angka 0 sampai 9, tanda penghubung, atau garis bawah.",
     "currentUsername": "Nama pengguna sekarang:",
     "displaynameIssueLength": "Nama Tampilan harus di antara 1 hingga 30 karakter.",
-    "displaynameIssueSlur": "Nama Tampilan tidak boleh mengandung kata-kata kasar.",
+    "displaynameIssueSlur": "Display Names may not contain inappropriate language.",
     "goToSettings": "Go to Settings",
     "usernameVerifiedConfirmation": "Nama penggunamu, <%= username %>, telah dikonfirmasi!",
     "usernameNotVerified": "Silahkan konfirmasi nama penggunamu.",
-    "changeUsernameDisclaimer": "We will be transitioning login names to unique, public usernames soon. This username will be used for invitations, @mentions in chat, and messaging."
+    "changeUsernameDisclaimer": "We will be transitioning login names to unique, public usernames soon. This username will be used for invitations, @mentions in chat, and messaging.",
+    "verifyUsernameVeteranPet": "One of these Veteran Pets will be waiting for you after you've finished confirming!"
 }

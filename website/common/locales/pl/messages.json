@@ -61,5 +61,6 @@
     "notificationsRequired": "Wymagane są identyfikatory powiadomienia",
     "unallocatedStatsPoints": "Masz <span class=\"notification-bold-blue\">nieprzydzielone Punkty Atrybutów: <%= points %></span>",
     "beginningOfConversation": "To początek Twojej konwersacji z <%= userName %>. Pamiętaj, aby być miłym, odnosić się z szacunkiem i przestrzegać Wytycznych Społeczności!",
-    "messageDeletedUser": "Niestety, ten użytkownik usunął już swoje konto."
+    "messageDeletedUser": "Niestety, ten użytkownik usunął już swoje konto.",
+    "messageMissingDisplayName": "Missing display name."
 }

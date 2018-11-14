@@ -125,7 +125,7 @@
     "importantAnnouncements": "Напомняния да влезете, за да завършите задачите си и да получите награди",
     "weeklyRecaps": "Информация относно дейността на профила Ви през последната седмица. (Забележка: в момента това е изключено поради проблеми с производителността, но се надяваме да го включим отново скоро!)",
     "onboarding": "Насоки за настройка на Вашия профил в Хабитика.",
-    "majorUpdates": "Important announcements",
+    "majorUpdates": "Важни обявления",
     "questStarted": "Мисията Ви започна",
     "invitedQuest": "Покана за мисия",
     "kickedGroup": "Изритан от групата",
@@ -157,7 +157,7 @@
     "generate": "Създаване",
     "getCodes": "Получаване на кодове",
     "webhooks": "Уеб-куки",
-    "webhooksInfo": "Habitica provides webhooks so that when certain actions occur in your account, information can be sent to a script on another website. You can specify those scripts here. Be careful with this feature because specifying an incorrect URL can cause errors or slowness in Habitica. For more information, see the wiki's <a target=\"_blank\" href=\"https://habitica.wikia.com/wiki/Webhooks\">Webhooks</a> page.",
+    "webhooksInfo": "Хабитика предоставя уеб-куки, чрез които може да се изпрати информация до скрипт на друг уеб сайт, когато с профила Ви се случат определени действия. Можете да посочите тези скриптове тук. Внимавайте с тази функционалност, тъй като ако посочите неправилен адрес, това може да предизвика грешки или забавяния в Хабитика. За повече информация вижте страницата в уикито относно <a target=\"_blank\" href=\"https://habitica.wikia.com/wiki/Webhooks\">уеб-куките</a>.",
     "enabled": "Включено",
     "webhookURL": "Адрес на уеб-куката",
     "invalidUrl": "грешен адрес",
@@ -200,9 +200,10 @@
     "usernameIssueInvalidCharacters": "Потребителското име може да съдържа само латинските букви от „a“ до „z“, числата от 0 до 9, тире и долна черта.",
     "currentUsername": "Текущо потребителско име:",
     "displaynameIssueLength": "Екранните имена трябва да бъдат с дължина между 1 и 30 знака.",
-    "displaynameIssueSlur": "Екранните имена не може да съдържат неприлични думи.",
+    "displaynameIssueSlur": "Display Names may not contain inappropriate language.",
     "goToSettings": "Към настройките",
     "usernameVerifiedConfirmation": "Вашето потребителско име, <%= username %>, е потвърдено!",
     "usernameNotVerified": "Моля, потвърдете потребителското си име.",
-    "changeUsernameDisclaimer": "Скоро ще преобразуваме имената за вписване към уникални, публични потребителски имена. Тези потребителски имена ще бъдат използвани за покани, @споменавания в чата, и съобщения."
+    "changeUsernameDisclaimer": "Скоро ще преобразуваме имената за вписване към уникални, публични потребителски имена. Тези потребителски имена ще бъдат използвани за покани, @споменавания в чата, и съобщения.",
+    "verifyUsernameVeteranPet": "One of these Veteran Pets will be waiting for you after you've finished confirming!"
 }
