@@ -40,6 +40,26 @@ function getUserFields (options, req) {
 // If optional is true, don't error on missing authentication
 export function authWithHeaders (options = {}) {
   return function authWithHeadersHandler (req, res, next) {
+    // Response end middleware to prevent IE from caching results if response is not 304
+    const end = res.end;
+    res.end = (chunk, encoding) => {
+      if (res.statusCode !== 304) {
+        // Do not allow IE to cache result, otherwise IE will aggressively cache
+        const ua = req.headers['user-agent'];
+        const isIE = ua && (ua.indexOf('MSIE ') > -1 || ua.indexOf('Trident/') > -1);
+        if (isIE) {
+          res.set('Pragma', 'no-cache');
+          res.set('Cache-Control', 'no-cache, no-store, must-revalidate, max-age=0, proxy-revalidate, no-transform, pre-check=0, post-check=0, private');
+          res.set('Pragma", "no-cache');
+          res.set('Expires', -1);
+        }
+      }
+
+      res.end = end;
+      res.end(chunk, encoding);
+    };
+
+
     const userId = req.header('x-api-user');
     const apiToken = req.header('x-api-key');
     const optional = options.optional || false;

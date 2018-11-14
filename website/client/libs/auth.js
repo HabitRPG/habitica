@@ -10,8 +10,6 @@ export function setUpAxios (AUTH_SETTINGS) {
 
   let browserTimezoneOffset = moment().zone();
 
-  // Unlike Chrome and Firefox, IE11 aggressively caches axios GET requests unless told to do otherwise
-  axios.defaults.headers.common.pragma = 'no-cache';
   if (AUTH_SETTINGS.auth && AUTH_SETTINGS.auth.apiId && AUTH_SETTINGS.auth.apiToken) {
     axios.defaults.headers.common['x-api-user'] = AUTH_SETTINGS.auth.apiId;
     axios.defaults.headers.common['x-api-key'] = AUTH_SETTINGS.auth.apiToken;
