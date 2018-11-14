@@ -160,7 +160,7 @@ describe('Post /groups/:groupId/invite', () => {
         .to.eventually.be.rejected.and.eql({
           code: 400,
           error: 'BadRequest',
-          message: t('inviteMissingUuid'),
+          message: t('inviteMustNotBeEmpty'),
         });
     });
 
@@ -295,7 +295,7 @@ describe('Post /groups/:groupId/invite', () => {
         .to.eventually.be.rejected.and.eql({
           code: 400,
           error: 'BadRequest',
-          message: t('inviteMissingEmail'),
+          message: t('inviteMustNotBeEmpty'),
         });
     });
 
