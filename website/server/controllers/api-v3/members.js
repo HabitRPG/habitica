@@ -20,6 +20,7 @@ import {
 } from '../../libs/email';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
 import { achievements } from '../../../../website/common/';
+import {highlightMentions} from '../../libs/highlightMentions';
 
 let api = {};
 
@@ -632,7 +633,7 @@ api.sendPrivateMessage = {
     if (validationErrors) throw validationErrors;
 
     const sender = res.locals.user;
-    const message = req.body.message;
+    const message = await highlightMentions(req.body.message);
     const receiver = await User.findById(req.body.toUserId).exec();
     if (!receiver) throw new NotFound(res.t('userNotFound'));
     if (!receiver.flags.verifiedUsername) delete receiver.auth.local.username;

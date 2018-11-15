@@ -18,6 +18,7 @@ import guildsAllowingBannedWords from '../../libs/guildsAllowingBannedWords';
 import { getMatchesByWordArray } from '../../libs/stringUtils';
 import bannedSlurs from '../../libs/bannedSlurs';
 import apiError from '../../libs/apiError';
+import {highlightMentions} from '../../libs/highlightMentions';
 
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
   return { email, canSend: true };
@@ -175,7 +176,8 @@ api.postChat = {
       throw new NotAuthorized(res.t('messageGroupChatSpam'));
     }
 
-    const newChatMessage = group.sendChat(req.body.message, user);
+    const message = await highlightMentions(req.body.message);
+    const newChatMessage = group.sendChat(message, user);
     let toSave = [newChatMessage.save()];
 
     if (group.type === 'party') {
