@@ -138,6 +138,13 @@ describe('achievements', () => {
       expect(rebirth).to.exist;
       expect(rebirth.optionalCount).to.be.undefined;
     });
+
+    it('empty the armory achievement exists with no count', () => {
+      let emptyArmory = basicAchievs.emptyArmory;
+
+      expect(emptyArmory).to.exist;
+      expect(emptyArmory.optionalCount).to.be.undefined;
+    });
   });
 
   describe('unearned seasonal achievements', () => {
