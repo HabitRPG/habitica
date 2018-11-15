@@ -30,8 +30,8 @@ const featuredItems = {
       path: 'quests.taskwoodsTerror1',
     },
     {
-      type: 'quests',
-      path: 'quests.kangaroo',
+      type: 'bundles',
+      path: 'bundles.oddballs',
     },
   ],
   seasonal: '',

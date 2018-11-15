@@ -41,8 +41,11 @@ div
 <style lang="scss">
   .at-highlight {
     background-color: rgba(213, 200, 255, 0.32);
-    color: #6133b4;
     padding: 0.1rem;
+  }
+
+  .at-text {
+    color: #6133b4;
   }
 </style>
 
@@ -294,9 +297,22 @@ export default {
       this.$emit('show-member-modal', memberId);
     },
     atHighlight (text) {
-      return text.replace(new RegExp(`@(${this.user.auth.local.username}|${this.user.profile.name})(?:\\b)`, 'gi'), match => {
-        return `<span class="at-highlight">${match}</span>`;
-      });
+      const userRegex = new RegExp(`@(${this.user.auth.local.username}|${this.user.profile.name})(?:\\b)`, 'gi');
+      const atRegex = new RegExp(/(?!\b)@[\w-]+/g);
+
+      if (userRegex.test(text)) {
+        text = text.replace(userRegex, match => {
+          return `<span class="at-highlight at-text">${match}</span>`;
+        });
+      }
+
+      if (atRegex.test(text)) {
+        text = text.replace(atRegex, match => {
+          return `<span class="at-text">${match}</span>`;
+        });
+      }
+
+      return text;
     },
     parseMarkdown (text) {
       return habiticaMarkdown.render(text);
