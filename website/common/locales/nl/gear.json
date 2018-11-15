@@ -339,7 +339,7 @@
     "weaponArmoireBattleAxeText": "Antieke bijl",
     "weaponArmoireBattleAxeNotes": "Deze schitterende ijzeren bijl is zeer geschikt om je meest woeste of moeilijkste taken mee te bestrijden. Verhoogt intelligentie met <%= int %> en lichaam met <%= con %>. Betoverd kabinet: onafhankelijk voorwerp.",
     "weaponArmoireHoofClippersText": "Hoof Clippers",
-    "weaponArmoireHoofClippersNotes": "Trim the hooves of your hard-working mounts to help them stay healthy as they carry you to adventure! Increases Strength, Intelligence, and Constitution by <%= attrs %> each. Enchanted Armoire: Farrier Set (Item 1 of 3).",
+    "weaponArmoireHoofClippersNotes": "Trim de hoeven van je hardwerkende rijdieren om hen gezond te houden terwijl zij je dragen door je avonturen! Verhoogt Kracht, Intelligentie, en Lichaam met <%= attrs %> ieder. Betoverd Kabinet: Hoefsmid Set (Item 1 uit 3).",
     "weaponArmoireWeaversCombText": "Weaver's Comb",
     "weaponArmoireWeaversCombNotes": "Use this comb to pack your weft threads together to make a tightly woven fabric. Increases Perception by <%= per %> and Strength by <%= str %>. Enchanted Armoire: Weaver Set (Item 2 of 3).",
     "weaponArmoireLamplighterText": "Lamp aansteker",

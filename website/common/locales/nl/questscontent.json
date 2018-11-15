@@ -251,7 +251,7 @@
     "questDilatoryDistress3Boss": "Adva, de overweldigende meermin",
     "questDilatoryDistress3DropFish": "Vis (voedsel)",
     "questDilatoryDistress3DropWeapon": "Drietand van verpletterend getij (wapen)",
-    "questDilatoryDistress3DropShield": "Moonpearl Shield (Off-Hand Item)",
+    "questDilatoryDistress3DropShield": "Maanparel Schild (Off-Hand Item)",
     "questCheetahText": "Wat een lui Jachtluipaard!",
     "questCheetahNotes": "Wanneer je door de Tragengestaagsavanne loopt met je vrienden @PainterProphet, @tivaquinn, @Unruly Hyena en @Crawford, schrik je ervan een cheetah langs te zien gieren met een nieuwe Habiticaan in zijn kaken. Onder de verzengende poten van de cheetah verbranden taken alsof ze voltooid zijn -- voordat iemand de kans heeft gehad ze te doen! De Habiticaan ziet je en roept: \"Help me alsjeblieft! Deze cheetah zorgt ervoor dat ik er te snel niveaus bij krijg, maar ik krijg niets gedaan. Ik wil afremmen en van het spel genieten. Hou hem tegen!\" Je herinnert je met plezier je eigen dagen als jonge hond en weet dat je het groentje moet helpen door de cheetah te stoppen!",
     "questCheetahCompletion": "De nieuwe Habiticaan ademt zwaar na de wilde rit, maar bedankt jou en je vrienden voor jullie hulp. \"Ik ben blij dat die cheetah niet meer iemand anders zal kunnen grijpen. Hij heeft enkele cheetah-eieren voor ons achtergelaten, dus misschien kunnen we die opvoeden tot betrouwbaardere huisdieren!\"",
@@ -399,7 +399,7 @@
     "questFerretDropFerretEgg": "Fret (Ei)",
     "questFerretUnlockText": "Maakt het kopen van fretteneieren in de Markt mogelijk",
     "questDustBunniesText": "De woeste stofkonijnen",
-    "questDustBunniesNotes": "It's been a while since you've done any dusting in here, but you're not too worried—a little dust never hurt anyone, right? It's not until you stick your hand into one of the dustiest corners and feel something bite that you remember @InspectorCaracal's warning: leaving harmless dust sit too long causes it to turn into vicious dust bunnies! You'd better defeat them before they cover all of Habitica in fine particles of dirt!",
+    "questDustBunniesNotes": "Het is een tijd geleden dat je hier hebt afgestoft, maar jij maakt je geen zorgen - een beetje stof zal niemand kwaad doen, toch? Het is pas wanneer jij je hand in een van de meest stoffige hoeken steekt en voelt dat iets je bijt dat je je @InspectorCaracal's waarschuwing herinnert: als je achtergelaten onschadelijke stof te lang laat zitten, verandert het in kwaadaardige stof konijnen! Je kan ze beter verslaan voordat ze heel Habitica bestrijken met fijne deeltjes stof! ",
     "questDustBunniesCompletion": "De stofkonijnen verdwijnen in een zucht van... nou ja, stof. Wanneer het vervaagt kijk je om je heen. Je was vergeten hoe goed deze plek eruit ziet als het schoon is. Je ziet een klein hoopje goud op de plek waar het stof eerst lag. Huh, je vroeg je al af waar dat was!",
     "questDustBunniesBoss": "Woeste stofkonijnen",
     "questGroupMoon": "Lunar Battle",
@@ -624,5 +624,7 @@
     "questAlligatorCompletion": "With your attention focused on what’s important and not the Insta-Gator’s distractions, the Insta-Gator flees. Victory! “Are those eggs? They look like gator eggs to me,” asks @mfonda. “If we care for them correctly, they’ll be loyal pets or faithful steeds,” answers @UncommonCriminal, handing you three to care for. Let’s hope so, or else the Insta-Gator might make a return…",
     "questAlligatorBoss": "Insta-Gator",
     "questAlligatorDropAlligatorEgg": "Krokkodil (Ei)",
-    "questAlligatorUnlockText": "Unlocks purchasable Alligator eggs in the Market"
+    "questAlligatorUnlockText": "Unlocks purchasable Alligator eggs in the Market",
+    "oddballsText": "Oddballs Quest Bundle",
+    "oddballsNotes": "Contains 'The Jelly Regent,' 'Escape the Cave Creature,' and 'A Tangled Yarn.' Available until November 30."
 }

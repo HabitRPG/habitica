@@ -271,8 +271,8 @@
     "emailTaken": "Bu e-posta adresi zaten bir kullanıcı hesabında kayıtlı.",
     "newEmailRequired": "Yeni e-posta adresi eksik.",
     "usernameTime": "Kullanıcı adını ayarlama vakti!",
-    "usernameInfo": "Login names are now unique usernames that will be visible beside your display name and used for invitations, chat @mentions, and messaging.<br><br>If you'd like to learn more about this change, <a href='http://habitica.wikia.com/wiki/Player_Names' target='_blank'>visit our wiki</a>.",
-    "usernameTOSRequirements": "Usernames must conform to our <a href='/static/terms' target='_blank'>Terms of Service</a> and <a href='/static/community-guidelines' target='_blank'>Community Guidelines</a>. If you didn’t previously set a login name, your username was auto-generated.",
+    "usernameInfo": "Giriş isimleri artık görünür adının yanında görünen ve davetiyeler, sohbet @bahsetmeleri ve mesajlaşmalarda kullanılacak olan eşsiz kullanıcı adları.<br><br>Eğer bu değişim hakkında daha fazla bilgi edinmek istersen, <a href='http://habitica.wikia.com/wiki/Player_Names' target='_blank'>wiki'mizi ziyaret et</a>.",
+    "usernameTOSRequirements": "Kullanıcı adları <a href='/static/terms' target='_blank'>Hizmet Koşulları</a>'mıza ve <a href='/static/community-guidelines' target='_blank'>Topluluk İlkeleri</a>'mize uygun olmalı. Eğer daha önce bir giriş adı belirlemediysen, kullanıcı adın otomatik olarak oluşturulmuştur.",
     "usernameTaken": "Kullanıcı Adı başkası tarafından kullanılıyor.",
     "passwordConfirmationMatch": "Şifre onayı şifreyle uyuşmuyor.",
     "invalidLoginCredentials": "Kullanıcı adı ve/veya e-posta ve/veya şifre yanlış.",
@@ -328,7 +328,7 @@
     "joinMany": "Hedeflerini gerçekleştirirken eğlenen 2,000,000'un üzerinde insana katıl!",
     "joinToday": "Habitica'ya Bugün Katıl",
     "signup": "Kaydol",
-    "getStarted": "Get Started!",
+    "getStarted": "Buradan Başla!",
     "mobileApps": "Mobil Uygulamalar",
     "learnMore": "Daha Fazlasını Öğren"
 }

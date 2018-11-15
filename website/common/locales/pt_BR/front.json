@@ -271,8 +271,8 @@
     "emailTaken": "Endereço de e-mail já está sendo usado em uma conta.",
     "newEmailRequired": "Faltando novo endereço de e-mail.",
     "usernameTime": " É hora de definir seu nome de usuário!",
-    "usernameInfo": "Login names are now unique usernames that will be visible beside your display name and used for invitations, chat @mentions, and messaging.<br><br>If you'd like to learn more about this change, <a href='http://habitica.wikia.com/wiki/Player_Names' target='_blank'>visit our wiki</a>.",
-    "usernameTOSRequirements": "Usernames must conform to our <a href='/static/terms' target='_blank'>Terms of Service</a> and <a href='/static/community-guidelines' target='_blank'>Community Guidelines</a>. If you didn’t previously set a login name, your username was auto-generated.",
+    "usernameInfo": "Nomes de login são únicos agora e ficarão visíveis ao lado do seu nome de exibição e serão usados para convites, @menções em bate-papo e mensagens. <br><br>Se você quiser saber mais sobre esta mudança, <a href='http://habitica.wikia.com/wiki/Player_Names' target='_blank'>visite nossa wiki</a>.",
+    "usernameTOSRequirements": "Nomes de usuário devem estar de acordo com nossos <a href='/static/terms' target='_blank'>Termos de Serviço</a>e com as <a href='/static/community-guidelines' target='_blank'>Diretrizes da Comunidade</a>. Se você não definiu um nome de usuário anteriormente, ele foi gerado automaticamente.",
     "usernameTaken": "Este nome de usuário já está sendo utilizado.",
     "passwordConfirmationMatch": "A confirmação de senha não corresponde à senha.",
     "invalidLoginCredentials": "Nome de usuário e/ou e-mail e/ou senha incorretos.",
@@ -328,7 +328,7 @@
     "joinMany": "Junte-se a mais de 2.000.000 de pessoas que se divertem enquanto cumprem seus objetivos!",
     "joinToday": "Entre para o Habitica hoje",
     "signup": "Registre-se",
-    "getStarted": "Get Started!",
+    "getStarted": "Comece já!",
     "mobileApps": "Aplicativos Móveis",
     "learnMore": "Aprenda Mais"
 }

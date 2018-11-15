@@ -62,5 +62,5 @@
     "unallocatedStatsPoints": "<span class=\"notification-bold-blue\"><%= points %>ポイントが割り当てできます。</span>",
     "beginningOfConversation": "<%= userName %>との会話の始まりです。相手に対して思いやりと敬意を持ち、コミュニティガイドラインを守ることを忘れないでください！",
     "messageDeletedUser": "申し訳ありません。このユーザーはアカウントを削除しています。",
-    "messageMissingDisplayName": "Missing display name."
+    "messageMissingDisplayName": "表示名がありません。"
 }

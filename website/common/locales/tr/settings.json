@@ -200,10 +200,10 @@
     "usernameIssueInvalidCharacters": "Kullanıcı adı yalnızca a'dan z'ye harf, 0'dan 9'a rakam, tire ve alt tire içerebilir.",
     "currentUsername": "Geçerli kullanıcı adı:",
     "displaynameIssueLength": "Görünen Ad 1 ile 30 karakter arasında olmalıdır.",
-    "displaynameIssueSlur": "Display Names may not contain inappropriate language.",
+    "displaynameIssueSlur": "Görünür İsimler uygunsuz dil içeremez.",
     "goToSettings": "Ayarlara Git",
     "usernameVerifiedConfirmation": "Kullanıcı adın, <%= username %>, onaylandı!",
     "usernameNotVerified": "Lütfen kullanıcı adınızı onaylayın.",
     "changeUsernameDisclaimer": "Yakında giriş adlarını özgün ve aleni kullanıcı adlarına dönüştüreceğiz. Bu kullanıcı adı davetler, sohbetlerdeki @bahisler ve mesajlaşmalar için kullanılacak.",
-    "verifyUsernameVeteranPet": "One of these Veteran Pets will be waiting for you after you've finished confirming!"
+    "verifyUsernameVeteranPet": "Onayladıktan sonra bu Kıdemli Hayvanlardan biri seni bekliyor olacak!"
 }
