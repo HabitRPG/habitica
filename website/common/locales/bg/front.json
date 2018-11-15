@@ -271,8 +271,8 @@
     "emailTaken": "Тази е-поща вече се използва от съществуващ профил.",
     "newEmailRequired": "Липсва нов адрес на е-поща.",
     "usernameTime": "Време е да си създадете потребителско име!",
-    "usernameInfo": "Login names are now unique usernames that will be visible beside your display name and used for invitations, chat @mentions, and messaging.<br><br>If you'd like to learn more about this change, <a href='http://habitica.wikia.com/wiki/Player_Names' target='_blank'>visit our wiki</a>.",
-    "usernameTOSRequirements": "Usernames must conform to our <a href='/static/terms' target='_blank'>Terms of Service</a> and <a href='/static/community-guidelines' target='_blank'>Community Guidelines</a>. If you didn’t previously set a login name, your username was auto-generated.",
+    "usernameInfo": "Имената, които се използват за вписване в системата, вече са уникални потребителски имена, които ще се виждат до екранните имена и ще могат да се ползват за покани, @споменавания и пращане на съобщения.<br><br>Ако искате да научите повече за тази промяна, <a href='http://habitica.wikia.com/wiki/Player_Names' target='_blank'>посетете уикито ни</a>.",
+    "usernameTOSRequirements": "Потребителските имена трябва са съобразени с <a href='/static/terms' target='_blank'>Условията за ползване</a> и <a href='/static/community-guidelines' target='_blank'>Обществените правила</a>. Ако преди това не сте имали име за вписване, то потребителското Ви име е създадено автоматично.",
     "usernameTaken": "Потребителското име е заето.",
     "passwordConfirmationMatch": "Повторената парола не съвпада с първата.",
     "invalidLoginCredentials": "Грешно потребителско име и/или е-поща и/или парола.",
@@ -328,7 +328,7 @@
     "joinMany": "Над 2 000 000 хора се забавляват, докато подобряват живота си. Присъединете се към тях!",
     "joinToday": "Присъединете се в Хабитика днес",
     "signup": "Регистриране",
-    "getStarted": "Get Started!",
+    "getStarted": "Да започваме!",
     "mobileApps": "Мобилни приложения",
     "learnMore": "Научете повече"
 }

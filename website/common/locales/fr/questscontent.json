@@ -624,5 +624,7 @@
     "questAlligatorCompletion": "Avec votre attention concentrée sur ce qui est important et non sur les distractions de l'Insti-Gator, l'Insti-Gator fuit. Victoire ! \"Ce sont des oeufs ? Ils ressemblent à des œufs d'alligator pour moi \", demande @mfonda. \"Si nous prenons soin d'eux, ils seront des animaux de compagnie loyaux ou des coursiers fidèles\", répond @UncommonCriminal, vous en donnant trois à soigner. Espérons que oui, sinon l'Insti-Gator pourrait revenir...",
     "questAlligatorBoss": "Insti-Gator",
     "questAlligatorDropAlligatorEgg": "Alligator (Œuf)",
-    "questAlligatorUnlockText": " Déverrouille l'achat d’œufs d'alligator au marché "
+    "questAlligatorUnlockText": " Déverrouille l'achat d’œufs d'alligator au marché ",
+    "oddballsText": "Oddballs Quest Bundle",
+    "oddballsNotes": "Contains 'The Jelly Regent,' 'Escape the Cave Creature,' and 'A Tangled Yarn.' Available until November 30."
 }

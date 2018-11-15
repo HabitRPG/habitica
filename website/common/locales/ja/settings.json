@@ -200,10 +200,10 @@
     "usernameIssueInvalidCharacters": "ユーザー名に使える文字は、a～zの英字、0～9の数字、ハイフン、アンダーバーのみです。",
     "currentUsername": "現在のユーザー名",
     "displaynameIssueLength": "表示名は1～30文字以内でなくてはなりません。",
-    "displaynameIssueSlur": "Display Names may not contain inappropriate language.",
+    "displaynameIssueSlur": "表示名に不適切な言葉を含めることはできません。",
     "goToSettings": "設定を行う",
     "usernameVerifiedConfirmation": "あなたのユーザー名、<%= username %>、は承認されました！",
     "usernameNotVerified": "あなたのユーザー名を承認してください。",
     "changeUsernameDisclaimer": "私たちはもうすぐログイン名を、固有の、公開のユーザー名に移行します。このユーザー名は、招待、チャットでの＠返信、メッセージのやりとりなどで使用されます。",
-    "verifyUsernameVeteranPet": "One of these Veteran Pets will be waiting for you after you've finished confirming!"
+    "verifyUsernameVeteranPet": "あなたが承認を終えたあとには、百戦練磨のペットのうち１匹があなたを待っていることでしょう！"
 }

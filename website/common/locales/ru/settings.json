@@ -200,10 +200,10 @@
     "usernameIssueInvalidCharacters": "Имя пользователя может содержать только буквы от a-z, цифры 0-9, дефисы или подчеркивания.",
     "currentUsername": "Используемое Имя пользователя:",
     "displaynameIssueLength": "Отображаемое имя должно быть от 1 до 30 символов.",
-    "displaynameIssueSlur": "Display Names may not contain inappropriate language.",
+    "displaynameIssueSlur": "Отображаемое имя не должно содержать ненормативной лексики.",
     "goToSettings": "Перейти в Настройки",
     "usernameVerifiedConfirmation": "Ваше Имя пользователя, <%= username %>, подтверждено!",
     "usernameNotVerified": "Подтвердите свое имя пользователя.",
     "changeUsernameDisclaimer": "В ближайшее время мы начнем использовать имена, которые будут уникальные, общедоступные. Имя пользователя будет использоваться для приглашений, @упоминаний в чате и для обмена сообщениями.",
-    "verifyUsernameVeteranPet": "One of these Veteran Pets will be waiting for you after you've finished confirming!"
+    "verifyUsernameVeteranPet": "Один из питомцев-ветеранов будет вашим после подтверждения!"
 }

@@ -200,10 +200,10 @@
     "usernameIssueInvalidCharacters": "Потребителското име може да съдържа само латинските букви от „a“ до „z“, числата от 0 до 9, тире и долна черта.",
     "currentUsername": "Текущо потребителско име:",
     "displaynameIssueLength": "Екранните имена трябва да бъдат с дължина между 1 и 30 знака.",
-    "displaynameIssueSlur": "Display Names may not contain inappropriate language.",
+    "displaynameIssueSlur": "Екранните имена не може да съдържат неприлични думи.",
     "goToSettings": "Към настройките",
     "usernameVerifiedConfirmation": "Вашето потребителско име, <%= username %>, е потвърдено!",
     "usernameNotVerified": "Моля, потвърдете потребителското си име.",
     "changeUsernameDisclaimer": "Скоро ще преобразуваме имената за вписване към уникални, публични потребителски имена. Тези потребителски имена ще бъдат използвани за покани, @споменавания в чата, и съобщения.",
-    "verifyUsernameVeteranPet": "One of these Veteran Pets will be waiting for you after you've finished confirming!"
+    "verifyUsernameVeteranPet": "Един от тези любимци-ветерани ще Ви чака след като приключите с потвърждението!"
 }

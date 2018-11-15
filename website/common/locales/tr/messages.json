@@ -62,5 +62,5 @@
     "unallocatedStatsPoints": "<span class=\"notification-bold-blue\"><%= points %> adet dağıtılmamış Nitelik Puanın var.</span>",
     "beginningOfConversation": "Bu <%= userName %> ile konuşmanın başlangıcıdır.Kibar ve saygılı olmayı ve Topluluk Kurallarına uymayı unutma.",
     "messageDeletedUser": "Üzgünüz, bu kullanıcı hesabını silmiş.",
-    "messageMissingDisplayName": "Missing display name."
+    "messageMissingDisplayName": "Görünen isim eksik."
 }
