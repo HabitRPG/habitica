@@ -16,7 +16,7 @@ div
       span.mr-1(v-if="msg.username") @{{ msg.username }}
       span.mr-1(v-if="msg.username") •
       span(v-b-tooltip="", :title="msg.timestamp | date") {{ msg.timestamp | timeAgo }}&nbsp;
-      span(v-if="msg.client && user.contributor.level >= 4") by {{ msg.client }}
+      span(v-if="msg.client && user.contributor.level >= 4") with {{ msg.client }}
     .text(v-html='atHighlight(parseMarkdown(msg.text))')
     hr
     .d-flex(v-if='msg.id')
