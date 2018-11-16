@@ -2,7 +2,7 @@
 div
   inbox-modal
   creator-intro
-  profile
+  profileModal
   b-navbar.topbar.navbar-inverse.static-top.navbar-expand-lg(type="dark", :class="navbarZIndexClass")
     b-navbar-brand.brand
       .logo.svg-icon.d-none.d-xl-block(v-html="icons.logo")
@@ -346,7 +346,7 @@ import logo from 'assets/svg/logo.svg';
 import InboxModal from '../userMenu/inbox.vue';
 import notificationMenu from './notificationsDropdown';
 import creatorIntro from '../creatorIntro';
-import profile from '../userMenu/profile';
+import profileModal from '../userMenu/profileModal';
 import userDropdown from './userDropdown';
 
 export default {
@@ -355,7 +355,7 @@ export default {
     InboxModal,
     notificationMenu,
     creatorIntro,
-    profile,
+    profileModal,
   },
   data () {
     return {

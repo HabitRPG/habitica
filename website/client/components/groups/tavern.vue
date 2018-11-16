@@ -93,7 +93,7 @@
         .row
           .col-4.staff(v-for='user in staff', :class='{staff: user.type === "Staff", moderator: user.type === "Moderator", bailey: user.name === "It\'s Bailey"}')
             div
-              a.title(@click="viewStaffProfile(user.uuid)") {{user.name}}
+              router-link.title(:to="{'name': 'userProfile', 'params': {'userId': user.uuid}}") {{user.name}}
               .svg-icon.staff-icon(v-html="icons.tierStaff", v-if='user.type === "Staff"')
               .svg-icon.mod-icon(v-html="icons.tierMod", v-if='user.type === "Moderator" && user.name !== "It\'s Bailey"')
               .svg-icon.npc-icon(v-html="icons.tierNPC", v-if='user.name === "It\'s Bailey"')
@@ -542,15 +542,6 @@ export default {
         this.$root.$emit('bv::show::modal', 'world-boss-rage');
       }
     },
-
-    async viewStaffProfile (staffId) {
-      let staffDetails = await this.$store.dispatch('members:fetchMember', { memberId: staffId });
-      this.$root.$emit('habitica:show-profile', {
-        user: staffDetails.data.data,
-        startingPage: 'profile',
-      });
-    },
-
     async fetchRecentMessages () {
       this.group = await this.$store.dispatch('guilds:getGroup', {groupId: TAVERN_ID});
     },

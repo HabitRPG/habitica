@@ -15,7 +15,7 @@
 
       .row
         .form.col-6(v-if='hero && hero.profile', submit='saveHero(hero)')
-          a(@click='clickMember(hero, true)')
+          router-link(:to="{'name': 'userProfile', 'params': {'userId': msg.uuid}}")
             h3 {{hero.profile.name}}
           .form-group
             input.form-control(type='text', v-model='hero.contributor.text', :placeholder="$t('contribTitle')")
@@ -196,13 +196,6 @@ export default {
       this.heroID = id;
       window.scrollTo(0, 200);
       this.loadHero(id, index);
-    },
-    async clickMember (hero) {
-      let heroDetails = await this.$store.dispatch('members:fetchMember', { memberId: hero._id });
-      this.$root.$emit('habitica:show-profile', {
-        user: heroDetails.data.data,
-        startingPage: 'profile',
-      });
     },
   },
 };
