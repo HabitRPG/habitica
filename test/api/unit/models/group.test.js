@@ -1843,6 +1843,62 @@ describe('Group Model', () => {
         expect(options.chat).to.eql(chat);
       });
 
+      it('sends webhooks for users with webhooks triggered by system messages', async () => {
+        let guild = new Group({
+          name: 'some guild',
+          type: 'guild',
+        });
+
+        let memberWithWebhook = new User({
+          guilds: [guild._id],
+          webhooks: [{
+            type: 'groupChatReceived',
+            url: 'http://someurl.com',
+            options: {
+              groupId: guild._id,
+            },
+          }],
+        });
+        let memberWithoutWebhook = new User({
+          guilds: [guild._id],
+        });
+        let nonMemberWithWebhooks = new User({
+          webhooks: [{
+            type: 'groupChatReceived',
+            url: 'http://a-different-url.com',
+            options: {
+              groupId: generateUUID(),
+            },
+          }],
+        });
+
+        await Promise.all([
+          memberWithWebhook.save(),
+          memberWithoutWebhook.save(),
+          nonMemberWithWebhooks.save(),
+        ]);
+
+        guild.leader = memberWithWebhook._id;
+
+        await guild.save();
+
+        const groupMessage = guild.sendChat('Test message.');
+        await groupMessage.save();
+
+        await sleep();
+
+        expect(groupChatReceivedWebhook.send).to.be.calledOnce;
+
+        let args = groupChatReceivedWebhook.send.args[0];
+        let webhooks = args[0].webhooks;
+        let options = args[1];
+
+        expect(webhooks).to.have.a.lengthOf(1);
+        expect(webhooks[0].id).to.eql(memberWithWebhook.webhooks[0].id);
+        expect(options.group).to.eql(guild);
+        expect(options.chat).to.eql(groupMessage);
+      });
+
       it('sends webhooks for each user with webhooks in group', async () => {
         let guild = new Group({
           name: 'some guild',
