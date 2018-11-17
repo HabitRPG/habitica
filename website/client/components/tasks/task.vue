@@ -302,6 +302,7 @@
       margin-left: 6px;
       padding-top: 0px;
       min-width: 0px;
+      width: 100%;
     }
   }
 
