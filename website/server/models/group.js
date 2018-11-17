@@ -494,6 +494,10 @@ schema.methods.sendChat = function sendChat (message, user, metaData) {
     newChatMessage._meta = metaData;
   }
 
+  // Activate the webhook for receiving group chat messages before
+  // newChatMessage is possibly returned
+  this.sendGroupChatReceivedWebhooks(newChatMessage);
+
   // do not send notifications for guilds with more than 5000 users and for the tavern
   if (NO_CHAT_NOTIFICATIONS.indexOf(this._id) !== -1 || this.memberCount > LARGE_GROUP_COUNT_MESSAGE_CUTOFF) {
     return newChatMessage;
