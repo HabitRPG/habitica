@@ -1381,7 +1381,7 @@ schema.methods.unlinkTask = async function groupUnlinkTask (unlinkingTask, user,
       user.markModified('tasksOrder');
     }
 
-    const promises = [task.remove(), user.save(), unlinkingTask.save()];
+    const promises = [task.remove(), unlinkingTask.save()];
     // When multiple tasks are being unlinked at the same time,
     // save the user once outside of this function
     if (saveUser) promises.push(user.save());
