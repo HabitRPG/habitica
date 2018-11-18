@@ -12,14 +12,14 @@ const ENDPOINT = '/user/auth/update-username';
 
 describe('PUT /user/auth/update-username', async () => {
   let user;
-  let newUsername = 'new-username';
-  let password = 'password'; // from habitrpg/test/helpers/api-integration/v3/object-generators.js
+  let password = 'password'; // from habitrpg/test/helpers/api-integration/v4/object-generators.js
 
   beforeEach(async () => {
     user = await generateUser();
   });
 
-  it('successfully changes username', async () => {
+  it('successfully changes username with password', async () => {
+    let newUsername = 'new-username';
     let response = await user.put(ENDPOINT, {
       username: newUsername,
       password,
@@ -27,6 +27,38 @@ describe('PUT /user/auth/update-username', async () => {
     expect(response).to.eql({ username: newUsername });
     await user.sync();
     expect(user.auth.local.username).to.eql(newUsername);
+  });
+
+  it('successfully changes username without password', async () => {
+    let newUsername = 'new-username-nopw';
+    let response = await user.put(ENDPOINT, {
+      username: newUsername,
+    });
+    expect(response).to.eql({ username: newUsername });
+    await user.sync();
+    expect(user.auth.local.username).to.eql(newUsername);
+  });
+
+  it('successfully changes username containing number and underscore', async () => {
+    let newUsername = 'new_username9';
+    let response = await user.put(ENDPOINT, {
+      username: newUsername,
+    });
+    expect(response).to.eql({ username: newUsername });
+    await user.sync();
+    expect(user.auth.local.username).to.eql(newUsername);
+  });
+
+  it('sets verifiedUsername when changing username', async () => {
+    user.flags.verifiedUsername = false;
+    await user.sync();
+    let newUsername = 'new-username-verify';
+    let response = await user.put(ENDPOINT, {
+      username: newUsername,
+    });
+    expect(response).to.eql({ username: newUsername });
+    await user.sync();
+    expect(user.flags.verifiedUsername).to.eql(true);
   });
 
   it('converts user with SHA1 encrypted password to bcrypt encryption', async () => {
@@ -80,6 +112,7 @@ describe('PUT /user/auth/update-username', async () => {
     });
 
     it('errors if password is wrong', async () => {
+      let newUsername = 'new-username';
       await expect(user.put(ENDPOINT, {
         username: newUsername,
         password: 'wrong-password',
@@ -90,19 +123,6 @@ describe('PUT /user/auth/update-username', async () => {
       });
     });
 
-    it('prevents social-only user from changing username', async () => {
-      let socialUser = await generateUser({ 'auth.local': { ok: true } });
-
-      await expect(socialUser.put(ENDPOINT, {
-        username: newUsername,
-        password,
-      })).to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: t('userHasNoLocalRegistration'),
-      });
-    });
-
     it('errors if new username is not provided', async () => {
       await expect(user.put(ENDPOINT, {
         password,
@@ -110,6 +130,94 @@ describe('PUT /user/auth/update-username', async () => {
         code: 400,
         error: 'BadRequest',
         message: t('invalidReqParams'),
+      });
+    });
+
+    it('errors if new username is a slur', async () => {
+      await expect(user.put(ENDPOINT, {
+        username: 'TESTPLACEHOLDERSLURWORDHERE',
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: [t('usernameIssueLength'), t('usernameIssueSlur')].join(' '),
+      });
+    });
+
+    it('errors if new username contains a slur', async () => {
+      await expect(user.put(ENDPOINT, {
+        username: 'TESTPLACEHOLDERSLURWORDHERE_otherword',
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: [t('usernameIssueLength'), t('usernameIssueSlur')].join(' '),
+      });
+      await expect(user.put(ENDPOINT, {
+        username: 'something_TESTPLACEHOLDERSLURWORDHERE',
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: [t('usernameIssueLength'), t('usernameIssueSlur')].join(' '),
+      });
+      await expect(user.put(ENDPOINT, {
+        username: 'somethingTESTPLACEHOLDERSLURWORDHEREotherword',
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: [t('usernameIssueLength'), t('usernameIssueSlur')].join(' '),
+      });
+    });
+
+    it('errors if new username is not allowed', async () => {
+      await expect(user.put(ENDPOINT, {
+        username: 'support',
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('usernameIssueForbidden'),
+      });
+    });
+
+    it('errors if new username is not allowed regardless of casing', async () => {
+      await expect(user.put(ENDPOINT, {
+        username: 'SUppORT',
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('usernameIssueForbidden'),
+      });
+    });
+
+    it('errors if username has incorrect length', async () => {
+      await expect(user.put(ENDPOINT, {
+        username: 'thisisaverylongusernameover20characters',
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('usernameIssueLength'),
+      });
+    });
+
+    it('errors if new username contains invalid characters', async () => {
+      await expect(user.put(ENDPOINT, {
+        username: 'Eichhörnchen',
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('usernameIssueInvalidCharacters'),
+      });
+      await expect(user.put(ENDPOINT, {
+        username: 'test.name',
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('usernameIssueInvalidCharacters'),
+      });
+      await expect(user.put(ENDPOINT, {
+        username: '🤬',
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('usernameIssueInvalidCharacters'),
       });
     });
   });

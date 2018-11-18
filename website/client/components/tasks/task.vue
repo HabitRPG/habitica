@@ -302,6 +302,7 @@
       margin-left: 6px;
       padding-top: 0px;
       min-width: 0px;
+      width: 100%;
     }
   }
 
@@ -435,7 +436,7 @@
       cursor: default !important;
     }
 
-    .svg-icon.check {
+    .svg-icon.check:not(.display-check-icon) {
       display: none !important;
     }
   }

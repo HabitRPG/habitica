@@ -125,6 +125,7 @@
     "importantAnnouncements": "Rappels de connexion pour terminer des tâches et recevoir des récompenses",
     "weeklyRecaps": "Résumés de l'activité de votre compte durant la semaine passée (N.B. : ceci est actuellement désactivé suite à des problèmes de performance, mais nous espérons pouvoir rétablir bientôt l'envoi des courriels !)",
     "onboarding": "Aide à la configuration de votre compte Habitica",
+    "majorUpdates": "Annonces Importantes",
     "questStarted": "Votre quête a commencé",
     "invitedQuest": "Invitation à une quête",
     "kickedGroup": "Éjecté·e du groupe",
@@ -156,6 +157,7 @@
     "generate": "Générer",
     "getCodes": "Obtenir les Codes",
     "webhooks": "Webhooks",
+    "webhooksInfo": "Habitica propose des webhooks afin que lorsque certaines actions se produisent sur votre compte, celles-ci puissent être transmises à un script sur un autre site web. Vous pouvez définir ces scripts ici. Soyez prudent avec cette fonctionnalité, une URL incorrecte pouvant entraîner des erreurs ou des ralentissements sur Habitica. Pour plus d'informations, consultez la page <a target=\"_blank\" href=\"https://habitica.wikia.com/wiki/Webhooks\">Webhooks</a> de notre wiki.",
     "enabled": "Activé",
     "webhookURL": "URL du webhook",
     "invalidUrl": "URL invalide",
@@ -198,9 +200,10 @@
     "usernameIssueInvalidCharacters": "Les noms d'utilisateurs ne peuvent contenir que des lettres de a à z, des chiffres de 0 à 9, des tirets et des tirets bas.",
     "currentUsername": "Nom d'utilisateur actuel :",
     "displaynameIssueLength": "Les noms affichés doivent contenir entre 1 et 30 caractères.",
-    "displaynameIssueSlur": "Les noms affichés ne doivent pas contenir de mots grossiers",
+    "displaynameIssueSlur": "Display Names may not contain inappropriate language.",
     "goToSettings": "Voir les paramètres",
     "usernameVerifiedConfirmation": "Votre nom d'utilisateur, <%= username %>, est confirmé !",
     "usernameNotVerified": "Veuillez confirmer votre nom d'utilisateur.",
-    "changeUsernameDisclaimer": "Nous allons effectuer une transition des noms de connexion à des noms d'utilisateur publics très bientôt. Ce nom d'utilisateur sera utilisé pour les invitations, les @mentions dans les discussion, et les messages."
+    "changeUsernameDisclaimer": "Nous allons effectuer une transition des noms de connexion à des noms d'utilisateur publics très bientôt. Ce nom d'utilisateur sera utilisé pour les invitations, les @mentions dans les discussion, et les messages.",
+    "verifyUsernameVeteranPet": "One of these Veteran Pets will be waiting for you after you've finished confirming!"
 }

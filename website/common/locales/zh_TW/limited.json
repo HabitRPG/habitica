@@ -25,6 +25,7 @@
     "polarBearPup": "小北極熊",
     "jackolantern": "南瓜燈",
     "ghostJackolantern": "南瓜燈之魂",
+    "glowJackolantern": "Glow-in-the-Dark Jack-O-Lantern",
     "seasonalShop": "季節限定商店",
     "seasonalShopClosedTitle": "<%= linkStart %>萊絲莉<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %> 季節魔女 <%= linkEnd %>",

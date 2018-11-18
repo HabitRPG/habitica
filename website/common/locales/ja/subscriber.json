@@ -148,6 +148,7 @@
     "mysterySet201807": "シーサーペント セット",
     "mysterySet201808": "溶岩竜セット",
     "mysterySet201809": "秋のよろい セット",
+    "mysterySet201810": "暗黒の森 セット",
     "mysterySet301404": "スチームパンク標準 セット",
     "mysterySet301405": "スチームパンク アクセサリー セット",
     "mysterySet301703": "クジャクのスチームパンク セット",
@@ -206,7 +207,7 @@
     "haveCouponCode": "クーポンコードを持っていますか？",
     "subscriptionAlreadySubscribedLeadIn": "寄付に感謝します！",
     "subscriptionAlreadySubscribed1": "寄付の詳細を確認したり、寄付会員の中止・更新・変更をしたりするには、<a href='/user/settings/subscription'>ユーザーアイコン &gt; 設定 &gt; 寄付</a> を参照してください。",
-    "purchaseAll": "すべて購入",
+    "purchaseAll": "セットを購入する",
     "gemsPurchaseNote": "寄付会員はゴールドを使って、市場でジェムを購入できます！　購入しやすくするために、ごほうび欄にジェムをピン留めすることも可能です。",
     "gemsRemaining": "残りのジェム",
     "notEnoughGemsToBuy": "その量のジェムを買うことはできません。"

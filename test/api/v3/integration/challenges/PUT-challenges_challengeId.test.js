@@ -79,6 +79,14 @@ describe('PUT /challenges/:challengeId', () => {
       _id: member._id,
       id: member._id,
       profile: {name: member.profile.name},
+      auth: {
+        local: {
+          username: member.auth.local.username,
+        },
+      },
+      flags: {
+        verifiedUsername: true,
+      },
     });
     expect(res.name).to.equal('New Challenge Name');
     expect(res.description).to.equal('New challenge description.');

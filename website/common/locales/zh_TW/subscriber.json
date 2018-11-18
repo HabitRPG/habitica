@@ -148,6 +148,7 @@
     "mysterySet201807": "Sea Serpent Set",
     "mysterySet201808": "Lava Dragon Set",
     "mysterySet201809": "Autumnal Armor Set",
+    "mysterySet201810": "Dark Forest Set",
     "mysterySet301404": "蒸氣龐克標準套裝",
     "mysterySet301405": "蒸氣龐克配件套裝",
     "mysterySet301703": "Peacock Steampunk Set",
@@ -206,7 +207,7 @@
     "haveCouponCode": "Do you have a coupon code?",
     "subscriptionAlreadySubscribedLeadIn": "感謝訂閱！",
     "subscriptionAlreadySubscribed1": "To see your subscription details and cancel, renew, or change your subscription, please go to <a href='/user/settings/subscription'>User icon &gt; Settings &gt; Subscription</a>.",
-    "purchaseAll": "Purchase All",
+    "purchaseAll": "Purchase Set",
     "gemsPurchaseNote": "Subscribers can buy gems for gold in the Market! For easy access, you can also pin the gem to your Rewards column.",
     "gemsRemaining": "剩餘寶石",
     "notEnoughGemsToBuy": "你無法購買該數量的寶石"

@@ -125,6 +125,7 @@
     "importantAnnouncements": "タスクの完了し、賞を受けるために、チェックインを通知します。",
     "weeklyRecaps": "先週の活動概要 (注 : この機能は、現在パフォーマンスの問題が発生し無効になっています。しかし、なるべく早くこの問題を解決し、メールが送れることを願っています!)",
     "onboarding": "あなたのHabiticaアカウントの設定の手引き",
+    "majorUpdates": "大切なお知らせ",
     "questStarted": "あなたのクエストがはじまりました",
     "invitedQuest": "クエストへ招待されました",
     "kickedGroup": "グループから追い出されました",
@@ -156,6 +157,7 @@
     "generate": "生成する",
     "getCodes": "コードを取得する",
     "webhooks": "Webhook",
+    "webhooksInfo": "あなたのアカウントで特定のアクションが発生したときに、別のウェブサイトのスクリプトへ情報が送信できるように、Habiticaはウェブフックを提供しています。ここでそれらのスクリプトを指定することができます。間違ったURLを指定してしまうとHabiticaでのエラーや遅延の原因になるため、この機能を用いるときはご注意ください。より詳しく知りたいときは、wikiの <a target=\"_blank\" href=\"https://habitica.wikia.com/wiki/Webhooks\">Webhooks</a> ページをご覧ください。",
     "enabled": "有効",
     "webhookURL": "Webhook URL",
     "invalidUrl": "無効な Url",
@@ -202,5 +204,6 @@
     "goToSettings": "設定を行う",
     "usernameVerifiedConfirmation": "あなたのユーザー名、<%= username %>、は承認されました！",
     "usernameNotVerified": "あなたのユーザー名を承認してください。",
-    "changeUsernameDisclaimer": "私たちはもうすぐログイン名を、固有の、公開のユーザー名に移行します。このユーザー名は、招待、チャットでの＠返信、メッセージのやりとりなどで使用されます。"
+    "changeUsernameDisclaimer": "私たちはもうすぐログイン名を、固有の、公開のユーザー名に移行します。このユーザー名は、招待、チャットでの＠返信、メッセージのやりとりなどで使用されます。",
+    "verifyUsernameVeteranPet": "あなたが承認を終えたあとには、百戦練磨のペットのうち１匹があなたを待っていることでしょう！"
 }

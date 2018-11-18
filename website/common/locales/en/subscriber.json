@@ -149,6 +149,7 @@
     "mysterySet201807": "Sea Serpent Set",
     "mysterySet201808": "Lava Dragon Set",
     "mysterySet201809": "Autumnal Armor Set",
+    "mysterySet201810": "Dark Forest Set",
     "mysterySet301404": "Steampunk Standard Set",
     "mysterySet301405": "Steampunk Accessories Set",
     "mysterySet301703": "Peacock Steampunk Set",
@@ -209,7 +210,7 @@
     "haveCouponCode": "Do you have a coupon code?",
     "subscriptionAlreadySubscribedLeadIn": "Thanks for subscribing!",
     "subscriptionAlreadySubscribed1": "To see your subscription details and cancel, renew, or change your subscription, please go to <a href='/user/settings/subscription'>User icon &gt; Settings &gt; Subscription</a>.",
-    "purchaseAll": "Purchase All",
+    "purchaseAll": "Purchase Set",
     "gemsPurchaseNote": "Subscribers can buy gems for gold in the Market! For easy access, you can also pin the gem to your Rewards column.",
     "gemsRemaining": "gems remaining",
     "notEnoughGemsToBuy": "You are unable to buy that amount of gems"

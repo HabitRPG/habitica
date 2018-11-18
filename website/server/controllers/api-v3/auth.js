@@ -17,10 +17,10 @@ import { encrypt } from '../../libs/encryption';
 import {
   loginRes,
   hasBackupAuth,
-  hasLocalAuth,
   loginSocial,
   registerLocal,
 } from '../../libs/auth';
+import {verifyUsername} from '../../libs/user/validation';
 
 const BASE_URL = nconf.get('BASE_URL');
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
@@ -144,7 +144,6 @@ api.loginSocial = {
  * @apiName UpdateUsername
  * @apiGroup User
  *
- * @apiParam (Body) {String} password The current user password
  * @apiParam (Body) {String} username The new username
 
  * @apiSuccess {String} data.username The new username
@@ -154,37 +153,55 @@ api.updateUsername = {
   middlewares: [authWithHeaders()],
   url: '/user/auth/update-username',
   async handler (req, res) {
-    let user = res.locals.user;
+    const user = res.locals.user;
 
     req.checkBody({
-      password: {
-        notEmpty: {errorMessage: res.t('missingPassword')},
-      },
       username: {
         notEmpty: {errorMessage: res.t('missingUsername')},
       },
     });
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    if (!hasLocalAuth(user)) throw new BadRequest(res.t('userHasNoLocalRegistration'));
+    const newUsername = req.body.username;
 
-    let password = req.body.password;
-    let isValidPassword = await passwordUtils.compare(user, password);
-    if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
+    const issues = verifyUsername(newUsername, res);
+    if (issues.length > 0) throw new BadRequest(issues.join(' '));
 
-    let count = await User.count({ 'auth.local.lowerCaseUsername': req.body.username.toLowerCase() });
-    if (count > 0) throw new BadRequest(res.t('usernameTaken'));
+    const password = req.body.password;
+    if (password !== undefined) {
+      let isValidPassword = await passwordUtils.compare(user, password);
+      if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
+    }
+
+    const existingUser = await User.findOne({ 'auth.local.lowerCaseUsername': newUsername.toLowerCase() }, {auth: 1}).exec();
+    if (existingUser !== undefined && existingUser !== null && existingUser._id !== user._id) {
+      throw new BadRequest(res.t('usernameTaken'));
+    }
 
     // if password is using old sha1 encryption, change it
-    if (user.auth.local.passwordHashMethod === 'sha1') {
+    if (user.auth.local.passwordHashMethod === 'sha1' && password !== undefined) {
       await passwordUtils.convertToBcrypt(user, password); // user is saved a few lines below
     }
 
     // save username
-    user.auth.local.lowerCaseUsername = req.body.username.toLowerCase();
-    user.auth.local.username = req.body.username;
+    user.auth.local.lowerCaseUsername = newUsername.toLowerCase();
+    user.auth.local.username = newUsername;
+    if (!user.flags.verifiedUsername) {
+      user.flags.verifiedUsername = true;
+      if (user.items.pets['Bear-Veteran']) {
+        user.items.pets['Fox-Veteran'] = 5;
+      } else if (user.items.pets['Lion-Veteran']) {
+        user.items.pets['Bear-Veteran'] = 5;
+      } else if (user.items.pets['Tiger-Veteran']) {
+        user.items.pets['Lion-Veteran'] = 5;
+      } else if (user.items.pets['Wolf-Veteran']) {
+        user.items.pets['Tiger-Veteran'] = 5;
+      } else {
+        user.items.pets['Wolf-Veteran'] = 5;
+      }
+    }
     await user.save();
 
     res.respond(200, { username: req.body.username });

@@ -69,31 +69,31 @@ export const MAX_CHAT_COUNT = 200;
 export const MAX_SUBBED_GROUP_CHAT_COUNT = 400;
 
 export let schema = new Schema({
-  name: {type: String, required: true},
-  summary: {type: String, maxlength: MAX_SUMMARY_SIZE_FOR_GUILDS},
+  name: {$type: String, required: true},
+  summary: {$type: String, maxlength: MAX_SUMMARY_SIZE_FOR_GUILDS},
   description: String,
-  leader: {type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid.'], required: true},
-  type: {type: String, enum: ['guild', 'party'], required: true},
-  privacy: {type: String, enum: ['private', 'public'], default: 'private', required: true},
+  leader: {$type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid.'], required: true},
+  type: {$type: String, enum: ['guild', 'party'], required: true},
+  privacy: {$type: String, enum: ['private', 'public'], default: 'private', required: true},
   chat: Array, // Used for backward compatibility, but messages aren't stored here
   leaderOnly: { // restrict group actions to leader (members can't do them)
-    challenges: {type: Boolean, default: false, required: true},
-    // invites: {type: Boolean, default: false, required: true},
+    challenges: {$type: Boolean, default: false, required: true},
+    // invites: {$type: Boolean, default: false, required: true},
     // Some group plans prevent members from getting gems
-    getGems: {type: Boolean, default: false},
+    getGems: {$type: Boolean, default: false},
   },
-  memberCount: {type: Number, default: 1},
-  challengeCount: {type: Number, default: 0},
-  balance: {type: Number, default: 0},
+  memberCount: {$type: Number, default: 1},
+  challengeCount: {$type: Number, default: 0},
+  balance: {$type: Number, default: 0},
   logo: String,
   leaderMessage: String,
   quest: {
     key: String,
-    active: {type: Boolean, default: false},
-    leader: {type: String, ref: 'User'},
+    active: {$type: Boolean, default: false},
+    leader: {$type: String, ref: 'User'},
     progress: {
       hp: Number,
-      collect: {type: Schema.Types.Mixed, default: () => {
+      collect: {$type: Schema.Types.Mixed, default: () => {
         return {};
       }}, // {feather: 5, ingot: 3}
       rage: Number, // limit break / "energy stored in shell", for explosion-attacks
@@ -102,34 +102,35 @@ export let schema = new Schema({
     // Shows boolean for each party-member who has accepted the quest. Eg {UUID: true, UUID: false}. Once all users click
     // 'Accept', the quest begins. If a false user waits too long, probably a good sign to prod them or boot them.
     // TODO when booting user, remove from .joined and check again if we can now start the quest
-    members: {type: Schema.Types.Mixed, default: () => {
+    members: {$type: Schema.Types.Mixed, default: () => {
       return {};
     }},
-    extra: {type: Schema.Types.Mixed, default: () => {
+    extra: {$type: Schema.Types.Mixed, default: () => {
       return {};
     }},
   },
   tasksOrder: {
-    habits: [{type: String, ref: 'Task'}],
-    dailys: [{type: String, ref: 'Task'}],
-    todos: [{type: String, ref: 'Task'}],
-    rewards: [{type: String, ref: 'Task'}],
+    habits: [{$type: String, ref: 'Task'}],
+    dailys: [{$type: String, ref: 'Task'}],
+    todos: [{$type: String, ref: 'Task'}],
+    rewards: [{$type: String, ref: 'Task'}],
   },
   purchased: {
-    plan: {type: SubscriptionPlanSchema, default: () => {
+    plan: {$type: SubscriptionPlanSchema, default: () => {
       return {};
     }},
   },
-  managers: {type: Schema.Types.Mixed, default: () => {
+  managers: {$type: Schema.Types.Mixed, default: () => {
     return {};
   }},
   categories: [{
-    slug: {type: String},
-    name: {type: String},
+    slug: {$type: String},
+    name: {$type: String},
   }],
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
+  typeKey: '$type', // So that we can use fields named `type`
 });
 
 schema.plugin(baseModel, {
@@ -349,40 +350,32 @@ schema.statics.toJSONCleanChat = async function groupToJSONCleanChat (group, use
   return toJSON;
 };
 
-/**
- * Checks invitation uuids and emails for possible errors.
- *
- * @param  uuids  An array of user ids
- * @param  emails  An array of emails
- * @param  res  Express res object for use with translations
- * @throws BadRequest An error describing the issue with the invitations
- */
-schema.statics.validateInvitations = async function getInvitationError (uuids, emails, res, group = null) {
-  let uuidsIsArray = Array.isArray(uuids);
-  let emailsIsArray = Array.isArray(emails);
-  let emptyEmails = emailsIsArray && emails.length < 1;
-  let emptyUuids = uuidsIsArray && uuids.length < 1;
+function getInviteError (uuids, emails, usernames) {
+  const uuidsIsArray = Array.isArray(uuids);
+  const emailsIsArray = Array.isArray(emails);
+  const usernamesIsArray = Array.isArray(usernames);
+  const emptyEmails = emailsIsArray && emails.length < 1;
+  const emptyUuids = uuidsIsArray && uuids.length < 1;
+  const emptyUsernames = usernamesIsArray && usernames.length < 1;
 
   let errorString;
 
-  if (!uuids && !emails) {
+  if (!uuids && !emails && !usernames) {
     errorString = 'canOnlyInviteEmailUuid';
   } else if (uuids && !uuidsIsArray) {
     errorString = 'uuidsMustBeAnArray';
   } else if (emails && !emailsIsArray) {
     errorString = 'emailsMustBeAnArray';
-  } else if (!emails && emptyUuids) {
-    errorString = 'inviteMissingUuid';
-  } else if (!uuids && emptyEmails) {
-    errorString = 'inviteMissingEmail';
-  } else if (emptyEmails && emptyUuids) {
+  } else if (usernames && !usernamesIsArray) {
+    errorString = 'usernamesMustBeAnArray';
+  } else if ((!emails || emptyEmails) && (!uuids || emptyUuids) && (!usernames || emptyUsernames)) {
     errorString = 'inviteMustNotBeEmpty';
   }
 
-  if (errorString) {
-    throw new BadRequest(res.t(errorString));
-  }
+  return errorString;
+}
 
+function getInviteCount (uuids, emails) {
   let totalInvites = 0;
 
   if (uuids) {
@@ -393,6 +386,27 @@ schema.statics.validateInvitations = async function getInvitationError (uuids, e
     totalInvites += emails.length;
   }
 
+  return totalInvites;
+}
+
+/**
+ * Checks invitation uuids and emails for possible errors.
+ *
+ * @param  uuids  An array of user ids
+ * @param  emails  An array of emails
+ * @param  res  Express res object for use with translations
+ * @throws BadRequest An error describing the issue with the invitations
+ */
+schema.statics.validateInvitations = async function getInvitationError (invites, res, group = null) {
+  const {
+    uuids,
+    emails,
+    usernames,
+  } = invites;
+  const errorString = getInviteError(uuids, emails, usernames);
+  if (errorString) throw new BadRequest(res.t(errorString));
+
+  const totalInvites = getInviteCount(uuids, emails);
   if (totalInvites > INVITES_LIMIT) {
     throw new BadRequest(res.t('canOnlyInviteMaxInvites', {maxInvites: INVITES_LIMIT}));
   }
@@ -479,6 +493,10 @@ schema.methods.sendChat = function sendChat (message, user, metaData) {
   if (metaData) {
     newChatMessage._meta = metaData;
   }
+
+  // Activate the webhook for receiving group chat messages before
+  // newChatMessage is possibly returned
+  this.sendGroupChatReceivedWebhooks(newChatMessage);
 
   // do not send notifications for guilds with more than 5000 users and for the tavern
   if (NO_CHAT_NOTIFICATIONS.indexOf(this._id) !== -1 || this.memberCount > LARGE_GROUP_COUNT_MESSAGE_CUTOFF) {

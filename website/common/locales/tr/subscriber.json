@@ -148,6 +148,7 @@
     "mysterySet201807": "Su Yılanı Seti",
     "mysterySet201808": "Lav Ejderi Seti",
     "mysterySet201809": "Sonbaharsal Zırh Seti",
+    "mysterySet201810": "Kara Orman Seti",
     "mysterySet301404": "Standart Steampunk Seti",
     "mysterySet301405": "Steampunk Aksesuarları Seti",
     "mysterySet301703": "Tavuskuşu Steampunk Seti",
@@ -206,7 +207,7 @@
     "haveCouponCode": "Bir kupon kodun var mı?",
     "subscriptionAlreadySubscribedLeadIn": "Abone olduğun için teşekkürler!",
     "subscriptionAlreadySubscribed1": "Abonelik detaylarını görmek; aboneliğini iptal etmek, yenilemek veya değiştirmek için lütfen <a href='/user/settings/subscription'>Kullanıcı İkonu &gt; Ayarlar &gt; Abonelik</a> sayfasını ziyaret et.",
-    "purchaseAll": "Hepsini Satın Al",
+    "purchaseAll": "Seti Satın Al",
     "gemsPurchaseNote": "Aboneler Pazardan altın karşılığında elmas satın alabilirler! Kolay erişim için ayrıca elması Ödüller sütununa iğneleyebilirsin.",
     "gemsRemaining": "elmas kaldı",
     "notEnoughGemsToBuy": "Bu miktarda elmas alamazsın"

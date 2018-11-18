@@ -4,37 +4,53 @@ div
   .message-hidden(v-if='msg.flagCount === 1 && user.contributor.admin') Message flagged once, not hidden
   .message-hidden(v-if='msg.flagCount > 1 && user.contributor.admin') Message hidden
   .card-body
-      h3.leader(
-        :class='userLevelStyle(msg)',
-        @click="showMemberModal(msg.uuid)",
-        v-b-tooltip.hover.top="tierTitle",
-      )
-        | {{msg.user}}
-        .svg-icon(v-html="tierIcon", v-if='showShowTierStyle')
-      p.time(v-b-tooltip="", :title="msg.timestamp | date") {{msg.timestamp | timeAgo}}
-      .text(v-markdown='msg.text')
-      hr
-      div(v-if='msg.id')
-        .action(@click='like()', v-if='!inbox && msg.likes', :class='{active: msg.likes[user._id]}')
-          .svg-icon(v-html="icons.like")
+    h3.leader(
+      :class='userLevelStyle(msg)',
+      @click="showMemberModal(msg.uuid)",
+      v-b-tooltip.hover.top="tierTitle",
+      v-if="msg.user"
+    )
+      | {{msg.user}}
+      .svg-icon(v-html="tierIcon")
+    p.time
+      span.mr-1(v-if="msg.username") @{{ msg.username }}
+      span.mr-1(v-if="msg.username") •
+      span(v-b-tooltip="", :title="msg.timestamp | date") {{ msg.timestamp | timeAgo }}
+    .text(v-html='atHighlight(parseMarkdown(msg.text))')
+    hr
+    .d-flex(v-if='msg.id')
+      .action.d-flex.align-items-center(v-if='!inbox', @click='copyAsTodo(msg)')
+        .svg-icon(v-html="icons.copy")
+        div {{$t('copyAsTodo')}}
+      .action.d-flex.align-items-center(v-if='!inbox && user.flags.communityGuidelinesAccepted && msg.uuid !== "system"', @click='report(msg)')
+        .svg-icon(v-html="icons.report")
+        div {{$t('report')}}
+        // @TODO make flagging/reporting work in the inbox. NOTE: it must work even if the communityGuidelines are not accepted and it MUST work for messages that you have SENT as well as received. -- Alys
+      .action.d-flex.align-items-center(v-if='msg.uuid === user._id || inbox || user.contributor.admin', @click='remove()')
+        .svg-icon(v-html="icons.delete")
+        | {{$t('delete')}}
+      .ml-auto.d-flex(v-b-tooltip="{title: likeTooltip(msg.likes[user._id])}", v-if='!inbox')
+        .action.d-flex.align-items-center.mr-0(@click='like()', v-if='likeCount > 0', :class='{active: msg.likes[user._id]}')
+          .svg-icon(v-html="icons.liked", :title='$t("liked")')
+          | +{{ likeCount }}
+        .action.d-flex.align-items-center.mr-0(@click='like()', v-if='likeCount === 0', :class='{active: msg.likes[user._id]}')
+          .svg-icon(v-html="icons.like", :title='$t("like")')
           span(v-if='!msg.likes[user._id]') {{ $t('like') }}
-          span(v-if='msg.likes[user._id]') {{ $t('liked') }}
-        span.action(v-if='!inbox', @click='copyAsTodo(msg)')
-          .svg-icon(v-html="icons.copy")
-          | {{$t('copyAsTodo')}}
-        span.action(v-if='!inbox && user.flags.communityGuidelinesAccepted && msg.uuid !== "system"', @click='report(msg)')
-          .svg-icon(v-html="icons.report")
-          | {{$t('report')}}
-          // @TODO make flagging/reporting work in the inbox. NOTE: it must work even if the communityGuidelines are not accepted and it MUST work for messages that you have SENT as well as received. -- Alys
-        span.action(v-if='msg.uuid === user._id || inbox || user.contributor.admin', @click='remove()')
-          .svg-icon(v-html="icons.delete")
-          | {{$t('delete')}}
-        span.action.float-right.liked(v-if='likeCount > 0')
-          .svg-icon(v-html="icons.liked")
-          | + {{ likeCount }}
 </template>
 
+<style lang="scss">
+  .at-highlight {
+    background-color: rgba(213, 200, 255, 0.32);
+    padding: 0.1rem;
+  }
+
+  .at-text {
+    color: #6133b4;
+  }
+</style>
+
 <style lang="scss" scoped>
+  @import '~client/assets/scss/colors.scss';
   @import '~client/assets/scss/tiers.scss';
 
   .mentioned-icon {
@@ -54,7 +70,14 @@ div
     color: red;
   }
 
+  hr {
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
   .card-body {
+    padding: 0.75rem 1.25rem 0.75rem 1.25rem;
+
     .leader {
       margin-bottom: 0;
     }
@@ -62,6 +85,7 @@ div
     h3 { // this is the user name
       cursor: pointer;
       display: inline-block;
+      font-size: 16px;
 
       .svg-icon {
         width: 10px;
@@ -73,13 +97,15 @@ div
     .time {
       font-size: 12px;
       color: #878190;
-      width: 150px;
+      margin-bottom: 0.5rem;
     }
 
     .text {
       font-size: 14px;
       color: #4e4a57;
       text-align: left !important;
+      min-height: 0rem;
+      margin-bottom: -0.5rem;
     }
   }
 
@@ -87,25 +113,25 @@ div
     display: inline-block;
     color: #878190;
     margin-right: 1em;
+    font-size: 12px;
+
+    :hover {
+      cursor: pointer;
+    }
+
+    .svg-icon {
+      color: #A5A1AC;
+      margin-right: .2em;
+      width: 16px;
+    }
   }
 
-  .action:hover {
-    cursor: pointer;
-  }
+  .active {
+    color: $purple-300;
 
-  .liked:hover {
-    cursor: default;
-  }
-
-  .action .svg-icon {
-    margin-right: .2em;
-    width: 16px;
-    display: inline-block;
-    color: #A5A1AC;
-  }
-
-  .action.active, .active .svg-icon {
-    color: #46a7d9
+    .svg-icon {
+      color: $purple-400;
+    }
   }
 </style>
 
@@ -114,8 +140,9 @@ import axios from 'axios';
 import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import escapeRegExp from 'lodash/escapeRegExp';
+import max from 'lodash/max';
 
-import markdownDirective from 'client/directives/markdown';
+import habiticaMarkdown from 'habitica-markdown';
 import { mapState } from 'client/libs/store';
 import styleHelper from 'client/mixins/styleHelper';
 
@@ -161,9 +188,6 @@ export default {
       }),
     };
   },
-  directives: {
-    markdown: markdownDirective,
-  },
   filters: {
     timeAgo (value) {
       return moment(value).fromNow();
@@ -177,23 +201,24 @@ export default {
     ...mapState({user: 'user.data'}),
     isUserMentioned () {
       const message = this.msg;
-      let user = this.user;
+      const user = this.user;
 
       if (message.hasOwnProperty('highlight')) return message.highlight;
 
       message.highlight = false;
-      let messagetext = message.text.toLowerCase();
-      let username = user.profile.name;
-      let mentioned = messagetext.indexOf(username.toLowerCase());
-      let escapedUsername = escapeRegExp(username);
-      let pattern = `@${escapedUsername}([^\w]|$){1}`;
-
+      const messageText = message.text.toLowerCase();
+      const displayName = user.profile.name;
+      const username = user.auth.local && user.auth.local.username;
+      const mentioned = max([messageText.indexOf(username.toLowerCase()), messageText.indexOf(displayName.toLowerCase())]);
       if (mentioned === -1) return message.highlight;
 
-      let preceedingchar = messagetext.substring(mentioned - 1, mentioned);
-      if (mentioned === 0 || preceedingchar.trim() === '' || preceedingchar === '@') {
+      const escapedDisplayName = escapeRegExp(displayName);
+      const escapedUsername = escapeRegExp(username);
+      const pattern = `@(${escapedUsername}|${escapedDisplayName})(\\b)`;
+      const precedingChar = messageText.substring(mentioned - 1, mentioned);
+      if (mentioned === 0 || precedingChar.trim() === '' || precedingChar === '@') {
         let regex = new RegExp(pattern, 'i');
-        message.highlight = regex.test(messagetext);
+        message.highlight = regex.test(messageText);
       }
 
       return message.highlight;
@@ -208,12 +233,6 @@ export default {
         if (like) likeCount += 1;
       }
       return likeCount;
-    },
-    showShowTierStyle () {
-      const message = this.msg;
-      const isContributor = Boolean(message.contributor && message.contributor.level);
-      const isNPC = Boolean(message.backer && message.backer.npc);
-      return isContributor || isNPC;
     },
     tierIcon () {
       const message = this.msg;
@@ -244,6 +263,10 @@ export default {
       }
 
       this.$emit('message-liked', message);
+      this.$root.$emit('bv::hide::tooltip');
+    },
+    likeTooltip (likedStatus) {
+      if (!likedStatus) return this.$t('like');
     },
     copyAsTodo (message) {
       this.$root.$emit('habitica::copy-as-todo', message);
@@ -272,6 +295,27 @@ export default {
     },
     showMemberModal (memberId) {
       this.$emit('show-member-modal', memberId);
+    },
+    atHighlight (text) {
+      const userRegex = new RegExp(`@(${this.user.auth.local.username}|${this.user.profile.name})(?:\\b)`, 'gi');
+      const atRegex = new RegExp(/(?!\b)@[\w-]+/g);
+
+      if (userRegex.test(text)) {
+        text = text.replace(userRegex, match => {
+          return `<span class="at-highlight at-text">${match}</span>`;
+        });
+      }
+
+      if (atRegex.test(text)) {
+        text = text.replace(atRegex, match => {
+          return `<span class="at-text">${match}</span>`;
+        });
+      }
+
+      return text;
+    },
+    parseMarkdown (text) {
+      return habiticaMarkdown.render(text);
     },
   },
 };

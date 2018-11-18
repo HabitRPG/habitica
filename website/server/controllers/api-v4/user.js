@@ -1,5 +1,6 @@
 import { authWithHeaders } from '../../middlewares/auth';
 import * as userLib from '../../libs/user';
+import { verifyDisplayName } from '../../libs/user/validation';
 
 const api = {};
 
@@ -203,6 +204,34 @@ api.userReset = {
   url: '/user/reset',
   async handler (req, res) {
     await userLib.reset(req, res, { isV3: false });
+  },
+};
+
+api.verifyDisplayName = {
+  method: 'POST',
+  url: '/user/auth/verify-display-name',
+  middlewares: [authWithHeaders({
+    optional: true,
+  })],
+  async handler (req, res) {
+    req.checkBody({
+      displayName: {
+        notEmpty: {errorMessage: res.t('messageMissingDisplayName')},
+      },
+    });
+
+    const validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    const chosenDisplayName = req.body.displayName;
+
+    const issues = verifyDisplayName(chosenDisplayName, res);
+
+    if (issues.length > 0) {
+      res.respond(200, { isUsable: false, issues });
+    } else {
+      res.respond(200, { isUsable: true });
+    }
   },
 };
 

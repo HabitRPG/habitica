@@ -4,7 +4,7 @@ export default {
   filters: {
     // https://stackoverflow.com/questions/2685911/is-there-a-way-to-round-numbers-into-a-reader-friendly-format-e-g-1-1k
     abbrNum: (number) => {
-      let decPlaces = 2;
+      let decPlaces = 1;
       decPlaces = Math.pow(10, decPlaces);
 
       let abbrev = ['k', 'm', 'b', 't'];
@@ -12,7 +12,7 @@ export default {
         let size = Math.pow(10, (i + 1) * 3);
 
         if (size <= number) {
-          number = Math.round(number * decPlaces / size) / decPlaces;
+          number = Math.floor(number * decPlaces / size) / decPlaces;
 
           if (number === 1000 && i < abbrev.length - 1) {
             number = 1;

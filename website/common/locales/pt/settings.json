@@ -125,6 +125,7 @@
     "importantAnnouncements": "Lembretes para completar tarefas e receber prémios",
     "weeklyRecaps": "Resumos de atividades da sua conta na semana passada ( Nota: Atualmente está desativado devido a problemas de desempenho, mas esperamos ter isto novamente e enviar e-mails em breve! )",
     "onboarding": "Guia acerca de como criar a sua conta de Habitica",
+    "majorUpdates": "Important announcements",
     "questStarted": "Sua Missão começou",
     "invitedQuest": "Convidado para Missão",
     "kickedGroup": "Expulso do grupo",
@@ -156,6 +157,7 @@
     "generate": "Gerar",
     "getCodes": "Obter Códigos",
     "webhooks": "Webhooks",
+    "webhooksInfo": "Habitica provides webhooks so that when certain actions occur in your account, information can be sent to a script on another website. You can specify those scripts here. Be careful with this feature because specifying an incorrect URL can cause errors or slowness in Habitica. For more information, see the wiki's <a target=\"_blank\" href=\"https://habitica.wikia.com/wiki/Webhooks\">Webhooks</a> page.",
     "enabled": "Habilitado",
     "webhookURL": "URL do Webhook",
     "invalidUrl": "url inválida",
@@ -198,9 +200,10 @@
     "usernameIssueInvalidCharacters": "Usernames can only contain letters a to z, numbers 0 to 9, hyphens, or underscores.",
     "currentUsername": "Current username:",
     "displaynameIssueLength": "Display Names must be between 1 and 30 characters.",
-    "displaynameIssueSlur": "Display Names may not contain inappropriate language",
+    "displaynameIssueSlur": "Display Names may not contain inappropriate language.",
     "goToSettings": "Go to Settings",
     "usernameVerifiedConfirmation": "Your username, <%= username %>, is confirmed!",
     "usernameNotVerified": "Please confirm your username.",
-    "changeUsernameDisclaimer": "We will be transitioning login names to unique, public usernames soon. This username will be used for invitations, @mentions in chat, and messaging."
+    "changeUsernameDisclaimer": "We will be transitioning login names to unique, public usernames soon. This username will be used for invitations, @mentions in chat, and messaging.",
+    "verifyUsernameVeteranPet": "One of these Veteran Pets will be waiting for you after you've finished confirming!"
 }
