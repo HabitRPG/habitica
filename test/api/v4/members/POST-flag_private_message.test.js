@@ -66,8 +66,8 @@ describe('POST /members/flag-private-message/:messageId', () => {
 
     await expect(receiver.post(`/members/flag-private-message/${sendersMessageInReceiversInbox.id}`))
       .to.eventually.be.rejected.and.eql({
-        code: 404,
-        error: 'NotFound',
+        code: 400,
+        error: 'BadRequest',
         message: t('messageGroupChatFlagAlreadyReported'),
       });
   });

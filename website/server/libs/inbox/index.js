@@ -36,9 +36,3 @@ export async function clearPMs (user) {
     Inbox.remove({ownerId: user._id}).exec(),
   ]);
 }
-
-export async function updateMessage (message) {
-  await Inbox.update({
-    id: message._id,
-  }, message).exec();
-}

@@ -67,10 +67,12 @@ export default class InboxChatReporter extends ChatReporter {
     });
   }
 
-  updateMessageAndSave (message, updateFunc) {
-    updateFunc(message);
+  updateMessageAndSave (message, ...changedFields) {
+    for (const changedField of changedFields) {
+      message.markModified(changedField);
+    }
 
-    return inboxLib.updateMessage(message);
+    return message.save();
   }
 
   flagInboxMessage (message) {
@@ -81,16 +83,16 @@ export default class InboxChatReporter extends ChatReporter {
       throw new BadRequest(this.res.t('messageGroupChatFlagAlreadyReported'));
     }
 
-    return this.updateMessageAndSave(message, (m) => {
-      m.flags[this.user._id] = true;
-      m.flagCount = 1;
-    });
+    message.flags[this.user._id] = true;
+    message.flagCount = 1;
+
+    return this.updateMessageAndSave(message, 'flags', 'flagCount');
   }
 
   async markMessageAsReported (message) {
-    return this.updateMessageAndSave(message, (m) => {
-      m.reported = true;
-    });
+    message.reported = true;
+
+    return this.updateMessageAndSave(message, 'reported');
   }
 
   async flag () {
