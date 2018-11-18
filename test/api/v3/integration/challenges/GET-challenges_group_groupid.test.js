@@ -39,6 +39,14 @@ describe('GET challenges/groups/:groupId', () => {
         _id: publicGuild.leader._id,
         id: publicGuild.leader._id,
         profile: {name: user.profile.name},
+        auth: {
+          local: {
+            username: user.auth.local.username,
+          },
+        },
+        flags: {
+          verifiedUsername: true,
+        },
       });
       let foundChallenge2 = _.find(challenges, { _id: challenge2._id });
       expect(foundChallenge2).to.exist;
@@ -46,6 +54,14 @@ describe('GET challenges/groups/:groupId', () => {
         _id: publicGuild.leader._id,
         id: publicGuild.leader._id,
         profile: {name: user.profile.name},
+        auth: {
+          local: {
+            username: user.auth.local.username,
+          },
+        },
+        flags: {
+          verifiedUsername: true,
+        },
       });
     });
 
@@ -58,6 +74,14 @@ describe('GET challenges/groups/:groupId', () => {
         _id: publicGuild.leader._id,
         id: publicGuild.leader._id,
         profile: {name: user.profile.name},
+        auth: {
+          local: {
+            username: user.auth.local.username,
+          },
+        },
+        flags: {
+          verifiedUsername: true,
+        },
       });
       let foundChallenge2 = _.find(challenges, { _id: challenge2._id });
       expect(foundChallenge2).to.exist;
@@ -65,6 +89,14 @@ describe('GET challenges/groups/:groupId', () => {
         _id: publicGuild.leader._id,
         id: publicGuild.leader._id,
         profile: {name: user.profile.name},
+        auth: {
+          local: {
+            username: user.auth.local.username,
+          },
+        },
+        flags: {
+          verifiedUsername: true,
+        },
       });
     });
 
@@ -125,6 +157,14 @@ describe('GET challenges/groups/:groupId', () => {
         _id: privateGuild.leader._id,
         id: privateGuild.leader._id,
         profile: {name: user.profile.name},
+        auth: {
+          local: {
+            username: user.auth.local.username,
+          },
+        },
+        flags: {
+          verifiedUsername: true,
+        },
       });
       let foundChallenge2 = _.find(challenges, { _id: challenge2._id });
       expect(foundChallenge2).to.exist;
@@ -132,6 +172,14 @@ describe('GET challenges/groups/:groupId', () => {
         _id: privateGuild.leader._id,
         id: privateGuild.leader._id,
         profile: {name: user.profile.name},
+        auth: {
+          local: {
+            username: user.auth.local.username,
+          },
+        },
+        flags: {
+          verifiedUsername: true,
+        },
       });
     });
   });
@@ -235,6 +283,14 @@ describe('GET challenges/groups/:groupId', () => {
         _id: party.leader._id,
         id: party.leader._id,
         profile: {name: user.profile.name},
+        auth: {
+          local: {
+            username: user.auth.local.username,
+          },
+        },
+        flags: {
+          verifiedUsername: true,
+        },
       });
       let foundChallenge2 = _.find(challenges, { _id: challenge2._id });
       expect(foundChallenge2).to.exist;
@@ -242,6 +298,14 @@ describe('GET challenges/groups/:groupId', () => {
         _id: party.leader._id,
         id: party.leader._id,
         profile: {name: user.profile.name},
+        auth: {
+          local: {
+            username: user.auth.local.username,
+          },
+        },
+        flags: {
+          verifiedUsername: true,
+        },
       });
     });
 
@@ -254,6 +318,14 @@ describe('GET challenges/groups/:groupId', () => {
         _id: party.leader._id,
         id: party.leader._id,
         profile: {name: user.profile.name},
+        auth: {
+          local: {
+            username: user.auth.local.username,
+          },
+        },
+        flags: {
+          verifiedUsername: true,
+        },
       });
       let foundChallenge2 = _.find(challenges, { _id: challenge2._id });
       expect(foundChallenge2).to.exist;
@@ -261,6 +333,14 @@ describe('GET challenges/groups/:groupId', () => {
         _id: party.leader._id,
         id: party.leader._id,
         profile: {name: user.profile.name},
+        auth: {
+          local: {
+            username: user.auth.local.username,
+          },
+        },
+        flags: {
+          verifiedUsername: true,
+        },
       });
     });
   });
@@ -288,6 +368,14 @@ describe('GET challenges/groups/:groupId', () => {
         _id: user._id,
         id: user._id,
         profile: {name: user.profile.name},
+        auth: {
+          local: {
+            username: user.auth.local.username,
+          },
+        },
+        flags: {
+          verifiedUsername: true,
+        },
       });
       let foundChallenge2 = _.find(challenges, { _id: challenge2._id });
       expect(foundChallenge2).to.exist;
@@ -295,6 +383,14 @@ describe('GET challenges/groups/:groupId', () => {
         _id: user._id,
         id: user._id,
         profile: {name: user.profile.name},
+        auth: {
+          local: {
+            username: user.auth.local.username,
+          },
+        },
+        flags: {
+          verifiedUsername: true,
+        },
       });
     });
 
@@ -307,6 +403,14 @@ describe('GET challenges/groups/:groupId', () => {
         _id: user._id,
         id: user._id,
         profile: {name: user.profile.name},
+        auth: {
+          local: {
+            username: user.auth.local.username,
+          },
+        },
+        flags: {
+          verifiedUsername: true,
+        },
       });
       let foundChallenge2 = _.find(challenges, { _id: challenge2._id });
       expect(foundChallenge2).to.exist;
@@ -314,6 +418,14 @@ describe('GET challenges/groups/:groupId', () => {
         _id: user._id,
         id: user._id,
         profile: {name: user.profile.name},
+        auth: {
+          local: {
+            username: user.auth.local.username,
+          },
+        },
+        flags: {
+          verifiedUsername: true,
+        },
       });
     });
   });

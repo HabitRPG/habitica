@@ -381,7 +381,7 @@ let armor = {
     value: 100,
     con: 15,
     set: 'jeweledArcher',
-    canOwn: ownsItem('armor_armoire_JeweledArcherArmor'),
+    canOwn: ownsItem('armor_armoire_jeweledArcherArmor'),
   },
   coverallsOfBookbinding: {
     text: t('armorArmoireCoverallsOfBookbindingText'),
@@ -391,6 +391,23 @@ let armor = {
     per: 5,
     set: 'bookbinder',
     canOwn: ownsItem('armor_armoire_coverallsOfBookbinding'),
+  },
+  robeOfSpades: {
+    text: t('armorArmoireRobeOfSpadesText'),
+    notes: t('armorArmoireRobeOfSpadesNotes', { str: 13 }),
+    value: 100,
+    str: 13,
+    set: 'aceOfSpades',
+    canOwn: ownsItem('armor_armoire_robeOfSpades'),
+  },
+  softBlueSuit: {
+    text: t('armorArmoireSoftBlueSuitText'),
+    notes: t('armorArmoireSoftBlueSuitNotes', { int: 10, per: 5 }),
+    value: 100,
+    int: 10,
+    per: 5,
+    set: 'blueLoungewear',
+    canOwn: ownsItem('armor_armoire_softBlueSuit'),
   },
 };
 
@@ -561,6 +578,7 @@ let head = {
     per: 7,
     int: 7,
     con: 7,
+    set: 'blueLoungewear',
     canOwn: ownsItem('head_armoire_blueFloppyHat'),
   },
   shepherdHeaddress: {
@@ -834,7 +852,15 @@ let head = {
     value: 100,
     int: 15,
     set: 'jeweledArcher',
-    canOwn: ownsItem('head_armoire_JeweledArcherHelm'),
+    canOwn: ownsItem('head_armoire_jeweledArcherHelm'),
+  },
+  veilOfSpades: {
+    text: t('headArmoireVeilOfSpadesText'),
+    notes: t('headArmoireVeilOfSpadesNotes', { per: 13 }),
+    value: 100,
+    per: 13,
+    set: 'aceOfSpades',
+    canOwn: ownsItem('head_armoire_veilOfSpades'),
   },
 };
 
@@ -1048,6 +1074,14 @@ let shield = {
     int: 10,
     set: 'bookbinder',
     canOwn: ownsItem('shield_armoire_unfinishedTome'),
+  },
+  softBluePillow: {
+    text: t('shieldArmoireSoftBluePillowText'),
+    notes: t('shieldArmoireSoftBluePillowNotes', { con: 10 }),
+    value: 100,
+    con: 10,
+    set: 'blueLoungewear',
+    canOwn: ownsItem('shield_armoire_softBluePillow'),
   },
 };
 
@@ -1390,6 +1424,14 @@ let weapon = {
     str: 8,
     set: 'bookbinder',
     canOwn: ownsItem('weapon_armoire_needleOfBookbinding'),
+  },
+  spearOfSpades: {
+    text: t('weaponArmoireSpearOfSpadesText'),
+    notes: t('weaponArmoireSpearOfSpadesNotes', { con: 13 }),
+    value: 100,
+    con: 13,
+    set: 'aceOfSpades',
+    canOwn: ownsItem('weapon_armoire_spearOfSpades'),
   },
 };
 

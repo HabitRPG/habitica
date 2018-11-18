@@ -38,7 +38,6 @@
     "messageInsufficientGems": "Gemas insuficientes!",
     "messageAuthPasswordMustMatch": ":password e :confirmPassword não combinam",
     "messageAuthCredentialsRequired": ":username, :email, :password, :confirmPassword necessários",
-    "messageAuthUsernameTaken": "Nome de Usuário em uso",
     "messageAuthEmailTaken": "Email já cadastrado",
     "messageAuthNoUserFound": "Usuário não encontrado.",
     "messageAuthMustBeLoggedIn": "Você deve estar logado.",
@@ -62,5 +61,6 @@
     "notificationsRequired": "Os IDs de notificação são obrigatórios.",
     "unallocatedStatsPoints": "Você tem <span class=\"notification-bold-blue\"><%= points %></span> Pontos de Atributos não distribuidos",
     "beginningOfConversation": "Este é o começo de sua conversa com <%= userName %>. Lembre-se da gentileza, respeito e de seguir as Diretrizes da Comunidade.",
-    "messageDeletedUser": "Desculpe, esse usuário deletou sua conta."
+    "messageDeletedUser": "Desculpe, esse usuário deletou sua conta.",
+    "messageMissingDisplayName": "Faltando nome de exibição."
 }

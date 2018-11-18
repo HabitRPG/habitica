@@ -25,6 +25,7 @@
     "polarBearPup": "Pui de urs polar",
     "jackolantern": "Dovleac de Halloween",
     "ghostJackolantern": "Ghost Jack-O-Lantern",
+    "glowJackolantern": "Glow-in-the-Dark Jack-O-Lantern",
     "seasonalShop": "Seasonal Shop",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Seasonal Sorceress<%= linkEnd %>",

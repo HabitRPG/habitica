@@ -614,9 +614,17 @@
     "questKangarooText": "Catástrofe del Canguro",
     "questKangarooNotes": "A lo mejor deberías haber terminado la última tarea... Ya sabes, la que sigues evitando aunque siempre vuelve. ¡Pero @Mewrose y @LilithofAlfheim os han invitado a ti y a @stefalupagus a ver una extraña manada de canguros saltando por Sabana Calmoilento! ¿Cómo negarte? Cuando la manada aparece, ¡algo te golpea por detrás de la cabeza con un poderoso <em>golpe!</em><br><br> Todavía viendo las estrellas, coges el objeto responsable: un boomerang rojo oscuro, con esa tarea que estás todo el rato intentando ignorar. Una mirada rápida confirma que el resto de tu equipo se ha encontrado con un destino similar. ¡Una canguro más grande que el resto te mira con una sonrisilla sucia, como si te estuviera retando a enfrentarte a ella y a la tarea, de una vez y para siempre!",
     "questKangarooCompletion": "—¡Ahora!\n\nHaces una señal a tu equipo para lanzar los boomerang de vuelta al canguro. La bestia salta más lejos con cada golpe hasta que huye, dejando nada más que una polvareda roja, unos pocos huevos y algunas monedas.<br><br> @Mewrose avanza hacia donde estaba el canguro.\n\n—Hey, ¿a dónde han ido los boomerangs?\n\n<br><br>—Seguramente se han disuelto en polvo, creando esa nube roja, cuando terminamos nuestras tareas especula @stefalupagus.\n\n<br><br>@LilithofAlfheim escudriña el horizonte.\n\n—¿Eso es otra manada de canguros viniendo hacia nosotros?\n\n<br><br>Todos vosotros echáis a correr de vuelta a Ciudad de los Hábitos. ¡Mejor enfrentaros a vuestras tareas difíciles que aguantar más golpes en la cabeza!",
-    "questKangarooBoss": "Catastrophic Kangaroo",
-    "questKangarooDropKangarooEgg": "Kangaroo (Egg)",
-    "questKangarooUnlockText": "Unlocks purchasable Kangaroo eggs in the Market",
-    "forestFriendsText": "Forest Friends Quest Bundle",
-    "forestFriendsNotes": "Contains 'The Spirit of Spring', 'The Hedgebeast', and 'The Tangle Tree'. Available until September 30."
+    "questKangarooBoss": "Canguro Catastrófico",
+    "questKangarooDropKangarooEgg": "Canguro (Huevo)",
+    "questKangarooUnlockText": "Desbloquea la posibilidad de compra de huevos de Canguro en el Mercado",
+    "forestFriendsText": "Lote de Misiones de Amigos del Bosque",
+    "forestFriendsNotes": "Contiene \"El espíritu de la primavera\", \"El erizobestia\", y \"La enredadera\". Disponible hasta el 30 de septiembre.",
+    "questAlligatorText": "The Insta-Gator",
+    "questAlligatorNotes": "“Crikey!” exclaims @gully. “An Insta-Gator in its natural habitat! Careful, it distracts its prey with things that seem urgent THIS INSTANT, and it feeds on the unchecked Dailies that result.” You fall silent to avoid attracting its attention, but to no avail. The Insta-Gator spots you and charges! Distracting voices rise up from Swamps of Stagnation, grabbing for your attention: “Read this post! See this photo! Pay attention to me THIS INSTANT!” You scramble to mount a counterattack, completing your Dailies and bolstering your good Habits to fight off the dreaded Insta-Gator.",
+    "questAlligatorCompletion": "With your attention focused on what’s important and not the Insta-Gator’s distractions, the Insta-Gator flees. Victory! “Are those eggs? They look like gator eggs to me,” asks @mfonda. “If we care for them correctly, they’ll be loyal pets or faithful steeds,” answers @UncommonCriminal, handing you three to care for. Let’s hope so, or else the Insta-Gator might make a return…",
+    "questAlligatorBoss": "Insta-Gator",
+    "questAlligatorDropAlligatorEgg": "Caimán (Huevo)",
+    "questAlligatorUnlockText": "Desbloquear la compra de huevos de Caimán en el Mercado",
+    "oddballsText": "Oddballs Quest Bundle",
+    "oddballsNotes": "Contains 'The Jelly Regent,' 'Escape the Cave Creature,' and 'A Tangled Yarn.' Available until November 30."
 }

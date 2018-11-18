@@ -42,7 +42,6 @@
 
   "messageAuthPasswordMustMatch": ":password and :confirmPassword don't match",
   "messageAuthCredentialsRequired": ":username, :email, :password, :confirmPassword required",
-  "messageAuthUsernameTaken": "Login Name already taken",
   "messageAuthEmailTaken": "Email already taken",
   "messageAuthNoUserFound": "No user found.",
   "messageAuthMustBeLoggedIn": "You must be logged in.",
@@ -72,5 +71,6 @@
   "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!",
 
   "messageDeletedUser": "Sorry, this user has deleted their account.",
+  "messageMissingDisplayName": "Missing display name.",
   "reportedMessage": "You have reported this message to moderators."
 }

@@ -1,7 +1,50 @@
-import { authWithHeaders } from '../../middlewares/auth';
+import {
+  authWithHeaders,
+} from '../../middlewares/auth';
 import * as authLib from '../../libs/auth';
+import { model as User } from '../../models/user';
+import {verifyUsername} from '../../libs/user/validation';
 
 const api = {};
+
+api.verifyUsername = {
+  method: 'POST',
+  url: '/user/auth/verify-username',
+  middlewares: [authWithHeaders({
+    optional: true,
+  })],
+  async handler (req, res) {
+    req.checkBody({
+      username: {
+        notEmpty: {errorMessage: res.t('missingUsername')},
+      },
+    });
+
+    const validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    const user = res.locals.user;
+    const chosenUsername = req.body.username;
+
+    const issues = verifyUsername(chosenUsername, res);
+
+    if (issues.length < 1) {
+      const existingUser = await User.findOne({
+        'auth.local.lowerCaseUsername': chosenUsername.toLowerCase(),
+      }, {auth: 1}).exec();
+
+      if (existingUser) {
+        if (!user ||  existingUser._id !== user._id) issues.push(res.t('usernameTaken'));
+      }
+    }
+
+    if (issues.length > 0) {
+      res.respond(200, { isUsable: false, issues });
+    } else {
+      res.respond(200, { isUsable: true });
+    }
+  },
+};
 
 /*
 * NOTE most user routes are still in the v3 controller

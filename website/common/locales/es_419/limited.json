@@ -25,6 +25,7 @@
     "polarBearPup": "Cachorro de Oso Polar",
     "jackolantern": "Calabaza de Halloween",
     "ghostJackolantern": "Calabaza Fantasma de Halloween",
+    "glowJackolantern": "Glow-in-the-Dark Jack-O-Lantern",
     "seasonalShop": "Tienda Estacional",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Hechicera Estacional<%= linkEnd %>",

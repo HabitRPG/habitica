@@ -1,5 +1,5 @@
 <template lang="pug">
-b-modal#hatching-modal(@change="resetHatchablePet($event)")
+b-modal#hatching-modal()
   div.content(v-if="hatchablePet")
     div.potionEggGroup
       div.potionEggBackground
@@ -72,13 +72,6 @@ export default {
         close: svgClose,
       }),
     };
-  },
-  methods: {
-    resetHatchablePet ($event) {
-      if (!$event) {
-        this.hatchablePet = null;
-      }
-    },
   },
 };
 </script>

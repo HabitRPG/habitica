@@ -731,6 +731,34 @@ let backgrounds = {
       notes: t('backgroundCozyBarnNotes'),
     },
   },
+  backgrounds102018: {
+    bayou: {
+      text: t('backgroundBayouText'),
+      notes: t('backgroundBayouNotes'),
+    },
+    creepy_castle: {
+      text: t('backgroundCreepyCastleText'),
+      notes: t('backgroundCreepyCastleNotes'),
+    },
+    dungeon: {
+      text: t('backgroundDungeonText'),
+      notes: t('backgroundDungeonNotes'),
+    },
+  },
+  backgrounds112018: {
+    back_alley: {
+      text: t('backgroundBackAlleyText'),
+      notes: t('backgroundBackAlleyNotes'),
+    },
+    glowing_mushroom_cave: {
+      text: t('backgroundGlowingMushroomCaveText'),
+      notes: t('backgroundGlowingMushroomCaveNotes'),
+    },
+    cozy_bedroom: {
+      text: t('backgroundCozyBedroomText'),
+      notes: t('backgroundCozyBedroomNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),

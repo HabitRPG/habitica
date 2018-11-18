@@ -38,7 +38,6 @@
     "messageInsufficientGems": "Yeteri kadar elmasın yok!",
     "messageAuthPasswordMustMatch": ":password ve :confirmPassword uyuşmuyor",
     "messageAuthCredentialsRequired": ":username, :email, :password, :confirmPassword zorunludur",
-    "messageAuthUsernameTaken": "Kullanıcı Adı zaten kullanılıyor",
     "messageAuthEmailTaken": "Mail adresi zaten kullanımda",
     "messageAuthNoUserFound": "Kullanıcı bulunamadı.",
     "messageAuthMustBeLoggedIn": "Giriş yapman gerekiyor.",
@@ -62,5 +61,6 @@
     "notificationsRequired": "Bildirm ID'leri gerekmektedir.",
     "unallocatedStatsPoints": "<span class=\"notification-bold-blue\"><%= points %> adet dağıtılmamış Nitelik Puanın var.</span>",
     "beginningOfConversation": "Bu <%= userName %> ile konuşmanın başlangıcıdır.Kibar ve saygılı olmayı ve Topluluk Kurallarına uymayı unutma.",
-    "messageDeletedUser": "Üzgünüz, bu kullanıcı hesabını silmiş."
+    "messageDeletedUser": "Üzgünüz, bu kullanıcı hesabını silmiş.",
+    "messageMissingDisplayName": "Görünen isim eksik."
 }

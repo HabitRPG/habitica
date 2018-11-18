@@ -315,9 +315,8 @@ describe('User Model', () => {
       user = new User();
     });
 
-
     it('returns false if user does not have customer id', () => {
-      expect(user.hasNotCancelled()).to.be.undefined;
+      expect(user.hasNotCancelled()).to.be.false;
     });
 
     it('returns true if user does not have plan.dateTerminated', () => {
@@ -338,6 +337,38 @@ describe('User Model', () => {
       user.purchased.plan.dateTerminated = moment().subtract(1, 'days').toDate();
 
       expect(user.hasNotCancelled()).to.be.false;
+    });
+  });
+
+
+  context('hasCancelled', () => {
+    let user;
+    beforeEach(() => {
+      user = new User();
+    });
+
+    it('returns false if user does not have customer id', () => {
+      expect(user.hasCancelled()).to.be.false;
+    });
+
+    it('returns false if user does not have plan.dateTerminated', () => {
+      user.purchased.plan.customerId = 'test-id';
+
+      expect(user.hasCancelled()).to.be.false;
+    });
+
+    it('returns true if user if plan.dateTerminated is after today', () => {
+      user.purchased.plan.customerId = 'test-id';
+      user.purchased.plan.dateTerminated = moment().add(1, 'days').toDate();
+
+      expect(user.hasCancelled()).to.be.true;
+    });
+
+    it('returns false if user if plan.dateTerminated is before today', () => {
+      user.purchased.plan.customerId = 'test-id';
+      user.purchased.plan.dateTerminated = moment().subtract(1, 'days').toDate();
+
+      expect(user.hasCancelled()).to.be.false;
     });
   });
 

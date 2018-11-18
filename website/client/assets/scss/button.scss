@@ -20,7 +20,7 @@
     @include btn-focus-hover-shadow();
   }
 
-  &:hover:not(.btn-flat) {
+  &:hover:not(.btn-flat):not(.disabled) {
     @include btn-focus-hover-shadow();
     border-color: transparent;
   }
@@ -37,6 +37,7 @@
 
 .btn:disabled, .btn.disabled {
   box-shadow: none;
+  cursor: default;
   opacity: 0.64;
   border-color: transparent;
 }

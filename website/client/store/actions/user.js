@@ -139,8 +139,6 @@ export function newStuffLater (store) {
 export async function rebirth () {
   let result = await axios.post('/api/v4/user/rebirth');
 
-  window.location.reload(true);
-
   return result;
 }
 
@@ -151,5 +149,16 @@ export async function togglePrivateMessagesOpt (store) {
     }
   );
   store.state.user.data.inbox.optOut = !store.state.user.data.inbox.optOut;
+  return response;
+}
+
+export async function userLookup (store, params) {
+  let response;
+  if (params.uuid) {
+    response = await axios.get(`/api/v4/members/${params.uuid}`);
+  }
+  if (params.username) {
+    response = await axios.get(`/api/v4/members/username/${params.username}`);
+  }
   return response;
 }

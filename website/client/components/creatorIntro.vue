@@ -5,7 +5,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       h3(v-once) {{$t('welcomeTo')}}
       .svg-icon.logo(v-html='icons.logoPurple')
 
-  .avatar-section.row(:class='{"page-2": modalPage === 2}')
+  .avatar-section.row(v-if='modalPage > 1', :class='{"page-2": modalPage === 2}')
     .col-6.offset-3
       .user-creation-bg(v-if='!editing')
       avatar(:member='user', :avatarOnly='!editing', :class='{"edit-avatar": editing}')
@@ -187,18 +187,18 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     #extra.section.container.customize-section(v-if='activeTopPage === "extra"')
       .row.sub-menu
         .col-3.offset-1.text-center.sub-menu-item(@click='changeSubPage("glasses")', :class='{active: activeSubPage === "glasses"}')
-          strong(v-once) {{$t('glasses')}}
+          strong(v-once) {{ $t('glasses') }}
         .col-4.text-center.sub-menu-item(@click='changeSubPage("wheelchair")', :class='{active: activeSubPage === "wheelchair"}')
-          strong(v-once) {{$t('wheelchair')}}
+          strong(v-once) {{ $t('wheelchair') }}
         .col-3.text-center.sub-menu-item(@click='changeSubPage("flower")', :class='{active: activeSubPage === "flower"}')
-          strong(v-once) {{$t('accent')}}
+          strong(v-once) {{ $t('accent') }}
       .row.sub-menu(v-if='editing')
         .col-4.text-center.sub-menu-item(@click='changeSubPage("ears")' :class='{active: activeSubPage === "ears"}')
-          strong(v-once) {{$t('animalEars')}}
+          strong(v-once) {{ $t('animalEars') }}
         .col-4.text-center.sub-menu-item(@click='changeSubPage("tails")' :class='{active: activeSubPage === "tails"}')
-          strong(v-once) {{$t('animalTails')}}
+          strong(v-once) {{ $t('animalTails') }}
         .col-4.text-center.sub-menu-item(@click='changeSubPage("headband")' :class='{active: activeSubPage === "headband"}')
-          strong(v-once) {{$t('headband')}}
+          strong(v-once) {{ $t('headband') }}
       #glasses.row(v-if='activeSubPage === "glasses"')
         .col-12.customize-options
           .option(v-for='option in eyewear', :class='{active: option.active}')
@@ -208,9 +208,12 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
           .option(v-for='option in animalItems("headAccessory")',
             :class='{active: option.active, locked: option.locked}')
             .sprite.customize-option(:class="`headAccessory_special_${option.key}`", @click='option.click')
-            .gem-lock(v-if='option.locked')
+            .gem-lock(v-if='option.gemLocked')
               .svg-icon.gem(v-html='icons.gem')
               span 2
+            .gold-lock(v-if='option.goldLocked')
+              .svg-icon.gold(v-html='icons.gold')
+              span 20
           .col-12.text-center(v-if='!animalItemsOwned("headAccessory")')
             .gem-lock
               .svg-icon.gem(v-html='icons.gem')
@@ -221,9 +224,12 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
           .option(v-for='option in animalItems("back")',
             :class='{active: option.active, locked: option.locked}')
             .sprite.customize-option(:class="`icon_back_special_${option.key}`", @click='option.click')
-            .gem-lock(v-if='option.locked')
+            .gem-lock(v-if='option.gemLocked')
               .svg-icon.gem(v-html='icons.gem')
               span 2
+            .gold-lock(v-if='option.goldLocked')
+              .svg-icon.gold(v-html='icons.gold')
+              span 20
           .col-12.text-center(v-if='!animalItemsOwned("back")')
             .gem-lock
               .svg-icon.gem(v-html='icons.gem')
@@ -299,7 +305,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             )
               span.svg-icon.inline.icon-12.color(v-html="icons.pin")
           .purchase-background.set(v-if='!ownsSet("background", set.items) && set.identifier !== "incentiveBackgrounds"' @click='unlock(setKeys("background", set.items))')
-            span.label Purchase Set
+            span.label {{ $t('purchaseAll') }}
             .svg-icon.gem(v-html='icons.gem')
             span.price 15
       .row.customize-menu(v-if='filterBackgrounds')
@@ -314,7 +320,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
   .container.interests-section(v-if='modalPage === 3 && !editing')
     .section.row
       .col-12.text-center
-        h2 I want to work on:
+        h2 {{ $t('wantToWorkOn') }}
     .section.row
       .col-6
         .task-option
@@ -347,28 +353,35 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             input.custom-control-input#self_care(type="checkbox", value='self_care', v-model='taskCategories')
             label.custom-control-label(v-once, for="self_care") {{ $t('self_care') }}
 
-  .section.row.justin-message-section(:class='{top: modalPage > 1}', v-if='!editing')
-    .col-12
-      .justin-message.d-flex.flex-column.justify-content-center
-        .featured-label
-          span.rectangle
-          span.text Justin
-          span.rectangle
-        .npc_justin_textbox
+  .section.d-flex.justify-content-center(:class='{top: modalPage > 1}', v-if='!editing')
+    .justin-section.d-flex.align-items-center
+      .featured-label
+        span.rectangle
+        span.text Justin
+        span.rectangle
+      .justin-message
+        .corner-decoration(:style="{top: '-2px', right: '-2px'}")
+        .corner-decoration(:style="{top: '-2px', left: '-2px'}")
+        .corner-decoration(:style="{bottom: '-2px', right: '-2px'}")
+        .corner-decoration(:style="{bottom: '-2px', left: '-2px'}")
         div(v-if='modalPage === 1')
-          p(v-once) {{$t('justinIntroMessage1')}}
-          p(v-once) {{$t('justinIntroMessage2')}}
+          p(v-once, v-html='$t("justinIntroMessage1")')
+          p(v-once) {{ $t('justinIntroMessageUsername') }}
         div(v-if='modalPage === 2')
-          p So how would you like to look? Don’t worry, you can change this later.
+          p {{ $t('justinIntroMessageAppearance') }}
         div(v-if='modalPage === 3')
-          p(v-once) {{$t('justinIntroMessage3')}}
+          p(v-once) {{ $t('justinIntroMessage3') }}
+      .npc-justin-textbox
+  .section.mr-5.ml-5(v-if='modalPage === 1')
+    username-form(@usernameConfirmed='modalPage += 1', :avatarIntro='true')
+    .small.text-center(v-html="$t('usernameTOSRequirements')")
 
-  .section.container.footer(v-if='!editing')
-    .row
+  .section.container.footer
+    .row(v-if='!editing && !(modalPage === 1)')
       .col-3.offset-1.text-center
         div(v-if='modalPage > 1', @click='prev()')
           .prev-arrow
-          .prev(v-once) {{$t('prev')}}
+          .prev(v-once) {{ $t('prev') }}
       .col-4.text-center.circles
         .circle(:class="{active: modalPage === 1}")
         .circle(:class="{active: modalPage === 2}")
@@ -384,12 +397,9 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
 <style>
   /* @TODO do not rely on avatar-modal___BV_modal_body_,
      it already changed once when bootstrap-vue reached version 1 */
-  .page-2 #avatar-modal___BV_modal_body_ {
-    margin-top: 9em;
-  }
 
-  .page-2 .modal-content {
-    margin-top: 7em;
+  .page-2 #avatar-modal___BV_modal_body_ {
+    margin-top: 2rem;
   }
 
   #avatar-modal___BV_modal_body_, #avatar-modal___BV_modal_body_ {
@@ -415,6 +425,25 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     position: relative;
   }
 
+  .corner-decoration {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background-color: #ffbe5d;
+    border: inherit;
+    outline: inherit;
+  }
+
+  .small {
+    color: $gray-200;
+  }
+
+  h3 {
+    font-size: 20px;
+    font-weight: normal;
+    color: $gray-200;
+  }
+
   .purchase-all {
     margin-bottom: 1em;
   }
@@ -438,7 +467,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
 
   .logo {
     width: 190px;
-    margin: 0 auto;
+    margin: 0 auto 1.25em;
   }
 
   .user-creation-bg {
@@ -458,32 +487,22 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     left: 9.2em;
   }
 
-  .justin-message {
-    background-image: url('~client/assets/svg/for-css/tutorial-border.svg');
-    height: 144px;
-    width: 400px;
-    padding: 2em;
-    margin: 0 auto;
+  .justin-section {
     position: relative;
+  }
 
-    .featured-label {
-      position: absolute;
-      top: -1em;
-
-      .text {
-        min-height: auto;
-        color: $white;
-      }
-    }
-
-    .npc_justin_textbox {
-      position: absolute;
-      right: 1em;
-      top: -3.6em;
-      width: 48px;
-      height: 52px;
-      background-image: url('~client/assets/images/justin_textbox.png');
-    }
+  .justin-message {
+    border-color: #ffa623;
+    border-style: solid;
+    border-width: 2px;
+    outline-color: #b36213;
+    outline-style: solid;
+    outline-width: 2px;
+    position: relative;
+    padding: 2em;
+    margin: 2px;
+    height: 100%;
+    width: 400px;
 
     p {
       margin: auto;
@@ -494,15 +513,27 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     }
   }
 
-  .justin-message-section {
-    margin-top: 4em;
-    margin-bottom: 2em;
+  .npc-justin-textbox {
+    position: absolute;
+    right: 1rem;
+    top: -3.1rem;
+    width: 48px;
+    height: 48px;
+    background-image: url('~client/assets/images/justin_textbox.png');
   }
 
-  .justin-message-section.top {
+  .featured-label {
     position: absolute;
-    top: -16em;
-    left: 3.5em;
+    top: -1rem;
+    left: 1.5rem;
+    border-radius: 2px;
+    margin: auto;
+
+    .text {
+      font-size: 12px;
+      min-height: auto;
+      color: $white;
+    }
   }
 
   .circles {
@@ -585,20 +616,21 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     }
   }
 
-  .text-center .gem-lock {
-    display: inline-block;
-    margin-right: 1em;
-    margin-bottom: 1.6em;
-    vertical-align: bottom;
+  .text-center {
+    .gem-lock, .gold-lock {
+      display: inline-block;
+      margin-right: 1em;
+      margin-bottom: 1.6em;
+      vertical-align: bottom;
+    }
   }
 
-  .gem-lock {
+  .gem-lock, .gold-lock {
     .svg-icon {
       width: 16px;
     }
 
     span {
-      color: #24cc8f;
       font-weight: bold;
       margin-left: .5em;
     }
@@ -607,6 +639,14 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       display: inline-block;
       vertical-align: bottom;
     }
+  }
+
+  .gem-lock span {
+    color: $green-10
+  }
+
+  .gold-lock span {
+    color: $yellow-10
   }
 
   .option.active {
@@ -725,7 +765,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
         color: #24cc8f;
       }
 
-      .gem {
+      .gem, .coin {
         width: 16px;
       }
 
@@ -740,13 +780,13 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
           font-size: 14px;
         }
 
-        .gem {
+        .gem, .coin {
           width: 20px;
         }
       }
     }
 
-    .gem {
+    .gem, .coin {
       margin: 0 .5em;
       display: inline-block;
       vertical-align: bottom;
@@ -850,8 +890,10 @@ import get from 'lodash/get';
 import groupBy from 'lodash/groupBy';
 import { mapState } from 'client/libs/store';
 import avatar from './avatar';
+import usernameForm from './settings/usernameForm';
 import { getBackgroundShopSets } from '../../common/script/libs/shops';
 import unlock from '../../common/script/ops/unlock';
+import buy from '../../common/script/ops/buy/buy';
 import guide from 'client/mixins/guide';
 import notifications from 'client/mixins/notifications';
 import appearance from 'common/script/content/appearance';
@@ -865,6 +907,7 @@ import skinIcon from 'assets/svg/skin.svg';
 import hairIcon from 'assets/svg/hair.svg';
 import backgroundsIcon from 'assets/svg/backgrounds.svg';
 import gem from 'assets/svg/gem.svg';
+import gold from 'assets/svg/gold.svg';
 import pin from 'assets/svg/pin.svg';
 import isPinned from 'common/script/libs/isPinned';
 
@@ -1005,6 +1048,7 @@ export default {
   components: {
     avatar,
     toggleSwitch,
+    usernameForm,
   },
   mounted () {
     if (this.editing) this.modalPage = 2;
@@ -1042,6 +1086,7 @@ export default {
         backgroundsIcon,
         gem,
         pin,
+        gold,
       }),
       modalPage: 1,
       activeTopPage: 'body',
@@ -1505,6 +1550,24 @@ export default {
         alert(e.message);
       }
     },
+    async buy (item) {
+      const options = {
+        currency: 'gold',
+        key: item,
+        type: 'marketGear',
+        quantity: 1,
+        pinType: 'marketGear',
+      };
+      await axios.post(`/api/v4/user/buy/${item}`, options);
+      try {
+        buy(this.user, {
+          params: options,
+        });
+        this.backgroundUpdate = new Date();
+      } catch (e) {
+        alert(e.message);
+      }
+    },
     setKeys (type, _set) {
       return map(_set, (v, k) => {
         if (type === 'background') k = v.key;
@@ -1543,7 +1606,7 @@ export default {
 
       let own = true;
       this.animalItemKeys[category].forEach(key => {
-        if (!this.user.items.gear.owned[`${category}_special_${key}`]) own = false;
+        if (this.user.items.gear.owned[`${category}_special_${key}`] === undefined) own = false;
       });
       return own;
     },
@@ -1554,15 +1617,22 @@ export default {
       let options = keys.map(key => {
         let newKey = `${category}_special_${key}`;
         let userPurchased = this.user.items.gear.owned[newKey];
-        let locked = !userPurchased;
 
         let option = {};
         option.key = key;
         option.active = this.user.preferences.costume ? this.user.items.gear.costume[category] === newKey : this.user.items.gear.equipped[category] === newKey;
-        option.locked = locked;
+        option.gemLocked = userPurchased === undefined;
+        option.goldLocked = userPurchased === false;
+        option.locked = option.gemLocked || option.goldLocked;
         option.click = () => {
-          let type = this.user.preferences.costume ? 'costume' : 'equipped';
-          return locked ? this.unlock(`items.gear.owned.${newKey}`) : this.equip(newKey, type);
+          if (option.gemLocked) {
+            return this.unlock(`items.gear.owned.${newKey}`);
+          } else if (option.goldLocked) {
+            return this.buy(newKey);
+          } else {
+            let type = this.user.preferences.costume ? 'costume' : 'equipped';
+            return this.equip(newKey, type);
+          }
         };
         return option;
       });

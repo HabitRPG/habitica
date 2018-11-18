@@ -79,6 +79,14 @@ describe('POST /challenges/:challengeId/join', () => {
         _id: groupLeader._id,
         id: groupLeader._id,
         profile: {name: groupLeader.profile.name},
+        auth: {
+          local: {
+            username: groupLeader.auth.local.username,
+          },
+        },
+        flags: {
+          verifiedUsername: true,
+        },
       });
       expect(res.name).to.equal(challenge.name);
     });

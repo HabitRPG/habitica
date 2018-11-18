@@ -20,8 +20,8 @@ describe('DELETE user message', () => {
 
     messagesId = Object.keys(userRes.inbox.messages);
     expect(messagesId.length).to.eql(2);
-    expect(userRes.inbox.messages[messagesId[0]].text).to.eql('first');
-    expect(userRes.inbox.messages[messagesId[1]].text).to.eql('second');
+    expect(userRes.inbox.messages[messagesId[0]].text).to.eql('second');
+    expect(userRes.inbox.messages[messagesId[1]].text).to.eql('first');
   });
 
   it('one message', async () => {
@@ -31,7 +31,7 @@ describe('DELETE user message', () => {
 
     let userRes = await user.get('/user');
     expect(Object.keys(userRes.inbox.messages).length).to.eql(1);
-    expect(userRes.inbox.messages[messagesId[0]].text).to.eql('second');
+    expect(userRes.inbox.messages[messagesId[0]].text).to.eql('first');
   });
 
   it('clear all', async () => {

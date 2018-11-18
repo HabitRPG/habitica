@@ -14,6 +14,11 @@
         button.btn.btn-secondary.create-group-button.float-right(@click='createGroup()')
           .svg-icon.positive-icon(v-html="icons.positiveIcon")
           span(v-once) {{$t('createGuild2')}}
+
+    .row
+      .no-guilds.text-center.col-md-6.offset-md-3(v-if='!loading && filteredGuilds.length === 0')
+        h2(v-once) {{$t('noGuildsMatchFilters')}}
+
     .row
       .col-md-12
         public-guild-item(v-for="guild in filteredGuilds", :key='guild._id', :guild="guild", :display-leave='true')
@@ -38,6 +43,15 @@
     width: 10px;
     display: inline-block;
     margin-right: .5em;
+  }
+
+  .no-guilds {
+    color: $gray-200;
+    margin-top: 10em;
+
+    h2 {
+      color: $gray-200;
+    }
   }
 </style>
 

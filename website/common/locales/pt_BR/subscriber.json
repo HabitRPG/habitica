@@ -147,6 +147,8 @@
     "mysterySet201806": "Peixe-Pescador Atraente",
     "mysterySet201807": "Conjunto da Serpente Marinha",
     "mysterySet201808": "Conjunto Dragão de Lava",
+    "mysterySet201809": "Conjunto Armadura de Outono.",
+    "mysterySet201810": "Conjunto \"Floresta Negra\"",
     "mysterySet301404": "Conjunto \"Revolução Industrial Padrão\"",
     "mysterySet301405": "Conjunto \"Acessórios Revolução Industrial\"",
     "mysterySet301703": "Conjunto \"Revolução Industrial Pavão\"",
@@ -205,7 +207,7 @@
     "haveCouponCode": "Você tem um código de cupom?",
     "subscriptionAlreadySubscribedLeadIn": "Obrigado por tornar-se um assinante!",
     "subscriptionAlreadySubscribed1": "Para ver os detalhes, cancelamento, renovação ou mudanças na sua assinatura, por favor vá para <a href='/user/settings/subscription'>Usuário &gt; Configurações &gt; Assinatura</a>.",
-    "purchaseAll": "Comprar Todos",
+    "purchaseAll": "Comprar Conjunto",
     "gemsPurchaseNote": "Assinantes podem comprar gemas com ouro no Mercado! Para fácil acesso, você pode marcar a gema na sua coluna de Recompensas.",
     "gemsRemaining": "gemas restantes",
     "notEnoughGemsToBuy": "Você não pode comprar essa quantidade de gemas."
