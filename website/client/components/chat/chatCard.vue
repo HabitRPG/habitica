@@ -40,7 +40,7 @@ div
           | +{{ likeCount }}
         .action.d-flex.align-items-center.mr-0(@click='like()', v-if='likeCount === 0', :class='{active: msg.likes[user._id]}')
           .svg-icon(v-html="icons.like", :title='$t("like")')
-      span(v-if='!msg.likes[user._id]') {{ $t('like') }}
+      span(v-if='!msg.likes[user._id] && !inbox') {{ $t('like') }}
 </template>
 
 <style lang="scss">

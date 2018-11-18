@@ -3,7 +3,6 @@
   .row
     .col-12
       copy-as-todo-modal(:group-type='groupType', :group-name='groupName', :group-id='groupId')
-      report-flag-modal
   div(v-for="(msg, index) in messages", v-if='chat && canViewFlag(msg)', :class='{row: inbox}')
     .d-flex(v-if='user._id !== msg.uuid', :class='{"flex-grow-1": inbox}')
       avatar.avatar-left(
@@ -105,14 +104,12 @@ import findIndex from 'lodash/findIndex';
 
 import Avatar from '../avatar';
 import copyAsTodoModal from './copyAsTodoModal';
-import reportFlagModal from './reportFlagModal';
 import chatCard from './chatCard';
 
 export default {
   props: ['chat', 'groupType', 'groupId', 'groupName', 'inbox'],
   components: {
     copyAsTodoModal,
-    reportFlagModal,
     chatCard,
     Avatar,
   },
