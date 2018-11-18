@@ -85,7 +85,7 @@
     "short-uuid": "^3.0.0",
     "smartbanner.js": "^1.9.1",
     "stripe": "^5.9.0",
-    "superagent": "^3.8.3",
+    "superagent": "^4.0.0",
     "svg-inline-loader": "^0.8.0",
     "svg-url-loader": "^2.3.2",
     "svgo": "^1.0.5",
