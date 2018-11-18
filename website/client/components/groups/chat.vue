@@ -123,15 +123,19 @@
         }
       },
       async sendMessage () {
+        if (this.sending) return;
+        this.sending = true;
         let response = await this.$store.dispatch('chat:postChat', {
           group: this.group,
           message: this.newMessage,
         });
         this.group.chat.unshift(response.message);
         this.newMessage = '';
+        this.sending = false;
         this.$refs['user-entry'].innerText = '';
 
-        // @TODO: I would like to not reload everytime we send. Realtime/Firebase?
+        // @TODO: I would like to not reload everytime we send. Why are we reloading?
+        // The response has all the necessary data...
         let chat = await this.$store.dispatch('chat:getChat', {groupId: this.group._id});
         this.group.chat = chat;
       },
@@ -151,6 +155,10 @@
           this.chat.submitTimeout = null;
           this.chat.submitDisable = false;
         }, 500);
+      },
+
+      selectedAutocomplete (newText) {
+        this.newMessage = newText;
       },
 
       fetchRecentMessages () {
@@ -235,6 +243,7 @@
       box-shadow: 0 0 3pt 2pt white;
       border-radius: 2px;
       line-height: 1.43;
+      color: $gray-300;
       padding: .5em;
       -moz-appearance: textfield-multiline;
       -webkit-appearance: textarea;
