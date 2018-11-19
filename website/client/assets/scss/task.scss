@@ -291,6 +291,8 @@
 .habit-control {
   border-radius: 100px;
   color: $white;
+  display: flex;
+  flex-direction: column;
 
   .svg-icon {
     width: 10px;
