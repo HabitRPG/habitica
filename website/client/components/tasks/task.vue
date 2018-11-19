@@ -175,6 +175,7 @@
   }
 
   .task /deep/ .habitica-menu-dropdown .habitica-menu-dropdown-toggle {
+    background: $white;
     border: 0;
     border-radius: 0;
     opacity: 0;
