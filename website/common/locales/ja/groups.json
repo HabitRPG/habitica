@@ -365,7 +365,7 @@
     "inviteToGuild": "ギルドに招待する",
     "inviteToParty": "パーティへ招待する",
     "inviteEmailUsername": "Eメールまたはユーザー名によって招待する",
-    "inviteEmailUsernameInfo": "Invite users via a valid email or username. If an email isn't registered yet, we'll invite them to join.",
+    "inviteEmailUsernameInfo": "有効なEメールかユーザー名を使ってほかの人を招待しましょう。そのEメールがすでに登録済みでなければ、Habiticaへの招待メールを送ります。",
     "emailOrUsernameInvite": "メールアドレスまたはユーザー名",
     "messageGuildLeader": "ギルドリーダーにメッセージを送る",
     "donateGems": "ジェムを寄付する",

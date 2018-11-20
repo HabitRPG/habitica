@@ -138,7 +138,7 @@
     "audioTheme_airuTheme": "Airu's thema",
     "audioTheme_beatscribeNesTheme": "Beatscribe's NES-thema",
     "audioTheme_arashiTheme": "Arashi's thema",
-    "audioTheme_triumphTheme": "Triumph Theme",
+    "audioTheme_triumphTheme": "Overwinnings thema",
     "audioTheme_lunasolTheme": "Lunasol Theme",
     "audioTheme_spacePenguinTheme": "SpacePenguin's Theme",
     "audioTheme_maflTheme": "MAFL Theme",
@@ -248,7 +248,7 @@
     "userIdRequired": "Gebruikers ID is vereist",
     "resetFilters": "verwijder alle filters",
     "applyFilters": "pas filters toe",
-    "wantToWorkOn": "I want to work on:",
+    "wantToWorkOn": "Ik wil werken aan:",
     "categories": "Categorieën",
     "habiticaOfficial": "Habitica Official",
     "animals": "Dieren",
@@ -290,5 +290,5 @@
     "selected": "Geselecteerd",
     "howManyToBuy": "Hoeveel wil je kopen?",
     "habiticaHasUpdated": "Er is een nieuwe update voor Habitica. Ververs om de laatste versie te krijgen!",
-    "contactForm": "Contact the Moderation Team"
+    "contactForm": "Contacteer het moderators team"
 }
