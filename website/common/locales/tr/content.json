@@ -206,6 +206,7 @@
     "hatchingPotionRainbow": "Gökkuşağı",
     "hatchingPotionGlass": "Cam",
     "hatchingPotionGlow": "Karanlıkta Parlayan",
+    "hatchingPotionFrost": "Frost",
     "hatchingPotionNotes": "Bunu yumurtanın üstüne döktüğünde <%= potText(locale) %> türünde bir hayvan çıkacak.",
     "premiumPotionAddlNotes": "Görev yumurtalarıyla kullanılamaz.",
     "foodMeat": "Et",
