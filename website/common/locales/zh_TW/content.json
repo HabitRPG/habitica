@@ -206,6 +206,7 @@
     "hatchingPotionRainbow": "彩虹",
     "hatchingPotionGlass": "玻璃",
     "hatchingPotionGlow": "暗黑閃亮",
+    "hatchingPotionFrost": "Frost",
     "hatchingPotionNotes": "把它倒在寵物蛋上可以孵化出一隻<%= potText(locale) %>寵物。",
     "premiumPotionAddlNotes": "不能夠在任務寵物蛋上使用。",
     "foodMeat": "肉",

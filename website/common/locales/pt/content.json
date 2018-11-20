@@ -206,6 +206,7 @@
     "hatchingPotionRainbow": "Arco-Íris",
     "hatchingPotionGlass": " de Vidro",
     "hatchingPotionGlow": "Fluorescente",
+    "hatchingPotionFrost": "Frost",
     "hatchingPotionNotes": "Utilize isto num ovo, e ele chocará como um mascote <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "Não utilizável nos ovos de mascote de missão.",
     "foodMeat": "Carne",
