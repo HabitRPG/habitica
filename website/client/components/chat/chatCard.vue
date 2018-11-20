@@ -1,8 +1,8 @@
 <template lang="pug">
 div
   .mentioned-icon(v-if='isUserMentioned')
-  .message-hidden(v-if='msg.flagCount === 1 && user.contributor.admin') Message flagged once, not hidden
-  .message-hidden(v-if='msg.flagCount > 1 && user.contributor.admin') Message hidden
+  .message-hidden(v-if='!inbox && msg.flagCount === 1 && user.contributor.admin') Message flagged once, not hidden
+  .message-hidden(v-if='!inbox && msg.flagCount > 1 && user.contributor.admin') Message hidden
   .card-body
     h3.leader(
       :class='userLevelStyle(msg)',
@@ -17,11 +17,10 @@ div
       span.mr-1(v-if="msg.username") •
       span(v-b-tooltip="", :title="msg.timestamp | date") {{ msg.timestamp | timeAgo }}
     .text(v-html='atHighlight(parseMarkdown(msg.text))')
-    hr
-    .reported(v-if="isMessageReported")
+    .reported(v-if="isMessageReported && inbox")
       span(v-once) {{ $t('reportedMessage')}}
       br
-      span(v-if="inbox") {{ $t('canDeleteNow') }}
+      span(v-once) {{ $t('canDeleteNow') }}
     hr
     .d-flex(v-if='msg.id')
       .action.d-flex.align-items-center(v-if='!inbox', @click='copyAsTodo(msg)')
@@ -30,7 +29,6 @@ div
       .action.d-flex.align-items-center(v-if='(inbox || (user.flags.communityGuidelinesAccepted && msg.uuid !== "system")) && !isMessageReported', @click='report(msg)')
         .svg-icon(v-html="icons.report", v-once)
         div(v-once) {{$t('report')}}
-        // @TODO make flagging/reporting work in the inbox. NOTE: it must work even if the communityGuidelines are not accepted and it MUST work for messages that you have SENT as well as received. -- Alys
       .action.d-flex.align-items-center(v-if='msg.uuid === user._id || inbox || user.contributor.admin', @click='remove()')
         .svg-icon(v-html="icons.delete", v-once)
         div(v-once) {{$t('delete')}}

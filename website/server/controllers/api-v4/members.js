@@ -5,7 +5,7 @@ let api = {};
 
 /**
  * @api {post} /api/v4/members/flag-private-message/:messageId Flag a private message
- * @apiDescription An email is sent to the moderators about every flagged message.
+ * @apiDescription An email and slack message are sent to the moderators about every flagged message.
  * @apiName FlagPrivateMessage
  * @apiGroup Member
  *
