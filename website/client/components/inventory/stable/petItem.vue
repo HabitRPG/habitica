@@ -10,7 +10,6 @@ div
         span.potion(:class="potionClass")
       span.item-content(v-else, :class="getPetItemClass()")
       span.pet-progress-background(v-if="isAllowedToFeed() && progress() > 0")
-        | {{ progress() }}
         div.pet-progress-bar(v-bind:style="{width: 100 * progress()/50 + '%' }")
     span.item-label(v-if="label") {{ label }}
 
