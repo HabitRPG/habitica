@@ -144,7 +144,7 @@
                   .tags-none {{$t('none')}}
                   .dropdown-toggle
                 span.category-select(v-else)
-                  .category-label(v-for='tagName in truncatedSelectedTags', :title="tagName", v-markdown='tagName')
+                  .category-label(v-for='tagName in truncatedSelectedTags', :title="tagName") {{ tagName }}
                   .tags-more(v-if='remainingSelectedTags.length > 0') +{{ $t('more', { count: remainingSelectedTags.length }) }}
                   .dropdown-toggle
           tags-popup(ref="popup", v-if="showTagsSelect", :tags="user.tags", v-model="task.tags", @close='closeTagsPopup()')
