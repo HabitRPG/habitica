@@ -35,7 +35,7 @@
     "coupon-code": "^0.4.5",
     "cross-env": "^5.1.5",
     "css-loader": "^0.28.11",
-    "csv-stringify": "^4.3.1",
+    "csv-stringify": "^5.0.0",
     "cwait": "^1.1.1",
     "domain-middleware": "~0.1.0",
     "express": "^4.16.3",
