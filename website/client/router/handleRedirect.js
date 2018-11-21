@@ -1,12 +1,13 @@
+import { CONSTANTS, removeLocalSetting } from 'client/libs/userlocalManager';
+
 export default function (to, from, next) {
   const redirect = to.params.redirect;
 
   switch (redirect) {
     case 'paypal-success-checkout':
-      console.log('checkout');
-      break;
     case 'paypal-success-subscribe':
-      console.log('subscribe');
+      removeLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE);
+      window.close();
       break;
     default:
       next({name: 'notFound'});

@@ -45,7 +45,7 @@ export default {
     },
     openPaypal (url) {
       const appState = {
-        path: this.$route.fullPath,
+        inProgress: 'payment',
         paymentMethod: 'paypal',
       };
       setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
