@@ -125,7 +125,8 @@ function _setUpNewUser (user) {
   let iterableFlags = user.flags.toObject();
 
   user.items.quests.dustbunnies = 1;
-  user.items.pets['Wolf-Veteran'] = 5; // Thank-you for users joining during username upheaval
+  user.items.pets['Turkey-Base'] = 5;
+  user.items.currentPet = 'Turkey-Base';
   user.purchased.background.violet = true;
   user.preferences.background = 'violet';
 
