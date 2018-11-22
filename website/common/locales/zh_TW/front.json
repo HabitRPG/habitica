@@ -300,7 +300,7 @@
     "usernamePlaceholder": "e.g., HabitRabbit",
     "emailPlaceholder": "e.g., rabbit@example.com",
     "passwordPlaceholder": "e.g., ******************",
-    "confirmPasswordPlaceholder": "請確保密碼一致!",
+    "confirmPasswordPlaceholder": "必須與密碼一致!",
     "joinHabitica": "加入Habitica",
     "alreadyHaveAccountLogin": "已經擁有Habitica的帳號?<strong>按此登入</strong>",
     "dontHaveAccountSignup": "還沒有Habitica的帳號? <strong>立即註冊</strong>",
