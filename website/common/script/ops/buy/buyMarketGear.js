@@ -27,8 +27,11 @@ export class BuyMarketGearOperation extends AbstractGoldItemOperation {
   canUserPurchase (user, item)  {
     super.canUserPurchase(user, item);
 
+    const checkKlass = item.klass && !['special', 'armoire', user.stats.class].includes(item.klass);
+    const checkSpecialClass = item.klass === 'special' && item.specialClass && item.specialClass !== user.stats.class;
+
     // check for different class gear
-    if (item.klass !== 'special' && item.klass !== user.stats.class) {
+    if (checkKlass || checkSpecialClass) {
       throw new NotAuthorized(this.i18n('cannotBuyItem'));
     }
   }
