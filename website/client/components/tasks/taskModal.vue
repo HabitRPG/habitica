@@ -144,7 +144,7 @@
                   .tags-none {{$t('none')}}
                   .dropdown-toggle
                 span.category-select(v-else)
-                  .category-label(v-for='tagName in truncatedSelectedTags', :title="tagName") {{ tagName }}
+                  .category-label(v-for='tagName in truncatedSelectedTags', :title="tagName", v-markdown='tagName')
                   .tags-more(v-if='remainingSelectedTags.length > 0') +{{ $t('more', { count: remainingSelectedTags.length }) }}
                   .dropdown-toggle
           tags-popup(ref="popup", v-if="showTagsSelect", :tags="user.tags", v-model="task.tags", @close='closeTagsPopup()')
@@ -478,12 +478,17 @@
 
             .category-label {
               min-width: 68px;
-              overflow: hidden;
               padding: .5em 1em;
-              text-overflow: ellipsis;
-              white-space: nowrap;
               width: 68px;
-              word-wrap: break-word;
+
+              // Applies to v-markdown generated p tag.
+              p {
+                margin-bottom: 0px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                word-wrap: break-word;
+              }
             }
           }
         }
