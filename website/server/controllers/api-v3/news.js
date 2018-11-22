@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'THUNDERSTORM AND FROST HATCHING POTIONS';
+const LAST_ANNOUNCEMENT_TITLE = 'HAPPY THANKSGIVING!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,14 +30,17 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>11/20/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>11/22/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_frost_potions center-block"></div>
-        <p>We've brought back Thunderstorm Potions, and added a brand-new Magic Hatching Potion: Frost! Between now and November 30, you can buy these Hatching Potions from <a href='/shops/market' target='_blank'>the Market</a> and use them to hatch any standard pet egg. (Magic Hatching Potions do not work on Quest Pet eggs.) Magic Hatching Potion Pets aren't picky, so they'll happily eat any kind of food that you feed them!</p>
-        <p>After they're gone, it will be at least a year before the Thunderstorm or Frost Hatching Potions are available again, so be sure to get them now!</p>
-        <div class="small mb-3">by Balduranne and SabreCat</div>
+        <div class="npc_matt center-block"></div>
+        <p>It's Thanksgiving in Habitica! On this day Habiticans celebrate by spending time with loved ones, giving thanks, and riding their glorious turkeys into the magnificent sunset. Some of the NPCs are celebrating the occasion!</p>
+        <h3>Turkey Pet, Mount, and Costumes!</h3>
+        <p>In celebration of Turkey Day, everyone has received an adorable Turkey! What kind of Turkey? It all depends on how many Habitica Thanksgivings you've celebrated with us. Each Thanksgiving, you'll get a new and exciting Turkey variety!</p>
+        <p>Thank you for using Habitica - we really love you all <3</p>
+        <div class="small mb-3">by Lemoness and Beffymaroo</div>
+        <div class="promo_turkey_day_2018 center-block"></div>
       </div>
       `,
     });
