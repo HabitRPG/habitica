@@ -78,7 +78,6 @@ async function updateUser (user) {
 module.exports = async function processUsers () {
   let query = {
     migration: {$ne: MIGRATION_NAME},
-    'auth.timestamps.loggedin': {$gt: new Date('2018-11-07')},
   };
 
   const fields = {

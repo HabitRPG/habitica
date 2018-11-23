@@ -17,7 +17,7 @@ function setUpServer () {
 setUpServer();
 
 // Replace this with your migration
-const processUsers = require('../scripts/gdpr-delete-users.js');
+const processUsers = require('./users/20181122_turkey_day.js');
 processUsers()
   .then(function success () {
     process.exit(0);
