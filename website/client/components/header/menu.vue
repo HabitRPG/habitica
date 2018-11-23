@@ -4,7 +4,7 @@ div
   creator-intro
   profile
   b-navbar.topbar.navbar-inverse.static-top.navbar-expand-lg(type="dark", :class="navbarZIndexClass")
-    b-navbar-brand.brand
+    b-navbar-brand.brand(aria-label="Habitica")
       .logo.svg-icon.d-none.d-xl-block(v-html="icons.logo")
       .svg-icon.gryphon.d-xs-block.d-xl-none
     b-nav-toggle(target='menu_collapse').menu-toggle
