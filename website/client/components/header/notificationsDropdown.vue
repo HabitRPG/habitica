@@ -1,7 +1,7 @@
 <template lang="pug">
 menu-dropdown.item-notifications(:right="true", @toggled="handleOpenStatusChange", :openStatus="openStatus")
   div(slot="dropdown-toggle")
-    div(v-b-tooltip.hover.bottom="$t('notifications')")
+    div(:aria-label="$t('notifications')", v-b-tooltip.hover.bottom="$t('notifications')")
       message-count(
         v-if='notificationsCount > 0',
         :count="notificationsCount",

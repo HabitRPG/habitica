@@ -1,7 +1,7 @@
 <template lang="pug">
 menu-dropdown.item-user(:right="true")
   div(slot="dropdown-toggle")
-    div(v-b-tooltip.hover.bottom="$t('user')")
+    div(:aria-label="$t('user')", v-b-tooltip.hover.bottom="$t('user')")
       message-count(v-if='user.inbox.newMessages > 0', :count="user.inbox.newMessages", :top="true")
       .top-menu-icon.svg-icon.user(v-html="icons.user")
   .user-dropdown(slot="dropdown-content")
