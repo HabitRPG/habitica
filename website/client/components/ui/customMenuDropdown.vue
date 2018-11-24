@@ -67,8 +67,8 @@ export default {
       return this.isDropdownOpen;
     },
     isPressed () {
-      return (this.isOpen ? 'true' : 'false');
-    }
+      return this.isOpen ? 'true' : 'false';
+    },
   },
   mounted () {
     document.documentElement.addEventListener('click', this._clickOutListener);
