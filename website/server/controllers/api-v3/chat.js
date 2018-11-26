@@ -177,7 +177,11 @@ api.postChat = {
     }
 
     const message = await highlightMentions(req.body.message);
-    const newChatMessage = group.sendChat(message, user);
+    let client = req.headers['x-client'] || '3rd Party';
+    if (client) {
+      client = client.replace('habitica-', '');
+    }
+    const newChatMessage = group.sendChat(message, user, null, client);
     let toSave = [newChatMessage.save()];
 
     if (group.type === 'party') {
