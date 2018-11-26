@@ -1,7 +1,7 @@
 {
     "npc": "NPC",
     "npcAchievementName": "<%= key %> NPC",
-    "npcAchievementText": "支持了最高等級的Kickstarter項目！",
+    "npcAchievementText": "對 Kickstarter 計劃作出了最高級別的贊助!",
     "welcomeTo": "歡迎來到",
     "welcomeBack": "歡迎回來！",
     "justin": "Justin",

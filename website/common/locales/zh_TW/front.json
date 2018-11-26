@@ -1,7 +1,7 @@
 {
     "FAQ": "常見問題",
-    "termsAndAgreement": "點擊下面的按鈕，表示您已經閱讀並同意<a href='/static/terms'>服務條款</a>和<a href='/static/privacy'>隱私權政策</a>。",
-    "accept1Terms": "當按下下面按鈕時，表示我同意",
+    "termsAndAgreement": "當您點擊下方按鈕，代表您已經閱讀並同意<a href='/static/terms'>服務條款</a>和<a href='/static/privacy'>隱私權政策</a>。",
+    "accept1Terms": "當點擊下方按鈕時，但表我已同意",
     "accept2Terms": "以及",
     "alexandraQuote": "當我在馬德里發表演說時，我真的不得不提到 Habitica 帶來的好處。如果您是一位需要老闆來管理自己的自由工作者，您絕對需要它！",
     "althaireQuote": "持續地去完成副本真的能激勵我完成所有的每日工作和待辦事項。我最大的動力就是不辜負我的隊員們。",
@@ -271,8 +271,8 @@
     "emailTaken": "該電子郵件已經被其他帳戶使用。",
     "newEmailRequired": "尚未輸入新電子郵件地址。",
     "usernameTime": "是時候來設定您的使用者名稱了!",
-    "usernameInfo": "Login names are now unique usernames that will be visible beside your display name and used for invitations, chat @mentions, and messaging.<br><br>If you'd like to learn more about this change, <a href='http://habitica.wikia.com/wiki/Player_Names' target='_blank'>visit our wiki</a>.",
-    "usernameTOSRequirements": "Usernames must conform to our <a href='/static/terms' target='_blank'>Terms of Service</a> and <a href='/static/community-guidelines' target='_blank'>Community Guidelines</a>. If you didn’t previously set a login name, your username was auto-generated.",
+    "usernameInfo": "登入名稱現在是獨一無二的名稱，顯示於暱稱旁邊。它將用於邀請、聊天 @標記，和發訊息。<br><br>如果您想要知道更多關於這項改變，可以查看<a href='http://habitica.wikia.com/wiki/Player_Names' target='_blank'>我們的 wiki</a>。",
+    "usernameTOSRequirements": "使用者名稱必須遵守我們的<a href='/static/terms' target='_blank'>服務條款</a>和<a href='/static/community-guidelines' target='_blank'>社群守則</a>。如果您之前尚未設立登入名稱，您的使用者名稱將會被自動產生。",
     "usernameTaken": "此使用者名稱已有人使用。",
     "passwordConfirmationMatch": "密碼不匹配。",
     "invalidLoginCredentials": "錯誤的使用者名稱 和(或) 電子郵件 和(或) 密碼。",
@@ -328,7 +328,7 @@
     "joinMany": "和超過2,000,000個人一起享受完成目標的快感!",
     "joinToday": "現在就想加入Habitica!",
     "signup": "註冊",
-    "getStarted": "Get Started!",
+    "getStarted": "開始吧! ",
     "mobileApps": "行動版APP",
     "learnMore": "了解更多"
 }

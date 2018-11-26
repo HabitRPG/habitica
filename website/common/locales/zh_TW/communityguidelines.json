@@ -99,7 +99,7 @@
     "commGuideHeadingMeet": "一起來認識我們的工作人員與管理員們吧！",
     "commGuidePara006": "Habitica 有一群努力不懈的俠客，他們與工作人員們合作，一起讓社群維持平穩、充實、無白目行為發生。他們雖然各有負責的領域，但有時會應要求出現在其他社交領域。",
     "commGuidePara007": "工作人員的標籤是紫色帶皇冠記號。他們的頭銜是「英雄」。",
-    "commGuidePara008": "管理員的標籤是深藍色並附帶星記號。他們的頭銜是\"守護者\"。唯一的例外是Bailey，她是一位NPC，有黑底綠字並帶有星記號的標籤。",
+    "commGuidePara008": "管理員的標籤是深藍色並附帶星記號。他們的頭銜是\"護衛\"。唯一的例外是Bailey，她是一位NPC，有黑底綠字並帶有星記號的標籤。",
     "commGuidePara009": "現在的工作人員成員分別是（從左到右）：",
     "commGuideAKA": "<%= habitName %> a.k.a. <%= realName %>",
     "commGuideOnTrello": "負責 Trello 的 <%= trelloName %>",
