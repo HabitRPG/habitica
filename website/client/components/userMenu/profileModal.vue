@@ -41,7 +41,9 @@
         history.pushState('', null, this.path);
       },
       onHidden () {
-        this.$router.go(-1);
+        if (this.$route.path !== window.location.pathname) {
+          this.$router.go(-1);
+        }
       },
     },
   };
