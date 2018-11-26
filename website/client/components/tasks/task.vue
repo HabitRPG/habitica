@@ -183,7 +183,7 @@
     transition: opacity 0.15s ease-in;
   }
 
-  .task /deep/ .habitica-menu-dropdown .habitica-menu-dropdown-toggle:focus,
+  .task /deep/ .habitica-menu-dropdown:focus .habitica-menu-dropdown-toggle,
   .task:hover /deep/ .habitica-menu-dropdown .habitica-menu-dropdown-toggle {
     opacity: 1;
   }
