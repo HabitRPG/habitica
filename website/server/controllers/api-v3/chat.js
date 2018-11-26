@@ -175,7 +175,11 @@ api.postChat = {
       throw new NotAuthorized(res.t('messageGroupChatSpam'));
     }
 
-    const newChatMessage = group.sendChat(req.body.message, user);
+    let client = req.headers['x-client'] || '3rd Party';
+    if (client) {
+      client = client.replace('habitica-', '');
+    }
+    const newChatMessage = group.sendChat(req.body.message, user, null, client);
     let toSave = [newChatMessage.save()];
 
     if (group.type === 'party') {
