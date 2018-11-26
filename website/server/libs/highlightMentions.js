@@ -15,7 +15,7 @@ export async function highlightMentions (text) {
       .exec();
     members.forEach((member) => {
       const username = member.auth.local.username;
-      text = text.replace(new RegExp(`@${username}\\b`, 'g'), `[@${username}](https://habitica.com/members/${member._id})`);
+      text = text.replace(new RegExp(`@${username}\\b`, 'g'), `[@${username}](/members/${member._id})`);
     });
   }
   return text;

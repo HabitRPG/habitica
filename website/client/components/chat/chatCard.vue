@@ -16,7 +16,7 @@ div
       span.mr-1(v-if="msg.username") @{{ msg.username }}
       span.mr-1(v-if="msg.username") •
       span(v-b-tooltip="", :title="msg.timestamp | date") {{ msg.timestamp | timeAgo }}
-    .text(v-html='atHighlight(parseMarkdown(msg.text))')
+    .text(v-html='atHighlight(parseMarkdown(msg.text))', ref='markdownContainer')
     hr
     .d-flex(v-if='msg.id')
       .action.d-flex.align-items-center(v-if='!inbox', @click='copyAsTodo(msg)')
@@ -244,6 +244,16 @@ export default {
       return achievementsLib.getContribText(message.contributor, message.backer) || '';
     },
   },
+  mounted () {
+    const links = this.$refs.markdownContainer.getElementsByTagName('a');
+    for (var i = 0; i < links.length; i++) {
+      const link = links[i];
+      links[i].onclick = (event) => {
+        event.preventDefault();
+        this.$router.push({ path: link.getAttribute('href')});
+      };
+    }
+  },
   methods: {
     async like () {
       let message = cloneDeep(this.msg);
@@ -299,7 +309,8 @@ export default {
       });
     },
     parseMarkdown (text) {
-      return habiticaMarkdown.render(text);
+      const mdText = habiticaMarkdown.render(text);
+      return mdText;
     },
   },
 };

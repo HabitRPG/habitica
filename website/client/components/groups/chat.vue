@@ -4,23 +4,17 @@
       h3(v-once) {{ label }}
 
       .row
-        textarea(:placeholder='placeholder',
-                  v-model='newMessage',
-                  ref='user-entry',
-                  :class='{"user-entry": newMessage}',
-                  @keydown='updateCarretPosition',
-                  @keyup.ctrl.enter='sendMessageShortcut()',
-                  @paste='disableMessageSendShortcut()',
-                  maxlength='3000'
-                )
+        vue-tribute(:options="autocompleteOptions")
+          textarea(:placeholder='placeholder',
+                    v-model='newMessage',
+                    ref='user-entry',
+                    :class='{"user-entry": newMessage}',
+                    @keydown='updateCarretPosition',
+                    @keyup.ctrl.enter='sendMessageShortcut()',
+                    @paste='disableMessageSendShortcut()',
+                    maxlength='3000'
+                  )
         span {{ currentLength }} / 3000
-        autocomplete(
-                :text='newMessage',
-                v-on:select="selectedAutocomplete",
-                :textbox='textbox',
-                :coords='coords',
-                :caretPosition = 'caretPosition',
-                :chat='group.chat')
 
       .row.chat-actions
         .col-6.chat-receive-actions
@@ -42,17 +36,29 @@
 
 <script>
   import debounce from 'lodash/debounce';
+  import VueTribute from 'vue-tribute';
+  import axios from 'axios';
 
-  import autocomplete from '../chat/autoComplete';
   import communityGuidelines from './communityGuidelines';
   import chatMessage from '../chat/chatMessages';
+  import styleHelper from 'client/mixins/styleHelper';
+  import tier1 from 'assets/svg/tier-1.svg';
+  import tier2 from 'assets/svg/tier-2.svg';
+  import tier3 from 'assets/svg/tier-3.svg';
+  import tier4 from 'assets/svg/tier-4.svg';
+  import tier5 from 'assets/svg/tier-5.svg';
+  import tier6 from 'assets/svg/tier-6.svg';
+  import tier7 from 'assets/svg/tier-7.svg';
+  import tier8 from 'assets/svg/tier-mod.svg';
+  import tier9 from 'assets/svg/tier-staff.svg';
+  import tierNPC from 'assets/svg/tier-npc.svg';
 
   export default {
     props: ['label', 'group', 'placeholder'],
     components: {
-      autocomplete,
       communityGuidelines,
       chatMessage,
+      VueTribute,
     },
     data () {
       return {
@@ -67,6 +73,34 @@
           LEFT: 0,
         },
         textbox: this.$refs,
+        icons: Object.freeze({
+          tier1,
+          tier2,
+          tier3,
+          tier4,
+          tier5,
+          tier6,
+          tier7,
+          tier8,
+          tier9,
+          tierNPC,
+        }),
+        autocompleteOptions: {
+          async values (text, cb) {
+            let suggestions = await axios.get(`/api/v4/members/find/${text}`);
+            cb(suggestions.data.data);
+          },
+          selectTemplate (item) {
+            return `@${item.original.auth.local.username}`;
+          },
+          lookup (item) {
+            return item.auth.local.username;
+          },
+          menuItemTemplate (item) {
+            let userTierClass = styleHelper.methods.userLevelStyle(item.original);
+            return `<h3 class='profile-name ${userTierClass}'> ${item.original.profile.name}</h3> @${item.string}`;
+          },
+        },
       };
     },
     computed: {
@@ -140,15 +174,18 @@
         }, 500);
       },
 
-      selectedAutocomplete (newText) {
-        this.newMessage = newText;
-      },
-
       fetchRecentMessages () {
         this.$emit('fetchRecentMessages');
       },
       reverseChat () {
         this.group.chat.reverse();
+      },
+      tierIcon (user) {
+        const isNPC = Boolean(user.backer && user.backer.npc);
+        if (isNPC) {
+          return this.icons.tierNPC;
+        }
+        return this.icons[`tier${user.contributor.level}`];
       },
     },
     beforeRouteUpdate (to, from, next) {
@@ -230,4 +267,77 @@
     }
   }
 
+  .v-tribute {
+    width: 100%;
+  }
+</style>
+
+<style lang="scss">
+  @import '~client/assets/scss/tiers.scss';
+  @import '~client/assets/scss/colors.scss';
+
+  .tribute-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: auto;
+    max-height: 400px;
+    max-width: 600px;
+    overflow: auto;
+    display: block;
+    z-index: 999999;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(#000, 0.13);
+  }
+  .tribute-container ul {
+    margin: 0;
+    margin-top: 2px;
+    padding: 0;
+    list-style: none;
+    background: #fff;
+    border-radius: 4px;
+    border: 1px solid rgba(#000, 0.13);
+    background-clip: padding-box;
+    overflow: hidden;
+    -moz-transition: none;
+    -webkit-transition: none;
+    transition: none;
+  }
+
+  .tribute-container li {
+    color: $gray-200;
+    padding: 12px 24px;
+    cursor: pointer;
+    font-size: 14px;
+    -moz-transition: none;
+    -webkit-transition: none;
+    transition: none;
+  }
+
+  .tribute-container li.highlight,
+  .tribute-container li:hover {
+    background-color: rgba(213, 200, 255, 0.32);
+    color: $purple-300;
+  }
+
+  .tribute-container li span {
+    font-weight: bold;
+  }
+
+  .tribute-container li.no-match {
+    cursor: default;
+  }
+
+  .profile-name {
+    display: inline-block;
+    font-size: 16px;
+    margin-bottom: 0rem;
+  }
+
+
+  .tier-svg-icon {
+    width: 10px;
+    display: inline-block;
+    margin-left: .5em;
+  }
 </style>
