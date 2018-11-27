@@ -210,7 +210,6 @@ api.postChat = {
       analyticsObject.groupName = group.name;
     }
 
-    console.log(analyticsObject);
     res.analytics.track('group chat', analyticsObject);
 
     if (chatUpdated) {

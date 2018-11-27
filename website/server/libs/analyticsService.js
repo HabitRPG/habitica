@@ -269,7 +269,6 @@ let _sendPurchaseDataToGoogle = (data) => {
 };
 
 function track (eventType, data) {
-  console.log(eventType, data);
   return Promise.all([
     _sendDataToAmplitude(eventType, data),
     _sendDataToGoogle(eventType, data),
