@@ -17,6 +17,8 @@ describe.only('highlightMentions', () => {
           auth: { local: { username: 'user' } }, _id: '111',
         }, { auth: { local: { username: 'user2' } }, _id: '222',
         }, { auth: { local: { username: 'user3' } }, _id: '333',
+        }, { auth: { local: { username: 'user-dash' } }, _id: '444',
+        }, { auth: { local: { username: 'user_underscore' } }, _id: '555',
         },
         ]);
       },
@@ -37,7 +39,12 @@ describe.only('highlightMentions', () => {
   it('highlights existing users', async () => {
     let text = '@user: message';
     let highlightedText = await highlightMentions(text);
-    expect(highlightedText).to.equal('[@user](https://habitica.com/members/111): message');
+    expect(highlightedText).to.equal('[@user](/profile/111): message');
+  });
+  it('highlights special characters', async () => {
+    let text = '@user-dash: message @user_underscore';
+    let highlightedText = await highlightMentions(text);
+    expect(highlightedText).to.equal('[@user-dash](/profile/444): message [@user_underscore](/profile/555)');
   });
   it('doesn\'t highlight nonexisting users', async () => {
     let text = '@nouser message';
@@ -47,7 +54,7 @@ describe.only('highlightMentions', () => {
   it('highlights multiple existing users', async () => {
     let text = '@user message (@user2) @user3 @user';
     let highlightedText = await highlightMentions(text);
-    expect(highlightedText).to.equal('[@user](https://habitica.com/members/111) message ([@user2](https://habitica.com/members/222)) [@user3](https://habitica.com/members/333) [@user](https://habitica.com/members/111)');
+    expect(highlightedText).to.equal('[@user](/profile/111) message ([@user2](/profile/222)) [@user3](/profile/333) [@user](/profile/111)');
   });
   it('doesn\'t highlight more than 5 users', async () => {
     let text = '@user @user2 @user3 @user4 @user5 @user6';
