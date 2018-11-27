@@ -1,27 +1,27 @@
 <template lang="pug">
   .row.chat-row
     .col-12
-      h3(v-once) {{ label }}
+      a.float-right(v-markdown='$t("markdownFormattingHelp")')
 
-      .row
-        vue-tribute(:options="autocompleteOptions", v-on:tribute-replaced='autocompleteReplaced')
-          textarea(:placeholder='placeholder',
-                    v-model='newMessage',
-                    ref='user-entry',
-                    :class='{"user-entry": newMessage}',
-                    @keydown='updateCarretPosition',
-                    @keyup.ctrl.enter='sendMessageShortcut()',
-                    @paste='disableMessageSendShortcut()',
-                    maxlength='3000'
-                  )
-        span {{ currentLength }} / 3000
+      h3(v-once) {{ label }}
+      vue-tribute(:options="autocompleteOptions", v-on:tribute-replaced='autocompleteReplaced')
+        .user-entry(:placeholder='placeholder',
+                  @input="updateChatInput"
+                  ref='user-entry',
+                  :class='{"user-entry": newMessage}',
+                  @keyup.ctrl.enter='sendMessageShortcut()',
+                  @paste='disableMessageSendShortcut()',
+                  maxlength='3000',
+                  :contenteditable='true'
+                )
+      span.chat-count {{ currentLength }} / 3000
 
       .row.chat-actions
         .col-6.chat-receive-actions
           button.btn.btn-secondary.float-left.fetch(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
           button.btn.btn-secondary.float-left(v-once, @click='reverseChat()') {{ $t('reverseChat') }}
         .col-6.chat-send-actions
-          button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
+          button.btn.btn-primary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
 
       community-guidelines
 
@@ -39,6 +39,7 @@
   import VueTribute from 'vue-tribute';
   import axios from 'axios';
 
+  import markdownDirective from 'client/directives/markdown';
   import communityGuidelines from './communityGuidelines';
   import chatMessage from '../chat/chatMessages';
   import styleHelper from 'client/mixins/styleHelper';
@@ -60,10 +61,12 @@
       chatMessage,
       VueTribute,
     },
+    directives: {
+      markdown: markdownDirective,
+    },
     data () {
       return {
         newMessage: '',
-        caretPosition: 0,
         chat: {
           submitDisable: false,
           submitTimeout: null,
@@ -95,7 +98,7 @@
             }
           },
           selectTemplate (item) {
-            return `@${item.original.auth.local.username}`;
+            return `<span class="at-highlight">@${item.original.auth.local.username}</span>`;
           },
           lookup (item) {
             return item.auth.local.username;
@@ -113,35 +116,6 @@
       },
     },
     methods: {
-      // https://medium.com/@_jh3y/how-to-where-s-the-caret-getting-the-xy-position-of-the-caret-a24ba372990a
-      getCoord (e, text) {
-        this.caretPosition = text.selectionEnd;
-        let div = document.createElement('div');
-        let span = document.createElement('span');
-        let copyStyle = getComputedStyle(text);
-
-        [].forEach.call(copyStyle, (prop) => {
-          div.style[prop] = copyStyle[prop];
-        });
-
-        div.style.position = 'absolute';
-        document.body.appendChild(div);
-        div.textContent = text.value.substr(0, this.caretPosition);
-        span.textContent = text.value.substr(this.caretPosition) || '.';
-        div.appendChild(span);
-        this.coords = {
-          TOP: span.offsetTop,
-          LEFT: span.offsetLeft,
-        };
-        document.body.removeChild(div);
-      },
-      updateCarretPosition: debounce(function updateCarretPosition (eventUpdate) {
-        this._updateCarretPosition(eventUpdate);
-      }, 250),
-      _updateCarretPosition (eventUpdate) {
-        let text = eventUpdate.target;
-        this.getCoord(eventUpdate, text);
-      },
       async sendMessageShortcut () {
         // If the user recently pasted in the text field, don't submit
         if (!this.chat.submitDisable) {
@@ -155,6 +129,7 @@
         });
         this.group.chat.unshift(response.message);
         this.newMessage = '';
+        this.$refs['user-entry'].innerText = '';
 
         // @TODO: I would like to not reload everytime we send. Realtime/Firebase?
         let chat = await this.$store.dispatch('chat:getChat', {groupId: this.group._id});
@@ -192,7 +167,21 @@
         return this.icons[`tier${user.contributor.level}`];
       },
       autocompleteReplaced () {
-        this.newMessage = this.$refs['user-entry'].value;
+        this.updateChatInput();
+      },
+      updateChatInput () {
+        let innerText = this.$refs['user-entry'].innerText;
+        if (innerText[innerText.length - 1] === '\n') {
+          innerText = innerText.slice(0, -1);
+        }
+        this.newMessage = innerText;
+      },
+      getTierIcon (member) {
+        const isNPC = Boolean(member.backer && member.backer.npc);
+        if (isNPC) {
+          return this.icons.tierNPC;
+        }
+        return this.icons[`tier${member.contributor.level}`];
       },
     },
     beforeRouteUpdate (to, from, next) {
@@ -214,6 +203,8 @@
 
   .chat-actions {
     margin-top: 1em;
+    margin-left: 0;
+    margin-right: 0;
 
     .chat-receive-actions {
       padding-left: 0;
@@ -235,20 +226,32 @@
   .chat-row {
     position: relative;
 
-    textarea {
-      min-height: 150px;
-      width: 100%;
-      background-color: $white;
-      border: solid 1px $gray-400;
-      font-style: italic;
-      line-height: 1.43;
-      color: $gray-300;
-      padding: .5em;
-    }
-
     .user-entry {
       font-style: normal;
       color: $black;
+      min-height: 150px;
+      width: 100%;
+      background-color: $white;
+      box-shadow: 0 0 3pt 2pt white;
+      border-radius: 2px;
+      line-height: 1.43;
+      padding: .5em;
+      -moz-appearance: textfield-multiline;
+      -webkit-appearance: textarea;
+      background-color: -moz-field;
+      resize: vertical;
+      overflow: auto;
+    }
+
+    .user-entry:empty:before {
+      content: attr(placeholder);
+      display: block; /* For Firefox */
+      color: $gray-300;
+    }
+
+    .user-entry:focus {
+      outline: solid 0px transparent;
+      box-shadow: 0 0 0 1pt $purple-500;
     }
 
     .hr {
@@ -271,6 +274,11 @@
       margin-top: .2em;
       display: inline-block;
       width: 100px;
+    }
+
+    .chat-count {
+      margin-top: 8px;
+      display: block;
     }
   }
 
