@@ -66,6 +66,9 @@
         .checkbox
           input(type='checkbox', v-model='user.preferences.suppressModals.streak', @change='set("suppressModals", "streak")')
           label {{ $t('suppressStreakModal') }}
+        .checkbox
+          input(type='checkbox', v-model='user.preferences.searchableUsername', @change='set("searchableUsername")')
+          label {{ $t('searchableUsernameSetting') }}
         //- .checkbox
         //-   label {{ $t('confirmScoreNotes') }}
         //-     input(type='checkbox', v-model='user.preferences.tasks.confirmScoreNotes', @change='set({"preferences.tasks.confirmScoreNotes": user.preferences.tasks.confirmScoreNotes ? true: false})')

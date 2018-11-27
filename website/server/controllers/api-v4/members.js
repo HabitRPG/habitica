@@ -16,13 +16,13 @@ api.getUsernameAutocompletes = {
     let username = req.params.username.toLowerCase();
     if (username[0] === '@') username = username.slice(1, username.length);
 
-    if (username.length < 2) {
+    if (username.length < 1) {
       res.respond(200, []);
       return;
     }
 
     let members = await User
-      .find({'auth.local.lowerCaseUsername': {$regex: `.*${username}.*`}, 'flags.verifiedUsername': true})
+      .find({'auth.local.lowerCaseUsername': {$regex: `.*${username}.*`}, 'flags.verifiedUsername': true, 'preferences.searchableUsername': {$ne: false}})
       .select(['profile.name', 'contributor', 'auth.local.username'])
       .limit(20)
       .exec();
