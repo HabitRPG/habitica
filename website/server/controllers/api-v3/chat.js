@@ -181,6 +181,7 @@ api.postChat = {
     if (client) {
       client = client.replace('habitica-', '');
     }
+
     const newChatMessage = group.sendChat(message, user, null, client);
     let toSave = [newChatMessage.save()];
 

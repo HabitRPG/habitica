@@ -66,6 +66,7 @@
     data () {
       return {
         newMessage: '',
+        sending: false,
         chat: {
           submitDisable: false,
           submitTimeout: null,
@@ -130,9 +131,9 @@
         });
         this.group.chat.unshift(response.message);
         this.newMessage = '';
-        this.$refs['user-entry'].innerText = '';
         this.sending = false;
         this.$refs['user-entry'].innerText = '';
+
 
         // @TODO: I would like to not reload everytime we send. Why are we reloading?
         // The response has all the necessary data...
