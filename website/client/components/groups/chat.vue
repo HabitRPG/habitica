@@ -4,7 +4,7 @@
       h3(v-once) {{ label }}
 
       .row
-        vue-tribute(:options="autocompleteOptions")
+        vue-tribute(:options="autocompleteOptions", v-on:tribute-replaced='autocompleteReplaced')
           textarea(:placeholder='placeholder',
                     v-model='newMessage',
                     ref='user-entry',
@@ -87,8 +87,12 @@
         }),
         autocompleteOptions: {
           async values (text, cb) {
-            let suggestions = await axios.get(`/api/v4/members/find/${text}`);
-            cb(suggestions.data.data);
+            if (text.length > 0) {
+              let suggestions = await axios.get(`/api/v4/members/find/${text}`);
+              cb(suggestions.data.data);
+            } else {
+              cb([]);
+            }
           },
           selectTemplate (item) {
             return `@${item.original.auth.local.username}`;
@@ -186,6 +190,9 @@
           return this.icons.tierNPC;
         }
         return this.icons[`tier${user.contributor.level}`];
+      },
+      autocompleteReplaced () {
+        this.newMessage = this.$refs['user-entry'].value;
       },
     },
     beforeRouteUpdate (to, from, next) {
