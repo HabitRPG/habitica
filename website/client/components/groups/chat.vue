@@ -131,6 +131,7 @@
         });
         this.group.chat.unshift(response.message);
         this.newMessage = '';
+        this.$refs['user-entry'].innerText = '';
         this.sending = false;
         this.$refs['user-entry'].innerText = '';
 
@@ -243,7 +244,6 @@
       box-shadow: 0 0 3pt 2pt white;
       border-radius: 2px;
       line-height: 1.43;
-      color: $gray-300;
       padding: .5em;
       -moz-appearance: textfield-multiline;
       -webkit-appearance: textarea;
