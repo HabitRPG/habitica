@@ -35,7 +35,6 @@
 </template>
 
 <script>
-  import debounce from 'lodash/debounce';
   import VueTribute from 'vue-tribute';
   import axios from 'axios';
 

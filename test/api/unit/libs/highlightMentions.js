@@ -3,7 +3,7 @@ import {
 } from '../../../../website/server/libs/highlightMentions';
 import mongoose from 'mongoose';
 
-describe.only('highlightMentions', () => {
+describe('highlightMentions', () => {
   beforeEach(() => {
     const mockFind = {
       select () {

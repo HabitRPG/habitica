@@ -250,9 +250,9 @@ export default {
   },
   mounted () {
     const links = this.$refs.markdownContainer.getElementsByTagName('a');
-    for (var i = 0; i < links.length; i++) {
+    for (let i = 0; i < links.length; i++) {
       const link = links[i];
-      links[i].onclick = (event) => {
+      links[i].onclick = () => {
         event.preventDefault();
         this.$router.push({ path: link.getAttribute('href')});
       };
