@@ -67,6 +67,16 @@ export async function getChallengeMemberProgress (store, payload) {
   return response;
 }
 
+export async function getObjectionsToInteraction (store, payload) {
+  let data = {
+    interation: payload.interaction,
+    toUserId: payload.toUserId,
+  };
+  let url = `${apiv4Prefix}/members/${data.toUserId}/objections/send-private-message`;
+  let response = await axios.get(url, data);
+  return response;
+}
+
 export async function sendPrivateMessage (store, payload) {
   let url = `${apiv4Prefix}/members/send-private-message`;
   let data = {

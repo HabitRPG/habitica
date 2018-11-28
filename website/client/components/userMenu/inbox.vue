@@ -57,9 +57,14 @@
           textarea(
             v-model='newMessage',
             @keyup.ctrl.enter='sendPrivateMessage()',
+            @focus='checkUser()',
+            :disabled='textAreaDisabled',
             maxlength='3000'
           )
-          button.btn.btn-secondary(@click='sendPrivateMessage()') {{$t('send')}}
+          button.btn.btn-secondary(
+            @click='sendPrivateMessage()',
+            :disabled='sendBtnDisabled'
+          ) {{$t('send')}}
           .row
             span.ml-3 {{ currentLength }} / 3000
 </template>
@@ -299,6 +304,8 @@ export default {
       messages: [],
       loaded: false,
       initiatedConversation: null,
+      sentBtnDisabled: false,
+      textAreaDisabled: false,
     };
   },
   filters: {
@@ -450,6 +457,39 @@ export default {
         if (!this.$refs.chatscroll) return;
         let chatscroll = this.$refs.chatscroll.$el;
         chatscroll.scrollTop = chatscroll.scrollHeight;
+      });
+      this.textAreaDisabled = false;
+    },
+    checkUser () {
+      this.$store.dispatch('members:getObjectionsToInteraction', {
+        interaction: 'send-private-message',
+        toUserId: this.selectedConversation.key,
+      }).then(response => {
+        if (response.request.status === 500) {
+          this.sendBtnDisabled = true;
+          this.textAreaDisabled = true;
+          this.$store.dispatch('snackbars:add', {
+            title: 'Habitica',
+            text: this.$t('cannotSendMessageToDeletedUser'),
+            type: 'error',
+            timeout: true,
+          });
+        } else {
+          const objections = response.data.data;
+          if (objections.length === 1) {
+            this.sendBtnDisabled = true;
+            this.textAreaDisabled = true;
+            this.$store.dispatch('snackbars:add', {
+              title: 'Habitica',
+              text: this.$t('notAuthorizedToSendMessageToThisUser'),
+              type: 'error',
+              timeout: true,
+            });
+          } else {
+            this.sendBtnDisabled = false;
+            this.textAreaDisabled = false;
+          }
+        }
       });
     },
     sendPrivateMessage () {
