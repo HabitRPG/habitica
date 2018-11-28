@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'HAPPY THANKSGIVING!';
+const LAST_ANNOUNCEMENT_TITLE = 'NOVEMBER SUBSCRIBER ITEMS AND STAFF SPOTLIGHT!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,17 +30,19 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>11/22/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>11/28/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="npc_matt center-block"></div>
-        <p>It's Thanksgiving in Habitica! On this day Habiticans celebrate by spending time with loved ones, giving thanks, and riding their glorious turkeys into the magnificent sunset. Some of the NPCs are celebrating the occasion!</p>
-        <h3>Turkey Pet, Mount, and Costumes!</h3>
-        <p>In celebration of Turkey Day, everyone has received an adorable Turkey! What kind of Turkey? It all depends on how many Habitica Thanksgivings you've celebrated with us. Each Thanksgiving, you'll get a new and exciting Turkey variety!</p>
-        <p>Thank you for using Habitica - we really love you all <3</p>
-        <div class="small mb-3">by Lemoness and Beffymaroo</div>
-        <div class="promo_turkey_day_2018 center-block"></div>
+        <div class="promo_mystery_201811 center-block"></div>
+        <h3>November Subscriber Items Revealed!</h3>
+        <p>The November Subscriber Items have been revealed: the Splendid Sorcerer Item Set! You'll receive this item set when you <a href='/user/settings/subscription' target='_blank'>subscribe</a> by December 3. If you're already an active subscriber, reload the site and then head to Inventory > Items to claim your gear!</p>
+        <p>Subscribers also receive the ability to buy Gems for Gold -- the longer you subscribe, the more Gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
+        <div class="small mb-3">by Beffymaroo</div>
+        <div class="promo_piyo center-block"></div>
+        <h3>Staff Spotlight: Sara, aka Piyo</h3>
+        <p>There's a new <a href='https://habitica.wordpress.com/2018/11/20/staff-spotlight-sara-aka-piyo/' target='_blank'>Staff Spotlight</a> on the blog! Come meet Sara, aka Piyo, and learn how our favorite onesie-wearing cryptid balances her design work for Habitica with her enthusiasm for baking and video games.</p>
+        <div class="small mb-3">by Beffymaroo</div>
       </div>
       `,
     });
