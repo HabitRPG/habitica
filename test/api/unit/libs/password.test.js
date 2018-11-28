@@ -245,7 +245,9 @@ describe('Password Utilities', () => {
 
     it('returns false if the user has no local auth', async () => {
       let user = await generateUser({
-        auth: 'not an object with valid fields',
+        auth: {
+          facebook: {},
+        },
       });
       let res = await validatePasswordResetCodeAndFindUser(encrypt(JSON.stringify({
         userId: user._id,
