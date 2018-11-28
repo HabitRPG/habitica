@@ -206,7 +206,7 @@
     "hatchingPotionRainbow": "Arco-iris",
     "hatchingPotionGlass": "El Vidrio",
     "hatchingPotionGlow": "que brilla en la oscuridad",
-    "hatchingPotionFrost": "Frost",
+    "hatchingPotionFrost": "Escarcha",
     "hatchingPotionNotes": "Vierte esto en un huevo y eclosionará como una mascota <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "No puede usarse en huevos de mascota de misión.",
     "foodMeat": "Carne",
