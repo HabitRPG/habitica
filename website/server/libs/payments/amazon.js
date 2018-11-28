@@ -22,10 +22,10 @@ import { model as Coupon } from '../../models/coupon';
 // TODO better handling of errors
 
 const i18n = common.i18n;
-const IS_PROD = nconf.get('NODE_ENV') === 'production';
+const IS_SANDBOX = nconf.get('AMAZON_PAYMENTS:MODE') === 'sandbox';
 
 let amzPayment = amazonPayments.connect({
-  environment: amazonPayments.Environment[IS_PROD ? 'Production' : 'Sandbox'],
+  environment: amazonPayments.Environment[IS_SANDBOX ? 'Sandbox' : 'Production'],
   sellerId: nconf.get('AMAZON_PAYMENTS:SELLER_ID'),
   mwsAccessKey: nconf.get('AMAZON_PAYMENTS:MWS_KEY'),
   mwsSecretKey: nconf.get('AMAZON_PAYMENTS:MWS_SECRET'),
