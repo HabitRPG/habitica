@@ -32,6 +32,18 @@ try {
   }
 }
 
+/**
+ *
+ * @param formatObj.name userName
+ * @param formatObj.displayName displayName
+ * @param formatObj.email email
+ * @param formatObj.uuid uuid
+ * @returns {string}
+ */
+function formatUser (formatObj) {
+  return `@${formatObj.name} ${formatObj.displayName} (${formatObj.email}; ${formatObj.uuid}`;
+}
+
 function sendFlagNotification ({
   authorEmail,
   flagger,
@@ -67,7 +79,12 @@ function sendFlagNotification ({
   if (!message.user && message.uuid === 'system') {
     authorName = 'System Message';
   } else {
-    authorName = `${message.user} - ${authorEmail} - ${message.uuid}`;
+    authorName = formatUser({
+      name: message.username,
+      displayName: message.user,
+      email: authorEmail,
+      uuid: message.uuid,
+    });
   }
 
   const timestamp = `${moment(message.timestamp).utc().format('YYYY-MM-DD HH:mm')} UTC`;
@@ -89,10 +106,6 @@ function sendFlagNotification ({
   });
 }
 
-function formatUser (name, email, uuid) {
-  return `${name} (${email}; ${uuid}`;
-}
-
 function sendInboxFlagNotification ({
   authorEmail,
   flagger,
@@ -102,7 +115,7 @@ function sendInboxFlagNotification ({
   if (SKIP_FLAG_METHODS) {
     return;
   }
-  let titleLink;
+  let titleLink = '';
   let authorName;
   let title = `Flag in ${flagger.profile.name}'s Inbox`;
   let text = `${flagger.profile.name} (${flagger.id}; language: ${flagger.preferences.language}) flagged a PM`;
@@ -116,8 +129,18 @@ function sendInboxFlagNotification ({
   let sender = '';
   let recipient = '';
 
-  const flaggerFormat = formatUser(flagger.profile.name, flagger.auth.local.email, flagger._id);
-  const messageUserFormat = formatUser(message.user, authorEmail, message.uuid);
+  const flaggerFormat = formatUser({
+    displayName: flagger.profile.name,
+    name: flagger.auth.local.username,
+    email: flagger.auth.local.email,
+    uuid: flagger._id,
+  });
+  const messageUserFormat = formatUser({
+    displayName: message.user,
+    name: message.username,
+    email: authorEmail,
+    uuid: message.uuid,
+  });
 
   if (message.sent) {
     sender = flaggerFormat;
@@ -193,7 +216,12 @@ function sendSlurNotification ({
     title += ` - (${group.privacy} ${group.type})`;
   }
 
-  authorName = `${author.profile.name} - ${authorEmail} - ${author.id}`;
+  authorName = formatUser({
+    name: author.auth.local.username,
+    displayName: author.profile.name,
+    email: authorEmail,
+    uuid: author.id,
+  });
 
   flagSlack.send({
     text,
@@ -216,4 +244,5 @@ module.exports = {
   sendInboxFlagNotification,
   sendSubscriptionNotification,
   sendSlurNotification,
+  formatUser,
 };
