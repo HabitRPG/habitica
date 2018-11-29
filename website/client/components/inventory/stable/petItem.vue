@@ -128,6 +128,7 @@ div
           return `GreyedOut Pet Pet-${this.item.key} ${this.item.eggKey}`;
         }
 
+        // Can't hatch
         return 'GreyedOut PixelPaw';
       },
       progress () {
