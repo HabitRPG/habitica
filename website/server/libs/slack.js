@@ -127,7 +127,7 @@ function sendInboxFlagNotification ({
     recipient = flaggerFormat;
   }
 
-  authorName = `${sender} is writing this message to ${recipient}.`;
+  authorName = `${sender} wrote this message to ${recipient}.`;
 
   flagSlack.send({
     text,
