@@ -19,6 +19,7 @@ const defaultSchema = () => ({
   flags: {$type: mongoose.Schema.Types.Mixed, default: {}},
   flagCount: {$type: Number, default: 0},
   likes: {$type: mongoose.Schema.Types.Mixed},
+  client: String,
   _meta: {$type: mongoose.Schema.Types.Mixed},
 });
 
@@ -100,7 +101,7 @@ export function setUserStyles (newMessage, user) {
   newMessage.markModified('userStyles');
 }
 
-export function messageDefaults (msg, user) {
+export function messageDefaults (msg, user, client) {
   const id = uuid();
   const message = {
     id,
@@ -110,6 +111,7 @@ export function messageDefaults (msg, user) {
     likes: {},
     flags: {},
     flagCount: 0,
+    client,
   };
 
   if (user) {

@@ -618,13 +618,13 @@
     "questKangarooDropKangarooEgg": "Kanguru (Yumurta)",
     "questKangarooUnlockText": "Pazardan Kanguru yumurtaları satın alabilmeni sağlar",
     "forestFriendsText": "Orman Arkadaşları Görev Paketi",
-    "forestFriendsNotes": "'Baharın Ruhu', 'Kabakirpi' ve 'Sarmaşıklı Ağaç' içerir. 30 Eylül'e kadar yararlanılabilir.",
+    "forestFriendsNotes": "'Baharın Ruhu', 'Kabakirpi' ve 'Sarmaşıklı Ağaç' görevlerini içerir. 30 Eylül'e kadar satın alınabilir.",
     "questAlligatorText": "Şimdi-Timsah",
     "questAlligatorNotes": "\"Vay!\" diye haykırdı @gully. \"Doğal habitatında bir Şimdi-Timsah! Dikkatli olun, avını HEMEN ŞİMDİ yapılması gerekiyormuş gibi görünen işlerle oyalayıp, sonucunda tamamlanmamış Günlük İşlerle beslenir.\" Dikkatini çekmemek için sessizleştin ama boşuna. Şimdi-Timsah seni fark etti ve hamle yaptı! Dikkat dağıtan sesler Durağanlık Bataklıklarından yükselmeye başladı ve ilgini ele geçirdi: \"Bu mesajı oku! Bu fotoğrafa bak! Dikkatini bana ver, HEMEN ŞİMDİ!\" Bir karşı saldırı yapmak, haşmetli Şimdi-Timsah'la mücadele etmek adına Günlük İşlerini bitirmek ve olumlu Alışkanlıklarını desteklemek için çabaladın.",
     "questAlligatorCompletion": "Dikkatini Şimdi-Timsah'ın oyalayıcı şeyleri yerine önemli şeylere verdin ve Şimdi-Timsah kuyruğunu kıstırıp kaçtı. Zafer! \"Bunlar yumurta mı? Timsah yumurtasına benziyorlar,\" dedi @mfonda. \"Eğer dikkatlice bakarsak sadık hayvanlara veya vefalı bineklere dönüşürler,\" diye yanıtladı @UncommonCriminal, üç tanesini ilgilenmen için sana verirken. Bunlara odaklanacağını umalım, yoksa Şimdi-Timsah geri dönebilir...",
     "questAlligatorBoss": "Şimdi-Timsah",
     "questAlligatorDropAlligatorEgg": "Timsah (Yumurta)",
     "questAlligatorUnlockText": "Pazardan Timsah yumurtaları satın alabilmeni sağlar",
-    "oddballsText": "Oddballs Quest Bundle",
-    "oddballsNotes": "Contains 'The Jelly Regent,' 'Escape the Cave Creature,' and 'A Tangled Yarn.' Available until November 30."
+    "oddballsText": "Tuhaf Görev Paketi",
+    "oddballsNotes": "'Jöle Varisi', 'Mağara Yaratığından Kurtul' ve 'Dolaşık Bir Yün' görevlerini içerir. 30 Kasım'a kadar satışta."
 }

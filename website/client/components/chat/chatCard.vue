@@ -15,7 +15,8 @@ div
     p.time
       span.mr-1(v-if="msg.username") @{{ msg.username }}
       span.mr-1(v-if="msg.username") •
-      span(v-b-tooltip="", :title="msg.timestamp | date") {{ msg.timestamp | timeAgo }}
+      span(v-b-tooltip="", :title="msg.timestamp | date") {{ msg.timestamp | timeAgo }}&nbsp;
+      span(v-if="msg.client && user.contributor.level >= 4")  ({{ msg.client }})
     .text(v-html='atHighlight(parseMarkdown(msg.text))')
     .reported(v-if="isMessageReported && inbox")
       span(v-once) {{ $t('reportedMessage')}}

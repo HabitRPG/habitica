@@ -5,12 +5,12 @@ div
       :class="{'item-empty': !isOwned(), 'highlight': highlightBorder}",
     )
       slot(name="itemBadge", :item="item")
-      span.item-content.hatchAgain(v-if="mountOwned && isHatchable")
+      span.item-content.hatchAgain(v-if="mountOwned() && isHatchable()")
         span.egg(:class="eggClass")
         span.potion(:class="potionClass")
       span.item-content(v-else, :class="getPetItemClass()")
-      span.pet-progress-background(v-if="isAllowedToFeed() && progress > 0")
-        div.pet-progress-bar(v-bind:style="{width: 100 * progress/50 + '%' }")
+      span.pet-progress-background(v-if="isAllowedToFeed() && progress() > 0")
+        div.pet-progress-bar(v-bind:style="{width: 100 * progress()/50 + '%' }")
     span.item-label(v-if="label") {{ label }}
 
   b-popover(
@@ -112,20 +112,31 @@ div
         return isAllowedToFeed(this.item, this.userItems);
       },
       getPetItemClass () {
-        if (this.isOwned() || this.mountOwned && this.isHatchable) {
+        if (this.isOwned() || this.mountOwned() && this.isHatchable()) {
           return `Pet Pet-${this.item.key} ${this.item.eggKey}`;
         }
 
-        if (this.isHatchable) {
+        if (this.isHatchable()) {
           return 'PixelPaw';
         }
 
-        if (this.mountOwned) {
+        if (this.mountOwned()) {
           return `GreyedOut Pet Pet-${this.item.key} ${this.item.eggKey}`;
         }
 
         // Can't hatch
         return 'GreyedOut PixelPaw';
+      },
+      progress () {
+        return this.userItems.pets[this.item.key];
+      },
+      // due to some state-refresh issues these methods are needed,
+      // the computed-properties just didn't refresh on each state-change
+      isHatchable () {
+        return isHatchable(this.item, this.userItems);
+      },
+      mountOwned () {
+        return isOwned('mount', this.item, this.userItems);
       },
     },
     computed: {
@@ -137,15 +148,6 @@ div
       },
       eggClass () {
         return `Pet_Egg_${this.item.eggKey}`;
-      },
-      isHatchable () {
-        return isHatchable(this.item, this.userItems);
-      },
-      mountOwned () {
-        return isOwned('mount', this.item, this.userItems);
-      },
-      progress () {
-        return this.userItems.pets[this.item.key];
       },
     },
   };
