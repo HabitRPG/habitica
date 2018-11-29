@@ -72,6 +72,9 @@ let _formatUserData = (user) => {
   properties.balanceGemAmount = properties.balance * 4;
   properties.tutorialComplete = user.flags && user.flags.tour && user.flags.tour.intro === -2;
   properties.verifiedUsername = user.flags && user.flags.verifiedUsername;
+  if (properties.verifiedUsername && user.auth && user.auth.local) {
+    properties.username = user.auth.local.lowerCaseUsername;
+  }
 
   if (user.habits && user.dailys && user.todos && user.rewards) {
     properties['Number Of Tasks'] = {

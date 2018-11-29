@@ -157,7 +157,7 @@
     "generate": "Generar",
     "getCodes": "Obtener Códigos",
     "webhooks": "Webhooks",
-    "webhooksInfo": "Habitica provides webhooks so that when certain actions occur in your account, information can be sent to a script on another website. You can specify those scripts here. Be careful with this feature because specifying an incorrect URL can cause errors or slowness in Habitica. For more information, see the wiki's <a target=\"_blank\" href=\"https://habitica.wikia.com/wiki/Webhooks\">Webhooks</a> page.",
+    "webhooksInfo": "Habitica provee webhooks para que cuando sucedan cierta acciones en tu cuenta se envíe información a un script en otra web. Puedes especificar esos scripts aquí. Sé cuidadoso con esta característica porque especificar una URL incorrecta puede causar errores en Habitica o hacer que funcione más lenta. Para más información, consulta la página <a target=\"_blank\" href=\"https://habitica.wikia.com/wiki/Webhooks\">Webhooks</a> en la wiki.",
     "enabled": "Habilitado",
     "webhookURL": "URL del Webhook",
     "invalidUrl": "Url no válida",
@@ -193,7 +193,7 @@
     "push": "Push",
     "about": "Sobre Habitica",
     "setUsernameNotificationTitle": "¡Confirma tu nombre de usuario!",
-    "setUsernameNotificationBody": "We will be transitioning login names to unique, public usernames soon. This username will be used for invitations, @mentions in chat, and messaging.",
+    "setUsernameNotificationBody": "Pronto estaremos haciendo el cambio de nombres de inicio de sesión a nombres de usuario públicos únicos. Este nombre de usuario se usará para invitaciones, @menciones en los chats, y mensajes.",
     "usernameIssueSlur": "Los nombres de usuario no pueden incluir lenguaje inapropiado.",
     "usernameIssueForbidden": "Los nombres de usuario no pueden incluir palabras restringidas.",
     "usernameIssueLength": "Los nombre de usuario deben tener una longitud de entre 1 y 20 caracteres.",
@@ -204,6 +204,6 @@
     "goToSettings": "Ir a Ajustes",
     "usernameVerifiedConfirmation": "¡Tu nombre de usuario, <%= username %>, está confirmado!",
     "usernameNotVerified": "Por favor, confirma tu nombre de usuario.",
-    "changeUsernameDisclaimer": "We will be transitioning login names to unique, public usernames soon. This username will be used for invitations, @mentions in chat, and messaging.",
+    "changeUsernameDisclaimer": "Pronto estaremos haciendo el cambio de nombres de inicio de sesión a nombres de usuario públicos únicos. Este nombre de usuario se usará para invitaciones, @menciones en los chats, y mensajes.",
     "verifyUsernameVeteranPet": "¡Una de estas Mascotas Veteranas te estará esperando cuando hayas terminado de confirmar!"
 }

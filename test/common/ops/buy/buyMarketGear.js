@@ -246,5 +246,14 @@ describe('shared.ops.buyMarketGear', () => {
 
       expect(user.items.gear.owned).to.have.property('head_special_2', true);
     });
+
+    it('does buyGear equipment if it is an armoire item that an user previously lost', () => {
+      user.stats.gp = 200;
+      user.items.gear.owned.shield_armoire_ramHornShield = false;
+
+      buyGear(user, {params: {key: 'shield_armoire_ramHornShield'}});
+
+      expect(user.items.gear.owned).to.have.property('shield_armoire_ramHornShield', true);
+    });
   });
 });

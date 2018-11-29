@@ -480,8 +480,8 @@ schema.methods.getMemberCount = async function getMemberCount () {
   return await User.count(query).exec();
 };
 
-schema.methods.sendChat = function sendChat (message, user, metaData) {
-  let newMessage = messageDefaults(message, user);
+schema.methods.sendChat = function sendChat (message, user, metaData, client) {
+  let newMessage = messageDefaults(message, user, client);
   let newChatMessage = new Chat();
   newChatMessage = Object.assign(newChatMessage, newMessage);
   newChatMessage.groupId = this._id;
