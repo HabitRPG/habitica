@@ -19,7 +19,7 @@ let api = {};
  * @apiSuccess {Object} data.flags The flags of the message
  * @apiSuccess {Number} data.flagCount The number of flags the message has
  * @apiSuccess {UUID} data.uuid The user id of the author of the message, or of the recipient if `sent` is true
- * @apiSuccess {String} data.user The username of the author of the message, or of the recipient if `sent` is true
+ * @apiSuccess {String} data.user The Display Name of the author of the message, or of the recipient if `sent` is true
  *
  * @apiUse MessageNotFound
  * @apiUse MessageIdRequired

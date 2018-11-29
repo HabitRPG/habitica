@@ -18,12 +18,14 @@ export default class ChatReporter {
       {name: 'MESSAGE_TIME', content: (new Date(message.timestamp)).toString()},
       {name: 'MESSAGE_TEXT', content: message.text},
 
-      {name: 'REPORTER_USERNAME', content: this.user.profile.name},
+      {name: 'REPORTER_DISPLAYNAME', content: this.user.profile.name},
+      {name: 'REPORTER_USERNAME', content: this.user.auth.local.username},
       {name: 'REPORTER_UUID', content: this.user._id},
       {name: 'REPORTER_EMAIL', content: reporterEmailContent},
       {name: 'REPORTER_MODAL_URL', content: `/static/front/#?memberId=${this.user._id}`},
 
-      {name: 'AUTHOR_USERNAME', content: message.user},
+      {name: 'AUTHOR_DISPLAYNAME', content: message.user},
+      {name: 'AUTHOR_USERNAME', content: message.username},
       {name: 'AUTHOR_UUID', content: message.uuid},
       {name: 'AUTHOR_EMAIL', content: this.authorEmail},
       {name: 'AUTHOR_MODAL_URL', content: `/static/front/#?memberId=${message.uuid}`},
