@@ -191,7 +191,6 @@
     "webpack-hot-middleware": "^2.22.2"
   },
   "optionalDependencies": {
-    "memwatch-next": "^0.3.0",
     "node-rdkafka": "^2.3.0"
   }
 }
