@@ -2,56 +2,15 @@
 const MIGRATION_NAME = '20181023_veteran_pet_ladder';
 import { model as User } from '../../website/server/models/user';
 
-function processUsers (lastId) {
-  let query = {
-    migration: {$ne: MIGRATION_NAME},
-    'flags.verifiedUsername': true,
-  };
-
-  let fields = {
-    'items.pets': 1,
-  };
-
-  if (lastId) {
-    query._id = {
-      $gt: lastId,
-    };
-  }
-
-  return User.find(query)
-    .limit(250)
-    .sort({_id: 1})
-    .select(fields)
-    .then(updateUsers)
-    .catch((err) => {
-      console.log(err);
-      return exiting(1, `ERROR! ${err}`);
-    });
-}
-
-let progressCount = 1000;
+const progressCount = 1000;
 let count = 0;
 
-function updateUsers (users) {
-  if (!users || users.length === 0) {
-    console.warn('All appropriate users found and modified.');
-    displayData();
-    return;
-  }
-
-  let userPromises = users.map(updateUser);
-  let lastUser = users[users.length - 1];
-
-  return Promise.all(userPromises)
-    .then(() => {
-      processUsers(lastUser._id);
-    });
-}
-
-function updateUser (user) {
+async function updateUser (user) {
   count++;
 
-  let set = {migration: MIGRATION_NAME};
+  const set = {};
+
+  set.migration = MIGRATION_NAME;
 
   if (user.items.pets['Bear-Veteran']) {
     set['items.pets.Fox-Veteran'] = 5;
@@ -67,27 +26,41 @@ function updateUser (user) {
 
   if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
 
-  return user.update({_id: user._id}, {$set: set}).exec();
+  return await User.update({_id: user._id}, {$set: set}).exec();
 }
 
-function displayData () {
-  console.warn(`\n${count} users processed\n`);
-  return exiting(0);
-}
+module.exports = async function processUsers () {
+  let query = {
+    migration: {$ne: MIGRATION_NAME},
+    'flags.verifiedUsername': true,
+  };
 
-function exiting (code, msg) {
-  code = code || 0; // 0 = success
-  if (code && !msg) {
-    msg = 'ERROR!';
-  }
-  if (msg) {
-    if (code) {
-      console.error(msg);
+  const fields = {
+    _id: 1,
+    items: 1,
+    migration: 1,
+    flags: 1,
+  };
+
+  while (true) { // eslint-disable-line no-constant-condition
+    const users = await User // eslint-disable-line no-await-in-loop
+      .find(query)
+      .limit(250)
+      .sort({_id: 1})
+      .select(fields)
+      .lean()
+      .exec();
+
+    if (users.length === 0) {
+      console.warn('All appropriate users found and modified.');
+      console.warn(`\n${count} users processed\n`);
+      break;
     } else {
-      console.log(msg);
+      query._id = {
+        $gt: users[users.length - 1],
+      };
     }
-  }
-  process.exit(code);
-}
 
-module.exports = processUsers;
+    await Promise.all(users.map(updateUser)); // eslint-disable-line no-await-in-loop
+  }
+};

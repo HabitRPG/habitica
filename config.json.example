@@ -44,7 +44,8 @@
         "SELLER_ID": "SELLER_ID",
         "CLIENT_ID": "CLIENT_ID",
         "MWS_KEY": "",
-        "MWS_SECRET": ""
+        "MWS_SECRET": "",
+        "MODE": "sandbox"
     },
     "FLAG_REPORT_EMAIL": "email@mod.com,email2@mod.com",
     "EMAIL_SERVER": {

@@ -23,7 +23,7 @@
     "spellRogueToolsOfTradeText": "Handwerkszeug",
     "spellRogueToolsOfTradeNotes": "Deine listigen Talente heben die Wahrnehmung der gesamten Gruppe! (Basiert auf: WAH ohne Boni)",
     "spellRogueStealthText": "Schleichen",
-    "spellRogueStealthNotes": "Mit jeder Anwendung, werden einige Deiner unerledigten Täglichen Aufgaben keinen Schaden verursachen. Ihre Strähnen und Farben bleiben erhalten. (Basiert auf WAH)",
+    "spellRogueStealthNotes": "Mit jeder Anwendung, werden einige Deiner unerledigten Tagesaufgaben keinen Schaden verursachen. Ihre Strähnen und Farben bleiben erhalten. (Basiert auf Wahrnehmung)",
     "spellRogueStealthDaliesAvoided": "<%= originalText %> <%= number %> täglichen Aufgaben ausgewichen.",
     "spellRogueStealthMaxedOut": "Du bist Deinen täglichen Aufgaben bereits ausgewichen; Du brauchst diese Fähigkeit nicht erneut anzuwenden.",
     "spellHealerHealText": "Heilendes Licht",

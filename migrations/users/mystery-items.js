@@ -1,70 +1,13 @@
-import monk from 'monk';
-import nconf from 'nconf';
+/* eslint-disable no-console */
+const MIGRATION_NAME = 'mystery_items_201811';
+const MYSTERY_ITEMS = ['head_mystery_201811', 'weapon_mystery_201811'];
+import { model as User } from '../../website/server/models/user';
+import { model as UserNotification } from '../../website/server/models/userNotification';
 
-const migrationName = 'mystery-items-201808.js'; // Update per month
-const authorName = 'Sabe'; // in case script author needs to know when their ...
-const authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; // ... own data is done
-
-/*
- * Award this month's mystery items to subscribers
- */
-const MYSTERY_ITEMS = ['armor_mystery_201810', 'head_mystery_201810'];
-const CONNECTION_STRING = nconf.get('MIGRATION_CONNECT_STRING');
-
-let dbUsers = monk(CONNECTION_STRING).get('users', { castIds: false });
-let UserNotification = require('../../website/server/models/userNotification').model;
-
-function processUsers (lastId) {
-  // specify a query to limit the affected users (empty for all users):
-  let query = {
-    migration: {$ne: migrationName},
-    'purchased.plan.customerId': { $ne: null },
-    $or: [
-      { 'purchased.plan.dateTerminated': { $gte: new Date() } },
-      { 'purchased.plan.dateTerminated': { $exists: false } },
-      { 'purchased.plan.dateTerminated': { $eq: null } },
-    ],
-  };
-
-  if (lastId) {
-    query._id = {
-      $gt: lastId,
-    };
-  }
-
-  dbUsers.find(query, {
-    sort: {_id: 1},
-    limit: 250,
-    fields: [
-    ], // specify fields we are interested in to limit retrieved data (empty if we're not reading data):
-  })
-    .then(updateUsers)
-    .catch((err) => {
-      console.log(err);
-      return exiting(1, `ERROR! ${  err}`);
-    });
-}
-
-let progressCount = 1000;
+const progressCount = 1000;
 let count = 0;
 
-function updateUsers (users) {
-  if (!users || users.length === 0) {
-    console.warn('All appropriate users found and modified.');
-    displayData();
-    return;
-  }
-
-  let userPromises = users.map(updateUser);
-  let lastUser = users[users.length - 1];
-
-  return Promise.all(userPromises)
-    .then(() => {
-      processUsers(lastUser._id);
-    });
-}
-
-function updateUser (user) {
+async function updateUser (user) {
   count++;
 
   const addToSet = {
@@ -80,31 +23,49 @@ function updateUser (user) {
       },
     })).toJSON(),
   };
+  const set = {
+    migration: MIGRATION_NAME,
+  };
 
-  dbUsers.update({_id: user._id}, {$addToSet: addToSet, $push: push});
+  if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
 
-  if (count % progressCount === 0) console.warn(`${count  } ${  user._id}`);
-  if (user._id === authorUuid) console.warn(`${authorName  } processed`);
+  return await User.update({_id: user._id}, {$set: set, $push: push, $addToSet: addToSet}).exec();
 }
 
-function displayData () {
-  console.warn(`\n${  count  } users processed\n`);
-  return exiting(0);
-}
+module.exports = async function processUsers () {
+  let query = {
+    migration: {$ne: MIGRATION_NAME},
+    'purchased.plan.customerId': { $ne: null },
+    $or: [
+      { 'purchased.plan.dateTerminated': { $gte: new Date() } },
+      { 'purchased.plan.dateTerminated': { $exists: false } },
+      { 'purchased.plan.dateTerminated': { $eq: null } },
+    ],
+  };
 
-function exiting (code, msg) {
-  code = code || 0; // 0 = success
-  if (code && !msg) {
-    msg = 'ERROR!';
-  }
-  if (msg) {
-    if (code) {
-      console.error(msg);
-    } else      {
-      console.log(msg);
+  const fields = {
+    _id: 1,
+  };
+
+  while (true) { // eslint-disable-line no-constant-condition
+    const users = await User // eslint-disable-line no-await-in-loop
+      .find(query)
+      .limit(250)
+      .sort({_id: 1})
+      .select(fields)
+      .lean()
+      .exec();
+
+    if (users.length === 0) {
+      console.warn('All appropriate users found and modified.');
+      console.warn(`\n${count} users processed\n`);
+      break;
+    } else {
+      query._id = {
+        $gt: users[users.length - 1],
+      };
     }
-  }
-  process.exit(code);
-}
 
-module.exports = processUsers;
+    await Promise.all(users.map(updateUser)); // eslint-disable-line no-await-in-loop
+  }
+};

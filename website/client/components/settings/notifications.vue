@@ -59,6 +59,7 @@ export default {
         'importantAnnouncements',
         'weeklyRecaps',
         'onboarding',
+        'majorUpdates',
       ]),
       // list of email-only notifications
       onlyEmailsIds: Object.freeze([

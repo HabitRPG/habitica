@@ -484,6 +484,7 @@ let schema = new Schema({
       importantAnnouncements: {$type: Boolean, default: true},
       weeklyRecaps: {$type: Boolean, default: true},
       onboarding: {$type: Boolean, default: true},
+      majorUpdates: {$type: Boolean, default: true},
     },
     pushNotifications: {
       unsubscribeFromAll: {$type: Boolean, default: false},
@@ -495,6 +496,7 @@ let schema = new Schema({
       invitedGuild: {$type: Boolean, default: true},
       questStarted: {$type: Boolean, default: true},
       invitedQuest: {$type: Boolean, default: true},
+      majorUpdates: {$type: Boolean, default: true},
     },
     suppressModals: {
       levelUp: {$type: Boolean, default: false},

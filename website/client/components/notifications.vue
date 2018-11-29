@@ -27,6 +27,7 @@ div
   login-incentives(:data='notificationData')
   quest-completed
   quest-invitation
+  verify-username
 </template>
 
 <style lang='scss'>
@@ -122,6 +123,7 @@ import streak from './achievements/streak';
 import ultimateGear from './achievements/ultimateGear';
 import wonChallenge from './achievements/wonChallenge';
 import loginIncentives from './achievements/login-incentives';
+import verifyUsername from './settings/verifyUsername';
 
 const NOTIFICATIONS = {
   CHALLENGE_JOINED_ACHIEVEMENT: {
@@ -189,6 +191,7 @@ export default {
     dropsEnabled,
     contributor,
     loginIncentives,
+    verifyUsername,
   },
   data () {
     // Levels that already display modals and should not trigger generic Level Up
@@ -325,16 +328,12 @@ export default {
       this.$store.dispatch('user:fetch'),
       this.$store.dispatch('tasks:fetchUserTasks'),
     ]).then(() => {
-      this.debounceCheckUserAchievements();
-
       // @TODO: This is a timeout to ensure dom is loaded
       window.setTimeout(() => {
-        this.initTour();
-        if (this.user.flags.tour.intro === this.TOUR_END || !this.user.flags.welcomed) return;
-        this.goto('intro', 0);
+        this.runForcedModals();
       }, 2000);
 
-      this.runYesterDailies();
+      this.debounceCheckUserAchievements();
 
       // Do not remove the event listener as it's live for the entire app lifetime
       document.addEventListener('mousemove', this.checkNextCron);
@@ -350,6 +349,11 @@ export default {
     document.removeEventListener('keydown', this.checkNextCron);
   },
   methods: {
+    runForcedModals () {
+      if (!this.user.flags.verifiedUsername) return this.$root.$emit('bv::show::modal', 'verify-username');
+
+      return this.runYesterDailies();
+    },
     showDeathModal () {
       this.playSound('Death');
       this.$root.$emit('bv::show::modal', 'death');
@@ -424,21 +428,25 @@ export default {
       // List of prompts for user on changes. Sounds like we may need a refactor here, but it is clean for now
       if (!this.user.flags.welcomed) {
         this.$store.state.avatarEditorOptions.editingUser = false;
-        this.$root.$emit('bv::show::modal', 'avatar-modal');
+        return this.$root.$emit('bv::show::modal', 'avatar-modal');
+      }
+
+      if (this.user.flags.newStuff) {
+        return this.$root.$emit('bv::show::modal', 'new-stuff');
       }
 
       if (this.user.stats.hp <= 0) {
-        this.showDeathModal();
+        return this.showDeathModal();
       }
 
       if (this.questCompleted) {
-        this.$root.$emit('bv::show::modal', 'quest-completed');
         this.playSound('Achievement_Unlocked');
+        return this.$root.$emit('bv::show::modal', 'quest-completed');
       }
 
       if (this.userClassSelect) {
-        this.$root.$emit('bv::show::modal', 'choose-class');
         this.playSound('Achievement_Unlocked');
+        return this.$root.$emit('bv::show::modal', 'choose-class');
       }
     },
     showLevelUpNotifications (newlevel) {
@@ -530,10 +538,6 @@ export default {
     },
     async handleUserNotifications (after) {
       if (this.$store.state.isRunningYesterdailies) return;
-
-      if (this.user.flags.newStuff) {
-        this.$root.$emit('bv::show::modal', 'new-stuff');
-      }
 
       if (!after || after.length === 0 || !Array.isArray(after)) return;
 

@@ -25,7 +25,7 @@
     "polarBearPup": "Ourson polaire",
     "jackolantern": "Citrouille d'Habitoween",
     "ghostJackolantern": "Citrouille d'Habitoween fantomatique",
-    "glowJackolantern": "Glow-in-the-Dark Jack-O-Lantern",
+    "glowJackolantern": "Citrouille d'Halloween Phosphorescente",
     "seasonalShop": "Boutique saisonnière",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Sorcière saisonnière<%= linkEnd %>",

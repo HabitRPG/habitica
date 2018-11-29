@@ -149,6 +149,7 @@
     "mysterySet201808": "Lava Dragon Set",
     "mysterySet201809": "Autumnal Armor Set",
     "mysterySet201810": "Dark Forest Set",
+    "mysterySet201811": "Splendid Sorcerer Set",
     "mysterySet301404": "Steampunk Standard Set",
     "mysterySet301405": "Steampunk Tillbehör Set",
     "mysterySet301703": "Påfågel Steampunk Set",
@@ -207,7 +208,7 @@
     "haveCouponCode": "Har du en kupongkod?",
     "subscriptionAlreadySubscribedLeadIn": "Tack för att du prenumererar!",
     "subscriptionAlreadySubscribed1": "För att se dina prenumerationsdetaljer och avbryta, förnya, eller ändra din prenumeration, var god gå till <a href='/user/settings/subscription'>Användarikon &gt; Inställningar &gt; Prenumeration</a>.",
-    "purchaseAll": "Köp Alla",
+    "purchaseAll": "Purchase Set",
     "gemsPurchaseNote": "Prenumeranter kan köpa diamanter för guld i Marknaden! För enkel tillgång kan du också nåla fast diamanter till din Belöningskolumn.",
     "gemsRemaining": "resterande juveler",
     "notEnoughGemsToBuy": "Du kan inte köpa den mängden juveler."
