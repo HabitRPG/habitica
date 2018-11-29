@@ -73,7 +73,7 @@ div
 <script>
   import uuid from 'uuid';
   import { mapState } from 'client/libs/store';
-  import {isAllowedToFeed, isHatchable, isOwned} from '../../../libs/createAnimal';
+  import {isAllowedToFeed, isHatchable, isOwned, isSpecial} from '../../../libs/createAnimal';
 
   export default {
     props: {
@@ -116,6 +116,10 @@ div
           return `Pet Pet-${this.item.key} ${this.item.eggKey}`;
         }
 
+        if (!this.isOwned() && this.isSpecial()) {
+          return 'GreyedOut PixelPaw';
+        }
+
         if (this.isHatchable()) {
           return 'PixelPaw';
         }
@@ -124,7 +128,6 @@ div
           return `GreyedOut Pet Pet-${this.item.key} ${this.item.eggKey}`;
         }
 
-        // Can't hatch
         return 'GreyedOut PixelPaw';
       },
       progress () {
@@ -137,6 +140,9 @@ div
       },
       mountOwned () {
         return isOwned('mount', this.item, this.userItems);
+      },
+      isSpecial () {
+        return isSpecial(this.item);
       },
     },
     computed: {
