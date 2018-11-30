@@ -134,7 +134,7 @@ describe('POST /tasks/:taskId/unassign/:memberId', () => {
 
   // @TODO: Which do we want? The user to unassign themselves or not. This test was in
   // here, but then we had a request to allow to unaissgn.
-  xit('returns error when non leader tries to unassign their a task', async () => {
+  it('returns error when non leader tries to unassign their a task', async () => {
     await expect(member.post(`/tasks/${task._id}/unassign/${member._id}`))
       .to.eventually.be.rejected.and.eql({
         code: 401,

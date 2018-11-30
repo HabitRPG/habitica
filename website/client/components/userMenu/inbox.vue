@@ -465,7 +465,7 @@ export default {
         interaction: 'send-private-message',
         toUserId: this.selectedConversation.key,
       }).then(response => {
-        if (response.request.status === 500) {
+        if (response.request.status === 404) {
           this.sendBtnDisabled = true;
           this.textAreaDisabled = true;
           this.$store.dispatch('snackbars:add', {

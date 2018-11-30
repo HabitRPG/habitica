@@ -151,7 +151,7 @@ describe('shared.ops.buyMarketGear', () => {
     });
 
     // TODO after user.ops.equip is done
-    xit('removes one-handed weapon and shield if auto-equip is on and a two-hander is bought', () => {
+    it('removes one-handed weapon and shield if auto-equip is on and a two-hander is bought', () => {
       user.stats.gp = 100;
       user.preferences.autoEquip = true;
       buyGear(user, {params: {key: 'shield_warrior_1'}});
@@ -166,7 +166,7 @@ describe('shared.ops.buyMarketGear', () => {
     });
 
     // TODO after user.ops.equip is done
-    xit('buyGears two-handed equipment but does not automatically remove sword or shield', () => {
+    it('buyGears two-handed equipment but does not automatically remove sword or shield', () => {
       user.stats.gp = 100;
       user.preferences.autoEquip = false;
       buyGear(user, {params: {key: 'shield_warrior_1'}});

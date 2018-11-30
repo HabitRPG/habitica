@@ -58,7 +58,7 @@ describe('POST /user/auth/local/register', () => {
       expect(user.flags.verifiedUsername).to.eql(true);
     });
 
-    xit('remove spaces from username', async () => {
+    it('remove spaces from username', async () => {
       // TODO can probably delete this test now
       let username = ' usernamewithspaces ';
       let email = 'test@example.com';
@@ -159,7 +159,7 @@ describe('POST /user/auth/local/register', () => {
         expect(tags[6].name).to.eql(t('defaultTag7'));
       });
 
-      xit('for Web', async () => {
+      it('for Web', async () => {
         api = requester(
           null,
           {'x-client': 'habitica-web'},
@@ -276,7 +276,7 @@ describe('POST /user/auth/local/register', () => {
       });
     });
 
-    xit('enrolls new users in an A/B test', async () => {
+    it('enrolls new users in an A/B test', async () => {
       let username = generateRandomUserName();
       let email = `${username}@example.com`;
       let password = 'password';

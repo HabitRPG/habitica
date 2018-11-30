@@ -13,6 +13,7 @@ apidoc_build
 *.swp
 .idea*
 config.json
+package-lock.json
 npm-debug.log*
 lib
 website/client-old/bower_components

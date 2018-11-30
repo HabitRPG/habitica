@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import MembersModalComponent from 'client/components/groups/membersModal.vue';
 /* eslint-disable no-skipped-tests */
-describe.skip('Members Modal Component', () => {
+describe('Members Modal Component', () => {
   describe('Party Sort', () => {
     let CTor;
     let vm;

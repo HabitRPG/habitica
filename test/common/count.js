@@ -128,7 +128,7 @@ describe('count', () => {
       expect(armoireCount).to.eql(20);
     });
 
-    it.skip('includes previously owned items in count (https: //github.com/HabitRPG/habitrpg/issues/5624#issuecomment-124018717)', () => {
+    it('includes previously owned items in count (https: //github.com/HabitRPG/habitrpg/issues/5624#issuecomment-124018717)', () => {
       let gear = {
         weapon_warrior_0: false,
         weapon_warrior_1: false,

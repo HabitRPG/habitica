@@ -646,7 +646,7 @@ describe('cron', () => {
       expect(user.purchased.plan.customerId).to.not.exist;
     });
 
-    xit('does nothing to plan stats when we are after the last day of the cancelled month', () => {
+    it('does nothing to plan stats when we are after the last day of the cancelled month', () => {
       user.purchased.plan.dateTerminated = moment(new Date()).subtract({days: 1});
       user.purchased.plan.consecutive.gemCapExtra = 20;
       user.purchased.plan.consecutive.count = 5;

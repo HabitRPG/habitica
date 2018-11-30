@@ -179,7 +179,7 @@ describe('common.fns.updateStats', () => {
     });
 
     // @TODO: Set up sinon sandbox
-    xit('auto allocates stats if automaticAllocation is turned on', () => {
+    it('auto allocates stats if automaticAllocation is turned on', () => {
       sandbox.stub(user.fns, 'autoAllocate');
 
       let stats = {

@@ -30,7 +30,7 @@ describe('shared.ops.releaseBoth', () => {
     user.achievements.triadBingo = true;
   });
 
-  xit('returns an error when user balance is too low and user does not have triadBingo', (done) => {
+  it('returns an error when user balance is too low and user does not have triadBingo', (done) => {
     user.balance = 0;
 
     try {

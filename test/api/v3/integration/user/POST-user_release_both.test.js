@@ -35,7 +35,7 @@ describe('POST /user/release-both', () => {
   });
 
   // @TODO: Traid is now free. Add this back if we need
-  xit('returns an error when user balance is too low and user does not have triadBingo', async () => {
+  it('returns an error when user balance is too low and user does not have triadBingo', async () => {
     await expect(user.post('/user/release-both'))
       .to.eventually.be.rejected.and.to.eql({
         code: 401,

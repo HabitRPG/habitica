@@ -14,7 +14,7 @@ describe('Members Details Component', () => {
     vm.$destroy();
   });
 
-  xit('prevents flickering by setting a 1px margin-right on elements of class member-stats', () => {
+  it('prevents flickering by setting a 1px margin-right on elements of class member-stats', () => {
     const memberstats = vm.$el.querySelector('.member-stats');
     const style = window.getComputedStyle(memberstats, null);
     const marginRightProp = style.getPropertyValue('margin-right');

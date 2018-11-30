@@ -109,7 +109,7 @@ describe('getTaskClasses getter', () => {
     });
   });
 
-  xit('returns good todo classes', () => {
+  it('returns good todo classes', () => {
     const task = {type: 'todo', value: 2};
     expect(getTaskClasses(task, 'control')).to.deep.equal({
       bg: 'task-good-control-bg',
