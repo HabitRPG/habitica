@@ -19,9 +19,15 @@ api.constants = {
   RESPONSE_STILL_VALID: 'SUBSCRIPTION_STILL_VALID',
 };
 
-api.verifyGemPurchase = async function verifyGemPurchase (user, receipt, signature, headers) {
-  const userCanGetGems = await user.canGetGems();
-  if (!userCanGetGems) throw new NotAuthorized(shared.i18n.t('groupPolicyCannotGetGems', user.preferences.language));
+api.verifyGemPurchase = async function verifyGemPurchase (options) {
+  let {gift, user, receipt, signature, headers} = options;
+
+  if (gift) {
+    gift.member = await User.findById(gift.uuid).exec();
+  }
+  const receiver = gift ? gift.member : user;
+  const receiverCanGetGems = await receiver.canGetGems();
+  if (!receiverCanGetGems) throw new NotAuthorized(shared.i18n.t('groupPolicyCannotGetGems', receiver.preferences.language));
 
   await iap.setup();
 
@@ -46,6 +52,7 @@ api.verifyGemPurchase = async function verifyGemPurchase (user, receipt, signatu
   await IapPurchaseReceipt.create({
     _id: token,
     consumed: true,
+    // This should always be the buying user even for a gift.
     userId: user._id,
   });
 
@@ -70,7 +77,7 @@ api.verifyGemPurchase = async function verifyGemPurchase (user, receipt, signatu
   if (!amount) throw new NotAuthorized(this.constants.RESPONSE_INVALID_ITEM);
 
   await payments.buyGems({
-    user,
+    user: receiver,
     paymentMethod: this.constants.PAYMENT_METHOD_GOOGLE,
     amount,
     headers,

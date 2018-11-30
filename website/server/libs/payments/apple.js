@@ -20,9 +20,15 @@ api.constants = {
   RESPONSE_NO_ITEM_PURCHASED: 'NO_ITEM_PURCHASED',
 };
 
-api.verifyGemPurchase = async function verifyGemPurchase (user, receipt, headers) {
-  const userCanGetGems = await user.canGetGems();
-  if (!userCanGetGems) throw new NotAuthorized(shared.i18n.t('groupPolicyCannotGetGems', user.preferences.language));
+api.verifyGemPurchase = async function verifyGemPurchase (options) {
+  let {gift, user, receipt, headers} = options;
+
+  if (gift) {
+    gift.member = await User.findById(gift.uuid).exec();
+  }
+  const receiver = gift ? gift.member : user;
+  const receiverCanGetGems = await receiver.canGetGems();
+  if (!receiverCanGetGems) throw new NotAuthorized(shared.i18n.t('groupPolicyCannotGetGems', receiver.preferences.language));
 
   await iap.setup();
   let appleRes = await iap.validate(iap.APPLE, receipt);
@@ -45,6 +51,7 @@ api.verifyGemPurchase = async function verifyGemPurchase (user, receipt, headers
       await IapPurchaseReceipt.create({ // eslint-disable-line no-await-in-loop
         _id: token,
         consumed: true,
+        // This should always be the buying user even for a gift.
         userId: user._id,
       });
 
@@ -67,7 +74,7 @@ api.verifyGemPurchase = async function verifyGemPurchase (user, receipt, headers
       if (amount) {
         correctReceipt = true;
         await payments.buyGems({ // eslint-disable-line no-await-in-loop
-          user,
+          user: receiver,
           paymentMethod: api.constants.PAYMENT_METHOD_APPLE,
           amount,
           headers,

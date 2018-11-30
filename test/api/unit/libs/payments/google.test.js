@@ -6,6 +6,7 @@ import iap from '../../../../../website/server/libs/inAppPurchases';
 import {model as User} from '../../../../../website/server/models/user';
 import common from '../../../../../website/common';
 import moment from 'moment';
+import mongoose from 'mongoose';
 
 const i18n = common.i18n;
 
@@ -44,7 +45,7 @@ describe('Google Payments', ()  => {
       iapIsValidatedStub = sinon.stub(iapModule, 'isValidated')
         .returns(false);
 
-      await expect(googlePayments.verifyGemPurchase(user, receipt, signature, headers))
+      await expect(googlePayments.verifyGemPurchase({user, receipt, signature, headers}))
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
           name: 'NotAuthorized',
@@ -55,7 +56,7 @@ describe('Google Payments', ()  => {
     it('should throw an error if productId is invalid', async () => {
       receipt = `{"token": "${token}", "productId": "invalid"}`;
 
-      await expect(googlePayments.verifyGemPurchase(user, receipt, signature, headers))
+      await expect(googlePayments.verifyGemPurchase({user, receipt, signature, headers}))
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
           name: 'NotAuthorized',
@@ -66,7 +67,7 @@ describe('Google Payments', ()  => {
     it('should throw an error if user cannot purchase gems', async () => {
       sinon.stub(user, 'canGetGems').resolves(false);
 
-      await expect(googlePayments.verifyGemPurchase(user, receipt, signature, headers))
+      await expect(googlePayments.verifyGemPurchase({user, receipt, signature, headers}))
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
           name: 'NotAuthorized',
@@ -78,7 +79,7 @@ describe('Google Payments', ()  => {
 
     it('purchases gems', async () => {
       sinon.stub(user, 'canGetGems').resolves(true);
-      await googlePayments.verifyGemPurchase(user, receipt, signature, headers);
+      await googlePayments.verifyGemPurchase({user, receipt, signature, headers});
 
       expect(iapSetupStub).to.be.calledOnce;
       expect(iapValidateStub).to.be.calledOnce;
@@ -98,6 +99,44 @@ describe('Google Payments', ()  => {
       });
       expect(user.canGetGems).to.be.calledOnce;
       user.canGetGems.restore();
+    });
+
+    it('gifts gems', async () => {
+      const receivingUser = new User();
+      await receivingUser.save();
+
+      const mockFind = {
+        select () {
+          return this;
+        },
+        lean () {
+          return this;
+        },
+        exec () {
+          return Promise.resolve(receivingUser);
+        },
+      };
+      sinon.stub(mongoose.Model, 'findById').returns(mockFind);
+
+      const gift = {uuid: receivingUser._id};
+      await googlePayments.verifyGemPurchase({user, gift, receipt, signature, headers});
+
+      expect(iapSetupStub).to.be.calledOnce;
+      expect(iapValidateStub).to.be.calledOnce;
+      expect(iapValidateStub).to.be.calledWith(iap.GOOGLE, {
+        data: receipt,
+        signature,
+      });
+      expect(iapIsValidatedStub).to.be.calledOnce;
+      expect(iapIsValidatedStub).to.be.calledWith({});
+
+      expect(paymentBuyGemsStub).to.be.calledOnce;
+      expect(paymentBuyGemsStub).to.be.calledWith({
+        user: receivingUser,
+        paymentMethod: googlePayments.constants.PAYMENT_METHOD_GOOGLE,
+        amount: 5.25,
+        headers,
+      });
     });
   });
 

@@ -22,11 +22,15 @@ api.iapAndroidVerify = {
   url: '/iap/android/verify',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
     let iapBody = req.body;
-
-    let googleRes = await googlePayments.verifyGemPurchase(user, iapBody.transaction.receipt, iapBody.transaction.signature, req.headers);
-
+    if (!iapBody.transaction) throw new BadRequest(res.t('missingReceipt'));
+    let googleRes = await googlePayments.verifyGemPurchase({
+      user: res.locals.user,
+      receipt: iapBody.transaction.receipt,
+      signature: iapBody.transaction.signature,
+      gift: iapBody.gift,
+      headers: req.headers,
+    });
     res.respond(200, googleRes);
   },
 };
@@ -87,9 +91,12 @@ api.iapiOSVerify = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     if (!req.body.transaction) throw new BadRequest(res.t('missingReceipt'));
-
-    let appleRes = await applePayments.verifyGemPurchase(res.locals.user, req.body.transaction.receipt, req.headers);
-
+    let appleRes = await applePayments.verifyGemPurchase({
+      user: res.locals.user,
+      receipt: res.body.transaction.receipt,
+      gift: res.body.gift,
+      headers: req.headers,
+    });
     res.respond(200, appleRes);
   },
 };
