@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'NOVEMBER SUBSCRIBER ITEMS AND STAFF SPOTLIGHT!';
+const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE! SPLENDID SORCERER SET, FROST HATCHING POTIONS, ODDBALLS QUEST BUNDLE';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,19 +30,24 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>11/28/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>11/30/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
         <div class="promo_mystery_201811 center-block"></div>
-        <h3>November Subscriber Items Revealed!</h3>
-        <p>The November Subscriber Items have been revealed: the Splendid Sorcerer Item Set! You'll receive this item set when you <a href='/user/settings/subscription' target='_blank'>subscribe</a> by December 3. If you're already an active subscriber, reload the site and then head to Inventory > Items to claim your gear!</p>
-        <p>Subscribers also receive the ability to buy Gems for Gold -- the longer you subscribe, the more Gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
+        <h3>Last Chance for Splendid Sorcerer Item Set</h3>
+        <p>Reminder: this is the final weekend to <a href='/user/settings/subscription' target='_blank'>subscribe</a> and receive the Splendid Sorcerer Set! Subscribing also lets you buy Gems for Gold. The longer your subscription, the more Gems you get!</p>
+        <p>Thanks so much for your support! You help keep Habitica running.</p>
         <div class="small mb-3">by Beffymaroo</div>
-        <div class="promo_piyo center-block"></div>
-        <h3>Staff Spotlight: Sara, aka Piyo</h3>
-        <p>There's a new <a href='https://habitica.wordpress.com/2018/11/20/staff-spotlight-sara-aka-piyo/' target='_blank'>Staff Spotlight</a> on the blog! Come meet Sara, aka Piyo, and learn how our favorite onesie-wearing cryptid balances her design work for Habitica with her enthusiasm for baking and video games.</p>
-        <div class="small mb-3">by Beffymaroo</div>
+        <div class="promo_frost_potions center-block"></div>
+        <h3>Last Chance for Frost and Thunderstorm Hatching Potions</h3>
+        <p>This weekend is also your last chance to <a href='/shops/market' target='_blank'>buy Frost and Thunderstorm Hatching Potions</a>! If they come back, it won't be until next year at the earliest, so don't delay!</p>
+        <div class="small mb-3">by Balduranne</div>
+        <div class="promo_oddballs_bundle center-block"></div>
+        <h3>Last Chance for Oddball Pet Quest Bundle</h3>
+        <p>And finally, this weekend is all that's left to buy the discounted Oddballs Pet Quest Bundle, featuring the Yarn, Rock, and Marshmallow Slime quests all for seven Gems! Be sure to glomp it from the <a href='/shops/quests' target='_blank'>Quest Shop</a> right away!</p>
+        <div class="small">Art by PainterProphet, Pfeffernusse, Zorelya, intune, starsystemic, Leephon, Arcosine, stefalupagus, Hachiseiko, TheMushroomKing, khdarkwolf, Vampitch, JinjooHat, UncommonCriminal, Oranges, Darkly, overomega, celticdragon, and Shaner</div>
+        <div class="small mb-3">Writing by Bartelmy, Faelwyn the Rising Phoenix, Theothermeme, Bethany Woll, itokro, and Lemoness</div>
       </div>
       `,
     });
