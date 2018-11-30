@@ -635,7 +635,7 @@ api.sendPrivateMessage = {
     const sender = res.locals.user;
     const message = req.body.message;
     const receiver = await User.findById(req.body.toUserId).exec();
-    if (!receiver) throw new NotFound(res.t('userNotFound'));
+    if (!receiver) throw new NotFound(res.t('userWithIDNotFound'));
     if (!receiver.flags.verifiedUsername) delete receiver.auth.local.username;
 
     const objections = sender.getObjectionsToInteraction('send-private-message', receiver);
