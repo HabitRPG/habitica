@@ -125,7 +125,7 @@
     "importantAnnouncements": "提醒：别忘记来签到完成任务并得到奖励！",
     "weeklyRecaps": "过去一周内你的活跃账号总结 (注意: 由于性能的问题，当前不可用，但我们希望有一个备份并很快再次发送电子邮件！)",
     "onboarding": "设置你的habitica账户",
-    "majorUpdates": "Important announcements",
+    "majorUpdates": "重要通告",
     "questStarted": "你的任务已经开始",
     "invitedQuest": "任务邀请",
     "kickedGroup": "从小组踢出",
@@ -157,7 +157,7 @@
     "generate": "生成",
     "getCodes": "获取代码",
     "webhooks": "Webhooks",
-    "webhooksInfo": "Habitica provides webhooks so that when certain actions occur in your account, information can be sent to a script on another website. You can specify those scripts here. Be careful with this feature because specifying an incorrect URL can cause errors or slowness in Habitica. For more information, see the wiki's <a target=\"_blank\" href=\"https://habitica.wikia.com/wiki/Webhooks\">Webhooks</a> page.",
+    "webhooksInfo": "Habitica提供webhooks，以便在您的帐户中发生某些操作时，可以将信息发送到另一个网站上的脚本。 您可以在此处指定这些脚本。 请注意此功能，因为指定错误的URL可能会导致Habitica出错或缓慢。 有关更多信息，请参阅wiki的<a target=\"_blank\" href=\"https://habitica.wikia.com/wiki/Webhooks\">Webhooks</a>页面。",
     "enabled": "已启用",
     "webhookURL": "Webhook链接",
     "invalidUrl": "无效的url",
@@ -200,10 +200,10 @@
     "usernameIssueInvalidCharacters": "登陆名只能含有字母a至z，数字0至9，连字符，或者下划线。",
     "currentUsername": "现在的登录名：",
     "displaynameIssueLength": "角色名的长度必须在1至30个字符之间。",
-    "displaynameIssueSlur": "Display Names may not contain inappropriate language.",
+    "displaynameIssueSlur": "角色名不得含有不恰当的语言。",
     "goToSettings": "前往设置。",
     "usernameVerifiedConfirmation": "您的登录名，<%= username %>，已确认！",
     "usernameNotVerified": "请确认您的登录名。",
     "changeUsernameDisclaimer": "我们很快就会将登录名转换为唯一的公共用户名。 此用户名将用于邀请，聊天中的提到他人的@和消息。",
-    "verifyUsernameVeteranPet": "One of these Veteran Pets will be waiting for you after you've finished confirming!"
+    "verifyUsernameVeteranPet": "当你完成确认后，其中一个退伍军宠物将等着你！"
 }
