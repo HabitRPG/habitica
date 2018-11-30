@@ -1,6 +1,6 @@
 const api = {};
 
-api.sendMessage = function sendMessage (message, key) {
+api.sendMessage = function sendMessage () {
   return;
 };
 
