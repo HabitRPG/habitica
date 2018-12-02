@@ -8,6 +8,8 @@ import notificationsMixin from 'client/mixins/notifications';
 import * as Analytics from 'client/libs/analytics';
 import { CONSTANTS, setLocalSetting } from 'client/libs/userlocalManager';
 
+const habiticaUrl = `${location.protocol}//${location.host}`;
+
 export default {
   mixins: [notificationsMixin],
   computed: {
@@ -124,8 +126,6 @@ export default {
 
             // Handle new user signup
             if (!this.$store.state.isUserLoggedIn) {
-              const habiticaUrl = `${location.protocol}//${location.host}`;
-
               Analytics.track({
                 hitType: 'event',
                 eventCategory: 'group-plans-static',
@@ -133,18 +133,18 @@ export default {
                 eventLabel: 'paid-with-stripe',
               });
 
-              location.href = `${habiticaUrl}/group-plans/${newGroup._id}/task-information?showGroupOverview=true`;
-              window.location.reload(true);
+              window.location.assign(`${habiticaUrl}/group-plans/${newGroup._id}/task-information?showGroupOverview=true`);
+              return;
             }
 
-            this.$router.push(`/group-plans/${newGroup._id}/task-information`);
             this.user.guilds.push(newGroup._id);
-            window.location.reload(true);
+            window.location.assign(`${habiticaUrl}/group-plans/${newGroup._id}/task-information`);
+            return;
           }
 
           if (data.groupId) {
-            this.$router.push(`/group-plans/${data.groupId}/task-information`);
-            window.location.reload(true);
+            window.location.assign(`${habiticaUrl}/group-plans/${data.groupId}/task-information`);
+            return;
           }
 
           window.location.reload(true);

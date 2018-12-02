@@ -115,6 +115,7 @@
   "card": "Credit Card (using Stripe)",
   "amazonInstructions": "Click the button to pay using Amazon Payments",
   "paymentMethods": "Purchase using",
+  "paymentSuccessful": "Your payment was successful!",
 
   "classGear": "Class Gear",
   "classGearText": "Congratulations on choosing a class! I've added your new basic weapon to your inventory. Take a look below to equip it!",
