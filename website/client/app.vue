@@ -186,6 +186,7 @@ import notifications from 'client/mixins/notifications';
 import { setup as setupPayments } from 'client/libs/payments';
 import amazonPaymentsModal from 'client/components/payments/amazonModal';
 import spellsMixin from 'client/mixins/spells';
+import { CONSTANTS, getLocalSetting, removeLocalSetting } from 'client/libs/userlocalManager';
 
 import svgClose from 'assets/svg/close.svg';
 import bannedAccountModal from 'client/components/bannedAccountModal';
@@ -431,6 +432,15 @@ export default {
           this.$store.dispatch('user:set', {
             'preferences.timezoneOffset': this.browserTimezoneOffset,
           });
+        }
+
+        let appState = getLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE);
+        if (appState) {
+          appState = JSON.parse(appState);
+          if (appState.paymentCompleted) {
+            alert(`payment completed with ${appState.paymentMethod}`);
+            removeLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE);
+          }
         }
 
         this.$nextTick(() => {

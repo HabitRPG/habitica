@@ -41,15 +41,26 @@ export default {
       let gift = this.encodeGift(data.giftedTo, data.gift);
       const url = `/paypal/checkout?gift=${gift}`;
 
-      this.openPaypal(url);
+      this.openPaypal(url, 'gift');
     },
-    openPaypal (url) {
+    openPaypal (url/* , type*/) {
       const appState = {
-        inProgress: 'payment',
         paymentMethod: 'paypal',
+        paymentCompleted: false,
       };
       setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
       window.open(url, '_blank');
+
+      function localStorageChangeHandled (e) {
+        if (e.key === 'saved-app-state') {
+          window.removeEventListener('storage', localStorageChangeHandled);
+          const newState = e.newValue ? JSON.parse(e.newValue) : {};
+          if (newState.paymentCompleted) window.location.reload(true);
+        }
+      }
+
+      // Listen for changes to local storage, indicating that the payment completed
+      window.addEventListener('storage', localStorageChangeHandled);
     },
     showStripe (data) {
       if (!this.checkGemAmount(data)) return;
@@ -100,6 +111,12 @@ export default {
             return;
           }
 
+          const appState = {
+            paymentMethod: 'stripe',
+            paymentCompleted: true,
+          };
+          setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
+
           let newGroup = response.data.data;
           if (newGroup && newGroup._id) {
             // @TODO this does not do anything as we reload just below
@@ -117,18 +134,17 @@ export default {
               });
 
               location.href = `${habiticaUrl}/group-plans/${newGroup._id}/task-information?showGroupOverview=true`;
-              return;
+              window.location.reload(true);
             }
 
             this.$router.push(`/group-plans/${newGroup._id}/task-information`);
-            // @TODO action
             this.user.guilds.push(newGroup._id);
-            return;
+            window.location.reload(true);
           }
 
           if (data.groupId) {
             this.$router.push(`/group-plans/${data.groupId}/task-information`);
-            return;
+            window.location.reload(true);
           }
 
           window.location.reload(true);
@@ -152,7 +168,7 @@ export default {
           let url = '/stripe/subscribe/edit';
           let response = await axios.post(url, data);
 
-          // Succss
+          // Success
           window.location.reload(true);
           // error
           alert(response.message);
