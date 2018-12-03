@@ -1,6 +1,6 @@
 .achievement-costumeContest6x {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -1136px -148px;
+  background-position: -1136px -438px;
   width: 144px;
   height: 156px;
 }
@@ -18,13 +18,13 @@
 }
 .promo_armoire_backgrounds_201811 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -481px -420px;
+  background-position: 0px -723px;
   width: 423px;
   height: 147px;
 }
 .promo_frost_potions {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -421px -723px;
+  background-position: -421px -871px;
   width: 417px;
   height: 147px;
 }
@@ -36,39 +36,45 @@
 }
 .promo_mystery_201811 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -839px -723px;
+  background-position: -1136px -142px;
   width: 282px;
   height: 147px;
 }
 .promo_oddballs_bundle {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -481px -568px;
+  background-position: -424px -723px;
   width: 423px;
   height: 147px;
 }
 .promo_piyo {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -1136px 0px;
+  background-position: -1136px -290px;
   width: 279px;
   height: 147px;
 }
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -1281px -148px;
+  background-position: -1281px -438px;
   width: 96px;
   height: 69px;
 }
 .promo_turkey_day_2018 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -723px;
+  background-position: 0px -871px;
   width: 420px;
   height: 147px;
 }
 .promo_veteran_pets {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -871px;
+  background-position: -1136px 0px;
   width: 363px;
   height: 141px;
+}
+.scene_hiking {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -481px -420px;
+  width: 258px;
+  height: 258px;
 }
 .scene_nametag {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
@@ -84,7 +90,7 @@
 }
 .scene_veteran_pets {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -1136px -305px;
+  background-position: -1136px -595px;
   width: 242px;
   height: 62px;
 }

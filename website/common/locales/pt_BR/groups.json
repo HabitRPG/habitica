@@ -365,7 +365,7 @@
     "inviteToGuild": "Convidar para Guilda",
     "inviteToParty": "Convidar para o Grupo",
     "inviteEmailUsername": "Convidar via e-mail ou nome de usuário",
-    "inviteEmailUsernameInfo": "Convide pessoas através de um e-mail ou nome de usuário válidos. Se o e-mail ainda não estiver registrado, nós enviaremos um com o convite.",
+    "inviteEmailUsernameInfo": "Convide usuários através de um e-mail ou nome de usuário válidos. Se um e-mail não estiver registrado, o convidaremos a participar.",
     "emailOrUsernameInvite": "Endereço de e-mail ou nome de usuário",
     "messageGuildLeader": "Enviar Mensagem ao Líder",
     "donateGems": "Doar Gemas",
