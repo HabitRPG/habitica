@@ -85,7 +85,7 @@
     "resetComplete": "Réinitialisation terminée !",
     "fixValues": "Régler les Valeurs",
     "fixValuesText1": "Si vous avez rencontré un bug ou avez fait une erreur qui a modifié de manière injuste votre personnage (dégâts que n'auriez pas du prendre, Or que vous n'auriez pas du vraiment gagner, etc.), vous pouvez modifier manuellement vos valeurs ici. Oui, ceci permet de tricher : utilisez cette fonctionnalité avec sagesse ou vous saboterez vos propres bonnes habitudes !",
-    "fixValuesText2": "Notez que vous ne pouvez pas restaurer les combos sur les tâches individuelles ici. Pour le faire, éditez la tâche et allez dans les paramètres avancés, où vous trouverez un champ Restaurer les combos.",
+    "fixValuesText2": "Notez que vous ne pouvez pas restaurer les combos sur les tâches individuelles ici. Pour ce faire, éditez la tâche et allez dans les paramètres avancés, où vous trouverez un champ \"Restaurer les combos\".",
     "disabledWinterEvent": "Désactivé durant le Winter Wonderland Event Pt.4 (étant donné que les récompenses sont achetables avec de l'or).",
     "fix21Streaks": "21 jours d'affilée",
     "discardChanges": "Annuler les changements",
