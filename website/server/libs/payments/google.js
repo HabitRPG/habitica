@@ -139,6 +139,64 @@ api.subscribe = async function subscribe (sku, user, receipt, signature, headers
   });
 };
 
+api.noRenewSubscribe = async function noRenewSubscribe (options) {
+  let {sku, gift, user, receipt, signature, headers} = options;
+  if (!sku) throw new BadRequest(shared.i18n.t('missingSubscriptionCode'));
+  let subCode;
+  switch (sku) {
+    case 'com.habitrpg.android.habitica.norenew_subscription.1month':
+      subCode = 'basic_earned';
+      break;
+    case 'com.habitrpg.android.habitica.norenew_subscription.3month':
+      subCode = 'basic_3mo';
+      break;
+    case 'com.habitrpg.android.habitica.norenew_subscription.6month':
+      subCode = 'basic_6mo';
+      break;
+    case 'com.habitrpg.android.habitica.norenew_subscription.12month':
+      subCode = 'basic_12mo';
+      break;
+  }
+  let sub = subCode ? shared.content.subscriptionBlocks[subCode] : false;
+  if (!sub) throw new NotAuthorized(this.constants.RESPONSE_INVALID_ITEM);
+
+  await iap.setup();
+
+  let testObj = {
+    data: receipt,
+    signature,
+  };
+
+  let receiptObj = typeof receipt === 'string' ? JSON.parse(receipt) : receipt; // passed as a string
+  let token = receiptObj.token || receiptObj.purchaseToken;
+
+  let existingUser = await User.findOne({
+    'purchased.plan.customerId': token,
+  }).exec();
+  if (existingUser) throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
+
+  let googleRes = await iap.validate(iap.GOOGLE, testObj);
+
+  let isValidated = iap.isValidated(googleRes);
+  if (!isValidated) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
+
+  let data = {
+    user,
+    paymentMethod: this.constants.PAYMENT_METHOD,
+    headers,
+  };
+
+  if (gift) {
+    gift.member = await User.findById(gift.uuid).exec();
+    data.gift = gift;
+    data.paymentMethod = this.constants.PAYMENT_METHOD_GIFT;
+  }
+
+  await payments.createSubscription(data);
+
+  return googleRes;
+};
+
 
 api.cancelSubscribe = async function cancelSubscribe (user, headers) {
   let plan = user.purchased.plan;

@@ -173,7 +173,7 @@ describe('Apple Payments', ()  => {
       iapGetPurchaseDataStub.restore();
       iapGetPurchaseDataStub = sinon.stub(iapModule, 'getPurchaseData')
         .returns([{productId: gemsCanPurchase[0].productId,
-          transactionId: token,
+                   transactionId: token,
         }]);
 
       const gift = {uuid: receivingUser._id};

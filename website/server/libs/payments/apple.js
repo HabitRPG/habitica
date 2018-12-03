@@ -155,6 +155,72 @@ api.subscribe = async function subscribe (sku, user, receipt, headers, nextPayme
   }
 };
 
+api.noRenewSubscribe = async function noRenewSubscribe (options) {
+  let {sku, gift, user, receipt, headers} = options;
+
+  if (!sku) throw new BadRequest(shared.i18n.t('missingSubscriptionCode'));
+
+  let subCode;
+  switch (sku) {
+    case 'com.habitrpg.ios.habitica.norenew_subscription.1month':
+      subCode = 'basic_earned';
+      break;
+    case 'com.habitrpg.ios.habitica.norenew_subscription.3month':
+      subCode = 'basic_3mo';
+      break;
+    case 'com.habitrpg.ios.habitica.norenew_subscription.6month':
+      subCode = 'basic_6mo';
+      break;
+    case 'com.habitrpg.ios.habitica.norenew_subscription.12month':
+      subCode = 'basic_12mo';
+      break;
+  }
+  const sub = subCode ? shared.content.subscriptionBlocks[subCode] : false;
+  if (!sub) throw new NotAuthorized(this.constants.RESPONSE_INVALID_ITEM);
+  await iap.setup();
+
+  let appleRes = await iap.validate(iap.APPLE, receipt);
+  const isValidated = iap.isValidated(appleRes);
+  if (!isValidated) throw new NotAuthorized(api.constants.RESPONSE_INVALID_RECEIPT);
+
+  let purchaseDataList = iap.getPurchaseData(appleRes);
+  if (purchaseDataList.length === 0) throw new NotAuthorized(api.constants.RESPONSE_NO_ITEM_PURCHASED);
+
+  let transactionId;
+
+  for (let index in purchaseDataList) {
+    let purchaseData = purchaseDataList[index];
+
+    let dateTerminated = new Date(Number(purchaseData.expirationDate));
+    if (purchaseData.productId === sku && dateTerminated > new Date()) {
+      transactionId = purchaseData.transactionId;
+      break;
+    }
+  }
+
+  if (transactionId) {
+    let existingUser = await User.findOne({
+      'purchased.plan.customerId': transactionId,
+    }).exec();
+    if (existingUser) throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
+
+    let data = {
+      user,
+      paymentMethod: this.constants.PAYMENT_METHOD,
+      headers,
+    };
+
+    if (gift) {
+      gift.member = await User.findById(gift.uuid).exec();
+      data.gift = gift;
+      data.paymentMethod = this.constants.PAYMENT_METHOD_GIFT;
+    }
+
+    await payments.createSubscription(data);
+  } else {
+    throw new NotAuthorized(api.constants.RESPONSE_INVALID_RECEIPT);
+  }
+};
 
 api.cancelSubscribe = async function cancelSubscribe (user, headers) {
   let plan = user.purchased.plan;
