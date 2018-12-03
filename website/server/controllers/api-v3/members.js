@@ -597,8 +597,7 @@ api.getObjectionsToInteraction = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let user = res.locals.user;
-    let challengeId = req.params.challengeId;
+
     let memberId = req.params.memberId;
 
     let sender = res.locals.user;
