@@ -600,7 +600,7 @@ api.getObjectionsToInteraction = {
     let sender = res.locals.user;
     let receiver = await User.findById(req.params.toUserId).exec();
     if (!receiver) {
-      throw new NotFound(res.t('userNotFound'));
+      throw new NotFound(res.t('userWithIDNotFound'));
     } else {
       let interaction = req.params.interaction;
       let response = sender.getObjectionsToInteraction(interaction, receiver);
@@ -635,7 +635,7 @@ api.sendPrivateMessage = {
     const sender = res.locals.user;
     const message = req.body.message;
     const receiver = await User.findById(req.body.toUserId).exec();
-    if (!receiver) throw new NotFound(res.t('userWithIDNotFound'));
+    if (!receiver) throw new NotFound(res.t('userNotFound'));
     if (!receiver.flags.verifiedUsername) delete receiver.auth.local.username;
 
     const objections = sender.getObjectionsToInteraction('send-private-message', receiver);
