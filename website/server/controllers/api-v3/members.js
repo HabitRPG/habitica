@@ -598,12 +598,10 @@ api.getObjectionsToInteraction = {
     if (validationErrors) throw validationErrors;
 
 
-    let memberId = req.params.memberId;
-
     let sender = res.locals.user;
     let receiver = await User.findById(req.params.toUserId).exec();
     if (!receiver) {
-      throw new NotFound(res.t('userWithIDNotFound', {userId: memberId}));
+      throw new NotFound(res.t('userWithIDNotFound', {userId: req.params.toUserId}));
     } else {
       let interaction = req.params.interaction;
       let response = sender.getObjectionsToInteraction(interaction, receiver);
