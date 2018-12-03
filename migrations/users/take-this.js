@@ -49,7 +49,7 @@ async function updateUser (user) {
 module.exports = async function processUsers () {
   let query = {
     migration: {$ne: MIGRATION_NAME},
-    challenges: '00708425-d477-41a5-bf27-6270466e7976';
+    challenges: '00708425-d477-41a5-bf27-6270466e7976',
   };
 
   const fields = {
