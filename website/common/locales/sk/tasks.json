@@ -12,7 +12,7 @@
     "createTask": "Create <%= type %>",
     "addTaskToUser": "Pridaj Úlohu",
     "scheduled": "Naplánované",
-    "theseAreYourTasks": "These are your <%= taskType %>",
+    "theseAreYourTasks": "Tieto sú tvoje <%= taskType %>",
     "habit": "Návyk",
     "habits": "Návyky",
     "newHabit": "Nový návyk",

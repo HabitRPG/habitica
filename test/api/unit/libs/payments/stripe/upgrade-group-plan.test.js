@@ -38,7 +38,7 @@ describe('Stripe - Upgrade Group Plan', () => {
     await group.save();
 
     spy = sinon.stub(stripe.subscriptions, 'update');
-    spy.returnsPromise().resolves([]);
+    spy.resolves([]);
     data.groupId = group._id;
     data.sub.quantity = 3;
     stripePayments.setStripeApi(stripe);

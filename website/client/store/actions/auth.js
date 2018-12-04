@@ -55,6 +55,15 @@ export async function verifyUsername (store, params) {
   return result.data.data;
 }
 
+export async function verifyDisplayName (store, params) {
+  let url = '/api/v4/user/auth/verify-display-name';
+  let result = await axios.post(url, {
+    displayName: params.displayName,
+  });
+
+  return result.data.data;
+}
+
 export async function socialAuth (store, params) {
   let url = '/api/v4/user/auth/social';
   let result = await axios.post(url, {

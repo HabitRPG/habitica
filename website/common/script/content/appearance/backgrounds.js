@@ -745,6 +745,20 @@ let backgrounds = {
       notes: t('backgroundDungeonNotes'),
     },
   },
+  backgrounds112018: {
+    back_alley: {
+      text: t('backgroundBackAlleyText'),
+      notes: t('backgroundBackAlleyNotes'),
+    },
+    glowing_mushroom_cave: {
+      text: t('backgroundGlowingMushroomCaveText'),
+      notes: t('backgroundGlowingMushroomCaveNotes'),
+    },
+    cozy_bedroom: {
+      text: t('backgroundCozyBedroomText'),
+      notes: t('backgroundCozyBedroomNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),

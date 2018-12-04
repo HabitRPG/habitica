@@ -1,6 +1,5 @@
 import { authWithHeaders } from '../../middlewares/auth';
 import {
-  NotAuthorized,
   NotFound,
 } from '../../libs/errors';
 import { model as PushDevice } from '../../models/pushDevice';
@@ -39,8 +38,10 @@ api.addPushDevice = {
       type: req.body.type,
     };
 
+    // When adding a duplicate push device, fail silently instead of throwing an error
     if (pushDevices.find(device => device.regId === item.regId)) {
-      throw new NotAuthorized(res.t('pushDeviceAlreadyAdded'));
+      res.respond(200, user.pushDevices, res.t('pushDeviceAdded'));
+      return;
     }
 
     // Concurrency safe update

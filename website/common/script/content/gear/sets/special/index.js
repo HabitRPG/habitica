@@ -1053,6 +1053,12 @@ let armor = {
     value: 90,
     con: 15,
   },
+  turkeyArmorGilded: {
+    text: t('armorSpecialTurkeyArmorGildedText'),
+    notes: t('armorSpecialTurkeyArmorGildedNotes'),
+    value: 0,
+    canOwn: ownsItem('armor_special_turkeyArmorGilded'),
+  },
 };
 
 let back = {
@@ -1156,6 +1162,12 @@ let back = {
     canBuy: () => {
       return true;
     },
+  },
+  turkeyTailGilded: {
+    text: t('backSpecialTurkeyTailGildedText'),
+    notes: t('backSpecialTurkeyTailGildedNotes'),
+    value: 0,
+    canOwn: ownsItem('back_special_turkeyTailGilded'),
   },
 };
 
@@ -2379,6 +2391,12 @@ let head = {
     notes: t('headSpecialFall2018HealerNotes', { int: 7 }),
     value: 60,
     int: 7,
+  },
+  turkeyHelmGilded: {
+    text: t('headSpecialTurkeyHelmGildedText'),
+    notes: t('headSpecialTurkeyHelmGildedNotes'),
+    value: 0,
+    canOwn: ownsItem('head_special_turkeyHelmGilded'),
   },
 };
 

@@ -7,13 +7,13 @@
       .form
         h2(v-once) {{ $t('filter') }}
         .form-group
-          .form-check(
+          checkbox(
             v-for="category in filterCategories",
             :key="category.key",
+            :id="`category-${category.key}`",
+            :checked.sync="viewOptions[category.key].selected",
+            :text="category.value"
           )
-            .custom-control.custom-checkbox
-              input.custom-control-input(type="checkbox", v-model="viewOptions[category.key].selected", :id="`category-${category.identifier}`")
-              label.custom-control-label(v-once, :for="`category-${category.identifier}`") {{ category.value }}
 
         div.form-group.clearfix
           h3.float-left(v-once) {{ $t('hidePinned') }}
@@ -290,6 +290,7 @@
   import Item from 'client/components/inventory/item';
   import CountBadge from 'client/components/ui/countBadge';
   import ItemRows from 'client/components/ui/itemRows';
+  import Checkbox from 'client/components/ui/checkbox';
   import toggleSwitch from 'client/components/ui/toggleSwitch';
   import Avatar from 'client/components/avatar';
   import buyMixin from 'client/mixins/buy';
@@ -326,6 +327,7 @@
       CountBadge,
       ItemRows,
       toggleSwitch,
+      Checkbox,
 
       Avatar,
     },

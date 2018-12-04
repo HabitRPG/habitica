@@ -13,7 +13,7 @@ global.expect = chai.expect;
 global.sinon = require('sinon');
 let sinonStubPromise = require('sinon-stub-promise');
 sinonStubPromise(global.sinon);
-global.sandbox = sinon.sandbox.create();
+global.sandbox = sinon.createSandbox();
 
 import setupNconf from '../../website/server/libs/setupNconf';
 setupNconf('./config.json.example');

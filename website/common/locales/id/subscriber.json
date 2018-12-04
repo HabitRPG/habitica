@@ -148,6 +148,8 @@
     "mysterySet201807": "Sea Serpent Set",
     "mysterySet201808": "Lava Dragon Set",
     "mysterySet201809": "Autumnal Armor Set",
+    "mysterySet201810": "Dark Forest Set",
+    "mysterySet201811": "Splendid Sorcerer Set",
     "mysterySet301404": "Set Steampunk Standard",
     "mysterySet301405": "Set Aksesoris Steampunk",
     "mysterySet301703": "Set Merak Steampunk",
@@ -206,7 +208,7 @@
     "haveCouponCode": "Apakah kamu mempunyai kode kupon?",
     "subscriptionAlreadySubscribedLeadIn": "Terima kasih sudah berlangganan!",
     "subscriptionAlreadySubscribed1": "Untuk melihat detail berlanggananmu dan membatalkan, memperbarui atau mengubah pengaturan berlanggananmu, silakan klik <a href='/user/settings/subscription'>Ikon Pengguna &gt; Pengaturan &gt; Berlangganan</a>.",
-    "purchaseAll": "Beli Semuanya",
+    "purchaseAll": "Purchase Set",
     "gemsPurchaseNote": "Pelanggan dapat membeli permata dengan koin emas di Pasar! Untuk akses mudah, kamu dapat juga menaruh permata ke kolom Hadiah-mu.",
     "gemsRemaining": "permata tersisa",
     "notEnoughGemsToBuy": "Kamu tidak dapat membeli permata sebanyak itu"

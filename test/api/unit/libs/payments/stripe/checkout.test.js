@@ -26,9 +26,9 @@ describe('checkout', () => {
     let stripCustomerResponse = {
       id: customerIdResponse,
     };
-    stripeChargeStub = sinon.stub(stripe.charges, 'create').returnsPromise().resolves(stripCustomerResponse);
-    paymentBuyGemsStub = sinon.stub(payments, 'buyGems').returnsPromise().resolves({});
-    paymentCreateSubscritionStub = sinon.stub(payments, 'createSubscription').returnsPromise().resolves({});
+    stripeChargeStub = sinon.stub(stripe.charges, 'create').resolves(stripCustomerResponse);
+    paymentBuyGemsStub = sinon.stub(payments, 'buyGems').resolves({});
+    paymentCreateSubscritionStub = sinon.stub(payments, 'createSubscription').resolves({});
   });
 
   afterEach(() => {
@@ -82,7 +82,7 @@ describe('checkout', () => {
 
   it('should error if user cannot get gems', async () => {
     gift = undefined;
-    sinon.stub(user, 'canGetGems').returnsPromise().resolves(false);
+    sinon.stub(user, 'canGetGems').resolves(false);
 
     await expect(stripePayments.checkout({
       token,
@@ -101,7 +101,7 @@ describe('checkout', () => {
 
   it('should purchase gems', async () => {
     gift = undefined;
-    sinon.stub(user, 'canGetGems').returnsPromise().resolves(true);
+    sinon.stub(user, 'canGetGems').resolves(true);
 
     await stripePayments.checkout({
       token,

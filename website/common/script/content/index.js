@@ -197,6 +197,21 @@ api.bundles = {
     type: 'quests',
     value: 7,
   },
+  oddballs: {
+    key: 'oddballs',
+    text: t('oddballsText'),
+    notes: t('oddballsNotes'),
+    bundleKeys: [
+      'slime',
+      'rock',
+      'yarn',
+    ],
+    canBuy () {
+      return moment().isBetween('2018-11-15', '2018-12-04');
+    },
+    type: 'quests',
+    value: 7,
+  },
 };
 
 /*

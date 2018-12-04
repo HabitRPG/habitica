@@ -160,7 +160,7 @@
     "backgroundStoneCircleNotes": "在石圈裡施法。",
     "backgrounds042016": "第 23 組：在2016 年 4 月推出",
     "backgroundArcheryRangeText": "弓箭射程",
-    "backgroundArcheryRangeNotes": "在射箭場練習",
+    "backgroundArcheryRangeNotes": "在射箭場練習。",
     "backgroundGiantFlowersText": "巨花",
     "backgroundGiantFlowersNotes": "在巨花上共舞",
     "backgroundRainbowsEndText": "彩虹的盡頭",
@@ -263,8 +263,8 @@
     "backgroundMistShroudedMountainText": "雲霧繚繞的山鋒",
     "backgroundMistShroudedMountainNotes": "雲霧繚繞的山鋒頂端",
     "backgrounds052017": "第 36 組: 2017 年 5 月推出",
-    "backgroundGuardianStatuesText": "守護者石像",
-    "backgroundGuardianStatuesNotes": "在守護者石像前守夜",
+    "backgroundGuardianStatuesText": "護衛石像",
+    "backgroundGuardianStatuesNotes": "在護衛石像前守夜",
     "backgroundHabitCityStreetsText": "習慣城市的街道",
     "backgroundHabitCityStreetsNotes": "探索習慣城市的街道",
     "backgroundOnATreeBranchText": "在樹的分支上",
@@ -387,5 +387,12 @@
     "backgroundCreepyCastleText": "驚悚城堡",
     "backgroundCreepyCastleNotes": "勇敢地進入毛骨悚然的城堡。",
     "backgroundDungeonText": "地牢",
-    "backgroundDungeonNotes": "在幽靈地牢中協助囚犯越獄。"
+    "backgroundDungeonNotes": "在幽靈地牢中協助囚犯越獄。",
+    "backgrounds112018": "第 54 組: 2018 年 11月推出",
+    "backgroundBackAlleyText": "陋巷",
+    "backgroundBackAlleyNotes": "暗影再陋巷中陰魂不散。",
+    "backgroundGlowingMushroomCaveText": "發光蘑菇洞穴",
+    "backgroundGlowingMushroomCaveNotes": "驚嘆地凝視著一個發光的蘑菇洞穴。",
+    "backgroundCozyBedroomText": "溫馨臥室",
+    "backgroundCozyBedroomNotes": "蜷縮在溫馨的臥室裡。"
 }

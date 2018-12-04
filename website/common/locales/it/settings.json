@@ -125,6 +125,7 @@
     "importantAnnouncements": "Promemoria per l'accesso, per completare attività e ricevere premi",
     "weeklyRecaps": "Riassunto delle attività del tuo account nell'ultima settimana (Nota: questa funzionalità al momento è stata disattivata a causa di problemi di prestazioni, ma speriamo di riattivarla e fare in modo che invii nuovamente e-mail al più presto!)",
     "onboarding": "Guida per iniziare con il tuo account su Habitica",
+    "majorUpdates": "Important announcements",
     "questStarted": "La tua missione è cominciata",
     "invitedQuest": "Invito ad unirti ad una missione",
     "kickedGroup": "Espulsione da un gruppo",
@@ -156,6 +157,7 @@
     "generate": "Genera",
     "getCodes": "Ottieni codici",
     "webhooks": "Webhooks",
+    "webhooksInfo": "Habitica provides webhooks so that when certain actions occur in your account, information can be sent to a script on another website. You can specify those scripts here. Be careful with this feature because specifying an incorrect URL can cause errors or slowness in Habitica. For more information, see the wiki's <a target=\"_blank\" href=\"https://habitica.wikia.com/wiki/Webhooks\">Webhooks</a> page.",
     "enabled": "Abilitato",
     "webhookURL": "URL Webhook",
     "invalidUrl": "URL non valido",
@@ -198,9 +200,10 @@
     "usernameIssueInvalidCharacters": "Gli username possono contenere solo lettere da a a z, numeri da 0 a 9, trattini e trattini bassi.",
     "currentUsername": "Username corrente:",
     "displaynameIssueLength": "Display Names must be between 1 and 30 characters.",
-    "displaynameIssueSlur": "Display Names may not contain inappropriate language",
+    "displaynameIssueSlur": "Display Names may not contain inappropriate language.",
     "goToSettings": "Go to Settings",
     "usernameVerifiedConfirmation": "Il tuo username, <%= username %>, è confermato!",
     "usernameNotVerified": "Per favore, conferma il tuo username.",
-    "changeUsernameDisclaimer": "We will be transitioning login names to unique, public usernames soon. This username will be used for invitations, @mentions in chat, and messaging."
+    "changeUsernameDisclaimer": "We will be transitioning login names to unique, public usernames soon. This username will be used for invitations, @mentions in chat, and messaging.",
+    "verifyUsernameVeteranPet": "One of these Veteran Pets will be waiting for you after you've finished confirming!"
 }

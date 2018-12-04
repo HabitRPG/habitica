@@ -13,7 +13,7 @@ describe('payments : google #verify', () => {
     let verifyStub;
 
     beforeEach(async () => {
-      verifyStub = sinon.stub(googlePayments, 'verifyGemPurchase').returnsPromise().resolves({});
+      verifyStub = sinon.stub(googlePayments, 'verifyGemPurchase').resolves({});
     });
 
     afterEach(() => {
