@@ -1,32 +1,32 @@
 <template lang="pug">
-b-modal#create-party-modal(title="Empty", size='lg', hide-footer=true)
+b-modal#create-party-modal(size='lg', hide-footer=true)
   .header-wrap(slot="modal-header")
     .quest_screen
     .row.heading
       .col-12.text-center.pr-5.pl-5
         h2(v-once) {{ $t('playInPartyTitle') }}
-        p(v-once) {{ $t('playInPartyDescription') }}
+        p.mb-4(v-once) {{ $t('playInPartyDescription') }}
         button.btn.btn-primary(v-once, @click='createParty()') {{ $t('createParty') }}
   .row.grey-row
     .col-12.text-center
       .join-party
-      h3(v-once) {{ $t('wantToJoinPartyTitle') }}
+      h2(v-once) {{ $t('wantToJoinPartyTitle') }}
       p(v-html='$t("wantToJoinPartyDescription")')
-      .form-group
+      .form-group(@click='copyUsername')
         .d-flex.align-items-center
-          label.mr-3(for='username') {{ $t('username') }}
+          label.mr-3(v-once) {{ $t('username') }}
           .flex-grow-1
             .input-group-prepend.input-group-text @
-              input.form-control#username-text(
-                type='text',
-                v-model='user.auth.local.username',
-                readonly='true',
-              )
-              .svg-icon.copy-icon(v-html='icons.copy', @click='copyUsername')
-              .small(@click='copyUsername') {{ $t('copy') }}
+              .text {{ user.auth.local.username }}
+              .svg-icon.copy-icon(v-html='icons.copy')
+              .small(v-once) {{ $t('copy') }}
 </template>
 
 <style>
+  #create-party-modal .modal-body {
+    padding: 0rem 0.75rem;
+  }
+
   #create-party-modal .modal-dialog {
     width: 35.75rem;
   }
@@ -37,25 +37,25 @@ b-modal#create-party-modal(title="Empty", size='lg', hide-footer=true)
   }
 </style>
 
-<style lang="scss">
+<style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
 
   .copy-icon {
-    width: 1.25rem;
-    cursor: pointer;
+    width: 1rem;
   }
 
-  .heading {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+  .form-control[readonly] {
+    background-color: $white;
+    color: $gray-50;
   }
 
   .form-group {
-    background-color: $gray-700;
+    background-color: $gray-600;
     border-radius: 2px;
     border: solid 1px $gray-500;
     width: 90%;
     margin: auto;
+    cursor: pointer;
   }
 
   .grey-row {
@@ -63,6 +63,10 @@ b-modal#create-party-modal(title="Empty", size='lg', hide-footer=true)
     color: #4e4a57;
     padding: 2em;
     border-radius: 0px 0px 2px 2px;
+  }
+
+  h2 {
+    color: $gray-100;
   }
 
   .header-wrap {
@@ -75,24 +79,24 @@ b-modal#create-party-modal(title="Empty", size='lg', hide-footer=true)
       background-size: cover;
       width: 100%;
       height: 246px;
-      margin-bottom: .5em;
+      margin-bottom: 1.5rem;
       border-radius: 2px 2px 0 0;
       image-rendering: optimizequality;
     }
 
     h2 {
-      color: #4f2a93;
+      color: $purple-200;
     }
+  }
+
+  .heading {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
 
   input.form-control {
     border: 0px;
     padding-left: 0.25rem;
-  }
-
-  .form-control[readonly] {
-    background-color: $white;
-    color: $gray-50;
   }
 
   .input-group-prepend {
@@ -121,17 +125,17 @@ b-modal#create-party-modal(title="Empty", size='lg', hide-footer=true)
     font-weight: bold;
     margin-bottom: 0rem;
     margin-left: 1rem;
+    cursor: pointer;
   }
 
-  .modal-body {
-    padding-bottom: 0;
-    padding-top: 0;
+  .modal-dialog .text {
+    min-height: 1rem;
+    margin: 0.75rem auto 0.75rem 0.25rem;
   }
 
   .small {
     color: $gray-200;
     margin: auto 0.5rem auto 0.25rem;
-    cursor: pointer;
   }
 </style>
 
