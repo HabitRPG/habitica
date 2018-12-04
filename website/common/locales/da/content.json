@@ -206,6 +206,7 @@
     "hatchingPotionRainbow": "Rainbow",
     "hatchingPotionGlass": "Glass",
     "hatchingPotionGlow": "Glow-in-the-Dark",
+    "hatchingPotionFrost": "Frost",
     "hatchingPotionNotes": "Hæld på et æg, og det vil udklække til et <%= potText(locale) %> kæledyr.",
     "premiumPotionAddlNotes": "Kan ikke bruges på quest-æg.",
     "foodMeat": "Kød",

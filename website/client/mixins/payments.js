@@ -6,12 +6,14 @@ import { mapState } from 'client/libs/store';
 import encodeParams from 'client/libs/encodeParams';
 import notificationsMixin from 'client/mixins/notifications';
 import * as Analytics from 'client/libs/analytics';
+import { CONSTANTS, setLocalSetting } from 'client/libs/userlocalManager';
+
+const habiticaUrl = `${location.protocol}//${location.host}`;
 
 export default {
   mixins: [notificationsMixin],
   computed: {
     ...mapState(['credentials']),
-    // @TODO refactor into one single computed property
     paypalCheckoutLink () {
       return '/paypal/checkout';
     },
@@ -41,7 +43,26 @@ export default {
       let gift = this.encodeGift(data.giftedTo, data.gift);
       const url = `/paypal/checkout?gift=${gift}`;
 
+      this.openPaypal(url, 'gift');
+    },
+    openPaypal (url/* , type*/) {
+      const appState = {
+        paymentMethod: 'paypal',
+        paymentCompleted: false,
+      };
+      setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
       window.open(url, '_blank');
+
+      function localStorageChangeHandled (e) {
+        if (e.key === 'saved-app-state') {
+          window.removeEventListener('storage', localStorageChangeHandled);
+          const newState = e.newValue ? JSON.parse(e.newValue) : {};
+          if (newState.paymentCompleted) window.location.reload(true);
+        }
+      }
+
+      // Listen for changes to local storage, indicating that the payment completed
+      window.addEventListener('storage', localStorageChangeHandled);
     },
     showStripe (data) {
       if (!this.checkGemAmount(data)) return;
@@ -92,6 +113,12 @@ export default {
             return;
           }
 
+          const appState = {
+            paymentMethod: 'stripe',
+            paymentCompleted: true,
+          };
+          setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
+
           let newGroup = response.data.data;
           if (newGroup && newGroup._id) {
             // @TODO this does not do anything as we reload just below
@@ -99,8 +126,6 @@ export default {
 
             // Handle new user signup
             if (!this.$store.state.isUserLoggedIn) {
-              const habiticaUrl = `${location.protocol}//${location.host}`;
-
               Analytics.track({
                 hitType: 'event',
                 eventCategory: 'group-plans-static',
@@ -108,18 +133,17 @@ export default {
                 eventLabel: 'paid-with-stripe',
               });
 
-              location.href = `${habiticaUrl}/group-plans/${newGroup._id}/task-information?showGroupOverview=true`;
+              window.location.assign(`${habiticaUrl}/group-plans/${newGroup._id}/task-information?showGroupOverview=true`);
               return;
             }
 
-            this.$router.push(`/group-plans/${newGroup._id}/task-information`);
-            // @TODO action
             this.user.guilds.push(newGroup._id);
+            window.location.assign(`${habiticaUrl}/group-plans/${newGroup._id}/task-information`);
             return;
           }
 
           if (data.groupId) {
-            this.$router.push(`/group-plans/${data.groupId}/task-information`);
+            window.location.assign(`${habiticaUrl}/group-plans/${data.groupId}/task-information`);
             return;
           }
 
@@ -144,7 +168,7 @@ export default {
           let url = '/stripe/subscribe/edit';
           let response = await axios.post(url, data);
 
-          // Succss
+          // Success
           window.location.reload(true);
           // error
           alert(response.message);

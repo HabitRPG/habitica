@@ -9,15 +9,15 @@ const featuredItems = {
     },
     {
       type: 'hatchingPotions',
-      path: 'hatchingPotions.Shade',
+      path: 'hatchingPotions.White',
     },
     {
       type: 'eggs',
       path: 'eggs.Wolf',
     },
     {
-      type: 'card',
-      path: 'cardTypes.getwell',
+      type: 'food',
+      path: 'food.Milk',
     },
   ],
   quests: [
@@ -30,8 +30,8 @@ const featuredItems = {
       path: 'quests.taskwoodsTerror1',
     },
     {
-      type: 'bundles',
-      path: 'bundles.oddballs',
+      type: 'quests',
+      path: 'quests.horse',
     },
   ],
   seasonal: '',

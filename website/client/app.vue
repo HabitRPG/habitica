@@ -11,6 +11,7 @@ div
   #app(:class='{"casting-spell": castingSpell}')
     banned-account-modal
     amazon-payments-modal(v-if='!isStaticPage')
+    payments-success-modal
     snackbars
     router-view(v-if="!isUserLoggedIn || isStaticPage")
     template(v-else)
@@ -185,7 +186,10 @@ import SelectMembersModal from 'client/components/selectMembersModal.vue';
 import notifications from 'client/mixins/notifications';
 import { setup as setupPayments } from 'client/libs/payments';
 import amazonPaymentsModal from 'client/components/payments/amazonModal';
+import paymentsSuccessModal from 'client/components/payments/successModal';
+
 import spellsMixin from 'client/mixins/spells';
+import { CONSTANTS, getLocalSetting, removeLocalSetting } from 'client/libs/userlocalManager';
 
 import svgClose from 'assets/svg/close.svg';
 import bannedAccountModal from 'client/components/bannedAccountModal';
@@ -205,6 +209,7 @@ export default {
     SelectMembersModal,
     amazonPaymentsModal,
     bannedAccountModal,
+    paymentsSuccessModal,
   },
   data () {
     return {
@@ -433,6 +438,14 @@ export default {
           });
         }
 
+        let appState = getLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE);
+        if (appState) {
+          appState = JSON.parse(appState);
+          if (appState.paymentCompleted) {
+            removeLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE);
+            this.$root.$emit('bv::show::modal', 'payments-success-modal');
+          }
+        }
         this.$nextTick(() => {
           // Load external scripts after the app has been rendered
           setupPayments();

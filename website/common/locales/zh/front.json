@@ -271,8 +271,8 @@
     "emailTaken": "邮件地址已经在现有账号中存在",
     "newEmailRequired": "缺少新的邮件地址",
     "usernameTime": "是时候设置你的登录名啦！",
-    "usernameInfo": "Login names are now unique usernames that will be visible beside your display name and used for invitations, chat @mentions, and messaging.<br><br>If you'd like to learn more about this change, <a href='http://habitica.wikia.com/wiki/Player_Names' target='_blank'>visit our wiki</a>.",
-    "usernameTOSRequirements": "Usernames must conform to our <a href='/static/terms' target='_blank'>Terms of Service</a> and <a href='/static/community-guidelines' target='_blank'>Community Guidelines</a>. If you didn’t previously set a login name, your username was auto-generated.",
+    "usernameInfo": "登录名现在是唯一的用户名，它将显示在您的昵称旁边，用于邀请，聊天的艾特@和消息。<br><br> 如果您想了解有关此更改的更多信息，请访问我们的<a href='http://habitica.wikia.com/wiki/Player_Names' target='_blank'>wiki</a>。",
+    "usernameTOSRequirements": "用户名必须符合我们的<a href='/static/terms' target='_blank'>服务条款</a>和<a href='/static/community-guidelines' target='_blank'>社区准则</a>。 如果您之前未设置登录名，我们将会自动生成您的用户名。",
     "usernameTaken": "登录名已被使用。",
     "passwordConfirmationMatch": "密码不匹配",
     "invalidLoginCredentials": "错误的用户名 和/或 电子邮件 和/或 密码。",
@@ -328,7 +328,7 @@
     "joinMany": "和超过2,000,000人一起享受乐趣，同时实现自己的目标！",
     "joinToday": "今天就加入Habitica！",
     "signup": "注册",
-    "getStarted": "Get Started!",
+    "getStarted": "现在加入我们！",
     "mobileApps": "手机客户端",
     "learnMore": "了解更多"
 }

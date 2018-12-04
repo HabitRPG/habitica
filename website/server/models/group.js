@@ -480,8 +480,8 @@ schema.methods.getMemberCount = async function getMemberCount () {
   return await User.count(query).exec();
 };
 
-schema.methods.sendChat = function sendChat (message, user, metaData) {
-  let newMessage = messageDefaults(message, user);
+schema.methods.sendChat = function sendChat (message, user, metaData, client) {
+  let newMessage = messageDefaults(message, user, client);
   let newChatMessage = new Chat();
   newChatMessage = Object.assign(newChatMessage, newMessage);
   newChatMessage.groupId = this._id;
@@ -1148,23 +1148,25 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
     }).exec();
 
     let challengesToRemoveUserFrom = challenges.map(chal => {
-      return chal.unlinkTasks(user, keep);
+      return chal.unlinkTasks(user, keep, false);
     });
     await Promise.all(challengesToRemoveUserFrom);
   }
 
-  // Unlink group tasks)
+  // Unlink group tasks
   let assignedTasks = await Tasks.Task.find({
     'group.id': group._id,
     userId: {$exists: false},
     'group.assignedUsers': user._id,
   }).exec();
   let assignedTasksToRemoveUserFrom = assignedTasks.map(task => {
-    return this.unlinkTask(task, user, keep);
+    return this.unlinkTask(task, user, keep, false);
   });
   await Promise.all(assignedTasksToRemoveUserFrom);
 
-  let promises = [];
+  // the user could be modified by calls to `unlinkTask` for challenge and group tasks
+  // it has not been saved before to avoid multiple saves in parallel
+  let promises = user.isModified() ? [user.save()] : [];
 
   // remove the group from the user's groups
   if (group.type === 'guild') {
@@ -1354,7 +1356,7 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
   return Promise.all(toSave);
 };
 
-schema.methods.unlinkTask = async function groupUnlinkTask (unlinkingTask, user, keep) {
+schema.methods.unlinkTask = async function groupUnlinkTask (unlinkingTask, user, keep, saveUser = true) {
   let findQuery = {
     'group.taskId': unlinkingTask._id,
     userId: user._id,
@@ -1368,7 +1370,9 @@ schema.methods.unlinkTask = async function groupUnlinkTask (unlinkingTask, user,
       $set: {group: {}},
     }).exec();
 
-    await user.save();
+    // When multiple tasks are being unlinked at the same time,
+    // save the user once outside of this function
+    if (saveUser) await user.save();
   } else { // keep = 'remove-all'
     let task = await Tasks.Task.findOne(findQuery).select('_id type completed').exec();
     // Remove task from user.tasksOrder and delete them
@@ -1377,7 +1381,12 @@ schema.methods.unlinkTask = async function groupUnlinkTask (unlinkingTask, user,
       user.markModified('tasksOrder');
     }
 
-    return Promise.all([task.remove(), user.save(), unlinkingTask.save()]);
+    const promises = [task.remove(), unlinkingTask.save()];
+    // When multiple tasks are being unlinked at the same time,
+    // save the user once outside of this function
+    if (saveUser) promises.push(user.save());
+
+    return Promise.all(promises);
   }
 };
 

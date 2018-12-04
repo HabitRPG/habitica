@@ -62,5 +62,5 @@
     "unallocatedStatsPoints": "Tienes <span class=\"notification-bold-blue\"><%= points %> Puntos de Estadísticas sin asignar</span>",
     "beginningOfConversation": "Este es el principio de tu conversación con <%= userName %>. ¡Recuerda ser amable, respetuoso y seguir las Normas de la Comunidad!",
     "messageDeletedUser": "Lo sentimos, este usuario ha eliminado su cuenta.",
-    "messageMissingDisplayName": "Missing display name."
+    "messageMissingDisplayName": "Falta el nombre público."
 }

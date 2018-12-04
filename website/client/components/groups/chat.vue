@@ -57,6 +57,7 @@
     data () {
       return {
         newMessage: '',
+        sending: false,
         caretPosition: 0,
         chat: {
           submitDisable: false,
@@ -111,14 +112,18 @@
         }
       },
       async sendMessage () {
+        if (this.sending) return;
+        this.sending = true;
         let response = await this.$store.dispatch('chat:postChat', {
           group: this.group,
           message: this.newMessage,
         });
         this.group.chat.unshift(response.message);
         this.newMessage = '';
+        this.sending = false;
 
-        // @TODO: I would like to not reload everytime we send. Realtime/Firebase?
+        // @TODO: I would like to not reload everytime we send. Why are we reloading?
+        // The response has all the necessary data...
         let chat = await this.$store.dispatch('chat:getChat', {groupId: this.group._id});
         this.group.chat = chat;
       },
