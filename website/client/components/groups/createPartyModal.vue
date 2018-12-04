@@ -176,13 +176,17 @@ b-modal#create-party-modal(size='lg', hide-footer=true)
         this.$router.push('/party');
       },
       copyUsername () {
-        let copyText = document.createElement('textarea');
-        copyText.value = this.user.auth.local.username;
-        document.body.appendChild(copyText);
-        copyText.select();
-        document.execCommand('copy');
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(this.user.auth.local.username);
+        } else {
+          let copyText = document.createElement('textarea');
+          copyText.value = this.user.auth.local.username;
+          document.body.appendChild(copyText);
+          copyText.select();
+          document.execCommand('copy');
+          document.body.removeChild(copyText);
+        }
         this.text(this.$t('usernameCopied'));
-        document.body.removeChild(copyText);
       },
     },
     mixins: [notifications],
