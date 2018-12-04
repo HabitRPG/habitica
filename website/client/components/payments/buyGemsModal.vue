@@ -75,7 +75,7 @@
               .card-body
                 .mx-auto(v-html='icons.creditCard', style='"height: 56px; width: 159px; margin-top: 1em;"')
             .card.text-center.payment-method
-              a.card-body.paypal(:href='paypalCheckoutLink', target='_blank')
+              a.card-body.paypal(@click="openPaypal(paypalCheckoutLink, 'gems')")
                 img(src='~assets/images/paypal.png')
             .card.text-center.payment-method(@click="amazonPaymentsInit({type: 'single'})")
               .card-body.amazon
@@ -158,7 +158,7 @@
                 .card-body(@click='showStripe({subscription: subscriptionPlan})')
                   .mx-auto(v-html='icons.creditCard', style='"height: 56px; width: 159px; margin-top: 1em;"')
               .card.text-center.payment-method
-                a.card-body.paypal(:href='paypalSubscriptionLink', target='_blank')
+                a.card-body.paypal(@click="openPaypal(paypalSubscriptionLink, 'subscription')")
                   img(src='~assets/images/paypal.png')
               .card.text-center.payment-method
                 .card-body.amazon(@click="amazonPaymentsInit({type: 'subscription', subscription: subscriptionPlan})")

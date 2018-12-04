@@ -98,11 +98,11 @@ describe('edit subscription', () => {
     beforeEach(() => {
       subscriptionId = 'subId';
       stripeListSubscriptionStub = sinon.stub(stripe.customers, 'listSubscriptions')
-        .returnsPromise().resolves({
+        .resolves({
           data: [{id: subscriptionId}],
         });
 
-      stripeUpdateSubscriptionStub = sinon.stub(stripe.customers, 'updateSubscription').returnsPromise().resolves({});
+      stripeUpdateSubscriptionStub = sinon.stub(stripe.customers, 'updateSubscription').resolves({});
     });
 
     afterEach(() => {

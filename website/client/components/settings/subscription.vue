@@ -77,7 +77,7 @@
             .col-md-4
               button.purchase.btn.btn-primary(@click='showStripe({subscription:subscription.key, coupon:subscription.coupon})', :disabled='!subscription.key') {{ $t('card') }}
             .col-md-4
-              a.purchase(:href='paypalPurchaseLink', :disabled='!subscription.key', target='_blank')
+              a.purchase(@click="openPaypal(paypalPurchaseLink, 'subscription')", :disabled='!subscription.key')
                 img(src='https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-small.png', :alt="$t('paypal')")
             .col-md-4
               a.btn.btn-secondary.purchase(@click="payWithAmazon()")

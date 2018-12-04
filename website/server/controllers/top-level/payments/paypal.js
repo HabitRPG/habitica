@@ -61,7 +61,7 @@ api.checkoutSuccess = {
     if (req.query.noRedirect) {
       res.respond(200);
     } else {
-      res.redirect('/');
+      res.redirect('/redirect/paypal-success-checkout');
     }
   },
 };
@@ -122,7 +122,7 @@ api.subscribeSuccess = {
     if (req.query.noRedirect) {
       res.respond(200);
     } else {
-      res.redirect('/user/settings/subscription');
+      res.redirect('/redirect/paypal-success-subscribe');
     }
   },
 };

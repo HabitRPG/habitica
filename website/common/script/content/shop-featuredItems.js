@@ -8,16 +8,16 @@ const featuredItems = {
       path: 'armoire',
     },
     {
-      type: 'premiumHatchingPotion',
-      path: 'premiumHatchingPotions.Ghost',
+      type: 'hatchingPotions',
+      path: 'hatchingPotions.White',
     },
     {
-      type: 'premiumHatchingPotion',
-      path: 'premiumHatchingPotions.Glow',
+      type: 'eggs',
+      path: 'eggs.Wolf',
     },
     {
-      type: 'card',
-      path: 'cardTypes.getwell',
+      type: 'food',
+      path: 'food.Milk',
     },
   ],
   quests: [
@@ -31,7 +31,7 @@ const featuredItems = {
     },
     {
       type: 'quests',
-      path: 'quests.kangaroo',
+      path: 'quests.horse',
     },
   ],
   seasonal: '',

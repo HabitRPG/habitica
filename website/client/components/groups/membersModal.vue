@@ -355,7 +355,10 @@ export default {
     sendMessage (member) {
       this.$root.$emit('habitica::new-inbox-message', {
         userIdToMessage: member._id,
-        userName: member.profile.name,
+        displayName: member.profile.name,
+        username: member.auth.local.username,
+        backer: member.backer,
+        contributor: member.contributor,
       });
     },
     async searchMembers (searchTerm = '') {
@@ -496,8 +499,9 @@ export default {
       });
     },
     shouldShowAddManager (memberId) {
+      if (!this.isLeader && !this.isAdmin) return false;
       if (memberId === this.group.leader || memberId === this.group.leader._id) return false;
-      return !(this.group.managers && this.group.managers[memberId]);
+      return this.groupIsSubscribed && !(this.group.managers && this.group.managers[memberId]);
     },
     shouldShowRemoveManager (memberId) {
       if (!this.isLeader && !this.isAdmin) return false;

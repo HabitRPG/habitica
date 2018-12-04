@@ -50,6 +50,14 @@ describe('GET /groups/:groupId/invites', () => {
       _id: invited._id,
       id: invited._id,
       profile: {name: invited.profile.name},
+      auth: {
+        local: {
+          username: invited.auth.local.username,
+        },
+      },
+      flags: {
+        verifiedUsername: true,
+      },
     });
   });
 
@@ -58,7 +66,7 @@ describe('GET /groups/:groupId/invites', () => {
     let invited = await generateUser();
     await user.post(`/groups/${group._id}/invite`, {uuids: [invited._id]});
     let res = await user.get('/groups/party/invites');
-    expect(res[0]).to.have.all.keys(['_id', 'id', 'profile']);
+    expect(res[0]).to.have.all.keys(['_id', 'auth', 'flags', 'id', 'profile']);
     expect(res[0].profile).to.have.all.keys(['name']);
   });
 
@@ -76,10 +84,10 @@ describe('GET /groups/:groupId/invites', () => {
     let res = await leader.get(`/groups/${group._id}/invites`);
     expect(res.length).to.equal(30);
     res.forEach(member => {
-      expect(member).to.have.all.keys(['_id', 'id', 'profile']);
+      expect(member).to.have.all.keys(['_id', 'auth', 'flags', 'id', 'profile']);
       expect(member.profile).to.have.all.keys(['name']);
     });
-  });
+  }).timeout(10000);
 
   it('supports using req.query.lastId to get more invites', async function () {
     this.timeout(30000); // @TODO: times out after 8 seconds

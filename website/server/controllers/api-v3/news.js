@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'FALL FESTIVAL AVATAR CUSTOMIZATIONS AND USERNAME FAQS';
+const LAST_ANNOUNCEMENT_TITLE = 'DECEMBER 2018 RESOLUTION SUCCESS CHALLENGE AND NEW TAKE THIS CHALLENGE';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,28 +30,17 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>10/11/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>12/3/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_fall_avatar_customizations center-block"></div>
-        <h3>Supernatural Skins & Haunted Hair Colors</h3>
-        <p>The Seasonal Edition Haunted Hair Colors are now available for purchase! Now you can dye your avatar's hair Pumpkin, Midnight, Candy Corn, Ghost White, Zombie, or Halloween. They’ll vanish after October 31, so be sure to check them out!</p>
-        <p>The Supernatural Skin Set is also available until October 31st! Now your avatar can become an Ogre, Skeleton, Pumpkin, Candy Corn, Reptile, or Dread Shade.</p>
-        <p>Seasonal Edition items recur unchanged every year, but they are only available to purchase during a short period of time. Find these exciting skins and hair colors in User>Edit Avatar. Get them now, or you'll have to wait until next year!</p>
-        <div class="small mb-3">by Lemoness, mariahm, and crystalphoenix</div>
-        <div class="scene_nametag center-block"></div>
-        <h3>Unique Usernames Update and FAQ</h3>
-        <p>It’s been a week since we announced the switch to unique usernames. So far, around half of active Habiticans have confirmed their usernames and are ready to go. Be sure to go to <a href="/user/settings/site" target="_blank">Settings</a> and confirm yours!</p>
-        <p>We’ve seen a few questions floating around the community and wanted to provide some clarification about the change:</p>
-        <ul>
-          <li><strong>Usernames will appear beside your display name</strong> in chats and your profile</li>
-          <li><strong>Usernames must be unique</strong> to be sure you’re inviting or messaging the right person</li>
-          <li><strong>Display names aren’t unique</strong>, and two people can have the same one. Your display name can be the same as or different than your username.</li>
-          <li><strong>You can change your display name and username at any time</strong>, even after confirmation</li>
-          <li><strong>Changes to chat and invitations will roll out gradually</strong> after about a month</li>
-        </ul>
-        <p>If you want to read a more in-depth Q&A on this change and see an example to show how it will work, please <a href="https://habitica.wordpress.com/2018/10/11/coming-soon-unique-usernames/" target="_blank">visit our blog</a>!</p>
+        <p>The Habitica team has launched a special official Challenge series hosted in the <a href='/groups/guild/6e6a8bd3-9f5f-4351-9188-9f11fcd80a99' target='_blank'>Official New Year's Resolution Guild</a>. These Challenges are designed to help you build and maintain goals that are destined for success and then stick with them as the year progresses. For this month's Challenge, <a href='/challenges/8348aa6f-7687-4d89-9bdf-c26a10061465' target='_blank'>Journey's End and New Beginnings</a>, we're focusing on reviewing your 2018 resolution successes and planning for an even better 2019! It has a 15 gem prize, which will be awarded to five lucky winners on January 2.</p>
+        <p>Congratulations to the winners of the November Challenge, misketti, CamelliaLynne, DrearyDear, Mikachu, and Zsuzsa!</p>
+        <p>The next Take This Challenge has also launched, "<a href='/challenges/7a28b529-49da-49fa-818e-c76317dbcb2a' target='_blank'>Don't Be a Completionist!</a>" with a focus on setting priorities. Be sure to check it out to earn additional pieces of the Take This armor set!</p>
+        <p><a href='http://www.takethis.org/' target='_blank'>Take This</a> is a nonprofit that seeks to inform the gamer community about mental health issues, to provide education about mental disorders and mental illness prevention, and to reduce the stigma of mental illness.</p>
+        <p>Congratulations to the winners of the last Take This Challenge, "This One Goes to 11!": grand prize winner digitalkitty isawesome, and runners-up jtm119, Jicaffo, Azburn, Snowdesert, and Hicholyta. Plus, all participants in that Challenge have received a piece of the <a href='http://habitica.wikia.com/wiki/Event_Item_Sequences#Take_This_Armor_Set' target='_blank'>Take This item set</a> if they hadn't completed it already. It is located in your Rewards column. Enjoy!</p>
+        <div class="small mb-3">by Doctor B, the Take This team, Lemoness, Beffymaroo, and SabreCat</div>
+        <div class="scene_hiking center-block"></div>
       </div>
       `,
     });

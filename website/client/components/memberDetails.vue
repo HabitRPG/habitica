@@ -19,7 +19,10 @@
           | {{member.profile.name}}
           .is-buffed(v-if="isBuffed", v-b-tooltip.hover.bottom="$t('buffed')")
             .svg-icon(v-html="icons.buff")
-        span.small-text.character-level {{ characterLevel }}
+        .small-text.character-level
+          span.mr-1(v-if="member.auth && member.auth.local && member.auth.local.username") @{{ member.auth.local.username }}
+          span.mr-1(v-if="member.auth && member.auth.local && member.auth.local.username") •
+          span {{ characterLevel }}
     .progress-container(v-b-tooltip.hover.bottom="$t('health')")
       .svg-icon(v-html="icons.health")
       .progress
