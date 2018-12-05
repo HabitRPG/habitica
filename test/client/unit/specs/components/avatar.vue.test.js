@@ -3,17 +3,17 @@ import Vue from 'vue';
 import generateStore from 'client/store';
 // import { user as User } from 'client';
 
-context.only('avatar.vue', () => {
+context('avatar.vue', () => {
   let Constructr;
   // let state;
-  let store;
+  // let store;
   let vm;
 
   beforeEach(() => {
     Constructr = Vue.extend(Avatar);
     // state = {};
 
-    store = generateStore();
+    // store = generateStore();
 
     vm = new Constructr({
       propsData: {
@@ -30,7 +30,7 @@ context.only('avatar.vue', () => {
             },
           },
         }, 
-        store,
+        // store,
       },
     }).$mount();
 
