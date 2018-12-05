@@ -759,6 +759,20 @@ let backgrounds = {
       notes: t('backgroundCozyBedroomNotes'),
     },
   },
+  backgrounds122018: {
+    flying_over_snowy_mountains: {
+      text: t('backgroundFlyingOverSnowyMountainsText'),
+      notes: t('backgroundFlyingOverSnowyMountainsNotes'),
+    },
+    frosty_forest: {
+      text: t('backgroundFrostyForestText'),
+      notes: t('backgroundFrostyForestNotes'),
+    },
+    snowy_day_fireplace: {
+      text: t('backgroundSnowyDayFireplaceText'),
+      notes: t('backgroundSnowyDayFireplaceNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),
