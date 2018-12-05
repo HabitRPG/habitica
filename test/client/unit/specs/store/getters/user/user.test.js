@@ -1,6 +1,6 @@
 import { data, gems, buffs, preferences, tasksOrder } from 'client/store/getters/user';
 
-context.only('user getters', () => {
+context('user getters', () => {
   describe('data', () => {
     it('returns the user\'s data', () => {
       expect(data({
