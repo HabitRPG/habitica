@@ -148,6 +148,8 @@
     "mysterySet201807": "Ensemble du serpent de mer",
     "mysterySet201808": "Ensemble du dragon de lave",
     "mysterySet201809": "Ensemble d'armure automnale",
+    "mysterySet201810": "Ensemble Sylvestre Sombre",
+    "mysterySet201811": "Splendid Sorcerer Set",
     "mysterySet301404": "Ensemble steampunk de base",
     "mysterySet301405": "Ensemble d'accessoires steampunks",
     "mysterySet301703": "Ensemble du paon steampunk",
@@ -206,7 +208,7 @@
     "haveCouponCode": "Avez-vous un bon de réduction ?",
     "subscriptionAlreadySubscribedLeadIn": "Merci d'avoir souscrit un abonnement !",
     "subscriptionAlreadySubscribed1": "Pour voir les détails de l'abonnement et l'annuler, le renouveler ou le modifier, veuillez vous rendre sur<a href='/user/settings/subscription'>l'icône utilisateur &gt; Paramètres  &gt; Abonnement</a>.",
-    "purchaseAll": "Tout acheter",
+    "purchaseAll": "Acheter l'ensemble",
     "gemsPurchaseNote": "Avec l'abonnement, vous pouvez acheter les gemmes pour de l'or au marché ! Pour un accès facile, vous pouvez aussi les épingler dans votre colonne Récompenses",
     "gemsRemaining": "gemmes restantes",
     "notEnoughGemsToBuy": "Vous ne pouvez pas acheter autant de gemmes."

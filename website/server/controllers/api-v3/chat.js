@@ -10,7 +10,6 @@ import {
 import { removeFromArray } from '../../libs/collectionManipulators';
 import { getUserInfo, getGroupUrl, sendTxn } from '../../libs/email';
 import slack from '../../libs/slack';
-import pusher from '../../libs/pusher';
 import { getAuthorEmailFromMessage } from '../../libs/chat';
 import { chatReporterFactory } from '../../libs/chatReporting/chatReporterFactory';
 import nconf from 'nconf';
@@ -84,6 +83,8 @@ function getBannedWordsFromText (message) {
   return getMatchesByWordArray(message, bannedWords);
 }
 
+
+const mentionRegex = new RegExp('\\B@[-\\w]+', 'g');
 /**
  * @api {post} /api/v3/groups/:groupId/chat Post chat message to a group
  * @apiName PostChat
@@ -176,7 +177,11 @@ api.postChat = {
       throw new NotAuthorized(res.t('messageGroupChatSpam'));
     }
 
-    const newChatMessage = group.sendChat(req.body.message, user);
+    let client = req.headers['x-client'] || '3rd Party';
+    if (client) {
+      client = client.replace('habitica-', '');
+    }
+    const newChatMessage = group.sendChat(req.body.message, user, null, client);
     let toSave = [newChatMessage.save()];
 
     if (group.type === 'party') {
@@ -186,20 +191,32 @@ api.postChat = {
 
     await Promise.all(toSave);
 
-    // @TODO: rethink if we want real-time
-    if (group.privacy === 'private' && group.type === 'party') {
-      // req.body.pusherSocketId is sent from official clients to identify the sender user's real time socket
-      // see https://pusher.com/docs/server_api_guide/server_excluding_recipients
-      pusher.trigger(`presence-group-${group._id}`, 'new-chat', newChatMessage, req.body.pusherSocketId);
+    let analyticsObject = {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      groupType: group.type,
+      privacy: group.privacy,
+      headers: req.headers,
+    };
+
+    const mentions = req.body.message.match(mentionRegex);
+    if (mentions) {
+      analyticsObject.mentionsCount = mentions.length;
+    } else {
+      analyticsObject.mentionsCount = 0;
     }
+    if (group.privacy === 'public') {
+      analyticsObject.groupName = group.name;
+    }
+
+    res.analytics.track('group chat', analyticsObject);
 
     if (chatUpdated) {
       res.respond(200, {chat: chatRes.chat});
     } else {
       res.respond(200, {message: newChatMessage});
     }
-
-    group.sendGroupChatReceivedWebhooks(newChatMessage);
   },
 };
 

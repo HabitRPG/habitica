@@ -3289,6 +3289,38 @@ let quests = {
       unlock: t('questKangarooUnlockText'),
     },
   },
+  alligator: {
+    text: t('questAlligatorText'),
+    notes: t('questAlligatorNotes'),
+    completion: t('questAlligatorCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questAlligatorBoss'),
+      hp: 1100,
+      str: 2.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Alligator',
+          text: t('questAlligatorDropAlligatorEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Alligator',
+          text: t('questAlligatorDropAlligatorEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Alligator',
+          text: t('questAlligatorDropAlligatorEgg'),
+        },
+      ],
+      gp: 73,
+      exp: 725,
+      unlock: t('questAlligatorUnlockText'),
+    },
+  },
 };
 
 each(quests, (v, key) => {

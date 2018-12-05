@@ -148,6 +148,8 @@
     "mysterySet201807": "Zestaw Morskiego Węża",
     "mysterySet201808": "Zestaw Lawowego Smoka",
     "mysterySet201809": "Zestaw Jesiennego Uzbrojenia",
+    "mysterySet201810": "Zestaw Mrocznego Lasu",
+    "mysterySet201811": "Splendid Sorcerer Set",
     "mysterySet301404": "Standardowy zestaw steampunkowy",
     "mysterySet301405": "Zestaw steampunkowych akcesoriów",
     "mysterySet301703": "Zestaw steampunkowego pawia",
@@ -206,7 +208,7 @@
     "haveCouponCode": "Czy masz kod kuponu?",
     "subscriptionAlreadySubscribedLeadIn": "Dziękujemy za subskrybcję!",
     "subscriptionAlreadySubscribed1": "Żeby zobaczyć  szczegóły Swojego abonamentu i anulować, odnowić albo zmienić Twój abonament, przejdź proszę do <a href='/user/settings/subscription'>Symbol Użytkownika > Ustawienia > Subskrypcja</a>.",
-    "purchaseAll": "Kup Wszystko",
+    "purchaseAll": "Purchase Set",
     "gemsPurchaseNote": "Abonenci mogą kupować klejnoty za złoto w Targu! Dla łatwego dostępu możesz też przyczepić klejnot do Swoich Nagród.",
     "gemsRemaining": "Pozostałe Klejnoty",
     "notEnoughGemsToBuy": "Nie możesz kupić takiej ilości klejnotów"

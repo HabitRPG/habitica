@@ -33,8 +33,10 @@
 import * as Analytics from 'client/libs/analytics';
 import axios from 'axios';
 import { mapState } from 'client/libs/store';
+import { CONSTANTS, setLocalSetting } from 'client/libs/userlocalManager';
 
 const AMAZON_PAYMENTS = process.env.AMAZON_PAYMENTS; // eslint-disable-line
+const habiticaUrl = `${location.protocol}//${location.host}`;
 
 export default {
   data () {
@@ -186,6 +188,18 @@ export default {
 
       new this.OffAmazonPayments.Widgets.Wallet(walletParams).bind('AmazonPayWallet');
     },
+    storePaymentStatusAndReload (url) {
+      const appState = {
+        paymentMethod: 'amazon',
+        paymentCompleted: true,
+      };
+      setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
+      if (url) {
+        window.location.assign(url);
+      } else {
+        window.location.reload(true);
+      }
+    },
     async amazonCheckOut () {
       this.amazonButtonEnabled = false;
 
@@ -202,8 +216,7 @@ export default {
 
           this.$set(this, 'amazonButtonEnabled', true);
           this.reset();
-          // @TODO: What are we syncing?
-          window.location.reload(true);
+          this.storePaymentStatusAndReload();
         } catch (e) {
           this.$set(this, 'amazonButtonEnabled', true);
           this.amazonPaymentsreset();
@@ -231,8 +244,6 @@ export default {
           if (newGroup && newGroup._id) {
             // Handle new user signup
             if (!this.$store.state.isUserLoggedIn) {
-              const habiticaUrl = `${location.protocol}//${location.host}`;
-
               Analytics.track({
                 hitType: 'event',
                 eventCategory: 'group-plans-static',
@@ -240,23 +251,22 @@ export default {
                 eventLabel: 'paid-with-amazon',
               });
 
-              location.href = `${habiticaUrl}/group-plans/${newGroup._id}/task-information?showGroupOverview=true`;
+              this.storePaymentStatusAndReload(`${habiticaUrl}/group-plans/${newGroup._id}/task-information?showGroupOverview=true`);
               return;
             }
 
-            // @TODO: Just append? or $emit?
-            this.$router.push(`/group-plans/${newGroup._id}/task-information`);
             this.user.guilds.push(newGroup._id);
+            this.storePaymentStatusAndReload(`${habiticaUrl}/group-plans/${newGroup._id}/task-information`);
             return;
           }
 
           if (this.amazonPayments.groupId) {
-            this.$router.push(`/group-plans/${this.amazonPayments.groupId}/task-information`);
+            this.storePaymentStatusAndReload(`${habiticaUrl}/group-plans/${this.amazonPayments.groupId}/task-information`);
             return;
           }
 
-          window.location.reload(true);
           this.reset();
+          this.storePaymentStatusAndReload();
         } catch (e) {
           this.$set(this, 'amazonButtonEnabled', true);
           // @TODO: do we need this? this.amazonPaymentsreset();

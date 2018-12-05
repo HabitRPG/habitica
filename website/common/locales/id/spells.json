@@ -51,9 +51,9 @@
     "spellSpecialSandText": "Pasir",
     "spellSpecialSandNotes": "Menghilangkan efek mantra yang mengubahmu menjadi bintang laut.",
     "partyNotFound": "Party tidak ditemukan",
-    "targetIdUUID": "\"targetId\" harsu merupakan ID Pengguna valid.",
-    "challengeTasksNoCast": "Menggunakan kemampuan pada tantangan tidak diperbolehkan.",
+    "targetIdUUID": "\"targetId\" harus merupakan ID Pengguna valid.",
+    "challengeTasksNoCast": "Menggunakan kemampuan pada tugas tantangan tidak diperbolehkan.",
     "groupTasksNoCast": "Menggunakan kemampuan pada tugas kelompok tidak diperbolehkan.",
-    "spellNotOwned": "Anda tidak memiliki kemampuan ini.",
-    "spellLevelTooHigh": "Kamu harus berada di level <%= level %> untuk menggunakan kemampuan ini."
+    "spellNotOwned": "Kamu tidak mempunyai kemampuan ini.",
+    "spellLevelTooHigh": "Kamu harus mencapai level <%= level %> untuk menggunakan kemampuan ini."
 }

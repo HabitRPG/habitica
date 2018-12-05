@@ -41,7 +41,11 @@ b-modal#send-gems(:title="title", :hide-footer="true", size='lg', @hide='onHide(
     //include ../formatting-help
 
   .modal-footer
-    button.btn.btn-primary(v-if='fromBal', @click='sendGift()') {{ $t("send") }}
+    button.btn.btn-primary(
+      v-if="fromBal",
+      @click="sendGift()",
+      :disabled="sendingInProgress"
+    ) {{ $t("send") }}
     template(v-else)
       button.btn.btn-primary(@click='showStripe({gift, uuid: userReceivingGems._id})') {{ $t('card') }}
       button.btn.btn-warning(@click='openPaypalGift({gift: gift, giftedTo: userReceivingGems._id})') PayPal
@@ -103,6 +107,7 @@ export default {
       assistanceEmailObject: {
         hrefTechAssistanceEmail: `<a href="mailto:${TECH_ASSISTANCE_EMAIL}">${TECH_ASSISTANCE_EMAIL}</a>`,
       },
+      sendingInProgress: false,
     };
   },
   computed: {
@@ -130,6 +135,7 @@ export default {
   methods: {
     // @TODO move to payments mixin or action (problem is that we need notifications)
     async sendGift () {
+      this.sendingInProgress = true;
       await this.$store.dispatch('members:transferGems', {
         message: this.gift.message,
         toUserId: this.userReceivingGems._id,
@@ -139,7 +145,11 @@ export default {
       this.close();
     },
     onHide () {
+      // TODO this breaks amazon purchases because when the amazon modal
+      // is opened this one is closed and the amount reset
+      // this.gift.gems.amount = 0;
       this.gift.message = '';
+      this.sendingInProgress = false;
     },
     close () {
       this.$root.$emit('bv::hide::modal', 'send-gems');

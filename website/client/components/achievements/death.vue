@@ -40,9 +40,9 @@
 import axios from 'axios';
 import Avatar from '../avatar';
 import { mapState } from 'client/libs/store';
-import revive from '../../../common/script/ops/revive';
 import percent from '../../../common/script/libs/percent';
 import {maxHealth} from '../../../common/script/index';
+import revive from '../../../common/script/ops/revive';
 
 export default {
   components: {

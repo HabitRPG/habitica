@@ -39,11 +39,13 @@
     "NEW_RELIC_API_KEY":"NEW_RELIC_API_KEY",
     "GA_ID": "GA_ID",
     "AMPLITUDE_KEY": "AMPLITUDE_KEY",
+    "AMPLITUDE_SECRET": "AMPLITUDE_SECRET",
     "AMAZON_PAYMENTS": {
         "SELLER_ID": "SELLER_ID",
         "CLIENT_ID": "CLIENT_ID",
         "MWS_KEY": "",
-        "MWS_SECRET": ""
+        "MWS_SECRET": "",
+        "MODE": "sandbox"
     },
     "FLAG_REPORT_EMAIL": "email@mod.com,email2@mod.com",
     "EMAIL_SERVER": {
@@ -87,12 +89,6 @@
         "ENABLED": "false",
         "USERNAME": "admin",
         "PASSWORD": "password"
-    },
-    "PUSHER": {
-        "ENABLED": "false",
-        "APP_ID": "appId",
-        "KEY": "key",
-        "SECRET": "secret"
     },
     "SLACK": {
         "FLAGGING_URL": "https://hooks.slack.com/services/id/id/id",

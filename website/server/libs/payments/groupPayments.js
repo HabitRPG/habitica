@@ -207,7 +207,7 @@ async function cancelGroupSubscriptionForUser (user, group, userWasRemoved = fal
   if (user.purchased.plan.customerId !== this.constants.GROUP_PLAN_CUSTOMER_ID) return;
 
   let userGroups = user.guilds.toObject();
-  userGroups.push('party');
+  if (user.party._id) userGroups.push(user.party._id);
 
   let index = userGroups.indexOf(group._id);
   userGroups.splice(index, 1);

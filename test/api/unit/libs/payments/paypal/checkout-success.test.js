@@ -13,9 +13,9 @@ describe('checkout success', () => {
     customerId = 'customerId-test';
     paymentId = 'paymentId-test';
 
-    paypalPaymentExecuteStub = sinon.stub(paypalPayments, 'paypalPaymentExecute').returnsPromise().resolves({});
-    paymentBuyGemsStub = sinon.stub(payments, 'buyGems').returnsPromise().resolves({});
-    paymentsCreateSubscritionStub = sinon.stub(payments, 'createSubscription').returnsPromise().resolves({});
+    paypalPaymentExecuteStub = sinon.stub(paypalPayments, 'paypalPaymentExecute').resolves({});
+    paymentBuyGemsStub = sinon.stub(payments, 'buyGems').resolves({});
+    paymentsCreateSubscritionStub = sinon.stub(payments, 'createSubscription').resolves({});
   });
 
   afterEach(() => {

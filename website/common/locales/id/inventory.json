@@ -3,6 +3,6 @@
   "foodItemType": "Makanan",
   "eggsItemType": "Telur",
   "hatchingPotionsItemType": "Ramuan Penetas",
-  "specialItemType": "Item spesial",
+  "specialItemType": "Item Spesial",
   "lockedItem": "Item Terkunci"
 }

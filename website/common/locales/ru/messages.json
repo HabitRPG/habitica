@@ -61,5 +61,6 @@
     "notificationsRequired": "Необходим идентификатор оповещений.",
     "unallocatedStatsPoints": "Вы не распределили <span class=\"notification-bold-blue\"><%= points %> очков</span>",
     "beginningOfConversation": "Это начало вашего разговора с <%= userName %>. Не забывайте, что общепринятые правила сообщества предписавыют быть добрыми, уважительными!",
-    "messageDeletedUser": "Приносим свои извинения, этот пользователь удалил свой аккаунт."
+    "messageDeletedUser": "Приносим свои извинения, этот пользователь удалил свой аккаунт.",
+    "messageMissingDisplayName": "Отсутствует отображаемое имя."
 }

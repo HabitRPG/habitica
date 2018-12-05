@@ -478,12 +478,17 @@
 
             .category-label {
               min-width: 68px;
-              overflow: hidden;
               padding: .5em 1em;
-              text-overflow: ellipsis;
-              white-space: nowrap;
               width: 68px;
-              word-wrap: break-word;
+
+              // Applies to v-markdown generated p tag.
+              p {
+                margin-bottom: 0px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                word-wrap: break-word;
+              }
             }
           }
         }
