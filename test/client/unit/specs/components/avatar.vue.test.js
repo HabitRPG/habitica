@@ -6,14 +6,14 @@ import generateStore from 'client/store';
 context.only('avatar.vue', () => {
   let Constructr;
   // let state;
-  // let store;
+  let store;
   let vm;
 
   beforeEach(() => {
     Constructr = Vue.extend(Avatar);
     // state = {};
 
-    // store = generateStore();
+    store = generateStore();
 
     vm = new Constructr({
       propsData: {
@@ -29,7 +29,8 @@ context.only('avatar.vue', () => {
               equipped: {},
             },
           },
-        }, generateStore,
+        }, 
+        store,
       },
     }).$mount();
 
