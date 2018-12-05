@@ -34,7 +34,7 @@ describe('Group Model', () => {
 
     let _progress = {
       up: 10,
-      down: 0,
+      down: 8,
       collectedItems: 5,
     };
 
@@ -1194,7 +1194,7 @@ describe('Group Model', () => {
           expect(party.quest.members).to.eql(expectedQuestMembers);
         });
 
-        it('applies updates to user object directly if user is participating (without resetting progress)', async () => {
+        it('applies updates to user object directly if user is participating (without resetting progress, except progress.down)', async () => {
           await party.startQuest(participatingMember);
 
           expect(participatingMember.party.quest.key).to.eql('whale');
@@ -1204,7 +1204,7 @@ describe('Group Model', () => {
           expect(participatingMember.party.quest.completed).to.eql(null);
         });
 
-        it('applies updates to other participating members (without resetting progress)', async () => {
+        it('applies updates to other participating members (without resetting progress, except progress.down)', async () => {
           await party.startQuest(nonParticipatingMember);
 
           questLeader = await User.findById(questLeader._id);
@@ -1238,7 +1238,7 @@ describe('Group Model', () => {
 
           expect(nonParticipatingMember.party.quest.key).to.not.eql('whale');
           expect(nonParticipatingMember.party.quest.progress.up).to.eql(10);
-          expect(nonParticipatingMember.party.quest.progress.down).to.eql(0);
+          expect(nonParticipatingMember.party.quest.progress.down).to.eql(8);
           expect(nonParticipatingMember.party.quest.progress.collectedItems).to.eql(5);
           expect(undecidedMember.party.quest.key).to.not.eql('whale');
         });
@@ -1717,13 +1717,13 @@ describe('Group Model', () => {
 
           expect(questLeader.party.quest.completed).to.eql('whale');
           expect(questLeader.party.quest.progress.up).to.eql(10);
-          expect(questLeader.party.quest.progress.down).to.eql(0);
+          expect(questLeader.party.quest.progress.down).to.eql(8);
           expect(questLeader.party.quest.progress.collectedItems).to.eql(5);
           expect(questLeader.party.quest.RSVPNeeded).to.eql(false);
 
           expect(participatingMember.party.quest.completed).to.eql('whale');
           expect(participatingMember.party.quest.progress.up).to.eql(10);
-          expect(participatingMember.party.quest.progress.down).to.eql(0);
+          expect(participatingMember.party.quest.progress.down).to.eql(8);
           expect(participatingMember.party.quest.progress.collectedItems).to.eql(5);
           expect(participatingMember.party.quest.RSVPNeeded).to.eql(false);
         });

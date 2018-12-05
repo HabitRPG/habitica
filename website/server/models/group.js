@@ -190,6 +190,17 @@ function _cleanQuestParty (merge) {
 
 // return a clean user.quest of a particular user while keeping his progress
 function _cleanQuestUser (userProgress) {
+  if (!userProgress) {
+    userProgress = {
+      up: 0,
+      down: 0,
+      collect: {},
+      collectedItems: 0,
+    };
+  } else {
+    userProgress = userProgress.toObject();
+  }
+
   let clean = {
     key: null,
     progress: userProgress,
