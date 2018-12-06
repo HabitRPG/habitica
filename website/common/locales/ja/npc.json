@@ -106,6 +106,7 @@
     "card": "クレジットカード ( 決済サービス「Stripe」経由 )",
     "amazonInstructions": "このボタンをクリックして Amazon ペイメント 経由で支払う。",
     "paymentMethods": "お支払い方法 : ",
+    "paymentSuccessful": "Your payment was successful!",
     "classGear": "クラス アイテム",
     "classGearText": "クラスの選択おめでとう！　あなたの新しい基本武器を所持品に加えました。下をのぞいて装備してみてください！",
     "classStats": "これらはゲームの進行に影響を与える、あなたのクラス固有のステータスです。レベルアップするたびに、好きなステータスを１ポイント成長させられます。詳しくは各ステータスにマウスのカーソルを合わせてみてください。",

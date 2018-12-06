@@ -106,6 +106,7 @@
     "card": "Kreditkarte (mit Streifen)",
     "amazonInstructions": "Klicke hier um über Amazon Payments zu zahlen.",
     "paymentMethods": "Kauf mit",
+    "paymentSuccessful": "Your payment was successful!",
     "classGear": "Klassenausrüstung",
     "classGearText": "Glückwunsch zur Wahl Deiner Klasse! Ich habe deine neue Basiswaffe dem Inventar hinzugefügt. Schaue sie dir unten an, um sie auszurüsten!",
     "classStats": "Dies sind die Statuswerte Deiner Klasse; sie beeinflussen das Spiel. Jedes Mal, wenn Du einen Level aufsteigst, erhältst Du einen Punkt, den Du einem Statuswert zuordnen kannst. Bewege die Maus über jeden der Statuswerte für weitere Informationen.",

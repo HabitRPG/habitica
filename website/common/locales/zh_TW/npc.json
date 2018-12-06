@@ -106,6 +106,7 @@
     "card": "信用卡(使用 Stripe)",
     "amazonInstructions": "點選使用 Amazon Payments 支付。",
     "paymentMethods": "付款方式：",
+    "paymentSuccessful": "Your payment was successful!",
     "classGear": "職業裝備",
     "classGearText": "恭喜你選擇了一個職業！我把你的新基本武器加入你的背包裡了。查看下方好裝備它！",
     "classStats": "這些事你的職業屬性；它們會影響遊戲。每次你的等級提昇，你都會獲得一點以供分配到一個特定屬性。把滑鼠游標移到每個屬性上以獲得更多資訊。",

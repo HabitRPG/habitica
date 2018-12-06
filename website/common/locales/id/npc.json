@@ -106,6 +106,7 @@
     "card": "Kartu Kredit (menggunakan Stripe)",
     "amazonInstructions": "Klik pada tombol untuk membayar lewat Amazon Payments",
     "paymentMethods": "Bayar menggunakan",
+    "paymentSuccessful": "Your payment was successful!",
     "classGear": "Perlengkapan Pekerjaan",
     "classGearText": "Selamat atas pilihan pekerjaanmu! Saya telah menambahkan senjata dasarmu ke dalam inventorimu. Coba lihat di bawah untuk menggunakannya!",
     "classStats": "Ini adalah Atribut pekerjaanmu; ini berpengaruh pada permainan. Setiap kamu naik level, kamu mendapat satu Poin untuk dialokasikan pada Atribut tertentu. Arahkan kursor pada setiap stat untuk informasi lebih lanjut.",

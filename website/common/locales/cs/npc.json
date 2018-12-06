@@ -106,6 +106,7 @@
     "card": "Platební kartou (za použití proužku)",
     "amazonInstructions": "Klikni pro zaplacení přes Amazon platby",
     "paymentMethods": "Platební metody:",
+    "paymentSuccessful": "Your payment was successful!",
     "classGear": "Vybavení pro tvé povolání",
     "classGearText": "Gratuluji k vybrání povolání! Přidal jsem ti základní zbraň do tvého inventáře. Podívej se dolů a vybav se!",
     "classStats": "Toto jsou dovednosti tvé postavy; mají vliv na hru.\nPokaždé když se dostaneš na novou úroveň, získáš jeden bod, který můžeš přiřadit k určité dovednosti. Najeď na každou dovednost pro více informací.",
