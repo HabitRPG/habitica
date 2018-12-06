@@ -2,8 +2,8 @@
 .row.footer-row
   buy-gems-modal(v-if='user')
   //modify-inventory(v-if="isUserLoaded")
-  footer.col-12(:class="{expanded: isExpandedFooter}")
-    .row(v-if="isExpandedFooter")
+  footer.col-12.expanded
+    .row
       .col-12.col-md-2
         h3
           a(href='https://itunes.apple.com/us/app/habitica/id994882113?ls=1&mt=8', target='_blank') {{ $t('mobileIOS') }}
@@ -104,11 +104,6 @@
       .col-12.col-md-2.text-center
         .logo.svg-icon(v-html='icons.gryphon')
       .col-12.col-md-5.text-right
-        template(v-if="!isExpandedFooter")
-          span
-            a(:href="getDataDisplayToolUrl", target='_blank') {{ $t('dataDisplayTool') }}
-          span.ml-4
-            a(target="_blanck", href="/static/community-guidelines") {{ $t('communityGuidelines') }}
         span.ml-4
           a(target="_blanck", href="/static/privacy") {{ $t('privacy') }}
         span.ml-4
@@ -128,13 +123,6 @@
 
     a {
       color: #2995cd;
-    }
-
-    &:not(.expanded) {
-      hr {
-        margin-top: 0px;
-        margin-bottom: 7px;
-      }
     }
   }
 
@@ -283,9 +271,6 @@ export default {
   computed: {
     ...mapState({user: 'user.data'}),
     ...mapState(['isUserLoaded']),
-    isExpandedFooter () {
-      return this.$route.name === 'tasks' ? false : true;
-    },
     getDataDisplayToolUrl () {
       const base = 'https://oldgods.net/habitrpg/habitrpg_user_data_display.html';
       if (!this.user) return;

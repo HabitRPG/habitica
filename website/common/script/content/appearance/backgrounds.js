@@ -745,6 +745,34 @@ let backgrounds = {
       notes: t('backgroundDungeonNotes'),
     },
   },
+  backgrounds112018: {
+    back_alley: {
+      text: t('backgroundBackAlleyText'),
+      notes: t('backgroundBackAlleyNotes'),
+    },
+    glowing_mushroom_cave: {
+      text: t('backgroundGlowingMushroomCaveText'),
+      notes: t('backgroundGlowingMushroomCaveNotes'),
+    },
+    cozy_bedroom: {
+      text: t('backgroundCozyBedroomText'),
+      notes: t('backgroundCozyBedroomNotes'),
+    },
+  },
+  backgrounds122018: {
+    flying_over_snowy_mountains: {
+      text: t('backgroundFlyingOverSnowyMountainsText'),
+      notes: t('backgroundFlyingOverSnowyMountainsNotes'),
+    },
+    frosty_forest: {
+      text: t('backgroundFrostyForestText'),
+      notes: t('backgroundFrostyForestNotes'),
+    },
+    snowy_day_fireplace: {
+      text: t('backgroundSnowyDayFireplaceText'),
+      notes: t('backgroundSnowyDayFireplaceNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),

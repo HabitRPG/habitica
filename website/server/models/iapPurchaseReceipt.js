@@ -5,12 +5,13 @@ import validator from 'validator';
 const Schema = mongoose.Schema;
 
 export let schema = new Schema({
-  _id: {type: String, required: true}, // Use a custom string as _id
-  consumed: {type: Boolean, default: false, required: true},
-  userId: {type: String, ref: 'User', required: true, validate: [validator.isUUID, 'Invalid uuid.']},
+  _id: {$type: String, required: true}, // Use a custom string as _id
+  consumed: {$type: Boolean, default: false, required: true},
+  userId: {$type: String, ref: 'User', required: true, validate: [v => validator.isUUID(v), 'Invalid uuid.']},
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
+  typeKey: '$type', // So that we can use fields named `type`
 });
 
 schema.plugin(baseModel, {

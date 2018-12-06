@@ -11,6 +11,7 @@ div
   #app(:class='{"casting-spell": castingSpell}')
     banned-account-modal
     amazon-payments-modal(v-if='!isStaticPage')
+    payments-success-modal
     snackbars
     router-view(v-if="!isUserLoggedIn || isStaticPage")
     template(v-else)
@@ -185,7 +186,10 @@ import SelectMembersModal from 'client/components/selectMembersModal.vue';
 import notifications from 'client/mixins/notifications';
 import { setup as setupPayments } from 'client/libs/payments';
 import amazonPaymentsModal from 'client/components/payments/amazonModal';
+import paymentsSuccessModal from 'client/components/payments/successModal';
+
 import spellsMixin from 'client/mixins/spells';
+import { CONSTANTS, getLocalSetting, removeLocalSetting } from 'client/libs/userlocalManager';
 
 import svgClose from 'assets/svg/close.svg';
 import bannedAccountModal from 'client/components/bannedAccountModal';
@@ -205,6 +209,7 @@ export default {
     SelectMembersModal,
     amazonPaymentsModal,
     bannedAccountModal,
+    paymentsSuccessModal,
   },
   data () {
     return {
@@ -329,23 +334,13 @@ export default {
         if (notificationNotFoundMessage.indexOf(errorMessage) !== -1) snackbarTimeout = true;
 
         let errorsToShow = [];
-        let usernameCheck = false;
-        let emailCheck = false;
-        let passwordCheck = false;
         // show only the first error for each param
+        let paramErrorsFound = {};
         if (errorData.errors) {
           for (let e of errorData.errors) {
-            if (!usernameCheck && e.param === 'username') {
+            if (!paramErrorsFound[e.param]) {
               errorsToShow.push(e.message);
-              usernameCheck = true;
-            }
-            if (!emailCheck && e.param === 'email') {
-              errorsToShow.push(e.message);
-              emailCheck = true;
-            }
-            if (!passwordCheck && e.param === 'password') {
-              errorsToShow.push(e.message);
-              passwordCheck = true;
+              paramErrorsFound[e.param] = true;
             }
           }
         } else {
@@ -443,6 +438,14 @@ export default {
           });
         }
 
+        let appState = getLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE);
+        if (appState) {
+          appState = JSON.parse(appState);
+          if (appState.paymentCompleted) {
+            removeLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE);
+            this.$root.$emit('bv::show::modal', 'payments-success-modal');
+          }
+        }
         this.$nextTick(() => {
           // Load external scripts after the app has been rendered
           setupPayments();
@@ -668,5 +671,6 @@ export default {
 <style src="assets/css/sprites/spritesmith-main-20.css"></style>
 <style src="assets/css/sprites/spritesmith-main-21.css"></style>
 <style src="assets/css/sprites/spritesmith-main-22.css"></style>
+<style src="assets/css/sprites/spritesmith-main-23.css"></style>
 <style src="assets/css/sprites.css"></style>
 <style src="smartbanner.js/dist/smartbanner.min.css"></style>

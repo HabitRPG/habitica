@@ -24,11 +24,11 @@
               span {{$t('or')}}
             .form(@keyup.enter="register()")
               p.form-text {{$t('usernameLimitations')}}
-              input#usernameInput.form-control(type='text', placeholder='Login Name', v-model='username', :class='{"input-valid": usernameValid, "input-invalid": usernameInvalid}')
+              input#usernameInput.form-control(type='text', :placeholder='$t("username")', v-model='username', :class='{"input-valid": usernameValid, "input-invalid": usernameInvalid}')
               .input-error(v-for="issue in usernameIssues") {{ issue }}
-              input.form-control(type='email', placeholder='Email', v-model='email', :class='{"input-invalid": emailInvalid, "input-valid": emailValid}')
-              input.form-control(type='password', placeholder='Password', v-model='password', :class='{"input-valid": password.length > 3}')
-              input.form-control(type='password', placeholder='Confirm Password', v-model='passwordConfirm', :class='{"input-invalid": passwordConfirmInvalid, "input-valid": passwordConfirmValid}')
+              input.form-control(type='email', :placeholder='$t("email")', v-model='email', :class='{"input-invalid": emailInvalid, "input-valid": emailValid}')
+              input.form-control(type='password', :placeholder='$t("password")', v-model='password', :class='{"input-valid": password.length > 3}')
+              input.form-control(type='password', :placeholder='$t("confirmPassword")', v-model='passwordConfirm', :class='{"input-invalid": passwordConfirmInvalid, "input-valid": passwordConfirmValid}')
               p.form-text(v-once, v-html="$t('termsAndAgreement')")
               button.sign-up(@click="register()") {{$t('signup')}}
           .col-12
@@ -126,6 +126,8 @@
 <style lang="scss" scoped>
 @import '~client/assets/scss/colors.scss';
 
+@import url('https://fonts.googleapis.com/css?family=Varela+Round');
+
   #front {
     .form-text a {
       color: #fff !important;
@@ -194,6 +196,11 @@
     .pixel-horizontal-3 {
       color: #271b3d;
     }
+
+    h1, h2, h3, h4, h5, h6, button, .strike > span, input {
+      font-family: 'Varela Round', sans-serif;
+      font-weight: normal;
+    }
   }
 
   #intro-signup {
@@ -256,6 +263,7 @@
     .strike > span {
       position: relative;
       display: inline-block;
+      line-height: 1.14;
     }
 
     .strike > span:before,
@@ -362,13 +370,17 @@
     }
 
     strong {
-      font-size: 20px;
+      font-size: 24px;
+      font-family: 'Varela Round', sans-serif;
+      line-height: 1.33;
     }
   }
 
   #use-cases {
     strong {
-      font-size: 20px;
+      font-size: 24px;
+      font-family: 'Varela Round', sans-serif;
+      line-height: 1.33;
     }
 
     img {
@@ -445,6 +457,11 @@
 
     .featured {
       text-align: center;
+      font-family: 'Varela Round', sans-serif;
+
+      strong {
+        font-size: 12px;
+      }
 
       .svg-icon {
         vertical-align: bottom;
@@ -543,6 +560,7 @@
 <script>
   import hello from 'hellojs';
   import debounce from 'lodash/debounce';
+  import isEmail from 'validator/lib/isEmail';
   import googlePlay from 'assets/images/home/google-play-badge.svg';
   import iosAppStore from 'assets/images/home/ios-app-store.svg';
   import iphones from 'assets/images/home/iphones.svg';
@@ -609,18 +627,18 @@
     computed: {
       emailValid () {
         if (this.email.length <= 3) return false;
-        return this.validateEmail(this.email);
+        return isEmail(this.email);
       },
       emailInvalid () {
         if (this.email.length <= 3) return false;
-        return !this.validateEmail(this.email);
+        return !isEmail(this.email);
       },
       usernameValid () {
-        if (this.username.length <= 3) return false;
+        if (this.username.length < 1) return false;
         return this.usernameIssues.length === 0;
       },
       usernameInvalid () {
-        if (this.username.length <= 3) return false;
+        if (this.username.length < 1) return false;
         return !this.usernameValid;
       },
       passwordConfirmValid () {
@@ -638,13 +656,9 @@
       },
     },
     methods: {
-      validateEmail (email) {
-        let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(email);
-      },
       // eslint-disable-next-line func-names
       validateUsername: debounce(function (username) {
-        if (username.length <= 3) {
+        if (username.length < 1) {
           return;
         }
         this.$store.dispatch('auth:verifyUsername', {

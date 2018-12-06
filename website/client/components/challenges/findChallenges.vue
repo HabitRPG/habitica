@@ -14,11 +14,17 @@
         button.btn.btn-secondary.create-challenge-button.float-right(@click='createChallenge()')
           .svg-icon.positive-icon(v-html="icons.positiveIcon")
           span(v-once) {{$t('createChallenge')}}
+
+    .row
+      .no-challenges.text-center.col-md-6.offset-3(v-if='!loading && filteredChallenges.length === 0')
+        h2(v-once) {{$t('noChallengeMatchFilters')}}
+
     .row
       .col-12.col-md-6(v-for='challenge in filteredChallenges')
         challenge-item(:challenge='challenge')
+
     .row
-      .col-12.text-center
+      .col-12.text-center(v-if='!loading && filteredChallenges.length > 0')
         button.btn.btn-secondary(@click='loadMore()') {{ $t('loadMore') }}
 </template>
 
@@ -39,6 +45,15 @@
       width: 10px;
       display: inline-block;
       margin-right: .5em;
+    }
+  }
+
+  .no-challenges {
+    color: $gray-200;
+    margin-top: 10em;
+
+    h2 {
+      color: $gray-200;
     }
   }
 </style>

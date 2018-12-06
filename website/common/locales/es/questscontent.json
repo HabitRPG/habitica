@@ -618,5 +618,13 @@
     "questKangarooDropKangarooEgg": "Canguro (Huevo)",
     "questKangarooUnlockText": "Desbloquea la posibilidad de compra de huevos de Canguro en el Mercado",
     "forestFriendsText": "Lote de Misiones de Amigos del Bosque",
-    "forestFriendsNotes": "Contiene \"El espíritu de la primavera\", \"El erizobestia\", y \"La enredadera\". Disponible hasta el 30 de septiembre."
+    "forestFriendsNotes": "Contiene \"El espíritu de la primavera\", \"El erizobestia\", y \"La enredadera\". Disponible hasta el 30 de septiembre.",
+    "questAlligatorText": "El Insta-Drilo",
+    "questAlligatorNotes": "— ¡Caramba! —exclama @gully— ¡Un Insta-Drilo en su hábitat natural! Cuidado, distrae a sus presas con cosas que parecen urgentes EN ESTE INSTANTE, y se alimenta de las Tareas Diarias que como consecuencia de eso quedan sin marcar.\nGuardas silencio para evitar llamar su atención, pero es inútil. ¡El Insta-Drilo te ve y carga contra tí! Unas sugestivas voces surgen del Pantano del Estancamiento, atrapando tu atención:\n— ¡Lee este post! ¡Mira esta foto! ¡Préstame atención EN ESTE INSTANTE!\nTe esfuerzas para preparar un contra-ataque, completando tus Tareas Diarias y reafirmando tus buenos Hábitos para defenderte del temible Insta-Drilo.",
+    "questAlligatorCompletion": "Con tu atención enfocada en lo que es más importante y no en las distracciones del Insta-Drilo, consigues que éste huya. ¡Victoria!\n— ¿Eso son huevos? — pregunta @mfonda.\n— Si los cuidamos correctamente, se convertirán en mascotas leales o en fieles monturas. — responde @UncommonCriminal, dándote tres de ellos para que los cuides. \nEsperemos que sea así, porque si no podríamos enfrentarnos otra vez al Insta-Drilo...",
+    "questAlligatorBoss": "Insta-Drilo",
+    "questAlligatorDropAlligatorEgg": "Caimán (Huevo)",
+    "questAlligatorUnlockText": "Desbloquear la compra de huevos de Caimán en el Mercado",
+    "oddballsText": "Lote de Misiones Bichos Raros",
+    "oddballsNotes": "Contiene \"La Jalea Regente\", \"Escapa de la Cueva Viviente\" y \"Un HIlo Enredado\". Disponible hasta el 3 de diciembre."
 }

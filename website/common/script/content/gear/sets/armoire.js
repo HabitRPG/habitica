@@ -381,7 +381,7 @@ let armor = {
     value: 100,
     con: 15,
     set: 'jeweledArcher',
-    canOwn: ownsItem('armor_armoire_JeweledArcherArmor'),
+    canOwn: ownsItem('armor_armoire_jeweledArcherArmor'),
   },
   coverallsOfBookbinding: {
     text: t('armorArmoireCoverallsOfBookbindingText'),
@@ -399,6 +399,33 @@ let armor = {
     str: 13,
     set: 'aceOfSpades',
     canOwn: ownsItem('armor_armoire_robeOfSpades'),
+  },
+  softBlueSuit: {
+    text: t('armorArmoireSoftBlueSuitText'),
+    notes: t('armorArmoireSoftBlueSuitNotes', { int: 10, per: 5 }),
+    value: 100,
+    int: 10,
+    per: 5,
+    set: 'blueLoungewear',
+    canOwn: ownsItem('armor_armoire_softBlueSuit'),
+  },
+  softGreenSuit: {
+    text: t('armorArmoireSoftGreenSuitText'),
+    notes: t('armorArmoireSoftGreenSuitNotes', { attrs: 7 }),
+    value: 100,
+    int: 7,
+    con: 7,
+    set: 'greenLoungewear',
+    canOwn: ownsItem('armor_armoire_softGreenSuit'),
+  },
+  softRedSuit: {
+    text: t('armorArmoireSoftRedSuitText'),
+    notes: t('armorArmoireSoftRedSuitNotes', { int: 8, str: 5 }),
+    value: 100,
+    int: 8,
+    str: 5,
+    set: 'redLoungewear',
+    canOwn: ownsItem('armor_armoire_softRedSuit'),
   },
 };
 
@@ -535,6 +562,7 @@ let head = {
     int: 6,
     per: 6,
     canOwn: ownsItem('head_armoire_redFloppyHat'),
+    set: 'redLoungewear',
   },
   plagueDoctorHat: {
     text: t('headArmoirePlagueDoctorHatText'),
@@ -569,6 +597,7 @@ let head = {
     per: 7,
     int: 7,
     con: 7,
+    set: 'blueLoungewear',
     canOwn: ownsItem('head_armoire_blueFloppyHat'),
   },
   shepherdHeaddress: {
@@ -644,6 +673,7 @@ let head = {
     int: 8,
     con: 8,
     canOwn: ownsItem('head_armoire_greenFloppyHat'),
+    set: 'greenLoungewear',
   },
   cannoneerBandanna: {
     text: t('headArmoireCannoneerBandannaText'),
@@ -842,7 +872,7 @@ let head = {
     value: 100,
     int: 15,
     set: 'jeweledArcher',
-    canOwn: ownsItem('head_armoire_JeweledArcherHelm'),
+    canOwn: ownsItem('head_armoire_jeweledArcherHelm'),
   },
   veilOfSpades: {
     text: t('headArmoireVeilOfSpadesText'),
@@ -1064,6 +1094,32 @@ let shield = {
     int: 10,
     set: 'bookbinder',
     canOwn: ownsItem('shield_armoire_unfinishedTome'),
+  },
+  softBluePillow: {
+    text: t('shieldArmoireSoftBluePillowText'),
+    notes: t('shieldArmoireSoftBluePillowNotes', { con: 10 }),
+    value: 100,
+    con: 10,
+    set: 'blueLoungewear',
+    canOwn: ownsItem('shield_armoire_softBluePillow'),
+  },
+  softGreenPillow: {
+    text: t('shieldArmoireSoftGreenPillowText'),
+    notes: t('shieldArmoireSoftGreenPillowNotes', { con: 8, int: 6 }),
+    value: 100,
+    con: 8,
+    int: 6,
+    set: 'greenLoungewear',
+    canOwn: ownsItem('shield_armoire_softGreenPillow'),
+  },
+  softRedPillow: {
+    text: t('shieldArmoireSoftRedPillowText'),
+    notes: t('shieldArmoireSoftRedPillowNotes', { attrs: 5 }),
+    value: 100,
+    con: 5,
+    str: 5,
+    set: 'redLoungewear',
+    canOwn: ownsItem('shield_armoire_softRedPillow'),
   },
 };
 

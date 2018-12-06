@@ -228,7 +228,7 @@ describe('shouldDo', () => {
       options.timezoneOffset = 0;
       options.nextDue = true;
 
-      day = moment('2017-05-01').toDate();
+      day = moment.utc('2017-05-01').toDate();
       dailyTask.frequency = 'daily';
       dailyTask.everyX = 2;
       dailyTask.startDate = day;
@@ -391,7 +391,7 @@ describe('shouldDo', () => {
       options.timezoneOffset = 0;
       options.nextDue = true;
 
-      day = moment('2017-05-01').toDate();
+      day = moment.utc('2017-05-01').toDate();
       dailyTask.frequency = 'weekly';
       dailyTask.everyX = 1;
       dailyTask.repeat = {
@@ -780,7 +780,7 @@ describe('shouldDo', () => {
       options.timezoneOffset = 0;
       options.nextDue = true;
 
-      day = moment('2017-05-01').toDate();
+      day = moment.utc('2017-05-01').toDate();
 
       dailyTask.frequency = 'monthly';
       dailyTask.everyX = 3;
@@ -817,7 +817,7 @@ describe('shouldDo', () => {
       expect(moment(nextDue[4]).toDate()).to.eql(moment.utc('2017-10-02').toDate());
       expect(moment(nextDue[5]).toDate()).to.eql(moment.utc('2017-11-06').toDate());
 
-      day = moment('2017-05-08').toDate();
+      day = moment.utc('2017-05-08').toDate();
 
       dailyTask.daysOfMonth = [];
       dailyTask.weeksOfMonth = [1];
@@ -841,7 +841,7 @@ describe('shouldDo', () => {
       expect(moment(nextDue[4]).toDate()).to.eql(moment.utc('2017-10-09').toDate());
       expect(moment(nextDue[5]).toDate()).to.eql(moment.utc('2017-11-13').toDate());
 
-      day = moment('2017-05-29').toDate();
+      day = moment.utc('2017-05-29').toDate();
 
       dailyTask.daysOfMonth = [];
       dailyTask.weeksOfMonth = [4];
@@ -1143,7 +1143,7 @@ describe('shouldDo', () => {
       options.timezoneOffset = 0;
       options.nextDue = true;
 
-      day = moment('2017-05-01').toDate();
+      day = moment.utc('2017-05-01').toDate();
 
       dailyTask.frequency = 'yearly';
       dailyTask.everyX = 5;

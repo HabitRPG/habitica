@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'OCTOBER BACKGROUNDS AND ARMOIRE ITEMS!';
+const LAST_ANNOUNCEMENT_TITLE = 'DECEMBER BACKGROUNDS AND ARMOIRE ITEMS';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,14 +30,14 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>10/04/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>12/5/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <p>We’ve added three new backgrounds to the Background Shop! Now your avatar can creep through a spooky Dungeon, dare to approach a Creepy Castle and bask in the glow of a firefly-filled Bayou. Check them out under User Icon > Backgrounds!</p>
-        <p>Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the Ace of Spades Set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)</p>
-        <div class="small mb-3">by AnnDeLune, gully, Vampitch, GeraldThePixel, NekoAtsumeLARPer, Shred, and SabreCat</div>
-        <div class="promo_armoire_backgrounds_201810 center-block"></div>
+        <p>We’ve added three new backgrounds to the Background Shop! Now your avatar can soar over Snowy Mountains at night, bundle up to hike through a Frosty Forest, or snuggle up next to a Snowy Day Fireplace. Check them out under User Icon > Backgrounds!</p>
+        <p>Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the Green and Red Loungewear Sets. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)</p>
+        <div class="small mb-3">by eyenne, Vikte, wykedcrafty, GeraldThePixel, shanaqui, and SabreCat</div>
+        <div class="promo_armoire_backgrounds_201812 center-block"></div>
       </div>
       `,
     });
