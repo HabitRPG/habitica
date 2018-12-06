@@ -29,7 +29,7 @@ context('avatar.vue', () => {
               equipped: {},
             },
           },
-        }, 
+        },
         // store,
       },
     }).$mount();
@@ -253,8 +253,8 @@ context('avatar.vue', () => {
           items: {
             gear: {
               equipped: {
-                weapon: { 
-                  baseWeapon: 'Spoon',  
+                weapon: {
+                  baseWeapon: 'Spoon',
                   twoHanded: false,
                 },
               },
