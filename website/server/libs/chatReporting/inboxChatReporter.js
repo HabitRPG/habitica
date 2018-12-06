@@ -5,11 +5,12 @@ import ChatReporter from './chatReporter';
 import {
   BadRequest,
 } from '../errors';
-import { getGroupUrl, sendTxn } from '../email';
+import { getUserInfo, sendTxn} from '../email';
 import slack from '../slack';
 import apiError from '../apiError';
 
 import * as inboxLib from '../inbox';
+import {getAuthorEmailFromMessage} from '../chat';
 
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
   return { email, canSend: true };
@@ -48,16 +49,12 @@ export default class InboxChatReporter extends ChatReporter {
       _id: 'N/A',
     };
 
-    await super.notify(group, message);
-
-    const groupUrl = getGroupUrl(group);
-    sendTxn(FLAG_REPORT_EMAILS, 'flag-report-to-mods-with-comments', this.emailVariables.concat([
-      {name: 'GROUP_NAME', content: group.name},
-      {name: 'GROUP_TYPE', content: group.type},
-      {name: 'GROUP_ID', content: group._id},
-      {name: 'GROUP_URL', content: groupUrl || 'N/A'},
+    let emailVariables = await this.getMessageVariables(group, message);
+    emailVariables = emailVariables.concat([
       {name: 'REPORTER_COMMENT', content: userComment || ''},
-    ]));
+    ]);
+
+    sendTxn(FLAG_REPORT_EMAILS, 'flag-report-to-mods-with-comments', emailVariables);
 
     slack.sendInboxFlagNotification({
       authorEmail: this.authorEmail,
@@ -65,6 +62,33 @@ export default class InboxChatReporter extends ChatReporter {
       message,
       userComment,
     });
+  }
+
+  async getAuthorVariables (message) {
+    const messageUser = {
+      user: message.user,
+      username: message.username,
+      uuid: message.uuid,
+      email: await getAuthorEmailFromMessage(message),
+    };
+
+    const reporter = {
+      user: this.user.profile.name,
+      username: this.user.auth.local.username,
+      uuid: this.user._id,
+      email: getUserInfo(this.user, ['email']).email,
+    };
+
+    // if message.sent, the reporter is the author of this message
+    const sendingUser = message.sent ? reporter : messageUser;
+    const recipient = message.sent ? messageUser : reporter;
+
+    this.authorEmail = sendingUser.email;
+
+    return [
+      ...this.createGenericAuthorVariables('AUTHOR', sendingUser),
+      ...this.createGenericAuthorVariables('RECIPIENT', recipient),
+    ];
   }
 
   updateMessageAndSave (message, ...changedFields) {
