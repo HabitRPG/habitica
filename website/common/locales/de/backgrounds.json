@@ -114,8 +114,8 @@
     "backgroundMarketNotes": "Kaufe im Habitica-Marktplatz ein.",
     "backgroundStableText": "Habitica-Stall",
     "backgroundStableNotes": "Pflege Reittiere im Habitica-Stall.",
-    "backgroundTavernText": "Habitica-Gasthaus",
-    "backgroundTavernNotes": "Besuche das Habitica-Gasthaus.",
+    "backgroundTavernText": "Habitica-Taverne",
+    "backgroundTavernNotes": "Besuche die Habitica-Taverne.",
     "backgrounds102015": "Set 17: Veröffentlicht im Oktober 2015",
     "backgroundHarvestMoonText": "Erntemond",
     "backgroundHarvestMoonNotes": "Kichern unter dem Erntemond.",
@@ -394,5 +394,12 @@
     "backgroundGlowingMushroomCaveText": "Leuchtpilz-Höhle",
     "backgroundGlowingMushroomCaveNotes": "Bestaune die Leuchtpilz-Höhle.",
     "backgroundCozyBedroomText": "Kuscheliges Schlafzimmer",
-    "backgroundCozyBedroomNotes": "Rolle Dich in einem gemütlichen Schlafzimmer zusammen."
+    "backgroundCozyBedroomNotes": "Rolle Dich in einem gemütlichen Schlafzimmer zusammen.",
+    "backgrounds122018": "SET 55: Released December 2018",
+    "backgroundFlyingOverSnowyMountainsText": "Snowy Mountains",
+    "backgroundFlyingOverSnowyMountainsNotes": "Soar over Snowy Mountains at night.",
+    "backgroundFrostyForestText": "Frosty Forest",
+    "backgroundFrostyForestNotes": "Bundle up to hike through a Frosty Forest.",
+    "backgroundSnowyDayFireplaceText": "Snowy Day Fireplace",
+    "backgroundSnowyDayFireplaceNotes": "Snuggle up next to a Fireplace on a Snowy Day."
 }

@@ -1,4 +1,4 @@
-FROM node:8
+FROM node:10
 
 ENV ADMIN_EMAIL admin@habitica.com
 ENV AMAZON_PAYMENTS_CLIENT_ID amzn1.application-oa2-client.68ed9e6904ef438fbc1bf86bf494056e

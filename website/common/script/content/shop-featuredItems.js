@@ -8,16 +8,16 @@ const featuredItems = {
       path: 'armoire',
     },
     {
-      type: 'premiumHatchingPotion',
-      path: 'premiumHatchingPotions.Frost',
+      type: 'hatchingPotions',
+      path: 'hatchingPotions.White',
     },
     {
       type: 'eggs',
       path: 'eggs.Wolf',
     },
     {
-      type: 'premiumHatchingPotion',
-      path: 'premiumHatchingPotions.Thunderstorm',
+      type: 'food',
+      path: 'food.Milk',
     },
   ],
   quests: [
@@ -30,8 +30,8 @@ const featuredItems = {
       path: 'quests.taskwoodsTerror1',
     },
     {
-      type: 'bundles',
-      path: 'bundles.oddballs',
+      type: 'quests',
+      path: 'quests.horse',
     },
   ],
   seasonal: '',

@@ -61,6 +61,6 @@
     "notificationsRequired": "Értesítés azonosítók szükségesek.",
     "unallocatedStatsPoints": "Van <span class=\"notification-bold-blue\"><%= points %> kiosztatlan tulajdonság pontod</span>",
     "beginningOfConversation": "Elkezdtél beszélgetni <%= userName %> felhasználóval. Ne felejtesd hogy legyél kedves, tisztelettudó és kövesd a közösségi irányelveket!",
-    "messageDeletedUser": "Sorry, this user has deleted their account.",
-    "messageMissingDisplayName": "Missing display name."
+    "messageDeletedUser": "Ez a felhasználó törölte a fiókját.",
+    "messageMissingDisplayName": "Hiányzó megjelenített név."
 }

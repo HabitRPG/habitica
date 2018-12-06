@@ -2,51 +2,49 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import getStore from 'client/store';
 import * as Analytics from 'client/libs/analytics';
+import handleRedirect from './handleRedirect';
 
-// import EmptyView from './components/emptyView';
-
-// TODO Dummy elements used as placeholder until real components are implemented
-import ParentPage from './components/parentPage';
+import ParentPage from 'client/components/parentPage';
 
 // Static Pages
-const StaticWrapper = () => import(/* webpackChunkName: "entry" */'./components/static/staticWrapper');
-const HomePage = () => import(/* webpackChunkName: "entry" */'./components/static/home');
+const StaticWrapper = () => import(/* webpackChunkName: "entry" */'client/components/static/staticWrapper');
+const HomePage = () => import(/* webpackChunkName: "entry" */'client/components/static/home');
 
-const AppPage = () => import(/* webpackChunkName: "static" */'./components/static/app');
-const ClearBrowserDataPage = () => import(/* webpackChunkName: "static" */'./components/static/clearBrowserData');
-const CommunityGuidelinesPage = () => import(/* webpackChunkName: "static" */'./components/static/communityGuidelines');
-const ContactPage = () => import(/* webpackChunkName: "static" */'./components/static/contact');
-const FAQPage = () => import(/* webpackChunkName: "static" */'./components/static/faq');
-const FeaturesPage = () => import(/* webpackChunkName: "static" */'./components/static/features');
-const GroupPlansPage = () => import(/* webpackChunkName: "static" */'./components/static/groupPlans');
-const MerchPage = () => import(/* webpackChunkName: "static" */'./components/static/merch');
-const NewsPage = () => import(/* webpackChunkName: "static" */'./components/static/newStuff');
-const OverviewPage = () => import(/* webpackChunkName: "static" */'./components/static/overview');
-const PressKitPage = () => import(/* webpackChunkName: "static" */'./components/static/pressKit');
-const PrivacyPage = () => import(/* webpackChunkName: "static" */'./components/static/privacy');
-const TermsPage = () => import(/* webpackChunkName: "static" */'./components/static/terms');
+const AppPage = () => import(/* webpackChunkName: "static" */'client/components/static/app');
+const ClearBrowserDataPage = () => import(/* webpackChunkName: "static" */'client/components/static/clearBrowserData');
+const CommunityGuidelinesPage = () => import(/* webpackChunkName: "static" */'client/components/static/communityGuidelines');
+const ContactPage = () => import(/* webpackChunkName: "static" */'client/components/static/contact');
+const FAQPage = () => import(/* webpackChunkName: "static" */'client/components/static/faq');
+const FeaturesPage = () => import(/* webpackChunkName: "static" */'client/components/static/features');
+const GroupPlansPage = () => import(/* webpackChunkName: "static" */'client/components/static/groupPlans');
+const MerchPage = () => import(/* webpackChunkName: "static" */'client/components/static/merch');
+const NewsPage = () => import(/* webpackChunkName: "static" */'client/components/static/newStuff');
+const OverviewPage = () => import(/* webpackChunkName: "static" */'client/components/static/overview');
+const PressKitPage = () => import(/* webpackChunkName: "static" */'client/components/static/pressKit');
+const PrivacyPage = () => import(/* webpackChunkName: "static" */'client/components/static/privacy');
+const TermsPage = () => import(/* webpackChunkName: "static" */'client/components/static/terms');
 
-const RegisterLoginReset = () => import(/* webpackChunkName: "auth" */'./components/auth/registerLoginReset');
-const Logout = () => import(/* webpackChunkName: "auth" */'./components/auth/logout');
+const RegisterLoginReset = () => import(/* webpackChunkName: "auth" */'client/components/auth/registerLoginReset');
+const Logout = () => import(/* webpackChunkName: "auth" */'client/components/auth/logout');
 
 // User Pages
 // const StatsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/stats');
 // const AchievementsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/achievements');
-const ProfilePage = () => import(/* webpackChunkName: "user" */'./components/userMenu/profilePage');
+const ProfilePage = () => import(/* webpackChunkName: "user" */'client/components/userMenu/profilePage');
 
 // Settings
-const Settings = () => import(/* webpackChunkName: "settings" */'./components/settings/index');
-const API = () => import(/* webpackChunkName: "settings" */'./components/settings/api');
-const DataExport = () => import(/* webpackChunkName: "settings" */'./components/settings/dataExport');
-const Notifications = () => import(/* webpackChunkName: "settings" */'./components/settings/notifications');
-const PromoCode = () => import(/* webpackChunkName: "settings" */'./components/settings/promoCode');
-const Site = () => import(/* webpackChunkName: "settings" */'./components/settings/site');
-const Subscription = () => import(/* webpackChunkName: "settings" */'./components/settings/subscription');
+const Settings = () => import(/* webpackChunkName: "settings" */'client/components/settings/index');
+const API = () => import(/* webpackChunkName: "settings" */'client/components/settings/api');
+const DataExport = () => import(/* webpackChunkName: "settings" */'client/components/settings/dataExport');
+const Notifications = () => import(/* webpackChunkName: "settings" */'client/components/settings/notifications');
+const PromoCode = () => import(/* webpackChunkName: "settings" */'client/components/settings/promoCode');
+const Site = () => import(/* webpackChunkName: "settings" */'client/components/settings/site');
+const Subscription = () => import(/* webpackChunkName: "settings" */'client/components/settings/subscription');
 
 // Hall
-const HallPage = () => import(/* webpackChunkName: "hall" */'./components/hall/index');
-const PatronsPage = () => import(/* webpackChunkName: "hall" */'./components/hall/patrons');
-const HeroesPage = () => import(/* webpackChunkName: "hall" */'./components/hall/heroes');
+const HallPage = () => import(/* webpackChunkName: "hall" */'client/components/hall/index');
+const PatronsPage = () => import(/* webpackChunkName: "hall" */'client/components/hall/patrons');
+const HeroesPage = () => import(/* webpackChunkName: "hall" */'client/components/hall/heroes');
 
 // Except for tasks that are always loaded all the other main level
 // All the main level
@@ -55,41 +53,41 @@ const HeroesPage = () => import(/* webpackChunkName: "hall" */'./components/hall
 // for docs
 
 // Tasks
-const UserTasks = () => import(/* webpackChunkName: "userTasks" */'./components/tasks/user');
+const UserTasks = () => import(/* webpackChunkName: "userTasks" */'client/components/tasks/user');
 
 // Inventory
-const InventoryContainer = () => import(/* webpackChunkName: "inventory" */'./components/inventory/index');
-const ItemsPage = () => import(/* webpackChunkName: "inventory" */'./components/inventory/items/index');
-const EquipmentPage = () => import(/* webpackChunkName: "inventory" */'./components/inventory/equipment/index');
-const StablePage = () => import(/* webpackChunkName: "inventory" */'./components/inventory/stable/index');
+const InventoryContainer = () => import(/* webpackChunkName: "inventory" */'client/components/inventory/index');
+const ItemsPage = () => import(/* webpackChunkName: "inventory" */'client/components/inventory/items/index');
+const EquipmentPage = () => import(/* webpackChunkName: "inventory" */'client/components/inventory/equipment/index');
+const StablePage = () => import(/* webpackChunkName: "inventory" */'client/components/inventory/stable/index');
 
 // Guilds
-const GuildIndex = () => import(/* webpackChunkName: "guilds" */ './components/groups/index');
-const TavernPage = () => import(/* webpackChunkName: "guilds" */ './components/groups/tavern');
-const MyGuilds = () => import(/* webpackChunkName: "guilds" */ './components/groups/myGuilds');
-const GuildsDiscoveryPage = () => import(/* webpackChunkName: "guilds" */ './components/groups/discovery');
-const GroupPage = () => import(/* webpackChunkName: "guilds" */ './components/groups/group');
-const GroupPlansAppPage = () => import(/* webpackChunkName: "guilds" */ './components/groups/groupPlan');
+const GuildIndex = () => import(/* webpackChunkName: "guilds" */ 'client/components/groups/index');
+const TavernPage = () => import(/* webpackChunkName: "guilds" */ 'client/components/groups/tavern');
+const MyGuilds = () => import(/* webpackChunkName: "guilds" */ 'client/components/groups/myGuilds');
+const GuildsDiscoveryPage = () => import(/* webpackChunkName: "guilds" */ 'client/components/groups/discovery');
+const GroupPage = () => import(/* webpackChunkName: "guilds" */ 'client/components/groups/group');
+const GroupPlansAppPage = () => import(/* webpackChunkName: "guilds" */ 'client/components/groups/groupPlan');
 
 // Group Plans
-const GroupPlanIndex = () => import(/* webpackChunkName: "group-plans" */ './components/group-plans/index');
-const GroupPlanTaskInformation = () => import(/* webpackChunkName: "group-plans" */ './components/group-plans/taskInformation');
-const GroupPlanBilling = () => import(/* webpackChunkName: "group-plans" */ './components/group-plans/billing');
+const GroupPlanIndex = () => import(/* webpackChunkName: "group-plans" */ 'client/components/group-plans/index');
+const GroupPlanTaskInformation = () => import(/* webpackChunkName: "group-plans" */ 'client/components/group-plans/taskInformation');
+const GroupPlanBilling = () => import(/* webpackChunkName: "group-plans" */ 'client/components/group-plans/billing');
 
 // Challenges
-const ChallengeIndex = () => import(/* webpackChunkName: "challenges" */ './components/challenges/index');
-const MyChallenges = () => import(/* webpackChunkName: "challenges" */ './components/challenges/myChallenges');
-const FindChallenges = () => import(/* webpackChunkName: "challenges" */ './components/challenges/findChallenges');
-const ChallengeDetail = () => import(/* webpackChunkName: "challenges" */ './components/challenges/challengeDetail');
+const ChallengeIndex = () => import(/* webpackChunkName: "challenges" */ 'client/components/challenges/index');
+const MyChallenges = () => import(/* webpackChunkName: "challenges" */ 'client/components/challenges/myChallenges');
+const FindChallenges = () => import(/* webpackChunkName: "challenges" */ 'client/components/challenges/findChallenges');
+const ChallengeDetail = () => import(/* webpackChunkName: "challenges" */ 'client/components/challenges/challengeDetail');
 
 // Shops
-const ShopsContainer = () => import(/* webpackChunkName: "shops" */'./components/shops/index');
-const MarketPage = () => import(/* webpackChunkName: "shops-market" */'./components/shops/market/index');
-const QuestsPage = () => import(/* webpackChunkName: "shops-quest" */'./components/shops/quests/index');
-const SeasonalPage = () => import(/* webpackChunkName: "shops-seasonal" */'./components/shops/seasonal/index');
-const TimeTravelersPage = () => import(/* webpackChunkName: "shops-timetravelers" */'./components/shops/timeTravelers/index');
+const ShopsContainer = () => import(/* webpackChunkName: "shops" */'client/components/shops/index');
+const MarketPage = () => import(/* webpackChunkName: "shops-market" */'client/components/shops/market/index');
+const QuestsPage = () => import(/* webpackChunkName: "shops-quest" */'client/components/shops/quests/index');
+const SeasonalPage = () => import(/* webpackChunkName: "shops-seasonal" */'client/components/shops/seasonal/index');
+const TimeTravelersPage = () => import(/* webpackChunkName: "shops-timetravelers" */'client/components/shops/timeTravelers/index');
 
-import NotFoundPage from './components/404';
+import NotFoundPage from 'client/components/404';
 
 Vue.use(VueRouter);
 
@@ -279,6 +277,9 @@ const router = new VueRouter({
         { name: 'contributors', path: 'contributors', component: HeroesPage },
       ],
     },
+    // Only used to handle some redirects
+    // See router.beforeEach
+    { path: '/redirect/:redirect', name: 'redirect' },
     { path: '*', redirect: { name: 'notFound' } },
   ],
 });
@@ -288,6 +289,8 @@ const store = getStore();
 router.beforeEach(function routerGuard (to, from, next) {
   const isUserLoggedIn = store.state.isUserLoggedIn;
   const routeRequiresLogin = to.meta.requiresLogin !== false;
+
+  if (to.name === 'redirect') return handleRedirect(to, from, next);
 
   if (!isUserLoggedIn && routeRequiresLogin) {
     // Redirect to the login page unless the user is trying to reach the
