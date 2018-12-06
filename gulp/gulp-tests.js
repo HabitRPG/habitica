@@ -180,7 +180,7 @@ gulp.task('test:api:unit', (done) => {
 });
 
 gulp.task('test:api:unit:watch', () => {
-  return gulp.watch(['website/server/libs/*', 'test/api/v3/unit/**/*', 'website/server/controllers/**/*'], gulp.series('test:api:unit', done => done()));
+  return gulp.watch(['website/server/libs/*', 'test/api/unit/**/*', 'website/server/controllers/**/*'], gulp.series('test:api:unit', done => done()));
 });
 
 gulp.task('test:api-v3:integration', (done) => {
