@@ -23,7 +23,7 @@ import {
 import {verifyUsername} from '../../libs/user/validation';
 
 const BASE_URL = nconf.get('BASE_URL');
-const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
+const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS_TECH_ASSISTANCE_EMAIL');
 
 let api = {};
 
