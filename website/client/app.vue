@@ -446,6 +446,7 @@ export default {
             this.$root.$emit('bv::show::modal', 'payments-success-modal');
           }
         }
+        this.$root.$emit('bv::show::modal', 'payments-success-modal');
         this.$nextTick(() => {
           // Load external scripts after the app has been rendered
           setupPayments();

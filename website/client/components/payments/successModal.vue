@@ -6,12 +6,12 @@
     div(slot="modal-header") 
       .check-container.d-flex.align-items-center.justify-content-center
         .svg-icon.check(v-html="icons.check")
-      h2(v-ocne) {{ $t('paymentSuccessful') }}
+      h2(v-once) {{ $t('paymentSuccessful') }}
     div(slot="modal-footer")
       .small-text(v-once) {{ $t('giftSubscriptionText4') }}
     .row
       .col-12.text-center
-        button.btn.btn-primary(@click='close()') {{$t('onwards')}}
+        button.btn.btn-primary(@click='close()', v-once) {{$t('onwards')}}
 </template>
 
 <style lang="scss">
