@@ -4,20 +4,20 @@ import apn from 'apn';
 import logger from './logger';
 import gcmLib from 'node-gcm'; // works with FCM notifications too
 
-const FCM_API_KEY = nconf.get('PUSH_CONFIGS:FCM_SERVER_API_KEY');
+const FCM_API_KEY = nconf.get('PUSH_CONFIGS_FCM_SERVER_API_KEY');
 
 const fcmSender = FCM_API_KEY ? new gcmLib.Sender(FCM_API_KEY) : undefined;
 
 let apnProvider;
 // Load APN certificate and key from S3
-const APN_ENABLED = nconf.get('PUSH_CONFIGS:APN_ENABLED') === 'true';
+const APN_ENABLED = nconf.get('PUSH_CONFIGS_APN_ENABLED') === 'true';
 
 if (APN_ENABLED) {
   apnProvider = APN_ENABLED ? new apn.Provider({
     token: {
-      key: nconf.get('PUSH_CONFIGS:APN_KEY'),
-      keyId: nconf.get('PUSH_CONFIGS:APN_KEY_ID'),
-      teamId: nconf.get('PUSH_CONFIGS:APN_TEAM_ID'),
+      key: nconf.get('PUSH_CONFIGS_APN_KEY'),
+      keyId: nconf.get('PUSH_CONFIGS_APN_KEY_ID'),
+      teamId: nconf.get('PUSH_CONFIGS_APN_TEAM_ID'),
     },
     production: nconf.get('IS_PROD'),
   }) : undefined;

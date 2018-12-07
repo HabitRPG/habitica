@@ -40,7 +40,7 @@ async function updateUser (user) {
   if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
 
   if (push) {
-    return await User.update({_id: user._id}, {$set: set, $push: {pinnedItems: push}}).exec();
+    return await User.update({_id: user._id}, {$set: set, $push: push}).exec();
   } else {
     return await User.update({_id: user._id}, {$set: set}).exec();
   }
@@ -79,4 +79,3 @@ module.exports = async function processUsers () {
     await Promise.all(users.map(updateUser)); // eslint-disable-line no-await-in-loop
   }
 };
-

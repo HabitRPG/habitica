@@ -377,8 +377,8 @@
     "backgrounds092018": "SET 52: Released September 2018",
     "backgroundApplePickingText": "Apple Picking",
     "backgroundApplePickingNotes": "Go Apple Picking and bring home a bushel.",
-    "backgroundGiantBookText": "Giant Book",
-    "backgroundGiantBookNotes": "Read as you walk through the pages of a Giant Book.",
+    "backgroundGiantBookText": "Libro gigante",
+    "backgroundGiantBookNotes": "Lee mientras caminas a través de las páginas de un libro gigante",
     "backgroundCozyBarnText": "Granero acogedor",
     "backgroundCozyBarnNotes": "Relájate con tus mascotas y monturas en su granero acogedor",
     "backgrounds102018": "SET 53: Released October 2018",
@@ -394,5 +394,12 @@
     "backgroundGlowingMushroomCaveText": "Cueva de hongos brillantes",
     "backgroundGlowingMushroomCaveNotes": "Stare in awe at a Glowing Mushroom Cave.",
     "backgroundCozyBedroomText": "Recámara acogedora",
-    "backgroundCozyBedroomNotes": "Acurrúcate en una recámara acogedora"
+    "backgroundCozyBedroomNotes": "Acurrúcate en una recámara acogedora",
+    "backgrounds122018": "SET 55: Released December 2018",
+    "backgroundFlyingOverSnowyMountainsText": "Snowy Mountains",
+    "backgroundFlyingOverSnowyMountainsNotes": "Soar over Snowy Mountains at night.",
+    "backgroundFrostyForestText": "Frosty Forest",
+    "backgroundFrostyForestNotes": "Bundle up to hike through a Frosty Forest.",
+    "backgroundSnowyDayFireplaceText": "Snowy Day Fireplace",
+    "backgroundSnowyDayFireplaceNotes": "Snuggle up next to a Fireplace on a Snowy Day."
 }

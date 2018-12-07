@@ -12,7 +12,7 @@ import {
   sendTxn as txnEmail,
 } from '../email';
 
-const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
+const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS_TECH_ASSISTANCE_EMAIL');
 const JOINED_GROUP_PLAN = 'joined group plan';
 
 function _dateDiff (earlyDate, lateDate) {
