@@ -442,11 +442,10 @@ export default {
         if (appState) {
           appState = JSON.parse(appState);
           if (appState.paymentCompleted) {
-            removeLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE);
-            this.$root.$emit('bv::show::modal', 'payments-success-modal');
+            // removeLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE);
+            this.$root.$emit('habitica:payment-success', appState);
           }
         }
-        this.$root.$emit('bv::show::modal', 'payments-success-modal');
         this.$nextTick(() => {
           // Load external scripts after the app has been rendered
           setupPayments();

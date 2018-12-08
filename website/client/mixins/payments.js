@@ -43,12 +43,13 @@ export default {
       let gift = this.encodeGift(data.giftedTo, data.gift);
       const url = `/paypal/checkout?gift=${gift}`;
 
-      this.openPaypal(url, 'gift');
+      this.openPaypal(url, `gift-${data.gift.type === 'gems' ? 'gems' : 'subscription'}`);
     },
-    openPaypal (url/* , type*/) {
+    openPaypal (url, type) {
       const appState = {
         paymentMethod: 'paypal',
         paymentCompleted: false,
+        paymentType: type,
       };
       setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
       window.open(url, '_blank');
