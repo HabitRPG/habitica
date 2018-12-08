@@ -17,7 +17,7 @@
             .svg-icon(v-html="icons.gem", v-once)
             span 20
         template(v-if="paymentData.paymentType === 'subscription'")
-          strong(v-once) {{ $t('youReceived') }}
+          strong(v-once) {{ $t('nowSubscribed') }}
           .details-block
             span(v-html="$t('paymentSubBilling', {amount: paymentData.subscription.price, months: paymentData.subscription.months})")
         button.btn.btn-primary(@click='close()', v-once) {{$t('onwards')}}
