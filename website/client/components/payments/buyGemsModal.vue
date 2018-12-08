@@ -111,7 +111,7 @@
                     span.superscript $
                     span 5
                     span.superscript.muted .00
-                  .small {{ $t('everyMonth') }}
+                  .small(v-once) {{ $t('everyMonth') }}
                   .divider
                   p.benefits(v-markdown='$t("earnGemsMonthly", {cap:25})')
                   .spacer
@@ -122,7 +122,7 @@
                     span.superscript $
                     span 15
                     span.superscript.muted .00
-                  .small {{ $t('everyXMonths', {interval: 3}) }}
+                  .small(v-once) {{ $t('everyXMonths', {interval: 3}) }}
                   .divider
                   p.benefits(v-markdown='$t("earnGemsMonthly", {cap:30})')
                   p.benefits(v-markdown='$t("receiveMysticHourglass")')
@@ -133,7 +133,7 @@
                     span.superscript $
                     span 30
                     span.superscript.muted .00
-                  .small {{ $t('everyXMonths', {interval: 6}) }}
+                  .small(v-once) {{ $t('everyXMonths', {interval: 6}) }}
                   .divider
                   p.benefits(v-markdown='$t("earnGemsMonthly", {cap:35})')
                   p.benefits(v-markdown='$t("receiveMysticHourglasses", {amount:2})')
@@ -144,15 +144,15 @@
                     span.superscript $
                     span 48
                     span.superscript.muted .00
-                  .small {{ $t('everyYear') }}
+                  .small(v-once) {{ $t('everyYear') }}
                   .divider
                   p.benefits(v-markdown='$t("earnGemsMonthly", {cap:45})')
                   p.benefits(v-markdown='$t("receiveMysticHourglasses", {amount:4})')
                   button.btn.btn-primary(@click='subscriptionPlan = "basic_12mo"') {{ subscriptionPlan === "basic_12mo" ? $t('selected') : $t('select') }}
             .row.text-center(v-if='subscriptionPlan')
-              h2.mx-auto.text-payment {{ $t('choosePaymentMethod') }}
+              h2.mx-auto.text-payment(v-once) {{ $t('choosePaymentMethod') }}
             .row.text-center
-              a.mx-auto {{ $t('haveCouponCode') }}
+              a.mx-auto(v-once) {{ $t('haveCouponCode') }}
             .card-deck(v-if='subscriptionPlan')
               .card.text-center.payment-method
                 .card-body(@click='showStripe({subscription: subscriptionPlan})')

@@ -192,11 +192,17 @@ export default {
       let paymentType;
 
       if (this.amazonPayments.type === 'single' && !this.amazonPayments.gift) paymentType = 'gems';
+      if (this.amazonPayments.type === 'subscription') paymentType = 'subscription';
+
       const appState = {
         paymentMethod: 'amazon',
         paymentCompleted: true,
         paymentType,
       };
+      if (paymentType === 'subscription') {
+        appState.subscriptionKey = this.amazonPayments.subscription;
+      }
+
       setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
       if (url) {
         window.location.assign(url);

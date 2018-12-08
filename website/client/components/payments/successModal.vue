@@ -16,6 +16,10 @@
           .details-block.gems 
             .svg-icon(v-html="icons.gem", v-once)
             span 20
+        template(v-if="paymentData.paymentType === 'subscription'")
+          strong(v-once) {{ $t('youReceived') }}
+          .details-block
+            span(v-html="$t('paymentSubBilling', {amount: paymentData.subscription.price, months: paymentData.subscription.months})")
         button.btn.btn-primary(@click='close()', v-once) {{$t('onwards')}}
 </template>
 
@@ -72,6 +76,7 @@
     margin-bottom: 24px;
     display: flex;
     flex-direction: row;
+    text-align: center;
 
     &.gems {
       padding: 12px 16px 12px 20px;
@@ -104,6 +109,7 @@
 <script>
 import checkIcon from 'assets/svg/check.svg';
 import gemIcon from 'assets/svg/gem.svg';
+import subscriptionBlocks from '../../../common/script/content/subscriptionBlocks';
 
 export default {
   data () {
@@ -117,7 +123,9 @@ export default {
   },
   mounted () {
     this.$root.$on('habitica:payment-success', (data) => {
-      console.log(data);
+      if (data.paymentType === 'subscription') {
+        data.subscription = subscriptionBlocks[data.subscriptionKey];
+      }
       this.paymentData = data;
       this.$root.$emit('bv::show::modal', 'payments-success-modal');
     });

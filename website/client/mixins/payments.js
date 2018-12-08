@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const STRIPE_PUB_KEY = process.env.STRIPE_PUB_KEY; // eslint-disable-line
+const STRIPE_PUB_KEY = process.env.STRIPE_PUB_KEY; // eslint-disable-line no-process-env
 import subscriptionBlocks from '../../common/script/content/subscriptionBlocks';
 import { mapState } from 'client/libs/store';
 import encodeParams from 'client/libs/encodeParams';
@@ -51,6 +51,11 @@ export default {
         paymentCompleted: false,
         paymentType: type,
       };
+
+      if (type === 'subscription') {
+        appState.subscriptionKey = this.subscriptionPlan || this.subscription.key;
+      }
+
       setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
       window.open(url, '_blank');
 
@@ -78,13 +83,14 @@ export default {
 
       sub = sub && subscriptionBlocks[sub];
 
-      let amount = 500;// 500 = $5
+      let amount = 500; // 500 = $5
       if (sub) amount = sub.price * 100;
       if (data.gift && data.gift.type === 'gems') amount = data.gift.gems.amount / 4 * 100;
       if (data.group) amount = (sub.price + 3 * (data.group.memberCount - 1)) * 100;
 
       let paymentType;
       if (sub === false && !data.gift) paymentType = 'gems';
+      if (sub !== false && !data.gift) paymentType = 'subscription';
 
       window.StripeCheckout.open({
         key: STRIPE_PUB_KEY,
@@ -122,6 +128,10 @@ export default {
             paymentCompleted: true,
             paymentType,
           };
+          if (paymentType === 'subscription') {
+            appState.subscriptionKey = sub.key;
+          }
+
           setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
 
           let newGroup = response.data.data;
