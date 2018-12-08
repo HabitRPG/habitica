@@ -189,9 +189,13 @@ export default {
       new this.OffAmazonPayments.Widgets.Wallet(walletParams).bind('AmazonPayWallet');
     },
     storePaymentStatusAndReload (url) {
+      let paymentType;
+
+      if (this.amazonPayments.type === 'single' && !this.amazonPayments.gift) paymentType = 'gems';
       const appState = {
         paymentMethod: 'amazon',
         paymentCompleted: true,
+        paymentType,
       };
       setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
       if (url) {
@@ -215,11 +219,11 @@ export default {
           });
 
           this.$set(this, 'amazonButtonEnabled', true);
-          this.reset();
           this.storePaymentStatusAndReload();
         } catch (e) {
+          console.error(e); // eslint-disable-line no-console
           this.$set(this, 'amazonButtonEnabled', true);
-          this.amazonPaymentsreset();
+          this.reset();
         }
       } else if (this.amazonPayments.type === 'subscription') {
         let url = '/amazon/subscribe';
@@ -265,7 +269,6 @@ export default {
             return;
           }
 
-          this.reset();
           this.storePaymentStatusAndReload();
         } catch (e) {
           this.$set(this, 'amazonButtonEnabled', true);

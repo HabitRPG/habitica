@@ -83,6 +83,9 @@ export default {
       if (data.gift && data.gift.type === 'gems') amount = data.gift.gems.amount / 4 * 100;
       if (data.group) amount = (sub.price + 3 * (data.group.memberCount - 1)) * 100;
 
+      let paymentType;
+      if (sub === false && !data.gift) paymentType = 'gems';
+
       window.StripeCheckout.open({
         key: STRIPE_PUB_KEY,
         address: false,
@@ -117,6 +120,7 @@ export default {
           const appState = {
             paymentMethod: 'stripe',
             paymentCompleted: true,
+            paymentType,
           };
           setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
 

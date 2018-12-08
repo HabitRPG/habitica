@@ -5,16 +5,16 @@
   )
     div(slot="modal-header") 
       .check-container.d-flex.align-items-center.justify-content-center
-        .svg-icon.check(v-html="icons.check")
+        .svg-icon.check(v-html="icons.check", v-once)
       h2(v-once) {{ $t('paymentSuccessful') }}
     div(slot="modal-footer")
       .small-text(v-once) {{ $t('giftSubscriptionText4') }}
     .row
       .col-12.modal-body-col
         template(v-if="paymentData.paymentType === 'gems'")
-          strong You received:
+          strong(v-once) {{ $t('youReceived') }}
           .details-block.gems 
-            .svg-icon(v-html="icons.gem")
+            .svg-icon(v-html="icons.gem", v-once)
             span 20
         button.btn.btn-primary(@click='close()', v-once) {{$t('onwards')}}
 </template>
