@@ -1,12 +1,14 @@
 <template lang="pug">
   b-modal#payments-success-modal(
     :title="$t('accountSuspendedTitle')", 
-    size='sm', 
+    size='sm',
+    :hideFooter="isFromBalance",
+    :modalClass="isFromBalance ? ['modal-hidden-footer'] : []"
   )
     div(slot="modal-header") 
       .check-container.d-flex.align-items-center.justify-content-center
         .svg-icon.check(v-html="icons.check", v-once)
-      h2(v-once) {{ $t('paymentSuccessful') }}
+      h2 {{ $t(isFromBalance ? 'success' : 'paymentSuccessful') }}
     div(slot="modal-footer")
       .small-text(v-once) {{ $t('giftSubscriptionText4') }}
     .row
@@ -16,7 +18,7 @@
           .details-block.gems 
             .svg-icon(v-html="icons.gem", v-once)
             span 20
-        template(v-if="paymentData.paymentType === 'gift-gems'")
+        template(v-if="paymentData.paymentType === 'gift-gems' || paymentData.paymentType === 'gift-gems-balance'")
           span(v-html="$t('paymentYouSentGems', {name: paymentData.giftReceiver})")
           .details-block.gems 
             .svg-icon(v-html="icons.gem", v-once)
@@ -39,6 +41,11 @@
 
 #payments-success-modal .modal-content {
   background: transparent;
+}
+
+#payments-success-modal.modal-hidden-footer .modal-body {
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
 }
 
 #payments-success-modal .modal-header {
@@ -154,6 +161,9 @@ export default {
       const sub = this.paymentData.subscription;
       const memberCount = this.paymentData.group.memberCount || 1;
       return sub.price + 3 * (memberCount - 1);
+    },
+    isFromBalance () {
+      return this.paymentData.paymentType === 'gift-gems-balance';
     },
   },
   methods: {

@@ -148,11 +148,21 @@ export default {
         toUserId: this.userReceivingGems._id,
         gemAmount: this.gift.gems.amount,
       });
-      this.text(this.$t('sentGems'));
       this.close();
+      this.$root.$emit('habitica:payment-success', {
+        paymentMethod: 'balance',
+        paymentCompleted: true,
+        paymentType: 'gift-gems-balance',
+        gift: {
+          gems: {
+            amount: this.gift.gems.amount,
+          },
+        },
+        giftReceiver: this.receiverName,
+      });
     },
     onHide () {
-      // TODO this breaks amazon purchases because when the amazon modal
+      // @TODO this breaks amazon purchases because when the amazon modal
       // is opened this one is closed and the amount reset
       // this.gift.gems.amount = 0;
       this.gift.message = '';
