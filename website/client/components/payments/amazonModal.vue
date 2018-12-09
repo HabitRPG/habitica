@@ -34,6 +34,7 @@ import * as Analytics from 'client/libs/analytics';
 import axios from 'axios';
 import { mapState } from 'client/libs/store';
 import { CONSTANTS, setLocalSetting } from 'client/libs/userlocalManager';
+import pick from 'lodash/pick';
 
 const AMAZON_PAYMENTS = process.env.AMAZON_PAYMENTS; // eslint-disable-line
 const habiticaUrl = `${location.protocol}//${location.host}`;
@@ -56,6 +57,8 @@ export default {
       OffAmazonPayments: {},
       isAmazonSetup: false,
       amazonButtonEnabled: false,
+      groupToCreate: null, // creating new group
+      group: null, // upgrading existing group
     };
   },
   computed: {
@@ -193,6 +196,7 @@ export default {
 
       if (this.amazonPayments.type === 'single' && !this.amazonPayments.gift) paymentType = 'gems';
       if (this.amazonPayments.type === 'subscription') paymentType = 'subscription';
+      if (this.amazonPayments.groupId || this.amazonPayments.groupToCreate) paymentType = 'groupPlan';
 
       const appState = {
         paymentMethod: 'amazon',
@@ -201,6 +205,17 @@ export default {
       };
       if (paymentType === 'subscription') {
         appState.subscriptionKey = this.amazonPayments.subscription;
+      }
+      if (paymentType === 'groupPlan') {
+        appState.subscriptionKey = this.amazonPayments.subscription;
+
+        if (this.amazonPayments.groupToCreate) {
+          appState.newGroup = true;
+          appState.group = pick(this.amazonPayments.groupToCreate, ['_id', 'memberCount', 'name']);
+        } else {
+          appState.newGroup = false;
+          appState.group = pick(this.amazonPayments.group, ['_id', 'memberCount', 'name']);
+        }
       }
 
       setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
@@ -302,6 +317,8 @@ export default {
       this.amazonPayments.recurringConsent = false;
       this.amazonPayments.subscription = null;
       this.amazonPayments.coupon = null;
+      this.amazonPayments.groupToCreate = null;
+      this.amazonPayments.group = null;
     },
   },
 };

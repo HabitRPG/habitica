@@ -7,6 +7,7 @@ import encodeParams from 'client/libs/encodeParams';
 import notificationsMixin from 'client/mixins/notifications';
 import * as Analytics from 'client/libs/analytics';
 import { CONSTANTS, setLocalSetting } from 'client/libs/userlocalManager';
+import pick from 'lodash/pick';
 
 const habiticaUrl = `${location.protocol}//${location.host}`;
 
@@ -91,6 +92,7 @@ export default {
       let paymentType;
       if (sub === false && !data.gift) paymentType = 'gems';
       if (sub !== false && !data.gift) paymentType = 'subscription';
+      if (data.group || data.groupToCreate) paymentType = 'groupPlan';
 
       window.StripeCheckout.open({
         key: STRIPE_PUB_KEY,
@@ -130,6 +132,17 @@ export default {
           };
           if (paymentType === 'subscription') {
             appState.subscriptionKey = sub.key;
+          }
+          if (paymentType === 'groupPlan') {
+            appState.subscriptionKey = sub.key;
+
+            if (data.groupToCreate) {
+              appState.newGroup = true;
+              appState.group = pick(data.groupToCreate, ['_id', 'memberCount', 'name']);
+            } else {
+              appState.newGroup = false;
+              appState.group = pick(data.group, ['_id', 'memberCount', 'name']);
+            }
           }
 
           setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
@@ -217,7 +230,11 @@ export default {
         this.amazonPayments.groupId = data.groupId;
       }
 
-      if (data.groupToCreate) {
+      if (data.group) { // upgrading a group
+        this.amazonPayments.group = data.group;
+      }
+
+      if (data.groupToCreate) { // creating a group
         this.amazonPayments.groupToCreate = data.groupToCreate;
       }
 

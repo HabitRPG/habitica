@@ -20,6 +20,10 @@
           strong(v-once) {{ $t('nowSubscribed') }}
           .details-block
             span(v-html="$t('paymentSubBilling', {amount: paymentData.subscription.price, months: paymentData.subscription.months})")
+        template(v-if="paymentData.paymentType === 'groupPlan'")
+          span(v-html="$t(paymentData.newGroup ? 'groupPlanCreated' : 'groupPlanUpgraded', {groupName: paymentData.group.name})")
+          .details-block
+            span(v-html="$t('paymentSubBilling', {amount: groupPlanCost, months: paymentData.subscription.months})")
         button.btn.btn-primary(@click='close()', v-once) {{$t('onwards')}}
 </template>
 
@@ -66,6 +70,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
   }
 
   .details-block {
@@ -123,7 +128,7 @@ export default {
   },
   mounted () {
     this.$root.$on('habitica:payment-success', (data) => {
-      if (data.paymentType === 'subscription') {
+      if (data.paymentType === 'subscription' || data.paymentType === 'groupPlan') {
         data.subscription = subscriptionBlocks[data.subscriptionKey];
       }
       this.paymentData = data;
@@ -134,9 +139,16 @@ export default {
     this.paymentData = {};
     this.$root.$off('habitica:payments-success');
   },
+  computed: {
+    groupPlanCost () {
+      const sub = this.paymentData.subscription;
+      const memberCount = this.paymentData.group.memberCount || 1;
+      return sub.price + 3 * (memberCount - 1);
+    },
+  },
   methods: {
     close () {
-      this.paymentData = null;
+      this.paymentData = {};
       this.$root.$emit('bv::hide::modal', 'payments-success-modal');
     },
   },

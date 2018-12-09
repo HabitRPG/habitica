@@ -395,14 +395,15 @@ export default {
       this.changePage(this.PAGES.PAY);
     },
     pay (paymentMethod) {
-      let subscriptionKey = 'group_monthly'; // @TODO: Get from content API?
-      let paymentData = {
+      const subscriptionKey = 'group_monthly'; // @TODO: Get from content API?
+      const paymentData = {
         subscription: subscriptionKey,
         coupon: null,
       };
 
       if (this.upgradingGroup && this.upgradingGroup._id) {
         paymentData.groupId = this.upgradingGroup._id;
+        paymentData.group = this.upgradingGroup;
       } else {
         paymentData.groupToCreate = this.newGroup;
       }
