@@ -197,6 +197,9 @@ export default {
       if (this.amazonPayments.type === 'single' && !this.amazonPayments.gift) paymentType = 'gems';
       if (this.amazonPayments.type === 'subscription') paymentType = 'subscription';
       if (this.amazonPayments.groupId || this.amazonPayments.groupToCreate) paymentType = 'groupPlan';
+      if (this.amazonPayments.type === 'single' && this.amazonPayments.gift && this.amazonPayments.giftReceiver) {
+        paymentType = this.amazonPayments.gift.type === 'gems' ? 'gift-gems' : 'gift-subscription';
+      }
 
       const appState = {
         paymentMethod: 'amazon',
@@ -205,8 +208,7 @@ export default {
       };
       if (paymentType === 'subscription') {
         appState.subscriptionKey = this.amazonPayments.subscription;
-      }
-      if (paymentType === 'groupPlan') {
+      } else if (paymentType === 'groupPlan') {
         appState.subscriptionKey = this.amazonPayments.subscription;
 
         if (this.amazonPayments.groupToCreate) {
@@ -216,6 +218,9 @@ export default {
           appState.newGroup = false;
           appState.group = pick(this.amazonPayments.group, ['_id', 'memberCount', 'name']);
         }
+      } else if (paymentType.indexOf('gift-') === 0) {
+        appState.gift = this.amazonPayments.gift;
+        appState.giftReceiver = this.amazonPayments.giftReceiver;
       }
 
       setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
@@ -310,7 +315,11 @@ export default {
       this.amazonPayments.modal = null;
       this.amazonPayments.type = null;
       this.amazonPayments.loggedIn = false;
+
+      // Gift
       this.amazonPayments.gift = null;
+      this.amazonPayments.giftReceiver = null;
+
       this.amazonPayments.billingAgreementId = null;
       this.amazonPayments.orderReferenceId = null;
       this.amazonPayments.paymentSelected = false;

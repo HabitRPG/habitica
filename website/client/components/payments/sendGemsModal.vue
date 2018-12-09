@@ -47,9 +47,9 @@ b-modal#send-gems(:title="title", :hide-footer="true", size='lg', @hide='onHide(
       :disabled="sendingInProgress"
     ) {{ $t("send") }}
     template(v-else)
-      button.btn.btn-primary(@click='showStripe({gift, uuid: userReceivingGems._id})') {{ $t('card') }}
-      button.btn.btn-warning(@click='openPaypalGift({gift: gift, giftedTo: userReceivingGems._id})') PayPal
-      button.btn.btn-success(@click="amazonPaymentsInit({type: 'single', gift, giftedTo: userReceivingGems._id})") Amazon Payments
+      button.btn.btn-primary(@click='showStripe({gift, uuid: userReceivingGems._id, receiverName})') {{ $t('card') }}
+      button.btn.btn-warning(@click='openPaypalGift({gift: gift, giftedTo: userReceivingGems._id, receiverName})') PayPal
+      button.btn.btn-success(@click="amazonPaymentsInit({type: 'single', gift, giftedTo: userReceivingGems._id, receiverName})") Amazon Payments
     button.btn.btn-secondary(@click='close()') {{$t('cancel')}}
 </template>
 
@@ -130,6 +130,13 @@ export default {
     title () {
       if (!this.userReceivingGems) return '';
       return this.$t('sendGiftHeading', {name: this.userReceivingGems.profile.name});
+    },
+    receiverName () {
+      if (this.userReceivingGems.auth && this.userReceivingGems.auth.local && this.userReceivingGems.auth.local.username) {
+        return this.userReceivingGems.auth.local.username;
+      } else {
+        return this.userReceivingGems.profile.name;
+      }
     },
   },
   methods: {

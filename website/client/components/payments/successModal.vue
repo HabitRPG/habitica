@@ -12,10 +12,17 @@
     .row
       .col-12.modal-body-col
         template(v-if="paymentData.paymentType === 'gems'")
-          strong(v-once) {{ $t('youReceived') }}
+          span(v-once) {{ $t('paymentYouReceived') }}
           .details-block.gems 
             .svg-icon(v-html="icons.gem", v-once)
             span 20
+        template(v-if="paymentData.paymentType === 'gift-gems'")
+          span(v-html="$t('paymentYouSentGems', {name: paymentData.giftReceiver})")
+          .details-block.gems 
+            .svg-icon(v-html="icons.gem", v-once)
+            span {{ paymentData.gift.gems.amount }}
+        template(v-if="paymentData.paymentType === 'gift-subscription'")
+          span(v-html="$t('paymentYouSentSubscription', {name: paymentData.giftReceiver, months: paymentData.subscription.months})")
         template(v-if="paymentData.paymentType === 'subscription'")
           strong(v-once) {{ $t('nowSubscribed') }}
           .details-block
@@ -71,6 +78,10 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+
+    .btn.btn-primary {
+      margin-top: 24px;
+    }
   }
 
   .details-block {
@@ -78,7 +89,6 @@
     border-radius: 4px;
     padding: 8px 24px;
     margin-top: 16px;
-    margin-bottom: 24px;
     display: flex;
     flex-direction: row;
     text-align: center;
@@ -128,8 +138,8 @@ export default {
   },
   mounted () {
     this.$root.$on('habitica:payment-success', (data) => {
-      if (data.paymentType === 'subscription' || data.paymentType === 'groupPlan') {
-        data.subscription = subscriptionBlocks[data.subscriptionKey];
+      if (['subscription', 'groupPlan', 'gift-subscription'].indexOf(data.paymentType) !== -1) {
+        data.subscription = subscriptionBlocks[data.subscriptionKey || data.gift.subscription.key];
       }
       this.paymentData = data;
       this.$root.$emit('bv::show::modal', 'payments-success-modal');

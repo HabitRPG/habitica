@@ -44,9 +44,9 @@ export default {
       let gift = this.encodeGift(data.giftedTo, data.gift);
       const url = `/paypal/checkout?gift=${gift}`;
 
-      this.openPaypal(url, `gift-${data.gift.type === 'gems' ? 'gems' : 'subscription'}`);
+      this.openPaypal(url, `gift-${data.gift.type === 'gems' ? 'gems' : 'subscription'}`, data);
     },
-    openPaypal (url, type) {
+    openPaypal (url, type, giftData) {
       const appState = {
         paymentMethod: 'paypal',
         paymentCompleted: false,
@@ -55,6 +55,11 @@ export default {
 
       if (type === 'subscription') {
         appState.subscriptionKey = this.subscriptionPlan || this.subscription.key;
+      }
+
+      if (type.indexOf('gift-') === 0) {
+        appState.gift = giftData.gift;
+        appState.giftReceiver = giftData.receiverName;
       }
 
       setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
@@ -93,6 +98,8 @@ export default {
       if (sub === false && !data.gift) paymentType = 'gems';
       if (sub !== false && !data.gift) paymentType = 'subscription';
       if (data.group || data.groupToCreate) paymentType = 'groupPlan';
+      if (data.gift && data.gift.type === 'gems') paymentType = 'gift-gems';
+      if (data.gift && data.gift.type === 'subscription') paymentType = 'gift-subscription';
 
       window.StripeCheckout.open({
         key: STRIPE_PUB_KEY,
@@ -132,8 +139,7 @@ export default {
           };
           if (paymentType === 'subscription') {
             appState.subscriptionKey = sub.key;
-          }
-          if (paymentType === 'groupPlan') {
+          } else if (paymentType === 'groupPlan') {
             appState.subscriptionKey = sub.key;
 
             if (data.groupToCreate) {
@@ -143,7 +149,11 @@ export default {
               appState.newGroup = false;
               appState.group = pick(data.group, ['_id', 'memberCount', 'name']);
             }
+          } else if (paymentType.indexOf('gift-') === 0) {
+            appState.gift = data.gift;
+            appState.giftReceiver = data.receiverName;
           }
+
 
           setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
 
@@ -219,6 +229,7 @@ export default {
       if (data.gift) {
         if (data.gift.gems && data.gift.gems.amount && data.gift.gems.amount <= 0) return;
         data.gift.uuid = data.giftedTo;
+        this.amazonPayments.giftReceiver = data.receiverName;
       }
 
       if (data.subscription) {
