@@ -106,6 +106,7 @@
     "card": "Carta di credito (usando Stripe)",
     "amazonInstructions": "Clicca sul bottone per pagare usando Amazon Payments",
     "paymentMethods": "Paga utilizzando",
+    "paymentSuccessful": "Your payment was successful!",
     "classGear": "Equipaggiamento per Classi",
     "classGearText": "Congratulazioni per la scelta della classe! Ho aggiunto la tua nuova arma di base al tuo inventario. Dai un'occhiata giù per equipaggiarla!",
     "classStats": "Queste sono le tue statistiche di classe; influenzano l'andamento del gioco. Ogni volta che sali di livello, ottieni un punto da assegnare ad una particolare statistica. Passa il cursore su ogni statistica per avere maggiori informazioni.",

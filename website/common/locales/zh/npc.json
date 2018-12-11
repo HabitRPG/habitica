@@ -106,6 +106,7 @@
     "card": "信用卡(通过Stripe支付)",
     "amazonInstructions": "点击按钮来使用亚马逊账户支付",
     "paymentMethods": "支付通过",
+    "paymentSuccessful": "Your payment was successful!",
     "classGear": "职业装备",
     "classGearText": "祝贺你选了一个职业！我已经将你的的基本武器放到物品栏了。看看下面来装备它吧！",
     "classStats": "这是你职业的属性点：它们会影响游戏的操作和过程。每次升级时，你将获得一点自由分配点，用来给某一特定属性加成。将鼠标悬停在每个属性上来查看更多信息。",

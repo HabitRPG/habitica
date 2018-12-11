@@ -106,6 +106,7 @@
     "card": "Hitelkártya (Stripe-ot használva)",
     "amazonInstructions": "Kattints a gombra, hogy az Amazon Payments-el fizess.",
     "paymentMethods": "Vásárlás a következőt használva:",
+    "paymentSuccessful": "Your payment was successful!",
     "classGear": "Kaszt felszerelés",
     "classGearText": "Congratulations on choosing a class! I've added your new basic weapon to your inventory. Take a look below to equip it!",
     "classStats": "These are your class's Stats; they affect the game-play. Each time you level up, you get one Point to allocate to a particular Stat. Hover over each Stat for more information.",

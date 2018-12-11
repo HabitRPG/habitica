@@ -22,6 +22,12 @@
   width: 423px;
   height: 147px;
 }
+.promo_bird_buddies_bundle {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -424px -723px;
+  width: 420px;
+  height: 147px;
+}
 .promo_frost_potions {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: -421px -871px;
@@ -38,12 +44,6 @@
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: -1136px -142px;
   width: 282px;
-  height: 147px;
-}
-.promo_oddballs_bundle {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -424px -723px;
-  width: 423px;
   height: 147px;
 }
 .promo_piyo {

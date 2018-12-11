@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'DECEMBER BACKGROUNDS AND ARMOIRE ITEMS';
+const LAST_ANNOUNCEMENT_TITLE = 'NEW DISCOUNTED PET QUEST BUNDLE: BIRD BUDDIES!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,14 +30,14 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>12/5/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>12/11/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <p>We’ve added three new backgrounds to the Background Shop! Now your avatar can soar over Snowy Mountains at night, bundle up to hike through a Frosty Forest, or snuggle up next to a Snowy Day Fireplace. Check them out under User Icon > Backgrounds!</p>
-        <p>Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the Green and Red Loungewear Sets. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)</p>
-        <div class="small mb-3">by eyenne, Vikte, wykedcrafty, GeraldThePixel, shanaqui, and SabreCat</div>
-        <div class="promo_armoire_backgrounds_201812 center-block"></div>
+        <p>If you're looking to add some pets to your Habitica stable, you're in luck! From now until December 31, you can purchase the Bird Buddies Pet Quest Bundle and receive the Rooster, Peacock, and Penguin quests, all for only 7 Gems! That's a discount of 5 Gems from the price of purchasing them separately. Check it out in the <a href='/shops/quests'>Quest Shop</a> today!</p>
+        <div class="small">Art by UncommonCriminal, Eevachu, PainterProphet, Lilith of Alfheim, Pfeffernusse, Draayder, Podcod, Fire Fire Fire, Pandoro, RBrinks, EmeraldOx, extrajordanary, melynnrose, Rattify, McCoyly, Breadstrings, and Darkly</div>
+        <div class="small mb-3">Writing by Elizabeth Queenan, Leephon, playgroundgiraffe, and Daniel the Bard</div>
+        <div class="promo_bird_buddies_bundle center-block"></div>
       </div>
       `,
     });
