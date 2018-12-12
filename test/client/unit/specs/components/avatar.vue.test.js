@@ -263,26 +263,6 @@ context('avatar.vue', () => {
           preferences: { costume: false },
         };
       });
-
-      xit('returns false if not two handed weapon', () => {
-        expect(vm.hideGear('weapon')).to.equal(false);
-      });
-
-      xit('returns false if not overrideShield', () => {
-        vm.member.items.gear.equipped.weapon.twoHanded = true;
-
-        expect(vm.hideGear('weapon')).to.equal(false);
-      });
-
-      xit('returns false if not overrideShield', () => {
-        vm.flatGear = {
-          spoon: { twohanded: true },
-        };
-
-        vm.overrideAvatarGear = {sheild: 'button'};
-
-        expect(vm.hideGear('weapon')).to.equal(false);
-      });
     });
 
     describe('show avatar', () => {
