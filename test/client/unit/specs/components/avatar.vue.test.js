@@ -1,19 +1,13 @@
 import Avatar from 'client/components/avatar';
 import Vue from 'vue';
 import generateStore from 'client/store';
-// import { user as User } from 'client';
 
 context('avatar.vue', () => {
   let Constructr;
-  // let state;
-  // let store;
   let vm;
 
   beforeEach(() => {
     Constructr = Vue.extend(Avatar);
-    // state = {};
-
-    // store = generateStore();
 
     vm = new Constructr({
       propsData: {
@@ -30,7 +24,6 @@ context('avatar.vue', () => {
             },
           },
         },
-        // store,
       },
     }).$mount();
 
