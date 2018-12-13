@@ -13,6 +13,7 @@ let api = {};
 
 api.constants = {
   PAYMENT_METHOD_APPLE: 'Apple',
+  PAYMENT_METHOD_GIFT: 'Apple (Gift)',
   RESPONSE_INVALID_RECEIPT: 'INVALID_RECEIPT',
   RESPONSE_ALREADY_USED: 'RECEIPT_ALREADY_USED',
   RESPONSE_INVALID_ITEM: 'INVALID_ITEM_PURCHASED',
@@ -199,19 +200,28 @@ api.noRenewSubscribe = async function noRenewSubscribe (options) {
   }
 
   if (transactionId) {
-    let existingUser = await User.findOne({
-      'purchased.plan.customerId': transactionId,
+    let existingReceipt = await IapPurchaseReceipt.findOne({ // eslint-disable-line no-await-in-loop
+      _id: transactionId,
     }).exec();
-    if (existingUser) throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
+    if (existingReceipt) throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
 
+    await IapPurchaseReceipt.create({ // eslint-disable-line no-await-in-loop
+      _id: transactionId,
+      consumed: true,
+      // This should always be the buying user even for a gift.
+      userId: user._id,
+    });
     let data = {
       user,
-      paymentMethod: this.constants.PAYMENT_METHOD,
+      paymentMethod: this.constants.PAYMENT_METHOD_APPLE,
       headers,
+      sub,
+      autoRenews: false,
     };
 
     if (gift) {
       gift.member = await User.findById(gift.uuid).exec();
+      gift.subscription = sub;
       data.gift = gift;
       data.paymentMethod = this.constants.PAYMENT_METHOD_GIFT;
     }

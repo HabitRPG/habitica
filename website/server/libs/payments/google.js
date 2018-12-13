@@ -13,6 +13,7 @@ let api = {};
 
 api.constants = {
   PAYMENT_METHOD_GOOGLE: 'Google',
+  PAYMENT_METHOD_GIFT: 'Google (Gift)',
   RESPONSE_INVALID_RECEIPT: 'INVALID_RECEIPT',
   RESPONSE_ALREADY_USED: 'RECEIPT_ALREADY_USED',
   RESPONSE_INVALID_ITEM: 'INVALID_ITEM_PURCHASED',
@@ -170,10 +171,17 @@ api.noRenewSubscribe = async function noRenewSubscribe (options) {
   let receiptObj = typeof receipt === 'string' ? JSON.parse(receipt) : receipt; // passed as a string
   let token = receiptObj.token || receiptObj.purchaseToken;
 
-  let existingUser = await User.findOne({
-    'purchased.plan.customerId': token,
+  let existingReceipt = await IapPurchaseReceipt.findOne({ // eslint-disable-line no-await-in-loop
+    _id: token,
   }).exec();
-  if (existingUser) throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
+  if (existingReceipt) throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
+
+  await IapPurchaseReceipt.create({ // eslint-disable-line no-await-in-loop
+    _id: token,
+    consumed: true,
+    // This should always be the buying user even for a gift.
+    userId: user._id,
+  });
 
   let googleRes = await iap.validate(iap.GOOGLE, testObj);
 
@@ -182,12 +190,15 @@ api.noRenewSubscribe = async function noRenewSubscribe (options) {
 
   let data = {
     user,
-    paymentMethod: this.constants.PAYMENT_METHOD,
+    paymentMethod: this.constants.PAYMENT_METHOD_GOOGLE,
     headers,
+    sub,
+    autoRenews: false,
   };
 
   if (gift) {
     gift.member = await User.findById(gift.uuid).exec();
+    gift.subscription = sub;
     data.gift = gift;
     data.paymentMethod = this.constants.PAYMENT_METHOD_GIFT;
   }
