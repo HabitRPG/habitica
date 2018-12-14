@@ -1376,12 +1376,15 @@ schema.methods.unlinkTask = async function groupUnlinkTask (unlinkingTask, user,
   } else { // keep = 'remove-all'
     let task = await Tasks.Task.findOne(findQuery).select('_id type completed').exec();
     // Remove task from user.tasksOrder and delete them
-    if (task.type !== 'todo' || !task.completed) {
+    if (task && (task.type !== 'todo' || !task.completed)) {
       removeFromArray(user.tasksOrder[`${task.type}s`], task._id);
       user.markModified('tasksOrder');
     }
 
-    const promises = [task.remove(), unlinkingTask.save()];
+    let promises = [unlinkingTask.save()];
+    if (task) {
+      promises.push(task.remove());
+    }
     // When multiple tasks are being unlinked at the same time,
     // save the user once outside of this function
     if (saveUser) promises.push(user.save());
