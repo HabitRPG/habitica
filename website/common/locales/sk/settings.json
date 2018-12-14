@@ -112,7 +112,6 @@
     "wonChallenge": "Vyhral si výzvu!",
     "newPM": "Dostal si súkromnú správu",
     "newPMInfo": "Nová správa od <%= name %>: <%= message %>",
-    "sentGems": "Poslať drahokamy!",
     "giftedGems": "Gifted Gems",
     "giftedGemsInfo": "<%= name %> gifted you <%= amount %> Gems",
     "giftedGemsFull": "Hello <%= username %>, <%= sender %> has sent you <%= gemAmount %> gems!",

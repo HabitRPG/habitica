@@ -112,7 +112,6 @@
     "wonChallenge": "Hai vinto una Sfida!",
     "newPM": "Hai ricevuto un messaggio privato",
     "newPMInfo": "Nuovo messaggio da <%= name %>: <%= message %>",
-    "sentGems": "Gemme inviate!",
     "giftedGems": "Ti vengono regalate delle Gemme",
     "giftedGemsInfo": "<%= name %> ti ha regalato <%= amount %> Gemme",
     "giftedGemsFull": "Ciao <%= username %>, <%= sender %> ti ha inviato <%= gemAmount %> gemme!",

@@ -112,7 +112,6 @@
     "wonChallenge": "你赢得了一项挑战！",
     "newPM": "收到悄悄话",
     "newPMInfo": "新消息来自 <%= name %>: <%= message %>",
-    "sentGems": "发送宝石！",
     "giftedGems": "自然宝石",
     "giftedGemsInfo": "<%= name %> 送给你 <%= amount %> 个宝石",
     "giftedGemsFull": "你好 <%= username %>，<%= sender %> 赠送给你 <%= gemAmount %> 颗宝石！",
