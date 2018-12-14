@@ -37,6 +37,7 @@
     "individualSub": "Individual Subscription",
     "subscribe": "Subscribe",
     "subscribed": "Subscribed",
+    "nowSubscribed": "You are now subscribed to Habitica!",
     "manageSub": "Click to manage subscription",
     "cancelSub": "Cancel Subscription",
     "cancelSubInfoGoogle": "Please go to the \"Account\" > \"Subscriptions\" section of the Google Play Store app to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",

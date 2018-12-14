@@ -47,9 +47,9 @@ b-modal#send-gems(:title="title", :hide-footer="true", size='lg', @hide='onHide(
       :disabled="sendingInProgress"
     ) {{ $t("send") }}
     template(v-else)
-      button.btn.btn-primary(@click='showStripe({gift, uuid: userReceivingGems._id})') {{ $t('card') }}
-      button.btn.btn-warning(@click='openPaypalGift({gift: gift, giftedTo: userReceivingGems._id})') PayPal
-      button.btn.btn-success(@click="amazonPaymentsInit({type: 'single', gift, giftedTo: userReceivingGems._id})") Amazon Payments
+      button.btn.btn-primary(@click='showStripe({gift, uuid: userReceivingGems._id, receiverName})') {{ $t('card') }}
+      button.btn.btn-warning(@click='openPaypalGift({gift: gift, giftedTo: userReceivingGems._id, receiverName})') PayPal
+      button.btn.btn-success(@click="amazonPaymentsInit({type: 'single', gift, giftedTo: userReceivingGems._id, receiverName})") Amazon Payments
     button.btn.btn-secondary(@click='close()') {{$t('cancel')}}
 </template>
 
@@ -131,6 +131,13 @@ export default {
       if (!this.userReceivingGems) return '';
       return this.$t('sendGiftHeading', {name: this.userReceivingGems.profile.name});
     },
+    receiverName () {
+      if (this.userReceivingGems.auth && this.userReceivingGems.auth.local && this.userReceivingGems.auth.local.username) {
+        return this.userReceivingGems.auth.local.username;
+      } else {
+        return this.userReceivingGems.profile.name;
+      }
+    },
   },
   methods: {
     // @TODO move to payments mixin or action (problem is that we need notifications)
@@ -141,11 +148,21 @@ export default {
         toUserId: this.userReceivingGems._id,
         gemAmount: this.gift.gems.amount,
       });
-      this.text(this.$t('sentGems'));
       this.close();
+      this.$root.$emit('habitica:payment-success', {
+        paymentMethod: 'balance',
+        paymentCompleted: true,
+        paymentType: 'gift-gems-balance',
+        gift: {
+          gems: {
+            amount: this.gift.gems.amount,
+          },
+        },
+        giftReceiver: this.receiverName,
+      });
     },
     onHide () {
-      // TODO this breaks amazon purchases because when the amazon modal
+      // @TODO this breaks amazon purchases because when the amazon modal
       // is opened this one is closed and the amount reset
       // this.gift.gems.amount = 0;
       this.gift.message = '';

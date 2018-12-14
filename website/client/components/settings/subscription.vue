@@ -84,12 +84,12 @@
                 img(src='https://payments.amazon.com/gp/cba/button', :alt="$t('amazonPayments')")
     .row
       .col-6
-        h2 {{ $t('giftSubscription') }}
+        h2(v-once) {{ $t('giftSubscription') }}
         ol
-          li {{ $t('giftSubscriptionText1') }}
-          li {{ $t('giftSubscriptionText2') }}
-          li {{ $t('giftSubscriptionText3') }}
-        h4 {{ $t('giftSubscriptionText4') }}
+          li(v-once) {{ $t('giftSubscriptionText1') }}
+          li(v-once) {{ $t('giftSubscriptionText2') }}
+          li(v-once) {{ $t('giftSubscriptionText3') }}
+        h4(v-once) {{ $t('giftSubscriptionText4') }}
 </template>
 
 <style scoped>

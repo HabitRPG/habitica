@@ -337,6 +337,8 @@
   "claimedBy": "\n\nClaimed by: <%= claimingUsers %>",
   "cantDeleteAssignedGroupTasks": "Can't delete group tasks that are assigned to you.",
   "confirmGuildPlanCreation": "Create this group?",
+  "groupPlanUpgraded": "<strong><%= groupName %></strong> was upgraded to a Group Plan!",
+  "groupPlanCreated": "<strong><%= groupName %></strong> was created!",
   "onlyGroupLeaderCanInviteToGroupPlan": "Only the group leader can invite users to a group with a subscription.",
   "paymentDetails": "Payment Details",
   "aboutToJoinCancelledGroupPlan": "You are about to join a group with a canceled plan. You will NOT receive a free subscription.",

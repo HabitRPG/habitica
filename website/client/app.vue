@@ -443,7 +443,7 @@ export default {
           appState = JSON.parse(appState);
           if (appState.paymentCompleted) {
             removeLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE);
-            this.$root.$emit('bv::show::modal', 'payments-success-modal');
+            this.$root.$emit('habitica:payment-success', appState);
           }
         }
         this.$nextTick(() => {
