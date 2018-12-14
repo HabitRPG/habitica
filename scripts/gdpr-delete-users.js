@@ -62,8 +62,8 @@ async function _processEmailAddress (email) {
   const users = await User.find({
     $or: [
       {'auth.local.email': emailRegex},
-      {'auth.facebook.emails': emailRegex},
-      {'auth.google.emails': emailRegex},
+      {'auth.facebook.emails.value': emailRegex},
+      {'auth.google.emails.value': emailRegex},
     ]},
   {
     _id: 1,
