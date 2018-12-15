@@ -30,15 +30,31 @@
               a.d-block(v-if="tagsType.key !== 'groups' && !editingTags", @click="editTags(tagsType.key)") {{ $t('editTags2') }}
             .tags-list.container
               .row(:class="{'no-gutters': !editingTags}")
-                template(v-if="editingTags && tagsType.key !== 'groups'")
-                  .col-6(v-for="(tag, tagIndex) in tagsSnap[tagsType.key]")
-                    .inline-edit-input-group.tag-edit-item.input-group
-                      input.tag-edit-input.inline-edit-input.form-control(type="text", v-model="tag.name")
-                      .input-group-append(@click="removeTag(tagIndex, tagsType.key)")
-                        .svg-icon.destroy-icon(v-html="icons.destroy")
-                  .col-6(v-if="tagsType.key === 'tags'")
-                    input.new-tag-item.edit-tag-item.inline-edit-input.form-control(type="text", :placeholder="$t('newTag')", @keydown.enter="addTag($event, tagsType.key)", v-model="newTag")
-                template(v-else)
+                template(v-if="editingTags && tagsType.key === 'tags'")
+                  draggable(
+                    v-if="tagsType.key === 'tags'",
+                    @update='tagSorted',
+                    v-model="tagsSnap[tagsType.key]",
+                    class="row"
+                  )
+                    .col-6(v-for="(tag, tagIndex) in tagsSnap[tagsType.key]")
+                      .inline-edit-input-group.tag-edit-item.input-group
+                        .svg-icon.inline.drag(v-html="icons.drag")
+                        div {{ tagIndex }}
+                        input.tag-edit-input.inline-edit-input.form-control(type="text", v-model="tag.name")
+                        .input-group-append(@click="removeTag(tagIndex, tagsType.key)")
+                          .svg-icon.destroy-icon(v-html="icons.destroy")
+
+                    .col-6.dragSpace
+                      input.new-tag-item.edit-tag-item.inline-edit-input.form-control(type="text", :placeholder="$t('newTag')", @keydown.enter="addTag($event, tagsType.key)", v-model="newTag")
+                template(v-if="editingTags && tagsType.key === 'challenges'")
+                    .col-6(v-for="(tag, tagIndex) in tagsSnap[tagsType.key]")
+                      .inline-edit-input-group.tag-edit-item.input-group
+                        input.tag-edit-input.inline-edit-input.form-control(type="text", v-model="tag.name")
+                        .input-group-append(@click="removeTag(tagIndex, tagsType.key)")
+                          .svg-icon.destroy-icon(v-html="icons.destroy")
+
+                template(v-if="!editingTags || tagsType.key === 'groups'")
                   .col-6(v-for="(tag, tagIndex) in tagsType.tags")
                     .custom-control.custom-checkbox
                       input.custom-control-input(
@@ -289,6 +305,17 @@
     }
   }
 
+  .drag {
+    cursor: grab;
+    margin: auto 0;
+    height: 20px;
+    width: 20px;
+  }
+
+  .dragSpace {
+    padding-left: 32px;
+  }
+
   @media only screen and (max-width: 768px) {
     .filter-panel {
       max-width: none;
@@ -310,6 +337,7 @@ import habitIcon from 'assets/svg/habit.svg';
 import dailyIcon from 'assets/svg/daily.svg';
 import todoIcon from 'assets/svg/todo.svg';
 import rewardIcon from 'assets/svg/reward.svg';
+import dragIcon from 'assets/svg/drag_indicator.svg';
 
 import uuid from 'uuid';
 import Vue from 'vue';
@@ -320,6 +348,7 @@ import taskDefaults from 'common/script/libs/taskDefaults';
 import brokenTaskModal from './brokenTaskModal';
 
 import Item from 'client/components/inventory/item.vue';
+import draggable from 'vuedraggable';
 
 export default {
   components: {
@@ -328,6 +357,7 @@ export default {
     Item,
     spells,
     brokenTaskModal,
+    draggable,
   },
   directives: {
     markdown,
@@ -347,6 +377,7 @@ export default {
         daily: dailyIcon,
         todo: todoIcon,
         reward: rewardIcon,
+        drag: dragIcon,
       }),
       selectedTags: [],
       temporarilySelectedTags: [],
@@ -498,6 +529,18 @@ export default {
     },
     openBuyDialog (item) {
       this.$root.$emit('buyModal::showItem', item);
+    },
+    async tagSorted (data) {
+      const tags = this.tagsByType.user.tags;
+
+      const tagToMove = tags[data.oldIndex];
+      const tagIdToMove = tagToMove.id;
+
+
+      await this.$store.dispatch('tags:sortTag', {
+        tagId: tagIdToMove,
+        to: data.newIndex,
+      });
     },
   },
 };
