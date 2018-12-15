@@ -300,7 +300,10 @@ export default {
     atHighlight (text) {
       const escapedDisplayName = escapeRegExp(this.user.profile.name);
       const escapedUsername = escapeRegExp(this.user.auth.local.username);
-      const userRegex = new RegExp(`@(${escapedDisplayName}|${escapedUsername})(?:\\b)`, 'gi');
+
+      const findUserRegex = `@(${escapedDisplayName}|${escapedUsername})(?:\\b)`;
+      const notInsideHtmlTagsRegex = '(?<!</?[^>]*|&[^;]*)';
+      const userRegex = new RegExp(`${notInsideHtmlTagsRegex}${findUserRegex}`, 'gi');
       const atRegex = new RegExp(/(?!\b)@[\w-]+/g);
 
       if (userRegex.test(text)) {
