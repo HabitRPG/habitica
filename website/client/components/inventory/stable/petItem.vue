@@ -5,7 +5,7 @@ div
       :class="{'item-empty': !isOwned(), 'highlight': highlightBorder}",
     )
       slot(name="itemBadge", :item="item")
-      span.item-content.hatchAgain(v-if="mountOwned() && isHatchable()")
+      span.item-content.hatchAgain(v-if="mountOwned() && isHatchable() && !item.isSpecial()")
         span.egg(:class="eggClass")
         span.potion(:class="potionClass")
       span.item-content(v-else, :class="getPetItemClass()")
