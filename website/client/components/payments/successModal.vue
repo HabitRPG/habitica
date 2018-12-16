@@ -14,7 +14,7 @@
     .row
       .col-12.modal-body-col
         template(v-if="paymentData.paymentType === 'gems'")
-          span(v-once) {{ $t('paymentYouReceived') }}
+          strong(v-once) {{ $t('paymentYouReceived') }}
           .details-block.gems 
             .svg-icon(v-html="icons.gem", v-once)
             span 20
@@ -55,6 +55,8 @@
   background: $green-10;
   border-top-right-radius: 8px;
   border-top-left-radius: 8px;
+  border-bottom: none;
+
   h2 { 
     color: white; 
   }
@@ -121,6 +123,7 @@
   border-bottom-right-radius: 8px;
   border-bottom-left-radius: 8px;
   justify-content: center;
+  border-top: none;
 
   .small-text {
     font-style: normal;
