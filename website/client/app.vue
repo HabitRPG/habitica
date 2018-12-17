@@ -16,18 +16,24 @@ div
     router-view(v-if="!isUserLoggedIn || isStaticPage")
     template(v-else)
       template(v-if="isUserLoaded")
-        div.resting-banner(v-show="showRestingBanner", ref="restingBanner")
+        .resting-banner(v-show="showRestingBanner", ref="restingBanner")
           span.content
             span.label.d-inline.d-sm-none {{ $t('innCheckOutBannerShort') }}
             span.label.d-none.d-sm-inline {{ $t('innCheckOutBanner') }}
             span.separator  |
             span.resume(@click="resumeDamage()") {{ $t('resumeDamage') }}
-          div.closepadding(@click="hideBanner()")
+          .closepadding(@click="hideBanner()")
+            span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close")
+        .g1g1-banner.d-flex.justify-content-center.align-items-center(v-if="!giftingHidden")
+          .svg-icon.svg-gifts.left-gift(v-html="icons.gifts")
+          strong {{ $t('g1g1Announcement') }}
+          .svg-icon.svg-gifts.right-gift(v-html="icons.gifts")
+          .closepadding(@click="hideGiftingBanner()")
             span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close")
         notifications-display
-        app-menu(:class='{"restingInn": showRestingBanner}' :style="{ marginTop: bannerHeight + 'px' }")
+        app-menu(:style="{ marginTop: bannerHeight + 'px' }")
         .container-fluid
-          app-header(:class='{"restingInn": showRestingBanner}')
+          app-header
           buyModal(
             :item="selectedItemToBuy || {}",
             :withPin="true",
@@ -49,6 +55,13 @@ div
 
 <style lang='scss' scoped>
   @import '~client/assets/scss/colors.scss';
+
+  #app {
+    height: calc(100% - 56px); /* 56px is the menu */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
 
   #loading-screen-inapp {
     #melior {
@@ -79,6 +92,41 @@ div
     cursor: crosshair;
   }
 
+  .container-fluid {
+    overflow-x: hidden;
+    flex: 1 0 auto;
+  }
+
+  .g1g1-banner {
+    width: 100%;
+    min-height: 2.5rem;
+    background-color: #34b5c1;
+    color: $white;
+
+    .closepadding {
+      margin: 11px 24px;
+      display: inline-block;
+      position: relative;
+      right: 0;
+      top: 0;
+      cursor: pointer;
+    }
+
+    .left-gift {
+      margin: auto 1rem auto auto;
+    }
+
+    .right-gift {
+      margin: auto auto auto 1rem;
+      filter: FlipH;
+      transform: scaleX(-1);
+    }
+
+    .svg-gifts {
+      width: 4.6rem;
+    }
+  }
+
   .notification {
     border-radius: 1000px;
     background-color: $green-10;
@@ -89,42 +137,10 @@ div
     margin-bottom: .5em;
   }
 
-  .container-fluid {
-    overflow-x: hidden;
-    flex: 1 0 auto;
-  }
-
-  #app {
-    height: calc(100% - 56px); /* 56px is the menu */
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-</style>
-
-<style lang='scss'>
-  @import '~client/assets/scss/colors.scss';
-
-  /* @TODO: The modal-open class is not being removed. Let's try this for now */
-  .modal {
-    overflow-y: scroll !important;
-  }
-
-  .modal-backdrop.show {
-    opacity: .9 !important;
-    background-color: $purple-100 !important;
-  }
-
-  /* Push progress bar above modals */
-  #nprogress .bar {
-    z-index: 1600 !important; /* Must stay above nav bar */
-  }
-
   .resting-banner {
     width: 100%;
     min-height: 40px;
     background-color: $blue-10;
-    position: fixed;
     top: 0;
     z-index: 1300;
     display: flex;
@@ -140,14 +156,10 @@ div
     .closepadding {
       margin: 11px 24px;
       display: inline-block;
-      position: absolute;
+      position: relative;
       right: 0;
       top: 0;
       cursor: pointer;
-
-      span svg path {
-        stroke: $blue-500;
-      }
     }
 
     @media only screen and (max-width: 768px) {
@@ -167,6 +179,25 @@ div
       cursor: pointer;
       white-space:nowrap;
     }
+  }
+</style>
+
+<style lang='scss'>
+  @import '~client/assets/scss/colors.scss';
+
+  /* @TODO: The modal-open class is not being removed. Let's try this for now */
+  .modal {
+    overflow-y: scroll !important;
+  }
+
+  .modal-backdrop.show {
+    opacity: .9 !important;
+    background-color: $purple-100 !important;
+  }
+
+  /* Push progress bar above modals */
+  #nprogress .bar {
+    z-index: 1600 !important; /* Must stay above nav bar */
   }
 </style>
 
@@ -191,6 +222,7 @@ import paymentsSuccessModal from 'client/components/payments/successModal';
 import spellsMixin from 'client/mixins/spells';
 import { CONSTANTS, getLocalSetting, removeLocalSetting } from 'client/libs/userlocalManager';
 
+import gifts from 'assets/svg/gifts.svg';
 import svgClose from 'assets/svg/close.svg';
 import bannedAccountModal from 'client/components/bannedAccountModal';
 
@@ -215,6 +247,7 @@ export default {
     return {
       icons: Object.freeze({
         close: svgClose,
+        gifts,
       }),
       selectedItemToBuy: null,
       selectedSpellToBuy: null,
@@ -226,6 +259,7 @@ export default {
       currentTipNumber: 0,
       bannerHidden: false,
       bannerHeight: 0,
+      giftingHidden: false,
     };
   },
   computed: {
@@ -624,6 +658,10 @@ export default {
     },
     hideBanner () {
       this.bannerHidden = true;
+      this.setBannerOffset();
+    },
+    hideGiftingBanner () {
+      this.giftingHidden = true;
       this.setBannerOffset();
     },
     resumeDamage () {

@@ -63,8 +63,8 @@
         .g1g1-promo.d-flex.justify-content-center.align-items-center
           .svg-icon.svg-gifts.left-gift(v-html="icons.gifts")
           .text-center
-            strong.gift-text Gift a Subscription, Get a Subscription Free event going on now!
-            .gift-text Gift a subscription to a friend, and you'll receive the same subscription for free!
+            strong.gift-text {{ $t('g1g1Announcement') }}
+            .gift-text {{ $t('g1g1Details') }}
           .svg-icon.svg-gifts.right-gift(v-html="icons.gifts")
         div(v-if='hasSubscription')
           .row.text-center
