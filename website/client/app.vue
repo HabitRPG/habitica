@@ -31,7 +31,7 @@ div
           .closepadding(@click="hideGiftingBanner()")
             span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close")
         notifications-display
-        app-menu(:style="{ marginTop: bannerHeight + 'px' }")
+        app-menu
         .container-fluid
           app-header
           buyModal(
@@ -457,14 +457,6 @@ export default {
 
         this.hideLoadingScreen();
 
-        window.addEventListener('resize', this.setBannerOffset);
-        // Adjust the positioning of the header banners
-        this.$watch('showRestingBanner', () => {
-          this.$nextTick(() => {
-            this.setBannerOffset();
-          });
-        }, {immediate: true});
-
         // Adjust the timezone offset
         if (this.user.preferences.timezoneOffset !== this.browserTimezoneOffset) {
           this.$store.dispatch('user:set', {
@@ -499,7 +491,6 @@ export default {
     this.$root.$off('bv::show::modal');
     this.$root.$off('buyModal::showItem');
     this.$root.$off('selectMembersModal::showItem');
-    window.removeEventListener('resize', this.setBannerOffset);
   },
   mounted () {
     // Remove the index.html loading screen and now show the inapp loading
@@ -658,25 +649,12 @@ export default {
     },
     hideBanner () {
       this.bannerHidden = true;
-      this.setBannerOffset();
     },
     hideGiftingBanner () {
       this.giftingHidden = true;
-      this.setBannerOffset();
     },
     resumeDamage () {
       this.$store.dispatch('user:sleep');
-    },
-    setBannerOffset () {
-      let contentPlacement = 0;
-      if (this.showRestingBanner && this.$refs.restingBanner !== undefined) {
-        contentPlacement = this.$refs.restingBanner.clientHeight;
-      }
-      this.bannerHeight = contentPlacement;
-      let smartBanner = document.getElementsByClassName('smartbanner')[0];
-      if (smartBanner !== undefined) {
-        smartBanner.style.top = `${contentPlacement}px`;
-      }
     },
   },
 };
