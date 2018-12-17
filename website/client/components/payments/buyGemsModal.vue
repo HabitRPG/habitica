@@ -70,7 +70,7 @@
           .row.text-center
             h2.mx-auto.text-leadin {{ $t('subscriptionAlreadySubscribedLeadIn') }}
           .row.text-center
-            .col
+            .col-10.offset-1
               p(v-html='$t("subscriptionAlreadySubscribed1")')
         div(v-if='!hasSubscription')
           .row.text-center

@@ -220,7 +220,7 @@ import amazonPaymentsModal from 'client/components/payments/amazonModal';
 import paymentsSuccessModal from 'client/components/payments/successModal';
 
 import spellsMixin from 'client/mixins/spells';
-import { CONSTANTS, getLocalSetting, removeLocalSetting } from 'client/libs/userlocalManager';
+import { CONSTANTS, getLocalSetting, removeLocalSetting, setLocalSetting } from 'client/libs/userlocalManager';
 
 import gifts from 'assets/svg/gifts.svg';
 import svgClose from 'assets/svg/close.svg';
@@ -259,7 +259,7 @@ export default {
       currentTipNumber: 0,
       bannerHidden: false,
       bannerHeight: 0,
-      giftingHidden: false,
+      giftingHidden: getLocalSetting(CONSTANTS.keyConstants.GIFTING_BANNER_DISPLAY) === 'dismissed',
     };
   },
   computed: {
@@ -651,6 +651,7 @@ export default {
       this.bannerHidden = true;
     },
     hideGiftingBanner () {
+      setLocalSetting(CONSTANTS.keyConstants.GIFTING_BANNER_DISPLAY, 'dismissed');
       this.giftingHidden = true;
     },
     resumeDamage () {
