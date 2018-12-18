@@ -18,6 +18,19 @@ A simplified dropdown component that doesn't rely on buttons as toggles  like bo
     color: $white !important;
   }
 }
+
+// Firefox outline fix for dropdown menu
+@supports (-moz-appearance:meterbar) and (all:initial) {
+  .habitica-menu-dropdown.open {
+    &:focus {
+      outline: none;
+
+      .habitica-menu-dropdown-toggle {
+        outline: 1px dotted #fff;
+      }
+    }
+  }
+}
 </style>
 <style lang='scss' scoped>
 @import '~client/assets/scss/colors.scss';
