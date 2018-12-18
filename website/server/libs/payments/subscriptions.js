@@ -203,7 +203,7 @@ async function createSubscription (data) {
     if (data.gift.member.preferences.emailNotifications.giftedSubscription !== false) {
       if (data.promo) {
         txnEmail(data.gift.member, 'gift-one-get-one', [
-          {name: 'GIFTEE_USERNAME', content: data.promo},
+          {name: 'GIFTEE_USERNAME', content: data.promoUsername},
           {name: 'X_MONTHS_SUBSCRIPTION', content: months},
         ]);
       } else {
@@ -224,7 +224,8 @@ async function createSubscription (data) {
           },
         },
         paymentMethod: data.paymentMethod,
-        promo: data.gift.member.auth.local.username,
+        promo: 'Winter',
+        promoUsername: data.gift.member.auth.local.username,
       };
       await this.createSubscription(promoData);
 
