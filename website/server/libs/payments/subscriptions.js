@@ -201,10 +201,17 @@ async function createSubscription (data) {
     }
 
     if (data.gift.member.preferences.emailNotifications.giftedSubscription !== false) {
-      txnEmail(data.gift.member, 'gifted-subscription', [
-        {name: 'GIFTER', content: byUserName},
-        {name: 'X_MONTHS_SUBSCRIPTION', content: months},
-      ]);
+      if (data.promo) {
+        txnEmail(data.gift.member, 'gift-one-get-one', [
+          {name: 'GIFTEE_USERNAME', content: data.promo},
+          {name: 'X_MONTHS_SUBSCRIPTION', content: months},
+        ]);
+      } else {
+        txnEmail(data.gift.member, 'gifted-subscription', [
+          {name: 'GIFTER', content: byUserName},
+          {name: 'X_MONTHS_SUBSCRIPTION', content: months},
+        ]);
+      }
     }
 
     if (data.gift.member._id !== data.user._id) { // If sending to a user other than yourself, don't push notify, and get bonus sub for self per holiday promo
@@ -217,7 +224,7 @@ async function createSubscription (data) {
           },
         },
         paymentMethod: data.paymentMethod,
-        promo: 'Winter',
+        promo: data.gift.member.auth.local.username,
       };
       await this.createSubscription(promoData);
 
