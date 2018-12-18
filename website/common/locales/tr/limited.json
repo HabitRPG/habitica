@@ -143,7 +143,9 @@
     "dateEndJanuary": "31 Ocak",
     "dateEndFebruary": "28 Şubat",
     "winterPromoGiftHeader": "ABONELİK HEDİYE EDENE AYNISI HEDİYE!",
-    "winterPromoGiftDetails1": "Sadece 12 Ocak'a kadar, birine bir abonelik hediye ettiğinde, kendin için aynı aboneliği ücretsiz olarak alırsın!",
+    "winterPromoGiftDetails1": "Until January 15th only, when you gift somebody a subscription, you get the same subscription for yourself for free!",
     "winterPromoGiftDetails2": "Lütfen eğer senin veya hediyeyi göndereceğin kişinin halihazırda devam eden bir aboneliği bulunuyorsa, hediye edilen aboneliğin bu abonelik iptal edildikten veya geçerliliğini yitirdikten sonra başlayacağını unutma. Desteğin için çok teşekkür ederiz! <3",
-    "discountBundle": "paket"
+    "discountBundle": "paket",
+    "g1g1Announcement": "Gift a Subscription, Get a Subscription Free event going on now!",
+    "g1g1Details": "Gift a sub to a friend from their profile and you’ll receive the same sub for free!"
 }

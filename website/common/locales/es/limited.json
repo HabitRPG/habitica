@@ -143,7 +143,9 @@
     "dateEndJanuary": "31 de enero",
     "dateEndFebruary": "28 de febrero",
     "winterPromoGiftHeader": "¡REGALA UNA SUSCRIPCIÓN Y RECIBE OTRA GRATIS!",
-    "winterPromoGiftDetails1": "Solo hasta el 12 de enero, cuando des una suscripción a alguien, ¡obtienes la misma suscripción gratis!",
+    "winterPromoGiftDetails1": "Until January 15th only, when you gift somebody a subscription, you get the same subscription for yourself for free!",
     "winterPromoGiftDetails2": "Por favor, ten en cuenta que si tú o la persona que recibe el regalo ya tenéis una suscripción recurrente, la suscripción regalada solo empezará después de que esa suscripción sea cancelada o haya expirado. ¡Muchas gracias por tu apoyo!",
-    "discountBundle": "Lote"
+    "discountBundle": "Lote",
+    "g1g1Announcement": "Gift a Subscription, Get a Subscription Free event going on now!",
+    "g1g1Details": "Gift a sub to a friend from their profile and you’ll receive the same sub for free!"
 }

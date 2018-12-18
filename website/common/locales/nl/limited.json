@@ -143,7 +143,9 @@
     "dateEndJanuary": "31 januari",
     "dateEndFebruary": "28 februari",
     "winterPromoGiftHeader": "GEEF EEN ABONNEMENT EN KRIJG ER ZELF OOK EEN!",
-    "winterPromoGiftDetails1": "Alleen tot 12 januari, wanneer je iemand een abonnement schenkt, krijg je hetzelfde abonnenemt gratis voor jezelf!",
+    "winterPromoGiftDetails1": "Until January 15th only, when you gift somebody a subscription, you get the same subscription for yourself for free!",
     "winterPromoGiftDetails2": "Denk eraan dat als jij of je geschenk ontvanger al een terugkerend abonnenemt bevat, het geschonken abonnement pas start nadat dat abonnement is afgezegd of afgelopen is. Hartelijk dank voor je steun! <3",
-    "discountBundle": "bundel"
+    "discountBundle": "bundel",
+    "g1g1Announcement": "Gift a Subscription, Get a Subscription Free event going on now!",
+    "g1g1Details": "Gift a sub to a friend from their profile and you’ll receive the same sub for free!"
 }

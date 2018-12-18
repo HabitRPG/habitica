@@ -143,7 +143,9 @@
     "dateEndJanuary": "31 януари",
     "dateEndFebruary": "28 февруари",
     "winterPromoGiftHeader": "ПОДАРЕТЕ АБОНАМЕНТ И ЩЕ ПОЛУЧИТЕ ОЩЕ ЕДИН БЕЗПЛАТНО!",
-    "winterPromoGiftDetails1": "Само до 12 януари, ако подарите абонамент на някого, ще получите същия и за себе си безплатно!",
+    "winterPromoGiftDetails1": "Until January 15th only, when you gift somebody a subscription, you get the same subscription for yourself for free!",
     "winterPromoGiftDetails2": "Моля, имайте предвид, че ако Вие или получателят на подаръка Ви вече имате повтарящ се абонамент, подареният ще започне след като текущият бъде прекратен или изтече. Благодарим Ви за подкрепата! <3",
-    "discountBundle": "пакет"
+    "discountBundle": "пакет",
+    "g1g1Announcement": "Gift a Subscription, Get a Subscription Free event going on now!",
+    "g1g1Details": "Gift a sub to a friend from their profile and you’ll receive the same sub for free!"
 }
