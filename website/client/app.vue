@@ -26,7 +26,7 @@ div
             span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close")
         .g1g1-banner.d-flex.justify-content-center.align-items-center(v-if="!giftingHidden")
           .svg-icon.svg-gifts.left-gift(v-html="icons.gifts")
-          strong {{ $t('g1g1Announcement') }}
+          router-link(:to="{name: 'subscription'}") {{ $t('g1g1Announcement') }}
           .svg-icon.svg-gifts.right-gift(v-html="icons.gifts")
           .closepadding(@click="hideGiftingBanner()")
             span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close")
@@ -101,7 +101,12 @@ div
     width: 100%;
     min-height: 2.5rem;
     background-color: #34b5c1;
-    color: $white;
+
+    a {
+      color: $white;
+      text-decoration: none;
+      font-weight: bold;
+    }
 
     .closepadding {
       margin: 11px 24px;
