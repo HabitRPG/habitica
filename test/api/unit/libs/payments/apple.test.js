@@ -193,6 +193,7 @@ describe('Apple Payments', ()  => {
         amount: gemsCanPurchase[0].amount,
         headers,
       });
+      mongoose.Model.findById.restore();
     });
   });
 

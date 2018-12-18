@@ -137,6 +137,7 @@ describe('Google Payments', ()  => {
         amount: 5.25,
         headers,
       });
+      mongoose.Model.findById.restore();
     });
   });
 
