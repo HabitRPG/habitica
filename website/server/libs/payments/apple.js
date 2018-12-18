@@ -29,7 +29,7 @@ api.verifyGemPurchase = async function verifyGemPurchase (options) {
   }
   const receiver = gift ? gift.member : user;
   const receiverCanGetGems = await receiver.canGetGems();
-  if (!receiverCanGetGems) throw new NotAuthorized(shared.i18n.t('groupPolicyCannotGetGems', sender.preferences.language));
+  if (!receiverCanGetGems) throw new NotAuthorized(shared.i18n.t('groupPolicyCannotGetGems', user.preferences.language));
 
   await iap.setup();
   let appleRes = await iap.validate(iap.APPLE, receipt);
