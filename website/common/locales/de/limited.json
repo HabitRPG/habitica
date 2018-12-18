@@ -143,7 +143,9 @@
     "dateEndJanuary": "31. Januar",
     "dateEndFebruary": "28. Februar",
     "winterPromoGiftHeader": "Verschenke ein Abonnement und bekomme eins umsonst! ",
-    "winterPromoGiftDetails1": "Wenn Du bis 12. Januar jemandem ein Abonnement schenkst, bekommst Du das geiche Abonnement für Dich selbst umsonst!",
+    "winterPromoGiftDetails1": "Until January 15th only, when you gift somebody a subscription, you get the same subscription for yourself for free!",
     "winterPromoGiftDetails2": "Bitte bedenke, dass das geschenkte Abonnement, falls Du oder Deine beschenkte Person bereits über ein sich wiederholendes Abonnement verfügen, erst dann startet, wenn das alte Abonnement gekündigt wird oder ausläuft. Herzlichen Dank für Deine Unterstützung! <3",
-    "discountBundle": "Paket"
+    "discountBundle": "Paket",
+    "g1g1Announcement": "Gift a Subscription, Get a Subscription Free event going on now!",
+    "g1g1Details": "Gift a sub to a friend from their profile and you’ll receive the same sub for free!"
 }

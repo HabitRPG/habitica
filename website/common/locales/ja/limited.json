@@ -143,7 +143,9 @@
     "dateEndJanuary": "1月31日",
     "dateEndFebruary": "2月28日",
     "winterPromoGiftHeader": "寄付を誰かに贈って、無料で寄付会員になろう！",
-    "winterPromoGiftDetails1": "1月12日までの間に限り、誰かに寄付会員の権利を贈ると、同じだけの期間分、無料で寄付会員になれます！",
+    "winterPromoGiftDetails1": "Until January 15th only, when you gift somebody a subscription, you get the same subscription for yourself for free!",
     "winterPromoGiftDetails2": "もしあなたやギフトの相手がすでに寄付会員の権利を持っている場合、ギフトによる寄付権は、既存の寄付の期限が切れるかキャンセルされた後に有効になります。ご注意ください。皆様のサポートに感謝します！ <3",
-    "discountBundle": "パック"
+    "discountBundle": "パック",
+    "g1g1Announcement": "Gift a Subscription, Get a Subscription Free event going on now!",
+    "g1g1Details": "Gift a sub to a friend from their profile and you’ll receive the same sub for free!"
 }

@@ -1,6 +1,6 @@
 .achievement-costumeContest6x {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -1136px -438px;
+  background-position: -740px -420px;
   width: 144px;
   height: 156px;
 }
@@ -34,6 +34,12 @@
   width: 417px;
   height: 147px;
 }
+.promo_g1g1 {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -1136px -867px;
+  width: 237px;
+  height: 150px;
+}
 .promo_ios {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: 0px -361px;
@@ -42,21 +48,33 @@
 }
 .promo_mystery_201811 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -1136px -142px;
+  background-position: -1136px -571px;
   width: 282px;
   height: 147px;
 }
 .promo_piyo {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -1136px -290px;
+  background-position: -1136px -719px;
   width: 279px;
   height: 147px;
 }
+.promo_studying {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -1136px -142px;
+  width: 220px;
+  height: 232px;
+}
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -1281px -438px;
+  background-position: -1357px -142px;
   width: 96px;
   height: 69px;
+}
+.promo_todos {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -1136px -375px;
+  width: 240px;
+  height: 195px;
 }
 .promo_turkey_day_2018 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
@@ -90,7 +108,7 @@
 }
 .scene_veteran_pets {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -1136px -595px;
+  background-position: -740px -577px;
   width: 242px;
   height: 62px;
 }

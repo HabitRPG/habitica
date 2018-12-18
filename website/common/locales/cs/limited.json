@@ -143,7 +143,9 @@
     "dateEndJanuary": "Leden 31",
     "dateEndFebruary": "Únor 28",
     "winterPromoGiftHeader": "DARUJ PŘEDPLATNÉ A ZÍSKEJ JEDNO ZDARMA!",
-    "winterPromoGiftDetails1": "Pouze do 12. ledna, když někomu daruješ předplatné, dostaneš to samé předplatné pro sebe zdarma!",
+    "winterPromoGiftDetails1": "Until January 15th only, when you gift somebody a subscription, you get the same subscription for yourself for free!",
     "winterPromoGiftDetails2": "Prosím, mějte však na paměti, že pokud ty nebo příjemce tvého dárku již máte probíhající předplatné, pak darované předplatné odstartuje až poté, co je stávající zrušeno, nebo až vyprší jeho platnost. Děkujeme ti moc za tvojí podporu! <3",
-    "discountBundle": "balíček"
+    "discountBundle": "balíček",
+    "g1g1Announcement": "Gift a Subscription, Get a Subscription Free event going on now!",
+    "g1g1Details": "Gift a sub to a friend from their profile and you’ll receive the same sub for free!"
 }
