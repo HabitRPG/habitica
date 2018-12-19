@@ -143,7 +143,9 @@
     "dateEndJanuary": "31 stycznia",
     "dateEndFebruary": "28 Luty",
     "winterPromoGiftHeader": "DAJ KOMUŚ ABONAMENT W PREZENCIE I ODBIERZ TAKI SAM DLA SIEBIE!",
-    "winterPromoGiftDetails1": "Tylko do 12 stycznia, gdy podarujesz komuś subskrypcję, otrzymasz za darmo taką samą subskrypcję!",
+    "winterPromoGiftDetails1": "Until January 15th only, when you gift somebody a subscription, you get the same subscription for yourself for free!",
     "winterPromoGiftDetails2": "Zauważ, że w przypadku gdy Ty, lub osoba dla której wykupujesz subskrypcję posiada już podobny abonament, subskrypcja wykupiona jako prezent rozpocznie się dopiero po anulowaniu subskrypcji lub jej wygaśnięciu. Dziękujemy bardzo za wsparcie! <3",
-    "discountBundle": "pakiet"
+    "discountBundle": "pakiet",
+    "g1g1Announcement": "Gift a Subscription, Get a Subscription Free event going on now!",
+    "g1g1Details": "Gift a sub to a friend from their profile and you’ll receive the same sub for free!"
 }

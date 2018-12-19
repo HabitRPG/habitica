@@ -112,7 +112,6 @@
     "wonChallenge": "Kamu memenangkan sebuah Tantangan!",
     "newPM": "Menerima Pesan Pribadi",
     "newPMInfo": "Pesan baru dari <%= name %>: <%= message %>",
-    "sentGems": "Permata terkirim!",
     "giftedGems": "Permata hadiah",
     "giftedGemsInfo": "<%= name %> memberikanmu <%= amount %> Permata",
     "giftedGemsFull": "Halo <%= username %>, <%= sender %> telah mengirimimu <%= gemAmount %> permata!",

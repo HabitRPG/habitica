@@ -143,7 +143,9 @@
     "dateEndJanuary": "1月31日",
     "dateEndFebruary": "2月28日",
     "winterPromoGiftHeader": "送訂閱的同時自己也能免費得到一個!",
-    "winterPromoGiftDetails1": "直到1月12日，当你给某人订阅时，你可以免费得到相同的订阅！",
+    "winterPromoGiftDetails1": "Until January 15th only, when you gift somebody a subscription, you get the same subscription for yourself for free!",
     "winterPromoGiftDetails2": "请注意，如果您或您的礼物收件人已经有一个订阅了，作为礼物的订阅只会在原来的订阅取消后或者过期后。非常感谢你的支持！ლ(°◕‵ƹ′◕ლ)",
-    "discountBundle": "一批"
+    "discountBundle": "一批",
+    "g1g1Announcement": "Gift a Subscription, Get a Subscription Free event going on now!",
+    "g1g1Details": "Gift a sub to a friend from their profile and you’ll receive the same sub for free!"
 }

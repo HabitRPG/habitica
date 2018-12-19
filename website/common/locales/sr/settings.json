@@ -112,7 +112,6 @@
     "wonChallenge": "You won a Challenge!",
     "newPM": "Primljena privatna poruka",
     "newPMInfo": "New Message from <%= name %>: <%= message %>",
-    "sentGems": "Sent gems!",
     "giftedGems": "Poklonjeni dragulji",
     "giftedGemsInfo": "<%= name %> gifted you <%= amount %> Gems",
     "giftedGemsFull": "Hello <%= username %>, <%= sender %> has sent you <%= gemAmount %> gems!",

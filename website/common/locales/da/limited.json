@@ -143,7 +143,9 @@
     "dateEndJanuary": "January 31",
     "dateEndFebruary": "February 28",
     "winterPromoGiftHeader": "GIFT A SUBSCRIPTION AND GET ONE FREE!",
-    "winterPromoGiftDetails1": "Until January 12th only, when you gift somebody a subscription, you get the same subscription for yourself for free!",
+    "winterPromoGiftDetails1": "Until January 15th only, when you gift somebody a subscription, you get the same subscription for yourself for free!",
     "winterPromoGiftDetails2": "Please note that if you or your gift recipient already have a recurring subscription, the gifted subscription will only start after that subscription is cancelled or has expired. Thanks so much for your support! <3",
-    "discountBundle": "pakke"
+    "discountBundle": "pakke",
+    "g1g1Announcement": "Gift a Subscription, Get a Subscription Free event going on now!",
+    "g1g1Details": "Gift a sub to a friend from their profile and you’ll receive the same sub for free!"
 }
