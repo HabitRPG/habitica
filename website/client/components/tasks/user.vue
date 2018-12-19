@@ -33,14 +33,12 @@
                 template(v-if="editingTags && tagsType.key === 'tags'")
                   draggable(
                     v-if="tagsType.key === 'tags'",
-                    @update='tagSorted',
                     v-model="tagsSnap[tagsType.key]",
                     class="row"
                   )
                     .col-6(v-for="(tag, tagIndex) in tagsSnap[tagsType.key]")
                       .inline-edit-input-group.tag-edit-item.input-group
                         .svg-icon.inline.drag(v-html="icons.drag")
-                        div {{ tagIndex }}
                         input.tag-edit-input.inline-edit-input.form-control(type="text", v-model="tag.name")
                         .input-group-append(@click="removeTag(tagIndex, tagsType.key)")
                           .svg-icon.destroy-icon(v-html="icons.destroy")
@@ -310,6 +308,12 @@
     margin: auto 0;
     height: 20px;
     width: 20px;
+
+    color: #C3C0C7;
+
+    &:hover {
+      color: #878190;
+    }
   }
 
   .dragSpace {
@@ -529,18 +533,6 @@ export default {
     },
     openBuyDialog (item) {
       this.$root.$emit('buyModal::showItem', item);
-    },
-    async tagSorted (data) {
-      const tags = this.tagsByType.user.tags;
-
-      const tagToMove = tags[data.oldIndex];
-      const tagIdToMove = tagToMove.id;
-
-
-      await this.$store.dispatch('tags:sortTag', {
-        tagId: tagIdToMove,
-        to: data.newIndex,
-      });
     },
   },
 };
