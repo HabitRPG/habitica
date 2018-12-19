@@ -190,6 +190,11 @@ div
 <style lang='scss'>
   @import '~client/assets/scss/colors.scss';
 
+  .closepadding span svg path {
+    stroke: #FFF;
+    opacity: 0.48;
+  }
+
   /* @TODO: The modal-open class is not being removed. Let's try this for now */
   .modal {
     overflow-y: scroll !important;
