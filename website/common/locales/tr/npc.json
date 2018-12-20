@@ -110,7 +110,7 @@
     "paymentYouReceived": "Ganimetin:",
     "paymentYouSentGems": "<strong><%= name %></strong> adlı kişiye gönderilen:",
     "paymentYouSentSubscription": "<strong><%= name %></strong> adlı kişiye <%= months %> aylık Habitica aboneliği gönderdin.",
-    "paymentSubBilling": "Aboneliğin için her <strong><%= months %></strong> ayda bir <strong><%= amount %></strong>$ ücretlendirileceksin.",
+    "paymentSubBilling": "Your subscription will be billed <strong>$<%= amount %></strong> every <strong><%= months %> months</strong>.",
     "success": "Başarılı!",
     "classGear": "Sınıf Ekipmanı",
     "classGearText": "Bir sınıf seçtiğin için tebrikler! Yeni sıradan silahını envanterine koydum. Giymek için aşağıya göz at!",

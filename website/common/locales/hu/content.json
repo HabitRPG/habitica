@@ -207,7 +207,7 @@
     "hatchingPotionGlass": "Üveg",
     "hatchingPotionGlow": "Sötétben világító",
     "hatchingPotionFrost": "Jég",
-    "hatchingPotionIcySnow": "Icy Snow",
+    "hatchingPotionIcySnow": "Jeges hó",
     "hatchingPotionNotes": "Öntsd ezt egy tojásra, és egy <%= potText(locale) %> háziállat fog belőle kikelni.",
     "premiumPotionAddlNotes": "Nem használható küldetésben szerzett tojásokhoz.",
     "foodMeat": "Hús",
