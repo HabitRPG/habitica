@@ -68,6 +68,12 @@ export const SEASONAL_SETS = {
     'winter2018GiftWrappedSet',
     'winter2018MistletoeSet',
     'winter2018ReindeerSet',
+
+    // winter 2019
+    'winter2019PoinsettiaSet',
+    'winter2019WinterStarSet',
+    'winter2019BlizzardSet',
+    'winter2019PyrotechnicSet',
   ],
   spring: [
     // spring 2014

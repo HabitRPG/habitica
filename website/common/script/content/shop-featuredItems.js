@@ -8,26 +8,26 @@ const featuredItems = {
       path: 'armoire',
     },
     {
-      type: 'hatchingPotions',
-      path: 'hatchingPotions.White',
+      type: 'premiumHatchingPotion',
+      path: 'premiumHatchingPotions.Peppermint',
     },
     {
-      type: 'eggs',
-      path: 'eggs.Wolf',
+      type: 'premiumHatchingPotion',
+      path: 'premiumHatchingPotions.IcySnow',
     },
     {
-      type: 'food',
-      path: 'food.Milk',
+      type: 'premiumHatchingPotion',
+      path: 'premiumHatchingPotions.StarryNight',
     },
   ],
   quests: [
     {
       type: 'quests',
-      path: 'quests.alligator',
+      path: 'quests.evilsanta',
     },
     {
       type: 'quests',
-      path: 'quests.taskwoodsTerror1',
+      path: 'quests.evilsanta2',
     },
     {
       type: 'bundles',
