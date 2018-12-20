@@ -111,7 +111,7 @@
     "paymentYouSentGems": "Has enviado a <strong><%= name %></strong>:",
     "paymentYouSentSubscription": "Has mandado a <strong><%= name %></strong> una suscripción de Habitica de <%= months %> mes/es.",
     "paymentSubBilling": "Your subscription will be billed <strong><%= amount %></strong>$ every <strong><%= months %></strong> months.",
-    "success": "Success!",
+    "success": "¡Éxito!",
     "classGear": "Equipo de clase",
     "classGearText": "¡Enhorabuena por haber escogido una clase! He añadido armamento básico a tu inventario. ¡Échale un vistazo debajo para equipártelo!",
     "classStats": "Estas son las Estadísticas de tu clase, que afectan al juego. Cada vez que subes de nivel, consigues un punto para colocar en una Estadística. Mueve el ratón sobre cada Estadística para más información.",

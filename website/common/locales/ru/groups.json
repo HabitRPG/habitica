@@ -332,7 +332,7 @@
     "claimedBy": "Выполняет: <%= claimingUsers %>",
     "cantDeleteAssignedGroupTasks": "Нельзя удалить групповые задачи, назначенные вам.",
     "confirmGuildPlanCreation": "Создать группу?",
-    "groupPlanUpgraded": "<strong><%= groupName %></strong> was upgraded to a Group Plan!",
+    "groupPlanUpgraded": "<strong><%= groupName %></strong> обновилась до группового тарифа!",
     "groupPlanCreated": "<strong><%= groupName %></strong> создана!",
     "onlyGroupLeaderCanInviteToGroupPlan": "Только лидер группы может приглашать пользователей в группу с общей подпиской.",
     "paymentDetails": "Детали платежа",

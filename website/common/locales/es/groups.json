@@ -45,7 +45,7 @@
     "LFG": "Para anunciar tu nuevo Equipo o encontrar uno para unirte, ve al Gremio \"<%= linkStart %>Party Wanted (Looking for Group)<%= linkEnd %>\".",
     "wantExistingParty": "¿Quieres unirte a un Equipo ya existente? Ve al Gremio \"<%= linkStart %>Party Wanted Guild<%= linkEnd %>\" y publica este ID de usuario:",
     "joinExistingParty": "Unirse al grupo de otro",
-    "usernameCopied": "Username copied to clipboard.",
+    "usernameCopied": "Nombre de usuario copiado al portapapeles.",
     "needPartyToStartQuest": "¡Ups! ¡Necesitas <a href='http://habitica.wikia.com/wiki/Party' target='_blank'>crear o unirte a un Equipo</a> antes de poder empezar una misión!",
     "createGroupPlan": "Crear",
     "create": "Crear",

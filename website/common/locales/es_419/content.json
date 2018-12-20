@@ -207,6 +207,7 @@
     "hatchingPotionGlass": "Glass",
     "hatchingPotionGlow": "Glow-in-the-Dark",
     "hatchingPotionFrost": "Frost",
+    "hatchingPotionIcySnow": "Icy Snow",
     "hatchingPotionNotes": "Vierte esto sobre un huevo, y nacerá una mascota <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "No se puede usar con huevos de mascotas de misión.",
     "foodMeat": "Carne",

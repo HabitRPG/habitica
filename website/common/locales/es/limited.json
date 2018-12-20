@@ -130,6 +130,10 @@
     "fall2018CandymancerMageSet": "Golomante (Mago)",
     "fall2018CarnivorousPlantSet": "Planta Carnívora (Sanador)",
     "fall2018AlterEgoSet": "Alter Ego (Pícaro)",
+    "winter2019BlizzardSet": "Blizzard (Warrior)",
+    "winter2019PyrotechnicSet": "Pyrotechnic (Mage)",
+    "winter2019WinterStarSet": "Winter Star (Healer)",
+    "winter2019PoinsettiaSet": "Poinsettia (Rogue)",
     "eventAvailability": "Disponible para su compra hasta el <%= date(locale) %>.",
     "dateEndMarch": "30 de abril",
     "dateEndApril": "19 de abril",
@@ -143,9 +147,9 @@
     "dateEndJanuary": "31 de enero",
     "dateEndFebruary": "28 de febrero",
     "winterPromoGiftHeader": "¡REGALA UNA SUSCRIPCIÓN Y RECIBE OTRA GRATIS!",
-    "winterPromoGiftDetails1": "Until January 15th only, when you gift somebody a subscription, you get the same subscription for yourself for free!",
+    "winterPromoGiftDetails1": "Solo hasta el 15 de enero, cuando regales una suscripción a alguien, ¡obtienes la misma suscripción gratis!",
     "winterPromoGiftDetails2": "Por favor, ten en cuenta que si tú o la persona que recibe el regalo ya tenéis una suscripción recurrente, la suscripción regalada solo empezará después de que esa suscripción sea cancelada o haya expirado. ¡Muchas gracias por tu apoyo!",
     "discountBundle": "Lote",
-    "g1g1Announcement": "Gift a Subscription, Get a Subscription Free event going on now!",
-    "g1g1Details": "Gift a sub to a friend from their profile and you’ll receive the same sub for free!"
+    "g1g1Announcement": "¡El evento Regala una suscripción, Obtiene una suscripción está en marcha ahora!",
+    "g1g1Details": "¡Regala una suscripción a un/a amigo/a desde su perfil y recibirás la misma suscripción gratis!"
 }
