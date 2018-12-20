@@ -112,7 +112,6 @@
     "wonChallenge": "Вы выиграли испытание",
     "newPM": "Получено личное сообщение",
     "newPMInfo": "Новое сообщение от <%= name %>: <%= message %>",
-    "sentGems": "Самоцветы отправлены!",
     "giftedGems": "Подаренные самоцветы",
     "giftedGemsInfo": "<%= name %> подарил(а) вам <%= amount %> единиц самоцветов",
     "giftedGemsFull": "Привет <%= username %>, <%= sender %> отправил вам <%= gemAmount %> самоцветов!",

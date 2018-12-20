@@ -3,7 +3,7 @@ import shortid from 'short-uuid';
 
 import { NotAuthorized } from '../errors';
 
-const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
+const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS_COMMUNITY_MANAGER_EMAIL');
 const translator = shortid('0123456789abcdefghijklmnopqrstuvwxyz');
 
 function generateUsername () {

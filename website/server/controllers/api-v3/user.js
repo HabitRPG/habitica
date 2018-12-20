@@ -23,7 +23,7 @@ import * as userLib from '../../libs/user';
 import nconf from 'nconf';
 import get from 'lodash/get';
 
-const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
+const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS_TECH_ASSISTANCE_EMAIL');
 const DELETE_CONFIRMATION = 'DELETE';
 
 /**

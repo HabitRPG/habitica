@@ -143,7 +143,9 @@
     "dateEndJanuary": "31 de Janeiro",
     "dateEndFebruary": "28 de fevereiro",
     "winterPromoGiftHeader": "Presenteie alguém com uma assinatura e ganhe outra grátis !",
-    "winterPromoGiftDetails1": "Somente até o dia 12 de Janeiro, ao presentear alguém com uma assinatura, você ganhará a mesma assinatura para você de graça!",
+    "winterPromoGiftDetails1": "Apenas até o dia 15 de Janeiro, quando você presentear alguém com uma assinatura, você irá ganhar gratuitamente uma assinatura idêntica!",
     "winterPromoGiftDetails2": "Por favornote que se você ou que será presenteado já tiver uma assinatura recorrente, a assinatura presenteada somente iniciará depois que a outra assinatura seja cancelada ou expire. Obrigado pelo seu apoio! <3",
-    "discountBundle": "pacote"
+    "discountBundle": "pacote",
+    "g1g1Announcement": "O evento \"Dê uma Assinatura de presente e ganhe outra grátis\" está acontecendo agora!",
+    "g1g1Details": "Dê de presente uma assinatura para um amigo através do perfil dele e você receberá a mesma assinatura de graça!"
 }

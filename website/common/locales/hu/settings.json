@@ -112,7 +112,6 @@
     "wonChallenge": "Megnyertél egy kihívást!",
     "newPM": "Kaptál egy privát üzenetet",
     "newPMInfo": "<%= name %> új üzenetet küldött: <%= message %>",
-    "sentGems": "Drágakövek elküldve!",
     "giftedGems": "Drágakövek ajándékozva",
     "giftedGemsInfo": "<%= name %> megajándékozott <%= amount %> drágakővel",
     "giftedGemsFull": "Üdv <%= username %>, <%= sender %> küldött neked <%= gemAmount %> drágakövet!",

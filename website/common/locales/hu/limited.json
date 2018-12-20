@@ -143,7 +143,9 @@
     "dateEndJanuary": "január 31",
     "dateEndFebruary": "február 28",
     "winterPromoGiftHeader": "AJÁNDÉKOZZ ELŐFIZETÉST ÉS KAPJ EGYET INGYEN!",
-    "winterPromoGiftDetails1": "Ha január 12-ig ajándékozol valakinek előfizetést, ugyanazt az előfizetést megkapod ingyen!",
+    "winterPromoGiftDetails1": "Until January 15th only, when you gift somebody a subscription, you get the same subscription for yourself for free!",
     "winterPromoGiftDetails2": "Kérjük vedd figyelembe hogyha te, vagy a megajándékozott felhasználó már rendelkezik előfizetéssel, az ajándékba adott előfizetés csak azután lép érvénybe hogy a jelenlegi előfizetés megszüntetik vagy lejár. Nagyon köszönjük a támogatásodat! <3",
-    "discountBundle": "csomag"
+    "discountBundle": "csomag",
+    "g1g1Announcement": "Gift a Subscription, Get a Subscription Free event going on now!",
+    "g1g1Details": "Gift a sub to a friend from their profile and you’ll receive the same sub for free!"
 }
