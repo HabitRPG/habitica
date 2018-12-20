@@ -34,6 +34,7 @@ export const EVENTS = {
   spring2018: { start: '2018-03-20', end: '2018-05-02' },
   summer2018: { start: '2018-06-19', end: '2018-08-02' },
   fall2018:   { start: '2018-09-20', end: '2018-11-02' },
+  winter2019: { start: '2018-12-19', end: '2019-02-02' },
 };
 
 export const SEASONAL_SETS = {
