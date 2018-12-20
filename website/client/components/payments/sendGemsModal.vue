@@ -155,17 +155,19 @@ export default {
         gemAmount: this.gift.gems.amount,
       });
       this.close();
-      this.$root.$emit('habitica:payment-success', {
-        paymentMethod: 'balance',
-        paymentCompleted: true,
-        paymentType: 'gift-gems-balance',
-        gift: {
-          gems: {
-            amount: this.gift.gems.amount,
+      setTimeout(() => { // wait for the send gem modal to be closed
+        this.$root.$emit('habitica:payment-success', {
+          paymentMethod: 'balance',
+          paymentCompleted: true,
+          paymentType: 'gift-gems-balance',
+          gift: {
+            gems: {
+              amount: this.gift.gems.amount,
+            },
           },
-        },
-        giftReceiver: this.receiverName,
-      });
+          giftReceiver: this.receiverName,
+        });
+      }, 500);
     },
     onHide () {
       // @TODO this breaks amazon purchases because when the amazon modal

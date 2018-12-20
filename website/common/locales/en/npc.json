@@ -119,7 +119,7 @@
   "paymentYouReceived": "You received:",
   "paymentYouSentGems": "You sent <strong><%= name %></strong>:",
   "paymentYouSentSubscription": "You sent <strong><%= name %></strong> a <%= months %>-months Habitica subscription.",
-  "paymentSubBilling": "Your subscription will be billed <strong><%= amount %></strong>$ every <strong><%= months %></strong> months.",
+  "paymentSubBilling": "Your subscription will be billed <strong>$<%= amount %></strong> every <strong><%= months %> months</strong>.",
   "success": "Success!",
 
   "classGear": "Class Gear",
