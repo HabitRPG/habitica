@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'WINTER WONDERLAND BEGINS! AND DECEMBER MYSTERY ITEMS REVEALED';
+const LAST_ANNOUNCEMENT_TITLE = 'THREE WINTRY MAGIC HATCHING POTIONS! AND DECEMBER MYSTERY ITEMS REVEALED';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -34,20 +34,11 @@ api.getNews = {
           </div>
         </div>
         <hr/>
-        <div class="promo_winter_wonderland_2019 center-block"></div>
-        <h3>Winter Wonderland Begins!</h3>
-        <p>A wintery breeze is blowing in from the Stoïkalm Steppes, and the snow is gently drifting down over Habit City. The Winter Wonderland event has begun!</p>
-        <h3>Winter Class Outfits</h3>
-        <p>From now until January 31st, limited edition outfits are available in the Rewards column. Depending on your class, you can be a Blizzard Warrior, a Poinsettia Rogue, a Pyrotechnic Mage, or a Winter Star Healer! You'd better get productive to earn enough gold before they disappear. Good luck!</p>
-        <div class="small mb-3">by Lt Cabel, Vikte, AnnDeLune, Persephone, SabreCat, shanaqui, and Beffymaroo</div>
-        <div class="promo_seasonal_shop center-block"></div>
-        <h3>Seasonal Shop is Open!</h3>
-        <p>The <a href='/shops/seasonal'>Seasonal Shop</a> has opened! The Seasonal Sorceress is stocking the seasonal edition versions of previous winter outfits, now available for gems instead of gold, and the two winter quests, Trapper Santa and Find the Cub. Plus, there will be more fun things in the shop as the event progresses.The Seasonal Shop will only be open until January 31st, so don't wait!</p>
-        <div class="small mb-3">by SabreCat and Lemoness</div>
-        <div class="promo_npc_alex center-block"></div>
-        <h3>NPC Costumes</h3>
-        <p>Looks like the NPCs are really getting in to the cheery winter mood around the site. Who wouldn't? After all, there's plenty more celebration to come...</p>
-        <div class="small mb-3">by Lemoness</div>
+        <div class="promo_snow_potions center-block"></div>
+        <h3>Icy Snow, Starry Night, and Peppermint Hatching Potions</h3>
+        <p>There's a new pet breed in town, and a couple of exciting re-releases! Between now and January 31st, you can buy Starry Night, Peppermint, and new Icy Snow Hatching Potions from <a href='/shops/market'>the Market</a> and use them to hatch any standard pet egg. (Magic Hatching Potions do not work on Quest Pet eggs.) Magic Potion Pets aren't picky, so they'll happily eat any kind of food that you feed them!</p>
+        <p>After they're gone, it will be at least a year before these Hatching Potions are available again, so be sure to get them now!</p>
+        <div class="small mb-3">by JinjooHat, Vampitch, Lemoness, and SabreCat</div>
         <div class="promo_mystery_201812 center-block"></div>
         <h3>December Subscriber Items Revealed!</h3>
         <p>The December Subscriber Set has been revealed: the Arctic Fox Item Set! You only have until December 31 to <a href='/user/settings/subscription'>receive the item set when you subscribe</a>. If you're already an active subscriber, reload the site and then head to Inventory > Items to claim your gear!</p>
