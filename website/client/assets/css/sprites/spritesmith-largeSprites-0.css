@@ -1,6 +1,6 @@
 .achievement-costumeContest6x {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -740px -420px;
+  background-position: -994px -233px;
   width: 144px;
   height: 156px;
 }
@@ -10,33 +10,21 @@
   width: 480px;
   height: 360px;
 }
-.promo_animal_tails {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -994px 0px;
-  width: 141px;
-  height: 441px;
-}
 .promo_armoire_backgrounds_201812 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -723px;
+  background-position: -481px -387px;
   width: 423px;
   height: 147px;
 }
 .promo_bird_buddies_bundle {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -424px -723px;
+  background-position: 0px -723px;
   width: 420px;
-  height: 147px;
-}
-.promo_frost_potions {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -421px -871px;
-  width: 417px;
   height: 147px;
 }
 .promo_g1g1 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -1136px -867px;
+  background-position: -241px -871px;
   width: 237px;
   height: 150px;
 }
@@ -46,69 +34,57 @@
   width: 375px;
   height: 361px;
 }
-.promo_mystery_201811 {
+.promo_mystery_201812 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -1136px -571px;
-  width: 282px;
-  height: 147px;
+  background-position: -481px -209px;
+  width: 393px;
+  height: 177px;
 }
-.promo_piyo {
+.promo_npc_alex {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -1136px -719px;
-  width: 279px;
+  background-position: -994px -529px;
+  width: 162px;
+  height: 138px;
+}
+.promo_seasonal_shop {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -994px -390px;
+  width: 162px;
+  height: 138px;
+}
+.promo_snow_potions {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -481px -535px;
+  width: 423px;
   height: 147px;
 }
 .promo_studying {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -1136px -142px;
+  background-position: -994px 0px;
   width: 220px;
   height: 232px;
 }
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -1357px -142px;
+  background-position: -994px -668px;
   width: 96px;
   height: 69px;
 }
 .promo_todos {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -1136px -375px;
+  background-position: 0px -871px;
   width: 240px;
   height: 195px;
 }
-.promo_turkey_day_2018 {
+.promo_winter_wonderland_2019 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -871px;
-  width: 420px;
+  background-position: -421px -723px;
+  width: 402px;
   height: 147px;
-}
-.promo_veteran_pets {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -1136px 0px;
-  width: 363px;
-  height: 141px;
-}
-.scene_hiking {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -481px -420px;
-  width: 258px;
-  height: 258px;
 }
 .scene_nametag {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: -481px 0px;
   width: 512px;
   height: 208px;
-}
-.scene_sleep {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -481px -209px;
-  width: 390px;
-  height: 210px;
-}
-.scene_veteran_pets {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -740px -577px;
-  width: 242px;
-  height: 62px;
 }

@@ -257,7 +257,7 @@ let quests = {
   },
   evilsanta: {
     canBuy () {
-      return false;
+      return true;
     },
     text: t('questEvilSantaText'),
     notes: t('questEvilSantaNotes'),
@@ -283,7 +283,7 @@ let quests = {
   },
   evilsanta2: {
     canBuy () {
-      return false;
+      return true;
     },
     text: t('questEvilSanta2Text'),
     notes: t('questEvilSanta2Notes'),

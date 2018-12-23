@@ -207,6 +207,7 @@
     "hatchingPotionGlass": " de Vidro",
     "hatchingPotionGlow": "Fluorescente",
     "hatchingPotionFrost": "Geada",
+    "hatchingPotionIcySnow": "Icy Snow",
     "hatchingPotionNotes": "Utilize isto num ovo, e ele chocará como um mascote <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "Não utilizável nos ovos de mascote de missão.",
     "foodMeat": "Carne",

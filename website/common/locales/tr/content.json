@@ -207,6 +207,7 @@
     "hatchingPotionGlass": "Cam",
     "hatchingPotionGlow": "Karanlıkta Parlayan",
     "hatchingPotionFrost": "Donuk",
+    "hatchingPotionIcySnow": "Icy Snow",
     "hatchingPotionNotes": "Bunu yumurtanın üstüne döktüğünde <%= potText(locale) %> türünde bir hayvan çıkacak.",
     "premiumPotionAddlNotes": "Görev yumurtalarıyla kullanılamaz.",
     "foodMeat": "Et",

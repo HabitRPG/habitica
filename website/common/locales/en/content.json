@@ -274,6 +274,7 @@
   "hatchingPotionGlass": "Glass",
   "hatchingPotionGlow": "Glow-in-the-Dark",
   "hatchingPotionFrost": "Frost",
+  "hatchingPotionIcySnow": "Icy Snow",
 
   "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%= potText(locale) %> pet.",
   "premiumPotionAddlNotes": "Not usable on quest pet eggs.",
