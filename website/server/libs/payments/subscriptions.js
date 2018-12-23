@@ -51,6 +51,7 @@ function _dateDiff (earlyDate, lateDate) {
 async function createSubscription (data) {
   let recipient = data.gift ? data.gift.member : data.user;
   let block = shared.content.subscriptionBlocks[data.gift ? data.gift.subscription.key : data.sub.key];
+  let autoRenews = data.autoRenews !== undefined ? data.autoRenews : true;
   let months = Number(block.months);
   let today = new Date();
   let plan;
@@ -85,7 +86,7 @@ async function createSubscription (data) {
 
   plan = recipient.purchased.plan;
 
-  if (data.gift) {
+  if (data.gift || !autoRenews) {
     if (plan.customerId && !plan.dateTerminated) { // User has active plan
       plan.extraMonths += months;
     } else {
