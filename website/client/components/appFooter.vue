@@ -96,6 +96,7 @@
             a.btn.btn-secondary(@click="plusTenHealth()") + 10HP
             a.btn.btn-secondary(@click="addMana()") +MP
             a.btn.btn-secondary(@click="addLevelsAndGold()") +Exp +GP +MP
+            a.btn.btn-secondary(@click="addExp()") +Exp
             a.btn.btn-secondary(@click="addOneLevel()") +1 Level
             a.btn.btn-secondary(@click="addQuestProgress()", tooltip="+1000 to boss quests. 300 items to collection quests") Quest Progress Up
             a.btn.btn-secondary(@click="makeAdmin()") Make Admin
@@ -326,7 +327,7 @@ export default {
         'stats.mp': this.user.stats.mp  + 10000,
       });
     },
-    addOneLevel () {
+    addExp () {
       // @TODO: Name these variables better
       let exp = 0;
       let five = 10 * this.user.stats.lvl;
@@ -338,6 +339,11 @@ export default {
 
       this.$store.dispatch('user:set', {
         'stats.exp': exp,
+      });
+    },
+    addOneLevel () {
+      this.$store.dispatch('user:set', {
+        'stats.lvl': this.user.stats.lvl + 1,
       });
     },
     async addQuestProgress () {
