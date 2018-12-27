@@ -130,10 +130,10 @@
     "fall2018CandymancerMageSet": "Sucromancien (Mage)",
     "fall2018CarnivorousPlantSet": "Plante Carnivore (Guérisseur)",
     "fall2018AlterEgoSet": "Alter Ego (Voleur)",
-    "winter2019BlizzardSet": "Blizzard (Warrior)",
-    "winter2019PyrotechnicSet": "Pyrotechnic (Mage)",
-    "winter2019WinterStarSet": "Winter Star (Healer)",
-    "winter2019PoinsettiaSet": "Poinsettia (Rogue)",
+    "winter2019BlizzardSet": "Blizzard (Guerrier)",
+    "winter2019PyrotechnicSet": "Pyrotechnicienne (Mage)",
+    "winter2019WinterStarSet": "Étoile de l'hiver (Guérisseur)",
+    "winter2019PoinsettiaSet": "Poinsettia (Voleur)",
     "eventAvailability": "Disponible à l'achat jusqu'au <%= date(locale) %>.",
     "dateEndMarch": "30 avril",
     "dateEndApril": "19 avril",
@@ -147,9 +147,9 @@
     "dateEndJanuary": "31 janvier",
     "dateEndFebruary": "28 février",
     "winterPromoGiftHeader": "OFFREZ UN ABONNEMENT ET OBTENEZ-EN UN GRATUIT !",
-    "winterPromoGiftDetails1": "Until January 15th only, when you gift somebody a subscription, you get the same subscription for yourself for free!",
+    "winterPromoGiftDetails1": "Jusqu'au 15 janvier seulement, lorsque vous offrez un abonnement, vous recevez le même abonnement pour vous gratuitement !",
     "winterPromoGiftDetails2": "Merci de noter que si vous, ou la personne à qui vous faites ce cadeau, détenez un abonnement récurrent, l'abonnement offert ne commencera qu'après que cet abonnement sera annulé ou expirera. Merci infiniment pour votre soutien <3",
     "discountBundle": "lot",
-    "g1g1Announcement": "Gift a Subscription, Get a Subscription Free event going on now!",
-    "g1g1Details": "Gift a sub to a friend from their profile and you’ll receive the same sub for free!"
+    "g1g1Announcement": "Un événement \"Offrez un abonnement, recevez un abonnement gratuit\" est actuellement en cours !",
+    "g1g1Details": "Offrez un abonnement à quelqu'un depuis son profil pour recevoir le même abonnement gratuitement !"
 }

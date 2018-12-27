@@ -110,7 +110,7 @@
     "paymentYouReceived": "受け取りました：",
     "paymentYouSentGems": "<strong><%= name %></strong> に送りました：",
     "paymentYouSentSubscription": "<strong><%= name %></strong> に <%= months %>ヶ月分のHabitica寄付会員特典を送りました。",
-    "paymentSubBilling": "Your subscription will be billed <strong>$<%= amount %></strong> every <strong><%= months %> months</strong>.",
+    "paymentSubBilling": "あなたの寄付は、<strong><%= months %>ヶ月</strong>ごとに <strong>$<%= amount %></strong> 請求されます。",
     "success": "成功！",
     "classGear": "クラス アイテム",
     "classGearText": "クラスの選択おめでとう！　あなたの新しい基本武器を所持品に加えました。下をのぞいて装備してみてください！",

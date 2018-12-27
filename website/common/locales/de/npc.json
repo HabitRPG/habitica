@@ -110,7 +110,7 @@
     "paymentYouReceived": "Du hast erhalten:",
     "paymentYouSentGems": "Du hast <strong><%= name %></strong> geschickt:",
     "paymentYouSentSubscription": "Du hast <strong><%= name %></strong> ein <%= months %>-Monate-Abo für Habitica geschickt.",
-    "paymentSubBilling": "Your subscription will be billed <strong>$<%= amount %></strong> every <strong><%= months %> months</strong>.",
+    "paymentSubBilling": "Dein Abonnement wird mit <strong>$<%= amount %></strong> alle <strong><%= months %> Monate</strong> verrechnet.",
     "success": "Erfolg!",
     "classGear": "Klassenausrüstung",
     "classGearText": "Glückwunsch zur Wahl Deiner Klasse! Ich habe deine neue Basiswaffe dem Inventar hinzugefügt. Schaue sie dir unten an, um sie auszurüsten!",
