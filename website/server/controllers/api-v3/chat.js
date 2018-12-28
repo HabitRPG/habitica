@@ -276,6 +276,7 @@ api.likeChat = {
  *
  * @apiParam (Path) {UUID} groupId The group id ('party' for the user party and 'habitrpg' for tavern are accepted)
  * @apiParam (Path) {UUID} chatId The chat message id
+ * @apiParam (Body) {String} comment The text of the message (optional)
  *
  * @apiSuccess {Object} data The flagged chat message
  * @apiSuccess {UUID} data.id The id of the message
