@@ -1062,6 +1062,8 @@
     "headSpecialFall2018MageNotes": "Ez a csúcsos süveg át van itatva az édesség hatalmas varázslataival! De vigyázz, ha víz éri ragadóssá válhat! Növeli az észlelésedet <%= per %> ponttal. Limitált kiadású 2018-as őszi felszerelés.",
     "headSpecialFall2018HealerText": "Falánk sisak",
     "headSpecialFall2018HealerNotes": "Ezt a sisakot egy olyan húsevő növényből készítették, amely arról a képességéről volt híres hogy zombiktól és más kellemetlenségektől tudott megszabadulni. Csak arra vigyázz hogy ne harapja le a fejedet. Növeli az intelligenciádat <%= int %> ponttal. Limitált kiadású 2018-as őszi felszerelés.",
+    "headSpecialNye2018Text": "Outlandish Party Hat",
+    "headSpecialNye2018Notes": "You've received an Outlandish Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
     "headSpecialWinter2019RogueText": "Mikulásvirág sisak",
     "headSpecialWinter2019RogueNotes": "Ez a leveles sisak a legvörösebb színét a tél legsötétebb napján éri el, ezzel segítve hogy jobban be tudj olvadni az ünnepi dekorációba! Növeli az észlelésedet <%= per %> ponttal. Limitált kiadású 2018-2019-es téli felszerelés.",
     "headSpecialWinter2019WarriorText": "Jeges sisak",

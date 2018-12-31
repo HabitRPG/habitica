@@ -1062,6 +1062,8 @@
     "headSpecialFall2018MageNotes": "這頂帶有尖頭的帽子充滿了強烈的甜蜜蜜咒語。小心，如果它開始融化，將會變得非常黏人! 增加 <%= per %> 點感知。 2018年秋季限定版裝備",
     "headSpecialFall2018HealerText": "狼吞虎嚥頭盔",
     "headSpecialFall2018HealerNotes": "這頂頭盔是由一種食肉植物所製成，它以能夠製造殭屍和麻煩而聞名。要小心不要讓它在您頭上咀嚼。增加 <%= int %> 點智力。 2018年秋季限定版裝備",
+    "headSpecialNye2018Text": "Outlandish Party Hat",
+    "headSpecialNye2018Notes": "You've received an Outlandish Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
     "headSpecialWinter2019RogueText": "一品紅聖誕頭盔",
     "headSpecialWinter2019RogueNotes": "這頂枝繁葉茂的頭盔將在冬季最黑暗的日子裡帶來最閃亮的紅色，幫助您融入節慶的氣氛! 增加 <%= per %> 點感知。 2018-2019冬季限定版裝備",
     "headSpecialWinter2019WarriorText": "酷寒頭盔",
