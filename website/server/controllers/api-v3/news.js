@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'THREE WINTRY MAGIC HATCHING POTIONS! AND DECEMBER MYSTERY ITEMS REVEALED';
+const LAST_ANNOUNCEMENT_TITLE = "HAPPY NEW YEAR! PARTY HATS, NEW YEAR'S GREETING CARDS, SNOWBALLS, AND LAST CHANCE FOR DECEMBER ITEMS";
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,20 +30,31 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>12/20/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>12/31/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_snow_potions center-block"></div>
-        <h3>Icy Snow, Starry Night, and Peppermint Hatching Potions</h3>
-        <p>There's a new pet breed in town, and a couple of exciting re-releases! Between now and January 31st, you can buy Starry Night, Peppermint, and new Icy Snow Hatching Potions from <a href='/shops/market'>the Market</a> and use them to hatch any standard pet egg. (Magic Hatching Potions do not work on Quest Pet eggs.) Magic Potion Pets aren't picky, so they'll happily eat any kind of food that you feed them!</p>
-        <p>After they're gone, it will be at least a year before these Hatching Potions are available again, so be sure to get them now!</p>
-        <div class="small mb-3">by JinjooHat, Vampitch, Lemoness, and SabreCat</div>
+        <div class="promo_seasonal_shop center-block"></div>
+        <h3>Party Hats</h3>
+        <p>In honor of the new year, some free Party Hats are available in the Rewards column! Each year you celebrate New Year's with Habitica, you unlock a new hat. Enjoy, and stay tuned for the matching robes in late January during our annual Habitica Birthday Bash!</p>
+        <div class="small mb-3">by Lemoness and SabreCat</div>
+        <div class="promo_nye_card center-block"></div>
+        <h3>New Year's Cards</h3>
+        <p>Through January 1st only, the <a href='/shops/market'>Market</a> is stocking New Year's Cards! Now you can send cards to your friends (and yourself) to wish them a Happy Habit New Year. All senders and recipients will receive the Auld Acquaintance badge!</p>
+        <div class="small mb-3">by Lemoness and SabreCat</div>
+        <h3>Snowballs</h3>
+        <p>The <a href='/shops/seasonal'>Seasonal Shop</a> is also stocking Snowballs for Gold! Throw them at your friends to have an exciting effect. If you get hit with a snowball, you earn the Annoying Friends badge. The results of being hit with a Snowball will last until the end of your day, but you can also reverse them early by buying Salt from the Rewards column. Snowballs are available until January 31st.</p>
+        <div class="small mb-3">by Shaner and Lemoness</div>
         <div class="promo_mystery_201812 center-block"></div>
-        <h3>December Subscriber Items Revealed!</h3>
-        <p>The December Subscriber Set has been revealed: the Arctic Fox Item Set! You only have until December 31 to <a href='/user/settings/subscription'>receive the item set when you subscribe</a>. If you're already an active subscriber, reload the site and then head to Inventory > Items to claim your gear!</p>
-        <p>Subscribers also receive the ability to buy Gems with Gold -- the longer you subscribe, the more Gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
+        <h3>Last Chance for Arctic Fox Set</h3>
+        <p>Reminder: this is the final day to <a href='/user/settings/subscription'>subscribe</a> and receive the Arctic Fox Set! Subscribing also lets you buy Gems for Gold. The longer your subscription, the more Gems you get!</p>
+        <p>Thanks so much for your support! You help keep Habitica running.</p>
         <div class="small mb-3">by Beffymaroo</div>
+        <div class="promo_bird_buddies_bundle center-block"></div>
+        <h3>Last Chance for Bird Buddies Pet Quest Bundle</h3>
+        <p>This is also the final day to buy the discounted Bird Buddies Pet Quest Bundle, featuring the Peacock, Penguin, and Rooster quests all for seven Gems! Be sure to snag it before it flaps away from the <a href='/shops/quests'>Quest Shop</a>!</p>
+        <div class="small">Art by UncommonCriminal, Eevachu, PainterProphet, Lilith of Alfheim, Pfeffernusse, Draayder, Podcod, Fire Fire Fire, Pandoro, RBrinks, EmeraldOx, extrajordanary, melynnrose, Rattify, McCoyly, Breadstrings, and Darkly</div>
+        <div class="small mb-3">Writing by Elizabeth Queenan, Leephon, playgroundgiraffe, and Daniel the Bard</div>
       </div>
       `,
     });

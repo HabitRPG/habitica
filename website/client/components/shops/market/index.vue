@@ -246,8 +246,8 @@ export default {
         categories.push({
           identifier: 'cards',
           text: this.$t('cards'),
-          items: _map(_filter(this.content.cardTypes, (value) => {
-            return value.yearRound;
+          items: _map(_filter(this.content.cardTypes, (value, key) => {
+            return value.yearRound || key === 'nye';
           }), (value) => {
             return {
               ...getItemInfo(this.user, 'card', value),
