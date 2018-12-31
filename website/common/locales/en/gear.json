@@ -1152,6 +1152,8 @@
   "headSpecialFall2018HealerText": "Ravenous Helm",
   "headSpecialFall2018HealerNotes": "This helm is fashioned from a carnivorous plant renowned for its ability to dispatch zombies and other inconveniences. Just watch out that it doesn't chew on your head. Increases Intelligence by <%= int %>. Limited Edition 2018 Autumn Gear.",
 
+  "headSpecialNye2018Text": "Outlandish Party Hat",
+  "headSpecialNye2018Notes": "You've received an Outlandish Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
   "headSpecialWinter2019RogueText": "Poinsettia Helm",
   "headSpecialWinter2019RogueNotes": "This leafy helm will attain its brightest red color right around the darkest days of winter, helping you blend in with holiday decor! Increases Perception by <%= per %>. Limited Edition 2018-2019 Winter Gear.",
   "headSpecialWinter2019WarriorText": "Glacial Helm",

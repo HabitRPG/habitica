@@ -271,8 +271,8 @@
     "emailTaken": "Adresse courriel déjà utilisée par un utilisateur.",
     "newEmailRequired": "Nouvelle adresse courriel manquante.",
     "usernameTime": "Il est temps de définir votre nom d'utilisateur !",
-    "usernameInfo": "Login names are now unique usernames that will be visible beside your display name and used for invitations, chat @mentions, and messaging.<br><br>If you'd like to learn more about this change, <a href='http://habitica.wikia.com/wiki/Player_Names' target='_blank'>visit our wiki</a>.",
-    "usernameTOSRequirements": "Usernames must conform to our <a href='/static/terms' target='_blank'>Terms of Service</a> and <a href='/static/community-guidelines' target='_blank'>Community Guidelines</a>. If you didn’t previously set a login name, your username was auto-generated.",
+    "usernameInfo": "Les noms de connexion sont maintenant des noms d'utilisateur uniques qui seront visibles sous votre nom affiché, et utilisés pour les invitations, les @mentions dans les discussions, et les messages.<br><br>Si vous voulez en savoir plus sur ce changement, <a href='http://habitica.wikia.com/wiki/Player_Names' target='_blank'>visitez notre wiki</a>.",
+    "usernameTOSRequirements": "Les noms d'utilisateurs doivent se conformer à nos <a href='/static/terms' target='_blank'>Conditions d'utilisations</a> et nos <a href='/static/community-guidelines' target='_blank'>Règles de vie en communauté</a>. Si vous n'aviez pas précédemment défini un nom de connexion, votre nom d'utilisateur a été auto-généré.",
     "usernameTaken": "Le nom d'utilisateur est déjà pris.",
     "passwordConfirmationMatch": "La confirmation du mot de passe ne correspond pas au mot de passe.",
     "invalidLoginCredentials": "Nom d'utilisateur, courriel ou mot de passe incorrect.",
@@ -328,7 +328,7 @@
     "joinMany": "Rejoignez plus de 2 000 000 de personnes qui s'amusent en réalisant leurs objectifs !",
     "joinToday": "Rejoignez Habitica aujourd'hui",
     "signup": "Inscrivez-vous",
-    "getStarted": "Get Started!",
+    "getStarted": "Commencez !",
     "mobileApps": "Applications mobiles",
     "learnMore": "En savoir plus"
 }

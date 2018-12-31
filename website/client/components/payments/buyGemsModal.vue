@@ -7,7 +7,7 @@
       .col-md-8.align-self-center
         p=text
   div(v-if='user')
-    b-modal#buy-gems(:hide-footer='true', :id='"buy-gems"', size='lg')
+    b-modal#buy-gems(:hide-footer='true', size='lg')
       .header-wrap(slot='modal-header')
         .image-gemfall
           .row

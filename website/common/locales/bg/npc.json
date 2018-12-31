@@ -110,7 +110,7 @@
     "paymentYouReceived": "Получихте:",
     "paymentYouSentGems": "Изпратихте на <strong><%= name %></strong>:",
     "paymentYouSentSubscription": "Изпратихте на <strong><%= name %></strong> <%= months %>-месечен абонамент за Хабитика.",
-    "paymentSubBilling": "Your subscription will be billed <strong>$<%= amount %></strong> every <strong><%= months %> months</strong>.",
+    "paymentSubBilling": "Абонаментът Ви ще бъде таксуван с <strong>$<%= amount %></strong> всеки <strong><%= months %> месеца</strong>.",
     "success": "Готово!",
     "classGear": "Снаряжение за класа",
     "classGearText": "Поздравления за избора на клас! Добавих новата Ви основна екипировка в инвентара Ви. Погледнете по-долу, за да я екипирате!",

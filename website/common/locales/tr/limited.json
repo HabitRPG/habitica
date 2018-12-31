@@ -130,10 +130,10 @@
     "fall2018CandymancerMageSet": "Şekerbaz (Büyücü)",
     "fall2018CarnivorousPlantSet": "Etobur Bitki (Şifacı)",
     "fall2018AlterEgoSet": "İkincil Şahsiyet (Düzenbaz)",
-    "winter2019BlizzardSet": "Blizzard (Warrior)",
-    "winter2019PyrotechnicSet": "Pyrotechnic (Mage)",
-    "winter2019WinterStarSet": "Winter Star (Healer)",
-    "winter2019PoinsettiaSet": "Poinsettia (Rogue)",
+    "winter2019BlizzardSet": "Kar Fırtınası (Savaşçı)",
+    "winter2019PyrotechnicSet": "Piroteknik (Büyücü)",
+    "winter2019WinterStarSet": "Kış Yıldızı (Şifacı)",
+    "winter2019PoinsettiaSet": "Atatürk Çiçeği (Düzenbaz)",
     "eventAvailability": "<%= date(locale) %> tarihine kadar satın alınabilir. ",
     "dateEndMarch": "30 Nisan",
     "dateEndApril": "19 Nisan",
@@ -150,6 +150,6 @@
     "winterPromoGiftDetails1": "Sadece 15 Ocak'a kadar, birine bir abonelik hediye ettiğinde, kendin için aynı aboneliği ücretsiz olarak alırsın!",
     "winterPromoGiftDetails2": "Lütfen eğer senin veya hediyeyi göndereceğin kişinin halihazırda devam eden bir aboneliği bulunuyorsa, hediye edilen aboneliğin bu abonelik iptal edildikten veya geçerliliğini yitirdikten sonra başlayacağını unutma. Desteğin için çok teşekkür ederiz! <3",
     "discountBundle": "paket",
-    "g1g1Announcement": "Gift a Subscription, Get a Subscription Free event going on now!",
-    "g1g1Details": "Gift a sub to a friend from their profile and you’ll receive the same sub for free!"
+    "g1g1Announcement": "Abonelik Hediye Et, Bedava Abonelik Kazan etkinliği sürüyor!",
+    "g1g1Details": "Bir arkadaşına onun profilinden abonelik hediye et ve aynı aboneliği sen de ücretsiz olarak elde et!"
 }

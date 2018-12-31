@@ -18,7 +18,7 @@
     "rebirthAchievement100": "開始了一趟新的冒險旅程！這是你第 <%= number %> 次重生，而你的最高等級達到了 100 以上。要完成這個成就，在你等級至少 100 後開啟新的一趟旅程吧！",
     "rebirthBegan": "已開始新的冒險",
     "rebirthText": "開始<%= rebirths %> 次新的冒險",
-    "rebirthOrb": "Used an Orb of Rebirth to start over after attaining Level <%= level %>.",
+    "rebirthOrb": "達到等級 <%= level %> 後即可使用重生球並開始新的冒險。",
     "rebirthOrb100": "使用重生球在達到100級或更高級別後重新開始。",
     "rebirthOrbNoLevel": "使用了重生球來重生。",
     "rebirthPop": "Instantly restart your character as a Level 1 Warrior while retaining achievements, collectibles, and equipment. Your tasks and their history will remain but they will be reset to yellow. Your streaks will be removed except from challenge tasks. Your Gold, Experience, Mana, and the effects of all Skills will be removed. All of this will take effect immediately. For more information, see the wiki's <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a> page.",

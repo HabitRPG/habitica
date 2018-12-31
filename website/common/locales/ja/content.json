@@ -207,7 +207,7 @@
     "hatchingPotionGlass": "ガラスの",
     "hatchingPotionGlow": "暗闇で輝く",
     "hatchingPotionFrost": "霜の",
-    "hatchingPotionIcySnow": "Icy Snow",
+    "hatchingPotionIcySnow": "冷たい雪の",
     "hatchingPotionNotes": "これをたまごにかけると、<%= potText(locale) %> ペットが生まれます。",
     "premiumPotionAddlNotes": "クエスト ペットのたまごには使えません。",
     "foodMeat": "肉",
