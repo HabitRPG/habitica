@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = "HAPPY NEW YEAR! PARTY HATS, NEW YEAR'S GREETING CARDS, SNOWBALLS, AND LAST CHANCE FOR DECEMBER ITEMS";
+const LAST_ANNOUNCEMENT_TITLE = 'HAPPY NEW YEAR! PARTY HATS, NEW YEAR’S GREETING CARDS, SNOWBALLS, AND LAST CHANCE FOR DECEMBER ITEMS';
 const worldDmg = { // @TODO
   bailey: false,
 };
