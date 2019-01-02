@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'HAPPY NEW YEAR! PARTY HATS, NEW YEAR’S GREETING CARDS, SNOWBALLS, AND LAST CHANCE FOR DECEMBER ITEMS';
+const LAST_ANNOUNCEMENT_TITLE = 'JANUARY RESOLUTION SUCCESS CHALLENGE AND NEW TAKE THIS CHALLENGE';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,31 +30,19 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>12/31/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>1/2/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_seasonal_shop center-block"></div>
-        <h3>Party Hats</h3>
-        <p>In honor of the new year, some free Party Hats are available in the Rewards column! Each year you celebrate New Year's with Habitica, you unlock a new hat. Enjoy, and stay tuned for the matching robes in late January during our annual Habitica Birthday Bash!</p>
-        <div class="small mb-3">by Lemoness and SabreCat</div>
-        <div class="promo_nye_card center-block"></div>
-        <h3>New Year's Cards</h3>
-        <p>Through January 1st only, the <a href='/shops/market'>Market</a> is stocking New Year's Cards! Now you can send cards to your friends (and yourself) to wish them a Happy Habit New Year. All senders and recipients will receive the Auld Acquaintance badge!</p>
-        <div class="small mb-3">by Lemoness and SabreCat</div>
-        <h3>Snowballs</h3>
-        <p>The <a href='/shops/seasonal'>Seasonal Shop</a> is also stocking Snowballs for Gold! Throw them at your friends to have an exciting effect. If you get hit with a snowball, you earn the Annoying Friends badge. The results of being hit with a Snowball will last until the end of your day, but you can also reverse them early by buying Salt from the Rewards column. Snowballs are available until January 31st.</p>
-        <div class="small mb-3">by Shaner and Lemoness</div>
-        <div class="promo_mystery_201812 center-block"></div>
-        <h3>Last Chance for Arctic Fox Set</h3>
-        <p>Reminder: this is the final day to <a href='/user/settings/subscription'>subscribe</a> and receive the Arctic Fox Set! Subscribing also lets you buy Gems for Gold. The longer your subscription, the more Gems you get!</p>
-        <p>Thanks so much for your support! You help keep Habitica running.</p>
-        <div class="small mb-3">by Beffymaroo</div>
-        <div class="promo_bird_buddies_bundle center-block"></div>
-        <h3>Last Chance for Bird Buddies Pet Quest Bundle</h3>
-        <p>This is also the final day to buy the discounted Bird Buddies Pet Quest Bundle, featuring the Peacock, Penguin, and Rooster quests all for seven Gems! Be sure to snag it before it flaps away from the <a href='/shops/quests'>Quest Shop</a>!</p>
-        <div class="small">Art by UncommonCriminal, Eevachu, PainterProphet, Lilith of Alfheim, Pfeffernusse, Draayder, Podcod, Fire Fire Fire, Pandoro, RBrinks, EmeraldOx, extrajordanary, melynnrose, Rattify, McCoyly, Breadstrings, and Darkly</div>
-        <div class="small mb-3">Writing by Elizabeth Queenan, Leephon, playgroundgiraffe, and Daniel the Bard</div>
+        <div class="scene_todo_list center-block"></div>
+        <p>The Habitica team has launched a special official Challenge series hosted in the <a href='/groups/guild/6e6a8bd3-9f5f-4351-9188-9f11fcd80a99' target='_blank'>Official New Year's Resolution Guild</a>. These Challenges are designed to help you build and maintain goals that are destined for success and then stick with them as 2019 progresses.</p>
+        <p>Check out the first New Year's Resolution Challenge of the year to start your path to resolution success! In <a href='/challenges/9205ad32-cd89-4f5c-a1e7-e2b54a1149f8'>Begin Your Quest</a>, we're focusing on choosing realistic and achievable resolutions! Five lucky winners will get a 15 gem prize when it closes on February 1st.</p>
+        <p>Congratulations to the winners of December's Challenge: Drosera, Dan O'Dea, StefanieFreige, N5t5lie, and DeLauraen!</p>
+        <div class="promo_take_this center-block"></div>
+        <p>The next Take This Challenge has also launched, "<a href='/challenges/cae96e0a-e9db-4461-90e3-ec54267f6920'>Feed Me, Seymour!</a>", with a focus on developing healthy food habits. Be sure to check it out to earn additional pieces of the Take This armor set!</p>
+        <p><a href='http://www.takethis.org/' target='_blank'>Take This</a> is a nonprofit that seeks to inform the gamer community about mental health issues, to provide education about mental disorders and mental illness prevention, and to reduce the stigma of mental illness.</p>
+        <p>Congratulations to the winners of the last Take This Challenge, "<a href='/challenges/9836deb1-181b-44fd-9571-3d5a9e50e091'>Don't Be a Completionist!</a>": grand prize winner grand prize winner Hoofter, and runners-up mvchelle, Phosphor, agentdwib, KSPanda, and fghberius. Plus, all participants in that Challenge have received a piece of the <a href='http://habitica.wikia.com/wiki/Event_Item_Sequences#Take_This_Armor_Set' target='_blank'>Take This item set</a> if they hadn't completed it already. It is located in your Rewards column. Enjoy!</p>
+        <div class="small mb-3">by Doctor B, the Take This team, Lemoness, Beffymaroo, and SabreCat</div>
       </div>
       `,
     });

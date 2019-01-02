@@ -112,7 +112,7 @@ let premium = {
     value: 2,
     text: t('hatchingPotionHolly'),
     limited: true,
-    _season: 'January',
+    _season: '_PENDING_',
   },
   Peppermint: {
     value: 2,

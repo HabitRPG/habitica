@@ -175,7 +175,7 @@
     "pushDeviceRemoved": "Push eszköz sikeresen eltávolítva.",
     "buyGemsGoldCap": "Határ megemelve <%= amount %>-ra/re",
     "mysticHourglass": "<%= amount %> Misztikus homokóra",
-    "mysticHourglassText": "A misztikus homokórák segítségével korábbi hónapok rejtélyes tárgykészleteit vásárolhatod meg.",
+    "mysticHourglassText": "A misztikus homokórák segítségével korábbi hónapok rejtélyes szetteit vásárolhatod meg.",
     "purchasedPlanId": "Ismétlődő <%= price %> USD minden <%= months %> hónap(ok)ban (<%= plan %>)",
     "purchasedPlanExtraMonths": "<%= months %> hónapnyi extra előfizetői kredited van.",
     "consecutiveSubscription": "Egymást követő előfizetés",

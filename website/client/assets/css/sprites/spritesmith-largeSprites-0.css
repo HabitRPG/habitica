@@ -24,7 +24,7 @@
 }
 .promo_g1g1 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -241px -871px;
+  background-position: -482px -871px;
   width: 237px;
   height: 150px;
 }
@@ -78,7 +78,7 @@
 }
 .promo_todos {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -871px;
+  background-position: -241px -871px;
   width: 240px;
   height: 195px;
 }
@@ -93,4 +93,10 @@
   background-position: -481px 0px;
   width: 512px;
   height: 208px;
+}
+.scene_todo_list {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -871px;
+  width: 240px;
+  height: 195px;
 }

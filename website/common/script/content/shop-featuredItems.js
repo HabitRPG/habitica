@@ -30,8 +30,8 @@ const featuredItems = {
       path: 'quests.evilsanta2',
     },
     {
-      type: 'bundles',
-      path: 'bundles.birdBuddies',
+      type: 'quests',
+      path: 'quests.penguin',
     },
   ],
   seasonal: '',
