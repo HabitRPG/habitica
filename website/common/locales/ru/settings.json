@@ -168,7 +168,7 @@
     "webhookIdAlreadyTaken": "Вебхук с ID <%= id %> уже существует.",
     "noWebhookWithId": "Не найден вебхук с ID <%= id %>.",
     "regIdRequired": "Требуется RegId",
-    "invalidPushClient": "Неправильный клиент. Только оффициальный Habitica клиент может получать push уведомления.",
+    "invalidPushClient": "Неправильный клиент. Только официальный Habitica клиент может получать push уведомления.",
     "pushDeviceAdded": "Устройство для Push оповещений успешно добавлено",
     "pushDeviceAlreadyAdded": "Пользователь уже имеет push устройство",
     "pushDeviceNotFound": "У пользователя нету push устройства с таким id.",
