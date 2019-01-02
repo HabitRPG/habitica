@@ -127,8 +127,6 @@ function _setUpNewUser (user) {
   user.items.quests.dustbunnies = 1;
   user.purchased.background.violet = true;
   user.preferences.background = 'violet';
-  user.items.gear.owned.head_special_nye = true; // eslint-disable-line camelcase
-  user.items.gear.equipped.head = 'head_special_nye';
 
   if (user.registeredThrough === 'habitica-web') {
     taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];
