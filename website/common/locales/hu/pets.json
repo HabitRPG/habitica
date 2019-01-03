@@ -78,7 +78,7 @@
     "hatchAPot": "Szeretnél egy új <%= potion %> <%= egg %> háziállatot kikeltetni?",
     "hatchedPet": "Egy új <%= potion %> <%= egg %> keltettél ki!",
     "hatchedPetGeneric": "Egy új háziállatot keltettél ki!",
-    "hatchedPetHowToUse": "Látogasd meg az [Istállót](/inventory/stable) az új háziállataid etetéséhez és használatához!",
+    "hatchedPetHowToUse": "Visit the [Stable](<%= stableUrl %>) to feed and equip your newest pet!",
     "displayNow": "Megjelenítés most",
     "displayLater": "Megjelenítés később",
     "petNotOwned": "Nem rendelkezel ezzel a háziállattal.",

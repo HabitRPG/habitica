@@ -78,7 +78,7 @@
     "hatchAPot": "Faire éclore un bébé <%= egg %> <%= potion %> ?",
     "hatchedPet": "Un bébé <%= egg %> <%= potion %> vient d'éclore !",
     "hatchedPetGeneric": "Vous avez fait éclore un nouveau familier !",
-    "hatchedPetHowToUse": "Visitez l'[écurie](/inventory/stable) pour nourrir et vous faire accompagner de vos derniers familiers !",
+    "hatchedPetHowToUse": "Visit the [Stable](<%= stableUrl %>) to feed and equip your newest pet!",
     "displayNow": "Afficher tout de suite",
     "displayLater": "Afficher plus tard",
     "petNotOwned": "Vous ne possédez pas ce familier.",

@@ -78,7 +78,7 @@
     "hatchAPot": "Willst Du ein <%= potion %> <%= egg %> ausbrüten?",
     "hatchedPet": "Du hast ein neues <%= potion %> <%= egg %> ausgebrütet!",
     "hatchedPetGeneric": "Du hast ein neues Haustier ausgebrütet!",
-    "hatchedPetHowToUse": "Schau im [Stall](/inventory/stable) vorbei, um Dein neuestes Haustier zu füttern oder es auf Deine Abenteuer mitzunehmen!",
+    "hatchedPetHowToUse": "Visit the [Stable](<%= stableUrl %>) to feed and equip your newest pet!",
     "displayNow": "Jetzt anzeigen",
     "displayLater": "Später anzeigen",
     "petNotOwned": "Du besitzt dieses Haustier nicht.",

@@ -78,7 +78,7 @@
     "hatchAPot": "Wil je een nieuwe<%= potion %><%= egg %>uitbroeden? ",
     "hatchedPet": "Je hebt een <%= potion %> <%= egg %> uitgebroed!",
     "hatchedPetGeneric": "Je hebt een nieuw huisdier uitgebroed!",
-    "hatchedPetHowToUse": "Bezoek de [Stal](/inventory/stable) om je nieuwste huisdier te voeden en gebruiken!",
+    "hatchedPetHowToUse": "Visit the [Stable](<%= stableUrl %>) to feed and equip your newest pet!",
     "displayNow": "Toon nu",
     "displayLater": "Toon later",
     "petNotOwned": "Je bezit dit huisdier niet.",

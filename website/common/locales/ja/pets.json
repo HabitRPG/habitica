@@ -78,7 +78,7 @@
     "hatchAPot": "新しい<%= potion %><%= egg %>をかえしますか?",
     "hatchedPet": "<%= potion %><%= egg %> が生まれました!",
     "hatchedPetGeneric": "新しいペットが生まれました！",
-    "hatchedPetHowToUse": "[動物小屋](/inventory/stable)で新しく手に入れたペットにえさをあげてペットを装備してみよう！",
+    "hatchedPetHowToUse": "Visit the [Stable](<%= stableUrl %>) to feed and equip your newest pet!",
     "displayNow": "いますぐ表示",
     "displayLater": "あとで表示",
     "petNotOwned": "このペットをもっていません。",

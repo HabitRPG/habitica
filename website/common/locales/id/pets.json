@@ -78,7 +78,7 @@
     "hatchAPot": "Tetaskan seekor <%= egg %><%= potion %> baru?",
     "hatchedPet": "Kamu menetaskan <%= egg %> <%= potion %>!",
     "hatchedPetGeneric": "Kamu menetaskan seekor peliharaan baru!",
-    "hatchedPetHowToUse": "Kunjungi [Istal](/inventory/stable) untuk memberi makan dan menggunakan peliharaan terbarumu!",
+    "hatchedPetHowToUse": "Visit the [Stable](<%= stableUrl %>) to feed and equip your newest pet!",
     "displayNow": "Tampilkan Sekarang",
     "displayLater": "Tampilkan Nanti",
     "petNotOwned": "Kamu tidak memiliki peliharaan ini.",

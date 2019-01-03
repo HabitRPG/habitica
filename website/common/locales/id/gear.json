@@ -1013,7 +1013,7 @@
     "headSpecialSpring2017HealerText": "Mahkota Daun Bunga",
     "headSpecialSpring2017HealerNotes": "Mahkota halus ini mengeluarkan wewangian bunga bermekaran yang menenangkan. Meningkatkan Kecerdasan sebesar <%= int %>. Perlengkapan Musim Semi 2017 Edisi Terbatas.",
     "headSpecialSummer2017RogueText": "Helm Naga Laut",
-    "headSpecialSummer2017RogueNotes": "Helm ini berganti warna untuk berbaur dengan lingkungan sekelilingmu. Meningkatkan Persepsi sebesar <%= per %>. Perlengkapan Musim Panas 2017 Edisi Terbatas.",
+    "headSpecialSummer2017RogueNotes": "Helm ini berubah warna untuk berbaur dengan lingkungan sekelilingmu. Meningkatkan Persepsi sebesar <%= per %>. Perlengkapan Musim Panas 2017 Edisi Terbatas.",
     "headSpecialSummer2017WarriorText": "Helm Istana Pasir",
     "headSpecialSummer2017WarriorNotes": "Helm terhalus yang pernah digunakan oleh siapapun... setidaknua, hingga ombak datang. Meningkatkan Kekuatan sebesar <%= str %>. Perlengkapan Musim Panas 2017 Edisi Terbatas.",
     "headSpecialSummer2017MageText": "Topi Pusaran Air",

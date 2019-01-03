@@ -78,7 +78,7 @@
     "hatchAPot": "Wykluć <%= potion %><%= egg %>?",
     "hatchedPet": "Wyklułeś <%= potion %> <%= egg %>!",
     "hatchedPetGeneric": "Wyklułeś nowego Chowańca!",
-    "hatchedPetHowToUse": "Odwiedź [stajnię] (/inventory/stable), żeby nakarmić i wyposażyć swojego nowego zwierzaka!",
+    "hatchedPetHowToUse": "Visit the [Stable](<%= stableUrl %>) to feed and equip your newest pet!",
     "displayNow": "Wyświetl teraz",
     "displayLater": "Wyświetl później",
     "petNotOwned": "Nie posiadasz tego chowańca.",

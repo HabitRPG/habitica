@@ -78,7 +78,7 @@
     "hatchAPot": "Из яйца вылупится <%= potion %> питомец-<%= egg %>. Использовать эликсир?",
     "hatchedPet": "Вы вывели нового питомца: <%= potion %>(-ая) <%= egg %>!",
     "hatchedPetGeneric": "У вас вылупился новый питомец!",
-    "hatchedPetHowToUse": "Посетите [Стойла](/inventory/stable), чтобы покормить и экипировать своего нового питомца!",
+    "hatchedPetHowToUse": "Visit the [Stable](<%= stableUrl %>) to feed and equip your newest pet!",
     "displayNow": "Показать сейчас",
     "displayLater": "Показать позже",
     "petNotOwned": "У вас нет этого питомца.",
