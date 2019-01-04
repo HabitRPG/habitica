@@ -427,6 +427,15 @@ let armor = {
     set: 'redLoungewear',
     canOwn: ownsItem('armor_armoire_softRedSuit'),
   },
+  scribesRobe: {
+    text: t('armorArmoireScribesRobeText'),
+    notes: t('armorArmoireScribesRobeNotes', { attrs: 7 }),
+    value: 100,
+    int: 7,
+    per: 7,
+    set: 'scribe',
+    canOwn: ownsItem('armor_armoire_scribesRobe'),
+  },
 };
 
 let body = {
@@ -1121,6 +1130,14 @@ let shield = {
     set: 'redLoungewear',
     canOwn: ownsItem('shield_armoire_softRedPillow'),
   },
+  mightyQuill: {
+    text: t('shieldArmoireMightyQuillText'),
+    notes: t('shieldArmoireMightyQuillNotes', { per: 9 }),
+    value: 100,
+    per: 9,
+    set: 'scribe',
+    canOwn: ownsItem('shield_armoire_mightyQuill'),
+  },
 };
 
 let headAccessory = {
@@ -1470,6 +1487,14 @@ let weapon = {
     con: 13,
     set: 'aceOfSpades',
     canOwn: ownsItem('weapon_armoire_spearOfSpades'),
+  },
+  arcaneScroll: {
+    text: t('weaponArmoireArcaneScrollText'),
+    notes: t('weaponArmoireArcaneScrollNotes', { int: 9 }),
+    value: 100,
+    int: 9,
+    set: 'scribe',
+    canOwn: ownsItem('weapon_armoire_arcaneScroll'),
   },
 };
 

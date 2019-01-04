@@ -773,6 +773,20 @@ let backgrounds = {
       notes: t('backgroundSnowyDayFireplaceNotes'),
     },
   },
+  backgrounds012019: {
+    avalanche: {
+      text: t('backgroundAvalancheText'),
+      notes: t('backgroundAvalancheNotes'),
+    },
+    archaeological_dig: {
+      text: t('backgroundArchaeologicalDigText'),
+      notes: t('backgroundArchaeologicalDigNotes'),
+    },
+    scribes_workshop: {
+      text: t('backgroundScribesWorkshopText'),
+      notes: t('backgroundScribesWorkshopNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),
