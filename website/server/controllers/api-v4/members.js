@@ -18,12 +18,13 @@ let api = {};
  * @apiSuccess {Object} data.likes The likes of the message (always an empty object)
  * @apiSuccess {Object} data.flags The flags of the message
  * @apiSuccess {Number} data.flagCount The number of flags the message has
- * @apiSuccess {UUID} data.uuid The user id of the author of the message, or of the recipient if `sent` is true
+ * @apiSuccess {UUID} data.uuid The User ID of the author of the message, or of the recipient if `sent` is true
  * @apiSuccess {String} data.user The Display Name of the author of the message, or of the recipient if `sent` is true
+ * @apiSuccess {String} data.username The Username of the author of the message, or of the recipient if `sent` is true
  *
  * @apiUse MessageNotFound
  * @apiUse MessageIdRequired
- * @apiError (400) {BadRequest} messageGroupChatFlagAlreadyReported The message has already been flagged
+ * @apiError (400) {BadRequest} messageGroupChatFlagAlreadyReported You have already reported this message
  */
 api.flagPrivateMessage = {
   method: 'POST',

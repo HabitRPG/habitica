@@ -19,7 +19,7 @@ export default class ChatReporter {
       {name: 'MESSAGE_TIME', content: (new Date(message.timestamp)).toString()},
       {name: 'MESSAGE_TEXT', content: message.text},
 
-      {name: 'REPORTER_DISPLAYNAME', content: this.user.profile.name},
+      {name: 'REPORTER_DISPLAY_NAME', content: this.user.profile.name},
       {name: 'REPORTER_USERNAME', content: this.user.auth.local.username},
       {name: 'REPORTER_UUID', content: this.user._id},
       {name: 'REPORTER_EMAIL', content: reporterEmail},
@@ -36,7 +36,7 @@ export default class ChatReporter {
 
   createGenericAuthorVariables (prefix, {user, username, uuid, email}) {
     return [
-      {name: `${prefix}_DISPLAYNAME`, content: user},
+      {name: `${prefix}_DISPLAY_NAME`, content: user},
       {name: `${prefix}_USERNAME`, content: username},
       {name: `${prefix}_UUID`, content: uuid},
       {name: `${prefix}_EMAIL`, content: email},

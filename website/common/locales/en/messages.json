@@ -45,7 +45,7 @@
   "messageAuthEmailTaken": "Email already taken",
   "messageAuthNoUserFound": "No user found.",
   "messageAuthMustBeLoggedIn": "You must be logged in.",
-  "messageAuthMustIncludeTokens": "You must include a token and uid (user id) in your request",
+  "messageAuthMustIncludeTokens": "You must include a token and uid (User ID) in your request",
 
   "messageGroupAlreadyInParty": "Already in a party, try refreshing.",
   "messageGroupOnlyLeaderCanUpdate": "Only the group leader can update the group!",

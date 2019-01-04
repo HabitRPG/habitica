@@ -143,7 +143,7 @@ const heroAdminFields = 'contributor balance profile.name purchased items auth f
 
 /**
  * @api {get} /api/v3/hall/heroes/:heroId Get any user ("hero") given the UUID
- * @apiParam (Path) {UUID} heroId user ID
+ * @apiParam (Path) {UUID} heroId User ID
  * @apiName GetHero
  * @apiGroup Hall
  * @apiPermission Admin
@@ -188,7 +188,7 @@ const gemsPerTier = {1: 3, 2: 3, 3: 3, 4: 4, 5: 4, 6: 4, 7: 4, 8: 0, 9: 0};
 
 /**
  * @api {put} /api/v3/hall/heroes/:heroId Update any user ("hero")
- * @apiParam (Path) {UUID} heroId user ID
+ * @apiParam (Path) {UUID} heroId User ID
  * @apiName UpdateHero
  * @apiGroup Hall
  * @apiPermission Admin

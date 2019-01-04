@@ -289,7 +289,7 @@ api.likeChat = {
  * @apiSuccess {Object} data.likes The likes of the message
  * @apiSuccess {Object} data.flags The flags of the message
  * @apiSuccess {Number} data.flagCount The number of flags the message has
- * @apiSuccess {UUID} data.uuid The user id of the author of the message
+ * @apiSuccess {UUID} data.uuid The User ID of the author of the message
  * @apiSuccess {String} data.user The username of the author of the message
  *
  * @apiUse GroupNotFound
