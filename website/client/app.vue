@@ -387,7 +387,7 @@ export default {
         }
 
         // Ignore NotificationNotFound errors, see https://github.com/HabitRPG/habitica/issues/10391
-        if (errorData.name !== 'NotificationNotFound') {
+        if (errorData.error !== 'NotificationNotFound') {
           // dispatch as one snackbar notification
           this.$store.dispatch('snackbars:add', {
             title: 'Habitica',
