@@ -382,17 +382,20 @@ export default {
               paramErrorsFound[e.param] = true;
             }
           }
-        } else if (errorData.name !== 'NotificationNotFound') {
+        } else {
           errorsToShow.push(errorMessage);
         }
 
-        // dispatch as one snackbar notification
-        this.$store.dispatch('snackbars:add', {
-          title: 'Habitica',
-          text: errorsToShow.join(' '),
-          type: 'error',
-          timeout: snackbarTimeout,
-        });
+        // Ignore NotificationNotFound errors, see https://github.com/HabitRPG/habitica/issues/10391
+        if (errorData.name !== 'NotificationNotFound') {
+          // dispatch as one snackbar notification
+          this.$store.dispatch('snackbars:add', {
+            title: 'Habitica',
+            text: errorsToShow.join(' '),
+            type: 'error',
+            timeout: snackbarTimeout,
+          });
+        }
       }
 
       return Promise.reject(error);
