@@ -401,5 +401,12 @@
     "backgroundFrostyForestText": "Jég borította erdő",
     "backgroundFrostyForestNotes": "Csomagolj be a jég borította erdőben való túrázáshoz.",
     "backgroundSnowyDayFireplaceText": "A hószünet kandallója",
-    "backgroundSnowyDayFireplaceNotes": "Kucorodj be a kandalló elé egy havas napon."
+    "backgroundSnowyDayFireplaceNotes": "Kucorodj be a kandalló elé egy havas napon.",
+    "backgrounds012019": "SET 56: Released January 2019",
+    "backgroundAvalancheText": "Avalanche",
+    "backgroundAvalancheNotes": "Flee the thundering might of an Avalanche.",
+    "backgroundArchaeologicalDigText": "Archaeological Dig",
+    "backgroundArchaeologicalDigNotes": "Unearth secrets of the ancient past at an Archaeological Dig.",
+    "backgroundScribesWorkshopText": "Scribe's Workshop",
+    "backgroundScribesWorkshopNotes": "Write your next great scroll in a Scribe's Workshop."
 }

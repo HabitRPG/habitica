@@ -78,7 +78,7 @@
     "hatchAPot": "Искате ли да излюпите <%= egg %> с <%= potion %>?",
     "hatchedPet": "Вие излюпихте <%= egg %> с <%= potion %>!",
     "hatchedPetGeneric": "Излюпихте нов любимец!",
-    "hatchedPetHowToUse": "Visit the [Stable](<%= stableUrl %>) to feed and equip your newest pet!",
+    "hatchedPetHowToUse": "Посетете [конюшнята](<%= stableUrl %>), за да нахраните и екипирате новия си любимец!",
     "displayNow": "Показване сега",
     "displayLater": "Показване по-късно",
     "petNotOwned": "Не притежавате този любимец.",

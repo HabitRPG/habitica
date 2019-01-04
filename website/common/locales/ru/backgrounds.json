@@ -401,5 +401,12 @@
     "backgroundFrostyForestText": "Морозный лес",
     "backgroundFrostyForestNotes": "Соберитесь в поход по зимнему лесу.",
     "backgroundSnowyDayFireplaceText": "У камина в зимний день",
-    "backgroundSnowyDayFireplaceNotes": "Погрейтесь у камина в зимний день."
+    "backgroundSnowyDayFireplaceNotes": "Погрейтесь у камина в зимний день.",
+    "backgrounds012019": "SET 56: Released January 2019",
+    "backgroundAvalancheText": "Avalanche",
+    "backgroundAvalancheNotes": "Flee the thundering might of an Avalanche.",
+    "backgroundArchaeologicalDigText": "Archaeological Dig",
+    "backgroundArchaeologicalDigNotes": "Unearth secrets of the ancient past at an Archaeological Dig.",
+    "backgroundScribesWorkshopText": "Scribe's Workshop",
+    "backgroundScribesWorkshopNotes": "Write your next great scroll in a Scribe's Workshop."
 }
