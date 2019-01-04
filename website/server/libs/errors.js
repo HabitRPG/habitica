@@ -1,5 +1,4 @@
 import common from '../../common';
-import apiError from './apiError';
 
 export const CustomError = common.errors.CustomError;
 
@@ -54,11 +53,9 @@ export const NotFound = common.errors.NotFound;
  *       "message": "Notification not found."
  *     }
  */
-const notificationNotFoundMsg = apiError('messageNotificationNotFound');
-
 export class NotificationNotFound extends NotFound {
-  constructor () {
-    super(notificationNotFoundMsg);
+  constructor (language) {
+    super(common.i18n.t('messageNotificationNotFound', language));
     this.name = this.constructor.name;
   }
 }

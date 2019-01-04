@@ -37,7 +37,7 @@ api.readNotification = {
     });
 
     if (index === -1) {
-      throw new NotificationNotFound();
+      throw new NotificationNotFound(req.language);
     }
 
     user.notifications.splice(index, 1);
@@ -81,7 +81,7 @@ api.readNotifications = {
       });
 
       if (index === -1) {
-        throw new NotificationNotFound();
+        throw new NotificationNotFound(req.language);
       }
 
       user.notifications.splice(index, 1);
@@ -129,7 +129,7 @@ api.seeNotification = {
     });
 
     if (!notification) {
-      throw new NotificationNotFound();
+      throw new NotificationNotFound(req.language);
     }
 
     notification.seen = true;
@@ -179,7 +179,7 @@ api.seeNotifications = {
       });
 
       if (!notification) {
-        throw new NotificationNotFound();
+        throw new NotificationNotFound(req.language);
       }
 
       notification.seen = true;
