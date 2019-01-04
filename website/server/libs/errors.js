@@ -1,4 +1,5 @@
 import common from '../../common';
+import apiError from './apiError';
 
 export const CustomError = common.errors.CustomError;
 
@@ -40,6 +41,27 @@ export const BadRequest = common.errors.BadRequest;
  *     }
  */
 export const NotFound = common.errors.NotFound;
+
+
+/**
+ * @apiDefine NotificationNotFound
+ * @apiError NotificationNotFound The notification was not found.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 404 Not Found
+ *     {
+ *       "error": "NotificationNotFound",
+ *       "message": "Notification not found."
+ *     }
+ */
+const notificationNotFoundMsg = apiError('messageNotificationNotFound');
+
+export class NotificationNotFound extends NotFound {
+  constructor () {
+    super(notificationNotFoundMsg);
+    this.name = this.constructor.name;
+  }
+}
 
 /**
  * @apiDefine InternalServerError

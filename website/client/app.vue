@@ -362,6 +362,7 @@ export default {
         const errorMessage = errorData.message || errorData;
 
         // Check for conditions to reset the user auth
+        // TODO use a specific error like NotificationNotFound instead of checking for the string
         const invalidUserMessage = [this.$t('invalidCredentials'), 'Missing authentication headers.'];
         if (invalidUserMessage.indexOf(errorMessage) !== -1) {
           this.$store.dispatch('auth:logout');
@@ -370,12 +371,6 @@ export default {
         // Most server errors should return is click to dismiss errors, with some exceptions
         let snackbarTimeout = false;
         if (error.response.status === 502) snackbarTimeout = true;
-
-        const notificationNotFoundMessage = [
-          this.$t('messageNotificationNotFound'),
-          this.$t('messageNotificationNotFound', 'en'),
-        ];
-        if (notificationNotFoundMessage.indexOf(errorMessage) !== -1) snackbarTimeout = true;
 
         let errorsToShow = [];
         // show only the first error for each param
@@ -387,9 +382,10 @@ export default {
               paramErrorsFound[e.param] = true;
             }
           }
-        } else {
+        } else if (errorData.name !== 'NotificationNotFound') {
           errorsToShow.push(errorMessage);
         }
+
         // dispatch as one snackbar notification
         this.$store.dispatch('snackbars:add', {
           title: 'Habitica',
