@@ -392,7 +392,21 @@
     "backgroundBackAlleyText": "Viela",
     "backgroundBackAlleyNotes": "Pareça suspeito em um beco sem saída.",
     "backgroundGlowingMushroomCaveText": "Caverna de Cogumelos Brilhantes",
-    "backgroundGlowingMushroomCaveNotes": "Encare receoso uma Caverna de Cogumelos Brilhantes.",
+    "backgroundGlowingMushroomCaveNotes": "Admire uma Caverna de Cogumelos Brilhantes.",
     "backgroundCozyBedroomText": "Quarto Aconchegante",
-    "backgroundCozyBedroomNotes": "Envolva-se com um Quarto Aconchegante"
+    "backgroundCozyBedroomNotes": "Envolva-se com um Quarto Aconchegante",
+    "backgrounds122018": "Conjunto 55: Lançado em Dezembro de 2018",
+    "backgroundFlyingOverSnowyMountainsText": "Montanhas Nevadas",
+    "backgroundFlyingOverSnowyMountainsNotes": "Sobrevoe através das Montanhas Nevadas à noite.",
+    "backgroundFrostyForestText": "Floresta Gelada",
+    "backgroundFrostyForestNotes": "Agasalhe-se para caminhar por uma Floresta Gelada.",
+    "backgroundSnowyDayFireplaceText": "Lareira em Dia Neve",
+    "backgroundSnowyDayFireplaceNotes": "Aconchegue-se ao lado de uma Lareira em um Dia de Neve.",
+    "backgrounds012019": "SET 56: Released January 2019",
+    "backgroundAvalancheText": "Avalanche",
+    "backgroundAvalancheNotes": "Flee the thundering might of an Avalanche.",
+    "backgroundArchaeologicalDigText": "Archaeological Dig",
+    "backgroundArchaeologicalDigNotes": "Unearth secrets of the ancient past at an Archaeological Dig.",
+    "backgroundScribesWorkshopText": "Scribe's Workshop",
+    "backgroundScribesWorkshopNotes": "Write your next great scroll in a Scribe's Workshop."
 }

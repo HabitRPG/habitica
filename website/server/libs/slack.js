@@ -5,9 +5,9 @@ import { TAVERN_ID } from '../models/group';
 import nconf from 'nconf';
 import moment from 'moment';
 
-const SLACK_FLAGGING_URL = nconf.get('SLACK:FLAGGING_URL');
-const SLACK_FLAGGING_FOOTER_LINK = nconf.get('SLACK:FLAGGING_FOOTER_LINK');
-const SLACK_SUBSCRIPTIONS_URL = nconf.get('SLACK:SUBSCRIPTIONS_URL');
+const SLACK_FLAGGING_URL = nconf.get('SLACK_FLAGGING_URL');
+const SLACK_FLAGGING_FOOTER_LINK = nconf.get('SLACK_FLAGGING_FOOTER_LINK');
+const SLACK_SUBSCRIPTIONS_URL = nconf.get('SLACK_SUBSCRIPTIONS_URL');
 const BASE_URL = nconf.get('BASE_URL');
 
 let flagSlack;
@@ -90,7 +90,7 @@ function sendSubscriptionNotification ({
   let text;
   let timestamp = new Date();
   if (recipient.id) {
-    text = `${buyer.name} ${buyer.id} ${buyer.email} bought a ${months}-month gift subscription for ${recipient.name} ${recipient.id} ${recipient.email} using ${paymentMethod} on ${timestamp}`;
+    text = `${buyer.name} ${buyer.id} ${buyer.email} bought a ${months}-month gift subscription for ${recipient.name} ${recipient.id} ${recipient.email} and got a promo using ${paymentMethod} on ${timestamp}`;
   } else if (groupId) {
     text = `${buyer.name} ${buyer.id} ${buyer.email} bought a 1-month recurring group-plan for ${groupId} using ${paymentMethod} on ${timestamp}`;
   } else {

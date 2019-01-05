@@ -112,7 +112,6 @@
     "wonChallenge": "Ai câștigat o provocare!",
     "newPM": "Received Private Message",
     "newPMInfo": "Mesaj nou de la  <%= name %>: <%= message %>",
-    "sentGems": "Trimite nestemate!",
     "giftedGems": "Gifted Gems",
     "giftedGemsInfo": "<%= name %> ți-a făcut cadou <%= amount %> Nestemate",
     "giftedGemsFull": "Salut <%= username %>, <%= sender %> ți-a trimis <%= gemAmount %> nestemate!",

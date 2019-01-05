@@ -78,7 +78,7 @@
     "hatchAPot": "Bir <%= potion %> <%= egg %> oluşturulsun mu?",
     "hatchedPet": "Yumurtadan bir <%= potion %> <%= egg %> çıktı!",
     "hatchedPetGeneric": "Yumurtadan bir evcil hayvan çıktı!",
-    "hatchedPetHowToUse": "En yeni hayvanını besleyip yanına almak için [Ahır](/inventory/stable) sayfasını ziyaret et!",
+    "hatchedPetHowToUse": "Visit the [Stable](<%= stableUrl %>) to feed and equip your newest pet!",
     "displayNow": "Şimdi Görüntüle",
     "displayLater": "Sonra Görüntüle",
     "petNotOwned": "Bu hayvana sahip değilsin.",

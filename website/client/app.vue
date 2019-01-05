@@ -11,22 +11,29 @@ div
   #app(:class='{"casting-spell": castingSpell}')
     banned-account-modal
     amazon-payments-modal(v-if='!isStaticPage')
+    payments-success-modal
     snackbars
     router-view(v-if="!isUserLoggedIn || isStaticPage")
     template(v-else)
       template(v-if="isUserLoaded")
-        div.resting-banner(v-show="showRestingBanner", ref="restingBanner")
+        .resting-banner(v-show="showRestingBanner", ref="restingBanner")
           span.content
             span.label.d-inline.d-sm-none {{ $t('innCheckOutBannerShort') }}
             span.label.d-none.d-sm-inline {{ $t('innCheckOutBanner') }}
             span.separator  |
             span.resume(@click="resumeDamage()") {{ $t('resumeDamage') }}
-          div.closepadding(@click="hideBanner()")
+          .closepadding(@click="hideBanner()")
+            span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close")
+        .g1g1-banner.d-flex.justify-content-center.align-items-center(v-if="!giftingHidden")
+          .svg-icon.svg-gifts.left-gift(v-html="icons.gifts")
+          router-link(:to="{name: 'subscription'}") {{ $t('g1g1Announcement') }}
+          .svg-icon.svg-gifts.right-gift(v-html="icons.gifts")
+          .closepadding(@click="hideGiftingBanner()")
             span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close")
         notifications-display
-        app-menu(:class='{"restingInn": showRestingBanner}' :style="{ marginTop: bannerHeight + 'px' }")
+        app-menu
         .container-fluid
-          app-header(:class='{"restingInn": showRestingBanner}')
+          app-header
           buyModal(
             :item="selectedItemToBuy || {}",
             :withPin="true",
@@ -48,6 +55,13 @@ div
 
 <style lang='scss' scoped>
   @import '~client/assets/scss/colors.scss';
+
+  #app {
+    height: calc(100% - 56px); /* 56px is the menu */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
 
   #loading-screen-inapp {
     #melior {
@@ -78,6 +92,46 @@ div
     cursor: crosshair;
   }
 
+  .container-fluid {
+    overflow-x: hidden;
+    flex: 1 0 auto;
+  }
+
+  .g1g1-banner {
+    width: 100%;
+    min-height: 2.5rem;
+    background-color: #34b5c1;
+
+    a {
+      color: $white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .closepadding {
+      margin: 11px 24px;
+      display: inline-block;
+      position: relative;
+      right: 0;
+      top: 0;
+      cursor: pointer;
+    }
+
+    .left-gift {
+      margin: auto 1rem auto auto;
+    }
+
+    .right-gift {
+      margin: auto auto auto 1rem;
+      filter: FlipH;
+      transform: scaleX(-1);
+    }
+
+    .svg-gifts {
+      width: 4.6rem;
+    }
+  }
+
   .notification {
     border-radius: 1000px;
     background-color: $green-10;
@@ -88,42 +142,10 @@ div
     margin-bottom: .5em;
   }
 
-  .container-fluid {
-    overflow-x: hidden;
-    flex: 1 0 auto;
-  }
-
-  #app {
-    height: calc(100% - 56px); /* 56px is the menu */
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-</style>
-
-<style lang='scss'>
-  @import '~client/assets/scss/colors.scss';
-
-  /* @TODO: The modal-open class is not being removed. Let's try this for now */
-  .modal {
-    overflow-y: scroll !important;
-  }
-
-  .modal-backdrop.show {
-    opacity: .9 !important;
-    background-color: $purple-100 !important;
-  }
-
-  /* Push progress bar above modals */
-  #nprogress .bar {
-    z-index: 1600 !important; /* Must stay above nav bar */
-  }
-
   .resting-banner {
     width: 100%;
     min-height: 40px;
     background-color: $blue-10;
-    position: fixed;
     top: 0;
     z-index: 1300;
     display: flex;
@@ -139,14 +161,10 @@ div
     .closepadding {
       margin: 11px 24px;
       display: inline-block;
-      position: absolute;
+      position: relative;
       right: 0;
       top: 0;
       cursor: pointer;
-
-      span svg path {
-        stroke: $blue-500;
-      }
     }
 
     @media only screen and (max-width: 768px) {
@@ -169,6 +187,30 @@ div
   }
 </style>
 
+<style lang='scss'>
+  @import '~client/assets/scss/colors.scss';
+
+  .closepadding span svg path {
+    stroke: #FFF;
+    opacity: 0.48;
+  }
+
+  /* @TODO: The modal-open class is not being removed. Let's try this for now */
+  .modal {
+    overflow-y: scroll !important;
+  }
+
+  .modal-backdrop.show {
+    opacity: .9 !important;
+    background-color: $purple-100 !important;
+  }
+
+  /* Push progress bar above modals */
+  #nprogress .bar {
+    z-index: 1600 !important; /* Must stay above nav bar */
+  }
+</style>
+
 <script>
 import axios from 'axios';
 import { loadProgressBar } from 'axios-progress-bar';
@@ -185,8 +227,12 @@ import SelectMembersModal from 'client/components/selectMembersModal.vue';
 import notifications from 'client/mixins/notifications';
 import { setup as setupPayments } from 'client/libs/payments';
 import amazonPaymentsModal from 'client/components/payments/amazonModal';
-import spellsMixin from 'client/mixins/spells';
+import paymentsSuccessModal from 'client/components/payments/successModal';
 
+import spellsMixin from 'client/mixins/spells';
+import { CONSTANTS, getLocalSetting, removeLocalSetting, setLocalSetting } from 'client/libs/userlocalManager';
+
+import gifts from 'assets/svg/gifts.svg';
 import svgClose from 'assets/svg/close.svg';
 import bannedAccountModal from 'client/components/bannedAccountModal';
 
@@ -205,11 +251,13 @@ export default {
     SelectMembersModal,
     amazonPaymentsModal,
     bannedAccountModal,
+    paymentsSuccessModal,
   },
   data () {
     return {
       icons: Object.freeze({
         close: svgClose,
+        gifts,
       }),
       selectedItemToBuy: null,
       selectedSpellToBuy: null,
@@ -221,6 +269,7 @@ export default {
       currentTipNumber: 0,
       bannerHidden: false,
       bannerHeight: 0,
+      giftingHidden: getLocalSetting(CONSTANTS.keyConstants.GIFTING_BANNER_DISPLAY) === 'dismissed',
     };
   },
   computed: {
@@ -418,14 +467,6 @@ export default {
 
         this.hideLoadingScreen();
 
-        window.addEventListener('resize', this.setBannerOffset);
-        // Adjust the positioning of the header banners
-        this.$watch('showRestingBanner', () => {
-          this.$nextTick(() => {
-            this.setBannerOffset();
-          });
-        }, {immediate: true});
-
         // Adjust the timezone offset
         if (this.user.preferences.timezoneOffset !== this.browserTimezoneOffset) {
           this.$store.dispatch('user:set', {
@@ -433,6 +474,14 @@ export default {
           });
         }
 
+        let appState = getLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE);
+        if (appState) {
+          appState = JSON.parse(appState);
+          if (appState.paymentCompleted) {
+            removeLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE);
+            this.$root.$emit('habitica:payment-success', appState);
+          }
+        }
         this.$nextTick(() => {
           // Load external scripts after the app has been rendered
           setupPayments();
@@ -452,7 +501,6 @@ export default {
     this.$root.$off('bv::show::modal');
     this.$root.$off('buyModal::showItem');
     this.$root.$off('selectMembersModal::showItem');
-    window.removeEventListener('resize', this.setBannerOffset);
   },
   mounted () {
     // Remove the index.html loading screen and now show the inapp loading
@@ -611,21 +659,13 @@ export default {
     },
     hideBanner () {
       this.bannerHidden = true;
-      this.setBannerOffset();
+    },
+    hideGiftingBanner () {
+      setLocalSetting(CONSTANTS.keyConstants.GIFTING_BANNER_DISPLAY, 'dismissed');
+      this.giftingHidden = true;
     },
     resumeDamage () {
       this.$store.dispatch('user:sleep');
-    },
-    setBannerOffset () {
-      let contentPlacement = 0;
-      if (this.showRestingBanner && this.$refs.restingBanner !== undefined) {
-        contentPlacement = this.$refs.restingBanner.clientHeight;
-      }
-      this.bannerHeight = contentPlacement;
-      let smartBanner = document.getElementsByClassName('smartbanner')[0];
-      if (smartBanner !== undefined) {
-        smartBanner.style.top = `${contentPlacement}px`;
-      }
     },
   },
 };

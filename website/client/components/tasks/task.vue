@@ -94,7 +94,7 @@
               .tags-popover
                 .d-flex.align-items-center.tags-container
                   .tags-popover-title(v-once) {{ `${$t('tags')}:` }}
-                  .tag-label(v-for="tag in getTagsFor(task)") {{tag}}
+                  .tag-label(v-for="tag in getTagsFor(task)", v-markdown="tag")
 
       // Habits right side control
       .right-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="controlClass.down.bg")
@@ -490,6 +490,11 @@
       white-space: nowrap;
       margin-top: 3px;
       margin-bottom: 3px;
+
+      // Applies to v-markdown generated p tag.
+      p {
+        margin-bottom: 0px;
+      }
     }
   }
 </style>

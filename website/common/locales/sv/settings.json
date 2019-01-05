@@ -112,7 +112,6 @@
     "wonChallenge": "Du vann en utmaning!",
     "newPM": "Mottagit privatmeddelande",
     "newPMInfo": "Nytt meddelande från <%=name&>:<%message&>",
-    "sentGems": "Skickade juveler!",
     "giftedGems": "Skänkta juveler",
     "giftedGemsInfo": "<%= name %> gav dig <%= amount %> Diamanter",
     "giftedGemsFull": "Hej <%= username %>, <%= sender %> har skickat dig <%= gemAmount %> diamanter!",

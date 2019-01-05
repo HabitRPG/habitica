@@ -27,12 +27,13 @@ async function _deleteAmplitudeData (userId, email) {
   if (response) console.log(`${response.status} ${response.statusText}`);
 }
 
-async function _deleteHabiticaData (user) {
+async function _deleteHabiticaData (user, email) {
   await User.update(
     {_id: user._id},
     {$set: {
-      'auth.local.passwordHashMethod': 'bcrypt',
+      'auth.local.email': email,
       'auth.local.hashed_password': '$2a$10$QDnNh1j1yMPnTXDEOV38xOePEWFd4X8DSYwAM8XTmqmacG5X0DKjW',
+      'auth.local.passwordHashMethod': 'bcrypt',
     }}
   );
   const response = await axios.delete(
@@ -75,7 +76,7 @@ async function _processEmailAddress (email) {
   } else {
     for (const user of users) {
       await _deleteAmplitudeData(user._id, email); // eslint-disable-line no-await-in-loop
-      await _deleteHabiticaData(user); // eslint-disable-line no-await-in-loop
+      await _deleteHabiticaData(user, email); // eslint-disable-line no-await-in-loop
     }
   }
 }
