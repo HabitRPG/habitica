@@ -32,13 +32,13 @@ const QUEST_ACTIVITY_DEFAULT_OPTIONS = Object.freeze({
 
 export let schema = new Schema({
   id: {
-    type: String,
+    $type: String,
     required: true,
-    validate: [validator.isUUID, shared.i18n.t('invalidWebhookId')],
+    validate: [v => validator.isUUID(v), shared.i18n.t('invalidWebhookId')],
     default: uuid,
   },
   type: {
-    type: String,
+    $type: String,
     required: true,
     enum: [
       'globalActivity', // global webhooks send a request for every type of event
@@ -48,12 +48,12 @@ export let schema = new Schema({
     default: 'taskActivity',
   },
   label: {
-    type: String,
+    $type: String,
     required: false,
     default: '',
   },
   url: {
-    type: String,
+    $type: String,
     required: true,
     validate: [(v) => {
       return validator.isURL(v, {
@@ -61,9 +61,9 @@ export let schema = new Schema({
       });
     }, shared.i18n.t('invalidUrl')],
   },
-  enabled: { type: Boolean, required: true, default: true },
+  enabled: { $type: Boolean, required: true, default: true },
   options: {
-    type: Schema.Types.Mixed,
+    $type: Schema.Types.Mixed,
     required: true,
     default () {
       return {};
@@ -73,6 +73,7 @@ export let schema = new Schema({
   strict: true,
   minimize: false, // So empty objects are returned
   _id: false,
+  typeKey: '$type', // So that we can use fields named `type`
 });
 
 schema.plugin(baseModel, {

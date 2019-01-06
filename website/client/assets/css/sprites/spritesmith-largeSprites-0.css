@@ -1,48 +1,54 @@
-.promo_armoire_backgrounds_201808 {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -421px -223px;
-  width: 141px;
-  height: 441px;
-}
-.promo_ember_potions {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -563px -223px;
-  width: 141px;
-  height: 441px;
-}
-.promo_ios {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -337px;
-  width: 375px;
-  height: 361px;
-}
-.promo_kangaroo {
+.promo_armoire_backgrounds_201901 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: 0px 0px;
-  width: 420px;
-  height: 336px;
+  width: 423px;
+  height: 147px;
 }
-.promo_mystery_201808 {
+.promo_bird_buddies_bundle {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -734px -251px;
-  width: 78px;
-  height: 81px;
+  background-position: -424px 0px;
+  width: 420px;
+  height: 147px;
+}
+.promo_g1g1 {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -241px -296px;
+  width: 237px;
+  height: 150px;
+}
+.promo_npc_alex {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -479px -296px;
+  width: 162px;
+  height: 138px;
+}
+.promo_seasonal_shop {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -642px -296px;
+  width: 162px;
+  height: 138px;
+}
+.promo_snow_potions {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -148px;
+  width: 423px;
+  height: 147px;
 }
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -734px -181px;
+  background-position: 0px -492px;
   width: 96px;
   height: 69px;
 }
-.promo_unconventional_armor {
+.promo_winter_wonderland_2019 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -734px 0px;
-  width: 180px;
-  height: 180px;
+  background-position: -424px -148px;
+  width: 402px;
+  height: 147px;
 }
-.scene_casting_spells {
+.scene_todo_list {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -421px 0px;
-  width: 312px;
-  height: 222px;
+  background-position: 0px -296px;
+  width: 240px;
+  height: 195px;
 }

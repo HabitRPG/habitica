@@ -3,7 +3,7 @@
   "share": "Megosztás",
   "onwards": "Tovább!",
   "levelup": "A valós céljaid elvégzésével szintet léptél, és teljesen felgyógyultál!",
-  "reachedLevel": "Elérted a <%= level %> szintet",
+  "reachedLevel": "Elérted a <%= level %>. szintet",
   "achievementLostMasterclasser": "Küldetés maximalista: Kasztmester sorozat",
   "achievementLostMasterclasserText": "Teljesítetted mind a tizenhat küldetést a Kasztmester küldetéssorozatban, és megoldottad az Elveszett kasztmester rejtélyét!"
 }

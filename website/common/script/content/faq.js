@@ -14,6 +14,7 @@ for (let i = 0; i <= NUMBER_OF_QUESTIONS; i++) {
   let question = {
     question: t(`faqQuestion${i}`),
     ios: t(`iosFaqAnswer${i}`),
+    android: t(`androidFaqAnswer${i}`),
     web: t(`webFaqAnswer${i}`, {
       //  TODO: Need to pull these values from nconf
       techAssistanceEmail: 'admin@habitica.com',

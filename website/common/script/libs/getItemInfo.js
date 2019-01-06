@@ -338,7 +338,7 @@ module.exports = function getItemInfo (user, type, item, officialPinnedItems, la
 
   if (itemInfo) {
     itemInfo.isSuggested = isItemSuggested(officialPinnedItems, itemInfo);
-    itemInfo.pinned = isPinned(user, itemInfo);
+    itemInfo.pinned = isPinned(user, itemInfo, officialPinnedItems);
   } else {
     throw new BadRequest(i18n.t('wrongItemType', {type}, language));
   }

@@ -27,7 +27,7 @@ describe('payments - amazon - #subscribe', () => {
     let coupon;
 
     beforeEach(() => {
-      subscribeWithAmazonStub = sinon.stub(amzLib, 'subscribe').returnsPromise().resolves({});
+      subscribeWithAmazonStub = sinon.stub(amzLib, 'subscribe').resolves({});
     });
 
     afterEach(() => {

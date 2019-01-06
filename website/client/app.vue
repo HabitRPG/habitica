@@ -11,25 +11,32 @@ div
   #app(:class='{"casting-spell": castingSpell}')
     banned-account-modal
     amazon-payments-modal(v-if='!isStaticPage')
+    payments-success-modal
     snackbars
     router-view(v-if="!isUserLoggedIn || isStaticPage")
     template(v-else)
       template(v-if="isUserLoaded")
-        div.resting-banner(v-if="showRestingBanner")
+        .resting-banner(v-show="showRestingBanner", ref="restingBanner")
           span.content
-            span.label {{ $t('innCheckOutBanner') }}
-            span.separator |
+            span.label.d-inline.d-sm-none {{ $t('innCheckOutBannerShort') }}
+            span.label.d-none.d-sm-inline {{ $t('innCheckOutBanner') }}
+            span.separator  |
             span.resume(@click="resumeDamage()") {{ $t('resumeDamage') }}
-          div.closepadding(@click="hideBanner()")
+          .closepadding(@click="hideBanner()")
+            span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close")
+        .g1g1-banner.d-flex.justify-content-center.align-items-center(v-if="!giftingHidden")
+          .svg-icon.svg-gifts.left-gift(v-html="icons.gifts")
+          router-link(:to="{name: 'subscription'}") {{ $t('g1g1Announcement') }}
+          .svg-icon.svg-gifts.right-gift(v-html="icons.gifts")
+          .closepadding(@click="hideGiftingBanner()")
             span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close")
         notifications-display
-        app-menu(:class='{"restingInn": showRestingBanner}')
+        app-menu
         .container-fluid
-          app-header(:class='{"restingInn": showRestingBanner}')
+          app-header
           buyModal(
             :item="selectedItemToBuy || {}",
             :withPin="true",
-            @change="resetItemToBuy($event)",
             @buyPressed="customPurchase($event)",
             :genericPurchase="genericPurchase(selectedItemToBuy)",
 
@@ -48,6 +55,13 @@ div
 
 <style lang='scss' scoped>
   @import '~client/assets/scss/colors.scss';
+
+  #app {
+    height: calc(100% - 56px); /* 56px is the menu */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
 
   #loading-screen-inapp {
     #melior {
@@ -78,6 +92,46 @@ div
     cursor: crosshair;
   }
 
+  .container-fluid {
+    overflow-x: hidden;
+    flex: 1 0 auto;
+  }
+
+  .g1g1-banner {
+    width: 100%;
+    min-height: 2.5rem;
+    background-color: #34b5c1;
+
+    a {
+      color: $white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .closepadding {
+      margin: 11px 24px;
+      display: inline-block;
+      position: relative;
+      right: 0;
+      top: 0;
+      cursor: pointer;
+    }
+
+    .left-gift {
+      margin: auto 1rem auto auto;
+    }
+
+    .right-gift {
+      margin: auto auto auto 1rem;
+      filter: FlipH;
+      transform: scaleX(-1);
+    }
+
+    .svg-gifts {
+      width: 4.6rem;
+    }
+  }
+
   .notification {
     border-radius: 1000px;
     background-color: $green-10;
@@ -88,21 +142,58 @@ div
     margin-bottom: .5em;
   }
 
-  .container-fluid {
-    overflow-x: hidden;
-    flex: 1 0 auto;
-  }
-
-  #app {
-    height: calc(100% - 56px); /* 56px is the menu */
+  .resting-banner {
+    width: 100%;
+    min-height: 40px;
+    background-color: $blue-10;
+    top: 0;
+    z-index: 1300;
     display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+
+    .content {
+      line-height: 1.71;
+      text-align: center;
+      color: $white;
+      padding: 8px 38px 8px 8px;
+      margin: auto;
+    }
+
+    .closepadding {
+      margin: 11px 24px;
+      display: inline-block;
+      position: relative;
+      right: 0;
+      top: 0;
+      cursor: pointer;
+    }
+
+    @media only screen and (max-width: 768px) {
+      .content {
+        font-size: 12px;
+        line-height: 1.4;
+      }
+    }
+
+    .separator {
+      color: $blue-100;
+      margin: 0px 15px;
+    }
+
+    .resume {
+      font-weight: bold;
+      cursor: pointer;
+      white-space:nowrap;
+    }
   }
 </style>
 
 <style lang='scss'>
   @import '~client/assets/scss/colors.scss';
+
+  .closepadding span svg path {
+    stroke: #FFF;
+    opacity: 0.48;
+  }
 
   /* @TODO: The modal-open class is not being removed. Let's try this for now */
   .modal {
@@ -117,59 +208,6 @@ div
   /* Push progress bar above modals */
   #nprogress .bar {
     z-index: 1600 !important; /* Must stay above nav bar */
-  }
-
-  .restingInn {
-    .navbar {
-      top: 40px;
-    }
-
-    #app-header {
-      margin-top: 40px !important;
-    }
-
-  }
-
-  .resting-banner {
-    width: 100%;
-    height: 40px;
-    background-color: $blue-10;
-    position: fixed;
-    top: 0;
-    z-index: 1300;
-    display: flex;
-
-    .content {
-      height: 24px;
-      line-height: 1.71;
-      text-align: center;
-      color: $white;
-
-      margin: auto;
-    }
-
-    .closepadding {
-      margin: 11px 24px;
-      display: inline-block;
-      position: absolute;
-      right: 0;
-      top: 0;
-      cursor: pointer;
-
-      span svg path {
-        stroke: $blue-500;
-      }
-    }
-
-    .separator {
-      color: $blue-100;
-      margin: 0px 15px;
-    }
-
-    .resume {
-      font-weight: bold;
-      cursor: pointer;
-    }
   }
 </style>
 
@@ -189,8 +227,12 @@ import SelectMembersModal from 'client/components/selectMembersModal.vue';
 import notifications from 'client/mixins/notifications';
 import { setup as setupPayments } from 'client/libs/payments';
 import amazonPaymentsModal from 'client/components/payments/amazonModal';
-import spellsMixin from 'client/mixins/spells';
+import paymentsSuccessModal from 'client/components/payments/successModal';
 
+import spellsMixin from 'client/mixins/spells';
+import { CONSTANTS, getLocalSetting, removeLocalSetting, setLocalSetting } from 'client/libs/userlocalManager';
+
+import gifts from 'assets/svg/gifts.svg';
 import svgClose from 'assets/svg/close.svg';
 import bannedAccountModal from 'client/components/bannedAccountModal';
 
@@ -209,11 +251,13 @@ export default {
     SelectMembersModal,
     amazonPaymentsModal,
     bannedAccountModal,
+    paymentsSuccessModal,
   },
   data () {
     return {
       icons: Object.freeze({
         close: svgClose,
+        gifts,
       }),
       selectedItemToBuy: null,
       selectedSpellToBuy: null,
@@ -224,6 +268,8 @@ export default {
       loading: true,
       currentTipNumber: 0,
       bannerHidden: false,
+      bannerHeight: 0,
+      giftingHidden: getLocalSetting(CONSTANTS.keyConstants.GIFTING_BANNER_DISPLAY) === 'dismissed',
     };
   },
   computed: {
@@ -295,14 +341,9 @@ export default {
 
     // Set up Error interceptors
     axios.interceptors.response.use((response) => {
-      const responseHasNotifications = response.data && response.data.notifications;
-      if (!responseHasNotifications) return response;
-
-      const responseIsUpdateUser = this.user && this.user._v >= response.data.userV;
-      if (!responseIsUpdateUser) return response;
-
-      this.$set(this.user, 'notifications', response.data.notifications);
-
+      if (this.user && response.data && response.data.notifications) {
+        this.$set(this.user, 'notifications', response.data.notifications);
+      }
       return response;
     }, (error) => {
       if (error.response.status >= 400) {
@@ -337,23 +378,13 @@ export default {
         if (notificationNotFoundMessage.indexOf(errorMessage) !== -1) snackbarTimeout = true;
 
         let errorsToShow = [];
-        let usernameCheck = false;
-        let emailCheck = false;
-        let passwordCheck = false;
         // show only the first error for each param
+        let paramErrorsFound = {};
         if (errorData.errors) {
           for (let e of errorData.errors) {
-            if (!usernameCheck && e.param === 'username') {
+            if (!paramErrorsFound[e.param]) {
               errorsToShow.push(e.message);
-              usernameCheck = true;
-            }
-            if (!emailCheck && e.param === 'email') {
-              errorsToShow.push(e.message);
-              emailCheck = true;
-            }
-            if (!passwordCheck && e.param === 'password') {
-              errorsToShow.push(e.message);
-              passwordCheck = true;
+              paramErrorsFound[e.param] = true;
             }
           }
         } else {
@@ -419,7 +450,6 @@ export default {
     this.$store.watch(state => state.title, (title) => {
       document.title = title;
     });
-
     this.$nextTick(() => {
       // Load external scripts after the app has been rendered
       Analytics.load();
@@ -444,6 +474,14 @@ export default {
           });
         }
 
+        let appState = getLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE);
+        if (appState) {
+          appState = JSON.parse(appState);
+          if (appState.paymentCompleted) {
+            removeLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE);
+            this.$root.$emit('habitica:payment-success', appState);
+          }
+        }
         this.$nextTick(() => {
           // Load external scripts after the app has been rendered
           setupPayments();
@@ -572,13 +610,6 @@ export default {
         });
       }
     },
-    resetItemToBuy ($event) {
-      // @TODO: Do we need this? I think selecting a new item
-      // overwrites. @negue might know
-      if (!$event && this.selectedItemToBuy.purchaseType !== 'card') {
-        this.selectedItemToBuy = null;
-      }
-    },
     itemSelected (item) {
       this.selectedItemToBuy = item;
     },
@@ -629,6 +660,10 @@ export default {
     hideBanner () {
       this.bannerHidden = true;
     },
+    hideGiftingBanner () {
+      setLocalSetting(CONSTANTS.keyConstants.GIFTING_BANNER_DISPLAY, 'dismissed');
+      this.giftingHidden = true;
+    },
     resumeDamage () {
       this.$store.dispatch('user:sleep');
     },
@@ -663,5 +698,6 @@ export default {
 <style src="assets/css/sprites/spritesmith-main-20.css"></style>
 <style src="assets/css/sprites/spritesmith-main-21.css"></style>
 <style src="assets/css/sprites/spritesmith-main-22.css"></style>
+<style src="assets/css/sprites/spritesmith-main-23.css"></style>
 <style src="assets/css/sprites.css"></style>
 <style src="smartbanner.js/dist/smartbanner.min.css"></style>

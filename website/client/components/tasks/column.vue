@@ -540,7 +540,7 @@ export default {
       const tasks = text.split('\n').reverse().filter(taskText => {
         return taskText ? true : false;
       }).map(taskText => {
-        const task = taskDefaults({type: this.type, text: taskText});
+        const task = taskDefaults({type: this.type, text: taskText}, this.user);
         task.tags = this.selectedTags;
         return task;
       });

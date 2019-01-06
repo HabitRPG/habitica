@@ -39,7 +39,7 @@ describe('POST /user/auth/social', () => {
     });
 
     it('registers a new user', async () => {
-      let response = await api.post(endpoint, {
+      const response = await api.post(endpoint, {
         authResponse: {access_token: randomAccessToken}, // eslint-disable-line camelcase
         network,
       });
@@ -47,7 +47,10 @@ describe('POST /user/auth/social', () => {
       expect(response.apiToken).to.exist;
       expect(response.id).to.exist;
       expect(response.newUser).to.be.true;
+      expect(response.username).to.exist;
+
       await expect(getProperty('users', response.id, 'profile.name')).to.eventually.equal('a facebook user');
+      await expect(getProperty('users', response.id, 'auth.local.lowerCaseUsername')).to.exist;
     });
 
     it('logs an existing user in', async () => {
@@ -77,7 +80,7 @@ describe('POST /user/auth/social', () => {
       expect(response.newUser).to.be.false;
     });
 
-    it('enrolls a new user in an A/B test', async () => {
+    xit('enrolls a new user in an A/B test', async () => {
       await api.post(endpoint, {
         authResponse: {access_token: randomAccessToken}, // eslint-disable-line camelcase
         network,
@@ -133,7 +136,7 @@ describe('POST /user/auth/social', () => {
       expect(response.newUser).to.be.false;
     });
 
-    it('enrolls a new user in an A/B test', async () => {
+    xit('enrolls a new user in an A/B test', async () => {
       await api.post(endpoint, {
         authResponse: {access_token: randomAccessToken}, // eslint-disable-line camelcase
         network,

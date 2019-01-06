@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  invite-modal(:group='inviteModalGroup')
+  invite-modal(:group='inviteModalGroup', :groupType='inviteModalGroupType')
   create-party-modal
   #app-header.row(:class="{'hide-header': $route.name === 'groupPlan'}")
     members-modal(:hide-badge="true")
@@ -115,6 +115,7 @@ export default {
       expandedMember: null,
       currentWidth: 0,
       inviteModalGroup: undefined,
+      inviteModalGroupType: undefined,
     };
   },
   computed: {
@@ -154,11 +155,13 @@ export default {
         this.$root.$emit('bv::show::modal', 'create-party-modal');
       }
     },
-    showPartyMembers () {
+    async showPartyMembers () {
+      const party = await this.$store.dispatch('party:getParty');
+
       this.$root.$emit('habitica:show-member-modal', {
-        groupId: this.user.party._id,
+        groupId: party.data._id,
         viewingMembers: this.partyMembers,
-        group: this.user.party,
+        group: party.data,
       });
     },
     setPartyMembersWidth ($event) {
@@ -171,12 +174,17 @@ export default {
     if (this.user.party && this.user.party._id) {
       this.$store.state.memberModalOptions.groupId = this.user.party._id;
       this.getPartyMembers();
-
-      this.$root.$on('inviteModal::inviteToGroup', (group) => {
-        this.inviteModalGroup = group;
-        this.$root.$emit('bv::show::modal', 'invite-modal');
-      });
     }
+  },
+  mounted () {
+    this.$root.$on('inviteModal::inviteToGroup', (group) => {
+      this.inviteModalGroup = group;
+      this.inviteModalGroupType = group.type === 'guild' ? 'Guild' : 'Party';
+      this.$root.$emit('bv::show::modal', 'invite-modal');
+    });
+  },
+  destroyed () {
+    this.$root.off('inviteModal::inviteToGroup');
   },
 };
 </script>

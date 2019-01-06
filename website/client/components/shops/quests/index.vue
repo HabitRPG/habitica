@@ -339,6 +339,7 @@
   import toggleSwitch from 'client/components/ui/toggleSwitch';
   import Avatar from 'client/components/avatar';
   import buyMixin from 'client/mixins/buy';
+  import pinUtils from 'client/mixins/pinUtils';
   import currencyMixin from '../_currencyMixin';
 
   import BuyModal from './buyQuestModal.vue';
@@ -357,7 +358,7 @@
   import _map from 'lodash/map';
 
 export default {
-    mixins: [buyMixin, currencyMixin],
+    mixins: [buyMixin, currencyMixin, pinUtils],
     components: {
       ShopItem,
       Item,
@@ -473,11 +474,6 @@ export default {
         }
 
         return false;
-      },
-      togglePinned (item) {
-        if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
-          this.$parent.showUnpinNotification(item);
-        }
       },
       selectItem (item) {
         if (item.locked) return;

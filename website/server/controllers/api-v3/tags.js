@@ -38,9 +38,7 @@ let api = {};
 api.createTag = {
   method: 'POST',
   url: '/tags',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -66,9 +64,7 @@ api.createTag = {
 api.getTags = {
   method: 'GET',
   url: '/tags',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     res.respond(200, user.tags);
@@ -93,9 +89,7 @@ api.getTags = {
 api.getTag = {
   method: 'GET',
   url: '/tags/:tagId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -132,9 +126,7 @@ api.getTag = {
 api.updateTag = {
   method: 'PUT',
   url: '/tags/:tagId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -176,9 +168,7 @@ api.updateTag = {
 api.reorderTags = {
   method: 'POST',
   url: '/reorder-tags',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -192,7 +182,10 @@ api.reorderTags = {
       return tag.id === req.body.tagId;
     });
     if (tagIndex === -1) throw new NotFound(res.t('tagNotFound'));
-    user.tags.splice(req.body.to, 0, user.tags.splice(tagIndex, 1)[0]);
+
+    const removedItem = user.tags.splice(tagIndex, 1)[0];
+
+    user.tags.splice(req.body.to, 0, removedItem);
 
     await user.save();
     res.respond(200, {});
@@ -217,9 +210,7 @@ api.reorderTags = {
 api.deleteTag = {
   method: 'DELETE',
   url: '/tags/:tagId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 

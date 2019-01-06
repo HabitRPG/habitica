@@ -65,7 +65,7 @@
     "questVice1Completion": "Une fois l'emprise de Vice dissipée, vous sentez revenir une force que vous ne pensiez pas avoir en vous. Félicitations ! Mais un ennemi encore plus terrifiant vous attend...",
     "questVice1DropVice2Quest": "Vice, 2e partie (Parchemin)",
     "questVice2Text": "Vice, 2e partie : trouvez la tanière de la vouivre",
-    "questVice2Notes": "Fiers de vous et de votre aptitude à résister à l'emprise de la vouivre, votre équipe prend la route vers le Mont Habitica. Vous arrivez à l'entrée des cavernes de la montagne et stoppez net. Une houle d'ombre, presque comme un brouillard, s'échappe de l'ouverture. Il est presque impossible de voir quoi que ce soit en face de vous. La lumière de vos lanternes semble s'interrompre brusquement là où commencent les ombres. Il est dit que seule une lumière magique peut percer la brume infernale du dragon. Si vous arrivez à réunir assez de cristaux de lumière, vous pourrez atteindre le dragon. ",
+    "questVice2Notes": "Fière d'elle et de son aptitude à résister à l'emprise de la vouivre, votre équipe prend la route vers le Mont Habitica. Vous arrivez à l'entrée des cavernes de la montagne et stoppez net. Une houle d'ombre, presque comme un brouillard, s'échappe de l'ouverture. Il est presque impossible de voir quoi que ce soit en face de vous. La lumière de vos lanternes semble s'interrompre brusquement là où commencent les ombres. Il est dit que seule une lumière magique peut percer la brume infernale du dragon. Si vous arrivez à réunir assez de cristaux de lumière, vous pourrez atteindre le dragon. ",
     "questVice2CollectLightCrystal": "Cristaux de lumière",
     "questVice2Completion": "Alors que vous levez le dernier cristal, les ombres disparaissent, et votre chemin se révèlent. Le cœur battant, vous entrez dans la caverne.",
     "questVice2DropVice3Quest": "Vice, 3e partie (Parchemin)",
@@ -616,5 +616,17 @@
     "questKangarooCompletion": "\"MAINTENANT !\" Vous faites signe à votre groupe de lancer les boomerangs sur la kangourou. La bête saute plus loin à chaque coup jusqu'à ce qu'elle s'enfuit, ne laissant rien de plus qu'un nuage de poussière rouge foncé, quelques œufs et quelques pièces d'or.<br><br>@Mewrose marche jusqu'à l'endroit où la kangourou se tenait autrefois. \"Hé, où sont allés les boomerangs ?\"<br><br>\"Ils se sont probablement dissous dans la poussière, faisant ce nuage rouge foncé, quand nous avons terminé nos tâches respectives\", spécule @stefalupagus.<br><br>@LilithofAlfheim louche à l'horizon. \"Est-ce qu'une autre troupe de kangourou se dirige vers nous ?\"<br><br>Vous vous êtes tous introduits dans une course vers Habit City. Mieux vaut affronter vos tâches difficiles que de prendre une autre bosse à l'arrière de la tête !",
     "questKangarooBoss": "Kangourou catastrophique",
     "questKangarooDropKangarooEgg": "Kangourou (Œuf) ",
-    "questKangarooUnlockText": " Déverrouille l'achat d’œufs de kangourou au Marché "
+    "questKangarooUnlockText": " Déverrouille l'achat d’œufs de kangourou au marché ",
+    "forestFriendsText": "Lot de quête des amis sylvains",
+    "forestFriendsNotes": "Contient \"L'esprit du printemps\", \"La bête hérissée\" et \"L'arbre tortueux\". Disponible jusqu'au 30 Septembre.",
+    "questAlligatorText": "L'insti-Gator",
+    "questAlligatorNotes": "\"Crikey !\" s'exclame @gully. \"Un Insti-Gator dans son habitat naturel ! Attention, il distrait sa proie avec des choses qui semblent urgentes A CET INSTANT, et il se nourrit des quotidiennes non contrôlées qui en résultent.\" Vous vous taisez pour éviter d'attirer son attention, mais en vain. L'Insti-Gator vous repère et charge ! Des voix distrayantes s'élèvent du marais de la stagnation, attirant votre attention : \"Lis ce post ! Regarde cette photo ! Fais attention à moi MAINTENANT !\" Vous vous précipitez pour monter une contre-attaque, complétant vos quotidiennes et renforçant vos bonnes habitudes pour combattre le redoutable Insti-Gator.",
+    "questAlligatorCompletion": "Avec votre attention concentrée sur ce qui est important et non sur les distractions de l'Insti-Gator, l'Insti-Gator fuit. Victoire ! \"Ce sont des oeufs ? Ils ressemblent à des œufs d'alligator pour moi \", demande @mfonda. \"Si nous prenons soin d'eux, ils seront des animaux de compagnie loyaux ou des coursiers fidèles\", répond @UncommonCriminal, vous en donnant trois à soigner. Espérons que oui, sinon l'Insti-Gator pourrait revenir...",
+    "questAlligatorBoss": "Insti-Gator",
+    "questAlligatorDropAlligatorEgg": "Alligator (Œuf)",
+    "questAlligatorUnlockText": " Déverrouille l'achat d’œufs d'alligator au marché ",
+    "oddballsText": "Lot de quêtes des énergumènes",
+    "oddballsNotes": "Contient 'Le régent de gelée,' 'Échappez à la créature des cavernes,' et 'Du fil à retorde.' Disponible jusqu'au 3 décembre.",
+    "birdBuddiesText": "Lot de quêtes des oiseaux acolytes",
+    "birdBuddiesNotes": "Contient 'Le gorfou glacé,' 'La colère du coq,' et 'Le paon oscillant.' Disponible jusqu'au 31 décembre."
 }

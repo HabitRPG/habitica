@@ -17,5 +17,12 @@ function setUpServer () {
 setUpServer();
 
 // Replace this with your migration
-const processUsers = require('./groups/reconcile-group-plan-members.js');
-processUsers();
+const processUsers = require('./archive/2018/20181231_nye.js');
+processUsers()
+  .then(function success () {
+    process.exit(0);
+  })
+  .catch(function failure (err) {
+    console.log(err);
+    process.exit(1);
+  });

@@ -19,6 +19,7 @@
     "veteranTiger": "Tigre Veterana",
     "veteranLion": "Leone Veterano",
     "veteranBear": "Orso Veterano",
+    "veteranFox": "Volpe Veterana",
     "cerberusPup": "Cucciolo di Cerbero",
     "hydra": "Idra",
     "mantisShrimp": "Canocchia",
@@ -77,7 +78,7 @@
     "hatchAPot": "Vuoi far nascere <%= potion %><%= egg %>?",
     "hatchedPet": "È nato un <%= egg %> <%= potion %>!",
     "hatchedPetGeneric": "Hai fatto nascere un nuovo animale!",
-    "hatchedPetHowToUse": "Vai alla [Scuderia](/inventory/stable) per nutrire ed equipaggiare il tuo nuovo animale!",
+    "hatchedPetHowToUse": "Visit the [Stable](<%= stableUrl %>) to feed and equip your newest pet!",
     "displayNow": "Mostra ora",
     "displayLater": "Mostra più tardi",
     "petNotOwned": "Non possiedi questo animale.",
@@ -139,7 +140,7 @@
     "clickOnEggToHatch": "Clicca su un Uovo per usare la tua Pozione <%= potionName %> e far nascere un nuovo animale!",
     "hatchDialogText": "Versa la tua Pozione <%= potionName %> sul tuo uovo di <%= eggName %>, e nascerà <%= petName %>.",
     "clickOnPotionToHatch": "Clicca su una pozione per usarla sul tuo <%= eggName %> e far nascere un nuovo animale!",
-    "notEnoughPets": "You have not collected enough pets",
-    "notEnoughMounts": "You have not collected enough mounts",
-    "notEnoughPetsMounts": "You have not collected enough pets and mounts"
+    "notEnoughPets": "Non hai collezionato abbastanza animali",
+    "notEnoughMounts": "Non hai collezionato abbastanza cavalcature",
+    "notEnoughPetsMounts": "Non hai collezionato abbastanza animali e cavalcature"
 }

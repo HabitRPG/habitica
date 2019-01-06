@@ -9,29 +9,29 @@ const featuredItems = {
     },
     {
       type: 'premiumHatchingPotion',
-      path: 'premiumHatchingPotions.Ember',
+      path: 'premiumHatchingPotions.Peppermint',
     },
     {
-      type: 'eggs',
-      path: 'eggs.Dragon',
+      type: 'premiumHatchingPotion',
+      path: 'premiumHatchingPotions.IcySnow',
     },
     {
-      type: 'card',
-      path: 'cardTypes.congrats',
+      type: 'premiumHatchingPotion',
+      path: 'premiumHatchingPotions.StarryNight',
     },
   ],
   quests: [
     {
       type: 'quests',
-      path: 'quests.seaserpent',
+      path: 'quests.evilsanta',
     },
     {
       type: 'quests',
-      path: 'quests.dilatoryDistress1',
+      path: 'quests.evilsanta2',
     },
     {
       type: 'quests',
-      path: 'quests.kangaroo',
+      path: 'quests.penguin',
     },
   ],
   seasonal: '',

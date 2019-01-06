@@ -22,8 +22,8 @@ if (IS_PROD) {
       prettyPrint: false,
     });
     logger.add(winston.transports.Loggly, {
-      inputToken: nconf.get('LOGGLY:TOKEN'),
-      subdomain: nconf.get('LOGGLY:SUBDOMAIN'),
+      inputToken: nconf.get('LOGGLY_TOKEN'),
+      subdomain: nconf.get('LOGGLY_SUBDOMAIN'),
       tags: ['Winston-NodeJS'],
       json: true,
     });

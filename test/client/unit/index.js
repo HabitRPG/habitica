@@ -4,7 +4,7 @@ require('babel-polyfill');
 
 // Automatically setup SinonJS' sandbox for each test
 beforeEach(() => {
-  global.sandbox = sinon.sandbox.create();
+  global.sandbox = sinon.createSandbox();
 });
 
 afterEach(() => {

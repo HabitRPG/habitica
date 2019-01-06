@@ -24,7 +24,7 @@ describe('payments - stripe - #checkout', () => {
     let stripeCheckoutSubscriptionStub;
 
     beforeEach(async () => {
-      stripeCheckoutSubscriptionStub = sinon.stub(stripePayments, 'checkout').returnsPromise().resolves({});
+      stripeCheckoutSubscriptionStub = sinon.stub(stripePayments, 'checkout').resolves({});
     });
 
     afterEach(() => {

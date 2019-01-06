@@ -38,7 +38,6 @@
     "messageInsufficientGems": "Недостаточно самоцветов!",
     "messageAuthPasswordMustMatch": ":password и :confirmPassword не совпадают",
     "messageAuthCredentialsRequired": ":username, :email, :password, :confirmPassword обязательны",
-    "messageAuthUsernameTaken": "Имя пользователя уже занято",
     "messageAuthEmailTaken": "Электронная почта уже занята",
     "messageAuthNoUserFound": "Пользователь не найден.",
     "messageAuthMustBeLoggedIn": "Вы должны быть авторизованы.",
@@ -62,5 +61,6 @@
     "notificationsRequired": "Необходим идентификатор оповещений.",
     "unallocatedStatsPoints": "Вы не распределили <span class=\"notification-bold-blue\"><%= points %> очков</span>",
     "beginningOfConversation": "Это начало вашего разговора с <%= userName %>. Не забывайте, что общепринятые правила сообщества предписавыют быть добрыми, уважительными!",
-    "messageDeletedUser": "Sorry, this user has deleted their account."
+    "messageDeletedUser": "Приносим свои извинения, этот пользователь удалил свой аккаунт.",
+    "messageMissingDisplayName": "Отсутствует отображаемое имя."
 }
