@@ -271,7 +271,7 @@
     "weaponSpecialFall2018WarriorText": "Látigo de Minos",
     "weaponSpecialFall2018WarriorNotes": "No es lo suficientemente largo para desenrollarse y permitir que te orientes en un laberinto. Bueno, a lo mejor si es un laberinto muy pequeño. Aumenta la Fuerza en <%= str %>. Edición Limitada Equipamiento de Otoño 2018.",
     "weaponSpecialFall2018MageText": "Bastón de Dulzura",
-    "weaponSpecialFall2018MageNotes": "¡Esta no es una piruleta cualquiera! El orbe brillante de azúcar mágica que corona este bastón tiene el poder de hacer que los buenos hábitos se peguen a ti. Aumenta la Inteligencia en <%= int %> y la Percepción en <%= per %>. Edición Limitada Equipamiento de Otoño 2018. Objeto de dos manos.",
+    "weaponSpecialFall2018MageNotes": "¡Esta no es una piruleta cualquiera! El orbe brillante de azúcar mágica que corona este bastón tiene el poder de hacer que los buenos hábitos se peguen a ti. Aumenta la Inteligencia en <%= int %> y la Percepción en <%= per %>. Edición Limitada Equipamiento de Otoño 2018.",
     "weaponSpecialFall2018HealerText": "Bastón Hambriento",
     "weaponSpecialFall2018HealerNotes": "Mantén este bastón bien alimentado, y concederá Bendiciones. Si te olvidas de alimentarlo, mantén los dedos fuera de su alcance. Aumenta la Inteligencia en <%= int %>. Edición Limitada Equipamiento de Otoño 2018.",
     "weaponSpecialWinter2019RogueText": "Ramo de Flor de Navidad",

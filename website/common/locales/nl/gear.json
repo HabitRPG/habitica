@@ -271,7 +271,7 @@
     "weaponSpecialFall2018WarriorText": "Zweep van Minos",
     "weaponSpecialFall2018WarriorNotes": "Not quite long enough to unwind behind you for keeping your bearings in a maze. Well, maybe a very small maze. Increases Strength by <%= str %>. Limited Edition 2018 Autumn Gear.",
     "weaponSpecialFall2018MageText": "Staf van Zoetheid",
-    "weaponSpecialFall2018MageNotes": "Dit is geen doodnormale lolly! De gloeiende bol van magische suiker bovenop deze staf heeft de kracht om goede gewoontes te laten bijblijven. Verhoogt Intelligentie met <%= int %> en Perceptie met <%= per %> . Beperkte Editie 2018 Herfst Uitrusting. Tweehandig voorwerp.",
+    "weaponSpecialFall2018MageNotes": "Dit is geen doodnormale lolly! De gloeiende bol van magische suiker bovenop deze staf heeft de kracht om goede gewoontes te laten bijblijven. Verhoogt Intelligentie met <%= int %> en Perceptie met <%= per %> . Beperkte Editie 2018 Herfst Uitrusting.",
     "weaponSpecialFall2018HealerText": "verhongerende medewerker",
     "weaponSpecialFall2018HealerNotes": "Just keep this staff fed, and it will bestow Blessings. If you forget to feed it, keep your fingers out of reach. Increases Intelligence by <%= int %>. Limited Edition 2018 Autumn Gear.",
     "weaponSpecialWinter2019RogueText": "Poinsettia Bouquet",

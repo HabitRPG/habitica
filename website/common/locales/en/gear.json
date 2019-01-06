@@ -299,7 +299,7 @@
   "weaponSpecialFall2018WarriorText": "Whip of Minos",
   "weaponSpecialFall2018WarriorNotes": "Not quite long enough to unwind behind you for keeping your bearings in a maze. Well, maybe a very small maze. Increases Strength by <%= str %>. Limited Edition 2018 Autumn Gear.",
   "weaponSpecialFall2018MageText": "Staff of Sweetness",
-  "weaponSpecialFall2018MageNotes": "This is no ordinary lollipop! The glowing orb of magic sugar atop this staff has the power to make good habits stick to you. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2018 Autumn Gear. Two-handed item.",
+  "weaponSpecialFall2018MageNotes": "This is no ordinary lollipop! The glowing orb of magic sugar atop this staff has the power to make good habits stick to you. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2018 Autumn Gear.",
   "weaponSpecialFall2018HealerText": "Starving Staff",
   "weaponSpecialFall2018HealerNotes": "Just keep this staff fed, and it will bestow Blessings. If you forget to feed it, keep your fingers out of reach. Increases Intelligence by <%= int %>. Limited Edition 2018 Autumn Gear.",
 
