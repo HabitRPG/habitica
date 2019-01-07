@@ -164,6 +164,7 @@ import tier7 from 'assets/svg/tier-7.svg';
 import tier8 from 'assets/svg/tier-mod.svg';
 import tier9 from 'assets/svg/tier-staff.svg';
 import tierNPC from 'assets/svg/tier-npc.svg';
+import {highlightUsers} from '../../libs/highlightUsers';
 
 export default {
   props: ['msg', 'inbox', 'groupId'],
@@ -298,27 +299,7 @@ export default {
       this.$emit('show-member-modal', memberId);
     },
     atHighlight (text) {
-      const escapedDisplayName = escapeRegExp(this.user.profile.name);
-      const escapedUsername = escapeRegExp(this.user.auth.local.username);
-
-      const findUserRegex = `@(${escapedDisplayName}|${escapedUsername})(?:\\b)`;
-      const notInsideHtmlTagsRegex = '(?<!</?[^>]*|&[^;]*)';
-      const userRegex = new RegExp(`${notInsideHtmlTagsRegex}${findUserRegex}`, 'gi');
-      const atRegex = new RegExp(/(?!\b)@[\w-]+/g);
-
-      if (userRegex.test(text)) {
-        text = text.replace(userRegex, match => {
-          return `<span class="at-highlight at-text">${match}</span>`;
-        });
-      }
-
-      if (atRegex.test(text)) {
-        text = text.replace(atRegex, match => {
-          return `<span class="at-text">${match}</span>`;
-        });
-      }
-
-      return text;
+      return highlightUsers(text, this.user.auth.local.username, this.user.profile.name);
     },
     parseMarkdown (text) {
       return habiticaMarkdown.render(text);
