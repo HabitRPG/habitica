@@ -54,7 +54,6 @@ export default {
         subscription: null,
         coupon: null,
       },
-      OffAmazonPayments: {},
       isAmazonSetup: false,
       amazonButtonEnabled: false,
       groupToCreate: null, // creating new group
@@ -99,12 +98,11 @@ export default {
     setupAmazon () {
       if (this.isAmazonSetup) return false;
       this.isAmazonSetup = true;
-      this.OffAmazonPayments = window.OffAmazonPayments;
       this.showButton();
     },
     showButton () {
       // @TODO: prevent modal close form clicking outside
-      let amazonButton = this.OffAmazonPayments.Button( // eslint-disable-line
+      let amazonButton = window.OffAmazonPayments.Button( // eslint-disable-line
         'AmazonPayButton',
         AMAZON_PAYMENTS.SELLER_ID,
         {
@@ -167,7 +165,7 @@ export default {
         walletParams.onReady = (billingAgreement) => {
           this.amazonPayments.billingAgreementId = billingAgreement.getAmazonBillingAgreementId();
 
-          new this.OffAmazonPayments.Widgets.Consent({
+          new window.OffAmazonPayments.Widgets.Consent({
             sellerId: AMAZON_PAYMENTS.SELLER_ID,
             amazonBillingAgreementId: this.amazonPayments.billingAgreementId,
             design: {
@@ -189,7 +187,7 @@ export default {
         walletParams.amazonOrderReferenceId = this.amazonPayments.orderReferenceId;
       }
 
-      new this.OffAmazonPayments.Widgets.Wallet(walletParams).bind('AmazonPayWallet');
+      new window.OffAmazonPayments.Widgets.Wallet(walletParams).bind('AmazonPayWallet');
     },
     storePaymentStatusAndReload (url) {
       let paymentType;
