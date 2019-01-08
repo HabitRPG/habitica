@@ -1,10 +1,10 @@
 <template lang="pug">
   // TODO what happens with multiple buttons on the page? Like settings + open gems modal, change id?
-  #AmazonPayButton
+  .amazon-pay-button(:id="buttonId")
 </template>
 
 <style scoped>
-  #AmazonPayButton {
+  .amazon-pay-button {
     width: 150px;
     margin-bottom: 12px;
     margin: 0 auto;
@@ -14,12 +14,13 @@
 <script>
 import axios from 'axios';
 import { mapState } from 'client/libs/store';
+import uuid from 'uuid';
 
 const AMAZON_PAYMENTS = process.env.AMAZON_PAYMENTS; // eslint-disable-line
 
 export default {
   data () {
-    return {
+    return { // @TODO what needed here? can be moved to mixin?
       amazonPayments: {
         modal: null,
         type: null,
@@ -32,11 +33,11 @@ export default {
         subscription: null,
         coupon: null,
       },
-      OffAmazonPayments: {},
       isAmazonSetup: false,
       amazonButtonEnabled: false,
       groupToCreate: null, // creating new group
       group: null, // upgrading existing group
+      buttonId: null,
     };
   },
   computed: {
@@ -51,6 +52,9 @@ export default {
       return false;
     },
   },
+  beforeMount () {
+    this.buttonId = `AmazonPayButton-${uuid.v4()}`;
+  },
   mounted () {
     if (this.isAmazonReady) return this.setupAmazon();
 
@@ -62,12 +66,11 @@ export default {
     setupAmazon () {
       if (this.isAmazonSetup) return false;
       this.isAmazonSetup = true;
-      this.OffAmazonPayments = window.OffAmazonPayments;
       this.showButton();
     },
     showButton () {
-      this.OffAmazonPayments.Button(
-        'AmazonPayButton', // ID of the button
+      window.OffAmazonPayments.Button( // eslint-disable-line new-cap
+        this.buttonId, // ID of the button
         AMAZON_PAYMENTS.SELLER_ID,
         {
           type: 'PwA',
