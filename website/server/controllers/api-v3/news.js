@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'JANUARY BACKGROUNDS AND ARMOIRE ITEMS!';
+const LAST_ANNOUNCEMENT_TITLE = 'WINTERY AVATAR CUSTOMIZATIONS AND NEW PET QUEST!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,14 +30,21 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>1/4/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>1/8/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_armoire_backgrounds_201901 center-block"></div>
-        <p>We’ve added three new backgrounds to the Background Shop! Now your avatar can excavate an Archaeological Dig, write in a Scribe's Workshop, or brave a powerful Avalanche. Check them out under User Icon > Backgrounds!</p>
-        <p>Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the Scribe Set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)</p>
-        <div class="small mb-3">by Lt. Cabel, KusSv, Snowdeath, Timsh, Vampitch, mewrose, GeraldThePixel, and SabreCat</div>
+        <div class="promo_wintery_skins center-block"></div>
+        <h3>Wintery Skins & Hair Colors</h3>
+        <p>The Seasonal Edition Wintery Hair Colors are now available for purchase! Now you can dye your avatar's hair Snowy, Peppermint, Holly Green, Aurora, Winter Star, or Festive.</p>
+        <p>Plus, the Seasonal Edition Wintery Skins are available, too! You can complete your winter avatar look with Aurora, Dapper, Festive, Holly, Polar, Sugar, or Winter Star Skins.</p>
+        <p>Both of these Seasonal Edition customization sets will only be available to purchase until January 31st, after which they'll be gone until next year, so be sure to scoop them up now! You can find them in User>Edit Avatar!</p>
+        <div class="small mb-3">by Lemoness and tricksy.fox</div>
+        <div class="quest_velociraptor center-block"></div>
+        <h3>New Pet Quest: The Veloci-Rapper!</h3>
+        <p>Hone your beats and practice your rhymes--it's time for a rap battle! Get the latest pet quest, <a href='/shops/quests'>The Veloci-Rapper</a>, and earn some clever velociraptor pets by completing your real-life tasks.</p>
+        <div class="small">Art by *~Seraphina~*, Procyon P, Lilith of Alfheim, Anna Glassman, Uchihamadara, and Willow the Witty</div>
+        <div class="small mb-3">Writing by lilackbar and SabreCat</div>
       </div>
       `,
     });
