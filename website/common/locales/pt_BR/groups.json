@@ -45,7 +45,7 @@
     "LFG": "Para anunciar seu novo grupo ou achar um para se juntar, vá para a Guilda <%= linkStart %>Procurando Grupo Brasil (Pedir Convite)<%= linkEnd %>.",
     "wantExistingParty": "Quer se juntar à um grupo já existente? Vá até as Guildas<a href='https://habitica.com/#/options/groups/guilds/46bc163e-f34e-4216-b916-9062d30a141f'> Procurando Grupo Brasil</a> ou <%= linkStart %>Internacional<%= linkEnd %>, deixe um Oi que te chamarão para o melhor grupo. Se preferir, fale um pouco sobre você.",
     "joinExistingParty": "Entrar no grupo de outra pessoa",
-    "usernameCopied": "Nome de usuário copiado para a área de transferência",
+    "usernameCopied": "Nome de usuário copiado para a área de transferência.",
     "needPartyToStartQuest": "Ops! Você precisa <a href='http://habitica.wikia.com/wiki/Party' target='_blank'>criar ou entrar em um grupo</a> antes de poder iniciar uma missão!",
     "createGroupPlan": "Criar",
     "create": "Criar",

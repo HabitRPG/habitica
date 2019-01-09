@@ -126,7 +126,7 @@
     "taskToTop": "Felülre",
     "taskToBottom": "Alulra",
     "emptyTask": "Előbb írd be a feladat címét.",
-    "dailiesRestingInInn": "Éppen a fogadóban pihensz! A napi feladataid NEM fognak éjszaka megsebezni, azonban frissülni továbbra is FOGNAK. Ha egy küldetésen veszel részt, nem fogod a főellenséget megtámadni/tárgyakat gyűjteni, amíg ki nem jelentkezel a fogadóból, de ettől függetlenül a főellenség megsebezhet, ha a csapattársaid kihagyják a saját napi feladataikat.",
+    "dailiesRestingInInn": "Éppen a fogadóban pihensz! A napi feladataid NEM fognak éjszaka megsebezni, azonban frissülni továbbra is FOGNAK. Ha egy küldetésen veszel részt, nem fogod a ellenséget megtámadni/tárgyakat gyűjteni, amíg ki nem jelentkezel a fogadóból, de ettől függetlenül az ellenség megsebezhet, ha a csapattársaid kihagyják a saját napi feladataikat.",
     "habitHelp1": "Jó szokások olyan dolgok, amiket gyakran csinálsz. Aranyat és tapasztalatot adnak minden alkalommal amikor a <%= plusIcon %> ikonra kattintasz.",
     "habitHelp2": "Rossz szokások olyan dolgok, amiket el akarsz kerülni. Csökkentik az életerődet minden alkalommal, amikor a <%= minusIcon %> ikonra  kattintasz.",
     "habitHelp3": "Ha egy kis inspirációra vágysz <a href='http://habitica.wikia.com/wiki/Sample_Habits' target='_blank'>a példa szokásokat</a>!",
