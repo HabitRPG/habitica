@@ -629,10 +629,10 @@
     "oddballsNotes": "Beinhaltet 'Der Glibberkönig', 'Entkomme dem Höhlenungetüm' und 'Ein verheddertes Knäuel'. Verfügbar bis zum 3. Dezember.",
     "birdBuddiesText": "\"Vogel-Freunde\" Quest-Paket",
     "birdBuddiesNotes": "Beinhaltet 'Der Federvieh-Frost', 'Der Hahnenkampf' und 'Der Für-und-Wider-Pfau'. Verfügbar bis zum 31. Dezember.",
-    "questVelociraptorText": "The Veloci-Rapper",
-    "questVelociraptorNotes": "You’re sharing honey cakes with @*~Seraphina~*, @Procyon P, and @Lilith of Alfheim by a lake in the Stoïkalm Steppes. Suddenly, a mournful voice interrupts your picnic.<br><br><em>My Habits took a hit, I missed my Dailies,<br>I’m losing it, sinking with doubt and maybes,<br>At the top of my game I used to be so fly,<br>But now I just let my Due Dates go by.</em><br><br>@*~Seraphina~* peers behind a stand of grass. “It’s the Veloci-Rapper. It seems... distraught?”<br><br>You pump a fist in determination. “There's only one thing to do. Rap battle time!”",
-    "questVelociraptorCompletion": "You burst through the grass, confronting the Veloci-Rapper.<br><br><em>See here, rapper, you’re no quitter,<br>You’re Bad Habits' hardest hitter!<br>Check off your To-Dos like a boss,<br>Don’t mourn over one day’s loss!</em><br><br>Filled with renewed confidence, it bounds off to freestyle another day, leaving behind three eggs where it sat.",
+    "questVelociraptorText": "Der Veloci-Rapper",
+    "questVelociraptorNotes": "Du teilst Honigkuchen mit @*~Seraphina~*, @Procyon P, and @Lilith of Alfheim an einem See in den Stoïstille Steppen. Plötzlich unterbricht eine traurige Stimme Dein Picknick.<br><br><em>Meine Gewohnheiten vergessen, die Tagesaufgaben verpasst,<br>Ich hab nachgelassen, das ist mir verhasst,<br>Alles lief rund, ich fühlte mich gut,<br>Doch jetzt herrscht Fälligkeitstermine-Flut.</em><br><br>@*~Seraphina~* guckt hinter einen Grasbüschel. “Das ist Veloci-Rapper. Es scheint... verzweifelt?” <br><br>Du ballst entschlossen Deine Faust. “Da gibt es nur eine Lösung. Zeit für eine Rap Battle!”",
+    "questVelociraptorCompletion": "Du springst durch das Gras und stellst Veloci-Rapper.<br><br><em>Hör mir zu, Rapper, gib nicht so schnell auf,<br>Schlechten Gewohnheiten raubst Du doch den Schnauf!<br>Hak' ab die To-Dos mit neuer Lust,<br>Jammer nicht lang über Deinen Patzer-Frust!</em><br><br>Voll neuem Selbstvertrauen hüpft es davon um ein ander mal zu freestylen und hinterlässt drei Eier, wo es gesessen hat.",
     "questVelociraptorBoss": "Veloci-Rapper",
-    "questVelociraptorDropVelociraptorEgg": "Velociraptor (Egg)",
-    "questVelociraptorUnlockText": "Unlocks purchasable Velociraptor eggs in the Market"
+    "questVelociraptorDropVelociraptorEgg": "Velociraptor (Ei)",
+    "questVelociraptorUnlockText": "Ermöglicht den Kauf von Velociraptoreiern auf dem Marktplatz"
 }

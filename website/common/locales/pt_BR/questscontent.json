@@ -629,10 +629,10 @@
     "oddballsNotes": "Contém 'O Regente Geleia', 'Fuja da Criatura da Caverna' e Um Novelo Enrolado'. Disponível até o dia 3 de Dezembro.",
     "birdBuddiesText": "Pacote de Missões Amigos dos Pássaros",
     "birdBuddiesNotes": "Contém 'A Abominável Ave das Neves', 'O Galo Raivoso' e 'O Pavão Puxaempurra'. Disponível até o dia 31 de Dezembro.",
-    "questVelociraptorText": "The Veloci-Rapper",
-    "questVelociraptorNotes": "You’re sharing honey cakes with @*~Seraphina~*, @Procyon P, and @Lilith of Alfheim by a lake in the Stoïkalm Steppes. Suddenly, a mournful voice interrupts your picnic.<br><br><em>My Habits took a hit, I missed my Dailies,<br>I’m losing it, sinking with doubt and maybes,<br>At the top of my game I used to be so fly,<br>But now I just let my Due Dates go by.</em><br><br>@*~Seraphina~* peers behind a stand of grass. “It’s the Veloci-Rapper. It seems... distraught?”<br><br>You pump a fist in determination. “There's only one thing to do. Rap battle time!”",
-    "questVelociraptorCompletion": "You burst through the grass, confronting the Veloci-Rapper.<br><br><em>See here, rapper, you’re no quitter,<br>You’re Bad Habits' hardest hitter!<br>Check off your To-Dos like a boss,<br>Don’t mourn over one day’s loss!</em><br><br>Filled with renewed confidence, it bounds off to freestyle another day, leaving behind three eggs where it sat.",
+    "questVelociraptorText": "O Veloci-Rapper",
+    "questVelociraptorNotes": "Você está compartilhando bolos de mel com @*~Seraphina~*, @Procyon P e @Lilith of Alfheim em um lago nas Estepes de Stoïkalm. De repente, uma voz triste interrompe seu piquenique. <br><br><em>Meus Hábitos foram atingidos, perdi minhas Diárias,<br> Estou perdendo, afundando com dúvidas e incertezas,<br> No topo do meu jogo eu costumava voar,<br> Mas, agora eu apenas deixo qualquer Prazo passar.</em><br><br>@*~Seraphina~* se esconde atrás de um carrinho de grama. \"É um Veloci-Rapper. Ele parece...perturbado?\"<br><br> Você cerra os punhos com determinação. “Só tem uma coisa a fazer. É hora de uma batalha de Rap!\"",
+    "questVelociraptorCompletion": "Você correu pela grama, confrontando o Veloci-Rapper.<br><br><em> Olha aqui, rapper, você não é um perdido,<br>Você é mais forte do que qualquer Hábito Negativo!<br>Verifique seus Afazeres como um chefão,<br> Não se lamente por um dia perdido em vão!</em><br><br>Cheio de confiança renovada, ele deixa o freestyle para outro dia, largando para trás três ovos onde sentou-se.",
     "questVelociraptorBoss": "Veloci-Rapper",
-    "questVelociraptorDropVelociraptorEgg": "Velociraptor (Egg)",
-    "questVelociraptorUnlockText": "Unlocks purchasable Velociraptor eggs in the Market"
+    "questVelociraptorDropVelociraptorEgg": "Velociraptor (Ovo)",
+    "questVelociraptorUnlockText": "Desbloqueia ovos de Velociraptor para compra no Mercado"
 }
