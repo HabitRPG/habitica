@@ -1,6 +1,6 @@
 .promo_armoire_backgrounds_201901 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px 0px;
+  background-position: 0px -148px;
   width: 423px;
   height: 147px;
 }
@@ -30,7 +30,7 @@
 }
 .promo_snow_potions {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -148px;
+  background-position: 0px 0px;
   width: 423px;
   height: 147px;
 }
@@ -57,6 +57,12 @@
   background-position: -449px -163px;
   width: 60px;
   height: 60px;
+}
+.scene_starting_over {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -479px -444px;
+  width: 150px;
+  height: 150px;
 }
 .scene_todo_list {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');

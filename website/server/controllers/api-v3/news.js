@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'WINTERY AVATAR CUSTOMIZATIONS AND NEW PET QUEST!';
+const LAST_ANNOUNCEMENT_TITLE = 'SUBSCRIPTION GIFTING ON ANDROID AND WIKI SPOTLIGHT';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,21 +30,20 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>1/8/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>1/11/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_wintery_skins center-block"></div>
-        <h3>Wintery Skins & Hair Colors</h3>
-        <p>The Seasonal Edition Wintery Hair Colors are now available for purchase! Now you can dye your avatar's hair Snowy, Peppermint, Holly Green, Aurora, Winter Star, or Festive.</p>
-        <p>Plus, the Seasonal Edition Wintery Skins are available, too! You can complete your winter avatar look with Aurora, Dapper, Festive, Holly, Polar, Sugar, or Winter Star Skins.</p>
-        <p>Both of these Seasonal Edition customization sets will only be available to purchase until January 31st, after which they'll be gone until next year, so be sure to scoop them up now! You can find them in User>Edit Avatar!</p>
-        <div class="small mb-3">by Lemoness and tricksy.fox</div>
-        <div class="quest_velociraptor center-block"></div>
-        <h3>New Pet Quest: The Veloci-Rapper!</h3>
-        <p>Hone your beats and practice your rhymes--it's time for a rap battle! Get the latest pet quest, <a href='/shops/quests'>The Veloci-Rapper</a>, and earn some clever velociraptor pets by completing your real-life tasks.</p>
-        <div class="small">Art by *~Seraphina~*, Procyon P, Lilith of Alfheim, Anna Glassman, Uchihamadara, and Willow the Witty</div>
-        <div class="small mb-3">Writing by lilackbar and SabreCat</div>
+        <div class="promo_g1g1 center-block"></div>
+        <h3>Subscription Gifting Available on Android!</h3>
+        <p>Hey everyone! We've added the ability to give gift subscriptions using our Android app. Go to Menu > Gems and Subscriptions and tap "Gift a Subscription" in the Subscriptions tab.</p>
+        <p>Subscribers receive lots of fun perks, such as exclusive gear, the ability to buy Gems with Gold, and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running.</p>
+        <p>There are a few days left of our Gift-One-Get-One promotion, so this is a great time to check out this new Android feature!  Thank you very much for your support -- it means a lot to us.</p>
+        <div class="small mb-3">by Viirus and Piyo</div>
+        <div class="scene_starting_over center-block"></div>
+        <h3>Blog Post: the Orb of Rebirth</h3>
+        <p>This month's <a href='https://habitica.wordpress.com/2019/01/09/orb-of-rebirth/' target='_blank'>featured Wiki article</a> is about the Orb of Rebirth! We hope that it will help you as turn over a new leaf for 2019. Be sure to check it out, and let us know what you think by reaching out on <a href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a href='https://facebook.com/habitica' target='_blank'>Facebook</a>.</p>
+        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
       </div>
       `,
     });
