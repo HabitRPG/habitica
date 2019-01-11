@@ -78,7 +78,7 @@
     "hatchAPot": "孵化一个新的<%= potion %><%= egg %>？",
     "hatchedPet": "你孵化了一个新的<%= potion %> <%= egg %>！",
     "hatchedPetGeneric": "你孵化了一个新宠物！",
-    "hatchedPetHowToUse": "Visit the [Stable](<%= stableUrl %>) to feed and equip your newest pet!",
+    "hatchedPetHowToUse": "到[马厩](<%= stableUrl %>)去饲养和装备你最新的宠物吧!",
     "displayNow": "现在显示",
     "displayLater": "稍后显示",
     "petNotOwned": "你没有拥有这个宠物。",
