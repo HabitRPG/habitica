@@ -18,7 +18,7 @@ div
       span(v-b-tooltip="", :title="msg.timestamp | date") {{ msg.timestamp | timeAgo }}&nbsp;
       span(v-if="msg.client && user.contributor.level >= 4")  ({{ msg.client }})
     .text(v-html='atHighlight(parseMarkdown(msg.text))')
-    .reported(v-if="isMessageReported && inbox")
+    .reported(v-if="isMessageReported && (inbox === true)")
       span(v-once) {{ $t('reportedMessage')}}
       br
       span(v-once) {{ $t('canDeleteNow') }}
@@ -174,7 +174,14 @@ import tier9 from 'assets/svg/tier-staff.svg';
 import tierNPC from 'assets/svg/tier-npc.svg';
 
 export default {
-  props: ['msg', 'inbox', 'groupId'],
+  props: {
+    msg: {},
+    inbox: {
+      type: Boolean,
+      default: false,
+    },
+    groupId: {},
+  },
   mixins: [styleHelper],
   data () {
     return {
