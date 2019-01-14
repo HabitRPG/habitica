@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'SUBSCRIPTION GIFTING ON ANDROID AND WIKI SPOTLIGHT';
+const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE: GIFT A SUBSCRIPTION AND GET ONE FREE!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,20 +30,16 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>1/11/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>1/14/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
         <div class="promo_g1g1 center-block"></div>
-        <h3>Subscription Gifting Available on Android!</h3>
-        <p>Hey everyone! We've added the ability to give gift subscriptions using our Android app. Go to Menu > Gems and Subscriptions and tap "Gift a Subscription" in the Subscriptions tab.</p>
-        <p>Subscribers receive lots of fun perks, such as exclusive gear, the ability to buy Gems with Gold, and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running.</p>
-        <p>There are a few days left of our Gift-One-Get-One promotion, so this is a great time to check out this new Android feature!  Thank you very much for your support -- it means a lot to us.</p>
-        <div class="small mb-3">by Viirus and Piyo</div>
-        <div class="scene_starting_over center-block"></div>
-        <h3>Blog Post: the Orb of Rebirth</h3>
-        <p>This month's <a href='https://habitica.wordpress.com/2019/01/09/orb-of-rebirth/' target='_blank'>featured Wiki article</a> is about the Orb of Rebirth! We hope that it will help you as turn over a new leaf for 2019. Be sure to check it out, and let us know what you think by reaching out on <a href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a href='https://facebook.com/habitica' target='_blank'>Facebook</a>.</p>
-        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
+        <p>Tomorrow is your last chance to take advantage of our promotion where if you gift somebody a subscription, you get the same subscription for yourself for free!</p>
+        <p>Subscribers get tons of perks every month, including exclusive items, the ability to buy Gems with Gold, and a cute exclusive Jackalope Pet. Plus, it helps keep Habitica running :) To gift a subscription to someone, just open their profile and click on the present icon in the upper right.</p>
+        <p>The special promotion will only run until tomorrow, so if you've been curious about trying out a subscription, now's the time! Make a friend happy and use all your new Gems to go questing together.</p>
+        <p>Please note that if you or your gift recipient already have a recurring subscription, the gifted subscription will only start after that subscription is cancelled or has expired. Thanks so much for your support! <3</p>
+        <div class="small mb-3">by SabreCat, Beffymaroo and Lemoness</div>
       </div>
       `,
     });
