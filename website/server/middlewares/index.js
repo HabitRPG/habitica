@@ -42,7 +42,7 @@ module.exports = function attachMiddlewares (app, server) {
 
   app.use(domainMiddleware(server, mongoose));
 
-  if (!IS_PROD && !DISABLE_LOGGING) app.use(morgan('dev'));
+  app.use(morgan('dev'));
 
   // add res.respond and res.t
   app.use(responseHandler);
