@@ -10,7 +10,7 @@ const BASE_URL_HOST = url.parse(BASE_URL).hostname;
 function isHTTP (req) {
   return ( // eslint-disable-line no-extra-parens
     req.header('x-forwarded-proto') &&
-    req.header('x-forwarded-proto') !== 'https' &&
+    req.header('x-forwarded-proto') === 'http' &&
     IS_PROD &&
     BASE_URL.indexOf('https') === 0
   );

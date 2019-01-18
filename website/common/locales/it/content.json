@@ -181,7 +181,7 @@
     "questEggAlligatorAdjective": "un astuto",
     "questEggVelociraptorText": "Velociraptor",
     "questEggVelociraptorMountText": "Velociraptor",
-    "questEggVelociraptorAdjective": "a clever",
+    "questEggVelociraptorAdjective": "un intelligente",
     "eggNotes": "Trova una pozione per far schiudere questo uovo, e nascerà <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Base",
     "hatchingPotionWhite": "Bianco",

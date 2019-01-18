@@ -60,12 +60,6 @@
           .col-6.offset-3 {{ $t('buyGemsSupportsDevs') }}
 
       div(v-show='selectedPage === "subscribe"')
-        .g1g1-promo.d-flex.justify-content-center.align-items-center
-          .svg-icon.svg-gifts.left-gift(v-html="icons.gifts")
-          .text-center
-            strong.gift-text {{ $t('g1g1Announcement') }}
-            .gift-text {{ $t('g1g1Details') }}
-          .svg-icon.svg-gifts.right-gift(v-html="icons.gifts")
         div(v-if='hasSubscription')
           .row.text-center
             h2.mx-auto.text-leadin {{ $t('subscriptionAlreadySubscribedLeadIn') }}
@@ -220,11 +214,6 @@
     margin: 1em auto;
   }
 
-  .g1g1-promo {
-    background-color: #34b5c1;
-    height: 3.75rem;
-  }
-
   .gem-count {
 		font-family: Roboto;
 		font-size: 40px;
@@ -239,28 +228,9 @@
     margin-bottom: 1em;
   }
 
-  .gift-text {
-    color: $white;
-    font-size: 14px;
-  }
-
   .image-gemfall {
     background: url(~assets/images/gemfall.png) center repeat-y;
     height: 14em;
-  }
-
-  .svg-gifts {
-    width: 4.6rem;
-  }
-
-  .left-gift {
-    margin: auto 1rem auto 4.8rem;
-  }
-
-  .right-gift {
-    margin: auto 4.8rem auto 1rem;
-    filter: FlipH;
-    transform: scaleX(-1);
   }
 
   .header-wrap {
@@ -370,7 +340,6 @@
 
   import checkIcon from 'assets/svg/check.svg';
   import creditCard from 'assets/svg/credit-card.svg';
-  import gifts from 'assets/svg/gifts.svg';
   import heart from 'assets/svg/health.svg';
   import logo from 'assets/svg/habitica-logo.svg';
 
@@ -406,7 +375,6 @@
           check: checkIcon,
           creditCard,
           fourGems,
-          gifts,
           heart,
           twentyOneGems,
           fortyTwoGems,

@@ -629,10 +629,10 @@
     "oddballsNotes": "「ゼリー摂政」「洞窟の化け物から逃げろ！」「もつれた糸」のセット。12月3日まで購入できます。",
     "birdBuddiesText": "「鳥の仲間たち」クエストセット",
     "birdBuddiesNotes": "「霜の鳥」「おんどりの大暴れ」「アレモコレモクジャクのわな」のセット。12月31日まで購入できます。",
-    "questVelociraptorText": "The Veloci-Rapper",
-    "questVelociraptorNotes": "You’re sharing honey cakes with @*~Seraphina~*, @Procyon P, and @Lilith of Alfheim by a lake in the Stoïkalm Steppes. Suddenly, a mournful voice interrupts your picnic.<br><br><em>My Habits took a hit, I missed my Dailies,<br>I’m losing it, sinking with doubt and maybes,<br>At the top of my game I used to be so fly,<br>But now I just let my Due Dates go by.</em><br><br>@*~Seraphina~* peers behind a stand of grass. “It’s the Veloci-Rapper. It seems... distraught?”<br><br>You pump a fist in determination. “There's only one thing to do. Rap battle time!”",
+    "questVelociraptorText": "ヴェロキ・ラッパー",
+    "questVelociraptorNotes": "あなたはオダヤカニ草原の湖畔で、ハニーケーキを @*~Seraphina~* 、@Procyon P、@Lilith of Alfheim と分け合っています。突然、悲し気な声がピクニックを邪魔しました。<br><br><em>俺の習慣は打撃を受けた　俺は日課をやり損なった<br>平静を失ってんだ　不安と不確かに沈んでんだ<br>かつての俺は　so fly　めちゃカッコよくゲームの頂点にいた<br>だけど今はもう　go by　期限日を見過ごしちまった</em><br><br>@*~Seraphina~* は草の立つ陰をじっと見つめます。「ヴェロキ・ラッパーの声だわ。なんだか……取り乱してるみたい？」<br><br>あなたは決意の拳を高く突き上げました。「やることはひとつしかない。ラップバトルの時間だ！」",
     "questVelociraptorCompletion": "You burst through the grass, confronting the Veloci-Rapper.<br><br><em>See here, rapper, you’re no quitter,<br>You’re Bad Habits' hardest hitter!<br>Check off your To-Dos like a boss,<br>Don’t mourn over one day’s loss!</em><br><br>Filled with renewed confidence, it bounds off to freestyle another day, leaving behind three eggs where it sat.",
-    "questVelociraptorBoss": "Veloci-Rapper",
-    "questVelociraptorDropVelociraptorEgg": "Velociraptor (Egg)",
-    "questVelociraptorUnlockText": "Unlocks purchasable Velociraptor eggs in the Market"
+    "questVelociraptorBoss": "ヴェロキ・ラッパー",
+    "questVelociraptorDropVelociraptorEgg": "ヴェロキラプトル ( たまご )",
+    "questVelociraptorUnlockText": "市場でのヴェロキラプトルのたまご購入をアンロック"
 }

@@ -181,7 +181,7 @@
     "questEggAlligatorAdjective": "egy ravasz",
     "questEggVelociraptorText": "Velociraptor",
     "questEggVelociraptorMountText": "Velociraptor",
-    "questEggVelociraptorAdjective": "a clever",
+    "questEggVelociraptorAdjective": "egy okos",
     "eggNotes": "Találj egy keltetőfőzetet ehez a tojáshoz, hogy kikeljen belőle egy <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Alap",
     "hatchingPotionWhite": "Fehér",

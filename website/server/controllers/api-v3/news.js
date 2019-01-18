@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'WINTERY AVATAR CUSTOMIZATIONS AND NEW PET QUEST!';
+const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE: GIFT A SUBSCRIPTION AND GET ONE FREE!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,21 +30,16 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>1/8/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>1/14/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_wintery_skins center-block"></div>
-        <h3>Wintery Skins & Hair Colors</h3>
-        <p>The Seasonal Edition Wintery Hair Colors are now available for purchase! Now you can dye your avatar's hair Snowy, Peppermint, Holly Green, Aurora, Winter Star, or Festive.</p>
-        <p>Plus, the Seasonal Edition Wintery Skins are available, too! You can complete your winter avatar look with Aurora, Dapper, Festive, Holly, Polar, Sugar, or Winter Star Skins.</p>
-        <p>Both of these Seasonal Edition customization sets will only be available to purchase until January 31st, after which they'll be gone until next year, so be sure to scoop them up now! You can find them in User>Edit Avatar!</p>
-        <div class="small mb-3">by Lemoness and tricksy.fox</div>
-        <div class="quest_velociraptor center-block"></div>
-        <h3>New Pet Quest: The Veloci-Rapper!</h3>
-        <p>Hone your beats and practice your rhymes--it's time for a rap battle! Get the latest pet quest, <a href='/shops/quests'>The Veloci-Rapper</a>, and earn some clever velociraptor pets by completing your real-life tasks.</p>
-        <div class="small">Art by *~Seraphina~*, Procyon P, Lilith of Alfheim, Anna Glassman, Uchihamadara, and Willow the Witty</div>
-        <div class="small mb-3">Writing by lilackbar and SabreCat</div>
+        <div class="promo_g1g1 center-block"></div>
+        <p>Tomorrow is your last chance to take advantage of our promotion where if you gift somebody a subscription, you get the same subscription for yourself for free!</p>
+        <p>Subscribers get tons of perks every month, including exclusive items, the ability to buy Gems with Gold, and a cute exclusive Jackalope Pet. Plus, it helps keep Habitica running :) To gift a subscription to someone, just open their profile and click on the present icon in the upper right.</p>
+        <p>The special promotion will only run until tomorrow, so if you've been curious about trying out a subscription, now's the time! Make a friend happy and use all your new Gems to go questing together.</p>
+        <p>Please note that if you or your gift recipient already have a recurring subscription, the gifted subscription will only start after that subscription is cancelled or has expired. Thanks so much for your support! <3</p>
+        <div class="small mb-3">by SabreCat, Beffymaroo and Lemoness</div>
       </div>
       `,
     });
