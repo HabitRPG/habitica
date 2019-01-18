@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE: GIFT A SUBSCRIPTION AND GET ONE FREE!';
+const LAST_ANNOUNCEMENT_TITLE = 'GUILD SPOTLIGHT: NEW AND NOTABLE!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,16 +30,13 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>1/14/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>1/18/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_g1g1 center-block"></div>
-        <p>Tomorrow is your last chance to take advantage of our promotion where if you gift somebody a subscription, you get the same subscription for yourself for free!</p>
-        <p>Subscribers get tons of perks every month, including exclusive items, the ability to buy Gems with Gold, and a cute exclusive Jackalope Pet. Plus, it helps keep Habitica running :) To gift a subscription to someone, just open their profile and click on the present icon in the upper right.</p>
-        <p>The special promotion will only run until tomorrow, so if you've been curious about trying out a subscription, now's the time! Make a friend happy and use all your new Gems to go questing together.</p>
-        <p>Please note that if you or your gift recipient already have a recurring subscription, the gifted subscription will only start after that subscription is cancelled or has expired. Thanks so much for your support! <3</p>
-        <div class="small mb-3">by SabreCat, Beffymaroo and Lemoness</div>
+        <div class="scene_hat_guild center-block"></div>
+        <p>There's a new <a href='https://habitica.wordpress.com/2019/01/17/new-and-notable-guild-spotlight/' target='_blank'>Guild Spotlight on the blog</a> that highlights some of Habitica's new and interesting Guilds! Check it out now and find a new group where you can share your interests and goals!</p>
+        <div class="small mb-3">by shanaqui</div>
       </div>
       `,
     });
