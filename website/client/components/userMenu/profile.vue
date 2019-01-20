@@ -228,7 +228,7 @@ div
 
   .nav {
     font-weight: bold;
-    height: 40px;
+    min-height: 40px;
     justify-content: center;
   }
 
