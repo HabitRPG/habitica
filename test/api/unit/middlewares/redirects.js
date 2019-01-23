@@ -106,6 +106,23 @@ describe('redirects middleware', () => {
       expect(res.redirect).to.be.calledOnce;
       expect(res.redirect).to.be.calledWith('https://habitica.com/static/front?skipSSLCheck=INVALID');
     });
+
+    it('does redirect if skip ssl check key is not set', () => {
+      let nconfStub = sandbox.stub(nconf, 'get');
+      nconfStub.withArgs('BASE_URL').returns('https://habitica.com');
+      nconfStub.withArgs('IS_PROD').returns(true);
+      nconfStub.withArgs('SKIP_SSL_CHECK_KEY').returns(null);
+
+      req.header = sandbox.stub().withArgs('x-forwarded-proto').returns('http');
+      req.originalUrl = '/static/front';
+      req.query.skipSSLCheck = 'INVALID';
+
+      const attachRedirects = requireAgain(pathToRedirectsMiddleware);
+      attachRedirects.forceSSL(req, res, next);
+
+      expect(res.redirect).to.be.calledOnce;
+      expect(res.redirect).to.be.calledWith('https://habitica.com/static/front');
+    });
   });
 
   context('forceHabitica', () => {
