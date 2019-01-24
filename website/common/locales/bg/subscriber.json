@@ -80,7 +80,7 @@
     "buyGemsAllow1": "Можете да купите още",
     "buyGemsAllow2": "диамант(а) този месец",
     "purchaseGemsSeparately": "Купуване на още диаманти",
-    "subFreeGemsHow": "Играчите в Хабитика могат да получават безплатни диаманти, като печелят <a href=\"/challenges/findChallenges\">предизвикателства</a>, които дават диаманти като награда или като <a href=\"http://habitica.wikia.com/wiki/Contributing_to_Habitica\">награда за принос, ако помогнат за разработката на Хабитика</a>.",
+    "subFreeGemsHow": "Играчите в Хабитика могат да получават безплатни диаманти, като печелят <a href=\"/challenges/findChallenges\">предизвикателства</a>, които дават диаманти като награда или като <a href=\"http://habitica.fandom.com/wiki/Contributing_to_Habitica\">награда за принос, ако помогнат за разработката на Хабитика</a>.",
     "seeSubscriptionDetails": "Към <a href='/user/settings/subscription'>Настройки &gt; Абонамент</a>, където можете да видите подробностите за абонамента си!",
     "timeTravelers": "Пътешественици във времето",
     "timeTravelersTitleNoSub": "<%= linkStartTyler %>Тайлър<%= linkEnd %> и <%= linkStartVicky %>Вики<%= linkEnd %>",

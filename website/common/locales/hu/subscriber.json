@@ -80,7 +80,7 @@
     "buyGemsAllow1": "Vásárolhatsz még",
     "buyGemsAllow2": "drágakövet ebben a hónapban",
     "purchaseGemsSeparately": "További drágakövek vásárlása",
-    "subFreeGemsHow": "Felhasználók szerezhetnek drágaköveket ingyen, ha megnyernek egy olyan <a href=\"/challenges/findChallenges\">kihívást</a>, aminek gyémánt a jutalma; vagy <a href=\"http://habitica.wikia.com/wiki/Contributing_to_Habitica\">közreműködői jutalomként, amiért segítik a Habitica fejlesztését.</a> ",
+    "subFreeGemsHow": "Felhasználók szerezhetnek drágaköveket ingyen, ha megnyernek egy olyan <a href=\"/challenges/findChallenges\">kihívást</a>, aminek gyémánt a jutalma; vagy <a href=\"http://habitica.fandom.com/wiki/Contributing_to_Habitica\">közreműködői jutalomként, amiért segítik a Habitica fejlesztését.</a> ",
     "seeSubscriptionDetails": "Menj a <a href='/user/settings/subscription'>beállítások és előfizetések</a> oldalra az előfizetésed részleteiért. ",
     "timeTravelers": "Időutazók",
     "timeTravelersTitleNoSub": "<%= linkStartTyler %>Tyler<%= linkEnd %> és <%= linkStartVicky %>Vicky<%= linkEnd %>",

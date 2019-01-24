@@ -80,7 +80,7 @@
     "buyGemsAllow1": "Du kannst noch",
     "buyGemsAllow2": "weitere Edelsteine in diesem Monat erwerben",
     "purchaseGemsSeparately": "Zusätzliche Edelsteine kaufen",
-    "subFreeGemsHow": "Habitica Spieler können Edelsteine verdienen, indem sie  <a href=\"/challenges/findChallenges\">Wettbewerbe</a> gewinnen die Edelsteine als Preise vergeben oder als <a href=\"http://habitica.wikia.com/wiki/Contributing_to_Habitica\">Belohnung für Mitwirkende indem sie zur Entwicklung von Habitica beitragen.</a>",
+    "subFreeGemsHow": "Habitica Spieler können Edelsteine verdienen, indem sie  <a href=\"/challenges/findChallenges\">Wettbewerbe</a> gewinnen die Edelsteine als Preise vergeben oder als <a href=\"http://habitica.fandom.com/wiki/Contributing_to_Habitica\">Belohnung für Mitwirkende indem sie zur Entwicklung von Habitica beitragen.</a>",
     "seeSubscriptionDetails": "Gehe zu <a href='/user/settings/subscription'>Einstellungen &gt; Abonnement</a> um die Details Deines Abonnements zu sehen!",
     "timeTravelers": "Mysteriöse Zeitreisende",
     "timeTravelersTitleNoSub": "<%= linkStartTyler %>Tyler<%= linkEnd %> und <%= linkStartVicky %>Vicky<%= linkEnd %>",

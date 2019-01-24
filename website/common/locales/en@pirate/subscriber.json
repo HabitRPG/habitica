@@ -80,7 +80,7 @@
     "buyGemsAllow1": "Ye can buy",
     "buyGemsAllow2": "more Gems this month",
     "purchaseGemsSeparately": "Purchase Additional Gems",
-    "subFreeGemsHow": "Habitica players can earn Gems for free by winning <a href=\"/challenges/findChallenges\">challenges</a> that award Gems as a prize, or as a <a href=\"http://habitica.wikia.com/wiki/Contributing_to_Habitica\">contributor reward by helping the development of Habitica.</a>",
+    "subFreeGemsHow": "Habitica players can earn Gems for free by winning <a href=\"/challenges/findChallenges\">challenges</a> that award Gems as a prize, or as a <a href=\"http://habitica.fandom.com/wiki/Contributing_to_Habitica\">contributor reward by helping the development of Habitica.</a>",
     "seeSubscriptionDetails": "Go to <a href='/user/settings/subscription'>Settings &gt; Subscription</a> to see your subscription details!",
     "timeTravelers": "Time Travelers",
     "timeTravelersTitleNoSub": "<%= linkStartTyler %>Tyler<%= linkEnd %> and <%= linkStartVicky %>Vicky<%= linkEnd %>",

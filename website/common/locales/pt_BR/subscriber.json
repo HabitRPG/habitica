@@ -80,7 +80,7 @@
     "buyGemsAllow1": "Você pode comprar",
     "buyGemsAllow2": "mais Gemas este mês",
     "purchaseGemsSeparately": "Comprar Gemas Adicionais",
-    "subFreeGemsHow": "Jogadores do Habitica podem ganhar Gemas de graça vencendo <a href=\"/challenges/findChallenges\">desafios</a> que dão Gemas como prêmios ou com a <a href=\"http://habitica.wikia.com/wiki/Contributing_to_Habitica\">recompensa de contribuidor ao ajudar o desenvolvimento do Habitica.</a>",
+    "subFreeGemsHow": "Jogadores do Habitica podem ganhar Gemas de graça vencendo <a href=\"/challenges/findChallenges\">desafios</a> que dão Gemas como prêmios ou com a <a href=\"http://habitica.fandom.com/wiki/Contributing_to_Habitica\">recompensa de contribuidor ao ajudar o desenvolvimento do Habitica.</a>",
     "seeSubscriptionDetails": "Vá até <a href='/user/settings/subscription'>Configurações &gt; Assinatura</a> para verificar os detalhes de sua assinatura!",
     "timeTravelers": "Viajantes do Tempo",
     "timeTravelersTitleNoSub": "<%= linkStartTyler %>Tyler<%= linkEnd %> e <%= linkStartVicky %>Vicky<%= linkEnd %>",

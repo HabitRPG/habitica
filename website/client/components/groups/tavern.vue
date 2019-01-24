@@ -112,7 +112,7 @@
           li
             a(href='', v-html="$t('glossary')")
           li
-            a(href='http://habitica.wikia.com/wiki/Habitica_Wiki', v-once) {{ $t('wiki') }}
+            a(href='http://habitica.fandom.com/wiki/Habitica_Wiki', v-once) {{ $t('wiki') }}
           li
             a(href='https://oldgods.net/habitrpg/habitrpg_user_data_display.html', v-once) {{ $t('dataDisplayTool') }}
           li

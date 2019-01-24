@@ -80,7 +80,7 @@
     "buyGemsAllow1": "你可以購買",
     "buyGemsAllow2": "這個月更多的鑽石",
     "purchaseGemsSeparately": "購買額外的鑽石",
-    "subFreeGemsHow": "Habitica players can earn Gems for free by winning <a href=\"/challenges/findChallenges\">challenges</a> that award Gems as a prize, or as a <a href=\"http://habitica.wikia.com/wiki/Contributing_to_Habitica\">contributor reward by helping the development of Habitica.</a>",
+    "subFreeGemsHow": "Habitica players can earn Gems for free by winning <a href=\"/challenges/findChallenges\">challenges</a> that award Gems as a prize, or as a <a href=\"http://habitica.fandom.com/wiki/Contributing_to_Habitica\">contributor reward by helping the development of Habitica.</a>",
     "seeSubscriptionDetails": "Go to <a href='/user/settings/subscription'>Settings &gt; Subscription</a> to see your subscription details!",
     "timeTravelers": "時光旅行者",
     "timeTravelersTitleNoSub": "<%= linkStartTyler %>Tyler<%= linkEnd %> 和 <%= linkStartVicky %>Vicky<%= linkEnd %>",

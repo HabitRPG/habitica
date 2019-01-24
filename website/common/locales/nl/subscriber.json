@@ -80,7 +80,7 @@
     "buyGemsAllow1": "Je kunt nog ",
     "buyGemsAllow2": " edelstenen kopen deze maand.",
     "purchaseGemsSeparately": "Koop extra edelstenen",
-    "subFreeGemsHow": "Spelers van Habitica kunnen gratis edelstenen verdienen door <a href=\"/challenges/findChallenges\">uitdagingen</a> te winnen die edelstenen als prijs uitdelen, of als <a href=\"http://habitica.wikia.com/wiki/Contributing_to_Habitica\">bijdragersbeloning door te helpen met de ontwikkeling van Habitica.</a>",
+    "subFreeGemsHow": "Spelers van Habitica kunnen gratis edelstenen verdienen door <a href=\"/challenges/findChallenges\">uitdagingen</a> te winnen die edelstenen als prijs uitdelen, of als <a href=\"http://habitica.fandom.com/wiki/Contributing_to_Habitica\">bijdragersbeloning door te helpen met de ontwikkeling van Habitica.</a>",
     "seeSubscriptionDetails": "Ga naar <a href='/user/settings/subscription'>Instellingen &gt; Abonnement</a> om de details van je abonnement te bekijken!",
     "timeTravelers": "Tijdreizigers",
     "timeTravelersTitleNoSub": "<%= linkStartTyler %>Tyler<%= linkEnd %> en <%= linkStartVicky %>Vicky<%= linkEnd %>",
