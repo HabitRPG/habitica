@@ -173,24 +173,40 @@ schema.pre('remove', true, async function preRemoveGroup (next, done) {
   }
 });
 
-// return a clean object for user.quest
-function _cleanQuestProgress (merge) {
-  let clean = {
-    key: null,
-    progress: {
+// return clean updates for each user in a party without resetting their progress
+function _cleanQuestParty (merge) {
+  let updates = {
+    $set: {
+      'party.quest.key': null,
+      'party.quest.completed': null,
+      'party.quest.RSVPNeeded': false,
+    },
+  };
+
+  if (merge) _.merge(updates, merge);
+
+  return updates;
+}
+
+// return a clean user.quest of a particular user while keeping his progress
+function _cleanQuestUser (userProgress) {
+  if (!userProgress) {
+    userProgress = {
       up: 0,
       down: 0,
       collect: {},
       collectedItems: 0,
-    },
+    };
+  } else {
+    userProgress = userProgress.toObject();
+  }
+
+  let clean = {
+    key: null,
+    progress: userProgress,
     completed: null,
     RSVPNeeded: false,
   };
-
-  if (merge) {
-    _.merge(clean, _.omit(merge, 'progress'));
-    if (merge.progress) _.merge(clean.progress, merge.progress);
-  }
 
   return clean;
 }
@@ -350,40 +366,32 @@ schema.statics.toJSONCleanChat = async function groupToJSONCleanChat (group, use
   return toJSON;
 };
 
-/**
- * Checks invitation uuids and emails for possible errors.
- *
- * @param  uuids  An array of user ids
- * @param  emails  An array of emails
- * @param  res  Express res object for use with translations
- * @throws BadRequest An error describing the issue with the invitations
- */
-schema.statics.validateInvitations = async function getInvitationError (uuids, emails, res, group = null) {
-  let uuidsIsArray = Array.isArray(uuids);
-  let emailsIsArray = Array.isArray(emails);
-  let emptyEmails = emailsIsArray && emails.length < 1;
-  let emptyUuids = uuidsIsArray && uuids.length < 1;
+function getInviteError (uuids, emails, usernames) {
+  const uuidsIsArray = Array.isArray(uuids);
+  const emailsIsArray = Array.isArray(emails);
+  const usernamesIsArray = Array.isArray(usernames);
+  const emptyEmails = emailsIsArray && emails.length < 1;
+  const emptyUuids = uuidsIsArray && uuids.length < 1;
+  const emptyUsernames = usernamesIsArray && usernames.length < 1;
 
   let errorString;
 
-  if (!uuids && !emails) {
+  if (!uuids && !emails && !usernames) {
     errorString = 'canOnlyInviteEmailUuid';
   } else if (uuids && !uuidsIsArray) {
     errorString = 'uuidsMustBeAnArray';
   } else if (emails && !emailsIsArray) {
     errorString = 'emailsMustBeAnArray';
-  } else if (!emails && emptyUuids) {
-    errorString = 'inviteMissingUuid';
-  } else if (!uuids && emptyEmails) {
-    errorString = 'inviteMissingEmail';
-  } else if (emptyEmails && emptyUuids) {
+  } else if (usernames && !usernamesIsArray) {
+    errorString = 'usernamesMustBeAnArray';
+  } else if ((!emails || emptyEmails) && (!uuids || emptyUuids) && (!usernames || emptyUsernames)) {
     errorString = 'inviteMustNotBeEmpty';
   }
 
-  if (errorString) {
-    throw new BadRequest(res.t(errorString));
-  }
+  return errorString;
+}
 
+function getInviteCount (uuids, emails) {
   let totalInvites = 0;
 
   if (uuids) {
@@ -394,6 +402,27 @@ schema.statics.validateInvitations = async function getInvitationError (uuids, e
     totalInvites += emails.length;
   }
 
+  return totalInvites;
+}
+
+/**
+ * Checks invitation uuids and emails for possible errors.
+ *
+ * @param  uuids  An array of user ids
+ * @param  emails  An array of emails
+ * @param  res  Express res object for use with translations
+ * @throws BadRequest An error describing the issue with the invitations
+ */
+schema.statics.validateInvitations = async function getInvitationError (invites, res, group = null) {
+  const {
+    uuids,
+    emails,
+    usernames,
+  } = invites;
+  const errorString = getInviteError(uuids, emails, usernames);
+  if (errorString) throw new BadRequest(res.t(errorString));
+
+  const totalInvites = getInviteCount(uuids, emails);
   if (totalInvites > INVITES_LIMIT) {
     throw new BadRequest(res.t('canOnlyInviteMaxInvites', {maxInvites: INVITES_LIMIT}));
   }
@@ -467,8 +496,8 @@ schema.methods.getMemberCount = async function getMemberCount () {
   return await User.count(query).exec();
 };
 
-schema.methods.sendChat = function sendChat (message, user, metaData) {
-  let newMessage = messageDefaults(message, user);
+schema.methods.sendChat = function sendChat (message, user, metaData, client) {
+  let newMessage = messageDefaults(message, user, client);
   let newChatMessage = new Chat();
   newChatMessage = Object.assign(newChatMessage, newMessage);
   newChatMessage.groupId = this._id;
@@ -480,6 +509,10 @@ schema.methods.sendChat = function sendChat (message, user, metaData) {
   if (metaData) {
     newChatMessage._meta = metaData;
   }
+
+  // Activate the webhook for receiving group chat messages before
+  // newChatMessage is possibly returned
+  this.sendGroupChatReceivedWebhooks(newChatMessage);
 
   // do not send notifications for guilds with more than 5000 users and for the tavern
   if (NO_CHAT_NOTIFICATIONS.indexOf(this._id) !== -1 || this.memberCount > LARGE_GROUP_COUNT_MESSAGE_CUTOFF) {
@@ -617,11 +650,8 @@ schema.methods.startQuest = async function startQuest (user) {
   // Do not block updates
   User.update({
     _id: { $in: nonMembers },
-  }, {
-    $set: {
-      'party.quest': _cleanQuestProgress(),
-    },
-  }, { multi: true }).exec();
+  }, _cleanQuestParty(),
+  { multi: true }).exec();
 
   const newMessage = this.sendChat(`\`Your quest, ${quest.text('en')}, has started.\``, null, {
     participatingMembers: this.getParticipatingQuestMembers().join(', '),
@@ -690,7 +720,8 @@ schema.methods.sendGroupChatReceivedWebhooks = function sendGroupChatReceivedWeb
   });
 };
 
-schema.statics.cleanQuestProgress = _cleanQuestProgress;
+schema.statics.cleanQuestParty = _cleanQuestParty;
+schema.statics.cleanQuestUser = _cleanQuestUser;
 
 // returns a clean object for group.quest
 schema.statics.cleanGroupQuest = function cleanGroupQuest () {
@@ -767,7 +798,7 @@ schema.methods.finishQuest = async function finishQuest (quest) {
   if (this._id === TAVERN_ID) {
     updates.$set['party.quest.completed'] = questK; // Just show the notif
   } else {
-    updates.$set['party.quest'] = _cleanQuestProgress({completed: questK}); // clear quest progress
+    _.merge(updates, _cleanQuestParty({$set: {'party.quest.completed': questK}})); // clear quest progress
   }
 
   _.each(_.reject(quest.drop.items, 'onlyOwner'), (item) => {
@@ -1131,23 +1162,25 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
     }).exec();
 
     let challengesToRemoveUserFrom = challenges.map(chal => {
-      return chal.unlinkTasks(user, keep);
+      return chal.unlinkTasks(user, keep, false);
     });
     await Promise.all(challengesToRemoveUserFrom);
   }
 
-  // Unlink group tasks)
+  // Unlink group tasks
   let assignedTasks = await Tasks.Task.find({
     'group.id': group._id,
     userId: {$exists: false},
     'group.assignedUsers': user._id,
   }).exec();
   let assignedTasksToRemoveUserFrom = assignedTasks.map(task => {
-    return this.unlinkTask(task, user, keep);
+    return this.unlinkTask(task, user, keep, false);
   });
   await Promise.all(assignedTasksToRemoveUserFrom);
 
-  let promises = [];
+  // the user could be modified by calls to `unlinkTask` for challenge and group tasks
+  // it has not been saved before to avoid multiple saves in parallel
+  let promises = user.isModified() ? [user.save()] : [];
 
   // remove the group from the user's groups
   if (group.type === 'guild') {
@@ -1337,7 +1370,7 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
   return Promise.all(toSave);
 };
 
-schema.methods.unlinkTask = async function groupUnlinkTask (unlinkingTask, user, keep) {
+schema.methods.unlinkTask = async function groupUnlinkTask (unlinkingTask, user, keep, saveUser = true) {
   let findQuery = {
     'group.taskId': unlinkingTask._id,
     userId: user._id,
@@ -1351,16 +1384,26 @@ schema.methods.unlinkTask = async function groupUnlinkTask (unlinkingTask, user,
       $set: {group: {}},
     }).exec();
 
-    await user.save();
+    // When multiple tasks are being unlinked at the same time,
+    // save the user once outside of this function
+    if (saveUser) await user.save();
   } else { // keep = 'remove-all'
     let task = await Tasks.Task.findOne(findQuery).select('_id type completed').exec();
     // Remove task from user.tasksOrder and delete them
-    if (task.type !== 'todo' || !task.completed) {
+    if (task && (task.type !== 'todo' || !task.completed)) {
       removeFromArray(user.tasksOrder[`${task.type}s`], task._id);
       user.markModified('tasksOrder');
     }
 
-    return Promise.all([task.remove(), user.save(), unlinkingTask.save()]);
+    let promises = [unlinkingTask.save()];
+    if (task) {
+      promises.push(task.remove());
+    }
+    // When multiple tasks are being unlinked at the same time,
+    // save the user once outside of this function
+    if (saveUser) promises.push(user.save());
+
+    return Promise.all(promises);
   }
 };
 

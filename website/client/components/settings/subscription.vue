@@ -77,19 +77,19 @@
             .col-md-4
               button.purchase.btn.btn-primary(@click='showStripe({subscription:subscription.key, coupon:subscription.coupon})', :disabled='!subscription.key') {{ $t('card') }}
             .col-md-4
-              a.purchase(:href='paypalPurchaseLink', :disabled='!subscription.key', target='_blank')
+              a.purchase(@click="openPaypal(paypalPurchaseLink, 'subscription')", :disabled='!subscription.key')
                 img(src='https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-small.png', :alt="$t('paypal')")
             .col-md-4
               a.btn.btn-secondary.purchase(@click="payWithAmazon()")
                 img(src='https://payments.amazon.com/gp/cba/button', :alt="$t('amazonPayments')")
     .row
       .col-6
-        h2 {{ $t('giftSubscription') }}
+        h2(v-once) {{ $t('giftSubscription') }}
         ol
-          li {{ $t('giftSubscriptionText1') }}
-          li {{ $t('giftSubscriptionText2') }}
-          li {{ $t('giftSubscriptionText3') }}
-        h4 {{ $t('giftSubscriptionText4') }}
+          li(v-once) {{ $t('giftSubscriptionText1') }}
+          li(v-once) {{ $t('giftSubscriptionText2') }}
+          li(v-once) {{ $t('giftSubscriptionText3') }}
+        h4(v-once) {{ $t('giftSubscriptionText4') }}
 </template>
 
 <style scoped>

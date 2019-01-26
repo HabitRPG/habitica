@@ -7,7 +7,7 @@ import {
 import nconf from 'nconf';
 import url from 'url';
 
-const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
+const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS_COMMUNITY_MANAGER_EMAIL');
 
 function getUserFields (options, req) {
   // A list of user fields that aren't needed for the route and are not loaded from the db.

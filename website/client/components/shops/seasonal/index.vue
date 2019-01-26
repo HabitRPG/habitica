@@ -76,7 +76,7 @@
       div(
         v-for="(groupSets, categoryGroup) in getGroupedCategories(categories)",
       )
-        h3.classgroup(v-if='categoryGroup !== "spells"')
+        h3.classgroup(v-if='categoryGroup !== "spells" && categoryGroup !== "quests"')
           span.svg-icon.inline(v-html="icons[categoryGroup]")
           span.name(:class="categoryGroup") {{ getClassName(categoryGroup) }}
 

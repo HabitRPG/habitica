@@ -295,6 +295,7 @@
 import axios from 'axios';
 import hello from 'hellojs';
 import debounce from 'lodash/debounce';
+import isEmail from 'validator/lib/isEmail';
 
 import gryphon from 'assets/svg/gryphon.svg';
 import habiticaIcon from 'assets/svg/habitica-logo.svg';
@@ -327,10 +328,10 @@ export default {
   },
   computed: {
     registering () {
-      if (this.$route.path.startsWith('/login')) {
-        return false;
+      if (this.$route.path.startsWith('/register')) {
+        return true;
       }
-      return true;
+      return false;
     },
     resetPasswordSetNewOne () {
       if (this.$route.path.startsWith('/reset-password')) {
@@ -340,18 +341,18 @@ export default {
     },
     emailValid () {
       if (this.email.length <= 3) return false;
-      return this.validateEmail(this.email);
+      return isEmail(this.email);
     },
     emailInvalid () {
       if (this.email.length <= 3) return false;
       return !this.emailValid;
     },
     usernameValid () {
-      if (this.username.length <= 3) return false;
+      if (this.username.length < 1) return false;
       return this.usernameIssues.length === 0;
     },
     usernameInvalid () {
-      if (this.username.length <= 3) return false;
+      if (this.username.length < 1) return false;
       return !this.usernameValid;
     },
     passwordConfirmValid () {

@@ -19,6 +19,7 @@
                 v-on:select="selectedAutocomplete",
                 :textbox='textbox',
                 :coords='coords',
+                :caretPosition = 'caretPosition',
                 :chat='group.chat')
 
       .row.chat-actions
@@ -56,6 +57,8 @@
     data () {
       return {
         newMessage: '',
+        sending: false,
+        caretPosition: 0,
         chat: {
           submitDisable: false,
           submitTimeout: null,
@@ -75,7 +78,7 @@
     methods: {
       // https://medium.com/@_jh3y/how-to-where-s-the-caret-getting-the-xy-position-of-the-caret-a24ba372990a
       getCoord (e, text) {
-        let carPos = text.selectionEnd;
+        this.caretPosition = text.selectionEnd;
         let div = document.createElement('div');
         let span = document.createElement('span');
         let copyStyle = getComputedStyle(text);
@@ -86,8 +89,8 @@
 
         div.style.position = 'absolute';
         document.body.appendChild(div);
-        div.textContent = text.value.substr(0, carPos);
-        span.textContent = text.value.substr(carPos) || '.';
+        div.textContent = text.value.substr(0, this.caretPosition);
+        span.textContent = text.value.substr(this.caretPosition) || '.';
         div.appendChild(span);
         this.coords = {
           TOP: span.offsetTop,
@@ -109,14 +112,18 @@
         }
       },
       async sendMessage () {
+        if (this.sending) return;
+        this.sending = true;
         let response = await this.$store.dispatch('chat:postChat', {
           group: this.group,
           message: this.newMessage,
         });
         this.group.chat.unshift(response.message);
         this.newMessage = '';
+        this.sending = false;
 
-        // @TODO: I would like to not reload everytime we send. Realtime/Firebase?
+        // @TODO: I would like to not reload everytime we send. Why are we reloading?
+        // The response has all the necessary data...
         let chat = await this.$store.dispatch('chat:getChat', {groupId: this.group._id});
         this.group.chat = chat;
       },
@@ -194,7 +201,6 @@
       width: 100%;
       background-color: $white;
       border: solid 1px $gray-400;
-      font-size: 16px;
       font-style: italic;
       line-height: 1.43;
       color: $gray-300;

@@ -167,7 +167,7 @@ gulp.task('test:content:safe', gulp.series('test:prepare:build', (cb) => {
 
 gulp.task('test:api:unit', (done) => {
   let runner = exec(
-    testBin('node_modules/.bin/istanbul cover --dir coverage/api-unit node_modules/mocha/bin/_mocha -- test/api/unit --recursive --require ./test/helpers/start-server'),
+    testBin('istanbul cover --dir coverage/api-unit node_modules/mocha/bin/_mocha -- test/api/unit --recursive --require ./test/helpers/start-server'),
     (err) => {
       if (err) {
         process.exit(1);
@@ -180,12 +180,12 @@ gulp.task('test:api:unit', (done) => {
 });
 
 gulp.task('test:api:unit:watch', () => {
-  return gulp.watch(['website/server/libs/*', 'test/api/v3/unit/**/*', 'website/server/controllers/**/*'], gulp.series('test:api:unit', done => done()));
+  return gulp.watch(['website/server/libs/*', 'test/api/unit/**/*', 'website/server/controllers/**/*'], gulp.series('test:api:unit', done => done()));
 });
 
 gulp.task('test:api-v3:integration', (done) => {
   let runner = exec(
-    testBin('node_modules/.bin/istanbul cover --dir coverage/api-v3-integration --report lcovonly node_modules/mocha/bin/_mocha -- test/api/v3/integration --recursive --require ./test/helpers/start-server'),
+    testBin('istanbul cover --dir coverage/api-v3-integration --report lcovonly node_modules/mocha/bin/_mocha -- test/api/v3/integration --recursive --require ./test/helpers/start-server'),
     {maxBuffer: 500 * 1024},
     (err) => {
       if (err) {
@@ -217,7 +217,7 @@ gulp.task('test:api-v3:integration:separate-server', (done) => {
 
 gulp.task('test:api-v4:integration', (done) => {
   let runner = exec(
-    testBin('node_modules/.bin/istanbul cover --dir coverage/api-v4-integration --report lcovonly node_modules/mocha/bin/_mocha -- test/api/v4 --recursive --require ./test/helpers/start-server'),
+    testBin('istanbul cover --dir coverage/api-v4-integration --report lcovonly node_modules/mocha/bin/_mocha -- test/api/v4 --recursive --require ./test/helpers/start-server'),
     {maxBuffer: 500 * 1024},
     (err) => {
       if (err) {

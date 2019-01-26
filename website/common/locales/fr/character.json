@@ -7,7 +7,7 @@
     "noPhoto": "Cette personne n'a pas ajouté de photo",
     "other": "Autres",
     "fullName": "Nom complet",
-    "displayName": "Pseudonyme",
+    "displayName": "Nom affiché",
     "changeDisplayName": "Changer le nom affiché",
     "newDisplayName": "Nouveau nom affiché",
     "displayPhoto": "Photo",
@@ -223,6 +223,6 @@
     "bodyAccess": "Accessoire de torse",
     "mainHand": "Main principale",
     "offHand": "Main secondaire",
-    "statPoints": "Points d'attribut",
+    "statPoints": "Points de caractéristiques",
     "pts": "pts"
 }

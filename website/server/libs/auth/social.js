@@ -61,6 +61,9 @@ async function loginSocial (req, res) {
     preferences: {
       language: req.language,
     },
+    flags: {
+      verifiedUsername: true,
+    },
   };
 
   if (existingUser) {

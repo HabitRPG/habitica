@@ -32,8 +32,19 @@ describe('Group Model', () => {
       privacy: 'private',
     });
 
+    let _progress = {
+      up: 10,
+      down: 8,
+      collectedItems: 5,
+    };
+
     questLeader = new User({
-      party: { _id: party._id },
+      party: {
+        _id: party._id,
+        quest: {
+          progress: _progress,
+        },
+      },
       profile: { name: 'Quest Leader' },
       items: {
         quests: {
@@ -45,20 +56,40 @@ describe('Group Model', () => {
     party.leader = questLeader._id;
 
     participatingMember = new User({
-      party: { _id: party._id },
+      party: {
+        _id: party._id,
+        quest: {
+          progress: _progress,
+        },
+      },
       profile: { name: 'Participating Member' },
     });
     sleepingParticipatingMember = new User({
-      party: { _id: party._id },
+      party: {
+        _id: party._id,
+        quest: {
+          progress: _progress,
+        },
+      },
       profile: { name: 'Sleeping Participating Member' },
       preferences: { sleep: true },
     });
     nonParticipatingMember = new User({
-      party: { _id: party._id },
+      party: {
+        _id: party._id,
+        quest: {
+          progress: _progress,
+        },
+      },
       profile: { name: 'Non-Participating Member' },
     });
     undecidedMember = new User({
-      party: { _id: party._id },
+      party: {
+        _id: party._id,
+        quest: {
+          progress: _progress,
+        },
+      },
       profile: { name: 'Undecided Member' },
     });
 
@@ -569,7 +600,7 @@ describe('Group Model', () => {
       });
 
       it('throws an error if no uuids or emails are passed in', async () => {
-        await expect(Group.validateInvitations(null, null, res)).to.eventually.be.rejected.and.eql({
+        await expect(Group.validateInvitations({}, res)).to.eventually.be.rejected.and.eql({
           httpCode: 400,
           message: 'Bad request.',
           name: 'BadRequest',
@@ -579,7 +610,7 @@ describe('Group Model', () => {
       });
 
       it('throws an error if only uuids are passed in, but they are not an array', async () => {
-        await expect(Group.validateInvitations({ uuid: 'user-id'}, null, res)).to.eventually.be.rejected.and.eql({
+        await expect(Group.validateInvitations({ uuids: 'user-id'}, res)).to.eventually.be.rejected.and.eql({
           httpCode: 400,
           message: 'Bad request.',
           name: 'BadRequest',
@@ -589,7 +620,7 @@ describe('Group Model', () => {
       });
 
       it('throws an error if only emails are passed in, but they are not an array', async () => {
-        await expect(Group.validateInvitations(null, { emails: 'user@example.com'}, res)).to.eventually.be.rejected.and.eql({
+        await expect(Group.validateInvitations({emails: 'user@example.com'}, res)).to.eventually.be.rejected.and.eql({
           httpCode: 400,
           message: 'Bad request.',
           name: 'BadRequest',
@@ -599,27 +630,27 @@ describe('Group Model', () => {
       });
 
       it('throws an error if emails are not passed in, and uuid array is empty', async () => {
-        await expect(Group.validateInvitations([], null, res)).to.eventually.be.rejected.and.eql({
+        await expect(Group.validateInvitations({uuids: []},  res)).to.eventually.be.rejected.and.eql({
           httpCode: 400,
           message: 'Bad request.',
           name: 'BadRequest',
         });
         expect(res.t).to.be.calledOnce;
-        expect(res.t).to.be.calledWith('inviteMissingUuid');
+        expect(res.t).to.be.calledWith('inviteMustNotBeEmpty');
       });
 
       it('throws an error if uuids are not passed in, and email array is empty', async () => {
-        await expect(Group.validateInvitations(null, [], res)).to.eventually.be.rejected.and.eql({
+        await expect(Group.validateInvitations({emails: []},  res)).to.eventually.be.rejected.and.eql({
           httpCode: 400,
           message: 'Bad request.',
           name: 'BadRequest',
         });
         expect(res.t).to.be.calledOnce;
-        expect(res.t).to.be.calledWith('inviteMissingEmail');
+        expect(res.t).to.be.calledWith('inviteMustNotBeEmpty');
       });
 
       it('throws an error if uuids and emails are passed in as empty arrays', async () => {
-        await expect(Group.validateInvitations([], [], res)).to.eventually.be.rejected.and.eql({
+        await expect(Group.validateInvitations({emails: [], uuids: []}, res)).to.eventually.be.rejected.and.eql({
           httpCode: 400,
           message: 'Bad request.',
           name: 'BadRequest',
@@ -639,7 +670,7 @@ describe('Group Model', () => {
 
         uuids.push('one-more-uuid'); // to put it over the limit
 
-        await expect(Group.validateInvitations(uuids, emails, res)).to.eventually.be.rejected.and.eql({
+        await expect(Group.validateInvitations({uuids, emails}, res)).to.eventually.be.rejected.and.eql({
           httpCode: 400,
           message: 'Bad request.',
           name: 'BadRequest',
@@ -657,33 +688,33 @@ describe('Group Model', () => {
           emails.push(`user-${i}@example.com`);
         }
 
-        await Group.validateInvitations(uuids, emails, res);
+        await Group.validateInvitations({uuids, emails}, res);
         expect(res.t).to.not.be.called;
       });
 
 
       it('does not throw an error if only user ids are passed in', async () => {
-        await Group.validateInvitations(['user-id', 'user-id2'], null, res);
+        await Group.validateInvitations({uuids: ['user-id', 'user-id2']}, res);
         expect(res.t).to.not.be.called;
       });
 
       it('does not throw an error if only emails are passed in', async () => {
-        await Group.validateInvitations(null, ['user1@example.com', 'user2@example.com'], res);
+        await Group.validateInvitations({emails: ['user1@example.com', 'user2@example.com']}, res);
         expect(res.t).to.not.be.called;
       });
 
       it('does not throw an error if both uuids and emails are passed in', async () => {
-        await Group.validateInvitations(['user-id', 'user-id2'], ['user1@example.com', 'user2@example.com'], res);
+        await Group.validateInvitations({uuids: ['user-id', 'user-id2'], emails: ['user1@example.com', 'user2@example.com']}, res);
         expect(res.t).to.not.be.called;
       });
 
       it('does not throw an error if uuids are passed in and emails are an empty array', async () => {
-        await Group.validateInvitations(['user-id', 'user-id2'], [], res);
+        await Group.validateInvitations({uuids: ['user-id', 'user-id2'], emails: []}, res);
         expect(res.t).to.not.be.called;
       });
 
       it('does not throw an error if emails are passed in and uuids are an empty array', async () => {
-        await Group.validateInvitations([], ['user1@example.com', 'user2@example.com'], res);
+        await Group.validateInvitations({uuids: [], emails: ['user1@example.com', 'user2@example.com']}, res);
         expect(res.t).to.not.be.called;
       });
     });
@@ -1163,16 +1194,17 @@ describe('Group Model', () => {
           expect(party.quest.members).to.eql(expectedQuestMembers);
         });
 
-        it('applies updates to user object directly if user is participating', async () => {
+        it('applies updates to user object directly if user is participating (without resetting progress, except progress.down)', async () => {
           await party.startQuest(participatingMember);
 
           expect(participatingMember.party.quest.key).to.eql('whale');
+          expect(participatingMember.party.quest.progress.up).to.eql(10);
           expect(participatingMember.party.quest.progress.down).to.eql(0);
-          expect(participatingMember.party.quest.progress.collectedItems).to.eql(0);
+          expect(participatingMember.party.quest.progress.collectedItems).to.eql(5);
           expect(participatingMember.party.quest.completed).to.eql(null);
         });
 
-        it('applies updates to other participating members', async () => {
+        it('applies updates to other participating members (without resetting progress, except progress.down)', async () => {
           await party.startQuest(nonParticipatingMember);
 
           questLeader = await User.findById(questLeader._id);
@@ -1180,18 +1212,21 @@ describe('Group Model', () => {
           sleepingParticipatingMember = await User.findById(sleepingParticipatingMember._id);
 
           expect(participatingMember.party.quest.key).to.eql('whale');
+          expect(participatingMember.party.quest.progress.up).to.eql(10);
           expect(participatingMember.party.quest.progress.down).to.eql(0);
-          expect(participatingMember.party.quest.progress.collectedItems).to.eql(0);
+          expect(participatingMember.party.quest.progress.collectedItems).to.eql(5);
           expect(participatingMember.party.quest.completed).to.eql(null);
 
           expect(sleepingParticipatingMember.party.quest.key).to.eql('whale');
+          expect(sleepingParticipatingMember.party.quest.progress.up).to.eql(10);
           expect(sleepingParticipatingMember.party.quest.progress.down).to.eql(0);
-          expect(sleepingParticipatingMember.party.quest.progress.collectedItems).to.eql(0);
+          expect(sleepingParticipatingMember.party.quest.progress.collectedItems).to.eql(5);
           expect(sleepingParticipatingMember.party.quest.completed).to.eql(null);
 
           expect(questLeader.party.quest.key).to.eql('whale');
+          expect(questLeader.party.quest.progress.up).to.eql(10);
           expect(questLeader.party.quest.progress.down).to.eql(0);
-          expect(questLeader.party.quest.progress.collectedItems).to.eql(0);
+          expect(questLeader.party.quest.progress.collectedItems).to.eql(5);
           expect(questLeader.party.quest.completed).to.eql(null);
         });
 
@@ -1202,6 +1237,9 @@ describe('Group Model', () => {
           undecidedMember = await User.findById(undecidedMember._id);
 
           expect(nonParticipatingMember.party.quest.key).to.not.eql('whale');
+          expect(nonParticipatingMember.party.quest.progress.up).to.eql(10);
+          expect(nonParticipatingMember.party.quest.progress.down).to.eql(8);
+          expect(nonParticipatingMember.party.quest.progress.collectedItems).to.eql(5);
           expect(undecidedMember.party.quest.key).to.not.eql('whale');
         });
 
@@ -1369,8 +1407,9 @@ describe('Group Model', () => {
           let userQuest = participatingMember.party.quest;
 
           expect(userQuest.key).to.eql('whale');
+          expect(userQuest.progress.up).to.eql(10);
           expect(userQuest.progress.down).to.eql(0);
-          expect(userQuest.progress.collectedItems).to.eql(0);
+          expect(userQuest.progress.collectedItems).to.eql(5);
           expect(userQuest.completed).to.eql(null);
         });
 
@@ -1670,16 +1709,23 @@ describe('Group Model', () => {
           });
         });
 
-        it('sets user quest object to a clean state', async () => {
+        it('updates participating members quest object to a clean state (except for progress)', async () => {
           await party.finishQuest(quest);
 
-          let updatedLeader = await User.findById(questLeader._id);
+          questLeader = await User.findById(questLeader._id);
+          participatingMember = await User.findById(participatingMember._id);
 
-          expect(updatedLeader.party.quest.completed).to.eql('whale');
-          expect(updatedLeader.party.quest.progress.up).to.eql(0);
-          expect(updatedLeader.party.quest.progress.down).to.eql(0);
-          expect(updatedLeader.party.quest.progress.collectedItems).to.eql(0);
-          expect(updatedLeader.party.quest.RSVPNeeded).to.eql(false);
+          expect(questLeader.party.quest.completed).to.eql('whale');
+          expect(questLeader.party.quest.progress.up).to.eql(10);
+          expect(questLeader.party.quest.progress.down).to.eql(8);
+          expect(questLeader.party.quest.progress.collectedItems).to.eql(5);
+          expect(questLeader.party.quest.RSVPNeeded).to.eql(false);
+
+          expect(participatingMember.party.quest.completed).to.eql('whale');
+          expect(participatingMember.party.quest.progress.up).to.eql(10);
+          expect(participatingMember.party.quest.progress.down).to.eql(8);
+          expect(participatingMember.party.quest.progress.collectedItems).to.eql(5);
+          expect(participatingMember.party.quest.RSVPNeeded).to.eql(false);
         });
       });
 
@@ -1841,6 +1887,62 @@ describe('Group Model', () => {
         expect(webhooks[0].id).to.eql(memberWithWebhook.webhooks[0].id);
         expect(options.group).to.eql(guild);
         expect(options.chat).to.eql(chat);
+      });
+
+      it('sends webhooks for users with webhooks triggered by system messages', async () => {
+        let guild = new Group({
+          name: 'some guild',
+          type: 'guild',
+        });
+
+        let memberWithWebhook = new User({
+          guilds: [guild._id],
+          webhooks: [{
+            type: 'groupChatReceived',
+            url: 'http://someurl.com',
+            options: {
+              groupId: guild._id,
+            },
+          }],
+        });
+        let memberWithoutWebhook = new User({
+          guilds: [guild._id],
+        });
+        let nonMemberWithWebhooks = new User({
+          webhooks: [{
+            type: 'groupChatReceived',
+            url: 'http://a-different-url.com',
+            options: {
+              groupId: generateUUID(),
+            },
+          }],
+        });
+
+        await Promise.all([
+          memberWithWebhook.save(),
+          memberWithoutWebhook.save(),
+          nonMemberWithWebhooks.save(),
+        ]);
+
+        guild.leader = memberWithWebhook._id;
+
+        await guild.save();
+
+        const groupMessage = guild.sendChat('Test message.');
+        await groupMessage.save();
+
+        await sleep();
+
+        expect(groupChatReceivedWebhook.send).to.be.calledOnce;
+
+        let args = groupChatReceivedWebhook.send.args[0];
+        let webhooks = args[0].webhooks;
+        let options = args[1];
+
+        expect(webhooks).to.have.a.lengthOf(1);
+        expect(webhooks[0].id).to.eql(memberWithWebhook.webhooks[0].id);
+        expect(options.group).to.eql(guild);
+        expect(options.chat).to.eql(groupMessage);
       });
 
       it('sends webhooks for each user with webhooks in group', async () => {

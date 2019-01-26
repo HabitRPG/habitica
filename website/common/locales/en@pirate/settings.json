@@ -112,7 +112,6 @@
     "wonChallenge": "Ye won a Challenge!",
     "newPM": "Received Private Message",
     "newPMInfo": "New Message from <%= name %>: <%= message %>",
-    "sentGems": "Sent sapphires!",
     "giftedGems": "Gifted Sapphires",
     "giftedGemsInfo": "<%= name %> gifted ye <%= amount %> Sapphires",
     "giftedGemsFull": "Hello <%= username %>, <%= sender %> has sent you <%= gemAmount %> gems!",
@@ -200,9 +199,10 @@
     "usernameIssueInvalidCharacters": "Usernames can only contain letters a to z, numbers 0 to 9, hyphens, or underscores.",
     "currentUsername": "Current username:",
     "displaynameIssueLength": "Display Names must be between 1 and 30 characters.",
-    "displaynameIssueSlur": "Display Names may not contain inappropriate language",
+    "displaynameIssueSlur": "Display Names may not contain inappropriate language.",
     "goToSettings": "Go to Settings",
     "usernameVerifiedConfirmation": "Your username, <%= username %>, is confirmed!",
     "usernameNotVerified": "Please confirm your username.",
-    "changeUsernameDisclaimer": "We will be transitioning login names to unique, public usernames soon. This username will be used for invitations, @mentions in chat, and messaging."
+    "changeUsernameDisclaimer": "We will be transitioning login names to unique, public usernames soon. This username will be used for invitations, @mentions in chat, and messaging.",
+    "verifyUsernameVeteranPet": "One of these Veteran Pets will be waiting for you after you've finished confirming!"
 }
