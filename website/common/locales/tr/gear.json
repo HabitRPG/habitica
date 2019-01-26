@@ -271,7 +271,7 @@
     "weaponSpecialFall2018WarriorText": "Minos'un Kırbacı",
     "weaponSpecialFall2018WarriorNotes": "Labirentte yolunu kaybetmemek için arkanda serebileceğin kadar uzun değil. Belki çok küçük bir labirentte işe yarayabilir. Gücü <%= str %> puan arttırır. Sınırlı Sürüm 2018 Güz Ekipmanı.",
     "weaponSpecialFall2018MageText": "Tatlılık Asası",
-    "weaponSpecialFall2018MageNotes": "Bu sıradan bir lolipop değil! Bu asanın üstündeki parıldayan sihirli şeker topu, iyi alışkanlıkları sana yapıştırma gücüne sahiptir. Zekayı <%= int %> ve Sezgiyi <%= per %> puan arttırır. Sınırlı Sürüm 2018 Güz Ekipmanı. Çift elli eşya.",
+    "weaponSpecialFall2018MageNotes": "Bu sıradan bir lolipop değil! Bu asanın üstündeki parıldayan sihirli şeker topu, iyi alışkanlıkları sana yapıştırma gücüne sahiptir. Zekayı <%= int %> ve Sezgiyi <%= per %> puan arttırır. Sınırlı Sürüm 2018 Güz Ekipmanı.",
     "weaponSpecialFall2018HealerText": "Çok Aç Asa",
     "weaponSpecialFall2018HealerNotes": "Bu asayı tok tutarsan sana Kutsamalar bağışlar. Eğer beslemeyi unutursan, parmaklarını yakınlarında tutmasan iyi olur. Zekayı <%= int %> puan arttırır. Sınırlı Sürüm 2018 Güz Ekipmanı.",
     "weaponSpecialWinter2019RogueText": "Atatürk Çiçeği Buketi",

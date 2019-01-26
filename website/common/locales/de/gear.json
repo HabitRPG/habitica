@@ -271,7 +271,7 @@
     "weaponSpecialFall2018WarriorText": "Peitsche des Minos",
     "weaponSpecialFall2018WarriorNotes": "Nicht ganz lange genug, um sie hinter Dir abzuwickeln, um Dich in einem Labyrinth zurechtzufinden. Nun, vielleicht in einem sehr kleinen Labyrinth. Erhöht Stärke um <%= str %>. Limitierte Ausgabe 2018 Herbstausrüstung.",
     "weaponSpecialFall2018MageText": "Stab der Süße",
-    "weaponSpecialFall2018MageNotes": "Das ist kein gewöhnlicher Lolli! Die leuchtende Kugel aus magischem Zucker auf diesem Stab hat die Macht, gute Gewohnheiten an dir festzuhalten. Erhöht Intelligenz um <%= int %> und Wahrnehmung um <%= per %>. Limitierte Ausgabe 2018 Herbstausrüstung. Zweihändiger Gegenstand.",
+    "weaponSpecialFall2018MageNotes": "Das ist kein gewöhnlicher Lolli! Die leuchtende Kugel aus magischem Zucker auf diesem Stab hat die Macht, gute Gewohnheiten an dir festzuhalten. Erhöht Intelligenz um <%= int %> und Wahrnehmung um <%= per %>. Limitierte Ausgabe 2018 Herbstausrüstung.",
     "weaponSpecialFall2018HealerText": "Stab des Verhungerns",
     "weaponSpecialFall2018HealerNotes": "Halte diesen Stab nur gefüttert, und er wird Segen spenden. Wenn Du vergisst, ihn zu füttern, halte Deine Finger außer Reichweite. Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe 2018 Herbstausrüstung.",
     "weaponSpecialWinter2019RogueText": "Weihnachtsstern-Bouquet",

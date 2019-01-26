@@ -271,7 +271,7 @@
     "weaponSpecialFall2018WarriorText": " Chicote do Minotauro",
     "weaponSpecialFall2018WarriorNotes": "Não é longo o suficiente para desenrolar atrás de você e manter suas orientações em um labirinto. Bem, talvez um pequeno labirinto. Aumenta Força em <%= str %>. Equipamento de Edição Limitada Outono de 2018.",
     "weaponSpecialFall2018MageText": " Cajado da Doçura",
-    "weaponSpecialFall2018MageNotes": "Isto não é um pirulito comum! O brilhante globo de açúcar mágico no topo desse cajado tem o poder de fazer com que os Bons hábitos se apeguem a você. Aumenta Inteligência em <%= int %>e Percepção em <%= per %>. Equipamento de Edição Limitada Outono de 2018. Equipamento de duas mãos.",
+    "weaponSpecialFall2018MageNotes": "Isto não é um pirulito comum! O brilhante globo de açúcar mágico no topo desse cajado tem o poder de fazer com que os Bons hábitos se apeguem a você. Aumenta Inteligência em <%= int %>e Percepção em <%= per %>. Equipamento de Edição Limitada Outono de 2018.",
     "weaponSpecialFall2018HealerText": " Cajado Faminto",
     "weaponSpecialFall2018HealerNotes": "Apenas mantenha este cajado alimentado e ele lhe trará Bênçãos. Se você esquecer de alimentá-lo, mantenha seus dedos longe. Aumenta Inteligência em <%= int %>. Equipamento de Edição Limitada Outono de 2018.",
     "weaponSpecialWinter2019RogueText": "Buquê de Flor-Do-Natal",

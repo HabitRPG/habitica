@@ -271,7 +271,7 @@
     "weaponSpecialFall2018WarriorText": "Frusta di Minosse",
     "weaponSpecialFall2018WarriorNotes": "Non abbastanza lungo da essere srotolato dietro di te per orientarti in un labirinto. Beh, forse in un labirinto proprio piccolo sì. Aumenta la Forza di <%= str %>. Attrezzatura Autunnale in Edizione Limitata 2018.",
     "weaponSpecialFall2018MageText": "Bastone della Dolcezza",
-    "weaponSpecialFall2018MageNotes": "Questo è lontano dall'essere un leccalecca normale! La sfera di zucchero magico su questo bastone ha il potere di attaccarti adosso le buone abitudini. Aumenta l'Intelligenza di <%= int %> e la Percezione di <%= per %>. Attrezzatura Autunnale in Edizione Limitata 2018. Oggetto a due mani.",
+    "weaponSpecialFall2018MageNotes": "Questo è lontano dall'essere un leccalecca normale! La sfera di zucchero magico su questo bastone ha il potere di attaccarti adosso le buone abitudini. Aumenta l'Intelligenza di <%= int %> e la Percezione di <%= per %>. Attrezzatura Autunnale in Edizione Limitata 2018.",
     "weaponSpecialFall2018HealerText": "Bastone Affamato",
     "weaponSpecialFall2018HealerNotes": "Nutri questo bastone, e offrirà delle benedizioni. Se ti dimentichi di nutrirlo, allontana le dita. Aumenta l'Intelligenza di <%= int %>. Attrezzatura Autunnale in Edizione Limitata 2018.",
     "weaponSpecialWinter2019RogueText": "Mazzo di Stelle di Natale",

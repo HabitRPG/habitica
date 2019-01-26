@@ -271,7 +271,7 @@
     "weaponSpecialFall2018WarriorText": "Chicote de Minos",
     "weaponSpecialFall2018WarriorNotes": "Não é comprido o suficiente para desenrolar atrás de si para o ajudar a manter orientado num labirinto. Bem, talvez num labirinto muito pequeno. Aumenta Força em <%= str %>. Equipamento de Edição Limitada do Outono de 2018.",
     "weaponSpecialFall2018MageText": "Cajado de Doçura",
-    "weaponSpecialFall2018MageNotes": "Este não é um chupa chupa normal! A orbe brilhante de açucar mágico no topo deste bordão tem o poder de fazer bons hábitos pegarem-se a si. Aumenta Inteligência em <%= int %> e Perceção em <%= per %>. Equipamento de Edição Limitada do Outono de 2018. Item de duas mãos.",
+    "weaponSpecialFall2018MageNotes": "Este não é um chupa chupa normal! A orbe brilhante de açucar mágico no topo deste bordão tem o poder de fazer bons hábitos pegarem-se a si. Aumenta Inteligência em <%= int %> e Perceção em <%= per %>. Equipamento de Edição Limitada do Outono de 2018.",
     "weaponSpecialFall2018HealerText": "Cajado Esfomeado",
     "weaponSpecialFall2018HealerNotes": "Mantenha este bordão alimentado e ele irá conceder Benções. Se se esquecer de o manter alimentado, tenha a certeza de manter os seus dedos fora de alcance. Aumenta Inteligência em <%= int %>. Equipamento de Edição Limitada do Outono de 2018.",
     "weaponSpecialWinter2019RogueText": "Ramo de Poinsétia",

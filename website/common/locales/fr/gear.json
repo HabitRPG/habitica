@@ -271,7 +271,7 @@
     "weaponSpecialFall2018WarriorText": "Fouet de Minos",
     "weaponSpecialFall2018WarriorNotes": "Pas vraiment assez long pour se dérouler derrière vous et vous aider à trouver votre chemin dans un labyrinthe. Enfin, peut-être dans un très petit labyrinthe. Augmente la Force de<%= str %>. Équipement d'Automne en édition limitée 2018.",
     "weaponSpecialFall2018MageText": "Bâton du Délice",
-    "weaponSpecialFall2018MageNotes": "C'est loin d'être une sucette ordinaire ! L'orbe rougeoyante de sucre magique perchée en haut de ce bâton possède le pouvoir de coller les bonnes habitudes à vous. Augmente l'Intelligence de <%= int %> et la Perception de <%= per %>. Équipement d'Automne en édition limitée 2018. Objet à deux mains.",
+    "weaponSpecialFall2018MageNotes": "C'est loin d'être une sucette ordinaire ! L'orbe rougeoyante de sucre magique perchée en haut de ce bâton possède le pouvoir de coller les bonnes habitudes à vous. Augmente l'Intelligence de <%= int %> et la Perception de <%= per %>. Équipement d'Automne en édition limitée 2018.",
     "weaponSpecialFall2018HealerText": "Bâton glouton",
     "weaponSpecialFall2018HealerNotes": "Il suffit de nourrir ce bâton, et celui-ci accordera des bénédictions. Si vous oubliez de le nourrir, attention à vos doigts. Augmente l'Intelligence de <%= int %>. Équipement d'Automne en édition limitée 2018.",
     "weaponSpecialWinter2019RogueText": "Bouquet de poinsettia",
