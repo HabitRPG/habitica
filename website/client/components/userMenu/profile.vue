@@ -33,7 +33,7 @@ div
         .col-12
           member-details(:member="user")
     .row
-      .col-12.col-md-6.offset-md-3.text-center.nav
+      .col-12.text-center.nav
         .nav-item(@click='selectPage("profile")', :class="{active: selectedPage === 'profile'}") {{ $t('profile') }}
         .nav-item(@click='selectPage("stats")', :class="{active: selectedPage === 'stats'}") {{ $t('stats') }}
         .nav-item(@click='selectPage("achievements")', :class="{active: selectedPage === 'achievements'}") {{ $t('achievements') }}
@@ -228,12 +228,13 @@ div
 
   .nav {
     font-weight: bold;
-    height: 40px;
+    min-height: 40px;
+    justify-content: center;
   }
 
   .nav-item {
     display: inline-block;
-    margin: 0 auto;
+    margin: 0 1.2em;
     padding: 1em;
   }
 
