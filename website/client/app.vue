@@ -24,12 +24,6 @@ div
             span.resume(@click="resumeDamage()") {{ $t('resumeDamage') }}
           .closepadding(@click="hideBanner()")
             span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close")
-        .g1g1-banner.d-flex.justify-content-center.align-items-center(v-if="!giftingHidden")
-          .svg-icon.svg-gifts.left-gift(v-html="icons.gifts")
-          router-link(:to="{name: 'subscription'}") {{ $t('g1g1Announcement') }}
-          .svg-icon.svg-gifts.right-gift(v-html="icons.gifts")
-          .closepadding(@click="hideGiftingBanner()")
-            span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close")
         notifications-display
         app-menu
         .container-fluid
@@ -95,41 +89,6 @@ div
   .container-fluid {
     overflow-x: hidden;
     flex: 1 0 auto;
-  }
-
-  .g1g1-banner {
-    width: 100%;
-    min-height: 2.5rem;
-    background-color: #34b5c1;
-
-    a {
-      color: $white;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .closepadding {
-      margin: 11px 24px;
-      display: inline-block;
-      position: relative;
-      right: 0;
-      top: 0;
-      cursor: pointer;
-    }
-
-    .left-gift {
-      margin: auto 1rem auto auto;
-    }
-
-    .right-gift {
-      margin: auto auto auto 1rem;
-      filter: FlipH;
-      transform: scaleX(-1);
-    }
-
-    .svg-gifts {
-      width: 4.6rem;
-    }
   }
 
   .notification {
@@ -230,9 +189,8 @@ import amazonPaymentsModal from 'client/components/payments/amazonModal';
 import paymentsSuccessModal from 'client/components/payments/successModal';
 
 import spellsMixin from 'client/mixins/spells';
-import { CONSTANTS, getLocalSetting, removeLocalSetting, setLocalSetting } from 'client/libs/userlocalManager';
+import { CONSTANTS, getLocalSetting, removeLocalSetting } from 'client/libs/userlocalManager';
 
-import gifts from 'assets/svg/gifts.svg';
 import svgClose from 'assets/svg/close.svg';
 import bannedAccountModal from 'client/components/bannedAccountModal';
 
@@ -257,7 +215,6 @@ export default {
     return {
       icons: Object.freeze({
         close: svgClose,
-        gifts,
       }),
       selectedItemToBuy: null,
       selectedSpellToBuy: null,
@@ -268,8 +225,6 @@ export default {
       loading: true,
       currentTipNumber: 0,
       bannerHidden: false,
-      bannerHeight: 0,
-      giftingHidden: getLocalSetting(CONSTANTS.keyConstants.GIFTING_BANNER_DISPLAY) === 'dismissed',
     };
   },
   computed: {
@@ -362,6 +317,7 @@ export default {
         const errorMessage = errorData.message || errorData;
 
         // Check for conditions to reset the user auth
+        // TODO use a specific error like NotificationNotFound instead of checking for the string
         const invalidUserMessage = [this.$t('invalidCredentials'), 'Missing authentication headers.'];
         if (invalidUserMessage.indexOf(errorMessage) !== -1) {
           this.$store.dispatch('auth:logout');
@@ -370,12 +326,6 @@ export default {
         // Most server errors should return is click to dismiss errors, with some exceptions
         let snackbarTimeout = false;
         if (error.response.status === 502) snackbarTimeout = true;
-
-        const notificationNotFoundMessage = [
-          this.$t('messageNotificationNotFound'),
-          this.$t('messageNotificationNotFound', 'en'),
-        ];
-        if (notificationNotFoundMessage.indexOf(errorMessage) !== -1) snackbarTimeout = true;
 
         let errorsToShow = [];
         // show only the first error for each param
@@ -390,13 +340,17 @@ export default {
         } else {
           errorsToShow.push(errorMessage);
         }
-        // dispatch as one snackbar notification
-        this.$store.dispatch('snackbars:add', {
-          title: 'Habitica',
-          text: errorsToShow.join(' '),
-          type: 'error',
-          timeout: snackbarTimeout,
-        });
+
+        // Ignore NotificationNotFound errors, see https://github.com/HabitRPG/habitica/issues/10391
+        if (errorData.error !== 'NotificationNotFound') {
+          // dispatch as one snackbar notification
+          this.$store.dispatch('snackbars:add', {
+            title: 'Habitica',
+            text: errorsToShow.join(' '),
+            type: 'error',
+            timeout: snackbarTimeout,
+          });
+        }
       }
 
       return Promise.reject(error);
@@ -659,10 +613,6 @@ export default {
     },
     hideBanner () {
       this.bannerHidden = true;
-    },
-    hideGiftingBanner () {
-      setLocalSetting(CONSTANTS.keyConstants.GIFTING_BANNER_DISPLAY, 'dismissed');
-      this.giftingHidden = true;
     },
     resumeDamage () {
       this.$store.dispatch('user:sleep');

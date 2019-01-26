@@ -78,7 +78,7 @@
     "hatchAPot": "Vuoi far nascere <%= potion %><%= egg %>?",
     "hatchedPet": "È nato un <%= egg %> <%= potion %>!",
     "hatchedPetGeneric": "Hai fatto nascere un nuovo animale!",
-    "hatchedPetHowToUse": "Visit the [Stable](<%= stableUrl %>) to feed and equip your newest pet!",
+    "hatchedPetHowToUse": "Visita la [Scuderia](<%= stableUrl %>) per dar da mangiare a o equipaggiare il tuo nuovo animale!",
     "displayNow": "Mostra ora",
     "displayLater": "Mostra più tardi",
     "petNotOwned": "Non possiedi questo animale.",

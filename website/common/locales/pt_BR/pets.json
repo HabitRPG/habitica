@@ -78,7 +78,7 @@
     "hatchAPot": "Chocar um novo <%= potion %> <%= egg %>?",
     "hatchedPet": "Você chocou um novo <%= egg %> <%= potion %>!",
     "hatchedPetGeneric": "Você chocou um novo mascote!",
-    "hatchedPetHowToUse": "Visit the [Stable](<%= stableUrl %>) to feed and equip your newest pet!",
+    "hatchedPetHowToUse": "Visite o [Estábulo](<%= stableUrl %>) para alimentar e equipar seu mais novo mascote!",
     "displayNow": "Mostrar Agora",
     "displayLater": "Mostrar Depois",
     "petNotOwned": "Você não possui esse mascote.",

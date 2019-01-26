@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'JANUARY BACKGROUNDS AND ARMOIRE ITEMS!';
+const LAST_ANNOUNCEMENT_TITLE = 'GUILD SPOTLIGHT: NEW AND NOTABLE!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,14 +30,13 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>1/4/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>1/18/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_armoire_backgrounds_201901 center-block"></div>
-        <p>We’ve added three new backgrounds to the Background Shop! Now your avatar can excavate an Archaeological Dig, write in a Scribe's Workshop, or brave a powerful Avalanche. Check them out under User Icon > Backgrounds!</p>
-        <p>Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the Scribe Set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)</p>
-        <div class="small mb-3">by Lt. Cabel, KusSv, Snowdeath, Timsh, Vampitch, mewrose, GeraldThePixel, and SabreCat</div>
+        <div class="scene_hat_guild center-block"></div>
+        <p>There's a new <a href='https://habitica.wordpress.com/2019/01/17/new-and-notable-guild-spotlight/' target='_blank'>Guild Spotlight on the blog</a> that highlights some of Habitica's new and interesting Guilds! Check it out now and find a new group where you can share your interests and goals!</p>
+        <div class="small mb-3">by shanaqui</div>
       </div>
       `,
     });

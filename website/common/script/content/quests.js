@@ -3321,6 +3321,39 @@ let quests = {
       unlock: t('questAlligatorUnlockText'),
     },
   },
+  velociraptor: {
+    text: t('questVelociraptorText'),
+    notes: t('questVelociraptorNotes'),
+    completion: t('questVelociraptorCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questVelociraptorBoss'),
+      hp: 900,
+      str: 2,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Velociraptor',
+          text: t('questVelociraptorDropVelociraptorEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Velociraptor',
+          text: t('questVelociraptorDropVelociraptorEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Velociraptor',
+          text: t('questVelociraptorDropVelociraptorEgg'),
+        },
+      ],
+      gp: 63,
+      exp: 575,
+      unlock: t('questVelociraptorUnlockText'),
+    },
+  },
+
 };
 
 each(quests, (v, key) => {

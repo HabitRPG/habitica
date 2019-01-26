@@ -77,5 +77,6 @@
   "STRIPE_PUB_KEY": "22223333444455556666777788889999",
   "TEST_DB_URI": "mongodb://localhost/habitrpg_test",
   "TRANSIFEX_SLACK_CHANNEL": "transifex",
-  "WEB_CONCURRENCY": 1
+  "WEB_CONCURRENCY": 1,
+  "SKIP_SSL_CHECK_KEY": "key"
 }
