@@ -245,7 +245,7 @@ api.rejectQuest = {
     if (group.quest.members[user._id]) throw new BadRequest(res.t('questAlreadyAccepted'));
     if (group.quest.members[user._id] === false) throw new BadRequest(res.t('questAlreadyRejected'));
 
-    user.party.quest = Group.cleanQuestProgress();
+    user.party.quest = Group.cleanQuestUser(user.party.quest.progress);
     user.markModified('party.quest');
     await user.save();
 
@@ -376,7 +376,7 @@ api.cancelQuest = {
       group.save(),
       User.update(
         {'party._id': groupId},
-        {$set: {'party.quest': Group.cleanQuestProgress()}},
+        Group.cleanQuestParty(),
         {multi: true}
       ).exec(),
     ]);
@@ -427,9 +427,8 @@ api.abortQuest = {
 
     let memberUpdates = User.update({
       'party._id': groupId,
-    }, {
-      $set: {'party.quest': Group.cleanQuestProgress()},
-    }, {multi: true}).exec();
+    }, Group.cleanQuestParty(),
+    {multi: true}).exec();
 
     let questLeaderUpdate = User.update({
       _id: group.quest.leader,
@@ -484,7 +483,7 @@ api.leaveQuest = {
     group.quest.members[user._id] = false;
     group.markModified('quest.members');
 
-    user.party.quest = Group.cleanQuestProgress();
+    user.party.quest = Group.cleanQuestUser(user.party.quest.progress);
     user.markModified('party.quest');
 
     let [savedGroup] = await Promise.all([

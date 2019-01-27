@@ -112,7 +112,6 @@
     "wonChallenge": "あなたはチャレンジに成功しました!",
     "newPM": "プライベートメッセージが届きました",
     "newPMInfo": "<%= name %> からの新しいメッセージ : <%= message %>",
-    "sentGems": "ジェムを送りました!",
     "giftedGems": "贈られたジェム",
     "giftedGemsInfo": "<%= name %> さんが <%= amount %> ジェムプレゼント",
     "giftedGemsFull": "こんにちは、<%= userName %>。<%= sender %> から <%= gemAmount %> 個のジェムのプレゼントが届きました!",

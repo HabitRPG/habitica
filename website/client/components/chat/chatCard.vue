@@ -325,7 +325,9 @@ export default {
       this.$emit('show-member-modal', memberId);
     },
     atHighlight (text) {
-      const userRegex = new RegExp(`@(${this.user.auth.local.username}|${this.user.profile.name})(?:\\b)`, 'gi');
+      const escapedDisplayName = escapeRegExp(this.user.profile.name);
+      const escapedUsername = escapeRegExp(this.user.auth.local.username);
+      const userRegex = new RegExp(`@(${escapedDisplayName}|${escapedUsername})(?:\\b)`, 'gi');
       const atRegex = new RegExp(/(?!\b)@[\w-]+/g);
 
       if (userRegex.test(text)) {

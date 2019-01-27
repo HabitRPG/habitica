@@ -112,7 +112,6 @@
     "wonChallenge": "זכית באתגר!",
     "newPM": "קיבלת הודעה פרטית חדשה",
     "newPMInfo": "הודעה חדשה מאת <%= name %>: <%= message %>",
-    "sentGems": "שלחתם אבני חן!",
     "giftedGems": "אבני חן שזכיתם בהן",
     "giftedGemsInfo": "קיבלתם <%= amount %> אבני-חן כמתנה מ<%= name %>",
     "giftedGemsFull": "Hello <%= username %>, <%= sender %> has sent you <%= gemAmount %> gems!",

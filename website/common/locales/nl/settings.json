@@ -112,7 +112,6 @@
     "wonChallenge": "Je hebt een uitdaging gewonnen!",
     "newPM": "Privébericht ontvangen",
     "newPMInfo": "Nieuw bericht van <%= name %>: <%= message %>",
-    "sentGems": "Edelstenen verstuurd!",
     "giftedGems": "Geschonken edelstenen",
     "giftedGemsInfo": "<%= name %> heeft je <%= amount %> edelstenen cadeau gedaan",
     "giftedGemsFull": "Hallo <%= username %>, <%= sender %> heeft je <%= gemAmount %> edelstenen gestuurd!",

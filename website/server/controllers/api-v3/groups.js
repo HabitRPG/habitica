@@ -29,7 +29,7 @@ import shared from '../../../common';
 import apiError from '../../libs/apiError';
 
 const MAX_EMAIL_INVITES_BY_USER = 200;
-const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
+const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS_TECH_ASSISTANCE_EMAIL');
 
 /**
  * @apiDefine GroupBodyInvalid

@@ -207,7 +207,22 @@ api.bundles = {
       'yarn',
     ],
     canBuy () {
-      return moment().isBetween('2018-11-15', '2018-12-02');
+      return moment().isBetween('2018-11-15', '2018-12-04');
+    },
+    type: 'quests',
+    value: 7,
+  },
+  birdBuddies: {
+    key: 'birdBuddies',
+    text: t('birdBuddiesText'),
+    notes: t('birdBuddiesNotes'),
+    bundleKeys: [
+      'peacock',
+      'penguin',
+      'rooster',
+    ],
+    canBuy () {
+      return moment().isBetween('2018-12-11', '2019-01-02');
     },
     type: 'quests',
     value: 7,

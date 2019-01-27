@@ -15,6 +15,7 @@ describe('checkout', () => {
 
   function getPaypalCreateOptions (description, amount) {
     return {
+      experience_profile_id: 'xp_profile_id',
       intent: 'sale',
       payer: { payment_method: 'Paypal' },
       redirect_urls: {

@@ -5,9 +5,9 @@ import { TAVERN_ID } from '../models/group';
 import nconf from 'nconf';
 import moment from 'moment';
 
-const SLACK_FLAGGING_URL = nconf.get('SLACK:FLAGGING_URL');
-const SLACK_FLAGGING_FOOTER_LINK = nconf.get('SLACK:FLAGGING_FOOTER_LINK');
-const SLACK_SUBSCRIPTIONS_URL = nconf.get('SLACK:SUBSCRIPTIONS_URL');
+const SLACK_FLAGGING_URL = nconf.get('SLACK_FLAGGING_URL');
+const SLACK_FLAGGING_FOOTER_LINK = nconf.get('SLACK_FLAGGING_FOOTER_LINK');
+const SLACK_SUBSCRIPTIONS_URL = nconf.get('SLACK_SUBSCRIPTIONS_URL');
 const BASE_URL = nconf.get('BASE_URL');
 const IS_PRODUCTION = nconf.get('IS_PROD');
 

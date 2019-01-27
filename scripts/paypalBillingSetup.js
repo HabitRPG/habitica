@@ -12,28 +12,27 @@ const nconf = require('nconf');
 const _ = require('lodash');
 const paypal = require('paypal-rest-sdk');
 const blocks = require('../website/common').content.subscriptionBlocks;
-const live = nconf.get('PAYPAL:mode') === 'live';
+const live = nconf.get('PAYPAL_MODE') === 'live';
 
 nconf.argv().env().file('user', path.join(path.resolve(__dirname, '../config.json')));
 
-let OP = 'create'; // list create update remove
+let OP = 'create'; // list get update create create-webprofile
 
 paypal.configure({
-  mode: nconf.get('PAYPAL:mode'), // sandbox or live
-  client_id: nconf.get('PAYPAL:client_id'),
-  client_secret: nconf.get('PAYPAL:client_secret'),
+  mode: nconf.get('PAYPAL_MODE'), // sandbox or live
+  client_id: nconf.get('PAYPAL_CLIENT_ID'),
+  client_secret: nconf.get('PAYPAL_CLIENT_SECRET'),
 });
 
 // https://developer.paypal.com/docs/api/#billing-plans-and-agreements
 let billingPlanTitle = 'Habitica Subscription';
 let billingPlanAttributes = {
-  name: billingPlanTitle,
   description: billingPlanTitle,
   type: 'INFINITE',
   merchant_preferences: {
     auto_bill_amount: 'yes',
     cancel_url: live ? 'https://habitica.com' : 'http://localhost:3000',
-    return_url: `${live ? 'https://habitica.com' : 'http://localhost:3000'  }/paypal/subscribe/success`,
+    return_url: `${live ? 'https://habitica.com' : 'http://localhost:3000'}/paypal/subscribe/success`,
   },
   payment_definitions: [{
     type: 'REGULAR',
@@ -45,7 +44,7 @@ let billingPlanAttributes = {
 _.each(blocks, (block) => {
   block.definition = _.cloneDeep(billingPlanAttributes);
   _.merge(block.definition.payment_definitions[0], {
-    name: `${billingPlanTitle  } ($${block.price} every ${block.months} months, recurring)`,
+    name: `${billingPlanTitle} ($${block.price} every ${block.months} months, recurring)`,
     frequency_interval: `${block.months}`,
     amount: {
       currency: 'USD',
@@ -63,7 +62,7 @@ switch (OP) {
     });
     break;
   case 'get':
-    paypal.billingPlan.get(nconf.get('PAYPAL:billing_plans:12'), (err, plan) => {
+    paypal.billingPlan.get(nconf.get('PAYPAL_BILLING_PLANS_basic_12mo'), (err, plan) => {
       console.log({err, plan});
     });
     break;
@@ -75,7 +74,7 @@ switch (OP) {
         cancel_url: 'https://habitica.com',
       },
     };
-    paypal.billingPlan.update(nconf.get('PAYPAL:billing_plans:12'), updatePayload, (err, res) => {
+    paypal.billingPlan.update(nconf.get('PAYPAL_BILLING_PLANS_basic_12mo'), updatePayload, (err, res) => {
       console.log({err, plan: res});
     });
     break;
@@ -101,9 +100,6 @@ switch (OP) {
       });
     });
     break;
-
-  case 'remove': break;
-
   case 'create-webprofile':
     let webexpinfo = {
       name: 'HabiticaProfile',

@@ -112,7 +112,6 @@
     "wonChallenge": "Bir Mücadele kazandın!",
     "newPM": "Özel Mesajın Var",
     "newPMInfo": "<%= name %> adlı kişiden yeni mesaj: <%= message %>",
-    "sentGems": "Elmaslar gönderildi!",
     "giftedGems": "Hediye Edilen Elmaslar",
     "giftedGemsInfo": "<%= name %> sana <%= amount %> Elmas hediye etti",
     "giftedGemsFull": "Selam <%= username %>, <%= sender %> sana <%= gemAmount %> elmas yolladı!",

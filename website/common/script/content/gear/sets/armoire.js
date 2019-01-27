@@ -409,6 +409,33 @@ let armor = {
     set: 'blueLoungewear',
     canOwn: ownsItem('armor_armoire_softBlueSuit'),
   },
+  softGreenSuit: {
+    text: t('armorArmoireSoftGreenSuitText'),
+    notes: t('armorArmoireSoftGreenSuitNotes', { attrs: 7 }),
+    value: 100,
+    int: 7,
+    con: 7,
+    set: 'greenLoungewear',
+    canOwn: ownsItem('armor_armoire_softGreenSuit'),
+  },
+  softRedSuit: {
+    text: t('armorArmoireSoftRedSuitText'),
+    notes: t('armorArmoireSoftRedSuitNotes', { int: 8, str: 5 }),
+    value: 100,
+    int: 8,
+    str: 5,
+    set: 'redLoungewear',
+    canOwn: ownsItem('armor_armoire_softRedSuit'),
+  },
+  scribesRobe: {
+    text: t('armorArmoireScribesRobeText'),
+    notes: t('armorArmoireScribesRobeNotes', { attrs: 7 }),
+    value: 100,
+    int: 7,
+    per: 7,
+    set: 'scribe',
+    canOwn: ownsItem('armor_armoire_scribesRobe'),
+  },
 };
 
 let body = {
@@ -544,6 +571,7 @@ let head = {
     int: 6,
     per: 6,
     canOwn: ownsItem('head_armoire_redFloppyHat'),
+    set: 'redLoungewear',
   },
   plagueDoctorHat: {
     text: t('headArmoirePlagueDoctorHatText'),
@@ -654,6 +682,7 @@ let head = {
     int: 8,
     con: 8,
     canOwn: ownsItem('head_armoire_greenFloppyHat'),
+    set: 'greenLoungewear',
   },
   cannoneerBandanna: {
     text: t('headArmoireCannoneerBandannaText'),
@@ -1083,6 +1112,32 @@ let shield = {
     set: 'blueLoungewear',
     canOwn: ownsItem('shield_armoire_softBluePillow'),
   },
+  softGreenPillow: {
+    text: t('shieldArmoireSoftGreenPillowText'),
+    notes: t('shieldArmoireSoftGreenPillowNotes', { con: 8, int: 6 }),
+    value: 100,
+    con: 8,
+    int: 6,
+    set: 'greenLoungewear',
+    canOwn: ownsItem('shield_armoire_softGreenPillow'),
+  },
+  softRedPillow: {
+    text: t('shieldArmoireSoftRedPillowText'),
+    notes: t('shieldArmoireSoftRedPillowNotes', { attrs: 5 }),
+    value: 100,
+    con: 5,
+    str: 5,
+    set: 'redLoungewear',
+    canOwn: ownsItem('shield_armoire_softRedPillow'),
+  },
+  mightyQuill: {
+    text: t('shieldArmoireMightyQuillText'),
+    notes: t('shieldArmoireMightyQuillNotes', { per: 9 }),
+    value: 100,
+    per: 9,
+    set: 'scribe',
+    canOwn: ownsItem('shield_armoire_mightyQuill'),
+  },
 };
 
 let headAccessory = {
@@ -1432,6 +1487,14 @@ let weapon = {
     con: 13,
     set: 'aceOfSpades',
     canOwn: ownsItem('weapon_armoire_spearOfSpades'),
+  },
+  arcaneScroll: {
+    text: t('weaponArmoireArcaneScrollText'),
+    notes: t('weaponArmoireArcaneScrollNotes', { int: 9 }),
+    value: 100,
+    int: 9,
+    set: 'scribe',
+    canOwn: ownsItem('weapon_armoire_arcaneScroll'),
   },
 };
 
