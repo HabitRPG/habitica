@@ -24,7 +24,7 @@ describe('highlightUserAndEmail', () => {
   });
 
   it('highlights any mention', () => {
-    const text = habiticaMarkdown.render('hello.@user.com');
+    const text = habiticaMarkdown.render('hello y.@user.com other words');
 
     const result = highlightUsers(text, 'test', 'displayedUser');
     expect(result).to.contain('<span class="at-text">@user</span>');

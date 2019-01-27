@@ -1,6 +1,6 @@
 export function highlightUsers (text, userName, displayName) {
   const findAnyMentionRegex = '@[\\w-]+(?:\\b)';
-  const notInsideHtmlTagsRegex = '(?<!<\/?[^>]*|&[^;]*)';
+  const notInsideHtmlTagsRegex = '<[^/^>]+>';
 
   const atRegex = new RegExp(`${notInsideHtmlTagsRegex}${findAnyMentionRegex}`, 'gi');
   const currentUser = [`@${userName}`, `@${displayName}`];
