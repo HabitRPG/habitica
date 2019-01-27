@@ -41,7 +41,7 @@ try {
  * @returns {string}
  */
 function formatUser (formatObj) {
-  return `@${formatObj.name} ${formatObj.displayName} (${formatObj.email}; ${formatObj.uuid}`;
+  return `@${formatObj.name} ${formatObj.displayName} (${formatObj.email}; ${formatObj.uuid})`;
 }
 
 function sendFlagNotification ({

@@ -67,7 +67,7 @@ describe('POST /chat/:chatId/flag', () => {
       attachments: [{
         fallback: 'Flag Message',
         color: 'danger',
-        author_name: `${anotherUser.profile.name} - ${anotherUser.auth.local.email} - ${anotherUser._id}\n${timestamp}`,
+        author_name: `@${anotherUser.auth.local.username} ${anotherUser.profile.name} (${anotherUser.auth.local.email}; ${anotherUser._id})\n${timestamp}`,
         title: 'Flag in Test Guild',
         title_link: `${BASE_URL}/groups/guild/${group._id}`,
         text: TEST_MESSAGE,
@@ -102,7 +102,7 @@ describe('POST /chat/:chatId/flag', () => {
       attachments: [{
         fallback: 'Flag Message',
         color: 'danger',
-        author_name: `${newUser.profile.name} - ${newUser.auth.local.email} - ${newUser._id}\n${timestamp}`,
+        author_name: `@${newUser.auth.local.username} ${newUser.profile.name} (${newUser.auth.local.email}; ${newUser._id})\n${timestamp}`,
         title: 'Flag in Test Guild',
         title_link: `${BASE_URL}/groups/guild/${group._id}`,
         text: TEST_MESSAGE,

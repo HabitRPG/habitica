@@ -32,6 +32,7 @@ describe('slack', () => {
         },
         message: {
           id: 'chat-id',
+          username: 'author',
           user: 'Author',
           uuid: 'author-id',
           text: 'some text',
@@ -54,7 +55,7 @@ describe('slack', () => {
         attachments: [{
           fallback: 'Flag Message',
           color: 'danger',
-          author_name: `Author - author@example.com - author-id\n${timestamp}`,
+          author_name: `@author Author (author@example.com; author-id)\n${timestamp}`,
           title: 'Flag in Some group - (private guild)',
           title_link: undefined,
           text: 'some text',
