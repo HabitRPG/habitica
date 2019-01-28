@@ -17,7 +17,7 @@ function setUpServer () {
 setUpServer();
 
 // Replace this with your migration
-const processUsers = require('./archive/2018/20181231_nye.js');
+const processUsers = require('./users/mystery-items.js');
 processUsers()
   .then(function success () {
     process.exit(0);

@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'HABITICA BLOGS: TIPS ON STARTING ANEW AND APOLLO STAFF SPOTLIGHT';
+const LAST_ANNOUNCEMENT_TITLE = 'JANUARY SUBSCRIBER ITEMS REVEALED!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,18 +30,13 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>1/24/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>1/28/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="scene_eating_healthy center-block"></div>
-        <h3>Use Case Spotlight: Turning Over a New Leaf</h3>
-        <p>This month's <a href='https://habitica.wordpress.com/2019/01/22/turning-over-a-new-leaf-use-case-spotlight/' target='_blank'>Use Case Spotlight</a> is about Turning Over a New Leaf! It features a number of great suggestions submitted by Habiticans in the <a href='/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6' target='_blank'>Use Case Spotlights Guild</a>. We hope it helps any of you who might be looking to make a fresh start in 2019.</p>
-        <p>Plus, we're collecting user submissions for the next spotlight! How do you use Habitica to share and divide household chores? We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!</p>
-        <div class="small mb-3">by shanaqui</div>
-        <div class="scene_apollo center-block"></div>
-        <h3>Staff Spotlight: Apollo</h3>
-        <p>There's a new <a href='https://habitica.wordpress.com/2019/01/24/staff-spotlight-tressley-aka-apollo/' target='_blank'>Staff Spotlight on the blog</a>! Come meet Tressley, aka Apollo, and learn how our favorite Yo-yo-mancer balances his design work for Habitica with his enthusiasm for Hot Fries and playing the drums.</p>
+        <div class="promo_mystery_201901 center-block"></div>
+        <p>The January Subscriber Items have been revealed: the Polaris Item Set! You only have until Jan 31 to receive the item set when you <a href='/user/settings/subscription'>subscribe</a>. If you're already an active subscriber, reload the site and then head to Inventory > Items to claim your gear!</p>
+        <p>Subscribers also receive the ability to buy Gems for Gold -- the longer you subscribe, the more Gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
         <div class="small mb-3">by Beffymaroo</div>
       </div>
       `,
