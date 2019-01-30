@@ -370,7 +370,7 @@ let body = {
   201901: {
     text: t('bodyMystery201901Text'),
     notes: t('bodyMystery201901Notes'),
-    mystery: '2019011',
+    mystery: '201901',
     value: 0,
   },
 };
