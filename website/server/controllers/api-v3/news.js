@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'GUILD SPOTLIGHT: NEW AND NOTABLE!';
+const LAST_ANNOUNCEMENT_TITLE = 'JANUARY SUBSCRIBER ITEMS REVEALED!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,13 +30,14 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>1/18/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>1/28/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="scene_hat_guild center-block"></div>
-        <p>There's a new <a href='https://habitica.wordpress.com/2019/01/17/new-and-notable-guild-spotlight/' target='_blank'>Guild Spotlight on the blog</a> that highlights some of Habitica's new and interesting Guilds! Check it out now and find a new group where you can share your interests and goals!</p>
-        <div class="small mb-3">by shanaqui</div>
+        <div class="promo_mystery_201901 center-block"></div>
+        <p>The January Subscriber Items have been revealed: the Polaris Item Set! You only have until Jan 31 to receive the item set when you <a href='/user/settings/subscription'>subscribe</a>. If you're already an active subscriber, reload the site and then head to Inventory > Items to claim your gear!</p>
+        <p>Subscribers also receive the ability to buy Gems for Gold -- the longer you subscribe, the more Gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
+        <div class="small mb-3">by Beffymaroo</div>
       </div>
       `,
     });
