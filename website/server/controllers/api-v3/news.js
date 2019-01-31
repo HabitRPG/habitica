@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'JANUARY SUBSCRIBER ITEMS REVEALED!';
+const LAST_ANNOUNCEMENT_TITLE = 'HABITICA BIRTHDAY PARTY!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,14 +30,29 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>1/28/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>1/31/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
+        <div class="promo_birthday_2019 center-block"></div>
+        <h3>Habitica Birthday Bash!</h3>
+        <p>January 31st is Habitica's Birthday! Thank you so much for being a part of our community - it means a lot.</p>
+        <p>Now come join us and the NPCs as we celebrate!</p>
+        <h3>Cake for Everybody!</h3>
+        <p>In honor of the festivities, everyone has been awarded an assortment of yummy cake to feed to your pets! Plus, for the next two days <a href='/shops/market'>Alexander the Merchant</a> is selling cake in his shop, and cake will sometimes drop when you complete your tasks. Cake works just like normal pet food, but if you want to know what type of pet likes each slice, <a href='http://habitica.wikia.com/wiki/Food' target='_blank'>the wiki has spoilers</a>.</p>
+        <h3>Party Robes</h3>
+        <p>There are Party Robes available for free in the Rewards column! What color you receive is based on how many Habitica Birthdays you've celebrated. Don them with pride!</p>
+        <h3>Birthday Bash Achievement</h3>
+        <p>In honor of Habitica's birthday, everyone has been awarded the Habitica Birthday Bash achievement! This achievement stacks for each Birthday Bash you celebrate with us.</p>
         <div class="promo_mystery_201901 center-block"></div>
-        <p>The January Subscriber Items have been revealed: the Polaris Item Set! You only have until Jan 31 to receive the item set when you <a href='/user/settings/subscription'>subscribe</a>. If you're already an active subscriber, reload the site and then head to Inventory > Items to claim your gear!</p>
-        <p>Subscribers also receive the ability to buy Gems for Gold -- the longer you subscribe, the more Gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
+        <h3>Last Chance for Polaris Set</h3>
+        <p>Reminder: tomorrow is the final day to <a href='/user/settings/subscription'>subscribe</a> and receive the Polaris Armor Set! Subscribing also lets you buy Gems for Gold. The longer your subscription, the more Gems you get!</p>
+        <p>Thanks so much for your support! You help keep Habitica running.</p>
         <div class="small mb-3">by Beffymaroo</div>
+        <div class="promo_snow_potions center-block"></div>
+        <h3>Last Chance for Winter Wonderland Hatching Potions</h3>
+        <p>Reminder: tomorrow is the final day to <a href='/shops/market'>buy Starry Night, Peppermint, and Icy Snow Hatching Potions</a>! If they come back, it won't be until next year at the earliest, so don't delay!</p>
+        <div class="small mb-3">by JinjooHat, Vampitch, Lemoness, and SabreCat</div>
       </div>
       `,
     });
