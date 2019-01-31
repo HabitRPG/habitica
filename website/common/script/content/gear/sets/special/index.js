@@ -1107,6 +1107,12 @@ let armor = {
     value: 90,
     con: 15,
   },
+  birthday2019: {
+    text: t('armorSpecialBirthday2019Text'),
+    notes: t('armorSpecialBirthday2019Notes'),
+    value: 0,
+    canOwn: ownsItem('armor_special_birthday2019'),
+  },
 };
 
 let back = {
