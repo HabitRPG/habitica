@@ -85,30 +85,16 @@ function removePinnedGearByClass (user) {
 }
 
 function removePinnedGearAddPossibleNewOnes (user, itemPath, newItemKey) {
-  let currentPinnedItems = selectGearToPin(user);
-  let removeAndAddAllItems = false;
-
-  for (let item of currentPinnedItems) {
-    let itemInfo = getItemInfo(user, 'marketGear', item);
-
-    if (itemInfo.path === itemPath) {
-      removeAndAddAllItems = true;
-      break;
-    }
-  }
-
   removeItemByPath(user, itemPath);
 
-  if (removeAndAddAllItems) {
-    // an item of the users current "new" gear was bought
-    // remove the old pinned gear items and add the new gear back
-    removePinnedGearByClass(user);
-    user.items.gear.owned[newItemKey] = true;
-    addPinnedGearByClass(user);
-  } else {
-    // just change the new gear to owned
-    user.items.gear.owned[newItemKey] = true;
-  }
+  // an item of the users current "new" gear was bought
+  // remove the old pinned gear items and add the new gear back
+  removePinnedGearByClass(user);
+  user.items.gear.owned[newItemKey] = true;
+  addPinnedGearByClass(user);
+
+  // update the version, so that vue can refresh the seasonal shop
+  user._v++;
 }
 
 /**
