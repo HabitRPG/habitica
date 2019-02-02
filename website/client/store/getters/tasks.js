@@ -52,7 +52,7 @@ export function getTaskClasses (store) {
   // Edit Modal: edit-modal-bg, edit-modal-text, edit-modal-icon
   // Create Modal: create-modal-bg, create-modal-text, create-modal-icon
   // Control: 'control'
-  return (task, purpose, dueDate) => {
+  return (task, purpose, dueDate, loc) => {
     if (!dueDate) dueDate = new Date();
     const type = task.type;
     const color = getTaskColor(task);
@@ -82,12 +82,14 @@ export function getTaskClasses (store) {
       case 'control':
         if (type === 'todo' || type === 'daily') {
           if (task.completed || !shouldDo(dueDate, task, userPreferences) && type === 'daily') {
-            return {
-              bg: 'task-disabled-daily-todo-control-bg',
-              checkbox: 'task-disabled-daily-todo-control-checkbox',
-              inner: 'task-disabled-daily-todo-control-inner',
-              content: 'task-disabled-daily-todo-control-content',
-            };
+            if (!(loc === 'challenge')) {
+              return {
+                bg: 'task-disabled-daily-todo-control-bg',
+                checkbox: 'task-disabled-daily-todo-control-checkbox',
+                inner: 'task-disabled-daily-todo-control-inner',
+                content: 'task-disabled-daily-todo-control-content',
+              };
+            }
           }
 
           return {

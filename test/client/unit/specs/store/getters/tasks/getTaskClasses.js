@@ -1,7 +1,7 @@
 import generateStore from 'client/store';
 
 describe('getTaskClasses getter', () => {
-  let store, getTaskClasses;
+  let store, getTaskClasses, getDisabledClassObject;
 
   beforeEach(() => {
     store = generateStore();
@@ -11,6 +11,15 @@ describe('getTaskClasses getter', () => {
     };
 
     getTaskClasses = store.getters['tasks:getTaskClasses'];
+
+    getDisabledClassObject = function () {
+      return {
+        bg: 'task-disabled-daily-todo-control-bg',
+        checkbox: 'task-disabled-daily-todo-control-checkbox',
+        inner: 'task-disabled-daily-todo-control-inner',
+        content: 'task-disabled-daily-todo-control-content',
+      };
+    };
   });
 
   it('returns reward edit-modal-bg class', () => {
@@ -137,5 +146,38 @@ describe('getTaskClasses getter', () => {
         inner: 'task-disabled-habit-control-inner',
       },
     });
+  });
+
+  it('returns completed daily classes from challege progress modal', () => {
+    const task = {type: 'daily', value: 4, completed: true};
+    expect(getTaskClasses(task, 'control', undefined, 'challenge')).to.deep.equal({
+      bg: 'task-good-control-bg',
+      checkbox: 'task-good-control-checkbox',
+      inner: 'task-good-control-inner-daily-todo',
+    });
+  });
+
+  it('returns completed todo classes from challege progress modal', () => {
+    const task = {type: 'todo', value: -11, completed: true};
+    expect(getTaskClasses(task, 'control', undefined, 'challenge'))
+      .to.deep.not.equal(getDisabledClassObject());
+  });
+
+  it('returns completed daily classes from tasks page', () => {
+    const task = {type: 'daily', value: 3, completed: true};
+    expect(getTaskClasses(task, 'control', undefined, 'tasks'))
+      .to.deep.equal(getDisabledClassObject());
+  });
+
+  it('returns completed todo classes from tasks page', () => {
+    const task = {type: 'todo', value: 4, completed: true};
+    expect(getTaskClasses(task, 'control', undefined, 'tasks'))
+      .to.deep.equal(getDisabledClassObject());
+  });
+
+  it('returns completed todo classes from guild task board', () => {
+    const task = {type: 'todo', value: 4, completed: true};
+    expect(getTaskClasses(task, 'control', undefined, 'groupPlanDetailTaskInformation'))
+      .to.deep.equal(getDisabledClassObject());
   });
 });

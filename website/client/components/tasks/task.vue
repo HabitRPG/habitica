@@ -598,13 +598,13 @@ export default {
       return false;
     },
     controlClass () {
-      return this.getTaskClasses(this.task, 'control', this.dueDate);
+      return this.getTaskClasses(this.task, 'control', this.dueDate, this.$route.name);
     },
     contentClass () {
       const type = this.task.type;
 
       const classes = [];
-      classes.push(this.getTaskClasses(this.task, 'control', this.dueDate).content);
+      classes.push(this.getTaskClasses(this.task, 'control', this.dueDate, this.$route.name).content);
 
       if (type === 'reward' || type === 'habit') {
         classes.push('no-right-border');
