@@ -8,30 +8,30 @@ const featuredItems = {
       path: 'armoire',
     },
     {
-      type: 'premiumHatchingPotion',
-      path: 'premiumHatchingPotions.Peppermint',
+      type: 'hatchingPotions',
+      path: 'hatchingPotions.CottonCandyPink',
     },
     {
-      type: 'premiumHatchingPotion',
-      path: 'premiumHatchingPotions.IcySnow',
+      type: 'eggs',
+      path: 'eggs.TigerCub',
     },
     {
-      type: 'premiumHatchingPotion',
-      path: 'premiumHatchingPotions.StarryNight',
+      type: 'card',
+      path: 'cardTypes.birthday',
     },
   ],
   quests: [
     {
       type: 'quests',
-      path: 'quests.evilsanta',
+      path: 'quests.treeling',
     },
     {
       type: 'quests',
-      path: 'quests.evilsanta2',
+      path: 'quests.sabretooth',
     },
     {
       type: 'quests',
-      path: 'quests.penguin',
+      path: 'quests.rock',
     },
   ],
   seasonal: '',
