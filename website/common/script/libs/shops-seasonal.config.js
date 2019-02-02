@@ -1,31 +1,23 @@
-import { SEASONAL_SETS } from '../content/constants';
+// import { SEASONAL_SETS } from '../content/constants';
 
 module.exports = {
-  opened: true,
+  opened: false,
 
-  currentSeason: 'Winter',
+  currentSeason: 'Closed',
 
-  dateRange: { start: '2018-12-20', end: '2019-01-31' },
+  dateRange: { start: '2018-09-20', end: '2018-10-31' },
 
   availableSets: [
-    ...SEASONAL_SETS.winter,
   ],
 
   pinnedSets: {
-    wizard: 'winter2019PyrotechnicSet',
-    warrior: 'winter2019BlizzardSet',
-    rogue: 'winter2019PoinsettiaSet',
-    healer: 'winter2019WinterStarSet',
   },
 
   availableSpells: [
-    'snowball',
   ],
 
   availableQuests: [
-    'evilsanta',
-    'evilsanta2',
   ],
 
-  featuredSet: 'winter2017WinterWolfSet',
+  featuredSet: 'mummyMedicSet',
 };

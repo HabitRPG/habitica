@@ -1,8 +1,8 @@
 .npc_bailey {
   background-image: url('~assets/images/sprites/spritesmith-main-11.png');
   background-position: -1963px -836px;
-  width: 63px;
-  height: 93px;
+  width: 60px;
+  height: 72px;
 }
 .npc_justin {
   background-image: url('~assets/images/sprites/spritesmith-main-11.png');
@@ -24,7 +24,7 @@
 }
 .banner_flair_dysheartener {
   background-image: url('~assets/images/sprites/spritesmith-main-11.png');
-  background-position: -1963px -930px;
+  background-position: -1963px -909px;
   width: 69px;
   height: 18px;
 }
