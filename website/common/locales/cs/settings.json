@@ -112,7 +112,6 @@
     "wonChallenge": "Vyhrál jsi výzvu!",
     "newPM": "Obdržena soukromá zpráva",
     "newPMInfo": "Nová zpráva od <%= name %>: <%= message %>",
-    "sentGems": "Drahokamy odeslány!",
     "giftedGems": "Darované drahokamy",
     "giftedGemsInfo": "<%= name %> ti daroval <%= amount %> Drahokamů",
     "giftedGemsFull": "Ahoj <%= username %>, <%= sender %> ti poslal <%= gemAmount %> drahokamy! ",

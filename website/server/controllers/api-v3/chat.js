@@ -84,6 +84,8 @@ function getBannedWordsFromText (message) {
   return getMatchesByWordArray(message, bannedWords);
 }
 
+
+const mentionRegex = new RegExp('\\B@[-\\w]+', 'g');
 /**
  * @api {post} /api/v3/groups/:groupId/chat Post chat message to a group
  * @apiName PostChat
@@ -192,6 +194,27 @@ api.postChat = {
 
     await Promise.all(toSave);
 
+    let analyticsObject = {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      groupType: group.type,
+      privacy: group.privacy,
+      headers: req.headers,
+    };
+
+    const mentions = req.body.message.match(mentionRegex);
+    if (mentions) {
+      analyticsObject.mentionsCount = mentions.length;
+    } else {
+      analyticsObject.mentionsCount = 0;
+    }
+    if (group.privacy === 'public') {
+      analyticsObject.groupName = group.name;
+    }
+
+    res.analytics.track('group chat', analyticsObject);
+
     if (chatUpdated) {
       res.respond(200, {chat: chatRes.chat});
     } else {
@@ -256,6 +279,7 @@ api.likeChat = {
  *
  * @apiParam (Path) {UUID} groupId The group id ('party' for the user party and 'habitrpg' for tavern are accepted)
  * @apiParam (Path) {UUID} chatId The chat message id
+ * @apiParam (Body) {String} [comment] explain why the message was flagged
  *
  * @apiSuccess {Object} data The flagged chat message
  * @apiSuccess {UUID} data.id The id of the message

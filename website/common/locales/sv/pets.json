@@ -78,7 +78,7 @@
     "hatchAPot": "Kläck en ny <%= potion %> <%= egg %>?",
     "hatchedPet": "Du kläckte en ny <%= potion %> <%= egg %>!",
     "hatchedPetGeneric": "Du kläckte ett nytt husdjur!",
-    "hatchedPetHowToUse": "Visit the [Stable](/inventory/stable) to feed and equip your newest pet!",
+    "hatchedPetHowToUse": "Visit the [Stable](<%= stableUrl %>) to feed and equip your newest pet!",
     "displayNow": "Visa nu",
     "displayLater": "Visa senare",
     "petNotOwned": "Du äger inte detta husdjur.",
