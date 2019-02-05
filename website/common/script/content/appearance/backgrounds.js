@@ -787,6 +787,20 @@ let backgrounds = {
       notes: t('backgroundScribesWorkshopNotes'),
     },
   },
+  backgrounds022019: {
+    medieval_kitchen: {
+      text: t('backgroundMedievalKitchenText'),
+      notes: t('backgroundMedievalKitchenNotes'),
+    },
+    old_fashioned_bakery: {
+      text: t('backgroundOldFashionedBakeryText'),
+      notes: t('backgroundOldFashionedBakeryNotes'),
+    },
+    valentines_day_feasting_hall: {
+      text: t('backgroundValentinesDayFeastingHallText'),
+      notes: t('backgroundValentinesDayFeastingHallNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),

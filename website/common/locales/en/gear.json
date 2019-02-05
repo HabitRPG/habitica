@@ -405,6 +405,8 @@
   "weaponArmoireSpearOfSpadesNotes": "This knightly lance is perfect for attacking your reddest Habits and Dailies. Increases Constitution by <%= con %>. Enchanted Armoire: Ace of Spades Set (Item 3 of 3).",
   "weaponArmoireArcaneScrollText": "Arcane Scroll",
   "weaponArmoireArcaneScrollNotes": "This ancient To-Do list is filled with strange symbols and spells from a forgotten age. Increases Intelligence by <%= int %>. Enchanted Armoire: Scribe Set (Item 3 of 3).",
+  "weaponArmoireChefsSpoonText": "Chef's Spoon",
+  "weaponArmoireChefsSpoonNotes": "Raise it as you release your battle cry: “SPOOOON!!” Increases Intelligence by <%= int %>. Enchanted Armoire: Chef Set (Item 3 of 4). ",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -878,6 +880,8 @@
   "armorArmoireSoftRedSuitNotes": "Red is such an invigorating color. If you need to wake up bright and early, this suit could make the perfect pajamas... Increases Intelligence by <%= int %> and Strength by <%= str %>. Enchanted Armoire: Red Loungewear Set (Item 2 of 3).",
   "armorArmoireScribesRobeText": "Scribe's Robes",
   "armorArmoireScribesRobeNotes": "These velvety robes are woven with inspirational and motivational magic. Increases Perception and Intelligence by <%= attrs %> each. Enchanted Armoire: Scribe Set (Item 1 of 3).",
+  "armorArmoireChefsJacketText": "Chef's Jacket",
+  "armorArmoireChefsJacketNotes": "This thick cotton jacket is double-breasted to protect you from spills (and conveniently reversible…). Increases Intelligence by <%= int %>. Enchanted Armoire: Chef Set (Item 2 of 4). ",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -1361,6 +1365,8 @@
   "headArmoireJeweledArcherHelmNotes": "This helm may look ornate, but it's also exceedingly light and strong. Increases Intelligence by <%= int %>. Enchanted Armoire: Jeweled Archer Set (Item 1 of 3).",
   "headArmoireVeilOfSpadesText": "Veil of Spades",
   "headArmoireVeilOfSpadesNotes": "A shadowy and mysterious veil that will boost your stealth. Increases Perception by <%= per %>. Enchanted Armoire: Ace of Spades Set (Item 1 of 3).",
+  "headArmoireToqueBlancheText": "Toque Blanche",
+  "headArmoireToqueBlancheNotes": "According to legend, the number of folds in this hat indicate the number of ways you know how to cook an egg! Is it accurate? Increases Perception by <%= per %>. Enchanted Armoire: Chef Set (Item 1 of 4). ",
 
   "offhand": "off-hand item",
   "offhandCapitalized": "Off-Hand Item",
@@ -1624,7 +1630,9 @@
   "shieldArmoireSoftGreenPillowText": "Soft Green Pillow",
   "shieldArmoireSoftGreenPillowNotes": "The practical warrior packs a pillow for any expedition. Ward off those pesky chores... even while you nap. Increases Constitution by <%= con %> and Intelligence by <%= int %>. Enchanted Armoire: Green Loungewear Set (Item 3 of 3).",
   "shieldArmoireMightyQuillText": "Mighty Quill",
-  "shieldArmoireMightyQuillNotes": "Mightier than the sword, they say! Increases Perception by <%= per %>. Enchanted Armoire: Scribe Set (Item 2 of 3). ",
+  "shieldArmoireMightyQuillNotes": "Mightier than the sword, they say! Increases Perception by <%= per %>. Enchanted Armoire: Scribe Set (Item 2 of 3).",
+  "shieldArmoireMightyPizzaText": "Mighty Pizza",
+  "shieldArmoireMightyPizzaNotes": "Sure, it's a pretty good shield, but we strongly suggest you eat this fine, fine pizza. Increases Perception by <%= per %>. Enchanted Armoire: Chef Set (Item 4 of 4). ",
 
   "back": "Back Accessory",
   "backCapitalized": "Back Accessory",
