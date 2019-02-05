@@ -465,5 +465,13 @@
   "backgroundArchaeologicalDigText": "Archaeological Dig",
   "backgroundArchaeologicalDigNotes": "Unearth secrets of the ancient past at an Archaeological Dig.",
   "backgroundScribesWorkshopText": "Scribe's Workshop",
-  "backgroundScribesWorkshopNotes": "Write your next great scroll in a Scribe's Workshop."
+  "backgroundScribesWorkshopNotes": "Write your next great scroll in a Scribe's Workshop.",
+
+  "backgrounds022019": "SET 57: Released February 2019",
+  "backgroundMedievalKitchenText": "Medieval Kitchen",
+  "backgroundMedievalKitchenNotes": "Cook up a storm in a Medieval Kitchen.",
+  "backgroundOldFashionedBakeryText": "Old-Fashioned Bakery",
+  "backgroundOldFashionedBakeryNotes": "Enjoy delicious smells outside an Old-Fashioned Bakery.",
+  "backgroundValentinesDayFeastingHallText": "Valentine's Day Feasting Hall",
+  "backgroundValentinesDayFeastingHallNotes": "Feel the love in a Valentine's Day Feasting Hall."
 }
