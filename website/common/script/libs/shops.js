@@ -417,6 +417,8 @@ shops.getSeasonalGearBySet = function getSeasonalGearBySet (user, set, officialP
 shops.getSeasonalShop = function getSeasonalShop (user, language) {
   let officialPinnedItems = getOfficialPinnedItems(user);
 
+  // subscribe to user._V, to let vue refresh the seasonal shop overview
+  // eslint-disable-next-line
   const myUserVersion = user._v;
 
   let resObject = {
@@ -430,8 +432,7 @@ shops.getSeasonalShop = function getSeasonalShop (user, language) {
       text: i18n.t(seasonalShopConfig.featuredSet),
       items: shops.getSeasonalGearBySet(user, seasonalShopConfig.featuredSet, officialPinnedItems, language, true),
     },
-    // return / subscribe to user._V, to let vue refresh the seasonal shop overview
-    _v: myUserVersion,
+
   };
 
   return resObject;
