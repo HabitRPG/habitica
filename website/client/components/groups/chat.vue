@@ -37,6 +37,7 @@
 <script>
   import VueTribute from 'vue-tribute';
   import axios from 'axios';
+  import debounce from 'lodash/debounce';
 
   import markdownDirective from 'client/directives/markdown';
   import communityGuidelines from './communityGuidelines';
@@ -89,14 +90,14 @@
           tierNPC,
         }),
         autocompleteOptions: {
-          async values (text, cb) {
+          values: debounce(async (text, cb) => {
             if (text.length > 0) {
               let suggestions = await axios.get(`/api/v4/members/find/${text}`);
               cb(suggestions.data.data);
             } else {
               cb([]);
             }
-          },
+          }, 200),
           selectTemplate (item) {
             return `<span class="at-highlight">@${item.original.auth.local.username}</span>`;
           },
@@ -322,8 +323,6 @@
     border: 1px solid rgba(#000, 0.13);
     background-clip: padding-box;
     overflow: hidden;
-    -moz-transition: none;
-    -webkit-transition: none;
     transition: none;
   }
 
@@ -332,8 +331,6 @@
     padding: 12px 24px;
     cursor: pointer;
     font-size: 14px;
-    -moz-transition: none;
-    -webkit-transition: none;
     transition: none;
   }
 
