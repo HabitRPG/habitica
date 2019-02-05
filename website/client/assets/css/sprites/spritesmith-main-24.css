@@ -1,0 +1,18 @@
+.Pet_HatchingPotion_Thunderstorm {
+  background-image: url('~assets/images/sprites/spritesmith-main-24.png');
+  background-position: 0px 0px;
+  width: 68px;
+  height: 68px;
+}
+.Pet_HatchingPotion_White {
+  background-image: url('~assets/images/sprites/spritesmith-main-24.png');
+  background-position: -69px 0px;
+  width: 68px;
+  height: 68px;
+}
+.Pet_HatchingPotion_Zombie {
+  background-image: url('~assets/images/sprites/spritesmith-main-24.png');
+  background-position: 0px -69px;
+  width: 68px;
+  height: 68px;
+}
