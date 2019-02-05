@@ -297,7 +297,6 @@
 </style>
 
 <style lang="scss">
-  @import '~client/assets/scss/tiers.scss';
   @import '~client/assets/scss/colors.scss';
 
   .tribute-container {

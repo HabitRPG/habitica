@@ -52,7 +52,6 @@ div
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
-  @import '~client/assets/scss/tiers.scss';
 
   .mentioned-icon {
     width: 16px;
