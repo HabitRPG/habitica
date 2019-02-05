@@ -239,7 +239,7 @@
     "userAlreadyPendingInvitation": "ID Użytkownika: <%= userId %>, \"<%= username %>\" już oczekuje na zaproszenie.",
     "userAlreadyInAParty": "ID Użytkownika: <%= userId %>, Użytkownik \"<%= username %>\" już jest w drużynie.",
     "userWithIDNotFound": "Nie znaleziono użytkownika o numerze ID „<%= userId %>”.",
-    "userWithUsernameNotFound": "User with username \"<%= username %>\" not found.",
+    "userWithUsernameNotFound": "Nie znaleziono użytkownika o nazwie \"<%= username %>\".",
     "userHasNoLocalRegistration": "Użytkownik nie ma lokalnej rejestracji (nazwa użytkownika, email, hasło).",
     "uuidsMustBeAnArray": "Zaproszenia ID Użytkownika muszą być tablicą.",
     "emailsMustBeAnArray": "Zaproszenia adresu e-mail muszą być tablicą.",
