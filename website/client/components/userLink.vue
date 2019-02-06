@@ -10,7 +10,6 @@
 
 <style scoped lang="scss">
   @import '~client/assets/scss/colors.scss';
-  @import '~client/assets/scss/tiers.scss';
 
   a {
     color: $gray-50;
