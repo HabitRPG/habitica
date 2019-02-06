@@ -178,7 +178,7 @@ api.postChat = {
       throw new NotAuthorized(res.t('messageGroupChatSpam'));
     }
 
-    const message = await highlightMentions(req.body.message);
+    const [message, mentions] = await highlightMentions(req.body.message);
     let client = req.headers['x-client'] || '3rd Party';
     if (client) {
       client = client.replace('habitica-', '');
@@ -203,7 +203,6 @@ api.postChat = {
       headers: req.headers,
     };
 
-    const mentions = req.body.message.match(mentionRegex);
     if (mentions) {
       analyticsObject.mentionsCount = mentions.length;
     } else {

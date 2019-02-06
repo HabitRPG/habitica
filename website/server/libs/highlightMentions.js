@@ -18,5 +18,5 @@ export async function highlightMentions (text) {
       text = text.replace(new RegExp(`@${username}(?![\\-\\w])`, 'g'), `[@${username}](/profile/${member._id})`);
     });
   }
-  return text;
+  return [text, mentions];
 }

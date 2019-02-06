@@ -186,13 +186,6 @@
         }
         this.newMessage = innerText;
       },
-      getTierIcon (member) {
-        const isNPC = Boolean(member.backer && member.backer.npc);
-        if (isNPC) {
-          return this.icons.tierNPC;
-        }
-        return this.icons[`tier${member.contributor.level}`];
-      },
     },
     beforeRouteUpdate (to, from, next) {
       // Reset chat
