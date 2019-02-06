@@ -287,7 +287,9 @@ function trackPurchase (data) {
 
 // Stub for non-prod environments
 let mockAnalyticsService = {
-  track: () => { },
+  track: (eventType, data) => {
+    console.log(data);
+  },
   trackPurchase: () => { },
 };
 
