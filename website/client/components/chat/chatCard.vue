@@ -8,7 +8,8 @@ div
     p.time
       span.mr-1(v-if="msg.username") @{{ msg.username }}
       span.mr-1(v-if="msg.username") •
-      span(v-b-tooltip="", :title="msg.timestamp | date") {{ msg.timestamp | timeAgo }}
+      span(v-b-tooltip="", :title="msg.timestamp | date") {{ msg.timestamp | timeAgo }}&nbsp;
+      span(v-if="msg.client && user.contributor.level >= 4")  ({{ msg.client }})
     .text(v-html='atHighlight(parseMarkdown(msg.text))')
     hr
     .d-flex(v-if='msg.id')
@@ -237,7 +238,9 @@ export default {
       });
     },
     atHighlight (text) {
-      const userRegex = new RegExp(`@(${this.user.auth.local.username}|${this.user.profile.name})(?:\\b)`, 'gi');
+      const escapedDisplayName = escapeRegExp(this.user.profile.name);
+      const escapedUsername = escapeRegExp(this.user.auth.local.username);
+      const userRegex = new RegExp(`@(${escapedDisplayName}|${escapedUsername})(?:\\b)`, 'gi');
       const atRegex = new RegExp(/(?!\b)@[\w-]+/g);
 
       if (userRegex.test(text)) {

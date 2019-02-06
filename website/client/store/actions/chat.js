@@ -23,25 +23,6 @@ export async function postChat (store, payload) {
     });
   }
 
-  if (group.privacy === 'public') {
-    Analytics.track({
-      hitType: 'event',
-      eventCategory: 'behavior',
-      eventAction: 'group chat',
-      groupType: group.type,
-      privacy: group.privacy,
-      groupName: group.name,
-    });
-  } else {
-    Analytics.track({
-      hitType: 'event',
-      eventCategory: 'behavior',
-      eventAction: 'group chat',
-      groupType: group.type,
-      privacy: group.privacy,
-    });
-  }
-
   let response = await axios.post(url, {
     message: payload.message,
   });

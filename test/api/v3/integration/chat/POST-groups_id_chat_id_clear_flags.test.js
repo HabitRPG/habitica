@@ -106,7 +106,7 @@ describe('POST /groups/:id/chat/:id/clearflags', () => {
         .to.eventually.be.rejected.and.eql({
           code: 400,
           error: 'BadRequest',
-          message: t('messageCannotFlagSystemMessages', {communityManagerEmail: config.EMAILS.COMMUNITY_MANAGER_EMAIL}),
+          message: t('messageCannotFlagSystemMessages', {communityManagerEmail: config.EMAILS_COMMUNITY_MANAGER_EMAIL}),
         });
       // let messages = await members[0].get(`/groups/${group._id}/chat`);
       // expect(messages[0].id).to.eql(skillMsg.id);

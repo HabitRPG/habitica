@@ -182,7 +182,10 @@ api.reorderTags = {
       return tag.id === req.body.tagId;
     });
     if (tagIndex === -1) throw new NotFound(res.t('tagNotFound'));
-    user.tags.splice(req.body.to, 0, user.tags.splice(tagIndex, 1)[0]);
+
+    const removedItem = user.tags.splice(tagIndex, 1)[0];
+
+    user.tags.splice(req.body.to, 0, removedItem);
 
     await user.save();
     res.respond(200, {});

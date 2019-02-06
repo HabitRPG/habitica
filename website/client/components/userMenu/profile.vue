@@ -240,12 +240,13 @@
 
   .nav {
     font-weight: bold;
-    height: 40px;
+    min-height: 40px;
+    justify-content: center;
   }
 
   .nav-item {
     display: inline-block;
-    margin: 0 auto;
+    margin: 0 1.2em;
     padding: 1em;
   }
 

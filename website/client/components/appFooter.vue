@@ -2,8 +2,8 @@
 .row.footer-row
   buy-gems-modal(v-if='user')
   //modify-inventory(v-if="isUserLoaded")
-  footer.col-12(:class="{expanded: isExpandedFooter}")
-    .row(v-if="isExpandedFooter")
+  footer.col-12.expanded
+    .row
       .col-12.col-md-2
         h3
           a(href='https://itunes.apple.com/us/app/habitica/id994882113?ls=1&mt=8', target='_blank') {{ $t('mobileIOS') }}
@@ -81,7 +81,7 @@
         hr
     .row
       .col-12.col-md-5
-        | © 2018 Habitica. All rights reserved.
+        | © 2019 Habitica. All rights reserved.
         .debug.float-left(v-if="!IS_PRODUCTION && isUserLoaded")
           button.btn.btn-primary(@click="debugMenuShown = !debugMenuShown") Toggle Debug Menu
           .debug-group(v-if="debugMenuShown")
@@ -96,6 +96,7 @@
             a.btn.btn-secondary(@click="plusTenHealth()") + 10HP
             a.btn.btn-secondary(@click="addMana()") +MP
             a.btn.btn-secondary(@click="addLevelsAndGold()") +Exp +GP +MP
+            a.btn.btn-secondary(@click="addExp()") +Exp
             a.btn.btn-secondary(@click="addOneLevel()") +1 Level
             a.btn.btn-secondary(@click="addQuestProgress()", tooltip="+1000 to boss quests. 300 items to collection quests") Quest Progress Up
             a.btn.btn-secondary(@click="makeAdmin()") Make Admin
@@ -103,11 +104,6 @@
       .col-12.col-md-2.text-center
         .logo.svg-icon(v-html='icons.gryphon')
       .col-12.col-md-5.text-right
-        template(v-if="!isExpandedFooter")
-          span
-            a(:href="getDataDisplayToolUrl", target='_blank') {{ $t('dataDisplayTool') }}
-          span.ml-4
-            a(target="_blanck", href="/static/community-guidelines") {{ $t('communityGuidelines') }}
         span.ml-4
           a(target="_blanck", href="/static/privacy") {{ $t('privacy') }}
         span.ml-4
@@ -127,13 +123,6 @@
 
     a {
       color: #2995cd;
-    }
-
-    &:not(.expanded) {
-      hr {
-        margin-top: 0px;
-        margin-bottom: 7px;
-      }
     }
   }
 
@@ -282,9 +271,6 @@ export default {
   computed: {
     ...mapState({user: 'user.data'}),
     ...mapState(['isUserLoaded']),
-    isExpandedFooter () {
-      return this.$route.name === 'tasks' ? false : true;
-    },
     getDataDisplayToolUrl () {
       const base = 'https://oldgods.net/habitrpg/habitrpg_user_data_display.html';
       if (!this.user) return;
@@ -341,7 +327,7 @@ export default {
         'stats.mp': this.user.stats.mp  + 10000,
       });
     },
-    addOneLevel () {
+    addExp () {
       // @TODO: Name these variables better
       let exp = 0;
       let five = 10 * this.user.stats.lvl;
@@ -353,6 +339,11 @@ export default {
 
       this.$store.dispatch('user:set', {
         'stats.exp': exp,
+      });
+    },
+    addOneLevel () {
+      this.$store.dispatch('user:set', {
+        'stats.lvl': this.user.stats.lvl + 1,
       });
     },
     async addQuestProgress () {

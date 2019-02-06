@@ -112,7 +112,6 @@
     "wonChallenge": "Вие спечелихте предизвикателство!",
     "newPM": "Получихте лично съобщение",
     "newPMInfo": "Ново съобщение от <%= name %>: <%= message %>",
-    "sentGems": "Изпратихте диаманти!",
     "giftedGems": "Подарък — диаманти",
     "giftedGemsInfo": "<%= name %> Ви подари <%= amount %> диамант(а)",
     "giftedGemsFull": "Здравейте <%= username %>, <%= sender %> Ви изпрати <%= gemAmount %> диамант(а)!",

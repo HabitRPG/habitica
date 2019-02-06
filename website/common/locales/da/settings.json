@@ -112,7 +112,6 @@
     "wonChallenge": "Du har vundet en Udfordring!",
     "newPM": "Modtaget Privatbesked",
     "newPMInfo": "Ny Besked fra <%= name %>: <%= message %>",
-    "sentGems": "Ædelsten afsendt!",
     "giftedGems": "Ædelstensgave",
     "giftedGemsInfo": "<%= name %> har foræret dig <%= amount %> Ædelsten",
     "giftedGemsFull": "Hej <%= username %>, <%= sender %> har sendt dig <%= gemAmount %> ædelsten!",

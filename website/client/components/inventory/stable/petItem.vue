@@ -1,33 +1,33 @@
 <template lang="pug">
-div
-  .item-wrapper(@click="click()", :id="itemId")
-    .item.pet-slot(
+  div
+    .item-wrapper(@click="click()", :id="itemId")
+      .item.pet-slot(
       :class="{'item-empty': !isOwned(), 'highlight': highlightBorder}",
-    )
-      slot(name="itemBadge", :item="item")
-      span.item-content.hatchAgain(v-if="mountOwned && isHatchable")
-        span.egg(:class="eggClass")
-        span.potion(:class="potionClass")
-      span.item-content(v-else, :class="getPetItemClass()")
-      span.pet-progress-background(v-if="isAllowedToFeed() && progress > 0")
-        div.pet-progress-bar(v-bind:style="{width: 100 * progress/50 + '%' }")
-    span.item-label(v-if="label") {{ label }}
+      )
+        slot(name="itemBadge", :item="item")
+        span.item-content.hatchAgain(v-if="mountOwned() && isHatchable() && !item.isSpecial()")
+          span.egg(:class="eggClass")
+          span.potion(:class="potionClass")
+        span.item-content(v-else, :class="getPetItemClass()")
+        span.pet-progress-background(v-if="isAllowedToFeed() && progress() > 0")
+          div.pet-progress-bar(v-bind:style="{width: 100 * progress()/50 + '%' }")
+      span.item-label(v-if="label") {{ label }}
 
-  b-popover(
+    b-popover(
     :target="itemId",
     :triggers="showPopover ? 'hover' : ''",
     :placement="popoverPosition",
-  )
-    div.hatchablePopover(v-if="item.isHatchable()")
-      h4.popover-content-title {{ item.name }}
-      div.popover-content-text(v-html="$t('haveHatchablePet', { potion: item.potionName, egg: item.eggName })")
-      div.potionEggGroup
-        div.potionEggBackground
-          div(:class="potionClass")
-        div.potionEggBackground
-          div(:class="eggClass")
-    div(v-else)
-      h4.popover-content-title {{ item.name }}
+    )
+      div.hatchablePopover(v-if="item.isHatchable()")
+        h4.popover-content-title {{ item.name }}
+        div.popover-content-text(v-html="$t('haveHatchablePet', { potion: item.potionName, egg: item.eggName })")
+        div.potionEggGroup
+          div.potionEggBackground
+            div(:class="potionClass")
+          div.potionEggBackground
+            div(:class="eggClass")
+      div(v-else)
+        h4.popover-content-title {{ item.name }}
 
 </template>
 
@@ -73,7 +73,7 @@ div
 <script>
   import uuid from 'uuid';
   import { mapState } from 'client/libs/store';
-  import {isAllowedToFeed, isHatchable, isOwned} from '../../../libs/createAnimal';
+  import {isAllowedToFeed, isHatchable, isOwned, isSpecial} from '../../../libs/createAnimal';
 
   export default {
     props: {
@@ -112,20 +112,38 @@ div
         return isAllowedToFeed(this.item, this.userItems);
       },
       getPetItemClass () {
-        if (this.isOwned() || this.mountOwned && this.isHatchable) {
+        if (this.isOwned() || this.mountOwned() && this.isHatchable()) {
           return `Pet Pet-${this.item.key} ${this.item.eggKey}`;
         }
 
-        if (this.isHatchable) {
+        if (!this.isOwned() && this.isSpecial()) {
+          return 'GreyedOut PixelPaw';
+        }
+
+        if (this.isHatchable()) {
           return 'PixelPaw';
         }
 
-        if (this.mountOwned) {
+        if (this.mountOwned()) {
           return `GreyedOut Pet Pet-${this.item.key} ${this.item.eggKey}`;
         }
 
         // Can't hatch
         return 'GreyedOut PixelPaw';
+      },
+      progress () {
+        return this.userItems.pets[this.item.key];
+      },
+      // due to some state-refresh issues these methods are needed,
+      // the computed-properties just didn't refresh on each state-change
+      isHatchable () {
+        return isHatchable(this.item, this.userItems);
+      },
+      mountOwned () {
+        return isOwned('mount', this.item, this.userItems);
+      },
+      isSpecial () {
+        return isSpecial(this.item);
       },
     },
     computed: {
@@ -137,15 +155,6 @@ div
       },
       eggClass () {
         return `Pet_Egg_${this.item.eggKey}`;
-      },
-      isHatchable () {
-        return isHatchable(this.item, this.userItems);
-      },
-      mountOwned () {
-        return isOwned('mount', this.item, this.userItems);
-      },
-      progress () {
-        return this.userItems.pets[this.item.key];
       },
     },
   };

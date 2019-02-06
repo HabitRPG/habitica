@@ -11,7 +11,7 @@ menu-dropdown.item-user(:right="true")
     a.nav-link.dropdown-item.dropdown-separated.d-flex.justify-content-between.align-items-center(@click.prevent='showInbox()')
       div {{ $t('messages') }}
       message-count(v-if='user.inbox.newMessages > 0', :count="user.inbox.newMessages")
-    a.dropdown-item(@click='showAvatar("backgrounds", "2018")') {{ $t('backgrounds') }}
+    a.dropdown-item(@click='showAvatar("backgrounds", "2019")') {{ $t('backgrounds') }}
     a.dropdown-item(@click='showProfile("stats")') {{ $t('stats') }}
     a.dropdown-item(@click='showProfile("achievements")') {{ $t('achievements') }}
     a.dropdown-item.dropdown-separated(@click='showProfile("profile")') {{ $t('profile') }}

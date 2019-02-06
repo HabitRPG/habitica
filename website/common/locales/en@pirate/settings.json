@@ -112,7 +112,6 @@
     "wonChallenge": "Ye won a Challenge!",
     "newPM": "Received Private Message",
     "newPMInfo": "New Message from <%= name %>: <%= message %>",
-    "sentGems": "Sent sapphires!",
     "giftedGems": "Gifted Sapphires",
     "giftedGemsInfo": "<%= name %> gifted ye <%= amount %> Sapphires",
     "giftedGemsFull": "Hello <%= username %>, <%= sender %> has sent you <%= gemAmount %> gems!",

@@ -112,10 +112,8 @@
         .pet-group(v-for='item in group')
           mountItem(
             :item="item",
-            :itemContentClass="isOwned('mount', item) ? ('Mount_Icon_' + item.key) : 'PixelPaw GreyedOut'",
             :key="item.key",
             :popoverPosition="'top'",
-            :emptyItem="!isOwned('mount', item)",
             :showPopover="true",
             @click="selectMount(item)"
           )
