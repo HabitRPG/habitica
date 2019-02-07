@@ -18,7 +18,7 @@
             .info {{ $t(bullet) }}
     .row
       .col-12.text-center
-        a(href='http://habitica.wikia.com/wiki/World_Bosses' target='_blank').footer-link {{ $t('worldBossLink') }}
+        a(href='http://habitica.fandom.com/wiki/World_Bosses' target='_blank').footer-link {{ $t('worldBossLink') }}
 </template>
 
 <style>

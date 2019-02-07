@@ -80,7 +80,7 @@
     "buyGemsAllow1": "Du kan købe",
     "buyGemsAllow2": "flere Ædelsten denne måned",
     "purchaseGemsSeparately": "Køb flere Ædelsten",
-    "subFreeGemsHow": "Habitica players can earn Gems for free by winning <a href=\"/challenges/findChallenges\">challenges</a> that award Gems as a prize, or as a <a href=\"http://habitica.wikia.com/wiki/Contributing_to_Habitica\">contributor reward by helping the development of Habitica.</a>",
+    "subFreeGemsHow": "Habitica players can earn Gems for free by winning <a href=\"/challenges/findChallenges\">challenges</a> that award Gems as a prize, or as a <a href=\"http://habitica.fandom.com/wiki/Contributing_to_Habitica\">contributor reward by helping the development of Habitica.</a>",
     "seeSubscriptionDetails": "Go to <a href='/user/settings/subscription'>Settings &gt; Subscription</a> to see your subscription details!",
     "timeTravelers": "Tidsrejsende",
     "timeTravelersTitleNoSub": "<%= linkStartTyler %>Tyler<%= linkEnd %> og <%= linkStartVicky %>Vicky<%= linkEnd %>",
