@@ -124,7 +124,9 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation {
     user.items.food[drop.key] = user.items.food[drop.key] || 0;
     user.items.food[drop.key] += 1;
 
-    this._trackDropAnalytics(user._id, drop.key);
+    if (this.analytics) {
+      this._trackDropAnalytics(user._id, drop.key);
+    }
 
     return {
       message: this.i18n('armoireFood', {
