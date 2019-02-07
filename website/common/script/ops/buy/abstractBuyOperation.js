@@ -121,9 +121,7 @@ export class AbstractBuyOperation {
       analyticsData.quantityPurchased = this.quantity;
     }
 
-    if (this.analytics) {
-      this.analytics.track(this.analyticsLabel(), analyticsData);
-    }
+    this.analytics.track(this.analyticsLabel(), analyticsData);
   }
 }
 

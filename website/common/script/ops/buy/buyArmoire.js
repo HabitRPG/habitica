@@ -102,7 +102,9 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation {
 
     removeItemByPath(user, `gear.flat.${drop.key}`);
 
-    this._trackDropAnalytics(user._id, drop.key);
+    if (this.analytics) {
+      this._trackDropAnalytics(user._id, drop.key);
+    }
 
     let armoireResp = {
       type: 'gear',
