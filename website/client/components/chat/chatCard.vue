@@ -129,6 +129,7 @@ import copyIcon from 'assets/svg/copy.svg';
 import likeIcon from 'assets/svg/like.svg';
 import likedIcon from 'assets/svg/liked.svg';
 import reportIcon from 'assets/svg/report.svg';
+import {highlightUsers} from '../../libs/highlightUsers';
 
 export default {
   props: ['msg', 'inbox', 'groupId'],
@@ -238,24 +239,7 @@ export default {
       });
     },
     atHighlight (text) {
-      const escapedDisplayName = escapeRegExp(this.user.profile.name);
-      const escapedUsername = escapeRegExp(this.user.auth.local.username);
-      const userRegex = new RegExp(`@(${escapedDisplayName}|${escapedUsername})(?:\\b)`, 'gi');
-      const atRegex = new RegExp(/(?!\b)@[\w-]+/g);
-
-      if (userRegex.test(text)) {
-        text = text.replace(userRegex, match => {
-          return `<span class="at-highlight at-text">${match}</span>`;
-        });
-      }
-
-      if (atRegex.test(text)) {
-        text = text.replace(atRegex, match => {
-          return `<span class="at-text">${match}</span>`;
-        });
-      }
-
-      return text;
+      return highlightUsers(text, this.user.auth.local.username, this.user.profile.name);
     },
     parseMarkdown (text) {
       return habiticaMarkdown.render(text);
