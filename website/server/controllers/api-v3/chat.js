@@ -85,7 +85,6 @@ function getBannedWordsFromText (message) {
 }
 
 
-const mentionRegex = new RegExp('\\B@[-\\w]+', 'g');
 /**
  * @api {post} /api/v3/groups/:groupId/chat Post chat message to a group
  * @apiName PostChat
