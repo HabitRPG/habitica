@@ -21,7 +21,7 @@
           li
            router-link(to='/static/faq') {{ $t('FAQ') }}
           li
-            a(href='http://habitica.wikia.com/wiki/Whats_New', target='_blank') {{ $t('oldNews') }}
+            a(href='http://habitica.fandom.com/wiki/Whats_New', target='_blank') {{ $t('oldNews') }}
           li
            router-link(to='/static/merch') {{ $t('merch') }}
           li
@@ -55,7 +55,7 @@
               li
                 a(:href="getDataDisplayToolUrl", target='_blank') {{ $t('dataDisplayTool') }}
               li
-                a(href='http://habitica.wikia.com/wiki/Guidance_for_Blacksmiths', target='_blank') {{ $t('guidanceForBlacksmiths') }}
+                a(href='http://habitica.fandom.com/wiki/Guidance_for_Blacksmiths', target='_blank') {{ $t('guidanceForBlacksmiths') }}
               li
                 a(href='http://devs.habitica.com/', target='_blank') {{ $t('devBlog') }}
           .col-6.social
@@ -73,7 +73,7 @@
               .svg-icon.heart(v-html="icons.heart")
               .text {{ $t('companyDonate') }}
             .btn.btn-contribute(v-else)
-              a(href='http://habitica.wikia.com/wiki/Contributing_to_Habitica', target='_blank')
+              a(href='http://habitica.fandom.com/wiki/Contributing_to_Habitica', target='_blank')
                 .svg-icon.heart(v-html="icons.heart")
                 .text {{ $t('companyContribute') }}
     .row

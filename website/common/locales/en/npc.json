@@ -128,10 +128,10 @@
   "autoAllocate": "Auto Allocate",
   "autoAllocateText": "If 'Automatic Allocation' is selected, your avatar gains Stats automatically based on your tasks' Stats, which you can find in <strong>TASK > Edit > Advanced Settings > Stat Allocation</strong>. Eg, if you hit the gym often, and your 'Gym' Daily is set to 'Strength', you'll gain Strength automatically.",
   "spells": "Skills",
-  "spellsText": "You can now unlock class-specific skills. You'll see your first at level 11. Your mana replenishes 10 points per day, plus 1 point per completed <a target='_blank' href='http://habitica.wikia.com/wiki/Todos'>To-Do</a>.",
+  "spellsText": "You can now unlock class-specific skills. You'll see your first at level 11. Your mana replenishes 10 points per day, plus 1 point per completed <a target='_blank' href='http://habitica.fandom.com/wiki/Todos'>To-Do</a>.",
   "skillsTitle": "Skills",
   "toDo": "To-Do",
-  "moreClass": "For more information on the class-system, see <a href='http://habitica.wikia.com/wiki/Class_System' target='_blank'>Wikia</a>.",
+  "moreClass": "For more information on the class-system, see <a href='http://habitica.fandom.com/wiki/Class_System' target='_blank'>Wikia</a>.",
 
   "tourWelcome": "Welcome to Habitica! This is your To-Do list. Check off a task to proceed!",
   "tourExp": "Great job! Checking off a task gives you Experience and Gold!",

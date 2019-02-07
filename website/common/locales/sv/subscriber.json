@@ -80,7 +80,7 @@
     "buyGemsAllow1": "Du kan köpa",
     "buyGemsAllow2": "fler Juveler den här månaden",
     "purchaseGemsSeparately": "Köp ytterligare Juveler",
-    "subFreeGemsHow": "Habitica-spelare kan tjäna gratis Diamanter genom att vinna <a href=\"/challenges/findChallenges\">utmaningar</a> som har Diamanter som pris eller genom en <a href=\"http://habitica.wikia.com/wiki/Contributing_to_Habitica\">medhjälparbelöning genom att hjälpa utvecklingen av Habitica.</a>",
+    "subFreeGemsHow": "Habitica-spelare kan tjäna gratis Diamanter genom att vinna <a href=\"/challenges/findChallenges\">utmaningar</a> som har Diamanter som pris eller genom en <a href=\"http://habitica.fandom.com/wiki/Contributing_to_Habitica\">medhjälparbelöning genom att hjälpa utvecklingen av Habitica.</a>",
     "seeSubscriptionDetails": "Gå till <a href='/user/settings/subscription'>Inställningar gt; Prenumeration</a> för att se detaljer på din prenumeration!",
     "timeTravelers": "Tidsresenärer",
     "timeTravelersTitleNoSub": "<%= linkStartTyler %>Tyler<%= linkEnd %> och <%= linkStartVicky %>Vicky<%= linkEnd %>",
