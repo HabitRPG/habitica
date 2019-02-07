@@ -25,19 +25,20 @@
           div.text {{ item.sellWarningNote() }}
           br
 
-        div(v-once)
-          div.text {{ item.notes() }}
+        div(v-else)
+          div(v-once)
+            div.text {{ item.notes() }}
 
-          div
-            b.how-many-to-sell {{ $t('howManyToSell') }}
+            div
+              b.how-many-to-sell {{ $t('howManyToSell') }}
 
-          div
-            b-input.itemsToSell(type="number", v-model="selectedAmountToSell", :max="itemContextToSell.itemCount", min="1", @keyup.native="preventNegative($event)", step="1")
+            div
+              b-input.itemsToSell(type="number", v-model="selectedAmountToSell", :max="itemContextToSell.itemCount", min="1", @keyup.native="preventNegative($event)", step="1")
 
-            span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons.gold")
-            span.value {{ item.value }}
+              span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons.gold")
+              span.value {{ item.value }}
 
-          button.btn.btn-primary(@click="sellItems()") {{ $t('sell') }}
+            button.btn.btn-primary(@click="sellItems()") {{ $t('sell') }}
 
     div.clearfix(slot="modal-footer")
       span.balance.float-left {{ $t('yourBalance') }}

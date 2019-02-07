@@ -4,14 +4,7 @@ div
   .message-hidden(v-if='!inbox && msg.flagCount === 1 && user.contributor.admin') Message flagged once, not hidden
   .message-hidden(v-if='!inbox && msg.flagCount > 1 && user.contributor.admin') Message hidden
   .card-body
-    h3.leader(
-      :class='userLevelStyle(msg)',
-      @click="showMemberModal(msg.uuid)",
-      v-b-tooltip.hover.top="tierTitle",
-      v-if="msg.user"
-    )
-      | {{msg.user}}
-      .svg-icon(v-html="tierIcon")
+    user-link(:userId="msg.uuid", :name="msg.user", :backer="msg.backer", :contributor="msg.contributor")
     p.time
       span.mr-1(v-if="msg.username") @{{ msg.username }}
       span.mr-1(v-if="msg.username") •
@@ -82,22 +75,6 @@ div
   .card-body {
     padding: 0.75rem 1.25rem 0.75rem 1.25rem;
 
-    .leader {
-      margin-bottom: 0;
-    }
-
-    h3 { // this is the user name
-      cursor: pointer;
-      display: inline-block;
-      font-size: 16px;
-
-      .svg-icon {
-        width: 10px;
-        display: inline-block;
-        margin-left: .5em;
-      }
-    }
-
     .time {
       font-size: 12px;
       color: #878190;
@@ -153,27 +130,17 @@ import max from 'lodash/max';
 
 import habiticaMarkdown from 'habitica-markdown';
 import { mapState } from 'client/libs/store';
-import styleHelper from 'client/mixins/styleHelper';
-
-import achievementsLib from '../../../common/script/libs/achievements';
+import userLink from '../userLink';
 
 import deleteIcon from 'assets/svg/delete.svg';
 import copyIcon from 'assets/svg/copy.svg';
 import likeIcon from 'assets/svg/like.svg';
 import likedIcon from 'assets/svg/liked.svg';
 import reportIcon from 'assets/svg/report.svg';
-import tier1 from 'assets/svg/tier-1.svg';
-import tier2 from 'assets/svg/tier-2.svg';
-import tier3 from 'assets/svg/tier-3.svg';
-import tier4 from 'assets/svg/tier-4.svg';
-import tier5 from 'assets/svg/tier-5.svg';
-import tier6 from 'assets/svg/tier-6.svg';
-import tier7 from 'assets/svg/tier-7.svg';
-import tier8 from 'assets/svg/tier-mod.svg';
-import tier9 from 'assets/svg/tier-staff.svg';
-import tierNPC from 'assets/svg/tier-npc.svg';
+import {highlightUsers} from '../../libs/highlightUsers';
 
 export default {
+  components: {userLink},
   props: {
     msg: {},
     inbox: {
@@ -182,7 +149,6 @@ export default {
     },
     groupId: {},
   },
-  mixins: [styleHelper],
   data () {
     return {
       icons: Object.freeze({
@@ -191,16 +157,6 @@ export default {
         report: reportIcon,
         delete: deleteIcon,
         liked: likedIcon,
-        tier1,
-        tier2,
-        tier3,
-        tier4,
-        tier5,
-        tier6,
-        tier7,
-        tier8,
-        tier9,
-        tierNPC,
       }),
       reported: false,
     };
@@ -250,18 +206,6 @@ export default {
         if (like) likeCount += 1;
       }
       return likeCount;
-    },
-    tierIcon () {
-      const message = this.msg;
-      const isNPC = Boolean(message.backer && message.backer.npc);
-      if (isNPC) {
-        return this.icons.tierNPC;
-      }
-      return this.icons[`tier${message.contributor.level}`];
-    },
-    tierTitle () {
-      const message = this.msg;
-      return achievementsLib.getContribText(message.contributor, message.backer) || '';
     },
     isMessageReported () {
       return this.msg.flags && this.msg.flags[this.user.id] || this.reported;
@@ -321,28 +265,8 @@ export default {
         chatId: message.id,
       });
     },
-    showMemberModal (memberId) {
-      this.$emit('show-member-modal', memberId);
-    },
     atHighlight (text) {
-      const escapedDisplayName = escapeRegExp(this.user.profile.name);
-      const escapedUsername = escapeRegExp(this.user.auth.local.username);
-      const userRegex = new RegExp(`@(${escapedDisplayName}|${escapedUsername})(?:\\b)`, 'gi');
-      const atRegex = new RegExp(/(?!\b)@[\w-]+/g);
-
-      if (userRegex.test(text)) {
-        text = text.replace(userRegex, match => {
-          return `<span class="at-highlight at-text">${match}</span>`;
-        });
-      }
-
-      if (atRegex.test(text)) {
-        text = text.replace(atRegex, match => {
-          return `<span class="at-text">${match}</span>`;
-        });
-      }
-
-      return text;
+      return highlightUsers(text, this.user.auth.local.username, this.user.profile.name);
     },
     parseMarkdown (text) {
       return habiticaMarkdown.render(text);

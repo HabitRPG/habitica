@@ -8,4 +8,4 @@ minimal dependencies on the developer's local platform. It can be used
 on a variety of systems including Windows, Mac OS X, and Linux.
 
 Instructions for using the Habitica Vagrant environment are in
-[Setting up Habitica Locally](http://habitica.wikia.com/wiki/Setting_up_Habitica_Locally).
+[Setting up Habitica Locally](http://habitica.fandom.com/wiki/Setting_up_Habitica_Locally).
