@@ -1,21 +1,24 @@
 <template lang="pug">
-div
-  // @TODO: profile modal is pulled in on the header. So.. seems a little odd to depend on it that way, but for now let's depend
+  .container
+    .standard-page
+      profile(:userId='userId', :startingPage='startingPage')
 </template>
 
-<script>
-import profile from './profile';
+<style lang="scss" scoped>
+  @import '~client/assets/scss/colors.scss';
 
-export default {
-  components: {
-    profile,
-  },
-  mounted () {
-    // @TODO: Do we need this page?
-    this.$root.$emit('habitica:show-profile', {
-      user: {},
-      startingPage: 'profile',
-    });
-  },
-};
+  .header {
+    width: 100%;
+  }
+</style>
+
+<script>
+  import profile from './profile';
+
+  export default {
+    props: ['userId', 'startingPage'],
+    components: {
+      profile,
+    },
+  };
 </script>

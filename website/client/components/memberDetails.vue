@@ -12,7 +12,7 @@
       :hide-class-badge="classBadgePosition !== 'under-avatar'",
     )
   .member-stats(:class="{'col-8': !expanded && !isHeader}")
-    .d-flex.align-items-center
+    .d-flex.align-items-center.profile-first-row
       class-badge(v-if="classBadgePosition === 'next-to-name'", :member-class="member.stats.class")
       .d-flex.flex-column.profile-name-character
         h3.character-name
@@ -95,9 +95,14 @@
     }
   }
 
+  .profile-first-row {
+    margin-bottom: .5em
+  }
+
   .progress-container {
     margin-left: 4px;
     margin-bottom: .5em;
+    height: 24px;
   }
 
   .progress-container > span {
@@ -111,7 +116,6 @@
     width: 24px;
     height: 24px;
     margin-right: 8px;
-    padding-top: 6px;
   }
 
   .progress-container > .progress {
@@ -130,7 +134,7 @@
 
   .progress-container .svg-icon, .progress-container .progress, .progress-container .small-text {
     display: inline-block;
-    vertical-align: bottom;
+    vertical-align: middle;
   }
 
   // Condensed version
@@ -249,10 +253,7 @@ export default {
   methods: {
     percent,
     showMemberModal (member) {
-      this.$root.$emit('habitica:show-profile', {
-        user: member,
-        startingPage: 'profile',
-      });
+      this.$router.push({name: 'userProfile', params: {userId: member._id}});
     },
   },
   computed: {
