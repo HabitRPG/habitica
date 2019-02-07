@@ -31,11 +31,13 @@ b-modal#send-gems(:title="title", :hide-footer="true", size='lg', @hide='onHide(
     )
       h3.panel-heading {{ $t('subscription') }}
       .panel-body
-        .form-group
-          .radio(v-for='block in subscriptionBlocks', v-if="block.target !== 'group' && block.canSubscribe === true")
-            label
-              input(type="radio", name="subRadio", :value="block.key", v-model='gift.subscription.key')
-              | {{ $t('sendGiftSubscription', {price: block.price, months: block.months}) }}
+        .row
+          .col-md-4
+            .form-group
+              .radio(v-for='block in subscriptionBlocks', v-if="block.target !== 'group' && block.canSubscribe === true")
+                label
+                  input(type="radio", name="subRadio", :value="block.key", v-model='gift.subscription.key')
+                  | {{ $t('sendGiftSubscription', {price: block.price, months: block.months}) }}
 
     textarea.form-control(rows='3', v-model='gift.message', :placeholder="$t('sendGiftMessagePlaceholder')")
     //include ../formatting-help
@@ -149,17 +151,19 @@ export default {
         gemAmount: this.gift.gems.amount,
       });
       this.close();
-      this.$root.$emit('habitica:payment-success', {
-        paymentMethod: 'balance',
-        paymentCompleted: true,
-        paymentType: 'gift-gems-balance',
-        gift: {
-          gems: {
-            amount: this.gift.gems.amount,
+      setTimeout(() => { // wait for the send gem modal to be closed
+        this.$root.$emit('habitica:payment-success', {
+          paymentMethod: 'balance',
+          paymentCompleted: true,
+          paymentType: 'gift-gems-balance',
+          gift: {
+            gems: {
+              amount: this.gift.gems.amount,
+            },
           },
-        },
-        giftReceiver: this.receiverName,
-      });
+          giftReceiver: this.receiverName,
+        });
+      }, 500);
     },
     onHide () {
       // @TODO this breaks amazon purchases because when the amazon modal

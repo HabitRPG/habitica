@@ -173,24 +173,40 @@ schema.pre('remove', true, async function preRemoveGroup (next, done) {
   }
 });
 
-// return a clean object for user.quest
-function _cleanQuestProgress (merge) {
-  let clean = {
-    key: null,
-    progress: {
+// return clean updates for each user in a party without resetting their progress
+function _cleanQuestParty (merge) {
+  let updates = {
+    $set: {
+      'party.quest.key': null,
+      'party.quest.completed': null,
+      'party.quest.RSVPNeeded': false,
+    },
+  };
+
+  if (merge) _.merge(updates, merge);
+
+  return updates;
+}
+
+// return a clean user.quest of a particular user while keeping his progress
+function _cleanQuestUser (userProgress) {
+  if (!userProgress) {
+    userProgress = {
       up: 0,
       down: 0,
       collect: {},
       collectedItems: 0,
-    },
+    };
+  } else {
+    userProgress = userProgress.toObject();
+  }
+
+  let clean = {
+    key: null,
+    progress: userProgress,
     completed: null,
     RSVPNeeded: false,
   };
-
-  if (merge) {
-    _.merge(clean, _.omit(merge, 'progress'));
-    if (merge.progress) _.merge(clean.progress, merge.progress);
-  }
 
   return clean;
 }
@@ -634,11 +650,8 @@ schema.methods.startQuest = async function startQuest (user) {
   // Do not block updates
   User.update({
     _id: { $in: nonMembers },
-  }, {
-    $set: {
-      'party.quest': _cleanQuestProgress(),
-    },
-  }, { multi: true }).exec();
+  }, _cleanQuestParty(),
+  { multi: true }).exec();
 
   const newMessage = this.sendChat(`\`Your quest, ${quest.text('en')}, has started.\``, null, {
     participatingMembers: this.getParticipatingQuestMembers().join(', '),
@@ -707,7 +720,8 @@ schema.methods.sendGroupChatReceivedWebhooks = function sendGroupChatReceivedWeb
   });
 };
 
-schema.statics.cleanQuestProgress = _cleanQuestProgress;
+schema.statics.cleanQuestParty = _cleanQuestParty;
+schema.statics.cleanQuestUser = _cleanQuestUser;
 
 // returns a clean object for group.quest
 schema.statics.cleanGroupQuest = function cleanGroupQuest () {
@@ -784,7 +798,7 @@ schema.methods.finishQuest = async function finishQuest (quest) {
   if (this._id === TAVERN_ID) {
     updates.$set['party.quest.completed'] = questK; // Just show the notif
   } else {
-    updates.$set['party.quest'] = _cleanQuestProgress({completed: questK}); // clear quest progress
+    _.merge(updates, _cleanQuestParty({$set: {'party.quest.completed': questK}})); // clear quest progress
   }
 
   _.each(_.reject(quest.drop.items, 'onlyOwner'), (item) => {

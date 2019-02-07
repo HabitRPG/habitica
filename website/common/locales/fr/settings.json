@@ -199,10 +199,10 @@
     "usernameIssueInvalidCharacters": "Les noms d'utilisateurs ne peuvent contenir que des lettres de a à z, des chiffres de 0 à 9, des tirets et des tirets bas.",
     "currentUsername": "Nom d'utilisateur actuel :",
     "displaynameIssueLength": "Les noms affichés doivent contenir entre 1 et 30 caractères.",
-    "displaynameIssueSlur": "Display Names may not contain inappropriate language.",
+    "displaynameIssueSlur": "Les noms affichés ne doivent pas contenir de langage inapproprié.",
     "goToSettings": "Voir les paramètres",
     "usernameVerifiedConfirmation": "Votre nom d'utilisateur, <%= username %>, est confirmé !",
     "usernameNotVerified": "Veuillez confirmer votre nom d'utilisateur.",
     "changeUsernameDisclaimer": "Nous allons effectuer une transition des noms de connexion à des noms d'utilisateur publics très bientôt. Ce nom d'utilisateur sera utilisé pour les invitations, les @mentions dans les discussion, et les messages.",
-    "verifyUsernameVeteranPet": "One of these Veteran Pets will be waiting for you after you've finished confirming!"
+    "verifyUsernameVeteranPet": "Un de ces Familiers Vétéran t'attendra quand tu auras validé !"
 }

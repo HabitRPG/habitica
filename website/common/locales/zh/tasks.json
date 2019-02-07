@@ -126,7 +126,7 @@
     "taskToTop": "移到最上方",
     "taskToBottom": "移到底部",
     "emptyTask": "请先输入任务标题",
-    "dailiesRestingInInn": "你在客栈休息了！你的每日任务不会伤害你但是依然会每天更新。如果你在执行剧情任务，直到你离开客栈，你都不会受到伤害/收集物品，但是如果你的队伍成员没有完成自己的每日任务，你依然会收到来自 王 的伤害",
+    "dailiesRestingInInn": "你在酒馆休息了！你的每日任务不会伤害你但是依然会每天更新。如果你在执行剧情任务，直到你离开酒馆，你都不会受到伤害/收集物品，但是如果你的队伍成员没有完成自己的每日任务，你依然会受到来自Boss的伤害。",
     "habitHelp1": "好习惯是你要坚持的。每次你按 <%= plusIcon %>他们都会给你黄金和经验奖励",
     "habitHelp2": "坏习惯是你要避免的。每次你按<%= minusIcon %>他们会扣除你的生命值。",
     "habitHelp3": "如果不知道怎么写的话，来看看这些<a href='http://habitica.wikia.com/wiki/Sample_Habits' target='_blank'>别人的习惯例子</a>！",

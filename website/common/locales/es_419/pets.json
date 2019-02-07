@@ -78,7 +78,7 @@
     "hatchAPot": "¿Deseas eclosionar un nuevo <%= potion %> <%= egg %>?",
     "hatchedPet": "¡Eclosionaste un/a <%= egg %> <%= potion %>!",
     "hatchedPetGeneric": "¡Has incubado una nueva mascota!",
-    "hatchedPetHowToUse": "Visit the [Stable](/inventory/stable) to feed and equip your newest pet!",
+    "hatchedPetHowToUse": "Visit the [Stable](<%= stableUrl %>) to feed and equip your newest pet!",
     "displayNow": "Mostrar Ahora",
     "displayLater": "Mostrar Más Tarde",
     "petNotOwned": "No posees esta mascota.",

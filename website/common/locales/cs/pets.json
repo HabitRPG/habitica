@@ -78,7 +78,7 @@
     "hatchAPot": "Chceš vylíhnout nového <%= potion %><%= egg %>?",
     "hatchedPet": "Vylíhnul jsi nového <%= potion %><%= egg %>!",
     "hatchedPetGeneric": "Vylíhl se ti nový mazlíček!",
-    "hatchedPetHowToUse": "Navštiv [Stáj](/inventář/stáj) a nakrm a vyber si svého nejnovějšího mazlíčka jako doprovod!",
+    "hatchedPetHowToUse": "Visit the [Stable](<%= stableUrl %>) to feed and equip your newest pet!",
     "displayNow": "Zobrazit hned",
     "displayLater": "Zobrazit později",
     "petNotOwned": "Nevlastníte tohoto mazlíčka.",

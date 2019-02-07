@@ -170,7 +170,7 @@
     "achievementBewilder": "Penyelamat Mistiflying",
     "achievementBewilderText": "Membantu mengalahkan Be-Wilder selama event Pesta Pora Musim Semi 2016!",
     "achievementDysheartener": "Savior of the Shattered",
-    "achievementDysheartenerText": "Helped defeat the Dysheartener during the 2018 Valentine's Event!",
+    "achievementDysheartenerText": "Membantu mengalahkan Dysheartener selama Event Valentine 2018!",
     "checkOutProgress": "Cek progresku di Habitica!",
     "cards": "Kartu",
     "sentCardToUser": "Kamu mengirim kartu ke <%= profileName %>",
@@ -290,5 +290,5 @@
     "selected": "Dipilih",
     "howManyToBuy": "Berapa banyak yang ingin kamu beli?",
     "habiticaHasUpdated": "Habitica ada pembaharuan baru. Muat ulang untuk dapatkan versi terbaru!",
-    "contactForm": "Contact the Moderation Team"
+    "contactForm": "Hubungi Tim Moderator"
 }

@@ -577,7 +577,7 @@ api.exportChallengeCsv = {
         .lean().exec(),
     ]);
 
-    let resArray = members.map(member => [member._id, member.profile.name]);
+    let resArray = members.map(member => [member._id, member.profile.name, member.auth.local.username]);
 
     let lastUserId;
     let index = -1;
@@ -606,7 +606,7 @@ api.exportChallengeCsv = {
     let challengeTasks = _.reduce(challenge.tasksOrder.toObject(), (result, array) => {
       return result.concat(array);
     }, []).sort();
-    resArray.unshift(['UUID', 'name']);
+    resArray.unshift(['UUID', 'Display Name', 'Username']);
 
     _.times(challengeTasks.length, () => resArray[0].push('Task', 'Value', 'Notes', 'Streak'));
 

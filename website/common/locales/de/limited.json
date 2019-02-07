@@ -130,6 +130,10 @@
     "fall2018CandymancerMageSet": "Süßigkeitenbeschwörer (Magier)",
     "fall2018CarnivorousPlantSet": "Fleischfressende Pflanze (Heiler)",
     "fall2018AlterEgoSet": "Alter Ego (Schurke)",
+    "winter2019BlizzardSet": "Schneesturm (Krieger)",
+    "winter2019PyrotechnicSet": "Pyrotechniker (Magier)",
+    "winter2019WinterStarSet": "Winterstern (Heiler)",
+    "winter2019PoinsettiaSet": "Weihnachtsstern (Schurke)",
     "eventAvailability": "Zum Kauf verfügbar bis zum <%= date(locale) %>.",
     "dateEndMarch": "30. April",
     "dateEndApril": "19. April",
@@ -143,7 +147,9 @@
     "dateEndJanuary": "31. Januar",
     "dateEndFebruary": "28. Februar",
     "winterPromoGiftHeader": "Verschenke ein Abonnement und bekomme eins umsonst! ",
-    "winterPromoGiftDetails1": "Wenn Du bis 12. Januar jemandem ein Abonnement schenkst, bekommst Du das geiche Abonnement für Dich selbst umsonst!",
+    "winterPromoGiftDetails1": "Nur bis zum 15. Januar: wenn Du jemandem ein Abonnement schenkst, erhältst Du das gleiche Abonnement gratis für Dich!",
     "winterPromoGiftDetails2": "Bitte bedenke, dass das geschenkte Abonnement, falls Du oder Deine beschenkte Person bereits über ein sich wiederholendes Abonnement verfügen, erst dann startet, wenn das alte Abonnement gekündigt wird oder ausläuft. Herzlichen Dank für Deine Unterstützung! <3",
-    "discountBundle": "Paket"
+    "discountBundle": "Paket",
+    "g1g1Announcement": "Die \"Schenke ein Abo, bekomm ein Abo Gratis\" Aktion läuft jetzt!",
+    "g1g1Details": "Schenke einem Freund ein Abonnement auf seiner Profil-Seite und Du erhältst das selbe Abonnement gratis!"
 }
