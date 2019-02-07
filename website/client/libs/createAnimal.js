@@ -27,6 +27,10 @@ export function isAllowedToFeed (animal, userItems) {
     !isOwned('mount', animal, userItems);
 }
 
+export function isSpecial (animal) {
+  return specialPets.includes(animal.key);
+}
+
 export function createAnimal (egg, potion, type, _content, userItems) {
   let animalKey = `${egg.key}-${potion.key}`;
 
@@ -49,6 +53,9 @@ export function createAnimal (egg, potion, type, _content, userItems) {
     },
     isHatchable () {
       return isHatchable(this, userItems);
+    },
+    isSpecial () {
+      return isSpecial(this);
     },
   };
 }

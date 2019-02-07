@@ -90,10 +90,6 @@
           li(v-once) {{ $t('giftSubscriptionText2') }}
           li(v-once) {{ $t('giftSubscriptionText3') }}
         h4(v-once) {{ $t('giftSubscriptionText4') }}
-      .col-6
-        h2 {{ $t('winterPromoGiftHeader') }}
-        p {{ $t('winterPromoGiftDetails1') }}
-        p {{ $t('winterPromoGiftDetails2') }}
 </template>
 
 <style scoped>

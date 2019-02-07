@@ -12,10 +12,6 @@
     z-index: 1400; // 1400 is above modal backgrounds
 
     &-top-pos {
-      &-double {
-        top: 145px;
-      }
-
       &-normal {
         top: 65px;
       }
@@ -30,7 +26,6 @@
 <script>
 import { mapState } from 'client/libs/store';
 import notification from './notification';
-import { CONSTANTS, getLocalSetting } from 'client/libs/userlocalManager';
 
 export default {
   components: {
@@ -44,20 +39,13 @@ export default {
     notificationsTopPos () {
       const base = 'notifications-top-pos-';
       let modifier = '';
-      if (this.userSleeping && this.giftingShown) {
-        modifier = 'double';
-      } else if (this.userSleeping || this.giftingShown) {
+      if (this.userSleeping) {
         modifier = 'sleeping';
       } else {
         modifier = 'normal';
       }
       return `${base}${modifier}`;
     },
-  },
-  data () {
-    return {
-      giftingShown: getLocalSetting(CONSTANTS.keyConstants.GIFTING_BANNER_DISPLAY) !== 'dismissed',
-    };
   },
 };
 </script>

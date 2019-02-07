@@ -8,7 +8,7 @@ import takeThisGear from './special-takeThis';
 import wonderconGear from './special-wondercon';
 import t from '../../../translation';
 
-const CURRENT_SEASON = 'winter';
+const CURRENT_SEASON = '_NONE_';
 
 let armor = {
   0: backerGear.armorSpecial0,
@@ -1106,6 +1106,12 @@ let armor = {
     notes: t('armorSpecialWinter2019HealerNotes', { con: 15 }),
     value: 90,
     con: 15,
+  },
+  birthday2019: {
+    text: t('armorSpecialBirthday2019Text'),
+    notes: t('armorSpecialBirthday2019Notes'),
+    value: 0,
+    canOwn: ownsItem('armor_special_birthday2019'),
   },
 };
 
