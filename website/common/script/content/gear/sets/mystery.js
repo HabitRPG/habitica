@@ -367,6 +367,12 @@ let body = {
     mystery: '201711',
     value: 0,
   },
+  201901: {
+    text: t('bodyMystery201901Text'),
+    notes: t('bodyMystery201901Notes'),
+    mystery: '201901',
+    value: 0,
+  },
 };
 
 let eyewear = {
@@ -653,6 +659,12 @@ let head = {
     text: t('headMystery201811Text'),
     notes: t('headMystery201811Notes'),
     mystery: '201811',
+    value: 0,
+  },
+  201901: {
+    text: t('headMystery201901Text'),
+    notes: t('headMystery201901Notes'),
+    mystery: '201901',
     value: 0,
   },
   301404: {

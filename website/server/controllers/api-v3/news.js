@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE: GIFT A SUBSCRIPTION AND GET ONE FREE!';
+const LAST_ANNOUNCEMENT_TITLE = 'FEBRUARY BACKGROUNDS AND ARMOIRE ITEMS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,16 +30,14 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>1/14/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>2/5/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_g1g1 center-block"></div>
-        <p>Tomorrow is your last chance to take advantage of our promotion where if you gift somebody a subscription, you get the same subscription for yourself for free!</p>
-        <p>Subscribers get tons of perks every month, including exclusive items, the ability to buy Gems with Gold, and a cute exclusive Jackalope Pet. Plus, it helps keep Habitica running :) To gift a subscription to someone, just open their profile and click on the present icon in the upper right.</p>
-        <p>The special promotion will only run until tomorrow, so if you've been curious about trying out a subscription, now's the time! Make a friend happy and use all your new Gems to go questing together.</p>
-        <p>Please note that if you or your gift recipient already have a recurring subscription, the gifted subscription will only start after that subscription is cancelled or has expired. Thanks so much for your support! <3</p>
-        <div class="small mb-3">by SabreCat, Beffymaroo and Lemoness</div>
+        <div class="promo_armoire_backgrounds_201902 center-block"></div>
+        <p>We’ve added three new backgrounds to the Background Shop! Now your avatar can cook up a storm in a Medieval Kitchen, enjoy delicious smells outside an Old-Fashioned Bakery, and feel the love in a Valentines' Day Feasting Hall. Check them out under User Icon > Backgrounds!</p>
+        <p>Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the Chef Set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)</p>
+        <div class="small mb-3">by Vampitch, GeraldThePixel, Aspiring Advocate, Marmarru, NekoAtsumeLARPer, and Giu09</div>
       </div>
       `,
     });

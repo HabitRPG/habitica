@@ -299,7 +299,7 @@
   "weaponSpecialFall2018WarriorText": "Whip of Minos",
   "weaponSpecialFall2018WarriorNotes": "Not quite long enough to unwind behind you for keeping your bearings in a maze. Well, maybe a very small maze. Increases Strength by <%= str %>. Limited Edition 2018 Autumn Gear.",
   "weaponSpecialFall2018MageText": "Staff of Sweetness",
-  "weaponSpecialFall2018MageNotes": "This is no ordinary lollipop! The glowing orb of magic sugar atop this staff has the power to make good habits stick to you. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2018 Autumn Gear. Two-handed item.",
+  "weaponSpecialFall2018MageNotes": "This is no ordinary lollipop! The glowing orb of magic sugar atop this staff has the power to make good habits stick to you. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2018 Autumn Gear.",
   "weaponSpecialFall2018HealerText": "Starving Staff",
   "weaponSpecialFall2018HealerNotes": "Just keep this staff fed, and it will bestow Blessings. If you forget to feed it, keep your fingers out of reach. Increases Intelligence by <%= int %>. Limited Edition 2018 Autumn Gear.",
 
@@ -405,6 +405,8 @@
   "weaponArmoireSpearOfSpadesNotes": "This knightly lance is perfect for attacking your reddest Habits and Dailies. Increases Constitution by <%= con %>. Enchanted Armoire: Ace of Spades Set (Item 3 of 3).",
   "weaponArmoireArcaneScrollText": "Arcane Scroll",
   "weaponArmoireArcaneScrollNotes": "This ancient To-Do list is filled with strange symbols and spells from a forgotten age. Increases Intelligence by <%= int %>. Enchanted Armoire: Scribe Set (Item 3 of 3).",
+  "weaponArmoireChefsSpoonText": "Chef's Spoon",
+  "weaponArmoireChefsSpoonNotes": "Raise it as you release your battle cry: “SPOOOON!!” Increases Intelligence by <%= int %>. Enchanted Armoire: Chef Set (Item 3 of 4). ",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -511,6 +513,8 @@
   "armorSpecialBirthday2017Notes": "Happy Birthday, Habitica! Wear these Whimsical Party Robes to celebrate this wonderful day. Confers no benefit.",
   "armorSpecialBirthday2018Text": "Fanciful Party Robes",
   "armorSpecialBirthday2018Notes": "Happy Birthday, Habitica! Wear these Fanciful Party Robes to celebrate this wonderful day. Confers no benefit.",
+  "armorSpecialBirthday2019Text": "Outlandish Party Robes",
+  "armorSpecialBirthday2019Notes": "Happy Birthday, Habitica! Wear these Outlandish Party Robes to celebrate this wonderful day. Confers no benefit.",
 
   "armorSpecialGaymerxText": "Rainbow Warrior Armor",
   "armorSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special armor is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
@@ -876,6 +880,8 @@
   "armorArmoireSoftRedSuitNotes": "Red is such an invigorating color. If you need to wake up bright and early, this suit could make the perfect pajamas... Increases Intelligence by <%= int %> and Strength by <%= str %>. Enchanted Armoire: Red Loungewear Set (Item 2 of 3).",
   "armorArmoireScribesRobeText": "Scribe's Robes",
   "armorArmoireScribesRobeNotes": "These velvety robes are woven with inspirational and motivational magic. Increases Perception and Intelligence by <%= attrs %> each. Enchanted Armoire: Scribe Set (Item 1 of 3).",
+  "armorArmoireChefsJacketText": "Chef's Jacket",
+  "armorArmoireChefsJacketNotes": "This thick cotton jacket is double-breasted to protect you from spills (and conveniently reversible…). Increases Intelligence by <%= int %>. Enchanted Armoire: Chef Set (Item 2 of 4). ",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -1250,6 +1256,8 @@
   "headMystery201810Notes": "If you find yourself traveling through a spooky place, the glowing red eyes of this helm will surely scare away any enemies in your path. Confers no benefit. October 2018 Subscriber Item.",
   "headMystery201811Text": "Splendid Sorcerer's Hat",
   "headMystery201811Notes": "Wear this feathered hat to stand out at even the fanciest wizardly gatherings! Confers no benefit. November 2018 Subscriber Item.",
+  "headMystery201901Text": "Polaris Helm",
+  "headMystery201901Notes": "The glowing gems on this helm contain light magically captured from winter auroras. Confers no benefit. January 2019 Subscriber Item.",
   "headMystery301404Text": "Fancy Top Hat",
   "headMystery301404Notes": "A fancy top hat for the finest of gentlefolk! January 3015 Subscriber Item. Confers no benefit.",
   "headMystery301405Text": "Basic Top Hat",
@@ -1357,6 +1365,8 @@
   "headArmoireJeweledArcherHelmNotes": "This helm may look ornate, but it's also exceedingly light and strong. Increases Intelligence by <%= int %>. Enchanted Armoire: Jeweled Archer Set (Item 1 of 3).",
   "headArmoireVeilOfSpadesText": "Veil of Spades",
   "headArmoireVeilOfSpadesNotes": "A shadowy and mysterious veil that will boost your stealth. Increases Perception by <%= per %>. Enchanted Armoire: Ace of Spades Set (Item 1 of 3).",
+  "headArmoireToqueBlancheText": "Toque Blanche",
+  "headArmoireToqueBlancheNotes": "According to legend, the number of folds in this hat indicate the number of ways you know how to cook an egg! Is it accurate? Increases Perception by <%= per %>. Enchanted Armoire: Chef Set (Item 1 of 4). ",
 
   "offhand": "off-hand item",
   "offhandCapitalized": "Off-Hand Item",
@@ -1620,7 +1630,9 @@
   "shieldArmoireSoftGreenPillowText": "Soft Green Pillow",
   "shieldArmoireSoftGreenPillowNotes": "The practical warrior packs a pillow for any expedition. Ward off those pesky chores... even while you nap. Increases Constitution by <%= con %> and Intelligence by <%= int %>. Enchanted Armoire: Green Loungewear Set (Item 3 of 3).",
   "shieldArmoireMightyQuillText": "Mighty Quill",
-  "shieldArmoireMightyQuillNotes": "Mightier than the sword, they say! Increases Perception by <%= per %>. Enchanted Armoire: Scribe Set (Item 2 of 3). ",
+  "shieldArmoireMightyQuillNotes": "Mightier than the sword, they say! Increases Perception by <%= per %>. Enchanted Armoire: Scribe Set (Item 2 of 3).",
+  "shieldArmoireMightyPizzaText": "Mighty Pizza",
+  "shieldArmoireMightyPizzaNotes": "Sure, it's a pretty good shield, but we strongly suggest you eat this fine, fine pizza. Increases Perception by <%= per %>. Enchanted Armoire: Chef Set (Item 4 of 4). ",
 
   "back": "Back Accessory",
   "backCapitalized": "Back Accessory",
@@ -1733,6 +1745,8 @@
   "bodyMystery201706Notes": "This cloak has secret pockets to hide all the Gold you loot from your Tasks. Confers no benefit. June 2017 Subscriber Item.",
   "bodyMystery201711Text": "Carpet Rider Scarf",
   "bodyMystery201711Notes": "This soft knitted scarf looks quite majestic blowing in the wind. Confers no benefit. November 2017 Subscriber Item.",
+  "bodyMystery201901Text": "Polaris Pauldrons",
+  "bodyMystery201901Notes": "These shimmering pauldrons are strong, but will rest on your shoulders as weightlessly as a ray of dancing light. Confers no benefit. January 2019 Subscriber Item.",
 
   "bodyArmoireCozyScarfText": "Cozy Scarf",
   "bodyArmoireCozyScarfNotes": "This fine scarf will keep you warm as you go about your wintry business. Increases Constitution and Perception by <%= attrs %> each. Enchanted Armoire: Lamplighter's Set (Item 4 of 4).",

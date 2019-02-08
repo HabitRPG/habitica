@@ -4,6 +4,9 @@ import url from 'url';
 const IS_PROD = nconf.get('IS_PROD');
 const IGNORE_REDIRECT = nconf.get('IGNORE_REDIRECT') === 'true';
 const BASE_URL = nconf.get('BASE_URL');
+// A secret key that if passed as req.query.skipSSLCheck allows to skip
+// the redirects to SSL, used for health checks from the load balancer
+const SKIP_SSL_CHECK_KEY = nconf.get('SKIP_SSL_CHECK_KEY');
 
 const BASE_URL_HOST = url.parse(BASE_URL).hostname;
 
@@ -17,7 +20,8 @@ function isHTTP (req) {
 }
 
 export function forceSSL (req, res, next) {
-  if (isHTTP(req)) {
+  const skipSSLCheck = req.query.skipSSLCheck;
+  if (isHTTP(req) && (!SKIP_SSL_CHECK_KEY || !skipSSLCheck || skipSSLCheck !== SKIP_SSL_CHECK_KEY)) {
     return res.redirect(BASE_URL + req.originalUrl);
   }
 
