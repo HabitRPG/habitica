@@ -633,7 +633,7 @@ api.sendPrivateMessage = {
     if (validationErrors) throw validationErrors;
 
     const sender = res.locals.user;
-    const message = await highlightMentions(req.body.message);
+    const message = (await highlightMentions(req.body.message))[0];
     const receiver = await User.findById(req.body.toUserId).exec();
     if (!receiver) throw new NotFound(res.t('userNotFound'));
     if (!receiver.flags.verifiedUsername) delete receiver.auth.local.username;
