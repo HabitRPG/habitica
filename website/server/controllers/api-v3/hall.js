@@ -164,17 +164,29 @@ api.getHero = {
   async handler (req, res) {
     let heroId = req.params.heroId;
 
-    req.checkParams('heroId', res.t('heroIdRequired')).notEmpty().isUUID();
+    req.checkParams('heroId', res.t('heroIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
     let hero = await User
-      .findById(heroId)
+      .findOne({'auth.local.username': heroId})
       .select(heroAdminFields)
       .exec();
 
-    if (!hero) throw new NotFound(res.t('userWithIDNotFound', {userId: heroId}));
+    if(!hero) {
+      req.checkParams('heroId', res.t('heroIdRequired')).notEmpty().isUUID();
+      validationErrors = req.validationErrors();
+      if (validationErrors) throw validationErrors;
+
+      hero = await User
+        .findById(heroId)
+        .select(heroAdminFields)
+        .exec();
+
+      if (!hero) throw new NotFound(res.t('userWithIDNotFound', {userId: heroId}));
+    }
+
     let heroRes = hero.toJSON({minimize: true});
     // supply to the possible absence of hero.contributor
     // if we didn't pass minimize: true it would have returned all fields as empty
