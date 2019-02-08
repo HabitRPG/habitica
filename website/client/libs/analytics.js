@@ -1,3 +1,4 @@
+import forEach from 'lodash/forEach';
 import isEqual from 'lodash/isEqual';
 import keys from 'lodash/keys';
 import pick from 'lodash/pick';
@@ -71,7 +72,7 @@ function _gatherUserStats (properties) {
 export function setUser () {
   const store = getStore();
   const user = store.state.user.data;
-  amplitude.setUserId(user._id);
+  amplitude.getInstance().setUserId(user._id);
   window.ga('set', {userId: user._id});
 }
 
@@ -93,7 +94,11 @@ export function updateUser (properties) {
 
     _gatherUserStats(properties);
 
-    amplitude.setUserProperties(properties);
+    forEach(properties, (value, key) => {
+      const identify = new amplitude.Identify().set(key, value);
+      amplitude.getInstance().identify(identify);
+    });
+
     window.ga('set', properties);
   });
 }
@@ -104,7 +109,7 @@ export function setup () {
   /* eslint-disable */
 
   // Amplitude
-  amplitude.getInstance.init(AMPLITUDE_KEY);
+  amplitude.getInstance().init(AMPLITUDE_KEY);
 
   // Google Analytics (aka Universal Analytics)
   window['GoogleAnalyticsObject'] = 'ga';
