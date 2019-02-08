@@ -81,7 +81,7 @@ export function track (properties) {
     if (_doesNotHaveRequiredFields(properties)) return false;
     if (_doesNotHaveAllowedHitType(properties)) return false;
 
-    amplitude.logEvent(properties.eventAction, properties);
+    amplitude.getInstance().logEvent(properties.eventAction, properties);
     window.ga('send', properties);
   });
 }
@@ -104,7 +104,7 @@ export function setup () {
   /* eslint-disable */
 
   // Amplitude
-  amplitude.init(AMPLITUDE_KEY);
+  amplitude.getInstance.init(AMPLITUDE_KEY);
 
   // Google Analytics (aka Universal Analytics)
   window['GoogleAnalyticsObject'] = 'ga';
