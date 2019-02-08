@@ -117,9 +117,15 @@
         let response = await this.$store.dispatch('chat:postChat', {
           group: this.group,
           message: this.newMessage,
+        }).catch(() => {
+          return;
         });
-        this.group.chat.unshift(response.message);
-        this.newMessage = '';
+
+        if (response) {
+          this.group.chat.unshift(response.message);
+          this.newMessage = '';
+        }
+
         this.sending = false;
 
         // @TODO: I would like to not reload everytime we send. Why are we reloading?
