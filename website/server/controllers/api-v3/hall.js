@@ -173,6 +173,8 @@ api.getHero = {
 
     req.checkParams('heroId', res.t('heroIdRequired')).isUUID();
 
+    validationErrors = req.validationErrors();
+
     if (validationErrors) {
       hero = await User
         .findOne({'auth.local.username': heroId})
