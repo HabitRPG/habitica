@@ -163,16 +163,27 @@ api.getHero = {
   middlewares: [authWithHeaders(), ensureAdmin],
   async handler (req, res) {
     let heroId = req.params.heroId;
+    let validationErrors;
+    let hero;
 
-    req.checkParams('heroId', res.t('heroIdRequired')).notEmpty().isUUID();
+    req.checkParams('heroId', res.t('heroIdRequired')).notEmpty();
 
-    let validationErrors = req.validationErrors();
+    validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let hero = await User
-      .findById(heroId)
-      .select(heroAdminFields)
-      .exec();
+    req.checkParams('heroId', res.t('heroIdRequired')).isUUID();
+
+    if (validationErrors) {
+      hero = await User
+        .findOne({'auth.local.username': heroId})
+        .select(heroAdminFields)
+        .exec();
+    } else {
+      hero = await User
+        .findById(heroId)
+        .select(heroAdminFields)
+        .exec();
+    }
 
     if (!hero) throw new NotFound(res.t('userWithIDNotFound', {userId: heroId}));
     let heroRes = hero.toJSON({minimize: true});
