@@ -58,7 +58,7 @@ describe('GET /heroes/:heroId', () => {
     let hero = await generateUser({
       contributor: {tier: 23},
     });
-    let heroRes = await user.get(`/hall/heroes/${hero.username}`);
+    let heroRes = await user.get(`/hall/heroes/${hero.auth.local.username}`);
 
     expect(heroRes).to.have.all.keys([ // works as: object has all and only these keys
       '_id', 'id', 'balance', 'profile', 'purchased',
