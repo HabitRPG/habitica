@@ -3,9 +3,10 @@ import habiticaMarkdown from 'habitica-markdown';
 
 describe('highlightUserAndEmail', () => {
   it('highlights displayname', () => {
-    const text = 'hello @displayedUser';
+    const text = 'hello @displayedUser with text after';
 
     const result = highlightUsers(text, 'user', 'displayedUser');
+
     expect(result).to.contain('<span class="at-highlight at-text">@displayedUser</span>');
   });
 
@@ -16,17 +17,23 @@ describe('highlightUserAndEmail', () => {
     expect(result).to.contain('<span class="at-highlight at-text">@user</span>');
   });
 
-  it('highlights email with username', () => {
-    const text = habiticaMarkdown.render('hello hello@user.com');
+  it('not highlights any email', () => {
+    const text = habiticaMarkdown.render('hello@example.com');
 
-    const result = highlightUsers(text, 'user', 'displayedUser');
-    expect(result).to.contain('>hello<span class="at-highlight at-text">@user</span>.com</a>');
+    const result = highlightUsers(text, 'example', 'displayedUser');
+    expect(result).to.not.contain('<span class="at-highlight">@example</span>');
   });
 
-  it('highlights any mention', () => {
-    const text = habiticaMarkdown.render('hello y.@user.com other words');
 
-    const result = highlightUsers(text, 'test', 'displayedUser');
-    expect(result).to.contain('<span class="at-text">@user</span>');
+  it('complex highlight', () => {
+    const plainText = 'a bit more @mentions to @use my@mentions.com broken.@mail.com';
+
+    const text = habiticaMarkdown.render(plainText);
+
+    const result = highlightUsers(text, 'use', 'mentions');
+
+    expect(result).to.contain('<span class="at-highlight at-text">@mentions</span>');
+    expect(result).to.contain('<span class="at-highlight at-text">@use</span>');
+    expect(result).to.not.contain('<span class="at-highlight at-text">@mentions</span>.com');
   });
 });
