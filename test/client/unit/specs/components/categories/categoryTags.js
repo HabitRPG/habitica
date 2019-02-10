@@ -1,4 +1,5 @@
-import {shallow} from '@vue/test-utils';
+import {mount} from '@vue/test-utils';
+import Vue from 'vue';
 
 import CategoryTags from 'client/components/categories/categoryTags.vue';
 
@@ -6,7 +7,7 @@ describe('Category Tags', () => {
   let wrapper;
 
   beforeEach(function () {
-    wrapper = shallow(CategoryTags, {
+    wrapper = mount(CategoryTags, {
       propsData: {
         categories: [],
       },
@@ -27,8 +28,10 @@ describe('Category Tags', () => {
         },
       ],
     });
-    expect(wrapper.contains('.category-label')).to.eq(true);
-    expect(wrapper.find('.category-label').text()).to.eq('test');
+    return Vue.nextTick().then(() => {
+      expect(wrapper.contains('.category-label')).to.eq(true);
+      expect(wrapper.find('.category-label').text()).to.eq('test');
+    });
   });
 
   it('displays a habitica official in purple', () => {
