@@ -142,7 +142,7 @@ api.getHeroes = {
 const heroAdminFields = 'contributor balance profile.name purchased items auth flags.chatRevoked';
 
 /**
- * @api {get} /api/v3/hall/heroes/:heroId Get any user ("hero") given the UUID
+ * @api {get} /api/v3/hall/heroes/:heroId Get any user ("hero") given the UUID or Username
  * @apiParam (Path) {UUID} heroId user ID
  * @apiName GetHero
  * @apiGroup Hall
