@@ -8,7 +8,7 @@
       .row
         .form.col-6(v-if='!hero.profile')
           .form-group
-            input.form-control(type='text', v-model='heroID', :placeholder="$t('UUID')")
+            input.form-control(type='text', v-model='heroID', :placeholder="'User ID or Username'")
           .form-group
             button.btn.btn-secondary(@click='loadHero(heroID)')
               | {{ $t('loadUser') }}
