@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = "VALENTINE'S DAY CELEBRATION! INCLUDING CUPID AND ROSE QUARTZ HATCHING POTIONS";
+const LAST_ANNOUNCEMENT_TITLE = 'VALENTINE’S DAY CELEBRATION! INCLUDING CUPID AND ROSE QUARTZ HATCHING POTIONS';
 const worldDmg = { // @TODO
   bailey: false,
 };
