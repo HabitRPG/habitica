@@ -8,6 +8,7 @@ api.getUsernameAutocompletes = {
   url: '/members/find/:username',
   middlewares: [],
   async handler (req, res) {
+    res.set('Cache-Control', 'public, max-age=300000'); // 5 minutes
     req.checkParams('username', res.t('invalidReqParams')).notEmpty();
 
     let validationErrors = req.validationErrors();
