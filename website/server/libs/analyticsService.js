@@ -10,7 +10,7 @@ import {
 } from 'lodash';
 import { content as Content } from '../../common';
 
-const AMPLIUDE_TOKEN = nconf.get('AMPLITUDE_KEY');
+const AMPLITUDE_TOKEN = nconf.get('AMPLITUDE_KEY');
 const GA_TOKEN = nconf.get('GA_ID');
 const GA_POSSIBLE_LABELS = ['gaLabel', 'itemKey'];
 const GA_POSSIBLE_VALUES = ['gaValue', 'gemCost', 'goldCost'];
@@ -23,7 +23,7 @@ const PLATFORM_MAP = Object.freeze({
 });
 
 let amplitude;
-if (AMPLIUDE_TOKEN) amplitude = new Amplitude(AMPLIUDE_TOKEN);
+if (AMPLITUDE_TOKEN) amplitude = new Amplitude(AMPLITUDE_TOKEN);
 
 let ga = googleAnalytics(GA_TOKEN);
 
@@ -271,11 +271,28 @@ let _sendPurchaseDataToGoogle = (data) => {
   });
 };
 
+let _setOnce = (data) => {
+  return new Promise((resolve, reject) => {
+    amplitude.identify({
+      user_properties: {
+        $setOnce: data,
+      },
+    })
+      .then(resolve)
+      .catch(reject);
+  });
+};
+
 function track (eventType, data) {
-  return Promise.all([
+  let promises = [
     _sendDataToAmplitude(eventType, data),
     _sendDataToGoogle(eventType, data),
-  ]);
+  ];
+  if (data.user && data.user.registeredThrough) {
+    promises.push(_setOnce({registeredPlatform: data.user.registeredThrough}));
+  }
+
+  return Promise.all(promises);
 }
 
 function trackPurchase (data) {
