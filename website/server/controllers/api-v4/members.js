@@ -23,7 +23,7 @@ api.getUsernameAutocompletes = {
     }
 
     let members = await User
-      .find({'auth.local.lowerCaseUsername': {$regex: `.*${username}.*`}, 'flags.verifiedUsername': true, 'preferences.searchableUsername': {$ne: false}})
+      .find({'auth.local.lowerCaseUsername': {$regex: `^${username}.*`}, 'flags.verifiedUsername': true, 'preferences.searchableUsername': {$ne: false}})
       .select(['profile.name', 'contributor', 'auth.local.username'])
       .limit(20)
       .exec();
