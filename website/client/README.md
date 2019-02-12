@@ -1,5 +1,5 @@
 # Running
-For information about installing and running Habitica locally, see [Setting up Habitica Locally](http://habitica.wikia.com/wiki/Setting_up_Habitica_Locally).
+For information about installing and running Habitica locally, see [Setting up Habitica Locally](http://habitica.fandom.com/wiki/Setting_up_Habitica_Locally).
 
 # Preparation Reading
 - Vue 2 (https://vuejs.org)
@@ -18,4 +18,4 @@ The project is developed directly in the `develop` branch as long as we'll be ab
 
 So far most of the work has been on the template, so there's no complex logic to understand. The only thing I would suggest you to read about is Vuex for data management: it's basically a Flux implementation: there's a central store that hold the data for the entire app, and every change to the data must happen through an action, the data cannot be mutated directly.
 
-For further resources, see [Guidance for Blacksmiths](http://habitica.wikia.com/wiki/Guidance_for_Blacksmiths), and in particular the ["Website Technology Stack" section](http://habitica.wikia.com/wiki/Guidance_for_Blacksmiths#Website_Technology_Stack).
+For further resources, see [Guidance for Blacksmiths](http://habitica.fandom.com/wiki/Guidance_for_Blacksmiths), and in particular the ["Website Technology Stack" section](http://habitica.fandom.com/wiki/Guidance_for_Blacksmiths#Website_Technology_Stack).

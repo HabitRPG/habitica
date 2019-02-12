@@ -21,7 +21,7 @@
     "rebirthOrb": "達到等級 <%= level %> 後即可使用重生球並開始新的冒險。",
     "rebirthOrb100": "使用重生球在達到100級或更高級別後重新開始。",
     "rebirthOrbNoLevel": "使用了重生球來重生。",
-    "rebirthPop": "Instantly restart your character as a Level 1 Warrior while retaining achievements, collectibles, and equipment. Your tasks and their history will remain but they will be reset to yellow. Your streaks will be removed except from challenge tasks. Your Gold, Experience, Mana, and the effects of all Skills will be removed. All of this will take effect immediately. For more information, see the wiki's <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a> page.",
+    "rebirthPop": "Instantly restart your character as a Level 1 Warrior while retaining achievements, collectibles, and equipment. Your tasks and their history will remain but they will be reset to yellow. Your streaks will be removed except from challenge tasks. Your Gold, Experience, Mana, and the effects of all Skills will be removed. All of this will take effect immediately. For more information, see the wiki's <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a> page.",
     "rebirthName": "重生之球",
     "reborn": "重生球，最高等級 <%= reLevel %>",
     "confirmReborn": "你確定嗎？",

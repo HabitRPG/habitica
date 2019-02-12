@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'FEBRUARY RESOLUTION SUCCESS CHALLENGE AND NEW TAKE THIS CHALLENGE';
+const LAST_ANNOUNCEMENT_TITLE = "VALENTINE'S DAY CELEBRATION! INCLUDING CUPID AND ROSE QUARTZ HATCHING POTIONS";
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,18 +30,23 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>2/4/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>2/12/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="scene_yesterdailies center-block"></div>
-        <p>The Habitica team has launched a special official Challenge series hosted in the <a href='/groups/guild/6e6a8bd3-9f5f-4351-9188-9f11fcd80a99' target='_blank'>Official New Year's Resolution Guild</a>. These Challenges are designed to help you build and maintain goals that are destined for success and then stick with them as the year progresses. For this month's Challenge, <a href='/challenges/03498939-08f2-49dc-af77-1c891525f22d'>Hone Your Weapons</a>, we're focusing on refining and narrowing down your goals to make them more achievable! It has a 15 Gem prize, which will be awarded to five lucky winners on March 1st.</p>
-        <p>Congratulations to the winners of January's Challenge, RainbowZebra27, Annobethal, Pheonix_Heart, rachalza, and grimreader!</p>
-        <p>The next Take This Challenge has also launched, "<a href='/challenges/f0828ccc-f567-47ab-9c22-18c335c9cad9'>Achievement Unlocked: Self-Care!</a>", with a focus on tending to the energy reserves we use when helping others. Be sure to check it out to earn additional pieces of the Take This armor set!</p>
-        <p><a href='http://www.takethis.org/' target='_blank'>Take This</a> is a nonprofit that seeks to inform the gamer community about mental health issues, to provide education about mental disorders and mental illness prevention, and to reduce the stigma of mental illness.</p>
-        <p>Congratulations to the winners of the last Take This Challenge, "Feed Me, Seymour!": grand prize winner _andrey, and runners-up Comebach, FoxInABoxPls, chadm73, creadeliefje, and NTScott! Plus, all participants in that Challenge have received a piece of the <a href='http://habitica.wikia.com/wiki/Event_Item_Sequences#Take_This_Armor_Set' target='_blank'>Take This item set</a> if they hadn't completed it already. It is located in your Rewards column. Enjoy!</p>
-        <div class="small mb-3">by Doctor B, the Take This team, Lemoness, Beffymaroo, and SabreCat</div>
-        <div class="promo_take_this center-block"></div>
+        <div class="promo_valentines center-block"></div>
+        <h3>Habitica Celebrates Valentine's Day!</h3>
+        <p>In honor of Habitica's holiday celebrating all forms of love, whether it's friendship, familial, or romantic, some of the shopkeepers are dressed up! Take a look around to enjoy their new festive decorations.</p>
+        <div class="small mb-3">by Beffymaroo and Lemoness</div>
+        <h3>Send a Valentine</h3>
+        <p>Help motivate all of the lovely people in your life by sending them a caring Valentine. For the next week only, Valentines can be purchased for 10 Gold from the <a href='/shops/market'>Market</a>. For spreading love and joy throughout the community, both the giver AND the receiver get a coveted "Adoring Friends" badge. Hooray!</p>
+        <p>While you're there, why not check out the other cards that are available to send to your party? Each one gives a special achievement of its own...</p>
+        <div class="small mb-3">By Lemoness and SabreCat</div>
+        <div class="promo_valentines_potions center-block"></div>
+        <h3>Cupid and Rose Quartz Hatching Potions</h3>
+        <p>There's a new pet breed in town! We're excited to introduce the new Rose Quartz Magic Hatching Potions, and to announce the return of Cupid Potions! Between now and February 28, you can buy these potions from <a href='/shops/market'>the Market</a> and use them to hatch any standard pet egg. (Magic Hatching Potions do not work on Quest Pet eggs.) Magic Potion Pets aren't picky, so they'll happily eat any kind of food that you feed them!</p>
+        <p>After they're gone, it will be at least a year before the Cupid or Rose Quartz Hatching Potions are available again, so be sure to get them now!</p>
+        <div class="small mb-3">by Vampitch,Willow the Witty, and SabreCat</div>
       </div>
       `,
     });
