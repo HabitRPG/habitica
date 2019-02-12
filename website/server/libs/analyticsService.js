@@ -14,7 +14,7 @@ const AMPLITUDE_TOKEN = nconf.get('AMPLITUDE_KEY');
 const GA_TOKEN = nconf.get('GA_ID');
 const GA_POSSIBLE_LABELS = ['gaLabel', 'itemKey'];
 const GA_POSSIBLE_VALUES = ['gaValue', 'gemCost', 'goldCost'];
-const AMPLITUDE_PROPERTIES_TO_SCRUB = ['uuid', 'user', 'purchaseValue', 'gaLabel', 'gaValue', 'headers'];
+const AMPLITUDE_PROPERTIES_TO_SCRUB = ['uuid', 'user', 'purchaseValue', 'gaLabel', 'gaValue', 'headers', 'registeredPlatform'];
 
 const PLATFORM_MAP = Object.freeze({
   'habitica-web': 'Web',
