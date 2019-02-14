@@ -22,8 +22,20 @@ api.getUsernameAutocompletes = {
       return;
     }
 
+    let query = {'auth.local.lowerCaseUsername': {$regex: `^${username}.*`}, 'flags.verifiedUsername': true, 'preferences.searchableUsername': {$ne: false}};
+
+    let context = req.query.context;
+    let id = req.query.id;
+    if (context && id) {
+      if (context === 'party') {
+        query['party._id'] = id;
+      } else if (context === 'guild') {
+        query.guilds = id;
+      }
+    }
+
     let members = await User
-      .find({'auth.local.lowerCaseUsername': {$regex: `^${username}.*`}, 'flags.verifiedUsername': true, 'preferences.searchableUsername': {$ne: false}})
+      .find(query)
       .select(['profile.name', 'contributor', 'auth.local.username'])
       .limit(20)
       .exec();

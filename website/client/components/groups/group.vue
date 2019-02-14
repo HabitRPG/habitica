@@ -30,6 +30,7 @@
     chat(
       :label="$t('chat')",
       :group="group",
+      :autocompleteContext="autocompleteContext"
       :placeholder="!isParty ? $t('chatPlaceholder') : $t('partyChatPlaceholder')",
       @fetchRecentMessages="fetchRecentMessages()"
     )
@@ -367,6 +368,9 @@ export default {
     },
     showNoNotificationsMessage () {
       return this.group.memberCount > this.$store.state.constants.LARGE_GROUP_COUNT_MESSAGE_CUTOFF;
+    },
+    autocompleteContext () {
+      return this.isParty ? 'party' : 'guild';
     },
   },
   mounted () {

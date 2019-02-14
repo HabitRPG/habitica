@@ -55,7 +55,7 @@
   import tierNPC from 'assets/svg/tier-npc.svg';
 
   export default {
-    props: ['label', 'group', 'placeholder'],
+    props: ['label', 'group', 'placeholder', 'autocompleteContext'],
     components: {
       communityGuidelines,
       chatMessage,
@@ -92,7 +92,7 @@
         autocompleteOptions: {
           values: debounce(async (text, cb) => {
             if (text.length > 0) {
-              let suggestions = await axios.get(`/api/v4/members/find/${text}`);
+              let suggestions = await axios.get(`/api/v4/members/find/${text}?context=${this.autocompleteContext}&id=${this.group._id}`);
               cb(suggestions.data.data);
             } else {
               cb([]);

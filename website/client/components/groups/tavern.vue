@@ -10,6 +10,7 @@
     chat(
       :label="$t('tavernChat')",
       :group="group",
+      :autocompleteContext="'tavern'"
       :placeholder="$t('tavernCommunityGuidelinesPlaceholder')",
       @fetchRecentMessages="fetchRecentMessages()"
     )
