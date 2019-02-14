@@ -6,6 +6,7 @@ import {
 } from '../../libs/errors';
 import _ from 'lodash';
 import apiError from '../../libs/apiError';
+import validator from 'validator';
 
 let api = {};
 
@@ -162,30 +163,25 @@ api.getHero = {
   url: '/hall/heroes/:heroId',
   middlewares: [authWithHeaders(), ensureAdmin],
   async handler (req, res) {
-    let heroId = req.params.heroId;
     let validationErrors;
-    let hero;
-
     req.checkParams('heroId', res.t('heroIdRequired')).notEmpty();
 
     validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    req.checkParams('heroId', res.t('heroIdRequired')).isUUID();
+    const heroId = req.params.heroId;
 
-    validationErrors = req.validationErrors();
-
-    if (validationErrors) {
-      hero = await User
-        .findOne({'auth.local.username': heroId})
-        .select(heroAdminFields)
-        .exec();
+    let query;
+    if (validator.isUUID(heroId)) {
+      query = {_id: heroId};
     } else {
-      hero = await User
-        .findById(heroId)
-        .select(heroAdminFields)
-        .exec();
+      query = {'auth.local.username': heroId};
     }
+
+    const hero = await User
+      .findOne(query)
+      .select(heroAdminFields)
+      .exec();
 
     if (!hero) throw new NotFound(res.t('userWithIDNotFound', {userId: heroId}));
     let heroRes = hero.toJSON({minimize: true});
