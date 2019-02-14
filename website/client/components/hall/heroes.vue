@@ -15,7 +15,7 @@
 
       .row
         .form.col-6(v-if='hero && hero.profile', submit='saveHero(hero)')
-          router-link(:to="{'name': 'userProfile', 'params': {'userId': msg.uuid}}")
+          router-link(:to="{'name': 'userProfile', 'params': {'userId': hero._id}}")
             h3 {{hero.profile.name}}
           .form-group
             input.form-control(type='text', v-model='hero.contributor.text', :placeholder="$t('contribTitle')")
@@ -23,10 +23,10 @@
             label {{ $t('contribLevel') }}
             input.form-control(type='number', v-model='hero.contributor.level')
             small {{ $t('contribHallText') }}
-            |&nbsp;
-            a(target='_blank', href='https://trello.com/c/wkFzONhE/277-contributor-gear') {{ $t('moreDetails') }}
-            |,&nbsp;
-            a(target='_blank', href='https://github.com/HabitRPG/habitica/issues/3801') {{ $t('moreDetails2') }}
+              |&nbsp;
+              a(target='_blank', href='https://trello.com/c/wkFzONhE/277-contributor-gear') {{ $t('moreDetails') }}
+              |,&nbsp;
+              a(target='_blank', href='https://github.com/HabitRPG/habitica/issues/3801') {{ $t('moreDetails2') }}
           .form-group
             textarea.form-control(cols=5, :placeholder="$t('contributions')", v-model='hero.contributor.contributions')
             //include ../../shared/formattiv-help
@@ -35,7 +35,9 @@
           .form-group
             label {{ $t('balance') }}
             input.form-control(type='number', step="any", v-model='hero.balance')
-            small {{ '`user.balance`' + this.$t('notGems') }}
+            small
+              span ‘{{ hero.balance }}’&nbsp;
+              span(v-html='$t("notGems")')
           .accordion
             .accordion-group(heading='Items')
               h4.expand-toggle(:class="{'open': expandItems}", @click="expandItems = !expandItems") Update Item
@@ -84,11 +86,11 @@
           tr(v-for='(hero, index) in heroes')
             td
               span(v-if='hero.contributor && hero.contributor.admin', :popover="$t('gamemaster')", popover-trigger='mouseenter', popover-placement='right')
-                a.label.label-default(:class='userLevelStyle(hero)', @click='clickMember(hero, true)')
+                .label.label-default(:class='userLevelStyle(hero)')
                   | {{hero.profile.name}}&nbsp;
                   //- span(v-class='userAdminGlyphiconStyle(hero)')
               span(v-if='!hero.contributor || !hero.contributor.admin')
-                a.label.label-default(v-if='hero.profile', v-class='userLevelStyle(hero)', @click='clickMember(hero, true)') {{hero.profile.name}}
+                .label.label-default(v-if='hero.profile', v-class='userLevelStyle(hero)') {{hero.profile.name}}
             td(v-if='user.contributor.admin', @click='populateContributorInput(hero._id, index)').btn-link {{hero._id}}
             td {{hero.contributor.level}}
             td {{hero.contributor.text}}
