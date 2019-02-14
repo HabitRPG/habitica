@@ -80,7 +80,7 @@
     "buyGemsAllow1": "你可以购买",
     "buyGemsAllow2": "本月更多宝石",
     "purchaseGemsSeparately": "购买更多的宝石",
-    "subFreeGemsHow": "Habitica的游戏玩家获取免费的宝石的方法有，通过赢得<a href=\"/challenges/findChallenges\">挑战</a>，获取荣誉宝石奖励；或者通过<a href=\"http://habitica.wikia.com/wiki/Contributing_to_Habitica\">帮助开发Habitica，获得捐助者宝石奖励。</a>",
+    "subFreeGemsHow": "Habitica的游戏玩家获取免费的宝石的方法有，通过赢得<a href=\"/challenges/findChallenges\">挑战</a>，获取荣誉宝石奖励；或者通过<a href=\"http://habitica.fandom.com/wiki/Contributing_to_Habitica\">帮助开发Habitica，获得捐助者宝石奖励。</a>",
     "seeSubscriptionDetails": "点击<a href='/user/settings/subscription'>设置中的捐助</a>查看你捐助的详细信息！",
     "timeTravelers": "时间旅行者",
     "timeTravelersTitleNoSub": "<%= linkStartTyler %>Tyler<%= linkEnd %> 和 <%= linkStartVicky %>Vicky<%= linkEnd %>",

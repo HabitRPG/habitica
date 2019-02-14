@@ -239,10 +239,7 @@ export default {
 
       // Open the modal only if the data is available
       if (profile && !profile.rejected) {
-        this.$root.$emit('habitica:show-profile', {
-          user: profile,
-          startingPage: 'profile',
-        });
+        this.$router.push({name: 'userProfile', params: {userId: profile._id}});
       }
     },
     messageLiked (message) {

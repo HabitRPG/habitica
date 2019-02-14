@@ -2,7 +2,7 @@
 div
   inbox-modal
   creator-intro
-  profile
+  profileModal
   b-navbar.topbar.navbar-inverse.static-top.navbar-expand-lg(type="dark", :class="navbarZIndexClass")
     b-navbar-brand.brand
       .logo.svg-icon.d-none.d-xl-block(v-html="icons.logo")
@@ -54,8 +54,8 @@ div
             router-link.topbar-dropdown-item.dropdown-item(to="/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac") {{ $t('reportBug') }}
             router-link.topbar-dropdown-item.dropdown-item(to="/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a") {{ $t('askAQuestion') }}
             a.topbar-dropdown-item.dropdown-item(href="https://trello.com/c/odmhIqyW/440-read-first-table-of-contents", target='_blank') {{ $t('requestAF') }}
-            a.topbar-dropdown-item.dropdown-item(href="http://habitica.wikia.com/wiki/Contributing_to_Habitica", target='_blank') {{ $t('contributing') }}
-            a.topbar-dropdown-item.dropdown-item(href="http://habitica.wikia.com/wiki/Habitica_Wiki", target='_blank') {{ $t('wiki') }}
+            a.topbar-dropdown-item.dropdown-item(href="http://habitica.fandom.com/wiki/Contributing_to_Habitica", target='_blank') {{ $t('contributing') }}
+            a.topbar-dropdown-item.dropdown-item(href="http://habitica.fandom.com/wiki/Habitica_Wiki", target='_blank') {{ $t('wiki') }}
             a.topbar-dropdown-item.dropdown-item(@click='modForm()') {{ $t('contactForm') }}
       .currency-tray.form-inline
         .item-with-icon(v-if="userHourglasses > 0")
@@ -346,7 +346,7 @@ import logo from 'assets/svg/logo.svg';
 import InboxModal from '../userMenu/inbox.vue';
 import notificationMenu from './notificationsDropdown';
 import creatorIntro from '../creatorIntro';
-import profile from '../userMenu/profile';
+import profileModal from '../userMenu/profileModal';
 import userDropdown from './userDropdown';
 
 export default {
@@ -355,7 +355,7 @@ export default {
     InboxModal,
     notificationMenu,
     creatorIntro,
-    profile,
+    profileModal,
   },
   data () {
     return {

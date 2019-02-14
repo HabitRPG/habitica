@@ -21,7 +21,7 @@
     "rebirthOrb": "Used an Orb o' Rebirth t' start o'er aft attainin' Level <%= level %>.",
     "rebirthOrb100": "Used an Orb o' Rebirth t' start over aft attainin' Level 100 or higher.",
     "rebirthOrbNoLevel": "Used an Orb o' Rebirth t' start o'er.",
-    "rebirthPop": "Instantly restart yer character as a Level 1 Mercenary while retainin' achievements, treasures, 'n equipment. Yer tasks 'n their history will remain but they'll be reset t' yellow. Yer streaks will be cast overboard 'cept from challenge tasks. Yer Doubloons, Experience, Mana, an' the effects o' all Skills will be cast overboard. All o' this will take effect immediately. Fer more information, explore th' wiki's <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb o' Rebirth</a> page.",
+    "rebirthPop": "Instantly restart yer character as a Level 1 Mercenary while retainin' achievements, treasures, 'n equipment. Yer tasks 'n their history will remain but they'll be reset t' yellow. Yer streaks will be cast overboard 'cept from challenge tasks. Yer Doubloons, Experience, Mana, an' the effects o' all Skills will be cast overboard. All o' this will take effect immediately. Fer more information, explore th' wiki's <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orb o' Rebirth</a> page.",
     "rebirthName": "Orb o' Rebirth",
     "reborn": "Reborn, max level <%= reLevel %>",
     "confirmReborn": "Be ye positive?",

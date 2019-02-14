@@ -64,10 +64,10 @@
     "playerTiers": "玩家層級",
     "tier": "層級",
     "visitHeroes": "前往英雄殿堂(包含貢獻者和贊助者)",
-    "conLearn": "<a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'>了解更多貢獻者獎勵</a>",
+    "conLearn": "<a href='http://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'>了解更多貢獻者獎勵</a>",
     "conLearnHow": "了解如何為 Habitica 作出貢獻",
-    "conLearnURL": "http://habitica.wikia.com/wiki/Contributing_to_Habitica",
-    "conRewardsURL": "http://habitica.wikia.com/wiki/Contributor_Rewards",
+    "conLearnURL": "http://habitica.fandom.com/wiki/Contributing_to_Habitica",
+    "conRewardsURL": "http://habitica.fandom.com/wiki/Contributor_Rewards",
     "surveysSingle": "可藉由填寫調查問卷或是進行大型測試來幫助 Habitica 變得更好。我們由衷地感謝您!",
     "surveysMultiple": "已在<%= count %>次場合下幫助 Habitica 成長。例如透過填寫調查問卷、或在一次大型測試中提供幫助。我們由衷地感謝您!",
     "currentSurvey": "目前的調查表",
@@ -76,5 +76,5 @@
     "blurbGuildsPage": "公會是擁有與共同興趣的玩家所所創立的聊天群組。快來尋找對您有興趣的公會並加入他們吧!",
     "blurbChallenges": "挑戰是由您的同儕夥伴所創立的。參與挑戰將加入一些任務加到您的任務列表中。贏得挑戰不但可獲得成就，還經常可獲得鑽石獎勵喔!",
     "blurbHallPatrons": "這裡是贊助名人堂。我們在這裡紀念從草創時期就開始在 Kickstarter 上贊助 Habitica 的偉大冒險家們。我們由衷地感謝他們幫助讓 Habitica 能正式推出!",
-    "blurbHallContributors": "這裡是貢獻者殿堂。我們在這裡紀念對開源項目有所貢獻的人們。包含在程式、美術、音樂、著作方面，或是熱忠於到處幫忙的人都列於其中。他們已經獲得 <a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'> 鑽石、特殊裝備</a>、與<a href='http://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>尊貴的頭銜</a>。您也可以為 Habitica 做出貢獻!<a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'>點此來查看詳細資訊</a>。"
+    "blurbHallContributors": "這裡是貢獻者殿堂。我們在這裡紀念對開源項目有所貢獻的人們。包含在程式、美術、音樂、著作方面，或是熱忠於到處幫忙的人都列於其中。他們已經獲得 <a href='http://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'> 鑽石、特殊裝備</a>、與<a href='http://habitica.fandom.com/wiki/Contributor_Titles' target='_blank'>尊貴的頭銜</a>。您也可以為 Habitica 做出貢獻!<a href='http://habitica.fandom.com/wiki/Contributing_to_Habitica' target='_blank'>點此來查看詳細資訊</a>。"
 }
