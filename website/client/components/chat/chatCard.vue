@@ -195,10 +195,12 @@ export default {
     const links = this.$refs.markdownContainer.getElementsByTagName('a');
     for (let i = 0; i < links.length; i++) {
       const link = links[i];
-      links[i].onclick = (ev) => {
-        ev.preventDefault();
-        this.$router.push({ path: link.getAttribute('href')});
-      };
+      if (links[i].getAttribute('href').startsWith('/profile/')) {
+        links[i].onclick = (ev) => {
+          ev.preventDefault();
+          this.$router.push({ path: link.getAttribute('href')});
+        };
+      }
     }
   },
   methods: {
