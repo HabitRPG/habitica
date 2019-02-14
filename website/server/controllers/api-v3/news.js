@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'VALENTINE’S DAY CELEBRATION! INCLUDING CUPID AND ROSE QUARTZ HATCHING POTIONS';
+const LAST_ANNOUNCEMENT_TITLE = 'BLOG POSTS! WIKI AND GUILD SPOTLIGHTS';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,23 +30,18 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>2/12/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>2/14/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_valentines center-block"></div>
-        <h3>Habitica Celebrates Valentine's Day!</h3>
-        <p>In honor of Habitica's holiday celebrating all forms of love, whether it's friendship, familial, or romantic, some of the shopkeepers are dressed up! Take a look around to enjoy their new festive decorations.</p>
-        <div class="small mb-3">by Beffymaroo and Lemoness</div>
-        <h3>Send a Valentine</h3>
-        <p>Help motivate all of the lovely people in your life by sending them a caring Valentine. For the next week only, Valentines can be purchased for 10 Gold from the <a href='/shops/market'>Market</a>. For spreading love and joy throughout the community, both the giver AND the receiver get a coveted "Adoring Friends" badge. Hooray!</p>
-        <p>While you're there, why not check out the other cards that are available to send to your party? Each one gives a special achievement of its own...</p>
-        <div class="small mb-3">By Lemoness and SabreCat</div>
-        <div class="promo_valentines_potions center-block"></div>
-        <h3>Cupid and Rose Quartz Hatching Potions</h3>
-        <p>There's a new pet breed in town! We're excited to introduce the new Rose Quartz Magic Hatching Potions, and to announce the return of Cupid Potions! Between now and February 28, you can buy these potions from <a href='/shops/market'>the Market</a> and use them to hatch any standard pet egg. (Magic Hatching Potions do not work on Quest Pet eggs.) Magic Potion Pets aren't picky, so they'll happily eat any kind of food that you feed them!</p>
-        <p>After they're gone, it will be at least a year before the Cupid or Rose Quartz Hatching Potions are available again, so be sure to get them now!</p>
-        <div class="small mb-3">by Vampitch,Willow the Witty, and SabreCat</div>
+        <div class="scene_office center-block"></div>
+        <h3>Blog Post: Group Plans</h3>
+        <p>This month's <a href='https://habitica.wordpress.com/2019/02/06/group-plans/' target='_blank'>featured Wiki article</a> is about Group Plans! We hope that it will help you as share tasks with friends and family. Be sure to check it out, and let us know what you think by reaching out on <a href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a href='https://facebook.com/habitica' target='_blank'>Facebook</a>.</p>
+        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
+        <div class="scene_coding center-block"></div>
+        <h3>Guild Spotlight: More New and Notable Guilds</h3>
+        <p>There's a new <a href='https://habitica.wordpress.com/2019/02/14/new-and-notable-guild-spotlight-2/' target='_blank'>Guild Spotlight on the blog</a> that highlights some of the new movers and shakers in our community! Check it out now to find some cool new places to hang out in Habitica with folks who share your interests and goals.</p>
+        <div class="small mb-3">by shanaqui</div>
       </div>
       `,
     });
