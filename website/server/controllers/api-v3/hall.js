@@ -173,7 +173,7 @@ api.getHero = {
 
     let query;
     if (validator.isUUID(heroId)) {
-      query = {'_id': heroId};
+      query = {_id: heroId};
     } else {
       query = {'auth.local.username': heroId};
     }
