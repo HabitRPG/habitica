@@ -3,6 +3,7 @@ div
   inbox-modal
   creator-intro
   profileModal
+  send-gems-modal
   b-navbar.topbar.navbar-inverse.static-top.navbar-expand-lg(type="dark", :class="navbarZIndexClass")
     b-navbar-brand.brand
       .logo.svg-icon.d-none.d-xl-block(v-html="icons.logo")
@@ -343,19 +344,21 @@ import syncIcon from 'assets/svg/sync.svg';
 import svgHourglasses from 'assets/svg/hourglass.svg';
 import logo from 'assets/svg/logo.svg';
 
+import creatorIntro from '../creatorIntro';
 import InboxModal from '../userMenu/inbox.vue';
 import notificationMenu from './notificationsDropdown';
-import creatorIntro from '../creatorIntro';
 import profileModal from '../userMenu/profileModal';
+import sendGemsModal from 'client/components/payments/sendGemsModal';
 import userDropdown from './userDropdown';
 
 export default {
   components: {
-    userDropdown,
+    creatorIntro,
     InboxModal,
     notificationMenu,
-    creatorIntro,
     profileModal,
+    sendGemsModal,
+    userDropdown,
   },
   data () {
     return {

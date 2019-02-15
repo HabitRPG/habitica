@@ -7,14 +7,14 @@ describe('highlightUserAndEmail', () => {
 
     const result = highlightUsers(text, 'user', 'displayedUser');
 
-    expect(result).to.contain('<span class="at-highlight at-text">@displayedUser</span>');
+    expect(result).to.contain('<span class="at-text at-highlight">@displayedUser</span>');
   });
 
   it('highlights username', () => {
     const text = 'hello @user';
 
     const result = highlightUsers(text, 'user', 'displayedUser');
-    expect(result).to.contain('<span class="at-highlight at-text">@user</span>');
+    expect(result).to.contain('<span class="at-text at-highlight">@user</span>');
   });
 
   it('not highlights any email', () => {
@@ -32,8 +32,8 @@ describe('highlightUserAndEmail', () => {
 
     const result = highlightUsers(text, 'use', 'mentions');
 
-    expect(result).to.contain('<span class="at-highlight at-text">@mentions</span>');
-    expect(result).to.contain('<span class="at-highlight at-text">@use</span>');
-    expect(result).to.not.contain('<span class="at-highlight at-text">@mentions</span>.com');
+    expect(result).to.contain('<span class="at-text at-highlight">@mentions</span>');
+    expect(result).to.contain('<span class="at-text at-highlight">@use</span>');
+    expect(result).to.not.contain('<span class="at-text at-highlight">@mentions</span>.com');
   });
 });

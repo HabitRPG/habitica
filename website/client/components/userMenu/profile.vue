@@ -136,7 +136,6 @@
     v-show='selectedPage === "stats"',
     :showAllocation='showAllocation()',
     v-if='user.preferences')
-  send-gems-modal(:userReceivingGems='userReceivingGems')
 </template>
 
 <style lang="scss" >
@@ -388,7 +387,6 @@ import { mapState } from 'client/libs/store';
 import cloneDeep from 'lodash/cloneDeep';
 
 import MemberDetails from '../memberDetails';
-import sendGemsModal from 'client/components/payments/sendGemsModal';
 import markdown from 'client/directives/markdown';
 import achievementsLib from '../../../common/script/libs/achievements';
 // @TODO: EMAILS.COMMUNITY_MANAGER_EMAIL
@@ -414,7 +412,6 @@ export default {
     markdown,
   },
   components: {
-    sendGemsModal,
     MemberDetails,
     profileStats,
   },
@@ -434,7 +431,6 @@ export default {
       }),
       adminToolsLoaded: false,
       userIdToMessage: '',
-      userReceivingGems: '',
       editing: false,
       editingProfile: {
         name: '',
@@ -592,8 +588,7 @@ export default {
       axios.post(`/api/v4/user/block/${this.user._id}`);
     },
     openSendGemsModal () {
-      this.userReceivingGems = this.user;
-      this.$root.$emit('bv::show::modal', 'send-gems');
+      this.$root.$emit('habitica::send-gems', this.user);
     },
     adminRevokeChat () {
       if (!this.hero.flags) {
