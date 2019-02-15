@@ -1009,7 +1009,7 @@ export default {
       }
     },
     handleClick (e) {
-      if (this.$refs.popup && !this.$refs.popup.$el.contains(e.target)) {
+      if (this.$refs.popup && !this.$refs.popup.$el.parentNode.contains(e.target)) {
         this.closeTagsPopup();
       }
     },

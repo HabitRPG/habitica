@@ -9,15 +9,14 @@ const finalMentionRegEx = new RegExp(`${optionalAnchorTagRegExStr}${mentionRegEx
 export function highlightUsers (text, userName, displayName) {
   const currentUser = [`@${userName}`, `@${displayName}`].map(escapeRegExp);
 
-
   text = text.replace(finalMentionRegEx, (fullMatched, preMention, mentionStr, postMention) => {
     if (preMention && preMention.includes('<a') || Boolean(postMention)) {
       return fullMatched;
     }
 
-    const isUserMention = currentUser.includes(mentionStr) ? 'at-text' : '';
+    const isUserMention = currentUser.includes(mentionStr) ? 'at-highlight' : '';
 
-    return fullMatched.replace(mentionStr, `<span class="at-highlight ${isUserMention}">${mentionStr}</span>`);
+    return fullMatched.replace(mentionStr, `<span class="at-text ${isUserMention}">${mentionStr}</span>`);
   });
 
   return text;
