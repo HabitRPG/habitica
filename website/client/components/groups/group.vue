@@ -370,7 +370,13 @@ export default {
       return this.group.memberCount > this.$store.state.constants.LARGE_GROUP_COUNT_MESSAGE_CUTOFF;
     },
     autocompleteContext () {
-      return this.isParty ? 'party' : 'guild';
+      if (this.isParty) {
+        return 'party';
+      } else if (this.group.privacy === 'public') {
+        return 'publicGuild';
+      } else {
+        return 'privateGuild';
+      }
     },
   },
   mounted () {

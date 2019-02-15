@@ -29,7 +29,7 @@ api.getUsernameAutocompletes = {
     if (context && id) {
       if (context === 'party') {
         query['party._id'] = id;
-      } else if (context === 'guild') {
+      } else if (context === 'privateGuild') {
         query.guilds = id;
       }
     }
