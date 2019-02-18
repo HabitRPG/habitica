@@ -146,7 +146,7 @@
   },
   "devDependencies": {
     "@vue/test-utils": "^1.0.0-beta.29",
-    "babel-plugin-istanbul": "^4.1.6",
+    "babel-plugin-istanbul": "^5.1.1",
     "babel-plugin-syntax-object-rest-spread": "^6.13.0",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
