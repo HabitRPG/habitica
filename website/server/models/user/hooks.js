@@ -130,9 +130,9 @@ function _setUpNewUser (user) {
 
   const testGroup = Math.random();
   if (testGroup < 0.5) {
-    user._ABtests.emailSplit = '20190222_welcome';
+    user._ABtests.welcomeEmailSplit = 'welcome-v2';
   } else {
-    user._ABtests.emailSplit = '20190222_welcome-v2';
+    user._ABtests.welcomeEmailSplit = 'welcome-v2b';
   }
 
   if (user.registeredThrough === 'habitica-web') {
