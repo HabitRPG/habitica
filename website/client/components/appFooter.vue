@@ -159,6 +159,8 @@
     .social-circle {
       height: 32px !important;
       width: 32px !important;
+
+      margin-left: 0.75em !important;
     }
   }
 
