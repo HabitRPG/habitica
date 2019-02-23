@@ -69,7 +69,7 @@
       span.badge.badge-pill.badge-default {{countOwnedAnimals(petGroups[0], 'pet')}}
 
     div(v-for="(petGroup, index) in petGroups",
-      v-if="viewOptions[petGroup.key].selected",
+      v-if="!anyFilterSelected || viewOptions[petGroup.key].selected",
       :key="petGroup.key")
       h4(v-if="viewOptions[petGroup.key].animalCount !== 0") {{ petGroup.label }}
 
@@ -103,7 +103,7 @@
       span.badge.badge-pill.badge-default {{countOwnedAnimals(mountGroups[0], 'mount')}}
 
     div(v-for="mountGroup in mountGroups",
-      v-if="viewOptions[mountGroup.key].selected",
+      v-if="!anyFilterSelected || viewOptions[mountGroup.key].selected",
       :key="mountGroup.key")
       h4(v-if="viewOptions[mountGroup.key].animalCount != 0") {{ mountGroup.label }}
 
@@ -469,7 +469,7 @@
 
         petGroups.map((petGroup) => {
           this.$set(this.viewOptions, petGroup.key, {
-            selected: true,
+            selected: false,
             animalCount: 0,
           });
         });
@@ -514,7 +514,7 @@
 
         mountGroups.map((mountGroup) => {
           this.$set(this.viewOptions, mountGroup.key, {
-            selected: true,
+            selected: false,
             animalCount: 0,
           });
         });
@@ -537,6 +537,9 @@
             }),
           },
         ];
+      },
+      anyFilterSelected () {
+        return Object.values(this.viewOptions).some(g => g.selected);
       },
     },
     methods: {
