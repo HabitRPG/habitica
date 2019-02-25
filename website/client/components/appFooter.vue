@@ -58,8 +58,6 @@
                 a(:href="getDataDisplayToolUrl", target='_blank') {{ $t('dataDisplayTool') }}
               li
                 a(href='http://habitica.fandom.com/wiki/Guidance_for_Blacksmiths', target='_blank') {{ $t('guidanceForBlacksmiths') }}
-              li
-                a(href='http://devs.habitica.com/', target='_blank') {{ $t('devBlog') }}
           .col-6.social
             h3 {{ $t('footerSocial') }}
             .icons
