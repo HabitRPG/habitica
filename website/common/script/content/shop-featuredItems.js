@@ -17,7 +17,7 @@ const featuredItems = {
     },
     {
       type: 'card',
-      path: 'cardTypes.valentine',
+      path: 'cardTypes.goodluck',
     },
   ],
   quests: [

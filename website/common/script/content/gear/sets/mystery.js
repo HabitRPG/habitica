@@ -400,6 +400,12 @@ let eyewear = {
     mystery: '201701',
     value: 0,
   },
+  201902: {
+    text: t('eyewearMystery201902Text'),
+    notes: t('eyewearMystery201902Notes'),
+    mystery: '201902',
+    value: 0,
+  },
   301404: {
     text: t('eyewearMystery301404Text'),
     notes: t('eyewearMystery301404Notes'),
@@ -779,6 +785,12 @@ let shield = {
     text: t('shieldMystery201802Text'),
     notes: t('shieldMystery201802Notes'),
     mystery: '201802',
+    value: 0,
+  },
+  201902: {
+    text: t('shieldMystery201902Text'),
+    notes: t('shieldMystery201902Notes'),
+    mystery: '201902',
     value: 0,
   },
   301405: {
