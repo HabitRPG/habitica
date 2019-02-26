@@ -398,14 +398,14 @@ api.getUserChallenges = {
                   input: '$categories',
                   as: 'cat',
                   cond: {
-                    $eq: ['$$cat.slug', 'habitica_official']
-                  }
-                }
-              }
+                    $eq: ['$$cat.slug', 'habitica_official'],
+                  },
+                },
+              },
             },
-            0
-          ]
-        }
+            0,
+          ],
+        },
       })
       .sort('-isOfficial -createdAt');
 
@@ -483,14 +483,14 @@ api.getGroupChallenges = {
                   input: '$categories',
                   as: 'cat',
                   cond: {
-                    $eq: ['$$cat.slug', 'habitica_official']
-                  }
-                }
-              }
+                    $eq: ['$$cat.slug', 'habitica_official'],
+                  },
+                },
+              },
             },
-            0
-          ]
-        }
+            0,
+          ],
+        },
       })
       .sort('-isOfficial -createdAt')
       // .populate('leader', nameFields) // Only populate the leader as the group is implicit
