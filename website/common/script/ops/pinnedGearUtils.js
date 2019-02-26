@@ -27,6 +27,15 @@ function pathExistsInArray (array, path) {
   });
 }
 
+function checkForNullEntries (array) {
+  return array.filter(e => Boolean(e));
+}
+
+function checkPinnedAreasForNullEntries (user) {
+  user.pinnedItems = checkForNullEntries(user.pinnedItems);
+  user.unpinnedItems = checkForNullEntries(user.unpinnedItems);
+}
+
 function selectGearToPin (user) {
   let changes = [];
 
@@ -41,11 +50,10 @@ function selectGearToPin (user) {
   return sortBy(changes, (change) => sortOrder[change.type]);
 }
 
-
 function addPinnedGear (user, type, path) {
   const foundIndex = pathExistsInArray(user.pinnedItems, path);
 
-  if (foundIndex === -1) {
+  if (foundIndex === -1 && type && path) {
     user.pinnedItems.push({
       type,
       path,
@@ -115,6 +123,9 @@ const PATHS_WITHOUT_ITEM = ['special.gems', 'special.rebirth_orb', 'special.fort
  * @returns {boolean} TRUE added the item / FALSE removed it
  */
 function togglePinnedItem (user, {item, type, path}, req = {}) {
+  // ensure no nullable entries exist
+  checkPinnedAreasForNullEntries(user);
+
   let arrayToChange;
   let officialPinnedItems = getOfficialPinnedItems(user);
 
@@ -176,5 +187,6 @@ module.exports = {
   togglePinnedItem,
   removeItemByPath,
   selectGearToPin,
+  checkPinnedAreasForNullEntries,
   isPinned,
 };
