@@ -129,10 +129,14 @@ function _setUpNewUser (user) {
   user.preferences.background = 'violet';
 
   const testGroup = Math.random();
-  if (testGroup < 0.5) {
+  if (testGroup < 0.25) {
     user._ABtests.welcomeEmailSplit = 'welcome-v2';
-  } else {
+  } else if (testGroup < 0.5) {
     user._ABtests.welcomeEmailSplit = 'welcome-v2b';
+  } else if (testGroup < 0.75) {
+    user._ABtests.welcomeEmailSplit = 'welcome-v2c';
+  } else {
+    user._ABtests.welcomeEmailSplit = 'welcome-v2d';
   }
 
   if (user.registeredThrough === 'habitica-web') {
