@@ -4,11 +4,11 @@ div
   creator-intro
   profileModal
   send-gems-modal
-  b-navbar.topbar.navbar-inverse.static-top.navbar-expand-lg(type="dark", :class="navbarZIndexClass")
+  b-navbar.topbar.navbar-inverse.static-top(toggleable="lg", type="dark", :class="navbarZIndexClass")
     b-navbar-brand.brand
       .logo.svg-icon.d-none.d-xl-block(v-html="icons.logo")
       .svg-icon.gryphon.d-xs-block.d-xl-none
-    b-nav-toggle(target='menu_collapse').menu-toggle
+    b-navbar-toggle(target='menu_collapse').menu-toggle
     .quick-menu.mobile-only.form-inline
       a.item-with-icon(@click="sync", v-b-tooltip.hover.bottom="$t('sync')")
         .top-menu-icon.svg-icon(v-html="icons.sync")
