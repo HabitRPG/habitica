@@ -386,39 +386,52 @@ api.getUserChallenges = {
       query.categories = { $elemMatch: { slug: {$in: categorySlugs} } };
     }
 
-    let mongoQuery = Challenge.find(query)
-      .sort('-createdAt');
+    // Ensure that official challenges are always first
+    let mongoQuery = Challenge.aggregate()
+      .match(query)
+      .addFields({
+        isOfficial: {
+          $gt: [
+            {
+              $size: {
+                $filter: {
+                  input: '$categories',
+                  as: 'cat',
+                  cond: {
+                    $eq: ['$$cat.slug', 'habitica_official']
+                  }
+                }
+              }
+            },
+            0
+          ]
+        }
+      })
+      .sort('-isOfficial -createdAt');
 
     if (page) {
       mongoQuery = mongoQuery
-        .limit(CHALLENGES_PER_PAGE)
-        .skip(CHALLENGES_PER_PAGE * page);
+        .skip(CHALLENGES_PER_PAGE * page)
+        .limit(CHALLENGES_PER_PAGE);
     }
 
     // see below why we're not using populate
     // .populate('group', basicGroupFields)
     // .populate('leader', nameFields)
-    const challenges = await mongoQuery.exec();
-
-
-    let resChals = challenges.map(challenge => challenge.toJSON());
-
-    resChals = _.orderBy(resChals, [challenge => {
-      return challenge.categories.map(category => category.slug).includes('habitica_official');
-    }], ['desc']);
+    let challenges = await mongoQuery.exec();
 
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
-    await Promise.all(resChals.map((chal, index) => {
+    await Promise.all(challenges.map((chal, index) => {
       return Promise.all([
         User.findById(chal.leader).select(nameFields).exec(),
         Group.findById(chal.group).select(basicGroupFields).exec(),
       ]).then(populatedData => {
-        resChals[index].leader = populatedData[0] ? populatedData[0].toJSON({minimize: true}) : null;
-        resChals[index].group = populatedData[1] ? populatedData[1].toJSON({minimize: true}) : null;
+        challenges[index].leader = populatedData[0] ? populatedData[0].toJSON({minimize: true}) : null;
+        challenges[index].group = populatedData[1] ? populatedData[1].toJSON({minimize: true}) : null;
       });
     }));
 
-    res.respond(200, resChals);
+    res.respond(200, challenges);
   },
 };
 
@@ -458,29 +471,43 @@ api.getGroupChallenges = {
     const group = await Group.getGroup({ user, groupId });
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    const challenges = await Challenge.find({ group: groupId })
-      .sort('-createdAt')
+    // Ensure that official challenges are always first
+    let challenges = await Challenge.aggregate()
+      .match({ group: groupId })
+      .addFields({
+        isOfficial: {
+          $gt: [
+            {
+              $size: {
+                $filter: {
+                  input: '$categories',
+                  as: 'cat',
+                  cond: {
+                    $eq: ['$$cat.slug', 'habitica_official']
+                  }
+                }
+              }
+            },
+            0
+          ]
+        }
+      })
+      .sort('-isOfficial -createdAt')
       // .populate('leader', nameFields) // Only populate the leader as the group is implicit
       .exec();
 
-    let resChals = challenges.map(challenge => challenge.toJSON());
-
-    resChals = _.orderBy(resChals, [challenge => {
-      return challenge.categories.map(category => category.slug).includes('habitica_official');
-    }], ['desc']);
-
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
-    await Promise.all(resChals.map((chal, index) => {
+    await Promise.all(challenges.map((chal, index) => {
       return User
         .findById(chal.leader)
         .select(nameFields)
         .exec()
         .then(populatedLeader => {
-          resChals[index].leader = populatedLeader ? populatedLeader.toJSON({minimize: true}) : null;
+          challenges[index].leader = populatedLeader ? populatedLeader.toJSON({minimize: true}) : null;
         });
     }));
 
-    res.respond(200, resChals);
+    res.respond(200, challenges);
   },
 };
 
