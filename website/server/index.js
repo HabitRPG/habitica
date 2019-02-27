@@ -12,15 +12,13 @@ const setupNconf = require('./libs/setupNconf');
 setupNconf();
 const nconf = require('nconf');
 
-const IS_PROD = nconf.get('IS_PROD');
-const STACKDRIVER_TRACING_ENABLED = nconf.get('ENABLE_STACKDRIVER_TRACING') === 'true';
-if (IS_PROD && STACKDRIVER_TRACING_ENABLED) {
-  require('@google-cloud/trace-agent').start(); // eslint-disable-line global-require
-}
+// Initialize @google-cloud/trace-agent
+require('./libs/gcpTraceAgent');
 
 const cluster = require('cluster');
 const logger = require('./libs/logger');
 
+const IS_PROD = nconf.get('IS_PROD');
 const IS_DEV = nconf.get('IS_DEV');
 const CORES = Number(nconf.get('WEB_CONCURRENCY')) || 0;
 
