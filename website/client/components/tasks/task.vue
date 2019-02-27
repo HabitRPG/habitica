@@ -20,7 +20,7 @@
               v-if="isUser && !isRunningYesterdailies",
               :right="task.type === 'reward'",
               ref="taskDropdown",
-              v-b-tooltip.hover.top="$t('showMore')"
+              v-b-tooltip.hover.top="$t('options')"
             )
               div(slot="dropdown-toggle", draggable=false)
                 .svg-icon.dropdown-icon(v-html="icons.menu")
