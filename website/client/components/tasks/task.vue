@@ -234,7 +234,7 @@
     overflow-wrap: break-word;
 
     &.has-checklist {
-      padding-bottom: 8px;
+      padding-bottom: 2px;
     }
   }
 
