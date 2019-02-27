@@ -141,6 +141,11 @@
     min-width: 0px;
     overflow-wrap: break-word;
 
+    // markdown p-tag, can't find without /deep/
+    /deep/ p {
+      margin-bottom: 0;
+    }
+
     &.has-notes {
       padding-bottom: 4px;
     }
