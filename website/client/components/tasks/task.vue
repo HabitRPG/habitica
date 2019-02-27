@@ -432,7 +432,7 @@
     border-left: none;
   }
 
-  .task-control, .reward-control {
+  .task-control:not(.task-disabled-habit-control-inner), .reward-control {
     cursor: pointer;
   }
 
