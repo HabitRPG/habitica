@@ -290,7 +290,7 @@
     margin-bottom: -3px;
     min-height: 0px;
     width: 100%;
-    margin-left: 8px;
+    margin-left: 0;
     padding-right: 20px;
     overflow-wrap: break-word;
 
