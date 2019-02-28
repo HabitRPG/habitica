@@ -26,6 +26,7 @@ import {
   getChallengeGroupResponse,
   createChallenge,
   cleanUpTask,
+  createChallengeQuery,
 } from '../../libs/challenges';
 import apiError from '../../libs/apiError';
 
@@ -387,28 +388,7 @@ api.getUserChallenges = {
     }
 
     // Ensure that official challenges are always first
-    let mongoQuery = Challenge.aggregate()
-      .match(query)
-      .addFields({
-        isOfficial: {
-          $gt: [
-            {
-              $size: {
-                $filter: {
-                  input: '$categories',
-                  as: 'cat',
-                  cond: {
-                    $eq: ['$$cat.slug', 'habitica_official'],
-                  },
-                },
-              },
-            },
-            0,
-          ],
-        },
-      })
-      .sort('-isOfficial -createdAt');
-
+    let mongoQuery = createChallengeQuery(query);
     if (page) {
       mongoQuery = mongoQuery
         .skip(CHALLENGES_PER_PAGE * page)
@@ -472,27 +452,7 @@ api.getGroupChallenges = {
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     // Ensure that official challenges are always first
-    let challenges = await Challenge.aggregate()
-      .match({ group: groupId })
-      .addFields({
-        isOfficial: {
-          $gt: [
-            {
-              $size: {
-                $filter: {
-                  input: '$categories',
-                  as: 'cat',
-                  cond: {
-                    $eq: ['$$cat.slug', 'habitica_official'],
-                  },
-                },
-              },
-            },
-            0,
-          ],
-        },
-      })
-      .sort('-isOfficial -createdAt')
+    let challenges = await createChallengeQuery({ group: groupId })
       // .populate('leader', nameFields) // Only populate the leader as the group is implicit
       .exec();
 
