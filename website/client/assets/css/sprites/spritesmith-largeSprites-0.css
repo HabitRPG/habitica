@@ -22,6 +22,12 @@
   width: 96px;
   height: 69px;
 }
+.promo_valentines_potions {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -368px;
+  width: 420px;
+  height: 147px;
+}
 .scene_cooking {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: 0px 0px;
