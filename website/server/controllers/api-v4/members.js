@@ -39,7 +39,7 @@ api.getUsernameAutocompletes = {
     let members = await User
       .find(query)
       .select(['profile.name', 'contributor', 'auth.local.username'])
-      .limit(20)
+      .limit(5)
       .exec();
 
     res.respond(200, members);
