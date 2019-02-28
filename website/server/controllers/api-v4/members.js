@@ -36,9 +36,6 @@ api.getUsernameAutocompletes = {
         }
       }
     }
-
-    console.log(query);
-
     let members = await User
       .find(query)
       .select(['profile.name', 'contributor', 'auth.local.username'])
