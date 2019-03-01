@@ -66,9 +66,6 @@
         .checkbox
           input(type='checkbox', v-model='user.preferences.suppressModals.streak', @change='set("suppressModals", "streak")')
           label {{ $t('suppressStreakModal') }}
-        .checkbox
-          input(type='checkbox', v-model='user.preferences.searchableUsername', @change='set("searchableUsername")')
-          label {{ $t('searchableUsernameSetting') }}
         //- .checkbox
         //-   label {{ $t('confirmScoreNotes') }}
         //-     input(type='checkbox', v-model='user.preferences.tasks.confirmScoreNotes', @change='set({"preferences.tasks.confirmScoreNotes": user.preferences.tasks.confirmScoreNotes ? true: false})')
@@ -83,6 +80,18 @@
         button.btn.btn-primary.mr-2.mb-2(@click='openRestoreModal()', popover-trigger='mouseenter', popover-placement='right', :popover="$t('fixValPop')") {{ $t('fixVal') }}
         button.btn.btn-primary.mb-2(v-if='user.preferences.disableClasses == true', @click='changeClassForUser(false)',
           popover-trigger='mouseenter', popover-placement='right', :popover="$t('enableClassPop')") {{ $t('enableClass') }}
+
+        hr
+
+        div
+          h5 {{ $t('mentioning') }}
+          h6 {{ $t('suggestMyUsername') }}
+          .form-horizontal
+            select.form-control(
+              v-model='user.preferences.searchableUsername',
+              @change='set("searchableUsername")'
+            )
+              option(v-for='option in searchableUsernameOptions' :value='option.value') {{ option.text }}
 
         hr
 
@@ -259,6 +268,10 @@ export default {
       },
       displayNameIssues: [],
       usernameIssues: [],
+      searchableUsernameOptions: [
+        {text: this.$t('onlyPrivateSpaces'), value: false},
+        {text: this.$t('everywhere'), value: true},
+      ],
     };
   },
   mounted () {

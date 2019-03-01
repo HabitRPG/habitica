@@ -204,8 +204,10 @@
     "goToSettings": "Go to Settings",
     "usernameVerifiedConfirmation": "Your username, <%= username %>, is confirmed!",
     "usernameNotVerified": "Please confirm your username.",
-    "changeUsernameDisclaimer": "We will be transitioning login names to unique, public usernames soon. This username will be used for invitations, @mentions in chat, and messaging.",
+    "changeUsernameDisclaimer": "This username will be used for invitations, @mentions in chat, and messaging.",
     "verifyUsernameVeteranPet": "One of these Veteran Pets will be waiting for you after you've finished confirming!",
-    "searchableUsernameSetting": "Allow username to appear in searches",
-    "searchableUsernamePopover": "If enabled, other users can @mention and invite you easier."
+    "mentioning": "Mentioning",
+    "suggestMyUsername": "Suggest my username",
+    "everywhere": "Everywhere",
+    "onlyPrivateSpaces": "Only in private spaces"
 }
