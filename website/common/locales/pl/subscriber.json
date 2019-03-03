@@ -80,7 +80,7 @@
     "buyGemsAllow1": "Możesz kupić",
     "buyGemsAllow2": "więcej Klejnotów w tym miesiącu",
     "purchaseGemsSeparately": "Kup Dodatkowe Klejnoty",
-    "subFreeGemsHow": "Gracze Habitiki mogą zdobyć Klejnoty za darmo zwyciężając w <a href=\"/challenges/findChallenges\">wyzwaniach</a>, gdzie nagrodą są Klejnoty, lub jako <a href=\"http://habitica.wikia.com/wiki/Contributing_to_Habitica\">wynagrodzenie dla pomocników rozwoju Habitiki.</a>",
+    "subFreeGemsHow": "Gracze Habitiki mogą zdobyć Klejnoty za darmo zwyciężając w <a href=\"/challenges/findChallenges\">wyzwaniach</a>, gdzie nagrodą są Klejnoty, lub jako <a href=\"http://habitica.fandom.com/wiki/Contributing_to_Habitica\">wynagrodzenie dla pomocników rozwoju Habitiki.</a>",
     "seeSubscriptionDetails": "Idź do <a href='/user/settings/subscription'>Ustawienia i Abonament</a> by zobaczyć szczegóły abonamentu!",
     "timeTravelers": "Podróżnicy w Czasie",
     "timeTravelersTitleNoSub": "<%= linkStartTyler %>Tyler<%= linkEnd %> i <%= linkStartVicky %>Vicky<%= linkEnd %>",

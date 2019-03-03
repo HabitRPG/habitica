@@ -80,7 +80,7 @@
     "buyGemsAllow1": "今月は特別にあと",
     "buyGemsAllow2": "個のジェムを購入できます。",
     "purchaseGemsSeparately": "追加のジェムを購入する",
-    "subFreeGemsHow": "ジェムが賞金になっている<a href=\"/challenges/findChallenges\">チャレンジ</a>の優勝や、<a href=\"http://habitica.wikia.com/wiki/Contributing_to_Habitica\">Habitica の開発に協力し貢献者の報酬を得る</a>ことで、ジェムを無料で手に入れることができます。",
+    "subFreeGemsHow": "ジェムが賞金になっている<a href=\"/challenges/findChallenges\">チャレンジ</a>の優勝や、<a href=\"http://habitica.fandom.com/wiki/Contributing_to_Habitica\">Habitica の開発に協力し貢献者の報酬を得る</a>ことで、ジェムを無料で手に入れることができます。",
     "seeSubscriptionDetails": "<a href='/user/settings/subscription'>設定 &gt; 寄付</a>であなたの寄付の詳細を確認できます!",
     "timeTravelers": "タイムトラベラー",
     "timeTravelersTitleNoSub": "<%= linkStartTyler %>Tyler<%= linkEnd %>と<%= linkStartVicky %>Vicky<%= linkEnd %>",

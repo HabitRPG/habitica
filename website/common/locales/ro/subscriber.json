@@ -80,7 +80,7 @@
     "buyGemsAllow1": "Poți cumpăra",
     "buyGemsAllow2": "mai multe nestemate luna asta",
     "purchaseGemsSeparately": "Cumpără nestemate suplimentare",
-    "subFreeGemsHow": "Jucătorii Habitica pot primi Nestemate gratis câștigând <a href=\"/challenges/findChallenges\">provocări</a> care au Nestemate ca premiu, sau ca <a href=\"http://habitica.wikia.com/wiki/Contributing_to_Habitica\">recompensă de contribuitor pentru ajutorul acordat dezvoltării Habitica.</a>",
+    "subFreeGemsHow": "Jucătorii Habitica pot primi Nestemate gratis câștigând <a href=\"/challenges/findChallenges\">provocări</a> care au Nestemate ca premiu, sau ca <a href=\"http://habitica.fandom.com/wiki/Contributing_to_Habitica\">recompensă de contribuitor pentru ajutorul acordat dezvoltării Habitica.</a>",
     "seeSubscriptionDetails": "Mergi la <a href='/user/settings/subscription'>Setări &gt;  Abonare</a> pentru a vedea detalii legate de abonamentul tău!",
     "timeTravelers": "Călători în timp",
     "timeTravelersTitleNoSub": "<%= linkStartTyler %>Tyler<%= linkEnd %> și <%= linkStartVicky %>Vicky<%= linkEnd %>",

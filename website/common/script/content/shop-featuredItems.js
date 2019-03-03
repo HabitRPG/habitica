@@ -9,15 +9,15 @@ const featuredItems = {
     },
     {
       type: 'hatchingPotions',
-      path: 'hatchingPotions.CottonCandyPink',
+      path: 'hatchingPotions.Golden',
     },
     {
       type: 'eggs',
-      path: 'eggs.TigerCub',
+      path: 'eggs.PandaCub',
     },
     {
       type: 'card',
-      path: 'cardTypes.birthday',
+      path: 'cardTypes.goodluck',
     },
   ],
   quests: [

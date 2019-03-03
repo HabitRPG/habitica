@@ -80,7 +80,7 @@
     "buyGemsAllow1": "Kamu dapat membeli",
     "buyGemsAllow2": "lebih banyak Permata bulan ini",
     "purchaseGemsSeparately": "Beli Permata Tambahan",
-    "subFreeGemsHow": "Pemain Habitica bisa mendapatkan Permata secara gratis dengan memenangi <a href=\"/challenges/findChallenges\">tantangan</a> yang menghadiahkan Permata, atau sebagai <a href=\"http://habitica.wikia.com/wiki/Contributing_to_Habitica\">hadiah kontributor dengan membantu perkembangan Habitica.</a>",
+    "subFreeGemsHow": "Pemain Habitica bisa mendapatkan Permata secara gratis dengan memenangi <a href=\"/challenges/findChallenges\">tantangan</a> yang menghadiahkan Permata, atau sebagai <a href=\"http://habitica.fandom.com/wiki/Contributing_to_Habitica\">hadiah kontributor dengan membantu perkembangan Habitica.</a>",
     "seeSubscriptionDetails": "Pergi ke <a href='/user/settings/subscription'>Pengaturan &gt; Berlangganan</a> untuk melihat detail berlangganan-mu!",
     "timeTravelers": "Penjelajah Waktu",
     "timeTravelersTitleNoSub": "<%= linkStartTyler %>Tyler<%= linkEnd %> dan <%= linkStartVicky %>Vicky<%= linkEnd %>",

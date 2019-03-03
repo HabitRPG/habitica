@@ -21,7 +21,7 @@
     "rebirthOrb": "A utilisé un orbe de renaissance pour recommencer à zéro après avoir atteint le niveau  <%= level %>.",
     "rebirthOrb100": "A utilisé un orbe de renaissance pour recommencer à zéro après avoir atteint le niveau 100 ou plus.",
     "rebirthOrbNoLevel": "A utilisé un orbe de renaissance pour recommencer à zéro.",
-    "rebirthPop": "Ramenez instantanément votre personnage au niveau 1 \"guerrier\" tout en conservant vos succès, vos objets de collecte et votre équipement. Les tâches et leur historique seront également conservés mais ramenés à la couleur jaune. Vos combos seront remis à zéro, sauf pour les tâches de défis. Votre or, votre expérience, votre mana et les effets de vos compétences seront supprimés. Tout ceci prendra effet immédiatement. Pour plus d'informations, rendez-vous sur la page du wiki consacrée à <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>l'orbe de renaissance</a>.",
+    "rebirthPop": "Ramenez instantanément votre personnage au niveau 1 \"guerrier\" tout en conservant vos succès, vos objets de collecte et votre équipement. Les tâches et leur historique seront également conservés mais ramenés à la couleur jaune. Vos combos seront remis à zéro, sauf pour les tâches de défis. Votre or, votre expérience, votre mana et les effets de vos compétences seront supprimés. Tout ceci prendra effet immédiatement. Pour plus d'informations, rendez-vous sur la page du wiki consacrée à <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>l'orbe de renaissance</a>.",
     "rebirthName": "Orbe de renaissance",
     "reborn": "Né de nouveau, niveau maximum <%= reLevel %>",
     "confirmReborn": "Confirmez-vous ?",

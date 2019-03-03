@@ -227,6 +227,21 @@ api.bundles = {
     type: 'quests',
     value: 7,
   },
+  mythicalMarvels: {
+    key: 'mythicalMarvels',
+    text: t('mythicalMarvelsText'),
+    notes: t('mythicalMarvelsNotes'),
+    bundleKeys: [
+      'unicorn',
+      'seaserpent',
+      'gryphon',
+    ],
+    canBuy () {
+      return moment().isBetween('2019-02-19', '2019-03-02');
+    },
+    type: 'quests',
+    value: 7,
+  },
 };
 
 /*

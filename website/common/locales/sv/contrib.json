@@ -64,10 +64,10 @@
     "playerTiers": "Spelarnivåer",
     "tier": "Nivå",
     "visitHeroes": "Besök Hjältarnas Hall (medarbetare och hjälpare)",
-    "conLearn": "<a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'>Lär dig mer om medarbetarbelöningar</a>",
+    "conLearn": "<a href='http://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'>Lär dig mer om medarbetarbelöningar</a>",
     "conLearnHow": "Lär dig hur du kan bidra till Habitica",
-    "conLearnURL": "http://habitica.wikia.com/wiki/Contributing_to_Habitica",
-    "conRewardsURL": "http://habitica.wikia.com/wiki/Contributor_Rewards",
+    "conLearnURL": "http://habitica.fandom.com/wiki/Contributing_to_Habitica",
+    "conRewardsURL": "http://habitica.fandom.com/wiki/Contributor_Rewards",
     "surveysSingle": "Hjälpte Habitica växa genom att delta i en undersökning eller genom att hjälpa med en stor testinsats. Tack!",
     "surveysMultiple": "Hjälpte Habitica växa vid <%= count %> tillfällen genom att delta i en undersökning eller genom att hjälpa med en stor testinsats. Tack!",
     "currentSurvey": "Nuvarande undersökning",
@@ -76,5 +76,5 @@
     "blurbGuildsPage": "Gillen är chattgrupper för gemensamma intressen, skapade av spelare för spelare. Bläddra igenom listan och gå med i de gillen som intresserar dig!",
     "blurbChallenges": "Utmaningar skapas av andra spelare. När du går med i en utmaning kommer dess uppgifter att läggas till på din lista över uppgifter, och om du vinner en utmaning får du en bedrift och ofta ett pris i form av juveler!",
     "blurbHallPatrons": "Det här är Beskyddarnas sal, där vi hedrar de ädla äventyrarna som stödde Habiticas ursprungliga Kickstarter. VI tackar dem för att de hjälpte oss att göra Habitica levande!",
-    "blurbHallContributors": "Det här är Medarbetarnas sal, där medarbetare som bidragit till Habiticas öppna källkod äras. Oavsett om det gäller kod, konst, musik, skrivande eller bara hjälpsamhet, så har de tjänat <a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'>juveler, exklusiv utrustning</a> och <a href='http://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>prestigefyllda titlar</a>. Du kan också bidra till Habitica! <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'>Ta reda på mer här.</a>"
+    "blurbHallContributors": "Det här är Medarbetarnas sal, där medarbetare som bidragit till Habiticas öppna källkod äras. Oavsett om det gäller kod, konst, musik, skrivande eller bara hjälpsamhet, så har de tjänat <a href='http://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'>juveler, exklusiv utrustning</a> och <a href='http://habitica.fandom.com/wiki/Contributor_Titles' target='_blank'>prestigefyllda titlar</a>. Du kan också bidra till Habitica! <a href='http://habitica.fandom.com/wiki/Contributing_to_Habitica' target='_blank'>Ta reda på mer här.</a>"
 }

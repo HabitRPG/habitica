@@ -35,10 +35,7 @@ export default {
   },
   methods: {
     action () {
-      this.$root.$emit('habitica:show-profile', {
-        user: this.$store.state.user.data,
-        startingPage: 'stats',
-      });
+      this.$router.push({name: 'stats'});
     },
   },
 };

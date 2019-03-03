@@ -64,10 +64,10 @@
     "playerTiers": "Gradi giocatore",
     "tier": "Grado",
     "visitHeroes": "Visita il Salone degli Eroi (sostenitori)",
-    "conLearn": "<a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'>Maggiori informazioni sulle ricompense per i sostenitori</a>",
+    "conLearn": "<a href='http://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'>Maggiori informazioni sulle ricompense per i sostenitori</a>",
     "conLearnHow": "Scopri come contribuire a migliorare Habitica",
-    "conLearnURL": "http://habitica.wikia.com/wiki/Contributing_to_Habitica",
-    "conRewardsURL": "http://habitica.wikia.com/wiki/Contributor_Rewards",
+    "conLearnURL": "http://habitica.fandom.com/wiki/Contributing_to_Habitica",
+    "conRewardsURL": "http://habitica.fandom.com/wiki/Contributor_Rewards",
     "surveysSingle": "Ha aiutato Habitica a crescere, compilando un questionario o aiutando in un test. Al momento non ci sono questionari attivi.",
     "surveysMultiple": "Ha aiutato Habitica a crescere in <%= count %> occasioni, compilando un questionario o aiutando in una fase di test importante. Grazie!",
     "currentSurvey": "Questionario in corso",
@@ -76,5 +76,5 @@
     "blurbGuildsPage": "Le Gilde sono gruppi di chat per persone con interessi comuni, create dai giocatori per i giocatori. Scorri la lista ed unisciti alle gilde che ti interessano!",
     "blurbChallenges": "Le Sfide sono create dagli utenti. Unirsi a una sfida aggiungerà degli elementi nella tua pagina delle attività. Vincere una sfida ti conferirà una medaglia e spesso un premio in Gemme!",
     "blurbHallPatrons": "Questo è il salone dei Mecenati, nel quale vengono onorati i nobili avventurieri che hanno sostenuto la nostra campagna su Kickstarter. Li ringraziamo per aver aiutato a far nascere Habitica!",
-    "blurbHallContributors": "Questo è il Salone dei Collaboratori, dove coloro che hanno contribuito ad Habitica sono onorati. Che sia attraverso programmazione, arte, musica, scrittura, o anche solo disponibilità, hanno guadagnato <a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'> gemme, equipaggiamento esclusivo</a>, e <a href='http://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>titoli prestigiosi</a>. Anche tu puoi contribuire ad Habitica! <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'> Scopri di più qui. </a>"
+    "blurbHallContributors": "Questo è il Salone dei Collaboratori, dove coloro che hanno contribuito ad Habitica sono onorati. Che sia attraverso programmazione, arte, musica, scrittura, o anche solo disponibilità, hanno guadagnato <a href='http://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'> gemme, equipaggiamento esclusivo</a>, e <a href='http://habitica.fandom.com/wiki/Contributor_Titles' target='_blank'>titoli prestigiosi</a>. Anche tu puoi contribuire ad Habitica! <a href='http://habitica.fandom.com/wiki/Contributing_to_Habitica' target='_blank'> Scopri di più qui. </a>"
 }
