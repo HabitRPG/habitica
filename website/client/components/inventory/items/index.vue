@@ -469,8 +469,6 @@ export default {
           let openedItem = result.data.data;
           let text = this.content.gear.flat[openedItem.key].text();
           this.drop(this.$t('messageDropMysteryItem', {dropText: text}), openedItem);
-          item.quantity--;
-          this.$forceUpdate();
         } else {
           this.$root.$emit('selectMembersModal::showItem', item);
         }
