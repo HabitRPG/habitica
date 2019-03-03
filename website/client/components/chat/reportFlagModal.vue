@@ -106,13 +106,15 @@ export default {
       this.$root.$emit('bv::hide::modal', 'report-flag');
     },
     async reportAbuse () {
-      this.notify('Thank you for reporting this violation. The moderators have been notified.');
+      this.text(this.$t(this.groupId === 'privateMessage' ? 'pmReported' : 'abuseReported'));
 
-      await this.$store.dispatch('chat:flag', {
+      let result = await this.$store.dispatch('chat:flag', {
         groupId: this.groupId,
         chatId: this.abuseObject.id,
         comment: this.reportComment,
       });
+
+      this.$root.$emit('habitica:report-result', result);
 
       this.close();
     },

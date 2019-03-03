@@ -3,6 +3,7 @@ div
   inbox-modal
   creator-intro
   profileModal
+  report-flag-modal
   send-gems-modal
   b-navbar.topbar.navbar-inverse.static-top(toggleable="lg", type="dark", :class="navbarZIndexClass")
     b-navbar-brand.brand
@@ -351,12 +352,15 @@ import profileModal from '../userMenu/profileModal';
 import sendGemsModal from 'client/components/payments/sendGemsModal';
 import userDropdown from './userDropdown';
 
+import reportFlagModal from '../chat/reportFlagModal';
+
 export default {
   components: {
     creatorIntro,
     InboxModal,
     notificationMenu,
     profileModal,
+    reportFlagModal,
     sendGemsModal,
     userDropdown,
   },
