@@ -495,6 +495,9 @@ export default {
     async userId () {
       this.loadUser();
     },
+    userLoggedIn () {
+      this.loadUser();
+    },
   },
   methods: {
     async loadUser () {
