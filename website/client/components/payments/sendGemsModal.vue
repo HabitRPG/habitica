@@ -91,7 +91,6 @@ import notificationsMixin from 'client/mixins/notifications';
 const TECH_ASSISTANCE_EMAIL = 'admin@habitica.com';
 
 export default {
-  props: ['userReceivingGems'],
   mixins: [paymentsMixin, notificationsMixin],
   data () {
     return {
@@ -110,6 +109,7 @@ export default {
         hrefTechAssistanceEmail: `<a href="mailto:${TECH_ASSISTANCE_EMAIL}">${TECH_ASSISTANCE_EMAIL}</a>`,
       },
       sendingInProgress: false,
+      userReceivingGems: null,
     };
   },
   computed: {
@@ -175,6 +175,12 @@ export default {
     close () {
       this.$root.$emit('bv::hide::modal', 'send-gems');
     },
+  },
+  mounted () {
+    this.$root.$on('habitica::send-gems', (data) => {
+      this.userReceivingGems = data;
+      this.$root.$emit('bv::show::modal', 'send-gems');
+    });
   },
 };
 </script>

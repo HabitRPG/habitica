@@ -6,6 +6,7 @@ import {
 } from '../../libs/errors';
 import _ from 'lodash';
 import apiError from '../../libs/apiError';
+import validator from 'validator';
 
 let api = {};
 
@@ -142,8 +143,8 @@ api.getHeroes = {
 const heroAdminFields = 'contributor balance profile.name purchased items auth flags.chatRevoked';
 
 /**
- * @api {get} /api/v3/hall/heroes/:heroId Get any user ("hero") given the UUID
- * @apiParam (Path) {UUID} heroId User ID
+ * @api {get} /api/v3/hall/heroes/:heroId Get any user ("hero") given the UUID or Username
+ * @apiParam (Path) {UUID} heroId user ID
  * @apiName GetHero
  * @apiGroup Hall
  * @apiPermission Admin
@@ -162,15 +163,23 @@ api.getHero = {
   url: '/hall/heroes/:heroId',
   middlewares: [authWithHeaders(), ensureAdmin],
   async handler (req, res) {
-    let heroId = req.params.heroId;
+    let validationErrors;
+    req.checkParams('heroId', res.t('heroIdRequired')).notEmpty();
 
-    req.checkParams('heroId', res.t('heroIdRequired')).notEmpty().isUUID();
-
-    let validationErrors = req.validationErrors();
+    validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let hero = await User
-      .findById(heroId)
+    const heroId = req.params.heroId;
+
+    let query;
+    if (validator.isUUID(heroId)) {
+      query = {_id: heroId};
+    } else {
+      query = {'auth.local.username': heroId};
+    }
+
+    const hero = await User
+      .findOne(query)
       .select(heroAdminFields)
       .exec();
 

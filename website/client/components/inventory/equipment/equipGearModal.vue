@@ -187,6 +187,8 @@
       },
       hideDialog () {
         this.$root.$emit('bv::hide::modal', 'equipgear-modal');
+        document.body.classList.remove('modal-open');
+        document.body.setAttribute('data-modal-open-count', document.body.getAttribute('data-modal-open-count') - 1);
       },
       memberOverrideAvatarGear (gear) {
         return {

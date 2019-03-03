@@ -1,48 +1,42 @@
 .promo_armoire_backgrounds_201902 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -422px;
+  background-position: 0px -220px;
   width: 423px;
   height: 147px;
 }
-.promo_bird_buddies_bundle {
+.promo_mystery_201902 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -662px 0px;
-  width: 420px;
+  background-position: -424px -220px;
+  width: 240px;
   height: 147px;
 }
-.promo_birthday_2019 {
+.promo_mythical_marvels_bundle {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -277px;
-  width: 498px;
-  height: 144px;
-}
-.promo_mystery_201901 {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -662px -148px;
-  width: 282px;
+  background-position: 0px -368px;
+  width: 423px;
   height: 147px;
 }
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -945px -148px;
+  background-position: -424px -368px;
   width: 96px;
   height: 69px;
 }
-.scene_apollo {
+.promo_valentines_potions {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -662px -296px;
-  width: 279px;
+  background-position: 0px -516px;
+  width: 420px;
   height: 147px;
 }
-.scene_eating_healthy {
+.scene_achievement {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -328px 0px;
-  width: 333px;
-  height: 252px;
+  background-position: -397px 0px;
+  width: 339px;
+  height: 210px;
 }
-.scene_yesterdailies {
+.scene_cooking {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: 0px 0px;
-  width: 327px;
-  height: 276px;
+  width: 396px;
+  height: 219px;
 }
