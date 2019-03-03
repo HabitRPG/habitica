@@ -92,7 +92,11 @@
             @click="petClicked(item)"
           )
             template(slot="itemBadge", slot-scope="context")
-              starBadge(:selected="item.key === currentPet", :show="isOwned('pet', item)", @click="selectPet(item)")
+              starBadge(
+                :selected="context.item.key === currentPet",
+                :show="isOwned('pet', context.item)",
+                @click="selectPet(context.item)"
+              )
 
       .btn.btn-flat.btn-show-more(@click="setShowMore(petGroup.key)", v-if='petGroup.key !== "specialPets"')
         | {{ $_openedItemRows_isToggled(petGroup.key) ? $t('showLess') : $t('showMore') }}
