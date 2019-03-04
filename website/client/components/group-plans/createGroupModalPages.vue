@@ -25,7 +25,8 @@
     .payment-providers
       .box.payment-button(@click='pay(PAYMENTS.STRIPE)')
         .svg-icon.credit-card-icon(v-html="icons.creditCard")
-      .box.payment-button.amazon(@click='pay(PAYMENTS.AMAZON)')
+      amazon-button(:amazon-data="pay(PAYMENTS.AMAZON)")
+      //.box.payment-button.amazon(@click='pay(PAYMENTS.AMAZON)')
         .svg-icon.amazon-pay-icon(v-html="icons.amazonpay")
 </template>
 
@@ -87,17 +88,21 @@
 import * as Analytics from 'client/libs/analytics';
 import { mapState } from 'client/libs/store';
 import paymentsMixin from '../../mixins/payments';
+import amazonButton from 'client/components/payments/amazonButton';
 
-import amazonpay from 'assets/svg/amazonpay.svg';
+// import amazonpay from 'assets/svg/amazonpay.svg';
 import creditCard from 'assets/svg/credit-card.svg';
 
 export default {
   mixins: [paymentsMixin],
+  components: {
+    amazonButton,
+  },
   data () {
     return {
       amazonPayments: {},
       icons: Object.freeze({
-        amazonpay,
+        // amazonpay,
         creditCard,
       }),
       PAGES: {
@@ -159,7 +164,7 @@ export default {
         this.showStripe(paymentData);
       } else if (this.paymentMethod === this.PAYMENTS.AMAZON) {
         paymentData.type = 'subscription';
-        this.amazonPaymentsInit(paymentData);
+        return paymentData;
       }
     },
   },
