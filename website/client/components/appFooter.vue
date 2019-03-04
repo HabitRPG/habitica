@@ -44,6 +44,8 @@
           li
             a(href='https://www.facebook.com/Habitica', target='_blank') {{ $t('communityFacebook') }}
           li
+            a(href='https://www.instagram.com/habitica', target='_blank') {{ $t('communityInstagram') }}
+          li
             a(href='https://www.reddit.com/r/habitrpg/', target='_blank') {{ $t('communityReddit') }}
       .col-12.col-md-6
         .row
@@ -56,23 +58,22 @@
                 a(:href="getDataDisplayToolUrl", target='_blank') {{ $t('dataDisplayTool') }}
               li
                 a(href='http://habitica.fandom.com/wiki/Guidance_for_Blacksmiths', target='_blank') {{ $t('guidanceForBlacksmiths') }}
-              li
-                a(href='http://devs.habitica.com/', target='_blank') {{ $t('devBlog') }}
           .col-6.social
             h3 {{ $t('footerSocial') }}
-            a.social-circle(href='https://twitter.com/habitica', target='_blank')
-              .social-icon.svg-icon(v-html='icons.twitter')
-            // TODO: Not ready yet. a.social-circle(href='https://www.instagram.com/habitica/', target='_blank')
-              .social-icon.svg-icon.instagram(v-html='icons.instagram')
-            a.social-circle(href='https://www.facebook.com/Habitica', target='_blank')
-              .social-icon.facebook.svg-icon(v-html='icons.facebook')
+            .icons
+              a.social-circle(href='https://twitter.com/habitica', target='_blank')
+                .social-icon.svg-icon(v-html='icons.twitter')
+              a.social-circle(href='https://www.instagram.com/habitica/', target='_blank')
+                .social-icon.svg-icon.instagram(v-html='icons.instagram')
+              a.social-circle(href='https://www.facebook.com/Habitica', target='_blank')
+                .social-icon.facebook.svg-icon(v-html='icons.facebook')
         .row
           .col-12.col-md-8 {{ $t('donateText3') }}
           .col-12.col-md-4
-            button.btn.btn-contribute(@click="donate()", v-if="user")
+            button.btn.btn-contribute.btn-flat(@click="donate()", v-if="user")
               .svg-icon.heart(v-html="icons.heart")
               .text {{ $t('companyDonate') }}
-            .btn.btn-contribute(v-else)
+            .btn.btn-contribute.btn-flat(v-else)
               a(href='http://habitica.fandom.com/wiki/Contributing_to_Habitica', target='_blank')
                 .svg-icon.heart(v-html="icons.heart")
                 .text {{ $t('companyContribute') }}
@@ -145,6 +146,22 @@
     }
   }
 
+  .icons {
+    display: flex;
+    justify-content: flex-end;
+    flex-shrink: 1;
+  }
+
+  // smaller than desktop
+  @media only screen and (max-width: 992px) {
+    .social-circle {
+      height: 32px !important;
+      width: 32px !important;
+
+      margin-left: 0.75em !important;
+    }
+  }
+
   .social-circle {
     width: 40px;
     height: 40px;
@@ -152,16 +169,19 @@
     background-color: #c3c0c7;
     display: flex;
     margin-left: 1em;
-    float: right;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:hover {
+      background-color: #a5a1ac;
+    }
 
     .social-icon {
       color: #e1e0e3;
       width: 16px;
       margin: auto;
-    }
-
-    .instagram {
-      margin-top: .85em;
     }
   }
 
@@ -184,6 +204,14 @@
     background: #c3c0c7;
     box-shadow: none;
     border-radius: 4px;
+
+    &:hover {
+      background: #a5a1ac;
+
+      .text {
+        color: white;
+      }
+    }
 
     a {
       display: flex;

@@ -12,7 +12,7 @@
       .col-12.col-md-4.offset-md-4
         .d-flex
           input.form-control.input-search(type="text", :placeholder="$t('search')", v-model="searchText")
-          button.btn.btn-secondary.dropdown-toggle.ml-2.d-flex.align-items-center(
+          button.btn.btn-secondary.dropdown-toggle.ml-2.d-flex.align-items-center.search-button(
             type="button",
             @click="toggleFilterPanel()",
             :class="{active: selectedTags.length > 0}",
@@ -108,6 +108,10 @@
 
   .user-tasks-page {
     padding-top: 16px;
+  }
+
+  .input-search, .search-button {
+    height: 40px;
   }
 
   .tasks-navigation {
