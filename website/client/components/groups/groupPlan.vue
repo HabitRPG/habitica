@@ -53,7 +53,8 @@ div
                 .svg-icon.credit-card-icon(v-html="icons.group")
                 p.credit-card Credit Card
               p Powered by Stripe
-            .box.payment-button(@click='pay(PAYMENTS.AMAZON)')
+            amazon-button(:amazon-data="pay(PAYMENTS.AMAZON)")
+            //.box.payment-button(@click='pay(PAYMENTS.AMAZON)')
               .svg-icon.amazon-pay-icon(v-html="icons.amazonpay")
 
     .container.col-6.offset-3.create-option(v-if='!upgradingGroup._id')
@@ -104,7 +105,8 @@ div
         .box.payment-button(@click='pay(PAYMENTS.STRIPE)')
           p Credit Card
           p Powered by Stripe
-        .box.payment-button(@click='pay(PAYMENTS.AMAZON)')
+        amazon-button(:amazon-data="pay(PAYMENTS.AMAZON)")
+        //.box.payment-button(@click='pay(PAYMENTS.AMAZON)')
           | Amazon Pay
 </template>
 
@@ -334,17 +336,21 @@ div
 import paymentsMixin from '../../mixins/payments';
 import { mapState } from 'client/libs/store';
 import group from 'assets/svg/group.svg';
-import amazonpay from 'assets/svg/amazonpay.svg';
+// import amazonpay from 'assets/svg/amazonpay.svg';
 import positiveIcon from 'assets/svg/positive.svg';
+import amazonButton from 'client/components/payments/amazonButton';
 
 export default {
   mixins: [paymentsMixin],
+  components: {
+    amazonButton,
+  },
   data () {
     return {
       amazonPayments: {},
       icons: Object.freeze({
         group,
-        amazonpay,
+        // amazonpay,
         positiveIcon,
       }),
       PAGES: {
@@ -413,7 +419,7 @@ export default {
         this.showStripe(paymentData);
       } else if (this.paymentMethod === this.PAYMENTS.AMAZON) {
         paymentData.type = 'subscription';
-        this.amazonPaymentsInit(paymentData);
+        return paymentData;
       }
     },
   },
