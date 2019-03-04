@@ -7,14 +7,17 @@
     b-tooltip.myClass(:target="() => $refs.container", :container="elementId", :title="tooltip", triggers="hover", placement="bottom")
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
-
 
   .progress-container {
     margin-left: 4px;
     margin-bottom: .5em;
     height: 24px;
+
+    /deep/ .bs-tooltip-bottom {
+      top: -16px !important
+    }
   }
 
   .progress-container > span {
@@ -47,10 +50,6 @@
   .progress-container .svg-icon, .progress-container .progress, .progress-container .small-text {
     display: inline-block;
     vertical-align: middle;
-  }
-
-  .bs-tooltip-bottom {
-    top: -16px !important
   }
 
   .progress-container.condensed {
