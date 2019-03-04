@@ -60,7 +60,7 @@ export default {
     this.buttonId = `AmazonPayButton-${uuid.v4()}`;
   },
   mounted () {
-    this.amazonPaymentsInit(this.amazonData); // TOOD clone
+    this.amazonPaymentsInit(this.amazonData);
     if (this.isAmazonReady) return this.setupAmazon();
 
     this.$store.watch(state => state.isAmazonReady, (isAmazonReady) => {
@@ -90,6 +90,8 @@ export default {
             this.$root.$emit('habitica::pay-with-amazon', this.amazonPayments);
           },
           authorization: () => {
+            this.amazonPaymentsInit(this.amazonData);
+
             window.amazon.Login.authorize({
               scope: 'payments:widget',
               popup: true,
