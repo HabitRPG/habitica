@@ -80,7 +80,7 @@ export default {
         {
           type: 'PwA',
           color: 'Gold',
-          size: 'small',
+          size: 'large',
           agreementType: 'BillingAgreement',
           onSignIn: async (contract) => { // @TODO send to modal
             this.amazonPayments.billingAgreementId = contract.getAmazonBillingAgreementId();
