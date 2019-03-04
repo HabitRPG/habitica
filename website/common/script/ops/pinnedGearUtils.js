@@ -123,9 +123,6 @@ const PATHS_WITHOUT_ITEM = ['special.gems', 'special.rebirth_orb', 'special.fort
  * @returns {boolean} TRUE added the item / FALSE removed it
  */
 function togglePinnedItem (user, {item, type, path}, req = {}) {
-  // ensure no nullable entries exist
-  checkPinnedAreasForNullEntries(user);
-
   let arrayToChange;
   let officialPinnedItems = getOfficialPinnedItems(user);
 
