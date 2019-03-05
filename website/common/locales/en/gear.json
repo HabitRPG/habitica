@@ -406,7 +406,9 @@
   "weaponArmoireArcaneScrollText": "Arcane Scroll",
   "weaponArmoireArcaneScrollNotes": "This ancient To-Do list is filled with strange symbols and spells from a forgotten age. Increases Intelligence by <%= int %>. Enchanted Armoire: Scribe Set (Item 3 of 3).",
   "weaponArmoireChefsSpoonText": "Chef's Spoon",
-  "weaponArmoireChefsSpoonNotes": "Raise it as you release your battle cry: “SPOOOON!!” Increases Intelligence by <%= int %>. Enchanted Armoire: Chef Set (Item 3 of 4). ",
+  "weaponArmoireChefsSpoonNotes": "Raise it as you release your battle cry: “SPOOOON!!” Increases Intelligence by <%= int %>. Enchanted Armoire: Chef Set (Item 3 of 4).",
+  "weaponArmoireVernalTaperText": "Vernal Taper",
+  "weaponArmoireVernalTaperNotes": "The days are getting longer, but this candle will help you find your way before sunrise. Increases Constitution by <%= con %>. Enchanted Armoire: Vernal Vestments Set (Item 3 of 3).",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -881,7 +883,9 @@
   "armorArmoireScribesRobeText": "Scribe's Robes",
   "armorArmoireScribesRobeNotes": "These velvety robes are woven with inspirational and motivational magic. Increases Perception and Intelligence by <%= attrs %> each. Enchanted Armoire: Scribe Set (Item 1 of 3).",
   "armorArmoireChefsJacketText": "Chef's Jacket",
-  "armorArmoireChefsJacketNotes": "This thick cotton jacket is double-breasted to protect you from spills (and conveniently reversible…). Increases Intelligence by <%= int %>. Enchanted Armoire: Chef Set (Item 2 of 4). ",
+  "armorArmoireChefsJacketNotes": "This thick cotton jacket is double-breasted to protect you from spills (and conveniently reversible…). Increases Intelligence by <%= int %>. Enchanted Armoire: Chef Set (Item 2 of 4).",
+  "armorArmoireVernalVestmentText": "Vernal Vestment",
+  "armorArmoireVernalVestmentNotes": "This silky garment is perfect for enjoying mild spring weather in style. Increases Strength and Intelligence by <%= attrs %> each. Enchanted Armoire: Vernal Vestments Set (Item 2 of 3).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -1366,7 +1370,9 @@
   "headArmoireVeilOfSpadesText": "Veil of Spades",
   "headArmoireVeilOfSpadesNotes": "A shadowy and mysterious veil that will boost your stealth. Increases Perception by <%= per %>. Enchanted Armoire: Ace of Spades Set (Item 1 of 3).",
   "headArmoireToqueBlancheText": "Toque Blanche",
-  "headArmoireToqueBlancheNotes": "According to legend, the number of folds in this hat indicate the number of ways you know how to cook an egg! Is it accurate? Increases Perception by <%= per %>. Enchanted Armoire: Chef Set (Item 1 of 4). ",
+  "headArmoireToqueBlancheNotes": "According to legend, the number of folds in this hat indicate the number of ways you know how to cook an egg! Is it accurate? Increases Perception by <%= per %>. Enchanted Armoire: Chef Set (Item 1 of 4).",
+  "headArmoireVernalHenninText": "Vernal Hennin",
+  "headArmoireVernalHenninNotes": "More than just a pretty hat, this conical chapeau can also hold a rolled-up To-Do list inside. Increases Perception by <%= per %>. Enchanted Armoire: Vernal Vestments Set (Item 1 of 3).",
 
   "offhand": "off-hand item",
   "offhandCapitalized": "Off-Hand Item",

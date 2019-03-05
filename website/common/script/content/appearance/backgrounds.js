@@ -801,6 +801,20 @@ let backgrounds = {
       notes: t('backgroundValentinesDayFeastingHallNotes'),
     },
   },
+  backgrounds032019: {
+    duck_pond: {
+      text: t('backgroundDuckPondText'),
+      notes: t('backgroundDuckPondNotes'),
+    },
+    field_with_colored_eggs: {
+      text: t('backgroundFieldWithColoredEggsText'),
+      notes: t('backgroundFieldWithColoredEggsNotes'),
+    },
+    flower_market: {
+      text: t('backgroundFlowerMarketText'),
+      notes: t('backgroundFlowerMarketNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),
