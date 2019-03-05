@@ -169,13 +169,12 @@ api.getHero = {
     validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    const heroId = req.params.heroId;
+    const heroId = req.params.heroId.toLowerCase();
 
     let query;
     if (validator.isUUID(heroId)) {
       query = {_id: heroId};
     } else {
-      heroId = heroId.toLowerCase();
       query = {'auth.local.lowerCaseUsername': heroId};
     }
 
