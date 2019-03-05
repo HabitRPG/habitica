@@ -175,7 +175,6 @@ export default {
     },
     async loadHero (uuid, heroIndex) {
       this.currentHeroIndex = heroIndex;
-      uuid = uuid.toLowerCase();
       let hero = await this.$store.dispatch('hall:getHero', { uuid });
       this.hero = Object.assign({}, hero);
       if (!this.hero.flags) {
