@@ -103,7 +103,7 @@
         return this.icons[`tier${this.level}`];
       },
       tierTitle () {
-        return achievementsLib.getContribText(this.level, this.isNPC) || '';
+        return achievementsLib.getContribText(this.contributor, this.isNPC) || '';
       },
       levelStyle () {
         return this.userLevelStyleFromLevel(this.level, this.isNPC);

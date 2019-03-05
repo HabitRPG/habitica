@@ -80,7 +80,8 @@
               a.purchase(@click="openPaypal(paypalPurchaseLink, 'subscription')", :disabled='!subscription.key')
                 img(src='https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-small.png', :alt="$t('paypal')")
             .col-md-4
-              a.btn.btn-secondary.purchase(@click="payWithAmazon()")
+              amazon-button(:amazon-data="{type: 'subscription', subscription: this.subscription.key, coupon: this.subscription.coupon}")
+              // a.btn.btn-secondary.purchase(@click="payWithAmazon()")
                 img(src='https://payments.amazon.com/gp/cba/button', :alt="$t('amazonPayments')")
     .row
       .col-6
@@ -115,8 +116,13 @@ import planGemLimits from '../../../common/script/libs/planGemLimits';
 import paymentsMixin from '../../mixins/payments';
 import notificationsMixin from '../../mixins/notifications';
 
+import amazonButton from 'client/components/payments/amazonButton';
+
 export default {
   mixins: [paymentsMixin, notificationsMixin],
+  components: {
+    amazonButton,
+  },
   data () {
     return {
       loading: false,
@@ -240,13 +246,6 @@ export default {
     },
   },
   methods: {
-    payWithAmazon () {
-      this.amazonPaymentsInit({
-        type: 'subscription',
-        subscription: this.subscription.key,
-        coupon: this.subscription.coupon,
-      });
-    },
     async applyCoupon (coupon) {
       const response = await axios.post(`/api/v4/coupons/validate/${coupon}`);
 

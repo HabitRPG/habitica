@@ -51,7 +51,8 @@ b-modal#send-gems(:title="title", :hide-footer="true", size='lg', @hide='onHide(
     template(v-else)
       button.btn.btn-primary(@click='showStripe({gift, uuid: userReceivingGems._id, receiverName})') {{ $t('card') }}
       button.btn.btn-warning(@click='openPaypalGift({gift: gift, giftedTo: userReceivingGems._id, receiverName})') PayPal
-      button.btn.btn-success(@click="amazonPaymentsInit({type: 'single', gift, giftedTo: userReceivingGems._id, receiverName})") Amazon Payments
+      amazon-button(:amazon-data="{type: 'single', gift, giftedTo: userReceivingGems._id, receiverName}")
+      //button.btn.btn-success(@click="amazonPaymentsInit({type: 'single', gift, giftedTo: userReceivingGems._id, receiverName})") Amazon Payments
     button.btn.btn-secondary(@click='close()') {{$t('cancel')}}
 </template>
 
@@ -86,13 +87,16 @@ import { mapState } from 'client/libs/store';
 import planGemLimits from '../../../common/script/libs/planGemLimits';
 import paymentsMixin from 'client/mixins/payments';
 import notificationsMixin from 'client/mixins/notifications';
+import amazonButton from 'client/components/payments/amazonButton';
 
 // @TODO: EMAILS.TECH_ASSISTANCE_EMAIL, load from config
 const TECH_ASSISTANCE_EMAIL = 'admin@habitica.com';
 
 export default {
-  props: ['userReceivingGems'],
   mixins: [paymentsMixin, notificationsMixin],
+  components: {
+    amazonButton,
+  },
   data () {
     return {
       planGemLimits,
@@ -110,6 +114,7 @@ export default {
         hrefTechAssistanceEmail: `<a href="mailto:${TECH_ASSISTANCE_EMAIL}">${TECH_ASSISTANCE_EMAIL}</a>`,
       },
       sendingInProgress: false,
+      userReceivingGems: null,
     };
   },
   computed: {
@@ -175,6 +180,12 @@ export default {
     close () {
       this.$root.$emit('bv::hide::modal', 'send-gems');
     },
+  },
+  mounted () {
+    this.$root.$on('habitica::send-gems', (data) => {
+      this.userReceivingGems = data;
+      this.$root.$emit('bv::show::modal', 'send-gems');
+    });
   },
 };
 </script>

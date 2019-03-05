@@ -49,7 +49,7 @@ let api = {};
  * @apiSuccess {String} challenge.name Full name of challenge.
  * @apiSuccess {String} challenge.shortName A shortened name for the challenge, to be used as a tag.
  * @apiSuccess {Object} challenge.leader User details of challenge leader.
- * @apiSuccess {UUID} challenge.leader._id User id of challenge leader.
+ * @apiSuccess {UUID} challenge.leader._id User ID of challenge leader.
  * @apiSuccess {Object} challenge.leader.profile Profile information of leader.
  * @apiSuccess {Object} challenge.leader.profile.name Display Name of leader.
  * @apiSuccess {String} challenge.updatedAt Timestamp of last update.

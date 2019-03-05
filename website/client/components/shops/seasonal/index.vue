@@ -388,7 +388,9 @@
       },
 
       seasonal () {
+        // vue subscriptions, don't remove
         let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+        const myUserVersion = this.user._v; // eslint-disable-line
 
         let seasonal = shops.getSeasonalShop(this.user);
 

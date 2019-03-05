@@ -156,6 +156,12 @@ let premium = {
     limited: true,
     _season: 'January',
   },
+  RoseQuartz: {
+    value: 2,
+    text: t('hatchingPotionRoseQuartz'),
+    limited: true,
+    _season: 'February',
+  },
 };
 
 each(drops, (pot, key) => {
