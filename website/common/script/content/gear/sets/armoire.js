@@ -444,6 +444,15 @@ let armor = {
     set: 'chef',
     canOwn: ownsItem('armor_armoire_chefsJacket'),
   },
+  vernalVestment: {
+    text: t('armorArmoireVernalVestmentText'),
+    notes: t('armorArmoireVernalVestmentNotes', { attrs: 6 }),
+    value: 100,
+    str: 6,
+    int: 6,
+    set: 'vernalVestments',
+    canOwn: ownsItem('armor_armoire_vernalVestment'),
+  },
 };
 
 let body = {
@@ -906,6 +915,14 @@ let head = {
     per: 10,
     set: 'chef',
     canOwn: ownsItem('head_armoire_toqueBlanche'),
+  },
+  vernalHennin: {
+    text: t('headArmoireVernalHenninText'),
+    notes: t('headArmoireVernalHenninNotes', { per: 12 }),
+    value: 100,
+    per: 12,
+    set: 'vernalVestments',
+    canOwn: ownsItem('head_armoire_vernalHennin'),
   },
 };
 
@@ -1527,6 +1544,14 @@ let weapon = {
     int: 8,
     set: 'chef',
     canOwn: ownsItem('weapon_armoire_chefsSpoon'),
+  },
+  vernalTaper: {
+    text: t('weaponArmoireVernalTaperText'),
+    notes: t('weaponArmoireVernalTaperNotes', { con: 8 }),
+    value: 100,
+    con: 8,
+    set: 'vernalVestments',
+    canOwn: ownsItem('weapon_armoire_vernalTaper'),
   },
 };
 
