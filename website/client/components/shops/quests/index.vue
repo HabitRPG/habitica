@@ -244,6 +244,7 @@
     display: inline-block;
     width: 33%;
     margin-bottom: 24px;
+    vertical-align: top;
 
     .items {
       border-radius: 2px;

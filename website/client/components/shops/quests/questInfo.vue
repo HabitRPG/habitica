@@ -74,6 +74,15 @@ dt {
     white-space: nowrap;
   }
 }
+
+// making sure the star-colors always correct
+.star {
+  fill: #ffb445;
+}
+.star-empty {
+  fill: #686274;
+}
+
 </style>
 
 <script>
