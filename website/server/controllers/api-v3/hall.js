@@ -175,7 +175,7 @@ api.getHero = {
     if (validator.isUUID(heroId)) {
       query = {_id: heroId};
     } else {
-      query = {'auth.local.lowerCaseUsername': new RegExp('\\b' + heroId + '\\b', 'i')};
+      query = {'auth.local.lowerCaseUsername': new RegExp(`\\b${heroId}\\b`, 'i')};
     }
 
     const hero = await User
