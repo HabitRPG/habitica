@@ -27,7 +27,7 @@ describe('GET /heroes/:heroId', () => {
     await expect(user.get('/hall/heroes/invalidUUID')).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
-      message: t('userWithIDNotFound', {userId: 'invalidUUID'}),
+      message: t('userWithIDNotFound', {userId: 'invaliduuid'}),
     });
   });
 
