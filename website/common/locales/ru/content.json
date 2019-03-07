@@ -201,7 +201,7 @@
     "hatchingPotionThunderstorm": "Грозовой",
     "hatchingPotionGhost": "Призрачный",
     "hatchingPotionRoyalPurple": "Королевский пурпурный",
-    "hatchingPotionHolly": "Oстролистный",
+    "hatchingPotionHolly": "Остролистный",
     "hatchingPotionCupid": "Амурный",
     "hatchingPotionShimmer": "Мерцающий",
     "hatchingPotionFairy": "Сказочный",
@@ -306,5 +306,6 @@
     "foodSaddleText": "Седло",
     "foodSaddleNotes": "Моментально делает одного из питомцев скакуном.",
     "foodSaddleSellWarningNote": "Эй! Это довольно полезная вещь! Знаете ли вы, как пользоваться седлом?",
-    "foodNotes": "Кормите этим питомца, и он сможет вырасти выносливым скакуном."
+    "foodNotes": "Кормите этим питомца, и он сможет вырасти выносливым скакуном.",
+    "hatchingPotionRoseQuartz": "Розовый кварцевый"
 }
