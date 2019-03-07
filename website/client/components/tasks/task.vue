@@ -20,7 +20,7 @@
               v-if="isUser && !isRunningYesterdailies",
               :right="task.type === 'reward'",
               ref="taskDropdown",
-              v-b-tooltip.hover.top="$t('showMore')"
+              v-b-tooltip.hover.top="$t('options')"
             )
               div(slot="dropdown-toggle", draggable=false)
                 .svg-icon.dropdown-icon(v-html="icons.menu")
@@ -141,6 +141,11 @@
     min-width: 0px;
     overflow-wrap: break-word;
 
+    // markdown p-tag, can't find without /deep/
+    /deep/ p {
+      margin-bottom: 0;
+    }
+
     &.has-notes {
       padding-bottom: 4px;
     }
@@ -229,7 +234,7 @@
     overflow-wrap: break-word;
 
     &.has-checklist {
-      padding-bottom: 8px;
+      padding-bottom: 2px;
     }
   }
 
@@ -285,7 +290,7 @@
     margin-bottom: -3px;
     min-height: 0px;
     width: 100%;
-    margin-left: 8px;
+    margin-left: 0;
     padding-right: 20px;
     overflow-wrap: break-word;
 
@@ -427,7 +432,7 @@
     border-left: none;
   }
 
-  .task-control, .reward-control {
+  .task-control:not(.task-disabled-habit-control-inner), .reward-control {
     cursor: pointer;
   }
 

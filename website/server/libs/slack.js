@@ -9,6 +9,10 @@ const SLACK_FLAGGING_URL = nconf.get('SLACK_FLAGGING_URL');
 const SLACK_FLAGGING_FOOTER_LINK = nconf.get('SLACK_FLAGGING_FOOTER_LINK');
 const SLACK_SUBSCRIPTIONS_URL = nconf.get('SLACK_SUBSCRIPTIONS_URL');
 const BASE_URL = nconf.get('BASE_URL');
+const IS_PRODUCTION = nconf.get('IS_PROD');
+
+const SKIP_FLAG_METHODS = IS_PRODUCTION && !SLACK_FLAGGING_URL;
+const SKIP_SUB_METHOD = IS_PRODUCTION && !SLACK_SUBSCRIPTIONS_URL;
 
 let flagSlack;
 let subscriptionSlack;
@@ -18,6 +22,26 @@ try {
   subscriptionSlack = new IncomingWebhook(SLACK_SUBSCRIPTIONS_URL);
 } catch (err) {
   logger.error(err);
+
+  if (!IS_PRODUCTION) {
+    flagSlack = subscriptionSlack = {
+      send (data) {
+        logger.info('Data sent to slack', data);
+      },
+    };
+  }
+}
+
+/**
+ *
+ * @param formatObj.name userName
+ * @param formatObj.displayName displayName
+ * @param formatObj.email email
+ * @param formatObj.uuid uuid
+ * @returns {string}
+ */
+function formatUser (formatObj) {
+  return `@${formatObj.name} ${formatObj.displayName} (${formatObj.email}; ${formatObj.uuid})`;
 }
 
 function sendFlagNotification ({
@@ -28,13 +52,13 @@ function sendFlagNotification ({
   userComment,
   automatedComment,
 }) {
-  if (!SLACK_FLAGGING_URL) {
+  if (SKIP_FLAG_METHODS) {
     return;
   }
   let titleLink;
   let authorName;
   let title = `Flag in ${group.name}`;
-  let text = `${flagger.profile.name} (${flagger.id}; language: ${flagger.preferences.language}) flagged a message`;
+  let text = `${flagger.profile.name} (${flagger.id}; language: ${flagger.preferences.language}) flagged a group message`;
   let footer = `<${SLACK_FLAGGING_FOOTER_LINK}?groupId=${group.id}&chatId=${message.id}|Flag this message.>`;
 
   if (userComment) {
@@ -55,7 +79,12 @@ function sendFlagNotification ({
   if (!message.user && message.uuid === 'system') {
     authorName = 'System Message';
   } else {
-    authorName = `${message.user} - ${authorEmail} - ${message.uuid}`;
+    authorName = formatUser({
+      name: message.username,
+      displayName: message.user,
+      email: authorEmail,
+      uuid: message.uuid,
+    });
   }
 
   const timestamp = `${moment(message.timestamp).utc().format('YYYY-MM-DD HH:mm')} UTC`;
@@ -77,6 +106,69 @@ function sendFlagNotification ({
   });
 }
 
+function sendInboxFlagNotification ({
+  authorEmail,
+  flagger,
+  message,
+  userComment,
+}) {
+  if (SKIP_FLAG_METHODS) {
+    return;
+  }
+  let titleLink = '';
+  let authorName;
+  let title = `Flag in ${flagger.profile.name}'s Inbox`;
+  let text = `${flagger.profile.name} (${flagger.id}; language: ${flagger.preferences.language}) flagged a PM`;
+  let footer = '';
+
+  if (userComment) {
+    text += ` and commented: ${userComment}`;
+  }
+
+  let messageText = message.text;
+  let sender = '';
+  let recipient = '';
+
+  const flaggerFormat = formatUser({
+    displayName: flagger.profile.name,
+    name: flagger.auth.local.username,
+    email: flagger.auth.local.email,
+    uuid: flagger._id,
+  });
+  const messageUserFormat = formatUser({
+    displayName: message.user,
+    name: message.username,
+    email: authorEmail,
+    uuid: message.uuid,
+  });
+
+  if (message.sent) {
+    sender = flaggerFormat;
+    recipient = messageUserFormat;
+  } else {
+    sender = messageUserFormat;
+    recipient = flaggerFormat;
+  }
+
+  authorName = `${sender} wrote this message to ${recipient}.`;
+
+  flagSlack.send({
+    text,
+    attachments: [{
+      fallback: 'Flag Message',
+      color: 'danger',
+      author_name: authorName,
+      title,
+      title_link: titleLink,
+      text: messageText,
+      footer,
+      mrkdwn_in: [
+        'text',
+      ],
+    }],
+  });
+}
+
 function sendSubscriptionNotification ({
   buyer,
   recipient,
@@ -84,7 +176,7 @@ function sendSubscriptionNotification ({
   months,
   groupId,
 }) {
-  if (!SLACK_SUBSCRIPTIONS_URL) {
+  if (SKIP_SUB_METHOD) {
     return;
   }
   let text;
@@ -108,7 +200,7 @@ function sendSlurNotification ({
   group,
   message,
 }) {
-  if (!SLACK_FLAGGING_URL) {
+  if (SKIP_FLAG_METHODS) {
     return;
   }
   let titleLink;
@@ -124,7 +216,12 @@ function sendSlurNotification ({
     title += ` - (${group.privacy} ${group.type})`;
   }
 
-  authorName = `${author.profile.name} - ${authorEmail} - ${author.id}`;
+  authorName = formatUser({
+    name: author.auth.local.username,
+    displayName: author.profile.name,
+    email: authorEmail,
+    uuid: author.id,
+  });
 
   flagSlack.send({
     text,
@@ -143,5 +240,9 @@ function sendSlurNotification ({
 }
 
 module.exports = {
-  sendFlagNotification, sendSubscriptionNotification, sendSlurNotification,
+  sendFlagNotification,
+  sendInboxFlagNotification,
+  sendSubscriptionNotification,
+  sendSlurNotification,
+  formatUser,
 };
