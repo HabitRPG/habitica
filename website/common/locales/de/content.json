@@ -2,9 +2,9 @@
     "potionText": "Heiltrank",
     "potionNotes": "Heilt 15 Lebenspunkte (wird sofort angewendet)",
     "armoireText": "Verzauberter Schrank",
-    "armoireNotesFull": "Öffne den Schrank, um zufällig spezielle Ausrüstung, Erfahrung oder Futter zu erhalten! Verbleibende Ausrüstungsgegenstände:",
+    "armoireNotesFull": "Öffne den Schrank, um zufällig spezielle Ausrüstung, Erfahrung oder Futter zu erhalten! Verbleibende Ausrüstungsgegenstände: ",
     "armoireLastItem": "Du hast das letzte Stück seltener Ausrüstung im verzauberten Schrank gefunden.",
-    "armoireNotesEmpty": "Im verzauberten Schrank gibt es jeweils in der ersten Woche eines Monats neue Ausrüstung. Bis dahin, klicke weiter für Erfahrung und Futter.",
+    "armoireNotesEmpty": "Im verzauberten Schrank gibt es jeweils in der ersten Woche eines Monats neue Ausrüstung. Bis dahin, klicke weiter für Erfahrung und Futter!",
     "dropEggWolfText": "Wolfsjunges",
     "dropEggWolfMountText": "Wolfs-Reittier",
     "dropEggWolfAdjective": "ein treues",
@@ -291,7 +291,7 @@
     "foodCandyWhite": "Vanillebonbon",
     "foodCandyWhiteThe": "das Vanillebonbon",
     "foodCandyWhiteA": "ein Vanillebonbon",
-    "foodCandyGolden": "Honigbonbon",
+    "foodCandyGolden": "Honigbonbon ",
     "foodCandyGoldenThe": "das Honigbonbon",
     "foodCandyGoldenA": "ein Honigbonbon",
     "foodCandyZombie": "Verrottetes Bonbon",
@@ -306,5 +306,6 @@
     "foodSaddleText": "Magischer Sattel",
     "foodSaddleNotes": "Lässt eines Deiner Haustiere augenblicklich zum Reittier heranwachsen.",
     "foodSaddleSellWarningNote": "Hey! Das ist ein sehr nützlicher Gegenstand! Bist Du vertraut damit, wie Du den Sattel mit Deinen Haustieren nutzt?",
-    "foodNotes": "Verfüttere das an ein Haustier und es wächst bald zu einem kräftigen Reittier heran."
+    "foodNotes": "Verfüttere das an ein Haustier und es wächst bald zu einem kräftigen Reittier heran.",
+    "hatchingPotionRoseQuartz": "Rosenquarz"
 }
