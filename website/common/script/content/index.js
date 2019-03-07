@@ -265,7 +265,7 @@ api.armoire = {
     if (user.flags.armoireEmpty) {
       return t('armoireNotesEmpty')();
     }
-    return t('armoireNotesFull')() + count;
+    return `${t('armoireNotesFull')()} ${count}`;
   },
   value: 100,
   key: 'armoire',

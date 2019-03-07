@@ -3,7 +3,7 @@
   "potionNotes": "Recover 15 Health (Instant Use)",
 
   "armoireText": "Enchanted Armoire",
-  "armoireNotesFull": "Open the Armoire to randomly receive special Equipment, Experience, or food! Equipment pieces remaining: ",
+  "armoireNotesFull": "Open the Armoire to randomly receive special Equipment, Experience, or food! Equipment pieces remaining:",
   "armoireLastItem": "You've found the last piece of rare Equipment in the Enchanted Armoire.",
   "armoireNotesEmpty": "The Armoire will have new Equipment in the first week of every month. Until then, keep clicking for Experience and Food!",
 
@@ -364,7 +364,7 @@
   "foodCandyWhite": "Vanilla Candy",
   "foodCandyWhiteThe": "the Vanilla Candy",
   "foodCandyWhiteA": "Vanilla Candy",
-  "foodCandyGolden": "Honey Candy ",
+  "foodCandyGolden": "Honey Candy",
   "foodCandyGoldenThe": "the Honey Candy",
   "foodCandyGoldenA": "Honey Candy",
   "foodCandyZombie": "Rotten Candy",
