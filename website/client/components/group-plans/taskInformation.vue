@@ -64,15 +64,24 @@
             .d-flex.align-items-center
               span(v-once) {{ $t('filter') }}
               .svg-icon.filter-icon(v-html="icons.filter")
-    #create-dropdown.col-12.col-md-4
-      b-dropdown.float-right(:right="true", :variant="'success'")
-        .button-label(slot="button-content")
-          .svg-icon.positive(v-html="icons.positive")
-          | {{ $t('addTaskToGroupPlan') }}
-        b-dropdown-item(v-for="type in columns", :key="type", @click="createTask(type)")
-          span.dropdown-icon-item(v-once)
-            span.svg-icon.inline(v-html="icons[type]")
-            span.text {{$t(type)}}
+    .create-task-area.d-flex
+      transition(name="slide-tasks-btns")
+        .d-flex(v-if="openCreateBtn")
+          .create-task-btn.rounded-btn(
+            v-for="type in columns",
+            :key="type",
+            @click="createTask(type)",
+            v-b-tooltip.hover.bottom="$t(type)",
+          )
+            .svg-icon(v-html="icons[type]", :class='`icon-${type}`')
+
+      #create-task-btn.create-btn.rounded-btn.btn.btn-success(
+        @click="openCreateBtn = !openCreateBtn",
+        :class="{open: openCreateBtn}",
+      )
+        .svg-icon(v-html="icons.positive")
+      b-tooltip(target="create-task-btn", placement="bottom", v-if="!openCreateBtn") {{ $t('addTaskToGroupPlan') }}
+
   .row
     task-column.col-12.col-md-3(
       v-for="column in columns",
@@ -229,6 +238,87 @@
 
   .button-label {
     display: inline-block;
+  }
+
+  .create-task-area {
+    position: absolute;
+    right: 24px;
+    top: -23px;
+    z-index: 999;
+    height: 60px;
+  }
+
+  .slide-tasks-btns-leave-active, .slide-tasks-btns-enter-active {
+    max-width: 240px;
+    overflow-x: hidden;
+    transition: all 0.3s cubic-bezier(0, 1, 0.5, 1);
+  }
+  .slide-tasks-btns-enter, .slide-tasks-btns-leave-to {
+    max-width: 0;
+    opacity: 0;
+  }
+
+  .rounded-btn {
+    margin-left: 8px;
+    background: $white;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
+    cursor: pointer;
+    color: $gray-200;
+
+    &:hover:not(.create-btn) {
+      color: $purple-400;
+      box-shadow: 0 1px 8px 0 rgba($black, 0.12), 0 4px 4px 0 rgba($black, 0.16);
+    }
+
+    .svg-icon {
+      width: 20px;
+      height: 20px;
+
+      &.icon-habit {
+        width: 24px;
+        height: 16px;
+      }
+
+      &.icon-daily {
+        width: 21.6px;
+        height: 18px;
+      }
+
+      &.icon-todo {
+        width: 18px;
+        height: 18px;
+      }
+
+      &.icon-reward {
+        width: 23.4px;
+        height: 18px;
+      }
+    }
+  }
+
+  .create-btn {
+    color: $white;
+    background-color: $green-10;
+
+    .svg-icon {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.3s cubic-bezier(0, 1, 0.5, 1);
+    }
+
+    &.open {
+      background: $gray-200 !important;
+
+      .svg-icon {
+        transform: rotate(-45deg);
+      }
+    }
   }
 </style>
 
@@ -400,6 +490,7 @@ export default {
       });
     },
     createTask (type) {
+      this.openCreateBtn = false;
       this.taskFormPurpose = 'create';
       this.creatingTask = taskDefaults({type, text: ''}, this.user);
       this.workingTask = this.creatingTask;

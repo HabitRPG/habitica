@@ -39,7 +39,7 @@
       @update='taskSorted',
       @start="isDragging(true)",
       @end="isDragging(false)",
-      :options='{disabled: activeFilter.label === "scheduled", scrollSensitivity: 64}',
+      :options='{disabled: activeFilter.label === "scheduled" || !isUser, scrollSensitivity: 64}',
     )
       task(
         v-for="task in taskList",
