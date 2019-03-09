@@ -51,8 +51,7 @@
           .card.text-center.payment-method
             a.card-body.paypal(@click="openPaypal(paypalCheckoutLink, 'gems')")
               img(src='~assets/images/paypal.png')
-          amazon-button(:amazon-data="{type: 'single'}")
-          // .card.text-center.payment-method(@click="amazonPaymentsInit({type: 'single'})")
+          .card.text-center.payment-method(@click="amazonPaymentsInit({type: 'single'})")
             .card-body.amazon
               img(src='~assets/images/amazon-payments.png')
         .row.text-center
@@ -136,8 +135,7 @@
               a.card-body.paypal(@click="openPaypal(paypalSubscriptionLink, 'subscription')")
                 img(src='~assets/images/paypal.png')
             .card.text-center.payment-method
-              amazon-button(:amazon-data="{type: 'subscription', subscription: subscriptionPlan}")
-              // .card-body.amazon(@click="amazonPaymentsInit({type: 'subscription', subscription: subscriptionPlan})")
+              .card-body.amazon(@click="amazonPaymentsInit({type: 'subscription', subscription: subscriptionPlan})")
                 img(src='~assets/images/amazon-payments.png')
           .row.text-center
             .svg-icon.mx-auto(v-html='icons.heart', style='"height: 24px; width: 24px;"')
@@ -174,6 +172,10 @@
 
   p {
     font-size: 16px;
+  }
+
+  .amazon {
+    padding-top: 1.8em;
   }
 
   .benefits {
@@ -346,13 +348,10 @@
   import fortyTwoGems from 'assets/svg/42-gems.svg';
   import eightyFourGems from 'assets/svg/84-gems.svg';
 
-  import amazonButton from 'client/components/payments/amazonButton';
-
   export default {
     mixins: [paymentsMixin],
     components: {
       planGemLimits,
-      amazonButton,
     },
     computed: {
       ...mapState({user: 'user.data'}),
@@ -384,6 +383,7 @@
         gemAmount: 0,
         subscriptionPlan: '',
         selectedPage: 'subscribe',
+        amazonPayments: {},
         planGemLimits,
       };
     },
