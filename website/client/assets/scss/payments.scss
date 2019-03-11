@@ -4,6 +4,14 @@
   width: 296px;
   justify-content: center;
 
+  &.payments-disabled {
+    opacity: 0.64;
+
+    .btn, .btn:hover, .btn:active {
+      box-shadow: none;
+    }
+  }
+
   .payment-item {
     margin-bottom: 12px;
     display: flex;

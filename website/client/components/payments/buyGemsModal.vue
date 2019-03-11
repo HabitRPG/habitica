@@ -161,7 +161,7 @@
   .payments-column {
     margin: 0 auto;
   }
-  
+
   a.mx-auto {
     color: #2995cd;
   }
@@ -299,7 +299,6 @@
     color: #4e4a57;
     font-size: 24px;
     margin: 1em;
-    opacity: 0.64;
   }
 </style>
 
