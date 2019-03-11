@@ -1,0 +1,32 @@
+.payments-column {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  padding-left: 24px;
+
+  .payment-item {
+    margin-bottom: 12px;
+    display: flex;
+
+    &.payment-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .credit-card-icon {
+        width: 21.3px;
+        height: 16px;
+        margin-right: 8.7px;
+      }
+
+      &.paypal-checkout {
+        background: #009cde;
+
+        img {
+          width: 157px;
+          height: 21px;
+        }
+      }
+    }
+  }
+}

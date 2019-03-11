@@ -73,11 +73,11 @@
 
         .subscribe-pay(v-if='!hasSubscription || hasCanceledSubscription')
           h3 {{ $t('subscribeUsing') }}
-          .row.text-center.payments-row
-            button.purchase.btn.btn-primary.payment-item.d-flex.justify-content-center.align-items-center(@click='showStripe({subscription:subscription.key, coupon:subscription.coupon})', :disabled='!subscription.key') 
+          .payments-column
+            button.purchase.btn.btn-primary.payment-button.payment-item(@click='showStripe({subscription:subscription.key, coupon:subscription.coupon})', :disabled='!subscription.key') 
               .svg-icon.credit-card-icon(v-html="icons.creditCardIcon")
               | {{ $t('card') }}
-            button.btn.payment-item.d-flex.justify-content-center.align-items-center.paypal-checkout(@click="openPaypal(paypalPurchaseLink, 'subscription')", :disabled='!subscription.key')
+            button.btn.payment-item.paypal-checkout.payment-button(@click="openPaypal(paypalPurchaseLink, 'subscription')", :disabled='!subscription.key')
               img(src='~assets/images/paypal-checkout.png', srcset="~assets/images/paypal-checkout@3x.png 3x ~assets/images/paypal-checkout@2x.png 2x", :alt="$t('paypal')")
             amazon-button.payment-item(:amazon-data="{type: 'subscription', subscription: this.subscription.key, coupon: this.subscription.coupon}")
             // a.btn.btn-secondary.purchase(@click="payWithAmazon()")
@@ -99,33 +99,6 @@
 
   .subscribe-pay {
     margin-top: 1em;
-  }
-
-  .payments-row {
-    display: flex;
-    flex-direction: column;
-    width: 300px;
-    padding-left: 24px;
-  }
-
-  .payment-item {
-    margin-bottom: 12px;
-    display: flex;
-  }
-
-  .credit-card-icon {
-    width: 21.3px;
-    height: 16px;
-    margin-right: 8.7px;
-  }
-
-  .paypal-checkout {
-    background: #009cde;
-
-    img {
-      width: 157px;
-      height: 21px;
-    }
   }
 </style>
 
