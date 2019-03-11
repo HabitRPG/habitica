@@ -98,10 +98,6 @@
   .subscribe-pay {
     margin-top: 1em;
   }
-
-  .payments-column {
-    padding-left: 24px;
-  }
 </style>
 
 <script>

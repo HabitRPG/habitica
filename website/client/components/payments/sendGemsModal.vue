@@ -48,11 +48,13 @@ b-modal#send-gems(:title="title", :hide-footer="true", size='lg', @hide='onHide(
       @click="sendGift()",
       :disabled="sendingInProgress"
     ) {{ $t("send") }}
-    template(v-else)
-      button.btn.btn-primary(@click='showStripe({gift, uuid: userReceivingGems._id, receiverName})') {{ $t('card') }}
-      button.btn.btn-warning(@click='openPaypalGift({gift: gift, giftedTo: userReceivingGems._id, receiverName})') PayPal
-      amazon-button(:amazon-data="{type: 'single', gift, giftedTo: userReceivingGems._id, receiverName}")
-      //button.btn.btn-success(@click="amazonPaymentsInit({type: 'single', gift, giftedTo: userReceivingGems._id, receiverName})") Amazon Payments
+    .payments-column(v-else)
+      button.purchase.btn.btn-primary.payment-button.payment-item(@click='showStripe({gift, uuid: userReceivingGems._id, receiverName})') 
+        .svg-icon.credit-card-icon(v-html="icons.creditCardIcon")
+        | {{ $t('card') }}
+      button.btn.payment-item.paypal-checkout.payment-button(@click="openPaypalGift({gift: gift, giftedTo: userReceivingGems._id, receiverName})")
+        img(src='~assets/images/paypal-checkout.png', srcset="~assets/images/paypal-checkout@3x.png 3x ~assets/images/paypal-checkout@2x.png 2x", :alt="$t('paypal')")
+      amazon-button.payment-item(:amazon-data="{type: 'single', gift, giftedTo: userReceivingGems._id, receiverName}")
     button.btn.btn-secondary(@click='close()') {{$t('cancel')}}
 </template>
 
@@ -88,6 +90,7 @@ import planGemLimits from '../../../common/script/libs/planGemLimits';
 import paymentsMixin from 'client/mixins/payments';
 import notificationsMixin from 'client/mixins/notifications';
 import amazonButton from 'client/components/payments/amazonButton';
+import creditCardIcon from 'assets/svg/credit-card-icon.svg';
 
 // @TODO: EMAILS.TECH_ASSISTANCE_EMAIL, load from config
 const TECH_ASSISTANCE_EMAIL = 'admin@habitica.com';
@@ -115,6 +118,9 @@ export default {
       },
       sendingInProgress: false,
       userReceivingGems: null,
+      icons: Object.freeze({
+        creditCardIcon,
+      }),
     };
   },
   computed: {
