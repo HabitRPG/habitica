@@ -1,6 +1,6 @@
 <template lang="pug">
-b-modal#send-gems(:title="title", :hide-footer="true", size='lg', @hide='onHide()')
-  .modal-body(v-if='userReceivingGems')
+b-modal#send-gems(:title="title", :hide-footer="true", size='md', @hide='onHide()')
+  div(v-if='userReceivingGems')
     .panel.panel-default(
       :class="gift.type === 'gems' ? 'panel-primary' : 'transparent'",
       @click='gift.type = "gems"'
@@ -32,7 +32,7 @@ b-modal#send-gems(:title="title", :hide-footer="true", size='lg', @hide='onHide(
       h3.panel-heading {{ $t('subscription') }}
       .panel-body
         .row
-          .col-md-4
+          .col-md-12
             .form-group
               .radio(v-for='block in subscriptionBlocks', v-if="block.target !== 'group' && block.canSubscribe === true")
                 label
@@ -48,14 +48,13 @@ b-modal#send-gems(:title="title", :hide-footer="true", size='lg', @hide='onHide(
       @click="sendGift()",
       :disabled="sendingInProgress"
     ) {{ $t("send") }}
-    .payments-column(v-else)
+    .payments-column.mx-auto(v-else)
       button.purchase.btn.btn-primary.payment-button.payment-item(@click='showStripe({gift, uuid: userReceivingGems._id, receiverName})') 
         .svg-icon.credit-card-icon(v-html="icons.creditCardIcon")
         | {{ $t('card') }}
       button.btn.payment-item.paypal-checkout.payment-button(@click="openPaypalGift({gift: gift, giftedTo: userReceivingGems._id, receiverName})")
         img(src='~assets/images/paypal-checkout.png', srcset="~assets/images/paypal-checkout@3x.png 3x ~assets/images/paypal-checkout@2x.png 2x", :alt="$t('paypal')")
-      amazon-button.payment-item(:amazon-data="{type: 'single', gift, giftedTo: userReceivingGems._id, receiverName}")
-    button.btn.btn-secondary(@click='close()') {{$t('cancel')}}
+      amazon-button.payment-item.mb-0(:amazon-data="{type: 'single', gift, giftedTo: userReceivingGems._id, receiverName}")
 </template>
 
 <style lang="scss">
@@ -79,6 +78,12 @@ b-modal#send-gems(:title="title", :hide-footer="true", size='lg', @hide='onHide(
       border: 1px solid #C3C0C7;
     }
   }
+</style>
+
+<style lang="scss" scoped>
+input[type="radio"] {
+  margin-right: 4px;
+}
 </style>
 
 <script>
