@@ -81,7 +81,7 @@
 
       div(
         v-for="category in categories",
-        v-if="viewOptions[category.identifier].selected"
+        v-if="!anyFilterSelected || viewOptions[category.identifier].selected"
       )
         h2.mb-3 {{ category.text }}
 
@@ -244,12 +244,14 @@
     display: inline-block;
     width: 33%;
     margin-bottom: 24px;
+    vertical-align: top;
 
     .items {
       border-radius: 2px;
       background-color: #edecee;
       display: inline-block;
       padding: 8px;
+      margin-right: 12px;
     }
 
     .item-wrapper {
@@ -258,6 +260,7 @@
 
     .items > div:not(:last-of-type) {
       margin-right: 16px;
+      margin-bottom: 16px;
     }
   }
 
@@ -415,7 +418,7 @@ export default {
         if (this.shop.categories) {
           this.shop.categories.map((category) => {
             this.$set(this.viewOptions, category.identifier, {
-              selected: true,
+              selected: false,
             });
           });
 
@@ -423,6 +426,10 @@ export default {
         } else {
           return [];
         }
+      },
+
+      anyFilterSelected () {
+        return Object.values(this.viewOptions).some(g => g.selected);
       },
     },
     methods: {
