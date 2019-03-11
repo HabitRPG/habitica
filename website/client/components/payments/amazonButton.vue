@@ -2,14 +2,6 @@
   .amazon-pay-button(:id="buttonId")
 </template>
 
-<style scoped>
-  .amazon-pay-button {
-    width: 150px;
-    margin-bottom: 12px;
-    margin: 0 auto;
-  }
-</style>
-
 <script>
 import axios from 'axios';
 import { mapState } from 'client/libs/store';
