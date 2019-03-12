@@ -975,6 +975,8 @@
   "headSpecialTurkeyHelmBaseNotes": "Your Turkey Day look will be complete when you don this beaked helm! Confers no benefit.",
   "headSpecialTurkeyHelmGildedText": "Gilded Turkey Helm",
   "headSpecialTurkeyHelmGildedNotes": "Gobble gobble! Bling bling! Confers no benefit.",
+  "headSpecialPiDayText": "Pi Hat",
+  "headSpecialPiDayNotes": "Try to balance this slice of delicious pie on your head while walking in a circle. Or throw it at a red Daily! Or you could just eat it. Your choice! Confers no benefit.",
 
   "headSpecialNyeText": "Absurd Party Hat",
   "headSpecialNyeNotes": "You've received an Absurd Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
@@ -1424,6 +1426,8 @@
   "shieldSpecialWintryMirrorNotes": "How else to best admire your wintry look? Increases Intelligence by <%= int %>.",
   "shieldSpecialWakizashiText": "Wakizashi",
   "shieldSpecialWakizashiNotes": "This short sword is perfect for close-quarters battles with your Dailies! Increases Constitution by <%= con %>.",
+  "shieldSpecialPiDayText": "Pi Shield",
+  "shieldSpecialPiDayNotes": "We dare you to calculate the ratio of this shield's circumference to its deliciousness! Confers no benefit.",
 
   "shieldSpecialYetiText": "Yeti-Tamer Shield",
   "shieldSpecialYetiNotes": "This shield reflects light from the snow. Increases Constitution by <%= con %>. Limited Edition 2013-2014 Winter Gear.",

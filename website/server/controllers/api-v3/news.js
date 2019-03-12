@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'MARCH BACKGROUNDS AND ARMOIRE ITEMS!';
+const LAST_ANNOUNCEMENT_TITLE = 'CELEBRATE PI DAY WITH HABITICA!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,14 +30,14 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>3/5/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>3/14/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_armoire_backgrounds_201903 center-block"></div>
-        <p>We’ve added three new backgrounds to the Background Shop! Now your avatar can feed the birds at the Duck Pond, browse the Flower Market and go on the hunt for Spring goodies in a Field with Colored Eggs. Check them out under User Icon > Backgrounds!</p>
-        <p>Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the Vernal Vestment set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)</p>
-        <div class="small mb-3">by AnneDeLune, GeraldThePixel, QuartzFox, Vikte, gawrone, astigmatism, and SabreCat</div>
+        <div class="promo_pi_day center-block"></div>
+        <p>Hello Habiticans! In celebration of Pi Day on March 14, we've gifted everyone delicious slices of pie for you all to feed to your pets.</p>
+        <p>We've also given everyone a festive Pi Hat and Shield so you can celebrate in style. Enjoy them, and thanks for being a part of our community!</p>
+        <div class="small mb-3">by Beffymaroo and SabreCat</div>
       </div>
       `,
     });
