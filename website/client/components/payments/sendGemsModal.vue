@@ -53,7 +53,9 @@ b-modal#send-gems(:title="title", :hide-footer="true", size='md', @hide='onHide(
         .svg-icon.credit-card-icon(v-html="icons.creditCardIcon")
         | {{ $t('card') }}
       button.btn.payment-item.paypal-checkout.payment-button(@click="openPaypalGift({gift: gift, giftedTo: userReceivingGems._id, receiverName})", :disabled="!gift.subscription.key")
-        img(src='~assets/images/paypal-checkout.png', srcset="~assets/images/paypal-checkout@3x.png 3x ~assets/images/paypal-checkout@2x.png 2x", :alt="$t('paypal')")
+        | &nbsp;
+        img(src='~assets/images/paypal-checkout.png', :alt="$t('paypal')")
+        | &nbsp;
       amazon-button.payment-item.mb-0(:amazon-data="{type: 'single', gift, giftedTo: userReceivingGems._id, receiverName}")
 </template>
 

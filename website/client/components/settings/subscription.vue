@@ -78,7 +78,9 @@
               .svg-icon.credit-card-icon(v-html="icons.creditCardIcon")
               | {{ $t('card') }}
             button.btn.payment-item.paypal-checkout.payment-button(@click="openPaypal(paypalPurchaseLink, 'subscription')", :disabled='!subscription.key')
-              img(src='~assets/images/paypal-checkout.png', srcset="~assets/images/paypal-checkout@3x.png 3x ~assets/images/paypal-checkout@2x.png 2x", :alt="$t('paypal')")
+              | &nbsp;
+              img(src='~assets/images/paypal-checkout.png', :alt="$t('paypal')")
+              | &nbsp;
             amazon-button.payment-item(:amazon-data="{type: 'subscription', subscription: this.subscription.key, coupon: this.subscription.coupon}")
     .row
       .col-6
