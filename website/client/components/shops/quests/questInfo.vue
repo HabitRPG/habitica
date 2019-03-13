@@ -1,55 +1,39 @@
 <template lang="pug">
 .row(:class="{'small-version': smallVersion}")
   dl
-  .table-row(v-if="quest.collect")
-    dt {{ $t('collect') + ':' }}
-    dd
+  template(v-if="quest.collect")
+    dt(:class="smallVersion ? 'col-3' : 'col-4'") {{ $t('collect') + ':' }}
+    dd.col-8
       div(v-for="(collect, key) of quest.collect")
         span {{ collect.count }} {{ getCollectText(collect) }}
 
-  .table-row(v-if="quest.boss")
-    dt {{ $t('bossHP') + ':' }}
-    dd {{ quest.boss.hp }}
+  template(v-if="quest.boss")
+    dt(:class="smallVersion ? 'col-3' : 'col-4'") {{ $t('bossHP') + ':' }}
+    dd.col-8 {{ quest.boss.hp }}
 
-  .table-row
-    dt {{ $t('difficulty') + ':' }}
-    dd
-      .svg-icon.inline(
-        v-for="star of stars()", v-html="icons[star]",
-        :class="smallVersion ? 'icon-12' : 'icon-16'",
-      )
+  dt(:class="smallVersion ? 'col-3' : 'col-4'") {{ $t('difficulty') + ':' }}
+  dd.col-8
+    .svg-icon.inline(
+      v-for="star of stars()", v-html="icons[star]",
+      :class="smallVersion ? 'icon-12' : 'icon-16'",
+    )
 </template>
 
 <style lang="scss" scoped>
 @import '~client/assets/scss/colors.scss';
 
-.row {
-  display: table;
-  color: #E1E0E3;
-}
-
-.table-row {
-  display: table-row;
-  margin-bottom: 4px;
-}
-
-dd {
-  padding-left: 1em;
-  padding-bottom: 4px;
-}
-
-dt, dd {
-  display: table-cell;
-}
-
-dt, dd, dd > * {
-  text-align: left;
-}
-
 dt {
   font-size: 1.3em;
   line-height: 1.2;
   color: $gray-50;
+}
+
+.col-8 {
+  text-align: left;
+}
+
+.col-8:not(:last-child) {
+  margin-bottom: 4px;
 }
 
 .svg-icon {
