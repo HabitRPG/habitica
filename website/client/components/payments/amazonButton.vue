@@ -35,6 +35,10 @@ export default {
   },
   props: {
     amazonData: Object,
+    amazonDisabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     ...mapState({user: 'user.data'}),
@@ -48,11 +52,16 @@ export default {
       return false;
     },
   },
+  watch: {
+    amazonData () {
+      this.amazonPaymentsInit(this.amazonData);
+    },
+  },
   beforeMount () {
     this.buttonId = `AmazonPayButton-${uuid.v4()}`;
   },
   mounted () {
-    this.amazonPaymentsInit(this.amazonData); // TOOD clone
+    this.amazonPaymentsInit(this.amazonData);
     if (this.isAmazonReady) return this.setupAmazon();
 
     this.$store.watch(state => state.isAmazonReady, (isAmazonReady) => {
@@ -75,6 +84,8 @@ export default {
           size: 'large',
           agreementType: 'BillingAgreement',
           onSignIn: async (contract) => { // @TODO send to modal
+            if (this.amazonDisabled === true) return null;
+            // if (!this.checkGemAmount(this.amazonData)) return;
             this.amazonPayments.billingAgreementId = contract.getAmazonBillingAgreementId();
 
             this.$set(this.amazonPayments, 'loggedIn', true);
@@ -82,6 +93,7 @@ export default {
             this.$root.$emit('habitica::pay-with-amazon', this.amazonPayments);
           },
           authorization: () => {
+            if (this.amazonDisabled === true) return null;
             window.amazon.Login.authorize({
               scope: 'payments:widget',
               popup: true,

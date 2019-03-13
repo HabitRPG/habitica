@@ -10,6 +10,10 @@
     .btn, .btn:hover, .btn:active {
       box-shadow: none;
     }
+
+    .payment-item > *{
+      cursor: default !important;
+    }
   }
 
   .payment-item {
