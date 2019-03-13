@@ -43,10 +43,6 @@ export default {
       if (!this.currentGroup) return false;
       return this.currentGroup.leader === this.user._id;
     },
-    isManager () {
-      if (!this.currentGroup) return false;
-      return Boolean(this.currentGroup.managers[this.user._id]);
-    },
   },
 };
 </script>

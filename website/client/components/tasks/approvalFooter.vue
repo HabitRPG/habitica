@@ -114,7 +114,6 @@ export default {
       this.task.group.assignedUsers.splice(index, 1);
     },
     approve () {
-      if (!confirm(this.$t('confirmApproval'))) return;
       let userIdToApprove = this.task.group.assignedUsers[0];
       this.$store.dispatch('tasks:approve', {
         taskId: this.task._id,

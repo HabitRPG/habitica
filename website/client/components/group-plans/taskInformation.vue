@@ -64,7 +64,7 @@
             .d-flex.align-items-center
               span(v-once) {{ $t('filter') }}
               .svg-icon.filter-icon(v-html="icons.filter")
-    .create-task-area.d-flex
+    .create-task-area.d-flex(v-if='canCreateTasks')
       transition(name="slide-tasks-btns")
         .d-flex(v-if="openCreateBtn")
           .create-task-btn.rounded-btn(
@@ -428,6 +428,10 @@ export default {
       });
 
       return tagsByType;
+    },
+    canCreateTasks () {
+      if (!this.group) return false;
+      return this.group.leader && this.group.leader._id === this.user._id || this.group.managers && Boolean(this.group.managers[this.user._id]);
     },
   },
   methods: {

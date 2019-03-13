@@ -43,8 +43,6 @@ export default {
         return;
       }
 
-      if (!confirm(this.$t('confirmApproval'))) return;
-
       this.$store.dispatch('tasks:approve', {
         taskId: this.notification.data.groupTaskId,
         userId: this.notification.data.userId,
