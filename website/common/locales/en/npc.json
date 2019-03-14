@@ -112,7 +112,7 @@
   "donationDesc": "20 Gems, Donation to Habitica",
   "payWithCard": "Pay with Card",
   "payNote": "Note: PayPal sometimes takes a long time to clear. We recommend paying with card.",
-  "card": "Credit Card (using Stripe)",
+  "card": "Credit Card",
   "amazonInstructions": "Click the button to pay using Amazon Payments",
   "paymentMethods": "Purchase using",
   "paymentSuccessful": "Your payment was successful!",

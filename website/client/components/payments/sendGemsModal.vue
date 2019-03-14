@@ -1,6 +1,6 @@
 <template lang="pug">
-b-modal#send-gems(:title="title", :hide-footer="true", size='lg', @hide='onHide()')
-  .modal-body(v-if='userReceivingGems')
+b-modal#send-gems(:title="title", :hide-footer="true", size='md', @hide='onHide()')
+  div(v-if='userReceivingGems')
     .panel.panel-default(
       :class="gift.type === 'gems' ? 'panel-primary' : 'transparent'",
       @click='gift.type = "gems"'
@@ -32,7 +32,7 @@ b-modal#send-gems(:title="title", :hide-footer="true", size='lg', @hide='onHide(
       h3.panel-heading {{ $t('subscription') }}
       .panel-body
         .row
-          .col-md-4
+          .col-md-12
             .form-group
               .radio(v-for='block in subscriptionBlocks', v-if="block.target !== 'group' && block.canSubscribe === true")
                 label
@@ -48,11 +48,18 @@ b-modal#send-gems(:title="title", :hide-footer="true", size='lg', @hide='onHide(
       @click="sendGift()",
       :disabled="sendingInProgress"
     ) {{ $t("send") }}
-    template(v-else)
-      button.btn.btn-primary(@click='showStripe({gift, uuid: userReceivingGems._id, receiverName})') {{ $t('card') }}
-      button.btn.btn-warning(@click='openPaypalGift({gift: gift, giftedTo: userReceivingGems._id, receiverName})') PayPal
-      button.btn.btn-success(@click="amazonPaymentsInit({type: 'single', gift, giftedTo: userReceivingGems._id, receiverName})") Amazon Payments
-    button.btn.btn-secondary(@click='close()') {{$t('cancel')}}
+    .payments-column.mx-auto(v-else, :class="{'payments-disabled': !gift.subscription.key && gift.gems.amount < 1}")
+      button.purchase.btn.btn-primary.payment-button.payment-item(@click='showStripe({gift, uuid: userReceivingGems._id, receiverName})', :disabled="!gift.subscription.key && gift.gems.amount < 1") 
+        .svg-icon.credit-card-icon(v-html="icons.creditCardIcon")
+        | {{ $t('card') }}
+      button.btn.payment-item.paypal-checkout.payment-button(@click="openPaypalGift({gift: gift, giftedTo: userReceivingGems._id, receiverName})", :disabled="!gift.subscription.key && gift.gems.amount < 1")
+        | &nbsp;
+        img(src='~assets/images/paypal-checkout.png', :alt="$t('paypal')")
+        | &nbsp;
+      amazon-button.payment-item.mb-0(
+        :amazon-data="{type: 'single', gift, giftedTo: userReceivingGems._id, receiverName}",
+        :amazon-disabled="!gift.subscription.key && gift.gems.amount < 1",
+      )
 </template>
 
 <style lang="scss">
@@ -78,6 +85,12 @@ b-modal#send-gems(:title="title", :hide-footer="true", size='lg', @hide='onHide(
   }
 </style>
 
+<style lang="scss" scoped>
+input[type="radio"] {
+  margin-right: 4px;
+}
+</style>
+
 <script>
 import toArray from 'lodash/toArray';
 import omitBy from 'lodash/omitBy';
@@ -86,12 +99,17 @@ import { mapState } from 'client/libs/store';
 import planGemLimits from '../../../common/script/libs/planGemLimits';
 import paymentsMixin from 'client/mixins/payments';
 import notificationsMixin from 'client/mixins/notifications';
+import amazonButton from 'client/components/payments/amazonButton';
+import creditCardIcon from 'assets/svg/credit-card-icon.svg';
 
 // @TODO: EMAILS.TECH_ASSISTANCE_EMAIL, load from config
 const TECH_ASSISTANCE_EMAIL = 'admin@habitica.com';
 
 export default {
   mixins: [paymentsMixin, notificationsMixin],
+  components: {
+    amazonButton,
+  },
   data () {
     return {
       planGemLimits,
@@ -110,6 +128,9 @@ export default {
       },
       sendingInProgress: false,
       userReceivingGems: null,
+      icons: Object.freeze({
+        creditCardIcon,
+      }),
     };
   },
   computed: {
