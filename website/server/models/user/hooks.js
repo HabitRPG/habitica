@@ -128,19 +128,6 @@ function _setUpNewUser (user) {
   user.items.quests.dustbunnies = 1;
   user.purchased.background.violet = true;
   user.preferences.background = 'violet';
-
-  const testGroup = Math.random();
-  if (testGroup < 0.2) {
-    user._ABtests.welcomeEmailSplit = 'welcome-v2';
-  } else if (testGroup < 0.4) {
-    user._ABtests.welcomeEmailSplit = 'welcome-v2b';
-  } else if (testGroup < 0.6) {
-    user._ABtests.welcomeEmailSplit = 'welcome-v2c';
-  } else if (testGroup < 0.8) {
-    user._ABtests.welcomeEmailSplit = 'welcome-v2d';
-  } else {
-    user._ABtests.welcomeEmailSplit = 'welcome';
-  }
   user.items.gear.owned.shield_special_piDay = true;
   user.items.gear.equipped.shield = 'shield_special_piDay';
   user.items.gear.costume.shield = 'shield_special_piDay';
