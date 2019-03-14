@@ -111,7 +111,7 @@ export default {
     };
   },
   mounted () {
-    this.loadchallanges();
+    this.loadChallenges();
   },
   computed: {
     ...mapState({user: 'user.data'}),
@@ -123,17 +123,17 @@ export default {
     updateSearch (eventData) {
       this.search = eventData.searchTerm;
       this.page = 0;
-      this.loadchallanges();
+      this.loadChallenges();
     },
     updateFilters (eventData) {
       this.filters = eventData;
       this.page = 0;
-      this.loadchallanges();
+      this.loadChallenges();
     },
     createChallenge () {
       this.$root.$emit('bv::show::modal', 'challenge-modal');
     },
-    async loadchallanges () {
+    async loadChallenges () {
       this.loading = true;
 
       let categories = '';
@@ -167,7 +167,7 @@ export default {
     },
     async loadMore () {
       this.page += 1;
-      this.loadchallanges();
+      this.loadChallenges();
     },
   },
 };
