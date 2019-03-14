@@ -2506,6 +2506,12 @@ let head = {
     value: 0,
     canOwn: ownsItem('head_special_nye2018'),
   },
+  piDay: {
+    text: t('headSpecialPiDayText'),
+    notes: t('headSpecialPiDayNotes'),
+    value: 0,
+    canOwn: ownsItem('head_special_piDay'),
+  },
 };
 
 let headAccessory = {
@@ -3596,6 +3602,12 @@ let shield = {
     notes: t('shieldSpecialWinter2019HealerNotes', { con: 9 }),
     value: 70,
     con: 9,
+  },
+  piDay: {
+    text: t('shieldSpecialPiDayText'),
+    notes: t('shieldSpecialPiDayNotes'),
+    value: 0,
+    canOwn: ownsItem('shield_special_piDay'),
   },
 };
 
