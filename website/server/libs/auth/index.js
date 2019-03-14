@@ -184,7 +184,11 @@ async function registerLocal (req, res, { isV3 = false }) {
     .remove({email: savedUser.auth.local.email})
     .then(() => {
       if (existingUser) return;
-      sendTxnEmail(savedUser, 'welcome-v2d');
+      if (savedUser._ABtests && savedUser._ABtests.welcomeEmailSplit) {
+        sendTxnEmail(savedUser, savedUser._ABtests.welcomeEmailSplit);
+      } else {
+        sendTxnEmail(savedUser, 'welcome');
+      }
     });
 
   if (!existingUser) {

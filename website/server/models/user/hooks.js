@@ -147,6 +147,14 @@ function _setUpNewUser (user) {
   user.migration = '20190314_pi_day';
   /* eslint-enable camelcase */
 
+  const testGroup = Math.random();
+
+  if (testGroup < 0.5) {
+    user._ABtests.welcomeEmailSplit = 'welcome-v2b';
+  } else {
+    user._ABtests.welcomeEmailSplit = 'welcome';
+  }
+
   if (user.registeredThrough === 'habitica-web') {
     taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];
 

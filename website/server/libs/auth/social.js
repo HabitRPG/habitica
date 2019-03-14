@@ -89,7 +89,11 @@ async function loginSocial (req, res) {
       .exec()
       .then(() => {
         if (!existingUser) {
-          sendTxnEmail(savedUser, 'welcome-v2d');
+          if (savedUser._ABtests && savedUser._ABtests.welcomeEmailSplit) {
+            sendTxnEmail(savedUser, savedUser._ABtests.welcomeEmailSplit);
+          } else {
+            sendTxnEmail(savedUser, 'welcome');
+          }
         }
       }); // eslint-disable-line max-nested-callbacks
   }
