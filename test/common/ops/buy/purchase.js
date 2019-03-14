@@ -13,7 +13,7 @@ import forEach from 'lodash/forEach';
 import moment from 'moment';
 
 describe('shared.ops.purchase', () => {
-  const SEASONAL_FOOD = 'Meat';
+  const SEASONAL_FOOD = 'Pie_Base';
   let user;
   let goldPoints = 40;
   let analytics = {track () {}};
