@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-const MIGRATION_NAME = '20190312_pi_day';
+const MIGRATION_NAME = '20190314_pi_day';
 import { v4 as uuid } from 'uuid';
 
 import { model as User } from '../../website/server/models/user';
