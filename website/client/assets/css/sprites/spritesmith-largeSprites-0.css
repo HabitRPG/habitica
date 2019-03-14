@@ -6,7 +6,7 @@
 }
 .promo_mystery_201902 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -424px -327px;
+  background-position: -424px -475px;
   width: 240px;
   height: 147px;
 }
@@ -16,9 +16,15 @@
   width: 423px;
   height: 147px;
 }
+.promo_pi_day {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -424px -327px;
+  width: 273px;
+  height: 147px;
+}
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -665px -327px;
+  background-position: -665px -475px;
   width: 96px;
   height: 69px;
 }

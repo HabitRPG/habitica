@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'HABITICA BLOG: NEW GUILDS AND WIKI SPOTLIGHT ON DAILIES';
+const LAST_ANNOUNCEMENT_TITLE = 'CELEBRATE PI DAY WITH HABITICA!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,18 +30,14 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>3/12/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>3/14/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="scene_tavern center-block"></div>
-        <h3>Guild Spotlight: Yet More New and Notable Guilds!</h3>
-        <p>There's a new <a href='https://habitica.wordpress.com/2019/03/12/new-and-notable-guild-spotlight-3/' target='_blank'>Guild Spotlight</a> on the blog that highlights some of the new movers and shakers in our community! Check it out now to find some cool new places to hang out in Habitica with folks who share your interests and goals.</p>
-        <div class="small mb-3">by shanaqui</div>
-        <div class="scene_dailies center-block"></div>
-        <h3>Blog Post: Dailies</h3>
-        <p>This month's <a href='https://habitica.wordpress.com/2019/03/12/dailies/' target='_blank'>featured Wiki article</a> is about Dailies! We hope that it will help you as you work on completing routine tasks. Be sure to check it out, and let us know what you think by reaching out on <a href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a href='https://facebook.com/habitica' target='_blank'>Facebook</a>.</p>
-        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
+        <div class="promo_pi_day center-block"></div>
+        <p>Hello Habiticans! In celebration of Pi Day on March 14, we've gifted everyone delicious slices of pie for you all to feed to your pets.</p>
+        <p>We've also given everyone a festive Pi Hat and Shield so you can celebrate in style. Enjoy them, and thanks for being a part of our community!</p>
+        <div class="small mb-3">by Beffymaroo and SabreCat</div>
       </div>
       `,
     });
