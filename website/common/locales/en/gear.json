@@ -975,6 +975,8 @@
   "headSpecialTurkeyHelmBaseNotes": "Your Turkey Day look will be complete when you don this beaked helm! Confers no benefit.",
   "headSpecialTurkeyHelmGildedText": "Gilded Turkey Helm",
   "headSpecialTurkeyHelmGildedNotes": "Gobble gobble! Bling bling! Confers no benefit.",
+  "headSpecialPiDayText": "Pi Hat",
+  "headSpecialPiDayNotes": "Try to balance this slice of delicious pie on your head while walking in a circle. Or throw it at a red Daily! Or you could just eat it. Your choice! Confers no benefit.",
 
   "headSpecialNyeText": "Absurd Party Hat",
   "headSpecialNyeNotes": "You've received an Absurd Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
@@ -1282,7 +1284,7 @@
   "headArmoireRancherHatText": "Rancher Hat",
   "headArmoireRancherHatNotes": "Round up your pets and wrangle your mounts while wearing this magical Rancher Hat! Increases Strength by <%= str %>, Perception by <%= per %>, and Intelligence by <%= int %>. Enchanted Armoire: Rancher Set (Item 1 of 3).",
   "headArmoireBlueHairbowText": "Blue Hairbow",
-  "headArmoireBlueHairbowNotes": "Become perceptive, tough, and smart while wearing this beautiful Blue Hairbow! Increases Perception by <%= per %>, Constitution by <%= con %>, and Intelligence by <%= int %>. Enchanted Armoire: Independent Item.",
+  "headArmoireBlueHairbowNotes": "Become perceptive, tough, and smart while wearing this beautiful Blue Hairbow! Increases Perception by <%= per %>, Constitution by <%= con %>, and Intelligence by <%= int %>. Enchanted Armoire: Blue Hairbow Set (Item 1 of 2).",
   "headArmoireRoyalCrownText": "Royal Crown",
   "headArmoireRoyalCrownNotes": "Hooray for the ruler, mighty and strong! Increases Strength by <%= str %>. Enchanted Armoire: Royal Set (Item 1 of 3).",
   "headArmoireGoldenLaurelsText": "Golden Laurels",
@@ -1424,6 +1426,8 @@
   "shieldSpecialWintryMirrorNotes": "How else to best admire your wintry look? Increases Intelligence by <%= int %>.",
   "shieldSpecialWakizashiText": "Wakizashi",
   "shieldSpecialWakizashiNotes": "This short sword is perfect for close-quarters battles with your Dailies! Increases Constitution by <%= con %>.",
+  "shieldSpecialPiDayText": "Pi Shield",
+  "shieldSpecialPiDayNotes": "We dare you to calculate the ratio of this shield's circumference to its deliciousness! Confers no benefit.",
 
   "shieldSpecialYetiText": "Yeti-Tamer Shield",
   "shieldSpecialYetiNotes": "This shield reflects light from the snow. Increases Constitution by <%= con %>. Limited Edition 2013-2014 Winter Gear.",
