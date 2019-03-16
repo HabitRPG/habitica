@@ -20,7 +20,7 @@ div
       .action.d-flex.align-items-center(v-if='!inbox', @click='copyAsTodo(msg)')
         .svg-icon(v-html="icons.copy")
         div {{$t('copyAsTodo')}}
-      .action.d-flex.align-items-center(v-if='(inbox || (user.flags.communityGuidelinesAccepted && msg.uuid !== "system")) && !isMessageReported', @click='report(msg)')
+      .action.d-flex.align-items-center(v-if='(inbox || (user.flags.communityGuidelinesAccepted && msg.uuid !== "system")) && (!isMessageReported || user.contributor.admin)', @click='report(msg)')
         .svg-icon(v-html="icons.report", v-once)
         div(v-once) {{$t('report')}}
       .action.d-flex.align-items-center(v-if='msg.uuid === user._id || inbox || user.contributor.admin', @click='remove()')
