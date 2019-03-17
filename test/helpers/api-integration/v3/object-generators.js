@@ -13,6 +13,11 @@ import * as Tasks from '../../../../website/server/models/task';
 // parameter, such as the number of wolf eggs the user has,
 // , you can do so by passing in the full path as a string:
 // { 'items.eggs.Wolf': 10 }
+//
+// To manually set a username pass it as the second parameter.
+// If no password is passed or it is falsy then a username will
+// be auto-generated.
+// Example: generateUser({}, 'TestName') adds user with the 'TestName' username.
 export async function generateUser (update = {}, manualUsername = null) {
   let username = manualUsername || (Date.now() + generateUUID()).substring(0, 20);
   let password = 'password';
