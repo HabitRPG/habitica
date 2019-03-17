@@ -13,8 +13,8 @@ import * as Tasks from '../../../../website/server/models/task';
 // parameter, such as the number of wolf eggs the user has,
 // , you can do so by passing in the full path as a string:
 // { 'items.eggs.Wolf': 10 }
-export async function generateUser (update = {}) {
-  let username = (Date.now() + generateUUID()).substring(0, 20);
+export async function generateUser (update = {}, manualUsername = null) {
+  let username = manualUsername || (Date.now() + generateUUID()).substring(0, 20);
   let password = 'password';
   let email = `${username}@example.com`;
 
