@@ -259,6 +259,10 @@
       font-weight: bold;
     }
 
+    .input-group > * {
+      height: 40px;
+    }
+
     input, textarea {
       border: none;
       background: rgba(0, 0, 0, 0.24);
