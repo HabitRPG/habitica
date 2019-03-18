@@ -268,14 +268,10 @@ let _sendPurchaseDataToGoogle = (data) => {
 };
 
 let _setOnce = (data) => {
-  return new Promise((resolve, reject) => {
-    amplitude.identify({
-      user_properties: {
-        $setOnce: data,
-      },
-    })
-      .then(resolve)
-      .catch(reject);
+  return amplitude.identify({
+    user_properties: {
+      $setOnce: data,
+    },
   });
 };
 
