@@ -1,8 +1,8 @@
 <template lang="pug">
 .popover-box
-  .clearfix(:id="containerId")
-    .float-left.toggle-switch-description(v-if="label", :class="hoverText ? 'hasPopOver' : ''") {{ label }}
-    .toggle-switch.float-left
+  .d-flex.align-items-center(:id="containerId")
+    .toggle-switch-description.mr-auto(v-if="label", :class="hoverText ? 'hasPopOver' : ''") {{ label }}
+    .toggle-switch
       input.toggle-switch-checkbox(
         type='checkbox', :id="toggleId",
         @change="handleChange",
@@ -33,8 +33,6 @@
   }
 
   .toggle-switch-description {
-    height: 20px;
-
     &.hasPopOver {
       border-bottom: 1px dashed $gray-200;
     }
@@ -150,4 +148,3 @@ export default {
   },
 };
 </script>
-
