@@ -100,7 +100,8 @@
               :clearButton="false",
               :todayButton="!challengeAccessRequired",
               :todayButtonText="$t('today')",
-              :disabled-picker="challengeAccessRequired"
+              :disabled-picker="challengeAccessRequired",
+              :highlighted='calendarHighlights'
             )
         .option(v-if="task.type === 'daily'")
           .form-group
@@ -250,6 +251,7 @@
 
 <style lang="scss">
   @import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/datepicker.scss';
 
   #task-modal {
     .modal-dialog.modal-sm {

@@ -1,0 +1,28 @@
+
+@import '~client/assets/scss/colors.scss';
+
+.vdp-datepicker .vdp-datepicker__calendar  {
+
+    .cell:not(.blank):not(.disabled).day:hover {
+        border-radius: 2px;
+        border: 1px solid $purple-400;
+    }
+    
+    .cell.selected, 
+    .cell.selected.highlighted, 
+    .cell.selected:hover {
+        border-radius: 2px;
+        color: $white;
+        background: $purple-400;
+    }
+
+    .cell.highlighted {
+        background: rgba($purple-400, 0.24);
+    }
+
+    .cell.highlighted,
+    .cell.selected {
+        font-weight: bold;
+    }
+
+}
