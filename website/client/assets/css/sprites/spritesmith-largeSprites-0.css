@@ -1,30 +1,42 @@
 .promo_armoire_backgrounds_201903 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -327px;
+  background-position: 0px -490px;
   width: 423px;
+  height: 147px;
+}
+.promo_classes_spring2019 {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -327px;
+  width: 432px;
+  height: 162px;
+}
+.promo_egg_hunt {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -769px -148px;
+  width: 354px;
   height: 147px;
 }
 .promo_mystery_201902 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -424px -475px;
+  background-position: -769px -296px;
   width: 240px;
   height: 147px;
 }
 .promo_mythical_marvels_bundle {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -475px;
+  background-position: -769px 0px;
   width: 423px;
   height: 147px;
 }
-.promo_pi_day {
+.promo_seasonalshop_spring {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -424px -327px;
-  width: 273px;
-  height: 147px;
+  background-position: -1010px -296px;
+  width: 162px;
+  height: 138px;
 }
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -665px -475px;
+  background-position: -769px -444px;
   width: 96px;
   height: 69px;
 }
