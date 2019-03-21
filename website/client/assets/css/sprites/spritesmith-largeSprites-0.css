@@ -4,6 +4,12 @@
   width: 423px;
   height: 147px;
 }
+.promo_celestial_rainbow_potions {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -769px 0px;
+  width: 423px;
+  height: 147px;
+}
 .promo_classes_spring2019 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: 0px -327px;
@@ -18,14 +24,8 @@
 }
 .promo_mystery_201902 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -769px -296px;
+  background-position: -433px -327px;
   width: 240px;
-  height: 147px;
-}
-.promo_mythical_marvels_bundle {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -769px 0px;
-  width: 423px;
   height: 147px;
 }
 .promo_seasonalshop_spring {
@@ -36,7 +36,7 @@
 }
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -769px -444px;
+  background-position: -769px -492px;
   width: 96px;
   height: 69px;
 }
@@ -51,4 +51,10 @@
   background-position: 0px 0px;
   width: 440px;
   height: 326px;
+}
+.scene_todos {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -769px -296px;
+  width: 240px;
+  height: 195px;
 }
