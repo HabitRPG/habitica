@@ -45,7 +45,6 @@ module.exports = function getPinnedItems (user) {
   const pinnedItems = officialPinnedItemsNotUnpinned.concat(user.pinnedItems);
 
   let items = pinnedItems
-    .filter(item => Boolean(item)) // filter out nullable entries, which shouldn't be even possible
     .map(({type, path}) => {
       let item = getItemByPathAndType(type, path);
 
