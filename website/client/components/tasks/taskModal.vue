@@ -20,7 +20,7 @@
           label.d-flex.align-items-center.justify-content-between(v-once)
             span {{ $t('notes') }}
             small(v-once)
-              a(target="_blank", href="http://habitica.wikia.com/wiki/Markdown_Cheat_Sheet") {{ $t('markdownHelpLink') }}
+              a(target="_blank", href="http://habitica.fandom.com/wiki/Markdown_Cheat_Sheet") {{ $t('markdownHelpLink') }}
 
           textarea.form-control(v-model="task.notes", rows="3")
       .task-modal-content(@click="handleClick($event)")
@@ -259,6 +259,10 @@
       font-weight: bold;
     }
 
+    .input-group > * {
+      height: 40px;
+    }
+
     input, textarea {
       border: none;
       background: rgba(0, 0, 0, 0.24);
@@ -478,12 +482,17 @@
 
             .category-label {
               min-width: 68px;
-              overflow: hidden;
               padding: .5em 1em;
-              text-overflow: ellipsis;
-              white-space: nowrap;
               width: 68px;
-              word-wrap: break-word;
+
+              // Applies to v-markdown generated p tag.
+              p {
+                margin-bottom: 0px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                word-wrap: break-word;
+              }
             }
           }
         }
@@ -1004,7 +1013,7 @@ export default {
       }
     },
     handleClick (e) {
-      if (this.$refs.popup && !this.$refs.popup.$el.contains(e.target)) {
+      if (this.$refs.popup && !this.$refs.popup.$el.parentNode.contains(e.target)) {
         this.closeTagsPopup();
       }
     },

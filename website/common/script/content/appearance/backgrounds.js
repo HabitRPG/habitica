@@ -759,6 +759,62 @@ let backgrounds = {
       notes: t('backgroundCozyBedroomNotes'),
     },
   },
+  backgrounds122018: {
+    flying_over_snowy_mountains: {
+      text: t('backgroundFlyingOverSnowyMountainsText'),
+      notes: t('backgroundFlyingOverSnowyMountainsNotes'),
+    },
+    frosty_forest: {
+      text: t('backgroundFrostyForestText'),
+      notes: t('backgroundFrostyForestNotes'),
+    },
+    snowy_day_fireplace: {
+      text: t('backgroundSnowyDayFireplaceText'),
+      notes: t('backgroundSnowyDayFireplaceNotes'),
+    },
+  },
+  backgrounds012019: {
+    avalanche: {
+      text: t('backgroundAvalancheText'),
+      notes: t('backgroundAvalancheNotes'),
+    },
+    archaeological_dig: {
+      text: t('backgroundArchaeologicalDigText'),
+      notes: t('backgroundArchaeologicalDigNotes'),
+    },
+    scribes_workshop: {
+      text: t('backgroundScribesWorkshopText'),
+      notes: t('backgroundScribesWorkshopNotes'),
+    },
+  },
+  backgrounds022019: {
+    medieval_kitchen: {
+      text: t('backgroundMedievalKitchenText'),
+      notes: t('backgroundMedievalKitchenNotes'),
+    },
+    old_fashioned_bakery: {
+      text: t('backgroundOldFashionedBakeryText'),
+      notes: t('backgroundOldFashionedBakeryNotes'),
+    },
+    valentines_day_feasting_hall: {
+      text: t('backgroundValentinesDayFeastingHallText'),
+      notes: t('backgroundValentinesDayFeastingHallNotes'),
+    },
+  },
+  backgrounds032019: {
+    duck_pond: {
+      text: t('backgroundDuckPondText'),
+      notes: t('backgroundDuckPondNotes'),
+    },
+    field_with_colored_eggs: {
+      text: t('backgroundFieldWithColoredEggsText'),
+      notes: t('backgroundFieldWithColoredEggsNotes'),
+    },
+    flower_market: {
+      text: t('backgroundFlowerMarketText'),
+      notes: t('backgroundFlowerMarketNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),

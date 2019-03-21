@@ -112,13 +112,13 @@ let premium = {
     value: 2,
     text: t('hatchingPotionHolly'),
     limited: true,
-    _season: 'January',
+    _season: '_PENDING_',
   },
   Peppermint: {
     value: 2,
     text: t('hatchingPotionPeppermint'),
     limited: true,
-    _season: 'winter',
+    _season: 'January',
   },
   StarryNight: {
     value: 2,
@@ -143,6 +143,24 @@ let premium = {
     text: t('hatchingPotionGlow'),
     limited: true,
     _season: 'October',
+  },
+  Frost: {
+    value: 2,
+    text: t('hatchingPotionFrost'),
+    limited: true,
+    _season: 'November',
+  },
+  IcySnow: {
+    value: 2,
+    text: t('hatchingPotionIcySnow'),
+    limited: true,
+    _season: 'January',
+  },
+  RoseQuartz: {
+    value: 2,
+    text: t('hatchingPotionRoseQuartz'),
+    limited: true,
+    _season: 'February',
   },
 };
 

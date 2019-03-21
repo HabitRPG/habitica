@@ -64,10 +64,10 @@
     "playerTiers": "Úrovne hráčov",
     "tier": "Úroveň",
     "visitHeroes": "Navštív Sieň hrdinov (prispievatelia a podporovatelia)",
-    "conLearn": "<a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'>Learn more about contributor rewards</a>",
+    "conLearn": "<a href='http://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'>Learn more about contributor rewards</a>",
     "conLearnHow": "Zisti ako prispieť do Habitica",
-    "conLearnURL": "http://habitica.wikia.com/wiki/Contributing_to_Habitica",
-    "conRewardsURL": "http://habitica.wikia.com/wiki/Contributor_Rewards",
+    "conLearnURL": "http://habitica.fandom.com/wiki/Contributing_to_Habitica",
+    "conRewardsURL": "http://habitica.fandom.com/wiki/Contributor_Rewards",
     "surveysSingle": "Pomohol Habitice rásť vyplnením dotazníka alebo s testovaním. Ďakujeme!",
     "surveysMultiple": "Helped Habitica grow on <%= count %> occasions, either by filling out a survey or helping with a major testing effort. Thank you!",
     "currentSurvey": "Aktuálny dotazník",
@@ -76,5 +76,5 @@
     "blurbGuildsPage": "Cechy sú chatovacie skupiny so spoločnými záujmami vytvorené hráčmi pre hráčov. Preštuduj si ich zoznam a pripoj sa k tým, ktoré ťa zaujímajú.",
     "blurbChallenges": "Výzvy vytvárajú tvoji spoluhráči. Keď sa pripojíš k výzve, úlohy z nej sa objavia na tvojom paneli a ak výzvu vyhráš, dostaneš odznak a často aj nejaké drahokamy. ",
     "blurbHallPatrons": "Toto je Sieň Patrónov, kde si uctievame ušľachtilých dobrodruhov, ktorí podporili pôvodnú Habitiku na Kickstarteri. Ďakujeme im za to, že nám pomohli priviesť Habitiku k životu!",
-    "blurbHallContributors": "Toto je Sieň Prispievateľov, kde sú uctievaní open-source prispievatelia Habitiky. Či už kódom, ilustráciami, hudbou, písaním alebo len pomáhaním, získali <a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'> drahokamy, exkluzívne vybavenie</a>, a <a href='http://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>prestížne tituly</a>. Aj ty môžeš prispieť do Habitiky! <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'> Tu zistíš viac. </a>"
+    "blurbHallContributors": "Toto je Sieň Prispievateľov, kde sú uctievaní open-source prispievatelia Habitiky. Či už kódom, ilustráciami, hudbou, písaním alebo len pomáhaním, získali <a href='http://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'> drahokamy, exkluzívne vybavenie</a>, a <a href='http://habitica.fandom.com/wiki/Contributor_Titles' target='_blank'>prestížne tituly</a>. Aj ty môžeš prispieť do Habitiky! <a href='http://habitica.fandom.com/wiki/Contributing_to_Habitica' target='_blank'> Tu zistíš viac. </a>"
 }

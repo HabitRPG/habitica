@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  invite-modal(:group='inviteModalGroup')
+  invite-modal(:group='inviteModalGroup', :groupType='inviteModalGroupType')
   create-party-modal
   #app-header.row(:class="{'hide-header': $route.name === 'groupPlan'}")
     members-modal(:hide-badge="true")
@@ -48,6 +48,7 @@ div
     color: $header-color;
     flex-wrap: nowrap;
     position: relative;
+    max-height: 10.25rem;
   }
 
   .hide-header {
@@ -115,6 +116,7 @@ export default {
       expandedMember: null,
       currentWidth: 0,
       inviteModalGroup: undefined,
+      inviteModalGroupType: undefined,
     };
   },
   computed: {
@@ -178,6 +180,7 @@ export default {
   mounted () {
     this.$root.$on('inviteModal::inviteToGroup', (group) => {
       this.inviteModalGroup = group;
+      this.inviteModalGroupType = group.type === 'guild' ? 'Guild' : 'Party';
       this.$root.$emit('bv::show::modal', 'invite-modal');
     });
   },

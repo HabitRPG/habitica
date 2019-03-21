@@ -10,8 +10,10 @@ if (process.env.NODE_ENV !== 'production') {
 // Initialize configuration BEFORE anything
 const setupNconf = require('./libs/setupNconf');
 setupNconf();
-
 const nconf = require('nconf');
+
+// Initialize @google-cloud/trace-agent
+require('./libs/gcpTraceAgent');
 
 const cluster = require('cluster');
 const logger = require('./libs/logger');

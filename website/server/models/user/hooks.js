@@ -125,9 +125,16 @@ function _setUpNewUser (user) {
   let iterableFlags = user.flags.toObject();
 
   user.items.quests.dustbunnies = 1;
-  user.items.pets['Wolf-Veteran'] = 5; // Thank-you for users joining during username upheaval
   user.purchased.background.violet = true;
   user.preferences.background = 'violet';
+
+  const testGroup = Math.random();
+
+  if (testGroup < 0.5) {
+    user._ABtests.welcomeEmailSplit = 'welcome-v2b';
+  } else {
+    user._ABtests.welcomeEmailSplit = 'welcome';
+  }
 
   if (user.registeredThrough === 'habitica-web') {
     taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];

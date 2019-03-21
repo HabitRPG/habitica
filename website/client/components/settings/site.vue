@@ -39,7 +39,7 @@
           button.btn.btn-danger.btn-xs(@click='changeClassForUser(true)', v-once) {{ $t('changeClass') }}
           small.cost &nbsp; 3 {{ $t('gems') }}
             // @TODO add icon span.Pet_Currency_Gem1x.inline-gems
-      hr
+        hr
 
       div
         .checkbox
@@ -130,8 +130,10 @@
           h5 {{ $t('changeDisplayName') }}
           .form(name='changeDisplayName', novalidate)
             .form-group
-              input#changeDisplayname.form-control(type='text', :placeholder="$t('newDisplayName')", v-model='temporaryDisplayName')
-            button.btn.btn-primary(type='submit', @click='changeDisplayName(temporaryDisplayName)') {{ $t('submit') }}
+              input#changeDisplayname.form-control(type='text', :placeholder="$t('newDisplayName')", v-model='temporaryDisplayName', :class='{"is-invalid input-invalid": displayNameInvalid}')
+              .mb-3(v-if="displayNameIssues.length > 0")
+                .input-error(v-for="issue in displayNameIssues") {{ issue }}
+            button.btn.btn-primary(type='submit', @click='changeDisplayName(temporaryDisplayName)', :disabled='displayNameCannotSubmit') {{ $t('submit') }}
 
           h5 {{ $t('changeUsername') }}
           .form(name='changeUsername', novalidate)
@@ -252,6 +254,7 @@ export default {
         password: '',
         confirmPassword: '',
       },
+      displayNameIssues: [],
       usernameIssues: [],
     };
   },
@@ -312,6 +315,18 @@ export default {
     verifiedUsername () {
       return this.user.flags.verifiedUsername;
     },
+    displayNameInvalid () {
+      if (this.temporaryDisplayName.length <= 1) return false;
+      return !this.displayNameValid;
+    },
+    displayNameValid () {
+      if (this.temporaryDisplayName.length <= 1) return false;
+      return this.displayNameIssues.length === 0;
+    },
+    displayNameCannotSubmit () {
+      if (this.temporaryDisplayName.length <= 1) return true;
+      return !this.displayNameValid;
+    },
     usernameValid () {
       if (this.usernameUpdates.username.length <= 1) return false;
       return this.usernameIssues.length === 0;
@@ -332,10 +347,30 @@ export default {
       },
       deep: true,
     },
+    temporaryDisplayName: {
+      handler () {
+        this.validateDisplayName(this.temporaryDisplayName);
+      },
+      deep: true,
+    },
   },
   methods: {
-    // eslint-disable-next-line func-names
-    validateUsername: debounce(function (username) {
+    validateDisplayName: debounce(function checkName (displayName) {
+      if (displayName.length <= 1 || displayName === this.user.profile.name) {
+        this.displayNameIssues = [];
+        return;
+      }
+      this.$store.dispatch('auth:verifyDisplayName', {
+        displayName,
+      }).then(res => {
+        if (res.issues !== undefined) {
+          this.displayNameIssues = res.issues;
+        } else {
+          this.displayNameIssues = [];
+        }
+      });
+    }, 500),
+    validateUsername: debounce(function checkName (username) {
       if (username.length <= 1 || username === this.user.auth.local.username) {
         this.usernameIssues = [];
         return;

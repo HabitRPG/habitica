@@ -257,7 +257,7 @@ describe('POST /chat', () => {
         attachments: [{
           fallback: 'Slur Message',
           color: 'danger',
-          author_name: `${user.profile.name} - ${user.auth.local.email} - ${user._id}`,
+          author_name: `@${user.auth.local.username} ${user.profile.name} (${user.auth.local.email}; ${user._id})`,
           title: 'Slur in Test Guild',
           title_link: `${BASE_URL}/groups/guild/${groupWithChat.id}`,
           text: testSlurMessage,
@@ -310,7 +310,7 @@ describe('POST /chat', () => {
         attachments: [{
           fallback: 'Slur Message',
           color: 'danger',
-          author_name: `${members[0].profile.name} - ${members[0].auth.local.email} - ${members[0]._id}`,
+          author_name: `@${members[0].auth.local.username} ${members[0].profile.name} (${members[0].auth.local.email}; ${members[0]._id})`,
           title: 'Slur in Party - (private party)',
           title_link: undefined,
           text: testSlurMessage,

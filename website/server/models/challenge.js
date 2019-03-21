@@ -258,7 +258,7 @@ schema.methods.removeTask = async function challengeRemoveTask (task) {
 };
 
 // Unlink challenges tasks (and the challenge itself) from user. TODO rename to 'leave'
-schema.methods.unlinkTasks = async function challengeUnlinkTasks (user, keep) {
+schema.methods.unlinkTasks = async function challengeUnlinkTasks (user, keep, saveUser = true) {
   let challengeId = this._id;
   let findQuery = {
     userId: user._id,
@@ -273,7 +273,13 @@ schema.methods.unlinkTasks = async function challengeUnlinkTasks (user, keep) {
       $set: {challenge: {}},
     }, {multi: true}).exec();
 
-    return Promise.all([user.save(), this.save()]);
+    const promises = [this.save()];
+
+    // When multiple tasks are being unlinked at the same time,
+    // save the user once outside of this function
+    if (saveUser) promises.push(user.save());
+
+    return Promise.all(promises);
   } else { // keep = 'remove-all'
     let tasks = await Tasks.Task.find(findQuery).select('_id type completed').exec();
     let taskPromises = tasks.map(task => {
@@ -285,7 +291,12 @@ schema.methods.unlinkTasks = async function challengeUnlinkTasks (user, keep) {
       return task.remove();
     });
     user.markModified('tasksOrder');
-    taskPromises.push(user.save(), this.save());
+    taskPromises.push(this.save());
+
+    // When multiple tasks are being unlinked at the same time,
+    // save the user once outside of this function
+    if (saveUser) taskPromises.push(user.save());
+
     return Promise.all(taskPromises);
   }
 };

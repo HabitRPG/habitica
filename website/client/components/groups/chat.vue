@@ -1,9 +1,10 @@
 <template lang="pug">
   .row.chat-row
     .col-12
-      h3(v-once) {{ label }}
+      h3.float-left.label(:class="{accepted: communityGuidelinesAccepted }") {{ label }}
+      div.float-right(v-markdown='$t("markdownFormattingHelp")')
 
-      .row
+      .row(v-if="communityGuidelinesAccepted")
         textarea(:placeholder='placeholder',
                   v-model='newMessage',
                   ref='user-entry',
@@ -19,16 +20,17 @@
                 v-on:select="selectedAutocomplete",
                 :textbox='textbox',
                 :coords='coords',
+                :caretPosition = 'caretPosition',
                 :chat='group.chat')
+
+      community-guidelines
 
       .row.chat-actions
         .col-6.chat-receive-actions
           button.btn.btn-secondary.float-left.fetch(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
           button.btn.btn-secondary.float-left(v-once, @click='reverseChat()') {{ $t('reverseChat') }}
         .col-6.chat-send-actions
-          button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
-
-      community-guidelines
+          button.btn.btn-primary.send-chat.float-right(:disabled="!communityGuidelinesAccepted", @click='sendMessage()') {{ $t('send') }}
 
       slot(
         name="additionRow",
@@ -45,9 +47,14 @@
   import autocomplete from '../chat/autoComplete';
   import communityGuidelines from './communityGuidelines';
   import chatMessage from '../chat/chatMessages';
+  import { mapState } from 'client/libs/store';
+  import markdownDirective from 'client/directives/markdown';
 
   export default {
     props: ['label', 'group', 'placeholder'],
+    directives: {
+      markdown: markdownDirective,
+    },
     components: {
       autocomplete,
       communityGuidelines,
@@ -56,6 +63,8 @@
     data () {
       return {
         newMessage: '',
+        sending: false,
+        caretPosition: 0,
         chat: {
           submitDisable: false,
           submitTimeout: null,
@@ -68,14 +77,18 @@
       };
     },
     computed: {
+      ...mapState({user: 'user.data'}),
       currentLength () {
         return this.newMessage.length;
+      },
+      communityGuidelinesAccepted () {
+        return this.user.flags.communityGuidelinesAccepted;
       },
     },
     methods: {
       // https://medium.com/@_jh3y/how-to-where-s-the-caret-getting-the-xy-position-of-the-caret-a24ba372990a
       getCoord (e, text) {
-        let carPos = text.selectionEnd;
+        this.caretPosition = text.selectionEnd;
         let div = document.createElement('div');
         let span = document.createElement('span');
         let copyStyle = getComputedStyle(text);
@@ -86,8 +99,8 @@
 
         div.style.position = 'absolute';
         document.body.appendChild(div);
-        div.textContent = text.value.substr(0, carPos);
-        span.textContent = text.value.substr(carPos) || '.';
+        div.textContent = text.value.substr(0, this.caretPosition);
+        span.textContent = text.value.substr(this.caretPosition) || '.';
         div.appendChild(span);
         this.coords = {
           TOP: span.offsetTop,
@@ -109,14 +122,18 @@
         }
       },
       async sendMessage () {
+        if (this.sending) return;
+        this.sending = true;
         let response = await this.$store.dispatch('chat:postChat', {
           group: this.group,
           message: this.newMessage,
         });
         this.group.chat.unshift(response.message);
         this.newMessage = '';
+        this.sending = false;
 
-        // @TODO: I would like to not reload everytime we send. Realtime/Firebase?
+        // @TODO: I would like to not reload everytime we send. Why are we reloading?
+        // The response has all the necessary data...
         let chat = await this.$store.dispatch('chat:getChat', {groupId: this.group._id});
         this.group.chat = chat;
       },
@@ -189,16 +206,25 @@
   .chat-row {
     position: relative;
 
+    .label:not(.accepted) {
+      color: #a5a1ac;
+    }
+
+    .row {
+      margin-left: 0;
+      margin-right: 0;
+      clear: both;
+    }
+
     textarea {
       min-height: 150px;
       width: 100%;
       background-color: $white;
       border: solid 1px $gray-400;
-      font-size: 16px;
       font-style: italic;
       line-height: 1.43;
       color: $gray-300;
-      padding: .5em;
+      padding: 10px 12px;
     }
 
     .user-entry {

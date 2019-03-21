@@ -17,7 +17,7 @@ import {
   S3,
 } from '../../libs/aws';
 
-const S3_BUCKET = nconf.get('S3:bucket');
+const S3_BUCKET = nconf.get('S3_BUCKET');
 
 const BASE_URL = nconf.get('BASE_URL');
 
