@@ -45,4 +45,23 @@ describe('GET /inbox/messages', () => {
     expect(messages[2].text).to.equal('second');
     expect(messages[3].text).to.equal('first');
   });
+
+  it('returns no messages when using page-query ', async () => {
+    const promises = [];
+
+    for (let i = 0; i < 10; i++) {
+      promises.push(user.post('/members/send-private-message', {
+        toUserId: user.id,
+        message: 'fourth',
+      }));
+    }
+
+    await Promise.all(promises);
+
+    await user.sync();
+
+    const messages = await user.get('/inbox/messages?page=1');
+
+    expect(messages.length).to.equal(4);
+  });
 });
