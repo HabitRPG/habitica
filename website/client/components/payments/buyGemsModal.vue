@@ -45,7 +45,7 @@
         .row.text-center
           h2.mx-auto.text-payment {{ $t('choosePaymentMethod') }}
         .payments-column
-          button.purchase.btn.btn-primary.payment-button.payment-item(@click='showStripe()') 
+          button.purchase.btn.btn-primary.payment-button.payment-item(@click='showStripe({})') 
             .svg-icon.credit-card-icon(v-html="icons.creditCardIcon")
             | {{ $t('card') }}
           button.btn.payment-item.paypal-checkout.payment-button(@click="openPaypal(paypalCheckoutLink, 'gems')")

@@ -27,14 +27,14 @@ const featuredItems = {
     },
     {
       type: 'quests',
-      path: 'quests.sabretooth',
+      path: 'quests.egg',
     },
     {
       type: 'quests',
       path: 'quests.rock',
     },
   ],
-  seasonal: '',
+  seasonal: 'spring2018Healer',
   timeTravelers: [
     // TODO
   ],
