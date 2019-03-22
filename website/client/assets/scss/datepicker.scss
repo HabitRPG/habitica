@@ -8,7 +8,6 @@
     .cell.selected, 
     .cell.selected.highlighted, 
     .cell.selected:hover {
-        border-radius: 2px;
         color: $white;
         background: $purple-300;
     }
@@ -20,6 +19,7 @@
 
     .cell.highlighted,
     .cell.selected {
+        border-radius: 2px;
         font-weight: bold;
     }
 
