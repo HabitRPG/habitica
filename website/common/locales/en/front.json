@@ -276,7 +276,6 @@
   "usernameTOSRequirements": "Usernames must conform to our <a href='/static/terms' target='_blank'>Terms of Service</a> and <a href='/static/community-guidelines' target='_blank'>Community Guidelines</a>. If you didn’t previously set a login name, your username was auto-generated.",
   "usernameTaken": "Username already taken.",
   "passwordConfirmationMatch": "Password confirmation doesn't match password.",
-  "invalidLoginCredentials": "Incorrect username and/or email and/or password.",
   "passwordResetPage": "Reset Password",
   "passwordReset": "If we have your email on file, instructions for setting a new password have been sent to your email.",
   "passwordResetEmailSubject": "Password Reset for Habitica",
