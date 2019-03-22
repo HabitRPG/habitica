@@ -251,7 +251,6 @@
 
 <style lang="scss">
   @import '~client/assets/scss/colors.scss';
-  @import '~client/assets/scss/datepicker.scss';
 
   #task-modal {
     .modal-dialog.modal-sm {

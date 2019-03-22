@@ -1,6 +1,3 @@
-
-@import '~client/assets/scss/colors.scss';
-
 .vdp-datepicker .vdp-datepicker__calendar  {
 
     .cell:not(.blank):not(.disabled).day:hover {
@@ -13,11 +10,12 @@
     .cell.selected:hover {
         border-radius: 2px;
         color: $white;
-        background: $purple-400;
+        background: $purple-300;
     }
 
     .cell.highlighted {
         background: rgba($purple-400, 0.24);
+        color: $purple-200;
     }
 
     .cell.highlighted,
