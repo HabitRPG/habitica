@@ -69,8 +69,8 @@ describe('GET /heroes/:heroId', () => {
   });
 
   it('returns correct hero using search with difference case', async () => {
-    let hero = await generateUser({}, { username: 'TestUpperCaseName123' });
-    let heroRes = await user.get(`/hall/heroes/TestuPPerCasEName123`);
+    await generateUser({}, { username: 'TestUpperCaseName123' });
+    let heroRes = await user.get('/hall/heroes/TestuPPerCasEName123');
     expect(heroRes.auth.local.username).to.equal('TestUpperCaseName123');
   });
 });
