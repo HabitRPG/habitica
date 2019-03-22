@@ -54,7 +54,7 @@ describe('GET /heroes/:heroId', () => {
     expect(heroRes.profile).to.have.all.keys(['name']);
   });
 
-  it('returns only necessary hero data given username with display case', async () => {
+  it('returns only necessary hero data given username', async () => {
     let hero = await generateUser({
       contributor: {tier: 23},
     });
@@ -68,15 +68,9 @@ describe('GET /heroes/:heroId', () => {
     expect(heroRes.profile).to.have.all.keys(['name']);
   });
 
-  it('returns hero data given username without case sensitivity', async () => {
-    let hero = await generateUser({}, 'TestUpperCaseName123');
-    let heroRes = await user.get(`/hall/heroes/${hero.auth.local.username.toLowerCase()}`);
-
-    expect(heroRes).to.have.all.keys([
-      '_id', 'id', 'balance', 'profile', 'purchased',
-      'contributor', 'auth', 'items',
-    ]);
-    expect(heroRes.auth.local).not.to.have.keys(['salt', 'hashed_password']);
-    expect(heroRes.profile).to.have.all.keys(['name']);
+  it('returns correct hero using search with difference case', async () => {
+    let hero = await generateUser({}, { username: 'TestUpperCaseName123' });
+    let heroRes = await user.get(`/hall/heroes/TestuPPerCasEName123`);
+    expect(heroRes.auth.local.username).to.equal('TestUpperCaseName123');
   });
 });
