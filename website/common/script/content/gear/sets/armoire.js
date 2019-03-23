@@ -436,6 +436,23 @@ let armor = {
     set: 'scribe',
     canOwn: ownsItem('armor_armoire_scribesRobe'),
   },
+  chefsJacket: {
+    text: t('armorArmoireChefsJacketText'),
+    notes: t('armorArmoireChefsJacketNotes', { int: 10 }),
+    value: 100,
+    int: 10,
+    set: 'chef',
+    canOwn: ownsItem('armor_armoire_chefsJacket'),
+  },
+  vernalVestment: {
+    text: t('armorArmoireVernalVestmentText'),
+    notes: t('armorArmoireVernalVestmentNotes', { attrs: 6 }),
+    value: 100,
+    str: 6,
+    int: 6,
+    set: 'vernalVestments',
+    canOwn: ownsItem('armor_armoire_vernalVestment'),
+  },
 };
 
 let body = {
@@ -891,6 +908,22 @@ let head = {
     set: 'aceOfSpades',
     canOwn: ownsItem('head_armoire_veilOfSpades'),
   },
+  toqueBlanche: {
+    text: t('headArmoireToqueBlancheText'),
+    notes: t('headArmoireToqueBlancheNotes', { per: 10 }),
+    value: 100,
+    per: 10,
+    set: 'chef',
+    canOwn: ownsItem('head_armoire_toqueBlanche'),
+  },
+  vernalHennin: {
+    text: t('headArmoireVernalHenninText'),
+    notes: t('headArmoireVernalHenninNotes', { per: 12 }),
+    value: 100,
+    per: 12,
+    set: 'vernalVestments',
+    canOwn: ownsItem('head_armoire_vernalHennin'),
+  },
 };
 
 let shield = {
@@ -1137,6 +1170,14 @@ let shield = {
     per: 9,
     set: 'scribe',
     canOwn: ownsItem('shield_armoire_mightyQuill'),
+  },
+  mightyPizza: {
+    text: t('shieldArmoireMightyPizzaText'),
+    notes: t('shieldArmoireMightyPizzaNotes', { per: 8 }),
+    value: 100,
+    per: 8,
+    set: 'chef',
+    canOwn: ownsItem('shield_armoire_mightyPizza'),
   },
 };
 
@@ -1495,6 +1536,22 @@ let weapon = {
     int: 9,
     set: 'scribe',
     canOwn: ownsItem('weapon_armoire_arcaneScroll'),
+  },
+  chefsSpoon: {
+    text: t('weaponArmoireChefsSpoonText'),
+    notes: t('weaponArmoireChefsSpoonNotes', { int: 8 }),
+    value: 100,
+    int: 8,
+    set: 'chef',
+    canOwn: ownsItem('weapon_armoire_chefsSpoon'),
+  },
+  vernalTaper: {
+    text: t('weaponArmoireVernalTaperText'),
+    notes: t('weaponArmoireVernalTaperNotes', { con: 8 }),
+    value: 100,
+    con: 8,
+    set: 'vernalVestments',
+    canOwn: ownsItem('weapon_armoire_vernalTaper'),
   },
 };
 

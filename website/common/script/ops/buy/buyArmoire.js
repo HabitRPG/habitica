@@ -68,6 +68,19 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation {
     ];
   }
 
+  _trackDropAnalytics (userId, key) {
+    this.analytics.track(
+      'dropped item',
+      {
+        uuid: userId,
+        itemKey: key,
+        acquireMethod: 'Armoire',
+        category: 'behavior',
+        headers: this.req.headers,
+      },
+    );
+  }
+
   _gearResult (user, eligibleEquipment) {
     eligibleEquipment.sort();
     let drop = randomVal(eligibleEquipment);
@@ -90,6 +103,10 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation {
 
     removeItemByPath(user, `gear.flat.${drop.key}`);
 
+    if (this.analytics) {
+      this._trackDropAnalytics(user._id, drop.key);
+    }
+
     let armoireResp = {
       type: 'gear',
       dropKey: drop.key,
@@ -110,6 +127,10 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation {
     user.items.food[drop.key] = user.items.food[drop.key] || 0;
     user.items.food[drop.key] += 1;
     if (user.markModified) user.markModified('items.food');
+
+    if (this.analytics) {
+      this._trackDropAnalytics(user._id, drop.key);
+    }
 
     return {
       message: this.i18n('armoireFood', {

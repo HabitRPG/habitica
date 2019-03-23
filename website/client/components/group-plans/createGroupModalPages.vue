@@ -22,11 +22,11 @@
       button.btn.btn-primary.btn-lg.btn-block(@click="createGroup()", :disabled="!newGroupIsReady") {{ $t('createGroupPlan') }}
   .col-12(v-if='activePage === PAGES.PAY')
     h2 {{ $t('choosePaymentMethod') }}
-    .payment-providers
-      .box.payment-button(@click='pay(PAYMENTS.STRIPE)')
-        .svg-icon.credit-card-icon(v-html="icons.creditCard")
-      .box.payment-button.amazon(@click='pay(PAYMENTS.AMAZON)')
-        .svg-icon.amazon-pay-icon(v-html="icons.amazonpay")
+    .payments-column
+      button.purchase.btn.btn-primary.payment-button.payment-item(@click='pay(PAYMENTS.STRIPE)') 
+        .svg-icon.credit-card-icon(v-html="icons.creditCardIcon")
+        | {{ $t('card') }}
+      amazon-button.payment-item(:amazon-data="pay(PAYMENTS.AMAZON)")
 </template>
 
 <style lang="scss" scoped>
@@ -65,21 +65,8 @@
     opacity: 0.7;
   }
 
-  .amazon-pay-icon {
-    width: 150px;
-  }
-
-  .credit-card-icon {
-    width: 150px;
-    color: #4e4a57;
-  }
-
   .btn-block {
     margin-bottom: 1em;
-  }
-
-  .payment-button.amazon {
-    margin-bottom: 2em;
   }
 </style>
 
@@ -87,18 +74,20 @@
 import * as Analytics from 'client/libs/analytics';
 import { mapState } from 'client/libs/store';
 import paymentsMixin from '../../mixins/payments';
+import amazonButton from 'client/components/payments/amazonButton';
 
-import amazonpay from 'assets/svg/amazonpay.svg';
-import creditCard from 'assets/svg/credit-card.svg';
+import creditCardIcon from 'assets/svg/credit-card-icon.svg';
 
 export default {
   mixins: [paymentsMixin],
+  components: {
+    amazonButton,
+  },
   data () {
     return {
       amazonPayments: {},
       icons: Object.freeze({
-        amazonpay,
-        creditCard,
+        creditCardIcon,
       }),
       PAGES: {
         CREATE_GROUP: 'create-group',
@@ -159,7 +148,7 @@ export default {
         this.showStripe(paymentData);
       } else if (this.paymentMethod === this.PAYMENTS.AMAZON) {
         paymentData.type = 'subscription';
-        this.amazonPaymentsInit(paymentData);
+        return paymentData;
       }
     },
   },

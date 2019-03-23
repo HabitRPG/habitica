@@ -109,7 +109,7 @@ router-link.card-link(:to="{ name: 'guild', params: { groupId: guild._id } }")
 
     .member-count {
       position: relative;
-      top: -3.6em;
+      top: -3.7em;
       font-size: 18px;
       font-weight: bold;
       line-height: 1.1;
