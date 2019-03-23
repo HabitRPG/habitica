@@ -30,10 +30,6 @@ A simplified dropdown component that doesn't rely on buttons as toggles  like bo
   .habitica-menu-dropdown.open {
     &:focus {
       outline: none;
-
-      .habitica-menu-dropdown-toggle {
-        outline: 1px dotted #fff;
-      }
     }
   }
 }
