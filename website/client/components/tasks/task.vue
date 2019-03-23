@@ -422,11 +422,13 @@
   }
 
   .left-control {
+    align-items: center;
     border-top-left-radius: 2px;
     border-bottom-left-radius: 2px;
     min-height: 60px;
     border: 1px solid transparent;
     border-right: none;
+    flex-direction: row;
 
     & + .task-content {
       border-left: none;
