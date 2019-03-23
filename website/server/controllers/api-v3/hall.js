@@ -7,6 +7,8 @@ import {
 import _ from 'lodash';
 import apiError from '../../libs/apiError';
 import validator from 'validator';
+import { validateItemPath } from '../../libs/items/utils';
+
 
 let api = {};
 
@@ -268,9 +270,7 @@ api.updateHero = {
       hero.items.pets['Dragon-Hydra'] = 5;
       hero.markModified('items.pets');
     }
-    if (updateData.itemPath && updateData.itemVal &&
-        updateData.itemPath.indexOf('items.') === 0 &&
-        User.schema.paths[updateData.itemPath]) {
+    if (updateData.itemPath && updateData.itemVal && validateItemPath(updateData.itemPath)) {
       _.set(hero, updateData.itemPath, updateData.itemVal); // Sanitization at 5c30944 (deemed unnecessary)
     }
 

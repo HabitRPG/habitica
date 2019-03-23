@@ -12,7 +12,7 @@ import {
 } from '../subscriptionPlan';
 import {
   getDefaultOwnedGear,
-} from './itemsUtils';
+} from '../../libs/items/utils';
 
 const Schema = mongoose.Schema;
 
