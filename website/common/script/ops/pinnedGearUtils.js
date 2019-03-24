@@ -90,13 +90,14 @@ function removePinnedGearAddPossibleNewOnes (user, itemPath, newItemKey) {
   // an item of the users current "new" gear was bought
   // remove the old pinned gear items and add the new gear back
   removePinnedGearByClass(user);
+
   user.items.gear.owned[newItemKey] = true;
+  if (user.markModified) user.markModified('items.gear.owned');
+
   addPinnedGearByClass(user);
 
   // update the version, so that vue can refresh the seasonal shop
   user._v++;
-
-  if (user.markModified) user.markModified('items.gear.owned');
 }
 
 /**

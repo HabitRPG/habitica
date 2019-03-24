@@ -91,6 +91,7 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation {
 
     user.items.gear.owned[drop.key] = true;
     if (user.markModified) user.markModified('items.gear.owned');
+
     user.flags.armoireOpened = true;
     let message = this.i18n('armoireEquipment', {
       image: `<span class="shop_${drop.key} pull-left"></span>`,

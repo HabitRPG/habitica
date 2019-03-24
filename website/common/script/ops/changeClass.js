@@ -53,8 +53,7 @@ module.exports = function changeClass (user, req = {}, analytics) {
     addPinnedGearByClass(user);
 
     user.items.gear.owned[`weapon_${klass}_0`] = true;
-    if (klass === 'rogue')  user.items.gear.owned[`shield_${klass}_0`] = true;
-
+    if (klass === 'rogue') user.items.gear.owned[`shield_${klass}_0`] = true;
     if (user.markModified) user.markModified('items.gear.owned');
 
     removePinnedItemsByOwnedGear(user);

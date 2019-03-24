@@ -12,7 +12,7 @@ module.exports = function resetGear (user) {
     gear[type].shield = 'shield_base_0';
   });
 
-  // Gear.owned is a Mongo object so the _.each function iterates over hidden properties.
+  // Gear.owned is (was) a Mongo object so the _.each function iterates over hidden properties.
   // The content.gear.flat[k] check should prevent this causing an error
   each(gear.owned, function resetOwnedGear (v, k) {
     if (gear.owned[k] && content.gear.flat[k] && content.gear.flat[k].value) {
@@ -21,5 +21,7 @@ module.exports = function resetGear (user) {
   });
 
   gear.owned.weapon_warrior_0 = true; // eslint-disable-line camelcase
+  if (user.markModified) user.markModified('items.gear.owned');
+
   user.preferences.costume = false;
 };

@@ -67,7 +67,6 @@ export class BuyMarketGearOperation extends AbstractGoldItemOperation {
 
     if (user.preferences.autoEquip) {
       user.items.gear.equipped[item.type] = item.key;
-      if (user.markModified) user.markModified('items.gear.equipped');
       message = handleTwoHanded(user, item, undefined, req);
     }
 
