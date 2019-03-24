@@ -40,6 +40,11 @@ transition(name="fade")
     width: 300px;
     margin-left: 1em;
     margin-bottom: 1em;
+
+    .row {
+      margin: 0;
+      width: 100%;
+    }
   }
 
   .info {
