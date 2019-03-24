@@ -1,7 +1,7 @@
 <template lang="pug">
 div
   .item-wrapper(@click="click()", :id="itemId")
-    .item(:class="getItemClasses()")
+    button.item(:class="getItemClasses()")
       slot(name="itemBadge", :item="item", :emptyItem="emptyItem")
 
       span.badge.badge-pill.badge-item.badge-clock(
