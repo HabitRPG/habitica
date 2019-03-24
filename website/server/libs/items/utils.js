@@ -32,26 +32,26 @@ export function validateItemPath (itemPath) {
   }
 
   if (itemPath.indexOf('items.pets') === 0) {
-    return shared.content.petInfo[key];
+    return Boolean(shared.content.petInfo[key]);
   }
 
   if (itemPath.indexOf('items.eggs') === 0) {
-    return shared.content.eggs[key];
+    return Boolean(shared.content.eggs[key]);
   }
 
   if (itemPath.indexOf('items.hatchingPotions') === 0) {
-    return shared.content.hatchingPotions[key];
+    return Boolean(shared.content.hatchingPotions[key]);
   }
 
   if (itemPath.indexOf('items.food') === 0) {
-    return shared.content.food[key];
+    return Boolean(shared.content.food[key]);
   }
 
   if (itemPath.indexOf('items.mounts') === 0) {
-    return shared.content.mountInfo[key];
+    return Boolean(shared.content.mountInfo[key]);
   }
 
   if (itemPath.indexOf('items.quests') === 0) {
-    return shared.content.quests[key];
+    return Boolean(shared.content.quests[key]);
   }
 }
