@@ -27,8 +27,6 @@ describe('GET /inbox/messages', () => {
       toUserId: user.id,
       message: 'fourth',
     });
-
-    await user.sync();
   });
 
   it('returns the user inbox messages as an array of ordered messages (from most to least recent)', async () => {
@@ -46,7 +44,7 @@ describe('GET /inbox/messages', () => {
     expect(messages[3].text).to.equal('first');
   });
 
-  it('returns no messages when using page-query ', async () => {
+  it('returns four messages when using page-query ', async () => {
     const promises = [];
 
     for (let i = 0; i < 10; i++) {
@@ -57,8 +55,6 @@ describe('GET /inbox/messages', () => {
     }
 
     await Promise.all(promises);
-
-    await user.sync();
 
     const messages = await user.get('/inbox/messages?page=1');
 
