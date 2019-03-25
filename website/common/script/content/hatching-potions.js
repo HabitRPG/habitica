@@ -170,6 +170,14 @@ let premium = {
   },
 };
 
+const wacky = {
+  Veggie: {
+    text: t('hatchingPotionVeggie'),
+    limited: true,
+    _season: 'March',
+  },
+};
+
 each(drops, (pot, key) => {
   defaults(pot, {
     key,
@@ -203,10 +211,29 @@ each(premium, (pot, key) => {
   });
 });
 
+each(wacky, (pot, key) => {
+  defaults(pot, {
+    key,
+    value: 2,
+    notes: t('hatchingPotionNotes', {
+      potText: pot.text,
+    }),
+    _addlNotes: t('eventAvailability', {
+      date: t(`dateEnd${pot._season}`),
+    }),
+    premium: false,
+    limited: true,
+    canBuy () {
+      return pot._season === CURRENT_SEASON;
+    },
+  });
+});
+
 let all = assign({}, drops, premium);
 
 module.exports = {
   drops,
   premium,
+  wacky,
   all,
 };
