@@ -7,7 +7,6 @@
     .row.header-row
       .col-md-8.text-left
         h1(v-once) {{$t('myChallenges')}}
-        h2(v-if='loading && challenges.length === 0') {{ $t('loading') }}
       .col-md-4
         // @TODO: implement sorting span.dropdown-label {{ $t('sortBy') }}
           b-dropdown(:text="$t('sort')", right=true)
@@ -30,6 +29,9 @@
     .row
       .col-12.col-md-6(v-for='challenge in filteredChallenges')
         challenge-item(:challenge='challenge')
+
+    .row
+      h2.col-12(v-if='loading') {{ $t('loading') }}
 
     .row
       .col-12.text-center(v-if='!loading && filteredChallenges.length > 0')
