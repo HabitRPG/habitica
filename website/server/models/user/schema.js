@@ -316,7 +316,8 @@ let schema = new Schema({
       // Then add additional pets (quest, backer, contributor, premium)
       _.transform(shared.content.questPets, (m, v, k) => m[k] = Number),
       _.transform(shared.content.specialPets, (m, v, k) => m[k] = Number),
-      _.transform(shared.content.premiumPets, (m, v, k) => m[k] = Number)
+      _.transform(shared.content.premiumPets, (m, v, k) => m[k] = Number),
+      _.transform(shared.content.wackyPets, (m, v, k) => m[k] = Number)
     ),
     currentPet: String, // Cactus-Desert
 

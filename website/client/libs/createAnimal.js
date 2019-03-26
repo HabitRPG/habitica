@@ -4,6 +4,7 @@ import content from 'common/script/content';
 const specialPets = Object.keys(content.specialPets);
 const premiumPets = Object.keys(content.premiumPets);
 const questPets = Object.keys(content.questPets);
+const wackyPets = Object.keys(content.wackyPets);
 const dropPets = Object.keys(content.pets);
 
 function getText (textOrFunction) {
@@ -26,6 +27,7 @@ export function isHatchable (animal, userItems) {
 
 export function isAllowedToFeed (animal, userItems) {
   return !specialPets.includes(animal.key) &&
+    !wackyPets.includes(animal.key) &&
     isOwned('pet', animal, userItems) &&
     !isOwned('mount', animal, userItems);
 }

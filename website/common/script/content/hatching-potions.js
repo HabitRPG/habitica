@@ -229,7 +229,7 @@ each(wacky, (pot, key) => {
   });
 });
 
-let all = assign({}, drops, premium);
+let all = assign({}, drops, premium, wacky);
 
 module.exports = {
   drops,
