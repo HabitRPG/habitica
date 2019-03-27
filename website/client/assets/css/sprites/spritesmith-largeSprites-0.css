@@ -24,19 +24,25 @@
 }
 .promo_mystery_201902 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -433px -327px;
+  background-position: -769px -444px;
   width: 240px;
+  height: 147px;
+}
+.promo_mystery_201903 {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -769px -296px;
+  width: 351px;
   height: 147px;
 }
 .promo_seasonalshop_spring {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -1010px -296px;
+  background-position: -1010px -444px;
   width: 162px;
   height: 138px;
 }
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -769px -492px;
+  background-position: -433px -327px;
   width: 96px;
   height: 69px;
 }
@@ -54,7 +60,7 @@
 }
 .scene_todos {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -769px -296px;
+  background-position: 0px -638px;
   width: 240px;
   height: 195px;
 }
