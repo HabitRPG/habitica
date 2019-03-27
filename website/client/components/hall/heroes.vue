@@ -86,11 +86,11 @@
           tr(v-for='(hero, index) in heroes')
             td
               span(v-if='hero.contributor && hero.contributor.admin', :popover="$t('gamemaster')", popover-trigger='mouseenter', popover-placement='right')
-                .label.label-default(:class='userLevelStyle(hero)')
+                router-link.label.label-default(:class='userLevelStyle(hero)', :to="{'name': 'userProfile', 'params': {'userId': hero._id}}")
                   | {{hero.profile.name}}&nbsp;
                   //- span(v-class='userAdminGlyphiconStyle(hero)')
               span(v-if='!hero.contributor || !hero.contributor.admin')
-                .label.label-default(v-if='hero.profile', v-class='userLevelStyle(hero)') {{hero.profile.name}}
+                router-link.label.label-default(v-if='hero.profile', v-class='userLevelStyle(hero)', :to="{'name': 'userProfile', 'params': {'userId': hero._id}}") {{hero.profile.name}}
             td(v-if='user.contributor.admin', @click='populateContributorInput(hero._id, index)').btn-link {{hero._id}}
             td {{hero.contributor.level}}
             td {{hero.contributor.text}}
