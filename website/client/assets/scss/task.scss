@@ -291,30 +291,19 @@
 .habit-control {
   border-radius: 100px;
   color: $white;
-  display: flex;
-  flex-direction: column;
 
   .svg-icon {
     width: 10px;
     height: 10px;
-    margin: auto;
+    margin: 0 auto;
   }
-}
 
-.positive,
-.negative {
-  align-items: center;
-  display: flex;
-
-  > svg {
-    margin: auto;
-    width: 10px;
+  .positive {
+    margin-top: 9px;
   }
-}
 
-.negative {
-  > svg {
-    height: 2px;
+  .negative {
+    margin-top: 13px;
   }
 }
 

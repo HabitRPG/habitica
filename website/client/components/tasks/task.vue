@@ -5,11 +5,11 @@
     .d-flex(:class="{'task-not-scoreable': isUser !== true}")
       // Habits left side control
       .left-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="controlClass.up.bg")
-        button.task-control.habit-control(:class="controlClass.up.inner", @click="(isUser && task.up) ? score('up') : null")
+        .task-control.habit-control(:class="controlClass.up.inner", @click="(isUser && task.up) ? score('up') : null")
           .svg-icon.positive(v-html="icons.positive")
       // Dailies and todos left side control
       .left-control.d-flex.justify-content-center(v-if="task.type === 'daily' || task.type === 'todo'", :class="controlClass.bg")
-        button.task-control.daily-todo-control(:class="controlClass.inner", @click="isUser ? score(task.completed ? 'down' : 'up') : null")
+        .task-control.daily-todo-control(:class="controlClass.inner", @click="isUser ? score(task.completed ? 'down' : 'up') : null")
           .svg-icon.check(v-html="icons.check", :class="{'display-check-icon': task.completed, [controlClass.checkbox]: true}")
       // Task title, description and icons
       .task-content(:class="contentClass")
@@ -98,10 +98,10 @@
 
       // Habits right side control
       .right-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="controlClass.down.bg")
-        button.task-control.habit-control(:class="controlClass.down.inner", @click="(isUser && task.down) ? score('down') : null")
+        .task-control.habit-control(:class="controlClass.down.inner", @click="(isUser && task.down) ? score('down') : null")
           .svg-icon.negative(v-html="icons.negative")
       // Rewards right side control
-      button.right-control.d-flex.align-items-center.justify-content-center.reward-control(v-if="task.type === 'reward'", :class="controlClass.bg", @click="isUser ? score('down') : null")
+      .right-control.d-flex.align-items-center.justify-content-center.reward-control(v-if="task.type === 'reward'", :class="controlClass.bg", @click="isUser ? score('down') : null")
         .svg-icon(v-html="icons.gold")
         .small-text {{task.value}}
     approval-footer(:task='task', v-if='this.task.group.id', :group='group')
@@ -180,15 +180,11 @@
   }
 
   .task /deep/ .habitica-menu-dropdown .habitica-menu-dropdown-toggle {
-    background: $white;
-    border: 0;
-    border-radius: 0;
     opacity: 0;
     padding: 0 8px;
     transition: opacity 0.15s ease-in;
   }
 
-  .task /deep/ .habitica-menu-dropdown:focus .habitica-menu-dropdown-toggle,
   .task:hover /deep/ .habitica-menu-dropdown .habitica-menu-dropdown-toggle {
     opacity: 1;
   }
@@ -201,7 +197,6 @@
     }
   }
 
-  .task-clickable-area /deep/ .habitica-menu-dropdown .habitica-menu-dropdown-toggle:focus .svg-icon,
   .task-clickable-area /deep/ .habitica-menu-dropdown .habitica-menu-dropdown-toggle:hover .svg-icon {
     color: $purple-400 !important;
   }
@@ -422,13 +417,11 @@
   }
 
   .left-control {
-    align-items: center;
     border-top-left-radius: 2px;
     border-bottom-left-radius: 2px;
     min-height: 60px;
     border: 1px solid transparent;
     border-right: none;
-    flex-direction: row;
 
     & + .task-content {
       border-left: none;
@@ -446,14 +439,7 @@
   }
 
   .task-control:not(.task-disabled-habit-control-inner), .reward-control {
-    align-items: center;
     cursor: pointer;
-    margin: 0;
-    padding: 0;
-  }
-
-  .task-control {
-    border: none;
   }
 
   .task-not-scoreable {

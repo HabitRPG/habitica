@@ -290,7 +290,6 @@ div
       margin-right: 24px;
     }
 
-    &:focus /deep/ .top-menu-icon.svg-icon, 
     &:hover /deep/ .top-menu-icon.svg-icon {
       color: $white;
     }
