@@ -12,10 +12,16 @@ A simplified dropdown component that doesn't rely on buttons as toggles  like bo
 
 <style lang="scss">
 @import '~client/assets/scss/colors.scss';
+.habitica-menu-dropdown {
+  &:hover,
+  &:focus { // NB focus styles match the hover styles for .svg-icon
+    outline: none;
+  }
 
-.habitica-menu-dropdown.open {
-  .habitica-menu-dropdown-toggle .svg-icon {
-    color: $white !important;
+  &.open {
+    .habitica-menu-dropdown-toggle .svg-icon {
+      color: $white !important;
+    }
   }
 }
 </style>
