@@ -23,25 +23,6 @@ export async function postChat (store, payload) {
     });
   }
 
-  if (group.privacy === 'public') {
-    Analytics.track({
-      hitType: 'event',
-      eventCategory: 'behavior',
-      eventAction: 'group chat',
-      groupType: group.type,
-      privacy: group.privacy,
-      groupName: group.name,
-    });
-  } else {
-    Analytics.track({
-      hitType: 'event',
-      eventCategory: 'behavior',
-      eventAction: 'group chat',
-      groupType: group.type,
-      privacy: group.privacy,
-    });
-  }
-
   let response = await axios.post(url, {
     message: payload.message,
   });
@@ -67,10 +48,18 @@ export async function like (store, payload) {
 }
 
 export async function flag (store, payload) {
-  const url = `/api/v4/groups/${payload.groupId}/chat/${payload.chatId}/flag`;
+  let url = '';
+
+  if (payload.groupId === 'privateMessage') {
+    url = `/api/v4/members/flag-private-message/${payload.chatId}`;
+  } else {
+    url = `/api/v4/groups/${payload.groupId}/chat/${payload.chatId}/flag`;
+  }
+
   const response = await axios.post(url, {
     comment: payload.comment,
   });
+
   return response.data.data;
 }
 

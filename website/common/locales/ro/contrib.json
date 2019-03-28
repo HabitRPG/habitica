@@ -64,10 +64,10 @@
     "playerTiers": "Niveluri de jucător",
     "tier": "Nivel",
     "visitHeroes": "Vizitează Hala Eroilor (contribuitori și susținători)",
-    "conLearn": "<a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'>Află mai multe despre recompensele de contribuitor</a>",
+    "conLearn": "<a href='http://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'>Află mai multe despre recompensele de contribuitor</a>",
     "conLearnHow": "Află cum să contribui la Habitica",
-    "conLearnURL": "http://habitica.wikia.com/wiki/Contributing_to_Habitica",
-    "conRewardsURL": "http://habitica.wikia.com/wiki/Contributor_Rewards",
+    "conLearnURL": "http://habitica.fandom.com/wiki/Contributing_to_Habitica",
+    "conRewardsURL": "http://habitica.fandom.com/wiki/Contributor_Rewards",
     "surveysSingle": "A ajutat Habitica să crească, fie prin completarea unui formular sau ajutând la o testare majoră. Mulțumim!",
     "surveysMultiple": "A ajutat Habitica să crească în <%= count %> cazuri, fie prin completarea unu formular sau ajutând la o testare majoră. Mulțumim!",
     "currentSurvey": "Current Survey",
@@ -76,5 +76,5 @@
     "blurbGuildsPage": "Guilds are common-interest chat groups created by the players, for players. Browse through the list and join the Guilds that interest you!",
     "blurbChallenges": "Challenges are created by your fellow players. Joining a Challenge will add its tasks to your task dashboard, and winning a Challenge will give you an achievement and often a gem prize!",
     "blurbHallPatrons": "This is the Hall of Patrons, where we honor the noble adventurers who backed Habitica's original Kickstarter. We thank them for helping us bring Habitica to life!",
-    "blurbHallContributors": "Aceasta este Sala Contribuitorilor, unde contribuitorii open-source ai Habitica sunt onorați. Prin programare, artă, muzică, scris. sau prin ajutor general, au primit <a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'> nestemate, echipament exclusiv</a>, <a href='http://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>titluri prestigioase</a>. Și tu poți contribui la Habitica! <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'>Află mai multe aici.</a>"
+    "blurbHallContributors": "Aceasta este Sala Contribuitorilor, unde contribuitorii open-source ai Habitica sunt onorați. Prin programare, artă, muzică, scris. sau prin ajutor general, au primit <a href='http://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'> nestemate, echipament exclusiv</a>, <a href='http://habitica.fandom.com/wiki/Contributor_Titles' target='_blank'>titluri prestigioase</a>. Și tu poți contribui la Habitica! <a href='http://habitica.fandom.com/wiki/Contributing_to_Habitica' target='_blank'>Află mai multe aici.</a>"
 }

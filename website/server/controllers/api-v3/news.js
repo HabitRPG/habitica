@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'HAPPY THANKSGIVING!';
+const LAST_ANNOUNCEMENT_TITLE = 'MARCH SUBSCRIBER ITEMS REVEALED!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,17 +30,14 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>11/22/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>3/26/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="npc_matt center-block"></div>
-        <p>It's Thanksgiving in Habitica! On this day Habiticans celebrate by spending time with loved ones, giving thanks, and riding their glorious turkeys into the magnificent sunset. Some of the NPCs are celebrating the occasion!</p>
-        <h3>Turkey Pet, Mount, and Costumes!</h3>
-        <p>In celebration of Turkey Day, everyone has received an adorable Turkey! What kind of Turkey? It all depends on how many Habitica Thanksgivings you've celebrated with us. Each Thanksgiving, you'll get a new and exciting Turkey variety!</p>
-        <p>Thank you for using Habitica - we really love you all <3</p>
-        <div class="small mb-3">by Lemoness and Beffymaroo</div>
-        <div class="promo_turkey_day_2018 center-block"></div>
+        <div class="promo_mystery_201903 center-block"></div>
+        <p>The March Subscriber Items have been revealed: the Egg-squisite Item Set! You only have five days to receive the item set when you <a href='/user/settings/subscription'>subscribe</a>. If you're already an active subscriber, reload the site and then head to Inventory > Items to claim your gear!</p>
+        <p>Subscribers also receive the ability to buy Gems for Gold -- the longer you subscribe, the more Gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
+        <div class="small mb-3">by Beffymaroo</div>
       </div>
       `,
     });

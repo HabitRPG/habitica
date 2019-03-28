@@ -569,10 +569,8 @@ export default {
             break;
           case 'STREAK_ACHIEVEMENT':
             this.text(`${this.$t('streaks')}: ${this.user.achievements.streak}`, () => {
-              if (!this.user.preferences.suppressModals.streak) {
-                this.$root.$emit('bv::show::modal', 'streak');
-              }
-            });
+              this.$root.$emit('bv::show::modal', 'streak');
+            }, this.user.preferences.suppressModals.streak);
             this.playSound('Achievement_Unlocked');
             break;
           case 'ULTIMATE_GEAR_ACHIEVEMENT':
