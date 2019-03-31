@@ -44,28 +44,21 @@
               button.btn.btn-primary(@click='gemAmount === 20 ? gemAmount = 0 : gemAmount = 20') {{gemAmount === 20 ? $t('selected') : '$5.00'}}
         .row.text-center
           h2.mx-auto.text-payment {{ $t('choosePaymentMethod') }}
-        .card-deck
-          .card.text-center.payment-method(@click='showStripe({})')
-            .card-body
-              .mx-auto(v-html='icons.creditCard', style='"height: 56px; width: 159px; margin-top: 1em;"')
-          .card.text-center.payment-method
-            a.card-body.paypal(@click="openPaypal(paypalCheckoutLink, 'gems')")
-              img(src='~assets/images/paypal.png')
-          .card.text-center.payment-method(@click="amazonPaymentsInit({type: 'single'})")
-            .card-body.amazon
-              img(src='~assets/images/amazon-payments.png')
+        .payments-column
+          button.purchase.btn.btn-primary.payment-button.payment-item(@click='showStripe({})') 
+            .svg-icon.credit-card-icon(v-html="icons.creditCardIcon")
+            | {{ $t('card') }}
+          button.btn.payment-item.paypal-checkout.payment-button(@click="openPaypal(paypalCheckoutLink, 'gems')")
+            | &nbsp;
+            img(src='~assets/images/paypal-checkout.png', :alt="$t('paypal')")
+            | &nbsp;
+          amazon-button.payment-item(:amazon-data="{type: 'single'}")
         .row.text-center
           .svg-icon.mx-auto(v-html='icons.heart', style='"height: 24px; width: 24px;"')
         .row.text-center.text-outtro
           .col-6.offset-3 {{ $t('buyGemsSupportsDevs') }}
 
       div(v-show='selectedPage === "subscribe"')
-        .g1g1-promo.d-flex.justify-content-center.align-items-center
-          .svg-icon.svg-gifts.left-gift(v-html="icons.gifts")
-          .text-center
-            strong.gift-text {{ $t('g1g1Announcement') }}
-            .gift-text {{ $t('g1g1Details') }}
-          .svg-icon.svg-gifts.right-gift(v-html="icons.gifts")
         div(v-if='hasSubscription')
           .row.text-center
             h2.mx-auto.text-leadin {{ $t('subscriptionAlreadySubscribedLeadIn') }}
@@ -133,16 +126,16 @@
             h2.mx-auto.text-payment(v-once) {{ $t('choosePaymentMethod') }}
           .row.text-center
             a.mx-auto(v-once) {{ $t('haveCouponCode') }}
-          .card-deck(v-if='subscriptionPlan')
-            .card.text-center.payment-method
-              .card-body(@click='showStripe({subscription: subscriptionPlan})')
-                .mx-auto(v-html='icons.creditCard', style='"height: 56px; width: 159px; margin-top: 1em;"')
-            .card.text-center.payment-method
-              a.card-body.paypal(@click="openPaypal(paypalSubscriptionLink, 'subscription')")
-                img(src='~assets/images/paypal.png')
-            .card.text-center.payment-method
-              .card-body.amazon(@click="amazonPaymentsInit({type: 'subscription', subscription: subscriptionPlan})")
-                img(src='~assets/images/amazon-payments.png')
+          .payments-column(v-if='subscriptionPlan')
+            button.purchase.btn.btn-primary.payment-button.payment-item(@click='showStripe({subscription: subscriptionPlan})') 
+              .svg-icon.credit-card-icon(v-html="icons.creditCardIcon")
+              | {{ $t('card') }}
+            button.btn.payment-item.paypal-checkout.payment-button(@click="openPaypal(paypalSubscriptionLink, 'subscription')")
+              | &nbsp;
+              img(src='~assets/images/paypal-checkout.png', :alt="$t('paypal')")
+              | &nbsp;
+            amazon-button.payment-item(:amazon-data="{type: 'subscription', subscription: subscriptionPlan}")
+
           .row.text-center
             .svg-icon.mx-auto(v-html='icons.heart', style='"height: 24px; width: 24px;"')
           .row.text-center.text-outtro
@@ -168,6 +161,11 @@
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
 
+
+  .payments-column {
+    margin: 0 auto;
+  }
+
   a.mx-auto {
     color: #2995cd;
   }
@@ -178,10 +176,6 @@
 
   p {
     font-size: 16px;
-  }
-
-  .amazon {
-    padding-top: 1.8em;
   }
 
   .benefits {
@@ -200,29 +194,11 @@
     justify-content: center;
   }
 
-  .card {
-    margin: 1em;
-    border-radius: 2px;
-    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
-  }
-
-  .card.active {
-    border-color: #24cc8f;
-    button {
-      background-color: #24cc8f;
-    }
-  }
-
   .divider {
     width: 80%;
     height: 1px;
     background-color: #e1e0e3;
     margin: 1em auto;
-  }
-
-  .g1g1-promo {
-    background-color: #34b5c1;
-    height: 3.75rem;
   }
 
   .gem-count {
@@ -239,28 +215,9 @@
     margin-bottom: 1em;
   }
 
-  .gift-text {
-    color: $white;
-    font-size: 14px;
-  }
-
   .image-gemfall {
     background: url(~assets/images/gemfall.png) center repeat-y;
     height: 14em;
-  }
-
-  .svg-gifts {
-    width: 4.6rem;
-  }
-
-  .left-gift {
-    margin: auto 1rem auto 4.8rem;
-  }
-
-  .right-gift {
-    margin: auto 4.8rem auto 1rem;
-    filter: FlipH;
-    transform: scaleX(-1);
   }
 
   .header-wrap {
@@ -300,18 +257,6 @@
     color: #4f2a93;
     border-bottom: 4px solid $purple-300;
     cursor: pointer;
-  }
-
-  .payment-method {
-    background-color: #e1e0e3;
-  }
-
-  .payment-method:hover {
-    cursor: pointer;
-  }
-
-  .paypal {
-    padding-top: 1.3em;
   }
 
   .spacer {
@@ -358,7 +303,6 @@
     color: #4e4a57;
     font-size: 24px;
     margin: 1em;
-    opacity: 0.64;
   }
 </style>
 
@@ -369,8 +313,7 @@
   import paymentsMixin from 'client/mixins/payments';
 
   import checkIcon from 'assets/svg/check.svg';
-  import creditCard from 'assets/svg/credit-card.svg';
-  import gifts from 'assets/svg/gifts.svg';
+  import creditCardIcon from 'assets/svg/credit-card-icon.svg';
   import heart from 'assets/svg/health.svg';
   import logo from 'assets/svg/habitica-logo.svg';
 
@@ -379,10 +322,13 @@
   import fortyTwoGems from 'assets/svg/42-gems.svg';
   import eightyFourGems from 'assets/svg/84-gems.svg';
 
+  import amazonButton from 'client/components/payments/amazonButton';
+
   export default {
     mixins: [paymentsMixin],
     components: {
       planGemLimits,
+      amazonButton,
     },
     computed: {
       ...mapState({user: 'user.data'}),
@@ -404,9 +350,8 @@
         icons: Object.freeze({
           logo,
           check: checkIcon,
-          creditCard,
+          creditCardIcon,
           fourGems,
-          gifts,
           heart,
           twentyOneGems,
           fortyTwoGems,
@@ -415,7 +360,6 @@
         gemAmount: 0,
         subscriptionPlan: '',
         selectedPage: 'subscribe',
-        amazonPayments: {},
         planGemLimits,
       };
     },

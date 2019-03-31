@@ -148,88 +148,55 @@ async function createSubscription (data) {
     txnEmail(data.user, emailType);
   }
 
-  if (!data.promo) {
-    analytics.trackPurchase({
-      uuid: data.user._id,
-      groupId,
-      itemPurchased,
-      sku: `${data.paymentMethod.toLowerCase()}-subscription`,
-      purchaseType,
-      paymentMethod: data.paymentMethod,
-      quantity: 1,
-      gift: Boolean(data.gift),
-      purchaseValue: block.price,
-      headers: data.headers,
-    });
-  }
+  analytics.trackPurchase({
+    uuid: data.user._id,
+    groupId,
+    itemPurchased,
+    sku: `${data.paymentMethod.toLowerCase()}-subscription`,
+    purchaseType,
+    paymentMethod: data.paymentMethod,
+    quantity: 1,
+    gift: Boolean(data.gift),
+    purchaseValue: block.price,
+    headers: data.headers,
+  });
 
-  if (!group && !data.promo) data.user.purchased.txnCount++;
+  if (!group) data.user.purchased.txnCount++;
 
   if (data.gift) {
     let byUserName = getUserInfo(data.user, ['name']).name;
 
     // generate the message in both languages, so both users can understand it
     let languages = [data.user.preferences.language, data.gift.member.preferences.language];
-    if (data.promo) {
-      let senderMsg = shared.i18n.t(`giftedSubscription${data.promo}Promo`, {
-        username: data.gift.member.profile.name,
-        monthCount: shared.content.subscriptionBlocks[data.gift.subscription.key].months,
-      }, languages[0]);
+    let senderMsg = shared.i18n.t('giftedSubscriptionFull', {
+      username: data.gift.member.profile.name,
+      sender: byUserName,
+      monthCount: shared.content.subscriptionBlocks[data.gift.subscription.key].months,
+    }, languages[0]);
+    senderMsg = `\`${senderMsg}\``;
 
-      senderMsg = `\`${senderMsg}\``;
-      data.user.sendMessage(data.gift.member, { senderMsg });
-    } else {
-      let senderMsg = shared.i18n.t('giftedSubscriptionFull', {
-        username: data.gift.member.profile.name,
-        sender: byUserName,
-        monthCount: shared.content.subscriptionBlocks[data.gift.subscription.key].months,
-      }, languages[0]);
-      senderMsg = `\`${senderMsg}\``;
+    let receiverMsg = shared.i18n.t('giftedSubscriptionFull', {
+      username: data.gift.member.profile.name,
+      sender: byUserName,
+      monthCount: shared.content.subscriptionBlocks[data.gift.subscription.key].months,
+    }, languages[1]);
+    receiverMsg = `\`${receiverMsg}\``;
 
-      let receiverMsg = shared.i18n.t('giftedSubscriptionFull', {
-        username: data.gift.member.profile.name,
-        sender: byUserName,
-        monthCount: shared.content.subscriptionBlocks[data.gift.subscription.key].months,
-      }, languages[1]);
-      receiverMsg = `\`${receiverMsg}\``;
-
-      if (data.gift.message) {
-        receiverMsg += ` ${data.gift.message}`;
-        senderMsg += ` ${data.gift.message}`;
-      }
-
-      data.user.sendMessage(data.gift.member, { receiverMsg, senderMsg, save: false });
+    if (data.gift.message) {
+      receiverMsg += ` ${data.gift.message}`;
+      senderMsg += ` ${data.gift.message}`;
     }
+
+    data.user.sendMessage(data.gift.member, { receiverMsg, senderMsg, save: false });
 
     if (data.gift.member.preferences.emailNotifications.giftedSubscription !== false) {
-      if (data.promo) {
-        txnEmail(data.gift.member, 'gift-one-get-one', [
-          {name: 'GIFTEE_USERNAME', content: data.promoUsername},
-          {name: 'X_MONTHS_SUBSCRIPTION', content: months},
-        ]);
-      } else {
-        txnEmail(data.gift.member, 'gifted-subscription', [
-          {name: 'GIFTER', content: byUserName},
-          {name: 'X_MONTHS_SUBSCRIPTION', content: months},
-        ]);
-      }
+      txnEmail(data.gift.member, 'gifted-subscription', [
+        {name: 'GIFTER', content: byUserName},
+        {name: 'X_MONTHS_SUBSCRIPTION', content: months},
+      ]);
     }
 
-    if (data.gift.member._id !== data.user._id) { // If sending to a user other than yourself, don't push notify, and get bonus sub for self per holiday promo
-      let promoData = {
-        user: data.user,
-        gift: {
-          member: data.user,
-          subscription: {
-            key: data.gift.subscription.key,
-          },
-        },
-        paymentMethod: data.paymentMethod,
-        promo: 'Winter',
-        promoUsername: data.gift.member.auth.local.username,
-      };
-      await this.createSubscription(promoData);
-
+    if (data.gift.member._id !== data.user._id) { // Only send push notifications if sending to a user other than yourself
       if (data.gift.member.preferences.pushNotifications.giftedSubscription !== false) {
         sendPushNotification(data.gift.member,
           {

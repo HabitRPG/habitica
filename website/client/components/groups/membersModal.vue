@@ -20,7 +20,7 @@ div
           select.form-control(@change='changeSortDirection($event)')
             option(v-for='sortDirection in sortDirections', :value='sortDirection.value') {{sortDirection.text}}
 
-    .row.apply-options.d-flex.justify-content-center(v-if='sortDirty')
+    .row.apply-options.d-flex.justify-content-center(v-if='sortDirty && group.type === "party"')
       a(@click='applySortOptions()') {{ $t('applySortToHeader') }}
     .row(v-if='invites.length > 0')
       .col-6.offset-3.nav

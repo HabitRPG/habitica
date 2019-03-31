@@ -388,7 +388,9 @@
       },
 
       seasonal () {
+        // vue subscriptions, don't remove
         let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+        const myUserVersion = this.user._v; // eslint-disable-line
 
         let seasonal = shops.getSeasonalShop(this.user);
 
@@ -435,7 +437,7 @@
 
           _forEach(equipmentList, (value) => {
             this.$set(this.viewOptions, value.key, {
-              selected: true,
+              selected: false,
             });
           });
 
@@ -443,6 +445,10 @@
         } else {
           return [];
         }
+      },
+
+      anyFilterSelected () {
+        return Object.values(this.viewOptions).some(g => g.selected);
       },
     },
     methods: {
@@ -466,7 +472,7 @@
             return false;
           }
 
-          if (viewOptions[i.type] && !viewOptions[i.type].selected) {
+          if (this.anyFilterSelected && viewOptions[i.type] && !viewOptions[i.type].selected) {
             return false;
           }
 

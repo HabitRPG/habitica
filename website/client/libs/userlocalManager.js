@@ -5,7 +5,6 @@ const CONSTANTS = {
     EQUIPMENT_DRAWER_STATE: 'equipment-drawer-state',
     CURRENT_EQUIPMENT_DRAWER_TAB: 'current-equipment-drawer-tab',
     STABLE_SORT_STATE: 'stable-sort-state',
-    GIFTING_BANNER_DISPLAY: 'gifting-banner-display',
   },
   drawerStateValues: {
     DRAWER_CLOSED: 'drawer-closed',

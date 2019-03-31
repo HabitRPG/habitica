@@ -3,29 +3,27 @@ import { SEASONAL_SETS } from '../content/constants';
 module.exports = {
   opened: true,
 
-  currentSeason: 'Winter',
+  currentSeason: 'Spring',
 
-  dateRange: { start: '2018-12-20', end: '2019-01-31' },
+  dateRange: { start: '2019-03-19', end: '2019-04-30' },
 
   availableSets: [
-    ...SEASONAL_SETS.winter,
+    ...SEASONAL_SETS.spring,
   ],
 
   pinnedSets: {
-    wizard: 'winter2019PyrotechnicSet',
-    warrior: 'winter2019BlizzardSet',
-    rogue: 'winter2019PoinsettiaSet',
-    healer: 'winter2019WinterStarSet',
+    wizard: 'spring2019AmberMageSet',
+    warrior: 'spring2019OrchidWarriorSet',
+    rogue: 'spring2019CloudRogueSet',
+    healer: 'spring2019RobinHealerSet',
   },
 
   availableSpells: [
-    'snowball',
   ],
 
   availableQuests: [
-    'evilsanta',
-    'evilsanta2',
+    'egg',
   ],
 
-  featuredSet: 'winter2017WinterWolfSet',
+  featuredSet: 'spring2018DucklingRogueSet',
 };

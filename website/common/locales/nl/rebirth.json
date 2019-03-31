@@ -21,7 +21,7 @@
     "rebirthOrb": "Heeft een Bol der Hergeboorte gebruikt om opnieuw te beginnen na het bereiken van niveau <%= level %>.",
     "rebirthOrb100": "Heeft een Bol der Hergeboorte gebruikt om opnieuw te beginnen na het bereiken van niveau 100 of hoger.",
     "rebirthOrbNoLevel": "Heeft een Bol der Hergeboorte gebruikt om opnieuw te beginnen.",
-    "rebirthPop": "Herstart je personage direct als een niveau 1 Krijger zonder je prestaties, verzamelobjecten en uitrusting te verliezen. Je taken en hun geschiedenis zal hetzelfde blijven maar worden gereset naar geel. Je series worden verwijderd behalve bij taken van uitdagingen. Je Goud, ervaring, Mana en de effecten van al je vaardigheden gaan verloren. Dit alles gaat direct in werking. Voor meer informatie zie de pagina van de <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Bol der Hergeboorte</a>.",
+    "rebirthPop": "Herstart je personage direct als een niveau 1 Krijger zonder je prestaties, verzamelobjecten en uitrusting te verliezen. Je taken en hun geschiedenis zal hetzelfde blijven maar worden gereset naar geel. Je series worden verwijderd behalve bij taken van uitdagingen. Je Goud, ervaring, Mana en de effecten van al je vaardigheden gaan verloren. Dit alles gaat direct in werking. Voor meer informatie zie de pagina van de <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Bol der Hergeboorte</a>.",
     "rebirthName": "Bol der Hergeboorte",
     "reborn": "Herboren, maximale niveau <%= reLevel %>",
     "confirmReborn": "Weet je het zeker?",

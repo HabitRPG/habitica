@@ -46,7 +46,7 @@ export default {
     },
     markdown (val) {
       if (!val) return;
-      let parsedMarkdown = habiticaMarkdown.render(val);
+      let parsedMarkdown = habiticaMarkdown.render(String(val));
       this.notify(parsedMarkdown, 'info');
     },
     mp (val) {

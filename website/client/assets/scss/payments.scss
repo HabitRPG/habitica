@@ -1,0 +1,44 @@
+.payments-column {
+  display: flex;
+  flex-direction: column;
+  width: 296px;
+  justify-content: center;
+
+  &.payments-disabled {
+    opacity: 0.64;
+
+    .btn, .btn:hover, .btn:active {
+      box-shadow: none;
+    }
+
+    .payment-item > *{
+      cursor: default !important;
+    }
+  }
+
+  .payment-item {
+    margin-bottom: 12px;
+    display: flex;
+
+    &.payment-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .credit-card-icon {
+        width: 21.3px;
+        height: 16px;
+        margin-right: 8.7px;
+      }
+
+      &.paypal-checkout {
+        background: #009cde;
+
+        img {
+          width: 157px;
+          height: 21px;
+        }
+      }
+    }
+  }
+}
