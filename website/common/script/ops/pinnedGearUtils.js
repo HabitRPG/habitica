@@ -27,6 +27,15 @@ function pathExistsInArray (array, path) {
   });
 }
 
+function checkForNullEntries (array) {
+  return array.filter(e => Boolean(e));
+}
+
+function checkPinnedAreasForNullEntries (user) {
+  user.pinnedItems = checkForNullEntries(user.pinnedItems);
+  user.unpinnedItems = checkForNullEntries(user.unpinnedItems);
+}
+
 function selectGearToPin (user) {
   let changes = [];
 
@@ -41,11 +50,10 @@ function selectGearToPin (user) {
   return sortBy(changes, (change) => sortOrder[change.type]);
 }
 
-
 function addPinnedGear (user, type, path) {
   const foundIndex = pathExistsInArray(user.pinnedItems, path);
 
-  if (foundIndex === -1) {
+  if (foundIndex === -1 && type && path) {
     user.pinnedItems.push({
       type,
       path,
@@ -176,5 +184,6 @@ module.exports = {
   togglePinnedItem,
   removeItemByPath,
   selectGearToPin,
+  checkPinnedAreasForNullEntries,
   isPinned,
 };
