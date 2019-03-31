@@ -437,7 +437,7 @@
 
           _forEach(equipmentList, (value) => {
             this.$set(this.viewOptions, value.key, {
-              selected: true,
+              selected: false,
             });
           });
 
@@ -445,6 +445,10 @@
         } else {
           return [];
         }
+      },
+
+      anyFilterSelected () {
+        return Object.values(this.viewOptions).some(g => g.selected);
       },
     },
     methods: {
@@ -468,7 +472,7 @@
             return false;
           }
 
-          if (viewOptions[i.type] && !viewOptions[i.type].selected) {
+          if (this.anyFilterSelected && viewOptions[i.type] && !viewOptions[i.type].selected) {
             return false;
           }
 

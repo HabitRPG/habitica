@@ -1,8 +1,8 @@
 <template lang="pug">
 div
   .mentioned-icon(v-if='isUserMentioned')
-  .message-hidden(v-if='msg.flagCount === 1 && user.contributor.admin') Message flagged once, not hidden
-  .message-hidden(v-if='msg.flagCount > 1 && user.contributor.admin') Message hidden
+  .message-hidden(v-if='!inbox && msg.flagCount === 1 && user.contributor.admin') Message flagged once, not hidden
+  .message-hidden(v-if='!inbox && msg.flagCount > 1 && user.contributor.admin') Message hidden
   .card-body
     user-link(:userId="msg.uuid", :name="msg.user", :backer="msg.backer", :contributor="msg.contributor")
     p.time
@@ -11,25 +11,28 @@ div
       span(v-b-tooltip="", :title="msg.timestamp | date") {{ msg.timestamp | timeAgo }}&nbsp;
       span(v-if="msg.client && user.contributor.level >= 4")  ({{ msg.client }})
     .text(v-html='atHighlight(parseMarkdown(msg.text))')
+    .reported(v-if="isMessageReported && (inbox === true)")
+      span(v-once) {{ $t('reportedMessage')}}
+      br
+      span(v-once) {{ $t('canDeleteNow') }}
     hr
     .d-flex(v-if='msg.id')
       .action.d-flex.align-items-center(v-if='!inbox', @click='copyAsTodo(msg)')
         .svg-icon(v-html="icons.copy")
         div {{$t('copyAsTodo')}}
-      .action.d-flex.align-items-center(v-if='!inbox && user.flags.communityGuidelinesAccepted && msg.uuid !== "system"', @click='report(msg)')
-        .svg-icon(v-html="icons.report")
-        div {{$t('report')}}
-        // @TODO make flagging/reporting work in the inbox. NOTE: it must work even if the communityGuidelines are not accepted and it MUST work for messages that you have SENT as well as received. -- Alys
+      .action.d-flex.align-items-center(v-if='(inbox || (user.flags.communityGuidelinesAccepted && msg.uuid !== "system")) && (!isMessageReported || user.contributor.admin)', @click='report(msg)')
+        .svg-icon(v-html="icons.report", v-once)
+        div(v-once) {{$t('report')}}
       .action.d-flex.align-items-center(v-if='msg.uuid === user._id || inbox || user.contributor.admin', @click='remove()')
-        .svg-icon(v-html="icons.delete")
-        | {{$t('delete')}}
+        .svg-icon(v-html="icons.delete", v-once)
+        div(v-once) {{$t('delete')}}
       .ml-auto.d-flex(v-b-tooltip="{title: likeTooltip(msg.likes[user._id])}", v-if='!inbox')
         .action.d-flex.align-items-center.mr-0(@click='like()', v-if='likeCount > 0', :class='{active: msg.likes[user._id]}')
           .svg-icon(v-html="icons.liked", :title='$t("liked")')
           | +{{ likeCount }}
         .action.d-flex.align-items-center.mr-0(@click='like()', v-if='likeCount === 0', :class='{active: msg.likes[user._id]}')
           .svg-icon(v-html="icons.like", :title='$t("like")')
-          span(v-if='!msg.likes[user._id]') {{ $t('like') }}
+      span(v-if='!msg.likes[user._id] && !inbox') {{ $t('like') }}
 </template>
 
 <style lang="scss">
@@ -111,6 +114,11 @@ div
       color: $purple-400;
     }
   }
+
+  .reported {
+    margin-top: 18px;
+    color: $red-50;
+  }
 </style>
 
 <script>
@@ -132,8 +140,15 @@ import reportIcon from 'assets/svg/report.svg';
 import {highlightUsers} from '../../libs/highlightUsers';
 
 export default {
-  props: ['msg', 'inbox', 'groupId'],
   components: {userLink},
+  props: {
+    msg: {},
+    inbox: {
+      type: Boolean,
+      default: false,
+    },
+    groupId: {},
+  },
   data () {
     return {
       icons: Object.freeze({
@@ -143,6 +158,7 @@ export default {
         delete: deleteIcon,
         liked: likedIcon,
       }),
+      reported: false,
     };
   },
   filters: {
@@ -191,6 +207,9 @@ export default {
       }
       return likeCount;
     },
+    isMessageReported () {
+      return this.msg.flags && this.msg.flags[this.user.id] || this.reported;
+    },
   },
   methods: {
     async like () {
@@ -216,10 +235,18 @@ export default {
     copyAsTodo (message) {
       this.$root.$emit('habitica::copy-as-todo', message);
     },
-    async report () {
+    report () {
+      this.$root.$on('habitica:report-result', data => {
+        if (data.ok) {
+          this.reported = true;
+        }
+
+        this.$root.$off('habitica:report-result');
+      });
+
       this.$root.$emit('habitica::report-chat', {
         message: this.msg,
-        groupId: this.groupId,
+        groupId: this.groupId || 'privateMessage',
       });
     },
     async remove () {
@@ -242,7 +269,8 @@ export default {
       return highlightUsers(text, this.user.auth.local.username, this.user.profile.name);
     },
     parseMarkdown (text) {
-      return habiticaMarkdown.render(text);
+      if (!text) return;
+      return habiticaMarkdown.render(String(text));
     },
   },
 };

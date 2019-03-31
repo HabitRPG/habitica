@@ -16,6 +16,10 @@ export async function getUserInbox (user, asArray = true) {
   }
 }
 
+export async function getUserInboxMessage (user, messageId) {
+  return Inbox.findOne({ownerId: user._id, _id: messageId}).exec();
+}
+
 export async function deleteMessage (user, messageId) {
   const message = await Inbox.findOne({_id: messageId, ownerId: user._id }).exec();
   if (!message) return false;

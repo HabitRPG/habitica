@@ -67,4 +67,10 @@ describe('GET /heroes/:heroId', () => {
     expect(heroRes.auth.local).not.to.have.keys(['salt', 'hashed_password']);
     expect(heroRes.profile).to.have.all.keys(['name']);
   });
+
+  it('returns correct hero using search with difference case', async () => {
+    await generateUser({}, { username: 'TestUpperCaseName123' });
+    let heroRes = await user.get('/hall/heroes/TestuPPerCasEName123');
+    expect(heroRes.auth.local.username).to.equal('TestUpperCaseName123');
+  });
 });

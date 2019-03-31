@@ -408,7 +408,7 @@ function getInviteCount (uuids, emails) {
 /**
  * Checks invitation uuids and emails for possible errors.
  *
- * @param  uuids  An array of user ids
+ * @param  uuids  An array of User IDs
  * @param  emails  An array of emails
  * @param  res  Express res object for use with translations
  * @throws BadRequest An error describing the issue with the invitations
