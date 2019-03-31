@@ -18,7 +18,7 @@ describe('POST /notifications/read', () => {
       notificationIds: [dummyId],
     })).to.eventually.be.rejected.and.eql({
       code: 404,
-      error: 'NotFound',
+      error: 'NotificationNotFound',
       message: t('messageNotificationNotFound'),
     });
   });

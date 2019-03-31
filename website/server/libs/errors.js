@@ -41,6 +41,25 @@ export const BadRequest = common.errors.BadRequest;
  */
 export const NotFound = common.errors.NotFound;
 
+
+/**
+ * @apiDefine NotificationNotFound
+ * @apiError NotificationNotFound The notification was not found.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 404 Not Found
+ *     {
+ *       "error": "NotificationNotFound",
+ *       "message": "Notification not found."
+ *     }
+ */
+export class NotificationNotFound extends NotFound {
+  constructor (language) {
+    super(common.i18n.t('messageNotificationNotFound', language));
+    this.name = this.constructor.name;
+  }
+}
+
 /**
  * @apiDefine InternalServerError
  * @apiError InternalServerError An unexpected error occurred.

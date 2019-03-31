@@ -1,6 +1,6 @@
 <template lang="pug">
-b-modal#send-gems(:title="title", :hide-footer="true", size='lg', @hide='onHide()')
-  .modal-body(v-if='userReceivingGems')
+b-modal#send-gems(:title="title", :hide-footer="true", size='md', @hide='onHide()')
+  div(v-if='userReceivingGems')
     .panel.panel-default(
       :class="gift.type === 'gems' ? 'panel-primary' : 'transparent'",
       @click='gift.type = "gems"'
@@ -31,11 +31,13 @@ b-modal#send-gems(:title="title", :hide-footer="true", size='lg', @hide='onHide(
     )
       h3.panel-heading {{ $t('subscription') }}
       .panel-body
-        .form-group
-          .radio(v-for='block in subscriptionBlocks', v-if="block.target !== 'group' && block.canSubscribe === true")
-            label
-              input(type="radio", name="subRadio", :value="block.key", v-model='gift.subscription.key')
-              | {{ $t('sendGiftSubscription', {price: block.price, months: block.months}) }}
+        .row
+          .col-md-12
+            .form-group
+              .radio(v-for='block in subscriptionBlocks', v-if="block.target !== 'group' && block.canSubscribe === true")
+                label
+                  input(type="radio", name="subRadio", :value="block.key", v-model='gift.subscription.key')
+                  | {{ $t('sendGiftSubscription', {price: block.price, months: block.months}) }}
 
     textarea.form-control(rows='3', v-model='gift.message', :placeholder="$t('sendGiftMessagePlaceholder')")
     //include ../formatting-help
@@ -46,11 +48,18 @@ b-modal#send-gems(:title="title", :hide-footer="true", size='lg', @hide='onHide(
       @click="sendGift()",
       :disabled="sendingInProgress"
     ) {{ $t("send") }}
-    template(v-else)
-      button.btn.btn-primary(@click='showStripe({gift, uuid: userReceivingGems._id})') {{ $t('card') }}
-      button.btn.btn-warning(@click='openPaypalGift({gift: gift, giftedTo: userReceivingGems._id})') PayPal
-      button.btn.btn-success(@click="amazonPaymentsInit({type: 'single', gift, giftedTo: userReceivingGems._id})") Amazon Payments
-    button.btn.btn-secondary(@click='close()') {{$t('cancel')}}
+    .payments-column.mx-auto(v-else, :class="{'payments-disabled': !gift.subscription.key && gift.gems.amount < 1}")
+      button.purchase.btn.btn-primary.payment-button.payment-item(@click='showStripe({gift, uuid: userReceivingGems._id, receiverName})', :disabled="!gift.subscription.key && gift.gems.amount < 1") 
+        .svg-icon.credit-card-icon(v-html="icons.creditCardIcon")
+        | {{ $t('card') }}
+      button.btn.payment-item.paypal-checkout.payment-button(@click="openPaypalGift({gift: gift, giftedTo: userReceivingGems._id, receiverName})", :disabled="!gift.subscription.key && gift.gems.amount < 1")
+        | &nbsp;
+        img(src='~assets/images/paypal-checkout.png', :alt="$t('paypal')")
+        | &nbsp;
+      amazon-button.payment-item.mb-0(
+        :amazon-data="{type: 'single', gift, giftedTo: userReceivingGems._id, receiverName}",
+        :amazon-disabled="!gift.subscription.key && gift.gems.amount < 1",
+      )
 </template>
 
 <style lang="scss">
@@ -76,6 +85,12 @@ b-modal#send-gems(:title="title", :hide-footer="true", size='lg', @hide='onHide(
   }
 </style>
 
+<style lang="scss" scoped>
+input[type="radio"] {
+  margin-right: 4px;
+}
+</style>
+
 <script>
 import toArray from 'lodash/toArray';
 import omitBy from 'lodash/omitBy';
@@ -84,13 +99,17 @@ import { mapState } from 'client/libs/store';
 import planGemLimits from '../../../common/script/libs/planGemLimits';
 import paymentsMixin from 'client/mixins/payments';
 import notificationsMixin from 'client/mixins/notifications';
+import amazonButton from 'client/components/payments/amazonButton';
+import creditCardIcon from 'assets/svg/credit-card-icon.svg';
 
 // @TODO: EMAILS.TECH_ASSISTANCE_EMAIL, load from config
 const TECH_ASSISTANCE_EMAIL = 'admin@habitica.com';
 
 export default {
-  props: ['userReceivingGems'],
   mixins: [paymentsMixin, notificationsMixin],
+  components: {
+    amazonButton,
+  },
   data () {
     return {
       planGemLimits,
@@ -108,6 +127,10 @@ export default {
         hrefTechAssistanceEmail: `<a href="mailto:${TECH_ASSISTANCE_EMAIL}">${TECH_ASSISTANCE_EMAIL}</a>`,
       },
       sendingInProgress: false,
+      userReceivingGems: null,
+      icons: Object.freeze({
+        creditCardIcon,
+      }),
     };
   },
   computed: {
@@ -131,6 +154,13 @@ export default {
       if (!this.userReceivingGems) return '';
       return this.$t('sendGiftHeading', {name: this.userReceivingGems.profile.name});
     },
+    receiverName () {
+      if (this.userReceivingGems.auth && this.userReceivingGems.auth.local && this.userReceivingGems.auth.local.username) {
+        return this.userReceivingGems.auth.local.username;
+      } else {
+        return this.userReceivingGems.profile.name;
+      }
+    },
   },
   methods: {
     // @TODO move to payments mixin or action (problem is that we need notifications)
@@ -141,11 +171,23 @@ export default {
         toUserId: this.userReceivingGems._id,
         gemAmount: this.gift.gems.amount,
       });
-      this.text(this.$t('sentGems'));
       this.close();
+      setTimeout(() => { // wait for the send gem modal to be closed
+        this.$root.$emit('habitica:payment-success', {
+          paymentMethod: 'balance',
+          paymentCompleted: true,
+          paymentType: 'gift-gems-balance',
+          gift: {
+            gems: {
+              amount: this.gift.gems.amount,
+            },
+          },
+          giftReceiver: this.receiverName,
+        });
+      }, 500);
     },
     onHide () {
-      // TODO this breaks amazon purchases because when the amazon modal
+      // @TODO this breaks amazon purchases because when the amazon modal
       // is opened this one is closed and the amount reset
       // this.gift.gems.amount = 0;
       this.gift.message = '';
@@ -154,6 +196,12 @@ export default {
     close () {
       this.$root.$emit('bv::hide::modal', 'send-gems');
     },
+  },
+  mounted () {
+    this.$root.$on('habitica::send-gems', (data) => {
+      this.userReceivingGems = data;
+      this.$root.$emit('bv::show::modal', 'send-gems');
+    });
   },
 };
 </script>

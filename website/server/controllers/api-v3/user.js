@@ -16,14 +16,14 @@ import {
 } from '../../libs/webhook';
 import {
   getUserInfo,
-  sendTxn as txnEmail,
+  sendTxn,
 } from '../../libs/email';
 import * as inboxLib from '../../libs/inbox';
 import * as userLib from '../../libs/user';
 import nconf from 'nconf';
 import get from 'lodash/get';
 
-const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
+const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS_TECH_ASSISTANCE_EMAIL');
 const DELETE_CONFIRMATION = 'DELETE';
 
 /**
@@ -290,8 +290,9 @@ api.deleteUser = {
     await user.remove();
 
     if (feedback) {
-      txnEmail({email: TECH_ASSISTANCE_EMAIL}, 'admin-feedback', [
+      sendTxn({email: TECH_ASSISTANCE_EMAIL}, 'admin-feedback', [
         {name: 'PROFILE_NAME', content: user.profile.name},
+        {name: 'USERNAME', content: user.auth.local.username},
         {name: 'UUID', content: user._id},
         {name: 'EMAIL', content: getUserInfo(user, ['email']).email},
         {name: 'FEEDBACK_SOURCE', content: 'from deletion form'},

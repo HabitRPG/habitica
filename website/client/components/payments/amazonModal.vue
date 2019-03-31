@@ -1,7 +1,6 @@
 <template lang="pug">
   b-modal#amazon-payment(title="Amazon", :hide-footer="true", size='md')
     h2.text-center Continue with Amazon
-    #AmazonPayButton
     #AmazonPayWallet(v-if="amazonPayments.loggedIn", style="width: 400px; height: 228px;")
     template(v-if="amazonPayments.loggedIn && amazonPayments.type === 'subscription'")
       br
@@ -19,7 +18,7 @@
     margin-bottom: 12px;
   }
 
-  #AmazonPayButton, #AmazonPayWallet, #AmazonPayRecurring {
+  #AmazonPayWallet, #AmazonPayRecurring {
     margin: 0 auto;
   }
 
@@ -33,8 +32,11 @@
 import * as Analytics from 'client/libs/analytics';
 import axios from 'axios';
 import { mapState } from 'client/libs/store';
+import { CONSTANTS, setLocalSetting } from 'client/libs/userlocalManager';
+import pick from 'lodash/pick';
 
 const AMAZON_PAYMENTS = process.env.AMAZON_PAYMENTS; // eslint-disable-line
+const habiticaUrl = `${location.protocol}//${location.host}`;
 
 export default {
   data () {
@@ -51,9 +53,10 @@ export default {
         subscription: null,
         coupon: null,
       },
-      OffAmazonPayments: {},
       isAmazonSetup: false,
       amazonButtonEnabled: false,
+      groupToCreate: null, // creating new group
+      group: null, // upgrading existing group
     };
   },
   computed: {
@@ -69,12 +72,6 @@ export default {
     },
   },
   mounted () {
-    if (this.isAmazonReady) return this.setupAmazon();
-
-    this.$store.watch(state => state.isAmazonReady, (isAmazonReady) => {
-      if (isAmazonReady) return this.setupAmazon();
-    });
-
     this.$root.$on('habitica::pay-with-amazon', (amazonPaymentsData) => {
       if (!amazonPaymentsData) return;
 
@@ -85,67 +82,30 @@ export default {
       this.amazonPayments = Object.assign({}, amazonPayments, amazonPaymentsData);
 
       this.$root.$emit('bv::show::modal', 'amazon-payment');
+
+      this.$nextTick(async () => {
+        if (this.amazonPayments.type === 'subscription') {
+          this.amazonInitWidgets();
+        } else {
+          let url = '/amazon/createOrderReferenceId';
+          let response = await axios.post(url, {
+            billingAgreementId: this.amazonPayments.billingAgreementId,
+          });
+
+          if (response.status <= 400) {
+            this.amazonPayments.orderReferenceId = response.data.data.orderReferenceId;
+            this.amazonInitWidgets();
+          } else {
+            alert(response.message);
+          }
+        }
+      });
     });
   },
   destroyed () {
     this.$root.$off('habitica::pay-with-amazon');
   },
   methods: {
-    setupAmazon () {
-      if (this.isAmazonSetup) return false;
-      this.isAmazonSetup = true;
-      this.OffAmazonPayments = window.OffAmazonPayments;
-      this.showButton();
-    },
-    showButton () {
-      // @TODO: prevent modal close form clicking outside
-      let amazonButton = this.OffAmazonPayments.Button( // eslint-disable-line
-        'AmazonPayButton',
-        AMAZON_PAYMENTS.SELLER_ID,
-        {
-          type: 'PwA',
-          color: 'Gold',
-          size: 'small',
-          agreementType: 'BillingAgreement',
-          onSignIn: async (contract) => {
-            this.amazonPayments.billingAgreementId = contract.getAmazonBillingAgreementId();
-
-            this.$set(this.amazonPayments, 'loggedIn', true);
-
-            if (this.amazonPayments.type === 'subscription') {
-              this.amazonInitWidgets();
-            } else {
-              let url = '/amazon/createOrderReferenceId';
-              let response = await axios.post(url, {
-                billingAgreementId: this.amazonPayments.billingAgreementId,
-              });
-
-              if (response.status <= 400) {
-                this.amazonPayments.orderReferenceId = response.data.data.orderReferenceId;
-                this.amazonInitWidgets();
-                return;
-              }
-
-              alert(response.message);
-            }
-          },
-          authorization: () => {
-            window.amazon.Login.authorize({
-              scope: 'payments:widget',
-              popup: true,
-            }, function amazonSuccess (response) {
-              if (response.error) return alert(response.error);
-
-              let url = '/amazon/verifyAccessToken';
-              axios.post(url, response)
-                .catch((e) => {
-                  alert(e.message);
-                });
-            });
-          },
-          onError: this.amazonOnError,
-        });
-    },
     amazonInitWidgets () {
       let walletParams = {
         sellerId: AMAZON_PAYMENTS.SELLER_ID, // @TODO: Import
@@ -162,15 +122,14 @@ export default {
         walletParams.onReady = (billingAgreement) => {
           this.amazonPayments.billingAgreementId = billingAgreement.getAmazonBillingAgreementId();
 
-          new this.OffAmazonPayments.Widgets.Consent({
+          new window.OffAmazonPayments.Widgets.Consent({
             sellerId: AMAZON_PAYMENTS.SELLER_ID,
             amazonBillingAgreementId: this.amazonPayments.billingAgreementId,
             design: {
               designMode: 'responsive',
             },
             onReady: (consent) => {
-              let getConsent = consent.getConsentStatus;
-              this.$set(this.amazonPayments, 'recurringConsent', getConsent ? Boolean(getConsent()) : false);
+              this.$set(this.amazonPayments, 'recurringConsent', consent.getConsentStatus ? Boolean(consent.getConsentStatus()) : false);
               this.$set(this, 'amazonButtonEnabled', true);
             },
             onConsent: (consent) => {
@@ -184,7 +143,46 @@ export default {
         walletParams.amazonOrderReferenceId = this.amazonPayments.orderReferenceId;
       }
 
-      new this.OffAmazonPayments.Widgets.Wallet(walletParams).bind('AmazonPayWallet');
+      new window.OffAmazonPayments.Widgets.Wallet(walletParams).bind('AmazonPayWallet');
+    },
+    storePaymentStatusAndReload (url) {
+      let paymentType;
+
+      if (this.amazonPayments.type === 'single' && !this.amazonPayments.gift) paymentType = 'gems';
+      if (this.amazonPayments.type === 'subscription') paymentType = 'subscription';
+      if (this.amazonPayments.groupId || this.amazonPayments.groupToCreate) paymentType = 'groupPlan';
+      if (this.amazonPayments.type === 'single' && this.amazonPayments.gift && this.amazonPayments.giftReceiver) {
+        paymentType = this.amazonPayments.gift.type === 'gems' ? 'gift-gems' : 'gift-subscription';
+      }
+
+      const appState = {
+        paymentMethod: 'amazon',
+        paymentCompleted: true,
+        paymentType,
+      };
+      if (paymentType === 'subscription') {
+        appState.subscriptionKey = this.amazonPayments.subscription;
+      } else if (paymentType === 'groupPlan') {
+        appState.subscriptionKey = this.amazonPayments.subscription;
+
+        if (this.amazonPayments.groupToCreate) {
+          appState.newGroup = true;
+          appState.group = pick(this.amazonPayments.groupToCreate, ['_id', 'memberCount', 'name']);
+        } else {
+          appState.newGroup = false;
+          appState.group = pick(this.amazonPayments.group, ['_id', 'memberCount', 'name']);
+        }
+      } else if (paymentType.indexOf('gift-') === 0) {
+        appState.gift = this.amazonPayments.gift;
+        appState.giftReceiver = this.amazonPayments.giftReceiver;
+      }
+
+      setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
+      if (url) {
+        window.location.assign(url);
+      } else {
+        window.location.reload(true);
+      }
     },
     async amazonCheckOut () {
       this.amazonButtonEnabled = false;
@@ -201,12 +199,11 @@ export default {
           });
 
           this.$set(this, 'amazonButtonEnabled', true);
-          this.reset();
-          // @TODO: What are we syncing?
-          window.location.reload(true);
+          this.storePaymentStatusAndReload();
         } catch (e) {
+          console.error(e); // eslint-disable-line no-console
           this.$set(this, 'amazonButtonEnabled', true);
-          this.amazonPaymentsreset();
+          this.reset();
         }
       } else if (this.amazonPayments.type === 'subscription') {
         let url = '/amazon/subscribe';
@@ -231,8 +228,6 @@ export default {
           if (newGroup && newGroup._id) {
             // Handle new user signup
             if (!this.$store.state.isUserLoggedIn) {
-              const habiticaUrl = `${location.protocol}//${location.host}`;
-
               Analytics.track({
                 hitType: 'event',
                 eventCategory: 'group-plans-static',
@@ -240,23 +235,21 @@ export default {
                 eventLabel: 'paid-with-amazon',
               });
 
-              location.href = `${habiticaUrl}/group-plans/${newGroup._id}/task-information?showGroupOverview=true`;
+              this.storePaymentStatusAndReload(`${habiticaUrl}/group-plans/${newGroup._id}/task-information?showGroupOverview=true`);
               return;
             }
 
-            // @TODO: Just append? or $emit?
-            this.$router.push(`/group-plans/${newGroup._id}/task-information`);
             this.user.guilds.push(newGroup._id);
+            this.storePaymentStatusAndReload(`${habiticaUrl}/group-plans/${newGroup._id}/task-information`);
             return;
           }
 
           if (this.amazonPayments.groupId) {
-            this.$router.push(`/group-plans/${this.amazonPayments.groupId}/task-information`);
+            this.storePaymentStatusAndReload(`${habiticaUrl}/group-plans/${this.amazonPayments.groupId}/task-information`);
             return;
           }
 
-          window.location.reload(true);
-          this.reset();
+          this.storePaymentStatusAndReload();
         } catch (e) {
           this.$set(this, 'amazonButtonEnabled', true);
           // @TODO: do we need this? this.amazonPaymentsreset();
@@ -265,24 +258,6 @@ export default {
     },
     amazonOnPaymentSelect () {
       this.$set(this.amazonPayments, 'paymentSelected', true);
-    },
-    amazonOnError (error) {
-      alert(error.getErrorMessage());
-      this.reset();
-    },
-    reset () {
-      // @TODO: Ensure we are using all of these
-      // some vars are set in the payments mixin. We should try to edit in one place
-      this.amazonPayments.modal = null;
-      this.amazonPayments.type = null;
-      this.amazonPayments.loggedIn = false;
-      this.amazonPayments.gift = null;
-      this.amazonPayments.billingAgreementId = null;
-      this.amazonPayments.orderReferenceId = null;
-      this.amazonPayments.paymentSelected = false;
-      this.amazonPayments.recurringConsent = false;
-      this.amazonPayments.subscription = null;
-      this.amazonPayments.coupon = null;
     },
   },
 };

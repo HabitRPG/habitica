@@ -64,10 +64,10 @@
     "playerTiers": "玩家层级",
     "tier": "层级",
     "visitHeroes": "前往英雄殿堂 (贡献者和支持者之殿)",
-    "conLearn": "<a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'>了解更多关于贡献者的奖励信息</a>",
+    "conLearn": "<a href='http://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'>了解更多关于贡献者的奖励信息</a>",
     "conLearnHow": "如何为Habitica作出贡献",
-    "conLearnURL": "http://habitica.wikia.com/wiki/Contributing_to_Habitica",
-    "conRewardsURL": "http://habitica.wikia.com/wiki/Contributor_Rewards",
+    "conLearnURL": "http://habitica.fandom.com/wiki/Contributing_to_Habitica",
+    "conRewardsURL": "http://habitica.fandom.com/wiki/Contributor_Rewards",
     "surveysSingle": "帮助过Habitica成长，通过填写一份问卷或在一次大型的测试提供帮助。谢谢你们！",
     "surveysMultiple": "在<%= count %>个场合下帮助过Habitica成长，比如填写一份问卷或在一次大型测试中提供帮助。谢谢你们！",
     "currentSurvey": "现在的问卷",
@@ -76,5 +76,5 @@
     "blurbGuildsPage": "公会是由玩家为玩家创建的基于共同兴趣的聊天组。浏览公会目录并选择你感兴趣的加入！",
     "blurbChallenges": "挑战是由你关注的玩家创建的。加入一个挑战会将它的任务加入你的任务列表，完成一个挑战会给你一个成就，通常还有一些宝石奖励。",
     "blurbHallPatrons": "这里是赞助者的殿堂，我们纪念在Kickstarter众筹上支持Habitica的会员们。感谢他们帮助我们让Habitica诞生！",
-    "blurbHallContributors": "这里是贡献者的殿堂，纪念在开源项目中对Habitica做出贡献的人们。无论是代码、图画、音乐、剧本，甚至只是一些帮助，他们得到了<a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'> 宝石，独有装备</a>，以及 <a href='http://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>尊贵头衔</a>。你也可以为Habitica做出贡献！<a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'>查看更多。</a>"
+    "blurbHallContributors": "这里是贡献者的殿堂，纪念在开源项目中对Habitica做出贡献的人们。无论是代码、图画、音乐、剧本，甚至只是一些帮助，他们得到了<a href='http://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'> 宝石，独有装备</a>，以及 <a href='http://habitica.fandom.com/wiki/Contributor_Titles' target='_blank'>尊贵头衔</a>。你也可以为Habitica做出贡献！<a href='http://habitica.fandom.com/wiki/Contributing_to_Habitica' target='_blank'>查看更多。</a>"
 }

@@ -6,13 +6,13 @@ import {
   BadRequest,
   NotFound,
 } from '../errors';
-import { getGroupUrl, sendTxn } from '../email';
+import { sendTxn } from '../email';
 import slack from '../slack';
 import { model as Group } from '../../models/group';
 import { chatModel as Chat } from '../../models/message';
 import apiError from '../apiError';
 
-const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
+const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS_COMMUNITY_MANAGER_EMAIL');
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
   return { email, canSend: true };
 });
@@ -28,7 +28,7 @@ export default class GroupChatReporter extends ChatReporter {
 
   async validate () {
     this.req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
-    this.req.checkParams('chatId', this.res.t('chatIdRequired')).notEmpty();
+    this.req.checkParams('chatId', apiError('chatIdRequired')).notEmpty();
 
     let validationErrors = this.req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -50,16 +50,12 @@ export default class GroupChatReporter extends ChatReporter {
   }
 
   async notify (group, message, userComment, automatedComment = '') {
-    await super.notify(group, message);
-
-    const groupUrl = getGroupUrl(group);
-    sendTxn(FLAG_REPORT_EMAILS, 'flag-report-to-mods-with-comments', this.emailVariables.concat([
-      {name: 'GROUP_NAME', content: group.name},
-      {name: 'GROUP_TYPE', content: group.type},
-      {name: 'GROUP_ID', content: group._id},
-      {name: 'GROUP_URL', content: groupUrl},
+    let emailVariables = await this.getMessageVariables(group, message);
+    emailVariables = emailVariables.concat([
       {name: 'REPORTER_COMMENT', content: userComment || ''},
-    ]));
+    ]);
+
+    sendTxn(FLAG_REPORT_EMAILS, 'flag-report-to-mods-with-comments', emailVariables);
 
     slack.sendFlagNotification({
       authorEmail: this.authorEmail,

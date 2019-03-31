@@ -1,5 +1,5 @@
 {
-    "playerTiersDesc": "A színes felhasználói nevek amit a chat-ben látsz, a felhasználó támogatói szintjét jelzik. Minél magasabb ez a szint, annál többet segített a felhasználó a Habitica fejlesztésében számítógépes grafikával, kóddal, a közösségen keresztül és még sok mással.",
+    "playerTiersDesc": "A színes felhasználónevek amit a chat-ben látsz, a felhasználó támogatói szintjét jelzik. Minél magasabb ez a szint, annál többet segített a felhasználó a Habitica fejlesztésében számítógépes grafikával, kóddal, a közösségen keresztül és még sok mással.",
     "tier1": "1. támogatói szint (barát)",
     "tier2": "2. támogatói szint (barát)",
     "tier3": "3. támogatói szint (elit)",
@@ -64,17 +64,17 @@
     "playerTiers": "Játékos szintek",
     "tier": "Szint",
     "visitHeroes": "Látogasd meg a Hősök csarnokát (közreműködők és támogatók)",
-    "conLearn": "<a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'>Tudj meg többet a közreműködői jutalmakról</a>",
+    "conLearn": "<a href='http://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'>Tudj meg többet a közreműködői jutalmakról</a>",
     "conLearnHow": "Tudj meg többet arról hogyan tudod támogatni a Habitica-t",
-    "conLearnURL": "http://habitica.wikia.com/wiki/Contributing_to_Habitica",
-    "conRewardsURL": "http://habitica.wikia.com/wiki/Contributor_Rewards",
+    "conLearnURL": "http://habitica.fandom.com/wiki/Contributing_to_Habitica",
+    "conRewardsURL": "http://habitica.fandom.com/wiki/Contributor_Rewards",
     "surveysSingle": "Segítette a Habitica fejlődését, egy kérdőív kitöltésével vagy nagyobb tesztben való részvétellel. Köszönjük!",
     "surveysMultiple": "Segítette Habitica fejlődését <%= count %> alkalommal, egy kérdőív kitöltésével vagy nagyobb tesztben való részvétellel. Köszönjük!",
     "currentSurvey": "Jelenlegi kérdőív",
     "surveyWhen": "A kitűzőt minden résztvevő megkapja, amint a kérdőívek feldolgozásra kerültek; késő márciusban.",
     "blurbInbox": "Itt találhatóak a privát üzeneteid. Küldhetsz bárkinek üzenetet, ha rákattintasz a neve melletti borítékra a fogadóban, a csapatodban vagy a céhben. Ha megbotránkoztató, sértő üzenetet kaptál, küldj egy képernyő mentést Lemoness-nek (<%= hrefCommunityManagerEmail %>)",
-    "blurbGuildsPage": "A céhek az azonos érdeklődésű játékosok által létrehozott csevegő szobák. Böngéssz a listában és csatlakozz céhekhez, amik érdekelnek téged.",
+    "blurbGuildsPage": "A céhek közös érdeklődési körön alapuló társalgók, melyeket játékosok hoztak létre. Böngéssz a listában és csatlakozz céhekhez, amik érdekelnek téged.",
     "blurbChallenges": "A kihívásokat a játékostársaid hozzák létre. Ha csatlakozol egy kihíváshoz, annak feladatai hozzáadódnak a te feladataidhoz. A kihívások megnyerésével kitüntetést és legtöbb esetben drágakövet kaphatsz!",
     "blurbHallPatrons": "Ez a Mecénások csarnoka, ahol megemlékezünk azokról a nemes kalandorokról, akik támogatták az eredeti Kickstarter projektet. Hálásak vagyunk, hogy a Habitica valósággá válhatott!",
-    "blurbHallContributors": "Ez a Közreműködők csarnoka, ahol Habitica-t segítő nyílt forrású támogatókról emlékezünk meg. Akár programozással, grafikával, zenével, szöveggel vagy csak egyszerűen segítőkészséggel, ők azok akik kiérdemeltek <a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'>drágaköveket, exkluzív felszereléseket</a>, és <a href='http://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>dicsőséges titulusokat</a>.  Te is támogathatod Habitica-t! <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'>Tudj meg erről többet itt.</a>"
+    "blurbHallContributors": "Ez a Közreműködők csarnoka, ahol Habitica-t segítő nyílt forrású támogatókról emlékezünk meg. Akár programozással, grafikával, zenével, szöveggel vagy csak egyszerűen segítőkészséggel, ők azok akik kiérdemeltek <a href='http://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'>drágaköveket, exkluzív felszereléseket</a>, és <a href='http://habitica.fandom.com/wiki/Contributor_Titles' target='_blank'>dicsőséges titulusokat</a>.  Te is támogathatod Habitica-t! <a href='http://habitica.fandom.com/wiki/Contributing_to_Habitica' target='_blank'>Tudj meg erről többet itt.</a>"
 }
