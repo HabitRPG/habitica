@@ -1,12 +1,13 @@
 import axios from 'axios';
 
-const STRIPE_PUB_KEY = process.env.STRIPE_PUB_KEY; // eslint-disable-line
+const STRIPE_PUB_KEY = process.env.STRIPE_PUB_KEY; // eslint-disable-line no-process-env
 import subscriptionBlocks from '../../common/script/content/subscriptionBlocks';
 import { mapState } from 'client/libs/store';
 import encodeParams from 'client/libs/encodeParams';
 import notificationsMixin from 'client/mixins/notifications';
 import * as Analytics from 'client/libs/analytics';
 import { CONSTANTS, setLocalSetting } from 'client/libs/userlocalManager';
+import pick from 'lodash/pick';
 
 const habiticaUrl = `${location.protocol}//${location.host}`;
 
@@ -43,13 +44,24 @@ export default {
       let gift = this.encodeGift(data.giftedTo, data.gift);
       const url = `/paypal/checkout?gift=${gift}`;
 
-      this.openPaypal(url, 'gift');
+      this.openPaypal(url, `gift-${data.gift.type === 'gems' ? 'gems' : 'subscription'}`, data);
     },
-    openPaypal (url/* , type*/) {
+    openPaypal (url, type, giftData) {
       const appState = {
         paymentMethod: 'paypal',
         paymentCompleted: false,
+        paymentType: type,
       };
+
+      if (type === 'subscription') {
+        appState.subscriptionKey = this.subscriptionPlan || this.subscription.key;
+      }
+
+      if (type.indexOf('gift-') === 0) {
+        appState.gift = giftData.gift;
+        appState.giftReceiver = giftData.receiverName;
+      }
+
       setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
       window.open(url, '_blank');
 
@@ -77,10 +89,17 @@ export default {
 
       sub = sub && subscriptionBlocks[sub];
 
-      let amount = 500;// 500 = $5
+      let amount = 500; // 500 = $5
       if (sub) amount = sub.price * 100;
       if (data.gift && data.gift.type === 'gems') amount = data.gift.gems.amount / 4 * 100;
       if (data.group) amount = (sub.price + 3 * (data.group.memberCount - 1)) * 100;
+
+      let paymentType;
+      if (sub === false && !data.gift) paymentType = 'gems';
+      if (sub !== false && !data.gift) paymentType = 'subscription';
+      if (data.group || data.groupToCreate) paymentType = 'groupPlan';
+      if (data.gift && data.gift.type === 'gems') paymentType = 'gift-gems';
+      if (data.gift && data.gift.type === 'subscription') paymentType = 'gift-subscription';
 
       window.StripeCheckout.open({
         key: STRIPE_PUB_KEY,
@@ -116,7 +135,26 @@ export default {
           const appState = {
             paymentMethod: 'stripe',
             paymentCompleted: true,
+            paymentType,
           };
+          if (paymentType === 'subscription') {
+            appState.subscriptionKey = sub.key;
+          } else if (paymentType === 'groupPlan') {
+            appState.subscriptionKey = sub.key;
+
+            if (data.groupToCreate) {
+              appState.newGroup = true;
+              appState.group = pick(data.groupToCreate, ['_id', 'memberCount', 'name']);
+            } else {
+              appState.newGroup = false;
+              appState.group = pick(data.group, ['_id', 'memberCount', 'name']);
+            }
+          } else if (paymentType.indexOf('gift-') === 0) {
+            appState.gift = data.gift;
+            appState.giftReceiver = data.receiverName;
+          }
+
+
           setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
 
           let newGroup = response.data.data;
@@ -185,12 +223,12 @@ export default {
       return true;
     },
     amazonPaymentsInit (data) {
-      if (!this.checkGemAmount(data)) return;
       if (data.type !== 'single' && data.type !== 'subscription') return;
 
       if (data.gift) {
         if (data.gift.gems && data.gift.gems.amount && data.gift.gems.amount <= 0) return;
         data.gift.uuid = data.giftedTo;
+        this.amazonPayments.giftReceiver = data.receiverName;
       }
 
       if (data.subscription) {
@@ -202,14 +240,40 @@ export default {
         this.amazonPayments.groupId = data.groupId;
       }
 
-      if (data.groupToCreate) {
+      if (data.group) { // upgrading a group
+        this.amazonPayments.group = data.group;
+      }
+
+      if (data.groupToCreate) { // creating a group
         this.amazonPayments.groupToCreate = data.groupToCreate;
       }
 
       this.amazonPayments.gift = data.gift;
       this.amazonPayments.type = data.type;
+    },
+    amazonOnError (error) {
+      alert(error.getErrorMessage());
+      this.reset();
+    },
+    reset () {
+      // @TODO: Ensure we are using all of these
+      // some vars are set in the payments mixin. We should try to edit in one place
+      this.amazonPayments.modal = null;
+      this.amazonPayments.type = null;
+      this.amazonPayments.loggedIn = false;
 
-      this.$root.$emit('habitica::pay-with-amazon', this.amazonPayments);
+      // Gift
+      this.amazonPayments.gift = null;
+      this.amazonPayments.giftReceiver = null;
+
+      this.amazonPayments.billingAgreementId = null;
+      this.amazonPayments.orderReferenceId = null;
+      this.amazonPayments.paymentSelected = false;
+      this.amazonPayments.recurringConsent = false;
+      this.amazonPayments.subscription = null;
+      this.amazonPayments.coupon = null;
+      this.amazonPayments.groupToCreate = null;
+      this.amazonPayments.group = null;
     },
     async cancelSubscription (config) {
       if (config && config.group && !confirm(this.$t('confirmCancelGroupPlan'))) return;

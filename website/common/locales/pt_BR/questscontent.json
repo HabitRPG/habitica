@@ -626,5 +626,13 @@
     "questAlligatorDropAlligatorEgg": "Jacaré (Ovo)",
     "questAlligatorUnlockText": "Desbloqueia ovos de Jacaré para compra no Mercado",
     "oddballsText": "Pacote de Missões Esquisitas",
-    "oddballsNotes": "Contém 'O Regente Geleia', 'Fuja da Criatura da Caverna' e Um Novelo Enrolado'. Disponível até o dia 3 de Dezembro."
+    "oddballsNotes": "Contém 'O Regente Geleia', 'Fuja da Criatura da Caverna' e Um Novelo Enrolado'. Disponível até o dia 3 de Dezembro.",
+    "birdBuddiesText": "Pacote de Missões Amigos dos Pássaros",
+    "birdBuddiesNotes": "Contém 'A Abominável Ave das Neves', 'O Galo Raivoso' e 'O Pavão Puxaempurra'. Disponível até o dia 31 de Dezembro.",
+    "questVelociraptorText": "O Veloci-Rapper",
+    "questVelociraptorNotes": "Você está compartilhando bolos de mel com @*~Seraphina~*, @Procyon P e @Lilith of Alfheim em um lago nas Estepes de Stoïkalm. De repente, uma voz triste interrompe seu piquenique. <br><br><em>Meus Hábitos foram atingidos, perdi minhas Diárias,<br> Estou perdendo, afundando com dúvidas e incertezas,<br> No topo do meu jogo eu costumava voar,<br> Mas, agora eu apenas deixo qualquer Prazo passar.</em><br><br>@*~Seraphina~* se esconde atrás de um carrinho de grama. \"É um Veloci-Rapper. Ele parece...perturbado?\"<br><br> Você cerra os punhos com determinação. “Só tem uma coisa a fazer. É hora de uma batalha de Rap!\"",
+    "questVelociraptorCompletion": "Você correu pela grama, confrontando o Veloci-Rapper.<br><br><em> Olha aqui, rapper, você não é um perdido,<br>Você é mais forte do que qualquer Hábito Negativo!<br>Verifique seus Afazeres como um chefão,<br> Não se lamente por um dia perdido em vão!</em><br><br>Cheio de confiança renovada, ele deixa o freestyle para outro dia, largando para trás três ovos onde sentou-se.",
+    "questVelociraptorBoss": "Veloci-Rapper",
+    "questVelociraptorDropVelociraptorEgg": "Velociraptor (Ovo)",
+    "questVelociraptorUnlockText": "Desbloqueia ovos de Velociraptor para compra no Mercado"
 }

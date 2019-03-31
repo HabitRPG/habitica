@@ -43,7 +43,7 @@
     "messageAuthMustBeLoggedIn": "你需要登入。",
     "messageAuthMustIncludeTokens": "您必須在您的請求裏包括令牌和 UID（用戶ID ）",
     "messageGroupAlreadyInParty": "已在一個隊伍，請嘗試刷新畫面。",
-    "messageGroupOnlyLeaderCanUpdate": "只有隊長可以更新隊伍訊息！",
+    "messageGroupOnlyLeaderCanUpdate": "只有會長可以更新隊伍訊息！",
     "messageGroupRequiresInvite": "不能加入一個你沒有被邀請參加的群組。",
     "messageGroupCannotRemoveSelf": "您不能刪除自己！",
     "messageGroupChatBlankMessage": "不能傳送空白的留言。",

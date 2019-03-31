@@ -3,7 +3,6 @@
   .row
     .col-12
       copy-as-todo-modal(:group-type='groupType', :group-name='groupName', :group-id='groupId')
-      report-flag-modal
   div(v-for="(msg, index) in messages", v-if='chat && canViewFlag(msg)', :class='{row: inbox}')
     .d-flex(v-if='user._id !== msg.uuid', :class='{"flex-grow-1": inbox}')
       avatar.avatar-left(
@@ -105,14 +104,21 @@ import findIndex from 'lodash/findIndex';
 
 import Avatar from '../avatar';
 import copyAsTodoModal from './copyAsTodoModal';
-import reportFlagModal from './reportFlagModal';
 import chatCard from './chatCard';
 
 export default {
-  props: ['chat', 'groupType', 'groupId', 'groupName', 'inbox'],
+  props: {
+    chat: {},
+    inbox: {
+      type: Boolean,
+      default: false,
+    },
+    groupType: {},
+    groupId: {},
+    groupName: {},
+  },
   components: {
     copyAsTodoModal,
-    reportFlagModal,
     chatCard,
     Avatar,
   },
@@ -239,10 +245,7 @@ export default {
 
       // Open the modal only if the data is available
       if (profile && !profile.rejected) {
-        this.$root.$emit('habitica:show-profile', {
-          user: profile,
-          startingPage: 'profile',
-        });
+        this.$router.push({name: 'userProfile', params: {userId: profile._id}});
       }
     },
     messageLiked (message) {

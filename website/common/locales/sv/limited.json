@@ -130,6 +130,10 @@
     "fall2018CandymancerMageSet": "Candymancer (Mage)",
     "fall2018CarnivorousPlantSet": "Carnivorous Plant (Healer)",
     "fall2018AlterEgoSet": "Alter Ego (Rogue)",
+    "winter2019BlizzardSet": "Blizzard (Warrior)",
+    "winter2019PyrotechnicSet": "Pyrotechnic (Mage)",
+    "winter2019WinterStarSet": "Winter Star (Healer)",
+    "winter2019PoinsettiaSet": "Poinsettia (Rogue)",
     "eventAvailability": "Tillgänglig för köp tills <%= date(locale) %>.",
     "dateEndMarch": "April 30",
     "dateEndApril": "April 19",
@@ -143,7 +147,9 @@
     "dateEndJanuary": "31:a Januari",
     "dateEndFebruary": "Den 28 Februari",
     "winterPromoGiftHeader": "GE BORT EN PRENUMERATION OCH FÅ EN GRATIS!",
-    "winterPromoGiftDetails1": "Until January 12th only, when you gift somebody a subscription, you get the same subscription for yourself for free!",
+    "winterPromoGiftDetails1": "Until January 15th only, when you gift somebody a subscription, you get the same subscription for yourself for free!",
     "winterPromoGiftDetails2": "Please note that if you or your gift recipient already have a recurring subscription, the gifted subscription will only start after that subscription is cancelled or has expired. Thanks so much for your support! <3",
-    "discountBundle": "bunt"
+    "discountBundle": "bunt",
+    "g1g1Announcement": "Gift a Subscription, Get a Subscription Free event going on now!",
+    "g1g1Details": "Gift a sub to a friend from their profile and you’ll receive the same sub for free!"
 }

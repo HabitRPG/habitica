@@ -32,6 +32,7 @@ describe('slack', () => {
         },
         message: {
           id: 'chat-id',
+          username: 'author',
           user: 'Author',
           uuid: 'author-id',
           text: 'some text',
@@ -50,11 +51,11 @@ describe('slack', () => {
 
       expect(IncomingWebhook.prototype.send).to.be.calledOnce;
       expect(IncomingWebhook.prototype.send).to.be.calledWith({
-        text: 'flagger (flagger-id; language: flagger-lang) flagged a message',
+        text: 'flagger (flagger-id; language: flagger-lang) flagged a group message',
         attachments: [{
           fallback: 'Flag Message',
           color: 'danger',
-          author_name: `Author - author@example.com - author-id\n${timestamp}`,
+          author_name: `@author Author (author@example.com; author-id)\n${timestamp}`,
           title: 'Flag in Some group - (private guild)',
           title_link: undefined,
           text: 'some text',
@@ -110,7 +111,7 @@ describe('slack', () => {
     });
 
     it('noops if no flagging url is provided', () => {
-      sandbox.stub(nconf, 'get').withArgs('SLACK:FLAGGING_URL').returns('');
+      sandbox.stub(nconf, 'get').withArgs('SLACK_FLAGGING_URL').returns('');
       sandbox.stub(logger, 'error');
       let reRequiredSlack = requireAgain('../../../../website/server/libs/slack');
 

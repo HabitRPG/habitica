@@ -49,7 +49,7 @@ let api = {};
  * @apiSuccess {String} challenge.name Full name of challenge.
  * @apiSuccess {String} challenge.shortName A shortened name for the challenge, to be used as a tag.
  * @apiSuccess {Object} challenge.leader User details of challenge leader.
- * @apiSuccess {UUID} challenge.leader._id User id of challenge leader.
+ * @apiSuccess {UUID} challenge.leader._id User ID of challenge leader.
  * @apiSuccess {Object} challenge.leader.profile Profile information of leader.
  * @apiSuccess {Object} challenge.leader.profile.name Display Name of leader.
  * @apiSuccess {String} challenge.updatedAt Timestamp of last update.
@@ -577,7 +577,7 @@ api.exportChallengeCsv = {
         .lean().exec(),
     ]);
 
-    let resArray = members.map(member => [member._id, member.profile.name]);
+    let resArray = members.map(member => [member._id, member.profile.name, member.auth.local.username]);
 
     let lastUserId;
     let index = -1;
@@ -606,7 +606,7 @@ api.exportChallengeCsv = {
     let challengeTasks = _.reduce(challenge.tasksOrder.toObject(), (result, array) => {
       return result.concat(array);
     }, []).sort();
-    resArray.unshift(['UUID', 'name']);
+    resArray.unshift(['UUID', 'Display Name', 'Username']);
 
     _.times(challengeTasks.length, () => resArray[0].push('Task', 'Value', 'Notes', 'Streak'));
 

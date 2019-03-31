@@ -333,7 +333,7 @@ describe('Post /groups/:groupId/invite', () => {
         .to.eventually.be.rejected.and.eql({
           code: 401,
           error: 'NotAuthorized',
-          message: t('inviteLimitReached', {techAssistanceEmail: nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL')}),
+          message: t('inviteLimitReached', {techAssistanceEmail: nconf.get('EMAILS_TECH_ASSISTANCE_EMAIL')}),
         });
     });
 
