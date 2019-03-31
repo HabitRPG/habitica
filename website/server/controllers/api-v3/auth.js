@@ -98,6 +98,9 @@ api.loginLocal = {
     // load the entire user because we may have to save it to convert the password to bcrypt
     let user = await User.findOne(login).exec();
 
+    // if user is using social login, then user will not have a hashed_password stored
+    if (!user.auth.local.hashed_password) throw new NotAuthorized(res.t('invalidLoginCredentialsLong'));
+
     let isValidPassword;
 
     if (!user) {

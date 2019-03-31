@@ -32,7 +32,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
           .menu-item
             .svg-icon(v-html='icons.accessoriesIcon')
           strong(v-once) {{$t('extra')}}
-        .menu-container.col-2(@click='changeTopPage("backgrounds", "2018")', v-if='editing', :class='{active: activeTopPage === "backgrounds"}')
+        .menu-container.col-2(@click='changeTopPage("backgrounds", "2019")', v-if='editing', :class='{active: activeTopPage === "backgrounds"}')
           .menu-item
             .svg-icon(v-html='icons.backgroundsIcon')
           strong(v-once) {{$t('backgrounds')}}
@@ -139,7 +139,6 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
               span 5
             button.btn.btn-secondary.purchase-all(@click='unlock(`hair.base.${baseHair4Keys.join(",hair.base.")}`)') {{ $t('purchaseAll') }}
         .col-12.customize-options
-          .head_0.option(@click='set({"preferences.hair.base": 0})', :class="[{ active: user.preferences.hair.base === 0 }, 'hair_base_0_' + user.preferences.hair.color]")
           .option(v-for='option in baseHair1',
             :class='{active: user.preferences.hair.base === option}')
             .base.sprite.customize-option(:class="`hair_base_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.base": option})')
@@ -274,9 +273,11 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
           .incentive-background(:class='[`background_${bg.key}`]')
             .small-rectangle
       .row.sub-menu.col-10.offset-1(v-if='!filterBackgrounds')
-        .col-3.text-center.sub-menu-item(@click='changeSubPage("2018")', :class='{active: activeSubPage === "2018"}')
+        .col-2.text-center.sub-menu-item(@click='changeSubPage("2019")', :class='{active: activeSubPage === "2019"}')
+          strong(v-once) 2019
+        .col-2.text-center.sub-menu-item(@click='changeSubPage("2018")', :class='{active: activeSubPage === "2018"}')
           strong(v-once) 2018
-        .col-3.text-center.sub-menu-item(@click='changeSubPage("2017")', :class='{active: activeSubPage === "2017"}')
+        .col-2.text-center.sub-menu-item(@click='changeSubPage("2017")', :class='{active: activeSubPage === "2017"}')
           strong(v-once) 2017
         .col-2.text-center.sub-menu-item(@click='changeSubPage("2016")', :class='{active: activeSubPage === "2016"}')
           strong(v-once) 2016
@@ -1297,6 +1298,7 @@ export default {
         2016: [],
         2017: [],
         2018: [],
+        2019: [],
       };
 
       // Hack to force update for now until we restructure the data

@@ -223,7 +223,6 @@ export default {
       return true;
     },
     amazonPaymentsInit (data) {
-      if (!this.checkGemAmount(data)) return;
       if (data.type !== 'single' && data.type !== 'subscription') return;
 
       if (data.gift) {
@@ -251,8 +250,30 @@ export default {
 
       this.amazonPayments.gift = data.gift;
       this.amazonPayments.type = data.type;
+    },
+    amazonOnError (error) {
+      alert(error.getErrorMessage());
+      this.reset();
+    },
+    reset () {
+      // @TODO: Ensure we are using all of these
+      // some vars are set in the payments mixin. We should try to edit in one place
+      this.amazonPayments.modal = null;
+      this.amazonPayments.type = null;
+      this.amazonPayments.loggedIn = false;
 
-      this.$root.$emit('habitica::pay-with-amazon', this.amazonPayments);
+      // Gift
+      this.amazonPayments.gift = null;
+      this.amazonPayments.giftReceiver = null;
+
+      this.amazonPayments.billingAgreementId = null;
+      this.amazonPayments.orderReferenceId = null;
+      this.amazonPayments.paymentSelected = false;
+      this.amazonPayments.recurringConsent = false;
+      this.amazonPayments.subscription = null;
+      this.amazonPayments.coupon = null;
+      this.amazonPayments.groupToCreate = null;
+      this.amazonPayments.group = null;
     },
     async cancelSubscription (config) {
       if (config && config.group && !confirm(this.$t('confirmCancelGroupPlan'))) return;
