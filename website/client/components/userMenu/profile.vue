@@ -324,6 +324,7 @@
       }
 
       .progress-container > .progress {
+        border-radius: 1px;
         background-color: $gray-500;
       }
     }
@@ -371,8 +372,10 @@
 
     .progress {
       height: 8px;
+      border-radius: 1px;
 
       .progress-bar {
+        border-radius: 1px;
         background-color: $green-10 !important;
       }
     }
@@ -493,6 +496,9 @@ export default {
       this.selectedPage = this.startingPage;
     },
     async userId () {
+      this.loadUser();
+    },
+    userLoggedIn () {
       this.loadUser();
     },
   },

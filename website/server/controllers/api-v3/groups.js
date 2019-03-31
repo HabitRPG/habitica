@@ -941,11 +941,11 @@ api.removeGroupMember = {
  *     {"name": "User2", "email": "user-2@example.com"}
  *   ]
  * }
- * @apiParamExample {json} User Ids
+ * @apiParamExample {json} User IDs
  *   {
  *     "uuids": ["user-id-of-existing-user", "user-id-of-another-existing-user"]
  *   }
- * @apiParamExample {json} User Ids and Emails
+ * @apiParamExample {json} User IDs and Emails
  * {
  *   "emails": [
  *       {"email": "user-1@example.com"},
@@ -955,7 +955,7 @@ api.removeGroupMember = {
  * }
  *
  * @apiSuccess {Array} data The invites
- * @apiSuccess {Object} data[0] If the invitation was a user id, you'll receive back an object. You'll receive one Object for each succesful user id invite.
+ * @apiSuccess {Object} data[0] If the invitation was a User ID, you'll receive back an object. You'll receive one Object for each succesful User ID invite.
  * @apiSuccess {String} data[1] If the invitation was an email, you'll receive back the email. You'll receive one String for each successful email invite.
  *
  * @apiSuccessExample {json} Successful Response with Emails
@@ -966,13 +966,13 @@ api.removeGroupMember = {
  *   ]
  * }
  *
- * @apiSuccessExample {json} Successful Response with User Id
+ * @apiSuccessExample {json} Successful Response with User ID
  * {
  *   "data": [
  *     { id: 'the-id-of-the-invited-user', name: 'The group name', inviter: 'your-user-id' }
  *   ]
  * }
- * @apiSuccessExample {json} Successful Response with User Ids and Emails
+ * @apiSuccessExample {json} Successful Response with User IDs and Emails
  * {
  *   "data": [
  *     "user-1@example.com",
@@ -987,9 +987,9 @@ api.removeGroupMember = {
  * param `Array`.
  * @apiError (400) {BadRequest} UuidOrEmailOnly The `emails` and `uuids` params were both missing and/or a
  * key other than `emails` or `uuids` was provided in the body param.
- * @apiError (400) {BadRequest} CannotInviteSelf User id or email of invitee matches that of the inviter.
+ * @apiError (400) {BadRequest} CannotInviteSelf User ID or email of invitee matches that of the inviter.
  * @apiError (400) {BadRequest} MustBeArray The `uuids` or `emails` body param was not an array.
- * @apiError (400) {BadRequest} TooManyInvites A max of 100 invites (combined emails and user ids) can
+ * @apiError (400) {BadRequest} TooManyInvites A max of 100 invites (combined emails and User IDs) can
  * be sent out at a time.
  * @apiError (400) {BadRequest} ExceedsMembersLimit A max of 30 members can join a party.
  *
