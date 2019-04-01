@@ -30,6 +30,7 @@ module.exports = function releaseMounts (user, req = {}, analytics) {
     }
     user.items.mounts[mount] = null;
   }
+  if (user.markModified) user.markModified('items.mounts');
 
   if (giveMountMasterAchievement) {
     if (!user.achievements.mountMasterCount) {

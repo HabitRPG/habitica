@@ -36,10 +36,12 @@ module.exports = function purchaseHourglass (user, req = {}, analytics) {
 
   if (type === 'pets') {
     user.items.pets[key] = 5;
+    if (user.markModified) user.markModified('items.pets');
   }
 
   if (type === 'mounts') {
     user.items.mounts[key] = true;
+    if (user.markModified) user.markModified('items.mounts');
   }
 
   if (analytics) {

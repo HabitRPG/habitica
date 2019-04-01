@@ -30,6 +30,7 @@ module.exports = function releasePets (user, req = {}, analytics) {
     }
     user.items.pets[pet] = 0;
   }
+  if (user.markModified) user.markModified('items.pets');
 
   if (giveBeastMasterAchievement) {
     if (!user.achievements.beastMasterCount) {

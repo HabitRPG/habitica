@@ -12,6 +12,11 @@ function evolve (user, pet, req) {
   user.items.pets[pet.key] = -1;
   user.items.mounts[pet.key] = true;
 
+  if (user.markModified) {
+    user.markModified('items.pets');
+    user.markModified('items.mounts');
+  }
+
   if (pet.key === user.items.currentPet) {
     user.items.currentPet = '';
   }
@@ -74,12 +79,15 @@ module.exports = function feed (user, req = {}) {
       message = i18n.t('messageDontEnjoyFood', messageParams, req.language);
     }
 
+    if (user.markModified) user.markModified('items.pets');
+
     if (userPets[pet.key] >= 50 && !user.items.mounts[pet.key]) {
       message = evolve(user, pet, req);
     }
   }
 
   user.items.food[food.key]--;
+  if (user.markModified) user.markModified('items.food');
 
   return [
     userPets[pet.key],

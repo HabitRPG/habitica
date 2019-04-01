@@ -125,6 +125,8 @@ function _setUpNewUser (user) {
   let iterableFlags = user.flags.toObject();
 
   user.items.quests.dustbunnies = 1;
+  user.markModified('items.quests');
+
   user.purchased.background.violet = true;
   user.preferences.background = 'violet';
 
@@ -217,6 +219,7 @@ schema.pre('save', true, function preSaveUser (next, done) {
     // automatically granted an item during a certain time period:
     // if (!this.items.pets['JackOLantern-Base'] && moment().isBefore('2014-11-01'))
     // this.items.pets['JackOLantern-Base'] = 5;
+    // this.markModified('items.pets');
   }
 
   // Filter notifications, remove unvalid and not necessary, handle the ones that have special requirements
