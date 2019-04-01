@@ -62,5 +62,7 @@
     "unallocatedStatsPoints": "Вы не распределили <span class=\"notification-bold-blue\"><%= points %> очков</span>",
     "beginningOfConversation": "Это начало вашего разговора с <%= userName %>. Не забывайте, что общепринятые правила сообщества предписавыют быть добрыми, уважительными!",
     "messageDeletedUser": "Приносим свои извинения, этот пользователь удалил свой аккаунт.",
-    "messageMissingDisplayName": "Отсутствует отображаемое имя."
+    "messageMissingDisplayName": "Отсутствует отображаемое имя.",
+    "reportedMessage": "Вы сообщили об этом сообщении модераторам.",
+    "canDeleteNow": "Теперь вы можете удалить это сообщение, если хотите."
 }
