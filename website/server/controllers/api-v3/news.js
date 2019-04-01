@@ -44,6 +44,7 @@ api.getNews = {
         <h3>Special April Fool's Social Media Challenge!</h3>
         <p>For even more fun, check out the <a href='/challenges/b0337534-ec69-4269-8cc6-f74c91881451'>official Challenge</a> posted especially for today! Share your avatar featuring your new fruit and veggie pet on social media between now and April 3, and you'll have a chance to win gems and have your avatar featured on the Habitica Blog!</p>
         <div class="small mb-3">by Beffymaroo, SabreCat, Piyo, Viirus, and Lemoness</div>
+        <div class="npc_aprilFool center-block"></div>
       </div>
       `,
     });
