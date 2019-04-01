@@ -39,7 +39,7 @@
       // Mount Head
       span(v-if="member.items.currentMount", :class="'Mount_Head_' + member.items.currentMount")
       // Pet
-      span.current-pet(v-if="member.items.currentPet", :class="'Pet-' + member.items.currentPet")
+      span.current-pet(:class="foolPet(member.items.currentPet)")
   class-badge.under-avatar(v-if="hasClass && !hideClassBadge", :member-class="member.stats.class")
 </template>
 
@@ -75,6 +75,7 @@
 
 <script>
 import { mapState } from 'client/libs/store';
+import includes from 'lodash/includes';
 
 import ClassBadge from 'client/components/members/classBadge';
 
@@ -222,6 +223,53 @@ export default {
       let buffs = this.member.stats.buffs;
 
       return !buffs.snowball && !buffs.spookySparkles && !buffs.shinySeed && !buffs.seafoam;
+    },
+    foolPet (pet) {
+      const SPECIAL_PETS = [
+        'Wolf-Veteran',
+        'Wolf-Cerberus',
+        'Dragon-Hydra',
+        'Turkey-Base',
+        'BearCub-Polar',
+        'MantisShrimp-Base',
+        'JackOLantern-Base',
+        'Mammoth-Base',
+        'Tiger-Veteran',
+        'Phoenix-Base',
+        'Turkey-Gilded',
+        'MagicalBee-Base',
+        'Lion-Veteran',
+        'Gryphon-RoyalPurple',
+        'JackOLantern-Ghost',
+        'Jackalope-RoyalPurple',
+        'Orca-Base',
+        'Bear-Veteran',
+        'Hippogriff-Hopeful',
+        'Fox-Veteran',
+        'JackOLantern-Glow',
+      ];
+      const BASE_PETS = [
+        'Wolf',
+        'TigerCub',
+        'PandaCub',
+        'LionCub',
+        'Fox',
+        'FlyingPig',
+        'BearCub',
+        'Dragon',
+        'Cactus',
+      ];
+      if (!pet) return 'Pet-FlyingPig-Veggie';
+      if (SPECIAL_PETS.indexOf(pet) !== -1) {
+        return 'Pet-PandaCub-Veggie';
+      } else {
+        const species = pet.slice(0, pet.indexOf('-'));
+        if (includes(BASE_PETS, species)) {
+          return `Pet-${species}-Veggie`;
+        } else {
+          return 'Pet-Fox-Veggie';
+        }
+      }
     },
   },
 };
