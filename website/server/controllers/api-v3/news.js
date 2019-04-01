@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE FOR MARCH SUBSCRIBER GEAR! AND THE APRIL FOOL PROMISES HEʼLL BEHAVE THIS YEAR';
+const LAST_ANNOUNCEMENT_TITLE = 'THE APRIL FOOL STRIKES AGAIN!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,22 +30,21 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>3/29/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>4/1/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_mystery_201903 center-block"></div>
-        <h3>Last Chance for March Subscriber Gear</h3>
-        <p>Reminder: this weekend is your final chance to <a href='/user/settings/subscription'>subscribe</a> and receive the Egg-squisite Armor Set! Subscribing also lets you buy Gems with Gold. The longer your subscription, the more Gems you get!</p>
-        <p>Thanks so much for your support! You help keep Habitica running.</p>
-        <div class="small mb-3">by Beffymaroo</div>
-        <h3>The April Fool Stops By the Tavern...</h3>
-        <p>As March in Habitica comes to a close, everyone is wondering what the ever-impish Master of Rogues, the April Fool, might have in store for his favorite holiday.</p>
-        <p>He's stopped by the Tavern today, ostensibly for lunch, but he seems keen to put everyone at ease about the possibility of shenanigans in the near future.</p>
-        <p>"I've re-committed myself to health!" he says, happily munching on a crisp, ripe pear. "I'm too busy brushing up on nutrition to possibly pull a prank! If anything I'd rather just help every Habitican get more healthy food into their routines."</p>
-        <p>Beffymaroo smiles and leans to whisper to Piyo and SabreCat, on the next bench.</p>
-        <p>"Given his track record over the years, I'd say the chance he's going to behave himself this year is about as good as the chance of artichokes falling from the sky."</p>
-        <p>Perhaps you should check back when April 1st rolls around to see what's in store…</p>
+        <div class="promo_april_fools_2019 center-block"></div>
+        <h3>Fruit and Veggie Pets and NPCs</h3>
+        <p>The April Fool has appeared, and he's got a farmer's market's worth of produce in tow.</p>
+        <p>"HAHA!" he cries, as a dragonfruit bounces along beside him. "I've always thought good humor should be healthful and nourishing, so I've gone back to my roots, if you will, to bring some plant-powered goodness into Habitica once again!"</p>
+        <p>"He's replaced all our equipped pets with fruits and vegetables!" says QuartzFox, gently patting a contented-looking tomato. "Although to be fair, they are very cute fruits and vegetables!"</p>
+        <p>Equipping different pets will show different fruits and veggies. Have fun discovering them all!</p>
+        <p>The NPCs have also been turned into their fruit and vegetable forms as a tribute to Habitica's <a href='https://habitica.fandom.com/wiki/April_Fools'_Day_2014' target='_blank'>very first April Fool's prank back in 2014</a>! Go check them out.</p>
+        <h3>Special April Fool's Social Media Challenge!</h3>
+        <p>For even more fun, check out the <a href='/challenges/b0337534-ec69-4269-8cc6-f74c91881451'>official Challenge</a> posted especially for today! Share your avatar featuring your new fruit and veggie pet on social media between now and April 3, and you'll have a chance to win gems and have your avatar featured on the Habitica Blog!</p>
+        <div class="small mb-3">by Beffymaroo, SabreCat, Piyo, Viirus, and Lemoness</div>
+        <div class="npc_aprilFool center-block"></div>
       </div>
       `,
     });
