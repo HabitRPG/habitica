@@ -300,7 +300,7 @@ async function track (eventType, data) {
   if (data.user && data.user.registeredThrough) {
     promises.push(_setOnce({
       registeredPlatform: data.user.registeredThrough,
-    }, data.uuid));
+    }, data.uuid || data.user._id));
   }
 
   return Promise.all(promises);
