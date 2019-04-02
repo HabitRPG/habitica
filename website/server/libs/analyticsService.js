@@ -9,6 +9,7 @@ import {
   toArray,
 } from 'lodash';
 import { content as Content } from '../../common';
+import logger from './logger';
 
 const AMPLITUDE_TOKEN = nconf.get('AMPLITUDE_KEY');
 const GA_TOKEN = nconf.get('GA_ID');
@@ -166,11 +167,9 @@ let _sendDataToAmplitude = (eventType, data) => {
 
   amplitudeData.event_type = eventType;
 
-  return new Promise((resolve, reject) => {
-    amplitude.track(amplitudeData)
-      .then(resolve)
-      .catch(() => reject('Error while sending data to Amplitude.'));
-  });
+  return amplitude
+    .track(amplitudeData)
+    .catch(err => logger.error(err, 'Error while sending data to Amplitude.'));
 };
 
 let _generateLabelForGoogleAnalytics = (data) => {
@@ -217,12 +216,14 @@ let _sendDataToGoogle = (eventType, data) => {
     eventData.ev = value;
   }
 
-  return new Promise((resolve, reject) => {
+  const promise = new Promise((resolve, reject) => {
     ga.event(eventData, (err) => {
       if (err) return reject(err);
       resolve();
     });
   });
+
+  return promise.catch(err => logger.error(err, 'Error while sending data to Google Analytics.'));
 };
 
 let _sendPurchaseDataToAmplitude = (data) => {
@@ -231,11 +232,9 @@ let _sendPurchaseDataToAmplitude = (data) => {
   amplitudeData.event_type = 'purchase';
   amplitudeData.revenue = data.purchaseValue;
 
-  return new Promise((resolve, reject) => {
-    amplitude.track(amplitudeData)
-      .then(resolve)
-      .catch(reject);
-  });
+  return amplitude
+    .track(amplitudeData)
+    .catch(err => logger.error(err, 'Error while sending data to Amplitude.'));
 };
 
 let _sendPurchaseDataToGoogle = (data) => {
@@ -268,11 +267,13 @@ let _sendPurchaseDataToGoogle = (data) => {
 };
 
 let _setOnce = (data) => {
-  return amplitude.identify({
-    user_properties: {
-      $setOnce: data,
-    },
-  });
+  return amplitude
+    .identify({
+      user_properties: {
+        $setOnce: data,
+      },
+    })
+    .catch(err => logger.error(err, 'Error while sending data to Amplitude.'));
 };
 
 function track (eventType, data) {
