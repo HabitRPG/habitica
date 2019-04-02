@@ -138,12 +138,16 @@ function _formatUserAgentForAmplitude (platform, agentString) {
   return formattedAgent;
 }
 
+function _formatUUIDForAmplitude (uuid) {
+  return uuid || 'no-user-id-was-provided';
+}
+
 function _formatDataForAmplitude (data) {
   let event_properties = omit(data, AMPLITUDE_PROPERTIES_TO_SCRUB);
   let platform = _formatPlatformForAmplitude(data.headers && data.headers['x-client']);
   let agent = _formatUserAgentForAmplitude(platform, data.headers && data.headers['user-agent']);
   let ampData = {
-    user_id: data.uuid || 'no-user-id-was-provided',
+    user_id: _formatUUIDForAmplitude(data.uuid),
     platform,
     os_name: agent.name,
     os_version: agent.version,
@@ -276,12 +280,12 @@ function _sendPurchaseDataToGoogle (data) {
     .catch(err => logger.error(err, 'Error while sending data to Google Analytics.'));
 }
 
-function _setOnce (data, user) {
+function _setOnce (dataToSetOnce, uuid) {
   return amplitude
     .identify({
-      user_id: user._id,
+      user_id: _formatUUIDForAmplitude(uuid),
       user_properties: {
-        $setOnce: data,
+        $setOnce: dataToSetOnce,
       },
     })
     .catch(err => logger.error(err, 'Error while sending data to Amplitude.'));
@@ -296,7 +300,7 @@ async function track (eventType, data) {
   if (data.user && data.user.registeredThrough) {
     promises.push(_setOnce({
       registeredPlatform: data.user.registeredThrough,
-    }, data.user));
+    }, data.uuid));
   }
 
   return Promise.all(promises);
