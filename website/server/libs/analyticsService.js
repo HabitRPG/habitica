@@ -9,6 +9,7 @@ import {
   toArray,
 } from 'lodash';
 import { content as Content } from '../../common';
+import logger from './logger';
 
 const AMPLITUDE_TOKEN = nconf.get('AMPLITUDE_KEY');
 const GA_TOKEN = nconf.get('GA_ID');
@@ -27,7 +28,7 @@ if (AMPLITUDE_TOKEN) amplitude = new Amplitude(AMPLITUDE_TOKEN);
 
 let ga = googleAnalytics(GA_TOKEN);
 
-let _lookUpItemName = (itemKey) => {
+function _lookUpItemName (itemKey) {
   if (!itemKey) return;
 
   let gear = Content.gear.flat[itemKey];
@@ -54,9 +55,9 @@ let _lookUpItemName = (itemKey) => {
   }
 
   return itemName;
-};
+}
 
-let _formatUserData = (user) => {
+function _formatUserData (user) {
   let properties = {};
 
   if (user.stats) {
@@ -102,9 +103,9 @@ let _formatUserData = (user) => {
   }
 
   return properties;
-};
+}
 
-let _formatPlatformForAmplitude = (platform) => {
+function _formatPlatformForAmplitude (platform) {
   if (!platform) {
     return 'Unknown';
   }
@@ -114,9 +115,9 @@ let _formatPlatformForAmplitude = (platform) => {
   }
 
   return '3rd Party';
-};
+}
 
-let _formatUserAgentForAmplitude = (platform, agentString) => {
+function _formatUserAgentForAmplitude (platform, agentString) {
   if (!agentString) {
     return 'Unknown';
   }
@@ -135,14 +136,18 @@ let _formatUserAgentForAmplitude = (platform, agentString) => {
   }
 
   return formattedAgent;
-};
+}
 
-let _formatDataForAmplitude = (data) => {
+function _formatUUIDForAmplitude (uuid) {
+  return uuid || 'no-user-id-was-provided';
+}
+
+function _formatDataForAmplitude (data) {
   let event_properties = omit(data, AMPLITUDE_PROPERTIES_TO_SCRUB);
   let platform = _formatPlatformForAmplitude(data.headers && data.headers['x-client']);
   let agent = _formatUserAgentForAmplitude(platform, data.headers && data.headers['user-agent']);
   let ampData = {
-    user_id: data.uuid || 'no-user-id-was-provided',
+    user_id: _formatUUIDForAmplitude(data.uuid),
     platform,
     os_name: agent.name,
     os_version: agent.version,
@@ -159,21 +164,19 @@ let _formatDataForAmplitude = (data) => {
     ampData.event_properties.itemName = itemName;
   }
   return ampData;
-};
+}
 
-let _sendDataToAmplitude = (eventType, data) => {
+function _sendDataToAmplitude (eventType, data) {
   let amplitudeData = _formatDataForAmplitude(data);
 
   amplitudeData.event_type = eventType;
 
-  return new Promise((resolve, reject) => {
-    amplitude.track(amplitudeData)
-      .then(resolve)
-      .catch(() => reject('Error while sending data to Amplitude.'));
-  });
-};
+  return amplitude
+    .track(amplitudeData)
+    .catch(err => logger.error(err, 'Error while sending data to Amplitude.'));
+}
 
-let _generateLabelForGoogleAnalytics = (data) => {
+function _generateLabelForGoogleAnalytics (data) {
   let label;
 
   each(GA_POSSIBLE_LABELS, (key) => {
@@ -184,9 +187,9 @@ let _generateLabelForGoogleAnalytics = (data) => {
   });
 
   return label;
-};
+}
 
-let _generateValueForGoogleAnalytics = (data) => {
+function _generateValueForGoogleAnalytics (data) {
   let value;
 
   each(GA_POSSIBLE_VALUES, (key) => {
@@ -197,9 +200,9 @@ let _generateValueForGoogleAnalytics = (data) => {
   });
 
   return value;
-};
+}
 
-let _sendDataToGoogle = (eventType, data) => {
+function _sendDataToGoogle (eventType, data) {
   let eventData = {
     ec: data.gaCategory || data.category || 'behavior',
     ea: eventType,
@@ -217,28 +220,28 @@ let _sendDataToGoogle = (eventType, data) => {
     eventData.ev = value;
   }
 
-  return new Promise((resolve, reject) => {
+  const promise = new Promise((resolve, reject) => {
     ga.event(eventData, (err) => {
       if (err) return reject(err);
       resolve();
     });
   });
-};
 
-let _sendPurchaseDataToAmplitude = (data) => {
+  return promise.catch(err => logger.error(err, 'Error while sending data to Google Analytics.'));
+}
+
+function _sendPurchaseDataToAmplitude (data) {
   let amplitudeData = _formatDataForAmplitude(data);
 
   amplitudeData.event_type = 'purchase';
   amplitudeData.revenue = data.purchaseValue;
 
-  return new Promise((resolve, reject) => {
-    amplitude.track(amplitudeData)
-      .then(resolve)
-      .catch(reject);
-  });
-};
+  return amplitude
+    .track(amplitudeData)
+    .catch(err => logger.error(err, 'Error while sending data to Amplitude.'));
+}
 
-let _sendPurchaseDataToGoogle = (data) => {
+function _sendPurchaseDataToGoogle (data) {
   let label = data.paymentMethod;
   let type = data.purchaseType;
   let price = data.purchaseValue;
@@ -256,38 +259,55 @@ let _sendPurchaseDataToGoogle = (data) => {
     ev: price,
   };
 
-  return new Promise((resolve) => {
-    ga.event(eventData).send();
+  const eventPromise = new Promise((resolve, reject) => {
+    ga.event(eventData, (err) => {
+      if (err) return reject(err);
+      resolve();
+    });
+  });
 
+  const transactionPromise = new Promise((resolve, reject) => {
     ga.transaction(data.uuid, price)
       .item(price, qty, sku, itemKey, variation)
-      .send();
-
-    resolve();
+      .send(err => {
+        if (err) return reject(err);
+        resolve();
+      });
   });
-};
 
-let _setOnce = (data) => {
-  return amplitude.identify({
-    user_properties: {
-      $setOnce: data,
-    },
-  });
-};
+  return Promise
+    .all([eventPromise, transactionPromise])
+    .catch(err => logger.error(err, 'Error while sending data to Google Analytics.'));
+}
 
-function track (eventType, data) {
+function _setOnce (dataToSetOnce, uuid) {
+  return amplitude
+    .identify({
+      user_id: _formatUUIDForAmplitude(uuid),
+      user_properties: {
+        $setOnce: dataToSetOnce,
+      },
+    })
+    .catch(err => logger.error(err, 'Error while sending data to Amplitude.'));
+}
+
+// There's no error handling directly here because it's handled inside _sendDataTo{Amplitude|Google}
+async function track (eventType, data) {
   let promises = [
     _sendDataToAmplitude(eventType, data),
     _sendDataToGoogle(eventType, data),
   ];
   if (data.user && data.user.registeredThrough) {
-    promises.push(_setOnce({registeredPlatform: data.user.registeredThrough}));
+    promises.push(_setOnce({
+      registeredPlatform: data.user.registeredThrough,
+    }, data.uuid || data.user._id));
   }
 
   return Promise.all(promises);
 }
 
-function trackPurchase (data) {
+// There's no error handling directly here because it's handled inside _sendPurchaseDataTo{Amplitude|Google}
+async function trackPurchase (data) {
   return Promise.all([
     _sendPurchaseDataToAmplitude(data),
     _sendPurchaseDataToGoogle(data),
@@ -295,7 +315,7 @@ function trackPurchase (data) {
 }
 
 // Stub for non-prod environments
-let mockAnalyticsService = {
+const mockAnalyticsService = {
   track: () => { },
   trackPurchase: () => { },
 };
