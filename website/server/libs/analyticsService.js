@@ -255,15 +255,25 @@ function _sendPurchaseDataToGoogle (data) {
     ev: price,
   };
 
-  const promise = new Promise((resolve, reject) => { TODO error handler here
-    ga.event(eventData).send();
+  const eventPromise = new Promise((resolve, reject) => {
+    ga.event(eventData, (err) => {
+      if (err) return reject(err);
+      resolve();
+    });
+  });
 
+  const transactionPromise = new Promise((resolve, reject) => {
     ga.transaction(data.uuid, price)
       .item(price, qty, sku, itemKey, variation)
-      .send();
-
-    resolve();
+      .send(err => {
+        if (err) return reject(err);
+        resolve();
+      });
   });
+
+  return Promise
+    .all([eventPromise, transactionPromise])
+    .catch(err => logger.error(err, 'Error while sending data to Google Analytics.'));
 }
 
 function _setOnce (data, user) {
@@ -277,7 +287,8 @@ function _setOnce (data, user) {
     .catch(err => logger.error(err, 'Error while sending data to Amplitude.'));
 }
 
-function track (eventType, data) { TODO error handler here
+// There's no error handling directly here because it's handled inside _sendDataTo{Amplitude|Google}
+async function track (eventType, data) {
   let promises = [
     _sendDataToAmplitude(eventType, data),
     _sendDataToGoogle(eventType, data),
@@ -285,14 +296,14 @@ function track (eventType, data) { TODO error handler here
   if (data.user && data.user.registeredThrough) {
     promises.push(_setOnce({
       registeredPlatform: data.user.registeredThrough,
-      user: data.user,
-    }));
+    }, data.user));
   }
 
   return Promise.all(promises);
 }
 
-function trackPurchase (data) { TODO error handler here
+// There's no error handling directly here because it's handled inside _sendPurchaseDataTo{Amplitude|Google}
+async function trackPurchase (data) {
   return Promise.all([
     _sendPurchaseDataToAmplitude(data),
     _sendPurchaseDataToGoogle(data),
@@ -300,7 +311,7 @@ function trackPurchase (data) { TODO error handler here
 }
 
 // Stub for non-prod environments
-let mockAnalyticsService = {
+const mockAnalyticsService = {
   track: () => { },
   trackPurchase: () => { },
 };
