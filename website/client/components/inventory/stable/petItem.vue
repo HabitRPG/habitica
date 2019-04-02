@@ -113,10 +113,7 @@
       },
       getPetItemClass () {
         if (this.isOwned() || this.mountOwned() && this.isHatchable()) {
-          if (this.isSpecial()) {
-            return 'Pet Pet-PandaCub-Veggie';
-          }
-          return `${this.item.class} ${this.item.eggKey}`;
+          return `Pet Pet-${this.item.key} ${this.item.eggKey}`;
         }
 
         if (!this.isOwned() && this.isSpecial()) {
@@ -128,7 +125,7 @@
         }
 
         if (this.mountOwned()) {
-          return `GreyedOut ${this.item.class} ${this.item.eggKey}`;
+          return `GreyedOut Pet Pet-${this.item.key} ${this.item.eggKey}`;
         }
 
         // Can't hatch

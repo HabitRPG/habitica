@@ -40,7 +40,7 @@ api.getNews = {
         <p>"HAHA!" he cries, as a dragonfruit bounces along beside him. "I've always thought good humor should be healthful and nourishing, so I've gone back to my roots, if you will, to bring some plant-powered goodness into Habitica once again!"</p>
         <p>"He's replaced all our equipped pets with fruits and vegetables!" says QuartzFox, gently patting a contented-looking tomato. "Although to be fair, they are very cute fruits and vegetables!"</p>
         <p>Equipping different pets will show different fruits and veggies. Have fun discovering them all!</p>
-        <p>The NPCs have also been turned into their fruit and vegetable forms as a tribute to Habitica's <a href='https://habitica.fandom.com/wiki/April_Fools'_Day_2014' target='_blank'>very first April Fool's prank back in 2014</a>! Go check them out.</p>
+        <p>The NPCs have also been turned into their fruit and vegetable forms as a tribute to Habitica's <a href="https://habitica.fandom.com/wiki/April_Fools'_Day_2014" target='_blank'>very first April Fool's prank back in 2014</a>! Go check them out.</p>
         <h3>Special April Fool's Social Media Challenge!</h3>
         <p>For even more fun, check out the <a href='/challenges/b0337534-ec69-4269-8cc6-f74c91881451'>official Challenge</a> posted especially for today! Share your avatar featuring your new fruit and veggie pet on social media between now and April 3, and you'll have a chance to win gems and have your avatar featured on the Habitica Blog!</p>
         <div class="small mb-3">by Beffymaroo, SabreCat, Piyo, Viirus, and Lemoness</div>
