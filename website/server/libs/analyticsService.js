@@ -28,7 +28,7 @@ if (AMPLITUDE_TOKEN) amplitude = new Amplitude(AMPLITUDE_TOKEN);
 
 let ga = googleAnalytics(GA_TOKEN);
 
-let _lookUpItemName = (itemKey) => {
+function _lookUpItemName (itemKey) {
   if (!itemKey) return;
 
   let gear = Content.gear.flat[itemKey];
@@ -55,9 +55,9 @@ let _lookUpItemName = (itemKey) => {
   }
 
   return itemName;
-};
+}
 
-let _formatUserData = (user) => {
+function _formatUserData (user) {
   let properties = {};
 
   if (user.stats) {
@@ -103,9 +103,9 @@ let _formatUserData = (user) => {
   }
 
   return properties;
-};
+}
 
-let _formatPlatformForAmplitude = (platform) => {
+function _formatPlatformForAmplitude (platform) {
   if (!platform) {
     return 'Unknown';
   }
@@ -115,9 +115,9 @@ let _formatPlatformForAmplitude = (platform) => {
   }
 
   return '3rd Party';
-};
+}
 
-let _formatUserAgentForAmplitude = (platform, agentString) => {
+function _formatUserAgentForAmplitude (platform, agentString) {
   if (!agentString) {
     return 'Unknown';
   }
@@ -136,9 +136,9 @@ let _formatUserAgentForAmplitude = (platform, agentString) => {
   }
 
   return formattedAgent;
-};
+}
 
-let _formatDataForAmplitude = (data) => {
+function _formatDataForAmplitude (data) {
   let event_properties = omit(data, AMPLITUDE_PROPERTIES_TO_SCRUB);
   let platform = _formatPlatformForAmplitude(data.headers && data.headers['x-client']);
   let agent = _formatUserAgentForAmplitude(platform, data.headers && data.headers['user-agent']);
@@ -160,9 +160,9 @@ let _formatDataForAmplitude = (data) => {
     ampData.event_properties.itemName = itemName;
   }
   return ampData;
-};
+}
 
-let _sendDataToAmplitude = (eventType, data) => {
+function _sendDataToAmplitude (eventType, data) {
   let amplitudeData = _formatDataForAmplitude(data);
 
   amplitudeData.event_type = eventType;
@@ -170,9 +170,9 @@ let _sendDataToAmplitude = (eventType, data) => {
   return amplitude
     .track(amplitudeData)
     .catch(err => logger.error(err, 'Error while sending data to Amplitude.'));
-};
+}
 
-let _generateLabelForGoogleAnalytics = (data) => {
+function _generateLabelForGoogleAnalytics (data) {
   let label;
 
   each(GA_POSSIBLE_LABELS, (key) => {
@@ -183,9 +183,9 @@ let _generateLabelForGoogleAnalytics = (data) => {
   });
 
   return label;
-};
+}
 
-let _generateValueForGoogleAnalytics = (data) => {
+function _generateValueForGoogleAnalytics (data) {
   let value;
 
   each(GA_POSSIBLE_VALUES, (key) => {
@@ -196,9 +196,9 @@ let _generateValueForGoogleAnalytics = (data) => {
   });
 
   return value;
-};
+}
 
-let _sendDataToGoogle = (eventType, data) => {
+function _sendDataToGoogle (eventType, data) {
   let eventData = {
     ec: data.gaCategory || data.category || 'behavior',
     ea: eventType,
@@ -224,9 +224,9 @@ let _sendDataToGoogle = (eventType, data) => {
   });
 
   return promise.catch(err => logger.error(err, 'Error while sending data to Google Analytics.'));
-};
+}
 
-let _sendPurchaseDataToAmplitude = (data) => {
+function _sendPurchaseDataToAmplitude (data) {
   let amplitudeData = _formatDataForAmplitude(data);
 
   amplitudeData.event_type = 'purchase';
@@ -235,9 +235,9 @@ let _sendPurchaseDataToAmplitude = (data) => {
   return amplitude
     .track(amplitudeData)
     .catch(err => logger.error(err, 'Error while sending data to Amplitude.'));
-};
+}
 
-let _sendPurchaseDataToGoogle = (data) => {
+function _sendPurchaseDataToGoogle (data) {
   let label = data.paymentMethod;
   let type = data.purchaseType;
   let price = data.purchaseValue;
@@ -255,7 +255,7 @@ let _sendPurchaseDataToGoogle = (data) => {
     ev: price,
   };
 
-  return new Promise((resolve) => {
+  const promise = new Promise((resolve, reject) => { TODO error handler here
     ga.event(eventData).send();
 
     ga.transaction(data.uuid, price)
@@ -264,31 +264,35 @@ let _sendPurchaseDataToGoogle = (data) => {
 
     resolve();
   });
-};
+}
 
-let _setOnce = (data) => {
+function _setOnce (data, user) {
   return amplitude
     .identify({
+      user_id: user._id,
       user_properties: {
         $setOnce: data,
       },
     })
     .catch(err => logger.error(err, 'Error while sending data to Amplitude.'));
-};
+}
 
-function track (eventType, data) {
+function track (eventType, data) { TODO error handler here
   let promises = [
     _sendDataToAmplitude(eventType, data),
     _sendDataToGoogle(eventType, data),
   ];
   if (data.user && data.user.registeredThrough) {
-    promises.push(_setOnce({registeredPlatform: data.user.registeredThrough}));
+    promises.push(_setOnce({
+      registeredPlatform: data.user.registeredThrough,
+      user: data.user,
+    }));
   }
 
   return Promise.all(promises);
 }
 
-function trackPurchase (data) {
+function trackPurchase (data) { TODO error handler here
   return Promise.all([
     _sendPurchaseDataToAmplitude(data),
     _sendPurchaseDataToGoogle(data),
