@@ -135,6 +135,7 @@ api.modifyInventory = {
 
     if (gear) {
       user.items.gear.owned = gear;
+      user.markModified('items.gear.owned');
     }
 
     [
@@ -148,6 +149,7 @@ api.modifyInventory = {
     ].forEach((type) => {
       if (req.body[type]) {
         user.items[type] = req.body[type];
+        user.markModified(`items.${type}`);
       }
     });
 

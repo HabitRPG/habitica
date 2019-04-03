@@ -33,6 +33,11 @@ module.exports = function hatch (user, req = {}) {
   user.items.pets[pet] = 5;
   user.items.eggs[egg]--;
   user.items.hatchingPotions[hatchingPotion]--;
+  if (user.markModified) {
+    user.markModified('items.pets');
+    user.markModified('items.eggs');
+    user.markModified('items.hatchingPotions');
+  }
 
   return [
     user.items,

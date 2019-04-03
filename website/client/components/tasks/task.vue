@@ -46,7 +46,7 @@
             v-markdown="task.notes",
             :class="{'has-checklist': task.notes && hasChecklist}",
           )
-        .checklist(v-if="canViewchecklist")
+        .checklist(v-if="canViewchecklist", :class="{isOpen: !task.collapseChecklist}")
           .d-inline-flex
             .collapse-checklist.d-flex.align-items-center.expand-toggle(
               v-if="isUser",
@@ -259,19 +259,25 @@
   }
 
   .checklist {
-    margin-bottom: 2px;
+    &.isOpen {
+      margin-bottom: 2px;
+    }
+
     margin-top: -3px;
   }
 
   .collapse-checklist {
     padding: 2px 6px;
-    margin-bottom: 9px;
     border-radius: 1px;
     background-color: $gray-600;
     font-size: 10px;
     line-height: 1.2;
     text-align: center;
     color: $gray-200;
+    margin-bottom: 9px;
+
+    &.open {
+    }
 
     span {
       margin: 0px 4px;

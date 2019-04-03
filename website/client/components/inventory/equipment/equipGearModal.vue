@@ -4,6 +4,7 @@
     v-if="item != null",
     :hide-header="true",
     @change="onChange($event)"
+    @hide="fixDocBody()"
   )
     div.close
       span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close", @click="hideDialog()")
@@ -187,8 +188,16 @@
       },
       hideDialog () {
         this.$root.$emit('bv::hide::modal', 'equipgear-modal');
+      },
+      fixDocBody () {
         document.body.classList.remove('modal-open');
-        document.body.setAttribute('data-modal-open-count', document.body.getAttribute('data-modal-open-count') - 1);
+        if (document.body.getAttribute('data-modal-open-count') <= 1) {
+          document.body.removeAttribute('data-modal-open-count');
+        } else {
+          document.body.setAttribute('data-modal-open-count', document.body.getAttribute('data-modal-open-count') - 1);
+        }
+        document.body.removeAttribute('data-padding-right');
+        document.body.style.removeProperty('padding-right');
       },
       memberOverrideAvatarGear (gear) {
         return {

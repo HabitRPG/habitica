@@ -1,6 +1,5 @@
 <template lang="pug">
 .row(:class="{'small-version': smallVersion}")
-  dl
   .table-row(v-if="quest.collect")
     dt {{ $t('collect') + ':' }}
     dd
@@ -26,6 +25,7 @@
 .row {
   display: table;
   color: #E1E0E3;
+  margin: 0;
 }
 
 .table-row {
@@ -34,12 +34,15 @@
 }
 
 dd {
+  height: 24px;
   padding-left: 1em;
-  padding-bottom: 4px;
+  padding-top: 3px;
+  padding-bottom: 3px;
 }
 
 dt, dd {
   display: table-cell;
+  vertical-align: middle;
 }
 
 dt, dd, dd > * {
@@ -74,6 +77,15 @@ dt {
     white-space: nowrap;
   }
 }
+
+// making sure the star-colors always correct
+.star {
+  fill: #ffb445;
+}
+.star-empty {
+  fill: #686274;
+}
+
 </style>
 
 <script>

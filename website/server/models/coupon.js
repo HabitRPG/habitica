@@ -46,6 +46,8 @@ schema.statics.apply = async function applyCoupon (user, req, code) {
     user.items.gear.owned.body_special_wondercon_red = true;
     user.items.gear.owned.body_special_wondercon_black = true;
     user.items.gear.owned.body_special_wondercon_gold = true;
+    user.markModified('items.gear.owned');
+
     user.extra = {signupEvent: 'wondercon'};
   }
 

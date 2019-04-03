@@ -110,4 +110,22 @@ describe('POST /user/auth/local/login', () => {
     let isValidPassword = await bcryptCompare(textPassword, user.auth.local.hashed_password);
     expect(isValidPassword).to.equal(true);
   });
+
+  it('user uses social authentication and has no password', async () => {
+    await user.unset({
+      'auth.local.hashed_password': 1,
+    });
+
+    await user.sync();
+    expect(user.auth.local.hashed_password).to.be.undefined;
+
+    await expect(api.post(endpoint, {
+      username: user.auth.local.username,
+      password: 'any-password',
+    })).to.eventually.be.rejected.and.eql({
+      code: 401,
+      error: 'NotAuthorized',
+      message: t('invalidLoginCredentialsLong'),
+    });
+  });
 });

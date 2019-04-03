@@ -1,23 +1,30 @@
-// import { SEASONAL_SETS } from '../content/constants';
+import { SEASONAL_SETS } from '../content/constants';
 
 module.exports = {
-  opened: false,
+  opened: true,
 
-  currentSeason: 'Closed',
+  currentSeason: 'Spring',
 
-  dateRange: { start: '2018-09-20', end: '2018-10-31' },
+  dateRange: { start: '2019-03-19', end: '2019-04-30' },
 
   availableSets: [
+    ...SEASONAL_SETS.spring,
   ],
 
   pinnedSets: {
+    wizard: 'spring2019AmberMageSet',
+    warrior: 'spring2019OrchidWarriorSet',
+    rogue: 'spring2019CloudRogueSet',
+    healer: 'spring2019RobinHealerSet',
   },
 
   availableSpells: [
+    'shinySeed',
   ],
 
   availableQuests: [
+    'egg',
   ],
 
-  featuredSet: 'mummyMedicSet',
+  featuredSet: 'spring2018DucklingRogueSet',
 };
