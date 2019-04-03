@@ -167,7 +167,7 @@ export default {
         this.challenges = this.challenges.concat(challenges);
       }
 
-      // this.loading = false;
+      this.loading = false;
     },
     challengeCreated (challenge) {
       this.challenges.push(challenge);
