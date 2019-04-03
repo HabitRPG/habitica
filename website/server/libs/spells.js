@@ -78,8 +78,7 @@ async function castPartySpell (req, party, partyMembers, user, spell, quantity =
         'party._id': party._id,
         _id: { $ne: user._id }, // add separately
       })
-      // .select(partyMembersFields) Selecting the entire user because otherwise when saving it'll save
-      // default values for non-selected fields and pre('save') will mess up thinking some values are missing
+      .select(partyMembersFields)
       .exec();
 
     partyMembers.unshift(user);
@@ -101,8 +100,7 @@ async function castUserSpell (res, req, party, partyMembers, targetId, user, spe
     if (!party) throw new NotFound(res.t('partyNotFound'));
     partyMembers = await User
       .findOne({_id: targetId, 'party._id': party._id})
-      // .select(partyMembersFields) Selecting the entire user because otherwise when saving it'll save
-      // default values for non-selected fields and pre('save') will mess up thinking some values are missing
+      .select(partyMembersFields)
       .exec();
   }
 
