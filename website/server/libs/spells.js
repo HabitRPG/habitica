@@ -11,7 +11,8 @@ import {
 } from '../models/group';
 import apiError from '../libs/apiError';
 
-const partyMembersFields = 'profile.name stats achievements items.special';
+const partyMembersFields = 'profile.name stats achievements items.special notifications flags';
+const partyMembersPublicFields = 'profile.name stats achievements items.special';
 
 // @TODO: After refactoring individual spells, move quantity to the calculations
 
@@ -181,9 +182,9 @@ async function castSpell (req, res, {isV3 = false}) {
     let partyMembersRes = Array.isArray(partyMembers) ? partyMembers : [partyMembers];
 
     // Only return some fields.
-    // See comment above on why we can't just select the necessary fields when querying
+    // We can't just return the selected fields because they're private
     partyMembersRes = partyMembersRes.map(partyMember => {
-      return common.pickDeep(partyMember.toJSON(), common.$w(partyMembersFields));
+      return common.pickDeep(partyMember.toJSON(), common.$w(partyMembersPublicFields));
     });
 
     let userToJson = user;
