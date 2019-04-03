@@ -23,11 +23,11 @@
         challenge-item(:challenge='challenge')
 
     .row
-      h2.col-12(v-if='loading') {{ $t('loading') }}
+      h2.col-12.loading(v-if='loading') {{ $t('loading') }}
 
     .row
       .col-12.text-center(v-if='!loading && filteredChallenges.length > 0')
-        button.btn.btn-secondary(@click='loadMore()') {{ $t('loadMore') }}
+        button.btn.btn-flat.btn-show-more(@click='loadMore()') {{ $t('loadMore') }}
 </template>
 
 <style lang='scss' scoped>
@@ -57,6 +57,11 @@
     h2 {
       color: $gray-200;
     }
+  }
+
+  .loading {
+    text-align: center;
+    color: $purple-300;
   }
 </style>
 
@@ -162,7 +167,7 @@ export default {
         this.challenges = this.challenges.concat(challenges);
       }
 
-      this.loading = false;
+      // this.loading = false;
     },
     challengeCreated (challenge) {
       this.challenges.push(challenge);
