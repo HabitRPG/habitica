@@ -356,12 +356,14 @@ api.timeTravelStable = {
 
 api.dropHatchingPotions = hatchingPotions.drops;
 api.premiumHatchingPotions = hatchingPotions.premium;
+api.wackyHatchingPotions = hatchingPotions.wacky;
 api.hatchingPotions = hatchingPotions.all;
 
 api.pets = stable.dropPets;
 api.premiumPets = stable.premiumPets;
 api.questPets = stable.questPets;
 api.specialPets = stable.specialPets;
+api.wackyPets = stable.wackyPets;
 api.petInfo = stable.petInfo;
 
 api.mounts = stable.dropMounts;

@@ -98,7 +98,7 @@
                 @click="selectPet(context.item)"
               )
 
-      .btn.btn-flat.btn-show-more(@click="setShowMore(petGroup.key)", v-if='petGroup.key !== "specialPets"')
+      .btn.btn-flat.btn-show-more(@click="setShowMore(petGroup.key)", v-if='petGroup.key !== "specialPets" && petGroup.key !== "wackyPets"')
         | {{ $_openedItemRows_isToggled(petGroup.key) ? $t('showLess') : $t('showMore') }}
 
     h2
@@ -460,6 +460,14 @@
             petSource: {
               eggs: this.content.questEggs,
               potions: this.content.dropHatchingPotions,
+            },
+          },
+          {
+            label: this.$t('filterByWacky'),
+            key: 'wackyPets',
+            petSource: {
+              eggs: this.content.dropEggs,
+              potions: this.content.wackyHatchingPotions,
             },
           },
           {
