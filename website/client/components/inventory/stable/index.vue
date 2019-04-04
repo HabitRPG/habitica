@@ -669,7 +669,7 @@
         let pets = this.listAnimals(animalGroup, 'pet', hideMissing, sortBy, searchText);
 
         // Don't group special
-        if (animalGroup.key === 'specialPets') {
+        if (animalGroup.key === 'specialPets' || animalGroup.key === 'wackyPets') {
           return {none: pets};
         }
 

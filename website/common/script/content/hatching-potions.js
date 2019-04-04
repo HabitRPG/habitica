@@ -223,6 +223,7 @@ each(wacky, (pot, key) => {
     }),
     premium: false,
     limited: true,
+    wacky: true,
     canBuy () {
       return pot._season === CURRENT_SEASON;
     },
