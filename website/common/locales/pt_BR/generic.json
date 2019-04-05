@@ -88,7 +88,7 @@
     "gems": "Gemas",
     "gemButton": "Você tem <%= number %> Gemas.",
     "needMoreGems": "Precisa de Mais Gemas?",
-    "needMoreGemsInfo": "Compre Gemas agora ou assine para comprar Gemas com Ouro, receber itens misteriosos, aproveitar o maior limite de drops, dentre outros.",
+    "needMoreGemsInfo": "Compre Gemas agora ou assine para comprar Gemas com Ouro, receber itens misteriosos, aproveitar o maior limite de drops, dentre outros!",
     "moreInfo": "Mais Informações",
     "moreInfoChallengesURL": "http://pt-br.habitica.fandom.com/wiki/Challenges",
     "moreInfoTagsURL": "http://pt-br.habitica.fandom.com/wiki/Tags",
@@ -103,8 +103,8 @@
     "habitBirthdayText": "Celebrou a Festança de Aniversário do Habitica!",
     "habitBirthdayPluralText": "Comemorou <%= count %> Festas de Aniversário do Habitica!",
     "habiticaDay": "Habitversário",
-    "habiticaDaySingularText": "Celebrou o Habitversário! Obrigado por ser um usuário fantástico!",
-    "habiticaDayPluralText": "Comemorou <%= count %> Aniversário(s) do Habitica! Obrigado por ser um usuário fantástico!",
+    "habiticaDaySingularText": "Celebrou o Habiticaversário! Obrigado por ser um usuário fantástico.",
+    "habiticaDayPluralText": "Comemorou <%= count %> Aniversário(s) do Habitica! Obrigado por ser um usuário fantástico.",
     "achievementDilatory": "Salvador de Lentópolis",
     "achievementDilatoryText": "Ajudou a derrotar o Terrível Dragão de Lentópolis durante o Evento Banho de Verão de 2014!",
     "costumeContest": "Participante do Concurso de Fantasia",
@@ -169,7 +169,7 @@
     "achievementBurnoutText": "Ajudou a derrotar o Desgaste e recuperar os Espíritos Exaustos durante o Evento Festival de Outono de 2015!",
     "achievementBewilder": "Salvador de Borbópolis",
     "achievementBewilderText": "Ajudou a derrotar o Ilusion-lista durante o Festival de Primavera de 2016!",
-    "achievementDysheartener": "Redentor de O Descouraçado.",
+    "achievementDysheartener": "Redentor de O Descouraçado",
     "achievementDysheartenerText": "Ajudou a derrotar o Descoraçador durante o Dia dos Namorados de 2018!",
     "checkOutProgress": "Veja o meu progresso no Habitica!",
     "cards": "Cartões",
@@ -290,5 +290,6 @@
     "selected": "Selecionado",
     "howManyToBuy": "Qual quantidade gostaria de comprar?",
     "habiticaHasUpdated": "Há uma nova atualização no Habitica. Recarregue a página para obter a versão mais recente!",
-    "contactForm": "Contate os Moderadores"
+    "contactForm": "Contate os Moderadores",
+    "options": "Opções"
 }
