@@ -363,13 +363,13 @@ api.cancelQuest = {
     if (validationErrors) throw validationErrors;
 
     let group = await Group.getGroup({user, groupId, fields: basicGroupFields.concat(' quest')});
-    
+
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
     if (!group.quest.key) throw new NotFound(res.t('questInvitationDoesNotExist'));
     if (user._id !== group.leader && group.quest.leader !== user._id) throw new NotAuthorized(res.t('onlyLeaderCancelQuest'));
     if (group.quest.active) throw new NotAuthorized(res.t('cantCancelActiveQuest'));
-    
+
     let questName = questScrolls[group.quest.key].text('en');
     const newChatMessage = group.sendChat(`\`${user.profile.name} cancelled the party quest ${questName}.\``);
     await newChatMessage.save();
