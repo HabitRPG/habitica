@@ -48,6 +48,7 @@
         @editTask="editTask",
         @moveTo="moveTo",
         :group='group',
+        v-on:taskDestroyed='taskDestroyed'
       )
     template(v-if="hasRewardsList")
       draggable.reward-items(
@@ -690,6 +691,9 @@ export default {
       } else {
         document.documentElement.classList.remove('draggable-cursor');
       }
+    },
+    taskDestroyed (task) {
+      this.$emit('taskDestroyed', task);
     },
   },
 };

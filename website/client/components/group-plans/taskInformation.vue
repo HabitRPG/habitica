@@ -90,6 +90,7 @@
       :taskListOverride='tasksByType[column]',
       v-on:editTask="editTask",
       v-on:loadGroupCompletedTodos="loadGroupCompletedTodos",
+      v-on:taskDestroyed="taskDestroyed",
       :group='group',
       :searchText="searchText")
 </template>
