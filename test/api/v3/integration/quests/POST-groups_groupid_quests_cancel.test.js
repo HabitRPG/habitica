@@ -4,6 +4,7 @@ import {
   generateUser,
 } from '../../../../helpers/api-integration/v3';
 import { v4 as generateUUID } from 'uuid';
+import { model as Group } from '../../../../../website/server/models/group';
 
 describe('POST /groups/:groupId/quests/cancel', () => {
   let questingGroup;
