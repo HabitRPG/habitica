@@ -314,7 +314,13 @@ export function cron (options = {}) {
     let scheduleMisses = daysMissed;
 
     if (completed) {
-      task.lastCompleted = moment(now).subtract({days: 1}).toDate();
+      if (task.history && task.history.length) {
+        const lastHistoryEntry = task.history[task.history.length - 1];
+        task.lastCompleted = moment(lastHistoryEntry.date).toDate();
+      } else {
+        task.lastCompleted = moment(now).subtract({days: 1}).toDate();
+      }
+
       dailyChecked += 1;
       if (!atLeastOneDailyDue) { // only bother checking until the first thing is found
         let thatDay = moment(now).subtract({days: daysMissed});
