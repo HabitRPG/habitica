@@ -117,6 +117,11 @@
             .input-group
               input.form-control(type="number", v-model="task.everyX", min="0", max="9999", required, :disabled='challengeAccessRequired')
               .input-group-append.input-group-text {{ repeatSuffix }}
+          template(v-if="task.frequency === 'daily'")
+            .form-check
+              .custom-control.custom-checkbox.custom-control-inline
+                input.custom-control-input(type='checkbox', v-model="task.repeatAfterCompletion", id="repeatAfterCompletion")
+                label.custom-control-label(for="repeatAfterCompletion") {{ $t('repeatAfterCompletionTitle', {everyX: task.everyX}) }}
           template(v-if="task.frequency === 'weekly'")
             .form-group
               label.d-block(v-once) {{ $t('repeatOn') }}

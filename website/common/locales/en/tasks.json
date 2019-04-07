@@ -176,6 +176,7 @@
   "taskApprovalWasNotRequested": "Only a task waiting for approval can be marked as needing more work",
   "approvals": "Approvals",
   "approvalRequired": "Needs Approval",
+  "repeatAfterCompletionTitle": "Repeat Every <%= everyX %> Days Since Last Completed",
   "repeatZero": "Daily is never due",
   "repeatType": "Repeat Type",
   "repeatTypeHelpTitle": "What kind of repeat is this?",
