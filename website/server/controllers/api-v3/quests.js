@@ -377,8 +377,8 @@ api.cancelQuest = {
     group.markModified('quest');
 
     let [savedGroup] = await Promise.all([
-      newChatMessage.save(),
       group.save(),
+      newChatMessage.save(),
       User.update(
         {'party._id': groupId},
         Group.cleanQuestParty(),
