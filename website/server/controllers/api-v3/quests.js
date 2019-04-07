@@ -372,12 +372,12 @@ api.cancelQuest = {
 
     let questName = questScrolls[group.quest.key].text('en');
     const newChatMessage = group.sendChat(`\`${user.profile.name} cancelled the party quest ${questName}.\``);
-    await newChatMessage.save();
 
     group.quest = Group.cleanGroupQuest();
     group.markModified('quest');
 
     let [savedGroup] = await Promise.all([
+      newChatMessage.save(),
       group.save(),
       User.update(
         {'party._id': groupId},
