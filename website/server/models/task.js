@@ -250,10 +250,12 @@ export let Task = mongoose.model('Task', TaskSchema);
 
 // habits and dailies shared fields
 let habitDailySchema = () => {
-  // Schema not defined because it causes serious perf problems
+  // Schema not defined because it causes serious perf problems.
+  // Expected `history` structure is an array of objects, with each object having
+  // one each of `date`, `value`, `scoredUp`, and `scoredDown` attributes.
   // date is a date stored as a Number value
   // value is a Number
-  // scoredUp and scoredDown only exist for habits and are numbers
+  // scoredUp and scoredDown only exist for Habits and are numbers
   return {history: Array};
 };
 
