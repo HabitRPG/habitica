@@ -12,6 +12,7 @@ import {
 import apiError from '../libs/apiError';
 
 const partyMembersFields = 'profile.name stats achievements items.special notifications flags';
+// Excluding notifications and flags from the list of public fields to return.
 const partyMembersPublicFields = 'profile.name stats achievements items.special';
 
 // @TODO: After refactoring individual spells, move quantity to the calculations
