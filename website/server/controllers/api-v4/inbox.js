@@ -72,4 +72,17 @@ api.clearMessages = {
   },
 };
 
+api.conversations = {
+  method: 'GET',
+  middlewares: [authWithHeaders()],
+  url: '/inbox/conversations',
+  async handler (req, res) {
+    const user = res.locals.user;
+
+    const result = await inboxLib.listConversations(user);
+
+    res.respond(200, result);
+  },
+};
+
 module.exports = api;

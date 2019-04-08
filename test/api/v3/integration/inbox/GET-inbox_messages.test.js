@@ -60,4 +60,10 @@ describe('GET /inbox/messages', () => {
 
     expect(messages.length).to.equal(4);
   });
+
+  it('returns only the messages of one conversation', async () => {
+    const messages = await user.get(`/inbox/messages?conversation=${otherUser.id}`);
+
+    expect(messages.length).to.equal(3);
+  });
 });
