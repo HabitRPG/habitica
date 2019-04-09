@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'NEW BACKGROUNDS AND ARMOIRE ITEMS, MONTHLY CHALLENGES, AND SHINY SEEDS';
+const LAST_ANNOUNCEMENT_TITLE = 'APRIL FOOLS CHALLENGE WINNERS, GARDEN HATCHING POTIONS, AND SPRING AVATAR CUSTOMIZATIONS';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,30 +30,25 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>4/2/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>4/9/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_armoire_backgrounds_201904 center-block"></div>
-        <h3>April Backgrounds and Armoire Items</h3>
-        <p>We’ve added three new backgrounds to the Background Shop! Now your avatar can visit a Halfling's House, dally through a peaceful Birch Forest, and take in the Superbloom in the Blossoming Desert. Check them out under User Icon > Backgrounds!</p>
-        <p>Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including some fun joke props in honor of April Fool's Day! Better work hard on your real-life tasks to earn all the pieces! Enjoy :)</p>
-        <div class="small mb-3">by Vikte, QuartzFox, Katy133, GeraldThePixel, and Gully</div>
-        <div class="scene_hat_guild center-block"></div>
-        <h3>April 2019 Resolution Success Challenge and New Take This Challenge</h3>
-        <p>The Habitica team has launched a special official Challenge series hosted in the <a href='/groups/guild/6e6a8bd3-9f5f-4351-9188-9f11fcd80a99' target='_blank'>Official New Year's Resolution Guild</a>. These Challenges are designed to help you build and maintain goals that are destined for success and then stick with them as the year progresses. For this month's Challenge, <a href='/challenges/ae4a6ab8-e4c7-46fb-ba48-a5f05610a55d'>Gather Your Party</a>, we're focusing on finding encouraging allies to help you gain accountability for your goals! It has a 15 Gem prize, which will be awarded to five lucky winners on May 1st.</p>
-        <p>Congratulations to the winners of March's Challenge, DcryptMart, LONEW0LF, Elcaracol, DungeonMasterful, and 7NationTpr!</p>
-        <div class="promo_take_this center-block"></div>
-        <p>The next Take This Challenge has also launched, "<a href='/challenges/5712376e-89f1-4f8b-89eb-8f94026d0da9'>Harder, Faster, Stronger!</a>", with a focus on setting and meeting physical activity goals. Be sure to check it out to earn additional pieces of the Take This armor set!</p>
-        <p><a href='http://www.takethis.org/' target='_blank'>Take This</a> is a nonprofit that seeks to inform the gamer community about mental health issues, to provide education about mental disorders and mental illness prevention, and to reduce the stigma of mental illness.</p>
-        <p>Congratulations to the winners of the last Take This Challenge, "Do One Thing Well!": grand prize winner Денис Кадников, and runners-up addone, alihenri, Hemogoblin3991, Kalu_Ienvru, and gabriellamara! Plus, all participants in that Challenge have received a piece of the <a href='http://habitica.wikia.com/wiki/Event_Item_Sequences#Take_This_Armor_Set' target='_blank'>Take This item set</a> if they hadn't completed it already. It is located in your Rewards column. Enjoy!</p>
-        <div class="small mb-3">by Doctor B, the Take This team, Lemoness, Beffymaroo, and SabreCat</div>
-        <div class="promo_shiny_seeds center-block"></div>
-        <h3>Shiny Seeds</h3>
-        <p>Throw a Shiny Seed at your friends and they will turn into a cheerful flower until their next cron! You can buy the Seeds in the <a href='/shops/seasonal'>Seasonal Shop</a> for Gold. Plus, if you get transformed by a Shiny Seed, you'll receive the Agricultural Friends badge!</p>
-        <p>Don't want to be a flower? Just buy some Petal-Free Potion from your Rewards column to reverse it.</p>
-        <p>Shiny Seeds will be available in the <a href='/shops/seasonal'>Seasonal Shop</a> until April 30th!</p>
-        <div class="small mb-3">by Lemoness</div>
+        <h3>April Fool's Challenge Winners and Blog Post!</h3>
+        <p>The winners of the April Fool's Social Media Challenge have been selected! Congratulations to: isaaleonardo, Bee_, kitt-haven, alittleofeverything, and Zelah_Meyer!</p>
+        <p>Thank you to everyone who shared their awesome pics with their fruit and veggie pets! You can see a fun <a href='https://habitica.wordpress.com/2019/04/09/guac-this-way-fruit-and-veggie-pet-pics-from-habiticas-april-fools-celebration/' target='_blank'>recap of the shenanigans on our blog</a>. Stay tuned to see what wacky antics the Fool gets up to next year!</p>
+        <div class="promo_april_fools_2019 center-block"></div>
+        <h3>Garden Magic Hatching Potions</h3>
+        <p>The April Fool returns to the Tavern, wearing his trademarked mischievious grin and pulling a wagon whose contents are covered with a colorful cloth.</p>
+        <p>"I'm so glad everyone enjoyed my <strong>wholesome</strong> joke!" he declares, tossing confetti in the air as he often does. "Since you all had so much fun, I've brought you another surprise!"</p>
+        <p>He dramatically pulls away the cloth to reveal that the wagon is filled with potion bottles! Each bottle seems to contain a shape-shifting vegetable.</p>
+        <p>"Now you can keep your fruit and veggie pets all year round!" he says. "Take good care of them, and I'll see you all again soon. I guess I've really outdone myself so I have some serious planning to do before next year..." With that, the Fool takes his leave, disappearing in a puff of lettuce leaves and leaving the cart full of potions.</p>
+        <p>Thanks to the April Fool, you can purchase Garden Magic Hatching Potions in the Market between now and April 30! Garden pets do not have mount forms (yet!) so keep that in mind when you're purchasing. After they're gone, it will be at least a year before Garden Magic Potions are available again, so be sure to get them now!</p>
+        <div class="small mb-3">by Beffymaroo, Piyo, and SabreCat</div>
+        <div class="promo_spring_avatar_customizations center-block"></div>
+        <h3>Shimmer Hair Colors and Pastel Skin Set</h3>
+        <p>The Seasonal Edition Shimmer Hair Colors and Pastel Skin Set are now available for purchase in the User > Edit Avatar! These skin sets will only be available to purchase until April 30th, and then they will disappear from the shop until next Spring Fling. If you buy them, though, you will have access to them year-round!</p>
+        <div class="small mb-3">by Lemoness and McCoyly</div>
       </div>
       `,
     });
