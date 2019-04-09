@@ -10,6 +10,7 @@ module.exports = function getLoginIncentives (api) {
       reward: [api.gear.flat.armor_special_bardRobes],
       assignReward: function assignReward (user) {
         user.items.gear.owned.armor_special_bardRobes = true; // eslint-disable-line camelcase
+        if (user.markModified) user.markModified('items.gear.owned');
       },
     },
     2: {
@@ -30,6 +31,7 @@ module.exports = function getLoginIncentives (api) {
       reward: [api.gear.flat.head_special_bardHat],
       assignReward: function assignReward (user) {
         user.items.gear.owned.head_special_bardHat = true; // eslint-disable-line camelcase
+        if (user.markModified) user.markModified('items.gear.owned');
       },
     },
     4: {
@@ -38,6 +40,7 @@ module.exports = function getLoginIncentives (api) {
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
         user.items.hatchingPotions.RoyalPurple += 1;
+        if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
     5: {
@@ -50,6 +53,7 @@ module.exports = function getLoginIncentives (api) {
         user.items.food.Meat += 1;
         if (!user.items.food.CottonCandyPink) user.items.food.CottonCandyPink = 0;
         user.items.food.CottonCandyPink += 1;
+        if (user.markModified) user.markModified('items.food');
       },
     },
     7: {
@@ -58,6 +62,7 @@ module.exports = function getLoginIncentives (api) {
       assignReward: function assignReward (user) {
         if (!user.items.quests.moon1) user.items.quests.moon1 = 0;
         user.items.quests.moon1 += 1;
+        if (user.markModified) user.markModified('items.quests');
       },
     },
     10: {
@@ -66,6 +71,7 @@ module.exports = function getLoginIncentives (api) {
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
         user.items.hatchingPotions.RoyalPurple += 1;
+        if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
     14: {
@@ -78,6 +84,7 @@ module.exports = function getLoginIncentives (api) {
         user.items.food.Potatoe += 1;
         if (!user.items.food.CottonCandyBlue) user.items.food.CottonCandyBlue = 0;
         user.items.food.CottonCandyBlue += 1;
+        if (user.markModified) user.markModified('items.food');
       },
     },
     18: {
@@ -85,6 +92,7 @@ module.exports = function getLoginIncentives (api) {
       reward: [api.gear.flat.weapon_special_bardInstrument],
       assignReward: function assignReward (user) {
         user.items.gear.owned.weapon_special_bardInstrument = true; // eslint-disable-line camelcase
+        if (user.markModified) user.markModified('items.gear.owned');
       },
     },
     22: {
@@ -93,6 +101,7 @@ module.exports = function getLoginIncentives (api) {
       assignReward: function assignReward (user) {
         if (!user.items.quests.moon2) user.items.quests.moon2 = 0;
         user.items.quests.moon2 += 1;
+        if (user.markModified) user.markModified('items.quests');
       },
     },
     26: {
@@ -101,6 +110,7 @@ module.exports = function getLoginIncentives (api) {
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
         user.items.hatchingPotions.RoyalPurple += 1;
+        if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
     30: {
@@ -115,6 +125,7 @@ module.exports = function getLoginIncentives (api) {
         user.items.food.RottenMeat += 1;
         if (!user.items.food.Honey) user.items.food.Honey = 0;
         user.items.food.Honey += 1;
+        if (user.markModified) user.markModified('items.food');
       },
     },
     35: {
@@ -123,6 +134,7 @@ module.exports = function getLoginIncentives (api) {
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
         user.items.hatchingPotions.RoyalPurple += 1;
+        if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
     40: {
@@ -131,6 +143,7 @@ module.exports = function getLoginIncentives (api) {
       assignReward: function assignReward (user) {
         if (!user.items.quests.moon3) user.items.quests.moon3 = 0;
         user.items.quests.moon3 += 1;
+        if (user.markModified) user.markModified('items.quests');
       },
     },
     45: {
@@ -139,6 +152,7 @@ module.exports = function getLoginIncentives (api) {
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
         user.items.hatchingPotions.RoyalPurple += 1;
+        if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
     50: {
@@ -147,6 +161,7 @@ module.exports = function getLoginIncentives (api) {
       assignReward: function assignReward (user) {
         if (!user.items.food.Saddle) user.items.food.Saddle = 0;
         user.items.food.Saddle += 1;
+        if (user.markModified) user.markModified('items.food');
       },
     },
     55: {
@@ -155,6 +170,7 @@ module.exports = function getLoginIncentives (api) {
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
         user.items.hatchingPotions.RoyalPurple += 1;
+        if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
     60: {
@@ -162,6 +178,7 @@ module.exports = function getLoginIncentives (api) {
       reward: [api.gear.flat.armor_special_pageArmor],
       assignReward: function assignReward (user) {
         user.items.gear.owned.armor_special_pageArmor = true; // eslint-disable-line camelcase
+        if (user.markModified) user.markModified('items.gear.owned');
       },
     },
     65: {
@@ -170,6 +187,7 @@ module.exports = function getLoginIncentives (api) {
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
         user.items.hatchingPotions.RoyalPurple += 1;
+        if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
     70: {
@@ -177,6 +195,7 @@ module.exports = function getLoginIncentives (api) {
       reward: [api.gear.flat.head_special_pageHelm],
       assignReward: function assignReward (user) {
         user.items.gear.owned.head_special_pageHelm = true; // eslint-disable-line camelcase
+        if (user.markModified) user.markModified('items.gear.owned');
       },
     },
     75: {
@@ -185,6 +204,7 @@ module.exports = function getLoginIncentives (api) {
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
         user.items.hatchingPotions.RoyalPurple += 1;
+        if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
     80: {
@@ -192,6 +212,7 @@ module.exports = function getLoginIncentives (api) {
       reward: [api.gear.flat.weapon_special_pageBanner],
       assignReward: function assignReward (user) {
         user.items.gear.owned.weapon_special_pageBanner = true; // eslint-disable-line camelcase
+        if (user.markModified) user.markModified('items.gear.owned');
       },
     },
     85: {
@@ -200,6 +221,7 @@ module.exports = function getLoginIncentives (api) {
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
         user.items.hatchingPotions.RoyalPurple += 1;
+        if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
     90: {
@@ -207,6 +229,7 @@ module.exports = function getLoginIncentives (api) {
       reward: [api.gear.flat.shield_special_diamondStave],
       assignReward: function assignReward (user) {
         user.items.gear.owned.shield_special_diamondStave = true; // eslint-disable-line camelcase
+        if (user.markModified) user.markModified('items.gear.owned');
       },
     },
     95: {
@@ -215,6 +238,7 @@ module.exports = function getLoginIncentives (api) {
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
         user.items.hatchingPotions.RoyalPurple += 1;
+        if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
     100: {
@@ -223,6 +247,7 @@ module.exports = function getLoginIncentives (api) {
       assignReward: function assignReward (user) {
         if (!user.items.food.Saddle) user.items.food.Saddle = 0;
         user.items.food.Saddle += 1;
+        if (user.markModified) user.markModified('items.food');
       },
     },
     105: {
@@ -231,6 +256,7 @@ module.exports = function getLoginIncentives (api) {
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
         user.items.hatchingPotions.RoyalPurple += 1;
+        if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
     110: {
@@ -256,6 +282,7 @@ module.exports = function getLoginIncentives (api) {
         user.items.eggs.TigerCub += 1;
         if (!user.items.eggs.Wolf) user.items.eggs.Wolf = 0;
         user.items.eggs.Wolf += 1;
+        if (user.markModified) user.markModified('items.eggs');
       },
     },
     115: {
@@ -264,6 +291,7 @@ module.exports = function getLoginIncentives (api) {
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
         user.items.hatchingPotions.RoyalPurple += 1;
+        if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
     120: {
@@ -291,6 +319,7 @@ module.exports = function getLoginIncentives (api) {
         user.items.hatchingPotions.White += 1;
         if (!user.items.hatchingPotions.Zombie) user.items.hatchingPotions.Zombie = 0;
         user.items.hatchingPotions.Zombie += 1;
+        if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
     125: {
@@ -299,6 +328,7 @@ module.exports = function getLoginIncentives (api) {
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
         user.items.hatchingPotions.RoyalPurple += 1;
+        if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
     130: {
@@ -326,6 +356,7 @@ module.exports = function getLoginIncentives (api) {
         user.items.food.Milk += 3;
         if (!user.items.food.RottenMeat) user.items.food.RottenMeat = 0;
         user.items.food.RottenMeat += 3;
+        if (user.markModified) user.markModified('items.food');
       },
     },
     135: {
@@ -334,6 +365,7 @@ module.exports = function getLoginIncentives (api) {
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
         user.items.hatchingPotions.RoyalPurple += 1;
+        if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
     140: {
@@ -342,6 +374,7 @@ module.exports = function getLoginIncentives (api) {
       assignReward: function assignReward (user) {
         user.items.gear.owned.weapon_special_skeletonKey = true; // eslint-disable-line camelcase
         user.items.gear.owned.shield_special_lootBag = true; // eslint-disable-line camelcase
+        if (user.markModified) user.markModified('items.gear.owned');
       },
     },
     145: {
@@ -350,6 +383,7 @@ module.exports = function getLoginIncentives (api) {
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
         user.items.hatchingPotions.RoyalPurple += 1;
+        if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
     150: {
@@ -358,6 +392,7 @@ module.exports = function getLoginIncentives (api) {
       assignReward: function assignReward (user) {
         user.items.gear.owned.head_special_clandestineCowl = true; // eslint-disable-line camelcase
         user.items.gear.owned.armor_special_sneakthiefRobes = true; // eslint-disable-line camelcase
+        if (user.markModified) user.markModified('items.gear.owned');
       },
     },
     160: {
@@ -366,6 +401,7 @@ module.exports = function getLoginIncentives (api) {
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
         user.items.hatchingPotions.RoyalPurple += 1;
+        if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
     170: {
@@ -374,6 +410,7 @@ module.exports = function getLoginIncentives (api) {
       assignReward: function assignReward (user) {
         user.items.gear.owned.head_special_snowSovereignCrown = true; // eslint-disable-line camelcase
         user.items.gear.owned.armor_special_snowSovereignRobes = true; // eslint-disable-line camelcase
+        if (user.markModified) user.markModified('items.gear.owned');
       },
     },
     180: {
@@ -382,6 +419,7 @@ module.exports = function getLoginIncentives (api) {
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
         user.items.hatchingPotions.RoyalPurple += 1;
+        if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
     190: {
@@ -390,6 +428,7 @@ module.exports = function getLoginIncentives (api) {
       assignReward: function assignReward (user) {
         user.items.gear.owned.shield_special_wintryMirror = true; // eslint-disable-line camelcase
         user.items.gear.owned.back_special_snowdriftVeil = true; // eslint-disable-line camelcase
+        if (user.markModified) user.markModified('items.gear.owned');
       },
     },
     200: {
@@ -398,6 +437,7 @@ module.exports = function getLoginIncentives (api) {
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
         user.items.hatchingPotions.RoyalPurple += 1;
+        if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
     220: {
@@ -406,6 +446,7 @@ module.exports = function getLoginIncentives (api) {
       assignReward: function assignReward (user) {
         if (!user.items.food.Saddle) user.items.food.Saddle = 0;
         user.items.food.Saddle += 1;
+        if (user.markModified) user.markModified('items.food');
       },
     },
     240: {
@@ -414,6 +455,7 @@ module.exports = function getLoginIncentives (api) {
       assignReward: function assignReward (user) {
         user.items.gear.owned.weapon_special_nomadsScimitar = true; // eslint-disable-line camelcase
         user.items.gear.owned.armor_special_nomadsCuirass = true; // eslint-disable-line camelcase
+        if (user.markModified) user.markModified('items.gear.owned');
       },
     },
     260: {
@@ -421,6 +463,7 @@ module.exports = function getLoginIncentives (api) {
       reward: [api.gear.flat.head_special_spikedHelm],
       assignReward: function assignReward (user) {
         user.items.gear.owned.head_special_spikedHelm = true; // eslint-disable-line camelcase
+        if (user.markModified) user.markModified('items.gear.owned');
       },
     },
     280: {
@@ -448,6 +491,7 @@ module.exports = function getLoginIncentives (api) {
         user.items.food.Milk += 3;
         if (!user.items.food.RottenMeat) user.items.food.RottenMeat = 0;
         user.items.food.RottenMeat += 3;
+        if (user.markModified) user.markModified('items.food');
       },
     },
     300: {
@@ -473,6 +517,7 @@ module.exports = function getLoginIncentives (api) {
         user.items.eggs.TigerCub += 2;
         if (!user.items.eggs.Wolf) user.items.eggs.Wolf = 0;
         user.items.eggs.Wolf += 2;
+        if (user.markModified) user.markModified('items.eggs');
       },
     },
     320: {
@@ -480,6 +525,7 @@ module.exports = function getLoginIncentives (api) {
       reward: [api.gear.flat.head_special_dandyHat],
       assignReward: function assignReward (user) {
         user.items.gear.owned.head_special_dandyHat = true; // eslint-disable-line camelcase
+        if (user.markModified) user.markModified('items.gear.owned');
       },
     },
     340: {
@@ -488,6 +534,7 @@ module.exports = function getLoginIncentives (api) {
       assignReward: function assignReward (user) {
         user.items.gear.owned.weapon_special_fencingFoil = true; // eslint-disable-line camelcase
         user.items.gear.owned.armor_special_dandySuit = true; // eslint-disable-line camelcase
+        if (user.markModified) user.markModified('items.gear.owned');
       },
     },
     360: {
@@ -497,6 +544,7 @@ module.exports = function getLoginIncentives (api) {
       assignReward: function assignReward (user) {
         if (!user.items.food.Saddle) user.items.food.Saddle = 0;
         user.items.food.Saddle += 2;
+        if (user.markModified) user.markModified('items.food');
       },
     },
     380: {
@@ -522,6 +570,7 @@ module.exports = function getLoginIncentives (api) {
         user.items.eggs.TigerCub += 3;
         if (!user.items.eggs.Wolf) user.items.eggs.Wolf = 0;
         user.items.eggs.Wolf += 3;
+        if (user.markModified) user.markModified('items.eggs');
       },
     },
     400: {
@@ -549,6 +598,7 @@ module.exports = function getLoginIncentives (api) {
         user.items.food.Milk += 4;
         if (!user.items.food.RottenMeat) user.items.food.RottenMeat = 0;
         user.items.food.RottenMeat += 4;
+        if (user.markModified) user.markModified('items.food');
       },
     },
     425: {
@@ -558,6 +608,7 @@ module.exports = function getLoginIncentives (api) {
       assignReward: function assignReward (user) {
         if (!user.items.food.Saddle) user.items.food.Saddle = 0;
         user.items.food.Saddle += 3;
+        if (user.markModified) user.markModified('items.food');
       },
     },
     450: {
@@ -566,6 +617,7 @@ module.exports = function getLoginIncentives (api) {
       assignReward: function assignReward (user) {
         user.items.gear.owned.weapon_special_tachi = true; // eslint-disable-line camelcase
         user.items.gear.owned.armor_special_samuraiArmor = true; // eslint-disable-line camelcase
+        if (user.markModified) user.markModified('items.gear.owned');
       },
     },
     475: {
@@ -574,6 +626,7 @@ module.exports = function getLoginIncentives (api) {
       assignReward: function assignReward (user) {
         user.items.gear.owned.head_special_kabuto = true; // eslint-disable-line camelcase
         user.items.gear.owned.shield_special_wakizashi = true; // eslint-disable-line camelcase
+        if (user.markModified) user.markModified('items.gear.owned');
       },
     },
     500: {

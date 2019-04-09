@@ -165,6 +165,8 @@ let bannedWords = [
 
   'heroin',
   'cocaine',
+
+  'pewdiepie',
 ];
 
 module.exports = bannedWords;

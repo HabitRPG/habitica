@@ -204,6 +204,8 @@ api.updateUsername = {
       } else {
         user.items.pets['Wolf-Veteran'] = 5;
       }
+
+      user.markModified('items.pets');
     }
     await user.save();
 

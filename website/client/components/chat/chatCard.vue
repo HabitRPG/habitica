@@ -269,7 +269,8 @@ export default {
       return highlightUsers(text, this.user.auth.local.username, this.user.profile.name);
     },
     parseMarkdown (text) {
-      return habiticaMarkdown.render(text);
+      if (!text) return;
+      return habiticaMarkdown.render(String(text));
     },
   },
 };

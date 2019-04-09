@@ -68,6 +68,7 @@ export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation {
   executeChanges (user, item, req) {
     if (!user.items.quests[item.key] || user.items.quests[item.key] < 0) user.items.quests[item.key] = 0;
     user.items.quests[item.key] += this.quantity;
+    if (user.markModified) user.markModified('items.quests');
 
     this.subtractCurrency(user, item, this.quantity);
 
