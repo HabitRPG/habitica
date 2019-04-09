@@ -34,7 +34,7 @@
       h2.col-12.loading(v-if='loading') {{ $t('loading') }}
 
     .row
-      .col-12.text-center(v-if='!loading && filteredChallenges.length > 0')
+      .col-12.text-center(v-if='showLoadMore && !loading && filteredChallenges.length > 0')
         button.btn.btn-flat.btn-show-more(@click='loadMore()') {{ $t('loadMore') }}
 </template>
 
@@ -103,6 +103,7 @@ export default {
         positiveIcon,
       }),
       loading: false,
+      showLoadMore: true,
       challenges: [],
       sort: 'none',
       sortOptions: [
@@ -199,6 +200,9 @@ export default {
       } else {
         this.challenges = this.challenges.concat(challenges);
       }
+
+      // only show the load more Button if the max count was returned
+      this.showLoadMore = challenges.length === 10;
 
       this.loading = false;
     },
