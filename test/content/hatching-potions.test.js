@@ -9,13 +9,14 @@ import hatchingPotions from '../../website/common/script/content/hatching-potion
 
 describe('hatchingPotions', ()  => {
   describe('all', ()  => {
-    it('is a combination of drop and premium potions', () => {
+    it('is a combination of drop, premium, and wacky potions', () => {
       let dropNumber = Object.keys(hatchingPotions.drops).length;
       let premiumNumber = Object.keys(hatchingPotions.premium).length;
+      let wackyNumber = Object.keys(hatchingPotions.wacky).length;
       let allNumber = Object.keys(hatchingPotions.all).length;
 
       expect(allNumber).to.be.greaterThan(0);
-      expect(allNumber).to.equal(dropNumber + premiumNumber);
+      expect(allNumber).to.equal(dropNumber + premiumNumber + wackyNumber);
     });
 
     it('contains basic information about each potion', () => {

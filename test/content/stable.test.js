@@ -47,6 +47,18 @@ describe('stable', ()  => {
     });
   });
 
+  describe('wackyPets', () => {
+    it('contains a pet for each wacky potion * each drop egg', () => {
+      let numberOfWackyPotions = Object.keys(potions.wacky).length;
+      let numberOfDropEggs = Object.keys(eggs.drops).length;
+      let numberOfWackyPets = Object.keys(stable.wackyPets).length;
+      let expectedTotal = numberOfWackyPotions * numberOfDropEggs;
+
+      expect(numberOfWackyPets).to.be.greaterThan(0);
+      expect(numberOfWackyPets).to.equal(expectedTotal);
+    });
+  });
+
   describe('specialPets', () => {
     it('each value is a valid translation string', () => {
       each(stable.specialPets, (pet) => {
@@ -107,10 +119,11 @@ describe('stable', ()  => {
       let questNumber = Object.keys(stable.questPets).length;
       let specialNumber = Object.keys(stable.specialPets).length;
       let premiumNumber = Object.keys(stable.premiumPets).length;
+      let wackyNumber = Object.keys(stable.wackyPets).length;
       let allNumber = Object.keys(stable.petInfo).length;
 
       expect(allNumber).to.be.greaterThan(0);
-      expect(allNumber).to.equal(dropNumber + questNumber + specialNumber + premiumNumber);
+      expect(allNumber).to.equal(dropNumber + questNumber + specialNumber + premiumNumber + wackyNumber);
     });
 
     it('contains basic information about each pet', () => {
