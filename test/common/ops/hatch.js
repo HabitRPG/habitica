@@ -93,6 +93,22 @@ describe('shared.ops.hatch', () => {
           done();
         }
       });
+
+      it('does not allow hatching quest pet egg using wacky potion', (done) => {
+        user.items.eggs = {Bunny: 1};
+        user.items.hatchingPotions = {Veggie: 1};
+        user.items.pets = {};
+        try {
+          hatch(user, {params: {egg: 'Bunny', hatchingPotion: 'Veggie'}});
+        } catch (err) {
+          expect(err).to.be.an.instanceof(BadRequest);
+          expect(err.message).to.equal(i18n.t('messageInvalidEggPotionCombo'));
+          expect(user.items.pets).to.be.empty;
+          expect(user.items.eggs).to.eql({Bunny: 1});
+          expect(user.items.hatchingPotions).to.eql({Veggie: 1});
+          done();
+        }
+      });
     });
 
     context('successful hatching', () => {
