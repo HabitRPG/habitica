@@ -2,14 +2,6 @@
   .amazon-pay-button(:id="buttonId")
 </template>
 
-<style scoped>
-  .amazon-pay-button {
-    width: 150px;
-    margin-bottom: 12px;
-    margin: 0 auto;
-  }
-</style>
-
 <script>
 import axios from 'axios';
 import { mapState } from 'client/libs/store';
@@ -43,6 +35,10 @@ export default {
   },
   props: {
     amazonData: Object,
+    amazonDisabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     ...mapState({user: 'user.data'}),
@@ -54,6 +50,11 @@ export default {
         return this.amazonPayments.paymentSelected && this.amazonPayments.recurringConsent;
       }
       return false;
+    },
+  },
+  watch: {
+    amazonData () {
+      this.amazonPaymentsInit(this.amazonData);
     },
   },
   beforeMount () {
@@ -80,9 +81,11 @@ export default {
         {
           type: 'PwA',
           color: 'Gold',
-          size: 'small',
+          size: 'large',
           agreementType: 'BillingAgreement',
           onSignIn: async (contract) => { // @TODO send to modal
+            if (this.amazonDisabled === true) return null;
+            // if (!this.checkGemAmount(this.amazonData)) return;
             this.amazonPayments.billingAgreementId = contract.getAmazonBillingAgreementId();
 
             this.$set(this.amazonPayments, 'loggedIn', true);
@@ -90,8 +93,7 @@ export default {
             this.$root.$emit('habitica::pay-with-amazon', this.amazonPayments);
           },
           authorization: () => {
-            this.amazonPaymentsInit(this.amazonData);
-
+            if (this.amazonDisabled === true) return null;
             window.amazon.Login.authorize({
               scope: 'payments:widget',
               popup: true,

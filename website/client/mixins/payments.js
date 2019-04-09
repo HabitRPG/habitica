@@ -223,7 +223,6 @@ export default {
       return true;
     },
     amazonPaymentsInit (data) {
-      if (!this.checkGemAmount(data)) return;
       if (data.type !== 'single' && data.type !== 'subscription') return;
 
       if (data.gift) {

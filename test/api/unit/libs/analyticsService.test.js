@@ -335,14 +335,13 @@ describe('analyticsService', () => {
     let data, itemSpy;
 
     beforeEach(() => {
+      Visitor.prototype.event.yields();
+
       itemSpy = sandbox.stub().returnsThis();
 
-      Visitor.prototype.event.returns({
-        send: sandbox.stub(),
-      });
       Visitor.prototype.transaction.returns({
         item: itemSpy,
-        send: sandbox.stub().returnsThis(),
+        send: sandbox.stub().yields(),
       });
 
       data = {

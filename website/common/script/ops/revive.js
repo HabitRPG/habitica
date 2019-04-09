@@ -87,6 +87,7 @@ module.exports = function revive (user, req = {}, analytics) {
     removePinnedGearByClass(user);
 
     user.items.gear.owned[lostItem] = false;
+    if (user.markModified) user.markModified('items.gear.owned');
 
     addPinnedGearByClass(user);
 

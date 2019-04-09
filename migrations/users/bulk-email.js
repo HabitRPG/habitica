@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { sendTxn } from '../../../website/server/libs/email';
+import { sendTxn } from '../../website/server/libs/email';
 import { model as User } from '../../website/server/models/user';
 import moment from 'moment';
 import nconf from 'nconf';

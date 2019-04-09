@@ -20,9 +20,6 @@ function buyItem (store, params) {
 
   let opResult = buyOp(user, {params, quantity});
 
-  user.pinnedItems = opResult[0].pinnedItems;
-
-
   return {
     result: opResult,
     httpCall: axios.post(`/api/v4/user/buy/${params.key}`),
