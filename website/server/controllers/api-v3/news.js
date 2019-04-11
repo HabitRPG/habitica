@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'APRIL FOOLS CHALLENGE WINNERS, GARDEN HATCHING POTIONS, AND SPRING AVATAR CUSTOMIZATIONS';
+const LAST_ANNOUNCEMENT_TITLE = 'HABITICA BLOGS: GUILD SPOTLIGHT AND WIKI SPOTLIGHT';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,25 +30,18 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>4/9/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>4/11/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <h3>April Fool's Challenge Winners and Blog Post!</h3>
-        <p>The winners of the April Fool's Social Media Challenge have been selected! Congratulations to: isaaleonardo, Bee_, kitt-haven, alittleofeverything, and Zelah_Meyer!</p>
-        <p>Thank you to everyone who shared their awesome pics with their fruit and veggie pets! You can see a fun <a href='https://habitica.wordpress.com/2019/04/09/guac-this-way-fruit-and-veggie-pet-pics-from-habiticas-april-fools-celebration/' target='_blank'>recap of the shenanigans on our blog</a>. Stay tuned to see what wacky antics the Fool gets up to next year!</p>
-        <div class="promo_april_fools_2019 center-block"></div>
-        <h3>Garden Magic Hatching Potions</h3>
-        <p>The April Fool returns to the Tavern, wearing his trademarked mischievious grin and pulling a wagon whose contents are covered with a colorful cloth.</p>
-        <p>"I'm so glad everyone enjoyed my <strong>wholesome</strong> joke!" he declares, tossing confetti in the air as he often does. "Since you all had so much fun, I've brought you another surprise!"</p>
-        <p>He dramatically pulls away the cloth to reveal that the wagon is filled with potion bottles! Each bottle seems to contain a shape-shifting vegetable.</p>
-        <p>"Now you can keep your fruit and veggie pets all year round!" he says. "Take good care of them, and I'll see you all again soon. I guess I've really outdone myself so I have some serious planning to do before next year..." With that, the Fool takes his leave, disappearing in a puff of lettuce leaves and leaving the cart full of potions.</p>
-        <p>Thanks to the April Fool, you can purchase Garden Magic Hatching Potions in the Market between now and April 30! Garden pets do not have mount forms (yet!) so keep that in mind when you're purchasing. After they're gone, it will be at least a year before Garden Magic Potions are available again, so be sure to get them now!</p>
-        <div class="small mb-3">by Beffymaroo, Piyo, and SabreCat</div>
-        <div class="promo_spring_avatar_customizations center-block"></div>
-        <h3>Shimmer Hair Colors and Pastel Skin Set</h3>
-        <p>The Seasonal Edition Shimmer Hair Colors and Pastel Skin Set are now available for purchase in the User > Edit Avatar! These skin sets will only be available to purchase until April 30th, and then they will disappear from the shop until next Spring Fling. If you buy them, though, you will have access to them year-round!</p>
-        <div class="small mb-3">by Lemoness and McCoyly</div>
+        <div class="scene_podcast center-block"></div>
+        <h3>Guild Spotlight: More New and Notable Guilds!</h3>
+        <p>There's a new <a href='https://habitica.wordpress.com/2019/04/11/new-and-notable-guild-spotlight-4/' target='_blank'>Guild Spotlight on the blog</a> that highlights even more new and upcoming Guilds! Check it out now to find new communities where you can discuss your goals and interests.</p>
+        <div class="small mb-3">by shanaqui</div>
+        <div class="scene_burnout center-block"></div>
+        <h3>Blog Post: Burnout</h3>
+        <p>This month's <a href='https://habitica.wordpress.com/2019/04/10/burnout/' target='_blank'>featured Wiki article</a> is about burnout! We hope that it will help you as you balance realistic expectations for productivity. Be sure to check it out, and let us know what you think by reaching out on <a href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a href='https://facebook.com/habitica' target='_blank'>Facebook</a>.</p>
+        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
       </div>
       `,
     });
