@@ -21,13 +21,13 @@
     .row
       .col-12.col-md-6(v-for='challenge in filteredChallenges')
         challenge-item(:challenge='challenge')
-
-    .row
-      h2.col-12.loading(v-if='loading') {{ $t('loading') }}
-
-    .row
-      .col-12.text-center(v-if='showLoadMore && !loading && filteredChallenges.length > 0')
-        button.btn.btn-flat.btn-show-more(@click='loadMore()') {{ $t('loadMore') }}
+      mugen-scroll(
+        :handler="infiniteScrollTrigger",
+        :should-handle="!loading && canLoadMore",
+        :threshold="1",
+        v-show="loading",
+      )
+        h2.col-12.loading(v-once) {{ $t('loading') }}
 </template>
 
 <style lang='scss' scoped>
@@ -75,17 +75,22 @@ import challengeUtilities from 'client/mixins/challengeUtilities';
 
 import positiveIcon from 'assets/svg/positive.svg';
 
+import MugenScroll from 'vue-mugen-scroll';
+
+import debounce from 'lodash/debounce';
+
 export default {
   mixins: [challengeUtilities],
   components: {
     Sidebar,
     ChallengeItem,
     challengeModal,
+    MugenScroll,
   },
   data () {
     return {
       loading: true,
-      showLoadMore: true,
+      canLoadMore: true,
       icons: Object.freeze({
         positiveIcon,
       }),
@@ -169,17 +174,26 @@ export default {
       }
 
       // only show the load more Button if the max count was returned
-      this.showLoadMore = challenges.length === 10;
+      this.canLoadMore = challenges.length === 10;
 
       this.loading = false;
     },
     challengeCreated (challenge) {
       this.challenges.push(challenge);
     },
-    async loadMore () {
+    infiniteScrollTrigger () {
+      // show loading and wait until the loadMore debounced
+      // or else it would trigger on every scrolling-pixel (while not loading)
+      if (this.canLoadMore) {
+        this.loading = true;
+      }
+
+      this.loadMore();
+    },
+    loadMore: debounce(function loadMoreDebounce () {
       this.page += 1;
       this.loadChallenges();
-    },
+    }, 1000),
   },
 };
 </script>
