@@ -41,7 +41,7 @@
     "messageAuthEmailTaken": "Email already taken",
     "messageAuthNoUserFound": "No user c'n be found.",
     "messageAuthMustBeLoggedIn": "Ye must be logged in.",
-    "messageAuthMustIncludeTokens": "Ye must include a token and uid (user id) in yer request",
+    "messageAuthMustIncludeTokens": "Ye must include a token n' uid (User ID) in yer request",
     "messageGroupAlreadyInParty": "Already in a party; try refreshin'.",
     "messageGroupOnlyLeaderCanUpdate": "Only th' group leader c'n update th' group!",
     "messageGroupRequiresInvite": "Can't join a group yer not invited to.",
@@ -62,5 +62,7 @@
     "unallocatedStatsPoints": "You have <span class=\"notification-bold-blue\"><%= points %> unallocated Stat Points</span>",
     "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!",
     "messageDeletedUser": "Sorry, this user has deleted their account.",
-    "messageMissingDisplayName": "Missing display name."
+    "messageMissingDisplayName": "Missing display name.",
+    "reportedMessage": "Ye 'ave reported this message t' fleet captains.",
+    "canDeleteNow": "Ye can now scuttle th' message if ye wish."
 }
