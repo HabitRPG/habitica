@@ -408,5 +408,10 @@
     "backgroundArchaeologicalDigText": "Excavación Arqueológica",
     "backgroundArchaeologicalDigNotes": "Desentierra los secretos del pasado ancestral en una excavación arqueológica.",
     "backgroundScribesWorkshopText": "Taller de Escriba",
-    "backgroundScribesWorkshopNotes": "Escribe tu próximo gran pergamino en un taller de escriba."
+    "backgroundScribesWorkshopNotes": "Escribe tu próximo gran pergamino en un taller de escriba.",
+    "backgroundMedievalKitchenText": "Cocina Medieval",
+    "backgroundOldFashionedBakeryText": "Panadería Antigua",
+    "backgroundOldFashionedBakeryNotes": "Disfrutar de un delicioso olor afuera de una panadería antigua.",
+    "backgroundDuckPondText": "Estanque de Patos",
+    "backgroundDuckPondNotes": "Aves acuáticas libres en el Estanque de Patos."
 }
