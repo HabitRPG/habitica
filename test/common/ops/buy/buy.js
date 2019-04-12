@@ -9,6 +9,7 @@ import {
 import i18n from '../../../../website/common/script/i18n';
 import content from '../../../../website/common/script/content/index';
 import errorMessage from '../../../../website/common/script/libs/errorMessage';
+import { defaultsDeep } from 'lodash';
 
 describe('shared.ops.buy', () => {
   let user;
@@ -16,6 +17,10 @@ describe('shared.ops.buy', () => {
 
   beforeEach(() => {
     user = generateUser({
+      stats: { gp: 200 },
+    });
+
+    defaultsDeep(user, {
       items: {
         gear: {
           owned: {
@@ -26,7 +31,6 @@ describe('shared.ops.buy', () => {
           },
         },
       },
-      stats: { gp: 200 },
     });
 
     sinon.stub(analytics, 'track');

@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'CELEBRATE PI DAY WITH HABITICA!';
+const LAST_ANNOUNCEMENT_TITLE = 'HABITICA BLOGS: GUILD SPOTLIGHT AND WIKI SPOTLIGHT';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,14 +30,18 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>3/14/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>4/11/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_pi_day center-block"></div>
-        <p>Hello Habiticans! In celebration of Pi Day on March 14, we've gifted everyone delicious slices of pie for you all to feed to your pets.</p>
-        <p>We've also given everyone a festive Pi Hat and Shield so you can celebrate in style. Enjoy them, and thanks for being a part of our community!</p>
-        <div class="small mb-3">by Beffymaroo and SabreCat</div>
+        <div class="scene_podcast center-block"></div>
+        <h3>Guild Spotlight: More New and Notable Guilds!</h3>
+        <p>There's a new <a href='https://habitica.wordpress.com/2019/04/11/new-and-notable-guild-spotlight-4/' target='_blank'>Guild Spotlight on the blog</a> that highlights even more new and upcoming Guilds! Check it out now to find new communities where you can discuss your goals and interests.</p>
+        <div class="small mb-3">by shanaqui</div>
+        <div class="scene_burnout center-block"></div>
+        <h3>Blog Post: Burnout</h3>
+        <p>This month's <a href='https://habitica.wordpress.com/2019/04/10/burnout/' target='_blank'>featured Wiki article</a> is about burnout! We hope that it will help you as you balance realistic expectations for productivity. Be sure to check it out, and let us know what you think by reaching out on <a href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a href='https://facebook.com/habitica' target='_blank'>Facebook</a>.</p>
+        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
       </div>
       `,
     });

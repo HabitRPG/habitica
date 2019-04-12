@@ -16,7 +16,7 @@ div
       .action.d-flex.align-items-center(@click='copyAsTodo(msg)')
         .svg-icon(v-html="icons.copy", v-once)
         div(v-once) {{ $t('copyAsTodo') }}
-      .action.d-flex.align-items-center(v-if='user.flags.communityGuidelinesAccepted && msg.uuid !== "system" && !isMessageReported', @click='report(msg)')
+      .action.d-flex.align-items-center(v-if='user.flags.communityGuidelinesAccepted && msg.uuid !== "system" && (!isMessageReported || user.contributor.admin)', @click='report(msg)')
         .svg-icon(v-html="icons.report", v-once)
         div(v-once) {{ $t('report') }}
       .action.d-flex.align-items-center(v-if='msg.uuid === user._id || user.contributor.admin', @click='remove()')
@@ -255,7 +255,8 @@ export default {
       return highlightUsers(text, this.user.auth.local.username, this.user.profile.name);
     },
     parseMarkdown (text) {
-      return habiticaMarkdown.render(text);
+      if (!text) return;
+      return habiticaMarkdown.render(String(text));
     },
   },
 };

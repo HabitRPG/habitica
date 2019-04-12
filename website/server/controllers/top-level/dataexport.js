@@ -95,7 +95,7 @@ async function _getUserDataForExport (user, xmlMode = false) {
       userId: user._id,
     }).exec(),
 
-    inboxLib.getUserInbox(user, false),
+    inboxLib.getUserInbox(user, { asArray: false }),
   ]);
 
   userData.inbox.messages = messages;

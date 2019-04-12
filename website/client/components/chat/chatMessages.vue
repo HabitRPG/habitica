@@ -79,6 +79,10 @@
     padding: 0rem;
     width: 90%;
   }
+
+  .message-scroll .d-flex {
+    min-width: 1px;
+  }
 </style>
 
 <script>

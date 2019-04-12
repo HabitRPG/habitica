@@ -924,6 +924,13 @@ let head = {
     set: 'vernalVestments',
     canOwn: ownsItem('head_armoire_vernalHennin'),
   },
+  tricornHat: {
+    text: t('headArmoireTricornHatText'),
+    notes: t('headArmoireTricornHatNotes', { per: 10 }),
+    value: 100,
+    per: 10,
+    canOwn: ownsItem('head_armoire_tricornHat'),
+  },
 };
 
 let shield = {
@@ -1552,6 +1559,20 @@ let weapon = {
     con: 8,
     set: 'vernalVestments',
     canOwn: ownsItem('weapon_armoire_vernalTaper'),
+  },
+  jugglingBalls: {
+    text: t('weaponArmoireJugglingBallsText'),
+    notes: t('weaponArmoireJugglingBallsNotes', { int: 10 }),
+    value: 100,
+    int: 10,
+    canOwn: ownsItem('weapon_armoire_jugglingBalls'),
+  },
+  slingshot: {
+    text: t('weaponArmoireSlingshotText'),
+    notes: t('weaponArmoireSlingshotNotes', { str: 10 }),
+    value: 100,
+    str: 10,
+    canOwn: ownsItem('weapon_armoire_slingshot'),
   },
 };
 

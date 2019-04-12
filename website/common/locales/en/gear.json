@@ -10,7 +10,7 @@
   "gearNotOwned": "You do not own this item.",
   "noGearItemsOfType": "You don't own any of these.",
   "noGearItemsOfClass": "You already have all your class equipment! More will be released during the Grand Galas, near the solstices and equinoxes.",
-  "classLockedItem": "This item is only available to a specific class. Change your class under the User icon > Settings > Character Build!",
+  "classLockedItem": "This item is only available to a specific class. At level 10 or above, you can change your class under the User icon > Settings > Character Build!",
   "tierLockedItem": "This item is only available once you've purchased the previous items in sequence. Keep working your way up!",
 
   "sortByType": "Type",
@@ -312,6 +312,15 @@
   "weaponSpecialWinter2019HealerText": "Wand of Winter",
   "weaponSpecialWinter2019HealerNotes": "Winter can be a time of rest and healing, and so this wand of winter magic can help to soothe the most grievous hurts. Increases Intelligence by <%= int %>. Limited Edition 2018-2019 Winter Gear.",
 
+  "weaponSpecialSpring2019RogueText": "Lightning Bolt",
+  "weaponSpecialSpring2019RogueNotes": "These weapons contain the power of the sky and rain. We recommend that you not use them while immersed in water. Increases Strength by <%= str %>. Limited Edition 2019 Spring Gear.",
+  "weaponSpecialSpring2019WarriorText": "Stem Sword",
+  "weaponSpecialSpring2019WarriorNotes": "Bad habits cower before this verdant blade. Increases Strength by <%= str %>. Limited Edition 2019 Spring Gear.",
+  "weaponSpecialSpring2019MageText": "Amber Staff",
+  "weaponSpecialSpring2019MageNotes": "There's a mosquito embedded in the stone at the end of this staff! May or may not include Dino DNA. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2019 Spring Gear.",
+  "weaponSpecialSpring2019HealerText": "Spring Song",
+  "weaponSpecialSpring2019HealerNotes": "Your song of flowers and rain will soothe the spirits of all who hear. Increases Intelligence by <%= int %>. Limited Edition 2019 Spring Gear.",
+
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
   "weaponMystery201502Text": "Shimmery Winged Staff of Love and Also Truth",
@@ -409,6 +418,10 @@
   "weaponArmoireChefsSpoonNotes": "Raise it as you release your battle cry: “SPOOOON!!” Increases Intelligence by <%= int %>. Enchanted Armoire: Chef Set (Item 3 of 4).",
   "weaponArmoireVernalTaperText": "Vernal Taper",
   "weaponArmoireVernalTaperNotes": "The days are getting longer, but this candle will help you find your way before sunrise. Increases Constitution by <%= con %>. Enchanted Armoire: Vernal Vestments Set (Item 3 of 3).",
+  "weaponArmoireJugglingBallsText": "Juggling Balls",
+  "weaponArmoireJugglingBallsNotes": "Habiticans are master multi-taskers, so you should have no trouble keeping all these balls in the air! Increases Intelligence by <%= int %>. Enchanted Armoire: Independent Item.",
+  "weaponArmoireSlingshotText": "Slingshot",
+  "weaponArmoireSlingshotNotes": "Take aim at your red Dailies! Increases Strength by <%= str %>. Enchanted Armoire: Independent Item.",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -701,6 +714,15 @@
   "armorSpecialWinter2019HealerText": "Midnight Robe",
   "armorSpecialWinter2019HealerNotes": "Without darkness, there wouldn't be any light. These dark robes help bring peace and rest to promote healing. Increases Constitution by <%= con %>. Limited Edition 2018-2019 Winter Gear.",
 
+  "armorSpecialSpring2019RogueText": "Cloud Armor",
+  "armorSpecialSpring2019RogueNotes": "Some very tuff fluff. Increases Perception by <%= per %>. Limited Edition 2019 Spring Gear.",
+  "armorSpecialSpring2019WarriorText": "Orchid Armor",
+  "armorSpecialSpring2019WarriorNotes": "Steely armor of reinforced petals protects your heart and also looks pretty snazzy. Increases Constitution by <%= con %>. Limited Edition 2019 Spring Gear.",
+  "armorSpecialSpring2019MageText": "Amber Robes",
+  "armorSpecialSpring2019MageNotes": "These robes gather power from magic resin embedded in the fibers of ancient bark that compose the cloth. Increases Intelligence by <%= int %>. Limited Edition 2019 Spring Gear.",
+  "armorSpecialSpring2019HealerText": "Robin Costume",
+  "armorSpecialSpring2019HealerNotes": "Your bright feathers will let everyone know that the cold and dark of winter has passed. Increases Constitution by <%= con %>. Limited Edition 2019 Spring Gear.",
+
   "armorMystery201402Text": "Messenger Robes",
   "armorMystery201402Notes": "Shimmering and strong, these robes have many pockets to carry letters. Confers no benefit. February 2014 Subscriber Item.",
   "armorMystery201403Text": "Forest Walker Armor",
@@ -775,6 +797,8 @@
   "armorMystery201809Notes": "You are not only a small and fearsome leaf puff, you are sporting the most beautiful colors of the season! Confers no benefit. September 2018 Subscriber Item.",
   "armorMystery201810Text": "Dark Forest Robes",
   "armorMystery201810Notes": "These robes are extra warm to protect you from the ghastly cold of haunted realms. Confers no benefit. October 2018 Subscriber Item.",
+  "armorMystery201903Text": "Shell-ebration Armor",
+  "armorMystery201903Notes": "People are dye-ing to know where you got this egg-cellent outfit! Confers no benefit. March 2019 Subscriber Item.",
   "armorMystery301404Text": "Steampunk Suit",
   "armorMystery301404Notes": "Dapper and dashing, wot! Confers no benefit. February 3015 Subscriber Item.",
   "armorMystery301703Text": "Steampunk Peacock Gown",
@@ -1179,6 +1203,15 @@
   "headSpecialWinter2019HealerText": "Starry Crown",
   "headSpecialWinter2019HealerNotes": "On the darkest, coldest winter night, one particular star shines its brightest. This crown is made from metal from that star, to help you shine! Increases Intelligence by <%= int %>. Limited Edition 2018-2019 Winter Gear.",
 
+  "headSpecialSpring2019RogueText": "Cloud Helm",
+  "headSpecialSpring2019RogueNotes": "No one will notice a cloud quietly drifting toward their stash of Gold, right? Increases Perception by <%= per %>. Limited Edition 2019 Spring Gear.",
+  "headSpecialSpring2019WarriorText": "Orchid Helm",
+  "headSpecialSpring2019WarriorNotes": "This helm is unbreakable and tough! Also it attracts butterflies. Increases Strength by <%= str %>. Limited Edition 2019 Spring Gear.",
+  "headSpecialSpring2019MageText": "Amber Hat",
+  "headSpecialSpring2019MageNotes": "A glowing amber gem grants this hat the power of arcane natural forces. Increases Perception by <%= per %>. Limited Edition 2019 Spring Gear.",
+  "headSpecialSpring2019HealerText": "Robin Helm",
+  "headSpecialSpring2019HealerNotes": "Be ready for the first day of spring with this cute beaky helm. Increases Intelligence by <%= int %>. Limited Edition 2019 Spring Gear.",
+
   "headSpecialGaymerxText": "Rainbow Warrior Helm",
   "headSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special helmet is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
 
@@ -1264,6 +1297,8 @@
   "headMystery201811Notes": "Wear this feathered hat to stand out at even the fanciest wizardly gatherings! Confers no benefit. November 2018 Subscriber Item.",
   "headMystery201901Text": "Polaris Helm",
   "headMystery201901Notes": "The glowing gems on this helm contain light magically captured from winter auroras. Confers no benefit. January 2019 Subscriber Item.",
+  "headMystery201903Text": "Sunny Side Up Helm",
+  "headMystery201903Notes": "Some may call you an egghead, but that's OK because you know how to take a yolk. Confers no benefit. March 2019 Subscriber Item.",
   "headMystery301404Text": "Fancy Top Hat",
   "headMystery301404Notes": "A fancy top hat for the finest of gentlefolk! January 3015 Subscriber Item. Confers no benefit.",
   "headMystery301405Text": "Basic Top Hat",
@@ -1375,6 +1410,8 @@
   "headArmoireToqueBlancheNotes": "According to legend, the number of folds in this hat indicate the number of ways you know how to cook an egg! Is it accurate? Increases Perception by <%= per %>. Enchanted Armoire: Chef Set (Item 1 of 4).",
   "headArmoireVernalHenninText": "Vernal Hennin",
   "headArmoireVernalHenninNotes": "More than just a pretty hat, this conical chapeau can also hold a rolled-up To-Do list inside. Increases Perception by <%= per %>. Enchanted Armoire: Vernal Vestments Set (Item 1 of 3).",
+  "headArmoireTricornHatText": "Tricorn Hat",
+  "headArmoireTricornHatNotes": "Become a revolutionary jokester! Increases Perception by <%= per %>. Enchanted Armoire: Independent Item.",
 
   "offhand": "off-hand item",
   "offhandCapitalized": "Off-Hand Item",
@@ -1567,6 +1604,11 @@
   "shieldSpecialWinter2019WarriorNotes": "This shield was fashioned using the thickest sheets of ice from the oldest glacier in the Stoïkalm Steppes. Increases Constitution by <%= con %>. Limited Edition 2018-2019 Winter Gear.",
   "shieldSpecialWinter2019HealerText": "Enchanted Ice Crystals",
   "shieldSpecialWinter2019HealerNotes": "Thin ice may break, but these perfect crystals will turn back any blow before it lands. Increases Constitution by <%= con %>. Limited Edition 2018-2019 Winter Gear.",
+
+  "shieldSpecialSpring2019WarriorText": "Leafy Shield",
+  "shieldSpecialSpring2019WarriorNotes": "Let the power of chlorophyll keep your enemies at bay! Increases Constitution by <%= con %>. Limited Edition 2019 Spring Gear.",
+  "shieldSpecialSpring2019HealerText": "Eggshell Shield",
+  "shieldSpecialSpring2019HealerNotes": "This bright shield is actually made of candy-coated chocolate. Increases Constitution by <%= con %>. Limited Edition 2019 Spring Gear.",
 
   "shieldMystery201601Text": "Resolution Slayer",
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",

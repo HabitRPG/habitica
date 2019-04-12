@@ -4,6 +4,7 @@ import getOfficialPinnedItems from './getOfficialPinnedItems';
 import compactArray from 'lodash/compact';
 
 import getItemByPathAndType from './getItemByPathAndType';
+import {checkPinnedAreasForNullEntries} from '../ops/pinnedGearUtils';
 
 /**
  * Orders the pinned items so we always get our inAppRewards in the order
@@ -32,6 +33,8 @@ function sortInAppRewards (user, items) {
 }
 
 module.exports = function getPinnedItems (user) {
+  checkPinnedAreasForNullEntries(user);
+
   let officialPinnedItems = getOfficialPinnedItems(user);
 
   const officialPinnedItemsNotUnpinned = officialPinnedItems.filter(officialPin => {
@@ -41,11 +44,12 @@ module.exports = function getPinnedItems (user) {
 
   const pinnedItems = officialPinnedItemsNotUnpinned.concat(user.pinnedItems);
 
-  let items = pinnedItems.map(({type, path}) => {
-    let item = getItemByPathAndType(type, path);
+  let items = pinnedItems
+    .map(({type, path}) => {
+      let item = getItemByPathAndType(type, path);
 
-    return getItemInfo(user, type, item, officialPinnedItems);
-  });
+      return getItemInfo(user, type, item, officialPinnedItems);
+    });
 
   shops.checkMarketGearLocked(user, items);
 

@@ -815,6 +815,20 @@ let backgrounds = {
       notes: t('backgroundFlowerMarketNotes'),
     },
   },
+  backgrounds042019: {
+    halflings_house: {
+      text: t('backgroundHalflingsHouseText'),
+      notes: t('backgroundHalflingsHouseNotes'),
+    },
+    blossoming_desert: {
+      text: t('backgroundBlossomingDesertText'),
+      notes: t('backgroundBlossomingDesertNotes'),
+    },
+    birch_forest: {
+      text: t('backgroundBirchForestText'),
+      notes: t('backgroundBirchForestNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),

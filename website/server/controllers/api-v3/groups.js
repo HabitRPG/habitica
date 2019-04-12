@@ -595,6 +595,7 @@ api.joinGroup = {
           inviter.items.quests.basilist = 0;
         }
         inviter.items.quests.basilist++;
+        inviter.markModified('items.quests');
       }
       promises.push(inviter.save());
     }
@@ -890,6 +891,7 @@ api.removeGroupMember = {
 
       if (group.quest && group.quest.active && group.quest.leader === member._id) {
         member.items.quests[group.quest.key] += 1;
+        member.markModified('items.quests');
       }
     } else if (isInvited) {
       if (isInvited === 'guild') {
