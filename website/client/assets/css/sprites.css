@@ -10,6 +10,12 @@
   height: 219px;
 }
 
+.Pet_HatchingPotion_Veggie {
+  background: url("~assets/images/Pet_HatchingPotion_Veggie.gif") no-repeat;
+  width: 68px;
+  height: 68px;
+}
+
 .Gems {
   display:inline-block;
   margin-right:5px;
