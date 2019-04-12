@@ -1,6 +1,5 @@
 <template lang="pug">
 div
-  messages-modal
   creator-intro
   profileModal
   report-flag-modal
@@ -346,7 +345,6 @@ import svgHourglasses from 'assets/svg/hourglass.svg';
 import logo from 'assets/svg/logo.svg';
 
 import creatorIntro from '../creatorIntro';
-import messagesModal from '../messages/messages.vue';
 import notificationMenu from './notificationsDropdown';
 import profileModal from '../userMenu/profileModal';
 import sendGemsModal from 'client/components/payments/sendGemsModal';
@@ -357,7 +355,6 @@ import reportFlagModal from '../chat/reportFlagModal';
 export default {
   components: {
     creatorIntro,
-    messagesModal,
     notificationMenu,
     profileModal,
     reportFlagModal,

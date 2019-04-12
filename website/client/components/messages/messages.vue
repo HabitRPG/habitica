@@ -1,94 +1,62 @@
 <template lang="pug">
-  b-modal#messages-modal(title="", :hide-footer="true", size='lg', @shown="onModalShown", @hide="onModalHide")
-    .d-flex.w-100.align-items-center(slot="modal-header")
-      .d-flex.w-25.align-items-center
-        .svg-icon.envelope.ml-3(v-html="icons.messageIcon")
-        h2.flex-fill.text-center.pr-5(v-once) {{ $t('messages') }}
-      .d-flex.flex-row-reverse.w-75.ml-auto.align-items-center
-        .svg-icon.close(aria-hidden="true", v-html="icons.svgClose", @click="close()", v-once)
-        toggle-switch(
-          :label="optTextSet.switchDescription",
-          :checked="!this.user.inbox.optOut"
-          :hoverText="optTextSet.popoverText",
-          @change="toggleOpt()"
-        )
-    .d-flex
-      .w-25.sidebar.d-flex.flex-column
-        .search-section
-          b-form-input.input-search(:placeholder="$t('search')", v-model='search')
-        .empty-messages.m-auto.text-center(v-if='filtersConversations.length === 0')
-          .svg-icon.envelope(v-html="icons.messageIcon", v-once)
-          h4(v-once) {{ $t('emptyMessagesLine1') }}
-          p(v-if="!user.flags.chatRevoked") {{ $t('emptyMessagesLine2') }}
-        .conversations(v-if='filtersConversations.length > 0')
-          .conversation(v-for='conversation in filtersConversations', @click='selectConversation(conversation.key)',
-            :class="{active: selectedConversation.key === conversation.key}")
-            div
-              h3(:class="userLevelStyle(conversation)") {{ conversation.name }}
-                .svg-icon(v-html="tierIcon(conversation)")
-            .time
-              span.mr-1(v-if='conversation.username') @{{ conversation.username }} •
-              span {{ conversation.date | timeAgo }}
-            div {{ conversation.lastMessageText ? conversation.lastMessageText.substring(0, 30) : '' }}
-      .w-75.messages.d-flex.flex-column.align-items-center
-        .empty-messages.m-auto.text-center(v-if='!selectedConversation.key')
-          .svg-icon.envelope(v-html="icons.messageIcon", v-once)
-          h4 {{ placeholderTexts.title }}
-          p(v-html="placeholderTexts.description")
-        .empty-messages.mt-auto.text-center(v-if='selectedConversation.key && selectedConversationMessages.length === 0')
-          h3 {{ $t('beginningOfConversation', {userName: selectedConversation.name}) }}
-          p {{ $t('beginningOfConversationReminder') }}
-        private-messages.message-scroll(
-          v-if="selectedConversation.messages && selectedConversationMessages.length > 0",
-          :chat='selectedConversationMessages',
-          @message-removed='messageRemoved',
-          ref="chatscroll"
-        )
-        .pm-disabled-caption.text-center(v-if="user.inbox.optOut && selectedConversation.key")
-          h4 {{ $t('PMDisabledCaptionTitle') }}
-          p {{ $t('PMDisabledCaptionText') }}
-        .new-message-row.d-flex.align-items-center(v-if='selectedConversation.key && !user.flags.chatRevoked')
-          textarea.flex-fill(
-            v-model='newMessage',
-            @keyup.ctrl.enter='sendPrivateMessage()',
-            maxlength='3000'
+  page-layout(:showSidebar='false')
+    div(slot='page')
+      .d-flex.w-100.align-items-center
+        .d-flex.w-25.mb-3.align-items-center
+          .svg-icon.envelope.m-auto(v-html="icons.messageIcon")
+          h2.flex-fill.text-center.pr-5.m-auto(v-once) {{ $t('messages') }}
+        .d-flex.flex-row-reverse.w-75.ml-auto.align-items-center
+          toggle-switch(
+            :label="optTextSet.switchDescription",
+            :checked="!this.user.inbox.optOut"
+            :hoverText="optTextSet.popoverText",
+            @change="toggleOpt()"
           )
-          button.btn.btn-primary(@click='sendPrivateMessage()') {{ $t('send') }}
-        .length-readout(v-if='selectedConversation.key && !user.flags.chatRevoked')
-          .ml-3 {{ currentLength }} / 3000
+      .d-flex
+        .w-25.sidebar.d-flex.flex-column
+          .search-section
+            b-form-input.input-search(:placeholder="$t('search')", v-model='search')
+          .empty-messages.m-auto.text-center(v-if='filtersConversations.length === 0')
+            .svg-icon.envelope(v-html="icons.messageIcon", v-once)
+            h4(v-once) {{ $t('emptyMessagesLine1') }}
+            p(v-if="!user.flags.chatRevoked") {{ $t('emptyMessagesLine2') }}
+          .conversations(v-if='filtersConversations.length > 0')
+            .conversation(v-for='conversation in filtersConversations', @click='selectConversation(conversation.key)',
+              :class="{active: selectedConversation.key === conversation.key}")
+              div
+                h3(:class="userLevelStyle(conversation)") {{ conversation.name }}
+                  .svg-icon(v-html="tierIcon(conversation)")
+              .time
+                span.mr-1(v-if='conversation.username') @{{ conversation.username }} •
+                span {{ conversation.date | timeAgo }}
+              div {{ conversation.lastMessageText ? conversation.lastMessageText.substring(0, 30) : '' }}
+        .w-75.messages.d-flex.flex-column.align-items-center
+          .empty-messages.m-auto.text-center(v-if='!selectedConversation.key')
+            .svg-icon.envelope(v-html="icons.messageIcon", v-once)
+            h4 {{ placeholderTexts.title }}
+            p(v-html="placeholderTexts.description")
+          .empty-messages.mt-auto.text-center(v-if='selectedConversation.key && selectedConversationMessages.length === 0')
+            h3 {{ $t('beginningOfConversation', {userName: selectedConversation.name}) }}
+            p {{ $t('beginningOfConversationReminder') }}
+          private-messages.message-scroll(
+            v-if="selectedConversation.messages && selectedConversationMessages.length > 0",
+            :chat='selectedConversationMessages',
+            @message-removed='messageRemoved',
+            ref="chatscroll"
+          )
+          .pm-disabled-caption.text-center(v-if="user.inbox.optOut && selectedConversation.key")
+            h4 {{ $t('PMDisabledCaptionTitle') }}
+            p {{ $t('PMDisabledCaptionText') }}
+          .new-message-row.d-flex.align-items-center(v-if='selectedConversation.key && !user.flags.chatRevoked')
+            textarea.flex-fill(
+              v-model='newMessage',
+              @keyup.ctrl.enter='sendPrivateMessage()',
+              maxlength='3000'
+            )
+            button.btn.btn-primary(@click='sendPrivateMessage()') {{ $t('send') }}
+          .length-readout(v-if='selectedConversation.key && !user.flags.chatRevoked')
+            .ml-3 {{ currentLength }} / 3000
 </template>
-
-<style lang="scss">
-  #messages-modal {
-    h2 {
-      margin-bottom: 0rem;
-    }
-
-    .modal-body {
-      padding: 0rem;
-    }
-
-    .modal-content {
-      width: 66vw;
-    }
-
-    .modal-dialog {
-      margin: 10vh 15vw 0rem;
-    }
-
-    .modal-header {
-      padding: 1rem 0rem;
-
-      .close {
-        cursor: pointer;
-        margin: 0rem 1.5rem;
-        min-width: 0.75rem;
-        padding: 0rem;
-        width: 0.75rem;
-      }
-    }
-  }
-</style>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
@@ -237,6 +205,7 @@
 </style>
 
 <script>
+  import PageLayout from 'client/components/ui/pageLayout';
   import Vue from 'vue';
   import moment from 'moment';
   import filter from 'lodash/filter';
@@ -249,7 +218,6 @@
 
   import privateMessages from './messageList';
   import messageIcon from 'assets/svg/message.svg';
-  import svgClose from 'assets/svg/close.svg';
   import tier1 from 'assets/svg/tier-1.svg';
   import tier2 from 'assets/svg/tier-2.svg';
   import tier3 from 'assets/svg/tier-3.svg';
@@ -266,11 +234,17 @@
     components: {
       privateMessages,
       toggleSwitch,
+      PageLayout,
     },
     mounted () {
-      this.$root.$on('habitica::new-private-message', (data) => {
-        this.$root.$emit('bv::show::modal', 'messages-modal');
-
+      this.initiatedConversation = {
+        uuid: this.$store.state.privateMessageOptions.userIdToMessage,
+        user: this.$store.state.privateMessageOptions.displayName,
+        username: this.$store.state.privateMessageOptions.username,
+        backer: this.$store.state.privateMessageOptions.backer,
+        contributor: this.$store.state.privateMessageOptions.contributor,
+      };
+      /* TODO this not working yet
         // Wait for messages to be loaded
         const unwatchLoaded = this.$watch('loaded', (loaded) => {
           if (!loaded) return;
@@ -295,7 +269,7 @@
 
           this.selectConversation(data.userIdToMessage);
         }, {immediate: true});
-      });
+      }); */
     },
     destroyed () {
       this.$root.$off('habitica::new-private-message');
@@ -304,7 +278,6 @@
       return {
         icons: Object.freeze({
           messageIcon,
-          svgClose,
           tier1,
           tier2,
           tier3,
@@ -513,9 +486,6 @@
         });
 
         this.newMessage = '';
-      },
-      close () {
-        this.$root.$emit('bv::hide::modal', 'messages-modal');
       },
       tierIcon (message) {
         const isNPC = Boolean(message.backer && message.backer.npc);

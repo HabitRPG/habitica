@@ -31,6 +31,7 @@ const Logout = () => import(/* webpackChunkName: "auth" */'client/components/aut
 // const StatsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/stats');
 // const AchievementsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/achievements');
 const ProfilePage = () => import(/* webpackChunkName: "user" */'client/components/userMenu/profilePage');
+const PrivateMessages = () => import(/* webpackChunkName: "user" */'client/components/messages/messages');
 
 // Settings
 const Settings = () => import(/* webpackChunkName: "settings" */'client/components/settings/index');
@@ -115,6 +116,11 @@ const router = new VueRouter({
       children: [
         { name: 'userProfilePage', path: ':startingPage', component: ProfilePage },
       ],
+    },
+    {
+      name: 'privateMessages',
+      path: '/private-messages',
+      component: PrivateMessages,
     },
     {
       path: '/inventory',

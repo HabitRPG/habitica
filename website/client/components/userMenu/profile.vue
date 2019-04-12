@@ -537,13 +537,15 @@ export default {
       history.replaceState(null, null, '');
     },
     sendMessage () {
-      this.$root.$emit('habitica::new-private-message', {
+      this.$store.state.privateMessageOptions = {
         userIdToMessage: this.user._id,
         displayName: this.user.profile.name,
         username: this.user.auth.local.username,
         backer: this.user.backer,
         contributor: this.user.contributor,
-      });
+      };
+      this.$root.$emit('bv::hide::modal', 'profile');
+      this.$router.push('/private-messages');
     },
     getProgressDisplay () {
       // let currentLoginDay = Content.loginIncentives[this.user.loginIncentives];
