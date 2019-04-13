@@ -11,6 +11,10 @@
 <style scoped lang="scss">
   @import '~client/assets/scss/colors.scss';
 
+  a.no-tier {
+    color: $gray-50;
+  }
+
   a.leader { // this is the user name
     font-family: 'Roboto Condensed', sans-serif;
     font-weight: bold;
