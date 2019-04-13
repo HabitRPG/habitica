@@ -176,7 +176,7 @@
     "sentCardToUser": "你寄给<%= profileName %>一张卡片",
     "cardReceivedFrom": "来自<%= userName %>的<%= cardType %>",
     "cardReceived": "你收到一张<span class=\"notification-bold-blue\"><%= card %></span>",
-    "greetingCard": "祝贺卡",
+    "greetingCard": "问候卡",
     "greetingCardExplanation": "你们两个人都获得了“欢乐伙伴”成就！",
     "greetingCardNotes": "给一个队友发一张祝贺卡。",
     "greeting0": "嗨！你好！",
