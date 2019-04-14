@@ -229,7 +229,7 @@
     "mustBeGroupMember": "Doit être un membre du groupe.",
     "canOnlyInviteEmailUuid": "Vous ne pouvez inviter qu'avec des UUID, des courriels ou des noms d'utilisateurs.",
     "inviteMissingEmail": "L'adresse courriel est manquante dans l'invitation.",
-    "inviteMissingUuid": "L'ID d'utilisateur est manquante dans l'invitation.",
+    "inviteMissingUuid": "L'ID d'utilisateur est manquante dans l'invitation",
     "inviteMustNotBeEmpty": "L'invitation ne doit pas être vide.",
     "partyMustbePrivate": "Les équipes doivent être privées",
     "userAlreadyInGroup": "L'ID utilisateur <%= userId %>, nom d'utilisateur \"<%= username %>\" est déjà dans ce groupe.",
@@ -479,5 +479,6 @@
     "sharedCompletion": "Accomplissement partagé",
     "recurringCompletion": "Aucune - La tâches de groupe ne se terminent pas",
     "singleCompletion": "Simple - Terminée lorsqu'une personne avec cette tâche la termine",
-    "allAssignedCompletion": "Toutes - Terminée lorsque toutes les personnes avec cette tâche la terminent"
+    "allAssignedCompletion": "Toutes - Terminée lorsque toutes les personnes avec cette tâche la terminent",
+    "pmReported": "Merci d'avoir signalé ce message."
 }
