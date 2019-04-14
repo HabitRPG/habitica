@@ -630,9 +630,11 @@
     "birdBuddiesText": "Lot de quêtes des oiseaux acolytes",
     "birdBuddiesNotes": "Contient 'Le gorfou glacé,' 'La colère du coq,' et 'Le paon oscillant.' Disponible jusqu'au 31 décembre.",
     "questVelociraptorText": "Le Veloci-Rappeur",
-    "questVelociraptorNotes": "You’re sharing honey cakes with @*~Seraphina~*, @Procyon P, and @Lilith of Alfheim by a lake in the Stoïkalm Steppes. Suddenly, a mournful voice interrupts your picnic.<br><br><em>My Habits took a hit, I missed my Dailies,<br>I’m losing it, sinking with doubt and maybes,<br>At the top of my game I used to be so fly,<br>But now I just let my Due Dates go by.</em><br><br>@*~Seraphina~* peers behind a stand of grass. “It’s the Veloci-Rapper. It seems... distraught?”<br><br>You pump a fist in determination. “There's only one thing to do. Rap battle time!”",
-    "questVelociraptorCompletion": "You burst through the grass, confronting the Veloci-Rapper.<br><br><em>See here, rapper, you’re no quitter,<br>You’re Bad Habits' hardest hitter!<br>Check off your To-Dos like a boss,<br>Don’t mourn over one day’s loss!</em><br><br>Filled with renewed confidence, it bounds off to freestyle another day, leaving behind three eggs where it sat.",
+    "questVelociraptorNotes": "Vous partagez des gâteaux au miel avec @*~Seraphina~*, @Procyon P, et @Lilith of Alfheim près d'un lac dans les steppes de Stoïkalm. Soudain, une voix triste interrompt votre pique-nique.<br><br>br><em>Mes habitudes ont pris un coup, j'ai raté mes quotidiennes,<br>Je suis perdu, pris de doutes et d'incertitudes,<br>Au sommet de mon jeu, j'ai l'habitude de voler,<br>Mais maintenant, j'ai juste raté mes échéances.</em><br><br>@~Seraphina~* observe entre les touffes d'herbe. \"C'est le Veloci-Rapper. Il semble... désemparé ?\"<br><br><br>Vous levez un poing de détermination. \"Il n'y a qu'une chose à faire. C'est l'heure de la bataille de rap !\"",
+    "questVelociraptorCompletion": "Vous jaillissez à travers l'herbe, pour faire face au Veloci-rappeur.<br><br><em>Tu vois, rappeur, tu n'es pas un lâcheur,<br>Tes mauvaises habitudes peuvent te faire vraiment peur !<br>Valide tes tâches comme un pro,<br>Ne pleure pas si tu prends un jour de trop !</em><br><br>Rempli d'une nouvelle confiance, il sautille vers de nouvelles tâches, laissant derrière lui trois œufs .",
     "questVelociraptorBoss": "Veloci-Rappeur",
     "questVelociraptorDropVelociraptorEgg": "Velociraptor (Oeuf)",
-    "questVelociraptorUnlockText": "Déverrouille l'achat d’œufs de velociraptor au marché"
+    "questVelociraptorUnlockText": "Déverrouille l'achat d’œufs de velociraptor au marché",
+    "mythicalMarvelsText": "Ensemble de quêtes des merveilles mythiques",
+    "mythicalMarvelsNotes": "Contient \"Convaincre la reine licorne\", \"Le griffon flamboyant\", et \"Danger dans les profondeurs : l'attaque du serpent de mer !\". Disponible jusqu'au 28 février."
 }
