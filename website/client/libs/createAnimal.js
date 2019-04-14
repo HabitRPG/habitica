@@ -2,6 +2,7 @@
 import content from 'common/script/content';
 
 const specialPets = Object.keys(content.specialPets);
+const wackyPets = Object.keys(content.wackyPets);
 
 function getText (textOrFunction) {
   if (textOrFunction instanceof Function) {
@@ -23,6 +24,7 @@ export function isHatchable (animal, userItems) {
 
 export function isAllowedToFeed (animal, userItems) {
   return !specialPets.includes(animal.key) &&
+    !wackyPets.includes(animal.key) &&
     isOwned('pet', animal, userItems) &&
     !isOwned('mount', animal, userItems);
 }
@@ -59,4 +61,3 @@ export function createAnimal (egg, potion, type, _content, userItems) {
     },
   };
 }
-
