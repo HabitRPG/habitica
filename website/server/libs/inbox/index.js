@@ -61,6 +61,7 @@ export async function listConversations (user) {
 
   const users = await User.find({_id: {$in: conversationList}})
     .select('_id profile.name auth.local.username')
+    .lean()
     .exec();
 
   const conversations = users.map(u => ({
