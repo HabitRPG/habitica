@@ -72,6 +72,14 @@ api.clearMessages = {
   },
 };
 
+/**
+ * @api {get} /inbox/conversations Get the conversations for a user
+ * @apiName conversations
+ * @apiGroup Inbox
+ * @apiDescription Get the conversations for a user
+ *
+ * @apiSuccess {Array} data An array of inbox conversations
+ */
 api.conversations = {
   method: 'GET',
   middlewares: [authWithHeaders()],

@@ -38,6 +38,7 @@ describe('GET /inbox/conversations', () => {
     const result = await user.get('/inbox/conversations');
 
     expect(result.length).to.be.equal(3);
-    expect(result[0].username).to.be.equal(user.profile.name);
+    expect(result[0].user).to.be.equal(user.profile.name);
+    expect(result[0].username).to.be.equal(user.auth.local.username);
   });
 });
