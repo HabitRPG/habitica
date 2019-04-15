@@ -17,7 +17,7 @@
           .d-flex.justify-content-between
             h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
             menu-dropdown.task-dropdown(
-              v-if="isUser && !isRunningYesterdailies",
+              v-if="!isRunningYesterdailies",
               :right="task.type === 'reward'",
               ref="taskDropdown",
               v-b-tooltip.hover.top="$t('options')"
@@ -29,11 +29,11 @@
                   span.dropdown-icon-item
                     span.svg-icon.inline.edit-icon(v-html="icons.edit")
                     span.text {{ $t('edit') }}
-                .dropdown-item(@click="moveToTop")
+                .dropdown-item(v-if='isUser', @click="moveToTop")
                   span.dropdown-icon-item
                     span.svg-icon.inline.push-to-top(v-html="icons.top")
                     span.text {{ $t('taskToTop') }}
-                .dropdown-item(@click="moveToBottom")
+                .dropdown-item(v-if='isUser', @click="moveToBottom")
                   span.dropdown-icon-item
                     span.svg-icon.inline.push-to-bottom(v-html="icons.bottom")
                     span.text {{ $t('taskToBottom') }}
