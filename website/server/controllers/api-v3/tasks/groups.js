@@ -331,6 +331,7 @@ api.approveTask = {
     // Remove old notifications
     let approvalPromises = [];
     managers.forEach((manager) => {
+      if (manager._id === task.group.approval.approvingUser) return;
       let notificationIndex = manager.notifications.findIndex(function findNotification (notification) {
         return notification && notification.data && notification.data.taskId === task._id && notification.type === 'GROUP_TASK_APPROVAL';
       });
