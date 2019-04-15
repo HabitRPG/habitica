@@ -64,15 +64,24 @@
             .d-flex.align-items-center
               span(v-once) {{ $t('filter') }}
               .svg-icon.filter-icon(v-html="icons.filter")
-    #create-dropdown.col-12.col-md-4
-      b-dropdown.float-right(:right="true", :variant="'success'")
-        .button-label(slot="button-content")
-          .svg-icon.positive(v-html="icons.positive")
-          | {{ $t('addTaskToGroupPlan') }}
-        b-dropdown-item(v-for="type in columns", :key="type", @click="createTask(type)")
-          span.dropdown-icon-item(v-once)
-            span.svg-icon.inline(v-html="icons[type]")
-            span.text {{$t(type)}}
+    .create-task-area.d-flex(v-if='canCreateTasks')
+      transition(name="slide-tasks-btns")
+        .d-flex(v-if="openCreateBtn")
+          .create-task-btn.rounded-btn(
+            v-for="type in columns",
+            :key="type",
+            @click="createTask(type)",
+            v-b-tooltip.hover.bottom="$t(type)",
+          )
+            .svg-icon(v-html="icons[type]", :class='`icon-${type}`')
+
+      #create-task-btn.create-btn.rounded-btn.btn.btn-success(
+        @click="openCreateBtn = !openCreateBtn",
+        :class="{open: openCreateBtn}",
+      )
+        .svg-icon(v-html="icons.positive")
+      b-tooltip(target="create-task-btn", placement="bottom", v-if="!openCreateBtn") {{ $t('addTaskToGroupPlan') }}
+
   .row
     task-column.col-12.col-md-3(
       v-for="column in columns",
@@ -81,12 +90,14 @@
       :taskListOverride='tasksByType[column]',
       v-on:editTask="editTask",
       v-on:loadGroupCompletedTodos="loadGroupCompletedTodos",
+      v-on:taskDestroyed="taskDestroyed",
       :group='group',
       :searchText="searchText")
 </template>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/create-task.scss';
 
   .user-tasks-page {
     padding-top: 31px;
@@ -339,6 +350,10 @@ export default {
 
       return tagsByType;
     },
+    canCreateTasks () {
+      if (!this.group) return false;
+      return this.group.leader && this.group.leader._id === this.user._id || this.group.managers && Boolean(this.group.managers[this.user._id]);
+    },
   },
   methods: {
     async load () {
@@ -400,6 +415,7 @@ export default {
       });
     },
     createTask (type) {
+      this.openCreateBtn = false;
       this.taskFormPurpose = 'create';
       this.creatingTask = taskDefaults({type, text: ''}, this.user);
       this.workingTask = this.creatingTask;
