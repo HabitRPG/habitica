@@ -6,6 +6,7 @@ import {
 import {
   drops as dropPotions,
   premium as premiumPotions,
+  wacky as wackyPotions,
 } from './hatching-potions';
 import t from './translation';
 
@@ -47,9 +48,38 @@ function constructSet (type, eggs, potions) {
   return [pets, mounts];
 }
 
+function constructPetOnlySet (type, eggs, potions) {
+  let pets = {};
+
+  each(eggs, (egg) => {
+    each(potions, (potion) => {
+      let key = `${egg.key}-${potion.key}`;
+
+      function getAnimalData (text) {
+        return {
+          key,
+          type,
+          potion: potion.key,
+          egg: egg.key,
+          text,
+        };
+      }
+
+      petInfo[key] = getAnimalData(t('petName', {
+        potion: potion.text,
+        egg: egg.text,
+      }));
+      pets[key] = true;
+    });
+  });
+
+  return pets;
+}
+
 let [dropPets, dropMounts] = constructSet('drop', dropEggs, dropPotions);
 let [premiumPets, premiumMounts] = constructSet('premium', dropEggs, premiumPotions);
 let [questPets, questMounts] = constructSet('quest', questEggs, dropPotions);
+let wackyPets = constructPetOnlySet('wacky', dropEggs, wackyPotions);
 
 let specialPets = {
   'Wolf-Veteran': 'veteranWolf',
@@ -113,6 +143,7 @@ module.exports = {
   dropPets,
   premiumPets,
   questPets,
+  wackyPets,
   dropMounts,
   questMounts,
   premiumMounts,
