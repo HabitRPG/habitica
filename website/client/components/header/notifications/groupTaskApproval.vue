@@ -4,7 +4,6 @@ base-notification(
   :has-icon="false",
   :notification="notification",
   @click="action",
-  ref="taskApprovalNotification",
 )
   div(slot="content")
     div(v-html="notification.data.message")
@@ -16,8 +15,10 @@ base-notification(
 <script>
 import BaseNotification from './base';
 import { mapState } from 'client/libs/store';
+import sync from 'client/mixins/sync';
 
 export default {
+  mixins: [sync],
   props: ['notification', 'canRemove'],
   components: {
     BaseNotification,
@@ -49,7 +50,7 @@ export default {
         userId: this.notification.data.userId,
       });
 
-      this.$refs.taskApprovalNotification.remove();
+      this.sync();
     },
     async needsWork () {
       // Redirect users to the group tasks page if the notification doesn't have data
@@ -68,7 +69,7 @@ export default {
         userId: this.notification.data.userId,
       });
 
-      this.$refs.taskApprovalNotification.remove();
+      this.sync();
     },
   },
 };
