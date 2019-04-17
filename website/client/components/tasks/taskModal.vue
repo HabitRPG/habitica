@@ -159,6 +159,15 @@
                 | {{ $t(frequency) }}
 
         .option.group-options(v-if='groupId')
+          .form-group(v-if="task.type === 'todo'")
+            label(v-once) {{ $t('sharedCompletion') }}
+            b-dropdown.inline-dropdown(:text="$t(sharedCompletion)")
+              b-dropdown-item(
+                v-for="completionOption in ['recurringCompletion', 'singleCompletion', 'allAssignedCompletion']",
+                :key="completionOption",
+                @click="sharedCompletion = completionOption",
+                :class="{active: sharedCompletion === completionOption}"
+              ) {{ $t(completionOption) }}
           .form-group.row
             label.col-12(v-once) {{ $t('assignedTo') }}
             .col-12.mt-2
@@ -179,17 +188,6 @@
 
                   .row
                     button.btn.btn-primary(@click.stop.prevent="showAssignedSelect = !showAssignedSelect") {{$t('close')}}
-
-        .option.group-options(v-if='groupId')
-          .form-group(v-if="task.type === 'todo'")
-            label(v-once) {{ $t('sharedCompletion') }}
-            b-dropdown.inline-dropdown(:text="$t(sharedCompletion)")
-              b-dropdown-item(
-                v-for="completionOption in ['recurringCompletion', 'singleCompletion', 'allAssignedCompletion']",
-                :key="completionOption",
-                @click="sharedCompletion = completionOption",
-                :class="{active: sharedCompletion === completionOption}"
-              ) {{ $t(completionOption) }}
           .form-group
             label(v-once) {{ $t('approvalRequired') }}
             toggle-switch.d-inline-block(
