@@ -12,7 +12,7 @@
     "messageLikesFood": "<%= egg %> really likes <%= foodText %>!",
     "messageDontEnjoyFood": "<%= egg %> eats <%= foodText %> but doesn't seem to enjoy it.",
     "messageBought": "Bought <%= itemText %>",
-    "messageEquipped": "<%= itemText %> equipped.",
+    "messageEquipped": " <%= itemText %> equipped.",
     "messageUnEquipped": "<%= itemText %> unequipped.",
     "messageMissingEggPotion": "You're missing either that egg or that potion",
     "messageInvalidEggPotionCombo": "You can't hatch Quest Pet Eggs with Magic Hatching Potions! Try a different egg.",
@@ -41,7 +41,7 @@
     "messageAuthEmailTaken": "Email already taken",
     "messageAuthNoUserFound": "No user found.",
     "messageAuthMustBeLoggedIn": "You must be logged in.",
-    "messageAuthMustIncludeTokens": "You must include a token and uid (user id) in your request",
+    "messageAuthMustIncludeTokens": "You must include a token and uid (User ID) in your request",
     "messageGroupAlreadyInParty": "Already in a party, try refreshing.",
     "messageGroupOnlyLeaderCanUpdate": "Only the group leader can update the group!",
     "messageGroupRequiresInvite": "Can't join a group you're not invited to.",
@@ -62,5 +62,7 @@
     "unallocatedStatsPoints": "You have <span class=\"notification-bold-blue\"><%= points %> unallocated Stat Points</span>",
     "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!",
     "messageDeletedUser": "Sorry, this user has deleted their account.",
-    "messageMissingDisplayName": "Missing display name."
+    "messageMissingDisplayName": "Missing display name.",
+    "reportedMessage": "You have reported this message to moderators.",
+    "canDeleteNow": "You can now delete the message if you wish."
 }
