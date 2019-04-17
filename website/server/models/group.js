@@ -1419,9 +1419,29 @@ schema.methods.removeTask = async function groupRemoveTask (task) {
     $set: {'group.broken': 'TASK_DELETED'},
   }, {multi: true}).exec();
 
+  // Get Managers
+  const managerIds = Object.keys(group.managers);
+  managerIds.push(group.leader);
+  const managers = await User.find({_id: managerIds}, 'notifications').exec(); // Use this method so we can get access to notifications
+
+  // Remove old notifications
+  let removalPromises = [];
+  managers.forEach((manager) => {
+    let notificationIndex = manager.notifications.findIndex(function findNotification (notification) {
+      return notification && notification.data && notification.data.groupTaskId === task._id && notification.type === 'GROUP_TASK_APPROVAL';
+    });
+
+    if (notificationIndex !== -1) {
+      manager.notifications.splice(notificationIndex, 1);
+      removalPromises.push(manager.save());
+    }
+  });
+
   removeFromArray(group.tasksOrder[`${task.type}s`], task._id);
   group.markModified('tasksOrder');
-  return await group.save();
+  removalPromises.push(group.save());
+
+  return await Promise.all(removalPromises);
 };
 
 // Returns true if the user has reached the spam message limit
