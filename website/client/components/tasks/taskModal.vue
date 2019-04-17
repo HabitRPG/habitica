@@ -181,12 +181,6 @@
                     button.btn.btn-primary(@click.stop.prevent="showAssignedSelect = !showAssignedSelect") {{$t('close')}}
 
         .option.group-options(v-if='groupId')
-          .form-group
-            label(v-once) {{ $t('approvalRequired') }}
-            toggle-switch.d-inline-block(
-              :checked="requiresApproval",
-              @change="updateRequiresApproval"
-            )
           .form-group(v-if="task.type === 'todo'")
             label(v-once) {{ $t('sharedCompletion') }}
             b-dropdown.inline-dropdown(:text="$t(sharedCompletion)")
@@ -196,6 +190,12 @@
                 @click="sharedCompletion = completionOption",
                 :class="{active: sharedCompletion === completionOption}"
               ) {{ $t(completionOption) }}
+          .form-group
+            label(v-once) {{ $t('approvalRequired') }}
+            toggle-switch.d-inline-block(
+              :checked="requiresApproval",
+              @change="updateRequiresApproval"
+            )
 
         .advanced-settings(v-if="task.type !== 'reward'")
           .advanced-settings-toggle.d-flex.justify-content-between.align-items-center(@click = "showAdvancedOptions = !showAdvancedOptions")
