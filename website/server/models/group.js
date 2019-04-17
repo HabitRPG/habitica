@@ -1341,7 +1341,7 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
     matchingTask.group.id = taskToSync.group.id;
     matchingTask.userId = user._id;
     matchingTask.group.taskId = taskToSync._id;
-    user.tasksOrder[`${taskToSync.type}s`].push(matchingTask._id);
+    user.tasksOrder[`${taskToSync.type}s`].unshift(matchingTask._id);
   } else {
     _.merge(matchingTask, syncableAttrs(taskToSync));
     // Make sure the task is in user.tasksOrder
