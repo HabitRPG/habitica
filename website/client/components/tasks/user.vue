@@ -227,6 +227,10 @@
     }
   }
 
+  .create-task-area {
+    top: -2.5rem;
+  }
+
   .drag {
     cursor: grab;
     margin: auto 0;
