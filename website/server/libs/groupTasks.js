@@ -1,7 +1,7 @@
 import * as Tasks from '../models/task';
 
 const SHARED_COMPLETION = {
-  default: 'recurringCompletion',
+  recurring: 'recurringCompletion',
   single: 'singleCompletion',
   every: 'allAssignedCompletion',
 };
