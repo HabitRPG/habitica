@@ -711,7 +711,7 @@ export default {
         calendar: calendarIcon,
       }),
       requiresApproval: false, // We can't set task.group fields so we use this field to toggle
-      sharedCompletion: 'recurringCompletion',
+      sharedCompletion: 'singleCompletion',
       members: [],
       memberNamesById: {},
       assignedMembers: [],
@@ -842,7 +842,7 @@ export default {
         });
         this.assignedMembers = [];
         if (this.task.group && this.task.group.assignedUsers) this.assignedMembers = this.task.group.assignedUsers;
-        if (this.task.group) this.sharedCompletion = this.task.group.sharedCompletion || 'recurringCompletion';
+        if (this.task.group) this.sharedCompletion = this.task.group.sharedCompletion || 'singleCompletion';
       }
 
       // @TODO: This whole component is mutating a prop and that causes issues. We need to not copy the prop similar to group modals
