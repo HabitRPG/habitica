@@ -924,7 +924,6 @@ export default {
 
       // TODO Fix up permissions on task.group so we don't have to keep doing these hacks
       if (this.groupId) {
-        this.task.group.assignedUsers = this.assignedMembers;
         this.task.requiresApproval = this.requiresApproval;
         this.task.group.approval.required = this.requiresApproval;
         this.task.sharedCompletion = this.sharedCompletion;
@@ -952,6 +951,7 @@ export default {
             });
           });
           Promise.all(promises);
+          this.task.group.assignedUsers = this.assignedMembers;
           this.$emit('taskCreated', this.task);
         } else {
           this.createTask(this.task);
