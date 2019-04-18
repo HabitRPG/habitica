@@ -46,7 +46,7 @@
     "canceledSubscription": "Abonnement storniert",
     "cancelingSubscription": "Abonnement stornieren",
     "adminSub": "Administrator-Abonnements",
-    "morePlans": "Weitere Abonnements<br>Bald verfügbar!",
+    "morePlans": "Weitere Abonnements<br>Bald verfügbar",
     "organizationSub": "Private Organisationen",
     "organizationSubText": "Mitglieder der Organisation nehmen außerhalb von Habitica teil, das bringt Deinen Teilnehmern einen Konzentrationsvorteil.",
     "hostingType": "Art des Hostings",
@@ -89,7 +89,7 @@
     "timeTravelersPopoverNoSubMobile": "Sieht aus als bräuchtest Du eine Mystische Sanduhr um das Zeitportal zu öffnen und die Mysteriösen Zeitreisenden herbei zu rufen.",
     "timeTravelersPopover": "Deine Mystische Sanduhr hat unser Zeitportal geöffnet! Wähle etwas aus, was wir für Dich aus der Vergangenheit oder Zukunft holen sollen.",
     "timeTravelersAlreadyOwned": "Herzlichen Glückwunsch! Du besitzt bereits alles, was die Zeitreisenden gerade anbieten können. Danke, dass Du die Seite unterstützt!",
-    "mysticHourglassPopover": "Eine mystische Sanduhr erlaubt Dir Gegenstände zu kaufen, welche in der Vergangenheit nur zeitlich begrenzt zur Verfügung standen. Dies sind beispielsweise die Überraschungs-Abonnenten-Sets und Belohnungen ehemaliger Weltbosse.",
+    "mysticHourglassPopover": "Eine mystische Sanduhr erlaubt Dir Gegenstände zu kaufen, welche in der Vergangenheit nur zeitlich begrenzt zur Verfügung standen. Dies sind beispielsweise die Überraschungs-Abonnenten-Sets und Belohnungen ehemaliger Weltbosse!",
     "mysterySetNotFound": "Überraschungsset nicht gefunden, oder Set wurde bereits erworben.",
     "mysteryItemIsEmpty": "Mysteriöse Gegenstände sind leer",
     "mysteryItemOpened": "Überraschungsgegenstand geöffnet.",
@@ -166,7 +166,7 @@
     "hourglassBuyItemConfirm": "Möchtest Du diesen Gegenstand für 1 Mystische Sanduhr kaufen?",
     "petsAlreadyOwned": "Bereits im Besitz dieses Haustieres.",
     "mountsAlreadyOwned": "Bereits im Besitz dieses Rettieres.",
-    "typeNotAllowedHourglass": "Diese Art Gegenstand ist nicht für den Kauf mit einer  Mystischen Sanduhr geeignet. Geeignete Arten von Gegenständen: ",
+    "typeNotAllowedHourglass": "Diese Art Gegenstand ist nicht für den Kauf mit einer Mystischen Sanduhr geeignet. Geeignete Arten von Gegenständen: <%= allowedTypes %>",
     "petsNotAllowedHourglass": "Das Haustier ist nicht für den Kauf mit einer Mystischen Sanduhr geeignet.",
     "mountsNotAllowedHourglass": "Das Reittier ist nicht für den Kauf mit einer Mystischen Sanduhr geeignet.",
     "hourglassPurchase": "Gegenstand mit einer Mystischen Sanduhr gekauft!",
@@ -177,7 +177,7 @@
     "missingReceipt": "Fehlender Beleg.",
     "cannotDeleteActiveAccount": "Du hast ein aktives Abonnement, beende Deinen Plan bevor Du Deinen Account löschst.",
     "paymentNotSuccessful": "Die Zahlung war nicht erfolgreich",
-    "planNotActive": "Der Plan wurde noch nicht aktiviert (aufgrund eines PayPal-Bugs). Er startet am <%= nextBillingDate %>. Danach kannst Du diesen abbrechen oder die vollen Leistungen nutzen.",
+    "planNotActive": "Der Plan wurde noch nicht aktiviert (aufgrund eines PayPal-Bugs). Er startet am <%= nextBillingDate %>. Danach kannst Du diesen abbrechen oder die vollen Leistungen nutzen",
     "notAllowedHourglass": "Haustier/Reittier nicht für den Kauf mit einer Mystischen Sanduhr verfügbar.",
     "readCard": "<%= cardType %> wurde gelesen",
     "cardTypeRequired": "Kartentyp erforderlich",
@@ -214,5 +214,6 @@
     "purchaseAll": "Set kaufen",
     "gemsPurchaseNote": "Abonnenten können im Markt Edelsteine mit Gold kaufen! Für schnellen Zugriff kannst Du den Edelstein in Deiner Belohnungsspalte anheften.",
     "gemsRemaining": "verbleibende Edelsteine",
-    "notEnoughGemsToBuy": "Du kannst die gewünschte Anzahl Edelsteine nicht kaufen"
+    "notEnoughGemsToBuy": "Du kannst die gewünschte Anzahl Edelsteine nicht kaufen",
+    "mysterySet201903": "Ei-nzigartiges Set"
 }
