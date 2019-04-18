@@ -130,14 +130,6 @@ function _setUpNewUser (user) {
   user.purchased.background.violet = true;
   user.preferences.background = 'violet';
 
-  const testGroup = Math.random();
-
-  if (testGroup < 0.5) {
-    user._ABtests.welcomeEmailSplit = 'welcome-v2b';
-  } else {
-    user._ABtests.welcomeEmailSplit = 'welcome';
-  }
-
   if (user.registeredThrough === 'habitica-web') {
     taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];
 
