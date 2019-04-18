@@ -24,7 +24,6 @@ export default {
   props: ['task'],
   methods: {
     approve (index) {
-      if (!confirm(this.$t('confirmApproval'))) return;
       let userIdToApprove = this.task.group.assignedUsers[index];
       this.$store.dispatch('tasks:approve', {
         taskId: this.task._id,

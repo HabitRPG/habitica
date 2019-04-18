@@ -189,16 +189,6 @@
       hideDialog () {
         this.$root.$emit('bv::hide::modal', 'equipgear-modal');
       },
-      fixDocBody () {
-        document.body.classList.remove('modal-open');
-        if (document.body.getAttribute('data-modal-open-count') <= 1) {
-          document.body.removeAttribute('data-modal-open-count');
-        } else {
-          document.body.setAttribute('data-modal-open-count', document.body.getAttribute('data-modal-open-count') - 1);
-        }
-        document.body.removeAttribute('data-padding-right');
-        document.body.style.removeProperty('padding-right');
-      },
       memberOverrideAvatarGear (gear) {
         return {
           [gear.type]: gear.key,
