@@ -164,7 +164,7 @@
     "December": "Grudzień",
     "dateFormat": "Format daty",
     "achievementStressbeast": "Zbawca Stoikonii",
-    "achievementStressbeastText": "Pomógł pokonać Śnieżną Stresobestię poczas Obchoów Cudownej Zimy w 2014.",
+    "achievementStressbeastText": "Pomógł pokonać Śnieżną Stresobestię poczas Obchoów Cudownej Zimy w 2014!",
     "achievementBurnout": "Wybawca Kwitnących Pól",
     "achievementBurnoutText": "Pomógł pokonać Wypaleńca i przywrócić Wycieńczone Duchy do ich prawdziwych postaci podczas obchodów Jesiennego Festiwalu 2015!",
     "achievementBewilder": "Zbawca Mistiflying",
@@ -212,11 +212,11 @@
     "congratsCardAchievementText": "Świetnie jest swiętować suckesy twoich znajomych. Wysłano lub otrzymano <%= count %> kartek z podziękowaniami.",
     "getwellCard": "Kartka z życzeniami szybkiego powrotu do zdrowia",
     "getwellCardExplanation": "Oboje otrzymujecie osiągnięcie Troskliwy Opiekun!",
-    "getwellCardNotes": "Wyślij kartkę z życzeniami szybkiego powrotu do zdrowia do członka drużyny",
+    "getwellCardNotes": "Wyślij kartkę z życzeniami szybkiego powrotu do zdrowia do członka drużyny.",
     "getwell0": "Mam nadzieję, że wkrótce wydobrzejesz!",
     "getwell1": "Trzymaj sie! <3",
     "getwell2": "Myślę o tobie!",
-    "getwell3": "Przykro mi, że nie czujesz się najlepiej.",
+    "getwell3": "Przykro mi, że nie czujesz się najlepiej!",
     "getwellCardAchievementTitle": "Troskliwy Opiekun",
     "getwellCardAchievementText": "Dobre życzenia są zawsze cenne. Wysłano lub otrzymano <%= count %> kartek z życzeniami szybkiego powrotu do zdrowia.",
     "goodluckCard": "Kartka Powodzenia",
@@ -290,5 +290,6 @@
     "selected": "Wybrane",
     "howManyToBuy": "Ile chcesz kupić?",
     "habiticaHasUpdated": "Jest nowa aktualizacja Habitiki. Odśwież by uzyskać najnowszą wersje!",
-    "contactForm": "Skontaktuj się z Drużyną Moderatorów"
+    "contactForm": "Skontaktuj się z Drużyną Moderatorów",
+    "options": "Opcje"
 }

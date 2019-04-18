@@ -1747,5 +1747,14 @@
     "eyewearArmoirePlagueDoctorMaskNotes": "La auténtica máscara que llevaron los médicos que combatieron la plaga contra la procrastinación. Aumenta la Constitución y la Inteligencia en <%= attrs %> cada uno. Armario encantado: Conjunto de médico de la plaga (Artículo 2 de 3).",
     "eyewearArmoireGoofyGlassesText": "Gafas ridículas",
     "eyewearArmoireGoofyGlassesNotes": "Perfecto para pasar de incógnito o simplemente hacer reír a tus compañeros de equipo. Aumenta la Percepción en <%= per %>. Armario encantado: Artículo Independiente.",
-    "twoHandedItem": "Objeto de dos manos."
+    "twoHandedItem": "Objeto de dos manos.",
+    "weaponArmoireChefsSpoonText": "Cuchara de Chef",
+    "weaponArmoireChefsSpoonNotes": "Levántala con un grito de guerra: \"¡¡CUCHARAAAA!!\" Aumenta la Inteligencia en <%= int %>. Armario Encantado: Conjunto de Chef (Objeto 3 de 4).",
+    "weaponArmoireVernalTaperText": "Candela Vernal",
+    "weaponArmoireVernalTaperNotes": "Los días se vuelven más largos, pero esta vela te ayudará a encontrar tu camino antes de que el sol se alce. Aumenta la Constitución en <%= con %>. Armario Encantado: Conjunto de Vestiduras Vernales (Item 3 de 3).",
+    "armorArmoireChefsJacketText": "Chaqueta de Chef",
+    "armorArmoireChefsJacketNotes": "Esta chaqueta de algodón grueso es de doble capa para protegerte de derrames (y convenientemente reversible……). Aumenta la Inteligencia en <%= int %>. Armario Encantado: Conjunto de Chef (Item 2 de 4).",
+    "armorArmoireVernalVestmentText": "Vestimenta Vernal",
+    "armorArmoireVernalVestmentNotes": "Esta sedosa túnica es perfecta para disfrutar con estilo el tiempo primaveral. Aumenta la Fuerza y la Inteligencia en <%= attrs %> cada una. Armario Encantado: Conjunto de Vestimentas Vernales (Item 2 de 3).",
+    "headArmoireToqueBlancheText": "Toga Blanca"
 }
