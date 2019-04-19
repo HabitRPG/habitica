@@ -206,6 +206,14 @@ api.assignTask = {
       let message = res.t('userIsClamingTask', {username: user.profile.name, task: task.text});
       const newMessage = group.sendChat(message);
       promises.push(newMessage.save());
+    } else {
+      const taskText = task.text;
+      const managerName = user.profile.name;
+
+      assignedUser.addNotification('GROUP_TASK_ASSIGNED', {
+        message: res.t('youHaveBeenAssignedTask', {managerName, taskText}),
+        taskId: task._id,
+      });
     }
 
     promises.push(group.syncTask(task, assignedUser));
@@ -260,6 +268,15 @@ api.unassignTask = {
     if (canNotEditTasks(group, user, assignedUserId)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
     await group.unlinkTask(task, assignedUser);
+
+    let notificationIndex = assignedUser.notifications.findIndex(function findNotification (notification) {
+      return notification && notification.data && notification.type === 'GROUP_TASK_ASSIGNED' && notification.data.taskId === task._id;
+    });
+
+    if (notificationIndex !== -1) {
+      assignedUser.notifications.splice(notificationIndex, 1);
+      await assignedUser.save();
+    }
 
     res.respond(200, task);
   },
