@@ -476,7 +476,7 @@
     "whatIsGroupManager": "What is a Group Manager?",
     "whatIsGroupManagerDesc": "A Ship Manager be a pirate role that do nah 'ave access t' th' ship's billin' details, but can create, assign, 'n approve shared Tasks fer th' Ship's hands. Promote Ship Managers from th' Shipâs hand list.",
     "goToTaskBoard": "Go to Task Board",
-    "sharedCompletion": "Shared Completion",
+    "sharedCompletion": "Completion Condition",
     "recurringCompletion": "None - Group task does not complete",
     "singleCompletion": "Single - Completes when any assigned pirate finishes",
     "allAssignedCompletion": "All - Completes when all assigned pirates finish",
