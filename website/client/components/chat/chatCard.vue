@@ -1,42 +1,38 @@
 <template lang="pug">
 div
   .mentioned-icon(v-if='isUserMentioned')
-  .message-hidden(v-if='msg.flagCount === 1 && user.contributor.admin') Message flagged once, not hidden
-  .message-hidden(v-if='msg.flagCount > 1 && user.contributor.admin') Message hidden
+  .message-hidden(v-if='!inbox && msg.flagCount === 1 && user.contributor.admin') Message flagged once, not hidden
+  .message-hidden(v-if='!inbox && msg.flagCount > 1 && user.contributor.admin') Message hidden
   .card-body
-    h3.leader(
-      :class='userLevelStyle(msg)',
-      @click="showMemberModal(msg.uuid)",
-      v-b-tooltip.hover.top="tierTitle",
-      v-if="msg.user"
-    )
-      | {{msg.user}}
-      .svg-icon(v-html="tierIcon")
+    user-link(:userId="msg.uuid", :name="msg.user", :backer="msg.backer", :contributor="msg.contributor")
     p.time
       span.mr-1(v-if="msg.username") @{{ msg.username }}
       span.mr-1(v-if="msg.username") •
       span(v-b-tooltip="", :title="msg.timestamp | date") {{ msg.timestamp | timeAgo }}&nbsp;
       span(v-if="msg.client && user.contributor.level >= 4")  ({{ msg.client }})
     .text(v-html='atHighlight(parseMarkdown(msg.text))')
+    .reported(v-if="isMessageReported && (inbox === true)")
+      span(v-once) {{ $t('reportedMessage')}}
+      br
+      span(v-once) {{ $t('canDeleteNow') }}
     hr
     .d-flex(v-if='msg.id')
       .action.d-flex.align-items-center(v-if='!inbox', @click='copyAsTodo(msg)')
         .svg-icon(v-html="icons.copy")
         div {{$t('copyAsTodo')}}
-      .action.d-flex.align-items-center(v-if='!inbox && user.flags.communityGuidelinesAccepted && msg.uuid !== "system"', @click='report(msg)')
-        .svg-icon(v-html="icons.report")
-        div {{$t('report')}}
-        // @TODO make flagging/reporting work in the inbox. NOTE: it must work even if the communityGuidelines are not accepted and it MUST work for messages that you have SENT as well as received. -- Alys
+      .action.d-flex.align-items-center(v-if='(inbox || (user.flags.communityGuidelinesAccepted && msg.uuid !== "system")) && (!isMessageReported || user.contributor.admin)', @click='report(msg)')
+        .svg-icon(v-html="icons.report", v-once)
+        div(v-once) {{$t('report')}}
       .action.d-flex.align-items-center(v-if='msg.uuid === user._id || inbox || user.contributor.admin', @click='remove()')
-        .svg-icon(v-html="icons.delete")
-        | {{$t('delete')}}
+        .svg-icon(v-html="icons.delete", v-once)
+        div(v-once) {{$t('delete')}}
       .ml-auto.d-flex(v-b-tooltip="{title: likeTooltip(msg.likes[user._id])}", v-if='!inbox')
         .action.d-flex.align-items-center.mr-0(@click='like()', v-if='likeCount > 0', :class='{active: msg.likes[user._id]}')
           .svg-icon(v-html="icons.liked", :title='$t("liked")')
           | +{{ likeCount }}
         .action.d-flex.align-items-center.mr-0(@click='like()', v-if='likeCount === 0', :class='{active: msg.likes[user._id]}')
           .svg-icon(v-html="icons.like", :title='$t("like")')
-          span(v-if='!msg.likes[user._id]') {{ $t('like') }}
+      span(v-if='!msg.likes[user._id] && !inbox') {{ $t('like') }}
 </template>
 
 <style lang="scss">
@@ -79,22 +75,6 @@ div
   .card-body {
     padding: 0.75rem 1.25rem 0.75rem 1.25rem;
 
-    .leader {
-      margin-bottom: 0;
-    }
-
-    h3 { // this is the user name
-      cursor: pointer;
-      display: inline-block;
-      font-size: 16px;
-
-      .svg-icon {
-        width: 10px;
-        display: inline-block;
-        margin-left: .5em;
-      }
-    }
-
     .time {
       font-size: 12px;
       color: #878190;
@@ -134,6 +114,11 @@ div
       color: $purple-400;
     }
   }
+
+  .reported {
+    margin-top: 18px;
+    color: $red-50;
+  }
 </style>
 
 <script>
@@ -145,29 +130,25 @@ import max from 'lodash/max';
 
 import habiticaMarkdown from 'habitica-markdown';
 import { mapState } from 'client/libs/store';
-import styleHelper from 'client/mixins/styleHelper';
-
-import achievementsLib from '../../../common/script/libs/achievements';
+import userLink from '../userLink';
 
 import deleteIcon from 'assets/svg/delete.svg';
 import copyIcon from 'assets/svg/copy.svg';
 import likeIcon from 'assets/svg/like.svg';
 import likedIcon from 'assets/svg/liked.svg';
 import reportIcon from 'assets/svg/report.svg';
-import tier1 from 'assets/svg/tier-1.svg';
-import tier2 from 'assets/svg/tier-2.svg';
-import tier3 from 'assets/svg/tier-3.svg';
-import tier4 from 'assets/svg/tier-4.svg';
-import tier5 from 'assets/svg/tier-5.svg';
-import tier6 from 'assets/svg/tier-6.svg';
-import tier7 from 'assets/svg/tier-7.svg';
-import tier8 from 'assets/svg/tier-mod.svg';
-import tier9 from 'assets/svg/tier-staff.svg';
-import tierNPC from 'assets/svg/tier-npc.svg';
+import {highlightUsers} from '../../libs/highlightUsers';
 
 export default {
-  props: ['msg', 'inbox', 'groupId'],
-  mixins: [styleHelper],
+  components: {userLink},
+  props: {
+    msg: {},
+    inbox: {
+      type: Boolean,
+      default: false,
+    },
+    groupId: {},
+  },
   data () {
     return {
       icons: Object.freeze({
@@ -176,17 +157,8 @@ export default {
         report: reportIcon,
         delete: deleteIcon,
         liked: likedIcon,
-        tier1,
-        tier2,
-        tier3,
-        tier4,
-        tier5,
-        tier6,
-        tier7,
-        tier8,
-        tier9,
-        tierNPC,
       }),
+      reported: false,
     };
   },
   filters: {
@@ -235,17 +207,8 @@ export default {
       }
       return likeCount;
     },
-    tierIcon () {
-      const message = this.msg;
-      const isNPC = Boolean(message.backer && message.backer.npc);
-      if (isNPC) {
-        return this.icons.tierNPC;
-      }
-      return this.icons[`tier${message.contributor.level}`];
-    },
-    tierTitle () {
-      const message = this.msg;
-      return achievementsLib.getContribText(message.contributor, message.backer) || '';
+    isMessageReported () {
+      return this.msg.flags && this.msg.flags[this.user.id] || this.reported;
     },
   },
   methods: {
@@ -272,10 +235,18 @@ export default {
     copyAsTodo (message) {
       this.$root.$emit('habitica::copy-as-todo', message);
     },
-    async report () {
+    report () {
+      this.$root.$on('habitica:report-result', data => {
+        if (data.ok) {
+          this.reported = true;
+        }
+
+        this.$root.$off('habitica:report-result');
+      });
+
       this.$root.$emit('habitica::report-chat', {
         message: this.msg,
-        groupId: this.groupId,
+        groupId: this.groupId || 'privateMessage',
       });
     },
     async remove () {
@@ -294,31 +265,12 @@ export default {
         chatId: message.id,
       });
     },
-    showMemberModal (memberId) {
-      this.$emit('show-member-modal', memberId);
-    },
     atHighlight (text) {
-      const escapedDisplayName = escapeRegExp(this.user.profile.name);
-      const escapedUsername = escapeRegExp(this.user.auth.local.username);
-      const userRegex = new RegExp(`@(${escapedDisplayName}|${escapedUsername})(?:\\b)`, 'gi');
-      const atRegex = new RegExp(/(?!\b)@[\w-]+/g);
-
-      if (userRegex.test(text)) {
-        text = text.replace(userRegex, match => {
-          return `<span class="at-highlight at-text">${match}</span>`;
-        });
-      }
-
-      if (atRegex.test(text)) {
-        text = text.replace(atRegex, match => {
-          return `<span class="at-text">${match}</span>`;
-        });
-      }
-
-      return text;
+      return highlightUsers(text, this.user.auth.local.username, this.user.profile.name);
     },
     parseMarkdown (text) {
-      return habiticaMarkdown.render(text);
+      if (!text) return;
+      return habiticaMarkdown.render(String(text));
     },
   },
 };

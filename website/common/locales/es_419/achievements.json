@@ -2,7 +2,7 @@
   "achievement": "Logro",
   "share": "Comparte!",
   "onwards": "¡Adelante!",
-  "levelup": "¡Por realizar tus metas de la vida real, has subido de nivel y te has curado por completo!",
+  "levelup": "¡Por alcanzar tus metas de la vida real, has subido de nivel y te has curado por completo!",
   "reachedLevel": "Has alcanzado el nivel <%= level %>",
   "achievementLostMasterclasser": "Completista de Misiones: Serie Maestro de Clases",
   "achievementLostMasterclasserText": "¡Completó todas las dieciséis misiones de la Serie Maestro de Clases y resolvió el misterio del Maestro de Clases perdido!"

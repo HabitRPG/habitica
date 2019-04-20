@@ -16,18 +16,18 @@ div
     router-view(v-if="!isUserLoggedIn || isStaticPage")
     template(v-else)
       template(v-if="isUserLoaded")
-        div.resting-banner(v-show="showRestingBanner", ref="restingBanner")
+        .resting-banner(v-show="showRestingBanner", ref="restingBanner")
           span.content
             span.label.d-inline.d-sm-none {{ $t('innCheckOutBannerShort') }}
             span.label.d-none.d-sm-inline {{ $t('innCheckOutBanner') }}
             span.separator  |
             span.resume(@click="resumeDamage()") {{ $t('resumeDamage') }}
-          div.closepadding(@click="hideBanner()")
+          .closepadding(@click="hideBanner()")
             span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close")
         notifications-display
-        app-menu(:class='{"restingInn": showRestingBanner}' :style="{ marginTop: bannerHeight + 'px' }")
+        app-menu
         .container-fluid
-          app-header(:class='{"restingInn": showRestingBanner}')
+          app-header
           buyModal(
             :item="selectedItemToBuy || {}",
             :withPin="true",
@@ -49,6 +49,13 @@ div
 
 <style lang='scss' scoped>
   @import '~client/assets/scss/colors.scss';
+
+  #app {
+    height: calc(100% - 56px); /* 56px is the menu */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
 
   #loading-screen-inapp {
     #melior {
@@ -79,6 +86,11 @@ div
     cursor: crosshair;
   }
 
+  .container-fluid {
+    overflow-x: hidden;
+    flex: 1 0 auto;
+  }
+
   .notification {
     border-radius: 1000px;
     background-color: $green-10;
@@ -89,42 +101,10 @@ div
     margin-bottom: .5em;
   }
 
-  .container-fluid {
-    overflow-x: hidden;
-    flex: 1 0 auto;
-  }
-
-  #app {
-    height: calc(100% - 56px); /* 56px is the menu */
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-</style>
-
-<style lang='scss'>
-  @import '~client/assets/scss/colors.scss';
-
-  /* @TODO: The modal-open class is not being removed. Let's try this for now */
-  .modal {
-    overflow-y: scroll !important;
-  }
-
-  .modal-backdrop.show {
-    opacity: .9 !important;
-    background-color: $purple-100 !important;
-  }
-
-  /* Push progress bar above modals */
-  #nprogress .bar {
-    z-index: 1600 !important; /* Must stay above nav bar */
-  }
-
   .resting-banner {
     width: 100%;
     min-height: 40px;
     background-color: $blue-10;
-    position: fixed;
     top: 0;
     z-index: 1300;
     display: flex;
@@ -140,14 +120,10 @@ div
     .closepadding {
       margin: 11px 24px;
       display: inline-block;
-      position: absolute;
+      position: relative;
       right: 0;
       top: 0;
       cursor: pointer;
-
-      span svg path {
-        stroke: $blue-500;
-      }
     }
 
     @media only screen and (max-width: 768px) {
@@ -167,6 +143,30 @@ div
       cursor: pointer;
       white-space:nowrap;
     }
+  }
+</style>
+
+<style lang='scss'>
+  @import '~client/assets/scss/colors.scss';
+
+  .closepadding span svg path {
+    stroke: #FFF;
+    opacity: 0.48;
+  }
+
+  /* @TODO: The modal-open class is not being removed. Let's try this for now */
+  .modal {
+    overflow-y: scroll !important;
+  }
+
+  .modal-backdrop.show {
+    opacity: .9 !important;
+    background-color: $purple-100 !important;
+  }
+
+  /* Push progress bar above modals */
+  #nprogress .bar {
+    z-index: 1600 !important; /* Must stay above nav bar */
   }
 </style>
 
@@ -225,7 +225,6 @@ export default {
       loading: true,
       currentTipNumber: 0,
       bannerHidden: false,
-      bannerHeight: 0,
     };
   },
   computed: {
@@ -318,6 +317,7 @@ export default {
         const errorMessage = errorData.message || errorData;
 
         // Check for conditions to reset the user auth
+        // TODO use a specific error like NotificationNotFound instead of checking for the string
         const invalidUserMessage = [this.$t('invalidCredentials'), 'Missing authentication headers.'];
         if (invalidUserMessage.indexOf(errorMessage) !== -1) {
           this.$store.dispatch('auth:logout');
@@ -326,12 +326,6 @@ export default {
         // Most server errors should return is click to dismiss errors, with some exceptions
         let snackbarTimeout = false;
         if (error.response.status === 502) snackbarTimeout = true;
-
-        const notificationNotFoundMessage = [
-          this.$t('messageNotificationNotFound'),
-          this.$t('messageNotificationNotFound', 'en'),
-        ];
-        if (notificationNotFoundMessage.indexOf(errorMessage) !== -1) snackbarTimeout = true;
 
         let errorsToShow = [];
         // show only the first error for each param
@@ -346,13 +340,17 @@ export default {
         } else {
           errorsToShow.push(errorMessage);
         }
-        // dispatch as one snackbar notification
-        this.$store.dispatch('snackbars:add', {
-          title: 'Habitica',
-          text: errorsToShow.join(' '),
-          type: 'error',
-          timeout: snackbarTimeout,
-        });
+
+        // Ignore NotificationNotFound errors, see https://github.com/HabitRPG/habitica/issues/10391
+        if (errorData.error !== 'NotificationNotFound') {
+          // dispatch as one snackbar notification
+          this.$store.dispatch('snackbars:add', {
+            title: 'Habitica',
+            text: errorsToShow.join(' '),
+            type: 'error',
+            timeout: snackbarTimeout,
+          });
+        }
       }
 
       return Promise.reject(error);
@@ -423,14 +421,6 @@ export default {
 
         this.hideLoadingScreen();
 
-        window.addEventListener('resize', this.setBannerOffset);
-        // Adjust the positioning of the header banners
-        this.$watch('showRestingBanner', () => {
-          this.$nextTick(() => {
-            this.setBannerOffset();
-          });
-        }, {immediate: true});
-
         // Adjust the timezone offset
         if (this.user.preferences.timezoneOffset !== this.browserTimezoneOffset) {
           this.$store.dispatch('user:set', {
@@ -443,7 +433,7 @@ export default {
           appState = JSON.parse(appState);
           if (appState.paymentCompleted) {
             removeLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE);
-            this.$root.$emit('bv::show::modal', 'payments-success-modal');
+            this.$root.$emit('habitica:payment-success', appState);
           }
         }
         this.$nextTick(() => {
@@ -465,7 +455,6 @@ export default {
     this.$root.$off('bv::show::modal');
     this.$root.$off('buyModal::showItem');
     this.$root.$off('selectMembersModal::showItem');
-    window.removeEventListener('resize', this.setBannerOffset);
   },
   mounted () {
     // Remove the index.html loading screen and now show the inapp loading
@@ -624,21 +613,9 @@ export default {
     },
     hideBanner () {
       this.bannerHidden = true;
-      this.setBannerOffset();
     },
     resumeDamage () {
       this.$store.dispatch('user:sleep');
-    },
-    setBannerOffset () {
-      let contentPlacement = 0;
-      if (this.showRestingBanner && this.$refs.restingBanner !== undefined) {
-        contentPlacement = this.$refs.restingBanner.clientHeight;
-      }
-      this.bannerHeight = contentPlacement;
-      let smartBanner = document.getElementsByClassName('smartbanner')[0];
-      if (smartBanner !== undefined) {
-        smartBanner.style.top = `${contentPlacement}px`;
-      }
     },
   },
 };
@@ -672,5 +649,6 @@ export default {
 <style src="assets/css/sprites/spritesmith-main-21.css"></style>
 <style src="assets/css/sprites/spritesmith-main-22.css"></style>
 <style src="assets/css/sprites/spritesmith-main-23.css"></style>
+<style src="assets/css/sprites/spritesmith-main-24.css"></style>
 <style src="assets/css/sprites.css"></style>
 <style src="smartbanner.js/dist/smartbanner.min.css"></style>

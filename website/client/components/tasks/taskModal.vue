@@ -20,7 +20,7 @@
           label.d-flex.align-items-center.justify-content-between(v-once)
             span {{ $t('notes') }}
             small(v-once)
-              a(target="_blank", href="http://habitica.wikia.com/wiki/Markdown_Cheat_Sheet") {{ $t('markdownHelpLink') }}
+              a(target="_blank", href="http://habitica.fandom.com/wiki/Markdown_Cheat_Sheet") {{ $t('markdownHelpLink') }}
 
           textarea.form-control(v-model="task.notes", rows="3")
       .task-modal-content(@click="handleClick($event)")
@@ -88,7 +88,8 @@
               :clearButtonText='$t("clear")',
               :todayButton='!challengeAccessRequired',
               :todayButtonText='$t("today")',
-              :disabled-picker='challengeAccessRequired'
+              :disabled-picker='challengeAccessRequired',
+              :highlighted='calendarHighlights'
             )
         .option(v-if="task.type === 'daily'")
           .form-group
@@ -99,7 +100,8 @@
               :clearButton="false",
               :todayButton="!challengeAccessRequired",
               :todayButtonText="$t('today')",
-              :disabled-picker="challengeAccessRequired"
+              :disabled-picker="challengeAccessRequired",
+              :highlighted='calendarHighlights'
             )
         .option(v-if="task.type === 'daily'")
           .form-group
@@ -257,6 +259,10 @@
 
     label {
       font-weight: bold;
+    }
+
+    .input-group > * {
+      height: 40px;
     }
 
     input, textarea {
@@ -717,6 +723,7 @@ export default {
         con: 'constitution',
         per: 'perception',
       },
+      calendarHighlights: { dates: [new Date()]},
     };
   },
   mounted () {
@@ -1009,7 +1016,7 @@ export default {
       }
     },
     handleClick (e) {
-      if (this.$refs.popup && !this.$refs.popup.$el.contains(e.target)) {
+      if (this.$refs.popup && !this.$refs.popup.$el.parentNode.contains(e.target)) {
         this.closeTagsPopup();
       }
     },

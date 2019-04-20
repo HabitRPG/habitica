@@ -13,14 +13,19 @@
   min-width: 100px;
   border-radius: 100px;
   background-color: $gray-600;
-  padding: .5em;
+  padding: 4px 12px;
   display: inline-block;
-  margin: .25em;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 1.33;
+  margin-right: 4px;
+  margin-top: 8px;
   text-align: center;
-  color: $gray-300;
+
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.33;
+  letter-spacing: normal;
+  color: $gray-100;
 }
 
 .category-label-purple {

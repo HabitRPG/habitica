@@ -39,7 +39,7 @@
           button.btn.btn-danger.btn-xs(@click='changeClassForUser(true)', v-once) {{ $t('changeClass') }}
           small.cost &nbsp; 3 {{ $t('gems') }}
             // @TODO add icon span.Pet_Currency_Gem1x.inline-gems
-      hr
+        hr
 
       div
         .checkbox

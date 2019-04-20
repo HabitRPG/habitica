@@ -20,7 +20,7 @@ module.exports = function hatch (user, req = {}) {
     throw new NotFound(i18n.t('messageMissingEggPotion', req.language));
   }
 
-  if (content.hatchingPotions[hatchingPotion].premium && !content.dropEggs[egg]) {
+  if ((content.hatchingPotions[hatchingPotion].premium || content.hatchingPotions[hatchingPotion].wacky) && !content.dropEggs[egg]) {
     throw new BadRequest(i18n.t('messageInvalidEggPotionCombo', req.language));
   }
 
@@ -33,6 +33,11 @@ module.exports = function hatch (user, req = {}) {
   user.items.pets[pet] = 5;
   user.items.eggs[egg]--;
   user.items.hatchingPotions[hatchingPotion]--;
+  if (user.markModified) {
+    user.markModified('items.pets');
+    user.markModified('items.eggs');
+    user.markModified('items.hatchingPotions');
+  }
 
   return [
     user.items,

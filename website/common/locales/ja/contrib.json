@@ -64,10 +64,10 @@
     "playerTiers": "プレイヤー段位",
     "tier": "段位",
     "visitHeroes": "英雄(貢献者・資金提供者)記念館を訪ねる",
-    "conLearn": "<a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'>貢献者への報酬について、もっと知る</a>",
+    "conLearn": "<a href='http://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'>貢献者への報酬について、もっと知る</a>",
     "conLearnHow": "Habiticaの進展における参加",
-    "conLearnURL": "http://habitica.wikia.com/wiki/Contributing_to_Habitica",
-    "conRewardsURL": "http://habitica.wikia.com/wiki/Contributor_Rewards",
+    "conLearnURL": "http://habitica.fandom.com/wiki/Contributing_to_Habitica",
+    "conRewardsURL": "http://habitica.fandom.com/wiki/Contributor_Rewards",
     "surveysSingle": "アンケートへの回答、または大きなテストに努力していただき、Habitica の成長を手伝っていただきました。ありがとうございます!",
     "surveysMultiple": "<%= count %> 回にわたって、アンケートへの回答、または大きなテストに努力していただき、Habitica の成長を手伝っていただきました。ありがとうございます!",
     "currentSurvey": "開催中のアンケート",
@@ -76,5 +76,5 @@
     "blurbGuildsPage": "ギルドは共通の興味を持つプレイヤー同士のためのチャットグループです。リストから興味のあるグループを探して参加しましょう！",
     "blurbChallenges": "チャレンジはあなたの仲間のプレイヤーによって作成されます。チャレンジへ参加することで、あなたのタスクダッシュボードにそのタスクが追加されます。そして、チャレンジに成功することで、あなたには実績と多くの場合は賞品のジェムが与えられるでしょう!　",
     "blurbHallPatrons": "こちらは、資金協力で後援いただいた方々の記念館です。Habitica の源流となった Kickstarter で資金協力してくださった気高い冒険者のみなさんを誇りに思っています。Habitica に命を吹き込むことに手を貸してくれた彼らに感謝をささげましょう!",
-    "blurbHallContributors": "こちらは Habitica をオープンソースの世界で貢献してくださった方々を称える貢献者記念館です。貢献の内容は、コード、画像、音楽、執筆などです。彼らは献身的でありましたが、<a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'> ジェム、特別なアイテム</a>、そして <a href='http://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>名誉ある肩書き</a>を手にしました。あなたも Habitica に貢献できます! <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'> 詳しくはこちらをご覧ください。</a>"
+    "blurbHallContributors": "こちらは Habitica をオープンソースの世界で貢献してくださった方々を称える貢献者記念館です。貢献の内容は、コード、画像、音楽、執筆などです。彼らは献身的でありましたが、<a href='http://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'> ジェム、特別なアイテム</a>、そして <a href='http://habitica.fandom.com/wiki/Contributor_Titles' target='_blank'>名誉ある肩書き</a>を手にしました。あなたも Habitica に貢献できます! <a href='http://habitica.fandom.com/wiki/Contributing_to_Habitica' target='_blank'> 詳しくはこちらをご覧ください。</a>"
 }

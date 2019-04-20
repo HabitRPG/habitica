@@ -4,6 +4,7 @@ import {
   generateUser,
 } from '../../../../helpers/api-integration/v3';
 import { v4 as generateUUID } from 'uuid';
+import { model as Group } from '../../../../../website/server/models/group';
 
 describe('POST /groups/:groupId/quests/cancel', () => {
   let questingGroup;
@@ -99,6 +100,10 @@ describe('POST /groups/:groupId/quests/cancel', () => {
   it('cancels a quest', async () => {
     await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
     await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
+    // partyMembers[1] hasn't accepted the invitation, because if he accepts, invitation phase ends.
+    // The cancel command can be done only in the invitation phase.
+
+    let stub = sandbox.spy(Group.prototype, 'sendChat');
 
     let res = await leader.post(`/groups/${questingGroup._id}/quests/cancel`);
 
@@ -135,5 +140,9 @@ describe('POST /groups/:groupId/quests/cancel', () => {
       },
       members: {},
     });
+    expect(Group.prototype.sendChat).to.be.calledOnce;
+    expect(Group.prototype.sendChat).to.be.calledWithMatch(/cancelled the party quest Wail of the Whale.`/);
+
+    stub.restore();
   });
 });

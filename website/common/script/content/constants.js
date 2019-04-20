@@ -34,6 +34,8 @@ export const EVENTS = {
   spring2018: { start: '2018-03-20', end: '2018-05-02' },
   summer2018: { start: '2018-06-19', end: '2018-08-02' },
   fall2018:   { start: '2018-09-20', end: '2018-11-02' },
+  winter2019: { start: '2018-12-19', end: '2019-02-02' },
+  spring2019: { start: '2019-03-19', end: '2019-05-02' },
 };
 
 export const SEASONAL_SETS = {
@@ -67,6 +69,12 @@ export const SEASONAL_SETS = {
     'winter2018GiftWrappedSet',
     'winter2018MistletoeSet',
     'winter2018ReindeerSet',
+
+    // winter 2019
+    'winter2019PoinsettiaSet',
+    'winter2019WinterStarSet',
+    'winter2019BlizzardSet',
+    'winter2019PyrotechnicSet',
   ],
   spring: [
     // spring 2014
@@ -98,6 +106,12 @@ export const SEASONAL_SETS = {
     'spring2018SunriseWarriorSet',
     'spring2018DucklingRogueSet',
     'spring2018GarnetHealerSet',
+
+    // spring 2019
+    'spring2019AmberMageSet',
+    'spring2019OrchidWarriorSet',
+    'spring2019CloudRogueSet',
+    'spring2019RobinHealerSet',
   ],
   summer: [
     // summer 2014

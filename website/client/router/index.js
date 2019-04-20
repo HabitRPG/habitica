@@ -108,6 +108,15 @@ const router = new VueRouter({
     { name: 'resetPassword', path: '/reset-password', component: RegisterLoginReset, meta: {requiresLogin: false} },
     { name: 'tasks', path: '/', component: UserTasks },
     {
+      name: 'userProfile',
+      path: '/profile/:userId',
+      component: ProfilePage,
+      props: true,
+      children: [
+        { name: 'userProfilePage', path: ':startingPage', component: ProfilePage },
+      ],
+    },
+    {
       path: '/inventory',
       component: InventoryContainer,
       children: [
@@ -353,6 +362,31 @@ router.beforeEach(function routerGuard (to, from, next) {
     eventAction: 'navigate',
     page: to.name || to.path,
   });
+
+  if ((to.name === 'userProfile' || to.name === 'userProfilePage') && from.name !== null) {
+    let startingPage = 'profile';
+    if (to.params.startingPage !== undefined) {
+      startingPage = to.params.startingPage;
+    }
+    router.app.$emit('habitica:show-profile', {
+      userId: to.params.userId,
+      startingPage,
+      path: to.path,
+    });
+    return;
+  }
+
+  if ((to.name === 'stats' || to.name === 'achievements' || to.name === 'profile') && from.name !== null) {
+    router.app.$emit('habitica:show-profile', {
+      startingPage: to.name,
+      path: to.path,
+    });
+    return;
+  }
+
+  if (from.name === 'userProfile' || from.name === 'userProfilePage' || from.name === 'stats' || from.name === 'achievements' || from.name === 'profile') {
+    router.app.$root.$emit('bv::hide::modal', 'profile');
+  }
 
   next();
 });

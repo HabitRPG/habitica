@@ -62,5 +62,5 @@
     "unallocatedStatsPoints": "Van <span class=\"notification-bold-blue\"><%= points %> kiosztatlan tulajdonság pontod</span>",
     "beginningOfConversation": "Elkezdtél beszélgetni <%= userName %> felhasználóval. Ne felejtesd hogy legyél kedves, tisztelettudó és kövesd a közösségi irányelveket!",
     "messageDeletedUser": "Ez a felhasználó törölte a fiókját.",
-    "messageMissingDisplayName": "Hiányzó megjelenített név."
+    "messageMissingDisplayName": "Hiányzó nyilvános név."
 }

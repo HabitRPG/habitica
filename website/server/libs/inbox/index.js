@@ -1,12 +1,25 @@
 import { inboxModel as Inbox } from '../../models/message';
 
-export async function getUserInbox (user, asArray = true) {
-  const messages = (await Inbox
-    .find({ownerId: user._id})
-    .sort({timestamp: -1})
-    .exec()).map(msg => msg.toJSON());
+const PM_PER_PAGE = 10;
 
-  if (asArray) {
+export async function getUserInbox (user, options = {asArray: true, page: 0}) {
+  if (typeof options.asArray === 'undefined') {
+    options.asArray = true;
+  }
+
+  let query = Inbox
+    .find({ownerId: user._id})
+    .sort({timestamp: -1});
+
+  if (typeof options.page !== 'undefined') {
+    query = query
+      .limit(PM_PER_PAGE)
+      .skip(PM_PER_PAGE * Number(options.page));
+  }
+
+  const messages = (await query.exec()).map(msg => msg.toJSON());
+
+  if (options.asArray) {
     return messages;
   } else {
     const messagesObj = {};
@@ -14,6 +27,10 @@ export async function getUserInbox (user, asArray = true) {
 
     return messagesObj;
   }
+}
+
+export async function getUserInboxMessage (user, messageId) {
+  return Inbox.findOne({ownerId: user._id, _id: messageId}).exec();
 }
 
 export async function deleteMessage (user, messageId) {

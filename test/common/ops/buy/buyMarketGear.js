@@ -11,6 +11,7 @@ import {
 } from '../../../../website/common/script/libs/errors';
 import i18n from '../../../../website/common/script/i18n';
 import errorMessage from '../../../../website/common/script/libs/errorMessage';
+import { defaultsDeep } from 'lodash';
 
 function buyGear (user, req, analytics) {
   let buyOp = new BuyMarketGearOperation(user, req, analytics);
@@ -24,6 +25,10 @@ describe('shared.ops.buyMarketGear', () => {
 
   beforeEach(() => {
     user = generateUser({
+      stats: { gp: 200 },
+    });
+
+    defaultsDeep(user, {
       items: {
         gear: {
           owned: {
@@ -34,7 +39,6 @@ describe('shared.ops.buyMarketGear', () => {
           },
         },
       },
-      stats: { gp: 200 },
     });
 
     sinon.stub(shared, 'randomVal');

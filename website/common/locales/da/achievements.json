@@ -1,9 +1,9 @@
 {
-  "achievement": "Præstation",
-  "share": "Del",
-  "onwards": "Fremad!",
-  "levelup": "Ved at opnå dine mål, fra den virkelige verden, er du steget i level og er nu fuldt helet igen.",
-  "reachedLevel": "Du har nået level <%= level %>",
-  "achievementLostMasterclasser": "Quest færdiggører: Mesterklasse-rækken",
-  "achievementLostMasterclasserText": "Færdiggjort alle 16 quests i mesterklasse quest-rækken og løst alle mysterier fra \"the Lost Masterclasser\"!"
+    "achievement": "Præstation",
+    "share": "Del",
+    "onwards": "Fremad!",
+    "levelup": "Ved at opnå dine mål fra den virkelige verden er du steget i level, og er nu fuldt helet igen.",
+    "reachedLevel": "Du har nået level <%= level %>",
+    "achievementLostMasterclasser": "Quest færdiggører: Mesterklasse-rækken",
+    "achievementLostMasterclasserText": "Færdiggjorde alle 16 quests i Mesterklasse quest-rækken og løste alle mysterier fra \"the Lost Masterclasser\"!"
 }

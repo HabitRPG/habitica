@@ -41,7 +41,7 @@
     "messageAuthEmailTaken": "E-mailen er allerede i brug",
     "messageAuthNoUserFound": "Ingen bruger fundet.",
     "messageAuthMustBeLoggedIn": "Du skal være logget ind først.",
-    "messageAuthMustIncludeTokens": "Du skal inkludere en token og uid (bruger ID) i din anmodning",
+    "messageAuthMustIncludeTokens": "Du skal inkludere en token og uid (bruger-ID) i din anmodning",
     "messageGroupAlreadyInParty": "Allerede i en gruppe, prøv at opdatere.",
     "messageGroupOnlyLeaderCanUpdate": "Kun gruppelederen kan opdatere gruppen!",
     "messageGroupRequiresInvite": "Du kan ikke støde til en gruppe, du ikke er inviteret til.",

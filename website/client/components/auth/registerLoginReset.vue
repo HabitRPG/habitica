@@ -328,10 +328,10 @@ export default {
   },
   computed: {
     registering () {
-      if (this.$route.path.startsWith('/login')) {
-        return false;
+      if (this.$route.path.startsWith('/register')) {
+        return true;
       }
-      return true;
+      return false;
     },
     resetPasswordSetNewOne () {
       if (this.$route.path.startsWith('/reset-password')) {

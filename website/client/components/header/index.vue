@@ -48,6 +48,7 @@ div
     color: $header-color;
     flex-wrap: nowrap;
     position: relative;
+    max-height: 10.25rem;
   }
 
   .hide-header {

@@ -73,26 +73,26 @@
 
         .subscribe-pay(v-if='!hasSubscription || hasCanceledSubscription')
           h3 {{ $t('subscribeUsing') }}
-          .row.text-center
-            .col-md-4
-              button.purchase.btn.btn-primary(@click='showStripe({subscription:subscription.key, coupon:subscription.coupon})', :disabled='!subscription.key') {{ $t('card') }}
-            .col-md-4
-              a.purchase(@click="openPaypal(paypalPurchaseLink, 'subscription')", :disabled='!subscription.key')
-                img(src='https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-small.png', :alt="$t('paypal')")
-            .col-md-4
-              a.btn.btn-secondary.purchase(@click="payWithAmazon()")
-                img(src='https://payments.amazon.com/gp/cba/button', :alt="$t('amazonPayments')")
+          .payments-column
+            button.purchase.btn.btn-primary.payment-button.payment-item(@click='showStripe({subscription:subscription.key, coupon:subscription.coupon})', :disabled='!subscription.key') 
+              .svg-icon.credit-card-icon(v-html="icons.creditCardIcon")
+              | {{ $t('card') }}
+            button.btn.payment-item.paypal-checkout.payment-button(@click="openPaypal(paypalPurchaseLink, 'subscription')", :disabled='!subscription.key')
+              | &nbsp;
+              img(src='~assets/images/paypal-checkout.png', :alt="$t('paypal')")
+              | &nbsp;
+            amazon-button.payment-item(:amazon-data="{type: 'subscription', subscription: this.subscription.key, coupon: this.subscription.coupon}")
     .row
       .col-6
-        h2 {{ $t('giftSubscription') }}
+        h2(v-once) {{ $t('giftSubscription') }}
         ol
-          li {{ $t('giftSubscriptionText1') }}
-          li {{ $t('giftSubscriptionText2') }}
-          li {{ $t('giftSubscriptionText3') }}
-        h4 {{ $t('giftSubscriptionText4') }}
+          li(v-once) {{ $t('giftSubscriptionText1') }}
+          li(v-once) {{ $t('giftSubscriptionText2') }}
+          li(v-once) {{ $t('giftSubscriptionText3') }}
+        h4(v-once) {{ $t('giftSubscriptionText4') }}
 </template>
 
-<style scoped>
+<style scoped lang="scss">
   .badge.badge-success {
     color: #fff;
   }
@@ -115,8 +115,14 @@ import planGemLimits from '../../../common/script/libs/planGemLimits';
 import paymentsMixin from '../../mixins/payments';
 import notificationsMixin from '../../mixins/notifications';
 
+import amazonButton from 'client/components/payments/amazonButton';
+import creditCardIcon from 'assets/svg/credit-card-icon.svg';
+
 export default {
   mixins: [paymentsMixin, notificationsMixin],
+  components: {
+    amazonButton,
+  },
   data () {
     return {
       loading: false,
@@ -137,6 +143,9 @@ export default {
         PAYPAL: 'Paypal',
         GIFT: 'Gift',
       },
+      icons: Object.freeze({
+        creditCardIcon,
+      }),
     };
   },
   computed: {
@@ -240,13 +249,6 @@ export default {
     },
   },
   methods: {
-    payWithAmazon () {
-      this.amazonPaymentsInit({
-        type: 'subscription',
-        subscription: this.subscription.key,
-        coupon: this.subscription.coupon,
-      });
-    },
     async applyCoupon (coupon) {
       const response = await axios.post(`/api/v4/coupons/validate/${coupon}`);
 

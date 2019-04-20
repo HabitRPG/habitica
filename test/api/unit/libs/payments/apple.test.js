@@ -6,6 +6,7 @@ import iap from '../../../../../website/server/libs/inAppPurchases';
 import {model as User} from '../../../../../website/server/models/user';
 import common from '../../../../../website/common';
 import moment from 'moment';
+import {mockFindById, restoreFindById} from '../../../../helpers/mongoose.helper';
 
 const i18n = common.i18n;
 
@@ -49,7 +50,7 @@ describe('Apple Payments', ()  => {
       iapIsValidatedStub = sinon.stub(iapModule, 'isValidated')
         .returns(false);
 
-      await expect(applePayments.verifyGemPurchase(user, receipt, headers))
+      await expect(applePayments.verifyGemPurchase({user, receipt, headers}))
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
           name: 'NotAuthorized',
@@ -61,7 +62,7 @@ describe('Apple Payments', ()  => {
       iapGetPurchaseDataStub.restore();
       iapGetPurchaseDataStub = sinon.stub(iapModule, 'getPurchaseData').returns([]);
 
-      await expect(applePayments.verifyGemPurchase(user, receipt, headers))
+      await expect(applePayments.verifyGemPurchase({user, receipt, headers}))
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
           name: 'NotAuthorized',
@@ -71,7 +72,7 @@ describe('Apple Payments', ()  => {
 
     it('errors if the user cannot purchase gems', async () => {
       sinon.stub(user, 'canGetGems').resolves(false);
-      await expect(applePayments.verifyGemPurchase(user, receipt, headers))
+      await expect(applePayments.verifyGemPurchase({user, receipt, headers}))
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
           name: 'NotAuthorized',
@@ -89,7 +90,7 @@ describe('Apple Payments', ()  => {
                    transactionId: token,
         }]);
 
-      await expect(applePayments.verifyGemPurchase(user, receipt, headers))
+      await expect(applePayments.verifyGemPurchase({user, receipt, headers}))
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
           name: 'NotAuthorized',
@@ -131,7 +132,7 @@ describe('Apple Payments', ()  => {
           }]);
 
         sinon.stub(user, 'canGetGems').resolves(true);
-        await applePayments.verifyGemPurchase(user, receipt, headers);
+        await applePayments.verifyGemPurchase({user, receipt, headers});
 
         expect(iapSetupStub).to.be.calledOnce;
         expect(iapValidateStub).to.be.calledOnce;
@@ -150,6 +151,38 @@ describe('Apple Payments', ()  => {
         expect(user.canGetGems).to.be.calledOnce;
         user.canGetGems.restore();
       });
+    });
+
+    it('gifts gems', async () => {
+      const receivingUser = new User();
+      await receivingUser.save();
+
+      mockFindById(receivingUser);
+
+      iapGetPurchaseDataStub.restore();
+      iapGetPurchaseDataStub = sinon.stub(iapModule, 'getPurchaseData')
+        .returns([{productId: gemsCanPurchase[0].productId,
+                   transactionId: token,
+        }]);
+
+      const gift = {uuid: receivingUser._id};
+      await applePayments.verifyGemPurchase({user, gift, receipt, headers});
+
+      expect(iapSetupStub).to.be.calledOnce;
+      expect(iapValidateStub).to.be.calledOnce;
+      expect(iapValidateStub).to.be.calledWith(iap.APPLE, receipt);
+      expect(iapIsValidatedStub).to.be.calledOnce;
+      expect(iapIsValidatedStub).to.be.calledWith({});
+      expect(iapGetPurchaseDataStub).to.be.calledOnce;
+
+      expect(paymentBuyGemsStub).to.be.calledOnce;
+      expect(paymentBuyGemsStub).to.be.calledWith({
+        user: receivingUser,
+        paymentMethod: applePayments.constants.PAYMENT_METHOD_APPLE,
+        amount: gemsCanPurchase[0].amount,
+        headers,
+      });
+      restoreFindById();
     });
   });
 

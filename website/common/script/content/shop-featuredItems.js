@@ -8,33 +8,33 @@ const featuredItems = {
       path: 'armoire',
     },
     {
-      type: 'hatchingPotions',
-      path: 'hatchingPotions.White',
+      type: 'premiumHatchingPotion',
+      path: 'premiumHatchingPotions.Celestial',
     },
     {
-      type: 'eggs',
-      path: 'eggs.Wolf',
+      type: 'premiumHatchingPotion',
+      path: 'premiumHatchingPotions.Rainbow',
     },
     {
-      type: 'food',
-      path: 'food.Milk',
+      type: 'card',
+      path: 'cardTypes.goodluck',
     },
   ],
   quests: [
     {
       type: 'quests',
-      path: 'quests.alligator',
+      path: 'quests.treeling',
     },
     {
       type: 'quests',
-      path: 'quests.taskwoodsTerror1',
+      path: 'quests.egg',
     },
     {
       type: 'quests',
-      path: 'quests.horse',
+      path: 'quests.rock',
     },
   ],
-  seasonal: '',
+  seasonal: 'spring2018Healer',
   timeTravelers: [
     // TODO
   ],

@@ -47,6 +47,7 @@ function purchaseItem (user, item, price, type, key) {
 
   if (type === 'gear') {
     user.items.gear.owned[key] = true;
+    if (user.markModified) user.markModified('items.gear.owned');
   } else if (type === 'bundles') {
     let subType = item.type;
     forEach(item.bundleKeys, function addBundledItems (bundledKey) {
@@ -55,11 +56,13 @@ function purchaseItem (user, item, price, type, key) {
       }
       user.items[subType][bundledKey]++;
     });
+    if (user.markModified) user.markModified(`items.${subType}`);
   } else {
     if (!user.items[type][key] || user.items[type][key] < 0) {
       user.items[type][key] = 0;
     }
     user.items[type][key]++;
+    if (user.markModified) user.markModified(`items.${type}`);
   }
 }
 

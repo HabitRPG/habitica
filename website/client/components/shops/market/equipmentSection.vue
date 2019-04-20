@@ -21,7 +21,7 @@ layout-section(:title="$t('equipment')")
       span(slot="item", slot-scope="ctx")
         span.text {{ $t(ctx.item.id) }}
 
-  itemRows(
+  itemRows.equipment-rows(
     :items="sortedGearItems",
     :itemWidth=94,
     :itemMargin=24,
@@ -169,6 +169,10 @@ layout-section(:title="$t('equipment')")
   };
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+  .equipment-rows {
+    /deep/ .item.item-empty {
+      background: white;
+    }
+  }
 </style>

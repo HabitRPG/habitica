@@ -10,6 +10,6 @@ request that your changes be translated; changes are automatically
 copied to Transifex on a regular basis.
 
 If you want to help with translations, please first read [Guidance for
-Linguists](http://habitrpg.wikia.com/wiki/Guidance_for_Linguists) and
+Linguists](http://habitica.fandom.com/wiki/Guidance_for_Linguists) and
 note especially its information about the [Translations Trello
 card](https://trello.com/c/SvTsLdRF/12-translations).

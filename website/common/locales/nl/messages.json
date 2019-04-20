@@ -62,5 +62,5 @@
     "unallocatedStatsPoints": "Je hebt <span class=\"notification-bold-blue\"><%= points %> niet toegekende statuspunten</span>",
     "beginningOfConversation": "Dit is het begin van je gesprek met <%= userName %>. Denk eraan aardig en respectvol te zijn en de gemeenschapsrichtlijnen te volgen!",
     "messageDeletedUser": "Soory, deze gebruiker heeft zijn account verwijderd.",
-    "messageMissingDisplayName": "Missing display name."
+    "messageMissingDisplayName": "Er mist een gebruikersnaam"
 }

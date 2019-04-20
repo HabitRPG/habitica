@@ -170,6 +170,7 @@ async function addSubToGroupUser (member, group) {
 
   member.purchased.plan = plan;
   member.items.mounts['Jackalope-RoyalPurple'] = true;
+  member.markModified('items.mounts');
 
   data.user = member;
   await this.createSubscription(data);

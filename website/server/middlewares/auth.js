@@ -6,6 +6,7 @@ import {
 } from '../models/user';
 import nconf from 'nconf';
 import url from 'url';
+import gcpStackdriverTracer from '../libs/gcpTraceAgent';
 
 const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS_COMMUNITY_MANAGER_EMAIL');
 
@@ -32,6 +33,13 @@ function getUserFields (options, req) {
   if (userFieldOptions.length === 0) return '';
 
   return `notifications ${userFieldOptions.join(' ')}`;
+}
+
+// Make sure stackdriver traces are storing the user id
+function stackdriverTraceUserId (userId) {
+  if (gcpStackdriverTracer) {
+    gcpStackdriverTracer.getCurrentRootSpan().addLabel('userId', userId);
+  }
 }
 
 // Strins won't be translated here because getUserLanguage has not run yet
@@ -64,8 +72,9 @@ export function authWithHeaders (options = {}) {
         if (user.auth.blocked) throw new NotAuthorized(res.t('accountSuspended', {communityManagerEmail: COMMUNITY_MANAGER_EMAIL, userId: user._id}));
 
         res.locals.user = user;
-
         req.session.userId = user._id;
+        stackdriverTraceUserId(user._id);
+
         return next();
       })
       .catch(next);
@@ -93,6 +102,7 @@ export function authWithSession (req, res, next) {
       if (!user) throw new NotAuthorized(res.t('invalidCredentials'));
 
       res.locals.user = user;
+      stackdriverTraceUserId(user._id);
       return next();
     })
     .catch(next);

@@ -5,6 +5,7 @@ import axios from 'axios';
 import { togglePinnedItem as togglePinnedItemOp } from 'common/script/ops/pinnedGearUtils';
 import changeClassOp from 'common/script/ops/changeClass';
 import disableClassesOp from 'common/script/ops/disableClasses';
+import openMysteryItemOp from 'common/script/ops/openMysteryItem';
 
 export function fetch (store, options = {}) { // eslint-disable-line no-shadow
   return loadAsyncResource({
@@ -127,7 +128,9 @@ export function castSpell (store, params) {
   return axios.post(spellUrl, data);
 }
 
-export function openMysteryItem () {
+export async function openMysteryItem (store) {
+  let user = store.state.user.data;
+  openMysteryItemOp(user);
   return axios.post('/api/v4/user/open-mystery-item');
 }
 

@@ -374,6 +374,12 @@ let quests = {
     adjective: t('questEggAlligatorAdjective'),
     canBuy: hasQuestAchievementFunction('alligator'),
   },
+  Velociraptor: {
+    text: t('questEggVelociraptorText'),
+    mountText: t('questEggVelociraptorMountText'),
+    adjective: t('questEggVelociraptorAdjective'),
+    canBuy: hasQuestAchievementFunction('velociraptor'),
+  },
 };
 
 applyEggDefaults(drops, {

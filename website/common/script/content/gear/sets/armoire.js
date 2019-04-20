@@ -427,6 +427,32 @@ let armor = {
     set: 'redLoungewear',
     canOwn: ownsItem('armor_armoire_softRedSuit'),
   },
+  scribesRobe: {
+    text: t('armorArmoireScribesRobeText'),
+    notes: t('armorArmoireScribesRobeNotes', { attrs: 7 }),
+    value: 100,
+    int: 7,
+    per: 7,
+    set: 'scribe',
+    canOwn: ownsItem('armor_armoire_scribesRobe'),
+  },
+  chefsJacket: {
+    text: t('armorArmoireChefsJacketText'),
+    notes: t('armorArmoireChefsJacketNotes', { int: 10 }),
+    value: 100,
+    int: 10,
+    set: 'chef',
+    canOwn: ownsItem('armor_armoire_chefsJacket'),
+  },
+  vernalVestment: {
+    text: t('armorArmoireVernalVestmentText'),
+    notes: t('armorArmoireVernalVestmentNotes', { attrs: 6 }),
+    value: 100,
+    str: 6,
+    int: 6,
+    set: 'vernalVestments',
+    canOwn: ownsItem('armor_armoire_vernalVestment'),
+  },
 };
 
 let body = {
@@ -882,6 +908,29 @@ let head = {
     set: 'aceOfSpades',
     canOwn: ownsItem('head_armoire_veilOfSpades'),
   },
+  toqueBlanche: {
+    text: t('headArmoireToqueBlancheText'),
+    notes: t('headArmoireToqueBlancheNotes', { per: 10 }),
+    value: 100,
+    per: 10,
+    set: 'chef',
+    canOwn: ownsItem('head_armoire_toqueBlanche'),
+  },
+  vernalHennin: {
+    text: t('headArmoireVernalHenninText'),
+    notes: t('headArmoireVernalHenninNotes', { per: 12 }),
+    value: 100,
+    per: 12,
+    set: 'vernalVestments',
+    canOwn: ownsItem('head_armoire_vernalHennin'),
+  },
+  tricornHat: {
+    text: t('headArmoireTricornHatText'),
+    notes: t('headArmoireTricornHatNotes', { per: 10 }),
+    value: 100,
+    per: 10,
+    canOwn: ownsItem('head_armoire_tricornHat'),
+  },
 };
 
 let shield = {
@@ -1120,6 +1169,22 @@ let shield = {
     str: 5,
     set: 'redLoungewear',
     canOwn: ownsItem('shield_armoire_softRedPillow'),
+  },
+  mightyQuill: {
+    text: t('shieldArmoireMightyQuillText'),
+    notes: t('shieldArmoireMightyQuillNotes', { per: 9 }),
+    value: 100,
+    per: 9,
+    set: 'scribe',
+    canOwn: ownsItem('shield_armoire_mightyQuill'),
+  },
+  mightyPizza: {
+    text: t('shieldArmoireMightyPizzaText'),
+    notes: t('shieldArmoireMightyPizzaNotes', { per: 8 }),
+    value: 100,
+    per: 8,
+    set: 'chef',
+    canOwn: ownsItem('shield_armoire_mightyPizza'),
   },
 };
 
@@ -1470,6 +1535,44 @@ let weapon = {
     con: 13,
     set: 'aceOfSpades',
     canOwn: ownsItem('weapon_armoire_spearOfSpades'),
+  },
+  arcaneScroll: {
+    text: t('weaponArmoireArcaneScrollText'),
+    notes: t('weaponArmoireArcaneScrollNotes', { int: 9 }),
+    value: 100,
+    int: 9,
+    set: 'scribe',
+    canOwn: ownsItem('weapon_armoire_arcaneScroll'),
+  },
+  chefsSpoon: {
+    text: t('weaponArmoireChefsSpoonText'),
+    notes: t('weaponArmoireChefsSpoonNotes', { int: 8 }),
+    value: 100,
+    int: 8,
+    set: 'chef',
+    canOwn: ownsItem('weapon_armoire_chefsSpoon'),
+  },
+  vernalTaper: {
+    text: t('weaponArmoireVernalTaperText'),
+    notes: t('weaponArmoireVernalTaperNotes', { con: 8 }),
+    value: 100,
+    con: 8,
+    set: 'vernalVestments',
+    canOwn: ownsItem('weapon_armoire_vernalTaper'),
+  },
+  jugglingBalls: {
+    text: t('weaponArmoireJugglingBallsText'),
+    notes: t('weaponArmoireJugglingBallsNotes', { int: 10 }),
+    value: 100,
+    int: 10,
+    canOwn: ownsItem('weapon_armoire_jugglingBalls'),
+  },
+  slingshot: {
+    text: t('weaponArmoireSlingshotText'),
+    notes: t('weaponArmoireSlingshotNotes', { str: 10 }),
+    value: 100,
+    str: 10,
+    canOwn: ownsItem('weapon_armoire_slingshot'),
   },
 };
 

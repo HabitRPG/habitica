@@ -20,7 +20,7 @@ div
           select.form-control(@change='changeSortDirection($event)')
             option(v-for='sortDirection in sortDirections', :value='sortDirection.value') {{sortDirection.text}}
 
-    .row.apply-options.d-flex.justify-content-center(v-if='sortDirty')
+    .row.apply-options.d-flex.justify-content-center(v-if='sortDirty && group.type === "party"')
       a(@click='applySortOptions()') {{ $t('applySortToHeader') }}
     .row(v-if='invites.length > 0')
       .col-6.offset-3.nav
@@ -308,7 +308,7 @@ export default {
       return this.members.length < this.$store.state.memberModalOptions.memberCount;
     },
     groupIsSubscribed () {
-      return this.group.purchased.active;
+      return this.group.purchased && this.group.purchased.active;
     },
     group () {
       return this.$store.state.memberModalOptions.group;

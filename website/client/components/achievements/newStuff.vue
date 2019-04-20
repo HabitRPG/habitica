@@ -9,7 +9,7 @@
     .modal-body
       .static-view(v-html='html')
     .modal-footer
-      a.btn.btn-info(href='http://habitica.wikia.com/wiki/Whats_New', target='_blank') {{ this.$t('newsArchive') }}
+      a.btn.btn-info(href='http://habitica.fandom.com/wiki/Whats_New', target='_blank') {{ this.$t('newsArchive') }}
       button.btn.btn-secondary(@click='tellMeLater()') {{ this.$t('tellMeLater') }}
       button.btn.btn-warning(@click='dismissAlert();') {{ this.$t('dismissAlert') }}
 </template>

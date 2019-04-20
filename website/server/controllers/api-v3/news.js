@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'DECEMBER BACKGROUNDS AND ARMOIRE ITEMS';
+const LAST_ANNOUNCEMENT_TITLE = 'HABITICA BLOG: USE CASE SPOTLIGHT';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,14 +30,14 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>12/5/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>4/18/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <p>We’ve added three new backgrounds to the Background Shop! Now your avatar can soar over Snowy Mountains at night, bundle up to hike through a Frosty Forest, or snuggle up next to a Snowy Day Fireplace. Check them out under User Icon > Backgrounds!</p>
-        <p>Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the Green and Red Loungewear Sets. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)</p>
-        <div class="small mb-3">by eyenne, Vikte, wykedcrafty, GeraldThePixel, shanaqui, and SabreCat</div>
-        <div class="promo_armoire_backgrounds_201812 center-block"></div>
+        <div class="scene_yesterdailies_repeatables center-block"></div>
+        <p>This month's <a href='https://habitica.wordpress.com/2019/04/18/use-case-spotlight-reviewing-and-evaluating-your-tasks/' target='_blank'>Use Case Spotlight</a> is about Reviewing and Evaluating your Tasks! It features a number of great suggestions submitted by Habiticans in the <a href='/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6'>Use Case Spotlights Guild</a>. We hope it helps any of you who might be considering a refresh for your Task Lists.</p>
+        <p>Plus, we're collecting user submissions for the next spotlight! How do you keep things fresh and interesting if you've been using Habitica for a long time? We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!</p>
+        <div class="small mb-3">by shanaqui</div>
       </div>
       `,
     });

@@ -45,7 +45,7 @@
   "messageAuthEmailTaken": "Email already taken",
   "messageAuthNoUserFound": "No user found.",
   "messageAuthMustBeLoggedIn": "You must be logged in.",
-  "messageAuthMustIncludeTokens": "You must include a token and uid (user id) in your request",
+  "messageAuthMustIncludeTokens": "You must include a token and uid (User ID) in your request",
 
   "messageGroupAlreadyInParty": "Already in a party, try refreshing.",
   "messageGroupOnlyLeaderCanUpdate": "Only the group leader can update the group!",
@@ -71,6 +71,7 @@
   "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!",
 
   "messageDeletedUser": "Sorry, this user has deleted their account.",
-
-  "messageMissingDisplayName": "Missing display name."
+  "messageMissingDisplayName": "Missing display name.",
+  "reportedMessage": "You have reported this message to moderators.",
+  "canDeleteNow": "You can now delete the message if you wish."
 }

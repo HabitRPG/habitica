@@ -123,8 +123,8 @@
           h3(v-if='userLevel100Plus', v-once, v-html="$t('noMoreAllocate')")
           h3
             | {{$t('statPoints')}}
-            .counter.badge(v-if='user.stats.points || userLevel100Plus')
-              | {{pointsRemaining}}&nbsp;
+            .counter.badge.badge-pill(v-if='user.stats.points || userLevel100Plus')
+              | {{pointsRemaining}}
         .col-12.col-md-6
           .float-right
             toggle-switch(
@@ -409,9 +409,6 @@
       color: #fff;
       background-color: #ff944c;
       box-shadow: 0 1px 1px 0 rgba(26, 24, 29, 0.12);
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
     }
 
     .box {

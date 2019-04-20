@@ -347,7 +347,7 @@ export default {
       this.$root.$emit('habitica:show-member-modal', {
         challengeId: this.challenge._id,
         groupId: 'challenge', // @TODO: change these terrible settings
-        group: this.group,
+        group: this.challenge.group,
         memberCount: this.challenge.memberCount,
         viewingMembers: this.members,
         fetchMoreMembers: this.loadMembers,
