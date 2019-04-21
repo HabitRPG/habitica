@@ -12,7 +12,7 @@
     "tierNPC": "NPC",
     "friend": "好友",
     "friendFirst": "當您<strong>首度</strong>申請貢獻獎勵後，您將收到 Habitica貢獻者的徽章。在酒館聊天時，您的名字將會被自豪地冠上貢獻者頭銜。作為貢獻的獎勵，您也將獲得<strong>3顆鑽石</strong>。",
-    "friendSecond": "當您<strong>第二度</strong>申請貢獻獎勵後，您將可以在獎勵商店購買<strong>水晶護甲</strong>。作為貢獻的獎勵，您也將獲得<strong>3顆鑽石</strong>。",
+    "friendSecond": "當您<strong>第二度</strong>申請貢獻獎勵後，您將可以在獎勵商店購買<strong>水晶護甲</strong>。作為貢獻的獎勵，您也將獲得<strong>3顆鑽石</strong>",
     "elite": "精英",
     "eliteThird": "當您<strong>第三度</strong>申請貢獻獎勵後，您將可以在獎勵商店購買<strong>水晶頭盔</strong>。作為貢獻的獎勵，您也將獲得<strong>3顆鑽石</strong>。",
     "eliteFourth": "當您<strong>第四度</strong>申請貢獻獎勵後，您將可以在獎勵商店購買<strong>水晶冰劍</strong>。作為貢獻的獎勵，您也將獲得<strong>4顆鑽石</strong>。",
@@ -76,5 +76,5 @@
     "blurbGuildsPage": "公會是擁有與共同興趣的玩家所所創立的聊天群組。快來尋找對您有興趣的公會並加入他們吧!",
     "blurbChallenges": "挑戰是由您的同儕夥伴所創立的。參與挑戰將加入一些任務加到您的任務列表中。贏得挑戰不但可獲得成就，還經常可獲得鑽石獎勵喔!",
     "blurbHallPatrons": "這裡是贊助名人堂。我們在這裡紀念從草創時期就開始在 Kickstarter 上贊助 Habitica 的偉大冒險家們。我們由衷地感謝他們幫助讓 Habitica 能正式推出!",
-    "blurbHallContributors": "這裡是貢獻者殿堂。我們在這裡紀念對開源項目有所貢獻的人們。包含在程式、美術、音樂、著作方面，或是熱忠於到處幫忙的人都列於其中。他們已經獲得 <a href='http://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'> 鑽石、特殊裝備</a>、與<a href='http://habitica.fandom.com/wiki/Contributor_Titles' target='_blank'>尊貴的頭銜</a>。您也可以為 Habitica 做出貢獻!<a href='http://habitica.fandom.com/wiki/Contributing_to_Habitica' target='_blank'>點此來查看詳細資訊</a>。"
+    "blurbHallContributors": "這裡是貢獻者殿堂。我們在這裡紀念對開源項目有所貢獻的人們。包含在程式、美術、音樂、著作方面，或是熱忠於到處幫忙的人都列於其中。他們已經獲得 <a href='http://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'> 鑽石、特殊裝備</a>、與<a href='http://habitica.fandom.com/wiki/Contributor_Titles' target='_blank'>尊貴的頭銜</a>。您也可以為 Habitica 做出貢獻!<a href='http://habitica.fandom.com/wiki/Contributing_to_Habitica' target='_blank'>點此來查看詳細資訊</a>"
 }

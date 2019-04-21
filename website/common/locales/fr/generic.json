@@ -1,6 +1,6 @@
 {
     "languageName": "Français",
-    "stringNotFound": "Chaîne '<%= string %>' non trouvée",
+    "stringNotFound": "Chaîne '<%= string %>' non trouvée.",
     "titleIndex": "Habitica | Le RPG de votre vie",
     "habitica": "Habitica",
     "habiticaLink": "<a href='http://fr.habitica.fandom.com/wiki/Wiki_Habitica' target='_blank'>Habitica</a>",
@@ -34,9 +34,9 @@
     "expandToolbar": "Montrer la barre d'outlis",
     "collapseToolbar": "Cacher la barre d'outils",
     "markdownHelpLink": "Aide à la saisie Markdown",
-    "showFormattingHelp": "Afficher l'aide pour l'utilisation des balises.",
-    "hideFormattingHelp": "Masquer l'aide pour l'utilisation des balises.",
-    "youType": "Lorsque vous tapez:",
+    "showFormattingHelp": "Afficher l'aide pour l'utilisation des balises",
+    "hideFormattingHelp": "Masquer l'aide pour l'utilisation des balises",
+    "youType": "Lorsque vous tapez :",
     "youSee": "Vous voyez :",
     "italics": "*Italique*",
     "bold": "**Gras**",
@@ -290,5 +290,6 @@
     "selected": "Selectionné",
     "howManyToBuy": "Combien voulez-vous en acheter ?",
     "habiticaHasUpdated": "Une mise à jour d'Habitica a été effectuée. Actualisez la page pour avoir la dernière version !",
-    "contactForm": "Contacter l'équipe de modération"
+    "contactForm": "Contacter l'équipe de modération",
+    "options": "Options"
 }

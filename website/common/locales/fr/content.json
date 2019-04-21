@@ -181,7 +181,7 @@
     "questEggAlligatorAdjective": "un rusé",
     "questEggVelociraptorText": "Velociraptor",
     "questEggVelociraptorMountText": "Velociraptor",
-    "questEggVelociraptorAdjective": "a clever",
+    "questEggVelociraptorAdjective": "un intelligent",
     "eggNotes": "Trouvez une potion d’éclosion à verser sur cet œuf et il en sortira <%= eggAdjective(locale) %> bébé <%= eggText(locale) %>.",
     "hatchingPotionBase": "de base",
     "hatchingPotionWhite": "des neiges",
@@ -291,7 +291,7 @@
     "foodCandyWhite": "Friandise vanillée",
     "foodCandyWhiteThe": "la friandise à la vanille",
     "foodCandyWhiteA": "une friandise à la vanille",
-    "foodCandyGolden": "Friandise au miel",
+    "foodCandyGolden": "Friandise au miel ",
     "foodCandyGoldenThe": "la friandise au miel",
     "foodCandyGoldenA": "une friandise au miel",
     "foodCandyZombie": "Friandise infecte",
@@ -306,5 +306,6 @@
     "foodSaddleText": "Selle",
     "foodSaddleNotes": "Transforme directement l'un de vos familiers en monture.",
     "foodSaddleSellWarningNote": "Hé ! Cet objet est super utile ! Savez-vous comment utiliser une selle sur vos familiers ?",
-    "foodNotes": "Donnez-la à un de vos familiers, et il pourrait bien grandir en un robuste destrier."
+    "foodNotes": "Donnez-la à un de vos familiers, et il pourrait bien grandir en un robuste destrier.",
+    "hatchingPotionRoseQuartz": "Quartz Rose"
 }
