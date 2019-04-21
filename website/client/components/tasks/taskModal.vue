@@ -360,8 +360,8 @@
       margin-top: 12px;
       position: relative;
 
-      label {
-        max-height: 30px;
+      .custom-control-label p {
+        word-break: break-word;
       }
     }
 
