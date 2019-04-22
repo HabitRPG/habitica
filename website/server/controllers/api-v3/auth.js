@@ -313,6 +313,8 @@ api.resetPassword = {
       });
 
       await user.save();
+    } else {
+      let user = await User.findOne({ 'auth.google.email': email }).exec();
     }
 
     res.respond(200, {}, res.t('passwordReset'));

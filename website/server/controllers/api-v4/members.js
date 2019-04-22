@@ -67,7 +67,7 @@ api.getUsernameAutocompletes = {
         .find(recentChatQuery)
         .select(['profile.name', 'contributor', 'auth.local.username'])
         .sort({'auth.timestamps.loggedin': -1})
-        .limit(5 - members.length)
+        .limit(5)
         .exec();
     }
 
