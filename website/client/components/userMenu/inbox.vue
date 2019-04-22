@@ -35,7 +35,7 @@
             .time
               span.mr-1(v-if='conversation.username') @{{ conversation.username }} •
               span {{ conversation.date | timeAgo }}
-            div {{conversation.lastMessageText ? conversation.lastMessageText.substring(0, 30) : ''}}
+            div(v-html="conversation.lastMessageText ? parseMarkdown(conversation.lastMessageText.substring(0, 30)) : ''")
       .col-8.messages.d-flex.flex-column.justify-content-between
         .empty-messages.text-center(v-if='!selectedConversation.key')
           .svg-icon.envelope(v-html="icons.messageIcon")
@@ -218,6 +218,7 @@ import filter from 'lodash/filter';
 import sortBy from 'lodash/sortBy';
 import groupBy from 'lodash/groupBy';
 import { mapState } from 'client/libs/store';
+import habiticaMarkdown from 'habitica-markdown';
 import styleHelper from 'client/mixins/styleHelper';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
 import axios from 'axios';
@@ -499,6 +500,10 @@ export default {
       }
       if (!message.contributor) return;
       return this.icons[`tier${message.contributor.level}`];
+    },
+    parseMarkdown (text) {
+      if (!text) return;
+      return habiticaMarkdown.render(String(text));
     },
   },
 };
