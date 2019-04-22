@@ -1,5 +1,5 @@
 <template lang="pug">
-  b-modal#rebirth(:title="$t('modalAchievement')", size='md', :hide-footer="true", @hidden="reloadPage()")
+  b-modal#rebirth(:title="$t('modalAchievement')", size='md', :hide-footer="true")
     .modal-body
       .col-12
         // @TODO: +achievementAvatar('sun',0)
@@ -40,9 +40,6 @@
     methods: {
       close () {
         this.$root.$emit('bv::hide::modal', 'rebirth');
-      },
-      reloadPage () {
-        window.location.reload(true);
       },
     },
   };
