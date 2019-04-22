@@ -99,7 +99,7 @@ api.loginLocal = {
     let user = await User.findOne(login).exec();
 
     // if user is using social login, then user will not have a hashed_password stored
-    if (!user.auth.local.hashed_password) throw new NotAuthorized(res.t('invalidLoginCredentialsLong'));
+    if (!user || !user.auth.local.hashed_password) throw new NotAuthorized(res.t('invalidLoginCredentialsLong'));
 
     let isValidPassword;
 
