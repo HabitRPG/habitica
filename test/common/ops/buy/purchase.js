@@ -118,8 +118,8 @@ describe('shared.ops.purchase', () => {
       } catch (err) {
         expect(err).to.be.an.instanceof(BadRequest);
         expect(err.message).to.equal(i18n.t('invalidQuantity'));
+        done();
       }
-      done();
     });
 
     it('returns error when user supplies a negative quantity', (done) => {
@@ -132,8 +132,8 @@ describe('shared.ops.purchase', () => {
       } catch (err) {
         expect(err).to.be.an.instanceof(BadRequest);
         expect(err.message).to.equal(i18n.t('invalidQuantity'));
+        done();
       }
-      done();
     });
 
     it('returns error when user supplies a decimal quantity', (done) => {
@@ -146,8 +146,8 @@ describe('shared.ops.purchase', () => {
       } catch (err) {
         expect(err).to.be.an.instanceof(BadRequest);
         expect(err.message).to.equal(i18n.t('invalidQuantity'));
+        done();
       }
-      done();
     });
   });
 
