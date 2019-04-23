@@ -5,11 +5,11 @@
     "welcomeTo": "歡迎來到",
     "welcomeBack": "歡迎回來！",
     "justin": "Justin",
-    "justinIntroMessage1": "Hello there! You must be new here. My name is <strong>Justin</strong>, and I'll be your guide in Habitica.",
+    "justinIntroMessage1": "你好！你是新來的吧？我叫 <strong>Justin</strong>, 將會是你在Habitica裡的導遊。",
     "justinIntroMessage2": "想要開始，你將需要創造一名角色。",
     "justinIntroMessage3": "太棒了！現在，你在進行這一場旅途中會對什麼有興趣？",
-    "justinIntroMessageUsername": "Before we begin, let’s figure out what to call you. Below you’ll find a display name and username I’ve generated for you. After you’ve picked a display name and username, we’ll get started by creating an avatar!",
-    "justinIntroMessageAppearance": "So how would you like to look? Don’t worry, you can change this later.",
+    "justinIntroMessageUsername": "在開始之前，我們先看看真麼稱呼你吧。下面我為你產生了顯示名稱和帳戶名稱。你選好以後，我們就可以開始塑造你的角色了！",
+    "justinIntroMessageAppearance": "那你想你的角色樣子如何？不用擔心，你以後還能再作改動。",
     "introTour": "歡迎來到 Habitica！我已經根據您的興趣先為您新增了一些任務，讓您可以快速上手。請點擊任務以進行編輯，或者您也可以因應日常生活中的事項新增一些任務！",
     "prev": "往前",
     "next": "下一頁",
@@ -103,7 +103,7 @@
     "donationDesc": "捐贈給Habitica 20 顆鑽石",
     "payWithCard": "用信用卡購買",
     "payNote": "請注意： PayPal 有時候付款會蠻花時間的，我們建議你用信用卡購買。",
-    "card": "信用卡(使用 Stripe)",
+    "card": "信用卡",
     "amazonInstructions": "點選使用 Amazon Payments 支付。",
     "paymentMethods": "付款方式：",
     "paymentSuccessful": "Your payment was successful!",
@@ -167,5 +167,6 @@
     "welcome4": "避免壞習慣的發生，因為它會奪走你的生命 (HP)，你的角色將會因此死亡!",
     "welcome5": "現在你可以裝扮你的角色與設定你的任務...",
     "imReady": "進入 Habitica的世界",
-    "limitedOffer": "Available until <%= date %>"
+    "limitedOffer": "Available until <%= date %>",
+    "paymentAutoRenew": "訂購期滿時，您的訂購將會自動延伸，直至被取消為止。如果您需要將它取消，您能在您的設定裡所做。"
 }
