@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'HABITICA BLOG: USE CASE SPOTLIGHT';
+const LAST_ANNOUNCEMENT_TITLE = 'BEHIND THE SCENES: A BUTTERFLY GARDENING ADVENTURE WITH BEFFYMAROO!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,14 +30,13 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>4/18/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>4/23/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="scene_yesterdailies_repeatables center-block"></div>
-        <p>This month's <a href='https://habitica.wordpress.com/2019/04/18/use-case-spotlight-reviewing-and-evaluating-your-tasks/' target='_blank'>Use Case Spotlight</a> is about Reviewing and Evaluating your Tasks! It features a number of great suggestions submitted by Habiticans in the <a href='/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6'>Use Case Spotlights Guild</a>. We hope it helps any of you who might be considering a refresh for your Task Lists.</p>
-        <p>Plus, we're collecting user submissions for the next spotlight! How do you keep things fresh and interesting if you've been using Habitica for a long time? We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!</p>
-        <div class="small mb-3">by shanaqui</div>
+        <p>There's a new <a href='https://habitica.wordpress.com/2019/04/23/butterfly-gardening/' target='_blank'>Behind the Scenes post</a> on the Habitica Blog! Beffymaroo shares some information about starting your own butterfly garden and enjoying watching these fascinating--and beneficial--creatures in your home and yard.</p>
+        <div class="small mb-3">by Beffymaroo</div>
+        <div class="promo_butterflies center-block"></div>
       </div>
       `,
     });
