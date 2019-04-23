@@ -260,6 +260,7 @@
   import * as Analytics from 'client/libs/analytics';
   import spellsMixin from 'client/mixins/spells';
   import planGemLimits from 'common/script/libs/planGemLimits';
+  import numberInvalid from 'client/mixins/numberInvalid';
 
   import svgClose from 'assets/svg/close.svg';
   import svgGold from 'assets/svg/gold.svg';
@@ -291,7 +292,7 @@
   ];
 
   export default {
-    mixins: [currencyMixin, notifications, spellsMixin, buyMixin],
+    mixins: [buyMixin, currencyMixin, notifications, numberInvalid, spellsMixin],
     components: {
       BalanceInfo,
       EquipmentAttributesGrid,
@@ -358,9 +359,6 @@
       },
       notEnoughCurrency () {
         return !this.enoughCurrency(this.getPriceClass(), this.item.value * this.selectedAmountToBuy);
-      },
-      numberInvalid () {
-        return isNaN(this.selectedAmountToBuy) || this.selectedAmountToBuy < 1 || !Number.isInteger(this.selectedAmountToBuy);
       },
     },
     watch: {

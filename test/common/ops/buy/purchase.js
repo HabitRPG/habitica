@@ -108,6 +108,47 @@ describe('shared.ops.purchase', () => {
         done();
       }
     });
+
+    it('returns error when user supplies a non-numeric quantity', (done) => {
+      let type = 'eggs';
+      let key = 'Wolf';
+
+      try {
+        purchase(user, {params: {type, key}, quantity: 'jamboree'}, analytics);
+      } catch (err) {
+        expect(err).to.be.an.instanceof(BadRequest);
+        expect(err.message).to.equal(i18n.t('invalidQuantity'));
+      }
+      done();
+    });
+
+    it('returns error when user supplies a negative quantity', (done) => {
+      let type = 'eggs';
+      let key = 'Wolf';
+      user.balance = 10;
+
+      try {
+        purchase(user, {params: {type, key}, quantity: -2}, analytics);
+      } catch (err) {
+        expect(err).to.be.an.instanceof(BadRequest);
+        expect(err.message).to.equal(i18n.t('invalidQuantity'));
+      }
+      done();
+    });
+
+    it('returns error when user supplies a decimal quantity', (done) => {
+      let type = 'eggs';
+      let key = 'Wolf';
+      user.balance = 10;
+
+      try {
+        purchase(user, {params: {type, key}, quantity: 2.9}, analytics);
+      } catch (err) {
+        expect(err).to.be.an.instanceof(BadRequest);
+        expect(err.message).to.equal(i18n.t('invalidQuantity'));
+      }
+      done();
+    });
   });
 
   context('successful purchase', () => {

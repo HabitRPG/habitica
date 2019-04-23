@@ -208,12 +208,13 @@
   import QuestInfo from './questInfo.vue';
   import notifications from 'client/mixins/notifications';
   import buyMixin from 'client/mixins/buy';
+  import numberInvalid from 'client/mixins/numberInvalid';
 
   import questDialogDrops from './questDialogDrops';
   import questDialogContent from './questDialogContent';
 
   export default {
-    mixins: [currencyMixin, notifications, buyMixin],
+    mixins: [buyMixin, currencyMixin, notifications, numberInvalid],
     components: {
       BalanceInfo,
       QuestInfo,
@@ -256,9 +257,6 @@
         } else {
           return this.item.notes;
         }
-      },
-      numberInvalid () {
-        return isNaN(this.selectedAmountToBuy) || this.selectedAmountToBuy < 1 || !Number.isInteger(this.selectedAmountToBuy);
       },
     },
     methods: {
