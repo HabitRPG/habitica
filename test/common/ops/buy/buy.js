@@ -142,4 +142,52 @@ describe('shared.ops.buy', () => {
     buy(user, {params: {key: 'potion'}, quantity: 2});
     expect(user.stats.hp).to.eql(50);
   });
+
+  it('errors if user supplies a non-numeric quantity', (done) => {
+    try {
+      buy(user, {
+        params: {
+          key: 'dilatoryDistress1',
+        },
+        type: 'quest',
+        quantity: 'bogle',
+      });
+    } catch (err) {
+      expect(err).to.be.an.instanceof(BadRequest);
+      expect(err.message).to.equal(errorMessage('invalidQuantity'));
+      done();
+    }
+  });
+
+  it('errors if user supplies a negative quantity', (done) => {
+    try {
+      buy(user, {
+        params: {
+          key: 'dilatoryDistress1',
+        },
+        type: 'quest',
+        quantity: -3,
+      });
+    } catch (err) {
+      expect(err).to.be.an.instanceof(BadRequest);
+      expect(err.message).to.equal(errorMessage('invalidQuantity'));
+      done();
+    }
+  });
+
+  it('errors if user supplies a decimal quantity', (done) => {
+    try {
+      buy(user, {
+        params: {
+          key: 'dilatoryDistress1',
+        },
+        type: 'quest',
+        quantity: 1.83,
+      });
+    } catch (err) {
+      expect(err).to.be.an.instanceof(BadRequest);
+      expect(err.message).to.equal(errorMessage('invalidQuantity'));
+      done();
+    }
+  });
 });
