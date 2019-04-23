@@ -22,7 +22,7 @@
           .how-many-to-buy
             strong {{ $t('howManyToBuy') }}
           .box
-            input(type='number', min='0', v-model.number='selectedAmountToBuy')
+            input(type='number', min='0', step='1', v-model.number='selectedAmountToBuy')
           span.svg-icon.inline.icon-32(aria-hidden="true", v-html="(priceType  === 'gems') ? icons.gem : icons.gold")
           span.value(:class="priceType") {{ item.value }}
 
@@ -34,7 +34,8 @@
         button.btn.btn-primary(
           @click="buyItem()",
           v-else,
-          :class="{'notEnough': !this.enoughCurrency(priceType, item.value * selectedAmountToBuy)}"
+          :class="{'notEnough': !this.enoughCurrency(priceType, item.value * selectedAmountToBuy)}",
+          :disabled='numberInvalid',
         ) {{ $t('buyNow') }}
 
     div.right-sidebar(v-if="item.drop")
@@ -256,6 +257,9 @@
           return this.item.notes;
         }
       },
+      numberInvalid () {
+        return isNaN(this.selectedAmountToBuy) || this.selectedAmountToBuy < 1 || !Number.isInteger(this.selectedAmountToBuy);
+      },
     },
     methods: {
       onChange ($event) {
@@ -309,7 +313,6 @@
             return `Unknown type: ${drop.type}`;
         }
       },
-
       purchaseGems () {
         this.$root.$emit('bv::show::modal', 'buy-gems');
       },

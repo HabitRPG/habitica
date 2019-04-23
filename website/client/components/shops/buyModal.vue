@@ -48,7 +48,7 @@
             strong {{ $t('howManyToBuy') }}
           div(v-if='showAmountToBuy(item)')
             .box
-              input(type='number', min='0', v-model.number='selectedAmountToBuy')
+              input(type='number', min='0', step='1', v-model.number='selectedAmountToBuy')
             span(:class="{'notEnough': notEnoughCurrency}")
               span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons[getPriceClass()]")
               span.cost(:class="getPriceClass()") {{ item.value }}
@@ -71,7 +71,7 @@
         button.btn.btn-primary(
           @click="buyItem()",
           v-else,
-          :disabled='item.key === "gem" && gemsLeft === 0 || attemptingToPurchaseMoreGemsThanAreLeft',
+          :disabled='item.key === "gem" && gemsLeft === 0 || attemptingToPurchaseMoreGemsThanAreLeft || numberInvalid',
           :class="{'notEnough': !preventHealthPotion || !this.enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)}"
         ) {{ $t('buyNow') }}
 
@@ -358,6 +358,9 @@
       },
       notEnoughCurrency () {
         return !this.enoughCurrency(this.getPriceClass(), this.item.value * this.selectedAmountToBuy);
+      },
+      numberInvalid () {
+        return isNaN(this.selectedAmountToBuy) || this.selectedAmountToBuy < 1 || !Number.isInteger(this.selectedAmountToBuy);
       },
     },
     watch: {
