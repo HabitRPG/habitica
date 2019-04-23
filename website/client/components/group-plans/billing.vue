@@ -1,5 +1,6 @@
 <template lang="pug">
 .row.standard-page(v-if='groupIsSubscribed && isLeader')
+  cancel-modal-confirm
   .col-12.col-md-6.offset-md-3
     table.table.alert.alert-info
       tr(v-if='group.purchased.plan.dateTerminated')
@@ -29,15 +30,19 @@
     .btn.btn-primary(v-if='!group.purchased.plan.dateTerminated && group.purchased.plan.paymentMethod === "Stripe"',
       @click='showStripeEdit({groupId: group.id})') {{ $t('subUpdateCard') }}
     .btn.btn-sm.btn-danger(v-if='!group.purchased.plan.dateTerminated',
-      @click='cancelSubscription({group: group})') {{ $t('cancelGroupSub') }}
+      @click='cancelGroupPlanSubscription({group: group})') {{ $t('cancelGroupSub') }}
 </template>
 
 <script>
 import moment from 'moment';
 import { mapState } from 'client/libs/store';
 import paymentsMixin from 'client/mixins/payments';
+import cancelModalConfirm from 'client/components/group-plans/cancelModalConfirm';
 
 export default {
+  components: {
+    cancelModalConfirm,
+  },
   mixins: [paymentsMixin],
   props: ['groupId'],
   data () {

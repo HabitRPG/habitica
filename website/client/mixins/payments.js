@@ -275,9 +275,13 @@ export default {
       this.amazonPayments.groupToCreate = null;
       this.amazonPayments.group = null;
     },
+    cancelGroupPlanSubscription (config) {
+      this.$root.$emit('habitica:cancel-group-plan', config);
+    },
     async cancelSubscription (config) {
-      if (config && config.group && !confirm(this.$t('confirmCancelGroupPlan'))) return;
-      if (!confirm(this.$t('sureCancelSub'))) return;
+      if (!config || !config.group) {
+        if (!confirm(this.$t('sureCancelSub'))) return;
+      }
 
       this.loading = true;
 
@@ -309,9 +313,13 @@ export default {
         const cancelUrl = `/${paymentMethod}/subscribe/cancel?${encodeParams(queryParams)}`;
         await axios.get(cancelUrl);
 
-        alert(this.$t('paypalCanceled'));
-        // @TODO: We should probably update the api to return the new sub data eventually.
-        await this.$store.dispatch('user:fetch', {forceLoad: true});
+        if (!config || !config.group) {
+          alert(this.$t('paypalCanceled'));
+          // @TODO: We should probably update the api to return the new sub data eventually.
+          await this.$store.dispatch('user:fetch', {forceLoad: true});
+        } else {
+          
+        }
 
         this.loading = false;
       } catch (e) {
