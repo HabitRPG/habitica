@@ -19,8 +19,7 @@
     },
     methods: {
       action () {
-        const groupId = this.notification.data.groupId;
-        this.$router.push({ name: 'groupPlanDetailTaskInformation', params: { groupId }});
+        this.$router.push({ name: 'tasks'});
       },
     },
   };
