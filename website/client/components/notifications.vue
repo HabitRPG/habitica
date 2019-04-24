@@ -355,12 +355,7 @@ export default {
         this.playSound(config.sound);
       }
 
-        this.text(config.label(this.$t), () => {
-          // prevent the current reload timeout
-          clearTimeout(timeOut);
-          this.$root.$emit('bv::show::modal', config.modalId);
-        }, false);
-      } else if (forceToModal) {
+      if (forceToModal) {
         this.$root.$emit('bv::show::modal', config.modalId);
       } else {
         this.text(config.label(this.$t), () => {
