@@ -3,6 +3,8 @@ import {
   model as User,
 } from '../../models/user';
 
+import orderBy from 'lodash/orderBy';
+
 const PM_PER_PAGE = 10;
 
 export async function getUserInbox (user, options = {asArray: true, page: 0, conversation: null}) {
@@ -52,12 +54,9 @@ export async function listConversations (user) {
           timestamp: {$max: '$timestamp'}, // sort before group doesn't work - use the max value to sort it again after
         },
       },
-      {
-        $sort: {timestamp: -1},
-      },
     ]);
 
-  const conversationList = (await query.exec()).map(c => c._id);
+  const conversationList = orderBy(await query.exec(), ['timestamp', 'desc']).map(c => c._id);
 
   const users = await User.find({_id: {$in: conversationList}})
     .select('_id profile.name auth.local.username')
