@@ -11,7 +11,7 @@
 <style scoped lang="scss">
   @import '~client/assets/scss/colors.scss';
 
-  a {
+  a.no-tier {
     color: $gray-50;
   }
 
