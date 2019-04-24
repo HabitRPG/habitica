@@ -306,5 +306,8 @@
     "foodSaddleText": "くら",
     "foodSaddleNotes": "ペットの 1 匹をすぐに乗騎に成長させます。",
     "foodSaddleSellWarningNote": "ちょっと待って！　これはとっても役に立つアイテムだよ！　ペットにくらを使う方法は知ってるかな？",
-    "foodNotes": "これをペットにあげて、丈夫に育てましょう。"
+    "foodNotes": "これをペットにあげて、丈夫に育てましょう。",
+    "hatchingPotionRoseQuartz": "ローズクオーツの",
+    "hatchingPotionCelestial": "天空の",
+    "hatchingPotionVeggie": "菜園の"
 }
