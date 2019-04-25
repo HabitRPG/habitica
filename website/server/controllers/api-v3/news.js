@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'BEHIND THE SCENES: A BUTTERFLY GARDENING ADVENTURE WITH BEFFYMAROO!';
+const LAST_ANNOUNCEMENT_TITLE = 'APRIL SUBSCRIBER ITEMS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,13 +30,13 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>4/23/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>4/25/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <p>There's a new <a href='https://habitica.wordpress.com/2019/04/23/butterfly-gardening/' target='_blank'>Behind the Scenes post</a> on the Habitica Blog! Beffymaroo shares some information about starting your own butterfly garden and enjoying watching these fascinating--and beneficial--creatures in your home and yard.</p>
+        <p>The April Subscriber Item Set has been revealed: <a href='/user/settings/subscription'>the Opulent Opal Item Set</a>! You only have until April 30 to receive the item set when you subscribe. If you're already an active subscriber, reload the site and then head to Inventory > Items to claim your gear!</p>
+        <p>Subscribers also receive the ability to buy Gems for Gold -- the longer you subscribe, the more gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
         <div class="small mb-3">by Beffymaroo</div>
-        <div class="promo_butterflies center-block"></div>
       </div>
       `,
     });
