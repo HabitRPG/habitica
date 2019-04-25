@@ -1,8 +1,8 @@
 {
     "settings": "Settin's",
     "language": "Language",
-    "americanEnglishGovern": "In th' event 'o a discrepancy in th' translations, th' American English version governs.",
-    "helpWithTranslation": "Would ye like to help wit' t' translation of HabiRPG? Great! Then visit <a href=\"https://trello.com/c/SvTsLdRF/12-translations\" target=\"_blank\">'tis</a> Trello card.",
+    "americanEnglishGovern": "In th' event o' a discrepancy in th' translations, th' American English version governs.",
+    "helpWithTranslation": "Would ye like t' help wit' t' translation o' HabiRPG? Great! Then visit <a href=\"https://trello.com/c/SvTsLdRF/12-translations\" target=\"_blank\">'tis</a> Trello card.",
     "showHeaderPop": "Show yer avatarr, Health/Experience bars, and crew.",
     "stickyHeader": "Sticky header",
     "stickyHeaderPop": "Affix th' header to th' top o' th' screen. Unchecked means it scrolls out o' view.",
