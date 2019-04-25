@@ -45,8 +45,6 @@
             a(href='https://www.facebook.com/Habitica', target='_blank') {{ $t('communityFacebook') }}
           li
             a(href='https://www.instagram.com/habitica', target='_blank') {{ $t('communityInstagram') }}
-          li
-            a(href='https://www.reddit.com/r/habitrpg/', target='_blank') {{ $t('communityReddit') }}
       .col-12.col-md-6
         .row
           .col-6

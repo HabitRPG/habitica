@@ -1418,6 +1418,10 @@ schema.methods.removeTask = async function groupRemoveTask (task) {
   }, {
     $set: {'group.broken': 'TASK_DELETED'},
   }, {multi: true}).exec();
+
+  removeFromArray(group.tasksOrder[`${task.type}s`], task._id);
+  group.markModified('tasksOrder');
+  return await group.save();
 };
 
 // Returns true if the user has reached the spam message limit

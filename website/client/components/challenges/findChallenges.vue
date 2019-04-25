@@ -6,7 +6,6 @@
     .row.header-row
       .col-md-8.text-left
         h1(v-once) {{$t('findChallenges')}}
-        h2(v-if='loading') {{ $t('loading') }}
       .col-md-4
         // @TODO: implement sorting span.dropdown-label {{ $t('sortBy') }}
           b-dropdown(:text="$t('sort')", right=true)
@@ -22,10 +21,13 @@
     .row
       .col-12.col-md-6(v-for='challenge in filteredChallenges')
         challenge-item(:challenge='challenge')
-
-    .row
-      .col-12.text-center(v-if='!loading && filteredChallenges.length > 0')
-        button.btn.btn-secondary(@click='loadMore()') {{ $t('loadMore') }}
+      mugen-scroll(
+        :handler="infiniteScrollTrigger",
+        :should-handle="!loading && canLoadMore",
+        :threshold="1",
+        v-show="loading",
+      )
+        h2.col-12.loading(v-once) {{ $t('loading') }}
 </template>
 
 <style lang='scss' scoped>
@@ -56,6 +58,11 @@
       color: $gray-200;
     }
   }
+
+  .loading {
+    text-align: center;
+    color: $purple-300;
+  }
 </style>
 
 <script>
@@ -68,16 +75,22 @@ import challengeUtilities from 'client/mixins/challengeUtilities';
 
 import positiveIcon from 'assets/svg/positive.svg';
 
+import MugenScroll from 'vue-mugen-scroll';
+
+import debounce from 'lodash/debounce';
+
 export default {
   mixins: [challengeUtilities],
   components: {
     Sidebar,
     ChallengeItem,
     challengeModal,
+    MugenScroll,
   },
   data () {
     return {
       loading: true,
+      canLoadMore: true,
       icons: Object.freeze({
         positiveIcon,
       }),
@@ -111,7 +124,7 @@ export default {
     };
   },
   mounted () {
-    this.loadchallanges();
+    this.loadChallenges();
   },
   computed: {
     ...mapState({user: 'user.data'}),
@@ -123,17 +136,17 @@ export default {
     updateSearch (eventData) {
       this.search = eventData.searchTerm;
       this.page = 0;
-      this.loadchallanges();
+      this.loadChallenges();
     },
     updateFilters (eventData) {
       this.filters = eventData;
       this.page = 0;
-      this.loadchallanges();
+      this.loadChallenges();
     },
     createChallenge () {
       this.$root.$emit('bv::show::modal', 'challenge-modal');
     },
-    async loadchallanges () {
+    async loadChallenges () {
       this.loading = true;
 
       let categories = '';
@@ -160,15 +173,27 @@ export default {
         this.challenges = this.challenges.concat(challenges);
       }
 
+      // only show the load more Button if the max count was returned
+      this.canLoadMore = challenges.length === 10;
+
       this.loading = false;
     },
     challengeCreated (challenge) {
       this.challenges.push(challenge);
     },
-    async loadMore () {
-      this.page += 1;
-      this.loadchallanges();
+    infiniteScrollTrigger () {
+      // show loading and wait until the loadMore debounced
+      // or else it would trigger on every scrolling-pixel (while not loading)
+      if (this.canLoadMore) {
+        this.loading = true;
+      }
+
+      this.loadMore();
     },
+    loadMore: debounce(function loadMoreDebounce () {
+      this.page += 1;
+      this.loadChallenges();
+    }, 1000),
   },
 };
 </script>

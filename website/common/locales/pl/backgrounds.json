@@ -408,5 +408,9 @@
     "backgroundArchaeologicalDigText": "Archaeological Dig",
     "backgroundArchaeologicalDigNotes": "Unearth secrets of the ancient past at an Archaeological Dig.",
     "backgroundScribesWorkshopText": "Scribe's Workshop",
-    "backgroundScribesWorkshopNotes": "Write your next great scroll in a Scribe's Workshop."
+    "backgroundScribesWorkshopNotes": "Write your next great scroll in a Scribe's Workshop.",
+    "backgroundMedievalKitchenText": "Średniowieczna Kuchnia",
+    "backgroundOldFashionedBakeryText": "Staromodna Piekarnia",
+    "backgroundOldFashionedBakeryNotes": "Rozkoszuj się przepysznymi zapachami, stojąc przed staromodną piekarnią.",
+    "backgroundDuckPondText": "Staw z kaczkami"
 }
