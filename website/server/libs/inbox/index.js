@@ -2,8 +2,8 @@ import {inboxModel as Inbox} from '../../models/message';
 import {
   model as User,
 } from '../../models/user';
-
 import orderBy from 'lodash/orderBy';
+import keyBy from 'lodash/keyBy';
 
 const PM_PER_PAGE = 10;
 
@@ -56,17 +56,18 @@ export async function listConversations (user) {
       },
     ]);
 
-  const conversationList = orderBy(await query.exec(), ['timestamp', 'desc']).map(c => c._id);
+  const conversationsList = orderBy(await query.exec(), ['timestamp'], ['desc']).map(c => c._id);
 
-  const users = await User.find({_id: {$in: conversationList}})
+  const users = await User.find({_id: {$in: conversationsList}})
     .select('_id profile.name auth.local.username')
     .lean()
     .exec();
 
-  const conversations = users.map(u => ({
-    uuid: u._id,
-    user: u.profile.name,
-    username: u.auth.local.username,
+  const usersMap = keyBy(users, '_id');
+  const conversations = conversationsList.map(userId => ({
+    uuid: usersMap[userId]._id,
+    user: usersMap[userId].profile.name,
+    username: usersMap[userId].auth.local.username,
   }));
 
   return conversations;
