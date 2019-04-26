@@ -1,20 +1,14 @@
 {
-  "merch" : "Fanartikel",
-  "merchandiseDescription": "Suchst Du nach T-Shirts, Tassen oder Aufklebern, um allen zu zeigen wie toll Du Habitica findest? Klicke hier!",
-
-  "merch-teespring-summary" : "Teespring ist eine Plattform, die es jedem ermöglicht, hochwertige Produkte zu erstellen und zu verkaufen - ohne Kosten und Risiken.",
-  "merch-teespring-goto" : "Schnapp' Dir ein Habitica T-Shirt",
-
-  "merch-teespring-mug-summary" : "Teespring ist eine Plattform, die es jedem ermöglicht, hochwertige Produkte zu erstellen und zu verkaufen - ohne Kosten und Risiken.",
-  "merch-teespring-mug-goto" : "Hol Dir eine Habitica Tasse",
-
-  "merch-teespring-eu-summary" : "EUROPÄISCHE VERSION: Teespring ist eine Plattform, die es jedem ermöglicht, hochwertige Produkte zu erstellen und zu verkaufen - ohne Kosten und Risiko.",
-  "merch-teespring-eu-goto" : "Schnapp' dir ein Habitica T-Shirt (EU)",
-
-  "merch-teespring-mug-eu-summary" : "EUROPÄISCHE VERSION: Teespring ist eine Plattform, die es jedem ermöglicht, hochwertige Produkte zu erstellen und zu verkaufen - ohne Kosten und Risiko.",
-  "merch-teespring-mug-eu-goto" : "Hol' Dir eine Habitica Tasse (EU)",
-
-  "merch-stickermule-summary" : "Klebe den stolzen Melior dorthin, wo Du (oder jemand anders) eine Erinnerung an aktuelle und zukünftige Leistungen brauchst! ",
-  "merch-stickermule-goto" : "Schnapp' Dir Habitica Aufkleber"
-
+    "merch": "Fanartikel",
+    "merchandiseDescription": "Suchst Du nach T-Shirts, Tassen oder Aufklebern, um allen zu zeigen wie toll Du Habitica findest? Klicke hier!",
+    "merch-teespring-summary": "Teespring ist eine Plattform, die es jedem ermöglicht, hochwertige Produkte zu erstellen und zu verkaufen - ohne Kosten und Risiken.",
+    "merch-teespring-goto": "Schnapp' Dir ein Habitica T-Shirt",
+    "merch-teespring-mug-summary": "Teespring ist eine Plattform, die es jedem ermöglicht, hochwertige Produkte zu erstellen und zu verkaufen - ohne Kosten und Risiken.",
+    "merch-teespring-mug-goto": "Hol Dir eine Habitica Tasse",
+    "merch-teespring-eu-summary": "EUROPÄISCHE VERSION: Teespring ist eine Plattform, die es jedem ermöglicht, hochwertige Produkte zu erstellen und zu verkaufen - ohne Kosten und Risiko.",
+    "merch-teespring-eu-goto": "Schnapp' dir ein Habitica T-Shirt (EU)",
+    "merch-teespring-mug-eu-summary": "EUROPÄISCHE VERSION: Teespring ist eine Plattform, die es jedem ermöglicht, hochwertige Produkte zu erstellen und zu verkaufen - ohne Kosten und Risiko.",
+    "merch-teespring-mug-eu-goto": "Hol' Dir eine Habitica Tasse (EU)",
+    "merch-stickermule-summary": "Klebe den stolzen Melior dorthin, wo Du (oder jemand anders) eine Erinnerung an aktuelle und zukünftige Leistungen brauchst!",
+    "merch-stickermule-goto": "Schnapp' Dir Habitica Aufkleber"
 }
