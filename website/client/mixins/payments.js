@@ -318,7 +318,11 @@ export default {
           // @TODO: We should probably update the api to return the new sub data eventually.
           await this.$store.dispatch('user:fetch', {forceLoad: true});
         } else {
-          
+          const appState = {
+            groupPlanCanceled: true,
+          };
+          setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
+          window.location.reload(true);
         }
 
         this.loading = false;
