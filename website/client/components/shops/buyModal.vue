@@ -75,7 +75,7 @@
           :class="{'notEnough': !preventHealthPotion || !this.enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)}"
         ) {{ $t('buyNow') }}
 
-    div.limitedTime(v-if="item.event")
+    div.limitedTime(v-if="item.event && item.owned == null")
       span.svg-icon.inline.icon-16(v-html="icons.clock")
       span.limitedString {{ limitedString }}
 
