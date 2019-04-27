@@ -201,6 +201,7 @@
 
     .custom-control-label {
       margin-left: 10px;
+      word-break: break-word;
     }
 
     .filter-panel-footer {
