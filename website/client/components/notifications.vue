@@ -132,11 +132,6 @@ const NOTIFICATIONS = {
     label: ($t) => `${$t('achievement')}: ${$t('gearAchievementNotification')}`,
     modalId: 'ultimate-gear',
   },
-  REBIRTH_ACHIEVEMENT: {
-    label: ($t) => `${$t('achievement')}: ${$t('rebirthBegan')}`,
-    achievement: true,
-    modalId: 'rebirth',
-  },
   GUILD_JOINED_ACHIEVEMENT: {
     label: ($t) => `${$t('achievement')}: ${$t('joinedGuild')}`,
     achievement: true,
@@ -360,18 +355,7 @@ export default {
         this.playSound(config.sound);
       }
 
-      if (type === 'REBIRTH_ACHIEVEMENT') {
-        // reload if the user hasn't clicked on the notification
-        const timeOut = setTimeout(() => {
-          window.location.reload(true);
-        }, 60000);
-
-        this.text(config.label(this.$t), () => {
-          // prevent the current reload timeout
-          clearTimeout(timeOut);
-          this.$root.$emit('bv::show::modal', config.modalId);
-        }, false);
-      } else if (forceToModal) {
+      if (forceToModal) {
         this.$root.$emit('bv::show::modal', config.modalId);
       } else {
         this.text(config.label(this.$t), () => {
@@ -573,8 +557,11 @@ export default {
             }, this.user.preferences.suppressModals.streak);
             this.playSound('Achievement_Unlocked');
             break;
-          case 'ULTIMATE_GEAR_ACHIEVEMENT':
           case 'REBIRTH_ACHIEVEMENT':
+            this.playSound('Achievement_Unlocked');
+            this.$root.$emit('bv::show::modal', 'rebirth');
+            break;
+          case 'ULTIMATE_GEAR_ACHIEVEMENT':
           case 'GUILD_JOINED_ACHIEVEMENT':
           case 'CHALLENGE_JOINED_ACHIEVEMENT':
           case 'INVITED_FRIEND_ACHIEVEMENT':

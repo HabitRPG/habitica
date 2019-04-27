@@ -397,6 +397,10 @@
 
         this.$emit('buyPressed', this.item);
         this.hideDialog();
+
+        if (this.item.key === 'rebirth_orb') {
+          window.location.reload(true);
+        }
       },
       purchaseGems () {
         if (this.item.key === 'rebirth_orb') {
