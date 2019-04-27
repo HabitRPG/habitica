@@ -949,20 +949,20 @@ describe('cron', () => {
 
           daysMissed = 1;
 
-          clock = sinon.useFakeTimers( moment().add(daysMissed, 'days').subtract(5, 'minutes').toDate() );
+          clock = sinon.useFakeTimers(moment().add(daysMissed, 'days').subtract(5, 'minutes').toDate());
           // we subtract 5 minutes to ensure we haven't jumped more than a day from the starting time due to any small delays in the tests
           cron({user, tasksByType, daysMissed, analytics});
           expect(tasksByType.dailys[0].isDue).to.be.false;
 
-          clock = sinon.useFakeTimers( moment().add(daysMissed, 'days').subtract(5, 'minutes').toDate() );
+          clock = sinon.useFakeTimers(moment().add(daysMissed, 'days').subtract(5, 'minutes').toDate());
           cron({user, tasksByType, daysMissed, analytics});
           expect(tasksByType.dailys[0].isDue).to.be.false;
 
-          clock = sinon.useFakeTimers( moment().add(daysMissed, 'days').subtract(5, 'minutes').toDate() );
+          clock = sinon.useFakeTimers(moment().add(daysMissed, 'days').subtract(5, 'minutes').toDate());
           cron({user, tasksByType, daysMissed, analytics});
           expect(tasksByType.dailys[0].isDue).to.be.true;
 
-          clock = sinon.useFakeTimers( moment().add(daysMissed, 'days').subtract(5, 'minutes').toDate() );
+          clock = sinon.useFakeTimers(moment().add(daysMissed, 'days').subtract(5, 'minutes').toDate());
           cron({user, tasksByType, daysMissed, analytics});
           expect(tasksByType.dailys[0].isDue).to.be.true;
         });
@@ -971,26 +971,26 @@ describe('cron', () => {
       context('player does not use Habitica every day', () => {
         it('should not be due 2 days after completion when the intervening day is missed', () => {
           daysMissed = 2;
-          clock = sinon.useFakeTimers( moment().add(daysMissed, 'days').subtract(5, 'minutes').toDate() );
+          clock = sinon.useFakeTimers(moment().add(daysMissed, 'days').subtract(5, 'minutes').toDate());
           cron({user, tasksByType, daysMissed, analytics});
           expect(tasksByType.dailys[0].isDue).to.be.false;
         });
 
         it('should be due 3 days after completion when one intervening day is missed', () => {
           daysMissed = 1;
-          clock = sinon.useFakeTimers( moment().add(daysMissed, 'days').subtract(5, 'minutes').toDate() );
+          clock = sinon.useFakeTimers(moment().add(daysMissed, 'days').subtract(5, 'minutes').toDate());
           cron({user, tasksByType, daysMissed, analytics});
           expect(tasksByType.dailys[0].isDue).to.be.false;
 
           daysMissed = 2;
-          clock = sinon.useFakeTimers( moment().add(daysMissed, 'days').subtract(5, 'minutes').toDate() );
+          clock = sinon.useFakeTimers(moment().add(daysMissed, 'days').subtract(5, 'minutes').toDate());
           cron({user, tasksByType, daysMissed, analytics});
           expect(tasksByType.dailys[0].isDue).to.be.true;
         });
 
         it('should be due 3 days after completion when all intervening days are missed', () => {
           daysMissed = 3;
-          clock = sinon.useFakeTimers( moment().add(daysMissed, 'days').subtract(5, 'minutes').toDate() );
+          clock = sinon.useFakeTimers(moment().add(daysMissed, 'days').subtract(5, 'minutes').toDate());
           cron({user, tasksByType, daysMissed, analytics});
           expect(tasksByType.dailys[0].isDue).to.be.true;
         });
