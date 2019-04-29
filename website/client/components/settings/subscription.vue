@@ -68,7 +68,7 @@
 
         div(v-if='hasSubscription')
           .btn.btn-primary(v-if='canEditCardDetails', @click='showStripeEdit()') {{ $t('subUpdateCard') }}
-          .btn.btn-sm.btn-danger(v-if='canCancelSubscription && !loading', @click='cancelSubscription()') {{ $t('cancelSub') }}
+          .btn.btn-sm.btn-danger(v-if='canCancelSubscription && !loading', @click='cancelSubscriptionConfirm()') {{ $t('cancelSub') }}
           small(v-if='!canCancelSubscription && !hasCanceledSubscription', v-html='getCancelSubInfo()')
 
         .subscribe-pay(v-if='!hasSubscription || hasCanceledSubscription')

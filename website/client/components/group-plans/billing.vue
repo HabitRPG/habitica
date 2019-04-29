@@ -31,7 +31,7 @@
     .btn.btn-primary(v-if='!group.purchased.plan.dateTerminated && group.purchased.plan.paymentMethod === "Stripe"',
       @click='showStripeEdit({groupId: group.id})') {{ $t('subUpdateCard') }}
     .btn.btn-sm.btn-danger(v-if='!group.purchased.plan.dateTerminated',
-      @click='cancelGroupPlanSubscription({group: group})') {{ $t('cancelGroupSub') }}
+      @click='cancelSubscriptionConfirm({group: group})') {{ $t('cancelGroupSub') }}
 </template>
 
 <script>

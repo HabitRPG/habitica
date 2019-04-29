@@ -275,14 +275,10 @@ export default {
       this.amazonPayments.groupToCreate = null;
       this.amazonPayments.group = null;
     },
-    cancelGroupPlanSubscription (config) {
-      this.$root.$emit('habitica:cancel-group-plan', config);
+    cancelSubscriptionConfirm (config) {
+      this.$root.$emit('habitica:cancel-subscription-confirm', config);
     },
     async cancelSubscription (config) {
-      if (!config || !config.group) {
-        if (!confirm(this.$t('sureCancelSub'))) return;
-      }
-
       this.loading = true;
 
       let group;
@@ -290,18 +286,10 @@ export default {
         group = config.group;
       }
 
-      let paymentMethod = this.user.purchased.plan.paymentMethod;
-      if (group) {
-        paymentMethod = group.purchased.plan.paymentMethod;
-      }
+      let paymentMethod = group ? group.purchased.plan.paymentMethod : this.user.purchased.plan.paymentMethod;
+      paymentMethod = paymentMethod === 'Amazon Payments' ? 'amazon' : paymentMethod.toLowerCase();
 
-      if (paymentMethod === 'Amazon Payments') {
-        paymentMethod = 'amazon';
-      } else {
-        paymentMethod = paymentMethod.toLowerCase();
-      }
-
-      let queryParams = {
+      const queryParams = {
         noRedirect: true,
       };
 
@@ -314,9 +302,8 @@ export default {
         await axios.get(cancelUrl);
 
         if (!config || !config.group) {
-          alert(this.$t('paypalCanceled'));
-          // @TODO: We should probably update the api to return the new sub data eventually.
           await this.$store.dispatch('user:fetch', {forceLoad: true});
+          // TODO reload? show modal directly?
         } else {
           const appState = {
             groupPlanCanceled: true,

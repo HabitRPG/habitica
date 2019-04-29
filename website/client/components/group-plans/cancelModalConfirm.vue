@@ -1,5 +1,5 @@
 <template lang="pug">
-  b-modal#group-plan-cancel-modal(
+  b-modal#subscription-cancel-modal(
     size='sm',
     :hideFooter="true",
     :modalClass="['modal-hidden-footer']"
@@ -9,9 +9,9 @@
         .svg-icon.warning(v-html="icons.warning", v-once)
     .row
       .col-12.modal-body-col
-        h2(v-once) {{ $t('cancelGroupSub') }}
-        span.cancel-text(v-once) {{ $t('confirmCancelGroupPlan') }}
-        button.btn.btn-danger.mt-4.mb-3(v-once, @click="cancelSubscription(config)") {{ $t('cancelGroupSub') }}
+        h2 {{ config && config.group ? $t('cancelGroupSub') : $t('cancelSub') }}
+        span.cancel-text {{ config && config.group ? $t('confirmCancelGroupPlan') : $t('confirmCancelSub')
+        button.btn.btn-danger.mt-4.mb-3(v-once, @click="cancelSubscription(config)") {{ $t('cancelSub') }}
         a.standard-link(v-once, @click="close()") {{ $t('neverMind') }}
 </template>
 
@@ -86,20 +86,6 @@
     display: flex;
     flex-direction: row;
     text-align: center;
-
-    &.gems {
-      padding: 12px 16px 12px 20px;
-      color: $green-10;
-      font-size: 24px;
-      font-weight: bold;
-      line-height: 1.33;
-
-      .svg-icon {
-        margin-right: 8px;
-        width: 32px;
-        height: 32px;
-      }
-    }
   }
 
   .auto-renew {
@@ -141,17 +127,17 @@ export default {
     ...mapState({user: 'user.data'}),
   },
   mounted () {
-    this.$root.$on('habitica:cancel-group-plan', (config) => {
+    this.$root.$on('habitica:cancel-subscription-confirm', (config) => {
       this.config = config;
-      this.$root.$emit('bv::show::modal', 'group-plan-cancel-modal');
+      this.$root.$emit('bv::show::modal', 'subscription-cancel-modal');
     });
   },
   destroyed () {
-    this.$root.$off('habitica:cancel-group-plan');
+    this.$root.$off('habitica:cancel-subscription-confirm');
   },
   methods: {
     close () {
-      this.$root.$emit('bv::hide::modal', 'group-plan-cancel-modal');
+      this.$root.$emit('bv::hide::modal', 'subscription-cancel-modal');
     },
   },
 };

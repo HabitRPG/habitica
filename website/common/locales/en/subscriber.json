@@ -69,7 +69,7 @@
     "notYetPlan": "Plan not yet available, but click to contact us and we'll keep you updated.",
     "contactUs": "Contact Us",
     "checkout": "Checkout",
-    "sureCancelSub": "Are you sure you want to cancel your subscription?",
+    "confirmCancelSub": "Are you sure you want to cancel your subscription? You will lose all of your subscription benefits.",
     "subCanceled": "Subscription will become inactive on",
     "buyGemsGoldTitle": "To Buy Gems with Gold",
     "becomeSubscriber": "Become a Subscriber",
