@@ -191,7 +191,7 @@
     "invalidCoupon": "Invalid coupon code.",
     "couponUsed": "Coupon code already used.",
     "couponCodeRequired": "The coupon code is required.",
-    "paypalCanceled": "Your subscription has been canceled",
+    "subCanceledTitle": "Subscription Canceled",
     "earnGemsMonthly": "Earn up to **<%= cap %> Gems** per month",
     "receiveMysticHourglass": "Receive a Mystic Hourglass!",
     "receiveMysticHourglasses": "Receive **<%= amount %> Mystic Hourglasses**!",

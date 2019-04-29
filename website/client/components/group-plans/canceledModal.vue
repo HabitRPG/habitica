@@ -1,5 +1,5 @@
 <template lang="pug">
-  b-modal#group-plan-canceled-modal(
+  b-modal#subscription-canceled-modal(
     size='sm',
     :hideFooter="true",
     :modalClass="['modal-hidden-footer']"
@@ -9,10 +9,10 @@
         .svg-icon.check(v-html="icons.check", v-once)
     .row
       .col-12.modal-body-col
-        h2(v-once) {{ $t('canceledGroupPlan') }}
+        h2 {{ $t(isGroup ? 'canceledGroupPlan' : 'subCanceledTitle') }}
         .details-block
             span
-              | {{ $t('groupPlanCanceled') }}
+              | {{ $t(isGroup ? 'groupPlanCanceled' : 'subCanceled') }}
               br
               strong {{ dateTerminated }}
         span.auto-renew.small-text(v-once) {{ $t('paymentCanceledDisputes') }}
@@ -131,17 +131,18 @@ export default {
     ...mapState({user: 'user.data'}),
   },
   mounted () {
-    this.$root.$on('habitica:group-plan-canceled', (dateTerminated) => {
+    this.$root.$on('habitica:subscription-canceled', ({dateTerminated, isGroup}) => {
       this.dateTerminated = dateTerminated;
-      this.$root.$emit('bv::show::modal', 'group-plan-canceled-modal');
+      this.isGroup = isGroup;
+      this.$root.$emit('bv::show::modal', 'subscription-canceled-modal');
     });
   },
   destroyed () {
-    this.$root.$off('habitica:group-plan-canceled');
+    this.$root.$off('habitica:subscription-canceled');
   },
   methods: {
     close () {
-      this.$root.$emit('bv::hide::modal', 'group-plan-canceled-modal');
+      this.$root.$emit('bv::hide::modal', 'subscription-canceled-modal');
     },
   },
 };

@@ -62,7 +62,10 @@ export default {
       appState = JSON.parse(appState);
       if (appState.groupPlanCanceled) {
         removeLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE);
-        this.$root.$emit('habitica:group-plan-canceled', this.dateTerminated);
+        this.$root.$emit('habitica:subscription-canceled', {
+          dateTerminated: this.dateTerminated,
+          isGroup: true,
+        });
       }
     }
   },
