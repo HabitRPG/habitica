@@ -8,13 +8,14 @@ import notificationsMixin from 'client/mixins/notifications';
 import * as Analytics from 'client/libs/analytics';
 import { CONSTANTS, setLocalSetting } from 'client/libs/userlocalManager';
 import pick from 'lodash/pick';
+import moment from 'moment';
 
 const habiticaUrl = `${location.protocol}//${location.host}`;
 
 export default {
   mixins: [notificationsMixin],
   computed: {
-    ...mapState(['credentials']),
+    ...mapState({user: 'user.data', credentials: 'credentials'}),
     paypalCheckoutLink () {
       return '/paypal/checkout';
     },
@@ -30,6 +31,10 @@ export default {
       let couponString = '';
       if (this.subscription.coupon) couponString = `&coupon=${this.subscription.coupon}`;
       return `/paypal/subscribe?sub=${this.subscription.key}${couponString}`;
+    },
+    dateTerminated () {
+      if (!this.user.preferences || !this.user.preferences.dateFormat) return this.user.purchased.plan.dateTerminated;
+      return moment(this.user.purchased.plan.dateTerminated).format(this.user.preferences.dateFormat.toUpperCase());
     },
   },
   methods: {
@@ -303,7 +308,10 @@ export default {
 
         if (!config || !config.group) {
           await this.$store.dispatch('user:fetch', {forceLoad: true});
-          // TODO reload? show modal directly?
+          this.$root.$emit('habitica:subscription-canceled', {
+            dateTerminated: this.dateTerminated,
+            isGroup: false,
+          });
         } else {
           const appState = {
             groupPlanCanceled: true,

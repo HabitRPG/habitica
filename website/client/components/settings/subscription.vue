@@ -104,7 +104,6 @@
 
 <script>
 import axios from 'axios';
-import moment from 'moment';
 import filter from 'lodash/filter';
 import sortBy from 'lodash/sortBy';
 import min from 'lodash/min';
@@ -234,10 +233,6 @@ export default {
       return {
         amount: this.numberOfMysticHourglasses,
       };
-    },
-    dateTerminated () {
-      if (!this.user.preferences || !this.user.preferences.dateFormat) return this.user.purchased.plan.dateTerminated;
-      return moment(this.user.purchased.plan.dateTerminated).format(this.user.preferences.dateFormat.toUpperCase());
     },
     canCancelSubscription () {
       return (

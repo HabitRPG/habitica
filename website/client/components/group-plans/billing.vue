@@ -1,7 +1,5 @@
 <template lang="pug">
 .row.standard-page(v-if='groupIsSubscribed && isLeader')
-  cancel-modal-confirm
-  canceled-modal
   .col-12.col-md-6.offset-md-3
     table.table.alert.alert-info
       tr(v-if='group.purchased.plan.dateTerminated')
@@ -38,15 +36,9 @@
 import moment from 'moment';
 import { mapState } from 'client/libs/store';
 import paymentsMixin from 'client/mixins/payments';
-import cancelModalConfirm from 'client/components/group-plans/cancelModalConfirm';
-import canceledModal from 'client/components/group-plans/canceledModal';
 import { CONSTANTS, getLocalSetting, removeLocalSetting } from 'client/libs/userlocalManager';
 
 export default {
-  components: {
-    cancelModalConfirm,
-    canceledModal,
-  },
   mixins: [paymentsMixin],
   props: ['groupId'],
   data () {
