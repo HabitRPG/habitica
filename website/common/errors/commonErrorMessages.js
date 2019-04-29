@@ -9,6 +9,7 @@ module.exports = {
   itemNotFound: 'Item "<%= key %>" not found.',
   questNotFound: 'Quest "<%= key %>" not found.',
   spellNotFound: 'Skill "<%= spellId %>" not found.',
+  invalidQuantity: 'Quantity to purchase must be a positive whole number.',
   invalidTypeEquip: '"type" must be one of "equipped", "pet", "mount", "costume"',
   missingPetFoodFeed: '"pet" and "food" are required parameters.',
   missingEggHatchingPotion: '"egg" and "hatchingPotion" are required parameters.',
