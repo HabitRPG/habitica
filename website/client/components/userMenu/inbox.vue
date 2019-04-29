@@ -35,7 +35,7 @@
             .time
               span.mr-1(v-if='conversation.username') @{{ conversation.username }} •
               span {{ conversation.date | timeAgo }}
-            div(v-html="conversation.lastMessageText ? parseMarkdown(conversation.lastMessageText.substring(0, 30)) : ''")
+            div(v-html="conversation.lastMessageText ? substringWithFixedSizeOfPlainText(parseMarkdown(conversation.lastMessageText), 30) : ''")
       .col-8.messages.d-flex.flex-column.justify-content-between
         .empty-messages.text-center(v-if='!selectedConversation.key')
           .svg-icon.envelope(v-html="icons.messageIcon")
@@ -504,6 +504,27 @@ export default {
     parseMarkdown (text) {
       if (!text) return;
       return habiticaMarkdown.render(String(text));
+    },
+    substringWithFixedSizeOfPlainText (text, size) {
+      function lengthOfTags (str) {
+        let reg = str.match(/<(.+?)>/g);
+        return reg ? reg.map(s => s.length).reduce((a, b) => a + b) : 0;
+      }
+
+      function lengthWithoutTags (str, from, to) {
+        let subStr = str.substring(from, to);
+        return subStr.length - lengthOfTags(subStr);
+      }
+
+      if (lengthWithoutTags(text) <= size) return text;
+
+      let index = 0;
+      while (lengthWithoutTags(text, 0, index) <= size) {
+        index = text.indexOf('<', index) + 1;
+        if (index === 0) index = text.length;
+      }
+
+      return text.substring(0, index + (size - lengthWithoutTags(text, 0, index)));
     },
   },
 };
