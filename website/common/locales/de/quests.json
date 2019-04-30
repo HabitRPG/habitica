@@ -1,7 +1,7 @@
 {
     "quests": "Quests",
     "quest": "Quest",
-    "whereAreMyQuests": "Quests sind jetzt auf einer eigenen Seite verfügbar! Du findest sie unter Inventar -> Quests!",
+    "whereAreMyQuests": "Quests sind jetzt auf einer eigenen Seite verfügbar! Du findest sie unter Inventar -> Quests.",
     "yourQuests": "Deine Quests",
     "questsForSale": "Kaufbare Quests",
     "petQuests": "Haustier- und Reittier-Quests",
@@ -9,7 +9,7 @@
     "goldQuests": "Klassenmeister-Questreihen",
     "questDetails": "Quest-Details",
     "questDetailsTitle": "Quest-Details",
-    "questDescription": "Quests erlauben es Spielern, sich gemeinsam mit den Gruppenmitgliedern auf Langzeit-Ziele im Spiel zu konzentrieren. ",
+    "questDescription": "Quests erlauben es Spielern, sich gemeinsam mit den Gruppenmitgliedern auf Langzeit-Ziele im Spiel zu konzentrieren.",
     "invitations": "Einladungen",
     "completed": "abgeschlossen!",
     "rewardsAllParticipants": "Belohnungen für alle Questteilnehmer",
@@ -22,7 +22,7 @@
     "questSend": "Indem Du auf \"Einladen\" klickst sendest Du eine Einladung an Deine Gruppenmitglieder. Sobald alle Mitglieder diese angenommen oder abgelehnt haben beginnt die Quest. Der Status ist unter Soziales > Gruppe zu finden.",
     "questSendBroken": "Indem Du auf \"Einladen\" klickst, sendest Du eine Einladung an Deine Gruppenmitglieder ... Sobald alle Mitglieder diese angenommen oder abgelehnt haben beginnt die Quest ... Der Status ist unter Soziales > Gruppe zu finden ...",
     "inviteParty": "Lade Gruppe zur Quest ein",
-    "questInvitation": "Quest-Einladung:",
+    "questInvitation": "Quest-Einladung: ",
     "questInvitationTitle": "Quest-Einladung",
     "questInvitationInfo": "Einladung zur Quest <%= quest %>",
     "invitedToQuest": "Du wurdest zur Quest <span class=\"notification-bold-blue\"><%= quest %></span> eingeladen",
@@ -71,8 +71,8 @@
     "scrollsText1": "Quests erfordern Gruppen. Wenn Du ein Quest allein erfüllen willst, dann musst Du",
     "scrollsText2": "eine leere Gruppe erstellen",
     "scrollsPre": "Du hast diese Quest noch nicht freigeschaltet!",
-    "alreadyEarnedQuestLevel": "Du hast diese Quest bereits durch Erreichen von Level <%= level %> freigeschaltet.",
-    "alreadyEarnedQuestReward": "Du hast diese Quest bereits durch Abschließen der Quest <%= priorQuest %> freigeschaltet.",
+    "alreadyEarnedQuestLevel": "Du hast diese Quest bereits durch Erreichen von Level <%= level %> freigeschaltet. ",
+    "alreadyEarnedQuestReward": "Du hast diese Quest bereits durch Abschließen der Quest <%= priorQuest %> freigeschaltet. ",
     "completedQuests": "Hat die folgenden Quests abgeschlossen",
     "mustComplete": "Du musst vorher das <%= quest %> Quest abschließen.",
     "mustLevel": "Du musst Level <%= level %> haben, um diese Quest zu starten.",
@@ -114,7 +114,7 @@
     "questNotPending": "Es ist keine Quest zum Start vorhanden.",
     "questOrGroupLeaderOnlyStartQuest": "Nur der Quest- oder Gruppen-Leiter kann den Quest-Start erzwingen",
     "createAccountReward": "Account erstellen",
-    "loginIncentiveQuest": "Um diese Quest freizuschalten, melde Dich an <%= count %> verschiedenen Tagen auf Habitica an.",
+    "loginIncentiveQuest": "Um diese Quest freizuschalten, melde Dich an <%= count %> verschiedenen Tagen auf Habitica an!",
     "loginIncentiveQuestObtained": "Du hast diese Quest erhalten, indem Du Dich an <%= count %> unterschiedlichen Tagen angemeldet hast!",
     "loginReward": "<%= count %> Anmeldungen",
     "createAccountQuest": "Du hast diese Quest beim Beitreten zu Habitica erhalten! Wenn einer Deiner Freunde beitritt, erhält er ebenfalls eine.",
@@ -126,5 +126,5 @@
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Lebenspunkte",
     "rageAttack": "Raserei-Angriff:",
     "bossRage": "<%= currentRage %> / <%= maxRage %> Raserei",
-    "rageStrikes": "Raserei-Angriffe:"
+    "rageStrikes": "Raserei-Angriffe"
 }
