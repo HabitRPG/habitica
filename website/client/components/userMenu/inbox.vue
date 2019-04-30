@@ -41,10 +41,10 @@
           .svg-icon.envelope(v-html="icons.messageIcon")
           h4 {{placeholderTexts.title}}
           p(v-html="placeholderTexts.description")
-        .empty-messages.text-center(v-if='selectedConversation.key && selectedConversationMessages.length === 0')
+        .empty-messages.text-center(v-if='selectedConversation && selectedConversationMessages.length === 0')
           p {{ $t('beginningOfConversation', {userName: selectedConversation.name})}}
         chat-messages.message-scroll(
-          v-if="selectedConversation.messages && selectedConversationMessages.length > 0",
+          v-if="selectedConversation && selectedConversationMessages.length > 0",
           :chat='selectedConversationMessages',
           :inbox='true',
           @message-removed='messageRemoved',
@@ -297,7 +297,10 @@ export default {
       newMessage: '',
       showPopover: false,
       messages: [],
+      messagesByConversation: {}, // cache {uuid: []}
+      loadedConversations: [],
       loaded: false,
+      messagesLoading: false,
       initiatedConversation: null,
     };
   },
@@ -309,7 +312,7 @@ export default {
   computed: {
     ...mapState({user: 'user.data'}),
     conversations () {
-      const inboxGroup = groupBy(this.messages, 'uuid');
+      const inboxGroup = groupBy(this.loadedConversations, 'uuid');
 
       // Add placeholder for new conversations
       if (this.initiatedConversation && this.initiatedConversation.uuid) {
@@ -317,6 +320,7 @@ export default {
           uuid: this.initiatedConversation.uuid,
           user: this.initiatedConversation.user,
           username: this.initiatedConversation.username,
+          contributor: this.initiatedConversation.contributor,
           id: '',
           text: '',
           timestamp: new Date(),
@@ -357,7 +361,6 @@ export default {
           username: !recentMessage.text ? recentMessage.username : recentMessage.toUserName,
           date: recentMessage.timestamp,
           lastMessageText: recentMessage.text,
-          messages: newChatModels,
         };
 
         convos.push(convoModel);
@@ -370,11 +373,16 @@ export default {
 
       return conversations.reverse();
     },
-    // Separate from selectedConversation which is not coputed so messages don't update automatically
+    // Separate from selectedConversation which is not computed so messages don't update automatically
     selectedConversationMessages () {
+      if (this.messagesLoading) {
+        return [];
+      }
+
       const selectedConversationKey = this.selectedConversation.key;
-      const selectedConversation = this.conversations.find(c => c.key === selectedConversationKey);
-      return selectedConversation ? selectedConversation.messages : [];
+      const selectedConversation = this.messagesByConversation[selectedConversationKey];
+      this.messages = selectedConversation || [];
+      return this.messages;
     },
     filtersConversations () {
       if (!this.search) return this.conversations;
@@ -413,25 +421,31 @@ export default {
   methods: {
     async onModalShown () {
       this.loaded = false;
-      const res = await axios.get('/api/v4/inbox/messages');
-      this.messages = res.data.data;
+
+      const conversationRes = await axios.get('/api/v4/inbox/conversations');
+      this.loadedConversations = conversationRes.data.data;
+
       this.loaded = true;
     },
     onModalHide () {
-      this.messages = [];
+      this.loadedConversations = [];
       this.loaded = false;
       this.initiatedConversation = null;
     },
     messageRemoved (message) {
-      const messageIndex = this.messages.findIndex(msg => msg.id === message.id);
-      if (messageIndex !== -1) this.messages.splice(messageIndex, 1);
-      if (this.selectedConversationMessages.length === 0) this.initiatedConversation = {
-        uuid: this.selectedConversation.key,
-        user: this.selectedConversation.name,
-        username: this.selectedConversation.username,
-        backer: this.selectedConversation.backer,
-        contributor: this.selectedConversation.contributor,
-      };
+      const messages = this.messagesByConversation[this.selectedConversation.key];
+
+      const messageIndex = messages.findIndex(msg => msg.id === message.id);
+      if (messageIndex !== -1) messages.splice(messageIndex, 1);
+      if (this.selectedConversationMessages.length === 0) {
+        this.initiatedConversation = {
+          uuid: this.selectedConversation.key,
+          user: this.selectedConversation.name,
+          username: this.selectedConversation.username,
+          backer: this.selectedConversation.backer,
+          contributor: this.selectedConversation.contributor,
+        };
+      }
     },
     toggleClick () {
       this.displayCreate = !this.displayCreate;
@@ -439,12 +453,21 @@ export default {
     toggleOpt () {
       this.$store.dispatch('user:togglePrivateMessagesOpt');
     },
-    selectConversation (key) {
+    async selectConversation (key) {
       let convoFound = this.conversations.find((conversation) => {
         return conversation.key === key;
       });
 
       this.selectedConversation = convoFound || {};
+
+      if (!this.messagesByConversation[this.selectedConversation.key]) {
+        this.messagesLoading = true;
+
+        const res = await axios.get(`/api/v4/inbox/messages?conversation=${this.selectedConversation.key}`);
+        this.messagesByConversation[this.selectedConversation.key] = res.data.data;
+
+        this.messagesLoading = false;
+      }
 
       Vue.nextTick(() => {
         if (!this.$refs.chatscroll) return;
@@ -455,7 +478,9 @@ export default {
     sendPrivateMessage () {
       if (!this.newMessage) return;
 
-      this.messages.push({
+      const messages = this.messagesByConversation[this.selectedConversation.key];
+
+      messages.push({
         sent: true,
         text: this.newMessage,
         timestamp: new Date(),
@@ -467,6 +492,7 @@ export default {
 
       // Remove the placeholder message
       if (this.initiatedConversation && this.initiatedConversation.uuid === this.selectedConversation.key) {
+        this.loadedConversations.unshift(this.initiatedConversation);
         this.initiatedConversation = null;
       }
 
@@ -484,7 +510,7 @@ export default {
         message: this.newMessage,
       }).then(response => {
         const newMessage = response.data.data.message;
-        Object.assign(this.messages[this.messages.length - 1], newMessage);
+        Object.assign(messages[messages.length - 1], newMessage);
       });
 
       this.newMessage = '';
