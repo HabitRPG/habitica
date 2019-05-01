@@ -630,7 +630,7 @@
     "armorSpecialFall2018HealerNotes": "It's made from plants, but that doesn't mean it's vegetarian. Bad habits are afraid to come within miles of these robes. Increases Constitution by <%= con %>. Limited Edition 2018 Autumn Gear.",
     "armorSpecialWinter2019RogueText": "Poinsettia Armor",
     "armorSpecialWinter2019RogueNotes": "With holiday greenery all about, no one will notice an extra shrubbery! You can move through seasonal gatherings with ease and stealth. Increases Perception by <%= per %>. Limited Edition 2018-2019 Winter Gear.",
-    "armorSpecialWinter2019WarriorText": "Glacial Armor",
+    "armorSpecialWinter2019WarriorText": "冰霜铠甲",
     "armorSpecialWinter2019WarriorNotes": "In the heat of battle, this armor will keep you ice cool and ready for action. Increases Constitution by <%= con %>. Limited Edition 2018-2019 Winter Gear.",
     "armorSpecialWinter2019MageText": "Robes of Burning Inspiration",
     "armorSpecialWinter2019MageNotes": "This fireproof garb will help protect you if any of your flashes of brilliance should happen to backfire! Increases Intelligence by <%= int %>. Limited Edition 2018-2019 Winter Gear.",
