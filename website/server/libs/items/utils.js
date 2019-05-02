@@ -55,3 +55,23 @@ export function validateItemPath (itemPath) {
     return Boolean(shared.content.quests[key]);
   }
 }
+
+// When passed a value of an item in the user object it'll convert the
+// value to the correct format.
+// Example a numeric string like "5" applied to a food item (expecting an interger)
+// will be converted to the number 5
+// TODO cast the correct value for `items.gear.owned`
+export function castItemVal (itemPath, itemVal) {
+  if (
+    itemPath.indexOf('items.pets') === 0 ||
+    itemPath.indexOf('items.eggs') === 0 ||
+    itemPath.indexOf('items.hatchingPotions') === 0 ||
+    itemPath.indexOf('items.food') === 0 ||
+    itemPath.indexOf('items.mounts') === 0 ||
+    itemPath.indexOf('items.quests') === 0
+  ) {
+    return Number(itemVal);
+  }
+
+  return itemVal;
+}

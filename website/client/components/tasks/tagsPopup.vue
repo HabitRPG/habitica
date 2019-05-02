@@ -1,11 +1,15 @@
 <template lang="pug">
 .tags-popup
-  .tags-category.d-flex
+  .tags-category.d-flex(
+    v-for="tagsType in tagsByType",
+    v-if="tagsType.tags.length > 0 || tagsType.key === 'tags'",
+    :key="tagsType.key"
+  )
     .tags-header
-      strong(v-once) {{ $t('tags') }}
+      strong(v-once) {{ $t(tagsType.key) }}
     .tags-list.container
       .row
-        .col-4(v-for="tag in tags")
+        .col-4(v-for="(tag, tagIndex) in tagsType.tags")
           .custom-control.custom-checkbox
             input.custom-control-input(type="checkbox", :value="tag.id", v-model="selectedTags", :id="`tag-${tag.id}`")
             label.custom-control-label(:title="tag.name", :for="`tag-${tag.id}`", v-markdown="tag.name")
@@ -102,6 +106,34 @@ export default {
     return {
       selectedTags: [],
     };
+  },
+  computed: {
+    tagsByType () {
+      const tagsByType = {
+        challenges: {
+          key: 'challenges',
+          tags: [],
+        },
+        groups: {
+          key: 'groups',
+          tags: [],
+        },
+        user: {
+          key: 'tags',
+          tags: [],
+        },
+      };
+      this.$props.tags.forEach(t => {
+        if (t.group) {
+          tagsByType.groups.tags.push(t);
+        } else if (t.challenge) {
+          tagsByType.challenges.tags.push(t);
+        } else {
+          tagsByType.user.tags.push(t);
+        }
+      });
+      return tagsByType;
+    },
   },
   watch: {
     selectedTags () {
