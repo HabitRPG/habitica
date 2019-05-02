@@ -34,7 +34,7 @@
                 .svg-icon(v-html="tierIcon(conversation)")
             .time
               span.mr-1(v-if='conversation.username') @{{ conversation.username }} •
-              span {{ conversation.date | timeAgo }}
+              span(v-if="conversation.date") {{ conversation.date | timeAgo }}
             div {{conversation.lastMessageText ? conversation.lastMessageText.substring(0, 30) : ''}}
       .col-8.messages.d-flex.flex-column.justify-content-between
         .empty-messages.text-center(v-if='!selectedConversation.key')
@@ -215,8 +215,8 @@
 import Vue from 'vue';
 import moment from 'moment';
 import filter from 'lodash/filter';
-import sortBy from 'lodash/sortBy';
 import groupBy from 'lodash/groupBy';
+import orderBy from 'lodash/orderBy';
 import { mapState } from 'client/libs/store';
 import styleHelper from 'client/mixins/styleHelper';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
@@ -302,6 +302,7 @@ export default {
       loaded: false,
       messagesLoading: false,
       initiatedConversation: null,
+      updateConversionsCounter: 0,
     };
   },
   filters: {
@@ -329,12 +330,8 @@ export default {
       // Create conversation objects
       const convos = [];
       for (let key in inboxGroup) {
-        const convoSorted = sortBy(inboxGroup[key], [(o) => {
-          return (new Date(o.timestamp)).getTime();
-        }]);
-
         // Fix poor inbox chat models
-        const newChatModels = convoSorted.map(chat => {
+        const newChatModels = inboxGroup[key].map(chat => {
           let newChat = Object.assign({}, chat);
           if (newChat.sent) {
             newChat.toUUID = newChat.uuid;
@@ -366,12 +363,7 @@ export default {
         convos.push(convoModel);
       }
 
-      // Sort models by most recent
-      const conversations = sortBy(convos, [(o) => {
-        return moment(o.date).toDate();
-      }]);
-
-      return conversations.reverse();
+      return convos;
     },
     // Separate from selectedConversation which is not computed so messages don't update automatically
     selectedConversationMessages () {
@@ -385,10 +377,20 @@ export default {
       return this.messages;
     },
     filtersConversations () {
-      if (!this.search) return this.conversations;
-      return filter(this.conversations, (conversation) => {
-        return conversation.name.toLowerCase().indexOf(this.search.toLowerCase()) !== -1;
-      });
+      // Vue-subscribe to changes
+      const subScribeToUpdate = this.updateConversionsCounter > -1;
+
+      const filtered = subScribeToUpdate && !this.search ?
+        this.conversations :
+        filter(this.conversations, (conversation) => {
+          return conversation.name.toLowerCase().indexOf(this.search.toLowerCase()) !== -1;
+        });
+
+      const ordered = orderBy(filtered, [(o) => {
+        return moment(o.date).toDate();
+      }], ['desc']);
+
+      return ordered;
     },
     currentLength () {
       return this.newMessage.length;
@@ -511,6 +513,7 @@ export default {
       }).then(response => {
         const newMessage = response.data.data.message;
         Object.assign(messages[messages.length - 1], newMessage);
+        this.updateConversionsCounter++;
       });
 
       this.newMessage = '';

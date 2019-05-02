@@ -56,18 +56,20 @@ export async function listConversations (user) {
       },
     ]);
 
-  const conversationsList = orderBy(await query.exec(), ['timestamp'], ['desc']).map(c => c._id);
+  const conversationsList = orderBy(await query.exec(), ['timestamp'], ['desc']);
+  const userList = conversationsList.map(c => c._id);
 
-  const users = await User.find({_id: {$in: conversationsList}})
+  const users = await User.find({_id: {$in: userList}})
     .select('_id profile.name auth.local.username')
     .lean()
     .exec();
 
   const usersMap = keyBy(users, '_id');
-  const conversations = conversationsList.map(userId => ({
-    uuid: usersMap[userId]._id,
-    user: usersMap[userId].profile.name,
-    username: usersMap[userId].auth.local.username,
+  const conversations = conversationsList.map(({_id, timestamp}) => ({
+    uuid: usersMap[_id]._id,
+    user: usersMap[_id].profile.name,
+    username: usersMap[_id].auth.local.username,
+    timestamp,
   }));
 
   return conversations;
