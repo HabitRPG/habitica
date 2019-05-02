@@ -667,12 +667,14 @@ api.updateChallenge = {
     let challenge = await Challenge.findById(challengeId).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
+    let leader = challenge.leader;
     let group = await Group.getGroup({user, groupId: challenge.group, fields: basicGroupFields, optionalMembership: true});
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
     if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyLeaderUpdateChal'));
 
     _.merge(challenge, Challenge.sanitizeUpdate(req.body));
 
+    challenge.leader = leader;
     let savedChal = await challenge.save();
     let response = savedChal.toJSON();
     response.group = getChallengeGroupResponse(group);
