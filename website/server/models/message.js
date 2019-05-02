@@ -97,8 +97,9 @@ export function setUserStyles (newMessage, user) {
     }
   }
 
+  newMessage.contributor = userCopy.contributor;
   newMessage.userStyles = userStyles;
-  newMessage.markModified('userStyles');
+  newMessage.markModified('userStyles contributor');
 }
 
 export function messageDefaults (msg, user, client) {
