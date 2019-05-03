@@ -12,7 +12,7 @@
         h2 {{ $t(isGroup ? 'canceledGroupPlan' : 'subCanceledTitle') }}
         .details-block
             span
-              | {{ $t(isGroup ? 'groupPlanCanceled' : 'subCanceled') }}
+              | {{ $t('subWillBecomeInactive') }}
               br
               strong {{ dateTerminated }}
         span.auto-renew.small-text(v-once) {{ $t('paymentCanceledDisputes') }}
@@ -73,7 +73,7 @@
   }
 
   h2 {
-    margin-bottom: 8px;
+    margin-bottom: 0px;
   }
 
   .cancel-text {

@@ -71,6 +71,7 @@
     "checkout": "Checkout",
     "confirmCancelSub": "Are you sure you want to cancel your subscription? You will lose all of your subscription benefits.",
     "subCanceled": "Subscription will become inactive on",
+    "subWillBecomeInactive": "Will become inactive",
     "buyGemsGoldTitle": "To Buy Gems with Gold",
     "becomeSubscriber": "Become a Subscriber",
     "subGemPop": "Because you subscribe to Habitica, you can purchase a number of Gems each month using Gold.",
