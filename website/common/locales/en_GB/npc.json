@@ -103,7 +103,7 @@
     "donationDesc": "20 Gems, Donation to Habitica",
     "payWithCard": "Pay with Card",
     "payNote": "Note: PayPal sometimes takes a long time to clear. We recommend paying with card.",
-    "card": "Credit Card (using Stripe)",
+    "card": "Credit Card",
     "amazonInstructions": "Click the button to pay using Amazon Payments",
     "paymentMethods": "Purchase using",
     "paymentSuccessful": "Your payment was successful!",
@@ -167,5 +167,6 @@
     "welcome4": "Avoid bad habits that drain Health (HP), or your avatar will die!",
     "welcome5": "Now you'll customise your avatar and set up your tasks...",
     "imReady": "Enter Habitica",
-    "limitedOffer": "Available until <%= date %>"
+    "limitedOffer": "Available until <%= date %>",
+    "paymentAutoRenew": "This subscription will auto-renew until it is cancelled. If you need to cancel this subscription, you can do so from your settings."
 }
