@@ -205,6 +205,7 @@
 
   .column-background {
     position: absolute;
+    width: 100%;
     bottom: 32px;
 
     &.initial-description {
