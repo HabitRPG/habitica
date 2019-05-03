@@ -56,11 +56,11 @@ describe('PUT /challenges/:challengeId', () => {
       tasksOrder: 'new order',
       official: true,
       shortName: 'new short name',
+      leader: member._id,
 
       // applied
       name: 'New Challenge Name',
       description: 'New challenge description.',
-      leader: member._id,
     });
 
     expect(res.prize).to.equal(0);
@@ -76,12 +76,12 @@ describe('PUT /challenges/:challengeId', () => {
     expect(res.shortName).not.to.equal('new short name');
 
     expect(res.leader).to.eql({
-      _id: member._id,
-      id: member._id,
-      profile: {name: member.profile.name},
+      _id: user._id,
+      id: user._id,
+      profile: {name: user.profile.name},
       auth: {
         local: {
-          username: member.auth.local.username,
+          username: user.auth.local.username,
         },
       },
       flags: {
