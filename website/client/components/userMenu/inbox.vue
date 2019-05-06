@@ -35,7 +35,7 @@
             .time
               span.mr-1(v-if='conversation.username') @{{ conversation.username }} •
               span {{ conversation.date | timeAgo }}
-            div {{ conversation.lastMessageText ? substring(removeTags(parseMarkdown(conversation.lastMessageText)), 30) : '' }}
+            div.messagePreview {{ conversation.lastMessageText ? removeTags(parseMarkdown(conversation.lastMessageText)) : '' }}
       .col-8.messages.d-flex.flex-column.justify-content-between
         .empty-messages.text-center(v-if='!selectedConversation.key')
           .svg-icon.envelope(v-html="icons.messageIcon")
@@ -208,6 +208,13 @@
     font-size: 12px;
     color: $gray-200;
     margin-bottom: 0.5rem;
+  }
+
+  .messagePreview {
+    font-size: 12px;
+    color: #686274;
+    max-height: 36px;
+    overflow: hidden;
   }
 </style>
 
@@ -500,9 +507,6 @@ export default {
       }
       if (!message.contributor) return;
       return this.icons[`tier${message.contributor.level}`];
-    },
-    substring (text, size) {
-      return text.length <= size ? text : `${text.substring(0, size)}...`;
     },
     removeTags (html) {
       let tmp = document.createElement('DIV');
