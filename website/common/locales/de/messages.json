@@ -62,5 +62,7 @@
     "unallocatedStatsPoints": "Du kannst <span class=\"notification-bold-blue\"><%= points %> Attributpunkt(e)</span> verteilen",
     "beginningOfConversation": "Dies ist der Anfang Deiner Unterhaltung mit<%= userName %>. Denke an einen freundlichen und respektvollen Umgang und halte Dich an die Community-Richtlinien!",
     "messageDeletedUser": "Tut uns leid, dieser Benutzer hat sein Konto gelöscht.",
-    "messageMissingDisplayName": "Fehlender Angezeigter Name."
+    "messageMissingDisplayName": "Fehlender Angezeigter Name.",
+    "reportedMessage": "Du hast diese Nachricht den Moderatoren gemeldet.",
+    "canDeleteNow": "Du kannst diese Nachricht nun löschen, wenn Du willst."
 }
