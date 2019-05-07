@@ -48,7 +48,11 @@
           :chat='selectedConversationMessages',
           :inbox='true',
           @message-removed='messageRemoved',
-          ref="chatscroll"
+          ref="chatscroll",
+
+          :canLoadMore="canLoadMore",
+          :isLoading="messagesLoading",
+          @triggerLoad="infiniteScrollTrigger"
         )
         .pm-disabled-caption.text-center(v-if="user.inbox.optOut && selectedConversation.key")
           h4 {{$t('PMDisabledCaptionTitle')}}
@@ -236,6 +240,8 @@ import tier8 from 'assets/svg/tier-mod.svg';
 import tier9 from 'assets/svg/tier-staff.svg';
 import tierNPC from 'assets/svg/tier-npc.svg';
 
+import debounce from 'lodash/debounce';
+
 export default {
   mixins: [styleHelper],
   components: {
@@ -301,6 +307,8 @@ export default {
       loadedConversations: [],
       loaded: false,
       messagesLoading: false,
+      canLoadMore: true,
+      page: 0,
       initiatedConversation: null,
       updateConversionsCounter: 0,
     };
@@ -347,9 +355,8 @@ export default {
     },
     // Separate from selectedConversation which is not computed so messages don't update automatically
     selectedConversationMessages () {
-      if (this.messagesLoading) {
-        return [];
-      }
+      // Vue-subscribe to changes
+      const subScribeToUpdate = this.messagesLoading || true;
 
       const selectedConversationKey = this.selectedConversation.key;
       const selectedConversation = this.messagesByConversation[selectedConversationKey];
@@ -359,7 +366,9 @@ export default {
         return m.timestamp;
       }], ['asc']);
 
-      return ordered;
+      if (subScribeToUpdate) {
+        return ordered;
+      }
     },
     filtersConversations () {
       // Vue-subscribe to changes
@@ -449,14 +458,10 @@ export default {
       });
 
       this.selectedConversation = convoFound || {};
+      this.page = 0;
 
       if (!this.messagesByConversation[this.selectedConversation.key]) {
-        this.messagesLoading = true;
-
-        const res = await axios.get(`/api/v4/inbox/messages?conversation=${this.selectedConversation.key}`);
-        this.messagesByConversation[this.selectedConversation.key] = res.data.data.map(this.mapMessage);
-
-        this.messagesLoading = false;
+        await this.loadMessages();
       }
 
       Vue.nextTick(() => {
@@ -532,6 +537,33 @@ export default {
       }
       if (!message.contributor) return;
       return this.icons[`tier${message.contributor.level}`];
+    },
+    infiniteScrollTrigger () {
+      // show loading and wait until the loadMore debounced
+      // or else it would trigger on every scrolling-pixel (while not loading)
+      if (this.canLoadMore) {
+        this.messagesLoading = true;
+      }
+
+      this.loadMore();
+    },
+    loadMore: debounce(function loadMoreDebounce () {
+      this.page += 1;
+      this.loadMessages();
+    }, 1000),
+    async loadMessages () {
+      this.messagesLoading = true;
+
+      const res = await axios.get(`/api/v4/inbox/messages?conversation=${this.selectedConversation.key}&page=${this.page}`);
+      const loadedMessages = res.data.data.map(this.mapMessage);
+
+      this.messagesByConversation[this.selectedConversation.key] = this.messagesByConversation[this.selectedConversation.key] || [];
+      this.messagesByConversation[this.selectedConversation.key].push(...loadedMessages);
+
+      // only show the load more Button if the max count was returned
+      this.canLoadMore = loadedMessages.length === 10;
+console.info('set canLoadMore', this.canLoadMore, loadedMessages);
+      this.messagesLoading = false;
     },
   },
 };
