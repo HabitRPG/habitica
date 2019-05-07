@@ -211,10 +211,13 @@
   }
 
   .messagePreview {
-    font-size: 12px;
-    color: #686274;
-    max-height: 36px;
+    display: block;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
     overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
   }
 </style>
 
