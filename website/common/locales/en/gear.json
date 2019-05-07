@@ -422,6 +422,8 @@
   "weaponArmoireJugglingBallsNotes": "Habiticans are master multi-taskers, so you should have no trouble keeping all these balls in the air! Increases Intelligence by <%= int %>. Enchanted Armoire: Independent Item.",
   "weaponArmoireSlingshotText": "Slingshot",
   "weaponArmoireSlingshotNotes": "Take aim at your red Dailies! Increases Strength by <%= str %>. Enchanted Armoire: Independent Item.",
+  "weaponArmoireNephriteBowText": "Nephrite Bow",
+  "weaponArmoireNephriteBowNotes": "This bow shoots special jade-tipped arrows that will take down even your most stubborn bad habits! Increases Intelligence by <%= int %> and Strength by <%= str %>. Enchanted Armoire: Nephrite Archer Set (Item 1 of 3).",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -912,6 +914,8 @@
   "armorArmoireChefsJacketNotes": "This thick cotton jacket is double-breasted to protect you from spills (and conveniently reversible…). Increases Intelligence by <%= int %>. Enchanted Armoire: Chef Set (Item 2 of 4).",
   "armorArmoireVernalVestmentText": "Vernal Vestment",
   "armorArmoireVernalVestmentNotes": "This silky garment is perfect for enjoying mild spring weather in style. Increases Strength and Intelligence by <%= attrs %> each. Enchanted Armoire: Vernal Vestments Set (Item 2 of 3).",
+  "armorArmoireNephriteArmorText": "Nephrite Armor",
+  "armorArmoireNephriteArmorNotes": "Made from strong steel rings and decorated with jade, this armor will protect you from procrastination! Increases Strength by <%= str %> and Perception by <%= per %>. Enchanted Armoire: Nephrite Archer Set (Item 3 of 3).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -1416,6 +1420,8 @@
   "headArmoireVernalHenninNotes": "More than just a pretty hat, this conical chapeau can also hold a rolled-up To-Do list inside. Increases Perception by <%= per %>. Enchanted Armoire: Vernal Vestments Set (Item 1 of 3).",
   "headArmoireTricornHatText": "Tricorn Hat",
   "headArmoireTricornHatNotes": "Become a revolutionary jokester! Increases Perception by <%= per %>. Enchanted Armoire: Independent Item.",
+  "headArmoireNephriteHelmText": "Nephrite Helm",
+  "headArmoireNephriteHelmNotes": "The carved jade plume atop this helm is enchanted to enhance your aim. Increases Perception by <%= per %> and Intelligence by <%= int %>. Enchanted Armoire: Nephrite Archer Set (Item 2 of 3).",
 
   "offhand": "off-hand item",
   "offhandCapitalized": "Off-Hand Item",
