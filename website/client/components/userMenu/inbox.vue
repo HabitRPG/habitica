@@ -330,27 +330,7 @@ export default {
       // Create conversation objects
       const convos = [];
       for (let key in inboxGroup) {
-        // Fix poor inbox chat models
-        const newChatModels = inboxGroup[key].map(chat => {
-          let newChat = Object.assign({}, chat);
-          if (newChat.sent) {
-            newChat.toUUID = newChat.uuid;
-            newChat.toUser = newChat.user;
-            newChat.toUserName = newChat.username;
-            newChat.toUserContributor = newChat.contributor;
-            newChat.toUserBacker = newChat.backer;
-            newChat.uuid = this.user._id;
-            newChat.user = this.user.profile.name;
-            newChat.username = this.user.auth.local.username;
-            newChat.contributor = this.user.contributor;
-            newChat.backer = this.user.backer;
-          }
-          return newChat;
-        });
-
-        // In case the last message is a placeholder, remove it
-        const recentMessage = newChatModels[newChatModels.length - 1];
-        if (!recentMessage.text) newChatModels.splice(newChatModels.length - 1, 1);
+        const recentMessage = inboxGroup[key][0];
 
         const convoModel = {
           key: recentMessage.toUUID ? recentMessage.toUUID : recentMessage.uuid,
@@ -374,7 +354,12 @@ export default {
       const selectedConversationKey = this.selectedConversation.key;
       const selectedConversation = this.messagesByConversation[selectedConversationKey];
       this.messages = selectedConversation || [];
-      return this.messages;
+
+      const ordered = orderBy(this.messages, [(m) => {
+        return m.timestamp;
+      }], ['asc']);
+
+      return ordered;
     },
     filtersConversations () {
       // Vue-subscribe to changes
@@ -430,9 +415,12 @@ export default {
       this.loaded = true;
     },
     onModalHide () {
+      // reset everything
       this.loadedConversations = [];
       this.loaded = false;
       this.initiatedConversation = null;
+      this.messagesByConversation = {};
+      this.selectedConversation = {};
     },
     messageRemoved (message) {
       const messages = this.messagesByConversation[this.selectedConversation.key];
@@ -466,7 +454,7 @@ export default {
         this.messagesLoading = true;
 
         const res = await axios.get(`/api/v4/inbox/messages?conversation=${this.selectedConversation.key}`);
-        this.messagesByConversation[this.selectedConversation.key] = res.data.data;
+        this.messagesByConversation[this.selectedConversation.key] = res.data.data.map(this.mapMessage);
 
         this.messagesLoading = false;
       }
@@ -477,12 +465,28 @@ export default {
         chatscroll.scrollTop = chatscroll.scrollHeight;
       });
     },
+    mapMessage (message) {
+      let newChat = Object.assign({}, message);
+      if (newChat.sent) {
+        newChat.toUUID = newChat.uuid;
+        newChat.toUser = newChat.user;
+        newChat.toUserName = newChat.username;
+        newChat.toUserContributor = newChat.contributor;
+        newChat.toUserBacker = newChat.backer;
+        newChat.uuid = this.user._id;
+        newChat.user = this.user.profile.name;
+        newChat.username = this.user.auth.local.username;
+        newChat.contributor = this.user.contributor;
+        newChat.backer = this.user.backer;
+      }
+      return newChat;
+    },
     sendPrivateMessage () {
       if (!this.newMessage) return;
 
       const messages = this.messagesByConversation[this.selectedConversation.key];
 
-      messages.push({
+      messages.push(this.mapMessage({
         sent: true,
         text: this.newMessage,
         timestamp: new Date(),
@@ -490,7 +494,7 @@ export default {
         username: this.selectedConversation.username,
         uuid: this.selectedConversation.key,
         contributor: this.user.contributor,
-      });
+      }));
 
       // Remove the placeholder message
       if (this.initiatedConversation && this.initiatedConversation.uuid === this.selectedConversation.key) {
@@ -512,7 +516,7 @@ export default {
         message: this.newMessage,
       }).then(response => {
         const newMessage = response.data.data.message;
-        Object.assign(messages[messages.length - 1], newMessage);
+        Object.assign(messages[messages.length - 1], this.mapMessage(newMessage));
         this.updateConversionsCounter++;
       });
 

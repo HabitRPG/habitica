@@ -15,7 +15,7 @@ export async function getUserInbox (user, options = {asArray: true, page: 0, con
   const findObj = {ownerId: user._id};
 
   if (options.conversation) {
-    findObj.uuid = options.conversation;
+    findObj.$or = [{ uuid: options.conversation }, { uuid: user._id }];
   }
 
   let query = Inbox
