@@ -3,7 +3,7 @@
   "share": "分享",
   "onwards": "繼續！",
   "levelup": "透過完成你在現實生活中的目標，你現在已經升級並完全治癒了！",
-  "reachedLevel": "你到達等級<%= level %>",
-  "achievementLostMasterclasser": "任務終結者: 大師鑑別者系列",
-  "achievementLostMasterclasserText": "已完成大師鑑別者任務系列的6個任務，並解開了失傳的大師鑑別者的神秘面紗!!"
+  "reachedLevel": "您已達到等級<%= level %>",
+  "achievementLostMasterclasser": "副本終結者: 大師鑑別者系列",
+  "achievementLostMasterclasserText": "已完成大師鑑別者副本系列的6個副本，並解開了失傳的大師鑑別者的神秘面紗!!"
 }

@@ -4,7 +4,7 @@ import {
   setup as setupAnalytics,
 } from 'client/libs/analytics';
 import { setUpLogging } from 'client/libs/logging';
-import router from './router';
+import router from './router/index';
 import getStore from './store';
 import StoreModule from './libs/store';
 import './filters/registerGlobals';

@@ -176,6 +176,12 @@
     "questEggKangarooText": "Canguro",
     "questEggKangarooMountText": "Canguro",
     "questEggKangarooAdjective": "entusiasta",
+    "questEggAlligatorText": "Caimán",
+    "questEggAlligatorMountText": "Caimán",
+    "questEggAlligatorAdjective": "un astuto",
+    "questEggVelociraptorText": "Velociraptor",
+    "questEggVelociraptorMountText": "Velociraptor",
+    "questEggVelociraptorAdjective": "a clever",
     "eggNotes": "Encuentra una poción de eclosión para verter en este huevo y eclosionará en <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Base",
     "hatchingPotionWhite": "Blanco",
@@ -203,6 +209,8 @@
     "hatchingPotionRainbow": "Arco-iris",
     "hatchingPotionGlass": "El Vidrio",
     "hatchingPotionGlow": "que brilla en la oscuridad",
+    "hatchingPotionFrost": "Escarcha",
+    "hatchingPotionIcySnow": "Nieve Glacial",
     "hatchingPotionNotes": "Vierte esto en un huevo y eclosionará como una mascota <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "No puede usarse en huevos de mascota de misión.",
     "foodMeat": "Carne",
@@ -298,5 +306,6 @@
     "foodSaddleText": "Silla de Montar",
     "foodSaddleNotes": "Convierte instantáneamente una de tus mascotas en una montura.",
     "foodSaddleSellWarningNote": "¡Oye! ¡Este es un artículo bastante util! ¿Estás familiarizado con cómo usar una silla de montar con tus mascotas?",
-    "foodNotes": "Dale esto a una mascota y puede convertirse en una robusta montura."
+    "foodNotes": "Dale esto a una mascota y puede convertirse en una robusta montura.",
+    "hatchingPotionRoseQuartz": "Cuarzo Rosa"
 }

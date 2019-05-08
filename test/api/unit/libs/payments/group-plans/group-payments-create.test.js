@@ -69,11 +69,11 @@ describe('Purchasing a group plan for group', () => {
     };
 
     let subscriptionId = 'subId';
-    sinon.stub(stripe.customers, 'del').returnsPromise().resolves({});
+    sinon.stub(stripe.customers, 'del').resolves({});
 
     let currentPeriodEndTimeStamp = moment().add(3, 'months').unix();
     sinon.stub(stripe.customers, 'retrieve')
-      .returnsPromise().resolves({
+      .resolves({
         subscriptions: {
           data: [{id: subscriptionId, current_period_end: currentPeriodEndTimeStamp}], // eslint-disable-line camelcase
         },
@@ -216,7 +216,6 @@ describe('Purchasing a group plan for group', () => {
 
   it('sends one email to subscribed member of group, stating subscription is cancelled (Amazon)', async () => {
     sinon.stub(amzLib, 'getBillingAgreementDetails')
-      .returnsPromise()
       .resolves({
         BillingAgreementDetails: {
           BillingAgreementStatus: {State: 'Closed'},
@@ -251,9 +250,9 @@ describe('Purchasing a group plan for group', () => {
   });
 
   it('sends one email to subscribed member of group, stating subscription is cancelled (PayPal)', async () => {
-    sinon.stub(paypalPayments, 'paypalBillingAgreementCancel').returnsPromise().resolves({});
+    sinon.stub(paypalPayments, 'paypalBillingAgreementCancel').resolves({});
     sinon.stub(paypalPayments, 'paypalBillingAgreementGet')
-      .returnsPromise().resolves({
+      .resolves({
         agreement_details: { // eslint-disable-line camelcase
           next_billing_date: moment().add(3, 'months').toDate(), // eslint-disable-line camelcase
           cycles_completed: 1, // eslint-disable-line camelcase
@@ -449,7 +448,6 @@ describe('Purchasing a group plan for group', () => {
 
   it('adds months to members with existing recurring subscription (Amazon)', async () => {
     sinon.stub(amzLib, 'getBillingAgreementDetails')
-      .returnsPromise()
       .resolves({
         BillingAgreementDetails: {
           BillingAgreementStatus: {State: 'Closed'},
@@ -478,9 +476,9 @@ describe('Purchasing a group plan for group', () => {
   });
 
   it('adds months to members with existing recurring subscription (Paypal)', async () => {
-    sinon.stub(paypalPayments, 'paypalBillingAgreementCancel').returnsPromise().resolves({});
+    sinon.stub(paypalPayments, 'paypalBillingAgreementCancel').resolves({});
     sinon.stub(paypalPayments, 'paypalBillingAgreementGet')
-      .returnsPromise().resolves({
+      .resolves({
         agreement_details: { // eslint-disable-line camelcase
           next_billing_date: moment().add(3, 'months').toDate(), // eslint-disable-line camelcase
           cycles_completed: 1, // eslint-disable-line camelcase

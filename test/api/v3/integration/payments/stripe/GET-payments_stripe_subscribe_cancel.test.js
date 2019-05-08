@@ -23,7 +23,7 @@ describe('payments - stripe - #subscribeCancel', () => {
 
   describe('success', () => {
     beforeEach(async () => {
-      stripeCancelSubscriptionStub = sinon.stub(stripePayments, 'cancelSubscription').returnsPromise().resolves({});
+      stripeCancelSubscriptionStub = sinon.stub(stripePayments, 'cancelSubscription').resolves({});
     });
 
     afterEach(() => {

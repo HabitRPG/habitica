@@ -82,7 +82,7 @@
             )
     div(
       v-for="group in itemsGroups",
-      v-if="viewOptions[group.key].selected",
+      v-if="!anyFilterSelected || viewOptions[group.key].selected",
       :key="group.key",
       :class='group.key',
     )
@@ -383,10 +383,13 @@ export default {
     items () {
       return this.groupBy === 'type' ? this.gearItemsByType : this.gearItemsByClass;
     },
+    anyFilterSelected () {
+      return Object.values(this.viewOptions).some(g => g.selected);
+    },
     itemsGroups () {
       return map(this.groups, (label, group) => {
         this.$set(this.viewOptions, group, {
-          selected: true,
+          selected: false,
           open: false,
           itemsInFirstPosition: [],
           firstRender: true,

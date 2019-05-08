@@ -2,12 +2,14 @@
 div
   inbox-modal
   creator-intro
-  profile
-  b-navbar.topbar.navbar-inverse.static-top.navbar-expand-lg(type="dark", :class="navbarZIndexClass")
+  profileModal
+  report-flag-modal
+  send-gems-modal
+  b-navbar.topbar.navbar-inverse.static-top(toggleable="lg", type="dark", :class="navbarZIndexClass")
     b-navbar-brand.brand
       .logo.svg-icon.d-none.d-xl-block(v-html="icons.logo")
       .svg-icon.gryphon.d-xs-block.d-xl-none
-    b-nav-toggle(target='menu_collapse').menu-toggle
+    b-navbar-toggle(target='menu_collapse').menu-toggle
     .quick-menu.mobile-only.form-inline
       a.item-with-icon(@click="sync", v-b-tooltip.hover.bottom="$t('sync')")
         .top-menu-icon.svg-icon(v-html="icons.sync")
@@ -54,8 +56,8 @@ div
             router-link.topbar-dropdown-item.dropdown-item(to="/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac") {{ $t('reportBug') }}
             router-link.topbar-dropdown-item.dropdown-item(to="/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a") {{ $t('askAQuestion') }}
             a.topbar-dropdown-item.dropdown-item(href="https://trello.com/c/odmhIqyW/440-read-first-table-of-contents", target='_blank') {{ $t('requestAF') }}
-            a.topbar-dropdown-item.dropdown-item(href="http://habitica.wikia.com/wiki/Contributing_to_Habitica", target='_blank') {{ $t('contributing') }}
-            a.topbar-dropdown-item.dropdown-item(href="http://habitica.wikia.com/wiki/Habitica_Wiki", target='_blank') {{ $t('wiki') }}
+            a.topbar-dropdown-item.dropdown-item(href="http://habitica.fandom.com/wiki/Contributing_to_Habitica", target='_blank') {{ $t('contributing') }}
+            a.topbar-dropdown-item.dropdown-item(href="http://habitica.fandom.com/wiki/Habitica_Wiki", target='_blank') {{ $t('wiki') }}
             a.topbar-dropdown-item.dropdown-item(@click='modForm()') {{ $t('contactForm') }}
       .currency-tray.form-inline
         .item-with-icon(v-if="userHourglasses > 0")
@@ -343,20 +345,27 @@ import syncIcon from 'assets/svg/sync.svg';
 import svgHourglasses from 'assets/svg/hourglass.svg';
 import logo from 'assets/svg/logo.svg';
 
+import creatorIntro from '../creatorIntro';
 import InboxModal from '../userMenu/inbox.vue';
 import notificationMenu from './notificationsDropdown';
-import creatorIntro from '../creatorIntro';
-import profile from '../userMenu/profile';
+import profileModal from '../userMenu/profileModal';
+import reportFlagModal from '../chat/reportFlagModal';
+import sendGemsModal from 'client/components/payments/sendGemsModal';
+import sync from 'client/mixins/sync';
 import userDropdown from './userDropdown';
+
 
 export default {
   components: {
-    userDropdown,
+    creatorIntro,
     InboxModal,
     notificationMenu,
-    creatorIntro,
-    profile,
+    profileModal,
+    reportFlagModal,
+    sendGemsModal,
+    userDropdown,
   },
+  mixins: [sync],
   data () {
     return {
       isUserDropdownOpen: false,
@@ -395,14 +404,6 @@ export default {
     },
     toggleUserDropdown () {
       this.isUserDropdownOpen = !this.isUserDropdownOpen;
-    },
-    async sync () {
-      this.$root.$emit('habitica::resync-requested');
-      await Promise.all([
-        this.$store.dispatch('user:fetch', {forceLoad: true}),
-        this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
-      ]);
-      this.$root.$emit('habitica::resync-completed');
     },
     async getUserGroupPlans () {
       this.$store.state.groupPlans = await this.$store.dispatch('guilds:getGroupPlans');

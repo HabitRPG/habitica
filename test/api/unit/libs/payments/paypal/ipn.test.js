@@ -34,8 +34,8 @@ describe('ipn', () => {
     group.purchased.plan.lastBillingDate = new Date();
     await group.save();
 
-    ipnVerifyAsyncStub = sinon.stub(paypalPayments, 'ipnVerifyAsync').returnsPromise().resolves({});
-    paymentCancelSubscriptionSpy = sinon.stub(payments, 'cancelSubscription').returnsPromise().resolves({});
+    ipnVerifyAsyncStub = sinon.stub(paypalPayments, 'ipnVerifyAsync').resolves({});
+    paymentCancelSubscriptionSpy = sinon.stub(payments, 'cancelSubscription').resolves({});
   });
 
   afterEach(function () {

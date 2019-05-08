@@ -31,7 +31,12 @@ schema.methods.isSubscribed = function isSubscribed () {
 
 schema.methods.hasNotCancelled = function hasNotCancelled () {
   let plan = this.purchased.plan;
-  return this.isSubscribed() && !plan.dateTerminated;
+  return Boolean(this.isSubscribed() && !plan.dateTerminated);
+};
+
+schema.methods.hasCancelled = function hasCancelled () {
+  let plan = this.purchased.plan;
+  return Boolean(this.isSubscribed() && plan.dateTerminated);
 };
 
 // Get an array of groups ids the user is member of
@@ -154,7 +159,7 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, o
       ownerId: sender._id,
     });
     Object.assign(newSenderMessage, messageDefaults(senderMsg, userToReceiveMessage));
-    setUserStyles(newSenderMessage, userToReceiveMessage);
+    setUserStyles(newSenderMessage, sender);
   }
 
   const promises = [newReceiverMessage.save()];
@@ -213,6 +218,9 @@ schema.statics.pushNotification = async function pushNotification (query, type, 
 schema.statics.transformJSONUser = function transformJSONUser (jsonUser, addComputedStats = false) {
   // Add id property
   jsonUser.id = jsonUser._id;
+
+  // Remove username if not verified
+  if (!jsonUser.flags.verifiedUsername) jsonUser.auth.local.username = null;
 
   if (addComputedStats) this.addComputedStatsToJSONObj(jsonUser.stats, jsonUser);
 };
@@ -400,7 +408,7 @@ schema.methods.toJSONWithInbox = async function userToJSONWithInbox () {
   const toJSON = user.toJSON();
 
   if (toJSON.inbox) {
-    toJSON.inbox.messages = await inboxLib.getUserInbox(user, false);
+    toJSON.inbox.messages = await inboxLib.getUserInbox(user, {asArray: false});
   }
 
   return toJSON;

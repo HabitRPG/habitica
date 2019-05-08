@@ -16,15 +16,14 @@ import {
 } from '../../libs/webhook';
 import {
   getUserInfo,
-  sendTxn as txnEmail,
+  sendTxn,
 } from '../../libs/email';
-import Queue from '../../libs/queue';
 import * as inboxLib from '../../libs/inbox';
 import * as userLib from '../../libs/user';
 import nconf from 'nconf';
 import get from 'lodash/get';
 
-const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
+const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS_TECH_ASSISTANCE_EMAIL');
 const DELETE_CONFIRMATION = 'DELETE';
 
 /**
@@ -62,7 +61,7 @@ let api = {};
  * Tags
  * TasksOrder (list of all ids for dailys, habits, rewards and todos)
  *
- * @apiParam (Query) {UUID} userFields A list of comma separated user fields to be returned instead of the entire document. Notifications are always returned.
+ * @apiParam (Query) {String} [userFields] A list of comma separated user fields to be returned instead of the entire document. Notifications are always returned.
  *
  * @apiExample {curl} Example use:
  * curl -i https://habitica.com/api/v3/user?userFields=achievements,items.mounts
@@ -291,16 +290,15 @@ api.deleteUser = {
     await user.remove();
 
     if (feedback) {
-      txnEmail({email: TECH_ASSISTANCE_EMAIL}, 'admin-feedback', [
+      sendTxn({email: TECH_ASSISTANCE_EMAIL}, 'admin-feedback', [
         {name: 'PROFILE_NAME', content: user.profile.name},
+        {name: 'USERNAME', content: user.auth.local.username},
         {name: 'UUID', content: user._id},
         {name: 'EMAIL', content: getUserInfo(user, ['email']).email},
         {name: 'FEEDBACK_SOURCE', content: 'from deletion form'},
         {name: 'FEEDBACK', content: feedback},
       ]);
     }
-
-    if (feedback) Queue.sendMessage({feedback, username: user.profile.name}, user._id);
 
     res.analytics.track('account delete', {
       uuid: user._id,
@@ -1423,7 +1421,7 @@ api.deleteMessage = {
 
     await inboxLib.deleteMessage(user, req.params.id);
 
-    res.respond(200, ...[await inboxLib.getUserInbox(user, false)]);
+    res.respond(200, ...[await inboxLib.getUserInbox(user, {asArray: false})]);
   },
 };
 

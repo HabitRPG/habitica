@@ -11,6 +11,7 @@ import {
 } from '../../../../website/common/script/libs/errors';
 import i18n from '../../../../website/common/script/i18n';
 import errorMessage from '../../../../website/common/script/libs/errorMessage';
+import { defaultsDeep } from 'lodash';
 
 function buyGear (user, req, analytics) {
   let buyOp = new BuyMarketGearOperation(user, req, analytics);
@@ -24,6 +25,10 @@ describe('shared.ops.buyMarketGear', () => {
 
   beforeEach(() => {
     user = generateUser({
+      stats: { gp: 200 },
+    });
+
+    defaultsDeep(user, {
       items: {
         gear: {
           owned: {
@@ -34,7 +39,6 @@ describe('shared.ops.buyMarketGear', () => {
           },
         },
       },
-      stats: { gp: 200 },
     });
 
     sinon.stub(shared, 'randomVal');
@@ -245,6 +249,15 @@ describe('shared.ops.buyMarketGear', () => {
       buyGear(user, {params: {key: 'head_special_2'}});
 
       expect(user.items.gear.owned).to.have.property('head_special_2', true);
+    });
+
+    it('does buyGear equipment if it is an armoire item that an user previously lost', () => {
+      user.stats.gp = 200;
+      user.items.gear.owned.shield_armoire_ramHornShield = false;
+
+      buyGear(user, {params: {key: 'shield_armoire_ramHornShield'}});
+
+      expect(user.items.gear.owned).to.have.property('shield_armoire_ramHornShield', true);
     });
   });
 });

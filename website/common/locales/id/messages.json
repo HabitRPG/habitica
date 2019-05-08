@@ -38,7 +38,6 @@
     "messageInsufficientGems": "Permata tidak cukup!",
     "messageAuthPasswordMustMatch": ":password dan :confirm Kata Sandi tidak cocok",
     "messageAuthCredentialsRequired": ":username, :email, :password, :confirm Kata Sandi dibutuhkan",
-    "messageAuthUsernameTaken": "Nama Login telah diambil",
     "messageAuthEmailTaken": "Email telah digunakan",
     "messageAuthNoUserFound": "Tidak ada pengguna yang ditemukan",
     "messageAuthMustBeLoggedIn": "Anda harus masuk.",
@@ -62,5 +61,6 @@
     "notificationsRequired": "Id notifikasi diperlukan.",
     "unallocatedStatsPoints": "Kamu punya <span class=\"notification-bold-blue\"><%= points %>Poin Atribut yang belum teralokasi</span>",
     "beginningOfConversation": "Ini permulaan percakapanmu dengan <%= userName %>. Ingatlah untuk menunjukkan rasa hormat, sikap baik hati, dan ikuti Pedoman Komunitas!",
-    "messageDeletedUser": "Sorry, this user has deleted their account."
+    "messageDeletedUser": "Sorry, this user has deleted their account.",
+    "messageMissingDisplayName": "Missing display name."
 }

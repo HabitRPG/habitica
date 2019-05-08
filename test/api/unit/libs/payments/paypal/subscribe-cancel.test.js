@@ -38,15 +38,15 @@ describe('subscribeCancel', () => {
 
     nextBillingDate = new Date();
 
-    paypalBillingAgreementCancelStub = sinon.stub(paypalPayments, 'paypalBillingAgreementCancel').returnsPromise().resolves({});
+    paypalBillingAgreementCancelStub = sinon.stub(paypalPayments, 'paypalBillingAgreementCancel').resolves({});
     paypalBillingAgreementGetStub = sinon.stub(paypalPayments, 'paypalBillingAgreementGet')
-      .returnsPromise().resolves({
+      .resolves({
         agreement_details: {
           next_billing_date: nextBillingDate,
           cycles_completed: 1,
         },
       });
-    paymentCancelSubscriptionSpy = sinon.stub(payments, 'cancelSubscription').returnsPromise().resolves({});
+    paymentCancelSubscriptionSpy = sinon.stub(payments, 'cancelSubscription').resolves({});
   });
 
   afterEach(function () {

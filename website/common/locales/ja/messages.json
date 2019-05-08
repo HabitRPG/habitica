@@ -38,7 +38,6 @@
     "messageInsufficientGems": "ジェムが足りません!",
     "messageAuthPasswordMustMatch": ":password と :confirmPassword が一致していません。",
     "messageAuthCredentialsRequired": ":username, :email, :password, :confirmPassword は必須です。",
-    "messageAuthUsernameTaken": "そのユーザー名は既に使われています",
     "messageAuthEmailTaken": "そのEmailアドレスは既に使われています",
     "messageAuthNoUserFound": "ユーザーが見つかりませんでした。",
     "messageAuthMustBeLoggedIn": "まずログインしてください。",
@@ -62,5 +61,6 @@
     "notificationsRequired": "通知 ID が必要です。",
     "unallocatedStatsPoints": "<span class=\"notification-bold-blue\"><%= points %>ポイントが割り当てできます。</span>",
     "beginningOfConversation": "<%= userName %>との会話の始まりです。相手に対して思いやりと敬意を持ち、コミュニティガイドラインを守ることを忘れないでください！",
-    "messageDeletedUser": "申し訳ありません。このユーザーはアカウントを削除しています。"
+    "messageDeletedUser": "申し訳ありません。このユーザーはアカウントを削除しています。",
+    "messageMissingDisplayName": "表示名がありません。"
 }

@@ -9,7 +9,7 @@
     position: fixed;
     right: 10px;
     width: 350px;
-    z-index: 1070; // 1070 is above modal backgrounds
+    z-index: 1400; // 1400 is above modal backgrounds
 
     &-top-pos {
       &-normal {

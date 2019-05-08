@@ -32,7 +32,7 @@
       td
         input(type='checkbox', v-model='user.preferences.emailNotifications[notification]',
           @change='set("emailNotifications", notification)')
-      td
+      td(v-if="onlyEmailsIds.indexOf(notification) === -1")
         input(type='checkbox', v-model='user.preferences.pushNotifications[notification]',
           @change='set("pushNotifications", notification)')
         hr
@@ -46,7 +46,7 @@ export default {
   mixins: [notificationsMixin],
   data () {
     return {
-      notificationsIds: [
+      notificationsIds: Object.freeze([
         'newPM',
         'wonChallenge',
         'giftedGems',
@@ -59,7 +59,15 @@ export default {
         'importantAnnouncements',
         'weeklyRecaps',
         'onboarding',
-      ],
+        'majorUpdates',
+      ]),
+      // list of email-only notifications
+      onlyEmailsIds: Object.freeze([
+        'kickedGroup',
+        'importantAnnouncements',
+        'weeklyRecaps',
+        'onboarding',
+      ]),
     };
   },
   computed: {

@@ -1,8 +1,10 @@
+import forEach from 'lodash/forEach';
 import isEqual from 'lodash/isEqual';
 import keys from 'lodash/keys';
 import pick from 'lodash/pick';
 import includes from 'lodash/includes';
 import getStore from 'client/store';
+import amplitude from 'amplitude-js';
 import Vue from 'vue';
 
 const IS_PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
@@ -70,7 +72,7 @@ function _gatherUserStats (properties) {
 export function setUser () {
   const store = getStore();
   const user = store.state.user.data;
-  window.amplitude.setUserId(user._id);
+  amplitude.getInstance().setUserId(user._id);
   window.ga('set', {userId: user._id});
 }
 
@@ -80,7 +82,7 @@ export function track (properties) {
     if (_doesNotHaveRequiredFields(properties)) return false;
     if (_doesNotHaveAllowedHitType(properties)) return false;
 
-    window.amplitude.logEvent(properties.eventAction, properties);
+    amplitude.getInstance().logEvent(properties.eventAction, properties);
     window.ga('send', properties);
   });
 }
@@ -92,7 +94,11 @@ export function updateUser (properties) {
 
     _gatherUserStats(properties);
 
-    window.amplitude.setUserProperties(properties);
+    forEach(properties, (value, key) => {
+      const identify = new amplitude.Identify().set(key, value);
+      amplitude.getInstance().identify(identify);
+    });
+
     window.ga('set', properties);
   });
 }
@@ -103,13 +109,7 @@ export function setup () {
   /* eslint-disable */
 
   // Amplitude
-  var r = window.amplitude || {};
-  r._q = [];
-  function a(window) {r[window] = function() {r._q.push([window].concat(Array.prototype.slice.call(arguments, 0)));}}
-  var i = ["init", "logEvent", "logRevenue", "setUserId", "setUserProperties", "setOptOut", "setVersionName", "setDomain", "setDeviceId", "setGlobalUserProperties"];
-  for (var o = 0; o < i.length; o++) {a(i[o])}
-  window.amplitude = r;
-  amplitude.init(AMPLITUDE_KEY);
+  amplitude.getInstance().init(AMPLITUDE_KEY);
 
   // Google Analytics (aka Universal Analytics)
   window['GoogleAnalyticsObject'] = 'ga';
@@ -124,14 +124,7 @@ export function load () {
   // Load real scripts
   if (!IS_PRODUCTION) return;
 
-  // Amplitude
-  const amplitudeScript = document.createElement('script');
   let firstScript = document.getElementsByTagName('script')[0];
-  amplitudeScript.type = 'text/javascript';
-  amplitudeScript.async = true;
-  amplitudeScript.src = 'https://d24n15hnbwhuhn.cloudfront.net/libs/amplitude-2.2.0-min.gz.js';
-  firstScript.parentNode.insertBefore(amplitudeScript, firstScript);
-
   // Google Analytics
   const gaScript = document.createElement('script');
   firstScript = document.getElementsByTagName('script')[0];

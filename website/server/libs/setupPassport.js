@@ -6,7 +6,7 @@ import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
 //   serialize users into and deserialize users out of the session.  Typically,
-//   this will be as simple as storing the user ID when serializing, and finding
+//   this will be as simple as storing the User ID when serializing, and finding
 //   the user by ID when deserializing.  However, since this example does not
 //   have a database of user records, the complete Facebook profile is serialized
 //   and deserialized.
@@ -20,6 +20,9 @@ passport.use(new FacebookStrategy({
   clientID: nconf.get('FACEBOOK_KEY'),
   clientSecret: nconf.get('FACEBOOK_SECRET'),
   profileFields: ['id', 'email', 'displayName'],
+  profileURL: 'https://graph.facebook.com/v2.8/me',
+  authorizationURL: 'https://www.facebook.com/v2.8/dialog/oauth',
+  tokenURL: 'https://graph.facebook.com/v2.8/oauth/access_token',
   // callbackURL: nconf.get("BASE_URL") + "/auth/facebook/callback"
 }, (accessToken, refreshToken, profile, done) => done(null, profile)));
 

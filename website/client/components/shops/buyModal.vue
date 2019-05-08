@@ -48,7 +48,7 @@
             strong {{ $t('howManyToBuy') }}
           div(v-if='showAmountToBuy(item)')
             .box
-              input(type='number', min='0', v-model.number='selectedAmountToBuy')
+              input(type='number', min='0', step='1', v-model.number='selectedAmountToBuy')
             span(:class="{'notEnough': notEnoughCurrency}")
               span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons[getPriceClass()]")
               span.cost(:class="getPriceClass()") {{ item.value }}
@@ -71,11 +71,11 @@
         button.btn.btn-primary(
           @click="buyItem()",
           v-else,
-          :disabled='item.key === "gem" && gemsLeft === 0 || attemptingToPurchaseMoreGemsThanAreLeft',
+          :disabled='item.key === "gem" && gemsLeft === 0 || attemptingToPurchaseMoreGemsThanAreLeft || numberInvalid',
           :class="{'notEnough': !preventHealthPotion || !this.enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)}"
         ) {{ $t('buyNow') }}
 
-    div.limitedTime(v-if="item.event")
+    div.limitedTime(v-if="item.event && item.owned == null")
       span.svg-icon.inline.icon-16(v-html="icons.clock")
       span.limitedString {{ limitedString }}
 
@@ -260,6 +260,7 @@
   import * as Analytics from 'client/libs/analytics';
   import spellsMixin from 'client/mixins/spells';
   import planGemLimits from 'common/script/libs/planGemLimits';
+  import numberInvalid from 'client/mixins/numberInvalid';
 
   import svgClose from 'assets/svg/close.svg';
   import svgGold from 'assets/svg/gold.svg';
@@ -291,7 +292,7 @@
   ];
 
   export default {
-    mixins: [currencyMixin, notifications, spellsMixin, buyMixin],
+    mixins: [buyMixin, currencyMixin, notifications, numberInvalid, spellsMixin],
     components: {
       BalanceInfo,
       EquipmentAttributesGrid,
@@ -396,6 +397,10 @@
 
         this.$emit('buyPressed', this.item);
         this.hideDialog();
+
+        if (this.item.key === 'rebirth_orb') {
+          window.location.reload(true);
+        }
       },
       purchaseGems () {
         if (this.item.key === 'rebirth_orb') {

@@ -39,7 +39,7 @@
           button.btn.btn-danger.btn-xs(@click='changeClassForUser(true)', v-once) {{ $t('changeClass') }}
           small.cost &nbsp; 3 {{ $t('gems') }}
             // @TODO add icon span.Pet_Currency_Gem1x.inline-gems
-      hr
+        hr
 
       div
         .checkbox
@@ -115,13 +115,9 @@
               button.btn.btn-primary.mb-2(disabled='disabled', v-if='!hasBackupAuthOption(network.key) && user.auth[network.key].id') {{ $t('registeredWithSocial', {network: network.name}) }}
               button.btn.btn-danger(@click='deleteSocialAuth(network)', v-if='hasBackupAuthOption(network.key) && user.auth[network.key].id') {{ $t('detachSocial', {network: network.name}) }}
           hr
-          div(v-if='!user.auth.local.username')
+          div(v-if='!user.auth.local.email')
             p {{ $t('addLocalAuth') }}
-            p {{ $t('usernameLimitations') }}
             .form(name='localAuth', novalidate)
-              //-.alert.alert-danger(ng-messages='changeUsername.$error && changeUsername.submitted') {{ $t('fillAll') }}
-              .form-group
-                input.form-control(type='text', :placeholder="$t('username')", v-model='localAuth.username', required)
               .form-group
                 input.form-control(type='text', :placeholder="$t('email')", v-model='localAuth.email', required)
               .form-group
@@ -130,37 +126,38 @@
                 input.form-control(type='password', :placeholder="$t('confirmPass')", v-model='localAuth.confirmPassword', required)
               button.btn.btn-primary(type='submit', @click='addLocalAuth()') {{ $t('submit') }}
 
-        .usersettings(v-if='user.auth.local.username')
-          p {{ $t('username') }}
-            |: {{user.auth.local.username}}
-          p
-            small.muted
-                | {{ $t('loginNameDescription') }}
-          p {{ $t('email') }}
-            |: {{user.auth.local.email}}
-          hr
+        .usersettings
+          h5 {{ $t('changeDisplayName') }}
+          .form(name='changeDisplayName', novalidate)
+            .form-group
+              input#changeDisplayname.form-control(type='text', :placeholder="$t('newDisplayName')", v-model='temporaryDisplayName', :class='{"is-invalid input-invalid": displayNameInvalid}')
+              .mb-3(v-if="displayNameIssues.length > 0")
+                .input-error(v-for="issue in displayNameIssues") {{ issue }}
+            button.btn.btn-primary(type='submit', @click='changeDisplayName(temporaryDisplayName)', :disabled='displayNameCannotSubmit') {{ $t('submit') }}
 
           h5 {{ $t('changeUsername') }}
-          .form(v-if='user.auth.local', name='changeUsername', novalidate)
-            //-.alert.alert-danger(ng-messages='changeUsername.$error && changeUsername.submitted') {{ $t('fillAll') }}
+          .form(name='changeUsername', novalidate)
+            .iconalert.iconalert-success(v-if='verifiedUsername') {{ $t('usernameVerifiedConfirmation', {'username': user.auth.local.username}) }}
+            .iconalert.iconalert-warning(v-else)
+              div.align-middle
+                span {{ $t('usernameNotVerified') }}
             .form-group
-              input.form-control(type='text', :placeholder="$t('newUsername')", v-model='usernameUpdates.username')
+              input#changeUsername.form-control(@blur='restoreEmptyUsername()',type='text', :placeholder="$t('newUsername')", v-model='usernameUpdates.username', :class='{"is-invalid input-invalid": usernameInvalid}')
+              .input-error(v-for="issue in usernameIssues") {{ issue }}
+              small.form-text.text-muted {{ $t('changeUsernameDisclaimer') }}
+            button.btn.btn-primary(type='submit', @click='changeUser("username", usernameUpdates)', :disabled='usernameCannotSubmit') {{ $t('saveAndConfirm') }}
+          h5(v-if='user.auth.local.email') {{ $t('changeEmail') }}
+          .form(v-if='user.auth.local.email', name='changeEmail', novalidate)
             .form-group
-              input.form-control(type='password', :placeholder="$t('password')", v-model='usernameUpdates.password')
-            button.btn.btn-primary(type='submit', @click='changeUser("username", usernameUpdates)') {{ $t('submit') }}
-
-          h5 {{ $t('changeEmail') }}
-          .form(v-if='user.auth.local', name='changeEmail', novalidate)
-            .form-group
-              input.form-control(type='text', :placeholder="$t('newEmail')", v-model='emailUpdates.newEmail')
+              input#changeEmail.form-control(type='text', :placeholder="$t('newEmail')", v-model='emailUpdates.newEmail')
             .form-group
               input.form-control(type='password', :placeholder="$t('password')", v-model='emailUpdates.password')
             button.btn.btn-primary(type='submit', @click='changeUser("email", emailUpdates)') {{ $t('submit') }}
 
-          h5 {{ $t('changePass') }}
-          .form(v-if='user.auth.local', name='changePassword', novalidate)
+          h5(v-if='user.auth.local.email') {{ $t('changePass') }}
+          .form(v-if='user.auth.local.email', name='changePassword', novalidate)
             .form-group
-              input.form-control(type='password', :placeholder="$t('oldPass')", v-model='passwordUpdates.password')
+              input#changePassword.form-control(type='password', :placeholder="$t('oldPass')", v-model='passwordUpdates.password')
             .form-group
               input.form-control(type='password', :placeholder="$t('newPass')", v-model='passwordUpdates.newPassword')
             .form-group
@@ -177,9 +174,32 @@
               popover-trigger='mouseenter', v-b-popover.hover.auto="$t('deleteAccPop')") {{ $t('deleteAccount') }}
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+  @import '~client/assets/scss/colors.scss';
+
+  input {
+    color: $gray-50;
+  }
+
   .usersettings h5 {
     margin-top: 1em;
+  }
+
+  .iconalert > div > span {
+    line-height: 25px;
+  }
+
+  .iconalert > div:after {
+    clear: both;
+    content: '';
+    display: table;
+  }
+
+  .input-error {
+    color: $red-50;
+    font-size: 90%;
+    width: 100%;
+    margin-top: 5px;
   }
 </style>
 
@@ -188,7 +208,7 @@ import hello from 'hellojs';
 import moment from 'moment';
 import axios from 'axios';
 import { mapState } from 'client/libs/store';
-
+import debounce from 'lodash/debounce';
 import restoreModal from './restoreModal';
 import resetModal from './resetModal';
 import deleteModal from './deleteModal';
@@ -224,7 +244,8 @@ export default {
       availableFormats: ['MM/dd/yyyy', 'dd/MM/yyyy', 'yyyy/MM/dd'],
       dayStartOptions,
       newDayStart: 0,
-      usernameUpdates: {},
+      temporaryDisplayName: '',
+      usernameUpdates: {username: ''},
       emailUpdates: {},
       passwordUpdates: {},
       localAuth: {
@@ -233,6 +254,8 @@ export default {
         password: '',
         confirmPassword: '',
       },
+      displayNameIssues: [],
+      usernameIssues: [],
     };
   },
   mounted () {
@@ -240,12 +263,26 @@ export default {
     // @TODO: We may need to request the party here
     this.party = this.$store.state.party;
     this.newDayStart = this.user.preferences.dayStart;
+    this.usernameUpdates.username = this.user.auth.local.username || null;
+    this.temporaryDisplayName = this.user.profile.name;
+    this.emailUpdates.newEmail = this.user.auth.local.email || null;
+    this.localAuth.username = this.user.auth.local.username || null;
     hello.init({
       facebook: process.env.FACEBOOK_KEY, // eslint-disable-line no-process-env
       google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line no-process-env
     }, {
       redirect_uri: '', // eslint-disable-line
     });
+
+    const focusID = this.$route.query.focus;
+    if (focusID !== undefined && focusID !== null) {
+      this.$nextTick(() => {
+        const element = document.getElementById(focusID);
+        if (element !== undefined && element !== null) {
+          element.focus();
+        }
+      });
+    }
   },
   computed: {
     ...mapState({
@@ -275,8 +312,79 @@ export default {
     hasClass () {
       return this.$store.getters['members:hasClass'](this.user);
     },
+    verifiedUsername () {
+      return this.user.flags.verifiedUsername;
+    },
+    displayNameInvalid () {
+      if (this.temporaryDisplayName.length <= 1) return false;
+      return !this.displayNameValid;
+    },
+    displayNameValid () {
+      if (this.temporaryDisplayName.length <= 1) return false;
+      return this.displayNameIssues.length === 0;
+    },
+    displayNameCannotSubmit () {
+      if (this.temporaryDisplayName.length <= 1) return true;
+      return !this.displayNameValid;
+    },
+    usernameValid () {
+      if (this.usernameUpdates.username.length <= 1) return false;
+      return this.usernameIssues.length === 0;
+    },
+    usernameInvalid () {
+      if (this.usernameUpdates.username.length <= 1) return false;
+      return !this.usernameValid;
+    },
+    usernameCannotSubmit () {
+      if (this.usernameUpdates.username.length <= 1) return true;
+      return !this.usernameValid;
+    },
+  },
+  watch: {
+    usernameUpdates: {
+      handler () {
+        this.validateUsername(this.usernameUpdates.username);
+      },
+      deep: true,
+    },
+    temporaryDisplayName: {
+      handler () {
+        this.validateDisplayName(this.temporaryDisplayName);
+      },
+      deep: true,
+    },
   },
   methods: {
+    validateDisplayName: debounce(function checkName (displayName) {
+      if (displayName.length <= 1 || displayName === this.user.profile.name) {
+        this.displayNameIssues = [];
+        return;
+      }
+      this.$store.dispatch('auth:verifyDisplayName', {
+        displayName,
+      }).then(res => {
+        if (res.issues !== undefined) {
+          this.displayNameIssues = res.issues;
+        } else {
+          this.displayNameIssues = [];
+        }
+      });
+    }, 500),
+    validateUsername: debounce(function checkName (username) {
+      if (username.length <= 1 || username === this.user.auth.local.username) {
+        this.usernameIssues = [];
+        return;
+      }
+      this.$store.dispatch('auth:verifyUsername', {
+        username,
+      }).then(res => {
+        if (res.issues !== undefined) {
+          this.usernameIssues = res.issues;
+        } else {
+          this.usernameIssues = [];
+        }
+      });
+    }, 500),
     set (preferenceType, subtype) {
       let settings = {};
       if (!subtype) {
@@ -349,8 +457,19 @@ export default {
     },
     async changeUser (attribute, updates) {
       await axios.put(`/api/v4/user/auth/update-${attribute}`, updates);
-      alert(this.$t(`${attribute}Success`));
-      this.user[attribute] = updates[attribute];
+      if (attribute === 'username') {
+        this.user.auth.local.username = updates[attribute];
+        this.localAuth.username = this.user.auth.local.username;
+        this.user.flags.verifiedUsername = true;
+      } else if (attribute === 'email') {
+        this.user.auth.local.email = updates[attribute];
+      }
+    },
+    async changeDisplayName (newName) {
+      await axios.put('/api/v4/user/', {'profile.name': newName});
+      alert(this.$t('displayNameSuccess'));
+      this.user.profile.name = newName;
+      this.temporaryDisplayName = newName;
     },
     openRestoreModal () {
       this.$root.$emit('bv::show::modal', 'restore');
@@ -383,8 +502,14 @@ export default {
         alert(e.message);
       }
     },
-    addLocalAuth () {
-      axios.post('/api/v4/user/auth/local/register', this.localAuth, 'addedLocalAuth');
+    async addLocalAuth () {
+      await axios.post('/api/v4/user/auth/local/register', this.localAuth);
+      alert(this.$t('addedLocalAuth'));
+    },
+    restoreEmptyUsername () {
+      if (this.usernameUpdates.username.length < 1) {
+        this.usernameUpdates.username = this.user.auth.local.username;
+      }
     },
   },
 };

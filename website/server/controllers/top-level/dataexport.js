@@ -17,7 +17,7 @@ import {
   S3,
 } from '../../libs/aws';
 
-const S3_BUCKET = nconf.get('S3:bucket');
+const S3_BUCKET = nconf.get('S3_BUCKET');
 
 const BASE_URL = nconf.get('BASE_URL');
 
@@ -95,7 +95,7 @@ async function _getUserDataForExport (user, xmlMode = false) {
       userId: user._id,
     }).exec(),
 
-    inboxLib.getUserInbox(user, false),
+    inboxLib.getUserInbox(user, { asArray: false }),
   ]);
 
   userData.inbox.messages = messages;

@@ -86,6 +86,13 @@ describe('POST /tasks/:taskId/unassign/:memberId', () => {
     expect(syncedTask).to.not.exist;
   });
 
+  it('removes task assignment notification from unassigned user', async () => {
+    await user.post(`/tasks/${task._id}/unassign/${member._id}`);
+
+    await member.sync();
+    expect(member.notifications.length).to.equal(0);
+  });
+
   it('unassigns a user and only that user from a task', async () => {
     await user.post(`/tasks/${task._id}/assign/${member2._id}`);
 

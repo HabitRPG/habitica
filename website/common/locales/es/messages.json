@@ -38,7 +38,6 @@
     "messageInsufficientGems": "No hay suficientes gemas!",
     "messageAuthPasswordMustMatch": "Las contraseñas no coinciden.",
     "messageAuthCredentialsRequired": ":username, :email, :password y :confirmPassword son obligatorios",
-    "messageAuthUsernameTaken": "Nombre de usuario ya ocupado",
     "messageAuthEmailTaken": "El correo electrónico ya está en uso",
     "messageAuthNoUserFound": "No se encontró el usuario.",
     "messageAuthMustBeLoggedIn": "Debes estar identificado.",
@@ -62,5 +61,6 @@
     "notificationsRequired": "Se requieren ids de notificación.",
     "unallocatedStatsPoints": "Tienes <span class=\"notification-bold-blue\"><%= points %> Puntos de Estadísticas sin asignar</span>",
     "beginningOfConversation": "Este es el principio de tu conversación con <%= userName %>. ¡Recuerda ser amable, respetuoso y seguir las Normas de la Comunidad!",
-    "messageDeletedUser": "Lo sentimos, este usuario ha eliminado su cuenta."
+    "messageDeletedUser": "Lo sentimos, este usuario ha eliminado su cuenta.",
+    "messageMissingDisplayName": "Falta el nombre público."
 }

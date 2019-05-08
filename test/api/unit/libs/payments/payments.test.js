@@ -446,6 +446,19 @@ describe('payments/index', () => {
         fakeClock.restore();
       });
 
+      it('does not add a notification for mystery items if none was awarded', async () => {
+        const noMysteryItemTimeframe = 1462183920000; // May 2nd 2016
+        let fakeClock = sinon.useFakeTimers(noMysteryItemTimeframe);
+        data = { paymentMethod: 'PaymentMethod', user, sub: { key: 'basic_3mo' } };
+
+        await api.createSubscription(data);
+
+        expect(user.purchased.plan.mysteryItems).to.have.a.lengthOf(0);
+        expect(user.notifications.find(n => n.type === 'NEW_MYSTERY_ITEMS')).to.be.undefined;
+
+        fakeClock.restore();
+      });
+
       it('does not award mystery item when user already owns the item', async () => {
         let mayMysteryItemTimeframe = 1464725113000; // May 31st 2016
         let fakeClock = sinon.useFakeTimers(mayMysteryItemTimeframe);

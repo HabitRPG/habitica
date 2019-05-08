@@ -60,6 +60,14 @@ describe('GET /challenges/:challengeId/members', () => {
       _id: groupLeader._id,
       id: groupLeader._id,
       profile: {name: groupLeader.profile.name},
+      auth: {
+        local: {
+          username: groupLeader.auth.local.username,
+        },
+      },
+      flags: {
+        verifiedUsername: true,
+      },
     });
   });
 
@@ -73,8 +81,16 @@ describe('GET /challenges/:challengeId/members', () => {
       _id: leader._id,
       id: leader._id,
       profile: {name: leader.profile.name},
+      auth: {
+        local: {
+          username: leader.auth.local.username,
+        },
+      },
+      flags: {
+        verifiedUsername: true,
+      },
     });
-    expect(res[0]).to.have.all.keys(['_id', 'id', 'profile']);
+    expect(res[0]).to.have.all.keys(['_id', 'auth', 'flags', 'id', 'profile']);
     expect(res[0].profile).to.have.all.keys(['name']);
   });
 
@@ -88,8 +104,16 @@ describe('GET /challenges/:challengeId/members', () => {
       _id: anotherUser._id,
       id: anotherUser._id,
       profile: {name: anotherUser.profile.name},
+      auth: {
+        local: {
+          username: anotherUser.auth.local.username,
+        },
+      },
+      flags: {
+        verifiedUsername: true,
+      },
     });
-    expect(res[0]).to.have.all.keys(['_id', 'id', 'profile']);
+    expect(res[0]).to.have.all.keys(['_id', 'auth', 'flags', 'id', 'profile']);
     expect(res[0].profile).to.have.all.keys(['name']);
   });
 
@@ -107,7 +131,7 @@ describe('GET /challenges/:challengeId/members', () => {
     let res = await user.get(`/challenges/${challenge._id}/members?includeAllMembers=not-true`);
     expect(res.length).to.equal(30);
     res.forEach(member => {
-      expect(member).to.have.all.keys(['_id', 'id', 'profile']);
+      expect(member).to.have.all.keys(['_id', 'auth', 'flags', 'id', 'profile']);
       expect(member.profile).to.have.all.keys(['name']);
     });
   });
@@ -126,7 +150,7 @@ describe('GET /challenges/:challengeId/members', () => {
     let res = await user.get(`/challenges/${challenge._id}/members`);
     expect(res.length).to.equal(30);
     res.forEach(member => {
-      expect(member).to.have.all.keys(['_id', 'id', 'profile']);
+      expect(member).to.have.all.keys(['_id', 'auth', 'flags', 'id', 'profile']);
       expect(member.profile).to.have.all.keys(['name']);
     });
   });
@@ -145,7 +169,7 @@ describe('GET /challenges/:challengeId/members', () => {
     let res = await user.get(`/challenges/${challenge._id}/members?includeAllMembers=true`);
     expect(res.length).to.equal(32);
     res.forEach(member => {
-      expect(member).to.have.all.keys(['_id', 'id', 'profile']);
+      expect(member).to.have.all.keys(['_id', 'auth', 'flags', 'id', 'profile']);
       expect(member.profile).to.have.all.keys(['name']);
     });
   });

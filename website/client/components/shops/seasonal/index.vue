@@ -7,13 +7,13 @@
       .form
         h2(v-once) {{ $t('filter') }}
         .form-group
-          .form-check(
+          checkbox(
             v-for="category in filterCategories",
             :key="category.key",
+            :id="`category-${category.key}`",
+            :checked.sync="viewOptions[category.key].selected",
+            :text="category.value"
           )
-            .custom-control.custom-checkbox
-              input.custom-control-input(type="checkbox", v-model="viewOptions[category.key].selected", :id="`category-${category.identifier}`")
-              label.custom-control-label(v-once, :for="`category-${category.identifier}`") {{ category.value }}
 
         div.form-group.clearfix
           h3.float-left(v-once) {{ $t('hidePinned') }}
@@ -76,7 +76,7 @@
       div(
         v-for="(groupSets, categoryGroup) in getGroupedCategories(categories)",
       )
-        h3.classgroup(v-if='categoryGroup !== "spells"')
+        h3.classgroup(v-if='categoryGroup !== "spells" && categoryGroup !== "quests"')
           span.svg-icon.inline(v-html="icons[categoryGroup]")
           span.name(:class="categoryGroup") {{ getClassName(categoryGroup) }}
 
@@ -290,6 +290,7 @@
   import Item from 'client/components/inventory/item';
   import CountBadge from 'client/components/ui/countBadge';
   import ItemRows from 'client/components/ui/itemRows';
+  import Checkbox from 'client/components/ui/checkbox';
   import toggleSwitch from 'client/components/ui/toggleSwitch';
   import Avatar from 'client/components/avatar';
   import buyMixin from 'client/mixins/buy';
@@ -326,6 +327,7 @@
       CountBadge,
       ItemRows,
       toggleSwitch,
+      Checkbox,
 
       Avatar,
     },
@@ -386,7 +388,9 @@
       },
 
       seasonal () {
+        // vue subscriptions, don't remove
         let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+        const myUserVersion = this.user._v; // eslint-disable-line
 
         let seasonal = shops.getSeasonalShop(this.user);
 
@@ -433,7 +437,7 @@
 
           _forEach(equipmentList, (value) => {
             this.$set(this.viewOptions, value.key, {
-              selected: true,
+              selected: false,
             });
           });
 
@@ -441,6 +445,10 @@
         } else {
           return [];
         }
+      },
+
+      anyFilterSelected () {
+        return Object.values(this.viewOptions).some(g => g.selected);
       },
     },
     methods: {
@@ -464,7 +472,7 @@
             return false;
           }
 
-          if (viewOptions[i.type] && !viewOptions[i.type].selected) {
+          if (this.anyFilterSelected && viewOptions[i.type] && !viewOptions[i.type].selected) {
             return false;
           }
 

@@ -1,4 +1,5 @@
 import {
+  BadRequest,
   NotAuthorized,
   NotFound,
 } from '../../libs/errors';
@@ -11,6 +12,9 @@ import logger from '../../libs/logger';
 import { decrypt } from '../../libs/encryption';
 import { model as Group } from '../../models/group';
 import moment from 'moment';
+import { loginSocial } from './social.js';
+import { loginRes } from './utils';
+import { verifyUsername } from '../user/validation';
 
 const USERNAME_LENGTH_MIN = 1;
 const USERNAME_LENGTH_MAX = 20;
@@ -51,7 +55,23 @@ async function _handleGroupInvitation (user, invite) {
   }
 }
 
-export async function registerLocal (req, res, { isV3 = false }) {
+function hasLocalAuth (user) {
+  return user.auth.local.email && user.auth.local.hashed_password;
+}
+
+function hasBackupAuth (user, networkToRemove) {
+  if (hasLocalAuth(user)) {
+    return true;
+  }
+
+  let hasAlternateNetwork = common.constants.SUPPORTED_SOCIAL_NETWORKS.find((network) => {
+    return network.key !== networkToRemove && user.auth[network.key].id;
+  });
+
+  return hasAlternateNetwork;
+}
+
+async function registerLocal (req, res, { isV3 = false }) {
   const existingUser = res.locals.user; // If adding local auth to social user
 
   req.checkBody({
@@ -59,8 +79,8 @@ export async function registerLocal (req, res, { isV3 = false }) {
       notEmpty: true,
       errorMessage: res.t('missingUsername'),
       // TODO use the constants in the error message above
-      isLength: {options: {min: USERNAME_LENGTH_MIN, max: USERNAME_LENGTH_MAX}, errorMessage: res.t('usernameWrongLength')},
-      matches: {options: /^[-_a-zA-Z0-9]+$/, errorMessage: res.t('usernameBadCharacters')},
+      isLength: {options: {min: USERNAME_LENGTH_MIN, max: USERNAME_LENGTH_MAX}, errorMessage: res.t('usernameIssueLength')},
+      matches: {options: /^[-_a-zA-Z0-9]+$/, errorMessage: res.t('usernameIssueInvalidCharacters')},
     },
     email: {
       notEmpty: true,
@@ -76,6 +96,9 @@ export async function registerLocal (req, res, { isV3 = false }) {
 
   let validationErrors = req.validationErrors();
   if (validationErrors) throw validationErrors;
+
+  const issues = verifyUsername(req.body.username, res);
+  if (issues.length > 0) throw new BadRequest(issues.join(' '));
 
   let { email, username, password } = req.body;
 
@@ -94,7 +117,11 @@ export async function registerLocal (req, res, { isV3 = false }) {
   if (user) {
     if (email === user.auth.local.email) throw new NotAuthorized(res.t('emailTaken'));
     // Check that the lowercase username isn't already used
-    if (lowerCaseUsername === user.auth.local.lowerCaseUsername) throw new NotAuthorized(res.t('usernameTaken'));
+    if (existingUser) {
+      if (lowerCaseUsername === user.auth.local.lowerCaseUsername && existingUser._id !== user._id) throw new NotAuthorized(res.t('usernameTaken'));
+    } else if (lowerCaseUsername === user.auth.local.lowerCaseUsername) {
+      throw new NotAuthorized(res.t('usernameTaken'));
+    }
   }
 
   let hashed_password = await passwordUtils.bcryptHash(password); // eslint-disable-line camelcase
@@ -110,6 +137,9 @@ export async function registerLocal (req, res, { isV3 = false }) {
     },
     preferences: {
       language: req.language,
+    },
+    flags: {
+      verifiedUsername: true,
     },
   };
 
@@ -153,7 +183,12 @@ export async function registerLocal (req, res, { isV3 = false }) {
   EmailUnsubscription
     .remove({email: savedUser.auth.local.email})
     .then(() => {
-      if (!existingUser) sendTxnEmail(savedUser, 'welcome');
+      if (existingUser) return;
+      if (newUser.registeredThrough === 'habitica-web') {
+        sendTxnEmail(savedUser, 'welcome-v2b');
+      } else {
+        sendTxnEmail(savedUser, 'welcome');
+      }
     });
 
   if (!existingUser) {
@@ -169,3 +204,11 @@ export async function registerLocal (req, res, { isV3 = false }) {
 
   return null;
 }
+
+module.exports = {
+  loginRes,
+  hasBackupAuth,
+  hasLocalAuth,
+  loginSocial,
+  registerLocal,
+};

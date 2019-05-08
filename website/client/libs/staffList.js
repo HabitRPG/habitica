@@ -1,23 +1,8 @@
 export default [
   {
-    name: 'beffymaroo',
-    type: 'Staff',
-    uuid: '9fe7183a-4b79-4c15-9629-a1aee3873390',
-  },
-  // {
-  //   name: 'lefnire',
-  //   type: 'Staff',
-  //   uuid: '00000000-0000-4000-9000-000000000000',
-  // },
-  {
     name: 'Lemoness',
     type: 'Staff',
     uuid: '7bde7864-ebc5-4ee2-a4b7-1070d464cdb0',
-  },
-  {
-    name: 'paglias',
-    type: 'Staff',
-    uuid: 'ed4c688c-6652-4a92-9d03-a5a79844174a',
   },
   {
     name: 'redphoenix',
@@ -25,19 +10,34 @@ export default [
     uuid: 'cb46ad54-8c78-4dbc-a8ed-4e3185b2b3ff',
   },
   {
+    name: 'paglias',
+    type: 'Staff',
+    uuid: 'ed4c688c-6652-4a92-9d03-a5a79844174a',
+  },
+  {
     name: 'SabreCat',
     type: 'Staff',
     uuid: '7f14ed62-5408-4e1b-be83-ada62d504931',
   },
   {
-    name: 'TheHollidayInn',
-    type: 'Staff',
-    uuid: '206039c6-24e4-4b9f-8a31-61cbb9aa3f66',
-  },
-  {
     name: 'viirus',
     type: 'Staff',
     uuid: 'a327d7e0-1c2e-41be-9193-7b30b484413f',
+  },
+  {
+    name: 'beffymaroo',
+    type: 'Staff',
+    uuid: '9fe7183a-4b79-4c15-9629-a1aee3873390',
+  },
+  {
+    name: 'Apollo',
+    type: 'Staff',
+    uuid: '9b2f4123-f749-4f74-85e2-ce31ce778435',
+  },
+  {
+    name: 'Piyo',
+    type: 'Staff',
+    uuid: '61b2c855-0a30-444c-bcc6-1cac876460b0',
   },
   {
     name: 'It\'s Bailey',
@@ -64,11 +64,6 @@ export default [
     type: 'Moderator',
     uuid: '28771972-ca6d-4c03-8261-e1734aa7d21d',
   },
-  // {
-  //   name: 'Daniel the Bard',
-  //   type: 'Moderator',
-  //   uuid: '1f7c4a74-03a3-4b2c-b015-112d0acbd593',
-  // },
   {
     name: 'deilann 5.0.5b',
     type: 'Moderator',

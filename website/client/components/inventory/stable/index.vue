@@ -69,7 +69,7 @@
       span.badge.badge-pill.badge-default {{countOwnedAnimals(petGroups[0], 'pet')}}
 
     div(v-for="(petGroup, index) in petGroups",
-      v-if="viewOptions[petGroup.key].selected",
+      v-if="!anyFilterSelected || viewOptions[petGroup.key].selected",
       :key="petGroup.key")
       h4(v-if="viewOptions[petGroup.key].animalCount !== 0") {{ petGroup.label }}
 
@@ -86,29 +86,19 @@
         )
           petItem(
             :item="item",
-            :itemContentClass="getPetItemClass(item)",
             :popoverPosition="'top'",
-            :progress="item.progress",
-            :emptyItem="!item.isOwned()",
             :showPopover="currentDraggingFood == null",
             :highlightBorder="highlightPet == item.key",
             @click="petClicked(item)"
           )
-            span(slot="popoverContent")
-              div.hatchablePopover(v-if="item.isHatchable()")
-                h4.popover-content-title {{ item.name }}
-                div.popover-content-text(v-html="$t('haveHatchablePet', { potion: item.potionName, egg: item.eggName })")
-                div.potionEggGroup
-                  div.potionEggBackground
-                    div(:class="'Pet_HatchingPotion_'+item.potionKey")
-                  div.potionEggBackground
-                    div(:class="'Pet_Egg_'+item.eggKey")
-              div(v-else)
-                h4.popover-content-title {{ item.name }}
             template(slot="itemBadge", slot-scope="context")
-              starBadge(:selected="item.key === currentPet", :show="item.isOwned()", @click="selectPet(item)")
+              starBadge(
+                :selected="context.item.key === currentPet",
+                :show="isOwned('pet', context.item)",
+                @click="selectPet(context.item)"
+              )
 
-      .btn.btn-flat.btn-show-more(@click="setShowMore(petGroup.key)", v-if='petGroup.key !== "specialPets"')
+      .btn.btn-flat.btn-show-more(@click="setShowMore(petGroup.key)", v-if='petGroup.key !== "specialPets" && petGroup.key !== "wackyPets"')
         | {{ $_openedItemRows_isToggled(petGroup.key) ? $t('showLess') : $t('showMore') }}
 
     h2
@@ -117,7 +107,7 @@
       span.badge.badge-pill.badge-default {{countOwnedAnimals(mountGroups[0], 'mount')}}
 
     div(v-for="mountGroup in mountGroups",
-      v-if="viewOptions[mountGroup.key].selected",
+      v-if="!anyFilterSelected || viewOptions[mountGroup.key].selected",
       :key="mountGroup.key")
       h4(v-if="viewOptions[mountGroup.key].animalCount != 0") {{ mountGroup.label }}
 
@@ -126,10 +116,8 @@
         .pet-group(v-for='item in group')
           mountItem(
             :item="item",
-            :itemContentClass="item.isOwned() ? ('Mount_Icon_' + item.key) : 'PixelPaw GreyedOut'",
             :key="item.key",
             :popoverPosition="'top'",
-            :emptyItem="!item.isOwned()",
             :showPopover="true",
             @click="selectMount(item)"
           )
@@ -138,7 +126,7 @@
             template(slot="itemBadge", slot-scope="context")
               starBadge(
                 :selected="item.key === currentMount",
-                :show="item.isOwned()",
+                :show="isOwned('mount', item)",
                 @click="selectMount(item)",
               )
 
@@ -335,7 +323,6 @@
   import _each from 'lodash/each';
   import _sortBy from 'lodash/sortBy';
   import _filter from 'lodash/filter';
-  import _flatMap from 'lodash/flatMap';
   import _throttle from 'lodash/throttle';
   import groupBy from 'lodash/groupBy';
 
@@ -359,7 +346,7 @@
   import DragDropDirective from 'client/directives/dragdrop.directive';
   import MouseMoveDirective from 'client/directives/mouseposition.directive';
 
-  import createAnimal from 'client/libs/createAnimal';
+  import { createAnimal } from 'client/libs/createAnimal';
 
   import svgInformation from 'assets/svg/information.svg';
 
@@ -368,6 +355,7 @@
   import petMixin from 'client/mixins/petMixin';
 
   import { CONSTANTS, setLocalSetting, getLocalSetting } from 'client/libs/userlocalManager';
+  import {isOwned} from '../../../libs/createAnimal';
 
   // TODO Normalize special pets and mounts
   // import Store from 'client/store';
@@ -475,6 +463,14 @@
             },
           },
           {
+            label: this.$t('filterByWacky'),
+            key: 'wackyPets',
+            petSource: {
+              eggs: this.content.dropEggs,
+              potions: this.content.wackyHatchingPotions,
+            },
+          },
+          {
             label: this.$t('special'),
             key: 'specialPets',
             petSource: {
@@ -485,7 +481,7 @@
 
         petGroups.map((petGroup) => {
           this.$set(this.viewOptions, petGroup.key, {
-            selected: true,
+            selected: false,
             animalCount: 0,
           });
         });
@@ -530,7 +526,7 @@
 
         mountGroups.map((mountGroup) => {
           this.$set(this.viewOptions, mountGroup.key, {
-            selected: true,
+            selected: false,
             animalCount: 0,
           });
         });
@@ -553,6 +549,9 @@
             }),
           },
         ];
+      },
+      anyFilterSelected () {
+        return Object.values(this.viewOptions).some(g => g.selected);
       },
     },
     methods: {
@@ -583,10 +582,10 @@
                 potionKey,
                 name: this.content[`${type}Info`][specialKey].text(),
                 isOwned ()  {
-                  return userItems[`${type}s`][this.key] > 0;
+                  return isOwned(type, this, userItems);
                 },
                 mountOwned () {
-                  return userItems.mounts[this.key] > 0;
+                  return isOwned('mount', this, userItems);
                 },
                 isAllowedToFeed () {
                   return type === 'pet' && this.isOwned() && !this.mountOwned();
@@ -615,7 +614,6 @@
       listAnimals (animalGroup, type, hideMissing, sort, searchText) {
         let animals = this.getAnimalList(animalGroup, type);
         let isPetList = type === 'pet';
-        let withProgress = isPetList && animalGroup.key !== 'specialPets';
 
         // 1. Filter
         if (hideMissing) {
@@ -652,18 +650,9 @@
           }
         }
 
-        let animalRows = withProgress ? _flatMap(animals, (a) => {
-          let progress = this.userItems[`${type}s`][a.key];
-
-          return {
-            ...a,
-            progress,
-          };
-        }) : animals;
-
         this.viewOptions[animalGroup.key].animalCount = animals.length;
 
-        return animalRows;
+        return animals;
       },
       countOwnedAnimals (animalGroup, type) {
         let animals = this.getAnimalList(animalGroup, type);
@@ -680,7 +669,7 @@
         let pets = this.listAnimals(animalGroup, 'pet', hideMissing, sortBy, searchText);
 
         // Don't group special
-        if (animalGroup.key === 'specialPets') {
+        if (animalGroup.key === 'specialPets' || animalGroup.key === 'wackyPets') {
           return {none: pets};
         }
 
@@ -709,21 +698,6 @@
         }
 
         return groupBy(mounts, groupKey);
-      },
-      getPetItemClass (pet) {
-        if (pet.isOwned()) {
-          return `Pet Pet-${pet.key} ${pet.eggKey}`;
-        }
-
-        if (pet.isHatchable()) {
-          return 'PixelPaw';
-        }
-
-        if (pet.mountOwned()) {
-          return `GreyedOut Pet Pet-${pet.key} ${pet.eggKey}`;
-        }
-
-        return 'GreyedOut PixelPaw';
       },
       hasDrawerTabItems (index) {
         return this.drawerTabs && this.drawerTabs[index].items.length !== 0;
@@ -766,6 +740,9 @@
       },
       onDragLeave () {
         this.highlightPet = '';
+      },
+      isOwned (type, pet) {
+        return isOwned(type, pet, this.userItems);
       },
       petClicked (pet) {
         if (this.currentDraggingFood !== null) {

@@ -7,18 +7,19 @@ const Schema = mongoose.Schema;
 
 export let schema = new Schema({
   id: {
-    type: String,
+    $type: String,
     default: uuid,
-    validate: [validator.isUUID, 'Invalid uuid.'],
+    validate: [v => validator.isUUID(v), 'Invalid uuid.'],
     required: true,
   },
-  name: {type: String, required: true},
-  challenge: {type: String},
-  group: {type: String},
+  name: {$type: String, required: true},
+  challenge: {$type: String},
+  group: {$type: String},
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
   _id: false, // use id instead of _id
+  typeKey: '$type', // So that we can use fields named `type`
 });
 
 schema.plugin(baseModel, {

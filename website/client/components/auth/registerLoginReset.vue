@@ -24,20 +24,21 @@
           .text {{registering ? $t('signUpWithSocial', {social: 'Google'}) : $t('loginWithSocial', {social: 'Google'})}}
     .form-group(v-if='registering')
       label(for='usernameInput', v-once) {{$t('username')}}
-      input#usernameInput.form-control(type='text', :placeholder='$t("usernamePlaceholder")', v-model='username')
+      input#usernameInput.form-control(type='text', :placeholder='$t("usernamePlaceholder")', v-model='username', :class='{"input-valid": usernameValid, "input-invalid": usernameInvalid}')
+      .input-error(v-for="issue in usernameIssues") {{ issue }}
     .form-group(v-if='!registering')
       label(for='usernameInput', v-once) {{$t('emailOrUsername')}}
       input#usernameInput.form-control(type='text', :placeholder='$t("emailOrUsername")', v-model='username')
     .form-group(v-if='registering')
       label(for='emailInput', v-once) {{$t('email')}}
-      input#emailInput.form-control(type='email', :placeholder='$t("emailPlaceholder")', v-model='email')
+      input#emailInput.form-control(type='email', :placeholder='$t("emailPlaceholder")', v-model='email', :class='{"input-invalid": emailInvalid, "input-valid": emailValid}')
     .form-group
       label(for='passwordInput', v-once) {{$t('password')}}
       a.float-right.forgot-password(v-once, v-if='!registering', @click='forgotPassword = true') {{$t('forgotPassword')}}
       input#passwordInput.form-control(type='password', :placeholder='$t(registering ? "passwordPlaceholder" : "password")', v-model='password')
     .form-group(v-if='registering')
       label(for='confirmPasswordInput', v-once) {{$t('confirmPassword')}}
-      input#confirmPasswordInput.form-control(type='password', :placeholder='$t("confirmPasswordPlaceholder")', v-model='passwordConfirm')
+      input#confirmPasswordInput.form-control(type='password', :placeholder='$t("confirmPasswordPlaceholder")', v-model='passwordConfirm', :class='{"input-invalid": passwordConfirmInvalid, "input-valid": passwordConfirmValid}')
       small.form-text(v-once, v-html="$t('termsAndAgreement')")
     .text-center
       .btn.btn-info(@click='register()', v-if='registering', v-once) {{$t('joinHabitica')}}
@@ -200,6 +201,10 @@
       color: $white;
     }
 
+    #usernameInput.input-invalid {
+      margin-bottom: 0.5em;
+    }
+
     .form-text {
       font-size: 14px;
       color: $white;
@@ -277,11 +282,20 @@
   .forgot-password {
     color: #bda8ff !important;
   }
+
+  .input-error {
+    color: #fff;
+    font-size: 90%;
+    width: 100%;
+    text-align: center;
+  }
 </style>
 
 <script>
 import axios from 'axios';
 import hello from 'hellojs';
+import debounce from 'lodash/debounce';
+import isEmail from 'validator/lib/isEmail';
 
 import gryphon from 'assets/svg/gryphon.svg';
 import habiticaIcon from 'assets/svg/habitica-logo.svg';
@@ -300,6 +314,7 @@ export default {
         hasError: null,
         code: null,
       },
+      usernameIssues: [],
     };
 
     data.icons = Object.freeze({
@@ -313,16 +328,40 @@ export default {
   },
   computed: {
     registering () {
-      if (this.$route.path.startsWith('/login')) {
-        return false;
+      if (this.$route.path.startsWith('/register')) {
+        return true;
       }
-      return true;
+      return false;
     },
     resetPasswordSetNewOne () {
       if (this.$route.path.startsWith('/reset-password')) {
         return true;
       }
       return false;
+    },
+    emailValid () {
+      if (this.email.length <= 3) return false;
+      return isEmail(this.email);
+    },
+    emailInvalid () {
+      if (this.email.length <= 3) return false;
+      return !this.emailValid;
+    },
+    usernameValid () {
+      if (this.username.length < 1) return false;
+      return this.usernameIssues.length === 0;
+    },
+    usernameInvalid () {
+      if (this.username.length < 1) return false;
+      return !this.usernameValid;
+    },
+    passwordConfirmValid () {
+      if (this.passwordConfirm.length <= 3) return false;
+      return this.passwordConfirm === this.password;
+    },
+    passwordConfirmInvalid () {
+      if (this.passwordConfirm.length <= 3) return false;
+      return !this.passwordConfirmValid;
     },
   },
   mounted () {
@@ -357,8 +396,26 @@ export default {
       },
       immediate: true,
     },
+    username () {
+      this.validateUsername(this.username);
+    },
   },
   methods: {
+    // eslint-disable-next-line func-names
+    validateUsername: debounce(function (username) {
+      if (username.length <= 3 || !this.registering) {
+        return;
+      }
+      this.$store.dispatch('auth:verifyUsername', {
+        username: this.username,
+      }).then(res => {
+        if (res.issues !== undefined) {
+          this.usernameIssues = res.issues;
+        } else {
+          this.usernameIssues = [];
+        }
+      });
+    }, 500),
     async register () {
       // @TODO do not use alert
       if (!this.email) {

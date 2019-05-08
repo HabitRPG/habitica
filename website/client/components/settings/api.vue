@@ -38,6 +38,7 @@
 
   .col-6
     h2 {{ $t('webhooks') }}
+    p(v-html="$t('webhooksInfo')")
     table.table.table-striped
       thead(v-if='user.webhooks.length')
         tr

@@ -1,1 +1,1 @@
-For information about writing and running tests, see [Using Your Local Install to Modify Habitica's Website and API](http://habitica.wikia.com/wiki/Using_Your_Local_Install_to_Modify_Habitica%27s_Website_and_API).
+For information about writing and running tests, see [Using Your Local Install to Modify Habitica's Website and API](http://habitica.fandom.com/wiki/Using_Your_Local_Install_to_Modify_Habitica%27s_Website_and_API).

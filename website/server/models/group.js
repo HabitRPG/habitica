@@ -29,7 +29,6 @@ import baseModel from '../libs/baseModel';
 import { sendTxn as sendTxnEmail } from '../libs/email';
 import nconf from 'nconf';
 import { sendNotification as sendPushNotification } from '../libs/pushNotifications';
-import pusher from '../libs/pusher';
 import {
   syncableAttrs,
 } from '../libs/taskManager';
@@ -70,31 +69,31 @@ export const MAX_CHAT_COUNT = 200;
 export const MAX_SUBBED_GROUP_CHAT_COUNT = 400;
 
 export let schema = new Schema({
-  name: {type: String, required: true},
-  summary: {type: String, maxlength: MAX_SUMMARY_SIZE_FOR_GUILDS},
+  name: {$type: String, required: true},
+  summary: {$type: String, maxlength: MAX_SUMMARY_SIZE_FOR_GUILDS},
   description: String,
-  leader: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
-  type: {type: String, enum: ['guild', 'party'], required: true},
-  privacy: {type: String, enum: ['private', 'public'], default: 'private', required: true},
+  leader: {$type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid.'], required: true},
+  type: {$type: String, enum: ['guild', 'party'], required: true},
+  privacy: {$type: String, enum: ['private', 'public'], default: 'private', required: true},
   chat: Array, // Used for backward compatibility, but messages aren't stored here
   leaderOnly: { // restrict group actions to leader (members can't do them)
-    challenges: {type: Boolean, default: false, required: true},
-    // invites: {type: Boolean, default: false, required: true},
+    challenges: {$type: Boolean, default: false, required: true},
+    // invites: {$type: Boolean, default: false, required: true},
     // Some group plans prevent members from getting gems
-    getGems: {type: Boolean, default: false},
+    getGems: {$type: Boolean, default: false},
   },
-  memberCount: {type: Number, default: 1},
-  challengeCount: {type: Number, default: 0},
-  balance: {type: Number, default: 0},
+  memberCount: {$type: Number, default: 1},
+  challengeCount: {$type: Number, default: 0},
+  balance: {$type: Number, default: 0},
   logo: String,
   leaderMessage: String,
   quest: {
     key: String,
-    active: {type: Boolean, default: false},
-    leader: {type: String, ref: 'User'},
+    active: {$type: Boolean, default: false},
+    leader: {$type: String, ref: 'User'},
     progress: {
       hp: Number,
-      collect: {type: Schema.Types.Mixed, default: () => {
+      collect: {$type: Schema.Types.Mixed, default: () => {
         return {};
       }}, // {feather: 5, ingot: 3}
       rage: Number, // limit break / "energy stored in shell", for explosion-attacks
@@ -103,34 +102,35 @@ export let schema = new Schema({
     // Shows boolean for each party-member who has accepted the quest. Eg {UUID: true, UUID: false}. Once all users click
     // 'Accept', the quest begins. If a false user waits too long, probably a good sign to prod them or boot them.
     // TODO when booting user, remove from .joined and check again if we can now start the quest
-    members: {type: Schema.Types.Mixed, default: () => {
+    members: {$type: Schema.Types.Mixed, default: () => {
       return {};
     }},
-    extra: {type: Schema.Types.Mixed, default: () => {
+    extra: {$type: Schema.Types.Mixed, default: () => {
       return {};
     }},
   },
   tasksOrder: {
-    habits: [{type: String, ref: 'Task'}],
-    dailys: [{type: String, ref: 'Task'}],
-    todos: [{type: String, ref: 'Task'}],
-    rewards: [{type: String, ref: 'Task'}],
+    habits: [{$type: String, ref: 'Task'}],
+    dailys: [{$type: String, ref: 'Task'}],
+    todos: [{$type: String, ref: 'Task'}],
+    rewards: [{$type: String, ref: 'Task'}],
   },
   purchased: {
-    plan: {type: SubscriptionPlanSchema, default: () => {
+    plan: {$type: SubscriptionPlanSchema, default: () => {
       return {};
     }},
   },
-  managers: {type: Schema.Types.Mixed, default: () => {
+  managers: {$type: Schema.Types.Mixed, default: () => {
     return {};
   }},
   categories: [{
-    slug: {type: String},
-    name: {type: String},
+    slug: {$type: String},
+    name: {$type: String},
   }],
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
+  typeKey: '$type', // So that we can use fields named `type`
 });
 
 schema.plugin(baseModel, {
@@ -173,24 +173,40 @@ schema.pre('remove', true, async function preRemoveGroup (next, done) {
   }
 });
 
-// return a clean object for user.quest
-function _cleanQuestProgress (merge) {
-  let clean = {
-    key: null,
-    progress: {
+// return clean updates for each user in a party without resetting their progress
+function _cleanQuestParty (merge) {
+  let updates = {
+    $set: {
+      'party.quest.key': null,
+      'party.quest.completed': null,
+      'party.quest.RSVPNeeded': false,
+    },
+  };
+
+  if (merge) _.merge(updates, merge);
+
+  return updates;
+}
+
+// return a clean user.quest of a particular user while keeping his progress
+function _cleanQuestUser (userProgress) {
+  if (!userProgress) {
+    userProgress = {
       up: 0,
       down: 0,
       collect: {},
       collectedItems: 0,
-    },
+    };
+  } else {
+    userProgress = userProgress.toObject();
+  }
+
+  let clean = {
+    key: null,
+    progress: userProgress,
     completed: null,
     RSVPNeeded: false,
   };
-
-  if (merge) {
-    _.merge(clean, _.omit(merge, 'progress'));
-    if (merge.progress) _.merge(clean.progress, merge.progress);
-  }
 
   return clean;
 }
@@ -441,40 +457,32 @@ schema.statics.toJSONCleanChat = async function groupToJSONCleanChat (group, use
   return toJSON;
 };
 
-/**
- * Checks invitation uuids and emails for possible errors.
- *
- * @param  uuids  An array of user ids
- * @param  emails  An array of emails
- * @param  res  Express res object for use with translations
- * @throws BadRequest An error describing the issue with the invitations
- */
-schema.statics.validateInvitations = async function getInvitationError (uuids, emails, res, group = null) {
-  let uuidsIsArray = Array.isArray(uuids);
-  let emailsIsArray = Array.isArray(emails);
-  let emptyEmails = emailsIsArray && emails.length < 1;
-  let emptyUuids = uuidsIsArray && uuids.length < 1;
+function getInviteError (uuids, emails, usernames) {
+  const uuidsIsArray = Array.isArray(uuids);
+  const emailsIsArray = Array.isArray(emails);
+  const usernamesIsArray = Array.isArray(usernames);
+  const emptyEmails = emailsIsArray && emails.length < 1;
+  const emptyUuids = uuidsIsArray && uuids.length < 1;
+  const emptyUsernames = usernamesIsArray && usernames.length < 1;
 
   let errorString;
 
-  if (!uuids && !emails) {
+  if (!uuids && !emails && !usernames) {
     errorString = 'canOnlyInviteEmailUuid';
   } else if (uuids && !uuidsIsArray) {
     errorString = 'uuidsMustBeAnArray';
   } else if (emails && !emailsIsArray) {
     errorString = 'emailsMustBeAnArray';
-  } else if (!emails && emptyUuids) {
-    errorString = 'inviteMissingUuid';
-  } else if (!uuids && emptyEmails) {
-    errorString = 'inviteMissingEmail';
-  } else if (emptyEmails && emptyUuids) {
+  } else if (usernames && !usernamesIsArray) {
+    errorString = 'usernamesMustBeAnArray';
+  } else if ((!emails || emptyEmails) && (!uuids || emptyUuids) && (!usernames || emptyUsernames)) {
     errorString = 'inviteMustNotBeEmpty';
   }
 
-  if (errorString) {
-    throw new BadRequest(res.t(errorString));
-  }
+  return errorString;
+}
 
+function getInviteCount (uuids, emails) {
   let totalInvites = 0;
 
   if (uuids) {
@@ -485,6 +493,27 @@ schema.statics.validateInvitations = async function getInvitationError (uuids, e
     totalInvites += emails.length;
   }
 
+  return totalInvites;
+}
+
+/**
+ * Checks invitation uuids and emails for possible errors.
+ *
+ * @param  uuids  An array of User IDs
+ * @param  emails  An array of emails
+ * @param  res  Express res object for use with translations
+ * @throws BadRequest An error describing the issue with the invitations
+ */
+schema.statics.validateInvitations = async function getInvitationError (invites, res, group = null) {
+  const {
+    uuids,
+    emails,
+    usernames,
+  } = invites;
+  const errorString = getInviteError(uuids, emails, usernames);
+  if (errorString) throw new BadRequest(res.t(errorString));
+
+  const totalInvites = getInviteCount(uuids, emails);
   if (totalInvites > INVITES_LIMIT) {
     throw new BadRequest(res.t('canOnlyInviteMaxInvites', {maxInvites: INVITES_LIMIT}));
   }
@@ -559,8 +588,8 @@ schema.methods.getMemberCount = async function getMemberCount () {
 };
 
 schema.methods.sendChat = function sendChat (options = {}) {
-  const {message, user, metaData, info = {}} = options;
-  let newMessage = messageDefaults(message, user, info);
+  const {message, user, metaData, client, info = {}} = options;
+  let newMessage = messageDefaults(message, user, client, info);
   let newChatMessage = new Chat();
   newChatMessage = Object.assign(newChatMessage, newMessage);
   newChatMessage.groupId = this._id;
@@ -572,6 +601,10 @@ schema.methods.sendChat = function sendChat (options = {}) {
   if (metaData) {
     newChatMessage._meta = metaData;
   }
+
+  // Activate the webhook for receiving group chat messages before
+  // newChatMessage is possibly returned
+  this.sendGroupChatReceivedWebhooks(newChatMessage);
 
   // do not send notifications for guilds with more than 5000 users and for the tavern
   if (NO_CHAT_NOTIFICATIONS.indexOf(this._id) !== -1 || this.memberCount > LARGE_GROUP_COUNT_MESSAGE_CUTOFF) {
@@ -613,12 +646,6 @@ schema.methods.sendChat = function sendChat (options = {}) {
   User.update(query, lastSeenUpdateRemoveOld, {multi: true}).exec().then(() => {
     User.update(query, lastSeenUpdateAddNew, {multi: true}).exec();
   });
-
-  // If the message being sent is a system message (not gone through the api.postChat controller)
-  // then notify Pusher about it (only parties for now)
-  if (newMessage.uuid === 'system' && this.privacy === 'private' && this.type === 'party') {
-    pusher.trigger(`presence-group-${this._id}`, 'new-chat', newMessage);
-  }
 
   return newChatMessage;
 };
@@ -715,11 +742,8 @@ schema.methods.startQuest = async function startQuest (user) {
   // Do not block updates
   User.update({
     _id: { $in: nonMembers },
-  }, {
-    $set: {
-      'party.quest': _cleanQuestProgress(),
-    },
-  }, { multi: true }).exec();
+  }, _cleanQuestParty(),
+  { multi: true }).exec();
 
   const newMessage = this.sendChat({
     message: `\`${shared.i18n.t('chatQuestStarted', {questName: quest.text('en')}, 'en')}\``,
@@ -795,7 +819,8 @@ schema.methods.sendGroupChatReceivedWebhooks = function sendGroupChatReceivedWeb
   });
 };
 
-schema.statics.cleanQuestProgress = _cleanQuestProgress;
+schema.statics.cleanQuestParty = _cleanQuestParty;
+schema.statics.cleanQuestUser = _cleanQuestUser;
 
 // returns a clean object for group.quest
 schema.statics.cleanGroupQuest = function cleanGroupQuest () {
@@ -872,7 +897,7 @@ schema.methods.finishQuest = async function finishQuest (quest) {
   if (this._id === TAVERN_ID) {
     updates.$set['party.quest.completed'] = questK; // Just show the notif
   } else {
-    updates.$set['party.quest'] = _cleanQuestProgress({completed: questK}); // clear quest progress
+    _.merge(updates, _cleanQuestParty({$set: {'party.quest.completed': questK}})); // clear quest progress
   }
 
   _.each(_.reject(quest.drop.items, 'onlyOwner'), (item) => {
@@ -1304,34 +1329,31 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
     }).exec();
 
     let challengesToRemoveUserFrom = challenges.map(chal => {
-      return chal.unlinkTasks(user, keep);
+      return chal.unlinkTasks(user, keep, false);
     });
     await Promise.all(challengesToRemoveUserFrom);
   }
 
-  // Unlink group tasks)
+  // Unlink group tasks
   let assignedTasks = await Tasks.Task.find({
     'group.id': group._id,
     userId: {$exists: false},
     'group.assignedUsers': user._id,
   }).exec();
   let assignedTasksToRemoveUserFrom = assignedTasks.map(task => {
-    return this.unlinkTask(task, user, keep);
+    return this.unlinkTask(task, user, keep, false);
   });
   await Promise.all(assignedTasksToRemoveUserFrom);
 
-  let promises = [];
+  // the user could be modified by calls to `unlinkTask` for challenge and group tasks
+  // it has not been saved before to avoid multiple saves in parallel
+  let promises = user.isModified() ? [user.save()] : [];
 
   // remove the group from the user's groups
   if (group.type === 'guild') {
     promises.push(User.update({_id: user._id}, {$pull: {guilds: group._id}}).exec());
   } else {
     promises.push(User.update({_id: user._id}, {$set: {party: {}}}).exec());
-    // Tell the realtime clients that a user has left
-    // If the user that left is still connected, they'll get disconnected
-    pusher.trigger(`presence-group-${group._id}`, 'user-left', {
-      userId: user._id,
-    });
 
     update.$unset = {[`quest.members.${user._id}`]: 1};
   }
@@ -1486,7 +1508,7 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
     matchingTask.group.id = taskToSync.group.id;
     matchingTask.userId = user._id;
     matchingTask.group.taskId = taskToSync._id;
-    user.tasksOrder[`${taskToSync.type}s`].push(matchingTask._id);
+    user.tasksOrder[`${taskToSync.type}s`].unshift(matchingTask._id);
   } else {
     _.merge(matchingTask, syncableAttrs(taskToSync));
     // Make sure the task is in user.tasksOrder
@@ -1515,7 +1537,7 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
   return Promise.all(toSave);
 };
 
-schema.methods.unlinkTask = async function groupUnlinkTask (unlinkingTask, user, keep) {
+schema.methods.unlinkTask = async function groupUnlinkTask (unlinkingTask, user, keep, saveUser = true) {
   let findQuery = {
     'group.taskId': unlinkingTask._id,
     userId: user._id,
@@ -1529,16 +1551,26 @@ schema.methods.unlinkTask = async function groupUnlinkTask (unlinkingTask, user,
       $set: {group: {}},
     }).exec();
 
-    await user.save();
+    // When multiple tasks are being unlinked at the same time,
+    // save the user once outside of this function
+    if (saveUser) await user.save();
   } else { // keep = 'remove-all'
     let task = await Tasks.Task.findOne(findQuery).select('_id type completed').exec();
     // Remove task from user.tasksOrder and delete them
-    if (task.type !== 'todo' || !task.completed) {
+    if (task && (task.type !== 'todo' || !task.completed)) {
       removeFromArray(user.tasksOrder[`${task.type}s`], task._id);
       user.markModified('tasksOrder');
     }
 
-    return Promise.all([task.remove(), user.save(), unlinkingTask.save()]);
+    let promises = [unlinkingTask.save()];
+    if (task) {
+      promises.push(task.remove());
+    }
+    // When multiple tasks are being unlinked at the same time,
+    // save the user once outside of this function
+    if (saveUser) promises.push(user.save());
+
+    return Promise.all(promises);
   }
 };
 
@@ -1553,6 +1585,30 @@ schema.methods.removeTask = async function groupRemoveTask (task) {
   }, {
     $set: {'group.broken': 'TASK_DELETED'},
   }, {multi: true}).exec();
+
+  // Get Managers
+  const managerIds = Object.keys(group.managers);
+  managerIds.push(group.leader);
+  const managers = await User.find({_id: managerIds}, 'notifications').exec(); // Use this method so we can get access to notifications
+
+  // Remove old notifications
+  let removalPromises = [];
+  managers.forEach((manager) => {
+    let notificationIndex = manager.notifications.findIndex(function findNotification (notification) {
+      return notification && notification.data && notification.data.groupTaskId === task._id && notification.type === 'GROUP_TASK_APPROVAL';
+    });
+
+    if (notificationIndex !== -1) {
+      manager.notifications.splice(notificationIndex, 1);
+      removalPromises.push(manager.save());
+    }
+  });
+
+  removeFromArray(group.tasksOrder[`${task.type}s`], task._id);
+  group.markModified('tasksOrder');
+  removalPromises.push(group.save());
+
+  return await Promise.all(removalPromises);
 };
 
 // Returns true if the user has reached the spam message limit
@@ -1588,7 +1644,12 @@ schema.methods.isSubscribed = function isSubscribed () {
 
 schema.methods.hasNotCancelled = function hasNotCancelled () {
   let plan = this.purchased.plan;
-  return this.isSubscribed() && !plan.dateTerminated;
+  return Boolean(this.isSubscribed() && !plan.dateTerminated);
+};
+
+schema.methods.hasCancelled = function hasNotCancelled () {
+  let plan = this.purchased.plan;
+  return Boolean(this.isSubscribed() && plan.dateTerminated);
 };
 
 schema.methods.updateGroupPlan = async function updateGroupPlan (removingMember) {

@@ -1,4 +1,4 @@
-FROM node:8
+FROM node:10
 
 # Install global packages
 RUN npm install -g gulp-cli mocha

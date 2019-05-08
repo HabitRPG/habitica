@@ -11,7 +11,12 @@
   }
 }
 
+.modal {
+  z-index: 1350;
+}
+
 .modal-dialog {
+  margin: 5.5rem auto 3rem;
   width: auto;
 
   .title {

@@ -17,5 +17,12 @@ function setUpServer () {
 setUpServer();
 
 // Replace this with your migration
-const processUsers = require('./users/takeThis.js');
-processUsers();
+const processUsers = require('./users/mystery-items.js');
+processUsers()
+  .then(function success () {
+    process.exit(0);
+  })
+  .catch(function failure (err) {
+    console.log(err);
+    process.exit(1);
+  });

@@ -38,7 +38,6 @@
     "messageInsufficientGems": "Nincs elég drágaköved!",
     "messageAuthPasswordMustMatch": ":password és :confirmPassword nem egyeznek",
     "messageAuthCredentialsRequired": ":username, :email, :password, :confirmPassword szükséges",
-    "messageAuthUsernameTaken": "A felhasználónév már foglalt. ",
     "messageAuthEmailTaken": "Az e-mail cím már foglalt.",
     "messageAuthNoUserFound": "Felhasználó nem található",
     "messageAuthMustBeLoggedIn": "Be kell jelentkezned.",
@@ -62,5 +61,6 @@
     "notificationsRequired": "Értesítés azonosítók szükségesek.",
     "unallocatedStatsPoints": "Van <span class=\"notification-bold-blue\"><%= points %> kiosztatlan tulajdonság pontod</span>",
     "beginningOfConversation": "Elkezdtél beszélgetni <%= userName %> felhasználóval. Ne felejtesd hogy legyél kedves, tisztelettudó és kövesd a közösségi irányelveket!",
-    "messageDeletedUser": "Sorry, this user has deleted their account."
+    "messageDeletedUser": "Ez a felhasználó törölte a fiókját.",
+    "messageMissingDisplayName": "Hiányzó nyilvános név."
 }

@@ -40,6 +40,14 @@ describe('GET challenges/user', () => {
         _id: publicGuild.leader._id,
         id: publicGuild.leader._id,
         profile: {name: user.profile.name},
+        auth: {
+          local: {
+            username: user.auth.local.username,
+          },
+        },
+        flags: {
+          verifiedUsername: true,
+        },
       });
       expect(foundChallenge.group).to.eql({
         _id: publicGuild._id,
@@ -62,6 +70,14 @@ describe('GET challenges/user', () => {
         _id: publicGuild.leader._id,
         id: publicGuild.leader._id,
         profile: {name: user.profile.name},
+        auth: {
+          local: {
+            username: user.auth.local.username,
+          },
+        },
+        flags: {
+          verifiedUsername: true,
+        },
       });
       expect(foundChallenge1.group).to.eql({
         _id: publicGuild._id,
@@ -79,6 +95,14 @@ describe('GET challenges/user', () => {
         _id: publicGuild.leader._id,
         id: publicGuild.leader._id,
         profile: {name: user.profile.name},
+        auth: {
+          local: {
+            username: user.auth.local.username,
+          },
+        },
+        flags: {
+          verifiedUsername: true,
+        },
       });
       expect(foundChallenge2.group).to.eql({
         _id: publicGuild._id,
@@ -101,6 +125,14 @@ describe('GET challenges/user', () => {
         _id: publicGuild.leader._id,
         id: publicGuild.leader._id,
         profile: {name: user.profile.name},
+        auth: {
+          local: {
+            username: user.auth.local.username,
+          },
+        },
+        flags: {
+          verifiedUsername: true,
+        },
       });
       expect(foundChallenge1.group).to.eql({
         _id: publicGuild._id,
@@ -118,6 +150,14 @@ describe('GET challenges/user', () => {
         _id: publicGuild.leader._id,
         id: publicGuild.leader._id,
         profile: {name: user.profile.name},
+        auth: {
+          local: {
+            username: user.auth.local.username,
+          },
+        },
+        flags: {
+          verifiedUsername: true,
+        },
       });
       expect(foundChallenge2.group).to.eql({
         _id: publicGuild._id,

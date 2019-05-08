@@ -473,7 +473,7 @@ describe('POST /user/auth/local/register', () => {
     });
 
     it('rejects if username is already taken', async () => {
-      let uniqueEmail = `${generateRandomUserName()}@exampe.com`;
+      let uniqueEmail = `${generateRandomUserName()}@example.com`;
       let password = 'password';
 
       await expect(api.post('/user/auth/local/register', {

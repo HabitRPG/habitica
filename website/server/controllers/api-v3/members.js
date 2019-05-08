@@ -32,14 +32,14 @@ let api = {};
  *
  * @apiSuccess {Object} data The member object
  *
- * @apiSuccess (Object) data.inbox Basic information about person's inbox
- * @apiSuccess (Object) data.stats Includes current stats and buffs
- * @apiSuccess (Object) data.profile Includes name
- * @apiSuccess (Object) data.preferences Includes info about appearance and public prefs
- * @apiSuccess (Object) data.party Includes basic info about current party and quests
- * @apiSuccess (Object) data.items Basic inventory information includes quests, food, potions, eggs, gear, special items
- * @apiSuccess (Object) data.achievements Lists current achievements
- * @apiSuccess (Object) data.auth Includes latest timestamps
+ * @apiSuccess {Object} data.inbox Basic information about person's inbox
+ * @apiSuccess {Object} data.stats Includes current stats and buffs
+ * @apiSuccess {Object} data.profile Includes name
+ * @apiSuccess {Object} data.preferences Includes info about appearance and public prefs
+ * @apiSuccess {Object} data.party Includes basic info about current party and quests
+ * @apiSuccess {Object} data.items Basic inventory information includes quests, food, potions, eggs, gear, special items
+ * @apiSuccess {Object} data.achievements Lists current achievements
+ * @apiSuccess {Object} data.auth Includes latest timestamps
  *
  * @apiSuccessExample {json} Success-Response:
  * {
@@ -108,6 +108,36 @@ api.getMember = {
       .exec();
 
     if (!member) throw new NotFound(res.t('userWithIDNotFound', {userId: memberId}));
+
+    if (!member.flags.verifiedUsername) member.auth.local.username = null;
+
+    // manually call toJSON with minimize: true so empty paths aren't returned
+    let memberToJSON = member.toJSON({minimize: true});
+    User.addComputedStatsToJSONObj(memberToJSON.stats, member);
+
+    res.respond(200, memberToJSON);
+  },
+};
+
+api.getMemberByUsername = {
+  method: 'GET',
+  url: '/members/username/:username',
+  middlewares: [],
+  async handler (req, res) {
+    req.checkParams('username', res.t('invalidReqParams')).notEmpty();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let username = req.params.username.toLowerCase();
+    if (username[0] === '@') username = username.slice(1, username.length);
+
+    let member = await User
+      .findOne({'auth.local.lowerCaseUsername': username, 'flags.verifiedUsername': true})
+      .select(memberFields)
+      .exec();
+
+    if (!member) throw new NotFound(res.t('userNotFound'));
 
     // manually call toJSON with minimize: true so empty paths aren't returned
     let memberToJSON = member.toJSON({minimize: true});
@@ -605,6 +635,7 @@ api.sendPrivateMessage = {
     const message = req.body.message;
     const receiver = await User.findById(req.body.toUserId).exec();
     if (!receiver) throw new NotFound(res.t('userNotFound'));
+    if (!receiver.flags.verifiedUsername) delete receiver.auth.local.username;
 
     const objections = sender.getObjectionsToInteraction('send-private-message', receiver);
     if (objections.length > 0 && !sender.isAdmin()) throw new NotAuthorized(res.t(objections[0]));

@@ -91,7 +91,7 @@ module.exports = function getItemInfo (user, type, item, officialPinnedItems, la
         locked: false,
         currency: 'gems',
         purchaseType: 'hatchingPotions',
-        path: `premiumHatchingPotions.${item.key}`,
+        path: item.wacky ? `wackyHatchingPotions.${item.key}` : `premiumHatchingPotions.${item.key}`,
         pinType: 'premiumHatchingPotion',
       };
       break;
@@ -338,7 +338,7 @@ module.exports = function getItemInfo (user, type, item, officialPinnedItems, la
 
   if (itemInfo) {
     itemInfo.isSuggested = isItemSuggested(officialPinnedItems, itemInfo);
-    itemInfo.pinned = isPinned(user, itemInfo);
+    itemInfo.pinned = isPinned(user, itemInfo, officialPinnedItems);
   } else {
     throw new BadRequest(i18n.t('wrongItemType', {type}, language));
   }

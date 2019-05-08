@@ -29,9 +29,7 @@ export default {
     },
     exp (val) {
       const message = getXPMessage(val);
-      if (message) {
-        this.notify(message, 'xp', 'glyphicon glyphicon-star', this.sign(val));
-      }
+      this.notify(message, 'xp', 'glyphicon glyphicon-star', this.sign(val));
     },
     error (error) {
       this.notify(error, 'error', 'glyphicon glyphicon-exclamation-sign');
@@ -48,7 +46,7 @@ export default {
     },
     markdown (val) {
       if (!val) return;
-      let parsedMarkdown = habiticaMarkdown.render(val);
+      let parsedMarkdown = habiticaMarkdown.render(String(val));
       this.notify(parsedMarkdown, 'info');
     },
     mp (val) {
@@ -60,8 +58,8 @@ export default {
         itemName,
       }));
     },
-    streak (val) {
-      this.notify(`${val}`, 'streak');
+    streak (val, onClick) {
+      this.notify(`${val}`, 'streak', null, null, onClick, typeof onClick === 'undefined');
     },
     text (val, onClick, timeout) {
       if (!val) return;

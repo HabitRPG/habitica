@@ -11,7 +11,9 @@ import {
 } from '../models/group';
 import apiError from '../libs/apiError';
 
-const partyMembersFields = 'profile.name stats achievements items.special';
+const partyMembersFields = 'profile.name stats achievements items.special notifications flags';
+// Excluding notifications and flags from the list of public fields to return.
+const partyMembersPublicFields = 'profile.name stats achievements items.special';
 
 // @TODO: After refactoring individual spells, move quantity to the calculations
 
@@ -78,8 +80,7 @@ async function castPartySpell (req, party, partyMembers, user, spell, quantity =
         'party._id': party._id,
         _id: { $ne: user._id }, // add separately
       })
-      // .select(partyMembersFields) Selecting the entire user because otherwise when saving it'll save
-      // default values for non-selected fields and pre('save') will mess up thinking some values are missing
+      .select(partyMembersFields)
       .exec();
 
     partyMembers.unshift(user);
@@ -101,8 +102,7 @@ async function castUserSpell (res, req, party, partyMembers, targetId, user, spe
     if (!party) throw new NotFound(res.t('partyNotFound'));
     partyMembers = await User
       .findOne({_id: targetId, 'party._id': party._id})
-      // .select(partyMembersFields) Selecting the entire user because otherwise when saving it'll save
-      // default values for non-selected fields and pre('save') will mess up thinking some values are missing
+      .select(partyMembersFields)
       .exec();
   }
 
@@ -183,9 +183,9 @@ async function castSpell (req, res, {isV3 = false}) {
     let partyMembersRes = Array.isArray(partyMembers) ? partyMembers : [partyMembers];
 
     // Only return some fields.
-    // See comment above on why we can't just select the necessary fields when querying
+    // We can't just return the selected fields because they're private
     partyMembersRes = partyMembersRes.map(partyMember => {
-      return common.pickDeep(partyMember.toJSON(), common.$w(partyMembersFields));
+      return common.pickDeep(partyMember.toJSON(), common.$w(partyMembersPublicFields));
     });
 
     let userToJson = user;

@@ -47,6 +47,14 @@ describe('GET /challenges/:challengeId', () => {
         _id: groupLeader._id,
         id: groupLeader._id,
         profile: {name: groupLeader.profile.name},
+        auth: {
+          local: {
+            username: groupLeader.auth.local.username,
+          },
+        },
+        flags: {
+          verifiedUsername: true,
+        },
       });
       expect(chal.group).to.eql({
         _id: group._id,
@@ -105,6 +113,14 @@ describe('GET /challenges/:challengeId', () => {
         _id: challengeLeader._id,
         id: challengeLeader._id,
         profile: {name: challengeLeader.profile.name},
+        auth: {
+          local: {
+            username: challengeLeader.auth.local.username,
+          },
+        },
+        flags: {
+          verifiedUsername: true,
+        },
       });
       expect(chal.group).to.eql({
         _id: group._id,
@@ -131,6 +147,14 @@ describe('GET /challenges/:challengeId', () => {
         _id: challengeLeader._id,
         id: challengeLeader._id,
         profile: {name: challengeLeader.profile.name},
+        auth: {
+          local: {
+            username: challengeLeader.auth.local.username,
+          },
+        },
+        flags: {
+          verifiedUsername: true,
+        },
       });
     });
   });
@@ -179,6 +203,14 @@ describe('GET /challenges/:challengeId', () => {
         _id: challengeLeader._id,
         id: challengeLeader._id,
         profile: {name: challengeLeader.profile.name},
+        auth: {
+          local: {
+            username: challengeLeader.auth.local.username,
+          },
+        },
+        flags: {
+          verifiedUsername: true,
+        },
       });
       expect(chal.group).to.eql({
         _id: group._id,
@@ -205,6 +237,14 @@ describe('GET /challenges/:challengeId', () => {
         _id: challengeLeader._id,
         id: challengeLeader._id,
         profile: {name: challengeLeader.profile.name},
+        auth: {
+          local: {
+            username: challengeLeader.auth.local.username,
+          },
+        },
+        flags: {
+          verifiedUsername: true,
+        },
       });
     });
   });

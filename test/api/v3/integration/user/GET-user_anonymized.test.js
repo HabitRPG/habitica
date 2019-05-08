@@ -18,7 +18,12 @@ describe('GET /user/anonymized', () => {
       'profile.name': 'profile',
       'purchased.plan': 'purchased plan',
       contributor: 'contributor',
-      invitations: 'invitations',
+      invitations: {
+        guilds: ['guild1', 'guild2'],
+        party: {
+          _id: 'partyid',
+        },
+      },
       'items.special.nyeReceived': 'some',
       'items.special.valentineReceived': 'some',
       webhooks: [{url: 'https://somurl.com'}],

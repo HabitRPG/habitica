@@ -4,6 +4,7 @@
     v-if="item != null",
     :hide-header="true",
     @change="onChange($event)"
+    @hide="fixDocBody()"
   )
     div.close
       span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close", @click="hideDialog()")

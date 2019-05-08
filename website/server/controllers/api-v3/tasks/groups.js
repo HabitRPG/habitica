@@ -213,6 +213,14 @@ api.assignTask = {
         },
       });
       promises.push(newMessage.save());
+    } else {
+      const taskText = task.text;
+      const managerName = user.profile.name;
+
+      assignedUser.addNotification('GROUP_TASK_ASSIGNED', {
+        message: res.t('youHaveBeenAssignedTask', {managerName, taskText}),
+        taskId: task._id,
+      });
     }
 
     promises.push(group.syncTask(task, assignedUser));
@@ -268,6 +276,15 @@ api.unassignTask = {
 
     await group.unlinkTask(task, assignedUser);
 
+    let notificationIndex = assignedUser.notifications.findIndex(function findNotification (notification) {
+      return notification && notification.data && notification.type === 'GROUP_TASK_ASSIGNED' && notification.data.taskId === task._id;
+    });
+
+    if (notificationIndex !== -1) {
+      assignedUser.notifications.splice(notificationIndex, 1);
+      await assignedUser.save();
+    }
+
     res.respond(200, task);
   },
 };
@@ -315,6 +332,9 @@ api.approveTask = {
 
     if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
     if (task.group.approval.approved === true) throw new NotAuthorized(res.t('canOnlyApproveTaskOnce'));
+    if (!task.group.approval.requested) {
+      throw new NotAuthorized(res.t('taskApprovalWasNotRequested'));
+    }
 
     task.group.approval.dateApproved = new Date();
     task.group.approval.approvingUser = user._id;

@@ -46,16 +46,16 @@ describe('Amazon Payments - Subscribe', () => {
     headers = {};
 
     amazonSetBillingAgreementDetailsSpy = sinon.stub(amzLib, 'setBillingAgreementDetails');
-    amazonSetBillingAgreementDetailsSpy.returnsPromise().resolves({});
+    amazonSetBillingAgreementDetailsSpy.resolves({});
 
     amazonConfirmBillingAgreementSpy = sinon.stub(amzLib, 'confirmBillingAgreement');
-    amazonConfirmBillingAgreementSpy.returnsPromise().resolves({});
+    amazonConfirmBillingAgreementSpy.resolves({});
 
     amazonAuthorizeOnBillingAgreementSpy = sinon.stub(amzLib, 'authorizeOnBillingAgreement');
-    amazonAuthorizeOnBillingAgreementSpy.returnsPromise().resolves({});
+    amazonAuthorizeOnBillingAgreementSpy.resolves({});
 
     createSubSpy = sinon.stub(payments, 'createSubscription');
-    createSubSpy.returnsPromise().resolves({});
+    createSubSpy.resolves({});
 
     sinon.stub(common, 'uuid').returns('uuid-generated');
   });
