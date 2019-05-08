@@ -1,52 +1,46 @@
 <template lang="pug">
-.container-fluid
+.container-fluid(@scroll="triggerLoad")
   .row
     .col-12
       copy-as-todo-modal(:group-type='groupType', :group-name='groupName', :group-id='groupId')
-  .row
-    h2.col-12.loading(v-show="isLoading") {{ $t('loading') }}
-    div(v-for="(msg, index) in messages", v-if='chat && canViewFlag(msg)', :class='{row: inbox}')
-      .d-flex(v-if='user._id !== msg.uuid', :class='{"flex-grow-1": inbox}')
-        avatar.avatar-left(
-          v-if='msg.userStyles || (cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected)',
-          :member="msg.userStyles || cachedProfileData[msg.uuid]",
-          :avatarOnly="true",
-          :overrideTopPadding='"14px"',
-          :hideClassBadge='true',
-          @click.native="showMemberModal(msg.uuid)",
-          :class='{"inbox-avatar-left": inbox}'
-        )
-        .card(:class='{"col-10": inbox}')
-          chat-card(
-            :msg='msg',
-            :inbox='inbox',
-            :groupId='groupId',
-            @message-liked='messageLiked',
-            @message-removed='messageRemoved',
-            @show-member-modal='showMemberModal')
-      .d-flex(v-if='user._id === msg.uuid', :class='{"flex-grow-1": inbox}')
-        .card(:class='{"col-10": inbox}')
-          chat-card(
-            :msg='msg',
-            :inbox='inbox',
-            :groupId='groupId',
-            @message-liked='messageLiked',
-            @message-removed='messageRemoved',
-            @show-member-modal='showMemberModal')
-        avatar(
-          v-if='msg.userStyles || (cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected)',
-          :member="msg.userStyles || cachedProfileData[msg.uuid]",
-          :avatarOnly="true",
-          :hideClassBadge='true',
-          :overrideTopPadding='"14px"',
-          @click.native="showMemberModal(msg.uuid)",
-          :class='{"inbox-avatar-right": inbox}'
-        )
-    mugen-scroll(
-      :handler="triggerLoad",
-      :should-handle="inbox && !isLoading && canLoadMore",
-      :threshold="1",
-    )
+  h2.col-12.loading(v-show="isLoading") {{ $t('loading') }}
+  div(v-for="(msg, index) in messages", v-if='chat && canViewFlag(msg)', :class='{row: inbox}')
+    .d-flex(v-if='user._id !== msg.uuid', :class='{"flex-grow-1": inbox}')
+      avatar.avatar-left(
+        v-if='msg.userStyles || (cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected)',
+        :member="msg.userStyles || cachedProfileData[msg.uuid]",
+        :avatarOnly="true",
+        :overrideTopPadding='"14px"',
+        :hideClassBadge='true',
+        @click.native="showMemberModal(msg.uuid)",
+        :class='{"inbox-avatar-left": inbox}'
+      )
+      .card(:class='{"col-10": inbox}')
+        chat-card(
+          :msg='msg',
+          :inbox='inbox',
+          :groupId='groupId',
+          @message-liked='messageLiked',
+          @message-removed='messageRemoved',
+          @show-member-modal='showMemberModal')
+    .d-flex(v-if='user._id === msg.uuid', :class='{"flex-grow-1": inbox}')
+      .card(:class='{"col-10": inbox}')
+        chat-card(
+          :msg='msg',
+          :inbox='inbox',
+          :groupId='groupId',
+          @message-liked='messageLiked',
+          @message-removed='messageRemoved',
+          @show-member-modal='showMemberModal')
+      avatar(
+        v-if='msg.userStyles || (cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected)',
+        :member="msg.userStyles || cachedProfileData[msg.uuid]",
+        :avatarOnly="true",
+        :hideClassBadge='true',
+        :overrideTopPadding='"14px"',
+        @click.native="showMemberModal(msg.uuid)",
+        :class='{"inbox-avatar-right": inbox}'
+      )
 </template>
 
 <style lang="scss" scoped>
@@ -116,7 +110,6 @@ import findIndex from 'lodash/findIndex';
 import Avatar from '../avatar';
 import copyAsTodoModal from './copyAsTodoModal';
 import chatCard from './chatCard';
-import MugenScroll from 'vue-mugen-scroll';
 
 export default {
   props: {
@@ -136,7 +129,6 @@ export default {
     copyAsTodoModal,
     chatCard,
     Avatar,
-    MugenScroll,
   },
   mounted () {
     this.loadProfileCache();
@@ -154,6 +146,7 @@ export default {
       currentProfileLoadedCount: 0,
       currentProfileLoadedEnd: 10,
       loading: false,
+      lastTop: null, // null to prevent the scroll (or rather setting data) to trigger the load again
     };
   },
   computed: {
@@ -174,9 +167,17 @@ export default {
     handleScroll () {
       this.loadProfileCache(window.scrollY / 1000);
     },
-    triggerLoad () {
-      this.$emit('triggerLoad');
-    },
+    triggerLoad: debounce(function triggerLoad ($event) {
+      const diff = (this.lastTop || 0) - $event.target.scrollTop;
+      const canLoadMore = this.inbox && !this.isLoading && this.canLoadMore;
+      if (canLoadMore &&  Math.abs(diff) > 80) {
+        if (this.lastTop !== null) {
+          this.$emit('triggerLoad');
+        }
+
+        this.lastTop = $event.target.scrollTop;
+      }
+    }, 200),
     canViewFlag (message) {
       if (message.uuid === this.user._id) return true;
       if (!message.flagCount || message.flagCount < 2) return true;

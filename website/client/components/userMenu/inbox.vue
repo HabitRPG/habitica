@@ -240,8 +240,6 @@ import tier8 from 'assets/svg/tier-mod.svg';
 import tier9 from 'assets/svg/tier-staff.svg';
 import tierNPC from 'assets/svg/tier-npc.svg';
 
-import debounce from 'lodash/debounce';
-
 export default {
   mixins: [styleHelper],
   components: {
@@ -547,14 +545,15 @@ export default {
 
       this.loadMore();
     },
-    loadMore: debounce(function loadMoreDebounce () {
+    loadMore () {
       this.page += 1;
       this.loadMessages();
-    }, 1000),
+    },
     async loadMessages () {
       this.messagesLoading = true;
 
-      const res = await axios.get(`/api/v4/inbox/messages?conversation=${this.selectedConversation.key}&page=${this.page}`);
+      const requestUrl = `/api/v4/inbox/messages?conversation=${this.selectedConversation.key}&page=${this.page}`;
+      const res = await axios.get(requestUrl);
       const loadedMessages = res.data.data.map(this.mapMessage);
 
       this.messagesByConversation[this.selectedConversation.key] = this.messagesByConversation[this.selectedConversation.key] || [];
@@ -562,7 +561,6 @@ export default {
 
       // only show the load more Button if the max count was returned
       this.canLoadMore = loadedMessages.length === 10;
-console.info('set canLoadMore', this.canLoadMore, loadedMessages);
       this.messagesLoading = false;
     },
   },
