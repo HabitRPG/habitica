@@ -18,13 +18,20 @@ div
     b-collapse#menu_collapse.collapse.navbar-collapse
       b-navbar-nav.menu-list
         b-nav-item.topbar-item(tag="li", :to="{name: 'tasks'}", exact) {{ $t('tasks') }}
+          .chevron-block
         li.topbar-item(:class="{'active': $route.path.startsWith('/inventory')}")
+          .chevron-block
+            .chevron-icon-up(v-html="icons.chevronUp")
+            .chevron-icon-down(v-html="icons.chevronDown")
           router-link.nav-link(:to="{name: 'items'}") {{ $t('inventory') }}
           .topbar-dropdown
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'items'}", exact) {{ $t('items') }}
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'equipment'}") {{ $t('equipment') }}
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'stable'}") {{ $t('stable') }}
         li.topbar-item(:class="{'active': $route.path.startsWith('/shop')}")
+          .chevron-block
+            .chevron-icon-up(v-html="icons.chevronUp")
+            .chevron-icon-down(v-html="icons.chevronDown")
           router-link.nav-link(:to="{name: 'market'}") {{ $t('shops') }}
           .topbar-dropdown
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'market'}", exact) {{ $t('market') }}
@@ -32,23 +39,34 @@ div
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'seasonal'}") {{ $t('titleSeasonalShop') }}
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'time'}") {{ $t('titleTimeTravelers') }}
         b-nav-item.topbar-item(tag="li", :to="{name: 'party'}", v-if='this.user.party._id') {{ $t('party') }}
+          .chevron-block
         b-nav-item.topbar-item(@click='openPartyModal()', v-if='!this.user.party._id') {{ $t('party') }}
         li.topbar-item(:class="{'active': $route.path.startsWith('/guilds')}")
+          .chevron-block
+            .chevron-icon-up(v-html="icons.chevronUp")
+            .chevron-icon-down(v-html="icons.chevronDown")
           router-link.nav-link(:to="{name: 'tavern'}") {{ $t('guilds') }}
           .topbar-dropdown
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'tavern'}") {{ $t('tavern') }}
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'myGuilds'}") {{ $t('myGuilds') }}
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'guildsDiscovery'}") {{ $t('guildsDiscovery') }}
         li.topbar-item(:class="{'active': $route.path.startsWith('/group-plans')}")
+          .chevron-block
           router-link.nav-link(:to="{name: 'groupPlan'}") {{ $t('group') }}
           .topbar-dropdown
             router-link.topbar-dropdown-item.dropdown-item(v-for='group in groupPlans', :key='group._id', :to="{name: 'groupPlanDetailTaskInformation', params: {groupId: group._id}}") {{ group.name }}
         li.topbar-item(:class="{'active': $route.path.startsWith('/challenges')}")
+          .chevron-block
+            .chevron-icon-up(v-html="icons.chevronUp")
+            .chevron-icon-down(v-html="icons.chevronDown")
           router-link.nav-link(:to="{name: 'myChallenges'}") {{ $t('challenges') }}
           .topbar-dropdown
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'myChallenges'}") {{ $t('myChallenges') }}
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'findChallenges'}") {{ $t('findChallenges') }}
         li.topbar-item(:class="{'active': $route.path.startsWith('/help')}")
+          .chevron-block
+            .chevron-icon-up(v-html="icons.chevronUp")
+            .chevron-icon-down(v-html="icons.chevronDown")
           router-link.nav-link(:to="{name: 'faq'}") {{ $t('help') }}
           .topbar-dropdown
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'faq'}") {{ $t('faq') }}
@@ -81,6 +99,10 @@ div
   @import '~client/assets/scss/utils.scss';
 
   @media only screen and (max-width: 1200px) {
+    .chevron-block {
+      display: none
+    }
+
     .gryphon {
       background-image: url('~assets/images/melior@3x.png');
       width: 30px;
@@ -96,6 +118,10 @@ div
   }
 
   @media only screen and (min-width: 992px) {
+    .chevron-block {
+      display: none
+    }
+
     .mobile-only {
       display: none !important;
     }
@@ -149,7 +175,44 @@ div
           border-bottom: #6133b4 solid 1px;
         }
 
+        .chevron-block {
+          width: 20%;
+          height: 100%;
+          position: absolute;
+          right: 0;
+          top: 0;
+          display: block;
+        }
+
+        .chevron-icon-down {
+          width: 24px;
+          top: 10px;
+          right: 12px;
+          position: absolute;
+          display: block;
+        }
+
+        .chevron-icon-up {
+          display: none;
+        }
+
+        .topbar-item:hover {
+            .chevron-icon-up {
+              width: 24px;
+              top: 10px;
+              right: 12px;
+              position: absolute;
+              display: block;
+            }
+
+            .chevron-icon-down {
+              display: none;
+            }
+        }
+
         .topbar-item {
+          position: relative;
+
           &.active {
             background: #6133b4;
           }
@@ -343,6 +406,8 @@ import gemIcon from 'assets/svg/gem.svg';
 import goldIcon from 'assets/svg/gold.svg';
 import syncIcon from 'assets/svg/sync.svg';
 import svgHourglasses from 'assets/svg/hourglass.svg';
+import chevronUpIcon from 'assets/svg/chevron-up.svg';
+import chevronDownIcon from 'assets/svg/chevron-down.svg';
 import logo from 'assets/svg/logo.svg';
 
 import creatorIntro from '../creatorIntro';
@@ -375,6 +440,8 @@ export default {
         hourglasses: svgHourglasses,
         sync: syncIcon,
         logo,
+        chevronUp: chevronUpIcon,
+        chevronDown: chevronDownIcon,
       }),
     };
   },
