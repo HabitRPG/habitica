@@ -185,7 +185,7 @@ div
         }
 
         .chevron-icon-down {
-          width: 24px;
+          width: 14px;
           top: 10px;
           right: 12px;
           position: absolute;
@@ -198,7 +198,7 @@ div
 
         .topbar-item:hover {
             .chevron-icon-up {
-              width: 24px;
+              width: 14px;
               top: 10px;
               right: 12px;
               position: absolute;
