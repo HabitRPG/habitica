@@ -12,6 +12,8 @@ div
     banned-account-modal
     amazon-payments-modal(v-if='!isStaticPage')
     payments-success-modal
+    sub-cancel-modal-confirm(v-if='isUserLoaded')
+    sub-canceled-modal(v-if='isUserLoaded')
     snackbars
     router-view(v-if="!isUserLoggedIn || isStaticPage")
     template(v-else)
@@ -187,6 +189,8 @@ import notifications from 'client/mixins/notifications';
 import { setup as setupPayments } from 'client/libs/payments';
 import amazonPaymentsModal from 'client/components/payments/amazonModal';
 import paymentsSuccessModal from 'client/components/payments/successModal';
+import subCancelModalConfirm from 'client/components/payments/cancelModalConfirm';
+import subCanceledModal from 'client/components/payments/canceledModal';
 
 import spellsMixin from 'client/mixins/spells';
 import { CONSTANTS, getLocalSetting, removeLocalSetting } from 'client/libs/userlocalManager';
@@ -210,6 +214,8 @@ export default {
     amazonPaymentsModal,
     bannedAccountModal,
     paymentsSuccessModal,
+    subCancelModalConfirm,
+    subCanceledModal,
   },
   data () {
     return {

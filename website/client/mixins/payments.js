@@ -8,13 +8,14 @@ import notificationsMixin from 'client/mixins/notifications';
 import * as Analytics from 'client/libs/analytics';
 import { CONSTANTS, setLocalSetting } from 'client/libs/userlocalManager';
 import pick from 'lodash/pick';
+import moment from 'moment';
 
 const habiticaUrl = `${location.protocol}//${location.host}`;
 
 export default {
   mixins: [notificationsMixin],
   computed: {
-    ...mapState(['credentials']),
+    ...mapState({user: 'user.data', credentials: 'credentials'}),
     paypalCheckoutLink () {
       return '/paypal/checkout';
     },
@@ -30,6 +31,10 @@ export default {
       let couponString = '';
       if (this.subscription.coupon) couponString = `&coupon=${this.subscription.coupon}`;
       return `/paypal/subscribe?sub=${this.subscription.key}${couponString}`;
+    },
+    dateTerminated () {
+      if (!this.user.preferences || !this.user.preferences.dateFormat) return this.user.purchased.plan.dateTerminated;
+      return moment(this.user.purchased.plan.dateTerminated).format(this.user.preferences.dateFormat.toUpperCase());
     },
   },
   methods: {
@@ -275,10 +280,10 @@ export default {
       this.amazonPayments.groupToCreate = null;
       this.amazonPayments.group = null;
     },
+    cancelSubscriptionConfirm (config) {
+      this.$root.$emit('habitica:cancel-subscription-confirm', config);
+    },
     async cancelSubscription (config) {
-      if (config && config.group && !confirm(this.$t('confirmCancelGroupPlan'))) return;
-      if (!confirm(this.$t('sureCancelSub'))) return;
-
       this.loading = true;
 
       let group;
@@ -286,18 +291,10 @@ export default {
         group = config.group;
       }
 
-      let paymentMethod = this.user.purchased.plan.paymentMethod;
-      if (group) {
-        paymentMethod = group.purchased.plan.paymentMethod;
-      }
+      let paymentMethod = group ? group.purchased.plan.paymentMethod : this.user.purchased.plan.paymentMethod;
+      paymentMethod = paymentMethod === 'Amazon Payments' ? 'amazon' : paymentMethod.toLowerCase();
 
-      if (paymentMethod === 'Amazon Payments') {
-        paymentMethod = 'amazon';
-      } else {
-        paymentMethod = paymentMethod.toLowerCase();
-      }
-
-      let queryParams = {
+      const queryParams = {
         noRedirect: true,
       };
 
@@ -309,9 +306,19 @@ export default {
         const cancelUrl = `/${paymentMethod}/subscribe/cancel?${encodeParams(queryParams)}`;
         await axios.get(cancelUrl);
 
-        alert(this.$t('paypalCanceled'));
-        // @TODO: We should probably update the api to return the new sub data eventually.
-        await this.$store.dispatch('user:fetch', {forceLoad: true});
+        if (!config || !config.group) {
+          await this.$store.dispatch('user:fetch', {forceLoad: true});
+          this.$root.$emit('habitica:subscription-canceled', {
+            dateTerminated: this.dateTerminated,
+            isGroup: false,
+          });
+        } else {
+          const appState = {
+            groupPlanCanceled: true,
+          };
+          setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
+          window.location.reload(true);
+        }
 
         this.loading = false;
       } catch (e) {
