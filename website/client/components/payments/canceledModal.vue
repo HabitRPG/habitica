@@ -5,7 +5,8 @@
     :modalClass="['modal-hidden-footer']"
   )
     div(slot="modal-header") 
-      .check-container.d-flex.align-items-center.justify-content-center
+      .svg-icon.close(v-html="icons.close", v-once, @click="close()")
+      .icon-container.check-container.d-flex.align-items-center.justify-content-center
         .svg-icon.check(v-html="icons.check", v-once)
     .row
       .col-12.modal-body-col
@@ -14,39 +15,18 @@
             span
               | {{ $t('subWillBecomeInactive') }}
               br
-              strong {{ dateTerminated }}
+              strong {{ isGroup ? groupDateTerminated : dateTerminated }}
         span.auto-renew.small-text(v-once) {{ $t('paymentCanceledDisputes') }}
 </template>
 
 <style lang="scss">
 @import '~client/assets/scss/colors.scss';
 
-#subscription-canceled-modal .modal-content {
-  background: transparent;
-}
-
-#subscription-canceled-modal.modal-hidden-footer .modal-body {
-  border-bottom-right-radius: 8px;
-  border-bottom-left-radius: 8px;
-}
-
 #subscription-canceled-modal .modal-header {
-  justify-content: center;
-  padding-top: 24px;
-  padding-bottom: 0px;
-  border-top-right-radius: 8px;
-  border-top-left-radius: 8px;
-  border-bottom: none;
-  background: $white;
   border-top: 8px solid #1CA372;
 
   .check-container {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
     background: #1CA372;
-    margin: 0 auto;
-    margin-bottom: 8px;
   }
 
   .check {
@@ -54,68 +34,38 @@
     height: 28px;
     color: white;
   }
+
+  .close {
+    position: absolute;
+    top: 24px;
+    right: 20px;
+    width: 10px;
+    height: 10px;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+
+    &:hover {
+      color: 878190;
+    }
+  }
 }
 
 #subscription-canceled-modal .modal-body {
-  padding-top: 16px;
-  padding-bottom: 24px;
-  background: white;
-
-  .modal-body-col {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-
-    .btn.btn-primary {
-      margin-top: 24px;
-    }
-  }
-
   h2 {
     margin-bottom: 0px;
   }
 
-  .cancel-text {
-    color: $gray-50;
-    line-height: 1.71;
-  }
-
   .details-block {
-    background: $gray-700;
-    border-radius: 4px;
-    padding: 8px 24px;
-    margin-top: 16px;
-    display: flex;
-    flex-direction: row;
-    text-align: center;
     line-height: 24px;
-  }
-
-  .auto-renew {
-    margin-top: 16px;
-    color: $orange-10;
-    font-style: normal;
-  }
-}
-
-#subscription-canceled-modal .modal-footer {
-  background: $gray-700;
-  border-bottom-right-radius: 8px;
-  border-bottom-left-radius: 8px;
-  justify-content: center;
-  border-top: none;
-
-  .small-text {
-    font-style: normal;
   }
 }
 </style>
 
 <script>
 import checkIcon from 'assets/svg/check.svg';
+import closeIcon from 'assets/svg/close.svg';
 import paymentsMixin from 'client/mixins/payments';
-import { mapState } from 'client/libs/store';
 
 export default {
   mixins: [paymentsMixin],
@@ -123,18 +73,18 @@ export default {
     return {
       icons: Object.freeze({
         check: checkIcon,
+        close: closeIcon,
       }),
-      dateTerminated: null,
+      groupDateTerminated: null,
       isGroup: null,
     };
   },
-  computed: {
-    ...mapState({user: 'user.data'}),
-  },
   mounted () {
     this.$root.$on('habitica:subscription-canceled', ({dateTerminated, isGroup}) => {
-      this.dateTerminated = dateTerminated;
       this.isGroup = isGroup;
+      if (isGroup) {
+        this.groupDateTerminated = dateTerminated;
+      }
       this.$root.$emit('bv::show::modal', 'subscription-canceled-modal');
     });
   },

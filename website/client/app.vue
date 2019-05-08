@@ -12,8 +12,8 @@ div
     banned-account-modal
     amazon-payments-modal(v-if='!isStaticPage')
     payments-success-modal
-    sub-cancel-modal-confirm
-    sub-canceled-modal
+    sub-cancel-modal-confirm(v-if='isUserLoaded')
+    sub-canceled-modal(v-if='isUserLoaded')
     snackbars
     router-view(v-if="!isUserLoggedIn || isStaticPage")
     template(v-else)
