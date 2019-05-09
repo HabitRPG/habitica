@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'MAY BACKGROUNDS AND ARMOIRE ITEMS!';
+const LAST_ANNOUNCEMENT_TITLE = 'QUEST BUNDLE: FEATHERED FRIENDS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,14 +30,15 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>5/7/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>5/9/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_armoire_backgrounds_201905 center-block"></div>
-        <p>We’ve added three new backgrounds to the Background Shop! Now your avatar can learn new moves in the Dojo, stroll in a Park with a Statue, and admire a Rainbow Meadow. Check them out under User Icon > Backgrounds!</p>
-        <p>Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the Nephrite Archer Set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)</p>
-        <div class="small mb-3">by Balduranne, QuartzFox, AnnDeLune, GeraldThePixel, Reesachan, and Mewrose</div>
+        <div class="promo_feathered_friends_bundle center-block"></div>
+        <p>If you're a fan of bird pets and mounts, you're in luck! From now until May 31, you can purchase the Feathered Friends Pet Quest Bundle and receive the Parrot, Owl, and Falcon quests, all for only 7 Gems! That's a discount of 5 Gems from the price of purchasing them separately. Check it out in the <a href='/shops/quests'>Quest Shop</a> today!</p>
+        <div class="small">by Lemoness and SabreCat</div>
+        <div class="small">Art by Casey, Teto Forever, Eevachu, UncommonCriminal, JonArinbjorn, Trogdorina, Onheiron, Squish</div>
+        <div class="small mb-3">Writing by Lemoness, Token, and Bartelmy</div>
       </div>
       `,
     });
