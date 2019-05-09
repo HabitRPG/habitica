@@ -400,7 +400,7 @@ export default {
 
       // List of prompts for user on changes. Sounds like we may need a refactor here, but it is clean for now
       if (!this.user.flags.welcomed) {
-        this.$store.state.avatarEditorOptions.editingUser = false;
+        if (this.$store.state.avatarEditorOptions) this.$store.state.avatarEditorOptions.editingUser = false;
         return this.$root.$emit('bv::show::modal', 'avatar-modal');
       }
 
