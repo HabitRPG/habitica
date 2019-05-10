@@ -68,6 +68,12 @@
             span.ml-3 {{ currentLength }} / 3000
 </template>
 
+<style lang="scss">
+  #inbox-modal .modal-body {
+    padding-top: 0px;
+  }
+</style>
+
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
   @import '~client/assets/scss/tiers.scss';
@@ -98,7 +104,7 @@
 
   .sidebar {
     background-color: $gray-700;
-    min-height: 600px;
+    min-height: 540px;
     padding: 0;
 
     .search-section {
@@ -111,6 +117,7 @@
     position: relative;
     padding-left: 0;
     padding-bottom: 6em;
+    height: 540px;
   }
 
   .message-scroll {

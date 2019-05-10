@@ -1,9 +1,11 @@
 <template lang="pug">
-.container-fluid(@scroll="triggerLoad")
+.container-fluid(ref="container")
   .row
     .col-12
       copy-as-todo-modal(:group-type='groupType', :group-name='groupName', :group-id='groupId')
-  h2.col-12.loading(v-show="isLoading") {{ $t('loading') }}
+  .row.loadmore
+    button.btn.btn-secondary(v-if="canLoadMore", @click='triggerLoad()') {{ $t('loadMore') }}
+    h2.col-12.loading(v-show="isLoading") {{ $t('loading') }}
   div(v-for="(msg, index) in messages", v-if='chat && canViewFlag(msg)', :class='{row: inbox}')
     .d-flex(v-if='user._id !== msg.uuid', :class='{"flex-grow-1": inbox}')
       avatar.avatar-left(
@@ -98,6 +100,11 @@
   .message-scroll .d-flex {
     min-width: 1px;
   }
+
+  .loadmore {
+    justify-content: center;
+    margin: 2px;
+  }
 </style>
 
 <script>
@@ -146,7 +153,6 @@ export default {
       currentProfileLoadedCount: 0,
       currentProfileLoadedEnd: 10,
       loading: false,
-      lastTop: null, // null to prevent the scroll (or rather setting data) to trigger the load again
     };
   },
   computed: {
@@ -158,26 +164,16 @@ export default {
       return this.chat;
     },
   },
-  watch: {
-    messages () {
-      this.loadProfileCache();
-    },
-  },
   methods: {
     handleScroll () {
       this.loadProfileCache(window.scrollY / 1000);
     },
-    triggerLoad: debounce(function triggerLoad ($event) {
-      const diff = (this.lastTop || 0) - $event.target.scrollTop;
+    triggerLoad () {
       const canLoadMore = this.inbox && !this.isLoading && this.canLoadMore;
-      if (canLoadMore &&  Math.abs(diff) > 80) {
-        if (this.lastTop !== null) {
-          this.$emit('triggerLoad');
-        }
-
-        this.lastTop = $event.target.scrollTop;
+      if (canLoadMore) {
+       this.$emit('triggerLoad');
       }
-    }, 200),
+    },
     canViewFlag (message) {
       if (message.uuid === this.user._id) return true;
       if (!message.flagCount || message.flagCount < 2) return true;
