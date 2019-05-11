@@ -21,8 +21,8 @@ div
           .chevron-block
         li.topbar-item(:class="{'active': $route.path.startsWith('/inventory')}")
           .chevron-block
-            .chevron-icon-up(v-html="icons.chevronUp")
-            .chevron-icon-down(v-html="icons.chevronDown")
+            .chevron-icon-up(v-html="icons.chevronUp", v-once)
+            .chevron-icon-down(v-html="icons.chevronDown", v-once)
           router-link.nav-link(:to="{name: 'items'}") {{ $t('inventory') }}
           .topbar-dropdown
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'items'}", exact) {{ $t('items') }}
@@ -30,8 +30,8 @@ div
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'stable'}") {{ $t('stable') }}
         li.topbar-item(:class="{'active': $route.path.startsWith('/shop')}")
           .chevron-block
-            .chevron-icon-up(v-html="icons.chevronUp")
-            .chevron-icon-down(v-html="icons.chevronDown")
+            .chevron-icon-up(v-html="icons.chevronUp", v-once)
+            .chevron-icon-down(v-html="icons.chevronDown", v-once)
           router-link.nav-link(:to="{name: 'market'}") {{ $t('shops') }}
           .topbar-dropdown
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'market'}", exact) {{ $t('market') }}
@@ -43,8 +43,8 @@ div
         b-nav-item.topbar-item(@click='openPartyModal()', v-if='!this.user.party._id') {{ $t('party') }}
         li.topbar-item(:class="{'active': $route.path.startsWith('/guilds')}")
           .chevron-block
-            .chevron-icon-up(v-html="icons.chevronUp")
-            .chevron-icon-down(v-html="icons.chevronDown")
+            .chevron-icon-up(v-html="icons.chevronUp", v-once)
+            .chevron-icon-down(v-html="icons.chevronDown", v-once)
           router-link.nav-link(:to="{name: 'tavern'}") {{ $t('guilds') }}
           .topbar-dropdown
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'tavern'}") {{ $t('tavern') }}
@@ -57,16 +57,16 @@ div
             router-link.topbar-dropdown-item.dropdown-item(v-for='group in groupPlans', :key='group._id', :to="{name: 'groupPlanDetailTaskInformation', params: {groupId: group._id}}") {{ group.name }}
         li.topbar-item(:class="{'active': $route.path.startsWith('/challenges')}")
           .chevron-block
-            .chevron-icon-up(v-html="icons.chevronUp")
-            .chevron-icon-down(v-html="icons.chevronDown")
+            .chevron-icon-up(v-html="icons.chevronUp", v-once)
+            .chevron-icon-down(v-html="icons.chevronDown", v-once)
           router-link.nav-link(:to="{name: 'myChallenges'}") {{ $t('challenges') }}
           .topbar-dropdown
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'myChallenges'}") {{ $t('myChallenges') }}
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'findChallenges'}") {{ $t('findChallenges') }}
         li.topbar-item(:class="{'active': $route.path.startsWith('/help')}")
           .chevron-block
-            .chevron-icon-up(v-html="icons.chevronUp")
-            .chevron-icon-down(v-html="icons.chevronDown")
+            .chevron-icon-up(v-html="icons.chevronUp", v-once)
+            .chevron-icon-down(v-html="icons.chevronDown", v-once)
           router-link.nav-link(:to="{name: 'faq'}") {{ $t('help') }}
           .topbar-dropdown
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'faq'}") {{ $t('faq') }}
