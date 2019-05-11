@@ -1341,7 +1341,7 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
     matchingTask.group.id = taskToSync.group.id;
     matchingTask.userId = user._id;
     matchingTask.group.taskId = taskToSync._id;
-    user.tasksOrder[`${taskToSync.type}s`].push(matchingTask._id);
+    user.tasksOrder[`${taskToSync.type}s`].unshift(matchingTask._id);
   } else {
     _.merge(matchingTask, syncableAttrs(taskToSync));
     // Make sure the task is in user.tasksOrder
@@ -1418,6 +1418,30 @@ schema.methods.removeTask = async function groupRemoveTask (task) {
   }, {
     $set: {'group.broken': 'TASK_DELETED'},
   }, {multi: true}).exec();
+
+  // Get Managers
+  const managerIds = Object.keys(group.managers);
+  managerIds.push(group.leader);
+  const managers = await User.find({_id: managerIds}, 'notifications').exec(); // Use this method so we can get access to notifications
+
+  // Remove old notifications
+  let removalPromises = [];
+  managers.forEach((manager) => {
+    let notificationIndex = manager.notifications.findIndex(function findNotification (notification) {
+      return notification && notification.data && notification.data.groupTaskId === task._id && notification.type === 'GROUP_TASK_APPROVAL';
+    });
+
+    if (notificationIndex !== -1) {
+      manager.notifications.splice(notificationIndex, 1);
+      removalPromises.push(manager.save());
+    }
+  });
+
+  removeFromArray(group.tasksOrder[`${task.type}s`], task._id);
+  group.markModified('tasksOrder');
+  removalPromises.push(group.save());
+
+  return await Promise.all(removalPromises);
 };
 
 // Returns true if the user has reached the spam message limit

@@ -33,7 +33,7 @@ export function loadAsyncResource ({store, path, url, deserialize, forceLoad = f
         }
       });
     });
-  } else if (loadingStatus === 'NOT_LOADED' || loadingStatus === 'LOADED' && forceLoad) {
+  } else if (loadingStatus === 'NOT_LOADED' || forceLoad) {
     return axios.get(url).then(response => { // TODO support more params
       resource.loadingStatus = 'LOADED';
       // deserialize can be a promise

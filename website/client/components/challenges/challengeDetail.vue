@@ -376,6 +376,8 @@ export default {
     openMemberProgressModal (member) {
       this.$root.$emit('habitica:challenge:member-progress', {
         progressMemberId: member._id,
+        isLeader: this.isLeader,
+        isAdmin: this.isAdmin,
       });
     },
     async exportChallengeCsv () {

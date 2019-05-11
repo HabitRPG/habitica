@@ -364,12 +364,14 @@ api.getUserChallenges = {
       $and: [{$or: orOptions}],
     };
 
-    if (owned && owned === 'not_owned') {
-      query.$and.push({leader: {$ne: user._id}});
-    }
+    if (owned) {
+      if (owned === 'not_owned') {
+        query.$and = [{leader: {$ne: user._id}}];
+      }
 
-    if (owned && owned === 'owned') {
-      query.$and.push({leader: user._id});
+      if (owned === 'owned') {
+        query.$and = [{leader: user._id}];
+      }
     }
 
     if (req.query.search) {
@@ -400,7 +402,6 @@ api.getUserChallenges = {
     // .populate('leader', nameFields)
     const challenges = await mongoQuery.exec();
 
-
     let resChals = challenges.map(challenge => challenge.toJSON());
 
     resChals = _.orderBy(resChals, [challenge => {
@@ -410,7 +411,7 @@ api.getUserChallenges = {
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
     await Promise.all(resChals.map((chal, index) => {
       return Promise.all([
-        User.findById(chal.leader).select(nameFields).exec(),
+        User.findById(chal.leader).select(`${nameFields} backer contributor`).exec(),
         Group.findById(chal.group).select(basicGroupFields).exec(),
       ]).then(populatedData => {
         resChals[index].leader = populatedData[0] ? populatedData[0].toJSON({minimize: true}) : null;

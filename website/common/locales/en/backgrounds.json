@@ -489,5 +489,13 @@
   "backgroundHalflingsHouseText": "Halfling's House",
   "backgroundHalflingsHouseNotes": "Visit a charming Halfling's House.",
   "backgroundBlossomingDesertText": "Blossoming Desert",
-  "backgroundBlossomingDesertNotes": "Witness a rare superbloom in the Blossoming Desert."
+  "backgroundBlossomingDesertNotes": "Witness a rare superbloom in the Blossoming Desert.",
+
+  "backgrounds052019": "SET 60: Released May 2019",
+  "backgroundDojoText": "Dojo",
+  "backgroundDojoNotes": "Learn new moves in a Dojo.",
+  "backgroundParkWithStatueText": "Park with Statue",
+  "backgroundParkWithStatueNotes": "Follow a flower-lined path through a Park with a Statue.",
+  "backgroundRainbowMeadowText": "Rainbow Meadow",
+  "backgroundRainbowMeadowNotes": "Find the pot of gold where a Rainbow ends in a Meadow."
 }

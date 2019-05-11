@@ -68,7 +68,7 @@
 
         div(v-if='hasSubscription')
           .btn.btn-primary(v-if='canEditCardDetails', @click='showStripeEdit()') {{ $t('subUpdateCard') }}
-          .btn.btn-sm.btn-danger(v-if='canCancelSubscription && !loading', @click='cancelSubscription()') {{ $t('cancelSub') }}
+          .btn.btn-sm.btn-danger(v-if='canCancelSubscription && !loading', @click='cancelSubscriptionConfirm()') {{ $t('cancelSub') }}
           small(v-if='!canCancelSubscription && !hasCanceledSubscription', v-html='getCancelSubInfo()')
 
         .subscribe-pay(v-if='!hasSubscription || hasCanceledSubscription')
@@ -104,7 +104,6 @@
 
 <script>
 import axios from 'axios';
-import moment from 'moment';
 import filter from 'lodash/filter';
 import sortBy from 'lodash/sortBy';
 import min from 'lodash/min';
@@ -234,10 +233,6 @@ export default {
       return {
         amount: this.numberOfMysticHourglasses,
       };
-    },
-    dateTerminated () {
-      if (!this.user.preferences || !this.user.preferences.dateFormat) return this.user.purchased.plan.dateTerminated;
-      return moment(this.user.purchased.plan.dateTerminated).format(this.user.preferences.dateFormat.toUpperCase());
     },
     canCancelSubscription () {
       return (

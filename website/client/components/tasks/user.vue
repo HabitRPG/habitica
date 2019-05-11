@@ -105,6 +105,7 @@
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/create-task.scss';
 
   .user-tasks-page {
     padding-top: 16px;
@@ -116,87 +117,6 @@
 
   .tasks-navigation {
     margin-bottom: 20px;
-  }
-
-  .create-task-area {
-    position: absolute;
-    right: 24px;
-    top: -40px;
-    z-index: 999;
-    height: 60px;
-  }
-
-  .slide-tasks-btns-leave-active, .slide-tasks-btns-enter-active {
-    max-width: 240px;
-    overflow-x: hidden;
-    transition: all 0.3s cubic-bezier(0, 1, 0.5, 1);
-  }
-  .slide-tasks-btns-enter, .slide-tasks-btns-leave-to {
-    max-width: 0;
-    opacity: 0;
-  }
-
-  .rounded-btn {
-    margin-left: 8px;
-    background: $white;
-    width: 48px;
-    height: 48px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 100px;
-    box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
-    cursor: pointer;
-    color: $gray-200;
-
-    &:hover:not(.create-btn) {
-      color: $purple-400;
-      box-shadow: 0 1px 8px 0 rgba($black, 0.12), 0 4px 4px 0 rgba($black, 0.16);
-    }
-
-    .svg-icon {
-      width: 20px;
-      height: 20px;
-
-      &.icon-habit {
-        width: 24px;
-        height: 16px;
-      }
-
-      &.icon-daily {
-        width: 21.6px;
-        height: 18px;
-      }
-
-      &.icon-todo {
-        width: 18px;
-        height: 18px;
-      }
-
-      &.icon-reward {
-        width: 23.4px;
-        height: 18px;
-      }
-    }
-  }
-
-  .create-btn {
-    color: $white;
-    background-color: $green-10;
-
-    .svg-icon {
-      width: 16px;
-      height: 16px;
-      transition: transform 0.3s cubic-bezier(0, 1, 0.5, 1);
-    }
-
-    &.open {
-      background: $gray-200 !important;
-
-      .svg-icon {
-        transform: rotate(-45deg);
-      }
-    }
   }
 
   .filter-icon {
@@ -281,6 +201,7 @@
 
     .custom-control-label {
       margin-left: 10px;
+      word-break: break-word;
     }
 
     .filter-panel-footer {
@@ -305,6 +226,10 @@
         color: $gray-300;
       }
     }
+  }
+
+  .create-task-area {
+    top: -2.5rem;
   }
 
   .drag {

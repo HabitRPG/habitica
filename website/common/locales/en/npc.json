@@ -99,7 +99,7 @@
   "unlocked": "Items have been unlocked",
   "alreadyUnlocked": "Full set already unlocked.",
   "alreadyUnlockedPart": "Full set already partially unlocked.",
-  "invalidQuantity": "Quantity to purchase must be a number.",
+  "invalidQuantity": "Quantity to purchase must be a positive whole number.",
 
   "USD": "(USD)",
   "newStuff": "New Stuff by Bailey",
@@ -121,6 +121,7 @@
   "paymentYouSentSubscription": "You sent <strong><%= name %></strong> a <%= months %>-months Habitica subscription.",
   "paymentSubBilling": "Your subscription will be billed <strong>$<%= amount %></strong> every <strong><%= months %> months</strong>.",
   "paymentAutoRenew": "This subscription will auto-renew until it is canceled. If you need to cancel this subscription, you can do so from your settings.",
+  "paymentCanceledDisputes": "We’ve sent a cancelation confirmation to your email. If you don’t see the email, please contact us to prevent future billing disputes.",
   "success": "Success!",
 
   "classGear": "Class Gear",

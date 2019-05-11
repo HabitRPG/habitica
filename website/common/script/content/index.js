@@ -70,7 +70,7 @@ api.bundles = {
       'owl',
     ],
     canBuy () {
-      return moment().isBetween('2017-05-16', '2017-05-31');
+      return moment().isBetween('2019-05-09', '2019-06-02');
     },
     type: 'quests',
     class: 'quest_bundle_featheredFriends',
@@ -356,12 +356,14 @@ api.timeTravelStable = {
 
 api.dropHatchingPotions = hatchingPotions.drops;
 api.premiumHatchingPotions = hatchingPotions.premium;
+api.wackyHatchingPotions = hatchingPotions.wacky;
 api.hatchingPotions = hatchingPotions.all;
 
 api.pets = stable.dropPets;
 api.premiumPets = stable.premiumPets;
 api.questPets = stable.questPets;
 api.specialPets = stable.specialPets;
+api.wackyPets = stable.wackyPets;
 api.petInfo = stable.petInfo;
 
 api.mounts = stable.dropMounts;

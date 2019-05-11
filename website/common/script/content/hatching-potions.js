@@ -3,7 +3,7 @@ import defaults from 'lodash/defaults';
 import each from 'lodash/each';
 import t from './translation';
 
-const CURRENT_SEASON = 'March';
+const CURRENT_SEASON = '_NONE_';
 
 let drops = {
   Base: {
@@ -170,6 +170,14 @@ let premium = {
   },
 };
 
+const wacky = {
+  Veggie: {
+    text: t('hatchingPotionVeggie'),
+    limited: true,
+    _season: 'March',
+  },
+};
+
 each(drops, (pot, key) => {
   defaults(pot, {
     key,
@@ -203,10 +211,30 @@ each(premium, (pot, key) => {
   });
 });
 
-let all = assign({}, drops, premium);
+each(wacky, (pot, key) => {
+  defaults(pot, {
+    key,
+    value: 2,
+    notes: t('hatchingPotionNotes', {
+      potText: pot.text,
+    }),
+    _addlNotes: t('eventAvailability', {
+      date: t(`dateEnd${pot._season}`),
+    }),
+    premium: false,
+    limited: true,
+    wacky: true,
+    canBuy () {
+      return pot._season === CURRENT_SEASON;
+    },
+  });
+});
+
+let all = assign({}, drops, premium, wacky);
 
 module.exports = {
   drops,
   premium,
+  wacky,
   all,
 };

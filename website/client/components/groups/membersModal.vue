@@ -308,7 +308,7 @@ export default {
       return this.members.length < this.$store.state.memberModalOptions.memberCount;
     },
     groupIsSubscribed () {
-      return this.group.purchased.active;
+      return this.group.purchased && this.group.purchased.active;
     },
     group () {
       return this.$store.state.memberModalOptions.group;

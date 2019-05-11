@@ -172,12 +172,12 @@
     "hourglassPurchase": "Purchased an item using a Mystic Hourglass!",
     "hourglassPurchaseSet": "Purchased an item set using a Mystic Hourglass!",
     "missingUnsubscriptionCode": "Missing un-subscribe code.",
-    "missingSubscription": "User does not have a subscription plan.",
+    "missingSubscription": "User does not have a subscription plan",
     "missingSubscriptionCode": "Missing subscription code. Possible values: basic_earned, basic_3mo, basic_6mo, google_6mo, basic_12mo.",
     "missingReceipt": "Missing Receipt.",
     "cannotDeleteActiveAccount": "You have an active subscription. Cancel your plan before deleting your account.",
-    "paymentNotSuccessful": "The payment was not successful.",
-    "planNotActive": "The plan hasn't activated yet (due to a PayPal bug). It will begin <%= nextBillingDate %>, after which you can cancel to retain your full benefits.",
+    "paymentNotSuccessful": "The payment was not successful",
+    "planNotActive": "The plan hasn't activated yet (due to a PayPal bug). It will begin <%= nextBillingDate %>, after which you can cancel to retain your full benefits",
     "notAllowedHourglass": "Pet/Mount not available for purchase with Mystic Hourglass.",
     "readCard": "<%= cardType %> has been read",
     "cardTypeRequired": "Card type required",
@@ -214,5 +214,6 @@
     "purchaseAll": "Purchase Set",
     "gemsPurchaseNote": "Subscribers can buy gems for gold in the Market! For easy access, you can also pin the gem to your Rewards column.",
     "gemsRemaining": "gems remaining",
-    "notEnoughGemsToBuy": "You are unable to buy that amount of gems"
+    "notEnoughGemsToBuy": "You are unable to buy that amount of gems",
+    "mysterySet201902": "Cryptic Crush Set"
 }

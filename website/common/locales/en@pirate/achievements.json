@@ -1,9 +1,9 @@
 {
-  "achievement": "Achievement",
-  "share": "Share",
-  "onwards": "Onwards!",
-  "levelup": "By accomplishing your real life goals, you leveled up and are now fully healed!",
-  "reachedLevel": "You Reached Level <%= level %>",
-  "achievementLostMasterclasser": "Quest Completionist: Masterclasser Series",
-  "achievementLostMasterclasserText": "Completed all sixteen quests in the Masterclasser Quest Series and solved the mystery of the Lost Masterclasser!"
+    "achievement": "Bounty",
+    "share": "Share",
+    "onwards": "Onwards, towards the ship!",
+    "levelup": "By accomplishin' yer real life goals, ye leveled up n' are now fully healed!",
+    "reachedLevel": "Ye Reached Level <%= level %>",
+    "achievementLostMasterclasser": "Adventure Completionist: Masterclasser Series",
+    "achievementLostMasterclasserText": "Completed all sixteen quests in th' Masterclasser Adventure Series and solved th' mystery of the Lost Masterclasser!"
 }
