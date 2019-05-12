@@ -160,7 +160,7 @@
     "eslint-config-habitrpg": "^4.0.0",
     "eslint-friendly-formatter": "^4.0.1",
     "eslint-loader": "^2.0.0",
-    "eslint-plugin-html": "^4.0.3",
+    "eslint-plugin-html": "^5.0.4",
     "eslint-plugin-mocha": "^5.0.0",
     "eventsource-polyfill": "^0.9.6",
     "expect.js": "^0.3.1",
