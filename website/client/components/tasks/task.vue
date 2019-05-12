@@ -634,8 +634,8 @@ export default {
     },
     timeTillDue () {
       // this.task && is necessary to make sure the computed property updates correctly
-      const endOfToday = moment().endOf('day');
-      const endOfDueDate = moment(this.task && this.task.date).endOf('day');
+      const endOfToday = moment();
+      const endOfDueDate = moment(this.task && this.task.date).startOf('day').add(this.user.preferences.dayStart, 'hours');
 
       return moment.duration(endOfDueDate.diff(endOfToday));
     },
