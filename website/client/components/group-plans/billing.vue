@@ -29,13 +29,14 @@
     .btn.btn-primary(v-if='!group.purchased.plan.dateTerminated && group.purchased.plan.paymentMethod === "Stripe"',
       @click='showStripeEdit({groupId: group.id})') {{ $t('subUpdateCard') }}
     .btn.btn-sm.btn-danger(v-if='!group.purchased.plan.dateTerminated',
-      @click='cancelSubscription({group: group})') {{ $t('cancelGroupSub') }}
+      @click='cancelSubscriptionConfirm({group: group})') {{ $t('cancelGroupSub') }}
 </template>
 
 <script>
 import moment from 'moment';
 import { mapState } from 'client/libs/store';
 import paymentsMixin from 'client/mixins/payments';
+import { CONSTANTS, getLocalSetting, removeLocalSetting } from 'client/libs/userlocalManager';
 
 export default {
   mixins: [paymentsMixin],
@@ -45,8 +46,20 @@ export default {
       group: {},
     };
   },
-  mounted () {
-    this.loadGroup();
+  async mounted () {
+    await this.loadGroup();
+
+    let appState = getLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE);
+    if (appState) {
+      appState = JSON.parse(appState);
+      if (appState.groupPlanCanceled) {
+        removeLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE);
+        this.$root.$emit('habitica:subscription-canceled', {
+          dateTerminated: this.dateTerminated,
+          isGroup: true,
+        });
+      }
+    }
   },
   computed: {
     ...mapState({user: 'user.data'}),

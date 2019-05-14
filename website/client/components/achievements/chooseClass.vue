@@ -164,30 +164,30 @@ export default {
     classGear (heroClass) {
       if (heroClass === 'rogue') {
         return {
-          armor: 'armor_special_spring2019Rogue',
-          head: 'head_special_spring2019Rogue',
-          shield: 'shield_special_spring2019Rogue',
-          weapon: 'weapon_special_spring2019Rogue',
+          armor: 'armor_rogue_5',
+          head: 'head_rogue_5',
+          shield: 'shield_rogue_6',
+          weapon: 'weapon_rogue_6',
         };
       } else if (heroClass === 'wizard') {
         return {
-          armor: 'armor_special_spring2019Mage',
-          head: 'head_special_spring2019Mage',
-          weapon: 'weapon_special_spring2019Mage',
+          armor: 'armor_wizard_5',
+          head: 'head_wizard_5',
+          weapon: 'weapon_wizard_6',
         };
       } else if (heroClass === 'healer') {
         return {
-          armor: 'armor_special_spring2019Healer',
-          head: 'head_special_spring2019Healer',
-          shield: 'shield_special_spring2019Healer',
-          weapon: 'weapon_special_spring2019Healer',
+          armor: 'armor_healer_5',
+          head: 'head_healer_5',
+          shield: 'shield_healer_5',
+          weapon: 'weapon_healer_6',
         };
       } else {
         return {
-          armor: 'armor_special_spring2019Warrior',
-          head: 'head_special_spring2019Warrior',
-          shield: 'shield_special_spring2019Warrior',
-          weapon: 'weapon_special_spring2019Warrior',
+          armor: 'armor_warrior_5',
+          head: 'head_warrior_5',
+          shield: 'shield_warrior_5',
+          weapon: 'weapon_warrior_6',
         };
       }
     },

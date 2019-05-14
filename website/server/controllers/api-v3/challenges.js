@@ -364,12 +364,14 @@ api.getUserChallenges = {
       $and: [{$or: orOptions}],
     };
 
-    if (owned && owned === 'not_owned') {
-      query.$and.push({leader: {$ne: user._id}});
-    }
+    if (owned) {
+      if (owned === 'not_owned') {
+        query.$and = [{leader: {$ne: user._id}}];
+      }
 
-    if (owned && owned === 'owned') {
-      query.$and.push({leader: user._id});
+      if (owned === 'owned') {
+        query.$and = [{leader: user._id}];
+      }
     }
 
     if (req.query.search) {
@@ -399,7 +401,6 @@ api.getUserChallenges = {
     // .populate('group', basicGroupFields)
     // .populate('leader', nameFields)
     const challenges = await mongoQuery.exec();
-
 
     let resChals = challenges.map(challenge => challenge.toJSON());
 

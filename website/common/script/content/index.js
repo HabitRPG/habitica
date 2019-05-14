@@ -70,7 +70,7 @@ api.bundles = {
       'owl',
     ],
     canBuy () {
-      return moment().isBetween('2017-05-16', '2017-05-31');
+      return moment().isBetween('2019-05-09', '2019-06-02');
     },
     type: 'quests',
     class: 'quest_bundle_featheredFriends',
