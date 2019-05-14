@@ -6,7 +6,7 @@ describe('GET /inbox/messages', () => {
   let user;
   let otherUser;
 
-  before(async () => {
+  beforeEach(async () => {
     [user, otherUser] = await Promise.all([generateUser(), generateUser()]);
 
     await otherUser.post('/members/send-private-message', {
@@ -64,6 +64,6 @@ describe('GET /inbox/messages', () => {
   it('returns only the messages of one conversation', async () => {
     const messages = await user.get(`/inbox/messages?conversation=${otherUser.id}`);
 
-    expect(messages.length).to.equal(3);
+    expect(messages.length).to.equal(4);
   });
 });

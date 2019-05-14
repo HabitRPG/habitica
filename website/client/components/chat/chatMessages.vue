@@ -171,7 +171,7 @@ export default {
     triggerLoad () {
       const canLoadMore = this.inbox && !this.isLoading && this.canLoadMore;
       if (canLoadMore) {
-       this.$emit('triggerLoad');
+        this.$emit('triggerLoad');
       }
     },
     canViewFlag (message) {
