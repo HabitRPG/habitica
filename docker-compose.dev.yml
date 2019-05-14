@@ -7,6 +7,8 @@ services:
     command: ["npm", "run", "client:dev"]
     depends_on:
       - server
+    environment:
+      - BASE_URL=http://server:3000
     image: habitica
     networks:
       - habitica
