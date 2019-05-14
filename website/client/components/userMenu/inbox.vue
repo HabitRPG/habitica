@@ -35,7 +35,7 @@
             .time
               span.mr-1(v-if='conversation.username') @{{ conversation.username }} •
               span {{ conversation.date | timeAgo }}
-            div {{conversation.lastMessageText ? conversation.lastMessageText.substring(0, 30) : ''}}
+            div.messagePreview {{ conversation.lastMessageText ? removeTags(parseMarkdown(conversation.lastMessageText)) : '' }}
       .col-8.messages.d-flex.flex-column.justify-content-between
         .empty-messages.text-center(v-if='!selectedConversation.key')
           .svg-icon.envelope(v-html="icons.messageIcon")
@@ -209,6 +209,16 @@
     color: $gray-200;
     margin-bottom: 0.5rem;
   }
+
+  .messagePreview {
+    display: block;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+  }
 </style>
 
 <script>
@@ -218,6 +228,7 @@ import filter from 'lodash/filter';
 import sortBy from 'lodash/sortBy';
 import groupBy from 'lodash/groupBy';
 import { mapState } from 'client/libs/store';
+import habiticaMarkdown from 'habitica-markdown';
 import styleHelper from 'client/mixins/styleHelper';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
 import axios from 'axios';
@@ -499,6 +510,15 @@ export default {
       }
       if (!message.contributor) return;
       return this.icons[`tier${message.contributor.level}`];
+    },
+    removeTags (html) {
+      let tmp = document.createElement('DIV');
+      tmp.innerHTML = html;
+      return tmp.textContent || tmp.innerText || '';
+    },
+    parseMarkdown (text) {
+      if (!text) return;
+      return habiticaMarkdown.render(String(text));
     },
   },
 };
