@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'QUEST BUNDLE: FEATHERED FRIENDS!';
+const LAST_ANNOUNCEMENT_TITLE = 'SUNSHINE AND FLORAL HATCHING POTIONS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,15 +30,14 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>5/9/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>5/14/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_feathered_friends_bundle center-block"></div>
-        <p>If you're a fan of bird pets and mounts, you're in luck! From now until May 31, you can purchase the Feathered Friends Pet Quest Bundle and receive the Parrot, Owl, and Falcon quests, all for only 7 Gems! That's a discount of 5 Gems from the price of purchasing them separately. Check it out in the <a href='/shops/quests'>Quest Shop</a> today!</p>
-        <div class="small">by Lemoness and SabreCat</div>
-        <div class="small">Art by Casey, Teto Forever, Eevachu, UncommonCriminal, JonArinbjorn, Trogdorina, Onheiron, Squish</div>
-        <div class="small mb-3">Writing by Lemoness, Token, and Bartelmy</div>
+        <div class="promo_floral_sunshine_potions center-block"></div>
+        <p>There's a new pet breed in town! Check out the brand-new Sunshine Potions and the return of Floral Potions. You can get them in <a href='/shops/market'>the Market</a> and use them to hatch any standard pet egg. (Magic Hatching Potions do not work on Quest Pet eggs.) Magic Hatching Potion Pets aren't picky, so they'll happily eat any kind of food that you feed them!</p>
+        <p>After they're gone, it will be at least a year before the Sunshine or Floral Hatching Potions are available again, so be sure to get them now!</p>
+        <div class="small mb-3">by OuttaMyMind, Lt.Cabel, Eslyn, Mako, and SabreCat</div>
       </div>
       `,
     });

@@ -10,15 +10,21 @@
   width: 423px;
   height: 147px;
 }
-.promo_mystery_201904 {
+.promo_floral_sunshine_potions {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: -641px 0px;
+  width: 423px;
+  height: 147px;
+}
+.promo_mystery_201904 {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -641px -148px;
   width: 282px;
   height: 147px;
 }
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -641px -148px;
+  background-position: -924px -148px;
   width: 96px;
   height: 69px;
 }
