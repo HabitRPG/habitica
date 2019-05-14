@@ -14,7 +14,7 @@
         .svg-icon.positive-icon(v-html="icons.positive")
       button.btn.btn-secondary.positive-icon(v-if='this.userLoggedIn.contributor.admin && !adminToolsLoaded',
         @click="loadAdminTools()", v-b-tooltip.hover.right="'Admin - Load Tools'")
-        .svg-icon.positive-icon(v-html="icons.edit")
+        .svg-icon.positive-icon(v-html="icons.staff")
       span(v-if='this.userLoggedIn.contributor.admin && adminToolsLoaded')
         button.btn.btn-secondary.positive-icon(v-if='!hero.flags || (hero.flags && !hero.flags.chatRevoked)',
           @click="adminRevokeChat()", v-b-tooltip.hover.bottom="'Admin - Revoke Chat Privileges'")
@@ -407,7 +407,7 @@ import megaphone from 'assets/svg/broken-megaphone.svg';
 import lock from 'assets/svg/lock.svg';
 import challenge from 'assets/svg/challenge.svg';
 import member from 'assets/svg/member-icon.svg';
-import edit from 'assets/svg/edit.svg';
+import staff from 'assets/svg/tier-staff.svg';
 
 export default {
   props: ['userId', 'startingPage'],
@@ -430,7 +430,7 @@ export default {
         challenge,
         lock,
         member,
-        edit,
+        staff,
       }),
       adminToolsLoaded: false,
       userIdToMessage: '',
