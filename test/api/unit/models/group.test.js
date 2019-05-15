@@ -892,6 +892,19 @@ describe('Group Model', () => {
         translationCheck(party.chat[0].text);
       });
 
+      it('translate quest_cancel', () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'quest_cancel',
+            user: questLeader.profile.name,
+            quest: 'basilist',
+          },
+        }];
+        party.translateSystemMessages(questLeader);
+        translationCheck(party.chat[0].text);
+      });
+
       it('translate quest_abort', () => {
         questLeader.preferences.language = 'en';
         party.chat = [{

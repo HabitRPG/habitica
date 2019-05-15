@@ -371,7 +371,14 @@ api.cancelQuest = {
     if (group.quest.active) throw new NotAuthorized(res.t('cantCancelActiveQuest'));
 
     let questName = questScrolls[group.quest.key].text('en');
-    const newChatMessage = group.sendChat(`\`${user.profile.name} cancelled the party quest ${questName}.\``);
+    const newChatMessage = group.sendChat({
+      message: `\`${user.profile.name} cancelled the party quest ${questName}.\``,
+      info: {
+        type: 'quest_cancel',
+        user: user.profile.name,
+        quest: group.quest.key,
+      },
+    });
 
     group.quest = Group.cleanGroupQuest();
     group.markModified('quest');

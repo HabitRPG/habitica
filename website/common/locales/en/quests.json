@@ -134,5 +134,6 @@
   "chatFindItems": "<%= username %> found <%= items %>.",
   "chatItemQuestFinish": "All items found! Party has received their rewards.",
   "chatQuestAborted": "<%= username %> aborted the party quest <%= questName %>.",
+  "chatQuestCancelled": "<%= username %> cancelled the party quest <%= questName %>.",
   "tavernBossTired": "<%= bossName %> tries to unleash <%= rageName %> but is too tired."
 }

@@ -380,6 +380,10 @@ function _translateMessage (lang, info) {
       msg = `\`${shared.i18n.t('chatCastSpellUser', {username: info.user, spell: spells[info.class][info.spell].text(lang), target: info.target}, lang)}\``;
       break;
 
+    case 'quest_cancel':
+      msg = `\`${shared.i18n.t('chatQuestCancelled', {username: info.user, questName: questScrolls[info.quest].text(lang)}, lang)}\``;
+      break;
+
     case 'quest_abort':
       msg = `\`${shared.i18n.t('chatQuestAborted', {username: info.user, questName: questScrolls[info.quest].text(lang)}, lang)}\``;
       break;
