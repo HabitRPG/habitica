@@ -769,7 +769,7 @@ describe('Group Model', () => {
     });
 
     describe('translateSystemMessages', () => {
-      it('translate quest_start', () => {
+      it('translate quest_start', async () => {
         questLeader.preferences.language = 'en';
         party.chat = [{
           info: {
@@ -777,12 +777,11 @@ describe('Group Model', () => {
             quest: 'basilist',
           },
         }];
-        let toJSON = party.toJSON();
-        Group.translateSystemMessages(toJSON, questLeader);
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
         translationCheck(toJSON.chat[0].text);
       });
 
-      it('translate boss_damage', () => {
+      it('translate boss_damage', async () => {
         questLeader.preferences.language = 'en';
         party.chat = [{
           info: {
@@ -793,12 +792,11 @@ describe('Group Model', () => {
             bossDamage: 3.7,
           },
         }];
-        let toJSON = party.toJSON();
-        Group.translateSystemMessages(toJSON, questLeader);
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
         translationCheck(toJSON.chat[0].text);
       });
 
-      it('translate boss_dont_attack', () => {
+      it('translate boss_dont_attack', async () => {
         questLeader.preferences.language = 'en';
         party.chat = [{
           info: {
@@ -808,12 +806,11 @@ describe('Group Model', () => {
             userDamage: 15.3,
           },
         }];
-        let toJSON = party.toJSON();
-        Group.translateSystemMessages(toJSON, questLeader);
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
         translationCheck(toJSON.chat[0].text);
       });
 
-      it('translate boss_rage', () => {
+      it('translate boss_rage', async () => {
         questLeader.preferences.language = 'en';
         party.chat = [{
           info: {
@@ -821,12 +818,11 @@ describe('Group Model', () => {
             quest: 'lostMasterclasser3',
           },
         }];
-        let toJSON = party.toJSON();
-        Group.translateSystemMessages(toJSON, questLeader);
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
         translationCheck(toJSON.chat[0].text);
       });
 
-      it('translate boss_defeated', () => {
+      it('translate boss_defeated', async () => {
         questLeader.preferences.language = 'en';
         party.chat = [{
           info: {
@@ -834,12 +830,11 @@ describe('Group Model', () => {
             quest: 'lostMasterclasser3',
           },
         }];
-        let toJSON = party.toJSON();
-        Group.translateSystemMessages(toJSON, questLeader);
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
         translationCheck(toJSON.chat[0].text);
       });
 
-      it('translate user_found_items', () => {
+      it('translate user_found_items', async () => {
         questLeader.preferences.language = 'en';
         party.chat = [{
           info: {
@@ -853,24 +848,22 @@ describe('Group Model', () => {
             },
           },
         }];
-        let toJSON = party.toJSON();
-        Group.translateSystemMessages(toJSON, questLeader);
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
         translationCheck(toJSON.chat[0].text);
       });
 
-      it('translate all_items_found', () => {
+      it('translate all_items_found', async () => {
         questLeader.preferences.language = 'en';
         party.chat = [{
           info: {
             type: 'all_items_found',
           },
         }];
-        let toJSON = party.toJSON();
-        Group.translateSystemMessages(toJSON, questLeader);
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
         translationCheck(toJSON.chat[0].text);
       });
 
-      it('translate spell_cast_party', () => {
+      it('translate spell_cast_party', async () => {
         questLeader.preferences.language = 'en';
         party.chat = [{
           info: {
@@ -880,12 +873,11 @@ describe('Group Model', () => {
             spell: 'earth',
           },
         }];
-        let toJSON = party.toJSON();
-        Group.translateSystemMessages(toJSON, questLeader);
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
         translationCheck(toJSON.chat[0].text);
       });
 
-      it('translate spell_cast_user', () => {
+      it('translate spell_cast_user', async () => {
         questLeader.preferences.language = 'en';
         party.chat = [{
           info: {
@@ -896,12 +888,11 @@ describe('Group Model', () => {
             target: participatingMember.profile.name,
           },
         }];
-        let toJSON = party.toJSON();
-        Group.translateSystemMessages(toJSON, questLeader);
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
         translationCheck(toJSON.chat[0].text);
       });
 
-      it('translate quest_cancel', () => {
+      it('translate quest_cancel', async () => {
         questLeader.preferences.language = 'en';
         party.chat = [{
           info: {
@@ -910,12 +901,11 @@ describe('Group Model', () => {
             quest: 'basilist',
           },
         }];
-        let toJSON = party.toJSON();
-        Group.translateSystemMessages(toJSON, questLeader);
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
         translationCheck(toJSON.chat[0].text);
       });
 
-      it('translate quest_abort', () => {
+      it('translate quest_abort', async () => {
         questLeader.preferences.language = 'en';
         party.chat = [{
           info: {
@@ -924,12 +914,11 @@ describe('Group Model', () => {
             quest: 'basilist',
           },
         }];
-        let toJSON = party.toJSON();
-        Group.translateSystemMessages(toJSON, questLeader);
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
         translationCheck(toJSON.chat[0].text);
       });
 
-      it('translate tavern_quest_completed', () => {
+      it('translate tavern_quest_completed', async () => {
         questLeader.preferences.language = 'en';
         party.chat = [{
           info: {
@@ -937,12 +926,11 @@ describe('Group Model', () => {
             quest: 'stressbeast',
           },
         }];
-        let toJSON = party.toJSON();
-        Group.translateSystemMessages(toJSON, questLeader);
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
         translationCheck(toJSON.chat[0].text);
       });
 
-      it('translate tavern_boss_rage_tired', () => {
+      it('translate tavern_boss_rage_tired', async () => {
         questLeader.preferences.language = 'en';
         party.chat = [{
           info: {
@@ -950,12 +938,11 @@ describe('Group Model', () => {
             quest: 'stressbeast',
           },
         }];
-        let toJSON = party.toJSON();
-        Group.translateSystemMessages(toJSON, questLeader);
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
         translationCheck(toJSON.chat[0].text);
       });
 
-      it('translate tavern_boss_rage', () => {
+      it('translate tavern_boss_rage', async () => {
         questLeader.preferences.language = 'en';
         party.chat = [{
           info: {
@@ -964,12 +951,11 @@ describe('Group Model', () => {
             scene: 'market',
           },
         }];
-        let toJSON = party.toJSON();
-        Group.translateSystemMessages(toJSON, questLeader);
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
         translationCheck(toJSON.chat[0].text);
       });
 
-      it('translate tavern_boss_desperation', () => {
+      it('translate tavern_boss_desperation', async () => {
         questLeader.preferences.language = 'en';
         party.chat = [{
           info: {
@@ -977,12 +963,11 @@ describe('Group Model', () => {
             quest: 'stressbeast',
           },
         }];
-        let toJSON = party.toJSON();
-        Group.translateSystemMessages(toJSON, questLeader);
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
         translationCheck(toJSON.chat[0].text);
       });
 
-      it('translate claim_task', () => {
+      it('translate claim_task', async () => {
         questLeader.preferences.language = 'en';
         party.chat = [{
           info: {
@@ -991,9 +976,47 @@ describe('Group Model', () => {
             task: 'Feed the pet',
           },
         }];
-        let toJSON = party.toJSON();
-        Group.translateSystemMessages(toJSON, questLeader);
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
         translationCheck(toJSON.chat[0].text);
+      });
+    });
+
+    describe('toJSONCleanChat', () => {
+      it('shows messages with 1 flag to non-admins', async () => {
+        party.chat = [{
+          flagCount: 1,
+          info: {
+            type: 'quest_start',
+            quest: 'basilist',
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        expect(toJSON.chat.length).to.equal(1);
+      });
+
+      it('shows messages with >= 2 flag to admins', async () => {
+        party.chat = [{
+          flagCount: 3,
+          info: {
+            type: 'quest_start',
+            quest: 'basilist',
+          },
+        }];
+        const admin = new User({'contributor.admin': true});
+        let toJSON = await Group.toJSONCleanChat(party, admin);
+        expect(toJSON.chat.length).to.equal(1);
+      });
+
+      it('doesn\'t show flagged messages to non-admins', async () => {
+        party.chat = [{
+          flagCount: 3,
+          info: {
+            type: 'quest_start',
+            quest: 'basilist',
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        expect(toJSON.chat.length).to.equal(0);
       });
     });
   });

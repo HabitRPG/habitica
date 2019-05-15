@@ -333,19 +333,6 @@ schema.statics.getGroups = async function getGroups (options = {}) {
   return groupsArray;
 };
 
-function _translateSystemMessages (toJSON, user) {
-  let lang = user.preferences ? user.preferences.language : 'en';
-
-  toJSON.chat.map(chat => {
-    if (!_.isEmpty(chat.info)) {
-      chat.text = translateMessage(lang, chat.info);
-    }
-    return chat;
-  });
-}
-
-schema.statics.translateSystemMessages = _translateSystemMessages;
-
 // When converting to json remove chat messages with more than 1 flag and remove all flags info
 // unless the user is an admin or said chat is posted by that user
 // Not putting into toJSON because there we can't access user
@@ -357,27 +344,38 @@ schema.statics.toJSONCleanChat = async function groupToJSONCleanChat (group, use
     await getGroupChat(group);
   }
 
-  let toJSON = group.toJSON();
-  _translateSystemMessages(toJSON, user);
+  const groupToJson = group.toJSON();
+  const userLang = user.preferences.language;
 
-  if (!user.contributor.admin) {
-    _.remove(toJSON.chat, chatMsg => {
-      chatMsg.flags = {};
-      if (chatMsg._meta) chatMsg._meta = undefined;
-      return user._id !== chatMsg.uuid && chatMsg.flagCount >= 2;
-    });
-  }
+  groupToJson.chat = groupToJson.chat
+    .map(chatMsg => {
+      // Translate system messages
+      if (!_.isEmpty(chatMsg.info)) {
+        chatMsg.text = translateMessage(userLang, chatMsg.info);
+      }
 
-  // Convert to timestamps because Android expects it
-  toJSON.chat.forEach(chat => {
-    // old chats are saved with a numeric timestamp
-    // new chats use `Date` which then has to be converted to the numeric timestamp
-    if (chat.timestamp && chat.timestamp.getTime) {
-      chat.timestamp = chat.timestamp.getTime();
-    }
-  });
+      // Convert to timestamps because Android expects it
+      // old chats are saved with a numeric timestamp
+      // new chats use `Date` which then has to be converted to the numeric timestamp
+      if (chatMsg.timestamp && chatMsg.timestamp.getTime) {
+        chatMsg.timestamp = chatMsg.timestamp.getTime();
+      }
 
-  return toJSON;
+      if (!user.contributor.admin) {
+        // Flags are hidden to non admins
+        chatMsg.flags = {};
+        if (chatMsg._meta) chatMsg._meta = undefined;
+
+        // Messages with >= 2 flags are hidden to non admins and non authors
+        if (user._id !== chatMsg.uuid && chatMsg.flagCount >= 2) return undefined;
+      }
+
+      return chatMsg;
+    })
+    // Used to filter for undefined chat messages that should not be shown to non-admins
+    .filter(chatMsg => chatMsg !== undefined);
+
+  return groupToJson;
 };
 
 function getInviteError (uuids, emails, usernames) {

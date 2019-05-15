@@ -375,7 +375,8 @@ api.getGroup = {
   method: 'GET',
   url: '/groups/:groupId',
   middlewares: [authWithHeaders({
-    userFieldsToInclude: ['_id', 'party', 'guilds', 'contributor'],
+    // Some fields (including _id, preferences) are always loaded (see middlewares/auth)
+    userFieldsToInclude: ['party', 'guilds', 'contributor'],
   })],
   async handler (req, res) {
     let user = res.locals.user;
