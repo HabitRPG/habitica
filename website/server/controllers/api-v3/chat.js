@@ -186,7 +186,7 @@ api.postChat = {
     if (client) {
       client = client.replace('habitica-', '');
     }
-    const newChatMessage = group.sendChat(req.body.message, user, null, client);
+    const newChatMessage = group.sendChat({message: req.body.message, user, metaData: null, client});
     let toSave = [newChatMessage.save()];
 
     if (group.type === 'party') {

@@ -141,7 +141,14 @@ describe('POST /groups/:groupId/quests/cancel', () => {
       members: {},
     });
     expect(Group.prototype.sendChat).to.be.calledOnce;
-    expect(Group.prototype.sendChat).to.be.calledWithMatch(/cancelled the party quest Wail of the Whale.`/);
+    expect(Group.prototype.sendChat).to.be.calledWithMatch({
+      message: sinon.match(/cancelled the party quest Wail of the Whale.`/),
+      info: {
+        quest: 'whale',
+        type: 'quest_cancel',
+        user: sinon.match.any,
+      },
+    });
 
     stub.restore();
   });
