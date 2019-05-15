@@ -1,9 +1,5 @@
 import {inboxModel as Inbox} from '../../models/message';
-import {
-  model as User,
-} from '../../models/user';
 import orderBy from 'lodash/orderBy';
-import keyBy from 'lodash/keyBy';
 
 const PM_PER_PAGE = 10;
 
@@ -40,35 +36,30 @@ export async function getUserInbox (user, options = {asArray: true, page: 0, con
   }
 }
 
-export async function listConversations (user) {
+export async function listConversations (owner) {
   let query = Inbox
     .aggregate([
       {
         $match: {
-          ownerId: user._id,
+          ownerId: owner._id,
         },
       },
       {
         $group: {
           _id: '$uuid',
+          user: {$first: '$user' },
+          username: {$first: '$username' },
           timestamp: {$max: '$timestamp'}, // sort before group doesn't work - use the max value to sort it again after
         },
       },
     ]);
 
   const conversationsList = orderBy(await query.exec(), ['timestamp'], ['desc']);
-  const userList = conversationsList.map(c => c._id);
 
-  const users = await User.find({_id: {$in: userList}})
-    .select('_id profile.name auth.local.username')
-    .lean()
-    .exec();
-
-  const usersMap = keyBy(users, '_id');
-  const conversations = conversationsList.map(({_id, timestamp}) => ({
-    uuid: usersMap[_id]._id,
-    user: usersMap[_id].profile.name,
-    username: usersMap[_id].auth.local.username,
+  const conversations = conversationsList.map(({_id, user, username, timestamp}) => ({
+    uuid: _id,
+    user,
+    username,
     timestamp,
   }));
 
