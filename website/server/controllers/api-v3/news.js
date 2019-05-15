@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'APRIL SUBSCRIBER ITEMS!';
+const LAST_ANNOUNCEMENT_TITLE = 'QUEST BUNDLE: FEATHERED FRIENDS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,13 +30,15 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>4/25/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>5/9/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <p>The April Subscriber Item Set has been revealed: <a href='/user/settings/subscription'>the Opulent Opal Item Set</a>! You only have until April 30 to receive the item set when you subscribe. If you're already an active subscriber, reload the site and then head to Inventory > Items to claim your gear!</p>
-        <p>Subscribers also receive the ability to buy Gems for Gold -- the longer you subscribe, the more gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
-        <div class="small mb-3">by Beffymaroo</div>
+        <div class="promo_feathered_friends_bundle center-block"></div>
+        <p>If you're a fan of bird pets and mounts, you're in luck! From now until May 31, you can purchase the Feathered Friends Pet Quest Bundle and receive the Parrot, Owl, and Falcon quests, all for only 7 Gems! That's a discount of 5 Gems from the price of purchasing them separately. Check it out in the <a href='/shops/quests'>Quest Shop</a> today!</p>
+        <div class="small">by Lemoness and SabreCat</div>
+        <div class="small">Art by Casey, Teto Forever, Eevachu, UncommonCriminal, JonArinbjorn, Trogdorina, Onheiron, Squish</div>
+        <div class="small mb-3">Writing by Lemoness, Token, and Bartelmy</div>
       </div>
       `,
     });
