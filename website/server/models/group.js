@@ -408,20 +408,6 @@ function _translateMessage (lang, info) {
   return msg;
 }
 
-function _translateSystemMessages (group, user) {
-  let lang = user.preferences.language;
-
-  group.chat.forEach((chat, i, chatArray) => {
-    if (!_.isEmpty(chat.info)) {
-      chatArray[i].text = _translateMessage(lang, chat.info);
-    }
-  });
-
-  return group;
-}
-
-schema.statics.translateSystemMessages = _translateSystemMessages;
-
 // When converting to json remove chat messages with more than 1 flag and remove all flags info
 // unless the user is an admin or said chat is posted by that user
 // Not putting into toJSON because there we can't access user
@@ -433,7 +419,7 @@ schema.statics.toJSONCleanChat = async function groupToJSONCleanChat (group, use
     await getGroupChat(group);
   }
 
-  group = _translateSystemMessages(group, user);
+  group.translateSystemMessages(group, user);
 
   let toJSON = group.toJSON();
 
@@ -539,6 +525,16 @@ schema.statics.validateInvitations = async function getInvitationError (invites,
       throw new BadRequest(res.t('partyExceedsMembersLimit', {maxMembersParty: shared.constants.PARTY_LIMIT_MEMBERS}));
     }
   }
+};
+
+schema.methods.translateSystemMessages = function translateSystemMessages (user) {
+  let lang = user.preferences ? user.preferences.language : 'en';
+
+  this.chat.forEach((chat, i, chatArray) => {
+    if (!_.isEmpty(chat.info)) {
+      chatArray[i].text = _translateMessage(lang, chat.info);
+    }
+  });
 };
 
 schema.methods.getParticipatingQuestMembers = function getParticipatingQuestMembers () {
