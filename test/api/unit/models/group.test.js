@@ -777,7 +777,7 @@ describe('Group Model', () => {
             quest: 'basilist',
           },
         }];
-        party = Group.translateSystemMessages(party, questLeader);
+        party.translateSystemMessages(questLeader);
         translationCheck(party.chat[0].text);
       });
 
@@ -792,7 +792,7 @@ describe('Group Model', () => {
             bossDamage: 3.7,
           },
         }];
-        party = Group.translateSystemMessages(party, questLeader);
+        party.translateSystemMessages(questLeader);
         translationCheck(party.chat[0].text);
       });
 
@@ -806,7 +806,7 @@ describe('Group Model', () => {
             userDamage: 15.3,
           },
         }];
-        party = Group.translateSystemMessages(party, questLeader);
+        party.translateSystemMessages(questLeader);
         translationCheck(party.chat[0].text);
       });
 
@@ -818,7 +818,7 @@ describe('Group Model', () => {
             quest: 'lostMasterclasser3',
           },
         }];
-        party = Group.translateSystemMessages(party, questLeader);
+        party.translateSystemMessages(questLeader);
         translationCheck(party.chat[0].text);
       });
 
@@ -830,7 +830,7 @@ describe('Group Model', () => {
             quest: 'lostMasterclasser3',
           },
         }];
-        party = Group.translateSystemMessages(party, questLeader);
+        party.translateSystemMessages(questLeader);
         translationCheck(party.chat[0].text);
       });
 
@@ -848,7 +848,7 @@ describe('Group Model', () => {
             },
           },
         }];
-        party = Group.translateSystemMessages(party, questLeader);
+        party.translateSystemMessages(questLeader);
         translationCheck(party.chat[0].text);
       });
 
@@ -859,7 +859,7 @@ describe('Group Model', () => {
             type: 'all_items_found',
           },
         }];
-        party = Group.translateSystemMessages(party, questLeader);
+        party.translateSystemMessages(questLeader);
         translationCheck(party.chat[0].text);
       });
 
@@ -873,7 +873,7 @@ describe('Group Model', () => {
             spell: 'earth',
           },
         }];
-        party = Group.translateSystemMessages(party, questLeader);
+        party.translateSystemMessages(questLeader);
         translationCheck(party.chat[0].text);
       });
 
@@ -888,7 +888,7 @@ describe('Group Model', () => {
             target: participatingMember.profile.name,
           },
         }];
-        party = Group.translateSystemMessages(party, questLeader);
+        party.translateSystemMessages(questLeader);
         translationCheck(party.chat[0].text);
       });
 
@@ -901,7 +901,7 @@ describe('Group Model', () => {
             quest: 'basilist',
           },
         }];
-        party = Group.translateSystemMessages(party, questLeader);
+        party.translateSystemMessages(questLeader);
         translationCheck(party.chat[0].text);
       });
 
@@ -913,7 +913,7 @@ describe('Group Model', () => {
             quest: 'stressbeast',
           },
         }];
-        party = Group.translateSystemMessages(party, questLeader);
+        party.translateSystemMessages(questLeader);
         translationCheck(party.chat[0].text);
       });
 
@@ -925,7 +925,7 @@ describe('Group Model', () => {
             quest: 'stressbeast',
           },
         }];
-        party = Group.translateSystemMessages(party, questLeader);
+        party.translateSystemMessages(questLeader);
         translationCheck(party.chat[0].text);
       });
 
@@ -938,7 +938,7 @@ describe('Group Model', () => {
             scene: 'market',
           },
         }];
-        party = Group.translateSystemMessages(party, questLeader);
+        party.translateSystemMessages(questLeader);
         translationCheck(party.chat[0].text);
       });
 
@@ -950,7 +950,7 @@ describe('Group Model', () => {
             quest: 'stressbeast',
           },
         }];
-        party = Group.translateSystemMessages(party, questLeader);
+        party.translateSystemMessages(questLeader);
         translationCheck(party.chat[0].text);
       });
 
@@ -963,7 +963,7 @@ describe('Group Model', () => {
             task: 'Feed the pet',
           },
         }];
-        party = Group.translateSystemMessages(party, questLeader);
+        party.translateSystemMessages(questLeader);
         translationCheck(party.chat[0].text);
       });
     });
