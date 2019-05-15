@@ -333,6 +333,19 @@ schema.statics.getGroups = async function getGroups (options = {}) {
   return groupsArray;
 };
 
+function _translateSystemMessages (toJSON, user) {
+  let lang = user.preferences ? user.preferences.language : 'en';
+
+  toJSON.chat.map(chat => {
+    if (!_.isEmpty(chat.info)) {
+      chat.text = translateMessage(lang, chat.info);
+    }
+    return chat;
+  });
+}
+
+schema.statics.translateSystemMessages = _translateSystemMessages;
+
 // When converting to json remove chat messages with more than 1 flag and remove all flags info
 // unless the user is an admin or said chat is posted by that user
 // Not putting into toJSON because there we can't access user
@@ -344,9 +357,8 @@ schema.statics.toJSONCleanChat = async function groupToJSONCleanChat (group, use
     await getGroupChat(group);
   }
 
-  group.translateSystemMessages(user);
-
   let toJSON = group.toJSON();
+  _translateSystemMessages(toJSON, user);
 
   if (!user.contributor.admin) {
     _.remove(toJSON.chat, chatMsg => {
@@ -450,16 +462,6 @@ schema.statics.validateInvitations = async function getInvitationError (invites,
       throw new BadRequest(res.t('partyExceedsMembersLimit', {maxMembersParty: shared.constants.PARTY_LIMIT_MEMBERS}));
     }
   }
-};
-
-schema.methods.translateSystemMessages = function translateSystemMessages (user) {
-  let lang = user.preferences ? user.preferences.language : 'en';
-
-  this.chat.forEach((chat, i, chatArray) => {
-    if (!_.isEmpty(chat.info)) {
-      chatArray[i].text = translateMessage(lang, chat.info);
-    }
-  });
 };
 
 schema.methods.getParticipatingQuestMembers = function getParticipatingQuestMembers () {

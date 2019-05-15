@@ -777,8 +777,9 @@ describe('Group Model', () => {
             quest: 'basilist',
           },
         }];
-        party.translateSystemMessages(questLeader);
-        translationCheck(party.chat[0].text);
+        let toJSON = party.toJSON();
+        Group.translateSystemMessages(toJSON, questLeader);
+        translationCheck(toJSON.chat[0].text);
       });
 
       it('translate boss_damage', () => {
@@ -792,8 +793,9 @@ describe('Group Model', () => {
             bossDamage: 3.7,
           },
         }];
-        party.translateSystemMessages(questLeader);
-        translationCheck(party.chat[0].text);
+        let toJSON = party.toJSON();
+        Group.translateSystemMessages(toJSON, questLeader);
+        translationCheck(toJSON.chat[0].text);
       });
 
       it('translate boss_dont_attack', () => {
@@ -806,8 +808,9 @@ describe('Group Model', () => {
             userDamage: 15.3,
           },
         }];
-        party.translateSystemMessages(questLeader);
-        translationCheck(party.chat[0].text);
+        let toJSON = party.toJSON();
+        Group.translateSystemMessages(toJSON, questLeader);
+        translationCheck(toJSON.chat[0].text);
       });
 
       it('translate boss_rage', () => {
@@ -818,8 +821,9 @@ describe('Group Model', () => {
             quest: 'lostMasterclasser3',
           },
         }];
-        party.translateSystemMessages(questLeader);
-        translationCheck(party.chat[0].text);
+        let toJSON = party.toJSON();
+        Group.translateSystemMessages(toJSON, questLeader);
+        translationCheck(toJSON.chat[0].text);
       });
 
       it('translate boss_defeated', () => {
@@ -830,8 +834,9 @@ describe('Group Model', () => {
             quest: 'lostMasterclasser3',
           },
         }];
-        party.translateSystemMessages(questLeader);
-        translationCheck(party.chat[0].text);
+        let toJSON = party.toJSON();
+        Group.translateSystemMessages(toJSON, questLeader);
+        translationCheck(toJSON.chat[0].text);
       });
 
       it('translate user_found_items', () => {
@@ -848,8 +853,9 @@ describe('Group Model', () => {
             },
           },
         }];
-        party.translateSystemMessages(questLeader);
-        translationCheck(party.chat[0].text);
+        let toJSON = party.toJSON();
+        Group.translateSystemMessages(toJSON, questLeader);
+        translationCheck(toJSON.chat[0].text);
       });
 
       it('translate all_items_found', () => {
@@ -859,8 +865,9 @@ describe('Group Model', () => {
             type: 'all_items_found',
           },
         }];
-        party.translateSystemMessages(questLeader);
-        translationCheck(party.chat[0].text);
+        let toJSON = party.toJSON();
+        Group.translateSystemMessages(toJSON, questLeader);
+        translationCheck(toJSON.chat[0].text);
       });
 
       it('translate spell_cast_party', () => {
@@ -873,8 +880,9 @@ describe('Group Model', () => {
             spell: 'earth',
           },
         }];
-        party.translateSystemMessages(questLeader);
-        translationCheck(party.chat[0].text);
+        let toJSON = party.toJSON();
+        Group.translateSystemMessages(toJSON, questLeader);
+        translationCheck(toJSON.chat[0].text);
       });
 
       it('translate spell_cast_user', () => {
@@ -888,8 +896,9 @@ describe('Group Model', () => {
             target: participatingMember.profile.name,
           },
         }];
-        party.translateSystemMessages(questLeader);
-        translationCheck(party.chat[0].text);
+        let toJSON = party.toJSON();
+        Group.translateSystemMessages(toJSON, questLeader);
+        translationCheck(toJSON.chat[0].text);
       });
 
       it('translate quest_cancel', () => {
@@ -901,8 +910,9 @@ describe('Group Model', () => {
             quest: 'basilist',
           },
         }];
-        party.translateSystemMessages(questLeader);
-        translationCheck(party.chat[0].text);
+        let toJSON = party.toJSON();
+        Group.translateSystemMessages(toJSON, questLeader);
+        translationCheck(toJSON.chat[0].text);
       });
 
       it('translate quest_abort', () => {
@@ -914,8 +924,9 @@ describe('Group Model', () => {
             quest: 'basilist',
           },
         }];
-        party.translateSystemMessages(questLeader);
-        translationCheck(party.chat[0].text);
+        let toJSON = party.toJSON();
+        Group.translateSystemMessages(toJSON, questLeader);
+        translationCheck(toJSON.chat[0].text);
       });
 
       it('translate tavern_quest_completed', () => {
@@ -926,8 +937,9 @@ describe('Group Model', () => {
             quest: 'stressbeast',
           },
         }];
-        party.translateSystemMessages(questLeader);
-        translationCheck(party.chat[0].text);
+        let toJSON = party.toJSON();
+        Group.translateSystemMessages(toJSON, questLeader);
+        translationCheck(toJSON.chat[0].text);
       });
 
       it('translate tavern_boss_rage_tired', () => {
@@ -938,8 +950,9 @@ describe('Group Model', () => {
             quest: 'stressbeast',
           },
         }];
-        party.translateSystemMessages(questLeader);
-        translationCheck(party.chat[0].text);
+        let toJSON = party.toJSON();
+        Group.translateSystemMessages(toJSON, questLeader);
+        translationCheck(toJSON.chat[0].text);
       });
 
       it('translate tavern_boss_rage', () => {
@@ -951,8 +964,9 @@ describe('Group Model', () => {
             scene: 'market',
           },
         }];
-        party.translateSystemMessages(questLeader);
-        translationCheck(party.chat[0].text);
+        let toJSON = party.toJSON();
+        Group.translateSystemMessages(toJSON, questLeader);
+        translationCheck(toJSON.chat[0].text);
       });
 
       it('translate tavern_boss_desperation', () => {
@@ -963,8 +977,9 @@ describe('Group Model', () => {
             quest: 'stressbeast',
           },
         }];
-        party.translateSystemMessages(questLeader);
-        translationCheck(party.chat[0].text);
+        let toJSON = party.toJSON();
+        Group.translateSystemMessages(toJSON, questLeader);
+        translationCheck(toJSON.chat[0].text);
       });
 
       it('translate claim_task', () => {
@@ -976,8 +991,9 @@ describe('Group Model', () => {
             task: 'Feed the pet',
           },
         }];
-        party.translateSystemMessages(questLeader);
-        translationCheck(party.chat[0].text);
+        let toJSON = party.toJSON();
+        Group.translateSystemMessages(toJSON, questLeader);
+        translationCheck(toJSON.chat[0].text);
       });
     });
   });
