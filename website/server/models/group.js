@@ -344,7 +344,7 @@ schema.statics.toJSONCleanChat = async function groupToJSONCleanChat (group, use
     await getGroupChat(group);
   }
 
-  group.translateSystemMessages(group, user);
+  group.translateSystemMessages(user);
 
   let toJSON = group.toJSON();
 
