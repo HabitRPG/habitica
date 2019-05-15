@@ -43,7 +43,7 @@
                     span.text {{ $t('delete') }}
 
           .task-notes.small-text(
-            v-html="task.notes",
+            v-markdown="task.notes",
             :class="{'has-checklist': task.notes && hasChecklist}",
           )
         .checklist(v-if="canViewchecklist", :class="{isOpen: !task.collapseChecklist}")
