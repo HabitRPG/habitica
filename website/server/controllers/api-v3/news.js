@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'SUNSHINE AND FLORAL HATCHING POTIONS!';
+const LAST_ANNOUNCEMENT_TITLE = 'GUILD SPOTLIGHT: THE LATEST NEW AND NOTABLE GUILDS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -34,10 +34,9 @@ api.getNews = {
           </div>
         </div>
         <hr/>
-        <div class="promo_floral_sunshine_potions center-block"></div>
-        <p>There's a new pet breed in town! Check out the brand-new Sunshine Potions and the return of Floral Potions. You can get them in <a href='/shops/market'>the Market</a> and use them to hatch any standard pet egg. (Magic Hatching Potions do not work on Quest Pet eggs.) Magic Hatching Potion Pets aren't picky, so they'll happily eat any kind of food that you feed them!</p>
-        <p>After they're gone, it will be at least a year before the Sunshine or Floral Hatching Potions are available again, so be sure to get them now!</p>
-        <div class="small mb-3">by OuttaMyMind, Lt.Cabel, Eslyn, Mako, and SabreCat</div>
+        <div class="scene_languages center-block"></div>
+        <p>There's a new <a href='https://habitica.wordpress.com/2019/05/16/new-and-notable-guild-spotlight-5/' target='_blank'>Guild Spotlight on the blog</a> that highlights yet more new and upcoming Guilds! Check it out now to find new communities where you can discuss your goals and interests.</p>
+        <div class="small mb-3">by shanaqui</div>
       </div>
       `,
     });
