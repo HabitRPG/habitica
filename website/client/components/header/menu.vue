@@ -188,9 +188,9 @@ div
         }
 
         .down .rotate .chevron-icon-down {
-          transform: rotate(180deg);
-     -moz-transform: rotate(180deg);
-  -webkit-transform: rotate(180deg);
+          transform: rotate(-180deg);
+     -moz-transform: rotate(-180deg);
+  -webkit-transform: rotate(-180deg);
           }
 
         .topbar-item {
