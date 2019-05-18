@@ -159,7 +159,7 @@
                 | {{ $t(frequency) }}
 
         .option.group-options(v-if='groupId')
-          .form-group(v-if="task.type === 'todo'")
+          .form-group(v-if="task.type === 'todo' || task.type === 'daily'")
             label(v-once) {{ $t('sharedCompletion') }}
             b-dropdown.inline-dropdown(:text="$t(sharedCompletion)")
               b-dropdown-item(
