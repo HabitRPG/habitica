@@ -1,4 +1,6 @@
 import * as Tasks from '../models/task';
+import {model as Groups} from '../models/group';
+import {model as Users} from '../models/user/index';
 
 const SHARED_COMPLETION = {
   default: 'recurringCompletion',
@@ -11,14 +13,39 @@ async function _completeMasterTask (masterTask) {
   await masterTask.save();
 }
 
-async function _deleteUnfinishedTasks (groupMemberTask) {
-  await Tasks.Task.deleteMany({
-    'group.taskId': groupMemberTask.group.taskId,
-    $and: [
-      {userId: {$exists: true}},
-      {userId: {$ne: groupMemberTask.userId}},
-    ],
-  }).exec();
+async function _deleteOrCompleteUnfinishedTasks (groupMemberTask) {
+  if (groupMemberTask.type == 'todo') {
+    // The task was done by one person and is removed from others' lists
+    await Tasks.Task.deleteMany({
+      'group.taskId': groupMemberTask.group.taskId,
+      $and: [
+        {userId: {$exists: true}},
+        {userId: {$ne: groupMemberTask.userId}},
+      ],
+    }).exec();
+  } else {
+    // Complete the task on other users' lists
+    await Tasks.Task.find({
+      'group.taskId': groupMemberTask.group.taskId,
+      $and: [
+        {userId: {$exists: true}},
+        {userId: {$ne: groupMemberTask.userId}}
+      ]},
+      function (err, tasks) {
+        // @REVIEW How does Habitica handle errors?
+        if (err) return;
+
+        tasks.forEach (task => {
+          // @REVIEW Completed or notDue tasks have no effect at cron
+          // This maintain's the user's streak without scoring the task if someone else completed the task
+          // If no assignedUser completes the due daily, all users lose their streaks at their cron
+          // An alternative is to set the other assignedUsers' tasks to a later startDate
+          // Should we break their streaks to encourage competition for the daily?
+          task.completed = true;
+          task.save();
+        });
+      });
+  }
 }
 
 async function _evaluateAllAssignedCompletion (masterTask) {
@@ -45,10 +72,10 @@ async function handleSharedCompletion (groupMemberTask) {
     _id: groupMemberTask.group.taskId,
   }).exec();
 
-  if (!masterTask || !masterTask.group || masterTask.type !== 'todo') return;
+  if (!masterTask || !masterTask.group || masterTask.type == 'habit') return;
 
   if (masterTask.group.sharedCompletion === SHARED_COMPLETION.single) {
-    await _deleteUnfinishedTasks(groupMemberTask);
+    await _deleteOrCompleteUnfinishedTasks(groupMemberTask);
     await _completeMasterTask(masterTask);
   } else if (masterTask.group.sharedCompletion === SHARED_COMPLETION.every) {
     await _evaluateAllAssignedCompletion(masterTask);
