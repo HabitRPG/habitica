@@ -178,7 +178,7 @@ div
 
         .chevron-icon-down {
           width: 14px;
-          top: 10px;
+          top: 11px;
           right: 12px;
           position: absolute;
           display: block;
@@ -269,8 +269,17 @@ div
     font-weight: bold;
     transition: none;
 
-    .topbar-dropdown {
-      display: none; // Display is set to block on hover.
+    .topbar-dropdown  {
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height 0.25s ease;
+   -moz-transition: max-height 0.25s ease;
+-webkit-transition: max-height 0.25s ease;
+
+        .topbar-dropdown-item {
+          line-height: 1.5;
+          font-size: 16px;
+        }
     }
 
     >a {
@@ -282,7 +291,6 @@ div
       background: $purple-200;
 
       .topbar-dropdown {
-        display: block; // Open drop-down on hover.
         margin-top: 0; // Remove gap between navbar and drop-down.
         background: $purple-200;
         border-radius: 0px;
@@ -479,9 +487,16 @@ export default {
 
       if (downedElement && clikedElement !== downedElement) {
         downedElement.classList.remove('down');
+        downedElement.lastChild.style.maxHeight = 0;
       }
 
       clikedElement.classList.toggle('down');
+
+      if (clikedElement.classList.contains('down')) {
+        clikedElement.lastChild.style.maxHeight = clikedElement.lastChild.scrollHeight + "px";
+      } else {
+        clikedElement.lastChild.style.maxHeight = 0;
+      }
     },
   },
 };
