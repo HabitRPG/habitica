@@ -474,7 +474,14 @@ export default {
       this.$root.$emit('bv::show::modal', 'buy-gems', {alreadyTracked: true});
     },
     dropdown (click) {
-      click.currentTarget.parentElement.classList.toggle('down');
+      let clikedElement = click.currentTarget.parentElement;
+      let downedElement = document.getElementsByClassName('down')[0];
+
+      if (downedElement && clikedElement !== downedElement) {
+        downedElement.classList.remove('down');
+      }
+
+      clikedElement.classList.toggle('down');
     },
   },
 };
