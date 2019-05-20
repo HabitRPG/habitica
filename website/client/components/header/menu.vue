@@ -17,52 +17,52 @@ div
       user-dropdown.item-with-icon
     b-collapse#menu_collapse(v-model="menuIsOpen").collapse.navbar-collapse
       b-navbar-nav.menu-list
-        b-nav-item.topbar-item(@click="closeMenu()", tag="li", :to="{name: 'tasks'}", exact) {{ $t('tasks') }}
+        b-nav-item.topbar-item(tag="li", :to="{name: 'tasks'}", exact) {{ $t('tasks') }}
         li.topbar-item(:class="{'active': $route.path.startsWith('/inventory')}")
           .chevron.rotate(@click="dropdown")
             .chevron-icon-down(v-html="icons.chevronDown", v-once)
-          router-link.nav-link(@click.native="closeMenu", :to="{name: 'items'}") {{ $t('inventory') }}
-          .topbar-dropdown(@click="closeMenu")
+          router-link.nav-link(:to="{name: 'items'}") {{ $t('inventory') }}
+          .topbar-dropdown
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'items'}", exact) {{ $t('items') }}
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'equipment'}") {{ $t('equipment') }}
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'stable'}") {{ $t('stable') }}
         li.topbar-item(:class="{'active': $route.path.startsWith('/shop')}")
           .chevron.rotate(@click="dropdown")
             .chevron-icon-down(v-html="icons.chevronDown", v-once)
-          router-link.nav-link(@click.native="closeMenu", :to="{name: 'market'}") {{ $t('shops') }}
-          .topbar-dropdown(@click="closeMenu")
+          router-link.nav-link(:to="{name: 'market'}") {{ $t('shops') }}
+          .topbar-dropdown
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'market'}", exact) {{ $t('market') }}
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'quests'}") {{ $t('quests') }}
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'seasonal'}") {{ $t('titleSeasonalShop') }}
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'time'}") {{ $t('titleTimeTravelers') }}
-        b-nav-item.topbar-item(@click="closeMenu()", tag="li", :to="{name: 'party'}", v-if='this.user.party._id') {{ $t('party') }}
-        b-nav-item.topbar-item(@click='openPartyModal(); closeMenu()', v-if='!this.user.party._id') {{ $t('party') }}
+        b-nav-item.topbar-item(tag="li", :to="{name: 'party'}", v-if='this.user.party._id') {{ $t('party') }}
+        b-nav-item.topbar-item(@click='openPartyModal()', v-if='!this.user.party._id') {{ $t('party') }}
         li.topbar-item(:class="{'active': $route.path.startsWith('/guilds')}")
           .chevron.rotate(@click="dropdown")
             .chevron-icon-down(v-html="icons.chevronDown", v-once)
-          router-link.nav-link(@click.native="closeMenu", :to="{name: 'tavern'}") {{ $t('guilds') }}
-          .topbar-dropdown(@click="closeMenu")
+          router-link.nav-link(:to="{name: 'tavern'}") {{ $t('guilds') }}
+          .topbar-dropdown
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'tavern'}") {{ $t('tavern') }}
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'myGuilds'}") {{ $t('myGuilds') }}
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'guildsDiscovery'}") {{ $t('guildsDiscovery') }}
         li.topbar-item(:class="{'active': $route.path.startsWith('/group-plans')}")
           .chevron.rotate(@click="dropdown", v-if="groupPlans.length > 0")
             .chevron-icon-down(v-html="icons.chevronDown", v-once)
-          router-link.nav-link(@click.native="closeMenu", :to="{name: 'groupPlan'}") {{ $t('group') }}
-          .topbar-dropdown(@click="closeMenu")
+          router-link.nav-link(:to="{name: 'groupPlan'}") {{ $t('group') }}
+          .topbar-dropdown
             router-link.topbar-dropdown-item.dropdown-item(v-for='group in groupPlans', :key='group._id', :to="{name: 'groupPlanDetailTaskInformation', params: {groupId: group._id}}") {{ group.name }}
         li.topbar-item(:class="{'active': $route.path.startsWith('/challenges')}")
           .chevron.rotate(@click="dropdown")
             .chevron-icon-down(v-html="icons.chevronDown", v-once)
-          router-link.nav-link(@click.native="closeMenu", :to="{name: 'myChallenges'}") {{ $t('challenges') }}
-          .topbar-dropdown(@click="closeMenu")
+          router-link.nav-link(:to="{name: 'myChallenges'}") {{ $t('challenges') }}
+          .topbar-dropdown
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'myChallenges'}") {{ $t('myChallenges') }}
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'findChallenges'}") {{ $t('findChallenges') }}
         li.topbar-item(:class="{'active': $route.path.startsWith('/help')}")
           .chevron.rotate(@click="dropdown")
             .chevron-icon-down(v-html="icons.chevronDown", v-once)
-          router-link.nav-link(@click.native="closeMenu", :to="{name: 'faq'}") {{ $t('help') }}
-          .topbar-dropdown(@click="closeMenu")
+          router-link.nav-link(:to="{name: 'faq'}") {{ $t('help') }}
+          .topbar-dropdown
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'faq'}") {{ $t('faq') }}
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'overview'}") {{ $t('overview') }}
             router-link.topbar-dropdown-item.dropdown-item(to="/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac") {{ $t('reportBug') }}
@@ -456,6 +456,9 @@ export default {
   },
   mounted () {
     this.getUserGroupPlans();
+    Array.from(document.getElementById('menu_collapse').getElementsByTagName('a')).forEach(link => {
+      link.addEventListener('click', this.closeMenu);
+    });
   },
   methods: {
     modForm () {
