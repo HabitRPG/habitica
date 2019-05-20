@@ -4,7 +4,10 @@
     .col-12
       copy-as-todo-modal(:group-type='groupType', :group-name='groupName', :group-id='groupId')
   .row.loadmore
-    button.btn.btn-secondary(v-if="canLoadMore", @click='triggerLoad()') {{ $t('loadMore') }}
+    div(v-if="canLoadMore")
+      .loadmore-divider
+      button.btn.btn-secondary(@click='triggerLoad()') {{ $t('loadEarlierMessages') }}
+      .loadmore-divider
     h2.col-12.loading(v-show="isLoading") {{ $t('loading') }}
   div(v-for="(msg, index) in messages", v-if='chat && canViewFlag(msg)', :class='{row: inbox}')
     .d-flex(v-if='user._id !== msg.uuid', :class='{"flex-grow-1": inbox}')
@@ -51,6 +54,34 @@
   .avatar {
     width: 10%;
     min-width: 7rem;
+  }
+  .loadmore {
+    justify-content: center;
+
+    > div {
+      display: flex;
+      width: 100%;
+      align-items: center;
+
+      button {
+        text-align: center;
+        color: $gray-50;
+        margin-top: 12px;
+        margin-bottom: 24px;
+      }
+    }
+  }
+
+  .loadmore-divider {
+    height: 1px;
+    background-color: $gray-500;
+    flex: 1;
+    margin-left: 24px;
+    margin-right: 24px;
+
+    &:last-of-type {
+      margin-right: 0;
+    }
   }
 
   .avatar-left {
@@ -101,10 +132,7 @@
     min-width: 1px;
   }
 
-  .loadmore {
-    justify-content: center;
-    margin: 2px;
-  }
+
 </style>
 
 <script>
