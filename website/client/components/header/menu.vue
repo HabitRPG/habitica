@@ -185,14 +185,10 @@ div
           position: absolute;
           display: block;
           transition: transform 0.25s ease;
-     -moz-transition: transform 0.25s ease;
-  -webkit-transition: transform 0.25s ease;
         }
 
         .down .rotate .chevron-icon-down {
           transform: rotate(-180deg);
-     -moz-transform: rotate(-180deg);
-  -webkit-transform: rotate(-180deg);
           }
 
         .topbar-item {
@@ -275,8 +271,6 @@ div
         overflow: hidden;
         max-height: 0;
         transition: max-height 0.25s ease;
-   -moz-transition: max-height 0.25s ease;
--webkit-transition: max-height 0.25s ease;
 
         .topbar-dropdown-item {
           line-height: 1.5;
