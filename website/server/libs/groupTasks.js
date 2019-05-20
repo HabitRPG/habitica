@@ -26,23 +26,22 @@ async function _updateAssignedUsersTasks (masterTask, groupMemberTask) {
       }).exec();
     } else {
       // The task was uncompleted by the group member and should be recreated for assignedUsers
-      let group = await Groups.findById(masterTask.group.id);
+      let group = await Groups.findById(masterTask.group.id).exec();
       let userList = [];
       masterTask.group.assignedUsers.forEach(userId => {
         let query = {_id: userId};
         userList.push(query);
       });
-      // @REVIEW There has to be a better way to do this
-      // async arrow function callback to the find and/or a forEach resulted in Mongoose ParallelSaveErrors
-      let assignedUsers = await Users.find({
-          $or: userList
-        }).exec();
-      for (let i=0; i < assignedUsers.length; i++) {
-        let promises = [];
-        promises.push(group.syncTask(masterTask, assignedUsers[i]));
-        promises.push(group.save());
-        await Promise.all(promises);
-      }
+      await Users.find({
+        $or: userList
+      }).then(async assignedUsers => {
+        for (const assignedUser of assignedUsers) {
+          let promises = [];
+          promises.push(group.syncTask(masterTask, assignedUser));
+          promises.push(group.save());
+          await Promise.all(promises);
+        }
+      });
     }
   } else {
     // Complete or uncomplete the task on other users' lists
@@ -51,11 +50,7 @@ async function _updateAssignedUsersTasks (masterTask, groupMemberTask) {
       $and: [
         {userId: {$exists: true}},
         {userId: {$ne: groupMemberTask.userId}}
-      ]},
-      function (err, tasks) {
-        // @REVIEW How does Habitica handle errors?
-        if (err) return;
-
+      ]}).then(tasks => {
         tasks.forEach (task => {
           // Ajdust the task's completion to match the groupMemberTask
           // @REVIEW Completed or notDue tasks have no effect at cron
