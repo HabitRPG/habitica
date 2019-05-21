@@ -5,6 +5,13 @@ import t from './translation';
 
 const CURRENT_SEASON = 'May';
 
+function hasQuestAchievementFunction (key) {
+  return (user) => {
+    return user.achievements.quests &&
+      user.achievements.quests[key] > 0;
+  };
+}
+
 let drops = {
   Base: {
     value: 2,
@@ -173,6 +180,13 @@ let premium = {
     text: t('hatchingPotionSunshine'),
     limited: true,
     _season: 'May',
+  },
+  Bronze: {
+    value: 2,
+    text: t('hatchingPotionBronze'),
+    limited: true,
+    _season: 'March',
+    canBuy: hasQuestAchievementFunction('bronze'),
   },
 };
 

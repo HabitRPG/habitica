@@ -740,5 +740,12 @@
   "questVelociraptorUnlockText": "Unlocks purchasable Velociraptor eggs in the Market",
 
   "mythicalMarvelsText": "Mythical Marvels Quest Bundle",
-  "mythicalMarvelsNotes": "Contains 'Convincing the Unicorn Queen,' 'The Fiery Gryphon,' and 'Danger in the Depths: Sea Serpent Strike!' Available until February 28."
+  "mythicalMarvelsNotes": "Contains 'Convincing the Unicorn Queen,' 'The Fiery Gryphon,' and 'Danger in the Depths: Sea Serpent Strike!' Available until February 28.",
+
+  "questBronzeText": "Brazen Beetle Battle",
+  "questBronzeNotes": "On a refreshing break between tasks, you and some friends take a stroll through the forest trails of the Taskwoods. You come upon a large hollow log and a sparkle from inside catches your attention.<br><br>Why, it's a cache of Magic Hatching Potions! The shimmering bronze liquid swirls gently in the bottles, and @Hachiseiko reaches to pick one up to examine it.<br><br>“Halt!” hisses a voice from behind you. It's a gigantic beetle with a carapace of gleaming bronze, raising her clawed feet in a fight stance. “Those are my potions, and if you wish to earn them you must prove yourself in a gentlefolks' duel!”",
+  "questBronzeCompletion": "“Well met, warrior!” says the beetle as she settles to the ground. Is she smiling? It's hard to tell from those mandibles. “You've truly earned these potions!”<br<br>“Oh wow, what an exciting reward!” says @UncommonCriminal, turning a shimmering bottle in their hand. “Let's go hatch our new pets!”",
+  "questBronzeBoss": "Brazen Beetle",
+  "questBronzeDropBronzePotion": "Bronze Hatching Potion",
+  "questBronzeUnlockText": "Unlocks purchasable Bronze hatching potions in the Market"
 }

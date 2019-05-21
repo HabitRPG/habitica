@@ -3353,7 +3353,38 @@ let quests = {
       unlock: t('questVelociraptorUnlockText'),
     },
   },
-
+  bronze: {
+    text: t('questBronzeText'),
+    notes: t('questBronzeNotes'),
+    completion: t('questBronzeCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questBronzeBoss'),
+      hp: 800,
+      str: 2,
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Bronze',
+          text: t('questBronzeDropBronzePotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Bronze',
+          text: t('questBronzeDropBronzePotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Bronze',
+          text: t('questBronzeDropBronzePotion'),
+        },
+      ],
+      gp: 63,
+      exp: 575,
+      unlock: t('questBronzeUnlockText'),
+    },
+  },
 };
 
 each(quests, (v, key) => {
