@@ -3358,7 +3358,7 @@ let quests = {
     notes: t('questBronzeNotes'),
     completion: t('questBronzeCompletion'),
     value: 4,
-    category: 'pet',
+    category: 'hatchingPotion',
     boss: {
       name: t('questBronzeBoss'),
       hp: 800,
