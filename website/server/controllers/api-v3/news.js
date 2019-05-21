@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'GUILD SPOTLIGHT: THE LATEST NEW AND NOTABLE GUILDS!';
+const LAST_ANNOUNCEMENT_TITLE = 'NEW MAGIC HATCHING POTION QUEST!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,13 +30,13 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>5/14/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>5/21/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="scene_languages center-block"></div>
-        <p>There's a new <a href='https://habitica.wordpress.com/2019/05/16/new-and-notable-guild-spotlight-5/' target='_blank'>Guild Spotlight on the blog</a> that highlights yet more new and upcoming Guilds! Check it out now to find new communities where you can discuss your goals and interests.</p>
-        <div class="small mb-3">by shanaqui</div>
+        <p>Great news, Habiticans! We're introducing a new type of Quest which will reward you and your party members with never-before-released Magic Hatching Potions. Get the first ever Magic Hatching Potion quest, Brazen Beetle Battle, and defeat the boss to earn bewitching Bronze Magic Hatching Potions by completing your real-life tasks. Check it out in the <a href='/shops/quests'>Quest Shop</a> today!</p>
+        <div class="small mb-3">by Beffymaroo, Hachiseiko, UncommonCriminal, redphoenix, and SabreCat</div>
+        <div class="promo_bronze_quest center-block"></div>
       </div>
       `,
     });

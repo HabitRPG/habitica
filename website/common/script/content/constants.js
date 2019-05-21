@@ -209,5 +209,6 @@ export const ITEM_LIST = {
 export const USER_CAN_OWN_QUEST_CATEGORIES = [
   'unlockable',
   'gold',
+  'hatchingPotion',
   'pet',
 ];
