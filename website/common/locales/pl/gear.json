@@ -19,7 +19,7 @@
     "sortByStr": "SIŁ",
     "sortByInt": "INT",
     "weapon": "broń",
-    "weaponCapitalized": "Przedmiot w Głównej ręce",
+    "weaponCapitalized": "Przedmiot w głównej ręce",
     "weaponBase0Text": "Bez broni",
     "weaponBase0Notes": "Bez broni.",
     "weaponWarrior0Text": "Miecz treningowy",
@@ -28,7 +28,7 @@
     "weaponWarrior1Notes": "Miecz zwykłego żołnierza. Zwiększa Siłę o <%= str %>.",
     "weaponWarrior2Text": "Topór",
     "weaponWarrior2Notes": "Dwustronna broń sieczna. Zwiększa Siłę o <%= str %>",
-    "weaponWarrior3Text": "Morgensztern",
+    "weaponWarrior3Text": "Gwiazda Poranna",
     "weaponWarrior3Notes": "Ciężka maczuga z ostrymi kolcami. Zwiększa Siłę o <%= str %>.",
     "weaponWarrior4Text": "Szafirowy miecz",
     "weaponWarrior4Notes": "Miecz, którego ostrze kąsa niczym północny wiatr. Zwiększa Siłę o <%= str %>.",
@@ -792,8 +792,8 @@
     "armorArmoireCoachDriverLiveryNotes": "This heavy overcoat will protect you from the weather as you drive. Plus it looks pretty snazzy, too! Increases Strength by <%= str %>. Enchanted Armoire: Coach Driver Set (Item 1 of 3).",
     "armorArmoireRobeOfDiamondsText": "Diamentowa Szata",
     "armorArmoireRobeOfDiamondsNotes": "These royal robes not only make you appear noble, they allow you to see the nobility within others. Increases Perception by <%= per %>. Enchanted Armoire: King of Diamonds Set (Item 1 of 4).",
-    "armorArmoireFlutteryFrockText": "Fluttery Frock",
-    "armorArmoireFlutteryFrockNotes": "A light and airy gown with a wide skirt the butterflies might mistake for a giant blossom! Increases Constitution, Perception, and Strength by <%= attrs %> each. Enchanted Armoire: Fluttery Frock Set (Item 1 of 4).",
+    "armorArmoireFlutteryFrockText": "Trzepocząca Suknia",
+    "armorArmoireFlutteryFrockNotes": "Lekka i zwiewna suknia z szeroką spódnicą, którą motyle mogą pomylić z ogromnym kwiatem! Zwiększa Kondycję, Percepcję i Siłę, każdą o <%= attrs %>. Zaczarowana Szafa: Zestaw Trzepoczącej Sukni (Przedmiot 1 z 4).",
     "armorArmoireCobblersCoverallsText": "Cobbler's Coveralls",
     "armorArmoireCobblersCoverallsNotes": "These sturdy coveralls have lots of pockets for tools, leather scraps, and other useful items! Increases Perception and Strength by <%= attrs %> each. Enchanted Armoire: Cobbler Set (Item 1 of 3).",
     "armorArmoireGlassblowersCoverallsText": "Glassblower's Coveralls",
@@ -1753,5 +1753,8 @@
     "shieldArmoireMightyPizzaNotes": "Jasne, to całkiem dobra tarcza, ale my zdecydowanie doradzamy, żebyś zjadł tę świetną pizzę! Zwiększa Percepcję o <%= per %>. Zaczarowana Skrzynia: Zestaw Szefa Kuchni (przedmiot 4 z 4). ",
     "weaponArmoireChefsSpoonNotes": "Unieś ją kiedy wykrzyczysz swój okrzyk bitewny \"ŁYYYŻKA!!\" Zwiększa inteligencje o <%= int %>. Zaczarowana Skrzynia: Zestaw Szefa Kuchni (przedmiot 3 z 4).",
     "weaponArmoireVernalTaperText": "Wiosenna Świeca",
-    "weaponArmoireVernalTaperNotes": "Dni robią się coraz dłuższe, ale ta świeca pomoże Ci znaleźć drogę przed świtem. Zwiększa kondycję o <%= con %>. Zaczarowana Skrzynia: Zestaw Wiosenne Szaty (przedmiot 3 z 3)."
+    "weaponArmoireVernalTaperNotes": "Dni robią się coraz dłuższe, ale ta świeca pomoże Ci znaleźć drogę przed świtem. Zwiększa kondycję o <%= con %>. Zaczarowana Skrzynia: Zestaw Wiosenne Szaty (przedmiot 3 z 3).",
+    "armorArmoireChefsJacketText": "Fartuch szefa kuchni",
+    "armorArmoireChefsJacketNotes": "Jest to gruby, dwurzędowy, bawełniany fartuch ochraniający przed ochlapaniem (i wygodny, bo można nosić na lewą stronę...). Zwiększa Inteligencję o <%= int %>. Zaczarowana szafa: Zestaw szefa kuchni (przedmiot 2 z 4).",
+    "armorArmoireVernalVestmentText": "Wiosenna szata"
 }
