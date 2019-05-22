@@ -60,6 +60,7 @@ export default {
         'weeklyRecaps',
         'onboarding',
         'majorUpdates',
+        'subscriptionReminders',
       ]),
       // list of email-only notifications
       onlyEmailsIds: Object.freeze([
@@ -67,6 +68,7 @@ export default {
         'importantAnnouncements',
         'weeklyRecaps',
         'onboarding',
+        'subscriptionReminders',
       ]),
     };
   },
