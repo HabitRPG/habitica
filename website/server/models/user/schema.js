@@ -481,6 +481,7 @@ let schema = new Schema({
       weeklyRecaps: {$type: Boolean, default: true},
       onboarding: {$type: Boolean, default: true},
       majorUpdates: {$type: Boolean, default: true},
+      subscriptionReminders: {$type: Boolean, default: true},
     },
     pushNotifications: {
       unsubscribeFromAll: {$type: Boolean, default: false},
