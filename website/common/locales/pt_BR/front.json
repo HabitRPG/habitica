@@ -305,7 +305,7 @@
     "alreadyHaveAccountLogin": "Já possui uma conta no Habitica? <strong>Faça login.</strong>",
     "dontHaveAccountSignup": "Não possui uma conta no Habitica? <strong>Cadastre-se.</strong>",
     "motivateYourself": "Motive-se a alcançar seus objetivos.",
-    "timeToGetThingsDone": "É hora de se divertir enquanto termina seus afazeres! Junte-se a mais de<%= userCountInMillions %> milhões de Habiticanos e melhore sua vida uma tarefa por vez.",
+    "timeToGetThingsDone": "É hora de se divertir enquanto termina seus afazeres! Junte-se a mais de <%= userCountInMillions %> milhões de Habiticanos e melhore sua vida uma tarefa por vez.",
     "singUpForFree": "Cadastre-se De Graça",
     "or": "OU",
     "gamifyYourLife": "Gamifique Sua Vida",
