@@ -8,6 +8,7 @@ const SHARED_COMPLETION = {
   every: 'allAssignedCompletion',
 };
 
+// @TODO Group task scoring
 async function _completeOrUncompleteMasterTask (masterTask, completed) {
   masterTask.completed = completed;
   await masterTask.save();
@@ -52,12 +53,11 @@ async function _updateAssignedUsersTasks (masterTask, groupMemberTask) {
         {userId: {$ne: groupMemberTask.userId}}
       ]}).then(tasks => {
         tasks.forEach (task => {
-          // Ajdust the task's completion to match the groupMemberTask
-          // @REVIEW Completed or notDue tasks have no effect at cron
+          // Adjust the task's completion to match the groupMemberTask
+          // Completed or notDue dailies have little effect at cron (MP replenishment for completed dailies)
           // This maintain's the user's streak without scoring the task if someone else completed the task
           // If no assignedUser completes the due daily, all users lose their streaks at their cron
-          // An alternative is to set the other assignedUsers' tasks to a later startDate
-          // Should we break their streaks to encourage competition for the daily?
+          // @TODO Should we break their streaks or increase their value to encourage competition for the daily?
           task.completed = groupMemberTask.completed;
           task.save();
         });
