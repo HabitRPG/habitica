@@ -1756,5 +1756,6 @@
     "armorArmoireChefsJacketNotes": "Esta chaqueta de algodón grueso es de doble capa para protegerte de derrames (y convenientemente reversible……). Aumenta la Inteligencia en <%= int %>. Armario Encantado: Conjunto de Chef (Item 2 de 4).",
     "armorArmoireVernalVestmentText": "Vestimenta Vernal",
     "armorArmoireVernalVestmentNotes": "Esta sedosa túnica es perfecta para disfrutar con estilo el tiempo primaveral. Aumenta la Fuerza y la Inteligencia en <%= attrs %> cada una. Armario Encantado: Conjunto de Vestimentas Vernales (Item 2 de 3).",
-    "headArmoireToqueBlancheText": "Toga Blanca"
+    "headArmoireToqueBlancheText": "Toga Blanca",
+    "headArmoireToqueBlancheNotes": "De acuerdo con la leyenda, ¡el número de pliegues en este sombrero indica la cantidad de maneras en que sabes cocinar un huevo! ¿Es correcto? Incrementa la percepción en <%= por %>. Armadura encantada: conjunto de chef (artículo 1 de 4)."
 }
