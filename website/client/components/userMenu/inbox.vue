@@ -389,7 +389,7 @@ export default {
       if (this.user.flags.chatRevoked) {
         return {
           title: this.$t('PMPlaceholderTitleRevoked'),
-          description: this.$t('PMPlaceholderDescriptionRevoked'),
+          description: this.$t('chatPrivilegesRevoked'),
         };
       }
       return {
