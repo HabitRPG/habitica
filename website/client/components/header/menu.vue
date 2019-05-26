@@ -17,7 +17,7 @@ div
       user-dropdown.item-with-icon
     b-collapse#menu_collapse(v-model="menuIsOpen").collapse.navbar-collapse
       b-navbar-nav.menu-list
-        b-nav-item.topbar-item(tag="li", :to="{name: 'tasks'}", exact) {{ $t('tasks') }}
+        b-nav-item.topbar-item(:class="{'active': $route.path === '/'}" tag="li", :to="{name: 'tasks'}", exact) {{ $t('tasks') }}
         li.topbar-item(:class="{'active': $route.path.startsWith('/inventory')}")
           .chevron.rotate(@click="dropdown")
             .chevron-icon-down(v-html="icons.chevronDown", v-once)
@@ -35,9 +35,9 @@ div
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'quests'}") {{ $t('quests') }}
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'seasonal'}") {{ $t('titleSeasonalShop') }}
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'time'}") {{ $t('titleTimeTravelers') }}
-        b-nav-item.topbar-item(tag="li", :to="{name: 'party'}", v-if='this.user.party._id') {{ $t('party') }}
-        b-nav-item.topbar-item(@click='openPartyModal()', v-if='!this.user.party._id') {{ $t('party') }}
-        li.topbar-item(:class="{'active': $route.path.startsWith('/guilds')}")
+        b-nav-item.topbar-item(:class="{'active': $route.path.startsWith('/party')}" tag="li", :to="{name: 'party'}", v-if='this.user.party._id') {{ $t('party') }}
+        b-nav-item.topbar-item(:class="{'active': $route.path.startsWith('/party')}" @click='openPartyModal()', v-if='!this.user.party._id') {{ $t('party') }}
+        li.topbar-item(:class="{'active': $route.path.startsWith('/groups')}")
           .chevron.rotate(@click="dropdown")
             .chevron-icon-down(v-html="icons.chevronDown", v-once)
           router-link.nav-link(:to="{name: 'tavern'}") {{ $t('guilds') }}
