@@ -15,7 +15,7 @@ async function _completeOrUncompleteMasterTask (masterTask, completed) {
 }
 
 async function _updateAssignedUsersTasks (masterTask, groupMemberTask) {
-  if (groupMemberTask.type == 'todo') {
+  if (groupMemberTask.type === 'todo') {
     if (groupMemberTask.completed) {
       // The task was done by one person and is removed from others' lists
       await Tasks.Task.deleteMany({
@@ -34,7 +34,7 @@ async function _updateAssignedUsersTasks (masterTask, groupMemberTask) {
         userList.push(query);
       });
       await Users.find({
-        $or: userList
+        $or: userList,
       }).then(async assignedUsers => {
         for (const assignedUser of assignedUsers) {
           let promises = [];
@@ -52,7 +52,7 @@ async function _updateAssignedUsersTasks (masterTask, groupMemberTask) {
         {userId: {$exists: true}},
         {userId: {$ne: groupMemberTask.userId}}
       ]}).then(tasks => {
-        tasks.forEach (task => {
+        tasks.forEach(task => {
           // Adjust the task's completion to match the groupMemberTask
           // Completed or notDue dailies have little effect at cron (MP replenishment for completed dailies)
           // This maintain's the user's streak without scoring the task if someone else completed the task
@@ -79,7 +79,7 @@ async function _evaluateAllAssignedCompletion (masterTask) {
       completed: true,
     }).exec();
   }
-  await _completeOrUncompleteMasterTask(masterTask, (completions >= masterTask.group.assignedUsers.length));
+  await _completeOrUncompleteMasterTask(masterTask, completions >= masterTask.group.assignedUsers.length);
 }
 
 async function handleSharedCompletion (groupMemberTask) {
@@ -87,7 +87,7 @@ async function handleSharedCompletion (groupMemberTask) {
     _id: groupMemberTask.group.taskId,
   }).exec();
 
-  if (!masterTask || !masterTask.group || masterTask.type == 'habit') return;
+  if (!masterTask || !masterTask.group || masterTask.type === 'habit') return;
 
   if (masterTask.group.sharedCompletion === SHARED_COMPLETION.single) {
     await _updateAssignedUsersTasks(masterTask, groupMemberTask);
