@@ -16,21 +16,6 @@ div
       notification-menu.item-with-icon
       user-dropdown.item-with-icon
     b-collapse#menu_collapse(v-model="menuIsOpen").collapse.navbar-collapse
-      .currency-tray.form-inline
-        .item-with-icon(v-if="userHourglasses > 0")
-          .top-menu-icon.svg-icon(v-html="icons.hourglasses", v-b-tooltip.hover.bottom="$t('mysticHourglassesTooltip')")
-          span {{ userHourglasses }}
-        .item-with-icon
-          .top-menu-icon.svg-icon.gem(v-html="icons.gem", @click='showBuyGemsModal("gems")', v-b-tooltip.hover.bottom="$t('gems')")
-          span {{userGems}}
-        .item-with-icon.gold
-          .top-menu-icon.svg-icon(v-html="icons.gold", v-b-tooltip.hover.bottom="$t('gold')")
-          span {{Math.floor(user.stats.gp * 100) / 100}}
-      .form-inline.desktop-only
-        a.item-with-icon(@click="sync", v-b-tooltip.hover.bottom="$t('sync')")
-          .top-menu-icon.svg-icon(v-html="icons.sync")
-        notification-menu.item-with-icon
-        user-dropdown.item-with-icon
       b-navbar-nav.menu-list
         b-nav-item.topbar-item(:class="{'active': $route.path === '/'}" tag="li", :to="{name: 'tasks'}", exact) {{ $t('tasks') }}
         li.topbar-item(:class="{'active': $route.path.startsWith('/inventory'), 'down': $route.path.startsWith('/inventory') && this.isDesktop()}").droppable
@@ -86,6 +71,21 @@ div
             a.topbar-dropdown-item.dropdown-item(href="http://habitica.fandom.com/wiki/Contributing_to_Habitica", target='_blank') {{ $t('contributing') }}
             a.topbar-dropdown-item.dropdown-item(href="http://habitica.fandom.com/wiki/Habitica_Wiki", target='_blank') {{ $t('wiki') }}
             a.topbar-dropdown-item.dropdown-item(@click='modForm()') {{ $t('contactForm') }}
+      .currency-tray.form-inline
+        .item-with-icon(v-if="userHourglasses > 0")
+          .top-menu-icon.svg-icon(v-html="icons.hourglasses", v-b-tooltip.hover.bottom="$t('mysticHourglassesTooltip')")
+          span {{ userHourglasses }}
+        .item-with-icon
+          .top-menu-icon.svg-icon.gem(v-html="icons.gem", @click='showBuyGemsModal("gems")', v-b-tooltip.hover.bottom="$t('gems')")
+          span {{userGems}}
+        .item-with-icon.gold
+          .top-menu-icon.svg-icon(v-html="icons.gold", v-b-tooltip.hover.bottom="$t('gold')")
+          span {{Math.floor(user.stats.gp * 100) / 100}}
+      .form-inline.desktop-only
+        a.item-with-icon(@click="sync", v-b-tooltip.hover.bottom="$t('sync')")
+          .top-menu-icon.svg-icon(v-html="icons.sync")
+        notification-menu.item-with-icon
+        user-dropdown.item-with-icon
 </template>
 
 <style lang="scss" scoped>
