@@ -267,7 +267,7 @@
   "missingNewPassword": "Missing new password.",
   "invalidEmailDomain": "You cannot register with emails with the following domains: <%= domains %>",
   "wrongPassword": "Wrong password.",
-  "incorrectDeletePhrase": "Please type <%= magicWord %> in all caps to delete your account.",
+  "incorrectDeletePhrase": "Please type <%= magicWord %> in all capital letters to delete your account.",
   "notAnEmail": "Invalid email address.",
   "emailTaken": "Email address is already used in an account.",
   "newEmailRequired": "Missing new email address.",
