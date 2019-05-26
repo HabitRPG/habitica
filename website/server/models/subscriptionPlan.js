@@ -15,6 +15,7 @@ export let schema = new mongoose.Schema({
   extraMonths: {$type: Number, default: 0},
   gemsBought: {$type: Number, default: 0},
   mysteryItems: {$type: Array, default: () => []},
+  lastReminderDate: Date, // indicates the last time a subscription reminder was sent
   lastBillingDate: Date, // Used only for Amazon Payments to keep track of billing date
   additionalData: mongoose.Schema.Types.Mixed, // Example for Google: {'receipt': 'serialized receipt json', 'signature': 'signature string'}
   nextPaymentProcessing: Date, // indicates when the queue server should process this subscription again.
