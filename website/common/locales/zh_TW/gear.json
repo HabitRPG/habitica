@@ -1757,7 +1757,7 @@
     "armorArmoireVernalVestmentText": "春季聖袍",
     "armorArmoireVernalVestmentNotes": "這件柔順的聖袍能以最時髦的方式享受溫和春日。增加力量、智力各 <%= per %> 點。來自神祕寶箱: 春季聖袍套裝(2/3)",
     "headArmoireToqueBlancheText": "廚師帽",
-    "headArmoireToqueBlancheNotes": "根據傳說，這頂帽子的褶皺數量就代表著您學會用不同方式煮蛋的數目! 真的還假的? 增加 <%= int %> 點感知。 來自神祕寶箱: 大廚套裝(1/4)",
+    "headArmoireToqueBlancheNotes": "根據傳說，這頂帽子的褶皺數量就代表著您學會用不同方式煮蛋的數目! 真的還假的? 增加 <%= per %> 點感知。 來自神祕寶箱: 大廚套裝(1/4)",
     "headArmoireVernalHenninText": "春季圓錐高帽",
     "headArmoireVernalHenninNotes": "這頂錐形的帽子不僅好看，同時還能塞進一張捲起來的代辦事項清單。增加 <%= per %> 點感知。來自神祕寶箱: 春季聖袍套裝(1/3)",
     "shieldMystery201902Text": "神秘的五彩紙屑",

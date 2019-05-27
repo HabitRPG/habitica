@@ -3,7 +3,7 @@ A simplified dropdown component that doesn't rely on buttons as toggles  like bo
 -->
 
 <template lang="pug">
-.habitica-menu-dropdown.dropdown(@click="toggleDropdown()", :class="{open: isOpen}")
+.habitica-menu-dropdown.dropdown(@click="toggleDropdown()", @keypress.enter.space.stop.prevent="toggleDropdown()", role="button", tabindex="0", :class="{open: isOpen}", :aria-pressed="isPressed")
   .habitica-menu-dropdown-toggle
     slot(name="dropdown-toggle")
   .dropdown-menu(:class="{'dropdown-menu-right': right}")
@@ -12,10 +12,16 @@ A simplified dropdown component that doesn't rely on buttons as toggles  like bo
 
 <style lang="scss">
 @import '~client/assets/scss/colors.scss';
+.habitica-menu-dropdown {
+  &:hover,
+  &:focus { // NB focus styles match the hover styles for .svg-icon
+    outline: none;
+  }
 
-.habitica-menu-dropdown.open {
-  .habitica-menu-dropdown-toggle .svg-icon {
-    color: $white !important;
+  &.open {
+    .habitica-menu-dropdown-toggle .svg-icon {
+      color: $white !important;
+    }
   }
 }
 </style>
@@ -65,6 +71,9 @@ export default {
       // Open status is a number so we can tell if the value was passed
       if (this.openStatus !== undefined) return this.openStatus === 1 ? true : false;
       return this.isDropdownOpen;
+    },
+    isPressed () {
+      return this.isOpen ? 'true' : 'false';
     },
   },
   mounted () {

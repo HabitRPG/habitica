@@ -73,7 +73,7 @@ shops.getMarketCategories = function getMarket (user, language) {
     notes: i18n.t('premiumPotionNoDropExplanation', language),
   };
   premiumHatchingPotionsCategory.items = sortBy(values(content.hatchingPotions)
-    .filter(hp => hp.limited && hp.canBuy())
+    .filter(hp => hp.limited && hp.canBuy(user))
     .map(premiumHatchingPotion => {
       return getItemInfo(user, 'premiumHatchingPotion', premiumHatchingPotion, officialPinnedItems, language);
     }), 'key');

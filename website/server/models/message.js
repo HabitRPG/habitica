@@ -7,6 +7,7 @@ const defaultSchema = () => ({
   id: String,
   timestamp: Date,
   text: String,
+  info: {$type: mongoose.Schema.Types.Mixed},
 
   // sender properties
   user: String, // profile name (unfortunately)
@@ -107,12 +108,13 @@ export function setUserStyles (newMessage, user) {
   newMessage.markModified('userStyles contributor');
 }
 
-export function messageDefaults (msg, user, client) {
+export function messageDefaults (msg, user, client, info = {}) {
   const id = uuid();
   const message = {
     id,
     _id: id,
     text: msg.substring(0, 3000),
+    info,
     timestamp: Number(new Date()),
     likes: {},
     flags: {},
