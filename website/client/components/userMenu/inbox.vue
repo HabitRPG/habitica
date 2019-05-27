@@ -486,36 +486,27 @@ export default {
         chatscroll.scrollTop = chatscroll.scrollHeight;
       });
     },
-    mapMessage (message) {
-      let newChat = Object.assign({}, message);
-      if (newChat.sent) {
-        newChat.toUUID = newChat.uuid;
-        newChat.toUser = newChat.user;
-        newChat.toUserName = newChat.username;
-        newChat.toUserContributor = newChat.contributor;
-        newChat.toUserBacker = newChat.backer;
-        newChat.uuid = this.user._id;
-        newChat.user = this.user.profile.name;
-        newChat.username = this.user.auth.local.username;
-        newChat.contributor = this.user.contributor;
-        newChat.backer = this.user.backer;
-      }
-      return newChat;
-    },
     sendPrivateMessage () {
       if (!this.newMessage) return;
 
       const messages = this.messagesByConversation[this.selectedConversation.key];
 
-      messages.push(this.mapMessage({
+      messages.push({
         sent: true,
         text: this.newMessage,
         timestamp: new Date(),
-        user: this.selectedConversation.name,
-        username: this.selectedConversation.username,
-        uuid: this.selectedConversation.key,
+        toUser: this.selectedConversation.name,
+        toUserName: this.selectedConversation.username,
+        toUserContributor: this.selectedConversation.contributor,
+        toUserBacker: this.selectedConversation.backer,
+        toUUID: this.selectedConversation.uuid,
+
+        uuid: this.user._id,
+        user: this.user.profile.name,
+        username: this.user.auth.local.username,
         contributor: this.user.contributor,
-      }));
+        backer: this.user.backer,
+      });
 
       // Remove the placeholder message
       if (this.initiatedConversation && this.initiatedConversation.uuid === this.selectedConversation.key) {
@@ -537,7 +528,7 @@ export default {
         message: this.newMessage,
       }).then(response => {
         const newMessage = response.data.data.message;
-        Object.assign(messages[messages.length - 1], this.mapMessage(newMessage));
+        Object.assign(messages[messages.length - 1], newMessage);
         this.updateConversionsCounter++;
       });
 
@@ -572,7 +563,7 @@ export default {
 
       const requestUrl = `/api/v4/inbox/messages?conversation=${this.selectedConversation.key}&page=${this.page}`;
       const res = await axios.get(requestUrl);
-      const loadedMessages = res.data.data.map(this.mapMessage);
+      const loadedMessages = res.data.data;
 
       this.messagesByConversation[this.selectedConversation.key] = this.messagesByConversation[this.selectedConversation.key] || [];
       this.messagesByConversation[this.selectedConversation.key].push(...loadedMessages);
