@@ -16,7 +16,7 @@ async function _completeOrUncompleteMasterTask (masterTask, completed) {
 
 async function _updateAssignedUsersTasks (masterTask, groupMemberTask) {
   if (groupMemberTask.type === 'todo') {
-    if (groupMemberTask.completed) {
+    if (groupMemberTask.completed || groupMemberTask.group.approval && groupMemberTask.group.approval.approved) {
       // The task was done by one person and is removed from others' lists
       await Tasks.Task.deleteMany({
         'group.taskId': groupMemberTask.group.taskId,
@@ -58,7 +58,7 @@ async function _updateAssignedUsersTasks (masterTask, groupMemberTask) {
           // This maintain's the user's streak without scoring the task if someone else completed the task
           // If no assignedUser completes the due daily, all users lose their streaks at their cron
           // @TODO Should we break their streaks or increase their value to encourage competition for the daily?
-          task.completed = groupMemberTask.completed;
+          task.completed = groupMemberTask.completed || groupMemberTask.group.approval && groupMemberTask.group.approval.approved;
           task.save();
         });
       });
@@ -91,7 +91,7 @@ async function handleSharedCompletion (groupMemberTask) {
 
   if (masterTask.group.sharedCompletion === SHARED_COMPLETION.single) {
     await _updateAssignedUsersTasks(masterTask, groupMemberTask);
-    await _completeOrUncompleteMasterTask(masterTask, groupMemberTask.completed);
+    await _completeOrUncompleteMasterTask(masterTask, groupMemberTask.completed || groupMemberTask.group.approval && groupMemberTask.group.approval.approved);
   } else if (masterTask.group.sharedCompletion === SHARED_COMPLETION.every) {
     await _evaluateAllAssignedCompletion(masterTask);
   }
