@@ -65,14 +65,16 @@ async function _updateAssignedUsersTasks (masterTask, groupMemberTask) {
   }
 }
 
-async function _evaluateAllAssignedCompletion (masterTask) {
+async function _evaluateAllAssignedCompletion (masterTask, groupMemberTask) {
   let completions;
   if (masterTask.group.approval && masterTask.group.approval.required) {
     completions = await Tasks.Task.count({
       'group.taskId': masterTask._id,
       'group.approval.approved': true,
     }).exec();
-    completions++;
+    // Since an approval is not yet saved into the group member task, count it
+    // But do not recount a group member completing an already approved task
+    if (!groupMemberTask.completed) completions++;
   } else {
     completions = await Tasks.Task.count({
       'group.taskId': masterTask._id,
@@ -93,7 +95,7 @@ async function handleSharedCompletion (groupMemberTask) {
     await _updateAssignedUsersTasks(masterTask, groupMemberTask);
     await _completeOrUncompleteMasterTask(masterTask, groupMemberTask.completed || groupMemberTask.group.approval && groupMemberTask.group.approval.approved);
   } else if (masterTask.group.sharedCompletion === SHARED_COMPLETION.every) {
-    await _evaluateAllAssignedCompletion(masterTask);
+    await _evaluateAllAssignedCompletion(masterTask, groupMemberTask);
   }
 }
 
