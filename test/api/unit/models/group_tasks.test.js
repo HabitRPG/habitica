@@ -77,7 +77,7 @@ describe('Group Task Methods', () => {
       });
 
       it('syncs an assigned task to a user', async () => {
-        await guild.syncTask(task, leader);
+        await guild.linkTask(task, leader);
 
         let updatedLeader = await User.findOne({_id: leader._id});
         let tagIndex = findIndex(updatedLeader.tags, {id: guild._id});
@@ -89,7 +89,7 @@ describe('Group Task Methods', () => {
       });
 
       it('create tags for a user when task is synced', async () => {
-        await guild.syncTask(task, leader);
+        await guild.linkTask(task, leader);
 
         let updatedLeader = await User.findOne({_id: leader._id});
         let updatedLeadersTasks = await Tasks.Task.find({_id: { $in: updatedLeader.tasksOrder[`${taskType}s`]}});
@@ -100,7 +100,7 @@ describe('Group Task Methods', () => {
       });
 
       it('syncs updated info for assigned task to a user', async () => {
-        await guild.syncTask(task, leader);
+        await guild.linkTask(task, leader);
         let updatedTaskName = 'Update Task name';
         task.text = updatedTaskName;
         await guild.syncTask(task, leader);
@@ -115,7 +115,7 @@ describe('Group Task Methods', () => {
       });
 
       it('syncs checklist items to an assigned user', async () => {
-        await guild.syncTask(task, leader);
+        await guild.linkTask(task, leader);
 
         let updatedLeader = await User.findOne({_id: leader._id});
         let updatedLeadersTasks = await Tasks.Task.find({_id: { $in: updatedLeader.tasksOrder[`${taskType}s`]}});
@@ -136,8 +136,8 @@ describe('Group Task Methods', () => {
           });
           await newMember.save();
 
-          await guild.syncTask(task, leader);
-          await guild.syncTask(task, newMember);
+          await guild.linkTask(task, leader);
+          await guild.linkTask(task, newMember);
         });
 
         it('syncs updated info for assigned task to all users', async () => {
@@ -235,7 +235,7 @@ describe('Group Task Methods', () => {
       });
 
       it('removes an assigned task and unlinks assignees', async () => {
-        await guild.syncTask(task, leader);
+        await guild.linkTask(task, leader);
         await guild.removeTask(task);
 
         let updatedLeader = await User.findOne({_id: leader._id});
@@ -246,7 +246,7 @@ describe('Group Task Methods', () => {
       });
 
       it('unlinks and deletes group tasks for a user when remove-all is specified', async () => {
-        await guild.syncTask(task, leader);
+        await guild.linkTask(task, leader);
         await guild.unlinkTask(task, leader, 'remove-all');
 
         let updatedLeader = await User.findOne({_id: leader._id});
@@ -258,7 +258,7 @@ describe('Group Task Methods', () => {
       });
 
       it('unlinks and keeps group tasks for a user when keep-all is specified', async () => {
-        await guild.syncTask(task, leader);
+        await guild.linkTask(task, leader);
 
         let updatedLeader = await User.findOne({_id: leader._id});
         let updatedLeadersTasks = await Tasks.Task.find({_id: { $in: updatedLeader.tasksOrder[`${taskType}s`]}});
