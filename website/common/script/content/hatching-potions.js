@@ -185,8 +185,10 @@ let premium = {
     value: 2,
     text: t('hatchingPotionBronze'),
     limited: true,
-    _season: 'March',
     canBuy: hasQuestAchievementFunction('bronze'),
+    _addlNotes () {
+      return '';
+    },
   },
 };
 
