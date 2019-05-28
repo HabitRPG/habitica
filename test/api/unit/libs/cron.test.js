@@ -947,8 +947,6 @@ describe('cron', () => {
 
       context('player uses Habitica every day (daysMissed is always 1)', () => {
         it('should be due 3+ days after completion but not before', () => {
-          // TODO Tell me if you'd prefer this split into four tests with one expect() in each. There'd still need to be multiple cron() calls in the second, third, and fourth tests to properly mimic the user logging in every day. -- Alys
-
           daysMissed = 1;
 
           // 1 day after completion
