@@ -196,10 +196,27 @@ export default {
     handleScroll () {
       this.loadProfileCache(window.scrollY / 1000);
     },
-    triggerLoad () {
+    async triggerLoad () {
+      const container = this.$refs.container;
+
+      // get current offset
+      const lastScrollOffset = container.scrollTop - (container.scrollHeight - container.clientHeight);
+      // disable scroll
+      container.style.overflowY = 'hidden';
+
       const canLoadMore = this.inbox && !this.isLoading && this.canLoadMore;
       if (canLoadMore) {
-        this.$emit('triggerLoad');
+        await this.$emit('triggerLoad');
+
+        setTimeout(function restoreScrollPosition () {
+          const offset = container.scrollHeight - container.clientHeight;
+
+          const newOffset = offset + lastScrollOffset;
+
+          container.scrollTo(0,  newOffset);
+          // enable scroll again
+          container.style.overflowY = 'scroll';
+        }, 150);
       }
     },
     canViewFlag (message) {

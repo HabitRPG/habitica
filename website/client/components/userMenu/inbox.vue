@@ -552,11 +552,11 @@ export default {
         this.messagesLoading = true;
       }
 
-      this.loadMore();
+      return this.loadMore();
     },
     loadMore () {
       this.page += 1;
-      this.loadMessages();
+      return this.loadMessages();
     },
     async loadMessages () {
       this.messagesLoading = true;
