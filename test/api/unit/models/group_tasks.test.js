@@ -3,7 +3,7 @@ import { model as Group } from '../../../../website/server/models/group';
 import { model as User } from '../../../../website/server/models/user';
 import * as Tasks from '../../../../website/server/models/task';
 import { each, find, findIndex } from 'lodash';
-import {handleSharedCompletion} from "../../../../website/server/libs/groupTasks";
+import {handleSharedCompletion} from '../../../../website/server/libs/groupTasks';
 
 describe('Group Task Methods', () => {
   let guild, leader, challenge, task;
@@ -235,7 +235,7 @@ describe('Group Task Methods', () => {
         });
 
         it('removes and reassigns completed and unchecked todos to other assignees', async () => {
-          if (taskType != 'todo') return;
+          if (taskType !== 'todo') return;
 
           let updatedLeader = await User.findOne({_id: leader._id});
           let updatedLeadersTasks = await Tasks.Task.find({_id: { $in: updatedLeader.tasksOrder[`${taskType}s`]}});
@@ -260,7 +260,7 @@ describe('Group Task Methods', () => {
         });
 
         it('syncs daily completion to other assignees', async () => {
-          if (taskType != 'daily') return;
+          if (taskType !== 'daily') return;
 
           let updatedLeader = await User.findOne({_id: leader._id});
           let updatedLeadersTasks = await Tasks.Task.find({_id: { $in: updatedLeader.tasksOrder[`${taskType}s`]}});
