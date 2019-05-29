@@ -19,7 +19,7 @@ div
       b-navbar-nav.menu-list
         b-nav-item.topbar-item(:class="{'active': $route.path === '/'}" tag="li", :to="{name: 'tasks'}", exact) {{ $t('tasks') }}
         li.topbar-item(:class="{'active': $route.path.startsWith('/inventory'), 'down': $route.path.startsWith('/inventory') && this.isDesktop()}").droppable
-          .chevron.rotate
+          .chevron.rotate(@click='dropdownMobile($event)')
             .chevron-icon-down(v-html="icons.chevronDown", v-once)
           router-link.nav-link(:to="{name: 'items'}") {{ $t('inventory') }}
           .topbar-dropdown
@@ -27,7 +27,7 @@ div
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'equipment'}") {{ $t('equipment') }}
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'stable'}") {{ $t('stable') }}
         li.topbar-item(:class="{'active': $route.path.startsWith('/shop'), 'down': $route.path.startsWith('/shop') && this.isDesktop()}").droppable
-          .chevron.rotate
+          .chevron.rotate(@click='dropdownMobile($event)')
             .chevron-icon-down(v-html="icons.chevronDown", v-once)
           router-link.nav-link(:to="{name: 'market'}") {{ $t('shops') }}
           .topbar-dropdown
@@ -38,28 +38,28 @@ div
         b-nav-item.topbar-item(:class="{'active': $route.path.startsWith('/party')}" tag="li", :to="{name: 'party'}", v-if='this.user.party._id') {{ $t('party') }}
         b-nav-item.topbar-item(:class="{'active': $route.path.startsWith('/party')}" @click='openPartyModal()', v-if='!this.user.party._id') {{ $t('party') }}
         li.topbar-item(:class="{'active': $route.path.startsWith('/groups'), 'down': $route.path.startsWith('/groups') && this.isDesktop()}").droppable
-          .chevron.rotate
+          .chevron.rotate(@click='dropdownMobile($event)')
             .chevron-icon-down(v-html="icons.chevronDown", v-once)
           router-link.nav-link(:to="{name: 'tavern'}") {{ $t('guilds') }}
           .topbar-dropdown
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'tavern'}") {{ $t('tavern') }}
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'myGuilds'}") {{ $t('myGuilds') }}
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'guildsDiscovery'}") {{ $t('guildsDiscovery') }}
-        li.topbar-item(:class="{'active': $route.path.startsWith('/group-plans'), 'down': $route.path.startsWith('/group-plans') && this.isDesktop()}")
-          .chevron.rotate(v-if="groupPlans.length > 0").droppable
+        li.topbar-item(:class="{'active': $route.path.startsWith('/group-plans'), 'down': $route.path.startsWith('/group-plans') && this.isDesktop()}").droppable
+          .chevron.rotate(v-if="groupPlans.length > 0", @click='dropdownMobile($event)')
             .chevron-icon-down(v-html="icons.chevronDown", v-once)
           router-link.nav-link(:to="{name: 'groupPlan'}") {{ $t('group') }}
           .topbar-dropdown
             router-link.topbar-dropdown-item.dropdown-item(v-for='group in groupPlans', :key='group._id', :to="{name: 'groupPlanDetailTaskInformation', params: {groupId: group._id}}") {{ group.name }}
         li.topbar-item(:class="{'active': $route.path.startsWith('/challenges'), 'down': $route.path.startsWith('/challenges') && this.isDesktop()}").droppable
-          .chevron.rotate
+          .chevron.rotate(@click='dropdownMobile($event)')
             .chevron-icon-down(v-html="icons.chevronDown", v-once)
           router-link.nav-link(:to="{name: 'myChallenges'}") {{ $t('challenges') }}
           .topbar-dropdown
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'myChallenges'}") {{ $t('myChallenges') }}
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'findChallenges'}") {{ $t('findChallenges') }}
         li.topbar-item(:class="{'active': $route.path.startsWith('/help'), 'down': $route.path.startsWith('/help') && this.isDesktop()}").droppable
-          .chevron.rotate
+          .chevron.rotate(@click='dropdownMobile($event)')
             .chevron-icon-down(v-html="icons.chevronDown", v-once)
           router-link.nav-link(:to="{name: 'faq'}") {{ $t('help') }}
           .topbar-dropdown
@@ -463,9 +463,6 @@ export default {
     Array.from(document.getElementsByClassName('topbar-item')).forEach(link => {
       link.addEventListener('mouseenter', this.dropdownDesktop);
       link.addEventListener('mouseleave', this.dropdownDesktop);
-    });
-    Array.from(document.getElementsByClassName('rotate')).forEach(chevron => {
-      chevron.addEventListener('click', this.dropdownMobile);
     });
   },
   methods: {
