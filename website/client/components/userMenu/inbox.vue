@@ -528,7 +528,9 @@ export default {
         message: this.newMessage,
       }).then(response => {
         const newMessage = response.data.data.message;
-        Object.assign(messages[messages.length - 1], newMessage);
+        Object.assign(messages[messages.length - 1], {
+          id: newMessage.id, // just set the id, all other infos already set
+        });
         this.updateConversionsCounter++;
       });
 
