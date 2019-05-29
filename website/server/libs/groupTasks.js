@@ -42,23 +42,25 @@ async function _updateAssignedUsersTasks (masterTask, groupMemberTask) {
       await group.save();
     }
   } else {
-    // Complete or uncomplete the task on other users' lists
-    const tasks = await Tasks.Task.find({
+    // Adjust the task's completion to match the groupMemberTask
+    // Completed or notDue dailies have little effect at cron (MP replenishment for completed dailies)
+    // This maintain's the user's streak without scoring the task if someone else completed the task
+    // If no assignedUser completes the due daily, all users lose their streaks at their cron
+    // @TODO Should we break their streaks or increase their value to encourage competition for the daily?
+    let taskSchema = Tasks.daily;
+    let updateQuery = {
       'group.taskId': groupMemberTask.group.taskId,
       $and: [
         {userId: {$exists: true}},
         {userId: {$ne: groupMemberTask.userId}},
       ],
-    });
-    await Promise.all(tasks.map(task => {
-      // Adjust the task's completion to match the groupMemberTask
-      // Completed or notDue dailies have little effect at cron (MP replenishment for completed dailies)
-      // This maintain's the user's streak without scoring the task if someone else completed the task
-      // If no assignedUser completes the due daily, all users lose their streaks at their cron
-      // @TODO Should we break their streaks or increase their value to encourage competition for the daily?
-      task.completed = groupMemberTask.completed || groupMemberTask.group.approval && groupMemberTask.group.approval.approved;
-      return task.save();
-    }));
+    };
+    let updateCmd = {
+      $set: {
+        completed: groupMemberTask.completed || groupMemberTask.group.approval && groupMemberTask.group.approval.approved,
+      },
+    };
+    await taskSchema.updateMany(updateQuery, updateCmd).exec();
   }
 }
 
