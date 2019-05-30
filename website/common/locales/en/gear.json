@@ -1938,6 +1938,21 @@
   "eyewearSpecialYellowTopFrameText": "Yellow Standard Eyeglasses",
   "eyewearSpecialYellowTopFrameNotes": "Glasses with a yellow frame above the lenses. Confers no benefit.",
 
+  "eyewearSpecialBlackHalfMoonText": "Black Half-Moon Eyeglasses",
+  "eyewearSpecialBlackHalfMoonNotes": "Glasses with a black frame and crescent lenses. Confers no benefit.",
+  "eyewearSpecialBlueHalfMoonText": "Blue Half-Moon Eyeglasses",
+  "eyewearSpecialBlueHalfMoonNotes": "Glasses with a blue frame and crescent lenses. Confers no benefit.",
+  "eyewearSpecialGreenHalfMoonText": "Green Half-Moon Eyeglasses",
+  "eyewearSpecialGreenHalfMoonNotes": "Glasses with a green frame and crescent lenses. Confers no benefit.",
+  "eyewearSpecialPinkHalfMoonText": "Pink Half-Moon Eyeglasses",
+  "eyewearSpecialPinkHalfMoonNotes": "Glasses with a pink frame and crescent lenses. Confers no benefit.",
+  "eyewearSpecialRedHalfMoonText": "Red Half-Moon Eyeglasses",
+  "eyewearSpecialRedHalfMoonNotes": "Glasses with a red frame and crescent lenses. Confers no benefit.",
+  "eyewearSpecialWhiteHalfMoonText": "White Half-Moon Eyeglasses",
+  "eyewearSpecialWhiteHalfMoonNotes": "Glasses with a white frame and crescent lenses. Confers no benefit.",
+  "eyewearSpecialYellowHalfMoonText": "Yellow Half-Moon Eyeglasses",
+  "eyewearSpecialYellowHalfMoonNotes": "Glasses with a yellow frame and crescent lenses. Confers no benefit.",
+
   "eyewearSpecialAetherMaskText": "Aether Mask",
   "eyewearSpecialAetherMaskNotes": "This mask has a mysterious history. Increases Intelligence by <%= int %>.",
 
