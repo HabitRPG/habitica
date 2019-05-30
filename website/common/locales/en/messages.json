@@ -56,7 +56,7 @@
   "messageGroupChatFlagAlreadyReported": "You have already reported this message",
   "messageGroupChatNotFound": "Message not found!",
   "messageGroupChatAdminClearFlagCount": "Only an admin can clear the flag count!",
-  "messageCannotFlagSystemMessages": "You cannot flag a system message. If you need to report a violation of the Community Guidelines related to this message, please email a screenshot and explanation to Lemoness at <%= communityManagerEmail %>.",
+  "messageCannotFlagSystemMessages": "You cannot report a system message. If you need to report a violation of the Community Guidelines related to this message, please email a screenshot and explanation to our Community Manager at <%= communityManagerEmail %>.",
   "messageGroupChatSpam": "Whoops, looks like you're posting too many messages! Please wait a minute and try again. The Tavern chat only holds 200 messages at a time, so Habitica encourages posting longer, more thoughtful messages and consolidating replies. Can't wait to hear what you have to say. :)",
   "messageCannotLeaveWhileQuesting": "You cannot accept this party invitation while you are in a quest. If you'd like to join this party, you must first abort your quest, which you can do from your party screen. You will be given back the quest scroll.",
 
