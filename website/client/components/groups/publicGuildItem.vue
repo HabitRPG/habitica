@@ -177,7 +177,7 @@ export default {
       let habiticaHelpingGuildId = '5481ccf3-5d2d-48a9-a871-70a7380cee5a';
       let sixtyDaysAgoFromNow = moment().subtract(60, 'days');
       let isUserNew = moment(this.user.auth.timestamps.created).isAfter(sixtyDaysAgoFromNow);
-      return guildId === habiticaHelpingGuildId && isUserNew; 
+      return guildId === habiticaHelpingGuildId && isUserNew;
     },
     async join () {
       // @TODO: This needs to be in the notifications where users will now accept invites
