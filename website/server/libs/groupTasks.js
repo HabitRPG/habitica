@@ -1,6 +1,7 @@
 import * as Tasks from '../models/task';
 import {model as Groups} from '../models/group';
 import {model as Users} from '../models/user/index';
+import moment from "moment";
 
 const SHARED_COMPLETION = {
   default: 'recurringCompletion',
@@ -47,20 +48,77 @@ async function _updateAssignedUsersTasks (masterTask, groupMemberTask) {
     // This maintain's the user's streak without scoring the task if someone else completed the task
     // If no assignedUser completes the due daily, all users lose their streaks at their cron
     // @TODO Should we break their streaks or increase their value to encourage competition for the daily?
-    let taskSchema = Tasks.daily;
-    let updateQuery = {
+
+    // Get the linked Tasks and the assigned Users
+    let tasksQuery = {
       'group.taskId': groupMemberTask.group.taskId,
-      $and: [
-        {userId: {$exists: true}},
-        {userId: {$ne: groupMemberTask.userId}},
-      ],
+      'userId': {$exists: true},
     };
-    let updateCmd = {
-      $set: {
-        completed: groupMemberTask.completed || groupMemberTask.group.approval && groupMemberTask.group.approval.approved,
-      },
+    let usersQuery = {
+      '_id': {$in: masterTask.group.assignedUsers},
     };
-    await taskSchema.updateMany(updateQuery, updateCmd).exec();
+    let [tasks, users] = await Promise.all([Tasks.Task.find(tasksQuery), Users.find(usersQuery)]);
+    // Remove the un/completing user from the array, but save them
+    let groupMember;
+    users = users.filter(user => {
+      if (user.id === groupMemberTask.userId) {
+        groupMember = user;
+        return false;
+      }
+      return user;
+    });
+
+    // Determine task un/completion day based on groupMember's timezone and CDS
+    let now = new Date();
+    let taskDay = moment(now).subtract({
+      minutes: groupMember.preferences.tz,
+      hours: groupMember.preferences.dayStart,
+    }).startOf('day');
+
+    let promises = [];
+    users.map(user => {
+      // Determine user's "current" day
+      let userDay = moment(now).subtract({
+        minutes: user.preferences.tz,
+        hours: user.preferences.dayStart,
+      }).startOf('day');
+      if (userDay.isSame(taskDay)) {
+        // The group member modified task completion in the "same" day as this user
+        // Set the user's task.completed to group member's completed or approved
+        let task = tasks.find(task => { return task.userId === user.id });
+        task.completed = groupMemberTask.completed || groupMemberTask.group.approval && groupMemberTask.group.approval.approved;
+        promises.push(task.save());
+      }
+    });
+
+    // For approval required tasks, this file treats approval as completion for users other than the completing user
+    // Record history on approval, not completion
+    // TODO This is poor logic. Some design could be done for uncompleting approved tasks behavior
+    // This protects other users who won't do the task if the completing user decides to uncomplete after approval
+    let approvalRequired = groupMemberTask.group.approval && groupMemberTask.group.approval.required;
+    let approved = groupMemberTask.group.approval && groupMemberTask.group.approval.approved;
+    if (groupMemberTask.completed || approved) {
+      // Save history entry to the masterTask
+      masterTask.history = masterTask.history || [];
+      let historyEntry = {
+        date: Number(now),
+        value: masterTask.value,
+        userId: groupMemberTask.userId,
+      };
+      masterTask.history.push(historyEntry);
+    } else if (!groupMemberTask.completed && !approvalRequired) {
+      // Loop backwards through the history and splice out the user's last entry
+      if (masterTask.history && masterTask.history.length > 0) {
+        for (let i = masterTask.history.length - 1; i >= 0; i--) {
+          if (masterTask.history[i].userId === groupMemberTask.userId) {
+            masterTask.history.splice(i, 1);
+            break;
+          }
+        }
+      }
+    }
+
+    await Promise.all(promises);
   }
 }
 
