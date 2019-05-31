@@ -211,7 +211,7 @@
     "hatchingPotionGlow": "Lśniący w ciemności",
     "hatchingPotionFrost": "Frost",
     "hatchingPotionIcySnow": "Icy Snow",
-    "hatchingPotionNotes": "Wylej go na jajko, a wykluje się z niego <%=potText(locale)%>.",
+    "hatchingPotionNotes": "Wylej go na jajko, a wykluje się z niego <%= potText(locale) %> zwierzaczek.",
     "premiumPotionAddlNotes": "Nie nadaje się do użytku na jajach otrzymanych za misje.",
     "foodMeat": "Mięso",
     "foodMeatThe": "Mięso",
@@ -307,7 +307,7 @@
     "foodSaddleNotes": "Natychmiastowo zmienia jednego z Twoich chowańców w wierzchowca.",
     "foodSaddleSellWarningNote": "Hej! To całkiem użyteczny przedmiot! Czy jesteś zaznajomiony z tym, jak używać siodła wraz z twoimi chowańcami?",
     "foodNotes": "Nakarm tym chowańca, a wyrośnie z niego wytrzymały wierzchowiec.",
-    "hatchingPotionRoseQuartz": "",
+    "hatchingPotionRoseQuartz": "Różany Kwarc",
     "hatchingPotionCelestial": "",
     "foodPieSkeletonA": "",
     "foodPieBase": "",
@@ -336,5 +336,6 @@
     "foodPieDesertA": "",
     "foodPieRed": "",
     "foodPieRedThe": "",
-    "foodPieRedA": ""
+    "foodPieRedA": "",
+    "hatchingPotionVeggie": "Ogród"
 }
