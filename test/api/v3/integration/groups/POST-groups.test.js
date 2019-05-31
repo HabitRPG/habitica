@@ -149,7 +149,7 @@ describe('POST /group', () => {
         ).to.eventually.be.rejected.and.eql({
           code: 401,
           error: 'NotAuthorized',
-          message: t('cannotCreatePublicGuildWhenMuted'),
+          message: t('chatPrivilegesRevoked'),
         });
       });
     });

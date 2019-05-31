@@ -6,12 +6,12 @@ div
   report-flag-modal
   send-gems-modal
   b-navbar.topbar.navbar-inverse.static-top(toggleable="lg", type="dark", :class="navbarZIndexClass")
-    b-navbar-brand.brand
+    b-navbar-brand.brand(aria-label="Habitica")
       .logo.svg-icon.d-none.d-xl-block(v-html="icons.logo")
       .svg-icon.gryphon.d-xs-block.d-xl-none
     b-navbar-toggle(target='menu_collapse').menu-toggle
     .quick-menu.mobile-only.form-inline
-      a.item-with-icon(@click="sync", v-b-tooltip.hover.bottom="$t('sync')")
+      a.item-with-icon(@click="sync", v-b-tooltip.hover.bottom="$t('sync')", :aria-label="$t('sync')")
         .top-menu-icon.svg-icon(v-html="icons.sync")
       notification-menu.item-with-icon
       user-dropdown.item-with-icon
@@ -64,13 +64,13 @@ div
           .top-menu-icon.svg-icon(v-html="icons.hourglasses", v-b-tooltip.hover.bottom="$t('mysticHourglassesTooltip')")
           span {{ userHourglasses }}
         .item-with-icon
-          .top-menu-icon.svg-icon.gem(v-html="icons.gem", @click='showBuyGemsModal("gems")', v-b-tooltip.hover.bottom="$t('gems')")
+          a.top-menu-icon.svg-icon.gem(:aria-label="$t('gems')", href="#buy-gems" v-html="icons.gem", @click.prevent='showBuyGemsModal("gems")', v-b-tooltip.hover.bottom="$t('gems')")
           span {{userGems}}
         .item-with-icon.gold
-          .top-menu-icon.svg-icon(v-html="icons.gold", v-b-tooltip.hover.bottom="$t('gold')")
+          .top-menu-icon.svg-icon(:aria-label="$t('gold')", v-html="icons.gold", v-b-tooltip.hover.bottom="$t('gold')")
           span {{Math.floor(user.stats.gp * 100) / 100}}
       .form-inline.desktop-only
-        a.item-with-icon(@click="sync", v-b-tooltip.hover.bottom="$t('sync')")
+        a.item-with-icon(@click="sync", @keyup.enter="sync", role="link", :aria-label="$t('sync')", tabindex="0", v-b-tooltip.hover.bottom="$t('sync')")
           .top-menu-icon.svg-icon(v-html="icons.sync")
         notification-menu.item-with-icon
         user-dropdown.item-with-icon
@@ -290,6 +290,7 @@ div
       margin-right: 24px;
     }
 
+    &:focus /deep/ .top-menu-icon.svg-icon,
     &:hover /deep/ .top-menu-icon.svg-icon {
       color: $white;
     }

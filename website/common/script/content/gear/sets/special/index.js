@@ -1441,6 +1441,55 @@ let eyewear = {
     int: 10,
     canOwn: ownsItem('eyewear_special_aetherMask'),
   },
+  blackHalfMoon: {
+    gearSet: 'glasses',
+    text: t('eyewearSpecialBlackHalfMoonText'),
+    notes: t('eyewearSpecialBlackHalfMoonNotes'),
+    value: 0,
+    canOwn: ownsItem('eyewear_special_blackHalfMoon'),
+  },
+  blueHalfMoon: {
+    gearSet: 'glasses',
+    text: t('eyewearSpecialBlueHalfMoonText'),
+    notes: t('eyewearSpecialBlueHalfMoonNotes'),
+    value: 0,
+    canOwn: ownsItem('eyewear_special_blueHalfMoon'),
+  },
+  greenHalfMoon: {
+    gearSet: 'glasses',
+    text: t('eyewearSpecialGreenHalfMoonText'),
+    notes: t('eyewearSpecialGreenHalfMoonNotes'),
+    value: 0,
+    canOwn: ownsItem('eyewear_special_greenHalfMoon'),
+  },
+  pinkHalfMoon: {
+    gearSet: 'glasses',
+    text: t('eyewearSpecialPinkHalfMoonText'),
+    notes: t('eyewearSpecialPinkHalfMoonNotes'),
+    value: 0,
+    canOwn: ownsItem('eyewear_special_pinkHalfMoon'),
+  },
+  redHalfMoon: {
+    gearSet: 'glasses',
+    text: t('eyewearSpecialRedHalfMoonText'),
+    notes: t('eyewearSpecialRedHalfMoonNotes'),
+    value: 0,
+    canOwn: ownsItem('eyewear_special_redHalfMoon'),
+  },
+  whiteHalfMoon: {
+    gearSet: 'glasses',
+    text: t('eyewearSpecialWhiteHalfMoonText'),
+    notes: t('eyewearSpecialWhiteHalfMoonNotes'),
+    value: 0,
+    canOwn: ownsItem('eyewear_special_whiteHalfMoon'),
+  },
+  yellowHalfMoon: {
+    gearSet: 'glasses',
+    text: t('eyewearSpecialYellowHalfMoonText'),
+    notes: t('eyewearSpecialYellowHalfMoonNotes'),
+    value: 0,
+    canOwn: ownsItem('eyewear_special_yellowHalfMoon'),
+  },
 };
 
 let head = {

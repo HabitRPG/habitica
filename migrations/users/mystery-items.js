@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
-const MIGRATION_NAME = 'mystery_items_201904';
-const MYSTERY_ITEMS = ['armor_mystery_201904', 'head_mystery_201904'];
+const MIGRATION_NAME = 'mystery_items_201905';
+const MYSTERY_ITEMS = ['headAccessory_mystery_201905', 'back_mystery_201905'];
 import { model as User } from '../../website/server/models/user';
 import { model as UserNotification } from '../../website/server/models/userNotification';
 

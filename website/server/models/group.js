@@ -37,7 +37,7 @@ import {
 } from './subscriptionPlan';
 import amazonPayments from '../libs/payments/amazon';
 import stripePayments from '../libs/payments/stripe';
-import { getGroupChat } from '../libs/chat/group-chat';
+import { getGroupChat, translateMessage } from '../libs/chat/group-chat';
 import { model as UserNotification } from './userNotification';
 
 const questScrolls = shared.content.quests;
@@ -344,26 +344,38 @@ schema.statics.toJSONCleanChat = async function groupToJSONCleanChat (group, use
     await getGroupChat(group);
   }
 
-  let toJSON = group.toJSON();
+  const groupToJson = group.toJSON();
+  const userLang = user.preferences.language;
 
-  if (!user.contributor.admin) {
-    _.remove(toJSON.chat, chatMsg => {
-      chatMsg.flags = {};
-      if (chatMsg._meta) chatMsg._meta = undefined;
-      return user._id !== chatMsg.uuid && chatMsg.flagCount >= 2;
-    });
-  }
+  groupToJson.chat = groupToJson.chat
+    .map(chatMsg => {
+      // Translate system messages
+      if (!_.isEmpty(chatMsg.info)) {
+        chatMsg.text = translateMessage(userLang, chatMsg.info);
+      }
 
-  // Convert to timestamps because Android expects it
-  toJSON.chat.forEach(chat => {
-    // old chats are saved with a numeric timestamp
-    // new chats use `Date` which then has to be converted to the numeric timestamp
-    if (chat.timestamp && chat.timestamp.getTime) {
-      chat.timestamp = chat.timestamp.getTime();
-    }
-  });
+      // Convert to timestamps because Android expects it
+      // old chats are saved with a numeric timestamp
+      // new chats use `Date` which then has to be converted to the numeric timestamp
+      if (chatMsg.timestamp && chatMsg.timestamp.getTime) {
+        chatMsg.timestamp = chatMsg.timestamp.getTime();
+      }
 
-  return toJSON;
+      if (!user.contributor.admin) {
+        // Flags are hidden to non admins
+        chatMsg.flags = {};
+        if (chatMsg._meta) chatMsg._meta = undefined;
+
+        // Messages with >= 2 flags are hidden to non admins and non authors
+        if (user._id !== chatMsg.uuid && chatMsg.flagCount >= 2) return undefined;
+      }
+
+      return chatMsg;
+    })
+    // Used to filter for undefined chat messages that should not be shown to non-admins
+    .filter(chatMsg => chatMsg !== undefined);
+
+  return groupToJson;
 };
 
 function getInviteError (uuids, emails, usernames) {
@@ -496,8 +508,9 @@ schema.methods.getMemberCount = async function getMemberCount () {
   return await User.count(query).exec();
 };
 
-schema.methods.sendChat = function sendChat (message, user, metaData, client) {
-  let newMessage = messageDefaults(message, user, client);
+schema.methods.sendChat = function sendChat (options = {}) {
+  const {message, user, metaData, client, info = {}} = options;
+  let newMessage = messageDefaults(message, user, client, info);
   let newChatMessage = new Chat();
   newChatMessage = Object.assign(newChatMessage, newMessage);
   newChatMessage.groupId = this._id;
@@ -653,8 +666,15 @@ schema.methods.startQuest = async function startQuest (user) {
   }, _cleanQuestParty(),
   { multi: true }).exec();
 
-  const newMessage = this.sendChat(`\`Your quest, ${quest.text('en')}, has started.\``, null, {
-    participatingMembers: this.getParticipatingQuestMembers().join(', '),
+  const newMessage = this.sendChat({
+    message: `\`${shared.i18n.t('chatQuestStarted', {questName: quest.text('en')}, 'en')}\``,
+    metaData: {
+      participatingMembers: this.getParticipatingQuestMembers().join(', '),
+    },
+    info: {
+      type: 'quest_start',
+      quest: quest.key,
+    },
   });
   await newMessage.save();
 
@@ -913,18 +933,42 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
   const promises = [];
 
   group.quest.progress.hp -= progress.up;
-  // TODO Create a party preferred language option so emits like this can be localized. Suggestion: Always display the English version too. Or, if English is not displayed to the players, at least include it in a new field in the chat object that's visible in the database - essential for admins when troubleshooting quests!
-  let playerAttack = `${user.profile.name} attacks ${quest.boss.name('en')} for ${progress.up.toFixed(1)} damage.`;
-  let bossAttack = CRON_SAFE_MODE || CRON_SEMI_SAFE_MODE ? `${quest.boss.name('en')} does not attack, because it respects the fact that there are some bugs\` \`post-maintenance and it doesn't want to hurt anyone unfairly. It will continue its rampage soon!` : `${quest.boss.name('en')} attacks party for ${Math.abs(down).toFixed(1)} damage.`;
-  // TODO Consider putting the safe mode boss attack message in an ENV var
-  const groupMessage = group.sendChat(`\`${playerAttack}\` \`${bossAttack}\``);
-  promises.push(groupMessage.save());
+  if (CRON_SAFE_MODE || CRON_SEMI_SAFE_MODE) {
+    const groupMessage = group.sendChat({
+      message: `\`${shared.i18n.t('chatBossDontAttack', {bossName: quest.boss.name('en')}, 'en')}\``,
+      info: {
+        type: 'boss_dont_attack',
+        user: user.profile.name,
+        quest: group.quest.key,
+        userDamage: progress.up.toFixed(1),
+      },
+    });
+    promises.push(groupMessage.save());
+  } else {
+    const groupMessage = group.sendChat({
+      message: `\`${shared.i18n.t('chatBossDamage', {username: user.profile.name, bossName: quest.boss.name('en'), userDamage: progress.up.toFixed(1), bossDamage: Math.abs(down).toFixed(1)}, user.preferences.language)}\``,
+      info: {
+        type: 'boss_damage',
+        user: user.profile.name,
+        quest: group.quest.key,
+        userDamage: progress.up.toFixed(1),
+        bossDamage: Math.abs(down).toFixed(1),
+      },
+    });
+    promises.push(groupMessage.save());
+  }
 
   // If boss has Rage, increment Rage as well
   if (quest.boss.rage) {
     group.quest.progress.rage += Math.abs(down);
     if (group.quest.progress.rage >= quest.boss.rage.value) {
-      const rageMessage = group.sendChat(quest.boss.rage.effect('en'));
+      const rageMessage = group.sendChat({
+        message: quest.boss.rage.effect('en'),
+        info: {
+          type: 'boss_rage',
+          quest: quest.key,
+        },
+      });
       promises.push(rageMessage.save());
       group.quest.progress.rage = 0;
 
@@ -952,7 +996,13 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
 
   // Boss slain, finish quest
   if (group.quest.progress.hp <= 0) {
-    const questFinishChat = group.sendChat(`\`You defeated ${quest.boss.name('en')}! Questing party members receive the rewards of victory.\``);
+    const questFinishChat = group.sendChat({
+      message: `\`${shared.i18n.t('chatBossDefeated', {bossName: quest.boss.name('en')}, 'en')}\``,
+      info: {
+        type: 'boss_defeated',
+        quest: quest.key,
+      },
+    });
     promises.push(questFinishChat.save());
 
     // Participants: Grant rewards & achievements, finish quest
@@ -1005,7 +1055,15 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
   }, []);
 
   foundText = foundText.join(', ');
-  const foundChat = group.sendChat(`\`${user.profile.name} found ${foundText}.\``);
+  const foundChat = group.sendChat({
+    message: `\`${shared.i18n.t('chatFindItems', {username: user.profile.name, items: foundText}, 'en')}\``,
+    info: {
+      type: 'user_found_items',
+      user: user.profile.name,
+      quest: quest.key,
+      items: itemsFound,
+    },
+  });
   group.markModified('quest.progress.collect');
 
   // Still needs completing
@@ -1018,7 +1076,12 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
   }
 
   await group.finishQuest(quest);
-  const allItemsFoundChat = group.sendChat('`All items found! Party has received their rewards.`');
+  const allItemsFoundChat = group.sendChat({
+    message: `\`${shared.i18n.t('chatItemQuestFinish', 'en')}\``,
+    info: {
+      type: 'all_items_found',
+    },
+  });
 
   const promises = [group.save(), foundChat.save(), allItemsFoundChat.save()];
 
@@ -1082,7 +1145,13 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
   const chatPromises = [];
 
   if (tavern.quest.progress.hp <= 0) {
-    const completeChat = tavern.sendChat(quest.completionChat('en'));
+    const completeChat = tavern.sendChat({
+      message: quest.completionChat('en'),
+      info: {
+        type: 'tavern_quest_completed',
+        quest: quest.key,
+      },
+    });
     chatPromises.push(completeChat.save());
     await tavern.finishQuest(quest);
     _.assign(tavernQuest, {extra: null});
@@ -1111,11 +1180,24 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
       }
 
       if (!scene) {
-        const tiredChat = tavern.sendChat(`\`${quest.boss.name('en')} tries to unleash ${quest.boss.rage.title('en')} but is too tired.\``);
+        const tiredChat = tavern.sendChat({
+          message: `\`${shared.i18n.t('tavernBossTired', {rageName: quest.boss.rage.title('en'), bossName: quest.boss.name('en')}, 'en')}\``,
+          info: {
+            type: 'tavern_boss_rage_tired',
+            quest: quest.key,
+          },
+        });
         chatPromises.push(tiredChat.save());
         tavern.quest.progress.rage = 0; // quest.boss.rage.value;
       } else {
-        const rageChat = tavern.sendChat(quest.boss.rage[scene]('en'));
+        const rageChat = tavern.sendChat({
+          message: quest.boss.rage[scene]('en'),
+          info: {
+            type: 'tavern_boss_rage',
+            quest: quest.key,
+            scene,
+          },
+        });
         chatPromises.push(rageChat.save());
         tavern.quest.extra.worldDmg[scene] = true;
         tavern.markModified('quest.extra.worldDmg');
@@ -1127,7 +1209,13 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
     }
 
     if (quest.boss.desperation && tavern.quest.progress.hp < quest.boss.desperation.threshold && !tavern.quest.extra.desperate) {
-      const progressChat = tavern.sendChat(quest.boss.desperation.text('en'));
+      const progressChat = tavern.sendChat({
+        message: quest.boss.desperation.text('en'),
+        info: {
+          type: 'tavern_boss_desperation',
+          quest: quest.key,
+        },
+      });
       chatPromises.push(progressChat.save());
       tavern.quest.extra.desperate = true;
       tavern.quest.extra.def = quest.boss.desperation.def;
