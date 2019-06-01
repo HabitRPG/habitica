@@ -58,7 +58,7 @@
     "in-app-purchase": "^1.11.3",
     "intro.js": "^2.9.3",
     "jquery": ">=3.0.0",
-    "js2xmlparser": "^3.0.0",
+    "js2xmlparser": "^4.0.0",
     "lodash": "^4.17.10",
     "merge-stream": "^2.0.0",
     "method-override": "^3.0.0",

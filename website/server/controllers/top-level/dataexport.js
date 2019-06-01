@@ -8,7 +8,7 @@ import {
 import _ from 'lodash';
 import csvStringify from '../../libs/csvStringify';
 import moment from 'moment';
-import js2xml from 'js2xmlparser';
+import * as js2xml from 'js2xmlparser';
 import Pageres from 'pageres';
 import nconf from 'nconf';
 import got from 'got';
