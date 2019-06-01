@@ -262,7 +262,7 @@ api.exportUserAvatarPng = {
       return res.redirect(s3url);
     }
 
-    let [stream] = await new Pageres()
+    const pageBuffer = await new Pageres()
       .src(`${BASE_URL}/export/avatar-${memberId}.html`, ['140x147'], {
         crop: true,
         filename: filename.replace('.png', ''),
@@ -276,7 +276,7 @@ api.exportUserAvatarPng = {
       StorageClass: 'REDUCED_REDUNDANCY',
       ContentType: 'image/png',
       Expires: moment().add({minutes: 5}).toDate(),
-      Body: stream,
+      Body: pageBuffer,
     });
 
     let s3res = await new Promise((resolve, reject) => {
