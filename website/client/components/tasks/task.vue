@@ -17,10 +17,10 @@
           .d-flex.justify-content-between
             h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
             menu-dropdown.task-dropdown(
-              v-if="isUser && !isRunningYesterdailies",
+              v-if="!isRunningYesterdailies",
               :right="task.type === 'reward'",
               ref="taskDropdown",
-              v-b-tooltip.hover.top="$t('showMore')"
+              v-b-tooltip.hover.top="$t('options')"
             )
               div(slot="dropdown-toggle", draggable=false)
                 .svg-icon.dropdown-icon(v-html="icons.menu")
@@ -29,11 +29,11 @@
                   span.dropdown-icon-item
                     span.svg-icon.inline.edit-icon(v-html="icons.edit")
                     span.text {{ $t('edit') }}
-                .dropdown-item(@click="moveToTop")
+                .dropdown-item(v-if='isUser', @click="moveToTop")
                   span.dropdown-icon-item
                     span.svg-icon.inline.push-to-top(v-html="icons.top")
                     span.text {{ $t('taskToTop') }}
-                .dropdown-item(@click="moveToBottom")
+                .dropdown-item(v-if='isUser', @click="moveToBottom")
                   span.dropdown-icon-item
                     span.svg-icon.inline.push-to-bottom(v-html="icons.bottom")
                     span.text {{ $t('taskToBottom') }}
@@ -46,7 +46,7 @@
             v-markdown="task.notes",
             :class="{'has-checklist': task.notes && hasChecklist}",
           )
-        .checklist(v-if="canViewchecklist")
+        .checklist(v-if="canViewchecklist", :class="{isOpen: !task.collapseChecklist}")
           .d-inline-flex
             .collapse-checklist.d-flex.align-items-center.expand-toggle(
               v-if="isUser",
@@ -141,6 +141,11 @@
     min-width: 0px;
     overflow-wrap: break-word;
 
+    // markdown p-tag, can't find without /deep/
+    /deep/ p {
+      margin-bottom: 0;
+    }
+
     &.has-notes {
       padding-bottom: 4px;
     }
@@ -229,7 +234,7 @@
     overflow-wrap: break-word;
 
     &.has-checklist {
-      padding-bottom: 8px;
+      padding-bottom: 2px;
     }
   }
 
@@ -254,19 +259,25 @@
   }
 
   .checklist {
-    margin-bottom: 2px;
+    &.isOpen {
+      margin-bottom: 2px;
+    }
+
     margin-top: -3px;
   }
 
   .collapse-checklist {
     padding: 2px 6px;
-    margin-bottom: 9px;
     border-radius: 1px;
     background-color: $gray-600;
     font-size: 10px;
     line-height: 1.2;
     text-align: center;
     color: $gray-200;
+    margin-bottom: 9px;
+
+    &.open {
+    }
 
     span {
       margin: 0px 4px;
@@ -285,7 +296,7 @@
     margin-bottom: -3px;
     min-height: 0px;
     width: 100%;
-    margin-left: 8px;
+    margin-left: 0;
     padding-right: 20px;
     overflow-wrap: break-word;
 
@@ -427,7 +438,7 @@
     border-left: none;
   }
 
-  .task-control, .reward-control {
+  .task-control:not(.task-disabled-habit-control-inner), .reward-control {
     cursor: pointer;
   }
 

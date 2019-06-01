@@ -27,8 +27,6 @@ describe('GET /inbox/messages', () => {
       toUserId: user.id,
       message: 'fourth',
     });
-
-    await user.sync();
   });
 
   it('returns the user inbox messages as an array of ordered messages (from most to least recent)', async () => {
@@ -44,5 +42,28 @@ describe('GET /inbox/messages', () => {
     expect(messages[1].text).to.equal('third');
     expect(messages[2].text).to.equal('second');
     expect(messages[3].text).to.equal('first');
+  });
+
+  it('returns four messages when using page-query ', async () => {
+    const promises = [];
+
+    for (let i = 0; i < 10; i++) {
+      promises.push(user.post('/members/send-private-message', {
+        toUserId: user.id,
+        message: 'fourth',
+      }));
+    }
+
+    await Promise.all(promises);
+
+    const messages = await user.get('/inbox/messages?page=1');
+
+    expect(messages.length).to.equal(4);
+  });
+
+  it('returns only the messages of one conversation', async () => {
+    const messages = await user.get(`/inbox/messages?conversation=${otherUser.id}`);
+
+    expect(messages.length).to.equal(3);
   });
 });

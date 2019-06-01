@@ -48,7 +48,7 @@
 
       div(
         v-for="category in categories",
-        v-if="!closed && viewOptions[category.identifier].selected",
+        v-if="!anyFilterSelected  || (!closed && viewOptions[category.identifier].selected)",
         :class="category.identifier"
       )
         h2.mb-3 {{ category.text }}
@@ -329,11 +329,14 @@
 
         normalGroups.map((category) => {
           this.$set(this.viewOptions, category.identifier, {
-            selected: true,
+            selected: false,
           });
         });
 
         return normalGroups;
+      },
+      anyFilterSelected () {
+        return Object.values(this.viewOptions).some(g => g.selected);
       },
     },
     methods: {

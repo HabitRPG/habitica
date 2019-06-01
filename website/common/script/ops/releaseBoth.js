@@ -62,6 +62,10 @@ module.exports = function releaseBoth (user, req = {}) {
     user.items.pets[animal] = 0;
     user.items.mounts[animal] = null;
   }
+  if (user.markModified) {
+    user.markModified('items.pets');
+    user.markModified('items.mounts');
+  }
 
   if (giveBeastMasterAchievement) {
     if (!user.achievements.beastMasterCount) {

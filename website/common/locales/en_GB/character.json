@@ -175,7 +175,7 @@
     "youCast": "You cast <%= spell %>.",
     "youCastTarget": "You cast <%= spell %> on <%= target %>.",
     "youCastParty": "You cast <%= spell %> for the party.",
-    "critBonus": "Critical Hit! Bonus:",
+    "critBonus": "Critical Hit! Bonus: ",
     "gainedGold": "You gained some Gold",
     "gainedMana": "You gained some Mana",
     "gainedHealth": "You gained some Health",

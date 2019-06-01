@@ -1421,7 +1421,7 @@ api.deleteMessage = {
 
     await inboxLib.deleteMessage(user, req.params.id);
 
-    res.respond(200, ...[await inboxLib.getUserInbox(user, false)]);
+    res.respond(200, ...[await inboxLib.getUserInbox(user, {asArray: false})]);
   },
 };
 

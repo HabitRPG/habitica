@@ -30,12 +30,17 @@ const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email)
 
 /**
  * @apiDefine GroupIdRequired
- * @apiError (404) {badRequest} groupIdRequired A group ID is required
+ * @apiError (400) {badRequest} groupIdRequired A group ID is required
  */
 
 /**
  * @apiDefine ChatIdRequired
- * @apiError (404) {badRequest} chatIdRequired A chat ID is required
+ * @apiError (400) {badRequest} chatIdRequired A chat ID is required
+ */
+
+/**
+ * @apiDefine MessageIdRequired
+ * @apiError (400) {badRequest} messageIdRequired A message ID is required
  */
 
 let api = {};
@@ -181,7 +186,7 @@ api.postChat = {
     if (client) {
       client = client.replace('habitica-', '');
     }
-    const newChatMessage = group.sendChat(req.body.message, user, null, client);
+    const newChatMessage = group.sendChat({message: req.body.message, user, metaData: null, client});
     let toSave = [newChatMessage.save()];
 
     if (group.type === 'party') {
@@ -246,7 +251,7 @@ api.likeChat = {
     let groupId = req.params.groupId;
 
     req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
-    req.checkParams('chatId', res.t('chatIdRequired')).notEmpty();
+    req.checkParams('chatId', apiError('chatIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -285,7 +290,7 @@ api.likeChat = {
  * @apiSuccess {Object} data.likes The likes of the message
  * @apiSuccess {Object} data.flags The flags of the message
  * @apiSuccess {Number} data.flagCount The number of flags the message has
- * @apiSuccess {UUID} data.uuid The user id of the author of the message
+ * @apiSuccess {UUID} data.uuid The User ID of the author of the message
  * @apiSuccess {String} data.user The username of the author of the message
  *
  * @apiUse GroupNotFound
@@ -334,7 +339,7 @@ api.clearChatFlags = {
     let chatId = req.params.chatId;
 
     req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
-    req.checkParams('chatId', res.t('chatIdRequired')).notEmpty();
+    req.checkParams('chatId', apiError('chatIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -470,7 +475,7 @@ api.deleteChat = {
     let chatId = req.params.chatId;
 
     req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
-    req.checkParams('chatId', res.t('chatIdRequired')).notEmpty();
+    req.checkParams('chatId', apiError('chatIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;

@@ -11,6 +11,7 @@ import {
 } from '../../../../website/common/script/libs/errors';
 import i18n from '../../../../website/common/script/i18n';
 import errorMessage from '../../../../website/common/script/libs/errorMessage';
+import { defaultsDeep } from 'lodash';
 
 function buyGear (user, req, analytics) {
   let buyOp = new BuyMarketGearOperation(user, req, analytics);
@@ -24,6 +25,10 @@ describe('shared.ops.buyMarketGear', () => {
 
   beforeEach(() => {
     user = generateUser({
+      stats: { gp: 200 },
+    });
+
+    defaultsDeep(user, {
       items: {
         gear: {
           owned: {
@@ -34,7 +39,6 @@ describe('shared.ops.buyMarketGear', () => {
           },
         },
       },
-      stats: { gp: 200 },
     });
 
     sinon.stub(shared, 'randomVal');
@@ -71,6 +75,13 @@ describe('shared.ops.buyMarketGear', () => {
         headAccessory_special_redHeadband: true,
         headAccessory_special_whiteHeadband: true,
         headAccessory_special_yellowHeadband: true,
+        eyewear_special_blackHalfMoon: true,
+        eyewear_special_blueHalfMoon: true,
+        eyewear_special_greenHalfMoon: true,
+        eyewear_special_pinkHalfMoon: true,
+        eyewear_special_redHalfMoon: true,
+        eyewear_special_whiteHalfMoon: true,
+        eyewear_special_yellowHalfMoon: true,
       });
       expect(analytics.track).to.be.calledOnce;
     });

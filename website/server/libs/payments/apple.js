@@ -239,17 +239,26 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
 
   await iap.setup();
 
-  let appleRes = await iap.validate(iap.APPLE, plan.additionalData);
+  let dateTerminated;
 
-  let isValidated = iap.isValidated(appleRes);
-  if (!isValidated) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
+  try {
+    let appleRes = await iap.validate(iap.APPLE, plan.additionalData);
 
-  let purchases = iap.getPurchaseData(appleRes);
-  if (purchases.length === 0) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
-  let subscriptionData = purchases[0];
+    let isValidated = iap.isValidated(appleRes);
+    if (!isValidated) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
 
-  let dateTerminated = new Date(Number(subscriptionData.expirationDate));
-  if (dateTerminated > new Date()) throw new NotAuthorized(this.constants.RESPONSE_STILL_VALID);
+    let purchases = iap.getPurchaseData(appleRes);
+    if (purchases.length === 0) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
+    let subscriptionData = purchases[0];
+
+    dateTerminated = new Date(Number(subscriptionData.expirationDate));
+    if (dateTerminated > new Date()) throw new NotAuthorized(this.constants.RESPONSE_STILL_VALID);
+  } catch (err) {
+    // If we have an invalid receipt, cancel anyway
+    if (!err || !err.validatedData || err.validatedData.is_retryable === true || err.validatedData.status !== 21010) {
+      throw err;
+    }
+  }
 
   await payments.cancelSubscription({
     user,

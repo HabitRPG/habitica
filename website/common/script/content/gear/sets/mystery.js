@@ -223,6 +223,18 @@ let armor = {
     mystery: '201810',
     value: 0,
   },
+  201903: {
+    text: t('armorMystery201903Text'),
+    notes: t('armorMystery201903Notes'),
+    mystery: '201903',
+    value: 0,
+  },
+  201904: {
+    text: t('armorMystery201904Text'),
+    notes: t('armorMystery201904Notes'),
+    mystery: '201904',
+    value: 0,
+  },
   301404: {
     text: t('armorMystery301404Text'),
     notes: t('armorMystery301404Notes'),
@@ -346,6 +358,12 @@ let back = {
     mystery: '201812',
     value: 0,
   },
+  201905: {
+    text: t('backMystery201905Text'),
+    notes: t('backMystery201905Notes'),
+    mystery: '201905',
+    value: 0,
+  },
 };
 
 let body = {
@@ -398,6 +416,12 @@ let eyewear = {
     text: t('eyewearMystery201701Text'),
     notes: t('eyewearMystery201701Notes'),
     mystery: '201701',
+    value: 0,
+  },
+  201902: {
+    text: t('eyewearMystery201902Text'),
+    notes: t('eyewearMystery201902Notes'),
+    mystery: '201902',
     value: 0,
   },
   301404: {
@@ -667,6 +691,18 @@ let head = {
     mystery: '201901',
     value: 0,
   },
+  201903: {
+    text: t('headMystery201903Text'),
+    notes: t('headMystery201903Notes'),
+    mystery: '201903',
+    value: 0,
+  },
+  201904: {
+    text: t('headMystery201904Text'),
+    notes: t('headMystery201904Notes'),
+    mystery: '201904',
+    value: 0,
+  },
   301404: {
     text: t('headMystery301404Text'),
     notes: t('headMystery301404Notes'),
@@ -742,6 +778,12 @@ let headAccessory = {
     mystery: '201812',
     value: 0,
   },
+  201905: {
+    text: t('headAccessoryMystery201905Text'),
+    notes: t('headAccessoryMystery201905Notes'),
+    mystery: '201905',
+    value: 0,
+  },
   301405: {
     text: t('headAccessoryMystery301405Text'),
     notes: t('headAccessoryMystery301405Notes'),
@@ -779,6 +821,12 @@ let shield = {
     text: t('shieldMystery201802Text'),
     notes: t('shieldMystery201802Notes'),
     mystery: '201802',
+    value: 0,
+  },
+  201902: {
+    text: t('shieldMystery201902Text'),
+    notes: t('shieldMystery201902Notes'),
+    mystery: '201902',
     value: 0,
   },
   301405: {

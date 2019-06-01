@@ -36,7 +36,7 @@
     "questEggGryphonMountText": "Грифон",
     "questEggGryphonAdjective": "гордый",
     "questEggHedgehogText": "Еж",
-    "questEggHedgehogMountText": "Еж",
+    "questEggHedgehogMountText": "Eж",
     "questEggHedgehogAdjective": "колючий",
     "questEggDeerText": "Олень",
     "questEggDeerMountText": "Олень",
@@ -201,7 +201,7 @@
     "hatchingPotionThunderstorm": "Грозовой",
     "hatchingPotionGhost": "Призрачный",
     "hatchingPotionRoyalPurple": "Королевский пурпурный",
-    "hatchingPotionHolly": "Oстролистный",
+    "hatchingPotionHolly": "Остролистный",
     "hatchingPotionCupid": "Амурный",
     "hatchingPotionShimmer": "Мерцающий",
     "hatchingPotionFairy": "Сказочный",
@@ -291,7 +291,7 @@
     "foodCandyWhite": "Ванильная конфета",
     "foodCandyWhiteThe": "Конфета с ванилью",
     "foodCandyWhiteA": "Ванильнюю конфету",
-    "foodCandyGolden": "Медовая конфета",
+    "foodCandyGolden": "Медовая конфета ",
     "foodCandyGoldenThe": "Конфета с мёдом",
     "foodCandyGoldenA": "Медовую конфету",
     "foodCandyZombie": "Тухлая конфета",
@@ -306,5 +306,6 @@
     "foodSaddleText": "Седло",
     "foodSaddleNotes": "Моментально делает одного из питомцев скакуном.",
     "foodSaddleSellWarningNote": "Эй! Это довольно полезная вещь! Знаете ли вы, как пользоваться седлом?",
-    "foodNotes": "Кормите этим питомца, и он сможет вырасти выносливым скакуном."
+    "foodNotes": "Кормите этим питомца, и он сможет вырасти выносливым скакуном.",
+    "hatchingPotionRoseQuartz": "Розовый кварцевый"
 }

@@ -89,7 +89,7 @@
     "questMoonstone2DropMoonstone3Quest": "Recidivate, Part 3: Recidivate Transformed (Scroll)",
     "questMoonstone3Text": "Recidivate, Part 3: Recidivate Transformed",
     "questMoonstone3Notes": "Laughing wickedly, Recidivate crumples to the ground, and you strike at her again with the moonstone chain. To your horror, Recidivate seizes the gems, eyes burning with triumph.<br><br>\"Foolish creature of flesh!\" she shouts. \"These moonstones will restore me to a physical form, true, but not as you imagined. As the full moon waxes from the dark, so too does my power flourish, and from the shadows I summon the specter of your most feared foe!\"<br><br>A sickly green fog rises from the swamp, and Recidivate’s body writhes and contorts into a shape that fills you with dread – the undead body of Vice, horribly reborn.",
-    "questMoonstone3Completion": "Your breath comes hard and sweat stings your eyes as the undead Wyrm collapses. The remains of Recidivate dissipate into a thin grey mist that clears quickly under the onslaught of a refreshing breeze, and you hear the distant, rallying cries of Habiticans defeating their Bad Habits for once and for all.<br><br>@Baconsaur the beast master swoops down on a gryphon. \"I saw the end of your battle from the sky, and I was greatly moved. Please, take this enchanted tunic – your bravery speaks of a noble heart, and I believe you were meant to have it.\" ",
+    "questMoonstone3Completion": "Your breath comes hard and sweat stings your eyes as the undead Wyrm collapses. The remains of Recidivate dissipate into a thin grey mist that clears quickly under the onslaught of a refreshing breeze, and you hear the distant, rallying cries of Habiticans defeating their Bad Habits for once and for all.<br><br>@Baconsaur the beast master swoops down on a gryphon. \"I saw the end of your battle from the sky, and I was greatly moved. Please, take this enchanted tunic – your bravery speaks of a noble heart, and I believe you were meant to have it.\"",
     "questMoonstone3Boss": "Necro-Vice",
     "questMoonstone3DropRottenMeat": "Rotten Meat (Food)",
     "questMoonstone3DropZombiePotion": "Zombie Hatching Potion",
@@ -634,5 +634,7 @@
     "questVelociraptorCompletion": "You burst through the grass, confronting the Veloci-Rapper.<br><br><em>See here, rapper, you’re no quitter,<br>You’re Bad Habits' hardest hitter!<br>Check off your To-Dos like a boss,<br>Don’t mourn over one day’s loss!</em><br><br>Filled with renewed confidence, it bounds off to freestyle another day, leaving behind three eggs where it sat.",
     "questVelociraptorBoss": "Veloci-Rapper",
     "questVelociraptorDropVelociraptorEgg": "Velociraptor (Egg)",
-    "questVelociraptorUnlockText": "Unlocks purchasable Velociraptor eggs in the Market"
+    "questVelociraptorUnlockText": "Unlocks purchasable Velociraptor eggs in the Market",
+    "mythicalMarvelsText": "Mythical Marvels Quest Bundle",
+    "mythicalMarvelsNotes": "Contains 'Convincing the Unicorn Queen,' 'The Fiery Gryphon,' and 'Danger in the Depths: Sea Serpent Strike!' Available until February 28."
 }

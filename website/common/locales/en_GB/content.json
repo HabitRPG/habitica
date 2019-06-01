@@ -2,7 +2,7 @@
     "potionText": "Health Potion",
     "potionNotes": "Recover 15 Health (Instant Use)",
     "armoireText": "Enchanted Armoire",
-    "armoireNotesFull": "Open the Armoire to randomly receive special Equipment, Experience, or food! Equipment pieces remaining:",
+    "armoireNotesFull": "Open the Armoire to randomly receive special Equipment, Experience, or food! Equipment pieces remaining: ",
     "armoireLastItem": "You've found the last piece of rare Equipment in the Enchanted Armoire.",
     "armoireNotesEmpty": "The Armoire will have new Equipment in the first week of every month. Until then, keep clicking for Experience and Food!",
     "dropEggWolfText": "Wolf",
@@ -291,7 +291,7 @@
     "foodCandyWhite": "Vanilla Sweet",
     "foodCandyWhiteThe": "the Vanilla Candy",
     "foodCandyWhiteA": "Vanilla Candy",
-    "foodCandyGolden": "Honey Sweet",
+    "foodCandyGolden": "Honey Sweet ",
     "foodCandyGoldenThe": "the Honey Candy",
     "foodCandyGoldenA": "Honey Candy",
     "foodCandyZombie": "Rotten Sweet",
@@ -306,5 +306,6 @@
     "foodSaddleText": "Saddle",
     "foodSaddleNotes": "Instantly raises one of your pets into a mount.",
     "foodSaddleSellWarningNote": "Hey! This is a pretty useful item! Are you familiar with how to use a Saddle with your Pets?",
-    "foodNotes": "Feed this to a pet and it may grow into a sturdy steed."
+    "foodNotes": "Feed this to a pet and it may grow into a sturdy steed.",
+    "hatchingPotionRoseQuartz": "Rose Quartz"
 }

@@ -37,8 +37,9 @@
     draggable.sortable-tasks(
       ref="tasksList",
       @update='taskSorted',
-      :options='{disabled: activeFilter.label === "scheduled", scrollSensitivity: 64}',
-      class="sortable-tasks"
+      @start="isDragging(true)",
+      @end="isDragging(false)",
+      :options='{disabled: activeFilter.label === "scheduled" || !isUser, scrollSensitivity: 64}',
     )
       task(
         v-for="task in taskList",
@@ -47,14 +48,14 @@
         @editTask="editTask",
         @moveTo="moveTo",
         :group='group',
+        v-on:taskDestroyed='taskDestroyed'
       )
     template(v-if="hasRewardsList")
-      draggable(
+      draggable.reward-items(
         ref="rewardsList",
         @update="rewardSorted",
         @start="rewardDragStart",
         @end="rewardDragEnd",
-        class="reward-items",
       )
         shopItem(
           v-for="reward in inAppRewards",
@@ -76,6 +77,9 @@
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
 
+  /deep/ .draggable-cursor {
+    cursor: grabbing;
+  }
 
   .tasks-column {
     min-height: 556px;
@@ -88,7 +92,6 @@
   .sortable-tasks + .reward-items {
     margin-top: 16px;
   }
-
 
   .reward-items {
     @supports (display: grid) {
@@ -202,6 +205,7 @@
 
   .column-background {
     position: absolute;
+    width: 100%;
     bottom: 32px;
 
     &.initial-description {
@@ -335,6 +339,7 @@ export default {
       showPopovers: true,
 
       selectedItemToBuy: {},
+      dragging: false,
     };
   },
   created () {
@@ -521,9 +526,11 @@ export default {
     rewardDragStart () {
       // We need to stop popovers from interfering with our dragging
       this.showPopovers = false;
+      this.isDragging(true);
     },
     rewardDragEnd () {
       this.showPopovers = true;
+      this.isDragging(false);
     },
     quickAdd (ev) {
       // Add a new line if Shift+Enter Pressed
@@ -677,6 +684,17 @@ export default {
       } catch (e) {
         this.error(e.message);
       }
+    },
+    isDragging (dragging) {
+      this.dragging = dragging;
+      if (dragging) {
+        document.documentElement.classList.add('draggable-cursor');
+      } else {
+        document.documentElement.classList.remove('draggable-cursor');
+      }
+    },
+    taskDestroyed (task) {
+      this.$emit('taskDestroyed', task);
     },
   },
 };

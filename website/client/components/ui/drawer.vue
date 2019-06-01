@@ -174,7 +174,9 @@ export default {
       let minPaddingBottom = 20;
       let drawerHeight = this.$el.offsetHeight;
       let standardPage = document.getElementsByClassName('standard-page')[0];
-      standardPage.style.paddingBottom = `${drawerHeight + minPaddingBottom}px`;
+      if (standardPage) {
+        standardPage.style.paddingBottom = `${drawerHeight + minPaddingBottom}px`;
+      }
     },
     toggle () {
       this.open = !this.isOpen;
