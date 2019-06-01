@@ -63,11 +63,11 @@ describe('POST /chat/:chatId/flag', () => {
 
     /* eslint-disable camelcase */
     expect(IncomingWebhook.prototype.send).to.be.calledWith({
-      text: `${user.profile.name} (${user.id}; language: en) flagged a message`,
+      text: `${user.profile.name} (${user.id}; language: en) flagged a group message`,
       attachments: [{
         fallback: 'Flag Message',
         color: 'danger',
-        author_name: `${anotherUser.profile.name} - ${anotherUser.auth.local.email} - ${anotherUser._id}\n${timestamp}`,
+        author_name: `@${anotherUser.auth.local.username} ${anotherUser.profile.name} (${anotherUser.auth.local.email}; ${anotherUser._id})\n${timestamp}`,
         title: 'Flag in Test Guild',
         title_link: `${BASE_URL}/groups/guild/${group._id}`,
         text: TEST_MESSAGE,
@@ -98,11 +98,11 @@ describe('POST /chat/:chatId/flag', () => {
 
     /* eslint-disable camelcase */
     expect(IncomingWebhook.prototype.send).to.be.calledWith({
-      text: `${newUser.profile.name} (${newUser.id}; language: en) flagged a message`,
+      text: `${newUser.profile.name} (${newUser.id}; language: en) flagged a group message`,
       attachments: [{
         fallback: 'Flag Message',
         color: 'danger',
-        author_name: `${newUser.profile.name} - ${newUser.auth.local.email} - ${newUser._id}\n${timestamp}`,
+        author_name: `@${newUser.auth.local.username} ${newUser.profile.name} (${newUser.auth.local.email}; ${newUser._id})\n${timestamp}`,
         title: 'Flag in Test Guild',
         title_link: `${BASE_URL}/groups/guild/${group._id}`,
         text: TEST_MESSAGE,

@@ -140,6 +140,7 @@ async function createSubscription (data) {
 
   if (recipient !== group) {
     recipient.items.pets['Jackalope-RoyalPurple'] = 5;
+    recipient.markModified('items.pets');
     revealMysteryItems(recipient);
   }
 

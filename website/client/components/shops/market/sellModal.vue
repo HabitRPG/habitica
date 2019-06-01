@@ -26,7 +26,7 @@
           br
 
         div(v-else)
-          div(v-once)
+          div
             div.text {{ item.notes() }}
 
             div

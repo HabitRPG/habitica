@@ -3,50 +3,64 @@ div
   inbox-modal
   creator-intro
   profileModal
-  b-navbar.topbar.navbar-inverse.static-top.navbar-expand-lg(type="dark", :class="navbarZIndexClass")
-    b-navbar-brand.brand
+  report-flag-modal
+  send-gems-modal
+  b-navbar.topbar.navbar-inverse.static-top(toggleable="lg", type="dark", :class="navbarZIndexClass")
+    b-navbar-brand.brand(aria-label="Habitica")
       .logo.svg-icon.d-none.d-xl-block(v-html="icons.logo")
       .svg-icon.gryphon.d-xs-block.d-xl-none
-    b-nav-toggle(target='menu_collapse').menu-toggle
+    b-navbar-toggle(target='menu_collapse').menu-toggle
     .quick-menu.mobile-only.form-inline
-      a.item-with-icon(@click="sync", v-b-tooltip.hover.bottom="$t('sync')")
+      a.item-with-icon(@click="sync", v-b-tooltip.hover.bottom="$t('sync')", :aria-label="$t('sync')")
         .top-menu-icon.svg-icon(v-html="icons.sync")
       notification-menu.item-with-icon
       user-dropdown.item-with-icon
-    b-collapse#menu_collapse.collapse.navbar-collapse
+    b-collapse#menu_collapse(v-model="menuIsOpen").collapse.navbar-collapse
       b-navbar-nav.menu-list
-        b-nav-item.topbar-item(tag="li", :to="{name: 'tasks'}", exact) {{ $t('tasks') }}
-        li.topbar-item(:class="{'active': $route.path.startsWith('/inventory')}")
+        b-nav-item.topbar-item(:class="{'active': $route.path === '/'}" tag="li", :to="{name: 'tasks'}", exact) {{ $t('tasks') }}
+        li.topbar-item(:class="{'active': $route.path.startsWith('/inventory'), 'down': $route.path.startsWith('/inventory') && this.isDesktop()}").droppable
+          .chevron.rotate(@click='dropdownMobile($event)')
+            .chevron-icon-down(v-html="icons.chevronDown", v-once)
           router-link.nav-link(:to="{name: 'items'}") {{ $t('inventory') }}
           .topbar-dropdown
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'items'}", exact) {{ $t('items') }}
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'equipment'}") {{ $t('equipment') }}
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'stable'}") {{ $t('stable') }}
-        li.topbar-item(:class="{'active': $route.path.startsWith('/shop')}")
+        li.topbar-item(:class="{'active': $route.path.startsWith('/shop'), 'down': $route.path.startsWith('/shop') && this.isDesktop()}").droppable
+          .chevron.rotate(@click='dropdownMobile($event)')
+            .chevron-icon-down(v-html="icons.chevronDown", v-once)
           router-link.nav-link(:to="{name: 'market'}") {{ $t('shops') }}
           .topbar-dropdown
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'market'}", exact) {{ $t('market') }}
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'quests'}") {{ $t('quests') }}
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'seasonal'}") {{ $t('titleSeasonalShop') }}
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'time'}") {{ $t('titleTimeTravelers') }}
-        b-nav-item.topbar-item(tag="li", :to="{name: 'party'}", v-if='this.user.party._id') {{ $t('party') }}
-        b-nav-item.topbar-item(@click='openPartyModal()', v-if='!this.user.party._id') {{ $t('party') }}
-        li.topbar-item(:class="{'active': $route.path.startsWith('/guilds')}")
+        b-nav-item.topbar-item(:class="{'active': $route.path.startsWith('/party')}" tag="li", :to="{name: 'party'}", v-if='this.user.party._id') {{ $t('party') }}
+        b-nav-item.topbar-item(:class="{'active': $route.path.startsWith('/party')}" @click='openPartyModal()', v-if='!this.user.party._id') {{ $t('party') }}
+        li.topbar-item(:class="{'active': $route.path.startsWith('/groups'), 'down': $route.path.startsWith('/groups') && this.isDesktop()}").droppable
+          .chevron.rotate(@click='dropdownMobile($event)')
+            .chevron-icon-down(v-html="icons.chevronDown", v-once)
           router-link.nav-link(:to="{name: 'tavern'}") {{ $t('guilds') }}
           .topbar-dropdown
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'tavern'}") {{ $t('tavern') }}
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'myGuilds'}") {{ $t('myGuilds') }}
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'guildsDiscovery'}") {{ $t('guildsDiscovery') }}
-        li.topbar-item(:class="{'active': $route.path.startsWith('/group-plans')}")
+        li.topbar-item(:class="{'active': $route.path.startsWith('/group-plans'), 'down': $route.path.startsWith('/group-plans') && this.isDesktop()}").droppable
+          .chevron.rotate(v-if="groupPlans.length > 0", @click='dropdownMobile($event)')
+            .chevron-icon-down(v-html="icons.chevronDown", v-once)
           router-link.nav-link(:to="{name: 'groupPlan'}") {{ $t('group') }}
           .topbar-dropdown
             router-link.topbar-dropdown-item.dropdown-item(v-for='group in groupPlans', :key='group._id', :to="{name: 'groupPlanDetailTaskInformation', params: {groupId: group._id}}") {{ group.name }}
-        li.topbar-item(:class="{'active': $route.path.startsWith('/challenges')}")
+        li.topbar-item(:class="{'active': $route.path.startsWith('/challenges'), 'down': $route.path.startsWith('/challenges') && this.isDesktop()}").droppable
+          .chevron.rotate(@click='dropdownMobile($event)')
+            .chevron-icon-down(v-html="icons.chevronDown", v-once)
           router-link.nav-link(:to="{name: 'myChallenges'}") {{ $t('challenges') }}
           .topbar-dropdown
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'myChallenges'}") {{ $t('myChallenges') }}
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'findChallenges'}") {{ $t('findChallenges') }}
-        li.topbar-item(:class="{'active': $route.path.startsWith('/help')}")
+        li.topbar-item(:class="{'active': $route.path.startsWith('/help'), 'down': $route.path.startsWith('/help') && this.isDesktop()}").droppable
+          .chevron.rotate(@click='dropdownMobile($event)')
+            .chevron-icon-down(v-html="icons.chevronDown", v-once)
           router-link.nav-link(:to="{name: 'faq'}") {{ $t('help') }}
           .topbar-dropdown
             router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'faq'}") {{ $t('faq') }}
@@ -62,13 +76,13 @@ div
           .top-menu-icon.svg-icon(v-html="icons.hourglasses", v-b-tooltip.hover.bottom="$t('mysticHourglassesTooltip')")
           span {{ userHourglasses }}
         .item-with-icon
-          .top-menu-icon.svg-icon.gem(v-html="icons.gem", @click='showBuyGemsModal("gems")', v-b-tooltip.hover.bottom="$t('gems')")
+          a.top-menu-icon.svg-icon.gem(:aria-label="$t('gems')", href="#buy-gems" v-html="icons.gem", @click.prevent='showBuyGemsModal("gems")', v-b-tooltip.hover.bottom="$t('gems')")
           span {{userGems}}
         .item-with-icon.gold
-          .top-menu-icon.svg-icon(v-html="icons.gold", v-b-tooltip.hover.bottom="$t('gold')")
+          .top-menu-icon.svg-icon(:aria-label="$t('gold')", v-html="icons.gold", v-b-tooltip.hover.bottom="$t('gold')")
           span {{Math.floor(user.stats.gp * 100) / 100}}
       .form-inline.desktop-only
-        a.item-with-icon(@click="sync", v-b-tooltip.hover.bottom="$t('sync')")
+        a.item-with-icon(@click="sync", @keyup.enter="sync", role="link", :aria-label="$t('sync')", tabindex="0", v-b-tooltip.hover.bottom="$t('sync')")
           .top-menu-icon.svg-icon(v-html="icons.sync")
         notification-menu.item-with-icon
         user-dropdown.item-with-icon
@@ -79,6 +93,10 @@ div
   @import '~client/assets/scss/utils.scss';
 
   @media only screen and (max-width: 1200px) {
+    .chevron {
+      display: none
+    }
+
     .gryphon {
       background-image: url('~assets/images/melior@3x.png');
       width: 30px;
@@ -94,6 +112,10 @@ div
   }
 
   @media only screen and (min-width: 992px) {
+    .chevron {
+      display: none
+    }
+
     .mobile-only {
       display: none !important;
     }
@@ -108,6 +130,10 @@ div
       .topbar-item {
         padding-top: 5px;
         height: 56px;
+
+        &:hover {
+          background: $purple-200;
+        }
 
         &.active:not(:hover) {
           box-shadow: 0px -4px 0px $purple-300 inset;
@@ -142,12 +168,40 @@ div
         order: 1;
         text-align: center;
 
+        .topbar-dropdown  {
+          transition: max-height 0.25s ease;
+        }
+
         .topbar-dropdown-item {
           background: #432874;
           border-bottom: #6133b4 solid 1px;
         }
 
+        .chevron {
+          width: 20%;
+          height: 42px;
+          position: absolute;
+          right: 0;
+          top: 0;
+          display: block;
+        }
+
+        .chevron-icon-down {
+          width: 14px;
+          top: 11px;
+          right: 12px;
+          position: absolute;
+          display: block;
+          transition: transform 0.25s ease;
+        }
+
+        .down .rotate .chevron-icon-down {
+          transform: rotate(-180deg);
+          }
+
         .topbar-item {
+          position: relative;
+
           &.active {
             background: #6133b4;
           }
@@ -221,20 +275,25 @@ div
     font-weight: bold;
     transition: none;
 
-    .topbar-dropdown {
-      display: none; // Display is set to block on hover.
+    .topbar-dropdown  {
+        overflow: hidden;
+        max-height: 0;
+
+        .topbar-dropdown-item {
+          line-height: 1.5;
+          font-size: 16px;
+        }
     }
 
     >a {
       padding: .8em 1em !important;
     }
 
-    &:hover {
+    &.down {
       color: $white !important;
       background: $purple-200;
 
       .topbar-dropdown {
-        display: block; // Open drop-down on hover.
         margin-top: 0; // Remove gap between navbar and drop-down.
         background: $purple-200;
         border-radius: 0px;
@@ -288,6 +347,7 @@ div
       margin-right: 24px;
     }
 
+    &:focus /deep/ .top-menu-icon.svg-icon,
     &:hover /deep/ .top-menu-icon.svg-icon {
       color: $white;
     }
@@ -341,31 +401,41 @@ import gemIcon from 'assets/svg/gem.svg';
 import goldIcon from 'assets/svg/gold.svg';
 import syncIcon from 'assets/svg/sync.svg';
 import svgHourglasses from 'assets/svg/hourglass.svg';
+import chevronDownIcon from 'assets/svg/chevron-down.svg';
 import logo from 'assets/svg/logo.svg';
 
+import creatorIntro from '../creatorIntro';
 import InboxModal from '../userMenu/inbox.vue';
 import notificationMenu from './notificationsDropdown';
-import creatorIntro from '../creatorIntro';
 import profileModal from '../userMenu/profileModal';
+import reportFlagModal from '../chat/reportFlagModal';
+import sendGemsModal from 'client/components/payments/sendGemsModal';
+import sync from 'client/mixins/sync';
 import userDropdown from './userDropdown';
+
 
 export default {
   components: {
-    userDropdown,
+    creatorIntro,
     InboxModal,
     notificationMenu,
-    creatorIntro,
     profileModal,
+    reportFlagModal,
+    sendGemsModal,
+    userDropdown,
   },
+  mixins: [sync],
   data () {
     return {
       isUserDropdownOpen: false,
+      menuIsOpen: false,
       icons: Object.freeze({
         gem: gemIcon,
         gold: goldIcon,
         hourglasses: svgHourglasses,
         sync: syncIcon,
         logo,
+        chevronDown: chevronDownIcon,
       }),
     };
   },
@@ -388,6 +458,13 @@ export default {
   },
   mounted () {
     this.getUserGroupPlans();
+    Array.from(document.getElementById('menu_collapse').getElementsByTagName('a')).forEach(link => {
+      link.addEventListener('click', this.closeMenu);
+    });
+    Array.from(document.getElementsByClassName('topbar-item')).forEach(link => {
+      link.addEventListener('mouseenter', this.dropdownDesktop);
+      link.addEventListener('mouseleave', this.dropdownDesktop);
+    });
   },
   methods: {
     modForm () {
@@ -395,14 +472,6 @@ export default {
     },
     toggleUserDropdown () {
       this.isUserDropdownOpen = !this.isUserDropdownOpen;
-    },
-    async sync () {
-      this.$root.$emit('habitica::resync-requested');
-      await Promise.all([
-        this.$store.dispatch('user:fetch', {forceLoad: true}),
-        this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
-      ]);
-      this.$root.$emit('habitica::resync-completed');
     },
     async getUserGroupPlans () {
       this.$store.state.groupPlans = await this.$store.dispatch('guilds:getGroupPlans');
@@ -422,7 +491,40 @@ export default {
 
       this.$root.$emit('bv::show::modal', 'buy-gems', {alreadyTracked: true});
     },
+    dropdownDesktop (hover) {
+      if (this.isDesktop() && hover.target.classList.contains('droppable')) {
+        this.dropdown(hover.target);
+      }
+    },
+    dropdownMobile (click) {
+      this.dropdown(click.currentTarget.parentElement);
+    },
+    dropdown (element) {
+      let droppedElement = document.getElementsByClassName('down')[0];
+      if (droppedElement && droppedElement !== element) {
+        droppedElement.classList.remove('down');
+        droppedElement.lastChild.style.maxHeight = 0;
+      }
 
+      element.classList.toggle('down');
+      element.lastChild.style.maxHeight = element.classList.contains('down') ? `${element.lastChild.scrollHeight}px` : 0;
+    },
+    closeMenu () {
+      if (this.isMobile()) {
+        this.menuIsOpen = false;
+
+        Array.from(document.getElementsByClassName('droppable')).forEach(droppableElement => {
+          droppableElement.classList.remove('down');
+          droppableElement.lastChild.style.maxHeight = 0;
+        });
+      }
+    },
+    isMobile () {
+      return document.documentElement.clientWidth < 992;
+    },
+    isDesktop () {
+      return !this.isMobile();
+    },
   },
 };
 </script>

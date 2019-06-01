@@ -38,6 +38,8 @@ module.exports = function buyMysterySet (user, req = {}, analytics) {
     }
   });
 
+  if (user.markModified) user.markModified('items.gear.owned');
+
   user.purchased.plan.consecutive.trinkets--;
 
   return [

@@ -63,6 +63,38 @@ describe('Groups DELETE /tasks/:id', () => {
       });
   });
 
+  it('removes deleted taskʾs approval pending notifications from managers', async () => {
+    await user.post(`/groups/${guild._id}/add-manager`, {
+      managerId: member2._id,
+    });
+    await user.put(`/tasks/${task._id}/`, {
+      requiresApproval: true,
+    });
+    let memberTasks = await member.get('/tasks/user');
+    let syncedTask = find(memberTasks, findAssignedTask);
+    await expect(member.post(`/tasks/${syncedTask._id}/score/up`))
+      .to.eventually.be.rejected.and.to.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('taskApprovalHasBeenRequested'),
+      });
+
+    await user.sync();
+    await member2.sync();
+    expect(user.notifications.length).to.equal(2);
+    expect(user.notifications[1].type).to.equal('GROUP_TASK_APPROVAL');
+    expect(member2.notifications.length).to.equal(2);
+    expect(member2.notifications[1].type).to.equal('GROUP_TASK_APPROVAL');
+
+    await member2.del(`/tasks/${task._id}`);
+
+    await user.sync();
+    await member2.sync();
+
+    expect(user.notifications.length).to.equal(1);
+    expect(member2.notifications.length).to.equal(1);
+  });
+
   it('unlinks assigned user', async () => {
     await user.del(`/tasks/${task._id}`);
 

@@ -1,8 +1,8 @@
 {
-  "noItemsAvailableForType": "你没有<%= type %>",
-  "foodItemType": "食物",
-  "eggsItemType": "蛋",
-  "hatchingPotionsItemType": "孵化药水",
-  "specialItemType": "特殊物品",
-  "lockedItem": "已锁定物品"
+    "noItemsAvailableForType": "你没有<%= type %>。",
+    "foodItemType": "食物",
+    "eggsItemType": "蛋",
+    "hatchingPotionsItemType": "孵化药水",
+    "specialItemType": "特殊物品",
+    "lockedItem": "已锁定物品"
 }

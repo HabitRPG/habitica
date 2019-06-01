@@ -72,4 +72,25 @@ api.clearMessages = {
   },
 };
 
+/**
+ * @api {get} /inbox/conversations Get the conversations for a user
+ * @apiName conversations
+ * @apiGroup Inbox
+ * @apiDescription Get the conversations for a user
+ *
+ * @apiSuccess {Array} data An array of inbox conversations
+ */
+api.conversations = {
+  method: 'GET',
+  middlewares: [authWithHeaders()],
+  url: '/inbox/conversations',
+  async handler (req, res) {
+    const user = res.locals.user;
+
+    const result = await inboxLib.listConversations(user);
+
+    res.respond(200, result);
+  },
+};
+
 module.exports = api;

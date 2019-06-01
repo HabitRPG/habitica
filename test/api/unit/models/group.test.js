@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { v4 as generateUUID } from 'uuid';
 import validator from 'validator';
-import { sleep } from '../../../helpers/api-unit.helper';
+import { sleep, translationCheck } from '../../../helpers/api-unit.helper';
 import {
   SPAM_MESSAGE_LIMIT,
   SPAM_MIN_EXEMPT_CONTRIB_LEVEL,
@@ -271,7 +271,16 @@ describe('Group Model', () => {
           party = await Group.findOne({_id: party._id});
 
           expect(Group.prototype.sendChat).to.be.calledOnce;
-          expect(Group.prototype.sendChat).to.be.calledWith('`Participating Member attacks Wailing Whale for 5.0 damage.` `Wailing Whale attacks party for 7.5 damage.`');
+          expect(Group.prototype.sendChat).to.be.calledWith({
+            message: '`Participating Member attacks Wailing Whale for 5.0 damage. Wailing Whale attacks party for 7.5 damage.`',
+            info: {
+              bossDamage: '7.5',
+              quest: 'whale',
+              type: 'boss_damage',
+              user: 'Participating Member',
+              userDamage: '5.0',
+            },
+          });
         });
 
         it('applies damage only to participating members of party', async () => {
@@ -344,7 +353,10 @@ describe('Group Model', () => {
           party = await Group.findOne({_id: party._id});
 
           expect(Group.prototype.sendChat).to.be.calledTwice;
-          expect(Group.prototype.sendChat).to.be.calledWith('`You defeated Wailing Whale! Questing party members receive the rewards of victory.`');
+          expect(Group.prototype.sendChat).to.be.calledWith({
+            message: '`You defeated Wailing Whale! Questing party members receive the rewards of victory.`',
+            info: { quest: 'whale', type: 'boss_defeated' },
+          });
         });
 
         it('calls finishQuest when boss has <= 0 hp', async () => {
@@ -387,7 +399,10 @@ describe('Group Model', () => {
 
             party = await Group.findOne({_id: party._id});
 
-            expect(Group.prototype.sendChat).to.be.calledWith(quest.boss.rage.effect('en'));
+            expect(Group.prototype.sendChat).to.be.calledWith({
+              message: quest.boss.rage.effect('en'),
+              info: { quest: 'trex_undead', type: 'boss_rage' },
+            });
             expect(party.quest.progress.hp).to.eql(383.5);
             expect(party.quest.progress.rage).to.eql(0);
           });
@@ -437,7 +452,10 @@ describe('Group Model', () => {
 
             party = await Group.findOne({_id: party._id});
 
-            expect(Group.prototype.sendChat).to.be.calledWith(quest.boss.rage.effect('en'));
+            expect(Group.prototype.sendChat).to.be.calledWith({
+              message: quest.boss.rage.effect('en'),
+              info: { quest: 'lostMasterclasser4', type: 'boss_rage' },
+            });
             expect(party.quest.progress.rage).to.eql(0);
 
             let drainedUser = await User.findById(participatingMember._id);
@@ -488,7 +506,15 @@ describe('Group Model', () => {
           party = await Group.findOne({_id: party._id});
 
           expect(Group.prototype.sendChat).to.be.calledOnce;
-          expect(Group.prototype.sendChat).to.be.calledWith('`Participating Member found 5 Bars of Soap.`');
+          expect(Group.prototype.sendChat).to.be.calledWith({
+            message: '`Participating Member found 5 Bars of Soap.`',
+            info: {
+              items: { soapBars: 5 },
+              quest: 'atom1',
+              type: 'user_found_items',
+              user: 'Participating Member',
+            },
+          });
         });
 
         it('sends a chat message if no progress is made', async () => {
@@ -499,7 +525,15 @@ describe('Group Model', () => {
           party = await Group.findOne({_id: party._id});
 
           expect(Group.prototype.sendChat).to.be.calledOnce;
-          expect(Group.prototype.sendChat).to.be.calledWith('`Participating Member found 0 Bars of Soap.`');
+          expect(Group.prototype.sendChat).to.be.calledWith({
+            message: '`Participating Member found 0 Bars of Soap.`',
+            info: {
+              items: { soapBars: 0 },
+              quest: 'atom1',
+              type: 'user_found_items',
+              user: 'Participating Member',
+            },
+          });
         });
 
         it('sends a chat message if no progress is made on quest with multiple items', async () => {
@@ -516,9 +550,15 @@ describe('Group Model', () => {
           party = await Group.findOne({_id: party._id});
 
           expect(Group.prototype.sendChat).to.be.calledOnce;
-          expect(Group.prototype.sendChat).to.be.calledWithMatch(/`Participating Member found/);
-          expect(Group.prototype.sendChat).to.be.calledWithMatch(/0 Blue Fins/);
-          expect(Group.prototype.sendChat).to.be.calledWithMatch(/0 Fire Coral/);
+          expect(Group.prototype.sendChat).to.be.calledWith({
+            message: '`Participating Member found 0 Fire Coral, 0 Blue Fins.`',
+            info: {
+              items: { blueFins: 0, fireCoral: 0 },
+              quest: 'dilatoryDistress1',
+              type: 'user_found_items',
+              user: 'Participating Member',
+            },
+          });
         });
 
         it('handles collection quests with multiple items', async () => {
@@ -535,8 +575,14 @@ describe('Group Model', () => {
           party = await Group.findOne({_id: party._id});
 
           expect(Group.prototype.sendChat).to.be.calledOnce;
-          expect(Group.prototype.sendChat).to.be.calledWithMatch(/`Participating Member found/);
-          expect(Group.prototype.sendChat).to.be.calledWithMatch(/\d* (Tracks|Broken Twigs)/);
+          expect(Group.prototype.sendChat).to.be.calledWithMatch({
+            message: sinon.match(/`Participating Member found/).and(sinon.match(/\d* (Tracks|Broken Twigs)/)),
+            info: {
+              quest: 'evilsanta2',
+              type: 'user_found_items',
+              user: 'Participating Member',
+            },
+          });
         });
 
         it('sends message about victory', async () => {
@@ -547,7 +593,10 @@ describe('Group Model', () => {
           party = await Group.findOne({_id: party._id});
 
           expect(Group.prototype.sendChat).to.be.calledTwice;
-          expect(Group.prototype.sendChat).to.be.calledWith('`All items found! Party has received their rewards.`');
+          expect(Group.prototype.sendChat).to.be.calledWith({
+            message: '`All items found! Party has received their rewards.`',
+            info: { type: 'all_items_found' },
+          });
         });
 
         it('calls finishQuest when all items are found', async () => {
@@ -716,6 +765,258 @@ describe('Group Model', () => {
       it('does not throw an error if emails are passed in and uuids are an empty array', async () => {
         await Group.validateInvitations({uuids: [], emails: ['user1@example.com', 'user2@example.com']}, res);
         expect(res.t).to.not.be.called;
+      });
+    });
+
+    describe('translateSystemMessages', () => {
+      it('translate quest_start', async () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'quest_start',
+            quest: 'basilist',
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        translationCheck(toJSON.chat[0].text);
+      });
+
+      it('translate boss_damage', async () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'boss_damage',
+            user: questLeader.profile.name,
+            quest: 'basilist',
+            userDamage: 15.3,
+            bossDamage: 3.7,
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        translationCheck(toJSON.chat[0].text);
+      });
+
+      it('translate boss_dont_attack', async () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'boss_dont_attack',
+            user: questLeader.profile.name,
+            quest: 'basilist',
+            userDamage: 15.3,
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        translationCheck(toJSON.chat[0].text);
+      });
+
+      it('translate boss_rage', async () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'boss_rage',
+            quest: 'lostMasterclasser3',
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        translationCheck(toJSON.chat[0].text);
+      });
+
+      it('translate boss_defeated', async () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'boss_defeated',
+            quest: 'lostMasterclasser3',
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        translationCheck(toJSON.chat[0].text);
+      });
+
+      it('translate user_found_items', async () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'user_found_items',
+            user: questLeader.profile.name,
+            quest: 'lostMasterclasser1',
+            items: {
+              ancientTome: 3,
+              forbiddenTome: 2,
+              hiddenTome: 1,
+            },
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        translationCheck(toJSON.chat[0].text);
+      });
+
+      it('translate all_items_found', async () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'all_items_found',
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        translationCheck(toJSON.chat[0].text);
+      });
+
+      it('translate spell_cast_party', async () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'spell_cast_party',
+            user: questLeader.profile.name,
+            class: 'wizard',
+            spell: 'earth',
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        translationCheck(toJSON.chat[0].text);
+      });
+
+      it('translate spell_cast_user', async () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'spell_cast_user',
+            user: questLeader.profile.name,
+            class: 'special',
+            spell: 'snowball',
+            target: participatingMember.profile.name,
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        translationCheck(toJSON.chat[0].text);
+      });
+
+      it('translate quest_cancel', async () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'quest_cancel',
+            user: questLeader.profile.name,
+            quest: 'basilist',
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        translationCheck(toJSON.chat[0].text);
+      });
+
+      it('translate quest_abort', async () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'quest_abort',
+            user: questLeader.profile.name,
+            quest: 'basilist',
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        translationCheck(toJSON.chat[0].text);
+      });
+
+      it('translate tavern_quest_completed', async () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'tavern_quest_completed',
+            quest: 'stressbeast',
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        translationCheck(toJSON.chat[0].text);
+      });
+
+      it('translate tavern_boss_rage_tired', async () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'tavern_boss_rage_tired',
+            quest: 'stressbeast',
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        translationCheck(toJSON.chat[0].text);
+      });
+
+      it('translate tavern_boss_rage', async () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'tavern_boss_rage',
+            quest: 'dysheartener',
+            scene: 'market',
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        translationCheck(toJSON.chat[0].text);
+      });
+
+      it('translate tavern_boss_desperation', async () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'tavern_boss_desperation',
+            quest: 'stressbeast',
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        translationCheck(toJSON.chat[0].text);
+      });
+
+      it('translate claim_task', async () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'claim_task',
+            user: questLeader.profile.name,
+            task: 'Feed the pet',
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        translationCheck(toJSON.chat[0].text);
+      });
+    });
+
+    describe('toJSONCleanChat', () => {
+      it('shows messages with 1 flag to non-admins', async () => {
+        party.chat = [{
+          flagCount: 1,
+          info: {
+            type: 'quest_start',
+            quest: 'basilist',
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        expect(toJSON.chat.length).to.equal(1);
+      });
+
+      it('shows messages with >= 2 flag to admins', async () => {
+        party.chat = [{
+          flagCount: 3,
+          info: {
+            type: 'quest_start',
+            quest: 'basilist',
+          },
+        }];
+        const admin = new User({'contributor.admin': true});
+        let toJSON = await Group.toJSONCleanChat(party, admin);
+        expect(toJSON.chat.length).to.equal(1);
+      });
+
+      it('doesn\'t show flagged messages to non-admins', async () => {
+        party.chat = [{
+          flagCount: 3,
+          info: {
+            type: 'quest_start',
+            quest: 'basilist',
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        expect(toJSON.chat.length).to.equal(0);
       });
     });
   });
@@ -1007,20 +1308,22 @@ describe('Group Model', () => {
       });
 
       it('formats message', () => {
-        const chatMessage = party.sendChat('a new message', {
-          _id: 'user-id',
-          profile: { name: 'user name' },
-          contributor: {
-            toObject () {
-              return 'contributor object';
+        const chatMessage = party.sendChat({
+          message: 'a new message', user: {
+            _id: 'user-id',
+            profile: { name: 'user name' },
+            contributor: {
+              toObject () {
+                return 'contributor object';
+              },
             },
-          },
-          backer: {
-            toObject () {
-              return 'backer object';
+            backer: {
+              toObject () {
+                return 'backer object';
+              },
             },
-          },
-        });
+          }}
+        );
 
         const chat = chatMessage;
 
@@ -1037,7 +1340,7 @@ describe('Group Model', () => {
       });
 
       it('formats message as system if no user is passed in', () => {
-        const chat = party.sendChat('a system message');
+        const chat = party.sendChat({message: 'a system message'});
 
         expect(chat.text).to.eql('a system message');
         expect(validator.isUUID(chat.id)).to.eql(true);
@@ -1052,7 +1355,7 @@ describe('Group Model', () => {
       });
 
       it('updates users about new messages in party', () => {
-        party.sendChat('message');
+        party.sendChat({message: 'message'});
 
         expect(User.update).to.be.calledOnce;
         expect(User.update).to.be.calledWithMatch({
@@ -1066,7 +1369,7 @@ describe('Group Model', () => {
           type: 'guild',
         });
 
-        group.sendChat('message');
+        group.sendChat({message: 'message'});
 
         expect(User.update).to.be.calledOnce;
         expect(User.update).to.be.calledWithMatch({
@@ -1076,7 +1379,7 @@ describe('Group Model', () => {
       });
 
       it('does not send update to user that sent the message', () => {
-        party.sendChat('message', {_id: 'user-id', profile: { name: 'user' }});
+        party.sendChat({message: 'message', user: {_id: 'user-id', profile: { name: 'user' }}});
 
         expect(User.update).to.be.calledOnce;
         expect(User.update).to.be.calledWithMatch({
@@ -1088,7 +1391,7 @@ describe('Group Model', () => {
       it('skips sending new message notification for guilds with > 5000 members', () => {
         party.memberCount = 5001;
 
-        party.sendChat('message');
+        party.sendChat({message: 'message'});
 
         expect(User.update).to.not.be.called;
       });
@@ -1096,7 +1399,7 @@ describe('Group Model', () => {
       it('skips sending messages to the tavern', () => {
         party._id = TAVERN_ID;
 
-        party.sendChat('message');
+        party.sendChat({message: 'message'});
 
         expect(User.update).to.not.be.called;
       });
@@ -1928,7 +2231,7 @@ describe('Group Model', () => {
 
         await guild.save();
 
-        const groupMessage = guild.sendChat('Test message.');
+        const groupMessage = guild.sendChat({message: 'Test message.'});
         await groupMessage.save();
 
         await sleep();

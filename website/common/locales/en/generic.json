@@ -34,6 +34,7 @@
   "saveEdits": "Save Edits",
   "showMore": "Show More",
   "showLess": "Show Less",
+  "options": "Options",
 
   "expandToolbar": "Expand Toolbar",
   "collapseToolbar": "Collapse Toolbar",
@@ -83,7 +84,7 @@
   "continue": "Continue",
   "accept": "Accept",
   "reject": "Reject",
-  "neverMind": "Never mind",
+  "neverMind": "Nevermind",
   "buyMoreGems": "Buy More Gems",
   "notEnoughGems": "Not enough Gems",
   "alreadyHave": "Whoops! You already have this item. No need to buy it again!",

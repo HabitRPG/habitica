@@ -1,6 +1,6 @@
 <template lang="pug">
   b-modal#challenge-member-modal(title="User Progress", size='lg')
-    .row.award-row
+    .row.award-row(v-if='isLeader || isAdmin')
       .col-12.text-center
         button.btn.btn-primary(v-once, @click='closeChallenge()') {{ $t('awardWinners') }}
     .row
@@ -37,12 +37,16 @@ export default {
         reward: [],
       },
       memberId: '',
+      isLeader: false,
+      isAdmin: false,
     };
   },
   mounted () {
     this.$root.$on('habitica:challenge:member-progress', (data) => {
       if (!data.progressMemberId) return;
       this.memberId = data.progressMemberId;
+      this.isLeader = data.isLeader;
+      this.isAdmin = data.isAdmin;
       this.$root.$emit('bv::show::modal', 'challenge-member-modal');
     });
   },

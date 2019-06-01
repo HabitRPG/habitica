@@ -1,6 +1,6 @@
 <template lang="pug">
 b-dropdown.create-dropdown(:text="text", no-flip)
-  b-dropdown-item(:disabled='true')
+  b-dropdown-form(:disabled='true')
     input.form-control(type='text', v-model='searchTerm')
   b-dropdown-item(v-for="member in memberResults", :key="member._id", @click="selectMember(member)")
     | {{ member.profile.name }}
