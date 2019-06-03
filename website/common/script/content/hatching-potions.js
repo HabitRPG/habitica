@@ -3,7 +3,7 @@ import defaults from 'lodash/defaults';
 import each from 'lodash/each';
 import t from './translation';
 
-const CURRENT_SEASON = 'May';
+const CURRENT_SEASON = '_NONE_';
 
 function hasQuestAchievementFunction (key) {
   return (user) => {
@@ -83,7 +83,7 @@ let premium = {
     value: 2,
     text: t('hatchingPotionFloral'),
     limited: true,
-    _season: 'May',
+    _season: '_PENDING_',
   },
   Aquatic: {
     value: 2,
@@ -179,7 +179,7 @@ let premium = {
     value: 2,
     text: t('hatchingPotionSunshine'),
     limited: true,
-    _season: 'May',
+    _season: '_PENDING_',
   },
   Bronze: {
     value: 2,
