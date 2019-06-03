@@ -372,7 +372,8 @@ export default {
     // Separate from selectedConversation which is not computed so messages don't update automatically
     selectedConversationMessages () {
       // Vue-subscribe to changes
-      const subScribeToUpdate = this.messagesLoading || true;
+      const subScribeToUpdate = this.messagesLoading || this.updateConversionsCounter > -1;
+
 
       const selectedConversationKey = this.selectedConversation.key;
       const selectedConversation = this.messagesByConversation[selectedConversationKey];
@@ -501,6 +502,9 @@ export default {
         toUserBacker: this.selectedConversation.backer,
         toUUID: this.selectedConversation.uuid,
 
+        id: '-1', // will be updated once the result is back
+        likes: {},
+        ownerId: this.user._id,
         uuid: this.user._id,
         user: this.user.profile.name,
         username: this.user.auth.local.username,
@@ -528,9 +532,9 @@ export default {
         message: this.newMessage,
       }).then(response => {
         const newMessage = response.data.data.message;
-        Object.assign(messages[messages.length - 1], {
-          id: newMessage.id, // just set the id, all other infos already set
-        });
+        const messageToReset = messages[messages.length - 1];
+        messageToReset.id = newMessage.id; // just set the id, all other infos already set
+        Object.assign(messages[messages.length - 1], messageToReset);
         this.updateConversionsCounter++;
       });
 
@@ -568,7 +572,8 @@ export default {
       const loadedMessages = res.data.data;
 
       this.messagesByConversation[this.selectedConversation.key] = this.messagesByConversation[this.selectedConversation.key] || [];
-      this.messagesByConversation[this.selectedConversation.key].push(...loadedMessages);
+      const loadedMessagesToAdd = loadedMessages.filter(m => this.messagesByConversation[this.selectedConversation.key].findIndex(mI => mI.id === m.id) === -1);
+      this.messagesByConversation[this.selectedConversation.key].push(...loadedMessagesToAdd);
 
       // only show the load more Button if the max count was returned
       this.canLoadMore = loadedMessages.length === 10;
