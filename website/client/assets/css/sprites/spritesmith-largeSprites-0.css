@@ -1,6 +1,6 @@
 .promo_armoire_backgrounds_201905 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -361px 0px;
+  background-position: 0px -361px;
   width: 423px;
   height: 147px;
 }
@@ -12,13 +12,13 @@
 }
 .promo_feathered_friends_bundle {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -361px -148px;
+  background-position: -620px 0px;
   width: 423px;
   height: 147px;
 }
 .promo_floral_sunshine_potions {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -361px;
+  background-position: -620px -148px;
   width: 423px;
   height: 147px;
 }
@@ -30,13 +30,19 @@
 }
 .promo_mystery_201905 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -424px -361px;
+  background-position: -620px -296px;
   width: 282px;
   height: 147px;
 }
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -280px -509px;
+  background-position: -903px -296px;
   width: 96px;
   height: 69px;
+}
+.scene_hiking {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -361px 0px;
+  width: 258px;
+  height: 258px;
 }
