@@ -1734,7 +1734,7 @@ describe('Group Model', () => {
       let quest;
 
       beforeEach(() => {
-        quest = questScrolls.whale;
+        quest = questScrolls.armadillo;
         party.quest.key = quest.key;
         party.quest.active = false;
         party.quest.leader = questLeader._id;
@@ -2048,13 +2048,13 @@ describe('Group Model', () => {
           questLeader = await User.findById(questLeader._id);
           participatingMember = await User.findById(participatingMember._id);
 
-          expect(questLeader.party.quest.completed).to.eql('whale');
+          expect(questLeader.party.quest.completed).to.eql('armadillo');
           expect(questLeader.party.quest.progress.up).to.eql(10);
           expect(questLeader.party.quest.progress.down).to.eql(8);
           expect(questLeader.party.quest.progress.collectedItems).to.eql(5);
           expect(questLeader.party.quest.RSVPNeeded).to.eql(false);
 
-          expect(participatingMember.party.quest.completed).to.eql('whale');
+          expect(participatingMember.party.quest.completed).to.eql('armadillo');
           expect(participatingMember.party.quest.progress.up).to.eql(10);
           expect(participatingMember.party.quest.progress.down).to.eql(8);
           expect(participatingMember.party.quest.progress.collectedItems).to.eql(5);

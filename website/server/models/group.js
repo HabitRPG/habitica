@@ -875,7 +875,7 @@ schema.methods.finishQuest = async function finishQuest (quest) {
       });
     });
 
-  _.forEach(questSeriesAchievements, async (questList, achievement) => {
+  _.forEach(questSeriesAchievements, (questList, achievement) => {
     if (questList.includes(questK)) {
       let questAchievementQuery = {};
       questAchievementQuery[`achievements.${achievement}`] = {$ne: true};
