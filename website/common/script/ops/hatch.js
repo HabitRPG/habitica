@@ -1,5 +1,6 @@
 import content from '../content/index';
 import i18n from '../i18n';
+import findIndex from 'lodash/findIndex';
 import get from 'lodash/get';
 import {
   BadRequest,
@@ -37,6 +38,15 @@ module.exports = function hatch (user, req = {}) {
     user.markModified('items.pets');
     user.markModified('items.eggs');
     user.markModified('items.hatchingPotions');
+  }
+
+  if (!user.achievements.backToBasics) {
+    const petIndex = findIndex(content.basePetsMounts, (animal) => {
+      return isNaN(user.items.pets[animal]) || user.items.pets[animal] <= 0;
+    });
+    if (petIndex === -1) {
+      user.achievements.backToBasics = true;
+    }
   }
 
   return [

@@ -7,6 +7,8 @@ import {
   CLASSES,
   GEAR_TYPES,
   ITEM_LIST,
+  QUEST_SERIES_ACHIEVEMENTS,
+  BASE_PETS_MOUNTS,
 } from './constants';
 
 let api = module.exports;
@@ -35,6 +37,8 @@ import loginIncentives from './loginIncentives';
 import officialPinnedItems from './officialPinnedItems';
 
 api.achievements = achievements;
+api.questSeriesAchievements = QUEST_SERIES_ACHIEVEMENTS;
+api.basePetsMounts = BASE_PETS_MOUNTS;
 
 api.quests = quests;
 api.questsByLevel = questsByLevel;

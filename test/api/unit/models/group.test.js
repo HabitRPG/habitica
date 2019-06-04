@@ -1882,6 +1882,36 @@ describe('Group Model', () => {
         expect(updatedSleepingParticipatingMember.achievements.lostMasterclasser).to.not.eql(true);
       });
 
+      it('gives out other pet-related quest achievements', async () => {
+        quest = questScrolls.rock;
+        party.quest.key = quest.key;
+
+        questLeader.achievements.quests = {
+          mayhemMistiflying1: 1,
+          yarn: 1,
+          mayhemMistiflying2: 1,
+          egg: 1,
+          mayhemMistiflying3: 1,
+          slime: 2,
+        };
+        await questLeader.save();
+        await party.finishQuest(quest);
+
+        let [
+          updatedLeader,
+          updatedParticipatingMember,
+          updatedSleepingParticipatingMember,
+        ] = await Promise.all([
+          User.findById(questLeader._id).exec(),
+          User.findById(participatingMember._id).exec(),
+          User.findById(sleepingParticipatingMember._id).exec(),
+        ]);
+
+        expect(updatedLeader.achievements.mindOverMatter).to.eql(true);
+        expect(updatedParticipatingMember.achievements.mindOverMatter).to.not.eql(true);
+        expect(updatedSleepingParticipatingMember.achievements.mindOverMatter).to.not.eql(true);
+      });
+
       it('gives xp and gold', async () => {
         await party.finishQuest(quest);
 

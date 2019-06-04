@@ -41,6 +41,7 @@ import { getGroupChat, translateMessage } from '../libs/chat/group-chat';
 import { model as UserNotification } from './userNotification';
 
 const questScrolls = shared.content.quests;
+const questSeriesAchievements = shared.content.questSeriesAchievements;
 const Schema = mongoose.Schema;
 
 export const INVITES_LIMIT = 100; // must not be greater than MAX_EMAIL_INVITES_BY_USER
@@ -849,25 +850,6 @@ schema.methods.finishQuest = async function finishQuest (quest) {
     }
   });
 
-  let masterClasserQuests = [
-    'dilatoryDistress1',
-    'dilatoryDistress2',
-    'dilatoryDistress3',
-    'mayhemMistiflying1',
-    'mayhemMistiflying2',
-    'mayhemMistiflying3',
-    'stoikalmCalamity1',
-    'stoikalmCalamity2',
-    'stoikalmCalamity3',
-    'taskwoodsTerror1',
-    'taskwoodsTerror2',
-    'taskwoodsTerror3',
-    'lostMasterclasser1',
-    'lostMasterclasser2',
-    'lostMasterclasser3',
-    'lostMasterclasser4',
-  ];
-
   // Send webhooks in background
   // @TODO move the find users part to a worker as well, not just the http request
   User.find({
@@ -893,24 +875,27 @@ schema.methods.finishQuest = async function finishQuest (quest) {
       });
     });
 
+  _.forEach(questSeriesAchievements, async (questList, achievement) => {
+    if (questList.includes(questK)) {
+      let questAchievementQuery = {};
+      questAchievementQuery[`achievements.${achievement}`] = {$ne: true};
+
+      _.forEach(questList, (questName) => {
+        if (questName !== questK) {
+          questAchievementQuery[`achievements.quests.${questName}`] = {$gt: 0};
+        }
+      });
+
+      let questAchievementUpdate = {$set: {}};
+      questAchievementUpdate.$set[`achievements.${achievement}`] = true;
+
+      promises.push(participants.map(userId => {
+        return _updateUserWithRetries(userId, questAchievementUpdate, null, questAchievementQuery);
+      }));
+    }
+  });
+
   await Promise.all(promises);
-
-  if (masterClasserQuests.includes(questK)) {
-    let lostMasterclasserQuery = {
-      'achievements.lostMasterclasser': {$ne: true},
-    };
-    masterClasserQuests.forEach(questName => {
-      lostMasterclasserQuery[`achievements.quests.${questName}`] = {$gt: 0};
-    });
-    let lostMasterclasserUpdate = {
-      $set: {'achievements.lostMasterclasser': true},
-    };
-
-    let lostMasterClasserPromises = participants.map(userId => {
-      return _updateUserWithRetries(userId, lostMasterclasserUpdate, null, lostMasterclasserQuery);
-    });
-    await Promise.all(lostMasterClasserPromises);
-  }
 };
 
 function _isOnQuest (user, progress, group) {

@@ -1,5 +1,6 @@
 import content from '../content/index';
 import i18n from '../i18n';
+import findIndex from 'lodash/findIndex';
 import get from 'lodash/get';
 import {
   BadRequest,
@@ -88,6 +89,15 @@ module.exports = function feed (user, req = {}) {
 
   user.items.food[food.key]--;
   if (user.markModified) user.markModified('items.food');
+
+  if (!user.achievements.allYourBase) {
+    const mountIndex = findIndex(content.basePetsMounts, (animal) => {
+      return !user.items.mounts[animal];
+    });
+    if (mountIndex === -1) {
+      user.achievements.allYourBase = true;
+    }
+  }
 
   return [
     userPets[pet.key],

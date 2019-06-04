@@ -5,5 +5,13 @@
   "levelup": "By accomplishing your real life goals, you leveled up and are now fully healed!",
   "reachedLevel": "You Reached Level <%= level %>",
   "achievementLostMasterclasser": "Quest Completionist: Masterclasser Series",
-  "achievementLostMasterclasserText": "Completed all sixteen quests in the Masterclasser Quest Series and solved the mystery of the Lost Masterclasser!"
+  "achievementLostMasterclasserText": "Completed all sixteen quests in the Masterclasser Quest Series and solved the mystery of the Lost Masterclasser!",
+  "achievementMindOverMatter": "Mind Over Matter",
+  "achievementMindOverMatterText": "Has completed Rock, Egg, Slime, and Yarn pet quests.",
+  "achievementJustAddWater": "Just Add Water",
+  "achievementJustAddWaterText": "Has completed Octopus, Seahorse, Cuttlefish, Whale, Turtle, Nudibranch, Sea Serpent, and Dolphin pet quests.",
+  "achievementBackToBasics": "Back to Basics",
+  "achievementBackToBasicsText": "Has collected all Base Pets.",
+  "achievementAllYourBase": "All Your Base",
+  "achievementAllYourBaseText": "Has tamed all Base Mounts."
 }

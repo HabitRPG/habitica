@@ -212,3 +212,52 @@ export const USER_CAN_OWN_QUEST_CATEGORIES = [
   'hatchingPotion',
   'pet',
 ];
+
+export const QUEST_SERIES_ACHIEVEMENTS = {
+  lostMasterclasser: [
+    'dilatoryDistress1',
+    'dilatoryDistress2',
+    'dilatoryDistress3',
+    'mayhemMistiflying1',
+    'mayhemMistiflying2',
+    'mayhemMistiflying3',
+    'stoikalmCalamity1',
+    'stoikalmCalamity2',
+    'stoikalmCalamity3',
+    'taskwoodsTerror1',
+    'taskwoodsTerror2',
+    'taskwoodsTerror3',
+    'lostMasterclasser1',
+    'lostMasterclasser2',
+    'lostMasterclasser3',
+    'lostMasterclasser4',
+  ],
+  mindOverMatter: [
+    'egg',
+    'rock',
+    'slime',
+    'yarn',
+  ],
+  justAddWater: [
+    'octopus',
+    'dilatory_derby',
+    'kraken',
+    'whale',
+    'turtle',
+    'nudibranch',
+    'seaserpent',
+    'dolphin',
+  ],
+};
+
+export const BASE_PETS_MOUNTS = [
+  'Wolf-Base',
+  'TigerCub-Base',
+  'PandaCub-Base',
+  'LionCub-Base',
+  'Fox-Base',
+  'FlyingPig-Base',
+  'Dragon-Base',
+  'Cactus-Base',
+  'BearCub-Base',
+];
