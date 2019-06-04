@@ -843,6 +843,20 @@ let backgrounds = {
       notes: t('backgroundRainbowMeadowNotes'),
     },
   },
+  backgrounds062019: {
+    school_of_fish: {
+      text: t('backgroundSchoolOfFishText'),
+      notes: t('backgroundSchoolOfFishNotes'),
+    },
+    seaside_cliffs: {
+      text: t('backgroundSeasideCliffsText'),
+      notes: t('backgroundSeasideCliffsNotes'),
+    },
+    underwater_vents: {
+      text: t('backgroundUnderwaterVentsText'),
+      notes: t('backgroundUnderwaterVentsNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),
