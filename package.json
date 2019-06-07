@@ -177,7 +177,7 @@
     "karma-sinon-stub-promise": "^1.0.0",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-spec-reporter": "0.0.32",
-    "karma-webpack": "^3.0.0",
+    "karma-webpack": "^4.0.0",
     "lcov-result-merger": "^3.0.0",
     "mocha": "^5.1.1",
     "monk": "^6.0.6",
