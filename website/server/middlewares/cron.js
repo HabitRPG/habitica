@@ -83,7 +83,7 @@ async function cronAsync (req, res) {
     tasks.forEach(task => tasksByType[`${task.type}s`].push(task));
 
     // Run cron
-    let progress = cron({user, tasksByType, now, daysMissed, analytics, timezoneOffsetFromUserPrefs, headers: req.headers});
+    let progress = await cron({user, tasksByType, now, daysMissed, analytics, timezoneOffsetFromUserPrefs, headers: req.headers});
 
     // Clear old completed todos - 30 days for free users, 90 for subscribers
     // Do not delete challenges completed todos TODO unless the task is broken?

@@ -100,7 +100,7 @@ async function _updateAssignedUsersTasks (masterTask, groupMemberTask) {
       let userDay = moment().subtract({
         minutes: user.preferences.tz - user.preferences.dayStart * 60,
       }).startOf('day');
-      if (userDay.isSame(taskDay)) {
+      if (userDay.isSame(taskDay) && userDay.isBefore(moment(user.lastCron))) {
         // The group member modified task completion in the "same" day as this user
         // Set the user's task.completed to group member's completed or approved
         // XXX Check whether user has already cron'd today
@@ -166,6 +166,40 @@ async function _evaluateAllAssignedCompletion (masterTask, groupMemberTask) {
   await _completeOrUncompleteMasterTask(masterTask, completions >= masterTask.group.assignedUsers.length);
 }
 
+async function groupTaskCompleted(groupMemberTask, user, now) {
+  let masterTask = await Tasks.Task.findOne({
+    _id: groupMemberTask.group.taskId,
+  }).exec();
+
+  if (!masterTask || !masterTask.group) return false;
+
+  if (masterTask.history && masterTask.history.length > 0) {
+    // I hope we don't really need to loop the history and check every date
+    // I couldn't think of a case where we would (User with a late day start in Australia vs and early one in Hawaii?)
+    let taskLastHistory = masterTask.history[masterTask.history.length - 1];
+    // Check if the history entry has a user who completed the task
+    // TODO When group scoring is implemented, there will be history entries for group missed dailies, as well
+    if (taskLastHistory.userId) {
+      let lastCompletingUser = await Users.findById(taskLastHistory.userId);
+      if (lastCompletingUser) {
+        // Check what the completing user's "day" was when the task was completed
+        let taskLastCompletedDay = moment(taskLastHistory.date).subtract({
+          minutes: lastCompletingUser.preferences.tz - lastCompletingUser.preferences.dayStart * 60,
+        }).startOf('day');
+        let userDay = moment(now).subtract({
+          minutes: user.preferences.tz - user.preferences.dayStart * 60,
+        }).startOf('day');
+
+
+        if (userDay.isSame(taskLastCompletedDay)) return true;
+      }
+    }
+  }
+
+  // Did not find a matching completion or valid completing user
+  return false;
+}
+
 async function handleSharedCompletion (groupMemberTask) {
   let masterTask = await Tasks.Task.findOne({
     _id: groupMemberTask.group.taskId,
@@ -184,4 +218,5 @@ async function handleSharedCompletion (groupMemberTask) {
 export {
   SHARED_COMPLETION,
   handleSharedCompletion,
+  groupTaskCompleted,
 };

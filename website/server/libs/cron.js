@@ -6,6 +6,7 @@ import sleep from '../libs/sleep';
 import _ from 'lodash';
 import cloneDeep from 'lodash/cloneDeep';
 import nconf from 'nconf';
+import {SHARED_COMPLETION, groupTaskCompleted} from "./groupTasks";
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
@@ -247,7 +248,7 @@ function awardLoginIncentives (user) {
 }
 
 // Perform various beginning-of-day reset actions.
-export function cron (options = {}) {
+export async function cron (options = {}) {
   let {user, tasksByType, analytics, now = new Date(), daysMissed, timezoneOffsetFromUserPrefs} = options;
   let _progress = {down: 0, up: 0, collectedItems: 0};
 
@@ -307,7 +308,7 @@ export function cron (options = {}) {
   let atLeastOneDailyDue = false; // were any dailies due?
   if (!user.party.quest.progress.down) user.party.quest.progress.down = 0;
 
-  tasksByType.dailys.forEach((task) => {
+  for (let task of tasksByType.dailys) {
     let completed = task.completed;
     // Deduct points for missed Daily tasks
     let EvadeTask = 0;
@@ -381,7 +382,15 @@ export function cron (options = {}) {
       });
     }
 
-    task.completed = false;
+    // If this is a shared task, check if another user completed it in the "same" day the user is "starting"
+    if (task.group && task.group.sharedCompletion === SHARED_COMPLETION.single) {
+      // @REVIEW This introduces an async call into this cron function.
+      // The function is called from ../middlewares/cron.js asyncCron(), which is async and suggests this is okay
+      // Does this cause issues?
+      task.completed = await groupTaskCompleted(task, user, now);
+    } else {
+      task.completed = false;
+    }
     setIsDueNextDue(task, user, now);
 
     if (completed || scheduleMisses > 0) {
@@ -389,7 +398,7 @@ export function cron (options = {}) {
         task.checklist.forEach(i => i.completed = false);
       }
     }
-  });
+  };
 
   resetHabitCounters(user, tasksByType, now, daysMissed);
 
