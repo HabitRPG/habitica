@@ -91,16 +91,14 @@ async function _updateAssignedUsersTasks (masterTask, groupMemberTask) {
     }
     // Base "day" on group member's tz and dayStart
     let taskDay = moment(taskDate).subtract({
-      minutes: groupMember.preferences.tz,
-      hours: groupMember.preferences.dayStart,
+      minutes: groupMember.preferences.tz - groupMember.preferences.dayStart * 60,
     }).startOf('day');
 
     let promises = [];
     assignedUsers.map(user => {
       // Determine user's "current" day
       let userDay = moment().subtract({
-        minutes: user.preferences.tz,
-        hours: user.preferences.dayStart,
+        minutes: user.preferences.tz - user.preferences.dayStart * 60,
       }).startOf('day');
       if (userDay.isSame(taskDay)) {
         // The group member modified task completion in the "same" day as this user

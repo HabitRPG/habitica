@@ -282,8 +282,7 @@ module.exports = function scoreTask (options = {}, req = {}) {
           // If this is a yesterDaily being scored, change the date to the last minute of the user's "yesterday"
           dateScored.endOf('day').subtract({
             days: 1,
-            minutes: user.preferences.tz + 1,
-            hours: user.preferences.dayStart,
+            minutes: user.preferences.tz - user.preferences.dayStart * 60 + 1,
           })
         }
         task.history = task.history || [];
