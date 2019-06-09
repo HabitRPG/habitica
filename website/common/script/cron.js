@@ -27,7 +27,7 @@ export const DAY_MAPPING_STRING_TO_NUMBER = invert(DAY_MAPPING);
   {now} is also passed in for various purposes, one example being the test scripts scripts testing different "now" times.
  */
 
-function sanitizeOptions (o) {
+export function sanitizeOptions (o) {
   let ref = Number(o.dayStart || 0);
   let dayStart = !Number.isNaN(ref) && ref >= 0 && ref <= 24 ? ref : 0;
 
