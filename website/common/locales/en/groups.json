@@ -456,7 +456,7 @@
   "worldBossBullet4": "Check the Tavern regularly to see World Boss progress and Rage attacks",
   "worldBoss": "World Boss",
 
-  "groupPlanTitle": "Need more for your crew?",
+  "groupPlanTitle": "Need more for your Group?",
   "groupPlanDesc": "Managing a small team or organizing household chores? Our group plans grant you exclusive access to a private task board and chat area dedicated to you and your group members!",
   "billedMonthly": "*billed as a monthly subscription",
   "teamBasedTasksList": "Team-Based Task List",
@@ -465,6 +465,7 @@
   "groupManagementControlsDesc": "Use task approvals to verify that a task that was really completed, add Group Managers to share responsibilities, and enjoy a private group chat for all team members.",
   "inGameBenefits": "In-Game Benefits",
   "inGameBenefitsDesc": "Group members get an exclusive Jackalope Mount, as well as full subscription benefits, including special monthly equipment sets and the ability to buy gems with gold.",
+  "groupPlanSubTitle": "Create your Group today!",
   "inspireYourParty": "Inspire your party, gamify life together.",
   "letsMakeAccount": "First, let’s make you an account",
   "nameYourGroup": "Next, Name Your Group",
