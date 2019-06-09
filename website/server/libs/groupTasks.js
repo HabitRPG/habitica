@@ -2,6 +2,7 @@ import * as Tasks from '../models/task';
 import {model as Groups} from '../models/group';
 import {model as Users} from '../models/user/index';
 import moment from "moment";
+import {InternalServerError} from "./errors";
 
 const SHARED_COMPLETION = {
   default: 'recurringCompletion',
@@ -42,7 +43,7 @@ async function _updateAssignedUsersTasks (masterTask, groupMemberTask) {
       }));
       await group.save();
     }
-  } else {
+  } else if (groupMemberTask.type === 'daily') {
     // Adjust the task's completion to match the groupMemberTask
     // Completed or notDue dailies have little effect at cron (MP replenishment for completed dailies)
     // This maintain's the user's streak without scoring the task if someone else completed the task
@@ -54,49 +55,63 @@ async function _updateAssignedUsersTasks (masterTask, groupMemberTask) {
       'group.taskId': groupMemberTask.group.taskId,
       'userId': {$exists: true},
     };
-    let usersQuery = {
-      '_id': {$in: masterTask.group.assignedUsers},
+    let assignedUsersQuery = {
+      $and: [
+        {
+          '_id': {$in: masterTask.group.assignedUsers},
+        },
+        {
+          '_id': {$ne: groupMemberTask.userId},
+        },
+      ],
     };
-    let [tasks, users] = await Promise.all([Tasks.Task.find(tasksQuery), Users.find(usersQuery)]);
-    // Remove the un/completing user from the array, but save them
-    let groupMember;
-    users = users.filter(user => {
-      if (user.id === groupMemberTask.userId) {
-        groupMember = user;
-        return false;
-      }
-      return user;
-    });
+    let groupMemberQuery = groupMemberTask.userId;
+    let [tasks, assignedUsers, groupMember] = await Promise.all([
+      Tasks.Task.find(tasksQuery),
+      Users.find(assignedUsersQuery),
+      Users.findById(groupMemberQuery)
+    ]);
 
     // Determine task un/completion day based on groupMember's timezone and CDS
-    let now = new Date();
-    let taskDay = moment(now).subtract({
+    // For approval required tasks, this file treats approval as completion for users other than the completing user
+    // This protects other users who won't do the task if the completing user decides to uncomplete after approval
+    // TODO This is poor logic. Some design could be done for uncompleting approved tasks behavior
+    let approvalRequired = groupMemberTask.group.approval && groupMemberTask.group.approval.required;
+    let approved = groupMemberTask.group.approval && groupMemberTask.group.approval.approved;
+    let taskDate = moment();
+    if (!approvalRequired) {
+      // Happened on user history or "now" for unchecking
+      // If we ever come here from via cron scoring down, we will have to recalculate
+      taskDate = groupMemberTask.completed ? moment(groupMemberTask.history[groupMemberTask.history.length - 1].date) : taskDate;
+    } else if (approved) {
+      // If approved, mark task on approval.requestedDate
+      taskDate = moment(groupMemberTask.approval.requestedDate);
+    } else {
+      throw new InternalServerError('Cannot handle shared completion for unapproved tasks requiring approval');
+    }
+    // Base "day" on group member's tz and dayStart
+    let taskDay = moment(taskDate).subtract({
       minutes: groupMember.preferences.tz,
       hours: groupMember.preferences.dayStart,
     }).startOf('day');
 
     let promises = [];
-    users.map(user => {
+    assignedUsers.map(user => {
       // Determine user's "current" day
-      let userDay = moment(now).subtract({
+      let userDay = moment().subtract({
         minutes: user.preferences.tz,
         hours: user.preferences.dayStart,
       }).startOf('day');
       if (userDay.isSame(taskDay)) {
         // The group member modified task completion in the "same" day as this user
         // Set the user's task.completed to group member's completed or approved
+        // XXX Check whether user has already cron'd today
         let task = tasks.find(task => { return task.userId === user.id });
-        task.completed = groupMemberTask.completed || groupMemberTask.group.approval && groupMemberTask.group.approval.approved;
+        task.completed = groupMemberTask.completed || approved;
         promises.push(task.save());
       }
     });
 
-    // For approval required tasks, this file treats approval as completion for users other than the completing user
-    // Record history on approval, not completion
-    // TODO This is poor logic. Some design could be done for uncompleting approved tasks behavior
-    // This protects other users who won't do the task if the completing user decides to uncomplete after approval
-    let approvalRequired = groupMemberTask.group.approval && groupMemberTask.group.approval.required;
-    let approved = groupMemberTask.group.approval && groupMemberTask.group.approval.approved;
     if (groupMemberTask.completed || approved) {
       // Save history entry to the masterTask
       masterTask.history = masterTask.history || [];
