@@ -110,16 +110,27 @@ async function _updateAssignedUsersTasks (masterTask, groupMemberTask) {
       }
     });
 
-    if (groupMemberTask.completed || approved) {
+    // Record history on approval or completion for tasks which don't require approval
+    // Don't double count history when user completes already approved task
+    if (groupMemberTask.completed && !approvalRequired || approved && !groupMemberTask.completed) {
       // Save history entry to the masterTask
       masterTask.history = masterTask.history || [];
       let historyEntry = {
-        date: Number(now),
-        value: masterTask.value,
+        date: Number(taskDate),
+        value: masterTask.value, // We will count this someway at some point based on group logic
         userId: groupMemberTask.userId,
       };
-      masterTask.history.push(historyEntry);
+      // Insert history at the right point, since this could be a yesterdaily scoring after someone else's today scoring
+      let historyIndex = masterTask.history.findIndex(masterEntry => {
+        return masterEntry.date > historyEntry.date;
+      });
+      if (historyIndex === -1) {
+        masterTask.history.push(historyEntry);
+      } else {
+        masterTask.history.splice(historyIndex, 0, historyEntry);
+      }
     } else if (!groupMemberTask.completed && !approvalRequired) {
+      // User uncompleted a task which did not need approval
       // Loop backwards through the history and splice out the user's last entry
       if (masterTask.history && masterTask.history.length > 0) {
         for (let i = masterTask.history.length - 1; i >= 0; i--) {
@@ -131,6 +142,7 @@ async function _updateAssignedUsersTasks (masterTask, groupMemberTask) {
       }
     }
 
+    promises.push(masterTask.save());
     await Promise.all(promises);
   }
 }
