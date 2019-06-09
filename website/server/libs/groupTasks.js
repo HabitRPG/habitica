@@ -1,8 +1,10 @@
+import defaults from 'lodash/defaults';
 import * as Tasks from '../models/task';
 import {model as Groups} from '../models/group';
 import {model as Users} from '../models/user/index';
 import moment from "moment";
 import {InternalServerError} from "./errors";
+import {sanitizeOptions, startOfDay} from "../../common/script/cron";
 
 const SHARED_COMPLETION = {
   default: 'recurringCompletion',
@@ -90,16 +92,13 @@ async function _updateAssignedUsersTasks (masterTask, groupMemberTask) {
       throw new InternalServerError('Cannot handle shared completion for unapproved tasks requiring approval');
     }
     // Base "day" on group member's tz and dayStart
-    let taskDay = moment(taskDate).subtract({
-      minutes: groupMember.preferences.tz - groupMember.preferences.dayStart * 60,
-    }).startOf('day');
+    let groupMemberOptions = sanitizeOptions(groupMember.preferences.toObject());
+    let taskDay = startOfDay(defaults({now: taskDate}, groupMemberOptions));
 
     let promises = [];
     assignedUsers.map(user => {
       // Determine user's "current" day
-      let userDay = moment().subtract({
-        minutes: user.preferences.tz - user.preferences.dayStart * 60,
-      }).startOf('day');
+      let userDay = startOfDay(user.preferences.toObject());
       if (userDay.isSame(taskDay) && userDay.isBefore(moment(user.lastCron))) {
         // The group member modified task completion in the "same" day as this user
         // Set the user's task.completed to group member's completed or approved
@@ -183,14 +182,8 @@ async function groupTaskCompleted(groupMemberTask, user, now) {
       let lastCompletingUser = await Users.findById(taskLastHistory.userId);
       if (lastCompletingUser) {
         // Check what the completing user's "day" was when the task was completed
-        let taskLastCompletedDay = moment(taskLastHistory.date).subtract({
-          minutes: lastCompletingUser.preferences.tz - lastCompletingUser.preferences.dayStart * 60,
-        }).startOf('day');
-        let userDay = moment(now).subtract({
-          minutes: user.preferences.tz - user.preferences.dayStart * 60,
-        }).startOf('day');
-
-
+        let taskLastCompletedDay = startOfDay(defaults({now: moment(taskLastHistory.date)}, lastCompletingUser.preferences.toObject()));
+        let userDay = startOfDay(defaults({now: now}, user.preferences.toObject()));
         if (userDay.isSame(taskLastCompletedDay)) return true;
       }
     }
