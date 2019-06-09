@@ -541,7 +541,7 @@ api.updateTask = {
  */
 api.scoreTask = {
   method: 'POST',
-  url: '/tasks/:taskId/score/:direction',
+  url: '/tasks/:taskId/score/:direction/:yesterdaily?',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('direction', res.t('directionUpDown')).notEmpty().isIn(['up', 'down']);
@@ -563,6 +563,11 @@ api.scoreTask = {
       } else if (!task.completed && direction === 'down') {
         throw new NotAuthorized(res.t('sessionOutdated'));
       }
+    }
+
+    // Set whether we're scoring a yesterdaily
+    if (req.params.yesterdaily && req.params.yesterdaily === 'yesterdaily') {
+      task.yesterDailyScored = true;
     }
 
     if (task.group.approval.required && !task.group.approval.approved) {

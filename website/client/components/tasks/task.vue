@@ -735,7 +735,8 @@ export default {
       if (task.group.approval.required) task.group.approval.requested = true;
 
       Analytics.updateUser();
-      const response = await axios.post(`/api/v4/tasks/${task._id}/score/${direction}`);
+      let yesterDaily = task.yesterDailyScored ? '/yesterdaily' : '';
+      const response = await axios.post(`/api/v4/tasks/${task._id}/score/${direction}${yesterDaily}`);
       const tmp = response.data.data._tmp || {}; // used to notify drops, critical hits and other bonuses
       const crit = tmp.crit;
       const drop = tmp.drop;
