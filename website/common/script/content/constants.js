@@ -233,7 +233,6 @@ export const QUEST_SERIES_ACHIEVEMENTS = {
     'lostMasterclasser4',
   ],
   mindOverMatter: [
-    'egg',
     'rock',
     'slime',
     'yarn',
