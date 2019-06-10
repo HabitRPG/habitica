@@ -2,9 +2,9 @@ import defaults from 'lodash/defaults';
 import * as Tasks from '../models/task';
 import {model as Groups} from '../models/group';
 import {model as Users} from '../models/user/index';
-import moment from "moment";
-import {InternalServerError} from "./errors";
-import {sanitizeOptions, startOfDay} from "../../common/script/cron";
+import moment from 'moment';
+import {InternalServerError} from './errors';
+import {sanitizeOptions, startOfDay} from '../../common/script/cron';
 
 const SHARED_COMPLETION = {
   default: 'recurringCompletion',
@@ -55,15 +55,15 @@ async function _updateAssignedUsersTasks (masterTask, groupMemberTask) {
     // Get the linked Tasks and the assigned Users
     let tasksQuery = {
       'group.taskId': groupMemberTask.group.taskId,
-      'userId': {$exists: true},
+      userId: {$exists: true},
     };
     let assignedUsersQuery = {
       $and: [
         {
-          '_id': {$in: masterTask.group.assignedUsers},
+          _id: {$in: masterTask.group.assignedUsers},
         },
         {
-          '_id': {$ne: groupMemberTask.userId},
+          _id: {$ne: groupMemberTask.userId},
         },
       ],
     };
@@ -71,7 +71,7 @@ async function _updateAssignedUsersTasks (masterTask, groupMemberTask) {
     let [tasks, assignedUsers, groupMember] = await Promise.all([
       Tasks.Task.find(tasksQuery),
       Users.find(assignedUsersQuery),
-      Users.findById(groupMemberQuery)
+      Users.findById(groupMemberQuery),
     ]);
 
     // Determine task un/completion day based on groupMember's timezone and CDS
@@ -102,10 +102,11 @@ async function _updateAssignedUsersTasks (masterTask, groupMemberTask) {
       if (userDay.isSame(taskDay) && userDay.isBefore(moment(user.lastCron))) {
         // The group member modified task completion in the "same" day as this user
         // Set the user's task.completed to group member's completed or approved
-        // XXX Check whether user has already cron'd today
-        let task = tasks.find(task => { return task.userId === user.id });
-        task.completed = groupMemberTask.completed || approved;
-        promises.push(task.save());
+        let userTask = tasks.find(task => {
+          return task.userId === user.id;
+        });
+        userTask.completed = groupMemberTask.completed || approved;
+        promises.push(userTask.save());
       }
     });
 
@@ -165,7 +166,7 @@ async function _evaluateAllAssignedCompletion (masterTask, groupMemberTask) {
   await _completeOrUncompleteMasterTask(masterTask, completions >= masterTask.group.assignedUsers.length);
 }
 
-async function groupTaskCompleted(groupMemberTask, user, now) {
+async function groupTaskCompleted (groupMemberTask, user, now) {
   let masterTask = await Tasks.Task.findOne({
     _id: groupMemberTask.group.taskId,
   }).exec();
@@ -183,7 +184,7 @@ async function groupTaskCompleted(groupMemberTask, user, now) {
       if (lastCompletingUser) {
         // Check what the completing user's "day" was when the task was completed
         let taskLastCompletedDay = startOfDay(defaults({now: moment(taskLastHistory.date)}, lastCompletingUser.preferences.toObject()));
-        let userDay = startOfDay(defaults({now: now}, user.preferences.toObject()));
+        let userDay = startOfDay(defaults({now}, user.preferences.toObject()));
         if (userDay.isSame(taskLastCompletedDay)) return true;
       }
     }

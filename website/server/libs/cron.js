@@ -6,7 +6,7 @@ import sleep from '../libs/sleep';
 import _ from 'lodash';
 import cloneDeep from 'lodash/cloneDeep';
 import nconf from 'nconf';
-import {SHARED_COMPLETION, groupTaskCompleted} from "./groupTasks";
+import {SHARED_COMPLETION, groupTaskCompleted} from './groupTasks';
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
@@ -390,8 +390,8 @@ export async function cron (options = {}) {
       // Does this cause issues?
       // Pushing these closures to an array of Promises outside the forEach
       // This allows both sequential processing and async checking for shared completion
-      groupSharedSingleDailies.push(async function (task, user, now) {
-        task.completed = await groupTaskCompleted(task, user, now);
+      groupSharedSingleDailies.push(async function determineGroupCompletion (memberTask, memberUser, memberTime) {
+        memberTask.completed = await groupTaskCompleted(memberTask, memberUser, memberTime);
       }(task, user, now));
     } else {
       task.completed = false;

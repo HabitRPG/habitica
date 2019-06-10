@@ -9,7 +9,7 @@ import i18n from '../i18n';
 import updateStats from '../fns/updateStats';
 import crit from '../fns/crit';
 import statsComputed from '../libs/statsComputed';
-import {sanitizeOptions, startOfDay} from "../cron";
+import {sanitizeOptions, startOfDay} from '../cron';
 
 const MAX_TASK_VALUE = 21.27;
 const MIN_TASK_VALUE = -47.27;
@@ -284,7 +284,7 @@ module.exports = function scoreTask (options = {}, req = {}) {
           dateScored.endOf('day').subtract({
             days: 1,
             minutes: user.preferences.tz - user.preferences.dayStart * 60 + 1,
-          })
+          });
         }
         task.history = task.history || [];
         let historyEntry = {
