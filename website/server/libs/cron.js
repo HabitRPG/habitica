@@ -306,9 +306,10 @@ export async function cron (options = {}) {
   let dailyChecked = 0; // how many dailies were checked?
   let dailyDueUnchecked = 0; // how many dailies were un-checked?
   let atLeastOneDailyDue = false; // were any dailies due?
+  let groupSharedSingleDailies = [];
   if (!user.party.quest.progress.down) user.party.quest.progress.down = 0;
 
-  for (let task of tasksByType.dailys) {
+  tasksByType.dailys.forEach((task) => {
     let completed = task.completed;
     // Deduct points for missed Daily tasks
     let EvadeTask = 0;
@@ -387,7 +388,11 @@ export async function cron (options = {}) {
       // @REVIEW This introduces an async call into this cron function.
       // The function is called from ../middlewares/cron.js asyncCron(), which is async and suggests this is okay
       // Does this cause issues?
-      task.completed = await groupTaskCompleted(task, user, now);
+      // Pushing these closures to an array of Promises outside the forEach
+      // This allows both sequential processing and async checking for shared completion
+      groupSharedSingleDailies.push(async function (task, user, now) {
+        task.completed = await groupTaskCompleted(task, user, now);
+      }(task, user, now));
     } else {
       task.completed = false;
     }
@@ -398,7 +403,9 @@ export async function cron (options = {}) {
         task.checklist.forEach(i => i.completed = false);
       }
     }
-  };
+  });
+
+  await Promise.all(groupSharedSingleDailies);
 
   resetHabitCounters(user, tasksByType, now, daysMissed);
 
