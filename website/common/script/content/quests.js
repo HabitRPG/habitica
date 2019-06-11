@@ -3385,6 +3385,38 @@ let quests = {
       unlock: t('questBronzeUnlockText'),
     },
   },
+  dolphin: {
+    text: t('questDolphinText'),
+    notes: t('questDolphinNotes'),
+    completion: t('questDolphinCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questDolphinBoss'),
+      hp: 300,
+      str: 1.25,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Dolphin',
+          text: t('questDolphinDropDolphinEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Dolphin',
+          text: t('questDolphinDropDolphinEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Dolphin',
+          text: t('questDolphinDropDolphinEgg'),
+        },
+      ],
+      gp: 63,
+      exp: 575,
+      unlock: t('questDolphinUnlockText'),
+    },
+  },
 };
 
 each(quests, (v, key) => {

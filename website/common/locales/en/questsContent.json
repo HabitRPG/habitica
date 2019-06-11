@@ -747,5 +747,12 @@
   "questBronzeCompletion": "“Well met, warrior!” says the beetle as she settles to the ground. Is she smiling? It's hard to tell from those mandibles. “You've truly earned these potions!”<br<br>“Oh wow, we’ve never gotten a reward like this for winning a battle before!” says @UncommonCriminal, turning a shimmering bottle in their hand. “Let's go hatch our new pets!”",
   "questBronzeBoss": "Brazen Beetle",
   "questBronzeDropBronzePotion": "Bronze Hatching Potion",
-  "questBronzeUnlockText": "Unlocks purchasable Bronze hatching potions in the Market"
+  "questBronzeUnlockText": "Unlocks purchasable Bronze hatching potions in the Market",
+
+  "questDolphinText": "The Dolphin of Doubt",
+  "questDolphinNotes": "You walk upon the shores of Inkomplete Bay, pondering the daunting work ahead of you. A splash in the water catches your eye. A magnificent dolphin arcs over the waves. Sunlight glimmers off its fins and tail. But wait...that’s not sunlight, and the dolphin doesn’t dip back into the sea. It fixes its gaze on @khdarkwolf.<br><br>“I’ll never finish all these Dailies,” said @khdarkwolf.<br><br>“I’m not good enough to reach my goals,” said @confusedcicada as the dolphin turned its glare on them.<br><br>“Why did I even bother trying?” asked @mewrose, withering under the stare of the beast.<br><br>Its eyes meet yours, and feel your mind begin to sink under the rising tide of doubt. You steel yourself; someone has to defeat this creature, and it’s going to be you!",
+  "questDolphinBoss": "Dolphin of Doubt",
+  "questDolphinCompletion": "Your battle of wills with the dolphin has left you tired but victorious. With your determination and encouragement, @mewrose, @khdarkwolf, and @confusedcicada pick themselves up and shake off the dolphin’s insidious telepathy. The four of you shield yourselves with a sense of accomplishment in your consistent Dailies, strong Habits, and completed To-Dos until it closes its glowing eyes in silent acknowledgment of your successes. With that, it tumbles back into the bay. As you trade high-fives and congratulations, you notice three eggs wash ashore.<br><br>“Hm, I wonder what we can do with those,” @khdarkwolf muses.",
+  "questDolphinDropDolphinEgg": "Dolphin (Egg)",
+  "questDolphinUnlockText": "Unlocks purchasable Dolphin eggs in the Market"
 }
