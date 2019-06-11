@@ -46,6 +46,13 @@ module.exports = function hatch (user, req = {}) {
     });
     if (petIndex === -1) {
       user.achievements.backToBasics = true;
+      if (user.addNotification) {
+        user.addNotification('ACHIEVEMENT_BACK_TO_BASICS', {
+          achievement: 'backToBasics',
+          message: `${i18n.t('modalAchievement')} ${i18n.t('achievementBackToBasics')}`,
+          modalText: i18n.t('achievementBackToBasicsModalText'),
+        });
+      }
     }
   }
 

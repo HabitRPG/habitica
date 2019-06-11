@@ -886,8 +886,20 @@ schema.methods.finishQuest = async function finishQuest (quest) {
         }
       });
 
-      let questAchievementUpdate = {$set: {}};
+      let questAchievementUpdate = {$set: {}, $push: {}};
       questAchievementUpdate.$set[`achievements.${achievement}`] = true;
+      const achievementTitleCase = `${achievement.slice(0, 1).toUpperCase()}${achievement.slice(1, achievement.length)}`;
+      const achievementSnakeCase = `ACHIEVEMENT_${_.snakeCase(achievement).toUpperCase()}`;
+      questAchievementUpdate.$push = {
+        notifications: new UserNotification({
+          type: achievementSnakeCase,
+          data: {
+            achievement,
+            message: `${shared.i18n.t('modalAchievement')} ${shared.i18n.t(`achievement${achievementTitleCase}`)}`,
+            modalText: shared.i18n.t(`achievement${achievementTitleCase}ModalText`),
+          },
+        }).toObject(),
+      };
 
       promises.push(participants.map(userId => {
         return _updateUserWithRetries(userId, questAchievementUpdate, null, questAchievementQuery);

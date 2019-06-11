@@ -6,12 +6,17 @@
   "reachedLevel": "You Reached Level <%= level %>",
   "achievementLostMasterclasser": "Quest Completionist: Masterclasser Series",
   "achievementLostMasterclasserText": "Completed all sixteen quests in the Masterclasser Quest Series and solved the mystery of the Lost Masterclasser!",
+  "achievementLostMasterclasserModalText": "You completed all sixteen quests in the Masterclasser Quest Series and solved the mystery of the Lost Masterclasser!",
   "achievementMindOverMatter": "Mind Over Matter",
   "achievementMindOverMatterText": "Has completed Rock, Slime, and Yarn pet quests.",
+  "achievementMindOverMatterModalText": "You completed the Rock, Slime, and Yarn pet quests!",
   "achievementJustAddWater": "Just Add Water",
   "achievementJustAddWaterText": "Has completed Octopus, Seahorse, Cuttlefish, Whale, Turtle, Nudibranch, Sea Serpent, and Dolphin pet quests.",
+  "achievementJustAddWaterModalText": "You completed the Octopus, Seahorse, Cuttlefish, Whale, Turtle, Nudibranch, Sea Serpent, and Dolphin pet quests!",
   "achievementBackToBasics": "Back to Basics",
   "achievementBackToBasicsText": "Has collected all Base Pets.",
+  "achievementBackToBasicsModalText": "You collected all the Base Pets!",
   "achievementAllYourBase": "All Your Base",
-  "achievementAllYourBaseText": "Has tamed all Base Mounts."
+  "achievementAllYourBaseText": "Has tamed all Base Mounts.",
+  "achievementAllYourBaseModalText": "You tamed all the Base Mounts!"
 }

@@ -96,6 +96,13 @@ module.exports = function feed (user, req = {}) {
     });
     if (mountIndex === -1) {
       user.achievements.allYourBase = true;
+      if (user.addNotification) {
+        user.addNotification('ACHIEVEMENT_ALL_YOUR_BASE', {
+          achievement: 'allYourBase',
+          message: `${i18n.t('modalAchievement')} ${i18n.t('achievementAllYourBase')}`,
+          modalText: i18n.t('achievementAllYourBaseModalText'),
+        });
+      }
     }
   }
 
