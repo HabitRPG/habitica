@@ -8,7 +8,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
   .avatar-section.row(v-if='modalPage > 1', :class='{"page-2": modalPage === 2}')
     .col-6.offset-3
       .user-creation-bg(v-if='!editing')
-      avatar(:member='user', :avatarOnly='!editing', :class='{"edit-avatar": editing}')
+      avatar(:member='user', :class='{"edit-avatar": editing}')
 
   .section(v-if='modalPage === 2', :class='{"edit-modal": editing}')
     // @TODO Implement in V2 .section.row
@@ -36,33 +36,8 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
           .menu-item
             .svg-icon(v-html='icons.backgroundsIcon')
           strong(v-once) {{$t('backgrounds')}}
-    #body.section.customize-section(v-if='activeTopPage === "body"')
-      .row.sub-menu.text-center
-        .col-3.offset-3.sub-menu-item(@click='changeSubPage("size")', :class='{active: activeSubPage === "size"}')
-          strong(v-once) {{$t('size')}}
-        .col-3.sub-menu-item(@click='changeSubPage("shirt")', :class='{active: activeSubPage === "shirt"}')
-          strong(v-once) {{$t('shirt')}}
-      .row(v-if='activeSubPage === "size"')
-        .col-12.customize-options.size-options
-          .option(v-for='option in ["slim", "broad"]', :class='{active: user.preferences.size === option}')
-            .sprite.customize-option(:class="`${option}_shirt_black`", @click='set({"preferences.size": option})')
-      .row(v-if='activeSubPage === "shirt"')
-        .col-12.customize-options
-          .option(v-for='option in ["black", "blue", "green", "pink", "white", "yellow"]',
-            :class='{active: user.preferences.shirt === option}')
-            .sprite.customize-option(:class="`slim_shirt_${option}`", @click='set({"preferences.shirt": option})')
-        .col-12.customize-options(v-if='editing')
-          .option(v-for='item in specialShirts',
-            :class='{active: item.active, locked: item.locked}')
-            .sprite.customize-option(:class="`broad_shirt_${item.key}`", @click='item.click')
-            .gem-lock(v-if='item.locked')
-              .svg-icon.gem(v-html='icons.gem')
-              span 2
-          .col-12.text-center(v-if='!userOwnsSet("shirt", specialShirtKeys)')
-            .gem-lock
-              .svg-icon.gem(v-html='icons.gem')
-              span 5
-            button.btn.btn-secondary.purchase-all(@click='unlock(`shirt.${specialShirtKeys.join(",shirt.")}`)') {{ $t('purchaseAll') }}
+    body-settings(v-if='activeTopPage === "body"')
+
     #skin.section.customize-section(v-if='activeTopPage === "skin"')
       .row.sub-menu.col-6.offset-3.text-center
         .col-6.offset-3.text-center.sub-menu-item(:class='{active: activeSubPage === "color"}')
@@ -901,6 +876,7 @@ import notifications from 'client/mixins/notifications';
 import appearance from 'common/script/content/appearance';
 import appearanceSets from 'common/script/content/appearance/sets';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
+import bodySettings from './avatarModal/body';
 
 import logoPurple from 'assets/svg/logo-purple.svg';
 import bodyIcon from 'assets/svg/body.svg';
@@ -1045,12 +1021,15 @@ const tasksByCategory = {
   ],
 };
 
+
+
 export default {
   mixins: [guide, notifications],
   components: {
     avatar,
     toggleSwitch,
     usernameForm,
+    bodySettings,
   },
   mounted () {
     if (this.editing) this.modalPage = 2;
