@@ -4,6 +4,7 @@ import { model as User } from '../../../../website/server/models/user';
 import * as Tasks from '../../../../website/server/models/task';
 import { each, find, findIndex } from 'lodash';
 import {handleSharedCompletion} from '../../../../website/server/libs/groupTasks';
+import common from '../../../../website/common/index';
 
 describe('Group Task Methods', () => {
   let guild, leader, challenge, task;
@@ -266,14 +267,14 @@ describe('Group Task Methods', () => {
           let updatedLeadersTasks = await Tasks.Task.find({_id: { $in: updatedLeader.tasksOrder[`${taskType}s`]}});
           let syncedTask = find(updatedLeadersTasks, findLinkedTask);
 
-          syncedTask.completed = true;
+          common.ops.scoreTask({task: syncedTask, user: updatedLeader, direction: 'up'});
           await handleSharedCompletion(syncedTask);
 
           let updatedMember = await User.findOne({_id: newMember._id});
           let updatedMemberTasks = await Tasks.Task.find({_id: { $in: updatedMember.tasksOrder[`${taskType}s`]}});
           let syncedMemberTask = find(updatedMemberTasks, findLinkedTask);
 
-          syncedTask.completed = false;
+          common.ops.scoreTask({task: syncedTask, user: updatedLeader, direction: 'down'});
           await handleSharedCompletion(syncedTask);
 
           let reUpdatedMember = await User.findOne({_id: newMember._id});
