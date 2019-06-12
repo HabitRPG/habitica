@@ -27,7 +27,8 @@
           :groupId='groupId',
           @message-liked='messageLiked',
           @message-removed='messageRemoved',
-          @show-member-modal='showMemberModal')
+          @show-member-modal='showMemberModal',
+          @item-mounted='itemWasMounted')
     .d-flex(v-if='user._id === msg.uuid', :class='{"flex-grow-1": inbox}')
       .card(:class='{"col-10": inbox}')
         chat-card(
@@ -36,7 +37,8 @@
           :groupId='groupId',
           @message-liked='messageLiked',
           @message-removed='messageRemoved',
-          @show-member-modal='showMemberModal')
+          @show-member-modal='showMemberModal',
+          @item-mounted='itemWasMounted')
       avatar(
         v-if='msg.userStyles || (cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected)',
         :member="msg.userStyles || cachedProfileData[msg.uuid]",
@@ -181,6 +183,8 @@ export default {
       currentProfileLoadedCount: 0,
       currentProfileLoadedEnd: 10,
       loading: false,
+      handleScrollBack: false,
+      lastOffset: -1,
     };
   },
   computed: {
@@ -200,23 +204,14 @@ export default {
       const container = this.$refs.container;
 
       // get current offset
-      const lastScrollOffset = container.scrollTop - (container.scrollHeight - container.clientHeight);
+      this.lastOffset = container.scrollTop - (container.scrollHeight - container.clientHeight);
       // disable scroll
       container.style.overflowY = 'hidden';
 
       const canLoadMore = this.inbox && !this.isLoading && this.canLoadMore;
       if (canLoadMore) {
         await this.$emit('triggerLoad');
-
-        setTimeout(function restoreScrollPosition () {
-          const offset = container.scrollHeight - container.clientHeight;
-
-          const newOffset = offset + lastScrollOffset;
-
-          container.scrollTo(0,  newOffset);
-          // enable scroll again
-          container.style.overflowY = 'scroll';
-        }, 150);
+        this.handleScrollBack = true;
       }
     },
     canViewFlag (message) {
@@ -309,6 +304,20 @@ export default {
         this.$router.push({name: 'userProfile', params: {userId: profile._id}});
       }
     },
+    itemWasMounted: debounce(function itemWasMounted ()  {
+      if (this.handleScrollBack) {
+        this.handleScrollBack = false;
+
+        const container = this.$refs.container;
+        const offset = container.scrollHeight - container.clientHeight;
+
+        const newOffset = offset + this.lastOffset;
+
+        container.scrollTo(0, newOffset);
+        // enable scroll again
+        container.style.overflowY = 'scroll';
+      }
+    }, 50),
     messageLiked (message) {
       const chatIndex = findIndex(this.chat, chatMessage => {
         return chatMessage.id === message.id;
