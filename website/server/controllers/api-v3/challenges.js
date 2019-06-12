@@ -419,6 +419,11 @@ api.getUserChallenges = {
       });
     }));
 
+    // Filter out challenges the user should not have access to, i.e., from private groups they don't belong to
+    resChals = resChals.filter((chal) => {
+      return chal.group.privacy === 'public' || user.getGroups().indexOf(chal.group._id) !== -1;
+    });
+
     res.respond(200, resChals);
   },
 };
