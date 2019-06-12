@@ -4,7 +4,10 @@ import {model as Groups} from '../models/group';
 import {model as Users} from '../models/user/index';
 import moment from 'moment';
 import {InternalServerError} from './errors';
-import {sanitizeOptions, startOfDay} from '../../common/script/cron';
+import common from '../../common';
+
+const sanitizeOptions = common.sanitizeOptions;
+const startOfDay = common.startOfDay;
 
 const SHARED_COMPLETION = {
   default: 'recurringCompletion',

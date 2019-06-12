@@ -278,14 +278,8 @@ module.exports = function scoreTask (options = {}, req = {}) {
         task.completed = true;
 
         // Save history entry for daily
-        let dateScored = moment();
-        if (task.yesterDailyScored) {
-          // If this is a yesterDaily being scored, change the date to the last minute of the user's "yesterday"
-          dateScored.endOf('day').subtract({
-            days: 1,
-            minutes: user.preferences.tz - user.preferences.dayStart * 60 + 1,
-          });
-        }
+        // If this is a yesterDaily being scored, set the date to the last minute of the user's "yesterday"
+        let dateScored = task.yesterDailyScored ? startOfDay(user.preferences).subtract(1, 'minute') : moment();
         task.history = task.history || [];
         let historyEntry = {
           date: Number(new Date(dateScored)),
