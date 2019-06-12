@@ -372,7 +372,7 @@ api.updateEmail = {
 };
 
 /**
- * @api {post} /api/v3/user/auth/reset-password-set-new-one Reser Password Set New one
+ * @api {post} /api/v3/user/auth/reset-password-set-new-one Reset Password Set New one
  * @apiDescription Set a new password for a user that reset theirs. Not meant for public usage.
  * @apiName ResetPasswordSetNewOne
  * @apiGroup User
