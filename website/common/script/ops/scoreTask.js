@@ -288,11 +288,10 @@ module.exports = function scoreTask (options = {}, req = {}) {
         task.history.push(historyEntry);
       } else if (direction === 'down') {
         // Delete history entry when daily unchecked
-        if (task.history || task.history.length > 0) {
-          // @REVIEW @TODO Don't remove entries not from user's "today", in case this is a (single) completion shared daily completed by someone else
-          // task.history.splice(-1, 1);
+        if (task.history && task.history.length > 0) {
+          // @REVIEW Don't remove entries not from user's "today", in case this is a (single) completion shared daily completed by someone else
           let historyEntry = task.history.pop();
-          if (task.group && task.group.sharedCompletion && task.group.sharedCompletion === 'singleCompletion') {
+          if (task.group && task.group.sharedCompletion && task.group.sharedCompletion === 'singleCompletion' && historyEntry.date) {
             // This Daily could have been completed "today" by someone else.
             // Since this function runs on the client, as well as the server, let's make assumptions and keep things simple
             // Otherwise we have to load the Master Task and check who did what when
