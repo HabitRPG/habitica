@@ -366,11 +366,11 @@ api.getUserChallenges = {
 
     if (owned) {
       if (owned === 'not_owned') {
-        query.$and = [{leader: {$ne: user._id}}];
+        query.$and.push({leader: {$ne: user._id}});
       }
 
       if (owned === 'owned') {
-        query.$and = [{leader: user._id}];
+        query.$and.push({leader: user._id});
       }
     }
 
@@ -418,11 +418,6 @@ api.getUserChallenges = {
         resChals[index].group = populatedData[1] ? populatedData[1].toJSON({minimize: true}) : null;
       });
     }));
-
-    // Filter out challenges the user should not have access to, i.e., from private groups they don't belong to
-    resChals = resChals.filter((chal) => {
-      return chal.group.privacy === 'public' || user.getGroups().indexOf(chal.group._id) !== -1;
-    });
 
     res.respond(200, resChals);
   },
