@@ -20,7 +20,6 @@ import {
 } from '../../libs/email';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
 import { achievements } from '../../../../website/common/';
-import {sentMessage} from '../../libs/inbox';
 
 let api = {};
 
@@ -634,7 +633,6 @@ api.sendPrivateMessage = {
 
     const sender = res.locals.user;
     const message = req.body.message;
-
     const receiver = await User.findById(req.body.toUserId).exec();
     if (!receiver) throw new NotFound(res.t('userNotFound'));
     if (!receiver.flags.verifiedUsername) delete receiver.auth.local.username;
@@ -642,7 +640,26 @@ api.sendPrivateMessage = {
     const objections = sender.getObjectionsToInteraction('send-private-message', receiver);
     if (objections.length > 0 && !sender.isAdmin()) throw new NotAuthorized(res.t(objections[0]));
 
-    const messageSent = await sentMessage(sender, receiver, message, res.t);
+    const messageSent = await sender.sendMessage(receiver, { receiverMsg: message });
+
+    if (receiver.preferences.emailNotifications.newPM !== false) {
+      sendTxnEmail(receiver, 'new-pm', [
+        {name: 'SENDER', content: getUserInfo(sender, ['name']).name},
+      ]);
+    }
+
+    if (receiver.preferences.pushNotifications.newPM !== false) {
+      sendPushNotification(
+        receiver,
+        {
+          title: res.t('newPM'),
+          message: res.t('newPMInfo', {name: getUserInfo(sender, ['name']).name, message}),
+          identifier: 'newPM',
+          category: 'newPM',
+          payload: {replyTo: sender._id},
+        }
+      );
+    }
 
     res.respond(200, {message: messageSent});
   },

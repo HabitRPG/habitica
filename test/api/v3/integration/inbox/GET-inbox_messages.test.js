@@ -6,7 +6,7 @@ describe('GET /inbox/messages', () => {
   let user;
   let otherUser;
 
-  beforeEach(async () => {
+  before(async () => {
     [user, otherUser] = await Promise.all([generateUser(), generateUser()]);
 
     await otherUser.post('/members/send-private-message', {
