@@ -366,11 +366,11 @@ api.getUserChallenges = {
 
     if (owned) {
       if (owned === 'not_owned') {
-        query.$and = [{leader: {$ne: user._id}}];
+        query.$and.push({leader: {$ne: user._id}});
       }
 
       if (owned === 'owned') {
-        query.$and = [{leader: user._id}];
+        query.$and.push({leader: user._id});
       }
     }
 

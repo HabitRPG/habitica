@@ -22,7 +22,7 @@ describe('POST /members/flag-private-message/:messageId', () => {
     let senderMessages = await userToSendMessage.get('/inbox/messages');
 
     let sendersMessageInSendersInbox = _.find(senderMessages, (message) => {
-      return message.uuid === receiver._id && message.text === messageToSend;
+      return message.toUUID === receiver._id && message.text === messageToSend;
     });
 
     expect(sendersMessageInSendersInbox).to.exist;
