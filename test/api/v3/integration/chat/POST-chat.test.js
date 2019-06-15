@@ -89,6 +89,42 @@ describe('POST /chat', () => {
         message: t('chatPrivilegesRevoked'),
       });
     });
+
+    it('does not error when sending a message to a private guild with a user with revoked chat', async () => {
+      let { group, members } = await createAndPopulateGroup({
+        groupDetails: {
+          name: 'Private Guild',
+          type: 'guild',
+          privacy: 'private',
+        },
+        members: 1,
+      });
+
+      let privateGuildMemberWithChatsRevoked = members[0];
+      await privateGuildMemberWithChatsRevoked.update({'flags.chatRevoked': true});
+
+      let message = await privateGuildMemberWithChatsRevoked.post(`/groups/${group._id}/chat`, { message: testMessage});
+
+      expect(message.message.id).to.exist;
+    });
+
+    it('does not error when sending a message to a party with a user with revoked chat', async () => {
+      let { group, members } = await createAndPopulateGroup({
+        groupDetails: {
+          name: 'Party',
+          type: 'party',
+          privacy: 'private',
+        },
+        members: 1,
+      });
+
+      let privatePartyMemberWithChatsRevoked = members[0];
+      await privatePartyMemberWithChatsRevoked.update({'flags.chatRevoked': true});
+
+      let message = await privatePartyMemberWithChatsRevoked.post(`/groups/${group._id}/chat`, { message: testMessage});
+
+      expect(message.message.id).to.exist;
+    });
   });
 
   context('banned word', () => {
@@ -343,42 +379,6 @@ describe('POST /chat', () => {
           message: t('bannedSlurUsed'),
         });
     });
-  });
-
-  it('does not error when sending a message to a private guild with a user with revoked chat', async () => {
-    let { group, members } = await createAndPopulateGroup({
-      groupDetails: {
-        name: 'Private Guild',
-        type: 'guild',
-        privacy: 'private',
-      },
-      members: 1,
-    });
-
-    let privateGuildMemberWithChatsRevoked = members[0];
-    await privateGuildMemberWithChatsRevoked.update({'flags.chatRevoked': true});
-
-    let message = await privateGuildMemberWithChatsRevoked.post(`/groups/${group._id}/chat`, { message: testMessage});
-
-    expect(message.message.id).to.exist;
-  });
-
-  it('does not error when sending a message to a party with a user with revoked chat', async () => {
-    let { group, members } = await createAndPopulateGroup({
-      groupDetails: {
-        name: 'Party',
-        type: 'party',
-        privacy: 'private',
-      },
-      members: 1,
-    });
-
-    let privatePartyMemberWithChatsRevoked = members[0];
-    await privatePartyMemberWithChatsRevoked.update({'flags.chatRevoked': true});
-
-    let message = await privatePartyMemberWithChatsRevoked.post(`/groups/${group._id}/chat`, { message: testMessage});
-
-    expect(message.message.id).to.exist;
   });
 
   it('creates a chat', async () => {
