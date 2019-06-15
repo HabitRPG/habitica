@@ -159,6 +159,24 @@ describe('shared.ops.hatch', () => {
         expect(user.items.eggs).to.eql({Wolf: 0});
         expect(user.items.hatchingPotions).to.eql({Base: 0});
       });
+
+      it('awards Back to Basics achievement', () => {
+        user.items.pets = {
+          'Wolf-Base': 5,
+          'TigerCub-Base': 5,
+          'PandaCub-Base': 10,
+          'LionCub-Base': 5,
+          'Fox-Base': 5,
+          'FlyingPig-Base': 5,
+          'Dragon-Base': 5,
+          'Cactus-Base': 15,
+          'BearCub-Base': 5,
+        };
+        user.items.eggs = {Wolf: 1};
+        user.items.hatchingPotions = {Spooky: 1};
+        hatch(user, {params: {egg: 'Wolf', hatchingPotion: 'Spooky'}});
+        expect(user.achievements.backToBasics).to.eql(true);
+      });
     });
   });
 });

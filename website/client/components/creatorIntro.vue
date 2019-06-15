@@ -87,7 +87,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
           button.btn.btn-secondary.purchase-all(@click='unlock(`skin.${set.keys.join(",skin.")}`)') {{ $t('purchaseAll') }}
     #hair.section.customize-section(v-if='activeTopPage === "hair"')
       .row.col-12.sub-menu.text-center
-        .col-3.text-center.sub-menu-item(@click='changeSubPage("color")', :class='{active: activeSubPage === "color"}')
+        .col-3.text-center.sub-menu-item(@click='changeSubPage("color")', :class='{active: activeSubPage === "color", "offset-2": !editing}')
           strong(v-once) {{$t('color')}}
         .col-3.text-center.sub-menu-item(@click='changeSubPage("bangs")', :class='{active: activeSubPage === "bangs"}')
           strong(v-once) {{$t('bangs')}}
@@ -139,6 +139,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
               span 5
             button.btn.btn-secondary.purchase-all(@click='unlock(`hair.base.${baseHair4Keys.join(",hair.base.")}`)') {{ $t('purchaseAll') }}
         .col-12.customize-options
+          .head_0.option(v-if="!editing", @click='set({"preferences.hair.base": 0})', :class="[{ active: user.preferences.hair.base === 0 }, 'hair_base_0_' + user.preferences.hair.color]")
           .option(v-for='option in baseHair1',
             :class='{active: user.preferences.hair.base === option}')
             .base.sprite.customize-option(:class="`hair_base_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.base": option})')
@@ -377,8 +378,8 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     username-form(@usernameConfirmed='modalPage += 1', :avatarIntro='true')
     .small.text-center(v-html="$t('usernameTOSRequirements')")
 
-  .section.container.footer
-    .row(v-if='!editing && !(modalPage === 1)')
+  .section.container.footer(v-if='!editing && !(modalPage === 1)')
+    .row
       .col-3.offset-1.text-center
         div(v-if='modalPage > 1', @click='prev()')
           .prev-arrow
@@ -405,6 +406,10 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
 
   #avatar-modal___BV_modal_body_, #avatar-modal___BV_modal_body_ {
     padding: 0;
+  }
+
+  #avatar-modal .modal-dialog {
+    margin-top: 7rem;
   }
 </style>
 
@@ -1125,7 +1130,10 @@ export default {
       return options;
     },
     eyewear () {
-      let keys = ['blackTopFrame', 'blueTopFrame', 'greenTopFrame', 'pinkTopFrame', 'redTopFrame', 'whiteTopFrame', 'yellowTopFrame'];
+      let keys = [
+        'blackTopFrame', 'blueTopFrame', 'greenTopFrame', 'pinkTopFrame', 'redTopFrame', 'whiteTopFrame', 'yellowTopFrame',
+        'blackHalfMoon', 'blueHalfMoon', 'greenHalfMoon', 'pinkHalfMoon', 'redHalfMoon', 'whiteHalfMoon', 'yellowHalfMoon',
+      ];
       let options = keys.map(key => {
         let newKey = `eyewear_special_${key}`;
         let option = {};
