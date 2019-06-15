@@ -81,6 +81,10 @@ describe('POST /chat', () => {
   });
 
   describe('mute user', () => {
+    afterEach(() => {
+      member.update({'flags.chatRevoked': false});
+    });
+
     it('returns an error when chat privileges are revoked when sending a message to a public guild', async () => {
       const userWithChatRevoked = await member.update({'flags.chatRevoked': true});
       await expect(userWithChatRevoked.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
@@ -271,6 +275,7 @@ describe('POST /chat', () => {
 
     afterEach(() => {
       sandbox.restore();
+      user.update({'flags.chatRevoked': false});
     });
 
     it('errors and revokes privileges when chat message contains a banned slur', async () => {
@@ -310,11 +315,6 @@ describe('POST /chat', () => {
         error: 'NotAuthorized',
         message: t('chatPrivilegesRevoked'),
       });
-
-      // @TODO: The next test should not depend on this. We should reset the user test in a beforeEach
-      // Restore chat privileges to continue testing
-      user.flags.chatRevoked = false;
-      await user.update({'flags.chatRevoked': false});
     });
 
     it('does not allow slurs in private groups', async () => {
@@ -363,10 +363,6 @@ describe('POST /chat', () => {
         error: 'NotAuthorized',
         message: t('chatPrivilegesRevoked'),
       });
-
-      // Restore chat privileges to continue testing
-      members[0].flags.chatRevoked = false;
-      await members[0].update({'flags.chatRevoked': false});
     });
 
     it('errors when slur is typed in mixed case', async () => {
@@ -533,7 +529,7 @@ describe('POST /chat', () => {
     });
 
     it('contributor should not receive spam alert', async () => {
-      let userSocialite = await member.update({'contributor.level': SPAM_MIN_EXEMPT_CONTRIB_LEVEL, 'flags.chatRevoked': false});
+      let userSocialite = await member.update({'contributor.level': SPAM_MIN_EXEMPT_CONTRIB_LEVEL});
 
       // Post 1 more message than the spam limit to ensure they do not reach the limit
       for (let i = 0; i < SPAM_MESSAGE_LIMIT + 1; i++) {
