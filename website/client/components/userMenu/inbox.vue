@@ -323,7 +323,6 @@ export default {
       loadedConversations: [],
       loaded: false,
       messagesLoading: false,
-      canLoadMore: true,
       page: 0,
       initiatedConversation: null,
       updateConversionsCounter: 0,
@@ -336,6 +335,9 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    canLoadMore () {
+      return this.selectedConversation && this.selectedConversation.canLoadMore;
+    },
     conversations () {
       const inboxGroup = groupBy(this.loadedConversations, 'uuid');
 
@@ -357,11 +359,12 @@ export default {
         const recentMessage = inboxGroup[key][0];
 
         const convoModel = {
-          key: recentMessage.toUUID ? recentMessage.toUUID : recentMessage.fromUUID,
-          name: recentMessage.toUser ? recentMessage.toUser : recentMessage.user, // Handles case where from user sent the only message or the to user sent the only message
+          key: recentMessage.uuid,
+          name: recentMessage.user, // Handles case where from user sent the only message or the to user sent the only message
           username: !recentMessage.text ? recentMessage.username : recentMessage.toUserName,
           date: recentMessage.timestamp,
           lastMessageText: recentMessage.text,
+          canLoadMore: true,
         };
 
         convos.push(convoModel);
@@ -573,11 +576,18 @@ export default {
       const loadedMessages = res.data.data;
 
       this.messagesByConversation[this.selectedConversation.key] = this.messagesByConversation[this.selectedConversation.key] || [];
-      const loadedMessagesToAdd = loadedMessages.filter(m => this.messagesByConversation[this.selectedConversation.key].findIndex(mI => mI.id === m.id) === -1);
+      const loadedMessagesToAdd = loadedMessages
+        .filter(m => this.messagesByConversation[this.selectedConversation.key].findIndex(mI => mI.id === m.id) === -1)
+        .map(m => {
+          m.uuid = m.fromUUID;
+
+          return m;
+        })
+      ;
       this.messagesByConversation[this.selectedConversation.key].push(...loadedMessagesToAdd);
 
       // only show the load more Button if the max count was returned
-      this.canLoadMore = loadedMessages.length === 10;
+      this.selectedConversation.canLoadMore = loadedMessages.length === 10;
       this.messagesLoading = false;
     },
     removeTags (html) {
