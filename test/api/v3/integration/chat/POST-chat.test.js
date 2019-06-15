@@ -12,6 +12,7 @@ import {
   SPAM_MIN_EXEMPT_CONTRIB_LEVEL,
   TAVERN_ID,
 } from '../../../../../website/server/models/group';
+import { CHAT_FLAG_FROM_SHADOW_MUTE } from '../../../../../website/common/script/constants';
 import { v4 as generateUUID } from 'uuid';
 import { getMatchesByWordArray } from '../../../../../website/server/libs/stringUtils';
 import bannedWords from '../../../../../website/server/libs/bannedWords';
@@ -128,6 +129,93 @@ describe('POST /chat', () => {
       const message = await privatePartyMemberWithChatsRevoked.post(`/groups/${group._id}/chat`, { message: testMessage});
 
       expect(message.message.id).to.exist;
+    });
+  });
+
+  describe('shadow-mute user', () => {
+    beforeEach(() => {
+      sandbox.spy(email, 'sendTxn');
+      sandbox.stub(IncomingWebhook.prototype, 'send');
+    });
+
+    afterEach(() => {
+      sandbox.restore();
+      member.update({'flags.chatShadowMuted': false});
+    });
+
+    it('creates a chat with flagCount already set and notifies mods when sending a message to a public guild', async () => {
+      const userWithChatShadowMuted = await member.update({'flags.chatShadowMuted': true});
+      const message = await userWithChatShadowMuted.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage});
+      expect(message.message.id).to.exist;
+      expect(message.message.flagCount).to.eql(CHAT_FLAG_FROM_SHADOW_MUTE);
+
+      // Email sent to mods
+      await sleep(0.5);
+      expect(email.sendTxn).to.be.calledOnce;
+      expect(email.sendTxn.args[0][1]).to.eql('shadow-muted-post-report-to-mods');
+
+      // Slack message to mods
+      expect(IncomingWebhook.prototype.send).to.be.calledOnce;
+      /* eslint-disable camelcase */
+      expect(IncomingWebhook.prototype.send).to.be.calledWith({
+        text: `@${member.auth.local.username} / ${member.profile.name} posted while shadow-muted`,
+        attachments: [{
+          fallback: 'Shadow-Muted Message',
+          color: 'danger',
+          author_name: `@${member.auth.local.username} ${member.profile.name} (${member.auth.local.email}; ${member._id})`,
+          title: 'Shadow-Muted Post in Test Guild',
+          title_link: `${BASE_URL}/groups/guild/${groupWithChat.id}`,
+          text: testMessage,
+          mrkdwn_in: [
+            'text',
+          ],
+        }],
+      });
+      /* eslint-enable camelcase */
+    });
+
+    it('creates a chat with zero flagCount when sending a message to a private guild', async () => {
+      const { group, members } = await createAndPopulateGroup({
+        groupDetails: {
+          name: 'Private Guild',
+          type: 'guild',
+          privacy: 'private',
+        },
+        members: 1,
+      });
+
+      const userWithChatShadowMuted = members[0];
+      await userWithChatShadowMuted.update({'flags.chatShadowMuted': true});
+
+      const message = await userWithChatShadowMuted.post(`/groups/${group._id}/chat`, { message: testMessage});
+
+      expect(message.message.id).to.exist;
+      expect(message.message.flagCount).to.eql(0);
+    });
+
+    it('creates a chat with zero flagCount when sending a message to a party', async () => {
+      const { group, members } = await createAndPopulateGroup({
+        groupDetails: {
+          name: 'Party',
+          type: 'party',
+          privacy: 'private',
+        },
+        members: 1,
+      });
+
+      const userWithChatShadowMuted = members[0];
+      await userWithChatShadowMuted.update({'flags.chatShadowMuted': true});
+
+      const message = await userWithChatShadowMuted.post(`/groups/${group._id}/chat`, { message: testMessage});
+
+      expect(message.message.id).to.exist;
+      expect(message.message.flagCount).to.eql(0);
+    });
+
+    it('creates a chat with zero flagCount when non-shadow-muted user sends a message to a public guild', async () => {
+      const message = await member.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage});
+      expect(message.message.id).to.exist;
+      expect(message.message.flagCount).to.eql(0);
     });
   });
 

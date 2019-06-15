@@ -52,6 +52,8 @@ const LARGE_GROUP_COUNT_MESSAGE_CUTOFF = shared.constants.LARGE_GROUP_COUNT_MESS
 const MAX_SUMMARY_SIZE_FOR_GUILDS = shared.constants.MAX_SUMMARY_SIZE_FOR_GUILDS;
 const GUILDS_PER_PAGE = shared.constants.GUILDS_PER_PAGE;
 
+const CHAT_FLAG_LIMIT_FOR_HIDING = shared.constants.CHAT_FLAG_LIMIT_FOR_HIDING;
+
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
 const MAX_UPDATE_RETRIES = 5;
@@ -367,8 +369,8 @@ schema.statics.toJSONCleanChat = async function groupToJSONCleanChat (group, use
         chatMsg.flags = {};
         if (chatMsg._meta) chatMsg._meta = undefined;
 
-        // Messages with >= 2 flags are hidden to non admins and non authors
-        if (user._id !== chatMsg.uuid && chatMsg.flagCount >= 2) return undefined;
+        // Messages with too many flags are hidden to non-admins and non-authors
+        if (user._id !== chatMsg.uuid && chatMsg.flagCount >= CHAT_FLAG_LIMIT_FOR_HIDING) return undefined;
       }
 
       return chatMsg;
