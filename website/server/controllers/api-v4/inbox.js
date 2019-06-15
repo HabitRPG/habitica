@@ -95,16 +95,19 @@ api.conversations = {
 
 function mapMessage (newChat, user) {
   if (newChat.sent) {
+    // leave uuid as is
     newChat.toUUID = newChat.uuid;
     newChat.toUser = newChat.user;
     newChat.toUserName = newChat.username;
     newChat.toUserContributor = newChat.contributor;
     newChat.toUserBacker = newChat.backer;
-    newChat.uuid = user._id;
+    newChat.fromUUID = user._id;
     newChat.user = user.profile.name;
     newChat.username = user.auth.local.username;
     newChat.contributor = user.contributor;
     newChat.backer = user.backer;
+  } else {
+    newChat.fromUUID = newChat.uuid;
   }
 
   return newChat;

@@ -357,7 +357,7 @@ export default {
         const recentMessage = inboxGroup[key][0];
 
         const convoModel = {
-          key: recentMessage.toUUID ? recentMessage.toUUID : recentMessage.uuid,
+          key: recentMessage.toUUID ? recentMessage.toUUID : recentMessage.fromUUID,
           name: recentMessage.toUser ? recentMessage.toUser : recentMessage.user, // Handles case where from user sent the only message or the to user sent the only message
           username: !recentMessage.text ? recentMessage.username : recentMessage.toUserName,
           date: recentMessage.timestamp,
@@ -506,6 +506,7 @@ export default {
         likes: {},
         ownerId: this.user._id,
         uuid: this.user._id,
+        fromUUID: this.user._id,
         user: this.user.profile.name,
         username: this.user.auth.local.username,
         contributor: this.user.contributor,
