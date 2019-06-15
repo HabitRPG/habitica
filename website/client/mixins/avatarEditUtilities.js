@@ -1,0 +1,127 @@
+import moment from 'moment';
+import axios from 'axios';
+
+import unlock from '../../common/script/ops/unlock';
+import buy from '../../common/script/ops/buy/buy';
+
+import get from 'lodash/get';
+
+import appearanceSets from 'common/script/content/appearance/sets';
+
+export const avatarEditorUtilies = {
+  data () {
+    return {
+      backgroundUpdate: new Date(),
+    };
+  },
+  methods: {
+    mapKeysToOption (key, type, subType, set) {
+      let userPreference = subType ? this.user.preferences[type][subType] : this.user.preferences[type];
+      let userPurchased = subType ? this.user.purchased[type][subType] : this.user.purchased[type];
+      let locked = !userPurchased || !userPurchased[key];
+      let pathKey = subType ? `${type}.${subType}` : `${type}`;
+      let hide = false;
+
+      if (set && appearanceSets[set]) {
+        if (locked) hide = moment(appearanceSets[set].availableUntil).isBefore(moment());
+      }
+
+      let option = {};
+      option.key = key;
+      option.active = userPreference === key;
+      option.locked = locked;
+      option.hide = hide;
+      option.click = () => {
+        return locked ? this.unlock(`${pathKey}.${key}`) : this.set({[`preferences.${pathKey}`]: key});
+      };
+      return option;
+    },
+    userOwnsSet (type, setKeys, subType) {
+      let owns = true;
+
+      setKeys.forEach(key => {
+        if (subType) {
+          if (!this.user.purchased[type] || !this.user.purchased[type][subType] || !this.user.purchased[type][subType][key]) owns = false;
+          return;
+        }
+        if (!this.user.purchased[type][key]) owns = false;
+      });
+
+      return owns;
+    },
+    set (settings) {
+      this.$store.dispatch('user:set', settings);
+    },
+    equip (key, type) {
+      this.$store.dispatch('common:equip', {key, type});
+    },
+    /**
+     * For gem-unlockable preferences, (a) if owned, select preference (b) else, purchase
+     * @param path: User.preferences <-> User.purchased maps like User.preferences.skin=abc <-> User.purchased.skin.abc.
+     *  Pass in this paramater as "skin.abc". Alternatively, pass as an array ["skin.abc", "skin.xyz"] to unlock sets
+     */
+    async unlock (path) {
+      let fullSet = path.indexOf(',') !== -1;
+      let isBackground = path.indexOf('background.') !== -1;
+
+      let cost;
+
+      if (isBackground) {
+        cost = fullSet ? 3.75 : 1.75; // (Backgrounds) 15G per set, 7G per individual
+      } else {
+        cost = fullSet ? 1.25 : 0.5; // (Hair, skin, etc) 5G per set, 2G per individual
+      }
+
+      let loginIncentives = [
+        'background.blue',
+        'background.green',
+        'background.red',
+        'background.purple',
+        'background.yellow',
+        'background.violet',
+      ];
+
+      if (loginIncentives.indexOf(path) === -1) {
+        if (fullSet) {
+          if (confirm(this.$t('purchaseFor', {cost: cost * 4})) !== true) return;
+          // @TODO: implement gem modal
+          // if (this.user.balance < cost) return $rootScope.openModal('buyGems');
+        } else if (!get(this.user, `purchased.${path}`)) {
+          if (confirm(this.$t('purchaseFor', {cost: cost * 4})) !== true) return;
+          // @TODO: implement gem modal
+          // if (this.user.balance < cost) return $rootScope.openModal('buyGems');
+        }
+      }
+
+      await axios.post(`/api/v4/user/unlock?path=${path}`);
+      try {
+        unlock(this.user, {
+          query: {
+            path,
+          },
+        });
+        this.backgroundUpdate = new Date();
+      } catch (e) {
+        alert(e.message);
+      }
+    },
+    async buy (item) {
+      const options = {
+        currency: 'gold',
+        key: item,
+        type: 'marketGear',
+        quantity: 1,
+        pinType: 'marketGear',
+      };
+      await axios.post(`/api/v4/user/buy/${item}`, options);
+      try {
+        buy(this.user, {
+          params: options,
+        });
+        this.backgroundUpdate = new Date();
+      } catch (e) {
+        alert(e.message);
+      }
+    },
+  },
+};

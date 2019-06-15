@@ -36,7 +36,10 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
           .menu-item
             .svg-icon(v-html='icons.backgroundsIcon')
           strong(v-once) {{$t('backgrounds')}}
-    body-settings(v-if='activeTopPage === "body"')
+    body-settings(
+      v-if='activeTopPage === "body"',
+      :editing="editing",
+    )
 
     #skin.section.customize-section(v-if='activeTopPage === "skin"')
       .row.sub-menu.col-6.offset-3.text-center
@@ -371,7 +374,9 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
           button.btn.btn-primary.next(v-once, v-if='!loading') {{$t('done')}}
 </template>
 
-<style>
+<style lang="scss">
+  @import '~client/assets/scss/colors.scss';
+
   /* @TODO do not rely on avatar-modal___BV_modal_body_,
      it already changed once when bootstrap-vue reached version 1 */
 
@@ -382,479 +387,468 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
   #avatar-modal___BV_modal_body_, #avatar-modal___BV_modal_body_ {
     padding: 0;
   }
-</style>
 
-<style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
-
-  #creator-background {
-    background-color: $purple-200;
-  }
-
-  #creator-modal {
-    width: 448px;
-    height: 670px;
-    border-radius: 8px;
-    background-color: #ffffff;
-    box-shadow: 0 2px 16px 0 rgba(26, 24, 29, 0.32);
-    margin: 0 auto;
-    padding-top: 1em;
-    position: relative;
-  }
-
-  .corner-decoration {
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    background-color: #ffbe5d;
-    border: inherit;
-    outline: inherit;
-  }
-
-  .small {
-    color: $gray-200;
-  }
-
-  h3 {
-    font-size: 20px;
-    font-weight: normal;
-    color: $gray-200;
-  }
-
-  .purchase-all {
-    margin-bottom: 1em;
-  }
-
-  .section {
-    margin-top: 2em;
-  }
-
-  .edit-modal {
-    margin-top: 10em;
-  }
-
-  .row.sub-menu + .row.sub-menu {
-    margin-top: 0.5em;
-  }
-
-  .welcome-section {
-    margin-top: 2.5em;
-    margin-bottom: 2.5em;
-  }
-
-  .logo {
-    width: 190px;
-    margin: 0 auto 1.25em;
-  }
-
-  .user-creation-bg {
-    background-image: url('~client/assets/creator/creator-hills-bg.png');
-    height: 105px;
-    width: 219px;
-    margin: 0 auto;
-  }
-
-  .avatar {
-    position: absolute;
-    top: -22px;
-    left: 4em;
-  }
-
-  .edit-avatar {
-    left: 9.2em;
-  }
-
-  .justin-section {
-    position: relative;
-  }
-
-  .justin-message {
-    border-color: #ffa623;
-    border-style: solid;
-    border-width: 2px;
-    outline-color: #b36213;
-    outline-style: solid;
-    outline-width: 2px;
-    position: relative;
-    padding: 2em;
-    margin: 2px;
-    height: 100%;
-    width: 400px;
-
-    p {
-      margin: auto;
-    }
-
-    p + p {
-      margin-top: 1em;
-    }
-  }
-
-  .npc-justin-textbox {
-    position: absolute;
-    right: 1rem;
-    top: -3.1rem;
-    width: 48px;
-    height: 48px;
-    background-image: url('~client/assets/images/justin_textbox.png');
-  }
-
-  .featured-label {
-    position: absolute;
-    top: -1rem;
-    left: 1.5rem;
-    border-radius: 2px;
-    margin: auto;
-
-    .text {
-      font-size: 12px;
-      min-height: auto;
-      color: $white;
-    }
-  }
-
-  .circles {
-    padding-left: 2em;
-  }
-
-  .circle {
-    width: 8px;
-    height: 8px;
-    background-color: #d8d8d8;
-    border-radius: 50%;
-    display: inline-block;
-    margin-right: 1em;
-  }
-
-  .circle.active {
-    background-color: #bda8ff;
-  }
-
-  .customize-menu {
-    .menu-item .svg-icon {
-      width: 32px;
-      height: 32px;
-      margin: 0 auto;
-    }
-
-    .menu-container {
-      color: #a5a1ac;
-    }
-
-    .menu-container:hover, .menu-container.active {
+  #avatar-modal {
+    .sub-menu:hover {
       cursor: pointer;
-      color: #6133B4;
-    }
-  }
-
-  .sub-menu:hover {
-    cursor: pointer;
-  }
-
-  .sub-menu-item {
-    text-align: center;
-    border-bottom: 2px solid #f9f9f9;
-  }
-
-  .sub-menu .sub-menu-item:hover, .sub-menu .sub-menu-item.active {
-    color: $purple-200;
-    border-bottom: 2px solid $purple-200;
-  }
-
-  .customize-section {
-    text-align: center;
-    padding-bottom: 2em;
-  }
-
-  .option.hide {
-    display: none !important;
-  }
-
-  .customize-options .option {
-    display: inline-block;
-    vertical-align: bottom;
-    padding: .5em;
-    height: 90px;
-    width: 90px;
-    margin: 1em .5em .5em 0;
-    border: 4px solid $gray-700;
-    border-radius: 4px;
-
-    &.locked {
-      border: none;
-      border-radius: 2px;
-      background-color: #ffffff;
-      box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
-      margin-top: 0;
     }
 
-    .sprite.customize-option {
+    .sub-menu-item {
+      text-align: center;
+      border-bottom: 2px solid #f9f9f9;
+    }
+
+    .sub-menu .sub-menu-item:hover, .sub-menu .sub-menu-item.active {
+      color: $purple-200;
+      border-bottom: 2px solid $purple-200;
+    }
+
+    .customize-section {
+      text-align: center;
+      padding-bottom: 2em;
+    }
+
+    .option.hide {
+      display: none !important;
+    }
+
+    .customize-options .option {
+      display: inline-block;
+      vertical-align: bottom;
+      padding: .5em;
+      height: 90px;
+      width: 90px;
+      margin: 1em .5em .5em 0;
+      border: 4px solid $gray-700;
+      border-radius: 4px;
+
+      &.locked {
+        border: none;
+        border-radius: 2px;
+        background-color: #ffffff;
+        box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+        margin-top: 0;
+      }
+
+      .sprite.customize-option {
+        margin: 0 auto;
+      }
+    }
+
+
+    #creator-background {
+      background-color: $purple-200;
+    }
+
+    .corner-decoration {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background-color: #ffbe5d;
+      border: inherit;
+      outline: inherit;
+    }
+
+    .small {
+      color: $gray-200;
+    }
+
+    h3 {
+      font-size: 20px;
+      font-weight: normal;
+      color: $gray-200;
+    }
+
+    .purchase-all {
+      margin-bottom: 1em;
+    }
+
+    .section {
+      margin-top: 2em;
+    }
+
+    .edit-modal {
+      margin-top: 10em;
+    }
+
+    .row.sub-menu + .row.sub-menu {
+      margin-top: 0.5em;
+    }
+
+    .welcome-section {
+      margin-top: 2.5em;
+      margin-bottom: 2.5em;
+    }
+
+    .logo {
+      width: 190px;
+      margin: 0 auto 1.25em;
+    }
+
+    .user-creation-bg {
+      background-image: url('~client/assets/creator/creator-hills-bg.png');
+      height: 105px;
+      width: 219px;
       margin: 0 auto;
     }
-  }
 
-  .text-center {
-    .gem-lock, .gold-lock {
+    .avatar {
+      position: absolute;
+      top: -22px;
+      left: 4em;
+    }
+
+    .edit-avatar {
+      left: 9.2em;
+    }
+
+    .justin-section {
+      position: relative;
+    }
+
+    .justin-message {
+      border-color: #ffa623;
+      border-style: solid;
+      border-width: 2px;
+      outline-color: #b36213;
+      outline-style: solid;
+      outline-width: 2px;
+      position: relative;
+      padding: 2em;
+      margin: 2px;
+      height: 100%;
+      width: 400px;
+
+      p {
+        margin: auto;
+      }
+
+      p + p {
+        margin-top: 1em;
+      }
+    }
+
+    .npc-justin-textbox {
+      position: absolute;
+      right: 1rem;
+      top: -3.1rem;
+      width: 48px;
+      height: 48px;
+      background-image: url('~client/assets/images/justin_textbox.png');
+    }
+
+    .featured-label {
+      position: absolute;
+      top: -1rem;
+      left: 1.5rem;
+      border-radius: 2px;
+      margin: auto;
+
+      .text {
+        font-size: 12px;
+        min-height: auto;
+        color: $white;
+      }
+    }
+
+    .circles {
+      padding-left: 2em;
+    }
+
+    .circle {
+      width: 8px;
+      height: 8px;
+      background-color: #d8d8d8;
+      border-radius: 50%;
       display: inline-block;
       margin-right: 1em;
-      margin-bottom: 1.6em;
-      vertical-align: bottom;
-    }
-  }
-
-  .gem-lock, .gold-lock {
-    .svg-icon {
-      width: 16px;
     }
 
-    span {
-      font-weight: bold;
-      margin-left: .5em;
+    .circle.active {
+      background-color: #bda8ff;
     }
 
-    .svg-icon, span {
-      display: inline-block;
-      vertical-align: bottom;
-    }
-  }
-
-  .gem-lock span {
-    color: $green-10
-  }
-
-  .gold-lock span {
-    color: $yellow-10
-  }
-
-  .option.active {
-    border-color: $purple-200;
-  }
-
-  .option:hover {
-    cursor: pointer;
-  }
-
-  .customize-section {
-    background-color: #f9f9f9;
-    padding-top: 1em;
-    min-height: 280px;
-  }
-
-  .interests-section {
-    margin-top: 3em;
-
-    .task-option {
-      margin: 0 auto;
-      width: 70%;
-    }
-  }
-
-  #backgrounds {
-    .title-row {
-      margin-bottom: 1em;
-    }
-
-    .backgroundFilterToggle {
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .set-title {
-      margin-top: 1em;
-      margin-bottom: 1em;
-    }
-
-    .background {
-      margin: 0 auto;
-      box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
-      border-radius: 2px;
-    }
-
-    strong {
-      margin: 0 auto;
-    }
-
-    .incentive-background {
-      background-image: none;
-      width: 68px;
-      height: 68px;
-      border-radius: 8px;
-      background-color: #92b6bd;
-      margin: 0 auto;
-      padding-top: .3em;
-
-      .small-rectangle {
-        width: 60px;
-        height: 40px;
-        border-radius: 4px;
+    .customize-menu {
+      .menu-item .svg-icon {
+        width: 32px;
+        height: 32px;
         margin: 0 auto;
-        opacity: .6;
-        background: white;
+      }
+
+      .menu-container {
+        color: #a5a1ac;
+      }
+
+      .menu-container:hover, .menu-container.active {
+        cursor: pointer;
+        color: #6133B4;
       }
     }
 
-    .background_violet {
-      background-color: #a993ed;
-    }
 
-    .background_blue {
-      background-color: #92b6bd;
-    }
-
-    .background_green {
-      background-color: #92bd94;
-    }
-
-    .background_purple {
-      background-color: #9397bd;
-    }
-
-    .background_red {
-      background-color: #b77e80;
-    }
-
-    .background_yellow {
-      background-color: #bcbb91;
-    }
-
-    .incentive-background:hover {
-      cursor: pointer;
-    }
-
-    .background:hover {
-      cursor: pointer;
-    }
-
-    .purchase-background {
-      margin: 0 auto;
-      background: #fff;
-      padding: 0.5em;
-      border-radius: 0 0 2px 2px;
-      box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
-      cursor: pointer;
-
-      span {
-        font-weight: bold;
-        font-size: 12px;
+    .text-center {
+      .gem-lock, .gold-lock {
+        display: inline-block;
+        margin-right: 1em;
+        margin-bottom: 1.6em;
+        vertical-align: bottom;
       }
+    }
 
-      span.price {
-        color: #24cc8f;
-      }
-
-      .gem, .coin {
+    .gem-lock, .gold-lock {
+      .svg-icon {
         width: 16px;
       }
 
-      &.single {
-        width: 141px;
+      span {
+        font-weight: bold;
+        margin-left: .5em;
       }
 
-      &.set {
-        width: 100%;
+      .svg-icon, span {
+        display: inline-block;
+        vertical-align: bottom;
+      }
+    }
+
+    .gem-lock span {
+      color: $green-10
+    }
+
+    .gold-lock span {
+      color: $yellow-10
+    }
+
+    .option.active {
+      border-color: $purple-200;
+    }
+
+    .option:hover {
+      cursor: pointer;
+    }
+
+    .customize-section {
+      background-color: #f9f9f9;
+      padding-top: 1em;
+      min-height: 280px;
+    }
+
+    .interests-section {
+      margin-top: 3em;
+
+      .task-option {
+        margin: 0 auto;
+        width: 70%;
+      }
+    }
+
+    #backgrounds {
+      .title-row {
+        margin-bottom: 1em;
+      }
+
+      .backgroundFilterToggle {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .set-title {
+        margin-top: 1em;
+        margin-bottom: 1em;
+      }
+
+      .background {
+        margin: 0 auto;
+        box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+        border-radius: 2px;
+      }
+
+      strong {
+        margin: 0 auto;
+      }
+
+      .incentive-background {
+        background-image: none;
+        width: 68px;
+        height: 68px;
+        border-radius: 8px;
+        background-color: #92b6bd;
+        margin: 0 auto;
+        padding-top: .3em;
+
+        .small-rectangle {
+          width: 60px;
+          height: 40px;
+          border-radius: 4px;
+          margin: 0 auto;
+          opacity: .6;
+          background: white;
+        }
+      }
+
+      .background_violet {
+        background-color: #a993ed;
+      }
+
+      .background_blue {
+        background-color: #92b6bd;
+      }
+
+      .background_green {
+        background-color: #92bd94;
+      }
+
+      .background_purple {
+        background-color: #9397bd;
+      }
+
+      .background_red {
+        background-color: #b77e80;
+      }
+
+      .background_yellow {
+        background-color: #bcbb91;
+      }
+
+      .incentive-background:hover {
+        cursor: pointer;
+      }
+
+      .background:hover {
+        cursor: pointer;
+      }
+
+      .purchase-background {
+        margin: 0 auto;
+        background: #fff;
+        padding: 0.5em;
+        border-radius: 0 0 2px 2px;
+        box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+        cursor: pointer;
 
         span {
-          font-size: 14px;
+          font-weight: bold;
+          font-size: 12px;
+        }
+
+        span.price {
+          color: #24cc8f;
         }
 
         .gem, .coin {
-          width: 20px;
+          width: 16px;
+        }
+
+        &.single {
+          width: 141px;
+        }
+
+        &.set {
+          width: 100%;
+
+          span {
+            font-size: 14px;
+          }
+
+          .gem, .coin {
+            width: 20px;
+          }
         }
       }
-    }
 
-    .gem, .coin {
-      margin: 0 .5em;
-      display: inline-block;
-      vertical-align: bottom;
-    }
+      .gem, .coin {
+        margin: 0 .5em;
+        display: inline-block;
+        vertical-align: bottom;
+      }
 
-    .background-set {
+      .background-set {
         width: 100%;
         margin: 10px;
         background-color: #edecee;
         border-radius: 2px;
+      }
     }
-  }
 
-  .footer {
-    padding-bottom: 1em;
-    bottom: 0;
-    width: 100%;
+    .footer {
+      padding-bottom: 1em;
+      bottom: 0;
+      width: 100%;
 
-    .prev {
+      .prev {
+        color: #a5a1ac;
+        font-weight: bold;
+        display: inline-block;
+        padding: 0.4em;
+        margin-left: 1em;
+      }
+
+      .prev:hover, .prev-arrow:hover {
+        cursor: pointer;
+      }
+
+      .prev-arrow {
+        background-image: url('~client/assets/creator/prev.png');
+        width: 32px;
+        height: 32px;
+        display: inline-block;
+        vertical-align: bottom;
+      }
+
+      .next {
+        font-weight: bold;
+        display: inline-block;
+        padding: 0.4em;
+        margin-right: 1em;
+      }
+
+      .next:hover, .next-arrow:hover {
+        cursor: pointer;
+      }
+
+      .next-arrow {
+        background-image: url('~client/assets/creator/arrow.png');
+        width: 32px;
+        height: 32px;
+        display: inline-block;
+        vertical-align: bottom;
+      }
+    }
+
+    .badge-svg {
+      left: calc((100% - 18px) / 2);
+      cursor: pointer;
+      color: $gray-400;
+      background: $white;
+      padding: 4.5px 6px;
+
+      &.item-selected-badge {
+        background: $purple-300;
+        color: $white;
+      }
+    }
+
+    .icon-12 {
+      width: 12px;
+      height: 12px;
+    }
+
+    span.badge.badge-pill.badge-item.badge-svg:not(.item-selected-badge) {
       color: #a5a1ac;
-      font-weight: bold;
-      display: inline-block;
-      padding: 0.4em;
-      margin-left: 1em;
     }
 
-    .prev:hover, .prev-arrow:hover {
-      cursor: pointer;
-    }
-
-    .prev-arrow {
-      background-image: url('~client/assets/creator/prev.png');
-      width: 32px;
-      height: 32px;
-      display: inline-block;
-      vertical-align: bottom;
-    }
-
-    .next {
-      font-weight: bold;
-      display: inline-block;
-      padding: 0.4em;
-      margin-right: 1em;
-    }
-
-    .next:hover, .next-arrow:hover {
-      cursor: pointer;
-    }
-
-    .next-arrow {
-      background-image: url('~client/assets/creator/arrow.png');
-      width: 32px;
-      height: 32px;
-      display: inline-block;
-      vertical-align: bottom;
-    }
-  }
-
-  .badge-svg {
-    left: calc((100% - 18px) / 2);
-    cursor: pointer;
-    color: $gray-400;
-    background: $white;
-    padding: 4.5px 6px;
-
-    &.item-selected-badge {
-      background: $purple-300;
-      color: $white;
-    }
-  }
-
-  .icon-12 {
-    width: 12px;
-    height: 12px;
-  }
-
-  span.badge.badge-pill.badge-item.badge-svg:not(.item-selected-badge) {
-    color: #a5a1ac;
-  }
-
-  span.badge.badge-pill.badge-item.badge-svg.hide {
-    display: none;
-  }
-
-  .background-button {
-      margin-bottom: 15px;
-  }
-
-  .background-button:hover {
     span.badge.badge-pill.badge-item.badge-svg.hide {
-      display: block;
+      display: none;
+    }
+
+    .background-button {
+      margin-bottom: 15px;
+    }
+
+    .background-button:hover {
+      span.badge.badge-pill.badge-item.badge-svg.hide {
+        display: block;
+      }
     }
   }
 </style>
@@ -888,143 +882,14 @@ import gem from 'assets/svg/gem.svg';
 import gold from 'assets/svg/gold.svg';
 import pin from 'assets/svg/pin.svg';
 import isPinned from 'common/script/libs/isPinned';
+import {avatarEditorUtilies} from '../mixins/avatarEditUtilities';
+import {tasksByCategory} from './avatarModal/tasks';
 
 const skinsBySet = groupBy(appearance.skin, 'set.key');
 const hairColorBySet = groupBy(appearance.hair.color, 'set.key');
 
-const tasksByCategory = {
-  work: [
-    {
-      type: 'habit',
-      text: 'Process email',
-      up: true,
-      down: false,
-    },
-    {
-      type: 'daily',
-      text: 'Most important task >> Worked on today’s most important task',
-      notes: 'Tap to specify your most important task',
-    },
-    {
-      type: 'todo',
-      text: 'Work project >> Complete work project',
-      notes: 'Tap to specify the name of your current project + set a due date!',
-    },
-  ],
-  exercise: [
-    {
-      type: 'habit',
-      text: '10 min cardio >> + 10 minutes cardio',
-      up: true,
-      down: false,
-    },
-    {
-      type: 'daily',
-      text: 'Stretching >> Daily workout routine',
-      notes: 'Tap to choose your schedule and specify exercises!',
-    },
-    {
-      type: 'todo',
-      text: 'Set up workout schedule',
-      notes: 'Tap to add a checklist!',
-    },
-  ],
-  health_wellness: [ // eslint-disable-line
-    {
-      type: 'habit',
-      text: 'Eat Health/Junk Food',
-      up: true,
-      down: true,
-    },
-    {
-      type: 'daily',
-      text: 'Floss',
-      notes: 'Tap to make any changes!',
-    },
-    {
-      type: 'todo',
-      text: 'Schedule check-up >> Brainstorm a healthy change',
-      notes: 'Tap to add checklists!',
-    },
-  ],
-  school: [
-    {
-      type: 'habit',
-      text: 'Study/Procrastinate',
-      up: true,
-      down: true,
-    },
-    {
-      type: 'daily',
-      text: 'Finish homework',
-      notes: 'Tap to choose your homework schedule!',
-    },
-    {
-      type: 'todo',
-      text: 'Finish assignment for class',
-      notes: 'Tap to name the assignment and choose a due date!]',
-    },
-  ],
-  self_care: [ // eslint-disable-line
-    {
-      type: 'habit',
-      text: 'Take a short break',
-      up: true,
-      down: false,
-    },
-    {
-      type: 'daily',
-      text: '5 minutes of quiet breathing',
-      notes: 'Tap to choose your schedule!',
-    },
-    {
-      type: 'todo',
-      text: 'Engage in a fun activity',
-      notes: 'Tap to specify what you plan to do!',
-    },
-  ],
-  chores: [
-    {
-      type: 'habit',
-      text: '10 minutes cleaning',
-      up: true,
-      down: false,
-    },
-    {
-      type: 'daily',
-      text: 'Wash dishes',
-      notes: 'Tap to choose your schedule!',
-    },
-    {
-      type: 'todo',
-      text: 'Organize closet >> Organize clutter',
-      notes: 'Tap to specify the cluttered area!',
-    },
-  ],
-  creativity: [
-    {
-      type: 'habit',
-      text: 'Study a master of the craft >> + Practiced a new creative technique',
-      up: true,
-      down: false,
-    },
-    {
-      type: 'daily',
-      text: 'Work on creative project',
-      notes: 'Tap to specify the name of your current project + set the schedule!',
-    },
-    {
-      type: 'todo',
-      text: 'Finish creative project',
-      notes: 'Tap to specify the name of your project',
-    },
-  ],
-};
-
-
-
 export default {
-  mixins: [guide, notifications],
+  mixins: [guide, notifications, avatarEditorUtilies],
   components: {
     avatar,
     toggleSwitch,
@@ -1328,40 +1193,6 @@ export default {
       });
       this.backgroundUpdate = new Date();
     },
-    mapKeysToOption (key, type, subType, set) {
-      let userPreference = subType ? this.user.preferences[type][subType] : this.user.preferences[type];
-      let userPurchased = subType ? this.user.purchased[type][subType] : this.user.purchased[type];
-      let locked = !userPurchased || !userPurchased[key];
-      let pathKey = subType ? `${type}.${subType}` : `${type}`;
-      let hide = false;
-
-      if (set && appearanceSets[set]) {
-        if (locked) hide = moment(appearanceSets[set].availableUntil).isBefore(moment());
-      }
-
-      let option = {};
-      option.key = key;
-      option.active = userPreference === key;
-      option.locked = locked;
-      option.hide = hide;
-      option.click = () => {
-        return locked ? this.unlock(`${pathKey}.${key}`) : this.set({[`preferences.${pathKey}`]: key});
-      };
-      return option;
-    },
-    userOwnsSet (type, setKeys, subType) {
-      let owns = true;
-
-      setKeys.forEach(key => {
-        if (subType) {
-          if (!this.user.purchased[type] || !this.user.purchased[type][subType] || !this.user.purchased[type][subType][key]) owns = false;
-          return;
-        }
-        if (!this.user.purchased[type][key]) owns = false;
-      });
-
-      return owns;
-    },
     /**
       * Allows you to find out whether you need the "Purchase All" button or not. If there are more than 2 unpurchased items, returns true, otherwise returns false.
       * @param {string} category - The selected category.
@@ -1437,12 +1268,6 @@ export default {
     changeSubPage (page) {
       this.activeSubPage = page;
     },
-    set (settings) {
-      this.$store.dispatch('user:set', settings);
-    },
-    equip (key, type) {
-      this.$store.dispatch('common:equip', {key, type});
-    },
     async done () {
       this.loading = true;
 
@@ -1484,74 +1309,6 @@ export default {
       }
 
       return setOwnedByUser;
-    },
-    /**
-     * For gem-unlockable preferences, (a) if owned, select preference (b) else, purchase
-     * @param path: User.preferences <-> User.purchased maps like User.preferences.skin=abc <-> User.purchased.skin.abc.
-     *  Pass in this paramater as "skin.abc". Alternatively, pass as an array ["skin.abc", "skin.xyz"] to unlock sets
-     */
-    async unlock (path) {
-      let fullSet = path.indexOf(',') !== -1;
-      let isBackground = path.indexOf('background.') !== -1;
-
-      let cost;
-
-      if (isBackground) {
-        cost = fullSet ? 3.75 : 1.75; // (Backgrounds) 15G per set, 7G per individual
-      } else {
-        cost = fullSet ? 1.25 : 0.5; // (Hair, skin, etc) 5G per set, 2G per individual
-      }
-
-      let loginIncentives = [
-        'background.blue',
-        'background.green',
-        'background.red',
-        'background.purple',
-        'background.yellow',
-        'background.violet',
-      ];
-
-      if (loginIncentives.indexOf(path) === -1) {
-        if (fullSet) {
-          if (confirm(this.$t('purchaseFor', {cost: cost * 4})) !== true) return;
-          // @TODO: implement gem modal
-          // if (this.user.balance < cost) return $rootScope.openModal('buyGems');
-        } else if (!get(this.user, `purchased.${path}`)) {
-          if (confirm(this.$t('purchaseFor', {cost: cost * 4})) !== true) return;
-          // @TODO: implement gem modal
-          // if (this.user.balance < cost) return $rootScope.openModal('buyGems');
-        }
-      }
-
-      await axios.post(`/api/v4/user/unlock?path=${path}`);
-      try {
-        unlock(this.user, {
-          query: {
-            path,
-          },
-        });
-        this.backgroundUpdate = new Date();
-      } catch (e) {
-        alert(e.message);
-      }
-    },
-    async buy (item) {
-      const options = {
-        currency: 'gold',
-        key: item,
-        type: 'marketGear',
-        quantity: 1,
-        pinType: 'marketGear',
-      };
-      await axios.post(`/api/v4/user/buy/${item}`, options);
-      try {
-        buy(this.user, {
-          params: options,
-        });
-        this.backgroundUpdate = new Date();
-      } catch (e) {
-        alert(e.message);
-      }
     },
     setKeys (type, _set) {
       return map(_set, (v, k) => {

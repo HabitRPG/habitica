@@ -1,7 +1,5 @@
 <template lang="pug">
   #body.section.customize-section
-
-    div {{ freeShirts }}
     .row.sub-menu.text-center
       .col-3.offset-3.sub-menu-item(@click='changeSubPage("size")', :class='{active: activeSubPage === "size"}')
         strong(v-once) {{$t('size')}}
@@ -13,7 +11,7 @@
           .sprite.customize-option(:class="`${option}_shirt_black`", @click='set({"preferences.size": option})')
     .row(v-if='activeSubPage === "shirt"')
       .col-12.customize-options
-        .option(v-for='option in ["black", "blue", "green", "pink", "white", "yellow"]',
+        .option(v-for='option in freeShirts',
           :class='{active: user.preferences.shirt === option}')
           .sprite.customize-option(:class="`slim_shirt_${option}`", @click='set({"preferences.shirt": option})')
       .col-12.customize-options(v-if='editing')
@@ -31,25 +29,49 @@
 </template>
 
 <script>
-
   import appearance from 'common/script/content/appearance';
   import {subPageMixin} from '../../mixins/subPage';
+  import {userStateMixin} from '../../mixins/userState';
+  import {avatarEditorUtilies} from '../../mixins/avatarEditUtilities';
+  import gem from 'assets/svg/gem.svg';
 
   const freeShirtKeys = Object.keys(appearance.shirt).filter(k => appearance.shirt[k].price === 0);
   const specialShirtKeys = Object.keys(appearance.shirt).filter(k => appearance.shirt[k].price !== 0);
 
+
   export default {
+    props: [
+      'editing',
+    ],
     mixins: [
       subPageMixin,
+      userStateMixin,
+      avatarEditorUtilies,
     ],
     data () {
       return {
         freeShirts: freeShirtKeys,
-        specialShirts: specialShirtKeys,
+        specialShirtKeys,
+        icons: Object.freeze({
+          gem,
+        }),
       };
+    },
+    computed: {
+      specialShirts () {
+        let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+        let keys = this.specialShirtKeys;
+        let options = keys.map(key => {
+          return this.mapKeysToOption(key, 'shirt');
+        });
+        return options;
+      },
     },
     mounted () {
       this.changeSubPage('size');
+    },
+    methods: {
+
     },
   };
 </script>
