@@ -90,8 +90,8 @@ describe('POST /chat', () => {
       });
     });
 
-    it('does not error when sending a message to a private guild with a user with revoked chat', async () => {
-      let { group, members } = await createAndPopulateGroup({
+    it('does not error when chat privileges are revoked when sending a message to a private guild', async () => {
+      const { group, members } = await createAndPopulateGroup({
         groupDetails: {
           name: 'Private Guild',
           type: 'guild',
@@ -100,16 +100,16 @@ describe('POST /chat', () => {
         members: 1,
       });
 
-      let privateGuildMemberWithChatsRevoked = members[0];
+      const privateGuildMemberWithChatsRevoked = members[0];
       await privateGuildMemberWithChatsRevoked.update({'flags.chatRevoked': true});
 
-      let message = await privateGuildMemberWithChatsRevoked.post(`/groups/${group._id}/chat`, { message: testMessage});
+      const message = await privateGuildMemberWithChatsRevoked.post(`/groups/${group._id}/chat`, { message: testMessage});
 
       expect(message.message.id).to.exist;
     });
 
-    it('does not error when sending a message to a party with a user with revoked chat', async () => {
-      let { group, members } = await createAndPopulateGroup({
+    it('does not error when chat privileges are revoked when sending a message to a party', async () => {
+      const { group, members } = await createAndPopulateGroup({
         groupDetails: {
           name: 'Party',
           type: 'party',
@@ -118,10 +118,10 @@ describe('POST /chat', () => {
         members: 1,
       });
 
-      let privatePartyMemberWithChatsRevoked = members[0];
+      const privatePartyMemberWithChatsRevoked = members[0];
       await privatePartyMemberWithChatsRevoked.update({'flags.chatRevoked': true});
 
-      let message = await privatePartyMemberWithChatsRevoked.post(`/groups/${group._id}/chat`, { message: testMessage});
+      const message = await privatePartyMemberWithChatsRevoked.post(`/groups/${group._id}/chat`, { message: testMessage});
 
       expect(message.message.id).to.exist;
     });
