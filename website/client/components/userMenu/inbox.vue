@@ -323,7 +323,6 @@ export default {
       loadedConversations: [],
       loaded: false,
       messagesLoading: false,
-      page: 0,
       initiatedConversation: null,
       updateConversionsCounter: 0,
     };
@@ -365,6 +364,7 @@ export default {
           date: recentMessage.timestamp,
           lastMessageText: recentMessage.text,
           canLoadMore: true,
+          page: 0,
         };
 
         convos.push(convoModel);
@@ -478,7 +478,6 @@ export default {
       });
 
       this.selectedConversation = convoFound || {};
-      this.page = 0;
 
       if (!this.messagesByConversation[this.selectedConversation.key]) {
         await this.loadMessages();
@@ -565,13 +564,13 @@ export default {
       return this.loadMore();
     },
     loadMore () {
-      this.page += 1;
+      this.selectedConversation.page += 1;
       return this.loadMessages();
     },
     async loadMessages () {
       this.messagesLoading = true;
 
-      const requestUrl = `/api/v4/inbox/messages?conversation=${this.selectedConversation.key}&page=${this.page}`;
+      const requestUrl = `/api/v4/inbox/messages?conversation=${this.selectedConversation.key}&page=${this.selectedConversation.page}`;
       const res = await axios.get(requestUrl);
       const loadedMessages = res.data.data;
 
