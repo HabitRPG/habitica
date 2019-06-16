@@ -202,14 +202,14 @@ schema.methods.addNotification = function addUserNotification (type, data = {}, 
  * @param  data  The data to add to the notification
  */
 schema.statics.pushNotification = async function pushNotification (query, type, data = {}, seen = false) {
-  let newNotification = new UserNotification({type, data, seen});
+  let newNotification = new UserNotification({ type, data, seen });
 
   let validationResult = newNotification.validateSync();
   if (validationResult) {
     throw validationResult;
   }
 
-  await this.update(query, {$push: {notifications: newNotification.toObject()}}, {multi: true}).exec();
+  await this.update(query, { $push: { notifications: newNotification.toObject() } }, { multi: true }).exec();
 };
 
 // Static method to add/remove properties to a JSON User object,
@@ -289,7 +289,7 @@ schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
   }
 
   // How many days have we missed using the user's current timezone:
-  let daysMissed = daysSince(this.lastCron, defaults({now}, this.preferences));
+  let daysMissed = daysSince(this.lastCron, defaults({ now }, this.preferences));
 
   if (timezoneOffsetAtLastCron !== timezoneOffsetFromUserPrefs) {
     // Give the user extra time based on the difference in timezones
@@ -355,7 +355,7 @@ schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
     }
   }
 
-  return {daysMissed, timezoneOffsetFromUserPrefs};
+  return { daysMissed, timezoneOffsetFromUserPrefs };
 };
 
 async function getUserGroupData (user) {
@@ -363,7 +363,7 @@ async function getUserGroupData (user) {
 
   const groups = await Group
     .find({
-      _id: {$in: userGroups},
+      _id: { $in: userGroups },
     })
     .select('leaderOnly leader purchased')
     .exec();
@@ -392,7 +392,10 @@ schema.methods.canGetGems = async function canObtainGems () {
 schema.methods.isMemberOfGroupPlan = async function isMemberOfGroupPlan () {
   const groups = await getUserGroupData(this);
 
-  return groups.every(g => {
+  // return groups.every(g => {
+  //   return g.isSubscribed();
+  // });
+  return groups.some(g => {
     return g.isSubscribed();
   });
 };
@@ -408,7 +411,7 @@ schema.methods.toJSONWithInbox = async function userToJSONWithInbox () {
   const toJSON = user.toJSON();
 
   if (toJSON.inbox) {
-    toJSON.inbox.messages = await inboxLib.getUserInbox(user, {asArray: false});
+    toJSON.inbox.messages = await inboxLib.getUserInbox(user, { asArray: false });
   }
 
   return toJSON;
