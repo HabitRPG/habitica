@@ -512,8 +512,8 @@ schema.methods.getMemberCount = async function getMemberCount () {
 };
 
 schema.methods.sendChat = function sendChat (options = {}) {
-  const {message, user, metaData, client, info = {}} = options;
-  let newMessage = messageDefaults(message, user, client, info);
+  const {message, user, metaData, client, flagCount = 0, info = {}} = options;
+  let newMessage = messageDefaults(message, user, client, flagCount, info);
   let newChatMessage = new Chat();
   newChatMessage = Object.assign(newChatMessage, newMessage);
   newChatMessage.groupId = this._id;
