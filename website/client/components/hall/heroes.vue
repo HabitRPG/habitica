@@ -59,6 +59,11 @@
                 .form-group
                   .checkbox
                     label
+                      input(type='checkbox', v-if='hero.flags', v-model='hero.flags.chatShadowMuted')
+                      strong Chat Shadow Muting On
+                .form-group
+                  .checkbox
+                    label
                       input(type='checkbox', v-if='hero.flags', v-model='hero.flags.chatRevoked')
                       strong Chat Privileges Revoked
                 .form-group
@@ -180,6 +185,7 @@ export default {
       if (!this.hero.flags) {
         this.hero.flags = {
           chatRevoked: false,
+          chatShadowMuted: false,
         };
       }
       this.expandItems = false;

@@ -16,6 +16,12 @@
         @click="loadAdminTools()", v-b-tooltip.hover.right="'Admin - Load Tools'")
         .svg-icon.positive-icon(v-html="icons.staff")
       span(v-if='this.userLoggedIn.contributor.admin && adminToolsLoaded')
+        button.btn.btn-secondary.positive-icon(v-if='!hero.flags || (hero.flags && !hero.flags.chatShadowMuted)',
+          @click="adminTurnOnShadowMuting()", v-b-tooltip.hover.bottom="'Admin - Turn on Shadow Muting'")
+          .svg-icon.positive-icon(v-html="icons.informationRed")
+        button.btn.btn-secondary.positive-icon(v-if='hero.flags && hero.flags.chatShadowMuted',
+          @click="adminTurnOffShadowMuting()", v-b-tooltip.hover.bottom="'Admin - Turn off Shadow Muting'")
+          .svg-icon.positive-icon(v-html="icons.information")
         button.btn.btn-secondary.positive-icon(v-if='!hero.flags || (hero.flags && !hero.flags.chatRevoked)',
           @click="adminRevokeChat()", v-b-tooltip.hover.bottom="'Admin - Revoke Chat Privileges'")
           .svg-icon.positive-icon(v-html="icons.megaphone")
@@ -595,6 +601,22 @@ export default {
     },
     openSendGemsModal () {
       this.$root.$emit('habitica::send-gems', this.user);
+    },
+    adminTurnOnShadowMuting () {
+      if (!this.hero.flags) {
+        this.hero.flags = {};
+      }
+      this.hero.flags.chatShadowMuted = true;
+
+      this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
+    },
+    adminTurnOffShadowMuting () {
+      if (!this.hero.flags) {
+        this.hero.flags = {};
+      }
+      this.hero.flags.chatShadowMuted = false;
+
+      this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
     },
     adminRevokeChat () {
       if (!this.hero.flags) {
