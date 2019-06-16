@@ -57,6 +57,7 @@ div
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    overflow-x: hidden;
   }
 
   #loading-screen-inapp {
@@ -89,7 +90,6 @@ div
   }
 
   .container-fluid {
-    overflow-x: hidden;
     flex: 1 0 auto;
   }
 
