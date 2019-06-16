@@ -144,7 +144,7 @@ api.createGroup = {
     // the leader is the authenticated user
     response.leader = {
       _id: user._id,
-      profile: { name: user.profile.name },
+      profile: {name: user.profile.name},
     };
 
     let analyticsObject = {
@@ -249,7 +249,7 @@ api.createGroupPlan = {
     // the leader is the authenticated user
     response.leader = {
       _id: user._id,
-      profile: { name: user.profile.name },
+      profile: {name: user.profile.name},
     };
 
     res.respond(201, response); // do not remove chat flags data as we've just created the group
@@ -293,7 +293,7 @@ api.getGroups = {
     req.checkQuery('type', res.t('groupTypesRequired')).notEmpty();
     // pagination options, can only be used with public guilds
     req.checkQuery('paginate').optional().isIn(['true', 'false'], apiError('guildsPaginateBooleanString'));
-    req.checkQuery('page').optional().isInt({ min: 0 }, apiError('queryPageInteger'));
+    req.checkQuery('page').optional().isInt({min: 0}, apiError('queryPageInteger'));
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -311,7 +311,7 @@ api.getGroups = {
     let filters = {};
     if (req.query.categories) {
       let categorySlugs = req.query.categories.split(',');
-      filters.categories = { $elemMatch: { slug: { $in: categorySlugs } } };
+      filters.categories = { $elemMatch: { slug: {$in: categorySlugs} } };
     }
 
     if (req.query.minMemberCount) {
@@ -337,8 +337,8 @@ api.getGroups = {
       filters.$or = [];
       const searchWords = _.escapeRegExp(req.query.search).split(' ').join('|');
       const searchQuery = { $regex: new RegExp(`${searchWords}`, 'i') };
-      filters.$or.push({ name: searchQuery });
-      filters.$or.push({ description: searchQuery });
+      filters.$or.push({name: searchQuery});
+      filters.$or.push({description: searchQuery});
     }
 
     let results = await Group.getGroups({
@@ -387,7 +387,7 @@ api.getGroup = {
     if (validationErrors) throw validationErrors;
 
     let groupId = req.params.groupId;
-    let group = await Group.getGroup({ user, groupId, populateLeader: false });
+    let group = await Group.getGroup({user, groupId, populateLeader: false});
     if (!group) {
       throw new NotFound(res.t('groupNotFound'));
     }
@@ -400,7 +400,7 @@ api.getGroup = {
 
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
     let leader = await User.findById(groupJson.leader).select(nameFields).exec();
-    if (leader) groupJson.leader = leader.toJSON({ minimize: true });
+    if (leader) groupJson.leader = leader.toJSON({minimize: true});
 
     res.respond(200, groupJson);
   },
@@ -444,7 +444,7 @@ api.updateGroup = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
     let optionalMembership = Boolean(user.contributor.admin);
-    let group = await Group.getGroup({ user, groupId: req.params.groupId, optionalMembership });
+    let group = await Group.getGroup({user, groupId: req.params.groupId, optionalMembership});
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
@@ -461,11 +461,11 @@ api.updateGroup = {
     // If the leader changed fetch new data, otherwise use authenticated user
     if (response.leader !== user._id) {
       let rawLeader = await User.findById(response.leader).select(nameFields).exec();
-      response.leader = rawLeader.toJSON({ minimize: true });
+      response.leader = rawLeader.toJSON({minimize: true});
     } else {
       response.leader = {
         _id: user._id,
-        profile: { name: user.profile.name },
+        profile: {name: user.profile.name},
       };
     }
     res.respond(200, response);
@@ -509,21 +509,21 @@ api.joinGroup = {
     if (validationErrors) throw validationErrors;
 
     // Works even if the user is not yet a member of the group
-    let group = await Group.getGroup({ user, groupId: req.params.groupId, optionalMembership: true }); // Do not fetch chat and work even if the user is not yet a member of the group
+    let group = await Group.getGroup({user, groupId: req.params.groupId, optionalMembership: true}); // Do not fetch chat and work even if the user is not yet a member of the group
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     let isUserInvited = false;
 
     if (group.type === 'party') {
       // Check if was invited to party
-      let inviterParty = _.find(user.invitations.parties, { id: group._id });
+      let inviterParty = _.find(user.invitations.parties, {id: group._id});
       if (inviterParty) {
         inviter = inviterParty.inviter;
 
         // If user was in a different party (when partying solo you can be invited to a new party)
         // make them leave that party before doing anything
         if (user.party._id) {
-          let userPreviousParty = await Group.getGroup({ user, groupId: user.party._id });
+          let userPreviousParty = await Group.getGroup({user, groupId: user.party._id});
 
           if (userPreviousParty.memberCount === 1 && user.party.quest.key) {
             throw new NotAuthorized(res.t('messageCannotLeaveWhileQuesting'));
@@ -604,21 +604,21 @@ api.joinGroup = {
     if (group.type === 'party' && inviter) {
       if (group.memberCount > 1) {
         promises.push(User.update({
-          $or: [{ 'party._id': group._id }, { _id: user._id }],
-          'achievements.partyUp': { $ne: true },
-        }, { $set: { 'achievements.partyUp': true } }, { multi: true }).exec());
+          $or: [{'party._id': group._id}, {_id: user._id}],
+          'achievements.partyUp': {$ne: true},
+        }, {$set: {'achievements.partyUp': true}}, {multi: true}).exec());
       }
       if (group.memberCount > 3) {
         promises.push(User.update({
-          $or: [{ 'party._id': group._id }, { _id: user._id }],
-          'achievements.partyOn': { $ne: true },
-        }, { $set: { 'achievements.partyOn': true } }, { multi: true }).exec());
+          $or: [{'party._id': group._id}, {_id: user._id}],
+          'achievements.partyOn': {$ne: true},
+        }, {$set: {'achievements.partyOn': true}}, {multi: true}).exec());
       }
     }
 
     promises = await Promise.all(promises);
 
-    if (group.hasNotCancelled()) {
+    if (group.hasNotCancelled())  {
       await payments.addSubToGroupUser(user, group);
       await group.updateGroupPlan();
     }
@@ -626,7 +626,7 @@ api.joinGroup = {
     let response = await Group.toJSONCleanChat(promises[0], user);
     let leader = await User.findById(response.leader).select(nameFields).exec();
     if (leader) {
-      response.leader = leader.toJSON({ minimize: true });
+      response.leader = leader.toJSON({minimize: true});
     }
 
     let analyticsObject = {
@@ -754,7 +754,7 @@ api.leaveGroup = {
     if (validationErrors) throw validationErrors;
 
     let groupId = req.params.groupId;
-    let group = await Group.getGroup({ user, groupId, fields: '-chat', requireMembership: true });
+    let group = await Group.getGroup({user, groupId, fields: '-chat', requireMembership: true});
     if (!group) {
       throw new NotFound(res.t('groupNotFound'));
     }
@@ -794,10 +794,10 @@ function _sendMessageToRemoved (group, removedUser, message, isInGroup) {
   if (removedUser.preferences.emailNotifications.kickedGroup !== false) {
     let subject = isInGroup ? `kicked-from-${group.type}` : `${group.type}-invite-rescinded`;
     sendTxnEmail(removedUser, subject, [
-      { name: 'GROUP_NAME', content: group.name },
-      { name: 'MESSAGE', content: message },
-      { name: 'GUILDS_LINK', content: '/groups/discovery' },
-      { name: 'PARTY_WANTED_GUILD', content: '/groups/guild/f2db2a7f-13c5-454d-b3ee-ea1f5089e601' },
+      {name: 'GROUP_NAME', content: group.name},
+      {name: 'MESSAGE', content: message},
+      {name: 'GUILDS_LINK', content: '/groups/discovery'},
+      {name: 'PARTY_WANTED_GUILD', content: '/groups/guild/f2db2a7f-13c5-454d-b3ee-ea1f5089e601'},
     ]);
   }
 }
@@ -839,7 +839,7 @@ api.removeGroupMember = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
     let optionalMembership = Boolean(user.contributor.admin);
-    let group = await Group.getGroup({ user, groupId: req.params.groupId, optionalMembership, fields: '-chat' }); // Do not fetch chat
+    let group = await Group.getGroup({user, groupId: req.params.groupId, optionalMembership, fields: '-chat'}); // Do not fetch chat
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
@@ -852,7 +852,7 @@ api.removeGroupMember = {
 
     if (user._id === uuid) throw new NotAuthorized(res.t('memberCannotRemoveYourself'));
 
-    let member = await User.findOne({ _id: uuid }).exec();
+    let member = await User.findOne({_id: uuid}).exec();
 
     // We're removing the user from a guild or a party? is the user invited only?
     let isInGroup;
@@ -863,9 +863,9 @@ api.removeGroupMember = {
     }
 
     let isInvited;
-    if (_.find(member.invitations.parties, { id: group._id })) {
+    if (_.find(member.invitations.parties, {id: group._id})) {
       isInvited = 'party';
-    } else if (_.findIndex(member.invitations.guilds, { id: group._id }) !== -1) {
+    } else if (_.findIndex(member.invitations.guilds, {id: group._id}) !== -1) {
       isInvited = 'guild';
     }
 
@@ -915,7 +915,7 @@ api.removeGroupMember = {
       group.save(),
     ]);
 
-    if (isInGroup && group.hasNotCancelled()) {
+    if (isInGroup && group.hasNotCancelled())  {
       await group.updateGroupPlan(true);
       await payments.cancelGroupSubscriptionForUser(member, group, true);
     }
@@ -1021,7 +1021,7 @@ api.inviteToGroup = {
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    const group = await Group.getGroup({ user, groupId: req.params.groupId, fields: '-chat' });
+    const group = await Group.getGroup({user, groupId: req.params.groupId, fields: '-chat'});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     if (group.purchased && group.purchased.plan.customerId && user._id !== group.leader) throw new NotAuthorized(res.t('onlyGroupLeaderCanInviteToGroupPlan'));
@@ -1107,7 +1107,7 @@ api.addGroupManager = {
 
     let newManager = await User.findById(managerId, 'guilds party').exec();
     let groupFields = basicGroupFields.concat(' managers');
-    let group = await Group.getGroup({ user, groupId: req.params.groupId, fields: groupFields });
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: groupFields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     if (group.leader !== user._id) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
@@ -1155,7 +1155,7 @@ api.removeGroupManager = {
     if (validationErrors) throw validationErrors;
 
     let groupFields = basicGroupFields.concat(' managers');
-    let group = await Group.getGroup({ user, groupId: req.params.groupId, fields: groupFields });
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: groupFields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     if (group.leader !== user._id) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
@@ -1204,7 +1204,7 @@ api.getGroupPlans = {
 
     const groups = await Group
       .find({
-        _id: { $in: userGroups },
+        _id: {$in: userGroups},
       })
       .select('leaderOnly leader purchased name managers')
       .exec();
