@@ -139,7 +139,7 @@ api.postChat = {
         {name: 'AUTHOR_USERNAME', content: user.profile.name},
         {name: 'AUTHOR_UUID', content: user._id},
         {name: 'AUTHOR_EMAIL', content: authorEmail},
-        {name: 'AUTHOR_MODAL_URL', content: `/static/front/#?memberId=${user._id}`},
+        {name: 'AUTHOR_MODAL_URL', content: `/profile/${user._id}`},
 
         {name: 'GROUP_NAME', content: group.name},
         {name: 'GROUP_TYPE', content: group.type},
@@ -162,12 +162,12 @@ api.postChat = {
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    if (group.privacy !== 'private' && user.flags.chatRevoked) {
+    if (group.privacy === 'public' && user.flags.chatRevoked) {
       throw new NotAuthorized(res.t('chatPrivilegesRevoked'));
     }
 
     // prevent banned words being posted, except in private guilds/parties and in certain public guilds with specific topics
-    if (group.privacy !== 'private' && !guildsAllowingBannedWords[group._id]) {
+    if (group.privacy === 'public' && !guildsAllowingBannedWords[group._id]) {
       let matchedBadWords = getBannedWordsFromText(req.body.message);
       if (matchedBadWords.length > 0) {
         throw new BadRequest(res.t('bannedWordUsed', {swearWordsUsed: matchedBadWords.join(', ')}));
@@ -372,12 +372,12 @@ api.clearChatFlags = {
       {name: 'ADMIN_USERNAME', content: user.profile.name},
       {name: 'ADMIN_UUID', content: user._id},
       {name: 'ADMIN_EMAIL', content: adminEmailContent},
-      {name: 'ADMIN_MODAL_URL', content: `/static/front/#?memberId=${user._id}`},
+      {name: 'ADMIN_MODAL_URL', content: `/profile/${user._id}`},
 
       {name: 'AUTHOR_USERNAME', content: message.user},
       {name: 'AUTHOR_UUID', content: message.uuid},
       {name: 'AUTHOR_EMAIL', content: authorEmail},
-      {name: 'AUTHOR_MODAL_URL', content: `/static/front/#?memberId=${message.uuid}`},
+      {name: 'AUTHOR_MODAL_URL', content: `/profile/${message.uuid}`},
 
       {name: 'GROUP_NAME', content: group.name},
       {name: 'GROUP_TYPE', content: group.type},
