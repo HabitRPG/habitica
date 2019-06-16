@@ -31,9 +31,9 @@ function _dateDiff (earlyDate, lateDate) {
 async function addSubscriptionToGroupUsers (group) {
   let members;
   if (group.type === 'guild') {
-    members = await User.find({guilds: group._id}).select('_id purchased items auth profile.name notifications').exec();
+    members = await User.find({ guilds: group._id }).select('_id purchased items auth profile.name notifications').exec();
   } else {
-    members = await User.find({'party._id': group._id}).select('_id purchased items auth profile.name notifications').exec();
+    members = await User.find({ 'party._id': group._id }).select('_id purchased items auth profile.name notifications').exec();
   }
 
   let promises = members.map((member) => {
@@ -103,13 +103,13 @@ async function addSubToGroupUser (member, group) {
     let ignoreCustomerId = customerIdsToIgnore.indexOf(memberPlan.customerId) !== -1;
 
     if (ignorePaymentPlan) {
-      txnEmail({email: TECH_ASSISTANCE_EMAIL}, 'admin-user-subscription-details', [
-        {name: 'PROFILE_NAME', content: member.profile.name},
-        {name: 'UUID', content: member._id},
-        {name: 'EMAIL', content: getUserInfo(member, ['email']).email},
-        {name: 'PAYMENT_METHOD', content: memberPlan.paymentMethod},
-        {name: 'PURCHASED_PLAN', content: JSON.stringify(memberPlan)},
-        {name: 'ACTION_NEEDED', content: 'User has joined group plan and has been told to cancel their subscription then email us. Ensure they do that then give them free sub.'},
+      txnEmail({ email: TECH_ASSISTANCE_EMAIL }, 'admin-user-subscription-details', [
+        { name: 'PROFILE_NAME', content: member.profile.name },
+        { name: 'UUID', content: member._id },
+        { name: 'EMAIL', content: getUserInfo(member, ['email']).email },
+        { name: 'PAYMENT_METHOD', content: memberPlan.paymentMethod },
+        { name: 'PURCHASED_PLAN', content: JSON.stringify(memberPlan) },
+        { name: 'ACTION_NEEDED', content: 'User has joined group plan and has been told to cancel their subscription then email us. Ensure they do that then give them free sub.' },
         // TODO User won't get email instructions if they've opted out of all emails. See if we can make this email an exception and if not, report here whether they've opted out.
       ]);
     }
@@ -131,15 +131,15 @@ async function addSubToGroupUser (member, group) {
         previousSubscriptionType = EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_UNKNOWN;
       }
       txnEmail(member, 'group-member-join', [
-        {name: 'LEADER', content: leader.profile.name},
-        {name: 'GROUP_NAME', content: group.name},
-        {name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: previousSubscriptionType},
+        { name: 'LEADER', content: leader.profile.name },
+        { name: 'GROUP_NAME', content: group.name },
+        { name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: previousSubscriptionType },
       ]);
       return;
     }
 
     if (member.hasNotCancelled()) {
-      await member.cancelSubscription({cancellationReason: JOINED_GROUP_PLAN});
+      await member.cancelSubscription({ cancellationReason: JOINED_GROUP_PLAN });
       previousSubscriptionType = EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_NORMAL;
     }
 
@@ -176,9 +176,9 @@ async function addSubToGroupUser (member, group) {
   await this.createSubscription(data);
 
   txnEmail(data.user, 'group-member-join', [
-    {name: 'LEADER', content: leader.profile.name},
-    {name: 'GROUP_NAME', content: group.name},
-    {name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: previousSubscriptionType},
+    { name: 'LEADER', content: leader.profile.name },
+    { name: 'GROUP_NAME', content: group.name },
+    { name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: previousSubscriptionType },
   ]);
 }
 
@@ -192,9 +192,9 @@ async function addSubToGroupUser (member, group) {
 async function cancelGroupUsersSubscription (group) {
   let members;
   if (group.type === 'guild') {
-    members = await User.find({guilds: group._id}).select('_id guilds purchased').exec();
+    members = await User.find({ guilds: group._id }).select('_id guilds purchased').exec();
   } else {
-    members = await User.find({'party._id': group._id}).select('_id guilds purchased').exec();
+    members = await User.find({ 'party._id': group._id }).select('_id guilds purchased').exec();
   }
 
   let promises = members.map((member) => {
@@ -223,15 +223,15 @@ async function cancelGroupSubscriptionForUser (user, group, userWasRemoved = fal
   let groupFields = `${basicGroupFields} purchased`;
   let userGroupPlans = await Group.find(groupPlansQuery).select(groupFields).exec();
 
-  if (userGroupPlans.length === 0)  {
+  if (userGroupPlans.length === 0) {
     let leader = await User.findById(group.leader).exec();
     const email = userWasRemoved ? 'group-member-removed' : 'group-member-cancel';
 
     txnEmail(user, email, [
-      {name: 'LEADER', content: leader.profile.name},
-      {name: 'GROUP_NAME', content: group.name},
+      { name: 'LEADER', content: leader.profile.name },
+      { name: 'GROUP_NAME', content: group.name },
     ]);
-    await this.cancelSubscription({user});
+    await this.cancelSubscription({ user });
   }
 }
 
