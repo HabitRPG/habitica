@@ -98,7 +98,7 @@ module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
   }
 
   if (!notFree) {
-      user.flags.lastFreeRebirth = new Date();
+    user.flags.lastFreeRebirth = new Date();
   }
 
   if (user.addNotification) user.addNotification('REBIRTH_ACHIEVEMENT');
