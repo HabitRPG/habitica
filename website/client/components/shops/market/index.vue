@@ -239,11 +239,6 @@ export default {
         ];
 
         categories.push({
-          identifier: 'equipment',
-          text: this.$t('equipment'),
-        });
-
-        categories.push({
           identifier: 'cards',
           text: this.$t('cards'),
           items: _map(_filter(this.content.cardTypes, (value) => {
