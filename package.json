@@ -17,7 +17,7 @@
     "axios": "^0.19.0",
     "axios-progress-bar": "^1.2.0",
     "babel-core": "^6.26.3",
-    "babel-eslint": "^8.2.3",
+    "babel-eslint": "^10.0.2",
     "babel-loader": "^7.1.4",
     "babel-plugin-syntax-async-functions": "^6.13.0",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
