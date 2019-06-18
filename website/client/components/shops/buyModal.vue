@@ -76,8 +76,13 @@
         ) {{ $t('buyNow') }}
 
     div.limitedTime(v-if="item.event && item.owned == null")
-      span.svg-icon.inline.icon-16(v-html="icons.clock")
+      span.svg-icon.inline.icon-16.clock-icon(v-html="icons.clock")
       span.limitedString {{ limitedString }}
+
+    .free-rebirth.d-flex.align-items-center(v-if='item.key === "rebirth_orb" && item.value > 0')
+      .m-auto
+        span.svg-icon.inline.icon-16.mr-2.pt-015(v-html="icons.whiteClock")
+        span(v-html='$t("nextFreeRebirth", {days: nextFreeRebirth})')
 
     div.clearfix(slot="modal-footer")
       span.balance.float-left {{ $t('yourBalance') }}
@@ -253,6 +258,18 @@
     .gems-left {
       margin-top: .5em;
     }
+
+    .free-rebirth {
+      background-color: $yellow-5;
+      color: $white;
+      height: 2rem;
+      line-height: 16px;
+      margin: auto -1rem -1rem;
+    }
+
+    .pt-015 {
+      padding-top: 0.15rem;
+    }
   }
 </style>
 
@@ -268,6 +285,7 @@
   import svgHourglasses from 'assets/svg/hourglass.svg';
   import svgPin from 'assets/svg/pin.svg';
   import svgClock from 'assets/svg/clock.svg';
+  import svgWhiteClock from 'assets/svg/clock-white.svg';
 
   import BalanceInfo  from './balanceInfo.vue';
   import currencyMixin from './_currencyMixin';
@@ -308,6 +326,7 @@
           hourglasses: svgHourglasses,
           pin: svgPin,
           clock: svgClock,
+          whiteClock: svgWhiteClock,
         }),
 
         selectedAmountToBuy: 1,
@@ -359,6 +378,9 @@
       },
       notEnoughCurrency () {
         return !this.enoughCurrency(this.getPriceClass(), this.item.value * this.selectedAmountToBuy);
+      },
+      nextFreeRebirth () {
+        return 45 - moment().diff(moment(this.user.flags.lastFreeRebirth), 'days');
       },
     },
     watch: {
