@@ -27,6 +27,7 @@
 
   .hover-background {
     background-color: rgba(213, 200, 255, 0.32);
+    cursor: pointer;
   }
 
   .hover-foreground {
