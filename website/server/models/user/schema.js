@@ -225,6 +225,7 @@ let schema = new Schema({
     classSelected: {$type: Boolean, default: false},
     mathUpdates: Boolean,
     rebirthEnabled: {$type: Boolean, default: false},
+    lastFreeRebirth: Date,
     levelDrops: {$type: Schema.Types.Mixed, default: () => {
       return {};
     }},
