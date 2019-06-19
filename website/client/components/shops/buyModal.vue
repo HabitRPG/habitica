@@ -79,7 +79,7 @@
       span.svg-icon.inline.icon-16.clock-icon(v-html="icons.clock")
       span.limitedString {{ limitedString }}
 
-    .free-rebirth.d-flex.align-items-center(v-if='item.key === "rebirth_orb" && item.value > 0')
+    .free-rebirth.d-flex.align-items-center(v-if='item.key === "rebirth_orb" && item.value > 0 && user.stats.lvl >= 100')
       .m-auto
         span.svg-icon.inline.icon-16.mr-2.pt-015(v-html="icons.whiteClock")
         span(v-html='$t("nextFreeRebirth", {days: nextFreeRebirth})')

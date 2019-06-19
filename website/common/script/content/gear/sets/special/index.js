@@ -5122,7 +5122,7 @@ let weapon = {
     set: 'summer2019WaterLilyMageSet',
     text: t('weaponSpecialSummer2019MageText'),
     notes: t('weaponSpecialSummer2019MageNotes', { int: 15 }),
-    value: 160,
+    value: 90,
     int: 15,
   },
   summer2019Healer: {
