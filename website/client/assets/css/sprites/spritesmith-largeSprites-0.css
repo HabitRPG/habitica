@@ -1,6 +1,6 @@
 .promo_armoire_backgrounds_201906 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -813px 0px;
+  background-position: 0px -720px;
   width: 423px;
   height: 147px;
 }
@@ -18,37 +18,55 @@
 }
 .promo_floral_sunshine_potions {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -813px -148px;
+  background-position: -424px -720px;
   width: 423px;
   height: 147px;
 }
 .promo_halfmoon_glasses {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -720px;
+  background-position: -963px -296px;
   width: 279px;
   height: 147px;
 }
 .promo_mystery_201905 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -813px -444px;
+  background-position: -963px -148px;
   width: 282px;
   height: 147px;
 }
 .promo_oddballs_bundle {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -813px -296px;
+  background-position: -963px 0px;
   width: 423px;
   height: 147px;
 }
+.promo_orcas {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -963px -444px;
+  width: 219px;
+  height: 147px;
+}
+.promo_seasonal_shop {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -1183px -444px;
+  width: 162px;
+  height: 132px;
+}
+.promo_summer_splash_2019 {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -554px 0px;
+  width: 408px;
+  height: 186px;
+}
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -1096px -444px;
+  background-position: -1246px -148px;
   width: 96px;
   height: 69px;
 }
 .scene_hiking {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -554px 0px;
+  background-position: -554px -187px;
   width: 258px;
   height: 258px;
 }
