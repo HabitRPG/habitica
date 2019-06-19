@@ -4,7 +4,7 @@ import reduce from 'lodash/reduce';
 import includes from 'lodash/includes';
 
 module.exports = function ultimateGear (user) {
-  let owned = typeof window !== 'undefined' ? user.items.gear.owned : user.items.gear.owned.toObject();
+  let owned = user.items.gear.owned.toObject ? user.items.gear.owned.toObject() : user.items.gear.owned;
 
   content.classes.forEach((klass) => {
     if (user.achievements.ultimateGearSets[klass] !== true) {

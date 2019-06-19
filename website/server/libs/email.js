@@ -8,10 +8,10 @@ import common from '../../common';
 
 const IS_PROD = nconf.get('IS_PROD');
 const EMAIL_SERVER = {
-  url: nconf.get('EMAIL_SERVER:url'),
+  url: nconf.get('EMAIL_SERVER_URL'),
   auth: {
-    user: nconf.get('EMAIL_SERVER:authUser'),
-    password: nconf.get('EMAIL_SERVER:authPassword'),
+    user: nconf.get('EMAIL_SERVER_AUTH_USER'),
+    password: nconf.get('EMAIL_SERVER_AUTH_PASSWORD'),
   },
 };
 const BASE_URL = nconf.get('BASE_URL');

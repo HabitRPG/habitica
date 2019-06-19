@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { v4 as generateUUID } from 'uuid';
 import validator from 'validator';
-import { sleep } from '../../../helpers/api-unit.helper';
+import { sleep, translationCheck } from '../../../helpers/api-unit.helper';
 import {
   SPAM_MESSAGE_LIMIT,
   SPAM_MIN_EXEMPT_CONTRIB_LEVEL,
@@ -32,8 +32,19 @@ describe('Group Model', () => {
       privacy: 'private',
     });
 
+    let _progress = {
+      up: 10,
+      down: 8,
+      collectedItems: 5,
+    };
+
     questLeader = new User({
-      party: { _id: party._id },
+      party: {
+        _id: party._id,
+        quest: {
+          progress: _progress,
+        },
+      },
       profile: { name: 'Quest Leader' },
       items: {
         quests: {
@@ -45,20 +56,40 @@ describe('Group Model', () => {
     party.leader = questLeader._id;
 
     participatingMember = new User({
-      party: { _id: party._id },
+      party: {
+        _id: party._id,
+        quest: {
+          progress: _progress,
+        },
+      },
       profile: { name: 'Participating Member' },
     });
     sleepingParticipatingMember = new User({
-      party: { _id: party._id },
+      party: {
+        _id: party._id,
+        quest: {
+          progress: _progress,
+        },
+      },
       profile: { name: 'Sleeping Participating Member' },
       preferences: { sleep: true },
     });
     nonParticipatingMember = new User({
-      party: { _id: party._id },
+      party: {
+        _id: party._id,
+        quest: {
+          progress: _progress,
+        },
+      },
       profile: { name: 'Non-Participating Member' },
     });
     undecidedMember = new User({
-      party: { _id: party._id },
+      party: {
+        _id: party._id,
+        quest: {
+          progress: _progress,
+        },
+      },
       profile: { name: 'Undecided Member' },
     });
 
@@ -240,7 +271,16 @@ describe('Group Model', () => {
           party = await Group.findOne({_id: party._id});
 
           expect(Group.prototype.sendChat).to.be.calledOnce;
-          expect(Group.prototype.sendChat).to.be.calledWith('`Participating Member attacks Wailing Whale for 5.0 damage.` `Wailing Whale attacks party for 7.5 damage.`');
+          expect(Group.prototype.sendChat).to.be.calledWith({
+            message: '`Participating Member attacks Wailing Whale for 5.0 damage. Wailing Whale attacks party for 7.5 damage.`',
+            info: {
+              bossDamage: '7.5',
+              quest: 'whale',
+              type: 'boss_damage',
+              user: 'Participating Member',
+              userDamage: '5.0',
+            },
+          });
         });
 
         it('applies damage only to participating members of party', async () => {
@@ -313,7 +353,10 @@ describe('Group Model', () => {
           party = await Group.findOne({_id: party._id});
 
           expect(Group.prototype.sendChat).to.be.calledTwice;
-          expect(Group.prototype.sendChat).to.be.calledWith('`You defeated Wailing Whale! Questing party members receive the rewards of victory.`');
+          expect(Group.prototype.sendChat).to.be.calledWith({
+            message: '`You defeated Wailing Whale! Questing party members receive the rewards of victory.`',
+            info: { quest: 'whale', type: 'boss_defeated' },
+          });
         });
 
         it('calls finishQuest when boss has <= 0 hp', async () => {
@@ -356,7 +399,10 @@ describe('Group Model', () => {
 
             party = await Group.findOne({_id: party._id});
 
-            expect(Group.prototype.sendChat).to.be.calledWith(quest.boss.rage.effect('en'));
+            expect(Group.prototype.sendChat).to.be.calledWith({
+              message: quest.boss.rage.effect('en'),
+              info: { quest: 'trex_undead', type: 'boss_rage' },
+            });
             expect(party.quest.progress.hp).to.eql(383.5);
             expect(party.quest.progress.rage).to.eql(0);
           });
@@ -406,7 +452,10 @@ describe('Group Model', () => {
 
             party = await Group.findOne({_id: party._id});
 
-            expect(Group.prototype.sendChat).to.be.calledWith(quest.boss.rage.effect('en'));
+            expect(Group.prototype.sendChat).to.be.calledWith({
+              message: quest.boss.rage.effect('en'),
+              info: { quest: 'lostMasterclasser4', type: 'boss_rage' },
+            });
             expect(party.quest.progress.rage).to.eql(0);
 
             let drainedUser = await User.findById(participatingMember._id);
@@ -457,7 +506,15 @@ describe('Group Model', () => {
           party = await Group.findOne({_id: party._id});
 
           expect(Group.prototype.sendChat).to.be.calledOnce;
-          expect(Group.prototype.sendChat).to.be.calledWith('`Participating Member found 5 Bars of Soap.`');
+          expect(Group.prototype.sendChat).to.be.calledWith({
+            message: '`Participating Member found 5 Bars of Soap.`',
+            info: {
+              items: { soapBars: 5 },
+              quest: 'atom1',
+              type: 'user_found_items',
+              user: 'Participating Member',
+            },
+          });
         });
 
         it('sends a chat message if no progress is made', async () => {
@@ -468,7 +525,15 @@ describe('Group Model', () => {
           party = await Group.findOne({_id: party._id});
 
           expect(Group.prototype.sendChat).to.be.calledOnce;
-          expect(Group.prototype.sendChat).to.be.calledWith('`Participating Member found 0 Bars of Soap.`');
+          expect(Group.prototype.sendChat).to.be.calledWith({
+            message: '`Participating Member found 0 Bars of Soap.`',
+            info: {
+              items: { soapBars: 0 },
+              quest: 'atom1',
+              type: 'user_found_items',
+              user: 'Participating Member',
+            },
+          });
         });
 
         it('sends a chat message if no progress is made on quest with multiple items', async () => {
@@ -477,7 +542,7 @@ describe('Group Model', () => {
           party.quest.active = false;
 
           await party.startQuest(questLeader);
-          Group.prototype.sendChat.reset();
+          Group.prototype.sendChat.resetHistory();
           await party.save();
 
           await Group.processQuestProgress(participatingMember, progress);
@@ -485,9 +550,15 @@ describe('Group Model', () => {
           party = await Group.findOne({_id: party._id});
 
           expect(Group.prototype.sendChat).to.be.calledOnce;
-          expect(Group.prototype.sendChat).to.be.calledWithMatch(/`Participating Member found/);
-          expect(Group.prototype.sendChat).to.be.calledWithMatch(/0 Blue Fins/);
-          expect(Group.prototype.sendChat).to.be.calledWithMatch(/0 Fire Coral/);
+          expect(Group.prototype.sendChat).to.be.calledWith({
+            message: '`Participating Member found 0 Fire Coral, 0 Blue Fins.`',
+            info: {
+              items: { blueFins: 0, fireCoral: 0 },
+              quest: 'dilatoryDistress1',
+              type: 'user_found_items',
+              user: 'Participating Member',
+            },
+          });
         });
 
         it('handles collection quests with multiple items', async () => {
@@ -496,7 +567,7 @@ describe('Group Model', () => {
           party.quest.active = false;
 
           await party.startQuest(questLeader);
-          Group.prototype.sendChat.reset();
+          Group.prototype.sendChat.resetHistory();
           await party.save();
 
           await Group.processQuestProgress(participatingMember, progress);
@@ -504,8 +575,14 @@ describe('Group Model', () => {
           party = await Group.findOne({_id: party._id});
 
           expect(Group.prototype.sendChat).to.be.calledOnce;
-          expect(Group.prototype.sendChat).to.be.calledWithMatch(/`Participating Member found/);
-          expect(Group.prototype.sendChat).to.be.calledWithMatch(/\d* (Tracks|Broken Twigs)/);
+          expect(Group.prototype.sendChat).to.be.calledWithMatch({
+            message: sinon.match(/`Participating Member found/).and(sinon.match(/\d* (Tracks|Broken Twigs)/)),
+            info: {
+              quest: 'evilsanta2',
+              type: 'user_found_items',
+              user: 'Participating Member',
+            },
+          });
         });
 
         it('sends message about victory', async () => {
@@ -516,7 +593,10 @@ describe('Group Model', () => {
           party = await Group.findOne({_id: party._id});
 
           expect(Group.prototype.sendChat).to.be.calledTwice;
-          expect(Group.prototype.sendChat).to.be.calledWith('`All items found! Party has received their rewards.`');
+          expect(Group.prototype.sendChat).to.be.calledWith({
+            message: '`All items found! Party has received their rewards.`',
+            info: { type: 'all_items_found' },
+          });
         });
 
         it('calls finishQuest when all items are found', async () => {
@@ -569,7 +649,7 @@ describe('Group Model', () => {
       });
 
       it('throws an error if no uuids or emails are passed in', async () => {
-        await expect(Group.validateInvitations(null, null, res)).to.eventually.be.rejected.and.eql({
+        await expect(Group.validateInvitations({}, res)).to.eventually.be.rejected.and.eql({
           httpCode: 400,
           message: 'Bad request.',
           name: 'BadRequest',
@@ -579,7 +659,7 @@ describe('Group Model', () => {
       });
 
       it('throws an error if only uuids are passed in, but they are not an array', async () => {
-        await expect(Group.validateInvitations({ uuid: 'user-id'}, null, res)).to.eventually.be.rejected.and.eql({
+        await expect(Group.validateInvitations({ uuids: 'user-id'}, res)).to.eventually.be.rejected.and.eql({
           httpCode: 400,
           message: 'Bad request.',
           name: 'BadRequest',
@@ -589,7 +669,7 @@ describe('Group Model', () => {
       });
 
       it('throws an error if only emails are passed in, but they are not an array', async () => {
-        await expect(Group.validateInvitations(null, { emails: 'user@example.com'}, res)).to.eventually.be.rejected.and.eql({
+        await expect(Group.validateInvitations({emails: 'user@example.com'}, res)).to.eventually.be.rejected.and.eql({
           httpCode: 400,
           message: 'Bad request.',
           name: 'BadRequest',
@@ -599,27 +679,27 @@ describe('Group Model', () => {
       });
 
       it('throws an error if emails are not passed in, and uuid array is empty', async () => {
-        await expect(Group.validateInvitations([], null, res)).to.eventually.be.rejected.and.eql({
+        await expect(Group.validateInvitations({uuids: []},  res)).to.eventually.be.rejected.and.eql({
           httpCode: 400,
           message: 'Bad request.',
           name: 'BadRequest',
         });
         expect(res.t).to.be.calledOnce;
-        expect(res.t).to.be.calledWith('inviteMissingUuid');
+        expect(res.t).to.be.calledWith('inviteMustNotBeEmpty');
       });
 
       it('throws an error if uuids are not passed in, and email array is empty', async () => {
-        await expect(Group.validateInvitations(null, [], res)).to.eventually.be.rejected.and.eql({
+        await expect(Group.validateInvitations({emails: []},  res)).to.eventually.be.rejected.and.eql({
           httpCode: 400,
           message: 'Bad request.',
           name: 'BadRequest',
         });
         expect(res.t).to.be.calledOnce;
-        expect(res.t).to.be.calledWith('inviteMissingEmail');
+        expect(res.t).to.be.calledWith('inviteMustNotBeEmpty');
       });
 
       it('throws an error if uuids and emails are passed in as empty arrays', async () => {
-        await expect(Group.validateInvitations([], [], res)).to.eventually.be.rejected.and.eql({
+        await expect(Group.validateInvitations({emails: [], uuids: []}, res)).to.eventually.be.rejected.and.eql({
           httpCode: 400,
           message: 'Bad request.',
           name: 'BadRequest',
@@ -639,7 +719,7 @@ describe('Group Model', () => {
 
         uuids.push('one-more-uuid'); // to put it over the limit
 
-        await expect(Group.validateInvitations(uuids, emails, res)).to.eventually.be.rejected.and.eql({
+        await expect(Group.validateInvitations({uuids, emails}, res)).to.eventually.be.rejected.and.eql({
           httpCode: 400,
           message: 'Bad request.',
           name: 'BadRequest',
@@ -657,34 +737,286 @@ describe('Group Model', () => {
           emails.push(`user-${i}@example.com`);
         }
 
-        await Group.validateInvitations(uuids, emails, res);
+        await Group.validateInvitations({uuids, emails}, res);
         expect(res.t).to.not.be.called;
       });
 
 
       it('does not throw an error if only user ids are passed in', async () => {
-        await Group.validateInvitations(['user-id', 'user-id2'], null, res);
+        await Group.validateInvitations({uuids: ['user-id', 'user-id2']}, res);
         expect(res.t).to.not.be.called;
       });
 
       it('does not throw an error if only emails are passed in', async () => {
-        await Group.validateInvitations(null, ['user1@example.com', 'user2@example.com'], res);
+        await Group.validateInvitations({emails: ['user1@example.com', 'user2@example.com']}, res);
         expect(res.t).to.not.be.called;
       });
 
       it('does not throw an error if both uuids and emails are passed in', async () => {
-        await Group.validateInvitations(['user-id', 'user-id2'], ['user1@example.com', 'user2@example.com'], res);
+        await Group.validateInvitations({uuids: ['user-id', 'user-id2'], emails: ['user1@example.com', 'user2@example.com']}, res);
         expect(res.t).to.not.be.called;
       });
 
       it('does not throw an error if uuids are passed in and emails are an empty array', async () => {
-        await Group.validateInvitations(['user-id', 'user-id2'], [], res);
+        await Group.validateInvitations({uuids: ['user-id', 'user-id2'], emails: []}, res);
         expect(res.t).to.not.be.called;
       });
 
       it('does not throw an error if emails are passed in and uuids are an empty array', async () => {
-        await Group.validateInvitations([], ['user1@example.com', 'user2@example.com'], res);
+        await Group.validateInvitations({uuids: [], emails: ['user1@example.com', 'user2@example.com']}, res);
         expect(res.t).to.not.be.called;
+      });
+    });
+
+    describe('translateSystemMessages', () => {
+      it('translate quest_start', async () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'quest_start',
+            quest: 'basilist',
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        translationCheck(toJSON.chat[0].text);
+      });
+
+      it('translate boss_damage', async () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'boss_damage',
+            user: questLeader.profile.name,
+            quest: 'basilist',
+            userDamage: 15.3,
+            bossDamage: 3.7,
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        translationCheck(toJSON.chat[0].text);
+      });
+
+      it('translate boss_dont_attack', async () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'boss_dont_attack',
+            user: questLeader.profile.name,
+            quest: 'basilist',
+            userDamage: 15.3,
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        translationCheck(toJSON.chat[0].text);
+      });
+
+      it('translate boss_rage', async () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'boss_rage',
+            quest: 'lostMasterclasser3',
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        translationCheck(toJSON.chat[0].text);
+      });
+
+      it('translate boss_defeated', async () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'boss_defeated',
+            quest: 'lostMasterclasser3',
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        translationCheck(toJSON.chat[0].text);
+      });
+
+      it('translate user_found_items', async () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'user_found_items',
+            user: questLeader.profile.name,
+            quest: 'lostMasterclasser1',
+            items: {
+              ancientTome: 3,
+              forbiddenTome: 2,
+              hiddenTome: 1,
+            },
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        translationCheck(toJSON.chat[0].text);
+      });
+
+      it('translate all_items_found', async () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'all_items_found',
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        translationCheck(toJSON.chat[0].text);
+      });
+
+      it('translate spell_cast_party', async () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'spell_cast_party',
+            user: questLeader.profile.name,
+            class: 'wizard',
+            spell: 'earth',
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        translationCheck(toJSON.chat[0].text);
+      });
+
+      it('translate spell_cast_user', async () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'spell_cast_user',
+            user: questLeader.profile.name,
+            class: 'special',
+            spell: 'snowball',
+            target: participatingMember.profile.name,
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        translationCheck(toJSON.chat[0].text);
+      });
+
+      it('translate quest_cancel', async () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'quest_cancel',
+            user: questLeader.profile.name,
+            quest: 'basilist',
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        translationCheck(toJSON.chat[0].text);
+      });
+
+      it('translate quest_abort', async () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'quest_abort',
+            user: questLeader.profile.name,
+            quest: 'basilist',
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        translationCheck(toJSON.chat[0].text);
+      });
+
+      it('translate tavern_quest_completed', async () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'tavern_quest_completed',
+            quest: 'stressbeast',
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        translationCheck(toJSON.chat[0].text);
+      });
+
+      it('translate tavern_boss_rage_tired', async () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'tavern_boss_rage_tired',
+            quest: 'stressbeast',
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        translationCheck(toJSON.chat[0].text);
+      });
+
+      it('translate tavern_boss_rage', async () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'tavern_boss_rage',
+            quest: 'dysheartener',
+            scene: 'market',
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        translationCheck(toJSON.chat[0].text);
+      });
+
+      it('translate tavern_boss_desperation', async () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'tavern_boss_desperation',
+            quest: 'stressbeast',
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        translationCheck(toJSON.chat[0].text);
+      });
+
+      it('translate claim_task', async () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'claim_task',
+            user: questLeader.profile.name,
+            task: 'Feed the pet',
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        translationCheck(toJSON.chat[0].text);
+      });
+    });
+
+    describe('toJSONCleanChat', () => {
+      it('shows messages with 1 flag to non-admins', async () => {
+        party.chat = [{
+          flagCount: 1,
+          info: {
+            type: 'quest_start',
+            quest: 'basilist',
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        expect(toJSON.chat.length).to.equal(1);
+      });
+
+      it('shows messages with >= 2 flag to admins', async () => {
+        party.chat = [{
+          flagCount: 3,
+          info: {
+            type: 'quest_start',
+            quest: 'basilist',
+          },
+        }];
+        const admin = new User({'contributor.admin': true});
+        let toJSON = await Group.toJSONCleanChat(party, admin);
+        expect(toJSON.chat.length).to.equal(1);
+      });
+
+      it('doesn\'t show flagged messages to non-admins', async () => {
+        party.chat = [{
+          flagCount: 3,
+          info: {
+            type: 'quest_start',
+            quest: 'basilist',
+          },
+        }];
+        let toJSON = await Group.toJSONCleanChat(party, questLeader);
+        expect(toJSON.chat.length).to.equal(0);
       });
     });
   });
@@ -976,20 +1308,22 @@ describe('Group Model', () => {
       });
 
       it('formats message', () => {
-        const chatMessage = party.sendChat('a new message', {
-          _id: 'user-id',
-          profile: { name: 'user name' },
-          contributor: {
-            toObject () {
-              return 'contributor object';
+        const chatMessage = party.sendChat({
+          message: 'a new message', user: {
+            _id: 'user-id',
+            profile: { name: 'user name' },
+            contributor: {
+              toObject () {
+                return 'contributor object';
+              },
             },
-          },
-          backer: {
-            toObject () {
-              return 'backer object';
+            backer: {
+              toObject () {
+                return 'backer object';
+              },
             },
-          },
-        });
+          }}
+        );
 
         const chat = chatMessage;
 
@@ -1006,7 +1340,7 @@ describe('Group Model', () => {
       });
 
       it('formats message as system if no user is passed in', () => {
-        const chat = party.sendChat('a system message');
+        const chat = party.sendChat({message: 'a system message'});
 
         expect(chat.text).to.eql('a system message');
         expect(validator.isUUID(chat.id)).to.eql(true);
@@ -1021,7 +1355,7 @@ describe('Group Model', () => {
       });
 
       it('updates users about new messages in party', () => {
-        party.sendChat('message');
+        party.sendChat({message: 'message'});
 
         expect(User.update).to.be.calledOnce;
         expect(User.update).to.be.calledWithMatch({
@@ -1035,7 +1369,7 @@ describe('Group Model', () => {
           type: 'guild',
         });
 
-        group.sendChat('message');
+        group.sendChat({message: 'message'});
 
         expect(User.update).to.be.calledOnce;
         expect(User.update).to.be.calledWithMatch({
@@ -1045,7 +1379,7 @@ describe('Group Model', () => {
       });
 
       it('does not send update to user that sent the message', () => {
-        party.sendChat('message', {_id: 'user-id', profile: { name: 'user' }});
+        party.sendChat({message: 'message', user: {_id: 'user-id', profile: { name: 'user' }}});
 
         expect(User.update).to.be.calledOnce;
         expect(User.update).to.be.calledWithMatch({
@@ -1057,7 +1391,7 @@ describe('Group Model', () => {
       it('skips sending new message notification for guilds with > 5000 members', () => {
         party.memberCount = 5001;
 
-        party.sendChat('message');
+        party.sendChat({message: 'message'});
 
         expect(User.update).to.not.be.called;
       });
@@ -1065,7 +1399,7 @@ describe('Group Model', () => {
       it('skips sending messages to the tavern', () => {
         party._id = TAVERN_ID;
 
-        party.sendChat('message');
+        party.sendChat({message: 'message'});
 
         expect(User.update).to.not.be.called;
       });
@@ -1163,16 +1497,17 @@ describe('Group Model', () => {
           expect(party.quest.members).to.eql(expectedQuestMembers);
         });
 
-        it('applies updates to user object directly if user is participating', async () => {
+        it('applies updates to user object directly if user is participating (without resetting progress, except progress.down)', async () => {
           await party.startQuest(participatingMember);
 
           expect(participatingMember.party.quest.key).to.eql('whale');
+          expect(participatingMember.party.quest.progress.up).to.eql(10);
           expect(participatingMember.party.quest.progress.down).to.eql(0);
-          expect(participatingMember.party.quest.progress.collectedItems).to.eql(0);
+          expect(participatingMember.party.quest.progress.collectedItems).to.eql(5);
           expect(participatingMember.party.quest.completed).to.eql(null);
         });
 
-        it('applies updates to other participating members', async () => {
+        it('applies updates to other participating members (without resetting progress, except progress.down)', async () => {
           await party.startQuest(nonParticipatingMember);
 
           questLeader = await User.findById(questLeader._id);
@@ -1180,18 +1515,21 @@ describe('Group Model', () => {
           sleepingParticipatingMember = await User.findById(sleepingParticipatingMember._id);
 
           expect(participatingMember.party.quest.key).to.eql('whale');
+          expect(participatingMember.party.quest.progress.up).to.eql(10);
           expect(participatingMember.party.quest.progress.down).to.eql(0);
-          expect(participatingMember.party.quest.progress.collectedItems).to.eql(0);
+          expect(participatingMember.party.quest.progress.collectedItems).to.eql(5);
           expect(participatingMember.party.quest.completed).to.eql(null);
 
           expect(sleepingParticipatingMember.party.quest.key).to.eql('whale');
+          expect(sleepingParticipatingMember.party.quest.progress.up).to.eql(10);
           expect(sleepingParticipatingMember.party.quest.progress.down).to.eql(0);
-          expect(sleepingParticipatingMember.party.quest.progress.collectedItems).to.eql(0);
+          expect(sleepingParticipatingMember.party.quest.progress.collectedItems).to.eql(5);
           expect(sleepingParticipatingMember.party.quest.completed).to.eql(null);
 
           expect(questLeader.party.quest.key).to.eql('whale');
+          expect(questLeader.party.quest.progress.up).to.eql(10);
           expect(questLeader.party.quest.progress.down).to.eql(0);
-          expect(questLeader.party.quest.progress.collectedItems).to.eql(0);
+          expect(questLeader.party.quest.progress.collectedItems).to.eql(5);
           expect(questLeader.party.quest.completed).to.eql(null);
         });
 
@@ -1202,6 +1540,9 @@ describe('Group Model', () => {
           undecidedMember = await User.findById(undecidedMember._id);
 
           expect(nonParticipatingMember.party.quest.key).to.not.eql('whale');
+          expect(nonParticipatingMember.party.quest.progress.up).to.eql(10);
+          expect(nonParticipatingMember.party.quest.progress.down).to.eql(8);
+          expect(nonParticipatingMember.party.quest.progress.collectedItems).to.eql(5);
           expect(undecidedMember.party.quest.key).to.not.eql('whale');
         });
 
@@ -1369,8 +1710,9 @@ describe('Group Model', () => {
           let userQuest = participatingMember.party.quest;
 
           expect(userQuest.key).to.eql('whale');
+          expect(userQuest.progress.up).to.eql(10);
           expect(userQuest.progress.down).to.eql(0);
-          expect(userQuest.progress.collectedItems).to.eql(0);
+          expect(userQuest.progress.collectedItems).to.eql(5);
           expect(userQuest.completed).to.eql(null);
         });
 
@@ -1392,7 +1734,7 @@ describe('Group Model', () => {
       let quest;
 
       beforeEach(() => {
-        quest = questScrolls.whale;
+        quest = questScrolls.armadillo;
         party.quest.key = quest.key;
         party.quest.active = false;
         party.quest.leader = questLeader._id;
@@ -1540,6 +1882,36 @@ describe('Group Model', () => {
         expect(updatedSleepingParticipatingMember.achievements.lostMasterclasser).to.not.eql(true);
       });
 
+      it('gives out other pet-related quest achievements', async () => {
+        quest = questScrolls.rock;
+        party.quest.key = quest.key;
+
+        questLeader.achievements.quests = {
+          mayhemMistiflying1: 1,
+          yarn: 1,
+          mayhemMistiflying2: 1,
+          egg: 1,
+          mayhemMistiflying3: 1,
+          slime: 2,
+        };
+        await questLeader.save();
+        await party.finishQuest(quest);
+
+        let [
+          updatedLeader,
+          updatedParticipatingMember,
+          updatedSleepingParticipatingMember,
+        ] = await Promise.all([
+          User.findById(questLeader._id).exec(),
+          User.findById(participatingMember._id).exec(),
+          User.findById(sleepingParticipatingMember._id).exec(),
+        ]);
+
+        expect(updatedLeader.achievements.mindOverMatter).to.eql(true);
+        expect(updatedParticipatingMember.achievements.mindOverMatter).to.not.eql(true);
+        expect(updatedSleepingParticipatingMember.achievements.mindOverMatter).to.not.eql(true);
+      });
+
       it('gives xp and gold', async () => {
         await party.finishQuest(quest);
 
@@ -1670,16 +2042,23 @@ describe('Group Model', () => {
           });
         });
 
-        it('sets user quest object to a clean state', async () => {
+        it('updates participating members quest object to a clean state (except for progress)', async () => {
           await party.finishQuest(quest);
 
-          let updatedLeader = await User.findById(questLeader._id);
+          questLeader = await User.findById(questLeader._id);
+          participatingMember = await User.findById(participatingMember._id);
 
-          expect(updatedLeader.party.quest.completed).to.eql('whale');
-          expect(updatedLeader.party.quest.progress.up).to.eql(0);
-          expect(updatedLeader.party.quest.progress.down).to.eql(0);
-          expect(updatedLeader.party.quest.progress.collectedItems).to.eql(0);
-          expect(updatedLeader.party.quest.RSVPNeeded).to.eql(false);
+          expect(questLeader.party.quest.completed).to.eql('armadillo');
+          expect(questLeader.party.quest.progress.up).to.eql(10);
+          expect(questLeader.party.quest.progress.down).to.eql(8);
+          expect(questLeader.party.quest.progress.collectedItems).to.eql(5);
+          expect(questLeader.party.quest.RSVPNeeded).to.eql(false);
+
+          expect(participatingMember.party.quest.completed).to.eql('armadillo');
+          expect(participatingMember.party.quest.progress.up).to.eql(10);
+          expect(participatingMember.party.quest.progress.down).to.eql(8);
+          expect(participatingMember.party.quest.progress.collectedItems).to.eql(5);
+          expect(participatingMember.party.quest.RSVPNeeded).to.eql(false);
         });
       });
 
@@ -1843,6 +2222,62 @@ describe('Group Model', () => {
         expect(options.chat).to.eql(chat);
       });
 
+      it('sends webhooks for users with webhooks triggered by system messages', async () => {
+        let guild = new Group({
+          name: 'some guild',
+          type: 'guild',
+        });
+
+        let memberWithWebhook = new User({
+          guilds: [guild._id],
+          webhooks: [{
+            type: 'groupChatReceived',
+            url: 'http://someurl.com',
+            options: {
+              groupId: guild._id,
+            },
+          }],
+        });
+        let memberWithoutWebhook = new User({
+          guilds: [guild._id],
+        });
+        let nonMemberWithWebhooks = new User({
+          webhooks: [{
+            type: 'groupChatReceived',
+            url: 'http://a-different-url.com',
+            options: {
+              groupId: generateUUID(),
+            },
+          }],
+        });
+
+        await Promise.all([
+          memberWithWebhook.save(),
+          memberWithoutWebhook.save(),
+          nonMemberWithWebhooks.save(),
+        ]);
+
+        guild.leader = memberWithWebhook._id;
+
+        await guild.save();
+
+        const groupMessage = guild.sendChat({message: 'Test message.'});
+        await groupMessage.save();
+
+        await sleep();
+
+        expect(groupChatReceivedWebhook.send).to.be.calledOnce;
+
+        let args = groupChatReceivedWebhook.send.args[0];
+        let webhooks = args[0].webhooks;
+        let options = args[1];
+
+        expect(webhooks).to.have.a.lengthOf(1);
+        expect(webhooks[0].id).to.eql(memberWithWebhook.webhooks[0].id);
+        expect(options.group).to.eql(guild);
+        expect(options.chat).to.eql(groupMessage);
+      });
+
       it('sends webhooks for each user with webhooks in group', async () => {
         let guild = new Group({
           name: 'some guild',
@@ -1932,27 +2367,53 @@ describe('Group Model', () => {
 
     context('hasNotCancelled', () => {
       it('returns false if group does not have customer id', () => {
-        expect(party.hasNotCancelled()).to.be.undefined;
+        expect(party.hasNotCancelled()).to.be.false;
       });
 
-      it('returns true if party does not have plan.dateTerminated', () => {
+      it('returns true if group does not have plan.dateTerminated', () => {
         party.purchased.plan.customerId = 'test-id';
 
         expect(party.hasNotCancelled()).to.be.true;
       });
 
-      it('returns false if party if plan.dateTerminated is after today', () => {
+      it('returns false if group if plan.dateTerminated is after today', () => {
         party.purchased.plan.customerId = 'test-id';
         party.purchased.plan.dateTerminated = moment().add(1, 'days').toDate();
 
         expect(party.hasNotCancelled()).to.be.false;
       });
 
-      it('returns false if party if plan.dateTerminated is before today', () => {
+      it('returns false if group if plan.dateTerminated is before today', () => {
         party.purchased.plan.customerId = 'test-id';
         party.purchased.plan.dateTerminated = moment().subtract(1, 'days').toDate();
 
         expect(party.hasNotCancelled()).to.be.false;
+      });
+    });
+
+    context('hasCancelled', () => {
+      it('returns false if group does not have customer id', () => {
+        expect(party.hasCancelled()).to.be.false;
+      });
+
+      it('returns false if group does not have plan.dateTerminated', () => {
+        party.purchased.plan.customerId = 'test-id';
+
+        expect(party.hasCancelled()).to.be.false;
+      });
+
+      it('returns true if group if plan.dateTerminated is after today', () => {
+        party.purchased.plan.customerId = 'test-id';
+        party.purchased.plan.dateTerminated = moment().add(1, 'days').toDate();
+
+        expect(party.hasCancelled()).to.be.true;
+      });
+
+      it('returns false if group if plan.dateTerminated is before today', () => {
+        party.purchased.plan.customerId = 'test-id';
+        party.purchased.plan.dateTerminated = moment().subtract(1, 'days').toDate();
+
+        expect(party.hasCancelled()).to.be.false;
       });
     });
   });

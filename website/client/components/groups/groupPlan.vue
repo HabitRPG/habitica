@@ -5,7 +5,8 @@ div
     .header
       h1.text-center Need more for your Group?
       .row
-        .col-6.offset-3.text-center {{ $t('groupBenefitsDescription') }}
+        .col-8.offset-2.text-center
+          h2.sub-text {{ $t('groupBenefitsDescription') }}
     .container.benefits
       .row
         .col-4
@@ -47,14 +48,11 @@ div
 
           .box.payment-providers
             h3 Choose your payment method
-            .box.payment-button(@click='pay(PAYMENTS.STRIPE)')
-              div
-                .svg-icon.credit-card-icon(v-html="icons.group")
-                p.credit-card Credit Card
-              p Powered by Stripe
-            .box.payment-button(@click='pay(PAYMENTS.AMAZON)')
-              .svg-icon.amazon-pay-icon(v-html="icons.amazonpay")
-
+            .payments-column
+              button.purchase.btn.btn-primary.payment-button.payment-item(@click='pay(PAYMENTS.STRIPE)') 
+                .svg-icon.credit-card-icon(v-html="icons.creditCardIcon")
+                | {{ $t('card') }}
+              amazon-button.payment-item(:amazon-data="pay(PAYMENTS.AMAZON)")
     .container.col-6.offset-3.create-option(v-if='!upgradingGroup._id')
       .row
         h1.col-12.text-center.purple-header Create your Group today!
@@ -98,13 +96,13 @@ div
       .form-group
         button.btn.btn-primary.btn-lg.btn-block(@click="createGroup()", :disabled="!newGroupIsReady") {{ $t('createGroupPlan') }}
     .col-12(v-if='activePage === PAGES.PAY')
-      .payment-providers
+      .text-center
         h3 Choose your payment method
-        .box.payment-button(@click='pay(PAYMENTS.STRIPE)')
-          p Credit Card
-          p Powered by Stripe
-        .box.payment-button(@click='pay(PAYMENTS.AMAZON)')
-          | Amazon Pay
+        .payments-column.mx-auto
+          button.purchase.btn.btn-primary.payment-button.payment-item(@click='pay(PAYMENTS.STRIPE)') 
+            .svg-icon.credit-card-icon(v-html="icons.creditCardIcon")
+            | {{ $t('card') }}
+          amazon-button.payment-item(:amazon-data="pay(PAYMENTS.AMAZON)")
 </template>
 
 <style lang="scss" scoped>
@@ -129,12 +127,6 @@ div
       color: #fff;
     }
 
-    .payment-button {
-      display: block;
-      margin: 0 auto;
-      margin-bottom: 1em;
-    }
-
     .plus .svg-icon{
       width: 24px;
     }
@@ -142,46 +134,35 @@ div
     .payment-providers {
       width: 350px;
     }
-
-    .credit-card {
-      font-size: 20px;
-      font-weight: bold;
-      margin-bottom: 0;
-      margin-top: .5em;
-      display: inline-block;
-    }
-
-    .credit-card-icon {
-      width: 25px;
-      display: inline-block;
-      margin-right: .5em;
-    }
-
-    .amazon-pay-icon {
-      width: 150px;
-      margin: 0 auto;
-      margin-top: .5em;
-    }
   }
 
   .header {
-    margin-bottom: 3em;
-    margin-top: 4em;
-    background-color: #4f2a93;
+    background: #432874;
+    background: linear-gradient(180deg, #4F2A93 0%, #432874 100%);
     color: #fff;
     padding: 2em;
-    height: 356px;
+    height: 340px;
+    margin-bottom: 2em;
     margin-left: -12px;
     margin-right: -12px;
 
     h1 {
       font-size: 48px;
+      line-height: 1.16;
+      margin-top: 12px;
       color: #fff;
+    }
+
+    h2.sub-text {
+      color: #D5C8FF;
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 1.33;
     }
   }
 
   .benefits {
-    margin-top: -12em;
+    margin-top: -10em;
 
     .box {
       height: 416px;
@@ -306,35 +287,25 @@ div
       vertical-align: bottom;
     }
   }
-
-  .payment-button {
-    width: 200px;
-    height: 80px;
-    margin-bottom: .5em;
-    padding: .5em;
-    display: block;
-  }
-
-  .payment-button:hover {
-    cursor: pointer;
-  }
 </style>
 
 <script>
 import paymentsMixin from '../../mixins/payments';
 import { mapState } from 'client/libs/store';
-import group from 'assets/svg/group.svg';
-import amazonpay from 'assets/svg/amazonpay.svg';
 import positiveIcon from 'assets/svg/positive.svg';
+import creditCardIcon from 'assets/svg/credit-card-icon.svg';
+import amazonButton from 'client/components/payments/amazonButton';
 
 export default {
   mixins: [paymentsMixin],
+  components: {
+    amazonButton,
+  },
   data () {
     return {
       amazonPayments: {},
       icons: Object.freeze({
-        group,
-        amazonpay,
+        creditCardIcon,
         positiveIcon,
       }),
       PAGES: {
@@ -385,14 +356,15 @@ export default {
       this.changePage(this.PAGES.PAY);
     },
     pay (paymentMethod) {
-      let subscriptionKey = 'group_monthly'; // @TODO: Get from content API?
-      let paymentData = {
+      const subscriptionKey = 'group_monthly'; // @TODO: Get from content API?
+      const paymentData = {
         subscription: subscriptionKey,
         coupon: null,
       };
 
       if (this.upgradingGroup && this.upgradingGroup._id) {
         paymentData.groupId = this.upgradingGroup._id;
+        paymentData.group = this.upgradingGroup;
       } else {
         paymentData.groupToCreate = this.newGroup;
       }
@@ -402,7 +374,7 @@ export default {
         this.showStripe(paymentData);
       } else if (this.paymentMethod === this.PAYMENTS.AMAZON) {
         paymentData.type = 'subscription';
-        this.amazonPaymentsInit(paymentData);
+        return paymentData;
       }
     },
   },

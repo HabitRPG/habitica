@@ -2,76 +2,17 @@ import {
   authWithHeaders,
 } from '../../middlewares/auth';
 import * as authLib from '../../libs/auth';
-import {
-  NotAuthorized,
-  BadRequest,
-} from '../../libs/errors';
-import * as passwordUtils from '../../libs/password';
 import { model as User } from '../../models/user';
 import {verifyUsername} from '../../libs/user/validation';
 
 const api = {};
 
-/**
- * @api {put} /api/v4/user/auth/update-username Update username
- * @apiDescription Update the username of a local user
- * @apiName UpdateUsername
- * @apiGroup User
- *
- * @apiParam (Body) {String} username The new username
-
- * @apiSuccess {String} data.username The new username
- **/
-api.updateUsername = {
-  method: 'PUT',
-  middlewares: [authWithHeaders()],
-  url: '/user/auth/update-username',
-  async handler (req, res) {
-    const user = res.locals.user;
-
-    req.checkBody({
-      username: {
-        notEmpty: {errorMessage: res.t('missingUsername')},
-      },
-    });
-
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
-
-    const newUsername = req.body.username;
-
-    const issues = verifyUsername(newUsername, res);
-    if (issues.length > 0) throw new BadRequest(issues.join(' '));
-
-    const password = req.body.password;
-    if (password !== undefined) {
-      let isValidPassword = await passwordUtils.compare(user, password);
-      if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
-    }
-
-    const existingUser = await User.findOne({ 'auth.local.lowerCaseUsername': newUsername.toLowerCase() }, {auth: 1}).exec();
-    if (existingUser !== undefined && existingUser !== null && existingUser._id !== user._id) {
-      throw new BadRequest(res.t('usernameTaken'));
-    }
-
-    // if password is using old sha1 encryption, change it
-    if (user.auth.local.passwordHashMethod === 'sha1' && password !== undefined) {
-      await passwordUtils.convertToBcrypt(user, password); // user is saved a few lines below
-    }
-
-    // save username
-    user.auth.local.lowerCaseUsername = newUsername.toLowerCase();
-    user.auth.local.username = newUsername;
-    user.flags.verifiedUsername = true;
-    await user.save();
-
-    res.respond(200, { username: req.body.username });
-  },
-};
-
 api.verifyUsername = {
   method: 'POST',
   url: '/user/auth/verify-username',
+  middlewares: [authWithHeaders({
+    optional: true,
+  })],
   async handler (req, res) {
     req.checkBody({
       username: {
@@ -82,10 +23,20 @@ api.verifyUsername = {
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    const issues = verifyUsername(req.body.username, res);
+    const user = res.locals.user;
+    const chosenUsername = req.body.username;
 
-    const count = await User.count({ 'auth.local.lowerCaseUsername': req.body.username.toLowerCase() });
-    if (count > 0)  issues.push(res.t('usernameTaken'));
+    const issues = verifyUsername(chosenUsername, res);
+
+    if (issues.length < 1) {
+      const existingUser = await User.findOne({
+        'auth.local.lowerCaseUsername': chosenUsername.toLowerCase(),
+      }, {auth: 1}).exec();
+
+      if (existingUser) {
+        if (!user ||  existingUser._id !== user._id) issues.push(res.t('usernameTaken'));
+      }
+    }
 
     if (issues.length > 0) {
       res.respond(200, { isUsable: false, issues });

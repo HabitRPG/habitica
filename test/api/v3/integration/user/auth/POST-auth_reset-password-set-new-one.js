@@ -94,9 +94,6 @@ describe('POST /user/auth/reset-password-set-new-one', () => {
       userId: user._id,
       expiresAt: moment().add({days: 1}),
     }));
-    await user.update({
-      auth: 'not an object with valid fields',
-    });
 
     await expect(api.post(`${endpoint}`, {
       code,

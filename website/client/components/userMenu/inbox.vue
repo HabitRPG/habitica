@@ -30,9 +30,12 @@
           .conversation(v-for='conversation in filtersConversations', @click='selectConversation(conversation.key)',
             :class="{active: selectedConversation.key === conversation.key}")
             div
-             span(:class="userLevelStyle(conversation)") {{conversation.name}}
-             span.timeago {{conversation.date | timeAgo}}
-            div {{conversation.lastMessageText ? conversation.lastMessageText.substring(0, 30) : ''}}
+              h3(:class="userLevelStyle(conversation)") {{ conversation.name }}
+                .svg-icon(v-html="tierIcon(conversation)")
+            .time
+              span.mr-1(v-if='conversation.username') @{{ conversation.username }} •
+              span {{ conversation.date | timeAgo }}
+            div.messagePreview {{ conversation.lastMessageText ? removeTags(parseMarkdown(conversation.lastMessageText)) : '' }}
       .col-8.messages.d-flex.flex-column.justify-content-between
         .empty-messages.text-center(v-if='!selectedConversation.key')
           .svg-icon.envelope(v-html="icons.messageIcon")
@@ -41,7 +44,7 @@
         .empty-messages.text-center(v-if='selectedConversation.key && selectedConversationMessages.length === 0')
           p {{ $t('beginningOfConversation', {userName: selectedConversation.name})}}
         chat-messages.message-scroll(
-          v-if="selectedConversation.messages && selectedConversationMessages.length > 0", 
+          v-if="selectedConversation.messages && selectedConversationMessages.length > 0",
           :chat='selectedConversationMessages',
           :inbox='true',
           @message-removed='messageRemoved',
@@ -63,6 +66,7 @@
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/tiers.scss';
 
   .header-wrap {
     padding: 0.5em;
@@ -70,6 +74,16 @@
     h2 {
       margin: 0;
       line-height: 1;
+    }
+  }
+
+  h3 {
+    margin: 0rem;
+
+    .svg-icon {
+      width: 10px;
+      display: inline-block;
+      margin-left: .5em;
     }
   }
 
@@ -180,11 +194,6 @@
   .conversation {
     padding: 1.5em;
     background: $white;
-    height: 80px;
-
-    .timeago {
-      margin-left: 1em;
-    }
   }
 
   .conversation.active {
@@ -193,6 +202,22 @@
 
   .conversation:hover {
     cursor: pointer;
+  }
+
+  .time {
+    font-size: 12px;
+    color: $gray-200;
+    margin-bottom: 0.5rem;
+  }
+
+  .messagePreview {
+    display: block;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
   }
 </style>
 
@@ -203,13 +228,24 @@ import filter from 'lodash/filter';
 import sortBy from 'lodash/sortBy';
 import groupBy from 'lodash/groupBy';
 import { mapState } from 'client/libs/store';
+import habiticaMarkdown from 'habitica-markdown';
 import styleHelper from 'client/mixins/styleHelper';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
 import axios from 'axios';
 
-import messageIcon from 'assets/svg/message.svg';
 import chatMessages from '../chat/chatMessages';
+import messageIcon from 'assets/svg/message.svg';
 import svgClose from 'assets/svg/close.svg';
+import tier1 from 'assets/svg/tier-1.svg';
+import tier2 from 'assets/svg/tier-2.svg';
+import tier3 from 'assets/svg/tier-3.svg';
+import tier4 from 'assets/svg/tier-4.svg';
+import tier5 from 'assets/svg/tier-5.svg';
+import tier6 from 'assets/svg/tier-6.svg';
+import tier7 from 'assets/svg/tier-7.svg';
+import tier8 from 'assets/svg/tier-mod.svg';
+import tier9 from 'assets/svg/tier-staff.svg';
+import tierNPC from 'assets/svg/tier-npc.svg';
 
 export default {
   mixins: [styleHelper],
@@ -236,8 +272,11 @@ export default {
         }
 
         this.initiatedConversation = {
-          user: data.userName,
           uuid: data.userIdToMessage,
+          user: data.displayName,
+          username: data.username,
+          backer: data.backer,
+          contributor: data.contributor,
         };
 
         this.selectConversation(data.userIdToMessage);
@@ -252,6 +291,16 @@ export default {
       icons: Object.freeze({
         messageIcon,
         svgClose,
+        tier1,
+        tier2,
+        tier3,
+        tier4,
+        tier5,
+        tier6,
+        tier7,
+        tier8,
+        tier9,
+        tierNPC,
       }),
       displayCreate: true,
       selectedConversation: {},
@@ -276,10 +325,11 @@ export default {
       // Add placeholder for new conversations
       if (this.initiatedConversation && this.initiatedConversation.uuid) {
         inboxGroup[this.initiatedConversation.uuid] = [{
+          uuid: this.initiatedConversation.uuid,
+          user: this.initiatedConversation.user,
+          username: this.initiatedConversation.username,
           id: '',
           text: '',
-          user: this.initiatedConversation.user,
-          uuid: this.initiatedConversation.uuid,
           timestamp: new Date(),
         }];
       }
@@ -296,8 +346,12 @@ export default {
           if (newChat.sent) {
             newChat.toUUID = newChat.uuid;
             newChat.toUser = newChat.user;
+            newChat.toUserName = newChat.username;
+            newChat.toUserContributor = newChat.contributor;
+            newChat.toUserBacker = newChat.backer;
             newChat.uuid = this.user._id;
             newChat.user = this.user.profile.name;
+            newChat.username = this.user.auth.local.username;
             newChat.contributor = this.user.contributor;
             newChat.backer = this.user.backer;
           }
@@ -309,11 +363,12 @@ export default {
         if (!recentMessage.text) newChatModels.splice(newChatModels.length - 1, 1);
 
         const convoModel = {
-          name: recentMessage.toUser ? recentMessage.toUser : recentMessage.user, // Handles case where from user sent the only message or the to user sent the only message
           key: recentMessage.toUUID ? recentMessage.toUUID : recentMessage.uuid,
-          messages: newChatModels,
-          lastMessageText: recentMessage.text,
+          name: recentMessage.toUser ? recentMessage.toUser : recentMessage.user, // Handles case where from user sent the only message or the to user sent the only message
+          username: !recentMessage.text ? recentMessage.username : recentMessage.toUserName,
           date: recentMessage.timestamp,
+          lastMessageText: recentMessage.text,
+          messages: newChatModels,
         };
 
         convos.push(convoModel);
@@ -345,7 +400,7 @@ export default {
       if (this.user.flags.chatRevoked) {
         return {
           title: this.$t('PMPlaceholderTitleRevoked'),
-          description: this.$t('PMPlaceholderDescriptionRevoked'),
+          description: this.$t('chatPrivilegesRevoked'),
         };
       }
       return {
@@ -382,8 +437,11 @@ export default {
       const messageIndex = this.messages.findIndex(msg => msg.id === message.id);
       if (messageIndex !== -1) this.messages.splice(messageIndex, 1);
       if (this.selectedConversationMessages.length === 0) this.initiatedConversation = {
-        user: this.selectedConversation.name,
         uuid: this.selectedConversation.key,
+        user: this.selectedConversation.name,
+        username: this.selectedConversation.username,
+        backer: this.selectedConversation.backer,
+        contributor: this.selectedConversation.contributor,
       };
     },
     toggleClick () {
@@ -413,6 +471,7 @@ export default {
         text: this.newMessage,
         timestamp: new Date(),
         user: this.selectedConversation.name,
+        username: this.selectedConversation.username,
         uuid: this.selectedConversation.key,
         contributor: this.user.contributor,
       });
@@ -443,6 +502,23 @@ export default {
     },
     close () {
       this.$root.$emit('bv::hide::modal', 'inbox-modal');
+    },
+    tierIcon (message) {
+      const isNPC = Boolean(message.backer && message.backer.npc);
+      if (isNPC) {
+        return this.icons.tierNPC;
+      }
+      if (!message.contributor) return;
+      return this.icons[`tier${message.contributor.level}`];
+    },
+    removeTags (html) {
+      let tmp = document.createElement('DIV');
+      tmp.innerHTML = html;
+      return tmp.textContent || tmp.innerText || '';
+    },
+    parseMarkdown (text) {
+      if (!text) return;
+      return habiticaMarkdown.render(String(text));
     },
   },
 };

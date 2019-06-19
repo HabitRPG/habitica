@@ -11,6 +11,9 @@ let api = {};
  * @apiGroup Inbox
  * @apiDescription Get inbox messages for a user
  *
+ * @apiParam (Query) {Number} page Load the messages of the selected Page - 10 Messages per Page
+ * @apiParam (Query) {GUID} conversation Loads only the messages of a conversation
+ *
  * @apiSuccess {Array} data An array of inbox messages
  */
 api.getInboxMessages = {
@@ -19,8 +22,12 @@ api.getInboxMessages = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     const user = res.locals.user;
+    const page = req.query.page;
+    const conversation = req.query.conversation;
 
-    const userInbox = await inboxLib.getUserInbox(user);
+    const userInbox = await inboxLib.getUserInbox(user, {
+      page, conversation,
+    });
 
     res.respond(200, userInbox);
   },

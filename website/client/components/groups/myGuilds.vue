@@ -2,18 +2,11 @@
 .row
   sidebar(v-on:search="updateSearch", v-on:filter="updateFilters")
 
-  .no-guilds.standard-page(v-if='filteredGuilds.length === 0')
-    .no-guilds-wrapper
-      .svg-icon(v-html='icons.greyBadge')
-      h2 {{$t('noGuildsTitle')}}
-      p {{$t('noGuildsParagraph1')}}
-      p {{$t('noGuildsParagraph2')}}
-      span(v-if='loading') {{ $t('loading') }}
-
-  .standard-page(v-if='filteredGuilds.length > 0')
+  .standard-page
     .row
-      .col-md-8
-        h1.page-header.float-left(v-once) {{ $t('myGuilds') }}
+      .col-md-8.text-left
+        h1.page-header(v-once) {{ $t('myGuilds') }}
+        h2(v-if='loading && guilds.length === 0') {{ $t('loading') }}
       .col-4
         button.btn.btn-secondary.create-group-button.float-right(@click='createGroup()')
           .svg-icon.positive-icon(v-html="icons.positiveIcon")
@@ -22,6 +15,18 @@
           span.dropdown-label {{ $t('sortBy') }}
           b-dropdown(:text="$t('sort')", right=true)
             b-dropdown-item(v-for='sortOption in sortOptions', :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}
+
+    .row
+      .no-guilds.text-center.col-md-6.offset-md-3(v-if='!loading && guilds.length === 0')
+        .svg-icon(v-html='icons.greyBadge')
+        h2(v-once) {{$t('noGuildsTitle')}}
+        p(v-once) {{$t('noGuildsParagraph1')}}
+        p(v-once) {{$t('noGuildsParagraph2')}}
+
+    .row
+      .no-guilds.text-center.col-md-6.offset-md-3(v-if='!loading && guilds.length > 0 && filteredGuilds.length === 0')
+        h2(v-once) {{$t('noGuildsMatchFilters')}}
+
     .row
       .col-md-12
         public-guild-item(v-for="guild in filteredGuilds", :key='guild._id', :guild="guild", :display-gem-bank='true')
@@ -41,29 +46,16 @@
   }
 
   .no-guilds {
-    text-align: center;
     color: $gray-200;
-    margin-top: 15em;
+    margin-top: 10em;
 
-    p {
-      font-size: 14px;
-      line-height: 1.43;
+    h2 {
+      color: $gray-200;
     }
 
-    .no-guilds-wrapper {
-      width: 400px;
-      margin: 0 auto;
-
-      .svg-icon {
-        width: 60px;
-        margin: 0 auto;
-      }
-    }
-  }
-
-  @media only screen and (max-width: 768px) {
-    .no-guilds-wrapper {
-      width: 100% !important;
+    .svg-icon {
+      width: 88.7px;
+      margin: 1em auto;
     }
   }
 </style>

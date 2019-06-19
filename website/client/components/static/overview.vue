@@ -6,9 +6,9 @@
       p {{ $t('needTips') }}
       div(v-for='step in stepsNum')
         h3 {{ $t('step'+step) }}
-        p(v-markdown="$t('webStep'+step+'Text')")
+        p(v-markdown="$t('webStep'+step+'Text', stepVars[step])")
         hr
-      p(v-markdown="$t('overviewQuestions')")
+      p(v-markdown="$t('overviewQuestions', {faqUrl: '/static/faq/', helpGuildUrl: '/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a'})")
 </template>
 
 <style lang='scss'>
@@ -31,6 +31,15 @@ export default {
   data () {
     return {
       stepsNum: ['1', '2', '3'],
+      stepVars: {
+        1: {},
+        2: {},
+        3: {
+          partyUrl: '/party',
+          equipUrl: '/inventory/equipment',
+          shopUrl: '/shops/market',
+        },
+      },
     };
   },
 };

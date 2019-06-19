@@ -717,5 +717,42 @@
   "questKangarooUnlockText": "Unlocks purchasable Kangaroo eggs in the Market",
 
   "forestFriendsText": "Forest Friends Quest Bundle",
-  "forestFriendsNotes": "Contains 'The Spirit of Spring', 'The Hedgebeast', and 'The Tangle Tree'. Available until September 30."
+  "forestFriendsNotes": "Contains 'The Spirit of Spring', 'The Hedgebeast', and 'The Tangle Tree'. Available until September 30.",
+
+  "questAlligatorText": "The Insta-Gator",
+  "questAlligatorNotes": "“Crikey!” exclaims @gully. “An Insta-Gator in its natural habitat! Careful, it distracts its prey with things that seem urgent THIS INSTANT, and it feeds on the unchecked Dailies that result.” You fall silent to avoid attracting its attention, but to no avail. The Insta-Gator spots you and charges! Distracting voices rise up from Swamps of Stagnation, grabbing for your attention: “Read this post! See this photo! Pay attention to me THIS INSTANT!” You scramble to mount a counterattack, completing your Dailies and bolstering your good Habits to fight off the dreaded Insta-Gator.",
+  "questAlligatorCompletion": "With your attention focused on what’s important and not the Insta-Gator’s distractions, the Insta-Gator flees. Victory! “Are those eggs? They look like gator eggs to me,” asks @mfonda. “If we care for them correctly, they’ll be loyal pets or faithful steeds,” answers @UncommonCriminal, handing you three to care for. Let’s hope so, or else the Insta-Gator might make a return…",
+  "questAlligatorBoss": "Insta-Gator",
+  "questAlligatorDropAlligatorEgg": "Alligator (Egg)",
+  "questAlligatorUnlockText": "Unlocks purchasable Alligator eggs in the Market",
+
+  "oddballsText": "Oddballs Quest Bundle",
+  "oddballsNotes": "Contains 'The Jelly Regent,' 'Escape the Cave Creature,' and 'A Tangled Yarn.' Available until June 30.",
+
+  "birdBuddiesText": "Bird Buddies Quest Bundle",
+  "birdBuddiesNotes": "Contains 'The Fowl Frost,' 'Rooster Rampage,' and 'The Push-and-Pull Peacock.' Available until December 31.",
+
+  "questVelociraptorText": "The Veloci-Rapper",
+  "questVelociraptorNotes": "You’re sharing honey cakes with @*~Seraphina~*, @Procyon P, and @Lilith of Alfheim by a lake in the Stoïkalm Steppes. Suddenly, a mournful voice interrupts your picnic.<br><br><em>My Habits took a hit, I missed my Dailies,<br>I’m losing it, sinking with doubt and maybes,<br>At the top of my game I used to be so fly,<br>But now I just let my Due Dates go by.</em><br><br>@*~Seraphina~* peers behind a stand of grass. “It’s the Veloci-Rapper. It seems... distraught?”<br><br>You pump a fist in determination. “There's only one thing to do. Rap battle time!”",
+  "questVelociraptorCompletion": "You burst through the grass, confronting the Veloci-Rapper.<br><br><em>See here, rapper, you’re no quitter,<br>You’re Bad Habits' hardest hitter!<br>Check off your To-Dos like a boss,<br>Don’t mourn over one day’s loss!</em><br><br>Filled with renewed confidence, it bounds off to freestyle another day, leaving behind three eggs where it sat.",
+  "questVelociraptorBoss": "Veloci-Rapper",
+  "questVelociraptorDropVelociraptorEgg": "Velociraptor (Egg)",
+  "questVelociraptorUnlockText": "Unlocks purchasable Velociraptor eggs in the Market",
+
+  "mythicalMarvelsText": "Mythical Marvels Quest Bundle",
+  "mythicalMarvelsNotes": "Contains 'Convincing the Unicorn Queen,' 'The Fiery Gryphon,' and 'Danger in the Depths: Sea Serpent Strike!' Available until February 28.",
+
+  "questBronzeText": "Brazen Beetle Battle",
+  "questBronzeNotes": "On a refreshing break between tasks, you and some friends take a stroll through the forest trails of the Taskwoods. You come upon a large hollow log and a sparkle from inside catches your attention.<br><br>Why, it's a cache of Magic Hatching Potions! The shimmering bronze liquid swirls gently in the bottles, and @Hachiseiko reaches to pick one up to examine it.<br><br>“Halt!” hisses a voice from behind you. It's a gigantic beetle with a carapace of gleaming bronze, raising her clawed feet in a fighting stance. “Those are my potions, and if you wish to earn them, you must prove yourself in a gentlefolks' duel!”",
+  "questBronzeCompletion": "“Well met, warrior!” says the beetle as she settles to the ground. Is she smiling? It's hard to tell from those mandibles. “You've truly earned these potions!”<br<br>“Oh wow, we’ve never gotten a reward like this for winning a battle before!” says @UncommonCriminal, turning a shimmering bottle in their hand. “Let's go hatch our new pets!”",
+  "questBronzeBoss": "Brazen Beetle",
+  "questBronzeDropBronzePotion": "Bronze Hatching Potion",
+  "questBronzeUnlockText": "Unlocks purchasable Bronze hatching potions in the Market",
+
+  "questDolphinText": "The Dolphin of Doubt",
+  "questDolphinNotes": "You walk upon the shores of Inkomplete Bay, pondering the daunting work ahead of you. A splash in the water catches your eye. A magnificent dolphin arcs over the waves. Sunlight glimmers off its fins and tail. But wait...that’s not sunlight, and the dolphin doesn’t dip back into the sea. It fixes its gaze on @khdarkwolf.<br><br>“I’ll never finish all these Dailies,” said @khdarkwolf.<br><br>“I’m not good enough to reach my goals,” said @confusedcicada as the dolphin turned its glare on them.<br><br>“Why did I even bother trying?” asked @mewrose, withering under the stare of the beast.<br><br>Its eyes meet yours, and feel your mind begin to sink under the rising tide of doubt. You steel yourself; someone has to defeat this creature, and it’s going to be you!",
+  "questDolphinBoss": "Dolphin of Doubt",
+  "questDolphinCompletion": "Your battle of wills with the dolphin has left you tired but victorious. With your determination and encouragement, @mewrose, @khdarkwolf, and @confusedcicada pick themselves up and shake off the dolphin’s insidious telepathy. The four of you shield yourselves with a sense of accomplishment in your consistent Dailies, strong Habits, and completed To-Dos until it closes its glowing eyes in silent acknowledgment of your successes. With that, it tumbles back into the bay. As you trade high-fives and congratulations, you notice three eggs wash ashore.<br><br>“Hm, I wonder what we can do with those,” @khdarkwolf muses.",
+  "questDolphinDropDolphinEgg": "Dolphin (Egg)",
+  "questDolphinUnlockText": "Unlocks purchasable Dolphin eggs in the Market"
 }

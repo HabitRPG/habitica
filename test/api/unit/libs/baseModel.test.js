@@ -5,8 +5,15 @@ describe('Base model plugin', () => {
   let schema;
 
   beforeEach(() => {
-    schema = new mongoose.Schema();
+    schema = new mongoose.Schema({}, {
+      typeKey: '$type',
+    });
     sandbox.stub(schema, 'add');
+  });
+
+  it('throws if "typeKey" is not set to $type', () => {
+    const schemaWithoutTypeKey = new mongoose.Schema();
+    expect(() => schemaWithoutTypeKey.plugin(baseModel)).to.throw;
   });
 
   it('adds a _id field to the schema', () => {

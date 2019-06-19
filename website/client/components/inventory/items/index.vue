@@ -25,7 +25,7 @@
           b-dropdown-item(@click="sortBy = 'AZ'", :active="sortBy === 'AZ'") {{ $t('AZ') }}
     div(
       v-for="group in groups",
-      v-if="group.selected",
+      v-if="!anyFilterSelected || group.selected",
       :key="group.key",
     )
       h2.mb-3
@@ -207,7 +207,7 @@ import startQuestModal from '../../groups/startQuestModal';
 import QuestInfo from '../../shops/quests/questInfo.vue';
 
 import { mapState } from 'client/libs/store';
-import createAnimal from 'client/libs/createAnimal';
+import { createAnimal } from 'client/libs/createAnimal';
 
 import notifications from 'client/mixins/notifications';
 import DragDropDirective from 'client/directives/dragdrop.directive';
@@ -225,7 +225,7 @@ const groups = [
   return {
     key: group,
     quantity: 0,
-    selected: true,
+    selected: false,
     classPrefix,
     allowedItems,
   };
@@ -340,6 +340,10 @@ export default {
 
       return itemsByType;
     },
+
+    anyFilterSelected () {
+      return this.groups.some(g => g.selected);
+    },
   },
   methods: {
     userHasPet (potionKey, eggKey) {
@@ -373,9 +377,12 @@ export default {
       if (potion === null || egg === null)
         return false;
 
-      let petKey = `${egg.key}-${potion.key}`;
+      const petKey = `${egg.key}-${potion.key}`;
 
-      if (!this.content.petInfo[petKey])
+      const petInfo = this.content.petInfo[petKey];
+
+      // Check pet exists and is hatchable
+      if (!petInfo || !petInfo.potion)
         return false;
 
       return !this.userHasPet(potion.key, egg.key);
@@ -462,8 +469,6 @@ export default {
           let openedItem = result.data.data;
           let text = this.content.gear.flat[openedItem.key].text();
           this.drop(this.$t('messageDropMysteryItem', {dropText: text}), openedItem);
-          item.quantity--;
-          this.$forceUpdate();
         } else {
           this.$root.$emit('selectMembersModal::showItem', item);
         }

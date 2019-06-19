@@ -82,6 +82,7 @@
 import hello from 'hellojs';
 import { setUpAxios } from 'client/libs/auth';
 import debounce from 'lodash/debounce';
+import isEmail from 'validator/lib/isEmail';
 
 import facebookSquareIcon from 'assets/svg/facebook-square.svg';
 import googleIcon from 'assets/svg/google.svg';
@@ -115,13 +116,13 @@ export default {
   computed: {
     emailValid () {
       if (this.email.length <= 3) return false;
-      return this.validateEmail(this.email);
+      return isEmail(this.email);
     },
     emailInvalid () {
       return !this.emailValid;
     },
     usernameValid () {
-      if (this.username.length <= 3) return false;
+      if (this.username.length < 1) return false;
       return this.usernameIssues.length === 0;
     },
     usernameInvalid () {
@@ -143,7 +144,7 @@ export default {
   methods: {
     // eslint-disable-next-line func-names
     validateUsername: debounce(function (username) {
-      if (username.length <= 3) {
+      if (username.length < 1) {
         return;
       }
       this.$store.dispatch('auth:verifyUsername', {

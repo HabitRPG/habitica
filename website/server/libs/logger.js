@@ -22,8 +22,8 @@ if (IS_PROD) {
       prettyPrint: false,
     });
     logger.add(winston.transports.Loggly, {
-      inputToken: nconf.get('LOGGLY:TOKEN'),
-      subdomain: nconf.get('LOGGLY:SUBDOMAIN'),
+      inputToken: nconf.get('LOGGLY_TOKEN'),
+      subdomain: nconf.get('LOGGLY_SUBDOMAIN'),
       tags: ['Winston-NodeJS'],
       json: true,
     });
@@ -84,8 +84,9 @@ let loggerInterface = {
 
 // Logs unhandled promises errors
 // when no catch is attached to a promise a unhandledRejection event will be triggered
-process.on('unhandledRejection', function handlePromiseRejection (reason) {
-  loggerInterface.error('unhandledPromiseRejection', reason);
+// reason is the error, p the promise where it originated
+process.on('unhandledRejection', function handlePromiseRejection (reason, p) {
+  loggerInterface.error(reason, 'unhandledPromiseRejection at', p);
 });
 
 module.exports = loggerInterface;

@@ -1,4 +1,7 @@
+import notifications from './notifications';
+
 export default {
+  mixins: [notifications],
   methods: {
     closeHatchPetDialog () {
       this.$root.$emit('bv::hide::modal', 'hatching-modal');

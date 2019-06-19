@@ -8,33 +8,33 @@ const featuredItems = {
       path: 'armoire',
     },
     {
-      type: 'premiumHatchingPotion',
-      path: 'premiumHatchingPotions.Ghost',
+      type: 'eggs',
+      path: 'eggs.Fox',
     },
     {
-      type: 'premiumHatchingPotion',
-      path: 'premiumHatchingPotions.Glow',
+      type: 'hatchingPotions',
+      path: 'hatchingPotions.CottonCandyBlue',
     },
     {
       type: 'card',
-      path: 'cardTypes.getwell',
+      path: 'cardTypes.congrats',
     },
   ],
   quests: [
     {
-      type: 'bundles',
-      path: 'bundles.forestFriends',
+      type: 'quests',
+      path: 'quests.bronze',
     },
     {
       type: 'quests',
-      path: 'quests.dilatoryDistress1',
+      path: 'quests.yarn',
     },
     {
       type: 'quests',
-      path: 'quests.kangaroo',
+      path: 'quests.dolphin',
     },
   ],
-  seasonal: '',
+  seasonal: 'summer2019Mage',
   timeTravelers: [
     // TODO
   ],

@@ -14,6 +14,9 @@ const CONSTANTS = {
     COSTUME_TAB: 'costume-tab',
     EQUIPMENT_TAB: 'equipment-tab',
   },
+  savedAppStateValues: {
+    SAVED_APP_STATE: 'saved-app-state',
+  },
 };
 
 function setLocalSetting (key, value) {
@@ -24,8 +27,14 @@ function getLocalSetting (key) {
   return localStorage.getItem(key);
 }
 
+function removeLocalSetting (key) {
+  return localStorage.removeItem(key);
+}
+
+
 export {
   CONSTANTS,
   getLocalSetting,
   setLocalSetting,
+  removeLocalSetting,
 };

@@ -4,6 +4,7 @@ import { requester } from './requester';
 import {
   getDocument as getDocumentFromMongo,
   updateDocument as updateDocumentInMongo,
+  unsetDocument as unsetDocumentInMongo,
 } from '../mongo';
 import {
   assign,
@@ -25,6 +26,18 @@ class ApiObject {
     await updateDocumentInMongo(this._docType, this, options);
 
     _updateLocalParameters(this, options);
+
+    return this;
+  }
+
+  async unset (options) {
+    if (isEmpty(options)) {
+      return;
+    }
+
+    await unsetDocumentInMongo(this._docType, this, options);
+
+    _updateLocalParameters((this, options));
 
     return this;
   }

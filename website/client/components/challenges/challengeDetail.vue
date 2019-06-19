@@ -317,7 +317,7 @@ export default {
     },
     createTask (type) {
       this.taskFormPurpose = 'create';
-      this.creatingTask = taskDefaults({type, text: ''});
+      this.creatingTask = taskDefaults({type, text: ''}, this.user);
       this.workingTask = this.creatingTask;
       // Necessary otherwise the first time the modal is not rendered
       Vue.nextTick(() => {
@@ -347,7 +347,7 @@ export default {
       this.$root.$emit('habitica:show-member-modal', {
         challengeId: this.challenge._id,
         groupId: 'challenge', // @TODO: change these terrible settings
-        group: this.group,
+        group: this.challenge.group,
         memberCount: this.challenge.memberCount,
         viewingMembers: this.members,
         fetchMoreMembers: this.loadMembers,
@@ -376,6 +376,8 @@ export default {
     openMemberProgressModal (member) {
       this.$root.$emit('habitica:challenge:member-progress', {
         progressMemberId: member._id,
+        isLeader: this.isLeader,
+        isAdmin: this.isAdmin,
       });
     },
     async exportChallengeCsv () {

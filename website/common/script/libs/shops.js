@@ -73,7 +73,7 @@ shops.getMarketCategories = function getMarket (user, language) {
     notes: i18n.t('premiumPotionNoDropExplanation', language),
   };
   premiumHatchingPotionsCategory.items = sortBy(values(content.hatchingPotions)
-    .filter(hp => hp.limited && hp.canBuy())
+    .filter(hp => hp.limited && hp.canBuy(user))
     .map(premiumHatchingPotion => {
       return getItemInfo(user, 'premiumHatchingPotion', premiumHatchingPotion, officialPinnedItems, language);
     }), 'key');
@@ -107,7 +107,8 @@ function getClassName (classType, language) {
 // TODO Refactor the `.locked` logic
 shops.checkMarketGearLocked = function checkMarketGearLocked (user, items) {
   let result = filter(items, ['pinType', 'marketGear']);
-  let availableGear = map(updateStore(user), (item) => getItemInfo(user, 'marketGear', item).path);
+  const officialPinnedItems = getOfficialPinnedItems(user);
+  let availableGear = map(updateStore(user), (item) => getItemInfo(user, 'marketGear', item, officialPinnedItems).path);
   for (let gear of result) {
     if (gear.klass !== user.stats.class) {
       gear.locked = true;
@@ -188,8 +189,7 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
   };
 
   let specialNonClassGear = filter(content.gear.flat, (gear) => {
-    return user.items.gear.owned[gear.key] === false ||
-      !user.items.gear.owned[gear.key] &&
+    return !user.items.gear.owned[gear.key] &&
       content.classes.indexOf(gear.klass) === -1 &&
       content.classes.indexOf(gear.specialClass) === -1 &&
       (gear.canOwn && gear.canOwn(user));

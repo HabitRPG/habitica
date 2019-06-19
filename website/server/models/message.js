@@ -7,25 +7,29 @@ const defaultSchema = () => ({
   id: String,
   timestamp: Date,
   text: String,
+  info: {$type: mongoose.Schema.Types.Mixed},
 
   // sender properties
-  user: String, // profile name
-  contributor: {type: mongoose.Schema.Types.Mixed},
-  backer: {type: mongoose.Schema.Types.Mixed},
+  user: String, // profile name (unfortunately)
+  username: String,
+  contributor: {$type: mongoose.Schema.Types.Mixed},
+  backer: {$type: mongoose.Schema.Types.Mixed},
   uuid: String, // sender uuid
-  userStyles: {type: mongoose.Schema.Types.Mixed},
+  userStyles: {$type: mongoose.Schema.Types.Mixed},
 
-  flags: {type: mongoose.Schema.Types.Mixed, default: {}},
-  flagCount: {type: Number, default: 0},
-  likes: {type: mongoose.Schema.Types.Mixed},
-  _meta: {type: mongoose.Schema.Types.Mixed},
+  flags: {$type: mongoose.Schema.Types.Mixed, default: {}},
+  flagCount: {$type: Number, default: 0},
+  likes: {$type: mongoose.Schema.Types.Mixed},
+  client: String,
+  _meta: {$type: mongoose.Schema.Types.Mixed},
 });
 
 const chatSchema = new mongoose.Schema({
   ...defaultSchema(),
-  groupId: {type: String, ref: 'Group'},
+  groupId: {$type: String, ref: 'Group'},
 }, {
   minimize: false, // Allow for empty flags to be saved
+  typeKey: '$type', // So that we can use fields named `type`
 });
 
 chatSchema.plugin(baseModel, {
@@ -33,14 +37,15 @@ chatSchema.plugin(baseModel, {
 });
 
 const inboxSchema = new mongoose.Schema({
-  sent: {type: Boolean, default: false}, // if the owner sent this message
+  sent: {$type: Boolean, default: false}, // if the owner sent this message
   // the uuid of the user where the message is stored,
   // we store two copies of each inbox messages:
   // one for the sender and one for the receiver
-  ownerId: {type: String, ref: 'User'},
+  ownerId: {$type: String, ref: 'User'},
   ...defaultSchema(),
 }, {
   minimize: false, // Allow for empty flags to be saved
+  typeKey: '$type', // So that we can use fields named `type`
 });
 
 inboxSchema.plugin(baseModel, {
@@ -97,16 +102,18 @@ export function setUserStyles (newMessage, user) {
   newMessage.markModified('userStyles');
 }
 
-export function messageDefaults (msg, user) {
+export function messageDefaults (msg, user, client, info = {}) {
   const id = uuid();
   const message = {
     id,
     _id: id,
     text: msg.substring(0, 3000),
+    info,
     timestamp: Number(new Date()),
     likes: {},
     flags: {},
     flagCount: 0,
+    client,
   };
 
   if (user) {
@@ -115,6 +122,7 @@ export function messageDefaults (msg, user) {
       contributor: user.contributor && user.contributor.toObject(),
       backer: user.backer && user.backer.toObject(),
       user: user.profile.name,
+      username: user.flags && user.flags.verifiedUsername && user.auth && user.auth.local && user.auth.local.username,
     });
   } else {
     message.uuid = 'system';

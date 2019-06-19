@@ -68,22 +68,22 @@ describe('Amazon Payments - Checkout', () => {
     orderReferenceId = 'orderReferenceId';
 
     setOrderReferenceDetailsSpy = sinon.stub(amzLib, 'setOrderReferenceDetails');
-    setOrderReferenceDetailsSpy.returnsPromise().resolves({});
+    setOrderReferenceDetailsSpy.resolves({});
 
     confirmOrderReferenceSpy = sinon.stub(amzLib, 'confirmOrderReference');
-    confirmOrderReferenceSpy.returnsPromise().resolves({});
+    confirmOrderReferenceSpy.resolves({});
 
     authorizeSpy = sinon.stub(amzLib, 'authorize');
-    authorizeSpy.returnsPromise().resolves({});
+    authorizeSpy.resolves({});
 
     closeOrderReferenceSpy = sinon.stub(amzLib, 'closeOrderReference');
-    closeOrderReferenceSpy.returnsPromise().resolves({});
+    closeOrderReferenceSpy.resolves({});
 
     paymentBuyGemsStub = sinon.stub(payments, 'buyGems');
-    paymentBuyGemsStub.returnsPromise().resolves({});
+    paymentBuyGemsStub.resolves({});
 
     paymentCreateSubscritionStub = sinon.stub(payments, 'createSubscription');
-    paymentCreateSubscritionStub.returnsPromise().resolves({});
+    paymentCreateSubscritionStub.resolves({});
 
     sinon.stub(common, 'uuid').returns('uuid-generated');
   });
@@ -111,7 +111,7 @@ describe('Amazon Payments - Checkout', () => {
   }
 
   it('should purchase gems', async () => {
-    sinon.stub(user, 'canGetGems').returnsPromise().resolves(true);
+    sinon.stub(user, 'canGetGems').resolves(true);
     await amzLib.checkout({user, orderReferenceId, headers});
 
     expectBuyGemsStub(amzLib.constants.PAYMENT_METHOD);
@@ -140,7 +140,7 @@ describe('Amazon Payments - Checkout', () => {
   });
 
   it('should error if user cannot get gems gems', async () => {
-    sinon.stub(user, 'canGetGems').returnsPromise().resolves(false);
+    sinon.stub(user, 'canGetGems').resolves(false);
     await expect(amzLib.checkout({user, orderReferenceId, headers})).to.eventually.be.rejected.and.to.eql({
       httpCode: 401,
       message: i18n.t('groupPolicyCannotGetGems'),

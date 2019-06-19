@@ -13,10 +13,10 @@ describe('payments - stripe - #checkout', () => {
   });
 
   it('verifies credentials', async () => {
-    await expect(user.post(endpoint, {id: 123})).to.eventually.be.rejected.and.eql({
+    await expect(user.post(endpoint, {id: 123})).to.eventually.be.rejected.and.include({
       code: 401,
       error: 'Error',
-      message: 'Invalid API Key provided: ****************************1111',
+      message: 'Invalid API Key provided: aaaabbbb********************1111',
     });
   });
 
@@ -24,7 +24,7 @@ describe('payments - stripe - #checkout', () => {
     let stripeCheckoutSubscriptionStub;
 
     beforeEach(async () => {
-      stripeCheckoutSubscriptionStub = sinon.stub(stripePayments, 'checkout').returnsPromise().resolves({});
+      stripeCheckoutSubscriptionStub = sinon.stub(stripePayments, 'checkout').resolves({});
     });
 
     afterEach(() => {

@@ -15,10 +15,11 @@ setupNconf(configFile);
 // @TODO: Do we need? const CLIENT_VARS = ['language', 'isStaticPage', 'availableLanguages', 'translations',
 //                      'FACEBOOK_KEY', 'GOOGLE_CLIENT_ID', 'NODE_ENV', 'BASE_URL', 'GA_ID',
 //                      'AMAZON_PAYMENTS', 'STRIPE_PUB_KEY', 'AMPLITUDE_KEY',
-//                      'worldDmg', 'mods', 'IS_MOBILE', 'PUSHER:KEY', 'PUSHER:ENABLED'];
+//                      'worldDmg', 'mods', 'IS_MOBILE'];
 
-const AMAZON_SELLER_ID = nconf.get('AMAZON_PAYMENTS:SELLER_ID') || nconf.get('AMAZON_PAYMENTS_SELLER_ID');
-const AMAZON_CLIENT_ID = nconf.get('AMAZON_PAYMENTS:CLIENT_ID') || nconf.get('AMAZON_PAYMENTS_CLIENT_ID');
+const AMAZON_SELLER_ID = nconf.get('AMAZON_PAYMENTS_SELLER_ID');
+const AMAZON_CLIENT_ID = nconf.get('AMAZON_PAYMENTS_CLIENT_ID');
+const AMAZON_MODE = nconf.get('AMAZON_PAYMENTS_MODE');
 
 let env = {
   NODE_ENV: '"production"',
@@ -26,15 +27,16 @@ let env = {
   AMAZON_PAYMENTS: {
     SELLER_ID: `"${AMAZON_SELLER_ID}"`,
     CLIENT_ID: `"${AMAZON_CLIENT_ID}"`,
+    MODE: `"${AMAZON_MODE}"`,
   },
   EMAILS: {
-    COMMUNITY_MANAGER_EMAIL: `"${nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL')}"`,
-    TECH_ASSISTANCE_EMAIL: `"${nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL')}"`,
-    PRESS_ENQUIRY_EMAIL: `"${nconf.get('EMAILS:PRESS_ENQUIRY_EMAIL')}"`,
+    COMMUNITY_MANAGER_EMAIL: `"${nconf.get('EMAILS_COMMUNITY_MANAGER_EMAIL')}"`,
+    TECH_ASSISTANCE_EMAIL: `"${nconf.get('EMAILS_TECH_ASSISTANCE_EMAIL')}"`,
+    PRESS_ENQUIRY_EMAIL: `"${nconf.get('EMAILS_PRESS_ENQUIRY_EMAIL')}"`,
   },
 };
 
-'NODE_ENV BASE_URL GA_ID STRIPE_PUB_KEY FACEBOOK_KEY GOOGLE_CLIENT_ID AMPLITUDE_KEY PUSHER:KEY PUSHER:ENABLED LOGGLY_CLIENT_TOKEN'
+'NODE_ENV BASE_URL GA_ID STRIPE_PUB_KEY FACEBOOK_KEY GOOGLE_CLIENT_ID AMPLITUDE_KEY LOGGLY_CLIENT_TOKEN'
   .split(' ')
   .forEach(key => {
     env[key] = `"${nconf.get(key)}"`;

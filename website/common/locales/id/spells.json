@@ -2,7 +2,7 @@
     "spellWizardFireballText": "Semburan Api",
     "spellWizardFireballNotes": "Kamu memunculkan Pengalaman dan membakar Bos dengan serangan api! (Berdasarkan: KEC)",
     "spellWizardMPHealText": "Gelombang Ethereal",
-    "spellWizardMPHealNotes": "You sacrifice Mana so the rest of your Party, except Mages, gains MP! (Based on: INT)",
+    "spellWizardMPHealNotes": "Kamu mengorbankan mana supaya anggota Party yang lain, kecuali para Penyihir, mendapatkan MP! (Berdasarkan: KEC)",
     "spellWizardEarthText": "Gempa",
     "spellWizardEarthNotes": "Kekuatan mentalmu mengguncangkan bumi dan meningkatkan Kecerdasan Party-mu (Berdasarkan: KEC tanpa buff)",
     "spellWizardFrostText": "Es yang Dingin",
@@ -51,9 +51,9 @@
     "spellSpecialSandText": "Pasir",
     "spellSpecialSandNotes": "Menghilangkan efek mantra yang mengubahmu menjadi bintang laut.",
     "partyNotFound": "Party tidak ditemukan",
-    "targetIdUUID": "\"targetId\" harsu merupakan ID Pengguna valid.",
-    "challengeTasksNoCast": "Menggunakan kemampuan pada tantangan tidak diperbolehkan.",
+    "targetIdUUID": "\"targetId\" harus merupakan ID Pengguna valid.",
+    "challengeTasksNoCast": "Menggunakan kemampuan pada tugas tantangan tidak diperbolehkan.",
     "groupTasksNoCast": "Menggunakan kemampuan pada tugas kelompok tidak diperbolehkan.",
-    "spellNotOwned": "Anda tidak memiliki kemampuan ini.",
-    "spellLevelTooHigh": "Kamu harus berada di level <%= level %> untuk menggunakan kemampuan ini."
+    "spellNotOwned": "Kamu tidak mempunyai kemampuan ini.",
+    "spellLevelTooHigh": "Kamu harus mencapai level <%= level %> untuk menggunakan kemampuan ini."
 }

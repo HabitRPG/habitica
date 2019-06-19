@@ -79,8 +79,8 @@ async function registerLocal (req, res, { isV3 = false }) {
       notEmpty: true,
       errorMessage: res.t('missingUsername'),
       // TODO use the constants in the error message above
-      isLength: {options: {min: USERNAME_LENGTH_MIN, max: USERNAME_LENGTH_MAX}, errorMessage: res.t('usernameWrongLength')},
-      matches: {options: /^[-_a-zA-Z0-9]+$/, errorMessage: res.t('usernameBadCharacters')},
+      isLength: {options: {min: USERNAME_LENGTH_MIN, max: USERNAME_LENGTH_MAX}, errorMessage: res.t('usernameIssueLength')},
+      matches: {options: /^[-_a-zA-Z0-9]+$/, errorMessage: res.t('usernameIssueInvalidCharacters')},
     },
     email: {
       notEmpty: true,
@@ -138,6 +138,9 @@ async function registerLocal (req, res, { isV3 = false }) {
     preferences: {
       language: req.language,
     },
+    flags: {
+      verifiedUsername: true,
+    },
   };
 
   if (existingUser) {
@@ -158,8 +161,6 @@ async function registerLocal (req, res, { isV3 = false }) {
   if (req.query.groupInvite || req.query.partyInvite) {
     await _handleGroupInvitation(newUser, req.query.groupInvite || req.query.partyInvite);
   }
-
-  newUser.flags.verifiedUsername = true;
 
   let savedUser = await newUser.save();
 
@@ -182,7 +183,12 @@ async function registerLocal (req, res, { isV3 = false }) {
   EmailUnsubscription
     .remove({email: savedUser.auth.local.email})
     .then(() => {
-      if (!existingUser) sendTxnEmail(savedUser, 'welcome');
+      if (existingUser) return;
+      if (newUser.registeredThrough === 'habitica-web') {
+        sendTxnEmail(savedUser, 'welcome-v2b');
+      } else {
+        sendTxnEmail(savedUser, 'welcome');
+      }
     });
 
   if (!existingUser) {

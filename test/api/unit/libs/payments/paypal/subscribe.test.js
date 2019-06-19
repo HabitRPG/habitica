@@ -18,7 +18,7 @@ describe('subscribe', () => {
     sub = Object.assign({}, common.content.subscriptionBlocks[subKey]);
 
     paypalBillingAgreementCreateStub = sinon.stub(paypalPayments, 'paypalBillingAgreementCreate')
-      .returnsPromise().resolves({
+      .resolves({
         links: [{ rel: 'approval_url', href: approvalHerf }],
       });
   });

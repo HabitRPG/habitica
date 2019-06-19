@@ -12,7 +12,7 @@ import {
   sendTxn as txnEmail,
 } from '../email';
 
-const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
+const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS_TECH_ASSISTANCE_EMAIL');
 const JOINED_GROUP_PLAN = 'joined group plan';
 
 function _dateDiff (earlyDate, lateDate) {
@@ -170,6 +170,7 @@ async function addSubToGroupUser (member, group) {
 
   member.purchased.plan = plan;
   member.items.mounts['Jackalope-RoyalPurple'] = true;
+  member.markModified('items.mounts');
 
   data.user = member;
   await this.createSubscription(data);
@@ -207,7 +208,7 @@ async function cancelGroupSubscriptionForUser (user, group, userWasRemoved = fal
   if (user.purchased.plan.customerId !== this.constants.GROUP_PLAN_CUSTOMER_ID) return;
 
   let userGroups = user.guilds.toObject();
-  userGroups.push('party');
+  if (user.party._id) userGroups.push(user.party._id);
 
   let index = userGroups.indexOf(group._id);
   userGroups.splice(index, 1);

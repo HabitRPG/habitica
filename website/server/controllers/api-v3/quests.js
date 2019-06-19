@@ -245,7 +245,7 @@ api.rejectQuest = {
     if (group.quest.members[user._id]) throw new BadRequest(res.t('questAlreadyAccepted'));
     if (group.quest.members[user._id] === false) throw new BadRequest(res.t('questAlreadyRejected'));
 
-    user.party.quest = Group.cleanQuestProgress();
+    user.party.quest = Group.cleanQuestUser(user.party.quest.progress);
     user.markModified('party.quest');
     await user.save();
 
@@ -363,20 +363,32 @@ api.cancelQuest = {
     if (validationErrors) throw validationErrors;
 
     let group = await Group.getGroup({user, groupId, fields: basicGroupFields.concat(' quest')});
+
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
     if (!group.quest.key) throw new NotFound(res.t('questInvitationDoesNotExist'));
     if (user._id !== group.leader && group.quest.leader !== user._id) throw new NotAuthorized(res.t('onlyLeaderCancelQuest'));
     if (group.quest.active) throw new NotAuthorized(res.t('cantCancelActiveQuest'));
 
+    let questName = questScrolls[group.quest.key].text('en');
+    const newChatMessage = group.sendChat({
+      message: `\`${user.profile.name} cancelled the party quest ${questName}.\``,
+      info: {
+        type: 'quest_cancel',
+        user: user.profile.name,
+        quest: group.quest.key,
+      },
+    });
+
     group.quest = Group.cleanGroupQuest();
     group.markModified('quest');
 
     let [savedGroup] = await Promise.all([
       group.save(),
+      newChatMessage.save(),
       User.update(
         {'party._id': groupId},
-        {$set: {'party.quest': Group.cleanQuestProgress()}},
+        Group.cleanQuestParty(),
         {multi: true}
       ).exec(),
     ]);
@@ -405,7 +417,7 @@ api.abortQuest = {
   url: '/groups/:groupId/quests/abort',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    // Abort a quest AFTER it has begun (see questCancel for BEFORE)
+    // Abort a quest AFTER it has begun
     let user = res.locals.user;
     let groupId = req.params.groupId;
 
@@ -422,14 +434,20 @@ api.abortQuest = {
     if (user._id !== group.leader && user._id !== group.quest.leader) throw new NotAuthorized(res.t('onlyLeaderAbortQuest'));
 
     let questName = questScrolls[group.quest.key].text('en');
-    const newChatMessage = group.sendChat(`\`${user.profile.name} aborted the party quest ${questName}.\``);
+    const newChatMessage = group.sendChat({
+      message: `\`${common.i18n.t('chatQuestAborted', {username: user.profile.name, questName}, 'en')}\``,
+      info: {
+        type: 'quest_abort',
+        user: user.profile.name,
+        quest: group.quest.key,
+      },
+    });
     await newChatMessage.save();
 
     let memberUpdates = User.update({
       'party._id': groupId,
-    }, {
-      $set: {'party.quest': Group.cleanQuestProgress()},
-    }, {multi: true}).exec();
+    }, Group.cleanQuestParty(),
+    {multi: true}).exec();
 
     let questLeaderUpdate = User.update({
       _id: group.quest.leader,
@@ -484,7 +502,7 @@ api.leaveQuest = {
     group.quest.members[user._id] = false;
     group.markModified('quest.members');
 
-    user.party.quest = Group.cleanQuestProgress();
+    user.party.quest = Group.cleanQuestUser(user.party.quest.progress);
     user.markModified('party.quest');
 
     let [savedGroup] = await Promise.all([

@@ -19,7 +19,7 @@
     "spellRoguePickPocketText": "Pickpocket",
     "spellRoguePickPocketNotes": "Vous volez une tâche proche et gagnez de l'or ! (Basé sur : Perception)",
     "spellRogueBackStabText": "Attaque sournoise",
-    "spellRogueBackStabNotes": "Vous trahissez une tâche ridicule et gagner de l'or et de l'expérience ! (Basé sur : Force)",
+    "spellRogueBackStabNotes": "Vous trahissez une tâche ridicule et gagnez de l'or et de l'expérience ! (Basé sur : Force)",
     "spellRogueToolsOfTradeText": "Outils de travail",
     "spellRogueToolsOfTradeNotes": "Votre ruse augmente la Perception de toute l'équipe ! (Basé sur : Perception sans bonus)",
     "spellRogueStealthText": "Furtivité",

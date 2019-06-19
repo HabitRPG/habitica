@@ -164,6 +164,7 @@ export async function invite (store, payload) {
   let response = await axios.post(`/api/v4/groups/${payload.groupId}/invite`, {
     uuids: payload.invitationDetails.uuids,
     emails: payload.invitationDetails.emails,
+    usernames: payload.invitationDetails.usernames,
   });
 
   // @TODO: find guild and add invites

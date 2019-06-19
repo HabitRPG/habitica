@@ -276,7 +276,7 @@ describe('POST /user/auth/local/register', () => {
       });
     });
 
-    it('enrolls new users in an A/B test', async () => {
+    xit('enrolls new users in an A/B test', async () => {
       let username = generateRandomUserName();
       let email = `${username}@example.com`;
       let password = 'password';

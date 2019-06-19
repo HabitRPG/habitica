@@ -40,6 +40,14 @@ describe('GET challenges/user', () => {
         _id: publicGuild.leader._id,
         id: publicGuild.leader._id,
         profile: {name: user.profile.name},
+        auth: {
+          local: {
+            username: user.auth.local.username,
+          },
+        },
+        flags: {
+          verifiedUsername: true,
+        },
       });
       expect(foundChallenge.group).to.eql({
         _id: publicGuild._id,
@@ -62,6 +70,14 @@ describe('GET challenges/user', () => {
         _id: publicGuild.leader._id,
         id: publicGuild.leader._id,
         profile: {name: user.profile.name},
+        auth: {
+          local: {
+            username: user.auth.local.username,
+          },
+        },
+        flags: {
+          verifiedUsername: true,
+        },
       });
       expect(foundChallenge1.group).to.eql({
         _id: publicGuild._id,
@@ -79,6 +95,14 @@ describe('GET challenges/user', () => {
         _id: publicGuild.leader._id,
         id: publicGuild.leader._id,
         profile: {name: user.profile.name},
+        auth: {
+          local: {
+            username: user.auth.local.username,
+          },
+        },
+        flags: {
+          verifiedUsername: true,
+        },
       });
       expect(foundChallenge2.group).to.eql({
         _id: publicGuild._id,
@@ -101,6 +125,14 @@ describe('GET challenges/user', () => {
         _id: publicGuild.leader._id,
         id: publicGuild.leader._id,
         profile: {name: user.profile.name},
+        auth: {
+          local: {
+            username: user.auth.local.username,
+          },
+        },
+        flags: {
+          verifiedUsername: true,
+        },
       });
       expect(foundChallenge1.group).to.eql({
         _id: publicGuild._id,
@@ -118,6 +150,14 @@ describe('GET challenges/user', () => {
         _id: publicGuild.leader._id,
         id: publicGuild.leader._id,
         profile: {name: user.profile.name},
+        auth: {
+          local: {
+            username: user.auth.local.username,
+          },
+        },
+        flags: {
+          verifiedUsername: true,
+        },
       });
       expect(foundChallenge2.group).to.eql({
         _id: publicGuild._id,
@@ -131,7 +171,7 @@ describe('GET challenges/user', () => {
       });
     });
 
-    it('should return not return challenges in user groups if we send member true param', async () => {
+    it('should not return challenges in user groups if we send member true param', async () => {
       let challenges = await member.get(`/challenges/user?member=${true}`);
 
       let foundChallenge1 = _.find(challenges, { _id: challenge._id });
@@ -170,6 +210,28 @@ describe('GET challenges/user', () => {
       await groupLeader.post(`/challenges/${privateChallenge._id}/join`);
 
       let challenges = await nonMember.get('/challenges/user');
+
+      let foundChallenge = _.find(challenges, { _id: privateChallenge._id });
+      expect(foundChallenge).to.not.exist;
+    });
+
+    it('should not return challenges user doesn\'t have access to, even with query parameters', async () => {
+      let { group, groupLeader } = await createAndPopulateGroup({
+        groupDetails: {
+          name: 'TestPrivateGuild',
+          summary: 'summary for TestPrivateGuild',
+          type: 'guild',
+          privacy: 'private',
+        },
+      });
+
+      let privateChallenge = await generateChallenge(groupLeader, group, {categories: [{
+        name: 'academics',
+        slug: 'academics',
+      }]});
+      await groupLeader.post(`/challenges/${privateChallenge._id}/join`);
+
+      let challenges = await nonMember.get('/challenges/user?categories=academics&owned=not_owned');
 
       let foundChallenge = _.find(challenges, { _id: privateChallenge._id });
       expect(foundChallenge).to.not.exist;

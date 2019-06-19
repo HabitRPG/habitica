@@ -52,6 +52,8 @@ module.exports = function equip (user, req = {}) {
           user.items.gear[type].toObject ? user.items.gear[type].toObject() : user.items.gear[type],
           {[item.type]: `${item.type}_base_0`}
         );
+        if (user.markModified && type === 'owned') user.markModified('items.gear.owned');
+
         message = i18n.t('messageUnEquipped', {
           itemText: item.text(req.language),
         }, req.language);
@@ -61,6 +63,8 @@ module.exports = function equip (user, req = {}) {
           user.items.gear[type].toObject ? user.items.gear[type].toObject() : user.items.gear[type],
           {[item.type]: item.key}
         );
+        if (user.markModified && type === 'owned') user.markModified('items.gear.owned');
+
         message = handleTwoHanded(user, item, type, req);
       }
       break;

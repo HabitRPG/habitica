@@ -25,7 +25,7 @@ describe('payments : paypal #subscribe', () => {
     let subscribeStub;
 
     beforeEach(async () => {
-      subscribeStub = sinon.stub(paypalPayments, 'subscribe').returnsPromise().resolves('/');
+      subscribeStub = sinon.stub(paypalPayments, 'subscribe').resolves('/');
     });
 
     afterEach(() => {

@@ -53,4 +53,15 @@ describe('POST /user/buy-gear/:key', () => {
         message: 'You need to purchase a lower level gear before this one.',
       });
   });
+
+  it('returns an error if tries to buy gear from a different class', async () => {
+    let key = 'armor_rogue_1';
+
+    return expect(user.post(`/user/buy-gear/${key}`))
+      .to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: 'You can\'t buy this item.',
+      });
+  });
 });

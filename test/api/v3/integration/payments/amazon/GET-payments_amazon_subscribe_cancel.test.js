@@ -23,7 +23,7 @@ describe('payments : amazon #subscribeCancel', () => {
 
   describe('success', () => {
     beforeEach(() => {
-      amazonSubscribeCancelStub = sinon.stub(amzLib, 'cancelSubscription').returnsPromise().resolves({});
+      amazonSubscribeCancelStub = sinon.stub(amzLib, 'cancelSubscription').resolves({});
     });
 
     afterEach(() => {

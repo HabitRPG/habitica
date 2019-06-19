@@ -41,7 +41,7 @@
     "messageAuthEmailTaken": "E-mailen er allerede i brug",
     "messageAuthNoUserFound": "Ingen bruger fundet.",
     "messageAuthMustBeLoggedIn": "Du skal være logget ind først.",
-    "messageAuthMustIncludeTokens": "Du skal inkludere en token og uid (bruger ID) i din anmodning",
+    "messageAuthMustIncludeTokens": "Du skal inkludere en token og uid (bruger-ID) i din anmodning",
     "messageGroupAlreadyInParty": "Allerede i en gruppe, prøv at opdatere.",
     "messageGroupOnlyLeaderCanUpdate": "Kun gruppelederen kan opdatere gruppen!",
     "messageGroupRequiresInvite": "Du kan ikke støde til en gruppe, du ikke er inviteret til.",
@@ -61,5 +61,6 @@
     "notificationsRequired": "Notafikation ID'er er krævet.",
     "unallocatedStatsPoints": "You have <span class=\"notification-bold-blue\"><%= points %> unallocated Stat Points</span>",
     "beginningOfConversation": "Dette er begyndelsen på din samtale med <%= userName %>. Husk at være venlig, respektfuld og at følge Retningslinjerne for Fællesskabet!",
-    "messageDeletedUser": "Sorry, this user has deleted their account."
+    "messageDeletedUser": "Sorry, this user has deleted their account.",
+    "messageMissingDisplayName": "Missing display name."
 }

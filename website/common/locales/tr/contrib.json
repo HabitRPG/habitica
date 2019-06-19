@@ -64,10 +64,10 @@
     "playerTiers": "Oyuncu Kademeleri",
     "tier": "Kademe",
     "visitHeroes": "Kahramanlar Salonu'nu ziyaret et (katılımcılar ve destekçiler)",
-    "conLearn": "<a href='http://tr.habitica.wikia.com/wiki/Katılımcı_Ödülleri' target='_blank'>Katılımcı ödülleri hakkında daha fazla bilgi al</a>",
+    "conLearn": "<a href='http://tr.habitica.fandom.com/wiki/Katılımcı_Ödülleri' target='_blank'>Katılımcı ödülleri hakkında daha fazla bilgi al</a>",
     "conLearnHow": "Habitica'ya nasıl katkıda bulunabileceğini öğren",
-    "conLearnURL": "http://tr.habitica.wikia.com/wiki/Habitica%27ya_Kat%C4%B1l%C4%B1m",
-    "conRewardsURL": "http://tr.habitica.wikia.com/wiki/Katılımcı_Ödülleri",
+    "conLearnURL": "http://tr.habitica.fandom.com/wiki/Habitica%27ya_Kat%C4%B1l%C4%B1m",
+    "conRewardsURL": "http://tr.habitica.fandom.com/wiki/Katılımcı_Ödülleri",
     "surveysSingle": "Bir anket doldurarak veya test çözmeye vakit ayırarak Habitica'nın büyümesine yardımcı oldun. Teşekkürler!",
     "surveysMultiple": "Bir anket doldurarak veya büyük bir geliştirme uygulamasına katkı göstererek <%= count %> adet etkinlikte Habitica'nın büyümesine yardımcı oldu. Teşekkürler!",
     "currentSurvey": "Aktif Anket",
@@ -76,5 +76,5 @@
     "blurbGuildsPage": "Loncalar, oyuncular tarafından ve oyuncular için oluşturulan ortak ilgi gruplarıdır. Listeye bir göz at ve ilgini çeken Loncalara katıl!",
     "blurbChallenges": "Mücadeleler, diğer oyuncular tarafından oluşturulur. Bir mücadeleye katıldığında ilgili görevler kendi iş listelerine de eklenir. Mücadelede galip gelerek başarı rozeti ve bazen Elmas ödülleri kazanabilirsin.",
     "blurbHallPatrons": "Burası Müdavimler Salonu. Burada, Habitica'nın orijinal Kickstarter kampanyasını desteklemiş olan soylu maceracıları anıyoruz. Habitica'yı hayata geçirmemizde yardımları için müteşekkiriz!",
-    "blurbHallContributors": "Burası Habitica'nın açık kaynak kodu katılımcılarını onurlandırdığı Katılımcılar Salonu. Katılımcılarımız kod, görsel, müzik, hikaye yazımı konularındaki katkılarıyla ya da yalnızca yardımseverlik sebebiyle <a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'>elmaslar, özel ekipmanlar</a> ve <a href='http://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>prestijli unvanlar</a> kazandılar. Sen de Habitica'ya katkıda bulunabilirsin!  <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'>Buradan daha fazlasını öğren. </a>"
+    "blurbHallContributors": "Burası Habitica'nın açık kaynak kodu katılımcılarını onurlandırdığı Katılımcılar Salonu. Katılımcılarımız kod, görsel, müzik, hikaye yazımı konularındaki katkılarıyla ya da yalnızca yardımseverlik sebebiyle <a href='http://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'>elmaslar, özel ekipmanlar</a> ve <a href='http://habitica.fandom.com/wiki/Contributor_Titles' target='_blank'>prestijli unvanlar</a> kazandılar. Sen de Habitica'ya katkıda bulunabilirsin!  <a href='http://habitica.fandom.com/wiki/Contributing_to_Habitica' target='_blank'>Buradan daha fazlasını öğren. </a>"
 }

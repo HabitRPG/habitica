@@ -34,6 +34,9 @@ export const EVENTS = {
   spring2018: { start: '2018-03-20', end: '2018-05-02' },
   summer2018: { start: '2018-06-19', end: '2018-08-02' },
   fall2018:   { start: '2018-09-20', end: '2018-11-02' },
+  winter2019: { start: '2018-12-19', end: '2019-02-02' },
+  spring2019: { start: '2019-03-19', end: '2019-05-02' },
+  summer2019: { start: '2019-06-18', end: '2019-07-02' },
 };
 
 export const SEASONAL_SETS = {
@@ -67,6 +70,12 @@ export const SEASONAL_SETS = {
     'winter2018GiftWrappedSet',
     'winter2018MistletoeSet',
     'winter2018ReindeerSet',
+
+    // winter 2019
+    'winter2019PoinsettiaSet',
+    'winter2019WinterStarSet',
+    'winter2019BlizzardSet',
+    'winter2019PyrotechnicSet',
   ],
   spring: [
     // spring 2014
@@ -98,6 +107,12 @@ export const SEASONAL_SETS = {
     'spring2018SunriseWarriorSet',
     'spring2018DucklingRogueSet',
     'spring2018GarnetHealerSet',
+
+    // spring 2019
+    'spring2019AmberMageSet',
+    'spring2019OrchidWarriorSet',
+    'spring2019CloudRogueSet',
+    'spring2019RobinHealerSet',
   ],
   summer: [
     // summer 2014
@@ -129,6 +144,12 @@ export const SEASONAL_SETS = {
     'summer2018LionfishMageSet',
     'summer2018MerfolkMonarchSet',
     'summer2018FisherRogueSet',
+
+    // summer 2019
+    'summer2019SeaTurtleWarriorSet',
+    'summer2019WaterLilyMageSet',
+    'summer2019ConchHealerSet',
+    'summer2019HammerheadRogueSet',
   ],
   fall: [
     // fall 2014
@@ -195,5 +216,54 @@ export const ITEM_LIST = {
 export const USER_CAN_OWN_QUEST_CATEGORIES = [
   'unlockable',
   'gold',
+  'hatchingPotion',
   'pet',
+];
+
+export const QUEST_SERIES_ACHIEVEMENTS = {
+  lostMasterclasser: [
+    'dilatoryDistress1',
+    'dilatoryDistress2',
+    'dilatoryDistress3',
+    'mayhemMistiflying1',
+    'mayhemMistiflying2',
+    'mayhemMistiflying3',
+    'stoikalmCalamity1',
+    'stoikalmCalamity2',
+    'stoikalmCalamity3',
+    'taskwoodsTerror1',
+    'taskwoodsTerror2',
+    'taskwoodsTerror3',
+    'lostMasterclasser1',
+    'lostMasterclasser2',
+    'lostMasterclasser3',
+    'lostMasterclasser4',
+  ],
+  mindOverMatter: [
+    'rock',
+    'slime',
+    'yarn',
+  ],
+  justAddWater: [
+    'octopus',
+    'dilatory_derby',
+    'kraken',
+    'whale',
+    'turtle',
+    'nudibranch',
+    'seaserpent',
+    'dolphin',
+  ],
+};
+
+export const BASE_PETS_MOUNTS = [
+  'Wolf-Base',
+  'TigerCub-Base',
+  'PandaCub-Base',
+  'LionCub-Base',
+  'Fox-Base',
+  'FlyingPig-Base',
+  'Dragon-Base',
+  'Cactus-Base',
+  'BearCub-Base',
 ];

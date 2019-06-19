@@ -12,7 +12,7 @@
       .col-12.col-md-4.offset-md-4
         .d-flex
           input.form-control.input-search(type="text", :placeholder="$t('search')", v-model="searchText")
-          button.btn.btn-secondary.dropdown-toggle.ml-2.d-flex.align-items-center(
+          button.btn.btn-secondary.dropdown-toggle.ml-2.d-flex.align-items-center.search-button(
             type="button",
             @click="toggleFilterPanel()",
             :class="{active: selectedTags.length > 0}",
@@ -30,15 +30,29 @@
               a.d-block(v-if="tagsType.key !== 'groups' && !editingTags", @click="editTags(tagsType.key)") {{ $t('editTags2') }}
             .tags-list.container
               .row(:class="{'no-gutters': !editingTags}")
-                template(v-if="editingTags && tagsType.key !== 'groups'")
-                  .col-6(v-for="(tag, tagIndex) in tagsSnap[tagsType.key]")
-                    .inline-edit-input-group.tag-edit-item.input-group
-                      input.tag-edit-input.inline-edit-input.form-control(type="text", v-model="tag.name")
-                      .input-group-append(@click="removeTag(tagIndex, tagsType.key)")
-                        .svg-icon.destroy-icon(v-html="icons.destroy")
-                  .col-6(v-if="tagsType.key === 'tags'")
-                    input.new-tag-item.edit-tag-item.inline-edit-input.form-control(type="text", :placeholder="$t('newTag')", @keydown.enter="addTag($event, tagsType.key)", v-model="newTag")
-                template(v-else)
+                template(v-if="editingTags && tagsType.key === 'tags'")
+                  draggable(
+                    v-if="tagsType.key === 'tags'",
+                    v-model="tagsSnap[tagsType.key]",
+                    class="row"
+                  )
+                    .col-6(v-for="(tag, tagIndex) in tagsSnap[tagsType.key]")
+                      .inline-edit-input-group.tag-edit-item.input-group
+                        .svg-icon.inline.drag(v-html="icons.drag")
+                        input.tag-edit-input.inline-edit-input.form-control(type="text", v-model="tag.name")
+                        .input-group-append(@click="removeTag(tagIndex, tagsType.key)")
+                          .svg-icon.destroy-icon(v-html="icons.destroy")
+
+                    .col-6.dragSpace
+                      input.new-tag-item.edit-tag-item.inline-edit-input.form-control(type="text", :placeholder="$t('newTag')", @keydown.enter="addTag($event, tagsType.key)", v-model="newTag")
+                template(v-if="editingTags && tagsType.key === 'challenges'")
+                    .col-6(v-for="(tag, tagIndex) in tagsSnap[tagsType.key]")
+                      .inline-edit-input-group.tag-edit-item.input-group
+                        input.tag-edit-input.inline-edit-input.form-control(type="text", v-model="tag.name")
+                        .input-group-append(@click="removeTag(tagIndex, tagsType.key)")
+                          .svg-icon.destroy-icon(v-html="icons.destroy")
+
+                template(v-if="!editingTags || tagsType.key === 'groups'")
                   .col-6(v-for="(tag, tagIndex) in tagsType.tags")
                     .custom-control.custom-checkbox
                       input.custom-control-input(
@@ -91,94 +105,18 @@
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/create-task.scss';
 
   .user-tasks-page {
     padding-top: 16px;
   }
 
+  .input-search, .search-button {
+    height: 40px;
+  }
+
   .tasks-navigation {
     margin-bottom: 20px;
-  }
-
-  .create-task-area {
-    position: absolute;
-    right: 24px;
-    top: -40px;
-    z-index: 999;
-    height: 60px;
-  }
-
-  .slide-tasks-btns-leave-active, .slide-tasks-btns-enter-active {
-    max-width: 240px;
-    overflow-x: hidden;
-    transition: all 0.3s cubic-bezier(0, 1, 0.5, 1);
-  }
-  .slide-tasks-btns-enter, .slide-tasks-btns-leave-to {
-    max-width: 0;
-    opacity: 0;
-  }
-
-  .rounded-btn {
-    margin-left: 8px;
-    background: $white;
-    width: 48px;
-    height: 48px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 100px;
-    box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
-    cursor: pointer;
-    color: $gray-200;
-
-    &:hover:not(.create-btn) {
-      color: $purple-400;
-      box-shadow: 0 1px 8px 0 rgba($black, 0.12), 0 4px 4px 0 rgba($black, 0.16);
-    }
-
-    .svg-icon {
-      width: 20px;
-      height: 20px;
-
-      &.icon-habit {
-        width: 24px;
-        height: 16px;
-      }
-
-      &.icon-daily {
-        width: 21.6px;
-        height: 18px;
-      }
-
-      &.icon-todo {
-        width: 18px;
-        height: 18px;
-      }
-
-      &.icon-reward {
-        width: 23.4px;
-        height: 18px;
-      }
-    }
-  }
-
-  .create-btn {
-    color: $white;
-    background-color: $green-10;
-
-    .svg-icon {
-      width: 16px;
-      height: 16px;
-      transition: transform 0.3s cubic-bezier(0, 1, 0.5, 1);
-    }
-
-    &.open {
-      background: $gray-200 !important;
-
-      .svg-icon {
-        transform: rotate(-45deg);
-      }
-    }
   }
 
   .filter-icon {
@@ -263,6 +201,7 @@
 
     .custom-control-label {
       margin-left: 10px;
+      word-break: break-word;
     }
 
     .filter-panel-footer {
@@ -289,6 +228,27 @@
     }
   }
 
+  .create-task-area {
+    top: -2.5rem;
+  }
+
+  .drag {
+    cursor: grab;
+    margin: auto 0;
+    height: 20px;
+    width: 20px;
+
+    color: #C3C0C7;
+
+    &:hover {
+      color: #878190;
+    }
+  }
+
+  .dragSpace {
+    padding-left: 32px;
+  }
+
   @media only screen and (max-width: 768px) {
     .filter-panel {
       max-width: none;
@@ -310,6 +270,7 @@ import habitIcon from 'assets/svg/habit.svg';
 import dailyIcon from 'assets/svg/daily.svg';
 import todoIcon from 'assets/svg/todo.svg';
 import rewardIcon from 'assets/svg/reward.svg';
+import dragIcon from 'assets/svg/drag_indicator.svg';
 
 import uuid from 'uuid';
 import Vue from 'vue';
@@ -320,6 +281,7 @@ import taskDefaults from 'common/script/libs/taskDefaults';
 import brokenTaskModal from './brokenTaskModal';
 
 import Item from 'client/components/inventory/item.vue';
+import draggable from 'vuedraggable';
 
 export default {
   components: {
@@ -328,6 +290,7 @@ export default {
     Item,
     spells,
     brokenTaskModal,
+    draggable,
   },
   directives: {
     markdown,
@@ -347,6 +310,7 @@ export default {
         daily: dailyIcon,
         todo: todoIcon,
         reward: rewardIcon,
+        drag: dragIcon,
       }),
       selectedTags: [],
       temporarilySelectedTags: [],
@@ -445,7 +409,7 @@ export default {
     },
     createTask (type) {
       this.openCreateBtn = false;
-      this.creatingTask = taskDefaults({type, text: ''});
+      this.creatingTask = taskDefaults({type, text: ''}, this.user);
       this.creatingTask.tags = this.selectedTags;
 
       // Necessary otherwise the first time the modal is not rendered

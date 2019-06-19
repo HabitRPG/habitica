@@ -24,23 +24,23 @@
 </style>
 
 <script>
-import achievementFooter from './achievementFooter';
-import achievementAvatar from './achievementAvatar';
+  import achievementFooter from './achievementFooter';
+  import achievementAvatar from './achievementAvatar';
 
-import { mapState } from 'client/libs/store';
+  import {mapState} from 'client/libs/store';
 
-export default {
-  components: {
-    achievementFooter,
-    achievementAvatar,
-  },
-  computed: {
-    ...mapState({user: 'user.data'}),
-  },
-  methods: {
-    close () {
-      this.$root.$emit('bv::hide::modal', 'rebirth');
+  export default {
+    components: {
+      achievementFooter,
+      achievementAvatar,
     },
-  },
-};
+    computed: {
+      ...mapState({user: 'user.data'}),
+    },
+    methods: {
+      close () {
+        this.$root.$emit('bv::hide::modal', 'rebirth');
+      },
+    },
+  };
 </script>

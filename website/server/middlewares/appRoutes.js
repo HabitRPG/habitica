@@ -34,7 +34,6 @@ app.use('/api/v3', v3Router);
 // A list of v3 routes in the format METHOD-URL to skip
 const v4RouterOverrides = [
   // 'GET-/status', Example to override the GET /status api call
-  'PUT-/user/auth/update-username',
   'POST-/user/auth/local/register',
   'GET-/news',
   'GET-/user',

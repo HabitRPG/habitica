@@ -21,7 +21,7 @@ layout-section(:title="$t('equipment')")
       span(slot="item", slot-scope="ctx")
         span.text {{ $t(ctx.item.id) }}
 
-  itemRows(
+  itemRows.equipment-rows(
     :items="sortedGearItems",
     :itemWidth=94,
     :itemMargin=24,
@@ -62,7 +62,7 @@ layout-section(:title="$t('equipment')")
   import svgHealer from 'assets/svg/healer.svg';
 
   import _filter from 'lodash/filter';
-  import _sortBy from 'lodash/sortBy';
+  import _orderBy from 'lodash/orderBy';
   import pinUtils from '../../../mixins/pinUtils';
 
   const sortGearTypes = ['sortByType', 'sortByPrice', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'].map(g => ({id: g}));
@@ -71,6 +71,7 @@ layout-section(:title="$t('equipment')")
     sortByType: 'type',
     sortByPrice: 'value',
     sortByCon: 'con',
+    sortByPer: 'per',
     sortByStr: 'str',
     sortByInt: 'int',
   };
@@ -116,9 +117,33 @@ layout-section(:title="$t('equipment')")
         return this.marketGearCategories.filter(c => c.id === this.selectedGroupGearByClass)[0];
       },
       sortedGearItems () {
-        let category = _filter(this.marketGearCategories, ['identifier', this.selectedGroupGearByClass]);
+        let result = this.filterGearItems();
+        let selectedSortKey = sortGearTypeMap[this.selectedSortGearBy.id];
+        let sortingByStat = selectedSortKey !== 'type' && selectedSortKey !== 'value';
+        let order = sortingByStat ? 'desc' : 'asc';
 
-        let result = _filter(category[0].items, (gear) => {
+        // split into unlocked and locked, then apply selected sort
+        return _orderBy(result, ['locked', selectedSortKey], ['asc', order]);
+      },
+    },
+    methods: {
+      getClassName (classType) {
+        if (classType === 'wizard') {
+          return this.$t('mage');
+        } else {
+          return this.$t(classType);
+        }
+      },
+      gearSelected (item) {
+        if (!item.locked) {
+          this.$root.$emit('buyModal::showItem', item);
+        }
+      },
+      filterGearItems () {
+        let category = _filter(this.marketGearCategories, ['identifier', this.selectedGroupGearByClass]);
+        let items = category[0].items;
+
+        return _filter(items, (gear) => {
           if (this.hideLocked && gear.locked) {
             return false;
           }
@@ -136,26 +161,6 @@ layout-section(:title="$t('equipment')")
           // hide already owned
           return !this.userItems.gear.owned[gear.key];
         });
-
-        // first all unlocked
-        // then the selected sort
-        result = _sortBy(result, [(item) => item.locked, sortGearTypeMap[this.selectedSortGearBy.id]]);
-
-        return result;
-      },
-    },
-    methods: {
-      getClassName (classType) {
-        if (classType === 'wizard') {
-          return this.$t('mage');
-        } else {
-          return this.$t(classType);
-        }
-      },
-      gearSelected (item) {
-        if (!item.locked) {
-          this.$root.$emit('buyModal::showItem', item);
-        }
       },
     },
     created () {
@@ -164,6 +169,10 @@ layout-section(:title="$t('equipment')")
   };
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+  .equipment-rows {
+    /deep/ .item.item-empty {
+      background: white;
+    }
+  }
 </style>

@@ -26,6 +26,14 @@ function usernameContainsInvalidCharacters (username) {
   return match !== null && match[0] !== null;
 }
 
+export function verifyDisplayName (displayName, res) {
+  let issues = [];
+  if (displayName.length < 1 || displayName.length > 30) issues.push(res.t('displaynameIssueLength'));
+  if (nameContainsSlur(displayName)) issues.push(res.t('displaynameIssueSlur'));
+
+  return issues;
+}
+
 export function verifyUsername (username, res) {
   let issues = [];
   if (username.length < 1 || username.length > 20) issues.push(res.t('usernameIssueLength'));

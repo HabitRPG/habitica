@@ -75,6 +75,8 @@ module.exports = function updateStats (user, stats, req = {}, analytics) {
     } else {
       user.items.eggs.Wolf = 1;
     }
+
+    if (user.markModified) user.markModified('items.eggs');
   }
   each({
     vice1: 30,
@@ -84,10 +86,12 @@ module.exports = function updateStats (user, stats, req = {}, analytics) {
   }, (lvl, k) => {
     if (user.stats.lvl >= lvl && !user.flags.levelDrops[k]) {
       user.flags.levelDrops[k] = true;
-      if (!user.items.quests[k])
-        user.items.quests[k] = 0;
-      user.items.quests[k]++;
       if (user.markModified) user.markModified('flags.levelDrops');
+
+      if (!user.items.quests[k]) user.items.quests[k] = 0;
+      user.items.quests[k]++;
+      if (user.markModified) user.markModified('items.quests');
+
       if (analytics) {
         analytics.track('acquire item', {
           uuid: user._id,

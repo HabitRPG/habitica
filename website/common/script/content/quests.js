@@ -257,7 +257,7 @@ let quests = {
   },
   evilsanta: {
     canBuy () {
-      return false;
+      return true;
     },
     text: t('questEvilSantaText'),
     notes: t('questEvilSantaNotes'),
@@ -283,7 +283,7 @@ let quests = {
   },
   evilsanta2: {
     canBuy () {
-      return false;
+      return true;
     },
     text: t('questEvilSanta2Text'),
     notes: t('questEvilSanta2Notes'),
@@ -3287,6 +3287,134 @@ let quests = {
       gp: 49,
       exp: 425,
       unlock: t('questKangarooUnlockText'),
+    },
+  },
+  alligator: {
+    text: t('questAlligatorText'),
+    notes: t('questAlligatorNotes'),
+    completion: t('questAlligatorCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questAlligatorBoss'),
+      hp: 1100,
+      str: 2.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Alligator',
+          text: t('questAlligatorDropAlligatorEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Alligator',
+          text: t('questAlligatorDropAlligatorEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Alligator',
+          text: t('questAlligatorDropAlligatorEgg'),
+        },
+      ],
+      gp: 73,
+      exp: 725,
+      unlock: t('questAlligatorUnlockText'),
+    },
+  },
+  velociraptor: {
+    text: t('questVelociraptorText'),
+    notes: t('questVelociraptorNotes'),
+    completion: t('questVelociraptorCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questVelociraptorBoss'),
+      hp: 900,
+      str: 2,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Velociraptor',
+          text: t('questVelociraptorDropVelociraptorEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Velociraptor',
+          text: t('questVelociraptorDropVelociraptorEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Velociraptor',
+          text: t('questVelociraptorDropVelociraptorEgg'),
+        },
+      ],
+      gp: 63,
+      exp: 575,
+      unlock: t('questVelociraptorUnlockText'),
+    },
+  },
+  bronze: {
+    text: t('questBronzeText'),
+    notes: t('questBronzeNotes'),
+    completion: t('questBronzeCompletion'),
+    value: 4,
+    category: 'hatchingPotion',
+    boss: {
+      name: t('questBronzeBoss'),
+      hp: 800,
+      str: 2,
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Bronze',
+          text: t('questBronzeDropBronzePotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Bronze',
+          text: t('questBronzeDropBronzePotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Bronze',
+          text: t('questBronzeDropBronzePotion'),
+        },
+      ],
+      gp: 63,
+      exp: 575,
+      unlock: t('questBronzeUnlockText'),
+    },
+  },
+  dolphin: {
+    text: t('questDolphinText'),
+    notes: t('questDolphinNotes'),
+    completion: t('questDolphinCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questDolphinBoss'),
+      hp: 300,
+      str: 1.25,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Dolphin',
+          text: t('questDolphinDropDolphinEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Dolphin',
+          text: t('questDolphinDropDolphinEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Dolphin',
+          text: t('questDolphinDropDolphinEgg'),
+        },
+      ],
+      gp: 22,
+      exp: 110,
+      unlock: t('questDolphinUnlockText'),
     },
   },
 };

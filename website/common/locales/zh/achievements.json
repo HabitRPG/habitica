@@ -1,9 +1,9 @@
 {
-  "achievement": "成就",
-  "share": "分享",
-  "onwards": "继续！",
-  "levelup": "在完成你的任务后，你将升级并且恢复满你的生命值！",
-  "reachedLevel": "你达到第<%= level %>级",
-  "achievementLostMasterclasser": "完成任务的专家：大师鉴别者系列",
-  "achievementLostMasterclasserText": "完成大师鉴别者系列任务的全部6个任务，解开失传的大师鉴别者的神秘面纱！"
+    "achievement": "成就",
+    "share": "分享",
+    "onwards": "继续！",
+    "levelup": "完成现实生活中的目标之后，你升级了，而且回满了血！",
+    "reachedLevel": "你升到了第<%= level %>级",
+    "achievementLostMasterclasser": "副本征服者：大师鉴别者 任务线",
+    "achievementLostMasterclasserText": "完成“大师鉴别者”任务线的全部16个任务，解开失传的大师鉴别者的神秘面纱！"
 }
