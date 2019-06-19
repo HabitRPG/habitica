@@ -34,7 +34,7 @@ const featuredItems = {
       path: 'quests.dolphin',
     },
   ],
-  seasonal: 'spring2018Healer',
+  seasonal: 'summer2019Mage',
   timeTravelers: [
     // TODO
   ],

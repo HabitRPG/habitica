@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'NEW PET QUEST, NEW ACHIEVEMENTS, AND THE RETURN OF THE ODDBALLS BUNDLE';
+const LAST_ANNOUNCEMENT_TITLE = 'SUMMER SPLASH BEGINS! CLASS OUTFITS, SEASONAL SHOP, ORCAS, AND NPC DECORATIONS';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,22 +30,27 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>6/11/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>6/18/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_dolphin_quest center-block"></div>
-        <h3>New Pet Quest: Dolphin! And New Pet Collection and Pet Quest Achievement Badges</h3>
-        <p>Feeling doubtful about your ability to tackle your tasks? Could be you have dolphin doldrums! Get the latest pet quest, <a href='/shops/quests'>The Dolphin of Doubt</a>, and earn some chipper dolphin pets by completing your real-life tasks.</p>
-        <p>An important announcement regarding quests: We’ll be adding new types of quests with exciting rewards like Magic Hatching Potions! We’ll also continue releasing Pet Quest Bundles so you can work on completing your collection. However, "The Dolphin of Doubt" is the final pet quest we'll be releasing in the Quest Shop for the forseeable future.</p>
-        <p>We're also releasing new achievements so you can celebrate your successes in the world of Habitican pet collecting! Now you can earn badges for your profile when you complete certain categories of pet quests and for collecting pets and mounts in the classic pet colors. We're kicking off with: Cover Your Bases and All Your Base for collecting all the classic Base pets and mounts, Just Add Water for completing quests for aquatic pets (including the new Dolphins!), and Mind over Matter for completing all pet quests for (normally) inanimate objects.</p>
-        <p>If you’ve already completed the required Quests for a newly released achievement, you don’t have to do them all again! Just complete any one of the relevant Quests and the Achievement will unlock.</p>
-        <div class="small mb-3">by Shogirlgeek, mewrose, Aries Faries, khdarkwolf, confusedcicada, Lady Tabletop, OuttaMyMind, and the Habitica Team</div>
-        <div class="promo_oddballs_bundle center-block"></div>
-        <h3>Discounted Pet Quest Bundle: Oddballs!</h3>
-        <p>In celebration of our new pet quest achievements, the Oddballs Pet Quest Bundle is back! From now until June 30, you can purchase it and receive the Rock, Marshmallow Slime, and Yarn quests, all for only 7 Gems! That's a discount of 5 Gems from the price of purchasing them separately. Check it out in the <a href='/shops/quests'>Quest Shop</a> today!</p>
-        <div class="small">Art by PainterProphet, Pfeffernusse, Zorelya, intune, starsystemic, Leephon, Arcosine, stefalupagus, Hachiseiko, TheMushroomKing, khdarkwolf, Vampitch, JinjooHat, UncommonCriminal, Oranges, Darkly, overomega, celticdragon, and Shaner</div>
-        <div class="small mb-3">Writing by Bartelmy, Faelwyn the Rising Phoenix, Theothermeme, Bethany Woll, itokro, and Lemoness</div>
+        <p>To escape the summer heat in Habit City, everyone's moved down to the undersea city of Dilatory. The Summer Splash event has begun!</p>
+        <div class="promo_summer_splash_2019 center-block"></div>
+        <h3>Summer Class Outfits</h3>
+        <p>From now until July 31st, limited edition outfits are available in the Rewards column. Depending on your class, you can be a Sea Turtle Warrior, Hammerhead Rogue, Conch Healer, or Water Lily Mage! You'd better get productive to earn enough gold before they disappear. Good luck!</p>
+        <div class="small mb-3">by AnnDeLune, gawrone, Vikte, and SabreCat</div>
+        <div class="promo_seasonal_shop center-block"></div>
+        <h3>Seasonal Shop is Open!</h3>
+        <p>The <a href='/shops/seasonal'>Seasonal Shop</a> has opened! The Seasonal Sorceress is stocking the seasonal edition versions of previous summer outfits, now available for Gems instead of Gold. Plus, there will be more fun things in the shop as the event progresses. The Seasonal Shop will only be open until July 31st, so don't wait!</p>
+        <div class="small mb-3">by SabreCat, Lemoness, Giu09, JaizakAripaik, Teto Forever, Kai, AnnDeLune, Vampitch, TheDudeAbides, Lalaitha, nonight, tricksy.fox, and Beffymaroo</div>
+        <div class="promo_orcas center-block"></div>
+        <h3>Orcas for Everyone!</h3>
+        <p>Dolphins aren't the only animals riding the waves around the city of Dilatory: it looks like some friendly Orcas are swimming into Habiticans' stables! In honor of the Summer Splash event, everyone who didn't already have an Orca gets either the mount or the pet. Enjoy!</p>
+        <div class="small mb-3">by Beffymaroo and UncommonCriminal</div>
+        <div class="npc_matt center-block"></div>
+        <h3>NPC Costumes</h3>
+        <p>Looks like the NPCs are really getting in to the cheery summer mood around the site. Who wouldn't? After all, there's plenty more celebration to come...</p>
+        <div class="small mb-3">by Lemoness</div>
       </div>
       `,
     });

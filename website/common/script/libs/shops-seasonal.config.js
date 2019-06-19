@@ -1,16 +1,21 @@
-// import { SEASONAL_SETS } from '../content/constants';
+import { SEASONAL_SETS } from '../content/constants';
 
 module.exports = {
-  opened: false,
+  opened: true,
 
-  currentSeason: 'Closed',
+  currentSeason: 'Summer',
 
-  dateRange: { start: '2018-09-20', end: '2018-10-31' },
+  dateRange: { start: '2019-06-18', end: '2019-07-30' },
 
   availableSets: [
+    ...SEASONAL_SETS.summer,
   ],
 
   pinnedSets: {
+    wizard: 'summer2019WaterLilyMageSet',
+    warrior: 'summer2019SeaTurtleWarriorSet',
+    rogue: 'summer2019HammerheadRogueSet',
+    healer: 'summer2019ConchHealerSet',
   },
 
   availableSpells: [
@@ -19,5 +24,5 @@ module.exports = {
   availableQuests: [
   ],
 
-  featuredSet: 'mummyMedicSet',
+  featuredSet: 'summer2018BettaFishWarriorSet',
 };

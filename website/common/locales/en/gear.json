@@ -321,6 +321,15 @@
   "weaponSpecialSpring2019HealerText": "Spring Song",
   "weaponSpecialSpring2019HealerNotes": "Your song of flowers and rain will soothe the spirits of all who hear. Increases Intelligence by <%= int %>. Limited Edition 2019 Spring Gear.",
 
+  "weaponSpecialSummer2019RogueText": "Antiquated Anchor",
+  "weaponSpecialSummer2019RogueNotes": "This ancient and formidable weapon will help you win any undersea battle. Increases Strength by <%= str %>. Limited Edition 2019 Summer Gear.",
+  "weaponSpecialSummer2019WarriorText": "Red Coral",
+  "weaponSpecialSummer2019WarriorNotes": "Now you're fighting with fractals! Increases Strength by <%= str %>. Limited Edition 2019 Summer Gear.",
+  "weaponSpecialSummer2019MageText": "Brilliant Bloom",
+  "weaponSpecialSummer2019MageNotes": "Fruit of your labors, first picked from the pool, this little treasure empowers and inspires. Increases Intelligence by <%= int %>. Limited Edition 2019 Summer Gear.",
+  "weaponSpecialSummer2019HealerText": "Bubble Wand",
+  "weaponSpecialSummer2019HealerNotes": "The bubbles from this wand capture healing energy and ancient oceanic magic. Increases Intelligence by <%= int %>. Limited Edition 2019 Summer Gear.",
+
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
   "weaponMystery201502Text": "Shimmery Winged Staff of Love and Also Truth",
@@ -717,6 +726,15 @@
   "armorSpecialWinter2019MageNotes": "This fireproof garb will help protect you if any of your flashes of brilliance should happen to backfire! Increases Intelligence by <%= int %>. Limited Edition 2018-2019 Winter Gear.",
   "armorSpecialWinter2019HealerText": "Midnight Robe",
   "armorSpecialWinter2019HealerNotes": "Without darkness, there wouldn't be any light. These dark robes help bring peace and rest to promote healing. Increases Constitution by <%= con %>. Limited Edition 2018-2019 Winter Gear.",
+
+  "armorSpecialSummer2019RogueText": "Hammerhead Tail",
+  "armorSpecialSummer2019RogueNotes": "This sinuous tail is perfect for making tight turns during daring aquatic escapes. Increases Perception by <%= per %>. Limited Edition 2019 Summer Gear.",
+  "armorSpecialSummer2019WarriorText": "Carapace Armor",
+  "armorSpecialSummer2019WarriorNotes": "Warriors are known for their sturdy defenses. Turtles are known for their thick shells. It's a perfect match! Just... try not to fall over backward, ever. Increases Constitution by <%= con %>. Limited Edition 2019 Summer Gear.",
+  "armorSpecialSummer2019MageText": "Floral Frock",
+  "armorSpecialSummer2019MageNotes": "The lilies will know you as one of their own, and will not fear your approach. Increases Intelligence by <%= int %>. Limited Edition 2019 Summer Gear.",
+  "armorSpecialSummer2019HealerText": "Tropical Tides Tail",
+  "armorSpecialSummer2019HealerNotes": "Glide sleekly through warm coastal waters with this elegant tail. Increases Constitution by <%= con %>. Limited Edition 2019 Summer Gear.",
 
   "armorSpecialSpring2019RogueText": "Cloud Armor",
   "armorSpecialSpring2019RogueNotes": "Some very tuff fluff. Increases Perception by <%= per %>. Limited Edition 2019 Spring Gear.",
@@ -1222,6 +1240,15 @@
   "headSpecialSpring2019HealerText": "Robin Helm",
   "headSpecialSpring2019HealerNotes": "Be ready for the first day of spring with this cute beaky helm. Increases Intelligence by <%= int %>. Limited Edition 2019 Spring Gear.",
 
+  "headSpecialSummer2019RogueText": "Hammerhead Helm",
+  "headSpecialSummer2019RogueNotes": "This helm gives you a 360 degree view of surrounding waters, which is perfect for sneaking up on unsuspecting red Dailies. Increases Perception by <%= per %>. Limited Edition 2019 Summer Gear.",
+  "headSpecialSummer2019WarriorText": "Turtle Helm",
+  "headSpecialSummer2019WarriorNotes": "It won't let you pull your head down between your shoulders, but it will protect you if you bonk the bottom of a boat. Increases Strength by <%= str %>. Limited Edition 2019 Summer Gear.",
+  "headSpecialSummer2019MageText": "Lily Pad Hat",
+  "headSpecialSummer2019MageNotes": "Contrary to popular belief, your head is not an appropriate place for frogs to perch. Increases Perception by <%= per %>. Limited Edition 2019 Summer Gear.",
+  "headSpecialSummer2019HealerText": "Conch Crown",
+  "headSpecialSummer2019HealerNotes": "The spiraling structure of this shell will help you hear any cry for help across the seven seas. Increases Intelligence by <%= int %>. Limited Edition 2019 Summer Gear.",
+
   "headSpecialGaymerxText": "Rainbow Warrior Helm",
   "headSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special helmet is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
 
@@ -1625,6 +1652,13 @@
   "shieldSpecialSpring2019WarriorNotes": "Let the power of chlorophyll keep your enemies at bay! Increases Constitution by <%= con %>. Limited Edition 2019 Spring Gear.",
   "shieldSpecialSpring2019HealerText": "Eggshell Shield",
   "shieldSpecialSpring2019HealerNotes": "This bright shield is actually made of candy-coated chocolate. Increases Constitution by <%= con %>. Limited Edition 2019 Spring Gear.",
+
+  "shieldSpecialSummer2019WarriorText": "Half-Shell Shield",
+  "shieldSpecialSummer2019WarriorNotes": "Turtle up behind this hefty round shield, etched in the pattern of your favorite reptile's back. Increases Constitution by <%= con %>. Limited Edition 2019 Summer Gear.",
+  "shieldSpecialSummer2019HealerText": "Conch Trumpet",
+  "shieldSpecialSummer2019HealerNotes": "Let those who need help know you're coming with the loud blast of this shell trumpet. Limited Edition 2019 Summer Gear. Increases Constitution by 9. ",
+  "shieldSpecialSummer2019MageText": "Drops of Pure Water",
+  "shieldSpecialSummer2019MageNotes": "Sweating in the summer sun? No! Performing a simple elemental conjuration to fill the lily pond. Increases Perception by <%= per %>. Limited Edition 2019 Summer Gear.",
 
   "shieldMystery201601Text": "Resolution Slayer",
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",
