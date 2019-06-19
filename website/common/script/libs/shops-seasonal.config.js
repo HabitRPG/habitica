@@ -5,7 +5,7 @@ module.exports = {
 
   currentSeason: 'Summer',
 
-  dateRange: { start: '2019-06-18', end: '2019-07-30' },
+  dateRange: { start: '2019-06-18', end: '2019-07-31' },
 
   availableSets: [
     ...SEASONAL_SETS.summer,
