@@ -42,7 +42,7 @@
     "domain-middleware": "~0.1.0",
     "express": "^4.16.3",
     "express-basic-auth": "^1.1.5",
-    "express-validator": "^5.2.0",
+    "express-validator": "^6.0.0",
     "extract-text-webpack-plugin": "^3.0.2",
     "glob": "^7.1.2",
     "got": "^9.0.0",
