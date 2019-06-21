@@ -108,7 +108,7 @@
     "backgroundSunsetSavannahText": "Ocaso en la sabana",
     "backgroundSunsetSavannahNotes": "Acecha a tus presas al atardecer en la sabana.",
     "backgroundTwinklyPartyLightsText": "Luces parpadeantes de fiesta",
-    "backgroundTwinklyPartyLightsNotes": "Baila bajo las luces parpadeantes de esta fiesta.",
+    "backgroundTwinklyPartyLightsNotes": "¡Baila bajo las luces festivas centelleantes!",
     "backgrounds092015": "16.ª serie: septiembre del 2015",
     "backgroundMarketText": "Mercado de Habitica",
     "backgroundMarketNotes": "Compra en el mercado de Habitica.",
@@ -206,7 +206,7 @@
     "backgroundStrangeSewersText": "Alcantarillas Extrañas",
     "backgroundStrangeSewersNotes": "Deslízate por las Alcantarillas Extrañas.",
     "backgroundRainyCityText": "Ciudad Lluviosa",
-    "backgroundRainyCityNotes": "Salpica en una Ciudad Lluviosa",
+    "backgroundRainyCityNotes": "Chapotea a través de una Ciudad Lluviosa.",
     "backgrounds112016": "Conjunto 30: Publicado en Noviembre 2016",
     "backgroundMidnightCloudsText": "Media noche nublada",
     "backgroundMidnightCloudsNotes": "Vuela a través de la Media noche nublada.",
@@ -216,7 +216,7 @@
     "backgroundWindyAutumnNotes": "Caza las hojas durante el Otoño Ventoso.",
     "incentiveBackgrounds": "Conjunto de fondos lisos",
     "backgroundVioletText": "violeta",
-    "backgroundVioletNotes": "Un fondo color violeta fuerte",
+    "backgroundVioletNotes": "Un vibrante fondo violeta.",
     "backgroundBlueText": "Azul",
     "backgroundBlueNotes": "Un fondo básico azul.",
     "backgroundGreenText": "Verde",
@@ -422,5 +422,7 @@
     "backgroundFieldWithColoredEggsText": "Campo con Huevos de Colores",
     "backgroundFieldWithColoredEggsNotes": "Caza un tesoro primaveral en un Campo con Huevos de Colores.",
     "backgroundFlowerMarketText": "Mercado de Flores",
-    "backgroundFlowerMarketNotes": "Encuentra los colores ideales para tu ramo o jardín en el Mercado de Flores."
+    "backgroundFlowerMarketNotes": "Encuentra los colores ideales para tu ramo o jardín en el Mercado de Flores.",
+    "backgrounds042019": "SET 59: Lanzado en abril de 2019",
+    "backgroundBirchForestText": "Bosque de abedules"
 }
