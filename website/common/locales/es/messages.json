@@ -1,7 +1,7 @@
 {
     "messageLostItem": "Tu <%= itemText %> se rompió.",
     "messageTaskNotFound": "Tarea no encontrada.",
-    "messageDuplicateTaskID": "Ya existe una tarea con esa ID",
+    "messageDuplicateTaskID": "Ya existe una tarea con ese ID.",
     "messageTagNotFound": "Etiqueta no encontrada.",
     "messagePetNotFound": ":pet no encontrada en user.items.pets",
     "messageFoodNotFound": ":food no encontrada en user.items.food",
@@ -15,7 +15,7 @@
     "messageEquipped": "<%= itemText %> equipado.",
     "messageUnEquipped": "Te has quitado <%= itemText %>.",
     "messageMissingEggPotion": "No tienes ese huevo o poción",
-    "messageInvalidEggPotionCombo": "No puedes hacer eclosionar a un huevo mascota de misión con una poción de eclosión mágica. Intentalo con un huevo diferente.",
+    "messageInvalidEggPotionCombo": "¡No puedes hacer eclosionar a un huevo mascota de misión con una poción de eclosión mágica! Inténtalo con un huevo diferente.",
     "messageAlreadyPet": "Ya tienes esa mascota, ¡intenta una combinación diferente!",
     "messageHatched": "¡Tu huevo ha eclosionado! Visita tu establo para equipar a tu mascota.",
     "messageNotEnoughGold": "No tienes suficiente Oro",
