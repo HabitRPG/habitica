@@ -4,6 +4,7 @@ import { BadRequest } from './errors';
 import count from '../count';
 
 import isPinned from './isPinned';
+import isFreeRebirth from './isFreeRebirth';
 import getOfficialPinnedItems from './getOfficialPinnedItems';
 
 import _mapValues from 'lodash/mapValues';
@@ -296,7 +297,7 @@ module.exports = function getItemInfo (user, type, item, officialPinnedItems, la
         class: 'rebirth_orb',
         text: i18n.t('rebirthName'),
         notes: i18n.t('rebirthPop'),
-        value: user.stats.lvl < 100 ? 6 : 0,
+        value: isFreeRebirth(user) ? 0 : 6,
         currency: 'gems',
         path: 'special.rebirth_orb',
         pinType: 'rebirth_orb',

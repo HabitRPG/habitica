@@ -116,6 +116,7 @@ async function createSubscription (data) {
       nextPaymentProcessing: data.nextPaymentProcessing,
       nextBillingDate: data.nextBillingDate,
       additionalData: data.additionalData,
+      lastReminderDate: null,
       owner: data.user._id,
     });
 

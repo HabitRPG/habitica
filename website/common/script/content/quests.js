@@ -511,7 +511,7 @@ let quests = {
     value: 1,
     category: 'pet',
     canBuy () {
-      return true;
+      return false;
     },
     collect: {
       plainEgg: {
@@ -3353,7 +3353,70 @@ let quests = {
       unlock: t('questVelociraptorUnlockText'),
     },
   },
-
+  bronze: {
+    text: t('questBronzeText'),
+    notes: t('questBronzeNotes'),
+    completion: t('questBronzeCompletion'),
+    value: 4,
+    category: 'hatchingPotion',
+    boss: {
+      name: t('questBronzeBoss'),
+      hp: 800,
+      str: 2,
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Bronze',
+          text: t('questBronzeDropBronzePotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Bronze',
+          text: t('questBronzeDropBronzePotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Bronze',
+          text: t('questBronzeDropBronzePotion'),
+        },
+      ],
+      gp: 63,
+      exp: 575,
+      unlock: t('questBronzeUnlockText'),
+    },
+  },
+  dolphin: {
+    text: t('questDolphinText'),
+    notes: t('questDolphinNotes'),
+    completion: t('questDolphinCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questDolphinBoss'),
+      hp: 300,
+      str: 1.25,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Dolphin',
+          text: t('questDolphinDropDolphinEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Dolphin',
+          text: t('questDolphinDropDolphinEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Dolphin',
+          text: t('questDolphinDropDolphinEgg'),
+        },
+      ],
+      gp: 22,
+      exp: 110,
+      unlock: t('questDolphinUnlockText'),
+    },
+  },
 };
 
 each(quests, (v, key) => {

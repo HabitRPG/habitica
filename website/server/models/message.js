@@ -7,6 +7,7 @@ const defaultSchema = () => ({
   id: String,
   timestamp: Date,
   text: String,
+  info: {$type: mongoose.Schema.Types.Mixed},
 
   // sender properties
   user: String, // profile name (unfortunately)
@@ -97,16 +98,23 @@ export function setUserStyles (newMessage, user) {
     }
   }
 
+  let contributorCopy = user.contributor;
+  if (contributorCopy && contributorCopy.toObject) {
+    contributorCopy = contributorCopy.toObject();
+  }
+
+  newMessage.contributor = contributorCopy;
   newMessage.userStyles = userStyles;
-  newMessage.markModified('userStyles');
+  newMessage.markModified('userStyles contributor');
 }
 
-export function messageDefaults (msg, user, client) {
+export function messageDefaults (msg, user, client, info = {}) {
   const id = uuid();
   const message = {
     id,
     _id: id,
     text: msg.substring(0, 3000),
+    info,
     timestamp: Number(new Date()),
     likes: {},
     flags: {},
@@ -127,4 +135,21 @@ export function messageDefaults (msg, user, client) {
   }
 
   return message;
+}
+
+export function mapInboxMessage (msg, user) {
+  if (msg.sent) {
+    msg.toUUID = msg.uuid;
+    msg.toUser = msg.user;
+    msg.toUserName = msg.username;
+    msg.toUserContributor = msg.contributor;
+    msg.toUserBacker = msg.backer;
+    msg.uuid = user._id;
+    msg.user = user.profile.name;
+    msg.username = user.auth.local.username;
+    msg.contributor = user.contributor;
+    msg.backer = user.backer;
+  }
+
+  return msg;
 }

@@ -72,4 +72,53 @@ api.clearMessages = {
   },
 };
 
+/**
+ * @api {get} /api/v4/inbox/conversations Get the conversations for a user
+ * @apiName conversations
+ * @apiGroup Inbox
+ * @apiDescription Get the conversations for a user
+ *
+ * @apiSuccess {Array} data An array of inbox conversations
+ */
+api.conversations = {
+  method: 'GET',
+  middlewares: [authWithHeaders()],
+  url: '/inbox/conversations',
+  async handler (req, res) {
+    const user = res.locals.user;
+
+    const result = await inboxLib.listConversations(user);
+
+    res.respond(200, result);
+  },
+};
+
+/**
+ * @api {get} /api/v4/inbox/paged-messages Get inbox messages for a user
+ * @apiName GetInboxMessages
+ * @apiGroup Inbox
+ * @apiDescription Get inbox messages for a user. Entries already populated with the correct `sent` - information
+ *
+ * @apiParam (Query) {Number} page Load the messages of the selected Page - 10 Messages per Page
+ * @apiParam (Query) {GUID} conversation Loads only the messages of a conversation
+ *
+ * @apiSuccess {Array} data An array of inbox messages
+ */
+api.getInboxMessages = {
+  method: 'GET',
+  url: '/inbox/paged-messages',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    const user = res.locals.user;
+    const page = req.query.page;
+    const conversation = req.query.conversation;
+
+    const userInbox = await inboxLib.getUserInbox(user, {
+      page, conversation, mapProps: true,
+    });
+
+    res.respond(200, userInbox);
+  },
+};
+
 module.exports = api;

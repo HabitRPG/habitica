@@ -3,7 +3,14 @@ import defaults from 'lodash/defaults';
 import each from 'lodash/each';
 import t from './translation';
 
-const CURRENT_SEASON = 'March';
+const CURRENT_SEASON = 'July';
+
+function hasQuestAchievementFunction (key) {
+  return (user) => {
+    return user.achievements.quests &&
+      user.achievements.quests[key] > 0;
+  };
+}
 
 let drops = {
   Base: {
@@ -130,13 +137,17 @@ let premium = {
     value: 2,
     text: t('hatchingPotionRainbow'),
     limited: true,
-    _season: 'March',
+    _season: '_PENDING_',
   },
   Glass: {
     value: 2,
     text: t('hatchingPotionGlass'),
     limited: true,
-    _season: '_PENDING_',
+    _season: 'July',
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndJuly'),
+      previousDate: t('june2018'),
+    }),
   },
   Glow: {
     value: 2,
@@ -166,7 +177,28 @@ let premium = {
     value: 2,
     text: t('hatchingPotionCelestial'),
     limited: true,
-    _season: 'March',
+    _season: '_PENDING_',
+  },
+  Sunshine: {
+    value: 2,
+    text: t('hatchingPotionSunshine'),
+    limited: true,
+    _season: '_PENDING_',
+  },
+  Bronze: {
+    value: 2,
+    text: t('hatchingPotionBronze'),
+    limited: true,
+    canBuy: hasQuestAchievementFunction('bronze'),
+    _addlNotes () {
+      return '';
+    },
+  },
+  Watery: {
+    value: 2,
+    text: t('hatchingPotionWatery'),
+    limited: true,
+    _season: 'July',
   },
 };
 
@@ -174,7 +206,7 @@ const wacky = {
   Veggie: {
     text: t('hatchingPotionVeggie'),
     limited: true,
-    _season: 'March',
+    _season: '_PENDING_',
   },
 };
 

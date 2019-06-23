@@ -61,6 +61,6 @@
     "notificationsRequired": "Notafikation ID'er er krævet.",
     "unallocatedStatsPoints": "Du har <span class=\"notification-bold-blue\"><%= points %> ufordelte Egenskabspoint</span>",
     "beginningOfConversation": "Dette er begyndelsen på din samtale med <%= userName %>. Husk at være venlig, respektfuld og at følge Retningslinjerne for Fællesskabet!",
-    "messageDeletedUser": "Beklager, denne bruger har slettet deres konto.",
-    "messageMissingDisplayName": "Manglende displaynavn."
+    "messageDeletedUser": "Sorry, this user has deleted their account.",
+    "messageMissingDisplayName": "Missing display name."
 }

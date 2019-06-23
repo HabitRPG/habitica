@@ -25,7 +25,7 @@ router-link.card-link(:to="{ name: 'guild', params: { groupId: guild._id } }")
               div.guild-bank(v-if='displayGemBank', v-once) {{$t('guildBank')}}
           .row
             category-tags.col-md-12(:categories="guild.categories", :owner="isOwner", v-once)
-              span.recommend-text(v-if='showSuggested(guild._id)') Suggested because you’re new to Habitica.
+              span.recommend-text(v-if='showSuggested(guild._id)')  {{$t('suggestedGroup')}}
 </template>
 
 <style lang="scss" scoped>
@@ -175,8 +175,9 @@ export default {
   methods: {
     showSuggested (guildId) {
       let habiticaHelpingGuildId = '5481ccf3-5d2d-48a9-a871-70a7380cee5a';
-      let createdAfterRedesign = moment(this.user.auth.timestamps.created).isAfter('2017-08-01');
-      return guildId === habiticaHelpingGuildId && createdAfterRedesign;
+      let sixtyDaysAgoFromNow = moment().subtract(60, 'days');
+      let isUserNew = moment(this.user.auth.timestamps.created).isAfter(sixtyDaysAgoFromNow);
+      return guildId === habiticaHelpingGuildId && isUserNew;
     },
     async join () {
       // @TODO: This needs to be in the notifications where users will now accept invites

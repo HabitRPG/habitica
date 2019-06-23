@@ -2,6 +2,7 @@
 import {
   validateItemPath,
   getDefaultOwnedGear,
+  castItemVal,
 } from '../../../../../website/server/libs/items/utils';
 
 describe('Items Utils', () => {
@@ -62,6 +63,51 @@ describe('Items Utils', () => {
     it('works with quests paths', () => {
       expect(validateItemPath('items.quests.atom3')).to.equal(true);
       expect(validateItemPath('items.quests.invalid')).to.equal(false);
+    });
+  });
+
+  describe('castItemVal', () => {
+    it('returns the item val untouched if not an item path', () => {
+      expect(castItemVal('notitems.gear.owned.item', 'a string')).to.equal('a string');
+    });
+
+    it('returns the item val untouched if an unsupported path', () => {
+      expect(castItemVal('items.gear.equipped.weapon', 'a string')).to.equal('a string');
+      expect(castItemVal('items.currentPet', 'a string')).to.equal('a string');
+      expect(castItemVal('items.special.snowball', 'a string')).to.equal('a string');
+    });
+
+    it('converts values for pets paths to numbers', () => {
+      expect(castItemVal('items.pets.Wolf-CottonCandyPink', '5')).to.equal(5);
+      expect(castItemVal('items.pets.Wolf-Invalid', '5')).to.equal(5);
+    });
+
+    it('converts values for eggs paths to numbers', () => {
+      expect(castItemVal('items.eggs.LionCub', '5')).to.equal(5);
+      expect(castItemVal('items.eggs.Armadillo', '5')).to.equal(5);
+      expect(castItemVal('items.eggs.NotAnArmadillo', '5')).to.equal(5);
+    });
+
+    it('converts values for hatching potions paths to numbers', () => {
+      expect(castItemVal('items.hatchingPotions.Base', '5')).to.equal(5);
+      expect(castItemVal('items.hatchingPotions.StarryNight', '5')).to.equal(5);
+      expect(castItemVal('items.hatchingPotions.Invalid', '5')).to.equal(5);
+    });
+
+    it('converts values for food paths to numbers', () => {
+      expect(castItemVal('items.food.Cake_Base', '5')).to.equal(5);
+      expect(castItemVal('items.food.Cake_Invalid', '5')).to.equal(5);
+    });
+
+    it('converts values for mounts paths to numbers', () => {
+      expect(castItemVal('items.mounts.Cactus-Base', '5')).to.equal(5);
+      expect(castItemVal('items.mounts.Aether-Invisible', '5')).to.equal(5);
+      expect(castItemVal('items.mounts.Aether-Invalid', '5')).to.equal(5);
+    });
+
+    it('converts values for quests paths to numbers', () => {
+      expect(castItemVal('items.quests.atom3', '5')).to.equal(5);
+      expect(castItemVal('items.quests.invalid', '5')).to.equal(5);
     });
   });
 });

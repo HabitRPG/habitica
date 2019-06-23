@@ -7,6 +7,8 @@ import {
   CLASSES,
   GEAR_TYPES,
   ITEM_LIST,
+  QUEST_SERIES_ACHIEVEMENTS,
+  BASE_PETS_MOUNTS,
 } from './constants';
 
 let api = module.exports;
@@ -35,6 +37,8 @@ import loginIncentives from './loginIncentives';
 import officialPinnedItems from './officialPinnedItems';
 
 api.achievements = achievements;
+api.questSeriesAchievements = QUEST_SERIES_ACHIEVEMENTS;
+api.basePetsMounts = BASE_PETS_MOUNTS;
 
 api.quests = quests;
 api.questsByLevel = questsByLevel;
@@ -70,7 +74,7 @@ api.bundles = {
       'owl',
     ],
     canBuy () {
-      return moment().isBetween('2017-05-16', '2017-05-31');
+      return moment().isBetween('2019-05-09', '2019-06-02');
     },
     type: 'quests',
     class: 'quest_bundle_featheredFriends',
@@ -86,7 +90,7 @@ api.bundles = {
       'whale',
     ],
     canBuy () {
-      return moment().isBetween('2017-07-11', '2017-08-02');
+      return moment().isBetween('2019-07-17', '2019-08-02');
     },
     type: 'quests',
     class: 'quest_bundle_splashyPals',
@@ -207,7 +211,7 @@ api.bundles = {
       'yarn',
     ],
     canBuy () {
-      return moment().isBetween('2018-11-15', '2018-12-04');
+      return moment().isBetween('2019-06-10', '2019-07-03');
     },
     type: 'quests',
     value: 7,
