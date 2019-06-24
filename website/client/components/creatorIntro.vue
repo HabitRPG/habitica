@@ -8,7 +8,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
   .avatar-section.row(v-if='modalPage > 1', :class='{"page-2": modalPage === 2}')
     .col-6.offset-3
       .user-creation-bg(v-if='!editing')
-      avatar(:member='user', :class='{"edit-avatar": editing}')
+      avatar(:member='user', :avatarOnly='!editing', :class='{"edit-avatar": editing}')
 
   .section(v-if='modalPage === 2', :class='{"edit-modal": editing}')
     // @TODO Implement in V2 .section.row
@@ -377,15 +377,26 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
 <style lang="scss">
   @import '~client/assets/scss/colors.scss';
 
+  $dialogMarginTop: 56px;
+  $userCreationBgHeight:  105px;
+
   /* @TODO do not rely on avatar-modal___BV_modal_body_,
      it already changed once when bootstrap-vue reached version 1 */
 
-  .page-2 #avatar-modal___BV_modal_body_ {
-    margin-top: 2rem;
-  }
-
   #avatar-modal___BV_modal_body_, #avatar-modal___BV_modal_body_ {
     padding: 0;
+  }
+
+  .page-2 {
+    #avatar-modal___BV_modal_body_ {
+      margin-top: $dialogMarginTop;
+    }
+
+    #avatar-modal {
+      .modal-dialog.modal-md {
+        margin-top: 186px;
+      }
+    }
   }
 
   #avatar-modal {
@@ -487,15 +498,22 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
 
     .user-creation-bg {
       background-image: url('~client/assets/creator/creator-hills-bg.png');
-      height: 105px;
+      height: $userCreationBgHeight;
       width: 219px;
       margin: 0 auto;
     }
 
     .avatar {
-      position: absolute;
+      position: absolute !important; // was overwritten in production build
       top: -22px;
       left: 4em;
+    }
+
+    .top {
+      position: absolute;
+      top: -($dialogMarginTop + $userCreationBgHeight + 16px);
+      right: 50%;
+      left: 50%;
     }
 
     .edit-avatar {
@@ -518,6 +536,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       margin: 2px;
       height: 100%;
       width: 400px;
+      background: $gray-700;
 
       p {
         margin: auto;
@@ -857,14 +876,11 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
 import axios from 'axios';
 import moment from 'moment';
 import map from 'lodash/map';
-import get from 'lodash/get';
 import groupBy from 'lodash/groupBy';
 import { mapState } from 'client/libs/store';
 import avatar from './avatar';
 import usernameForm from './settings/usernameForm';
 import { getBackgroundShopSets } from '../../common/script/libs/shops';
-import unlock from '../../common/script/ops/unlock';
-import buy from '../../common/script/ops/buy/buy';
 import guide from 'client/mixins/guide';
 import notifications from 'client/mixins/notifications';
 import appearance from 'common/script/content/appearance';
