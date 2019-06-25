@@ -19,6 +19,7 @@ module.exports = {
   },
 
   availableSpells: [
+    'seafoam',
   ],
 
   availableQuests: [
