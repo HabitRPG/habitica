@@ -121,11 +121,11 @@
     "mountsReleased": "Monturas liberadas.",
     "gemsEach": "gemas cada uno",
     "foodWikiText": "¿Qué le gusta comer a mi mascota?",
-    "foodWikiUrl": "http://habitica.fandom.com/wiki/Food_Preferences",
-    "welcomeStable": "¡Bienvenido al establo!",
+    "foodWikiUrl": "https://habitica.fandom.com/es/wiki/Preferencias_de_Comida",
+    "welcomeStable": "¡Bienvenido al Establo!",
     "welcomeStableText": "Soy Matt, el Maestro de las Bestia. ¡A partir del nivel 3, puedes eclosionar Mascotas a partir de Huevos utilizando Pociones que encuentres! ¡Cuando eclosiones una Mascota de tu Inventario, aparecerá aquí! Haz click en la imagen de una Mascota para añadirla a tu avatar. Aliméntalas aquí con la Comida que encuentres a partir del nivel 3, y crecerán hasta ser robustas monturas.",
     "petLikeToEat": "¿Qué le gusta comer a mi mascota?",
-    "petLikeToEatText": "Las Mascotas crecerán, sin importar lo que les des de comer, pero crecerán más rápido si les da de comer la comida que más les gusta. Experimenta para encontrar el patrón, o encuentra las respuestas aquí: <br/><a href=\"http://habitica.fandom.com/wiki/Food_Preferences\" target=\"_blank\">http://habitica.fandom.com/wiki/Food_Preferences</a>",
+    "petLikeToEatText": "Las Mascotas crecerán, sin importar lo que les des de comer, pero crecerán más rápido si les da de comer la comida que más les gusta. Experimenta para encontrar el patrón, o encuentra las respuestas aquí: <br/><a href=\"https://habitica.fandom.com/es/wiki/Preferencias_de_Comida\" target=\"_blank\">https://habitica.fandom.com/es/wiki/Preferencias_de_Comida</a>",
     "filterByStandard": "Estándar",
     "filterByMagicPotion": "Poción de Magia",
     "filterByQuest": "Misión",
@@ -142,5 +142,7 @@
     "clickOnPotionToHatch": "¡Haz click en una poción de closión para utilizarla en tu <%= eggName %> y eclosionar una nueva mascota!",
     "notEnoughPets": "No has reunido suficientes mascotas",
     "notEnoughMounts": "No has reunido suficientes monturas",
-    "notEnoughPetsMounts": "No has reunido suficientes mascotas ni monturas"
+    "notEnoughPetsMounts": "No has reunido suficientes mascotas ni monturas",
+    "wackyPets": "Mascotas Chifladas",
+    "filterByWacky": "Chiflado"
 }
