@@ -41,7 +41,7 @@
     "messageAuthEmailTaken": "El correo electrónico ya está en uso",
     "messageAuthNoUserFound": "No se encontró el usuario.",
     "messageAuthMustBeLoggedIn": "Debes estar identificado.",
-    "messageAuthMustIncludeTokens": "Debes incluir un token y un UID (identificador de usuario) en la solicitud",
+    "messageAuthMustIncludeTokens": "Debes incluir un token y un UID (Identificador de Usuario) en la solicitud",
     "messageGroupAlreadyInParty": "Ya estás en una equipo, intenta actualizando la página.",
     "messageGroupOnlyLeaderCanUpdate": "¡Sólo el líder del grupo puede actualizar el grupo!",
     "messageGroupRequiresInvite": "No puedes entrar en un grupo al que no has sido invitado.",
@@ -59,8 +59,10 @@
     "messageNotificationNotFound": "Notificación no encontrada.",
     "messageNotAbleToBuyInBulk": "Este artículo no se puede comprar en cantidades superiores a 1.",
     "notificationsRequired": "Se requieren ids de notificación.",
-    "unallocatedStatsPoints": "Tienes <span class=\"notification-bold-blue\"><%= points %> Puntos de Estadísticas sin asignar</span>",
+    "unallocatedStatsPoints": "Tienes <span class=\"notification-bold-blue\"><%= points %> Puntos de Atributo sin asignar</span>",
     "beginningOfConversation": "Este es el principio de tu conversación con <%= userName %>. ¡Recuerda ser amable, respetuoso y seguir las Normas de la Comunidad!",
     "messageDeletedUser": "Lo sentimos, este usuario ha eliminado su cuenta.",
-    "messageMissingDisplayName": "Falta el nombre público."
+    "messageMissingDisplayName": "Falta el nombre público.",
+    "reportedMessage": "Has reportado este mensaje a los moderadores.",
+    "canDeleteNow": "Ahora puedes eliminar el mensaje si lo deseas."
 }
