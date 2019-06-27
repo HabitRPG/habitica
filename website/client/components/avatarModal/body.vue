@@ -1,10 +1,6 @@
 <template lang="pug">
   #body.section.customize-section
-    .row.sub-menu.text-center
-      .col-3.offset-3.sub-menu-item(@click='changeSubPage("size")', :class='{active: activeSubPage === "size"}')
-        strong(v-once) {{$t('size')}}
-      .col-3.sub-menu-item(@click='changeSubPage("shirt")', :class='{active: activeSubPage === "shirt"}')
-        strong(v-once) {{$t('shirt')}}
+    sub-menu.text-center(:items="items", :activeSubPage="activeSubPage", @changeSubPage="changeSubPage($event)")
     .row(v-if='activeSubPage === "size"')
       .col-12.customize-options.size-options
         .option(v-for='option in ["slim", "broad"]', :class='{active: user.preferences.size === option}')
@@ -33,6 +29,7 @@
   import {subPageMixin} from '../../mixins/subPage';
   import {userStateMixin} from '../../mixins/userState';
   import {avatarEditorUtilies} from '../../mixins/avatarEditUtilities';
+  import subMenu from './sub-menu';
   import gem from 'assets/svg/gem.svg';
 
   const freeShirtKeys = Object.keys(appearance.shirt).filter(k => appearance.shirt[k].price === 0);
@@ -43,6 +40,9 @@
     props: [
       'editing',
     ],
+    components: {
+      subMenu,
+    },
     mixins: [
       subPageMixin,
       userStateMixin,
@@ -55,6 +55,16 @@
         icons: Object.freeze({
           gem,
         }),
+        items: [
+          {
+            id: 'size',
+            label: 'size',
+          },
+          {
+            id: 'shirt',
+            label: 'shirt',
+          },
+        ],
       };
     },
     computed: {
