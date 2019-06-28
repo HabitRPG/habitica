@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'NEW MAGIC HATCHING POTION QUEST!';
+const LAST_ANNOUNCEMENT_TITLE = 'SEAFOAM AND NEW SUBSCRIBER ITEMS';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,13 +30,20 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>5/21/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>6/25/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <p>Great news, Habiticans! We're introducing a new type of Quest which will reward you and your party members with never-before-released Magic Hatching Potions. Get the first ever Magic Hatching Potion quest, Brazen Beetle Battle, and defeat the boss to earn bewitching Bronze Magic Hatching Potions by completing your real-life tasks. Check it out in the <a href='/shops/quests'>Quest Shop</a> today!</p>
-        <div class="small mb-3">by Beffymaroo, Hachiseiko, UncommonCriminal, redphoenix, and SabreCat</div>
-        <div class="promo_bronze_quest center-block"></div>
+        <div class="promo_seafoam center-block"></div>
+        <h3>Seafoam</h3>
+        <p>Throw some Seafoam at your friends and they will turn into a cheerful sea star until their next cron! You can buy the Seafoam in the <a href='/shops/seasonal'>Seasonal Shop</a> for 15 Gold until the Gala ends on July 31. Plus, if you get splashed by Seafoam, you'll receive the Aquatic Friends badge!</p>
+        <p>Don't want to be a sea star? Just buy some Sand from your Rewards column to reverse it.</p>
+        <div class="small mb-3">by Lemoness</div>
+        <div class="promo_mystery_201906 center-block"></div>
+        <h3>New Subscriber Item Set Revealed</h3>
+        <p>The June Subscriber Item Set has been revealed: the Kindly Koi Item Set! You only have until July 31 to receive the item set <a href='/user/settings/subscription'>when you subscribe</a>. If you're already an active subscriber, reload the site and then head to Inventory > Items to claim your gear!</p>
+        <p>Subscribers also receive the ability to buy Gems with Gold -- the longer you subscribe, the more Gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
+        <div class="small mb-3">by Beffymaroo</div>
       </div>
       `,
     });

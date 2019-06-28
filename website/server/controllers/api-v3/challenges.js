@@ -366,11 +366,11 @@ api.getUserChallenges = {
 
     if (owned) {
       if (owned === 'not_owned') {
-        query.$and = [{leader: {$ne: user._id}}];
+        query.$and.push({leader: {$ne: user._id}});
       }
 
       if (owned === 'owned') {
-        query.$and = [{leader: user._id}];
+        query.$and.push({leader: user._id});
       }
     }
 
@@ -442,7 +442,8 @@ api.getGroupChallenges = {
   method: 'GET',
   url: '/challenges/groups/:groupId',
   middlewares: [authWithHeaders({
-    userFieldsToInclude: ['_id', 'party', 'guilds'],
+    // Some fields (including _id) are always loaded (see middlewares/auth)
+    userFieldsToInclude: ['party', 'guilds'], // Some fields are always loaded (see middlewares/auth)
   })],
   async handler (req, res) {
     let user = res.locals.user;

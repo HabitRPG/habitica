@@ -127,6 +127,9 @@ function _setUpNewUser (user) {
   user.items.quests.dustbunnies = 1;
   user.markModified('items.quests');
 
+  user.items.mounts['Orca-Base'] = true;
+  user.markModified('items.mounts');
+
   user.purchased.background.violet = true;
   user.preferences.background = 'violet';
 
