@@ -48,7 +48,8 @@
         @editTask="editTask",
         @moveTo="moveTo",
         :group='group',
-        v-on:taskDestroyed='taskDestroyed'
+        v-on:taskDestroyed='taskDestroyed',
+        :showtaskprogress='showtaskprogress'
       )
     template(v-if="hasRewardsList")
       draggable.reward-items(
@@ -305,6 +306,9 @@ export default {
     isUser: {
       type: Boolean,
       default: false,
+    },
+    showtaskprogress : {
+      type: Boolean
     },
     searchText: {},
     selectedTags: {},

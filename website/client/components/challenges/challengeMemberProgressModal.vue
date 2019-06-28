@@ -8,7 +8,8 @@
         v-for="column in columns",
         :type="column",
         :key="column",
-        :taskListOverride='tasksByType[column]')
+        :taskListOverride='tasksByType[column]',
+        :showtaskprogress="true")
 </template>
 
 <style scoped>
