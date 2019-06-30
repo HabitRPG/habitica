@@ -92,7 +92,8 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             button.btn.btn-secondary.purchase-all(@click='unlock(`hair.color.${set.keys.join(",hair.color.")}`)') {{ $t('purchaseAll') }}
       #style.row(v-if='activeSubPage === "style"')
         .col-12.customize-options(v-if='editing')
-          .head_0.option(@click='set({"preferences.hair.base": 0})', :class="[{ active: user.preferences.hair.base === 0 }, 'hair_base_0_' + user.preferences.hair.color]")
+          .option(@click='set({"preferences.hair.base": 0})', :class="{ active: user.preferences.hair.base === 0 }")
+            .head_0(:class="['hair_base_0_' + user.preferences.hair.color]")
           .option(v-for='option in baseHair3',
             :class='{active: option.active, locked: option.locked}')
             .base.sprite.customize-option(:class="`hair_base_${option.key}_${user.preferences.hair.color}`", @click='option.click')
@@ -117,7 +118,8 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
               span 5
             button.btn.btn-secondary.purchase-all(@click='unlock(`hair.base.${baseHair4Keys.join(",hair.base.")}`)') {{ $t('purchaseAll') }}
         .col-12.customize-options
-          .head_0.option(v-if="!editing", @click='set({"preferences.hair.base": 0})', :class="[{ active: user.preferences.hair.base === 0 }, 'hair_base_0_' + user.preferences.hair.color]")
+          .option(v-if="!editing", @click='set({"preferences.hair.base": 0})', :class="{ active: user.preferences.hair.base === 0 }")
+            .head_0(:class="['hair_base_0_' + user.preferences.hair.color]")
           .option(v-for='option in baseHair1',
             :class='{active: user.preferences.hair.base === option}')
             .base.sprite.customize-option(:class="`hair_base_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.base": option})')
@@ -135,8 +137,10 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             button.btn.btn-secondary.purchase-all(@click='unlock(`hair.base.${baseHair2Keys.join(",hair.base.")}`)') {{ $t('purchaseAll') }}
       #bangs.row(v-if='activeSubPage === "bangs"')
         .col-12.customize-options
-          .head_0.option(@click='set({"preferences.hair.bangs": 0})',
-            :class="[{ active: user.preferences.hair.bangs === 0 }, 'hair_bangs_0_' + user.preferences.hair.color]")
+          .option.none(@click='set({"preferences.hair.bangs": 0})', :class="{ active: user.preferences.hair.bangs === 0 }")
+            .bangs.sprite.customize-option.head_0(:class="['hair_bangs_0_' + user.preferences.hair.color]")
+            .redline-outer
+              .redline
           .option(v-for='option in [1, 2, 3, 4]',
             :class='{active: user.preferences.hair.bangs === option}')
             .bangs.sprite.customize-option(:class="`hair_bangs_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.bangs": option})')
@@ -431,7 +435,36 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       width: 90px;
       margin: 1em .5em .5em 0;
       border: 4px solid $gray-700;
-      border-radius: 4px;
+      border-radius: 10px;
+      position: relative;
+
+      &.none {
+        .sprite {
+          opacity: 0.24;
+        }
+
+        .redline-outer {
+          height: 60px;
+          width: 60px;
+          position: absolute;
+          bottom: 0;
+          margin: 0 auto 0 0;
+
+          .redline {
+            width: 60px;
+            height: 4px;
+            display: block;
+            background: red;
+            transform: rotate(-45deg);
+            position: absolute;
+            top: 0;
+
+            margin-top: 10px;
+            margin-bottom: 20px;
+            margin-left: 6px;
+          }
+        }
+      }
 
       &.locked {
         border: none;
@@ -439,6 +472,15 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
         background-color: #ffffff;
         box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
         margin-top: 0;
+      }
+
+      &.active {
+        background: white;
+        border: solid 4px $purple-300;
+      }
+
+      &:hover {
+        cursor: pointer;
       }
 
       .sprite.customize-option {
@@ -636,14 +678,6 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
 
     .gold-lock span {
       color: $yellow-10
-    }
-
-    .option.active {
-      border-color: $purple-200;
-    }
-
-    .option:hover {
-      cursor: pointer;
     }
 
     .customize-section {
