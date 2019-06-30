@@ -95,6 +95,9 @@ import NEW_INBOX_MESSAGE from './notifications/newInboxMessage';
 import NEW_CHAT_MESSAGE from './notifications/newChatMessage';
 import WORLD_BOSS from './notifications/worldBoss';
 import VERIFY_USERNAME from './notifications/verifyUsername';
+import ACHIEVEMENT_JUST_ADD_WATER from './notifications/justAddWater';
+import ACHIEVEMENT_LOST_MASTERCLASSER from './notifications/lostMasterclasser';
+import ACHIEVEMENT_MIND_OVER_MATTER from './notifications/mindOverMatter';
 
 export default {
   components: {
@@ -106,6 +109,7 @@ export default {
     QUEST_INVITATION, GROUP_TASK_APPROVAL, GROUP_TASK_APPROVED, GROUP_TASK_ASSIGNED,
     UNALLOCATED_STATS_POINTS, NEW_MYSTERY_ITEMS, CARD_RECEIVED,
     NEW_INBOX_MESSAGE, NEW_CHAT_MESSAGE,
+    ACHIEVEMENT_JUST_ADD_WATER, ACHIEVEMENT_LOST_MASTERCLASSER, ACHIEVEMENT_MIND_OVER_MATTER,
     WorldBoss: WORLD_BOSS,
     VERIFY_USERNAME,
   },
@@ -130,6 +134,7 @@ export default {
         'QUEST_INVITATION', 'GROUP_TASK_ASSIGNED', 'GROUP_TASK_APPROVAL', 'GROUP_TASK_APPROVED',
         'NEW_MYSTERY_ITEMS', 'CARD_RECEIVED',
         'NEW_INBOX_MESSAGE', 'NEW_CHAT_MESSAGE', 'UNALLOCATED_STATS_POINTS',
+        'ACHIEVEMENT_JUST_ADD_WATER', 'ACHIEVEMENT_LOST_MASTERCLASSER', 'ACHIEVEMENT_MIND_OVER_MATTER',
         'VERIFY_USERNAME',
       ],
     };

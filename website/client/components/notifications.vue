@@ -26,6 +26,10 @@ div
   quest-completed
   quest-invitation
   verify-username
+  generic-achievement(:data='notificationData')
+  just-add-water
+  lost-masterclasser
+  mind-over-matter
 </template>
 
 <style lang='scss'>
@@ -118,6 +122,10 @@ import rebirth from './achievements/rebirth';
 import streak from './achievements/streak';
 import ultimateGear from './achievements/ultimateGear';
 import wonChallenge from './achievements/wonChallenge';
+import genericAchievement from './achievements/genericAchievement';
+import justAddWater from './achievements/justAddWater';
+import lostMasterclasser from './achievements/lostMasterclasser';
+import mindOverMatter from './achievements/mindOverMatter';
 import loginIncentives from './achievements/login-incentives';
 import verifyUsername from './settings/verifyUsername';
 
@@ -146,6 +154,16 @@ const NOTIFICATIONS = {
     achievement: true,
     label: ($t) => $t('modalContribAchievement'),
     modalId: 'contributor',
+  },
+  ACHIEVEMENT_ALL_YOUR_BASE: {
+    achievement: true,
+    label: ($t) => `${$t('achievement')}: ${$t('achievementAllYourBase')}`,
+    modalId: 'generic-achievement',
+  },
+  ACHIEVEMENT_BACK_TO_BASICS: {
+    achievement: true,
+    label: ($t) => `${$t('achievement')}: ${$t('achievementBackToBasics')}`,
+    modalId: 'generic-achievement',
   },
 };
 
@@ -176,6 +194,10 @@ export default {
     contributor,
     loginIncentives,
     verifyUsername,
+    genericAchievement,
+    lostMasterclasser,
+    mindOverMatter,
+    justAddWater,
   },
   data () {
     // Levels that already display modals and should not trigger generic Level Up
@@ -197,7 +219,8 @@ export default {
       'GUILD_PROMPT', 'DROPS_ENABLED', 'REBIRTH_ENABLED', 'WON_CHALLENGE', 'STREAK_ACHIEVEMENT',
       'ULTIMATE_GEAR_ACHIEVEMENT', 'REBIRTH_ACHIEVEMENT', 'GUILD_JOINED_ACHIEVEMENT',
       'CHALLENGE_JOINED_ACHIEVEMENT', 'INVITED_FRIEND_ACHIEVEMENT', 'NEW_CONTRIBUTOR_LEVEL',
-      'CRON', 'SCORED_TASK', 'LOGIN_INCENTIVE',
+      'CRON', 'SCORED_TASK', 'LOGIN_INCENTIVE', 'ACHIEVEMENT_ALL_YOUR_BASE', 'ACHIEVEMENT_BACK_TO_BASICS',
+      'GENERIC_ACHIEVEMENT',
     ].forEach(type => {
       handledNotifications[type] = true;
     });
@@ -342,8 +365,8 @@ export default {
       this.playSound('Death');
       this.$root.$emit('bv::show::modal', 'death');
     },
-    showNotificationWithModal (type, forceToModal) {
-      const config = NOTIFICATIONS[type];
+    showNotificationWithModal (notification, forceToModal) {
+      const config = NOTIFICATIONS[notification.type];
 
       if (!config) {
         return;
@@ -353,6 +376,10 @@ export default {
         this.playSound('Achievement_Unlocked');
       } else if (config.sound) {
         this.playSound(config.sound);
+      }
+
+      if (notification.data) {
+        this.notificationData = notification.data;
       }
 
       if (forceToModal) {
@@ -566,7 +593,10 @@ export default {
           case 'CHALLENGE_JOINED_ACHIEVEMENT':
           case 'INVITED_FRIEND_ACHIEVEMENT':
           case 'NEW_CONTRIBUTOR_LEVEL':
-            this.showNotificationWithModal(notification.type);
+          case 'ACHIEVEMENT_ALL_YOUR_BASE':
+          case 'ACHIEVEMENT_BACK_TO_BASICS':
+          case 'GENERIC_ACHIEVEMENT':
+            this.showNotificationWithModal(notification);
             break;
           case 'CRON':
             if (notification.data) {

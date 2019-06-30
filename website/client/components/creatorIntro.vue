@@ -360,8 +360,8 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     username-form(@usernameConfirmed='modalPage += 1', :avatarIntro='true')
     .small.text-center(v-html="$t('usernameTOSRequirements')")
 
-  .section.container.footer
-    .row(v-if='!editing && !(modalPage === 1)')
+  .section.container.footer(v-if='!editing && !(modalPage === 1)')
+    .row
       .col-3.offset-1.text-center
         div(v-if='modalPage > 1', @click='prev()')
           .prev-arrow

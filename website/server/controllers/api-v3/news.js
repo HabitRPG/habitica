@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'JUNE BACKGROUNDS AND ARMOIRE ITEMS!';
+const LAST_ANNOUNCEMENT_TITLE = 'SEAFOAM AND NEW SUBSCRIBER ITEMS';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,14 +30,20 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>6/4/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>6/25/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_armoire_backgrounds_201906 center-block"></div>
-        <p>We’ve added three new backgrounds to the Background Shop! Now your avatar can take a deep dive to Underwater Vents, swim with a School of Fish, and enjoy the beauty of Seaside Cliffs. Check them out under User Icon > Backgrounds!</p>
-        <p>Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the Boating Outfit. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)</p>
-        <div class="small mb-3">by Tyche Alba, The Mushroom King, Manostion, FolleMente, Katy133, Chimera Liani, and SabreCat</div>
+        <div class="promo_seafoam center-block"></div>
+        <h3>Seafoam</h3>
+        <p>Throw some Seafoam at your friends and they will turn into a cheerful sea star until their next cron! You can buy the Seafoam in the <a href='/shops/seasonal'>Seasonal Shop</a> for 15 Gold until the Gala ends on July 31. Plus, if you get splashed by Seafoam, you'll receive the Aquatic Friends badge!</p>
+        <p>Don't want to be a sea star? Just buy some Sand from your Rewards column to reverse it.</p>
+        <div class="small mb-3">by Lemoness</div>
+        <div class="promo_mystery_201906 center-block"></div>
+        <h3>New Subscriber Item Set Revealed</h3>
+        <p>The June Subscriber Item Set has been revealed: the Kindly Koi Item Set! You only have until July 31 to receive the item set <a href='/user/settings/subscription'>when you subscribe</a>. If you're already an active subscriber, reload the site and then head to Inventory > Items to claim your gear!</p>
+        <p>Subscribers also receive the ability to buy Gems with Gold -- the longer you subscribe, the more Gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
+        <div class="small mb-3">by Beffymaroo</div>
       </div>
       `,
     });
