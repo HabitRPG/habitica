@@ -402,13 +402,8 @@
           return;
         }
 
-        if (this.item.currency === 'gems' &&
-          !confirm(this.$t('purchaseFor', { cost: this.item.value * this.selectedAmountToBuy }))) {
-          return;
-        }
-
-        if (this.item.currency === 'hourglasses' &&
-          !confirm(this.$t('purchaseForHourglasses', { cost: this.item.value }))) {
+        const shouldConfirmPurchase = this.item.currency === 'gems' || this.item.currency === 'hourglasses';
+        if (shouldConfirmPurchase && !this.confirmPurchase(this.item.currency, this.item.value * this.selectedAmountToBuy)) {
           return;
         }
 
