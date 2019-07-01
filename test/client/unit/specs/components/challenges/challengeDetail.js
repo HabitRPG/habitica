@@ -54,7 +54,7 @@ describe('Challenge Detail', () => {
     });
   });
 
-  it('removes destroyed tasks from task list', () => {
+  it('removes a destroyed task from task list', () => {
     let taskToRemove = {_id: '1', type: 'habit'};
     wrapper.vm.taskDestroyed(taskToRemove);
     expect(wrapper.vm.tasksByType[taskToRemove.type].length).to.eq(0);
