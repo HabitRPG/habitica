@@ -1,6 +1,6 @@
 .promo_armoire_backgrounds_201906 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -869px;
+  background-position: 0px -907px;
   width: 423px;
   height: 147px;
 }
@@ -18,67 +18,73 @@
 }
 .promo_glass_watery_potions {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -424px -869px;
+  background-position: -424px -907px;
   width: 423px;
   height: 147px;
 }
 .promo_halfmoon_glasses {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -1086px -148px;
+  background-position: -999px -371px;
   width: 279px;
   height: 147px;
 }
 .promo_mystery_201906 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -1086px 0px;
+  background-position: -999px -223px;
   width: 282px;
   height: 147px;
 }
 .promo_oddballs_bundle {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -426px -720px;
+  background-position: -848px -907px;
   width: 423px;
   height: 147px;
 }
 .promo_orcas {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -1086px -296px;
+  background-position: -999px -519px;
   width: 219px;
   height: 147px;
 }
 .promo_seafoam {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -720px;
+  background-position: -409px -720px;
   width: 425px;
   height: 148px;
 }
 .promo_seasonal_shop {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -1086px -444px;
+  background-position: -999px -667px;
   width: 162px;
   height: 132px;
 }
 .promo_summer_splash_2019 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -554px -244px;
+  background-position: 0px -720px;
   width: 408px;
   height: 186px;
 }
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -1249px -444px;
+  background-position: -1162px -667px;
   width: 96px;
   height: 69px;
 }
 .scene_casting_spells {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -554px -431px;
+  background-position: -999px 0px;
   width: 312px;
   height: 222px;
 }
-.scene_positivity {
+.scene_hat_guild {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: -554px 0px;
+  width: 444px;
+  height: 336px;
+}
+.scene_positivity {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -361px -359px;
   width: 531px;
   height: 243px;
 }
