@@ -17,9 +17,8 @@ describe('Challenge Detail', () => {
             contributor: {
               admin: false,
             },
-            challenges: ['1'],
+            challenges: [],
             stats: {
-              lvl: 0,
             },
             flags: {},
             preferences: {},
