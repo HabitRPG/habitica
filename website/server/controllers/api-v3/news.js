@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE FOR JUNE ITEMS; NEW OFFICIAL CHALLENGES';
+const LAST_ANNOUNCEMENT_TITLE = 'SPLASHY SKINS, BACKGROUNDS, ARMOIRE ITEMS, AND BLOG POST';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,29 +30,24 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>7/1/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>7/2/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_mystery_201906 center-block"></div>
-        <h3>Last Chance for Kindly Koi Set</h3>
-        <p>Reminder: tomorrow is the last day you can <a href='/user/settings/subscription'>subscribe</a> and receive the Kindly Koi Set! Subscribing also lets you buy Gems with Gold. The longer your subscription, the more Gems you get!</p>
-        <p>Thanks so much for your support! You help keep Habitica running.</p>
-        <div class="small mb-3">by Beffymaroo</div>
-        <div class="promo_oddballs_bundle center-block"></div>
-        <h3>Last Chance for Oddballs Pet Quest Bundle</h3>
-        <p>Tomorrow is also the last day to buy the discounted Oddballs Pet Quest Bundle, featuring the Rock, Yarn, and Marshmallow Slime quests all for seven gems! Be sure to snag it before it rolls away from the <a href='/shops/quests'>Quest Shop</a>!</p>
-        <div class="small">Art by PainterProphet, Pfeffernusse, Zorelya, intune, starsystemic, Leephon, Arcosine, stefalupagus, Hachiseiko, TheMushroomKing, khdarkwolf, Vampitch, JinjooHat, UncommonCriminal, Oranges, Darkly, overomega, celticdragon, and Shaner</div>
-        <div class="small mb-3">Writing by Bartelmy, Faelwyn the Rising Phoenix, Theothermeme, Bethany Woll, itokro, and Lemoness</div>
-        <div class="scene_hat_guild center-block"></div>
-        <h3>July 2019 Resolution Success Challenge and New Take This Challenge</h3>
-        <p>The Habitica team has launched a special official Challenge series hosted in the <a href='/groups/guild/6e6a8bd3-9f5f-4351-9188-9f11fcd80a99' target='_blank'>Official New Year's Resolution Guild</a>. These Challenges are designed to help you build and maintain goals that are destined for success and then stick with them as the year progresses. For this month's Challenge, <a href='/challenges/a4bb384e-a671-404c-a9e3-0e1bd50688ea'>Convene Your Companions</a>, we're focusing on building accountability with your friends in Habitica's social spaces! It has a 15 Gem prize, which will be awarded to five lucky winners on August 1.</p>
-        <p>Congratulations to the winners of June's Challenge, whisperingwraith, katie9, Mavro_Asteri, Chasquared, and Taichi1!</p>
-        <p>The next Take This Challenge has also launched, "<a href='/challenges/02ec6294-8a5b-4eae-9c28-ec9b4fd6612f'>Rolling a Natural 1!</a>", with a focus on coping with adversity. Be sure to check it out to earn additional pieces of the Take This armor set!</p>
-        <p><a href='http://www.takethis.org/' target='_blank'>Take This</a> is a nonprofit that seeks to inform the gamer community about mental health issues, to provide education about mental disorders and mental illness prevention, and to reduce the stigma of mental illness.</p>
-        <p>Congratulations to the winners of the last Take This Challenge, "You've Got a Friend in Me!": grand prize winner 13_phoenix, and runners-up rpelepei, Khaamo, kikithegecko, calankh, and augustgreatsword! Plus, all participants in that Challenge have received a piece of the <a href='http://habitica.wikia.com/wiki/Event_Item_Sequences#Take_This_Armor_Set' target='_blank'>Take This item set</a> if they hadn't completed it already. It is located in your Rewards column. Enjoy!</p>
-        <div class="small mb-3">by Doctor B, the Take This team, Lemoness, Beffymaroo, and SabreCat</div>
-        <div class="promo_take_this center-block"></div>
+        <div class="promo_splashy_skins center-block"></div>
+        <h3>Splashy Skins</h3>
+        <p>The Seasonal Edition Splashy Skins are back! You can complete your summer avatar look with Clownfish, Deep Ocean, Tropical Water, Mergold, Mergreen, Merblue, Merruby, and Shark Skins.</p>
+        <p>This Seasonal Edition customization set will only be available to purchase until July 31st, after which they'll be gone until next year, so be sure to swoop them up now! You can find them in User>Edit Avatar!</p>
+        <div class="small mb-3">by Lemoness and UncommonCriminal</div>
+        <div class="promo_armoire_backgrounds_201907 center-block"></div>
+        <h3>July Backgrounds and Armoire Items</h3>
+        <p>We’ve added three new backgrounds to the Background Shop! Now your avatar can enjoy the view while Flying Over Tropical Islands, explore reef life Among Giant Anemones, and stargaze on a Lake with Floating Lanterns. Check them out under User Icon > Backgrounds!</p>
+        <p>Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the Astronomer Mage set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)</p>
+        <div class="small mb-3">by Tashus, Tigergurke, Vikte, QuartzFox, Gully, Swazzy, and SabreCat</div>
+        <div class="scene_casting_spells center-block"></div>
+        <h3>Blog Post: Warrior</h3>
+        <p>This month's <a href='https://habitica.wordpress.com/2019/06/26/warrior/' target='_blank'>featured Wiki article</a> is about the Warrior class! We hope that it will help you as you explore the advantages of each class. Be sure to check it out, and let us know what you think by reaching out on <a href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a href='https://facebook.com/habitica' target='_blank'>Facebook</a>.</p>
+        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
       </div>
       `,
     });

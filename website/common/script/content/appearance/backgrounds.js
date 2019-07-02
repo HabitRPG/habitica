@@ -857,6 +857,20 @@ let backgrounds = {
       notes: t('backgroundUnderwaterVentsNotes'),
     },
   },
+  backgrounds072019: {
+    lake_with_floating_lanterns: {
+      text: t('backgroundLakeWithFloatingLanternsText'),
+      notes: t('backgroundLakeWithFloatingLanternsNotes'),
+    },
+    flying_over_tropical_islands: {
+      text: t('backgroundFlyingOverTropicalIslandsText'),
+      notes: t('backgroundFlyingOverTropicalIslandsNotes'),
+    },
+    among_giant_anemones: {
+      text: t('backgroundAmongGiantAnemonesText'),
+      notes: t('backgroundAmongGiantAnemonesNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),
