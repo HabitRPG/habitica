@@ -6,10 +6,11 @@
         .option(v-for='option in ["slim", "broad"]', :class='{active: user.preferences.size === option}')
           .sprite.customize-option(:class="`${option}_shirt_black`", @click='set({"preferences.size": option})')
     .row(v-if='activeSubPage === "shirt"')
-      .col-12.customize-options
-        .option(v-for='option in freeShirts',
-          :class='{active: user.preferences.shirt === option}')
-          .sprite.customize-option(:class="`slim_shirt_${option}`", @click='set({"preferences.shirt": option})')
+      customize-options.col-12(
+        :items="freeShirts",
+        propertyToChange="preferences.shirt",
+        :currentValue="user.preferences.shirt"
+      )
       .col-12.customize-options(v-if='editing')
         .option(v-for='item in specialShirts',
           :class='{active: item.active, locked: item.locked}')
@@ -30,6 +31,7 @@
   import {userStateMixin} from '../../mixins/userState';
   import {avatarEditorUtilies} from '../../mixins/avatarEditUtilities';
   import subMenu from './sub-menu';
+  import customizeOptions from './customize-options';
   import gem from 'assets/svg/gem.svg';
 
   const freeShirtKeys = Object.keys(appearance.shirt).filter(k => appearance.shirt[k].price === 0);
@@ -42,6 +44,7 @@
     ],
     components: {
       subMenu,
+      customizeOptions,
     },
     mixins: [
       subPageMixin,
@@ -50,7 +53,10 @@
     ],
     data () {
       return {
-        freeShirts: freeShirtKeys,
+        freeShirts: freeShirtKeys.map(s => ({
+          key: s,
+          class: `slim_shirt_${s}`,
+        })),
         specialShirtKeys,
         icons: Object.freeze({
           gem,

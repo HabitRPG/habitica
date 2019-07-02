@@ -42,9 +42,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     )
 
     #skin.section.customize-section(v-if='activeTopPage === "skin"')
-      .row.sub-menu.col-6.offset-3.text-center
-        .col-6.offset-3.text-center.sub-menu-item(:class='{active: activeSubPage === "color"}')
-          strong(v-once) {{$t('color')}}
+      sub-menu.text-center(:items="skinSubMenuItem", :activeSubPage="activeSubPage", @changeSubPage="changeSubPage($event)")
       .row
         .col-12.customize-options
           .option(v-for='option in ["ddc994", "f5a76e", "ea8349", "c06534", "98461a", "915533", "c3e1dc", "6bd049"]',
@@ -430,9 +428,9 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     .customize-options .option {
       display: inline-block;
       vertical-align: bottom;
-      padding: .5em;
-      height: 90px;
-      width: 90px;
+      //padding: .5em;
+      height: 64px;
+      width: 64px;
       margin: 1em .5em .5em 0;
       border: 4px solid $gray-700;
       border-radius: 10px;
@@ -484,7 +482,16 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       }
 
       .sprite.customize-option {
-        margin: 0 auto;
+        // margin: 0 auto;
+        margin-left: -3px;
+        margin-top: -7px;
+
+        &.color-bangs {
+          margin-top: 3px;
+        }
+        &.skin {
+          margin-top: -3px;
+        }
       }
     }
 
@@ -921,6 +928,7 @@ import appearance from 'common/script/content/appearance';
 import appearanceSets from 'common/script/content/appearance/sets';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
 import bodySettings from './avatarModal/body';
+import subMenu from './avatarModal/sub-menu';
 
 import logoPurple from 'assets/svg/logo-purple.svg';
 import bodyIcon from 'assets/svg/body.svg';
@@ -945,6 +953,8 @@ export default {
     toggleSwitch,
     usernameForm,
     bodySettings,
+
+    subMenu,
   },
   mounted () {
     if (this.editing) this.modalPage = 2;
@@ -988,6 +998,12 @@ export default {
       activeTopPage: 'body',
       activeSubPage: 'size',
       taskCategories: [],
+      skinSubMenuItem: [
+        {
+          id: 'color',
+          label: 'color',
+        },
+      ],
     };
   },
   watch: {

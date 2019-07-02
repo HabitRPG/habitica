@@ -8,7 +8,11 @@ import get from 'lodash/get';
 
 import appearanceSets from 'common/script/content/appearance/sets';
 
+
+import {userStateMixin} from './userState';
+
 export const avatarEditorUtilies = {
+  mixins: [userStateMixin],
   data () {
     return {
       backgroundUpdate: new Date(),
