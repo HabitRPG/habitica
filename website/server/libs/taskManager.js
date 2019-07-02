@@ -120,6 +120,10 @@ export async function createTasks (req, res, options = {}) {
 
   // Push all task ids
   let taskOrderUpdateQuery = {$push: {}};
+
+  if (!group && !challenge) {
+    taskOrderUpdateQuery.$set = {'auth.timestamps.updated': moment().toDate()};
+  }
   for (let taskType in taskOrderToAdd) {
     taskOrderUpdateQuery.$push[`tasksOrder.${taskType}`] = {
       $each: taskOrderToAdd[taskType],

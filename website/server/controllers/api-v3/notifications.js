@@ -89,6 +89,7 @@ api.readNotifications = {
 
     await user.update({
       $pull: { notifications: { id: { $in: notificationsIds } } },
+      $set: { 'auth.timestamps.updated': new Date() },
     }).exec();
 
     // Update the user version field manually,
@@ -184,6 +185,8 @@ api.seeNotifications = {
 
       notification.seen = true;
     }
+
+    user.auth.timestamps.updated = new Date();
 
     await user.save();
 

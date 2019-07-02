@@ -111,4 +111,6 @@ module.exports = function updateStats (user, stats, req = {}, analytics) {
     if (user.addNotification) user.addNotification('REBIRTH_ENABLED');
     user.flags.rebirthEnabled = true;
   }
+
+  if (!req.yesterDailyScored) user.auth.timestamps.updated = new Date();
 };
