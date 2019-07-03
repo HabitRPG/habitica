@@ -26,7 +26,5 @@ module.exports = {
   missingPaypalBlock: 'Missing "req.session.paypalBlock"',
   missingSubKey: 'Missing "req.query.sub"',
 
-  messageIdRequired: '\"messageId\" must be a valid UUID.",',
-
   postIdRequired: '\"postId\" must be a valid UUID.',
 };
