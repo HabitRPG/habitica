@@ -4,14 +4,16 @@ import baseModel from '../libs/baseModel';
 const Schema = mongoose.Schema;
 
 export let schema = new Schema({
-  title: {type: String, required: true},
-  credits: {type: String, required: true},
-  publishDate: {type: Date, required: true},
-  published: {type: Boolean, required: true},
-  text: {type: String, required: true},
+  title: {$type: String},
+  author: {$type: String},
+  credits: {$type: String},
+  publishDate: {$type: Date},
+  published: {$type: Boolean},
+  text: {$type: String},
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
+  typeKey: '$type', // So that we can use fields named `type`
 });
 
 schema.plugin(baseModel, {
