@@ -70,6 +70,31 @@ api.createNews = {
   },
 };
 
+
+api.getPost = {
+  method: 'GET',
+  url: '/news/:postId',
+  middlewares: [authWithHeaders({
+    optional: true,
+  })],
+  noLanguage: true,
+  async handler (req, res) {
+    req.checkParams('postId', apiError('postIdRequired')).notEmpty();
+    let user = res.locals.user;
+    let isAdmin = false;
+    if (user && user.contributor) {
+      isAdmin = user.contributor.admin;
+    }
+
+    let newsPost = await NewsPost.findById(req.params.postId);
+    if (!isAdmin && !newsPost.isPublished) {
+      res.respond(401, {});
+    } else {
+      res.respond(200, newsPost);
+    }
+  },
+};
+
 /**
  * @api {put} /api/v4/news/:postId Update news post
  * @apiName UpdateNewsPost
