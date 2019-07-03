@@ -88,7 +88,6 @@ const SeasonalPage = () => import(/* webpackChunkName: "shops-seasonal" */'clien
 const TimeTravelersPage = () => import(/* webpackChunkName: "shops-timetravelers" */'client/components/shops/timeTravelers/index');
 
 // Admin
-const NewsAdminPage = () => import(/* webpackChunkName: "news" */'./components/admin/news');
 import NotFoundPage from 'client/components/404';
 
 Vue.use(VueRouter);
@@ -291,8 +290,6 @@ const router = new VueRouter({
     // Only used to handle some redirects
     // See router.beforeEach
     { path: '/redirect/:redirect', name: 'redirect' },
-      component: NewsAdminPage,
-    },
     { path: '*', redirect: { name: 'notFound' } },
   ],
 });
