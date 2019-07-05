@@ -1,0 +1,137 @@
+# Default values for habitica.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+habitica:
+  replicaCount: 1
+  image:
+    repository: ksonney/habitrpg
+    tag: latest
+    pullPolicy: IfNotPresent
+
+  imagePullSecrets: []
+  nameOverride: ""
+  fullnameOverride: ""
+
+  service:
+    type: ClusterIP
+    port: 3000
+
+  ingress:
+    enabled: true
+    annotations: {}
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    hosts:
+      - host: habitica.localhost
+        paths: 
+          - /
+
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
+
+  resources: {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+
+# https://github.com/helm/charts/tree/master/stable/mongodb
+mongodb:
+  replicaSet: 
+    ## Whether to create a MongoDB replica set for high availability or not
+    enabled: true
+    useHostnames: true
+
+    ## Name of the replica set
+    ##
+    name: rs0
+
+    ## Key used for replica set authentication
+    ##
+    # key: key
+
+    ## Number of replicas per each node type
+    ##
+    replicas:
+      secondary: 1
+      arbiter: 1
+
+    ## Pod Disruption Budget
+    ## ref: https://kubernetes.io/docs/concepts/workloads/pods/disruptions/
+    pdb:
+      enabled: true
+      minAvailable:
+        primary: 1
+        secondary: 1
+        arbiter: 1
+      # maxUnavailable:
+        # primary: 1
+        # secondary: 1
+        # arbiter: 1
+  ## MongoDB custom user and database
+  ## ref: https://github.com/bitnami/bitnami-docker-mongodb/blob/master/README.md#creating-a-user-and-database-on-first-run
+  ##
+  mongodbUsername: habitica
+  mongodbPassword: habitica
+  mongodbDatabase: habitrpg
+  
+  ## Enable persistence using Persistent Volume Claims
+  ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
+  ##
+  persistence:
+    enabled: true
+    ## A manually managed Persistent Volume and Claim
+    ## Requires persistence.enabled: true
+    ## If defined, PVC must be created manually before volume will be bound
+    ##
+    # existingClaim:
+
+    ## The path the volume will be mounted at, useful when using different
+    ## MongoDB images.
+    ##
+    mountPath: /bitnami/mongodb
+
+    ## The subdirectory of the volume to mount to, useful in dev environments
+    ## and one PV for multiple services.
+    ##
+    subPath: ""
+
+    ## mongodb data Persistent Volume Storage Class
+    ## If defined, storageClassName: <storageClass>
+    ## If set to "-", storageClassName: "", which disables dynamic provisioning
+    ## If undefined (the default) or set to null, no storageClassName spec is
+    ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+    ##   GKE, AWS & OpenStack)
+    ##
+    # storageClass: "-"
+    accessModes:
+      - ReadWriteOnce
+    size: 8Gi
+    annotations: {}
+
+  ## Configure resource requests and limits
+  ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
+  ##
+  resources: {}
+  # limits:
+  #   cpu: 500m
+  #   memory: 512Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 256Mi

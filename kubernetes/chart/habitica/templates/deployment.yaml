@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "habitica.fullname" . }}
+  labels:
+{{ include "habitica.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.habitica.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "habitica.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app: habitica
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "habitica.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app: habitica
+    spec:
+    {{- with .Values.habitica.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.habitica.image.repository }}:{{ .Values.habitica.image.tag }}"
+          imagePullPolicy: {{ .Values.habitica.image.pullPolicy }}
+          env:
+            - name: NODE_DB_URI
+              value: mongodb://{{ template "concourse.mongodb.fullname" . }}/habitrpg
+          ports:
+            - name: http
+              containerPort: {{ .Values.habitica.service.port }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {{- toYaml .Values.habitica.resources | nindent 12 }}
+      {{- with .Values.habitica.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.habitica.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.habitica.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
