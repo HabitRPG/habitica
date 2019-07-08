@@ -6,7 +6,7 @@
       @click='$emit("changeSubPage", item.id)',
       :class='{active: activeSubPage === item.id}'
     )
-      strong(v-once) {{$t(item.label)}}
+      strong(v-once) {{ item.label }}
 </template>
 
 <script>

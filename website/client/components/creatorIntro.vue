@@ -42,7 +42,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     )
 
     #skin.section.customize-section(v-if='activeTopPage === "skin"')
-      sub-menu.text-center(:items="skinSubMenuItem", :activeSubPage="activeSubPage", @changeSubPage="changeSubPage($event)")
+      sub-menu.text-center(:items="skinSubMenuItems", :activeSubPage="activeSubPage", @changeSubPage="changeSubPage($event)")
       .row
         .col-12.customize-options
           .option(v-for='option in ["ddc994", "f5a76e", "ea8349", "c06534", "98461a", "915533", "c3e1dc", "6bd049"]',
@@ -62,15 +62,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             span 5
           button.btn.btn-secondary.purchase-all(@click='unlock(`skin.${set.keys.join(",skin.")}`)') {{ $t('purchaseAll') }}
     #hair.section.customize-section(v-if='activeTopPage === "hair"')
-      .row.col-12.sub-menu.text-center
-        .col-3.text-center.sub-menu-item(@click='changeSubPage("color")', :class='{active: activeSubPage === "color", "offset-2": !editing}')
-          strong(v-once) {{$t('color')}}
-        .col-3.text-center.sub-menu-item(@click='changeSubPage("bangs")', :class='{active: activeSubPage === "bangs"}')
-          strong(v-once) {{$t('bangs')}}
-        .col-3.text-center.sub-menu-item(@click='changeSubPage("style")', :class='{active: activeSubPage === "style"}')
-          strong(v-once) {{$t('style')}}
-        .col-3.text-center.sub-menu-item(@click='changeSubPage("facialhair")', :class='{active: activeSubPage === "facialhair"}', v-if='editing')
-            strong(v-once) {{$t('facialhair')}}
+      sub-menu.text-center(:items="hairSubMenuItems", :activeSubPage="activeSubPage", @changeSubPage="changeSubPage($event)")
       #hair-color.row(v-if='activeSubPage === "color"')
         .col-12.customize-options
           .option(v-for='option in ["white", "brown", "blond", "red", "black"]',
@@ -165,20 +157,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
               span 5
             button.btn.btn-secondary.purchase-all(@click='unlock(`hair.mustache.${baseHair5Keys.join(",hair.mustache.")},hair.beard.${baseHair6Keys.join(",hair.beard.")}`)') {{ $t('purchaseAll') }}
     #extra.section.container.customize-section(v-if='activeTopPage === "extra"')
-      .row.sub-menu
-        .col-3.offset-1.text-center.sub-menu-item(@click='changeSubPage("glasses")', :class='{active: activeSubPage === "glasses"}')
-          strong(v-once) {{ $t('glasses') }}
-        .col-4.text-center.sub-menu-item(@click='changeSubPage("wheelchair")', :class='{active: activeSubPage === "wheelchair"}')
-          strong(v-once) {{ $t('wheelchair') }}
-        .col-3.text-center.sub-menu-item(@click='changeSubPage("flower")', :class='{active: activeSubPage === "flower"}')
-          strong(v-once) {{ $t('accent') }}
-      .row.sub-menu(v-if='editing')
-        .col-4.text-center.sub-menu-item(@click='changeSubPage("ears")' :class='{active: activeSubPage === "ears"}')
-          strong(v-once) {{ $t('animalEars') }}
-        .col-4.text-center.sub-menu-item(@click='changeSubPage("tails")' :class='{active: activeSubPage === "tails"}')
-          strong(v-once) {{ $t('animalTails') }}
-        .col-4.text-center.sub-menu-item(@click='changeSubPage("headband")' :class='{active: activeSubPage === "headband"}')
-          strong(v-once) {{ $t('headband') }}
+      sub-menu.text-center(:items="extraSubMenuItems", :activeSubPage="activeSubPage", @changeSubPage="changeSubPage($event)")
       #glasses.row(v-if='activeSubPage === "glasses"')
         .col-12.customize-options
           .option(v-for='option in eyewear', :class='{active: option.active}')
@@ -253,19 +232,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
           popover-trigger='mouseenter')
           .incentive-background(:class='[`background_${bg.key}`]')
             .small-rectangle
-      .row.sub-menu.col-10.offset-1(v-if='!filterBackgrounds')
-        .col-2.text-center.sub-menu-item(@click='changeSubPage("2019")', :class='{active: activeSubPage === "2019"}')
-          strong(v-once) 2019
-        .col-2.text-center.sub-menu-item(@click='changeSubPage("2018")', :class='{active: activeSubPage === "2018"}')
-          strong(v-once) 2018
-        .col-2.text-center.sub-menu-item(@click='changeSubPage("2017")', :class='{active: activeSubPage === "2017"}')
-          strong(v-once) 2017
-        .col-2.text-center.sub-menu-item(@click='changeSubPage("2016")', :class='{active: activeSubPage === "2016"}')
-          strong(v-once) 2016
-        .col-2.text-center.sub-menu-item(@click='changeSubPage("2015")', :class='{active: activeSubPage === "2015"}')
-          strong(v-once) 2015
-        .col-2.text-center.sub-menu-item(@click='changeSubPage("2014")', :class='{active: activeSubPage === "2014"}')
-          strong(v-once) 2014
+      sub-menu.text-center(:items="bgSubMenuItems", :activeSubPage="activeSubPage", @changeSubPage="changeSubPage($event)")
       .row.customize-menu(v-if='!filterBackgrounds' v-for='(sets, key) in backgroundShopSetsByYear')
         .row.background-set(v-for='set in sets', v-if='activeSubPage === key')
           .col-8.offset-2.text-center.set-title
@@ -998,12 +965,36 @@ export default {
       activeTopPage: 'body',
       activeSubPage: 'size',
       taskCategories: [],
-      skinSubMenuItem: [
+      skinSubMenuItems: [
         {
           id: 'color',
-          label: 'color',
+          label: this.$t('color'),
         },
       ],
+      hairSubMenuItems: [
+        {
+          id: 'color',
+          label: this.$t('color'),
+        },
+        {
+          id: 'bangs',
+          label: this.$t('bangs'),
+        },
+        {
+          id: 'style',
+          label: this.$t('style'),
+        },
+        {
+          id: 'facialhair',
+          label: this.$t('facialhair'),
+        },
+      ],
+      bgSubMenuItems: ['2019', '2018', '2017', '2016', '2015', '2014'].map(y =>
+        ({
+          id: y,
+          label: y,
+        })
+      ),
     };
   },
   watch: {
@@ -1246,6 +1237,41 @@ export default {
         });
       });
       return ownedBackgrounds;
+    },
+    extraSubMenuItems () {
+      const items = [
+        {
+          id: 'glasses',
+          label: this.$t('glasses'),
+        },
+        {
+          id: 'wheelchair',
+          label: this.$t('wheelchair'),
+        },
+        {
+          id: 'flower',
+          label: this.$t('accent'),
+        },
+      ];
+
+      if (this.editing) {
+        items.push({
+          id: 'ears',
+          label: this.$t('animalEars'),
+        });
+
+        items.push({
+          id: 'tails',
+          label: this.$t('animalTails'),
+        });
+
+        items.push({
+          id: 'headband',
+          label: this.$t('headband'),
+        });
+      }
+
+      return items;
     },
   },
   methods: {

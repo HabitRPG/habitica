@@ -101,6 +101,10 @@
       &.skin {
         margin-top: -3px;
       }
+      &.chair {
+        margin-left: -2px;
+        margin-top: -4px;
+      }
     }
   }
 

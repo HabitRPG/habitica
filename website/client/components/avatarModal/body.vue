@@ -64,11 +64,11 @@
         items: [
           {
             id: 'size',
-            label: 'size',
+            label: this.$t('size'),
           },
           {
             id: 'shirt',
-            label: 'shirt',
+            label: this.$t('shirt'),
           },
         ],
       };
