@@ -43,7 +43,7 @@ describe('GET /inbox/conversations', () => {
   });
 
   it('returns the user inbox messages as an array of ordered messages (from most to least recent)', async () => {
-    const messages = await user.get('/inbox/messages');
+    const messages = await user.get('/inbox/paged-messages');
 
     expect(messages.length).to.equal(5);
 
@@ -70,19 +70,19 @@ describe('GET /inbox/conversations', () => {
 
     await Promise.all(promises);
 
-    const messages = await user.get('/inbox/messages?page=1');
+    const messages = await user.get('/inbox/paged-messages?page=1');
 
     expect(messages.length).to.equal(5);
   });
 
   it('returns only the messages of one conversation', async () => {
-    const messages = await user.get(`/inbox/messages?conversation=${otherUser.id}`);
+    const messages = await user.get(`/inbox/paged-messages?conversation=${otherUser.id}`);
 
     expect(messages.length).to.equal(3);
   });
 
   it('returns the correct message format', async () => {
-    const messages = await otherUser.get(`/inbox/messages?conversation=${user.id}`);
+    const messages = await otherUser.get(`/inbox/paged-messages?conversation=${user.id}`);
 
     expect(messages[0].toUUID).to.equal(user.id); // from user
     expect(messages[1].toUUID).to.not.exist; // only filled if its from the chat partner

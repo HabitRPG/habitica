@@ -579,7 +579,7 @@ export default {
     async loadMessages () {
       this.messagesLoading = true;
 
-      const requestUrl = `/api/v4/inbox/messages?conversation=${this.selectedConversation.key}&page=${this.selectedConversation.page}`;
+      const requestUrl = `/api/v4/inbox/paged-messages?conversation=${this.selectedConversation.key}&page=${this.selectedConversation.page}`;
       const res = await axios.get(requestUrl);
       const loadedMessages = res.data.data;
 

@@ -114,7 +114,7 @@ function mapMessage (newChat, user) {
 }
 
 /**
- * @api {get} /api/v4/inbox/messages Get inbox messages for a user
+ * @api {get} /api/v4/inbox/paged-messages Get inbox messages for a user
  * @apiName GetInboxMessages
  * @apiGroup Inbox
  * @apiDescription Get inbox messages for a user. Entries already populated with the correct `sent` - information
@@ -126,7 +126,7 @@ function mapMessage (newChat, user) {
  */
 api.getInboxMessages = {
   method: 'GET',
-  url: '/inbox/messages',
+  url: '/inbox/paged-messages',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     const user = res.locals.user;
