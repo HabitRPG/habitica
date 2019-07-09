@@ -565,7 +565,7 @@ api.scoreTask = {
       }
     }
 
-    // Set whether we're scoring a yesterdaily
+    // Set whether we're scoring a yesterdaily from the RYA dialog
     if (req.params.yesterdaily && req.params.yesterdaily === 'yesterdaily') {
       task.yesterDailyScored = true;
     }

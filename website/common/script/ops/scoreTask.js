@@ -278,7 +278,7 @@ module.exports = function scoreTask (options = {}, req = {}) {
         task.completed = true;
 
         // Save history entry for daily
-        // If this is a yesterDaily being scored, set the date to the last minute of the user's "yesterday"
+        // If this is a yesterDaily being scored from the RYA dialog, set the date to the last minute of the user's "yesterday"
         let dateScored = task.yesterDailyScored ? startOfDay(user.preferences).subtract(1, 'minute') : moment();
         task.history = task.history || [];
         let historyEntry = {

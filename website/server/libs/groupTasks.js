@@ -123,7 +123,8 @@ async function _updateAssignedUsersTasks (masterTask, groupMemberTask) {
         value: masterTask.value, // We will count this someway at some point based on group logic
         userId: groupMemberTask.userId,
       };
-      // Insert history at the right point, since this could be a yesterdaily scoring after someone else's today scoring
+      // Insert history at the right point, since this could be a yesterdaily scored in someone's
+      // RYA dialog after another user's today scoring
       let historyIndex = masterTask.history.findIndex(masterEntry => {
         return masterEntry.date > historyEntry.date;
       });
