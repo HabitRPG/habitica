@@ -459,6 +459,10 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
         &.skin {
           margin-top: -3px;
         }
+        &.chair {
+          margin-left: -2px;
+          margin-top: -4px;
+        }
       }
     }
 
@@ -930,6 +934,8 @@ export default {
   },
   data () {
     let backgroundShopSets = getBackgroundShopSets();
+    const bgItems = [];
+
     return {
       loading: false,
       backgroundShopSets,
