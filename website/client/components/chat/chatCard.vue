@@ -274,7 +274,7 @@ export default {
     },
   },
   mounted () {
-    this.$emit('item-mounted', this.msg.id);
+    this.$emit('chat-card-mounted', this.msg.id);
   },
 };
 </script>

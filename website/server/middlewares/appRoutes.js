@@ -43,7 +43,7 @@ const v4RouterOverrides = [
   'POST-/user/reroll',
   'DELETE-/user/messages/:id',
   'DELETE-/user/messages',
-  'POST-/coupons/enter/:code'
+  'POST-/coupons/enter/:code',
 ];
 
 const v4Router = express.Router(); // eslint-disable-line new-cap

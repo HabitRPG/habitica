@@ -93,26 +93,6 @@ api.conversations = {
   },
 };
 
-function mapMessage (newChat, user) {
-  if (newChat.sent) {
-    // leave uuid as is
-    newChat.toUUID = newChat.uuid;
-    newChat.toUser = newChat.user;
-    newChat.toUserName = newChat.username;
-    newChat.toUserContributor = newChat.contributor;
-    newChat.toUserBacker = newChat.backer;
-    newChat.fromUUID = user._id;
-    newChat.user = user.profile.name;
-    newChat.username = user.auth.local.username;
-    newChat.contributor = user.contributor;
-    newChat.backer = user.backer;
-  } else {
-    newChat.fromUUID = newChat.uuid;
-  }
-
-  return newChat;
-}
-
 /**
  * @api {get} /api/v4/inbox/paged-messages Get inbox messages for a user
  * @apiName GetInboxMessages
@@ -135,7 +115,7 @@ api.getInboxMessages = {
 
     const userInbox = (await inboxLib.getUserInbox(user, {
       page, conversation,
-    })).map(newChat => mapMessage(newChat, user));
+    })).map(newChat => newChat.mapMessage(user));
 
     res.respond(200, userInbox);
   },

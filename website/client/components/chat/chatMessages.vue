@@ -28,7 +28,7 @@
           @message-liked='messageLiked',
           @message-removed='messageRemoved',
           @show-member-modal='showMemberModal',
-          @item-mounted='itemWasMounted')
+          @chat-card-mounted='itemWasMounted')
     .d-flex(v-if='user._id === msg.uuid', :class='{"flex-grow-1": inbox}')
       .card(:class='{"col-10": inbox}')
         chat-card(
@@ -38,7 +38,7 @@
           @message-liked='messageLiked',
           @message-removed='messageRemoved',
           @show-member-modal='showMemberModal',
-          @item-mounted='itemWasMounted')
+          @chat-card-mounted='itemWasMounted')
       avatar(
         v-if='msg.userStyles || (cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected)',
         :member="msg.userStyles || cachedProfileData[msg.uuid]",
