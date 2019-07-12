@@ -30,9 +30,13 @@ export async function sentMessage (sender, receiver, message, translate) {
   return messageSent;
 }
 
-export async function getUserInbox (user, options = {asArray: true, page: 0, conversation: null}) {
+export async function getUserInbox (user, options = {asArray: true, page: 0, conversation: null, mapProps: false}) {
   if (typeof options.asArray === 'undefined') {
     options.asArray = true;
+  }
+
+  if (typeof options.mapProps === 'undefined') {
+    options.mapProps = false;
   }
 
   const findObj = {ownerId: user._id};
@@ -51,7 +55,13 @@ export async function getUserInbox (user, options = {asArray: true, page: 0, con
       .skip(PM_PER_PAGE * Number(options.page));
   }
 
-  const messages = (await query.exec()).map(msg => msg.toJSON());
+  const messages = (await query.exec()).map(msg => {
+    if (options.mapProps) {
+      msg.mapMessage(user);
+    }
+
+    return msg.toJSON();
+  });
 
   if (options.asArray) {
     return messages;

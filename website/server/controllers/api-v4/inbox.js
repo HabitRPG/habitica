@@ -113,9 +113,9 @@ api.getInboxMessages = {
     const page = req.query.page;
     const conversation = req.query.conversation;
 
-    const userInbox = (await inboxLib.getUserInbox(user, {
-      page, conversation,
-    })).map(newChat => newChat.mapMessage(user));
+    const userInbox = await inboxLib.getUserInbox(user, {
+      page, conversation, mapProps: true,
+    });
 
     res.respond(200, userInbox);
   },
