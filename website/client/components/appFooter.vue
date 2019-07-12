@@ -113,11 +113,11 @@
   .footer-row {
     margin: 0;
     flex: 0 1 auto;
+    z-index: 17;
   }
 
   footer {
     color: #c3c0c7;
-    z-index: 17;
     padding-bottom: 3em;
 
     a {
