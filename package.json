@@ -1,7 +1,7 @@
 {
   "name": "habitica",
   "description": "A habit tracker app which treats your goals like a Role Playing Game.",
-  "version": "4.99.0",
+  "version": "4.104.0",
   "main": "./website/server/index.js",
   "dependencies": {
     "@google-cloud/trace-agent": "^4.0.0",
@@ -152,7 +152,7 @@
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "chalk": "^2.4.1",
-    "chromedriver": "^73.0.0",
+    "chromedriver": "^75.0.0",
     "connect-history-api-fallback": "^1.1.0",
     "coveralls": "^3.0.3",
     "cross-spawn": "^6.0.5",

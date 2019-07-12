@@ -1,34 +1,35 @@
 .create-task-area {
   position: absolute;
   right: 24px;
-  top: -23px;
+  top: -24px;
   z-index: 999;
-  height: 60px;
+  align-items: center;
 }
 
 .slide-tasks-btns-leave-active, .slide-tasks-btns-enter-active {
-  max-width: 240px;
-  overflow-x: hidden;
+  max-width: 320px;
   transition: all 0.3s cubic-bezier(0, 1, 0.5, 1);
 }
 
 .slide-tasks-btns-enter, .slide-tasks-btns-leave-to {
   max-width: 0;
   opacity: 0;
+  overflow-x: hidden;
 }
 
-.rounded-btn {
-  margin-left: 8px;
+.diamond-btn {
+  margin-left: 24px;
   background: $white;
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 100px;
+  border-radius: 4px;
   box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
   cursor: pointer;
   color: $gray-200;
+  transform: rotate(45deg);
 
   &:hover:not(.create-btn) {
     color: $purple-400;
@@ -38,6 +39,7 @@
   .svg-icon {
     width: 20px;
     height: 20px;
+    transform: rotate(-45deg);
 
     &.icon-habit {
       width: 24px;
@@ -64,10 +66,13 @@
 .create-btn {
   color: $white;
   background-color: $green-10;
+  height: 48px;
+  width: 48px;
 
   .svg-icon {
     width: 16px;
     height: 16px;
+    transform: rotate(-45deg);
     transition: transform 0.3s cubic-bezier(0, 1, 0.5, 1);
   }
 
@@ -75,7 +80,7 @@
     background: $gray-200 !important;
 
     .svg-icon {
-      transform: rotate(-45deg);
+      transform: rotate(-90deg);
     }
   }
 }

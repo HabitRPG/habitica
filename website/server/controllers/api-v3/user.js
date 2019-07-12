@@ -1539,7 +1539,7 @@ api.userReset = {
 };
 
 /**
- * @api {post} /api/v3/user/custom-day-start Set preferences.dayStart for user
+ * @api {post} /api/v3/user/custom-day-start Set preferences.dayStart (Custom Day Start time) for user
  * @apiName setCustomDayStart
  * @apiGroup User
  *
