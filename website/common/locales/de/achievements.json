@@ -1,9 +1,9 @@
 {
-  "achievement": "Erfolg",
-  "share": "Teilen",
-  "onwards": "Auf geht's!",
-  "levelup": "Durch das Erfüllen Deiner Lebensziele bist Du ein Level aufgestiegen und wurdest vollständig geheilt!",
-  "reachedLevel": "Du hast Level <%= level %> erreicht",
-  "achievementLostMasterclasser": "Quest-Erfüller: Klassenmeister-Reihe",
-  "achievementLostMasterclasserText": "Hat alle sechzehn Quests in der Klassenmeister-Questreihe abgeschlossen und das Rätsel des Verschwundenen Klassenmeisters gelöst!"
+    "achievement": "Erfolg",
+    "share": "Teilen",
+    "onwards": "Auf geht's!",
+    "levelup": "Durch das Erfüllen Deiner Ziele im Leben bist Du ein Level aufgestiegen und wurdest vollständig geheilt!",
+    "reachedLevel": "Du hast Level <%= level %> erreicht",
+    "achievementLostMasterclasser": "Quest-Erfüller: Klassenmeister-Reihe",
+    "achievementLostMasterclasserText": "Hat alle sechzehn Quests in der Klassenmeister-Questreihe abgeschlossen und das Rätsel des Verschwundenen Klassenmeisters gelöst!"
 }
