@@ -89,7 +89,7 @@
     "stripe": "^5.9.0",
     "superagent": "^5.0.2",
     "svg-inline-loader": "^0.8.0",
-    "svg-url-loader": "^2.3.2",
+    "svg-url-loader": "^3.0.0",
     "svgo": "^1.2.0",
     "svgo-loader": "^2.1.0",
     "universal-analytics": "^0.4.17",
