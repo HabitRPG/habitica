@@ -3,11 +3,11 @@
   h2(v-once) {{ $t('filter') }}
   .form-group
     checkbox(
-      v-for="category in categories",
-      :key="category.identifier",
-      :id="`category-${category.identifier}`",
-      :checked.sync="viewOptions[category.identifier].selected",
-      :text="category.text"
+      v-for="viewOptionKey in Object.keys(viewOptions)",
+      :key="viewOptionKey",
+      :id="`category-${viewOptionKey}`",
+      :checked.sync="viewOptions[viewOptionKey].selected",
+      :text="viewOptions[viewOptionKey].text"
     )
   div.form-group.clearfix
     h3.float-left(v-once) {{ $t('hideLocked') }}
@@ -27,7 +27,7 @@
   import Checkbox from 'client/components/ui/checkbox';
   import toggleSwitch from 'client/components/ui/toggleSwitch';
   export default {
-    props: ['hidePinned', 'hideLocked', 'categories', 'viewOptions'],
+    props: ['hidePinned', 'hideLocked', 'viewOptions'],
     components: {
       Checkbox,
       toggleSwitch,
