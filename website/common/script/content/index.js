@@ -211,7 +211,7 @@ api.bundles = {
       'yarn',
     ],
     canBuy () {
-      return moment().isBetween('2019-06-10', '2019-07-02');
+      return moment().isBetween('2019-06-10', '2019-07-03');
     },
     type: 'quests',
     value: 7,

@@ -9,15 +9,15 @@ const featuredItems = {
     },
     {
       type: 'eggs',
-      path: 'eggs.Fox',
+      path: 'eggs.BearCub',
     },
     {
-      type: 'hatchingPotions',
-      path: 'hatchingPotions.CottonCandyBlue',
+      type: 'premiumHatchingPotion',
+      path: 'premiumHatchingPotions.Glass',
     },
     {
-      type: 'card',
-      path: 'cardTypes.congrats',
+      type: 'premiumHatchingPotion',
+      path: 'premiumHatchingPotions.Watery',
     },
   ],
   quests: [
@@ -34,7 +34,7 @@ const featuredItems = {
       path: 'quests.dolphin',
     },
   ],
-  seasonal: 'spring2018Healer',
+  seasonal: 'summer2019Mage',
   timeTravelers: [
     // TODO
   ],

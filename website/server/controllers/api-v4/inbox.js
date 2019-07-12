@@ -73,7 +73,7 @@ api.clearMessages = {
 };
 
 /**
- * @api {get} /api/v4/inbox/conversations Get the conversations for a user
+ * @api {get} /inbox/conversations Get the conversations for a user
  * @apiName conversations
  * @apiGroup Inbox
  * @apiDescription Get the conversations for a user
@@ -90,51 +90,6 @@ api.conversations = {
     const result = await inboxLib.listConversations(user);
 
     res.respond(200, result);
-  },
-};
-
-function mapMessage (newChat, user) {
-  if (newChat.sent) {
-    newChat.toUUID = newChat.uuid;
-    newChat.toUser = newChat.user;
-    newChat.toUserName = newChat.username;
-    newChat.toUserContributor = newChat.contributor;
-    newChat.toUserBacker = newChat.backer;
-    newChat.uuid = user._id;
-    newChat.user = user.profile.name;
-    newChat.username = user.auth.local.username;
-    newChat.contributor = user.contributor;
-    newChat.backer = user.backer;
-  }
-
-  return newChat;
-}
-
-/**
- * @api {get} /api/v4/inbox/messages Get inbox messages for a user
- * @apiName GetInboxMessages
- * @apiGroup Inbox
- * @apiDescription Get inbox messages for a user. Entries already populated with the correct `sent` - information
- *
- * @apiParam (Query) {Number} page Load the messages of the selected Page - 10 Messages per Page
- * @apiParam (Query) {GUID} conversation Loads only the messages of a conversation
- *
- * @apiSuccess {Array} data An array of inbox messages
- */
-api.getInboxMessages = {
-  method: 'GET',
-  url: '/inbox/messages',
-  middlewares: [authWithHeaders()],
-  async handler (req, res) {
-    const user = res.locals.user;
-    const page = req.query.page;
-    const conversation = req.query.conversation;
-
-    const userInbox = (await inboxLib.getUserInbox(user, {
-      page, conversation,
-    })).map(newChat => mapMessage(newChat, user));
-
-    res.respond(200, userInbox);
   },
 };
 

@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'NEW PET QUEST, NEW ACHIEVEMENTS, AND THE RETURN OF THE ODDBALLS BUNDLE';
+const LAST_ANNOUNCEMENT_TITLE = 'SPLASHY SKINS, BACKGROUNDS, ARMOIRE ITEMS, AND BLOG POST';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,22 +30,24 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>6/11/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>7/2/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_dolphin_quest center-block"></div>
-        <h3>New Pet Quest: Dolphin! And New Pet Collection and Pet Quest Achievement Badges</h3>
-        <p>Feeling doubtful about your ability to tackle your tasks? Could be you have dolphin doldrums! Get the latest pet quest, <a href='/shops/quests'>The Dolphin of Doubt</a>, and earn some chipper dolphin pets by completing your real-life tasks.</p>
-        <p>An important announcement regarding quests: We’ll be adding new types of quests with exciting rewards like Magic Hatching Potions! We’ll also continue releasing Pet Quest Bundles so you can work on completing your collection. However, "The Dolphin of Doubt" is the final pet quest we'll be releasing in the Quest Shop for the forseeable future.</p>
-        <p>We're also releasing new achievements so you can celebrate your successes in the world of Habitican pet collecting! Now you can earn badges for your profile when you complete certain categories of pet quests and for collecting pets and mounts in the classic pet colors. We're kicking off with: Cover Your Bases and All Your Base for collecting all the classic Base pets and mounts, Just Add Water for completing quests for aquatic pets (including the new Dolphins!), and Mind over Matter for completing all pet quests for (normally) inanimate objects.</p>
-        <p>If you’ve already completed the required Quests for a newly released achievement, you don’t have to do them all again! Just complete any one of the relevant Quests and the Achievement will unlock.</p>
-        <div class="small mb-3">by Shogirlgeek, mewrose, Aries Faries, khdarkwolf, confusedcicada, Lady Tabletop, OuttaMyMind, and the Habitica Team</div>
-        <div class="promo_oddballs_bundle center-block"></div>
-        <h3>Discounted Pet Quest Bundle: Oddballs!</h3>
-        <p>In celebration of our new pet quest achievements, the Oddballs Pet Quest Bundle is back! From now until June 30, you can purchase it and receive the Rock, Marshmallow Slime, and Yarn quests, all for only 7 Gems! That's a discount of 5 Gems from the price of purchasing them separately. Check it out in the <a href='/shops/quests'>Quest Shop</a> today!</p>
-        <div class="small">Art by PainterProphet, Pfeffernusse, Zorelya, intune, starsystemic, Leephon, Arcosine, stefalupagus, Hachiseiko, TheMushroomKing, khdarkwolf, Vampitch, JinjooHat, UncommonCriminal, Oranges, Darkly, overomega, celticdragon, and Shaner</div>
-        <div class="small mb-3">Writing by Bartelmy, Faelwyn the Rising Phoenix, Theothermeme, Bethany Woll, itokro, and Lemoness</div>
+        <div class="promo_splashy_skins center-block"></div>
+        <h3>Splashy Skins</h3>
+        <p>The Seasonal Edition Splashy Skins are back! You can complete your summer avatar look with Clownfish, Deep Ocean, Tropical Water, Mergold, Mergreen, Merblue, Merruby, and Shark Skins.</p>
+        <p>This Seasonal Edition customization set will only be available to purchase until July 31st, after which they'll be gone until next year, so be sure to swoop them up now! You can find them in User>Edit Avatar!</p>
+        <div class="small mb-3">by Lemoness and UncommonCriminal</div>
+        <div class="promo_armoire_backgrounds_201907 center-block"></div>
+        <h3>July Backgrounds and Armoire Items</h3>
+        <p>We’ve added three new backgrounds to the Background Shop! Now your avatar can enjoy the view while Flying Over Tropical Islands, explore reef life Among Giant Anemones, and stargaze on a Lake with Floating Lanterns. Check them out under User Icon > Backgrounds!</p>
+        <p>Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the Astronomer Mage set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)</p>
+        <div class="small mb-3">by Tashus, Tigergurke, Vikte, QuartzFox, Gully, Swazzy, and SabreCat</div>
+        <div class="scene_casting_spells center-block"></div>
+        <h3>Blog Post: Warrior</h3>
+        <p>This month's <a href='https://habitica.wordpress.com/2019/06/26/warrior/' target='_blank'>featured Wiki article</a> is about the Warrior class! We hope that it will help you as you explore the advantages of each class. Be sure to check it out, and let us know what you think by reaching out on <a href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a href='https://facebook.com/habitica' target='_blank'>Facebook</a>.</p>
+        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
       </div>
       `,
     });

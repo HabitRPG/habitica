@@ -472,6 +472,15 @@ let armor = {
     set: 'boating',
     canOwn: ownsItem('armor_armoire_boatingJacket'),
   },
+  astronomersRobe: {
+    text: t('armorArmoireAstronomersRobeText'),
+    notes: t('armorArmoireAstronomersRobeNotes', { attrs: 8 }),
+    value: 100,
+    per: 8,
+    con: 8,
+    set: 'astronomer',
+    canOwn: ownsItem('armor_armoire_astronomersRobe'),
+  },
 };
 
 let body = {
@@ -968,6 +977,14 @@ let head = {
     per: 6,
     set: 'boating',
     canOwn: ownsItem('head_armoire_boaterHat'),
+  },
+  astronomersHat: {
+    text: t('headArmoireAstronomersHatText'),
+    notes: t('headArmoireAstronomersHatNotes', { con: 10 }),
+    value: 100,
+    con: 10,
+    set: 'astronomer',
+    canOwn: ownsItem('head_armoire_astronomersHat'),
   },
 };
 
@@ -1631,6 +1648,14 @@ let weapon = {
     con: 6,
     set: 'boating',
     canOwn: ownsItem('weapon_armoire_bambooCane'),
+  },
+  astronomersTelescope: {
+    text: t('weaponArmoireAstronomersTelescopeText'),
+    notes: t('weaponArmoireAstronomersTelescopeNotes', { per: 10 }),
+    value: 100,
+    per: 10,
+    set: 'astronomer',
+    canOwn: ownsItem('weapon_armoire_astronomersTelescope'),
   },
 };
 

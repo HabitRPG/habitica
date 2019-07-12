@@ -98,14 +98,8 @@ export function setUserStyles (newMessage, user) {
     }
   }
 
-  let contributorCopy = user.contributor;
-  if (contributorCopy && contributorCopy.toObject) {
-    contributorCopy = contributorCopy.toObject();
-  }
-
-  newMessage.contributor = contributorCopy;
   newMessage.userStyles = userStyles;
-  newMessage.markModified('userStyles contributor');
+  newMessage.markModified('userStyles');
 }
 
 export function messageDefaults (msg, user, client, info = {}) {

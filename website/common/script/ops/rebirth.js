@@ -7,12 +7,14 @@ import {
 } from '../libs/errors';
 import equip from './equip';
 import { removePinnedGearByClass } from './pinnedGearUtils';
-
+import isFreeRebirth from '../libs/isFreeRebirth';
 
 const USERSTATSLIST = ['per', 'int', 'con', 'str', 'points', 'gp', 'exp', 'mp'];
 
 module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
-  if (user.balance < 1.5 && user.stats.lvl < MAX_LEVEL) {
+  const notFree = !isFreeRebirth(user);
+
+  if (user.balance < 1.5 && notFree) {
     throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
   }
 
@@ -21,7 +23,7 @@ module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
     category: 'behavior',
   };
 
-  if (user.stats.lvl < MAX_LEVEL) {
+  if (notFree) {
     user.balance -= 1.5;
     analyticsData.acquireMethod = 'Gems';
     analyticsData.gemCost = 6;
@@ -93,6 +95,10 @@ module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
   } else if (lvl > user.achievements.rebirthLevel || lvl === MAX_LEVEL) {
     user.achievements.rebirths++;
     user.achievements.rebirthLevel = lvl;
+  }
+
+  if (!notFree) {
+    user.flags.lastFreeRebirth = new Date();
   }
 
   if (user.addNotification) user.addNotification('REBIRTH_ACHIEVEMENT');
