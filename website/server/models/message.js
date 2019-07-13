@@ -52,24 +52,6 @@ inboxSchema.plugin(baseModel, {
   noSet: ['_id'],
 });
 
-inboxSchema.methods.mapMessage = function mapMessage (user) {
-  if (this.sent) {
-    this.toUUID = this.uuid;
-    this.toUser = this.user;
-    this.toUserName = this.username;
-    this.toUserContributor = this.contributor;
-    this.toUserBacker = this.backer;
-    this.uuid = user._id;
-    this.user = user.profile.name;
-    this.username = user.auth.local.username;
-    this.contributor = user.contributor;
-    this.backer = user.backer;
-  }
-
-  return this;
-};
-
-
 export const chatModel = mongoose.model('Chat', chatSchema);
 export const inboxModel = mongoose.model('Inbox', inboxSchema);
 
@@ -153,4 +135,21 @@ export function messageDefaults (msg, user, client, info = {}) {
   }
 
   return message;
+}
+
+export function mapInboxMessage (msg, user) {
+  if (msg.sent) {
+    msg.toUUID = msg.uuid;
+    msg.toUser = msg.user;
+    msg.toUserName = msg.username;
+    msg.toUserContributor = msg.contributor;
+    msg.toUserBacker = msg.backer;
+    msg.uuid = user._id;
+    msg.user = user.profile.name;
+    msg.username = user.auth.local.username;
+    msg.contributor = user.contributor;
+    msg.backer = user.backer;
+  }
+
+  return msg;
 }

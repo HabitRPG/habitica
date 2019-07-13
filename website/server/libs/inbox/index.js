@@ -1,4 +1,4 @@
-import {inboxModel as Inbox} from '../../models/message';
+import {mapInboxMessage, inboxModel as Inbox} from '../../models/message';
 import orderBy from 'lodash/orderBy';
 import {getUserInfo, sendTxn as sendTxnEmail} from '../email';
 import {sendNotification as sendPushNotification} from '../pushNotifications';
@@ -56,11 +56,13 @@ export async function getUserInbox (user, options = {asArray: true, page: 0, con
   }
 
   const messages = (await query.exec()).map(msg => {
+    const msgObj = msg.toJSON();
+
     if (options.mapProps) {
-      msg.mapMessage(user);
+      mapInboxMessage(msgObj, user);
     }
 
-    return msg.toJSON();
+    return msgObj;
   });
 
   if (options.asArray) {
