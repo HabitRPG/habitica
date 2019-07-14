@@ -13,3 +13,8 @@ Habitica uses [Trello](https://trello.com/b/EpoYEYod/habitica) to track feature 
 # Contributing Code
 
 See [Contributing to Habitica](http://habitica.fandom.com/wiki/Contributing_to_Habitica#Coders_.28Web_.26_Mobile.29)
+
+## Issue Triage [![Open Source Helpers](https://www.codetriage.com/habitrpg/habitica/badges/users.svg)](https://www.codetriage.com/habitrpg/habitica)
+
+You can triage issues which may include reproducing bug reports or asking for vital information, such as version numbers or reproduction instructions. If you would like to start triaging issues, one easy way to get started is to [subscribe to habitrpg on CodeTriage](https://www.codetriage.com/habitrpg/habitica).
+
