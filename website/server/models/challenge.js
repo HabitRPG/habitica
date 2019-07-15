@@ -34,7 +34,7 @@ let schema = new Schema({
   leader: {$type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid.'], required: true},
   group: {$type: String, ref: 'Group', validate: [v => validator.isUUID(v), 'Invalid uuid.'], required: true},
   memberCount: {$type: Number, default: 0},
-  prize: {$type: Number, default: 0, min: 0},
+  prize: {$type: Number, default: 0, min: 0, required: true},
   categories: [{
     slug: {$type: String},
     name: {$type: String},
