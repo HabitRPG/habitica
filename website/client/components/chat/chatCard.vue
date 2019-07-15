@@ -273,5 +273,8 @@ export default {
       return habiticaMarkdown.render(String(text));
     },
   },
+  mounted () {
+    this.$emit('chat-card-mounted', this.msg.id);
+  },
 };
 </script>

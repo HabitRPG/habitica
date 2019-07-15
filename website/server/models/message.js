@@ -98,8 +98,14 @@ export function setUserStyles (newMessage, user) {
     }
   }
 
+  let contributorCopy = user.contributor;
+  if (contributorCopy && contributorCopy.toObject) {
+    contributorCopy = contributorCopy.toObject();
+  }
+
+  newMessage.contributor = contributorCopy;
   newMessage.userStyles = userStyles;
-  newMessage.markModified('userStyles');
+  newMessage.markModified('userStyles contributor');
 }
 
 export function messageDefaults (msg, user, client, info = {}) {
@@ -129,4 +135,21 @@ export function messageDefaults (msg, user, client, info = {}) {
   }
 
   return message;
+}
+
+export function mapInboxMessage (msg, user) {
+  if (msg.sent) {
+    msg.toUUID = msg.uuid;
+    msg.toUser = msg.user;
+    msg.toUserName = msg.username;
+    msg.toUserContributor = msg.contributor;
+    msg.toUserBacker = msg.backer;
+    msg.uuid = user._id;
+    msg.user = user.profile.name;
+    msg.username = user.auth.local.username;
+    msg.contributor = user.contributor;
+    msg.backer = user.backer;
+  }
+
+  return msg;
 }
