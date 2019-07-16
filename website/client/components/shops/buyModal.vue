@@ -300,8 +300,13 @@
   import Avatar from 'client/components/avatar';
 
   import seasonalShopConfig from 'common/script/libs/shops-seasonal.config';
+  import { drops as dropEggs } from 'common/script/content/eggs';
 
+  import keys from 'lodash/keys';
+  import reduce from 'lodash/reduce';
   import moment from 'moment';
+
+  const dropEggKeys = keys(dropEggs);
 
   const hideAmountSelectionForPurchaseTypes = [
     'gear', 'backgrounds', 'mystery_set', 'card',
@@ -400,6 +405,25 @@
           this.$emit('buyPressed', this.item);
           this.hideDialog();
           return;
+        }
+
+        if (this.item.pinType === 'premiumHatchingPotion' || this.item.pinType === 'eggs' && dropEggKeys.indexOf(this.item.key) === -1) {
+          let petsRemaining = 20 - this.selectedAmountToBuy;
+          petsRemaining -= reduce(this.user.items.pets, (sum, petValue, petKey) => {
+            if (petKey.indexOf(this.item.key) !== -1 && petValue > 0) return sum + 1;
+            return sum;
+          }, 0);
+          petsRemaining -= reduce(this.user.items.mounts, (sum, mountValue, mountKey) => {
+            if (mountKey.indexOf(this.item.key) !== -1 && mountValue === true) return sum + 1;
+            return sum;
+          }, 0);
+          if (this.item.pinType === 'premiumHatchingPotion') {
+            petsRemaining -= this.user.items.hatchingPotions[this.item.key] + 2;
+          } else {
+            petsRemaining -= this.user.items.eggs[this.item.key] || 0;
+          }
+
+          if (petsRemaining < 0 && !confirm(this.$t('purchasePetItemConfirm', {itemText: this.item.text}))) return;
         }
 
         const shouldConfirmPurchase = this.item.currency === 'gems' || this.item.currency === 'hourglasses';
