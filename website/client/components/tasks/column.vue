@@ -307,9 +307,9 @@ export default {
       type: Boolean,
       default: false,
     },
-    showTaskColor : {
+    showTaskColor: {
       type: Boolean,
-      default: true
+      default: true,
     },
     searchText: {},
     selectedTags: {},
