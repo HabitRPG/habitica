@@ -282,6 +282,7 @@ export default {
   mounted () {
     this.CHAT_FLAG_LIMIT_FOR_HIDING = CHAT_FLAG_LIMIT_FOR_HIDING;
     this.CHAT_FLAG_FROM_SHADOW_MUTE = CHAT_FLAG_FROM_SHADOW_MUTE;
+    this.$emit('chat-card-mounted', this.msg.id);
   },
 };
 </script>

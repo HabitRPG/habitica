@@ -4,7 +4,6 @@
       .form-group
         input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
       market-filter(
-        :categories="categories",
         :hideLocked.sync="hideLocked",
         :hidePinned.sync="hidePinned",
         :viewOptions="viewOptions"
@@ -39,7 +38,7 @@
               span.text {{ $t(ctx.item.id) }}
       div(
         v-for="category in categories",
-        v-if="!anyFilterSelected || viewOptions[category.identifier].selected && category.identifier !== 'equipment'"
+        v-if="!anyFilterSelected || viewOptions[category.identifier].selected"
       )
         h4 {{ category.text }}
         category-row(
@@ -197,7 +196,12 @@ export default {
     },
     data () {
       return {
-        viewOptions: {},
+        viewOptions: {
+          equipment: {
+            selected: false,
+            text: this.$t('equipment'),
+          },
+        },
 
         searchText: null,
         searchTextThrottled: null,
@@ -237,11 +241,6 @@ export default {
         let categories = [
           ...this.market.categories,
         ];
-
-        categories.push({
-          identifier: 'equipment',
-          text: this.$t('equipment'),
-        });
 
         categories.push({
           identifier: 'cards',
@@ -291,6 +290,7 @@ export default {
           if (!this.viewOptions[category.identifier]) {
             this.$set(this.viewOptions, category.identifier, {
               selected: false,
+              text: category.text,
             });
           }
         });

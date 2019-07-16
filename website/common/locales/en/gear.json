@@ -435,6 +435,8 @@
   "weaponArmoireNephriteBowNotes": "This bow shoots special jade-tipped arrows that will take down even your most stubborn bad habits! Increases Intelligence by <%= int %> and Strength by <%= str %>. Enchanted Armoire: Nephrite Archer Set (Item 1 of 3).",
   "weaponArmoireBambooCaneText": "Bamboo Cane",
   "weaponArmoireBambooCaneNotes": "Perfect for assisting you in a stroll, or for dancing the Charleston. Increases Intelligence, Perception, and Constitution by <%= attrs %> each. Enchanted Armoire: Boating Set (Item 3 of 3).",
+  "weaponArmoireAstronomersTelescopeText": "Astronomer's Telescope",
+  "weaponArmoireAstronomersTelescopeNotes": "An instrument that will allow you to observe the stars' ancient dance. Increases Perception by <%= per %>. Enchanted Armoire: Astronomer Mage Set (Item 3 of 3).",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -823,6 +825,8 @@
   "armorMystery201903Notes": "People are dye-ing to know where you got this egg-cellent outfit! Confers no benefit. March 2019 Subscriber Item.",
   "armorMystery201904Text": "Opalescent Outfit",
   "armorMystery201904Notes": "This shining garment has opals sewn into the front panel to grant you arcane powers and a fabulous look. Confers no benefit. April 2019 Subscriber Item.",
+  "armorMystery201906Text": "Kindly Koi Tail",
+  "armorMystery201906Notes": "We will spare you a pun about “playing koi.” Oh wait, oops. Confers no benefit. June 2019 Subscriber Item.",
   "armorMystery301404Text": "Steampunk Suit",
   "armorMystery301404Notes": "Dapper and dashing, wot! Confers no benefit. February 3015 Subscriber Item.",
   "armorMystery301703Text": "Steampunk Peacock Gown",
@@ -938,6 +942,8 @@
   "armorArmoireNephriteArmorNotes": "Made from strong steel rings and decorated with jade, this armor will protect you from procrastination! Increases Strength by <%= str %> and Perception by <%= per %>. Enchanted Armoire: Nephrite Archer Set (Item 3 of 3).",
   "armorArmoireBoatingJacketText": "Boating Jacket",
   "armorArmoireBoatingJacketNotes": "Whether you're on a swanky yacht or in a jalopy, you'll be the cat's meow in this jacket and tie. Increases Strength, Intelligence, and Perception by <%= attrs %> each. Enchanted Armoire: Boating Set (Item 1 of 3).",
+  "armorArmoireAstronomersRobeText": "Astronomer's Robe",
+  "armorArmoireAstronomersRobeNotes": "Turns out silk and starlight make a fabric that is not only magical, but very breathable. Increases Perception and Constitution by <%= attrs %> each. Enchanted Armoire: Astronomer Mage Set (Item 1 of 3).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -1455,6 +1461,8 @@
   "headArmoireNephriteHelmNotes": "The carved jade plume atop this helm is enchanted to enhance your aim. Increases Perception by <%= per %> and Intelligence by <%= int %>. Enchanted Armoire: Nephrite Archer Set (Item 2 of 3).",
   "headArmoireBoaterHatText": "Boater Hat",
   "headArmoireBoaterHatNotes": "This straw chapeau is the bee's knees! Increases Strength, Constitution, and Perception by <%= attrs %> each. Enchanted Armoire: Boating Set (Item 2 of 3).",
+  "headArmoireAstronomersHatText": "Astronomer's Hat",
+  "headArmoireAstronomersHatNotes": "A perfect hat for celestial observation or a fancy wizard brunch. Increases Constitution by <%= con %>. Enchanted Armoire: Astronomer Mage Set (Item 2 of 3).",
 
   "offhand": "off-hand item",
   "offhandCapitalized": "Off-Hand Item",
@@ -1950,6 +1958,8 @@
   "headAccessoryMystery201812Notes": "You hear the subtle sound of snowflakes falling upon the landscape. Confers no benefit. December 2018 Subscriber Item.",
   "headAccessoryMystery201905Text": "Dazzling Dragon Horns",
   "headAccessoryMystery201905Notes": "These horns are as sharp as they are shimmery. Confers no benefit. May 2019 Subscriber Item.",
+  "headAccessoryMystery201906Text": "Kindly Koi Ears",
+  "headAccessoryMystery201906Notes": "Legend has it these finny ears help merfolk hear the calls and songs of all the denizens of the deep! Confers no benefit. June 2019 Subscriber Item.",
   "headAccessoryMystery301405Text": "Headwear Goggles",
   "headAccessoryMystery301405Notes": "\"Goggles are for your eyes,\" they said. \"Nobody wants goggles that you can only wear on your head,\" they said. Hah! You sure showed them! Confers no benefit. August 3015 Subscriber Item.",
 

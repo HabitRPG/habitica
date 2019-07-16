@@ -265,6 +265,9 @@
         this.$emit('change', $event);
       },
       buyItem () {
+        if (!this.confirmPurchase(this.item.currency, this.item.value * this.selectedAmountToBuy)) {
+          return;
+        }
         this.makeGenericPurchase(this.item, 'buyQuestModal', this.selectedAmountToBuy);
         this.purchased(this.item.text);
         this.hideDialog();

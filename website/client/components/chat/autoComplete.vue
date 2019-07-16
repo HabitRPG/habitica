@@ -3,8 +3,8 @@
   .autocomplete-results.d-flex.align-items-center(
     v-for='result in searchResults',
     @click='select(result)',
-    @mouseenter='result.hover = true',
-    @mouseleave='result.hover = false',
+    @mouseenter='setHover(result)',
+    @mouseleave='resetSelection()',
     :class='{"hover-background": result.hover}',
   )
     span
@@ -27,6 +27,7 @@
 
   .hover-background {
     background-color: rgba(213, 200, 255, 0.32);
+    cursor: pointer;
   }
 
   .hover-foreground {
@@ -86,6 +87,7 @@ export default {
         tier9,
         tierNPC,
       }),
+      selected: null,
     };
   },
   computed: {
@@ -120,12 +122,6 @@ export default {
   mounted () {
     this.grabUserNames();
   },
-  created () {
-    document.addEventListener('keyup', this.handleEsc);
-  },
-  destroyed () {
-    document.removeEventListener('keyup', this.handleEsc);
-  },
   watch: {
     text (newText) {
       if (!newText[newText.length - 1] || newText[newText.length - 1] === ' ') {
@@ -154,6 +150,7 @@ export default {
       this.searchActive = false;
       this.searchEscaped = false;
       this.tmpSelections = [];
+      this.resetSelection();
     },
     grabUserNames () {
       let usersThatMessage = groupBy(this.chat, 'user');
@@ -189,12 +186,49 @@ export default {
       const targetName = `${result.username || result.displayName} `;
       newText = newText.replace(new RegExp(`${this.currentSearch}$`), targetName);
       this.$emit('select', newText);
+      this.resetSelection();
     },
-    handleEsc (e) {
-      if (e.keyCode === 27) {
-        this.searchActive = false;
-        this.searchEscaped = true;
+    setHover (result) {
+      this.resetSelection();
+      result.hover = true;
+    },
+    clearHover () {
+      for (const selection of this.searchResults) {
+        selection.hover = false;
       }
+    },
+    resetSelection () {
+      this.clearHover();
+      this.selected = null;
+    },
+    selectNext () {
+      if (this.searchResults.length > 0) {
+        this.clearHover();
+        this.selected = this.selected === null ?
+          0 :
+          (this.selected + 1) % this.searchResults.length;
+        this.searchResults[this.selected].hover = true;
+      }
+    },
+    selectPrevious () {
+      if (this.searchResults.length > 0) {
+        this.clearHover();
+        this.selected = this.selected === null ?
+          this.searchResults.length - 1 :
+          (this.selected - 1 + this.searchResults.length) % this.searchResults.length;
+        this.searchResults[this.selected].hover = true;
+      }
+    },
+    makeSelection () {
+      if (this.searchResults.length > 0 && this.selected !== null) {
+        const result = this.searchResults[this.selected];
+        this.select(result);
+      }
+    },
+    cancel () {
+      this.searchActive = false;
+      this.searchEscaped = true;
+      this.resetSelection();
     },
   },
   mixins: [styleHelper],
