@@ -586,11 +586,6 @@ export default {
       this.messagesByConversation[this.selectedConversation.key] = this.messagesByConversation[this.selectedConversation.key] || [];
       const loadedMessagesToAdd = loadedMessages
         .filter(m => this.messagesByConversation[this.selectedConversation.key].findIndex(mI => mI.id === m.id) === -1)
-        .map(m => {
-          m.uuid = m.fromUUID;
-
-          return m;
-        })
       ;
       this.messagesByConversation[this.selectedConversation.key].push(...loadedMessagesToAdd);
 
