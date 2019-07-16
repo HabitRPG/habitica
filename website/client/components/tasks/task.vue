@@ -550,7 +550,7 @@ export default {
   directives: {
     markdown: markdownDirective,
   },
-  props: ['task', 'isUser', 'group', 'dueDate' , 'showtaskcolor' ], // @TODO: maybe we should store the group on state?
+  props: ['task', 'isUser', 'group', 'dueDate' , 'showTaskColor' ], // @TODO: maybe we should store the group on state?
   data () {
     return {
       icons: Object.freeze({
@@ -609,13 +609,13 @@ export default {
       return false;
     },
     controlClass () {
-      return this.getTaskClasses(this.task, 'control', this.dueDate , this.showtaskcolor );
+      return this.getTaskClasses(this.task, 'control', this.dueDate , this.showTaskColor );
     },
     contentClass () {
       const type = this.task.type;
 
       const classes = [];
-      classes.push(this.getTaskClasses(this.task, 'control', this.dueDate , this.showtaskcolor ).content);
+      classes.push(this.getTaskClasses(this.task, 'control', this.dueDate , this.showTaskColor ).content);
 
       if (type === 'reward' || type === 'habit') {
         classes.push('no-right-border');

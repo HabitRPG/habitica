@@ -9,7 +9,7 @@
         :type="column",
         :key="column",
         :taskListOverride='tasksByType[column]',
-        :showtaskcolor='true' )
+        :showTaskColor='true' )
 </template>
 
 <style scoped>

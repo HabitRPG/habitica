@@ -52,7 +52,7 @@ export function getTaskClasses (store) {
   // Edit Modal: edit-modal-bg, edit-modal-text, edit-modal-icon
   // Create Modal: create-modal-bg, create-modal-text, create-modal-icon
   // Control: 'control'
-  return (task, purpose, dueDate , showtaskcolor) => {
+  return (task, purpose, dueDate , showTaskColor) => {
     if (!dueDate) dueDate = new Date();
     const type = task.type;
     const color = getTaskColor(task);
@@ -81,7 +81,7 @@ export function getTaskClasses (store) {
 
       case 'control':
         if (type === 'todo' || type === 'daily') {
-          if ( !showtaskcolor && (task.completed || !shouldDo(dueDate, task, userPreferences) && type === 'daily') ) {
+          if ( !showTaskColor && (task.completed || !shouldDo(dueDate, task, userPreferences) && type === 'daily') ) {
             return {
               bg: 'task-disabled-daily-todo-control-bg',
               checkbox: 'task-disabled-daily-todo-control-checkbox',

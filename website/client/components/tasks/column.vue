@@ -49,7 +49,7 @@
         @moveTo="moveTo",
         :group='group',
         v-on:taskDestroyed='taskDestroyed',
-        :showtaskcolor='showtaskcolor'
+        :showTaskColor='showTaskColor'
       )
     template(v-if="hasRewardsList")
       draggable.reward-items(
@@ -307,8 +307,9 @@ export default {
       type: Boolean,
       default: false,
     },
-    showtaskcolor : {
-      type: Boolean
+    showTaskColor : {
+      type: Boolean,
+      default: true
     },
     searchText: {},
     selectedTags: {},
