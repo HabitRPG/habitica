@@ -10,29 +10,29 @@ import { model as User } from '../../../website/server/models/user';
 const progressCount = 1000;
 let count = 0;
 
-async function updateUser (user) {
+function updateUser (user) {
   count++;
 
   let set = { migration: MIGRATION_NAME };
   let addToSet;
 
-  let backupUser = await backupUsers.findOne(
+  backupUsers.findOne(
     { _id: user._id },
     { fields: { party: 1, guilds: 1 }}
-  );
+  ).then((backupUser) => {
+    if (!user.party._id) {
+      set.party = backupUser.party;
+    }
+    addToSet = { guilds: { $each: backupUser.guilds }};
 
-  if (!user.party._id) {
-    set.party = backupUser.party;
-  }
-  addToSet = { guilds: { $each: backupUser.guilds }};
+    if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
 
-  if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
-
-  return await User.update({ _id: user._id }, { $set: set, $addToSet: addToSet }).exec();
+    return User.update({ _id: user._id }, { $set: set, $addToSet: addToSet }).exec();
+  });
 }
 
 module.exports = async function processUsers () {
-  let query = {
+  const query = {
     'auth.timestamps.loggedin': {$gt: new Date('2019-07-15')},
   };
 
