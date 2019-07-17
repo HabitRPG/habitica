@@ -17,7 +17,7 @@ function setUpServer () {
 setUpServer();
 
 // Replace this with your migration
-const processUsers = require('./users/mystery-items.js');
+const processUsers = require('');
 processUsers()
   .then(function success () {
     process.exit(0);

@@ -1,6 +1,6 @@
 .promo_armoire_backgrounds_201907 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -854px -148px;
+  background-position: -313px -524px;
   width: 423px;
   height: 147px;
 }
@@ -14,12 +14,6 @@
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: -854px -296px;
   width: 282px;
-  height: 147px;
-}
-.promo_oddballs_bundle {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -313px -524px;
-  width: 423px;
   height: 147px;
 }
 .promo_orcas {
@@ -39,6 +33,12 @@
   background-position: -1074px -444px;
   width: 162px;
   height: 132px;
+}
+.promo_splashy_pals_bundle {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -854px -148px;
+  width: 423px;
+  height: 147px;
 }
 .promo_splashy_skins {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
