@@ -90,7 +90,7 @@ api.bundles = {
       'whale',
     ],
     canBuy () {
-      return moment().isBetween('2017-07-11', '2017-08-02');
+      return moment().isBetween('2019-07-17', '2019-08-02');
     },
     type: 'quests',
     class: 'quest_bundle_splashyPals',
