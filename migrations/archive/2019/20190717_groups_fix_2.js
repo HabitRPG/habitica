@@ -13,28 +13,30 @@ const questScrolls = shared.content.quests;
 
 const progressCount = 1000;
 let count = 0;
-let backupUsers;
 
 async function updateGroup (group) {
   count++;
 
-  if (group && group.quest && group.quest.leader) {
+  if (group && group.quest && group.quest.key && group.quest.leader) {
     const quest = questScrolls[group.quest.key];
     const leader = await User.findOne({_id: group.quest.leader}).exec();
 
-    if (!leader) return;
+    if (leader && quest) {
+      await User.update({ 
+        _id: leader._id,
+        migration: {$ne: MIGRATION_NAME},
+      }, {
+        $set: {migration: MIGRATION_NAME},
+        $inc: { 
+          balance: 1,
+          [`items.quests.${group.quest.key}`]: 1,
+        },
+      }).exec();
 
-    await User.update({ _id: leader._id }, {
-      $set: {migration: MIGRATION_NAME},
-      $inc: { 
-        balance: 1,
-        [`items.quests.${group.quest.key}`]: 1,
-      },
-    }).exec();
-
-    // unsubscribe from all is already checked by sendTxnEmail
-    if (leader.preferences && leader.preferences.emailNotifications && leader.preferences.emailNotifications.majorUpdates !== false) {
-      sendTxnEmail(leader, 'groups-outage');
+      // unsubscribe from all is already checked by sendTxnEmail
+      if (leader.preferences && leader.preferences.emailNotifications && leader.preferences.emailNotifications.majorUpdates !== false) {
+        sendTxnEmail(leader, 'groups-outage');
+      }
     }
   }
 
@@ -58,7 +60,7 @@ module.exports = async function processUsers () {
   while (true) { // eslint-disable-line no-constant-condition
     const groupsPromise = new Promise((resolve, reject) => {
       backupGroups
-      .find(query, { 
+      .find(query, {
         limit: 250, 
         sort: {_id: 1}
       })
@@ -66,7 +68,7 @@ module.exports = async function processUsers () {
         resolve(foundGroupInBackup);
       }).catch(e => {
         reject(e);
-      })
+      });
     });
 
     const groups = await groupsPromise;
@@ -77,7 +79,7 @@ module.exports = async function processUsers () {
       break;
     } else {
       query._id = {
-        $gt: groups[groups.length - 1],
+        $gt: groups[groups.length - 1]._id,
       };
     }
 
