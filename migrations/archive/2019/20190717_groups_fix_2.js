@@ -32,7 +32,10 @@ async function updateGroup (group) {
       },
     }).exec();
 
-    sendTxnEmail(leader, 'groups-outage');
+    // unsubscribe from all is already checked by sendTxnEmail
+    if (leader.preferences && leader.preferences.emailNotifications && leader.preferences.emailNotifications.majorUpdates !== false) {
+      sendTxnEmail(leader, 'groups-outage');
+    }
   }
 
   if (count % progressCount === 0) console.warn(`${count} ${group._id}`);
