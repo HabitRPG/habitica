@@ -16,15 +16,15 @@ async function updateUser (user) {
   let set = { migration: MIGRATION_NAME };
   let addToSet;
 
-  backupUsers.findOne(
+  let backupUser = await backupUsers.findOne(
     { _id: user._id },
     { fields: { party: 1, guilds: 1 }}
-  ).then((backupUser) => {
-    if (!user.party._id) {
-      set.party = backupUser.party;
-    }
-    addToSet = { guilds: { $each: backupUser.guilds }};
-  });
+  );
+
+  if (!user.party._id) {
+    set.party = backupUser.party;
+  }
+  addToSet = { guilds: { $each: backupUser.guilds }};
 
   if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
 
@@ -33,8 +33,7 @@ async function updateUser (user) {
 
 module.exports = async function processUsers () {
   let query = {
-    migration: {$ne: MIGRATION_NAME},
-    'auth.timestamps.loggedin': {$gt: new Date('2019-07-17')},
+    'auth.timestamps.loggedin': {$gt: new Date('2019-07-15')},
   };
 
   const fields = {
