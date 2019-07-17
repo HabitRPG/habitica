@@ -23,10 +23,10 @@ async function updateUser (user) {
     ).then(foundUserInBackup => {
       resolve(foundUserInBackup);
     }).catch(e => {
+      reject(e);
     })
   });
   let backupUser = await monkPromise;
-
   if (!backupUser) return;
 
   if (!user.party._id) {
