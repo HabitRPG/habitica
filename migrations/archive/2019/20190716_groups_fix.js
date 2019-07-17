@@ -10,25 +10,33 @@ import { model as User } from '../../../website/server/models/user';
 const progressCount = 1000;
 let count = 0;
 
-function updateUser (user) {
+async function updateUser (user) {
   count++;
 
   let set = { migration: MIGRATION_NAME };
   let addToSet;
 
-  backupUsers.findOne(
-    { _id: user._id },
-    { fields: { party: 1, guilds: 1 }}
-  ).then((backupUser) => {
-    if (!user.party._id) {
-      set.party = backupUser.party;
-    }
-    addToSet = { guilds: { $each: backupUser.guilds }};
-
-    if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
-
-    return User.update({ _id: user._id }, { $set: set, $addToSet: addToSet }).exec();
+  const monkPromise = new Promise((resolve, reject) => {
+     backupUsers.findOne(
+      { _id: user._id },
+      { fields: { _id: 1, party: 1, guilds: 1 }},
+    ).then(foundUserInBackup => {
+      resolve(foundUserInBackup);
+    }).catch(e => {
+    })
   });
+  let backupUser = await monkPromise;
+
+  if (!backupUser) return;
+
+  if (!user.party._id) {
+    set.party = backupUser.party;
+  }
+  addToSet = { guilds: { $each: backupUser.guilds }};
+
+  if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
+
+  return User.update({ _id: user._id }, { $set: set, $addToSet: addToSet }).exec();
 }
 
 module.exports = async function processUsers () {
