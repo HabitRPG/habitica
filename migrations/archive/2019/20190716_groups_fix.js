@@ -4,11 +4,12 @@ const MIGRATION_NAME = '20190716_groups_fix';
 import monk from 'monk';
 import nconf from 'nconf';
 const CONNECTION_STRING = nconf.get('MIGRATION_CONNECT_STRING');
-let backupUsers = monk(CONNECTION_STRING).get('users', { castIds: false });
+
 import { model as User } from '../../../website/server/models/user';
 
 const progressCount = 1000;
 let count = 0;
+let backupUsers;
 
 async function updateUser (user) {
   count++;
@@ -43,6 +44,15 @@ module.exports = async function processUsers () {
   const query = {
     'auth.timestamps.loggedin': {$gt: new Date('2019-07-15')},
   };
+
+  let backupDb = monk(CONNECTION_STRING);
+  const backupDbPromise = new Promise((resolve, reject) => {
+    backupDb.then(() => resolve()).catch((e) => reject(e));
+  });
+
+  await backupDbPromise;
+  console.log('Connected to backup db');
+  backupUsers = backupDb.get('users', { castIds: false });
 
   const fields = {
     _id: 1,

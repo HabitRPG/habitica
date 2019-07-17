@@ -17,7 +17,7 @@ function setUpServer () {
 setUpServer();
 
 // Replace this with your migration
-const processUsers = require('');
+const processUsers = require('./archive/2019/20190716_groups_fix.js');
 processUsers()
   .then(function success () {
     process.exit(0);
