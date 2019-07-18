@@ -30,7 +30,7 @@
           .details(v-once) {{$t('participantsTitle')}}
         .box
           .svg-icon.gem-icon(v-html="icons.gemIcon")
-          | {{challenge.prize}}
+          challenge.prize(v-if=null) {{challenge.prize = 0}}
           .details(v-once) {{$t('prize')}}
     .row.challenge-actions
       .col-12.col-md-6
