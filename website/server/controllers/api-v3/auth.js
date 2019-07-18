@@ -303,7 +303,7 @@ api.resetPassword = {
 
       user.auth.local.passwordResetCode = passwordResetCode;
 
-      sendTxnEmail(user, 'password-reset', [
+      sendTxnEmail(user, 'reset-password', [
         {name: 'PASSWORD_RESET_LINK', content: link},
       ]);
 
