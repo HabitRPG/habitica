@@ -20,22 +20,28 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
           .menu-item
             .svg-icon(v-html='icons.bodyIcon')
           strong(v-once) {{$t('bodyBody')}}
+          .indicator
         .menu-container(@click='changeTopPage("skin", "color")', :class='{"col-3": !editing, "col-2": editing, active: activeTopPage === "skin"}')
           .menu-item
             .svg-icon(v-html='icons.skinIcon')
           strong(v-once) {{$t('skin')}}
+          .indicator
         .menu-container(@click='changeTopPage("hair", "color")', :class='{"col-3": !editing, "col-2": editing, active: activeTopPage === "hair"}')
           .menu-item
             .svg-icon(v-html='icons.hairIcon')
           strong(v-once) {{$t('hair')}}
+          .indicator
         .menu-container(@click='changeTopPage("extra", "glasses")', :class='{"col-3": !editing, "col-2": editing, active: activeTopPage === "extra"}')
           .menu-item
             .svg-icon(v-html='icons.accessoriesIcon')
           strong(v-once) {{$t('extra')}}
+          .indicator
         .menu-container.col-2(@click='changeTopPage("backgrounds", "2019")', v-if='editing', :class='{active: activeTopPage === "backgrounds"}')
           .menu-item
             .svg-icon(v-html='icons.backgroundsIcon')
           strong(v-once) {{$t('backgrounds')}}
+          .indicator
+
     body-settings(
       v-if='activeTopPage === "body"',
       :editing="editing",
@@ -494,10 +500,6 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       margin-bottom: 1em;
     }
 
-    .section {
-      margin-top: 2em;
-    }
-
     .edit-modal {
       margin-top: 10em;
     }
@@ -622,6 +624,20 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
         cursor: pointer;
         color: #6133B4;
       }
+
+      .indicator {
+        display: none;
+      }
+
+      .menu-container.active .indicator{
+        width: 0px;
+        height: 0px;
+        border-left: 12px solid transparent;
+        border-right: 12px solid transparent;
+        border-bottom: 12px solid $gray-700;
+        display: block;
+        margin: 0 auto;
+      }
     }
 
 
@@ -660,7 +676,6 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
 
     .customize-section {
       background-color: #f9f9f9;
-      padding-top: 1em;
       min-height: 280px;
     }
 
