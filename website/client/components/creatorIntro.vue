@@ -912,7 +912,8 @@ import gold from 'assets/svg/gold.svg';
 import pin from 'assets/svg/pin.svg';
 import isPinned from 'common/script/libs/isPinned';
 import {avatarEditorUtilies} from '../mixins/avatarEditUtilities';
-import {tasksByCategory} from './avatarModal/tasks';
+
+import content from 'common/script/content/index';
 
 const skinsBySet = groupBy(appearance.skin, 'set.key');
 const hairColorBySet = groupBy(appearance.hair.color, 'set.key');
@@ -1371,7 +1372,7 @@ export default {
 
       let tasksToCreate = [];
       this.taskCategories.forEach(category => {
-        tasksToCreate = tasksToCreate.concat(tasksByCategory[category]);
+        tasksToCreate = tasksToCreate.concat(content.tasksByCategory[category]);
       });
 
       // @TODO: Move to the action
