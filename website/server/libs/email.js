@@ -19,7 +19,7 @@ export function getUserInfo (user, fields = []) {
   let info = {};
 
   if (fields.indexOf('name') !== -1) {
-    info.name = user.auth && user.auth.username;
+    info.name = user.auth && user.auth.local.username;
   }
 
   if (fields.indexOf('email') !== -1) {
