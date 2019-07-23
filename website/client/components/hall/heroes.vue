@@ -115,9 +115,13 @@ import { mountInfo, petInfo } from 'common/script/content/stable';
 import { food, hatchingPotions, special } from 'common/script/content';
 import gear from 'common/script/content/gear';
 import notifications from 'client/mixins/notifications';
+import userLink from '../userLink';
 
 export default {
   mixins: [notifications, styleHelper],
+  components: {
+    userLink,
+  },
   data () {
     return {
       heroes: [],
