@@ -47,121 +47,16 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       :editing="editing",
     )
 
-    #skin.section.customize-section(v-if='activeTopPage === "skin"')
-      sub-menu.text-center(:items="skinSubMenuItems", :activeSubPage="activeSubPage", @changeSubPage="changeSubPage($event)")
-      .row
-        .col-12.customize-options
-          .option(v-for='option in ["ddc994", "f5a76e", "ea8349", "c06534", "98461a", "915533", "c3e1dc", "6bd049"]',
-            :class='{active: user.preferences.skin === option}')
-            .skin.sprite.customize-option(:class="`skin_${option}`", @click='set({"preferences.skin": option})')
-      .row(v-if='editing && set.key !== "undefined"', v-for='set in seasonalSkins')
-        .col-12.customize-options
-          .option(v-for='option in set.options',
-            :class='{active: option.active, locked: option.locked, hide: option.hide}')
-            .skin.sprite.customize-option(:class="`skin_${option.key}`", @click='option.click')
-            .gem-lock(v-if='option.locked')
-              .svg-icon.gem(v-html='icons.gem')
-              span 2
-        .col-12.text-center(v-if='!hideSet(set) && !userOwnsSet("skin", set.keys)')
-          .gem-lock
-            .svg-icon.gem(v-html='icons.gem')
-            span 5
-          button.btn.btn-secondary.purchase-all(@click='unlock(`skin.${set.keys.join(",skin.")}`)') {{ $t('purchaseAll') }}
-    #hair.section.customize-section(v-if='activeTopPage === "hair"')
-      sub-menu.text-center(:items="hairSubMenuItems", :activeSubPage="activeSubPage", @changeSubPage="changeSubPage($event)")
-      #hair-color.row(v-if='activeSubPage === "color"')
-        .col-12.customize-options
-          .option(v-for='option in ["white", "brown", "blond", "red", "black"]',
-            :class='{active: user.preferences.hair.color === option}')
-            .color-bangs.sprite.customize-option(:class="`hair_bangs_1_${option}`", @click='set({"preferences.hair.color": option})')
-        .col-12.customize-options(v-if='editing && set.key !== "undefined"', v-for='set in seasonalHairColors')
-          .option(v-for='option in set.options',
-            :class='{active: option.active, locked: option.locked, hide: option.hide}')
-            .skin.sprite.customize-option(:class="`hair_bangs_1_${option.key}`", @click='option.click')
-            .gem-lock(v-if='option.locked')
-              .svg-icon.gem(v-html='icons.gem')
-              span 2
-          .col-12.text-center(v-if='!hideSet(set) && !userOwnsSet("hair", set.keys, "color")')
-            .gem-lock
-              .svg-icon.gem(v-html='icons.gem')
-              span 5
-            button.btn.btn-secondary.purchase-all(@click='unlock(`hair.color.${set.keys.join(",hair.color.")}`)') {{ $t('purchaseAll') }}
-      #style.row(v-if='activeSubPage === "style"')
-        .col-12.customize-options(v-if='editing')
-          .option(@click='set({"preferences.hair.base": 0})', :class="{ active: user.preferences.hair.base === 0 }")
-            .head_0(:class="['hair_base_0_' + user.preferences.hair.color]")
-          .option(v-for='option in baseHair3',
-            :class='{active: option.active, locked: option.locked}')
-            .base.sprite.customize-option(:class="`hair_base_${option.key}_${user.preferences.hair.color}`", @click='option.click')
-            .gem-lock(v-if='option.locked')
-              .svg-icon.gem(v-html='icons.gem')
-              span 2
-          .col-12.text-center(v-if='!userOwnsSet("hair", baseHair3Keys, "base")')
-            .gem-lock
-              .svg-icon.gem(v-html='icons.gem')
-              span 5
-            button.btn.btn-secondary.purchase-all(@click='unlock(`hair.base.${baseHair3Keys.join(",hair.base.")}`)') {{ $t('purchaseAll') }}
-        .col-12.customize-options(v-if='editing')
-          .option(v-for='option in baseHair4',
-            :class='{active: option.active, locked: option.locked}')
-            .base.sprite.customize-option(:class="`hair_base_${option.key}_${user.preferences.hair.color}`", @click='option.click')
-            .gem-lock(v-if='option.locked')
-              .svg-icon.gem(v-html='icons.gem')
-              span 2
-          .col-12.text-center(v-if='!userOwnsSet("hair", baseHair4Keys, "base")')
-            .gem-lock
-              .svg-icon.gem(v-html='icons.gem')
-              span 5
-            button.btn.btn-secondary.purchase-all(@click='unlock(`hair.base.${baseHair4Keys.join(",hair.base.")}`)') {{ $t('purchaseAll') }}
-        .col-12.customize-options
-          .option(v-if="!editing", @click='set({"preferences.hair.base": 0})', :class="{ active: user.preferences.hair.base === 0 }")
-            .head_0(:class="['hair_base_0_' + user.preferences.hair.color]")
-          .option(v-for='option in baseHair1',
-            :class='{active: user.preferences.hair.base === option}')
-            .base.sprite.customize-option(:class="`hair_base_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.base": option})')
-        .col-12.customize-options(v-if='editing')
-          .option(v-for='option in baseHair2',
-            :class='{active: option.active, locked: option.locked}')
-            .base.sprite.customize-option(:class="`hair_base_${option.key}_${user.preferences.hair.color}`", @click='option.click')
-            .gem-lock(v-if='option.locked')
-              .svg-icon.gem(v-html='icons.gem')
-              span 2
-          .col-12.text-center(v-if='!userOwnsSet("hair", baseHair2Keys, "base")')
-            .gem-lock
-              .svg-icon.gem(v-html='icons.gem')
-              span 5
-            button.btn.btn-secondary.purchase-all(@click='unlock(`hair.base.${baseHair2Keys.join(",hair.base.")}`)') {{ $t('purchaseAll') }}
-      #bangs.row(v-if='activeSubPage === "bangs"')
-        .col-12.customize-options
-          .option.none(@click='set({"preferences.hair.bangs": 0})', :class="{ active: user.preferences.hair.bangs === 0 }")
-            .bangs.sprite.customize-option.head_0(:class="['hair_bangs_0_' + user.preferences.hair.color]")
-            .redline-outer
-              .redline
-          .option(v-for='option in [1, 2, 3, 4]',
-            :class='{active: user.preferences.hair.bangs === option}')
-            .bangs.sprite.customize-option(:class="`hair_bangs_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.bangs": option})')
-      #facialhair.row(v-if='activeSubPage === "facialhair"')
-        .col-12.customize-options(v-if='editing')
-          .head_0.option(@click='set({"preferences.hair.mustache": 0})', :class="[{ active: user.preferences.hair.mustache === 0 }, 'hair_base_0_' + user.preferences.hair.color]")
-          .option(v-for='option in baseHair5',
-            :class='{active: option.active, locked: option.locked}')
-            .base.sprite.customize-option(:class="`hair_mustache_${option.key}_${user.preferences.hair.color}`", @click='option.click')
-            .gem-lock(v-if='option.locked')
-              .svg-icon.gem(v-html='icons.gem')
-              span 2
-        .col-12.customize-options(v-if='editing')
-          .head_0.option(@click='set({"preferences.hair.beard": 0})', :class="[{ active: user.preferences.hair.beard === 0 }, 'hair_base_0_' + user.preferences.hair.color]")
-          .option(v-for='option in baseHair6',
-            :class='{active: option.active, locked: option.locked}')
-            .base.sprite.customize-option(:class="`hair_beard_${option.key}_${user.preferences.hair.color}`", @click='option.click')
-            .gem-lock(v-if='option.locked')
-              .svg-icon.gem(v-html='icons.gem')
-              span 2
-          .col-12.text-center(v-if="isPurchaseAllNeeded('hair', ['baseHair5', 'baseHair6'], ['mustache', 'beard'])")
-            .gem-lock
-              .svg-icon.gem(v-html='icons.gem')
-              span 5
-            button.btn.btn-secondary.purchase-all(@click='unlock(`hair.mustache.${baseHair5Keys.join(",hair.mustache.")},hair.beard.${baseHair6Keys.join(",hair.beard.")}`)') {{ $t('purchaseAll') }}
+    skin-settings(
+      v-if='activeTopPage === "skin"',
+      :editing="editing",
+    )
+
+    hairSettings(
+      v-if='activeTopPage === "hair"',
+      :editing="editing"
+    )
+
     #extra.section.container.customize-section(v-if='activeTopPage === "extra"')
       sub-menu.text-center(:items="extraSubMenuItems", :activeSubPage="activeSubPage", @changeSubPage="changeSubPage($event)")
       #glasses.row(v-if='activeSubPage === "glasses"')
@@ -404,8 +299,8 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       //padding: .5em;
       height: 64px;
       width: 64px;
-      margin: 1em .5em .5em 0;
-      border: 4px solid $gray-700;
+      // margin: 1em .5em .5em 0;
+      // border: 4px solid $gray-700;
       border-radius: 10px;
       position: relative;
 
@@ -452,23 +347,6 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
 
       &:hover {
         cursor: pointer;
-      }
-
-      .sprite.customize-option {
-        // margin: 0 auto;
-        margin-left: -3px;
-        margin-top: -7px;
-
-        &.color-bangs {
-          margin-top: 3px;
-        }
-        &.skin {
-          margin-top: -3px;
-        }
-        &.chair {
-          margin-left: -2px;
-          margin-top: -4px;
-        }
       }
     }
 
@@ -913,7 +791,9 @@ import notifications from 'client/mixins/notifications';
 import appearance from 'common/script/content/appearance';
 import appearanceSets from 'common/script/content/appearance/sets';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
-import bodySettings from './avatarModal/body';
+import bodySettings from './avatarModal/body-settings';
+import skinSettings from './avatarModal/skin-settings';
+import hairSettings from './avatarModal/hair-settings';
 import subMenu from './avatarModal/sub-menu';
 
 import logoPurple from 'assets/svg/logo-purple.svg';
@@ -940,6 +820,8 @@ export default {
     toggleSwitch,
     usernameForm,
     bodySettings,
+    skinSettings,
+    hairSettings,
 
     subMenu,
   },
@@ -947,6 +829,9 @@ export default {
     if (this.editing) this.modalPage = 2;
     // Buy modal is global, so we listen at root. I'd like to not
     this.$root.$on('buyModal::boughtItem', this.backgroundPurchased);
+
+
+    console.info('skins by set', skinsBySet);
   },
   data () {
     let backgroundShopSets = getBackgroundShopSets();
@@ -961,12 +846,7 @@ export default {
       rainbowSkinKeys: ['eb052b', 'f69922', 'f5d70f', '0ff591', '2b43f6', 'd7a9f7', '800ed0', 'rainbow'],
       animalSkinKeys: ['bear', 'cactus', 'fox', 'lion', 'panda', 'pig', 'tiger', 'wolf'],
       premiumHairColorKeys: ['rainbow', 'yellow', 'green', 'purple', 'blue', 'TRUred'],
-      baseHair1: [1, 3],
-      baseHair2Keys: [2, 4, 5, 6, 7, 8],
-      baseHair3Keys: [9, 10, 11, 12, 13, 14],
-      baseHair4Keys: [15, 16, 17, 18, 19, 20],
-      baseHair5Keys: [1, 2],
-      baseHair6Keys: [1, 2, 3],
+
       animalItemKeys: {
         back: ['bearTail', 'cactusTail', 'foxTail', 'lionTail', 'pandaTail', 'pigTail', 'tigerTail', 'wolfTail'],
         headAccessory: ['bearEars', 'cactusEars', 'foxEars', 'lionEars', 'pandaEars', 'pigEars', 'tigerEars', 'wolfEars'],
@@ -993,24 +873,7 @@ export default {
           label: this.$t('color'),
         },
       ],
-      hairSubMenuItems: [
-        {
-          id: 'color',
-          label: this.$t('color'),
-        },
-        {
-          id: 'bangs',
-          label: this.$t('bangs'),
-        },
-        {
-          id: 'style',
-          label: this.$t('style'),
-        },
-        {
-          id: 'facialhair',
-          label: this.$t('facialhair'),
-        },
-      ],
+
       bgSubMenuItems: ['2019', '2018', '2017', '2016', '2015', '2014'].map(y =>
         ({
           id: y,
@@ -1297,77 +1160,12 @@ export default {
     },
   },
   methods: {
-    hideSet (set) {
-      return moment(appearanceSets[set.key].availableUntil).isBefore(moment());
-    },
     purchase (type, key) {
       this.$store.dispatch('shops:purchase', {
         type,
         key,
       });
       this.backgroundUpdate = new Date();
-    },
-    /**
-      * Allows you to find out whether you need the "Purchase All" button or not. If there are more than 2 unpurchased items, returns true, otherwise returns false.
-      * @param {string} category - The selected category.
-      * @param {string[]} keySets - The items keySets.
-      * @param {string[]} [types] - The items types (subcategories). Optional.
-      * @returns {boolean} - Determines whether the "Purchase All" button is needed (true) or not (false).
-    */
-    isPurchaseAllNeeded (category, keySets, types) {
-      const purchasedItemsLengths = [];
-      // If item types are specified, count them
-      if (types && types.length > 0) {
-        // Types can be undefined, so we must check them.
-        types.forEach((type) => {
-          if (this.user.purchased[category][type]) {
-            purchasedItemsLengths
-              .push(Object.keys(this.user.purchased[category][type]).length);
-          }
-        });
-      } else {
-        let purchasedItemsCounter = 0;
-
-        // If types are not specified, recursively
-        // search for purchased items in the category
-        const findPurchasedItems = (item) => {
-          if (typeof item === 'object') {
-            Object.values(item)
-              .forEach((innerItem) => {
-                if (typeof innerItem === 'boolean' && innerItem === true) {
-                  purchasedItemsCounter += 1;
-                }
-                return findPurchasedItems(innerItem);
-              });
-          }
-          return purchasedItemsCounter;
-        };
-
-        findPurchasedItems(this.user.purchased[category]);
-        if (purchasedItemsCounter > 0) {
-          purchasedItemsLengths.push(purchasedItemsCounter);
-        }
-      }
-
-      // We don't need to count the key sets (below)
-      // if there are no purchased items at all.
-      if (purchasedItemsLengths.length === 0) {
-        return true;
-      }
-
-      const allItemsLengths = [];
-      // Key sets must be specify correctly.
-      keySets.forEach((keySet) => {
-        allItemsLengths.push(Object.keys(this[keySet]).length);
-      });
-
-      // Simply sum all the length values and
-      // write them into variables for the convenience.
-      const allItems = allItemsLengths.reduce((acc, val) => acc + val);
-      const purchasedItems = purchasedItemsLengths.reduce((acc, val) => acc + val);
-
-      const unpurchasedItems = allItems - purchasedItems;
-      return unpurchasedItems > 2;
     },
     prev () {
       this.modalPage -= 1;

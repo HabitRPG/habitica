@@ -1,15 +1,22 @@
 <template lang="pug">
   .customize-options
-    .option(v-for='option in items',
+    .outer-option-background(
+      v-for='option in items',
       :key='option.key',
-      :class='{active: currentValue === option.key, none: option.none}'
+      :class='{locked: option.locked, premium: Boolean(option.gem), active: currentValue === option.key, none: option.none }'
     )
-      .sprite.customize-option(:class='option.class', @click='set({[propertyToChange]: option.key})')
-        .gem-lock(v-if='option.locked')
-          .svg-icon.gem(v-html='icons.gem')
-          span {{ option.gem }}
-        .redline-outer(v-if="option.none")
-          .redline
+      .option
+        .sprite.customize-option(:class='option.class', @click='option.gem && option.click ? option.click() : set({[propertyToChange]: option.key})')
+          .redline-outer(v-if="option.none")
+            .redline
+      .gem-lock(v-if='option.locked')
+        .svg-icon.gem(v-html='icons.gem')
+        span {{ option.gem }}
+    .col-12.text-center(v-if='fullSet')
+      .gem-lock
+        .svg-icon.gem(v-html='icons.gem')
+        span 5
+      button.btn.btn-secondary.purchase-all(@click='unlock()', v-once) {{ $t('purchaseAll') }}
 </template>
 
 <script>
@@ -17,7 +24,7 @@
   import {avatarEditorUtilies} from '../../mixins/avatarEditUtilities';
 
   export default {
-    props: ['items', 'propertyToChange', 'currentValue'],
+    props: ['items', 'propertyToChange', 'currentValue', 'fullSet'],
     mixins: [
       avatarEditorUtilies,
     ],
@@ -28,24 +35,55 @@
         }),
       };
     },
+    methods: {
+      unlock () {
+        this.$emit('unlock');
+      },
+    },
   };
 </script>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
 
-  .option {
-    display: inline-block;
-    vertical-align: bottom;
-    //padding: .5em;
-    height: 64px;
-    width: 64px;
-    margin: 1em .5em .5em 0;
-    border: 4px solid $gray-700;
-    border-radius: 10px;
-    position: relative;
+  .customize-options {
+  }
 
-    &.none {
+  .outer-option-background {
+    display: inline-block;
+    vertical-align: top;
+
+    &.premium {
+      height: 112px;
+      width: 96px;
+      margin-left: 8px;
+      margin-right: 8px;
+      margin-bottom: 8px;
+
+      .option {
+        margin: 12px 16px;
+      }
+    }
+
+    &.locked {
+      border-radius: 2px;
+      box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+      background-color: $white;
+
+      .option {
+        border: none;
+        border-radius: 2px;
+        padding-left: 6px;
+        padding-top: 4px;
+      }
+    }
+
+    &.premium:not(.locked):not(.active) {
+      border-radius: 2px;
+      background-color: rgba(59, 202, 215, 0.1);
+    }
+
+    &.none .option {
       .sprite {
         opacity: 0.24;
       }
@@ -73,18 +111,26 @@
       }
     }
 
-    &.locked {
-      border: none;
-      border-radius: 2px;
-      background-color: #ffffff;
-      box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
-      margin-top: 0;
-    }
-
-    &.active {
+    &.active .option {
       background: white;
       border: solid 4px $purple-300;
     }
+
+    &.premium:not(.active) .option {
+      border-radius: 8px;
+      background-color: rgba(59, 202, 215, 0.1);
+    }
+  }
+
+  .option {
+    vertical-align: bottom;
+    height: 64px;
+    width: 64px;
+
+    margin: 12px 8px;
+    border: 4px solid transparent;
+    border-radius: 10px;
+    position: relative;
 
     &:hover {
       cursor: pointer;
@@ -92,20 +138,51 @@
 
     .sprite.customize-option {
       // margin: 0 auto;
-      margin-left: -3px;
-      margin-top: -7px;
+      //margin-left: -3px;
+      //margin-top: -7px;
+      margin-top: 0;
+      margin-left: 0;
 
       &.color-bangs {
         margin-top: 3px;
       }
       &.skin {
-        margin-top: -3px;
+        margin-top: -4px;
+        margin-left: -4px;
       }
       &.chair {
         margin-left: -2px;
         margin-top: -4px;
       }
     }
+  }
+
+  .text-center {
+    .gem-lock, .gold-lock {
+      display: inline-block;
+      margin: 0 auto 8px;
+      vertical-align: bottom;
+    }
+  }
+
+  .gem-lock, .gold-lock {
+    .svg-icon {
+      width: 16px;
+    }
+
+    span {
+      font-weight: bold;
+      margin-left: .5em;
+    }
+
+    .svg-icon, span {
+      display: inline-block;
+      vertical-align: bottom;
+    }
+  }
+
+  .gem-lock span {
+    color: $green-10
   }
 
 </style>

@@ -2,27 +2,25 @@
   #body.section.customize-section
     sub-menu.text-center(:items="items", :activeSubPage="activeSubPage", @changeSubPage="changeSubPage($event)")
     .row(v-if='activeSubPage === "size"')
-      .col-12.customize-options.size-options
-        .option(v-for='option in ["slim", "broad"]', :class='{active: user.preferences.size === option}')
-          .sprite.customize-option(:class="`${option}_shirt_black`", @click='set({"preferences.size": option})')
+      customize-options.col-12(
+        :items="sizes",
+        propertyToChange="preferences.size",
+        :currentValue="user.preferences.size"
+      )
     .row(v-if='activeSubPage === "shirt"')
       customize-options.col-12(
         :items="freeShirts",
         propertyToChange="preferences.shirt",
         :currentValue="user.preferences.shirt"
       )
-      .col-12.customize-options(v-if='editing')
-        .option(v-for='item in specialShirts',
-          :class='{active: item.active, locked: item.locked}')
-          .sprite.customize-option(:class="`broad_shirt_${item.key}`", @click='item.click')
-          .gem-lock(v-if='item.locked')
-            .svg-icon.gem(v-html='icons.gem')
-            span 2
-        .col-12.text-center(v-if='!userOwnsSet("shirt", specialShirtKeys)')
-          .gem-lock
-            .svg-icon.gem(v-html='icons.gem')
-            span 5
-          button.btn.btn-secondary.purchase-all(@click='unlock(`shirt.${specialShirtKeys.join(",shirt.")}`)') {{ $t('purchaseAll') }}
+      customize-options.col-12(
+        v-if='editing',
+        :items='specialShirts',
+        propertyToChange="preferences.shirt",
+        :currentValue="user.preferences.shirt",
+        :fullSet='!userOwnsSet("shirt", specialShirtKeys)',
+        @unlock='unlock(`shirt.${specialShirtKeys.join(",shirt.")}`)'
+      )
 </template>
 
 <script>
@@ -53,10 +51,6 @@
     ],
     data () {
       return {
-        freeShirts: freeShirtKeys.map(s => ({
-          key: s,
-          class: `slim_shirt_${s}`,
-        })),
         specialShirtKeys,
         icons: Object.freeze({
           gem,
@@ -74,11 +68,26 @@
       };
     },
     computed: {
+      sizes () {
+        return ['slim', 'broad'].map(s => ({
+          key: s,
+          class: `${s}_shirt_black`,
+        }));
+      },
+      freeShirts () {
+        return freeShirtKeys.map(s => ({
+          key: s,
+          class: `${this.user.preferences.size}_shirt_${s}`,
+        }));
+      },
       specialShirts () {
         let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
         let keys = this.specialShirtKeys;
         let options = keys.map(key => {
-          return this.mapKeysToOption(key, 'shirt');
+          const option = this.mapKeysToOption(key, 'shirt');
+          option.class = `${this.user.preferences.size}_shirt_${key}`;
+
+          return option;
         });
         return options;
       },

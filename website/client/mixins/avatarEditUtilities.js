@@ -19,6 +19,9 @@ export const avatarEditorUtilies = {
     };
   },
   methods: {
+    hideSet (set) {
+      return moment(appearanceSets[set.key].availableUntil).isBefore(moment());
+    },
     mapKeysToOption (key, type, subType, set) {
       let userPreference = subType ? this.user.preferences[type][subType] : this.user.preferences[type];
       let userPurchased = subType ? this.user.purchased[type][subType] : this.user.purchased[type];
@@ -35,6 +38,7 @@ export const avatarEditorUtilies = {
       option.active = userPreference === key;
       option.locked = locked;
       option.hide = hide;
+      option.gem = 2;
       option.click = () => {
         return locked ? this.unlock(`${pathKey}.${key}`) : this.set({[`preferences.${pathKey}`]: key});
       };
