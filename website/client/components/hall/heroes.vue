@@ -85,12 +85,8 @@
         tbody
           tr(v-for='(hero, index) in heroes')
             td
-              span(v-if='hero.contributor && hero.contributor.admin', :popover="$t('gamemaster')", popover-trigger='mouseenter', popover-placement='right')
-                .label.label-default(:class='userLevelStyle(hero)')
-                  | {{hero.profile.name}}&nbsp;
-                  //- span(v-class='userAdminGlyphiconStyle(hero)')
-              span(v-if='!hero.contributor || !hero.contributor.admin')
-                .label.label-default(v-if='hero.profile', v-class='userLevelStyle(hero)') {{hero.profile.name}}
+              user-link(v-if='hero.contributor && hero.contributor.admin', :user='hero', :popover="$t('gamemaster')", popover-trigger='mouseenter', popover-placement='right')
+              user-link(v-if='!hero.contributor || !hero.contributor.admin', :user='hero')
             td(v-if='user.contributor.admin', @click='populateContributorInput(hero._id, index)').btn-link {{hero._id}}
             td {{hero.contributor.level}}
             td {{hero.contributor.text}}
