@@ -570,35 +570,55 @@ describe('POST /chat', () => {
     });
   });
 
-  it('notifies other users of new messages for a guild', async () => {
-    let message = await user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage});
-    let memberWithNotification = await member.get('/user');
-
-    expect(message.message.id).to.exist;
-    expect(memberWithNotification.newMessages[`${groupWithChat._id}`]).to.exist;
-    expect(memberWithNotification.notifications.find(n => {
-      return n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === groupWithChat._id;
-    })).to.exist;
-  });
-
-  it('notifies other users of new messages for a party', async () => {
-    let { group, groupLeader, members } = await createAndPopulateGroup({
-      groupDetails: {
-        name: 'Test Party',
-        type: 'party',
-        privacy: 'private',
-      },
-      members: 1,
+  context('chat notifications', () => {
+    beforeEach(() => {
+      member.update({newMessages: {}, notifications: []});
     });
 
-    let message = await groupLeader.post(`/groups/${group._id}/chat`, { message: testMessage});
-    let memberWithNotification = await members[0].get('/user');
+    it('notifies other users of new messages for a guild', async () => {
+      let message = await user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage });
+      let memberWithNotification = await member.get('/user');
 
-    expect(message.message.id).to.exist;
-    expect(memberWithNotification.newMessages[`${group._id}`]).to.exist;
-    expect(memberWithNotification.notifications.find(n => {
-      return n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === group._id;
-    })).to.exist;
+      expect(message.message.id).to.exist;
+      expect(memberWithNotification.newMessages[`${groupWithChat._id}`]).to.exist;
+      expect(memberWithNotification.notifications.find(n => {
+        return n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === groupWithChat._id;
+      })).to.exist;
+    });
+
+    it('notifies other users of new messages for a party', async () => {
+      let { group, groupLeader, members } = await createAndPopulateGroup({
+        groupDetails: {
+          name: 'Test Party',
+          type: 'party',
+          privacy: 'private',
+        },
+        members: 1,
+      });
+
+      let message = await groupLeader.post(`/groups/${group._id}/chat`, { message: testMessage });
+      let memberWithNotification = await members[0].get('/user');
+
+      expect(message.message.id).to.exist;
+      expect(memberWithNotification.newMessages[`${group._id}`]).to.exist;
+      expect(memberWithNotification.notifications.find(n => {
+        return n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === group._id;
+      })).to.exist;
+    });
+
+    it('does not notify other users of a new message that is already hidden from shadow-muting', async () => {
+      await user.update({'flags.chatShadowMuted': true});
+      let message = await user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage });
+      let memberWithNotification = await member.get('/user');
+
+      await user.update({'flags.chatShadowMuted': false});
+
+      expect(message.message.id).to.exist;
+      expect(memberWithNotification.newMessages[`${groupWithChat._id}`]).to.not.exist;
+      expect(memberWithNotification.notifications.find(n => {
+        return n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === groupWithChat._id;
+      })).to.not.exist;
+    });
   });
 
   context('Spam prevention', () => {
