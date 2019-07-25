@@ -1,15 +1,42 @@
-import {inboxModel as Inbox} from '../../models/message';
-import {
-  model as User,
-} from '../../models/user';
+import {mapInboxMessage, inboxModel as Inbox} from '../../models/message';
 import orderBy from 'lodash/orderBy';
-import keyBy from 'lodash/keyBy';
+import {getUserInfo, sendTxn as sendTxnEmail} from '../email';
+import {sendNotification as sendPushNotification} from '../pushNotifications';
 
 const PM_PER_PAGE = 10;
 
-export async function getUserInbox (user, options = {asArray: true, page: 0, conversation: null}) {
+export async function sentMessage (sender, receiver, message, translate) {
+  const messageSent = await sender.sendMessage(receiver, { receiverMsg: message });
+
+  if (receiver.preferences.emailNotifications.newPM !== false) {
+    sendTxnEmail(receiver, 'new-pm', [
+      {name: 'SENDER', content: getUserInfo(sender, ['name']).name},
+    ]);
+  }
+
+  if (receiver.preferences.pushNotifications.newPM !== false) {
+    sendPushNotification(
+      receiver,
+      {
+        title: translate('newPM'),
+        message: translate('newPMInfo', {name: getUserInfo(sender, ['name']).name, message}),
+        identifier: 'newPM',
+        category: 'newPM',
+        payload: {replyTo: sender._id},
+      }
+    );
+  }
+
+  return messageSent;
+}
+
+export async function getUserInbox (user, options = {asArray: true, page: 0, conversation: null, mapProps: false}) {
   if (typeof options.asArray === 'undefined') {
     options.asArray = true;
+  }
+
+  if (typeof options.mapProps === 'undefined') {
+    options.mapProps = false;
   }
 
   const findObj = {ownerId: user._id};
@@ -28,7 +55,15 @@ export async function getUserInbox (user, options = {asArray: true, page: 0, con
       .skip(PM_PER_PAGE * Number(options.page));
   }
 
-  const messages = (await query.exec()).map(msg => msg.toJSON());
+  const messages = (await query.exec()).map(msg => {
+    const msgObj = msg.toJSON();
+
+    if (options.mapProps) {
+      mapInboxMessage(msgObj, user);
+    }
+
+    return msgObj;
+  });
 
   if (options.asArray) {
     return messages;
@@ -40,34 +75,31 @@ export async function getUserInbox (user, options = {asArray: true, page: 0, con
   }
 }
 
-export async function listConversations (user) {
+export async function listConversations (owner) {
   let query = Inbox
     .aggregate([
       {
         $match: {
-          ownerId: user._id,
+          ownerId: owner._id,
         },
       },
       {
         $group: {
           _id: '$uuid',
+          user: {$first: '$user' },
+          username: {$first: '$username' },
           timestamp: {$max: '$timestamp'}, // sort before group doesn't work - use the max value to sort it again after
         },
       },
     ]);
 
-  const conversationsList = orderBy(await query.exec(), ['timestamp'], ['desc']).map(c => c._id);
+  const conversationsList = orderBy(await query.exec(), ['timestamp'], ['desc']);
 
-  const users = await User.find({_id: {$in: conversationsList}})
-    .select('_id profile.name auth.local.username')
-    .lean()
-    .exec();
-
-  const usersMap = keyBy(users, '_id');
-  const conversations = conversationsList.map(userId => ({
-    uuid: usersMap[userId]._id,
-    user: usersMap[userId].profile.name,
-    username: usersMap[userId].auth.local.username,
+  const conversations = conversationsList.map(({_id, user, username, timestamp}) => ({
+    uuid: _id,
+    user,
+    username,
+    timestamp,
   }));
 
   return conversations;

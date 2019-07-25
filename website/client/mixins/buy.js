@@ -32,5 +32,15 @@ export default {
 
       this.$root.$emit('buyModal::boughtItem', item);
     },
+    confirmPurchase (currency, cost) {
+      const currencyToPurchaseForKey = {
+        gems: 'purchaseFor',
+        gold: 'purchaseForGold',
+        hourglasses: 'purchaseForHourglasses',
+      };
+
+      const purchaseForKey = currencyToPurchaseForKey[currency];
+      return confirm(this.$t(purchaseForKey, { cost }));
+    },
   },
 };

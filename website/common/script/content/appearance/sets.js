@@ -18,6 +18,6 @@ module.exports = prefill({
   pastelSkins: {setPrice: 5, availableFrom: '2019-04-09', availableUntil: '2019-05-02', text: t('pastelSkins')},
   spookySkins: {setPrice: 5, availableUntil: '2016-01-01', text: t('spookySkins')},
   supernaturalSkins: {setPrice: 5, availableFrom: '2018-10-11', availableUntil: '2018-11-02', text: t('supernaturalSkins')},
-  splashySkins: {setPrice: 5, availableFrom: '2018-07-10', availableUntil: '2018-08-02', text: t('splashySkins')},
+  splashySkins: {setPrice: 5, availableFrom: '2019-07-02', availableUntil: '2019-08-02', text: t('splashySkins')},
   winterySkins: {setPrice: 5, availableFrom: '2019-01-08', availableUntil: '2019-02-02', text: t('winterySkins')},
 });

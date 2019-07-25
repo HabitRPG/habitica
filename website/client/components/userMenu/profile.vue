@@ -159,11 +159,6 @@
       background: #f9f9f9;
     }
 
-    .gearTitle {
-      color: white;
-      margin-bottom: 20px;
-    }
-
     .progress-container > .progress {
       background-color: $gray-500 !important;
       height: 16px !important;
@@ -344,11 +339,6 @@
         border-radius: 1px;
         background-color: $gray-500;
       }
-    }
-
-    .gearTitle {
-      color: white;
-      margin-bottom: 20px;
     }
 
   .profile-section {
