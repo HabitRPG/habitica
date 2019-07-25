@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'GUILD AND PARTIES ISSUE, FREE CAKE, AND SPLASHY PALS BUNDLE';
+const LAST_ANNOUNCEMENT_TITLE = 'JULY SUBSCRIBER ITEMS AND HABITICA BLOG POSTS';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,20 +30,25 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>7/17/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>7/25/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <h3>Issue Affecting Guilds, Parties, and Quests, Plus Cake on Us!</h3>
-        <p>Hello Habiticans! Our apologies regarding the outage affecting access to the Tavern, Guilds, and Parties that occurred yesterday. For those who may have had issues with their current Quest, we've granted quest owners a new copy of their Quest scroll and four gems to purchase a Quest or item of your choice. If you have any concerns or if there are any lingering issues with your Guild, Party, or Quest, please contact us at <a href='mailto:admin@habitica.com'>admin@habitica.com</a> and our small team will be happy to fix you up as soon as possible!</p>
-        <p>Thanks for your understanding and support! We always feel lucky to have such a wonderful community. :) To thank you all for your patience, we've given everyone delicious cake for their pets!</p>
-        <div class="small mb-3">by The Habitica Team <3</div>
-        <div class="promo_splashy_pals_bundle center-block"></div>
-        <h3>Discounted Pet Quest Bundle: Splashy Pals!</h3>
-        <p>If you are looking to add some water-loving pets to your Habitica stable, you're in luck! From now until July 31, you can purchase the Splashy Pals Pet Quest Bundle and receive the Seahorse, Turtle, and Whale quests, all for only 7 Gems! That's a discount of 5 Gems from the price of purchasing them separately. Check it out in the <a href='/shops/quests'>Quest Shop</a> today!</p>
-        <div class="small">by Lemoness and SabreCat</div>
-        <div class="small">Art by McCoyly, krazjega, UncommonCriminal, zoebeagle, Kiwibot, JessicaChase, Scarabsi, JaizakArpaik</div>
-        <div class="small mb-3">Writing by Calae, Ginger_Hanna, Lemoness</div>
+        <div class="promo_mystery_201907 center-block"></div>
+        <h3>July Subscriber Items Revealed!</h3>
+        <p>The July Subscriber Items have been revealed: the extra-special 3-piece Beach Buddy Item Set! You only have until July 31 to receive the item set <a href='/user/settings/subscription'>when you subscribe</a>.</p>
+        <p>If you're already an active subscriber, reload the site or app and then head to Inventory > Items to claim your gear!</p>
+        <p>Subscribers also receive the ability to buy Gems for Gold -- the longer you subscribe, the more Gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
+        <div class="small mb-3">by Beffymaroo</div>
+        <div class="scene_casting_spells center-block"></div>
+        <h3>Blog Posts: Healer</h3>
+        <p>This month's <a href='https://habitica.wordpress.com/2019/07/17/healer/' target='_blank'>featured Wiki article</a> and <a href='https://habitica.wordpress.com/2019/07/25/use-case-spotlight-making-the-most-of-the-healer-class/' target='_blank'>Use Case Spotlight</a> are about the Healer Class! We hope that they will help you as you choose the best class for your Habitica play style. Be sure to check them out, and let us know what you think by reaching out on <a href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a href='https://facebook.com/habitica' target='_blank'>Facebook</a>.</p>
+        <p>Plus, we're collecting user submissions for the next spotlight! We want to hear your best tricks and strategies for playing the Rogue class to its full advantage. We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!</p>
+        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
+        <div class="scene_tools center-block"></div>
+        <h3>Guild Spotlight: More New and Notable Guilds!</h3>
+        <p>There's a new <a href='https://habitica.wordpress.com/2019/07/25/new-and-notable-guild-spotlight-7/' target='_blank'>Guild Spotlight on the blog</a> that highlights more of the upcoming Guilds in Habitica dedicated to a variety of topics! Check it out now to find some of Habitica's best new communities.</p>
+        <div class="small mb-3">by shanaqui</div>
       </div>
       `,
     });
