@@ -12,7 +12,6 @@ import {
 } from 'lodash';
 import { model as User } from '../../../../../website/server/models/user';
 import * as payments from '../../../../../website/server/libs/payments/payments';
-import { async } from 'q';
 
 describe('POST /groups/:groupId/leave', () => {
   let typesOfGroups = {
@@ -282,18 +281,17 @@ describe('POST /groups/:groupId/leave', () => {
       let groupWithPlan;
       let leader;
       let member;
-  
+
       beforeEach(async () => {
         let { group, groupLeader, members } = await createAndPopulateGroup({
-          groupDetails: groupDetails,
+          groupDetails,
           members: 1,
         });
-  
         leader = groupLeader;
         member = members[0];
         groupWithPlan = group;
         let userWithFreePlan = await User.findById(leader._id).exec();
-  
+
         // Create subscription
         let paymentData = {
           user: userWithFreePlan,
@@ -311,36 +309,37 @@ describe('POST /groups/:groupId/leave', () => {
         await payments.createSubscription(paymentData);
         await member.sync();
       });
-  
+
       it('cancels the free subscription', async () => {
         expect(member.purchased.plan.planId).to.equal('group_plan_auto');
         expect(member.purchased.plan.dateTerminated).to.not.exist;
-  
+
         // Leave
         await member.post(`/groups/${groupWithPlan._id}/leave`);
         await member.sync();
         expect(member.purchased.plan.dateTerminated).to.exist;
       });
-  
+
       it('preserves the free subscription when leaving a any other group without a plan', async () => {
-        //joining a guild without a group plan
+        // Joining a guild without a group plan
         let { group: groupWithNoPlan } = await createAndPopulateGroup({
           groupDetails: {
             name: 'Group Without Plan',
             type: 'guild',
             privacy: 'public',
-          }
-        });     
+          },
+        });
+
         await member.post(`/groups/${groupWithNoPlan._id}/join`);
         await member.sync();
         expect(member.purchased.plan.planId).to.equal('group_plan_auto');
         expect(member.purchased.plan.dateTerminated).to.not.exist;
-  
-        //leaving the guild without a group plan
+
+        // Leaving the guild without a group plan
         await member.post(`/groups/${groupWithNoPlan._id}/leave`);
         await member.sync();
         expect(member.purchased.plan.dateTerminated).to.not.exist;
-      })
+      });
     });
   });
 });
