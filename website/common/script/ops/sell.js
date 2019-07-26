@@ -7,6 +7,7 @@ import {
   NotFound,
   NotAuthorized,
   BadRequest,
+  ForBidden,
 } from '../libs/errors';
 
 // @TODO: 'special' type throws NotAuthorized error
