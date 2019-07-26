@@ -37,6 +37,10 @@ module.exports = function sell (user, req = {}) {
     throw new NotFound(i18n.t('userItemsKeyNotFound', {type}, req.language));
   }
 
+  if (key === 'Saddle') {
+    throw new ForBidden(i18n.t('userItemsKeyRare', req.language));
+  }
+
   let currentAmount = user.items[type][key];
 
   if (amount > currentAmount) {
