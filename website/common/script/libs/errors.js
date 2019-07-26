@@ -41,6 +41,15 @@ export class NotFound extends CustomError {
   }
 }
 
+export class ForBidden extends CustomError {
+  constructor (customMessage) {
+    super();
+    this.name = this.constructor.name;
+    this.httpCode = 403;
+    this.message = customMessage || 'Forbidden.';
+  }
+}
+
 export class NotImplementedError extends CustomError {
   constructor (str) {
     super();
