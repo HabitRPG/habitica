@@ -104,9 +104,9 @@
           position: absolute;
           top: 0;
 
-          margin-top: 10px;
-          margin-bottom: 20px;
-          margin-left: 6px;
+            margin-top: 33px;
+            margin-bottom: 20px;
+            margin-left: 0;
         }
       }
     }
@@ -143,6 +143,11 @@
       margin-top: 0;
       margin-left: 0;
 
+      &.size, &.shirt {
+        margin-top: -8px;
+        margin-left: -4px;
+      }
+
       &.color-bangs {
         margin-top: 3px;
       }
@@ -154,6 +159,15 @@
         margin-left: -2px;
         margin-top: -4px;
       }
+      &.color, &.bangs {
+          margin-top: 4px;
+          margin-left: -3px;
+      }
+
+        &.hair.base {
+            margin-top: 0px;
+            margin-left: -5px;
+        }
     }
   }
 

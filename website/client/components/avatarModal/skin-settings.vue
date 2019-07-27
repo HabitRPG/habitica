@@ -66,37 +66,33 @@
     },
     computed: {
       freeSkins () {
-        return freeSkinKeys.map(s => ({
-          key: s,
-          class: `skin skin_${s}`,
-        }));
+        return freeSkinKeys.map(s => this.mapKeysToFreeOption(s, 'skin'));
       },
       seasonalSkins () {
         // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
         let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
 
         let seasonalSkins = [];
-        for (let key in skinsBySet) {
-          let set = skinsBySet[key];
+        for (let setKey in skinsBySet) {
+          let set = skinsBySet[setKey];
 
           let keys = set.map(item => {
             return item.key;
           });
 
           let options = keys.map(optionKey => {
-            const option = this.mapKeysToOption(optionKey, 'skin', '', key);
-            option.class = `skin skin_${optionKey}`;
+            const option = this.mapKeysToOption(optionKey, 'skin', '', setKey);
 
             return option;
           });
 
-          let text = this.$t(key);
-          if (appearanceSets[key] && appearanceSets[key].text) {
-            text = appearanceSets[key].text();
+          let text = this.$t(setKey);
+          if (appearanceSets[setKey] && appearanceSets[setKey].text) {
+            text = appearanceSets[setKey].text();
           }
 
           let compiledSet = {
-            key,
+            key: setKey,
             options,
             keys,
             text,

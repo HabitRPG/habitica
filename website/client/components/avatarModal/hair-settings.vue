@@ -19,87 +19,30 @@
           @unlock='unlock(`hair.color.${set.keys.join(",hair.color.")}`)'
         )
 
-    #style.row(v-if='activeSubPage === "style"')
+    #style(v-if='activeSubPage === "style"')
       .row(v-if='editing && set.key !== "undefined"', v-for='set in styleSets')
         customize-options.col-12(
           :items='set.options',
           :fullSet='set.fullSet',
           @unlock='set.unlock()'
         )
-
-
-      .col-12.customize-options(v-if='editing')
-        .option(@click='set({"preferences.hair.base": 0})', :class="{ active: user.preferences.hair.base === 0 }")
-          .head_0(:class="['hair_base_0_' + user.preferences.hair.color]")
-        .option(v-for='option in baseHair3',
-          :class='{active: option.active, locked: option.locked}')
-          .base.sprite.customize-option(:class="`hair_base_${option.key}_${user.preferences.hair.color}`", @click='option.click')
-          .gem-lock(v-if='option.locked')
-            .svg-icon.gem(v-html='icons.gem')
-            span 2
-        .col-12.text-center(v-if='!userOwnsSet("hair", baseHair3Keys, "base")')
-          .gem-lock
-            .svg-icon.gem(v-html='icons.gem')
-            span 5
-          button.btn.btn-secondary.purchase-all(@click='unlock(`hair.base.${baseHair3Keys.join(",hair.base.")}`)') {{ $t('purchaseAll') }}
-      .col-12.customize-options(v-if='editing')
-        .option(v-for='option in baseHair4',
-          :class='{active: option.active, locked: option.locked}')
-          .base.sprite.customize-option(:class="`hair_base_${option.key}_${user.preferences.hair.color}`", @click='option.click')
-          .gem-lock(v-if='option.locked')
-            .svg-icon.gem(v-html='icons.gem')
-            span 2
-        .col-12.text-center(v-if='!userOwnsSet("hair", baseHair4Keys, "base")')
-          .gem-lock
-            .svg-icon.gem(v-html='icons.gem')
-            span 5
-          button.btn.btn-secondary.purchase-all(@click='unlock(`hair.base.${baseHair4Keys.join(",hair.base.")}`)') {{ $t('purchaseAll') }}
-      .col-12.customize-options
-        .option(v-if="!editing", @click='set({"preferences.hair.base": 0})', :class="{ active: user.preferences.hair.base === 0 }")
-          .head_0(:class="['hair_base_0_' + user.preferences.hair.color]")
-        .option(v-for='option in baseHair1',
-          :class='{active: user.preferences.hair.base === option}')
-          .base.sprite.customize-option(:class="`hair_base_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.base": option})')
-      .col-12.customize-options(v-if='editing')
-        .option(v-for='option in baseHair2',
-          :class='{active: option.active, locked: option.locked}')
-          .base.sprite.customize-option(:class="`hair_base_${option.key}_${user.preferences.hair.color}`", @click='option.click')
-          .gem-lock(v-if='option.locked')
-            .svg-icon.gem(v-html='icons.gem')
-            span 2
-        .col-12.text-center(v-if='!userOwnsSet("hair", baseHair2Keys, "base")')
-          .gem-lock
-            .svg-icon.gem(v-html='icons.gem')
-            span 5
-          button.btn.btn-secondary.purchase-all(@click='unlock(`hair.base.${baseHair2Keys.join(",hair.base.")}`)') {{ $t('purchaseAll') }}
-    #bangs.row(v-if='activeSubPage === "bangs"')
+    #bangs(v-if='activeSubPage === "bangs"')
       customize-options.col-12(
         :items='hairBangs',
         propertyToChange="user.preferences.hair.bangs",
         :currentValue="user.preferences.hair.bangs"
       )
-    #facialhair.row(v-if='activeSubPage === "facialhair"')
-      .col-12.customize-options(v-if='editing')
-        .head_0.option(@click='set({"preferences.hair.mustache": 0})', :class="[{ active: user.preferences.hair.mustache === 0 }, 'hair_base_0_' + user.preferences.hair.color]")
-        .option(v-for='option in baseHair5',
-          :class='{active: option.active, locked: option.locked}')
-          .base.sprite.customize-option(:class="`hair_mustache_${option.key}_${user.preferences.hair.color}`", @click='option.click')
-          .gem-lock(v-if='option.locked')
-            .svg-icon.gem(v-html='icons.gem')
-            span 2
-      .col-12.customize-options(v-if='editing')
-        .head_0.option(@click='set({"preferences.hair.beard": 0})', :class="[{ active: user.preferences.hair.beard === 0 }, 'hair_base_0_' + user.preferences.hair.color]")
-        .option(v-for='option in baseHair6',
-          :class='{active: option.active, locked: option.locked}')
-          .base.sprite.customize-option(:class="`hair_beard_${option.key}_${user.preferences.hair.color}`", @click='option.click')
-          .gem-lock(v-if='option.locked')
-            .svg-icon.gem(v-html='icons.gem')
-            span 2
-        .col-12.text-center(v-if="isPurchaseAllNeeded('hair', ['baseHair5', 'baseHair6'], ['mustache', 'beard'])")
-          .gem-lock
-            .svg-icon.gem(v-html='icons.gem')
-            span 5
-          button.btn.btn-secondary.purchase-all(@click='unlock(`hair.mustache.${baseHair5Keys.join(",hair.mustache.")},hair.beard.${baseHair6Keys.join(",hair.beard.")}`)') {{ $t('purchaseAll') }}
+    #facialhair(v-if='activeSubPage === "facialhair"')
+      customize-options(
+        v-if='editing',
+        :items='mustacheList'
+      )
+      customize-options(
+        v-if='editing',
+        :items='beardList',
+        :fullSet='isPurchaseAllNeeded(\'hair\', [\'baseHair5\', \'baseHair6\'], [\'mustache\', \'beard\'])',
+        @unlock='unlock(`hair.mustache.${baseHair5Keys.join(",hair.mustache.")},hair.beard.${baseHair6Keys.join(",hair.beard.")}`)'
+      )
 </template>
 
 <script>
@@ -165,7 +108,7 @@
       freeHairColors () {
         return freeHairColorKeys.map(s => ({
           key: s,
-          class: `hair_bangs_1_${s}`, // todo add current hair bangs setting
+          class: `hair_bangs_1_${s} color`, // todo add current hair bangs setting
         }));
       },
       seasonalHairColors () {
@@ -182,7 +125,6 @@
 
           let options = keys.map(optionKey => {
             const option = this.mapKeysToOption(optionKey, 'hair', 'color', key);
-            option.class = `hair_bangs_1_${option.key}`; // TODO hair bangs setting
             return option;
           });
 
@@ -226,7 +168,6 @@
         let keys = this.baseHair3Keys;
         let options = keys.map(key => {
           const option = this.mapKeysToOption(key, 'hair', 'base');
-          option.class =  `hair_bangs_${key}_${this.user.preferences.hair.color}`;
           return option;
         });
         return options;
@@ -265,32 +206,23 @@
           class: `hair_bangs_0_${this.user.preferences.hair.color}`, // todo add current hair bangs setting
         };
 
-        const options = [1, 2, 3, 4].map(s => ({
-          key: s,
-          class: `hair_bangs_${s}_${this.user.preferences.hair.color}`, // todo add current hair bangs setting
-        }));
+        const options = [1, 2, 3, 4].map(s => this.mapKeysToFreeOption(s, 'hair', 'bangs'));
 
         return [none, ...options];
       },
+      mustacheList () {
+        const noneOption = this.mapKeysToFreeOption(0, 'hair', 'mustache');
+        noneOption.none = true;
+
+        return [noneOption, ...this.baseHair5];
+      },
+      beardList () {
+        const noneOption = this.mapKeysToFreeOption(0, 'hair', 'beard');
+        noneOption.none = true;
+
+        return [noneOption, ...this.baseHair6];
+      },
       styleSets () {
-        /*
-        .col-12.customize-options(v-if='editing')
-        .option(@click='set({"preferences.hair.base": 0})', :class="{ active: user.preferences.hair.base === 0 }")
-          .head_0(:class="['hair_base_0_' + user.preferences.hair.color]")
-        .option(v-for='option in baseHair3',
-          :class='{active: option.active, locked: option.locked}')
-          .base.sprite.customize-option(:class="`hair_base_${option.key}_${user.preferences.hair.color}`", @click='option.click')
-          .gem-lock(v-if='option.locked')
-            .svg-icon.gem(v-html='icons.gem')
-            span 2
-        .col-12.text-center(v-if='!userOwnsSet("hair", baseHair3Keys, "base")')
-          .gem-lock
-            .svg-icon.gem(v-html='icons.gem')
-            span 5
-          button.btn.btn-secondary.purchase-all(@click='') {{ $t('purchaseAll') }}
-
-         */
-
         const sets = [];
 
         if (this.editing) {
@@ -302,11 +234,41 @@
                 key: 0,
                 none: true,
                 active: this.user.preferences.hair.base === 0,
-                class: `hair_bangs_0_${this.user.preferences.hair.color}`, // todo add current hair bangs setting
+                class: `hair_base_0_${this.user.preferences.hair.color}`, // todo add current hair base setting
               },
               ...this.baseHair3,
             ],
           });
+
+          sets.push({
+            fullSet: !this.userOwnsSet('hair', this.baseHair4Keys, 'base'),
+            unlock: () => this.unlock(`hair.base.${this.baseHair4Keys.join(',hair.base.')}`),
+            options: [
+              ...this.baseHair4,
+            ],
+          });
+        }
+
+        sets.push({
+          options: [
+            {
+              key: 0,
+              none: true,
+              active: this.user.preferences.hair.base === 0,
+              class: `hair_base_0_${this.user.preferences.hair.color}`, // todo add current hair base setting
+            },
+            ...this.baseHair1.map(key => this.mapKeysToFreeOption(key, 'hair', 'base')),
+          ],
+        });
+
+        if (this.editing) {
+            sets.push({
+                fullSet: !this.userOwnsSet('hair', this.baseHair2Keys, 'base'),
+                unlock: () => this.unlock(`hair.base.${this.baseHair2Keys.join(',hair.base.')}`),
+                options: [
+                    ...this.baseHair2,
+                ],
+            });
         }
 
         return sets;

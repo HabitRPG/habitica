@@ -22,27 +22,70 @@ export const avatarEditorUtilies = {
     hideSet (set) {
       return moment(appearanceSets[set.key].availableUntil).isBefore(moment());
     },
+    mapKeysToFreeOption (key, type, subType) {
+      const userPreference = subType ? this.user.preferences[type][subType] : this.user.preferences[type];
+      const pathKey = subType ? `${type}.${subType}` : `${type}`;
+
+      const option = {};
+      option.key = key;
+      option.pathKey = pathKey;
+      option.active = userPreference === key;
+      option.class = this.createClass(type, subType, key);
+      option.click = () => {
+        return this.locked ? this.unlock(`${this.pathKey}.${this.key}`) : this.set({[`preferences.${this.pathKey}`]: this.key});
+      };
+      return option;
+    },
     mapKeysToOption (key, type, subType, set) {
-      let userPreference = subType ? this.user.preferences[type][subType] : this.user.preferences[type];
+      const option = this.mapKeysToFreeOption(key, type, subType);
+
       let userPurchased = subType ? this.user.purchased[type][subType] : this.user.purchased[type];
       let locked = !userPurchased || !userPurchased[key];
-      let pathKey = subType ? `${type}.${subType}` : `${type}`;
       let hide = false;
 
       if (set && appearanceSets[set]) {
         if (locked) hide = moment(appearanceSets[set].availableUntil).isBefore(moment());
       }
 
-      let option = {};
-      option.key = key;
-      option.active = userPreference === key;
       option.locked = locked;
       option.hide = hide;
-      option.gem = 2;
-      option.click = () => {
-        return locked ? this.unlock(`${pathKey}.${key}`) : this.set({[`preferences.${pathKey}`]: key});
-      };
+      if (locked) {
+        option.gem = 2;
+      }
+
       return option;
+    },
+    createClass (type, subType, key) {
+      let str = `${type} ${subType} `;
+
+      switch (type) {
+        case 'shirt': {
+          str += `${this.user.preferences.size}_shirt_${key}`;
+          break;
+        }
+        case 'size': {
+          str += `${key}_shirt_black`;
+          break;
+        }
+        case 'hair': {
+          if (subType === 'color') {
+            str += `hair_bangs_1_${key}`; // todo get current hair-bang setting
+          } else {
+            str += `hair_${subType}_${key}_${this.user.preferences.hair.color}`;
+          }
+          break;
+        }
+        case 'skin': {
+          str += `skin skin_${key}`;
+          break;
+        }
+        default: {
+          // `hair_base_${option.key}_${user.preferences.hair.color}`
+          console.warn('unknown type', type, key);
+        }
+      }
+
+      return str;
     },
     userOwnsSet (type, setKeys, subType) {
       let owns = true;

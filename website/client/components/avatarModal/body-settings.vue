@@ -69,26 +69,15 @@
     },
     computed: {
       sizes () {
-        return ['slim', 'broad'].map(s => ({
-          key: s,
-          class: `${s}_shirt_black`,
-        }));
+        return ['slim', 'broad'].map(s => this.mapKeysToFreeOption(s, 'size'));
       },
       freeShirts () {
-        return freeShirtKeys.map(s => ({
-          key: s,
-          class: `${this.user.preferences.size}_shirt_${s}`,
-        }));
+        return freeShirtKeys.map(s => this.mapKeysToFreeOption(s, 'shirt'));
       },
       specialShirts () {
         let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
         let keys = this.specialShirtKeys;
-        let options = keys.map(key => {
-          const option = this.mapKeysToOption(key, 'shirt');
-          option.class = `${this.user.preferences.size}_shirt_${key}`;
-
-          return option;
-        });
+        let options = keys.map(key => this.mapKeysToOption(key, 'shirt'));
         return options;
       },
     },

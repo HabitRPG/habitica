@@ -21,6 +21,7 @@
   .sub-menu {
     display: flex;
     justify-content: center;
+      margin-bottom: 10px;
   }
 
   .sub-menu:hover {
