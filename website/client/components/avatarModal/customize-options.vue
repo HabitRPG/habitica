@@ -3,15 +3,18 @@
     .outer-option-background(
       v-for='option in items',
       :key='option.key',
-      :class='{locked: option.locked, premium: Boolean(option.gem), active: currentValue === option.key, none: option.none }'
+      :class='{locked: option.gemLocked || option.goldLocked, premium: Boolean(option.gem), active: option.active || currentValue === option.key, none: option.none }'
     )
       .option
-        .sprite.customize-option(:class='option.class', @click='option.gem && option.click ? option.click() : set({[propertyToChange]: option.key})')
+        .sprite.customize-option(:class='option.class', @click='option.click ? option.click(option) : set({[propertyToChange]: option.key})')
           .redline-outer(v-if="option.none")
             .redline
-      .gem-lock(v-if='option.locked')
+      .gem-lock(v-if='option.gemLocked')
         .svg-icon.gem(v-html='icons.gem')
         span {{ option.gem }}
+      .gold-lock(v-if='option.goldLocked')
+        .svg-icon.gold(v-html='icons.gold')
+        span {{ option.gold }}
     .col-12.text-center(v-if='fullSet')
       .gem-lock
         .svg-icon.gem(v-html='icons.gem')
@@ -21,6 +24,7 @@
 
 <script>
   import gem from 'assets/svg/gem.svg';
+  import gold from 'assets/svg/gold.svg';
   import {avatarEditorUtilies} from '../../mixins/avatarEditUtilities';
 
   export default {
@@ -32,6 +36,7 @@
       return {
         icons: Object.freeze({
           gem,
+          gold,
         }),
       };
     },

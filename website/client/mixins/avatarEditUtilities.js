@@ -31,8 +31,8 @@ export const avatarEditorUtilies = {
       option.pathKey = pathKey;
       option.active = userPreference === key;
       option.class = this.createClass(type, subType, key);
-      option.click = () => {
-        return this.locked ? this.unlock(`${this.pathKey}.${this.key}`) : this.set({[`preferences.${this.pathKey}`]: this.key});
+      option.click = (optionParam) => {
+        return option.locked ? this.unlock(`${optionParam.pathKey}.${key}`) : this.set({[`preferences.${optionParam.pathKey}`]: optionParam.key});
       };
       return option;
     },
@@ -47,7 +47,7 @@ export const avatarEditorUtilies = {
         if (locked) hide = moment(appearanceSets[set].availableUntil).isBefore(moment());
       }
 
-      option.locked = locked;
+      option.gemLocked = locked;
       option.hide = hide;
       if (locked) {
         option.gem = 2;

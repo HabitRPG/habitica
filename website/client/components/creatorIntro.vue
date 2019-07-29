@@ -57,68 +57,11 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       :editing="editing"
     )
 
-    #extra.section.container.customize-section(v-if='activeTopPage === "extra"')
-      sub-menu.text-center(:items="extraSubMenuItems", :activeSubPage="activeSubPage", @changeSubPage="changeSubPage($event)")
-      #glasses.row(v-if='activeSubPage === "glasses"')
-        .col-12.customize-options
-          .option(v-for='option in eyewear', :class='{active: option.active}')
-            .sprite.customize-option(:class="`eyewear_special_${option.key}`", @click='option.click')
-      #animal-ears.row(v-if='activeSubPage === "ears"')
-        .section.col-12.customize-options
-          .option(v-for='option in animalItems("headAccessory")',
-            :class='{active: option.active, locked: option.locked}')
-            .sprite.customize-option(:class="`headAccessory_special_${option.key}`", @click='option.click')
-            .gem-lock(v-if='option.gemLocked')
-              .svg-icon.gem(v-html='icons.gem')
-              span 2
-            .gold-lock(v-if='option.goldLocked')
-              .svg-icon.gold(v-html='icons.gold')
-              span 20
-          .col-12.text-center(v-if='!animalItemsOwned("headAccessory")')
-            .gem-lock
-              .svg-icon.gem(v-html='icons.gem')
-              span 5
-            button.btn.btn-secondary.purchase-all(@click='unlock(animalItemsUnlockString("headAccessory"))') {{ $t('purchaseAll') }}
-      #animal-tails.row(v-if='activeSubPage === "tails"')
-        .section.col-12.customize-options
-          .option(v-for='option in animalItems("back")',
-            :class='{active: option.active, locked: option.locked}')
-            .sprite.customize-option(:class="`icon_back_special_${option.key}`", @click='option.click')
-            .gem-lock(v-if='option.gemLocked')
-              .svg-icon.gem(v-html='icons.gem')
-              span 2
-            .gold-lock(v-if='option.goldLocked')
-              .svg-icon.gold(v-html='icons.gold')
-              span 20
-          .col-12.text-center(v-if='!animalItemsOwned("back")')
-            .gem-lock
-              .svg-icon.gem(v-html='icons.gem')
-              span 5
-            button.btn.btn-secondary.purchase-all(@click='unlock(animalItemsUnlockString("back"))') {{ $t('purchaseAll') }}
-      #headband.row(v-if='activeSubPage === "headband"')
-        .col-12.customize-options
-          .option(v-for='option in headbands', :class='{active: option.active}')
-            .sprite.customize-option(:class="`headAccessory_special_${option.key}`", @click='option.click')
-      #wheelchairs.row(v-if='activeSubPage === "wheelchair"')
-        .col-12.customize-options
-          .option(@click='set({"preferences.chair": "none"})', :class='{active: user.preferences.chair === "none"}')
-            | None
-          .option(v-for='option in chairKeys',
-            :class='{active: user.preferences.chair === option}')
-            .chair.sprite.customize-option(:class="`button_chair_${option}`", @click='set({"preferences.chair": option})')
-      #flowers.row(v-if='activeSubPage === "flower"')
-        .col-12.customize-options
-          .head_0.option(@click='set({"preferences.hair.flower":0})', :class='{active: user.preferences.hair.flower === 0}')
-          .option(v-for='option in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]',
-            :class='{active: user.preferences.hair.flower === option}')
-            .sprite.customize-option(:class="`hair_flower_${option}`", @click='set({"preferences.hair.flower": option})')
-      .row(v-if='activeSubPage === "flower"')
-        .col-12.customize-options
-          // button.customize-option(ng-repeat='item in ::getGearArray("animal")', class='{{::item.key}}',
-            ng-class="{locked: user.items.gear.owned[item.key] == undefined, selectableInventory: user.preferences.costume ? user.items.gear.costume.headAccessory == item.key : user.items.gear.equipped.headAccessory == item.key}",
-            popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter',
-            popover-placement='right', popover-append-to-body='true',
-            ng-click='user.items.gear.owned[item.key] ? equip(item.key) : purchase(item.type,item)')
+    extraSettings(
+      v-if='activeTopPage === "extra"',
+      :editing="editing"
+    )
+
     #backgrounds.section.container.customize-section(v-if='activeTopPage === "backgrounds"')
       .row.title-row
         toggle-switch.backgroundFilterToggle(:label="'Hide locked backgrounds'", v-model='filterBackgrounds')
@@ -270,19 +213,6 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
   }
 
   #avatar-modal {
-    .sub-menu:hover {
-      cursor: pointer;
-    }
-
-    .sub-menu-item {
-      text-align: center;
-      border-bottom: 2px solid #f9f9f9;
-    }
-
-    .sub-menu .sub-menu-item:hover, .sub-menu .sub-menu-item.active {
-      color: $purple-200;
-      border-bottom: 2px solid $purple-200;
-    }
 
     .customize-section {
       text-align: center;
@@ -794,6 +724,7 @@ import toggleSwitch from 'client/components/ui/toggleSwitch';
 import bodySettings from './avatarModal/body-settings';
 import skinSettings from './avatarModal/skin-settings';
 import hairSettings from './avatarModal/hair-settings';
+import extraSettings from './avatarModal/extra-settings';
 import subMenu from './avatarModal/sub-menu';
 
 import logoPurple from 'assets/svg/logo-purple.svg';
@@ -811,7 +742,6 @@ import {avatarEditorUtilies} from '../mixins/avatarEditUtilities';
 import content from 'common/script/content/index';
 
 const skinsBySet = groupBy(appearance.skin, 'set.key');
-const hairColorBySet = groupBy(appearance.hair.color, 'set.key');
 
 export default {
   mixins: [guide, notifications, avatarEditorUtilies],
@@ -822,6 +752,7 @@ export default {
     bodySettings,
     skinSettings,
     hairSettings,
+    extraSettings,
 
     subMenu,
   },
@@ -835,7 +766,6 @@ export default {
   },
   data () {
     let backgroundShopSets = getBackgroundShopSets();
-    const bgItems = [];
 
     return {
       loading: false,
@@ -847,11 +777,7 @@ export default {
       animalSkinKeys: ['bear', 'cactus', 'fox', 'lion', 'panda', 'pig', 'tiger', 'wolf'],
       premiumHairColorKeys: ['rainbow', 'yellow', 'green', 'purple', 'blue', 'TRUred'],
 
-      animalItemKeys: {
-        back: ['bearTail', 'cactusTail', 'foxTail', 'lionTail', 'pandaTail', 'pigTail', 'tigerTail', 'wolfTail'],
-        headAccessory: ['bearEars', 'cactusEars', 'foxEars', 'lionEars', 'pandaEars', 'pigEars', 'tigerEars', 'wolfEars'],
-      },
-      chairKeys: ['black', 'blue', 'green', 'pink', 'red', 'yellow', 'handleless_black', 'handleless_blue', 'handleless_green', 'handleless_pink', 'handleless_red', 'handleless_yellow'],
+
       icons: Object.freeze({
         logoPurple,
         bodyIcon,
@@ -896,184 +822,8 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
-    headbands () {
-      let keys = ['blackHeadband', 'blueHeadband', 'greenHeadband', 'pinkHeadband', 'redHeadband', 'whiteHeadband', 'yellowHeadband'];
-      let options = keys.map(key => {
-        let newKey = `headAccessory_special_${key}`;
-        let option = {};
-        option.key = key;
-        option.active = this.user.preferences.costume ? this.user.items.gear.costume.headAccessory === newKey : this.user.items.gear.equipped.headAccessory === newKey;
-        option.click = () => {
-          let type = this.user.preferences.costume ? 'costume' : 'equipped';
-          return this.equip(newKey, type);
-        };
-        return option;
-      });
-      return options;
-    },
-    eyewear () {
-      let keys = [
-        'blackTopFrame', 'blueTopFrame', 'greenTopFrame', 'pinkTopFrame', 'redTopFrame', 'whiteTopFrame', 'yellowTopFrame',
-        'blackHalfMoon', 'blueHalfMoon', 'greenHalfMoon', 'pinkHalfMoon', 'redHalfMoon', 'whiteHalfMoon', 'yellowHalfMoon',
-      ];
-      let options = keys.map(key => {
-        let newKey = `eyewear_special_${key}`;
-        let option = {};
-        option.key = key;
-        option.active = this.user.preferences.costume ? this.user.items.gear.costume.eyewear === newKey : this.user.items.gear.equipped.eyewear === newKey;
-        option.click = () => {
-          let type = this.user.preferences.costume ? 'costume' : 'equipped';
-          return this.equip(newKey, type);
-        };
-        return option;
-      });
-      return options;
-    },
-    specialShirts () {
-      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
-      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
-      let keys = this.specialShirtKeys;
-      let options = keys.map(key => {
-        return this.mapKeysToOption(key, 'shirt');
-      });
-      return options;
-    },
-    rainbowSkins () {
-      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
-      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
-      let keys = this.rainbowSkinKeys;
-      let options = keys.map(key => {
-        return this.mapKeysToOption(key, 'skin');
-      });
-      return options;
-    },
-    animalSkins () {
-      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
-      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
-      let keys = this.animalSkinKeys;
-      let options = keys.map(key => {
-        return this.mapKeysToOption(key, 'skin');
-      });
-      return options;
-    },
-    seasonalSkins () {
-      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
-      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
 
-      let seasonalSkins = [];
-      for (let key in skinsBySet) {
-        let set = skinsBySet[key];
 
-        let keys = set.map(item => {
-          return item.key;
-        });
-
-        let options = keys.map(optionKey => {
-          return this.mapKeysToOption(optionKey, 'skin', '', key);
-        });
-
-        let text = this.$t(key);
-        if (appearanceSets[key] && appearanceSets[key].text) {
-          text = appearanceSets[key].text();
-        }
-
-        let compiledSet = {
-          key,
-          options,
-          keys,
-          text,
-        };
-        seasonalSkins.push(compiledSet);
-      }
-
-      return seasonalSkins;
-    },
-    seasonalHairColors () {
-      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
-      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
-
-      let seasonalHairColors = [];
-      for (let key in hairColorBySet) {
-        let set = hairColorBySet[key];
-
-        let keys = set.map(item => {
-          return item.key;
-        });
-
-        let options = keys.map(optionKey => {
-          return this.mapKeysToOption(optionKey, 'hair', 'color', key);
-        });
-
-        let text = this.$t(key);
-        if (appearanceSets[key] && appearanceSets[key].text) {
-          text = appearanceSets[key].text();
-        }
-
-        let compiledSet = {
-          key,
-          options,
-          keys,
-          text,
-        };
-        seasonalHairColors.push(compiledSet);
-      }
-
-      return seasonalHairColors;
-    },
-    premiumHairColors () {
-      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
-      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
-      let keys = this.premiumHairColorKeys;
-      let options = keys.map(key => {
-        return this.mapKeysToOption(key, 'hair', 'color');
-      });
-      return options;
-    },
-    baseHair2 () {
-      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
-      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
-      let keys = this.baseHair2Keys;
-      let options = keys.map(key => {
-        return this.mapKeysToOption(key, 'hair', 'base');
-      });
-      return options;
-    },
-    baseHair3 () {
-      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
-      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
-      let keys = this.baseHair3Keys;
-      let options = keys.map(key => {
-        return this.mapKeysToOption(key, 'hair', 'base');
-      });
-      return options;
-    },
-    baseHair4 () {
-      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
-      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
-      let keys = this.baseHair4Keys;
-      let options = keys.map(key => {
-        return this.mapKeysToOption(key, 'hair', 'base');
-      });
-      return options;
-    },
-    baseHair5 () {
-      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
-      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
-      let keys = this.baseHair5Keys;
-      let options = keys.map(key => {
-        return this.mapKeysToOption(key, 'hair', 'mustache');
-      });
-      return options;
-    },
-    baseHair6 () {
-      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
-      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
-      let keys = this.baseHair6Keys;
-      let options = keys.map(key => {
-        return this.mapKeysToOption(key, 'hair', 'beard');
-      });
-      return options;
-    },
     editing () {
       return this.$store.state.avatarEditorOptions.editingUser;
     },
@@ -1122,41 +872,6 @@ export default {
         });
       });
       return ownedBackgrounds;
-    },
-    extraSubMenuItems () {
-      const items = [
-        {
-          id: 'glasses',
-          label: this.$t('glasses'),
-        },
-        {
-          id: 'wheelchair',
-          label: this.$t('wheelchair'),
-        },
-        {
-          id: 'flower',
-          label: this.$t('accent'),
-        },
-      ];
-
-      if (this.editing) {
-        items.push({
-          id: 'ears',
-          label: this.$t('animalEars'),
-        });
-
-        items.push({
-          id: 'tails',
-          label: this.$t('animalTails'),
-        });
-
-        items.push({
-          id: 'headband',
-          label: this.$t('headband'),
-        });
-      }
-
-      return items;
     },
   },
   methods: {
@@ -1246,51 +961,6 @@ export default {
     },
     backgroundPurchased () {
       this.backgroundUpdate = new Date();
-    },
-    animalItemsUnlockString (category) {
-      const keys = this.animalItemKeys[category].map(key => {
-        return `items.gear.owned.${category}_special_${key}`;
-      });
-
-      return keys.join(',');
-    },
-    animalItemsOwned (category) {
-      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
-      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
-
-      let own = true;
-      this.animalItemKeys[category].forEach(key => {
-        if (this.user.items.gear.owned[`${category}_special_${key}`] === undefined) own = false;
-      });
-      return own;
-    },
-    animalItems (category) {
-      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
-      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
-      let keys = this.animalItemKeys[category];
-      let options = keys.map(key => {
-        let newKey = `${category}_special_${key}`;
-        let userPurchased = this.user.items.gear.owned[newKey];
-
-        let option = {};
-        option.key = key;
-        option.active = this.user.preferences.costume ? this.user.items.gear.costume[category] === newKey : this.user.items.gear.equipped[category] === newKey;
-        option.gemLocked = userPurchased === undefined;
-        option.goldLocked = userPurchased === false;
-        option.locked = option.gemLocked || option.goldLocked;
-        option.click = () => {
-          if (option.gemLocked) {
-            return this.unlock(`items.gear.owned.${newKey}`);
-          } else if (option.goldLocked) {
-            return this.buy(newKey);
-          } else {
-            let type = this.user.preferences.costume ? 'costume' : 'equipped';
-            return this.equip(newKey, type);
-          }
-        };
-        return option;
-      });
-      return options;
     },
   },
 };

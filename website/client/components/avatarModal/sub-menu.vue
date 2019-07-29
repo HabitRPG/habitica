@@ -29,8 +29,6 @@
   }
 
   .sub-menu-item {
-    flex: 1;
-    flex-grow: 0;
     padding: 6px 16px;
     text-align: center;
     border-bottom: 2px solid #f9f9f9;
