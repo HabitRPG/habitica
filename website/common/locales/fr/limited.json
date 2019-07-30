@@ -119,7 +119,7 @@
     "winter2018MistletoeSet": "Guérisseur du gui (Guérisseur)",
     "winter2018ReindeerSet": "Voleur renne (Voleur)",
     "spring2018SunriseWarriorSet": "Guerrier de l'aurore (Guerrier)",
-    "spring2018TulipMageSet": "Mage tulipe (Mage) ",
+    "spring2018TulipMageSet": "Mage tulipe (Mage)",
     "spring2018GarnetHealerSet": "Guérisseur grenat (Guérisseur)",
     "spring2018DucklingRogueSet": "Voleur caneton (Voleur)",
     "summer2018BettaFishWarriorSet": "Poisson-combattant (Guerrier)",
@@ -151,5 +151,9 @@
     "winterPromoGiftDetails2": "Merci de noter que si vous, ou la personne à qui vous faites ce cadeau, détenez un abonnement récurrent, l'abonnement offert ne commencera qu'après que cet abonnement sera annulé ou expirera. Merci infiniment pour votre soutien <3",
     "discountBundle": "lot",
     "g1g1Announcement": "Un événement \"Offrez un abonnement, recevez un abonnement gratuit\" est actuellement en cours !",
-    "g1g1Details": "Offrez un abonnement à quelqu'un depuis son profil pour recevoir le même abonnement gratuitement !"
+    "g1g1Details": "Offrez un abonnement à quelqu'un depuis son profil pour recevoir le même abonnement gratuitement !",
+    "spring2019OrchidWarriorSet": "Orchidée (Guerrier)",
+    "spring2019AmberMageSet": "Ambre (Mage)",
+    "spring2019RobinHealerSet": "Robin (Guérisseur)",
+    "spring2019CloudRogueSet": "Nuage (Voleur)"
 }

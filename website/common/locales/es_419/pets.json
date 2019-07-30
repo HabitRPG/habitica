@@ -142,5 +142,6 @@
     "clickOnPotionToHatch": "Click on a hatching potion to use it on your <%= eggName %> and hatch a new pet!",
     "notEnoughPets": "No has recolectado suficientes mascotas ",
     "notEnoughMounts": "No has recolectado suficientes monturas",
-    "notEnoughPetsMounts": "No has recolectado suficientes mascotas y monturas"
+    "notEnoughPetsMounts": "No has recolectado suficientes mascotas y monturas",
+    "wackyPets": "Mascotas Locas"
 }
