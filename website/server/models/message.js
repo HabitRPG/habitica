@@ -108,7 +108,7 @@ export function setUserStyles (newMessage, user) {
   newMessage.markModified('userStyles contributor');
 }
 
-export function messageDefaults (msg, user, client, info = {}) {
+export function messageDefaults (msg, user, client, flagCount = 0, info = {}) {
   const id = uuid();
   const message = {
     id,
@@ -118,7 +118,7 @@ export function messageDefaults (msg, user, client, info = {}) {
     timestamp: Number(new Date()),
     likes: {},
     flags: {},
-    flagCount: 0,
+    flagCount,
     client,
   };
 

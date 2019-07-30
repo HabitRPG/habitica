@@ -12,22 +12,29 @@
       button.btn.btn-secondary.positive-icon(v-if='user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) !== -1',
         @click="unblockUser()", v-b-tooltip.hover.right="$t('unblock')")
         .svg-icon.positive-icon(v-html="icons.positive")
-      button.btn.btn-secondary.positive-icon(v-if='this.userLoggedIn.contributor.admin && !adminToolsLoaded',
-        @click="loadAdminTools()", v-b-tooltip.hover.right="'Admin - Load Tools'")
+      button.btn.btn-secondary.positive-icon(v-if='this.userLoggedIn.contributor.admin',
+        @click="toggleAdminTools()", v-b-tooltip.hover.right="'Admin - Toggle Tools'")
         .svg-icon.positive-icon(v-html="icons.staff")
-      span(v-if='this.userLoggedIn.contributor.admin && adminToolsLoaded')
-        button.btn.btn-secondary.positive-icon(v-if='!hero.flags || (hero.flags && !hero.flags.chatRevoked)',
-          @click="adminRevokeChat()", v-b-tooltip.hover.bottom="'Admin - Revoke Chat Privileges'")
-          .svg-icon.positive-icon(v-html="icons.megaphone")
-        button.btn.btn-secondary.positive-icon(v-if='hero.flags && hero.flags.chatRevoked',
-          @click="adminReinstateChat()", v-b-tooltip.hover.bottom="'Admin - Reinstate Chat Privileges'")
-          .svg-icon.positive-icon(v-html="icons.challenge")
-        button.btn.btn-secondary.positive-icon(v-if='!hero.auth.blocked',
-          @click="adminBlockUser()", v-b-tooltip.hover.right="'Admin - Ban User'")
-          .svg-icon.positive-icon(v-html="icons.lock")
-        button.btn.btn-secondary.positive-icon(v-if='hero.auth.blocked',
-          @click="adminUnblockUser()", v-b-tooltip.hover.right="'Admin - Unblock User'")
-          .svg-icon.positive-icon(v-html="icons.member")
+    .row.admin-profile-actions(v-if='this.userLoggedIn.contributor.admin && adminToolsLoaded')
+      .col-12.text-right
+        span.admin-action(v-if='!hero.flags || (hero.flags && !hero.flags.chatShadowMuted)',
+          @click="adminTurnOnShadowMuting()", v-b-tooltip.hover.bottom="'Turn on Shadow Muting'")
+          | shadow-mute
+        span.admin-action(v-if='hero.flags && hero.flags.chatShadowMuted',
+          @click="adminTurnOffShadowMuting()", v-b-tooltip.hover.bottom="'Turn off Shadow Muting'")
+          | un-shadow-mute
+        span.admin-action(v-if='!hero.flags || (hero.flags && !hero.flags.chatRevoked)',
+          @click="adminRevokeChat()", v-b-tooltip.hover.bottom="'Revoke Chat Privileges'")
+          | mute
+        span.admin-action(v-if='hero.flags && hero.flags.chatRevoked',
+          @click="adminReinstateChat()", v-b-tooltip.hover.bottom="'Reinstate Chat Privileges'")
+          | un-mute
+        span.admin-action(v-if='!hero.auth.blocked',
+          @click="adminBlockUser()", v-b-tooltip.hover.bottom="'Ban User'")
+          | ban
+        span.admin-action(v-if='hero.auth.blocked',
+          @click="adminUnblockUser()", v-b-tooltip.hover.bottom="'Un-Ban User'")
+          | un-ban
     .row
       .col-12
         member-details(:member="user")
@@ -182,6 +189,16 @@
 
   .header {
     width: 100%;
+  }
+
+  .admin-profile-actions {
+    margin-bottom: 3em;
+
+    .admin-action {
+      color: blue;
+      cursor: pointer;
+      padding: 0 1em;
+    }
   }
 
   .profile-actions {
@@ -586,6 +603,22 @@ export default {
     openSendGemsModal () {
       this.$root.$emit('habitica::send-gems', this.user);
     },
+    adminTurnOnShadowMuting () {
+      if (!this.hero.flags) {
+        this.hero.flags = {};
+      }
+      this.hero.flags.chatShadowMuted = true;
+
+      this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
+    },
+    adminTurnOffShadowMuting () {
+      if (!this.hero.flags) {
+        this.hero.flags = {};
+      }
+      this.hero.flags.chatShadowMuted = false;
+
+      this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
+    },
     adminRevokeChat () {
       if (!this.hero.flags) {
         this.hero.flags = {};
@@ -612,9 +645,13 @@ export default {
 
       this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
     },
-    async loadAdminTools () {
-      this.hero = await this.$store.dispatch('hall:getHero', { uuid: this.user._id });
-      this.adminToolsLoaded = true;
+    async toggleAdminTools () {
+      if (this.adminToolsLoaded) {
+        this.adminToolsLoaded = false;
+      } else {
+        this.hero = await this.$store.dispatch('hall:getHero', { uuid: this.user._id });
+        this.adminToolsLoaded = true;
+      }
     },
     showAllocation () {
       return this.user._id === this.userLoggedIn._id && this.hasClass;

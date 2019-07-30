@@ -52,6 +52,8 @@ const LARGE_GROUP_COUNT_MESSAGE_CUTOFF = shared.constants.LARGE_GROUP_COUNT_MESS
 const MAX_SUMMARY_SIZE_FOR_GUILDS = shared.constants.MAX_SUMMARY_SIZE_FOR_GUILDS;
 const GUILDS_PER_PAGE = shared.constants.GUILDS_PER_PAGE;
 
+const CHAT_FLAG_LIMIT_FOR_HIDING = shared.constants.CHAT_FLAG_LIMIT_FOR_HIDING;
+
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
 const MAX_UPDATE_RETRIES = 5;
@@ -367,8 +369,8 @@ schema.statics.toJSONCleanChat = async function groupToJSONCleanChat (group, use
         chatMsg.flags = {};
         if (chatMsg._meta) chatMsg._meta = undefined;
 
-        // Messages with >= 2 flags are hidden to non admins and non authors
-        if (user._id !== chatMsg.uuid && chatMsg.flagCount >= 2) return undefined;
+        // Messages with too many flags are hidden to non-admins and non-authors
+        if (user._id !== chatMsg.uuid && chatMsg.flagCount >= CHAT_FLAG_LIMIT_FOR_HIDING) return undefined;
       }
 
       return chatMsg;
@@ -510,8 +512,8 @@ schema.methods.getMemberCount = async function getMemberCount () {
 };
 
 schema.methods.sendChat = function sendChat (options = {}) {
-  const {message, user, metaData, client, info = {}} = options;
-  let newMessage = messageDefaults(message, user, client, info);
+  const {message, user, metaData, client, flagCount = 0, info = {}} = options;
+  let newMessage = messageDefaults(message, user, client, flagCount, info);
   let newChatMessage = new Chat();
   newChatMessage = Object.assign(newChatMessage, newMessage);
   newChatMessage.groupId = this._id;
@@ -528,8 +530,11 @@ schema.methods.sendChat = function sendChat (options = {}) {
   // newChatMessage is possibly returned
   this.sendGroupChatReceivedWebhooks(newChatMessage);
 
-  // do not send notifications for guilds with more than 5000 users and for the tavern
-  if (NO_CHAT_NOTIFICATIONS.indexOf(this._id) !== -1 || this.memberCount > LARGE_GROUP_COUNT_MESSAGE_CUTOFF) {
+  // do not send notifications for:
+  // - groups that never send notifications (e.g., Tavern)
+  // - groups with very many users
+  // - messages that have already been flagged to hide them
+  if (NO_CHAT_NOTIFICATIONS.indexOf(this._id) !== -1 || this.memberCount > LARGE_GROUP_COUNT_MESSAGE_CUTOFF || newChatMessage.flagCount >= CHAT_FLAG_LIMIT_FOR_HIDING) {
     return newChatMessage;
   }
 

@@ -1,8 +1,7 @@
 <template lang="pug">
 div
   .mentioned-icon(v-if='isUserMentioned')
-  .message-hidden(v-if='!inbox && msg.flagCount === 1 && user.contributor.admin') Message flagged once, not hidden
-  .message-hidden(v-if='!inbox && msg.flagCount > 1 && user.contributor.admin') Message hidden
+  .message-hidden(v-if='!inbox && user.contributor.admin && msg.flagCount') {{flagCountDescription}}
   .card-body
     user-link(:userId="msg.uuid", :name="msg.user", :backer="msg.backer", :contributor="msg.contributor")
     p.time
@@ -137,7 +136,8 @@ import copyIcon from 'assets/svg/copy.svg';
 import likeIcon from 'assets/svg/like.svg';
 import likedIcon from 'assets/svg/liked.svg';
 import reportIcon from 'assets/svg/report.svg';
-import {highlightUsers} from '../../libs/highlightUsers';
+import { highlightUsers } from '../../libs/highlightUsers';
+import { CHAT_FLAG_LIMIT_FOR_HIDING, CHAT_FLAG_FROM_SHADOW_MUTE } from '../../../common/script/constants';
 
 export default {
   components: {userLink},
@@ -210,6 +210,12 @@ export default {
     isMessageReported () {
       return this.msg.flags && this.msg.flags[this.user.id] || this.reported;
     },
+    flagCountDescription () {
+      if (!this.msg.flagCount) return '';
+      if (this.msg.flagCount < CHAT_FLAG_LIMIT_FOR_HIDING) return 'Message flagged once, not hidden';
+      if (this.msg.flagCount < CHAT_FLAG_FROM_SHADOW_MUTE) return 'Message hidden';
+      return 'Message hidden (shadow-muted)';
+    },
   },
   methods: {
     async like () {
@@ -274,6 +280,8 @@ export default {
     },
   },
   mounted () {
+    this.CHAT_FLAG_LIMIT_FOR_HIDING = CHAT_FLAG_LIMIT_FOR_HIDING;
+    this.CHAT_FLAG_FROM_SHADOW_MUTE = CHAT_FLAG_FROM_SHADOW_MUTE;
     this.$emit('chat-card-mounted', this.msg.id);
   },
 };
