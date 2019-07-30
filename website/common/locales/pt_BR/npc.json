@@ -103,7 +103,7 @@
     "donationDesc": "20 Gemas, Doação para o Habitica",
     "payWithCard": "Pagar com Cartão",
     "payNote": "Nota: Às vezes o PayPal demora bastante tempo para processar. Recomendamos pagar com cartão.",
-    "card": "Cartão de Crédito (usando Stripe)",
+    "card": "Cartão de Crédito",
     "amazonInstructions": "Aperte no botão para pagar usando Amazon Payments",
     "paymentMethods": "Comprar usando",
     "paymentSuccessful": "Seu pagamento foi efetuado com sucesso!",
@@ -167,5 +167,6 @@
     "welcome4": "Evite maus hábitos que sugam sua Vida ou seu avatar morrerá!",
     "welcome5": "Agora você vai personalizar o seu avatar e definir as suas tarefas...",
     "imReady": "Entre no Habitica",
-    "limitedOffer": "Disponível até <%= date %>"
+    "limitedOffer": "Disponível até <%= date %>",
+    "paymentAutoRenew": "Esta assinatura será renovada automaticamente até ser cancelada. Se você precisar cancelar, poderá fazê-lo através da configurações."
 }

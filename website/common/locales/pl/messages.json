@@ -12,9 +12,9 @@
     "messageLikesFood": "<%= egg %> naprawdę lubi <%= foodText %>!",
     "messageDontEnjoyFood": "<%= egg %>zjada <%= foodText %>, ale raczej mu nie smakuje.",
     "messageBought": "Kupiono: <%= itemText %>",
-    "messageEquipped": "Przedmiot: <%= itemText %> założony.",
+    "messageEquipped": " <%= itemText %> założony.",
     "messageUnEquipped": "Odłożono <%= itemText %> .",
-    "messageMissingEggPotion": "Brakuje Ci takiego jaja lub eliksiru.",
+    "messageMissingEggPotion": "Brakuje Ci takiego jaja lub eliksiru",
     "messageInvalidEggPotionCombo": "Nie możesz użyć Magicznego Eliksiru Wyklucia na jaju z misji. Spróbuj innego jaja.",
     "messageAlreadyPet": "Już masz takiego chowańca. Spróbuj innej kombinacji!",
     "messageHatched": "Z Twojego jaja wykluł się chowaniec! Odwiedź stajnię, by wziąć go ze sobą.",
@@ -62,7 +62,7 @@
     "unallocatedStatsPoints": "Masz <span class=\"notification-bold-blue\">nieprzydzielone Punkty Atrybutów: <%= points %></span>",
     "beginningOfConversation": "To początek Twojej konwersacji z <%= userName %>. Pamiętaj, aby być miłym, odnosić się z szacunkiem i przestrzegać Wytycznych Społeczności!",
     "messageDeletedUser": "Niestety, ten użytkownik usunął już swoje konto.",
-    "messageMissingDisplayName": "Missing display name.",
+    "messageMissingDisplayName": "Brakuje wyświetlanej nazwy.",
     "reportedMessage": "Zaraportowałeś tę wiadomość do moderatorów.",
     "canDeleteNow": "Jeśli chcesz, możesz teraz usunąć tą wiadomość."
 }
