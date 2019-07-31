@@ -81,7 +81,7 @@ export const avatarEditorUtilies = {
         }
         default: {
           // `hair_base_${option.key}_${user.preferences.hair.color}`
-          console.warn('unknown type', type, key);
+          // console.warn('unknown type', type, key);
         }
       }
 

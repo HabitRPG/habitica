@@ -223,64 +223,6 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       display: none !important;
     }
 
-    .customize-options .option {
-      display: inline-block;
-      vertical-align: bottom;
-      //padding: .5em;
-      height: 64px;
-      width: 64px;
-      // margin: 1em .5em .5em 0;
-      // border: 4px solid $gray-700;
-      border-radius: 10px;
-      position: relative;
-
-      &.none {
-        .sprite {
-          opacity: 0.24;
-        }
-
-        .redline-outer {
-          height: 60px;
-          width: 60px;
-          position: absolute;
-          bottom: 0;
-          margin: 0 auto 0 0;
-
-          .redline {
-            width: 60px;
-            height: 4px;
-            display: block;
-            background: red;
-            transform: rotate(-45deg);
-            position: absolute;
-            top: 0;
-
-            margin-top: 10px;
-            margin-bottom: 20px;
-            margin-left: 6px;
-          }
-        }
-      }
-
-      &.locked {
-        border: none;
-        border-radius: 2px;
-        background-color: #ffffff;
-        box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
-        margin-top: 0;
-      }
-
-      &.active {
-        background: white;
-        border: solid 4px $purple-300;
-      }
-
-      &:hover {
-        cursor: pointer;
-      }
-    }
-
-
     #creator-background {
       background-color: $purple-200;
     }
@@ -709,17 +651,13 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
 
 <script>
 import axios from 'axios';
-import moment from 'moment';
 import map from 'lodash/map';
-import groupBy from 'lodash/groupBy';
 import { mapState } from 'client/libs/store';
 import avatar from './avatar';
 import usernameForm from './settings/usernameForm';
 import { getBackgroundShopSets } from '../../common/script/libs/shops';
 import guide from 'client/mixins/guide';
 import notifications from 'client/mixins/notifications';
-import appearance from 'common/script/content/appearance';
-import appearanceSets from 'common/script/content/appearance/sets';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
 import bodySettings from './avatarModal/body-settings';
 import skinSettings from './avatarModal/skin-settings';
@@ -741,8 +679,6 @@ import {avatarEditorUtilies} from '../mixins/avatarEditUtilities';
 
 import content from 'common/script/content/index';
 
-const skinsBySet = groupBy(appearance.skin, 'set.key');
-
 export default {
   mixins: [guide, notifications, avatarEditorUtilies],
   components: {
@@ -760,9 +696,6 @@ export default {
     if (this.editing) this.modalPage = 2;
     // Buy modal is global, so we listen at root. I'd like to not
     this.$root.$on('buyModal::boughtItem', this.backgroundPurchased);
-
-
-    console.info('skins by set', skinsBySet);
   },
   data () {
     let backgroundShopSets = getBackgroundShopSets();
@@ -772,11 +705,6 @@ export default {
       backgroundShopSets,
       backgroundUpdate: new Date(),
       filterBackgrounds: false,
-      specialShirtKeys: ['convict', 'cross', 'fire', 'horizon', 'ocean', 'purple', 'rainbow', 'redblue', 'thunder', 'tropical', 'zombie'],
-      rainbowSkinKeys: ['eb052b', 'f69922', 'f5d70f', '0ff591', '2b43f6', 'd7a9f7', '800ed0', 'rainbow'],
-      animalSkinKeys: ['bear', 'cactus', 'fox', 'lion', 'panda', 'pig', 'tiger', 'wolf'],
-      premiumHairColorKeys: ['rainbow', 'yellow', 'green', 'purple', 'blue', 'TRUred'],
-
 
       icons: Object.freeze({
         logoPurple,

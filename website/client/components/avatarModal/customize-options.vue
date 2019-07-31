@@ -108,10 +108,9 @@
           transform: rotate(-45deg);
           position: absolute;
           top: 0;
-
-            margin-top: 33px;
-            margin-bottom: 20px;
-            margin-left: 0;
+          margin-top: 30px;
+          margin-bottom: 20px;
+          margin-left: -1px;
         }
       }
     }
@@ -140,6 +139,9 @@
     &:hover {
       cursor: pointer;
     }
+  }
+
+  .outer-option-background:not(.none) {
 
     .sprite.customize-option {
       // margin: 0 auto;
@@ -161,18 +163,33 @@
         margin-left: -4px;
       }
       &.chair {
-        margin-left: -2px;
-        margin-top: -4px;
+        margin-left: -1px;
+        margin-top: -1px;
+
+        &.handleless {
+          margin-left: -5px;
+          margin-top: -5px;
+        }
       }
       &.color, &.bangs {
           margin-top: 4px;
           margin-left: -3px;
       }
 
-        &.hair.base {
-            margin-top: 0px;
-            margin-left: -5px;
-        }
+      &.hair.base {
+          margin-top: 0px;
+          margin-left: -5px;
+      }
+
+      &.headAccessory {
+        margin-top: 0;
+        margin-left: -4px;
+      }
+
+      &.headband {
+        margin-top: -6px;
+        margin-left: -27px;
+      }
     }
   }
 

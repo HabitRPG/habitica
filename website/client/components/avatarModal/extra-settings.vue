@@ -173,7 +173,7 @@
             option.none = true;
           }
           option.active = this.user.preferences.chair === key;
-          option.class = `button_chair_${key} chair`;
+          option.class = `button_chair_${key} chair ${key.includes('handleless_') ? 'handleless' : ''}`;
           option.click = () => {
             return this.set({'preferences.chair': key});
           };
@@ -214,9 +214,9 @@
           let option = {};
           option.key = key;
           option.active = this.user.preferences.costume ? this.user.items.gear.costume[category] === newKey : this.user.items.gear.equipped[category] === newKey;
-          option.class = `headAccessory_special_${option.key} category`;
+          option.class = `headAccessory_special_${option.key} ${category}`;
           if (category === 'back') {
-            option.class = `icon_back_special_${option.key}`;
+            option.class = `icon_back_special_${option.key} back`;
           }
           option.gemLocked = userPurchased === undefined;
           option.goldLocked = userPurchased === false;

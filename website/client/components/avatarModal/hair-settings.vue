@@ -40,7 +40,7 @@
       customize-options(
         v-if='editing',
         :items='beardList',
-        :fullSet='isPurchaseAllNeeded(\'hair\', [\'baseHair5\', \'baseHair6\'], [\'mustache\', \'beard\'])',
+        :fullSet='isPurchaseAllNeeded("hair", ["baseHair5", "baseHair6"], ["mustache", "beard"])',
         @unlock='unlock(`hair.mustache.${baseHair5Keys.join(",hair.mustache.")},hair.beard.${baseHair6Keys.join(",hair.beard.")}`)'
       )
 </template>
@@ -200,11 +200,8 @@
         return options;
       },
       hairBangs () {
-        const none = {
-          key: 0,
-          none: true,
-          class: `hair_bangs_0_${this.user.preferences.hair.color}`, // todo add current hair bangs setting
-        };
+        const none = this.mapKeysToFreeOption(0, 'hair', 'bangs');
+        none.none = true;
 
         const options = [1, 2, 3, 4].map(s => this.mapKeysToFreeOption(s, 'hair', 'bangs'));
 
@@ -262,13 +259,13 @@
         });
 
         if (this.editing) {
-            sets.push({
-                fullSet: !this.userOwnsSet('hair', this.baseHair2Keys, 'base'),
-                unlock: () => this.unlock(`hair.base.${this.baseHair2Keys.join(',hair.base.')}`),
-                options: [
-                    ...this.baseHair2,
-                ],
-            });
+          sets.push({
+            fullSet: !this.userOwnsSet('hair', this.baseHair2Keys, 'base'),
+            unlock: () => this.unlock(`hair.base.${this.baseHair2Keys.join(',hair.base.')}`),
+            options: [
+              ...this.baseHair2,
+            ],
+          });
         }
 
         return sets;
