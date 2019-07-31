@@ -828,7 +828,11 @@ export default {
 
       let tasksToCreate = [];
       this.taskCategories.forEach(category => {
-        tasksToCreate = tasksToCreate.concat(content.tasksByCategory[category]);
+        tasksToCreate = tasksToCreate.concat(content.tasksByCategory[category].map(t => ({
+          ...t,
+          text: t.text(),
+          notes: t.notes && t.notes(),
+        })));
       });
 
       // @TODO: Move to the action

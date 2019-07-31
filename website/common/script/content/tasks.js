@@ -1,128 +1,130 @@
+import t from './translation';
+
 export const tasksByCategory = {
   work: [
     {
       type: 'habit',
-      text: 'Process email',
+      text: t('workHabitMail'),
       up: true,
       down: false,
     },
     {
       type: 'daily',
-      text: 'Most important task >> Worked on today’s most important task',
-      notes: 'Tap to specify your most important task',
+      text: t('workDailyImportantTask'),
+      notes: t('workDailyImportantTaskNotes'),
     },
     {
       type: 'todo',
-      text: 'Work project >> Complete work project',
-      notes: 'Tap to specify the name of your current project + set a due date!',
+      text: t('workTodoProject'),
+      notes: t('workTodoProjectNotes'),
     },
   ],
   exercise: [
     {
       type: 'habit',
-      text: '10 min cardio >> + 10 minutes cardio',
+      text: t('exerciseHabit'),
       up: true,
       down: false,
     },
     {
       type: 'daily',
-      text: 'Stretching >> Daily workout routine',
-      notes: 'Tap to choose your schedule and specify exercises!',
+      text: t('exerciseDailyText'),
+      notes: t('exerciseDailyNotes'),
     },
     {
       type: 'todo',
-      text: 'Set up workout schedule',
-      notes: 'Tap to add a checklist!',
+      text: t('exerciseTodoText'),
+      notes: t('exerciseTodoNotes'),
     },
   ],
   health_wellness: [ // eslint-disable-line
     {
       type: 'habit',
-      text: 'Eat Health/Junk Food',
+      text: t('healthHabit'),
       up: true,
       down: true,
     },
     {
       type: 'daily',
-      text: 'Floss',
-      notes: 'Tap to make any changes!',
+      text: t('healthDailyText'),
+      notes: t('healthDailyNotes'),
     },
     {
       type: 'todo',
-      text: 'Schedule check-up >> Brainstorm a healthy change',
-      notes: 'Tap to add checklists!',
+      text: t('healthTodoText'),
+      notes: t('healthTodoNotes'),
     },
   ],
   school: [
     {
       type: 'habit',
-      text: 'Study/Procrastinate',
+      text: t('schoolHabit'),
       up: true,
       down: true,
     },
     {
       type: 'daily',
-      text: 'Finish homework',
-      notes: 'Tap to choose your homework schedule!',
+      text: t('schoolDailyText'),
+      notes: t('schoolDailyNotes'),
     },
     {
       type: 'todo',
-      text: 'Finish assignment for class',
-      notes: 'Tap to name the assignment and choose a due date!]',
+      text: t('schoolTodoText'),
+      notes: t('schoolTodoNotes'),
     },
   ],
   self_care: [ // eslint-disable-line
     {
       type: 'habit',
-      text: 'Take a short break',
+      text: t('selfCareHabit'),
       up: true,
       down: false,
     },
     {
       type: 'daily',
-      text: '5 minutes of quiet breathing',
-      notes: 'Tap to choose your schedule!',
+      text: t('selfCareDailyText'),
+      notes: t('selfCareDailyNotes'),
     },
     {
       type: 'todo',
-      text: 'Engage in a fun activity',
-      notes: 'Tap to specify what you plan to do!',
+      text: t('selfCareTodoText'),
+      notes: t('selfCareTodoNotes'),
     },
   ],
   chores: [
     {
       type: 'habit',
-      text: '10 minutes cleaning',
+      text: t('choresHabit'),
       up: true,
       down: false,
     },
     {
       type: 'daily',
-      text: 'Wash dishes',
-      notes: 'Tap to choose your schedule!',
+      text: t('choresDailyText'),
+      notes: t('choresDailyNotes'),
     },
     {
       type: 'todo',
-      text: 'Organize closet >> Organize clutter',
-      notes: 'Tap to specify the cluttered area!',
+      text: t('choresTodoText'),
+      notes: t('choresTodoNotes'),
     },
   ],
   creativity: [
     {
       type: 'habit',
-      text: 'Study a master of the craft >> + Practiced a new creative technique',
+      text: t('creativityHabit'),
       up: true,
       down: false,
     },
     {
       type: 'daily',
-      text: 'Work on creative project',
-      notes: 'Tap to specify the name of your current project + set the schedule!',
+      text: t('creativityDailyText'),
+      notes: t('creativityDailyNotes'),
     },
     {
       type: 'todo',
-      text: 'Finish creative project',
-      notes: 'Tap to specify the name of your project',
+      text: t('creativityTodoText'),
+      notes: t('creativityTodoNotes'),
     },
   ],
 };
