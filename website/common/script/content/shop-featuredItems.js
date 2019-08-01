@@ -9,15 +9,15 @@ const featuredItems = {
     },
     {
       type: 'eggs',
-      path: 'eggs.BearCub',
+      path: 'eggs.LionCub',
     },
     {
-      type: 'premiumHatchingPotion',
-      path: 'premiumHatchingPotions.Glass',
+      type: 'hatchingPotions',
+      path: 'hatchingPotions.Desert',
     },
     {
-      type: 'premiumHatchingPotion',
-      path: 'premiumHatchingPotions.Watery',
+      type: 'food',
+      path: 'food.Potatoe',
     },
   ],
   quests: [

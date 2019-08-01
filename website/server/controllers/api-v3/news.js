@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'HABITICA NAMING DAY! AND LAST CHANCE FOR SUMMER LIMITED ITEMS';
+const LAST_ANNOUNCEMENT_TITLE = 'HABITICA OFFICIAL CHALLENGES AND BEHIND-THE-SCENES BLOG POST';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,29 +30,22 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>7/31/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>8/1/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_naming_day_2018 center-block"></div>
-        <h3>Habitica Naming Day!</h3>
-        <p>Happy Habitica Naming Day! In honor of the day when we changed the name of the app from HabitRPG to Habitica, we've given everyone an achievement, as well as some delicious cake for your pets and mounts. Everyone has also received Royal Purple Gryphon rewards! Depending on how many Naming Days you've celebrated with us, you've received Melior (a Purple Gryphon mount), his little sister Meliora (a Purple Gryphon pet), a Purple Gryphon Helm, or the Purple Gryphon Wing Cloak!</p>
-        <p>Thanks for being a Habitica user -- you all mean so much to us. We hope that you enjoy your presents!</p>
-        <div class="small mb-3">by Lemoness, Beffymaroo, and Baconsaur</div>
-        <div class="promo_mystery_201907 center-block"></div>
-        <h3>Last Chance for Beach Buddy Set</h3>
-        <p>Reminder: this is the final day to <a href='/user/settings/subscription'>subscribe</a> and receive the three-piece Beach Buddy Set! Subscribing also lets you buy Gems for Gold. The longer your subscription, the more Gems you get!</p>
-        <p>Thanks so much for your support! You help keep Habitica running.</p>
-        <div class="small mb-3">by Beffymaroo</div>
-        <div class="promo_summer_splash_2019 center-block"></div>
-        <h3>Last Chance for Summer Splash Items and Hatching Potions</h3>
-        <p>This is also your last chance to get all Summer Splash goodies before they vanish at the end of July 31st! This includes Limited-Edition Outfits, Seasonal Shop purchases, Seasonal Edition Skins, and yes, even Watery and Glass Hatching Potions. Grab them all while you still can!</p>
-        <div class="promo_splashy_pals_bundle center-block"></div>
-        <h3>Last Chance for Splashy Pals Pet Quest Bundle</h3>
-        <p>This is also the final day to buy the discounted Splashy Pals Pet Quest Bundle, featuring the Seahorse, Sea Turtle, and Whale quests all for seven gems! Be sure to catch it in the <a href='/shops/quests'>Quest Shop</a> before it swims away!</p>
-        <div class="small">by Lemoness and SabreCat</div>
-        <div class="small">Art by McCoyly, krazjega, UncommonCriminal, zoebeagle, Kiwibot, JessicaChase, Scarabsi, and JaizakArpaik</div>
-        <div class="small mb-3">Writing by Calae, Ginger_Hanna, and Lemoness</div>
+        <div class="scene_rewards center-block"></div>
+        <h3>August 2019 Resolution Success Challenge and New Take This Challenge</h3>
+        <p>The Habitica team has launched a special official Challenge series hosted in the <a href='/groups/guild/6e6a8bd3-9f5f-4351-9188-9f11fcd80a99' target='_blank'>Official New Year's Resolution Guild</a>. These Challenges are designed to help you build and maintain goals that are destined for success and then stick with them as the year progresses. For this month's Challenge, <a href='/challenges/08a170bb-b0bc-4bbe-b464-f2760dfeb3e0'>Count your Treasure</a>, we're focusing on the importance of rewards! It has a 15 Gem prize, which will be awarded to five lucky winners on September 2.</p>
+        <p>Congratulations to the winners of July's Challenge, papachops, Krilae, mmlado, archalyus, and Roisinn!</p>
+        <p>The next Take This Challenge has also launched, "<a href='/challenges/6438d355-1b00-4987-a5da-b78a2c806293'>Enter Sandman!</a>", with a focus on sleep hygiene. Be sure to check it out to earn additional pieces of the Take This armor set!</p>
+        <p><a href='http://www.takethis.org/' target='_blank'>Take This</a> is a nonprofit that seeks to inform the gamer community about mental health issues, to provide education about mental disorders and mental illness prevention, and to reduce the stigma of mental illness.</p>
+        <p>Congratulations to the winners of the last Take This Challenge, "Rolling a Natural 1!": grand prize winner lemoneater, and runners-up @renan-eccel, @moments_1d, @Rynna, Krzysiek, and Iverina Falchion! Plus, all participants in that Challenge have received a piece of the <a href='http://habitica.wikia.com/wiki/Event_Item_Sequences#Take_This_Armor_Set' target='_blank'>Take This item set</a> if they hadn't completed it already. It is located in your Rewards column. Enjoy!</p>
+        <div class="small mb-3">by Doctor B, the Take This team, Lemoness, Beffymaroo, and SabreCat</div>
+        <div class="promo_take_this center-block"></div>
+        <h3>Behind the Scenes: How the Habitica Logo (and Melior) Came to Be</h3>
+        <p>There's a new <a href='https://habitica.wordpress.com/2019/07/31/how-the-habitica-logo-and-melior-came-to-be/' target='_blank'>Behind the Scenes post</a> on the Habitica Blog! Redphoenix shares the story of Habitica's purple gryphon logo and our beloved mascot Melior! Check it out to learn some fun Habitican history.</p>
+        <div class="small mb-3">by redphoenix</div>
       </div>
       `,
     });
