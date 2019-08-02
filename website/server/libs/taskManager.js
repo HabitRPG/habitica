@@ -2,12 +2,22 @@ import moment from 'moment';
 import * as Tasks from '../models/task';
 import {
   BadRequest,
+  NotAuthorized,
+  NotFound,
 } from './errors';
 import {
   SHARED_COMPLETION,
 } from './groupTasks';
 import _ from 'lodash';
 import shared from '../../common';
+import { model as Group } from '../models/group';
+import { model as User } from '../models/user';
+import { taskScoredWebhook } from './webhook';
+import { handleSharedCompletion } from './groupTasks';
+import logger from './logger';
+import validator from 'validator';
+
+let requiredGroupFields = '_id leader tasksOrder name';
 
 async function _validateTaskAlias (tasks, res) {
   let tasksWithAliases = tasks.filter(task => task.alias);
@@ -280,4 +290,171 @@ export function moveTask (order, taskId, to) {
   } else {
     order.splice(to, 0, taskId);
   }
+}
+
+/**
+ * Scores a task.
+ * @param user the user that is making the operation
+ * @param task The task to score
+ * @param direction "up" or "down" depending on how the task should be scored
+ *
+ * @return Response Data
+*/
+async function scoreTask (user, task, direction, req, res) {
+  if (task.type === 'daily' || task.type === 'todo') {
+    if (task.completed && direction === 'up') {
+      throw new NotAuthorized(res.t('sessionOutdated'));
+    } else if (!task.completed && direction === 'down') {
+      throw new NotAuthorized(res.t('sessionOutdated'));
+    }
+  }
+
+  if (task.group.approval.required && !task.group.approval.approved) {
+    if (task.group.approval.requested) {
+      throw new NotAuthorized(res.t('taskRequiresApproval'));
+    }
+
+    task.group.approval.requested = true;
+    task.group.approval.requestedDate = new Date();
+
+    let fields = requiredGroupFields.concat(' managers');
+    let group = await Group.getGroup({user, groupId: task.group.id, fields});
+
+    // @TODO: we can use the User.pushNotification function because we need to ensure notifications are translated
+    let managerIds = Object.keys(group.managers);
+    managerIds.push(group.leader);
+    let managers = await User.find({_id: managerIds}, 'notifications preferences').exec(); // Use this method so we can get access to notifications
+
+    let managerPromises = [];
+    managers.forEach((manager) => {
+      manager.addNotification('GROUP_TASK_APPROVAL', {
+        message: shared.i18n.t('userHasRequestedTaskApproval', {
+          user: user.profile.name,
+          taskName: task.text,
+        }, manager.preferences.language),
+        groupId: group._id,
+        taskId: task._id, // user task id, used to match the notification when the task is approved
+        userId: user._id,
+        groupTaskId: task.group.taskId, // the original task id
+        direction,
+      });
+      managerPromises.push(manager.save());
+    });
+
+    managerPromises.push(task.save());
+    await Promise.all(managerPromises);
+
+    throw new NotAuthorized(res.t('taskApprovalHasBeenRequested'));
+  }
+  let wasCompleted = task.completed;
+
+  let [delta] = shared.ops.scoreTask({task, user, direction}, req);
+  // Drop system (don't run on the client, as it would only be discarded since ops are sent to the API, not the results)
+  if (direction === 'up') shared.fns.randomDrop(user, {task, delta}, req, res.analytics);
+
+  // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
+  // TODO move to common code?
+  let taskOrderPromise;
+  if (task.type === 'todo') {
+    if (!wasCompleted && task.completed) {
+      // @TODO: mongoose's push and pull should be atomic and help with
+      // our concurrency issues. If not, we need to use this update $pull and $push
+      taskOrderPromise = user.update({
+        $pull: { 'tasksOrder.todos': task._id },
+      }).exec();
+      // user.tasksOrder.todos.pull(task._id);
+    } else if (wasCompleted && !task.completed && user.tasksOrder.todos.indexOf(task._id) === -1) {
+      taskOrderPromise = user.update({
+        $push: { 'tasksOrder.todos': task._id },
+      }).exec();
+      // user.tasksOrder.todos.push(task._id);
+    }
+  }
+
+  setNextDue(task, user);
+
+  if (task.group && task.group.taskId) {
+    await handleSharedCompletion(task);
+  }
+
+  taskScoredWebhook.send(user, {
+    task,
+    direction,
+    delta,
+    user,
+  });
+
+  // Track when new users (first 7 days) score tasks
+  if (moment().diff(user.auth.timestamps.created, 'days') < 7) {
+    res.analytics.track('task score', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      taskType: task.type,
+      direction,
+      headers: req.headers,
+    });
+  }
+  return {user, task, delta, direction, taskOrderPromise};
+}
+
+async function handleChallengeTask (task, delta, direction, resolve, reject) {
+  if (task.challenge && task.challenge.id && task.challenge.taskId && !task.challenge.broken && task.type !== 'reward') {
+    // Wrapping everything in a try/catch block because if an error occurs using `await` it MUST NOT bubble up because the request has already been handled
+    try {
+      const chalTask = await Tasks.Task.findOne({
+        _id: task.challenge.taskId,
+      }).exec();
+
+      if (!chalTask) return;
+
+      await chalTask.scoreChallengeTask(delta, direction);
+    } catch (e) {
+      logger.error(e);
+      reject();
+    }
+  }
+  resolve();
+}
+
+export async function scoreTasks (user, taskScorings, req, res) {
+  let taskIds = taskScorings.map(taskScoring => taskScoring.id).filter(id => id !== undefined);
+  if (taskIds.length === 0) throw new BadRequest();
+  let tasks = {};
+  (await Tasks.Task.findMultipleByIdOrAlias(taskIds, user._id)).forEach(task => {
+    tasks[task._id] = task;
+    if (task.alias !== undefined && task.alias.length > 0) {
+      tasks[task.alias] = task;
+    }
+  });
+  if (tasks.length === 0) throw new NotFound(res.t('taskNotFound'));
+  let scorePromises = [];
+  taskScorings.forEach(taskScoring => {
+    if (tasks[taskScoring.id] !== undefined) {
+      scorePromises.push(scoreTask(user, tasks[taskScoring.id], taskScoring.direction, req, res));
+    }
+  });
+  let returnDatas = await Promise.all(scorePromises);
+  if (returnDatas.length === 0) throw new BadRequest();
+  let savePromises = [returnDatas[returnDatas.length - 1].user.save()];
+  returnDatas.forEach(returnData => {
+    if (returnData.taskOrderPromise) savePromises.push(returnData.taskOrderPromise);
+  });
+  Object.keys(tasks).forEach(identifier => {
+    if (validator.isUUID(String(identifier))) {
+      savePromises.push(tasks[identifier].save());
+    }
+  });
+  // Save results and handle request
+  let results = await Promise.all(savePromises);
+
+  let challengePromises = [];
+  returnDatas.forEach(returnData => {
+    challengePromises.push(new Promise((resolve, reject) => {
+      handleChallengeTask(returnData.task, returnData.delta, returnData.direction, resolve, reject);
+    }));
+  });
+  await Promise.all(challengePromises);
+
+  return {user: results[0], delta: returnDatas[0].delta};
 }
