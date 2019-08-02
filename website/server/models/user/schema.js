@@ -74,9 +74,7 @@ let schema = new Schema({
   // have been updated (http://goo.gl/gQLz41), but we want *every* update
   _v: { $type: Number, default: 0 },
   migration: String, // deprecated
-  migrations: {$type: Schema.Types.Mixed, default: () => {
-    return {};
-  }},
+  migrations: Array, // {name: '20190801_take_this', processed: new Date(), item: 'shield_special_takeThis'}
   achievements: {
     originalUser: Boolean,
     habitSurveys: Number,

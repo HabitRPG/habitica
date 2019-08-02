@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
-const MIGRATION_NAME = '20190801_take_this';
+const MIGRATION_NAME = '20190902_take_this';
 import { v4 as uuid } from 'uuid';
-import forEach from 'lodash/forEach';
 import sortBy from 'lodash/sortBy';
 
 import { model as User } from '../../website/server/models/user';
@@ -12,19 +11,14 @@ let count = 0;
 async function updateUser (user) {
   count++;
 
-  let set = {
-    migrations: {},
-  };
+  let set;
 
   let migrationsArray = sortBy(user.migrations, ['processed']);
   if (migrationsArray.length > 4) {
     migrationsArray = migrationsArray.slice(1);
   }
-  forEach(migrationsArray, (migration) => {
-    set.migrations[migration.name] = migration;
-  });
 
-  set.migrations[MIGRATION_NAME] = {
+  let newMigration = {
     name: MIGRATION_NAME,
     processed: new Date(),
   };
@@ -34,29 +28,32 @@ async function updateUser (user) {
     push = false;
   } else if (typeof user.items.gear.owned.body_special_takeThis !== 'undefined') {
     set['items.gear.owned.back_special_takeThis'] = false;
-    set.migrations[MIGRATION_NAME].item = 'back_special_takeThis';
+    newMigration.item = 'back_special_takeThis';
     push = {pinnedItems: {type: 'marketGear', path: 'gear.flat.back_special_takeThis', _id: uuid()}};
   } else if (typeof user.items.gear.owned.head_special_takeThis !== 'undefined') {
     set['items.gear.owned.body_special_takeThis'] = false;
-    set.migrations[MIGRATION_NAME].item = 'body_special_takeThis';
+    newMigration.item = 'body_special_takeThis';
     push = {pinnedItems: {type: 'marketGear', path: 'gear.flat.body_special_takeThis', _id: uuid()}};
   } else if (typeof user.items.gear.owned.armor_special_takeThis !== 'undefined') {
     set['items.gear.owned.head_special_takeThis'] = false;
-    set.migrations[MIGRATION_NAME].item = 'head_special_takeThis';
+    newMigration.item = 'head_special_takeThis';
     push = {pinnedItems: {type: 'marketGear', path: 'gear.flat.head_special_takeThis', _id: uuid()}};
   } else if (typeof user.items.gear.owned.weapon_special_takeThis !== 'undefined') {
     set['items.gear.owned.armor_special_takeThis'] = false;
-    set.migrations[MIGRATION_NAME].item = 'armor_special_takeThis';
+    newMigration.item = 'armor_special_takeThis';
     push = {pinnedItems: {type: 'marketGear', path: 'gear.flat.armor_special_takeThis', _id: uuid()}};
   } else if (typeof user.items.gear.owned.shield_special_takeThis !== 'undefined') {
     set['items.gear.owned.weapon_special_takeThis'] = false;
-    set.migrations[MIGRATION_NAME].item = 'weapon_special_takeThis';
+    newMigration.item = 'weapon_special_takeThis';
     push = {pinnedItems: {type: 'marketGear', path: 'gear.flat.weapon_special_takeThis', _id: uuid()}};
   } else {
     set['items.gear.owned.shield_special_takeThis'] = false;
-    set.migrations[MIGRATION_NAME].item = 'shield_special_takeThis';
+    newMigration.item = 'shield_special_takeThis';
     push = {pinnedItems: {type: 'marketGear', path: 'gear.flat.shield_special_takeThis', _id: uuid()}};
   }
+
+  migrationsArray.push(newMigration);
+  set.migrations = migrationsArray;
 
   if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
 
@@ -69,9 +66,9 @@ async function updateUser (user) {
 
 module.exports = async function processUsers () {
   let query = {
-    challenges: '512c4cd1-f440-40f4-8d91-738655cac6e7',
+    'migrations.name': { $ne: MIGRATION_NAME },
+    challenges: '6438d355-1b00-4987-a5da-b78a2c806293',
   };
-  query[`migrations.${MIGRATION_NAME}`] = {$exists: false};
 
   const fields = {
     _id: 1,
