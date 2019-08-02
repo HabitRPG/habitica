@@ -6,11 +6,13 @@
       // Habits left side control
       .left-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="controlClass.up.bg")
         .task-control.habit-control(:class="controlClass.up.inner", @click="(isUser && task.up) ? score('up') : null")
-          .svg-icon.positive(v-html="icons.positive")
+          .svg-icon.lock(v-if="this.task.group.id && !isUser", v-html="icons.lock", :class="controlClass.up.icon")
+          .svg-icon.positive(v-else, v-html="icons.positive")
       // Dailies and todos left side control
       .left-control.d-flex.justify-content-center(v-if="task.type === 'daily' || task.type === 'todo'", :class="controlClass.bg")
         .task-control.daily-todo-control(:class="controlClass.inner", @click="isUser ? score(task.completed ? 'down' : 'up') : null")
-          .svg-icon.check(v-html="icons.check", :class="{'display-check-icon': task.completed, [controlClass.checkbox]: true}")
+          .svg-icon.lock(v-html="icons.lock", v-if="this.task.group.id && !isUser && !task.completed", :class="controlClass.icon")
+          .svg-icon.check(v-else, v-html="icons.check", :class="{'display-check-icon': task.completed, [controlClass.checkbox]: true}")
       // Task title, description and icons
       .task-content(:class="contentClass")
         .task-clickable-area(@click="edit($event, task)", :class="{'task-clickable-area-user': isUser}")
@@ -99,7 +101,8 @@
       // Habits right side control
       .right-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="controlClass.down.bg")
         .task-control.habit-control(:class="controlClass.down.inner", @click="(isUser && task.down) ? score('down') : null")
-          .svg-icon.negative(v-html="icons.negative")
+          .svg-icon.lock(v-if="this.task.group.id && !isUser", v-html="icons.lock", :class="controlClass.down.icon")
+          .svg-icon.negative(v-else, v-html="icons.negative")
       // Rewards right side control
       .right-control.d-flex.align-items-center.justify-content-center.reward-control(v-if="task.type === 'reward'", :class="controlClass.bg", @click="isUser ? score('down') : null")
         .svg-icon(v-html="icons.gold")
@@ -533,6 +536,7 @@ import topIcon from 'assets/svg/top.svg';
 import bottomIcon from 'assets/svg/bottom.svg';
 import deleteIcon from 'assets/svg/delete.svg';
 import checklistIcon from 'assets/svg/checklist.svg';
+import lockIcon from 'assets/svg/lock.svg';
 import menuIcon from 'assets/svg/menu.svg';
 import markdownDirective from 'client/directives/markdown';
 import notifications from 'client/mixins/notifications';
@@ -569,6 +573,7 @@ export default {
         top: topIcon,
         bottom: bottomIcon,
         menu: menuIcon,
+        lock: lockIcon,
       }),
     };
   },
