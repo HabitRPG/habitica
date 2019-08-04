@@ -126,5 +126,6 @@
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> здоровья",
     "rageAttack": "Атака при ярости:",
     "bossRage": "<%= currentRage %> / <%= maxRage %> ярости",
-    "rageStrikes": "Нападения"
+    "rageStrikes": "Нападения",
+    "hatchingPotionQuests": "Квесты на волшебный эликсир"
 }
