@@ -25,5 +25,6 @@
     "rebirthName": "Sphäre der Wiedergeburt",
     "reborn": "Wiedergeboren, max. Level <%= reLevel %>",
     "confirmReborn": "Bist Du sicher?",
-    "rebirthComplete": "Du wurdest wiedergeboren!"
+    "rebirthComplete": "Du wurdest wiedergeboren!",
+    "nextFreeRebirth": "<strong><%= days %> Tage</strong> bis zur <strong>KOSTENLOSEN</strong> Sphäre der Wiedergeburt"
 }
