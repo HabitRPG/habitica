@@ -456,5 +456,7 @@ export async function scoreTasks (user, taskScorings, req, res) {
   });
   await Promise.all(challengePromises);
 
-  return {user: results[0], delta: returnDatas[0].delta};
+  return {user: results[0], deltas: returnDatas.map(data => {
+    return {id: data.task._id, delta: data.delta};
+  })};
 }

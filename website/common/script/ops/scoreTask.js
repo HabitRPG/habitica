@@ -197,7 +197,7 @@ module.exports = function scoreTask (options = {}, req = {}) {
 
   // This is for setting one-time temporary flags, such as streakBonus or itemDropped. Useful for notifying
   // the API consumer, then cleared afterwards
-  user._tmp = {};
+  if (!user._tmp) user._tmp = {};
 
   // If they're trying to purchase a too-expensive reward, don't allow them to do that.
   if (task.value > user.stats.gp && task.type === 'reward') throw new NotAuthorized(i18n.t('messageNotEnoughGold', req.language));

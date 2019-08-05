@@ -555,7 +555,7 @@ api.scoreTask = {
     user = data.user;
 
     let userStats = user.stats.toJSON();
-    let resJsonData = _.assign({delta: data.delta, _tmp: user._tmp}, userStats);
+    let resJsonData = _.assign({delta: data.deltas[0].delta, _tmp: user._tmp}, userStats);
     res.respond(200, resJsonData);
   },
 };

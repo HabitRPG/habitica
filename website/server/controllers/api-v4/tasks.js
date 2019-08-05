@@ -1,5 +1,6 @@
 import { authWithHeaders } from '../../middlewares/auth';
 import { scoreTasks } from '../../libs/taskManager';
+import _ from 'lodash';
 
 let api = {};
 
@@ -27,7 +28,10 @@ api.scoreTasks = {
   async handler (req, res) {
     let user = res.locals.user;
     let data = await scoreTasks(user, req.body, req, res);
-    res.respond(200, data);
+
+    let userStats = user.stats.toJSON();
+    let resJsonData = _.assign({deltas: data.deltas, _tmp: user._tmp}, userStats);
+    res.respond(200, resJsonData);
   },
 };
 
