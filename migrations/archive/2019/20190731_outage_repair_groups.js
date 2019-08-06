@@ -20,13 +20,21 @@ async function updateGroup (group) {
 
   if (group.quest && group.quest.key && group.quest.members) {
     forEach(group.quest.members, async (status, memberId) => {
-      if (status === null) await User.update({_id: memberId, {$set: {
-        'party.quest.RSVPNeeded': true,
-        'party.quest.key': group.quest.key,
-      }}});
-      if (status === true) await User.update({_id: memberId, {$set: {
-        'party.quest.key': group.quest.key,
-      }}})
+      if (status === null) {
+        await User.update({_id: memberId, {$set: {
+          'party.quest.key': group.quest.key,
+          'party.quest.RSVPNeeded': true,
+        }}});
+      } else if (status === true) {
+        await User.update({_id: memberId, {$set: {
+          'party.quest.key': group.quest.key,
+          'party.quest.RSVPNeeded': false,
+        }}});
+      } else {
+        await User.update({_id: memberId, {$set: {
+          'party.quest.RSVPNeeded': false,
+        }}});
+      }
     });
   }
 
