@@ -1,4 +1,4 @@
-.promo_armoire_backgrounds_201907 {
+.promo_armoire_backgrounds_201908 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: 0px 0px;
   width: 423px;
@@ -18,9 +18,15 @@
 }
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -424px -145px;
+  background-position: -596px -145px;
   width: 96px;
   height: 69px;
+}
+.scene_reading {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -424px -145px;
+  width: 171px;
+  height: 144px;
 }
 .scene_rewards {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
