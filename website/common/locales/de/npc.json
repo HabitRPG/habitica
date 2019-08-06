@@ -91,7 +91,7 @@
     "unlocked": "Gegenstände wurden freigeschaltet",
     "alreadyUnlocked": "Komplettes Set ist bereits freigeschaltet.",
     "alreadyUnlockedPart": "Set ist bereits teilweise freigeschaltet.",
-    "invalidQuantity": "Die zu kaufende Menge muss eine Zahl sein.",
+    "invalidQuantity": "Die zu kaufende Menge muss eine positive ganze Zahl sein.",
     "USD": "(USD)",
     "newStuff": "Neuigkeiten von Bailey",
     "newBaileyUpdate": "Neues Update von Bailey!",
@@ -168,5 +168,6 @@
     "welcome5": "Jetzt kannst Du Deinen Avatar anpassen und Deine Aufgaben einrichten ...",
     "imReady": "Betrete Habitica",
     "limitedOffer": "Verfügbar bis <%= date %>",
-    "paymentAutoRenew": "Dieses Abonnement wird automatisch erneuert bis es gekündigt wird. Wenn Du dieses Abonnement kündigen musst, kannst Du dies in Deinen Einstellungen tun."
+    "paymentAutoRenew": "Dieses Abonnement wird automatisch erneuert bis es gekündigt wird. Wenn Du dieses Abonnement kündigen musst, kannst Du dies in Deinen Einstellungen tun.",
+    "paymentCanceledDisputes": "Wir haben eine Bestätigung der Kündigung an Deine E-Mailadresse gesendet. Falls Du die E-Mail nicht erhältst, kontaktiere uns bitte um zu verhindern, dass es zu Zahlungsstreitigkeiten kommt."
 }
