@@ -146,7 +146,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             input.custom-control-input#self_care(type="checkbox", value='self_care', v-model='taskCategories')
             label.custom-control-label(v-once, for="self_care") {{ $t('self_care') }}
 
-  .section.d-flex.justify-content-center(:class='{top: modalPage > 1}', v-if='!editing')
+  .section.d-flex.justify-content-center.justin-outer-section(:class='{top: modalPage > 1}', v-if='!editing')
     .justin-section.d-flex.align-items-center
       .featured-label
         span.rectangle
@@ -195,6 +195,10 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
 
   /* @TODO do not rely on avatar-modal___BV_modal_body_,
      it already changed once when bootstrap-vue reached version 1 */
+
+  #avatar-modal___BV_modal_outer_ {
+    z-index: 1045; // on production the toolbar has a higher z-index
+  }
 
   #avatar-modal___BV_modal_body_, #avatar-modal___BV_modal_body_ {
     padding: 0;
@@ -283,9 +287,17 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
 
     .top {
       position: absolute;
-      top: -($dialogMarginTop + $userCreationBgHeight + 16px);
+      top: -($dialogMarginTop + $userCreationBgHeight - 16px);
       right: 50%;
       left: 50%;
+    }
+
+    .justin-outer-section:not(.top) {
+      margin-bottom: 24px;
+    }
+
+    .avatar-section {
+      margin-bottom: 30px;
     }
 
     .edit-avatar {

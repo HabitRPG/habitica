@@ -84,7 +84,11 @@
         baseHair4Keys: [15, 16, 17, 18, 19, 20],
         baseHair5Keys: [1, 2],
         baseHair6Keys: [1, 2, 3],
-        hairSubMenuItems: [
+      };
+    },
+    computed: {
+      hairSubMenuItems () {
+        const items = [
           {
             id: 'color',
             label: this.$t('color'),
@@ -93,18 +97,22 @@
             id: 'bangs',
             label: this.$t('bangs'),
           },
-          {
-            id: 'style',
-            label: this.$t('style'),
-          },
-          {
-            id: 'facialhair',
-            label: this.$t('facialhair'),
-          },
-        ],
-      };
-    },
-    computed: {
+        ];
+
+        if (this.editing) {
+          items.push(
+            {
+              id: 'style',
+              label: this.$t('style'),
+            },
+            {
+              id: 'facialhair',
+              label: this.$t('facialhair'),
+            });
+        }
+
+        return items;
+      },
       freeHairColors () {
         return freeHairColorKeys.map(s => ({
           key: s,
