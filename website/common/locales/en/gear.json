@@ -437,6 +437,8 @@
   "weaponArmoireBambooCaneNotes": "Perfect for assisting you in a stroll, or for dancing the Charleston. Increases Intelligence, Perception, and Constitution by <%= attrs %> each. Enchanted Armoire: Boating Set (Item 3 of 3).",
   "weaponArmoireAstronomersTelescopeText": "Astronomer's Telescope",
   "weaponArmoireAstronomersTelescopeNotes": "An instrument that will allow you to observe the stars' ancient dance. Increases Perception by <%= per %>. Enchanted Armoire: Astronomer Mage Set (Item 3 of 3).",
+  "weaponArmoireMagnifyingGlassText": "Magnifying Glass",
+  "weaponArmoireMagnifyingGlassNotes": "Aha! A piece of evidence! Examine it closely with this fine magnifier. Increases Perception by <%= per %>. Enchanted Armoire: Detective Set (Item 3 of 4).",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -946,6 +948,8 @@
   "armorArmoireBoatingJacketNotes": "Whether you're on a swanky yacht or in a jalopy, you'll be the cat's meow in this jacket and tie. Increases Strength, Intelligence, and Perception by <%= attrs %> each. Enchanted Armoire: Boating Set (Item 1 of 3).",
   "armorArmoireAstronomersRobeText": "Astronomer's Robe",
   "armorArmoireAstronomersRobeNotes": "Turns out silk and starlight make a fabric that is not only magical, but very breathable. Increases Perception and Constitution by <%= attrs %> each. Enchanted Armoire: Astronomer Mage Set (Item 1 of 3).",
+  "armorArmoireInvernessCapeText": "Inverness Cape",
+  "armorArmoireInvernessCapeNotes": "This sturdy garment will let you search for clues in any type of weather. Increases Perception and Intelligence by <%= attrs %> each. Enchanted Armoire: Detective Set (Item 2 of 4).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -1467,6 +1471,8 @@
   "headArmoireBoaterHatNotes": "This straw chapeau is the bee's knees! Increases Strength, Constitution, and Perception by <%= attrs %> each. Enchanted Armoire: Boating Set (Item 2 of 3).",
   "headArmoireAstronomersHatText": "Astronomer's Hat",
   "headArmoireAstronomersHatNotes": "A perfect hat for celestial observation or a fancy wizard brunch. Increases Constitution by <%= con %>. Enchanted Armoire: Astronomer Mage Set (Item 2 of 3).",
+  "headArmoireDeerstalkerCapText": "Deerstalker Cap",
+  "headArmoireDeerstalkerCapNotes": "This cap is perfect for rural excursions, but also is acceptable gear for mystery-solving! Increases Intelligence by <%= int %>. Enchanted Armoire: Detective Set (Item 1 of 4).",
 
   "offhand": "off-hand item",
   "offhandCapitalized": "Off-Hand Item",
@@ -1748,7 +1754,9 @@
   "shieldArmoireMightyQuillText": "Mighty Quill",
   "shieldArmoireMightyQuillNotes": "Mightier than the sword, they say! Increases Perception by <%= per %>. Enchanted Armoire: Scribe Set (Item 2 of 3).",
   "shieldArmoireMightyPizzaText": "Mighty Pizza",
-  "shieldArmoireMightyPizzaNotes": "Sure, it's a pretty good shield, but we strongly suggest you eat this fine, fine pizza. Increases Perception by <%= per %>. Enchanted Armoire: Chef Set (Item 4 of 4). ",
+  "shieldArmoireMightyPizzaNotes": "Sure, it's a pretty good shield, but we strongly suggest you eat this fine, fine pizza. Increases Perception by <%= per %>. Enchanted Armoire: Chef Set (Item 4 of 4).",
+  "shieldArmoireTrustyUmbrellaText": "Trusty Umbrella",
+  "shieldArmoireTrustyUmbrellaNotes": "Mysteries are often accompanied by inclement weather, so be prepared! Increases Intelligence by <%= int %>. Enchanted Armoire: Detective Set (Item 4 of 4).",
 
   "back": "Back Accessory",
   "backCapitalized": "Back Accessory",
