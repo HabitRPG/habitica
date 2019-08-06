@@ -200,13 +200,24 @@ api.assignTask = {
     if (canNotEditTasks(group, user, assignedUserId)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
     let promises = [];
+    const taskText = task.text;
+    const userName = user.profile.name;
 
-    if (user._id !== assignedUserId) {
-      const taskText = task.text;
-      const managerName = user.profile.name;
-
+    if (user._id === assignedUserId) {
+      const managerIds = Object.keys(group.managers);
+      managerIds.push(group.leader);
+      const managers = await User.find({_id: managerIds}, 'notifications').exec();
+      managers.forEach((manager) => {
+        manager.addNotification('GROUP_TASK_CLAIMED', {
+          message: res.t('taskClaimed', {userName, taskText}),
+          groupId: group._id,
+          taskId: task._id,
+        });
+        promises.push(manager.save());
+      });
+    } else {
       assignedUser.addNotification('GROUP_TASK_ASSIGNED', {
-        message: res.t('youHaveBeenAssignedTask', {managerName, taskText}),
+        message: res.t('youHaveBeenAssignedTask', {managerName: userName, taskText}),
         taskId: task._id,
       });
     }

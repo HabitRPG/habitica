@@ -119,14 +119,14 @@ describe('getTaskClasses getter', () => {
   });
 
   it('returns reward classes', () => {
-    const task = {type: 'reward'};
+    const task = {type: 'reward', userId: 'user-id'};
     expect(getTaskClasses(task, 'control')).to.deep.equal({
       bg: 'task-reward-control-bg',
     });
   });
 
   it('returns habit up classes', () => {
-    const task = {type: 'habit', value: 2, up: true};
+    const task = {type: 'habit', value: 2, up: true, userId: 'user-id'};
     expect(getTaskClasses(task, 'control')).to.deep.equal({
       up: {
         bg: 'task-good-control-bg',
