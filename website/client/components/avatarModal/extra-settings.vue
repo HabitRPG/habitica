@@ -86,11 +86,16 @@
     },
     computed: {
       extraSubMenuItems () {
-        const items = [
-          {
+        const items = [];
+
+        if (this.editing) {
+          items.push({
             id: 'glasses',
             label: this.$t('glasses'),
-          },
+          });
+        }
+
+        items.push(
           {
             id: 'wheelchair',
             label: this.$t('wheelchair'),
@@ -99,7 +104,7 @@
             id: 'flower',
             label: this.$t('accent'),
           },
-        ];
+        );
 
         if (this.editing) {
           items.push({
@@ -200,7 +205,7 @@
       },
     },
     mounted () {
-      this.changeSubPage('glasses');
+      this.changeSubPage(this.extraSubMenuItems[0].id);
     },
     methods: {
       animalItems (category) {

@@ -164,7 +164,7 @@
       }
       &.chair {
         margin-left: -1px;
-        margin-top: -1px;
+        margin-top: -3px;
 
         &.handleless {
           margin-left: -5px;
