@@ -136,7 +136,7 @@
     "passMan": "如果您有在使用密碼管理工具 (例如 1Password) 而且在登入時遇到問題，請試試手動輸入使用者名稱及密碼。",
     "password": "密碼",
     "playButton": "開始",
-    "playButtonFull": "進入 Habitica的世界",
+    "playButtonFull": "進入 Habitica 的世界",
     "presskit": "媒體資料",
     "presskitDownload": "下載所有圖像：",
     "presskitText": "感謝您對Habitica的關注! 以下所有圖片都可用在有關Habitica的文章或影片上。詳情請聯絡我們<%= pressEnquiryEmail %>。",
