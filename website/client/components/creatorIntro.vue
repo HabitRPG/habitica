@@ -225,7 +225,6 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     .customize-section {
       text-align: center;
       padding-bottom: 2em;
-      margin-bottom: 24px;
     }
 
     .option.hide {
@@ -458,6 +457,8 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     }
 
     #backgrounds {
+      padding-top: 12px;
+
       .title-row {
         margin-bottom: 1em;
       }
@@ -586,6 +587,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     }
 
     .footer {
+      margin-top: 24px;
       padding-bottom: 24px;
       bottom: 0;
       width: 100%;

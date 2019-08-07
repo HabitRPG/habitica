@@ -122,7 +122,6 @@
 
     &.premium:not(.active) .option {
       border-radius: 8px;
-      background-color: rgba(59, 202, 215, 0.1);
     }
   }
 
@@ -164,7 +163,12 @@
       }
       &.chair {
         margin-left: -1px;
-        margin-top: -3px;
+        margin-top: -1px;
+
+        &.button_chair_black {
+          // different sprite margin?
+          margin-top: -3px;
+        }
 
         &.handleless {
           margin-left: -5px;
