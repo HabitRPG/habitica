@@ -485,12 +485,12 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
 
   .avatar {
     position: absolute;
-    top: -22px;
+    top: 44px;
     left: 4em;
   }
 
   .edit-avatar {
-    left: 9.2em;
+    left: calc(50% - 70px);
   }
 
   .justin-section {
