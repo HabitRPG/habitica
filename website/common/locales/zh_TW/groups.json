@@ -481,5 +481,6 @@
     "singleCompletion": "單人 - 將在任何一名指派的使用者完成後完成",
     "allAssignedCompletion": "全部 - 將在所有指派的使用者皆完成後完成",
     "pmReported": "感謝您舉報此訊息。",
-    "youHaveBeenAssignedTask": "<%= managerName %> 已指派你完成「<span class=\"notification-bold\"><%= taskText %></span>」任務。"
+    "youHaveBeenAssignedTask": "<%= managerName %> 已指派你完成「<span class=\"notification-bold\"><%= taskText %></span>」任務。",
+    "suggestedGroup": "由於你仍新到 Habitica。"
 }
