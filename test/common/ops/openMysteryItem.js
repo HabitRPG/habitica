@@ -36,7 +36,9 @@ describe('shared.ops.openMysteryItem', () => {
 
     expect(user.items.gear.owned[mysteryItemKey]).to.be.true;
     expect(message).to.equal(i18n.t('mysteryItemOpened'));
-    expect(data).to.eql(content.gear.flat[mysteryItemKey]);
+    let item = content.gear.flat[mysteryItemKey];
+    item.text = content.gear.flat[mysteryItemKey].text();
+    expect(data).to.eql(item);
     expect(user.notifications.length).to.equal(0);
   });
 });

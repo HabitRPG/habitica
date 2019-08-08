@@ -24,6 +24,7 @@ module.exports = function openMysteryItem (user, req = {}, analytics) {
   if (mysteryItems.length === 0) markNotificationAsRead(user);
 
   item = cloneDeep(content.gear.flat[item]);
+  item.text = content.gear.flat[item.key].text();
   user.items.gear.owned[item.key] = true;
 
   if (user.markModified) {
