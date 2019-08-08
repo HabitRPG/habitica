@@ -216,5 +216,12 @@
     "gemsRemaining": "Pozostałe Klejnoty",
     "notEnoughGemsToBuy": "Nie możesz kupić takiej ilości klejnotów",
     "mysterySet201906": "Zestaw Uprzejmego Karpia Koi",
-    "mysterySet201907": "Zestaw Plażowego Kumpla"
+    "mysterySet201907": "Zestaw Plażowego Kumpla",
+    "confirmCancelSub": "Czy na pewno chcesz przerwać subskrypcję? Utracisz wszystkie swoje korzyści z subskrypcji.",
+    "subWillBecomeInactive": "Stanie się nieaktywna",
+    "mysterySet201902": "Zestaw Tajemniczego Zauroczenia",
+    "mysterySet201903": "Zestaw Ślicznojajowy",
+    "mysterySet201904": "Zestaw Luksusowych Opali",
+    "mysterySet201905": "Zestaw Oślepiającego Smoka",
+    "subCanceledTitle": "Subskrypcja anulowana"
 }
