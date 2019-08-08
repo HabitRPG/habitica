@@ -4,33 +4,39 @@
   width: 423px;
   height: 147px;
 }
+.promo_farm_friends_bundle {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -148px;
+  width: 420px;
+  height: 147px;
+}
 .promo_mystery_201907 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -424px 0px;
+  background-position: 0px -296px;
   width: 282px;
   height: 144px;
 }
 .promo_naming_day_2018 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -148px;
+  background-position: -424px 0px;
   width: 285px;
   height: 162px;
 }
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -596px -145px;
+  background-position: -424px -163px;
   width: 96px;
   height: 69px;
 }
 .scene_reading {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -424px -145px;
+  background-position: -283px -296px;
   width: 171px;
   height: 144px;
 }
 .scene_rewards {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -311px;
+  background-position: 0px -441px;
   width: 207px;
   height: 180px;
 }

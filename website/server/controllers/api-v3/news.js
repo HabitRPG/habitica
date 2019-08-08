@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'BACK-TO-SCHOOL CHALLENGE, NEW BACKGROUNDS, AND NEW ARMOIRE ITEMS';
+const LAST_ANNOUNCEMENT_TITLE = 'DISCOUNTED PET QUEST BUNDLE: FARM FRIENDS';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -34,15 +34,11 @@ api.getNews = {
           </div>
         </div>
         <hr/>
-        <div class="scene_reading center-block"></div>
-        <h3>Official Challenge: Back-to-School Preparation</h3>
-        <p>The school year is looming large for many scholarly Habiticans, so we've prepared a special <a href='/challenges/b050c6be-8e99-4b12-922b-a6bb7e2e18e3'>Back-to-School Challenge</a> to help with the transition between summer and semester. Check it out now for a chance to win: five lucky winners will get a badge for their profile and their choice of a <a href='https://habitica.wikia.com/wiki/Subscription' target='_blank'>gift subscription</a> or Gems!</p>
-        <div class="small mb-3">by Beffymaroo</div>
-        <div class="promo_armoire_backgrounds_201908 center-block"></div>
-        <h3>August Backgrounds and Armoire Items!</h3>
-        <p>We’ve added three new backgrounds to the Background Shop! Now your avatar can dally among Giant Dandelions, explore mysterious Ancient Ruins, and relax in a woodsy Tree House. Check them out under User Icon > Backgrounds!</p>
-        <p>Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the Detective Set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)</p>
-        <div class="small mb-3">by Vikte, Tigergurke, Maans, QuartzFox, GeraldThePixel, and Izel</div>
+        <div class="promo_farm_friends_bundle center-block"></div>
+        <p>If you are looking to add critters from the barnyard to your Habitica stable, you're in luck! From now until August 30, you can purchase the Farm Friends Pet Quest Bundle and receive the Sheep, Cow, and Horse quests, all for only 7 Gems! That's a discount of 5 Gems from the price of purchasing them separately. Check it out in the <a href='/shops/quests'>Quest Shop</a> today!</p>
+        <div class="small">by Lemoness and SabreCat</div>
+        <div class="small">Art by UncommonCriminal, Soloana, fuzzytrees, Feralem Tau, Eevachu, Beffymaroo, JessicaChase, starsystemic, nonight, Misceo and Tocath</div>
+        <div class="small mb-3">Writing by schizelle, VikingRunner, Salambander, Leephon, and Lemoness</div>
       </div>
       `,
     });
