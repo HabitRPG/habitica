@@ -224,5 +224,8 @@
     "mainHand": "Оружие",
     "offHand": "Защита",
     "statPoints": "Очки характеристик",
-    "pts": "очк"
+    "pts": "очк",
+    "purchaseForGold": "Купить за <%= cost %> золотых монет?",
+    "chatCastSpellParty": "<%= username %> накладывает заклинание \"<%= spell %>\" на команду.",
+    "chatCastSpellUser": "<%= username %> накладывает  заклинание \"<%= spell %>\" на <%= target %>."
 }
