@@ -159,5 +159,7 @@
     "summer2019SeaTurtleWarriorSet": "Морская черепаха (Воин)",
     "summer2019WaterLilyMageSet": "Кувшинка (Маг)",
     "summer2019ConchHealerSet": "Ракушка (Целитель)",
-    "summer2019HammerheadRogueSet": "Акула-молот (Разбойник)"
+    "summer2019HammerheadRogueSet": "Акула-молот (Разбойник)",
+    "eventAvailabilityReturning": "Доступно для покупки до <%= availableDate(locale) %>. Этот эликсир был ранее выпущен <%= previousDate(locale) %>.",
+    "june2018": "Июнь 2018"
 }
