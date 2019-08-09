@@ -18,8 +18,8 @@ export async function sentMessage (sender, receiver, message, translate) {
     sendPushNotification(
       receiver,
       {
-        title: translate('newPM'),
-        message: translate('newPMInfo', {name: getUserInfo(sender, ['name']).name, message}),
+        title: translate('newPM', receiver.preferences.language),
+        message: translate('newPMInfo', {name: getUserInfo(sender, ['name']).name, message}, receiver.preferences.language),
         identifier: 'newPM',
         category: 'newPM',
         payload: {replyTo: sender._id},

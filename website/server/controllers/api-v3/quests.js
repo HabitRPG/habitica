@@ -124,12 +124,11 @@ api.inviteToQuest = {
         sendPushNotification(
           member,
           {
-            title: res.t('questInvitationTitle'),
-            message: res.t('questInvitationInfo', {quest: quest.text(req.language)}),
+            title: res.t('questInvitationTitle', member.preferences.language),
+            message: res.t('questInvitationInfo', {quest: quest.text(member.preferences.language)}, member.preferences.language),
             identifier: 'questInvitation',
             category: 'questInvitation',
           }
-
         );
       }
 
