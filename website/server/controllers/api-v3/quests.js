@@ -79,7 +79,7 @@ api.inviteToQuest = {
       'party._id': group._id,
       _id: {$ne: user._id},
     })
-      .select('auth.facebook auth.google auth.local preferences.emailNotifications profile.name pushDevices')
+      .select('auth.facebook auth.google auth.local preferences.emailNotifications preferences.pushNotifications preferences.language profile.name pushDevices')
       .exec();
 
     group.markModified('quest');
