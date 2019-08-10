@@ -66,7 +66,7 @@
     "not_participating": "不参加",
     "challengedEitherOwnedFilter": "どちらも",
     "backToChallenges": "すべてのチャレンジへ戻る",
-    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %>賞",
+    "prizeValue": "<%= gemcount %>&nbsp;<%= gemicon %>賞品",
     "clone": "クローン",
     "challengeNotEnoughGems": "このチャレンジをポストするためにジェムの数が足りません。",
     "noPermissionEditChallenge": "このチャレンジを編集する権限がありません",
