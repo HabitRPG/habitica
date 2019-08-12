@@ -1756,5 +1756,9 @@
     "weaponArmoireVernalTaperNotes": "Dni robią się coraz dłuższe, ale ta świeca pomoże Ci znaleźć drogę przed świtem. Zwiększa kondycję o <%= con %>. Zaczarowana Skrzynia: Zestaw Wiosenne Szaty (przedmiot 3 z 3).",
     "armorArmoireChefsJacketText": "Fartuch szefa kuchni",
     "armorArmoireChefsJacketNotes": "Jest to gruby, dwurzędowy, bawełniany fartuch ochraniający przed ochlapaniem (i wygodny, bo można nosić na lewą stronę...). Zwiększa Inteligencję o <%= int %>. Zaczarowana szafa: Zestaw szefa kuchni (przedmiot 2 z 4).",
-    "armorArmoireVernalVestmentText": "Wiosenna szata"
+    "armorArmoireVernalVestmentText": "Wiosenna szata",
+    "weaponArmoireNephriteBowText": "Łuk Nefrytu",
+    "weaponArmoireNephriteBowNotes": "Z tego łuku można strzelać specjalnymi strzałami z jadeitu, które powalą nawet najbardziej uparte, złe nawyki!. Zwiększa Inteligencję o <%= int %> i Siłę o <%= str %>. Zaczarowana Szafa: Zestaw Łucznika Nefrytu (Przedmiot 1 z 3).",
+    "weaponArmoireBambooCaneText": "Bambusowa Trzcinka",
+    "weaponArmoireBambooCaneNotes": "Perfekcyjna, jeśli chodzi o wspomaganie przy spacerach lub podczas tańczenia charlestona.  Zwiększa Inteligencję, Percepcję i Kondycję, każde o <%= attrs %>. Zaczarowana Szafa: Zestaw Żeglarski (Przedmiot 3 z 3)."
 }
