@@ -173,7 +173,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     .row
       .col-3.offset-1.text-center
         div.prev-outer(v-if='modalPage > 1', @click='prev()')
-          .prev-arrow
+          .prev-arrow.svg-icon(v-html='icons.arrowLeft')
           .prev(v-once) {{ $t('prev') }}
       .col-4.text-center.circles
         .circle(:class="{active: modalPage === 1}")
@@ -182,9 +182,9 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       .col-3.text-center
         div(v-if='modalPage < 3', @click='next()')
           .next(v-once) {{$t('next')}}
-          .next-arrow
+          .next-arrow.svg-icon(v-html='icons.arrowRight')
         div(v-if='modalPage === 3', @click='done()')
-          button.btn.btn-primary.next(v-once, v-if='!loading') {{$t('done')}}
+          button.btn.btn-primary.next-btn(v-once, v-if='!loading') {{$t('done')}}
 </template>
 
 <style lang="scss">
@@ -609,7 +609,6 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       }
 
       .prev-arrow {
-        background-image: url('~client/assets/creator/prev.png');
         width: 32px;
         height: 32px;
         display: inline-block;
@@ -621,6 +620,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
         display: inline-block;
         padding: 0.4em;
         margin-right: 1em;
+        color: $purple-200;
       }
 
       .next:hover, .next-arrow:hover {
@@ -628,7 +628,6 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       }
 
       .next-arrow {
-        background-image: url('~client/assets/creator/arrow.png');
         width: 32px;
         height: 32px;
         display: inline-block;
@@ -699,6 +698,8 @@ import backgroundsIcon from 'assets/svg/backgrounds.svg';
 import gem from 'assets/svg/gem.svg';
 import gold from 'assets/svg/gold.svg';
 import pin from 'assets/svg/pin.svg';
+import arrowRight from 'assets/svg/arrow_right.svg';
+import arrowLeft from 'assets/svg/arrow_left.svg';
 import isPinned from 'common/script/libs/isPinned';
 import {avatarEditorUtilies} from '../mixins/avatarEditUtilities';
 
@@ -741,6 +742,8 @@ export default {
         gem,
         pin,
         gold,
+        arrowRight,
+        arrowLeft,
       }),
       modalPage: 1,
       activeTopPage: 'body',
