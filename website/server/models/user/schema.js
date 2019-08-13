@@ -95,7 +95,7 @@ let schema = new Schema({
     spookySparkles: Number,
     shinySeed: Number,
     seafoam: Number,
-    streak: Number,
+    streak: {$type: Number, default: 0},
     challenges: Array,
     quests: {$type: Schema.Types.Mixed, default: () => {
       return {};
