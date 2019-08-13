@@ -1,5 +1,5 @@
 <template lang="pug">
-  .customize-options
+  .customize-options(:class="{'background-set': fullSet}")
     .outer-option-background(
       v-for='option in items',
       :key='option.key',
@@ -15,11 +15,10 @@
       .gold-lock(v-if='option.goldLocked')
         .svg-icon.gold(v-html='icons.gold')
         span {{ option.gold }}
-    .col-12.text-center(v-if='fullSet')
-      .gem-lock
-        .svg-icon.gem(v-html='icons.gem')
-        span 5
-      button.btn.btn-secondary.purchase-all(@click='unlock()', v-once) {{ $t('purchaseAll') }}
+    .purchase-set(v-if='fullSet', @click='unlock()')
+      span.label {{ $t('purchaseAll') }}
+      .svg-icon.gem(v-html='icons.gem')
+      span.price 5
 </template>
 
 <script>
@@ -52,6 +51,7 @@
   @import '~client/assets/scss/colors.scss';
 
   .customize-options {
+    width: 100%;
   }
 
   .outer-option-background {
@@ -224,5 +224,63 @@
   .gem-lock span {
     color: $green-10
   }
+
+  .purchase-set {
+    background: #fff;
+    padding: 0.5em;
+    border-radius: 0 0 2px 2px;
+    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+    cursor: pointer;
+
+    span {
+      font-weight: bold;
+      font-size: 12px;
+    }
+
+    span.price {
+      color: #24cc8f;
+    }
+
+    .gem, .coin {
+      width: 16px;
+    }
+
+    &.single {
+      width: 141px;
+    }
+
+    width: 100%;
+
+    span {
+      font-size: 14px;
+    }
+
+    .gem, .coin {
+      width: 20px;
+      margin: 0 .5em;
+      display: inline-block;
+      vertical-align: bottom;
+    }
+  }
+
+  .background-set {
+    background-color: #edecee;
+    border-radius: 2px;
+
+    padding-top: 12px;
+    margin-left: 12px;
+    margin-right: 12px;
+    margin-bottom: 12px;
+
+
+    width: calc(100% - 24px);
+
+    padding-left: 0;
+    padding-right: 0;
+
+    max-width: unset; // disable col12 styling
+    flex: unset;
+  }
+
 
 </style>

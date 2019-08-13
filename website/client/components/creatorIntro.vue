@@ -180,11 +180,12 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
         .circle(:class="{active: modalPage === 2}")
         .circle(:class="{active: modalPage === 3}")
       .col-3.text-center
-        div(v-if='modalPage < 3', @click='next()')
+        div.next-outer(v-if='modalPage < 3', @click='next()')
           .next(v-once) {{$t('next')}}
           .next-arrow.svg-icon(v-html='icons.arrowRight')
-        div(v-if='modalPage === 3', @click='done()')
-          button.btn.btn-primary.next-btn(v-once, v-if='!loading') {{$t('done')}}
+        div.next-outer(v-if='modalPage === 3 && !loading', @click='done()', :class="{disabled: taskCategories.length === 0}")
+          .next(v-once) {{$t('finish')}}
+          .next-arrow.svg-icon(v-html='icons.arrowRight')
 </template>
 
 <style lang="scss">
@@ -613,6 +614,24 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
         height: 32px;
         display: inline-block;
         vertical-align: bottom;
+      }
+
+      .next-outer {
+        white-space: nowrap;
+
+        &.disabled {
+          pointer-events:none;
+
+          .next {
+            color: #a5a1ac;
+          }
+
+          .next-arrow {
+            path {
+              fill: #a5a1ac;
+            }
+          }
+        }
       }
 
       .next {

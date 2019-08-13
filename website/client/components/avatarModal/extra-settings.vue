@@ -3,34 +3,34 @@
     sub-menu.text-center(:items="extraSubMenuItems", :activeSubPage="activeSubPage", @changeSubPage="changeSubPage($event)")
 
     #hair-color(v-if='activeSubPage === "glasses"')
-      customize-options.col-12(
+      customize-options(
         :items="eyewear"
       )
 
     #animal-ears(v-if='activeSubPage === "ears"')
-      customize-options.col-12(
+      customize-options(
         :items="animalItems('headAccessory')",
         :fullSet='!animalItemsOwned("headAccessory")',
         @unlock='unlock(animalItemsUnlockString("headAccessory"))'
       )
 
     #animal-tails(v-if='activeSubPage === "tails"')
-      customize-options.col-12(
+      customize-options(
         :items="animalItems('back')",
         :fullSet='!animalItemsOwned("back")',
         @unlock='unlock(animalItemsUnlockString("back"))'
       )
     #headband(v-if='activeSubPage === "headband"')
-      customize-options.col-12(
+      customize-options(
         :items="headbands",
       )
 
     #wheelchairs(v-if='activeSubPage === "wheelchair"')
-      customize-options.col-12(
+      customize-options(
         :items="chairs",
       )
     #flowers(v-if='activeSubPage === "flower"')
-      customize-options.col-12(
+      customize-options(
         :items="flowers",
       )
 </template>

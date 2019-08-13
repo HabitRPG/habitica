@@ -3,14 +3,14 @@
     sub-menu.text-center(:items="hairSubMenuItems", :activeSubPage="activeSubPage", @changeSubPage="changeSubPage($event)")
 
     #hair-color(v-if='activeSubPage === "color"')
-      customize-options.col-12(
+      customize-options(
         :items="freeHairColors",
         propertyToChange="preferences.hair.color",
         :currentValue="user.preferences.hair.color"
       )
 
-      .row(v-if='editing && set.key !== "undefined"', v-for='set in seasonalHairColors')
-        customize-options.col-12(
+      div(v-if='editing && set.key !== "undefined"', v-for='set in seasonalHairColors')
+        customize-options(
           v-if="!hideSet(set)",
           :items='set.options',
           propertyToChange="preferences.skin",
@@ -20,14 +20,14 @@
         )
 
     #style(v-if='activeSubPage === "style"')
-      .row(v-for='set in styleSets')
-        customize-options.col-12(
+      div(v-for='set in styleSets')
+        customize-options(
           :items='set.options',
           :fullSet='set.fullSet',
           @unlock='set.unlock()'
         )
     #bangs(v-if='activeSubPage === "bangs"')
-      customize-options.col-12(
+      customize-options(
         :items='hairBangs',
         propertyToChange="user.preferences.hair.bangs",
         :currentValue="user.preferences.hair.bangs"

@@ -1,14 +1,14 @@
 <template lang="pug">
   #skin.section.customize-section
     sub-menu.text-center(:items="skinSubMenuItems", :activeSubPage="activeSubPage", @changeSubPage="changeSubPage($event)")
-    customize-options.col-12(
+    customize-options(
       :items="freeSkins",
       propertyToChange="preferences.skin",
       :currentValue="user.preferences.skin"
     )
 
-    .row(v-if='editing && set.key !== "undefined"', v-for='set in seasonalSkins')
-      customize-options.col-12(
+    div(v-if='editing && set.key !== "undefined"', v-for='set in seasonalSkins')
+      customize-options(
         v-if="!hideSet(set)",
         :items='set.options',
         propertyToChange="preferences.skin",
