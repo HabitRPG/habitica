@@ -1,21 +1,25 @@
 <template lang="pug">
-  .claim-top-message.d-flex.align-content-center(v-if='task.approvals && task.approvals.length > 0', :class="{approval: userIsAdmin}")
-    .task-unclaimed.m-auto(v-html='message')
+  .claim-top-message.d-flex.align-content-center(v-if='task.approvals && task.approvals.length > 0', :class="{'approval-action': userIsAdmin, 'approval-pending': !userIsAdmin}")
+    .m-auto(v-html='message')
 </template>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
   .claim-top-message {
     z-index: 9;
-  }
-
-  .approval {
-    background: $green-10;
-    color: #fff;
     height: 2rem;
     font-size: 12px;
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
+    color: #fff;
+  }
+
+  .approval-action {
+    background: $green-10;
+  }
+
+  .approval-pending {
+    background: $gray-300;
   }
 </style>
 
@@ -28,7 +32,9 @@ export default {
     message () {
       let approvals = this.task.approvals;
       let approvalsLength = approvals.length;
-      let userIsRequesting = this.task.group.approvals && this.task.group.approvals.indexOf(this.user._id) !== -1;
+      let userIsRequesting = find(approvals, (approval) => {
+        return approval.userId.id === this.user._id;
+      });
 
       if (approvalsLength === 1 && !userIsRequesting) {
         return this.$t('userRequestsApproval', {userName: approvals[0].userId.profile.name});
@@ -39,7 +45,7 @@ export default {
       }
     },
     userIsAdmin () {
-      return this.group.leader.id === this.user._id;
+      return this.group.leader.id === this.user._id || this.group.managers[this.user._id];
     },
   },
 };

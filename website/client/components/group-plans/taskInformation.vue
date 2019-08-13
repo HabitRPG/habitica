@@ -205,8 +205,6 @@ export default {
       });
     },
     async loadApprovals () {
-      if (this.group.leader._id !== this.user._id) return [];
-
       let approvalRequests = await this.$store.dispatch('tasks:getGroupApprovals', {
         groupId: this.searchId,
       });

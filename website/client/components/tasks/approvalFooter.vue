@@ -6,7 +6,7 @@ div
     .ml-auto.mr-2(v-if='!userIsAssigned')
       a(@click='claim()').claim-color {{ $t('claim') }}
     .ml-auto.mr-2(v-if='userIsAssigned')
-      a(@click='unassign()') {{ $t('removeClaim') }}
+      a(@click='unassign()').unclaim-color {{ $t('removeClaim') }}
   .claim-bottom-message.d-flex.align-items-center.justify-content-around(v-if='approvalRequested')
     a(@click='approve()').approve-color {{ $t('approveTask') }}
     a(@click='needsWork()') {{ $t('needsWork') }}
@@ -26,12 +26,14 @@ div
     border-bottom-right-radius: 2px;
   }
 
+  .approve-color {
+    color: $green-10 !important;
+  }
   .claim-color {
     color: $blue-10 !important;
   }
-
-  .approve-color {
-    color: $green-10 !important;
+  .unclaim-color {
+    color: $red-50 !important;
   }
 </style>
 
@@ -81,10 +83,10 @@ export default {
       }
     },
     approvalRequested () {
-      if (this.task.approvals && this.task.approvals.length === 1) return true;
+      if (this.task.approvals && this.task.approvals.length === 1 && (this.group.leader.id === this.user._id || this.group.managers[this.user._id])) return true;
     },
     multipleApprovalsRequested () {
-      if (this.task.approvals && this.task.approvals.length > 1) return true;
+      if (this.task.approvals && this.task.approvals.length > 1 && (this.group.leader.id === this.user._id || this.group.managers[this.user._id])) return true;
     },
   },
   methods: {

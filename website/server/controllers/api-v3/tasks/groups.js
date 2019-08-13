@@ -515,15 +515,25 @@ api.getGroupApprovals = {
     let group = await Group.getGroup({user, groupId, fields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
-
-    let approvals = await Tasks.Task.find({
-      'group.id': groupId,
-      'group.approval.approved': false,
-      'group.approval.requested': true,
-    }, 'userId group text')
-      .populate('userId', 'profile')
-      .exec();
+    let approvals;
+    if (canNotEditTasks(group, user)) {
+      approvals = await Tasks.Task.find({
+        'group.id': groupId,
+        'group.approval.approved': false,
+        'group.approval.requested': true,
+        'group.assignedUsers': user._id,
+      }, 'userId group text')
+        .populate('userId', 'profile')
+        .exec();
+    } else {
+      approvals = await Tasks.Task.find({
+        'group.id': groupId,
+        'group.approval.approved': false,
+        'group.approval.requested': true,
+      }, 'userId group text')
+        .populate('userId', 'profile')
+        .exec();
+    }
 
     res.respond(200, approvals);
   },
