@@ -1,18 +1,22 @@
 <template lang="pug">
-.claim-bottom-message.col-12.text-center(v-if='task.approvals && task.approvals.length > 0', :class="{approval: userIsAdmin}")
-  .task-unclaimed
-    | {{ message }}
+  .claim-top-message.d-flex.align-content-center(v-if='task.approvals && task.approvals.length > 0', :class="{approval: userIsAdmin}")
+    .task-unclaimed.m-auto(v-html='message')
 </template>
 
 <style lang="scss" scoped>
-.claim-bottom-message {
-  z-index: 9;
-}
+  @import '~client/assets/scss/colors.scss';
+  .claim-top-message {
+    z-index: 9;
+  }
 
-.approval {
-  background: #24cc8f;
-  color: #fff;
-}
+  .approval {
+    background: $green-10;
+    color: #fff;
+    height: 2rem;
+    font-size: 12px;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+  }
 </style>
 
 <script>
