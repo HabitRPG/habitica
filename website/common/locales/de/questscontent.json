@@ -513,7 +513,7 @@
     "questHippoDropHippoEgg": "Nilpferd (Ei)",
     "questHippoUnlockText": "Ermöglicht den Kauf von Nilpferdeiern auf dem Marktplatz",
     "farmFriendsText": "\"Farmfreunde\" Quest-Paket",
-    "farmFriendsNotes": "Beinhaltet 'Die Muhtantische Kuh', 'Reite die Nacht-Mähre', und 'Der Donner-Bock'. Verfügbar bis zum 30. September.",
+    "farmFriendsNotes": "Beinhaltet 'Die Muhtantische Kuh', 'Reite die Nacht-Mähre', und 'Der Donner-Bock'. Verfügbar bis zum 31. August.",
     "witchyFamiliarsText": "\"Hexenhafte Haustiere\" Quest-Paket",
     "witchyFamiliarsNotes": "Beinhaltet 'Der Rattenkönig', 'Die eisige Arachnoide', und 'Sumpf des Chaos-Froschs'. Verfügbar bis zum 31. Oktober.",
     "questGroupLostMasterclasser": "Geheimnis der Klassenmeister",
@@ -626,7 +626,7 @@
     "questAlligatorDropAlligatorEgg": "Alligator (Ei)",
     "questAlligatorUnlockText": "Ermöglicht den Kauf von Alligatoreneiern auf dem Marktplatz",
     "oddballsText": "\"Sonderlinge\" Quest-Paket",
-    "oddballsNotes": "Beinhaltet 'Der Glibberkönig', 'Entkomme dem Höhlenungetüm' und 'Ein verheddertes Knäuel'. Verfügbar bis zum 3. Dezember.",
+    "oddballsNotes": "Beinhaltet 'Der Glibberkönig', 'Entkomme dem Höhlenungetüm' und 'Ein verheddertes Knäuel'. Verfügbar bis zum 30. Juni.",
     "birdBuddiesText": "\"Vogel-Freunde\" Quest-Paket",
     "birdBuddiesNotes": "Beinhaltet 'Der Federvieh-Frost', 'Der Hahnenkampf' und 'Der Für-und-Wider-Pfau'. Verfügbar bis zum 31. Dezember.",
     "questVelociraptorText": "Der Veloci-Rapper",
@@ -636,5 +636,13 @@
     "questVelociraptorDropVelociraptorEgg": "Velociraptor (Ei)",
     "questVelociraptorUnlockText": "Ermöglicht den Kauf von Velociraptoreiern auf dem Marktplatz",
     "mythicalMarvelsText": "Mythische Wunder Quest-Paket",
-    "mythicalMarvelsNotes": "Beinhaltet \"Überzeuge die Einhornkönigin\", \"Der Feuergreif\" und \"Gefahr in der Tiefe: Seeschlangen-Angriff!\". Verfügbar bis zum 28. Februar."
+    "mythicalMarvelsNotes": "Beinhaltet \"Überzeuge die Einhornkönigin\", \"Der Feuergreif\" und \"Gefahr in der Tiefe: Seeschlangen-Angriff!\". Verfügbar bis zum 28. Februar.",
+    "questBronzeDropBronzePotion": "Bronzenes Schlüpfelixier",
+    "questDolphinText": "Der Delfin des Zweifels",
+    "questDolphinBoss": "Delfin des Zweifels",
+    "questDolphinDropDolphinEgg": "Delfin (Ei)",
+    "questSilverText": "Die Silberne Lösung",
+    "questSilverCollectMoonRunes": "Mond-Runen",
+    "questSilverCollectSilverIngots": "Silberbarren",
+    "questSilverDropSilverPotion": "Silbernes Schlüpfelixier"
 }
