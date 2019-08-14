@@ -170,22 +170,21 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     .small.text-center(v-html="$t('usernameTOSRequirements')")
 
   .section.container.footer(v-if='!editing && !(modalPage === 1)')
-    .row
-      .col-3.offset-1.text-center
-        div.prev-outer(v-if='modalPage > 1', @click='prev()')
-          .prev-arrow.svg-icon(v-html='icons.arrowLeft')
-          .prev(v-once) {{ $t('prev') }}
-      .col-4.text-center.circles
-        .circle(:class="{active: modalPage === 1}")
-        .circle(:class="{active: modalPage === 2}")
-        .circle(:class="{active: modalPage === 3}")
-      .col-3.text-center
-        div.next-outer(v-if='modalPage < 3', @click='next()')
-          .next(v-once) {{$t('next')}}
-          .next-arrow.svg-icon(v-html='icons.arrowRight')
-        div.next-outer(v-if='modalPage === 3 && !loading', @click='done()', :class="{disabled: taskCategories.length === 0}")
-          .next(v-once) {{$t('finish')}}
-          .next-arrow.svg-icon(v-html='icons.arrowRight')
+    .footer-left
+      div.prev-outer(v-if='modalPage > 1', @click='prev()')
+        .prev-arrow.svg-icon(v-html='icons.arrowLeft')
+        .prev(v-once) {{ $t('prev') }}
+    .footer-center.text-center.circles
+      .circle(:class="{active: modalPage === 1}")
+      .circle(:class="{active: modalPage === 2}")
+      .circle(:class="{active: modalPage === 3}")
+    .footer-right
+      div.next-outer(v-if='modalPage < 3', @click='next()')
+        .next(v-once) {{$t('next')}}
+        .next-arrow.svg-icon(v-html='icons.arrowRight')
+      div.next-outer(v-if='modalPage === 3 && !loading', @click='done()', :class="{disabled: taskCategories.length === 0}")
+        .next(v-once) {{$t('finish')}}
+        .next-arrow.svg-icon(v-html='icons.arrowRight')
 </template>
 
 <style lang="scss">
@@ -360,7 +359,6 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     }
 
     .circles {
-      padding-left: 2em;
       align-self: flex-end;
     }
 
@@ -590,26 +588,61 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     .footer {
       margin-top: 24px;
       padding-bottom: 24px;
+      padding-left: 24px;
+      padding-right: 24px;
       bottom: 0;
       width: 100%;
+      display: flex;
 
-      .prev-outer {
-        margin-left: 1em;
-        white-space: nowrap;
+      .footer-left {
+        flex: auto;
+        flex-grow: 0;
       }
 
-      .prev {
-        color: #a5a1ac;
+      .footer-center {
+        flex: 1;
+      }
+
+      .footer-right {
+        flex: auto;
+        flex-grow: 0;
+        display: flex;
+      }
+
+      .prev, .next {
+        color: $gray-300;
         font-weight: bold;
         display: inline-block;
         padding: 0.4em;
       }
 
-      .prev:hover, .prev-arrow:hover {
-        cursor: pointer;
+      .prev {
+        padding-left: 16px;
       }
 
-      .prev-arrow {
+      .next {
+        padding-right: 16px;
+      }
+
+      .prev-outer {
+        white-space: nowrap;
+
+        &:hover {
+          cursor: pointer;
+
+          .prev {
+            color: $purple-300;
+          }
+
+          .prev-arrow {
+            path {
+              fill: $purple-300;
+            }
+          }
+        }
+      }
+
+      .prev-arrow, .next-arrow {
         width: 32px;
         height: 32px;
         display: inline-block;
@@ -618,39 +651,22 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
 
       .next-outer {
         white-space: nowrap;
+        flex: 1;
+        text-align: right;
 
-        &.disabled {
-          pointer-events:none;
+        &:hover {
+          cursor: pointer;
 
           .next {
-            color: #a5a1ac;
+            color: $purple-300;
           }
 
           .next-arrow {
             path {
-              fill: #a5a1ac;
+              fill: $purple-300;
             }
           }
         }
-      }
-
-      .next {
-        font-weight: bold;
-        display: inline-block;
-        padding: 0.4em;
-        margin-right: 1em;
-        color: $purple-200;
-      }
-
-      .next:hover, .next-arrow:hover {
-        cursor: pointer;
-      }
-
-      .next-arrow {
-        width: 32px;
-        height: 32px;
-        display: inline-block;
-        vertical-align: bottom;
       }
     }
 
