@@ -289,6 +289,7 @@
   "hatchingPotionSunshine": "Sunshine",
   "hatchingPotionBronze": "Bronze",
   "hatchingPotionWatery": "Watery",
+  "hatchingPotionSilver": "Silver",
 
   "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%= potText(locale) %> pet.",
   "premiumPotionAddlNotes": "Not usable on quest pet eggs.",

@@ -754,5 +754,14 @@
   "questDolphinBoss": "Dolphin of Doubt",
   "questDolphinCompletion": "Your battle of wills with the dolphin has left you tired but victorious. With your determination and encouragement, @mewrose, @khdarkwolf, and @confusedcicada pick themselves up and shake off the dolphin’s insidious telepathy. The four of you shield yourselves with a sense of accomplishment in your consistent Dailies, strong Habits, and completed To-Dos until it closes its glowing eyes in silent acknowledgment of your successes. With that, it tumbles back into the bay. As you trade high-fives and congratulations, you notice three eggs wash ashore.<br><br>“Hm, I wonder what we can do with those,” @khdarkwolf muses.",
   "questDolphinDropDolphinEgg": "Dolphin (Egg)",
-  "questDolphinUnlockText": "Unlocks purchasable Dolphin eggs in the Market"
+  "questDolphinUnlockText": "Unlocks purchasable Dolphin eggs in the Market",
+
+  "questSilverText": "The Silver Solution",
+  "questSilverNotes": "The recent discovery of Bronze Hatching Potions has all of Habitica talking. Could potions of even brighter metals be possible? You head to Habit City's central Public Library, accompanied by @QuartzFox and @starsystemic, and gather up great armloads of books on alchemy to study.<br><br>After hours of eye-straining labor, @QuartzFox lets out a not-quite-library-appropriate shout of triumph. “Aha! I've found it!” You hurry over to see. “A Silver Hatching Potion can be made with runes of the zodiac sign Cancer, dissolved in pure silver melted over flame infused with the power of Moon runes.”<br><br>“We'll need a lot of those ingredients,” muses @starsystemic. “In case an attempt goes wrong.”<br><br>“There's only one place to find huge quantities of such random crafting materials,” says @Edge, standing in the shadow of the stacks with arms crossed. Have they been there the whole time? “The Dungeons of Drudgery. Let's get going.”",
+  "questSilverCompletion": "You've delved. You've dredged. You've scavenged. At last you emerge from the Dungeons, laden with runes and bars of silver, covered in sludge but exhilarated with success. You journey back to Habit City and set to work in an alchemy lab. You and @starsystemic follow the formulas @QuartzFox found, under the careful supervision of @Edge. Finally, in a great puff of glitter and smoke, your concoction settles into the familiar viscosity of a Hatching Potion!<br><br>@Edge scoops the mixture into vials and grins. “Let's give it a try, shall we? Anyone got any Eggs?”<br><br>You rush to the Stables, wondering what shining secrets may yet remain undiscovered...",
+  "questSilverCollectCancerRunes": "Cancer Zodiac Runes",
+  "questSilverCollectMoonRunes": "Moon Runes",
+  "questSilverCollectSilverIngots": "Silver Ingots",
+  "questSilverDropSilverPotion": "Silver Hatching Potion",
+  "questSilverUnlockText": "Unlocks purchasable Silver hatching potions in the Market"
 }
