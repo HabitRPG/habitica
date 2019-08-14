@@ -1825,5 +1825,9 @@
     "armorArmoireAstronomersRobeText": "Astronomen-Robe",
     "armorArmoireAstronomersRobeNotes": "Offenbar ergeben Seide und Sternenlicht einen Stoff, der nicht nur magisch, sondern auch sehr atmungsaktiv ist. Erhöht Wahrnehmung und Ausdauer um je <%= attrs %>. Verzauberter Schrank: Astronomen-Magier-Set (Gegenstand 1 von 3).",
     "headArmoireAstronomersHatText": "Astronomen-Hut",
-    "headArmoireAstronomersHatNotes": "Ein perfekter Hut für die Himmelsbeobachtung oder einen ausgefallenen Zaubererbrunch. Erhöht Ausdauer um <%= con %>. Verzauberter Schrank: Astronomen-Magier-Set (Gegenstand 2 von 3)."
+    "headArmoireAstronomersHatNotes": "Ein perfekter Hut für die Himmelsbeobachtung oder einen ausgefallenen Zaubererbrunch. Erhöht Ausdauer um <%= con %>. Verzauberter Schrank: Astronomen-Magier-Set (Gegenstand 2 von 3).",
+    "weaponArmoireMagnifyingGlassText": "Lupe",
+    "weaponArmoireMagnifyingGlassNotes": "Aha! Ein Beweisstück! Untersuche es gründlich mit dieser schönen Lupe. Erhöht Wahrnehmung um <%= per %>. Verzauberter Schrank: Detektiv-Set (Gegenstand 3 von 4).",
+    "shieldArmoireTrustyUmbrellaText": "Vertrauter Regenschirm",
+    "eyewearMystery201907Text": "Süße Sonnenbrille"
 }
