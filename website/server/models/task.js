@@ -122,6 +122,8 @@ export let TaskSchema = new Schema({
     startDate: {$type: Date},
     time: {$type: Date, required: true},
   }],
+
+  byHabitica: {$type: Boolean, default: false}, // Flag of Tasks that were created by Habitica
 }, _.defaults({
   minimize: false, // So empty objects are returned
   strict: true,

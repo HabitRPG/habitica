@@ -127,4 +127,32 @@ export const tasksByCategory = {
       notes: t('creativityTodoNotes'),
     },
   ],
+  defaults: [
+    {
+      type: 'habit',
+      text: t('defaultHabit4Text'),
+      notes: t('defaultHabit4Notes'),
+      up: false,
+      down: true,
+    },
+    {
+      type: 'habit',
+      text: t('defaultHabit5Text'),
+      notes: t('defaultHabit5Notes'),
+      up: true,
+      down: false,
+    },
+    {
+      type: 'todo',
+      text: t('defaultTodo1Text'),
+      notes: t('defaultTodoNotes'),
+      byHabitica: true,
+    },
+    {
+      type: 'reward',
+      text: t('defaultReward2Text'),
+      notes: t('defaultReward2Notes'),
+      value: 10,
+    },
+  ],
 };

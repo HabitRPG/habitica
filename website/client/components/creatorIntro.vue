@@ -889,7 +889,13 @@ export default {
     async done () {
       this.loading = true;
 
-      let tasksToCreate = [];
+      let tasksToCreate = [
+        ...content.tasksByCategory.defaults.map(t =>  ({
+          ...t,
+          text: t.text(),
+          notes: t.notes && t.notes(),
+        })),
+      ];
       this.taskCategories.forEach(category => {
         tasksToCreate = tasksToCreate.concat(content.tasksByCategory[category].map(t => ({
           ...t,
