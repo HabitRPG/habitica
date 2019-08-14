@@ -155,5 +155,11 @@
     "spring2019OrchidWarriorSet": "Orchidee (Krieger)",
     "spring2019AmberMageSet": "Bernstein (Magier)",
     "spring2019RobinHealerSet": "Rotkehlchen (Heiler)",
-    "spring2019CloudRogueSet": "Wolke (Schurke)"
+    "spring2019CloudRogueSet": "Wolke (Schurke)",
+    "summer2019SeaTurtleWarriorSet": "Meeresschildkröte (Krieger)",
+    "summer2019WaterLilyMageSet": "Seerose (Magier)",
+    "summer2019ConchHealerSet": "Trompetenschnecke (Heiler)",
+    "summer2019HammerheadRogueSet": "Hammerkopf (Schurke)",
+    "eventAvailabilityReturning": "Zum Kauf verfügbar bis zum <%= availableDate(locale) %>. Dieser Trank wurde früher veröffentlicht, im <%= previousDate(locale) %>.",
+    "june2018": "Juni 2018"
 }

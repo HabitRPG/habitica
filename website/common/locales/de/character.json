@@ -224,5 +224,8 @@
     "mainHand": "Haupthand",
     "offHand": "Schildhand",
     "statPoints": "Attributspunkte",
-    "pts": "Pkte"
+    "pts": "Pkte",
+    "purchaseForGold": "Für <%= cost %> Gold erwerben?",
+    "chatCastSpellParty": "<%= username %> wendet <%= spell %> auf Deine Gruppe an.",
+    "chatCastSpellUser": "<%= username %> wendet <%= spell %> auf <%= target %> an."
 }

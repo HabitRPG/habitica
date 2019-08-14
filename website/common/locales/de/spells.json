@@ -25,7 +25,7 @@
     "spellRogueStealthText": "Schleichen",
     "spellRogueStealthNotes": "Mit jeder Anwendung werden einige Deiner unerledigten Tagesaufgaben keinen Schaden verursachen. Ihre Strähnen und Farben bleiben erhalten. (Basiert auf: Wahrnehmung)",
     "spellRogueStealthDaliesAvoided": "<%= originalText %> <%= number %> Tagesaufgaben ausgewichen.",
-    "spellRogueStealthMaxedOut": " Du bist Deinen Tagesaufgaben bereits ausgewichen; Du brauchst diese Fähigkeit nicht erneut anzuwenden.",
+    "spellRogueStealthMaxedOut": " Du bist all Deinen Tagesaufgaben bereits ausgewichen; Du brauchst diese Fähigkeit nicht erneut anzuwenden.",
     "spellHealerHealText": "Heilendes Licht",
     "spellHealerHealNotes": "Gleißendes Licht heilt Dich! (Basiert auf: Ausdauer und Intelligenz)",
     "spellHealerBrightnessText": "Brennende Helle",

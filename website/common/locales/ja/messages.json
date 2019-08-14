@@ -18,7 +18,7 @@
     "messageInvalidEggPotionCombo": "クエストペットのたまごを魔法のたまごがえしの薬でかえすことはできません!　別のたまごに試してください。",
     "messageAlreadyPet": "既にそのペットは所持しています。別の組み合わせを試してみましょう！",
     "messageHatched": "たまごからペットが生まれました！ 動物小屋でペットを連れに行きましょう。",
-    "messageNotEnoughGold": "ゴールドが不足しています",
+    "messageNotEnoughGold": "ゴールドが足りません",
     "messageTwoHandedEquip": "<%= twoHandedText %>は両手を使って振り回すので、<%= offHandedText %>を装備から外しました。",
     "messageTwoHandedUnequip": "<%= offHandedText %>を装備したので、両手を使って振り回す<%= twoHandedText %>を装備から外しました。",
     "messageDropFood": "<%= dropText %>を見つけました!",
