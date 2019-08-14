@@ -126,5 +126,6 @@
     "bossHealth": "<%= currentHealth %>/<%= maxHealth %> Życia",
     "rageAttack": "Atak Szału:",
     "bossRage": "<%= currentRage %>/<%= maxRage %> Szału",
-    "rageStrikes": "Napad Szału"
+    "rageStrikes": "Napad Szału",
+    "hatchingPotionQuests": "Misje z Magicznymi Eliksirami Wyklucia"
 }
