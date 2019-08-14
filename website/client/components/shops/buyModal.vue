@@ -418,7 +418,7 @@
             return sum;
           }, 0);
           if (this.item.pinType === 'premiumHatchingPotion') {
-            petsRemaining -= this.user.items.hatchingPotions[this.item.key] + 2;
+            petsRemaining -= this.user.items.hatchingPotions[this.item.key] + 2 || 2;
           } else {
             petsRemaining -= this.user.items.eggs[this.item.key] || 0;
           }
