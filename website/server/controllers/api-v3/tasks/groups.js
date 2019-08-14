@@ -522,6 +522,7 @@ api.getGroupApprovals = {
         'group.approval.approved': false,
         'group.approval.requested': true,
         'group.assignedUsers': user._id,
+        userId: user._id,
       }, 'userId group text')
         .populate('userId', 'profile')
         .exec();

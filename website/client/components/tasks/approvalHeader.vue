@@ -32,9 +32,9 @@ export default {
     message () {
       let approvals = this.task.approvals;
       let approvalsLength = approvals.length;
-      let userIsRequesting = find(approvals, (approval) => {
+      let userIsRequesting = approvals.findIndex((approval) => {
         return approval.userId.id === this.user._id;
-      });
+      }) !== -1;
 
       if (approvalsLength === 1 && !userIsRequesting) {
         return this.$t('userRequestsApproval', {userName: approvals[0].userId.profile.name});
