@@ -31,7 +31,7 @@ const featuredItems = {
     },
     {
       type: 'quests',
-      path: 'quests.dolphin',
+      path: 'quests.silver',
     },
   ],
   seasonal: 'summer2019Mage',
