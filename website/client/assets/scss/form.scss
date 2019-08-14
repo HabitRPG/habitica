@@ -206,6 +206,10 @@ $bg-disabled-control: #34303a;
       text-align: center;
       padding-top: .5em;
       padding-bottom: .5em;
+      &::before,
+      &::after {
+        display: none;
+      }
     }
     &:checked + .custom-control-label {
       background-color: $purple-300;
