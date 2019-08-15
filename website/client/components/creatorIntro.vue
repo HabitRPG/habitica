@@ -594,6 +594,10 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       width: 100%;
       display: flex;
 
+      * {
+        transition: none !important;
+      }
+
       .footer-left {
         flex: auto;
         flex-grow: 0;
