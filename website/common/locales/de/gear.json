@@ -1829,5 +1829,9 @@
     "weaponArmoireMagnifyingGlassText": "Lupe",
     "weaponArmoireMagnifyingGlassNotes": "Aha! Ein Beweisstück! Untersuche es gründlich mit dieser schönen Lupe. Erhöht Wahrnehmung um <%= per %>. Verzauberter Schrank: Detektiv-Set (Gegenstand 3 von 4).",
     "shieldArmoireTrustyUmbrellaText": "Vertrauter Regenschirm",
-    "eyewearMystery201907Text": "Süße Sonnenbrille"
+    "eyewearMystery201907Text": "Süße Sonnenbrille",
+    "armorSpecialSummer2019RogueText": "Hammerhai-Schwanz",
+    "armorSpecialSummer2019RogueNotes": "Dieser geschwungene Schwanz ist perfekt für enge Kurven bei gewagten Wasserausflügen. Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe 2019 Sommerausrüstung.",
+    "armorSpecialSummer2019WarriorText": "Schildkröten-Panzer",
+    "armorSpecialSummer2019WarriorNotes": "Krieger sind bekannt für ihre robuste Abwehr. Schildkröten sind bekannt für ihre dicken Panzer. Das ist eine perfekte Kombination! Bloß... versuche, niemals auf den Rücken zu fallen. Wirklich niemals. Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2019 Sommerausrüstung."
 }
