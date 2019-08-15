@@ -1765,5 +1765,7 @@
     "shieldArmoireMightyPizzaText": "Puissante pizza",
     "shieldArmoireMightyPizzaNotes": "Bien sûr, c'est un bon bouclier, mais nous vous suggérons fortement de manger cette fine pizza. Augmente la perception de <%= per %>. Armoire enchantée : Ensemble du chef (objet 4 de 4). ",
     "eyewearMystery201902Text": "Masque cryptique",
-    "eyewearMystery201902Notes": "Ce masque cryptique cache votre identité, mais pas votre sourire vainqueur. Ne confère aucun bonus. Objet d'abonnement de février 2019."
+    "eyewearMystery201902Notes": "Ce masque cryptique cache votre identité, mais pas votre sourire vainqueur. Ne confère aucun bonus. Objet d'abonnement de février 2019.",
+    "weaponSpecialSpring2019RogueText": "Éclair",
+    "weaponSpecialSpring2019RogueNotes": "Ces armes renferment le pouvoir du ciel et de la pluie. Il est recommandé de ne pas les utiliser en étant plongé dans l'eau. Augmente la force de <%= str %>. Équipement en édition limitée du printemps 2019."
 }
