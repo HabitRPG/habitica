@@ -3,7 +3,6 @@
     sub-menu.text-center(:items="skinSubMenuItems", :activeSubPage="activeSubPage", @changeSubPage="changeSubPage($event)")
     customize-options(
       :items="freeSkins",
-      propertyToChange="preferences.skin",
       :currentValue="user.preferences.skin"
     )
 
@@ -11,7 +10,6 @@
       customize-options(
         v-if="!hideSet(set)",
         :items='set.options',
-        propertyToChange="preferences.skin",
         :currentValue="user.preferences.skin",
         :fullSet='!userOwnsSet("skin", set.keys)',
         @unlock='unlock(`skin.${set.keys.join(",skin.")}`)'

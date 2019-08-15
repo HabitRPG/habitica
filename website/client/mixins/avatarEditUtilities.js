@@ -32,7 +32,7 @@ export const avatarEditorUtilies = {
       option.active = userPreference === key;
       option.class = this.createClass(type, subType, key);
       option.click = (optionParam) => {
-        return option.locked ? this.unlock(`${optionParam.pathKey}.${key}`) : this.set({[`preferences.${optionParam.pathKey}`]: optionParam.key});
+        return option.gemLocked ? this.unlock(`${optionParam.pathKey}.${key}`) : this.set({[`preferences.${optionParam.pathKey}`]: optionParam.key});
       };
       return option;
     },

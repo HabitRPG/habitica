@@ -4,19 +4,16 @@
     div(v-if='activeSubPage === "size"')
       customize-options(
         :items="sizes",
-        propertyToChange="preferences.size",
         :currentValue="user.preferences.size"
       )
     div(v-if='activeSubPage === "shirt"')
       customize-options(
         :items="freeShirts",
-        propertyToChange="preferences.shirt",
         :currentValue="user.preferences.shirt"
       )
       customize-options(
         v-if='editing',
         :items='specialShirts',
-        propertyToChange="preferences.shirt",
         :currentValue="user.preferences.shirt",
         :fullSet='!userOwnsSet("shirt", specialShirtKeys)',
         @unlock='unlock(`shirt.${specialShirtKeys.join(",shirt.")}`)'

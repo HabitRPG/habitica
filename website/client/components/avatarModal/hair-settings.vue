@@ -5,7 +5,6 @@
     #hair-color(v-if='activeSubPage === "color"')
       customize-options(
         :items="freeHairColors",
-        propertyToChange="preferences.hair.color",
         :currentValue="user.preferences.hair.color"
       )
 
@@ -13,7 +12,6 @@
         customize-options(
           v-if="!hideSet(set)",
           :items='set.options',
-          propertyToChange="preferences.skin",
           :currentValue="user.preferences.skin",
           :fullSet='!userOwnsSet("hair", set.keys, "color")',
           @unlock='unlock(`hair.color.${set.keys.join(",hair.color.")}`)'
@@ -29,7 +27,6 @@
     #bangs(v-if='activeSubPage === "bangs"')
       customize-options(
         :items='hairBangs',
-        propertyToChange="user.preferences.hair.bangs",
         :currentValue="user.preferences.hair.bangs"
       )
     #facialhair(v-if='activeSubPage === "facialhair"')
@@ -113,10 +110,7 @@
         return items;
       },
       freeHairColors () {
-        return freeHairColorKeys.map(s => ({
-          key: s,
-          class: `hair_bangs_1_${s} color`, // todo add current hair bangs setting
-        }));
+        return freeHairColorKeys.map(s => this.mapKeysToFreeOption(s, 'hair', 'color'));
       },
       seasonalHairColors () {
         // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now

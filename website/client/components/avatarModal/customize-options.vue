@@ -3,10 +3,11 @@
     .outer-option-background(
       v-for='option in items',
       :key='option.key',
+      @click='option.click(option)',
       :class='{locked: option.gemLocked || option.goldLocked, premium: Boolean(option.gem), active: option.active || currentValue === option.key, none: option.none }'
     )
       .option
-        .sprite.customize-option(:class='option.class', @click='option.click ? option.click(option) : set({[propertyToChange]: option.key})')
+        .sprite.customize-option(:class='option.class')
           .redline-outer(v-if="option.none")
             .redline
       .gem-lock(v-if='option.gemLocked')
@@ -27,7 +28,7 @@
   import {avatarEditorUtilies} from '../../mixins/avatarEditUtilities';
 
   export default {
-    props: ['items', 'propertyToChange', 'currentValue', 'fullSet'],
+    props: ['items', 'currentValue', 'fullSet'],
     mixins: [
       avatarEditorUtilies,
     ],
@@ -57,6 +58,8 @@
   .outer-option-background {
     display: inline-block;
     vertical-align: top;
+    pointer-events: visible;
+    cursor: pointer;
 
     &.premium {
       height: 112px;
