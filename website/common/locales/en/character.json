@@ -169,6 +169,7 @@
   "dieText": "You've lost a Level, all your Gold, and a random piece of Equipment. Arise, Habiteer, and try again! Curb those negative Habits, be vigilant in completion of Dailies, and hold death at arm's length with a Health Potion if you falter!",
   "sureReset": "Are you sure? This will reset your character's class and allocated Stat Points (you'll get them all back to re-allocate), and costs 3 Gems.",
   "purchaseFor": "Purchase for <%= cost %> Gems?",
+  "purchaseForGold": "Purchase for <%= cost %> Gold?",
   "purchaseForHourglasses": "Purchase for <%= cost %> Hourglasses?",
   "notEnoughMana": "Not enough mana.",
   "invalidTarget": "You can't cast a skill on that.",

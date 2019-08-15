@@ -142,5 +142,7 @@
     "clickOnPotionToHatch": "Clique em uma poção de eclosão para usar em seu ovo <%= eggName %> e chocar um novo mascote!",
     "notEnoughPets": "Você AINDA não coletou mascotes suficientes",
     "notEnoughMounts": "Você AINDA não coletou montarias suficientes",
-    "notEnoughPetsMounts": "Você AINDA não coletou mascotes e montarias suficientes"
+    "notEnoughPetsMounts": "Você AINDA não coletou mascotes e montarias suficientes",
+    "wackyPets": "Mascotes Malucos",
+    "filterByWacky": "Maluco"
 }

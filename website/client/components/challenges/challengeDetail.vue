@@ -1,6 +1,6 @@
 <template lang="pug">
 .row
-  challenge-modal(v-on:updatedChallenge='updatedChallenge')
+  challenge-modal(@updatedChallenge='updatedChallenge')
   leave-challenge-modal(:challengeId='challenge._id')
   close-challenge-modal(:members='members', :challengeId='challenge._id', :prize='challenge.prize')
   challenge-member-progress-modal(:challengeId='challenge._id')
@@ -47,8 +47,8 @@
             @cancel="cancelTaskModal()",
             ref="taskModal",
             :challengeId="challengeId",
-            v-on:taskCreated='taskCreated',
-            v-on:taskEdited='taskEdited',
+            @taskCreated='taskCreated',
+            @taskEdited='taskEdited',
             @taskDestroyed='taskDestroyed'
           )
     .row
@@ -57,7 +57,8 @@
         :type="column",
         :key="column",
         :taskListOverride='tasksByType[column]',
-        v-on:editTask="editTask",
+        @editTask="editTask",
+        @taskDestroyed="taskDestroyed",
         v-if='tasksByType[column].length > 0')
   .col-12.col-md-4.sidebar.standard-page
     .button-container(v-if='canJoin')

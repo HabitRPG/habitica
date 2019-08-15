@@ -23,6 +23,11 @@ export function capByLevel (lvl) {
  */
 
 export function toNextLevel (lvl) {
+  if (lvl < 5) {
+    return 25 * lvl;
+  } else if (lvl === 5) {
+    return 150;
+  }
   return Math.round((Math.pow(lvl, 2) * 0.25 + 10 * lvl + 139.75) / 10) * 10;
 }
 

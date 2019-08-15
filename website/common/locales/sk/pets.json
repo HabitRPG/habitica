@@ -2,7 +2,7 @@
     "stable": "Stajňa",
     "pets": "Zvieratká",
     "activePet": "Aktívne zvieratko",
-    "noActivePet": "No Active Pet",
+    "noActivePet": "Bez aktívneho zvieratka",
     "petsFound": "nájdených zvieratiek",
     "magicPets": "Zvieratká z čarovných elixírov",
     "rarePets": "Vzácne zvieratká",
@@ -142,5 +142,7 @@
     "clickOnPotionToHatch": "Click on a hatching potion to use it on your <%= eggName %> and hatch a new pet!",
     "notEnoughPets": "You have not collected enough pets",
     "notEnoughMounts": "You have not collected enough mounts",
-    "notEnoughPetsMounts": "You have not collected enough pets and mounts"
+    "notEnoughPetsMounts": "You have not collected enough pets and mounts",
+    "wackyPets": "Pojašené zvieratká",
+    "filterByWacky": "Pojašené"
 }

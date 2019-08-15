@@ -11,6 +11,7 @@
       &-inner-habit { background: rgba(26, 24, 29, 0.24) !important; }
       &-inner-daily-todo { background: $maroon-500 !important; }
       &-checkbox { color: $maroon-100 !important; }
+      &-icon { color: #6c0406 !important; }
     }
 
     &-modal {
@@ -40,6 +41,7 @@
       &-inner-habit { background: rgba(26, 24, 29, 0.24) !important; }
       &-inner-daily-todo { background: $red-500 !important; }
       &-checkbox { color: $red-100 !important; }
+      &-icon { color: #6c0406 !important; }
     }
 
     &-modal {
@@ -70,6 +72,7 @@
       &-inner-habit { background: rgba(183, 90, 28, 0.4) !important; }
       &-inner-daily-todo { background: $orange-500 !important; }
       &-checkbox { color: $orange-100 !important; }
+      &-icon { color: #7f3300 !important; }
     }
 
     &-modal {
@@ -109,6 +112,7 @@
       &-inner-habit { background: rgba(183, 90, 28, 0.32) !important; }
       &-inner-daily-todo { background: $yellow-500 !important; }
       &-checkbox { color: $yellow-100 !important; }
+      &-icon { color: #794b00 !important; }
     }
 
     &-modal {
@@ -139,7 +143,7 @@
   &-good { // green
     &-control {
       &-bg {
-        background: $green-10 !important;
+        background: $green-100 !important;
         &:hover {
           .habit-control { background: rgba(26, 24, 29, 0.48) !important; }
           .daily-todo-control { background: rgba(255, 255, 255, 0.72) !important; }
@@ -148,10 +152,11 @@
       &-inner-habit { background: rgba(26, 24, 29, 0.24) !important; }
       &-inner-daily-todo { background: #77f4c7 !important; }
       &-checkbox { color: $green-10 !important; }
+      &-icon { color: #005737 !important; }
     }
 
     &-modal {
-      &-bg { background: $green-10 !important; }
+      &-bg { background: $green-100 !important; }
       &-icon { color: $green-10 !important; }
       &-text { color: #1ca372 !important; }
       &-option-disabled:hover {
@@ -168,7 +173,7 @@
   &-better { // teal
     &-control {
       &-bg {
-        background: $teal-50 !important;
+        background: $teal-100 !important;
         &:hover {
           .habit-control { background: rgba(26, 24, 29, 0.48) !important; }
           .daily-todo-control { background: rgba(255, 255, 255, 0.72) !important; }
@@ -176,19 +181,20 @@
       }
       &-inner-habit { background: rgba(26, 24, 29, 0.24) !important; }
       &-inner-daily-todo { background: #8dedf6 !important; }
-      &-checkbox { color: $teal-50 !important; }
+      &-checkbox { color: $teal-100 !important; }
+      &-icon { color: #005158 !important; }
     }
 
     &-modal {
-      &-bg { background: $teal-50 !important; }
-      &-icon { color: $teal-50 !important; }
+      &-bg { background: $teal-100 !important; }
+      &-icon { color: $teal-100 !important; }
       &-text { color: $teal-10 !important; }
       &-option-disabled:hover {
-        .svg-icon { color: $teal-50 !important; }
+        .svg-icon { color: $teal-100 !important; }
         .option-item-label { color: $teal-10 !important; }
       }
       &-habit-control-disabled:hover {
-        .habit-control { background: $teal-50 !important; }
+        .habit-control { background: $teal-100 !important; }
         .option-item-label { color: $teal-10 !important; }
       }
     }
@@ -206,6 +212,7 @@
       &-inner-habit { background: rgba(26, 24, 29, 0.24) !important; }
       &-inner-daily-todo { background: $blue-500 !important; }
       &-checkbox { color: $blue-100 !important; }
+      &-icon { color: #033f5e !important; }
     }
 
     &-modal {
@@ -311,6 +318,12 @@
     margin: 0 auto;
   }
 
+  .lock {
+    margin-top: 7px;
+    height: 12px;
+    width: 10px;
+  }
+
   .positive {
     margin-top: 9px;
   }
@@ -333,5 +346,11 @@
     &.display-check-icon {
       display: block;
     }
+  }
+
+  .svg-icon.lock {
+    margin: 8px auto;
+    height: 12px;
+    width: 10px;
   }
 }

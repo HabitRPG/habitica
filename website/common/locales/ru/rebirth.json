@@ -25,5 +25,6 @@
     "rebirthName": "Шар возрождения",
     "reborn": "Возрождение, макс. уровень <%= reLevel %>",
     "confirmReborn": "Вы уверены?",
-    "rebirthComplete": "Вы переродились!"
+    "rebirthComplete": "Вы переродились!",
+    "nextFreeRebirth": "<strong><%= days %> дн.</strong> until <strong>бесплатного</strong> Шара возрождения"
 }

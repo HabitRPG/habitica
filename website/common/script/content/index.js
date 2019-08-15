@@ -91,7 +91,7 @@ api.bundles = {
       'whale',
     ],
     canBuy () {
-      return moment().isBetween('2017-07-11', '2017-08-02');
+      return moment().isBetween('2019-07-17', '2019-08-02');
     },
     type: 'quests',
     class: 'quest_bundle_splashyPals',
@@ -107,7 +107,7 @@ api.bundles = {
       'sheep',
     ],
     canBuy () {
-      return moment().isBetween('2017-09-12', '2017-10-07');
+      return moment().isBetween('2019-08-08', '2019-09-02');
     },
     type: 'quests',
     value: 7,
@@ -212,7 +212,7 @@ api.bundles = {
       'yarn',
     ],
     canBuy () {
-      return moment().isBetween('2019-06-10', '2019-07-02');
+      return moment().isBetween('2019-06-10', '2019-07-03');
     },
     type: 'quests',
     value: 7,

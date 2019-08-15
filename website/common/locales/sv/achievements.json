@@ -1,9 +1,9 @@
 {
-  "achievement": "Achievement",
-  "share": "Dela",
-  "onwards": "Framåt!",
-  "levelup": "Genom att nå dina livsmål så har du nått en ny nivå och har återfått all din hälsa!",
-  "reachedLevel": "Du har nått nivå <%= level %>",
-  "achievementLostMasterclasser": "Quest Completionist: Masterclasser Series",
-  "achievementLostMasterclasserText": "Slutfört alla sexton uppdrag i Mästerklassernas Uppdragsserie och löst mysteriet av de Borttappade Mästerklasserna!"
+    "achievement": "Prestation",
+    "share": "Dela",
+    "onwards": "Framåt!",
+    "levelup": "Genom att nå dina livsmål så har du nått en ny nivå och har återfått all din hälsa!",
+    "reachedLevel": "Du har nått nivå <%= level %>",
+    "achievementLostMasterclasser": "Uppdragsslutförare: Klassmästar-serien",
+    "achievementLostMasterclasserText": "Slutfört alla sexton uppdrag i Mästerklassernas Uppdragsserie och löst mysteriet av de Borttappade Mästerklasserna!"
 }

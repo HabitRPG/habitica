@@ -93,15 +93,6 @@ describe('POST /tasks/:taskId/assign/:memberId', () => {
     expect(syncedTask).to.exist;
   });
 
-  it('sends a message to the group when a user claims a task', async () => {
-    await member.post(`/tasks/${task._id}/assign/${member._id}`);
-
-    let updateGroup = await user.get(`/groups/${guild._id}`);
-
-    expect(updateGroup.chat[0].text).to.equal(t('userIsClamingTask', {username: member.profile.name, task: task.text}));
-    expect(updateGroup.chat[0].uuid).to.equal('system');
-  });
-
   it('assigns a task to a user', async () => {
     await user.post(`/tasks/${task._id}/assign/${member._id}`);
 

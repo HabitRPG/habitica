@@ -1,20 +1,14 @@
 {
-  "merch" : "関連グッズ",
-  "merchandiseDescription": "Habitica プレーヤーとしての誇りを示すべく、Tシャツ、マグカップ、ステッカーを探していますか? こちらをクリック!",
-
-  "merch-teespring-summary" : "Teespring は、だれもが愛する高品質な製品を、コスト・リスクなしに、生産・販売するのを手助けするプラットフォームです。",
-  "merch-teespring-goto" : "Habitica のTシャツを購入する",
-
-  "merch-teespring-mug-summary" : "Teespring は、だれもが愛する高品質な製品を、コスト・リスクなしに、生産・販売するのを手助けするプラットフォームです。",
-  "merch-teespring-mug-goto" : "Habitica のマグカップを購入する",
-
-  "merch-teespring-eu-summary" : "ヨーロッパ版 : Teespring は、だれもが愛する高品質な製品を、コスト・リスクなしに、生産・販売するのを手助けするプラットフォームです。",
-  "merch-teespring-eu-goto" : "Habitica のTシャツを購入する (EU) ",
-
-  "merch-teespring-mug-eu-summary" : "ヨーロッパ版 : Teespring は、だれもが愛する高品質な製品を、コスト・リスクなしに、生産・販売するのを手助けするプラットフォームです。",
-  "merch-teespring-mug-eu-goto" : "Habitica のマグカップを購入する (EU) ",
-
-  "merch-stickermule-summary" : "誇らしげな メリオール (Melior) ロゴを、これからずっとタスクを思い出せるように、あなたの好きな場所 (もしくはだれかの好きな場所) に貼りましょう。",
-  "merch-stickermule-goto" : "Habitica のステッカーを購入する"
-
+    "merch": "関連グッズ",
+    "merchandiseDescription": "Habitica プレーヤーとしての誇りを示すべく、Tシャツ、マグカップ、ステッカーを探していますか? こちらをクリック!",
+    "merch-teespring-summary": "Teespring は、だれもが愛する高品質な製品を、コスト・リスクなしに、生産・販売するのを手助けするプラットフォームです。",
+    "merch-teespring-goto": "Habitica のTシャツを購入する",
+    "merch-teespring-mug-summary": "Teespring は、だれもが愛する高品質な製品を、コスト・リスクなしに、生産・販売するのを手助けするプラットフォームです。",
+    "merch-teespring-mug-goto": "Habitica のマグカップを購入する",
+    "merch-teespring-eu-summary": "ヨーロッパ版 : Teespring は、だれもが愛する高品質な製品を、コスト・リスクなしに、生産・販売するのを手助けするプラットフォームです。",
+    "merch-teespring-eu-goto": "Habitica のTシャツを購入する（EU）",
+    "merch-teespring-mug-eu-summary": "ヨーロッパ版 : Teespring は、だれもが愛する高品質な製品を、コスト・リスクなしに、生産・販売するのを手助けするプラットフォームです。",
+    "merch-teespring-mug-eu-goto": "Habitica のマグカップを購入する（EU）",
+    "merch-stickermule-summary": "あなた（もしくは他の誰か）が現在と今後の成果の数々を思い出すべき場所ならどこでも、誇らしいメリオール (Melior) ロゴを貼りましょう！",
+    "merch-stickermule-goto": "Habitica のステッカーを購入する"
 }

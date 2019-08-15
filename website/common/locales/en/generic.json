@@ -133,6 +133,7 @@
   "noNotificationsText": "The notification fairies give you a raucous round of applause! Well done!",
   "clear": "Clear",
   "endTour": "End Tour",
+  "demo": "Demo",
   "audioTheme": "Audio Theme",
   "audioTheme_off": "Off",
   "audioTheme_danielTheBard": "Daniel The Bard",
@@ -299,5 +300,6 @@
   "selected": "Selected",
   "howManyToBuy": "How many would you like to buy?",
   "habiticaHasUpdated": "There is a new Habitica update. Refresh to get the latest version!",
-  "contactForm": "Contact the Moderation Team"
+  "contactForm": "Contact the Moderation Team",
+  "loadEarlierMessages": "Load Earlier Messages"
 }
