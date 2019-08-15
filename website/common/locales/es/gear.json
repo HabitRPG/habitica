@@ -1765,5 +1765,7 @@
     "shieldArmoireMightyPizzaText": "Pizza Poderosa",
     "shieldArmoireMightyPizzaNotes": "Claro, es un buen escudo, pero sugerimos fuertemente que te comas esta deliciosa pizza. Aumenta la Percepción en <%= per %>. Armario Encantado: Conjunto de Chef (Artículo 4 de 4). ",
     "eyewearMystery201902Text": "Máscara Críptica de Seguridad",
-    "eyewearMystery201902Notes": "Esta misteriosa máscara oculta tu identidad pero no tu sonrisa ganadora. Sin beneficios. Artículo de Suscriptor de febrero de 2019."
+    "eyewearMystery201902Notes": "Esta misteriosa máscara oculta tu identidad pero no tu sonrisa ganadora. Sin beneficios. Artículo de Suscriptor de febrero de 2019.",
+    "weaponSpecialSpring2019RogueText": "Relámpago",
+    "weaponSpecialSpring2019WarriorText": "Espada de Palo"
 }
