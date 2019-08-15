@@ -355,18 +355,16 @@ async function scoreTask (user, task, direction, req, res) {
   // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
   // TODO move to common code?
   let taskOrderPromise;
+  let pullTask = false;
+  let pushTask = false;
   if (task.type === 'todo') {
     if (!wasCompleted && task.completed) {
       // @TODO: mongoose's push and pull should be atomic and help with
       // our concurrency issues. If not, we need to use this update $pull and $push
-      taskOrderPromise = user.update({
-        $pull: { 'tasksOrder.todos': task._id },
-      }).exec();
+      pullTask = true;
       // user.tasksOrder.todos.pull(task._id);
     } else if (wasCompleted && !task.completed && user.tasksOrder.todos.indexOf(task._id) === -1) {
-      taskOrderPromise = user.update({
-        $push: { 'tasksOrder.todos': task._id },
-      }).exec();
+      pushTask = true;
       // user.tasksOrder.todos.push(task._id);
     }
   }
@@ -395,7 +393,7 @@ async function scoreTask (user, task, direction, req, res) {
       headers: req.headers,
     });
   }
-  return {user, task, delta, direction, taskOrderPromise};
+  return {user, task, delta, direction, taskOrderPromise, pullTask, pushTask};
 }
 
 async function handleChallengeTask (task, delta, direction, resolve, reject) {
@@ -423,7 +421,7 @@ export async function scoreTasks (user, taskScorings, req, res) {
   let tasks = {};
   (await Tasks.Task.findMultipleByIdOrAlias(taskIds, user._id)).forEach(task => {
     tasks[task._id] = task;
-    if (task.alias !== undefined && task.alias.length > 0) {
+    if (task.alias && task.alias.length > 0) {
       tasks[task.alias] = task;
     }
   });
@@ -435,11 +433,18 @@ export async function scoreTasks (user, taskScorings, req, res) {
     }
   });
   let returnDatas = await Promise.all(scorePromises);
-  if (returnDatas.length === 0) throw new BadRequest();
+
   let savePromises = [returnDatas[returnDatas.length - 1].user.save()];
+  let pullIDs = [];
+  let pushIDs = [];
   returnDatas.forEach(returnData => {
-    if (returnData.taskOrderPromise) savePromises.push(returnData.taskOrderPromise);
+    if (returnData.pushTask) pushIDs.push(returnData.task._id);
+    if (returnData.pullTask) pullIDs.push(returnData.task._id);
   });
+  let moveUpdateObject = {};
+  if (pushIDs.length > 0) moveUpdateObject.$push = { 'tasksOrder.todos': { $in: pushIDs} };
+  if (pullIDs.length > 0) moveUpdateObject.$pull = { 'tasksOrder.todos': { $in: pullIDs} };
+  if (pushIDs.length > 0 || pullIDs.length > 0) savePromises.push(user.updateOne(moveUpdateObject).exec());
   Object.keys(tasks).forEach(identifier => {
     if (validator.isUUID(String(identifier))) {
       savePromises.push(tasks[identifier].save());
@@ -447,7 +452,6 @@ export async function scoreTasks (user, taskScorings, req, res) {
   });
   // Save results and handle request
   let results = await Promise.all(savePromises);
-
   let challengePromises = [];
   returnDatas.forEach(returnData => {
     challengePromises.push(new Promise((resolve, reject) => {
