@@ -7,10 +7,11 @@ const PM_PER_PAGE = 10;
 
 export async function sentMessage (sender, receiver, message, translate) {
   const messageSent = await sender.sendMessage(receiver, { receiverMsg: message });
+  const senderName = getUserInfo(sender, ['name']).name;
 
   if (receiver.preferences.emailNotifications.newPM !== false) {
     sendTxnEmail(receiver, 'new-pm', [
-      {name: 'SENDER', content: getUserInfo(sender, ['name']).name},
+      {name: 'SENDER', content: senderName},
     ]);
   }
 
@@ -19,10 +20,10 @@ export async function sentMessage (sender, receiver, message, translate) {
       receiver,
       {
         title: translate('newPM'),
-        message: translate('newPMInfo', {name: getUserInfo(sender, ['name']).name, message}),
+        message: translate('newPMInfo', {name: senderName, message}),
         identifier: 'newPM',
         category: 'newPM',
-        payload: {replyTo: sender._id},
+        payload: {replyTo: sender._id, senderName, message},
       }
     );
   }
