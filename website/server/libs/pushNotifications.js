@@ -35,8 +35,6 @@ function sendNotification (user, details = {}) {
   let payload = details.payload ? details.payload : {};
   payload.identifier = details.identifier;
 
-  console.log(details);
-
   _.each(pushDevices, pushDevice => {
     switch (pushDevice.type) {
       case 'android':
