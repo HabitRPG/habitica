@@ -16,7 +16,7 @@ export default {
     ...mapState(['isUserLoggedIn']),
     contactUsLink () {
       if (this.isUserLoggedIn) {
-        return {name: 'guild', params: {groupId: '5481ccf3-5d2d-48a9-a871-70a7380cee5a'} };
+        return {name: 'guild', params: {groupId: 'a29da26b-37de-4a71-b0c6-48e72a900dac'} };
       } else {
         return {name: 'contact'};
       }
