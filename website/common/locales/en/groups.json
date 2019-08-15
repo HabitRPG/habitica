@@ -486,5 +486,6 @@
   "recurringCompletion": "None - Group task does not complete",
   "singleCompletion": "Single - Completes when any assigned user finishes",
   "allAssignedCompletion": "All - Completes when all assigned users finish",
-  "suggestedGroup": "Suggested because you’re new to Habitica."
+  "suggestedGroup": "Suggested because you’re new to Habitica.",
+  "partyActivityMessage": "New party message from <%= user %>" 
 }

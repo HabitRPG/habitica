@@ -500,6 +500,7 @@ let schema = new Schema({
       questStarted: {$type: Boolean, default: true},
       invitedQuest: {$type: Boolean, default: true},
       majorUpdates: {$type: Boolean, default: true},
+      partyActivity: {$type: Boolean, default: true},
     },
     suppressModals: {
       levelUp: {$type: Boolean, default: false},
