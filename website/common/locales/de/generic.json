@@ -292,5 +292,6 @@
     "habiticaHasUpdated": "Es gibt ein Update von Habitica. Aktualisiere, um die neueste Version zu bekommen!",
     "contactForm": "Kontaktiere das Moderatoren-Team",
     "options": "Optionen",
-    "loadEarlierMessages": "Lade ältere Nachrichten"
+    "loadEarlierMessages": "Lade ältere Nachrichten",
+    "demo": "Demo"
 }
