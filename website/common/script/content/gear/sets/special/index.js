@@ -5119,11 +5119,13 @@ let weapon = {
   summer2019Mage: {
     event: EVENTS.summer2019,
     specialClass: 'wizard',
+    twoHanded: true,
     set: 'summer2019WaterLilyMageSet',
     text: t('weaponSpecialSummer2019MageText'),
-    notes: t('weaponSpecialSummer2019MageNotes', { int: 15 }),
-    value: 90,
+    notes: t('weaponSpecialSummer2019MageNotes', { int: 15, per: 7 }),
+    value: 160,
     int: 15,
+    per: 7,
   },
   summer2019Healer: {
     event: EVENTS.summer2019,
