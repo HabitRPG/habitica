@@ -7,10 +7,10 @@ div
       a(@click='claim()').claim-color {{ $t('claim') }}
     .ml-auto.mr-2(v-if='userIsAssigned')
       a(@click='unassign()').unclaim-color {{ $t('removeClaim') }}
-  .claim-bottom-message.d-flex.align-items-center.justify-content-around(v-if='approvalRequested')
+  .claim-bottom-message.d-flex.align-items-center.justify-content-around(v-if='approvalRequested && userIsManager')
     a(@click='approve()').approve-color {{ $t('approveTask') }}
     a(@click='needsWork()') {{ $t('needsWork') }}
-  .claim-bottom-message.d-flex.align-items-center(v-if='multipleApprovalsRequested')
+  .claim-bottom-message.d-flex.align-items-center(v-if='multipleApprovalsRequested && userIsManager')
     a(@click='showRequests()') {{ $t('viewRequests') }}
 </template>
 
@@ -83,11 +83,14 @@ export default {
         return this.$t('taskIsUnassigned');
       }
     },
+    userIsManager () {
+      if (this.group && (this.group.leader.id === this.user._id || this.group.managers[this.user._id])) return true;
+    },
     approvalRequested () {
-      if (this.task.approvals && this.task.approvals.length === 1 && (this.group.leader.id === this.user._id || this.group.managers[this.user._id])) return true;
+      if (this.task.approvals && this.task.approvals.length === 1 || this.task.group && this.task.group.approval && this.task.group.approval.requested) return true;
     },
     multipleApprovalsRequested () {
-      if (this.task.approvals && this.task.approvals.length > 1 && (this.group.leader.id === this.user._id || this.group.managers[this.user._id])) return true;
+      if (this.task.approvals && this.task.approvals.length > 1) return true;
     },
   },
   methods: {

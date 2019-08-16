@@ -1,10 +1,10 @@
 <template lang="pug">
 .task-wrapper
   .task(@click='castEnd($event, task)', :class="{'groupTask': task.group.id}")
-    approval-header(:task='task', v-if='this.task.group.id', :group='group')
+    approval-header(:task='task', v-if='task.group.id', :group='group')
     .d-flex(:class="{'task-not-scoreable': isUser !== true}")
       // Habits left side control
-      .left-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="[{'control-bottom-box': this.task.group.id}, controlClass.up.bg]")
+      .left-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="[{'control-bottom-box': this.task.group.id, 'control-top-box': approvalsClass}, controlClass.up.bg]")
         .task-control.habit-control(:class="controlClass.up.inner", @click="(isUser && task.up) ? score('up') : null")
           .svg-icon.lock(v-if="this.task.group.id && !isUser", v-html="icons.lock", :class="controlClass.up.icon")
           .svg-icon.positive(v-else, v-html="icons.positive")
@@ -99,7 +99,7 @@
                   .tag-label(v-for="tag in getTagsFor(task)", v-markdown="tag")
 
       // Habits right side control
-      .right-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="[{'control-bottom-box': this.task.group.id}, controlClass.down.bg]")
+      .right-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="[{'control-bottom-box': this.task.group.id, 'control-top-box': approvalsClass}, controlClass.down.bg]")
         .task-control.habit-control(:class="controlClass.down.inner", @click="(isUser && task.down) ? score('down') : null")
           .svg-icon.lock(v-if="this.task.group.id && !isUser", v-html="icons.lock", :class="controlClass.down.icon")
           .svg-icon.negative(v-else, v-html="icons.negative")
