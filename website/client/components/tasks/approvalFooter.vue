@@ -17,13 +17,14 @@ div
 <style lang="scss", scoped>
   @import '~client/assets/scss/colors.scss';
   .claim-bottom-message {
-    z-index: 9;
-    height: 2rem;
     background-color: $gray-700;
-    color: $gray-200;
-    font-size: 12px;
     border-bottom-left-radius: 2px;
     border-bottom-right-radius: 2px;
+    color: $gray-200;
+    font-size: 12px;
+    padding-bottom: 0.25rem;
+    padding-top: 0.25rem;
+    z-index: 9;
   }
 
   .approve-color {

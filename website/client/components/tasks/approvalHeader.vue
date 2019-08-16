@@ -6,16 +6,17 @@
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
   .claim-top-message {
-    z-index: 9;
-    height: 2rem;
-    font-size: 12px;
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
     color: #fff;
+    font-size: 12px;
+    padding-bottom: 0.25rem;
+    padding-top: 0.25rem;
+    z-index: 9;
   }
 
   .approval-action {
-    background: $green-10;
+    background: $green-100;
   }
 
   .approval-pending {
