@@ -153,7 +153,6 @@
     text-align: center;
 
     overflow-y: hidden;
-    max-height: 65px; // approximate max height
   }
 
   .quick-add-tip-slide-enter-active {

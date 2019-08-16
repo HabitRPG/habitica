@@ -1,6 +1,6 @@
 <template lang="pug">
 .task-wrapper
-  .task(@click='castEnd($event, task)')
+  .task(@click='castEnd($event, task)', :class="`type_${task.type}`")
     approval-header(:task='task', v-if='this.task.group.id', :group='group')
     .d-flex(:class="{'task-not-scoreable': isUser !== true}")
       // Habits left side control
@@ -418,7 +418,6 @@
     transition-property: border-color, background, color;
     transition-timing-function: ease-in;
   }
-
   .left-control {
     border-top-left-radius: 2px;
     border-bottom-left-radius: 2px;
@@ -428,8 +427,14 @@
 
     & + .task-content {
       border-left: none;
-      border-top-right-radius: 2px;
-      border-bottom-right-radius: 2px;
+    }
+  }
+  .task:not(.type_habit) {
+    .left-control {
+      & + .task-content {
+        border-top-right-radius: 2px;
+        border-bottom-right-radius: 2px;
+      }
     }
   }
 
