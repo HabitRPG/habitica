@@ -503,7 +503,9 @@ export default {
       let droppedElement = document.getElementsByClassName('down')[0];
       if (droppedElement && droppedElement !== element) {
         droppedElement.classList.remove('down');
-        droppedElement.lastChild.style.maxHeight = 0;
+        if (droppedElement.lastChild) {
+          droppedElement.lastChild.style.maxHeight = 0;
+        }
       }
 
       element.classList.toggle('down');
