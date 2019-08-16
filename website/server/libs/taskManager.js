@@ -393,7 +393,7 @@ async function scoreTask (user, task, direction, req, res) {
       headers: req.headers,
     });
   }
-  return {user, task, delta, direction, taskOrderPromise, pullTask, pushTask};
+  return {user, task, delta, direction, taskOrderPromise, pullTask, pushTask, _tmp: _.cloneDeep(user._tmp)};
 }
 
 async function handleChallengeTask (task, delta, direction, resolve, reject) {
@@ -417,7 +417,7 @@ async function handleChallengeTask (task, delta, direction, resolve, reject) {
 
 export async function scoreTasks (user, taskScorings, req, res) {
   let taskIds = taskScorings.map(taskScoring => taskScoring.id).filter(id => id !== undefined);
-  if (taskIds.length === 0) throw new BadRequest();
+  if (taskIds.length === 0) throw new BadRequest(res.t('taskNotFound'));
   let tasks = {};
   (await Tasks.Task.findMultipleByIdOrAlias(taskIds, user._id)).forEach(task => {
     tasks[task._id] = task;
@@ -425,7 +425,7 @@ export async function scoreTasks (user, taskScorings, req, res) {
       tasks[task.alias] = task;
     }
   });
-  if (tasks.length === 0) throw new NotFound(res.t('taskNotFound'));
+  if (Object.keys(tasks).length === 0) throw new NotFound(res.t('taskNotFound'));
   let scorePromises = [];
   taskScorings.forEach(taskScoring => {
     if (tasks[taskScoring.id] !== undefined) {
@@ -442,7 +442,7 @@ export async function scoreTasks (user, taskScorings, req, res) {
     if (returnData.pullTask) pullIDs.push(returnData.task._id);
   });
   let moveUpdateObject = {};
-  if (pushIDs.length > 0) moveUpdateObject.$push = { 'tasksOrder.todos': { $in: pushIDs} };
+  if (pushIDs.length > 0) moveUpdateObject.$push = { 'tasksOrder.todos': { $each: pushIDs} };
   if (pullIDs.length > 0) moveUpdateObject.$pull = { 'tasksOrder.todos': { $in: pullIDs} };
   if (pushIDs.length > 0 || pullIDs.length > 0) savePromises.push(user.updateOne(moveUpdateObject).exec());
   Object.keys(tasks).forEach(identifier => {
@@ -460,7 +460,7 @@ export async function scoreTasks (user, taskScorings, req, res) {
   });
   await Promise.all(challengePromises);
 
-  return {user: results[0], deltas: returnDatas.map(data => {
-    return {id: data.task._id, delta: data.delta};
+  return {user: results[0], taskResponses: returnDatas.map(data => {
+    return {id: data.task._id, delta: data.delta, _tmp: data._tmp};
   })};
 }

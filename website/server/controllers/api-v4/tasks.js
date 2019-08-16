@@ -30,7 +30,7 @@ api.scoreTasks = {
     let data = await scoreTasks(user, req.body, req, res);
 
     let userStats = user.stats.toJSON();
-    let resJsonData = _.assign({deltas: data.deltas, _tmp: user._tmp}, userStats);
+    let resJsonData = _.assign({responses: data.taskResponses, _tmp: user._tmp}, userStats);
     res.respond(200, resJsonData);
   },
 };

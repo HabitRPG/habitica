@@ -554,7 +554,7 @@ api.scoreTask = {
     const data = await scoreTasks(user, [{id: taskId, direction}], req, res);
 
     let userStats = user.stats.toJSON();
-    let resJsonData = _.assign({delta: data.deltas[0].delta, _tmp: user._tmp}, userStats);
+    let resJsonData = _.assign({delta: data.taskResponses[0].delta, _tmp: data.taskResponses[0]._tmp}, userStats);
     res.respond(200, resJsonData);
   },
 };
