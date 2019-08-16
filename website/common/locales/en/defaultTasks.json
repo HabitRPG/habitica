@@ -77,5 +77,8 @@
   "creativityDailyText": "Work on creative project",
   "creativityDailyNotes": "Tap to specify the name of your current project + set the schedule!",
   "creativityTodoText": "Finish creative project",
-  "creativityTodoNotes": "Tap to specify the name of your project"
+  "creativityTodoNotes": "Tap to specify the name of your project",
+
+  "defaultHabitText": "Click here to edit this into a bad habit you'd like to quit",
+  "defaultHabitNotes": "Or delete from the edit screen"
 }
