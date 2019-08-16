@@ -369,10 +369,14 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       border-radius: 50%;
       display: inline-block;
       margin-right: 1em;
+
+      &:last-of-type {
+        margin-right: 0;
+      }
     }
 
     .circle.active {
-      background-color: #bda8ff;
+      background-color: $purple-300;
     }
 
     .customize-menu {
@@ -388,7 +392,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
 
       .menu-container:hover, .menu-container.active {
         cursor: pointer;
-        color: #6133B4;
+        color: $purple-300;
       }
 
       .indicator {
@@ -598,19 +602,14 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
         transition: none !important;
       }
 
-      .footer-left {
+      .footer-left, .footer-right {
         flex: auto;
         flex-grow: 0;
+        width: 30%
       }
 
       .footer-center {
         flex: 1;
-      }
-
-      .footer-right {
-        flex: auto;
-        flex-grow: 0;
-        display: flex;
       }
 
       .prev, .next {
