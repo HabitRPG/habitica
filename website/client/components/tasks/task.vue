@@ -1,6 +1,6 @@
 <template lang="pug">
 .task-wrapper
-  .task(@click='castEnd($event, task)')
+  .task(@click='castEnd($event, task)', :class="{'groupTask': task.group.id}")
     approval-header(:task='task', v-if='this.task.group.id', :group='group')
     .d-flex(:class="{'task-not-scoreable': isUser !== true}")
       // Habits left side control
@@ -107,7 +107,7 @@
       .right-control.d-flex.align-items-center.justify-content-center.reward-control(v-if="task.type === 'reward'", :class="controlClass.bg", @click="isUser ? score('down') : null")
         .svg-icon(v-html="icons.gold")
         .small-text {{task.value}}
-    approval-footer(:task='task', v-if='this.task.group.id', :group='group')
+    approval-footer(:task='task', v-if='task.group.id', :group='group')
 </template>
 
 <style lang="scss" scoped>
@@ -123,6 +123,7 @@
     border-top-right-radius: 0px !important;
   }
 
+
   .task {
     margin-bottom: 2px;
     box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
@@ -132,7 +133,23 @@
 
     &:hover {
       box-shadow: 0 1px 8px 0 rgba($black, 0.12), 0 4px 4px 0 rgba($black, 0.16);
-      outline: $purple-400 solid 1px;
+    }
+  }
+
+  .task:not(.groupTask) {
+    &:hover {
+      .left-control, .right-control, .task-content {
+        border-color: $purple-400;
+      }
+    }
+  }
+
+  .task.groupTask {
+    &:hover {
+      border: $purple-400 solid 1px;
+      border-radius: 3px;
+      margin: -1px; // to counter the border width
+      transition: none; // with transition, the border color switches from black to $purple-400
     }
   }
 
