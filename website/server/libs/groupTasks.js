@@ -90,7 +90,7 @@ async function _updateAssignedUsersTasks (masterTask, groupMemberTask) {
       taskDate = groupMemberTask.completed ? moment(groupMemberTask.history[groupMemberTask.history.length - 1].date) : taskDate;
     } else if (approved) {
       // If approved, mark task on approval.requestedDate
-      taskDate = moment(groupMemberTask.approval.requestedDate);
+      taskDate = moment(groupMemberTask.group.approval.requestedDate);
     } else {
       throw new InternalServerError('Cannot handle shared completion for unapproved tasks requiring approval');
     }
