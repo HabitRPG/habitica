@@ -92,8 +92,6 @@ export default {
   },
   methods: {
     async claim () {
-      if (!confirm(this.$t('confirmClaim'))) return;
-
       let taskId = this.task._id;
       // If we are on the user task
       if (this.task.userId) {

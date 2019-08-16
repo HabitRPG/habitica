@@ -744,6 +744,16 @@ export default {
       const user = this.user;
       const task = this.task;
 
+      if (task.group.approval.required) {
+        task.group.approval.requested = true;
+        const groupResponse = await axios.get(`/api/v4/groups/${task.group.id}`);
+        let managers = Object.keys(groupResponse.data.data.managers);
+        managers.push(groupResponse.data.data.leader._id);
+        if (managers.indexOf(user._id) !== -1) {
+          task.group.approval.approved = true;
+        }
+      }
+
       try {
         scoreTask({task, user, direction});
       } catch (err) {
@@ -766,8 +776,6 @@ export default {
           break;
       }
 
-
-      if (task.group.approval.required) task.group.approval.requested = true;
 
       Analytics.updateUser();
       const response = await axios.post(`/api/v4/tasks/${task._id}/score/${direction}`);
