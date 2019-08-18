@@ -11,7 +11,7 @@ import {
   BadRequest,
 } from '../../libs/errors';
 import * as passwordUtils from '../../libs/password';
-import { send as sendEmail } from '../../libs/email';
+import { sendTxn as sendTxnEmail } from '../../libs/email';
 import { validatePasswordResetCodeAndFindUser, convertToBcrypt} from '../../libs/password';
 import { encrypt } from '../../libs/encryption';
 import {
@@ -303,19 +303,9 @@ api.resetPassword = {
 
       user.auth.local.passwordResetCode = passwordResetCode;
 
-      sendEmail({
-        from: 'Habitica <admin@habitica.com>',
-        to: email,
-        subject: res.t('passwordResetEmailSubject'),
-        text: res.t('passwordResetEmailText', {
-          username: user.auth.local.username,
-          passwordResetLink: link,
-        }),
-        html: res.t('passwordResetEmailHtml', {
-          username: user.auth.local.username,
-          passwordResetLink: link,
-        }),
-      });
+      sendTxnEmail(user, 'reset-password', [
+        {name: 'PASSWORD_RESET_LINK', content: link},
+      ]);
 
       await user.save();
     }
@@ -372,7 +362,7 @@ api.updateEmail = {
 };
 
 /**
- * @api {post} /api/v3/user/auth/reset-password-set-new-one Reser Password Set New one
+ * @api {post} /api/v3/user/auth/reset-password-set-new-one Reset Password Set New one
  * @apiDescription Set a new password for a user that reset theirs. Not meant for public usage.
  * @apiName ResetPasswordSetNewOne
  * @apiGroup User

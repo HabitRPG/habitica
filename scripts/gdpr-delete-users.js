@@ -58,7 +58,7 @@ async function _deleteHabiticaData (user, email) {
 }
 
 async function _processEmailAddress (email) {
-  const emailRegex = new RegExp(`^${email}`, 'i');
+  const emailRegex = new RegExp(`^${email}$`, 'i');
   const users = await User.find({
     $or: [
       {'auth.local.email': emailRegex},

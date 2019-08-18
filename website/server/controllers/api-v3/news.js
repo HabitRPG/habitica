@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'NEW GLASSES OPTION FOR AVATARS AND LAST CHANCE FOR MAY LIMITED-TIME ITEMS';
+const LAST_ANNOUNCEMENT_TITLE = 'WORLDCON HABITICA MEETUP AND BLOG POST ON ROGUES';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,29 +30,18 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>5/30/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>8/15/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_halfmoon_glasses center-block"></div>
-        <h3>New Glasses Option for Avatars</h3>
-        <p>We have a new set of free avatar customizations available: half-moon glasses! We hope that all you glasses-wearing Habiticans out there will enjoy these new options. You can find them in User>Edit Avatar>Extras.</p>
-        <div class="small mb-3">by Breadstrings and SabreCat</div>
-        <div class="promo_mystery_201905 center-block"></div>
-        <h3>Last Chance for Dazzling Dragon Set</h3>
-        <p>Reminder: tomorrow is the final day to <a href='/user/settings/subscription'>subscribe</a> and receive the Dazzling Dragon Set! Subscribing also lets you buy Gems with Gold. The longer your subscription, the more Gems you get!</p>
-        <p>Thanks so much for your support! You help keep Habitica running.</p>
-        <div class="small mb-3">by Beffymaroo</div>
-        <div class="promo_floral_sunshine_potions center-block"></div>
-        <h3>Last Chance for Sunshine and Floral Hatching Potions</h3>
-        <p>Reminder: tomorrow is the final day to <a href='/shops/market'>buy Sunshine and Floral Hatching Potions</a>! If they come back, it won't be until next year at the earliest, so don't delay!</p>
-        <div class="small mb-3">by OuttaMyMind, Lt.Cabel, Eslyn, Mako, and SabreCat</div>
-        <div class="promo_feathered_friends_bundle center-block"></div>
-        <h3>Last Chance for Feathered Friends Quest Bundle</h3>
-        <p>Tomorrow is also the final day to buy the discounted Feathered Friends Pet Quest Bundle, featuring the Falcon, Parrot, and Owl quests all for seven Gems! Be sure to get a few in your talons before they fly away! The bundle can be found in the <a href='/shops/quests'>Quest Shop</a>.</p>
-        <div class="small">by Lemoness and SabreCat</div>
-        <div class="small">Art by Casey, Teto Forever, Eevachu, UncommonCriminal, JonArinbjorn, Trogdorina, Onheiron, Squish</div>
-        <div class="small mb-3">Writing by Lemoness, Token, and Bartelmy</div>
+        <div class="promo_unconventional_armor center-block"></div>
+        <h3>Habitica Meetup at Worldcon!</h3>
+        <p>shanaqui and Dewines will be representing Habitica at <a href='https://dublin2019.com/' target='_blank'>Worldcon</a>  this year. If you’d like to meet them along with other fellow Habiticans, join us at the Habitica Worldcon Meetup! They'll be handing out promo codes for the special Unconventional Armor set and Habitica stickers (note quantities may be limited). Look for shanaqui's Habitica t-shirt!</p>
+        <p>You can find the meetup on Saturday, August 17, at ground floor foyer of Convention Centre Dublin from 5:00-6:00 PM local time!  Can’t wait to meet you :)</p>
+        <div class="scene_casting_spells center-block"></div>
+        <h3>Blog Post: Rogue</h3>
+        <p>This month's <a href='https://habitica.wordpress.com/2019/08/14/rogue/' target='_blank'>featured Wiki article</a> is about the Rogue class! We hope that it will help you as you choose the best class for your Habitica play style. Be sure to check it out, and let us know what you think by reaching out on <a href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a href='https://facebook.com/habitica' target='_blank'>Facebook</a>.</p>
+        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
       </div>
       `,
     });

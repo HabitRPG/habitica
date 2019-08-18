@@ -378,8 +378,8 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     username-form(@usernameConfirmed='modalPage += 1', :avatarIntro='true')
     .small.text-center(v-html="$t('usernameTOSRequirements')")
 
-  .section.container.footer
-    .row(v-if='!editing && !(modalPage === 1)')
+  .section.container.footer(v-if='!editing && !(modalPage === 1)')
+    .row
       .col-3.offset-1.text-center
         div(v-if='modalPage > 1', @click='prev()')
           .prev-arrow
@@ -406,6 +406,10 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
 
   #avatar-modal___BV_modal_body_, #avatar-modal___BV_modal_body_ {
     padding: 0;
+  }
+
+  #avatar-modal .modal-dialog {
+    margin-top: 7rem;
   }
 </style>
 

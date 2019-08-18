@@ -1734,7 +1734,7 @@ describe('Group Model', () => {
       let quest;
 
       beforeEach(() => {
-        quest = questScrolls.whale;
+        quest = questScrolls.armadillo;
         party.quest.key = quest.key;
         party.quest.active = false;
         party.quest.leader = questLeader._id;
@@ -1882,6 +1882,36 @@ describe('Group Model', () => {
         expect(updatedSleepingParticipatingMember.achievements.lostMasterclasser).to.not.eql(true);
       });
 
+      it('gives out other pet-related quest achievements', async () => {
+        quest = questScrolls.rock;
+        party.quest.key = quest.key;
+
+        questLeader.achievements.quests = {
+          mayhemMistiflying1: 1,
+          yarn: 1,
+          mayhemMistiflying2: 1,
+          egg: 1,
+          mayhemMistiflying3: 1,
+          slime: 2,
+        };
+        await questLeader.save();
+        await party.finishQuest(quest);
+
+        let [
+          updatedLeader,
+          updatedParticipatingMember,
+          updatedSleepingParticipatingMember,
+        ] = await Promise.all([
+          User.findById(questLeader._id).exec(),
+          User.findById(participatingMember._id).exec(),
+          User.findById(sleepingParticipatingMember._id).exec(),
+        ]);
+
+        expect(updatedLeader.achievements.mindOverMatter).to.eql(true);
+        expect(updatedParticipatingMember.achievements.mindOverMatter).to.not.eql(true);
+        expect(updatedSleepingParticipatingMember.achievements.mindOverMatter).to.not.eql(true);
+      });
+
       it('gives xp and gold', async () => {
         await party.finishQuest(quest);
 
@@ -2018,13 +2048,13 @@ describe('Group Model', () => {
           questLeader = await User.findById(questLeader._id);
           participatingMember = await User.findById(participatingMember._id);
 
-          expect(questLeader.party.quest.completed).to.eql('whale');
+          expect(questLeader.party.quest.completed).to.eql('armadillo');
           expect(questLeader.party.quest.progress.up).to.eql(10);
           expect(questLeader.party.quest.progress.down).to.eql(8);
           expect(questLeader.party.quest.progress.collectedItems).to.eql(5);
           expect(questLeader.party.quest.RSVPNeeded).to.eql(false);
 
-          expect(participatingMember.party.quest.completed).to.eql('whale');
+          expect(participatingMember.party.quest.completed).to.eql('armadillo');
           expect(participatingMember.party.quest.progress.up).to.eql(10);
           expect(participatingMember.party.quest.progress.down).to.eql(8);
           expect(participatingMember.party.quest.progress.collectedItems).to.eql(5);

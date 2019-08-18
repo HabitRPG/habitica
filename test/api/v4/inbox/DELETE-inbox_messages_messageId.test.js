@@ -44,7 +44,7 @@ describe('DELETE /inbox/messages/:messageId', () => {
   });
 
   it('deletes one message', async () => {
-    const messages = await user.get('/inbox/messages');
+    const messages = await user.get('/inbox/paged-messages');
 
     expect(messages.length).to.equal(3);
 
@@ -53,7 +53,7 @@ describe('DELETE /inbox/messages/:messageId', () => {
     expect(messages[2].text).to.equal('first');
 
     await user.del(`/inbox/messages/${messages[1]._id}`);
-    const updatedMessages = await user.get('/inbox/messages');
+    const updatedMessages = await user.get('/inbox/paged-messages');
     expect(updatedMessages.length).to.equal(2);
 
     expect(updatedMessages[0].text).to.equal('third');

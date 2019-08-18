@@ -389,9 +389,9 @@
     "backgroundDungeonText": "Calabozo",
     "backgroundDungeonNotes": "Rescata a los prisioneros de un calabozo espeluznante",
     "backgrounds112018": "SET 54: Released November 2018",
-    "backgroundBackAlleyText": "Callejón trasero",
+    "backgroundBackAlleyText": "Callejón Trasero",
     "backgroundBackAlleyNotes": "Look shady loitering in a Back Alley.",
-    "backgroundGlowingMushroomCaveText": "Cueva de hongos brillantes",
+    "backgroundGlowingMushroomCaveText": "Cueva de Hongos Brillantes",
     "backgroundGlowingMushroomCaveNotes": "Stare in awe at a Glowing Mushroom Cave.",
     "backgroundCozyBedroomText": "Recámara acogedora",
     "backgroundCozyBedroomNotes": "Acurrúcate en una recámara acogedora",
@@ -408,5 +408,12 @@
     "backgroundArchaeologicalDigText": "Archaeological Dig",
     "backgroundArchaeologicalDigNotes": "Unearth secrets of the ancient past at an Archaeological Dig.",
     "backgroundScribesWorkshopText": "Scribe's Workshop",
-    "backgroundScribesWorkshopNotes": "Write your next great scroll in a Scribe's Workshop."
+    "backgroundScribesWorkshopNotes": "Write your next great scroll in a Scribe's Workshop.",
+    "backgrounds022019": "CONJUNTO 57: Lanzado Febrero 2019",
+    "backgroundMedievalKitchenText": "Cocina Medieval",
+    "backgroundMedievalKitchenNotes": "Cocina una tormenta en una Cocina Medieval.",
+    "backgroundOldFashionedBakeryText": "Panadería de Antaño",
+    "backgroundOldFashionedBakeryNotes": "Disfruta deliciosos olores fuera de una Panadería de Antaño.",
+    "backgroundValentinesDayFeastingHallText": "Salón de Fiesta de San Valentín",
+    "backgroundValentinesDayFeastingHallNotes": "Siente el amor en un Salón de Fiesta de San Valentín."
 }

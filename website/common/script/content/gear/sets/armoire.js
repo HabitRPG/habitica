@@ -462,6 +462,34 @@ let armor = {
     set: 'nephrite',
     canOwn: ownsItem('armor_armoire_nephriteArmor'),
   },
+  boatingJacket: {
+    text: t('armorArmoireBoatingJacketText'),
+    notes: t('armorArmoireBoatingJacketNotes', { attrs: 6 }),
+    value: 100,
+    int: 6,
+    per: 6,
+    str: 6,
+    set: 'boating',
+    canOwn: ownsItem('armor_armoire_boatingJacket'),
+  },
+  astronomersRobe: {
+    text: t('armorArmoireAstronomersRobeText'),
+    notes: t('armorArmoireAstronomersRobeNotes', { attrs: 8 }),
+    value: 100,
+    per: 8,
+    con: 8,
+    set: 'astronomer',
+    canOwn: ownsItem('armor_armoire_astronomersRobe'),
+  },
+  invernessCape: {
+    text: t('armorArmoireInvernessCapeText'),
+    notes: t('armorArmoireInvernessCapeNotes', { attrs: 7 }),
+    value: 100,
+    per: 7,
+    int: 7,
+    set: 'detective',
+    canOwn: ownsItem('armor_armoire_invernessCape'),
+  },
 };
 
 let body = {
@@ -949,6 +977,32 @@ let head = {
     set: 'nephrite',
     canOwn: ownsItem('head_armoire_nephriteHelm'),
   },
+  boaterHat: {
+    text: t('headArmoireBoaterHatText'),
+    notes: t('headArmoireBoaterHatNotes', { attrs: 6 }),
+    value: 100,
+    str: 6,
+    con: 6,
+    per: 6,
+    set: 'boating',
+    canOwn: ownsItem('head_armoire_boaterHat'),
+  },
+  astronomersHat: {
+    text: t('headArmoireAstronomersHatText'),
+    notes: t('headArmoireAstronomersHatNotes', { con: 10 }),
+    value: 100,
+    con: 10,
+    set: 'astronomer',
+    canOwn: ownsItem('head_armoire_astronomersHat'),
+  },
+  deerstalkerCap: {
+    text: t('headArmoireDeerstalkerCapText'),
+    notes: t('headArmoireDeerstalkerCapNotes', { int: 14 }),
+    value: 100,
+    int: 14,
+    set: 'detective',
+    canOwn: ownsItem('head_armoire_deerstalkerCap'),
+  },
 };
 
 let shield = {
@@ -1203,6 +1257,14 @@ let shield = {
     per: 8,
     set: 'chef',
     canOwn: ownsItem('shield_armoire_mightyPizza'),
+  },
+  trustyUmbrella: {
+    text: t('shieldArmoireTrustyUmbrellaText'),
+    notes: t('shieldArmoireTrustyUmbrellaNotes', { int: 7 }),
+    value: 100,
+    int: 7,
+    set: 'detective',
+    canOwn: ownsItem('shield_armoire_trustyUmbrella'),
   },
 };
 
@@ -1601,6 +1663,32 @@ let weapon = {
     set: 'nephrite',
     twoHanded: true,
     canOwn: ownsItem('weapon_armoire_nephriteBow'),
+  },
+  bambooCane: {
+    text: t('weaponArmoireBambooCaneText'),
+    notes: t('weaponArmoireBambooCaneNotes', { attrs: 6 }),
+    value: 100,
+    int: 6,
+    per: 6,
+    con: 6,
+    set: 'boating',
+    canOwn: ownsItem('weapon_armoire_bambooCane'),
+  },
+  astronomersTelescope: {
+    text: t('weaponArmoireAstronomersTelescopeText'),
+    notes: t('weaponArmoireAstronomersTelescopeNotes', { per: 10 }),
+    value: 100,
+    per: 10,
+    set: 'astronomer',
+    canOwn: ownsItem('weapon_armoire_astronomersTelescope'),
+  },
+  magnifyingGlass: {
+    text: t('weaponArmoireMagnifyingGlassText'),
+    notes: t('weaponArmoireMagnifyingGlassNotes', { per: 7 }),
+    value: 100,
+    per: 7,
+    set: 'detective',
+    canOwn: ownsItem('weapon_armoire_magnifyingGlass'),
   },
 };
 

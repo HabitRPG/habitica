@@ -127,6 +127,26 @@ let basicAchievs = {
     titleKey: 'achievementLostMasterclasser',
     textKey: 'achievementLostMasterclasserText',
   },
+  mindOverMatter: {
+    icon: 'achievement-mindOverMatter',
+    titleKey: 'achievementMindOverMatter',
+    textKey: 'achievementMindOverMatterText',
+  },
+  justAddWater: {
+    icon: 'achievement-justAddWater',
+    titleKey: 'achievementJustAddWater',
+    textKey: 'achievementJustAddWaterText',
+  },
+  backToBasics: {
+    icon: 'achievement-backToBasics',
+    titleKey: 'achievementBackToBasics',
+    textKey: 'achievementBackToBasicsText',
+  },
+  allYourBase: {
+    icon: 'achievement-allYourBase',
+    titleKey: 'achievementAllYourBase',
+    textKey: 'achievementAllYourBaseText',
+  },
 };
 Object.assign(achievementsData, basicAchievs);
 

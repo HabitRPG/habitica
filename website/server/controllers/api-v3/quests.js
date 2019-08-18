@@ -79,7 +79,7 @@ api.inviteToQuest = {
       'party._id': group._id,
       _id: {$ne: user._id},
     })
-      .select('auth.facebook auth.google auth.local preferences.emailNotifications profile.name pushDevices')
+      .select('auth.facebook auth.google auth.local preferences.emailNotifications preferences.pushNotifications preferences.language profile.name pushDevices')
       .exec();
 
     group.markModified('quest');
@@ -124,12 +124,11 @@ api.inviteToQuest = {
         sendPushNotification(
           member,
           {
-            title: res.t('questInvitationTitle'),
-            message: res.t('questInvitationInfo', {quest: quest.text(req.language)}),
+            title: res.t('questInvitationTitle', member.preferences.language),
+            message: res.t('questInvitationInfo', {quest: quest.text(member.preferences.language)}, member.preferences.language),
             identifier: 'questInvitation',
             category: 'questInvitation',
           }
-
         );
       }
 

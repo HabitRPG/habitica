@@ -200,8 +200,8 @@ TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta
   if (chalTask.type === 'habit' || chalTask.type === 'daily') {
     // Add only one history entry per day
     const history = chalTask.history;
-    const lastChallengHistoryIndex = history.length - 1;
-    const lastHistoryEntry = history[lastChallengHistoryIndex];
+    const lastChallengeHistoryIndex = history.length - 1;
+    const lastHistoryEntry = history[lastChallengeHistoryIndex];
 
     if (
       lastHistoryEntry && lastHistoryEntry.date &&
@@ -222,7 +222,7 @@ TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta
         }
       }
 
-      chalTask.markModified(`history.${lastChallengHistoryIndex}`);
+      chalTask.markModified(`history.${lastChallengeHistoryIndex}`);
     } else {
       const historyEntry = {
         date: Number(new Date()),

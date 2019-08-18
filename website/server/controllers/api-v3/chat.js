@@ -2,6 +2,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
 import { chatModel as Chat } from '../../models/message';
+import common from '../../../common';
 import {
   BadRequest,
   NotFound,
@@ -139,7 +140,7 @@ api.postChat = {
         {name: 'AUTHOR_USERNAME', content: user.profile.name},
         {name: 'AUTHOR_UUID', content: user._id},
         {name: 'AUTHOR_EMAIL', content: authorEmail},
-        {name: 'AUTHOR_MODAL_URL', content: `/static/front/#?memberId=${user._id}`},
+        {name: 'AUTHOR_MODAL_URL', content: `/profile/${user._id}`},
 
         {name: 'GROUP_NAME', content: group.name},
         {name: 'GROUP_TYPE', content: group.type},
@@ -162,12 +163,12 @@ api.postChat = {
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    if (group.privacy !== 'private' && user.flags.chatRevoked) {
+    if (group.privacy === 'public' && user.flags.chatRevoked) {
       throw new NotAuthorized(res.t('chatPrivilegesRevoked'));
     }
 
     // prevent banned words being posted, except in private guilds/parties and in certain public guilds with specific topics
-    if (group.privacy !== 'private' && !guildsAllowingBannedWords[group._id]) {
+    if (group.privacy === 'public' && !guildsAllowingBannedWords[group._id]) {
       let matchedBadWords = getBannedWordsFromText(req.body.message);
       if (matchedBadWords.length > 0) {
         throw new BadRequest(res.t('bannedWordUsed', {swearWordsUsed: matchedBadWords.join(', ')}));
@@ -186,7 +187,43 @@ api.postChat = {
     if (client) {
       client = client.replace('habitica-', '');
     }
-    const newChatMessage = group.sendChat({message: req.body.message, user, metaData: null, client});
+
+    let flagCount = 0;
+    if (group.privacy === 'public' && user.flags.chatShadowMuted) {
+      flagCount = common.constants.CHAT_FLAG_FROM_SHADOW_MUTE;
+      let message = req.body.message;
+
+      // Email the mods
+      let authorEmail = getUserInfo(user, ['email']).email;
+      let groupUrl = getGroupUrl(group);
+
+      let report =  [
+        {name: 'MESSAGE_TIME', content: (new Date()).toString()},
+        {name: 'MESSAGE_TEXT', content: message},
+
+        {name: 'AUTHOR_USERNAME', content: user.profile.name},
+        {name: 'AUTHOR_UUID', content: user._id},
+        {name: 'AUTHOR_EMAIL', content: authorEmail},
+        {name: 'AUTHOR_MODAL_URL', content: `/profile/${user._id}`},
+
+        {name: 'GROUP_NAME', content: group.name},
+        {name: 'GROUP_TYPE', content: group.type},
+        {name: 'GROUP_ID', content: group._id},
+        {name: 'GROUP_URL', content: groupUrl},
+      ];
+
+      sendTxn(FLAG_REPORT_EMAILS, 'shadow-muted-post-report-to-mods', report);
+
+      // Slack the mods
+      slack.sendShadowMutedPostNotification({
+        authorEmail,
+        author: user,
+        group,
+        message,
+      });
+    }
+
+    const newChatMessage = group.sendChat({message: req.body.message, user, flagCount, metaData: null, client});
     let toSave = [newChatMessage.save()];
 
     if (group.type === 'party') {
@@ -372,12 +409,12 @@ api.clearChatFlags = {
       {name: 'ADMIN_USERNAME', content: user.profile.name},
       {name: 'ADMIN_UUID', content: user._id},
       {name: 'ADMIN_EMAIL', content: adminEmailContent},
-      {name: 'ADMIN_MODAL_URL', content: `/static/front/#?memberId=${user._id}`},
+      {name: 'ADMIN_MODAL_URL', content: `/profile/${user._id}`},
 
       {name: 'AUTHOR_USERNAME', content: message.user},
       {name: 'AUTHOR_UUID', content: message.uuid},
       {name: 'AUTHOR_EMAIL', content: authorEmail},
-      {name: 'AUTHOR_MODAL_URL', content: `/static/front/#?memberId=${message.uuid}`},
+      {name: 'AUTHOR_MODAL_URL', content: `/profile/${message.uuid}`},
 
       {name: 'GROUP_NAME', content: group.name},
       {name: 'GROUP_TYPE', content: group.type},

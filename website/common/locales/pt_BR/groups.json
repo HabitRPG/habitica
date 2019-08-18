@@ -476,7 +476,7 @@
     "whatIsGroupManager": "O que é um Gestor de Time?",
     "whatIsGroupManagerDesc": "Um Gestor de Time é um cargo que não tem acesso aos detalhes da fatura do Time, mas pode criar, atribuir, e aprovar Tarefas compartilhadas para os membros do Time. Promova membros para o cargo de Gestor através da lista de membros do Time.",
     "goToTaskBoard": "Ir para o Painel de Tarefas",
-    "sharedCompletion": "Conclusão Compartilhada",
+    "sharedCompletion": "Condição de Conclusão",
     "recurringCompletion": "Nenhuma - Tarefa do Time não finaliza",
     "singleCompletion": "Única - Completa quando qualquer usuário responsável terminar",
     "allAssignedCompletion": "Todos - Completa quando todos os usuários terminarem",

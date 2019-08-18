@@ -843,6 +843,48 @@ let backgrounds = {
       notes: t('backgroundRainbowMeadowNotes'),
     },
   },
+  backgrounds062019: {
+    school_of_fish: {
+      text: t('backgroundSchoolOfFishText'),
+      notes: t('backgroundSchoolOfFishNotes'),
+    },
+    seaside_cliffs: {
+      text: t('backgroundSeasideCliffsText'),
+      notes: t('backgroundSeasideCliffsNotes'),
+    },
+    underwater_vents: {
+      text: t('backgroundUnderwaterVentsText'),
+      notes: t('backgroundUnderwaterVentsNotes'),
+    },
+  },
+  backgrounds072019: {
+    lake_with_floating_lanterns: {
+      text: t('backgroundLakeWithFloatingLanternsText'),
+      notes: t('backgroundLakeWithFloatingLanternsNotes'),
+    },
+    flying_over_tropical_islands: {
+      text: t('backgroundFlyingOverTropicalIslandsText'),
+      notes: t('backgroundFlyingOverTropicalIslandsNotes'),
+    },
+    among_giant_anemones: {
+      text: t('backgroundAmongGiantAnemonesText'),
+      notes: t('backgroundAmongGiantAnemonesNotes'),
+    },
+  },
+  backgrounds082019: {
+    amid_ancient_ruins: {
+      text: t('backgroundAmidAncientRuinsText'),
+      notes: t('backgroundAmidAncientRuinsNotes'),
+    },
+    giant_dandelions: {
+      text: t('backgroundGiantDandelionsText'),
+      notes: t('backgroundGiantDandelionsNotes'),
+    },
+    treehouse: {
+      text: t('backgroundTreehouseText'),
+      notes: t('backgroundTreehouseNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),

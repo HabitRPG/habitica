@@ -3385,6 +3385,79 @@ let quests = {
       unlock: t('questBronzeUnlockText'),
     },
   },
+  dolphin: {
+    text: t('questDolphinText'),
+    notes: t('questDolphinNotes'),
+    completion: t('questDolphinCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questDolphinBoss'),
+      hp: 300,
+      str: 1.25,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Dolphin',
+          text: t('questDolphinDropDolphinEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Dolphin',
+          text: t('questDolphinDropDolphinEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Dolphin',
+          text: t('questDolphinDropDolphinEgg'),
+        },
+      ],
+      gp: 22,
+      exp: 110,
+      unlock: t('questDolphinUnlockText'),
+    },
+  },
+  silver: {
+    text: t('questSilverText'),
+    notes: t('questSilverNotes'),
+    completion: t('questSilverCompletion'),
+    value: 4,
+    category: 'hatchingPotion',
+    collect: {
+      silverIngot: {
+        text: t('questSilverCollectSilverIngots'),
+        count: 20,
+      },
+      moonRune: {
+        text: t('questSilverCollectMoonRunes'),
+        count: 15,
+      },
+      cancerRune: {
+        text: t('questSilverCollectCancerRunes'),
+        count: 15,
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Silver',
+          text: t('questSilverDropSilverPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Silver',
+          text: t('questSilverDropSilverPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Silver',
+          text: t('questSilverDropSilverPotion'),
+        },
+      ],
+      gp: 50,
+      exp: 100,
+      unlock: t('questSilverUnlockText'),
+    },
+  },
 };
 
 each(quests, (v, key) => {

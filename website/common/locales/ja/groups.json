@@ -121,7 +121,7 @@
     "confirmGuild": "ジェム4個でギルドを作成しますか？",
     "leaveGroupCha": "ギルドのチャレンジをやめて...",
     "confirm": "確認",
-    "leaveGroup": "ギルドを脱退",
+    "leaveGroup": "ギルドを脱退する",
     "leavePartyCha": "このパーティーのチャレンジを脱退し、そして...",
     "leaveParty": "パーティーを脱退",
     "sendPM": "プライベートメッセージを送信する",
@@ -199,7 +199,7 @@
     "sendGiftMessagePlaceholder": "個人メッセージ(任意)",
     "sendGiftSubscription": "<%= months %> カ月 : <%= price %> 米ドル",
     "gemGiftsAreOptional": "Habitica は他のプレイヤーにジェムを贈るように要求することは一切ありません。ジェムを他人にねだることは <strong>コミュニティガイドライン違反</strong>となります。このような行いは全て<%= hrefTechAssistanceEmail %>へと通報されるべきです。",
-    "battleWithFriends": "フレンドと一緒にモンスターと戦う",
+    "battleWithFriends": "友達と一緒にモンスターと戦う",
     "startPartyWithFriends": "友達といっしょにパーティーをつくりましょう!",
     "startAParty": "チームを作る",
     "addToParty": "パーティーメンバーを追加する",
@@ -445,7 +445,7 @@
     "worldBossBullet1": "タスクを片付けてワールドボスにダメージを与えよう",
     "worldBossBullet2": "ワールドボスからサボったタスクの分のダメージを食らうことはありませんが、そのかわりに怒りメーターが上昇してゆきます。もしメーターが一杯になると、ボスはHabiticaの店主の誰か一人を攻撃してしまいます！",
     "worldBossBullet3": "ボスクエストと一緒に続けることができ、ダメージは両方に与えられます。",
-    "worldBossBullet4": "ワールドボスとの戦いの進み具合と怒りの一撃を確認するために、キャンプ場を定期的にチェックしよう",
+    "worldBossBullet4": "ワールドボスとの戦いの進み具合と怒りの攻撃を確認するために、キャンプ場を定期的にチェックしよう",
     "worldBoss": "ワールドボス",
     "groupPlanTitle": "チームのためにより高度な機能をお求めですか？",
     "groupPlanDesc": "小さなチームを管理したい、もしくは家事を整理したいですか？ 私たちのグループプランは、プライベートなタスクボードと、あなたのグループメンバー専用のチャットエリアへの独占的なアクセスを提供します！",
@@ -476,8 +476,9 @@
     "whatIsGroupManager": "グループマネージャーとは？",
     "whatIsGroupManagerDesc": "グループマネージャーは、グループの請求明細にアクセスすることはできない役割ですが、グループメンバーのために共有タスクを作ったり、指示したり、承認したりすることができます。グループメンバーリストからグループマネージャーに昇進させましょう。",
     "goToTaskBoard": "タスクボードに戻る",
-    "sharedCompletion": "共有タスク",
+    "sharedCompletion": "完了条件",
     "recurringCompletion": "なし - グループタスクは完了しません。",
     "singleCompletion": "シングル - アサインされたユーザーの誰かが終えると完了します。",
-    "allAssignedCompletion": "全員 - アサインされたユーザーの全員が終えると完了します。"
+    "allAssignedCompletion": "全員 - アサインされたユーザーの全員が終えると完了します。",
+    "pmReported": "このメッセージについてご報告ありがとうございます。"
 }
