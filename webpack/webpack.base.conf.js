@@ -60,7 +60,7 @@ const baseConfig = {
           }),
           postcss: [
             autoprefixer({
-              browsers: ['last 2 versions'],
+              overrideBrowserslist: ['last 2 versions'],
             }),
             postcssEasyImport(),
           ],
