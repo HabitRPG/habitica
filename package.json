@@ -80,6 +80,7 @@
     "postcss-easy-import": "^3.0.0",
     "ps-tree": "^1.0.0",
     "pug": "^2.0.3",
+    "regenerator-runtime": "^0.13.3",
     "rimraf": "^2.4.3",
     "sass-loader": "^7.0.3",
     "shelljs": "^0.8.2",
