@@ -143,12 +143,19 @@
     "client:test": "npm run client:unit && npm run client:e2e",
     "start": "gulp nodemon",
     "postinstall": "gulp build",
-    "apidoc": "gulp apidoc"
+    "apidoc": "gulp apidoc",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^5.1.11",
+    "@storybook/addon-links": "^5.1.11",
+    "@storybook/addons": "^5.1.11",
+    "@storybook/vue": "^5.1.11",
     "@vue/test-utils": "^1.0.0-beta.29",
     "babel-plugin-istanbul": "^4.1.6",
     "babel-plugin-syntax-object-rest-spread": "^6.13.0",
+    "babel-preset-vue": "^2.0.2",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "chalk": "^2.4.1",
@@ -180,6 +187,7 @@
     "mocha": "^5.1.1",
     "monk": "^6.0.6",
     "nightwatch": "^1.0.16",
+    "pug-plain-loader": "^1.0.0",
     "puppeteer": "^1.14.0",
     "require-again": "^2.0.0",
     "selenium-server": "^3.12.0",
