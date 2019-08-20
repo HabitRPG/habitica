@@ -15,13 +15,12 @@
 </template>
 
 <style lang='scss'>
-@import '~client/assets/scss/static.scss';
-</style>
-
-<style lang='scss' scoped>
-.modal-body {
-  padding-top: 2em;
-}
+  @import '~client/assets/scss/static.scss';
+  #new-stuff {
+    .modal-body .modal-body {
+      padding-top: 0rem;
+    }
+  }
 </style>
 
 <script>
