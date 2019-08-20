@@ -192,7 +192,7 @@
     "socialTitle": "Habitica - Hayatını Oyunlaştır",
     "supermouse35Quote": "Daha fazla egzersiz yapıyorum ve aylardır ilaçlarımı almayı unutmadım! Teşekkürler Habitica. :D",
     "sync": "Senkronize Et",
-    "tasks": "İşler",
+    "tasks": "Görevler",
     "teamSample1": "Salı Günkü Toplantının Ana Hatlarını Belirle",
     "teamSample2": "Growth Hacking Konusunda Beyin Fırtınası Yap",
     "teamSample3": "Bu haftaki KPI'ları tartış",
@@ -314,7 +314,7 @@
     "trackYourGoalsDesc": "Alışkanlılarını, Günlük hedeflerini ve Yapılacak İş listelerini Habitica'nın kullanımı kolay mobil uygulamaları ve web arayüzü ile takip edip yöneterek sorumluluk sahibi kal.",
     "earnRewards": "Hedeflerin Karşılığında Ödüller Kazan",
     "earnRewardsDesc": "Avatarının seviyesini yükseltmek ve savaş zırhı, gizemli hayvanlar, büyülü yetenekler, hatta görevler gibi oyun içi özellikleri açmak için işlerini tamamla!",
-    "battleMonsters": "Arkadaşlarınla Birlikte Canavarlarla Savaş",
+    "battleMonsters": "Arkadaşlarınla birlikte canavarlarla savaş!",
     "battleMonstersDesc": "Diğer Habiticalılar ile birlikte canavarlarla savaş! Kazandığın Altını kullanarak oyun içi veya sevdiğin TV şovunun bir bölümünü izlemek gibi kişiselleştirilmiş ödülleri satın al.",
     "playersUseToImprove": "Oyuncular Habitica'yı Gelişmek İçin Kullanıyor",
     "healthAndFitness": "Sağlık ve Spor",
@@ -330,5 +330,6 @@
     "signup": "Kaydol",
     "getStarted": "Buradan Başla!",
     "mobileApps": "Mobil Uygulamalar",
-    "learnMore": "Daha Fazlasını Öğren"
+    "learnMore": "Daha Fazlasını Öğren",
+    "communityInstagram": "Instagram"
 }

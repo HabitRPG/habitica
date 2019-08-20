@@ -51,7 +51,7 @@
     "messageGroupChatFlagAlreadyReported": "Vous avez déjà signalé ce message",
     "messageGroupChatNotFound": "Message introuvable !",
     "messageGroupChatAdminClearFlagCount": "Seul un administrateur peut modifier ce compteur !",
-    "messageCannotFlagSystemMessages": "Vous ne pouvez pas signaler un message système. Si vous avez besoin de signaler une violation des règles de vie en communauté liée à ce message, veuillez envoyer un courriel avec une capture d'écran à Lemoness à <%= communityManagerEmail %>.",
+    "messageCannotFlagSystemMessages": "Vous ne pouvez pas signaler un message système. Si vous avez besoin de signaler une violation des règles de vie en communauté liée à ce message, veuillez envoyer un courriel avec une capture d'écran à notre responsable de la communauté à <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "Oups, on dirait que vous postez trop de messages ! Merci d'attendre une minute et d'essayer de nouveau. Le fil de discussion de la taverne ne pouvant contenir que 200 messages, Habitica vous encourage à poster des messages plus longs et plus réfléchis, et à répondre en un seul bloc plutôt qu'en plusieurs petits messages. Nous avons hâte d'entendre ce que vous avez à dire. :)",
     "messageCannotLeaveWhileQuesting": "Vous ne pouvez pas accepter cette invitation tant que vous êtes en quête. Si vous voulez rejoindre cette équipe, vous devez d'abord annuler la quête, ce que vous pouvez faire depuis la page d'équipe. Vous récupérerez le parchemin de quête.",
     "messageUserOperationProtected": "chemin `<%= operation %>` n'a pas été sauvegardé car c'est un chemin protégé.",
