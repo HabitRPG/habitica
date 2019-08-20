@@ -25,7 +25,7 @@
     )
     transition(name="quick-add-tip-slide")
       .quick-add-tip.small-text(v-show="quickAddFocused", v-html="$t('addMultipleTip', {taskType: $t(typeLabel)})")
-    clear-completed-todos(v-if="activeFilter.label === 'complete2' && isUser === true")
+    clear-completed-todos(v-if="activeFilter.label === 'complete2' && isUser === true && taskList.length > 0")
     .column-background(
       v-if="isUser === true",
       :class="{'initial-description': initialColumnDescription}",
