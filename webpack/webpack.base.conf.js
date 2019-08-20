@@ -103,6 +103,7 @@ const baseConfig = {
             options: {
               plugins: [
                 {removeViewBox: false},
+                {convertPathData: {noSpaceAfterFlags: false}},
               ],
             },
           },
@@ -124,6 +125,7 @@ const baseConfig = {
             options: {
               plugins: [
                 {removeViewBox: false},
+                {convertPathData: {noSpaceAfterFlags: false}},
               ],
             },
           },
