@@ -201,8 +201,7 @@ $bg-disabled-control: #34303a;
   .custom-control-input {
     display: none;
     + .custom-control-label {
-      border: 1px solid $gray-300;
-      border-right-width: 0;
+      border: .5px solid $gray-400;
       text-align: center;
       padding-top: .5em;
       padding-bottom: .5em;
@@ -211,18 +210,22 @@ $bg-disabled-control: #34303a;
         display: none;
       }
     }
-    &:checked + .custom-control-label {
-      background-color: $purple-300;
-      color: white;
+    &:checked {
+      + .custom-control-label {
+        background-color: $purple-300;
+        border-color: $gray-10;
+        color: white;
+      }
     }
   }
   &:first-of-type .custom-control-label {
-    border-top-left-radius: 2px;
-    border-bottom-left-radius: 2px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-left-width: 1px;
   }
   &:last-of-type .custom-control-label {
-    border-top-right-radius: 2px;
-    border-bottom-right-radius: 2px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
     border-right-width: 1px;
   }
 }
