@@ -396,7 +396,7 @@ async function scoreTask (user, task, direction, req, res) {
   return {user, task, delta, direction, taskOrderPromise, pullTask, pushTask, _tmp: _.cloneDeep(user._tmp)};
 }
 
-async function handleChallengeTask (task, delta, direction, resolve, reject) {
+async function handleChallengeTask (task, delta, direction) {
   if (task.challenge && task.challenge.id && task.challenge.taskId && !task.challenge.broken && task.type !== 'reward') {
     // Wrapping everything in a try/catch block because if an error occurs using `await` it MUST NOT bubble up because the request has already been handled
     try {
@@ -409,10 +409,8 @@ async function handleChallengeTask (task, delta, direction, resolve, reject) {
       await chalTask.scoreChallengeTask(delta, direction);
     } catch (e) {
       logger.error(e);
-      reject();
     }
   }
-  resolve();
 }
 
 export async function scoreTasks (user, taskScorings, req, res) {
@@ -460,7 +458,14 @@ export async function scoreTasks (user, taskScorings, req, res) {
   });
   await Promise.all(challengePromises);
 
-  return {user: results[0], taskResponses: returnDatas.map(data => {
+  const response = {user: results[0], taskResponses: []};
+
+  response.taskResponse = returnDatas.map(data => {
+    // Handle challenge tasks here so we save on one for loop
+    handleChallengeTask(data.task, data.delta, data.direction);
+
     return {id: data.task._id, delta: data.delta, _tmp: data._tmp};
-  })};
+  });
+
+  return response;
 }
