@@ -209,6 +209,11 @@ $bg-disabled-control: #34303a;
       &::after {
         display: none;
       }
+      &:hover,
+      &:focus,
+      &:active {
+        cursor: pointer;
+      }
     }
     &:checked {
       + .custom-control-label {
