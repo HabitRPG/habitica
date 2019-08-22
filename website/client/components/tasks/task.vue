@@ -1,6 +1,6 @@
 <template lang="pug">
 .task-wrapper
-  .task(@click='castEnd($event, task)')
+  .task
     approval-header(:task='task', v-if='this.task.group.id', :group='group')
     .d-flex(:class="{'task-not-scoreable': isUser !== true}")
       // Habits left side control
@@ -690,6 +690,8 @@ export default {
 
       if (!this.$store.state.spellOptions.castingSpell) {
         this.$emit('editTask', task);
+      } else {
+        this.$root.$emit('castEnd', task, 'task', e);
       }
     },
     moveToTop () {
@@ -702,9 +704,6 @@ export default {
       if (!confirm(this.$t('sureDelete'))) return;
       this.destroyTask(this.task);
       this.$emit('taskDestroyed', this.task);
-    },
-    castEnd (e, task) {
-      this.$root.$emit('castEnd', task, 'task', e);
     },
     async score (direction) {
       if (this.castingSpell) return;
