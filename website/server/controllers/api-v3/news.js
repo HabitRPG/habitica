@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'HABITICA ENAMEL PIN KICKSTARTER!';
+const LAST_ANNOUNCEMENT_TITLE = 'HABITICA KICKSTARTER UPDATE!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,15 +30,15 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>8/20/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>8/23/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <img src="https://habitica-assets.s3.amazonaws.com/mobileApp/images/promo_kickstarter.png" class="center-block mw-100 h-auto"></div>
-        <h3>Our Kickstarter launches today!</h3>
-        <p>Hello adventurers! The Habitica team is excited to announce a new way you can bring RPG magic into your daily life. We’re launching a <a href='https://kickstarter.com/projects/habitica/habitica-class-pins' target='_blank'>Kickstarter campaign</a> to fund enamel pins with the insignia of our four playable classes! If our funding goal is met, backers will get the pin(s) of their choice, a special profile badge and, depending on the funding tier you choose, you can get exclusive animated in-game items. The campaign ends on September 10, so be sure to take a peek soon!</p>
-        <p>We’re excited to bring you these new ways to show your Habitica pride. Thank you all so much for all your support and for just being a part of our community.</p>
-        <div class="small mb-3">by the Habitica Team</div>
+        <img src="https://habitica-assets.s3.amazonaws.com/mobileApp/images/promo_kickstarter_funded.png" class="center-block mw-100 h-auto"></img>
+        <h3>Habitica Class Pins Kickstarter Update</h3>
+        <p>Hello Habiticans! We're so excited to say that our <a href='https://www.kickstarter.com/projects/habitica/habitica-class-pins' target='_blank'>Kickstarter campaign</a> for class pins has been fully funded and all of our stretch goals have been met, much more quickly than we expected. We're blown away by all the support you've given us!</p>
+        <p>All nine pins as well as the animated pet and mount are now unlocked! If you've been waiting to see if we'd reach all our goals, now's the time to pledge. Thank you all so much for backing us, it means a lot to the team!</p>
+        <div class="small mb-3">by The Habitica Team</div>
       </div>
       `,
     });
