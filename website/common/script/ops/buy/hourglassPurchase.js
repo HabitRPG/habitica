@@ -23,7 +23,7 @@ module.exports = function purchaseHourglass (user, req = {}, analytics) {
       throw new NotAuthorized(i18n.t('notEnoughHourglasses', req.language));
     }
 
-    if (!user.items.quests[key]) user.items.quests[key] = 0;
+    if (!user.items.quests[key] || user.items.quests[key] < 0) user.items.quests[key] = 0;
     user.items.quests[key] += quantity;
     user.purchased.plan.consecutive.trinkets -= quantity;
 
