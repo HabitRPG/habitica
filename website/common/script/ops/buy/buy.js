@@ -21,6 +21,7 @@ import {BuyQuestWithGemOperation} from './buyQuestGem';
 
 module.exports = function buy (user, req = {}, analytics) {
   let key = get(req, 'params.key');
+  let hourglass = get(req, 'params.hourglass');
   if (!key) throw new BadRequest(errorMessage('missingKeyParam'));
 
   // @TODO: Slowly remove the need for key and use type instead
@@ -54,9 +55,13 @@ module.exports = function buy (user, req = {}, analytics) {
       break;
     }
     case 'quests': {
-      const buyOp = new BuyQuestWithGemOperation(user, req, analytics);
+      if (hourglass) {
+        buyRes = hourglassPurchase(user, req, analytics);
+      } else {
+        const buyOp = new BuyQuestWithGemOperation(user, req, analytics);
 
-      buyRes = buyOp.purchase();
+        buyRes = buyOp.purchase();
+      }
       break;
     }
     case 'eggs':

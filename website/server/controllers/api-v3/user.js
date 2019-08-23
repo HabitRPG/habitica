@@ -1000,6 +1000,10 @@ api.userPurchaseHourglass = {
   url: '/user/purchase-hourglass/:type/:key',
   async handler (req, res) {
     let user = res.locals.user;
+    req.params.hourglass = true;
+    let quantity = 1;
+    if (req.body.quantity) quantity = req.body.quantity;
+    req.params.quantity = quantity;
     let purchaseHourglassRes = common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...purchaseHourglassRes);
