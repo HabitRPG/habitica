@@ -1,5 +1,4 @@
 import {mapInboxMessage, inboxModel as Inbox} from '../../models/message';
-import orderBy from 'lodash/orderBy';
 import {getUserInfo, sendTxn as sendTxnEmail} from '../email';
 import {sendNotification as sendPushNotification} from '../pushNotifications';
 
