@@ -183,6 +183,7 @@ schema.pre('save', true, function preSaveUser (next, done) {
   // To check if a field was selected Document.isDirectSelected('field') can be used.
   // more info on its usage can be found at http://mongoosejs.com/docs/api.html#document_Document-isDirectSelected
 
+  let notificationsToAdd = [];
   // do not calculate achievements if items or achievements are not selected
   if (this.isDirectSelected('items') && this.isDirectSelected('achievements')) {
     // Determines if Beast Master should be awarded
@@ -190,6 +191,7 @@ schema.pre('save', true, function preSaveUser (next, done) {
 
     if (beastMasterProgress >= 90 || this.achievements.beastMasterCount > 0) {
       this.achievements.beastMaster = true;
+      notificationsToAdd.push({type: 'ACHIEVEMENT_BEAST_MASTER'});
     }
 
     // Determines if Mount Master should be awarded
@@ -197,6 +199,7 @@ schema.pre('save', true, function preSaveUser (next, done) {
 
     if (mountMasterProgress >= 90 || this.achievements.mountMasterCount > 0) {
       this.achievements.mountMaster = true;
+      notificationsToAdd.push({type: 'ACHIEVEMENT_MOUNT_MASTER'});
     }
 
     // Determines if Triad Bingo should be awarded
@@ -205,6 +208,7 @@ schema.pre('save', true, function preSaveUser (next, done) {
 
     if (qualifiesForTriad || this.achievements.triadBingoCount > 0) {
       this.achievements.triadBingo = true;
+      notificationsToAdd.push({type: 'ACHIEVEMENT_TRIAD_BINGO'});
     }
 
     // EXAMPLE CODE for allowing all existing and new players to be
@@ -254,6 +258,10 @@ schema.pre('save', true, function preSaveUser (next, done) {
         this.notifications.push(lastExistingNotification);
       }
     }
+
+    notificationsToAdd.forEach(notification => {
+      this.notifications.push(notification);
+    });
   }
 
   if (this.isDirectSelected('flags')) {

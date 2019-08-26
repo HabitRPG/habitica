@@ -18,5 +18,7 @@
   "achievementBackToBasicsModalText": "You collected all the Base Pets!",
   "achievementAllYourBase": "All Your Base",
   "achievementAllYourBaseText": "Has tamed all Base Mounts.",
-  "achievementAllYourBaseModalText": "You tamed all the Base Mounts!"
+  "achievementAllYourBaseModalText": "You tamed all the Base Mounts!",
+  "achievementPartyUp": "You teamed up with a party member!",
+  "achievementPartyOn": "Your party grew to 4 members!"
 }

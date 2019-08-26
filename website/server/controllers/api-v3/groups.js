@@ -606,13 +606,13 @@ api.joinGroup = {
         promises.push(User.update({
           $or: [{'party._id': group._id}, {_id: user._id}],
           'achievements.partyUp': {$ne: true},
-        }, {$set: {'achievements.partyUp': true}}, {multi: true}).exec());
+        }, {$set: {'achievements.partyUp': true}, $push: {notifications: {type: 'ACHIEVEMENT_PARTY_UP'}}}, {multi: true}).exec());
       }
       if (group.memberCount > 3) {
         promises.push(User.update({
           $or: [{'party._id': group._id}, {_id: user._id}],
           'achievements.partyOn': {$ne: true},
-        }, {$set: {'achievements.partyOn': true}}, {multi: true}).exec());
+        }, {$set: {'achievements.partyOn': true}, $push: {notifications: {type: 'ACHIEVEMENT_PARTY_ON'}}}, {multi: true}).exec());
       }
     }
 

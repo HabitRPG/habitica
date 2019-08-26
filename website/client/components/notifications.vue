@@ -165,6 +165,31 @@ const NOTIFICATIONS = {
     label: ($t) => `${$t('achievement')}: ${$t('achievementBackToBasics')}`,
     modalId: 'generic-achievement',
   },
+  ACHIEVEMENT_PARTY_UP: {
+    achievement: true,
+    label: ($t) => `${$t('achievement')}: ${$t('achievementPartyUp')}`,
+    modalId: 'generic-achievement',
+  },
+  ACHIEVEMENT_PARTY_ON: {
+    achievement: true,
+    label: ($t) => `${$t('achievement')}: ${$t('achievementPartyOn')}`,
+    modalId: 'generic-achievement',
+  },
+  ACHIEVEMENT_BEAST_MASTER: {
+    achievement: true,
+    label: ($t) => `${$t('achievement')}: ${$t('beastAchievement')}`,
+    modalId: 'generic-achievement',
+  },
+  ACHIEVEMENT_MOUNT_MASTER: {
+    achievement: true,
+    label: ($t) => `${$t('achievement')}: ${$t('mountAchievement')}`,
+    modalId: 'generic-achievement',
+  },
+  ACHIEVEMENT_TRIAD_BINGO: {
+    achievement: true,
+    label: ($t) => `${$t('achievement')}: ${$t('triadBingoAchievement')}`,
+    modalId: 'generic-achievement',
+  },
 };
 
 export default {
@@ -220,7 +245,8 @@ export default {
       'ULTIMATE_GEAR_ACHIEVEMENT', 'REBIRTH_ACHIEVEMENT', 'GUILD_JOINED_ACHIEVEMENT',
       'CHALLENGE_JOINED_ACHIEVEMENT', 'INVITED_FRIEND_ACHIEVEMENT', 'NEW_CONTRIBUTOR_LEVEL',
       'CRON', 'SCORED_TASK', 'LOGIN_INCENTIVE', 'ACHIEVEMENT_ALL_YOUR_BASE', 'ACHIEVEMENT_BACK_TO_BASICS',
-      'GENERIC_ACHIEVEMENT',
+      'GENERIC_ACHIEVEMENT', 'ACHIEVEMENT_PARTY_UP', 'ACHIEVEMENT_PARTY_ON', 'ACHIEVEMENT_BEAST_MASTER',
+      'ACHIEVEMENT_MOUNT_MASTER', 'ACHIEVEMENT_TRIAD_BINGO',
     ].forEach(type => {
       handledNotifications[type] = true;
     });
@@ -595,6 +621,11 @@ export default {
           case 'NEW_CONTRIBUTOR_LEVEL':
           case 'ACHIEVEMENT_ALL_YOUR_BASE':
           case 'ACHIEVEMENT_BACK_TO_BASICS':
+          case 'ACHIEVEMENT_PARTY_UP':
+          case 'ACHIEVEMENT_PARTY_ON':
+          case 'ACHIEVEMENT_BEAST_MASTER':
+          case 'ACHIEVEMENT_MOUNT_MASTER':
+          case 'ACHIEVEMENT_TRIAD_BINGO':
           case 'GENERIC_ACHIEVEMENT':
             this.showNotificationWithModal(notification);
             break;
