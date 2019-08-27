@@ -216,5 +216,8 @@
     "gemsRemaining": "verbleibende Edelsteine",
     "notEnoughGemsToBuy": "Du kannst die gewünschte Anzahl Edelsteine nicht kaufen",
     "mysterySet201903": "Ei-nzigartiges Set",
-    "mysterySet201902": "Geheimnisvolles Verliebten-Set"
+    "mysterySet201902": "Geheimnisvolles Verliebten-Set",
+    "confirmCancelSub": "Bist Du sicher, dass Du Dein Abonnement kündigen willst? Du verlierst alle Vorteile des Abonnements.",
+    "subWillBecomeInactive": "Wird inaktiv werden",
+    "mysterySet201908": "Freilaufender Faun-Set"
 }
