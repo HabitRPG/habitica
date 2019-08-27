@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'HABITICA KICKSTARTER UPDATE!';
+const LAST_ANNOUNCEMENT_TITLE = 'AUGUST SUBSCRIBER ITEMS REVEALED!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,15 +30,14 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>8/23/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>8/27/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <img src="https://habitica-assets.s3.amazonaws.com/mobileApp/images/promo_kickstarter_funded.png" class="center-block mw-100 h-auto"></img>
-        <h3>Habitica Class Pins Kickstarter Update</h3>
-        <p>Hello Habiticans! We're so excited to say that our <a href='https://www.kickstarter.com/projects/habitica/habitica-class-pins' target='_blank'>Kickstarter campaign</a> for class pins has been fully funded and all of our stretch goals have been met, much more quickly than we expected. We're blown away by all the support you've given us!</p>
-        <p>All nine pins as well as the animated pet and mount are now unlocked! If you've been waiting to see if we'd reach all our goals, now's the time to pledge. Thank you all so much for backing us, it means a lot to the team!</p>
-        <div class="small mb-3">by The Habitica Team</div>
+        <div class="promo_mystery_201908 center-block"></div>
+        <p>The August Subscriber Item Set has been revealed, and it could be the GOAT: <a href='/user/settings/subscription'>the Footloose Faun Item Set</a>! You only have until August 31 to receive the item set when you subscribe. If you're already an active subscriber, reload the site and then head to Inventory > Items to claim your gear!</p>
+        <p>Subscribers also receive the ability to buy Gems for Gold -- the longer you subscribe, the more Gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
+        <div class="small mb-3">by beffymaroo</div>
       </div>
       `,
     });
