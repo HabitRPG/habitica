@@ -207,6 +207,7 @@
     position: absolute;
     width: 100%;
     bottom: 32px;
+    margin-left: -8px;
 
     &.initial-description {
       top: 30%;
