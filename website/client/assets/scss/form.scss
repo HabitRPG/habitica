@@ -205,6 +205,7 @@ $bg-disabled-control: #34303a;
       text-align: center;
       padding-top: .5em;
       padding-bottom: .5em;
+      transition: none;
       &::before,
       &::after {
         display: none;
@@ -214,11 +215,17 @@ $bg-disabled-control: #34303a;
       &:active {
         cursor: pointer;
       }
+      &:hover {
+        color: $purple-300;
+      }
+      &:focus {
+        border-color: $purple-400;
+      }
     }
     &:checked {
       + .custom-control-label {
         background-color: $purple-300;
-        border-color: $gray-10;
+        border-color: $purple-100;
         color: white;
       }
     }

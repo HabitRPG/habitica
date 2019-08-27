@@ -603,6 +603,7 @@
       width: 57px;
       .custom-control-label {
         width: 57px;
+        font-weight: normal;
       }
     }
 
