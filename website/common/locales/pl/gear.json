@@ -1760,5 +1760,6 @@
     "weaponArmoireNephriteBowText": "Łuk Nefrytu",
     "weaponArmoireNephriteBowNotes": "Z tego łuku można strzelać specjalnymi strzałami z jadeitu, które powalą nawet najbardziej uparte, złe nawyki!. Zwiększa Inteligencję o <%= int %> i Siłę o <%= str %>. Zaczarowana Szafa: Zestaw Łucznika Nefrytu (Przedmiot 1 z 3).",
     "weaponArmoireBambooCaneText": "Bambusowa Trzcinka",
-    "weaponArmoireBambooCaneNotes": "Perfekcyjna, jeśli chodzi o wspomaganie przy spacerach lub podczas tańczenia charlestona.  Zwiększa Inteligencję, Percepcję i Kondycję, każde o <%= attrs %>. Zaczarowana Szafa: Zestaw Żeglarski (Przedmiot 3 z 3)."
+    "weaponArmoireBambooCaneNotes": "Perfekcyjna, jeśli chodzi o wspomaganie przy spacerach lub podczas tańczenia charlestona.  Zwiększa Inteligencję, Percepcję i Kondycję, każde o <%= attrs %>. Zaczarowana Szafa: Zestaw Żeglarski (Przedmiot 3 z 3).",
+    "armorMystery201906Text": "Ogon Uprzejmego Karpia"
 }

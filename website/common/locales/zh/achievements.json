@@ -5,5 +5,6 @@
     "levelup": "完成现实生活中的目标之后，你升级了，而且回满了血！",
     "reachedLevel": "你升到了第<%= level %>级",
     "achievementLostMasterclasser": "副本征服者：大师鉴别者 任务线",
-    "achievementLostMasterclasserText": "完成了“大师鉴别者”任务线的全部16个任务，揭开了失传的大师鉴别者的神秘面纱！"
+    "achievementLostMasterclasserText": "完成了“大师鉴别者”任务线的全部16个任务，揭开了失传的大师鉴别者的神秘面纱！",
+    "achievementBackToBasics": "回到最初"
 }
