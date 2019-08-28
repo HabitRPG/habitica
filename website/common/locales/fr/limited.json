@@ -155,5 +155,11 @@
     "spring2019OrchidWarriorSet": "Orchidée (Guerrier)",
     "spring2019AmberMageSet": "Ambre (Mage)",
     "spring2019RobinHealerSet": "Robin (Guérisseur)",
-    "spring2019CloudRogueSet": "Nuage (Voleur)"
+    "spring2019CloudRogueSet": "Nuage (Voleur)",
+    "summer2019SeaTurtleWarriorSet": "Tortue marine (Guerrier)",
+    "summer2019WaterLilyMageSet": "Nénuphar (Mage)",
+    "summer2019ConchHealerSet": "Conque (Guérisseur)",
+    "summer2019HammerheadRogueSet": "Tête de marteau (Voleur)",
+    "eventAvailabilityReturning": "Disponible à l'achat jusqu'au <%= availableDate(locale) %>. Cette potion est précédemment sortie en <%= previousDate(locale) %>.",
+    "june2018": "Juin 2018"
 }

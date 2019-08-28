@@ -41,7 +41,7 @@
     "messageAuthEmailTaken": "Mail adresi zaten kullanımda",
     "messageAuthNoUserFound": "Kullanıcı bulunamadı.",
     "messageAuthMustBeLoggedIn": "Giriş yapman gerekiyor.",
-    "messageAuthMustIncludeTokens": "Talebine bir dizge ve uid (kullanıcı id'si) eklemelisin",
+    "messageAuthMustIncludeTokens": "Talebine bir dizge ve KID (Kullanıcı ID'si) eklemelisin",
     "messageGroupAlreadyInParty": "Zaten bir takımın içerisindesin, sayfayı yenilemeyi dene.",
     "messageGroupOnlyLeaderCanUpdate": "Sadece grup lideri grubu güncelleyebilir!",
     "messageGroupRequiresInvite": "Davet edilmediğin bir gruba katılamazsın.",
