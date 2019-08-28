@@ -91,7 +91,7 @@
     "unlocked": "物品已经解锁",
     "alreadyUnlocked": "全套已经解锁。",
     "alreadyUnlockedPart": "只有完整套装中的部分已解锁。",
-    "invalidQuantity": "购买数量必须是数字。",
+    "invalidQuantity": "购买数量必须是正整数。",
     "USD": "(美元)",
     "newStuff": "Bailey的新品",
     "newBaileyUpdate": "新的贝利更新！",
