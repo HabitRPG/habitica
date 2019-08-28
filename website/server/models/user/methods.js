@@ -392,7 +392,7 @@ schema.methods.canGetGems = async function canObtainGems () {
 schema.methods.isMemberOfGroupPlan = async function isMemberOfGroupPlan () {
   const groups = await getUserGroupData(this);
 
-  return groups.every(g => {
+  return groups.some(g => {
     return g.isSubscribed();
   });
 };

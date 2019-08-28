@@ -291,7 +291,7 @@
     "foodCandyWhite": "Friandise vanillée",
     "foodCandyWhiteThe": "la friandise à la vanille",
     "foodCandyWhiteA": "une friandise à la vanille",
-    "foodCandyGolden": "Friandise au miel ",
+    "foodCandyGolden": "Friandise au miel",
     "foodCandyGoldenThe": "la friandise au miel",
     "foodCandyGoldenA": "une friandise au miel",
     "foodCandyZombie": "Friandise infecte",
@@ -341,5 +341,10 @@
     "foodPieRedThe": "la tarte à la cerise",
     "foodPieRedA": "une part de tarte à la cerise",
     "questEggDolphinText": "Dauphin",
-    "questEggDolphinMountText": "Dauphin"
+    "questEggDolphinMountText": "Dauphin",
+    "questEggDolphinAdjective": "un frétillant",
+    "hatchingPotionSunshine": "Rayon de soleil",
+    "hatchingPotionBronze": "de bronze",
+    "hatchingPotionWatery": "Aquatique",
+    "hatchingPotionSilver": "d'argent"
 }

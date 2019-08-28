@@ -1,29 +1,29 @@
 <template lang="pug">
-  form(v-if="task", @submit.stop.prevent="submit()", @click="handleClick($event)")
-    b-modal#task-modal(v-bind:no-close-on-esc="showTagsSelect", v-bind:no-close-on-backdrop="showTagsSelect", size="sm", @hidden="onClose()", @show="handleOpen()", @shown="focusInput()")
-      .task-modal-header(slot="modal-header", :class="cssClass('bg')", @click="handleClick($event)")
-        .clearfix
-          h1.float-left {{ title }}
-          .float-right.d-flex.align-items-center
-            span.cancel-task-btn.mr-2(v-once, @click="cancel()") {{ $t('cancel') }}
-            button.btn.btn-secondary(type="submit", v-once) {{ $t('save') }}
-        .form-group
-          label(v-once) {{ `${$t('text')}*` }}
-          input.form-control.title-input(
-            type="text",
-            required, v-model="task.text",
-            ref="inputToFocus",
-            spellcheck="true",
-            :disabled="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
-          )
-        .form-group
-          label.d-flex.align-items-center.justify-content-between(v-once)
-            span {{ $t('notes') }}
-            small(v-once)
-              a(target="_blank", href="http://habitica.fandom.com/wiki/Markdown_Cheat_Sheet") {{ $t('markdownHelpLink') }}
+  b-modal#task-modal(v-bind:no-close-on-esc="showTagsSelect", v-bind:no-close-on-backdrop="showTagsSelect", size="sm", @hidden="onClose()", @show="handleOpen()", @shown="focusInput()")
+    .task-modal-header(slot="modal-header", :class="cssClass('bg')", @click="handleClick($event)")
+      .clearfix
+        h1.float-left {{ title }}
+        .float-right.d-flex.align-items-center
+          span.cancel-task-btn.mr-2(v-once, @click="cancel()") {{ $t('cancel') }}
+          button.btn.btn-secondary(@click="submit()", v-once) {{ $t('save') }}
+      .form-group
+        label(v-once) {{ `${$t('text')}*` }}
+        input.form-control.title-input(
+          type="text",
+          required, v-model="task.text",
+          ref="inputToFocus",
+          spellcheck="true",
+          :disabled="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
+        )
+      .form-group
+        label.d-flex.align-items-center.justify-content-between(v-once)
+          span {{ $t('notes') }}
+          small(v-once)
+            a(target="_blank", href="http://habitica.fandom.com/wiki/Markdown_Cheat_Sheet") {{ $t('markdownHelpLink') }}
 
-          textarea.form-control(v-model="task.notes", rows="3")
-      .task-modal-content(@click="handleClick($event)")
+        textarea.form-control(v-model="task.notes", rows="3")
+    .task-modal-content(@click="handleClick($event)")
+      form(v-if="task", @submit.stop.prevent="submit()", @click="handleClick($event)")
         .option.mt-0(v-if="task.type === 'reward'")
           .form-group
             label(v-once) {{ $t('cost') }}
@@ -242,9 +242,9 @@
           .svg-icon.d-inline-b(v-html="icons.destroy")
           span {{ $t('deleteTask') }}
 
-      .task-modal-footer.d-flex.justify-content-center.align-items-center(slot="modal-footer", @click="handleClick($event)")
-        .cancel-task-btn(v-once, @click="cancel()") {{ $t('cancel') }}
-        button.btn.btn-primary(type="submit", v-once) {{ $t('save') }}
+    .task-modal-footer.d-flex.justify-content-center.align-items-center(slot="modal-footer", @click="handleClick($event)")
+      .cancel-task-btn(v-once, @click="cancel()") {{ $t('cancel') }}
+      button.btn.btn-primary(@click="submit()", v-once) {{ $t('save') }}
 </template>
 
 <style lang="scss">

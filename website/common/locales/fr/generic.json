@@ -291,5 +291,7 @@
     "howManyToBuy": "Combien voulez-vous en acheter ?",
     "habiticaHasUpdated": "Une mise à jour d'Habitica a été effectuée. Actualisez la page pour avoir la dernière version !",
     "contactForm": "Contacter l'équipe de modération",
-    "options": "Options"
+    "options": "Options",
+    "demo": "Démo",
+    "loadEarlierMessages": "Charger les messages précédents"
 }

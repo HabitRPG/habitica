@@ -25,7 +25,7 @@ function sendInvitePushNotification (userToInvite, groupLabel, group, publicGuil
     userToInvite,
     {
       title: group.name,
-      message: res.t(identifier),
+      message: res.t(identifier, userToInvite.preferences.language),
       identifier,
       payload: {groupID: group._id, publicGuild},
     }
