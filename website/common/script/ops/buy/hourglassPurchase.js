@@ -9,7 +9,7 @@ import {
 } from '../../libs/errors';
 import errorMessage from '../../libs/errorMessage';
 
-module.exports = function purchaseHourglass (user, req = {}, analytics) {
+module.exports = function purchaseHourglass (user, req = {}, analytics, quantity = 1) {
   let key = get(req, 'params.key');
   if (!key) throw new BadRequest(errorMessage('missingKeyParam'));
 
@@ -18,7 +18,6 @@ module.exports = function purchaseHourglass (user, req = {}, analytics) {
 
   if (type === 'quests') {
     if (!content.quests[key] || content.quests[key].category !== 'timeTravelers') throw new NotAuthorized(i18n.t('notAllowedHourglass', req.language));
-    let quantity = get(req, 'params.quantity') || 1;
     if (user.purchased.plan.consecutive.trinkets < quantity) {
       throw new NotAuthorized(i18n.t('notEnoughHourglasses', req.language));
     }

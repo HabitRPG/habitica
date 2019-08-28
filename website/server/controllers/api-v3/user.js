@@ -983,12 +983,15 @@ api.purchase = {
  * @apiParam (Path) {String="pets","mounts"} type The type of item to purchase
  * @apiParam (Path) {String} key Ex: {Phoenix-Base}. The key for the mount/pet
  *
+ * @apiParam (Body) {Integer} [quantity=1] Count of items to buy. Defaults to 1 and is ignored for items where quantity is irrelevant.
+ *
  * @apiSuccess {Object} data.items user.items
  * @apiSuccess {Object} data.purchasedPlanConsecutive user.purchased.plan.consecutive
  * @apiSuccess {String} message Success message
  *
  * @apiError {NotAuthorized} NotAvailable Item is not available to be purchased or is not valid.
  * @apiError {NotAuthorized} Hourglasses User does not have enough Mystic Hourglasses.
+ * @apiError {BadRequest} Quantity Quantity to purchase must be a number.
  * @apiError {NotFound} Type Type invalid.
  *
  * @apiErrorExample {json}
@@ -1000,11 +1003,9 @@ api.userPurchaseHourglass = {
   url: '/user/purchase-hourglass/:type/:key',
   async handler (req, res) {
     let user = res.locals.user;
-    req.params.hourglass = true;
-    let quantity = 1;
-    if (req.body.quantity) quantity = req.body.quantity;
-    req.params.quantity = quantity;
-    let purchaseHourglassRes = common.ops.buy(user, req, res.analytics);
+    const quantity = req.body.quantity || 1;
+    if (quantity < 1 || !Number.isInteger(quantity)) throw new BadRequest(res.t('invalidQuantity'), req.language);
+    let purchaseHourglassRes = common.ops.buy(user, req, res.analytics, {quantity, hourglass: true});
     await user.save();
     res.respond(200, ...purchaseHourglassRes);
   },
