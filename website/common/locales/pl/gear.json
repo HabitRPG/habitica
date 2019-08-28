@@ -1750,7 +1750,7 @@
     "twoHandedItem": "Przedmiot dwuręczny.",
     "weaponArmoireChefsSpoonText": "Łyżka Szefa Kuchni",
     "shieldArmoireMightyPizzaText": "Wszechmocna Pizza",
-    "shieldArmoireMightyPizzaNotes": "Jasne, to całkiem dobra tarcza, ale my zdecydowanie doradzamy, żebyś zjadł tę świetną pizzę! Zwiększa Percepcję o <%= per %>. Zaczarowana Skrzynia: Zestaw Szefa Kuchni (przedmiot 4 z 4). ",
+    "shieldArmoireMightyPizzaNotes": "Jasne, to całkiem dobra tarcza, ale my zdecydowanie doradzamy, żebyś zjadł tę świetną pizzę! Zwiększa Percepcję o <%= per %>. Zaczarowana Skrzynia: Zestaw Szefa Kuchni (przedmiot 4 z 4).",
     "weaponArmoireChefsSpoonNotes": "Unieś ją kiedy wykrzyczysz swój okrzyk bitewny \"ŁYYYŻKA!!\" Zwiększa inteligencje o <%= int %>. Zaczarowana Skrzynia: Zestaw Szefa Kuchni (przedmiot 3 z 4).",
     "weaponArmoireVernalTaperText": "Wiosenna Świeca",
     "weaponArmoireVernalTaperNotes": "Dni robią się coraz dłuższe, ale ta świeca pomoże Ci znaleźć drogę przed świtem. Zwiększa kondycję o <%= con %>. Zaczarowana Skrzynia: Zestaw Wiosenne Szaty (przedmiot 3 z 3).",
@@ -1761,5 +1761,7 @@
     "weaponArmoireNephriteBowNotes": "Z tego łuku można strzelać specjalnymi strzałami z jadeitu, które powalą nawet najbardziej uparte, złe nawyki!. Zwiększa Inteligencję o <%= int %> i Siłę o <%= str %>. Zaczarowana Szafa: Zestaw Łucznika Nefrytu (Przedmiot 1 z 3).",
     "weaponArmoireBambooCaneText": "Bambusowa Trzcinka",
     "weaponArmoireBambooCaneNotes": "Perfekcyjna, jeśli chodzi o wspomaganie przy spacerach lub podczas tańczenia charlestona.  Zwiększa Inteligencję, Percepcję i Kondycję, każde o <%= attrs %>. Zaczarowana Szafa: Zestaw Żeglarski (Przedmiot 3 z 3).",
-    "armorMystery201906Text": "Ogon Uprzejmego Karpia"
+    "armorMystery201906Text": "Ogon Uprzejmego Karpia",
+    "eyewearMystery201907Text": "Słodkie Okulary Przeciwsłoneczne",
+    "eyewearMystery201907Notes": "Wyglądają niesamowicie, a dodatkowo chronią oczy przed promieniami UV! Brak dodatkowych korzyści. Przedmiot subskrybenta, lipiec 2019."
 }
