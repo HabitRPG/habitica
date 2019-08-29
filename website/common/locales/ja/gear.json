@@ -382,7 +382,7 @@
     "armorWarrior1Notes": "丈夫なゆでた革でつくった胴着。体質が <%= con %> 上がります。",
     "armorWarrior2Text": "鎖かたびら",
     "armorWarrior2Notes": "金属の輪っかを組み合わせたよろい。体質が <%= con %> 上がります。",
-    "armorWarrior3Text": "板のよろい",
+    "armorWarrior3Text": "板金のよろい",
     "armorWarrior3Notes": "全身を鋼で包む、騎士の誇り。体質が <%= con %> 上がります。",
     "armorWarrior4Text": "赤いよろい",
     "armorWarrior4Notes": "守りの魔法の効果で輝く重装のプレートアーマー。体質が <%= con %> 上がります。",
