@@ -550,7 +550,6 @@ api.scoreTask = {
     let user = res.locals.user;
     const {taskId} = req.params;
     const direction = req.params.direction;
-
     const data = await scoreTasks(user, [{id: taskId, direction}], req, res);
 
     let userStats = user.stats.toJSON();

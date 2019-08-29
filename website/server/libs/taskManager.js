@@ -438,7 +438,7 @@ export async function scoreTasks (user, taskScorings, req, res) {
   if (Object.keys(tasks).length === 0) throw new NotFound(res.t('taskNotFound'));
   let scorePromises = [];
   taskScorings.forEach(taskScoring => {
-    if (!tasks[taskScoring.id]) {
+    if (tasks[taskScoring.id]) {
       scorePromises.push(scoreTask(user, tasks[taskScoring.id], taskScoring.direction, req, res));
     }
   });
@@ -462,22 +462,14 @@ export async function scoreTasks (user, taskScorings, req, res) {
   });
   // Save results and handle request
   let results = await Promise.all(savePromises);
-  let challengePromises = [];
-  returnDatas.forEach(returnData => {
-    challengePromises.push(new Promise((resolve, reject) => {
-      handleChallengeTask(returnData.task, returnData.delta, returnData.direction, resolve, reject);
-    }));
-  });
-  await Promise.all(challengePromises);
 
   const response = {user: results[0], taskResponses: []};
 
-  response.taskResponse = returnDatas.map(data => {
+  response.taskResponses = returnDatas.map(data => {
     // Handle challenge tasks here so we save on one for loop
     handleChallengeTask(data.task, data.delta, data.direction);
 
     return {id: data.task._id, delta: data.delta, _tmp: data._tmp};
   });
-
   return response;
 }
