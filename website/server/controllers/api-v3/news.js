@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'AUGUST SUBSCRIBER ITEMS REVEALED!';
+const LAST_ANNOUNCEMENT_TITLE = 'SPECIAL TIME TRAVELERS QUEST!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,14 +30,14 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>8/27/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>8/22/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_mystery_201908 center-block"></div>
-        <p>The August Subscriber Item Set has been revealed, and it could be the GOAT: <a href='/user/settings/subscription'>the Footloose Faun Item Set</a>! You only have until August 31 to receive the item set when you subscribe. If you're already an active subscriber, reload the site and then head to Inventory > Items to claim your gear!</p>
-        <p>Subscribers also receive the ability to buy Gems for Gold -- the longer you subscribe, the more Gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
-        <div class="small mb-3">by beffymaroo</div>
+        <div class="quest_robot center-block"></div>
+        <h3>Special Time Travelers' Pet Quest: Mysterious Mechanical Marvels!</h3>
+        <p>Hello Habiticans! We've released a brand-new quest in the Time Travelers' shop! It will be available at the cost of one <a href='https://habitica.fandom.com/wiki/Mystic_Hourglass' target='_blank'>Mystic Hourglass</a>, and is not limited, so you can buy it anytime you like, and as many times as you like. Get "<a href='/shops/time'>Mysterious Mechanical Marvels</a>", and earn some futuristic Robot pets by completing your real-life tasks!</p>
+        <div class="small mb-3">by Beffymaroo, Rev, artemie, McCoyly, FolleMente, elyons1, QuartzFox, and SabreCat</div>
       </div>
       `,
     });
