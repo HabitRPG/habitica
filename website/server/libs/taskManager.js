@@ -419,7 +419,7 @@ export async function scoreTasks (user, taskScorings, req, res) {
   let tasks = {};
   (await Tasks.Task.findMultipleByIdOrAlias(taskIds, user._id)).forEach(task => {
     tasks[task._id] = task;
-    if (task.alias && task.alias.length > 0) {
+    if (task.alias) {
       tasks[task.alias] = task;
     }
   });
