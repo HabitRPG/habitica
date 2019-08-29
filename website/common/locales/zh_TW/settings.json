@@ -48,7 +48,7 @@
     "sureChangeCustomDayStartTime": "您確定要改變每日開始的時間？您的每日任務將在您 <%= time %> 之後的第一次登入後重置。請確認您在時間到達之前完成您的每日任務！",
     "changeCustomDayStart": "要更改設定日期嗎？",
     "sureChangeCustomDayStart": "您確定要更改客製化的每日開始的時間？",
-    "customDayStartHasChanged": "您的自定義日開始已變更。",
+    "customDayStartHasChanged": "您的每日開始時間已變更。",
     "nextCron": "您的每日任務將於<%= time %>重新設定。請確保在期限內完成您的每日任務！",
     "customDayStartInfo1": "Habitica 預設於玩家時區的每日午夜結算當日的每日任務。您可以在這裡更改每日任務的結算時間。",
     "misc": "其他",
