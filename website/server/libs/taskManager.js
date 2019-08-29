@@ -426,7 +426,7 @@ export async function scoreTasks (user, taskScorings, req, res) {
   if (Object.keys(tasks).length === 0) throw new NotFound(res.t('taskNotFound'));
   let scorePromises = [];
   taskScorings.forEach(taskScoring => {
-    if (tasks[taskScoring.id] !== undefined) {
+    if (!tasks[taskScoring.id]) {
       scorePromises.push(scoreTask(user, tasks[taskScoring.id], taskScoring.direction, req, res));
     }
   });
