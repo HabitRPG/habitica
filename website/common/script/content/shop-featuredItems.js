@@ -9,15 +9,15 @@ const featuredItems = {
     },
     {
       type: 'eggs',
-      path: 'eggs.BearCub',
+      path: 'eggs.LionCub',
     },
     {
-      type: 'premiumHatchingPotion',
-      path: 'premiumHatchingPotions.Glass',
+      type: 'hatchingPotions',
+      path: 'hatchingPotions.Desert',
     },
     {
-      type: 'premiumHatchingPotion',
-      path: 'premiumHatchingPotions.Watery',
+      type: 'food',
+      path: 'food.Potatoe',
     },
   ],
   quests: [
@@ -26,12 +26,12 @@ const featuredItems = {
       path: 'quests.bronze',
     },
     {
-      type: 'quests',
-      path: 'quests.yarn',
+      type: 'bundles',
+      path: 'bundles.farmFriends',
     },
     {
       type: 'quests',
-      path: 'quests.dolphin',
+      path: 'quests.silver',
     },
   ],
   seasonal: 'summer2019Mage',

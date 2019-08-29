@@ -9,6 +9,7 @@ describe('POST /user/open-mystery-item', () => {
   let mysteryItemKey = 'eyewear_special_summerRogue';
   let mysteryItemIndex = content.gear.flat[mysteryItemKey].index;
   let mysteryItemType = content.gear.flat[mysteryItemKey].type;
+  let mysteryItemText = content.gear.flat[mysteryItemKey].text();
 
   beforeEach(async () => {
     user = await generateUser({
@@ -32,5 +33,6 @@ describe('POST /user/open-mystery-item', () => {
     expect(response.data.key).to.eql(mysteryItemKey);
     expect(response.data.index).to.eql(mysteryItemIndex);
     expect(response.data.type).to.eql(mysteryItemType);
+    expect(response.data.text).to.eql(mysteryItemText);
   });
 });

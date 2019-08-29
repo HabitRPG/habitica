@@ -204,5 +204,6 @@
     "usernameVerifiedConfirmation": "Dein Benutzername, <%= username %>, ist bestätigt!",
     "usernameNotVerified": "Bitte bestätige Deinen Benutzernamen.",
     "changeUsernameDisclaimer": "Wir werden bald die Anmeldenamen zu eindeutigen, öffentlichen Benutzernamen umstellen. Dieser Benutzername wird für Einladungen, @Erwähnungen im Chat und Nachrichten verwendet werden.",
-    "verifyUsernameVeteranPet": "Eines dieser Veteranen-Haustiere wartet auf Dich wenn Du die Bestätigung abgeschlossen hast!"
+    "verifyUsernameVeteranPet": "Eines dieser Veteranen-Haustiere wartet auf Dich wenn Du die Bestätigung abgeschlossen hast!",
+    "subscriptionReminders": "Abonnement-Erinnerung"
 }

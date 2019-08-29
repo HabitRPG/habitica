@@ -207,11 +207,11 @@
     "hatchingPotionFairy": "Bajeczny",
     "hatchingPotionStarryNight": "Gwiezdna Noc",
     "hatchingPotionRainbow": "Tęcza",
-    "hatchingPotionGlass": "Szkło",
+    "hatchingPotionGlass": "Szklany",
     "hatchingPotionGlow": "Lśniący w ciemności",
     "hatchingPotionFrost": "Mroźny",
     "hatchingPotionIcySnow": "Lodowaty Śnieg",
-    "hatchingPotionNotes": "Wylej go na jajko, a wykluje się z niego <%= potText(locale) %> zwierzaczek.",
+    "hatchingPotionNotes": "Wylej eliksir na jajko, a wykluje się z niego <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "Nie nadaje się do użytku na jajach otrzymanych za misje.",
     "foodMeat": "Mięso",
     "foodMeatThe": "Mięso",
@@ -339,5 +339,12 @@
     "foodPieRedA": "kawałek czerwonego placka z wiśniami",
     "hatchingPotionVeggie": "Ogród",
     "foodPieSkeleton": "Placek ze szpikiem",
-    "foodPieSkeletonThe": "Placek ze szpikiem"
+    "foodPieSkeletonThe": "Placek ze szpikiem",
+    "questEggDolphinText": "Delfin",
+    "questEggDolphinMountText": "Delfin",
+    "questEggDolphinAdjective": "wesoły",
+    "hatchingPotionSunshine": "Słoneczny",
+    "hatchingPotionBronze": "Brązowy",
+    "hatchingPotionWatery": "Wodnisty",
+    "hatchingPotionSilver": "Srebrny"
 }

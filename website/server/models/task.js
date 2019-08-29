@@ -37,6 +37,23 @@ export const taskIsGroupOrChallengeQuery = {
   ],
 };
 
+const reminderSchema = new Schema({
+  _id: false,
+  id: {$type: String, validate: [v => validator.isUUID(v), 'Invalid uuid.'], default: shared.uuid, required: true},
+  startDate: {$type: Date},
+  time: {$type: Date, required: true},
+}, {
+  strict: true,
+  minimize: false, // So empty objects are returned
+  _id: false,
+  typeKey: '$type', // So that we can use a field named `type`
+});
+
+reminderSchema.plugin(baseModel, {
+  noSet: ['_id', 'id'],
+  _id: false,
+});
+
 // Important
 // When something changes here remember to update the client side model at common/script/libs/taskDefaults
 export let TaskSchema = new Schema({
@@ -57,20 +74,14 @@ export let TaskSchema = new Schema({
       },
       msg: 'Task short names cannot be uuids.',
     }, {
-      validator (alias) {
-        return new Promise((resolve, reject) => {
-          Task.findOne({ // eslint-disable-line no-use-before-define
-            _id: { $ne: this._id },
-            userId: this.userId,
-            alias,
-          }).exec().then((task) => {
-            let aliasAvailable = !task;
+      async validator (alias) {
+        const taskDuplicated = await Task.findOne({ // eslint-disable-line no-use-before-define
+          _id: { $ne: this._id },
+          userId: this.userId,
+          alias,
+        }).exec();
 
-            return aliasAvailable ? resolve() : reject();
-          }).catch(() => {
-            reject();
-          });
-        });
+        return taskDuplicated ? false : true;
       },
       msg: 'Task alias already used on another task.',
     }],
@@ -116,12 +127,7 @@ export let TaskSchema = new Schema({
     sharedCompletion: {$type: String, enum: _.values(SHARED_COMPLETION), default: SHARED_COMPLETION.single},
   },
 
-  reminders: [{
-    _id: false,
-    id: {$type: String, validate: [v => validator.isUUID(v), 'Invalid uuid.'], default: shared.uuid, required: true},
-    startDate: {$type: Date},
-    time: {$type: Date, required: true},
-  }],
+  reminders: [reminderSchema],
 }, _.defaults({
   minimize: false, // So empty objects are returned
   strict: true,
@@ -225,8 +231,8 @@ TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta
   if (chalTask.type === 'habit' || chalTask.type === 'daily') {
     // Add only one history entry per day
     const history = chalTask.history;
-    const lastChallengHistoryIndex = history.length - 1;
-    const lastHistoryEntry = history[lastChallengHistoryIndex];
+    const lastChallengeHistoryIndex = history.length - 1;
+    const lastHistoryEntry = history[lastChallengeHistoryIndex];
 
     if (
       lastHistoryEntry && lastHistoryEntry.date &&
@@ -247,7 +253,7 @@ TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta
         }
       }
 
-      chalTask.markModified(`history.${lastChallengHistoryIndex}`);
+      chalTask.markModified(`history.${lastChallengeHistoryIndex}`);
     } else {
       const historyEntry = {
         date: Number(new Date()),

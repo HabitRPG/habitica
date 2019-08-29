@@ -373,6 +373,18 @@ async function scoreTask (user, task, direction, req, res) {
 
   if (task.group && task.group.taskId) {
     await handleSharedCompletion(task);
+    try {
+      const groupTask = await Tasks.Task.findOne({
+        _id: task.group.taskId,
+      }).exec();
+
+      if (groupTask) {
+        const groupDelta = groupTask.group.assignedUsers ? delta / groupTask.group.assignedUsers.length : delta;
+        await groupTask.scoreChallengeTask(groupDelta, direction);
+      }
+    } catch (e) {
+      logger.error(e);
+    }
   }
 
   taskScoredWebhook.send(user, {
