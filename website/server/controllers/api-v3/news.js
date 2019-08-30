@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'SPECIAL TIME TRAVELERS QUEST AND LAST CHANCE FOR AUGUST ITEMS!';
+const LAST_ANNOUNCEMENT_TITLE = 'GUILD AND USE CASE SPOTLIGHTS';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,25 +30,19 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>8/29/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>8/30/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="quest_robot center-block"></div>
-        <h3>Special Time Travelers' Pet Quest: Mysterious Mechanical Marvels!</h3>
-        <p>Hello Habiticans! We've released a brand-new quest in the Time Travelers' shop! It will be available at the cost of one <a href='https://habitica.fandom.com/wiki/Mystic_Hourglass' target='_blank'>Mystic Hourglass</a>, and is not limited, so you can buy it anytime you like, and as many times as you like. Get "<a href='/shops/time'>Mysterious Mechanical Marvels</a>", and earn some futuristic Robot pets by completing your real-life tasks!</p>
-        <div class="small mb-3">by Beffymaroo, Rev, artemie, McCoyly, FolleMente, elyons1, QuartzFox, and SabreCat</div>
-        <div class="promo_mystery_201908 center-block"></div>
-        <h3>Last Chance for Footloose Faun Set</h3>
-        <p>Reminder: this weekend is your final chance to <a href='/user/settings/subscription'>subscribe and receive the Footloose Faun Set</a>! Subscribing also lets you buy Gems for Gold. The longer your subscription, the more Gems you get!</p>
-        <p>Thanks so much for your support! You help keep Habitica running.</p>
-        <div class="small mb-3">by Beffymaroo</div>
-        <div class="promo_farm_friends_bundle center-block"></div>
-        <h3>Last Chance for Farm Friends Pet Quest Bundle</h3>
-        <p>Time is also running out for the discounted Farm Friends Pet Quest Bundle, featuring the Cow, Horse and Sheep quests all for seven Gems! Be sure to lasso it before it gallops out of the <a href='/shops/quests'>Quest Shop</a>!</p>
-        <div class="small">by Lemoness and SabreCat</div>
-        <div class="small">Art by UncommonCriminal, Soloana, fuzzytrees, Feralem Tau, Eevachu, Beffymaroo, JessicaChase, starsystemic, nonight, Misceo and Tocath</div>
-        <div class="small mb-3">Writing by schizelle, VikingRunner, Salambander, Leephon, and Lemoness</div>
+        <div class="scene_families center-block"></div>
+        <h3>Guild Spotlight: Even More New and Notable Guilds!</h3>
+        <p>There's a new <a href='https://habitica.wordpress.com/2019/08/29/new-and-notable-guild-spotlight-8/' target='_blank'>Guild Spotlight on the blog</a> that highlights another selection of the upcoming Guilds in Habitica dedicated to a variety of topics! Check it out now to find some of Habitica's best new communities.</p>
+        <div class="small mb-3">by shanaqui</div>
+        <div class="scene_casting_spells center-block"></div>
+        <h3>Use Case Spotlight: The Rogue</h3>
+        <p>This month's <a href='https://habitica.wordpress.com/2019/08/29/use-case-spotlight-making-the-most-of-the-rogue-class/' target='_blank'>Use Case Spotlight</a> is about making the most of the Rogue class! It features a number of great suggestions submitted by Habiticans in the <a href='/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6'>Use Case Spotlights Guild</a>. We hope it helps any of you who might be looking for the best class for your play style!</p>
+        <p>Plus, we're collecting user submissions for the next spotlight! We want to hear your best tricks and strategies for playing the Mage class to its full advantage. We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!</p>
+        <div class="small mb-3">by shanaqui</div>
       </div>
       `,
     });
