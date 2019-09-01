@@ -216,5 +216,13 @@
     "gemsRemaining": "gemas restantes",
     "notEnoughGemsToBuy": "Você não pode comprar essa quantidade de gemas",
     "mysterySet201902": "Conjunto do crush enigmático",
-    "mysterySet201903": "Conjunto de Ovos deliciosos"
+    "mysterySet201903": "Conjunto de Ovos deliciosos",
+    "confirmCancelSub": "Tem certeza que quer cancelar sua assinatura? Você irá perder todos os seus benefícios de assinante.",
+    "subWillBecomeInactive": "Se tornará inativo",
+    "mysterySet201904": "Conjunto do Opala Abundante",
+    "mysterySet201905": "Conjunto do Dragão Deslumbrante",
+    "mysterySet201906": "Conjunto do Koi Adorável",
+    "mysterySet201907": "Conjunto Companheiro de Praia",
+    "mysterySet201908": "Conjunto Fauno Descomprometido",
+    "subCanceledTitle": "Assinatura cancelada"
 }
