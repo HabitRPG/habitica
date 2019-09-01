@@ -91,7 +91,7 @@
     "unlocked": "Przedmioty zostały odblokowane",
     "alreadyUnlocked": "Pełen zestaw jest już odblokowany.",
     "alreadyUnlockedPart": "Zestaw jest już częściowo odblokowany.",
-    "invalidQuantity": "Ilość do kupienia musi być numerem.",
+    "invalidQuantity": "Ilość do kupienia musi być liczbą dodatnią.",
     "USD": "(USD)",
     "newStuff": "Nowości od Bailey",
     "newBaileyUpdate": "Nowości od Bailey!",
@@ -168,5 +168,6 @@
     "welcome5": "Teraz spersonalizujesz swój awatar i ustawisz swoje zadania...",
     "imReady": "Wejdź do Habitiki",
     "limitedOffer": "Dostępne do <%= date %>",
-    "paymentAutoRenew": "Subskrypcja odnowi się automatycznie dopóki nie zostanie anulowana. Jeśli chcesz anulować subskrypcję, możesz zrobić to w ustawieniach."
+    "paymentAutoRenew": "Subskrypcja odnowi się automatycznie dopóki nie zostanie anulowana. Jeśli chcesz anulować subskrypcję, możesz zrobić to w ustawieniach.",
+    "paymentCanceledDisputes": "Potwierdzenie anulowania zostało przesłane na Twój e-mail. Jeśli nie możesz go znaleźć, skontaktuj się z nami, aby zapobiec ewentualnym sporom w sprawie rozliczeń."
 }

@@ -3458,6 +3458,50 @@ let quests = {
       unlock: t('questSilverUnlockText'),
     },
   },
+  robot: {
+    text: t('questRobotText'),
+    notes: t('questRobotNotes'),
+    completion: t('questRobotCompletion'),
+    value: 1,
+    category: 'timeTravelers',
+    canBuy () {
+      return false;
+    },
+    collect: {
+      bolt: {
+        text: t('questRobotCollectBolts'),
+        count: 15,
+      },
+      gear: {
+        text: t('questRobotCollectGears'),
+        count: 10,
+      },
+      spring: {
+        text: t('questRobotCollectSprings'),
+        count: 10,
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Robot',
+          text: t('questRobotDropRobotEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Robot',
+          text: t('questRobotDropRobotEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Robot',
+          text: t('questRobotDropRobotEgg'),
+        },
+      ],
+      gp: 40,
+      exp: 75,
+      unlock: t('questRobotUnlockText'),
+    },
+  },
 };
 
 each(quests, (v, key) => {

@@ -1,24 +1,30 @@
 .promo_armoire_backgrounds_201908 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -313px 0px;
+  background-position: 0px -223px;
   width: 423px;
   height: 147px;
 }
 .promo_farm_friends_bundle {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -223px;
+  background-position: 0px -371px;
   width: 420px;
+  height: 147px;
+}
+.promo_mystery_201908 {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -659px 0px;
+  width: 282px;
   height: 147px;
 }
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -313px -148px;
+  background-position: -840px -148px;
   width: 96px;
   height: 69px;
 }
 .promo_unconventional_armor {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -371px;
+  background-position: -659px -148px;
   width: 180px;
   height: 180px;
 }
@@ -27,4 +33,10 @@
   background-position: 0px 0px;
   width: 312px;
   height: 222px;
+}
+.scene_families {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -313px 0px;
+  width: 345px;
+  height: 195px;
 }
