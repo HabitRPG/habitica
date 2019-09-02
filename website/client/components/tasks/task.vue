@@ -67,9 +67,9 @@
               :checked="item.completed",
               @change="toggleChecklistItem(item)",
               :disabled="castingSpell || !isUser",
-              :id="`checklist-${item.id}`"
+              :id="`checklist-${item.id}-${random}`"
             )
-            label.custom-control-label(v-markdown="item.text", :for="`checklist-${item.id}`")
+            label.custom-control-label(v-markdown="item.text", :for="`checklist-${item.id}-${random}`")
         .icons.small-text.d-flex.align-items-center
           .d-flex.align-items-center(v-if="task.type === 'todo' && task.date", :class="{'due-overdue': isDueOverdue}")
             .svg-icon.calendar(v-html="icons.calendar", v-b-tooltip.hover.bottom="$t('dueDate')")
@@ -543,6 +543,7 @@ import notifications from 'client/mixins/notifications';
 import approvalHeader from './approvalHeader';
 import approvalFooter from './approvalFooter';
 import MenuDropdown from '../ui/customMenuDropdown';
+import uuid from 'uuid';
 
 export default {
   mixins: [notifications],
@@ -557,6 +558,7 @@ export default {
   props: ['task', 'isUser', 'group', 'dueDate'], // @TODO: maybe we should store the group on state?
   data () {
     return {
+      random: uuid.v4(), // used to avoid conflicts between checkboxes ids
       icons: Object.freeze({
         positive: positiveIcon,
         negative: negativeIcon,
