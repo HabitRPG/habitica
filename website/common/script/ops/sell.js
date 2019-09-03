@@ -43,6 +43,10 @@ module.exports = function sell (user, req = {}) {
     throw new NotFound(i18n.t('userItemsNotEnough', {type}, req.language));
   }
 
+  if (content[type][key].sellWarningNote) {
+    throw new NotAuthorized(i18n.t('positiveAmountRequired', req.language));
+  }
+
   user.items[type][key] -= amount;
   if (user.markModified) user.markModified(`items.${type}`);
 
