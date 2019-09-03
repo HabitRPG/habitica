@@ -154,7 +154,7 @@
     "chalk": "^2.4.1",
     "chromedriver": "^76.0.0",
     "connect-history-api-fallback": "^1.1.0",
-    "cross-spawn": "^6.0.5",
+    "cross-spawn": "^7.0.0",
     "eslint": "^4.19.1",
     "eslint-config-habitrpg": "^4.0.0",
     "eslint-friendly-formatter": "^4.0.1",
