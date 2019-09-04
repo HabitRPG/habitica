@@ -91,7 +91,7 @@
     "unlocked": "Itens foram destravados",
     "alreadyUnlocked": "Conjunto completo já destravado.",
     "alreadyUnlockedPart": "Conjunto completo parcialmente destravado.",
-    "invalidQuantity": "Quantidade para compra deve ser um número.",
+    "invalidQuantity": "A quantidade para compra deve ser um número inteiro e positivo.",
     "USD": "(Dólar)",
     "newStuff": "Novidades da Bailey",
     "newBaileyUpdate": "Nova atualização da Bailey!",
@@ -168,5 +168,6 @@
     "welcome5": "Agora você vai personalizar o seu avatar e definir as suas tarefas...",
     "imReady": "Entre no Habitica",
     "limitedOffer": "Disponível até <%= date %>",
-    "paymentAutoRenew": "Esta assinatura será renovada automaticamente até ser cancelada. Se você precisar cancelar, poderá fazê-lo através da configurações."
+    "paymentAutoRenew": "Esta assinatura será renovada automaticamente até ser cancelada. Se você precisar cancelar, poderá fazê-lo através da configurações.",
+    "paymentCanceledDisputes": "Enviamos uma confirmação de cancelamento para o seu e-mail. Se você não está vendo o e-mail, entre em contato para evitar cobranças futuras."
 }
