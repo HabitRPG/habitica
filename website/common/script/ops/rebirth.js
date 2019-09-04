@@ -48,7 +48,8 @@ module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
         task.streak = 0;
       }
       if (task.type === 'habit') {
-        task.streak = 0;
+        task.counterDown = 0;
+        task.counterUp = 0;
       }
     }
   });
