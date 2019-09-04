@@ -86,10 +86,12 @@ describe('shared.ops.rebirth', () => {
   });
 
   it('resets user\'s daily streaks to 0', () => {
+    tasks[0].streak = 1; // Habit
     tasks[1].streak = 1; // Daily
 
     rebirth(user, tasks);
 
+    expect(tasks[0].streak).to.equal(0);
     expect(tasks[1].streak).to.equal(0);
   });
 
