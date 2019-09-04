@@ -44,7 +44,7 @@ module.exports = function sell (user, req = {}) {
   }
 
   if (content[type][key].sellWarningNote) {
-    throw new NotAuthorized(i18n.t('positiveAmountRequired', req.language));
+    throw new NotAuthorized(content[type][key].sellWarningNote());
   }
 
   user.items[type][key] -= amount;
