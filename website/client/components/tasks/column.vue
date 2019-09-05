@@ -482,7 +482,7 @@ export default {
       const newIndexOnServer = originTasks.findIndex(taskId => taskId === taskIdToReplace);
 
       let newOrder;
-      if (taskToMove.group.id) {
+      if (taskToMove.group.id && !this.isUser) {
         newOrder = await this.$store.dispatch('tasks:moveGroupTask', {
           taskId: taskIdToMove,
           position: newIndexOnServer,
