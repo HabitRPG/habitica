@@ -6,8 +6,11 @@ export default {
     searchTerm: debounce(function searchTerm (newSearch) {
       this.challengeMemberSearchMixin_searchChallengeMember(newSearch);
     }, 500),
-    members () {
-      this.memberResults = this.members;
+    members: {
+      handler () {
+        this.memberResults = this.members;
+      },
+      immediate: true,
     },
   },
   methods: {
