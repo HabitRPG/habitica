@@ -7,27 +7,42 @@
     :no-close-on-esc="true",
     @hide="$emit('hide')",
   )
-    .modal-body
-      h1.header-welcome.text-center {{ $t('welcomeBack') }}
-      p.call-to-action.text-center {{ $t('checkOffYesterDailies') }}
-      .tasks-list
-        task(
-          v-for="task in tasksByType.daily",
-          :key="task.id",
-          :task="task",
-          :isUser="true",
-          :dueDate="dueDate",
-        )
-      .start-day.text-center
-        button.btn.btn-primary(@click='close()') {{ $t('yesterDailiesCallToAction') }}
+    h1.header-welcome.text-center {{ $t('welcomeBack') }}
+    p.call-to-action.text-center {{ $t('checkOffYesterDailies') }}
+    .tasks-list
+      task(
+        v-for="task in tasksByType.daily",
+        :key="task.id",
+        :task="task",
+        :isUser="true",
+        :dueDate="dueDate",
+      )
+    .start-day.text-center
+      button.btn.btn-primary(@click='close()') {{ $t('yesterDailiesCallToAction') }}
 </template>
+
+<style lang="scss">
+  #yesterdaily {
+    .modal-dialog {
+      width: 362px;
+    }
+
+    .task-wrapper:not(:last-of-type) {
+      margin-bottom: 4px;
+    }
+
+    .modal-content {
+      border-radius: 8px;
+    }
+  }
+</style>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
 
   .header-welcome {
     color: $purple-200;
-    margin-top: 1.33333em;
+    margin-top: 16px;
   }
 
   .call-to-action {
@@ -39,14 +54,13 @@
     border-radius: 4px;
     background: $gray-600;
     padding: 8px;
-    padding-bottom: 0.1px;
     position: relative;
     height: calc(100% - 64px);
     overflow: auto;
   }
 
   .start-day {
-    margin: 2em auto 2em auto;
+    margin: 24px auto 16px auto;
   }
 </style>
 
