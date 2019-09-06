@@ -45,6 +45,7 @@
         v-for="task in taskList",
         :key="task.id", :task="task",
         :isUser="isUser",
+        :showOptions="showOptions"
         @editTask="editTask",
         @moveTo="moveTo",
         :group='group',
@@ -311,6 +312,10 @@ export default {
     selectedTags: {},
     taskListOverride: {},
     group: {},
+    showOptions: {
+      type: Boolean,
+      default: true,
+    },
   }, // @TODO: maybe we should store the group on state?
   data () {
     const icons = Object.freeze({
