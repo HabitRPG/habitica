@@ -1,5 +1,5 @@
 <template lang="pug">
-b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true', :hide-footer='true', :class='{"page-2": modalPage > 1 && !editing}')
+b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true', :hide-footer='true', :modal-class="{'page-2':modalPage > 1 && !editing}")
   .section.row.welcome-section(v-if='modalPage === 1 && !editing')
     .col-6.offset-3.text-center
       h3(v-once) {{$t('welcomeTo')}}
@@ -209,7 +209,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       margin-top: $dialogMarginTop;
     }
 
-    #avatar-modal {
+    &#avatar-modal {
       .modal-dialog.modal-md {
         margin-top: 186px;
       }
