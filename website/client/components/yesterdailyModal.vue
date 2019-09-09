@@ -24,7 +24,7 @@
 <style lang="scss">
   #yesterdaily {
     .modal-dialog {
-      width: 362px;
+      width: 22.625rem;
     }
 
     .task-wrapper:not(:last-of-type) {
@@ -42,7 +42,7 @@
 
   .header-welcome {
     color: $purple-200;
-    margin-top: 16px;
+    margin-top: 1rem;
   }
 
   .call-to-action {
@@ -55,12 +55,12 @@
     background: $gray-600;
     padding: 8px;
     position: relative;
-    height: calc(100% - 64px);
+    height: calc(100% - 4rem);
     overflow: auto;
   }
 
   .start-day {
-    margin: 24px auto 16px auto;
+    margin: 1.5rem auto 1rem auto;
   }
 </style>
 
