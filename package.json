@@ -1,7 +1,7 @@
 {
   "name": "habitica",
   "description": "A habit tracker app which treats your goals like a Role Playing Game.",
-  "version": "4.107.1",
+  "version": "4.110.2",
   "main": "./website/server/index.js",
   "dependencies": {
     "@google-cloud/trace-agent": "^4.0.0",
@@ -9,7 +9,7 @@
     "accepts": "^1.3.5",
     "amazon-payments": "^0.2.7",
     "amplitude": "^3.5.0",
-    "amplitude-js": "^5.0.0",
+    "amplitude-js": "^5.2.2",
     "apidoc": "^0.17.5",
     "apn": "^2.2.0",
     "autoprefixer": "^9.4.0",
@@ -28,7 +28,7 @@
     "babel-preset-es2015": "^6.6.0",
     "babel-register": "^6.6.0",
     "babel-runtime": "^6.11.6",
-    "bcrypt": "^3.0.5",
+    "bcrypt": "^3.0.6",
     "body-parser": "^1.18.3",
     "bootstrap": "^4.1.1",
     "bootstrap-vue": "^2.0.0-rc.18",
@@ -64,11 +64,11 @@
     "method-override": "^3.0.0",
     "moment": "^2.22.1",
     "moment-recur": "^1.0.7",
-    "mongoose": "^5.4.19",
+    "mongoose": "^5.6.9",
     "morgan": "^1.7.0",
     "nconf": "^0.10.0",
     "node-gcm": "^1.0.2",
-    "node-sass": "^4.9.0",
+    "node-sass": "^4.12.0",
     "ora": "^3.2.0",
     "pageres": "^5.1.0",
     "passport": "^0.4.0",
@@ -80,6 +80,7 @@
     "postcss-easy-import": "^3.0.0",
     "ps-tree": "^1.0.0",
     "pug": "^2.0.3",
+    "regenerator-runtime": "^0.13.3",
     "rimraf": "^2.4.3",
     "sass-loader": "^7.0.3",
     "shelljs": "^0.8.2",
@@ -115,7 +116,7 @@
   },
   "private": true,
   "engines": {
-    "node": "^10",
+    "node": "^12",
     "npm": "^6"
   },
   "scripts": {

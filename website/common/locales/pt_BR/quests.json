@@ -126,5 +126,6 @@
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Vida",
     "rageAttack": "Ataque de Fúria:",
     "bossRage": "<%= currentRage %> / <%= maxRage %> Fúria",
-    "rageStrikes": "Golpes de Fúria"
+    "rageStrikes": "Golpes de Fúria",
+    "hatchingPotionQuests": "Missões de Poções Mágicas de Eclosão"
 }

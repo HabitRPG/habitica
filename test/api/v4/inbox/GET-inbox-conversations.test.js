@@ -40,6 +40,7 @@ describe('GET /inbox/conversations', () => {
     expect(result.length).to.be.equal(3);
     expect(result[0].user).to.be.equal(user.profile.name);
     expect(result[0].username).to.be.equal(user.auth.local.username);
+    expect(result[0].text).to.be.not.empty;
   });
 
   it('returns the user inbox messages as an array of ordered messages (from most to least recent)', async () => {

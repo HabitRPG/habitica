@@ -26,8 +26,8 @@ const featuredItems = {
       path: 'quests.bronze',
     },
     {
-      type: 'bundles',
-      path: 'bundles.farmFriends',
+      type: 'quests',
+      path: 'quests.dilatoryDistress1',
     },
     {
       type: 'quests',

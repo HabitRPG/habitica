@@ -60,7 +60,7 @@ const baseConfig = {
           }),
           postcss: [
             autoprefixer({
-              browsers: ['last 2 versions'],
+              overrideBrowserslist: ['last 2 versions'],
             }),
             postcssEasyImport(),
           ],
@@ -103,6 +103,7 @@ const baseConfig = {
             options: {
               plugins: [
                 {removeViewBox: false},
+                {convertPathData: {noSpaceAfterFlags: false}},
               ],
             },
           },
@@ -124,6 +125,7 @@ const baseConfig = {
             options: {
               plugins: [
                 {removeViewBox: false},
+                {convertPathData: {noSpaceAfterFlags: false}},
               ],
             },
           },

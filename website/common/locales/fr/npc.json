@@ -91,7 +91,7 @@
     "unlocked": "Les objets ont été débloqués",
     "alreadyUnlocked": "Ensemble complet déjà débloqué.",
     "alreadyUnlockedPart": "Ensemble déjà partiellement débloqué.",
-    "invalidQuantity": "La quantité à acheter doit être un nombre.",
+    "invalidQuantity": "La quantité à acheter doit être un nombre entier positif.",
     "USD": "(USD)",
     "newStuff": "Nouveautés par Bailey",
     "newBaileyUpdate": "Nouvelles informations de Bailey !",
@@ -168,5 +168,6 @@
     "welcome5": "Maintenant, vous allez personnaliser votre avatar et définissez vos tâches ...",
     "imReady": "Entrez dans Habitica",
     "limitedOffer": "Disponible jusqu'au <%= date %>",
-    "paymentAutoRenew": "Cet abonnement se renouvellera automatiquement jusqu'à son annulation. Si vous devez annuler cet abonnement, vous pouvez le faire depuis les paramètres."
+    "paymentAutoRenew": "Cet abonnement se renouvellera automatiquement jusqu'à son annulation. Si vous devez annuler cet abonnement, vous pouvez le faire depuis les paramètres.",
+    "paymentCanceledDisputes": "Nous avons envoyé la confirmation d'annulation à votre adresse email. Si vous ne recevez pas cet email, veuillez nous contacter pour éviter de futurs problèmes de facturation."
 }

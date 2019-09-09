@@ -763,5 +763,14 @@
   "questSilverCollectMoonRunes": "Moon Runes",
   "questSilverCollectSilverIngots": "Silver Ingots",
   "questSilverDropSilverPotion": "Silver Hatching Potion",
-  "questSilverUnlockText": "Unlocks Silver Hatching Potions for purchase in the Market"
+  "questSilverUnlockText": "Unlocks Silver Hatching Potions for purchase in the Market",
+
+  "questRobotText": "Mysterious Mechanical Marvels!",
+  "questRobotNotes": "At Max Capacity labs, @Rev is putting the finishing touches on their newest invention, a robotic Accountability Buddy, when a strange metal vehicle suddenly appears in a plume of smoke, inches from the robot’s Fluctuation Detector! Its occupants, two strange figures dressed in silver, emerge and remove their space helmets, revealing themselves as @FolleMente and @McCoyly.<br><br>“I hypothesize that there was an anomaly in our productivity implementation,” @FolleMente says sheepishly.<br><br>@McCoyly crosses her arms. “That means they neglected to complete their Dailies, which I postulate led to the disintegration of our Productivity Stabilizer. It’s an essential component to time travel that needs consistency to work properly. Our accomplishments power our movement through time and space! I don’t have time to explain further, @Rev. You’ll discover it in 37 years, or perhaps your allies the Mysterious Time Travelers can fill you in. For now, can you help us fix our time machine?”",
+  "questRobotCompletion": "As @Rev and the Accountability Buddy place the last bolt in place, the time machine buzzes to life. @FolleMente and @McCoyly jump aboard. “Thanks for the assist! We’ll see you in the future! By the way, these should help you with your next invention!” With that, the time travelers disappear, but left behind in the wreckage of the old Productivity Stabilizer are three clockwork eggs. Perhaps these will be the crucial components for a new production line of Accountability Buddies!",
+  "questRobotCollectBolts": "Bolts",
+  "questRobotCollectGears": "Gears",
+  "questRobotCollectSprings": "Springs",
+  "questRobotDropRobotEgg": "Robot (Egg)",
+  "questRobotUnlockText": "Unlocks purchasable Robot Eggs in the Market"
 }

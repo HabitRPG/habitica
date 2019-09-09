@@ -79,6 +79,20 @@ api.clearMessages = {
  * @apiDescription Get the conversations for a user
  *
  * @apiSuccess {Array} data An array of inbox conversations
+ *
+ * @apiSuccessExample {json} Success-Response:
+ * {"success":true,"data":[
+ *    {
+ *       "_id":"8a9d461b-f5eb-4a16-97d3-c03380c422a3",
+ *       "user":"user display name",
+ *       "username":"some_user_name",
+ *       "timestamp":"12315123123",
+ *       "text":"last message of conversation",
+ *       "userStyles": {},
+ *       "contributor": {},
+ *       "count":1
+ *    }
+ * }
  */
 api.conversations = {
   method: 'GET',
