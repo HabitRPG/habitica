@@ -10,7 +10,7 @@ import {
   model as Group,
 } from '../models/group';
 import apiError from '../libs/apiError';
-import getDebuffPotionItem from '../../common/script/libs/getDebuffPotionItem';
+import setDebuffPotionItem from '../../common/script/libs/setDebuffPotionItem';
 
 const partyMembersFields = 'profile.name stats achievements items.special notifications flags';
 // Excluding notifications and flags from the list of public fields to return.
@@ -70,27 +70,7 @@ async function castSelfSpell (req, user, spell, quantity = 1) {
     spell.cast(user, null, req);
   }
 
-  const debuffPotionItems = getDebuffPotionItem(user);
-
-  if (debuffPotionItems.length) {
-    const isUserHaveDebuffInPinnedItems = user.pinnedItems.find(pinnedItem => {
-      let isPresent = false;
-      debuffPotionItems.forEach(debuffPotion => {
-        if (!isPresent) {
-          isPresent = debuffPotion.path === pinnedItem;
-        }
-      });
-      return isPresent;
-    });
-
-    if (!isUserHaveDebuffInPinnedItems) {
-      user.pinnedItems.push(...debuffPotionItems);
-    }
-  } else {
-    user.pinnedItems = user.pinnedItems.filter(item => {
-      return item.type !== 'debuffPotion';
-    });
-  }
+  setDebuffPotionItem(user);
 
   await user.save();
 }
@@ -137,26 +117,7 @@ async function castUserSpell (res, req, party, partyMember, targetId, user, spel
     spell.cast(user, partyMember, req);
   }
 
-  const debuffPotionItems = getDebuffPotionItem(partyMember);
-
-  if (debuffPotionItems) {
-    const isPartyMemberHaveDebuffInPinnedItems = partyMember.pinnedItems.find(pinnedItem => {
-      let isPresent = false;
-      debuffPotionItems.forEach(debuffPotion => {
-        if (!isPresent) {
-          isPresent = debuffPotion.path === pinnedItem;
-        }
-      });
-      return isPresent;
-    });
-
-    if (!isPartyMemberHaveDebuffInPinnedItems) {
-      partyMember.pinnedItems.push(...debuffPotionItems);
-    }
-  } else {
-    partyMember.pinnedItems = partyMember.pinnedItems.filter(item => item.type !== 'debuffPotion');
-  }
-
+  setDebuffPotionItem(partyMember);
 
   if (partyMember !== user) {
     await Promise.all([
