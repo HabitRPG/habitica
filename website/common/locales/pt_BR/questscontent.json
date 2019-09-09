@@ -499,8 +499,8 @@
     "featheredFriendsText": "Pacote de Missões dos Amigos Emplumados",
     "featheredFriendsNotes": "Contém 'Socorro, Harpia!,' 'A Coruja Noturna,' e 'As Aves de Rapinrolação.' Disponível até 31 de Maio.",
     "questNudibranchText": "Infestação das Lesmas Marinhas FaçAgora",
-    "questNudibranchNotes": "Você finalmente consegue terminar seus Afazeres num dia de preguiça no Habitica. Brilhantes contra suas mais vermelhas e escuras tarefas está um grupo de lesmas azuis do mar vibrantes. Você está fascinado! A cor de safira deles faz suas tarefas mais intimidantes parecerem tão fáceis quanto seus melhores Hábitos. Numa velocidade insana, você volta a trabalhar, derrubando uma tarefa após a outra numa velocidade desenfreada...<br><br>Quando você se dá conta, @LilithofAlfheim está derramando água gelada em você. \"As Lesmas Marinhas FaçAgora estavam te infectando completamente! Você tem que dar uma pausa!\"<br><br>Em choque, você nota que sua pele está vermelha brilhante como sua lista de Afazeres estava. \"Ser produtivo é uma coisa,\" @beffymaroo diz, \"você você também precisa ter cuidado com sua saúde. Rápido, vamos nos livrar das Lesmas!\"",
-    "questNudibranchCompletion": "Você vê a última das Lesmas Marinhas FaçAgora saindo de uma pilha de tarefas completas quando o @amadshade as empurra pra longe. Uma delas deixa uma bolsa de couro. Ao abrir, você descobre um punhado de ouro e alguns objetos ovais que você supõe que sejam ovos.",
+    "questNudibranchNotes": "Você finalmente consegue terminar seus Afazeres num dia de preguiça em Habitica. Brilhantes contra suas mais vermelhas e escuras tarefas está um grupo de Lesmas Marinhas de uma cor azul vibrante. Você está fascinado! A cor de safira das lesmas faz suas tarefas mais intimidantes parecerem tão fáceis quanto seus melhores Hábitos. Numa velocidade insana, você volta a trabalhar, derrubando uma tarefa após a outra numa velocidade desenfreada...<br><br>Quando você se dá conta, @LilithofAlfheim está derramando água gelada em você. \"As Lesmas Marinhas FaçAgora estavam te infectando completamente! Você tem que dar uma pausa!\"<br><br>Em choque, você nota que sua pele está vermelha brilhante como sua lista de Afazeres estava. \"Ser produtivo é uma coisa,\" @beffymaroo diz, \"mas, você também precisa ter cuidado com sua saúde. Rápido, vamos nos livrar dessas Lesmas!\"",
+    "questNudibranchCompletion": "Você vê a última das Lesmas Marinhas FaçAgora saindo de uma pilha de tarefas completas quando @amadshade as empurra pra longe. Uma delas deixa uma bolsa de couro. Ao abrir, você descobre um punhado de ouro e alguns objetos ovais que você supõe que sejam ovos.",
     "questNudibranchBoss": "Lesma Marinha FaçAgora",
     "questNudibranchDropNudibranchEgg": "Lesma Marinha (Ovo)",
     "questNudibranchUnlockText": "Desbloqueia ovos de Lesma Marinha para compra no Mercado",
@@ -626,7 +626,7 @@
     "questAlligatorDropAlligatorEgg": "Jacaré (Ovo)",
     "questAlligatorUnlockText": "Desbloqueia ovos de Jacaré para compra no Mercado",
     "oddballsText": "Pacote de Missões Esquisitas",
-    "oddballsNotes": "Contém 'O Regente Geleia', 'Fuja da Criatura da Caverna' e Um Novelo Enrolado'. Disponível até o dia 3 de Dezembro.",
+    "oddballsNotes": "Contém 'O Regente Geleia', 'Fuja da Criatura da Caverna' e Um Novelo Enrolado'. Disponível até o dia 30 de Junho.",
     "birdBuddiesText": "Pacote de Missões Amigos dos Pássaros",
     "birdBuddiesNotes": "Contém 'A Abominável Ave das Neves', 'O Galo Raivoso' e 'O Pavão Puxaempurra'. Disponível até o dia 31 de Dezembro.",
     "questVelociraptorText": "O Veloci-Rapper",
@@ -636,5 +636,6 @@
     "questVelociraptorDropVelociraptorEgg": "Velociraptor (Ovo)",
     "questVelociraptorUnlockText": "Desbloqueia ovos de Velociraptor para compra no Mercado",
     "mythicalMarvelsText": "Pacote Mítico de Maravilhas da Missão",
-    "mythicalMarvelsNotes": "Contém 'Convencer a Rainha do Unicórnio', 'O Grifo Ardente' e 'Perigo nas Profundezas: Ataque à Serpente Marinha!' Disponível até 28 de fevereiro."
+    "mythicalMarvelsNotes": "Contém 'Convencer a Rainha do Unicórnio', 'O Grifo Ardente' e 'Perigo nas Profundezas: Ataque à Serpente Marinha!' Disponível até 28 de fevereiro.",
+    "questBronzeText": "Batalha Besouro de Bronze"
 }

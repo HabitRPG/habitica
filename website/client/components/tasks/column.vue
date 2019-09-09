@@ -45,6 +45,7 @@
         v-for="task in taskList",
         :key="task.id", :task="task",
         :isUser="isUser",
+        :showOptions="showOptions"
         @editTask="editTask",
         @moveTo="moveTo",
         :group='group',
@@ -310,6 +311,10 @@ export default {
     selectedTags: {},
     taskListOverride: {},
     group: {},
+    showOptions: {
+      type: Boolean,
+      default: true,
+    },
   }, // @TODO: maybe we should store the group on state?
   data () {
     const icons = Object.freeze({
@@ -481,7 +486,7 @@ export default {
       const newIndexOnServer = originTasks.findIndex(taskId => taskId === taskIdToReplace);
 
       let newOrder;
-      if (taskToMove.group.id) {
+      if (taskToMove.group.id && !this.isUser) {
         newOrder = await this.$store.dispatch('tasks:moveGroupTask', {
           taskId: taskIdToMove,
           position: newIndexOnServer,

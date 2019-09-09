@@ -19,7 +19,7 @@
           .d-flex.justify-content-between
             h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
             menu-dropdown.task-dropdown(
-              v-if="!isRunningYesterdailies",
+              v-if="!isRunningYesterdailies && showOptions",
               :right="task.type === 'reward'",
               ref="taskDropdown",
               v-b-tooltip.hover.top="$t('options')"
@@ -67,9 +67,9 @@
               :checked="item.completed",
               @change="toggleChecklistItem(item)",
               :disabled="castingSpell || !isUser",
-              :id="`checklist-${item.id}`"
+              :id="`checklist-${item.id}-${random}`"
             )
-            label.custom-control-label(v-markdown="item.text", :for="`checklist-${item.id}`")
+            label.custom-control-label(v-markdown="item.text", :for="`checklist-${item.id}-${random}`")
         .icons.small-text.d-flex.align-items-center
           .d-flex.align-items-center(v-if="task.type === 'todo' && task.date", :class="{'due-overdue': isDueOverdue}")
             .svg-icon.calendar(v-html="icons.calendar", v-b-tooltip.hover.bottom="$t('dueDate')")
@@ -548,6 +548,7 @@ import notifications from 'client/mixins/notifications';
 import approvalHeader from './approvalHeader';
 import approvalFooter from './approvalFooter';
 import MenuDropdown from '../ui/customMenuDropdown';
+import uuid from 'uuid';
 
 export default {
   mixins: [notifications],
@@ -559,9 +560,10 @@ export default {
   directives: {
     markdown: markdownDirective,
   },
-  props: ['task', 'isUser', 'group', 'dueDate'], // @TODO: maybe we should store the group on state?
+  props: ['task', 'isUser', 'group', 'dueDate', 'showOptions'], // @TODO: maybe we should store the group on state?
   data () {
     return {
+      random: uuid.v4(), // used to avoid conflicts between checkboxes ids
       icons: Object.freeze({
         positive: positiveIcon,
         negative: negativeIcon,
@@ -709,7 +711,7 @@ export default {
       this.$emit('taskDestroyed', this.task);
     },
     castEnd (e, task) {
-      this.$root.$emit('castEnd', task, 'task', e);
+      setTimeout(() => this.$root.$emit('castEnd', task, 'task', e), 0);
     },
     async score (direction) {
       if (this.castingSpell) return;
