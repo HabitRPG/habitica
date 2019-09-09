@@ -23,6 +23,7 @@
     justify-content: center;
     margin-bottom: 10px;
     padding-top: 12px;
+    flex-wrap: wrap;
   }
 
   .sub-menu:hover {

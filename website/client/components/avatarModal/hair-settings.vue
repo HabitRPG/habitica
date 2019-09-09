@@ -10,10 +10,9 @@
 
       div(v-if='editing && set.key !== "undefined"', v-for='set in seasonalHairColors')
         customize-options(
-          v-if="!hideSet(set)",
           :items='set.options',
           :currentValue="user.preferences.skin",
-          :fullSet='!userOwnsSet("hair", set.keys, "color")',
+          :fullSet='!hideSet(set) && !userOwnsSet("hair", set.keys, "color")',
           @unlock='unlock(`hair.color.${set.keys.join(",hair.color.")}`)'
         )
 

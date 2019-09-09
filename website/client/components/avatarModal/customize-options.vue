@@ -4,7 +4,7 @@
       v-for='option in items',
       :key='option.key',
       @click='option.click(option)',
-      :class='{locked: option.gemLocked || option.goldLocked, premium: Boolean(option.gem), active: option.active || currentValue === option.key, none: option.none }'
+      :class='{locked: option.gemLocked || option.goldLocked, premium: Boolean(option.gem), active: option.active || currentValue === option.key, none: option.none, hide: option.hide }'
     )
       .option
         .sprite.customize-option(:class='option.class')
@@ -53,6 +53,10 @@
 
   .customize-options {
     width: 100%;
+  }
+
+  .hide {
+    display: none !important;
   }
 
   .outer-option-background {

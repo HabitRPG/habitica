@@ -227,10 +227,6 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       padding-bottom: 2em;
     }
 
-    .option.hide {
-      display: none !important;
-    }
-
     #creator-background {
       background-color: $purple-200;
     }

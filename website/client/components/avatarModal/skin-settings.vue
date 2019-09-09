@@ -8,10 +8,9 @@
 
     div(v-if='editing && set.key !== "undefined"', v-for='set in seasonalSkins')
       customize-options(
-        v-if="!hideSet(set)",
         :items='set.options',
         :currentValue="user.preferences.skin",
-        :fullSet='!userOwnsSet("skin", set.keys)',
+        :fullSet='!hideSet(set) && !userOwnsSet("skin", set.keys)',
         @unlock='unlock(`skin.${set.keys.join(",skin.")}`)'
       )
 </template>
