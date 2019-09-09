@@ -706,7 +706,7 @@ export default {
       this.$emit('taskDestroyed', this.task);
     },
     castEnd (e, task) {
-      this.$root.$emit('castEnd', task, 'task', e);
+      setTimeout(() => this.$root.$emit('castEnd', task, 'task', e), 0);
     },
     async score (direction) {
       if (this.castingSpell) return;
