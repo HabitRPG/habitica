@@ -1,7 +1,6 @@
 import getItemInfo from './getItemInfo';
 import shops from './shops';
 import getOfficialPinnedItems from './getOfficialPinnedItems';
-import getDebuffSpellItems from './getDebuffSpellItems';
 import compactArray from 'lodash/compact';
 
 import getItemByPathAndType from './getItemByPathAndType';
@@ -51,10 +50,6 @@ module.exports = function getPinnedItems (user) {
 
       return getItemInfo(user, type, item, officialPinnedItems);
     });
-
-  const debuffSpellItems = getDebuffSpellItems(user);
-
-  items = items.concat(debuffSpellItems);
 
   shops.checkMarketGearLocked(user, items);
 
