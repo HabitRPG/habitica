@@ -111,7 +111,7 @@ div
       background-image: url('~assets/images/auth/seamless_mountains_demo.png');
       background-repeat: repeat-x;
       width: 100%;
-      height: 500px;
+      height: 300px;
       position: absolute;
       z-index: 0;
       bottom: 0;

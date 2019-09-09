@@ -19,7 +19,7 @@
           .d-flex.justify-content-between
             h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
             menu-dropdown.task-dropdown(
-              v-if="!isRunningYesterdailies",
+              v-if="!isRunningYesterdailies && showOptions",
               :right="task.type === 'reward'",
               ref="taskDropdown",
               v-b-tooltip.hover.top="$t('options')"
@@ -555,7 +555,7 @@ export default {
   directives: {
     markdown: markdownDirective,
   },
-  props: ['task', 'isUser', 'group', 'dueDate'], // @TODO: maybe we should store the group on state?
+  props: ['task', 'isUser', 'group', 'dueDate', 'showOptions'], // @TODO: maybe we should store the group on state?
   data () {
     return {
       random: uuid.v4(), // used to avoid conflicts between checkboxes ids
@@ -706,7 +706,7 @@ export default {
       this.$emit('taskDestroyed', this.task);
     },
     castEnd (e, task) {
-      this.$root.$emit('castEnd', task, 'task', e);
+      setTimeout(() => this.$root.$emit('castEnd', task, 'task', e), 0);
     },
     async score (direction) {
       if (this.castingSpell) return;
