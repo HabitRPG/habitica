@@ -77,6 +77,9 @@ api.updateStore = updateStore;
 import inAppRewards from './libs/inAppRewards';
 api.inAppRewards = inAppRewards;
 
+import setDebuffPotionItem from './libs/setDebuffPotionItem';
+api.setDebuffPotionItem = setDebuffPotionItem;
+
 import uuid from './libs/uuid';
 api.uuid = uuid;
 

@@ -10,7 +10,6 @@ import {
   model as Group,
 } from '../models/group';
 import apiError from '../libs/apiError';
-import setDebuffPotionItem from '../../common/script/libs/setDebuffPotionItem';
 
 const partyMembersFields = 'profile.name stats achievements items.special notifications flags';
 // Excluding notifications and flags from the list of public fields to return.
@@ -70,7 +69,7 @@ async function castSelfSpell (req, user, spell, quantity = 1) {
     spell.cast(user, null, req);
   }
 
-  setDebuffPotionItem(user);
+  common.setDebuffPotionItem(user);
 
   await user.save();
 }
@@ -117,7 +116,7 @@ async function castUserSpell (res, req, party, partyMember, targetId, user, spel
     spell.cast(user, partyMember, req);
   }
 
-  setDebuffPotionItem(partyMember);
+  common.setDebuffPotionItem(partyMember);
 
   if (partyMember !== user) {
     await Promise.all([
