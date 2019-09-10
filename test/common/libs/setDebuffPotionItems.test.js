@@ -5,7 +5,7 @@ import {
 
 import setDebuffPotionItems from '../../../website/common/script/libs/setDebuffPotionItems';
 
-describe('setDubuffPotionItems', () => {
+describe('setDebuffPotionItems', () => {
   let user;
 
   beforeEach(() => {

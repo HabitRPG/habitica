@@ -6,7 +6,7 @@ import {
 import getDebuffPotionItems from '../../../website/common/script/libs/getDebuffPotionItems';
 import { TRANSFORMATION_DEBUFFS_LIST } from '../../../website/common/script/constants';
 
-describe('getDubuffPotionItems', () => {
+describe('getDebuffPotionItems', () => {
   let user;
 
   beforeEach(() => {
