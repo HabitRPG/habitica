@@ -246,6 +246,21 @@ api.bundles = {
     type: 'quests',
     value: 7,
   },
+  rockingReptiles: {
+    key: 'rockingReptiles',
+    text: t('rockingReptilesText'),
+    notes: t('rockingReptilesNotes'),
+    bundleKeys: [
+      'alligator',
+      'snake',
+      'velociraptor',
+    ],
+    canBuy () {
+      return moment().isBetween('2019-09-10', '2019-10-02');
+    },
+    type: 'quests',
+    value: 7,
+  },
 };
 
 /*

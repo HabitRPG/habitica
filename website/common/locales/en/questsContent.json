@@ -772,5 +772,8 @@
   "questRobotCollectGears": "Gears",
   "questRobotCollectSprings": "Springs",
   "questRobotDropRobotEgg": "Robot (Egg)",
-  "questRobotUnlockText": "Unlocks purchasable Robot Eggs in the Market"
+  "questRobotUnlockText": "Unlocks purchasable Robot Eggs in the Market",
+
+  "rockingReptilesText": "Rocking Reptiles Quest Bundle",
+  "rockingReptilesNotes": "Contains 'The Insta-Gator,' 'The Serpent of Distraction,' and 'The Veloci-Rapper.' Available until September 30."
 }
