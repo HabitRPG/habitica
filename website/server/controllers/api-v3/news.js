@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE TO PLEDGE FOR HABITICA’S ENAMEL PIN KICKSTARTER!';
+const LAST_ANNOUNCEMENT_TITLE = 'NEW DISCOUNTED PET QUEST BUNDLE: ROCKING REPTILES';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,14 +30,15 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>9/5/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>9/10/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <img src="https://habitica-assets.s3.amazonaws.com/mobileApp/images/promo_kickstarter_last_chance.png" class="center-block mw-100 h-auto"></img>
-        <p>Hello Habiticans! A reminder that our <a href='https://www.kickstarter.com/projects/habitica/habitica-class-pins' target='_blank'>Kickstarter campaign</a> for Enamel Class Pins ends on September 10. If you've been thinking about pledging, now's the time!</p>
-        <p>We're fully funded and all our stretch goals have been met, so we've got nine exciting pins to choose from. Pin pledges will also receive animated in-game items as bonuses, plus free vinyl stickers of the pins they chose! Check it out today!</p>
-        <div class="small mb-3">by The Habitica Team</div>
+        <div class="promo_rocking_reptiles_bundle center-block"></div>
+        <p>If you're looking to add some scaly friends to your Habitica stable, you're in luck! From now until Sept 30, you can purchase the Rocking Reptiles Pet Quest Bundle and receive the Alligator, Snake, and Velociraptor quests, all for only 7 Gems! That's a discount of 5 Gems from the price of purchasing them separately. Check it out in the <a href='/shops/quests'>Quest Shop</a> today!</p>
+        <div class="small">Art by Gully, Willow The Witty, mfonda, UncommonCriminal, tabbytoes, EmeraldOx, LordDarkly, PainterProphet, Seraphina, Anna Glassman, Procyon, and Lilith of Alfheim</div>
+        <div class="small mb-3">Writing by Mike.Antonacci, lilackbar, Daniel The Bard, and felipena</div>
+        <p>If snakes are something you'd prefer not to see in Habitica due to a phobia, check out the <a href='http://habitica.wikia.com/wiki/Phobia_Protection_Extension' target='_blank'>Phobia Protection Extension</a> which will hide any pets, mounts, backgrounds, quest bosses, or equipment featuring snakes (as well as spiders, rats, bees, zombies, skeletons, or any combination thereof). We hope that it helps make everyone's Habitica experience fun!</p>
       </div>
       `,
     });
