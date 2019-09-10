@@ -23,3 +23,10 @@ export const SUPPORTED_SOCIAL_NETWORKS = [
 export const GUILDS_PER_PAGE = 30; // number of guilds to return per page when using pagination
 
 export const PARTY_LIMIT_MEMBERS = 30;
+
+export const TRANSFORMATION_DEBUFFS_LIST = {
+  snowball: 'salt',
+  spookySparkles: 'opaquePotion',
+  shinySeed: 'petalFreePotion',
+  seafoam: 'sand',
+};

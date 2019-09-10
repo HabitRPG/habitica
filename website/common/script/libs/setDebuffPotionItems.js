@@ -1,15 +1,15 @@
-import getDebuffPotionItem from './getDebuffPotionItem';
+import getDebuffPotionItems from './getDebuffPotionItems';
 
 
-module.exports = function setDebuffPotionItem (user) {
-  const debuffPotionItems = getDebuffPotionItem(user);
+module.exports = function setDebuffPotionItems (user) {
+  const debuffPotionItems = getDebuffPotionItems(user);
 
   if (debuffPotionItems.length) {
+    let isPresent = false;
     const isUserHaveDebuffInPinnedItems = user.pinnedItems.find(pinnedItem => {
-      let isPresent = false;
       debuffPotionItems.forEach(debuffPotion => {
         if (!isPresent) {
-          isPresent = debuffPotion.path === pinnedItem;
+          isPresent = debuffPotion.path === pinnedItem.path;
         }
       });
       return isPresent;

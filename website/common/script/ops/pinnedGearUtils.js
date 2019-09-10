@@ -146,7 +146,8 @@ function togglePinnedItem (user, {item, type, path}, req = {}) {
   }
 
 
-  if (path === 'armoire' || path === 'potion') {
+  if (path === 'armoire' || path === 'potion' || type === 'debuffPotion') {
+    // @TODO: take into considertation debuffPotion type in message
     throw new BadRequest(i18n.t('cannotUnpinArmoirPotion', req.language));
   }
 

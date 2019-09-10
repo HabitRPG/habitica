@@ -69,7 +69,7 @@ async function castSelfSpell (req, user, spell, quantity = 1) {
     spell.cast(user, null, req);
   }
 
-  common.setDebuffPotionItem(user);
+  common.setDebuffPotionItems(user);
 
   await user.save();
 }
@@ -116,7 +116,7 @@ async function castUserSpell (res, req, party, partyMember, targetId, user, spel
     spell.cast(user, partyMember, req);
   }
 
-  common.setDebuffPotionItem(partyMember);
+  common.setDebuffPotionItems(partyMember);
 
   if (partyMember !== user) {
     await Promise.all([
