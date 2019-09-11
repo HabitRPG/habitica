@@ -55,7 +55,6 @@
     background: $gray-600;
     padding: 8px;
     position: relative;
-    height: calc(100% - 4rem);
     overflow: auto;
   }
 
