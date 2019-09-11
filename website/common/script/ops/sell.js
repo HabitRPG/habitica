@@ -43,8 +43,8 @@ module.exports = function sell (user, req = {}) {
     throw new NotFound(i18n.t('userItemsNotEnough', {type}, req.language));
   }
 
-  if (content[type][key].sellWarningNote) {
-    throw new NotAuthorized(content[type][key].sellWarningNote());
+  if (type === 'food' && key === 'Saddle') {
+    throw new NotAuthorized(content[type][key].sellWarningNote(req.language));
   }
 
   user.items[type][key] -= amount;
