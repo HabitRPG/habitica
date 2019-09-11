@@ -21,7 +21,7 @@
 
         h4.title {{ itemContextToSell.itemName }}
 
-        div(v-if="item.sellWarningNote")
+        div(v-if="item.text() === $t('foodSaddleText')")
           div.text {{ item.sellWarningNote() }}
           br
 
