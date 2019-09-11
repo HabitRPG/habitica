@@ -19,7 +19,7 @@
           .d-flex.justify-content-between
             h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
             menu-dropdown.task-dropdown(
-              v-if="!this.isRunningYesterdailies && showOptions",
+              v-if="!isRunningYesterdailies && showOptions",
               :right="task.type === 'reward'",
               ref="taskDropdown",
               v-b-tooltip.hover.top="$t('options')"
