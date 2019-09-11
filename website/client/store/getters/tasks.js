@@ -64,14 +64,12 @@ export function canDelete (store) {
       default:
         break;
     }
-    return isUserCanDeleteTask;
+    return Boolean(isUserCanDeleteTask);
   };
 }
 
 export function canEdit (store) {
   return (task, taskCategory, isTaskFromUserDashboard, group, challenge) => {
-    // eslint-disable-next-line no-console
-    console.log(task, taskCategory, isTaskFromUserDashboard, group, challenge);
     let isUserCanEditTask = isTaskFromUserDashboard;
     const user = store.state.user.data;
     switch (taskCategory) {
@@ -96,7 +94,7 @@ export function canEdit (store) {
       default:
         break;
     }
-    return isUserCanEditTask;
+    return Boolean(isUserCanEditTask);
   };
 }
 
