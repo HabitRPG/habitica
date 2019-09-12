@@ -11,16 +11,30 @@
 
 .community-guidelines {
   background-color: rgba(135, 129, 144, 0.84);
-  padding: 1em;
+  padding-left: 0;
+  padding-right: 0;
   color: $white;
-  position: absolute;
-  top: 0;
-  height: 150px;
-  margin-top: 2.3em;
   width: 100%;
+  // width: calc(100% - 24px);
   border-radius: 4px;
   align-items: center;
   justify-content: center;
+
+  .col {
+    padding: 20px 24px;
+  }
+
+  a {
+    text-decoration: underline;
+    color: $white;
+    font-weight: bold;
+  }
+
+  button {
+    margin: 20px 12px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
 
   .btn-follow-guidelines {
     white-space: pre-line;

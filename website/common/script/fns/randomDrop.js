@@ -75,6 +75,8 @@ module.exports = function randomDrop (user, options, req = {}, analytics) {
 
       user.items.food[drop.key] = user.items.food[drop.key] || 0;
       user.items.food[drop.key] += 1;
+      if (user.markModified) user.markModified('items.food');
+
       drop.type = 'Food';
       drop.dialog = i18n.t('messageDropFood', {
         dropText: drop.textA(req.language),
@@ -82,8 +84,11 @@ module.exports = function randomDrop (user, options, req = {}, analytics) {
       }, req.language);
     } else if (rarity > 0.3) { // eggs 30% chance
       drop = cloneDropItem(randomVal(content.dropEggs));
+
       user.items.eggs[drop.key] = user.items.eggs[drop.key] || 0;
       user.items.eggs[drop.key]++;
+      if (user.markModified) user.markModified('items.eggs');
+
       drop.type = 'Egg';
       drop.dialog = i18n.t('messageDropEgg', {
         dropText: drop.text(req.language),
@@ -102,8 +107,11 @@ module.exports = function randomDrop (user, options, req = {}, analytics) {
       drop = cloneDropItem(randomVal(pickBy(content.hatchingPotions, (v, k) => {
         return acceptableDrops.indexOf(k) >= 0;
       })));
+
       user.items.hatchingPotions[drop.key] = user.items.hatchingPotions[drop.key] || 0;
       user.items.hatchingPotions[drop.key]++;
+      if (user.markModified) user.markModified('items.hatchingPotions');
+
       drop.type = 'HatchingPotion';
       drop.dialog = i18n.t('messageDropPotion', {
         dropText: drop.text(req.language),

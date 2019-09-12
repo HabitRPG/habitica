@@ -2,6 +2,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
 import { chatModel as Chat } from '../../models/message';
+import common from '../../../common';
 import {
   BadRequest,
   NotFound,
@@ -30,12 +31,17 @@ const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email)
 
 /**
  * @apiDefine GroupIdRequired
- * @apiError (404) {badRequest} groupIdRequired A group ID is required
+ * @apiError (400) {badRequest} groupIdRequired A group ID is required
  */
 
 /**
  * @apiDefine ChatIdRequired
- * @apiError (404) {badRequest} chatIdRequired A chat ID is required
+ * @apiError (400) {badRequest} chatIdRequired A chat ID is required
+ */
+
+/**
+ * @apiDefine MessageIdRequired
+ * @apiError (400) {badRequest} messageIdRequired A message ID is required
  */
 
 let api = {};
@@ -134,7 +140,7 @@ api.postChat = {
         {name: 'AUTHOR_USERNAME', content: user.profile.name},
         {name: 'AUTHOR_UUID', content: user._id},
         {name: 'AUTHOR_EMAIL', content: authorEmail},
-        {name: 'AUTHOR_MODAL_URL', content: `/static/front/#?memberId=${user._id}`},
+        {name: 'AUTHOR_MODAL_URL', content: `/profile/${user._id}`},
 
         {name: 'GROUP_NAME', content: group.name},
         {name: 'GROUP_TYPE', content: group.type},
@@ -157,12 +163,12 @@ api.postChat = {
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    if (group.privacy !== 'private' && user.flags.chatRevoked) {
+    if (group.privacy === 'public' && user.flags.chatRevoked) {
       throw new NotAuthorized(res.t('chatPrivilegesRevoked'));
     }
 
     // prevent banned words being posted, except in private guilds/parties and in certain public guilds with specific topics
-    if (group.privacy !== 'private' && !guildsAllowingBannedWords[group._id]) {
+    if (group.privacy === 'public' && !guildsAllowingBannedWords[group._id]) {
       let matchedBadWords = getBannedWordsFromText(req.body.message);
       if (matchedBadWords.length > 0) {
         throw new BadRequest(res.t('bannedWordUsed', {swearWordsUsed: matchedBadWords.join(', ')}));
@@ -181,7 +187,43 @@ api.postChat = {
     if (client) {
       client = client.replace('habitica-', '');
     }
-    const newChatMessage = group.sendChat(req.body.message, user, null, client);
+
+    let flagCount = 0;
+    if (group.privacy === 'public' && user.flags.chatShadowMuted) {
+      flagCount = common.constants.CHAT_FLAG_FROM_SHADOW_MUTE;
+      let message = req.body.message;
+
+      // Email the mods
+      let authorEmail = getUserInfo(user, ['email']).email;
+      let groupUrl = getGroupUrl(group);
+
+      let report =  [
+        {name: 'MESSAGE_TIME', content: (new Date()).toString()},
+        {name: 'MESSAGE_TEXT', content: message},
+
+        {name: 'AUTHOR_USERNAME', content: user.profile.name},
+        {name: 'AUTHOR_UUID', content: user._id},
+        {name: 'AUTHOR_EMAIL', content: authorEmail},
+        {name: 'AUTHOR_MODAL_URL', content: `/profile/${user._id}`},
+
+        {name: 'GROUP_NAME', content: group.name},
+        {name: 'GROUP_TYPE', content: group.type},
+        {name: 'GROUP_ID', content: group._id},
+        {name: 'GROUP_URL', content: groupUrl},
+      ];
+
+      sendTxn(FLAG_REPORT_EMAILS, 'shadow-muted-post-report-to-mods', report);
+
+      // Slack the mods
+      slack.sendShadowMutedPostNotification({
+        authorEmail,
+        author: user,
+        group,
+        message,
+      });
+    }
+
+    const newChatMessage = group.sendChat({message: req.body.message, user, flagCount, metaData: null, client});
     let toSave = [newChatMessage.save()];
 
     if (group.type === 'party') {
@@ -246,7 +288,7 @@ api.likeChat = {
     let groupId = req.params.groupId;
 
     req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
-    req.checkParams('chatId', res.t('chatIdRequired')).notEmpty();
+    req.checkParams('chatId', apiError('chatIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -285,7 +327,7 @@ api.likeChat = {
  * @apiSuccess {Object} data.likes The likes of the message
  * @apiSuccess {Object} data.flags The flags of the message
  * @apiSuccess {Number} data.flagCount The number of flags the message has
- * @apiSuccess {UUID} data.uuid The user id of the author of the message
+ * @apiSuccess {UUID} data.uuid The User ID of the author of the message
  * @apiSuccess {String} data.user The username of the author of the message
  *
  * @apiUse GroupNotFound
@@ -334,7 +376,7 @@ api.clearChatFlags = {
     let chatId = req.params.chatId;
 
     req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
-    req.checkParams('chatId', res.t('chatIdRequired')).notEmpty();
+    req.checkParams('chatId', apiError('chatIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -367,12 +409,12 @@ api.clearChatFlags = {
       {name: 'ADMIN_USERNAME', content: user.profile.name},
       {name: 'ADMIN_UUID', content: user._id},
       {name: 'ADMIN_EMAIL', content: adminEmailContent},
-      {name: 'ADMIN_MODAL_URL', content: `/static/front/#?memberId=${user._id}`},
+      {name: 'ADMIN_MODAL_URL', content: `/profile/${user._id}`},
 
       {name: 'AUTHOR_USERNAME', content: message.user},
       {name: 'AUTHOR_UUID', content: message.uuid},
       {name: 'AUTHOR_EMAIL', content: authorEmail},
-      {name: 'AUTHOR_MODAL_URL', content: `/static/front/#?memberId=${message.uuid}`},
+      {name: 'AUTHOR_MODAL_URL', content: `/profile/${message.uuid}`},
 
       {name: 'GROUP_NAME', content: group.name},
       {name: 'GROUP_TYPE', content: group.type},
@@ -470,7 +512,7 @@ api.deleteChat = {
     let chatId = req.params.chatId;
 
     req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
-    req.checkParams('chatId', res.t('chatIdRequired')).notEmpty();
+    req.checkParams('chatId', apiError('chatIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;

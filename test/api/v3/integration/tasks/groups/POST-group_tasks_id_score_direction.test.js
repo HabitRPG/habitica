@@ -129,6 +129,13 @@ describe('POST /tasks/:id/score/:direction', () => {
     let memberTasks = await member.get('/tasks/user');
     let syncedTask = find(memberTasks, findAssignedTask);
 
+    await expect(member.post(`/tasks/${syncedTask._id}/score/up`))
+      .to.eventually.be.rejected.and.to.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('taskApprovalHasBeenRequested'),
+      });
+
     await user.post(`/tasks/${task._id}/approve/${member._id}`);
 
     await member.post(`/tasks/${syncedTask._id}/score/up`);

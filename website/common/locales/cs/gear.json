@@ -10,7 +10,7 @@
     "gearNotOwned": "Nevlastníš tento předmět.",
     "noGearItemsOfType": "Nevlastníš žádné z těchto.",
     "noGearItemsOfClass": "Už máš všechno vybavení tvého povolání! Více bude vypuštěno během Velké Slavnosti, blízko slunovratů a rovnodenností. ",
-    "classLockedItem": "Tento předmět je dostupný pouze pro specifické povolání. Změň si své povolání v Uživatel > Nastavení > Síla Postavy",
+    "classLockedItem": "Tento předmět je dostupný pouze pro specifickou třídu. Pokud jsi dosáhl 10. levelu, můžeš změnit svou třídu v Uživatel > Nastavení > Změň postavu!",
     "tierLockedItem": "Tento předmět je dostupný jakmile si pořídíš předchozí předměty v řadě. Pokračuj ve vypracovávání se výše!",
     "sortByType": "Typ",
     "sortByPrice": "Cena",

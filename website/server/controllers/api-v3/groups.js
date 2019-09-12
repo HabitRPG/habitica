@@ -82,7 +82,7 @@ let api = {};
  * @apiError (401) {NotAuthorized} messageInsufficientGems User does not have enough gems (4)
  * @apiError (401) {NotAuthorized} partyMustbePrivate Party must have privacy set to private
  * @apiError (401) {NotAuthorized} messageGroupAlreadyInParty
- * @apiError (401) {NotAuthorized} cannotCreatePublicGuildWhenMuted You cannot create a public guild because your chat privileges have been revoked.
+ * @apiError (401) {NotAuthorized} chatPrivilegesRevoked You cannot do this because your chat privileges have been removed...
  *
  * @apiSuccess (201) {Object} data The created group (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
  *
@@ -117,7 +117,7 @@ api.createGroup = {
     group.leader = user._id;
 
     if (group.type === 'guild') {
-      if (group.privacy === 'public' && user.flags.chatRevoked) throw new NotAuthorized(res.t('cannotCreatePublicGuildWhenMuted'));
+      if (group.privacy === 'public' && user.flags.chatRevoked) throw new NotAuthorized(res.t('chatPrivilegesRevoked'));
       if (user.balance < 1) throw new NotAuthorized(res.t('messageInsufficientGems'));
 
       group.balance = 1;
@@ -375,7 +375,8 @@ api.getGroup = {
   method: 'GET',
   url: '/groups/:groupId',
   middlewares: [authWithHeaders({
-    userFieldsToInclude: ['_id', 'party', 'guilds', 'contributor'],
+    // Some fields (including _id, preferences) are always loaded (see middlewares/auth)
+    userFieldsToInclude: ['party', 'guilds', 'contributor'],
   })],
   async handler (req, res) {
     let user = res.locals.user;
@@ -595,6 +596,7 @@ api.joinGroup = {
           inviter.items.quests.basilist = 0;
         }
         inviter.items.quests.basilist++;
+        inviter.markModified('items.quests');
       }
       promises.push(inviter.save());
     }
@@ -774,7 +776,7 @@ api.leaveGroup = {
 
     if (group.type !== 'party') {
       let guildIndex = user.guilds.indexOf(group._id);
-      user.guilds.splice(guildIndex, 1);
+      if (guildIndex >= 0) user.guilds.splice(guildIndex, 1);
     }
 
     let isMemberOfGroupPlan = await user.isMemberOfGroupPlan();
@@ -890,6 +892,7 @@ api.removeGroupMember = {
 
       if (group.quest && group.quest.active && group.quest.leader === member._id) {
         member.items.quests[group.quest.key] += 1;
+        member.markModified('items.quests');
       }
     } else if (isInvited) {
       if (isInvited === 'guild') {
@@ -941,11 +944,11 @@ api.removeGroupMember = {
  *     {"name": "User2", "email": "user-2@example.com"}
  *   ]
  * }
- * @apiParamExample {json} User Ids
+ * @apiParamExample {json} User IDs
  *   {
  *     "uuids": ["user-id-of-existing-user", "user-id-of-another-existing-user"]
  *   }
- * @apiParamExample {json} User Ids and Emails
+ * @apiParamExample {json} User IDs and Emails
  * {
  *   "emails": [
  *       {"email": "user-1@example.com"},
@@ -955,7 +958,7 @@ api.removeGroupMember = {
  * }
  *
  * @apiSuccess {Array} data The invites
- * @apiSuccess {Object} data[0] If the invitation was a user id, you'll receive back an object. You'll receive one Object for each succesful user id invite.
+ * @apiSuccess {Object} data[0] If the invitation was a User ID, you'll receive back an object. You'll receive one Object for each succesful User ID invite.
  * @apiSuccess {String} data[1] If the invitation was an email, you'll receive back the email. You'll receive one String for each successful email invite.
  *
  * @apiSuccessExample {json} Successful Response with Emails
@@ -966,13 +969,13 @@ api.removeGroupMember = {
  *   ]
  * }
  *
- * @apiSuccessExample {json} Successful Response with User Id
+ * @apiSuccessExample {json} Successful Response with User ID
  * {
  *   "data": [
  *     { id: 'the-id-of-the-invited-user', name: 'The group name', inviter: 'your-user-id' }
  *   ]
  * }
- * @apiSuccessExample {json} Successful Response with User Ids and Emails
+ * @apiSuccessExample {json} Successful Response with User IDs and Emails
  * {
  *   "data": [
  *     "user-1@example.com",
@@ -987,9 +990,9 @@ api.removeGroupMember = {
  * param `Array`.
  * @apiError (400) {BadRequest} UuidOrEmailOnly The `emails` and `uuids` params were both missing and/or a
  * key other than `emails` or `uuids` was provided in the body param.
- * @apiError (400) {BadRequest} CannotInviteSelf User id or email of invitee matches that of the inviter.
+ * @apiError (400) {BadRequest} CannotInviteSelf User ID or email of invitee matches that of the inviter.
  * @apiError (400) {BadRequest} MustBeArray The `uuids` or `emails` body param was not an array.
- * @apiError (400) {BadRequest} TooManyInvites A max of 100 invites (combined emails and user ids) can
+ * @apiError (400) {BadRequest} TooManyInvites A max of 100 invites (combined emails and User IDs) can
  * be sent out at a time.
  * @apiError (400) {BadRequest} ExceedsMembersLimit A max of 30 members can join a party.
  *
@@ -1009,7 +1012,7 @@ api.inviteToGroup = {
   async handler (req, res) {
     const user = res.locals.user;
 
-    if (user.flags.chatRevoked) throw new NotAuthorized(res.t('cannotInviteWhenMuted'));
+    if (user.flags.chatRevoked) throw new NotAuthorized(res.t('chatPrivilegesRevoked'));
 
     req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
 

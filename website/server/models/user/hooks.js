@@ -125,19 +125,10 @@ function _setUpNewUser (user) {
   let iterableFlags = user.flags.toObject();
 
   user.items.quests.dustbunnies = 1;
+  user.markModified('items.quests');
+
   user.purchased.background.violet = true;
   user.preferences.background = 'violet';
-
-  const testGroup = Math.random();
-  if (testGroup < 0.25) {
-    user._ABtests.welcomeEmailSplit = 'welcome-v2';
-  } else if (testGroup < 0.5) {
-    user._ABtests.welcomeEmailSplit = 'welcome-v2b';
-  } else if (testGroup < 0.75) {
-    user._ABtests.welcomeEmailSplit = 'welcome-v2c';
-  } else {
-    user._ABtests.welcomeEmailSplit = 'welcome-v2d';
-  }
 
   if (user.registeredThrough === 'habitica-web') {
     taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];
@@ -220,6 +211,7 @@ schema.pre('save', true, function preSaveUser (next, done) {
     // automatically granted an item during a certain time period:
     // if (!this.items.pets['JackOLantern-Base'] && moment().isBefore('2014-11-01'))
     // this.items.pets['JackOLantern-Base'] = 5;
+    // this.markModified('items.pets');
   }
 
   // Filter notifications, remove unvalid and not necessary, handle the ones that have special requirements

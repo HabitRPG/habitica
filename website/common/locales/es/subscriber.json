@@ -200,7 +200,7 @@
     "gemBenefit1": "Trajes únicos a la moda para tu avatar.",
     "gemBenefit2": "¡Fondos para sumergir a tu avatar en el mundo de Habitica!",
     "gemBenefit3": "Apasionantes Cadenas de Misión cuyo botín son huevos de mascota.",
-    "gemBenefit4": "Resetea los Puntos de Estadística de tu avatar y cambia su Clase.",
+    "gemBenefit4": "Resetea los Puntos de Atributo de tu avatar y cambia su Clase.",
     "subscriptionBenefitLeadin": "¡Apoya Habitica convirtiéndote en un suscriptor y recibirás estos útiles beneficios!",
     "subscriptionBenefit1": "¡Alejandro el Mercader te venderás Gemas, por 20 Oros cada una!",
     "subscriptionBenefit2": "El historial de Tareas Pendientes completadas estará disponible durante más tiempo.",
@@ -214,5 +214,6 @@
     "purchaseAll": "Comprar Conjunto",
     "gemsPurchaseNote": "¡Los suscriptores pueden comprar gemas a cambio de oro! Para un acceso más fácil, también puedes fijar las gemas a tu columna de Recompensas.",
     "gemsRemaining": "Gemas que quedan",
-    "notEnoughGemsToBuy": "No puedes comprar esa cantidad de gemas"
+    "notEnoughGemsToBuy": "No puedes comprar esa cantidad de gemas",
+    "mysterySet201902": "Conjunto de Capricho Críptico"
 }

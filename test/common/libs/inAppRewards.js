@@ -62,6 +62,18 @@ describe('inAppRewards', () => {
     expect(result[9].path).to.eql('potion');
   });
 
+  it('ignores null/undefined entries', () => {
+    user.pinnedItems = testPinnedItems;
+    user.pinnedItems.push(null);
+    user.pinnedItems.push(undefined);
+    user.pinnedItemsOrder = testPinnedItemsOrder;
+
+    let result = inAppRewards(user);
+
+    expect(result[2].path).to.eql('armoire');
+    expect(result[9].path).to.eql('potion');
+  });
+
   it('does not return seasonal items which have been unpinned', () => {
     if (officialPinnedItems.length === 0) {
       return; // if no seasonal items, this test is not applicable

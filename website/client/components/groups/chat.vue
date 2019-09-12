@@ -1,20 +1,27 @@
 <template lang="pug">
   .row.chat-row
     .col-12
-      h3(v-once) {{ label }}
+      h3.float-left.label(:class="{accepted: communityGuidelinesAccepted }") {{ label }}
+      div.float-right(v-markdown='$t("markdownFormattingHelp")')
 
-      .row
+      .row(v-if="communityGuidelinesAccepted")
         textarea(:placeholder='placeholder',
                   v-model='newMessage',
                   ref='user-entry',
                   :class='{"user-entry": newMessage}',
                   @keydown='updateCarretPosition',
                   @keyup.ctrl.enter='sendMessageShortcut()',
+                  @keydown.tab='handleTab($event)',
+                  @keydown.up='selectPreviousAutocomplete($event)',
+                  @keydown.down='selectNextAutocomplete($event)',
+                  @keydown.enter='selectAutocomplete($event)',
+                  @keydown.esc='handleEscape($event)',
                   @paste='disableMessageSendShortcut()',
                   maxlength='3000'
                 )
         span {{ currentLength }} / 3000
         autocomplete(
+                ref='autocomplete',
                 :text='newMessage',
                 v-on:select="selectedAutocomplete",
                 :textbox='textbox',
@@ -22,14 +29,14 @@
                 :caretPosition = 'caretPosition',
                 :chat='group.chat')
 
+      community-guidelines
+
       .row.chat-actions
         .col-6.chat-receive-actions
           button.btn.btn-secondary.float-left.fetch(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
           button.btn.btn-secondary.float-left(v-once, @click='reverseChat()') {{ $t('reverseChat') }}
         .col-6.chat-send-actions
-          button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
-
-      community-guidelines
+          button.btn.btn-primary.send-chat.float-right(:disabled="!communityGuidelinesAccepted", @click='sendMessage()') {{ $t('send') }}
 
       slot(
         name="additionRow",
@@ -46,9 +53,14 @@
   import autocomplete from '../chat/autoComplete';
   import communityGuidelines from './communityGuidelines';
   import chatMessage from '../chat/chatMessages';
+  import { mapState } from 'client/libs/store';
+  import markdownDirective from 'client/directives/markdown';
 
   export default {
     props: ['label', 'group', 'placeholder'],
+    directives: {
+      markdown: markdownDirective,
+    },
     components: {
       autocomplete,
       communityGuidelines,
@@ -71,8 +83,12 @@
       };
     },
     computed: {
+      ...mapState({user: 'user.data'}),
       currentLength () {
         return this.newMessage.length;
+      },
+      communityGuidelinesAccepted () {
+        return this.user.flags.communityGuidelinesAccepted;
       },
     },
     methods: {
@@ -114,12 +130,22 @@
       async sendMessage () {
         if (this.sending) return;
         this.sending = true;
-        let response = await this.$store.dispatch('chat:postChat', {
-          group: this.group,
-          message: this.newMessage,
-        });
-        this.group.chat.unshift(response.message);
-        this.newMessage = '';
+        let response;
+
+        try {
+          response = await this.$store.dispatch('chat:postChat', {
+            group: this.group,
+            message: this.newMessage,
+          });
+        } catch (e) {
+          // catch exception to allow function to continue
+        }
+
+        if (response) {
+          this.group.chat.unshift(response.message);
+          this.newMessage = '';
+        }
+
         this.sending = false;
 
         // @TODO: I would like to not reload everytime we send. Why are we reloading?
@@ -143,6 +169,45 @@
           this.chat.submitTimeout = null;
           this.chat.submitDisable = false;
         }, 500);
+      },
+
+      handleTab (e) {
+        if (this.$refs.autocomplete.searchActive) {
+          e.preventDefault();
+          if (e.shiftKey) {
+            this.$refs.autocomplete.selectPrevious();
+          } else {
+            this.$refs.autocomplete.selectNext();
+          }
+        }
+      },
+
+      handleEscape (e) {
+        if (this.$refs.autocomplete.searchActive) {
+          e.preventDefault();
+          this.$refs.autocomplete.cancel();
+        }
+      },
+
+      selectNextAutocomplete (e) {
+        if (this.$refs.autocomplete.searchActive) {
+          e.preventDefault();
+          this.$refs.autocomplete.selectNext();
+        }
+      },
+
+      selectPreviousAutocomplete (e) {
+        if (this.$refs.autocomplete.searchActive) {
+          e.preventDefault();
+          this.$refs.autocomplete.selectPrevious();
+        }
+      },
+
+      selectAutocomplete (e) {
+        if (this.$refs.autocomplete.searchActive) {
+          e.preventDefault();
+          this.$refs.autocomplete.makeSelection();
+        }
       },
 
       selectedAutocomplete (newText) {
@@ -196,6 +261,16 @@
   .chat-row {
     position: relative;
 
+    .label:not(.accepted) {
+      color: #a5a1ac;
+    }
+
+    .row {
+      margin-left: 0;
+      margin-right: 0;
+      clear: both;
+    }
+
     textarea {
       min-height: 150px;
       width: 100%;
@@ -204,7 +279,7 @@
       font-style: italic;
       line-height: 1.43;
       color: $gray-300;
-      padding: .5em;
+      padding: 10px 12px;
     }
 
     .user-entry {

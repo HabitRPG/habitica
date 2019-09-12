@@ -33,6 +33,8 @@
           span(v-html="$t(paymentData.newGroup ? 'groupPlanCreated' : 'groupPlanUpgraded', {groupName: paymentData.group.name})")
           .details-block
             span(v-html="$t('paymentSubBilling', {amount: groupPlanCost, months: paymentData.subscription.months})")
+        template(v-if="paymentData.paymentType === 'groupPlan' || paymentData.paymentType === 'subscription'")
+          span.small-text.auto-renew(v-once) {{ $t('paymentAutoRenew') }}
         button.btn.btn-primary(@click='close()', v-once) {{$t('onwards')}}
 </template>
 
@@ -115,6 +117,12 @@
         height: 32px;
       }
     }
+  }
+
+  .auto-renew {
+    margin-top: 16px;
+    color: $orange-10;
+    font-style: normal;
   }
 }
 

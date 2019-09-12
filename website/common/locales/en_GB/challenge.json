@@ -90,7 +90,7 @@
     "userTasksNoChallengeId": "When \"tasksOwner\" is \"user\" \"challengeId\" can't be passed.",
     "onlyChalLeaderEditTasks": "Tasks belonging to a challenge can only be edited by the leader.",
     "userAlreadyInChallenge": "User is already participating in this challenge.",
-    "cantOnlyUnlinkChalTask": "Only broken challenges tasks can be un-linked. ",
+    "cantOnlyUnlinkChalTask": "Only broken challenges tasks can be un-linked.",
     "shortNameTooShort": "Tag Name must have at least 3 characters.",
     "joinedChallenge": "Joined a Challenge",
     "joinedChallengeText": "This user put themselves to the test by joining a Challenge!",

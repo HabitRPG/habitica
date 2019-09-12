@@ -1,9 +1,14 @@
 <template lang="pug">
-.container-fluid
+.container-fluid(ref="container")
   .row
     .col-12
       copy-as-todo-modal(:group-type='groupType', :group-name='groupName', :group-id='groupId')
-      report-flag-modal
+  .row.loadmore
+    div(v-if="canLoadMore")
+      .loadmore-divider
+      button.btn.btn-secondary(@click='triggerLoad()') {{ $t('loadEarlierMessages') }}
+      .loadmore-divider
+    h2.col-12.loading(v-show="isLoading") {{ $t('loading') }}
   div(v-for="(msg, index) in messages", v-if='chat && canViewFlag(msg)', :class='{row: inbox}')
     .d-flex(v-if='user._id !== msg.uuid', :class='{"flex-grow-1": inbox}')
       avatar.avatar-left(
@@ -22,7 +27,8 @@
           :groupId='groupId',
           @message-liked='messageLiked',
           @message-removed='messageRemoved',
-          @show-member-modal='showMemberModal')
+          @show-member-modal='showMemberModal',
+          @chat-card-mounted='itemWasMounted')
     .d-flex(v-if='user._id === msg.uuid', :class='{"flex-grow-1": inbox}')
       .card(:class='{"col-10": inbox}')
         chat-card(
@@ -31,7 +37,8 @@
           :groupId='groupId',
           @message-liked='messageLiked',
           @message-removed='messageRemoved',
-          @show-member-modal='showMemberModal')
+          @show-member-modal='showMemberModal',
+          @chat-card-mounted='itemWasMounted')
       avatar(
         v-if='msg.userStyles || (cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected)',
         :member="msg.userStyles || cachedProfileData[msg.uuid]",
@@ -49,6 +56,34 @@
   .avatar {
     width: 10%;
     min-width: 7rem;
+  }
+  .loadmore {
+    justify-content: center;
+
+    > div {
+      display: flex;
+      width: 100%;
+      align-items: center;
+
+      button {
+        text-align: center;
+        color: $gray-50;
+        margin-top: 12px;
+        margin-bottom: 24px;
+      }
+    }
+  }
+
+  .loadmore-divider {
+    height: 1px;
+    background-color: $gray-500;
+    flex: 1;
+    margin-left: 24px;
+    margin-right: 24px;
+
+    &:last-of-type {
+      margin-right: 0;
+    }
   }
 
   .avatar-left {
@@ -94,6 +129,12 @@
     padding: 0rem;
     width: 90%;
   }
+
+  .message-scroll .d-flex {
+    min-width: 1px;
+  }
+
+
 </style>
 
 <script>
@@ -105,14 +146,24 @@ import findIndex from 'lodash/findIndex';
 
 import Avatar from '../avatar';
 import copyAsTodoModal from './copyAsTodoModal';
-import reportFlagModal from './reportFlagModal';
 import chatCard from './chatCard';
 
 export default {
-  props: ['chat', 'groupType', 'groupId', 'groupName', 'inbox'],
+  props: {
+    chat: {},
+    inbox: {
+      type: Boolean,
+      default: false,
+    },
+    groupType: {},
+    groupId: {},
+    groupName: {},
+
+    isLoading: Boolean,
+    canLoadMore: Boolean,
+  },
   components: {
     copyAsTodoModal,
-    reportFlagModal,
     chatCard,
     Avatar,
   },
@@ -132,6 +183,8 @@ export default {
       currentProfileLoadedCount: 0,
       currentProfileLoadedEnd: 10,
       loading: false,
+      handleScrollBack: false,
+      lastOffset: -1,
     };
   },
   computed: {
@@ -143,14 +196,23 @@ export default {
       return this.chat;
     },
   },
-  watch: {
-    messages () {
-      this.loadProfileCache();
-    },
-  },
   methods: {
     handleScroll () {
       this.loadProfileCache(window.scrollY / 1000);
+    },
+    async triggerLoad () {
+      const container = this.$refs.container;
+
+      // get current offset
+      this.lastOffset = container.scrollTop - (container.scrollHeight - container.clientHeight);
+      // disable scroll
+      container.style.overflowY = 'hidden';
+
+      const canLoadMore = this.inbox && !this.isLoading && this.canLoadMore;
+      if (canLoadMore) {
+        await this.$emit('triggerLoad');
+        this.handleScrollBack = true;
+      }
     },
     canViewFlag (message) {
       if (message.uuid === this.user._id) return true;
@@ -242,6 +304,20 @@ export default {
         this.$router.push({name: 'userProfile', params: {userId: profile._id}});
       }
     },
+    itemWasMounted: debounce(function itemWasMounted ()  {
+      if (this.handleScrollBack) {
+        this.handleScrollBack = false;
+
+        const container = this.$refs.container;
+        const offset = container.scrollHeight - container.clientHeight;
+
+        const newOffset = offset + this.lastOffset;
+
+        container.scrollTo(0, newOffset);
+        // enable scroll again
+        container.style.overflowY = 'scroll';
+      }
+    }, 50),
     messageLiked (message) {
       const chatIndex = findIndex(this.chat, chatMessage => {
         return chatMessage.id === message.id;

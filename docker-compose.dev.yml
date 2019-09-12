@@ -1,14 +1,45 @@
 version: "3"
 services:
-
   client:
+    build:
+      context: .
+      dockerfile: ./Dockerfile-Dev
+    command: ["npm", "run", "client:dev"]
+    depends_on:
+      - server
     environment:
-      - NODE_ENV=development
+      - BASE_URL=http://server:3000
+    image: habitica
+    networks:
+      - habitica
+    ports:
+      - "8080:8080"
     volumes:
-      - '.:/usr/src/habitrpg'
-
+      - .:/code
+      - /code/node_modules
   server:
+    build:
+      context: .
+      dockerfile: ./Dockerfile-Dev
+    command: ["npm", "start"]
+    depends_on:
+      - mongo
     environment:
-      - NODE_ENV=development
+      - NODE_DB_URI=mongodb://mongo/habitrpg
+    image: habitica
+    networks:
+      - habitica
+    ports:
+      - "3000:3000"
     volumes:
-      - '.:/usr/src/habitrpg'
+      - .:/code
+      - /code/node_modules
+  mongo:
+    image: mongo:3.4
+    networks:
+      - habitica
+    ports:
+      - "27017:27017"
+networks:
+  habitica:
+    driver: bridge

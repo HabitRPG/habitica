@@ -170,6 +170,7 @@ async function addSubToGroupUser (member, group) {
 
   member.purchased.plan = plan;
   member.items.mounts['Jackalope-RoyalPurple'] = true;
+  member.markModified('items.mounts');
 
   data.user = member;
   await this.createSubscription(data);
@@ -210,13 +211,13 @@ async function cancelGroupSubscriptionForUser (user, group, userWasRemoved = fal
   if (user.party._id) userGroups.push(user.party._id);
 
   let index = userGroups.indexOf(group._id);
-  userGroups.splice(index, 1);
+  if (index >= 0) userGroups.splice(index, 1);
 
   let groupPlansQuery = {
-    type: {$in: ['guild', 'party']},
+    // type: { $in: ['guild', 'party'] },
     // privacy: 'private',
     _id: {$in: userGroups},
-    'purchased.plan.dateTerminated': null,
+    'purchased.plan.dateTerminated': { $type: 'null' },
   };
 
   let groupFields = `${basicGroupFields} purchased`;

@@ -131,10 +131,12 @@ describe('getTaskClasses getter', () => {
       up: {
         bg: 'task-good-control-bg',
         inner: 'task-good-control-inner-habit',
+        icon: 'task-good-control-icon',
       },
       down: {
         bg: 'task-disabled-habit-control-bg',
         inner: 'task-disabled-habit-control-inner',
+        icon: 'task-good-control-icon',
       },
     });
   });

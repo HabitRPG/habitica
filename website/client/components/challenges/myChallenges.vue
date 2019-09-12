@@ -7,7 +7,6 @@
     .row.header-row
       .col-md-8.text-left
         h1(v-once) {{$t('myChallenges')}}
-        h2(v-if='loading && challenges.length === 0') {{ $t('loading') }}
       .col-md-4
         // @TODO: implement sorting span.dropdown-label {{ $t('sortBy') }}
           b-dropdown(:text="$t('sort')", right=true)
@@ -30,6 +29,13 @@
     .row
       .col-12.col-md-6(v-for='challenge in filteredChallenges')
         challenge-item(:challenge='challenge')
+      mugen-scroll(
+        :handler="infiniteScrollTrigger",
+        :should-handle="!loading && canLoadMore",
+        :threshold="1",
+        v-show="loading",
+      )
+        h2.col-12.loading(v-once) {{ $t('loading') }}
 </template>
 
 <style lang='scss' scoped>
@@ -66,9 +72,15 @@
       margin: 1em auto;
     }
   }
+
+  .loading {
+    text-align: center;
+    color: $purple-300;
+  }
 </style>
 
 <script>
+import { mapState } from 'client/libs/store';
 import Sidebar from './sidebar';
 import ChallengeItem from './challengeItem';
 import challengeModal from './challengeModal';
@@ -76,6 +88,9 @@ import challengeUtilities from 'client/mixins/challengeUtilities';
 
 import challengeIcon from 'assets/svg/challenge.svg';
 import positiveIcon from 'assets/svg/positive.svg';
+import MugenScroll from 'vue-mugen-scroll';
+
+import debounce from 'lodash/debounce';
 
 export default {
   mixins: [challengeUtilities],
@@ -83,6 +98,7 @@ export default {
     Sidebar,
     ChallengeItem,
     challengeModal,
+    MugenScroll,
   },
   data () {
     return {
@@ -91,6 +107,7 @@ export default {
         positiveIcon,
       }),
       loading: false,
+      canLoadMore: true,
       challenges: [],
       sort: 'none',
       sortOptions: [
@@ -117,29 +134,44 @@ export default {
       ],
       search: '',
       filters: {},
+      page: 0,
     };
   },
   mounted () {
     this.loadChallenges();
   },
   computed: {
+    ...mapState({user: 'user.data'}),
     filteredChallenges () {
-      let search = this.search;
-      let filters = this.filters;
-      let user = this.$store.state.user.data;
+      const filters = this.filters;
+      const user = this.user;
 
-      // @TODO: Move this to the server
-      return this.challenges.filter((challenge) => {
-        return this.filterChallenge(challenge, filters, search, user);
+      return this.challenges.filter(challenge => {
+        let isMember = true;
+
+        let filteringRole = filters.roles && filters.roles.length > 0;
+        if (filteringRole && filters.roles.indexOf('participating') !== -1) {
+          isMember = this.isMemberOfChallenge(user, challenge);
+        }
+
+        if (filteringRole && filters.roles.indexOf('not_participating') !== -1) {
+          isMember = !this.isMemberOfChallenge(user, challenge);
+        }
+
+        return isMember;
       });
     },
   },
   methods: {
     updateSearch (eventData) {
       this.search = eventData.searchTerm;
+      this.page = 0;
+      this.loadChallenges();
     },
     updateFilters (eventData) {
       this.filters = eventData;
+      this.page = 0;
+      this.loadChallenges();
     },
     createChallenge () {
       this.$store.state.challengeOptions.workingChallenge = {};
@@ -147,14 +179,53 @@ export default {
     },
     async loadChallenges () {
       this.loading = true;
-      this.challenges = await this.$store.dispatch('challenges:getUserChallenges', {
+
+      let categories = '';
+      if (this.filters.categories) {
+        categories = this.filters.categories.join(',');
+      }
+
+      let owned = '';
+      // @TODO: we skip ownership === 2 because it is the same as === 0 right now
+      if (this.filters.ownership && this.filters.ownership.length === 1) {
+        owned = this.filters.ownership[0];
+      }
+
+      const challenges = await this.$store.dispatch('challenges:getUserChallenges', {
+        page: this.page,
+        search: this.search,
+        categories,
+        owned,
         member: true,
       });
+
+      if (this.page === 0) {
+        this.challenges = challenges;
+      } else {
+        this.challenges = this.challenges.concat(challenges);
+      }
+
+      // only show the load more Button if the max count was returned
+      this.canLoadMore = challenges.length === 10;
+
       this.loading = false;
     },
     challengeCreated (challenge) {
       this.challenges.push(challenge);
     },
+    infiniteScrollTrigger () {
+      // show loading and wait until the loadMore debounced
+      // or else it would trigger on every scrolling-pixel (while not loading)
+      if (this.canLoadMore) {
+        this.loading = true;
+      }
+
+      this.loadMore();
+    },
+    loadMore: debounce(function loadMoreDebounce () {
+      this.page += 1;
+      this.loadChallenges();
+    }, 1000),
   },
 };
 </script>
