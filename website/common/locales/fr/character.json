@@ -224,5 +224,9 @@
     "mainHand": "Main principale",
     "offHand": "Main secondaire",
     "statPoints": "Points de caractéristiques",
-    "pts": "pts"
+    "pts": "pts",
+    "chatCastSpellUser": "<%= username %> lance <%= spell %> sur <%= target %>.",
+    "chatCastSpellParty": "<%= username %> lance <%= spell %> pour l'équipe.",
+    "purchasePetItemConfirm": "Cet achat vous donnerait plus d'objets que nécessaire pour faire éclore tous les familiers <%= itemText %>. Confirmez-vous ?",
+    "purchaseForGold": "Acheter pour <%= cost %> pièces d'or ?"
 }

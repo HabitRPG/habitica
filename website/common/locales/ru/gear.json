@@ -1614,7 +1614,7 @@
     "headAccessory": "аксессуар на голову",
     "headAccessoryCapitalized": "Аксессуар на голову",
     "accessories": "Аксессуары",
-    "animalEars": "Звериные Уши",
+    "animalEars": "Звериные уши",
     "headAccessoryBase0Text": "Нет аксессуаров на голове",
     "headAccessoryBase0Notes": "Нет аксессуаров на голове.",
     "headAccessorySpecialSpringRogueText": "Пурпурные кошачьи уши",
@@ -1898,5 +1898,10 @@
     "shieldSpecialSummer2019MageNotes": "Потеть под летним солнцем? Нет! Используйте элементарное заклинание, чтобы заполнить водой пруд с лилиями. Увеличивает восприятие на <%= per %>. Ограниченный выпуск лета 2019.",
     "armorMystery201908Text": "Костюм вольного фавна",
     "armorMystery201908Notes": "Эти копыта созданы для танцев! И это именно то, что они будут делать. Бонусов не дает. Подарок подписчикам августа 2019.",
-    "headAccessoryMystery201908Text": "Рога вольного фавна"
+    "headAccessoryMystery201908Text": "Рога вольного фавна",
+    "shieldArmoirePolishedPocketwatchNotes": "У вас есть время. А еще они отлично смотрятся. Увеличивает интеллект на <%= int %>. Зачарованный сундук: Независимый предмет.",
+    "shieldArmoirePolishedPocketwatchText": "Полированные карманные часы",
+    "weaponArmoireResplendentRapierNotes": "Продемонстрируйте свое мастерство владения мечом с помощью этого остроконечного оружия. Увеличивает восприятие на <%= per %>. Зачарованный сундук: Независимый предмет.",
+    "weaponArmoireResplendentRapierText": "Великолепная рапира",
+    "weaponArmoireFloridFanText": "Декоративный веер"
 }

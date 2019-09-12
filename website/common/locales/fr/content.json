@@ -346,5 +346,8 @@
     "hatchingPotionSunshine": "Rayon de soleil",
     "hatchingPotionBronze": "de bronze",
     "hatchingPotionWatery": "Aquatique",
-    "hatchingPotionSilver": "d'argent"
+    "hatchingPotionSilver": "d'argent",
+    "questEggRobotAdjective": "un futuriste",
+    "questEggRobotMountText": "Robot",
+    "questEggRobotText": "Robot"
 }

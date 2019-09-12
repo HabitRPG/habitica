@@ -10,7 +10,7 @@
     "gearNotOwned": "您还未拥有这件物品。",
     "noGearItemsOfType": "您还未拥有这些物品中任何一件。",
     "noGearItemsOfClass": "你已经拥有了当前职业的所有基础职业装备！春分，夏至，秋分，冬至的盛典期间会推出更多装备。",
-    "classLockedItem": "此装备只卖给对应职业的玩家。请在【玩家图标】→【设定】→【角色塑造】下面更改你的职业！",
+    "classLockedItem": "此装备只卖给对应职业的玩家。10级以后你可以在【玩家图标】→【设定】→【角色属性】下面更改你的职业！",
     "tierLockedItem": "只有当你按顺序购买了系列中前面的物品时，才能买这个物品。继续努力吧！",
     "sortByType": "不同类型",
     "sortByPrice": "价钱",
@@ -1765,5 +1765,9 @@
     "shieldArmoireMightyPizzaText": "巨无霸披萨",
     "shieldArmoireMightyPizzaNotes": "当然，这可以是一个相当不错的盾牌，但我们还是强烈建议你吃掉这个特别棒的披萨。增加了<%= per %>的感觉。魔法衣橱：厨师套装（4个中的第4个）。 ",
     "eyewearMystery201902Text": "神秘芳心纵火犯",
-    "eyewearMystery201902Notes": "这个神秘面具让人认不出你，大家只能看到属于胜者的微笑。没啥增益效果。2019年2月 订阅者 奖励物品。"
+    "eyewearMystery201902Notes": "这个神秘面具让人认不出你，大家只能看到属于胜者的微笑。没啥增益效果。2019年2月 订阅者 奖励物品。",
+    "weaponSpecialSpring2019WarriorNotes": "翠绿的刀刃前，坏习惯退隐。增加 <%= str %>点力量。2019春季限定版。",
+    "weaponSpecialSpring2019RogueNotes": "这些武器有着天和雨的力量。我们不推荐你在水中的时候用它们。增加<%= str %>点力量。2019春季限定装备。",
+    "weaponSpecialSpring2019WarriorText": "树茎剑",
+    "weaponSpecialSpring2019RogueText": "闪电箭"
 }

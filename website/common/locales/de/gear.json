@@ -1849,7 +1849,7 @@
     "armorArmoireBoatingJacketText": "Bootsfahrt-Jacke",
     "armorArmoireBoatingJacketNotes": "Egal, ob Du auf einer schmucken Yacht oder in einer Schaluppe bist, Du wirst in dieser Jacke und Krawatte der letzte Schrei sein. Erhöht Stärke, Intelligenz und Wahrnehmung um je <%= attrs %>. Verzauberter Schrank: Bootsfahrt-Set (Gegenstand 1 von 3).",
     "armorArmoireInvernessCapeText": "Inverness Umhang",
-    "armorArmoireInvernessCapeNotes": "Mit diesem robusten Kleidungsstück kannst Du bei jedem Wetter nach Hinweisen suchen. Erhöht Wahrnehmung und Intelligenz um je <%= per %>. Verzauberter Schrank: Detektiv-Set (Gegenstand 2 von 4).",
+    "armorArmoireInvernessCapeNotes": "Mit diesem robusten Kleidungsstück kannst Du bei jedem Wetter nach Hinweisen suchen. Erhöht Wahrnehmung und Intelligenz um je <%= attrs %>. Verzauberter Schrank: Detektiv-Set (Gegenstand 2 von 4).",
     "headSpecialSummer2019RogueNotes": "Dieser Helm bietet Dir einen 360-Grad-Blick auf das umliegende Wasser, was perfekt ist, um ahnungslose rote Tagesaufgaben anzuschleichen. Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe 2019 Sommerausrüstung.",
     "headSpecialSummer2019WarriorNotes": "Er hilft Dir nicht, Deinen Kopf zwischen Deine Schultern herunterzuziehen, aber er wird Dich schützen, wenn Du den den Kopf am Rumpf eines Bootes stösst. Erhöht Stärke um <%= str %>. Limitierte Ausgabe 2019 Sommerausrüstung.",
     "headSpecialSummer2019MageNotes": "Entgegen der landläufigen Meinung ist Dein Kopf kein geeigneter Ort, an dem Frösche sitzen können. Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe 2019 Sommerausrüstung.",
@@ -1899,5 +1899,11 @@
     "armorMystery201908Text": "Freilaufendes Faun-Kostüm",
     "armorMystery201908Notes": "Diese Beine sind wie gemacht fürs Tanzen! Und das ist was sie tun. Gewährt keinen Attributbonus. Abonnentengegenstand, August 2019.",
     "headAccessoryMystery201908Text": "Freilaufende Faun-Hörner",
-    "headAccessoryMystery201908Notes": "Wenn Hörnertragen Dein Ding ist hast Du Glück gehabt! Gewährt keinen Attributbonus. Abonnentengegenstand, August 2019."
+    "headAccessoryMystery201908Notes": "Wenn Hörnertragen Dein Ding ist hast Du Glück gehabt! Gewährt keinen Attributbonus. Abonnentengegenstand, August 2019.",
+    "weaponArmoireFloridFanText": "Florider Fächer",
+    "weaponArmoireResplendentRapierNotes": "Beweise Deine Fechtkünste mit dieser spitzen Waffe. Erhöht Wahrnehmung um <%= per %>. Verzauberter Schrank: Unabhängiger Gegenstand.",
+    "weaponArmoireResplendentRapierText": "Radiantes Rapier",
+    "weaponArmoireFloridFanNotes": "Dieser blumige Seidenfächer lässt sich bei Nichtgebrauch zusammenklappen, Erhöht Ausdauer um <%= con %>. Verzauberter Schrank: Unabhängiger Gegenstand.",
+    "shieldArmoirePolishedPocketwatchNotes": "Mit der Taschenuhr hast Du die Zeit immer im Blick. Und sie sieht echt gut aus an Dir. Erhöht Intelligenz um <%= int %>. Verzauberter Schrank: Unabhängiger Gegenstand.",
+    "shieldArmoirePolishedPocketwatchText": "Total polierte Taschenuhr"
 }

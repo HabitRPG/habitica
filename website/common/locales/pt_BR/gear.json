@@ -1763,7 +1763,7 @@
     "shieldMystery201902Text": "Confete enigmático",
     "shieldMystery201902Notes": "Este papel brilhante forma corações mágicos que vagueiam lentamente e dançam no ar. Não confere nenhum benefício. Fevereiro de 2019 Item dos Assinantes",
     "shieldArmoireMightyPizzaText": "Pizza Poderosa",
-    "shieldArmoireMightyPizzaNotes": "Claro, é um escudo muito bom, mas nós sugerimos fortemente que você coma essa ótima pizza. Aumenta a Percepção em <%= per %>. Armário Encantado: Conjunto do Chef (Item 4 de 4). ",
+    "shieldArmoireMightyPizzaNotes": "Claro, é um escudo muito bom, mas nós sugerimos fortemente que você coma essa ótima, ótima pizza. Aumenta a Percepção em <%= per %>. Armário Encantado: Conjunto do Chef (Item 4 de 4).",
     "eyewearMystery201902Text": "Macara enigmática do crush",
     "eyewearMystery201902Notes": "Esta máscara misteriosa esconde a sua identidade, mas não o seu sorriso vencedor. Não confere nenhum benefício. Fevereiro de 2019 Item de Assinante.",
     "weaponSpecialSpring2019RogueText": "Relâmpago",
@@ -1809,5 +1809,12 @@
     "shieldSpecialSpring2019HealerText": "Escudo Casca de Ovo",
     "shieldSpecialSpring2019HealerNotes": "Este escudo brilhante é feito de doces com cobertura de chocolate. Aumenta a Constituição em <%= con %>. Equipamento de Edição Limitada Primavera 2019.",
     "weaponSpecialSummer2019RogueText": "Âncora antiquada",
-    "weaponSpecialSummer2019RogueNotes": "Esta arma antiga e formidável ajudará você a vencer qualquer batalha submarina. Aumenta a Força em <%= str %>. Equipamento de Edição Limitada Verão 2019."
+    "weaponSpecialSummer2019RogueNotes": "Esta arma antiga e formidável ajudará você a vencer qualquer batalha submarina. Aumenta a Força em <%= str %>. Equipamento de Edição Limitada Verão 2019.",
+    "weaponSpecialSummer2019MageText": "Flor Brilhante",
+    "weaponSpecialSummer2019WarriorNotes": "Agora você está lutando com fractais! Aumenta Força em <%= str %>. Equipamento de Edição Limitada de Verão de 2019.",
+    "weaponSpecialSummer2019WarriorText": "Coral Vermelho",
+    "weaponArmoireNephriteBowText": "Arco de Nefrita",
+    "weaponSpecialSummer2019HealerNotes": "As bolhas dessa varinha adquiriram energia curativa e magia oceanica anciã. Aumenta inteligência em <%= int %>. Equipamento de Edição Limitada de Verão de 2019.",
+    "weaponSpecialSummer2019HealerText": "Varinha de bolhas",
+    "weaponSpecialSummer2019MageNotes": "Fruto do seu trabalho, primeira flor a ser escolhida, esse pequeno tesouro fortalece e inspira. Aumenta inteligencia em <%= int %>. Equipamento de Edição Limitada de Verão 2019."
 }

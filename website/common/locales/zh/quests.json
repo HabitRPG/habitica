@@ -126,5 +126,15 @@
     "bossHealth": "<%= currentHealth %>/ <%= maxHealth %> 生命值",
     "rageAttack": "狂暴攻击：",
     "bossRage": "<%= currentRage %> / <%= maxRage %> 愤怒值",
-    "rageStrikes": "狂暴打击"
+    "rageStrikes": "狂暴打击",
+    "tavernBossTired": "<%= bossName %>想释放<%= rageName %>但它太累了。",
+    "chatQuestCancelled": "<%= username %>取消了队伍副本<%= questName %>.",
+    "chatQuestAborted": "<%= username %>放弃了队伍副本<%= questName %>。",
+    "chatItemQuestFinish": "物品已找齐！队伍已收到奖励。",
+    "chatFindItems": "<%= username %>找到了<%= items %>.",
+    "chatBossDefeated": "你们打败了<%= bossName %>！参与副本的成员获得了战利品。",
+    "chatBossDontAttack": "<%= username %>对<%= bossName %>造成了<%= userDamage %>点伤害。<%= bossName %>没有反击，因为它考虑到目前有些需要修复的错误，他不想不公平地伤害到任何人。但很快它将继续横冲直撞！",
+    "chatBossDamage": "<%= username %>对 <%= bossName %>造成了 <%= userDamage %>点伤害。<%= bossName %>对队伍造成了<%= bossDamage %>点伤害。",
+    "chatQuestStarted": "你们的任务， <%= questName %>，已经开始。",
+    "hatchingPotionQuests": "魔法孵化药水副本"
 }

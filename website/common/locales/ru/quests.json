@@ -132,5 +132,6 @@
     "chatBossDamage": "<%= username %> атакует <%= bossName %> и наносит <%= userDamage %> урона. <%= bossName %> атакует команду и наносит <%= bossDamage %> урона.",
     "chatFindItems": "<%= username %> находит <%= items %>.",
     "chatItemQuestFinish": "Все предметы найдены! Команда получила свои награды.",
-    "chatQuestCancelled": "<%= username %> отменил(а) квест команды \"<%= questName %>\"."
+    "chatQuestCancelled": "<%= username %> отменил(а) квест команды \"<%= questName %>\".",
+    "chatQuestAborted": "<%= username %> отменил(а) квест <%= questName %>."
 }

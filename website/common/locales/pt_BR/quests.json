@@ -71,7 +71,7 @@
     "scrollsText1": "Missões precisam de grupos. Se quiser fazer a missão sozinho,",
     "scrollsText2": "crie um grupo vazio",
     "scrollsPre": "Você ainda não desbloqueou esta missão!",
-    "alreadyEarnedQuestLevel": "Você já ganhou esta missão quando chegou no Nível <%= level %>. ",
+    "alreadyEarnedQuestLevel": "Você já ganhou esta missão quando atingiu o Nível <%= level %>. ",
     "alreadyEarnedQuestReward": "Você já ganhou esta missão quando completou <%= priorQuest %>. ",
     "completedQuests": "Completou as seguintes missões",
     "mustComplete": "Você precisa completar <%= quest %> primeiro.",
@@ -127,5 +127,6 @@
     "rageAttack": "Ataque de Fúria:",
     "bossRage": "<%= currentRage %> / <%= maxRage %> Fúria",
     "rageStrikes": "Golpes de Fúria",
-    "hatchingPotionQuests": "Missões de Poções Mágicas de Eclosão"
+    "hatchingPotionQuests": "Missões de Poções Mágicas de Eclosão",
+    "chatBossDontAttack": "<%= username %> ataca <%= bossName %> fazendo <%= userDamage %> de dano. <%= bossName %> não ataca, pois ele respeita o fato de que existem alguns bugs pós-manutenção, e ele não quer machucar ninguém injustamente. Ele irá continuar seu alvoroço em breve!"
 }
