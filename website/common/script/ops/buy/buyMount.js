@@ -31,11 +31,15 @@ export class BuyHourglassMountOperation extends AbstractHourglassItemOperation {
       throw new NotAuthorized(this.i18n('mountsAlreadyOwned'));
     }
 
-    this.canUserPurchase(user);
+    this.canUserPurchase(user, {
+      key,
+    });
   }
 
   executeChanges (user) {
     user.items.mounts[this.key] = true;
+
+    if (user.markModified) user.markModified('items.mounts');
 
     this.subtractCurrency(user);
 
