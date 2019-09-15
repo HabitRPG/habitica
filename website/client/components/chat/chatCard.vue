@@ -1,7 +1,7 @@
 <template lang="pug">
 div
   .mentioned-icon(v-if='isUserMentioned')
-  .message-hidden(v-if='!inbox && user.contributor.admin && msg.flagCount') {{flagCountDescription}}
+  .message-hidden(v-if='user.contributor.admin && msg.flagCount') {{ flagCountDescription }}
   .card-body
     user-link(:userId="msg.uuid", :name="msg.user", :backer="msg.backer", :contributor="msg.contributor")
     p.time
@@ -10,28 +10,24 @@ div
       span(v-b-tooltip="", :title="msg.timestamp | date") {{ msg.timestamp | timeAgo }}&nbsp;
       span(v-if="msg.client && user.contributor.level >= 4")  ({{ msg.client }})
     .text(v-html='atHighlight(parseMarkdown(msg.text))')
-    .reported(v-if="isMessageReported && (inbox === true)")
-      span(v-once) {{ $t('reportedMessage')}}
-      br
-      span(v-once) {{ $t('canDeleteNow') }}
     hr
     .d-flex(v-if='msg.id')
-      .action.d-flex.align-items-center(v-if='!inbox', @click='copyAsTodo(msg)')
-        .svg-icon(v-html="icons.copy")
-        div {{$t('copyAsTodo')}}
-      .action.d-flex.align-items-center(v-if='(inbox || (user.flags.communityGuidelinesAccepted && msg.uuid !== "system")) && (!isMessageReported || user.contributor.admin)', @click='report(msg)')
+      .action.d-flex.align-items-center(@click='copyAsTodo(msg)')
+        .svg-icon(v-html="icons.copy", v-once)
+        div(v-once) {{ $t('copyAsTodo') }}
+      .action.d-flex.align-items-center(v-if='user.flags.communityGuidelinesAccepted && msg.uuid !== "system" && !isMessageReported || user.contributor.admin', @click='report(msg)')
         .svg-icon(v-html="icons.report", v-once)
-        div(v-once) {{$t('report')}}
-      .action.d-flex.align-items-center(v-if='msg.uuid === user._id || inbox || user.contributor.admin', @click='remove()')
+        div(v-once) {{ $t('report') }}
+      .action.d-flex.align-items-center(v-if='msg.uuid === user._id || user.contributor.admin', @click='remove()')
         .svg-icon(v-html="icons.delete", v-once)
-        div(v-once) {{$t('delete')}}
-      .ml-auto.d-flex(v-b-tooltip="{title: likeTooltip(msg.likes[user._id])}", v-if='!inbox')
+        div(v-once) {{ $t('delete') }}
+      .ml-auto.d-flex(v-b-tooltip="{title: likeTooltip(msg.likes[user._id])}")
         .action.d-flex.align-items-center.mr-0(@click='like()', v-if='likeCount > 0', :class='{active: msg.likes[user._id]}')
           .svg-icon(v-html="icons.liked", :title='$t("liked")')
           | +{{ likeCount }}
         .action.d-flex.align-items-center.mr-0(@click='like()', v-if='likeCount === 0', :class='{active: msg.likes[user._id]}')
           .svg-icon(v-html="icons.like", :title='$t("like")')
-      span(v-if='!msg.likes[user._id] && !inbox') {{ $t('like') }}
+      span(v-if='!msg.likes[user._id]') {{ $t('like') }}
 </template>
 
 <style lang="scss">
@@ -113,15 +109,9 @@ div
       color: $purple-400;
     }
   }
-
-  .reported {
-    margin-top: 18px;
-    color: $red-50;
-  }
 </style>
 
 <script>
-import axios from 'axios';
 import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import escapeRegExp from 'lodash/escapeRegExp';
@@ -143,10 +133,6 @@ export default {
   components: {userLink},
   props: {
     msg: {},
-    inbox: {
-      type: Boolean,
-      default: false,
-    },
     groupId: {},
   },
   data () {
@@ -260,11 +246,6 @@ export default {
 
       const message = this.msg;
       this.$emit('message-removed', message);
-
-      if (this.inbox) {
-        await axios.delete(`/api/v4/inbox/messages/${message.id}`);
-        return;
-      }
 
       await this.$store.dispatch('chat:deleteChat', {
         groupId: this.groupId,

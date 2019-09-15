@@ -544,7 +544,7 @@ export default {
       history.replaceState(null, null, '');
     },
     sendMessage () {
-      this.$root.$emit('habitica::new-inbox-message', {
+      this.$root.$emit('habitica::new-private-message', {
         userIdToMessage: this.user._id,
         displayName: this.user.profile.name,
         username: this.user.auth.local.username,

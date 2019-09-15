@@ -9,8 +9,8 @@
       button.btn.btn-secondary(@click='triggerLoad()') {{ $t('loadEarlierMessages') }}
       .loadmore-divider
     h2.col-12.loading(v-show="isLoading") {{ $t('loading') }}
-  div(v-for="(msg, index) in messages", v-if='chat && canViewFlag(msg)', :class='{row: inbox}')
-    .d-flex(v-if='user._id !== msg.uuid', :class='{"flex-grow-1": inbox}')
+  div(v-for="(msg, index) in messages", v-if='chat && canViewFlag(msg)')
+    .d-flex(v-if='user._id !== msg.uuid')
       avatar.avatar-left(
         v-if='msg.userStyles || (cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected)',
         :member="msg.userStyles || cachedProfileData[msg.uuid]",
@@ -18,22 +18,19 @@
         :overrideTopPadding='"14px"',
         :hideClassBadge='true',
         @click.native="showMemberModal(msg.uuid)",
-        :class='{"inbox-avatar-left": inbox}'
       )
-      .card(:class='{"col-10": inbox}')
+      .card
         chat-card(
           :msg='msg',
-          :inbox='inbox',
           :groupId='groupId',
           @message-liked='messageLiked',
           @message-removed='messageRemoved',
           @show-member-modal='showMemberModal',
           @chat-card-mounted='itemWasMounted')
-    .d-flex(v-if='user._id === msg.uuid', :class='{"flex-grow-1": inbox}')
-      .card(:class='{"col-10": inbox}')
+    .d-flex(v-if='user._id === msg.uuid')
+      .card
         chat-card(
           :msg='msg',
-          :inbox='inbox',
           :groupId='groupId',
           @message-liked='messageLiked',
           @message-removed='messageRemoved',
@@ -46,7 +43,6 @@
         :hideClassBadge='true',
         :overrideTopPadding='"14px"',
         @click.native="showMemberModal(msg.uuid)",
-        :class='{"inbox-avatar-right": inbox}'
       )
 </template>
 
@@ -89,16 +85,6 @@
   .avatar-left {
     margin-left: -1.5rem;
     margin-right: 2rem;
-  }
-
-  .inbox-avatar-left {
-    margin-left: -1rem;
-    margin-right: 2.5rem;
-    min-width: 5rem;
-  }
-
-  .inbox-avatar-right {
-    margin-left: -3.5rem;
   }
 
   .hr {
@@ -151,10 +137,6 @@ import chatCard from './chatCard';
 export default {
   props: {
     chat: {},
-    inbox: {
-      type: Boolean,
-      default: false,
-    },
     groupType: {},
     groupId: {},
     groupName: {},
@@ -207,12 +189,6 @@ export default {
       this.lastOffset = container.scrollTop - (container.scrollHeight - container.clientHeight);
       // disable scroll
       container.style.overflowY = 'hidden';
-
-      const canLoadMore = this.inbox && !this.isLoading && this.canLoadMore;
-      if (canLoadMore) {
-        await this.$emit('triggerLoad');
-        this.handleScrollBack = true;
-      }
     },
     canViewFlag (message) {
       if (message.uuid === this.user._id) return true;
@@ -325,11 +301,6 @@ export default {
       this.chat.splice(chatIndex, 1, message);
     },
     messageRemoved (message) {
-      if (this.inbox) {
-        this.$emit('message-removed', message);
-        return;
-      }
-
       const chatIndex = findIndex(this.chat, chatMessage => {
         return chatMessage.id === message.id;
       });

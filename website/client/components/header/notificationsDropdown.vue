@@ -91,7 +91,7 @@ import GROUP_TASK_ASSIGNED from './notifications/groupTaskAssigned';
 import UNALLOCATED_STATS_POINTS from './notifications/unallocatedStatsPoints';
 import NEW_MYSTERY_ITEMS from './notifications/newMysteryItems';
 import CARD_RECEIVED from './notifications/cardReceived';
-import NEW_INBOX_MESSAGE from './notifications/newInboxMessage';
+import NEW_INBOX_MESSAGE from './notifications/newPrivateMessage';
 import NEW_CHAT_MESSAGE from './notifications/newChatMessage';
 import WORLD_BOSS from './notifications/worldBoss';
 import VERIFY_USERNAME from './notifications/verifyUsername';

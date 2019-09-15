@@ -353,7 +353,7 @@ export default {
   },
   methods: {
     sendMessage (member) {
-      this.$root.$emit('habitica::new-inbox-message', {
+      this.$root.$emit('habitica::new-private-message', {
         userIdToMessage: member._id,
         displayName: member.profile.name,
         username: member.auth.local.username,

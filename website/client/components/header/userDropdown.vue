@@ -8,7 +8,7 @@ menu-dropdown.item-user(:right="true")
     a.dropdown-item.edit-avatar.dropdown-separated(@click='showAvatar()')
       h3 {{ user.profile.name }}
       span.small-text {{ $t('editAvatar') }}
-    a.nav-link.dropdown-item.dropdown-separated.d-flex.justify-content-between.align-items-center(@click.prevent='showInbox()')
+    a.nav-link.dropdown-item.dropdown-separated.d-flex.justify-content-between.align-items-center(@click.prevent='showPrivateMessages()')
       div {{ $t('messages') }}
       message-count(v-if='user.inbox.newMessages > 0', :count="user.inbox.newMessages")
     a.dropdown-item(@click='showAvatar("backgrounds", "2019")') {{ $t('backgrounds') }}
@@ -96,10 +96,10 @@ export default {
       this.$store.state.avatarEditorOptions.subpage = subpage;
       this.$root.$emit('bv::show::modal', 'avatar-modal');
     },
-    showInbox () {
+    showPrivateMessages () {
       markPMSRead(this.user);
       axios.post('/api/v4/user/mark-pms-read');
-      this.$root.$emit('bv::show::modal', 'inbox-modal');
+      this.$root.$emit('bv::show::modal', 'messages-modal');
     },
     showProfile (startingPage) {
       this.$router.push({name: startingPage});
