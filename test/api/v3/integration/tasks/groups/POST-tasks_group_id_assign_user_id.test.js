@@ -93,15 +93,6 @@ describe('POST /tasks/:taskId/assign/:memberId', () => {
     expect(syncedTask).to.exist;
   });
 
-  it('sends a message to the group when a user claims a task', async () => {
-    await member.post(`/tasks/${task._id}/assign/${member._id}`);
-
-    let updateGroup = await user.get(`/groups/${guild._id}`);
-
-    expect(updateGroup.chat[0].text).to.equal(t('userIsClamingTask', {username: member.profile.name, task: task.text}));
-    expect(updateGroup.chat[0].uuid).to.equal('system');
-  });
-
   it('assigns a task to a user', async () => {
     await user.post(`/tasks/${task._id}/assign/${member._id}`);
 
@@ -111,6 +102,17 @@ describe('POST /tasks/:taskId/assign/:memberId', () => {
 
     expect(groupTask[0].group.assignedUsers).to.contain(member._id);
     expect(syncedTask).to.exist;
+  });
+
+  it('sends a notification to assigned user', async () => {
+    await user.post(`/tasks/${task._id}/assign/${member._id}`);
+    await member.sync();
+
+    let groupTask = await user.get(`/tasks/group/${guild._id}`);
+
+    expect(member.notifications.length).to.equal(1);
+    expect(member.notifications[0].type).to.equal('GROUP_TASK_ASSIGNED');
+    expect(member.notifications[0].taskId).to.equal(groupTask._id);
   });
 
   it('assigns a task to multiple users', async () => {

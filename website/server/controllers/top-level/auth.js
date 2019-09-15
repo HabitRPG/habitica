@@ -5,7 +5,7 @@ let api = {};
 // Internal authentication routes
 
 // Set a new password after having requested a password reset (GET route to input password)
-api.resetPasswordSetNewOne  = {
+api.resetPasswordSetNewOne = {
   method: 'GET',
   url: '/static/user/auth/local/reset-password-set-new-one',
   runCron: false,
@@ -24,7 +24,7 @@ api.resetPasswordSetNewOne  = {
 // Logout the user from the website.
 api.logout = {
   method: 'GET',
-  url: '/logout',
+  url: '/logout-server',
   async handler (req, res) {
     if (req.logout) req.logout(); // passportjs method
     req.session = null;

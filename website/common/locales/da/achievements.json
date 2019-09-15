@@ -1,8 +1,21 @@
 {
-  "share": "Del",
-  "onwards": "Fremad!",
-  "levelup": "By accomplishing your real life goals, you leveled up and are now fully healed!",
-  "reachedLevel": "Du Har Nået Level <%= level %>",
-  "achievementLostMasterclasser": "Quest Completionist: Masterclasser Series",
-  "achievementLostMasterclasserText": "Completed all sixteen quests in the Masterclasser Quest Series and solved the mystery of the Lost Masterclasser!"
+    "achievement": "Præstation",
+    "share": "Del",
+    "onwards": "Fremad!",
+    "levelup": "Ved at opnå dine mål fra den virkelige verden er du steget i level, og er nu fuldt helet igen.",
+    "reachedLevel": "Du har nået level <%= level %>",
+    "achievementLostMasterclasser": "Quest færdiggører: Mesterklasse-rækken",
+    "achievementLostMasterclasserText": "Færdiggjorde alle 16 quests i Mesterklasse quest-rækken og løste alle mysterier fra \"the Lost Masterclasser\"!",
+    "achievementLostMasterclasserModalText": "Du har klaret alle seksten quests i Mesterklasser-serien og løst mysteriet om den forsvundne Mesterklasser!",
+    "achievementMindOverMatterText": "Har fuldført sten-, slim- og garn-kæledyrsquests.",
+    "achievementMindOverMatterModalText": "Du har klaret sten-, slim-, og garn-kæledyrsquestene!",
+    "achievementJustAddWater": "Tilføj kun vand",
+    "achievementJustAddWaterText": "Har klaret blæksprutte-, søheste-, tiarmet blæksprutte-, hval-, skildpadde-, nøgensnegle-, søslange- og delfin-kæledyrsquestene.",
+    "achievementJustAddWaterModalText": "Du har klaret blæksprutte-, søheste-, tiarmet blæksprutte-, hval-, skildpadde-, nøgensnegle-, søslange- og delfin-kæledyrsquestene!",
+    "achievementBackToBasics": "Almindeligt udbredt",
+    "achievementBackToBasicsText": "Har samlet alle Almindelige kæledyr.",
+    "achievementBackToBasicsModalText": "Du har samlet alle Almindelige kæledyr!",
+    "achievementAllYourBase": "Alle almindelige",
+    "achievementAllYourBaseText": "Har tæmmet alle Almindelige ridedyr.",
+    "achievementAllYourBaseModalText": "Du har tæmmet alle Almindelige ridedyr!"
 }

@@ -52,7 +52,7 @@ module.exports.walkControllers = function walkControllers (router, filePath, ove
     .readdirSync(filePath)
     .forEach(fileName => {
       if (!fs.statSync(filePath + fileName).isFile()) {
-        walkControllers(router, `${filePath}${fileName}/`);
+        walkControllers(router, `${filePath}${fileName}/`, overrides);
       } else if (fileName.match(/\.js$/)) {
         let controller = require(filePath + fileName); // eslint-disable-line global-require
         module.exports.readController(router, controller, overrides);

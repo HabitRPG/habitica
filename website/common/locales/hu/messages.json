@@ -38,12 +38,10 @@
     "messageInsufficientGems": "Nincs elég drágaköved!",
     "messageAuthPasswordMustMatch": ":password és :confirmPassword nem egyeznek",
     "messageAuthCredentialsRequired": ":username, :email, :password, :confirmPassword szükséges",
-    "messageAuthUsernameTaken": "A felhasználónév már foglalt. ",
     "messageAuthEmailTaken": "Az e-mail cím már foglalt.",
     "messageAuthNoUserFound": "Felhasználó nem található",
     "messageAuthMustBeLoggedIn": "Be kell jelentkezned.",
     "messageAuthMustIncludeTokens": "Mellékelned kell egy kulcsot és uid (felhasználói azonosítót) a kérésedhez.",
-    "messageGroupNotFound": "A csoport nem található, vagy nincs hozzá jogosultságod.",
     "messageGroupAlreadyInParty": "Már csapatban vagy, próbálj frissíteni.",
     "messageGroupOnlyLeaderCanUpdate": "Csak a csoportvezető tudja frissíteni a csoportot!",
     "messageGroupRequiresInvite": "Nem léphetsz be olyan csoportba, ahova nem vagy meghívva.",
@@ -62,5 +60,7 @@
     "messageNotAbleToBuyInBulk": "Ez a tárgy nem vásárolható meg 1-nél többször.",
     "notificationsRequired": "Értesítés azonosítók szükségesek.",
     "unallocatedStatsPoints": "Van <span class=\"notification-bold-blue\"><%= points %> kiosztatlan tulajdonság pontod</span>",
-    "beginningOfConversation": "Elkezdtél beszélgetni <%= userName %> felhasználóval. Ne felejtesd hogy legyél kedves, tisztelettudó és kövesd a közösségi irányelveket!"
+    "beginningOfConversation": "Elkezdtél beszélgetni <%= userName %> felhasználóval. Ne felejtesd hogy legyél kedves, tisztelettudó és kövesd a közösségi irányelveket!",
+    "messageDeletedUser": "Ez a felhasználó törölte a fiókját.",
+    "messageMissingDisplayName": "Hiányzó nyilvános név."
 }

@@ -11,25 +11,28 @@ div
   #app(:class='{"casting-spell": castingSpell}')
     banned-account-modal
     amazon-payments-modal(v-if='!isStaticPage')
+    payments-success-modal
+    sub-cancel-modal-confirm(v-if='isUserLoaded')
+    sub-canceled-modal(v-if='isUserLoaded')
     snackbars
     router-view(v-if="!isUserLoggedIn || isStaticPage")
     template(v-else)
       template(v-if="isUserLoaded")
-        div.resting-banner(v-if="showRestingBanner")
+        .resting-banner(v-show="showRestingBanner", ref="restingBanner")
           span.content
-            span.label {{ $t('innCheckOutBanner') }}
-            span.separator |
+            span.label.d-inline.d-sm-none {{ $t('innCheckOutBannerShort') }}
+            span.label.d-none.d-sm-inline {{ $t('innCheckOutBanner') }}
+            span.separator  |
             span.resume(@click="resumeDamage()") {{ $t('resumeDamage') }}
-          div.closepadding(@click="hideBanner()")
+          .closepadding(@click="hideBanner()")
             span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close")
         notifications-display
-        app-menu(:class='{"restingInn": showRestingBanner}')
+        app-menu
         .container-fluid
-          app-header(:class='{"restingInn": showRestingBanner}')
+          app-header
           buyModal(
             :item="selectedItemToBuy || {}",
             :withPin="true",
-            @change="resetItemToBuy($event)",
             @buyPressed="customPurchase($event)",
             :genericPurchase="genericPurchase(selectedItemToBuy)",
 
@@ -48,6 +51,14 @@ div
 
 <style lang='scss' scoped>
   @import '~client/assets/scss/colors.scss';
+
+  #app {
+    height: calc(100% - 56px); /* 56px is the menu */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
 
   #loading-screen-inapp {
     #melior {
@@ -78,6 +89,10 @@ div
     cursor: crosshair;
   }
 
+  .container-fluid {
+    flex: 1 0 auto;
+  }
+
   .notification {
     border-radius: 1000px;
     background-color: $green-10;
@@ -88,76 +103,35 @@ div
     margin-bottom: .5em;
   }
 
-  .container-fluid {
-    overflow-x: hidden;
-    flex: 1 0 auto;
-  }
-
-  #app {
-    height: calc(100% - 56px); /* 56px is the menu */
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-</style>
-
-<style lang='scss'>
-  @import '~client/assets/scss/colors.scss';
-
-  /* @TODO: The modal-open class is not being removed. Let's try this for now */
-  .modal, .modal-open {
-    overflow-y: scroll !important;
-  }
-
-  .modal-backdrop.show {
-    opacity: .9 !important;
-    background-color: $purple-100 !important;
-  }
-
-  /* Push progress bar above modals */
-  #nprogress .bar {
-    z-index: 1090 !important; /* Must stay above nav bar */
-  }
-
-  .restingInn {
-    .navbar {
-      top: 40px;
-    }
-
-    #app-header {
-      margin-top: 40px !important;
-    }
-
-  }
-
   .resting-banner {
     width: 100%;
-    height: 40px;
+    min-height: 40px;
     background-color: $blue-10;
-    position: fixed;
     top: 0;
-    z-index: 1030;
+    z-index: 1300;
     display: flex;
 
     .content {
-      height: 24px;
       line-height: 1.71;
       text-align: center;
       color: $white;
-
+      padding: 8px 38px 8px 8px;
       margin: auto;
     }
 
     .closepadding {
       margin: 11px 24px;
       display: inline-block;
-      position: absolute;
+      position: relative;
       right: 0;
       top: 0;
       cursor: pointer;
+    }
 
-      span svg path {
-        stroke: $blue-500;
+    @media only screen and (max-width: 768px) {
+      .content {
+        font-size: 12px;
+        line-height: 1.4;
       }
     }
 
@@ -169,7 +143,32 @@ div
     .resume {
       font-weight: bold;
       cursor: pointer;
+      white-space:nowrap;
     }
+  }
+</style>
+
+<style lang='scss'>
+  @import '~client/assets/scss/colors.scss';
+
+  .closepadding span svg path {
+    stroke: #FFF;
+    opacity: 0.48;
+  }
+
+  /* @TODO: The modal-open class is not being removed. Let's try this for now */
+  .modal {
+    overflow-y: scroll !important;
+  }
+
+  .modal-backdrop.show {
+    opacity: .9 !important;
+    background-color: $purple-100 !important;
+  }
+
+  /* Push progress bar above modals */
+  #nprogress .bar {
+    z-index: 1600 !important; /* Must stay above nav bar */
   }
 </style>
 
@@ -189,7 +188,12 @@ import SelectMembersModal from 'client/components/selectMembersModal.vue';
 import notifications from 'client/mixins/notifications';
 import { setup as setupPayments } from 'client/libs/payments';
 import amazonPaymentsModal from 'client/components/payments/amazonModal';
+import paymentsSuccessModal from 'client/components/payments/successModal';
+import subCancelModalConfirm from 'client/components/payments/cancelModalConfirm';
+import subCanceledModal from 'client/components/payments/canceledModal';
+
 import spellsMixin from 'client/mixins/spells';
+import { CONSTANTS, getLocalSetting, removeLocalSetting } from 'client/libs/userlocalManager';
 
 import svgClose from 'assets/svg/close.svg';
 import bannedAccountModal from 'client/components/bannedAccountModal';
@@ -209,6 +213,9 @@ export default {
     SelectMembersModal,
     amazonPaymentsModal,
     bannedAccountModal,
+    paymentsSuccessModal,
+    subCancelModalConfirm,
+    subCanceledModal,
   },
   data () {
     return {
@@ -316,6 +323,7 @@ export default {
         const errorMessage = errorData.message || errorData;
 
         // Check for conditions to reset the user auth
+        // TODO use a specific error like NotificationNotFound instead of checking for the string
         const invalidUserMessage = [this.$t('invalidCredentials'), 'Missing authentication headers.'];
         if (invalidUserMessage.indexOf(errorMessage) !== -1) {
           this.$store.dispatch('auth:logout');
@@ -325,18 +333,30 @@ export default {
         let snackbarTimeout = false;
         if (error.response.status === 502) snackbarTimeout = true;
 
-        const notificationNotFoundMessage = [
-          this.$t('messageNotificationNotFound'),
-          this.$t('messageNotificationNotFound', 'en'),
-        ];
-        if (notificationNotFoundMessage.indexOf(errorMessage) !== -1) snackbarTimeout = true;
+        let errorsToShow = [];
+        // show only the first error for each param
+        let paramErrorsFound = {};
+        if (errorData.errors) {
+          for (let e of errorData.errors) {
+            if (!paramErrorsFound[e.param]) {
+              errorsToShow.push(e.message);
+              paramErrorsFound[e.param] = true;
+            }
+          }
+        } else {
+          errorsToShow.push(errorMessage);
+        }
 
-        this.$store.dispatch('snackbars:add', {
-          title: 'Habitica',
-          text: errorMessage,
-          type: 'error',
-          timeout: snackbarTimeout,
-        });
+        // Ignore NotificationNotFound errors, see https://github.com/HabitRPG/habitica/issues/10391
+        if (errorData.error !== 'NotificationNotFound') {
+          // dispatch as one snackbar notification
+          this.$store.dispatch('snackbars:add', {
+            title: 'Habitica',
+            text: errorsToShow.join(' '),
+            type: 'error',
+            timeout: snackbarTimeout,
+          });
+        }
       }
 
       return Promise.reject(error);
@@ -390,7 +410,6 @@ export default {
     this.$store.watch(state => state.title, (title) => {
       document.title = title;
     });
-
     this.$nextTick(() => {
       // Load external scripts after the app has been rendered
       Analytics.load();
@@ -415,6 +434,14 @@ export default {
           });
         }
 
+        let appState = getLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE);
+        if (appState) {
+          appState = JSON.parse(appState);
+          if (appState.paymentCompleted) {
+            removeLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE);
+            this.$root.$emit('habitica:payment-success', appState);
+          }
+        }
         this.$nextTick(() => {
           // Load external scripts after the app has been rendered
           setupPayments();
@@ -475,8 +502,16 @@ export default {
       });
 
       this.$root.$on('bv::modal::hidden', (bvEvent) => {
-        const modalId = bvEvent.target && bvEvent.target.id;
-        if (!modalId) return;
+        let modalId = bvEvent.target && bvEvent.target.id;
+
+        // sometimes the target isn't passed to the hidden event, fallback is the vueTarget
+        if (!modalId) {
+          modalId = bvEvent.vueTarget && bvEvent.vueTarget.id;
+        }
+
+        if (!modalId) {
+          return;
+        }
 
         const modalStack = this.$store.state.modalStack;
 
@@ -493,6 +528,7 @@ export default {
 
         // Get previous modal
         const modalBefore = modalOnTop ? modalOnTop.prev : undefined;
+
         if (modalBefore) this.$root.$emit('bv::show::modal', modalBefore, {fromRoot: true});
       });
     },
@@ -532,13 +568,6 @@ export default {
           eventAction: 'click',
           eventLabel: 'Gems > Wallet',
         });
-      }
-    },
-    resetItemToBuy ($event) {
-      // @TODO: Do we need this? I think selecting a new item
-      // overwrites. @negue might know
-      if (!$event && this.selectedItemToBuy.purchaseType !== 'card') {
-        this.selectedItemToBuy = null;
       }
     },
     itemSelected (item) {
@@ -625,4 +654,8 @@ export default {
 <style src="assets/css/sprites/spritesmith-main-20.css"></style>
 <style src="assets/css/sprites/spritesmith-main-21.css"></style>
 <style src="assets/css/sprites/spritesmith-main-22.css"></style>
+<style src="assets/css/sprites/spritesmith-main-23.css"></style>
+<style src="assets/css/sprites/spritesmith-main-24.css"></style>
+<style src="assets/css/sprites/spritesmith-main-25.css"></style>
 <style src="assets/css/sprites.css"></style>
+<style src="smartbanner.js/dist/smartbanner.min.css"></style>

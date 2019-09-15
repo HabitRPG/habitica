@@ -1,6 +1,5 @@
 <template lang="pug">
   b-modal#sell-modal(
-    :visible="item != null",
     :hide-header="true",
     @change="onChange($event)"
   )
@@ -8,30 +7,38 @@
       span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close", @click="hideDialog()")
 
     div.content(v-if="item")
+      div.inner-content
+        item.flat(
+          :item="item",
+          :itemContentClass="itemContextToSell.itemClass",
+          :showPopover="false"
+        )
+          countBadge(
+            slot="itemBadge",
+            :show="true",
+            :count="itemContextToSell.itemCount"
+          )
 
-      div.inner-content(v-if="item.sellWarningNote")
-        slot(name="item", :item="item")
+        h4.title {{ itemContextToSell.itemName }}
 
-        h4.title {{ text ? text : item.text() }}
-        div.text {{ item.sellWarningNote() }}
-        br
+        div(v-if="item.key === 'Saddle'")
+          div.text {{ item.sellWarningNote() }}
+          br
 
-      div.inner-content(v-else)
-        slot(name="item", :item="item")
+        div(v-else)
+          div
+            div.text {{ item.notes() }}
 
-        h4.title {{ text ? text : item.text() }}
-        div.text {{ item.notes() }}
+            div
+              b.how-many-to-sell {{ $t('howManyToSell') }}
 
-        div
-          b.how-many-to-sell {{ $t('howManyToSell') }}
+            div
+              b-input.itemsToSell(type="number", v-model="selectedAmountToSell", :max="itemContextToSell.itemCount", min="1", @keyup.native="preventNegative($event)", step="1")
 
-        div
-          b-input.itemsToSell(type="number", v-model="selectedAmountToSell", :max="itemCount", min="1", @keyup.native="preventNegative($event)", step="1")
+              span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons.gold")
+              span.value {{ item.value }}
 
-          span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons.gold")
-          span.value {{ item.value }}
-
-        button.btn.btn-primary(@click="sellItems()") {{ $t('sell') }}
+            button.btn.btn-primary(@click="sellItems()") {{ $t('sell') }}
 
     div.clearfix(slot="modal-footer")
       span.balance.float-left {{ $t('yourBalance') }}
@@ -119,14 +126,19 @@
   import svgGem from 'assets/svg/gem.svg';
 
   import BalanceInfo  from '../balanceInfo.vue';
+  import Item from 'client/components/inventory/item';
+  import CountBadge from 'client/components/ui/countBadge';
 
   export default {
     components: {
       BalanceInfo,
+      Item,
+      CountBadge,
     },
     data () {
       return {
         selectedAmountToSell: 1,
+        itemContextToSell: null,
 
         icons: Object.freeze({
           close: svgClose,
@@ -134,6 +146,20 @@
           gem: svgGem,
         }),
       };
+    },
+    computed: {
+      item () {
+        return this.itemContextToSell && this.itemContextToSell.item;
+      },
+    },
+    mounted () {
+      this.$root.$on('sellItem', (itemCtx) => {
+        this.itemContextToSell = itemCtx;
+        this.$root.$emit('bv::show::modal', 'sell-modal');
+      });
+    },
+    destroyed () {
+      this.$root.$off('sellItem');
     },
     methods: {
       onChange ($event) {
@@ -155,7 +181,7 @@
         }
 
         this.$store.dispatch('shops:sellItems', {
-          type: this.itemType,
+          type: this.itemContextToSell.itemType,
           key: this.item.key,
           amount: this.selectedAmountToSell,
         });
@@ -163,20 +189,6 @@
       },
       hideDialog () {
         this.$root.$emit('bv::hide::modal', 'sell-modal');
-      },
-    },
-    props: {
-      item: {
-        type: Object,
-      },
-      itemType: {
-        type: String,
-      },
-      text: {
-        type: String,
-      },
-      itemCount: {
-        type: Number,
       },
     },
   };

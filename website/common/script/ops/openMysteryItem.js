@@ -24,9 +24,13 @@ module.exports = function openMysteryItem (user, req = {}, analytics) {
   if (mysteryItems.length === 0) markNotificationAsRead(user);
 
   item = cloneDeep(content.gear.flat[item]);
+  item.text = content.gear.flat[item.key].text(user.preferences.language);
   user.items.gear.owned[item.key] = true;
 
-  if (user.markModified) user.markModified('purchased.plan.mysteryItems');
+  if (user.markModified) {
+    user.markModified('purchased.plan.mysteryItems');
+    user.markModified('items.gear.owned');
+  }
 
   if (analytics) {
     analytics.track('open mystery item', {

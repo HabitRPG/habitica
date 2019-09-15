@@ -51,7 +51,7 @@ describe('POST /tasks/:id/needs-work/:userId', () => {
       });
   });
 
-  it('marks as task as needing more work', async () => {
+  it('marks a task as needing more work', async () => {
     const initialNotifications = member.notifications.length;
 
     await user.post(`/tasks/${task._id}/assign/${member._id}`);
@@ -77,7 +77,7 @@ describe('POST /tasks/:id/needs-work/:userId', () => {
     expect(syncedTask.group.approval.requestedDate).to.equal(undefined);
 
     // Check that the notification is correct
-    expect(member.notifications.length).to.equal(initialNotifications + 1);
+    expect(member.notifications.length).to.equal(initialNotifications + 2);
     const notification = member.notifications[member.notifications.length - 1];
     expect(notification.type).to.equal('GROUP_TASK_NEEDS_WORK');
 
@@ -131,7 +131,7 @@ describe('POST /tasks/:id/needs-work/:userId', () => {
     expect(syncedTask.group.approval.requested).to.equal(false);
     expect(syncedTask.group.approval.requestedDate).to.equal(undefined);
 
-    expect(member.notifications.length).to.equal(initialNotifications + 1);
+    expect(member.notifications.length).to.equal(initialNotifications + 2);
     const notification = member.notifications[member.notifications.length - 1];
     expect(notification.type).to.equal('GROUP_TASK_NEEDS_WORK');
 
@@ -167,6 +167,17 @@ describe('POST /tasks/:id/needs-work/:userId', () => {
     });
 
     await member2.post(`/tasks/${task._id}/assign/${member._id}`);
+
+    let memberTasks = await member.get('/tasks/user');
+    let syncedTask = find(memberTasks, findAssignedTask);
+
+    await expect(member.post(`/tasks/${syncedTask._id}/score/up`))
+      .to.eventually.be.rejected.and.to.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('taskApprovalHasBeenRequested'),
+      });
+
     await member2.post(`/tasks/${task._id}/approve/${member._id}`);
     await expect(user.post(`/tasks/${task._id}/needs-work/${member._id}`))
       .to.eventually.be.rejected.and.to.eql({

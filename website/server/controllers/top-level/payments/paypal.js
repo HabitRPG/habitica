@@ -2,8 +2,8 @@
 import paypalPayments from '../../../libs/payments/paypal';
 import shared from '../../../../common';
 import {
-  authWithUrl,
   authWithSession,
+  authWithHeaders,
 } from '../../../middlewares/auth';
 import {
   BadRequest,
@@ -21,7 +21,7 @@ let api = {};
 api.checkout = {
   method: 'GET',
   url: '/paypal/checkout',
-  middlewares: [authWithUrl],
+  middlewares: [authWithSession],
   async handler (req, res) {
     let gift = req.query.gift ? JSON.parse(req.query.gift) : undefined;
     req.session.gift = req.query.gift;
@@ -61,7 +61,7 @@ api.checkoutSuccess = {
     if (req.query.noRedirect) {
       res.respond(200);
     } else {
-      res.redirect('/');
+      res.redirect('/redirect/paypal-success-checkout');
     }
   },
 };
@@ -75,7 +75,7 @@ api.checkoutSuccess = {
 api.subscribe = {
   method: 'GET',
   url: '/paypal/subscribe',
-  middlewares: [authWithUrl],
+  middlewares: [authWithSession],
   async handler (req, res) {
     if (!req.query.sub) throw new BadRequest(apiError('missingSubKey'));
 
@@ -122,7 +122,7 @@ api.subscribeSuccess = {
     if (req.query.noRedirect) {
       res.respond(200);
     } else {
-      res.redirect('/user/settings/subscription');
+      res.redirect('/redirect/paypal-success-subscribe');
     }
   },
 };
@@ -136,7 +136,7 @@ api.subscribeSuccess = {
 api.subscribeCancel = {
   method: 'GET',
   url: '/paypal/subscribe/cancel',
-  middlewares: [authWithUrl],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.query.groupId;

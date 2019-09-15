@@ -6,20 +6,30 @@ import {
 } from '../models/user';
 import nconf from 'nconf';
 import url from 'url';
+import gcpStackdriverTracer from '../libs/gcpTraceAgent';
 
-const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
+const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS_COMMUNITY_MANAGER_EMAIL');
+const USER_FIELDS_ALWAYS_LOADED = ['_id', 'notifications', 'preferences', 'auth', 'flags'];
 
-function getUserFields (userFieldsToExclude, req) {
+function getUserFields (options, req) {
   // A list of user fields that aren't needed for the route and are not loaded from the db.
   // Must be an array
-  if (userFieldsToExclude) {
-    return userFieldsToExclude.map(field => {
-      return `-${field}`; // -${field} means exclude ${field} in mongodb
-    }).join(' ');
+  if (options.userFieldsToExclude) {
+    return options.userFieldsToExclude
+      .filter(field => {
+        return !USER_FIELDS_ALWAYS_LOADED.find(fieldToInclude => field.startsWith(fieldToInclude));
+      })
+      .map(field => {
+        return `-${field}`; // -${field} means exclude ${field} in mongodb
+      })
+      .join(' ');
+  }
+
+  if (options.userFieldsToInclude) {
+    return options.userFieldsToInclude.concat(USER_FIELDS_ALWAYS_LOADED).join(' ');
   }
 
   // Allows GET requests to /user to specify a list of user fields to return instead of the entire doc
-  // Notifications are always included
   const urlPath = url.parse(req.url).pathname;
   const userFields = req.query.userFields;
   if (!userFields || urlPath !== '/user') return '';
@@ -27,7 +37,14 @@ function getUserFields (userFieldsToExclude, req) {
   const userFieldOptions = userFields.split(',');
   if (userFieldOptions.length === 0) return '';
 
-  return `notifications ${userFieldOptions.join(' ')}`;
+  return userFieldOptions.concat(USER_FIELDS_ALWAYS_LOADED).join(' ');
+}
+
+// Make sure stackdriver traces are storing the user id
+function stackdriverTraceUserId (userId) {
+  if (gcpStackdriverTracer) {
+    gcpStackdriverTracer.getCurrentRootSpan().addLabel('userId', userId);
+  }
 }
 
 // Strins won't be translated here because getUserLanguage has not run yet
@@ -50,7 +67,7 @@ export function authWithHeaders (options = {}) {
       apiToken,
     };
 
-    const fields = getUserFields(options.userFieldsToExclude, req);
+    const fields = getUserFields(options, req);
     const findPromise = fields ? User.findOne(userQuery).select(fields) : User.findOne(userQuery);
 
     return findPromise
@@ -60,8 +77,9 @@ export function authWithHeaders (options = {}) {
         if (user.auth.blocked) throw new NotAuthorized(res.t('accountSuspended', {communityManagerEmail: COMMUNITY_MANAGER_EMAIL, userId: user._id}));
 
         res.locals.user = user;
-
         req.session.userId = user._id;
+        stackdriverTraceUserId(user._id);
+
         return next();
       })
       .catch(next);
@@ -89,29 +107,7 @@ export function authWithSession (req, res, next) {
       if (!user) throw new NotAuthorized(res.t('invalidCredentials'));
 
       res.locals.user = user;
-      return next();
-    })
-    .catch(next);
-}
-
-export function authWithUrl (req, res, next) {
-  let userId = req.query._id;
-  let apiToken = req.query.apiToken;
-
-  // Always allow authentication with headers
-  if (!userId || !apiToken) {
-    if (!req.header('x-api-user') || !req.header('x-api-key')) {
-      return next(new NotAuthorized(res.t('missingAuthParams')));
-    } else {
-      return authWithHeaders()(req, res, next);
-    }
-  }
-
-  return User.findOne({ _id: userId, apiToken }).exec()
-    .then((user) => {
-      if (!user) throw new NotAuthorized(res.t('invalidCredentials'));
-
-      res.locals.user = user;
+      stackdriverTraceUserId(user._id);
       return next();
     })
     .catch(next);

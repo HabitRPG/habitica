@@ -39,6 +39,8 @@ dist-client
 test/client/unit/coverage
 test/client/e2e/reports
 test/client-old/spec/mocks/translations.js
+yarn.lock
+.gitattributes
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*

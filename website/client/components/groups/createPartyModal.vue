@@ -1,99 +1,61 @@
 <template lang="pug">
-b-modal#create-party-modal(title="Empty", size='lg', hide-footer=true)
+b-modal#create-party-modal(size='lg', hide-footer=true)
   .header-wrap(slot="modal-header")
     .quest_screen
     .row.heading
-      .col-12.text-center
-        h2(v-once) {{$t('playInPartyTitle')}}
-        p(v-once) {{$t('playInPartyDescription')}}
+      .col-12.text-center.pr-5.pl-5
+        h2(v-once) {{ $t('playInPartyTitle') }}
+        p.mb-4(v-once) {{ $t('playInPartyDescription') }}
+        button.btn.btn-primary(v-once, @click='createParty()') {{ $t('createParty') }}
   .row.grey-row
-    .col-6.text-center
-      .start-party
-      h3(v-once) {{$t('startYourOwnPartyTitle')}}
-      p(v-once) {{$t('startYourOwnPartyDescription')}}
-      button.btn.btn-primary(v-once, @click='createParty()') {{$t('createParty')}}
-    .col-6
-      div.text-center
-        .join-party
-        h3(v-once) {{$t('wantToJoinPartyTitle')}}
-        p(v-once) {{$t('wantToJoinPartyDescription')}}
-        button.btn.btn-primary(v-once, @click='shareUserId()') {{$t('shartUserId')}}
-      .share-userid-options(v-if="shareUserIdShown")
-        .option-item(v-once)
-          .svg-icon(v-html="icons.copy")
-          | Copy User ID
-        .option-item(v-once)
-          .svg-icon(v-html="icons.greyBadge")
-          | {{$t('lookingForGroup')}}
-        .option-item(v-once)
-          .svg-icon(v-html="icons.qrCode")
-          | {{$t('qrCode')}}
-        .option-item(v-once)
-          .svg-icon.facebook(v-html="icons.facebook")
-          | Facebook
-        .option-item(v-once)
-          .svg-icon(v-html="icons.twitter")
-          | Twitter
+    .col-12.text-center
+      .join-party
+      h2(v-once) {{ $t('wantToJoinPartyTitle') }}
+      p(v-html='$t("wantToJoinPartyDescription")')
+      .form-group(@click='copyUsername')
+        .d-flex.align-items-center
+          label.mr-3(v-once) {{ $t('username') }}
+          .flex-grow-1
+            .input-group-prepend.input-group-text @
+              .text {{ user.auth.local.username }}
+              .svg-icon.copy-icon(v-html='icons.copy')
+              .small(v-once) {{ $t('copy') }}
 </template>
 
 <style>
+  #create-party-modal .modal-body {
+    padding: 0rem 0.75rem;
+  }
+
   #create-party-modal .modal-dialog {
-    width: 684px;
+    width: 35.75rem;
   }
 
   #create-party-modal .modal-header {
     padding: 0;
+    border-bottom: 0px;
   }
 </style>
 
-<style lang="scss">
+<style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
 
-  .heading {
-    margin-top: 1em;
-    margin-bottom: 1em;
+  .copy-icon {
+    width: 1rem;
   }
 
-  .header-wrap {
-    padding: 0;
-    color: #4e4a57;
-    width: 100%;
-
-    .quest_screen {
-      background-image: url('~client/assets/images/quest_screen.png');
-      background-size: cover;
-      width: 100%;
-      height: 246px;
-      margin-bottom: .5em;
-      border-radius: 2px 2px 0 0;
-    }
-
-    h2 {
-      color: #4f2a93;
-    }
+  .form-control[readonly] {
+    background-color: $white;
+    color: $gray-50;
   }
 
-  .start-party {
-    background-image: url('~client/assets/images/basilist@3x.png');
-    background-size: cover;
-    width: 122px;
-    height: 69px;
-    margin: 0 auto;
-    margin-bottom: 1em;
-  }
-
-  .join-party {
-    background-image: url('~client/assets/images/party@3x.png');
-    background-size: cover;
-    width: 203px;
-    height: 66px;
-    margin: 0 auto;
-    margin-bottom: 1em;
-  }
-
-  .modal-body {
-    padding-bottom: 0;
-    padding-top: 0;
+  .form-group {
+    background-color: $gray-600;
+    border-radius: 2px;
+    border: solid 1px $gray-500;
+    width: 90%;
+    margin: auto;
+    cursor: pointer;
   }
 
   .grey-row {
@@ -103,86 +65,130 @@ b-modal#create-party-modal(title="Empty", size='lg', hide-footer=true)
     border-radius: 0px 0px 2px 2px;
   }
 
-  .share-userid-options {
-    background-color: $white;
-    border-radius: 2px;
-    width: 220px;
-    position: absolute;
-    top: -8em;
-    left: 4.8em;
-    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+  h2 {
+    color: $gray-100;
+  }
 
-    .option-item {
-      padding: 1em;
+  .header-wrap {
+    padding: 0;
+    color: #4e4a57;
+    width: 100%;
 
-      .svg-icon {
-        margin-right: .5em;
-        width: 20px;
-        display: inline-block;
-        vertical-align: bottom;
-      }
-
-      .facebook svg {
-        width: 15px;
-        height: 15px;
-      }
+    .quest_screen {
+      background-image: url('~client/assets/images/group@3x.png');
+      background-size: cover;
+      width: 100%;
+      height: 246px;
+      margin-bottom: 1.5rem;
+      border-radius: 2px 2px 0 0;
+      image-rendering: optimizequality;
     }
 
-    .option-item:hover {
-      background-color: $header-color;
+    h2 {
       color: $purple-200;
-      cursor: pointer;
     }
+  }
+
+  .heading {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  input.form-control {
+    border: 0px;
+    padding-left: 0.25rem;
+  }
+
+  .input-group-prepend {
+    margin-right: 0px;
+  }
+
+  .input-group-text {
+    background-color: $white;
+    border: 0px;
+    border-radius: 0px;
+    color: $gray-300;
+    padding: 0rem 0.1rem 0rem 0.75rem;
+  }
+
+  .join-party {
+    background-image: url('~client/assets/images/party.png');
+    background-size: cover;
+    width: 203px;
+    height: 66px;
+    margin: 0 auto;
+    margin-bottom: 1em;
+  }
+
+  label {
+    color: $gray-100;
+    font-weight: bold;
+    margin-bottom: 0rem;
+    margin-left: 1rem;
+    cursor: pointer;
+  }
+
+  .modal-dialog .text {
+    min-height: 1rem;
+    margin: 0.75rem auto 0.75rem 0.25rem;
+  }
+
+  .small {
+    color: $gray-200;
+    margin: auto 0.5rem auto 0.25rem;
   }
 </style>
 
 <script>
-import { mapState } from 'client/libs/store';
-import * as Analytics from 'client/libs/analytics';
+  import { mapState } from 'client/libs/store';
+  import * as Analytics from 'client/libs/analytics';
+  import notifications from 'client/mixins/notifications';
 
-import copyIcon from 'assets/svg/copy.svg';
-import greyBadgeIcon from 'assets/svg/grey-badge.svg';
-import qrCodeIcon from 'assets/svg/qrCode.svg';
-import facebookIcon from 'assets/svg/facebook.svg';
-import twitterIcon from 'assets/svg/twitter.svg';
+  import copyIcon from 'assets/svg/copy.svg';
 
-export default {
-  data () {
-    return {
-      icons: Object.freeze({
-        copy: copyIcon,
-        greyBadge: greyBadgeIcon,
-        qrCode: qrCodeIcon,
-        facebook: facebookIcon,
-        twitter: twitterIcon,
-      }),
-      shareUserIdShown: false,
-    };
-  },
-  computed: {
-    ...mapState({user: 'user.data'}),
-  },
-  methods: {
-    shareUserId () {
-      this.shareUserIdShown = !this.shareUserIdShown;
-    },
-    async createParty () {
-      let group = {
-        type: 'party',
+  export default {
+    data () {
+      return {
+        icons: Object.freeze({
+          copy: copyIcon,
+        }),
       };
-      group.name = this.$t('possessiveParty', {name: this.user.profile.name});
-      let party = await this.$store.dispatch('guilds:create', {group});
-      this.$store.state.party.data = party;
-      this.user.party._id = party._id;
-
-      Analytics.updateUser({
-        partyID: party._id,
-        partySize: 1,
-      });
-
-      this.$root.$emit('bv::hide::modal', 'create-party-modal');
-      this.$router.push('/party');
     },
-  },
-};
+    computed: {
+      ...mapState({user: 'user.data'}),
+    },
+    methods: {
+      async createParty () {
+        let group = {
+          type: 'party',
+        };
+        group.name = this.$t('possessiveParty', {name: this.user.profile.name});
+        let party = await this.$store.dispatch('guilds:create', {group});
+        this.$store.state.party.data = party;
+        this.user.party._id = party._id;
+
+        Analytics.updateUser({
+          partyID: party._id,
+          partySize: 1,
+        });
+
+        this.$root.$emit('bv::hide::modal', 'create-party-modal');
+        this.$router.push('/party');
+      },
+      copyUsername () {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(this.user.auth.local.username);
+        } else {
+          let copyText = document.createElement('textarea');
+          copyText.value = this.user.auth.local.username;
+          document.body.appendChild(copyText);
+          copyText.select();
+          document.execCommand('copy');
+          document.body.removeChild(copyText);
+        }
+        this.text(this.$t('usernameCopied'));
+      },
+    },
+    mixins: [notifications],
+  };
 </script>

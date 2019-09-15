@@ -14,8 +14,6 @@ import addTag from './addTag';
 import sortTag from './sortTag';
 import updateTag from './updateTag';
 import deleteTag from './deleteTag';
-import clearPMs from './clearPMs';
-import deletePM from './deletePM';
 import blockUser from './blockUser';
 import feed from './feed';
 import releasePets from './releasePets';
@@ -50,8 +48,6 @@ module.exports = {
   sortTag,
   updateTag,
   deleteTag,
-  clearPMs,
-  deletePM,
   blockUser,
   feed,
   releasePets,

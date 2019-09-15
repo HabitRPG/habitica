@@ -1,21 +1,21 @@
 # Running
-For information about installing Habitica locally, see [Setting up Habitica Locally](http://habitica.wikia.com/wiki/Setting_up_Habitica_Locally) and for information about running the local client, refer to the ["Run Habitica" section](http://habitica.wikia.com/wiki/Setting_up_Habitica_Locally#Run_Habitica) in that page.
+For information about installing and running Habitica locally, see [Setting up Habitica Locally](http://habitica.fandom.com/wiki/Setting_up_Habitica_Locally).
 
 # Preparation Reading
 - Vue 2 (https://vuejs.org)
 
 - Webpack (https://webpack.github.io/) is the build system and it includes plugins for code transformation, right now we have: BabelJS for ES6 transpilation, eslint for code style, less and postcss for css compilation. The code comes from https://github.com/vuejs-templates/webpack which is a Webpack template for Vue, with some small modifications to adapt it to our use case. Docs http://vuejs-templates.github.io/webpack/
 
-- We’re using `.vue` files that make it possible to have HTML, JS and CSS for each component together in a single location. They’re implemented as a webpack plugin and the docs can be found here http://vue-loader.vuejs.org/en/
+- We're using `.vue` files that make it possible to have HTML, JS and CSS for each component together in a single location. They're implemented as a webpack plugin and the docs can be found here http://vue-loader.vuejs.org/en/
 
-- SemanticUI is the UI framework http://semantic-ui.com/. So far I’ve only used the CSS part, it also has JS plugins but I’ve yet to use them. It supports theming so if it’s not too difficult we’ll want to customize the base theme with our own styles instead of writing CSS rules to override the original styling.
+- SemanticUI is the UI framework http://semantic-ui.com/. So far I've only used the CSS part, it also has JS plugins but I've yet to use them. It supports theming so if it's not too difficult we'll want to customize the base theme with our own styles instead of writing CSS rules to override the original styling.
 
-The code is in `/website/client`. We’re using something very similar to Vuex (equivalent of React’s Redux) for state management http://vuex.vuejs.org/en/index.html
+The code is in `/website/client`. We're using something very similar to Vuex (equivalent of React's Redux) for state management http://vuex.vuejs.org/en/index.html
 
-The API is almost the same except that we don’t use mutations but only actions because it would make it difficult to work with common code
+The API is almost the same except that we don't use mutations but only actions because it would make it difficult to work with common code
 
-The project is developed directly in the `develop` branch as long as we’ll be able to avoid splitting it into a different branch.
+The project is developed directly in the `develop` branch as long as we'll be able to avoid splitting it into a different branch.
 
-So far most of the work has been on the template, so there’s no complex logic to understand. The only thing I would suggest you to read about is Vuex for data management: it’s basically a Flux implementation: there’s a central store that hold the data for the entire app, and every change to the data must happen through an action, the data cannot be mutated directly.
+So far most of the work has been on the template, so there's no complex logic to understand. The only thing I would suggest you to read about is Vuex for data management: it's basically a Flux implementation: there's a central store that hold the data for the entire app, and every change to the data must happen through an action, the data cannot be mutated directly.
 
-For further resources, see [Guidance for Blacksmiths](http://habitica.wikia.com/wiki/Guidance_for_Blacksmiths), and in particular the ["Website Technology Stack" section](http://habitica.wikia.com/wiki/Guidance_for_Blacksmiths#Website_Technology_Stack).
+For further resources, see [Guidance for Blacksmiths](http://habitica.fandom.com/wiki/Guidance_for_Blacksmiths), and in particular the ["Website Technology Stack" section](http://habitica.fandom.com/wiki/Guidance_for_Blacksmiths#Website_Technology_Stack).

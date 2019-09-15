@@ -1,17 +1,17 @@
 <template lang="pug">
 menu-dropdown.item-user(:right="true")
   div(slot="dropdown-toggle")
-    div(v-b-tooltip.hover.bottom="$t('user')")
+    div(:aria-label="$t('user')", v-b-tooltip.hover.bottom="$t('user')")
       message-count(v-if='user.inbox.newMessages > 0', :count="user.inbox.newMessages", :top="true")
       .top-menu-icon.svg-icon.user(v-html="icons.user")
   .user-dropdown(slot="dropdown-content")
-    a.dropdown-item.edit-avatar.dropdown-separated(@click='showAvatar()')
+    a.dropdown-item.edit-avatar.dropdown-separated(@click='showAvatar("body", "size")')
       h3 {{ user.profile.name }}
       span.small-text {{ $t('editAvatar') }}
-    a.nav-link.dropdown-item.dropdown-separated(@click.prevent='showInbox()')
-      | {{ $t('messages') }}
+    a.nav-link.dropdown-item.dropdown-separated.d-flex.justify-content-between.align-items-center(@click.prevent='showInbox()')
+      div {{ $t('messages') }}
       message-count(v-if='user.inbox.newMessages > 0', :count="user.inbox.newMessages")
-    a.dropdown-item(@click='showAvatar("backgrounds", "2018")') {{ $t('backgrounds') }}
+    a.dropdown-item(@click='showAvatar("backgrounds", "2019")') {{ $t('backgrounds') }}
     a.dropdown-item(@click='showProfile("stats")') {{ $t('stats') }}
     a.dropdown-item(@click='showProfile("achievements")') {{ $t('achievements') }}
     a.dropdown-item.dropdown-separated(@click='showProfile("profile")') {{ $t('profile') }}
@@ -102,10 +102,7 @@ export default {
       this.$root.$emit('bv::show::modal', 'inbox-modal');
     },
     showProfile (startingPage) {
-      this.$root.$emit('habitica:show-profile', {
-        user: this.user,
-        startingPage,
-      });
+      this.$router.push({name: startingPage});
     },
     showBuyGemsModal (startingPage) {
       this.$store.state.gemModalOptions.startingPage = startingPage;

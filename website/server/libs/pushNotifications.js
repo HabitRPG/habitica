@@ -1,48 +1,26 @@
 import _ from 'lodash';
 import nconf from 'nconf';
-// @TODO remove this lib and use directly the apn module
-import pushNotify from 'push-notify';
+import apn from 'apn';
 import logger from './logger';
-import {
-  S3,
-} from './aws';
 import gcmLib from 'node-gcm'; // works with FCM notifications too
 
-const FCM_API_KEY = nconf.get('PUSH_CONFIGS:FCM_SERVER_API_KEY');
+const FCM_API_KEY = nconf.get('PUSH_CONFIGS_FCM_SERVER_API_KEY');
 
 const fcmSender = FCM_API_KEY ? new gcmLib.Sender(FCM_API_KEY) : undefined;
 
-let apn;
-
+let apnProvider;
 // Load APN certificate and key from S3
-const APN_ENABLED = nconf.get('PUSH_CONFIGS:APN_ENABLED') === 'true';
-const S3_BUCKET = nconf.get('S3:bucket');
+const APN_ENABLED = nconf.get('PUSH_CONFIGS_APN_ENABLED') === 'true';
 
 if (APN_ENABLED) {
-  Promise.all([
-    S3.getObject({
-      Bucket: S3_BUCKET,
-      Key: 'apple_apn/cert.pem',
-    }).promise(),
-    S3.getObject({
-      Bucket: S3_BUCKET,
-      Key: 'apple_apn/key.pem',
-    }).promise(),
-  ])
-    .then(([certObj, keyObj]) => {
-      let cert = certObj.Body.toString();
-      let key = keyObj.Body.toString();
-
-      apn = pushNotify.apn({
-        key,
-        cert,
-      });
-
-      apn.on('error', err => logger.error('APN error', err));
-      apn.on('transmissionError', (errorCode, notification, device) => {
-        logger.error('APN transmissionError', errorCode, notification, device);
-      });
-    });
+  apnProvider = APN_ENABLED ? new apn.Provider({
+    token: {
+      key: nconf.get('PUSH_CONFIGS_APN_KEY'),
+      keyId: nconf.get('PUSH_CONFIGS_APN_KEY_ID'),
+      teamId: nconf.get('PUSH_CONFIGS_APN_TEAM_ID'),
+    },
+    production: nconf.get('IS_PROD'),
+  }) : undefined;
 }
 
 function sendNotification (user, details = {}) {
@@ -71,19 +49,29 @@ function sendNotification (user, details = {}) {
 
           fcmSender.send(message, {
             registrationTokens: [pushDevice.regId],
-          }, 10, (err) => logger.error('FCM Error', err));
+          }, 10, (err) => logger.error(err, 'FCM Error'));
         }
         break;
 
       case 'ios':
-        if (apn) {
-          apn.send({
-            token: pushDevice.regId,
+        if (apnProvider) {
+          const notification = new apn.Notification({
             alert: details.message,
             sound: 'default',
             category: details.category,
+            topic: 'com.habitrpg.ios.Habitica',
             payload,
           });
+          apnProvider.send(notification, pushDevice.regId)
+            .then((response) => {
+              response.failed.forEach((failure) => {
+                if (failure.error) {
+                  logger.error('APN error', failure.error);
+                } else {
+                  logger.error('APN transmissionError', failure.status, notification, failure.device);
+                }
+              });
+            });
         }
         break;
     }

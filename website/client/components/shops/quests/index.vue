@@ -52,11 +52,6 @@
                 :popoverPosition="'top'",
                 @click="selectItem(item)"
               )
-                template(slot="popoverContent", slot-scope="ctx")
-                  div.questPopover
-                    h4.popover-content-title {{ item.text }}
-                    questInfo(:quest="item")
-
                 template(slot="itemBadge", slot-scope="ctx")
                   span.badge.badge-pill.badge-item.badge-svg(
                     :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
@@ -81,7 +76,7 @@
 
       div(
         v-for="category in categories",
-        v-if="viewOptions[category.identifier].selected"
+        v-if="!anyFilterSelected || viewOptions[category.identifier].selected"
       )
         h2.mb-3 {{ category.text }}
 
@@ -244,20 +239,22 @@
     display: inline-block;
     width: 33%;
     margin-bottom: 24px;
+    vertical-align: top;
 
     .items {
       border-radius: 2px;
       background-color: #edecee;
       display: inline-block;
-      padding: 8px;
+      padding: 0;
+      margin-right: 12px;
     }
 
     .item-wrapper {
       margin-bottom: 0;
     }
 
-    .items > div:not(:last-of-type) {
-      margin-right: 16px;
+    .items > div {
+      margin: 8px;
     }
   }
 
@@ -339,6 +336,7 @@
   import toggleSwitch from 'client/components/ui/toggleSwitch';
   import Avatar from 'client/components/avatar';
   import buyMixin from 'client/mixins/buy';
+  import pinUtils from 'client/mixins/pinUtils';
   import currencyMixin from '../_currencyMixin';
 
   import BuyModal from './buyQuestModal.vue';
@@ -357,7 +355,7 @@
   import _map from 'lodash/map';
 
 export default {
-    mixins: [buyMixin, currencyMixin],
+    mixins: [buyMixin, currencyMixin, pinUtils],
     components: {
       ShopItem,
       Item,
@@ -414,7 +412,7 @@ export default {
         if (this.shop.categories) {
           this.shop.categories.map((category) => {
             this.$set(this.viewOptions, category.identifier, {
-              selected: true,
+              selected: false,
             });
           });
 
@@ -422,6 +420,10 @@ export default {
         } else {
           return [];
         }
+      },
+
+      anyFilterSelected () {
+        return Object.values(this.viewOptions).some(g => g.selected);
       },
     },
     methods: {
@@ -473,11 +475,6 @@ export default {
         }
 
         return false;
-      },
-      togglePinned (item) {
-        if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
-          this.$parent.showUnpinNotification(item);
-        }
       },
       selectItem (item) {
         if (item.locked) return;

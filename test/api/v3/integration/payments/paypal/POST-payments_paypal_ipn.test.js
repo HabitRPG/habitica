@@ -20,7 +20,7 @@ describe('payments - paypal - #ipn', () => {
     let ipnStub;
 
     beforeEach(async () => {
-      ipnStub = sinon.stub(paypalPayments, 'ipn').returnsPromise().resolves({});
+      ipnStub = sinon.stub(paypalPayments, 'ipn').resolves({});
     });
 
     afterEach(() => {

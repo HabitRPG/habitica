@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import baseModel from '../libs/baseModel';
 import { v4 as uuid } from 'uuid';
 import validator from 'validator';
+import _ from 'lodash';
 
 const NOTIFICATION_TYPES = [
   'DROPS_ENABLED',
@@ -14,6 +15,7 @@ const NOTIFICATION_TYPES = [
   'CRON',
   'GROUP_TASK_APPROVAL',
   'GROUP_TASK_APPROVED',
+  'GROUP_TASK_ASSIGNED',
   'GROUP_TASK_NEEDS_WORK',
   'LOGIN_INCENTIVE',
   'GROUP_INVITE_ACCEPTED',
@@ -30,39 +32,45 @@ const NOTIFICATION_TYPES = [
   'NEW_STUFF',
   'NEW_CHAT_MESSAGE',
   'LEVELED_UP',
+  'ACHIEVEMENT_ALL_YOUR_BASE',
+  'ACHIEVEMENT_BACK_TO_BASICS',
+  'ACHIEVEMENT_JUST_ADD_WATER',
+  'ACHIEVEMENT_LOST_MASTERCLASSER',
+  'ACHIEVEMENT_MIND_OVER_MATTER',
 ];
 
 const Schema = mongoose.Schema;
 
 export let schema = new Schema({
   id: {
-    type: String,
+    $type: String,
     default: uuid,
-    validate: [validator.isUUID, 'Invalid uuid.'],
+    validate: [v => validator.isUUID(v), 'Invalid uuid.'],
     // @TODO: Add these back once we figure out the issue with notifications
     // See Fix for https://github.com/HabitRPG/habitica/issues/9923
     // required: true,
   },
   type: {
-    type: String,
+    $type: String,
     // @TODO: Add these back once we figure out the issue with notifications
     // See Fix for https://github.com/HabitRPG/habitica/issues/9923
     // required: true,
     enum: NOTIFICATION_TYPES,
   },
-  data: {type: Schema.Types.Mixed, default: () => {
+  data: {$type: Schema.Types.Mixed, default: () => {
     return {};
   }},
   // A field to mark the notification as seen without deleting it, optional use
   seen: {
-    type: Boolean,
+    $type: Boolean,
     // required: true,
     default: () => false,
   },
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
-  _id: false, // use id instead of _id
+  _id: false, // use id instead of _id,
+  typeKey: '$type', // So that we can use fields named `type`
 });
 
 /**
@@ -74,13 +82,22 @@ export let schema = new Schema({
 schema.statics.convertNotificationsToSafeJson = function convertNotificationsToSafeJson (notifications) {
   if (!notifications) return notifications;
 
-  return notifications.filter(n => {
+  let filteredNotifications = notifications.filter(n => {
     // Exclude notifications with a nullish value
     if (!n) return false;
     // Exclude notifications without an id or a type
     if (!n.id || !n.type) return false;
     return true;
-  }).map(n => {
+  });
+
+  filteredNotifications = _.uniqWith(filteredNotifications, (val, otherVal) => {
+    if (val.type === otherVal.type && val.type === 'NEW_CHAT_MESSAGE') {
+      return val.data.group.id === otherVal.data.group.id;
+    }
+    return false;
+  });
+
+  return filteredNotifications.map(n => {
     return n.toJSON();
   });
 };

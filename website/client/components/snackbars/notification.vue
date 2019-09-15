@@ -1,6 +1,6 @@
 <template lang="pug">
 transition(name="fade")
-  .notification.callout.animated(:class="classes", v-if='show', @click='show = false')
+  .notification.callout.animated(:class="classes", v-if='show', @click='handleOnClick()')
     .row(v-if='notification.type === "error"')
       .text.col-12
         div(v-html='notification.text')
@@ -33,7 +33,7 @@ transition(name="fade")
 
 <style lang="scss" scoped>
   .notification {
-    border-radius: 1000px;
+    border-radius: 30px;
     background-color: #24cc8f;
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
     color: white;
@@ -43,13 +43,16 @@ transition(name="fade")
   }
 
   .info {
-    max-height: 56px;
     background-color: #46a7d9;
     padding-top: .5em;
   }
 
   .error {
     background-color: #f74e52;
+    border-radius: 60px;
+    width: 320px !important;
+    padding: 10px 5px;
+    margin-left: 0;
     color: #fff;
   }
 
@@ -145,6 +148,14 @@ export default {
   watch: {
     show () {
       this.$store.dispatch('snackbars:remove', this.notification);
+    },
+  },
+  methods: {
+    handleOnClick () {
+      if (typeof this.notification.onClick === 'function') {
+        this.notification.onClick();
+      }
+      this.show = false;
     },
   },
   computed: {

@@ -1,3 +1,5 @@
+import memberHasClass from 'common/script/libs/hasClass';
+
 export function isBuffed () {
   return (member) => {
     const buffs = member.stats.buffs;
@@ -6,7 +8,5 @@ export function isBuffed () {
 }
 
 export function hasClass () {
-  return (member) => {
-    return member.stats.lvl >= 10 && !member.preferences.disableClasses && member.flags.classSelected;
-  };
+  return memberHasClass;
 }

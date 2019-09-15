@@ -23,6 +23,73 @@ describe('Post /groups/:groupId/invite', () => {
     });
   });
 
+  describe('username invites', () => {
+    it('returns an error when invited user is not found', async () => {
+      const fakeID = 'fakeuserid';
+
+      await expect(inviter.post(`/groups/${group._id}/invite`, {
+        usernames: [fakeID],
+      }))
+        .to.eventually.be.rejected.and.eql({
+          code: 404,
+          error: 'NotFound',
+          message: t('userWithUsernameNotFound', {username: fakeID}),
+        });
+    });
+
+    it('returns an error when inviting yourself to a group', async () => {
+      await expect(inviter.post(`/groups/${group._id}/invite`, {
+        usernames: [inviter.auth.local.lowerCaseUsername],
+      }))
+        .to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: t('cannotInviteSelfToGroup'),
+        });
+    });
+
+    it('invites a user to a group by username', async () => {
+      const userToInvite = await generateUser();
+
+      await expect(inviter.post(`/groups/${group._id}/invite`, {
+        usernames: [userToInvite.auth.local.lowerCaseUsername],
+      })).to.eventually.deep.equal([{
+        id: group._id,
+        name: groupName,
+        inviter: inviter._id,
+        publicGuild: false,
+      }]);
+
+      await expect(userToInvite.get('/user'))
+        .to.eventually.have.nested.property('invitations.guilds[0].id', group._id);
+    });
+
+    it('invites multiple users to a group by uuid', async () => {
+      const userToInvite = await generateUser();
+      const userToInvite2 = await generateUser();
+
+      await expect(inviter.post(`/groups/${group._id}/invite`, {
+        usernames: [userToInvite.auth.local.lowerCaseUsername, userToInvite2.auth.local.lowerCaseUsername],
+      })).to.eventually.deep.equal([
+        {
+          id: group._id,
+          name: groupName,
+          inviter: inviter._id,
+          publicGuild: false,
+        },
+        {
+          id: group._id,
+          name: groupName,
+          inviter: inviter._id,
+          publicGuild: false,
+        },
+      ]);
+
+      await expect(userToInvite.get('/user')).to.eventually.have.nested.property('invitations.guilds[0].id', group._id);
+      await expect(userToInvite2.get('/user')).to.eventually.have.nested.property('invitations.guilds[0].id', group._id);
+    });
+  });
+
   describe('user id invites', () => {
     it('returns an error when inviter has no chat privileges', async () => {
       let inviterMuted = await inviter.update({'flags.chatRevoked': true});
@@ -33,7 +100,7 @@ describe('Post /groups/:groupId/invite', () => {
         .to.eventually.be.rejected.and.eql({
           code: 401,
           error: 'NotAuthorized',
-          message: t('cannotInviteWhenMuted'),
+          message: t('chatPrivilegesRevoked'),
         });
     });
 
@@ -93,7 +160,7 @@ describe('Post /groups/:groupId/invite', () => {
         .to.eventually.be.rejected.and.eql({
           code: 400,
           error: 'BadRequest',
-          message: t('inviteMissingUuid'),
+          message: t('inviteMustNotBeEmpty'),
         });
     });
 
@@ -195,7 +262,7 @@ describe('Post /groups/:groupId/invite', () => {
         .to.eventually.be.rejected.and.eql({
           code: 401,
           error: 'NotAuthorized',
-          message: t('cannotInviteWhenMuted'),
+          message: t('chatPrivilegesRevoked'),
         });
     });
 
@@ -228,7 +295,7 @@ describe('Post /groups/:groupId/invite', () => {
         .to.eventually.be.rejected.and.eql({
           code: 400,
           error: 'BadRequest',
-          message: t('inviteMissingEmail'),
+          message: t('inviteMustNotBeEmpty'),
         });
     });
 
@@ -266,7 +333,7 @@ describe('Post /groups/:groupId/invite', () => {
         .to.eventually.be.rejected.and.eql({
           code: 401,
           error: 'NotAuthorized',
-          message: t('inviteLimitReached', {techAssistanceEmail: nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL')}),
+          message: t('inviteLimitReached', {techAssistanceEmail: nconf.get('EMAILS_TECH_ASSISTANCE_EMAIL')}),
         });
     });
 
@@ -369,7 +436,7 @@ describe('Post /groups/:groupId/invite', () => {
         .to.eventually.be.rejected.and.eql({
           code: 401,
           error: 'NotAuthorized',
-          message: t('cannotInviteWhenMuted'),
+          message: t('chatPrivilegesRevoked'),
         });
     });
 
@@ -417,7 +484,7 @@ describe('Post /groups/:groupId/invite', () => {
       expect(await inviter.post(`/groups/${group._id}/invite`, {
         uuids: generatedInvites.map(invite => invite._id),
       })).to.be.an('array');
-    });
+    }).timeout(10000);
 
     // @TODO: Add this after we are able to mock the group plan route
     xit('returns an error when a non-leader invites to a group plan', async () => {
@@ -459,7 +526,7 @@ describe('Post /groups/:groupId/invite', () => {
         .to.eventually.be.rejected.and.eql({
           code: 401,
           error: 'NotAuthorized',
-          message: t('cannotInviteWhenMuted'),
+          message: t('chatPrivilegesRevoked'),
         });
     });
 
@@ -564,7 +631,7 @@ describe('Post /groups/:groupId/invite', () => {
       expect(await inviter.post(`/groups/${party._id}/invite`, {
         uuids: generatedInvites.map(invite => invite._id),
       })).to.be.an('array');
-    });
+    }).timeout(10000);
 
     it('does not allow 30+ members in a party', async () => {
       let invitesToGenerate = [];
@@ -582,6 +649,6 @@ describe('Post /groups/:groupId/invite', () => {
           error: 'BadRequest',
           message: t('partyExceedsMembersLimit', {maxMembersParty: PARTY_LIMIT_MEMBERS}),
         });
-    });
+    }).timeout(10000);
   });
 });

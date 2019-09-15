@@ -38,12 +38,10 @@
     "messageInsufficientGems": "Permata tidak cukup!",
     "messageAuthPasswordMustMatch": ":password dan :confirm Kata Sandi tidak cocok",
     "messageAuthCredentialsRequired": ":username, :email, :password, :confirm Kata Sandi dibutuhkan",
-    "messageAuthUsernameTaken": "Nama Login telah diambil",
     "messageAuthEmailTaken": "Email telah digunakan",
     "messageAuthNoUserFound": "Tidak ada pengguna yang ditemukan",
     "messageAuthMustBeLoggedIn": "Anda harus masuk.",
     "messageAuthMustIncludeTokens": "Anda harus menyertakan token dan uid (id pengguna) di dalam permintaan",
-    "messageGroupNotFound": "Grup tidak ditemukan atau kamu tidak memiliki akses.",
     "messageGroupAlreadyInParty": "Telah ada di dalam party, coba muat ulang.",
     "messageGroupOnlyLeaderCanUpdate": "Hanya pemimpin grup yang dapat memperbaharui grup!",
     "messageGroupRequiresInvite": "Tidak dapat bergubung ke dalam grup tanpa diundang.",
@@ -62,5 +60,7 @@
     "messageNotAbleToBuyInBulk": "This item cannot be purchased in quantities above 1.",
     "notificationsRequired": "Id notifikasi diperlukan.",
     "unallocatedStatsPoints": "Kamu punya <span class=\"notification-bold-blue\"><%= points %>Poin Atribut yang belum teralokasi</span>",
-    "beginningOfConversation": "Ini permulaan percakapanmu dengan <%= userName %>. Ingatlah untuk menunjukkan rasa hormat, sikap baik hati, dan ikuti Pedoman Komunitas!"
+    "beginningOfConversation": "Ini permulaan percakapanmu dengan <%= userName %>. Ingatlah untuk menunjukkan rasa hormat, sikap baik hati, dan ikuti Pedoman Komunitas!",
+    "messageDeletedUser": "Sorry, this user has deleted their account.",
+    "messageMissingDisplayName": "Missing display name."
 }

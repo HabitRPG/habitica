@@ -1,3 +1,5 @@
+import { IncomingWebhook } from '@slack/client';
+import nconf from 'nconf';
 import {
   createAndPopulateGroup,
   generateUser,
@@ -10,13 +12,12 @@ import {
   SPAM_MIN_EXEMPT_CONTRIB_LEVEL,
   TAVERN_ID,
 } from '../../../../../website/server/models/group';
+import { CHAT_FLAG_FROM_SHADOW_MUTE } from '../../../../../website/common/script/constants';
 import { v4 as generateUUID } from 'uuid';
 import { getMatchesByWordArray } from '../../../../../website/server/libs/stringUtils';
 import bannedWords from '../../../../../website/server/libs/bannedWords';
 import guildsAllowingBannedWords from '../../../../../website/server/libs/guildsAllowingBannedWords';
 import * as email from '../../../../../website/server/libs/email';
-import { IncomingWebhook } from '@slack/client';
-import nconf from 'nconf';
 
 const BASE_URL = nconf.get('BASE_URL');
 
@@ -80,12 +81,141 @@ describe('POST /chat', () => {
     });
   });
 
-  it('returns an error when chat privileges are revoked when sending a message to a public guild', async () => {
-    let userWithChatRevoked = await member.update({'flags.chatRevoked': true});
-    await expect(userWithChatRevoked.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
-      code: 401,
-      error: 'NotAuthorized',
-      message: t('chatPrivilegesRevoked'),
+  describe('mute user', () => {
+    afterEach(() => {
+      member.update({'flags.chatRevoked': false});
+    });
+
+    it('returns an error when chat privileges are revoked when sending a message to a public guild', async () => {
+      const userWithChatRevoked = await member.update({'flags.chatRevoked': true});
+      await expect(userWithChatRevoked.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('chatPrivilegesRevoked'),
+      });
+    });
+
+    it('does not error when chat privileges are revoked when sending a message to a private guild', async () => {
+      const { group, members } = await createAndPopulateGroup({
+        groupDetails: {
+          name: 'Private Guild',
+          type: 'guild',
+          privacy: 'private',
+        },
+        members: 1,
+      });
+
+      const privateGuildMemberWithChatsRevoked = members[0];
+      await privateGuildMemberWithChatsRevoked.update({'flags.chatRevoked': true});
+
+      const message = await privateGuildMemberWithChatsRevoked.post(`/groups/${group._id}/chat`, { message: testMessage});
+
+      expect(message.message.id).to.exist;
+    });
+
+    it('does not error when chat privileges are revoked when sending a message to a party', async () => {
+      const { group, members } = await createAndPopulateGroup({
+        groupDetails: {
+          name: 'Party',
+          type: 'party',
+          privacy: 'private',
+        },
+        members: 1,
+      });
+
+      const privatePartyMemberWithChatsRevoked = members[0];
+      await privatePartyMemberWithChatsRevoked.update({'flags.chatRevoked': true});
+
+      const message = await privatePartyMemberWithChatsRevoked.post(`/groups/${group._id}/chat`, { message: testMessage});
+
+      expect(message.message.id).to.exist;
+    });
+  });
+
+  describe('shadow-mute user', () => {
+    beforeEach(() => {
+      sandbox.spy(email, 'sendTxn');
+      sandbox.stub(IncomingWebhook.prototype, 'send');
+    });
+
+    afterEach(() => {
+      sandbox.restore();
+      member.update({'flags.chatShadowMuted': false});
+    });
+
+    it('creates a chat with flagCount already set and notifies mods when sending a message to a public guild', async () => {
+      const userWithChatShadowMuted = await member.update({'flags.chatShadowMuted': true});
+      const message = await userWithChatShadowMuted.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage});
+      expect(message.message.id).to.exist;
+      expect(message.message.flagCount).to.eql(CHAT_FLAG_FROM_SHADOW_MUTE);
+
+      // Email sent to mods
+      await sleep(0.5);
+      expect(email.sendTxn).to.be.calledOnce;
+      expect(email.sendTxn.args[0][1]).to.eql('shadow-muted-post-report-to-mods');
+
+      // Slack message to mods
+      expect(IncomingWebhook.prototype.send).to.be.calledOnce;
+      /* eslint-disable camelcase */
+      expect(IncomingWebhook.prototype.send).to.be.calledWith({
+        text: `@${member.auth.local.username} / ${member.profile.name} posted while shadow-muted`,
+        attachments: [{
+          fallback: 'Shadow-Muted Message',
+          color: 'danger',
+          author_name: `@${member.auth.local.username} ${member.profile.name} (${member.auth.local.email}; ${member._id})`,
+          title: 'Shadow-Muted Post in Test Guild',
+          title_link: `${BASE_URL}/groups/guild/${groupWithChat.id}`,
+          text: testMessage,
+          mrkdwn_in: [
+            'text',
+          ],
+        }],
+      });
+      /* eslint-enable camelcase */
+    });
+
+    it('creates a chat with zero flagCount when sending a message to a private guild', async () => {
+      const { group, members } = await createAndPopulateGroup({
+        groupDetails: {
+          name: 'Private Guild',
+          type: 'guild',
+          privacy: 'private',
+        },
+        members: 1,
+      });
+
+      const userWithChatShadowMuted = members[0];
+      await userWithChatShadowMuted.update({'flags.chatShadowMuted': true});
+
+      const message = await userWithChatShadowMuted.post(`/groups/${group._id}/chat`, { message: testMessage});
+
+      expect(message.message.id).to.exist;
+      expect(message.message.flagCount).to.eql(0);
+    });
+
+    it('creates a chat with zero flagCount when sending a message to a party', async () => {
+      const { group, members } = await createAndPopulateGroup({
+        groupDetails: {
+          name: 'Party',
+          type: 'party',
+          privacy: 'private',
+        },
+        members: 1,
+      });
+
+      const userWithChatShadowMuted = members[0];
+      await userWithChatShadowMuted.update({'flags.chatShadowMuted': true});
+
+      const message = await userWithChatShadowMuted.post(`/groups/${group._id}/chat`, { message: testMessage});
+
+      expect(message.message.id).to.exist;
+      expect(message.message.flagCount).to.eql(0);
+    });
+
+    it('creates a chat with zero flagCount when non-shadow-muted user sends a message to a public guild', async () => {
+      const message = await member.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage});
+      expect(message.message.id).to.exist;
+      expect(message.message.flagCount).to.eql(0);
     });
   });
 
@@ -233,6 +363,7 @@ describe('POST /chat', () => {
 
     afterEach(() => {
       sandbox.restore();
+      user.update({'flags.chatRevoked': false});
     });
 
     it('errors and revokes privileges when chat message contains a banned slur', async () => {
@@ -255,11 +386,10 @@ describe('POST /chat', () => {
         attachments: [{
           fallback: 'Slur Message',
           color: 'danger',
-          author_name: `${user.profile.name} - ${user.auth.local.email} - ${user._id}`,
+          author_name: `@${user.auth.local.username} ${user.profile.name} (${user.auth.local.email}; ${user._id})`,
           title: 'Slur in Test Guild',
           title_link: `${BASE_URL}/groups/guild/${groupWithChat.id}`,
           text: testSlurMessage,
-          // footer: sandbox.match(/<.*?groupId=group-id&chatId=chat-id\|Flag this message>/),
           mrkdwn_in: [
             'text',
           ],
@@ -273,10 +403,6 @@ describe('POST /chat', () => {
         error: 'NotAuthorized',
         message: t('chatPrivilegesRevoked'),
       });
-
-      // Restore chat privileges to continue testing
-      user.flags.chatRevoked = false;
-      await user.update({'flags.chatRevoked': false});
     });
 
     it('does not allow slurs in private groups', async () => {
@@ -308,11 +434,10 @@ describe('POST /chat', () => {
         attachments: [{
           fallback: 'Slur Message',
           color: 'danger',
-          author_name: `${members[0].profile.name} - ${members[0].auth.local.email} - ${members[0]._id}`,
+          author_name: `@${members[0].auth.local.username} ${members[0].profile.name} (${members[0].auth.local.email}; ${members[0]._id})`,
           title: 'Slur in Party - (private party)',
           title_link: undefined,
           text: testSlurMessage,
-          // footer: sandbox.match(/<.*?groupId=group-id&chatId=chat-id\|Flag this message>/),
           mrkdwn_in: [
             'text',
           ],
@@ -326,10 +451,6 @@ describe('POST /chat', () => {
         error: 'NotAuthorized',
         message: t('chatPrivilegesRevoked'),
       });
-
-      // Restore chat privileges to continue testing
-      members[0].flags.chatRevoked = false;
-      await members[0].update({'flags.chatRevoked': false});
     });
 
     it('errors when slur is typed in mixed case', async () => {
@@ -344,48 +465,29 @@ describe('POST /chat', () => {
     });
   });
 
-  it('does not error when sending a message to a private guild with a user with revoked chat', async () => {
-    let { group, members } = await createAndPopulateGroup({
-      groupDetails: {
-        name: 'Private Guild',
-        type: 'guild',
-        privacy: 'private',
-      },
-      members: 1,
-    });
-
-    let privateGuildMemberWithChatsRevoked = members[0];
-    await privateGuildMemberWithChatsRevoked.update({'flags.chatRevoked': true});
-
-    let message = await privateGuildMemberWithChatsRevoked.post(`/groups/${group._id}/chat`, { message: testMessage});
-
-    expect(message.message.id).to.exist;
-  });
-
-  it('does not error when sending a message to a party with a user with revoked chat', async () => {
-    let { group, members } = await createAndPopulateGroup({
-      groupDetails: {
-        name: 'Party',
-        type: 'party',
-        privacy: 'private',
-      },
-      members: 1,
-    });
-
-    let privatePartyMemberWithChatsRevoked = members[0];
-    await privatePartyMemberWithChatsRevoked.update({'flags.chatRevoked': true});
-
-    let message = await privatePartyMemberWithChatsRevoked.post(`/groups/${group._id}/chat`, { message: testMessage});
-
-    expect(message.message.id).to.exist;
-  });
-
   it('creates a chat', async () => {
     const newMessage = await user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage});
     const groupMessages = await user.get(`/groups/${groupWithChat._id}/chat`);
 
     expect(newMessage.message.id).to.exist;
     expect(groupMessages[0].id).to.exist;
+  });
+
+  it('creates a chat with a max length of 3000 chars', async () => {
+    const veryLongMessage = `
+    123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789.
+    THIS PART WON'T BE IN THE MESSAGE (over 3000)
+    `;
+
+    const newMessage = await user.post(`/groups/${groupWithChat._id}/chat`, { message: veryLongMessage});
+    const groupMessages = await user.get(`/groups/${groupWithChat._id}/chat`);
+
+    expect(newMessage.message.id).to.exist;
+    expect(groupMessages[0].id).to.exist;
+
+    expect(newMessage.message.text.length).to.eql(3000);
+    expect(newMessage.message.text).to.not.contain('MESSAGE');
+    expect(groupMessages[0].text.length).to.eql(3000);
   });
 
   it('creates a chat with user styles', async () => {
@@ -468,35 +570,55 @@ describe('POST /chat', () => {
     });
   });
 
-  it('notifies other users of new messages for a guild', async () => {
-    let message = await user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage});
-    let memberWithNotification = await member.get('/user');
-
-    expect(message.message.id).to.exist;
-    expect(memberWithNotification.newMessages[`${groupWithChat._id}`]).to.exist;
-    expect(memberWithNotification.notifications.find(n => {
-      return n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === groupWithChat._id;
-    })).to.exist;
-  });
-
-  it('notifies other users of new messages for a party', async () => {
-    let { group, groupLeader, members } = await createAndPopulateGroup({
-      groupDetails: {
-        name: 'Test Party',
-        type: 'party',
-        privacy: 'private',
-      },
-      members: 1,
+  context('chat notifications', () => {
+    beforeEach(() => {
+      member.update({newMessages: {}, notifications: []});
     });
 
-    let message = await groupLeader.post(`/groups/${group._id}/chat`, { message: testMessage});
-    let memberWithNotification = await members[0].get('/user');
+    it('notifies other users of new messages for a guild', async () => {
+      let message = await user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage });
+      let memberWithNotification = await member.get('/user');
 
-    expect(message.message.id).to.exist;
-    expect(memberWithNotification.newMessages[`${group._id}`]).to.exist;
-    expect(memberWithNotification.notifications.find(n => {
-      return n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === group._id;
-    })).to.exist;
+      expect(message.message.id).to.exist;
+      expect(memberWithNotification.newMessages[`${groupWithChat._id}`]).to.exist;
+      expect(memberWithNotification.notifications.find(n => {
+        return n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === groupWithChat._id;
+      })).to.exist;
+    });
+
+    it('notifies other users of new messages for a party', async () => {
+      let { group, groupLeader, members } = await createAndPopulateGroup({
+        groupDetails: {
+          name: 'Test Party',
+          type: 'party',
+          privacy: 'private',
+        },
+        members: 1,
+      });
+
+      let message = await groupLeader.post(`/groups/${group._id}/chat`, { message: testMessage });
+      let memberWithNotification = await members[0].get('/user');
+
+      expect(message.message.id).to.exist;
+      expect(memberWithNotification.newMessages[`${group._id}`]).to.exist;
+      expect(memberWithNotification.notifications.find(n => {
+        return n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === group._id;
+      })).to.exist;
+    });
+
+    it('does not notify other users of a new message that is already hidden from shadow-muting', async () => {
+      await user.update({'flags.chatShadowMuted': true});
+      let message = await user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage });
+      let memberWithNotification = await member.get('/user');
+
+      await user.update({'flags.chatShadowMuted': false});
+
+      expect(message.message.id).to.exist;
+      expect(memberWithNotification.newMessages[`${groupWithChat._id}`]).to.not.exist;
+      expect(memberWithNotification.notifications.find(n => {
+        return n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === groupWithChat._id;
+      })).to.not.exist;
+    });
   });
 
   context('Spam prevention', () => {
@@ -515,7 +637,7 @@ describe('POST /chat', () => {
     });
 
     it('contributor should not receive spam alert', async () => {
-      let userSocialite = await member.update({'contributor.level': SPAM_MIN_EXEMPT_CONTRIB_LEVEL, 'flags.chatRevoked': false});
+      let userSocialite = await member.update({'contributor.level': SPAM_MIN_EXEMPT_CONTRIB_LEVEL});
 
       // Post 1 more message than the spam limit to ensure they do not reach the limit
       for (let i = 0; i < SPAM_MESSAGE_LIMIT + 1; i++) {

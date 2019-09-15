@@ -10,7 +10,8 @@ export default {
     userLevelStyleFromLevel (level, npc, style) {
       style = style || '';
       if (npc) style += ' npc';
-      if (level) style +=   ` tier${level}`;
+      style += level ? ` tier${level}` : ' no-tier';
+
       return style;
     },
   },

@@ -6,6 +6,7 @@ import iap from '../../../../../website/server/libs/inAppPurchases';
 import {model as User} from '../../../../../website/server/models/user';
 import common from '../../../../../website/common';
 import moment from 'moment';
+import {mockFindById, restoreFindById} from '../../../../helpers/mongoose.helper';
 
 const i18n = common.i18n;
 
@@ -24,16 +25,16 @@ describe('Apple Payments', ()  => {
       headers = {};
 
       iapSetupStub = sinon.stub(iapModule, 'setup')
-        .returnsPromise().resolves();
+        .resolves();
       iapValidateStub = sinon.stub(iapModule, 'validate')
-        .returnsPromise().resolves({});
+        .resolves({});
       iapIsValidatedStub = sinon.stub(iapModule, 'isValidated')
         .returns(true);
       iapGetPurchaseDataStub = sinon.stub(iapModule, 'getPurchaseData')
         .returns([{productId: 'com.habitrpg.ios.Habitica.21gems',
                    transactionId: token,
         }]);
-      paymentBuyGemsStub = sinon.stub(payments, 'buyGems').returnsPromise().resolves({});
+      paymentBuyGemsStub = sinon.stub(payments, 'buyGems').resolves({});
     });
 
     afterEach(() => {
@@ -49,7 +50,7 @@ describe('Apple Payments', ()  => {
       iapIsValidatedStub = sinon.stub(iapModule, 'isValidated')
         .returns(false);
 
-      await expect(applePayments.verifyGemPurchase(user, receipt, headers))
+      await expect(applePayments.verifyGemPurchase({user, receipt, headers}))
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
           name: 'NotAuthorized',
@@ -61,7 +62,7 @@ describe('Apple Payments', ()  => {
       iapGetPurchaseDataStub.restore();
       iapGetPurchaseDataStub = sinon.stub(iapModule, 'getPurchaseData').returns([]);
 
-      await expect(applePayments.verifyGemPurchase(user, receipt, headers))
+      await expect(applePayments.verifyGemPurchase({user, receipt, headers}))
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
           name: 'NotAuthorized',
@@ -70,8 +71,8 @@ describe('Apple Payments', ()  => {
     });
 
     it('errors if the user cannot purchase gems', async () => {
-      sinon.stub(user, 'canGetGems').returnsPromise().resolves(false);
-      await expect(applePayments.verifyGemPurchase(user, receipt, headers))
+      sinon.stub(user, 'canGetGems').resolves(false);
+      await expect(applePayments.verifyGemPurchase({user, receipt, headers}))
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
           name: 'NotAuthorized',
@@ -82,14 +83,14 @@ describe('Apple Payments', ()  => {
     });
 
     it('errors if amount does not exist', async () => {
-      sinon.stub(user, 'canGetGems').returnsPromise().resolves(true);
+      sinon.stub(user, 'canGetGems').resolves(true);
       iapGetPurchaseDataStub.restore();
       iapGetPurchaseDataStub = sinon.stub(iapModule, 'getPurchaseData')
         .returns([{productId: 'badProduct',
                    transactionId: token,
         }]);
 
-      await expect(applePayments.verifyGemPurchase(user, receipt, headers))
+      await expect(applePayments.verifyGemPurchase({user, receipt, headers}))
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
           name: 'NotAuthorized',
@@ -130,8 +131,8 @@ describe('Apple Payments', ()  => {
                      transactionId: token,
           }]);
 
-        sinon.stub(user, 'canGetGems').returnsPromise().resolves(true);
-        await applePayments.verifyGemPurchase(user, receipt, headers);
+        sinon.stub(user, 'canGetGems').resolves(true);
+        await applePayments.verifyGemPurchase({user, receipt, headers});
 
         expect(iapSetupStub).to.be.calledOnce;
         expect(iapValidateStub).to.be.calledOnce;
@@ -151,6 +152,38 @@ describe('Apple Payments', ()  => {
         user.canGetGems.restore();
       });
     });
+
+    it('gifts gems', async () => {
+      const receivingUser = new User();
+      await receivingUser.save();
+
+      mockFindById(receivingUser);
+
+      iapGetPurchaseDataStub.restore();
+      iapGetPurchaseDataStub = sinon.stub(iapModule, 'getPurchaseData')
+        .returns([{productId: gemsCanPurchase[0].productId,
+                   transactionId: token,
+        }]);
+
+      const gift = {uuid: receivingUser._id};
+      await applePayments.verifyGemPurchase({user, gift, receipt, headers});
+
+      expect(iapSetupStub).to.be.calledOnce;
+      expect(iapValidateStub).to.be.calledOnce;
+      expect(iapValidateStub).to.be.calledWith(iap.APPLE, receipt);
+      expect(iapIsValidatedStub).to.be.calledOnce;
+      expect(iapIsValidatedStub).to.be.calledWith({});
+      expect(iapGetPurchaseDataStub).to.be.calledOnce;
+
+      expect(paymentBuyGemsStub).to.be.calledOnce;
+      expect(paymentBuyGemsStub).to.be.calledWith({
+        user: receivingUser,
+        paymentMethod: applePayments.constants.PAYMENT_METHOD_APPLE,
+        amount: gemsCanPurchase[0].amount,
+        headers,
+      });
+      restoreFindById();
+    });
   });
 
   describe('subscribe', () => {
@@ -167,9 +200,9 @@ describe('Apple Payments', ()  => {
       nextPaymentProcessing = moment.utc().add({days: 2});
 
       iapSetupStub = sinon.stub(iapModule, 'setup')
-        .returnsPromise().resolves();
+        .resolves();
       iapValidateStub = sinon.stub(iapModule, 'validate')
-        .returnsPromise().resolves({});
+        .resolves({});
       iapIsValidatedStub = sinon.stub(iapModule, 'isValidated')
         .returns(true);
       iapGetPurchaseDataStub = sinon.stub(iapModule, 'getPurchaseData')
@@ -186,7 +219,7 @@ describe('Apple Payments', ()  => {
           productId: sku,
           transactionId: token,
         }]);
-      paymentsCreateSubscritionStub = sinon.stub(payments, 'createSubscription').returnsPromise().resolves({});
+      paymentsCreateSubscritionStub = sinon.stub(payments, 'createSubscription').resolves({});
     });
 
     afterEach(() => {
@@ -297,9 +330,9 @@ describe('Apple Payments', ()  => {
       expirationDate = moment.utc();
 
       iapSetupStub = sinon.stub(iapModule, 'setup')
-        .returnsPromise().resolves();
+        .resolves();
       iapValidateStub = sinon.stub(iapModule, 'validate')
-        .returnsPromise().resolves({
+        .resolves({
           expirationDate,
         });
       iapGetPurchaseDataStub = sinon.stub(iapModule, 'getPurchaseData')
@@ -314,7 +347,7 @@ describe('Apple Payments', ()  => {
       user.purchased.plan.planId = subKey;
       user.purchased.plan.additionalData = receipt;
 
-      paymentCancelSubscriptionSpy = sinon.stub(payments, 'cancelSubscription').returnsPromise().resolves({});
+      paymentCancelSubscriptionSpy = sinon.stub(payments, 'cancelSubscription').resolves({});
     });
 
     afterEach(function () {

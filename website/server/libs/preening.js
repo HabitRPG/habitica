@@ -41,6 +41,7 @@ export function preenHistory (history, isSubscribed, timezoneOffset = 0, dayStar
 
   // Keep uncompressed entries (modifies history and returns removed items)
   let newHistory = _.remove(history, entry => {
+    if (!entry) return true; // sometimes entries are `null`
     const entryDate = moment(entry.date).zone(timezoneOffset);
     if (entryDate.hour() < dayStart) entryDate.subtract(1, 'day');
     return entryDate.isSame(cutOff) || entryDate.isAfter(cutOff);
@@ -49,6 +50,7 @@ export function preenHistory (history, isSubscribed, timezoneOffset = 0, dayStar
   // Date after which to begin compressing data by year
   let monthsCutOff = cutOff.subtract(isSubscribed ? 12 : 10, 'months').startOf('day');
   let aggregateByMonth = _.remove(history, entry => {
+    if (!entry) return true; // sometimes entries are `null`
     const entryDate = moment(entry.date).zone(timezoneOffset);
     if (entryDate.hour() < dayStart) entryDate.subtract(1, 'day');
     return entryDate.isSame(monthsCutOff) || entryDate.isAfter(monthsCutOff);

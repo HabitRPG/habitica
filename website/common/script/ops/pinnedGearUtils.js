@@ -27,6 +27,15 @@ function pathExistsInArray (array, path) {
   });
 }
 
+function checkForNullEntries (array) {
+  return array.filter(e => Boolean(e));
+}
+
+function checkPinnedAreasForNullEntries (user) {
+  user.pinnedItems = checkForNullEntries(user.pinnedItems);
+  user.unpinnedItems = checkForNullEntries(user.unpinnedItems);
+}
+
 function selectGearToPin (user) {
   let changes = [];
 
@@ -41,11 +50,10 @@ function selectGearToPin (user) {
   return sortBy(changes, (change) => sortOrder[change.type]);
 }
 
-
 function addPinnedGear (user, type, path) {
   const foundIndex = pathExistsInArray(user.pinnedItems, path);
 
-  if (foundIndex === -1) {
+  if (foundIndex === -1 && type && path) {
     user.pinnedItems.push({
       type,
       path,
@@ -85,30 +93,19 @@ function removePinnedGearByClass (user) {
 }
 
 function removePinnedGearAddPossibleNewOnes (user, itemPath, newItemKey) {
-  let currentPinnedItems = selectGearToPin(user);
-  let removeAndAddAllItems = false;
-
-  for (let item of currentPinnedItems) {
-    let itemInfo = getItemInfo(user, 'marketGear', item);
-
-    if (itemInfo.path === itemPath) {
-      removeAndAddAllItems = true;
-      break;
-    }
-  }
-
   removeItemByPath(user, itemPath);
 
-  if (removeAndAddAllItems) {
-    // an item of the users current "new" gear was bought
-    // remove the old pinned gear items and add the new gear back
-    removePinnedGearByClass(user);
-    user.items.gear.owned[newItemKey] = true;
-    addPinnedGearByClass(user);
-  } else {
-    // just change the new gear to owned
-    user.items.gear.owned[newItemKey] = true;
-  }
+  // an item of the users current "new" gear was bought
+  // remove the old pinned gear items and add the new gear back
+  removePinnedGearByClass(user);
+
+  user.items.gear.owned[newItemKey] = true;
+  if (user.markModified) user.markModified('items.gear.owned');
+
+  addPinnedGearByClass(user);
+
+  // update the version, so that vue can refresh the seasonal shop
+  user._v++;
 }
 
 /**
@@ -190,5 +187,6 @@ module.exports = {
   togglePinnedItem,
   removeItemByPath,
   selectGearToPin,
+  checkPinnedAreasForNullEntries,
   isPinned,
 };

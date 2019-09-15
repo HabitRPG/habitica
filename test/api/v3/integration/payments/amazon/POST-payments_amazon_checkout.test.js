@@ -21,7 +21,7 @@ describe('payments - amazon - #checkout', () => {
 
   describe('success', () => {
     beforeEach(async () => {
-      amazonCheckoutStub = sinon.stub(amzLib, 'checkout').returnsPromise().resolves({});
+      amazonCheckoutStub = sinon.stub(amzLib, 'checkout').resolves({});
     });
 
     afterEach(() => {

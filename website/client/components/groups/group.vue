@@ -3,6 +3,7 @@
   group-form-modal(v-if='isParty')
   start-quest-modal(:group='this.group')
   quest-details-modal(:group='this.group')
+  participant-list-modal(:group='this.group')
   group-gems-modal
   .col-12.col-sm-8.standard-page
     .row
@@ -20,12 +21,12 @@
               .svg-icon.shield(v-html="icons.silverGuildBadgeIcon", v-if='group.memberCount > 100 && group.memberCount < 999')
               .svg-icon.shield(v-html="icons.bronzeGuildBadgeIcon", v-if='group.memberCount < 100')
               span.number {{ group.memberCount | abbrNum }}
-              div.member-list(v-once) {{ $t('memberList') }}
+              div.member-list.label(v-once) {{ $t('memberList') }}
           .col-4(v-if='!isParty')
             .item-with-icon(@click='showGroupGems()')
               .svg-icon.gem(v-html="icons.gem")
               span.number {{group.balance * 4}}
-              div(v-once) {{ $t('guildBank') }}
+              div.label(v-once) {{ $t('guildBank') }}
     chat(
       :label="$t('chat')",
       :group="group",
@@ -61,7 +62,7 @@
         p(v-markdown='group.description')
       sidebar-section(
         :title="$t('challenges')",
-        :tooltip="isParty ? $t('challengeDetails') : $t('privateDescription')"
+        :tooltip="$t('challengeDetails')"
       )
         group-challenges(:groupId='searchId')
     div.text-center
@@ -99,6 +100,9 @@
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
     padding: 1em;
     text-align: center;
+    min-width: 80px;
+    max-width: 120px;
+    height: 76px;
 
     .svg-icon.shield, .svg-icon.gem {
       width: 28px;
@@ -114,7 +118,7 @@
       font-weight: bold;
     }
 
-    .member-list {
+    .label {
       margin-top: .5em;
     }
   }
@@ -126,7 +130,7 @@
   .sidebar {
     background-color: $gray-600;
     padding-bottom: 2em;
-    
+
   }
 
   .buttons-wrapper {
@@ -262,6 +266,7 @@ import * as Analytics from 'client/libs/analytics';
 import membersModal from './membersModal';
 import startQuestModal from './startQuestModal';
 import questDetailsModal from './questDetailsModal';
+import participantListModal from './participantListModal';
 import groupFormModal from './groupFormModal';
 import groupChallenges from '../challenges/groupChallenges';
 import groupGemsModal from 'client/components/groups/groupGemsModal';
@@ -292,6 +297,7 @@ export default {
     groupFormModal,
     groupChallenges,
     questDetailsModal,
+    participantListModal,
     groupGemsModal,
     questSidebarSection,
     sidebarSection,
@@ -426,12 +432,13 @@ export default {
       return this.$store.dispatch('members:getGroupMembers', payload);
     },
     showMemberModal () {
-      this.$store.state.memberModalOptions.groupId = this.group._id;
-      this.$store.state.memberModalOptions.group = this.group;
-      this.$store.state.memberModalOptions.memberCount = this.group.memberCount;
-      this.$store.state.memberModalOptions.viewingMembers = this.members;
-      this.$store.state.memberModalOptions.fetchMoreMembers = this.loadMembers;
-      this.$root.$emit('bv::show::modal', 'members-modal');
+      this.$root.$emit('habitica:show-member-modal', {
+        groupId: this.group._id,
+        group: this.group,
+        memberCount: this.group.memberCount,
+        viewingMembers: this.members,
+        fetchMoreMembers: this.loadMembers,
+      });
     },
     fetchRecentMessages () {
       this.fetchGuild();
@@ -473,11 +480,6 @@ export default {
       return this.user.notifications.some(n => {
         return n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === groupId;
       });
-    },
-    deleteAllMessages () {
-      if (confirm(this.$t('confirmDeleteAllMessages'))) {
-        // User.clearPMs();
-      }
     },
     checkForAchievements () {
       // Checks if user's party has reached 2 players for the first time.
@@ -537,24 +539,6 @@ export default {
     upgradeGroup () {
       this.$store.state.upgradingGroup = this.group;
       this.$router.push('/group-plans');
-    },
-    clickStartQuest () {
-      Analytics.track({
-        hitType: 'event',
-        eventCategory: 'button',
-        eventAction: 'click',
-        eventLabel: 'Start a Quest',
-      });
-
-      let hasQuests = find(this.user.items.quests, (quest) => {
-        return quest > 0;
-      });
-
-      if (hasQuests) {
-        this.$root.$emit('bv::show::modal', 'start-quest-modal');
-        return;
-      }
-      // $rootScope.$state.go('options.inventory.quests');
     },
     showGroupGems () {
       this.$root.$emit('bv::show::modal', 'group-gems-modal');

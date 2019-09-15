@@ -6,7 +6,7 @@ b-modal#hatchedPet-modal(:hide-header="true")
       div.pet-background
         div(:class="pet.class")
       h4.title {{ pet.name }}
-      div.text(v-if="!hideText", v-markdown="$t('hatchedPetHowToUse')")
+      div.text(v-if="!hideText", v-markdown="$t('hatchedPetHowToUse', { stableUrl: '/inventory/stable' })")
       button.btn.btn-primary(@click="close()") {{ $t('onward') }}
   div.clearfix(slot="modal-footer")
 </template>

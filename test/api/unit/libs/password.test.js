@@ -107,6 +107,25 @@ describe('Password Utilities', () => {
       }
     });
 
+    it('defaults to SHA1 encryption if salt is provided', async () => {
+      let textPassword = 'mySecretPassword';
+      let salt = sha1MakeSalt();
+      let hashedPassword = sha1EncryptPassword(textPassword, salt);
+
+      let user = {
+        auth: {
+          local: {
+            hashed_password: hashedPassword,
+            salt,
+            passwordHashMethod: '',
+          },
+        },
+      };
+
+      let isValidPassword = await compare(user, textPassword);
+      expect(isValidPassword).to.eql(true);
+    });
+
     it('throws an error if an invalid hashing method is used', async () => {
       try {
         await compare({
@@ -226,7 +245,9 @@ describe('Password Utilities', () => {
 
     it('returns false if the user has no local auth', async () => {
       let user = await generateUser({
-        auth: 'not an object with valid fields',
+        auth: {
+          facebook: {},
+        },
       });
       let res = await validatePasswordResetCodeAndFindUser(encrypt(JSON.stringify({
         userId: user._id,

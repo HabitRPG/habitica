@@ -1,4 +1,4 @@
-Habitica [![Build Status](https://travis-ci.org/HabitRPG/habitica.svg?branch=develop)](https://travis-ci.org/HabitRPG/habitica) [![Code Climate](https://codeclimate.com/github/HabitRPG/habitrpg.svg)](https://codeclimate.com/github/HabitRPG/habitrpg) [![Coverage Status](https://coveralls.io/repos/github/HabitRPG/habitica/badge.svg?branch=develop)](https://coveralls.io/github/HabitRPG/habitica?branch=develop) [![Bountysource](https://api.bountysource.com/badge/tracker?tracker_id=68393)](https://www.bountysource.com/trackers/68393-habitrpg?utm_source=68393&utm_medium=shield&utm_campaign=TRACKER_BADGE) [![Open Source Helpers](https://www.codetriage.com/habitrpg/habitica/badges/users.svg)](https://www.codetriage.com/habitrpg/habitica)
+Habitica [![Build Status](https://travis-ci.org/HabitRPG/habitica.svg?branch=develop)](https://travis-ci.org/HabitRPG/habitica) [![Code Climate](https://codeclimate.com/github/HabitRPG/habitrpg.svg)](https://codeclimate.com/github/HabitRPG/habitrpg) [![Bountysource](https://api.bountysource.com/badge/tracker?tracker_id=68393)](https://www.bountysource.com/trackers/68393-habitrpg?utm_source=68393&utm_medium=shield&utm_campaign=TRACKER_BADGE) [![Open Source Helpers](https://www.codetriage.com/habitrpg/habitica/badges/users.svg)](https://www.codetriage.com/habitrpg/habitica)
 ===============
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/HabitRPG/habitica.svg)](https://greenkeeper.io/)
@@ -7,6 +7,6 @@ Habitica [![Build Status](https://travis-ci.org/HabitRPG/habitica.svg?branch=dev
 
 We need more programmers! Your assistance will be greatly appreciated.
 
-For an introduction to the technologies used and how the software is organized, refer to [Guidance for Blacksmiths](http://habitica.wikia.com/wiki/Guidance_for_Blacksmiths).
+For an introduction to the technologies used and how the software is organized, refer to [Guidance for Blacksmiths](http://habitica.fandom.com/wiki/Guidance_for_Blacksmiths).
 
-To set up a local install of Habitica for development and testing on various platforms, see [Setting up Habitica Locally](http://habitica.wikia.com/wiki/Setting_up_Habitica_Locally).
+To set up a local install of Habitica for development and testing on various platforms, see [Setting up Habitica Locally](http://habitica.fandom.com/wiki/Setting_up_Habitica_Locally).

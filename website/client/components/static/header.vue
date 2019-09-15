@@ -42,6 +42,11 @@
     }
   }
 
+  .home-header, .home-header .btn {
+    font-family: 'Varela Round', sans-serif;
+    font-weight: normal;
+  }
+
   .btn-primary.pull-right {
     height: 2.5em;
     margin: auto 0px auto auto;
@@ -66,9 +71,8 @@
 
   .nav-item {
     .nav-link {
-      font-size: 16px;
+      font-size: 16px !important;
       color: $white;
-      font-weight: bold;
       line-height: 1.5;
       padding: 16px 24px;
       transition: none;

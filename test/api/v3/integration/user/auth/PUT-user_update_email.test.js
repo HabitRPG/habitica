@@ -71,7 +71,7 @@ describe('PUT /user/auth/update-email', () => {
       })).to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: t('cannotFulfillReq', { techAssistanceEmail: nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL') }),
+        message: t('cannotFulfillReq', { techAssistanceEmail: nconf.get('EMAILS_TECH_ASSISTANCE_EMAIL') }),
       });
     });
 

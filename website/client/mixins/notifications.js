@@ -2,6 +2,12 @@ import habiticaMarkdown from 'habitica-markdown';
 import { mapState } from 'client/libs/store';
 import { getDropClass, getXPMessage, getSign, round } from 'client/libs/notifications';
 
+// See https://stackoverflow.com/questions/4187146/truncate-number-to-two-decimal-places-without-rounding
+function toFixedWithoutRounding (num, fixed) {
+  const re = new RegExp(`^-?\\d+(?:\.\\d{0,${(fixed || -1)}})?`);
+  return num.toString().match(re)[0];
+}
+
 export default {
   computed: {
     ...mapState({notifications: 'notificationStore'}),
@@ -23,9 +29,7 @@ export default {
     },
     exp (val) {
       const message = getXPMessage(val);
-      if (message) {
-        this.notify(message, 'xp', 'glyphicon glyphicon-star', this.sign(val));
-      }
+      this.notify(message, 'xp', 'glyphicon glyphicon-star', this.sign(val));
     },
     error (error) {
       this.notify(error, 'error', 'glyphicon glyphicon-exclamation-sign');
@@ -42,23 +46,24 @@ export default {
     },
     markdown (val) {
       if (!val) return;
-      let parsedMarkdown = habiticaMarkdown.render(val);
+      let parsedMarkdown = habiticaMarkdown.render(String(val));
       this.notify(parsedMarkdown, 'info');
     },
     mp (val) {
-      this.notify(`${this.sign(val)} ${this.round(val)}`, 'mp', 'glyphicon glyphicon-fire', this.sign(val));
+      const cleanMp = `${val}`.replace('-', '').replace('+', '');
+      this.notify(`${this.sign(val)} ${toFixedWithoutRounding(cleanMp, 1)}`, 'mp', 'glyphicon glyphicon-fire', this.sign(val));
     },
     purchased (itemName) {
       this.text(this.$t('purchasedItem', {
         itemName,
       }));
     },
-    streak (val) {
-      this.notify(`${val}`, 'streak');
+    streak (val, onClick) {
+      this.notify(`${val}`, 'streak', null, null, onClick, typeof onClick === 'undefined');
     },
-    text (val, onClick) {
+    text (val, onClick, timeout) {
       if (!val) return;
-      this.notify(val, 'info', null, null, onClick);
+      this.notify(val, 'info', null, null, onClick, timeout);
     },
     sign (number) {
       return getSign(number);
@@ -66,14 +71,19 @@ export default {
     round (number, nDigits) {
       return round(number, nDigits);
     },
-    notify (html, type, icon, sign) {
+    notify (html, type, icon, sign, onClick, timeout) {
+      if (typeof timeout === 'undefined') {
+        timeout = true;
+      }
+
       this.$store.dispatch('snackbars:add', {
         title: '',
         text: html,
         type,
         icon,
         sign,
-        timeout: true,
+        onClick,
+        timeout,
       });
     },
   },

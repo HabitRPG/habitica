@@ -20,28 +20,29 @@ const MIN_SHORTNAME_SIZE_FOR_CHALLENGES = shared.constants.MIN_SHORTNAME_SIZE_FO
 const MAX_SUMMARY_SIZE_FOR_CHALLENGES = shared.constants.MAX_SUMMARY_SIZE_FOR_CHALLENGES;
 
 let schema = new Schema({
-  name: {type: String, required: true},
-  shortName: {type: String, required: true, minlength: MIN_SHORTNAME_SIZE_FOR_CHALLENGES},
-  summary: {type: String, maxlength: MAX_SUMMARY_SIZE_FOR_CHALLENGES},
+  name: {$type: String, required: true},
+  shortName: {$type: String, required: true, minlength: MIN_SHORTNAME_SIZE_FOR_CHALLENGES},
+  summary: {$type: String, maxlength: MAX_SUMMARY_SIZE_FOR_CHALLENGES},
   description: String,
-  official: {type: Boolean, default: false},
+  official: {$type: Boolean, default: false},
   tasksOrder: {
-    habits: [{type: String, ref: 'Task'}],
-    dailys: [{type: String, ref: 'Task'}],
-    todos: [{type: String, ref: 'Task'}],
-    rewards: [{type: String, ref: 'Task'}],
+    habits: [{$type: String, ref: 'Task'}],
+    dailys: [{$type: String, ref: 'Task'}],
+    todos: [{$type: String, ref: 'Task'}],
+    rewards: [{$type: String, ref: 'Task'}],
   },
-  leader: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
-  group: {type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
-  memberCount: {type: Number, default: 0},
-  prize: {type: Number, default: 0, min: 0},
+  leader: {$type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid.'], required: true},
+  group: {$type: String, ref: 'Group', validate: [v => validator.isUUID(v), 'Invalid uuid.'], required: true},
+  memberCount: {$type: Number, default: 0},
+  prize: {$type: Number, default: 0, min: 0},
   categories: [{
-    slug: {type: String},
-    name: {type: String},
+    slug: {$type: String},
+    name: {$type: String},
   }],
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
+  typeKey: '$type', // So that we can use fields named `type`
 });
 
 schema.plugin(baseModel, {
@@ -61,9 +62,14 @@ schema.pre('init', function ensureSummaryIsFetched (chal) {
 });
 
 // A list of additional fields that cannot be updated (but can be set on creation)
-let noUpdate = ['group', 'official', 'shortName', 'prize'];
+let noUpdate = ['group', 'leader', 'official', 'shortName', 'prize'];
 schema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
   return this.sanitize(updateObj, noUpdate);
+};
+
+// Returns true if user is the leader/owner of the challenge
+schema.methods.isLeader = function isChallengeLeader (user) {
+  return this.leader === user._id;
 };
 
 // Returns true if user is a member of the challenge
@@ -73,20 +79,21 @@ schema.methods.isMember = function isChallengeMember (user) {
 
 // Returns true if the user can modify (close, selectWinner, ...) the challenge
 schema.methods.canModify = function canModifyChallenge (user) {
-  return user.contributor.admin || this.leader === user._id;
+  return user.contributor.admin || this.isLeader(user);
 };
 
-// Returns true if user has access to the challenge (can join)
-schema.methods.hasAccess = function hasAccessToChallenge (user, group) {
+// Returns true if user can join the challenge
+schema.methods.canJoin = function canJoinChallenge (user, group) {
   if (group.type === 'guild' && group.privacy === 'public') return true;
+  if (this.isLeader(user)) return true; // for when leader has left private group that contains the challenge
   return user.getGroups().indexOf(this.group) !== -1;
 };
 
 // Returns true if user can view the challenge
-// Different from hasAccess because you can see challenges of groups you've been removed from if you're partecipating in them
+// Different from canJoin because you can see challenges of groups you've been removed from if you're participating in them
 schema.methods.canView = function canViewChallenge (user, group) {
   if (this.isMember(user)) return true;
-  return this.hasAccess(user, group);
+  return this.canJoin(user, group);
 };
 
 // Sync challenge to user, including tasks and tags.
@@ -251,7 +258,7 @@ schema.methods.removeTask = async function challengeRemoveTask (task) {
 };
 
 // Unlink challenges tasks (and the challenge itself) from user. TODO rename to 'leave'
-schema.methods.unlinkTasks = async function challengeUnlinkTasks (user, keep) {
+schema.methods.unlinkTasks = async function challengeUnlinkTasks (user, keep, saveUser = true) {
   let challengeId = this._id;
   let findQuery = {
     userId: user._id,
@@ -266,7 +273,13 @@ schema.methods.unlinkTasks = async function challengeUnlinkTasks (user, keep) {
       $set: {challenge: {}},
     }, {multi: true}).exec();
 
-    return Promise.all([user.save(), this.save()]);
+    const promises = [this.save()];
+
+    // When multiple tasks are being unlinked at the same time,
+    // save the user once outside of this function
+    if (saveUser) promises.push(user.save());
+
+    return Promise.all(promises);
   } else { // keep = 'remove-all'
     let tasks = await Tasks.Task.find(findQuery).select('_id type completed').exec();
     let taskPromises = tasks.map(task => {
@@ -278,7 +291,12 @@ schema.methods.unlinkTasks = async function challengeUnlinkTasks (user, keep) {
       return task.remove();
     });
     user.markModified('tasksOrder');
-    taskPromises.push(user.save(), this.save());
+    taskPromises.push(this.save());
+
+    // When multiple tasks are being unlinked at the same time,
+    // save the user once outside of this function
+    if (saveUser) taskPromises.push(user.save());
+
     return Promise.all(taskPromises);
   }
 };
@@ -328,7 +346,7 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
       sendPushNotification(savedWinner,
         {
           title: challenge.name,
-          message: shared.i18n.t('wonChallenge'),
+          message: shared.i18n.t('wonChallenge', savedWinner.preferences.language),
           identifier: 'wonChallenge',
         });
     }

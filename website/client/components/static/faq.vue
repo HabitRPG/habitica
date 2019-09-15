@@ -1,18 +1,36 @@
 <template lang="pug">
-  .container-fluid
+  .container-fluid(role="tablist")
     .row
       .col-12.col-md-6.offset-md-3
-        h1 {{ $t('frequentlyAskedQuestions') }}
-        .faq-question(v-for='(heading, index) in headings')
-          h2.accordion(@click='setActivePage(heading)') {{ $t(`faqQuestion${index}`) }}
-          div(v-if='pageState[heading]', v-markdown="$t('webFaqAnswer' + index, replacements)")
+        h1#faq-heading {{ $t('frequentlyAskedQuestions') }}
+        .faq-question(v-for='(heading, index) in headings', :key="index")
+          h2(role="tab", v-b-toggle="heading", @click="handleClick($event)", variant="info") {{ $t(`faqQuestion${index}`) }}
+          b-collapse(:id="heading", :visible="isVisible(heading)", accordion="faq", role="tabpanel")
+            div.card-body(v-markdown="$t('webFaqAnswer' + index, replacements)")
         hr
         p(v-markdown="$t('webFaqStillNeedHelp')")
 </template>
 
 <style lang='scss' scoped>
-  .faq-question {
-    margin-bottom: 1em;
+  .card-body {
+      margin-bottom: 1em;
+  }
+
+  .faq-question h2 {
+    cursor: pointer;
+  }
+
+  .faq-question .card-body {
+    padding: 0;
+  }
+
+  .static-wrapper .faq-question h2 {
+    margin: 0 0 16px 0;
+  }
+
+  .faq-question a {
+    text-decoration: none;
+    color: #4F2A93;
   }
 
   @media only screen and (max-width: 768px) {
@@ -25,6 +43,7 @@
 <script>
   // @TODO:  env.EMAILS.TECH_ASSISTANCE_EMAIL
   const TECH_ASSISTANCE_EMAIL = 'admin@habitica.com';
+
   import markdownDirective from 'client/directives/markdown';
 
   export default {
@@ -48,29 +67,30 @@
         'world-boss',
       ];
 
-      let pageState = {};
-      for (let index in headings) {
-        let heading = headings[index];
-        pageState[heading] = false;
-      }
+      const hash = window.location.hash.replace('#', '');
 
       return  {
-        pageState,
         headings,
         replacements: {
           techAssistanceEmail: TECH_ASSISTANCE_EMAIL,
           wikiTechAssistanceEmail: `mailto:${TECH_ASSISTANCE_EMAIL}`,
         },
+        visible: hash && headings.includes(hash) ? hash : null,
         // @TODO webFaqStillNeedHelp: {
         // linkStart: '[',
         // linkEnd: '](/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a)',
         // },
-        // "webFaqStillNeedHelp": "If you have a question that isn't on this list or on the [Wiki FAQ](http://habitica.wikia.com/wiki/FAQ), come ask in the <%= linkStart %>Habitica Help guild<%= linkEnd %>! We're happy to help."
+        // "webFaqStillNeedHelp": "If you have a question that isn't on this list or on the [Wiki FAQ](http://habitica.fandom.com/wiki/FAQ), come ask in the <%= linkStart %>Habitica Help guild<%= linkEnd %>! We're happy to help."
       };
     },
     methods: {
-      setActivePage (page) {
-        this.pageState[page] = !this.pageState[page];
+      isVisible (heading) {
+        return this.visible && this.visible === heading;
+      },
+      handleClick (e) {
+        if (!e) return;
+        const heading = e.target.nextElementSibling.id;
+        history.pushState({}, heading, `#${heading}`);
       },
     },
   };

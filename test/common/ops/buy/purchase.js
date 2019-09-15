@@ -108,6 +108,47 @@ describe('shared.ops.purchase', () => {
         done();
       }
     });
+
+    it('returns error when user supplies a non-numeric quantity', (done) => {
+      let type = 'eggs';
+      let key = 'Wolf';
+
+      try {
+        purchase(user, {params: {type, key}, quantity: 'jamboree'}, analytics);
+      } catch (err) {
+        expect(err).to.be.an.instanceof(BadRequest);
+        expect(err.message).to.equal(i18n.t('invalidQuantity'));
+        done();
+      }
+    });
+
+    it('returns error when user supplies a negative quantity', (done) => {
+      let type = 'eggs';
+      let key = 'Wolf';
+      user.balance = 10;
+
+      try {
+        purchase(user, {params: {type, key}, quantity: -2}, analytics);
+      } catch (err) {
+        expect(err).to.be.an.instanceof(BadRequest);
+        expect(err.message).to.equal(i18n.t('invalidQuantity'));
+        done();
+      }
+    });
+
+    it('returns error when user supplies a decimal quantity', (done) => {
+      let type = 'eggs';
+      let key = 'Wolf';
+      user.balance = 10;
+
+      try {
+        purchase(user, {params: {type, key}, quantity: 2.9}, analytics);
+      } catch (err) {
+        expect(err).to.be.an.instanceof(BadRequest);
+        expect(err.message).to.equal(i18n.t('invalidQuantity'));
+        done();
+      }
+    });
   });
 
   context('successful purchase', () => {
@@ -121,7 +162,6 @@ describe('shared.ops.purchase', () => {
       user.pinnedItems.push({type: 'eggs', key: 'Wolf'});
       user.pinnedItems.push({type: 'hatchingPotions', key: 'Base'});
       user.pinnedItems.push({type: 'food', key: SEASONAL_FOOD});
-      user.pinnedItems.push({type: 'quests', key: 'gryphon'});
       user.pinnedItems.push({type: 'gear', key: 'headAccessory_special_tigerEars'});
       user.pinnedItems.push({type: 'bundles', key: 'featheredFriends'});
     });
@@ -157,16 +197,6 @@ describe('shared.ops.purchase', () => {
       expect(pinnedGearUtils.removeItemByPath.notCalled).to.equal(true);
     });
 
-    it('purchases quests', () => {
-      let type = 'quests';
-      let key = 'gryphon';
-
-      purchase(user, {params: {type, key}});
-
-      expect(user.items[type][key]).to.equal(1);
-      expect(pinnedGearUtils.removeItemByPath.notCalled).to.equal(true);
-    });
-
     it('purchases gear', () => {
       let type = 'gear';
       let key = 'headAccessory_special_tigerEars';
@@ -179,7 +209,7 @@ describe('shared.ops.purchase', () => {
 
     it('purchases quest bundles', () => {
       let startingBalance = user.balance;
-      let clock = sandbox.useFakeTimers(moment('2017-05-20').valueOf());
+      let clock = sandbox.useFakeTimers(moment('2019-05-20').valueOf());
       let type = 'bundles';
       let key = 'featheredFriends';
       let price = 1.75;

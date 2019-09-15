@@ -1,6 +1,6 @@
 import { model as User } from '../../../../website/server/models/user';
 import requireAgain from 'require-again';
-import pushNotify from 'push-notify';
+import apn from 'apn/mock';
 import nconf from 'nconf';
 import gcmLib from 'node-gcm'; // works with FCM notifications too
 
@@ -24,7 +24,7 @@ describe('pushNotifications', () => {
 
     sandbox.stub(gcmLib.Sender.prototype, 'send').callsFake(fcmSendSpy);
 
-    sandbox.stub(pushNotify, 'apn').returns({
+    sandbox.stub(apn.Provider.prototype, 'send').returns({
       on: () => null,
       send: apnSendSpy,
     });
@@ -104,10 +104,7 @@ describe('pushNotifications', () => {
       },
     };
 
-    sendPushNotification(user, details);
-    expect(apnSendSpy).to.have.been.calledOnce;
-    expect(apnSendSpy).to.have.been.calledWithMatch({
-      token: '123',
+    const expectedNotification = new apn.Notification({
       alert: message,
       sound: 'default',
       category: 'fun',
@@ -117,6 +114,10 @@ describe('pushNotifications', () => {
         b: true,
       },
     });
+
+    sendPushNotification(user, details);
+    expect(apnSendSpy).to.have.been.calledOnce;
+    expect(apnSendSpy).to.have.been.calledWithMatch(expectedNotification, '123');
     expect(fcmSendSpy).to.not.have.been.called;
   });
 });

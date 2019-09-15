@@ -38,12 +38,10 @@
     "messageInsufficientGems": "Gemas insuficientes!",
     "messageAuthPasswordMustMatch": ":password e :confirmPassword não combinam",
     "messageAuthCredentialsRequired": ":username, :email, :password, :confirmPassword requeridos",
-    "messageAuthUsernameTaken": "Nome de utilizador já registado",
     "messageAuthEmailTaken": "Email já cadastrado",
     "messageAuthNoUserFound": "Usuário não encontrado.",
     "messageAuthMustBeLoggedIn": "Deve ter a sessão iniciada.",
     "messageAuthMustIncludeTokens": "Você deve incluir o token e uid (ID do Usuário) na sua requisição",
-    "messageGroupNotFound": "Grupo não encontrado ou você não tem acesso.",
     "messageGroupAlreadyInParty": "Já faz parte de uma equipa, tente recarregar.",
     "messageGroupOnlyLeaderCanUpdate": "Apenas o líder do grupo pode atualizar o grupo!",
     "messageGroupRequiresInvite": "Não pode entrar em grupo para o qual não foi convidado.",
@@ -62,5 +60,7 @@
     "messageNotAbleToBuyInBulk": "Este item não pode ser comprado em quantidades acima de 1.",
     "notificationsRequired": "São necessárias as identificações de notificação.",
     "unallocatedStatsPoints": "Tens <span class=\"notification-bold-blue\"><%= points %> Ponto(s) de Atributo por alocar </span>",
-    "beginningOfConversation": "Isto é o início da tua conversa com <%= userName %>. Lembra-te de ser gentil, respeitador, e de seguir as Directrizes da Comunidade."
+    "beginningOfConversation": "Isto é o início da tua conversa com <%= userName %>. Lembra-te de ser gentil, respeitador, e de seguir as Directrizes da Comunidade.",
+    "messageDeletedUser": "Desculpa, este utilizador eliminou a sua conta.",
+    "messageMissingDisplayName": "Nome a exibir em falta."
 }

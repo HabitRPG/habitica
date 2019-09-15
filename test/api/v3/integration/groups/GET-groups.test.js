@@ -203,7 +203,7 @@ describe('GET /groups', () => {
       let page2 = await expect(user.get('/groups?type=publicGuilds&paginate=true&page=2'))
         .to.eventually.have.a.lengthOf(1 + 4); // 1 created now, 4 by other tests
       expect(page2[4].name).to.equal('guild with less members');
-    });
+    }).timeout(10000);
   });
 
   it('returns all the user\'s guilds when guilds passed in as query', async () => {

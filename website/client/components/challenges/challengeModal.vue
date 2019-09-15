@@ -30,7 +30,7 @@
         div.category-wrap(@click.prevent="toggleCategorySelect")
           span.category-select(v-if='workingChallenge.categories.length === 0') {{$t('none')}}
           .category-label(v-for='category in workingChallenge.categories') {{$t(categoriesHashByKey[category])}}
-        .category-box(v-if="showCategorySelect")
+        .category-box(v-if="showCategorySelect && creating")
           .form-check(
             v-for="group in categoryOptions",
             :key="group.key",
@@ -39,9 +39,9 @@
             .custom-control.custom-checkbox
               input.custom-control-input(type="checkbox",
                 :value="group.key",
-                :id="group.key",
+                :id="`challenge-modal-cat-${group.key}`",
                  v-model="workingChallenge.categories")
-              label.custom-control-label(v-once, :for="group.key") {{ $t(group.label) }}
+              label.custom-control-label(v-once, :for="`challenge-modal-cat-${group.key}`") {{ $t(group.label) }}
           button.btn.btn-primary(@click.prevent="toggleCategorySelect") {{$t('close')}}
       // @TODO: Implement in V2 .form-group
         label
@@ -317,14 +317,17 @@ export default {
   methods: {
     async shown () {
       this.groups = await this.$store.dispatch('guilds:getMyGuilds');
-      await this.$store.dispatch('party:getParty');
-      const party = this.$store.state.party.data;
-      if (party._id) {
-        this.groups.push({
-          name: party.name,
-          _id: party._id,
-          privacy: 'private',
-        });
+
+      if (this.user.party && this.user.party._id) {
+        await this.$store.dispatch('party:getParty');
+        const party = this.$store.state.party.data;
+        if (party._id) {
+          this.groups.push({
+            name: party.name,
+            _id: party._id,
+            privacy: 'private',
+          });
+        }
       }
 
       this.groups.push({

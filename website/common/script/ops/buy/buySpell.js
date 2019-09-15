@@ -18,6 +18,10 @@ export class BuySpellOperation extends AbstractGoldItemOperation {
     return this.key;
   }
 
+  getItemType () {
+    return 'spell';
+  }
+
   multiplePurchaseAllowed () {
     return true;
   }

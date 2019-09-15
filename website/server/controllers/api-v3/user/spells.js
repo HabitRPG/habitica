@@ -1,24 +1,11 @@
 import { authWithHeaders } from '../../../middlewares/auth';
-import common from '../../../../common';
 import {
-  model as Group,
-} from '../../../models/group';
-import {
-  NotAuthorized,
-  NotFound,
-} from '../../../libs/errors';
-import {
-  castTaskSpell,
-  castMultiTaskSpell,
-  castSelfSpell,
-  castPartySpell,
-  castUserSpell,
+  castSpell,
 } from '../../../libs/spells';
-import apiError from '../../../libs/apiError';
-
-const partyMembersFields = 'profile.name stats achievements items.special';
 
 let api = {};
+
+/* NOTE this route has also an API v4 version */
 
 /**
  * @api {post} /api/v3/user/class/cast/:spellId Cast a skill (spell) on a target
@@ -72,69 +59,9 @@ api.castSpell = {
   middlewares: [authWithHeaders()],
   url: '/user/class/cast/:spellId',
   async handler (req, res) {
-    let user = res.locals.user;
-    let spellId = req.params.spellId;
-    let targetId = req.query.targetId;
-    const quantity = req.body.quantity || 1;
-
-    // optional because not required by all targetTypes, presence is checked later if necessary
-    req.checkQuery('targetId', res.t('targetIdUUID')).optional().isUUID();
-
-    let reqValidationErrors = req.validationErrors();
-    if (reqValidationErrors) throw reqValidationErrors;
-
-    let klass = common.content.spells.special[spellId] ? 'special' : user.stats.class;
-    let spell = common.content.spells[klass][spellId];
-
-    if (!spell) throw new NotFound(apiError('spellNotFound', {spellId}));
-    if (spell.mana > user.stats.mp) throw new NotAuthorized(res.t('notEnoughMana'));
-    if (spell.value > user.stats.gp && !spell.previousPurchase) throw new NotAuthorized(res.t('messageNotEnoughGold'));
-    if (spell.lvl > user.stats.lvl) throw new NotAuthorized(res.t('spellLevelTooHigh', {level: spell.lvl}));
-
-    let targetType = spell.target;
-
-    if (targetType === 'task') {
-      const results = await castTaskSpell(res, req, targetId, user, spell, quantity);
-      res.respond(200, {
-        user: results[0],
-        task: results[1],
-      });
-    } else if (targetType === 'self') {
-      await castSelfSpell(req, user, spell, quantity);
-      res.respond(200, { user });
-    } else if (targetType === 'tasks') { // new target type in v3: when all the user's tasks are necessary
-      const response = await castMultiTaskSpell(req, user, spell, quantity);
-      res.respond(200, response);
-    } else if (targetType === 'party' || targetType === 'user') {
-      const party = await Group.getGroup({groupId: 'party', user});
-      // arrays of users when targetType is 'party' otherwise single users
-      let partyMembers;
-
-      if (targetType === 'party') {
-        partyMembers = await castPartySpell(req, party, partyMembers, user, spell, quantity);
-      } else {
-        partyMembers = await castUserSpell(res, req, party, partyMembers, targetId, user, spell, quantity);
-      }
-
-      let partyMembersRes = Array.isArray(partyMembers) ? partyMembers : [partyMembers];
-
-      // Only return some fields.
-      // See comment above on why we can't just select the necessary fields when querying
-      partyMembersRes = partyMembersRes.map(partyMember => {
-        return common.pickDeep(partyMember.toJSON(), common.$w(partyMembersFields));
-      });
-
-      res.respond(200, {
-        partyMembers: partyMembersRes,
-        user,
-      });
-
-      if (party && !spell.silent) {
-        let message = `\`${user.profile.name} casts ${spell.text()}${targetType === 'user' ? ` on ${partyMembers.profile.name}` : ' for the party'}.\``;
-        const newChatMessage = party.sendChat(message);
-        await newChatMessage.save();
-      }
-    }
+    await castSpell(req, res, {
+      isV3: true,
+    });
   },
 };
 

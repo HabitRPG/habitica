@@ -6,7 +6,7 @@
       .quest(:class='`quest_${user.party.quest.completed}`')
       p(v-if='questData.completion && typeof questData.completion === "function"', v-html='questData.completion()')
       .quest-rewards.text-center
-        h3 {{ $t('youReceived') }}
+        h3(v-once) {{ $t('paymentYouReceived') }}
         questDialogDrops(:item="questData")
     .modal-footer
       button.btn.btn-primary(@click='setQuestCompleted()') {{ $t('ok') }}

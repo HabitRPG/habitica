@@ -47,6 +47,5 @@ export function round (number, nDigits) {
 }
 
 export function getXPMessage (val) {
-  if (val < -50) return; // don't show when they level up (resetting their exp)
   return `${getSign(val)} ${round(val)}`;
 }

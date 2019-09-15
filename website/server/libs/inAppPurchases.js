@@ -10,10 +10,10 @@ import iap from 'in-app-purchase';
 iap.config({
   // This is the path to the directory containing iap-sanbox/iap-live files
   googlePublicKeyPath: nconf.get('IAP_GOOGLE_KEYDIR'),
-  googleAccToken: nconf.get('PLAY_API:ACCESS_TOKEN'),
-  googleRefToken: nconf.get('PLAY_API:REFRESH_TOKEN'),
-  googleClientID: nconf.get('PLAY_API:CLIENT_ID'),
-  googleClientSecret: nconf.get('PLAY_API:CLIENT_SECRET'),
+  googleAccToken: nconf.get('PLAY_API_ACCESS_TOKEN'),
+  googleRefToken: nconf.get('PLAY_API_REFRESH_TOKEN'),
+  googleClientID: nconf.get('PLAY_API_CLIENT_ID'),
+  googleClientSecret: nconf.get('PLAY_API_CLIENT_SECRET'),
   applePassword: nconf.get('ITUNES_SHARED_SECRET'),
 });
 

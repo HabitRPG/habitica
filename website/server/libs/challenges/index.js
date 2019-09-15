@@ -79,8 +79,6 @@ export async function createChallenge (user, req, res) {
   let challengeValidationErrors = challenge.validateSync();
   if (challengeValidationErrors) throw challengeValidationErrors;
 
-  addUserJoinChallengeNotification(user);
-
   let results = await Promise.all([challenge.save({
     validateBeforeSave: false, // already validated
   }), group.save(), user.save()]);

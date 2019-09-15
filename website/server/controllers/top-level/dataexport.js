@@ -1,5 +1,6 @@
 import { authWithSession } from '../../middlewares/auth';
 import { model as User } from '../../models/user';
+import * as inboxLib from '../../libs/inbox';
 import * as Tasks from '../../models/task';
 import {
   NotFound,
@@ -7,7 +8,7 @@ import {
 import _ from 'lodash';
 import csvStringify from '../../libs/csvStringify';
 import moment from 'moment';
-import js2xml from 'js2xmlparser';
+import * as js2xml from 'js2xmlparser';
 import Pageres from 'pageres';
 import nconf from 'nconf';
 import got from 'got';
@@ -16,7 +17,7 @@ import {
   S3,
 } from '../../libs/aws';
 
-const S3_BUCKET = nconf.get('S3:bucket');
+const S3_BUCKET = nconf.get('S3_BUCKET');
 
 const BASE_URL = nconf.get('BASE_URL');
 
@@ -81,15 +82,23 @@ api.exportUserHistory = {
   },
 };
 
-// Convert user to json and attach tasks divided by type
+// Convert user to json and attach tasks divided by type and inbox messages
 // at user.tasks[`${taskType}s`] (user.tasks.{dailys/habits/...})
-async function _getUserDataForExport (user) {
+async function _getUserDataForExport (user, xmlMode = false) {
   let userData = user.toJSON();
   userData.tasks = {};
 
-  let tasks = await Tasks.Task.find({
-    userId: user._id,
-  }).exec();
+  userData.inbox.messages = {};
+
+  const [tasks, messages] = await Promise.all([
+    Tasks.Task.find({
+      userId: user._id,
+    }).exec(),
+
+    inboxLib.getUserInbox(user, { asArray: false }),
+  ]);
+
+  userData.inbox.messages = messages;
 
   _(tasks)
     .map(task => task.toJSON())
@@ -97,6 +106,33 @@ async function _getUserDataForExport (user) {
     .forEach((tasksPerType, taskType) => {
       userData.tasks[`${taskType}s`] = tasksPerType;
     });
+
+  if (xmlMode) {
+    // object maps cant be parsed
+    userData.inbox.messages = _(userData.inbox.messages)
+      .map(m => {
+        const flags = Object.keys(m.flags);
+        m.flags = flags;
+
+        return m;
+      })
+      .value();
+
+    // _id gets parsed as an bytearray => which gets casted to a chararray => "weird chars"
+    userData.unpinnedItems = userData.unpinnedItems.map(i => {
+      return {
+        path: i.path,
+        type: i.type,
+      };
+    });
+
+    userData.pinnedItems = userData.pinnedItems.map(i => {
+      return {
+        path: i.path,
+        type: i.type,
+      };
+    });
+  }
 
   return userData;
 }
@@ -137,7 +173,7 @@ api.exportUserDataXml = {
   url: '/export/userdata.xml',
   middlewares: [authWithSession],
   async handler (req, res) {
-    let userData = await _getUserDataForExport(res.locals.user);
+    let userData = await _getUserDataForExport(res.locals.user, true);
 
     res.set({
       'Content-Type': 'text/xml',
@@ -226,7 +262,7 @@ api.exportUserAvatarPng = {
       return res.redirect(s3url);
     }
 
-    let [stream] = await new Pageres()
+    const pageBuffer = await new Pageres()
       .src(`${BASE_URL}/export/avatar-${memberId}.html`, ['140x147'], {
         crop: true,
         filename: filename.replace('.png', ''),
@@ -240,7 +276,7 @@ api.exportUserAvatarPng = {
       StorageClass: 'REDUCED_REDUNDANCY',
       ContentType: 'image/png',
       Expires: moment().add({minutes: 5}).toDate(),
-      Body: stream,
+      Body: pageBuffer,
     });
 
     let s3res = await new Promise((resolve, reject) => {
@@ -269,18 +305,14 @@ api.exportUserPrivateMessages = {
   url: '/export/inbox.html',
   middlewares: [authWithSession],
   async handler (req, res) {
-    let user = res.locals.user;
+    const user = res.locals.user;
 
     const timezoneOffset = user.preferences.timezoneOffset;
     const dateFormat = user.preferences.dateFormat.toUpperCase();
     const TO = res.t('to');
     const FROM = res.t('from');
 
-    let inbox = Object.keys(user.inbox.messages).map(key => user.inbox.messages[key]);
-
-    inbox = _.sortBy(inbox, function sortBy (num) {
-      return num.sort * -1;
-    });
+    const inbox = await inboxLib.getUserInbox(user);
 
     let messages = '<!DOCTYPE html><html><head></head><body>';
 

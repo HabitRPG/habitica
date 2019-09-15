@@ -11,12 +11,13 @@ import {
 } from '../libs/errors';
 
 export let schema = new mongoose.Schema({
-  _id: {type: String, default: couponCode.generate, required: true},
-  event: {type: String, enum: ['wondercon', 'google_6mo']},
-  user: {type: String, ref: 'User'},
+  _id: {$type: String, default: couponCode.generate, required: true},
+  event: {$type: String, enum: ['wondercon', 'google_6mo']},
+  user: {$type: String, ref: 'User'},
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
+  typeKey: '$type', // So that we can use fields named `type`
 });
 
 schema.plugin(baseModel, {
@@ -45,6 +46,8 @@ schema.statics.apply = async function applyCoupon (user, req, code) {
     user.items.gear.owned.body_special_wondercon_red = true;
     user.items.gear.owned.body_special_wondercon_black = true;
     user.items.gear.owned.body_special_wondercon_gold = true;
+    user.markModified('items.gear.owned');
+
     user.extra = {signupEvent: 'wondercon'};
   }
 

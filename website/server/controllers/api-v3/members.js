@@ -20,6 +20,7 @@ import {
 } from '../../libs/email';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
 import { achievements } from '../../../../website/common/';
+import {sentMessage} from '../../libs/inbox';
 
 let api = {};
 
@@ -31,6 +32,62 @@ let api = {};
  * @apiParam (Path) {UUID} memberId The member's id
  *
  * @apiSuccess {Object} data The member object
+ *
+ * @apiSuccess {Object} data.inbox Basic information about person's inbox
+ * @apiSuccess {Object} data.stats Includes current stats and buffs
+ * @apiSuccess {Object} data.profile Includes name
+ * @apiSuccess {Object} data.preferences Includes info about appearance and public prefs
+ * @apiSuccess {Object} data.party Includes basic info about current party and quests
+ * @apiSuccess {Object} data.items Basic inventory information includes quests, food, potions, eggs, gear, special items
+ * @apiSuccess {Object} data.achievements Lists current achievements
+ * @apiSuccess {Object} data.auth Includes latest timestamps
+ *
+ * @apiSuccessExample {json} Success-Response:
+ * {
+ *  "success": true,
+ *  "data": {
+ *    "_id": "99999999-9999-9999-9999-8f14c101aeff",
+ *    "inbox": {
+ *      "optOut": false
+ *    },
+ *    "stats": {
+ *    ---INCLUDES STATS AND BUFFS---
+ *    },
+ *    "profile": {
+ *      "name": "Ezra"
+ *    },
+ *    "preferences": {
+ *      ---INCLUDES INFO ABOUT APPEARANCE AND PUBLIC PREFS---
+ *    },
+ *    "party": {
+ *      "_id": "12345678-0987-abcd-82a6-837c81db4c1e",
+ *      "quest": {
+ *        "RSVPNeeded": false,
+ *        "progress": {}
+ *      },
+ *    },
+ *    "items": {
+ *      "lastDrop": {
+ *        "count": 0,
+ *        "date": "2017-01-15T02:41:35.009Z"
+ *      },
+ *        ----INCLUDES QUESTS, FOOD, POTIONS, EGGS, GEAR, CARDS, SPECIAL ITEMS (E.G. SNOWBALLS)----
+ *      }
+ *    },
+ *    "achievements": {
+ *      "partyUp": true,
+ *      "habitBirthdays": 2,
+ *    },
+ *    "auth": {
+ *      "timestamps": {
+ *        "loggedin": "2017-03-05T12:30:54.545Z",
+ *        "created": "2017-01-12T03:30:11.842Z"
+ *      }
+ *    },
+ *    "id": "99999999-9999-9999-9999-8f14c101aeff"
+ *  }
+ * }
+ *)
  *
  * @apiUse UserNotFound
  */
@@ -52,6 +109,36 @@ api.getMember = {
       .exec();
 
     if (!member) throw new NotFound(res.t('userWithIDNotFound', {userId: memberId}));
+
+    if (!member.flags.verifiedUsername) member.auth.local.username = null;
+
+    // manually call toJSON with minimize: true so empty paths aren't returned
+    let memberToJSON = member.toJSON({minimize: true});
+    User.addComputedStatsToJSONObj(memberToJSON.stats, member);
+
+    res.respond(200, memberToJSON);
+  },
+};
+
+api.getMemberByUsername = {
+  method: 'GET',
+  url: '/members/username/:username',
+  middlewares: [],
+  async handler (req, res) {
+    req.checkParams('username', res.t('invalidReqParams')).notEmpty();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let username = req.params.username.toLowerCase();
+    if (username[0] === '@') username = username.slice(1, username.length);
+
+    let member = await User
+      .findOne({'auth.local.lowerCaseUsername': username, 'flags.verifiedUsername': true})
+      .select(memberFields)
+      .exec();
+
+    if (!member) throw new NotFound(res.t('userNotFound'));
 
     // manually call toJSON with minimize: true so empty paths aren't returned
     let memberToJSON = member.toJSON({minimize: true});
@@ -302,15 +389,28 @@ function _getMembersForItem (type) {
  * @apiParam (Query) {Boolean} includeAllPublicFields Query parameter available only when fetching a party. If === `true` then all public fields for members will be returned (like when making a request for a single member)
  *
  * @apiSuccess {Array} data An array of members, sorted by _id
+ *
+ * @apiSuccessExample {json} Success-Response:
+ * {
+ *   "success": true,
+ *   "data": [
+ *     {
+ *       "_id": "00000001-1111-9999-9000-111111111111",
+ *       "profile": {
+ *         "name": "Jiminy"
+ *       },
+ *       "id": "00000001-1111-9999-9000-111111111111"
+ *     },
+ *  }
+ *
+ *
  * @apiUse ChallengeNotFound
  * @apiUse GroupNotFound
  */
 api.getMembersForGroup = {
   method: 'GET',
   url: '/groups/:groupId/members',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   handler: _getMembersForItem('group-members'),
 };
 
@@ -325,15 +425,28 @@ api.getMembersForGroup = {
  *
  * @apiSuccess {array} data An array of invites, sorted by _id
  *
+ * @apiSuccessExample {json} Success-Response:
+ * {
+ *   "success": true,
+ *   "data": [
+ *     {
+ *       "_id": "99f3cb9d-4af8-4ca4-9b82-6b2a6bf59b7a",
+ *       "profile": {
+ *         "name": "DoomSmoocher"
+ *       },
+ *       "id": "99f3cb9d-4af8-4ca4-9b82-6b2a6bf59b7a"
+ *     }
+ *   ]
+ * }
+ *
+ *
  * @apiUse ChallengeNotFound
  * @apiUse GroupNotFound
  */
 api.getInvitesForGroup = {
   method: 'GET',
   url: '/groups/:groupId/invites',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   handler: _getMembersForItem('group-invites'),
 };
 
@@ -359,9 +472,7 @@ api.getInvitesForGroup = {
 api.getMembersForChallenge = {
   method: 'GET',
   url: '/challenges/:challengeId/members',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   handler: _getMembersForItem('challenge-members'),
 };
 
@@ -375,15 +486,55 @@ api.getMembersForChallenge = {
  *
  * @apiSuccess {Object} data Return an object with member _id, profile.name and a tasks object with the challenge tasks for the member
  *
+ * @apiSuccessExample {json} Success-Response:
+ * {
+ *   "data": {
+ *     "_id": "b0413351-405f-416f-8787-947ec1c85199",
+ *     "profile": {"name": "MadPink"},
+ *     "tasks": [
+ *       {
+ *         "_id": "9cd37426-0604-48c3-a950-894a6e72c156",
+ *       "text": "Make sure the place where you sleep is quiet, dark, and cool.",
+ *         "updatedAt": "2017-06-17T17:44:15.916Z",
+ *         "createdAt": "2017-06-17T17:44:15.916Z",
+ *         "reminders": [],
+ *         "group": {
+ *           "approval": {
+ *             "requested": false,
+ *             "approved": false,
+ *             "required": false
+ *           },
+ *           "assignedUsers": []
+ *         },
+ *         "challenge": {
+ *           "taskId": "6d3758b1-071b-4bfa-acd6-755147a7b5f6",
+ *           "id": "4db6bd82-b829-4bf2-bad2-535c14424a3d",
+ *           "shortName": "Take This June 2017"
+ *         },
+ *         "attribute": "str",
+ *         "priority": 1,
+ *         "value": 0,
+ *         "notes": "",
+ *         "type": "todo",
+ *         "checklist": [],
+ *         "collapseChecklist": false,
+ *         "completed": false,
+ *       },
+ *         "startDate": "2016-09-01T05:00:00.000Z",
+ *         "everyX": 1,
+ *         "frequency": "weekly",
+ *         "id": "b207a15e-8bfd-4aa7-9e64-1ba89699da06"
+ *       }
+ *     ]
+ *   }
+ *
  * @apiUse ChallengeNotFound
  * @apiUse UserNotFound
  */
 api.getChallengeMemberProgress = {
   method: 'GET',
   url: '/challenges/:challengeId/members/:memberId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
     req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
@@ -466,7 +617,7 @@ api.getObjectionsToInteraction = {
  * @apiParam (Body) {String} message Body parameter - The message
  * @apiParam (Body) {UUID} toUserId Body parameter - The user to contact
  *
- * @apiSuccess {Object} data An empty Object
+ * @apiSuccess {Object} data.message The message just sent
  *
  * @apiUse UserNotFound
  */
@@ -478,39 +629,22 @@ api.sendPrivateMessage = {
     req.checkBody('message', res.t('messageRequired')).notEmpty();
     req.checkBody('toUserId', res.t('toUserIDRequired')).notEmpty().isUUID();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let sender = res.locals.user;
-    let message = req.body.message;
-    let receiver = await User.findById(req.body.toUserId).exec();
+    const sender = res.locals.user;
+    const message = req.body.message;
+
+    const receiver = await User.findById(req.body.toUserId).exec();
     if (!receiver) throw new NotFound(res.t('userNotFound'));
+    if (!receiver.flags.verifiedUsername) delete receiver.auth.local.username;
 
-    let objections = sender.getObjectionsToInteraction('send-private-message', receiver);
-
+    const objections = sender.getObjectionsToInteraction('send-private-message', receiver);
     if (objections.length > 0 && !sender.isAdmin()) throw new NotAuthorized(res.t(objections[0]));
 
-    await sender.sendMessage(receiver, { receiverMsg: message });
+    const messageSent = await sentMessage(sender, receiver, message, res.t);
 
-    if (receiver.preferences.emailNotifications.newPM !== false) {
-      sendTxnEmail(receiver, 'new-pm', [
-        {name: 'SENDER', content: getUserInfo(sender, ['name']).name},
-      ]);
-    }
-    if (receiver.preferences.pushNotifications.newPM !== false) {
-      sendPushNotification(
-        receiver,
-        {
-          title: res.t('newPM'),
-          message: res.t('newPMInfo', {name: getUserInfo(sender, ['name']).name, message}),
-          identifier: 'newPM',
-          category: 'newPM',
-          payload: {replyTo: sender._id},
-        }
-      );
-    }
-
-    res.respond(200, {});
+    res.respond(200, {message: messageSent});
   },
 };
 
@@ -519,7 +653,7 @@ api.sendPrivateMessage = {
  * @apiName TransferGems
  * @apiGroup Member
  *
- * @apiParam (Body) {String} message The message
+ * @apiParam (Body) {String} message The message to the user
  * @apiParam (Body) {UUID} toUserId The toUser _id
  * @apiParam (Body) {Integer} gemAmount The number of gems to send
  *
@@ -554,6 +688,7 @@ api.transferGems = {
 
     receiver.balance += amount;
     sender.balance -= amount;
+    // @TODO necessary? Also saved when sending the inbox message
     let promises = [receiver.save(), sender.save()];
     await Promise.all(promises);
 

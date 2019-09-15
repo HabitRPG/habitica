@@ -35,8 +35,10 @@ div
 import findIndex from 'lodash/findIndex';
 import { mapState } from 'client/libs/store';
 import approvalModal from './approvalModal';
+import sync from 'client/mixins/sync';
 
 export default {
+  mixins: [sync],
   props: ['task', 'group'],
   components: {
     approvalModal,
@@ -67,7 +69,7 @@ export default {
       } else if (assignedUsersLength > 1 && !this.userIsAssigned) {
         return this.$t('assignedToMembers', {userCount: assignedUsersLength});
       } else if (assignedUsersLength > 1 && this.userIsAssigned) {
-        return this.$t('assignedToYouAndMembers', {userCount: assignedUsersLength});
+        return this.$t('assignedToYouAndMembers', {userCount: assignedUsersLength - 1});
       } else if (this.userIsAssigned) {
         return this.$t('youAreAssigned');
       } else if (assignedUsersLength === 0) {
@@ -91,11 +93,12 @@ export default {
         taskId = this.task.group.taskId;
       }
 
-      this.$store.dispatch('tasks:assignTask', {
+      await this.$store.dispatch('tasks:assignTask', {
         taskId,
         userId: this.user._id,
       });
       this.task.group.assignedUsers.push(this.user._id);
+      this.sync();
     },
     async unassign () {
       if (!confirm(this.$t('confirmUnClaim'))) return;
@@ -106,15 +109,16 @@ export default {
         taskId = this.task.group.taskId;
       }
 
-      this.$store.dispatch('tasks:unassignTask', {
+      await this.$store.dispatch('tasks:unassignTask', {
         taskId,
         userId: this.user._id,
       });
       let index = this.task.group.assignedUsers.indexOf(this.user._id);
       this.task.group.assignedUsers.splice(index, 1);
+
+      this.sync();
     },
     approve () {
-      if (!confirm(this.$t('confirmApproval'))) return;
       let userIdToApprove = this.task.group.assignedUsers[0];
       this.$store.dispatch('tasks:approve', {
         taskId: this.task._id,

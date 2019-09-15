@@ -1,36 +1,36 @@
 <template lang="pug">
-  form(v-if="task", @submit.stop.prevent="submit()")
-    b-modal#task-modal(size="sm", @hidden="onClose()", @shown="focusInput()")
-      .task-modal-header(slot="modal-header", :class="cssClass('bg')")
-        .clearfix
-          h1.float-left {{ title }}
-          .float-right.d-flex.align-items-center
-            span.cancel-task-btn.mr-2(v-once, @click="cancel()") {{ $t('cancel') }}
-            button.btn.btn-secondary(type="submit", v-once) {{ $t('save') }}
-        .form-group
-          label(v-once) {{ `${$t('text')}*` }}
-          input.form-control.title-input(
-            type="text",
-            required, v-model="task.text",
-            ref="inputToFocus",
-            spellcheck="true",
-            :disabled="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
-          )
-        .form-group
-          label.d-flex.align-items-center.justify-content-between(v-once)
-            span {{ $t('notes') }}
-            small(v-once)
-              a(target="_blank", href="http://habitica.wikia.com/wiki/Markdown_Cheat_Sheet") {{ $t('markdownHelpLink') }}
+  b-modal#task-modal(v-bind:no-close-on-esc="showTagsSelect", v-bind:no-close-on-backdrop="showTagsSelect", size="sm", @hidden="onClose()", @show="handleOpen()", @shown="focusInput()")
+    .task-modal-header(slot="modal-header", :class="cssClass('bg')", @click="handleClick($event)", v-if="task")
+      .clearfix
+        h1.float-left {{ title }}
+        .float-right.d-flex.align-items-center
+          span.cancel-task-btn.mr-2(v-once, @click="cancel()") {{ $t('cancel') }}
+          button.btn.btn-secondary(@click="submit()", v-once) {{ $t('save') }}
+      .form-group
+        label(v-once) {{ `${$t('text')}*` }}
+        input.form-control.title-input(
+          type="text",
+          required, v-model="task.text",
+          ref="inputToFocus",
+          spellcheck="true",
+          :disabled="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
+        )
+      .form-group
+        label.d-flex.align-items-center.justify-content-between(v-once)
+          span {{ $t('notes') }}
+          small(v-once)
+            a(target="_blank", href="http://habitica.fandom.com/wiki/Markdown_Cheat_Sheet") {{ $t('markdownHelpLink') }}
 
-          textarea.form-control(v-model="task.notes", rows="3")
-      .task-modal-content
+        textarea.form-control(v-model="task.notes", rows="3")
+    .task-modal-content(@click="handleClick($event)")
+      form(v-if="task", @submit.stop.prevent="submit()", @click="handleClick($event)")
         .option.mt-0(v-if="task.type === 'reward'")
           .form-group
             label(v-once) {{ $t('cost') }}
             .input-group
               .input-group-prepend.input-group-icon.align-items-center
                 .svg-icon.gold(v-html="icons.gold")
-              input.form-control(type="number", v-model="task.value", required, placeholder="1.0", step="0.01", min="0")
+              input.form-control(type="number", v-model="task.value", required, placeholder="Enter a Value", step="0.01", min="0")
 
         .option.mt-0(v-if="checklistEnabled")
           label(v-once) {{ $t('checklist') }}
@@ -88,7 +88,8 @@
               :clearButtonText='$t("clear")',
               :todayButton='!challengeAccessRequired',
               :todayButtonText='$t("today")',
-              :disabled-picker='challengeAccessRequired'
+              :disabled-picker='challengeAccessRequired',
+              :highlighted='calendarHighlights'
             )
         .option(v-if="task.type === 'daily'")
           .form-group
@@ -99,7 +100,8 @@
               :clearButton="false",
               :todayButton="!challengeAccessRequired",
               :todayButtonText="$t('today')",
-              :disabled-picker="challengeAccessRequired"
+              :disabled-picker="challengeAccessRequired",
+              :highlighted='calendarHighlights'
             )
         .option(v-if="task.type === 'daily'")
           .form-group
@@ -147,7 +149,7 @@
                   .category-label(v-for='tagName in truncatedSelectedTags', :title="tagName", v-markdown='tagName')
                   .tags-more(v-if='remainingSelectedTags.length > 0') +{{ $t('more', { count: remainingSelectedTags.length }) }}
                   .dropdown-toggle
-          tags-popup(v-if="showTagsSelect", :tags="user.tags", v-model="task.tags", @close='closeTagsPopup()')
+          tags-popup(ref="popup", v-if="showTagsSelect", :tags="user.tags", v-model="task.tags", @close='closeTagsPopup()')
 
         .option(v-if="task.type === 'habit'")
           .form-group
@@ -157,13 +159,22 @@
                 | {{ $t(frequency) }}
 
         .option.group-options(v-if='groupId')
+          .form-group(v-if="task.type === 'todo'")
+            label(v-once) {{ $t('sharedCompletion') }}
+            b-dropdown.inline-dropdown(:text="$t(sharedCompletion)")
+              b-dropdown-item(
+                v-for="completionOption in ['recurringCompletion', 'singleCompletion', 'allAssignedCompletion']",
+                :key="completionOption",
+                @click="sharedCompletion = completionOption",
+                :class="{active: sharedCompletion === completionOption}"
+              ) {{ $t(completionOption) }}
           .form-group.row
             label.col-12(v-once) {{ $t('assignedTo') }}
-            .col-12
+            .col-12.mt-2
               .category-wrap(@click="showAssignedSelect = !showAssignedSelect")
                 span.category-select(v-if='assignedMembers && assignedMembers.length === 0') {{$t('none')}}
                 span.category-select(v-else)
-                  span(v-for='memberId in assignedMembers') {{memberNamesById[memberId]}}
+                  span.mr-1(v-for='memberId in assignedMembers') {{memberNamesById[memberId]}}
               .category-box(v-if="showAssignedSelect")
                 .container
                   .row
@@ -176,9 +187,7 @@
                         label.custom-control-label(v-once, :for="`assigned-${member._id}`") {{ member.profile.name }}
 
                   .row
-                    button.btn.btn-primary(@click="showAssignedSelect = !showAssignedSelect") {{$t('close')}}
-
-        .option.group-options(v-if='groupId')
+                    button.btn.btn-primary(@click.stop.prevent="showAssignedSelect = !showAssignedSelect") {{$t('close')}}
           .form-group
             label(v-once) {{ $t('approvalRequired') }}
             toggle-switch.d-inline-block(
@@ -233,9 +242,9 @@
           .svg-icon.d-inline-b(v-html="icons.destroy")
           span {{ $t('deleteTask') }}
 
-      .task-modal-footer.d-flex.justify-content-center.align-items-center(slot="modal-footer")
-        .cancel-task-btn(v-once, @click="cancel()") {{ $t('cancel') }}
-        button.btn.btn-primary(type="submit", v-once) {{ $t('save') }}
+    .task-modal-footer.d-flex.justify-content-center.align-items-center(slot="modal-footer", @click="handleClick($event)")
+      .cancel-task-btn(v-once, @click="cancel()") {{ $t('cancel') }}
+      button.btn.btn-primary(@click="submit()", v-once) {{ $t('save') }}
 </template>
 
 <style lang="scss">
@@ -248,6 +257,10 @@
 
     label {
       font-weight: bold;
+    }
+
+    .input-group > * {
+      height: 40px;
     }
 
     input, textarea {
@@ -345,8 +358,8 @@
       margin-top: 12px;
       position: relative;
 
-      label {
-        max-height: 30px;
+      .custom-control-label p {
+        word-break: break-word;
       }
     }
 
@@ -469,12 +482,17 @@
 
             .category-label {
               min-width: 68px;
-              overflow: hidden;
               padding: .5em 1em;
-              text-overflow: ellipsis;
-              white-space: nowrap;
               width: 68px;
-              word-wrap: break-word;
+
+              // Applies to v-markdown generated p tag.
+              p {
+                margin-bottom: 0px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                word-wrap: break-word;
+              }
             }
           }
         }
@@ -691,6 +709,7 @@ export default {
         calendar: calendarIcon,
       }),
       requiresApproval: false, // We can't set task.group fields so we use this field to toggle
+      sharedCompletion: 'singleCompletion',
       members: [],
       memberNamesById: {},
       assignedMembers: [],
@@ -702,29 +721,15 @@ export default {
         con: 'constitution',
         per: 'perception',
       },
+      calendarHighlights: { dates: [new Date()]},
     };
   },
+  mounted () {
+    this.showAdvancedOptions = !this.user.preferences.advancedCollapsed;
+  },
   watch: {
-    async task () {
-      if (this.groupId && this.task.group && this.task.group.approval && this.task.group.approval.required) {
-        this.requiresApproval = true;
-      }
-
-      if (this.groupId) {
-        let members = await this.$store.dispatch('members:getGroupMembers', {
-          groupId: this.groupId,
-          includeAllPublicFields: true,
-        });
-        this.members = members;
-        this.members.forEach(member => {
-          this.memberNamesById[member._id] = member.profile.name;
-        });
-        this.assignedMembers = [];
-        if (this.task.group && this.task.group.assignedUsers) this.assignedMembers = this.task.group.assignedUsers;
-      }
-
-      // @TODO: This whole component is mutating a prop and that causes issues. We need to not copy the prop similar to group modals
-      if (this.task) this.checklist = clone(this.task.checklist);
+    task () {
+      this.syncTask();
     },
     'task.startDate' () {
       this.calculateMonthlyRepeatDays();
@@ -811,8 +816,39 @@ export default {
       return this.selectedTags.slice(this.maxTags);
     },
   },
+  created () {
+    document.addEventListener('keyup', this.handleEsc);
+  },
+  destroyed () {
+    document.removeEventListener('keyup', this.handleEsc);
+  },
   methods: {
     ...mapActions({saveTask: 'tasks:save', destroyTask: 'tasks:destroy', createTask: 'tasks:create'}),
+    async syncTask () {
+      if (this.groupId && this.task.group && this.task.group.approval) {
+        this.requiresApproval = this.task.group.approval.required;
+      }
+
+      if (this.groupId) {
+        let members = await this.$store.dispatch('members:getGroupMembers', {
+          groupId: this.groupId,
+          includeAllPublicFields: true,
+        });
+        this.members = members;
+        this.members.forEach(member => {
+          this.memberNamesById[member._id] = member.profile.name;
+        });
+        this.assignedMembers = [];
+        if (this.task.group && this.task.group.assignedUsers) this.assignedMembers = this.task.group.assignedUsers;
+        if (this.task.group) this.sharedCompletion = this.task.group.sharedCompletion || 'singleCompletion';
+      }
+
+      // @TODO: This whole component is mutating a prop and that causes issues. We need to not copy the prop similar to group modals
+      if (this.task) this.checklist = clone(this.task.checklist);
+    },
+    async handleOpen () {
+      this.syncTask();
+    },
     cssClass (suffix) {
       return this.getTaskClasses(this.task, `${this.purpose === 'edit' ? 'edit' : 'create'}-modal-${suffix}`);
     },
@@ -886,19 +922,28 @@ export default {
     async submit () {
       if (this.newChecklistItem) this.addChecklistItem();
 
+      // TODO Fix up permissions on task.group so we don't have to keep doing these hacks
+      if (this.groupId) {
+        this.task.requiresApproval = this.requiresApproval;
+        this.task.group.approval.required = this.requiresApproval;
+        this.task.sharedCompletion = this.sharedCompletion;
+        this.task.group.sharedCompletion = this.sharedCompletion;
+      }
+
       if (this.purpose === 'create') {
         if (this.challengeId) {
-          this.$store.dispatch('tasks:createChallengeTasks', {
+          const response = await this.$store.dispatch('tasks:createChallengeTasks', {
             challengeId: this.challengeId,
             tasks: [this.task],
           });
+          Object.assign(this.task, response);
           this.$emit('taskCreated', this.task);
         } else if (this.groupId) {
-          await this.$store.dispatch('tasks:createGroupTasks', {
+          const response = await this.$store.dispatch('tasks:createGroupTasks', {
             groupId: this.groupId,
             tasks: [this.task],
           });
-
+          Object.assign(this.task, response);
           let promises = this.assignedMembers.map(memberId => {
             return this.$store.dispatch('tasks:assignTask', {
               taskId: this.task._id,
@@ -906,19 +951,12 @@ export default {
             });
           });
           Promise.all(promises);
-
           this.task.group.assignedUsers = this.assignedMembers;
-
           this.$emit('taskCreated', this.task);
         } else {
           this.createTask(this.task);
         }
       } else {
-        if (this.groupId) {
-          this.task.group.assignedUsers = this.assignedMembers;
-          this.task.requiresApproval = this.requiresApproval;
-        }
-
         this.saveTask(this.task);
         this.$emit('taskEdited', this.task);
       }
@@ -969,6 +1007,16 @@ export default {
     },
     focusInput () {
       this.$refs.inputToFocus.focus();
+    },
+    handleEsc (e) {
+      if (e.keyCode === 27 && this.showTagsSelect) {
+        this.closeTagsPopup();
+      }
+    },
+    handleClick (e) {
+      if (this.$refs.popup && !this.$refs.popup.$el.parentNode.contains(e.target)) {
+        this.closeTagsPopup();
+      }
     },
   },
 };

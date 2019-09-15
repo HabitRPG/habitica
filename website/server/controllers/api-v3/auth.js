@@ -1,82 +1,31 @@
 import validator from 'validator';
 import moment from 'moment';
-import passport from 'passport';
 import nconf from 'nconf';
 import {
   authWithHeaders,
 } from '../../middlewares/auth';
+import { model as User } from '../../models/user';
+import common from '../../../common';
 import {
   NotAuthorized,
   BadRequest,
-  NotFound,
 } from '../../libs/errors';
 import * as passwordUtils from '../../libs/password';
-import logger from '../../libs/logger';
-import { model as User } from '../../models/user';
-import { model as Group } from '../../models/group';
-import { model as EmailUnsubscription } from '../../models/emailUnsubscription';
 import { sendTxn as sendTxnEmail } from '../../libs/email';
-import { decrypt, encrypt } from '../../libs/encryption';
-import { send as sendEmail } from '../../libs/email';
-import pusher from '../../libs/pusher';
-import common from '../../../common';
 import { validatePasswordResetCodeAndFindUser, convertToBcrypt} from '../../libs/password';
+import { encrypt } from '../../libs/encryption';
+import {
+  loginRes,
+  hasBackupAuth,
+  loginSocial,
+  registerLocal,
+} from '../../libs/auth';
+import {verifyUsername} from '../../libs/user/validation';
 
 const BASE_URL = nconf.get('BASE_URL');
-const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
-const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
-const USERNAME_LENGTH_MIN = 1;
-const USERNAME_LENGTH_MAX = 20;
+const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS_TECH_ASSISTANCE_EMAIL');
 
 let api = {};
-
-// When the user signed up after having been invited to a group, invite them automatically to the group
-async function _handleGroupInvitation (user, invite) {
-  // wrapping the code in a try because we don't want it to prevent the user from signing up
-  // that's why errors are not translated
-  try {
-    let {sentAt, id: groupId, inviter} = JSON.parse(decrypt(invite));
-
-    // check that the invite has not expired (after 7 days)
-    if (sentAt && moment().subtract(7, 'days').isAfter(sentAt)) {
-      let err = new Error('Invite expired.');
-      err.privateData = invite;
-      throw err;
-    }
-
-    let group = await Group.getGroup({user, optionalMembership: true, groupId, fields: 'name type'});
-    if (!group) throw new NotFound('Group not found.');
-
-    if (group.type === 'party') {
-      user.invitations.party = {id: group._id, name: group.name, inviter};
-      user.invitations.parties.push(user.invitations.party);
-    } else {
-      user.invitations.guilds.push({id: group._id, name: group.name, inviter});
-    }
-
-    // award the inviter with 'Invited a Friend' achievement
-    inviter = await User.findById(inviter);
-    if (!inviter.achievements.invitedFriend) {
-      inviter.achievements.invitedFriend = true;
-      inviter.addNotification('INVITED_FRIEND_ACHIEVEMENT');
-      await inviter.save();
-    }
-  } catch (err) {
-    logger.error(err);
-  }
-}
-
-function hasBackupAuth (user, networkToRemove) {
-  if (user.auth.local.username) {
-    return true;
-  }
-
-  let hasAlternateNetwork = common.constants.SUPPORTED_SOCIAL_NETWORKS.find((network) => {
-    return network.key !== networkToRemove && user.auth[network.key].id;
-  });
-
-  return hasAlternateNetwork;
-}
 
 /**
  * @api {post} /api/v3/user/auth/local/register Register
@@ -98,118 +47,9 @@ api.registerLocal = {
   })],
   url: '/user/auth/local/register',
   async handler (req, res) {
-    let existingUser = res.locals.user; // If adding local auth to social user
-
-    req.checkBody({
-      email: {
-        notEmpty: {errorMessage: res.t('missingEmail')},
-        isEmail: {errorMessage: res.t('notAnEmail')},
-      },
-      username: {
-        notEmpty: {errorMessage: res.t('missingUsername')},
-        isLength: {options: {min: USERNAME_LENGTH_MIN, max: USERNAME_LENGTH_MAX}, errorMessage: res.t('usernameWrongLength')},
-        // TODO use the constants in the error message above
-        matches: {options: /^[-_a-zA-Z0-9]+$/, errorMessage: res.t('usernameBadCharacters')},
-      },
-      password: {
-        notEmpty: {errorMessage: res.t('missingPassword')},
-        equals: {options: [req.body.confirmPassword], errorMessage: res.t('passwordConfirmationMatch')},
-      },
-    });
-    let validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
-
-    let { email, username, password } = req.body;
-
-    // Get the lowercase version of username to check that we do not have duplicates
-    // So we can search for it in the database and then reject the choosen username if 1 or more results are found
-    email = email.toLowerCase();
-    username = username.trim();
-    let lowerCaseUsername = username.toLowerCase();
-
-    // Search for duplicates using lowercase version of username
-    let user = await User.findOne({$or: [
-      {'auth.local.email': email},
-      {'auth.local.lowerCaseUsername': lowerCaseUsername},
-    ]}, {'auth.local': 1}).exec();
-
-    if (user) {
-      if (email === user.auth.local.email) throw new NotAuthorized(res.t('emailTaken'));
-      // Check that the lowercase username isn't already used
-      if (lowerCaseUsername === user.auth.local.lowerCaseUsername) throw new NotAuthorized(res.t('usernameTaken'));
-    }
-
-    let hashed_password = await passwordUtils.bcryptHash(password); // eslint-disable-line camelcase
-    let newUser = {
-      auth: {
-        local: {
-          username,
-          lowerCaseUsername,
-          email,
-          hashed_password, // eslint-disable-line camelcase,
-          passwordHashMethod: 'bcrypt',
-        },
-      },
-      preferences: {
-        language: req.language,
-      },
-    };
-
-    if (existingUser) {
-      let hasSocialAuth = common.constants.SUPPORTED_SOCIAL_NETWORKS.find(network => {
-        if (existingUser.auth.hasOwnProperty(network.key)) {
-          return existingUser.auth[network.key].id;
-        }
-      });
-      if (!hasSocialAuth) throw new NotAuthorized(res.t('onlySocialAttachLocal'));
-      existingUser.auth.local = newUser.auth.local;
-      newUser = existingUser;
-    } else {
-      newUser = new User(newUser);
-      newUser.registeredThrough = req.headers['x-client']; // Not saved, used to create the correct tasks based on the device used
-    }
-
-    // we check for partyInvite for backward compatibility
-    if (req.query.groupInvite || req.query.partyInvite) {
-      await _handleGroupInvitation(newUser, req.query.groupInvite || req.query.partyInvite);
-    }
-
-    let savedUser = await newUser.save();
-
-    if (existingUser) {
-      res.respond(200, savedUser.toJSON().auth.local); // We convert to toJSON to hide private fields
-    } else {
-      let userJSON = savedUser.toJSON();
-      userJSON.newUser = true;
-      res.respond(201, userJSON);
-    }
-
-    // Clean previous email preferences and send welcome email
-    EmailUnsubscription
-      .remove({email: savedUser.auth.local.email})
-      .then(() => {
-        if (!existingUser) sendTxnEmail(savedUser, 'welcome');
-      });
-
-    if (!existingUser) {
-      res.analytics.track('register', {
-        category: 'acquisition',
-        type: 'local',
-        gaLabel: 'local',
-        uuid: savedUser._id,
-        headers: req.headers,
-        user: savedUser,
-      });
-    }
-
-    return null;
+    await registerLocal(req, res, { isV3: true });
   },
 };
-
-function _loginRes (user, req, res) {
-  if (user.auth.blocked) throw new NotAuthorized(res.t('accountSuspended', {communityManagerEmail: COMMUNITY_MANAGER_EMAIL, userId: user._id}));
-  return res.respond(200, {id: user._id, apiToken: user.apiToken, newUser: user.newUser || false});
-}
 
 /**
  * @api {post} /api/v3/user/auth/local/login Login
@@ -258,6 +98,9 @@ api.loginLocal = {
     // load the entire user because we may have to save it to convert the password to bcrypt
     let user = await User.findOne(login).exec();
 
+    // if user is using social login, then user will not have a hashed_password stored
+    if (!user || !user.auth.local.hashed_password) throw new NotAuthorized(res.t('invalidLoginCredentialsLong'));
+
     let isValidPassword;
 
     if (!user) {
@@ -282,21 +125,9 @@ api.loginLocal = {
       headers: req.headers,
     });
 
-    return _loginRes(user, ...arguments);
+    return loginRes(user, ...arguments);
   },
 };
-
-function _passportProfile (network, accessToken) {
-  return new Promise((resolve, reject) => {
-    passport._strategies[network].userProfile(accessToken, (err, profile) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(profile);
-      }
-    });
-  });
-}
 
 // Called as a callback by Facebook (or other social providers). Internal route
 api.loginSocial = {
@@ -304,150 +135,9 @@ api.loginSocial = {
   middlewares: [authWithHeaders({
     optional: true,
   })],
-  url: '/user/auth/social', // this isn't the most appropriate url but must be the same as v2
+  url: '/user/auth/social',
   async handler (req, res) {
-    let existingUser = res.locals.user;
-    let accessToken = req.body.authResponse.access_token;
-    let network = req.body.network;
-
-    let isSupportedNetwork = common.constants.SUPPORTED_SOCIAL_NETWORKS.find(supportedNetwork => {
-      return supportedNetwork.key === network;
-    });
-    if (!isSupportedNetwork) throw new BadRequest(res.t('unsupportedNetwork'));
-
-    let profile = await _passportProfile(network, accessToken);
-
-    let user = await User.findOne({
-      [`auth.${network}.id`]: profile.id,
-    }, {_id: 1, apiToken: 1, auth: 1}).exec();
-
-    // User already signed up
-    if (user) {
-      _loginRes(user, ...arguments);
-    } else { // Create new user
-      user = {
-        auth: {
-          [network]: {
-            id: profile.id,
-            emails: profile.emails,
-          },
-        },
-        profile: {
-          name: profile.displayName || profile.name || profile.username,
-        },
-        preferences: {
-          language: req.language,
-        },
-      };
-      if (existingUser) {
-        existingUser.auth[network] = user.auth[network];
-        user = existingUser;
-      } else {
-        user = new User(user);
-        user.registeredThrough = req.headers['x-client']; // Not saved, used to create the correct tasks based on the device used
-      }
-
-      let savedUser = await user.save();
-
-      if (!existingUser) {
-        user.newUser = true;
-      }
-      _loginRes(user, ...arguments);
-
-      // Clean previous email preferences
-      if (savedUser.auth[network].emails && savedUser.auth[network].emails[0] && savedUser.auth[network].emails[0].value) {
-        EmailUnsubscription
-          .remove({email: savedUser.auth[network].emails[0].value.toLowerCase()})
-          .exec()
-          .then(() => {
-            if (!existingUser) sendTxnEmail(savedUser, 'welcome');
-          }); // eslint-disable-line max-nested-callbacks
-      }
-
-      if (!existingUser) {
-        res.analytics.track('register', {
-          category: 'acquisition',
-          type: network,
-          gaLabel: network,
-          uuid: savedUser._id,
-          headers: req.headers,
-          user: savedUser,
-        });
-      }
-
-      return null;
-    }
-  },
-};
-
-/*
- * @apiIgnore Private route
- * @api {post} /api/v3/user/auth/pusher Pusher.com authentication
- * @apiDescription Authentication for Pusher.com private and presence channels
- * @apiName UserAuthPusher
- * @apiGroup User
- *
- * @apiParam (Body) {String} socket_id A unique identifier for the specific client connection to Pusher
- * @apiParam (Body) {String} channel_name The name of the channel being subscribed to
- *
- * @apiSuccess {String} auth The authentication token
- */
-api.pusherAuth = {
-  method: 'POST',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
-  url: '/user/auth/pusher',
-  async handler (req, res) {
-    let user = res.locals.user;
-
-    req.checkBody('socket_id').notEmpty();
-    req.checkBody('channel_name').notEmpty();
-
-    let validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
-
-    let socketId = req.body.socket_id;
-    let channelName = req.body.channel_name;
-
-    // Channel names are in the form of {presence|private}-{group|...}-{resourceId}
-    let [channelType, resourceType, ...resourceId] = channelName.split('-');
-
-    if (['presence'].indexOf(channelType) === -1) { // presence is used only for parties, private for guilds
-      throw new BadRequest('Invalid Pusher channel type.');
-    }
-
-    if (resourceType !== 'group') { // only groups are supported
-      throw new BadRequest('Invalid Pusher resource type.');
-    }
-
-    resourceId = resourceId.join('-'); // the split at the beginning had split resourceId too
-    if (!validator.isUUID(String(resourceId))) {
-      throw new BadRequest('Invalid Pusher resource id, must be a UUID.');
-    }
-
-    // Only the user's party is supported for now
-    if (user.party._id !== resourceId) {
-      throw new NotFound('Resource id must be the user\'s party.');
-    }
-
-    let authResult;
-
-    // Max 100 members for presence channel - parties only
-    if (channelType === 'presence') {
-      let presenceData = {
-        user_id: user._id, // eslint-disable-line camelcase
-        // Max 1KB
-        user_info: {}, // eslint-disable-line camelcase
-      };
-
-      authResult = pusher.authenticate(socketId, channelName, presenceData);
-    } else {
-      authResult = pusher.authenticate(socketId, channelName);
-    }
-
-    // Not using res.respond because Pusher requires a different response format
-    res.status(200).json(authResult);
+    return await loginSocial(req, res);
   },
 };
 
@@ -457,49 +147,66 @@ api.pusherAuth = {
  * @apiName UpdateUsername
  * @apiGroup User
  *
- * @apiParam (Body) {String} password The current user password
  * @apiParam (Body) {String} username The new username
 
  * @apiSuccess {String} data.username The new username
  **/
 api.updateUsername = {
   method: 'PUT',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/auth/update-username',
   async handler (req, res) {
-    let user = res.locals.user;
+    const user = res.locals.user;
 
     req.checkBody({
-      password: {
-        notEmpty: {errorMessage: res.t('missingPassword')},
-      },
       username: {
-        notEmpty: { errorMessage: res.t('missingUsername') },
+        notEmpty: {errorMessage: res.t('missingUsername')},
       },
     });
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    if (!user.auth.local.username) throw new BadRequest(res.t('userHasNoLocalRegistration'));
+    const newUsername = req.body.username;
 
-    let password = req.body.password;
-    let isValidPassword = await passwordUtils.compare(user, password);
-    if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
+    const issues = verifyUsername(newUsername, res);
+    if (issues.length > 0) throw new BadRequest(issues.join(' '));
 
-    let count = await User.count({ 'auth.local.lowerCaseUsername': req.body.username.toLowerCase() });
-    if (count > 0) throw new BadRequest(res.t('usernameTaken'));
+    const password = req.body.password;
+    if (password !== undefined) {
+      let isValidPassword = await passwordUtils.compare(user, password);
+      if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
+    }
+
+    const existingUser = await User.findOne({ 'auth.local.lowerCaseUsername': newUsername.toLowerCase() }, {auth: 1}).exec();
+    if (existingUser !== undefined && existingUser !== null && existingUser._id !== user._id) {
+      throw new BadRequest(res.t('usernameTaken'));
+    }
 
     // if password is using old sha1 encryption, change it
-    if (user.auth.local.passwordHashMethod === 'sha1') {
+    if (user.auth.local.passwordHashMethod === 'sha1' && password !== undefined) {
       await passwordUtils.convertToBcrypt(user, password); // user is saved a few lines below
     }
 
     // save username
-    user.auth.local.lowerCaseUsername = req.body.username.toLowerCase();
-    user.auth.local.username = req.body.username;
+    user.auth.local.lowerCaseUsername = newUsername.toLowerCase();
+    user.auth.local.username = newUsername;
+    if (!user.flags.verifiedUsername) {
+      user.flags.verifiedUsername = true;
+      if (user.items.pets['Bear-Veteran']) {
+        user.items.pets['Fox-Veteran'] = 5;
+      } else if (user.items.pets['Lion-Veteran']) {
+        user.items.pets['Bear-Veteran'] = 5;
+      } else if (user.items.pets['Tiger-Veteran']) {
+        user.items.pets['Lion-Veteran'] = 5;
+      } else if (user.items.pets['Wolf-Veteran']) {
+        user.items.pets['Tiger-Veteran'] = 5;
+      } else {
+        user.items.pets['Wolf-Veteran'] = 5;
+      }
+
+      user.markModified('items.pets');
+    }
     await user.save();
 
     res.respond(200, { username: req.body.username });
@@ -520,9 +227,7 @@ api.updateUsername = {
  **/
 api.updatePassword = {
   method: 'PUT',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/auth/update-password',
   async handler (req, res) {
     let user = res.locals.user;
@@ -598,19 +303,9 @@ api.resetPassword = {
 
       user.auth.local.passwordResetCode = passwordResetCode;
 
-      sendEmail({
-        from: 'Habitica <admin@habitica.com>',
-        to: email,
-        subject: res.t('passwordResetEmailSubject'),
-        text: res.t('passwordResetEmailText', {
-          username: user.auth.local.username,
-          passwordResetLink: link,
-        }),
-        html: res.t('passwordResetEmailHtml', {
-          username: user.auth.local.username,
-          passwordResetLink: link,
-        }),
-      });
+      sendTxnEmail(user, 'reset-password', [
+        {name: 'PASSWORD_RESET_LINK', content: link},
+      ]);
 
       await user.save();
     }
@@ -632,9 +327,7 @@ api.resetPassword = {
  */
 api.updateEmail = {
   method: 'PUT',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   url: '/user/auth/update-email',
   async handler (req, res) {
     let user = res.locals.user;
@@ -669,7 +362,7 @@ api.updateEmail = {
 };
 
 /**
- * @api {post} /api/v3/user/auth/reset-password-set-new-one Reser Password Set New one
+ * @api {post} /api/v3/user/auth/reset-password-set-new-one Reset Password Set New one
  * @apiDescription Set a new password for a user that reset theirs. Not meant for public usage.
  * @apiName ResetPasswordSetNewOne
  * @apiGroup User
@@ -721,9 +414,7 @@ api.resetPasswordSetNewOne = {
 api.deleteSocial = {
   method: 'DELETE',
   url: '/user/auth/social/:network',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let network = req.params.network;

@@ -73,7 +73,7 @@ shops.getMarketCategories = function getMarket (user, language) {
     notes: i18n.t('premiumPotionNoDropExplanation', language),
   };
   premiumHatchingPotionsCategory.items = sortBy(values(content.hatchingPotions)
-    .filter(hp => hp.limited && hp.canBuy())
+    .filter(hp => hp.limited && hp.canBuy(user))
     .map(premiumHatchingPotion => {
       return getItemInfo(user, 'premiumHatchingPotion', premiumHatchingPotion, officialPinnedItems, language);
     }), 'key');
@@ -104,9 +104,11 @@ function getClassName (classType, language) {
   }
 }
 
+// TODO Refactor the `.locked` logic
 shops.checkMarketGearLocked = function checkMarketGearLocked (user, items) {
   let result = filter(items, ['pinType', 'marketGear']);
-  let availableGear = map(updateStore(user), (item) => getItemInfo(user, 'marketGear', item).path);
+  const officialPinnedItems = getOfficialPinnedItems(user);
+  let availableGear = map(updateStore(user), (item) => getItemInfo(user, 'marketGear', item, officialPinnedItems).path);
   for (let gear of result) {
     if (gear.klass !== user.stats.class) {
       gear.locked = true;
@@ -114,12 +116,6 @@ shops.checkMarketGearLocked = function checkMarketGearLocked (user, items) {
 
     if (!gear.locked  && !availableGear.includes(gear.path)) {
       gear.locked = true;
-    }
-
-    // @TODO: I'm not sure what the logic for locking is supposed to be
-    // But, I am pretty sure if we pin an armoire item, it needs to be unlocked
-    if (gear.klass === 'armoire') {
-      gear.locked = false;
     }
 
     if (Boolean(gear.specialClass) && Boolean(gear.set)) {
@@ -132,7 +128,6 @@ shops.checkMarketGearLocked = function checkMarketGearLocked (user, items) {
       gear.locked = !gear.canOwn(user);
     }
 
-
     let itemOwned = user.items.gear.owned[gear.key];
 
     if (itemOwned === false && !availableGear.includes(gear.path)) {
@@ -140,6 +135,12 @@ shops.checkMarketGearLocked = function checkMarketGearLocked (user, items) {
     }
 
     gear.owned = itemOwned;
+
+    // @TODO: I'm not sure what the logic for locking is supposed to be
+    // But, I am pretty sure if we pin an armoire item, it needs to be unlocked
+    if (gear.klass === 'armoire') {
+      gear.locked = false;
+    }
   }
 };
 
@@ -332,6 +333,20 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
   let stable = {pets: 'Pet-', mounts: 'Mount_Icon_'};
 
   let officialPinnedItems = getOfficialPinnedItems(user);
+
+  let questCategory = {
+    identifier: 'quests',
+    text: i18n.t('quests', language),
+    items: [],
+  };
+  for (let key in content.quests) {
+    if (content.quests[key].category === 'timeTravelers') {
+      let item = getItemInfo(user, 'quests', content.quests[key], officialPinnedItems, language);
+      questCategory.items.push(item);
+    }
+  }
+  categories.push(questCategory);
+
   for (let type in stable) {
     if (stable.hasOwnProperty(type)) {
       let category = {

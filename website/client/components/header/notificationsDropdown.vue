@@ -1,7 +1,7 @@
 <template lang="pug">
 menu-dropdown.item-notifications(:right="true", @toggled="handleOpenStatusChange", :openStatus="openStatus")
   div(slot="dropdown-toggle")
-    div(v-b-tooltip.hover.bottom="$t('notifications')")
+    div(:aria-label="$t('notifications')", v-b-tooltip.hover.bottom="$t('notifications')")
       message-count(
         v-if='notificationsCount > 0',
         :count="notificationsCount",
@@ -27,8 +27,8 @@ menu-dropdown.item-notifications(:right="true", @toggled="handleOpenStatusChange
       v-if="notificationsCount === 0"
     )
       .svg-icon(v-html="icons.success")
-      h2 You're all caught up!
-      p The notification fairies give you a raucous round of applause! Well done!
+      h2 {{ $t('noNotifications') }}
+      p {{ $t('noNotificationsText') }}
 </template>
 
 <style lang='scss' scoped>
@@ -87,12 +87,17 @@ import CHALLENGE_INVITATION from './notifications/challengeInvitation';
 import QUEST_INVITATION from './notifications/questInvitation';
 import GROUP_TASK_APPROVAL from './notifications/groupTaskApproval';
 import GROUP_TASK_APPROVED from './notifications/groupTaskApproved';
+import GROUP_TASK_ASSIGNED from './notifications/groupTaskAssigned';
 import UNALLOCATED_STATS_POINTS from './notifications/unallocatedStatsPoints';
 import NEW_MYSTERY_ITEMS from './notifications/newMysteryItems';
 import CARD_RECEIVED from './notifications/cardReceived';
 import NEW_INBOX_MESSAGE from './notifications/newInboxMessage';
 import NEW_CHAT_MESSAGE from './notifications/newChatMessage';
 import WORLD_BOSS from './notifications/worldBoss';
+import VERIFY_USERNAME from './notifications/verifyUsername';
+import ACHIEVEMENT_JUST_ADD_WATER from './notifications/justAddWater';
+import ACHIEVEMENT_LOST_MASTERCLASSER from './notifications/lostMasterclasser';
+import ACHIEVEMENT_MIND_OVER_MATTER from './notifications/mindOverMatter';
 
 export default {
   components: {
@@ -101,10 +106,12 @@ export default {
     // One component for each type
     NEW_STUFF, GROUP_TASK_NEEDS_WORK,
     GUILD_INVITATION, PARTY_INVITATION, CHALLENGE_INVITATION,
-    QUEST_INVITATION, GROUP_TASK_APPROVAL, GROUP_TASK_APPROVED,
+    QUEST_INVITATION, GROUP_TASK_APPROVAL, GROUP_TASK_APPROVED, GROUP_TASK_ASSIGNED,
     UNALLOCATED_STATS_POINTS, NEW_MYSTERY_ITEMS, CARD_RECEIVED,
     NEW_INBOX_MESSAGE, NEW_CHAT_MESSAGE,
+    ACHIEVEMENT_JUST_ADD_WATER, ACHIEVEMENT_LOST_MASTERCLASSER, ACHIEVEMENT_MIND_OVER_MATTER,
     WorldBoss: WORLD_BOSS,
+    VERIFY_USERNAME,
   },
   data () {
     return {
@@ -116,7 +123,7 @@ export default {
       openStatus: undefined,
       actionableNotifications: [
         'GUILD_INVITATION', 'PARTY_INVITATION', 'CHALLENGE_INVITATION',
-        'QUEST_INVITATION', 'GROUP_TASK_NEEDS_WORK',
+        'QUEST_INVITATION', 'GROUP_TASK_NEEDS_WORK', 'GROUP_TASK_APPROVAL',
       ],
       // A list of notifications handled by this component,
       // listed in the order they should appear in the notifications panel.
@@ -124,9 +131,11 @@ export default {
       handledNotifications: [
         'NEW_STUFF', 'GROUP_TASK_NEEDS_WORK',
         'GUILD_INVITATION', 'PARTY_INVITATION', 'CHALLENGE_INVITATION',
-        'QUEST_INVITATION', 'GROUP_TASK_APPROVAL', 'GROUP_TASK_APPROVED',
+        'QUEST_INVITATION', 'GROUP_TASK_ASSIGNED', 'GROUP_TASK_APPROVAL', 'GROUP_TASK_APPROVED',
         'NEW_MYSTERY_ITEMS', 'CARD_RECEIVED',
         'NEW_INBOX_MESSAGE', 'NEW_CHAT_MESSAGE', 'UNALLOCATED_STATS_POINTS',
+        'ACHIEVEMENT_JUST_ADD_WATER', 'ACHIEVEMENT_LOST_MASTERCLASSER', 'ACHIEVEMENT_MIND_OVER_MATTER',
+        'VERIFY_USERNAME',
       ],
     };
   },
@@ -176,6 +185,16 @@ export default {
           },
           // Create a custom id for notifications outside user.notifications (must be unique)
           id: `custom-quest-invitation-${this.user.party._id}`,
+        });
+      }
+
+      if (this.user.flags.verifiedUsername !== true) {
+        notifications.push({
+          type: 'VERIFY_USERNAME',
+          data: {
+            username: this.user.auth.local.username,
+          },
+          id: 'custom-change-username',
         });
       }
 

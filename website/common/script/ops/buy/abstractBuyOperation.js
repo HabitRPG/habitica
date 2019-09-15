@@ -21,7 +21,37 @@ export class AbstractBuyOperation {
     let quantity = _get(req, 'quantity');
 
     this.quantity = quantity ? Number(quantity) : 1;
-    if (isNaN(this.quantity)) throw new BadRequest(this.i18n('invalidQuantity'));
+    if (this.quantity < 1 || !Number.isInteger(this.quantity)) throw new BadRequest(this.i18n('invalidQuantity'));
+  }
+
+  /**
+   * Returns the item value
+   * @param item
+   * @returns {number}
+   */
+  getItemValue (item) {
+    return item.value;
+  }
+
+  /**
+   * Returns the item key
+   * @param item
+   * @returns {String}
+   */
+  getItemKey (item) {
+    return item.key;
+  }
+
+  /**
+   * Returns the item type
+   * @param item
+   * @returns {String}
+   */
+  getItemType (item) {
+    if (!item.type)
+      throw new NotImplementedError('item doesn\'t have a type property');
+
+    return item.type;
   }
 
   /**
@@ -100,14 +130,6 @@ export class AbstractGoldItemOperation extends AbstractBuyOperation {
     super(user, req, analytics);
   }
 
-  getItemValue (item) {
-    return item.value;
-  }
-
-  getIemKey (item) {
-    return item.key;
-  }
-
   canUserPurchase (user, item) {
     this.item = item;
     let itemValue = this.getItemValue(item);
@@ -131,10 +153,44 @@ export class AbstractGoldItemOperation extends AbstractBuyOperation {
 
   analyticsData () {
     return {
-      itemKey: this.getIemKey(this.item),
-      itemType: 'Market',
+      itemKey: this.getItemKey(this.item),
+      itemType: this.getItemType(this.item),
       acquireMethod: 'Gold',
       goldCost: this.getItemValue(this.item),
+    };
+  }
+}
+
+export class AbstractGemItemOperation extends AbstractBuyOperation {
+  constructor (user, req, analytics) {
+    super(user, req, analytics);
+  }
+
+  canUserPurchase (user, item) {
+    this.item = item;
+    let itemValue = this.getItemValue(item);
+
+    if (!item.canBuy(user)) {
+      throw new NotAuthorized(this.i18n('messageNotAvailable'));
+    }
+
+    if (!user.balance || user.balance < itemValue * this.quantity) {
+      throw new NotAuthorized(this.i18n('notEnoughGems'));
+    }
+  }
+
+  subtractCurrency (user, item) {
+    let itemValue = this.getItemValue(item);
+
+    user.balance -= itemValue * this.quantity;
+  }
+
+  analyticsData () {
+    return {
+      itemKey: this.getItemKey(this.item),
+      itemType: this.getItemType(this.item),
+      acquireMethod: 'Gems',
+      gemCost: this.getItemValue(this.item) * 4,
     };
   }
 }

@@ -11,20 +11,20 @@
         span {{registering ? $t('signUpWithSocial', {social: 'Google'}) : $t('loginWithSocial', {social: 'Google'})}}
   .form-group(v-if='registering')
     label(for='usernameInput', v-once) {{$t('username')}}
-    input#usernameInput.form-control(type='text', :placeholder='$t("usernamePlaceholder")', v-model='username')
+    input#usernameInput.form-control(type='text', :placeholder='$t("usernamePlaceholder")', v-model='username', :class='{"input-valid": usernameValid, "input-invalid": usernameInvalid}')
   .form-group(v-if='!registering')
     label(for='usernameInput', v-once) {{$t('emailOrUsername')}}
     input#usernameInput.form-control(type='text', :placeholder='$t("emailOrUsername")', v-model='username')
   .form-group(v-if='registering')
     label(for='emailInput', v-once) {{$t('email')}}
-    input#emailInput.form-control(type='email', :placeholder='$t("emailPlaceholder")', v-model='email')
+    input#emailInput.form-control(type='email', :placeholder='$t("emailPlaceholder")', v-model='email', :class='{"input-invalid": emailInvalid, "input-valid": emailValid}')
   .form-group
     label(for='passwordInput', v-once) {{$t('password')}}
     a.float-right.forgot-password(v-once, v-if='!registering', @click='forgotPassword = true') {{$t('forgotPassword')}}
     input#passwordInput.form-control(type='password', :placeholder='$t(registering ? "passwordPlaceholder" : "password")', v-model='password')
   .form-group(v-if='registering')
     label(for='confirmPasswordInput', v-once) {{$t('confirmPassword')}}
-    input#confirmPasswordInput.form-control(type='password', :placeholder='$t("confirmPasswordPlaceholder")', v-model='passwordConfirm')
+    input#confirmPasswordInput.form-control(type='password', :placeholder='$t("confirmPasswordPlaceholder")', v-model='passwordConfirm', :class='{"input-invalid": passwordConfirmInvalid, "input-valid": passwordConfirmValid}')
     small.form-text(v-once, v-html="$t('termsAndAgreement')")
   .text-center
     .btn.btn-info(@click='register()', v-if='registering', v-once) {{$t('joinHabitica')}}
@@ -49,6 +49,8 @@
 
     .social-button {
       width: 100%;
+      height: 100%;
+      white-space: inherit;
       text-align: center;
 
       .text {
@@ -69,12 +71,18 @@
     small.form-text {
       text-align: center;
     }
+
+    .input-valid {
+      color: #fff;
+    }
   }
 </style>
 
 <script>
 import hello from 'hellojs';
 import { setUpAxios } from 'client/libs/auth';
+import debounce from 'lodash/debounce';
+import isEmail from 'validator/lib/isEmail';
 
 import facebookSquareIcon from 'assets/svg/facebook-square.svg';
 import googleIcon from 'assets/svg/google.svg';
@@ -88,6 +96,7 @@ export default {
       email: '',
       password: '',
       passwordConfirm: '',
+      usernameIssues: [],
     };
 
     data.icons = Object.freeze({
@@ -104,7 +113,50 @@ export default {
       google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
     });
   },
+  computed: {
+    emailValid () {
+      if (this.email.length <= 3) return false;
+      return isEmail(this.email);
+    },
+    emailInvalid () {
+      return !this.emailValid;
+    },
+    usernameValid () {
+      if (this.username.length < 1) return false;
+      return this.usernameIssues.length === 0;
+    },
+    usernameInvalid () {
+      return !this.usernameValid;
+    },
+    passwordConfirmValid () {
+      if (this.passwordConfirm.length <= 3) return false;
+      return this.passwordConfirm === this.password;
+    },
+    passwordConfirmInvalid () {
+      return !this.passwordConfirmValid;
+    },
+  },
+  watch: {
+    username () {
+      this.validateUsername(this.username);
+    },
+  },
   methods: {
+    // eslint-disable-next-line func-names
+    validateUsername: debounce(function (username) {
+      if (username.length < 1) {
+        return;
+      }
+      this.$store.dispatch('auth:verifyUsername', {
+        username: this.username,
+      }).then(res => {
+        if (res.issues !== undefined) {
+          this.usernameIssues = res.issues;
+        } else {
+          this.usernameIssues = [];
+        }
+      });
+    }, 500),
     // @TODO: Abstract hello in to action or lib
     async socialAuth (network) {
       try {
@@ -112,9 +164,10 @@ export default {
       } catch (e) {} // eslint-disable-line
 
       try {
+        const redirectUrl = `${window.location.protocol}//${window.location.host}`;
         let auth = await hello(network).login({
           scope: 'email',
-          redirect_uri: '', // eslint-disable-line camelcase
+          redirect_uri: redirectUrl, // eslint-disable-line camelcase
         });
 
         await this.$store.dispatch('auth:socialAuth', {

@@ -1,5 +1,5 @@
 {
-    "rebirthNew": "Rebirth: New Adventure Available!",
+    "rebirthNew": "Rebirth: New Nautical Adventure Available!",
     "rebirthUnlock": "Ye've unlocked Rebirth! 'tis special Market item allows ye t' begin a new game at level 1 while keepin' ye tasks, achievements, pets, 'n more. Use it t' breathe new life into Habitica if ye feel ye've achieved it all, or t' experience new weapons wit' th' fresh eyes 'o a beginnin' character!",
     "rebirthBegin": "Rebirth: Embark on a New Adventure",
     "rebirthStartOver": "Rebirth starts yer character over from Level 1.",
@@ -21,7 +21,7 @@
     "rebirthOrb": "Used an Orb o' Rebirth t' start o'er aft attainin' Level <%= level %>.",
     "rebirthOrb100": "Used an Orb o' Rebirth t' start over aft attainin' Level 100 or higher.",
     "rebirthOrbNoLevel": "Used an Orb o' Rebirth t' start o'er.",
-    "rebirthPop": "Instantly restart your character as a Level 1 Warrior while retaining achievements, collectibles, and equipment. Your tasks and their history will remain but they will be reset to yellow. Your streaks will be removed except from challenge tasks. Your Gold, Experience, Mana, and the effects of all Skills will be removed. All of this will take effect immediately. For more information, see the wiki's <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a> page.",
+    "rebirthPop": "Instantly restart yer character as a Level 1 Mercenary while retainin' achievements, treasures, 'n equipment. Yer tasks 'n their history will remain but they'll be reset t' yellow. Yer streaks will be cast overboard 'cept from challenge tasks. Yer Doubloons, Experience, Mana, an' the effects o' all Skills will be cast overboard. All o' this will take effect immediately. Fer more information, explore th' wiki's <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orb o' Rebirth</a> page.",
     "rebirthName": "Orb o' Rebirth",
     "reborn": "Reborn, max level <%= reLevel %>",
     "confirmReborn": "Be ye positive?",

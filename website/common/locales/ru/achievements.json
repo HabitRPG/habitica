@@ -1,8 +1,22 @@
 {
-  "share": "Поделиться",
-  "onwards": "Вперёд!",
-  "levelup": "Выполняя свои жизненные цели, вы повышаете уровень и полностью восстанавливаете здоровье!",
-  "reachedLevel": "Вы достигли <%= level %> уровня",
-  "achievementLostMasterclasser": "Квестовый перфекционист: Серия Ордена Мастеров",
-  "achievementLostMasterclasserText": "Выполните все 16 квестов из квестовой серии Ордена Мастеров и разгадайте тайну Последней из ордена Мастеров!"
+    "achievement": "Достижение",
+    "share": "Поделиться",
+    "onwards": "Вперёд!",
+    "levelup": "Выполняя свои жизненные цели, вы повышаете уровень и полностью восстанавливаете здоровье!",
+    "reachedLevel": "Вы достигли <%= level %> уровня",
+    "achievementLostMasterclasser": "Квестовый перфекционист: Серия Ордена Мастеров",
+    "achievementLostMasterclasserText": "Выполните все 16 квестов из квестовой серии Ордена Мастеров и разгадайте тайну Последней из ордена Мастеров!",
+    "achievementLostMasterclasserModalText": "Вы выполнили все 16 квестов из квестовой серии Ордена Мастеров и разгадали тайну Последней из ордена Мастеров!",
+    "achievementMindOverMatter": "Победа духа над телом",
+    "achievementMindOverMatterText": "Выполните квесты питомцев: Камня, Яйца, Зефирного слизня и Клубка пряжи.",
+    "achievementMindOverMatterModalText": "Вы выполнили квесты питомцев: Камня, Яйца, Зефирного слизня и Клубка пряжи!",
+    "achievementJustAddWater": "Просто добавь воды",
+    "achievementJustAddWaterText": "Выполните квесты питомцев: Осьминога, Морского конька, Кальмара, Кита, Морской черепахи, Морского слизня, Морского змея и Дельфина.",
+    "achievementJustAddWaterModalText": "Вы выполнили квесты питомцев: Осьминога, Морского конька, Кальмара, Кита, Морской черепахи, Морского слизня, Морского змея и Дельфина!",
+    "achievementBackToBasics": "Назад к основам",
+    "achievementBackToBasicsText": "Собраны все базовые питомцы.",
+    "achievementBackToBasicsModalText": "Вы собрали всех базовых питомцев!",
+    "achievementAllYourBase": "Основы",
+    "achievementAllYourBaseText": "Приручены все базовые скакуны.",
+    "achievementAllYourBaseModalText": "Вы приручили всех базовых скакунов!"
 }

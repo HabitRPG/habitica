@@ -15,7 +15,7 @@ describe('payments : paypal #checkout', () => {
     let checkoutStub;
 
     beforeEach(async () => {
-      checkoutStub = sinon.stub(paypalPayments, 'checkout').returnsPromise().resolves('/');
+      checkoutStub = sinon.stub(paypalPayments, 'checkout').resolves('/');
     });
 
     afterEach(() => {

@@ -11,17 +11,11 @@
 
 <script>
   import SecondaryMenu from 'client/components/secondaryMenu';
-  import notifications from 'client/mixins/notifications';
 
   export default {
-    mixins: [notifications],
     components: {
       SecondaryMenu,
     },
-    methods: {
-      showUnpinNotification (item) {
-        this.text(this.$t('unpinnedItem', {item: item.text}));
-      },
-    },
+    methods: {},
   };
 </script>

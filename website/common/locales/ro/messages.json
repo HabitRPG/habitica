@@ -38,12 +38,10 @@
     "messageInsufficientGems": "Nu ai destule nestemate!",
     "messageAuthPasswordMustMatch": ":password și :confirmPassword nu se potrivesc",
     "messageAuthCredentialsRequired": "sunt necesare :username, :email, :password și :confirmPassword",
-    "messageAuthUsernameTaken": "Login Name already taken",
     "messageAuthEmailTaken": "E-mailul este deja folosit",
     "messageAuthNoUserFound": "Niciun utilizator găsit",
     "messageAuthMustBeLoggedIn": "Trebuie să fii autentificat.",
     "messageAuthMustIncludeTokens": "Trebuie să incluzi un token și uid (ID utilizator) în cererea ta",
-    "messageGroupNotFound": "Grup negăsit sau nu ai acces.",
     "messageGroupAlreadyInParty": "Ești deja într-o ceată, reîmprospătează pagina.",
     "messageGroupOnlyLeaderCanUpdate": "Doar șeful de grup poate actualiza grupul!",
     "messageGroupRequiresInvite": "Nu te poți alătura unui grup în care nu ești invitat.",
@@ -62,5 +60,7 @@
     "messageNotAbleToBuyInBulk": "This item cannot be purchased in quantities above 1.",
     "notificationsRequired": "Notification ids are required.",
     "unallocatedStatsPoints": "You have <span class=\"notification-bold-blue\"><%= points %> unallocated Stat Points</span>",
-    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!"
+    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!",
+    "messageDeletedUser": "Sorry, this user has deleted their account.",
+    "messageMissingDisplayName": "Missing display name."
 }

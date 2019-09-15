@@ -25,7 +25,7 @@
           b-dropdown-item(@click="sortBy = 'AZ'", :active="sortBy === 'AZ'") {{ $t('AZ') }}
     div(
       v-for="group in groups",
-      v-if="group.selected",
+      v-if="!anyFilterSelected || group.selected",
       :key="group.key",
     )
       h2.mb-3
@@ -207,7 +207,7 @@ import startQuestModal from '../../groups/startQuestModal';
 import QuestInfo from '../../shops/quests/questInfo.vue';
 
 import { mapState } from 'client/libs/store';
-import createAnimal from 'client/libs/createAnimal';
+import { createAnimal } from 'client/libs/createAnimal';
 
 import notifications from 'client/mixins/notifications';
 import DragDropDirective from 'client/directives/dragdrop.directive';
@@ -225,7 +225,7 @@ const groups = [
   return {
     key: group,
     quantity: 0,
-    selected: true,
+    selected: false,
     classPrefix,
     allowedItems,
   };
@@ -340,6 +340,10 @@ export default {
 
       return itemsByType;
     },
+
+    anyFilterSelected () {
+      return this.groups.some(g => g.selected);
+    },
   },
   methods: {
     userHasPet (potionKey, eggKey) {
@@ -373,9 +377,12 @@ export default {
       if (potion === null || egg === null)
         return false;
 
-      let petKey = `${egg.key}-${potion.key}`;
+      const petKey = `${egg.key}-${potion.key}`;
 
-      if (!this.content.petInfo[petKey])
+      const petInfo = this.content.petInfo[petKey];
+
+      // Check pet exists and is hatchable
+      if (!petInfo || !petInfo.potion)
         return false;
 
       return !this.userHasPet(potion.key, egg.key);
@@ -405,6 +412,8 @@ export default {
         this.currentDraggingEgg = egg;
         this.eggClickMode = true;
 
+        // Wait for the div.eggInfo.mouse node to be added to the DOM before
+        // changing its position.
         this.$nextTick(() => {
           this.mouseMoved(lastMouseMoveEvent);
         });
@@ -427,6 +436,8 @@ export default {
         this.currentDraggingPotion = potion;
         this.potionClickMode = true;
 
+        // Wait for the div.hatchingPotionInfo.mouse node to be added to the
+        // DOM before changing its position.
         this.$nextTick(() => {
           this.mouseMoved(lastMouseMoveEvent);
         });
@@ -458,8 +469,6 @@ export default {
           let openedItem = result.data.data;
           let text = this.content.gear.flat[openedItem.key].text();
           this.drop(this.$t('messageDropMysteryItem', {dropText: text}), openedItem);
-          item.quantity--;
-          this.$forceUpdate();
         } else {
           this.$root.$emit('selectMembersModal::showItem', item);
         }
@@ -471,6 +480,11 @@ export default {
     },
 
     mouseMoved ($event) {
+      // Keep track of the last mouse position even in click mode so that we
+      // know where to position the dragged potion/egg info on item click.
+      lastMouseMoveEvent = $event;
+
+      // Update the potion/egg popover if we are already dragging it.
       if (this.potionClickMode) {
         // dragging potioninfo is 180px wide (90 would be centered)
         this.$refs.clickPotionInfo.style.left = `${$event.x - 60}px`;
@@ -479,8 +493,6 @@ export default {
         // dragging eggInfo is 180px wide (90 would be centered)
         this.$refs.clickEggInfo.style.left = `${$event.x - 60}px`;
         this.$refs.clickEggInfo.style.top = `${$event.y + 10}px`;
-      } else {
-        lastMouseMoveEvent = $event;
       }
     },
   },

@@ -1,4 +1,4 @@
-import {shallow} from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 
 import SidebarSection from 'client/components/sidebarSection.vue';
 
@@ -6,7 +6,7 @@ describe('Sidebar Section', () => {
   let wrapper;
 
   beforeEach(function () {
-    wrapper = shallow(SidebarSection, {
+    wrapper = mount(SidebarSection, {
       propsData: {
         title: 'Hello World',
       },
@@ -39,7 +39,7 @@ describe('Sidebar Section', () => {
   });
 
   it('can hide contents by default', () => {
-    wrapper = shallow(SidebarSection, {
+    wrapper = mount(SidebarSection, {
       propsData: {
         title: 'Hello World',
         show: false,

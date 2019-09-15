@@ -5,7 +5,9 @@ import {
   BadRequest,
   InternalServerError,
   NotFound,
+  NotificationNotFound,
 } from '../../../../website/server/libs/errors';
+import i18n from '../../../../website/common/script/i18n';
 
 describe('Custom Errors', () => {
   describe('CustomError', () => {
@@ -65,6 +67,23 @@ describe('Custom Errors', () => {
       let notAuthorizedError = new NotFound('Custom Error Message');
 
       expect(notAuthorizedError.message).to.eql('Custom Error Message');
+    });
+
+    describe('NotificationNotFound', () => {
+      it('is an instance of NotFound', () => {
+        const notificationNotFoundErr = new NotificationNotFound();
+        expect(notificationNotFoundErr).to.be.an.instanceOf(NotFound);
+      });
+
+      it('it returns an http code of 404', () => {
+        const notificationNotFoundErr = new NotificationNotFound();
+        expect(notificationNotFoundErr.httpCode).to.eql(404);
+      });
+
+      it('returns a standard message', () => {
+        const notificationNotFoundErr = new NotificationNotFound();
+        expect(notificationNotFoundErr.message).to.eql(i18n.t('messageNotificationNotFound'));
+      });
     });
   });
 

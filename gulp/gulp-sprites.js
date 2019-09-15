@@ -16,7 +16,7 @@ const IMG_DIST_PATH = 'website/client/assets/images/sprites/';
 const CSS_DIST_PATH = 'website/client/assets/css/sprites/';
 
 function checkForSpecialTreatment (name) {
-  let regex = /^hair|skin|beard|mustach|shirt|flower|^headAccessory_special_\w+Ears|^eyewear_special_\w+TopFrame/;
+  let regex = /^hair|skin|beard|mustach|shirt|flower|^headAccessory_special_\w+Ears|^eyewear_special_\w+TopFrame|^eyewear_special_\w+HalfMoon/;
   return name.match(regex) || name === 'head_0';
 }
 

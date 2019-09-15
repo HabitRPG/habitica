@@ -148,8 +148,13 @@ export default {
     };
   },
   mounted () {
-    let questKeys = Object.keys(this.user.items.quests);
-    this.selectedQuest = questKeys[0];
+    const userQuests = this.user.items.quests;
+    for (const key in userQuests) {
+      if (userQuests[key] > 0) {
+        this.selectedQuest = key;
+        break;
+      }
+    }
 
     this.$root.$on('selectQuest', this.selectQuest);
   },
@@ -177,13 +182,14 @@ export default {
       let groupId = this.group._id || this.user.party._id;
 
       const key = this.selectedQuest;
-      const response = await this.$store.dispatch('guilds:inviteToQuest', {groupId, key});
-      const quest = response.data.data;
+      try {
+        const response = await this.$store.dispatch('guilds:inviteToQuest', {groupId, key});
+        const quest = response.data.data;
 
-      if (this.$store.state.party.data) this.$store.state.party.data.quest = quest;
-
-      this.loading = false;
-
+        if (this.$store.state.party.data) this.$store.state.party.data.quest = quest;
+      } finally {
+        this.loading = false;
+      }
       this.$root.$emit('bv::hide::modal', 'start-quest-modal');
     },
   },

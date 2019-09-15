@@ -1,4 +1,3 @@
-import nodemailer from 'nodemailer';
 import nconf from 'nconf';
 import { TAVERN_ID } from '../models/group';
 import { encrypt } from './encryption';
@@ -8,33 +7,19 @@ import common from '../../common';
 
 const IS_PROD = nconf.get('IS_PROD');
 const EMAIL_SERVER = {
-  url: nconf.get('EMAIL_SERVER:url'),
+  url: nconf.get('EMAIL_SERVER_URL'),
   auth: {
-    user: nconf.get('EMAIL_SERVER:authUser'),
-    password: nconf.get('EMAIL_SERVER:authPassword'),
+    user: nconf.get('EMAIL_SERVER_AUTH_USER'),
+    password: nconf.get('EMAIL_SERVER_AUTH_PASSWORD'),
   },
 };
 const BASE_URL = nconf.get('BASE_URL');
-
-let smtpTransporter = nodemailer.createTransport({
-  service: nconf.get('SMTP_SERVICE'),
-  auth: {
-    user: nconf.get('SMTP_USER'),
-    pass: nconf.get('SMTP_PASS'),
-  },
-});
-
-// Send email directly from the server using the smtpTransporter,
-// used only to send password reset emails because users unsubscribed on Mandrill wouldn't get them
-export function send (mailData) {
-  return smtpTransporter.sendMail(mailData); // promise
-}
 
 export function getUserInfo (user, fields = []) {
   let info = {};
 
   if (fields.indexOf('name') !== -1) {
-    info.name = user.profile && user.profile.name;
+    info.name = user.auth && user.auth.local.username;
   }
 
   if (fields.indexOf('email') !== -1) {

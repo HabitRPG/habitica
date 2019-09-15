@@ -102,6 +102,8 @@ let bannedSlurs = [
   'fags',
   'faggot',
   'faggots',
+  'sodomite',
+  'sodomites',
   'whore',
   'whores',
   'cunt',

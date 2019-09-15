@@ -46,7 +46,7 @@ describe('POST /challenges/:challengeId/join', () => {
       await groupLeader.post(`/challenges/${challenge._id}/join`);
     });
 
-    it('returns an error when user doesn\'t have permissions to access the challenge', async () => {
+    it('returns an error when user isn\'t in the private group and isn\'t challenge leader', async () => {
       let unauthorizedUser = await generateUser();
 
       await expect(unauthorizedUser.post(`/challenges/${challenge._id}/join`)).to.eventually.be.rejected.and.eql({
@@ -54,6 +54,16 @@ describe('POST /challenges/:challengeId/join', () => {
         error: 'NotFound',
         message: t('challengeNotFound'),
       });
+    });
+
+    it('succeeds when user isn\'t in the private group but is challenge leader', async () => {
+      await groupLeader.post(`/challenges/${challenge._id}/leave`);
+      await groupLeader.post(`/groups/${group._id}/leave`);
+      await groupLeader.sync();
+      expect(groupLeader.guilds).to.be.empty; // check that leaving worked
+
+      let res = await groupLeader.post(`/challenges/${challenge._id}/join`);
+      expect(res.name).to.equal(challenge.name);
     });
 
     it('returns challenge data', async () => {
@@ -69,6 +79,14 @@ describe('POST /challenges/:challengeId/join', () => {
         _id: groupLeader._id,
         id: groupLeader._id,
         profile: {name: groupLeader.profile.name},
+        auth: {
+          local: {
+            username: groupLeader.auth.local.username,
+          },
+        },
+        flags: {
+          verifiedUsername: true,
+        },
       });
       expect(res.name).to.equal(challenge.name);
     });

@@ -40,7 +40,7 @@ export default {
     ...mapState({user: 'user.data', credentials: 'credentials'}),
     getCodesUrl () {
       if (!this.user) return '';
-      return `/api/v4/coupons?_id=${this.user._id}&apiToken=${this.credentials.API_TOKEN}`;
+      return '/api/v4/coupons';
     },
   },
   methods: {

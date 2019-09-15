@@ -54,7 +54,7 @@ describe('checkout with subscription', () => {
     token = 'test-token';
 
     spy = sinon.stub(stripe.subscriptions, 'update');
-    spy.returnsPromise().resolves;
+    spy.resolves;
 
     stripeCreateCustomerSpy = sinon.stub(stripe.customers, 'create');
     let stripCustomerResponse = {
@@ -63,10 +63,10 @@ describe('checkout with subscription', () => {
         data: [{id: subscriptionId}],
       },
     };
-    stripeCreateCustomerSpy.returnsPromise().resolves(stripCustomerResponse);
+    stripeCreateCustomerSpy.resolves(stripCustomerResponse);
 
     stripePaymentsCreateSubSpy = sinon.stub(payments, 'createSubscription');
-    stripePaymentsCreateSubSpy.returnsPromise().resolves({});
+    stripePaymentsCreateSubSpy.resolves({});
 
     data.groupId = group._id;
     data.sub.quantity = 3;

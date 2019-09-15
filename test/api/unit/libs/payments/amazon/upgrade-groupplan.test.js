@@ -37,7 +37,7 @@ describe('#upgradeGroupPlan', () => {
     await group.save();
 
     spy = sinon.stub(amzLib, 'authorizeOnBillingAgreement');
-    spy.returnsPromise().resolves([]);
+    spy.resolves([]);
 
     uuidString = 'uuid-v4';
     sinon.stub(uuid, 'v4').returns(uuidString);

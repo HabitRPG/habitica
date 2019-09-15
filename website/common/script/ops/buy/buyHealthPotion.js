@@ -46,10 +46,4 @@ export class BuyHealthPotionOperation extends AbstractGoldItemOperation {
       message,
     ];
   }
-
-  analyticsData () {
-    let data = super.analyticsData();
-    data.itemKey = 'Potion';
-    return data;
-  }
 }

@@ -1,9 +1,9 @@
 <template lang="pug">
 .row
-  challenge-modal(v-on:updatedChallenge='updatedChallenge')
+  challenge-modal(@updatedChallenge='updatedChallenge')
   leave-challenge-modal(:challengeId='challenge._id')
-  close-challenge-modal(:members='members', :challengeId='challenge._id')
-  challenge-member-progress-modal(:memberId='progressMemberId', :challengeId='challenge._id')
+  close-challenge-modal(:members='members', :challengeId='challenge._id', :prize='challenge.prize')
+  challenge-member-progress-modal(:challengeId='challenge._id')
   .col-12.col-md-8.standard-page
     .row
       .col-12.col-md-6
@@ -47,8 +47,8 @@
             @cancel="cancelTaskModal()",
             ref="taskModal",
             :challengeId="challengeId",
-            v-on:taskCreated='taskCreated',
-            v-on:taskEdited='taskEdited',
+            @taskCreated='taskCreated',
+            @taskEdited='taskEdited',
             @taskDestroyed='taskDestroyed'
           )
     .row
@@ -57,7 +57,9 @@
         :type="column",
         :key="column",
         :taskListOverride='tasksByType[column]',
-        v-on:editTask="editTask",
+        :showOptions="showOptions",
+        @editTask="editTask",
+        @taskDestroyed="taskDestroyed",
         v-if='tasksByType[column].length > 0')
   .col-12.col-md-4.sidebar.standard-page
     .button-container(v-if='canJoin')
@@ -231,7 +233,6 @@ export default {
       creatingTask: {},
       workingTask: {},
       taskFormPurpose: 'create',
-      progressMemberId: '',
       searchTerm: '',
       memberResults: [],
     };
@@ -250,6 +251,9 @@ export default {
     },
     canJoin () {
       return !this.isMember;
+    },
+    showOptions () {
+      return this.isLeader;
     },
   },
   mounted () {
@@ -318,7 +322,7 @@ export default {
     },
     createTask (type) {
       this.taskFormPurpose = 'create';
-      this.creatingTask = taskDefaults({type, text: ''});
+      this.creatingTask = taskDefaults({type, text: ''}, this.user);
       this.workingTask = this.creatingTask;
       // Necessary otherwise the first time the modal is not rendered
       Vue.nextTick(() => {
@@ -345,13 +349,14 @@ export default {
       this.tasksByType[task.type].splice(index, 1);
     },
     showMemberModal () {
-      this.$store.state.memberModalOptions.challengeId = this.challenge._id;
-      this.$store.state.memberModalOptions.groupId = 'challenge'; // @TODO: change these terrible settings
-      this.$store.state.memberModalOptions.group = this.group;
-      this.$store.state.memberModalOptions.memberCount = this.challenge.memberCount;
-      this.$store.state.memberModalOptions.viewingMembers = this.members;
-      this.$store.state.memberModalOptions.fetchMoreMembers = this.loadMembers;
-      this.$root.$emit('bv::show::modal', 'members-modal');
+      this.$root.$emit('habitica:show-member-modal', {
+        challengeId: this.challenge._id,
+        groupId: 'challenge', // @TODO: change these terrible settings
+        group: this.challenge.group,
+        memberCount: this.challenge.memberCount,
+        viewingMembers: this.members,
+        fetchMoreMembers: this.loadMembers,
+      });
     },
     async joinChallenge () {
       this.user.challenges.push(this.searchId);
@@ -374,8 +379,11 @@ export default {
       Object.assign(this.challenge, eventData.challenge);
     },
     openMemberProgressModal (member) {
-      this.progressMemberId = member._id;
-      this.$root.$emit('bv::show::modal', 'challenge-member-modal');
+      this.$root.$emit('habitica:challenge:member-progress', {
+        progressMemberId: member._id,
+        isLeader: this.isLeader,
+        isAdmin: this.isAdmin,
+      });
     },
     async exportChallengeCsv () {
       // let response = await this.$store.dispatch('challenges:exportChallengeCsv', {

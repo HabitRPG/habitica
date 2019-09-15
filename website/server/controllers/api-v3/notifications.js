@@ -1,6 +1,6 @@
 import { authWithHeaders } from '../../middlewares/auth';
 import {
-  NotFound,
+  NotificationNotFound,
 } from '../../libs/errors';
 import {
   model as User,
@@ -23,9 +23,7 @@ let api = {};
 api.readNotification = {
   method: 'POST',
   url: '/notifications/:notificationId/read',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -39,7 +37,7 @@ api.readNotification = {
     });
 
     if (index === -1) {
-      throw new NotFound(res.t('messageNotificationNotFound'));
+      throw new NotificationNotFound(req.language);
     }
 
     user.notifications.splice(index, 1);
@@ -67,9 +65,7 @@ api.readNotification = {
 api.readNotifications = {
   method: 'POST',
   url: '/notifications/read',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -85,7 +81,7 @@ api.readNotifications = {
       });
 
       if (index === -1) {
-        throw new NotFound(res.t('messageNotificationNotFound'));
+        throw new NotificationNotFound(req.language);
       }
 
       user.notifications.splice(index, 1);
@@ -117,9 +113,7 @@ api.readNotifications = {
 api.seeNotification = {
   method: 'POST',
   url: '/notifications/:notificationId/see',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -135,7 +129,7 @@ api.seeNotification = {
     });
 
     if (!notification) {
-      throw new NotFound(res.t('messageNotificationNotFound'));
+      throw new NotificationNotFound(req.language);
     }
 
     notification.seen = true;
@@ -168,9 +162,7 @@ api.seeNotification = {
 api.seeNotifications = {
   method: 'POST',
   url: '/notifications/see',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -187,7 +179,7 @@ api.seeNotifications = {
       });
 
       if (!notification) {
-        throw new NotFound(res.t('messageNotificationNotFound'));
+        throw new NotificationNotFound(req.language);
       }
 
       notification.seen = true;

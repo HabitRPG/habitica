@@ -1,8 +1,9 @@
 {
-  "share": "分享",
-  "onwards": "繼續！",
-  "levelup": "透過完成你在現實生活中的目標，你現在升級並完全恢復了！",
-  "reachedLevel": "你到達等級<%= level %>",
-  "achievementLostMasterclasser": "Quest Completionist: Masterclasser Series",
-  "achievementLostMasterclasserText": "Completed all sixteen quests in the Masterclasser Quest Series and solved the mystery of the Lost Masterclasser!"
+    "achievement": "成就",
+    "share": "分享",
+    "onwards": "繼續！",
+    "levelup": "藉由完成現實中的生活目標，你已經升級並完全回血了！",
+    "reachedLevel": "您已達到等級 <%= level %>",
+    "achievementLostMasterclasser": "副本終結者: 大師鑑別者系列",
+    "achievementLostMasterclasserText": "已完成大師鑑別者副本系列的 6 個副本，並解開了失傳的大師鑑別者的神秘面紗！"
 }

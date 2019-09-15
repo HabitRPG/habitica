@@ -58,6 +58,21 @@ describe('POST /user/class/cast/:spellId', () => {
       });
   });
 
+  it('returns an error if use Healing Light spell with full health', async () => {
+    await user.update({
+      'stats.class': 'healer',
+      'stats.lvl': 11,
+      'stats.hp': 50,
+      'stats.mp': 200,
+    });
+    await expect(user.post('/user/class/cast/heal'))
+      .to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('messageHealthAlreadyMax'),
+      });
+  });
+
   it('returns an error if spell.lvl > user.level', async () => {
     await user.update({'stats.mp': 200, 'stats.class': 'wizard'});
     await expect(user.post('/user/class/cast/earth'))

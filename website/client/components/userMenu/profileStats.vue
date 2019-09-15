@@ -18,7 +18,7 @@
               :placement="'bottom'",
               :preventOverflow="false",
             )
-              h4.gearTitle {{ getGearTitle(equippedItems[key]) }}
+              h4.popover-title-only {{ getGearTitle(equippedItems[key]) }}
               attributesGrid.attributesGrid(
                 :item="content.gear.flat[equippedItems[key]]",
                 :user="user"
@@ -49,7 +49,7 @@
               :placement="'bottom'",
               :preventOverflow="false",
             )
-              h4.gearTitle {{ getGearTitle(costumeItems[key]) }}
+              h4.popover-title-only {{ getGearTitle(costumeItems[key]) }}
               attributesGrid.attributesGrid(
                :item="content.gear.flat[costumeItems[key]]",
                :user="user"
@@ -99,7 +99,7 @@
             span.hint(:popover-title='$t(statInfo.title)', popover-placement='right',
               :popover='$t(statInfo.popover)', popover-trigger='mouseenter')
             .stat-title(:class='stat') {{ $t(statInfo.title) }}
-            strong.number {{ statsComputed[stat] | floorWholeNumber }}
+            strong.number {{totalStatPoints(stat) | floorWholeNumber}}
           .col-12.col-md-6
             ul.bonus-stats
               li
@@ -113,7 +113,7 @@
                 | {{statsComputed.classBonus[stat]}}
               li
                 strong {{$t('allocated')}}:
-                | {{user.stats[stat]}}
+                | {{totalAllocatedStats(stat)}}
               li
                 strong {{$t('buffs')}}:
                 | {{user.stats.buffs[stat]}}
@@ -122,9 +122,9 @@
         .col-12.col-md-6
           h3(v-if='userLevel100Plus', v-once, v-html="$t('noMoreAllocate')")
           h3
-            | {{$t('pointsAvailable')}}
-            .counter.badge(v-if='user.stats.points || userLevel100Plus')
-              | {{user.stats.points}}&nbsp;
+            | {{$t('statPoints')}}
+            .counter.badge.badge-pill(v-if='user.stats.points || userLevel100Plus')
+              | {{pointsRemaining}}
         .col-12.col-md-6
           .float-right
             toggle-switch(
@@ -135,16 +135,16 @@
       .row
         .col-12.col-md-3(v-for='(statInfo, stat) in allocateStatsList')
           .box.white.row.col-12
-            .col-12.col-md-9
+            .col-9
               div(:class='stat') {{ $t(stats[stat].title) }}
-              .number {{ user.stats[stat] }}
+              .number {{totalAllocatedStats(stat)}}
               .points {{$t('pts')}}
-            .col-12.col-md-3
+            .col-3
               div
-                .up(v-if='user.stats.points', @click='allocate(stat)')
+                .up(v-if='showStatsSave', @click='allocate(stat)')
               div
-                .down(@click='deallocate(stat)', v-if='user.stats.points')
-      .row.save-row
+                .down(v-if='showStatsSave', @click='deallocate(stat)')
+      .row.save-row(v-if='showStatsSave')
         .col-12.col-md-6.offset-md-3.text-center
           button.btn.btn-primary(@click='saveAttributes()', :disabled='loading') {{ this.loading ?  $t('loading') : $t('save') }}
 </template>
@@ -157,7 +157,7 @@
   import Content from '../../../common/script/content';
   import { beastMasterProgress, mountMasterProgress } from '../../../common/script/count';
   import autoAllocate from '../../../common/script/fns/autoAllocate';
-  import allocate from  '../../../common/script/ops/stats/allocate';
+  import allocateBulk from  '../../../common/script/ops/stats/allocateBulk';
   import statsComputed from  '../../../common/script/libs/statsComputed';
 
   import axios from 'axios';
@@ -238,10 +238,27 @@
       userLevel100Plus () {
         return this.user.stats.lvl >= 100;
       },
+      showStatsSave () {
+        return Boolean(this.user.stats.points);
+      },
+      pointsRemaining () {
+        let points = this.user.stats.points;
+        Object.values(this.statUpdates).forEach(value => {
+          points -= value;
+        });
+        return points;
+      },
+
     },
     methods: {
       getGearTitle (key) {
         return this.flatGear[key].text();
+      },
+      totalAllocatedStats (stat) {
+        return this.user.stats[stat] + this.statUpdates[stat];
+      },
+      totalStatPoints (stat) {
+        return this.statsComputed[stat] + this.statUpdates[stat];
       },
       totalCount (objectToCount) {
         let total = size(objectToCount);
@@ -288,14 +305,12 @@
         return display;
       },
       allocate (stat) {
-        allocate(this.user, {query: { stat }});
-        this.statUpdates[stat] += 1;
+        if (this.pointsRemaining === 0) return;
+        this.statUpdates[stat]++;
       },
       deallocate (stat) {
-        if (this.user.stats[stat] === 0) return;
-        this.user.stats[stat] -= 1;
-        this.user.stats.points += 1;
-        this.statUpdates[stat] -= 1;
+        if (this.statUpdates[stat] === 0) return;
+        this.statUpdates[stat]--;
       },
       async saveAttributes () {
         this.loading = true;
@@ -305,16 +320,19 @@
           if (this.statUpdates[stat] > 0) statUpdates[stat] = this.statUpdates[stat];
         });
 
-        await axios.post('/api/v4/user/allocate-bulk', {
-          stats: statUpdates,
-        });
-
+        // reset statUpdates to zero before request to avoid display errors while waiting for server
         this.statUpdates = {
           str: 0,
           int: 0,
           con: 0,
           per: 0,
         };
+
+        allocateBulk(this.user, { body: { stats: statUpdates } });
+
+        await axios.post('/api/v4/user/allocate-bulk', {
+          stats: statUpdates,
+        });
 
         this.loading = false;
       },
@@ -391,9 +409,6 @@
       color: #fff;
       background-color: #ff944c;
       box-shadow: 0 1px 1px 0 rgba(26, 24, 29, 0.12);
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
     }
 
     .box {

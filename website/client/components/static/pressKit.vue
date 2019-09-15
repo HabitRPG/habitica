@@ -17,15 +17,19 @@
             img.img-fluid.img-rendering-auto.press-img(:src="`/static/presskit/${category}/${secondaryCategory}/${img}`")
 
     h1 {{ $t('FAQ') }}
-    
     #faq(role='tablist')
-      div(v-for='(QA, index) in faq')
+      .faq-question(v-for='(QA, index) in faq')
         h2(v-b-toggle="QA.question", tabindex="0", role="button", v-html="$t(QA.question)")
         b-collapse(:id="QA.question", accordion="pkAccordian", role="tabpanel")
           p(v-html="$t(QA.answer)")
-    
     p {{ $t('pkMoreQuestions') }}
 </template>
+
+<style lang="scss" scoped>
+  .faq-question {
+    cursor: pointer;
+  }
+</style>
 
 <script>
   // @TODO: EMAILS.PRESS_ENQUIRY_EMAIL

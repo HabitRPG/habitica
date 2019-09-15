@@ -96,28 +96,25 @@ export default {
     };
   },
   created () {
-    this.$root.$on('habitica::report-chat', data => {
-      if (!data.message || !data.groupId) return;
-      this.abuseObject = data.message;
-      this.groupId = data.groupId;
-      this.$root.$emit('bv::show::modal', 'report-flag');
-    });
+    this.$root.$on('habitica::report-chat', this.handleReport);
   },
   destroyed () {
-    this.$root.$off('habitica::report-chat');
+    this.$root.$off('habitica::report-chat', this.handleReport);
   },
   methods: {
     close () {
       this.$root.$emit('bv::hide::modal', 'report-flag');
     },
     async reportAbuse () {
-      this.notify('Thank you for reporting this violation. The moderators have been notified.');
+      this.text(this.$t(this.groupId === 'privateMessage' ? 'pmReported' : 'abuseReported'));
 
-      await this.$store.dispatch('chat:flag', {
+      let result = await this.$store.dispatch('chat:flag', {
         groupId: this.groupId,
         chatId: this.abuseObject.id,
         comment: this.reportComment,
       });
+
+      this.$root.$emit('habitica:report-result', result);
 
       this.close();
     },
@@ -127,6 +124,13 @@ export default {
         chatId: this.abuseObject.id,
       });
       this.close();
+    },
+    handleReport (data) {
+      if (!data.message || !data.groupId) return;
+      this.abuseObject = data.message;
+      this.groupId = data.groupId;
+      this.reportComment = '';
+      this.$root.$emit('bv::show::modal', 'report-flag');
     },
   },
 };

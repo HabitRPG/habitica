@@ -4,23 +4,24 @@ import {
   translate as t,
 } from '../../../../helpers/api-integration/v3';
 import config from '../../../../../config.json';
+import moment from 'moment';
 import { v4 as generateUUID } from 'uuid';
 
 describe('POST /groups/:id/chat/:id/clearflags', () => {
+  const USER_AGE_FOR_FLAGGING = 3;
   let groupWithChat, message, author, nonAdmin, admin;
 
   before(async () => {
-    let { group, groupLeader, members } = await createAndPopulateGroup({
+    let { group, groupLeader } = await createAndPopulateGroup({
       groupDetails: {
         type: 'guild',
         privacy: 'public',
       },
-      members: 1,
     });
 
     groupWithChat = group;
     author = groupLeader;
-    nonAdmin = members[0];
+    nonAdmin = await generateUser({'auth.timestamps.created': moment().subtract(USER_AGE_FOR_FLAGGING + 1, 'days').toDate()});
     admin = await generateUser({'contributor.admin': true});
 
     message = await author.post(`/groups/${groupWithChat._id}/chat`, { message: 'Some message' });
@@ -69,9 +70,14 @@ describe('POST /groups/:id/chat/:id/clearflags', () => {
       privateMessage = privateMessage.message;
 
       await admin.post(`/groups/${group._id}/chat/${privateMessage.id}/flag`);
+
+      // first test that the flag was actually successful
+      let messages = await members[0].get(`/groups/${group._id}/chat`);
+      expect(messages[0].flagCount).to.eql(5);
+
       await admin.post(`/groups/${group._id}/chat/${privateMessage.id}/clearflags`);
 
-      let messages = await members[0].get(`/groups/${group._id}/chat`);
+      messages = await members[0].get(`/groups/${group._id}/chat`);
       expect(messages[0].flagCount).to.eql(0);
     });
 
@@ -100,7 +106,7 @@ describe('POST /groups/:id/chat/:id/clearflags', () => {
         .to.eventually.be.rejected.and.eql({
           code: 400,
           error: 'BadRequest',
-          message: t('messageCannotFlagSystemMessages', {communityManagerEmail: config.EMAILS.COMMUNITY_MANAGER_EMAIL}),
+          message: t('messageCannotFlagSystemMessages', {communityManagerEmail: config.EMAILS_COMMUNITY_MANAGER_EMAIL}),
         });
       // let messages = await members[0].get(`/groups/${group._id}/chat`);
       // expect(messages[0].id).to.eql(skillMsg.id);

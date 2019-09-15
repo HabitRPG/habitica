@@ -1,51 +1,105 @@
 <template lang="pug">
-.container
+.container-fluid(ref="container")
   .row
     .col-12
-      copy-as-todo-modal(:group-name='groupName', :group-id='groupId')
-      report-flag-modal
-  div(v-for="(msg, index) in messages", v-if='chat && canViewFlag(msg)')
-    // @TODO: is there a different way to do these conditionals? This creates an infinite loop
-    //.hr(v-if='displayDivider(msg)')
-      .hr-middle(v-once) {{ msg.timestamp }}
-    .row(v-if='user._id !== msg.uuid')
-      div(:class='inbox ? "col-4" : "col-2"')
-        avatar(
-          v-if='msg.userStyles || (cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected)',
-          :member="msg.userStyles || cachedProfileData[msg.uuid]",
-          :avatarOnly="true",
-          :hideClassBadge='true',
-          @click.native="showMemberModal(msg.uuid)",
-        )
-      .card(:class='inbox ? "col-8" : "col-10"')
+      copy-as-todo-modal(:group-type='groupType', :group-name='groupName', :group-id='groupId')
+  .row.loadmore
+    div(v-if="canLoadMore")
+      .loadmore-divider
+      button.btn.btn-secondary(@click='triggerLoad()') {{ $t('loadEarlierMessages') }}
+      .loadmore-divider
+    h2.col-12.loading(v-show="isLoading") {{ $t('loading') }}
+  div(v-for="(msg, index) in messages", v-if='chat && canViewFlag(msg)', :class='{row: inbox}')
+    .d-flex(v-if='user._id !== msg.uuid', :class='{"flex-grow-1": inbox}')
+      avatar.avatar-left(
+        v-if='msg.userStyles || (cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected)',
+        :member="msg.userStyles || cachedProfileData[msg.uuid]",
+        :avatarOnly="true",
+        :overrideTopPadding='"14px"',
+        :hideClassBadge='true',
+        @click.native="showMemberModal(msg.uuid)",
+        :class='{"inbox-avatar-left": inbox}'
+      )
+      .card(:class='{"col-10": inbox}')
         chat-card(
           :msg='msg',
           :inbox='inbox',
           :groupId='groupId',
           @message-liked='messageLiked',
           @message-removed='messageRemoved',
-          @show-member-modal='showMemberModal')
-    .row(v-if='user._id === msg.uuid')
-      .card(:class='inbox ? "col-8" : "col-10"')
+          @show-member-modal='showMemberModal',
+          @chat-card-mounted='itemWasMounted')
+    .d-flex(v-if='user._id === msg.uuid', :class='{"flex-grow-1": inbox}')
+      .card(:class='{"col-10": inbox}')
         chat-card(
           :msg='msg',
           :inbox='inbox',
           :groupId='groupId',
           @message-liked='messageLiked',
           @message-removed='messageRemoved',
-          @show-member-modal='showMemberModal')
-      div(:class='inbox ? "col-4" : "col-2"')
-        avatar(
-          v-if='msg.userStyles || (cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected)',
-          :member="msg.userStyles || cachedProfileData[msg.uuid]",
-          :avatarOnly="true",
-          :hideClassBadge='true',
-          @click.native="showMemberModal(msg.uuid)",
-        )
+          @show-member-modal='showMemberModal',
+          @chat-card-mounted='itemWasMounted')
+      avatar(
+        v-if='msg.userStyles || (cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected)',
+        :member="msg.userStyles || cachedProfileData[msg.uuid]",
+        :avatarOnly="true",
+        :hideClassBadge='true',
+        :overrideTopPadding='"14px"',
+        @click.native="showMemberModal(msg.uuid)",
+        :class='{"inbox-avatar-right": inbox}'
+      )
 </template>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
+
+  .avatar {
+    width: 10%;
+    min-width: 7rem;
+  }
+  .loadmore {
+    justify-content: center;
+
+    > div {
+      display: flex;
+      width: 100%;
+      align-items: center;
+
+      button {
+        text-align: center;
+        color: $gray-50;
+        margin-top: 12px;
+        margin-bottom: 24px;
+      }
+    }
+  }
+
+  .loadmore-divider {
+    height: 1px;
+    background-color: $gray-500;
+    flex: 1;
+    margin-left: 24px;
+    margin-right: 24px;
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
+
+  .avatar-left {
+    margin-left: -1.5rem;
+    margin-right: 2rem;
+  }
+
+  .inbox-avatar-left {
+    margin-left: -1rem;
+    margin-right: 2.5rem;
+    min-width: 5rem;
+  }
+
+  .inbox-avatar-right {
+    margin-left: -3.5rem;
+  }
 
   .hr {
     width: 100%;
@@ -70,8 +124,17 @@
   }
 
   .card {
+    border: 0px;
     margin-bottom: .5em;
+    padding: 0rem;
+    width: 90%;
   }
+
+  .message-scroll .d-flex {
+    min-width: 1px;
+  }
+
+
 </style>
 
 <script>
@@ -83,14 +146,24 @@ import findIndex from 'lodash/findIndex';
 
 import Avatar from '../avatar';
 import copyAsTodoModal from './copyAsTodoModal';
-import reportFlagModal from './reportFlagModal';
 import chatCard from './chatCard';
 
 export default {
-  props: ['chat', 'groupId', 'groupName', 'inbox'],
+  props: {
+    chat: {},
+    inbox: {
+      type: Boolean,
+      default: false,
+    },
+    groupType: {},
+    groupId: {},
+    groupName: {},
+
+    isLoading: Boolean,
+    canLoadMore: Boolean,
+  },
   components: {
     copyAsTodoModal,
-    reportFlagModal,
     chatCard,
     Avatar,
   },
@@ -110,6 +183,8 @@ export default {
       currentProfileLoadedCount: 0,
       currentProfileLoadedEnd: 10,
       loading: false,
+      handleScrollBack: false,
+      lastOffset: -1,
     };
   },
   computed: {
@@ -121,14 +196,23 @@ export default {
       return this.chat;
     },
   },
-  watch: {
-    messages () {
-      this.loadProfileCache();
-    },
-  },
   methods: {
     handleScroll () {
       this.loadProfileCache(window.scrollY / 1000);
+    },
+    async triggerLoad () {
+      const container = this.$refs.container;
+
+      // get current offset
+      this.lastOffset = container.scrollTop - (container.scrollHeight - container.clientHeight);
+      // disable scroll
+      container.style.overflowY = 'hidden';
+
+      const canLoadMore = this.inbox && !this.isLoading && this.canLoadMore;
+      if (canLoadMore) {
+        await this.$emit('triggerLoad');
+        this.handleScrollBack = true;
+      }
     },
     canViewFlag (message) {
       if (message.uuid === this.user._id) return true;
@@ -202,18 +286,38 @@ export default {
 
       if (!profile._id) {
         const result = await this.$store.dispatch('members:fetchMember', { memberId });
-        this.cachedProfileData[memberId] = result.data.data;
-        profile = result.data.data;
+        if (result.response && result.response.status === 404) {
+          return this.$store.dispatch('snackbars:add', {
+            title: 'Habitica',
+            text: this.$t('messageDeletedUser'),
+            type: 'error',
+            timeout: false,
+          });
+        } else {
+          this.cachedProfileData[memberId] = result.data.data;
+          profile = result.data.data;
+        }
       }
 
       // Open the modal only if the data is available
       if (profile && !profile.rejected) {
-        this.$root.$emit('habitica:show-profile', {
-          user: profile,
-          startingPage: 'profile',
-        });
+        this.$router.push({name: 'userProfile', params: {userId: profile._id}});
       }
     },
+    itemWasMounted: debounce(function itemWasMounted ()  {
+      if (this.handleScrollBack) {
+        this.handleScrollBack = false;
+
+        const container = this.$refs.container;
+        const offset = container.scrollHeight - container.clientHeight;
+
+        const newOffset = offset + this.lastOffset;
+
+        container.scrollTo(0, newOffset);
+        // enable scroll again
+        container.style.overflowY = 'scroll';
+      }
+    }, 50),
     messageLiked (message) {
       const chatIndex = findIndex(this.chat, chatMessage => {
         return chatMessage.id === message.id;
@@ -221,6 +325,11 @@ export default {
       this.chat.splice(chatIndex, 1, message);
     },
     messageRemoved (message) {
+      if (this.inbox) {
+        this.$emit('message-removed', message);
+        return;
+      }
+
       const chatIndex = findIndex(this.chat, chatMessage => {
         return chatMessage.id === message.id;
       });

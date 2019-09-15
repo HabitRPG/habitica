@@ -2,10 +2,10 @@
 div
   .item-wrapper(@click="click()", :id="itemId")
     .item.pet-slot(
-      :class="{'item-empty': emptyItem}",
+      :class="{'item-empty': !isOwned()}",
     )
       slot(name="itemBadge", :item="item")
-      span.item-content(:class="itemContentClass")
+      span.item-content(:class="itemClass()")
   b-popover(
     :target="itemId",
     v-if="showPopover",
@@ -17,18 +17,13 @@ div
 
 <script>
   import uuid from 'uuid';
+  import { mapState } from 'client/libs/store';
+  import {isOwned} from '../../../libs/createAnimal';
 
   export default {
     props: {
       item: {
         type: Object,
-      },
-      itemContentClass: {
-        type: String,
-      },
-      emptyItem: {
-        type: Boolean,
-        default: false,
       },
       popoverPosition: {
         type: String,
@@ -44,9 +39,20 @@ div
         itemId: uuid.v4(),
       });
     },
+    computed: {
+      ...mapState({
+        userItems: 'user.data.items',
+      }),
+    },
     methods: {
       click () {
         this.$emit('click', {});
+      },
+      isOwned () {
+        return isOwned('mount', this.item, this.userItems);
+      },
+      itemClass () {
+        return this.isOwned() ? `Mount_Icon_${this.item.key}` : 'PixelPaw GreyedOut';
       },
     },
   };

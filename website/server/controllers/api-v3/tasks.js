@@ -5,6 +5,7 @@ import {
 } from '../../libs/webhook';
 import { removeFromArray } from '../../libs/collectionManipulators';
 import * as Tasks from '../../models/task';
+import { handleSharedCompletion } from '../../libs/groupTasks';
 import { model as Challenge } from '../../models/challenge';
 import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
@@ -157,9 +158,7 @@ let requiredGroupFields = '_id leader tasksOrder name';
 api.createUserTasks = {
   method: 'POST',
   url: '/tasks/user',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let tasks = await createTasks(req, res, {user});
@@ -174,6 +173,7 @@ api.createUserTasks = {
           hitType: 'event',
           category: 'behavior',
           taskType: task.type,
+          headers: req.headers,
         });
       }
 
@@ -230,9 +230,7 @@ api.createUserTasks = {
 api.createChallengeTasks = {
   method: 'POST',
   url: '/tasks/challenge/:challengeId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
 
@@ -246,7 +244,7 @@ api.createChallengeTasks = {
 
     // If the challenge does not exist, or if it exists but user is not the leader -> throw error
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-    if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
+    if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
 
     let tasks = await createTasks(req, res, {user, challenge});
 
@@ -273,7 +271,7 @@ api.createChallengeTasks = {
  * @apiGroup Task
  *
  * @apiParam (Query) {String="habits","dailys","todos","rewards","completedTodos"} type Optional query parameter to return just a type of tasks. By default all types will be returned except completed todos that must be requested separately. The "completedTodos" type returns only the 30 most recently completed.
- * @apiParam (Query) [dueDate]
+ * @apiParam (Query) [dueDate] type Optional date to use for computing the nextDue field for each returned task.
  *
  * @apiSuccess {Array} data An array of tasks
  *
@@ -287,7 +285,8 @@ api.getUserTasks = {
   method: 'GET',
   url: '/tasks/user',
   middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
+    // Some fields (including _id, preferences) are always loaded (see middlewares/auth)
+    userFieldsToInclude: ['tasksOrder'],
   })],
   async handler (req, res) {
     let types = Tasks.tasksTypes.map(type => `${type}s`);
@@ -297,10 +296,10 @@ api.getUserTasks = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let user = res.locals.user;
-    let dueDate = req.query.dueDate;
+    const user = res.locals.user;
+    const dueDate = req.query.dueDate;
 
-    let tasks = await getTasks(req, res, {user, dueDate});
+    const tasks = await getTasks(req, res, { user, dueDate });
     return res.respond(200, tasks);
   },
 };
@@ -326,9 +325,7 @@ api.getUserTasks = {
 api.getChallengeTasks = {
   method: 'GET',
   url: '/tasks/challenge/:challengeId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
     let types = Tasks.tasksTypes.map(type => `${type}s`);
@@ -378,9 +375,7 @@ api.getChallengeTasks = {
 api.getTask = {
   method: 'GET',
   url: '/tasks/:taskId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let taskId = req.params.taskId;
@@ -434,9 +429,7 @@ api.getTask = {
 api.updateTask = {
   method: 'PUT',
   url: '/tasks/:taskId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let challenge;
@@ -461,7 +454,7 @@ api.updateTask = {
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-      if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
+      if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
     } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
       throw new NotFound(res.t('taskNotFound'));
     }
@@ -489,6 +482,9 @@ api.updateTask = {
     task.group.approval.required = false;
     if (sanitizedObj.requiresApproval) {
       task.group.approval.required = true;
+    }
+    if (sanitizedObj.sharedCompletion) {
+      task.group.sharedCompletion = sanitizedObj.sharedCompletion;
     }
 
     setNextDue(task, user);
@@ -547,9 +543,7 @@ api.updateTask = {
 api.scoreTask = {
   method: 'POST',
   url: '/tasks/:taskId/score/:direction',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('direction', res.t('directionUpDown')).notEmpty().isIn(['up', 'down']);
 
@@ -598,7 +592,7 @@ api.scoreTask = {
           groupId: group._id,
           taskId: task._id, // user task id, used to match the notification when the task is approved
           userId: user._id,
-          groupTaskId: task.group.id, // the original task id
+          groupTaskId: task.group.taskId, // the original task id
           direction,
         });
         managerPromises.push(manager.save());
@@ -637,22 +631,28 @@ api.scoreTask = {
 
     setNextDue(task, user);
 
-    if (user._ABtests && user._ABtests.guildReminder && user._ABtests.counter !== -1) {
-      user._ABtests.counter++;
-      if (user._ABtests.counter > 1) {
-        if (user._ABtests.guildReminder.indexOf('timing1') !== -1 || user._ABtests.counter > 4) {
-          user._ABtests.counter = -1;
-          let textVariant = user._ABtests.guildReminder.indexOf('text2');
-          user.addNotification('GUILD_PROMPT', {textVariant});
-        }
-      }
-      user.markModified('_ABtests');
-    }
-
     let promises = [
       user.save(),
       task.save(),
     ];
+
+    if (task.group && task.group.taskId) {
+      await handleSharedCompletion(task);
+      try {
+        const groupTask = await Tasks.Task.findOne({
+          _id: task.group.taskId,
+        }).exec();
+
+        if (groupTask) {
+          const groupDelta = groupTask.group.assignedUsers ? delta / groupTask.group.assignedUsers.length : delta;
+          await groupTask.scoreChallengeTask(groupDelta, direction);
+        }
+      } catch (e) {
+        logger.error(e);
+      }
+    }
+
+    // Save results and handle request
     if (taskOrderPromise) promises.push(taskOrderPromise);
     let results = await Promise.all(promises);
 
@@ -692,6 +692,7 @@ api.scoreTask = {
         category: 'behavior',
         taskType: task.type,
         direction,
+        headers: req.headers,
       });
     }
   },
@@ -716,9 +717,7 @@ api.scoreTask = {
 api.moveTask = {
   method: 'POST',
   url: '/tasks/:taskId/move/to/:position',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
     req.checkParams('position', res.t('positionRequired')).notEmpty().isNumeric();
@@ -787,9 +786,7 @@ api.moveTask = {
 api.addChecklistItem = {
   method: 'POST',
   url: '/tasks/:taskId/checklist',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let challenge;
@@ -812,7 +809,7 @@ api.addChecklistItem = {
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-      if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
+      if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
     } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
       throw new NotFound(res.t('taskNotFound'));
     }
@@ -849,9 +846,7 @@ api.addChecklistItem = {
 api.scoreCheckListItem = {
   method: 'POST',
   url: '/tasks/:taskId/checklist/:itemId/score',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -905,9 +900,7 @@ api.scoreCheckListItem = {
 api.updateChecklistItem = {
   method: 'PUT',
   url: '/tasks/:taskId/checklist/:itemId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let challenge;
@@ -932,7 +925,7 @@ api.updateChecklistItem = {
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-      if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
+      if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
     } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
       throw new NotFound(res.t('taskNotFound'));
     }
@@ -972,9 +965,7 @@ api.updateChecklistItem = {
 api.removeChecklistItem = {
   method: 'DELETE',
   url: '/tasks/:taskId/checklist/:itemId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let challenge;
@@ -999,7 +990,7 @@ api.removeChecklistItem = {
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-      if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
+      if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
     } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
       throw new NotFound(res.t('taskNotFound'));
     }
@@ -1037,9 +1028,7 @@ api.removeChecklistItem = {
 api.addTagToTask = {
   method: 'POST',
   url: '/tasks/:taskId/tags/:tagId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -1088,9 +1077,7 @@ api.addTagToTask = {
 api.removeTagFromTask = {
   method: 'DELETE',
   url: '/tasks/:taskId/tags/:tagId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -1135,9 +1122,7 @@ api.removeTagFromTask = {
 api.unlinkAllTasks = {
   method: 'POST',
   url: '/tasks/unlink-all/:challengeId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
     req.checkQuery('keep', apiError('keepOrRemoveAll')).notEmpty().isIn(['keep-all', 'remove-all']);
@@ -1204,9 +1189,7 @@ api.unlinkAllTasks = {
 api.unlinkOneTask = {
   method: 'POST',
   url: '/tasks/unlink-one/:taskId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('taskId', apiError('taskIdRequired')).notEmpty().isUUID();
     req.checkQuery('keep', apiError('keepOrRemove')).notEmpty().isIn(['keep', 'remove']);
@@ -1256,9 +1239,7 @@ api.unlinkOneTask = {
 api.clearCompletedTodos = {
   method: 'POST',
   url: '/tasks/clearCompletedTodos',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -1309,9 +1290,7 @@ api.clearCompletedTodos = {
 api.deleteTask = {
   method: 'DELETE',
   url: '/tasks/:taskId',
-  middlewares: [authWithHeaders({
-    userFieldsToExclude: ['inbox'],
-  })],
+  middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
     let challenge;
@@ -1331,7 +1310,7 @@ api.deleteTask = {
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-      if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
+      if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
     } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
       throw new NotFound(res.t('taskNotFound'));
     } else if (task.userId && task.challenge.id && !task.challenge.broken) {

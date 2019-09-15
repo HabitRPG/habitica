@@ -17,7 +17,7 @@ div
     triggers="hover",
     placement="top",
   )
-    h4.popover-content-title {{ item.text() }}
+    h4.popover-content-title {{ itemName || item.text() }}
     div.popover-content-text(v-html="item.notes()")
 </template>
 
@@ -43,6 +43,9 @@ export default {
       type: Number,
     },
     itemContentClass: {
+      type: String,
+    },
+    itemName: {
       type: String,
     },
     active: {

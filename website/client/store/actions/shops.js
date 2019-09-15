@@ -20,9 +20,6 @@ function buyItem (store, params) {
 
   let opResult = buyOp(user, {params, quantity});
 
-  user.pinnedItems = opResult[0].pinnedItems;
-
-
   return {
     result: opResult,
     httpCall: axios.post(`/api/v4/user/buy/${params.key}`),
@@ -64,6 +61,12 @@ async function buyArmoire (store, params) {
     if (item.type === 'gear') {
       store.state.user.data.items.gear.owned[item.dropKey] = true;
     }
+
+    if (item.type === 'food') {
+      if (!store.state.user.data.items.food[item.dropKey]) store.state.user.data.items.food[item.dropKey] = 0;
+      store.state.user.data.items.food[item.dropKey] += 1;
+    }
+
     store.state.user.data.stats.gp -= armoire.value;
 
     // @TODO: We might need to abstract notifications to library rather than mixin
@@ -109,12 +112,13 @@ export function purchaseMysterySet (store, params) {
 }
 
 export function purchaseHourglassItem (store, params) {
+  const quantity = params.quantity || 1;
   const user = store.state.user.data;
-  let opResult = hourglassPurchaseOp(user, {params});
+  let opResult = hourglassPurchaseOp(user, {params, quantity});
 
   return {
     result: opResult,
-    httpCall: axios.post(`/api/v4/user/purchase-hourglass/${params.type}/${params.key}`),
+    httpCall: axios.post(`/api/v4/user/purchase-hourglass/${params.type}/${params.key}`, {quantity}),
   };
 }
 

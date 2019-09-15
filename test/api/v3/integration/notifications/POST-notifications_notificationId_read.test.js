@@ -16,7 +16,7 @@ describe('POST /notifications/:notificationId/read', () => {
 
     await expect(user.post(`/notifications/${dummyId}/read`)).to.eventually.be.rejected.and.eql({
       code: 404,
-      error: 'NotFound',
+      error: 'NotificationNotFound',
       message: t('messageNotificationNotFound'),
     });
   });

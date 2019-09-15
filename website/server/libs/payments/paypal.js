@@ -28,16 +28,16 @@ const i18n = shared.i18n;
 // a web interface for billing-plan creation), see ./paypalBillingSetup.js for how. After the billing plan is created
 // there, get it's plan.id and store it in config.json
 _.each(shared.content.subscriptionBlocks, (block) => {
-  block.paypalKey = nconf.get(`PAYPAL:billing_plans:${block.key}`);
+  block.paypalKey = nconf.get(`PAYPAL_BILLING_PLANS_${block.key}`);
 });
 
 paypal.configure({
-  mode: nconf.get('PAYPAL:mode'), // sandbox or live
-  client_id: nconf.get('PAYPAL:client_id'),
-  client_secret: nconf.get('PAYPAL:client_secret'),
+  mode: nconf.get('PAYPAL_MODE'), // sandbox or live
+  client_id: nconf.get('PAYPAL_CLIENT_ID'),
+  client_secret: nconf.get('PAYPAL_CLIENT_SECRET'),
 });
 
-let experienceProfileId = nconf.get('PAYPAL:experience_profile_id');
+let experienceProfileId = nconf.get('PAYPAL_EXPERIENCE_PROFILE_ID');
 
 // TODO better handling of errors
 // @TODO: Create constants
@@ -257,12 +257,18 @@ api.ipn = async function ipnApi (options = {}) {
     'recurring_payment_failed',
     'recurring_payment_expired',
     'subscr_cancel',
-    'subscr_failed'];
+    'subscr_failed',
+  ];
 
   if (ipnAcceptableTypes.indexOf(txn_type) === -1) return;
+
   // @TODO: Should this request billing date?
   let user = await User.findOne({ 'purchased.plan.customerId': recurring_payment_id }).exec();
   if (user) {
+    // If the user has already cancelled the subscription, return
+    // Otherwise the subscription would be cancelled twice resulting in the loss of subscription credits
+    if (user.hasCancelled()) return;
+
     await payments.cancelSubscription({ user, paymentMethod: this.constants.PAYMENT_METHOD });
     return;
   }
@@ -274,6 +280,10 @@ api.ipn = async function ipnApi (options = {}) {
     .exec();
 
   if (group) {
+    // If the group subscription has already been cancelled the subscription, return
+    // Otherwise the subscription would be cancelled twice resulting in the loss of subscription credits
+    if (group.hasCancelled()) return;
+
     await payments.cancelSubscription({ groupId: group._id, paymentMethod: this.constants.PAYMENT_METHOD });
   }
 };

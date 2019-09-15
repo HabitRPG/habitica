@@ -38,12 +38,10 @@
     "messageInsufficientGems": "Nemáš dostatok drahokamov!",
     "messageAuthPasswordMustMatch": ":heslo a :potvrďHeslo sa nezhodujú",
     "messageAuthCredentialsRequired": ":používateľskéMeno, :email, :heslo, :potvrďHeslo sú požadované",
-    "messageAuthUsernameTaken": "Login Name already taken",
     "messageAuthEmailTaken": "Email je už obsadený",
     "messageAuthNoUserFound": "Používateľ sa nenašiel.",
     "messageAuthMustBeLoggedIn": "Musíš byť prihlásený/á.",
     "messageAuthMustIncludeTokens": "Tvoja požiadavka musí obsahovať token a uid (id užívateľa)",
-    "messageGroupNotFound": "Skupina sa nenašla alebo k nej nemáš prístup.",
     "messageGroupAlreadyInParty": "Už si v družine. Skús obnoviť stránku.",
     "messageGroupOnlyLeaderCanUpdate": "Len vedúci skupiny môže aktualizovať skupinu!",
     "messageGroupRequiresInvite": "Nemôžeš sa pridať ku skupine, do ktorej nie si pozvaný.",
@@ -62,5 +60,7 @@
     "messageNotAbleToBuyInBulk": "This item cannot be purchased in quantities above 1.",
     "notificationsRequired": "Notification ids are required.",
     "unallocatedStatsPoints": "You have <span class=\"notification-bold-blue\"><%= points %> unallocated Stat Points</span>",
-    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!"
+    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!",
+    "messageDeletedUser": "Sorry, this user has deleted their account.",
+    "messageMissingDisplayName": "Missing display name."
 }

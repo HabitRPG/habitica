@@ -16,3 +16,9 @@ export function translate (key, variables, language) {
 
   return translatedString;
 }
+
+export function translationCheck (translatedString) {
+  expect(translatedString).to.not.be.empty;
+  expect(translatedString).to.not.eql(STRING_ERROR_MSG);
+  expect(translatedString).to.not.match(STRING_DOES_NOT_EXIST_MSG);
+}

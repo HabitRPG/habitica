@@ -1,5 +1,8 @@
 <template lang="pug">
   b-modal#challenge-member-modal(title="User Progress", size='lg')
+    .row.award-row(v-if='isLeader || isAdmin')
+      .col-12.text-center
+        button.btn.btn-primary(v-once, @click='closeChallenge()') {{ $t('awardWinners') }}
     .row
       task-column.col-6(
         v-for="column in columns",
@@ -8,12 +11,19 @@
         :taskListOverride='tasksByType[column]')
 </template>
 
+<style scoped>
+  .award-row {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+</style>
+
 <script>
 import axios from 'axios';
 import Column from '../tasks/column';
 
 export default {
-  props: ['challengeId', 'memberId'],
+  props: ['challengeId'],
   components: {
     TaskColumn: Column,
   },
@@ -26,7 +36,22 @@ export default {
         todo: [],
         reward: [],
       },
+      memberId: '',
+      isLeader: false,
+      isAdmin: false,
     };
+  },
+  mounted () {
+    this.$root.$on('habitica:challenge:member-progress', (data) => {
+      if (!data.progressMemberId) return;
+      this.memberId = data.progressMemberId;
+      this.isLeader = data.isLeader;
+      this.isAdmin = data.isAdmin;
+      this.$root.$emit('bv::show::modal', 'challenge-member-modal');
+    });
+  },
+  beforeDestroy () {
+    this.$root.$off('habitica:challenge:member-progress');
   },
   watch: {
     async memberId (id) {
@@ -43,6 +68,15 @@ export default {
       tasks.forEach((task) => {
         this.tasksByType[task.type].push(task);
       });
+    },
+  },
+  methods: {
+    async closeChallenge () {
+      this.challenge = await this.$store.dispatch('challenges:selectChallengeWinner', {
+        challengeId: this.challengeId,
+        winnerId: this.memberId,
+      });
+      this.$router.push('/challenges/myChallenges');
     },
   },
 };

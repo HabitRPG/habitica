@@ -33,6 +33,10 @@ export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation {
     return item.goldValue;
   }
 
+  getItemType () {
+    return 'quest';
+  }
+
   extractAndValidateParams (user, req) {
     let key = this.key = get(req, 'params.key');
     if (!key) throw new BadRequest(errorMessage('missingKeyParam'));
@@ -62,8 +66,9 @@ export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation {
   }
 
   executeChanges (user, item, req) {
-    user.items.quests[item.key] = user.items.quests[item.key] || 0;
+    if (!user.items.quests[item.key] || user.items.quests[item.key] < 0) user.items.quests[item.key] = 0;
     user.items.quests[item.key] += this.quantity;
+    if (user.markModified) user.markModified('items.quests');
 
     this.subtractCurrency(user, item, this.quantity);
 

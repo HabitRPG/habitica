@@ -74,7 +74,7 @@ div
 import memberSearchDropdown from 'client/components/members/memberSearchDropdown';
 
 export default {
-  props: ['challengeId', 'members'],
+  props: ['challengeId', 'members', 'prize'],
   components: {
     memberSearchDropdown,
   },
@@ -102,7 +102,10 @@ export default {
     },
     async deleteChallenge () {
       if (!confirm('Are you sure you want to delete this challenge?')) return;
-      this.challenge = await this.$store.dispatch('challenges:deleteChallenge', {challengeId: this.challengeId});
+      this.challenge = await this.$store.dispatch('challenges:deleteChallenge', {
+        challengeId: this.challengeId,
+        prize: this.prize,
+      });
       this.$router.push('/challenges/myChallenges');
     },
   },

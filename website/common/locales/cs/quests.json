@@ -98,6 +98,7 @@
     "guildQuestsNotSupported": "Cechy nelze pozvat na výpravy.",
     "questNotOwned": "Nevlastníte tento svitek výpravy.",
     "questNotGoldPurchasable": "Výpravu „<%= key %>\" nelze koupit na zlato.",
+    "questNotGemPurchasable": "Quest \"<%= key %>\" is not a Gem-purchasable quest.",
     "questLevelTooHigh": "Pro začátek výpravy musíte mít úroveň <%= level %>.",
     "questAlreadyUnderway": "Vaše družina se již účastní výpravy. Až dokončíte současnou výpravu zkuste to znova.",
     "questAlreadyAccepted": "Již jsi přijal pozvánku na výpravu.",

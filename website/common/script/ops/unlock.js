@@ -73,6 +73,9 @@ module.exports = function unlock (user, req = {}, analytics) {
       if (path.indexOf('gear.') !== -1) {
         // Using Object so path[1] won't create an array but an object {path: {1: value}}
         setWith(user, pathPart, true, Object);
+        let itemName = pathPart.split('.').pop();
+        removeItemByPath(user, `gear.flat.${itemName}`);
+        if (user.markModified && path.indexOf('gear.owned') !== -1) user.markModified('items.gear.owned');
       }
 
       // Using Object so path[1] won't create an array but an object {path: {1: value}}
@@ -94,6 +97,7 @@ module.exports = function unlock (user, req = {}, analytics) {
       if (path.indexOf('gear.') !== -1) {
         // Using Object so path[1] won't create an array but an object {path: {1: value}}
         setWith(user, path, true, Object);
+        if (user.markModified && path.indexOf('gear.owned') !== -1) user.markModified('items.gear.owned');
       }
       // Using Object so path[1] won't create an array but an object {path: {1: value}}
       setWith(user, `purchased.${path}`, true, Object);

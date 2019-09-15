@@ -178,4 +178,12 @@ describe('taskManager', () => {
 
     expect(order).to.eql(['task-id-2', 'task-id-1']);
   });
+
+  it('moves tasks to a specified position out of length', async () => {
+    let order = ['task-id-1'];
+
+    moveTask(order, 'task-id-2', 2);
+
+    expect(order).to.eql(['task-id-1', 'task-id-2']);
+  });
 });

@@ -82,12 +82,12 @@ describe('cancel subscription', () => {
 
     beforeEach(() => {
       subscriptionId = 'subId';
-      stripeDeleteCustomerStub = sinon.stub(stripe.customers, 'del').returnsPromise().resolves({});
-      paymentsCancelSubStub = sinon.stub(payments, 'cancelSubscription').returnsPromise().resolves({});
+      stripeDeleteCustomerStub = sinon.stub(stripe.customers, 'del').resolves({});
+      paymentsCancelSubStub = sinon.stub(payments, 'cancelSubscription').resolves({});
 
       currentPeriodEndTimeStamp = (new Date()).getTime();
       stripeRetrieveStub = sinon.stub(stripe.customers, 'retrieve')
-        .returnsPromise().resolves({
+        .resolves({
           subscriptions: {
             data: [{id: subscriptionId, current_period_end: currentPeriodEndTimeStamp}], // eslint-disable-line camelcase
           },

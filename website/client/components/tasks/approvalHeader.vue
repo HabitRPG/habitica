@@ -27,9 +27,9 @@ export default {
       let userIsRequesting = this.task.group.approvals && this.task.group.approvals.indexOf(this.user._id) !== -1;
 
       if (approvalsLength === 1 && !userIsRequesting) {
-        return this.$t('youAreRequestingApproval', {userName: approvals[0].userId.profile.name});
+        return this.$t('userRequestsApproval', {userName: approvals[0].userId.profile.name});
       } else if (approvalsLength > 1 && !userIsRequesting) {
-        return this.$t('youAreRequestingApproval', {userCount: approvalsLength});
+        return this.$t('userCountRequestsApproval', {userCount: approvalsLength});
       } else if (approvalsLength === 1 && userIsRequesting) {
         return this.$t('youAreRequestingApproval');
       }

@@ -38,12 +38,10 @@
     "messageInsufficientGems": "Niet genoeg edelstenen!",
     "messageAuthPasswordMustMatch": ":password en :confirmPassword komen niet overeen",
     "messageAuthCredentialsRequired": ":username, :email, :password, :confirmPassword required",
-    "messageAuthUsernameTaken": "Loginnaam al bezet",
     "messageAuthEmailTaken": "E-mailadres al in gebruik",
     "messageAuthNoUserFound": "Geen gebruiker gevonden.",
     "messageAuthMustBeLoggedIn": "Je moet ingelogd zijn.",
     "messageAuthMustIncludeTokens": "Je moet een token en gid (gebruikers-ID) bijvoegen in je verzoek",
-    "messageGroupNotFound": "Groep niet gevonden of je hebt geen toegang.",
     "messageGroupAlreadyInParty": "Zit al in een gezelschap, probeer te verversen.",
     "messageGroupOnlyLeaderCanUpdate": "Alleen de groepsleider kan de groep updaten!",
     "messageGroupRequiresInvite": "Je kunt je niet aansluiten bij een groep waar je niet voor bent uitgenodigd.",
@@ -62,5 +60,7 @@
     "messageNotAbleToBuyInBulk": "Dit voorwerp kan niet worden gekocht in hoeveelheden boven 1.",
     "notificationsRequired": "Notificatie-id's zijn vereist.",
     "unallocatedStatsPoints": "Je hebt <span class=\"notification-bold-blue\"><%= points %> niet toegekende statuspunten</span>",
-    "beginningOfConversation": "Dit is het begin van je gesprek met <%= userName %>. Denk eraan aardig en respectvol te zijn en de gemeenschapsrichtlijnen te volgen!"
+    "beginningOfConversation": "Dit is het begin van je gesprek met <%= userName %>. Denk eraan aardig en respectvol te zijn en de gemeenschapsrichtlijnen te volgen!",
+    "messageDeletedUser": "Soory, deze gebruiker heeft zijn account verwijderd.",
+    "messageMissingDisplayName": "Er mist een gebruikersnaam"
 }

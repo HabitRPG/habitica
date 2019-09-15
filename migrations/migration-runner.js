@@ -17,5 +17,12 @@ function setUpServer () {
 setUpServer();
 
 // Replace this with your migration
-const processUsers = require('./tasks/habits-one-history-entry-per-day-challenges.js');
-processUsers();
+const processUsers = require('');
+processUsers()
+  .then(function success () {
+    process.exit(0);
+  })
+  .catch(function failure (err) {
+    console.log(err);
+    process.exit(1);
+  });

@@ -80,7 +80,7 @@ export async function generateGroup (leader, details = {}, update = {}) {
 // This is generate group + the ability to create
 // real users to populate it. The settings object
 // takes in:
-// members: Number - the number of group members to create. Defaults to 0.
+// members: Number - the number of group members to create. Defaults to 0. Does not include group leader.
 // inivtes: Number - the number of users to create and invite to the group. Defaults to 0.
 // groupDetails: Object - how to initialize the group
 // leaderDetails: Object - defaults for the leader, defaults with a gem balance so the user

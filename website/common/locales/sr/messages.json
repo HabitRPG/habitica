@@ -38,12 +38,10 @@
     "messageInsufficientGems": "Not enough gems!",
     "messageAuthPasswordMustMatch": ":password and :confirmPassword don't match",
     "messageAuthCredentialsRequired": ":username, :email, :password, :confirmPassword required",
-    "messageAuthUsernameTaken": "Login Name already taken",
     "messageAuthEmailTaken": "Email already taken",
     "messageAuthNoUserFound": "No user found.",
     "messageAuthMustBeLoggedIn": "You must be logged in.",
     "messageAuthMustIncludeTokens": "You must include a token and uid (user id) in your request",
-    "messageGroupNotFound": "Group not found or you don't have access.",
     "messageGroupAlreadyInParty": "Already in a party, try refreshing.",
     "messageGroupOnlyLeaderCanUpdate": "Only the group leader can update the group!",
     "messageGroupRequiresInvite": "Can't join a group you're not invited to.",
@@ -62,5 +60,7 @@
     "messageNotAbleToBuyInBulk": "This item cannot be purchased in quantities above 1.",
     "notificationsRequired": "Notification ids are required.",
     "unallocatedStatsPoints": "You have <span class=\"notification-bold-blue\"><%= points %> unallocated Stat Points</span>",
-    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!"
+    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!",
+    "messageDeletedUser": "Sorry, this user has deleted their account.",
+    "messageMissingDisplayName": "Missing display name."
 }

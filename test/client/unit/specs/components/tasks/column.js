@@ -1,4 +1,4 @@
-import { shallow, createLocalVue } from '@vue/test-utils';
+import { mount, createLocalVue } from '@vue/test-utils';
 
 import TaskColumn from 'client/components/tasks/column.vue';
 
@@ -21,7 +21,7 @@ describe('Task Column', () => {
     };
     let stubs = ['b-modal'];  // <b-modal> is a custom component and not tested here
 
-    return shallow(TaskColumn, {
+    return mount(TaskColumn, {
       propsData: {
         type,
       },
@@ -88,7 +88,7 @@ describe('Task Column', () => {
         expect(el).to.eq(taskListOverride[i]);
       });
 
-      wrapper.setProps({ isUser: false, taskListOverride });
+      wrapper.setProps({ isUser: false });
 
       wrapper.vm.taskList.forEach((el, i) => {
         expect(el).to.eq(taskListOverride[i]);

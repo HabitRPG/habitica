@@ -70,9 +70,9 @@ export default {
         facebook,
       }),
       tweet,
-      achievementLink: `${BASE_URL}/social/achievement`,
-      twitterLink: `https://twitter.com/intent/tweet?text=${tweet}&via=habitica&url=${BASE_URL}/social/achievement&count=none`,
-      facebookLink: `https://www.facebook.com/sharer/sharer.php?text=${tweet}&u=${BASE_URL}/social/achievement`,
+      achievementLink: `${BASE_URL}`,
+      twitterLink: `https://twitter.com/intent/tweet?text=${tweet}&via=habitica&url=${BASE_URL}&count=none`,
+      facebookLink: `https://www.facebook.com/sharer/sharer.php?text=${tweet}&u=${BASE_URL}`,
     };
   },
 };

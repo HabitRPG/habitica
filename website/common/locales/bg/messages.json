@@ -38,12 +38,10 @@
     "messageInsufficientGems": "Нямате достатъчно диаманти!",
     "messageAuthPasswordMustMatch": ":password и :confirmPassword не съвпадат",
     "messageAuthCredentialsRequired": ":username, :email, :password и :confirmPassword са задължителни",
-    "messageAuthUsernameTaken": "Потребителското име е заето",
     "messageAuthEmailTaken": "Е-пощата вече се използва",
     "messageAuthNoUserFound": "Потребителят не е намерен.",
     "messageAuthMustBeLoggedIn": "Трябва да сте влезли в системата.",
     "messageAuthMustIncludeTokens": "Трябва да включите жетон и потребителски идентификатор в заявката си",
-    "messageGroupNotFound": "Групата не е намерена или нямате достъп.",
     "messageGroupAlreadyInParty": "Вече сте в група, опитайте да опресните.",
     "messageGroupOnlyLeaderCanUpdate": "Само водачът на групата може да я актуализира!",
     "messageGroupRequiresInvite": "Не можете да се присъедините към група, за която не сте получили покана.",
@@ -62,5 +60,7 @@
     "messageNotAbleToBuyInBulk": "Не може да се закупи повече от един брой от този предмет.",
     "notificationsRequired": "Идентификаторите на известията са задължителни.",
     "unallocatedStatsPoints": "Имате <span class=\"notification-bold-blue\"><%= points %> неразпределени показателни точки</span>",
-    "beginningOfConversation": "Това е началото на разговора Ви с <%= userName %>. Запомнете да спазвате добрия тон, да уважавате другия и да следвате Обществените правила!"
+    "beginningOfConversation": "Това е началото на разговора Ви с <%= userName %>. Запомнете да спазвате добрия тон, да уважавате другия и да следвате Обществените правила!",
+    "messageDeletedUser": "Съжаляваме, но този потребител е изтрил профила си.",
+    "messageMissingDisplayName": "Липсва екранно име."
 }

@@ -20,7 +20,7 @@ export function setup () {
   let firstScript = document.getElementsByTagName('script')[0];
   amazonScript.type = 'text/javascript';
   amazonScript.async = true;
-  amazonScript.src = `https://static-na.payments-amazon.com/OffAmazonPayments/us/${(NODE_ENV === 'production' ? '' : 'sandbox/')}js/Widgets.js`;
+  amazonScript.src = `https://static-na.payments-amazon.com/OffAmazonPayments/us/${(AMAZON_PAYMENTS.MODE === 'sandbox' ? 'sandbox/' : '')}js/Widgets.js`;
   firstScript.parentNode.insertBefore(amazonScript, firstScript);
 
   // Stripe

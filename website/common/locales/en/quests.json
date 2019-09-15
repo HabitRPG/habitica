@@ -7,6 +7,7 @@
   "petQuests": "Pet and Mount Quests",
   "unlockableQuests": "Unlockable Quests",
   "goldQuests": "Masterclasser Quest Lines",
+  "hatchingPotionQuests": "Magic Hatching Potion Quests",
   "questDetails": "Quest Details",
   "questDetailsTitle": "Quest Details",
   "questDescription": "Quests allow players to focus on long-term, in-game goals with the members of their party.",
@@ -98,6 +99,7 @@
   "guildQuestsNotSupported": "Guilds cannot be invited on quests.",
   "questNotOwned": "You don't own that quest scroll.",
   "questNotGoldPurchasable": "Quest \"<%= key %>\" is not a Gold-purchasable quest.",
+  "questNotGemPurchasable": "Quest \"<%= key %>\" is not a Gem-purchasable quest.",
   "questLevelTooHigh": "You must be level <%= level %> to begin this quest.",
   "questAlreadyUnderway": "Your party is already on a quest. Try again when the current quest has ended.",
   "questAlreadyAccepted": "You already accepted the quest invitation.",
@@ -125,5 +127,14 @@
   "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Health",
   "rageAttack": "Rage Attack:",
   "bossRage": "<%= currentRage %> / <%= maxRage %> Rage",
-  "rageStrikes": "Rage Strikes"
+  "rageStrikes": "Rage Strikes",
+  "chatQuestStarted": "Your quest, <%= questName %>, has started.",
+  "chatBossDamage": "<%= username %> attacks <%= bossName %> for <%= userDamage %> damage. <%= bossName %> attacks party for <%= bossDamage %> damage.",
+  "chatBossDontAttack": "<%= username %> attacks <%= bossName %> for <%= userDamage %> damage. <%= bossName %> does not attack, because it respects the fact that there are some bugs post-maintenance, and it doesn't want to hurt anyone unfairly. It will continue its rampage soon!",
+  "chatBossDefeated": "You defeated <%= bossName %>! Questing party members receive the rewards of victory.",
+  "chatFindItems": "<%= username %> found <%= items %>.",
+  "chatItemQuestFinish": "All items found! Party has received their rewards.",
+  "chatQuestAborted": "<%= username %> aborted the party quest <%= questName %>.",
+  "chatQuestCancelled": "<%= username %> cancelled the party quest <%= questName %>.",
+  "tavernBossTired": "<%= bossName %> tries to unleash <%= rageName %> but is too tired."
 }

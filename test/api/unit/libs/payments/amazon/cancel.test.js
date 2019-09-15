@@ -48,7 +48,6 @@ describe('Amazon Payments - Cancel Subscription', () => {
 
   function expectBillingAggreementDetailSpy () {
     getBillingAgreementDetailsSpy = sinon.stub(amzLib, 'getBillingAgreementDetails')
-      .returnsPromise()
       .resolves({
         BillingAgreementDetails: {
           BillingAgreementStatus: {State: 'Open'},
@@ -80,14 +79,14 @@ describe('Amazon Payments - Cancel Subscription', () => {
     headers = {};
 
     getBillingAgreementDetailsSpy = sinon.stub(amzLib, 'getBillingAgreementDetails');
-    getBillingAgreementDetailsSpy.returnsPromise().resolves({
+    getBillingAgreementDetailsSpy.resolves({
       BillingAgreementDetails: {
         BillingAgreementStatus: {State: 'Closed'},
       },
     });
 
     paymentCancelSubscriptionSpy = sinon.stub(payments, 'cancelSubscription');
-    paymentCancelSubscriptionSpy.returnsPromise().resolves({});
+    paymentCancelSubscriptionSpy.resolves({});
   });
 
   afterEach(function () {
@@ -118,7 +117,7 @@ describe('Amazon Payments - Cancel Subscription', () => {
   it('should close a user subscription if amazon not closed', async () => {
     amzLib.getBillingAgreementDetails.restore();
     expectBillingAggreementDetailSpy();
-    let closeBillingAgreementSpy = sinon.stub(amzLib, 'closeBillingAgreement').returnsPromise().resolves({});
+    let closeBillingAgreementSpy = sinon.stub(amzLib, 'closeBillingAgreement').resolves({});
     billingAgreementId = user.purchased.plan.customerId;
 
     await amzLib.cancelSubscription({user, headers});
@@ -164,7 +163,7 @@ describe('Amazon Payments - Cancel Subscription', () => {
   it('should close a group subscription if amazon not closed', async () => {
     amzLib.getBillingAgreementDetails.restore();
     expectBillingAggreementDetailSpy();
-    let closeBillingAgreementSpy = sinon.stub(amzLib, 'closeBillingAgreement').returnsPromise().resolves({});
+    let closeBillingAgreementSpy = sinon.stub(amzLib, 'closeBillingAgreement').resolves({});
     billingAgreementId = group.purchased.plan.customerId;
 
     await amzLib.cancelSubscription({user, groupId: group._id, headers});

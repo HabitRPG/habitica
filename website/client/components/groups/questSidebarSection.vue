@@ -24,6 +24,9 @@ sidebar-section(:title="$t('questDetailsTitle')")
       h3(v-once) {{ questData.text() }}
       .quest-box
         .collect-info(v-if='questData.collect')
+          .row
+            .col-12
+              a.float-right(@click="openParticipantList()") {{ $t('participantsTitle') }}
           .row(v-for='(value, key) in questData.collect')
             .col-2
               div(:class="'quest_' + questData.key + '_' + key")
@@ -32,13 +35,13 @@ sidebar-section(:title="$t('questDetailsTitle')")
               .grey-progress-bar
                 .collect-progress-bar(:style="{width: (group.quest.progress.collect[key] / value.count) * 100 + '%'}")
               strong {{group.quest.progress.collect[key]}} / {{value.count}}
-          div.text-right {{parseFloat(user.party.quest.progress.collectedItems) || 0}} items found
+          div.text-right(v-if='userIsOnQuest') {{parseFloat(user.party.quest.progress.collectedItems) || 0}} items found
         .boss-info(v-if='questData.boss')
           .row
             .col-6
               h4.float-left(v-once) {{ questData.boss.name() }}
             .col-6
-              span.float-right(v-once) {{ $t('participantsTitle') }}
+              a.float-right(@click="openParticipantList()") {{ $t('participantsTitle') }}
           .row
             .col-12
               .grey-progress-bar
@@ -133,6 +136,12 @@ sidebar-section(:title="$t('questDetailsTitle')")
       width: 100%;
       padding: .5em;
       margin-bottom: 1em;
+
+      a {
+        font-family: 'Roboto Condensed', sans-serif;
+        font-weight: bold;
+        color: $gray-10;
+      }
 
       svg: {
         width: 100%;
@@ -257,6 +266,9 @@ export default {
     },
     openQuestDetails () {
       this.$root.$emit('bv::show::modal', 'quest-details');
+    },
+    openParticipantList () {
+      this.$root.$emit('bv::show::modal', 'participant-list');
     },
     async questAbort () {
       if (!confirm(this.$t('sureAbort'))) return;

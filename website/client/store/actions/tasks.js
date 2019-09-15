@@ -19,13 +19,13 @@ export function fetchUserTasks (store, options = {}) {
   });
 }
 
-export async function fetchCompletedTodos (store, forceLoad = false) {
+export async function fetchCompletedTodos (store) {
   // Wait for the user to be loaded before deserializing
   // because user.tasksOrder is necessary
   await store.dispatch('tasks:fetchUserTasks');
 
   const loadStatus = store.state.completedTodosStatus;
-  if (loadStatus === 'NOT_LOADED' || forceLoad) {
+  if (loadStatus !== 'LOADING') {
     store.state.completedTodosStatus = 'LOADING';
 
     const response = await axios.get('/api/v4/tasks/user?type=completedTodos');
@@ -36,17 +36,6 @@ export async function fetchCompletedTodos (store, forceLoad = false) {
     tasks.todos.push(...completedTodos);
 
     store.state.completedTodosStatus = 'LOADED';
-  } else if (status === 'LOADED') {
-    return;
-  } else if (loadStatus === 'LOADING') {
-    const watcher = store.watch(state => state.completedTodosStatus, (newLoadingStatus) => {
-      watcher(); // remove the watcher
-      if (newLoadingStatus === 'LOADED') {
-        return;
-      } else {
-        throw new Error(); // TODO add reason?
-      }
-    });
   }
 }
 
@@ -173,6 +162,11 @@ export async function createChallengeTasks (store, payload) {
 
 export async function getGroupTasks (store, payload) {
   let response = await axios.get(`/api/v4/tasks/group/${payload.groupId}`);
+  return response.data.data;
+}
+
+export async function getCompletedGroupTasks (store, payload) {
+  let response = await axios.get(`/api/v4/tasks/group/${payload.groupId}?type=completedTodos`);
   return response.data.data;
 }
 

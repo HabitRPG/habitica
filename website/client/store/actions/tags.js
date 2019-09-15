@@ -31,7 +31,7 @@ export async function updateTag (store, payload) {
 export async function sortTag  (store, payload) {
   let url = 'api/v4/reorder-tags';
   let response = await axios.post(url, {
-    tagDetails: payload.tagDetails,
+    tagId: payload.tagId,
     to: payload.to,
   });
   return response.data.data;

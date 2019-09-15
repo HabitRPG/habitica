@@ -1,66 +1,24 @@
-.promo_aquatic_glass_potions {
+.promo_armoire_backgrounds_201909 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -627px 0px;
-  width: 141px;
-  height: 441px;
-}
-.promo_armoire_backgrounds_201806 {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -627px -442px;
-  width: 141px;
-  height: 441px;
-}
-.promo_bundle_aquaticAmigos {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -142px -533px;
+  background-position: 0px 0px;
   width: 423px;
   height: 147px;
 }
-.promo_ios {
+.promo_rocking_reptiles_bundle {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px 0px;
-  width: 325px;
-  height: 336px;
-}
-.promo_mystery_201806 {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -769px -442px;
-  width: 121px;
-  height: 114px;
-}
-.promo_seafoam {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -769px 0px;
-  width: 141px;
-  height: 441px;
-}
-.promo_seasonal_shop_summer {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -142px -681px;
-  width: 162px;
-  height: 138px;
-}
-.promo_summer_splash_2018 {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -337px;
-  width: 141px;
-  height: 588px;
+  background-position: 0px -148px;
+  width: 420px;
+  height: 147px;
 }
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -769px -557px;
+  background-position: -424px -211px;
   width: 96px;
   height: 69px;
 }
-.scene_families {
+.scene_medal {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -142px -337px;
-  width: 345px;
-  height: 195px;
-}
-.scene_moderators {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -326px 0px;
-  width: 300px;
-  height: 300px;
+  background-position: -424px 0px;
+  width: 210px;
+  height: 210px;
 }
