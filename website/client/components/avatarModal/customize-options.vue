@@ -79,6 +79,7 @@
 
     &.locked {
       border-radius: 2px;
+      border: 1px solid transparent;
       box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
       background-color: $white;
 
@@ -90,7 +91,8 @@
       }
 
       &:hover {
-        background-color: rgba(213, 200, 255, .32);
+        box-shadow: 0 4px 4px 0 rgba($black, 0.16), 0 1px 8px 0 rgba($black, 0.12);
+        border: 1px solid $purple-500;
       }
     }
 
