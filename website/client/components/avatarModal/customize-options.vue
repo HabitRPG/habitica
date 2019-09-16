@@ -88,6 +88,16 @@
         padding-left: 6px;
         padding-top: 4px;
       }
+
+      &:hover {
+        background-color: rgba(213, 200, 255, .32);
+      }
+    }
+
+    &:not(.locked){
+      .option:hover {
+        background-color: rgba(213, 200, 255, .32);
+      }
     }
 
     &.premium:not(.locked):not(.active) {
@@ -131,7 +141,6 @@
       border-radius: 8px;
     }
   }
-
   .option {
     vertical-align: bottom;
     height: 64px;
