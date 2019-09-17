@@ -79,7 +79,7 @@
     "continue": "続ける",
     "accept": "承諾",
     "reject": "拒否",
-    "neverMind": "なんでもない",
+    "neverMind": "結構です",
     "buyMoreGems": "ジェムを買う",
     "notEnoughGems": "ジェムが足りません",
     "alreadyHave": "おっと!　もうこのアイテムを持っています。もう一度買う必要はありません!",
@@ -291,5 +291,7 @@
     "howManyToBuy": "いくつ買いますか？",
     "habiticaHasUpdated": "新しいバージョンがあります。ページを再読み込みして更新してください！",
     "contactForm": "モデレーターチームに連絡する",
-    "options": "オプション"
+    "options": "オプション",
+    "demo": "デモ",
+    "loadEarlierMessages": "以前のメッセージを読み込む"
 }

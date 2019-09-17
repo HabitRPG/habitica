@@ -44,17 +44,21 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
           strong(v-once) {{$t('shirt')}}
       .row(v-if='activeSubPage === "size"')
         .col-12.customize-options.size-options
-          .option(v-for='option in ["slim", "broad"]', :class='{active: user.preferences.size === option}')
-            .sprite.customize-option(:class="`${option}_shirt_black`", @click='set({"preferences.size": option})')
+          .option(v-for='option in ["slim", "broad"]',
+            :class='{active: user.preferences.size === option}',
+            @click='set({"preferences.size": option})')
+            .sprite.customize-option(:class="`${option}_shirt_black`")
       .row(v-if='activeSubPage === "shirt"')
         .col-12.customize-options
           .option(v-for='option in ["black", "blue", "green", "pink", "white", "yellow"]',
-            :class='{active: user.preferences.shirt === option}')
-            .sprite.customize-option(:class="`slim_shirt_${option}`", @click='set({"preferences.shirt": option})')
+            :class='{active: user.preferences.shirt === option}',
+            @click='set({"preferences.shirt": option})')
+            .sprite.customize-option(:class="`slim_shirt_${option}`")
         .col-12.customize-options(v-if='editing')
           .option(v-for='item in specialShirts',
-            :class='{active: item.active, locked: item.locked}')
-            .sprite.customize-option(:class="`broad_shirt_${item.key}`", @click='item.click')
+            :class='{active: item.active, locked: item.locked}',
+            @click='item.click')
+            .sprite.customize-option(:class="`broad_shirt_${item.key}`")
             .gem-lock(v-if='item.locked')
               .svg-icon.gem(v-html='icons.gem')
               span 2
@@ -70,13 +74,15 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       .row
         .col-12.customize-options
           .option(v-for='option in ["ddc994", "f5a76e", "ea8349", "c06534", "98461a", "915533", "c3e1dc", "6bd049"]',
-            :class='{active: user.preferences.skin === option}')
-            .skin.sprite.customize-option(:class="`skin_${option}`", @click='set({"preferences.skin": option})')
+            :class='{active: user.preferences.skin === option}',
+            @click='set({"preferences.skin": option})')
+            .skin.sprite.customize-option(:class="`skin_${option}`")
       .row(v-if='editing && set.key !== "undefined"', v-for='set in seasonalSkins')
         .col-12.customize-options
           .option(v-for='option in set.options',
-            :class='{active: option.active, locked: option.locked, hide: option.hide}')
-            .skin.sprite.customize-option(:class="`skin_${option.key}`", @click='option.click')
+            :class='{active: option.active, locked: option.locked, hide: option.hide}',
+            @click='option.click')
+            .skin.sprite.customize-option(:class="`skin_${option.key}`")
             .gem-lock(v-if='option.locked')
               .svg-icon.gem(v-html='icons.gem')
               span 2
@@ -98,12 +104,14 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       #hair-color.row(v-if='activeSubPage === "color"')
         .col-12.customize-options
           .option(v-for='option in ["white", "brown", "blond", "red", "black"]',
-            :class='{active: user.preferences.hair.color === option}')
-            .color-bangs.sprite.customize-option(:class="`hair_bangs_1_${option}`", @click='set({"preferences.hair.color": option})')
+            :class='{active: user.preferences.hair.color === option}',
+            @click='set({"preferences.hair.color": option})')
+            .color-bangs.sprite.customize-option(:class="`hair_bangs_1_${option}`")
         .col-12.customize-options(v-if='editing && set.key !== "undefined"', v-for='set in seasonalHairColors')
           .option(v-for='option in set.options',
-            :class='{active: option.active, locked: option.locked, hide: option.hide}')
-            .skin.sprite.customize-option(:class="`hair_bangs_1_${option.key}`", @click='option.click')
+            :class='{active: option.active, locked: option.locked, hide: option.hide}',
+            @click='option.click')
+            .skin.sprite.customize-option(:class="`hair_bangs_1_${option.key}`")
             .gem-lock(v-if='option.locked')
               .svg-icon.gem(v-html='icons.gem')
               span 2
@@ -116,8 +124,9 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
         .col-12.customize-options(v-if='editing')
           .head_0.option(@click='set({"preferences.hair.base": 0})', :class="[{ active: user.preferences.hair.base === 0 }, 'hair_base_0_' + user.preferences.hair.color]")
           .option(v-for='option in baseHair3',
-            :class='{active: option.active, locked: option.locked}')
-            .base.sprite.customize-option(:class="`hair_base_${option.key}_${user.preferences.hair.color}`", @click='option.click')
+            :class='{active: option.active, locked: option.locked}',
+            @click='option.click')
+            .base.sprite.customize-option(:class="`hair_base_${option.key}_${user.preferences.hair.color}`")
             .gem-lock(v-if='option.locked')
               .svg-icon.gem(v-html='icons.gem')
               span 2
@@ -128,8 +137,9 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             button.btn.btn-secondary.purchase-all(@click='unlock(`hair.base.${baseHair3Keys.join(",hair.base.")}`)') {{ $t('purchaseAll') }}
         .col-12.customize-options(v-if='editing')
           .option(v-for='option in baseHair4',
-            :class='{active: option.active, locked: option.locked}')
-            .base.sprite.customize-option(:class="`hair_base_${option.key}_${user.preferences.hair.color}`", @click='option.click')
+            :class='{active: option.active, locked: option.locked}',
+            @click='option.click')
+            .base.sprite.customize-option(:class="`hair_base_${option.key}_${user.preferences.hair.color}`")
             .gem-lock(v-if='option.locked')
               .svg-icon.gem(v-html='icons.gem')
               span 2
@@ -141,12 +151,14 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
         .col-12.customize-options
           .head_0.option(v-if="!editing", @click='set({"preferences.hair.base": 0})', :class="[{ active: user.preferences.hair.base === 0 }, 'hair_base_0_' + user.preferences.hair.color]")
           .option(v-for='option in baseHair1',
-            :class='{active: user.preferences.hair.base === option}')
-            .base.sprite.customize-option(:class="`hair_base_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.base": option})')
+            :class='{active: user.preferences.hair.base === option}',
+            @click='set({"preferences.hair.base": option})')
+            .base.sprite.customize-option(:class="`hair_base_${option}_${user.preferences.hair.color}`")
         .col-12.customize-options(v-if='editing')
           .option(v-for='option in baseHair2',
-            :class='{active: option.active, locked: option.locked}')
-            .base.sprite.customize-option(:class="`hair_base_${option.key}_${user.preferences.hair.color}`", @click='option.click')
+            :class='{active: option.active, locked: option.locked}',
+            @click='option.click')
+            .base.sprite.customize-option(:class="`hair_base_${option.key}_${user.preferences.hair.color}`")
             .gem-lock(v-if='option.locked')
               .svg-icon.gem(v-html='icons.gem')
               span 2
@@ -160,22 +172,25 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
           .head_0.option(@click='set({"preferences.hair.bangs": 0})',
             :class="[{ active: user.preferences.hair.bangs === 0 }, 'hair_bangs_0_' + user.preferences.hair.color]")
           .option(v-for='option in [1, 2, 3, 4]',
-            :class='{active: user.preferences.hair.bangs === option}')
-            .bangs.sprite.customize-option(:class="`hair_bangs_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.bangs": option})')
+            :class='{active: user.preferences.hair.bangs === option}',
+            @click='set({"preferences.hair.bangs": option})')
+            .bangs.sprite.customize-option(:class="`hair_bangs_${option}_${user.preferences.hair.color}`")
       #facialhair.row(v-if='activeSubPage === "facialhair"')
         .col-12.customize-options(v-if='editing')
           .head_0.option(@click='set({"preferences.hair.mustache": 0})', :class="[{ active: user.preferences.hair.mustache === 0 }, 'hair_base_0_' + user.preferences.hair.color]")
           .option(v-for='option in baseHair5',
-            :class='{active: option.active, locked: option.locked}')
-            .base.sprite.customize-option(:class="`hair_mustache_${option.key}_${user.preferences.hair.color}`", @click='option.click')
+            :class='{active: option.active, locked: option.locked}',
+            @click='option.click')
+            .base.sprite.customize-option(:class="`hair_mustache_${option.key}_${user.preferences.hair.color}`")
             .gem-lock(v-if='option.locked')
               .svg-icon.gem(v-html='icons.gem')
               span 2
         .col-12.customize-options(v-if='editing')
           .head_0.option(@click='set({"preferences.hair.beard": 0})', :class="[{ active: user.preferences.hair.beard === 0 }, 'hair_base_0_' + user.preferences.hair.color]")
           .option(v-for='option in baseHair6',
-            :class='{active: option.active, locked: option.locked}')
-            .base.sprite.customize-option(:class="`hair_beard_${option.key}_${user.preferences.hair.color}`", @click='option.click')
+            :class='{active: option.active, locked: option.locked}',
+            @click='option.click')
+            .base.sprite.customize-option(:class="`hair_beard_${option.key}_${user.preferences.hair.color}`")
             .gem-lock(v-if='option.locked')
               .svg-icon.gem(v-html='icons.gem')
               span 2
@@ -201,13 +216,16 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
           strong(v-once) {{ $t('headband') }}
       #glasses.row(v-if='activeSubPage === "glasses"')
         .col-12.customize-options
-          .option(v-for='option in eyewear', :class='{active: option.active}')
-            .sprite.customize-option(:class="`eyewear_special_${option.key}`", @click='option.click')
+          .option(v-for='option in eyewear', 
+            :class='{active: option.active}',
+            @click='option.click')
+            .sprite.customize-option(:class="`eyewear_special_${option.key}`")
       #animal-ears.row(v-if='activeSubPage === "ears"')
         .section.col-12.customize-options
           .option(v-for='option in animalItems("headAccessory")',
-            :class='{active: option.active, locked: option.locked}')
-            .sprite.customize-option(:class="`headAccessory_special_${option.key}`", @click='option.click')
+            :class='{active: option.active, locked: option.locked}',
+            @click='option.click')
+            .sprite.customize-option(:class="`headAccessory_special_${option.key}`")
             .gem-lock(v-if='option.gemLocked')
               .svg-icon.gem(v-html='icons.gem')
               span 2
@@ -222,8 +240,9 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       #animal-tails.row(v-if='activeSubPage === "tails"')
         .section.col-12.customize-options
           .option(v-for='option in animalItems("back")',
-            :class='{active: option.active, locked: option.locked}')
-            .sprite.customize-option(:class="`icon_back_special_${option.key}`", @click='option.click')
+            :class='{active: option.active, locked: option.locked}',
+            @click='option.click')
+            .sprite.customize-option(:class="`icon_back_special_${option.key}`")
             .gem-lock(v-if='option.gemLocked')
               .svg-icon.gem(v-html='icons.gem')
               span 2
@@ -237,21 +256,25 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             button.btn.btn-secondary.purchase-all(@click='unlock(animalItemsUnlockString("back"))') {{ $t('purchaseAll') }}
       #headband.row(v-if='activeSubPage === "headband"')
         .col-12.customize-options
-          .option(v-for='option in headbands', :class='{active: option.active}')
-            .sprite.customize-option(:class="`headAccessory_special_${option.key}`", @click='option.click')
+          .option(v-for='option in headbands', 
+            :class='{active: option.active}',
+            @click='option.click')
+            .sprite.customize-option(:class="`headAccessory_special_${option.key}`")
       #wheelchairs.row(v-if='activeSubPage === "wheelchair"')
         .col-12.customize-options
           .option(@click='set({"preferences.chair": "none"})', :class='{active: user.preferences.chair === "none"}')
             | None
           .option(v-for='option in chairKeys',
-            :class='{active: user.preferences.chair === option}')
-            .chair.sprite.customize-option(:class="`button_chair_${option}`", @click='set({"preferences.chair": option})')
+            :class='{active: user.preferences.chair === option}',
+            @click='set({"preferences.chair": option})')
+            .chair.sprite.customize-option(:class="`button_chair_${option}`")
       #flowers.row(v-if='activeSubPage === "flower"')
         .col-12.customize-options
           .head_0.option(@click='set({"preferences.hair.flower":0})', :class='{active: user.preferences.hair.flower === 0}')
           .option(v-for='option in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]',
-            :class='{active: user.preferences.hair.flower === option}')
-            .sprite.customize-option(:class="`hair_flower_${option}`", @click='set({"preferences.hair.flower": option})')
+            :class='{active: user.preferences.hair.flower === option}',
+            @click='set({"preferences.hair.flower": option})')
+            .sprite.customize-option(:class="`hair_flower_${option}`")
       .row(v-if='activeSubPage === "flower"')
         .col-12.customize-options
           // button.customize-option(ng-repeat='item in ::getGearArray("animal")', class='{{::item.key}}',

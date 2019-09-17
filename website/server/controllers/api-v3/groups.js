@@ -776,7 +776,7 @@ api.leaveGroup = {
 
     if (group.type !== 'party') {
       let guildIndex = user.guilds.indexOf(group._id);
-      user.guilds.splice(guildIndex, 1);
+      if (guildIndex >= 0) user.guilds.splice(guildIndex, 1);
     }
 
     let isMemberOfGroupPlan = await user.isMemberOfGroupPlan();

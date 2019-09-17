@@ -439,6 +439,10 @@
   "weaponArmoireAstronomersTelescopeNotes": "An instrument that will allow you to observe the stars' ancient dance. Increases Perception by <%= per %>. Enchanted Armoire: Astronomer Mage Set (Item 3 of 3).",
   "weaponArmoireMagnifyingGlassText": "Magnifying Glass",
   "weaponArmoireMagnifyingGlassNotes": "Aha! A piece of evidence! Examine it closely with this fine magnifier. Increases Perception by <%= per %>. Enchanted Armoire: Detective Set (Item 3 of 4).",
+  "weaponArmoireFloridFanText": "Florid Fan",
+  "weaponArmoireFloridFanNotes": "This lovely silk fan folds when not in use. Increases Constitution by <%= con %>. Enchanted Armoire: Independent Item.",
+  "weaponArmoireResplendentRapierText": "Resplendent Rapier",
+  "weaponArmoireResplendentRapierNotes": "Demonstrate your swordsmanship with this sharply pointed weapon. Increases Perception by <%= per %>. Enchanted Armoire: Independent Item.",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -831,6 +835,8 @@
   "armorMystery201906Notes": "We will spare you a pun about “playing koi.” Oh wait, oops. Confers no benefit. June 2019 Subscriber Item.",
   "armorMystery201907Text": "Flowery Shirt",
   "armorMystery201907Notes": "Stay cool and look cool on even the hottest summer day. Confers no benefit. July 2019 Subscriber Item.",
+  "armorMystery201908Text": "Footloose Faun Costume",
+  "armorMystery201908Notes": "These legs were made for dancing! And that's just what they'll do. Confers no benefit. August 2019 Subscriber Item.",
   "armorMystery301404Text": "Steampunk Suit",
   "armorMystery301404Notes": "Dapper and dashing, wot! Confers no benefit. February 3015 Subscriber Item.",
   "armorMystery301703Text": "Steampunk Peacock Gown",
@@ -1757,6 +1763,8 @@
   "shieldArmoireMightyPizzaNotes": "Sure, it's a pretty good shield, but we strongly suggest you eat this fine, fine pizza. Increases Perception by <%= per %>. Enchanted Armoire: Chef Set (Item 4 of 4).",
   "shieldArmoireTrustyUmbrellaText": "Trusty Umbrella",
   "shieldArmoireTrustyUmbrellaNotes": "Mysteries are often accompanied by inclement weather, so be prepared! Increases Intelligence by <%= int %>. Enchanted Armoire: Detective Set (Item 4 of 4).",
+  "shieldArmoirePolishedPocketwatchText": "Polished Pocketwatch",
+  "shieldArmoirePolishedPocketwatchNotes": "You've got the time. And it looks very nice on you. Increases Intelligence by <%= int %>. Enchanted Armoire: Independent Item.",
 
   "back": "Back Accessory",
   "backCapitalized": "Back Accessory",
@@ -1972,6 +1980,8 @@
   "headAccessoryMystery201905Notes": "These horns are as sharp as they are shimmery. Confers no benefit. May 2019 Subscriber Item.",
   "headAccessoryMystery201906Text": "Kindly Koi Ears",
   "headAccessoryMystery201906Notes": "Legend has it these finny ears help merfolk hear the calls and songs of all the denizens of the deep! Confers no benefit. June 2019 Subscriber Item.",
+  "headAccessoryMystery201908Text": "Footloose Faun Horns",
+  "headAccessoryMystery201908Notes": "If wearing horns floats your goat, you're in luck! Confers no benefit. August 2019 Subscriber Item.",
   "headAccessoryMystery301405Text": "Headwear Goggles",
   "headAccessoryMystery301405Notes": "\"Goggles are for your eyes,\" they said. \"Nobody wants goggles that you can only wear on your head,\" they said. Hah! You sure showed them! Confers no benefit. August 3015 Subscriber Item.",
 

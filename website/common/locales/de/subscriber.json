@@ -1,13 +1,13 @@
 {
     "subscription": "Abonnement",
     "subscriptions": "Abonnements",
-    "subDescription": "Kaufe Edelsteine mit Gold, bekomme monatlich Überraschungsgegenstände, behalte Deinen Fortschrittsverlauf, verdopple das tägliche Beutelimit und unterstütze die Entwickler. Klicke um mehr zu erfahren.",
+    "subDescription": "Kaufe Edelsteine mit Gold, bekomme monatlich Überraschungsgegenstände, behalte Deinen Fortschrittsverlauf, verdopple das tägliche Beutelimit und unterstütze die Entwickler. Klicke, um mehr zu erfahren.",
     "sendGems": "Verschicke Edelsteine",
     "buyGemsGold": "Kaufe Edelsteine mit Gold",
     "buyGemsGoldText": "Alexander der Händler verkauft Dir Edelsteine zum Preis von 20 Goldstücken pro Edelstein. Seine Lieferungen sind anfänglich auf 25 Edelsteine pro Monat beschränkt, aber dieses Limit erhöht sich um 5 Edelsteine für alle 3 aufeinanderfolgenden Monate, in denen du ein Abo hast, bis zu einem Maximum von 50 Edelsteinen pro Monat!",
-    "mustSubscribeToPurchaseGems": "Du musst ein Abonnement abschließen, um Edelsteine mit Gold zu kaufen",
-    "reachedGoldToGemCap": "Du hast das Limit für die Umwandlung von Gold in Edelsteine (<%= convCap %>) für diesen Monat erreicht. Die Limits existieren zur Vermeidung von Missbrauch / Farmen. Sie werden innerhalb der ersten drei Tage jedes Monats zurückgesetzt.",
-    "reachedGoldToGemCapQuantity": "Deine angeforderte Menge von <%= quantity %> übersteigt das Gold=>Edelstein Umwandlungslimit in Höhe von <%= convCap %> für diesen Monat. Die Limits haben wir um Missbrauch und Farming zu verhindern. Das Limit wird innerhalb der ersten drei Tage eines Monats zurückgesetzt.",
+    "mustSubscribeToPurchaseGems": "Du musst ein Abonnement abschließen, um Edelsteine mit Gold kaufen zu können",
+    "reachedGoldToGemCap": "Du hast das Limit für die Umwandlung von Gold in Edelsteine (<%= convCap %>) für diesen Monat erreicht. Die Limits existieren zur Vermeidung von Missbrauch / Farming. Sie werden innerhalb der ersten drei Tage jedes Monats zurückgesetzt.",
+    "reachedGoldToGemCapQuantity": "Deine angeforderte Menge von <%= quantity %> übersteigt das Gold=>Edelstein-Umwandlungslimit in Höhe von <%= convCap %> für diesen Monat. Die Limits haben wir, um Missbrauch und Farming zu verhindern. Das Limit wird innerhalb der ersten drei Tage eines Monats zurückgesetzt.",
     "retainHistory": "Behalte zusätzliche Verlaufeinträge",
     "retainHistoryText": "Macht abgeschlossene To-Dos und den Aufgabenverlauf länger verfügbar.",
     "doubleDrops": "Doppelte Beutelimite pro Tag",
@@ -216,5 +216,13 @@
     "gemsRemaining": "verbleibende Edelsteine",
     "notEnoughGemsToBuy": "Du kannst die gewünschte Anzahl Edelsteine nicht kaufen",
     "mysterySet201903": "Ei-nzigartiges Set",
-    "mysterySet201902": "Geheimnisvolles Verliebten-Set"
+    "mysterySet201902": "Geheimnisvolles Verliebten-Set",
+    "confirmCancelSub": "Bist Du sicher, dass Du Dein Abonnement kündigen willst? Du verlierst alle Vorteile des Abonnements.",
+    "subWillBecomeInactive": "Wird inaktiv werden",
+    "mysterySet201908": "Freilaufender Faun-Set",
+    "mysterySet201904": "Opulentes Opal-Set",
+    "mysterySet201905": "Glänzendes Drachen-Set",
+    "mysterySet201906": "Freundliches Koi-Set",
+    "mysterySet201907": "Strandkumpel-Set",
+    "subCanceledTitle": "Abonnement Storniert"
 }

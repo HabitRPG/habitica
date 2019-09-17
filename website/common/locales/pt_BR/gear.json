@@ -1807,5 +1807,7 @@
     "shieldSpecialSpring2019WarriorText": "Escudo Frondoso",
     "shieldSpecialSpring2019WarriorNotes": "Deixe o poder da clorofila manter seus inimigos à distância! Aumenta Constituição em <%= con %>. Equipamento de Edição Limitada Primavera 2019.",
     "shieldSpecialSpring2019HealerText": "Escudo Casca de Ovo",
-    "shieldSpecialSpring2019HealerNotes": "Este escudo brilhante é feito de doces com cobertura de chocolate. Aumenta a Constituição em <%= con %>. Equipamento de Edição Limitada Primavera 2019."
+    "shieldSpecialSpring2019HealerNotes": "Este escudo brilhante é feito de doces com cobertura de chocolate. Aumenta a Constituição em <%= con %>. Equipamento de Edição Limitada Primavera 2019.",
+    "weaponSpecialSummer2019RogueText": "Âncora antiquada",
+    "weaponSpecialSummer2019RogueNotes": "Esta arma antiga e formidável ajudará você a vencer qualquer batalha submarina. Aumenta a Força em <%= str %>. Equipamento de Edição Limitada Verão 2019."
 }
