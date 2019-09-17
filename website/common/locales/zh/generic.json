@@ -21,7 +21,7 @@
     "titleGuilds": "公会",
     "titleChallenges": "挑战",
     "titleDrops": "市场",
-    "titleQuests": "任务",
+    "titleQuests": "副本",
     "titlePets": "宠物",
     "titleMounts": "坐骑",
     "titleEquipment": "装备",
@@ -292,5 +292,6 @@
     "habiticaHasUpdated": "有一個新的Habitica更新。刷新以獲取最新版本！",
     "contactForm": "联系管理员小组",
     "options": "选项",
-    "demo": "样本"
+    "demo": "样本",
+    "loadEarlierMessages": "载入早期信息"
 }

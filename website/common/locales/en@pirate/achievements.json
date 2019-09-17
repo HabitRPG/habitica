@@ -3,7 +3,7 @@
     "share": "Share",
     "onwards": "Onwards, towards the ship!",
     "levelup": "By accomplishin' yer real life goals, ye leveled up n' are now fully healed!",
-    "reachedLevel": "Ye Reached Level <%= level %>",
-    "achievementLostMasterclasser": "Adventure Completionist: Masterclasser Series",
-    "achievementLostMasterclasserText": "Completed all sixteen quests in th' Masterclasser Adventure Series and solved th' mystery of the Lost Masterclasser!"
+    "reachedLevel": "You Reached Level <%= level %>",
+    "achievementLostMasterclasser": "Quest Completionist: Masterclasser Series",
+    "achievementLostMasterclasserText": ""
 }
