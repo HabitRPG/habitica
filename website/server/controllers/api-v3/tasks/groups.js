@@ -206,11 +206,11 @@ api.assignTask = {
     if (user._id === assignedUserId) {
       const managerIds = Object.keys(group.managers);
       managerIds.push(group.leader);
-      const managers = await User.find({_id: managerIds}, 'notifications').exec();
+      const managers = await User.find({_id: managerIds}, 'notifications preferences').exec();
       managers.forEach((manager) => {
         if (manager._id === user._id) return;
         manager.addNotification('GROUP_TASK_CLAIMED', {
-          message: res.t('taskClaimed', {userName, taskText}),
+          message: res.t('taskClaimed', {userName, taskText}, manager.preferences.language),
           groupId: group._id,
           taskId: task._id,
         });
