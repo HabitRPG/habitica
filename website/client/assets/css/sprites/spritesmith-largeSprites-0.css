@@ -4,6 +4,12 @@
   width: 423px;
   height: 147px;
 }
+.promo_desert_pet_achievements {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -296px;
+  width: 204px;
+  height: 102px;
+}
 .promo_rocking_reptiles_bundle {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: 0px -148px;
