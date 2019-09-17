@@ -31,6 +31,9 @@ export default new Schema({
       $type: Schema.Types.Mixed,
       default: () => ({}),
     },
+    apple: {$type: Schema.Types.Mixed, default: () => {
+      return {};
+    }},
     local: {
       email: {
         $type: String,

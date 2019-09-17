@@ -146,6 +146,19 @@ api.loginSocial = {
   },
 };
 
+// Called as a callback by Facebook (or other social providers). Internal route
+api.loginApple = {
+  method: 'POST',
+  middlewares: [authWithHeaders({
+    optional: true,
+  })],
+  url: '/user/auth/apple',
+  async handler (req, res) {
+    req.body.network = 'apple';
+    return await loginSocial(req, res);
+  },
+};
+
 /**
  * @api {put} /api/v3/user/auth/update-username Update username
  * @apiDescription Update the username of a local user

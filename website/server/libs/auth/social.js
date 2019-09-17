@@ -1,4 +1,7 @@
 import passport from 'passport';
+import jwt from 'jsonwebtoken';
+import AppleAuth from 'apple-auth';
+import nconf from 'nconf';
 import common from '../../../common';
 import { BadRequest } from '../errors';
 import {
@@ -21,8 +24,37 @@ function _passportProfile (network, accessToken) {
   });
 }
 
+let applePrivateKey = nconf.get('APPLE_AUTH_PRIVATE_KEY');
+let applePublicKey = nconf.get('APPLE_AUTH_PUBLIC_KEY');
+
+let auth = new AppleAuth(JSON.stringify({
+  client_id: nconf.get('APPLE_AUTH_CLIENT_ID'), // eslint-disable-line camelcase
+  team_id: nconf.get('APPLE_TEAM_ID'), // eslint-disable-line camelcase
+  key_id: nconf.get('APPLE_AUTH_KEY_ID'), // eslint-disable-line camelcase
+  redirect_uri: 'https://habitica.com/api/v4/user/auth/social', // eslint-disable-line camelcase
+  scope: 'name email',
+}), applePrivateKey.toString(), 'text');
+
+async function _appleProfile (req) {
+  let idToken = {};
+  if (req.body.code) {
+    const response = await auth.accessToken(req.body.code);
+    idToken = jwt.decode(response.id_token);
+  } else if (req.body.id_token) {
+    console.log("SLFJKSDF", req.body, applePublicKey);
+    idToken = await jwt.verify(req.body.id_token, applePublicKey, { algorithms: ['RS256'] });
+  }
+  const { name } = JSON.parse(req.body.user);
+  return {
+    id: idToken.sub,
+    emails: [idToken.email],
+    name,
+  };
+}
+
 export async function loginSocial (req, res) { // eslint-disable-line import/prefer-default-export
   const existingUser = res.locals.user;
+  const network = req.body.network;
   const accessToken = req.body.authResponse.access_token;
   const { network } = req.body;
 
@@ -30,7 +62,13 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
     .find(supportedNetwork => supportedNetwork.key === network);
   if (!isSupportedNetwork) throw new BadRequest(res.t('unsupportedNetwork'));
 
-  const profile = await _passportProfile(network, accessToken);
+  let profile = {};
+  if (network === 'apple') {
+    profile = await _appleProfile(req);
+  } else {
+    const accessToken = req.body.authResponse.access_token;
+    profile = await _passportProfile(network, accessToken);
+  }
 
   let user = await User.findOne({
     [`auth.${network}.id`]: profile.id,
