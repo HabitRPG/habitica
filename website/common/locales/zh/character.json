@@ -165,7 +165,7 @@
     "streaksFrozen": "连击冻结",
     "streaksFrozenText": "被错过的每日任务上的连击将不会在今天结束时被重置。",
     "respawn": "重生！",
-    "youDied": "你已经死亡！",
+    "youDied": "你死了！",
     "dieText": "你掉了一级，失去所有的金币，和随机的一件装备。起来吧，Habit世界的居民，再接再厉！远离那些坏习惯、注意完成每日任务、并在快支撑不住的时候使用生命药水免于死亡！",
     "sureReset": "你确定吗？这将会重置你的角色职业和已分配的属性点（它们会被返还并让你重新分配），这将会消耗3个宝石。",
     "purchaseFor": "花费<%= cost %>宝石购买？",
@@ -224,5 +224,9 @@
     "mainHand": "主要",
     "offHand": "副手",
     "statPoints": "属性点",
-    "pts": "点数"
+    "pts": "点数",
+    "chatCastSpellUser": "<%= username %>对<%= target %>释放了<%= spell %>。",
+    "chatCastSpellParty": "<%= username %>对队伍释放了<%= spell %>。",
+    "purchasePetItemConfirm": "这次消费会超出你需要用来孵化所有可能<%= itemText %>宠物的物品数。你确定要这样做嘛？",
+    "purchaseForGold": "花费<%= cost %> 个金币购买？"
 }
