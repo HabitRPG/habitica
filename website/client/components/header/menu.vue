@@ -1,6 +1,5 @@
 <template lang="pug">
 div
-  messages-modal
   creator-intro
   profileModal
   report-flag-modal
@@ -405,7 +404,6 @@ import chevronDownIcon from 'assets/svg/chevron-down.svg';
 import logo from 'assets/svg/logo.svg';
 
 import creatorIntro from '../creatorIntro';
-import messagesModal from '../messages/messagesModal.vue';
 import notificationMenu from './notificationsDropdown';
 import profileModal from '../userMenu/profileModal';
 import reportFlagModal from '../chat/reportFlagModal';
@@ -417,7 +415,6 @@ import userDropdown from './userDropdown';
 export default {
   components: {
     creatorIntro,
-    messagesModal,
     notificationMenu,
     profileModal,
     reportFlagModal,

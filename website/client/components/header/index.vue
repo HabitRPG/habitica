@@ -2,7 +2,7 @@
 div
   invite-modal(:group='inviteModalGroup', :groupType='inviteModalGroupType')
   create-party-modal
-  #app-header.row(:class="{'hide-header': $route.name === 'groupPlan'}")
+  #app-header.row(:class="{'hide-header': hideHeader}")
     members-modal(:hide-badge="true")
     member-details(
       :member="user",
@@ -137,6 +137,9 @@ export default {
     sortedPartyMembers () {
       return orderBy(this.partyMembers, [this.user.party.order], [this.user.party.orderAscending]);
     },
+    hideHeader () {
+      return ['groupPlan', 'messages'].includes(this.$route.name);
+    },
   },
   methods: {
     ...mapActions({
@@ -185,7 +188,9 @@ export default {
     });
   },
   destroyed () {
-    this.$root.off('inviteModal::inviteToGroup');
+    if (this.$root && this.$root.off) {
+      this.$root.off('inviteModal::inviteToGroup');
+    }
   },
 };
 </script>
