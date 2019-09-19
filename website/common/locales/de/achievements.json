@@ -5,5 +5,10 @@
     "levelup": "Durch das Erfüllen Deiner Ziele im Leben bist Du ein Level aufgestiegen und wurdest vollständig geheilt!",
     "reachedLevel": "Du hast Level <%= level %> erreicht",
     "achievementLostMasterclasser": "Quest-Erfüller: Klassenmeister-Reihe",
-    "achievementLostMasterclasserText": "Hat alle sechzehn Quests in der Klassenmeister-Questreihe abgeschlossen und das Rätsel des Verschwundenen Klassenmeisters gelöst!"
+    "achievementLostMasterclasserText": "Hat alle sechzehn Quests in der Klassenmeister-Questreihe abgeschlossen und das Rätsel des Verschwundenen Klassenmeisters gelöst!",
+    "achievementJustAddWater": "Einfach Wasser Zuführen",
+    "achievementMindOverMatterModalText": "Du hast die Rockende, Schleim- und Zwirnhaustier-Quests erfüllt!",
+    "achievementMindOverMatterText": "Hat die Rockende, Schleim- und Zwirnhaustier-Quests erfüllt.",
+    "achievementMindOverMatter": "Geist Über Materie",
+    "achievementLostMasterclasserModalText": "Du hast alle sechzehn Quests der Masterklasser-Quest-Reihe erfüllt und das Rätsel der Verloren Masterklasser gelüftet!"
 }
