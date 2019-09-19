@@ -227,6 +227,9 @@ export default {
         };
       }
     }
+    this.CHAT_FLAG_LIMIT_FOR_HIDING = CHAT_FLAG_LIMIT_FOR_HIDING;
+    this.CHAT_FLAG_FROM_SHADOW_MUTE = CHAT_FLAG_FROM_SHADOW_MUTE;
+    this.$emit('chat-card-mounted', this.msg.id);
   },
   methods: {
     async like () {
@@ -289,11 +292,6 @@ export default {
       if (!text) return;
       return habiticaMarkdown.render(String(text));
     },
-  },
-  mounted () {
-    this.CHAT_FLAG_LIMIT_FOR_HIDING = CHAT_FLAG_LIMIT_FOR_HIDING;
-    this.CHAT_FLAG_FROM_SHADOW_MUTE = CHAT_FLAG_FROM_SHADOW_MUTE;
-    this.$emit('chat-card-mounted', this.msg.id);
   },
 };
 </script>
