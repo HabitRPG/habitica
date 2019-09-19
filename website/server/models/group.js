@@ -39,7 +39,7 @@ import amazonPayments from '../libs/payments/amazon';
 import stripePayments from '../libs/payments/stripe';
 import { getGroupChat, translateMessage } from '../libs/chat/group-chat';
 import { model as UserNotification } from './userNotification';
-import { sendChatPushNotifications } from '../../libs/chat';
+import { sendChatPushNotifications } from '../libs/chat';
 
 const questScrolls = shared.content.quests;
 const questSeriesAchievements = shared.content.questSeriesAchievements;
