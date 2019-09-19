@@ -34,5 +34,5 @@ export function goToModForm (user) {
 
   document.cookie = `habiticauserdata=${JSON.stringify(userData)};${expires};domain=.habitica.com;path=/`;
 
-  window.location.href = 'http://contact.habitica.com';
+  window.location.href = 'https://contact.habitica.com';
 }

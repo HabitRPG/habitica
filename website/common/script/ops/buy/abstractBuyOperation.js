@@ -21,7 +21,7 @@ export class AbstractBuyOperation {
     let quantity = _get(req, 'quantity');
 
     this.quantity = quantity ? Number(quantity) : 1;
-    if (isNaN(this.quantity)) throw new BadRequest(this.i18n('invalidQuantity'));
+    if (this.quantity < 1 || !Number.isInteger(this.quantity)) throw new BadRequest(this.i18n('invalidQuantity'));
   }
 
   /**

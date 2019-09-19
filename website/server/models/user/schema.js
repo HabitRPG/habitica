@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import shared from '../../../common';
-import _ from 'lodash';
 import validator from 'validator';
 import { schema as TagSchema } from '../tag';
 import { schema as PushDeviceSchema } from '../pushDevice';
@@ -11,6 +10,9 @@ import {
 import {
   schema as SubscriptionPlanSchema,
 } from '../subscriptionPlan';
+import {
+  getDefaultOwnedGear,
+} from '../../libs/items/utils';
 
 const Schema = mongoose.Schema;
 
@@ -92,7 +94,7 @@ let schema = new Schema({
     spookySparkles: Number,
     shinySeed: Number,
     seafoam: Number,
-    streak: Number,
+    streak: {$type: Number, default: 0},
     challenges: Array,
     quests: {$type: Schema.Types.Mixed, default: () => {
       return {};
@@ -118,6 +120,12 @@ let schema = new Schema({
     joinedChallenge: Boolean,
     invitedFriend: Boolean,
     lostMasterclasser: Boolean,
+    mindOverMatter: Boolean,
+    justAddWater: Boolean,
+    backToBasics: Boolean,
+    allYourBase: Boolean,
+    dustDevil: Boolean,
+    aridAuthority: Boolean,
   },
 
   backer: {
@@ -219,10 +227,12 @@ let schema = new Schema({
     classSelected: {$type: Boolean, default: false},
     mathUpdates: Boolean,
     rebirthEnabled: {$type: Boolean, default: false},
+    lastFreeRebirth: Date,
     levelDrops: {$type: Schema.Types.Mixed, default: () => {
       return {};
     }},
     chatRevoked: Boolean,
+    chatShadowMuted: Boolean,
     // Used to track the status of recapture emails sent to each user,
     // can be 0 - no email sent - 1, 2, 3 or 4 - 4 means no more email will be sent to the user
     recaptureEmailsPhase: {$type: Number, default: 0},
@@ -251,12 +261,12 @@ let schema = new Schema({
 
   items: {
     gear: {
-      owned: _.transform(shared.content.gear.flat, (m, v) => {
-        m[v.key] = {$type: Boolean};
-        if (v.key.match(/(armor|head|shield)_warrior_0/) || v.gearSet === 'glasses' || v.gearSet === 'headband') {
-          m[v.key].default = true;
-        }
-      }),
+      owned: {
+        $type: Schema.Types.Mixed,
+        default: () => {
+          return getDefaultOwnedGear();
+        },
+      },
 
       equipped: {
         weapon: String,
@@ -310,55 +320,52 @@ let schema = new Schema({
     //   'PandaCub-Red': 10, // Number represents "Growth Points"
     //   etc...
     // }
-    pets: _.defaults(
-      // First transform to a 1D eggs/potions mapping
-      _.transform(shared.content.pets, (m, v, k) => m[k] = Number),
-      // Then add additional pets (quest, backer, contributor, premium)
-      _.transform(shared.content.questPets, (m, v, k) => m[k] = Number),
-      _.transform(shared.content.specialPets, (m, v, k) => m[k] = Number),
-      _.transform(shared.content.premiumPets, (m, v, k) => m[k] = Number)
-    ),
+    pets: {$type: Schema.Types.Mixed, default: () => {
+      return {};
+    }},
     currentPet: String, // Cactus-Desert
 
     // eggs: {
     //  'PandaCub': 0, // 0 indicates "doesn't own"
     //  'Wolf': 5 // Number indicates "stacking"
     // }
-    eggs: _.transform(shared.content.eggs, (m, v, k) => m[k] = Number),
+    eggs: {$type: Schema.Types.Mixed, default: () => {
+      return {};
+    }},
 
     // hatchingPotions: {
     //  'Desert': 0, // 0 indicates "doesn't own"
     //  'CottonCandyBlue': 5 // Number indicates "stacking"
     // }
-    hatchingPotions: _.transform(shared.content.hatchingPotions, (m, v, k) => m[k] = Number),
+    hatchingPotions: {$type: Schema.Types.Mixed, default: () => {
+      return {};
+    }},
 
     // Food: {
     //  'Watermelon': 0, // 0 indicates "doesn't own"
     //  'RottenMeat': 5 // Number indicates "stacking"
     // }
-    food: _.transform(shared.content.food, (m, v, k) => m[k] = Number),
+    food: {$type: Schema.Types.Mixed, default: () => {
+      return {};
+    }},
 
     // mounts: {
     //  'Wolf-Desert': true,
     //  'PandaCub-Red': false,
     //  etc...
     // }
-    mounts: _.defaults(
-      // First transform to a 1D eggs/potions mapping
-      _.transform(shared.content.pets, (m, v, k) => m[k] = Boolean),
-      // Then add quest and premium pets
-      _.transform(shared.content.questPets, (m, v, k) => m[k] = Boolean),
-      _.transform(shared.content.premiumPets, (m, v, k) => m[k] = Boolean),
-      // Then add additional mounts (backer, contributor)
-      _.transform(shared.content.specialMounts, (m, v, k) => m[k] = Boolean)
-    ),
+    mounts: {$type: Schema.Types.Mixed, default: () => {
+      return {};
+    }},
     currentMount: String,
 
     // Quests: {
     //  'boss_0': 0, // 0 indicates "doesn't own"
     //  'collection_honey': 5 // Number indicates "stacking"
     // }
-    quests: _.transform(shared.content.quests, (m, v, k) => m[k] = Number),
+    quests: {$type: Schema.Types.Mixed, default: () => {
+      return {};
+    }},
 
     lastDrop: {
       date: {$type: Date, default: Date.now},
@@ -483,6 +490,7 @@ let schema = new Schema({
       weeklyRecaps: {$type: Boolean, default: true},
       onboarding: {$type: Boolean, default: true},
       majorUpdates: {$type: Boolean, default: true},
+      subscriptionReminders: {$type: Boolean, default: true},
     },
     pushNotifications: {
       unsubscribeFromAll: {$type: Boolean, default: false},

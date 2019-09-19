@@ -26,6 +26,10 @@ div
   quest-completed
   quest-invitation
   verify-username
+  generic-achievement(:data='notificationData')
+  just-add-water
+  lost-masterclasser
+  mind-over-matter
 </template>
 
 <style lang='scss'>
@@ -118,6 +122,10 @@ import rebirth from './achievements/rebirth';
 import streak from './achievements/streak';
 import ultimateGear from './achievements/ultimateGear';
 import wonChallenge from './achievements/wonChallenge';
+import genericAchievement from './achievements/genericAchievement';
+import justAddWater from './achievements/justAddWater';
+import lostMasterclasser from './achievements/lostMasterclasser';
+import mindOverMatter from './achievements/mindOverMatter';
 import loginIncentives from './achievements/login-incentives';
 import verifyUsername from './settings/verifyUsername';
 
@@ -131,11 +139,6 @@ const NOTIFICATIONS = {
     achievement: true,
     label: ($t) => `${$t('achievement')}: ${$t('gearAchievementNotification')}`,
     modalId: 'ultimate-gear',
-  },
-  REBIRTH_ACHIEVEMENT: {
-    label: ($t) => `${$t('achievement')}: ${$t('rebirthBegan')}`,
-    achievement: true,
-    modalId: 'rebirth',
   },
   GUILD_JOINED_ACHIEVEMENT: {
     label: ($t) => `${$t('achievement')}: ${$t('joinedGuild')}`,
@@ -151,6 +154,26 @@ const NOTIFICATIONS = {
     achievement: true,
     label: ($t) => $t('modalContribAchievement'),
     modalId: 'contributor',
+  },
+  ACHIEVEMENT_ALL_YOUR_BASE: {
+    achievement: true,
+    label: ($t) => `${$t('achievement')}: ${$t('achievementAllYourBase')}`,
+    modalId: 'generic-achievement',
+  },
+  ACHIEVEMENT_BACK_TO_BASICS: {
+    achievement: true,
+    label: ($t) => `${$t('achievement')}: ${$t('achievementBackToBasics')}`,
+    modalId: 'generic-achievement',
+  },
+  ACHIEVEMENT_DUST_DEVIL: {
+    achievement: true,
+    label: ($t) => `${$t('achievement')}: ${$t('achievementDustDevil')}`,
+    modalId: 'generic-achievement',
+  },
+  ACHIEVEMENT_ARID_AUTHORITY: {
+    achievement: true,
+    label: ($t) => `${$t('achievement')}: ${$t('achievementAridAuthority')}`,
+    modalId: 'generic-achievement',
   },
 };
 
@@ -181,6 +204,10 @@ export default {
     contributor,
     loginIncentives,
     verifyUsername,
+    genericAchievement,
+    lostMasterclasser,
+    mindOverMatter,
+    justAddWater,
   },
   data () {
     // Levels that already display modals and should not trigger generic Level Up
@@ -202,7 +229,8 @@ export default {
       'GUILD_PROMPT', 'DROPS_ENABLED', 'REBIRTH_ENABLED', 'WON_CHALLENGE', 'STREAK_ACHIEVEMENT',
       'ULTIMATE_GEAR_ACHIEVEMENT', 'REBIRTH_ACHIEVEMENT', 'GUILD_JOINED_ACHIEVEMENT',
       'CHALLENGE_JOINED_ACHIEVEMENT', 'INVITED_FRIEND_ACHIEVEMENT', 'NEW_CONTRIBUTOR_LEVEL',
-      'CRON', 'SCORED_TASK', 'LOGIN_INCENTIVE',
+      'CRON', 'SCORED_TASK', 'LOGIN_INCENTIVE', 'ACHIEVEMENT_ALL_YOUR_BASE', 'ACHIEVEMENT_BACK_TO_BASICS',
+      'ACHIEVEMENT_DUST_DEVIL', 'ACHIEVEMENT_ARID_AUTHORITY', 'GENERIC_ACHIEVEMENT',
     ].forEach(type => {
       handledNotifications[type] = true;
     });
@@ -347,8 +375,8 @@ export default {
       this.playSound('Death');
       this.$root.$emit('bv::show::modal', 'death');
     },
-    showNotificationWithModal (type, forceToModal) {
-      const config = NOTIFICATIONS[type];
+    showNotificationWithModal (notification, forceToModal) {
+      const config = NOTIFICATIONS[notification.type];
 
       if (!config) {
         return;
@@ -360,18 +388,11 @@ export default {
         this.playSound(config.sound);
       }
 
-      if (type === 'REBIRTH_ACHIEVEMENT') {
-        // reload if the user hasn't clicked on the notification
-        const timeOut = setTimeout(() => {
-          window.location.reload(true);
-        }, 60000);
+      if (notification.data) {
+        this.notificationData = notification.data;
+      }
 
-        this.text(config.label(this.$t), () => {
-          // prevent the current reload timeout
-          clearTimeout(timeOut);
-          this.$root.$emit('bv::show::modal', config.modalId);
-        }, false);
-      } else if (forceToModal) {
+      if (forceToModal) {
         this.$root.$emit('bv::show::modal', config.modalId);
       } else {
         this.text(config.label(this.$t), () => {
@@ -416,7 +437,7 @@ export default {
 
       // List of prompts for user on changes. Sounds like we may need a refactor here, but it is clean for now
       if (!this.user.flags.welcomed) {
-        this.$store.state.avatarEditorOptions.editingUser = false;
+        if (this.$store.state.avatarEditorOptions) this.$store.state.avatarEditorOptions.editingUser = false;
         return this.$root.$emit('bv::show::modal', 'avatar-modal');
       }
 
@@ -573,13 +594,21 @@ export default {
             }, this.user.preferences.suppressModals.streak);
             this.playSound('Achievement_Unlocked');
             break;
-          case 'ULTIMATE_GEAR_ACHIEVEMENT':
           case 'REBIRTH_ACHIEVEMENT':
+            this.playSound('Achievement_Unlocked');
+            this.$root.$emit('bv::show::modal', 'rebirth');
+            break;
+          case 'ULTIMATE_GEAR_ACHIEVEMENT':
           case 'GUILD_JOINED_ACHIEVEMENT':
           case 'CHALLENGE_JOINED_ACHIEVEMENT':
           case 'INVITED_FRIEND_ACHIEVEMENT':
           case 'NEW_CONTRIBUTOR_LEVEL':
-            this.showNotificationWithModal(notification.type);
+          case 'ACHIEVEMENT_ALL_YOUR_BASE':
+          case 'ACHIEVEMENT_BACK_TO_BASICS':
+          case 'ACHIEVEMENT_DUST_DEVIL':
+          case 'ACHIEVEMENT_ARID_AUTHORITY':
+          case 'GENERIC_ACHIEVEMENT':
+            this.showNotificationWithModal(notification);
             break;
           case 'CRON':
             if (notification.data) {

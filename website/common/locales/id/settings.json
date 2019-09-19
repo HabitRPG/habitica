@@ -9,7 +9,7 @@
     "newTaskEdit": "Buka tugas baru dalam mode edit",
     "newTaskEditPop": "Dengan menyetel pilihan ini, tugas baru akan terbuka untuk langsung kamu tambahkan isian detail seperti catatan dan label.",
     "dailyDueDefaultView": "Menyetel Keseharian pada tab 'tenggang waktu'",
-    "dailyDueDefaultViewPop": "Tugas harian akan menampilkan daftar tugas dalam 'tenggang waktu', bukannya menampilkan semua tugas.",
+    "dailyDueDefaultViewPop": "Dengan opsi ini, Tugas harian akan menampilkan daftar tugas berdasarkan 'tenggat waktu', bukan berdasarkan 'Semua'",
     "reverseChatOrder": "Perlihatkan obrolan dalam urutan terbalik",
     "startAdvCollapsed": "Suntingan Tambahan pada tugas tersembunyi",
     "startAdvCollapsedPop": "With this option set, Advanced Settings will be hidden when you first open a task for editing.",

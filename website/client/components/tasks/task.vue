@@ -6,21 +6,23 @@
       // Habits left side control
       .left-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="controlClass.up.bg")
         .task-control.habit-control(:class="controlClass.up.inner", @click="(isUser && task.up) ? score('up') : null")
-          .svg-icon.positive(v-html="icons.positive")
+          .svg-icon.lock(v-if="this.task.group.id && !isUser", v-html="icons.lock", :class="controlClass.up.icon")
+          .svg-icon.positive(v-else, v-html="icons.positive")
       // Dailies and todos left side control
       .left-control.d-flex.justify-content-center(v-if="task.type === 'daily' || task.type === 'todo'", :class="controlClass.bg")
         .task-control.daily-todo-control(:class="controlClass.inner", @click="isUser ? score(task.completed ? 'down' : 'up') : null")
-          .svg-icon.check(v-html="icons.check", :class="{'display-check-icon': task.completed, [controlClass.checkbox]: true}")
+          .svg-icon.lock(v-html="icons.lock", v-if="this.task.group.id && !isUser && !task.completed", :class="controlClass.icon")
+          .svg-icon.check(v-else, v-html="icons.check", :class="{'display-check-icon': task.completed, [controlClass.checkbox]: true}")
       // Task title, description and icons
       .task-content(:class="contentClass")
         .task-clickable-area(@click="edit($event, task)", :class="{'task-clickable-area-user': isUser}")
           .d-flex.justify-content-between
             h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
             menu-dropdown.task-dropdown(
-              v-if="isUser && !isRunningYesterdailies",
+              v-if="!isRunningYesterdailies && showOptions",
               :right="task.type === 'reward'",
               ref="taskDropdown",
-              v-b-tooltip.hover.top="$t('showMore')"
+              v-b-tooltip.hover.top="$t('options')"
             )
               div(slot="dropdown-toggle", draggable=false)
                 .svg-icon.dropdown-icon(v-html="icons.menu")
@@ -29,11 +31,11 @@
                   span.dropdown-icon-item
                     span.svg-icon.inline.edit-icon(v-html="icons.edit")
                     span.text {{ $t('edit') }}
-                .dropdown-item(@click="moveToTop")
+                .dropdown-item(v-if='isUser', @click="moveToTop")
                   span.dropdown-icon-item
                     span.svg-icon.inline.push-to-top(v-html="icons.top")
                     span.text {{ $t('taskToTop') }}
-                .dropdown-item(@click="moveToBottom")
+                .dropdown-item(v-if='isUser', @click="moveToBottom")
                   span.dropdown-icon-item
                     span.svg-icon.inline.push-to-bottom(v-html="icons.bottom")
                     span.text {{ $t('taskToBottom') }}
@@ -46,7 +48,7 @@
             v-markdown="task.notes",
             :class="{'has-checklist': task.notes && hasChecklist}",
           )
-        .checklist(v-if="canViewchecklist")
+        .checklist(v-if="canViewchecklist", :class="{isOpen: !task.collapseChecklist}")
           .d-inline-flex
             .collapse-checklist.d-flex.align-items-center.expand-toggle(
               v-if="isUser",
@@ -65,9 +67,9 @@
               :checked="item.completed",
               @change="toggleChecklistItem(item)",
               :disabled="castingSpell || !isUser",
-              :id="`checklist-${item.id}`"
+              :id="`checklist-${item.id}-${random}`"
             )
-            label.custom-control-label(v-markdown="item.text", :for="`checklist-${item.id}`")
+            label.custom-control-label(v-markdown="item.text", :for="`checklist-${item.id}-${random}`")
         .icons.small-text.d-flex.align-items-center
           .d-flex.align-items-center(v-if="task.type === 'todo' && task.date", :class="{'due-overdue': isDueOverdue}")
             .svg-icon.calendar(v-html="icons.calendar", v-b-tooltip.hover.bottom="$t('dueDate')")
@@ -99,7 +101,8 @@
       // Habits right side control
       .right-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="controlClass.down.bg")
         .task-control.habit-control(:class="controlClass.down.inner", @click="(isUser && task.down) ? score('down') : null")
-          .svg-icon.negative(v-html="icons.negative")
+          .svg-icon.lock(v-if="this.task.group.id && !isUser", v-html="icons.lock", :class="controlClass.down.icon")
+          .svg-icon.negative(v-else, v-html="icons.negative")
       // Rewards right side control
       .right-control.d-flex.align-items-center.justify-content-center.reward-control(v-if="task.type === 'reward'", :class="controlClass.bg", @click="isUser ? score('down') : null")
         .svg-icon(v-html="icons.gold")
@@ -140,6 +143,11 @@
     font-size: 14px;
     min-width: 0px;
     overflow-wrap: break-word;
+
+    // markdown p-tag, can't find without /deep/
+    /deep/ p {
+      margin-bottom: 0;
+    }
 
     &.has-notes {
       padding-bottom: 4px;
@@ -229,7 +237,7 @@
     overflow-wrap: break-word;
 
     &.has-checklist {
-      padding-bottom: 8px;
+      padding-bottom: 2px;
     }
   }
 
@@ -254,19 +262,25 @@
   }
 
   .checklist {
-    margin-bottom: 2px;
+    &.isOpen {
+      margin-bottom: 2px;
+    }
+
     margin-top: -3px;
   }
 
   .collapse-checklist {
     padding: 2px 6px;
-    margin-bottom: 9px;
     border-radius: 1px;
     background-color: $gray-600;
     font-size: 10px;
     line-height: 1.2;
     text-align: center;
     color: $gray-200;
+    margin-bottom: 9px;
+
+    &.open {
+    }
 
     span {
       margin: 0px 4px;
@@ -285,7 +299,7 @@
     margin-bottom: -3px;
     min-height: 0px;
     width: 100%;
-    margin-left: 8px;
+    margin-left: 0;
     padding-right: 20px;
     overflow-wrap: break-word;
 
@@ -427,7 +441,7 @@
     border-left: none;
   }
 
-  .task-control, .reward-control {
+  .task-control:not(.task-disabled-habit-control-inner), .reward-control {
     cursor: pointer;
   }
 
@@ -522,12 +536,14 @@ import topIcon from 'assets/svg/top.svg';
 import bottomIcon from 'assets/svg/bottom.svg';
 import deleteIcon from 'assets/svg/delete.svg';
 import checklistIcon from 'assets/svg/checklist.svg';
+import lockIcon from 'assets/svg/lock.svg';
 import menuIcon from 'assets/svg/menu.svg';
 import markdownDirective from 'client/directives/markdown';
 import notifications from 'client/mixins/notifications';
 import approvalHeader from './approvalHeader';
 import approvalFooter from './approvalFooter';
 import MenuDropdown from '../ui/customMenuDropdown';
+import uuid from 'uuid';
 
 export default {
   mixins: [notifications],
@@ -539,9 +555,10 @@ export default {
   directives: {
     markdown: markdownDirective,
   },
-  props: ['task', 'isUser', 'group', 'dueDate'], // @TODO: maybe we should store the group on state?
+  props: ['task', 'isUser', 'group', 'dueDate', 'showOptions'], // @TODO: maybe we should store the group on state?
   data () {
     return {
+      random: uuid.v4(), // used to avoid conflicts between checkboxes ids
       icons: Object.freeze({
         positive: positiveIcon,
         negative: negativeIcon,
@@ -558,6 +575,7 @@ export default {
         top: topIcon,
         bottom: bottomIcon,
         menu: menuIcon,
+        lock: lockIcon,
       }),
     };
   },
@@ -688,7 +706,7 @@ export default {
       this.$emit('taskDestroyed', this.task);
     },
     castEnd (e, task) {
-      this.$root.$emit('castEnd', task, 'task', e);
+      setTimeout(() => this.$root.$emit('castEnd', task, 'task', e), 0);
     },
     async score (direction) {
       if (this.castingSpell) return;

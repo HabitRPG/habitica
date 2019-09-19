@@ -53,12 +53,12 @@ async function _deleteHabiticaData (user, email) {
 
   if (response) {
     console.log(`${response.status} ${response.statusText}`);
-    if (response.status === 200) console.log(`${user._id} removed. Last login: ${user.auth.timestamps.loggedin}`);
+    if (response.status === 200) console.log(`${user._id} (${email}) removed. Last login: ${user.auth.timestamps.loggedin}`);
   }
 }
 
 async function _processEmailAddress (email) {
-  const emailRegex = new RegExp(`^${email}`, 'i');
+  const emailRegex = new RegExp(`^${email}$`, 'i');
   const users = await User.find({
     $or: [
       {'auth.local.email': emailRegex},

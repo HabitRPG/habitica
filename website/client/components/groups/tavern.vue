@@ -113,13 +113,13 @@
           li
             a(href='', v-html="$t('glossary')")
           li
-            a(href='http://habitica.fandom.com/wiki/Habitica_Wiki', v-once) {{ $t('wiki') }}
+            a(href='http://habitica.fandom.com/wiki/Habitica_Wiki' target='_blank', v-once) {{ $t('wiki') }}
           li
-            a(href='https://oldgods.net/habitrpg/habitrpg_user_data_display.html', v-once) {{ $t('dataDisplayTool') }}
+            a(href='https://oldgods.net/habitrpg/habitrpg_user_data_display.html', target='_blank', v-once) {{ $t('dataDisplayTool') }}
           li
             router-link(to="/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac") {{ $t('reportProblem') }}
           li
-            a(href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents', v-once) {{ $t('requestFeature') }}
+            a(href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents', target='_blank', v-once) {{ $t('requestFeature') }}
           li
             a(href='', v-html="$t('communityForum')")
           li

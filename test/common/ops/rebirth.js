@@ -49,6 +49,7 @@ describe('shared.ops.rebirth', () => {
     let [, message] = rebirth(user);
 
     expect(message).to.equal(i18n.t('rebirthComplete'));
+    expect(user.flags.lastFreeRebirth).to.exist;
   });
 
   it('rebirths a user with not enough gems but more than max level', () => {
@@ -58,6 +59,16 @@ describe('shared.ops.rebirth', () => {
     let [, message] = rebirth(user);
 
     expect(message).to.equal(i18n.t('rebirthComplete'));
+  });
+
+  it('rebirths a user using gems if over max level but rebirthed recently', () => {
+    user.stats.lvl = MAX_LEVEL + 1;
+    user.flags.lastFreeRebirth = new Date();
+
+    let [, message] = rebirth(user);
+
+    expect(message).to.equal(i18n.t('rebirthComplete'));
+    expect(user.balance).to.equal(0);
   });
 
   it('resets user\'s tasks values except for rewards to 0', () => {
@@ -75,10 +86,14 @@ describe('shared.ops.rebirth', () => {
   });
 
   it('resets user\'s daily streaks to 0', () => {
+    tasks[0].counterDown = 1; // Habit
+    tasks[0].counterUp = 1; // Habit
     tasks[1].streak = 1; // Daily
 
     rebirth(user, tasks);
 
+    expect(tasks[0].counterDown).to.equal(0);
+    expect(tasks[0].counterUp).to.equal(0);
     expect(tasks[1].streak).to.equal(0);
   });
 

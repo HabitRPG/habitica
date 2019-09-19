@@ -48,14 +48,11 @@ div
 
           .box.payment-providers
             h3 Choose your payment method
-            .box.payment-button(@click='pay(PAYMENTS.STRIPE)')
-              div
-                .svg-icon.credit-card-icon(v-html="icons.group")
-                p.credit-card Credit Card
-              p Powered by Stripe
-            .box.payment-button(@click='pay(PAYMENTS.AMAZON)')
-              .svg-icon.amazon-pay-icon(v-html="icons.amazonpay")
-
+            .payments-column
+              button.purchase.btn.btn-primary.payment-button.payment-item(@click='pay(PAYMENTS.STRIPE)') 
+                .svg-icon.credit-card-icon(v-html="icons.creditCardIcon")
+                | {{ $t('card') }}
+              amazon-button.payment-item(:amazon-data="pay(PAYMENTS.AMAZON)")
     .container.col-6.offset-3.create-option(v-if='!upgradingGroup._id')
       .row
         h1.col-12.text-center.purple-header Create your Group today!
@@ -99,13 +96,13 @@ div
       .form-group
         button.btn.btn-primary.btn-lg.btn-block(@click="createGroup()", :disabled="!newGroupIsReady") {{ $t('createGroupPlan') }}
     .col-12(v-if='activePage === PAGES.PAY')
-      .payment-providers
+      .text-center
         h3 Choose your payment method
-        .box.payment-button(@click='pay(PAYMENTS.STRIPE)')
-          p Credit Card
-          p Powered by Stripe
-        .box.payment-button(@click='pay(PAYMENTS.AMAZON)')
-          | Amazon Pay
+        .payments-column.mx-auto
+          button.purchase.btn.btn-primary.payment-button.payment-item(@click='pay(PAYMENTS.STRIPE)') 
+            .svg-icon.credit-card-icon(v-html="icons.creditCardIcon")
+            | {{ $t('card') }}
+          amazon-button.payment-item(:amazon-data="pay(PAYMENTS.AMAZON)")
 </template>
 
 <style lang="scss" scoped>
@@ -130,38 +127,12 @@ div
       color: #fff;
     }
 
-    .payment-button {
-      display: block;
-      margin: 0 auto;
-      margin-bottom: 1em;
-    }
-
     .plus .svg-icon{
       width: 24px;
     }
 
     .payment-providers {
       width: 350px;
-    }
-
-    .credit-card {
-      font-size: 20px;
-      font-weight: bold;
-      margin-bottom: 0;
-      margin-top: .5em;
-      display: inline-block;
-    }
-
-    .credit-card-icon {
-      width: 25px;
-      display: inline-block;
-      margin-right: .5em;
-    }
-
-    .amazon-pay-icon {
-      width: 150px;
-      margin: 0 auto;
-      margin-top: .5em;
     }
   }
 
@@ -316,35 +287,25 @@ div
       vertical-align: bottom;
     }
   }
-
-  .payment-button {
-    width: 200px;
-    height: 80px;
-    margin-bottom: .5em;
-    padding: .5em;
-    display: block;
-  }
-
-  .payment-button:hover {
-    cursor: pointer;
-  }
 </style>
 
 <script>
 import paymentsMixin from '../../mixins/payments';
 import { mapState } from 'client/libs/store';
-import group from 'assets/svg/group.svg';
-import amazonpay from 'assets/svg/amazonpay.svg';
 import positiveIcon from 'assets/svg/positive.svg';
+import creditCardIcon from 'assets/svg/credit-card-icon.svg';
+import amazonButton from 'client/components/payments/amazonButton';
 
 export default {
   mixins: [paymentsMixin],
+  components: {
+    amazonButton,
+  },
   data () {
     return {
       amazonPayments: {},
       icons: Object.freeze({
-        group,
-        amazonpay,
+        creditCardIcon,
         positiveIcon,
       }),
       PAGES: {
@@ -413,7 +374,7 @@ export default {
         this.showStripe(paymentData);
       } else if (this.paymentMethod === this.PAYMENTS.AMAZON) {
         paymentData.type = 'subscription';
-        this.amazonPaymentsInit(paymentData);
+        return paymentData;
       }
     },
   },

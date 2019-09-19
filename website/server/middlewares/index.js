@@ -79,7 +79,12 @@ module.exports = function attachMiddlewares (app, server) {
   // The site can require basic HTTP authentication to be accessed
   if (ENABLE_HTTP_AUTH) {
     const httpBasicAuthUsers = {};
-    httpBasicAuthUsers[nconf.get('SITE_HTTP_AUTH_USERNAME')] = nconf.get('SITE_HTTP_AUTH_PASSWORD');
+    const usernames = nconf.get('SITE_HTTP_AUTH_USERNAMES').split(',');
+    const passwords = nconf.get('SITE_HTTP_AUTH_PASSWORDS').split(',');
+
+    usernames.forEach((user, index) => {
+      httpBasicAuthUsers[user] = passwords[index];
+    });
 
     app.use(basicAuth({
       users: httpBasicAuthUsers,

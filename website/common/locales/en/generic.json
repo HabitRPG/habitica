@@ -34,6 +34,7 @@
   "saveEdits": "Save Edits",
   "showMore": "Show More",
   "showLess": "Show Less",
+  "options": "Options",
 
   "expandToolbar": "Expand Toolbar",
   "collapseToolbar": "Collapse Toolbar",
@@ -83,7 +84,7 @@
   "continue": "Continue",
   "accept": "Accept",
   "reject": "Reject",
-  "neverMind": "Never mind",
+  "neverMind": "Nevermind",
   "buyMoreGems": "Buy More Gems",
   "notEnoughGems": "Not enough Gems",
   "alreadyHave": "Whoops! You already have this item. No need to buy it again!",
@@ -131,6 +132,7 @@
   "noNotificationsText": "The notification fairies give you a raucous round of applause! Well done!",
   "clear": "Clear",
   "endTour": "End Tour",
+  "demo": "Demo",
   "audioTheme": "Audio Theme",
   "audioTheme_off": "Off",
   "audioTheme_danielTheBard": "Daniel The Bard",
@@ -297,5 +299,6 @@
   "selected": "Selected",
   "howManyToBuy": "How many would you like to buy?",
   "habiticaHasUpdated": "There is a new Habitica update. Refresh to get the latest version!",
-  "contactForm": "Contact the Moderation Team"
+  "contactForm": "Contact the Moderation Team",
+  "loadEarlierMessages": "Load Earlier Messages"
 }

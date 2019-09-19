@@ -23,21 +23,31 @@
           span.mr-1(v-if="member.auth && member.auth.local && member.auth.local.username") @{{ member.auth.local.username }}
           span.mr-1(v-if="member.auth && member.auth.local && member.auth.local.username") •
           span {{ characterLevel }}
-    .progress-container(v-b-tooltip.hover.bottom="$t('health')")
-      .svg-icon(v-html="icons.health")
-      .progress
-        .progress-bar.bg-health(:style="{width: `${percent(member.stats.hp, MAX_HEALTH)}%`}")
-      span.small-text {{member.stats.hp | statFloor}} / {{MAX_HEALTH}}
-    .progress-container(v-b-tooltip.hover.bottom="$t('experience')")
-      .svg-icon(v-html="icons.experience")
-      .progress
-        .progress-bar.bg-experience(:style="{width: `${percent(member.stats.exp, toNextLevel)}%`}")
-      span.small-text {{member.stats.exp | statFloor}} / {{toNextLevel}}
-    .progress-container(v-if="hasClass", v-b-tooltip.hover.bottom="$t('mana')")
-      .svg-icon(v-html="icons.mana")
-      .progress
-        .progress-bar.bg-mana(:style="{width: `${percent(member.stats.mp, maxMP)}%`}")
-      span.small-text {{member.stats.mp | statFloor}} / {{maxMP}}
+    stats-bar(
+      :icon="icons.health",
+      :value="member.stats.hp",
+      :maxValue="MAX_HEALTH",
+      :tooltip="$t('health')",
+      progressClass="bg-health",
+      :condensed="condensed"
+    )
+    stats-bar(
+      :icon="icons.experience",
+      :value="member.stats.exp",
+      :maxValue="toNextLevel",
+      :tooltip="$t('experience')",
+      progressClass="bg-experience",
+      :condensed="condensed"
+    )
+    stats-bar(
+      v-if="hasClass",
+      :icon="icons.mana",
+      :value="member.stats.mp",
+      :maxValue="maxMP",
+      :tooltip="$t('mana')",
+      progressClass="bg-mana",
+      :condensed="condensed"
+    )
 </template>
 
 <style lang="scss" scoped>
@@ -99,44 +109,6 @@
     margin-bottom: .5em
   }
 
-  .progress-container {
-    margin-left: 4px;
-    margin-bottom: .5em;
-    height: 24px;
-  }
-
-  .progress-container > span {
-    color: $header-color;
-    margin-left: 8px;
-    font-style: normal;
-    line-height: 1;
-  }
-
-  .progress-container > .svg-icon {
-    width: 24px;
-    height: 24px;
-    margin-right: 8px;
-  }
-
-  .progress-container > .progress {
-    min-width: 200px;
-    margin: 0px;
-    border-radius: 2px;
-    height: 12px;
-    background-color: $header-dark-background;
-  }
-
-  .progress-container > .progress > .progress-bar {
-    border-radius: 2px;
-    height: 12px;
-    min-width: 0px;
-  }
-
-  .progress-container .svg-icon, .progress-container .progress, .progress-container .small-text {
-    display: inline-block;
-    vertical-align: middle;
-  }
-
   // Condensed version
   .member-details.condensed.expanded {
     background: $header-dark-background;
@@ -163,25 +135,6 @@
       border-bottom-left-radius: 4px;
       z-index: 9;
     }
-
-    .progress-container > .svg-icon {
-      width: 19px;
-      height: 19px;
-      margin-top: -2px;
-    }
-
-    .progress-container > .progress {
-      width: 152px;
-      border-radius: 0px;
-      height: 10px;
-      margin-top: 2px;
-      background: $purple-100;
-    }
-
-    .progress-container > .progress > .progress-bar {
-      border-radius: 0px;
-      height: 10px;
-    }
   }
 </style>
 
@@ -190,6 +143,7 @@ import Avatar from './avatar';
 import ClassBadge from './members/classBadge';
 import { mapState } from 'client/libs/store';
 import Profile from './userMenu/profile';
+import StatsBar from './ui/statsbar';
 
 import { toNextLevel } from '../../common/script/statHelpers';
 import statsComputed from '../../common/script/libs/statsComputed';
@@ -205,9 +159,7 @@ export default {
     Avatar,
     Profile,
     ClassBadge,
-  },
-  directives: {
-    // bTooltip,
+    StatsBar,
   },
   props: {
     member: {

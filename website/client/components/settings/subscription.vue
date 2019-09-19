@@ -68,20 +68,20 @@
 
         div(v-if='hasSubscription')
           .btn.btn-primary(v-if='canEditCardDetails', @click='showStripeEdit()') {{ $t('subUpdateCard') }}
-          .btn.btn-sm.btn-danger(v-if='canCancelSubscription && !loading', @click='cancelSubscription()') {{ $t('cancelSub') }}
+          .btn.btn-sm.btn-danger(v-if='canCancelSubscription && !loading', @click='cancelSubscriptionConfirm()') {{ $t('cancelSub') }}
           small(v-if='!canCancelSubscription && !hasCanceledSubscription', v-html='getCancelSubInfo()')
 
         .subscribe-pay(v-if='!hasSubscription || hasCanceledSubscription')
           h3 {{ $t('subscribeUsing') }}
-          .row.text-center
-            .col-md-4
-              button.purchase.btn.btn-primary(@click='showStripe({subscription:subscription.key, coupon:subscription.coupon})', :disabled='!subscription.key') {{ $t('card') }}
-            .col-md-4
-              a.purchase(@click="openPaypal(paypalPurchaseLink, 'subscription')", :disabled='!subscription.key')
-                img(src='https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-small.png', :alt="$t('paypal')")
-            .col-md-4
-              a.btn.btn-secondary.purchase(@click="payWithAmazon()")
-                img(src='https://payments.amazon.com/gp/cba/button', :alt="$t('amazonPayments')")
+          .payments-column
+            button.purchase.btn.btn-primary.payment-button.payment-item(@click='showStripe({subscription:subscription.key, coupon:subscription.coupon})', :disabled='!subscription.key') 
+              .svg-icon.credit-card-icon(v-html="icons.creditCardIcon")
+              | {{ $t('card') }}
+            button.btn.payment-item.paypal-checkout.payment-button(@click="openPaypal(paypalPurchaseLink, 'subscription')", :disabled='!subscription.key')
+              | &nbsp;
+              img(src='~assets/images/paypal-checkout.png', :alt="$t('paypal')")
+              | &nbsp;
+            amazon-button.payment-item(:amazon-data="{type: 'subscription', subscription: this.subscription.key, coupon: this.subscription.coupon}")
     .row
       .col-6
         h2(v-once) {{ $t('giftSubscription') }}
@@ -92,7 +92,7 @@
         h4(v-once) {{ $t('giftSubscriptionText4') }}
 </template>
 
-<style scoped>
+<style scoped lang="scss">
   .badge.badge-success {
     color: #fff;
   }
@@ -104,7 +104,6 @@
 
 <script>
 import axios from 'axios';
-import moment from 'moment';
 import filter from 'lodash/filter';
 import sortBy from 'lodash/sortBy';
 import min from 'lodash/min';
@@ -115,8 +114,14 @@ import planGemLimits from '../../../common/script/libs/planGemLimits';
 import paymentsMixin from '../../mixins/payments';
 import notificationsMixin from '../../mixins/notifications';
 
+import amazonButton from 'client/components/payments/amazonButton';
+import creditCardIcon from 'assets/svg/credit-card-icon.svg';
+
 export default {
   mixins: [paymentsMixin, notificationsMixin],
+  components: {
+    amazonButton,
+  },
   data () {
     return {
       loading: false,
@@ -137,6 +142,9 @@ export default {
         PAYPAL: 'Paypal',
         GIFT: 'Gift',
       },
+      icons: Object.freeze({
+        creditCardIcon,
+      }),
     };
   },
   computed: {
@@ -226,10 +234,6 @@ export default {
         amount: this.numberOfMysticHourglasses,
       };
     },
-    dateTerminated () {
-      if (!this.user.preferences || !this.user.preferences.dateFormat) return this.user.purchased.plan.dateTerminated;
-      return moment(this.user.purchased.plan.dateTerminated).format(this.user.preferences.dateFormat.toUpperCase());
-    },
     canCancelSubscription () {
       return (
         this.user.purchased.plan.paymentMethod !== this.paymentMethods.GOOGLE &&
@@ -240,13 +244,6 @@ export default {
     },
   },
   methods: {
-    payWithAmazon () {
-      this.amazonPaymentsInit({
-        type: 'subscription',
-        subscription: this.subscription.key,
-        coupon: this.subscription.coupon,
-      });
-    },
     async applyCoupon (coupon) {
       const response = await axios.post(`/api/v4/coupons/validate/${coupon}`);
 

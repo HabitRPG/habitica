@@ -12,11 +12,11 @@
     "messageLikesFood": "<%= egg %> freut sich sehr über <%= foodText %>!",
     "messageDontEnjoyFood": "<%= egg %> isst zwar <%= foodText %>, scheint aber nicht gerade begeistert davon zu sein.",
     "messageBought": "<%= itemText %> gekauft",
-    "messageEquipped": "<%= itemText %> angelegt.",
+    "messageEquipped": " <%= itemText %> angelegt.",
     "messageUnEquipped": "<%= itemText %> abgelegt.",
     "messageMissingEggPotion": "Dir fehlt entweder dieses Ei oder dieses Elixier",
     "messageInvalidEggPotionCombo": "Du kannst Quest-Haustier-Eier nicht mit magischen Schlüpfelixieren schlüpfen lassen! Versuche es mit einem anderen Ei.",
-    "messageAlreadyPet": "Du hast dieses Haustier bereits. Versuche doch eine andere Kombination.",
+    "messageAlreadyPet": "Du hast dieses Haustier bereits. Versuche doch eine andere Kombination!",
     "messageHatched": "Ein Ei ist ausgeschlüpft! Besichtige die Ställe um Dein Haustier auszuwählen.",
     "messageNotEnoughGold": "Nicht genug Gold",
     "messageTwoHandedEquip": "Um <%= twoHandedText %> zu führen brauchst Du beide Hände, daher wurde <%= offHandedText %> zurück in das Inventar gelegt.",
@@ -31,7 +31,7 @@
     "messageAlreadyOwnGear": "Du besitzt diesen Gegenstand schon. Gehe zur Ausrüstungsseite um ihn anzulegen.",
     "previousGearNotOwned": "Du musst eine Ausrüstung einer niedrigeren Stufe kaufen, bevor Du diese Ausrüstung kaufen kannst.",
     "messageHealthAlreadyMax": "Du hast schon alle Lebenspunkte.",
-    "messageHealthAlreadyMin": "Oh nein! Du hast bereits alle Lebenspunkte verloren - jetzt ist es zu spät, um noch einen Heiltrank zu kaufen! Aber keine Sorge, Du kannst Dich wiederbeleben.",
+    "messageHealthAlreadyMin": "Oh nein! Du hast bereits alle Lebenspunkte verloren - jetzt ist es zu spät, um noch einen Heiltrank zu kaufen! Aber keine Sorge, Du kannst Dich wiederbeleben!",
     "armoireEquipment": "<%= image %> Du hast ein Stück seltener Ausrüstung im verzauberten Schrank gefunden: <%= dropText %>! Großartig!",
     "armoireFood": "<%= image %> Du wühlst im verzauberten Schrank herum und findest <%= dropText %>. Was macht das denn da drin?",
     "armoireExp": "Du ringst mit dem verzauberten Schrank und gewinnst Erfahrung. Nimm das!",
@@ -62,5 +62,7 @@
     "unallocatedStatsPoints": "Du kannst <span class=\"notification-bold-blue\"><%= points %> Attributpunkt(e)</span> verteilen",
     "beginningOfConversation": "Dies ist der Anfang Deiner Unterhaltung mit<%= userName %>. Denke an einen freundlichen und respektvollen Umgang und halte Dich an die Community-Richtlinien!",
     "messageDeletedUser": "Tut uns leid, dieser Benutzer hat sein Konto gelöscht.",
-    "messageMissingDisplayName": "Fehlender Angezeigter Name."
+    "messageMissingDisplayName": "Fehlender Angezeigter Name.",
+    "reportedMessage": "Du hast diese Nachricht den Moderatoren gemeldet.",
+    "canDeleteNow": "Du kannst diese Nachricht nun löschen, wenn Du willst."
 }

@@ -1,9 +1,9 @@
 {
-  "achievement": "Başarı",
-  "share": "Paylaş",
-  "onwards": "Devam!",
-  "levelup": "Gerçek hayattaki hedeflerini tamamlayarak seviye atladın ve sağlığın tamamen yenilendi!",
-  "reachedLevel": "Seviye <%= level %> oldun",
-  "achievementLostMasterclasser": "Görev Tamamlayıcısı: Uzmaneleman Serisi",
-  "achievementLostMasterclasserText": "Uzmaneleman Görev Serisi'ndeki on altı görevin hepsini tamamladı ve Kayıp Uzmanelaman'ın gizemini çözdü!"
+    "achievement": "Başarı",
+    "share": "Paylaş",
+    "onwards": "İleri!",
+    "levelup": "Gerçek hayattaki hedeflerini tamamlayarak seviye atladın ve sağlığın tamamen yenilendi!",
+    "reachedLevel": "Seviye <%= level %> oldun!",
+    "achievementLostMasterclasser": "Görev Tamamlayıcısı: Büyük Usta Serisi",
+    "achievementLostMasterclasserText": "Büyük Usta görev serisindeki on altı görevin hepsini tamamladı ve kayıp Büyük Usta'nın gizemini çözdü!"
 }

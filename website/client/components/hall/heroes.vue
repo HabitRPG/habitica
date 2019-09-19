@@ -3,39 +3,41 @@
   small.muted(v-html="$t('blurbHallContributors')")
   .well
     div(v-if='user.contributor.admin')
-      h2 {{ $t('rewardUser') }}
+      h2 Reward User
 
       .row
         .form.col-6(v-if='!hero.profile')
           .form-group
-            input.form-control(type='text', v-model='heroID', :placeholder="$t('UUID')")
+            input.form-control(type='text', v-model='heroID', :placeholder="'User ID or Username'")
           .form-group
             button.btn.btn-secondary(@click='loadHero(heroID)')
-              | {{ $t('loadUser') }}
+              | Load User
 
       .row
         .form.col-6(v-if='hero && hero.profile', submit='saveHero(hero)')
-          router-link(:to="{'name': 'userProfile', 'params': {'userId': msg.uuid}}")
-            h3 {{hero.profile.name}}
+          router-link(:to="{'name': 'userProfile', 'params': {'userId': hero._id}}")
+            h3 @{{hero.auth.local.username}} &nbsp; / &nbsp; {{hero.profile.name}}
           .form-group
-            input.form-control(type='text', v-model='hero.contributor.text', :placeholder="$t('contribTitle')")
+            label Contributor Title
+            input.form-control(type='text', v-model='hero.contributor.text')
+            small Common titles: <strong>Ambassador, Artisan, Bard, Blacksmith, Challenger, Comrade, Fletcher, Linguist, Linguistic Scribe, Scribe, Socialite, Storyteller</strong>. Rare titles: Advisor, Chamberlain, Designer, Mathematician, Shirtster, Spokesperson, Statistician, Tinker, Transcriber, Troubadour.
           .form-group
-            label {{ $t('contribLevel') }}
+            label Contributor Tier
             input.form-control(type='number', v-model='hero.contributor.level')
-            small {{ $t('contribHallText') }}
-            |&nbsp;
-            a(target='_blank', href='https://trello.com/c/wkFzONhE/277-contributor-gear') {{ $t('moreDetails') }}
-            |,&nbsp;
-            a(target='_blank', href='https://github.com/HabitRPG/habitica/issues/3801') {{ $t('moreDetails2') }}
+            small 1-7 for normal contributors, 8 for moderators, 9 for staff. This determines which items, pets, and mounts are available, and name-tag coloring. Tiers 8 and 9 are automatically given admin status.
+              |&nbsp;
+              a(target='_blank', href='https://trello.com/c/wkFzONhE/277-contributor-gear') More details (1-7)
+              |,&nbsp;
+              a(target='_blank', href='https://github.com/HabitRPG/habitica/issues/3801') more details (8-9)
           .form-group
-            textarea.form-control(cols=5, :placeholder="$t('contributions')", v-model='hero.contributor.contributions')
-            //include ../../shared/formattiv-help
-          hr
+            label Contributions
+            textarea.form-control(cols=5, v-model='hero.contributor.contributions')
 
           .form-group
-            label {{ $t('balance') }}
+            label Balance
             input.form-control(type='number', step="any", v-model='hero.balance')
-            small {{ '`user.balance`' + this.$t('notGems') }}
+            small
+              span '{{ hero.balance }}' is in USD, <em>not</em> in Gems. E.g., if this number is 1, it means 4 Gems. Only use this option when manually granting Gems to players, don't use it when granting contributor tiers. Contrib tiers will automatically add Gems.
           .accordion
             .accordion-group(heading='Items')
               h4.expand-toggle(:class="{'open': expandItems}", @click="expandItems = !expandItems") Update Item
@@ -57,6 +59,11 @@
                 .form-group
                   .checkbox
                     label
+                      input(type='checkbox', v-if='hero.flags', v-model='hero.flags.chatShadowMuted')
+                      strong Chat Shadow Muting On
+                .form-group
+                  .checkbox
+                    label
                       input(type='checkbox', v-if='hero.flags', v-model='hero.flags.chatRevoked')
                       strong Chat Privileges Revoked
                 .form-group
@@ -69,7 +76,7 @@
           // Add backer stuff like tier, disable adds, etcs
           .form-group
             button.form-control.btn.btn-primary(@click='saveHero()')
-              | {{ $t('save') }}
+              | Save
 
     .table-responsive
       table.table.table-striped
@@ -83,12 +90,8 @@
         tbody
           tr(v-for='(hero, index) in heroes')
             td
-              span(v-if='hero.contributor && hero.contributor.admin', :popover="$t('gamemaster')", popover-trigger='mouseenter', popover-placement='right')
-                a.label.label-default(:class='userLevelStyle(hero)', @click='clickMember(hero, true)')
-                  | {{hero.profile.name}}&nbsp;
-                  //- span(v-class='userAdminGlyphiconStyle(hero)')
-              span(v-if='!hero.contributor || !hero.contributor.admin')
-                a.label.label-default(v-if='hero.profile', v-class='userLevelStyle(hero)', @click='clickMember(hero, true)') {{hero.profile.name}}
+              user-link(v-if='hero.contributor && hero.contributor.admin', :user='hero', :popover="$t('gamemaster')", popover-trigger='mouseenter', popover-placement='right')
+              user-link(v-if='!hero.contributor || !hero.contributor.admin', :user='hero')
             td(v-if='user.contributor.admin', @click='populateContributorInput(hero._id, index)').btn-link {{hero._id}}
             td {{hero.contributor.level}}
             td {{hero.contributor.text}}
@@ -113,9 +116,13 @@ import { mountInfo, petInfo } from 'common/script/content/stable';
 import { food, hatchingPotions, special } from 'common/script/content';
 import gear from 'common/script/content/gear';
 import notifications from 'client/mixins/notifications';
+import userLink from '../userLink';
 
 export default {
   mixins: [notifications, styleHelper],
+  components: {
+    userLink,
+  },
   data () {
     return {
       heroes: [],
@@ -178,6 +185,7 @@ export default {
       if (!this.hero.flags) {
         this.hero.flags = {
           chatRevoked: false,
+          chatShadowMuted: false,
         };
       }
       this.expandItems = false;

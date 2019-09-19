@@ -49,7 +49,7 @@ let api = {};
  * @apiSuccess {String} challenge.name Full name of challenge.
  * @apiSuccess {String} challenge.shortName A shortened name for the challenge, to be used as a tag.
  * @apiSuccess {Object} challenge.leader User details of challenge leader.
- * @apiSuccess {UUID} challenge.leader._id User id of challenge leader.
+ * @apiSuccess {UUID} challenge.leader._id User ID of challenge leader.
  * @apiSuccess {Object} challenge.leader.profile Profile information of leader.
  * @apiSuccess {Object} challenge.leader.profile.name Display Name of leader.
  * @apiSuccess {String} challenge.updatedAt Timestamp of last update.
@@ -364,12 +364,14 @@ api.getUserChallenges = {
       $and: [{$or: orOptions}],
     };
 
-    if (owned && owned === 'not_owned') {
-      query.$and.push({leader: {$ne: user._id}});
-    }
+    if (owned) {
+      if (owned === 'not_owned') {
+        query.$and.push({leader: {$ne: user._id}});
+      }
 
-    if (owned && owned === 'owned') {
-      query.$and.push({leader: user._id});
+      if (owned === 'owned') {
+        query.$and.push({leader: user._id});
+      }
     }
 
     if (req.query.search) {
@@ -400,7 +402,6 @@ api.getUserChallenges = {
     // .populate('leader', nameFields)
     const challenges = await mongoQuery.exec();
 
-
     let resChals = challenges.map(challenge => challenge.toJSON());
 
     resChals = _.orderBy(resChals, [challenge => {
@@ -410,7 +411,7 @@ api.getUserChallenges = {
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
     await Promise.all(resChals.map((chal, index) => {
       return Promise.all([
-        User.findById(chal.leader).select(nameFields).exec(),
+        User.findById(chal.leader).select(`${nameFields} backer contributor`).exec(),
         Group.findById(chal.group).select(basicGroupFields).exec(),
       ]).then(populatedData => {
         resChals[index].leader = populatedData[0] ? populatedData[0].toJSON({minimize: true}) : null;
@@ -424,11 +425,11 @@ api.getUserChallenges = {
 
 /**
  * @api {get} /api/v3/challenges/groups/:groupId Get challenges for a group
- * @apiDescription Get challenges that the user is a member, public challenges and the ones from the user's groups.
+ * @apiDescription Get challenges hosted in the specified group.
  * @apiName GetGroupChallenges
  * @apiGroup Challenge
  *
- * @apiParam (Path) {UUID} groupId The group _id
+ * @apiParam (Path) {UUID} groupId The group id ('party' for the user party and 'habitrpg' for tavern are accepted)
  *
  * @apiSuccess {Array} data An array of challenges sorted with official challenges first, followed by the challenges in order from newest to oldest
  *
@@ -441,7 +442,8 @@ api.getGroupChallenges = {
   method: 'GET',
   url: '/challenges/groups/:groupId',
   middlewares: [authWithHeaders({
-    userFieldsToInclude: ['_id', 'party', 'guilds'],
+    // Some fields (including _id) are always loaded (see middlewares/auth)
+    userFieldsToInclude: ['party', 'guilds'], // Some fields are always loaded (see middlewares/auth)
   })],
   async handler (req, res) {
     let user = res.locals.user;
@@ -460,7 +462,7 @@ api.getGroupChallenges = {
 
     const challenges = await Challenge.find({ group: groupId })
       .sort('-createdAt')
-      // .populate('leader', nameFields) // Only populate the leader as the group is implicit
+      // .populate('leader', nameFields) // Only populate the leader as the group is implicit // see below why we're not using populate
       .exec();
 
     let resChals = challenges.map(challenge => challenge.toJSON());

@@ -25,10 +25,12 @@
       hr
 
       .form-horizontal
-        h5 {{ $t('audioTheme') }}
-        select.form-control(v-model='user.preferences.sound',
-          @change='set("sound")')
-          option(v-for='sound in availableAudioThemes', :value='sound') {{ $t(`audioTheme_${sound}`) }}
+        .form-group
+          h5 {{ $t('audioTheme') }}
+          select.form-control(v-model='user.preferences.sound',
+            @change='changeAudioTheme')
+            option(v-for='sound in availableAudioThemes', :value='sound') {{ $t(`audioTheme_${sound}`) }}
+        button.btn.btn-primary.btn-xs(@click='playAudio', v-once) {{ $t('demo') }}
       hr
 
       .form-horizontal(v-if='hasClass')
@@ -227,6 +229,7 @@ import deleteModal from './deleteModal';
 import { SUPPORTED_SOCIAL_NETWORKS } from '../../../common/script/constants';
 import changeClass from  '../../../common/script/ops/changeClass';
 import notificationsMixin from '../../mixins/notifications';
+import sounds from '../../libs/sounds';
 // @TODO: this needs our window.env fix
 // import { availableLanguages } from '../../../server/libs/i18n';
 
@@ -283,6 +286,7 @@ export default {
     this.temporaryDisplayName = this.user.profile.name;
     this.emailUpdates.newEmail = this.user.auth.local.email || null;
     this.localAuth.username = this.user.auth.local.username || null;
+    this.soundIndex = 0;
     hello.init({
       facebook: process.env.FACEBOOK_KEY, // eslint-disable-line no-process-env
       google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line no-process-env
@@ -526,6 +530,14 @@ export default {
       if (this.usernameUpdates.username.length < 1) {
         this.usernameUpdates.username = this.user.auth.local.username;
       }
+    },
+    changeAudioTheme () {
+      this.soundIndex = 0;
+      this.set('sound');
+    },
+    playAudio () {
+      this.$root.$emit('playSound', sounds[this.soundIndex]);
+      this.soundIndex = (this.soundIndex + 1) % sounds.length;
     },
   },
 };

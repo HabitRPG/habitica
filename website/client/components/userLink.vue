@@ -11,7 +11,7 @@
 <style scoped lang="scss">
   @import '~client/assets/scss/colors.scss';
 
-  a {
+  a.no-tier {
     color: $gray-50;
   }
 
@@ -103,7 +103,7 @@
         return this.icons[`tier${this.level}`];
       },
       tierTitle () {
-        return achievementsLib.getContribText(this.level, this.isNPC) || '';
+        return achievementsLib.getContribText(this.contributor, this.isNPC) || '';
       },
       levelStyle () {
         return this.userLevelStyleFromLevel(this.level, this.isNPC);

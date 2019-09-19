@@ -1,54 +1,30 @@
-.promo_armoire_backgrounds_201902 {
+.promo_armoire_backgrounds_201909 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -277px;
+  background-position: 0px 0px;
   width: 423px;
   height: 147px;
 }
-.promo_bird_buddies_bundle {
+.promo_desert_pet_achievements {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -425px;
-  width: 420px;
-  height: 147px;
+  background-position: 0px -296px;
+  width: 204px;
+  height: 102px;
 }
-.promo_mystery_201901 {
+.promo_rocking_reptiles_bundle {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -662px -296px;
-  width: 282px;
+  background-position: 0px -148px;
+  width: 420px;
   height: 147px;
 }
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -972px -148px;
+  background-position: -424px -211px;
   width: 96px;
   height: 69px;
 }
-.promo_valentines {
+.scene_medal {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -662px -148px;
-  width: 309px;
-  height: 147px;
-}
-.promo_valentines_potions {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -662px 0px;
-  width: 420px;
-  height: 147px;
-}
-.scene_apollo {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -573px;
-  width: 279px;
-  height: 147px;
-}
-.scene_eating_healthy {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -328px 0px;
-  width: 333px;
-  height: 252px;
-}
-.scene_yesterdailies {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px 0px;
-  width: 327px;
-  height: 276px;
+  background-position: -424px 0px;
+  width: 210px;
+  height: 210px;
 }

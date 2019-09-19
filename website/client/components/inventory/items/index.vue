@@ -25,7 +25,7 @@
           b-dropdown-item(@click="sortBy = 'AZ'", :active="sortBy === 'AZ'") {{ $t('AZ') }}
     div(
       v-for="group in groups",
-      v-if="group.selected",
+      v-if="!anyFilterSelected || group.selected",
       :key="group.key",
     )
       h2.mb-3
@@ -225,7 +225,7 @@ const groups = [
   return {
     key: group,
     quantity: 0,
-    selected: true,
+    selected: false,
     classPrefix,
     allowedItems,
   };
@@ -339,6 +339,10 @@ export default {
       }
 
       return itemsByType;
+    },
+
+    anyFilterSelected () {
+      return this.groups.some(g => g.selected);
     },
   },
   methods: {
@@ -465,8 +469,6 @@ export default {
           let openedItem = result.data.data;
           let text = this.content.gear.flat[openedItem.key].text();
           this.drop(this.$t('messageDropMysteryItem', {dropText: text}), openedItem);
-          item.quantity--;
-          this.$forceUpdate();
         } else {
           this.$root.$emit('selectMembersModal::showItem', item);
         }

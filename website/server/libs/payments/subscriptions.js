@@ -116,6 +116,7 @@ async function createSubscription (data) {
       nextPaymentProcessing: data.nextPaymentProcessing,
       nextBillingDate: data.nextBillingDate,
       additionalData: data.additionalData,
+      lastReminderDate: null,
       owner: data.user._id,
     });
 
@@ -140,6 +141,7 @@ async function createSubscription (data) {
 
   if (recipient !== group) {
     recipient.items.pets['Jackalope-RoyalPurple'] = 5;
+    recipient.markModified('items.pets');
     revealMysteryItems(recipient);
   }
 

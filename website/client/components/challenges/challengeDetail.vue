@@ -1,6 +1,6 @@
 <template lang="pug">
 .row
-  challenge-modal(v-on:updatedChallenge='updatedChallenge')
+  challenge-modal(@updatedChallenge='updatedChallenge')
   leave-challenge-modal(:challengeId='challenge._id')
   close-challenge-modal(:members='members', :challengeId='challenge._id', :prize='challenge.prize')
   challenge-member-progress-modal(:challengeId='challenge._id')
@@ -47,8 +47,8 @@
             @cancel="cancelTaskModal()",
             ref="taskModal",
             :challengeId="challengeId",
-            v-on:taskCreated='taskCreated',
-            v-on:taskEdited='taskEdited',
+            @taskCreated='taskCreated',
+            @taskEdited='taskEdited',
             @taskDestroyed='taskDestroyed'
           )
     .row
@@ -57,7 +57,9 @@
         :type="column",
         :key="column",
         :taskListOverride='tasksByType[column]',
-        v-on:editTask="editTask",
+        :showOptions="showOptions",
+        @editTask="editTask",
+        @taskDestroyed="taskDestroyed",
         v-if='tasksByType[column].length > 0')
   .col-12.col-md-4.sidebar.standard-page
     .button-container(v-if='canJoin')
@@ -250,6 +252,9 @@ export default {
     canJoin () {
       return !this.isMember;
     },
+    showOptions () {
+      return this.isLeader;
+    },
   },
   mounted () {
     if (!this.searchId) this.searchId = this.challengeId;
@@ -347,7 +352,7 @@ export default {
       this.$root.$emit('habitica:show-member-modal', {
         challengeId: this.challenge._id,
         groupId: 'challenge', // @TODO: change these terrible settings
-        group: this.group,
+        group: this.challenge.group,
         memberCount: this.challenge.memberCount,
         viewingMembers: this.members,
         fetchMoreMembers: this.loadMembers,
@@ -376,6 +381,8 @@ export default {
     openMemberProgressModal (member) {
       this.$root.$emit('habitica:challenge:member-progress', {
         progressMemberId: member._id,
+        isLeader: this.isLeader,
+        isAdmin: this.isAdmin,
       });
     },
     async exportChallengeCsv () {

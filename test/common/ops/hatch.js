@@ -93,6 +93,22 @@ describe('shared.ops.hatch', () => {
           done();
         }
       });
+
+      it('does not allow hatching quest pet egg using wacky potion', (done) => {
+        user.items.eggs = {Bunny: 1};
+        user.items.hatchingPotions = {Veggie: 1};
+        user.items.pets = {};
+        try {
+          hatch(user, {params: {egg: 'Bunny', hatchingPotion: 'Veggie'}});
+        } catch (err) {
+          expect(err).to.be.an.instanceof(BadRequest);
+          expect(err.message).to.equal(i18n.t('messageInvalidEggPotionCombo'));
+          expect(user.items.pets).to.be.empty;
+          expect(user.items.eggs).to.eql({Bunny: 1});
+          expect(user.items.hatchingPotions).to.eql({Veggie: 1});
+          done();
+        }
+      });
     });
 
     context('successful hatching', () => {
@@ -142,6 +158,42 @@ describe('shared.ops.hatch', () => {
         expect(user.items.pets).to.eql({'Wolf-Base': 5});
         expect(user.items.eggs).to.eql({Wolf: 0});
         expect(user.items.hatchingPotions).to.eql({Base: 0});
+      });
+
+      it('awards Back to Basics achievement', () => {
+        user.items.pets = {
+          'Wolf-Base': 5,
+          'TigerCub-Base': 5,
+          'PandaCub-Base': 10,
+          'LionCub-Base': 5,
+          'Fox-Base': 5,
+          'FlyingPig-Base': 5,
+          'Dragon-Base': 5,
+          'Cactus-Base': 15,
+          'BearCub-Base': 5,
+        };
+        user.items.eggs = {Wolf: 1};
+        user.items.hatchingPotions = {Spooky: 1};
+        hatch(user, {params: {egg: 'Wolf', hatchingPotion: 'Spooky'}});
+        expect(user.achievements.backToBasics).to.eql(true);
+      });
+
+      it('awards Dust Devil achievement', () => {
+        user.items.pets = {
+          'Wolf-Desert': 5,
+          'TigerCub-Desert': 5,
+          'PandaCub-Desert': 10,
+          'LionCub-Desert': 5,
+          'Fox-Desert': 5,
+          'FlyingPig-Desert': 5,
+          'Dragon-Desert': 5,
+          'Cactus-Desert': 15,
+          'BearCub-Desert': 5,
+        };
+        user.items.eggs = {Wolf: 1};
+        user.items.hatchingPotions = {Spooky: 1};
+        hatch(user, {params: {egg: 'Wolf', hatchingPotion: 'Spooky'}});
+        expect(user.achievements.dustDevil).to.eql(true);
       });
     });
   });

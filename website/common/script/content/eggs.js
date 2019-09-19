@@ -380,6 +380,18 @@ let quests = {
     adjective: t('questEggVelociraptorAdjective'),
     canBuy: hasQuestAchievementFunction('velociraptor'),
   },
+  Dolphin: {
+    text: t('questEggDolphinText'),
+    mountText: t('questEggDolphinMountText'),
+    adjective: t('questEggDolphinAdjective'),
+    canBuy: hasQuestAchievementFunction('dolphin'),
+  },
+  Robot: {
+    text: t('questEggRobotText'),
+    mountText: t('questEggRobotMountText'),
+    adjective: t('questEggRobotAdjective'),
+    canBuy: hasQuestAchievementFunction('robot'),
+  },
 };
 
 applyEggDefaults(drops, {

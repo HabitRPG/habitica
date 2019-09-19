@@ -98,6 +98,19 @@ export async function updateDocument (collectionName, doc, update) {
   });
 }
 
+// Unset a property in the database.
+// Useful for testing.
+export async function unsetDocument (collectionName, doc, update) {
+  let collection = mongoose.connection.db.collection(collectionName);
+
+  return new Promise((resolve) => {
+    collection.updateOne({ _id: doc._id }, { $unset: update }, (updateErr) => {
+      if (updateErr) throw new Error(`Error updating ${collectionName}: ${updateErr}`);
+      resolve();
+    });
+  });
+}
+
 export async function getDocument (collectionName, doc) {
   let collection = mongoose.connection.db.collection(collectionName);
 

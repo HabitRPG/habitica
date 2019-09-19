@@ -21,12 +21,12 @@
 
         h4.title {{ itemContextToSell.itemName }}
 
-        div(v-if="item.sellWarningNote")
+        div(v-if="item.key === 'Saddle'")
           div.text {{ item.sellWarningNote() }}
           br
 
         div(v-else)
-          div(v-once)
+          div
             div.text {{ item.notes() }}
 
             div

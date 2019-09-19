@@ -20,9 +20,6 @@ function buyItem (store, params) {
 
   let opResult = buyOp(user, {params, quantity});
 
-  user.pinnedItems = opResult[0].pinnedItems;
-
-
   return {
     result: opResult,
     httpCall: axios.post(`/api/v4/user/buy/${params.key}`),
@@ -115,12 +112,13 @@ export function purchaseMysterySet (store, params) {
 }
 
 export function purchaseHourglassItem (store, params) {
+  const quantity = params.quantity || 1;
   const user = store.state.user.data;
-  let opResult = hourglassPurchaseOp(user, {params});
+  let opResult = hourglassPurchaseOp(user, {params, quantity});
 
   return {
     result: opResult,
-    httpCall: axios.post(`/api/v4/user/purchase-hourglass/${params.type}/${params.key}`),
+    httpCall: axios.post(`/api/v4/user/purchase-hourglass/${params.type}/${params.key}`, {quantity}),
   };
 }
 

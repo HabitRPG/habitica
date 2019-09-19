@@ -54,6 +54,21 @@ describe('POST /tasks/challenge/:challengeId', () => {
     expect(tasksOrder.habits).to.include(task.id);
   });
 
+  it('allows non-leader admin to add tasks to a challenge when not a member', async () => {
+    const admin = await generateUser({'contributor.admin': true});
+    let task = await admin.post(`/tasks/challenge/${challenge._id}`, {
+      text: 'test habit from admin',
+      type: 'habit',
+      up: false,
+      down: true,
+      notes: 1976,
+    });
+
+    let {tasksOrder} =  await user.get(`/challenges/${challenge._id}`);
+
+    expect(tasksOrder.habits).to.include(task.id);
+  });
+
   it('returns error when user tries to create task with a alias', async () => {
     await expect(user.post(`/tasks/challenge/${challenge._id}`, {
       text: 'test habit',

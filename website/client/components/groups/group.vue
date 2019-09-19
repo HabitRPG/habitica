@@ -21,12 +21,12 @@
               .svg-icon.shield(v-html="icons.silverGuildBadgeIcon", v-if='group.memberCount > 100 && group.memberCount < 999')
               .svg-icon.shield(v-html="icons.bronzeGuildBadgeIcon", v-if='group.memberCount < 100')
               span.number {{ group.memberCount | abbrNum }}
-              div.member-list(v-once) {{ $t('memberList') }}
+              div.member-list.label(v-once) {{ $t('memberList') }}
           .col-4(v-if='!isParty')
             .item-with-icon(@click='showGroupGems()')
               .svg-icon.gem(v-html="icons.gem")
               span.number {{group.balance * 4}}
-              div(v-once) {{ $t('guildBank') }}
+              div.label(v-once) {{ $t('guildBank') }}
     chat(
       :label="$t('chat')",
       :group="group",
@@ -101,6 +101,9 @@
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
     padding: 1em;
     text-align: center;
+    min-width: 80px;
+    max-width: 120px;
+    height: 76px;
 
     .svg-icon.shield, .svg-icon.gem {
       width: 28px;
@@ -116,7 +119,7 @@
       font-weight: bold;
     }
 
-    .member-list {
+    .label {
       margin-top: .5em;
     }
   }

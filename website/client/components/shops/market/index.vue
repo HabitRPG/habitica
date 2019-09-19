@@ -4,7 +4,6 @@
       .form-group
         input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
       market-filter(
-        :categories="categories",
         :hideLocked.sync="hideLocked",
         :hidePinned.sync="hidePinned",
         :viewOptions="viewOptions"
@@ -21,7 +20,7 @@
       h1.mb-4.page-header(v-once) {{ $t('market') }}
 
       equipment-section(
-        v-if="viewOptions['equipment'].selected",
+        v-if="!anyFilterSelected || viewOptions['equipment'].selected",
         :hidePinned="hidePinned",
         :hideLocked="hideLocked",
         :searchBy="searchTextThrottled"
@@ -39,17 +38,17 @@
               span.text {{ $t(ctx.item.id) }}
       div(
         v-for="category in categories",
-        v-if="viewOptions[category.identifier].selected && category.identifier !== 'equipment'"
+        v-if="!anyFilterSelected || viewOptions[category.identifier].selected"
       )
         h4 {{ category.text }}
-          category-row(
-            :hidePinned="hidePinned",
-            :hideLocked="hideLocked",
-            :searchBy="searchTextThrottled",
-            :sortBy="selectedSortItemsBy.id",
-            :category="category"
-          )
-          keys-to-kennel(v-if='category.identifier === "special"')
+        category-row(
+          :hidePinned="hidePinned",
+          :hideLocked="hideLocked",
+          :searchBy="searchTextThrottled",
+          :sortBy="selectedSortItemsBy.id",
+          :category="category"
+        )
+        keys-to-kennel(v-if='category.identifier === "special"')
         div.fill-height
 
       inventoryDrawer(:showEggs="true", :showPotions="true")
@@ -197,7 +196,12 @@ export default {
     },
     data () {
       return {
-        viewOptions: {},
+        viewOptions: {
+          equipment: {
+            selected: false,
+            text: this.$t('equipment'),
+          },
+        },
 
         searchText: null,
         searchTextThrottled: null,
@@ -239,15 +243,10 @@ export default {
         ];
 
         categories.push({
-          identifier: 'equipment',
-          text: this.$t('equipment'),
-        });
-
-        categories.push({
           identifier: 'cards',
           text: this.$t('cards'),
-          items: _map(_filter(this.content.cardTypes, (value, key) => {
-            return value.yearRound || key === 'valentine';
+          items: _map(_filter(this.content.cardTypes, (value) => {
+            return value.yearRound;
           }), (value) => {
             return {
               ...getItemInfo(this.user, 'card', value),
@@ -290,12 +289,16 @@ export default {
         categories.map((category) => {
           if (!this.viewOptions[category.identifier]) {
             this.$set(this.viewOptions, category.identifier, {
-              selected: true,
+              selected: false,
+              text: category.text,
             });
           }
         });
 
         return categories;
+      },
+      anyFilterSelected () {
+        return Object.values(this.viewOptions).some(g => g.selected);
       },
     },
     methods: {

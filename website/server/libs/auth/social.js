@@ -88,7 +88,13 @@ async function loginSocial (req, res) {
       .remove({email: savedUser.auth[network].emails[0].value.toLowerCase()})
       .exec()
       .then(() => {
-        if (!existingUser) sendTxnEmail(savedUser, 'welcome');
+        if (!existingUser) {
+          if (savedUser._ABtests && savedUser._ABtests.welcomeEmailSplit) {
+            sendTxnEmail(savedUser, savedUser._ABtests.welcomeEmailSplit);
+          } else {
+            sendTxnEmail(savedUser, 'welcome');
+          }
+        }
       }); // eslint-disable-line max-nested-callbacks
   }
 

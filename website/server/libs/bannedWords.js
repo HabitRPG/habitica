@@ -91,6 +91,11 @@ let bannedWords = [
   'buggery',
   'buggering',
   'buggered',
+  'bullshit',
+  'bullshiter',
+  'bullshitter',
+  'bullshiting',
+  'bullshitting',
   'shiz',
   'shit',
   'shitty',
@@ -165,6 +170,8 @@ let bannedWords = [
 
   'heroin',
   'cocaine',
+
+  'pewdiepie',
 ];
 
 module.exports = bannedWords;
