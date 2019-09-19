@@ -94,7 +94,7 @@ let schema = new Schema({
     spookySparkles: Number,
     shinySeed: Number,
     seafoam: Number,
-    streak: Number,
+    streak: {$type: Number, default: 0},
     challenges: Array,
     quests: {$type: Schema.Types.Mixed, default: () => {
       return {};
@@ -124,6 +124,8 @@ let schema = new Schema({
     justAddWater: Boolean,
     backToBasics: Boolean,
     allYourBase: Boolean,
+    dustDevil: Boolean,
+    aridAuthority: Boolean,
   },
 
   backer: {

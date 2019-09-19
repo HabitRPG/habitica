@@ -622,7 +622,7 @@ schema.methods.startQuest = async function startQuest (user) {
   await User.find({
     _id: {$in: Object.keys(this.quest.members)},
   })
-    .select('party.quest party._id items.quests auth preferences.emailNotifications preferences.pushNotifications pushDevices profile.name webhooks')
+    .select('party.quest party._id items.quests auth preferences.emailNotifications preferences.pushNotifications preferences.language pushDevices profile.name webhooks')
     .lean()
     .exec()
     .then(partyMembers => {
@@ -690,8 +690,6 @@ schema.methods.startQuest = async function startQuest (user) {
   await newMessage.save();
 
   const membersToEmail = [];
-  const pushTitle = quest.text();
-  const pushMessage = `${shared.i18n.t('questStarted')}: ${quest.text()}`;
 
   // send notifications and webhooks in the background without blocking
   members.forEach(member => {
@@ -703,9 +701,10 @@ schema.methods.startQuest = async function startQuest (user) {
 
       // send push notifications and filter users that disabled emails
       if (member.preferences.pushNotifications.questStarted !== false) {
+        const memberLang = member.preferences.language;
         sendPushNotification(member, {
-          title: pushTitle,
-          message: pushMessage,
+          title: quest.text(memberLang),
+          message: `${shared.i18n.t('questStarted', memberLang)}: ${quest.text(memberLang)}`,
           identifier: 'questStarted',
         });
       }

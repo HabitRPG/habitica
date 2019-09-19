@@ -215,5 +215,14 @@
     "gemsPurchaseNote": "Avec l'abonnement, vous pouvez acheter les gemmes pour de l'or au marché ! Pour un accès facile, vous pouvez aussi les épingler dans votre colonne Récompenses.",
     "gemsRemaining": "gemmes restantes",
     "notEnoughGemsToBuy": "Vous ne pouvez pas acheter autant de gemmes",
-    "mysterySet201902": "Ensemble cryptique"
+    "mysterySet201902": "Ensemble cryptique",
+    "confirmCancelSub": "Voulez-vous vraiment annuler votre abonnement ? Vous perdrez tous les bénéfices de l'abonnement.",
+    "subWillBecomeInactive": "Deviendra inactive",
+    "mysterySet201903": "Ensemble exquis",
+    "mysterySet201904": "Ensemble d'opale opulente",
+    "mysterySet201905": "Ensemble de dragon éblouissant",
+    "mysterySet201906": "Ensemble de gentille carpe",
+    "mysterySet201907": "Ensemble de pote de plage",
+    "mysterySet201908": "Ensemble de la faune crapahuteuse",
+    "subCanceledTitle": "Abonnement annulé"
 }

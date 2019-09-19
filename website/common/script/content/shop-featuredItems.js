@@ -22,16 +22,16 @@ const featuredItems = {
   ],
   quests: [
     {
-      type: 'quests',
-      path: 'quests.bronze',
-    },
-    {
       type: 'bundles',
-      path: 'bundles.farmFriends',
+      path: 'bundles.rockingReptiles',
     },
     {
       type: 'quests',
-      path: 'quests.dolphin',
+      path: 'quests.dilatoryDistress1',
+    },
+    {
+      type: 'quests',
+      path: 'quests.silver',
     },
   ],
   seasonal: 'summer2019Mage',

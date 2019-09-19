@@ -25,5 +25,6 @@
     "rebirthName": "Orbe do Renascimento",
     "reborn": "Renascido, nível máximo: <%= reLevel %>",
     "confirmReborn": "Tem certeza?",
-    "rebirthComplete": "Você renasceu!"
+    "rebirthComplete": "Você renasceu!",
+    "nextFreeRebirth": "<strong><%= days %> dias</strong> até Orbe de Renascimento <strong>GRÁTIS</strong>"
 }

@@ -21,7 +21,7 @@
     "titleGuilds": "公会",
     "titleChallenges": "挑战",
     "titleDrops": "市场",
-    "titleQuests": "任务",
+    "titleQuests": "副本",
     "titlePets": "宠物",
     "titleMounts": "坐骑",
     "titleEquipment": "装备",
@@ -79,7 +79,7 @@
     "continue": "继续",
     "accept": "接受",
     "reject": "拒绝",
-    "neverMind": "算了",
+    "neverMind": "无须在意",
     "buyMoreGems": "买更多宝石",
     "notEnoughGems": "宝石不足",
     "alreadyHave": "你已经有这个物品了。不用再买了！",
@@ -291,5 +291,7 @@
     "howManyToBuy": "你想买多少呢？",
     "habiticaHasUpdated": "有一個新的Habitica更新。刷新以獲取最新版本！",
     "contactForm": "联系管理员小组",
-    "options": "选项"
+    "options": "选项",
+    "demo": "样本",
+    "loadEarlierMessages": "载入早期信息"
 }

@@ -1,42 +1,30 @@
-.promo_armoire_backgrounds_201908 {
+.promo_armoire_backgrounds_201909 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: 0px 0px;
   width: 423px;
   height: 147px;
 }
-.promo_farm_friends_bundle {
+.promo_desert_pet_achievements {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -296px;
+  width: 204px;
+  height: 102px;
+}
+.promo_rocking_reptiles_bundle {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: 0px -148px;
   width: 420px;
   height: 147px;
 }
-.promo_mystery_201907 {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -296px;
-  width: 282px;
-  height: 144px;
-}
-.promo_naming_day_2018 {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -424px 0px;
-  width: 285px;
-  height: 162px;
-}
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -424px -163px;
+  background-position: -424px -211px;
   width: 96px;
   height: 69px;
 }
-.scene_reading {
+.scene_medal {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -283px -296px;
-  width: 171px;
-  height: 144px;
-}
-.scene_rewards {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -441px;
-  width: 207px;
-  height: 180px;
+  background-position: -424px 0px;
+  width: 210px;
+  height: 210px;
 }

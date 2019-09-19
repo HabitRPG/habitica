@@ -173,7 +173,7 @@
     "habitCounterDown": "Compteur négatif (se réinitialise de façon <%= frequency %>)",
     "taskRequiresApproval": "Cette tâche nécessite une approbation avant de pouvoir être complétée. Une approbation a déjà été demandée",
     "taskApprovalHasBeenRequested": "Une approbation a été demandée",
-    "taskApprovalWasNotRequested": "Seule une tâche en attende d'approbation peut être marquée comme nécessitant un travail supplémentaire",
+    "taskApprovalWasNotRequested": "L'approbation n'a pas été requis pour cette tâche.",
     "approvals": "Approbations",
     "approvalRequired": "Approbation requise",
     "repeatZero": "Cette quotidienne n'est jamais à faire",

@@ -3417,6 +3417,91 @@ let quests = {
       unlock: t('questDolphinUnlockText'),
     },
   },
+  silver: {
+    text: t('questSilverText'),
+    notes: t('questSilverNotes'),
+    completion: t('questSilverCompletion'),
+    value: 4,
+    category: 'hatchingPotion',
+    collect: {
+      silverIngot: {
+        text: t('questSilverCollectSilverIngots'),
+        count: 20,
+      },
+      moonRune: {
+        text: t('questSilverCollectMoonRunes'),
+        count: 15,
+      },
+      cancerRune: {
+        text: t('questSilverCollectCancerRunes'),
+        count: 15,
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Silver',
+          text: t('questSilverDropSilverPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Silver',
+          text: t('questSilverDropSilverPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Silver',
+          text: t('questSilverDropSilverPotion'),
+        },
+      ],
+      gp: 50,
+      exp: 100,
+      unlock: t('questSilverUnlockText'),
+    },
+  },
+  robot: {
+    text: t('questRobotText'),
+    notes: t('questRobotNotes'),
+    completion: t('questRobotCompletion'),
+    value: 1,
+    category: 'timeTravelers',
+    canBuy () {
+      return false;
+    },
+    collect: {
+      bolt: {
+        text: t('questRobotCollectBolts'),
+        count: 15,
+      },
+      gear: {
+        text: t('questRobotCollectGears'),
+        count: 10,
+      },
+      spring: {
+        text: t('questRobotCollectSprings'),
+        count: 10,
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Robot',
+          text: t('questRobotDropRobotEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Robot',
+          text: t('questRobotDropRobotEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Robot',
+          text: t('questRobotDropRobotEgg'),
+        },
+      ],
+      gp: 40,
+      exp: 75,
+      unlock: t('questRobotUnlockText'),
+    },
+  },
 };
 
 each(quests, (v, key) => {

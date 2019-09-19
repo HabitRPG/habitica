@@ -190,15 +190,18 @@ let premium = {
     text: t('hatchingPotionBronze'),
     limited: true,
     canBuy: hasQuestAchievementFunction('bronze'),
-    _addlNotes () {
-      return '';
-    },
   },
   Watery: {
     value: 2,
     text: t('hatchingPotionWatery'),
     limited: true,
     _season: '_PENDING_',
+  },
+  Silver: {
+    value: 2,
+    text: t('hatchingPotionSilver'),
+    limited: true,
+    canBuy: hasQuestAchievementFunction('silver'),
   },
 };
 
@@ -232,9 +235,7 @@ each(premium, (pot, key) => {
     notes: t('hatchingPotionNotes', {
       potText: pot.text,
     }),
-    _addlNotes: t('eventAvailability', {
-      date: t(`dateEnd${pot._season}`),
-    }),
+    _addlNotes: t('premiumPotionAddlNotes'),
     premium: true,
     limited: false,
     canBuy () {

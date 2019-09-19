@@ -39,9 +39,9 @@
             .custom-control.custom-checkbox
               input.custom-control-input(type="checkbox",
                 :value="group.key",
-                :id="group.key",
+                :id="`challenge-modal-cat-${group.key}`",
                  v-model="workingChallenge.categories")
-              label.custom-control-label(v-once, :for="group.key") {{ $t(group.label) }}
+              label.custom-control-label(v-once, :for="`challenge-modal-cat-${group.key}`") {{ $t(group.label) }}
           button.btn.btn-primary(@click.prevent="toggleCategorySelect") {{$t('close')}}
       // @TODO: Implement in V2 .form-group
         label

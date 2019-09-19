@@ -339,5 +339,15 @@
     "foodPieRed": "Roter Kirschkuchen",
     "foodPieRedThe": "der rote Kirschkuchen",
     "foodPieRedA": "ein Stück roter Kirschkuchen",
-    "hatchingPotionVeggie": "Garten"
+    "hatchingPotionVeggie": "Garten",
+    "questEggDolphinText": "Delfin-Haustier",
+    "questEggDolphinMountText": "Delfin-Reittier",
+    "questEggDolphinAdjective": "ein munteres",
+    "hatchingPotionSunshine": "Sonnenschein",
+    "hatchingPotionBronze": "Bronze",
+    "hatchingPotionWatery": "Wässrig",
+    "hatchingPotionSilver": "Silber",
+    "questEggRobotAdjective": "ein futuristischer",
+    "questEggRobotMountText": "Roboter",
+    "questEggRobotText": "Roboter"
 }

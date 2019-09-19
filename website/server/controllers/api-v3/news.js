@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'DISCOUNTED PET QUEST BUNDLE: FARM FRIENDS';
+const LAST_ANNOUNCEMENT_TITLE = 'NEW PET COLLECTION BADGES!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,15 +30,14 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>8/6/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>9/17/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_farm_friends_bundle center-block"></div>
-        <p>If you are looking to add critters from the barnyard to your Habitica stable, you're in luck! From now until August 30, you can purchase the Farm Friends Pet Quest Bundle and receive the Sheep, Cow, and Horse quests, all for only 7 Gems! That's a discount of 5 Gems from the price of purchasing them separately. Check it out in the <a href='/shops/quests'>Quest Shop</a> today!</p>
-        <div class="small">by Lemoness and SabreCat</div>
-        <div class="small">Art by UncommonCriminal, Soloana, fuzzytrees, Feralem Tau, Eevachu, Beffymaroo, JessicaChase, starsystemic, nonight, Misceo and Tocath</div>
-        <div class="small mb-3">Writing by schizelle, VikingRunner, Salambander, Leephon, and Lemoness</div>
+        <div class="promo_desert_pet_achievements center-block"></div>
+        <p>We're releasing a new achievement so you can celebrate your successes in the world of Habitican pet collecting! Earn the Dust Devil and Arid Authority achievements by collecting Desert pets and mounts and you'll earn a nifty badge for your profile.</p>
+        <p>If you already have all the Desert pets and/or mounts in your stable, you'll receive the badge automatically! Check your profile and celebrate your new achievement with pride.</p>
+        <div class="small mb-3">by Piyo and SabreCat</div>
       </div>
       `,
     });

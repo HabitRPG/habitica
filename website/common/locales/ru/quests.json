@@ -126,5 +126,12 @@
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> здоровья",
     "rageAttack": "Атака при ярости:",
     "bossRage": "<%= currentRage %> / <%= maxRage %> ярости",
-    "rageStrikes": "Нападения"
+    "rageStrikes": "Нападения",
+    "hatchingPotionQuests": "Квесты на волшебный эликсир",
+    "chatQuestStarted": "Ваш квест, <%= questName %>, начался.",
+    "chatBossDamage": "<%= username %> атакует <%= bossName %> и наносит <%= userDamage %> урона. <%= bossName %> атакует команду и наносит <%= bossDamage %> урона.",
+    "chatFindItems": "<%= username %> находит <%= items %>.",
+    "chatItemQuestFinish": "Все предметы найдены! Команда получила свои награды.",
+    "chatQuestCancelled": "<%= username %> отменил(а) квест команды \"<%= questName %>\".",
+    "chatQuestAborted": "<%= username %> отменил(а) квест <%= questName %>."
 }

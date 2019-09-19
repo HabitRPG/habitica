@@ -256,14 +256,7 @@ export const QUEST_SERIES_ACHIEVEMENTS = {
   ],
 };
 
-export const BASE_PETS_MOUNTS = [
-  'Wolf-Base',
-  'TigerCub-Base',
-  'PandaCub-Base',
-  'LionCub-Base',
-  'Fox-Base',
-  'FlyingPig-Base',
-  'Dragon-Base',
-  'Cactus-Base',
-  'BearCub-Base',
+export const ANIMAL_COLOR_ACHIEVEMENTS = [
+  {color: 'Base', petAchievement: 'backToBasics', petNotificationType: 'ACHIEVEMENT_BACK_TO_BASICS', mountAchievement: 'allYourBase', mountNotificationType: 'ACHIEVEMENT_ALL_YOUR_BASE'},
+  {color: 'Desert', petAchievement: 'dustDevil', petNotificationType: 'ACHIEVEMENT_DUST_DEVIL', mountAchievement: 'aridAuthority', mountNotificationType: 'ACHIEVEMENT_ARID_AUTHORITY'},
 ];

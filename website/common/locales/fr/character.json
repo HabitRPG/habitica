@@ -194,11 +194,11 @@
     "unequipPetMountBackground": "Ôter le familier, la monture et l'arrière-plan",
     "animalSkins": "Peaux d'animaux",
     "chooseClassHeading": "Choisissez votre classe ! Ou décidez plus tard.",
-    "warriorWiki": "<a href='http://fr.habitica.fandom.com/wiki/Guerrier' target='_blank'>Guerrier</a>",
-    "mageWiki": "<a href='http://fr.habitica.fandom.com/wiki/Mage' target='_blank'>Mage</a>",
-    "rogueWiki": "<a href='http://fr.habitica.fandom.com/wiki/Voleur' target='_blank'>Voleur</a>",
-    "healerWiki": "<a href='http://fr.habitica.fandom.com/wiki/Guerisseur' target='_blank'>Guérisseur</a>",
-    "chooseClassLearn": "<a href='http://fr.habitica.fandom.com/wiki/Syst%C3%A8me_de_Classe' target='_blank'>Apprenez plus à propos des classes</a>",
+    "warriorWiki": "<a href='https://habitica.fandom.com/fr/wiki/Guerrier' target='_blank'>Guerrier</a>",
+    "mageWiki": "<a href='https://habitica.fandom.com/fr/wiki/Mage' target='_blank'>Mage</a>",
+    "rogueWiki": "<a href='https://habitica.fandom.com/fr/wiki/Voleur' target='_blank'>Voleur</a>",
+    "healerWiki": "<a href='https://habitica.fandom.com/fr/wiki/Guérisseur' target='_blank'>Guérisseur</a>",
+    "chooseClassLearn": "<a href='https://habitica.fandom.com/fr/wiki/Syst%C3%A8me_de_Classe' target='_blank'>Apprenez plus à propos des classes</a>",
     "str": "FOR",
     "con": "CON",
     "per": "PER",
@@ -224,5 +224,9 @@
     "mainHand": "Main principale",
     "offHand": "Main secondaire",
     "statPoints": "Points de caractéristiques",
-    "pts": "pts"
+    "pts": "pts",
+    "chatCastSpellUser": "<%= username %> lance <%= spell %> sur <%= target %>.",
+    "chatCastSpellParty": "<%= username %> lance <%= spell %> pour l'équipe.",
+    "purchasePetItemConfirm": "Cet achat vous donnerait plus d'objets que nécessaire pour faire éclore tous les familiers <%= itemText %>. Confirmez-vous ?",
+    "purchaseForGold": "Acheter pour <%= cost %> pièces d'or ?"
 }

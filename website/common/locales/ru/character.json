@@ -194,11 +194,11 @@
     "unequipPetMountBackground": "Убрать питомца, скакуна, фон",
     "animalSkins": "Звериные цвета",
     "chooseClassHeading": "Выберите класс! Вы можете отказаться и сделать выбор позже.",
-    "warriorWiki": "<a href='http://ru.habitica.fandom.com/wiki/Воин' target='_blank'>Воин</a>",
-    "mageWiki": "<a href='http://ru.habitica.fandom.com/wiki/Маг' target='_blank'>Маг</a>",
-    "rogueWiki": "<a href='http://ru.habitica.fandom.com/wiki/Разбойник' target='_blank'>Разбойник</a>",
-    "healerWiki": "<a href='http://ru.habitica.fandom.com/wiki/Целитель' target='_blank'>Целитель</a>",
-    "chooseClassLearn": "<a href='http://ru.habitica.fandom.com/wiki/Система_классов' target='_blank'>Подробнее о классах</a>",
+    "warriorWiki": "<a href='https://habitica.fandom.com/ru/wiki/Воин' target='_blank'>Воин</a>",
+    "mageWiki": "<a href='https://habitica.fandom.com/ru/wiki/Маг' target='_blank'>Маг</a>",
+    "rogueWiki": "<a href='https://habitica.fandom.com/ru/wiki/Разбойник' target='_blank'>Разбойник</a>",
+    "healerWiki": "<a href='https://habitica.fandom.com/ru/wiki/Целитель' target='_blank'>Целитель</a>",
+    "chooseClassLearn": "<a href='https://habitica.fandom.com/ru/wiki/Система_классов' target='_blank'>Подробнее о классах</a>",
     "str": "СИЛ",
     "con": "ТЕЛ",
     "per": "ВОС",
@@ -224,5 +224,8 @@
     "mainHand": "Оружие",
     "offHand": "Защита",
     "statPoints": "Очки характеристик",
-    "pts": "очк"
+    "pts": "очк",
+    "purchaseForGold": "Купить за <%= cost %> золотых монет?",
+    "chatCastSpellParty": "<%= username %> накладывает заклинание \"<%= spell %>\" на команду.",
+    "chatCastSpellUser": "<%= username %> накладывает заклинание \"<%= spell %>\" на <%= target %>."
 }

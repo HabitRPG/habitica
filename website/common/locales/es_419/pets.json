@@ -52,7 +52,7 @@
     "noSaddlesAvailable": "No tienes ninguna silla de montar.",
     "noFood": "No tienes ni comida ni monturas.",
     "dropsExplanation": "Consigue estos objetos más rápido con Gemas si no quieres esperar a que aparezcan cuando completes una tarea. <a href=\"http://habitica.fandom.com/wiki/Drops\">Lee más acerca del sistema de botines.</a>",
-    "dropsExplanationEggs": "Usa gemas para conseguir huevos más rápido, si no quieres esperar que los huevos estándar te salgan en el botín ni repetir Misiones para ganar huevos de misión. <a href=\"http://es.habitica.fandom.com/wiki/Botín\">Lee más sobre el sistema de botín.</a>",
+    "dropsExplanationEggs": "Usa gemas para conseguir huevos más rápido, si no quieres esperar que los huevos estándar te salgan en el botín ni repetir Misiones para ganar huevos de misión. <a href=\"https://habitica.fandom.com/es/wiki/Bot%C3%ADn\">Lee más sobre el sistema de botín.</a>",
     "premiumPotionNoDropExplanation": "Las Pociones de Eclosión Mágicas no pueden ser utilizadas con huevos obtenidos en Misiones. La única forma de conseguir Pociones de Eclosión Mágicas es comprándolas abajo, no mediante botines aleatorios.",
     "beastMasterProgress": "Progreso de Maestro de las Bestias",
     "stableBeastMasterProgress": "Progreso de Maestro de las Bestias: <%= number %> Mascotas encontradas",

@@ -1266,6 +1266,13 @@ let shield = {
     set: 'detective',
     canOwn: ownsItem('shield_armoire_trustyUmbrella'),
   },
+  polishedPocketwatch: {
+    text: t('shieldArmoirePolishedPocketwatchText'),
+    notes: t('shieldArmoirePolishedPocketwatchNotes', { int: 9 }),
+    value: 100,
+    int: 9,
+    canOwn: ownsItem('shield_armoire_polishedPocketwatch'),
+  },
 };
 
 let headAccessory = {
@@ -1689,6 +1696,20 @@ let weapon = {
     per: 7,
     set: 'detective',
     canOwn: ownsItem('weapon_armoire_magnifyingGlass'),
+  },
+  floridFan: {
+    text: t('weaponArmoireFloridFanText'),
+    notes: t('weaponArmoireFloridFanNotes', { con: 9 }),
+    value: 100,
+    con: 9,
+    canOwn: ownsItem('weapon_armoire_floridFan'),
+  },
+  resplendentRapier: {
+    text: t('weaponArmoireResplendentRapierText'),
+    notes: t('weaponArmoireResplendentRapierNotes', { per: 9 }),
+    value: 100,
+    per: 9,
+    canOwn: ownsItem('weapon_armoire_resplendentRapier'),
   },
 };
 
