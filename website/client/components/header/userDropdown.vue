@@ -99,7 +99,7 @@ export default {
     showPrivateMessages () {
       markPMSRead(this.user);
       axios.post('/api/v4/user/mark-pms-read');
-      this.$router.push({name: '/private-messages'});
+      this.$router.push('/private-messages');
     },
     showProfile (startingPage) {
       this.$router.push({name: startingPage});

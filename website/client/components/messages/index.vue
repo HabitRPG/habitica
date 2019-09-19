@@ -1,6 +1,6 @@
 <template lang="pug">
-  b-modal#messages-modal(title="", :hide-footer="true", size='lg', @shown="onModalShown", @hide="onModalHide")
-    .d-flex.w-100.align-items-center(slot="modal-header")
+  #private-message
+    .d-flex.w-100.align-items-center
       .d-flex.w-25.align-items-center
         .svg-icon.envelope.ml-3(v-html="icons.messageIcon")
         h2.flex-fill.text-center.pr-5(v-once) {{ $t('messages') }}
