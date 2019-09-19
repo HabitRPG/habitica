@@ -86,18 +86,6 @@
         hr
 
         div
-          h5 {{ $t('mentioning') }}
-          h6 {{ $t('suggestMyUsername') }}
-          .form-horizontal
-            select.form-control(
-              v-model='user.preferences.searchableUsername',
-              @change='set("searchableUsername")'
-            )
-              option(v-for='option in searchableUsernameOptions' :value='option.value') {{ option.text }}
-
-        hr
-
-        div
           h5 {{ $t('customDayStart') }}
           .alert.alert-warning {{ $t('customDayStartInfo1') }}
           .form-horizontal
@@ -271,10 +259,6 @@ export default {
       },
       displayNameIssues: [],
       usernameIssues: [],
-      searchableUsernameOptions: [
-        {text: this.$t('onlyPrivateSpaces'), value: false},
-        {text: this.$t('everywhere'), value: true},
-      ],
     };
   },
   mounted () {
