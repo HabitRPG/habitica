@@ -96,7 +96,7 @@ api.addWebhook = {
 };
 
 /**
- * @api {get} /api/v3/user/webhook Get webhooks - BETA
+ * @api {get} /api/v3/user/webhook Get webhooks
  * @apiName UserGetWebhook
  * @apiGroup Webhook
  *
@@ -107,7 +107,7 @@ api.getWebhook = {
   middlewares: [authWithHeaders()],
   url: '/user/webhook',
   async handler (req, res) {
-    let user = res.locals.user;
+    const user = res.locals.user;
 
     res.respond(200, user.webhooks);
   },
