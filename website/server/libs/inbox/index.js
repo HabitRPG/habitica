@@ -104,10 +104,10 @@ export async function listConversations (owner) {
 
   const usersAr = await User.find(usersQuery,  {
     _id: 1,
-    contributor: 2,
-    items: 3,
-    preferences: 4,
-    stats: 5,
+    contributor: 1,
+    items: 1,
+    preferences: 1,
+    stats: 1,
   }).exec();
   const usersMap = {};
 
