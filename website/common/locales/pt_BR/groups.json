@@ -280,7 +280,7 @@
     "claim": "Reivindicar",
     "removeClaim": "Remover Tarefa",
     "onlyGroupLeaderCanManageSubscription": "Apenas o líder do grupo pode gerenciar a assinatura do grupo",
-    "yourTaskHasBeenApproved": "Sua tarefa <span class=\"notification-green\"><%= taskText %></span> foi aprovada.",
+    "yourTaskHasBeenApproved": "Sua tarefa <span class=\"notification-green notification-bold\"><%= taskText %></span> foi aprovada.",
     "taskNeedsWork": "<span class=\"notification-bold\"><%= managerName %></span> marcou <span class=\"notification-bold\"><%= taskText %></span> como tarefa a ser realizada.",
     "userHasRequestedTaskApproval": "<span class=\"notification-bold\"><%= user %></span> solicitou aprovação para <span class=\"notification-bold\"><%= taskName %></span>",
     "approve": "Aprovar",
@@ -341,7 +341,7 @@
     "leaderCannotLeaveGroupWithActiveGroup": "Um líder não pode deixar um time enquanto há um plano em curso",
     "youHaveGroupPlan": "Você tem uma assinatura gratuita pois é membro de um grupo que possui um Plano de Time. Ela terminará quando não mais fizer parte de um grupo que possua este plano. Quaisquer meses extras de assinatura creditados que você possuir serão aplicados no final do Plano do Time.",
     "cancelGroupSub": "Cancelar Plano do Grupo",
-    "confirmCancelGroupPlan": "Você tem certeza que você quer cancelar o plano de time e remover os benefícios de todos os membros, incluindo os que tem assinaturas gratuitas?",
+    "confirmCancelGroupPlan": "Você tem certeza que quer cancelar seu Plano de Time? Todos os membros do Time irão perder suas assinaturas e benefícios.",
     "canceledGroupPlan": "Plano de Time cancelado",
     "groupPlanCanceled": "O Plano de Time ficará inativo em",
     "purchasedGroupPlanPlanExtraMonths": "Você tem <%= months %> meses de créditos de plano de time.",
@@ -480,5 +480,7 @@
     "recurringCompletion": "Nenhuma - Tarefa do Time não finaliza",
     "singleCompletion": "Única - Completa quando qualquer usuário responsável terminar",
     "allAssignedCompletion": "Todos - Completa quando todos os usuários terminarem",
-    "pmReported": "Obrigado por denunciar esta mensagem."
+    "pmReported": "Obrigado por denunciar esta mensagem.",
+    "youHaveBeenAssignedTask": "<%= managerName %> atribuiu a você a tarefa <span class=\"notification-bold\"><%= taskText %></span>.",
+    "suggestedGroup": "Sugerido porque você é novo no Habitica."
 }

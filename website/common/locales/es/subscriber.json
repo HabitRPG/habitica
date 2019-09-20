@@ -215,5 +215,14 @@
     "gemsPurchaseNote": "¡Los suscriptores pueden comprar gemas a cambio de oro! Para un acceso más fácil, también puedes fijar las gemas a tu columna de Recompensas.",
     "gemsRemaining": "Gemas que quedan",
     "notEnoughGemsToBuy": "No puedes comprar esa cantidad de gemas",
-    "mysterySet201902": "Conjunto de Capricho Críptico"
+    "mysterySet201902": "Conjunto de Capricho Críptico",
+    "subCanceledTitle": "Suscripción cancelada",
+    "mysterySet201908": "Conjunto de Fauno Footloose",
+    "mysterySet201907": "Conjunto de Colega Playero",
+    "mysterySet201906": "Conjunto de Amable Koi",
+    "mysterySet201905": "Conjunto de Dragón Deslumbrante",
+    "mysterySet201904": "Conjunto Ópalo Opulento",
+    "mysterySet201903": "Conjunto Egg-quisito",
+    "subWillBecomeInactive": "Dejará de estar activa",
+    "confirmCancelSub": "¿Seguro que quieres cancelar tu suscripción? Perderás todos los beneficios asociados a ella."
 }

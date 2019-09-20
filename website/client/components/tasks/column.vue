@@ -48,6 +48,7 @@
         @editTask="editTask",
         @moveTo="moveTo",
         :group='group',
+        :challenge="challenge"
         v-on:taskDestroyed='taskDestroyed'
       )
     template(v-if="hasRewardsList")
@@ -311,6 +312,7 @@ export default {
     selectedTags: {},
     taskListOverride: {},
     group: {},
+    challenge: {},
   }, // @TODO: maybe we should store the group on state?
   data () {
     const icons = Object.freeze({
@@ -482,7 +484,7 @@ export default {
       const newIndexOnServer = originTasks.findIndex(taskId => taskId === taskIdToReplace);
 
       let newOrder;
-      if (taskToMove.group.id) {
+      if (taskToMove.group.id && !this.isUser) {
         newOrder = await this.$store.dispatch('tasks:moveGroupTask', {
           taskId: taskIdToMove,
           position: newIndexOnServer,

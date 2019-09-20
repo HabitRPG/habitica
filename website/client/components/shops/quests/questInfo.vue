@@ -24,7 +24,6 @@
 
 .row {
   display: table;
-  color: #E1E0E3;
   margin: 0;
 }
 

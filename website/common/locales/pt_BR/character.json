@@ -224,5 +224,9 @@
     "mainHand": "Mão Primária",
     "offHand": "Mão Secundária",
     "statPoints": "Pontos de Atributo",
-    "pts": "pts"
+    "pts": "pts",
+    "purchaseForGold": "Comprar por <%= cost %> peças de Ouro?",
+    "chatCastSpellParty": "<%= username %> lançou <%= spell %> no Grupo.",
+    "chatCastSpellUser": "<%= username %> lançou <%= spell %> em <%= target %>.",
+    "purchasePetItemConfirm": "Essa compra poderia ultrapassar o número de itens que você precisa para chocar todos os possíveis  <%= itemText %> animais de estimação. Você tem certeza?"
 }

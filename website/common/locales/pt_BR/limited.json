@@ -155,5 +155,11 @@
     "spring2019OrchidWarriorSet": "Orquídea (Guerreiro)",
     "spring2019AmberMageSet": "Âmbar (Mago)",
     "spring2019RobinHealerSet": "Robin (Curandeiro)",
-    "spring2019CloudRogueSet": "Nuvem (Ladino)"
+    "spring2019CloudRogueSet": "Nuvem (Ladino)",
+    "summer2019SeaTurtleWarriorSet": "Tartaruga Marinha (Guerreiro)",
+    "summer2019WaterLilyMageSet": "Nenúfar (Mago)",
+    "summer2019ConchHealerSet": "Concha (Curandeiro)",
+    "summer2019HammerheadRogueSet": "Turbarão-martelo (Ladino)",
+    "eventAvailabilityReturning": "Disponível para compra até <%= availableDate(locale) %>. Esta poção foi lançada anteriormente em <%= previousDate(locale) %>.",
+    "june2018": "Junho 2018"
 }

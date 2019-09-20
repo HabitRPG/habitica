@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'GUILD AND USE CASE SPOTLIGHTS';
+const LAST_ANNOUNCEMENT_TITLE = 'NEW BLOG POSTS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,18 +30,18 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>8/30/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>9/19/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="scene_families center-block"></div>
-        <h3>Guild Spotlight: Even More New and Notable Guilds!</h3>
-        <p>There's a new <a href='https://habitica.wordpress.com/2019/08/29/new-and-notable-guild-spotlight-8/' target='_blank'>Guild Spotlight on the blog</a> that highlights another selection of the upcoming Guilds in Habitica dedicated to a variety of topics! Check it out now to find some of Habitica's best new communities.</p>
-        <div class="small mb-3">by shanaqui</div>
         <div class="scene_casting_spells center-block"></div>
-        <h3>Use Case Spotlight: The Rogue</h3>
-        <p>This month's <a href='https://habitica.wordpress.com/2019/08/29/use-case-spotlight-making-the-most-of-the-rogue-class/' target='_blank'>Use Case Spotlight</a> is about making the most of the Rogue class! It features a number of great suggestions submitted by Habiticans in the <a href='/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6'>Use Case Spotlights Guild</a>. We hope it helps any of you who might be looking for the best class for your play style!</p>
-        <p>Plus, we're collecting user submissions for the next spotlight! We want to hear your best tricks and strategies for playing the Mage class to its full advantage. We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!</p>
+        <h3>Use Case Spotlight: The Mage</h3>
+        <p>This month's <a href='https://habitica.wordpress.com/2019/09/19/use-case-spotlight-making-the-most-of-the-mage-class/' target='_blank'>Use Case Spotlight</a> is about making the most of the Mage Class! It features a number of great suggestions submitted by Habiticans in the <a href='/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6'>Use Case Spotlights Guild</a>. We hope it helps any of you who might be looking for the best class for your play style!</p>
+        <p>Plus, we're collecting user submissions for the next spotlight! How do you use events in Habitica, such as Grand Galas, as extra motivation? We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!</p>
+        <div class="small mb-3">by shanaqui</div>
+        <div class="scene_video_games center-block"></div>
+        <h3>Guild Spotlight: The Newest and Guildiest</h3>
+        <p>There's a new <a href='https://habitica.wordpress.com/2019/09/19/new-and-notable-guild-spotlight-9/' target='_blank'>Guild Spotlight on the blog</a> that highlights another selection of the upcoming Guilds in Habitica dedicated to a variety of topics! Check it out now to find some of Habitica's best new communities.</p>
         <div class="small mb-3">by shanaqui</div>
       </div>
       `,

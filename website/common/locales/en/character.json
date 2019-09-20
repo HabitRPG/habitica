@@ -171,6 +171,7 @@
   "purchaseFor": "Purchase for <%= cost %> Gems?",
   "purchaseForGold": "Purchase for <%= cost %> Gold?",
   "purchaseForHourglasses": "Purchase for <%= cost %> Hourglasses?",
+  "purchasePetItemConfirm": "This purchase would exceed the number of items you need to hatch all possible <%= itemText %> pets. Are you sure?",
   "notEnoughMana": "Not enough mana.",
   "invalidTarget": "You can't cast a skill on that.",
   "youCast": "You cast <%= spell %>.",

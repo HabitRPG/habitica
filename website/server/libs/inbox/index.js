@@ -1,7 +1,7 @@
 import {mapInboxMessage, inboxModel as Inbox} from '../../models/message';
-import orderBy from 'lodash/orderBy';
 import {getUserInfo, sendTxn as sendTxnEmail} from '../email';
 import {sendNotification as sendPushNotification} from '../pushNotifications';
+import { model as User } from '../../models/user';
 
 const PM_PER_PAGE = 10;
 
@@ -86,20 +86,44 @@ export async function listConversations (owner) {
       {
         $group: {
           _id: '$uuid',
-          user: {$first: '$user' },
-          username: {$first: '$username' },
-          timestamp: {$max: '$timestamp'}, // sort before group doesn't work - use the max value to sort it again after
+          user: {$last: '$user' },
+          username: {$last: '$username' },
+          timestamp: {$last: '$timestamp'},
+          text: {$last: '$text'},
+          count: {$sum: 1},
         },
       },
+      { $sort: {timestamp: -1}}, // sort by latest message
     ]);
 
-  const conversationsList = orderBy(await query.exec(), ['timestamp'], ['desc']);
+  const conversationsList = await query.exec();
 
-  const conversations = conversationsList.map(({_id, user, username, timestamp}) => ({
-    uuid: _id,
-    user,
-    username,
-    timestamp,
+  const usersQuery = {
+    _id: {$in: conversationsList.map(c => c._id) },
+  };
+
+  const usersAr = await User.find(usersQuery,  {
+    _id: 1,
+    contributor: 1,
+    items: 1,
+    preferences: 1,
+    stats: 1,
+  }).exec();
+  const usersMap = {};
+
+  for (const usr of usersAr) {
+    usersMap[usr._id] = usr;
+  }
+
+  const conversations = conversationsList.map((res) => ({
+    uuid: res._id,
+    ...res,
+    userStyles: {
+      items: usersMap[res._id].items,
+      preferences: usersMap[res._id].preferences,
+      stats: usersMap[res._id].stats,
+    },
+    contributor: usersMap[res._id].contributor,
   }));
 
   return conversations;

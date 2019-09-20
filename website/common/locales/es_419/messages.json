@@ -51,7 +51,7 @@
     "messageGroupChatFlagAlreadyReported": "Ya has denunciado este mensaje",
     "messageGroupChatNotFound": "¡Mensaje no encontrado!",
     "messageGroupChatAdminClearFlagCount": "¡Sólo un administrador puede borrar el número de denuncias!",
-    "messageCannotFlagSystemMessages": "No puedes marcar un mensaje del sistema. Si necesitas informar una infracción de las Normas de la comunidad relacionadas con este mensaje, envíe un mensaje de correo electrónico con una captura de pantalla y una explicación a Lemoness <%= communityManagerEmail %>.",
+    "messageCannotFlagSystemMessages": "No puedes reportar un mensaje del sistema. Si necesitas informar una infracción de las Normas de la comunidad relacionadas con este mensaje, envíe un mensaje de correo electrónico con una captura de pantalla y una explicación a Lemoness <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "Ups, ¡parece que estás publicando demasiados mensajes! Espera un minuto y vuelve a intentarlo. El chat de la Taberna solo puede con 200 mensajes a la vez, por lo que Habitica recomienda publicar mensajes más largos y meditados, así como respuestas unificadas. No podemos esperar a oir lo que tienes que decir. :)",
     "messageCannotLeaveWhileQuesting": "No puedes aceptar esta invitación de grupo mientras estas en una misión. Si te quieres unir a este grupo, tienes que abortar tu misión primero, puedes hacerlo desde la pantalla del grupo. Se te devolverá tu pergamino de misión.",
     "messageUserOperationProtected": "la ruta `<%= operation %>` no ha sido guardada, ya que es una ruta protegida.",
