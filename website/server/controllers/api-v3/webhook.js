@@ -96,6 +96,24 @@ api.addWebhook = {
 };
 
 /**
+ * @api {get} /api/v3/user/webhook Get webhooks
+ * @apiName UserGetWebhook
+ * @apiGroup Webhook
+ *
+ * @apiSuccess {Array} data User's webhooks
+ */
+api.getWebhook = {
+  method: 'GET',
+  middlewares: [authWithHeaders()],
+  url: '/user/webhook',
+  async handler (req, res) {
+    const user = res.locals.user;
+
+    res.respond(200, user.webhooks);
+  },
+};
+
+/**
  * @api {put} /api/v3/user/webhook/:id Edit a webhook - BETA
  * @apiName UserUpdateWebhook
  * @apiGroup Webhook

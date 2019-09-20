@@ -1,24 +1,42 @@
 .promo_armoire_backgrounds_201909 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px 0px;
+  background-position: 0px -343px;
   width: 423px;
   height: 147px;
 }
+.promo_desert_pet_achievements {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -653px -211px;
+  width: 204px;
+  height: 102px;
+}
 .promo_rocking_reptiles_bundle {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -148px;
+  background-position: 0px -491px;
   width: 420px;
   height: 147px;
 }
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -424px -211px;
+  background-position: -653px -314px;
   width: 96px;
   height: 69px;
 }
+.scene_casting_spells {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -340px 0px;
+  width: 312px;
+  height: 222px;
+}
 .scene_medal {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -424px 0px;
+  background-position: -653px 0px;
   width: 210px;
   height: 210px;
+}
+.scene_video_games {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px 0px;
+  width: 339px;
+  height: 342px;
 }
