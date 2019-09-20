@@ -18,5 +18,11 @@
     "achievementBackToBasicsModalText": "Você coletou todos os Mascotes Básicos!",
     "achievementAllYourBase": "Todo Seu Básico",
     "achievementAllYourBaseText": "Domou todas as Montarias Básicas.",
-    "achievementAllYourBaseModalText": "Você domou todas as Montarias Básicas!"
+    "achievementAllYourBaseModalText": "Você domou todas as Montarias Básicas!",
+    "achievementAridAuthorityModalText": "Você domou todas as Montarias do tipo Deserto!",
+    "achievementAridAuthorityText": "Domou todas as Montarias do tipo Deserto.",
+    "achievementAridAuthority": "Autoridade Árida",
+    "achievementDustDevilModalText": "Você coletou todos os Mascotes do tipo Deserto!",
+    "achievementDustDevilText": "Coletou todos os Mascotes do tipo Deserto.",
+    "achievementDustDevil": "Diabo da Poeira"
 }

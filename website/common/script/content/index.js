@@ -8,7 +8,7 @@ import {
   GEAR_TYPES,
   ITEM_LIST,
   QUEST_SERIES_ACHIEVEMENTS,
-  BASE_PETS_MOUNTS,
+  ANIMAL_COLOR_ACHIEVEMENTS,
 } from './constants';
 
 let api = module.exports;
@@ -38,7 +38,7 @@ import officialPinnedItems from './officialPinnedItems';
 
 api.achievements = achievements;
 api.questSeriesAchievements = QUEST_SERIES_ACHIEVEMENTS;
-api.basePetsMounts = BASE_PETS_MOUNTS;
+api.animalColorAchievements = ANIMAL_COLOR_ACHIEVEMENTS;
 
 api.quests = quests;
 api.questsByLevel = questsByLevel;
