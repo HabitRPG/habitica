@@ -32,7 +32,7 @@
     "accepted": "接受了",
     "declined": "拒绝",
     "rejected": "拒绝的",
-    "pending": "等待中",
+    "pending": "悬停中",
     "questStart": "一旦所有成员都接受或拒绝，任务就开始了。只有那些点击“接受”者可以参加任务并取得掉落物。如果成员回应时间太长(无活动?)，任务拥有者可以透过点击“开始”，略过他们启动任务。任务拥有者还可以透过点击“取消”取消任务，并恢复任务卷轴。",
     "questStartBroken": "一旦所有成员都接受或拒绝，任务就开始了。只有那些点击“接受”者可以参加任务并取得掉落物。如果成员回应时间太长(无活动?)，任务拥有者可以透过点击“开始”，略过他们启动任务。任务拥有者还可以透过点击“取消”取消任务，并恢复任务卷轴。",
     "questCollection": "即将寻找到+<%= val %>个任务探索物品",
@@ -126,5 +126,15 @@
     "bossHealth": "<%= currentHealth %>/ <%= maxHealth %> 生命值",
     "rageAttack": "狂暴攻击：",
     "bossRage": "<%= currentRage %> / <%= maxRage %> 愤怒值",
-    "rageStrikes": "狂暴打击"
+    "rageStrikes": "狂暴打击",
+    "tavernBossTired": "<%= bossName %>想释放<%= rageName %>但它太累了。",
+    "chatQuestCancelled": "<%= username %>取消了队伍副本<%= questName %>.",
+    "chatQuestAborted": "<%= username %>放弃了队伍副本<%= questName %>。",
+    "chatItemQuestFinish": "所有的物品都被找到啦！队伍因此获得了奖励。",
+    "chatFindItems": "<%= username %>找到了<%= items %>.",
+    "chatBossDefeated": "你们打败了<%= bossName %>！参与副本的成员获得了战利品。",
+    "chatBossDontAttack": "<%= username %>对<%= bossName %>造成了<%= userDamage %>点伤害。<%= bossName %>没有反击，因为它考虑到目前有些需要修复的错误，他不想不公平地伤害到任何人。但很快它将继续横冲直撞！",
+    "chatBossDamage": "<%= username %>对<%= bossName %>造成了<%= userDamage %>点伤害。<%= bossName %>对队伍造成了<%= bossDamage %>点伤害。",
+    "chatQuestStarted": "你们的副本<%= questName %>已经开始啦。",
+    "hatchingPotionQuests": "魔法孵化药水副本"
 }

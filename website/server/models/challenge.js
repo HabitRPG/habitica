@@ -346,7 +346,7 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
       sendPushNotification(savedWinner,
         {
           title: challenge.name,
-          message: shared.i18n.t('wonChallenge'),
+          message: shared.i18n.t('wonChallenge', savedWinner.preferences.language),
           identifier: 'wonChallenge',
         });
     }

@@ -11,11 +11,17 @@
                   :class='{"user-entry": newMessage}',
                   @keydown='updateCarretPosition',
                   @keyup.ctrl.enter='sendMessageShortcut()',
+                  @keydown.tab='handleTab($event)',
+                  @keydown.up='selectPreviousAutocomplete($event)',
+                  @keydown.down='selectNextAutocomplete($event)',
+                  @keydown.enter='selectAutocomplete($event)',
+                  @keydown.esc='handleEscape($event)',
                   @paste='disableMessageSendShortcut()',
                   maxlength='3000'
                 )
         span {{ currentLength }} / 3000
         autocomplete(
+                ref='autocomplete',
                 :text='newMessage',
                 v-on:select="selectedAutocomplete",
                 :textbox='textbox',
@@ -163,6 +169,45 @@
           this.chat.submitTimeout = null;
           this.chat.submitDisable = false;
         }, 500);
+      },
+
+      handleTab (e) {
+        if (this.$refs.autocomplete.searchActive) {
+          e.preventDefault();
+          if (e.shiftKey) {
+            this.$refs.autocomplete.selectPrevious();
+          } else {
+            this.$refs.autocomplete.selectNext();
+          }
+        }
+      },
+
+      handleEscape (e) {
+        if (this.$refs.autocomplete.searchActive) {
+          e.preventDefault();
+          this.$refs.autocomplete.cancel();
+        }
+      },
+
+      selectNextAutocomplete (e) {
+        if (this.$refs.autocomplete.searchActive) {
+          e.preventDefault();
+          this.$refs.autocomplete.selectNext();
+        }
+      },
+
+      selectPreviousAutocomplete (e) {
+        if (this.$refs.autocomplete.searchActive) {
+          e.preventDefault();
+          this.$refs.autocomplete.selectPrevious();
+        }
+      },
+
+      selectAutocomplete (e) {
+        if (this.$refs.autocomplete.searchActive) {
+          e.preventDefault();
+          this.$refs.autocomplete.makeSelection();
+        }
       },
 
       selectedAutocomplete (newText) {

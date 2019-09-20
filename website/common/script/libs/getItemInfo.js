@@ -132,7 +132,6 @@ module.exports = function getItemInfo (user, type, item, officialPinnedItems, la
         notes: item.notes(language),
         group: item.group,
         value: item.goldValue ? item.goldValue : item.value,
-        currency: item.goldValue ? 'gold' : 'gems',
         locked,
         previous: content.quests[item.previous] ? content.quests[item.previous].text(language) : null,
         unlockCondition: item.unlockCondition,
@@ -150,6 +149,13 @@ module.exports = function getItemInfo (user, type, item, officialPinnedItems, la
         path: `quests.${item.key}`,
         pinType: 'quests',
       };
+      if (item.goldValue) {
+        itemInfo.currency = 'gold';
+      } else if (item.category === 'timeTravelers') {
+        itemInfo.currency = 'hourglasses';
+      } else {
+        itemInfo.currency = 'gems';
+      }
 
       break;
     case 'timeTravelers':

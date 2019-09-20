@@ -25,7 +25,7 @@
     )
     transition(name="quick-add-tip-slide")
       .quick-add-tip.small-text(v-show="quickAddFocused", v-html="$t('addMultipleTip', {taskType: $t(typeLabel)})")
-    clear-completed-todos(v-if="activeFilter.label === 'complete2' && isUser === true")
+    clear-completed-todos(v-if="activeFilter.label === 'complete2' && isUser === true && taskList.length > 0")
     .column-background(
       v-if="isUser === true",
       :class="{'initial-description': initialColumnDescription}",
@@ -48,6 +48,7 @@
         @editTask="editTask",
         @moveTo="moveTo",
         :group='group',
+        :challenge="challenge"
         v-on:taskDestroyed='taskDestroyed'
       )
     template(v-if="hasRewardsList")
@@ -207,6 +208,7 @@
     position: absolute;
     width: 100%;
     bottom: 32px;
+    margin-left: -8px;
 
     &.initial-description {
       top: 30%;
@@ -310,6 +312,7 @@ export default {
     selectedTags: {},
     taskListOverride: {},
     group: {},
+    challenge: {},
   }, // @TODO: maybe we should store the group on state?
   data () {
     const icons = Object.freeze({
@@ -481,7 +484,7 @@ export default {
       const newIndexOnServer = originTasks.findIndex(taskId => taskId === taskIdToReplace);
 
       let newOrder;
-      if (taskToMove.group.id) {
+      if (taskToMove.group.id && !this.isUser) {
         newOrder = await this.$store.dispatch('tasks:moveGroupTask', {
           taskId: taskIdToMove,
           position: newIndexOnServer,

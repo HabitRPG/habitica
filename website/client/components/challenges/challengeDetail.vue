@@ -57,6 +57,7 @@
         :type="column",
         :key="column",
         :taskListOverride='tasksByType[column]',
+        :challenge="challenge"
         @editTask="editTask",
         @taskDestroyed="taskDestroyed",
         v-if='tasksByType[column].length > 0')

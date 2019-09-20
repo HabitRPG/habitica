@@ -871,6 +871,34 @@ let backgrounds = {
       notes: t('backgroundAmongGiantAnemonesNotes'),
     },
   },
+  backgrounds082019: {
+    amid_ancient_ruins: {
+      text: t('backgroundAmidAncientRuinsText'),
+      notes: t('backgroundAmidAncientRuinsNotes'),
+    },
+    giant_dandelions: {
+      text: t('backgroundGiantDandelionsText'),
+      notes: t('backgroundGiantDandelionsNotes'),
+    },
+    treehouse: {
+      text: t('backgroundTreehouseText'),
+      notes: t('backgroundTreehouseNotes'),
+    },
+  },
+  backgrounds092019: {
+    autumn_flower_garden: {
+      text: t('backgroundAutumnFlowerGardenText'),
+      notes: t('backgroundAutumnFlowerGardenNotes'),
+    },
+    in_an_ancient_tomb: {
+      text: t('backgroundInAnAncientTombText'),
+      notes: t('backgroundInAnAncientTombNotes'),
+    },
+    in_a_classroom: {
+      text: t('backgroundInAClassroomText'),
+      notes: t('backgroundInAClassroomNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),

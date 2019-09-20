@@ -66,7 +66,7 @@
     "visitHeroes": "Bezoek de Hal der Helden (bijdragers en helpers)",
     "conLearn": "<a href='http://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'>Leer meer over bijdragersbeloningen</a>",
     "conLearnHow": "Lees meer over hoe je kunt bijdragen aan Habitica",
-    "conLearnURL": "http://nl.habitica.fandom.com/wiki/Bijdragen_aan_Habitica",
+    "conLearnURL": "https://habitica.fandom.com/nl/wiki/Bijdragen_aan_Habitica",
     "conRewardsURL": "http://habitica.fandom.com/wiki/Contributor_Rewards",
     "surveysSingle": "Heeft Habitica geholpen om te groeien, of door een enquête in te vullen of door mee te helpen met een grote speltest. Bedankt!",
     "surveysMultiple": "Heeft Habitica helpen groeien op <%= count %> momenten, door een enquête in te vullen of door mee te helpen met een grote test. Bedankt!",

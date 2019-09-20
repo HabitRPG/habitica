@@ -3,7 +3,7 @@ import defaults from 'lodash/defaults';
 import each from 'lodash/each';
 import t from './translation';
 
-const CURRENT_SEASON = 'July';
+const CURRENT_SEASON = '_NONE_';
 
 function hasQuestAchievementFunction (key) {
   return (user) => {
@@ -143,7 +143,7 @@ let premium = {
     value: 2,
     text: t('hatchingPotionGlass'),
     limited: true,
-    _season: 'July',
+    _season: '_PENDING_',
     _addlNotes: t('eventAvailabilityReturning', {
       availableDate: t('dateEndJuly'),
       previousDate: t('june2018'),
@@ -190,15 +190,18 @@ let premium = {
     text: t('hatchingPotionBronze'),
     limited: true,
     canBuy: hasQuestAchievementFunction('bronze'),
-    _addlNotes () {
-      return '';
-    },
   },
   Watery: {
     value: 2,
     text: t('hatchingPotionWatery'),
     limited: true,
-    _season: 'July',
+    _season: '_PENDING_',
+  },
+  Silver: {
+    value: 2,
+    text: t('hatchingPotionSilver'),
+    limited: true,
+    canBuy: hasQuestAchievementFunction('silver'),
   },
 };
 
@@ -232,9 +235,7 @@ each(premium, (pot, key) => {
     notes: t('hatchingPotionNotes', {
       potText: pot.text,
     }),
-    _addlNotes: t('eventAvailability', {
-      date: t(`dateEnd${pot._season}`),
-    }),
+    _addlNotes: t('premiumPotionAddlNotes'),
     premium: true,
     limited: false,
     canBuy () {

@@ -142,5 +142,7 @@
     "clickOnPotionToHatch": "点击一个孵化药水，倒在您的<%= eggName %>蛋上，并孵化一个新宠物！",
     "notEnoughPets": "您还没有收集足够的宠物",
     "notEnoughMounts": "您还没有收集足够的坐骑",
-    "notEnoughPetsMounts": "您还没有收集足够的宠物和坐骑"
+    "notEnoughPetsMounts": "您还没有收集足够的宠物和坐骑",
+    "filterByWacky": "古怪",
+    "wackyPets": "古怪宠物"
 }

@@ -1,9 +1,7 @@
 /* eslint-disable global-require */
 import got from 'got';
 import nconf from 'nconf';
-import nodemailer from 'nodemailer';
 import requireAgain from 'require-again';
-import logger from '../../../../website/server/libs/logger';
 import { TAVERN_ID } from '../../../../website/server/models/group';
 import { defer } from '../../../helpers/api-unit.helper';
 
@@ -35,42 +33,6 @@ function getUser () {
 describe('emails', () => {
   let pathToEmailLib = '../../../../website/server/libs/email';
 
-  describe('sendEmail', () => {
-    let sendMailSpy;
-
-    beforeEach(() => {
-      sendMailSpy = sandbox.stub().returns(defer().promise);
-      sandbox.stub(nodemailer, 'createTransport').returns({
-        sendMail: sendMailSpy,
-      });
-    });
-
-    afterEach(() => {
-      sandbox.restore();
-    });
-
-    it('can send an email using the default transport', () => {
-      let attachEmail = requireAgain(pathToEmailLib);
-      attachEmail.send();
-      expect(sendMailSpy).to.be.calledOnce;
-    });
-
-    it('logs errors', (done) => {
-      sandbox.stub(logger, 'error');
-
-      let attachEmail = requireAgain(pathToEmailLib);
-      attachEmail.send();
-      expect(sendMailSpy).to.be.calledOnce;
-      defer().reject();
-
-      // wait for unhandledRejection event to fire
-      setTimeout(() => {
-        expect(logger.error).to.be.calledOnce;
-        done();
-      }, 20);
-    });
-  });
-
   describe('getUserInfo', () => {
     it('returns an empty object if no field request', () => {
       let attachEmail = requireAgain(pathToEmailLib);
@@ -84,7 +46,7 @@ describe('emails', () => {
       let user = getUser();
       let data = getUserInfo(user, ['name', 'email', '_id', 'canSend']);
 
-      expect(data).to.have.property('name', user.profile.name);
+      expect(data).to.have.property('name', user.auth.local.username);
       expect(data).to.have.property('email', user.auth.local.email);
       expect(data).to.have.property('_id', user._id);
       expect(data).to.have.property('canSend', true);
@@ -95,11 +57,11 @@ describe('emails', () => {
       let getUserInfo = attachEmail.getUserInfo;
       let user = getUser();
       delete user.profile.name;
-      delete user.auth.local;
+      delete user.auth.local.email;
 
       let data = getUserInfo(user, ['name', 'email', '_id', 'canSend']);
 
-      expect(data).to.have.property('name', user.profile.name);
+      expect(data).to.have.property('name', user.auth.local.username);
       expect(data).to.have.property('email', user.auth.facebook.emails[0].value);
       expect(data).to.have.property('_id', user._id);
       expect(data).to.have.property('canSend', true);
@@ -114,7 +76,7 @@ describe('emails', () => {
 
       let data = getUserInfo(user, ['name', 'email', '_id', 'canSend']);
 
-      expect(data).to.have.property('name', user.profile.name);
+      expect(data).to.have.property('name', user.auth.local.username);
       expect(data).not.to.have.property('email');
       expect(data).to.have.property('_id', user._id);
       expect(data).to.have.property('canSend', true);

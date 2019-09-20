@@ -19,10 +19,10 @@ describe('POST /members/flag-private-message/:messageId', () => {
       toUserId: receiver._id,
     });
 
-    let senderMessages = await userToSendMessage.get('/inbox/messages');
+    let senderMessages = await userToSendMessage.get('/inbox/paged-messages');
 
     let sendersMessageInSendersInbox = _.find(senderMessages, (message) => {
-      return message.uuid === receiver._id && message.text === messageToSend;
+      return message.toUUID === receiver._id && message.text === messageToSend;
     });
 
     expect(sendersMessageInSendersInbox).to.exist;
@@ -37,7 +37,7 @@ describe('POST /members/flag-private-message/:messageId', () => {
       toUserId: receiver._id,
     });
 
-    let receiversMessages = await receiver.get('/inbox/messages');
+    let receiversMessages = await receiver.get('/inbox/paged-messages');
 
     let sendersMessageInReceiversInbox = _.find(receiversMessages, (message) => {
       return message.uuid === userToSendMessage._id && message.text === messageToSend;
@@ -55,7 +55,7 @@ describe('POST /members/flag-private-message/:messageId', () => {
       toUserId: receiver._id,
     });
 
-    let receiversMessages = await receiver.get('/inbox/messages');
+    let receiversMessages = await receiver.get('/inbox/paged-messages');
 
     let sendersMessageInReceiversInbox = _.find(receiversMessages, (message) => {
       return message.uuid === userToSendMessage._id && message.text === messageToSend;

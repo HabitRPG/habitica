@@ -8,7 +8,7 @@ import {
   GEAR_TYPES,
   ITEM_LIST,
   QUEST_SERIES_ACHIEVEMENTS,
-  BASE_PETS_MOUNTS,
+  ANIMAL_COLOR_ACHIEVEMENTS,
 } from './constants';
 
 let api = module.exports;
@@ -38,7 +38,7 @@ import officialPinnedItems from './officialPinnedItems';
 
 api.achievements = achievements;
 api.questSeriesAchievements = QUEST_SERIES_ACHIEVEMENTS;
-api.basePetsMounts = BASE_PETS_MOUNTS;
+api.animalColorAchievements = ANIMAL_COLOR_ACHIEVEMENTS;
 
 api.quests = quests;
 api.questsByLevel = questsByLevel;
@@ -90,7 +90,7 @@ api.bundles = {
       'whale',
     ],
     canBuy () {
-      return moment().isBetween('2017-07-11', '2017-08-02');
+      return moment().isBetween('2019-07-17', '2019-08-02');
     },
     type: 'quests',
     class: 'quest_bundle_splashyPals',
@@ -106,7 +106,7 @@ api.bundles = {
       'sheep',
     ],
     canBuy () {
-      return moment().isBetween('2017-09-12', '2017-10-07');
+      return moment().isBetween('2019-08-08', '2019-09-02');
     },
     type: 'quests',
     value: 7,
@@ -242,6 +242,21 @@ api.bundles = {
     ],
     canBuy () {
       return moment().isBetween('2019-02-19', '2019-03-02');
+    },
+    type: 'quests',
+    value: 7,
+  },
+  rockingReptiles: {
+    key: 'rockingReptiles',
+    text: t('rockingReptilesText'),
+    notes: t('rockingReptilesNotes'),
+    bundleKeys: [
+      'alligator',
+      'snake',
+      'velociraptor',
+    ],
+    canBuy () {
+      return moment().isBetween('2019-09-10', '2019-10-02');
     },
     type: 'quests',
     value: 7,

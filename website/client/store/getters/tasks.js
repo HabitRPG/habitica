@@ -37,11 +37,64 @@ function getTaskColor (task) {
   }
 }
 
-export function canDelete () {
-  return (task) => {
-    let isUserChallenge = Boolean(task.userId);
-    let activeChallenge = isUserChallenge && task.challenge && task.challenge.id && !task.challenge.broken;
-    return !activeChallenge;
+export function canDelete (store) {
+  return (task, taskCategory, isTaskFromUserDashboard, group, challenge) => {
+    let isUserCanDeleteTask = isTaskFromUserDashboard;
+    const user = store.state.user.data;
+
+    switch (taskCategory) {
+      case 'challenge':
+        if (challenge && !isTaskFromUserDashboard) {
+          let isUserChallenge = user.id === challenge.leader.id;
+          isUserCanDeleteTask = isUserChallenge || task.challenge.broken;
+        } else {
+          isUserCanDeleteTask = task.challenge.broken;
+        }
+        break;
+      case 'group':
+        if (group && !isTaskFromUserDashboard) {
+          isUserCanDeleteTask =
+          group.leader &&
+          group.leader._id === user._id || group.managers &&
+          Boolean(group.managers[user._id]);
+        } else {
+          isUserCanDeleteTask = false;
+        }
+        break;
+      default:
+        break;
+    }
+    return Boolean(isUserCanDeleteTask);
+  };
+}
+
+export function canEdit (store) {
+  return (task, taskCategory, isTaskFromUserDashboard, group, challenge) => {
+    let isUserCanEditTask = isTaskFromUserDashboard;
+    const user = store.state.user.data;
+    switch (taskCategory) {
+      case 'challenge':
+        if (challenge && !isTaskFromUserDashboard) {
+          let isUserChallenge = user.id === challenge.leader.id;
+          isUserCanEditTask = isUserChallenge || task.challenge.broken;
+        } else {
+          isUserCanEditTask = task.challenge.broken;
+        }
+        break;
+      case 'group':
+        if (group && !isTaskFromUserDashboard) {
+          isUserCanEditTask =
+          group.leader &&
+          group.leader._id === user._id || group.managers &&
+          Boolean(group.managers[user._id]);
+        } else {
+          isUserCanEditTask = false;
+        }
+        break;
+      default:
+        break;
+    }
+    return Boolean(isUserCanEditTask);
   };
 }
 
@@ -94,6 +147,7 @@ export function getTaskClasses (store) {
             bg: `task-${color}-control-bg`,
             checkbox: `task-${color}-control-checkbox`,
             inner: `task-${color}-control-inner-daily-todo`,
+            icon: `task-${color}-control-icon`,
           };
         } else if (type === 'reward') {
           return {
@@ -102,11 +156,11 @@ export function getTaskClasses (store) {
         } else if (type === 'habit') {
           return {
             up: task.up ?
-              { bg: `task-${color}-control-bg`, inner: `task-${color}-control-inner-habit`} :
-              { bg: 'task-disabled-habit-control-bg', inner: 'task-disabled-habit-control-inner' },
+              { bg: `task-${color}-control-bg`, inner: `task-${color}-control-inner-habit`, icon: `task-${color}-control-icon`} :
+              { bg: 'task-disabled-habit-control-bg', inner: 'task-disabled-habit-control-inner', icon: `task-${color}-control-icon` },
             down: task.down ?
-              { bg: `task-${color}-control-bg`, inner: `task-${color}-control-inner-habit`} :
-              { bg: 'task-disabled-habit-control-bg', inner: 'task-disabled-habit-control-inner' },
+              { bg: `task-${color}-control-bg`, inner: `task-${color}-control-inner-habit`, icon: `task-${color}-control-icon`} :
+              { bg: 'task-disabled-habit-control-bg', inner: 'task-disabled-habit-control-inner', icon: `task-${color}-control-icon` },
           };
         }
         break;

@@ -1,15 +1,42 @@
-import {inboxModel as Inbox} from '../../models/message';
-import {
-  model as User,
-} from '../../models/user';
-import orderBy from 'lodash/orderBy';
-import keyBy from 'lodash/keyBy';
+import {mapInboxMessage, inboxModel as Inbox} from '../../models/message';
+import {getUserInfo, sendTxn as sendTxnEmail} from '../email';
+import {sendNotification as sendPushNotification} from '../pushNotifications';
+import { model as User } from '../../models/user';
 
 const PM_PER_PAGE = 10;
 
-export async function getUserInbox (user, options = {asArray: true, page: 0, conversation: null}) {
+export async function sentMessage (sender, receiver, message, translate) {
+  const messageSent = await sender.sendMessage(receiver, { receiverMsg: message });
+
+  if (receiver.preferences.emailNotifications.newPM !== false) {
+    sendTxnEmail(receiver, 'new-pm', [
+      {name: 'SENDER', content: getUserInfo(sender, ['name']).name},
+    ]);
+  }
+
+  if (receiver.preferences.pushNotifications.newPM !== false) {
+    sendPushNotification(
+      receiver,
+      {
+        title: translate('newPM', receiver.preferences.language),
+        message: translate('newPMInfo', {name: getUserInfo(sender, ['name']).name, message}, receiver.preferences.language),
+        identifier: 'newPM',
+        category: 'newPM',
+        payload: {replyTo: sender._id},
+      }
+    );
+  }
+
+  return messageSent;
+}
+
+export async function getUserInbox (user, options = {asArray: true, page: 0, conversation: null, mapProps: false}) {
   if (typeof options.asArray === 'undefined') {
     options.asArray = true;
+  }
+
+  if (typeof options.mapProps === 'undefined') {
+    options.mapProps = false;
   }
 
   const findObj = {ownerId: user._id};
@@ -28,7 +55,15 @@ export async function getUserInbox (user, options = {asArray: true, page: 0, con
       .skip(PM_PER_PAGE * Number(options.page));
   }
 
-  const messages = (await query.exec()).map(msg => msg.toJSON());
+  const messages = (await query.exec()).map(msg => {
+    const msgObj = msg.toJSON();
+
+    if (options.mapProps) {
+      mapInboxMessage(msgObj, user);
+    }
+
+    return msgObj;
+  });
 
   if (options.asArray) {
     return messages;
@@ -40,34 +75,55 @@ export async function getUserInbox (user, options = {asArray: true, page: 0, con
   }
 }
 
-export async function listConversations (user) {
+export async function listConversations (owner) {
   let query = Inbox
     .aggregate([
       {
         $match: {
-          ownerId: user._id,
+          ownerId: owner._id,
         },
       },
       {
         $group: {
           _id: '$uuid',
-          timestamp: {$max: '$timestamp'}, // sort before group doesn't work - use the max value to sort it again after
+          user: {$last: '$user' },
+          username: {$last: '$username' },
+          timestamp: {$last: '$timestamp'},
+          text: {$last: '$text'},
+          count: {$sum: 1},
         },
       },
+      { $sort: {timestamp: -1}}, // sort by latest message
     ]);
 
-  const conversationsList = orderBy(await query.exec(), ['timestamp'], ['desc']).map(c => c._id);
+  const conversationsList = await query.exec();
 
-  const users = await User.find({_id: {$in: conversationsList}})
-    .select('_id profile.name auth.local.username')
-    .lean()
-    .exec();
+  const usersQuery = {
+    _id: {$in: conversationsList.map(c => c._id) },
+  };
 
-  const usersMap = keyBy(users, '_id');
-  const conversations = conversationsList.map(userId => ({
-    uuid: usersMap[userId]._id,
-    user: usersMap[userId].profile.name,
-    username: usersMap[userId].auth.local.username,
+  const usersAr = await User.find(usersQuery,  {
+    _id: 1,
+    contributor: 1,
+    items: 1,
+    preferences: 1,
+    stats: 1,
+  }).exec();
+  const usersMap = {};
+
+  for (const usr of usersAr) {
+    usersMap[usr._id] = usr;
+  }
+
+  const conversations = conversationsList.map((res) => ({
+    uuid: res._id,
+    ...res,
+    userStyles: {
+      items: usersMap[res._id].items,
+      preferences: usersMap[res._id].preferences,
+      stats: usersMap[res._id].stats,
+    },
+    contributor: usersMap[res._id].contributor,
   }));
 
   return conversations;

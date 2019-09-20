@@ -94,7 +94,7 @@ let schema = new Schema({
     spookySparkles: Number,
     shinySeed: Number,
     seafoam: Number,
-    streak: Number,
+    streak: {$type: Number, default: 0},
     challenges: Array,
     quests: {$type: Schema.Types.Mixed, default: () => {
       return {};
@@ -124,6 +124,8 @@ let schema = new Schema({
     justAddWater: Boolean,
     backToBasics: Boolean,
     allYourBase: Boolean,
+    dustDevil: Boolean,
+    aridAuthority: Boolean,
   },
 
   backer: {
@@ -230,6 +232,7 @@ let schema = new Schema({
       return {};
     }},
     chatRevoked: Boolean,
+    chatShadowMuted: Boolean,
     // Used to track the status of recapture emails sent to each user,
     // can be 0 - no email sent - 1, 2, 3 or 4 - 4 means no more email will be sent to the user
     recaptureEmailsPhase: {$type: Number, default: 0},

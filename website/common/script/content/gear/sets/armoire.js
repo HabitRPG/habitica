@@ -481,6 +481,15 @@ let armor = {
     set: 'astronomer',
     canOwn: ownsItem('armor_armoire_astronomersRobe'),
   },
+  invernessCape: {
+    text: t('armorArmoireInvernessCapeText'),
+    notes: t('armorArmoireInvernessCapeNotes', { attrs: 7 }),
+    value: 100,
+    per: 7,
+    int: 7,
+    set: 'detective',
+    canOwn: ownsItem('armor_armoire_invernessCape'),
+  },
 };
 
 let body = {
@@ -986,6 +995,14 @@ let head = {
     set: 'astronomer',
     canOwn: ownsItem('head_armoire_astronomersHat'),
   },
+  deerstalkerCap: {
+    text: t('headArmoireDeerstalkerCapText'),
+    notes: t('headArmoireDeerstalkerCapNotes', { int: 14 }),
+    value: 100,
+    int: 14,
+    set: 'detective',
+    canOwn: ownsItem('head_armoire_deerstalkerCap'),
+  },
 };
 
 let shield = {
@@ -1240,6 +1257,21 @@ let shield = {
     per: 8,
     set: 'chef',
     canOwn: ownsItem('shield_armoire_mightyPizza'),
+  },
+  trustyUmbrella: {
+    text: t('shieldArmoireTrustyUmbrellaText'),
+    notes: t('shieldArmoireTrustyUmbrellaNotes', { int: 7 }),
+    value: 100,
+    int: 7,
+    set: 'detective',
+    canOwn: ownsItem('shield_armoire_trustyUmbrella'),
+  },
+  polishedPocketwatch: {
+    text: t('shieldArmoirePolishedPocketwatchText'),
+    notes: t('shieldArmoirePolishedPocketwatchNotes', { int: 9 }),
+    value: 100,
+    int: 9,
+    canOwn: ownsItem('shield_armoire_polishedPocketwatch'),
   },
 };
 
@@ -1656,6 +1688,28 @@ let weapon = {
     per: 10,
     set: 'astronomer',
     canOwn: ownsItem('weapon_armoire_astronomersTelescope'),
+  },
+  magnifyingGlass: {
+    text: t('weaponArmoireMagnifyingGlassText'),
+    notes: t('weaponArmoireMagnifyingGlassNotes', { per: 7 }),
+    value: 100,
+    per: 7,
+    set: 'detective',
+    canOwn: ownsItem('weapon_armoire_magnifyingGlass'),
+  },
+  floridFan: {
+    text: t('weaponArmoireFloridFanText'),
+    notes: t('weaponArmoireFloridFanNotes', { con: 9 }),
+    value: 100,
+    con: 9,
+    canOwn: ownsItem('weapon_armoire_floridFan'),
+  },
+  resplendentRapier: {
+    text: t('weaponArmoireResplendentRapierText'),
+    notes: t('weaponArmoireResplendentRapierNotes', { per: 9 }),
+    value: 100,
+    per: 9,
+    canOwn: ownsItem('weapon_armoire_resplendentRapier'),
   },
 };
 
