@@ -138,7 +138,7 @@ export default {
       return orderBy(this.partyMembers, [this.user.party.order], [this.user.party.orderAscending]);
     },
     hideHeader () {
-      return ['groupPlan', 'messages'].includes(this.$route.name);
+      return ['groupPlan', 'privateMessages'].includes(this.$route.name);
     },
   },
   methods: {

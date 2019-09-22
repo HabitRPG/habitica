@@ -1,19 +1,22 @@
 <template lang="pug">
   #private-message
-    .d-flex.w-100.align-items-center
-      .d-flex.w-25.align-items-center
-        .svg-icon.envelope.ml-3(v-html="icons.messageIcon")
-        h2.flex-fill.text-center.pr-5(v-once) {{ $t('messages') }}
-      .d-flex.flex-row-reverse.w-75.ml-auto.align-items-center
+    .header-bar.d-flex.w-100
+      .d-flex.w-25
+        .mail-icon.svg-icon(v-html="icons.mail", v-once)
+        h2.flex-fill.text-center(v-once) {{ $t('messages') }}
+      .d-flex.w-75
+        div Selected Conversation
+
+    .d-flex
+      .w-25.sidebar.d-flex.flex-column
+        .disable-background
           .svg-icon.close(aria-hidden="true", v-html="icons.svgClose", @click="close()", v-once)
           toggle-switch(
             :label="optTextSet.switchDescription",
-            :checked="!this.user.inbox.optOut"
+            :checked="this.user.inbox.optOut"
             :hoverText="optTextSet.popoverText",
             @change="toggleOpt()"
           )
-    .d-flex
-      .w-25.sidebar.d-flex.flex-column
         .search-section
           b-form-input.input-search(:placeholder="$t('search')", v-model='search')
         .empty-messages.m-auto.text-center(v-if='filtersConversations.length === 0')
@@ -48,7 +51,7 @@
           :isLoading="messagesLoading",
           @triggerLoad="infiniteScrollTrigger"
         )
-        .pm-disabled-caption.text-center(v-if="user.inbox.optOut && selectedConversation.key")
+        .pm-disabled-caption.text-center(v-if="user.inbox.optOut")
           h4 {{ $t('PMDisabledCaptionTitle') }}
           p {{ $t('PMDisabledCaptionText') }}
         .new-message-row.d-flex.align-items-center(v-if='selectedConversation.key && !user.flags.chatRevoked')
@@ -97,6 +100,32 @@
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
   @import '~client/assets/scss/tiers.scss';
+
+  .header-bar {
+    height: 64px;
+    margin-top: 1rem;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    box-shadow: 0 1px 2px 0 rgba(26, 24, 29, 0.24);
+    background-color: $white;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 1.25rem;
+
+    .mail-icon {
+      width: 32px;
+      height: 24px;
+      object-fit: contain;
+    }
+  }
+
+  .disable-background {
+    height: 44px;
+    background-color: $gray-600;
+    padding-top: 0.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
 
   .conversation {
     padding: 1.5em;
@@ -284,6 +313,7 @@
   import tier8 from 'assets/svg/tier-mod.svg';
   import tier9 from 'assets/svg/tier-staff.svg';
   import tierNPC from 'assets/svg/tier-npc.svg';
+  import mail from 'assets/svg/mail.svg';
 
   export default {
     mixins: [styleHelper],
@@ -291,7 +321,7 @@
       privateMessages,
       toggleSwitch,
     },
-    mounted () {
+    async mounted () {
       this.$root.$on('habitica::new-private-message', (data) => {
         this.$root.$emit('bv::show::modal', 'messages-modal');
 
@@ -320,6 +350,13 @@
           this.selectConversation(data.userIdToMessage);
         }, {immediate: true});
       });
+
+      this.loaded = false;
+
+      const conversationRes = await axios.get('/api/v4/inbox/conversations');
+      this.loadedConversations = conversationRes.data.data;
+
+      this.loaded = true;
     },
     destroyed () {
       this.$root.$off('habitica::new-private-message');
@@ -339,6 +376,7 @@
           tier8,
           tier9,
           tierNPC,
+          mail,
         }),
         displayCreate: true,
         selectedConversation: {},
@@ -450,25 +488,19 @@
       optTextSet () {
         if (!this.user.inbox.optOut) {
           return {
-            switchDescription: this.$t('PMReceive'),
+            switchDescription: this.$t('PMDisabled'),
             popoverText: this.$t('PMEnabledOptPopoverText'),
           };
         }
         return {
-          switchDescription: this.$t('PMReceive'),
+          switchDescription: this.$t('PMDisabled'),
           popoverText: this.$t('PMDisabledOptPopoverText'),
         };
       },
     },
+
     methods: {
-      async onModalShown () {
-        this.loaded = false;
 
-        const conversationRes = await axios.get('/api/v4/inbox/conversations');
-        this.loadedConversations = conversationRes.data.data;
-
-        this.loaded = true;
-      },
       onModalHide () {
         // reset everything
         this.loadedConversations = [];

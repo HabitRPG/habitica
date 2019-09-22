@@ -138,6 +138,7 @@
   "PMPlaceholderDescription": "Select a conversation on the left",
   "PMPlaceholderTitleRevoked": "Your chat privileges have been revoked",
   "PMReceive": "Receive Private Messages",
+  "PMDisabled": "Disable Private Messages",
   "PMEnabledOptPopoverText": "Private Messages are enabled. Users can contact you via your profile.",
   "PMDisabledOptPopoverText": "Private Messages are disabled. Enable this option to allow users to contact you via your profile.",
   "PMDisabledCaptionTitle": "Private Messages are disabled",
