@@ -29,8 +29,7 @@
           br
           | {{ $t('dataToolDesc') }}
         li(v-html="$t('otherExtensions')")
-          br
-          | {{ $t('otherDesc') }}
+        | {{ $t('otherDesc') }}
 
       hr
 
