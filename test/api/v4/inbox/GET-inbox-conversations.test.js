@@ -35,9 +35,14 @@ describe('GET /inbox/conversations', () => {
   });
 
   it('returns the conversations', async () => {
+    await user.post('/members/send-private-message', {
+      toUserId: user.id,
+      message: 'some notes to myself',
+    });
+
     const result = await user.get('/inbox/conversations');
 
-    expect(result.length).to.be.equal(3);
+    expect(result.length).to.be.equal(4);
     expect(result[0].user).to.be.equal(user.profile.name);
     expect(result[0].username).to.be.equal(user.auth.local.username);
     expect(result[0].text).to.be.not.empty;
