@@ -1,7 +1,6 @@
 import {mapInboxMessage, inboxModel as Inbox} from '../../models/message';
 import {getUserInfo, sendTxn as sendTxnEmail} from '../email';
 import {sendNotification as sendPushNotification} from '../pushNotifications';
-import { model as User } from '../../models/user';
 
 const PM_PER_PAGE = 10;
 
