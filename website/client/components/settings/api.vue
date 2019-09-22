@@ -22,10 +22,8 @@
           a(target='_blank' href='https://www.beeminder.com/habitica') {{ $t('beeminder') }}
           br
           | {{ $t('beeminderDesc') }}
-        li
-          a(target='_blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb') {{ $t('chromeChatExtension') }}
-          br
-          | {{ $t('chromeChatExtensionDesc') }}
+        li(v-html="$t('chatExtension')")
+        | {{ $t('chatExtensionDesc') }}
         li
           a(target='_blank' :href='`https://oldgods.net/habitica/habitrpg_user_data_display.html?uuid=` + user._id') {{ $t('dataTool') }}
           br
