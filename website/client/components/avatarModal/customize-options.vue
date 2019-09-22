@@ -96,7 +96,7 @@
       }
     }
 
-    &:not(.locked){
+    &:not(.locked):not(.active) {
       .option:hover {
         background-color: rgba(213, 200, 255, .32);
       }
