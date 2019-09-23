@@ -371,22 +371,6 @@ async function scoreTask (user, task, direction, req, res) {
 
   setNextDue(task, user);
 
-  if (task.group && task.group.taskId) {
-    await handleSharedCompletion(task);
-    try {
-      const groupTask = await Tasks.Task.findOne({
-        _id: task.group.taskId,
-      }).exec();
-
-      if (groupTask) {
-        const groupDelta = groupTask.group.assignedUsers ? delta / groupTask.group.assignedUsers.length : delta;
-        await groupTask.scoreChallengeTask(groupDelta, direction);
-      }
-    } catch (e) {
-      logger.error(e);
-    }
-  }
-
   taskScoredWebhook.send(user, {
     task,
     direction,
@@ -419,6 +403,24 @@ async function handleChallengeTask (task, delta, direction) {
       if (!chalTask) return;
 
       await chalTask.scoreChallengeTask(delta, direction);
+    } catch (e) {
+      logger.error(e);
+    }
+  }
+}
+
+async function handleGroupTask (task, delta, direction) {
+  if (task.group && task.group.taskId) {
+    await handleSharedCompletion(task);
+    try {
+      const groupTask = await Tasks.Task.findOne({
+        _id: task.group.taskId,
+      }).exec();
+
+      if (groupTask) {
+        const groupDelta = groupTask.group.assignedUsers ? delta / groupTask.group.assignedUsers.length : delta;
+        await groupTask.scoreChallengeTask(groupDelta, direction);
+      }
     } catch (e) {
       logger.error(e);
     }
@@ -468,6 +470,7 @@ export async function scoreTasks (user, taskScorings, req, res) {
   response.taskResponses = returnDatas.map(data => {
     // Handle challenge tasks here so we save on one for loop
     handleChallengeTask(data.task, data.delta, data.direction);
+    handleGroupTask(data.task, data.delta, data.direction);
 
     return {id: data.task._id, delta: data.delta, _tmp: data._tmp};
   });
