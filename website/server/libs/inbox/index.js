@@ -86,12 +86,8 @@ async function usersMapByConversations (owner, users) {
       {
         $group: {
           _id: '$uuid',
-          user: {$last: '$user' },
-          username: {$last: '$username' },
           userStyles: {$last: '$userStyles'},
           contributor: {$last: '$contributor'},
-
-          count: {$sum: 1},
         },
       },
     ]);
