@@ -21,7 +21,7 @@ let momentLangsMapping = {
   pt_BR: 'pt-br', // eslint-disable-line camelcase
 };
 
-let approvedLanguages = [
+export let approvedLanguages = [
   'bg',
   'cs',
   'da',
