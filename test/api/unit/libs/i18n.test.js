@@ -1,11 +1,10 @@
 import {
   translations,
-  localePath,
   langCodes,
   approvedLanguages,
 } from '../../../../website/server/libs/i18n';
 
-describe.only('i18n', () => {
+describe('i18n', () => {
   let listOfLocales = approvedLanguages.sort();
 
   describe('translations', () => {
