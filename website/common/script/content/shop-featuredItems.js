@@ -34,7 +34,7 @@ const featuredItems = {
       path: 'quests.silver',
     },
   ],
-  seasonal: 'summer2019Mage',
+  seasonal: 'fall2018Rogue',
   timeTravelers: [
     // TODO
   ],
