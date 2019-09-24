@@ -156,7 +156,7 @@
     "optOutOfClasses": "Se Abster",
     "optOutOfPMs": "Se Abster",
     "chooseClass": "Escolha sua Classe",
-    "chooseClassLearnMarkdown": "[Aprenda mais sobre o sistema de Classes do Habitica](http://pt-br.habitica.fandom.com/wiki/Class_System)",
+    "chooseClassLearnMarkdown": "[Aprenda mais sobre o sistema de Classes do Habitica](https://habitica.fandom.com/pt-br/wiki/Class_System)",
     "optOutOfClassesText": "Não quer se incomodar com classes? Deseja escolher depois? Se Abstenha - você será um guerreiro sem habilidades especiais. Você pode ler sobre o sistema de classes na wiki e habilitar sua classe clicando no Ícone de Usuário > Configurações.",
     "selectClass": "Selecionar <%= heroClass %>",
     "select": "Selecionar",

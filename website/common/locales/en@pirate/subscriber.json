@@ -215,5 +215,7 @@
     "gemsPurchaseNote": "Subscribers can buy sapphires fer gold in th' Market! Fer easy access, ye can also pin th' sapphire to yer Rewards column.",
     "gemsRemaining": "sapphires remaining",
     "notEnoughGemsToBuy": "Ye are unable t' buy that amount o' sapphires",
-    "mysterySet201902": "Cryptic Crush Set"
+    "mysterySet201902": "Cryptic Crush Set",
+    "subWillBecomeInactive": "Won't be active no more",
+    "confirmCancelSub": "Are ye sure ye wanna cancel yer subscription?  Ye'll lose all o' yer subscription benny-fits."
 }

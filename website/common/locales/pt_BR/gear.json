@@ -1779,7 +1779,7 @@
     "weaponArmoireSlingshotText": "Estilingue",
     "weaponArmoireSlingshotNotes": "Aponte para suas Diárias vermelhas! Aumenta a Força em <%= str %>. Armário Encantado: Item Independente.",
     "armorSpecialSpring2019RogueText": "Armadura de Nuvem",
-    "armorSpecialSpring2019RogueNotes": "Algo muito macio. Aumenta a Percepção em <%= per %>. Equipamento de Edição Limitada Primavera 2019.",
+    "armorSpecialSpring2019RogueNotes": "Algo muito macio. Aumenta a Percepção em <%= per %>. Equipamento de Primavera Edição Limitada 2019.",
     "armorSpecialSpring2019WarriorText": "Armadura de Orquídea",
     "armorSpecialSpring2019WarriorNotes": "A armadura de pétalas reforçadas protege o seu coração e também parece bastante elegante. Aumenta sua Constituição em <%= con %>. Equipamento de Edição Limitada Primavera 2019.",
     "armorSpecialSpring2019MageText": "Vestes de Âmbar",
@@ -1830,5 +1830,8 @@
     "weaponArmoireMagnifyingGlassNotes": "Aha! Um pedaço de evidência! Examine de perto com essa lupa. Aumenta percepção para <%=per%>. Gabinete encantado: Kit Detetive ( item 3 de 4).",
     "weaponArmoireMagnifyingGlassText": "Vidro magnífico",
     "weaponArmoireAstronomersTelescopeNotes": "Um instrumento que irá permitir que você observe a dança ancestral das estrelas. Aumenta percepção pó <%=per%>. Gabinete encantado: Kit Mago astrônomo ( item 3 de 3).",
-    "weaponArmoireAstronomersTelescopeText": "Telescópio de astrônomo"
+    "weaponArmoireAstronomersTelescopeText": "Telescópio de astrônomo",
+    "armorMystery201904Text": "Roupa Opalescente",
+    "armorSpecialSummer2019RogueText": "Cauda de Tubarão-martelo",
+    "weaponArmoireBambooCaneNotes": "Perfeito para ajudá-lo em um passeio ou para dançar o Charleston. Aumenta Inteligência, Percepção e Constituição em <%= attrs %> cada. Armário Encantado: Conjunto Náutico (Item 3 de 3)."
 }
