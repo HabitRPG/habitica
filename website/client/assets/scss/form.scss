@@ -202,6 +202,8 @@ $bg-disabled-control: #34303a;
     display: none;
     + .custom-control-label {
       border: .5px solid $gray-400;
+      border-top-width: 1px;
+      border-bottom-width: 1px;
       text-align: center;
       padding-top: .5em;
       padding-bottom: .5em;
@@ -222,12 +224,10 @@ $bg-disabled-control: #34303a;
         border-color: $purple-400;
       }
     }
-    &:checked {
-      + .custom-control-label {
-        background-color: $purple-300;
-        border-color: $purple-100;
-        color: white;
-      }
+    &:checked + .custom-control-label {
+      background-color: $purple-300;
+      border-color: $purple-100;
+      color: white;
     }
   }
   &:first-of-type .custom-control-label {
