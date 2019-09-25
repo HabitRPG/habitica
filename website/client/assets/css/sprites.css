@@ -96,28 +96,25 @@
   background: url("~assets/images/BackerOnly-Pet-CerberusPup.gif") no-repeat;
 }
 
-.broad_armor_special_ks2019, .slim_armor_special_ks2019 {
-  background: url("~assets/images/BackerOnly-Equip-MythicGryphonArmor.gif") no-repeat;
+.broad_armor_special_ks2019, .slim_armor_special_ks2019, .eyewear_special_ks2019, .head_special_ks2019, .shield_special_ks2019 {
   width: 117px;
   height: 120px;
+}
+
+.broad_armor_special_ks2019, .slim_armor_special_ks2019 {
+  background: url("~assets/images/BackerOnly-Equip-MythicGryphonArmor.gif") no-repeat;
 }
 
 .eyewear_special_ks2019 {
   background: url("~assets/images/BackerOnly-Equip-MythicGryphonVisor.gif") no-repeat;
-  width: 117px;
-  height: 120px;
 }
 
 .head_special_ks2019 {
   background: url("~assets/images/BackerOnly-Equip-MythicGryphonHelm.gif") no-repeat;
-  width: 117px;
-  height: 120px;
 }
 
 .shield_special_ks2019 {
   background: url("~assets/images/BackerOnly-Equip-MythicGryphonShield.gif") no-repeat;
-  width: 117px;
-  height: 120px;
 }
 
 .weapon_special_ks2019 {
@@ -132,16 +129,17 @@
   height: 99px;
 }
 
-.Mount_Head_Gryphon-Gryphatrice {
-  background: url("~assets/images/BackerOnly-Mount-Head-Gryphatrice.gif") no-repeat;
+.Mount_Head_Gryphon-Gryphatrice, .Mount_Body_Gryphon-Gryphatrice {
   width: 135px;
   height: 135px;
 }
 
+.Mount_Head_Gryphon-Gryphatrice {
+  background: url("~assets/images/BackerOnly-Mount-Head-Gryphatrice.gif") no-repeat;
+}
+
 .Mount_Body_Gryphon-Gryphatrice {
   background: url("~assets/images/BackerOnly-Mount-Body-Gryphatrice.gif") no-repeat;
-  width: 135px;
-  height: 135px;
 }
 
 /* FIXME figure out how to handle customize menu!!
