@@ -7,7 +7,7 @@
       .d-flex.w-75
         div Selected Conversation
 
-    .d-flex
+    .d-flex.content
       .w-25.sidebar.d-flex.flex-column
         .disable-background
           .svg-icon.close(aria-hidden="true", v-html="icons.svgClose", @click="close()", v-once)
@@ -24,15 +24,17 @@
           h4(v-once) {{ $t('emptyMessagesLine1') }}
           p(v-if="!user.flags.chatRevoked") {{ $t('emptyMessagesLine2') }}
         .conversations(v-if='filtersConversations.length > 0')
-          .conversation(v-for='conversation in filtersConversations', @click='selectConversation(conversation.key)',
-            :class="{active: selectedConversation.key === conversation.key}")
-            div
-              h3(:class="userLevelStyle(conversation)") {{ conversation.name }}
-                .svg-icon(v-html="tierIcon(conversation)")
-            .time
-              span.mr-1(v-if='conversation.username') @{{ conversation.username }} •
-              span(v-if="conversation.date") {{ conversation.date | timeAgo }}
-            div.messagePreview {{ conversation.lastMessageText ? removeTags(parseMarkdown(conversation.lastMessageText)) : '' }}
+          conversation-item(v-for='conversation in filtersConversations',
+            @click="selectConversation(conversation.key)",
+            :active-key="selectedConversation.key",
+            :contributor='conversation.contributor',
+            :backer="conversation.backer",
+            :uuid="conversation.key",
+            display-name="display name",
+            username="user name",
+            :last-message-date="conversation.date",
+            :last-message-text="conversation.lastMessageText ? removeTags(parseMarkdown(conversation.lastMessageText)) : ''")
+
       .w-75.messages.d-flex.flex-column.align-items-center
         .empty-messages.m-auto.text-center(v-if='!selectedConversation.key')
           .svg-icon.envelope(v-html="icons.messageIcon", v-once)
@@ -66,7 +68,13 @@
 </template>
 
 <style lang="scss">
-  #messages-modal {
+  #private-message {
+    .disable-background {
+      .toggle-switch-description {
+        white-space: nowrap;
+      }
+    }
+
     h2 {
       margin-bottom: 0rem;
     }
@@ -119,27 +127,19 @@
     }
   }
 
+  #private-message {
+    border-radius: 8px;
+    box-shadow: 0 2px 16px 0 rgba(26, 24, 29, 0.32);
+    background-color: #ffffff;
+    margin-bottom: 1rem;
+  }
+
   .disable-background {
     height: 44px;
     background-color: $gray-600;
-    padding-top: 0.5rem;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    padding: 0.75rem 1.5rem;
   }
 
-  .conversation {
-    padding: 1.5em;
-    background: $white;
-    border: 1px solid $white;
-  }
-
-  .conversation.active {
-    border: 1px solid $purple-400;
-  }
-
-  .conversation:hover {
-    cursor: pointer;
-  }
 
   .conversations {
     max-height: 35rem;
@@ -266,12 +266,13 @@
   .sidebar {
     background-color: $gray-700;
     min-height: 540px;
+    max-width: 330px;
     padding: 0;
-    border-bottom-lef-radius: 3px;
+    border-bottom-left-radius: 3px;
 
     .search-section {
-      padding: 1em;
-      box-shadow: 0 1px 2px 0 rgba(26, 24, 29, 0.24);
+      padding: 1rem 1.5rem;
+      // box-shadow: 0 1px 2px 0 rgba(26, 24, 29, 0.24);
     }
   }
 
@@ -294,7 +295,7 @@
   import filter from 'lodash/filter';
   import groupBy from 'lodash/groupBy';
   import orderBy from 'lodash/orderBy';
-  import { mapState } from 'client/libs/store';
+  import {mapState} from 'client/libs/store';
   import habiticaMarkdown from 'habitica-markdown';
   import styleHelper from 'client/mixins/styleHelper';
   import toggleSwitch from 'client/components/ui/toggleSwitch';
@@ -314,12 +315,14 @@
   import tier9 from 'assets/svg/tier-staff.svg';
   import tierNPC from 'assets/svg/tier-npc.svg';
   import mail from 'assets/svg/mail.svg';
+  import conversationItem from './conversationItem';
 
   export default {
     mixins: [styleHelper],
     components: {
       privateMessages,
       toggleSwitch,
+      conversationItem,
     },
     async mounted () {
       this.$root.$on('habitica::new-private-message', (data) => {
