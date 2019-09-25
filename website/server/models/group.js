@@ -699,7 +699,7 @@ schema.methods.startQuest = async function startQuest (user) {
         const memberLang = member.preferences.language;
         sendPushNotification(member, {
           title: quest.text(memberLang),
-          message: `${shared.i18n.t('questStarted', memberLang)}: ${quest.text(memberLang)}`,
+          message: shared.i18n.t('questStarted', memberLang),
           identifier: 'questStarted',
         });
       }
