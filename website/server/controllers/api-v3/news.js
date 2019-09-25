@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'FALL FESTIVAL BEGINS! LIMITED EDITION FALL EQUIPMENT, SEASONAL SHOP OPENS, AND NPC OUTFITS!';
+const LAST_ANNOUNCEMENT_TITLE = 'FALL FESTIVAL BEGINS! SEPTEMBER SUBSCRIBER ITEMS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -34,6 +34,11 @@ api.getNews = {
           </div>
         </div>
         <hr/>
+        <div class="promo_mystery_201909 center-block"></div>
+        <h3>September Subscriber Items Revealed!</h3>
+        <p>The September Subscriber Item Set has been revealed: the Affable Acorn Item Set! You only have until September 30 to <a href='/user/settings/subscription'>receive the item set when you subscribe</a>. If you're already an active subscriber, reload the site and then head to Inventory > Items to claim your gear!</p>
+        <p>Subscribers also receive the ability to buy Gems for Gold -- the longer you subscribe, the more Gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
+        <div class="small mb-3">by Beffymaroo</div>
         <div class="promo_fall_festival_2019 center-block"></div>
         <h3>Limited Edition Class Outfits</h3>
         <p>From now until October 31st, limited edition outfits are available in the Rewards column! Depending on your class, you can be a Raven Warrior, a Lich Healer, a Phantom Rogue, or a Cyclops Mage. You'd better get productive to earn enough gold before your time runs out...</p>
