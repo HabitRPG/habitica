@@ -552,8 +552,8 @@
     "armorSpecialSummer2016RogueNotes": "Dieses elektrisierende Kleidungsstück verwandelt seinen Träger in einen echten Aal-Schurken! Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe 2016 Sommerausrüstung.",
     "armorSpecialSummer2016WarriorText": "Hai-Schwanzflosse",
     "armorSpecialSummer2016WarriorNotes": "DIeses raue Kleidungsstück verwandelt seinen Träger in einen echten Haikrieger! Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2016 Sommerausrüstung.",
-    "armorSpecialSummer2016MageText": "Delphin-Schwanzflosse",
-    "armorSpecialSummer2016MageNotes": "Dieses schlüpfrige Kleidungstück verwandelt den Träger in einen echten Delphinmagier! Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe 2016 Sommerausrüstung.",
+    "armorSpecialSummer2016MageText": "Delfin-Schwanzflosse",
+    "armorSpecialSummer2016MageNotes": "Dieses schlüpfrige Kleidungstück verwandelt den Träger in einen echten Delfinmagier! Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe 2016 Sommerausrüstung.",
     "armorSpecialSummer2016HealerText": "Seepferdchen-Schwanzflosse",
     "armorSpecialSummer2016HealerNotes": "Dieses stachelige Kleidungsstück verwandelt den Träger in einen echten Seehengst-Heiler! Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2016 Sommerausrüstung.",
     "armorSpecialFall2016RogueText": "Rüstung der schwarzen Witwe",
@@ -1849,7 +1849,7 @@
     "armorArmoireBoatingJacketText": "Bootsfahrt-Jacke",
     "armorArmoireBoatingJacketNotes": "Egal, ob Du auf einer schmucken Yacht oder in einer Schaluppe bist, Du wirst in dieser Jacke und Krawatte der letzte Schrei sein. Erhöht Stärke, Intelligenz und Wahrnehmung um je <%= attrs %>. Verzauberter Schrank: Bootsfahrt-Set (Gegenstand 1 von 3).",
     "armorArmoireInvernessCapeText": "Inverness Umhang",
-    "armorArmoireInvernessCapeNotes": "Mit diesem robusten Kleidungsstück kannst Du bei jedem Wetter nach Hinweisen suchen. Erhöht Wahrnehmung und Intelligenz um je <%= per %>. Verzauberter Schrank: Detektiv-Set (Gegenstand 2 von 4).",
+    "armorArmoireInvernessCapeNotes": "Mit diesem robusten Kleidungsstück kannst Du bei jedem Wetter nach Hinweisen suchen. Erhöht Wahrnehmung und Intelligenz um je <%= attrs %>. Verzauberter Schrank: Detektiv-Set (Gegenstand 2 von 4).",
     "headSpecialSummer2019RogueNotes": "Dieser Helm bietet Dir einen 360-Grad-Blick auf das umliegende Wasser, was perfekt ist, um ahnungslose rote Tagesaufgaben anzuschleichen. Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe 2019 Sommerausrüstung.",
     "headSpecialSummer2019WarriorNotes": "Er hilft Dir nicht, Deinen Kopf zwischen Deine Schultern herunterzuziehen, aber er wird Dich schützen, wenn Du den den Kopf am Rumpf eines Bootes stösst. Erhöht Stärke um <%= str %>. Limitierte Ausgabe 2019 Sommerausrüstung.",
     "headSpecialSummer2019MageNotes": "Entgegen der landläufigen Meinung ist Dein Kopf kein geeigneter Ort, an dem Frösche sitzen können. Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe 2019 Sommerausrüstung.",
@@ -1899,5 +1899,11 @@
     "armorMystery201908Text": "Freilaufendes Faun-Kostüm",
     "armorMystery201908Notes": "Diese Beine sind wie gemacht fürs Tanzen! Und das ist was sie tun. Gewährt keinen Attributbonus. Abonnentengegenstand, August 2019.",
     "headAccessoryMystery201908Text": "Freilaufende Faun-Hörner",
-    "headAccessoryMystery201908Notes": "Wenn Hörnertragen Dein Ding ist hast Du Glück gehabt! Gewährt keinen Attributbonus. Abonnentengegenstand, August 2019."
+    "headAccessoryMystery201908Notes": "Wenn Hörnertragen Dein Ding ist hast Du Glück gehabt! Gewährt keinen Attributbonus. Abonnentengegenstand, August 2019.",
+    "weaponArmoireFloridFanText": "Florider Fächer",
+    "weaponArmoireResplendentRapierNotes": "Beweise Deine Fechtkünste mit dieser spitzen Waffe. Erhöht Wahrnehmung um <%= per %>. Verzauberter Schrank: Unabhängiger Gegenstand.",
+    "weaponArmoireResplendentRapierText": "Prachtvolles Prunk-Rapier",
+    "weaponArmoireFloridFanNotes": "Dieser blumige Seidenfächer lässt sich bei Nichtgebrauch zusammenklappen, Erhöht Ausdauer um <%= con %>. Verzauberter Schrank: Unabhängiger Gegenstand.",
+    "shieldArmoirePolishedPocketwatchNotes": "Mit der Taschenuhr hast Du die Zeit immer im Blick. Und sie sieht echt gut aus an Dir. Erhöht Intelligenz um <%= int %>. Verzauberter Schrank: Unabhängiger Gegenstand.",
+    "shieldArmoirePolishedPocketwatchText": "Total polierte Taschenuhr"
 }

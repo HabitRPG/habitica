@@ -227,5 +227,6 @@
     "pts": "очк",
     "purchaseForGold": "Купить за <%= cost %> золотых монет?",
     "chatCastSpellParty": "<%= username %> накладывает заклинание \"<%= spell %>\" на команду.",
-    "chatCastSpellUser": "<%= username %> накладывает заклинание \"<%= spell %>\" на <%= target %>."
+    "chatCastSpellUser": "<%= username %> накладывает заклинание \"<%= spell %>\" на <%= target %>.",
+    "purchasePetItemConfirm": "Эта покупка превышает необходимое количество предметов для выведения всех возможных <%= itemText %> питомцев. Вы уверены?"
 }

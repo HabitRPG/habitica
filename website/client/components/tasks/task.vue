@@ -27,7 +27,7 @@
               div(slot="dropdown-toggle", draggable=false)
                 .svg-icon.dropdown-icon(v-html="icons.menu")
               div(slot="dropdown-content", draggable=false)
-                .dropdown-item.edit-task-item(ref="editTaskItem")
+                .dropdown-item.edit-task-item(ref="editTaskItem" v-if="showEdit")
                   span.dropdown-icon-item
                     span.svg-icon.inline.edit-icon(v-html="icons.edit")
                     span.text {{ $t('edit') }}
@@ -39,7 +39,7 @@
                   span.dropdown-icon-item
                     span.svg-icon.inline.push-to-bottom(v-html="icons.bottom")
                     span.text {{ $t('taskToBottom') }}
-                .dropdown-item(@click="destroy", v-if="canDelete(task)")
+                .dropdown-item(@click="destroy", v-if="showDelete")
                   span.dropdown-icon-item.delete-task-item
                     span.svg-icon.inline.delete(v-html="icons.delete")
                     span.text {{ $t('delete') }}
@@ -548,6 +548,7 @@ import axios from 'axios';
 import scoreTask from 'common/script/ops/scoreTask';
 import Vue from 'vue';
 import * as Analytics from 'client/libs/analytics';
+import isEmpty from 'lodash/isEmpty';
 
 import positiveIcon from 'assets/svg/positive.svg';
 import negativeIcon from 'assets/svg/negative.svg';
@@ -582,7 +583,7 @@ export default {
   directives: {
     markdown: markdownDirective,
   },
-  props: ['task', 'isUser', 'group', 'dueDate', 'showOptions'], // @TODO: maybe we should store the group on state?
+  props: ['task', 'isUser', 'group', 'challenge', 'dueDate'], // @TODO: maybe we should store the group on state?
   data () {
     return {
       random: uuid.v4(), // used to avoid conflicts between checkboxes ids
@@ -616,6 +617,7 @@ export default {
       getTagsFor: 'tasks:getTagsFor',
       getTaskClasses: 'tasks:getTaskClasses',
       canDelete: 'tasks:canDelete',
+      canEdit: 'tasks:canEdit',
     }),
     hasChecklist () {
       return this.task.checklist && this.task.checklist.length > 0;
@@ -695,6 +697,27 @@ export default {
 
       return this.task.challenge.shortName ? this.task.challenge.shortName.toString() : '';
     },
+    isChallangeTask () {
+      return !isEmpty(this.task.challenge);
+    },
+    isGroupTask () {
+      return !isEmpty(this.task.group) && (this.task.group.taskId || this.task.group.id);
+    },
+    taskCategory () {
+      let taskCategory = 'default';
+      if (this.isGroupTask) taskCategory = 'group';
+      else if (this.isChallangeTask) taskCategory = 'challenge';
+      return taskCategory;
+    },
+    showDelete () {
+      return this.canDelete(this.task, this.taskCategory, this.isUser, this.group, this.challenge);
+    },
+    showEdit () {
+      return this.canEdit(this.task, this.taskCategory, this.isUser, this.group, this.challenge);
+    },
+    showOptions () {
+      return this.showEdit || this.showDelete || this.isUser;
+    },
   },
   methods: {
     ...mapActions({
@@ -708,7 +731,7 @@ export default {
       this.scoreChecklistItem({taskId: this.task._id, itemId: item.id});
     },
     edit (e, task) {
-      if (this.isRunningYesterdailies) return;
+      if (this.isRunningYesterdailies || !this.showEdit) return;
 
       // Prevent clicking on a link from opening the edit modal
       const target = e.target || e.srcElement;

@@ -34,7 +34,7 @@
     "invisibleAether": "不可視のエーテル獣",
     "rarePetPop1": "金色の足跡をクリックすると、Habitica への貢献で、この貴重なペットを入手する詳しい方法がわかります!",
     "rarePetPop2": "このペットを手に入れる方法!",
-    "potion": "<%= potionType %> ポーション",
+    "potion": "<%= potionType %> 薬",
     "egg": "<%= eggType %>のたまご",
     "eggs": "たまご",
     "eggSingular": "たまご",

@@ -125,6 +125,8 @@ let schema = new Schema({
     justAddWater: Boolean,
     backToBasics: Boolean,
     allYourBase: Boolean,
+    dustDevil: Boolean,
+    aridAuthority: Boolean,
   },
 
   backer: {

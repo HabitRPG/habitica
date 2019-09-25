@@ -147,6 +147,16 @@ let basicAchievs = {
     titleKey: 'achievementAllYourBase',
     textKey: 'achievementAllYourBaseText',
   },
+  dustDevil: {
+    icon: 'achievement-dustDevil',
+    titleKey: 'achievementDustDevil',
+    textKey: 'achievementDustDevilText',
+  },
+  aridAuthority: {
+    icon: 'achievement-aridAuthority',
+    titleKey: 'achievementAridAuthority',
+    textKey: 'achievementAridAuthorityText',
+  },
 };
 Object.assign(achievementsData, basicAchievs);
 
