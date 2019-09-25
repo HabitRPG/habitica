@@ -30,8 +30,8 @@ export async function sendChatPushNotifications (user, group, message, translate
       sendPushNotification(
         member,
         {
-          title: group.name,
-          message: translate('partyActivityMessage', {user: message.user}, member.preferences.language),
+          title: translate('groupActivityNotificationTitle', {user: message.user, group: group.name}, member.preferences.language),
+          message: message.text,
           identifier: 'groupActivity',
           category: 'groupActivity',
           payload: {groupID: group._id, type: group.type, groupName: group.name, message: message.text, timestamp: message.timestamp, senderName: message.user},
