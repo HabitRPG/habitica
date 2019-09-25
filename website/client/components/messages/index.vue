@@ -30,8 +30,8 @@
             :contributor='conversation.contributor',
             :backer="conversation.backer",
             :uuid="conversation.key",
-            display-name="display name",
-            username="user name",
+            :display-name="conversation.name",
+            :username="conversation.username",
             :last-message-date="conversation.date",
             :last-message-text="conversation.lastMessageText ? removeTags(parseMarkdown(conversation.lastMessageText)) : ''")
 
@@ -145,6 +145,7 @@
     max-height: 35rem;
     overflow-x: hidden;
     overflow-y: auto;
+    height: 100%;
   }
 
   .empty-messages {
@@ -428,7 +429,7 @@
           const convoModel = {
             key: recentMessage.uuid,
             name: recentMessage.user, // Handles case where from user sent the only message or the to user sent the only message
-            username: !recentMessage.text ? recentMessage.username : recentMessage.toUserName,
+            username: recentMessage.username,
             date: recentMessage.timestamp,
             lastMessageText: recentMessage.text,
             canLoadMore: true,

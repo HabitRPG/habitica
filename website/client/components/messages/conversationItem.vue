@@ -1,10 +1,9 @@
 <template lang="pug">
   .conversation(:class="{active: activeKey === uuid}", @click="$emit('click', {})")
-    div
+    .user
       user-label(:backer="backer", :contributor="contributor", :name="displayName")
-    .time
-      span.mr-1(v-if='username') @{{ username }} •
-      span(v-if="lastMessageDate") {{ lastMessageDate | timeAgo }}
+      span.username(v-if='username') @{{ username }}
+      .time(v-if="lastMessageDate") {{ lastMessageDate | timeAgo }}
     div.messagePreview {{ lastMessageText }}
 </template>
 
@@ -43,6 +42,44 @@
 
     &.active {
       background-color: #f1edff;
+    }
+
+    .user {
+      display: flex;
+      flex-direction: row;
+      height: 20px;
+
+      .user-label {
+        flex: 1;
+        flex-grow: 0;
+        margin-right: 0.5rem;
+      }
+
+      .username {
+        flex: 1;
+        flex-grow: 0;
+      }
+
+      .time {
+        flex: 2;
+        text-align: end;
+      }
+    }
+
+    .messagePreview {
+      width: 100%;
+      height: 30px;
+      margin-right: 40px;
+      font-size: 12px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.33;
+      letter-spacing: normal;
+      color: $gray-100;
+      overflow: hidden;
+
+      // text-overflow: ellipsis;
     }
   }
 </style>
