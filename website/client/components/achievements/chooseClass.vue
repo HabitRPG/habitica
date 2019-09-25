@@ -179,6 +179,7 @@ export default {
       } else if (heroClass === 'healer') {
         return {
           armor: 'armor_special_fall2019Healer',
+          eyewear: 'eyewear_special_fall2019Healer',
           head: 'head_special_fall2019Healer',
           shield: 'shield_special_fall2019Healer',
           weapon: 'weapon_special_fall2019Healer',

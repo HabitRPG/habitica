@@ -1291,8 +1291,8 @@
   "headSpecialFall2019WarriorNotes": "The dark eye-sockets of this skull helmet will daunt the bravest of your enemies. Increases Strength by <%= str %>. Limited Edition 2019 Autumn Gear.",
   "headSpecialFall2019MageText": "Cyclops Mask",
   "headSpecialFall2019MageNotes": "Its single baleful eye does inhibit depth perception, but that is a small price to pay for the way it hones your focus to a single, intense point. Increases Perception by <%= per %>. Limited Edition 2019 Autumn Gear.",
-  "headSpecialFall2019HealerText": "Dark Visage",
-  "headSpecialFall2019HealerNotes": "Steel yourself against the toughest foes with this inscrutable mask. Increases Intelligence by <%= int %>. Limited Edition 2019 Autumn Gear.",
+  "headSpecialFall2019HealerText": "Dark Miter",
+  "headSpecialFall2019HealerNotes": "Don this dark miter to harness the powers of the fearsome Lich. Increases Intelligence by <%= int %>. Limited Edition 2019 Autumn Gear.",
 
   "headSpecialGaymerxText": "Rainbow Warrior Helm",
   "headSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special helmet is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
@@ -2072,6 +2072,8 @@
 
   "eyewearSpecialFall2019RogueText": "Bone-White Half Mask",
   "eyewearSpecialFall2019RogueNotes": "You'd think a full mask would protect your identity better, but people tend to be too awestruck by its stark design to take note of any identifying features left revealed. Confers no benefit. Limited Edition 2019 Autumn Gear.",
+  "eyewearSpecialFall2019HealerText": "Dark Visage",
+  "eyewearSpecialFall2019HealerNotes": "Steel yourself against the toughest foes with this inscrutable mask. Confers no benefit. Limited Edition 2019 Autumn Gear.",
 
   "eyewearMystery201503Text": "Aquamarine Eyewear",
   "eyewearMystery201503Notes": "Don't get poked in the eye by these shimmering gems! Confers no benefit. March 2015 Subscriber Item.",

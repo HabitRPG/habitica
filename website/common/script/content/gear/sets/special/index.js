@@ -1594,6 +1594,14 @@ let eyewear = {
     notes: t('eyewearSpecialFall2019RogueNotes'),
     value: 20,
   },
+  fall2019Healer: {
+    event: EVENTS.fall2019,
+    specialClass: 'healer',
+    set: 'fall2019LichSet',
+    text: t('eyewearSpecialFall2019HealerText'),
+    notes: t('eyewearSpecialFall2019HealerNotes'),
+    value: 20,
+  },
 };
 
 let head = {
