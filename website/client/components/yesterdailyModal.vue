@@ -28,7 +28,7 @@
     }
 
     .task-wrapper:not(:last-of-type) {
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
 
     .modal-content {
