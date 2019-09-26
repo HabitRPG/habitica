@@ -39,6 +39,12 @@ async function loginSocial (req, res) {
 
   // User already signed up
   if (user) {
+    // We're trying to link a logged in user to a new social auth but an account that uses it already exists
+    if (existingUser && existingUser._id !== user._id) {
+      const capitalNetwork = network.charAt(0).toUpperCase() + network.slice(1);
+      throw new BadRequest(res.t('existingSocialAccount', {social: capitalNetwork}));
+    }
+
     return loginRes(user, ...arguments);
   }
 
