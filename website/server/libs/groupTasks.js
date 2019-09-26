@@ -184,7 +184,7 @@ async function groupTaskCompleted (groupMemberTask, user, now) {
     // Check if the history entry has a user who completed the task
     // TODO When group scoring is implemented, there will be history entries for group missed dailies, as well
     if (taskLastHistory.userId) {
-      let lastCompletingUser = await Users.findById(taskLastHistory.userId);
+      let lastCompletingUser = await Users.findById(taskLastHistory.userId, 'preferences');
       if (lastCompletingUser) {
         // Check what the completing user's "day" was when the task was completed
         let taskLastCompletedDay = startOfDay(defaults({now: moment(taskLastHistory.date)}, lastCompletingUser.preferences.toObject()));
@@ -213,8 +213,29 @@ async function handleSharedCompletion (groupMemberTask) {
   }
 }
 
+async function groupTaskNewDay (groupMemberTask, user, now = moment()) {
+  // Similar logic to groupTaskCompleted but returns update to uncomplete group task if user day is *different* from task's last completed day
+  let masterTask = await Tasks.Task.findOne({
+    _id: groupMemberTask.group.taskId,
+  }).exec();
+
+  if (!masterTask || !masterTask.group || masterTask.type !== 'daily' || !masterTask.completed) return;
+  if (masterTask.history && masterTask.history.length > 0) {
+    let taskLastHistory = masterTask.history[masterTask.history.length - 1];
+    if (taskLastHistory.userId) {
+      let lastCompletingUser = await Users.findById(taskLastHistory.userId, 'preferences');
+      if (lastCompletingUser) {
+        let taskLastCompletedDay = startOfDay(defaults({now: moment(taskLastHistory.date)}, lastCompletingUser.preferences.toObject()));
+        let userDay = startOfDay(defaults({now}, user.preferences.toObject()));
+        if (!userDay.isSame(taskLastCompletedDay)) return await Tasks.Task.findByIdAndUpdate(masterTask._id, {$set: {completed: false}});
+      }
+    }
+  }
+}
+
 export {
   SHARED_COMPLETION,
   handleSharedCompletion,
   groupTaskCompleted,
+  groupTaskNewDay,
 };

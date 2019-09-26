@@ -6,7 +6,7 @@ import sleep from '../libs/sleep';
 import _ from 'lodash';
 import cloneDeep from 'lodash/cloneDeep';
 import nconf from 'nconf';
-import {SHARED_COMPLETION, groupTaskCompleted} from './groupTasks';
+import { SHARED_COMPLETION, groupTaskCompleted, groupTaskNewDay } from './groupTasks';
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
@@ -395,7 +395,11 @@ export async function cron (options = {}) {
       }(task, user, now));
     } else {
       task.completed = false;
+      if (task.group) groupSharedSingleDailies.push(async () => {
+        await groupTaskNewDay(task, user);
+      });
     }
+
     setIsDueNextDue(task, user, now);
 
     if (completed || scheduleMisses > 0) {
