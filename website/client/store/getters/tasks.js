@@ -16,7 +16,7 @@ export function getTagsFor (store) {
 }
 
 function getTaskColor (task) {
-  if (task.type === 'reward') return 'purple';
+  if (task.type === 'reward' || task.byHabitica) return 'purple';
 
   const value = task.value;
 
