@@ -1907,5 +1907,11 @@
     "eyewearSpecialPinkHalfMoonText": "粉色半月形眼镜",
     "eyewearSpecialGreenHalfMoonNotes": "带绿色镜框和月牙形镜片的眼镜。没有增益效果。",
     "weaponSpecialFall2019RogueNotes": "无论您是指挥乐队还是演唱咏叹调，这款有用的设备都可以使您的双手腾出来，做出生动的手势！增加<％= str％>点力量。 2019年秋季限量版装备。",
-    "weaponSpecialFall2019RogueText": "乐谱架"
+    "weaponSpecialFall2019RogueText": "乐谱架",
+    "weaponSpecialFall2019HealerNotes": "这种系统可以唤起人们长期杀戮的精神，并利用其治愈能力。\n智力提高<％= int％>点。 \n2019年秋季限量版装备。",
+    "weaponSpecialFall2019HealerText": "可怕的文字",
+    "weaponSpecialFall2019MageNotes": "无论是制造雷电，制造工事，还是只是将恐怖袭击到凡人的心中，这只魔杖都赋予了巨人创造奇迹的力量。\n智力提高<％= int％>点，感知提高<％= per％>点。 \n2019年秋季限量版装备。",
+    "weaponSpecialFall2019MageText": "独眼魔杖",
+    "weaponSpecialFall2019WarriorNotes": "准备用乌鸦的爪子杀死敌人！\n增加<％= str％>点力量。 \n2019年秋季限量版装备。",
+    "weaponSpecialFall2019WarriorText": "三叉脚爪"
 }
