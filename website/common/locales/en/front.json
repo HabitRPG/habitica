@@ -285,7 +285,7 @@
   "unsupportedNetwork": "This network is not currently supported.",
   "cantDetachSocial": "Account lacks another authentication method; can't detach this authentication method.",
   "onlySocialAttachLocal": "Local authentication can be added to only a social account.",
-  "existingSocialAccount": "It's not possible to attach this <%= social %> account because a different Habitica account linked to it already exists.",
+  "existingSocialAccount": "Impossible to link this <%= social %> Account to this Habitica user because it's already linked to a different Habitica user.",
   "invalidReqParams": "Invalid request parameters.",
   "memberIdRequired": "\"member\" must be a valid UUID.",
   "heroIdRequired": "\"heroId\" must be a valid UUID.",
