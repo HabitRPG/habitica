@@ -128,6 +128,8 @@ export let TaskSchema = new Schema({
   },
 
   reminders: [reminderSchema],
+
+  byHabitica: {$type: Boolean, default: false}, // Flag of Tasks that were created by Habitica
 }, _.defaults({
   minimize: false, // So empty objects are returned
   strict: true,
