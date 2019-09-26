@@ -1,15 +1,3 @@
-.broad_armor_mystery_201909 {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -864px -181px;
-  width: 114px;
-  height: 90px;
-}
-.head_mystery_201909 {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -864px -272px;
-  width: 114px;
-  height: 90px;
-}
 .promo_armoire_backgrounds_201909 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: 0px -533px;
@@ -42,7 +30,7 @@
 }
 .promo_rocking_reptiles_bundle {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -424px -533px;
+  background-position: 0px -681px;
   width: 420px;
   height: 147px;
 }
@@ -52,9 +40,15 @@
   width: 162px;
   height: 138px;
 }
+.promo_shadow_spooky_potions {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -424px -533px;
+  width: 423px;
+  height: 147px;
+}
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -455px -223px;
+  background-position: -864px -181px;
   width: 96px;
   height: 69px;
 }
@@ -75,10 +69,4 @@
   background-position: 0px 0px;
   width: 339px;
   height: 342px;
-}
-.slim_armor_mystery_201909 {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -340px -223px;
-  width: 114px;
-  height: 90px;
 }
