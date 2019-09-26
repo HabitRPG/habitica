@@ -6,7 +6,7 @@ describe('canDelete getter', () => {
 
 
     const task = {userId: 1, challenge: {id: 2}};
-    expect(store.getters['tasks:canDelete'](task, 'challenge', true, null, null)).to.equal(false);
+    expect(store.getters['tasks:canDelete'](task)).to.equal(false);
   });
 
   it('can delete broken challenge task', () => {
@@ -14,6 +14,6 @@ describe('canDelete getter', () => {
 
 
     const task = {userId: 1, challenge: {id: 2, broken: true}};
-    expect(store.getters['tasks:canDelete'](task, 'challenge', true, null, null)).to.equal(true);
+    expect(store.getters['tasks:canDelete'](task)).to.equal(true);
   });
 });
