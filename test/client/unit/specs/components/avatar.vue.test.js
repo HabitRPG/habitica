@@ -83,12 +83,12 @@ context('avatar.vue', () => {
       expect(vm.paddingTop).to.equal('28px');
     });
 
-    it('is 24.5px if user has a pet', () => {
+    it('is 24px if user has a pet', () => {
       vm.member.items = {
         currentPet: { name: 'Foo' },
       };
 
-      expect(vm.paddingTop).to.equal('24.5px');
+      expect(vm.paddingTop).to.equal('24px');
     });
 
     it('is 0px if user has a mount', () => {

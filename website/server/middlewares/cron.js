@@ -105,8 +105,19 @@ async function cronAsync (req, res) {
 
     // Save user and tasks
     let toSave = [user.save()];
-    tasks.forEach(task => {
+    tasks.forEach(async task => {
       if (task.isModified()) toSave.push(task.save());
+      if (task.isModified() && task.group && task.group.taskId) {
+        const groupTask = await Tasks.Task.findOne({
+          _id: task.group.taskId,
+        }).exec();
+
+        if (groupTask) {
+          let delta = Math.pow(0.9747, task.value) * -1;
+          if (groupTask.group.assignedUsers) delta /= groupTask.group.assignedUsers.length;
+          await groupTask.scoreChallengeTask(delta, 'down');
+        }
+      }
     });
     await Promise.all(toSave);
 

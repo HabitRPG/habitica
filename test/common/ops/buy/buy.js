@@ -80,6 +80,13 @@ describe('shared.ops.buy', () => {
       headAccessory_special_redHeadband: true,
       headAccessory_special_whiteHeadband: true,
       headAccessory_special_yellowHeadband: true,
+      eyewear_special_blackHalfMoon: true,
+      eyewear_special_blueHalfMoon: true,
+      eyewear_special_greenHalfMoon: true,
+      eyewear_special_pinkHalfMoon: true,
+      eyewear_special_redHalfMoon: true,
+      eyewear_special_whiteHalfMoon: true,
+      eyewear_special_yellowHalfMoon: true,
     });
   });
 

@@ -194,6 +194,49 @@ function sendSubscriptionNotification ({
   });
 }
 
+function sendShadowMutedPostNotification ({
+  authorEmail,
+  author,
+  group,
+  message,
+}) {
+  if (SKIP_FLAG_METHODS) {
+    return;
+  }
+  let titleLink;
+  let authorName;
+  let title = `Shadow-Muted Post in ${group.name}`;
+  let text = `@${author.auth.local.username} / ${author.profile.name} posted while shadow-muted`;
+
+  if (group.id === TAVERN_ID) {
+    titleLink = `${BASE_URL}/groups/tavern`;
+  } else {
+    titleLink = `${BASE_URL}/groups/guild/${group.id}`;
+  }
+
+  authorName = formatUser({
+    name: author.auth.local.username,
+    displayName: author.profile.name,
+    email: authorEmail,
+    uuid: author.id,
+  });
+
+  flagSlack.send({
+    text,
+    attachments: [{
+      fallback: 'Shadow-Muted Message',
+      color: 'danger',
+      author_name: authorName,
+      title,
+      title_link: titleLink,
+      text: message,
+      mrkdwn_in: [
+        'text',
+      ],
+    }],
+  });
+}
+
 function sendSlurNotification ({
   authorEmail,
   author,
@@ -243,6 +286,7 @@ module.exports = {
   sendFlagNotification,
   sendInboxFlagNotification,
   sendSubscriptionNotification,
+  sendShadowMutedPostNotification,
   sendSlurNotification,
   formatUser,
 };

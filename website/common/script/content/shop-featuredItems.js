@@ -9,32 +9,32 @@ const featuredItems = {
     },
     {
       type: 'eggs',
-      path: 'eggs.Dragon',
+      path: 'eggs.LionCub',
     },
     {
       type: 'hatchingPotions',
-      path: 'hatchingPotions.Red',
+      path: 'hatchingPotions.Desert',
     },
     {
-      type: 'card',
-      path: 'cardTypes.congrats',
+      type: 'food',
+      path: 'food.Potatoe',
     },
   ],
   quests: [
     {
-      type: 'quests',
-      path: 'quests.treeling',
+      type: 'bundles',
+      path: 'bundles.rockingReptiles',
     },
     {
       type: 'quests',
-      path: 'quests.egg',
+      path: 'quests.dilatoryDistress1',
     },
     {
       type: 'quests',
-      path: 'quests.rock',
+      path: 'quests.silver',
     },
   ],
-  seasonal: 'spring2018Healer',
+  seasonal: 'fall2018Rogue',
   timeTravelers: [
     // TODO
   ],

@@ -248,7 +248,7 @@
     "userIdRequired": "Wymagane ID użytkownika",
     "resetFilters": "Wyczyść wszystkie filtry",
     "applyFilters": "Zastosuj Filtry",
-    "wantToWorkOn": "I want to work on:",
+    "wantToWorkOn": "Chcę popracować nad:",
     "categories": "Kategorie",
     "habiticaOfficial": "Oficjalne wyzwania Habitica",
     "animals": "Zwierzęta",
@@ -291,5 +291,7 @@
     "howManyToBuy": "Ile chcesz kupić?",
     "habiticaHasUpdated": "Jest nowa aktualizacja Habitiki. Odśwież by uzyskać najnowszą wersje!",
     "contactForm": "Skontaktuj się z Drużyną Moderatorów",
-    "options": "Opcje"
+    "options": "Opcje",
+    "loadEarlierMessages": "Wczytaj Wcześniejsze Wiadomości",
+    "demo": "Demo"
 }

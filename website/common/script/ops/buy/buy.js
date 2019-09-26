@@ -13,14 +13,17 @@ import hourglassPurchase from './hourglassPurchase';
 import errorMessage from '../../libs/errorMessage';
 import {BuyGemOperation} from './buyGem';
 import {BuyQuestWithGemOperation} from './buyQuestGem';
+import {BuyHourglassMountOperation} from './buyMount';
 
 // @TODO: remove the req option style. Dependency on express structure is an anti-pattern
 // We should either have more params or a set structure validated by a Type checker
 
 // @TODO: when we are sure buy is the only function used, let's move the buy files to a folder
 
-module.exports = function buy (user, req = {}, analytics) {
+module.exports = function buy (user, req = {}, analytics, options = {quantity: 1, hourglass: false}) {
   let key = get(req, 'params.key');
+  const hourglass = options.hourglass;
+  const quantity = options.quantity;
   if (!key) throw new BadRequest(errorMessage('missingKeyParam'));
 
   // @TODO: Slowly remove the need for key and use type instead
@@ -54,9 +57,13 @@ module.exports = function buy (user, req = {}, analytics) {
       break;
     }
     case 'quests': {
-      const buyOp = new BuyQuestWithGemOperation(user, req, analytics);
+      if (hourglass) {
+        buyRes = hourglassPurchase(user, req, analytics, quantity);
+      } else {
+        const buyOp = new BuyQuestWithGemOperation(user, req, analytics);
 
-      buyRes = buyOp.purchase();
+        buyRes = buyOp.purchase();
+      }
       break;
     }
     case 'eggs':
@@ -66,8 +73,13 @@ module.exports = function buy (user, req = {}, analytics) {
     case 'bundles':
       buyRes = purchaseOp(user, req, analytics);
       break;
+    case 'mounts': {
+      const buyOp = new BuyHourglassMountOperation(user, req, analytics);
+
+      buyRes = buyOp.purchase();
+      break;
+    }
     case 'pets':
-    case 'mounts':
       buyRes = hourglassPurchase(user, req, analytics);
       break;
     case 'quest': {

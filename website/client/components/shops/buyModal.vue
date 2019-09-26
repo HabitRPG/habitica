@@ -76,8 +76,13 @@
         ) {{ $t('buyNow') }}
 
     div.limitedTime(v-if="item.event && item.owned == null")
-      span.svg-icon.inline.icon-16(v-html="icons.clock")
+      span.svg-icon.inline.icon-16.clock-icon(v-html="icons.clock")
       span.limitedString {{ limitedString }}
+
+    .free-rebirth.d-flex.align-items-center(v-if='item.key === "rebirth_orb" && item.value > 0 && user.stats.lvl >= 100')
+      .m-auto
+        span.svg-icon.inline.icon-16.mr-2.pt-015(v-html="icons.whiteClock")
+        span(v-html='$t("nextFreeRebirth", {days: nextFreeRebirth})')
 
     div.clearfix(slot="modal-footer")
       span.balance.float-left {{ $t('yourBalance') }}
@@ -253,6 +258,18 @@
     .gems-left {
       margin-top: .5em;
     }
+
+    .free-rebirth {
+      background-color: $yellow-5;
+      color: $white;
+      height: 2rem;
+      line-height: 16px;
+      margin: auto -1rem -1rem;
+    }
+
+    .pt-015 {
+      padding-top: 0.15rem;
+    }
   }
 </style>
 
@@ -268,6 +285,7 @@
   import svgHourglasses from 'assets/svg/hourglass.svg';
   import svgPin from 'assets/svg/pin.svg';
   import svgClock from 'assets/svg/clock.svg';
+  import svgWhiteClock from 'assets/svg/clock-white.svg';
 
   import BalanceInfo  from './balanceInfo.vue';
   import currencyMixin from './_currencyMixin';
@@ -282,13 +300,18 @@
   import Avatar from 'client/components/avatar';
 
   import seasonalShopConfig from 'common/script/libs/shops-seasonal.config';
+  import { drops as dropEggs } from 'common/script/content/eggs';
 
+  import keys from 'lodash/keys';
+  import reduce from 'lodash/reduce';
   import moment from 'moment';
+
+  const dropEggKeys = keys(dropEggs);
 
   const hideAmountSelectionForPurchaseTypes = [
     'gear', 'backgrounds', 'mystery_set', 'card',
     'rebirth_orb', 'fortify', 'armoire', 'keys',
-    'debuffPotion',
+    'debuffPotion', 'pets', 'mounts',
   ];
 
   export default {
@@ -308,6 +331,7 @@
           hourglasses: svgHourglasses,
           pin: svgPin,
           clock: svgClock,
+          whiteClock: svgWhiteClock,
         }),
 
         selectedAmountToBuy: 1,
@@ -360,6 +384,9 @@
       notEnoughCurrency () {
         return !this.enoughCurrency(this.getPriceClass(), this.item.value * this.selectedAmountToBuy);
       },
+      nextFreeRebirth () {
+        return 45 - moment().diff(moment(this.user.flags.lastFreeRebirth), 'days');
+      },
     },
     watch: {
       item: function itemChanged () {
@@ -380,13 +407,27 @@
           return;
         }
 
-        if (this.item.currency === 'gems' &&
-          !confirm(this.$t('purchaseFor', { cost: this.item.value * this.selectedAmountToBuy }))) {
-          return;
+        if (this.item.pinType === 'premiumHatchingPotion' || this.item.pinType === 'eggs' && dropEggKeys.indexOf(this.item.key) === -1) {
+          let petsRemaining = 20 - this.selectedAmountToBuy;
+          petsRemaining -= reduce(this.user.items.pets, (sum, petValue, petKey) => {
+            if (petKey.indexOf(this.item.key) !== -1 && petValue > 0) return sum + 1;
+            return sum;
+          }, 0);
+          petsRemaining -= reduce(this.user.items.mounts, (sum, mountValue, mountKey) => {
+            if (mountKey.indexOf(this.item.key) !== -1 && mountValue === true) return sum + 1;
+            return sum;
+          }, 0);
+          if (this.item.pinType === 'premiumHatchingPotion') {
+            petsRemaining -= this.user.items.hatchingPotions[this.item.key] + 2 || 2;
+          } else {
+            petsRemaining -= this.user.items.eggs[this.item.key] || 0;
+          }
+
+          if (petsRemaining < 0 && !confirm(this.$t('purchasePetItemConfirm', {itemText: this.item.text}))) return;
         }
 
-        if (this.item.currency === 'hourglasses' &&
-          !confirm(this.$t('purchaseForHourglasses', { cost: this.item.value }))) {
+        const shouldConfirmPurchase = this.item.currency === 'gems' || this.item.currency === 'hourglasses';
+        if (shouldConfirmPurchase && !this.confirmPurchase(this.item.currency, this.item.value * this.selectedAmountToBuy)) {
           return;
         }
 

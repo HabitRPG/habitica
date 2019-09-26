@@ -1,6 +1,10 @@
 import content from '../content/index';
 import i18n from '../i18n';
+import findIndex from 'lodash/findIndex';
+import forEach from 'lodash/forEach';
 import get from 'lodash/get';
+import keys from 'lodash/keys';
+import upperFirst from 'lodash/upperFirst';
 import {
   BadRequest,
   NotAuthorized,
@@ -38,6 +42,25 @@ module.exports = function hatch (user, req = {}) {
     user.markModified('items.eggs');
     user.markModified('items.hatchingPotions');
   }
+
+  forEach(content.animalColorAchievements, (achievement) => {
+    if (!user.achievements[achievement.petAchievement]) {
+      const petIndex = findIndex(keys(content.dropEggs), (animal) => {
+        return isNaN(user.items.pets[`${animal}-${achievement.color}`]) || user.items.pets[`${animal}-${achievement.color}`] <= 0;
+      });
+      if (petIndex === -1) {
+        user.achievements[achievement.petAchievement] = true;
+        if (user.addNotification) {
+          const achievementString = `achievement${upperFirst(achievement.petAchievement)}`;
+          user.addNotification(achievement.petNotificationType, {
+            achievement: achievement.petAchievement,
+            message: `${i18n.t('modalAchievement')} ${i18n.t(achievementString)}`,
+            modalText: i18n.t(`${achievementString}ModalText`),
+          });
+        }
+      }
+    }
+  });
 
   return [
     user.items,

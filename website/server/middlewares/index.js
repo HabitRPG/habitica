@@ -27,6 +27,7 @@ import {
   attachTranslateFunction,
 } from './language';
 import basicAuth from 'express-basic-auth';
+import helmet from 'helmet';
 
 const IS_PROD = nconf.get('IS_PROD');
 const DISABLE_LOGGING = nconf.get('DISABLE_REQUEST_LOGGING') === 'true';
@@ -43,6 +44,8 @@ module.exports = function attachMiddlewares (app, server) {
   app.use(domainMiddleware(server, mongoose));
 
   if (!IS_PROD && !DISABLE_LOGGING) app.use(morgan('dev'));
+
+  app.use(helmet()); // See https://helmetjs.github.io/ for the list of headers enabled by default
 
   // add res.respond and res.t
   app.use(responseHandler);
@@ -79,7 +82,12 @@ module.exports = function attachMiddlewares (app, server) {
   // The site can require basic HTTP authentication to be accessed
   if (ENABLE_HTTP_AUTH) {
     const httpBasicAuthUsers = {};
-    httpBasicAuthUsers[nconf.get('SITE_HTTP_AUTH_USERNAME')] = nconf.get('SITE_HTTP_AUTH_PASSWORD');
+    const usernames = nconf.get('SITE_HTTP_AUTH_USERNAMES').split(',');
+    const passwords = nconf.get('SITE_HTTP_AUTH_PASSWORDS').split(',');
+
+    usernames.forEach((user, index) => {
+      httpBasicAuthUsers[user] = passwords[index];
+    });
 
     app.use(basicAuth({
       users: httpBasicAuthUsers,

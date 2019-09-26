@@ -75,7 +75,7 @@
       .create-task-area.d-flex
         transition(name="slide-tasks-btns")
           .d-flex(v-if="openCreateBtn")
-            .create-task-btn.rounded-btn(
+            .create-task-btn.diamond-btn(
               v-for="type in columns",
               :key="type",
               @click="createTask(type)",
@@ -83,7 +83,7 @@
             )
               .svg-icon(v-html="icons[type]", :class='`icon-${type}`')
 
-        #create-task-btn.create-btn.rounded-btn.btn.btn-success(
+        #create-task-btn.create-btn.diamond-btn.btn.btn-success(
           @click="openCreateBtn = !openCreateBtn",
           :class="{open: openCreateBtn}",
         )

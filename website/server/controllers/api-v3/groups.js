@@ -82,7 +82,7 @@ let api = {};
  * @apiError (401) {NotAuthorized} messageInsufficientGems User does not have enough gems (4)
  * @apiError (401) {NotAuthorized} partyMustbePrivate Party must have privacy set to private
  * @apiError (401) {NotAuthorized} messageGroupAlreadyInParty
- * @apiError (401) {NotAuthorized} cannotCreatePublicGuildWhenMuted You cannot create a public guild because your chat privileges have been revoked.
+ * @apiError (401) {NotAuthorized} chatPrivilegesRevoked You cannot do this because your chat privileges have been removed...
  *
  * @apiSuccess (201) {Object} data The created group (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
  *
@@ -117,7 +117,7 @@ api.createGroup = {
     group.leader = user._id;
 
     if (group.type === 'guild') {
-      if (group.privacy === 'public' && user.flags.chatRevoked) throw new NotAuthorized(res.t('cannotCreatePublicGuildWhenMuted'));
+      if (group.privacy === 'public' && user.flags.chatRevoked) throw new NotAuthorized(res.t('chatPrivilegesRevoked'));
       if (user.balance < 1) throw new NotAuthorized(res.t('messageInsufficientGems'));
 
       group.balance = 1;
@@ -375,7 +375,8 @@ api.getGroup = {
   method: 'GET',
   url: '/groups/:groupId',
   middlewares: [authWithHeaders({
-    userFieldsToInclude: ['_id', 'party', 'guilds', 'contributor'],
+    // Some fields (including _id, preferences) are always loaded (see middlewares/auth)
+    userFieldsToInclude: ['party', 'guilds', 'contributor'],
   })],
   async handler (req, res) {
     let user = res.locals.user;
@@ -775,7 +776,7 @@ api.leaveGroup = {
 
     if (group.type !== 'party') {
       let guildIndex = user.guilds.indexOf(group._id);
-      user.guilds.splice(guildIndex, 1);
+      if (guildIndex >= 0) user.guilds.splice(guildIndex, 1);
     }
 
     let isMemberOfGroupPlan = await user.isMemberOfGroupPlan();
@@ -1011,7 +1012,7 @@ api.inviteToGroup = {
   async handler (req, res) {
     const user = res.locals.user;
 
-    if (user.flags.chatRevoked) throw new NotAuthorized(res.t('cannotInviteWhenMuted'));
+    if (user.flags.chatRevoked) throw new NotAuthorized(res.t('chatPrivilegesRevoked'));
 
     req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
 

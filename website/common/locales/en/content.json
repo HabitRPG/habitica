@@ -249,6 +249,14 @@
   "questEggVelociraptorMountText": "Velociraptor",
   "questEggVelociraptorAdjective": "a clever",
 
+  "questEggDolphinText": "Dolphin",
+  "questEggDolphinMountText": "Dolphin",
+  "questEggDolphinAdjective": "a chipper",
+
+  "questEggRobotText": "Robot",
+  "questEggRobotMountText": "Robot",
+  "questEggRobotAdjective": "a futuristic",
+
   "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
 
   "hatchingPotionBase": "Base",
@@ -283,6 +291,9 @@
   "hatchingPotionCelestial": "Celestial",
   "hatchingPotionVeggie": "Garden",
   "hatchingPotionSunshine": "Sunshine",
+  "hatchingPotionBronze": "Bronze",
+  "hatchingPotionWatery": "Watery",
+  "hatchingPotionSilver": "Silver",
 
   "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%= potText(locale) %> pet.",
   "premiumPotionAddlNotes": "Not usable on quest pet eggs.",
