@@ -346,5 +346,8 @@
     "hatchingPotionSunshine": "Sonnenschein",
     "hatchingPotionBronze": "Bronze",
     "hatchingPotionWatery": "Wässrig",
-    "hatchingPotionSilver": "Silber"
+    "hatchingPotionSilver": "Silber",
+    "questEggRobotAdjective": "ein futuristischer",
+    "questEggRobotMountText": "Roboter",
+    "questEggRobotText": "Roboter"
 }

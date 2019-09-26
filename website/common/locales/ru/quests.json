@@ -132,5 +132,9 @@
     "chatBossDamage": "<%= username %> атакует <%= bossName %> и наносит <%= userDamage %> урона. <%= bossName %> атакует команду и наносит <%= bossDamage %> урона.",
     "chatFindItems": "<%= username %> находит <%= items %>.",
     "chatItemQuestFinish": "Все предметы найдены! Команда получила свои награды.",
-    "chatQuestCancelled": "<%= username %> отменил(а) квест команды \"<%= questName %>\"."
+    "chatQuestCancelled": "<%= username %> отменил(а) квест команды \"<%= questName %>\".",
+    "chatQuestAborted": "<%= username %> отменил(а) квест <%= questName %>.",
+    "tavernBossTired": "<%= bossName %> пытается высвободить <%= rageName %>, но усталость не позволяет.",
+    "chatBossDefeated": "Вы победили <%= bossName %>! Участники квеста получают награду за победу.",
+    "chatBossDontAttack": "<%= username %> атакует <%= bossName %> и наносит <%= userDamage %> урона. <%= bossName %> не атакует, потому что осознает тот факт, что имеются некоторые ошибки после техобслуживания, и не хочет никого поранить не по-спортивному. <%= bossName %> скоро продолжит буйство!"
 }

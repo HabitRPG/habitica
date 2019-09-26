@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE TO PLEDGE FOR HABITICA’S ENAMEL PIN KICKSTARTER!';
+const LAST_ANNOUNCEMENT_TITLE = 'FALL FESTIVAL BEGINS! SEPTEMBER SUBSCRIBER ITEMS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,14 +30,26 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>9/5/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>9/24/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <img src="https://habitica-assets.s3.amazonaws.com/mobileApp/images/promo_kickstarter_last_chance.png" class="center-block mw-100 h-auto"></img>
-        <p>Hello Habiticans! A reminder that our <a href='https://www.kickstarter.com/projects/habitica/habitica-class-pins' target='_blank'>Kickstarter campaign</a> for Enamel Class Pins ends on September 10. If you've been thinking about pledging, now's the time!</p>
-        <p>We're fully funded and all our stretch goals have been met, so we've got nine exciting pins to choose from. Pin pledges will also receive animated in-game items as bonuses, plus free vinyl stickers of the pins they chose! Check it out today!</p>
-        <div class="small mb-3">by The Habitica Team</div>
+        <div class="promo_mystery_201909 center-block"></div>
+        <h3>September Subscriber Items Revealed!</h3>
+        <p>The September Subscriber Item Set has been revealed: the Affable Acorn Item Set! You only have until September 30 to <a href='/user/settings/subscription'>receive the item set when you subscribe</a>. If you're already an active subscriber, reload the site and then head to Inventory > Items to claim your gear!</p>
+        <p>Subscribers also receive the ability to buy Gems for Gold -- the longer you subscribe, the more Gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
+        <div class="small mb-3">by Beffymaroo</div>
+        <div class="promo_fall_festival_2019 center-block"></div>
+        <h3>Limited Edition Class Outfits</h3>
+        <p>From now until October 31st, limited edition outfits are available in the Rewards column! Depending on your class, you can be a Raven Warrior, a Lich Healer, a Phantom Rogue, or a Cyclops Mage. You'd better get productive to earn enough gold before your time runs out...</p>
+        <div class="small mb-3">by gawrone, jjgame83, AnnDeLune, Beffymaroo, and SabreCat</div>
+        <div class="promo_fall_festival_2018 center-block"></div>
+        <h3>Seasonal Shop Opens</h3>
+        <p>The <a href='/shops/seasonal'>Seasonal Shop</a> has opened! It's stocking autumnal Seasonal Edition goodies at the moment, including past fall outfits. Everything there will be available to purchase during the Fall Festival event each year, but it's only open until October 31st, so be sure to stock up now, or you'll have to wait a year to buy these items again!</p>
+        <div class="small mb-3">by AnnDeLune, ʂʈєƒąʃųƥągųʂ, Katy133, Lilith of Alfheim, Definitely not a villain, ShoGirlGeek. cataclysms, maxpendragon, Vikte, QuartzFox, Lemoness, Beffymaroo and SabreCat</div>
+        <div class="promo_seasonal_shop_fall center-block"></div>
+        <h3>NPC Outfits</h3>
+        <p>Everyone has hastened down to the Flourishing Fields to celebrate this spooky autumn festival. Be sure to check out all the outfits that people are sporting!</p>
       </div>
       `,
     });

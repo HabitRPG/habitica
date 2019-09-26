@@ -20,7 +20,7 @@
     "rebirthText": "Började <%= rebirths %> Nytt/Nya Äventyr",
     "rebirthOrb": "Använde en Återfödelsens sfär för att starta om efter att ha uppnått Nivå <%= level %>.",
     "rebirthOrb100": "Använd en Återfödelsens sfär för att starta om efter att ha uppnått Nivå 100 eller högre.",
-    "rebirthOrbNoLevel": "Använde en Återfödelsens Sfär för att börja om",
+    "rebirthOrbNoLevel": "Använde en Återfödelsens Sfär för att börja om.",
     "rebirthPop": "Starta om din karaktär omedelbart vid nivå 1 och behåll dina prestationer, samlarobjekt och utrustning. Dina uppgifter och deras historik kommer behållas men de kommer att bli återställda till gult. Dina följer kommer att bli borttagna förutom på utmanings-uppgifter. Allt ditt guld, erfarenhet, mana och alla effekter från Förmågor kommer att bli borttaget. Detta kommer att träda i kraft omedelbart. För mer information, se wikins <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Återfödelsens sfär</a> sida.",
     "rebirthName": "Pånyttfödelsesfär",
     "reborn": "Pånyttfödd, max nivå <%= reLevel %>",

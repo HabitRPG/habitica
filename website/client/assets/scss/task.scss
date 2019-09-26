@@ -231,6 +231,19 @@
   }
 
   &-purple { // purple, only used in modals
+    &-control {
+      &-bg {
+        background: $purple-task !important;
+        &:hover {
+          .habit-control { background: rgba(26, 24, 29, 0.48) !important; }
+          .daily-todo-control { background: rgba(255, 255, 255, 0.72) !important; }
+        }
+      }
+      &-inner-habit { background: rgba(26, 24, 29, 0.24) !important; }
+      &-inner-daily-todo { background: #ffffff80 !important; }
+      &-checkbox { color: $purple-task !important; }
+    }
+
     &-modal {
       &-bg { background: $purple-300 !important; }
       &-icon { color: $purple-300 !important; }

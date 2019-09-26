@@ -18,5 +18,11 @@
   "achievementBackToBasicsModalText": "You collected all the Base Pets!",
   "achievementAllYourBase": "All Your Base",
   "achievementAllYourBaseText": "Has tamed all Base Mounts.",
-  "achievementAllYourBaseModalText": "You tamed all the Base Mounts!"
+  "achievementAllYourBaseModalText": "You tamed all the Base Mounts!",
+  "achievementDustDevil": "Dust Devil",
+  "achievementDustDevilText": "Has collected all Desert Pets.",
+  "achievementDustDevilModalText": "You collected all the Desert Pets!",
+  "achievementAridAuthority": "Arid Authority",
+  "achievementAridAuthorityText": "Has tamed all Desert Mounts.",
+  "achievementAridAuthorityModalText": "You tamed all the Desert Mounts!"
 }

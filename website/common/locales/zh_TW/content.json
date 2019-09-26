@@ -324,7 +324,7 @@
     "foodPieZombie": "腐敗的派",
     "foodPieZombieThe": "腐敗的派",
     "foodPieZombieA": "一片腐敗的派",
-    "foodPieSkeleton": "骨髓鍋派",
+    "foodPieSkeleton": "骨髓餡派",
     "foodPieBase": "普通蘋果派",
     "foodPieSkeletonThe": "骨髓餡派",
     "foodPieSkeletonA": "一塊骨髓餡派",
@@ -345,5 +345,9 @@
     "foodPieRedA": "一片紅櫻桃派",
     "foodPieGolden": "金黃香蕉奶油派",
     "foodPieGoldenThe": "金黃香蕉奶油派",
-    "foodPieGoldenA": "一片金黃香蕉奶油派"
+    "foodPieGoldenA": "一片金黃香蕉奶油派",
+    "hatchingPotionSilver": "白銀",
+    "questEggRobotAdjective": "一個新潮的",
+    "questEggRobotMountText": "機器人",
+    "questEggRobotText": "機器人"
 }

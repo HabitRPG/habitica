@@ -168,7 +168,7 @@
     "youDied": "Zginąłeś!",
     "dieText": "Straciłeś jeden Poziom, losowo wybrany przedmiot z Ekwipunku oraz całe Złoto. A teraz powstań, dzielny Habitaninie, i jeszcze raz spróbuj sił w walce! Okiełznaj złe Nawyki, czujnie dopełniaj Codzienne, a jeśli zasłabniesz, wymknij się śmierci zażywając Eliksiru Zdrowia!",
     "sureReset": "Na pewno? Ta opcja zresetuje klasę twojej postaci oraz przydzielone punkty (dostaniesz je z powrotem do ponownego rozdzielenia) oraz kosztuje 3 Klejnoty.",
-    "purchaseFor": "Kupić za <%= cost %> klejnoty?",
+    "purchaseFor": "Kupić za <%= cost %> klejnot(y)(ów)?",
     "purchaseForHourglasses": "Kupić za <%= cost %> Mistycznych Klepsydr?",
     "notEnoughMana": "Masz za mało many.",
     "invalidTarget": "Nie możesz rzucić na to zaklęcia.",
@@ -224,5 +224,9 @@
     "mainHand": "Główna ręka",
     "offHand": "Druga ręka",
     "statPoints": "Punkty Statystyk",
-    "pts": "pkt"
+    "pts": "pkt",
+    "chatCastSpellUser": "<%= username %> rzuca zaklęcie <%= spell %> na <%= target %>.",
+    "chatCastSpellParty": "<%= username %> rzuca zaklęcie <%= spell %> dla drużyny.",
+    "purchasePetItemConfirm": "Ten zakup przekroczyłby liczbę przedmiotów potrzebnych do wyklucia wszystkich możliwych <%= itemText %> chowańców. Czy nadal chcesz kupić?",
+    "purchaseForGold": "Kupić za <%= cost %> szt. złota?"
 }

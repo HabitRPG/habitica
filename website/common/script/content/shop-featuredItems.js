@@ -22,8 +22,8 @@ const featuredItems = {
   ],
   quests: [
     {
-      type: 'quests',
-      path: 'quests.bronze',
+      type: 'bundles',
+      path: 'bundles.rockingReptiles',
     },
     {
       type: 'quests',
@@ -34,7 +34,7 @@ const featuredItems = {
       path: 'quests.silver',
     },
   ],
-  seasonal: 'summer2019Mage',
+  seasonal: 'fall2018Rogue',
   timeTravelers: [
     // TODO
   ],

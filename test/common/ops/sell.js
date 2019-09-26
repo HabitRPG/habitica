@@ -85,6 +85,19 @@ describe('shared.ops.sell', () => {
     }
   });
 
+  it('returns error when trying to sell Saddle', (done) => {
+    const foodType = 'food';
+    const saddleKey = 'Saddle';
+    user.items[foodType][saddleKey] = 1;
+    try {
+      sell(user, {params: {type: foodType, key: saddleKey}});
+    } catch (err) {
+      expect(err).to.be.an.instanceof(NotAuthorized);
+      expect(err.message).to.equal(i18n.t('foodSaddleSellWarningNote'));
+      done();
+    }
+  });
+
   it('reduces item count from user', () => {
     sell(user, {params: { type, key } });
 

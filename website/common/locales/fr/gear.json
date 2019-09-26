@@ -1899,5 +1899,11 @@
     "armorMystery201908Text": "Costume de la faune crapahuteuse",
     "armorMystery201908Notes": "Ces jambes servent à danser ! Et c'est ce qu'elles vont faire . Ne confère aucun bonus. Équipement d'abonnement d'Août 2019.",
     "headAccessoryMystery201908Text": "Cornes de la faune crapahuteuse",
-    "headAccessoryMystery201908Notes": "Un vent à décorner les boucs n'a aucune chance face à ces cornes ! Ne confère aucun bonus. Équipement d'abonnement d'août 2019."
+    "headAccessoryMystery201908Notes": "Un vent à décorner les boucs n'a aucune chance face à ces cornes ! Ne confère aucun bonus. Équipement d'abonnement d'août 2019.",
+    "shieldArmoirePolishedPocketwatchNotes": "Vous avez le temps. Et il vous va très bien. Augmente l'intelligence de <%= int %>. Armoire enchantée : Objet indépendant.",
+    "shieldArmoirePolishedPocketwatchText": "Montre de poche polie",
+    "weaponArmoireResplendentRapierNotes": "Démontrez votre talent d'escrimeur avec cette arme finement pointue. Augmente la perception de <%= per %>. Armoire enchantée : Objet indépendant.",
+    "weaponArmoireResplendentRapierText": "Rapière resplendissante",
+    "weaponArmoireFloridFanNotes": "Cet éventail mignon en soie se replie quand vous ne l'utilisez pas. Augmente la constitution de <% con %>. Armoire enchantée : Objet indépendant.",
+    "weaponArmoireFloridFanText": "Éventail fleuri"
 }
