@@ -45,10 +45,10 @@
         v-for="task in taskList",
         :key="task.id", :task="task",
         :isUser="isUser",
+        :showOptions="showOptions"
         @editTask="editTask",
         @moveTo="moveTo",
         :group='group',
-        :challenge="challenge"
         v-on:taskDestroyed='taskDestroyed'
       )
     template(v-if="hasRewardsList")
@@ -311,7 +311,10 @@ export default {
     selectedTags: {},
     taskListOverride: {},
     group: {},
-    challenge: {},
+    showOptions: {
+      type: Boolean,
+      default: true,
+    },
   }, // @TODO: maybe we should store the group on state?
   data () {
     const icons = Object.freeze({
