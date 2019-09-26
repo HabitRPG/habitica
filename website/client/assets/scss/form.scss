@@ -201,9 +201,8 @@ $bg-disabled-control: #34303a;
   .custom-control-input {
     display: none;
     + .custom-control-label {
-      border: .5px solid $gray-400;
-      border-top-width: 1px;
-      border-bottom-width: 1px;
+      border: 1px solid $gray-400;
+      border-left-width: 0;
       text-align: center;
       padding-top: .5em;
       padding-bottom: .5em;
@@ -238,7 +237,6 @@ $bg-disabled-control: #34303a;
   &:last-of-type .custom-control-label {
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
-    border-right-width: 1px;
   }
 }
 
