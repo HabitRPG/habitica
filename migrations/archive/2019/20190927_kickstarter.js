@@ -14,6 +14,7 @@ async function updateUser (user) {
   let push = {pinnedItems: {$each: []}};
 
   set.migration = MIGRATION_NAME;
+  set['achievements.ks2019'] = true;
 
   // set['items.gear.owned.armor_special_ks2019'] = false;
   // push.pinnedItems.$each.push({type: 'marketGear', path: 'gear.flat.armor_special_ks2019', _id: uuid()});

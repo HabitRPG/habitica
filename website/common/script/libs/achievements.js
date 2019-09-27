@@ -300,6 +300,10 @@ function _getSpecialAchievements (user, language) {
     _addSimple(result, user, {path: 'originalUser', language});
   }
 
+  if (user.achievements.kickstarter2019) {
+    _addSimple(result, user, {path: 'kickstarter2019', language});
+  }
+
   return result;
 }
 
