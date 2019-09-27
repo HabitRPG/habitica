@@ -122,6 +122,8 @@
   "weaponSpecialTachiNotes": "This light and curved sword will shred your tasks to ribbons! Increases Strength by <%= str %>.",
   "weaponSpecialAetherCrystalsText": "Aether Crystals",
   "weaponSpecialAetherCrystalsNotes": "These bracers and crystals once belonged to the Lost Masterclasser herself. Increases all Stats by <%= attrs %>.",
+  "weaponSpecialKS2019Text": "Mythic Gryphon Glaive",
+  "weaponSpecialKS2019Notes": "Curved as a gryphon's beak and talons, this ornate polearm reminds you to power through when the task ahead feels daunting. Increases Strength by <%= str %>.",
 
   "weaponSpecialYetiText": "Yeti-Tamer Spear",
   "weaponSpecialYetiNotes": "This spear allows its user to command any yeti. Increases Strength by <%= str %>. Limited Edition 2013-2014 Winter Gear.",
@@ -539,6 +541,8 @@
   "armorSpecialTurkeyArmorBaseNotes": "Keep your drumsticks warm and cozy in this feathery armor! Confers no benefit.",
   "armorSpecialTurkeyArmorGildedText": "Gilded Turkey Armor",
   "armorSpecialTurkeyArmorGildedNotes": "Strut your stuff in this seasonally shiny armor! Confers no benefit.",
+  "armorSpecialKS2019Text": "Mythic Gryphon Armor",
+  "armorSpecialKS2019Notes": "Glowing from within like a gryphon's noble heart, this resplendent armor encourages you to take pride in your accomplishments. Increases Constitution by <%= con %>.",
 
   "armorSpecialYetiText": "Yeti-Tamer Robe",
   "armorSpecialYetiNotes": "Fuzzy and fierce. Increases Constitution by <%= con %>. Limited Edition 2013-2014 Winter Gear.",
@@ -1067,6 +1071,8 @@
   "headSpecialTurkeyHelmGildedNotes": "Gobble gobble! Bling bling! Confers no benefit.",
   "headSpecialPiDayText": "Pi Hat",
   "headSpecialPiDayNotes": "Try to balance this slice of delicious pie on your head while walking in a circle. Or throw it at a red Daily! Or you could just eat it. Your choice! Confers no benefit.",
+  "headSpecialKS2019Text": "Mythic Gryphon Helm",
+  "headSpecialKS2019Notes": "Adorned with a gryphon's likeness and plumage, this glorious helmet symbolizes the way your skills and bearing stand as an example to others. Increases Intelligence by <%= int %>.",
 
   "headSpecialNyeText": "Absurd Party Hat",
   "headSpecialNyeNotes": "You've received an Absurd Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
@@ -1563,6 +1569,8 @@
   "shieldSpecialWakizashiNotes": "This short sword is perfect for close-quarters battles with your Dailies! Increases Constitution by <%= con %>.",
   "shieldSpecialPiDayText": "Pi Shield",
   "shieldSpecialPiDayNotes": "We dare you to calculate the ratio of this shield's circumference to its deliciousness! Confers no benefit.",
+  "shieldSpecialKS2019Text": "Mythic Gryphon Shield",
+  "shieldSpecialKS2019Notes": "Sparkling like the shell of a gryphon egg, this magnificent shield shows you how to stand ready to help when your own burdens are light. Increases Perception by <%= per %>.",
 
   "shieldSpecialYetiText": "Yeti-Tamer Shield",
   "shieldSpecialYetiNotes": "This shield reflects light from the snow. Increases Constitution by <%= con %>. Limited Edition 2013-2014 Winter Gear.",
@@ -2063,6 +2071,8 @@
 
   "eyewearSpecialAetherMaskText": "Aether Mask",
   "eyewearSpecialAetherMaskNotes": "This mask has a mysterious history. Increases Intelligence by <%= int %>.",
+  "eyewearSpecialKS2019Text": "Mythic Gryphon Visor",
+  "eyewearSpecialKS2019Notes": "Bold as a gryphon's... hmm, gryphons don't have visors. It reminds you to... oh, who are we kidding, it just looks cool! Confers no benefit.",
 
   "eyewearSpecialSummerRogueText": "Roguish Eyepatch",
   "eyewearSpecialSummerRogueNotes": "It doesn't take a scallywag to see how stylish this is! Confers no benefit. Limited Edition 2014 Summer Gear.",

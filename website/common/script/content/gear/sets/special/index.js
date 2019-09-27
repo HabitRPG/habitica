@@ -1259,8 +1259,10 @@ let armor = {
   },
   ks2019: {
     text: t('armorSpecialKS2019Text'),
-    notes: t('armorSpecialKS2019Notes'),
-    value: 200,
+    notes: t('armorSpecialKS2019Notes', { con: 20 }),
+    value: 0,
+    con: 20,
+    canOwn: ownsItem('armor_special_ks2019'),
   },
 };
 
@@ -1610,7 +1612,8 @@ let eyewear = {
   ks2019: {
     text: t('eyewearSpecialKS2019Text'),
     notes: t('eyewearSpecialKS2019Notes'),
-    value: 200,
+    value: 0,
+    canOwn: ownsItem('eyewear_special_ks2019'),
   },
 };
 
@@ -2877,8 +2880,10 @@ let head = {
   },
   ks2019: {
     text: t('headSpecialKS2019Text'),
-    notes: t('headSpecialKS2019Notes'),
-    value: 200,
+    notes: t('headSpecialKS2019Notes', { int: 20 }),
+    value: 0,
+    int: 20,
+    canOwn: ownsItem('head_special_ks2019'),
   },
 };
 
@@ -4096,8 +4101,10 @@ let shield = {
   },
   ks2019: {
     text: t('shieldSpecialKS2019Text'),
-    notes: t('shieldSpecialKS2019Notes'),
-    value: 200,
+    notes: t('shieldSpecialKS2019Notes', { per: 20 }),
+    value: 0,
+    per: 20,
+    canOwn: ownsItem('shield_special_ks2019'),
   },
 };
 
@@ -5354,8 +5361,10 @@ let weapon = {
   },
   ks2019: {
     text: t('weaponSpecialKS2019Text'),
-    notes: t('weaponSpecialKS2019Notes'),
-    value: 200,
+    notes: t('weaponSpecialKS2019Notes', { str: 20 }),
+    value: 0,
+    str: 20,
+    canOwn: ownsItem('weapon_special_ks2019'),
   },
 };
 
