@@ -1,0 +1,9 @@
+{
+  "achievement": "Achievement",
+  "share": "Share",
+  "onwards": "Onwards!",
+  "levelup": "By accomplishing your real life goals, you leveled up and are now fully healed!",
+  "reachedLevel": "You Reached Level <%= level %>",
+  "achievementLostMasterclasser": "Quest Completionist: Masterclasser Series",
+  "achievementLostMasterclasserText": "Completed all sixteen quests in the Masterclasser Quest Series and solved the mystery of the Lost Masterclasser!"
+}

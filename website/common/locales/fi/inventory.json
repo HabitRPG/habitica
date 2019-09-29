@@ -1,0 +1,8 @@
+{
+  "noItemsAvailableForType": "Sinulta puuttuu <%= type %>.",
+  "foodItemType": "Ruoka",
+  "eggsItemType": "Munat",
+  "hatchingPotionsItemType": "Hautomisjuomat",
+  "specialItemType": "Erikoisesineet",
+  "lockedItem": "Lukittu esine"
+}
