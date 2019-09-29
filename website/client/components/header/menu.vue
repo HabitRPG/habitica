@@ -250,7 +250,6 @@ div
 
     &-modal {
       z-index: 1035;
-    z-index: 1042; // To stay above snakbar notifications and modals
     }
   }
 
