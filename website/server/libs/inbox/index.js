@@ -17,8 +17,8 @@ export async function sentMessage (sender, receiver, message, translate) {
     sendPushNotification(
       receiver,
       {
-        title: translate('newPM', receiver.preferences.language),
-        message: translate('newPMInfo', {name: getUserInfo(sender, ['name']).name, message}, receiver.preferences.language),
+        title: translate('newPMNotificationTitle', {name: getUserInfo(sender, ['name']).name}, receiver.preferences.language),
+        message,
         identifier: 'newPM',
         category: 'newPM',
         payload: {replyTo: sender._id},
