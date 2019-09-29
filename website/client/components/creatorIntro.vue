@@ -196,10 +196,6 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
   /* @TODO do not rely on avatar-modal___BV_modal_body_,
      it already changed once when bootstrap-vue reached version 1 */
 
-  #avatar-modal___BV_modal_outer_ {
-    z-index: 1045 !important; // on production the toolbar has a higher z-index
-  }
-
   #avatar-modal___BV_modal_body_, #avatar-modal___BV_modal_body_ {
     padding: 0;
   }
