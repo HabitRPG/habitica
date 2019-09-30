@@ -80,7 +80,7 @@
     "buyGemsAllow1": "Вы можете купить еще",
     "buyGemsAllow2": "Самоцветов в этом месяце",
     "purchaseGemsSeparately": "Купить дополнительные Самоцветы",
-    "subFreeGemsHow": "Игроки могут бесплатно зарабатывать Самоцветы, выигрывая <a href=\"/challenges/findChallenges\">испытания</a>, награждающие победителей Самоцветами. Помимо того существует <a href=\"http://ru.habitica.fandom.com/wiki/Вклад\">награда за помощь в разработке Habitica.</a>",
+    "subFreeGemsHow": "Игроки могут бесплатно зарабатывать Самоцветы, выигрывая <a href=\"/challenges/findChallenges\">испытания</a>, награждающие победителей Самоцветами. Помимо того существует <a href=\"https://habitica.fandom.com/ru/wiki/Вклад\">награда за помощь в разработке Habitica.</a>",
     "seeSubscriptionDetails": "Перейдите в <a href='/user/settings/subscription'>Настройки -> Подписка</a> для просмотра информации о ней!",
     "timeTravelers": "Путешественники во времени",
     "timeTravelersTitleNoSub": "<%= linkStartTyler %>Tyler<%= linkEnd %> и <%= linkStartVicky %>Vicky<%= linkEnd %>",
@@ -224,5 +224,6 @@
     "mysterySet201906": "Набор Дружелюбного карпа кои",
     "mysterySet201907": "Набор Пляжного приятеля",
     "subCanceledTitle": "Подписка отменена",
-    "mysterySet201908": "Набор Вольного фавна"
+    "mysterySet201908": "Набор Вольного фавна",
+    "mysterySet201909": "Набор Учтивого желудя"
 }

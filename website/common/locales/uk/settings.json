@@ -9,7 +9,7 @@
     "newTaskEdit": "Відкривати нові завдання у режимі редагування",
     "newTaskEditPop": "Якщо ввімкнено, нові завдання одразу відкриваються для додавання подробиць, наче нотатки.",
     "dailyDueDefaultView": "Налаштуйте Щоденні завдання у належній вкладці за замовчуванням",
-    "dailyDueDefaultViewPop": "З цією опцією набору, Щоденні Завдання будуть за замовчуванням \"обов'язкові\" замість \"всі\".",
+    "dailyDueDefaultViewPop": "З цією опцією набору, Щоденні Завдання будуть за замовчуванням \"обов'язкові\" замість \"всі\"",
     "reverseChatOrder": "Показувати повідомлення чату у зворотньому порядку",
     "startAdvCollapsed": "Додаткові налаштування в завдання згорнуті за замовченням",
     "startAdvCollapsedPop": "With this option set, Advanced Settings will be hidden when you first open a task for editing.",

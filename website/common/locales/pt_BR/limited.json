@@ -161,5 +161,9 @@
     "summer2019ConchHealerSet": "Concha (Curandeiro)",
     "summer2019HammerheadRogueSet": "Turbarão-martelo (Ladino)",
     "eventAvailabilityReturning": "Disponível para compra até <%= availableDate(locale) %>. Esta poção foi lançada anteriormente em <%= previousDate(locale) %>.",
-    "june2018": "Junho 2018"
+    "june2018": "Junho 2018",
+    "fall2019RavenSet": "Corvo (Guerreiro)",
+    "fall2019LichSet": "Lich (Curandeiro)",
+    "fall2019CyclopsSet": "Ciclope (Mago)",
+    "fall2019OperaticSpecterSet": "Fantasma da Ópera (Ladino)"
 }

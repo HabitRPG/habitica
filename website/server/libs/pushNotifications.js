@@ -19,7 +19,7 @@ if (APN_ENABLED) {
       keyId: nconf.get('PUSH_CONFIGS_APN_KEY_ID'),
       teamId: nconf.get('PUSH_CONFIGS_APN_TEAM_ID'),
     },
-    production: nconf.get('IS_PROD'),
+    production: true,
   }) : undefined;
 }
 

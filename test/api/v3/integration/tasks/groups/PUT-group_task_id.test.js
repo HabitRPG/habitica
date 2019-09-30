@@ -56,11 +56,11 @@ describe('PUT /tasks/:id', () => {
       requiresApproval: true,
     });
 
-    let memberTasks = await member.get('/tasks/user');
+    let memberTasks = await member2.get('/tasks/user');
     let syncedTask = find(memberTasks, (memberTask) => memberTask.group.taskId === task._id);
 
     // score up to trigger approval
-    await expect(member.post(`/tasks/${syncedTask._id}/score/up`))
+    await expect(member2.post(`/tasks/${syncedTask._id}/score/up`))
       .to.eventually.be.rejected.and.to.eql({
         code: 401,
         error: 'NotAuthorized',

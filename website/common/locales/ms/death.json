@@ -1,0 +1,17 @@
+{
+    "lostAllHealth": "Mata Kesihatan anda telah habis!",
+    "dontDespair": "Janganlah berputus asa!",
+    "deathPenaltyDetails": "Anda telah kehilangan satu Tahap, Syiling Emas anda, dan sekeping daripada peralatan yang anda miliki, tapi semua benda yang anda telah hilangkan boleh didapati semula jika anda terus berusaha! Semoga berjaya -- Percayalah akan kebolehan anda.",
+    "refillHealthTryAgain": "Mengisi semula HP anda dan Cuba Sekali Lagi",
+    "dyingOftenTips": "Adakah kejadian ini sering berlaku? <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'> Marilah kita tolong anda! </a>",
+    "losingHealthWarning": "Jaga-jaga, ya -- Anda sedang kehilangan banyak Mata Kesihatan!",
+    "losingHealthWarning2": "Jangan hilangkan semua Mata Kesihatan anda! Jika anda tidak lagi mempunyai Kesihatan, anda akan kehilangan satu Tahap, semua Syiling Emas anda serta sekeping daripada peralatan yang anda miliki.",
+    "toRegainHealth": "Demi mengembalikan kesihatan:",
+    "lowHealthTips1": "Penuhkan bar pengalaman anda untuk dapat penyembuhan penuh!",
+    "lowHealthTips2": "Belilah ubat kesihatan dari bahagian ganjaran untuk mengembalikan 15 mata kesihatan.",
+    "losingHealthQuickly": "Adalah anda terhilang kesihatan dengan cepat?",
+    "lowHealthTips3": "Misi Seharian yang belum diselesaikan akan mencederakan anda semalaman. Jadi, pastikan anda tidak menambah terlalu banyak Misi Seharian sebaik sahaja anda bermula!",
+    "lowHealthTips4": "Jika terdapat Misi Seharian yang tidak mempunyai tarikh akhir, anda boleh menutupkan Misi tersebut dengan menekan ikon pensel.",
+    "goodLuck": "Semoga berjaya!",
+    "cannotRevive": "Tidak dapat dihidupkan semula jika belum mati."
+}

@@ -12,7 +12,7 @@
     "messageLikesFood": "<%= egg %> много хареса <%= foodText %>!",
     "messageDontEnjoyFood": "<%= egg %> изяде <%= foodText %> , но не му/ѝ хареса.",
     "messageBought": "Закупихте <%= itemText %>",
-    "messageEquipped": "Екипирахте <%= itemText %>.",
+    "messageEquipped": " Екипирахте <%= itemText %>.",
     "messageUnEquipped": "Разекипирахте <%= itemText %>.",
     "messageMissingEggPotion": "Липсва Ви яйцето или отварата",
     "messageInvalidEggPotionCombo": "Не можете да излюпите яйце на любимец от мисия с магическа излюпваща отвара! Опитайте с друго яйце.",

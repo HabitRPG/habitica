@@ -250,7 +250,6 @@ div
 
     &-modal {
       z-index: 1035;
-    z-index: 1042; // To stay above snakbar notifications and modals
     }
   }
 
@@ -503,7 +502,9 @@ export default {
       let droppedElement = document.getElementsByClassName('down')[0];
       if (droppedElement && droppedElement !== element) {
         droppedElement.classList.remove('down');
-        droppedElement.lastChild.style.maxHeight = 0;
+        if (droppedElement.lastChild) {
+          droppedElement.lastChild.style.maxHeight = 0;
+        }
       }
 
       element.classList.toggle('down');

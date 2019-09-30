@@ -1779,7 +1779,7 @@
     "weaponArmoireSlingshotText": "Estilingue",
     "weaponArmoireSlingshotNotes": "Aponte para suas Diárias vermelhas! Aumenta a Força em <%= str %>. Armário Encantado: Item Independente.",
     "armorSpecialSpring2019RogueText": "Armadura de Nuvem",
-    "armorSpecialSpring2019RogueNotes": "Algo muito macio. Aumenta a Percepção em <%= per %>. Equipamento de Edição Limitada Primavera 2019.",
+    "armorSpecialSpring2019RogueNotes": "Algo muito macio. Aumenta a Percepção em <%= per %>. Equipamento de Primavera Edição Limitada 2019.",
     "armorSpecialSpring2019WarriorText": "Armadura de Orquídea",
     "armorSpecialSpring2019WarriorNotes": "A armadura de pétalas reforçadas protege o seu coração e também parece bastante elegante. Aumenta sua Constituição em <%= con %>. Equipamento de Edição Limitada Primavera 2019.",
     "armorSpecialSpring2019MageText": "Vestes de Âmbar",
@@ -1830,5 +1830,18 @@
     "weaponArmoireMagnifyingGlassNotes": "Aha! Um pedaço de evidência! Examine de perto com essa lupa. Aumenta percepção para <%=per%>. Gabinete encantado: Kit Detetive ( item 3 de 4).",
     "weaponArmoireMagnifyingGlassText": "Vidro magnífico",
     "weaponArmoireAstronomersTelescopeNotes": "Um instrumento que irá permitir que você observe a dança ancestral das estrelas. Aumenta percepção pó <%=per%>. Gabinete encantado: Kit Mago astrônomo ( item 3 de 3).",
-    "weaponArmoireAstronomersTelescopeText": "Telescópio de astrônomo"
+    "weaponArmoireAstronomersTelescopeText": "Telescópio de astrônomo",
+    "armorMystery201904Text": "Roupa Opalescente",
+    "armorSpecialSummer2019RogueText": "Cauda de Tubarão-martelo",
+    "weaponArmoireBambooCaneNotes": "Perfeito para ajudá-lo em um passeio ou para dançar o Charleston. Aumenta Inteligência, Percepção e Constituição em <%= attrs %> cada. Armário Encantado: Conjunto Náutico (Item 3 de 3).",
+    "armorSpecialSummer2019HealerText": "Cauda das Marés Tropicais",
+    "armorSpecialSummer2019RogueNotes": "Esta cauda sinuosa é perfeita para fazer curvas fechadas durante ousadas fugas aquáticas. Aumenta a Percepção em <%= per %>. Equipamento de Edição Limitada do Verão de 2019.",
+    "weaponSpecialFall2019HealerText": "Filactério Assustador",
+    "weaponSpecialFall2019HealerNotes": "Esse filactério pode chamar os espíritos de tarefas mortas há muito tempo e usar seu poder de cura. Aumenta a Inteligência em <%= int %>. Equipamento de Edição Limitada Outono de 2019.",
+    "weaponSpecialFall2019MageNotes": "Seja forjando raios, levantando fortificações ou simplesmente atacando o terror nos corações dos mortais, esse cajado empresta o poder dos gigantes para fazer maravilhas. Aumenta a Inteligência em <%= int %> e a Percepção em <%= per %>. Equipamento de Edição Limitada Outono de 2019.",
+    "weaponSpecialFall2019MageText": "Cajado Caolho",
+    "weaponSpecialFall2019WarriorNotes": "Prepare-se para rasgar seus inimigos com as garras de um corvo! Aumenta a Força em <%= str %>. Equipamento de Edição Limitada Outono de 2019.",
+    "weaponSpecialFall2019WarriorText": "Tridente com Garras",
+    "weaponSpecialFall2019RogueNotes": "Quer você esteja dirigindo a orquestra ou cantando uma ária, este dispositivo útil mantém suas mãos livres para gestos dramáticos! Aumenta a Força em <%= str %>. Equipamento de Edição Limitada Outono de 2019.",
+    "weaponSpecialFall2019RogueText": "Suporte Musical"
 }
