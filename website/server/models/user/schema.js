@@ -127,6 +127,7 @@ let schema = new Schema({
     allYourBase: Boolean,
     dustDevil: Boolean,
     aridAuthority: Boolean,
+    kickstarter2019: Boolean,
   },
 
   backer: {
