@@ -1,0 +1,31 @@
+{
+  "name": "new_client",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "test:unit": "vue-cli-service test:unit",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "core-js": "^3.1.2",
+    "vue": "^2.6.10",
+    "vue-router": "^3.0.6"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^4.0.0-rc.6",
+    "@vue/cli-plugin-eslint": "^4.0.0-rc.6",
+    "@vue/cli-plugin-router": "^4.0.0-rc.6",
+    "@vue/cli-plugin-unit-mocha": "^4.0.0-rc.6",
+    "@vue/cli-service": "^4.0.0-rc.6",
+    "@vue/test-utils": "1.0.0-beta.29",
+    "babel-eslint": "^10.0.1",
+    "chai": "^4.1.2",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "sass": "^1.19.0",
+    "sass-loader": "^8.0.0",
+    "vue-template-compiler": "^2.6.10"
+  }
+}
