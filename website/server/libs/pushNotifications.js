@@ -56,7 +56,7 @@ function sendNotification (user, details = {}) {
       case 'ios':
         if (apnProvider) {
           const notification = new apn.Notification({
-            alert: details.message,
+            alert: {title: details.title, body: details.message},
             sound: 'default',
             category: details.category,
             topic: 'com.habitrpg.ios.Habitica',

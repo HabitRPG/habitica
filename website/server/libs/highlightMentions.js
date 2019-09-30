@@ -4,13 +4,14 @@ const mentionRegex = new RegExp('\\B@[-\\w]+', 'g');
 
 export async function highlightMentions (text) {
   const mentions = text.match(mentionRegex);
+  let members = [];
   if (mentions !== null && mentions.length <= 5) {
     const usernames = mentions.map((mention) => {
       return mention.substr(1);
     });
-    let members = await User
+    members = await User
       .find({'auth.local.username': {$in: usernames}, 'flags.verifiedUsername': true})
-      .select(['auth.local.username', '_id'])
+      .select(['auth.local.username', '_id', 'preferences.pushNotifications', 'pushDevices'])
       .lean()
       .exec();
     members.forEach((member) => {
@@ -18,5 +19,5 @@ export async function highlightMentions (text) {
       text = text.replace(new RegExp(`@${username}(?![\\-\\w])`, 'g'), `[@${username}](/profile/${member._id})`);
     });
   }
-  return [text, mentions];
+  return [text, mentions, members];
 }

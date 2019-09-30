@@ -20,6 +20,7 @@ import { getMatchesByWordArray } from '../../libs/stringUtils';
 import bannedSlurs from '../../libs/bannedSlurs';
 import apiError from '../../libs/apiError';
 import {highlightMentions} from '../../libs/highlightMentions';
+import {sendNotification} from '../../libs/pushNotifications';
 
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
   return { email, canSend: true };
@@ -183,7 +184,7 @@ api.postChat = {
       throw new NotAuthorized(res.t('messageGroupChatSpam'));
     }
 
-    const [message, mentions] = await highlightMentions(req.body.message);
+    const [message, mentions, mentionedMembers] = await highlightMentions(req.body.message);
     let client = req.headers['x-client'] || '3rd Party';
     if (client) {
       client = client.replace('habitica-', '');
@@ -192,7 +193,6 @@ api.postChat = {
     let flagCount = 0;
     if (group.privacy === 'public' && user.flags.chatShadowMuted) {
       flagCount = common.constants.CHAT_FLAG_FROM_SHADOW_MUTE;
-      let message = req.body.message;
 
       // Email the mods
       let authorEmail = getUserInfo(user, ['email']).email;
@@ -231,6 +231,29 @@ api.postChat = {
       user.party.lastMessageSeen = newChatMessage.id;
       toSave.push(user.save());
     }
+
+    mentionedMembers.forEach((member) => {
+      if (member._id === user._id) return;
+      const pushNotifPrefs = member.preferences.pushNotifications;
+      if (group.type === 'party') {
+        if (pushNotifPrefs.mentionParty !== true) {
+          return;
+        }
+      } else if (member.guilds.contains(group._id)) {
+        if (pushNotifPrefs.mentionJoinedGuild !== true) {
+          return;
+        }
+      } else {
+        if (group.privacy !== 'public') {
+          return;
+        }
+        if (pushNotifPrefs.mentionUnjoinedGuild !== true) {
+          return;
+        }
+      }
+      sendNotification(member, {identifier: 'chatMention', title: `${user.profile.name} mentioned you in ${group.name}`, message: req.body.message});
+    });
+
 
     await Promise.all(toSave);
 
