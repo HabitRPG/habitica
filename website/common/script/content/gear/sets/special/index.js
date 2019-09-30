@@ -1257,6 +1257,13 @@ let armor = {
     value: 90,
     con: 15,
   },
+  ks2019: {
+    text: t('armorSpecialKS2019Text'),
+    notes: t('armorSpecialKS2019Notes', { con: 20 }),
+    value: 0,
+    con: 20,
+    canOwn: ownsItem('armor_special_ks2019'),
+  },
 };
 
 let back = {
@@ -1601,6 +1608,12 @@ let eyewear = {
     text: t('eyewearSpecialFall2019HealerText'),
     notes: t('eyewearSpecialFall2019HealerNotes'),
     value: 20,
+  },
+  ks2019: {
+    text: t('eyewearSpecialKS2019Text'),
+    notes: t('eyewearSpecialKS2019Notes'),
+    value: 0,
+    canOwn: ownsItem('eyewear_special_ks2019'),
   },
 };
 
@@ -2865,6 +2878,13 @@ let head = {
     value: 60,
     int: 7,
   },
+  ks2019: {
+    text: t('headSpecialKS2019Text'),
+    notes: t('headSpecialKS2019Notes', { int: 20 }),
+    value: 0,
+    int: 20,
+    canOwn: ownsItem('head_special_ks2019'),
+  },
 };
 
 let headAccessory = {
@@ -4078,6 +4098,13 @@ let shield = {
     notes: t('shieldSpecialFall2019HealerNotes', { con: 9 }),
     value: 70,
     con: 9,
+  },
+  ks2019: {
+    text: t('shieldSpecialKS2019Text'),
+    notes: t('shieldSpecialKS2019Notes', { per: 20 }),
+    value: 0,
+    per: 20,
+    canOwn: ownsItem('shield_special_ks2019'),
   },
 };
 
@@ -5331,6 +5358,13 @@ let weapon = {
     notes: t('weaponSpecialFall2019HealerNotes', { int: 9 }),
     value: 90,
     int: 9,
+  },
+  ks2019: {
+    text: t('weaponSpecialKS2019Text'),
+    notes: t('weaponSpecialKS2019Notes', { str: 20 }),
+    value: 0,
+    str: 20,
+    canOwn: ownsItem('weapon_special_ks2019'),
   },
 };
 
