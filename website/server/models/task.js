@@ -177,6 +177,31 @@ TaskSchema.statics.findByIdOrAlias = async function findByIdOrAlias (identifier,
   return task;
 };
 
+TaskSchema.statics.findMultipleByIdOrAlias = async function findByIdOrAlias (identifiers, userId, additionalQueries = {}) {
+  // not using i18n strings because these errors are meant for devs who forgot to pass some parameters
+  if (!identifiers) throw new InternalServerError('Task identifier is a required argument');
+  if (!userId) throw new InternalServerError('User identifier is a required argument');
+
+  let query = _.cloneDeep(additionalQueries);
+  query.userId = userId;
+  let ids = [];
+  let aliases = [];
+  identifiers.forEach(identifier => {
+    if (validator.isUUID(String(identifier))) {
+      ids.push(identifier);
+    } else {
+      aliases.push(identifier);
+    }
+  });
+  query.$or = [
+    {_id: {$in: ids}},
+    {alias: {$in: aliases}},
+  ];
+  let task = await this.find(query).exec();
+
+  return task;
+};
+
 // Sanitize user tasks linked to a challenge
 // See http://habitica.fandom.com/wiki/Challenges#Challenge_Participant.27s_Permissions for more info
 TaskSchema.statics.sanitizeUserChallengeTask = function sanitizeUserChallengeTask (taskObj) {

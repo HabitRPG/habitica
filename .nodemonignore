@@ -18,3 +18,4 @@ newrelic_agent.log
 *.swp
 *.swx
 website/raw_sprites/**
+content_cache/**
