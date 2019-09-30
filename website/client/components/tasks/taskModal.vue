@@ -1,6 +1,6 @@
 <template lang="pug">
   b-modal#task-modal(v-bind:no-close-on-esc="showTagsSelect", v-bind:no-close-on-backdrop="showTagsSelect", size="sm", @hidden="onClose()", @show="handleOpen()", @shown="focusInput()")
-    .task-modal-header(slot="modal-header", :class="cssClass('bg')", @click="handleClick($event)")
+    .task-modal-header(slot="modal-header", :class="cssClass('bg')", @click="handleClick($event)", v-if="task")
       .clearfix
         h1.float-left {{ title }}
         .float-right.d-flex.align-items-center

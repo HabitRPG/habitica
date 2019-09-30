@@ -253,6 +253,10 @@
   "questEggDolphinMountText": "Dolphin",
   "questEggDolphinAdjective": "a chipper",
 
+  "questEggRobotText": "Robot",
+  "questEggRobotMountText": "Robot",
+  "questEggRobotAdjective": "a futuristic",
+
   "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
 
   "hatchingPotionBase": "Base",
@@ -290,9 +294,10 @@
   "hatchingPotionBronze": "Bronze",
   "hatchingPotionWatery": "Watery",
   "hatchingPotionSilver": "Silver",
+  "hatchingPotionShadow": "Shadow",
 
   "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%= potText(locale) %> pet.",
-  "premiumPotionAddlNotes": "Not usable on quest pet eggs.",
+  "premiumPotionAddlNotes": "Not usable on quest pet eggs. Available for purchase until <%= date(locale) %>.",
 
   "foodMeat": "Meat",
   "foodMeatThe": "the Meat",

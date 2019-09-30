@@ -1,5 +1,4 @@
 import {mapInboxMessage, inboxModel as Inbox} from '../../models/message';
-import orderBy from 'lodash/orderBy';
 import {getUserInfo, sendTxn as sendTxnEmail} from '../email';
 import {sendNotification as sendPushNotification} from '../pushNotifications';
 
@@ -18,8 +17,8 @@ export async function sentMessage (sender, receiver, message, translate) {
     sendPushNotification(
       receiver,
       {
-        title: translate('newPM', receiver.preferences.language),
-        message: translate('newPMInfo', {name: getUserInfo(sender, ['name']).name, message}, receiver.preferences.language),
+        title: translate('newPMNotificationTitle', {name: getUserInfo(sender, ['name']).name}, receiver.preferences.language),
+        message,
         identifier: 'newPM',
         category: 'newPM',
         payload: {replyTo: sender._id},
@@ -75,7 +74,37 @@ export async function getUserInbox (user, options = {asArray: true, page: 0, con
   }
 }
 
+async function usersMapByConversations (owner, users) {
+  let query = Inbox
+    .aggregate([
+      {
+        $match: {
+          ownerId: owner._id,
+          uuid: { $in: users },
+        },
+      },
+      {
+        $group: {
+          _id: '$uuid',
+          userStyles: {$last: '$userStyles'},
+          contributor: {$last: '$contributor'},
+        },
+      },
+    ]);
+
+
+  const usersAr = await query.exec();
+  const usersMap = {};
+
+  for (const usr of usersAr) {
+    usersMap[usr._id] = usr;
+  }
+
+  return usersMap;
+}
+
 export async function listConversations (owner) {
+  // group messages by user owned by logged-in user
   let query = Inbox
     .aggregate([
       {
@@ -86,20 +115,28 @@ export async function listConversations (owner) {
       {
         $group: {
           _id: '$uuid',
-          user: {$first: '$user' },
-          username: {$first: '$username' },
-          timestamp: {$max: '$timestamp'}, // sort before group doesn't work - use the max value to sort it again after
+          user: {$last: '$user' },
+          username: {$last: '$username' },
+          timestamp: {$last: '$timestamp'},
+          text: {$last: '$text'},
+          count: {$sum: 1},
         },
       },
+      { $sort: {timestamp: -1}}, // sort by latest message
     ]);
 
-  const conversationsList = orderBy(await query.exec(), ['timestamp'], ['desc']);
+  const conversationsList = await query.exec();
 
-  const conversations = conversationsList.map(({_id, user, username, timestamp}) => ({
-    uuid: _id,
-    user,
-    username,
-    timestamp,
+  const userIdList = conversationsList.map(c => c._id);
+
+  // get user-info based on conversations
+  const usersMap = await usersMapByConversations(owner, userIdList);
+
+  const conversations = conversationsList.map((res) => ({
+    uuid: res._id,
+    ...res,
+    userStyles: usersMap[res._id].userStyles,
+    contributor: usersMap[res._id].contributor,
   }));
 
   return conversations;

@@ -1,0 +1,17 @@
+{
+    "lostAllHealth": "Sinulta loppui terveys!",
+    "dontDespair": "Älä vaivu epätoivoon!",
+    "deathPenaltyDetails": "Sinä menetit tason, kultasi ja yhden varusteen, mutta sinä voit saada ne takaisin kovalla työllä! Onnea yritykseen--sinä pärjäät kyllä.",
+    "refillHealthTryAgain": "Täytä terveys & yritä uudestaan",
+    "dyingOftenTips": "Tapahtuuko tätä usein? <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>Lue täältä vinkkejä!</a>",
+    "losingHealthWarning": "Varovasti - menetät terveyttä!",
+    "losingHealthWarning2": "Älä anna terveytesi pudota nollaan! Jos niin käy, menetät tason, kultasi ja varusteen",
+    "toRegainHealth": "Saadaksesi terveyttä takaisin:",
+    "lowHealthTips1": "Saavuta uusi taso saadaksesi täyden terveyden!",
+    "lowHealthTips2": "Osta terveysjuoma palkinnot-osiosta palauttaaksesi 15 terveyspistettä.",
+    "losingHealthQuickly": "Menetätkö terveyttä nopeasti?",
+    "lowHealthTips3": "Tekemättömät päivittäiset tehtävät satuttavat sinua yön aikana, joten ole varovainen äläkä tee niitä liian paljon aluksi!",
+    "lowHealthTips4": "Jos päivittäinen tehtävä ei eräänny tiettyyn päivään mennessä, voit poistaa sen käytöstä klikkaamalla kynän kynäikonia.",
+    "goodLuck": "Onnea matkaan!",
+    "cannotRevive": "Henkiinherättäminen ei onnistu ellei ole kuollut."
+}

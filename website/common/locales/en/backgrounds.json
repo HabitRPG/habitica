@@ -521,5 +521,13 @@
   "backgroundGiantDandelionsText": "Giant Dandelions",
   "backgroundGiantDandelionsNotes": "Dally among Giant Dandelions.",
   "backgroundTreehouseText": "Treehouse",
-  "backgroundTreehouseNotes": "Hang out in an arboreal hideaway all to yourself, in your very own Treehouse."
+  "backgroundTreehouseNotes": "Hang out in an arboreal hideaway all to yourself, in your very own Treehouse.",
+
+  "backgrounds092019": "SET 64: Released September 2019",
+  "backgroundAutumnFlowerGardenText": "Autumn Flower Garden",
+  "backgroundAutumnFlowerGardenNotes": "Take in the warmth of an Autumn Flower Garden.",
+  "backgroundInAnAncientTombText": "Ancient Tomb",
+  "backgroundInAnAncientTombNotes": "Brave the mysteries of an Ancient Tomb.",
+  "backgroundInAClassroomText": "Classroom",
+  "backgroundInAClassroomNotes": "Absorb knowledge from your mentors in a Classroom."
 }

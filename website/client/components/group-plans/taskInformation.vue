@@ -41,6 +41,7 @@
       :type="column",
       :key="column",
       :taskListOverride='tasksByType[column]',
+      :showOptions="showOptions"
       v-on:editTask="editTask",
       v-on:loadGroupCompletedTodos="loadGroupCompletedTodos",
       v-on:taskDestroyed="taskDestroyed",
@@ -176,6 +177,9 @@ export default {
       if (!this.group) return false;
       return this.group.leader && this.group.leader._id === this.user._id || this.group.managers && Boolean(this.group.managers[this.user._id]);
     },
+    showOptions () {
+      return this.canCreateTasks;
+    },
   },
   methods: {
     async load () {
@@ -205,8 +209,6 @@ export default {
       });
     },
     async loadApprovals () {
-      if (this.group.leader._id !== this.user._id) return [];
-
       let approvalRequests = await this.$store.dispatch('tasks:getGroupApprovals', {
         groupId: this.searchId,
       });

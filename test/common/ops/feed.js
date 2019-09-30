@@ -187,6 +187,24 @@ describe('shared.ops.feed', () => {
       expect(user.achievements.allYourBase).to.eql(true);
     });
 
+    it('awards Arid Authority achievement', () => {
+      user.items.pets['Wolf-Spooky'] = 5;
+      user.items.food.Milk = 2;
+      user.items.mounts = {
+        'Wolf-Desert': true,
+        'TigerCub-Desert': true,
+        'PandaCub-Desert': true,
+        'LionCub-Desert': true,
+        'Fox-Desert': true,
+        'FlyingPig-Desert': true,
+        'Dragon-Desert': true,
+        'Cactus-Desert': true,
+        'BearCub-Desert': true,
+      };
+      feed(user, {params: {pet: 'Wolf-Spooky', food: 'Milk'}});
+      expect(user.achievements.aridAuthority).to.eql(true);
+    });
+
     it('evolves the pet into a mount when feeding user.items.pets[pet] >= 50', () => {
       user.items.pets['Wolf-Base'] = 49;
       user.items.food.Milk = 2;

@@ -323,8 +323,8 @@
     "foodPieCottonCandyPinkThe": "a Torta de Ruibarbo Rosa",
     "foodPieCottonCandyPinkA": "uma fatia de Torta de Ruibarbo Rosa",
     "foodPieShade": "Torta de Chocolate Preto",
-    "foodPieShadeThe": "a Torta de Chocolate Preto",
-    "foodPieShadeA": "uma fatia de Torta de Chocolate Preto",
+    "foodPieShadeThe": "a Torta de Chocolate",
+    "foodPieShadeA": "uma fatia de Torta de Chocolate",
     "foodPieWhite": "Torta de Pudim de Baunilha",
     "foodPieWhiteThe": "a Torta de Pudim de Baunilha",
     "foodPieWhiteA": "uma fatia de Torta de Pudim de Baunilha",
@@ -339,5 +339,15 @@
     "foodPieDesertA": "uma fatia de Torta Sobremesa do Deserto",
     "foodPieRed": "Torta de Cereja Vermelha",
     "foodPieRedThe": "a Torta de Cereja Vermelha",
-    "foodPieRedA": "uma fatia de Torta de Cereja Vermelha"
+    "foodPieRedA": "uma fatia de Torta de Cereja Vermelha",
+    "hatchingPotionWatery": "Aquosa",
+    "questEggRobotMountText": "Robô",
+    "hatchingPotionSilver": "Prata",
+    "hatchingPotionBronze": "Bronze",
+    "hatchingPotionSunshine": "raio de sol",
+    "questEggRobotAdjective": "futurista",
+    "questEggDolphinAdjective": "animado",
+    "questEggDolphinText": "Golfinho",
+    "questEggRobotText": "Robô",
+    "questEggDolphinMountText": "Golfinho"
 }

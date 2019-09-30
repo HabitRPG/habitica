@@ -112,7 +112,7 @@
   // Condensed version
   .member-details.condensed.expanded {
     background: $header-dark-background;
-    box-shadow: 0 0 0px 9px $header-dark-background;
+    box-shadow: 0 0 0px 8px $header-dark-background;
     position: relative;
     z-index: 8;
 
@@ -125,7 +125,7 @@
       position: absolute;
       right: 100%;
       height: calc(100% + 18px);
-      margin-top: -9px;
+      margin-top: -10px;
       margin-right: 1px;
       padding-top: 9px;
       padding-bottom: 24px;

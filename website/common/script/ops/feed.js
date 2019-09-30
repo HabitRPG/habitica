@@ -1,7 +1,10 @@
 import content from '../content/index';
 import i18n from '../i18n';
+import forEach from 'lodash/forEach';
 import findIndex from 'lodash/findIndex';
 import get from 'lodash/get';
+import keys from 'lodash/keys';
+import upperFirst from 'lodash/upperFirst';
 import {
   BadRequest,
   NotAuthorized,
@@ -90,21 +93,24 @@ module.exports = function feed (user, req = {}) {
   user.items.food[food.key]--;
   if (user.markModified) user.markModified('items.food');
 
-  if (!user.achievements.allYourBase) {
-    const mountIndex = findIndex(content.basePetsMounts, (animal) => {
-      return !user.items.mounts[animal];
-    });
-    if (mountIndex === -1) {
-      user.achievements.allYourBase = true;
-      if (user.addNotification) {
-        user.addNotification('ACHIEVEMENT_ALL_YOUR_BASE', {
-          achievement: 'allYourBase',
-          message: `${i18n.t('modalAchievement')} ${i18n.t('achievementAllYourBase')}`,
-          modalText: i18n.t('achievementAllYourBaseModalText'),
-        });
+  forEach(content.animalColorAchievements, (achievement) => {
+    if (!user.achievements[achievement.mountAchievement]) {
+      const mountIndex = findIndex(keys(content.dropEggs), (animal) => {
+        return !user.items.mounts[`${animal}-${achievement.color}`];
+      });
+      if (mountIndex === -1) {
+        user.achievements[achievement.mountAchievement] = true;
+        if (user.addNotification) {
+          const achievementString = `achievement${upperFirst(achievement.mountAchievement)}`;
+          user.addNotification(achievement.mountNotificationType, {
+            achievement: achievement.mountAchievement,
+            message: `${i18n.t('modalAchievement')} ${i18n.t(achievementString)}`,
+            modalText: i18n.t(`${achievementString}ModalText`),
+          });
+        }
       }
     }
-  }
+  });
 
   return [
     userPets[pet.key],
