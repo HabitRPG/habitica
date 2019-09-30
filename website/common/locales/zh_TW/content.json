@@ -212,7 +212,7 @@
     "hatchingPotionFrost": "冰霜",
     "hatchingPotionIcySnow": "冰雪",
     "hatchingPotionNotes": "將它倒在寵物蛋上即可孵化出一隻<%= potText(locale) %>寵物。",
-    "premiumPotionAddlNotes": "無法用於副本寵物蛋。",
+    "premiumPotionAddlNotes": "無法用於副本寵物蛋。在<%= date(locale) %>前仍可購買。",
     "foodMeat": "肉",
     "foodMeatThe": "肉",
     "foodMeatA": "肉",
@@ -349,5 +349,6 @@
     "hatchingPotionSilver": "白銀",
     "questEggRobotAdjective": "一個新潮的",
     "questEggRobotMountText": "機器人",
-    "questEggRobotText": "機器人"
+    "questEggRobotText": "機器人",
+    "hatchingPotionShadow": "陰影"
 }

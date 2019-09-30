@@ -1905,5 +1905,20 @@
     "weaponArmoireResplendentRapierText": "Prachtvolles Prunk-Rapier",
     "weaponArmoireFloridFanNotes": "Dieser blumige Seidenfächer lässt sich bei Nichtgebrauch zusammenklappen, Erhöht Ausdauer um <%= con %>. Verzauberter Schrank: Unabhängiger Gegenstand.",
     "shieldArmoirePolishedPocketwatchNotes": "Mit der Taschenuhr hast Du die Zeit immer im Blick. Und sie sieht echt gut aus an Dir. Erhöht Intelligenz um <%= int %>. Verzauberter Schrank: Unabhängiger Gegenstand.",
-    "shieldArmoirePolishedPocketwatchText": "Total polierte Taschenuhr"
+    "shieldArmoirePolishedPocketwatchText": "Total polierte Taschenuhr",
+    "weaponSpecialFall2019MageText": "Einäugiger Stab",
+    "weaponSpecialFall2019WarriorNotes": "Mach Dich bereit, Deine Gegner mit den Krallen eines Raben zu reißen! Erhöht Stärke um <%= str %>. Limitierte Ausgabe 2019 Herbstausrüstung.",
+    "weaponSpecialFall2019WarriorText": "Krallen Kriegsgabel",
+    "weaponSpecialFall2019RogueNotes": "Ob Du ein Orchester dirigierst oder eine Arie singst, dieses Hilfsmittel hält Deine Hände frei für dramatische Gesten! Erhöht Stärke um <%= str %>. Limitierte Ausgabe 2019 Herbstausrüstung.",
+    "weaponSpecialFall2019RogueText": "Notenständer",
+    "headSpecialFall2019RogueNotes": "Hast Du diese Kopfbedeckung in einer Auktion vermeintlich verwünschter Kostümstücke oder auf dem Speicher eines extentrischen Großelternteils gefunden? Welchen Ursprungs auch immer, ihr Alter und ihre Abnutzung tragen zu Deiner mystischen Aura bei. Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe 2019 Herbstausrüstung.",
+    "headSpecialFall2019RogueText": "Antiker Opernhut",
+    "armorMystery201909Notes": "Deine robuste Außenschale ist schützend, aber es ist angeraten nach Eichhörnchen Aussachu zu halten... Gewährt keinen Attributionsbonus. Abonnentengegenstand, September 2019.",
+    "armorMystery201909Text": "Affabler Eichelanzug",
+    "armorSpecialFall2019HealerNotes": "Es heißt, diese Robe sei aus reiner Nacht gemacht. Nutze die dunkle Macht weise! Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2019 Herbstausrüstung.",
+    "armorSpecialFall2019HealerText": "Robe der Dunkelheit",
+    "armorSpecialFall2019WarriorText": "Schwingen der Nacht",
+    "armorSpecialFall2019RogueText": "Opernkutte mit Kapuze",
+    "weaponSpecialFall2019HealerText": "Furchterregendes Phylakterium",
+    "weaponSpecialFall2019MageNotes": "Sei es die Beschwörung von Blitz und Donner, das Hochziehen von Barrikaden oder schlichtweg die Verbreitung von Angst und Schrecken unter den Sterblichen, dieser Stab verleiht Dir die Kraft der Giganten, um Wunder zu bewirken. Erhöht Intelligenz um <%= int %> und Wahrnehmung um <%= per %>. Limitierte Ausgabe 2019 Herbstausrüstung."
 }
