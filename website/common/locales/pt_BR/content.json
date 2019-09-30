@@ -212,7 +212,7 @@
     "hatchingPotionFrost": "Geada",
     "hatchingPotionIcySnow": "Neve Gelada",
     "hatchingPotionNotes": "Use-a em um ovo e ele chocará como um mascote <%= potText(locale) %>.",
-    "premiumPotionAddlNotes": "Não utilizável em ovos de mascote de missões.",
+    "premiumPotionAddlNotes": "Não utilizável em ovos de mascote de missões. Disponível para compra até <%= date(locale) %>.",
     "foodMeat": "Carne",
     "foodMeatThe": "a Carne",
     "foodMeatA": "Carne",
@@ -344,10 +344,11 @@
     "questEggRobotMountText": "Robô",
     "hatchingPotionSilver": "Prata",
     "hatchingPotionBronze": "Bronze",
-    "hatchingPotionSunshine": "raio de sol",
+    "hatchingPotionSunshine": "Raio solar",
     "questEggRobotAdjective": "futurista",
     "questEggDolphinAdjective": "animado",
     "questEggDolphinText": "Golfinho",
     "questEggRobotText": "Robô",
-    "questEggDolphinMountText": "Golfinho"
+    "questEggDolphinMountText": "Golfinho",
+    "hatchingPotionShadow": "Sombra"
 }

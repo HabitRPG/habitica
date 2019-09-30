@@ -315,5 +315,9 @@
     "hatchingPotionSunshine": "Raggio di Sole",
     "hatchingPotionBronze": "Bronzo",
     "hatchingPotionWatery": "Acquoso",
-    "hatchingPotionSilver": "Argento"
+    "hatchingPotionSilver": "Argento",
+    "questEggRobotAdjective": "un futuristico",
+    "questEggRobotMountText": "Robot",
+    "questEggRobotText": "Robot",
+    "questEggDolphinAdjective": "un allegro"
 }
