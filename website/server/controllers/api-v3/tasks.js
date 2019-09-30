@@ -539,7 +539,7 @@ api.updateTask = {
  */
 api.scoreTask = {
   method: 'POST',
-  url: '/tasks/:taskId/score/:direction',
+  url: '/tasks/:taskId/score/:direction/:yesterdaily?',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('direction', res.t('directionUpDown')).notEmpty().isIn(['up', 'down']);
@@ -554,6 +554,7 @@ api.scoreTask = {
 
     let userStats = user.stats.toJSON();
     let resJsonData = _.assign({delta: data.taskResponses[0].delta, _tmp: data.taskResponses[0]._tmp}, userStats);
+
     res.respond(200, resJsonData);
   },
 };

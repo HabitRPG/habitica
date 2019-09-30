@@ -9,6 +9,7 @@ import i18n from '../i18n';
 import updateStats from '../fns/updateStats';
 import crit from '../fns/crit';
 import statsComputed from '../libs/statsComputed';
+import {sanitizeOptions, startOfDay} from '../cron';
 
 const MAX_TASK_VALUE = 21.27;
 const MIN_TASK_VALUE = -47.27;
@@ -277,22 +278,38 @@ module.exports = function scoreTask (options = {}, req = {}) {
         task.completed = true;
 
         // Save history entry for daily
+        // If this is a yesterDaily being scored from the RYA dialog, set the date to the last minute of the user's "yesterday"
+        let dateScored = task.yesterDailyScored ? startOfDay(user.preferences).subtract(1, 'minute') : moment();
         task.history = task.history || [];
         let historyEntry = {
-          date: Number(new Date()),
+          date: Number(new Date(dateScored)),
           value: task.value,
         };
         task.history.push(historyEntry);
       } else if (direction === 'down') {
+        // Delete history entry when daily unchecked
+        if (task.history && task.history.length > 0) {
+          // @REVIEW Don't remove entries not from user's "today", in case this is a (single) completion shared daily completed by someone else
+          let historyEntry = task.history.pop();
+          if (task.group && task.group.sharedCompletion && task.group.sharedCompletion === 'singleCompletion' && historyEntry.date) {
+            // This Daily could have been completed "today" by someone else.
+            // Since this function runs on the client, as well as the server, let's make assumptions and keep things simple
+            // Otherwise we have to load the Master Task and check who did what when
+            let o = sanitizeOptions(user.preferences);
+            let startOfDayWithCDSTime = startOfDay(o);
+            if (moment(historyEntry.date).isBefore(startOfDayWithCDSTime)) {
+              // This Daily was completed by us before "today"
+              // It was probably completed "today" by someone else
+              task.history.push(historyEntry);
+              throw new NotAuthorized(i18n.t('messageOtherAssigneeCompleted', req.language));
+            }
+          }
+        }
+
         // Remove a streak achievement if streak was a multiple of 21 and the daily was undone
         if (task.streak !== 0 && task.streak % 21 === 0) user.achievements.streak = user.achievements.streak ? user.achievements.streak - 1 : 0;
         task.streak -= 1;
         task.completed = false;
-
-        // Delete history entry when daily unchecked
-        if (task.history || task.history.length > 0) {
-          task.history.splice(-1, 1);
-        }
       }
     }
   } else if (task.type === 'todo') {

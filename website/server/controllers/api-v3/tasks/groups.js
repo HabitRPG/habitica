@@ -223,7 +223,7 @@ api.assignTask = {
       });
     }
 
-    promises.push(group.syncTask(task, assignedUser));
+    promises.push(group.linkTask(task, assignedUser));
     promises.push(group.save());
     await Promise.all(promises);
 

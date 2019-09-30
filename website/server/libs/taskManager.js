@@ -258,7 +258,7 @@ export async function getTasks (req, res, options = {}) {
 export function syncableAttrs (task) {
   let t = task.toObject(); // lodash doesn't seem to like _.omit on Document
   // only sync/compare important attrs
-  let omitAttrs = ['_id', 'userId', 'challenge', 'history', 'tags', 'completed', 'streak', 'notes', 'updatedAt', 'createdAt', 'group', 'checklist', 'attribute'];
+  let omitAttrs = ['_id', '__v', 'userId', 'challenge', 'history', 'tags', 'completed', 'streak', 'notes', 'updatedAt', 'createdAt', 'group', 'checklist', 'attribute'];
   if (t.type !== 'reward') omitAttrs.push('value');
   return _.omit(t, omitAttrs);
 }
@@ -307,6 +307,11 @@ async function scoreTask (user, task, direction, req, res) {
     } else if (!task.completed && direction === 'down') {
       throw new NotAuthorized(res.t('sessionOutdated'));
     }
+  }
+
+  // Set whether we're scoring a yesterdaily from the RYA dialog
+  if (req.params.yesterdaily && req.params.yesterdaily === 'yesterdaily') {
+    task.yesterDailyScored = true;
   }
 
   if (task.group.approval.required && !task.group.approval.approved) {

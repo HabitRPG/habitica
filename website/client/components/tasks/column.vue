@@ -613,9 +613,10 @@ export default {
     filterByLabel (taskList, filter) {
       if (!taskList) return [];
       return taskList.filter(task => {
+        if (filter === 'all') return true;
         if (filter === 'complete2') return task.completed;
-        if (filter === 'due') return task.isDue;
-        if (filter === 'notDue') return !task.isDue;
+        if (filter === 'due') return !task.completed && task.isDue;
+        if (filter === 'notDue') return task.completed || !task.isDue;
         return !task.completed;
       });
     },
