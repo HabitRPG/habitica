@@ -39,6 +39,7 @@ import amazonPayments from '../libs/payments/amazon';
 import stripePayments from '../libs/payments/stripe';
 import { getGroupChat, translateMessage } from '../libs/chat/group-chat';
 import { model as UserNotification } from './userNotification';
+import { sendChatPushNotifications } from '../libs/chat';
 
 const questScrolls = shared.content.quests;
 const questSeriesAchievements = shared.content.questSeriesAchievements;
@@ -512,7 +513,7 @@ schema.methods.getMemberCount = async function getMemberCount () {
 };
 
 schema.methods.sendChat = function sendChat (options = {}) {
-  const {message, user, metaData, client, flagCount = 0, info = {}} = options;
+  const {message, user, metaData, client, flagCount = 0, info = {}, translate} = options;
   let newMessage = messageDefaults(message, user, client, flagCount, info);
   let newChatMessage = new Chat();
   newChatMessage = Object.assign(newChatMessage, newMessage);
@@ -573,6 +574,10 @@ schema.methods.sendChat = function sendChat (options = {}) {
   User.update(query, lastSeenUpdateRemoveOld, {multi: true}).exec().then(() => {
     User.update(query, lastSeenUpdateAddNew, {multi: true}).exec();
   });
+
+  if (this.type === 'party' && user) {
+    sendChatPushNotifications(user, this, newChatMessage, translate);
+  }
 
   return newChatMessage;
 };
