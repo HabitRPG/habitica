@@ -104,7 +104,7 @@
         }
 
         .side-panel, .right-sidebar {
-          margin: 20px 0 0 0;
+          margin: 20px 0 0;
           position: static;
           box-shadow: none;
           height: auto;
@@ -114,7 +114,7 @@
           left: 0;
 
           .questRewards {
-            padding: 0 2em 2em 2em;
+            padding: 0 2em 2em;
             width: 100%;
             z-index: 0;
           }
@@ -137,7 +137,7 @@
   .modal-header {
     justify-content: center;
     padding-top: 24px;
-    padding-bottom: 0px;
+    padding-bottom: 0;
     border-top-right-radius: 8px;
     border-top-left-radius: 8px;
     border-bottom: none;

@@ -1,7 +1,7 @@
 @import '~client/assets/scss/colors.scss';
 
 .container-fluid.static-view {
-  margin: 5em 2em 0 2em;
+  margin: 5em 2em 0;
 }
 
 .static-view {
@@ -27,6 +27,6 @@
   }
 
   .center-block {
-    margin: 0 auto 1em auto;
+    margin: 0 auto 1em;
   }
 }

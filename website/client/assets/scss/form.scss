@@ -85,8 +85,8 @@ input, textarea, input.form-control, textarea.form-control {
     &.input-group-icon {
       border: solid 1px $gray-400;
       border-right: none;
-      border-top-right-radius: 0px;
-      border-bottom-right-radius: 0px;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
     }
 
     &.streak-addon .svg-icon {
@@ -98,7 +98,7 @@ input, textarea, input.form-control, textarea.form-control {
     &.positive-addon .svg-icon {
       width: 10px;
       height: 10px;
-      margin: 14px 14px;
+      margin: 14px;
     }
 
     &.negative-addon .svg-icon {
@@ -119,7 +119,7 @@ input, textarea, input.form-control, textarea.form-control {
 
 .form-check {
   margin-bottom: 0.5rem;
-  padding-left: 0px;
+  padding-left: 0;
 }
 
 // Checkboxes and radios
@@ -207,8 +207,8 @@ $bg-disabled-control: #34303a;
 }
 
 .inline-edit-input {
-  margin-bottom: 0px;
-  border-radius: 0px;
+  margin-bottom: 0;
+  border-radius: 0;
   border: none !important;
   padding-left: 36px;
 }
