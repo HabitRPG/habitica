@@ -20,7 +20,6 @@ import { getMatchesByWordArray } from '../../libs/stringUtils';
 import bannedSlurs from '../../libs/bannedSlurs';
 import apiError from '../../libs/apiError';
 import {highlightMentions} from '../../libs/highlightMentions';
-import {sendNotification} from '../../libs/pushNotifications';
 
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
   return { email, canSend: true };
