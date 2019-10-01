@@ -179,16 +179,28 @@ const NOTIFICATIONS = {
     achievement: true,
     label: ($t) => `${$t('achievement')}: ${$t('beastAchievement')}`,
     modalId: 'generic-achievement',
+    data: {
+      message: ($t) => $t('achievement'),
+      modalText: ($t) => $t('mountAchievement')
+    }
   },
   ACHIEVEMENT_MOUNT_MASTER: {
     achievement: true,
     label: ($t) => `${$t('achievement')}: ${$t('mountAchievement')}`,
     modalId: 'generic-achievement',
+    data: {
+      message: ($t) => $t('achievement'),
+      modalText: ($t) => $t('mountAchievement')
+    }
   },
   ACHIEVEMENT_TRIAD_BINGO: {
     achievement: true,
     label: ($t) => `${$t('achievement')}: ${$t('triadBingoAchievement')}`,
     modalId: 'generic-achievement',
+    data: {
+      message: ($t) => $t('achievement'),
+      modalText: ($t) => $t('triadBingoAchievement')
+    },
   },
 };
 
@@ -397,21 +409,30 @@ export default {
       if (!config) {
         return;
       }
-
       if (config.achievement) {
         this.playSound('Achievement_Unlocked');
       } else if (config.sound) {
         this.playSound(config.sound);
       }
 
+      let data = {}
       if (notification.data) {
-        this.notificationData = notification.data;
+        data = notification.data;
       }
 
+      if (!data.modalText && config.data.modalText) {
+        data.modalText = config.data.modalText(this.$t)
+      }
+      if (!data.message && config.data.message) {
+        data.message = config.data.message(this.$t)
+      }
+
+      this.notificationData = data;
       if (forceToModal) {
         this.$root.$emit('bv::show::modal', config.modalId);
       } else {
         this.text(config.label(this.$t), () => {
+          this.notificationData = data
           this.$root.$emit('bv::show::modal', config.modalId);
         }, false);
       }
