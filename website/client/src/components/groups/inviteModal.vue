@@ -110,6 +110,7 @@
           return invite.text.length > 0 && !invite.valid;
         });
         if (filteredInvites.length > 0) return true;
+        return false;
       },
       inviter () {
         return this.user.profile.name;

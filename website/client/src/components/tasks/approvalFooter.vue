@@ -79,18 +79,21 @@ export default {
         return this.$t('assignedToYouAndMembers', {userCount: assignedUsersLength - 1});
       } else if (this.userIsAssigned) {
         return this.$t('youAreAssigned');
-      } else if (assignedUsersLength === 0) {
+      } else { // if (assignedUsersLength === 0) {
         return this.$t('taskIsUnassigned');
       }
     },
     userIsManager () {
       if (this.group && (this.group.leader.id === this.user._id || this.group.managers[this.user._id])) return true;
+      return false;
     },
     approvalRequested () {
       if (this.task.approvals && this.task.approvals.length === 1 || this.task.group && this.task.group.approval && this.task.group.approval.requested) return true;
+      return false;
     },
     multipleApprovalsRequested () {
       if (this.task.approvals && this.task.approvals.length > 1) return true;
+      return false;
     },
   },
   methods: {

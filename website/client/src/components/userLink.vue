@@ -73,6 +73,8 @@
           return this.name;
         } else if (this.user && this.user.profile) {
           return this.user.profile.name;
+        } else {
+          return null;
         }
       },
       level () {
