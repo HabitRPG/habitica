@@ -108,7 +108,7 @@
 import { mapState } from '@/libs/store';
 import * as Analytics from '@/libs/analytics';
 
-import quests from 'common/script/content/quests';
+import quests from '@/../../common/script/content/quests';
 
 import copyIcon from '@/assets/svg/copy.svg';
 import greyBadgeIcon from '@/assets/svg/grey-badge.svg';

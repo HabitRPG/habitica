@@ -168,7 +168,7 @@ div(v-if='user.stats.lvl > 10')
 </style>
 
 <script>
-import spells from '../../../common/script/content/spells';
+import spells from '@/../../common/script/content/spells';
 
 import { mapState } from '@/libs/store';
 import notifications from '@/mixins/notifications';
@@ -177,7 +177,7 @@ import Drawer from '@/components/ui/drawer';
 import MouseMoveDirective from '@/directives/mouseposition.directive';
 
 import mana from '@/assets/svg/mana.svg';
-import quests from 'common/script/content/quests';
+import quests from '@/../../common/script/content/quests';
 import { CONSTANTS, setLocalSetting, getLocalSetting } from '@/libs/userlocalManager';
 
 export default {

@@ -277,7 +277,7 @@ import Vue from 'vue';
 import throttle from 'lodash/throttle';
 import cloneDeep from 'lodash/cloneDeep';
 import { mapState, mapActions } from '@/libs/store';
-import taskDefaults from 'common/script/libs/taskDefaults';
+import taskDefaults from '@/../../common/script/libs/taskDefaults';
 import brokenTaskModal from './brokenTaskModal';
 
 import Item from '@/components/inventory/item.vue';

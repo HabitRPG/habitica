@@ -344,9 +344,9 @@
 
   import svgPin from '@/assets/svg/pin.svg';
 
-  import shops from 'common/script/libs/shops';
+  import shops from '@/../../common/script/libs/shops';
 
-  import isPinned from 'common/script/libs/isPinned';
+  import isPinned from '@/../../common/script/libs/isPinned';
 
   import _filter from 'lodash/filter';
   import _sortBy from 'lodash/sortBy';

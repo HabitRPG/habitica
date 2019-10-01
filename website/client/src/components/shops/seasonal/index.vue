@@ -312,12 +312,12 @@
   import _groupBy from 'lodash/groupBy';
   import _reverse from 'lodash/reverse';
 
-  import isPinned from 'common/script/libs/isPinned';
-  import getOfficialPinnedItems from 'common/script/libs/getOfficialPinnedItems';
+  import isPinned from '@/../../common/script/libs/isPinned';
+  import getOfficialPinnedItems from '@/../../common/script/libs/getOfficialPinnedItems';
 
-  import i18n from 'common/script/i18n';
+  import i18n from '@/../../common/script/i18n';
 
-  import shops from 'common/script/libs/shops';
+  import shops from '@/../../common/script/libs/shops';
 
   export default {
     mixins: [buyMixin, currencyMixin, pinUtils],

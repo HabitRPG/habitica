@@ -1,4 +1,4 @@
-import { shouldDo } from 'common/script/cron';
+import { shouldDo } from '@/../../common/script/cron';
 
 // Library / Utility function
 import { orderSingleTypeTasks } from '@/libs/store/helpers/orderTasks.js';

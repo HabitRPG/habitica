@@ -14,7 +14,6 @@
     "aws-sdk": "^2.432.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",
-    "babel-loader": "^7.1.4",
     "babel-plugin-syntax-async-functions": "^6.13.0",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
@@ -30,7 +29,6 @@
     "cookie-session": "^1.3.3",
     "coupon-code": "^0.4.5",
     "cross-env": "^6.0.0",
-    "css-loader": "^0.28.11",
     "csv-stringify": "^5.1.0",
     "cwait": "^1.1.1",
     "domain-middleware": "~0.1.0",
@@ -74,7 +72,6 @@
     "pug": "^2.0.3",
     "regenerator-runtime": "^0.13.3",
     "rimraf": "^2.4.3",
-    "sass-loader": "^7.0.3",
     "shelljs": "^0.8.2",
     "short-uuid": "^3.0.0",
     "stripe": "^7.9.0",
@@ -92,12 +89,8 @@
     "validator": "^11.0.0",
     "vinyl-buffer": "^1.0.1",
     "vue": "^2.6.10",
-    "vue-loader": "^14.2.2",
     "vue-router": "^3.0.0",
-    "vue-style-loader": "^4.1.0",
     "vue-template-compiler": "^2.6.10",
-    "webpack": "^3.12.0",
-    "webpack-merge": "^4.1.3",
     "winston": "^2.4.3",
     "winston-loggly-bulk": "^2.0.2",
     "xml2js": "^0.4.4"
@@ -148,7 +141,6 @@
     "eslint-plugin-mocha": "^5.0.0",
     "eventsource-polyfill": "^0.9.6",
     "expect.js": "^0.3.1",
-    "http-proxy-middleware": "^0.20.0",
     "istanbul": "^1.1.0-alpha.1",
     "karma": "^4.0.1",
     "karma-babel-preprocessor": "^7.0.0",
@@ -169,10 +161,7 @@
     "require-again": "^2.0.0",
     "sinon": "^7.2.4",
     "sinon-chai": "^3.0.0",
-    "sinon-stub-promise": "^4.0.0",
-    "webpack-bundle-analyzer": "^2.12.0",
-    "webpack-dev-middleware": "^2.0.5",
-    "webpack-hot-middleware": "^2.22.2"
+    "sinon-stub-promise": "^4.0.0"
   },
   "optionalDependencies": {}
 }

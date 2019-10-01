@@ -142,7 +142,7 @@
 <script>
 import checkIcon from '@/assets/svg/check.svg';
 import gemIcon from '@/assets/svg/gem.svg';
-import subscriptionBlocks from '../../../common/script/content/subscriptionBlocks';
+import subscriptionBlocks from '@/../../common/script/content/subscriptionBlocks';
 
 export default {
   data () {

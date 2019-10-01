@@ -191,8 +191,8 @@ sidebar-section(:title="$t('questDetailsTitle')")
 <script>
 import { mapState } from '@/libs/store';
 
-import quests from 'common/script/content/quests';
-import percent from 'common/script/libs/percent';
+import quests from '@/../../common/script/content/quests';
+import percent from '@/../../common/script/libs/percent';
 import sidebarSection from '../sidebarSection';
 
 import questIcon from '@/assets/svg/quest.svg';

@@ -35,7 +35,7 @@
 
   import styleHelper from '@/mixins/styleHelper';
 
-  import achievementsLib from '../../common/script/libs/achievements';
+  import achievementsLib from '@/../../common/script/libs/achievements';
 
   import tier1 from '@/assets/svg/tier-1.svg';
   import tier2 from '@/assets/svg/tier-2.svg';

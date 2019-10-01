@@ -42,14 +42,14 @@
 </template>
 
 <script>
-  import appearance from 'common/script/content/appearance';
+  import appearance from '@/../../common/script/content/appearance';
   import {subPageMixin} from '../../mixins/subPage';
   import {userStateMixin} from '../../mixins/userState';
   import {avatarEditorUtilies} from '../../mixins/avatarEditUtilities';
   import subMenu from './sub-menu';
   import customizeOptions from './customize-options';
   import gem from '@/assets/svg/gem.svg';
-  import appearanceSets from 'common/script/content/appearance/sets';
+  import appearanceSets from '@/../../common/script/content/appearance/sets';
   import groupBy from 'lodash/groupBy';
 
   const hairColorBySet = groupBy(appearance.hair.color, 'set.key');

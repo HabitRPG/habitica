@@ -53,7 +53,7 @@ layout-section(:title="$t('equipment')")
   import ItemRows from '@/components/ui/itemRows';
   import ShopItem from '../shopItem';
 
-  import shops from 'common/script/libs/shops';
+  import shops from '@/../../common/script/libs/shops';
 
   import svgPin from '@/assets/svg/pin.svg';
   import svgWarrior from '@/assets/svg/warrior.svg';

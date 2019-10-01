@@ -709,7 +709,7 @@ import map from 'lodash/map';
 import { mapState } from '@/libs/store';
 import avatar from './avatar';
 import usernameForm from './settings/usernameForm';
-import { getBackgroundShopSets } from '../../common/script/libs/shops';
+import { getBackgroundShopSets } from '@/../../common/script/libs/shops';
 import guide from '@/mixins/guide';
 import notifications from '@/mixins/notifications';
 import toggleSwitch from '@/components/ui/toggleSwitch';
@@ -730,10 +730,10 @@ import gold from '@/assets/svg/gold.svg';
 import pin from '@/assets/svg/pin.svg';
 import arrowRight from '@/assets/svg/arrow_right.svg';
 import arrowLeft from '@/assets/svg/arrow_left.svg';
-import isPinned from 'common/script/libs/isPinned';
+import isPinned from '@/../../common/script/libs/isPinned';
 import {avatarEditorUtilies} from '../mixins/avatarEditUtilities';
 
-import content from 'common/script/content/index';
+import content from '@/../../common/script/content/index';
 
 export default {
   mixins: [guide, notifications, avatarEditorUtilies],

@@ -1,7 +1,7 @@
 // Vue plugin to globally expose a '$t' method that calls common/i18n.t.
 // Can be anywhere inside vue as 'this.$t' or '$t' in templates.
 
-import i18n from 'common/script/i18n';
+import i18n from '@/../../common/script/i18n';
 import moment from 'moment';
 
 export default {

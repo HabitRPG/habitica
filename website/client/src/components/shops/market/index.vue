@@ -149,8 +149,8 @@
   import svgGem from '@/assets/svg/gem.svg';
   import svgInformation from '@/assets/svg/information.svg';
 
-  import getItemInfo from 'common/script/libs/getItemInfo';
-  import shops from 'common/script/libs/shops';
+  import getItemInfo from '@/../../common/script/libs/getItemInfo';
+  import shops from '@/../../common/script/libs/shops';
 
   import _filter from 'lodash/filter';
   import _map from 'lodash/map';

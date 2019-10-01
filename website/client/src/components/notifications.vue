@@ -94,8 +94,8 @@ import moment from 'moment';
 import throttle from 'lodash/throttle';
 import debounce from 'lodash/debounce';
 
-import { toNextLevel } from '../../common/script/statHelpers';
-import { shouldDo } from '../../common/script/cron';
+import { toNextLevel } from '@/../../common/script/statHelpers';
+import { shouldDo } from '@/../../common/script/cron';
 import { mapState } from '@/libs/store';
 import notifications from '@/mixins/notifications';
 import guide from '@/mixins/guide';

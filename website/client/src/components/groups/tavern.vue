@@ -431,7 +431,7 @@
 import { mapState } from '@/libs/store';
 import { goToModForm } from '@/libs/modform';
 
-import { TAVERN_ID } from '../../../common/script/constants';
+import { TAVERN_ID } from '@/../../common/script/constants';
 import worldBossInfoModal from '../world-boss/worldBossInfoModal';
 import worldBossRageModal from '../world-boss/worldBossRageModal';
 import sidebarSection from '../sidebarSection';
@@ -458,7 +458,7 @@ import tierMod from '@/assets/svg/tier-mod.svg';
 import tierNPC from '@/assets/svg/tier-npc.svg';
 import tierStaff from '@/assets/svg/tier-staff.svg';
 
-import quests from 'common/script/content/quests';
+import quests from '@/../../common/script/content/quests';
 import staffList from '../../libs/staffList';
 
 export default {

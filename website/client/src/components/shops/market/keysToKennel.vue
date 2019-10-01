@@ -61,7 +61,7 @@
 import { mapState } from '@/libs/store';
 import ShopItem from '../shopItem';
 
-import count from 'common/script/count';
+import count from '@/../../common/script/count';
 
 import notifications from '@/mixins/notifications';
 

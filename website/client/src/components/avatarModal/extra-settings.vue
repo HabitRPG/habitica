@@ -36,7 +36,7 @@
 </template>
 
 <script>
-  import appearance from 'common/script/content/appearance';
+  import appearance from '@/../../common/script/content/appearance';
   import {subPageMixin} from '../../mixins/subPage';
   import {userStateMixin} from '../../mixins/userState';
   import {avatarEditorUtilies} from '../../mixins/avatarEditUtilities';

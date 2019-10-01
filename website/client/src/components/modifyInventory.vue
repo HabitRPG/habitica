@@ -258,7 +258,7 @@ import axios from 'axios';
 
 import { mapState } from '@/libs/store';
 
-import Content from '../../common/script/content';
+import Content from '@/../../common/script/content';
 
 export default {
   computed: {

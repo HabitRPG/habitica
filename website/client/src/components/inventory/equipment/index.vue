@@ -155,7 +155,7 @@ import EquipmentAttributesPopover from '@/components/inventory/equipment/attribu
 import StarBadge from '@/components/ui/starBadge';
 import Drawer from '@/components/ui/drawer';
 
-import i18n from 'common/script/i18n';
+import i18n from '@/../../common/script/i18n';
 
 import EquipGearModal from './equipGearModal';
 

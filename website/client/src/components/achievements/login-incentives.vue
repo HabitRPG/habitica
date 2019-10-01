@@ -53,7 +53,7 @@ b-modal#login-incentives(:title="data.message", size='md', :hide-footer="true")
 <script>
 import { mapState } from '@/libs/store';
 import Avatar from '../avatar';
-import {loginIncentives} from '../../../common/script/content/index';
+import {loginIncentives} from '@/../../common/script/content/index';
 
 export default {
   components: {

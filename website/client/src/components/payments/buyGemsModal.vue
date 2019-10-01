@@ -309,7 +309,7 @@
 <script>
   import { mapState } from '@/libs/store';
   import markdown from '@/directives/markdown';
-  import planGemLimits from 'common/script/libs/planGemLimits';
+  import planGemLimits from '@/../../common/script/libs/planGemLimits';
   import paymentsMixin from '@/mixins/payments';
 
   import checkIcon from '@/assets/svg/check.svg';

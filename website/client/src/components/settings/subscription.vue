@@ -109,8 +109,8 @@ import sortBy from 'lodash/sortBy';
 import min from 'lodash/min';
 import { mapState } from '@/libs/store';
 
-import subscriptionBlocks from '../../../common/script/content/subscriptionBlocks';
-import planGemLimits from '../../../common/script/libs/planGemLimits';
+import subscriptionBlocks from '@/../../common/script/content/subscriptionBlocks';
+import planGemLimits from '@/../../common/script/libs/planGemLimits';
 import paymentsMixin from '../../mixins/payments';
 import notificationsMixin from '../../mixins/notifications';
 

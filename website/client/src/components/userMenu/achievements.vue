@@ -52,8 +52,8 @@
 <script>
 import { mapState } from '@/libs/store';
 
-import achievementsLib from '../../../common/script/libs/achievements';
-import Content from '../../../common/script/content';
+import achievementsLib from '@/../../common/script/libs/achievements';
+import Content from '@/../../common/script/content';
 
 export default {
   data () {

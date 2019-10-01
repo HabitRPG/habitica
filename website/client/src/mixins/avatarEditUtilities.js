@@ -1,12 +1,12 @@
 import moment from 'moment';
 import axios from 'axios';
 
-import unlock from '../../common/script/ops/unlock';
-import buy from '../../common/script/ops/buy/buy';
+import unlock from '@/../../common/script/ops/unlock';
+import buy from '@/../../common/script/ops/buy/buy';
 
 import get from 'lodash/get';
 
-import appearanceSets from 'common/script/content/appearance/sets';
+import appearanceSets from '@/../../common/script/content/appearance/sets';
 
 
 import {userStateMixin} from './userState';

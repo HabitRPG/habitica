@@ -19,7 +19,7 @@ import { mapState } from '@/libs/store';
 import CountBadge from '@/components/ui/countBadge';
 
 import svgPin from '@/assets/svg/pin.svg';
-import planGemLimits from 'common/script/libs/planGemLimits';
+import planGemLimits from '@/../../common/script/libs/planGemLimits';
 import pinUtils from '../../../mixins/pinUtils';
 
 export default {

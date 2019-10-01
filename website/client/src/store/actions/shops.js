@@ -1,13 +1,13 @@
 import axios from 'axios';
-import buyOp from 'common/script/ops/buy/buy';
-import content from 'common/script/content/index';
-import hourglassPurchaseOp from 'common/script/ops/buy/hourglassPurchase';
-import sellOp from 'common/script/ops/sell';
-import unlockOp from 'common/script/ops/unlock';
-import rerollOp from 'common/script/ops/reroll';
-import releasePetsOp from 'common/script/ops/releasePets';
-import releaseMountsOp from 'common/script/ops/releaseMounts';
-import releaseBothOp from 'common/script/ops/releaseBoth';
+import buyOp from '@/../../common/script/ops/buy/buy';
+import content from '@/../../common/script/content/index';
+import hourglassPurchaseOp from '@/../../common/script/ops/buy/hourglassPurchase';
+import sellOp from '@/../../common/script/ops/sell';
+import unlockOp from '@/../../common/script/ops/unlock';
+import rerollOp from '@/../../common/script/ops/reroll';
+import releasePetsOp from '@/../../common/script/ops/releasePets';
+import releaseMountsOp from '@/../../common/script/ops/releaseMounts';
+import releaseBothOp from '@/../../common/script/ops/releaseBoth';
 
 import { getDropClass } from '@/libs/notifications';
 

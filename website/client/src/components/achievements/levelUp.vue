@@ -116,7 +116,7 @@
 <script>
 import Avatar from '../avatar';
 import { mapState } from '@/libs/store';
-import {maxHealth} from '../../../common/script/index';
+import {maxHealth} from '@/../../common/script/index';
 import styleHelper from '@/mixins/styleHelper';
 import twitter from '@/assets/svg/twitter.svg';
 import facebook from '@/assets/svg/facebook.svg';

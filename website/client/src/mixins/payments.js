@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const STRIPE_PUB_KEY = process.env.STRIPE_PUB_KEY; // eslint-disable-line no-process-env
-import subscriptionBlocks from '../../common/script/content/subscriptionBlocks';
+import subscriptionBlocks from '@/../../common/script/content/subscriptionBlocks';
 import { mapState } from '@/libs/store';
 import encodeParams from '@/libs/encodeParams';
 import notificationsMixin from '@/mixins/notifications';

@@ -550,7 +550,7 @@
 import { mapState, mapGetters, mapActions } from '@/libs/store';
 import moment from 'moment';
 import axios from 'axios';
-import scoreTask from 'common/script/ops/scoreTask';
+import scoreTask from '@/../../common/script/ops/scoreTask';
 import Vue from 'vue';
 import * as Analytics from '@/libs/analytics';
 

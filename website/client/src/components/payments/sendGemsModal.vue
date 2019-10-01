@@ -96,7 +96,7 @@ import toArray from 'lodash/toArray';
 import omitBy from 'lodash/omitBy';
 import orderBy from 'lodash/orderBy';
 import { mapState } from '@/libs/store';
-import planGemLimits from '../../../common/script/libs/planGemLimits';
+import planGemLimits from '@/../../common/script/libs/planGemLimits';
 import paymentsMixin from '@/mixins/payments';
 import notificationsMixin from '@/mixins/notifications';
 import amazonButton from '@/components/payments/amazonButton';

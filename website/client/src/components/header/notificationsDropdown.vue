@@ -72,7 +72,7 @@ menu-dropdown.item-notifications(:right="true", @toggled="handleOpenStatusChange
 
 <script>
 import { mapState, mapActions } from '@/libs/store';
-import quests from 'common/script/content/quests';
+import quests from '@/../../common/script/content/quests';
 import notificationsIcon from '@/assets/svg/notifications.svg';
 import MenuDropdown from '../ui/customMenuDropdown';
 import MessageCount from './messageCount';

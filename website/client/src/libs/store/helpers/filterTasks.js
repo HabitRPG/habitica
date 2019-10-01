@@ -1,4 +1,4 @@
-import { shouldDo } from 'common/script/cron';
+import { shouldDo } from '@/../../common/script/cron';
 
 // Task filter data
 // @TODO find a way to include user preferences w.r.t sort and defaults

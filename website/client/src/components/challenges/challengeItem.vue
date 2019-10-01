@@ -303,7 +303,7 @@
 </style>
 
 <script>
-  import { TAVERN_ID } from '../../../common/script/constants';
+  import { TAVERN_ID } from '@/../../common/script/constants';
   import userLink from '../userLink';
   import groupLink from '../groupLink';
   import categoryTags from '../categories/categoryTags';

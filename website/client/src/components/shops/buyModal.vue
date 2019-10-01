@@ -276,7 +276,7 @@
 <script>
   import * as Analytics from '@/libs/analytics';
   import spellsMixin from '@/mixins/spells';
-  import planGemLimits from 'common/script/libs/planGemLimits';
+  import planGemLimits from '@/../../common/script/libs/planGemLimits';
   import numberInvalid from '@/mixins/numberInvalid';
 
   import svgClose from '@/assets/svg/close.svg';
@@ -299,8 +299,8 @@
   import Item from '@/components/inventory/item';
   import Avatar from '@/components/avatar';
 
-  import seasonalShopConfig from 'common/script/libs/shops-seasonal.config';
-  import { drops as dropEggs } from 'common/script/content/eggs';
+  import seasonalShopConfig from '@/../../common/script/libs/shops-seasonal.config';
+  import { drops as dropEggs } from '@/../../common/script/content/eggs';
 
   import keys from 'lodash/keys';
   import reduce from 'lodash/reduce';

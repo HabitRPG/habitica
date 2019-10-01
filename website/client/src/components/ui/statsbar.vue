@@ -75,7 +75,7 @@
 </style>
 
 <script>
-  import percent from '../../../common/script/libs/percent';
+  import percent from '@/../../common/script/libs/percent';
 
   export default {
     props: {

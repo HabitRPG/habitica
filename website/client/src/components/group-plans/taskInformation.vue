@@ -67,7 +67,7 @@
 </style>
 
 <script>
-import taskDefaults from 'common/script/libs/taskDefaults';
+import taskDefaults from '@/../../common/script/libs/taskDefaults';
 import TaskColumn from '../tasks/column';
 import TaskModal from '../tasks/taskModal';
 import GroupPlanOverviewModal from './groupPlanOverviewModal';

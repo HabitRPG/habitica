@@ -1,5 +1,5 @@
 
-import content from 'common/script/content';
+import content from '@/../../common/script/content';
 
 const specialPets = Object.keys(content.specialPets);
 const wackyPets = Object.keys(content.wackyPets);

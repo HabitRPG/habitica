@@ -188,7 +188,7 @@ import leaveChallengeModal from './leaveChallengeModal';
 import sidebarSection from '../sidebarSection';
 import userLink from '../userLink';
 import groupLink from '../groupLink';
-import taskDefaults from 'common/script/libs/taskDefaults';
+import taskDefaults from '@/../../common/script/libs/taskDefaults';
 
 import gemIcon from '@/assets/svg/gem.svg';
 import memberIcon from '@/assets/svg/member-icon.svg';

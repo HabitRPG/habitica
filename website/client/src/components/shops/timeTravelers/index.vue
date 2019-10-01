@@ -255,8 +255,8 @@
   import _groupBy from 'lodash/groupBy';
   import _map from 'lodash/map';
 
-  import isPinned from 'common/script/libs/isPinned';
-  import shops from 'common/script/libs/shops';
+  import isPinned from '@/../../common/script/libs/isPinned';
+  import shops from '@/../../common/script/libs/shops';
 
   import pinUtils from '@/mixins/pinUtils';
 

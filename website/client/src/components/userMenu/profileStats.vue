@@ -154,11 +154,11 @@
   import attributesGrid from '@/components/inventory/equipment/attributesGrid';
 
   import { mapState } from '@/libs/store';
-  import Content from '../../../common/script/content';
-  import { beastMasterProgress, mountMasterProgress } from '../../../common/script/count';
-  import autoAllocate from '../../../common/script/fns/autoAllocate';
-  import allocateBulk from  '../../../common/script/ops/stats/allocateBulk';
-  import statsComputed from  '../../../common/script/libs/statsComputed';
+  import Content from '@/../../common/script/content';
+  import { beastMasterProgress, mountMasterProgress } from '@/../../common/script/count';
+  import autoAllocate from '@/../../common/script/fns/autoAllocate';
+  import allocateBulk from  '@/../../common/script/ops/stats/allocateBulk';
+  import statsComputed from  '@/../../common/script/libs/statsComputed';
 
   import axios from 'axios';
 

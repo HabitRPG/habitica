@@ -214,8 +214,8 @@ import debounce from 'lodash/debounce';
 import restoreModal from './restoreModal';
 import resetModal from './resetModal';
 import deleteModal from './deleteModal';
-import { SUPPORTED_SOCIAL_NETWORKS } from '../../../common/script/constants';
-import changeClass from  '../../../common/script/ops/changeClass';
+import { SUPPORTED_SOCIAL_NETWORKS } from '@/../../common/script/constants';
+import changeClass from  '@/../../common/script/ops/changeClass';
 import notificationsMixin from '../../mixins/notifications';
 import sounds from '../../libs/sounds';
 // @TODO: this needs our window.env fix

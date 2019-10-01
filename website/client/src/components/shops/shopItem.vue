@@ -164,7 +164,7 @@ div
 
   import moment from 'moment';
 
-  import seasonalShopConfig from 'common/script/libs/shops-seasonal.config';
+  import seasonalShopConfig from '@/../../common/script/libs/shops-seasonal.config';
 
   export default {
     components: {

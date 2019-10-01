@@ -71,7 +71,7 @@ import * as Analytics from '@/libs/analytics';
 import userIcon from '@/assets/svg/user.svg';
 import MenuDropdown from '../ui/customMenuDropdown';
 import axios from 'axios';
-import markPMSRead from 'common/script/ops/markPMSRead';
+import markPMSRead from '@/../../common/script/ops/markPMSRead';
 import MessageCount from './messageCount';
 
 export default {

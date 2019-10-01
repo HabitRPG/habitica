@@ -58,7 +58,7 @@ b-modal#mount-raised-modal(:hide-header="true")
 
 <script>
   import markdownDirective from '@/directives/markdown';
-  import {mountInfo} from 'common/script/content/stable';
+  import {mountInfo} from '@/../../common/script/content/stable';
 
   export default {
     data () {

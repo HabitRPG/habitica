@@ -398,10 +398,10 @@ import cloneDeep from 'lodash/cloneDeep';
 
 import MemberDetails from '../memberDetails';
 import markdown from '@/directives/markdown';
-import achievementsLib from '../../../common/script/libs/achievements';
+import achievementsLib from '@/../../common/script/libs/achievements';
 // @TODO: EMAILS.COMMUNITY_MANAGER_EMAIL
 const COMMUNITY_MANAGER_EMAIL = 'admin@habitica.com';
-import Content from '../../../common/script/content';
+import Content from '@/../../common/script/content';
 import profileStats from './profileStats';
 
 

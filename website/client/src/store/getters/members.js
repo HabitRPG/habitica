@@ -1,4 +1,4 @@
-import memberHasClass from 'common/script/libs/hasClass';
+import memberHasClass from '@/../../common/script/libs/hasClass';
 
 export function isBuffed () {
   return (member) => {

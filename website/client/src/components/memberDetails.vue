@@ -145,9 +145,9 @@ import { mapState } from '@/libs/store';
 import Profile from './userMenu/profile';
 import StatsBar from './ui/statsbar';
 
-import { toNextLevel } from '../../common/script/statHelpers';
-import statsComputed from '../../common/script/libs/statsComputed';
-import percent from '../../common/script/libs/percent';
+import { toNextLevel } from '@/../../common/script/statHelpers';
+import statsComputed from '@/../../common/script/libs/statsComputed';
+import percent from '@/../../common/script/libs/percent';
 
 import buffIcon from '@/assets/svg/buff.svg';
 import healthIcon from '@/assets/svg/health.svg';

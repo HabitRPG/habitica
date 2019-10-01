@@ -168,7 +168,7 @@ import markdownDirective from '@/directives/markdown';
 import gemIcon from '@/assets/svg/gem.svg';
 import informationIcon from '@/assets/svg/information.svg';
 
-import { MAX_SUMMARY_SIZE_FOR_GUILDS } from '../../../common/script/constants';
+import { MAX_SUMMARY_SIZE_FOR_GUILDS } from '@/../../common/script/constants';
 
 // @TODO: Not sure the best way to pass party creating status
 // Since we need the modal in the header, passing props doesn't work

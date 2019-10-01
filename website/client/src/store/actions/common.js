@@ -1,7 +1,7 @@
 import axios from 'axios';
-import equipOp from 'common/script/ops/equip';
-import hatchOp from 'common/script/ops/hatch';
-import feedOp from 'common/script/ops/feed';
+import equipOp from '@/../../common/script/ops/equip';
+import hatchOp from '@/../../common/script/ops/hatch';
+import feedOp from '@/../../common/script/ops/feed';
 
 export function equip (store, params) {
   const user = store.state.user.data;

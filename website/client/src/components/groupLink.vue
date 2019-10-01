@@ -6,7 +6,7 @@
 </template>
 
 <script>
-  import { TAVERN_ID } from '../../common/script/constants';
+  import { TAVERN_ID } from '@/../../common/script/constants';
 
   export default {
     props: ['group'],
