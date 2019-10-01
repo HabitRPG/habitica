@@ -224,35 +224,20 @@ api.postChat = {
       });
     }
 
-    const newChatMessage = group.sendChat({message: req.body.message, user, flagCount, metaData: null, client, translate: res.t});
+    const newChatMessage = group.sendChat({message: req.body.message,
+                                           user,
+                                           flagCount,
+                                           metaData: null,
+                                           client,
+                                           translate: res.t,
+                                           mentions,
+                                           mentionedMembers});
     let toSave = [newChatMessage.save()];
 
     if (group.type === 'party') {
       user.party.lastMessageSeen = newChatMessage.id;
       toSave.push(user.save());
     }
-
-    mentionedMembers.forEach((member) => {
-      if (member._id === user._id) return;
-      const pushNotifPrefs = member.preferences.pushNotifications;
-      if (group.type === 'party') {
-        if (pushNotifPrefs.mentionParty !== true) {
-          return;
-        }
-      } else if (member.guilds.contains(group._id)) {
-        if (pushNotifPrefs.mentionJoinedGuild !== true) {
-          return;
-        }
-      } else {
-        if (group.privacy !== 'public') {
-          return;
-        }
-        if (pushNotifPrefs.mentionUnjoinedGuild !== true) {
-          return;
-        }
-      }
-      sendNotification(member, {identifier: 'chatMention', title: `${user.profile.name} mentioned you in ${group.name}`, message: req.body.message});
-    });
 
 
     await Promise.all(toSave);
