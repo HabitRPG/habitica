@@ -9,7 +9,7 @@ import uuid from './uuid';
   no problem. To maintain sorting, we use these helper functions:
  */
 
-module.exports = function refPush (reflist, item) {
+export default function refPush (reflist, item) {
   item.sort = isEmpty(reflist) ? 0 : maxBy(values(reflist), 'sort').sort + 1;
 
   if (!(item.id && !reflist[item.id])) {
@@ -19,4 +19,4 @@ module.exports = function refPush (reflist, item) {
   reflist[item.id] = item;
 
   return reflist[item.id];
-};
+}

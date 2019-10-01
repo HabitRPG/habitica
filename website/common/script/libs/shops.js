@@ -539,4 +539,4 @@ shops.getBackgroundShopSets = function getBackgroundShopSets (language) {
   return sets;
 };
 
-module.exports = shops;
+export default shops;

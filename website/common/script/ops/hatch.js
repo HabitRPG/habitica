@@ -12,7 +12,7 @@ import {
 } from '../libs/errors';
 import errorMessage from '../libs/errorMessage';
 
-module.exports = function hatch (user, req = {}) {
+export default function hatch (user, req = {}) {
   let egg = get(req, 'params.egg');
   let hatchingPotion = get(req, 'params.hatchingPotion');
 
@@ -66,4 +66,4 @@ module.exports = function hatch (user, req = {}) {
     user.items,
     i18n.t('messageHatched', req.language),
   ];
-};
+}

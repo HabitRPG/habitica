@@ -12,13 +12,13 @@ import {
   ANIMAL_COLOR_ACHIEVEMENTS,
 } from './constants';
 
-let api = module.exports;
+const api = {};
 
 import achievements from './achievements';
 
-import eggs from './eggs';
-import hatchingPotions from './hatching-potions';
-import stable from './stable';
+import * as eggs from './eggs';
+import * as hatchingPotions from './hatching-potions';
+import * as stable from './stable';
 import gear from './gear';
 import {
   quests,
@@ -912,3 +912,5 @@ api.userDefaultsMobile = {
 api.faq = faq;
 
 api.loginIncentives = loginIncentives(api);
+
+export default api;

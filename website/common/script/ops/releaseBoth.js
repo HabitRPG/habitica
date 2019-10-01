@@ -7,7 +7,7 @@ import {
 import splitWhitespace from '../libs/splitWhitespace';
 import pick from 'lodash/pick';
 
-module.exports = function releaseBoth (user, req = {}) {
+export default function releaseBoth (user, req = {}) {
   let animal;
 
   if (!user.achievements.triadBingo) {
@@ -92,4 +92,4 @@ module.exports = function releaseBoth (user, req = {}) {
     pick(user, splitWhitespace('achievements items balance')),
     i18n.t('mountsAndPetsReleased'),
   ];
-};
+}

@@ -64,4 +64,4 @@ for (let key in weapon) {
   }
 }
 
-module.exports = weapon;
+export default weapon;

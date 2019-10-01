@@ -677,4 +677,4 @@ each(spells, (spellClass) => {
   });
 });
 
-module.exports = spells;
+export default spells;

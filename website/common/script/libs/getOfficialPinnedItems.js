@@ -6,7 +6,7 @@ const officialPinnedItems = content.officialPinnedItems;
 
 let flatGearArray = toArray(content.gear.flat);
 
-module.exports = function getOfficialPinnedItems (user) {
+export default function getOfficialPinnedItems (user) {
   let officialItemsArray = [...officialPinnedItems];
 
   if (SeasonalShopConfig.pinnedSets && Boolean(user) && user.stats.class) {
@@ -25,4 +25,4 @@ module.exports = function getOfficialPinnedItems (user) {
   }
 
   return officialItemsArray;
-};
+}

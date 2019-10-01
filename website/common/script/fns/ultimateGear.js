@@ -3,7 +3,7 @@ import lodashFind from 'lodash/find';
 import reduce from 'lodash/reduce';
 import includes from 'lodash/includes';
 
-module.exports = function ultimateGear (user) {
+export default function ultimateGear (user) {
   let owned = user.items.gear.owned.toObject ? user.items.gear.owned.toObject() : user.items.gear.owned;
 
   content.classes.forEach((klass) => {
@@ -35,4 +35,4 @@ module.exports = function ultimateGear (user) {
   }
 
   return;
-};
+}

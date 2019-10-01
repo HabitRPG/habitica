@@ -32,7 +32,7 @@ function sortInAppRewards (user, items) {
   return orderedItems;
 }
 
-module.exports = function getPinnedItems (user) {
+export default function getPinnedItems (user) {
   checkPinnedAreasForNullEntries(user);
 
   let officialPinnedItems = getOfficialPinnedItems(user);
@@ -55,4 +55,4 @@ module.exports = function getPinnedItems (user) {
 
   let orderedItems = sortInAppRewards(user, items);
   return orderedItems;
-};
+}

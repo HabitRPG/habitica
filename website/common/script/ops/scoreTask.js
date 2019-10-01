@@ -184,7 +184,7 @@ function _updateCounter (task, direction, times) {
   }
 }
 
-module.exports = function scoreTask (options = {}, req = {}) {
+export default function scoreTask (options = {}, req = {}) {
   let {user, task, direction, times = 1, cron = false} = options;
   let delta = 0;
   let stats = {
@@ -330,4 +330,4 @@ module.exports = function scoreTask (options = {}, req = {}) {
   req.yesterDailyScored = task.yesterDailyScored;
   updateStats(user, stats, req);
   return [delta];
-};
+}

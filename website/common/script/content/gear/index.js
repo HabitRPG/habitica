@@ -81,7 +81,7 @@ each(GEAR_TYPES, (type) => {
   });
 });
 
-module.exports = {
+export default {
   tree: gear,
   flat,
 };

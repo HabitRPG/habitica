@@ -5,7 +5,7 @@ import color from './color.js';
 import flower from './flower.js';
 import mustache from './mustache.js';
 
-module.exports = {
+export default {
   color,
   base,
   bangs,

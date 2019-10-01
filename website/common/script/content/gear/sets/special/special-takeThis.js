@@ -60,7 +60,7 @@ let weaponSpecialTakeThis = {
   str: 5,
 };
 
-let takeThisSet = {
+export {
   armorSpecialTakeThis,
   backSpecialTakeThis,
   bodySpecialTakeThis,
@@ -68,5 +68,3 @@ let takeThisSet = {
   shieldSpecialTakeThis,
   weaponSpecialTakeThis,
 };
-
-module.exports = takeThisSet;

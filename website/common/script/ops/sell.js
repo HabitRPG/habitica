@@ -12,7 +12,7 @@ import {
 // @TODO: 'special' type throws NotAuthorized error
 const ACCEPTEDTYPES = ['eggs', 'hatchingPotions', 'food'];
 
-module.exports = function sell (user, req = {}) {
+export default function sell (user, req = {}) {
   let key = get(req.params, 'key');
   let type = get(req.params, 'type');
   let amount = get(req.query, 'amount', 1);
@@ -55,4 +55,4 @@ module.exports = function sell (user, req = {}) {
   return [
     pick(user, splitWhitespace('stats items')),
   ];
-};
+}

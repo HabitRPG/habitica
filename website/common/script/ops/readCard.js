@@ -22,7 +22,7 @@ function markNotificationAsRead (user, cardType) {
 }
 
 
-module.exports = function readCard (user, req = {}) {
+export default function readCard (user, req = {}) {
   let cardType = get(req.params, 'cardType');
 
   if (!cardType) {
@@ -42,4 +42,4 @@ module.exports = function readCard (user, req = {}) {
     { specialItems: user.items.special, cardReceived: user.flags.cardReceived },
     i18n.t('readCard', {cardType}, req.language),
   ];
-};
+}

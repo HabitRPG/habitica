@@ -2,7 +2,7 @@ import isString from 'lodash/isString';
 import clone from 'lodash/clone';
 import template from 'lodash/template';
 
-let i18n = {
+const i18n = {
   strings: null,
   translations: {},
   t, // eslint-disable-line no-use-before-define
@@ -62,4 +62,4 @@ function t (stringName) {
   }
 }
 
-module.exports = i18n;
+export default i18n;

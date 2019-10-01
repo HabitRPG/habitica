@@ -2,7 +2,7 @@ import content from '../../content/index';
 import filter from 'lodash/filter';
 import isEmpty from 'lodash/isEmpty';
 import pick from 'lodash/pick';
-import count from '../../count';
+import * as count from '../../count';
 import splitWhitespace from '../../libs/splitWhitespace';
 import {
   NotAuthorized,

@@ -9,7 +9,7 @@ import {
 } from '../../libs/errors';
 import errorMessage from '../../libs/errorMessage';
 
-module.exports = function purchaseHourglass (user, req = {}, analytics, quantity = 1) {
+export default function purchaseHourglass (user, req = {}, analytics, quantity = 1) {
   let key = get(req, 'params.key');
   if (!key) throw new BadRequest(errorMessage('missingKeyParam'));
 
@@ -72,4 +72,4 @@ module.exports = function purchaseHourglass (user, req = {}, analytics, quantity
     { items: user.items, purchasedPlanConsecutive: user.purchased.plan.consecutive },
     i18n.t('hourglassPurchase', req.language),
   ];
-};
+}

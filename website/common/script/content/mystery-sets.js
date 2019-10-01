@@ -303,4 +303,4 @@ each(mysterySets, (value, key) => {
   value.class = `shop_set_mystery_${key}`;
 });
 
-module.exports = mysterySets;
+export default mysterySets;

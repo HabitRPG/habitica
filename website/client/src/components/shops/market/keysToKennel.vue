@@ -61,7 +61,7 @@
 import { mapState } from '@/libs/store';
 import ShopItem from '../shopItem';
 
-import count from '@/../../common/script/count';
+import { beastCount, mountMasterProgress } from '@/../../common/script/count';
 
 import notifications from '@/mixins/notifications';
 
@@ -147,10 +147,10 @@ export default {
   computed: {
     ...mapState({user: 'user.data'}),
     userHasAllPets () {
-      return count.beastCount(this.user.items.pets) === 90;
+      return beastCount(this.user.items.pets) === 90;
     },
     userHasAllMounts () {
-      return count.mountMasterProgress(this.user.items.mounts) === 90;
+      return mountMasterProgress(this.user.items.mounts) === 90;
     },
   },
   methods: {

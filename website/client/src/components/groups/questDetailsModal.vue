@@ -135,7 +135,7 @@
 
 <script>
 import { mapState, mapGetters } from '@/libs/store';
-import quests from '@/../../common/script/content/quests';
+import * as quests from '@/../../common/script/content/quests';
 
 import copyIcon from '@/assets/svg/copy.svg';
 import greyBadgeIcon from '@/assets/svg/grey-badge.svg';

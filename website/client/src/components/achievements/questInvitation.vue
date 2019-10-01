@@ -45,10 +45,10 @@
 </template>
 
 <script>
-import quests from '@/../../common/script/content/quests';
+import * as quests from '@/../../common/script/content/quests';
 import { mapState } from '@/libs/store';
 import percent from '@/../../common/script/libs/percent';
-import {maxHealth} from '@/../../common/script/index';
+import {MAX_HEALTH as maxHealth} from '@/../../common/script/constants';
 
 export default {
   data () {

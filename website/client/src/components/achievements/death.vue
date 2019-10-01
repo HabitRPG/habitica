@@ -41,7 +41,7 @@ import axios from 'axios';
 import Avatar from '../avatar';
 import { mapState } from '@/libs/store';
 import percent from '@/../../common/script/libs/percent';
-import {maxHealth} from '@/../../common/script/index';
+import {MAX_HEALTH as maxHealth} from '@/../../common/script/constants';
 import revive from '@/../../common/script/ops/revive';
 
 export default {

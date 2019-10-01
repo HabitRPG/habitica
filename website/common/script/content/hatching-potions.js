@@ -281,7 +281,7 @@ each(wacky, (pot, key) => {
 
 let all = assign({}, drops, premium, wacky);
 
-module.exports = {
+export {
   drops,
   premium,
   wacky,

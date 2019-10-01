@@ -1713,7 +1713,7 @@ let weapon = {
   },
 };
 
-let armoireSet = {
+export {
   armor,
   body,
   eyewear,
@@ -1722,5 +1722,3 @@ let armoireSet = {
   shield,
   weapon,
 };
-
-module.exports = armoireSet;

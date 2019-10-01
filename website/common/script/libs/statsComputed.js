@@ -33,7 +33,7 @@ function equipmentStatBonusComputed (stat, user) {
   };
 }
 
-module.exports = function statsComputed (user) {
+export default function statsComputed (user) {
   let statBreakdown = {
     gearBonus: {},
     classBonus: {},
@@ -59,4 +59,4 @@ module.exports = function statsComputed (user) {
   statBreakdown.maxMP = statBreakdown.int * 2 + 30;
 
   return statBreakdown;
-};
+}

@@ -9,7 +9,7 @@ import findIndex from 'lodash/findIndex';
 
 // TODO used only in client, move there?
 
-module.exports = function sortTask (user, req = {}) {
+export default function sortTask (user, req = {}) {
   let id = get(req, 'params.id');
   let to = get(req, 'query.to');
   let fromParam = get(req, 'query.from');
@@ -47,4 +47,4 @@ module.exports = function sortTask (user, req = {}) {
   }
 
   return tasks;
-};
+}

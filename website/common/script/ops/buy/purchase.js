@@ -68,7 +68,7 @@ function purchaseItem (user, item, price, type, key) {
 
 const acceptedTypes = ['eggs', 'hatchingPotions', 'food', 'gear', 'bundles'];
 const singlePurchaseTypes = ['gear'];
-module.exports = function purchase (user, req = {}, analytics) {
+export default function purchase (user, req = {}, analytics) {
   let type = get(req.params, 'type');
   let key = get(req.params, 'key');
 
@@ -122,4 +122,4 @@ module.exports = function purchase (user, req = {}, analytics) {
   return [
     pick(user, splitWhitespace('items balance')),
   ];
-};
+}

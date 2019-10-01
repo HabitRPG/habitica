@@ -1,7 +1,7 @@
 import content from '../content/index';
 import get from 'lodash/get';
 
-module.exports = function getItemByPathAndType (type, path) {
+export default function getItemByPathAndType (type, path) {
   let item = get(content, path);
 
   if (type === 'timeTravelersStable') {
@@ -14,4 +14,4 @@ module.exports = function getItemByPathAndType (type, path) {
   }
 
   return item;
-};
+}

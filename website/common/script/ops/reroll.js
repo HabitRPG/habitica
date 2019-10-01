@@ -4,7 +4,7 @@ import {
   NotAuthorized,
 } from '../libs/errors';
 
-module.exports = function reroll (user, tasks = [], req = {}, analytics) {
+export default function reroll (user, tasks = [], req = {}, analytics) {
   if (user.balance < 1) {
     throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
   }
@@ -34,4 +34,4 @@ module.exports = function reroll (user, tasks = [], req = {}, analytics) {
     {user, tasks},
     i18n.t('fortifyComplete'),
   ];
-};
+}

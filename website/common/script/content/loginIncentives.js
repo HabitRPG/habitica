@@ -3,7 +3,7 @@ import { MAX_INCENTIVES } from '../constants';
 
 // NOTE do not import this file alone but only access it through common.content
 // so that it's already compiled
-module.exports = function getLoginIncentives (api) {
+export default function getLoginIncentives (api) {
   let loginIncentives = {
     1: {
       rewardKey: ['armor_special_bardRobes'],
@@ -665,4 +665,4 @@ module.exports = function getLoginIncentives (api) {
   });
 
   return loginIncentives;
-};
+}

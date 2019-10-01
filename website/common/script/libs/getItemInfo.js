@@ -1,7 +1,7 @@
 import i18n from '../i18n';
 import content from '../content/index';
 import { BadRequest } from './errors';
-import count from '../count';
+import * as count from '../count';
 
 import isPinned from './isPinned';
 import isFreeRebirth from './isFreeRebirth';
@@ -46,7 +46,7 @@ function getDefaultGearProps (item, language) {
   };
 }
 
-module.exports = function getItemInfo (user, type, item, officialPinnedItems, language = 'en') {
+export default function getItemInfo (user, type, item, officialPinnedItems, language = 'en') {
   if (officialPinnedItems === undefined) {
     officialPinnedItems = getOfficialPinnedItems(user);
   }
@@ -124,7 +124,7 @@ module.exports = function getItemInfo (user, type, item, officialPinnedItems, la
       };
       break;
     case 'quests': // eslint-disable-line no-case-declarations
-      const locked = lockQuest(item, user);
+      const locked = lockQuest(item, user); // eslint-disable-line no-case-declarations
 
       itemInfo = {
         key: item.key,
@@ -351,4 +351,4 @@ module.exports = function getItemInfo (user, type, item, officialPinnedItems, la
   }
 
   return itemInfo;
-};
+}

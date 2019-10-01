@@ -11,5 +11,5 @@ let headAccessory = {
   armoire: armoireHeadAccessory,
 };
 
-module.exports = headAccessory;
+export default headAccessory;
 

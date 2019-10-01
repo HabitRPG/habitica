@@ -31,7 +31,7 @@ let timeTravelerStore = (user) => {
   }, {});
 };
 
-module.exports = {
+export default {
   timeTravelerStore,
   mystery,
 };

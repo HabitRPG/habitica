@@ -1,6 +1,6 @@
 // Babel 6 doesn't support extending native class (Error, Array, ...)
 // This function makes it possible to extend native classes with the same results as Babel 5
-module.exports = function extendableBuiltin (klass) {
+export default function extendableBuiltin (klass) {
   function ExtendableBuiltin () {
     klass.apply(this, arguments);
   }
@@ -8,4 +8,4 @@ module.exports = function extendableBuiltin (klass) {
   Object.setPrototypeOf(ExtendableBuiltin, klass);
 
   return ExtendableBuiltin;
-};
+}

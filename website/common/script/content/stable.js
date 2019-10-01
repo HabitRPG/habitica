@@ -141,7 +141,7 @@ each(specialMounts, (translationString, key) => {
   };
 });
 
-module.exports = {
+export {
   dropPets,
   premiumPets,
   questPets,

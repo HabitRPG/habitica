@@ -1,4 +1,4 @@
 
-module.exports = function splitWhitespace (s) {
+export default function splitWhitespace (s) {
   return s.split(' ');
-};
+}

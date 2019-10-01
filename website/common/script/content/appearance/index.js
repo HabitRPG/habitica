@@ -31,4 +31,4 @@ let appearances = {
   background: reorderedBgs,
 };
 
-module.exports = appearances;
+export default appearances;

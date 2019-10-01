@@ -21,7 +21,7 @@
 
 <script>
 import { mapState } from '@/libs/store';
-import eggs from '@/../../common/script/content/eggs';
+import * as eggs from '@/../../common/script/content/eggs';
 
 export default {
   data () {

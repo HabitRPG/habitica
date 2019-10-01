@@ -25,4 +25,4 @@ for (let i = 0; i <= NUMBER_OF_QUESTIONS; i++) {
   faq.questions.push(question);
 }
 
-module.exports = faq;
+export default faq;

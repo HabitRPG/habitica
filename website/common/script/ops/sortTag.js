@@ -3,7 +3,7 @@ import get from 'lodash/get';
 
 // TODO used only in client, move there?
 
-module.exports = function sortTag (user, req = {}) {
+export default function sortTag (user, req = {}) {
   let to = get(req, 'query.to');
   let fromParam = get(req, 'query.from');
 
@@ -16,4 +16,4 @@ module.exports = function sortTag (user, req = {}) {
 
   user.tags.splice(to, 0, user.tags.splice(fromParam, 1)[0]);
   return user.tags;
-};
+}

@@ -79,7 +79,7 @@ let weaponSpecial3 = {
   canOwn: isBackerOfLevel(300, 'weapon_special_3'),
 };
 
-let backerSet = {
+export {
   armorSpecial0,
   armorSpecial2,
   headSpecial0,
@@ -89,5 +89,3 @@ let backerSet = {
   weaponSpecial2,
   weaponSpecial3,
 };
-
-module.exports = backerSet;

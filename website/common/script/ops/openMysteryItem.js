@@ -13,7 +13,7 @@ function markNotificationAsRead (user) {
   if (index !== -1) user.notifications.splice(index, 1);
 }
 
-module.exports = function openMysteryItem (user, req = {}, analytics) {
+export default function openMysteryItem (user, req = {}, analytics) {
   const mysteryItems = user.purchased.plan.mysteryItems;
   let item = mysteryItems.shift();
 
@@ -47,4 +47,4 @@ module.exports = function openMysteryItem (user, req = {}, analytics) {
     item,
     i18n.t('mysteryItemOpened', req.language),
   ];
-};
+}

@@ -49,7 +49,7 @@ let eyewearSpecialWonderconBlack = {
   mystery: 'wondercon',
 };
 
-let wonderconSet = {
+export {
   backSpecialWonderconRed,
   backSpecialWonderconBlack,
   bodySpecialWonderconRed,
@@ -58,5 +58,3 @@ let wonderconSet = {
   eyewearSpecialWonderconRed,
   eyewearSpecialWonderconBlack,
 };
-
-module.exports = wonderconSet;

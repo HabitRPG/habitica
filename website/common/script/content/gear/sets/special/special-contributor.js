@@ -68,12 +68,10 @@ let weaponSpecialCritical = {
   },
 };
 
-let contributorSet = {
+export {
   armorSpecial1,
   headSpecial1,
   shieldSpecial1,
   weaponSpecial1,
   weaponSpecialCritical,
 };
-
-module.exports = contributorSet;

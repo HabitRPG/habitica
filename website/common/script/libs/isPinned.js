@@ -1,5 +1,4 @@
-
-module.exports = function isPinned (user, item, checkOfficialPinnedItems /* getOfficialPinnedItems */) {
+export default function isPinned (user, item, checkOfficialPinnedItems /* getOfficialPinnedItems */) {
   if (user === null)
     return false;
 
@@ -11,4 +10,4 @@ module.exports = function isPinned (user, item, checkOfficialPinnedItems /* getO
     return true;
 
   return isItemPinned;
-};
+}

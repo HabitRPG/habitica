@@ -942,7 +942,7 @@ let weapon = {
   },
 };
 
-let mysterySet = {
+export {
   armor,
   back,
   body,
@@ -952,5 +952,3 @@ let mysterySet = {
   shield,
   weapon,
 };
-
-module.exports = mysterySet;

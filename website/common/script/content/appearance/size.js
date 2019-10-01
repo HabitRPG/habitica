@@ -1,6 +1,6 @@
 import prefill from './prefill.js';
 
-module.exports = prefill({
+export default prefill({
   slim: {},
   broad: {},
 });

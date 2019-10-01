@@ -75,8 +75,8 @@ function getStatToAllocate (user) {
   }
 }
 
-module.exports = function autoAllocate (user) {
+export default function autoAllocate (user) {
   let statToIncrease = getStatToAllocate(user);
 
   return user.stats[statToIncrease]++;
-};
+}

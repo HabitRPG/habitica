@@ -458,7 +458,7 @@ import tierMod from '@/assets/svg/tier-mod.svg';
 import tierNPC from '@/assets/svg/tier-npc.svg';
 import tierStaff from '@/assets/svg/tier-staff.svg';
 
-import quests from '@/../../common/script/content/quests';
+import * as quests from '@/../../common/script/content/quests';
 import staffList from '../../libs/staffList';
 
 export default {

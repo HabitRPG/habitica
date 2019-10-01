@@ -22,4 +22,4 @@ let armor = {
   armoire: armoireArmor,
 };
 
-module.exports = armor;
+export default armor;

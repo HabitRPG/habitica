@@ -145,11 +145,9 @@ let weapon = {
   },
 };
 
-let warriorSet = {
+export {
   armor,
   head,
   shield,
   weapon,
 };
-
-module.exports = warriorSet;

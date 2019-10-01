@@ -13,7 +13,7 @@ let sortOrder = reduce(content.gearTypes, (accumulator, val, key) => {
   return accumulator;
 }, {});
 
-module.exports = function updateStore (user) {
+export default function updateStore (user) {
   let changes = [];
 
   each(content.gearTypes, (type) => {
@@ -33,4 +33,4 @@ module.exports = function updateStore (user) {
   }));
 
   return sortBy(changes, (change) => sortOrder[change.type]);
-};
+}

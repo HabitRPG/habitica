@@ -11,4 +11,4 @@ let body = {
   armoire: armoireBody,
 };
 
-module.exports = body;
+export default body;

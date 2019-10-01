@@ -8,7 +8,7 @@ import {
 import get from 'lodash/get';
 import errorMessage from '../libs/errorMessage';
 
-module.exports = function equip (user, req = {}) {
+export default function equip (user, req = {}) {
   // Being type a parameter followed by another parameter
   // when using the API it must be passes specifically in the URL, it's won't default to equipped
   let type = get(req, 'params.type', 'equipped');
@@ -74,4 +74,4 @@ module.exports = function equip (user, req = {}) {
   let res = [user.items];
   if (message) res.push(message);
   return res;
-};
+}

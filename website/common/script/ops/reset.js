@@ -1,7 +1,7 @@
 import resetGear from '../fns/resetGear';
 import i18n from '../i18n';
 
-module.exports = function reset (user, tasks = []) {
+export default function reset (user, tasks = []) {
   user.stats.hp = 50;
   user.stats.lvl = 1;
   user.stats.gp = 0;
@@ -27,4 +27,4 @@ module.exports = function reset (user, tasks = []) {
     {user, tasksToRemove},
     i18n.t('resetComplete'),
   ];
-};
+}

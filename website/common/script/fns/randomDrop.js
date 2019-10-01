@@ -25,7 +25,7 @@ function trueRandom () {
   return Math.random();
 }
 
-module.exports = function randomDrop (user, options, req = {}, analytics) {
+export default function randomDrop (user, options, req = {}, analytics) {
   let acceptableDrops;
   let drop;
   let dropMultiplier;
@@ -133,4 +133,4 @@ module.exports = function randomDrop (user, options, req = {}, analytics) {
     user.items.lastDrop.date = Number(new Date());
     user.items.lastDrop.count++;
   }
-};
+}

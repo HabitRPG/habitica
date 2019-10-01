@@ -1,7 +1,7 @@
 import sets from './sets.js';
 import prefill from './prefill.js';
 
-module.exports = prefill({
+export default prefill({
   black: {},
   blue: {},
   green: {},

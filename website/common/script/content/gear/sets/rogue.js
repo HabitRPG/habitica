@@ -160,11 +160,9 @@ let shield = {
   },
 };
 
-let rogueSet = {
+export {
   armor,
   head,
   shield,
   weapon,
 };
-
-module.exports = rogueSet;

@@ -250,4 +250,4 @@ each(achievementsData, (value, key) => {
   value.key = key;
 });
 
-module.exports = achievementsData;
+export default achievementsData;

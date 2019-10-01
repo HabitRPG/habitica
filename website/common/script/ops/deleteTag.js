@@ -6,7 +6,7 @@ import { NotFound } from '../libs/errors';
 
 // TODO used only in client, move there?
 
-module.exports = function deleteTag (user, req = {}) {
+export default function deleteTag (user, req = {}) {
   let tid = get(req, 'params.id');
 
   let index = findIndex(user.tags, {
@@ -31,4 +31,4 @@ module.exports = function deleteTag (user, req = {}) {
   });
 
   return user.tags;
-};
+}

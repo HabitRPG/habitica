@@ -9,7 +9,7 @@ import moment from 'moment';
 
 const tasksTypes = ['habit', 'daily', 'todo', 'reward'];
 
-module.exports = function taskDefaults (task, user) {
+export default function taskDefaults (task, user) {
   if (!task.type || tasksTypes.indexOf(task.type) === -1) {
     task.type = 'habit';
   }
@@ -97,4 +97,4 @@ module.exports = function taskDefaults (task, user) {
   }
 
   return task;
-};
+}

@@ -22,7 +22,7 @@ base-notification(
 <script>
 import BaseNotification from './base';
 import { mapState } from '@/libs/store';
-import quests from '@/../../common/script/content/quests';
+import * as quests from '@/../../common/script/content/quests';
 import questInfo from '@/components/shops/quests/questInfo';
 
 export default {

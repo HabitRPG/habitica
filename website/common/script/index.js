@@ -1,6 +1,6 @@
 // When using a common module from the website or the server NEVER import the module directly
 // but access it through `api` (the main common) module, otherwise you would require the non transpiled version of the file in production.
-let api = module.exports = {};
+const api = {};
 
 import content from './content/index';
 api.content = content;
@@ -101,7 +101,7 @@ api.appliedTags = appliedTags;
 import pickDeep from './libs/pickDeep';
 api.pickDeep = pickDeep;
 
-import count from './count';
+import * as count from './count';
 api.count = count;
 
 import statsComputed from './libs/statsComputed';
@@ -164,7 +164,7 @@ import blockUser from './ops/blockUser';
 import reroll from './ops/reroll';
 import reset from './ops/reset';
 import markPmsRead from './ops/markPMSRead';
-import pinnedGearUtils from './ops/pinnedGearUtils';
+import * as pinnedGearUtils from './ops/pinnedGearUtils';
 
 api.ops = {
   scoreTask,
@@ -194,3 +194,5 @@ api.ops = {
   markPmsRead,
   pinnedGearUtils,
 };
+
+export default api;

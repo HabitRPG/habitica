@@ -1,6 +1,6 @@
 // TODO move to client
 
-module.exports = function percent (x, y, dir) {
+export default function percent (x, y, dir) {
   let roundFn;
   switch (dir) {
     case 'up':
@@ -16,4 +16,4 @@ module.exports = function percent (x, y, dir) {
     x = 1;
   }
   return Math.max(0, roundFn(x / y * 100));
-};
+}

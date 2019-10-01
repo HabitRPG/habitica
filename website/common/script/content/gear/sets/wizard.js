@@ -131,11 +131,9 @@ let weapon = {
   },
 };
 
-let wizardSet = {
+export {
   armor,
   head,
   shield,
   weapon,
 };
-
-module.exports = wizardSet;

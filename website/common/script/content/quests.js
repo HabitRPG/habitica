@@ -3531,7 +3531,7 @@ let questsByLevel = sortBy(quests, (quest) => {
   return quest.lvl || 0;
 });
 
-module.exports = {
+export {
   quests,
   questsByLevel,
   userCanOwnQuestCategories,

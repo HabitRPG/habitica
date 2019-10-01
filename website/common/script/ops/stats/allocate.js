@@ -10,7 +10,7 @@ import i18n from '../../i18n';
 import errorMessage from '../../libs/errorMessage';
 import hasClass from '../../libs/hasClass';
 
-module.exports = function allocate (user, req = {}) {
+export default function allocate (user, req = {}) {
   let stat = get(req, 'query.stat', 'str');
 
   if (ATTRIBUTES.indexOf(stat) === -1) {
@@ -34,4 +34,4 @@ module.exports = function allocate (user, req = {}) {
   return [
     user.stats,
   ];
-};
+}

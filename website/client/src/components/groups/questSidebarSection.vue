@@ -163,27 +163,27 @@ sidebar-section(:title="$t('questDetailsTitle')")
 
     span {
       margin-top: .3em;
-    	font-size: 14px;
-    	font-weight: bold;
+      font-size: 14px;
+      font-weight: bold;
     }
 
     .accept, .reject {
       padding: .2em 1em;
       font-size: 12px;
       height: 24px;
-    	border-radius: 2px;
+      border-radius: 2px;
       box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
     }
 
     .accept {
-    	background-color: #24cc8f;
-    	margin-left: 4em;
+      background-color: #24cc8f;
+      margin-left: 4em;
       margin-right: .5em;
     }
 
     .reject {
-    	border-radius: 2px;
-    	background-color: #f74e52;
+      border-radius: 2px;
+      background-color: #f74e52;
     }
   }
 </style>
@@ -191,7 +191,7 @@ sidebar-section(:title="$t('questDetailsTitle')")
 <script>
 import { mapState } from '@/libs/store';
 
-import quests from '@/../../common/script/content/quests';
+import * as quests from '@/../../common/script/content/quests';
 import percent from '@/../../common/script/libs/percent';
 import sidebarSection from '../sidebarSection';
 

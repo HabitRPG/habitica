@@ -408,7 +408,7 @@ applyEggDefaults(quests, {
 
 let all = assign({}, drops, quests);
 
-module.exports = {
+export {
   drops,
   quests,
   all,

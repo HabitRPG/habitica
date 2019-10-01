@@ -5,7 +5,7 @@ import { NotFound } from '../libs/errors';
 
 // TODO used only in client, move there?
 
-module.exports = function updateTag (user, req = {}) {
+export default function updateTag (user, req = {}) {
   let tid = get(req, 'params.id');
 
   let index = findIndex(user.tags, {
@@ -18,4 +18,4 @@ module.exports = function updateTag (user, req = {}) {
 
   user.tags[index].name = get(req, 'body.name');
   return user.tags[index];
-};
+}

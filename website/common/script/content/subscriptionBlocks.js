@@ -54,4 +54,4 @@ each(subscriptionBlocks, function createKeys (b, k) {
   return b.key = k;
 });
 
-module.exports = subscriptionBlocks;
+export default subscriptionBlocks;

@@ -30,7 +30,7 @@ function evolve (user, pet, req) {
   }, req.language);
 }
 
-module.exports = function feed (user, req = {}) {
+export default function feed (user, req = {}) {
   let pet = get(req, 'params.pet');
   let foodK = get(req, 'params.food');
 
@@ -116,4 +116,4 @@ module.exports = function feed (user, req = {}) {
     userPets[pet.key],
     message,
   ];
-};
+}

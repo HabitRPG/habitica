@@ -10,4 +10,4 @@ function crit (user, stat = 'str', chance = 0.03) {
   }
 }
 
-module.exports = { crit };
+export default { crit };

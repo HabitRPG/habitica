@@ -15,7 +15,7 @@ import content from '../content/index';
 
 // If item is already purchased -> equip it
 // Otherwise unlock it
-module.exports = function unlock (user, req = {}, analytics) {
+export default function unlock (user, req = {}, analytics) {
   let path = get(req.query, 'path');
 
   if (!path) {
@@ -138,4 +138,4 @@ module.exports = function unlock (user, req = {}, analytics) {
   if (!alreadyOwns) response.push(i18n.t('unlocked', req.language));
 
   return response;
-};
+}

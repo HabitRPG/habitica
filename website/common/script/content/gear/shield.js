@@ -26,4 +26,4 @@ let shield = {
   armoire: armoireShield,
 };
 
-module.exports = shield;
+export default shield;

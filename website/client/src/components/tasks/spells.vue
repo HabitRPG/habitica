@@ -177,7 +177,7 @@ import Drawer from '@/components/ui/drawer';
 import MouseMoveDirective from '@/directives/mouseposition.directive';
 
 import mana from '@/assets/svg/mana.svg';
-import quests from '@/../../common/script/content/quests';
+import * as quests from '@/../../common/script/content/quests';
 import { CONSTANTS, setLocalSetting, getLocalSetting } from '@/libs/userlocalManager';
 
 export default {

@@ -33,7 +33,7 @@ function resetClass (user, req = {}) {
   return balanceRemoved;
 }
 
-module.exports = function changeClass (user, req = {}, analytics) {
+export default function changeClass (user, req = {}, analytics) {
   let klass = get(req, 'query.class');
   let balanceRemoved = 0;
   // user.flags.classSelected is set to false after the user paid the 3 gems
@@ -75,4 +75,4 @@ module.exports = function changeClass (user, req = {}, analytics) {
   return [
     pick(user, splitWhitespace('stats flags items preferences')),
   ];
-};
+}

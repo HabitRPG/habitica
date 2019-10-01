@@ -709,7 +709,7 @@ import map from 'lodash/map';
 import { mapState } from '@/libs/store';
 import avatar from './avatar';
 import usernameForm from './settings/usernameForm';
-import { getBackgroundShopSets } from '@/../../common/script/libs/shops';
+import shops from '@/../../common/script/libs/shops';
 import guide from '@/mixins/guide';
 import notifications from '@/mixins/notifications';
 import toggleSwitch from '@/components/ui/toggleSwitch';
@@ -754,7 +754,7 @@ export default {
     this.$root.$on('buyModal::boughtItem', this.backgroundPurchased);
   },
   data () {
-    let backgroundShopSets = getBackgroundShopSets();
+    let backgroundShopSets = shops.getBackgroundShopSets();
 
     return {
       loading: false,

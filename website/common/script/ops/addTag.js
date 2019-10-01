@@ -3,7 +3,7 @@ import get from 'lodash/get';
 
 // TODO used only in client, move there?
 
-module.exports = function addTag (user, req = {}) {
+export default function addTag (user, req = {}) {
   if (!user.tags) {
     user.tags = [];
   }
@@ -14,4 +14,4 @@ module.exports = function addTag (user, req = {}) {
   });
 
   return user.tags;
-};
+}

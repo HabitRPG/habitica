@@ -6,7 +6,7 @@ import content from './content/index';
 
 const DROP_ANIMALS = keys(content.pets);
 
-function beastMasterProgress (pets = {}) {
+export function beastMasterProgress (pets = {}) {
   let count = 0;
 
   each(DROP_ANIMALS, (animal) => {
@@ -17,7 +17,7 @@ function beastMasterProgress (pets = {}) {
   return count;
 }
 
-function beastCount (pets = {}) {
+export function beastCount (pets = {}) {
   let count = 0;
 
   each(DROP_ANIMALS, (animal) => {
@@ -27,7 +27,7 @@ function beastCount (pets = {}) {
   return count;
 }
 
-function dropPetsCurrentlyOwned (pets = {}) {
+export function dropPetsCurrentlyOwned (pets = {}) {
   let count = 0;
 
   each(DROP_ANIMALS, (animal) => {
@@ -38,7 +38,7 @@ function dropPetsCurrentlyOwned (pets = {}) {
   return count;
 }
 
-function mountMasterProgress (mounts = {}) {
+export function mountMasterProgress (mounts = {}) {
   let count = 0;
 
   each(DROP_ANIMALS, (animal) => {
@@ -49,7 +49,7 @@ function mountMasterProgress (mounts = {}) {
   return count;
 }
 
-function remainingGearInSet (userGear = {}, set) {
+export function remainingGearInSet (userGear = {}, set) {
   let gear = filter(content.gear.flat, (item) => {
     let setMatches = item.klass === set;
     let hasItem = userGear[item.key];
@@ -62,7 +62,7 @@ function remainingGearInSet (userGear = {}, set) {
   return count;
 }
 
-function questsOfCategory (userQuests = {}, category) {
+export function questsOfCategory (userQuests = {}, category) {
   let quests = filter(content.quests, (quest) => {
     let categoryMatches = quest.category === category;
     let hasQuest = userQuests[quest.key];
@@ -74,12 +74,3 @@ function questsOfCategory (userQuests = {}, category) {
 
   return count;
 }
-
-module.exports = {
-  beastMasterProgress,
-  beastCount,
-  dropPetsCurrentlyOwned,
-  mountMasterProgress,
-  remainingGearInSet,
-  questsOfCategory,
-};

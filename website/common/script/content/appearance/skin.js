@@ -1,7 +1,7 @@
 import prefill from './prefill.js';
 import sets from './sets.js';
 
-module.exports = prefill({
+export default prefill({
   /* eslint-disable quote-props */
   'ddc994': {},
   'f5a76e': {},

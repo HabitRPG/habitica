@@ -2,10 +2,10 @@ import {
   EVENTS,
 } from '../../../constants';
 import { ownsItem } from '../../gear-helper';
-import backerGear from './special-backer';
-import contributorGear from './special-contributor';
-import takeThisGear from './special-takeThis';
-import wonderconGear from './special-wondercon';
+import * as backerGear from './special-backer';
+import * as contributorGear from './special-contributor';
+import * as takeThisGear from './special-takeThis';
+import * as wonderconGear from './special-wondercon';
 import t from '../../../translation';
 
 const CURRENT_SEASON = 'fall';
@@ -5368,7 +5368,7 @@ let weapon = {
   },
 };
 
-let specialSet = {
+export {
   armor,
   back,
   body,
@@ -5378,5 +5378,3 @@ let specialSet = {
   shield,
   weapon,
 };
-
-module.exports = specialSet;

@@ -10,7 +10,7 @@ import i18n from '../../i18n';
 import errorMessage from '../../libs/errorMessage';
 import hasClass from '../../libs/hasClass';
 
-module.exports = function allocateBulk (user, req = {}) {
+export default function allocateBulk (user, req = {}) {
   const stats = get(req, 'body.stats');
   if (!stats) throw new BadRequest(errorMessage('statsObjectRequired'));
 
@@ -47,4 +47,4 @@ module.exports = function allocateBulk (user, req = {}) {
   return [
     user.stats,
   ];
-};
+}

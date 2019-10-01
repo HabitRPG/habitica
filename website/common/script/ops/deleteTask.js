@@ -5,7 +5,7 @@ import findIndex from 'lodash/findIndex';
 
 // TODO used only in client, move there?
 
-module.exports = function deleteTask (user, req = {}) {
+export default function deleteTask (user, req = {}) {
   let tid = get(req, 'params.id');
   let taskType = get(req, 'params.taskType');
 
@@ -20,4 +20,4 @@ module.exports = function deleteTask (user, req = {}) {
   user[`${taskType}s`].splice(index, 1);
 
   return {};
-};
+}

@@ -66,7 +66,7 @@ let weapon = {
   },
 };
 
-let baseSet = {
+export {
   armor,
   back,
   body,
@@ -76,5 +76,3 @@ let baseSet = {
   shield,
   weapon,
 };
-
-module.exports = baseSet;

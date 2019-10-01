@@ -5,7 +5,7 @@ import {
   NotAuthorized,
 } from '../libs/errors';
 
-module.exports = function releasePets (user, req = {}, analytics) {
+export default function releasePets (user, req = {}, analytics) {
   if (user.balance < 1) {
     throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
   }
@@ -53,4 +53,4 @@ module.exports = function releasePets (user, req = {}, analytics) {
     user.items.pets,
     i18n.t('petsReleased'),
   ];
-};
+}

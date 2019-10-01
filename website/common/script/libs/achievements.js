@@ -328,4 +328,4 @@ achievs.getAchievementsForProfile = function getAchievementsForProfile (user, la
 
 achievs.getContribText = contribText;
 
-module.exports = achievs;
+export default achievs;

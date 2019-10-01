@@ -1,7 +1,7 @@
 import each from 'lodash/each';
 import content from '../content/index';
 
-module.exports = function resetGear (user) {
+export default function resetGear (user) {
   let gear = user.items.gear;
 
   each(['equipped', 'costume'], function resetUserGear (type) {
@@ -24,4 +24,4 @@ module.exports = function resetGear (user) {
   if (user.markModified) user.markModified('items.gear.owned');
 
   user.preferences.costume = false;
-};
+}

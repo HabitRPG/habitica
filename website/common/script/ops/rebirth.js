@@ -11,7 +11,7 @@ import isFreeRebirth from '../libs/isFreeRebirth';
 
 const USERSTATSLIST = ['per', 'int', 'con', 'str', 'points', 'gp', 'exp', 'mp'];
 
-module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
+export default function rebirth (user, tasks = [], req = {}, analytics) {
   const notFree = !isFreeRebirth(user);
 
   if (user.balance < 1.5 && notFree) {
@@ -113,4 +113,4 @@ module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
     {user, tasks},
     i18n.t('rebirthComplete'),
   ];
-};
+}

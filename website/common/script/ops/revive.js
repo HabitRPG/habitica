@@ -12,7 +12,7 @@ import predictableRandom from '../fns/predictableRandom';
 import { removePinnedGearByClass, addPinnedGearByClass, addPinnedGear } from './pinnedGearUtils';
 import getItemInfo from '../libs/getItemInfo';
 
-module.exports = function revive (user, req = {}, analytics) {
+export default function revive (user, req = {}, analytics) {
   if (user.stats.hp > 0) {
     throw new NotAuthorized(i18n.t('cannotRevive', req.language));
   }
@@ -119,4 +119,4 @@ module.exports = function revive (user, req = {}, analytics) {
     user.items,
     message,
   ];
-};
+}

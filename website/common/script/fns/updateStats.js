@@ -6,7 +6,7 @@ import {
 import { toNextLevel } from '../statHelpers';
 import autoAllocate from './autoAllocate';
 
-module.exports = function updateStats (user, stats, req = {}, analytics) {
+export default function updateStats (user, stats, req = {}, analytics) {
   let allocatedStatPoints;
   let totalStatPoints;
   let experienceToNextLevel;
@@ -111,4 +111,4 @@ module.exports = function updateStats (user, stats, req = {}, analytics) {
     if (user.addNotification) user.addNotification('REBIRTH_ENABLED');
     user.flags.rebirthEnabled = true;
   }
-};
+}

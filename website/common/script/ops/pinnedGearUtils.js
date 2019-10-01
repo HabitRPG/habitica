@@ -2,7 +2,6 @@ import content from '../content/index';
 import getItemInfo from '../libs/getItemInfo';
 import { BadRequest } from '../libs/errors';
 import i18n from '../i18n';
-import isPinned from '../libs/isPinned';
 import getItemByPathAndType from '../libs/getItemByPathAndType';
 import getOfficialPinnedItems from '../libs/getOfficialPinnedItems';
 
@@ -31,12 +30,12 @@ function checkForNullEntries (array) {
   return array.filter(e => Boolean(e));
 }
 
-function checkPinnedAreasForNullEntries (user) {
+export function checkPinnedAreasForNullEntries (user) {
   user.pinnedItems = checkForNullEntries(user.pinnedItems);
   user.unpinnedItems = checkForNullEntries(user.unpinnedItems);
 }
 
-function selectGearToPin (user) {
+export function selectGearToPin (user) {
   let changes = [];
 
   each(content.gearTypes, (type) => {
@@ -50,7 +49,7 @@ function selectGearToPin (user) {
   return sortBy(changes, (change) => sortOrder[change.type]);
 }
 
-function addPinnedGear (user, type, path) {
+export function addPinnedGear (user, type, path) {
   const foundIndex = pathExistsInArray(user.pinnedItems, path);
 
   if (foundIndex === -1 && type && path) {
@@ -61,7 +60,7 @@ function addPinnedGear (user, type, path) {
   }
 }
 
-function addPinnedGearByClass (user) {
+export function addPinnedGearByClass (user) {
   let newPinnedItems = selectGearToPin(user);
 
   for (let item of newPinnedItems) {
@@ -71,7 +70,7 @@ function addPinnedGearByClass (user) {
   }
 }
 
-function removeItemByPath (user, path) {
+export function removeItemByPath (user, path) {
   const foundIndex = pathExistsInArray(user.pinnedItems, path);
 
   if (foundIndex >= 0) {
@@ -82,7 +81,7 @@ function removeItemByPath (user, path) {
   return false;
 }
 
-function removePinnedGearByClass (user) {
+export function removePinnedGearByClass (user) {
   let currentPinnedItems = selectGearToPin(user);
 
   for (let item of currentPinnedItems) {
@@ -92,7 +91,7 @@ function removePinnedGearByClass (user) {
   }
 }
 
-function removePinnedGearAddPossibleNewOnes (user, itemPath, newItemKey) {
+export function removePinnedGearAddPossibleNewOnes (user, itemPath, newItemKey) {
   removeItemByPath(user, itemPath);
 
   // an item of the users current "new" gear was bought
@@ -112,7 +111,7 @@ function removePinnedGearAddPossibleNewOnes (user, itemPath, newItemKey) {
  * removes all pinned gear that the user already owns (like class starter gear which has been pinned before)
  * @param user
  */
-function removePinnedItemsByOwnedGear (user) {
+export function removePinnedItemsByOwnedGear (user) {
   each(user.items.gear.owned, (bool, key) => {
     if (bool) {
       removeItemByPath(user, `gear.flat.${key}`);
@@ -125,7 +124,7 @@ const PATHS_WITHOUT_ITEM = ['special.gems', 'special.rebirth_orb', 'special.fort
 /**
  * @returns {boolean} TRUE added the item / FALSE removed it
  */
-function togglePinnedItem (user, {item, type, path}, req = {}) {
+export function togglePinnedItem (user, {item, type, path}, req = {}) {
   let arrayToChange;
   let officialPinnedItems = getOfficialPinnedItems(user);
 
@@ -178,15 +177,4 @@ function togglePinnedItem (user, {item, type, path}, req = {}) {
   }
 }
 
-module.exports = {
-  addPinnedGearByClass,
-  addPinnedGear,
-  removePinnedGearByClass,
-  removePinnedGearAddPossibleNewOnes,
-  removePinnedItemsByOwnedGear,
-  togglePinnedItem,
-  removeItemByPath,
-  selectGearToPin,
-  checkPinnedAreasForNullEntries,
-  isPinned,
-};
+export { default as isPinned } from '../libs/isPinned';
