@@ -166,7 +166,7 @@ export default {
     },
     date (value) {
       // @TODO: Vue doesn't support this so we cant user preference
-      return moment(value).toDate();
+      return moment(value).toDate().toString();
     },
   },
   computed: {

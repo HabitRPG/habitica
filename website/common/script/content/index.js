@@ -2,6 +2,7 @@ import defaults from 'lodash/defaults';
 import each from 'lodash/each';
 import moment from 'moment';
 import t from './translation';
+import {tasksByCategory} from './tasks';
 
 import {
   CLASSES,
@@ -898,6 +899,7 @@ api.userDefaults = {
     },
   ],
 };
+api.tasksByCategory = tasksByCategory;
 
 api.userDefaultsMobile = {
   habits: [],

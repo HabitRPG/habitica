@@ -1,0 +1,9 @@
+{
+  "achievement": "Thành tích",
+  "share": "Chia sẻ",
+  "onwards": "Tiếp tục!",
+  "levelup": "Bằng việc hoàn thành những mục tiêu ngoài đời thật, bạn đã lên cấp và đã được hồi đầy máu!",
+  "reachedLevel": "Bạn đã lên cấp độ <%= level %>",
+  "achievementLostMasterclasser": "Người hoàn thành nhiệm vụ: Chuỗi Bậc thầy Chức nghiệp",
+  "achievementLostMasterclasserText": "Đã hoàn thành tất cả mười sáu nhiệm vụ trong Chuỗi Nhiệm vụ Bậc thầy Chức nghiệp và giải đáp bí ẩn của Bậc thầy Chức nghiệp Mất tích!"
+}

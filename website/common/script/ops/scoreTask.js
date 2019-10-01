@@ -327,6 +327,7 @@ module.exports = function scoreTask (options = {}, req = {}) {
     }
   }
 
+  req.yesterDailyScored = task.yesterDailyScored;
   updateStats(user, stats, req);
   return [delta];
 };

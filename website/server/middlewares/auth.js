@@ -79,7 +79,7 @@ export function authWithHeaders (options = {}) {
         res.locals.user = user;
         req.session.userId = user._id;
         stackdriverTraceUserId(user._id);
-
+        user.auth.timestamps.updated = new Date();
         return next();
       })
       .catch(next);
@@ -108,6 +108,7 @@ export function authWithSession (req, res, next) {
 
       res.locals.user = user;
       stackdriverTraceUserId(user._id);
+      user.auth.timestamps.updated = new Date();
       return next();
     })
     .catch(next);

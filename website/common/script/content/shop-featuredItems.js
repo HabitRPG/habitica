@@ -8,16 +8,16 @@ const featuredItems = {
       path: 'armoire',
     },
     {
-      type: 'eggs',
-      path: 'eggs.LionCub',
+      type: 'premiumHatchingPotion',
+      path: 'premiumHatchingPotions.Glow',
     },
     {
-      type: 'hatchingPotions',
-      path: 'hatchingPotions.Desert',
+      type: 'premiumHatchingPotion',
+      path: 'premiumHatchingPotions.Spooky',
     },
     {
-      type: 'food',
-      path: 'food.Potatoe',
+      type: 'premiumHatchingPotion',
+      path: 'premiumHatchingPotions.Shadow',
     },
   ],
   quests: [
@@ -34,7 +34,7 @@ const featuredItems = {
       path: 'quests.silver',
     },
   ],
-  seasonal: 'summer2019Mage',
+  seasonal: 'fall2018Rogue',
   timeTravelers: [
     // TODO
   ],

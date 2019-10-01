@@ -79,9 +79,9 @@ api.editSubscription = async function editSubscription (options, stripeInc) {
   if (!customerId) throw new NotAuthorized(i18n.t('missingSubscription'));
   if (!token) throw new BadRequest('Missing req.body.id');
 
-  let subscriptions = await stripeApi.customers.listSubscriptions(customerId); // @TODO: Handle Stripe Error response
+  let subscriptions = await stripeApi.subscriptions.list({customer: customerId}); // @TODO: Handle Stripe Error response
   let subscriptionId = subscriptions.data[0].id;
-  await stripeApi.customers.updateSubscription(customerId, subscriptionId, { card: token });
+  await stripeApi.subscriptions.update(subscriptionId, { card: token });
 };
 
 /**

@@ -25,7 +25,7 @@
   "inviteParty": "Invite Party to Quest",
   "questInvitation": "Quest Invitation: ",
   "questInvitationTitle": "Quest Invitation",
-  "questInvitationInfo": "Invitation for the Quest <%= quest %>",
+  "questInvitationNotificationInfo": "You were invited to join a quest",
   "invitedToQuest": "You were invited to the Quest <span class=\"notification-bold-blue\"><%= quest %></span>",
   "askLater": "Ask Later",
   "questLater": "Quest Later",

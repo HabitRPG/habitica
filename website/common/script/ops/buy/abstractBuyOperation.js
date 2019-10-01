@@ -194,3 +194,28 @@ export class AbstractGemItemOperation extends AbstractBuyOperation {
     };
   }
 }
+
+export class AbstractHourglassItemOperation extends AbstractBuyOperation {
+  constructor (user, req, analytics) {
+    super(user, req, analytics);
+  }
+
+  canUserPurchase (user, item) {
+    this.item = item;
+
+    if (user.purchased.plan.consecutive.trinkets <= 0) {
+      throw new NotAuthorized(this.i18n('notEnoughHourglasses'));
+    }
+  }
+
+  subtractCurrency (user) {
+    user.purchased.plan.consecutive.trinkets--;
+  }
+
+  analyticsData () {
+    return {
+      itemKey: this.item.key,
+      acquireMethod: 'Hourglass',
+    };
+  }
+}

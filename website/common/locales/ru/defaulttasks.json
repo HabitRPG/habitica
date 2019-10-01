@@ -24,5 +24,11 @@
     "defaultTag4": "Учеба",
     "defaultTag5": "Работа в команде",
     "defaultTag6": "Домашние дела",
-    "defaultTag7": "Творчество"
+    "defaultTag7": "Творчество",
+    "choresDailyText": "Помыть посуду",
+    "selfCareDailyNotes": "Нажмите, чтобы выбрать расписание!",
+    "selfCareDailyText": "5 минут спокойного дыхания",
+    "healthTodoNotes": "Нажмите, чтобы добавить списки!",
+    "exerciseTodoNotes": "Нажмите, чтобы добавить список!",
+    "exerciseTodoText": "Установить расписание тренировок"
 }

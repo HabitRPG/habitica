@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'NEW PET COLLECTION BADGES!';
+const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE FOR SEPTEMBER ITEMS';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,14 +30,20 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>9/17/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>9/30/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_desert_pet_achievements center-block"></div>
-        <p>We're releasing a new achievement so you can celebrate your successes in the world of Habitican pet collecting! Earn the Dust Devil and Arid Authority achievements by collecting Desert pets and mounts and you'll earn a nifty badge for your profile.</p>
-        <p>If you already have all the Desert pets and/or mounts in your stable, you'll receive the badge automatically! Check your profile and celebrate your new achievement with pride.</p>
-        <div class="small mb-3">by Piyo and SabreCat</div>
+        <div class="promo_mystery_201909 center-block"></div>
+        <h3>Last Chance for Affable Acorn Set</h3>
+        <p>Reminder: this is the final day to <a href='/user/settings/subscription'>subscribe and receive the Affable Acorn Set</a>! Subscribing also lets you buy Gems for Gold. The longer your subscription, the more Gems you get!</p>
+        <p>Thanks so much for your support! You help keep Habitica running.</p>
+        <div class="small mb-3">by Beffymaroo</div>
+        <div class="promo_rocking_reptiles_bundle center-block"></div>
+        <h3>Last Chance for Rocking Reptiles Quest Bundle</h3>
+        <p>This is also the final day to buy the discounted Rocking Reptiles Pet Quest Bundle, featuring the Alligator, Snake, and Velociraptor quests all for seven gems! Be sure to get your claws on it before it slithers away from the <a href='/shops/quests'>Quest Shop</a>!</p>
+        <div class="small">Art by Gully, Willow The Witty, mfonda, UncommonCriminal, tabbytoes, EmeraldOx, LordDarkly, PainterProphet, Seraphina, Anna Glassman, Procyon, and Lilith of Alfheim</div>
+        <div class="small mb-3">Writing by Mike.Antonacci, lilackbar, Daniel The Bard, and felipena</div>
       </div>
       `,
     });
