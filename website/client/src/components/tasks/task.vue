@@ -171,8 +171,8 @@
     min-width: 0px;
     overflow-wrap: break-word;
 
-    // markdown p-tag, can't find without /deep/
-    /deep/ p {
+    // markdown p-tag, can't find without ::v-deep
+    ::v-deep p {
       margin-bottom: 0;
     }
 
@@ -198,7 +198,7 @@
     }
   }
 
-  .task-title + .task-dropdown /deep/ .dropdown-menu {
+  .task-title + .task-dropdown ::v-deep .dropdown-menu {
     margin-top: 2px !important;
   }
 
@@ -209,17 +209,17 @@
     color: $gray-100 !important;
   }
 
-  .task /deep/ .habitica-menu-dropdown .habitica-menu-dropdown-toggle {
+  .task ::v-deep .habitica-menu-dropdown .habitica-menu-dropdown-toggle {
     opacity: 0;
     padding: 0 8px;
     transition: opacity 0.15s ease-in;
   }
 
-  .task:hover /deep/ .habitica-menu-dropdown .habitica-menu-dropdown-toggle {
+  .task:hover ::v-deep .habitica-menu-dropdown .habitica-menu-dropdown-toggle {
     opacity: 1;
   }
 
-  .task-clickable-area /deep/ .habitica-menu-dropdown.open .habitica-menu-dropdown-toggle {
+  .task-clickable-area ::v-deep .habitica-menu-dropdown.open .habitica-menu-dropdown-toggle {
     opacity: 1;
 
     .svg-icon {
@@ -227,7 +227,7 @@
     }
   }
 
-  .task-clickable-area /deep/ .habitica-menu-dropdown .habitica-menu-dropdown-toggle:hover .svg-icon {
+  .task-clickable-area ::v-deep .habitica-menu-dropdown .habitica-menu-dropdown-toggle:hover .svg-icon {
     color: $purple-400 !important;
   }
 
@@ -235,7 +235,7 @@
     max-height: 16px;
   }
 
-  .task-dropdown /deep/ .dropdown-menu {
+  .task-dropdown ::v-deep .dropdown-menu {
     .dropdown-item {
       cursor: pointer !important;
       transition: none;
@@ -510,7 +510,7 @@
     }
   }
 
-  .tags-popover /deep/ {
+  .tags-popover ::v-deep {
     .tags-container {
       flex-wrap: wrap;
       margin-top: -3px;

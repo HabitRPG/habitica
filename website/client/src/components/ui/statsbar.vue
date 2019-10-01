@@ -15,7 +15,7 @@
     margin-bottom: .5em;
     height: 24px;
 
-    /deep/ .bs-tooltip-bottom {
+    ::v-deep .bs-tooltip-bottom {
       top: -16px !important
     }
   }

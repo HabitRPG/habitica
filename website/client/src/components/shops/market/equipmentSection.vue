@@ -171,7 +171,7 @@ layout-section(:title="$t('equipment')")
 
 <style lang="scss" scoped>
   .equipment-rows {
-    /deep/ .item.item-empty {
+    ::v-deep .item.item-empty {
       background: white;
     }
   }

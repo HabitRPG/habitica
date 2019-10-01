@@ -41,7 +41,7 @@ A simplified dropdown component that doesn't rely on buttons as toggles  like bo
     left: inherit;
     right: 0px !important;
 
-    /deep/ .dropdown-separated {
+    ::v-deep .dropdown-separated {
       border-bottom: 1px solid $gray-500;
     }
   }

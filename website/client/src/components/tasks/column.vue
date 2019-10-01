@@ -78,7 +78,7 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
-  /deep/ .draggable-cursor {
+  ::v-deep .draggable-cursor {
     cursor: grabbing;
   }
 

@@ -35,7 +35,7 @@ base-notification(
     padding: 0 !important;
   }
 
-  .notification /deep/ .notification-content {
+  .notification ::v-deep .notification-content {
     margin-top: 0 !important;
     margin-bottom: 0 !important;
   }

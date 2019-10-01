@@ -346,12 +346,12 @@ div
       margin-right: 24px;
     }
 
-    &:focus /deep/ .top-menu-icon.svg-icon,
-    &:hover /deep/ .top-menu-icon.svg-icon {
+    &:focus ::v-deep .top-menu-icon.svg-icon,
+    &:hover ::v-deep .top-menu-icon.svg-icon {
       color: $white;
     }
 
-    & /deep/ .top-menu-icon.svg-icon {
+    & ::v-deep .top-menu-icon.svg-icon {
       color: $header-color;
       vertical-align: bottom;
       display: inline-block;

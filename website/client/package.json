@@ -36,6 +36,8 @@
     "chai": "^4.1.2",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
+    "pug": "^2.0.4",
+    "pug-plain-loader": "^1.0.0",
     "sass": "^1.19.0",
     "sass-loader": "^8.0.0",
     "vue-template-compiler": "^2.6.10"

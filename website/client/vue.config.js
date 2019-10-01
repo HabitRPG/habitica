@@ -10,6 +10,26 @@ setupNconf(configFile);
 const DEV_BASE_URL = nconf.get('BASE_URL');
 
 module.exports = {
+  chainWebpack: config => {
+    const pugRule = config.module.rule('pug')
+
+    // clear all existing loaders.
+    // if you don't do this, the loader below will be appended to
+    // existing loaders of the rule.
+    pugRule.uses.clear()
+
+    // add replacement loader(s)
+    pugRule
+        .test(/\.pug$/)
+        // this applies to <template lang="pug"> in Vue components
+        .oneOf('vue-loader')
+          .resourceQuery(/^\?vue/)
+          .use('pug-plain')
+            .loader('pug-plain-loader')
+            .end()
+        .end()
+  },
+
   devServer: {
     proxy: {
       // proxy all requests to the server at IP:PORT as specified in the top-level config
