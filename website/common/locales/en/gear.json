@@ -454,6 +454,8 @@
   "weaponArmoireFloridFanNotes": "This lovely silk fan folds when not in use. Increases Constitution by <%= con %>. Enchanted Armoire: Independent Item.",
   "weaponArmoireResplendentRapierText": "Resplendent Rapier",
   "weaponArmoireResplendentRapierNotes": "Demonstrate your swordsmanship with this sharply pointed weapon. Increases Perception by <%= per %>. Enchanted Armoire: Independent Item.",
+  "weaponArmoireShadowMastersMaceText": "Shadow Master's Mace",
+  "weaponArmoireShadowMastersMaceNotes": "Creatures of darkness will obey your every command when you wave this glowing mace. Increases Perception by <%= per %>. Enchanted Armoire: Shadow Master Set (Item 3 of 4).",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -980,6 +982,8 @@
   "armorArmoireAstronomersRobeNotes": "Turns out silk and starlight make a fabric that is not only magical, but very breathable. Increases Perception and Constitution by <%= attrs %> each. Enchanted Armoire: Astronomer Mage Set (Item 1 of 3).",
   "armorArmoireInvernessCapeText": "Inverness Cape",
   "armorArmoireInvernessCapeNotes": "This sturdy garment will let you search for clues in any type of weather. Increases Perception and Intelligence by <%= attrs %> each. Enchanted Armoire: Detective Set (Item 2 of 4).",
+  "armorArmoireShadowMastersRobeText": "Shadow Master's Robe",
+  "armorArmoireShadowMastersRobeNotes": "The fabric of this flowy robe is woven from the darkest shadows in the deepest caves of Habitica. Increases Constitution by <%= con %>. Enchanted Armoire: Shadow Master Set (Item 1 of 4).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -1516,6 +1520,8 @@
   "headArmoireAstronomersHatNotes": "A perfect hat for celestial observation or a fancy wizard brunch. Increases Constitution by <%= con %>. Enchanted Armoire: Astronomer Mage Set (Item 2 of 3).",
   "headArmoireDeerstalkerCapText": "Deerstalker Cap",
   "headArmoireDeerstalkerCapNotes": "This cap is perfect for rural excursions, but also is acceptable gear for mystery-solving! Increases Intelligence by <%= int %>. Enchanted Armoire: Detective Set (Item 1 of 4).",
+  "headArmoireShadowMastersHoodText": "Shadow Master's Hood",
+  "headArmoireShadowMastersHoodNotes": "This hood grants you the power to see through even the deepest darkness. It may occasionally require eyedrops, though. Increases Perception and Constitution by <%= attrs %> each. Enchanted Armoire: Shadow Master Set (Item 2 of 4).",
 
   "offhand": "off-hand item",
   "offhandCapitalized": "Off-Hand Item",
@@ -1809,6 +1815,8 @@
   "shieldArmoireTrustyUmbrellaNotes": "Mysteries are often accompanied by inclement weather, so be prepared! Increases Intelligence by <%= int %>. Enchanted Armoire: Detective Set (Item 4 of 4).",
   "shieldArmoirePolishedPocketwatchText": "Polished Pocketwatch",
   "shieldArmoirePolishedPocketwatchNotes": "You've got the time. And it looks very nice on you. Increases Intelligence by <%= int %>. Enchanted Armoire: Independent Item.",
+  "shieldArmoireMasteredShadowText": "Mastered Shadow",
+  "shieldArmoireMasteredShadowNotes": "Your powers have brought these swirling shadows to your side to do your bidding. Increases Perception and Constitution by <%= attrs %> each. Enchanted Armoire: Shadow Master Set (Item 4 of 4).",
 
   "back": "Back Accessory",
   "backCapitalized": "Back Accessory",
