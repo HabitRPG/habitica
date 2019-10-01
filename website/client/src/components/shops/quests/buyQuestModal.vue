@@ -51,8 +51,8 @@
 </template>
 
 <style lang="scss">
-  @import '~client/assets/scss/colors.scss';
-  @import '~client/assets/scss/modal.scss';
+  @import '~@/assets/scss/colors.scss';
+  @import '~@/assets/scss/modal.scss';
 
   #buy-quest-modal {
     @include centeredModal();
@@ -196,21 +196,21 @@
 </style>
 
 <script>
-  import {mapState} from 'client/libs/store';
+  import {mapState} from '@/libs/store';
 
-  import svgClose from 'assets/svg/close.svg';
-  import svgGold from 'assets/svg/gold.svg';
-  import svgGem from 'assets/svg/gem.svg';
-  import svgPin from 'assets/svg/pin.svg';
-  import svgExperience from 'assets/svg/experience.svg';
-  import svgHourglasses from 'assets/svg/hourglass.svg';
+  import svgClose from '@/assets/svg/close.svg';
+  import svgGold from '@/assets/svg/gold.svg';
+  import svgGem from '@/assets/svg/gem.svg';
+  import svgPin from '@/assets/svg/pin.svg';
+  import svgExperience from '@/assets/svg/experience.svg';
+  import svgHourglasses from '@/assets/svg/hourglass.svg';
 
   import BalanceInfo  from '../balanceInfo.vue';
   import currencyMixin from '../_currencyMixin';
   import QuestInfo from './questInfo.vue';
-  import notifications from 'client/mixins/notifications';
-  import buyMixin from 'client/mixins/buy';
-  import numberInvalid from 'client/mixins/numberInvalid';
+  import notifications from '@/mixins/notifications';
+  import buyMixin from '@/mixins/buy';
+  import numberInvalid from '@/mixins/numberInvalid';
 
   import questDialogDrops from './questDialogDrops';
   import questDialogContent from './questDialogContent';

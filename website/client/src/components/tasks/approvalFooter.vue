@@ -15,7 +15,7 @@ div
 </template>
 
 <style lang="scss", scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
   .claim-bottom-message {
     background-color: $gray-700;
     border-bottom-left-radius: 2px;
@@ -40,9 +40,9 @@ div
 
 <script>
 import findIndex from 'lodash/findIndex';
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 import approvalModal from './approvalModal';
-import sync from 'client/mixins/sync';
+import sync from '@/mixins/sync';
 
 export default {
   mixins: [sync],

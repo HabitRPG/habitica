@@ -10,7 +10,7 @@
 </template>
 
 <script>
-  import SecondaryMenu from 'client/components/secondaryMenu';
+  import SecondaryMenu from '@/components/secondaryMenu';
 
   export default {
     components: {

@@ -76,7 +76,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   /deep/ .draggable-cursor {
     cursor: grabbing;
@@ -265,12 +265,12 @@ import Task from './task';
 import ClearCompletedTodos from './clearCompletedTodos';
 import throttle from 'lodash/throttle';
 import isEmpty from 'lodash/isEmpty';
-import buyMixin from 'client/mixins/buy';
-import { mapState, mapActions, mapGetters } from 'client/libs/store';
+import buyMixin from '@/mixins/buy';
+import { mapState, mapActions, mapGetters } from '@/libs/store';
 import shopItem from '../shops/shopItem';
-import BuyQuestModal from 'client/components/shops/quests/buyQuestModal.vue';
+import BuyQuestModal from '@/components/shops/quests/buyQuestModal.vue';
 
-import notifications from 'client/mixins/notifications';
+import notifications from '@/mixins/notifications';
 import { shouldDo } from 'common/script/cron';
 import inAppRewards from 'common/script/libs/inAppRewards';
 import spells from 'common/script/content/spells';
@@ -280,13 +280,13 @@ import {
   getTypeLabel,
   getFilterLabels,
   getActiveFilter,
-} from 'client/libs/store/helpers/filterTasks.js';
+} from '@/libs/store/helpers/filterTasks.js';
 
-import svgPin from 'assets/svg/pin.svg';
-import habitIcon from 'assets/svg/habit.svg';
-import dailyIcon from 'assets/svg/daily.svg';
-import todoIcon from 'assets/svg/todo.svg';
-import rewardIcon from 'assets/svg/reward.svg';
+import svgPin from '@/assets/svg/pin.svg';
+import habitIcon from '@/assets/svg/habit.svg';
+import dailyIcon from '@/assets/svg/daily.svg';
+import todoIcon from '@/assets/svg/todo.svg';
+import rewardIcon from '@/assets/svg/reward.svg';
 import draggable from 'vuedraggable';
 
 export default {

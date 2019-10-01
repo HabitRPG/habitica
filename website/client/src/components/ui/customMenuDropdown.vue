@@ -11,7 +11,7 @@ A simplified dropdown component that doesn't rely on buttons as toggles  like bo
 </template>
 
 <style lang="scss">
-@import '~client/assets/scss/colors.scss';
+@import '~@/assets/scss/colors.scss';
 .habitica-menu-dropdown {
   &:hover,
   &:focus { // NB focus styles match the hover styles for .svg-icon
@@ -26,7 +26,7 @@ A simplified dropdown component that doesn't rely on buttons as toggles  like bo
 }
 </style>
 <style lang='scss' scoped>
-@import '~client/assets/scss/colors.scss';
+@import '~@/assets/scss/colors.scss';
 
 .dropdown {
   &:hover {

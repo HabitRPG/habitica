@@ -40,7 +40,7 @@
 </template>
 
 <style lang="scss">
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
   // Have to use this, because v-markdown creates p element in h3. Scoping doesn't work with it.
   .challenge-title > p {
     display: -webkit-box;
@@ -61,7 +61,7 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   .challenge {
     background-color: $white;
@@ -307,17 +307,17 @@
   import userLink from '../userLink';
   import groupLink from '../groupLink';
   import categoryTags from '../categories/categoryTags';
-  import markdownDirective from 'client/directives/markdown';
-  import {mapState} from 'client/libs/store';
+  import markdownDirective from '@/directives/markdown';
+  import {mapState} from '@/libs/store';
 
-  import gemIcon from 'assets/svg/gem.svg';
-  import memberIcon from 'assets/svg/member-icon.svg';
-  import calendarIcon from 'assets/svg/calendar.svg';
-  import habitIcon from 'assets/svg/habit.svg';
-  import todoIcon from 'assets/svg/todo.svg';
-  import dailyIcon from 'assets/svg/daily.svg';
-  import rewardIcon from 'assets/svg/reward.svg';
-  import officialIcon from 'assets/svg/official.svg';
+  import gemIcon from '@/assets/svg/gem.svg';
+  import memberIcon from '@/assets/svg/member-icon.svg';
+  import calendarIcon from '@/assets/svg/calendar.svg';
+  import habitIcon from '@/assets/svg/habit.svg';
+  import todoIcon from '@/assets/svg/todo.svg';
+  import dailyIcon from '@/assets/svg/daily.svg';
+  import rewardIcon from '@/assets/svg/reward.svg';
+  import officialIcon from '@/assets/svg/official.svg';
 
   export default {
     props: {

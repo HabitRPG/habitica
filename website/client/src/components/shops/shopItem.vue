@@ -42,7 +42,7 @@ div
 </template>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   .item-wrapper {
     z-index: 10;
@@ -152,13 +152,13 @@ div
 <script>
   import uuid from 'uuid';
 
-  import svgGem from 'assets/svg/gem.svg';
-  import svgGold from 'assets/svg/gold.svg';
-  import svgHourglasses from 'assets/svg/hourglass.svg';
-  import svgLock from 'assets/svg/lock.svg';
-  import svgClock from 'assets/svg/clock.svg';
+  import svgGem from '@/assets/svg/gem.svg';
+  import svgGold from '@/assets/svg/gold.svg';
+  import svgHourglasses from '@/assets/svg/hourglass.svg';
+  import svgLock from '@/assets/svg/lock.svg';
+  import svgClock from '@/assets/svg/clock.svg';
 
-  import EquipmentAttributesPopover from 'client/components/inventory/equipment/attributesPopover';
+  import EquipmentAttributesPopover from '@/components/inventory/equipment/attributesPopover';
 
   import QuestInfo from './quests/questInfo.vue';
 

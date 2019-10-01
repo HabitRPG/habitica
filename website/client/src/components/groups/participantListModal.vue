@@ -66,7 +66,7 @@
 </style>
 
 <script>
-import { mapGetters } from 'client/libs/store';
+import { mapGetters } from '@/libs/store';
 
 import MemberDetails from '../memberDetails';
 

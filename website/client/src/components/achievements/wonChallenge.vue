@@ -37,8 +37,8 @@
 </style>
 
 <script>
-import { mapState } from 'client/libs/store';
-import markdownDirective from 'client/directives/markdown';
+import { mapState } from '@/libs/store';
+import markdownDirective from '@/directives/markdown';
 import Avatar from '../avatar';
 
 export default {

@@ -51,7 +51,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   .avatar {
     width: 10%;
@@ -140,7 +140,7 @@
 <script>
 import moment from 'moment';
 import axios from 'axios';
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 import debounce from 'lodash/debounce';
 import findIndex from 'lodash/findIndex';
 

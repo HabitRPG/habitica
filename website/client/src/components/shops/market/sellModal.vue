@@ -46,8 +46,8 @@
 </template>
 <style lang="scss">
 
-  @import '~client/assets/scss/modal.scss';
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/modal.scss';
+  @import '~@/assets/scss/colors.scss';
 
   #sell-modal {
     @include centeredModal();
@@ -121,13 +121,13 @@
 </style>
 
 <script>
-  import svgClose from 'assets/svg/close.svg';
-  import svgGold from 'assets/svg/gold.svg';
-  import svgGem from 'assets/svg/gem.svg';
+  import svgClose from '@/assets/svg/close.svg';
+  import svgGold from '@/assets/svg/gold.svg';
+  import svgGem from '@/assets/svg/gem.svg';
 
   import BalanceInfo  from '../balanceInfo.vue';
-  import Item from 'client/components/inventory/item';
-  import CountBadge from 'client/components/ui/countBadge';
+  import Item from '@/components/inventory/item';
+  import CountBadge from '@/components/ui/countBadge';
 
   export default {
     components: {

@@ -248,7 +248,7 @@
 </template>
 
 <style lang="scss">
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   #task-modal {
     .modal-dialog.modal-sm {
@@ -551,7 +551,7 @@
         border-top: 1px solid $gray-500 !important;
         border-bottom: 1px solid $gray-500 !important;
         background-size: 10px 10px;
-        background-image: url(~client/assets/svg/for-css/positive.svg);
+        background-image: url(~@/assets/svg/for-css/positive.svg);
       }
     }
 
@@ -654,27 +654,27 @@
 
 <script>
 import TagsPopup from './tagsPopup';
-import { mapGetters, mapActions, mapState } from 'client/libs/store';
-import markdownDirective from 'client/directives/markdown';
-import toggleSwitch from 'client/components/ui/toggleSwitch';
+import { mapGetters, mapActions, mapState } from '@/libs/store';
+import markdownDirective from '@/directives/markdown';
+import toggleSwitch from '@/components/ui/toggleSwitch';
 import clone from 'lodash/clone';
 import Datepicker from 'vuejs-datepicker';
 import moment from 'moment';
 import uuid from 'uuid';
 import draggable from 'vuedraggable';
 
-import informationIcon from 'assets/svg/information.svg';
-import difficultyTrivialIcon from 'assets/svg/difficulty-trivial.svg';
-import difficultyMediumIcon from 'assets/svg/difficulty-medium.svg';
-import difficultyHardIcon from 'assets/svg/difficulty-hard.svg';
-import difficultyNormalIcon from 'assets/svg/difficulty-normal.svg';
-import positiveIcon from 'assets/svg/positive.svg';
-import negativeIcon from 'assets/svg/negative.svg';
-import streakIcon from 'assets/svg/streak.svg';
-import deleteIcon from 'assets/svg/delete.svg';
-import goldIcon from 'assets/svg/gold.svg';
-import downIcon from 'assets/svg/down.svg';
-import calendarIcon from 'assets/svg/calendar.svg';
+import informationIcon from '@/assets/svg/information.svg';
+import difficultyTrivialIcon from '@/assets/svg/difficulty-trivial.svg';
+import difficultyMediumIcon from '@/assets/svg/difficulty-medium.svg';
+import difficultyHardIcon from '@/assets/svg/difficulty-hard.svg';
+import difficultyNormalIcon from '@/assets/svg/difficulty-normal.svg';
+import positiveIcon from '@/assets/svg/positive.svg';
+import negativeIcon from '@/assets/svg/negative.svg';
+import streakIcon from '@/assets/svg/streak.svg';
+import deleteIcon from '@/assets/svg/delete.svg';
+import goldIcon from '@/assets/svg/gold.svg';
+import downIcon from '@/assets/svg/down.svg';
+import calendarIcon from '@/assets/svg/calendar.svg';
 
 export default {
   components: {

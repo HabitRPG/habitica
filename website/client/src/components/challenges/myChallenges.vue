@@ -39,7 +39,7 @@
 </template>
 
 <style lang='scss' scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   .header-row {
     h1 {
@@ -80,14 +80,14 @@
 </style>
 
 <script>
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 import Sidebar from './sidebar';
 import ChallengeItem from './challengeItem';
 import challengeModal from './challengeModal';
-import challengeUtilities from 'client/mixins/challengeUtilities';
+import challengeUtilities from '@/mixins/challengeUtilities';
 
-import challengeIcon from 'assets/svg/challenge.svg';
-import positiveIcon from 'assets/svg/positive.svg';
+import challengeIcon from '@/assets/svg/challenge.svg';
+import positiveIcon from '@/assets/svg/positive.svg';
 import MugenScroll from 'vue-mugen-scroll';
 
 import debounce from 'lodash/debounce';

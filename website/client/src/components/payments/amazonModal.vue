@@ -29,10 +29,10 @@
 </style>
 
 <script>
-import * as Analytics from 'client/libs/analytics';
+import * as Analytics from '@/libs/analytics';
 import axios from 'axios';
-import { mapState } from 'client/libs/store';
-import { CONSTANTS, setLocalSetting } from 'client/libs/userlocalManager';
+import { mapState } from '@/libs/store';
+import { CONSTANTS, setLocalSetting } from '@/libs/userlocalManager';
 import pick from 'lodash/pick';
 
 const AMAZON_PAYMENTS = process.env.AMAZON_PAYMENTS; // eslint-disable-line

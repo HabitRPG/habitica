@@ -150,10 +150,10 @@
 </template>
 
 <script>
-  import toggleSwitch from 'client/components/ui/toggleSwitch';
-  import attributesGrid from 'client/components/inventory/equipment/attributesGrid';
+  import toggleSwitch from '@/components/ui/toggleSwitch';
+  import attributesGrid from '@/components/inventory/equipment/attributesGrid';
 
-  import { mapState } from 'client/libs/store';
+  import { mapState } from '@/libs/store';
   import Content from '../../../common/script/content';
   import { beastMasterProgress, mountMasterProgress } from '../../../common/script/count';
   import autoAllocate from '../../../common/script/fns/autoAllocate';
@@ -352,7 +352,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   #stats {
     .box div {

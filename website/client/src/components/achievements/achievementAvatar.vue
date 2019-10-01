@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 import Avatar from '../avatar';
 
 export default {

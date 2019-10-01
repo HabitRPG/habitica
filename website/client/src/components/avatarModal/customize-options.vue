@@ -23,8 +23,8 @@
 </template>
 
 <script>
-  import gem from 'assets/svg/gem.svg';
-  import gold from 'assets/svg/gold.svg';
+  import gem from '@/assets/svg/gem.svg';
+  import gold from '@/assets/svg/gold.svg';
   import {avatarEditorUtilies} from '../../mixins/avatarEditUtilities';
 
   export default {
@@ -49,7 +49,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   .customize-options {
     width: 100%;

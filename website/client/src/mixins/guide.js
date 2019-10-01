@@ -1,6 +1,6 @@
 import times from 'lodash/times';
 import introjs from 'intro.js';
-import * as Analytics from 'client/libs/analytics';
+import * as Analytics from '@/libs/analytics';
 
 let showingTour = false;
 

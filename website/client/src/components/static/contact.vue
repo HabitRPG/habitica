@@ -38,8 +38,8 @@
 </template>
 
 <script>
-import { mapState } from 'client/libs/store';
-import { goToModForm } from 'client/libs/modform';
+import { mapState } from '@/libs/store';
+import { goToModForm } from '@/libs/modform';
 
 export default {
   computed: {

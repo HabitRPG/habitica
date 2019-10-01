@@ -18,8 +18,8 @@
 </template>
 
 <script>
-import { mapState } from 'client/libs/store';
-import styleHelper from 'client/mixins/styleHelper';
+import { mapState } from '@/libs/store';
+import styleHelper from '@/mixins/styleHelper';
 
 export default {
   mixins: [styleHelper],

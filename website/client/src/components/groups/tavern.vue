@@ -60,14 +60,14 @@
                 .svg-icon.boss-icon.information-icon.m-auto(v-html="icons.informationIcon", v-b-tooltip.hover.top="questData.boss.rage.description()")
               .col-sm-8.d-flex.align-items-center.justify-content-center
                 .m-auto(@click="showWorldBossRage('seasonalShop')")
-                  img.rage-strike(src="~assets/images/world-boss/rage_strike@2x.png", v-if="!group.quest.extra.worldDmg.seasonalShop")
-                  img.rage-strike-active(src="~assets/images/world-boss/rage_strike-seasonalShop@2x.png", v-if="group.quest.extra.worldDmg.seasonalShop")
+                  img.rage-strike(src="~@/assets/images/world-boss/rage_strike@2x.png", v-if="!group.quest.extra.worldDmg.seasonalShop")
+                  img.rage-strike-active(src="~@/assets/images/world-boss/rage_strike-seasonalShop@2x.png", v-if="group.quest.extra.worldDmg.seasonalShop")
                 .m-auto(@click="showWorldBossRage('market')")
-                  img.rage-strike(src="~assets/images/world-boss/rage_strike@2x.png", v-if="!group.quest.extra.worldDmg.market")
-                  img.rage-strike-active(src="~assets/images/world-boss/rage_strike-market@2x.png", v-if="group.quest.extra.worldDmg.market")
+                  img.rage-strike(src="~@/assets/images/world-boss/rage_strike@2x.png", v-if="!group.quest.extra.worldDmg.market")
+                  img.rage-strike-active(src="~@/assets/images/world-boss/rage_strike-market@2x.png", v-if="group.quest.extra.worldDmg.market")
                 .m-auto(@click="showWorldBossRage('quests')")
-                  img.rage-strike(src="~assets/images/world-boss/rage_strike@2x.png", v-if="!group.quest.extra.worldDmg.quests")
-                  img.rage-strike-active(src="~assets/images/world-boss/rage_strike-quests@2x.png", v-if="group.quest.extra.worldDmg.quests")
+                  img.rage-strike(src="~@/assets/images/world-boss/rage_strike@2x.png", v-if="!group.quest.extra.worldDmg.quests")
+                  img.rage-strike-active(src="~@/assets/images/world-boss/rage_strike-quests@2x.png", v-if="group.quest.extra.worldDmg.quests")
             .boss-description.p-3(:style="{'border-color': questData.colors.extralight}", @click="sections.worldBoss = !sections.worldBoss")
               strong.float-left {{ $t('worldBossDescription') }}
               .float-right
@@ -162,8 +162,8 @@
 </template>
 
 <style lang='scss' scoped>
-  @import '~client/assets/scss/colors.scss';
-  @import '~client/assets/scss/variables.scss';
+  @import '~@/assets/scss/colors.scss';
+  @import '~@/assets/scss/variables.scss';
 
   h1 {
     color: $purple-200;
@@ -185,14 +185,14 @@
   }
 
   .grassy-meadow-backdrop {
-    background-image: url('~assets/images/npc/#{$npc_tavern_flavor}/tavern_background.png');
+    background-image: url('~@/assets/images/npc/#{$npc_tavern_flavor}/tavern_background.png');
     background-repeat: repeat-x;
     width: 100%;
     height: 246px;
   }
 
   .daniel_front {
-    background-image: url('~assets/images/npc/#{$npc_tavern_flavor}/tavern_npc.png');
+    background-image: url('~@/assets/images/npc/#{$npc_tavern_flavor}/tavern_npc.png');
     height: 246px;
     width: 471px;
     background-repeat: no-repeat;
@@ -428,8 +428,8 @@
 </style>
 
 <script>
-import { mapState } from 'client/libs/store';
-import { goToModForm } from 'client/libs/modform';
+import { mapState } from '@/libs/store';
+import { goToModForm } from '@/libs/modform';
 
 import { TAVERN_ID } from '../../../common/script/constants';
 import worldBossInfoModal from '../world-boss/worldBossInfoModal';
@@ -438,25 +438,25 @@ import sidebarSection from '../sidebarSection';
 import chat from './chat';
 
 
-import challengeIcon from 'assets/svg/challenge.svg';
-import chevronIcon from 'assets/svg/chevron-red.svg';
-import gemIcon from 'assets/svg/gem.svg';
-import healthIcon from 'assets/svg/health.svg';
-import informationIconRed from 'assets/svg/information-red.svg';
-import questBackground from 'assets/svg/quest-background-border.svg';
-import rageIcon from 'assets/svg/rage.svg';
-import swordIcon from 'assets/svg/sword.svg';
+import challengeIcon from '@/assets/svg/challenge.svg';
+import chevronIcon from '@/assets/svg/chevron-red.svg';
+import gemIcon from '@/assets/svg/gem.svg';
+import healthIcon from '@/assets/svg/health.svg';
+import informationIconRed from '@/assets/svg/information-red.svg';
+import questBackground from '@/assets/svg/quest-background-border.svg';
+import rageIcon from '@/assets/svg/rage.svg';
+import swordIcon from '@/assets/svg/sword.svg';
 
-import tier1 from 'assets/svg/tier-1.svg';
-import tier2 from 'assets/svg/tier-2.svg';
-import tier3 from 'assets/svg/tier-3.svg';
-import tier4 from 'assets/svg/tier-4.svg';
-import tier5 from 'assets/svg/tier-5.svg';
-import tier6 from 'assets/svg/tier-6.svg';
-import tier7 from 'assets/svg/tier-7.svg';
-import tierMod from 'assets/svg/tier-mod.svg';
-import tierNPC from 'assets/svg/tier-npc.svg';
-import tierStaff from 'assets/svg/tier-staff.svg';
+import tier1 from '@/assets/svg/tier-1.svg';
+import tier2 from '@/assets/svg/tier-2.svg';
+import tier3 from '@/assets/svg/tier-3.svg';
+import tier4 from '@/assets/svg/tier-4.svg';
+import tier5 from '@/assets/svg/tier-5.svg';
+import tier6 from '@/assets/svg/tier-6.svg';
+import tier7 from '@/assets/svg/tier-7.svg';
+import tierMod from '@/assets/svg/tier-mod.svg';
+import tierNPC from '@/assets/svg/tier-npc.svg';
+import tierStaff from '@/assets/svg/tier-staff.svg';
 
 import quests from 'common/script/content/quests';
 import staffList from '../../libs/staffList';

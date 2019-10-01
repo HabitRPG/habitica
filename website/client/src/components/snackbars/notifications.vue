@@ -24,7 +24,7 @@
 </style>
 
 <script>
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 import notification from './notification';
 
 export default {

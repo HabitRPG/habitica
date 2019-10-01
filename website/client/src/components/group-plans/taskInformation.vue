@@ -50,8 +50,8 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
-  @import '~client/assets/scss/create-task.scss';
+  @import '~@/assets/scss/colors.scss';
+  @import '~@/assets/scss/create-task.scss';
 
   .tasks-navigation {
     margin-bottom: 40px;
@@ -72,19 +72,19 @@ import TaskColumn from '../tasks/column';
 import TaskModal from '../tasks/taskModal';
 import GroupPlanOverviewModal from './groupPlanOverviewModal';
 
-import positiveIcon from 'assets/svg/positive.svg';
-import filterIcon from 'assets/svg/filter.svg';
-import deleteIcon from 'assets/svg/delete.svg';
-import habitIcon from 'assets/svg/habit.svg';
-import dailyIcon from 'assets/svg/daily.svg';
-import todoIcon from 'assets/svg/todo.svg';
-import rewardIcon from 'assets/svg/reward.svg';
+import positiveIcon from '@/assets/svg/positive.svg';
+import filterIcon from '@/assets/svg/filter.svg';
+import deleteIcon from '@/assets/svg/delete.svg';
+import habitIcon from '@/assets/svg/habit.svg';
+import dailyIcon from '@/assets/svg/daily.svg';
+import todoIcon from '@/assets/svg/todo.svg';
+import rewardIcon from '@/assets/svg/reward.svg';
 
 import Vue from 'vue';
 import cloneDeep from 'lodash/cloneDeep';
 import findIndex from 'lodash/findIndex';
 import groupBy from 'lodash/groupBy';
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 
 export default {
   props: ['groupId'],

@@ -53,8 +53,8 @@
   import autocomplete from '../chat/autoComplete';
   import communityGuidelines from './communityGuidelines';
   import chatMessage from '../chat/chatMessages';
-  import { mapState } from 'client/libs/store';
-  import markdownDirective from 'client/directives/markdown';
+  import { mapState } from '@/libs/store';
+  import markdownDirective from '@/directives/markdown';
 
   export default {
     props: ['label', 'group', 'placeholder'],
@@ -235,8 +235,8 @@
 </script>
 
 <style scoped lang="scss">
-  @import '~client/assets/scss/colors.scss';
-  @import '~client/assets/scss/variables.scss';
+  @import '~@/assets/scss/colors.scss';
+  @import '~@/assets/scss/variables.scss';
 
   .chat-actions {
     margin-top: 1em;

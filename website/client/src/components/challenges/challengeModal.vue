@@ -64,7 +64,7 @@
 </template>
 
 <style lang='scss'>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   #challenge-modal {
     h5 {
@@ -132,10 +132,10 @@
 <script>
 import clone from 'lodash/clone';
 
-import markdownDirective from 'client/directives/markdown';
+import markdownDirective from '@/directives/markdown';
 
 import { TAVERN_ID, MIN_SHORTNAME_SIZE_FOR_CHALLENGES, MAX_SUMMARY_SIZE_FOR_CHALLENGES } from '../../../common/script/constants';
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 
 export default {
   props: ['groupId'],

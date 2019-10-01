@@ -1,4 +1,4 @@
-import { loadAsyncResource } from 'client/libs/asyncResource';
+import { loadAsyncResource } from '@/libs/asyncResource';
 import axios from 'axios';
 import compact from 'lodash/compact';
 import omit from 'lodash/omit';

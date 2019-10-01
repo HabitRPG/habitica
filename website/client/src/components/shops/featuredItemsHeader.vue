@@ -36,9 +36,9 @@ div.featuredItems
 <script>
   import ShopItem from './shopItem';
 
-  import pinUtils from 'client/mixins/pinUtils';
+  import pinUtils from '@/mixins/pinUtils';
 
-  import svgPin from 'assets/svg/pin.svg';
+  import svgPin from '@/assets/svg/pin.svg';
 
   export default {
     mixins: [pinUtils],
@@ -99,17 +99,17 @@ div.featuredItems
   }
 
   .background.broken {
-    background: url('~assets/images/npc/broken/market_broken_background.png');
+    background: url('~@/assets/images/npc/broken/market_broken_background.png');
     background-repeat: repeat-x;
   }
 
   .background.cracked {
-    background: url('~assets/images/npc/broken/market_broken_layer.png');
+    background: url('~@/assets/images/npc/broken/market_broken_layer.png');
     background-repeat: repeat-x;
   }
 
   .broken .npc {
-    background: url('~assets/images/npc/broken/market_broken_npc.png');
+    background: url('~@/assets/images/npc/broken/market_broken_npc.png');
     background-repeat: no-repeat;
   }
 }

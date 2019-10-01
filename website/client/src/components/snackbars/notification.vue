@@ -113,10 +113,10 @@ transition(name="fade")
 </style>
 
 <script>
-import health from 'assets/svg/health.svg';
-import gold from 'assets/svg/gold.svg';
-import star from 'assets/svg/star.svg';
-import mana from 'assets/svg/mana.svg';
+import health from '@/assets/svg/health.svg';
+import gold from '@/assets/svg/gold.svg';
+import star from '@/assets/svg/star.svg';
+import mana from '@/assets/svg/mana.svg';
 
 export default {
   props: ['notification'],

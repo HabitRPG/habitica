@@ -22,8 +22,8 @@
 
 <script>
 import axios from 'axios';
-import { mapState } from 'client/libs/store';
-import notifications from 'client/mixins/notifications';
+import { mapState } from '@/libs/store';
+import notifications from '@/mixins/notifications';
 
 export default {
   mixins: [notifications],

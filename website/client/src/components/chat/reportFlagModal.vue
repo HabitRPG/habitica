@@ -23,7 +23,7 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
    .modal-body {
      margin-top: 1em;
@@ -61,9 +61,9 @@
 </style>
 
 <script>
-import { mapState } from 'client/libs/store';
-import notifications from 'client/mixins/notifications';
-import markdownDirective from 'client/directives/markdown';
+import { mapState } from '@/libs/store';
+import notifications from '@/mixins/notifications';
+import markdownDirective from '@/directives/markdown';
 
 export default {
   mixins: [notifications],

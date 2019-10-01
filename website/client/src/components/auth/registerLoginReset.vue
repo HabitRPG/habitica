@@ -102,7 +102,7 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   @media only screen  and (min-height: 1080px) {
     .bottom-wrap-register {
@@ -173,7 +173,7 @@
     }
 
     .gryphon {
-      background-image: url('~assets/images/melior@3x.png');
+      background-image: url('~@/assets/images/melior@3x.png');
       width: 63.2px;
       height: 69.4px;
       background-size: cover;
@@ -233,7 +233,7 @@
 
   #top-background {
     .seamless_stars_varied_opacity_repeat {
-      background-image: url('~assets/images/auth/seamless_stars_varied_opacity.png');
+      background-image: url('~@/assets/images/auth/seamless_stars_varied_opacity.png');
       background-repeat: repeat-x;
       position: absolute;
       height: 500px;
@@ -252,7 +252,7 @@
     position: relative;
 
     .seamless_mountains_demo_repeat {
-      background-image: url('~assets/images/auth/seamless_mountains_demo.png');
+      background-image: url('~@/assets/images/auth/seamless_mountains_demo.png');
       background-repeat: repeat-x;
       width: 100%;
       height: 500px;
@@ -262,7 +262,7 @@
     }
 
     .midground_foreground_extended2 {
-      background-image: url('~assets/images/auth/midground_foreground_extended2.png');
+      background-image: url('~@/assets/images/auth/midground_foreground_extended2.png');
       position: relative;
       width: 1500px;
       max-width: 100%;
@@ -297,10 +297,10 @@ import hello from 'hellojs';
 import debounce from 'lodash/debounce';
 import isEmail from 'validator/lib/isEmail';
 
-import gryphon from 'assets/svg/gryphon.svg';
-import habiticaIcon from 'assets/svg/habitica-logo.svg';
-import facebookSquareIcon from 'assets/svg/facebook-square.svg';
-import googleIcon from 'assets/svg/google.svg';
+import gryphon from '@/assets/svg/gryphon.svg';
+import habiticaIcon from '@/assets/svg/habitica-logo.svg';
+import facebookSquareIcon from '@/assets/svg/facebook-square.svg';
+import googleIcon from '@/assets/svg/google.svg';
 
 export default {
   data () {

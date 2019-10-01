@@ -54,7 +54,7 @@ b-modal#send-gems(:title="title", :hide-footer="true", size='md', @hide='onHide(
         | {{ $t('card') }}
       button.btn.payment-item.paypal-checkout.payment-button(@click="openPaypalGift({gift: gift, giftedTo: userReceivingGems._id, receiverName})", :disabled="!gift.subscription.key && gift.gems.amount < 1")
         | &nbsp;
-        img(src='~assets/images/paypal-checkout.png', :alt="$t('paypal')")
+        img(src='~@/assets/images/paypal-checkout.png', :alt="$t('paypal')")
         | &nbsp;
       amazon-button.payment-item.mb-0(
         :amazon-data="{type: 'single', gift, giftedTo: userReceivingGems._id, receiverName}",
@@ -95,12 +95,12 @@ input[type="radio"] {
 import toArray from 'lodash/toArray';
 import omitBy from 'lodash/omitBy';
 import orderBy from 'lodash/orderBy';
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 import planGemLimits from '../../../common/script/libs/planGemLimits';
-import paymentsMixin from 'client/mixins/payments';
-import notificationsMixin from 'client/mixins/notifications';
-import amazonButton from 'client/components/payments/amazonButton';
-import creditCardIcon from 'assets/svg/credit-card-icon.svg';
+import paymentsMixin from '@/mixins/payments';
+import notificationsMixin from '@/mixins/notifications';
+import amazonButton from '@/components/payments/amazonButton';
+import creditCardIcon from '@/assets/svg/credit-card-icon.svg';
 
 // @TODO: EMAILS.TECH_ASSISTANCE_EMAIL, load from config
 const TECH_ASSISTANCE_EMAIL = 'admin@habitica.com';

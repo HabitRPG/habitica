@@ -13,7 +13,7 @@
 </template>
 
 <style lang="scss">
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   .drawer-container {
     z-index: 19;
@@ -137,8 +137,8 @@
 </style>
 
 <script>
-import expandIcon from 'assets/svg/expand.svg';
-import minimizeIcon from 'assets/svg/minimize.svg';
+import expandIcon from '@/assets/svg/expand.svg';
+import minimizeIcon from '@/assets/svg/minimize.svg';
 
 export default {
   props: {

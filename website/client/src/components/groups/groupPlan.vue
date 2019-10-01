@@ -11,21 +11,21 @@ div
       .row
         .col-4
           .box
-            img.box1(src='~client/assets/images/group-plans/group-14@3x.png')
+            img.box1(src='~@/assets/images/group-plans/group-14@3x.png')
             hr
             h2 {{ $t('teamBasedTasks') }}
             p Set up an easily-viewed shared task list for the group. Assign tasks to your fellow group members, or let them claim their own tasks to make it clear what everyone is working on!
 
         .col-4
           .box
-            img.box2(src='~client/assets/images/group-plans/group-12@3x.png')
+            img.box2(src='~@/assets/images/group-plans/group-12@3x.png')
             hr
             h2 Group Management Controls
             p Use task approvals to verify that a task that was really completed, add Group Managers to share responsibilities, and enjoy a private group chat for all team members.
 
         .col-4
           .box
-            img.box3(src='~client/assets/images/group-plans/group-13@3x.png')
+            img.box3(src='~@/assets/images/group-plans/group-13@3x.png')
             hr
             h2 In-Game Benefits
             p Group members get an exclusive Jackalope Mount, as well as full subscription benefits, including special monthly equipment sets and the ability to buy gems with gold.
@@ -291,10 +291,10 @@ div
 
 <script>
 import paymentsMixin from '../../mixins/payments';
-import { mapState } from 'client/libs/store';
-import positiveIcon from 'assets/svg/positive.svg';
-import creditCardIcon from 'assets/svg/credit-card-icon.svg';
-import amazonButton from 'client/components/payments/amazonButton';
+import { mapState } from '@/libs/store';
+import positiveIcon from '@/assets/svg/positive.svg';
+import creditCardIcon from '@/assets/svg/credit-card-icon.svg';
+import amazonButton from '@/components/payments/amazonButton';
 
 export default {
   mixins: [paymentsMixin],

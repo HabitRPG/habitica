@@ -94,8 +94,8 @@
 </template>
 
 <style lang="scss">
-  @import '~client/assets/scss/colors.scss';
-  @import '~client/assets/scss/modal.scss';
+  @import '~@/assets/scss/colors.scss';
+  @import '~@/assets/scss/modal.scss';
 
   #buy-modal {
     @include centeredModal();
@@ -274,30 +274,30 @@
 </style>
 
 <script>
-  import * as Analytics from 'client/libs/analytics';
-  import spellsMixin from 'client/mixins/spells';
+  import * as Analytics from '@/libs/analytics';
+  import spellsMixin from '@/mixins/spells';
   import planGemLimits from 'common/script/libs/planGemLimits';
-  import numberInvalid from 'client/mixins/numberInvalid';
+  import numberInvalid from '@/mixins/numberInvalid';
 
-  import svgClose from 'assets/svg/close.svg';
-  import svgGold from 'assets/svg/gold.svg';
-  import svgGem from 'assets/svg/gem.svg';
-  import svgHourglasses from 'assets/svg/hourglass.svg';
-  import svgPin from 'assets/svg/pin.svg';
-  import svgClock from 'assets/svg/clock.svg';
-  import svgWhiteClock from 'assets/svg/clock-white.svg';
+  import svgClose from '@/assets/svg/close.svg';
+  import svgGold from '@/assets/svg/gold.svg';
+  import svgGem from '@/assets/svg/gem.svg';
+  import svgHourglasses from '@/assets/svg/hourglass.svg';
+  import svgPin from '@/assets/svg/pin.svg';
+  import svgClock from '@/assets/svg/clock.svg';
+  import svgWhiteClock from '@/assets/svg/clock-white.svg';
 
   import BalanceInfo  from './balanceInfo.vue';
   import currencyMixin from './_currencyMixin';
-  import notifications from 'client/mixins/notifications';
-  import buyMixin from 'client/mixins/buy';
+  import notifications from '@/mixins/notifications';
+  import buyMixin from '@/mixins/buy';
 
-  import { mapState } from 'client/libs/store';
+  import { mapState } from '@/libs/store';
 
   import EquipmentAttributesGrid from '../inventory/equipment/attributesGrid.vue';
 
-  import Item from 'client/components/inventory/item';
-  import Avatar from 'client/components/avatar';
+  import Item from '@/components/inventory/item';
+  import Avatar from '@/components/avatar';
 
   import seasonalShopConfig from 'common/script/libs/shops-seasonal.config';
   import { drops as dropEggs } from 'common/script/content/eggs';

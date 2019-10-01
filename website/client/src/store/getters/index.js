@@ -1,4 +1,4 @@
-import { flattenAndNamespace } from 'client/libs/store/helpers/internals';
+import { flattenAndNamespace } from '@/libs/store/helpers/internals';
 import * as user from './user';
 import * as shops from './shops';
 import * as tasks from './tasks';

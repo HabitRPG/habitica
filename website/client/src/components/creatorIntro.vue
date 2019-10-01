@@ -188,7 +188,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
 </template>
 
 <style lang="scss">
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   $dialogMarginTop: 56px;
   $userCreationBgHeight:  105px;
@@ -269,7 +269,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     }
 
     .user-creation-bg {
-      background-image: url('~client/assets/creator/creator-hills-bg.png');
+      background-image: url('~@/assets/creator/creator-hills-bg.png');
       height: $userCreationBgHeight;
       width: 219px;
       margin: 0 auto;
@@ -333,7 +333,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       top: -3.1rem;
       width: 48px;
       height: 48px;
-      background-image: url('~client/assets/images/justin_textbox.png');
+      background-image: url('~@/assets/images/justin_textbox.png');
     }
 
     .featured-label {
@@ -706,30 +706,30 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
 <script>
 import axios from 'axios';
 import map from 'lodash/map';
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 import avatar from './avatar';
 import usernameForm from './settings/usernameForm';
 import { getBackgroundShopSets } from '../../common/script/libs/shops';
-import guide from 'client/mixins/guide';
-import notifications from 'client/mixins/notifications';
-import toggleSwitch from 'client/components/ui/toggleSwitch';
+import guide from '@/mixins/guide';
+import notifications from '@/mixins/notifications';
+import toggleSwitch from '@/components/ui/toggleSwitch';
 import bodySettings from './avatarModal/body-settings';
 import skinSettings from './avatarModal/skin-settings';
 import hairSettings from './avatarModal/hair-settings';
 import extraSettings from './avatarModal/extra-settings';
 import subMenu from './avatarModal/sub-menu';
 
-import logoPurple from 'assets/svg/logo-purple.svg';
-import bodyIcon from 'assets/svg/body.svg';
-import accessoriesIcon from 'assets/svg/accessories.svg';
-import skinIcon from 'assets/svg/skin.svg';
-import hairIcon from 'assets/svg/hair.svg';
-import backgroundsIcon from 'assets/svg/backgrounds.svg';
-import gem from 'assets/svg/gem.svg';
-import gold from 'assets/svg/gold.svg';
-import pin from 'assets/svg/pin.svg';
-import arrowRight from 'assets/svg/arrow_right.svg';
-import arrowLeft from 'assets/svg/arrow_left.svg';
+import logoPurple from '@/assets/svg/logo-purple.svg';
+import bodyIcon from '@/assets/svg/body.svg';
+import accessoriesIcon from '@/assets/svg/accessories.svg';
+import skinIcon from '@/assets/svg/skin.svg';
+import hairIcon from '@/assets/svg/hair.svg';
+import backgroundsIcon from '@/assets/svg/backgrounds.svg';
+import gem from '@/assets/svg/gem.svg';
+import gold from '@/assets/svg/gold.svg';
+import pin from '@/assets/svg/pin.svg';
+import arrowRight from '@/assets/svg/arrow_right.svg';
+import arrowLeft from '@/assets/svg/arrow_left.svg';
 import isPinned from 'common/script/libs/isPinned';
 import {avatarEditorUtilies} from '../mixins/avatarEditUtilities';
 

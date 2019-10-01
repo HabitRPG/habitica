@@ -15,7 +15,7 @@ div
 </template>
 
 <style lang="scss">
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   .home-header {
     background: #6133b4 !important;
@@ -108,7 +108,7 @@ div
     position: relative;
 
     .seamless_mountains_demo_repeat {
-      background-image: url('~assets/images/auth/seamless_mountains_demo.png');
+      background-image: url('~@/assets/images/auth/seamless_mountains_demo.png');
       background-repeat: repeat-x;
       width: 100%;
       height: 300px;
@@ -118,7 +118,7 @@ div
     }
 
     .midground_foreground_extended2 {
-      background-image: url('~assets/images/auth/midground_foreground_extended2.png');
+      background-image: url('~@/assets/images/auth/midground_foreground_extended2.png');
       position: relative;
       width: 1500px;
       max-width: 100%;
@@ -157,7 +157,7 @@ div
 </style>
 
 <script>
-import AppFooter from 'client/components/appFooter';
+import AppFooter from '@/components/appFooter';
 import StaticHeader from './header.vue';
 
 export default {

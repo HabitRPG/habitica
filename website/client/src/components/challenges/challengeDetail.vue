@@ -82,7 +82,7 @@
 </template>
 
 <style lang='scss' scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   h1 {
     color: $purple-200;
@@ -175,24 +175,24 @@ import cloneDeep from 'lodash/cloneDeep';
 import omit from 'lodash/omit';
 import uuid from 'uuid';
 
-import { mapState } from 'client/libs/store';
-import memberSearchDropdown from 'client/components/members/memberSearchDropdown';
+import { mapState } from '@/libs/store';
+import memberSearchDropdown from '@/components/members/memberSearchDropdown';
 import closeChallengeModal from './closeChallengeModal';
 import Column from '../tasks/column';
 import TaskModal from '../tasks/taskModal';
-import markdownDirective from 'client/directives/markdown';
+import markdownDirective from '@/directives/markdown';
 import challengeModal from './challengeModal';
 import challengeMemberProgressModal from './challengeMemberProgressModal';
-import challengeMemberSearchMixin from 'client/mixins/challengeMemberSearch';
+import challengeMemberSearchMixin from '@/mixins/challengeMemberSearch';
 import leaveChallengeModal from './leaveChallengeModal';
 import sidebarSection from '../sidebarSection';
 import userLink from '../userLink';
 import groupLink from '../groupLink';
 import taskDefaults from 'common/script/libs/taskDefaults';
 
-import gemIcon from 'assets/svg/gem.svg';
-import memberIcon from 'assets/svg/member-icon.svg';
-import calendarIcon from 'assets/svg/calendar.svg';
+import gemIcon from '@/assets/svg/gem.svg';
+import memberIcon from '@/assets/svg/member-icon.svg';
+import calendarIcon from '@/assets/svg/calendar.svg';
 
 export default {
   props: ['challengeId'],

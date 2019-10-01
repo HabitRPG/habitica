@@ -177,7 +177,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   input {
     color: $gray-50;
@@ -209,7 +209,7 @@
 import hello from 'hellojs';
 import moment from 'moment';
 import axios from 'axios';
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 import debounce from 'lodash/debounce';
 import restoreModal from './restoreModal';
 import resetModal from './resetModal';

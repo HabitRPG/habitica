@@ -44,7 +44,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   .avatar {
     width: 140px;
@@ -74,9 +74,9 @@
 </style>
 
 <script>
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 
-import ClassBadge from 'client/components/members/classBadge';
+import ClassBadge from '@/components/members/classBadge';
 
 export default {
   components: {

@@ -7,7 +7,7 @@
 </template>
 
 <style lang="scss">
-@import '~client/assets/scss/colors.scss';
+@import '~@/assets/scss/colors.scss';
 
 .community-guidelines {
   background-color: rgba(135, 129, 144, 0.84);
@@ -43,7 +43,7 @@
 </style>
 
 <script>
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 
 export default {
   computed: {

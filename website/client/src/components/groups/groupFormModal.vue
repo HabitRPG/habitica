@@ -101,7 +101,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   .custom-control-input {
     z-index: 1 !important;
@@ -161,12 +161,12 @@
 </style>
 
 <script>
-import { mapState } from 'client/libs/store';
-import toggleSwitch from 'client/components/ui/toggleSwitch';
-import groupMemberSearchDropdown from 'client/components/members/groupMemberSearchDropdown';
-import markdownDirective from 'client/directives/markdown';
-import gemIcon from 'assets/svg/gem.svg';
-import informationIcon from 'assets/svg/information.svg';
+import { mapState } from '@/libs/store';
+import toggleSwitch from '@/components/ui/toggleSwitch';
+import groupMemberSearchDropdown from '@/components/members/groupMemberSearchDropdown';
+import markdownDirective from '@/directives/markdown';
+import gemIcon from '@/assets/svg/gem.svg';
+import informationIcon from '@/assets/svg/information.svg';
 
 import { MAX_SUMMARY_SIZE_FOR_GUILDS } from '../../../common/script/constants';
 

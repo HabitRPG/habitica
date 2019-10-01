@@ -1,6 +1,6 @@
 import habiticaMarkdown from 'habitica-markdown';
-import { mapState } from 'client/libs/store';
-import { getDropClass, getXPMessage, getSign, round } from 'client/libs/notifications';
+import { mapState } from '@/libs/store';
+import { getDropClass, getXPMessage, getSign, round } from '@/libs/notifications';
 
 // See https://stackoverflow.com/questions/4187146/truncate-number-to-two-decimal-places-without-rounding
 function toFixedWithoutRounding (num, fixed) {

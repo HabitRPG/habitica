@@ -16,7 +16,7 @@
 </script>
 
 <style scoped lang="scss">
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   .sub-menu {
     display: flex;

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import * as Analytics from 'client/libs/analytics';
+import * as Analytics from '@/libs/analytics';
 
 export async function getChat (store, payload) {
   let response = await axios.get(`/api/v4/groups/${payload.groupId}/chat`);

@@ -256,7 +256,7 @@
 <script>
 import axios from 'axios';
 
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 
 import Content from '../../common/script/content';
 

@@ -115,11 +115,11 @@
 
 <script>
 import Avatar from '../avatar';
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 import {maxHealth} from '../../../common/script/index';
-import styleHelper from 'client/mixins/styleHelper';
-import twitter from 'assets/svg/twitter.svg';
-import facebook from 'assets/svg/facebook.svg';
+import styleHelper from '@/mixins/styleHelper';
+import twitter from '@/assets/svg/twitter.svg';
+import facebook from '@/assets/svg/facebook.svg';
 
 let BASE_URL = 'https://habitica.com';
 

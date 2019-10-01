@@ -13,7 +13,7 @@ base-notification(
 
 <script>
 import BaseNotification from './base';
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 
 export default {
   props: ['notification', 'canRemove'],

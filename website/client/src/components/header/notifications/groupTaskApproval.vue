@@ -14,8 +14,8 @@ base-notification(
 
 <script>
 import BaseNotification from './base';
-import { mapState } from 'client/libs/store';
-import sync from 'client/mixins/sync';
+import { mapState } from '@/libs/store';
+import sync from '@/mixins/sync';
 
 export default {
   mixins: [sync],

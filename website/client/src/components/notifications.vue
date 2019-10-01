@@ -38,7 +38,7 @@ div
   }
 
   .introjs-tooltip {
-    background-image: url('~client/assets/svg/for-css/tutorial-border.svg');
+    background-image: url('~@/assets/svg/for-css/tutorial-border.svg');
     background-size: 100% 100%;
     background-repeat: no-repeat;
     height: 131px;
@@ -57,7 +57,7 @@ div
       top: -3.6em;
       width: 48px;
       height: 52px;
-      background-image: url('~client/assets/images/justin_textbox.png');
+      background-image: url('~@/assets/images/justin_textbox.png');
     }
   }
 
@@ -96,9 +96,9 @@ import debounce from 'lodash/debounce';
 
 import { toNextLevel } from '../../common/script/statHelpers';
 import { shouldDo } from '../../common/script/cron';
-import { mapState } from 'client/libs/store';
-import notifications from 'client/mixins/notifications';
-import guide from 'client/mixins/guide';
+import { mapState } from '@/libs/store';
+import notifications from '@/mixins/notifications';
+import guide from '@/mixins/guide';
 
 import yesterdailyModal from './yesterdailyModal';
 import welcomeModal from './achievements/welcome';

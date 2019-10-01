@@ -15,7 +15,7 @@
 </template>
 
 <style lang='scss'>
-  @import '~client/assets/scss/static.scss';
+  @import '~@/assets/scss/static.scss';
   #new-stuff {
     .modal-body .modal-body {
       padding-top: 0rem;
@@ -25,7 +25,7 @@
 
 <script>
   import axios from 'axios';
-  import { mapState } from 'client/libs/store';
+  import { mapState } from '@/libs/store';
 
   export default {
     data () {

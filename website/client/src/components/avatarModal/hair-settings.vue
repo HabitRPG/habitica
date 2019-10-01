@@ -48,7 +48,7 @@
   import {avatarEditorUtilies} from '../../mixins/avatarEditUtilities';
   import subMenu from './sub-menu';
   import customizeOptions from './customize-options';
-  import gem from 'assets/svg/gem.svg';
+  import gem from '@/assets/svg/gem.svg';
   import appearanceSets from 'common/script/content/appearance/sets';
   import groupBy from 'lodash/groupBy';
 

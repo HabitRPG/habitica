@@ -12,7 +12,7 @@
 </template>
 
 <style lang='scss'>
-@import '~client/assets/scss/static.scss';
+@import '~@/assets/scss/static.scss';
 </style>
 
 <style lang='scss' scoped>
@@ -22,7 +22,7 @@
 </style>
 
 <script>
-import markdownDirective from 'client/directives/markdown';
+import markdownDirective from '@/directives/markdown';
 
 export default {
   directives: {

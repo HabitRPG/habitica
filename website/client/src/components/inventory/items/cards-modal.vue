@@ -18,8 +18,8 @@
 
 <script>
 import axios from 'axios';
-import { mapState } from 'client/libs/store';
-import markdown from 'client/directives/markdown';
+import { mapState } from '@/libs/store';
+import markdown from '@/directives/markdown';
 
 export default {
   props: ['cardOptions'],

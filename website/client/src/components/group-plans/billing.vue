@@ -34,9 +34,9 @@
 
 <script>
 import moment from 'moment';
-import { mapState } from 'client/libs/store';
-import paymentsMixin from 'client/mixins/payments';
-import { CONSTANTS, getLocalSetting, removeLocalSetting } from 'client/libs/userlocalManager';
+import { mapState } from '@/libs/store';
+import paymentsMixin from '@/mixins/payments';
+import { CONSTANTS, getLocalSetting, removeLocalSetting } from '@/libs/userlocalManager';
 
 export default {
   mixins: [paymentsMixin],

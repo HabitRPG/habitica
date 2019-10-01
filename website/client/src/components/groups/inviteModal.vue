@@ -39,7 +39,7 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   a:not([href]) {
     color: $blue-10;
@@ -90,15 +90,15 @@
 </style>
 
 <script>
-  import { mapState } from 'client/libs/store';
+  import { mapState } from '@/libs/store';
   import clone from 'lodash/clone';
   import debounce from 'lodash/debounce';
   import filter from 'lodash/filter';
   import forEach from 'lodash/forEach';
   import isEmail from 'validator/lib/isEmail';
   import isUUID from 'validator/lib/isUUID';
-  import notifications from 'client/mixins/notifications';
-  import positiveIcon from 'assets/svg/positive.svg';
+  import notifications from '@/mixins/notifications';
+  import positiveIcon from '@/assets/svg/positive.svg';
 
   const INVITE_DEFAULTS = {text: '', error: null, valid: null};
 

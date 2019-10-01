@@ -70,7 +70,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   @media (min-width: 1300px) {
     .standard-page {
@@ -153,7 +153,7 @@
   }
 
   .guild-background {
-    background-image: url('~assets/images/groups/grassy-meadow-backdrop.png');
+    background-image: url('~@/assets/images/groups/grassy-meadow-backdrop.png');
     height: 246px;
   }
 
@@ -259,34 +259,34 @@
 // @TODO: Break this down into components
 
 import extend from 'lodash/extend';
-import groupUtilities from 'client/mixins/groupsUtilities';
-import styleHelper from 'client/mixins/styleHelper';
-import { mapState } from 'client/libs/store';
-import * as Analytics from 'client/libs/analytics';
+import groupUtilities from '@/mixins/groupsUtilities';
+import styleHelper from '@/mixins/styleHelper';
+import { mapState } from '@/libs/store';
+import * as Analytics from '@/libs/analytics';
 import membersModal from './membersModal';
 import startQuestModal from './startQuestModal';
 import questDetailsModal from './questDetailsModal';
 import participantListModal from './participantListModal';
 import groupFormModal from './groupFormModal';
 import groupChallenges from '../challenges/groupChallenges';
-import groupGemsModal from 'client/components/groups/groupGemsModal';
-import questSidebarSection from 'client/components/groups/questSidebarSection';
-import markdownDirective from 'client/directives/markdown';
+import groupGemsModal from '@/components/groups/groupGemsModal';
+import questSidebarSection from '@/components/groups/questSidebarSection';
+import markdownDirective from '@/directives/markdown';
 import chat from './chat';
 import sidebarSection from '../sidebarSection';
 import userLink from '../userLink';
 
-import deleteIcon from 'assets/svg/delete.svg';
-import copyIcon from 'assets/svg/copy.svg';
-import likeIcon from 'assets/svg/like.svg';
-import likedIcon from 'assets/svg/liked.svg';
-import reportIcon from 'assets/svg/report.svg';
-import gemIcon from 'assets/svg/gem.svg';
-import questIcon from 'assets/svg/quest.svg';
-import questBackground from 'assets/svg/quest-background-border.svg';
-import goldGuildBadgeIcon from 'assets/svg/gold-guild-badge-small.svg';
-import silverGuildBadgeIcon from 'assets/svg/silver-guild-badge-small.svg';
-import bronzeGuildBadgeIcon from 'assets/svg/bronze-guild-badge-small.svg';
+import deleteIcon from '@/assets/svg/delete.svg';
+import copyIcon from '@/assets/svg/copy.svg';
+import likeIcon from '@/assets/svg/like.svg';
+import likedIcon from '@/assets/svg/liked.svg';
+import reportIcon from '@/assets/svg/report.svg';
+import gemIcon from '@/assets/svg/gem.svg';
+import questIcon from '@/assets/svg/quest.svg';
+import questBackground from '@/assets/svg/quest-background-border.svg';
+import goldGuildBadgeIcon from '@/assets/svg/gold-guild-badge-small.svg';
+import silverGuildBadgeIcon from '@/assets/svg/silver-guild-badge-small.svg';
+import bronzeGuildBadgeIcon from '@/assets/svg/bronze-guild-badge-small.svg';
 
 export default {
   mixins: [groupUtilities, styleHelper],

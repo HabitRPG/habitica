@@ -1,7 +1,7 @@
 import axios from 'axios';
 import omit from 'lodash/omit';
 import findIndex from 'lodash/findIndex';
-import * as Analytics from 'client/libs/analytics';
+import * as Analytics from '@/libs/analytics';
 
 export async function getPublicGuilds (store, payload) {
   let params = {

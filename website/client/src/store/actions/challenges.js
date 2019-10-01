@@ -1,6 +1,6 @@
 import axios from 'axios';
 import omit from 'lodash/omit';
-import encodeParams from 'client/libs/encodeParams';
+import encodeParams from '@/libs/encodeParams';
 
 export async function createChallenge (store, payload) {
   let response = await axios.post('/api/v4/challenges', payload.challenge);

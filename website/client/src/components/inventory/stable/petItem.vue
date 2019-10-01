@@ -72,7 +72,7 @@
 
 <script>
   import uuid from 'uuid';
-  import { mapState } from 'client/libs/store';
+  import { mapState } from '@/libs/store';
   import {isAllowedToFeed, isHatchable, isOwned, isSpecial} from '../../../libs/createAnimal';
 
   export default {

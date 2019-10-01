@@ -4,9 +4,9 @@
 
 <script>
 import axios from 'axios';
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 import uuid from 'uuid';
-import paymentsMixin from 'client/mixins/payments';
+import paymentsMixin from '@/mixins/payments';
 
 const AMAZON_PAYMENTS = process.env.AMAZON_PAYMENTS; // eslint-disable-line
 

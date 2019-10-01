@@ -4,7 +4,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
   .claim-top-message {
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
@@ -25,7 +25,7 @@
 </style>
 
 <script>
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 export default {
   props: ['task', 'group'],
   computed: {

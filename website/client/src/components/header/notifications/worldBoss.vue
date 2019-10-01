@@ -69,7 +69,7 @@ base-notification(
   }
 
   .left-hearts {
-    background-image: url('~client/assets/images/world-boss/left-hearts@3x.png');
+    background-image: url('~@/assets/images/world-boss/left-hearts@3x.png');
   }
 
   .quest_dysheartener_notification, .phobia_dysheartener_notification {
@@ -83,12 +83,12 @@ base-notification(
   }
 
   .quest_dysheartener_notification {
-    background-image: url('~client/assets/images/world-boss/mantis-static-notification@3x.png');
+    background-image: url('~@/assets/images/world-boss/mantis-static-notification@3x.png');
   }
 
   .phobia_dysheartener_notification {
     display: none;
-    background-image: url('~client/assets/images/world-boss/heart-translucent-shadow-notification@3x.png');
+    background-image: url('~@/assets/images/world-boss/heart-translucent-shadow-notification@3x.png');
   }
 
   .health-bar {
@@ -136,11 +136,11 @@ base-notification(
 <script>
 import quests from 'common/script/content/quests';
 
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 import BaseNotification from './base';
 
-import health from 'assets/svg/health.svg';
-import sword from 'assets/svg/sword.svg';
+import health from '@/assets/svg/health.svg';
+import sword from '@/assets/svg/sword.svg';
 
 export default {
   components: {

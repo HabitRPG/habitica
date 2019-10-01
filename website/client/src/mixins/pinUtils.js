@@ -1,4 +1,4 @@
-import notifications from 'client/mixins/notifications';
+import notifications from '@/mixins/notifications';
 import isPinned from 'common/script/libs/isPinned';
 
 export default {

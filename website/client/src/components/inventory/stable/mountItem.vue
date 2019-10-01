@@ -17,7 +17,7 @@ div
 
 <script>
   import uuid from 'uuid';
-  import { mapState } from 'client/libs/store';
+  import { mapState } from '@/libs/store';
   import {isOwned} from '../../../libs/createAnimal';
 
   export default {

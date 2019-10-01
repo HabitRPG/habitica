@@ -146,7 +146,7 @@
 </template>
 
 <style lang="scss" >
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   .profile {
     .member-details {
@@ -185,7 +185,7 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   .header {
     width: 100%;
@@ -393,11 +393,11 @@
 import moment from 'moment';
 import axios from 'axios';
 import each from 'lodash/each';
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 import cloneDeep from 'lodash/cloneDeep';
 
 import MemberDetails from '../memberDetails';
-import markdown from 'client/directives/markdown';
+import markdown from '@/directives/markdown';
 import achievementsLib from '../../../common/script/libs/achievements';
 // @TODO: EMAILS.COMMUNITY_MANAGER_EMAIL
 const COMMUNITY_MANAGER_EMAIL = 'admin@habitica.com';
@@ -405,16 +405,16 @@ import Content from '../../../common/script/content';
 import profileStats from './profileStats';
 
 
-import message from 'assets/svg/message.svg';
-import gift from 'assets/svg/gift.svg';
-import remove from 'assets/svg/remove.svg';
-import positive from 'assets/svg/positive.svg';
-import dots from 'assets/svg/dots.svg';
-import megaphone from 'assets/svg/broken-megaphone.svg';
-import lock from 'assets/svg/lock.svg';
-import challenge from 'assets/svg/challenge.svg';
-import member from 'assets/svg/member-icon.svg';
-import staff from 'assets/svg/tier-staff.svg';
+import message from '@/assets/svg/message.svg';
+import gift from '@/assets/svg/gift.svg';
+import remove from '@/assets/svg/remove.svg';
+import positive from '@/assets/svg/positive.svg';
+import dots from '@/assets/svg/dots.svg';
+import megaphone from '@/assets/svg/broken-megaphone.svg';
+import lock from '@/assets/svg/lock.svg';
+import challenge from '@/assets/svg/challenge.svg';
+import member from '@/assets/svg/member-icon.svg';
+import staff from '@/assets/svg/tier-staff.svg';
 
 export default {
   props: ['userId', 'startingPage'],

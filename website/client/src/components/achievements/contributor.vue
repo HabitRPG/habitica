@@ -26,7 +26,7 @@
 import achievementFooter from './achievementFooter';
 import achievementAvatar from './achievementAvatar';
 
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 
 export default {
   components: {

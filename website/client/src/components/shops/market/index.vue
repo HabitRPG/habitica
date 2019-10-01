@@ -70,8 +70,8 @@
 </template>
 
 <style lang="scss">
-  @import '~client/assets/scss/colors.scss';
-  @import '~client/assets/scss/variables.scss';
+  @import '~@/assets/scss/colors.scss';
+  @import '~@/assets/scss/variables.scss';
 
   .fill-height {
     height: 38px; // button + margin + padding
@@ -97,13 +97,13 @@
 
     .featuredItems {
       .background {
-        background: url('~assets/images/npc/#{$npc_market_flavor}/market_background.png');
+        background: url('~@/assets/images/npc/#{$npc_market_flavor}/market_background.png');
 
         background-repeat: repeat-x;
       }
 
       .npc {
-        background: url('~assets/images/npc/#{$npc_market_flavor}/market_banner_npc.png');
+        background: url('~@/assets/images/npc/#{$npc_market_flavor}/market_banner_npc.png');
         background-repeat: no-repeat;
 
         .featured-label {
@@ -124,30 +124,30 @@
 
 
 <script>
-  import {mapState} from 'client/libs/store';
+  import {mapState} from '@/libs/store';
 
   import ShopItem from '../shopItem';
   import KeysToKennel from './keysToKennel';
   import EquipmentSection from './equipmentSection';
   import CategoryRow from './categoryRow';
-  import Item from 'client/components/inventory/item';
-  import CountBadge from 'client/components/ui/countBadge';
-  import ItemRows from 'client/components/ui/itemRows';
-  import Avatar from 'client/components/avatar';
-  import InventoryDrawer from 'client/components/shared/inventoryDrawer';
+  import Item from '@/components/inventory/item';
+  import CountBadge from '@/components/ui/countBadge';
+  import ItemRows from '@/components/ui/itemRows';
+  import Avatar from '@/components/avatar';
+  import InventoryDrawer from '@/components/shared/inventoryDrawer';
   import FeaturedItemsHeader from '../featuredItemsHeader';
-  import PageLayout from 'client/components/ui/pageLayout';
-  import LayoutSection from 'client/components/ui/layoutSection';
-  import FilterDropdown from 'client/components/ui/filterDropdown';
+  import PageLayout from '@/components/ui/pageLayout';
+  import LayoutSection from '@/components/ui/layoutSection';
+  import FilterDropdown from '@/components/ui/filterDropdown';
   import MarketFilter from './filter';
 
   import SellModal from './sellModal.vue';
   import EquipmentAttributesGrid from '../../inventory/equipment/attributesGrid.vue';
-  import SelectMembersModal from 'client/components/selectMembersModal.vue';
+  import SelectMembersModal from '@/components/selectMembersModal.vue';
 
-  import svgPin from 'assets/svg/pin.svg';
-  import svgGem from 'assets/svg/gem.svg';
-  import svgInformation from 'assets/svg/information.svg';
+  import svgPin from '@/assets/svg/pin.svg';
+  import svgGem from '@/assets/svg/gem.svg';
+  import svgInformation from '@/assets/svg/information.svg';
 
   import getItemInfo from 'common/script/libs/getItemInfo';
   import shops from 'common/script/libs/shops';
@@ -158,11 +158,11 @@
 
   const sortItems = ['AZ', 'sortByNumber'].map(g => ({id: g}));
 
-  import notifications from 'client/mixins/notifications';
-  import buyMixin from 'client/mixins/buy';
+  import notifications from '@/mixins/notifications';
+  import buyMixin from '@/mixins/buy';
   import currencyMixin from '../_currencyMixin';
-  import inventoryUtils from 'client/mixins/inventoryUtils';
-  import pinUtils from 'client/mixins/pinUtils';
+  import inventoryUtils from '@/mixins/inventoryUtils';
+  import pinUtils from '@/mixins/pinUtils';
 
 export default {
     mixins: [notifications, buyMixin, currencyMixin, inventoryUtils, pinUtils],

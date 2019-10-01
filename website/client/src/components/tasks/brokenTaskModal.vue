@@ -32,8 +32,8 @@
 </style>
 
 <script>
-import { mapActions } from 'client/libs/store';
-import notifications from 'client/mixins/notifications';
+import { mapActions } from '@/libs/store';
+import notifications from '@/mixins/notifications';
 
 export default {
   mixins: [notifications],

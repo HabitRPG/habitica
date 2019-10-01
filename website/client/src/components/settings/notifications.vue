@@ -39,8 +39,8 @@
 </template>
 
 <script>
-import { mapState } from 'client/libs/store';
-import notificationsMixin from 'client/mixins/notifications';
+import { mapState } from '@/libs/store';
+import notificationsMixin from '@/mixins/notifications';
 
 export default {
   mixins: [notificationsMixin],

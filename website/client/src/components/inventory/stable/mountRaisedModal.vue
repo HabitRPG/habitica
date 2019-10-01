@@ -12,8 +12,8 @@ b-modal#mount-raised-modal(:hide-header="true")
 
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
-  @import '~client/assets/scss/modal.scss';
+  @import '~@/assets/scss/colors.scss';
+  @import '~@/assets/scss/modal.scss';
 
   #mount-raised-modal {
     @include centeredModal();
@@ -57,7 +57,7 @@ b-modal#mount-raised-modal(:hide-header="true")
 
 
 <script>
-  import markdownDirective from 'client/directives/markdown';
+  import markdownDirective from '@/directives/markdown';
   import {mountInfo} from 'common/script/content/stable';
 
   export default {

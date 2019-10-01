@@ -9,7 +9,7 @@
 </template>
 
 <style scoped lang="scss">
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   a.no-tier {
     color: $gray-50;
@@ -33,20 +33,20 @@
 
 <script>
 
-  import styleHelper from 'client/mixins/styleHelper';
+  import styleHelper from '@/mixins/styleHelper';
 
   import achievementsLib from '../../common/script/libs/achievements';
 
-  import tier1 from 'assets/svg/tier-1.svg';
-  import tier2 from 'assets/svg/tier-2.svg';
-  import tier3 from 'assets/svg/tier-3.svg';
-  import tier4 from 'assets/svg/tier-4.svg';
-  import tier5 from 'assets/svg/tier-5.svg';
-  import tier6 from 'assets/svg/tier-6.svg';
-  import tier7 from 'assets/svg/tier-7.svg';
-  import tier8 from 'assets/svg/tier-mod.svg';
-  import tier9 from 'assets/svg/tier-staff.svg';
-  import tierNPC from 'assets/svg/tier-npc.svg';
+  import tier1 from '@/assets/svg/tier-1.svg';
+  import tier2 from '@/assets/svg/tier-2.svg';
+  import tier3 from '@/assets/svg/tier-3.svg';
+  import tier4 from '@/assets/svg/tier-4.svg';
+  import tier5 from '@/assets/svg/tier-5.svg';
+  import tier6 from '@/assets/svg/tier-6.svg';
+  import tier7 from '@/assets/svg/tier-7.svg';
+  import tier8 from '@/assets/svg/tier-mod.svg';
+  import tier9 from '@/assets/svg/tier-staff.svg';
+  import tierNPC from '@/assets/svg/tier-npc.svg';
 
   export default {
     props: ['user', 'userId', 'name', 'backer', 'contributor'],

@@ -13,7 +13,7 @@
 </style>
 
 <script>
-import markdownDirective from 'client/directives/markdown';
+import markdownDirective from '@/directives/markdown';
 
 const COMMUNITY_MANAGER_EMAIL = process.env.EMAILS.COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
 

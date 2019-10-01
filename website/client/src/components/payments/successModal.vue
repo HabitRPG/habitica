@@ -39,7 +39,7 @@
 </template>
 
 <style lang="scss">
-@import '~client/assets/scss/colors.scss';
+@import '~@/assets/scss/colors.scss';
 
 #payments-success-modal .modal-content {
   background: transparent;
@@ -140,8 +140,8 @@
 </style>
 
 <script>
-import checkIcon from 'assets/svg/check.svg';
-import gemIcon from 'assets/svg/gem.svg';
+import checkIcon from '@/assets/svg/check.svg';
+import gemIcon from '@/assets/svg/gem.svg';
 import subscriptionBlocks from '../../../common/script/content/subscriptionBlocks';
 
 export default {

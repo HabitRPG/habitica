@@ -89,8 +89,8 @@ div
 </template>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
-  @import '~client/assets/scss/utils.scss';
+  @import '~@/assets/scss/colors.scss';
+  @import '~@/assets/scss/utils.scss';
 
   @media only screen and (max-width: 1200px) {
     .chevron {
@@ -98,7 +98,7 @@ div
     }
 
     .gryphon {
-      background-image: url('~assets/images/melior@3x.png');
+      background-image: url('~@/assets/images/melior@3x.png');
       width: 30px;
       height: 30px;
       background-size: cover;
@@ -234,7 +234,7 @@ div
   }
 
   .topbar {
-    background: $purple-100 url(~assets/svg/for-css/bits.svg) right top no-repeat;
+    background: $purple-100 url(~@/assets/svg/for-css/bits.svg) right top no-repeat;
     min-height: 56px;
     box-shadow: 0 1px 2px 0 rgba($black, 0.24);
 
@@ -392,24 +392,24 @@ div
 </style>
 
 <script>
-import { mapState, mapGetters } from 'client/libs/store';
-import * as Analytics from 'client/libs/analytics';
-import { goToModForm } from 'client/libs/modform';
+import { mapState, mapGetters } from '@/libs/store';
+import * as Analytics from '@/libs/analytics';
+import { goToModForm } from '@/libs/modform';
 
-import gemIcon from 'assets/svg/gem.svg';
-import goldIcon from 'assets/svg/gold.svg';
-import syncIcon from 'assets/svg/sync.svg';
-import svgHourglasses from 'assets/svg/hourglass.svg';
-import chevronDownIcon from 'assets/svg/chevron-down.svg';
-import logo from 'assets/svg/logo.svg';
+import gemIcon from '@/assets/svg/gem.svg';
+import goldIcon from '@/assets/svg/gold.svg';
+import syncIcon from '@/assets/svg/sync.svg';
+import svgHourglasses from '@/assets/svg/hourglass.svg';
+import chevronDownIcon from '@/assets/svg/chevron-down.svg';
+import logo from '@/assets/svg/logo.svg';
 
 import creatorIntro from '../creatorIntro';
 import InboxModal from '../userMenu/inbox.vue';
 import notificationMenu from './notificationsDropdown';
 import profileModal from '../userMenu/profileModal';
 import reportFlagModal from '../chat/reportFlagModal';
-import sendGemsModal from 'client/components/payments/sendGemsModal';
-import sync from 'client/mixins/sync';
+import sendGemsModal from '@/components/payments/sendGemsModal';
+import sync from '@/mixins/sync';
 import userDropdown from './userDropdown';
 
 

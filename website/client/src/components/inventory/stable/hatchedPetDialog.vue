@@ -12,8 +12,8 @@ b-modal#hatchedPet-modal(:hide-header="true")
 </template>
 
 <style lang="scss">
-  @import '~client/assets/scss/colors.scss';
-  @import '~client/assets/scss/modal.scss';
+  @import '~@/assets/scss/colors.scss';
+  @import '~@/assets/scss/modal.scss';
 
   #hatchedPet-modal {
     @include centeredModal();
@@ -51,7 +51,7 @@ b-modal#hatchedPet-modal(:hide-header="true")
 </style>
 
 <script>
-  import markdownDirective from 'client/directives/markdown';
+  import markdownDirective from '@/directives/markdown';
 
   export default {
     data () {

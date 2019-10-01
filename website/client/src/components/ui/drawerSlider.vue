@@ -30,7 +30,7 @@
 
 <style lang="scss">
 
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   $buttonAreaWidth: 60;
 
@@ -100,9 +100,9 @@
 </style>
 
 <script>
-  import previous from 'assets/svg/previous.svg';
-  import next from 'assets/svg/next.svg';
-  import ResizeDirective from 'client/directives/resize.directive';
+  import previous from '@/assets/svg/previous.svg';
+  import next from '@/assets/svg/next.svg';
+  import ResizeDirective from '@/directives/resize.directive';
 
   export default {
     directives: {

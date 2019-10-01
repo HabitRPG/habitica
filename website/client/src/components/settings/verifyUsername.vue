@@ -28,7 +28,7 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   .center-block {
     margin: 0 auto 1em auto;
@@ -66,7 +66,7 @@
 </style>
 
 <script>
-  import helloNametag from 'assets/svg/hello-habitican.svg';
+  import helloNametag from '@/assets/svg/hello-habitican.svg';
   import usernameForm from './usernameForm';
 
   export default {

@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 
 export default {
   computed: {

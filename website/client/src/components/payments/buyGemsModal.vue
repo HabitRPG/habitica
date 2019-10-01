@@ -50,7 +50,7 @@
             | {{ $t('card') }}
           button.btn.payment-item.paypal-checkout.payment-button(@click="openPaypal(paypalCheckoutLink, 'gems')")
             | &nbsp;
-            img(src='~assets/images/paypal-checkout.png', :alt="$t('paypal')")
+            img(src='~@/assets/images/paypal-checkout.png', :alt="$t('paypal')")
             | &nbsp;
           amazon-button.payment-item(:amazon-data="{type: 'single'}")
         .row.text-center
@@ -132,7 +132,7 @@
               | {{ $t('card') }}
             button.btn.payment-item.paypal-checkout.payment-button(@click="openPaypal(paypalSubscriptionLink, 'subscription')")
               | &nbsp;
-              img(src='~assets/images/paypal-checkout.png', :alt="$t('paypal')")
+              img(src='~@/assets/images/paypal-checkout.png', :alt="$t('paypal')")
               | &nbsp;
             amazon-button.payment-item(:amazon-data="{type: 'subscription', subscription: subscriptionPlan}")
 
@@ -159,7 +159,7 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
 
   .payments-column {
@@ -216,7 +216,7 @@
   }
 
   .image-gemfall {
-    background: url(~assets/images/gemfall.png) center repeat-y;
+    background: url(~@/assets/images/gemfall.png) center repeat-y;
     height: 14em;
   }
 
@@ -307,22 +307,22 @@
 </style>
 
 <script>
-  import { mapState } from 'client/libs/store';
-  import markdown from 'client/directives/markdown';
+  import { mapState } from '@/libs/store';
+  import markdown from '@/directives/markdown';
   import planGemLimits from 'common/script/libs/planGemLimits';
-  import paymentsMixin from 'client/mixins/payments';
+  import paymentsMixin from '@/mixins/payments';
 
-  import checkIcon from 'assets/svg/check.svg';
-  import creditCardIcon from 'assets/svg/credit-card-icon.svg';
-  import heart from 'assets/svg/health.svg';
-  import logo from 'assets/svg/habitica-logo.svg';
+  import checkIcon from '@/assets/svg/check.svg';
+  import creditCardIcon from '@/assets/svg/credit-card-icon.svg';
+  import heart from '@/assets/svg/health.svg';
+  import logo from '@/assets/svg/habitica-logo.svg';
 
-  import fourGems from 'assets/svg/4-gems.svg';
-  import twentyOneGems from 'assets/svg/21-gems.svg';
-  import fortyTwoGems from 'assets/svg/42-gems.svg';
-  import eightyFourGems from 'assets/svg/84-gems.svg';
+  import fourGems from '@/assets/svg/4-gems.svg';
+  import twentyOneGems from '@/assets/svg/21-gems.svg';
+  import fortyTwoGems from '@/assets/svg/42-gems.svg';
+  import eightyFourGems from '@/assets/svg/84-gems.svg';
 
-  import amazonButton from 'client/components/payments/amazonButton';
+  import amazonButton from '@/components/payments/amazonButton';
 
   export default {
     mixins: [paymentsMixin],

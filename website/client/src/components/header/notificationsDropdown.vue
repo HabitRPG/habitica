@@ -32,7 +32,7 @@ menu-dropdown.item-notifications(:right="true", @toggled="handleOpenStatusChange
 </template>
 
 <style lang='scss' scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   .dropdown-item {
     padding: 16px 24px;
@@ -71,12 +71,12 @@ menu-dropdown.item-notifications(:right="true", @toggled="handleOpenStatusChange
 </style>
 
 <script>
-import { mapState, mapActions } from 'client/libs/store';
+import { mapState, mapActions } from '@/libs/store';
 import quests from 'common/script/content/quests';
-import notificationsIcon from 'assets/svg/notifications.svg';
+import notificationsIcon from '@/assets/svg/notifications.svg';
 import MenuDropdown from '../ui/customMenuDropdown';
 import MessageCount from './messageCount';
-import successImage from 'assets/svg/success.svg';
+import successImage from '@/assets/svg/success.svg';
 
 // Notifications
 import NEW_STUFF from './notifications/newStuff';

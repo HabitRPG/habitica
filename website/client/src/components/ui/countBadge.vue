@@ -5,7 +5,7 @@ span.badge.badge-pill.badge-item.badge-count(
 </template>
 
 <style lang="scss">
-@import '~client/assets/scss/colors.scss';
+@import '~@/assets/scss/colors.scss';
 
 .badge-count {
   right: -9px;

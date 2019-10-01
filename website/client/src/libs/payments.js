@@ -1,4 +1,4 @@
-import getStore from 'client/store';
+import getStore from '@/store';
 
 const AMAZON_PAYMENTS = process.env.AMAZON_PAYMENTS; // eslint-disable-line
 const NODE_ENV = process.env.NODE_ENV; // eslint-disable-line

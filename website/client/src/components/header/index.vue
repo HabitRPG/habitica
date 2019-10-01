@@ -38,7 +38,7 @@ div
 </template>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   #app-header {
     padding-left: 24px;
@@ -94,12 +94,12 @@ div
 
 <script>
 import orderBy from 'lodash/orderBy';
-import { mapGetters, mapActions } from 'client/libs/store';
+import { mapGetters, mapActions } from '@/libs/store';
 import MemberDetails from '../memberDetails';
 import createPartyModal from '../groups/createPartyModal';
 import inviteModal from '../groups/inviteModal';
 import membersModal from '../groups/membersModal';
-import ResizeDirective from 'client/directives/resize.directive';
+import ResizeDirective from '@/directives/resize.directive';
 
 export default {
   directives: {

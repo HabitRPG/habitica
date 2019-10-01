@@ -32,7 +32,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   .form {
     margin: 0 auto;
@@ -80,12 +80,12 @@
 
 <script>
 import hello from 'hellojs';
-import { setUpAxios } from 'client/libs/auth';
+import { setUpAxios } from '@/libs/auth';
 import debounce from 'lodash/debounce';
 import isEmail from 'validator/lib/isEmail';
 
-import facebookSquareIcon from 'assets/svg/facebook-square.svg';
-import googleIcon from 'assets/svg/google.svg';
+import facebookSquareIcon from '@/assets/svg/facebook-square.svg';
+import googleIcon from '@/assets/svg/google.svg';
 
 export default {
   name: 'AuthForm',

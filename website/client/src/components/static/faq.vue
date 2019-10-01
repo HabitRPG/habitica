@@ -44,7 +44,7 @@
   // @TODO:  env.EMAILS.TECH_ASSISTANCE_EMAIL
   const TECH_ASSISTANCE_EMAIL = 'admin@habitica.com';
 
-  import markdownDirective from 'client/directives/markdown';
+  import markdownDirective from '@/directives/markdown';
 
   export default {
     directives: {

@@ -20,7 +20,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~client/assets/scss/colors.scss';
+@import '~@/assets/scss/colors.scss';
 
 .row {
   display: table;
@@ -88,9 +88,9 @@ dt {
 </style>
 
 <script>
-  import svgStar from 'assets/svg/difficulty-star.svg';
-  import svgStarHalf from 'assets/svg/difficulty-star-half.svg';
-  import svgStarEmpty from 'assets/svg/difficulty-star-empty.svg';
+  import svgStar from '@/assets/svg/difficulty-star.svg';
+  import svgStarHalf from '@/assets/svg/difficulty-star-half.svg';
+  import svgStarEmpty from '@/assets/svg/difficulty-star-empty.svg';
 
   export default {
     props: {

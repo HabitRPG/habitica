@@ -16,7 +16,7 @@
 </template>
 
 <style lang="scss">
-@import '~client/assets/scss/colors.scss';
+@import '~@/assets/scss/colors.scss';
 
 #subscription-cancel-modal .modal-header {
   border-top: 8px solid $maroon-100;
@@ -34,9 +34,9 @@
 </style>
 
 <script>
-import warningIcon from 'assets/svg/exclamation.svg';
-import closeIcon from 'assets/svg/close.svg';
-import paymentsMixin from 'client/mixins/payments';
+import warningIcon from '@/assets/svg/exclamation.svg';
+import closeIcon from '@/assets/svg/close.svg';
+import paymentsMixin from '@/mixins/payments';
 
 export default {
   mixins: [paymentsMixin],

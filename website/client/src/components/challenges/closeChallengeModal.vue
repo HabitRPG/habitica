@@ -24,7 +24,7 @@ div
 </template>
 
 <style lang='scss'>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   #close-challenge-modal {
     h2 {
@@ -41,7 +41,7 @@ div
     }
 
     .support-habitica {
-      background-image: url('~client/assets/svg/for-css/support-habitica-gems.svg');
+      background-image: url('~@/assets/svg/for-css/support-habitica-gems.svg');
       width: 325px;
       height: 89px;
       margin: 0 auto;
@@ -71,7 +71,7 @@ div
 </style>
 
 <script>
-import memberSearchDropdown from 'client/components/members/memberSearchDropdown';
+import memberSearchDropdown from '@/components/members/memberSearchDropdown';
 
 export default {
   props: ['challengeId', 'members', 'prize'],

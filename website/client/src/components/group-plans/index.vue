@@ -17,9 +17,9 @@
 </template>
 
 <script>
-import groupFormModal from 'client/components/groups/groupFormModal';
-import SecondaryMenu from 'client/components/secondaryMenu';
-import { mapState } from 'client/libs/store';
+import groupFormModal from '@/components/groups/groupFormModal';
+import SecondaryMenu from '@/components/secondaryMenu';
+import { mapState } from '@/libs/store';
 
 export default {
   props: ['groupId'],

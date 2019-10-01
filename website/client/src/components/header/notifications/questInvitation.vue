@@ -21,9 +21,9 @@ base-notification(
 
 <script>
 import BaseNotification from './base';
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 import quests from 'common/script/content/quests';
-import questInfo from 'client/components/shops/quests/questInfo';
+import questInfo from '@/components/shops/quests/questInfo';
 
 export default {
   props: ['notification', 'canRemove'],

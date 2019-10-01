@@ -170,15 +170,15 @@ div(v-if='user.stats.lvl > 10')
 <script>
 import spells from '../../../common/script/content/spells';
 
-import { mapState } from 'client/libs/store';
-import notifications from 'client/mixins/notifications';
-import spellsMixin from 'client/mixins/spells';
-import Drawer from 'client/components/ui/drawer';
-import MouseMoveDirective from 'client/directives/mouseposition.directive';
+import { mapState } from '@/libs/store';
+import notifications from '@/mixins/notifications';
+import spellsMixin from '@/mixins/spells';
+import Drawer from '@/components/ui/drawer';
+import MouseMoveDirective from '@/directives/mouseposition.directive';
 
-import mana from 'assets/svg/mana.svg';
+import mana from '@/assets/svg/mana.svg';
 import quests from 'common/script/content/quests';
-import { CONSTANTS, setLocalSetting, getLocalSetting } from 'client/libs/userlocalManager';
+import { CONSTANTS, setLocalSetting, getLocalSetting } from '@/libs/userlocalManager';
 
 export default {
   mixins: [notifications, spellsMixin],

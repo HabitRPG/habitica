@@ -46,8 +46,8 @@ div
 </style>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
-  @import '~client/assets/scss/tiers.scss';
+  @import '~@/assets/scss/colors.scss';
+  @import '~@/assets/scss/tiers.scss';
 
   .mentioned-icon {
     width: 16px;
@@ -128,14 +128,14 @@ import escapeRegExp from 'lodash/escapeRegExp';
 import max from 'lodash/max';
 
 import habiticaMarkdown from 'habitica-markdown';
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 import userLink from '../userLink';
 
-import deleteIcon from 'assets/svg/delete.svg';
-import copyIcon from 'assets/svg/copy.svg';
-import likeIcon from 'assets/svg/like.svg';
-import likedIcon from 'assets/svg/liked.svg';
-import reportIcon from 'assets/svg/report.svg';
+import deleteIcon from '@/assets/svg/delete.svg';
+import copyIcon from '@/assets/svg/copy.svg';
+import likeIcon from '@/assets/svg/like.svg';
+import likedIcon from '@/assets/svg/liked.svg';
+import reportIcon from '@/assets/svg/report.svg';
 import { highlightUsers } from '../../libs/highlightUsers';
 import { CHAT_FLAG_LIMIT_FOR_HIDING, CHAT_FLAG_FROM_SHADOW_MUTE } from '../../../common/script/constants';
 

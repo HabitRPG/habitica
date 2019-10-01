@@ -9,7 +9,7 @@
 
 <script>
 import axios from 'axios';
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 
 export default {
   computed: {

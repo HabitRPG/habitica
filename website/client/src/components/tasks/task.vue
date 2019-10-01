@@ -111,7 +111,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   .control-bottom-box {
     border-bottom-left-radius: 0px !important;
@@ -547,31 +547,31 @@
 
 
 <script>
-import { mapState, mapGetters, mapActions } from 'client/libs/store';
+import { mapState, mapGetters, mapActions } from '@/libs/store';
 import moment from 'moment';
 import axios from 'axios';
 import scoreTask from 'common/script/ops/scoreTask';
 import Vue from 'vue';
-import * as Analytics from 'client/libs/analytics';
+import * as Analytics from '@/libs/analytics';
 
-import positiveIcon from 'assets/svg/positive.svg';
-import negativeIcon from 'assets/svg/negative.svg';
-import goldIcon from 'assets/svg/gold.svg';
-import streakIcon from 'assets/svg/streak.svg';
-import calendarIcon from 'assets/svg/calendar.svg';
-import challengeIcon from 'assets/svg/challenge.svg';
-import brokenChallengeIcon from 'assets/svg/broken-megaphone.svg';
-import tagsIcon from 'assets/svg/tags.svg';
-import checkIcon from 'assets/svg/check.svg';
-import editIcon from 'assets/svg/edit.svg';
-import topIcon from 'assets/svg/top.svg';
-import bottomIcon from 'assets/svg/bottom.svg';
-import deleteIcon from 'assets/svg/delete.svg';
-import checklistIcon from 'assets/svg/checklist.svg';
-import lockIcon from 'assets/svg/lock.svg';
-import menuIcon from 'assets/svg/menu.svg';
-import markdownDirective from 'client/directives/markdown';
-import notifications from 'client/mixins/notifications';
+import positiveIcon from '@/assets/svg/positive.svg';
+import negativeIcon from '@/assets/svg/negative.svg';
+import goldIcon from '@/assets/svg/gold.svg';
+import streakIcon from '@/assets/svg/streak.svg';
+import calendarIcon from '@/assets/svg/calendar.svg';
+import challengeIcon from '@/assets/svg/challenge.svg';
+import brokenChallengeIcon from '@/assets/svg/broken-megaphone.svg';
+import tagsIcon from '@/assets/svg/tags.svg';
+import checkIcon from '@/assets/svg/check.svg';
+import editIcon from '@/assets/svg/edit.svg';
+import topIcon from '@/assets/svg/top.svg';
+import bottomIcon from '@/assets/svg/bottom.svg';
+import deleteIcon from '@/assets/svg/delete.svg';
+import checklistIcon from '@/assets/svg/checklist.svg';
+import lockIcon from '@/assets/svg/lock.svg';
+import menuIcon from '@/assets/svg/menu.svg';
+import markdownDirective from '@/directives/markdown';
+import notifications from '@/mixins/notifications';
 import approvalHeader from './approvalHeader';
 import approvalFooter from './approvalFooter';
 import MenuDropdown from '../ui/customMenuDropdown';

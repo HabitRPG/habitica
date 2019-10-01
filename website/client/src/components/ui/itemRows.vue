@@ -29,8 +29,8 @@
 </style>
 
 <script>
-  import ResizeDirective from 'client/directives/resize.directive';
-  import openedItemRowsMixin from 'client/mixins/openedItemRows';
+  import ResizeDirective from '@/directives/resize.directive';
+  import openedItemRowsMixin from '@/mixins/openedItemRows';
 
   import _take from 'lodash/take';
 

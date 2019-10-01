@@ -7,7 +7,7 @@ span.badge.badge-pill.badge-item.badge-star(
 </template>
 
 <style lang="scss">
-@import '~client/assets/scss/colors.scss';
+@import '~@/assets/scss/colors.scss';
 
 .badge-star {
   cursor: pointer;

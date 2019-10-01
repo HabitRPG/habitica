@@ -12,7 +12,7 @@
 
 <style lang="scss">
 
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
 
   .attributes-group {
@@ -138,8 +138,8 @@
 </style>
 
 <script>
-  import { mapState } from 'client/libs/store';
-  import statsMixin from 'client/mixins/stats';
+  import { mapState } from '@/libs/store';
+  import statsMixin from '@/mixins/stats';
 
   export default {
     mixins: [statsMixin],

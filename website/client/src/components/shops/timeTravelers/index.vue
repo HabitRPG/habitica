@@ -98,8 +98,8 @@
 </template>
 
 <style lang="scss">
-  @import '~client/assets/scss/colors.scss';
-  @import '~client/assets/scss/variables.scss';
+  @import '~@/assets/scss/colors.scss';
+  @import '~@/assets/scss/variables.scss';
 
   .badge-svg {
     left: calc((100% - 18px) / 2);
@@ -192,11 +192,11 @@
         align-items: center;
       }
       .background-open {
-        background: url('~assets/images/npc/#{$npc_timetravelers_flavor}/time_travelers_background.png');
+        background: url('~@/assets/images/npc/#{$npc_timetravelers_flavor}/time_travelers_background.png');
         height: 188px;
       }
       .background-closed {
-        background: url('~assets/images/npc/normal/time_travelers_background.png');
+        background: url('~@/assets/images/npc/normal/time_travelers_background.png');
         height: 216px;
       }
 
@@ -211,11 +211,11 @@
         top: 0;
         width: 100%;
         height: 216px;
-        background: url('~assets/images/npc/#{$npc_timetravelers_flavor}/time_travelers_open_banner.png');
+        background: url('~@/assets/images/npc/#{$npc_timetravelers_flavor}/time_travelers_open_banner.png');
         background-repeat: no-repeat;
 
         &.closed {
-          background: url('~assets/images/npc/normal/time_travelers_closed_banner.png');
+          background: url('~@/assets/images/npc/normal/time_travelers_closed_banner.png');
           background-repeat: no-repeat;
         }
 
@@ -233,21 +233,21 @@
 
 
 <script>
-  import {mapState} from 'client/libs/store';
+  import {mapState} from '@/libs/store';
 
   import ShopItem from '../shopItem';
-  import Item from 'client/components/inventory/item';
-  import CountBadge from 'client/components/ui/countBadge';
-  import ItemRows from 'client/components/ui/itemRows';
-  import toggleSwitch from 'client/components/ui/toggleSwitch';
-  import Avatar from 'client/components/avatar';
+  import Item from '@/components/inventory/item';
+  import CountBadge from '@/components/ui/countBadge';
+  import ItemRows from '@/components/ui/itemRows';
+  import toggleSwitch from '@/components/ui/toggleSwitch';
+  import Avatar from '@/components/avatar';
   import QuestInfo from '../quests/questInfo.vue';
 
   import BuyModal from '../buyModal.vue';
   import BuyQuestModal from '../quests/buyQuestModal.vue';
 
-  import svgPin from 'assets/svg/pin.svg';
-  import svgHourglass from 'assets/svg/hourglass.svg';
+  import svgPin from '@/assets/svg/pin.svg';
+  import svgHourglass from '@/assets/svg/hourglass.svg';
 
   import _filter from 'lodash/filter';
   import _sortBy from 'lodash/sortBy';
@@ -258,7 +258,7 @@
   import isPinned from 'common/script/libs/isPinned';
   import shops from 'common/script/libs/shops';
 
-  import pinUtils from 'client/mixins/pinUtils';
+  import pinUtils from '@/mixins/pinUtils';
 
   export default {
     mixins: [pinUtils],

@@ -75,8 +75,8 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
-  @import '~client/assets/scss/tiers.scss';
+  @import '~@/assets/scss/colors.scss';
+  @import '~@/assets/scss/tiers.scss';
 
   .header-wrap {
     padding: 0.5em;
@@ -238,25 +238,25 @@ import moment from 'moment';
 import filter from 'lodash/filter';
 import groupBy from 'lodash/groupBy';
 import orderBy from 'lodash/orderBy';
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 import habiticaMarkdown from 'habitica-markdown';
-import styleHelper from 'client/mixins/styleHelper';
-import toggleSwitch from 'client/components/ui/toggleSwitch';
+import styleHelper from '@/mixins/styleHelper';
+import toggleSwitch from '@/components/ui/toggleSwitch';
 import axios from 'axios';
 
 import chatMessages from '../chat/chatMessages';
-import messageIcon from 'assets/svg/message.svg';
-import svgClose from 'assets/svg/close.svg';
-import tier1 from 'assets/svg/tier-1.svg';
-import tier2 from 'assets/svg/tier-2.svg';
-import tier3 from 'assets/svg/tier-3.svg';
-import tier4 from 'assets/svg/tier-4.svg';
-import tier5 from 'assets/svg/tier-5.svg';
-import tier6 from 'assets/svg/tier-6.svg';
-import tier7 from 'assets/svg/tier-7.svg';
-import tier8 from 'assets/svg/tier-mod.svg';
-import tier9 from 'assets/svg/tier-staff.svg';
-import tierNPC from 'assets/svg/tier-npc.svg';
+import messageIcon from '@/assets/svg/message.svg';
+import svgClose from '@/assets/svg/close.svg';
+import tier1 from '@/assets/svg/tier-1.svg';
+import tier2 from '@/assets/svg/tier-2.svg';
+import tier3 from '@/assets/svg/tier-3.svg';
+import tier4 from '@/assets/svg/tier-4.svg';
+import tier5 from '@/assets/svg/tier-5.svg';
+import tier6 from '@/assets/svg/tier-6.svg';
+import tier7 from '@/assets/svg/tier-7.svg';
+import tier8 from '@/assets/svg/tier-mod.svg';
+import tier9 from '@/assets/svg/tier-staff.svg';
+import tierNPC from '@/assets/svg/tier-npc.svg';
 
 export default {
   mixins: [styleHelper],

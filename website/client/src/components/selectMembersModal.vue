@@ -96,11 +96,11 @@ div
 import sortBy from 'lodash/sortBy';
 
 import MemberDetails from './memberDetails';
-import removeIcon from 'assets/members/remove.svg';
-import messageIcon from 'assets/members/message.svg';
-import starIcon from 'assets/members/star.svg';
+import removeIcon from '@/assets/members/remove.svg';
+import messageIcon from '@/assets/members/message.svg';
+import starIcon from '@/assets/members/star.svg';
 
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 
 export default {
   props: ['group', 'hideBadge', 'item'],

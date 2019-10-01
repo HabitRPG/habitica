@@ -47,19 +47,19 @@ layout-section(:title="$t('equipment')")
 </template>
 
 <script>
-  import {mapState} from 'client/libs/store';
-  import LayoutSection from 'client/components/ui/layoutSection';
-  import FilterDropdown from 'client/components/ui/filterDropdown';
-  import ItemRows from 'client/components/ui/itemRows';
+  import {mapState} from '@/libs/store';
+  import LayoutSection from '@/components/ui/layoutSection';
+  import FilterDropdown from '@/components/ui/filterDropdown';
+  import ItemRows from '@/components/ui/itemRows';
   import ShopItem from '../shopItem';
 
   import shops from 'common/script/libs/shops';
 
-  import svgPin from 'assets/svg/pin.svg';
-  import svgWarrior from 'assets/svg/warrior.svg';
-  import svgWizard from 'assets/svg/wizard.svg';
-  import svgRogue from 'assets/svg/rogue.svg';
-  import svgHealer from 'assets/svg/healer.svg';
+  import svgPin from '@/assets/svg/pin.svg';
+  import svgWarrior from '@/assets/svg/warrior.svg';
+  import svgWizard from '@/assets/svg/wizard.svg';
+  import svgRogue from '@/assets/svg/rogue.svg';
+  import svgHealer from '@/assets/svg/healer.svg';
 
   import _filter from 'lodash/filter';
   import _orderBy from 'lodash/orderBy';

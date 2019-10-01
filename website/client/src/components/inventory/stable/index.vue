@@ -177,8 +177,8 @@
 </style>
 
 <style lang="scss">
-  @import '~client/assets/scss/colors.scss';
-  @import '~client/assets/scss/modal.scss';
+  @import '~@/assets/scss/colors.scss';
+  @import '~@/assets/scss/modal.scss';
 
   .standard-page .clearfix .float-right {
     margin-right: 24px;
@@ -318,7 +318,7 @@
 </style>
 
 <script>
-  import { mapState } from 'client/libs/store';
+  import { mapState } from '@/libs/store';
 
   import _each from 'lodash/each';
   import _sortBy from 'lodash/sortBy';
@@ -327,7 +327,7 @@
   import groupBy from 'lodash/groupBy';
 
   import Item from '../item';
-  import ItemRows from 'client/components/ui/itemRows';
+  import ItemRows from '@/components/ui/itemRows';
   import PetItem from './petItem';
   import MountItem from './mountItem.vue';
   import FoodItem from './foodItem';
@@ -335,31 +335,31 @@
   import MountRaisedModal from './mountRaisedModal';
   import WelcomeModal from './welcomeModal';
   import HatchingModal from './hatchingModal';
-  import Drawer from 'client/components/ui/drawer';
-  import toggleSwitch from 'client/components/ui/toggleSwitch';
-  import StarBadge from 'client/components/ui/starBadge';
-  import CountBadge from 'client/components/ui/countBadge';
-  import DrawerSlider from 'client/components/ui/drawerSlider';
-  import InventoryDrawer from 'client/components/shared/inventoryDrawer';
+  import Drawer from '@/components/ui/drawer';
+  import toggleSwitch from '@/components/ui/toggleSwitch';
+  import StarBadge from '@/components/ui/starBadge';
+  import CountBadge from '@/components/ui/countBadge';
+  import DrawerSlider from '@/components/ui/drawerSlider';
+  import InventoryDrawer from '@/components/shared/inventoryDrawer';
 
-  import ResizeDirective from 'client/directives/resize.directive';
-  import DragDropDirective from 'client/directives/dragdrop.directive';
-  import MouseMoveDirective from 'client/directives/mouseposition.directive';
+  import ResizeDirective from '@/directives/resize.directive';
+  import DragDropDirective from '@/directives/dragdrop.directive';
+  import MouseMoveDirective from '@/directives/mouseposition.directive';
 
-  import { createAnimal } from 'client/libs/createAnimal';
+  import { createAnimal } from '@/libs/createAnimal';
 
-  import svgInformation from 'assets/svg/information.svg';
+  import svgInformation from '@/assets/svg/information.svg';
 
-  import notifications from 'client/mixins/notifications';
-  import openedItemRowsMixin from 'client/mixins/openedItemRows';
-  import petMixin from 'client/mixins/petMixin';
+  import notifications from '@/mixins/notifications';
+  import openedItemRowsMixin from '@/mixins/openedItemRows';
+  import petMixin from '@/mixins/petMixin';
 
-  import { CONSTANTS, setLocalSetting, getLocalSetting } from 'client/libs/userlocalManager';
+  import { CONSTANTS, setLocalSetting, getLocalSetting } from '@/libs/userlocalManager';
   import {isOwned} from '../../../libs/createAnimal';
 
   // TODO Normalize special pets and mounts
-  // import Store from 'client/store';
-  // import deepFreeze from 'client/libs/deepFreeze';
+  // import Store from '@/store';
+  // import deepFreeze from '@/libs/deepFreeze';
   // const specialMounts =
 
   let lastMouseMoveEvent = {};

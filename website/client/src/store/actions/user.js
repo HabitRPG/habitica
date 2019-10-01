@@ -1,4 +1,4 @@
-import { loadAsyncResource } from 'client/libs/asyncResource';
+import { loadAsyncResource } from '@/libs/asyncResource';
 import setProps from 'lodash/set';
 import axios from 'axios';
 

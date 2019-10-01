@@ -50,7 +50,7 @@
 </style>
 
 <script>
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 
 import achievementsLib from '../../../common/script/libs/achievements';
 import Content from '../../../common/script/content';

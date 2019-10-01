@@ -2,14 +2,14 @@
 .row
   .col-12.text-center
     // @TODO i18n. How to setup the strings with the router-link inside?
-    img.not-found-img(src='~assets/images/404.png')
+    img.not-found-img(src='~@/assets/images/404.png')
     h1.not-found Sometimes even the bravest adventurer gets lost. 
     h2.not-found Looks like this link is broken or the page may have moved, sorry! 
     h2.not-found Head back to the <router-link to="/">Homepage</router-link> or <router-link :to="contactUsLink">Contact Us</router-link> about the issue.
 </template>
 
 <script>
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 
 export default {
   computed: {
@@ -26,7 +26,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~client/assets/scss/colors.scss';
+@import '~@/assets/scss/colors.scss';
 
 .col-12 {
   margin-bottom: 120px;

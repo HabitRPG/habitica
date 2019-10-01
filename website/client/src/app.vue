@@ -50,7 +50,7 @@ div
 </template>
 
 <style lang='scss' scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   #app {
     height: calc(100% - 56px); /* 56px is the menu */
@@ -149,7 +149,7 @@ div
 </style>
 
 <style lang='scss'>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   .closepadding span svg path {
     stroke: #FFF;
@@ -181,22 +181,22 @@ import AppHeader from './components/header/index';
 import AppFooter from './components/appFooter';
 import notificationsDisplay from './components/notifications';
 import snackbars from './components/snackbars/notifications';
-import { mapState } from 'client/libs/store';
-import * as Analytics from 'client/libs/analytics';
+import { mapState } from '@/libs/store';
+import * as Analytics from '@/libs/analytics';
 import BuyModal from './components/shops/buyModal.vue';
-import SelectMembersModal from 'client/components/selectMembersModal.vue';
-import notifications from 'client/mixins/notifications';
-import { setup as setupPayments } from 'client/libs/payments';
-import amazonPaymentsModal from 'client/components/payments/amazonModal';
-import paymentsSuccessModal from 'client/components/payments/successModal';
-import subCancelModalConfirm from 'client/components/payments/cancelModalConfirm';
-import subCanceledModal from 'client/components/payments/canceledModal';
+import SelectMembersModal from '@/components/selectMembersModal.vue';
+import notifications from '@/mixins/notifications';
+import { setup as setupPayments } from '@/libs/payments';
+import amazonPaymentsModal from '@/components/payments/amazonModal';
+import paymentsSuccessModal from '@/components/payments/successModal';
+import subCancelModalConfirm from '@/components/payments/cancelModalConfirm';
+import subCanceledModal from '@/components/payments/canceledModal';
 
-import spellsMixin from 'client/mixins/spells';
-import { CONSTANTS, getLocalSetting, removeLocalSetting } from 'client/libs/userlocalManager';
+import spellsMixin from '@/mixins/spells';
+import { CONSTANTS, getLocalSetting, removeLocalSetting } from '@/libs/userlocalManager';
 
-import svgClose from 'assets/svg/close.svg';
-import bannedAccountModal from 'client/components/bannedAccountModal';
+import svgClose from '@/assets/svg/close.svg';
+import bannedAccountModal from '@/components/bannedAccountModal';
 
 const COMMUNITY_MANAGER_EMAIL = process.env.EMAILS.COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
 
@@ -629,34 +629,34 @@ export default {
 
 <style src="intro.js/minified/introjs.min.css"></style>
 <style src="axios-progress-bar/dist/nprogress.css"></style>
-<style src="assets/scss/index.scss" lang="scss"></style>
-<style src="assets/css/sprites/spritesmith-largeSprites-0.css"></style>
-<style src="assets/css/sprites/spritesmith-main-0.css"></style>
-<style src="assets/css/sprites/spritesmith-main-1.css"></style>
-<style src="assets/css/sprites/spritesmith-main-2.css"></style>
-<style src="assets/css/sprites/spritesmith-main-3.css"></style>
-<style src="assets/css/sprites/spritesmith-main-4.css"></style>
-<style src="assets/css/sprites/spritesmith-main-5.css"></style>
-<style src="assets/css/sprites/spritesmith-main-6.css"></style>
-<style src="assets/css/sprites/spritesmith-main-7.css"></style>
-<style src="assets/css/sprites/spritesmith-main-8.css"></style>
-<style src="assets/css/sprites/spritesmith-main-9.css"></style>
-<style src="assets/css/sprites/spritesmith-main-10.css"></style>
-<style src="assets/css/sprites/spritesmith-main-11.css"></style>
-<style src="assets/css/sprites/spritesmith-main-12.css"></style>
-<style src="assets/css/sprites/spritesmith-main-13.css"></style>
-<style src="assets/css/sprites/spritesmith-main-14.css"></style>
-<style src="assets/css/sprites/spritesmith-main-15.css"></style>
-<style src="assets/css/sprites/spritesmith-main-16.css"></style>
-<style src="assets/css/sprites/spritesmith-main-17.css"></style>
-<style src="assets/css/sprites/spritesmith-main-18.css"></style>
-<style src="assets/css/sprites/spritesmith-main-19.css"></style>
-<style src="assets/css/sprites/spritesmith-main-20.css"></style>
-<style src="assets/css/sprites/spritesmith-main-21.css"></style>
-<style src="assets/css/sprites/spritesmith-main-22.css"></style>
-<style src="assets/css/sprites/spritesmith-main-23.css"></style>
-<style src="assets/css/sprites/spritesmith-main-24.css"></style>
-<style src="assets/css/sprites/spritesmith-main-25.css"></style>
-<style src="assets/css/sprites/spritesmith-main-26.css"></style>
-<style src="assets/css/sprites.css"></style>
+<style src="@/assets/scss/index.scss" lang="scss"></style>
+<style src="@/assets/css/sprites/spritesmith-largeSprites-0.css"></style>
+<style src="@/assets/css/sprites/spritesmith-main-0.css"></style>
+<style src="@/assets/css/sprites/spritesmith-main-1.css"></style>
+<style src="@/assets/css/sprites/spritesmith-main-2.css"></style>
+<style src="@/assets/css/sprites/spritesmith-main-3.css"></style>
+<style src="@/assets/css/sprites/spritesmith-main-4.css"></style>
+<style src="@/assets/css/sprites/spritesmith-main-5.css"></style>
+<style src="@/assets/css/sprites/spritesmith-main-6.css"></style>
+<style src="@/assets/css/sprites/spritesmith-main-7.css"></style>
+<style src="@/assets/css/sprites/spritesmith-main-8.css"></style>
+<style src="@/assets/css/sprites/spritesmith-main-9.css"></style>
+<style src="@/assets/css/sprites/spritesmith-main-10.css"></style>
+<style src="@/assets/css/sprites/spritesmith-main-11.css"></style>
+<style src="@/assets/css/sprites/spritesmith-main-12.css"></style>
+<style src="@/assets/css/sprites/spritesmith-main-13.css"></style>
+<style src="@/assets/css/sprites/spritesmith-main-14.css"></style>
+<style src="@/assets/css/sprites/spritesmith-main-15.css"></style>
+<style src="@/assets/css/sprites/spritesmith-main-16.css"></style>
+<style src="@/assets/css/sprites/spritesmith-main-17.css"></style>
+<style src="@/assets/css/sprites/spritesmith-main-18.css"></style>
+<style src="@/assets/css/sprites/spritesmith-main-19.css"></style>
+<style src="@/assets/css/sprites/spritesmith-main-20.css"></style>
+<style src="@/assets/css/sprites/spritesmith-main-21.css"></style>
+<style src="@/assets/css/sprites/spritesmith-main-22.css"></style>
+<style src="@/assets/css/sprites/spritesmith-main-23.css"></style>
+<style src="@/assets/css/sprites/spritesmith-main-24.css"></style>
+<style src="@/assets/css/sprites/spritesmith-main-25.css"></style>
+<style src="@/assets/css/sprites/spritesmith-main-26.css"></style>
+<style src="@/assets/css/sprites.css"></style>
 <style src="smartbanner.js/dist/smartbanner.min.css"></style>

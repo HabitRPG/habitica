@@ -20,7 +20,7 @@
 </style>
 
 <script>
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 import eggs from '../../../common/script/content/eggs';
 
 export default {

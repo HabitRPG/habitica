@@ -24,9 +24,9 @@
 
 <script>
 import quests from 'common/script/content/quests';
-import questDialogDrops from 'client/components/shops/quests/questDialogDrops';
+import questDialogDrops from '@/components/shops/quests/questDialogDrops';
 
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 import percent from '../../../common/script/libs/percent';
 import { maxHealth } from '../../../common/script/index';
 

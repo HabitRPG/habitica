@@ -33,7 +33,7 @@
 </template>
 
 <style lang='scss' scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   @media only screen and (max-width : 750px) {
     .login-button {
@@ -53,7 +53,7 @@
   }
 
   nav.navbar {
-    background: $purple-100 url(~assets/svg/for-css/bits.svg) right no-repeat;
+    background: $purple-100 url(~@/assets/svg/for-css/bits.svg) right no-repeat;
     padding-left: 25px;
     padding-right: 12.5px;
     height: 56px;
@@ -156,9 +156,9 @@
 </style>
 
 <script>
-import logo from 'assets/svg/logo.svg';
-import purpleLogo from 'assets/svg/purple-logo.svg';
-import * as Analytics from 'client/libs/analytics';
+import logo from '@/assets/svg/logo.svg';
+import purpleLogo from '@/assets/svg/purple-logo.svg';
+import * as Analytics from '@/libs/analytics';
 
 export default {
   data () {

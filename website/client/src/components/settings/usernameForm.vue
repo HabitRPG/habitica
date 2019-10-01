@@ -31,7 +31,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   button {
     margin: 0.25rem auto 1rem;
@@ -97,7 +97,7 @@
 <script>
   import axios from 'axios';
   import debounce from 'lodash/debounce';
-  import { mapState } from 'client/libs/store';
+  import { mapState } from '@/libs/store';
 
   export default {
     computed: {

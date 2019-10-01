@@ -104,8 +104,8 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
-  @import '~client/assets/scss/create-task.scss';
+  @import '~@/assets/scss/colors.scss';
+  @import '~@/assets/scss/create-task.scss';
 
   .user-tasks-page {
     padding-top: 16px;
@@ -177,7 +177,7 @@
       border-bottom: 1px solid $gray-500 !important;
       background-size: 10px 10px;
       padding-left: 40px;
-      background-image: url(~client/assets/svg/for-css/positive.svg);
+      background-image: url(~@/assets/svg/for-css/positive.svg);
     }
 
     .tag-edit-item {
@@ -261,26 +261,26 @@
 import TaskColumn from './column';
 import TaskModal from './taskModal';
 import spells from './spells';
-import markdown from 'client/directives/markdown';
+import markdown from '@/directives/markdown';
 
-import positiveIcon from 'assets/svg/positive.svg';
-import filterIcon from 'assets/svg/filter.svg';
-import deleteIcon from 'assets/svg/delete.svg';
-import habitIcon from 'assets/svg/habit.svg';
-import dailyIcon from 'assets/svg/daily.svg';
-import todoIcon from 'assets/svg/todo.svg';
-import rewardIcon from 'assets/svg/reward.svg';
-import dragIcon from 'assets/svg/drag_indicator.svg';
+import positiveIcon from '@/assets/svg/positive.svg';
+import filterIcon from '@/assets/svg/filter.svg';
+import deleteIcon from '@/assets/svg/delete.svg';
+import habitIcon from '@/assets/svg/habit.svg';
+import dailyIcon from '@/assets/svg/daily.svg';
+import todoIcon from '@/assets/svg/todo.svg';
+import rewardIcon from '@/assets/svg/reward.svg';
+import dragIcon from '@/assets/svg/drag_indicator.svg';
 
 import uuid from 'uuid';
 import Vue from 'vue';
 import throttle from 'lodash/throttle';
 import cloneDeep from 'lodash/cloneDeep';
-import { mapState, mapActions } from 'client/libs/store';
+import { mapState, mapActions } from '@/libs/store';
 import taskDefaults from 'common/script/libs/taskDefaults';
 import brokenTaskModal from './brokenTaskModal';
 
-import Item from 'client/components/inventory/item.vue';
+import Item from '@/components/inventory/item.vue';
 import draggable from 'vuedraggable';
 
 export default {

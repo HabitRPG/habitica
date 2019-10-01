@@ -8,7 +8,7 @@
       .container
         .row
           .col-12.col-md-6.col-lg-6
-            img(src='~assets/images/home/home-main@3x.png', width='357px')
+            img(src='~@/assets/images/home/home-main@3x.png', width='357px')
             h1 {{$t('motivateYourself')}}
             p.section-main {{$t('timeToGetThingsDone', {userCountInMillions})}}
           .col-12.col-md-6.col-lg-6
@@ -44,15 +44,15 @@
             p.section-main {{$t('aboutHabitica')}}
         .row
           .col-12.col-md-4
-            img.track-habits(src='~assets/images/home/track-habits@3x.png', width='354px', height='228px')
+            img.track-habits(src='~@/assets/images/home/track-habits@3x.png', width='354px', height='228px')
             strong {{$t('trackYourGoals')}}
             p {{$t('trackYourGoalsDesc')}}
           .col-12.col-md-4
-            img(src='~assets/images/home/earn-rewards@3x.png', width='316px', height='244px')
+            img(src='~@/assets/images/home/earn-rewards@3x.png', width='316px', height='244px')
             strong {{$t('earnRewards')}}
             p {{$t('earnRewardsDesc')}}
           .col-12.col-md-4
-            img(src='~assets/images/home/battle-monsters@3x.png', width='303px', height='244px')
+            img(src='~@/assets/images/home/battle-monsters@3x.png', width='303px', height='244px')
             strong {{$t('battleMonsters')}}
             p {{$t('battleMonstersDesc')}}
       .col-12
@@ -65,15 +65,15 @@
             h2 {{$t('playersUseToImprove')}}
         .row
           .col-12.col-sm-4
-            img(src='~assets/images/home/health-fitness@3x.png', width='300px', height='300px')
+            img(src='~@/assets/images/home/health-fitness@3x.png', width='300px', height='300px')
             strong {{$t('healthAndFitness')}}
             p {{$t('healthAndFitnessDesc')}}
           .col-12.col-sm-4
-            img(src='~assets/images/home/school-work@3x.png', width='300px', height='300px')
+            img(src='~@/assets/images/home/school-work@3x.png', width='300px', height='300px')
             strong {{$t('schoolAndWork')}}
             p {{$t('schoolAndWorkDesc')}}
           .col-12.col-sm-4
-            img(src='~assets/images/home/much-more@3x.png', width='300px', height='300px')
+            img(src='~@/assets/images/home/much-more@3x.png', width='300px', height='300px')
             strong {{$t('muchmuchMore')}}
             p {{$t('muchmuchMoreDesc')}}
       .col-12
@@ -120,11 +120,11 @@
 </template>
 
 <style lang='scss'>
-@import '~client/assets/scss/static.scss';
+@import '~@/assets/scss/static.scss';
 </style>
 
 <style lang="scss" scoped>
-@import '~client/assets/scss/colors.scss';
+@import '~@/assets/scss/colors.scss';
 
 @import url('https://fonts.googleapis.com/css?family=Varela+Round');
 
@@ -204,7 +204,7 @@
   }
 
   #intro-signup {
-    background-image: url('~assets/svg/for-css/confetti.svg');
+    background-image: url('~@/assets/svg/for-css/confetti.svg');
 
     img {
       margin: 0 auto;
@@ -410,7 +410,7 @@
       max-width: 100%;
       background-repeat: no-repeat;
       background-size: 100%;
-      background-image: url('~assets/images/home/mobile-preview@3x.png');
+      background-image: url('~@/assets/images/home/mobile-preview@3x.png');
     }
 
     .text-column {
@@ -526,7 +526,7 @@
     }
 
     .seamless_stars_varied_opacity_repeat {
-      background-image: url('~assets/images/auth/seamless_stars_varied_opacity.png');
+      background-image: url('~@/assets/images/auth/seamless_stars_varied_opacity.png');
       background-repeat: repeat-x;
       position: absolute;
       height: 500px;
@@ -561,24 +561,24 @@
   import hello from 'hellojs';
   import debounce from 'lodash/debounce';
   import isEmail from 'validator/lib/isEmail';
-  import googlePlay from 'assets/images/home/google-play-badge.svg';
-  import iosAppStore from 'assets/images/home/ios-app-store.svg';
-  import iphones from 'assets/images/home/iphones.svg';
-  import spacer from 'assets/images/home/spacer.svg';
-  import pixelHorizontal from 'assets/images/home/pixel-horizontal.svg';
-  import pixelHorizontal2 from 'assets/images/home/pixel-horizontal-2.svg';
-  import pixelHorizontal3 from 'assets/images/home/pixel-horizontal-3.svg';
-  import facebookSquareIcon from 'assets/svg/facebook-square.svg';
-  import googleIcon from 'assets/svg/google.svg';
-  import cnet from 'assets/svg/cnet.svg';
-  import fastCompany from 'assets/svg/fast-company.svg';
-  import discover from 'assets/images/home/discover.svg';
-  import forbes from 'assets/images/home/forbes.svg';
-  import kickstarter from 'assets/images/home/kickstarter.svg';
-  import lifehacker from 'assets/images/home/lifehacker.svg';
-  import makeuseof from 'assets/images/home/make-use-of.svg';
-  import thenewyorktimes from 'assets/images/home/the-new-york-times.svg';
-  import * as Analytics from 'client/libs/analytics';
+  import googlePlay from '@/assets/images/home/google-play-badge.svg';
+  import iosAppStore from '@/assets/images/home/ios-app-store.svg';
+  import iphones from '@/assets/images/home/iphones.svg';
+  import spacer from '@/assets/images/home/spacer.svg';
+  import pixelHorizontal from '@/assets/images/home/pixel-horizontal.svg';
+  import pixelHorizontal2 from '@/assets/images/home/pixel-horizontal-2.svg';
+  import pixelHorizontal3 from '@/assets/images/home/pixel-horizontal-3.svg';
+  import facebookSquareIcon from '@/assets/svg/facebook-square.svg';
+  import googleIcon from '@/assets/svg/google.svg';
+  import cnet from '@/assets/svg/cnet.svg';
+  import fastCompany from '@/assets/svg/fast-company.svg';
+  import discover from '@/assets/images/home/discover.svg';
+  import forbes from '@/assets/images/home/forbes.svg';
+  import kickstarter from '@/assets/images/home/kickstarter.svg';
+  import lifehacker from '@/assets/images/home/lifehacker.svg';
+  import makeuseof from '@/assets/images/home/make-use-of.svg';
+  import thenewyorktimes from '@/assets/images/home/the-new-york-times.svg';
+  import * as Analytics from '@/libs/analytics';
 
   export default {
     data () {

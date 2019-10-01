@@ -18,9 +18,9 @@ div
 </style>
 
 <script>
-  import { mapState } from 'client/libs/store';
+  import { mapState } from '@/libs/store';
   import attributesGrid from './attributesGrid';
-  import statsMixin from 'client/mixins/stats';
+  import statsMixin from '@/mixins/stats';
 
   export default {
     mixins: [statsMixin],

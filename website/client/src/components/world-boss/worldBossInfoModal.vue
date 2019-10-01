@@ -75,11 +75,11 @@
   }
 
   .left-hearts {
-    background-image: url('~client/assets/images/world-boss/left-hearts@3x.png');
+    background-image: url('~@/assets/images/world-boss/left-hearts@3x.png');
   }
 
   .right-hearts {
-    background-image: url('~client/assets/images/world-boss/right-hearts@3x.png');
+    background-image: url('~@/assets/images/world-boss/right-hearts@3x.png');
   }
 
   .red-check {
@@ -96,12 +96,12 @@
   }
 
   .quest_dysheartener_modal {
-    background-image: url('~client/assets/images/world-boss/mantis-static@3x.png');
+    background-image: url('~@/assets/images/world-boss/mantis-static@3x.png');
   }
 
   .phobia_dysheartener_modal {
     display: none;
-    background-image: url('~client/assets/images/world-boss/heart-translucent-shadow@3x.png');
+    background-image: url('~@/assets/images/world-boss/heart-translucent-shadow@3x.png');
   }
 
   .footer-link {
@@ -112,7 +112,7 @@
 </style>
 
 <script>
-import redCheck from 'assets/svg/check-red.svg';
+import redCheck from '@/assets/svg/check-red.svg';
 
 export default {
   data () {

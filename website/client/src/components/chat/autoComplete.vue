@@ -14,8 +14,8 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/tiers.scss';
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/tiers.scss';
+  @import '~@/assets/scss/colors.scss';
 
   .autocomplete-results {
     padding: .5em;
@@ -53,17 +53,17 @@
 
 <script>
 import groupBy from 'lodash/groupBy';
-import styleHelper from 'client/mixins/styleHelper';
-import tier1 from 'assets/svg/tier-1.svg';
-import tier2 from 'assets/svg/tier-2.svg';
-import tier3 from 'assets/svg/tier-3.svg';
-import tier4 from 'assets/svg/tier-4.svg';
-import tier5 from 'assets/svg/tier-5.svg';
-import tier6 from 'assets/svg/tier-6.svg';
-import tier7 from 'assets/svg/tier-7.svg';
-import tier8 from 'assets/svg/tier-mod.svg';
-import tier9 from 'assets/svg/tier-staff.svg';
-import tierNPC from 'assets/svg/tier-npc.svg';
+import styleHelper from '@/mixins/styleHelper';
+import tier1 from '@/assets/svg/tier-1.svg';
+import tier2 from '@/assets/svg/tier-2.svg';
+import tier3 from '@/assets/svg/tier-3.svg';
+import tier4 from '@/assets/svg/tier-4.svg';
+import tier5 from '@/assets/svg/tier-5.svg';
+import tier6 from '@/assets/svg/tier-6.svg';
+import tier7 from '@/assets/svg/tier-7.svg';
+import tier8 from '@/assets/svg/tier-mod.svg';
+import tier9 from '@/assets/svg/tier-staff.svg';
+import tierNPC from '@/assets/svg/tier-npc.svg';
 
 export default {
   props: ['selections', 'text', 'caretPosition', 'coords', 'chat', 'textbox'],

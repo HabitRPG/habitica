@@ -9,7 +9,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
 span {
   font-weight: normal;
@@ -37,9 +37,9 @@ span {
 </style>
 
 <script>
-  import svgGem from 'assets/svg/gem.svg';
-  import svgGold from 'assets/svg/gold.svg';
-  import svgHourglasses from 'assets/svg/hourglass.svg';
+  import svgGem from '@/assets/svg/gem.svg';
+  import svgGold from '@/assets/svg/gold.svg';
+  import svgHourglasses from '@/assets/svg/hourglass.svg';
 
   import currencyMixin from './_currencyMixin';
 

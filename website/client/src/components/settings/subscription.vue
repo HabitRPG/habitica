@@ -79,7 +79,7 @@
               | {{ $t('card') }}
             button.btn.payment-item.paypal-checkout.payment-button(@click="openPaypal(paypalPurchaseLink, 'subscription')", :disabled='!subscription.key')
               | &nbsp;
-              img(src='~assets/images/paypal-checkout.png', :alt="$t('paypal')")
+              img(src='~@/assets/images/paypal-checkout.png', :alt="$t('paypal')")
               | &nbsp;
             amazon-button.payment-item(:amazon-data="{type: 'subscription', subscription: this.subscription.key, coupon: this.subscription.coupon}")
     .row
@@ -107,15 +107,15 @@ import axios from 'axios';
 import filter from 'lodash/filter';
 import sortBy from 'lodash/sortBy';
 import min from 'lodash/min';
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 
 import subscriptionBlocks from '../../../common/script/content/subscriptionBlocks';
 import planGemLimits from '../../../common/script/libs/planGemLimits';
 import paymentsMixin from '../../mixins/payments';
 import notificationsMixin from '../../mixins/notifications';
 
-import amazonButton from 'client/components/payments/amazonButton';
-import creditCardIcon from 'assets/svg/credit-card-icon.svg';
+import amazonButton from '@/components/payments/amazonButton';
+import creditCardIcon from '@/assets/svg/credit-card-icon.svg';
 
 export default {
   mixins: [paymentsMixin, notificationsMixin],

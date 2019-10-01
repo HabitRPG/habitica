@@ -3,7 +3,7 @@ import isEqual from 'lodash/isEqual';
 import keys from 'lodash/keys';
 import pick from 'lodash/pick';
 import includes from 'lodash/includes';
-import getStore from 'client/store';
+import getStore from '@/store';
 import amplitude from 'amplitude-js';
 import Vue from 'vue';
 

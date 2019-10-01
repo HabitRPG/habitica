@@ -160,26 +160,26 @@ b-modal#group-plan-overview(title="Empty", size='lg', hide-footer=true, @shown='
   }
 
   .assign-tasks {
-    background-image: url('~assets/images/group-plans/assign-task@3x.png');
+    background-image: url('~@/assets/images/group-plans/assign-task@3x.png');
     width: 400px;
     height: 150px;
   }
 
   .requires-approval {
-    background-image: url('~assets/images/group-plans/requires-approval@3x.png');
+    background-image: url('~@/assets/images/group-plans/requires-approval@3x.png');
     width: 402px;
     height: 20px;
     margin-bottom: 1em;
   }
 
   .approval-requested {
-    background-image: url('~assets/images/group-plans/approval-requested@3x.png');
+    background-image: url('~@/assets/images/group-plans/approval-requested@3x.png');
     width: 471px;
     height: 204px;
   }
 
   .promote-leader {
-    background-image: url('~assets/images/group-plans/promote-leader@3x.png');
+    background-image: url('~@/assets/images/group-plans/promote-leader@3x.png');
     width: 423px;
     height: 185px;
   }
@@ -190,11 +190,11 @@ b-modal#group-plan-overview(title="Empty", size='lg', hide-footer=true, @shown='
 </style>
 
 <script>
-import * as Analytics from 'client/libs/analytics';
-import { mapState } from 'client/libs/store';
+import * as Analytics from '@/libs/analytics';
+import { mapState } from '@/libs/store';
 
-import upIcon from 'assets/svg/up.svg';
-import downIcon from 'assets/svg/down.svg';
+import upIcon from '@/assets/svg/up.svg';
+import downIcon from '@/assets/svg/down.svg';
 
 export default {
   data () {

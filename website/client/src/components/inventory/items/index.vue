@@ -196,9 +196,9 @@
 import each from 'lodash/each';
 import throttle from 'lodash/throttle';
 import moment from 'moment';
-import Item from 'client/components/inventory/item';
-import ItemRows from 'client/components/ui/itemRows';
-import CountBadge from 'client/components/ui/countBadge';
+import Item from '@/components/inventory/item';
+import ItemRows from '@/components/ui/itemRows';
+import CountBadge from '@/components/ui/countBadge';
 
 import cardsModal from './cards-modal';
 
@@ -206,12 +206,12 @@ import HatchedPetDialog from '../stable/hatchedPetDialog';
 import startQuestModal from '../../groups/startQuestModal';
 import QuestInfo from '../../shops/quests/questInfo.vue';
 
-import { mapState } from 'client/libs/store';
-import { createAnimal } from 'client/libs/createAnimal';
+import { mapState } from '@/libs/store';
+import { createAnimal } from '@/libs/createAnimal';
 
-import notifications from 'client/mixins/notifications';
-import DragDropDirective from 'client/directives/dragdrop.directive';
-import MouseMoveDirective from 'client/directives/mouseposition.directive';
+import notifications from '@/mixins/notifications';
+import DragDropDirective from '@/directives/dragdrop.directive';
+import MouseMoveDirective from '@/directives/mouseposition.directive';
 
 const allowedSpecialItems = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
 

@@ -33,7 +33,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
   .sort-select {
     margin: 2em;
   }
@@ -61,16 +61,16 @@
 </style>
 
 <script>
-import { mapState } from 'client/libs/store';
-import groupUtilities from 'client/mixins/groupsUtilities';
+import { mapState } from '@/libs/store';
+import groupUtilities from '@/mixins/groupsUtilities';
 
 import MugenScroll from 'vue-mugen-scroll';
 
 import PublicGuildItem from './publicGuildItem';
 import Sidebar from './sidebar';
 
-import greyBadgeIcon from 'assets/svg/grey-badge.svg';
-import positiveIcon from 'assets/svg/positive.svg';
+import greyBadgeIcon from '@/assets/svg/grey-badge.svg';
+import positiveIcon from '@/assets/svg/positive.svg';
 
 export default {
   mixins: [groupUtilities],

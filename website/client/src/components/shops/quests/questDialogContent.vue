@@ -10,7 +10,7 @@
 
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   .quest-image {
     margin: 0 auto;

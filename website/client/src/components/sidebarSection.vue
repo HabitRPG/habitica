@@ -55,9 +55,9 @@
 
 <script>
   import uuid from 'uuid/v4';
-  import upIcon from 'assets/svg/up.svg';
-  import downIcon from 'assets/svg/down.svg';
-  import informationIcon from 'assets/svg/information.svg';
+  import upIcon from '@/assets/svg/up.svg';
+  import downIcon from '@/assets/svg/down.svg';
+  import informationIcon from '@/assets/svg/information.svg';
 
   export default {
     props: {

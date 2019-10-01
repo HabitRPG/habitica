@@ -66,8 +66,8 @@
 </style>
 
 <script>
-  import svgGold from 'assets/svg/gold.svg';
-  import svgExperience from 'assets/svg/experience.svg';
+  import svgGold from '@/assets/svg/gold.svg';
+  import svgExperience from '@/assets/svg/experience.svg';
 
   export default {
     mixins: [],

@@ -11,7 +11,7 @@ b-modal#welcome-modal(:ok-only="true",
 </template>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/modal.scss';
+  @import '~@/assets/scss/modal.scss';
 
   #welcome-modal {
     @include centeredModal();
@@ -44,7 +44,7 @@ b-modal#welcome-modal(:ok-only="true",
 </style>
 
 <script>
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 
 export default {
   computed: {

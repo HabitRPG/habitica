@@ -40,16 +40,16 @@ drawer.inventoryDrawer(
 </template>
 
 <script>
-  import {mapState} from 'client/libs/store';
-  import inventoryUtils from 'client/mixins/inventoryUtils';
-  import svgInformation from 'assets/svg/information.svg';
+  import {mapState} from '@/libs/store';
+  import inventoryUtils from '@/mixins/inventoryUtils';
+  import svgInformation from '@/assets/svg/information.svg';
   import _filter from 'lodash/filter';
 
-  import CountBadge from 'client/components/ui/countBadge';
-  import Item from 'client/components/inventory/item';
-  import Drawer from 'client/components/ui/drawer';
-  import DrawerSlider from 'client/components/ui/drawerSlider';
-  import DrawerHeaderTabs from 'client/components/ui/drawerHeaderTabs';
+  import CountBadge from '@/components/ui/countBadge';
+  import Item from '@/components/inventory/item';
+  import Drawer from '@/components/ui/drawer';
+  import DrawerSlider from '@/components/ui/drawerSlider';
+  import DrawerHeaderTabs from '@/components/ui/drawerHeaderTabs';
 
   export default {
     mixins: [inventoryUtils],

@@ -5,7 +5,7 @@ span.message-count(
 </template>
 
 <style lang="scss">
-@import '~client/assets/scss/colors.scss';
+@import '~@/assets/scss/colors.scss';
 
 .message-count {
   background-color: $blue-50;

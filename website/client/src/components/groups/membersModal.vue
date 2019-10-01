@@ -204,14 +204,14 @@ div
 <script>
 import orderBy from 'lodash/orderBy';
 import isEmpty from 'lodash/isEmpty';
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 
-import removeMemberModal from 'client/components/members/removeMemberModal';
+import removeMemberModal from '@/components/members/removeMemberModal';
 import MemberDetails from '../memberDetails';
-import removeIcon from 'assets/members/remove.svg';
-import messageIcon from 'assets/members/message.svg';
-import starIcon from 'assets/members/star.svg';
-import dots from 'assets/svg/dots.svg';
+import removeIcon from '@/assets/members/remove.svg';
+import messageIcon from '@/assets/members/message.svg';
+import starIcon from '@/assets/members/star.svg';
+import dots from '@/assets/svg/dots.svg';
 
 export default {
   props: ['hideBadge'],

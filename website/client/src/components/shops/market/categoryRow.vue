@@ -14,8 +14,8 @@ div.items
 </template>
 
 <script>
-  import { mapState } from 'client/libs/store';
-  import pinUtils from 'client/mixins/pinUtils';
+  import { mapState } from '@/libs/store';
+  import pinUtils from '@/mixins/pinUtils';
   import planGemLimits from 'common/script/libs/planGemLimits';
 
   import ShopItem from '../shopItem';

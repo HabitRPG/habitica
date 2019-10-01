@@ -15,10 +15,10 @@ div
 </template>
 
 <script>
-import { mapState } from 'client/libs/store';
-import CountBadge from 'client/components/ui/countBadge';
+import { mapState } from '@/libs/store';
+import CountBadge from '@/components/ui/countBadge';
 
-import svgPin from 'assets/svg/pin.svg';
+import svgPin from '@/assets/svg/pin.svg';
 import planGemLimits from 'common/script/libs/planGemLimits';
 import pinUtils from '../../../mixins/pinUtils';
 

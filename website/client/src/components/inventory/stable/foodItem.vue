@@ -22,9 +22,9 @@ div
 </template>
 
 <script>
-import DragDropDirective from 'client/directives/dragdrop.directive';
+import DragDropDirective from '@/directives/dragdrop.directive';
 
-import CountBadge from 'client/components/ui/countBadge';
+import CountBadge from '@/components/ui/countBadge';
 
 import uuid from 'uuid';
 

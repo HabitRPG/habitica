@@ -24,7 +24,7 @@
 </template>
 
 <style lang='scss' scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   header {
     background-color: $white !important;
@@ -134,17 +134,17 @@
 </style>
 
 <script>
-import { mapState, mapGetters } from 'client/libs/store';
+import { mapState, mapGetters } from '@/libs/store';
 import quests from 'common/script/content/quests';
 
-import copyIcon from 'assets/svg/copy.svg';
-import greyBadgeIcon from 'assets/svg/grey-badge.svg';
-import qrCodeIcon from 'assets/svg/qrCode.svg';
-import facebookIcon from 'assets/svg/facebook.svg';
-import twitterIcon from 'assets/svg/twitter.svg';
-import starIcon from 'assets/svg/star.svg';
-import goldIcon from 'assets/svg/gold.svg';
-import difficultyStarIcon from 'assets/svg/difficulty-star.svg';
+import copyIcon from '@/assets/svg/copy.svg';
+import greyBadgeIcon from '@/assets/svg/grey-badge.svg';
+import qrCodeIcon from '@/assets/svg/qrCode.svg';
+import facebookIcon from '@/assets/svg/facebook.svg';
+import twitterIcon from '@/assets/svg/twitter.svg';
+import starIcon from '@/assets/svg/star.svg';
+import goldIcon from '@/assets/svg/gold.svg';
+import difficultyStarIcon from '@/assets/svg/difficulty-star.svg';
 import questDialogDrops from '../shops/quests/questDialogDrops';
 import questDialogContent from '../shops/quests/questDialogContent';
 

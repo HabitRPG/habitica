@@ -15,7 +15,7 @@ b-modal#hatching-modal()
 </template>
 
 <style lang="scss">
-  @import '~client/assets/scss/modal.scss';
+  @import '~@/assets/scss/modal.scss';
 
   #hatching-modal {
     @include centeredModal();
@@ -59,9 +59,9 @@ b-modal#hatching-modal()
 </style>
 
 <script>
-import svgClose from 'assets/svg/close.svg';
+import svgClose from '@/assets/svg/close.svg';
 
-import petMixin from 'client/mixins/petMixin';
+import petMixin from '@/mixins/petMixin';
 
 export default {
   props: ['hatchablePet'],

@@ -29,13 +29,13 @@
 }
 
 .iconalert-success::before {
-  background-image: url(~client/assets/svg/for-css/checkbox-white.svg);
+  background-image: url(~@/assets/svg/for-css/checkbox-white.svg);
   background-size: 13px 10px;
   background-color: #1ca372;
 }
 
 .iconalert-warning::before, .iconalert-error::before {
-  background-image: url(~client/assets/svg/for-css/alert-white.svg);
+  background-image: url(~@/assets/svg/for-css/alert-white.svg);
   background-size: 16px 16px;
 }
 

@@ -42,7 +42,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   .class-badge {
     $badge-size: 32px;
@@ -119,12 +119,12 @@
 
 <script>
 import Avatar from '../avatar';
-import { mapState } from 'client/libs/store';
-import markdownDirective from 'client/directives/markdown';
-import warriorIcon from 'assets/svg/warrior.svg';
-import rogueIcon from 'assets/svg/rogue.svg';
-import healerIcon from 'assets/svg/healer.svg';
-import wizardIcon from 'assets/svg/wizard.svg';
+import { mapState } from '@/libs/store';
+import markdownDirective from '@/directives/markdown';
+import warriorIcon from '@/assets/svg/warrior.svg';
+import rogueIcon from '@/assets/svg/rogue.svg';
+import healerIcon from '@/assets/svg/healer.svg';
+import wizardIcon from '@/assets/svg/wizard.svg';
 
 export default {
   components: {

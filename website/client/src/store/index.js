@@ -1,10 +1,10 @@
-import Store from 'client/libs/store';
-import deepFreeze from 'client/libs/deepFreeze';
+import Store from '@/libs/store';
+import deepFreeze from '@/libs/deepFreeze';
 import content from 'common/script/content/index';
 import * as commonConstants from 'common/script/constants';
 import { DAY_MAPPING } from 'common/script/cron';
-import { asyncResourceFactory } from 'client/libs/asyncResource';
-import { setUpAxios } from 'client/libs/auth';
+import { asyncResourceFactory } from '@/libs/asyncResource';
+import { setUpAxios } from '@/libs/auth';
 import axios from 'axios';
 import moment from 'moment';
 

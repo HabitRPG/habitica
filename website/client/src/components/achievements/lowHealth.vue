@@ -57,7 +57,7 @@
 
 <script>
 import Avatar from '../avatar';
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 import percent from '../../../common/script/libs/percent';
 import {maxHealth} from '../../../common/script/index';
 

@@ -6,7 +6,7 @@
 
     h2#welcome {{ $t('commGuideHeadingWelcome') }}
     .media.align-items-center
-      img(src='~assets/images/community-guidelines/intro.png')
+      img(src='~@/assets/images/community-guidelines/intro.png')
       .media-body
         p(v-html="$t('commGuidePara001')")
         p(v-html="$t('commGuidePara002')")
@@ -18,7 +18,7 @@
       .media-body
         p(v-html="$t('commGuidePara015')")
         p(v-html="$t('commGuidePara016')")
-      img(src='~assets/images/community-guidelines/publicSpaces.png')
+      img(src='~@/assets/images/community-guidelines/publicSpaces.png')
     ul
       li(v-html="$t('commGuideList02A')")
       li(v-html="$t('commGuideList02B')")
@@ -39,7 +39,7 @@
 
     h3#tavern {{ $t('commGuideHeadingTavern') }}
     .media.align-items-center
-      img(src='~assets/images/community-guidelines/tavern.png')
+      img(src='~@/assets/images/community-guidelines/tavern.png')
       .media-body
         p(v-html="$t('commGuidePara022')")
         p(v-html="$t('commGuidePara023')")
@@ -47,14 +47,14 @@
     .media.align-items-center
       .media-body
         p(v-html="$t('commGuidePara027')")
-      img(src='~assets/images/community-guidelines/backCorner.png')
+      img(src='~@/assets/images/community-guidelines/backCorner.png')
 
     h3#guilds {{ $t('commGuideHeadingPublicGuilds') }}
     .media.align-items-center
       .media-body
         p(v-html="$t('commGuidePara029')")
         p(v-html="$t('commGuidePara031')")
-      img(src='~assets/images/community-guidelines/publicGuilds.png')
+      img(src='~@/assets/images/community-guidelines/publicGuilds.png')
     p(v-html="$t('commGuidePara033')")
     p(v-html="$t('commGuidePara035')")
     p(v-html="$t('commGuidePara036')")
@@ -64,7 +64,7 @@
     h2#infractions-consequences-restoration {{ $t('commGuideHeadingInfractionsEtc') }}
     h3#infractions {{ $t('commGuideHeadingInfractions') }}
     .media.align-items-center
-      img(src='~assets/images/community-guidelines/infractions.png')
+      img(src='~@/assets/images/community-guidelines/infractions.png')
       .media-body
         p(v-html="$t('commGuidePara050')")
         p(v-html="$t('commGuidePara051')")
@@ -101,7 +101,7 @@
       .media-body
         p(v-html="$t('commGuidePara058')")
         p(v-html="$t('commGuidePara059')")
-      img(src='~assets/images/community-guidelines/consequences.png')
+      img(src='~@/assets/images/community-guidelines/consequences.png')
     p(v-html="$t('commGuidePara060')")
     ul
       li(v-html="$t('commGuideList08A')")
@@ -132,7 +132,7 @@
 
     h3#restoration {{ $t('commGuideHeadingRestoration') }}
     .media.align-items-center
-      img(src='~assets/images/community-guidelines/restoration.png')
+      img(src='~@/assets/images/community-guidelines/restoration.png')
       .media-body
         p(v-html="$t('commGuidePara061')")
         p(v-html="$t('commGuidePara062')")
@@ -144,7 +144,7 @@
     p(v-html="$t('commGuidePara008')")
     p(v-html="$t('commGuidePara009')")
     .media.align-items-center
-      img(src='~assets/images/community-guidelines/staff.png')
+      img(src='~@/assets/images/community-guidelines/staff.png')
       .media-body
         ul
           li {{ $t('commGuideAKA', {habitName: 'Beffymaroo', realName: 'Beth'}) }}
@@ -156,7 +156,7 @@
           li {{ $t('commGuideAKA', {habitName: 'TheHollidayInn', realName: 'Keith'}) }}
     p(v-html="$t('commGuidePara010')")
     .media.align-items-center
-      img(src='~assets/images/community-guidelines/moderators.png')
+      img(src='~@/assets/images/community-guidelines/moderators.png')
       .media-body
         p(v-html="$t('commGuidePara011')")
         ul

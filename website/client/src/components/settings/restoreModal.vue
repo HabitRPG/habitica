@@ -48,7 +48,7 @@
 
 <script>
 import clone from 'lodash/clone';
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 
 export default {
   data () {

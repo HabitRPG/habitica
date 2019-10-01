@@ -262,14 +262,14 @@
 <script>
 import axios from 'axios';
 import moment from 'moment';
-import { mapState } from 'client/libs/store';
-import * as Analytics from 'client/libs/analytics';
+import { mapState } from '@/libs/store';
+import * as Analytics from '@/libs/analytics';
 
-import gryphon from 'assets/svg/gryphon.svg';
-import twitter from 'assets/svg/twitter.svg';
-import facebook from 'assets/svg/facebook.svg';
-import instagram from 'assets/svg/instagram.svg';
-import heart from 'assets/svg/heart.svg';
+import gryphon from '@/assets/svg/gryphon.svg';
+import twitter from '@/assets/svg/twitter.svg';
+import facebook from '@/assets/svg/facebook.svg';
+import instagram from '@/assets/svg/instagram.svg';
+import heart from '@/assets/svg/heart.svg';
 
 import modifyInventory from './modifyInventory';
 import buyGemsModal from './payments/buyGemsModal';

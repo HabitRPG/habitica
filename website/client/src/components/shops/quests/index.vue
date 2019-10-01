@@ -192,8 +192,8 @@
 </template>
 
 <style lang="scss">
-  @import '~client/assets/scss/colors.scss';
-  @import '~client/assets/scss/variables.scss';
+  @import '~@/assets/scss/colors.scss';
+  @import '~@/assets/scss/variables.scss';
 
   .badge-svg {
     left: calc((100% - 18px) / 2);
@@ -266,7 +266,7 @@
       height: 216px;
 
       .background {
-        background: url('~assets/images/npc/#{$npc_quests_flavor}/quest_shop_background.png');
+        background: url('~@/assets/images/npc/#{$npc_quests_flavor}/quest_shop_background.png');
 
         background-repeat: repeat-x;
 
@@ -294,7 +294,7 @@
         left: 0;
         top: 0;
         height: 100%;
-        background: url('~assets/images/npc/#{$npc_quests_flavor}/quest_shop_npc.png');
+        background: url('~@/assets/images/npc/#{$npc_quests_flavor}/quest_shop_npc.png');
         background-repeat: no-repeat;
 
         .featured-label {
@@ -306,19 +306,19 @@
       }
 
       .background.broken {
-        background: url('~assets/images/npc/broken/quest_shop_broken_background.png');
+        background: url('~@/assets/images/npc/broken/quest_shop_broken_background.png');
 
         background-repeat: repeat-x;
       }
 
       .background.cracked {
-        background: url('~assets/images/npc/broken/quest_shop_broken_layer.png');
+        background: url('~@/assets/images/npc/broken/quest_shop_broken_layer.png');
 
         background-repeat: repeat-x;
       }
 
       .broken .npc {
-        background: url('~assets/images/npc/broken/quest_shop_broken_npc.png');
+        background: url('~@/assets/images/npc/broken/quest_shop_broken_npc.png');
         background-repeat: no-repeat;
       }
     }
@@ -327,22 +327,22 @@
 
 
 <script>
-  import {mapState} from 'client/libs/store';
+  import {mapState} from '@/libs/store';
 
   import ShopItem from '../shopItem';
-  import Item from 'client/components/inventory/item';
-  import CountBadge from 'client/components/ui/countBadge';
-  import ItemRows from 'client/components/ui/itemRows';
-  import toggleSwitch from 'client/components/ui/toggleSwitch';
-  import Avatar from 'client/components/avatar';
-  import buyMixin from 'client/mixins/buy';
-  import pinUtils from 'client/mixins/pinUtils';
+  import Item from '@/components/inventory/item';
+  import CountBadge from '@/components/ui/countBadge';
+  import ItemRows from '@/components/ui/itemRows';
+  import toggleSwitch from '@/components/ui/toggleSwitch';
+  import Avatar from '@/components/avatar';
+  import buyMixin from '@/mixins/buy';
+  import pinUtils from '@/mixins/pinUtils';
   import currencyMixin from '../_currencyMixin';
 
   import BuyModal from './buyQuestModal.vue';
   import QuestInfo from './questInfo.vue';
 
-  import svgPin from 'assets/svg/pin.svg';
+  import svgPin from '@/assets/svg/pin.svg';
 
   import shops from 'common/script/libs/shops';
 

@@ -178,7 +178,7 @@
 <script>
 import size from 'lodash/size';
 import keys from 'lodash/keys';
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 import Content from '../../../common/script/content';
 import { beastMasterProgress, mountMasterProgress } from '../../../common/script/count';
 import statsComputed from  '../../../common/script/libs/statsComputed';

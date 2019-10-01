@@ -19,7 +19,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   .tags-popup {
     padding-left: 24px;
@@ -95,7 +95,7 @@
 </style>
 
 <script>
-import markdownDirective from 'client/directives/markdown';
+import markdownDirective from '@/directives/markdown';
 
 export default {
   props: ['tags', 'value'],

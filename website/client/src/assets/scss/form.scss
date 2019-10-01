@@ -46,7 +46,7 @@ input, textarea, input.form-control, textarea.form-control {
     background-repeat: no-repeat;
     background-position: center left 16px;
     background-size: 16px 16px;
-    background-image: url(~client/assets/svg/for-css/search.svg);
+    background-image: url(~@/assets/svg/for-css/search.svg);
     padding-left: 40px;
   }
 
@@ -57,13 +57,13 @@ input, textarea, input.form-control, textarea.form-control {
 
   &.input-valid {
     padding-right: 37px;
-    background-image: url(~client/assets/svg/for-css/check.svg);
+    background-image: url(~@/assets/svg/for-css/check.svg);
     background-size: 13px 10px;
   }
 
   &.input-invalid {
     padding-right: 40px;
-    background-image: url(~client/assets/svg/for-css/alert.svg);
+    background-image: url(~@/assets/svg/for-css/alert.svg);
     background-size: 16px 16px;
   }
 }
@@ -158,7 +158,7 @@ $bg-disabled-control: #34303a;
     &:checked~.custom-control-label::after {
       width: 18px;
       height: 18px;
-      background-image: url(~client/assets/svg/for-css/checkbox-white.svg);
+      background-image: url(~@/assets/svg/for-css/checkbox-white.svg);
       background-size: 13px 10px;
     }
 

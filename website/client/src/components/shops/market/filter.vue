@@ -24,8 +24,8 @@
 </template>
 
 <script>
-  import Checkbox from 'client/components/ui/checkbox';
-  import toggleSwitch from 'client/components/ui/toggleSwitch';
+  import Checkbox from '@/components/ui/checkbox';
+  import toggleSwitch from '@/components/ui/toggleSwitch';
   export default {
     props: ['hidePinned', 'hideLocked', 'viewOptions'],
     components: {

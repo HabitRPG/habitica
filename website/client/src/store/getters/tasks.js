@@ -1,8 +1,8 @@
 import { shouldDo } from 'common/script/cron';
 
 // Library / Utility function
-import { orderSingleTypeTasks } from 'client/libs/store/helpers/orderTasks.js';
-import { getActiveFilter } from 'client/libs/store/helpers/filterTasks.js';
+import { orderSingleTypeTasks } from '@/libs/store/helpers/orderTasks.js';
+import { getActiveFilter } from '@/libs/store/helpers/filterTasks.js';
 
 import sortBy from 'lodash/sortBy';
 

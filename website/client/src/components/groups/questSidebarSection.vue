@@ -66,7 +66,7 @@ sidebar-section(:title="$t('questDetailsTitle')")
 </template>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   .svg-icon {
     height: 25px;
@@ -131,7 +131,7 @@ sidebar-section(:title="$t('questDetailsTitle')")
     }
 
     .quest-box {
-      background-image: url('~client/assets/svg/for-css/quest-border.svg');
+      background-image: url('~@/assets/svg/for-css/quest-border.svg');
       background-size: 100% 100%;
       width: 100%;
       padding: .5em;
@@ -189,13 +189,13 @@ sidebar-section(:title="$t('questDetailsTitle')")
 </style>
 
 <script>
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 
 import quests from 'common/script/content/quests';
 import percent from 'common/script/libs/percent';
 import sidebarSection from '../sidebarSection';
 
-import questIcon from 'assets/svg/quest.svg';
+import questIcon from '@/assets/svg/quest.svg';
 
 export default {
   props: ['group'],

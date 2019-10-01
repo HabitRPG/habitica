@@ -38,7 +38,7 @@ b-modal#create-party-modal(size='lg', hide-footer=true)
 </style>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   .copy-icon {
     width: 1rem;
@@ -75,7 +75,7 @@ b-modal#create-party-modal(size='lg', hide-footer=true)
     width: 100%;
 
     .quest_screen {
-      background-image: url('~client/assets/images/group@3x.png');
+      background-image: url('~@/assets/images/group@3x.png');
       background-size: cover;
       width: 100%;
       height: 246px;
@@ -112,7 +112,7 @@ b-modal#create-party-modal(size='lg', hide-footer=true)
   }
 
   .join-party {
-    background-image: url('~client/assets/images/party.png');
+    background-image: url('~@/assets/images/party.png');
     background-size: cover;
     width: 203px;
     height: 66px;
@@ -140,11 +140,11 @@ b-modal#create-party-modal(size='lg', hide-footer=true)
 </style>
 
 <script>
-  import { mapState } from 'client/libs/store';
-  import * as Analytics from 'client/libs/analytics';
-  import notifications from 'client/mixins/notifications';
+  import { mapState } from '@/libs/store';
+  import * as Analytics from '@/libs/analytics';
+  import notifications from '@/mixins/notifications';
 
-  import copyIcon from 'assets/svg/copy.svg';
+  import copyIcon from '@/assets/svg/copy.svg';
 
   export default {
     data () {

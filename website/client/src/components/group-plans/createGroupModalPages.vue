@@ -71,12 +71,12 @@
 </style>
 
 <script>
-import * as Analytics from 'client/libs/analytics';
-import { mapState } from 'client/libs/store';
+import * as Analytics from '@/libs/analytics';
+import { mapState } from '@/libs/store';
 import paymentsMixin from '../../mixins/payments';
-import amazonButton from 'client/components/payments/amazonButton';
+import amazonButton from '@/components/payments/amazonButton';
 
-import creditCardIcon from 'assets/svg/credit-card-icon.svg';
+import creditCardIcon from '@/assets/svg/credit-card-icon.svg';
 
 export default {
   mixins: [paymentsMixin],

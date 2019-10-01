@@ -23,7 +23,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   .header-welcome {
     color: $purple-200;
@@ -52,7 +52,7 @@
 
 <script>
 import moment from 'moment';
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 import Task from './tasks/task';
 
 export default {

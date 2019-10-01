@@ -12,10 +12,10 @@
 </template>
 
 <script>
-import { mapActions } from 'client/libs/store';
-import markdownDirective from 'client/directives/markdown';
-import notificationsMixin from 'client/mixins/notifications';
-import Task from 'client/components/tasks/task';
+import { mapActions } from '@/libs/store';
+import markdownDirective from '@/directives/markdown';
+import notificationsMixin from '@/mixins/notifications';
+import Task from '@/components/tasks/task';
 
 import taskDefaults from 'common/script/libs/taskDefaults';
 import { TAVERN_ID } from '../../../common/script/constants';

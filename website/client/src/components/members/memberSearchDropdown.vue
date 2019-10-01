@@ -11,7 +11,7 @@ b-dropdown.create-dropdown(:text="text", no-flip)
 
 <script>
 // @TODO: how do we subclass this rather than type checking?
-import challengeMemberSearchMixin from 'client/mixins/challengeMemberSearch';
+import challengeMemberSearchMixin from '@/mixins/challengeMemberSearch';
 
 export default {
   mixins: [challengeMemberSearchMixin],

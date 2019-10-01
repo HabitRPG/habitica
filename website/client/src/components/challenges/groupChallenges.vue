@@ -14,7 +14,7 @@ div
 </template>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   .no-quest-section {
     padding: 2em;
@@ -39,11 +39,11 @@ div
 
 <script>
   import challengeModal from './challengeModal';
-  import {mapState} from 'client/libs/store';
-  import markdownDirective from 'client/directives/markdown';
+  import {mapState} from '@/libs/store';
+  import markdownDirective from '@/directives/markdown';
 
   import challengeItem from './challengeItem';
-  import challengeIcon from 'assets/svg/challenge.svg';
+  import challengeIcon from '@/assets/svg/challenge.svg';
 
   export default {
     props: ['groupId'],

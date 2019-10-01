@@ -27,7 +27,7 @@ menu-dropdown.item-user(:right="true")
 </template>
 
 <style lang='scss' scoped>
-@import '~client/assets/scss/colors.scss';
+@import '~@/assets/scss/colors.scss';
 
 .edit-avatar {
   h3 {
@@ -44,8 +44,8 @@ menu-dropdown.item-user(:right="true")
 }
 
 .learn-background {
-    background: url('~assets/images/gem-rain.png') bottom left no-repeat,
-                url('~assets/images/gold-rain.png') bottom right no-repeat;
+    background: url('~@/assets/images/gem-rain.png') bottom left no-repeat,
+                url('~@/assets/images/gold-rain.png') bottom right no-repeat;
 }
 
 .learn-button {
@@ -66,9 +66,9 @@ menu-dropdown.item-user(:right="true")
 </style>
 
 <script>
-import { mapState } from 'client/libs/store';
-import * as Analytics from 'client/libs/analytics';
-import userIcon from 'assets/svg/user.svg';
+import { mapState } from '@/libs/store';
+import * as Analytics from '@/libs/analytics';
+import userIcon from '@/assets/svg/user.svg';
 import MenuDropdown from '../ui/customMenuDropdown';
 import axios from 'axios';
 import markPMSRead from 'common/script/ops/markPMSRead';

@@ -17,7 +17,7 @@
 </template>
 
 <style lang="scss"> // Not scoped because the classes could be used in i18n strings
-@import '~client/assets/scss/colors.scss';
+@import '~@/assets/scss/colors.scss';
 .notification-small {
   font-size: 12px;
   line-height: 1.33;
@@ -55,7 +55,7 @@
 </style>
 
 <style lang="scss" scoped>
-@import '~client/assets/scss/colors.scss';
+@import '~@/assets/scss/colors.scss';
 
 .notification {
   width: 378px;
@@ -117,8 +117,8 @@
 </style>
 
 <script>
-import closeIcon from 'assets/svg/close.svg';
-import { mapActions, mapState } from 'client/libs/store';
+import closeIcon from '@/assets/svg/close.svg';
+import { mapActions, mapState } from '@/libs/store';
 
 export default {
   props: ['notification', 'canRemove', 'hasIcon', 'readAfterClick'],

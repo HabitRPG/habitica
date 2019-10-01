@@ -2,8 +2,8 @@ import Vue from 'vue';
 import AppComponent from './app';
 import {
   setup as setupAnalytics,
-} from 'client/libs/analytics';
-import { setUpLogging } from 'client/libs/logging';
+} from '@/libs/analytics';
+import { setUpLogging } from '@/libs/logging';
 import router from './router/index';
 import getStore from './store';
 import StoreModule from './libs/store';

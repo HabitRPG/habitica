@@ -139,8 +139,8 @@
 </style>
 
 <script>
-import { mapState } from 'client/libs/store';
-import { CONSTANTS, setLocalSetting, getLocalSetting } from 'client/libs/userlocalManager';
+import { mapState } from '@/libs/store';
+import { CONSTANTS, setLocalSetting, getLocalSetting } from '@/libs/userlocalManager';
 
 import each from 'lodash/each';
 import map from 'lodash/map';
@@ -148,12 +148,12 @@ import throttle from 'lodash/throttle';
 import _sortBy from 'lodash/sortBy';
 import _reverse from 'lodash/reverse';
 
-import toggleSwitch from 'client/components/ui/toggleSwitch';
-import Item from 'client/components/inventory/item';
-import ItemRows from 'client/components/ui/itemRows';
-import EquipmentAttributesPopover from 'client/components/inventory/equipment/attributesPopover';
-import StarBadge from 'client/components/ui/starBadge';
-import Drawer from 'client/components/ui/drawer';
+import toggleSwitch from '@/components/ui/toggleSwitch';
+import Item from '@/components/inventory/item';
+import ItemRows from '@/components/ui/itemRows';
+import EquipmentAttributesPopover from '@/components/inventory/equipment/attributesPopover';
+import StarBadge from '@/components/ui/starBadge';
+import Drawer from '@/components/ui/drawer';
 
 import i18n from 'common/script/i18n';
 

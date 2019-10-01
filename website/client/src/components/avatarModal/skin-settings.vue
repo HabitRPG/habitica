@@ -23,7 +23,7 @@
   import appearanceSets from 'common/script/content/appearance/sets';
   import subMenu from './sub-menu';
   import customizeOptions from './customize-options';
-  import gem from 'assets/svg/gem.svg';
+  import gem from '@/assets/svg/gem.svg';
 
   import groupBy from 'lodash/groupBy';
 
