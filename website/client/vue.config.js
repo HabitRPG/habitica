@@ -42,22 +42,67 @@ module.exports = {
   },
   chainWebpack: config => {
     const pugRule = config.module.rule('pug')
+    const svgRule = config.module.rule('svg')
 
     // clear all existing loaders.
     // if you don't do this, the loader below will be appended to
     // existing loaders of the rule.
-    pugRule.uses.clear()
+    pugRule.uses.clear();
+    svgRule.uses.clear();
 
     // add replacement loader(s)
     pugRule
-        .test(/\.pug$/)
-        // this applies to <template lang="pug"> in Vue components
-        .oneOf('vue-loader')
-          .resourceQuery(/^\?vue/)
-          .use('pug-plain')
-            .loader('pug-plain-loader')
-            .end()
+      .test(/\.pug$/)
+      // this applies to <template lang="pug"> in Vue components
+      .oneOf('vue-loader')
+        .resourceQuery(/^\?vue/)
+        .use('pug-plain')
+          .loader('pug-plain-loader')
+          .end()
+      .end();
+
+
+    // clear all existing loaders.
+    // if you don't do this, the loader below will be appended to
+    // existing loaders of the rule.
+
+    svgRule
+      .test(/\.svg$/)
+      .oneOf('normal')
+        .exclude
+          .add(path.resolve(__dirname, 'src/assets/svg/for-css'))
+          .end()
+        .use('svg-ingline-loader')
+          .loader('svg-inline-loader')
+          .end()
+        .use('svgo-loader')
+          .loader('svgo-loader')
+          .options({
+            plugins: [
+              {removeViewBox: false},
+              {convertPathData: {noSpaceAfterFlags: false}},
+            ],
+          })
+          .end()
         .end()
+      .oneOf('in-css')
+        .include
+          .add(path.resolve(__dirname, 'src/assets/svg/for-css'))
+          .end()
+        .use('svg-in-css')
+          .loader('svg-url-loader')
+          .options({
+            limit: 10000,
+          })
+          .end()
+        .use('svgo-loader')
+          .loader('svgo-loader')
+          .options({
+            plugins: [
+              {removeViewBox: false},
+              {convertPathData: {noSpaceAfterFlags: false}},
+            ],
+          });
   },
 
   devServer: {
