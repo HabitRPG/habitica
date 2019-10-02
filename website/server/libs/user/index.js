@@ -5,7 +5,7 @@ import {
   BadRequest,
   NotAuthorized,
 } from '../../libs/errors';
-import { model as User } from '../../models/user';
+import { model as User, schema as UserSchema } from '../../models/user';
 import {nameContainsSlur} from './validation';
 
 
@@ -61,7 +61,7 @@ const updatablePaths = [
 
 // This tells us for which paths users can call `PUT /user`.
 // The trick here is to only accept leaf paths, not root/intermediate paths (see http://goo.gl/OEzkAs)
-let acceptablePUTPaths = _.reduce(require('./../../models/user').schema.paths, (accumulator, val, leaf) => {
+let acceptablePUTPaths = _.reduce(UserSchema.paths, (accumulator, val, leaf) => {
   let found = _.find(updatablePaths, (rootPath) => {
     return leaf.indexOf(rootPath) === 0;
   });
