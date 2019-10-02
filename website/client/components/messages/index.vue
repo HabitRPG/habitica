@@ -68,10 +68,14 @@
 </template>
 
 <style lang="scss">
+  @import '~client/assets/scss/colors.scss';
+
   #private-message {
     .disable-background {
       .toggle-switch-description {
         white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
       }
     }
 
@@ -101,6 +105,16 @@
         padding: 0rem;
         width: 0.75rem;
       }
+    }
+
+    .toggle-switch-description {
+      font-size: 14px;
+      font-weight: bold;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.43;
+      letter-spacing: normal;
+      color: $gray-50;
     }
   }
 </style>
