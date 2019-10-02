@@ -82,6 +82,7 @@ async function usersMapByConversations (owner, users) {
         $match: {
           ownerId: owner._id,
           uuid: { $in: users },
+          sent: false,
         },
       },
       {
