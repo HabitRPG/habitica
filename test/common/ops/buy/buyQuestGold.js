@@ -43,6 +43,18 @@ describe('shared.ops.buyQuest', () => {
     expect(analytics.track).to.be.calledOnce;
   });
 
+  it('if a user\'s count of a quest scroll is negative, it will be reset to 0 before incrementing when they buy a new one.', () => {
+    user.stats.gp = 205;
+    let key = 'dilatoryDistress1';
+    user.items.quests[key] = -1;
+    buyQuest(user, {
+      params: {key},
+    }, analytics);
+    expect(user.items.quests[key]).to.equal(1);
+    expect(user.stats.gp).to.equal(5);
+    expect(analytics.track).to.be.calledOnce;
+  });
+
   it('buys a Quest scroll with the right quantity if a string is passed for quantity', () => {
     user.stats.gp = 1000;
     buyQuest(user, {
