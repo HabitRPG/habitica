@@ -1,72 +1,54 @@
-.promo_armoire_backgrounds_201909 {
+.promo_armoire_backgrounds_201910 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -533px;
+  background-position: 0px -190px;
   width: 423px;
   height: 147px;
 }
 .promo_desert_pet_achievements {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -816px -392px;
+  background-position: -163px -486px;
   width: 204px;
   height: 102px;
 }
 .promo_fall_festival_2018 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -653px 0px;
+  background-position: -361px 0px;
   width: 372px;
   height: 180px;
 }
 .promo_fall_festival_2019 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -343px;
+  background-position: 0px 0px;
   width: 360px;
   height: 189px;
 }
 .promo_mystery_201909 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -361px -343px;
+  background-position: -424px -190px;
   width: 282px;
-  height: 147px;
-}
-.promo_rocking_reptiles_bundle {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -681px;
-  width: 420px;
   height: 147px;
 }
 .promo_seasonal_shop_fall {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -653px -392px;
+  background-position: 0px -486px;
   width: 162px;
   height: 138px;
 }
 .promo_shadow_spooky_potions {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -424px -533px;
+  background-position: 0px -338px;
   width: 423px;
   height: 147px;
 }
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -864px -181px;
+  background-position: -617px -338px;
   width: 96px;
   height: 69px;
 }
-.scene_casting_spells {
+.scene_strength {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -340px 0px;
-  width: 312px;
-  height: 222px;
-}
-.scene_medal {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -653px -181px;
-  width: 210px;
-  height: 210px;
-}
-.scene_video_games {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px 0px;
-  width: 339px;
-  height: 342px;
+  background-position: -424px -338px;
+  width: 192px;
+  height: 129px;
 }
