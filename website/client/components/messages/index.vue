@@ -128,7 +128,7 @@
     margin-top: 1rem;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    box-shadow: 0 1px 2px 0 rgba(26, 24, 29, 0.24);
+    box-shadow: 0 3px 12px 0 rgba(26, 24, 29, 0.24);
     background-color: $white;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
@@ -152,6 +152,7 @@
     height: 44px;
     background-color: $gray-600;
     padding: 0.75rem 1.5rem;
+    box-shadow: inset 0px 8px 12px -9px rgba(26,24,29,0.24);
   }
 
 
@@ -283,7 +284,7 @@
     min-height: 540px;
     max-width: 330px;
     padding: 0;
-    border-bottom-left-radius: 3px;
+    border-bottom-left-radius: 8px;
 
     .search-section {
       padding: 1rem 1.5rem;
