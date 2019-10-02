@@ -204,5 +204,6 @@
     "usernameVerifiedConfirmation": "Kullanıcı adın, <%= username %>, onaylandı!",
     "usernameNotVerified": "Lütfen kullanıcı adınızı onaylayın.",
     "changeUsernameDisclaimer": "Yakında giriş adlarını özgün ve aleni kullanıcı adlarına dönüştüreceğiz. Bu kullanıcı adı davetler, sohbetlerdeki @bahisler ve mesajlaşmalar için kullanılacak.",
-    "verifyUsernameVeteranPet": "Onayladıktan sonra bu Kıdemli Hayvanlardan biri seni bekliyor olacak!"
+    "verifyUsernameVeteranPet": "Onayladıktan sonra bu Kıdemli Hayvanlardan biri seni bekliyor olacak!",
+    "newPMNotificationTitle": "<%= name %> 'den yeni mesaj"
 }
