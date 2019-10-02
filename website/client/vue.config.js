@@ -37,7 +37,8 @@ envVars
 module.exports = {
   configureWebpack: {
     plugins: [
-      new webpack.EnvironmentPlugin(envObject)
+      new webpack.EnvironmentPlugin(envObject),
+      new webpack.ContextReplacementPlugin(/moment[\\/]locale$/, /^\.\/(NOT_EXISTING)$/),
     ],
   },
   chainWebpack: config => {
