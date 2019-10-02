@@ -4,7 +4,7 @@
 // Register babel hook so we can write the real entry file (server.js) in ES6
 // In production, the es6 code is pre-transpiled so it doesn't need it
 if (process.env.NODE_ENV !== 'production') {
-  require('babel-register');
+  require('@babel/register');
 }
 
 // Initialize configuration BEFORE anything
@@ -16,7 +16,7 @@ const nconf = require('nconf');
 require('./libs/gcpTraceAgent');
 
 const cluster = require('cluster');
-const logger = require('./libs/logger');
+const logger = require('./libs/logger').default;
 
 const IS_PROD = nconf.get('IS_PROD');
 const IS_DEV = nconf.get('IS_DEV');

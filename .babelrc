@@ -1,6 +1,12 @@
 {
-  "plugins": [
-    "transform-es2015-modules-commonjs",
-    "syntax-object-rest-spread",
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "node": true
+        }
+      }
+    ]
   ]
 }

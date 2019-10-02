@@ -6,7 +6,7 @@
  * directory, and it will automatically be included.
  */
 
-require('babel-register');
+require('@babel/register');
 
 const gulp = require('gulp');
 
