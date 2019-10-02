@@ -89,6 +89,7 @@ async function usersMapByConversations (owner, users) {
           _id: '$uuid',
           userStyles: {$last: '$userStyles'},
           contributor: {$last: '$contributor'},
+          backer: {$last: '$backer'},
         },
       },
     ]);
@@ -138,6 +139,7 @@ export async function listConversations (owner) {
     ...res,
     userStyles: usersMap[res._id].userStyles,
     contributor: usersMap[res._id].contributor,
+    backer: usersMap[res._id].backer,
   }));
 
   return conversations;

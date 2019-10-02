@@ -430,6 +430,7 @@
             user: this.initiatedConversation.user,
             username: this.initiatedConversation.username,
             contributor: this.initiatedConversation.contributor,
+            backer: this.initiatedConversation.backer,
             id: '',
             text: '',
             timestamp: new Date(),
@@ -446,6 +447,8 @@
             username: recentMessage.username,
             date: recentMessage.timestamp,
             lastMessageText: recentMessage.text,
+            contributor: recentMessage.contributor,
+            backer: recentMessage.backer,
             canLoadMore: true,
             page: 0,
           };

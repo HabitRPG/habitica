@@ -53,6 +53,7 @@
         flex: 1;
         flex-grow: 0;
         margin-right: 0.5rem;
+        white-space: nowrap;
       }
 
       .username {
@@ -63,6 +64,10 @@
       .time {
         flex: 2;
         text-align: end;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        margin-left: 1rem;
       }
     }
 
