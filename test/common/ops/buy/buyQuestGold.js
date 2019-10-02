@@ -1,7 +1,7 @@
 import {
   generateUser,
 } from '../../../helpers/common.helper';
-import {BuyQuestWithGoldOperation} from '../../../../website/common/script/ops/buy/buyQuest';
+import {BuyQuestWithGoldOperation} from '../../../../website/common/script/ops/buy/buyQuestGold';
 import {
   BadRequest,
   NotAuthorized,
