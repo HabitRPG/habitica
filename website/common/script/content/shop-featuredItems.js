@@ -22,12 +22,12 @@ const featuredItems = {
   ],
   quests: [
     {
-      type: 'bundles',
-      path: 'bundles.rockingReptiles',
+      type: 'quests',
+      path: 'quests.bronze',
     },
     {
       type: 'quests',
-      path: 'quests.dilatoryDistress1',
+      path: 'quests.taskwoodsTerror1',
     },
     {
       type: 'quests',

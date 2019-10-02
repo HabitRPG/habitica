@@ -28,6 +28,7 @@ coverage.html
 common/dist/scripts/*
 dist
 dist-client
+website/client/dist
 test/client/unit/coverage
 test/client/e2e/reports
 test/client-old/spec/mocks/translations.js
