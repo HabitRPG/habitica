@@ -39,6 +39,7 @@ import amazonPayments from '../libs/payments/amazon';
 import stripePayments from '../libs/payments/stripe';
 import { getGroupChat, translateMessage } from '../libs/chat/group-chat';
 import { model as UserNotification } from './userNotification';
+import { sendChatPushNotifications } from '../libs/chat';
 
 const questScrolls = shared.content.quests;
 const questSeriesAchievements = shared.content.questSeriesAchievements;
@@ -512,7 +513,7 @@ schema.methods.getMemberCount = async function getMemberCount () {
 };
 
 schema.methods.sendChat = function sendChat (options = {}) {
-  const {message, user, metaData, client, flagCount = 0, info = {}} = options;
+  const {message, user, metaData, client, flagCount = 0, info = {}, translate} = options;
   let newMessage = messageDefaults(message, user, client, flagCount, info);
   let newChatMessage = new Chat();
   newChatMessage = Object.assign(newChatMessage, newMessage);
@@ -573,6 +574,10 @@ schema.methods.sendChat = function sendChat (options = {}) {
   User.update(query, lastSeenUpdateRemoveOld, {multi: true}).exec().then(() => {
     User.update(query, lastSeenUpdateAddNew, {multi: true}).exec();
   });
+
+  if (this.type === 'party' && user) {
+    sendChatPushNotifications(user, this, newChatMessage, translate);
+  }
 
   return newChatMessage;
 };
@@ -699,7 +704,7 @@ schema.methods.startQuest = async function startQuest (user) {
         const memberLang = member.preferences.language;
         sendPushNotification(member, {
           title: quest.text(memberLang),
-          message: `${shared.i18n.t('questStarted', memberLang)}: ${quest.text(memberLang)}`,
+          message: shared.i18n.t('questStarted', memberLang),
           identifier: 'questStarted',
         });
       }
@@ -1430,6 +1435,7 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
     matchingTask.group.id = taskToSync.group.id;
     matchingTask.userId = user._id;
     matchingTask.group.taskId = taskToSync._id;
+    matchingTask.group.assignedDate = new Date();
     user.tasksOrder[`${taskToSync.type}s`].unshift(matchingTask._id);
   } else {
     _.merge(matchingTask, syncableAttrs(taskToSync));

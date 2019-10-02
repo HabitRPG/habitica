@@ -97,17 +97,17 @@ describe('edit subscription', () => {
 
     beforeEach(() => {
       subscriptionId = 'subId';
-      stripeListSubscriptionStub = sinon.stub(stripe.customers, 'listSubscriptions')
+      stripeListSubscriptionStub = sinon.stub(stripe.subscriptions, 'list')
         .resolves({
           data: [{id: subscriptionId}],
         });
 
-      stripeUpdateSubscriptionStub = sinon.stub(stripe.customers, 'updateSubscription').resolves({});
+      stripeUpdateSubscriptionStub = sinon.stub(stripe.subscriptions, 'update').resolves({});
     });
 
     afterEach(() => {
-      stripe.customers.listSubscriptions.restore();
-      stripe.customers.updateSubscription.restore();
+      stripe.subscriptions.list.restore();
+      stripe.subscriptions.update.restore();
     });
 
     it('edits a user subscription', async () => {
@@ -118,10 +118,9 @@ describe('edit subscription', () => {
       }, stripe);
 
       expect(stripeListSubscriptionStub).to.be.calledOnce;
-      expect(stripeListSubscriptionStub).to.be.calledWith(user.purchased.plan.customerId);
+      expect(stripeListSubscriptionStub).to.be.calledWith({customer: user.purchased.plan.customerId});
       expect(stripeUpdateSubscriptionStub).to.be.calledOnce;
       expect(stripeUpdateSubscriptionStub).to.be.calledWith(
-        user.purchased.plan.customerId,
         subscriptionId,
         { card: token }
       );
@@ -135,10 +134,9 @@ describe('edit subscription', () => {
       }, stripe);
 
       expect(stripeListSubscriptionStub).to.be.calledOnce;
-      expect(stripeListSubscriptionStub).to.be.calledWith(group.purchased.plan.customerId);
+      expect(stripeListSubscriptionStub).to.be.calledWith({customer: group.purchased.plan.customerId});
       expect(stripeUpdateSubscriptionStub).to.be.calledOnce;
       expect(stripeUpdateSubscriptionStub).to.be.calledWith(
-        group.purchased.plan.customerId,
         subscriptionId,
         { card: token }
       );

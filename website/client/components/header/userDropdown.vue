@@ -5,7 +5,7 @@ menu-dropdown.item-user(:right="true")
       message-count(v-if='user.inbox.newMessages > 0', :count="user.inbox.newMessages", :top="true")
       .top-menu-icon.svg-icon.user(v-html="icons.user")
   .user-dropdown(slot="dropdown-content")
-    a.dropdown-item.edit-avatar.dropdown-separated(@click='showAvatar()')
+    a.dropdown-item.edit-avatar.dropdown-separated(@click='showAvatar("body", "size")')
       h3 {{ user.profile.name }}
       span.small-text {{ $t('editAvatar') }}
     a.nav-link.dropdown-item.dropdown-separated.d-flex.justify-content-between.align-items-center(@click.prevent='showPrivateMessages()')

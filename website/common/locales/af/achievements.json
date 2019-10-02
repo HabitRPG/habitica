@@ -1,0 +1,9 @@
+{
+  "achievement": "Achievement",
+  "share": "Deel",
+  "onwards": "Voorwaarts!",
+  "levelup": "Deur jou regte lewens doelwitte te bereik, het jy jou vlak opgradeer en jou gesondheid is nou volledig herstel!",
+  "reachedLevel": "Jy Het Vlak <%= level %> Bereik",
+  "achievementLostMasterclasser": "Quest Completionist: Masterclasser Series",
+  "achievementLostMasterclasserText": "Completed all sixteen quests in the Masterclasser Quest Series and solved the mystery of the Lost Masterclasser!"
+}
