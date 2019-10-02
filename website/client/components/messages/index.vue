@@ -4,8 +4,12 @@
       .d-flex.w-25
         .mail-icon.svg-icon(v-html="icons.mail", v-once)
         h2.flex-fill.text-center(v-once) {{ $t('messages') }}
-      .d-flex.w-75
-        div Selected Conversation
+      .d-flex.w-75.selected-conversion
+        user-label(
+          :backer="selectedConversation.backer",
+          :contributor="selectedConversation.contributor",
+          :name="selectedConversation.name"
+        )
 
     .d-flex.content
       .w-25.sidebar.d-flex.flex-column
@@ -139,6 +143,10 @@
       height: 24px;
       object-fit: contain;
     }
+  }
+
+  .selected-conversion {
+    justify-content: center;
   }
 
   #private-message {
@@ -315,6 +323,7 @@
   import habiticaMarkdown from 'habitica-markdown';
   import styleHelper from 'client/mixins/styleHelper';
   import toggleSwitch from 'client/components/ui/toggleSwitch';
+  import userLabel from '../userLabel';
   import axios from 'axios';
 
   import privateMessages from './messageList';
@@ -339,6 +348,7 @@
       privateMessages,
       toggleSwitch,
       conversationItem,
+      userLabel,
     },
     async mounted () {
       this.$root.$on('habitica::new-private-message', (data) => {
