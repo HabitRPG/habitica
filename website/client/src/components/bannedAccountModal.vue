@@ -15,7 +15,7 @@
 <script>
 import markdownDirective from '@/directives/markdown';
 
-const COMMUNITY_MANAGER_EMAIL = process.env.EMAILS.COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
+const COMMUNITY_MANAGER_EMAIL = process.env.EMAILS_COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
 
 export default {
   directives: {

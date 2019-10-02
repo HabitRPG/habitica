@@ -43,6 +43,8 @@ export default {
         return this.$t('userCountRequestsApproval', {userCount: approvalsLength});
       } else if (approvalsLength === 1 && userIsRequesting || this.task.group.approval && this.task.group.approval.requested && !this.task.group.approval.approved) {
         return this.$t('youAreRequestingApproval');
+      } else {
+        return null;
       }
     },
     userIsAdmin () {

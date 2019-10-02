@@ -198,7 +198,7 @@ import { CONSTANTS, getLocalSetting, removeLocalSetting } from '@/libs/userlocal
 import svgClose from '@/assets/svg/close.svg';
 import bannedAccountModal from '@/components/bannedAccountModal';
 
-const COMMUNITY_MANAGER_EMAIL = process.env.EMAILS.COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
+const COMMUNITY_MANAGER_EMAIL = process.env.EMAILS_COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
 
 export default {
   mixins: [notifications, spellsMixin],
@@ -247,7 +247,7 @@ export default {
       const min = 1;
       const randomNumber = Math.random() * (numberOfTips - min) + min;
       const tipNumber = Math.floor(randomNumber);
-      this.currentTipNumber = tipNumber;
+      this.currentTipNumber = tipNumber; // eslint-disable-line vue/no-side-effects-in-computed-properties
 
       return this.$t(`tip${tipNumber}`);
     },

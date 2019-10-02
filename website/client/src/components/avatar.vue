@@ -180,6 +180,8 @@ export default {
       if (!this.avatarOnly && this.member.items.currentMount && this.member.items.currentMount.indexOf('Kangaroo') !== -1) {
         return 'offset-kangaroo';
       }
+
+      return null;
     },
   },
   methods: {

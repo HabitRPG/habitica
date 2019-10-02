@@ -402,7 +402,7 @@
         // If we are out of gear, show the spells
         // @TODO: add dates to check instead?
         if (seasonal.featured.items.length === 0) {
-          this.featuredGearBought = true;
+          this.featuredGearBought = true; // eslint-disable-line vue/no-side-effects-in-computed-properties
           if (seasonal.categories.length > 0) {
             seasonal.featured.items = seasonal.featured.items.concat(seasonal.categories[0].items);
           }

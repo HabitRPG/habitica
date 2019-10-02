@@ -333,7 +333,7 @@ export default {
 
 
       each(this.gearTypesToStrings, (string, type) => {
-        this.viewOptions[type].firstRender = false;
+        this.viewOptions[type].firstRender = false; // eslint-disable-line vue/no-side-effects-in-computed-properties
       });
 
       return gearItemsByType;
@@ -372,7 +372,7 @@ export default {
       });
 
       each(this.gearClassesToStrings, (string, klass) => {
-        this.viewOptions[klass].firstRender = false;
+        this.viewOptions[klass].firstRender = false; // eslint-disable-line vue/no-side-effects-in-computed-properties
       });
 
       return gearItemsByClass;

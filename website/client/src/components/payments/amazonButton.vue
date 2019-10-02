@@ -8,8 +8,6 @@ import { mapState } from '@/libs/store';
 import uuid from 'uuid';
 import paymentsMixin from '@/mixins/payments';
 
-const AMAZON_PAYMENTS = process.env.AMAZON_PAYMENTS; // eslint-disable-line
-
 export default {
   mixins: [paymentsMixin],
   data () {
@@ -77,7 +75,7 @@ export default {
     showButton () {
       window.OffAmazonPayments.Button( // eslint-disable-line new-cap
         this.buttonId, // ID of the button
-        AMAZON_PAYMENTS.SELLER_ID,
+        process.env.AMAZON_PAYMENTS_SELLER_ID,
         {
           type: 'PwA',
           color: 'Gold',

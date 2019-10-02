@@ -68,7 +68,7 @@ export default {
   computed: {
     ...mapState({user: 'user.data'}),
     tasksByType () {
-      this.dueDate = moment().subtract(1, 'days');
+      this.dueDate = moment().subtract(1, 'days'); // eslint-disable-line vue/no-side-effects-in-computed-properties
 
       return {
         daily: this.yesterDailies,

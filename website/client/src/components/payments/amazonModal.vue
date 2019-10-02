@@ -35,7 +35,6 @@ import { mapState } from '@/libs/store';
 import { CONSTANTS, setLocalSetting } from '@/libs/userlocalManager';
 import pick from 'lodash/pick';
 
-const AMAZON_PAYMENTS = process.env.AMAZON_PAYMENTS; // eslint-disable-line
 const habiticaUrl = `${location.protocol}//${location.host}`;
 
 export default {
@@ -108,7 +107,7 @@ export default {
   methods: {
     amazonInitWidgets () {
       let walletParams = {
-        sellerId: AMAZON_PAYMENTS.SELLER_ID, // @TODO: Import
+        sellerId: process.env.AMAZON_PAYMENTS_SELLER_ID, // @TODO: Import
         design: {
           designMode: 'responsive',
         },
@@ -123,7 +122,7 @@ export default {
           this.amazonPayments.billingAgreementId = billingAgreement.getAmazonBillingAgreementId();
 
           new window.OffAmazonPayments.Widgets.Consent({
-            sellerId: AMAZON_PAYMENTS.SELLER_ID,
+            sellerId: process.env.AMAZON_PAYMENTS_SELLER_ID,
             amazonBillingAgreementId: this.amazonPayments.billingAgreementId,
             design: {
               designMode: 'responsive',

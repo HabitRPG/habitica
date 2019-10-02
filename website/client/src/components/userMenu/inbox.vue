@@ -377,10 +377,9 @@ export default {
       // Vue-subscribe to changes
       const subScribeToUpdate = this.messagesLoading || this.updateConversionsCounter > -1;
 
-
       const selectedConversationKey = this.selectedConversation.key;
       const selectedConversation = this.messagesByConversation[selectedConversationKey];
-      this.messages = selectedConversation || [];
+      this.messages = selectedConversation || []; // eslint-disable-line vue/no-side-effects-in-computed-properties
 
       const ordered = orderBy(this.messages, [(m) => {
         return m.timestamp;
@@ -389,6 +388,8 @@ export default {
       if (subScribeToUpdate) {
         return ordered;
       }
+
+      return [];
     },
     filtersConversations () {
       // Vue-subscribe to changes

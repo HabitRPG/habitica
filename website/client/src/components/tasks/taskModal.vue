@@ -790,6 +790,8 @@ export default {
         return task.everyX === 1 ? this.$t('month') : this.$t('months');
       } else if (task.frequency === 'yearly') {
         return task.everyX === 1 ? this.$t('year') : this.$t('years');
+      } else {
+        return null;
       }
     },
     repeatsOn: {

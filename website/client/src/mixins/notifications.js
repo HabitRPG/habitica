@@ -4,7 +4,7 @@ import { getDropClass, getXPMessage, getSign, round } from '@/libs/notifications
 
 // See https://stackoverflow.com/questions/4187146/truncate-number-to-two-decimal-places-without-rounding
 function toFixedWithoutRounding (num, fixed) {
-  const re = new RegExp(`^-?\\d+(?:\.\\d{0,${(fixed || -1)}})?`);
+  const re = new RegExp(`^-?\\d+(?:\.\\d{0,${(fixed || -1)}})?`); // eslint-disable-line no-useless-escape
   return num.toString().match(re)[0];
 }
 

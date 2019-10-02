@@ -110,8 +110,8 @@ export default {
     searchResults () {
       if (!this.searchActive) return [];
       if (!this.atRegex.exec(this.text)) return [];
-      this.currentSearch = this.atRegex.exec(this.text)[0];
-      this.currentSearch = this.currentSearch.substring(1, this.currentSearch.length);
+      this.currentSearch = this.atRegex.exec(this.text)[0]; // eslint-disable-line vue/no-side-effects-in-computed-properties
+      this.currentSearch = this.currentSearch.substring(1, this.currentSearch.length); // eslint-disable-line vue/no-side-effects-in-computed-properties
 
       return this.tmpSelections.filter((option) => {
         return option.displayName.toLowerCase().indexOf(this.currentSearch.toLowerCase()) !== -1 || option.username && option.username.toLowerCase().indexOf(this.currentSearch.toLowerCase()) !== -1;

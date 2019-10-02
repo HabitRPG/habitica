@@ -215,6 +215,7 @@ div
     computed: {
       showNotes () {
         if (['armoire', 'potion'].indexOf(this.item.path) > -1) return true;
+        return false;
       },
       currencyClass () {
         if (this.item.currency && this.icons[this.item.currency]) {
