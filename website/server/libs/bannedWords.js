@@ -174,4 +174,4 @@ let bannedWords = [
   'pewdiepie',
 ];
 
-module.exports = bannedWords;
+export default bannedWords;

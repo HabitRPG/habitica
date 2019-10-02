@@ -32,4 +32,4 @@ api.logout = {
   },
 };
 
-module.exports = api;
+export default api;

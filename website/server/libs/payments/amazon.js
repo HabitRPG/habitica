@@ -344,4 +344,4 @@ api.chargeForAdditionalGroupMember = async function chargeForAdditionalGroupMemb
   });
 };
 
-module.exports = api;
+export default api;

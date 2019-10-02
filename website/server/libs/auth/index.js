@@ -205,7 +205,7 @@ async function registerLocal (req, res, { isV3 = false }) {
   return null;
 }
 
-module.exports = {
+export {
   loginRes,
   hasBackupAuth,
   hasLocalAuth,

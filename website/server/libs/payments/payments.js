@@ -36,4 +36,4 @@ api.cancelSubscription = cancelSubscription;
 
 api.buyGems = buyGems;
 
-module.exports = api;
+export default api;

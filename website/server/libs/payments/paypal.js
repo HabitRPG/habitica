@@ -288,4 +288,4 @@ api.ipn = async function ipnApi (options = {}) {
   }
 };
 
-module.exports = api;
+export default api;

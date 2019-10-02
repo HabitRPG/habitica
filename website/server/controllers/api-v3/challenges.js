@@ -827,4 +827,4 @@ api.cloneChallenge = {
   },
 };
 
-module.exports = api;
+export default api;

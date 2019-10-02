@@ -192,4 +192,4 @@ api.iapSubscriptioniOSNoRenew = {
   },
 };
 
-module.exports = api;
+export default api;

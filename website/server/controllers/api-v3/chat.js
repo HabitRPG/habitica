@@ -542,4 +542,4 @@ api.deleteChat = {
   },
 };
 
-module.exports = api;
+export default api;

@@ -2,7 +2,7 @@ import { v4 as uuid } from 'uuid';
 import validator from 'validator';
 import _ from 'lodash';
 
-module.exports = function baseModel (schema, options = {}) {
+export default function baseModel (schema, options = {}) {
   if (schema.options.typeKey !== '$type') {
     throw new Error('Every schema must use $type as the typeKey, see https://mongoosejs.com/docs/guide.html#typeKey');
   }
@@ -79,4 +79,4 @@ module.exports = function baseModel (schema, options = {}) {
       return result;
     }, {});
   };
-};
+}

@@ -18,7 +18,7 @@ const TOP_LEVEL_ROUTES = [
   // handler because they don't have any child route
 ];
 
-module.exports = function NotFoundMiddleware (req, res, next) {
+export default function NotFoundMiddleware (req, res, next) {
   const reqUrl = req.originalUrl;
 
   const isExistingRoute = TOP_LEVEL_ROUTES.find(routeRoot => {
@@ -31,4 +31,4 @@ module.exports = function NotFoundMiddleware (req, res, next) {
   } else {
     serveClient(res);
   }
-};
+}

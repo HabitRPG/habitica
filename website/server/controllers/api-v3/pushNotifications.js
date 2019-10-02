@@ -103,4 +103,4 @@ api.removePushDevice = {
   },
 };
 
-module.exports = api;
+export default api;

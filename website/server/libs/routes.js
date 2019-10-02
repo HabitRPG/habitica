@@ -9,7 +9,7 @@ import {
 let _wrapAsyncFn = fn => (...args) => fn(...args).catch(args[2]);
 let noop = (req, res, next) =>  next();
 
-module.exports.readController = function readController (router, controller, overrides = []) {
+export function readController (router, controller, overrides = []) {
   _.each(controller, (action) => {
     let {method, url, middlewares = [], handler} = action;
 
@@ -45,17 +45,17 @@ module.exports.readController = function readController (router, controller, ove
 
     router[method](url, ...middlewares, fn);
   });
-};
+}
 
-module.exports.walkControllers = function walkControllers (router, filePath, overrides) {
+export function walkControllers (router, filePath, overrides) {
   fs
     .readdirSync(filePath)
     .forEach(fileName => {
       if (!fs.statSync(filePath + fileName).isFile()) {
         walkControllers(router, `${filePath}${fileName}/`, overrides);
       } else if (fileName.match(/\.js$/)) {
-        let controller = require(filePath + fileName); // eslint-disable-line global-require
-        module.exports.readController(router, controller, overrides);
+        let controller = require(filePath + fileName).default; // eslint-disable-line global-require
+        readController(router, controller, overrides);
       }
     });
-};
+}

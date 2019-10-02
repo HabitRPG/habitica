@@ -134,4 +134,4 @@ api.allocateNow = {
   },
 };
 
-module.exports = api;
+export default api;

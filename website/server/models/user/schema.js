@@ -19,7 +19,7 @@ const Schema = mongoose.Schema;
 const RESTRICTED_EMAIL_DOMAINS = Object.freeze(['habitica.com', 'habitrpg.com']);
 
 // User schema definition
-let schema = new Schema({
+export default new Schema({
   apiToken: {
     $type: String,
     default: shared.uuid,
@@ -614,5 +614,3 @@ let schema = new Schema({
   minimize: false, // So empty objects are returned
   typeKey: '$type', // So that we can use fields named `type`
 });
-
-module.exports = schema;

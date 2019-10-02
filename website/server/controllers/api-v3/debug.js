@@ -198,4 +198,4 @@ api.questProgress = {
   },
 };
 
-module.exports = api;
+export default api;

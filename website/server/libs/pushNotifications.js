@@ -80,6 +80,6 @@ function sendNotification (user, details = {}) {
   });
 }
 
-module.exports = {
+export {
   sendNotification,
 };

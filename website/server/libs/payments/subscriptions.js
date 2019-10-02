@@ -316,7 +316,7 @@ async function cancelSubscription (data) {
   });
 }
 
-module.exports = {
+export {
   createSubscription,
   cancelSubscription,
 };

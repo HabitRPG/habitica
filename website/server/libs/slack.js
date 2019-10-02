@@ -282,7 +282,7 @@ function sendSlurNotification ({
   });
 }
 
-module.exports = {
+export {
   sendFlagNotification,
   sendInboxFlagNotification,
   sendSubscriptionNotification,

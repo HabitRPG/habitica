@@ -3,7 +3,7 @@ import nconf from 'nconf';
 
 const MAINTENANCE_MODE = nconf.get('MAINTENANCE_MODE');
 
-module.exports = function maintenanceMode (req, res, next) {
+export default function maintenanceMode (req, res, next) {
   if (MAINTENANCE_MODE !== 'true') return next();
 
   getUserLanguage(req, res, (err) => {
@@ -28,4 +28,4 @@ module.exports = function maintenanceMode (req, res, next) {
       });
     }
   });
-};
+}

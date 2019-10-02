@@ -98,4 +98,4 @@ api.handleWebhooks = {
   },
 };
 
-module.exports = api;
+export default api;

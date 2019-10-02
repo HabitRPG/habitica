@@ -54,4 +54,4 @@ api.unsubscribe = {
   },
 };
 
-module.exports = api;
+export default api;

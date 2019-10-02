@@ -37,7 +37,7 @@ const ENABLE_HTTP_AUTH = nconf.get('SITE_HTTP_AUTH_ENABLED') === 'true';
 const SESSION_SECRET = nconf.get('SESSION_SECRET');
 const TEN_YEARS = 1000 * 60 * 60 * 24 * 365 * 10;
 
-module.exports = function attachMiddlewares (app, server) {
+export default function attachMiddlewares (app, server) {
   app.set('view engine', 'pug');
   app.set('views', `${__dirname}/../../views`);
 
@@ -104,4 +104,4 @@ module.exports = function attachMiddlewares (app, server) {
 
   // Error handler middleware, define as the last one.
   app.use(errorHandler);
-};
+}

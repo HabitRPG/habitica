@@ -160,10 +160,10 @@ async function cronAsync (req, res) {
   }
 }
 
-module.exports = function cronMiddleware (req, res, next) {
+export default function cronMiddleware (req, res, next) {
   cronAsync(req, res)
     .then(() => {
       next();
     })
     .catch(next);
-};
+}

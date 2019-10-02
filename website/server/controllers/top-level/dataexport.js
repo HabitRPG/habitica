@@ -343,4 +343,4 @@ api.exportUserPrivateMessages = {
   },
 };
 
-module.exports = api;
+export default api;

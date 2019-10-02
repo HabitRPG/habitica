@@ -78,4 +78,4 @@ api.registerLocal = {
   },
 };
 
-module.exports = api;
+export default api;

@@ -84,7 +84,7 @@
 
 
 // DO NOT EDIT! See the comments at the top of this file.
-let bannedSlurs = [
+const bannedSlurs = [
   'TESTPLACEHOLDERSLURWORDHERE',
   'TESTPLACEHOLDERSLURWORDHERE1',
 
@@ -110,4 +110,4 @@ let bannedSlurs = [
   'cunts',
 ];
 
-module.exports = bannedSlurs;
+export default bannedSlurs;

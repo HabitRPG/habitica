@@ -30,4 +30,4 @@ server.listen(app.get('port'), () => {
   logger.info(`Express server listening on port ${app.get('port')}`);
 });
 
-module.exports = server;
+export default server;

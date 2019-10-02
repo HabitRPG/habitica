@@ -16,4 +16,4 @@ router.all('*', function deprecatedV2 (req, res, next) {
   return next(error);
 });
 
-module.exports = router;
+export default router;

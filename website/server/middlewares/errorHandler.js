@@ -11,7 +11,7 @@ import {
   omit,
 } from 'lodash';
 
-module.exports = function errorHandler (err, req, res, next) { // eslint-disable-line no-unused-vars
+export default function errorHandler (err, req, res, next) { // eslint-disable-line no-unused-vars
   // In case of a CustomError class, use it's data
   // Otherwise try to identify the type of error (mongoose validation, mongodb unique, ...)
   // If we can't identify it, respond with a generic 500 error
@@ -91,4 +91,4 @@ module.exports = function errorHandler (err, req, res, next) { // eslint-disable
   // In some occasions like when invalid JSON is supplied `res.respond` might be not yet avalaible,
   // in this case we use the standard res.status(...).json(...)
   return res.status(responseErr.httpCode).json(jsonRes);
-};
+}

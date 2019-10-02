@@ -6,12 +6,12 @@ import { NotAuthorized } from '../errors';
 const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS_COMMUNITY_MANAGER_EMAIL');
 const translator = shortid('0123456789abcdefghijklmnopqrstuvwxyz');
 
-function generateUsername () {
+export function generateUsername () {
   let newName = `hb-${translator.new()}`;
   return newName.substring(0, 20);
 }
 
-function loginRes (user, req, res) {
+export function loginRes (user, req, res) {
   if (user.auth.blocked) throw new NotAuthorized(res.t('accountSuspended', {communityManagerEmail: COMMUNITY_MANAGER_EMAIL, userId: user._id}));
 
   const responseData = {
@@ -23,8 +23,3 @@ function loginRes (user, req, res) {
 
   return res.respond(200, responseData);
 }
-
-module.exports = {
-  generateUsername,
-  loginRes,
-};

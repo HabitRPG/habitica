@@ -14,4 +14,4 @@ api.redirectProfileQRCode = {
   },
 };
 
-module.exports = api;
+export default api;

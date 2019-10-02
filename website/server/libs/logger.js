@@ -89,4 +89,4 @@ process.on('unhandledRejection', function handlePromiseRejection (reason, p) {
   loggerInterface.error(reason, 'unhandledPromiseRejection at', p);
 });
 
-module.exports = loggerInterface;
+export default loggerInterface;

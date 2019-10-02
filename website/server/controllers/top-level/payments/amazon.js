@@ -142,4 +142,4 @@ api.subscribeCancel = {
   },
 };
 
-module.exports = api;
+export default api;

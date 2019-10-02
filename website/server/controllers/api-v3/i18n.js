@@ -43,4 +43,4 @@ api.geti18nBrowserScript = {
   },
 };
 
-module.exports = api;
+export default api;

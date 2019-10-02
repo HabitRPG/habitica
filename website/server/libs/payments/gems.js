@@ -94,4 +94,4 @@ async function buyGems (data) {
   await data.user.save();
 }
 
-module.exports = { buyGems };
+export { buyGems };

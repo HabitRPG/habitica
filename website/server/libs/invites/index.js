@@ -204,7 +204,7 @@ async function inviteByUserName (username, group, inviter, req, res) {
   return await addInvitationToUser(userToInvite, group, inviter, res);
 }
 
-module.exports = {
+export {
   inviteByUUID,
   inviteByEmail,
   inviteByUserName,

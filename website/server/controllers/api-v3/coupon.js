@@ -137,4 +137,4 @@ api.validateCoupon = {
   },
 };
 
-module.exports = api;
+export default api;

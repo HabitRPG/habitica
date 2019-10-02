@@ -320,7 +320,7 @@ const mockAnalyticsService = {
   trackPurchase: () => { },
 };
 
-module.exports = {
+export {
   track,
   trackPurchase,
   mockAnalyticsService,

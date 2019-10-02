@@ -1,7 +1,7 @@
 /* eslint-disable no-multiple-empty-lines */
 
 // This file contains usernames that we do not want users to use, because they give the account more legitimacy and may deceive users.
-let bannedWords = [
+const bannedWords = [
   'TESTPLACEHOLDERSWEARWORDHERE',
   'TESTPLACEHOLDERSWEARWORDHERE1',
 
@@ -17,4 +17,4 @@ let bannedWords = [
   'gryphon',
 ];
 
-module.exports = bannedWords;
+export default bannedWords;

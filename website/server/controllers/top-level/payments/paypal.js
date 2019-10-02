@@ -170,4 +170,4 @@ api.ipn = {
   },
 };
 
-module.exports = api;
+export default api;

@@ -2,7 +2,7 @@ import express from 'express';
 import expressValidator from 'express-validator';
 import analytics from './analytics';
 import setupBody from './setupBody';
-import routes from '../libs/routes';
+import * as routes from '../libs/routes';
 import path from 'path';
 
 const API_V3_CONTROLLERS_PATH = path.join(__dirname, '/../controllers/api-v3/');
@@ -51,4 +51,4 @@ routes.walkControllers(v4Router, API_V3_CONTROLLERS_PATH, v4RouterOverrides);
 routes.walkControllers(v4Router, API_V4_CONTROLLERS_PATH);
 app.use('/api/v4', v4Router);
 
-module.exports = app;
+export default app;

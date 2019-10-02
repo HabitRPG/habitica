@@ -17,7 +17,7 @@ iap.config({
   applePassword: nconf.get('ITUNES_SHARED_SECRET'),
 });
 
-module.exports = {
+export default {
   setup: util.promisify(iap.setup.bind(iap)),
   validate: util.promisify(iap.validate.bind(iap)),
   isValidated: iap.isValidated,

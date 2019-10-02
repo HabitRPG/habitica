@@ -235,4 +235,4 @@ api.verifyDisplayName = {
   },
 };
 
-module.exports = api;
+export default api;

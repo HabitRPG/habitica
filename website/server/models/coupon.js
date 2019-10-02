@@ -56,5 +56,4 @@ schema.statics.apply = async function applyCoupon (user, req, code) {
   await coupon.save();
 };
 
-module.exports.schema = schema;
 export let model = mongoose.model('Coupon', schema);

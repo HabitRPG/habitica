@@ -21,7 +21,7 @@ function _passportProfile (network, accessToken) {
   });
 }
 
-async function loginSocial (req, res) {
+export async function loginSocial (req, res) {
   const existingUser = res.locals.user;
   const accessToken = req.body.authResponse.access_token;
   const network = req.body.network;
@@ -111,7 +111,3 @@ async function loginSocial (req, res) {
 
   return null;
 }
-
-module.exports = {
-  loginSocial,
-};

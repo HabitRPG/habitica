@@ -6,7 +6,7 @@ const IS_PROD = nconf.get('IS_PROD');
 const MAX_AGE = IS_PROD ? 31536000000 : 0;
 const BASE_DIR = path.join(__dirname, '/../../..');
 
-module.exports = function staticMiddleware (expressApp) {
+export default function staticMiddleware (expressApp) {
   // Expose static files for new client
   expressApp.use('/static/js', express.static(`${BASE_DIR}/dist-client/static/js`, { maxAge: MAX_AGE }));
   expressApp.use('/static/css', express.static(`${BASE_DIR}/dist-client/static/css`, { maxAge: MAX_AGE }));
@@ -20,4 +20,4 @@ module.exports = function staticMiddleware (expressApp) {
 
   // Apidoc
   expressApp.use('/apidoc', express.static(`${BASE_DIR}/apidoc_build`));
-};
+}

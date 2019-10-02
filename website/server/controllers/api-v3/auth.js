@@ -432,4 +432,4 @@ api.deleteSocial = {
   },
 };
 
-module.exports = api;
+export default api;

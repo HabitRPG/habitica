@@ -40,4 +40,4 @@ api.flagPrivateMessage = {
   },
 };
 
-module.exports = api;
+export default api;

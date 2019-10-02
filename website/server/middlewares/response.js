@@ -3,7 +3,7 @@ import {
   model as UserNotification,
 } from '../models/userNotification';
 
-module.exports = function responseHandler (req, res, next) {
+export default function responseHandler (req, res, next) {
   // Only used for successful responses
   res.respond = function respond (status = 200, data = {}, message) {
     let user = res.locals && res.locals.user;
@@ -26,4 +26,4 @@ module.exports = function responseHandler (req, res, next) {
   };
 
   next();
-};
+}

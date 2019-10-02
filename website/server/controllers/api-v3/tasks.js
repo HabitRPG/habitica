@@ -1356,4 +1356,4 @@ api.deleteTask = {
   },
 };
 
-module.exports = api;
+export default api;

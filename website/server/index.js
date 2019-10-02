@@ -8,7 +8,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 // Initialize configuration BEFORE anything
-const setupNconf = require('./libs/setupNconf');
+const setupNconf = require('./libs/setupNconf').default;
 setupNconf();
 const nconf = require('nconf');
 

@@ -22,4 +22,4 @@ api.getStatus = {
   },
 };
 
-module.exports = api;
+export default api;

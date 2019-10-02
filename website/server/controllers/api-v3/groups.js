@@ -1217,4 +1217,4 @@ api.getGroupPlans = {
   },
 };
 
-module.exports = api;
+export default api;

@@ -65,4 +65,4 @@ api.castSpell = {
   },
 };
 
-module.exports = api;
+export default api;

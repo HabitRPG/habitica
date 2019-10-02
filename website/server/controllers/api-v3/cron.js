@@ -19,4 +19,4 @@ api.cron = {
   },
 };
 
-module.exports = api;
+export default api;

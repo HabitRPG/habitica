@@ -135,4 +135,4 @@ api.getInboxMessages = {
   },
 };
 
-module.exports = api;
+export default api;

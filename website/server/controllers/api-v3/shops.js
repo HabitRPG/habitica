@@ -142,4 +142,4 @@ api.getBackgroundShopItems = {
   },
 };
 
-module.exports = api;
+export default api;

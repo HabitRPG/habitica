@@ -235,7 +235,7 @@ async function cancelGroupSubscriptionForUser (user, group, userWasRemoved = fal
   }
 }
 
-module.exports = {
+export {
   addSubscriptionToGroupUsers,
   addSubToGroupUser,
   cancelGroupUsersSubscription,

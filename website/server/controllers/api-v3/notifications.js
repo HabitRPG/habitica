@@ -191,4 +191,4 @@ api.seeNotifications = {
   },
 };
 
-module.exports = api;
+export default api;

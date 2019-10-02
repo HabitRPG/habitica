@@ -143,4 +143,4 @@ async function checkout (options, stripeInc) {
   await applyGemPayment(user, response, gift);
 }
 
-module.exports = { checkout };
+export { checkout };

@@ -222,4 +222,4 @@ api.deleteWebhook = {
   },
 };
 
-module.exports = api;
+export default api;

@@ -135,4 +135,4 @@ api.getContent = {
   },
 };
 
-module.exports = api;
+export default api;

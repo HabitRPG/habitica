@@ -43,4 +43,4 @@ api.getWorldState = {
   },
 };
 
-module.exports = api;
+export default api;
