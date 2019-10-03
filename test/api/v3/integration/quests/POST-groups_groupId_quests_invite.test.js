@@ -4,7 +4,7 @@ import {
   sleep,
 } from '../../../../helpers/api-integration/v3';
 import { v4 as generateUUID } from 'uuid';
-import { quests as questScrolls } from '../../../../../website/common/script/content';
+import { quests as questScrolls } from '../../../../../website/common/script/content/quests';
 import { chatModel as Chat } from '../../../../../website/server/models/message';
 import apiError from '../../../../../website/server/libs/apiError';
 

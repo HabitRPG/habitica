@@ -11,7 +11,7 @@ import {
   each,
 } from 'lodash';
 import { model as User } from '../../../../../website/server/models/user';
-import * as payments from '../../../../../website/server/libs/payments/payments';
+import payments from '../../../../../website/server/libs/payments/payments';
 
 describe('POST /groups/:groupId/leave', () => {
   let typesOfGroups = {
