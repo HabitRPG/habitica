@@ -397,9 +397,7 @@ export async function cron (options = {}) {
       }(task, user, now));
     } else {
       task.completed = false;
-      if (task.group) groupSharedSingleDailies.push(async () => {
-        await groupTaskNewDay(task, user);
-      });
+      if (task.group && task.group.id) groupSharedSingleDailies.push(groupTaskNewDay(task, user));
     }
 
     setIsDueNextDue(task, user, now);

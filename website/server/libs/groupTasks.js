@@ -201,9 +201,10 @@ async function groupTaskCompleted (groupMemberTask, user, now) {
 async function handleSharedCompletion (groupMemberTask) {
   let masterTask = await Tasks.Task.findOne({
     _id: groupMemberTask.group.taskId,
+    type: {$ne: 'habit'},
   }).exec();
 
-  if (!masterTask || !masterTask.group || masterTask.type === 'habit') return;
+  if (!masterTask || !masterTask.group) return;
 
   if (masterTask.group.sharedCompletion === SHARED_COMPLETION.single) {
     await _updateAssignedUsersTasks(masterTask, groupMemberTask);
@@ -217,9 +218,11 @@ async function groupTaskNewDay (groupMemberTask, user, now = moment()) {
   // Similar logic to groupTaskCompleted but returns update to uncomplete group task if user day is *different* from task's last completed day
   let masterTask = await Tasks.Task.findOne({
     _id: groupMemberTask.group.taskId,
+    type: 'daily',
+    completed: true,
   }).exec();
 
-  if (!masterTask || !masterTask.group || masterTask.type !== 'daily' || !masterTask.completed) return;
+  if (!masterTask || !masterTask.group) return;
   if (masterTask.history && masterTask.history.length > 0) {
     let taskLastHistory = masterTask.history[masterTask.history.length - 1];
     if (taskLastHistory.userId) {
@@ -227,7 +230,10 @@ async function groupTaskNewDay (groupMemberTask, user, now = moment()) {
       if (lastCompletingUser) {
         let taskLastCompletedDay = startOfDay(defaults({now: moment(taskLastHistory.date)}, lastCompletingUser.preferences.toObject()));
         let userDay = startOfDay(defaults({now}, user.preferences.toObject()));
-        if (!userDay.isSame(taskLastCompletedDay)) return await Tasks.Task.findByIdAndUpdate(masterTask._id, {$set: {completed: false}});
+        if (!userDay.isSame(taskLastCompletedDay)) {
+          masterTask.completed = false;
+          return masterTask.save();
+        }
       }
     }
   }
