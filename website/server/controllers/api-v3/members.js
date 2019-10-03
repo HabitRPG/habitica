@@ -19,8 +19,10 @@ import {
   sendTxn as sendTxnEmail,
 } from '../../libs/email';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
-import { achievements } from '../../../../website/common/';
+import common from '../../../../website/common/';
 import {sentMessage} from '../../libs/inbox';
+
+const achievements = common.achievements;
 
 let api = {};
 

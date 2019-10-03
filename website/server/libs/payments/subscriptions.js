@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import moment from 'moment';
 
-import analytics from '../analyticsService';
-import slack from '../slack';
+import * as analytics from '../analyticsService';
+import * as slack from '../slack';
 import {
   getUserInfo,
   sendTxn as txnEmail,

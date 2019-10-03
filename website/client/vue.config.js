@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const nconf = require('nconf');
 const setupNconf = require('../../website/server/libs/setupNconf');
 const { DuplicatesPlugin } = require("inspectpack/plugin");
+const pkg = require('../../package.json');
 
 let configFile = path.join(path.resolve(__dirname, '../../config.json'));
 

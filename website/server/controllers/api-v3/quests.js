@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { authWithHeaders } from '../../middlewares/auth';
-import analytics from '../../libs/analyticsService';
+import * as analytics from '../../libs/analyticsService';
 import {
   model as Group,
   basicFields as basicGroupFields,

@@ -10,13 +10,13 @@ import {
   model as Group,
 } from '../../../../website/server/models/group';
 import { model as User } from '../../../../website/server/models/user';
-import { quests as questScrolls } from '../../../../website/common/script/content';
+import { quests as questScrolls } from '../../../../website/common/script/content/quests';
 import {
   groupChatReceivedWebhook,
   questActivityWebhook,
 } from '../../../../website/server/libs/webhook';
 import * as email from '../../../../website/server/libs/email';
-import { TAVERN_ID } from '../../../../website/common/script/';
+import { TAVERN_ID } from '../../../../website/common/script/constants';
 import shared from '../../../../website/common';
 
 describe('Group Model', () => {

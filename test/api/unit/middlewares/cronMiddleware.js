@@ -9,7 +9,7 @@ import moment from 'moment';
 import { model as User } from '../../../../website/server/models/user';
 import { model as Group } from '../../../../website/server/models/group';
 import * as Tasks from '../../../../website/server/models/task';
-import analyticsService from '../../../../website/server/libs/analyticsService';
+import * as analyticsService from '../../../../website/server/libs/analyticsService';
 import * as cronLib from '../../../../website/server/libs/cron';
 import { v4 as generateUUID } from 'uuid';
 

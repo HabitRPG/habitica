@@ -6,7 +6,7 @@ import { recoverCron, cron } from '../../../../website/server/libs/cron';
 import { model as User } from '../../../../website/server/models/user';
 import * as Tasks from '../../../../website/server/models/task';
 import common from '../../../../website/common';
-import analytics from '../../../../website/server/libs/analyticsService';
+import * as analytics from '../../../../website/server/libs/analyticsService';
 
 // const scoreTask = common.ops.scoreTask;
 

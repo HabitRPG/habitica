@@ -1,4 +1,4 @@
-import analytics from '../analyticsService';
+import * as analytics from '../analyticsService';
 import {
   getUserInfo,
   sendTxn as txnEmail,

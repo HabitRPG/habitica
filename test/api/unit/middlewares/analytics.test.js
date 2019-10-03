@@ -4,7 +4,7 @@ import {
   generateReq,
   generateNext,
 } from '../../../helpers/api-unit.helper';
-import analyticsService from '../../../../website/server/libs/analyticsService';
+import * as analyticsService from '../../../../website/server/libs/analyticsService';
 import nconf from 'nconf';
 import requireAgain from 'require-again';
 
@@ -19,7 +19,7 @@ describe('analytics middleware', () => {
   });
 
   it('attaches analytics object res.locals', () => {
-    let attachAnalytics = requireAgain(pathToAnalyticsMiddleware);
+    let attachAnalytics = requireAgain(pathToAnalyticsMiddleware).default;
 
     attachAnalytics(req, res, next);
 
@@ -28,7 +28,7 @@ describe('analytics middleware', () => {
 
   it('attaches stubbed methods for non-prod environments', () => {
     sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(false);
-    let attachAnalytics = requireAgain(pathToAnalyticsMiddleware);
+    let attachAnalytics = requireAgain(pathToAnalyticsMiddleware).default;
 
     attachAnalytics(req, res, next);
 
@@ -39,7 +39,7 @@ describe('analytics middleware', () => {
   it('attaches real methods for prod environments', () => {
     sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
 
-    let attachAnalytics = requireAgain(pathToAnalyticsMiddleware);
+    let attachAnalytics = requireAgain(pathToAnalyticsMiddleware).default;
 
     attachAnalytics(req, res, next);
 

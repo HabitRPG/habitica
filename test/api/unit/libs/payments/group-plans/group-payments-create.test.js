@@ -3,7 +3,7 @@ import stripeModule from 'stripe';
 import nconf from 'nconf';
 
 import * as sender from '../../../../../../website/server/libs/email';
-import * as api from '../../../../../../website/server/libs/payments/payments';
+import api from '../../../../../../website/server/libs/payments/payments';
 import amzLib from '../../../../../../website/server/libs/payments/amazon';
 import paypalPayments from '../../../../../../website/server/libs/payments/paypal';
 import stripePayments from '../../../../../../website/server/libs/payments/stripe';

@@ -1,8 +1,10 @@
 import { authWithHeaders } from '../../middlewares/auth';
 import ensureDevelpmentMode from '../../middlewares/ensureDevelpmentMode';
 import { BadRequest } from '../../libs/errors';
-import { content } from '../../../common';
+import common from '../../../common';
 import _ from 'lodash';
+
+const content = common.content;
 
 /**
  * @apiDefine Development Development

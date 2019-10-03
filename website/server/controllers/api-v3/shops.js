@@ -1,5 +1,7 @@
 import { authWithHeaders } from '../../middlewares/auth';
-import { shops } from '../../../common/';
+import common from '../../../common/';
+
+const shops = common.shops;
 
 let api = {};
 

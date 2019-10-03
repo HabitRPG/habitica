@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import { IncomingWebhook } from '@slack/client';
 import requireAgain from 'require-again';
-import slack from '../../../../website/server/libs/slack';
+import * as slack from '../../../../website/server/libs/slack';
 import logger from '../../../../website/server/libs/logger';
 import { TAVERN_ID } from '../../../../website/server/models/group';
 import nconf from 'nconf';

@@ -8,7 +8,7 @@ import {
   omit,
   toArray,
 } from 'lodash';
-import { content as Content } from '../../common';
+import common from '../../common';
 import logger from './logger';
 
 const AMPLITUDE_TOKEN = nconf.get('AMPLITUDE_KEY');
@@ -27,6 +27,8 @@ let amplitude;
 if (AMPLITUDE_TOKEN) amplitude = new Amplitude(AMPLITUDE_TOKEN);
 
 let ga = googleAnalytics(GA_TOKEN);
+
+const Content = common.content;
 
 function _lookUpItemName (itemKey) {
   if (!itemKey) return;

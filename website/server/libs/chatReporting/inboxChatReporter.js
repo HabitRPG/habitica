@@ -6,7 +6,7 @@ import {
   BadRequest,
 } from '../errors';
 import { getUserInfo, sendTxn} from '../email';
-import slack from '../slack';
+import * as slack from '../slack';
 import apiError from '../apiError';
 
 import * as inboxLib from '../inbox';

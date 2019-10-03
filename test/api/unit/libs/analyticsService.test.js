@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import analyticsService from '../../../../website/server/libs/analyticsService';
+import * as analyticsService from '../../../../website/server/libs/analyticsService';
 import Amplitude from 'amplitude';
 import { Visitor } from 'universal-analytics';
 

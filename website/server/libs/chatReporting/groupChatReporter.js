@@ -7,7 +7,7 @@ import {
   NotFound,
 } from '../errors';
 import { sendTxn } from '../email';
-import slack from '../slack';
+import * as slack from '../slack';
 import { model as Group } from '../../models/group';
 import { chatModel as Chat } from '../../models/message';
 import apiError from '../apiError';

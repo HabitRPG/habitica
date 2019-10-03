@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 import * as sender from '../../../../../../website/server/libs/email';
-import * as api from '../../../../../../website/server/libs/payments/payments';
+import api from '../../../../../../website/server/libs/payments/payments';
 import { model as User } from '../../../../../../website/server/models/user';
 import { model as Group } from '../../../../../../website/server/models/group';
 import {
