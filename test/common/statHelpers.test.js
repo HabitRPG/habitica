@@ -1,10 +1,12 @@
-import {
+import api from '../../website/common/script/index';
+
+const {
   maxHealth,
   maxLevel,
   capByLevel,
   tnl,
   diminishingReturns,
-} from '../../website/common/script/index';
+} = api;
 
 describe('helper functions used in stat calculations', () => {
   describe('maxHealth', () => {

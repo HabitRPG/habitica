@@ -1,4 +1,4 @@
-import pinnedGearUtils from '../../../../website/common/script/ops/pinnedGearUtils';
+import * as pinnedGearUtils from '../../../../website/common/script/ops/pinnedGearUtils';
 import {
   NotAuthorized,
 } from '../../../../website/common/script/libs/errors';

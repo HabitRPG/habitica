@@ -1,5 +1,5 @@
 import purchase from '../../../../website/common/script/ops/buy/purchase';
-import pinnedGearUtils from '../../../../website/common/script/ops/pinnedGearUtils';
+import * as pinnedGearUtils from '../../../../website/common/script/ops/pinnedGearUtils';
 import {
   BadRequest,
   NotAuthorized,

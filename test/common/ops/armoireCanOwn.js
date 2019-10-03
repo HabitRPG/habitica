@@ -1,4 +1,4 @@
-import armoireSet from '../../../website/common/script/content/gear/sets/armoire';
+import * as armoireSet from '../../../website/common/script/content/gear/sets/armoire';
 
 describe('armoireSet items', () => {
   it('checks if canOwn has the same id', () => {

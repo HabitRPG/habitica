@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const nconf = require('nconf');
 const setupNconf = require('../../website/server/libs/setupNconf');
+const { DuplicatesPlugin } = require("inspectpack/plugin");
 
 let configFile = path.join(path.resolve(__dirname, '../../config.json'));
 
@@ -37,6 +38,9 @@ envVars
 module.exports = {
   configureWebpack: {
     plugins: [
+      new DuplicatesPlugin({
+        verbose: true
+      }),
       new webpack.EnvironmentPlugin(envObject),
       new webpack.ContextReplacementPlugin(/moment[\\/]locale$/, /^\.\/(NOT_EXISTING)$/),
     ],

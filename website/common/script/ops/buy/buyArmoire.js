@@ -7,7 +7,7 @@ import splitWhitespace from '../../libs/splitWhitespace';
 import {
   NotAuthorized,
 } from '../../libs/errors';
-import randomVal from '../../libs/randomVal';
+import randomVal, * as randomValFns from '../../libs/randomVal';
 import {removeItemByPath} from '../pinnedGearUtils';
 import {AbstractGoldItemOperation} from './abstractBuyOperation';
 
@@ -35,7 +35,7 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation {
   executeChanges (user, item) {
     let result = {};
 
-    let armoireResult = randomVal.trueRandom();
+    let armoireResult = randomValFns.trueRandom();
     let eligibleEquipment = filter(content.gear.flat, (eligible) => {
       return eligible.klass === 'armoire' && !user.items.gear.owned[eligible.key];
     });
@@ -147,7 +147,7 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation {
   }
 
   _experienceResult (user) {
-    let armoireExp = Math.floor(randomVal.trueRandom() * 40 + 10);
+    let armoireExp = Math.floor(randomValFns.trueRandom() * 40 + 10);
     user.stats.exp += armoireExp;
 
     return {

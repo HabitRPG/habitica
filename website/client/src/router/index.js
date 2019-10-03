@@ -87,7 +87,7 @@ const QuestsPage = () => import(/* webpackChunkName: "shops-quest" */'@/componen
 const SeasonalPage = () => import(/* webpackChunkName: "shops-seasonal" */'@/components/shops/seasonal/index');
 const TimeTravelersPage = () => import(/* webpackChunkName: "shops-timetravelers" */'@/components/shops/timeTravelers/index');
 
-import NotFoundPage from '@/components/404';
+const NotFoundPage = () => import(/* webpackChunkName: "not-found" */'@/components/404');
 
 Vue.use(VueRouter);
 
