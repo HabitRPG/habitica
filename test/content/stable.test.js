@@ -6,9 +6,9 @@ import {
 } from '../helpers/content.helper';
 import t from '../../website/common/script/content/translation';
 
-import stable from '../../website/common/script/content/stable';
-import eggs from '../../website/common/script/content/eggs';
-import potions from '../../website/common/script/content/hatching-potions';
+import * as stable from '../../website/common/script/content/stable';
+import * as eggs from '../../website/common/script/content/eggs';
+import * as potions from '../../website/common/script/content/hatching-potions';
 
 describe('stable', ()  => {
   describe('dropPets', () => {

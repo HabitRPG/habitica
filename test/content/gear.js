@@ -4,9 +4,11 @@ import {
 } from '../helpers/content.helper';
 import { each, camelCase } from 'lodash';
 
-import { tree as allGear } from '../../website/common/script/content/gear';
-import backerGear from '../../website/common/script/content/gear/sets/special/special-backer';
-import contributorGear from '../../website/common/script/content/gear/sets/special/special-contributor';
+import gearData from '../../website/common/script/content/gear';
+import * as backerGear from '../../website/common/script/content/gear/sets/special/special-backer';
+import * as contributorGear from '../../website/common/script/content/gear/sets/special/special-contributor';
+
+const allGear = gearData.tree;
 
 describe('Gear', () => {
   each(allGear, (piece, gearType) => {

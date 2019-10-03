@@ -3,7 +3,9 @@ import {
   expectValidTranslationString,
 } from '../helpers/content.helper';
 
-import {questions, stillNeedHelp} from '../../website/common/script/content/faq';
+import faq from '../../website/common/script/content/faq';
+
+const {questions, stillNeedHelp} = faq;
 
 describe('FAQ Locales', () => {
   describe('Questions', () => {
