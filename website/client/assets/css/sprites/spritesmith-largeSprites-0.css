@@ -4,9 +4,15 @@
   width: 423px;
   height: 147px;
 }
+.promo_costume_achievement {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -734px 0px;
+  width: 144px;
+  height: 156px;
+}
 .promo_desert_pet_achievements {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -163px -486px;
+  background-position: 0px -634px;
   width: 204px;
   height: 102px;
 }
@@ -30,11 +36,17 @@
 }
 .promo_seasonal_shop_fall {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -486px;
+  background-position: -424px -486px;
   width: 162px;
   height: 138px;
 }
 .promo_shadow_spooky_potions {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -486px;
+  width: 423px;
+  height: 147px;
+}
+.promo_spooky_sparkles {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: 0px -338px;
   width: 423px;
@@ -42,7 +54,7 @@
 }
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -617px -338px;
+  background-position: -734px -157px;
   width: 96px;
   height: 69px;
 }
