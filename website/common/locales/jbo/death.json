@@ -1,0 +1,17 @@
+{
+    "lostAllHealth": "sai do mo'u cirko lo ka kanro !",
+    "dontDespair": ".i doi si ko na'e tolpa'a",
+    "deathPenaltyDetails": ".i do kledika gi'e poi'i ge ro lo slokene gi pa lo tutci cu jai se cirko .i ku'i ro lo se cirko ka'e se darca xoi krefu .i di'ai do noi snada .a'o",
+    "refillHealthTryAgain": "kanryze'a gi'e za'u re'u troci",
+    "dyingOftenTips": "(to va'o lo nu do du'e roi co'u kanro zo'u ka'e sidju fa <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>la tadji be lo ka jmive jai ranji</a> toi)",
+    "losingHealthWarning": ".o'i do jdika lo ka kanro !",
+    "losingHealthWarning2": ".i .e'u do na curmi lo nu li no ni do kanro .i va'o nu bu do kledika gi'e poi'i ge lo slokene gi pa lo tutci ke'a jai se cirko",
+    "toRegainHealth": ".i tadji lo ka kanryze'a kei fa",
+    "lowHealthTips1": "lo ka kle'enba no'au ri'a ke'a di'a mulno lo ka kanro se'u",
+    "lowHealthTips2": ".e lo ka posyve'u su'o kanry'alma ne lo te cnemu greku no'au ri'a ke'a lo ni kanro cu dubze'a li 15",
+    "losingHealthQuickly": "(to xu do sutrydu'e lo ka kanryjdika ?",
+    "lowHealthTips3": ".i lo nu so'i roldei .ei na mulno cu xrani do ze'a lo nicte .i ko'oi glisu lo ka na ku du'e da zo'u platu lo nu da roldei",
+    "lowHealthTips4": ".i ro roldei se platu cu poi'i va'o lo nu ke'a ca lo ca'audje na jai se nitcu cu naly'aktygau .ei ke'a ta'i lo ka .iklki lo pinsi .itkona ",
+    "goodLuck": ".i di'ai do ! toi)",
+    "cannotRevive": "lo nu jmive be di'a gasnu cu se sarcu lo nu morsi"
+}

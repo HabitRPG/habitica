@@ -1,0 +1,9 @@
+{
+  "achievement": "기본 업적",
+  "share": "공유하기",
+  "onwards": "Onwards!",
+  "levelup": "실생활의 목표들을 달성함으로써 레벨 %ld이 되었어요!",
+  "reachedLevel": "레벨<%= level %>에 도달했습니다.",
+  "achievementLostMasterclasser": "퀘스트 완료자: 마스터클래서 시리즈",
+  "achievementLostMasterclasserText": "마스터클래서 퀘스트에서 16개의 모든 퀘스트를 완료하고 잃어버린 마스터클래서의 신비를 풀어냈습니다!"
+}

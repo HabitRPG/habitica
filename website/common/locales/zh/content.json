@@ -212,7 +212,7 @@
     "hatchingPotionFrost": "冰霜",
     "hatchingPotionIcySnow": "冰霜",
     "hatchingPotionNotes": "把它倒在宠物蛋上可以孵化出一只<%= potText(locale) %>宠物。",
-    "premiumPotionAddlNotes": "无法用于副本宠物蛋。",
+    "premiumPotionAddlNotes": "无法用于副本宠物蛋。在<%= date(locale) %>前可购买。",
     "foodMeat": "肉",
     "foodMeatThe": "肉",
     "foodMeatA": "肉",
@@ -341,7 +341,7 @@
     "foodPieRedThe": "红樱桃派",
     "foodPieRedA": "一块红樱桃派",
     "hatchingPotionSilver": "银",
-    "hatchingPotionWatery": "水润",
+    "hatchingPotionWatery": "潮湿的",
     "hatchingPotionBronze": "青铜",
     "hatchingPotionSunshine": "阳光",
     "questEggRobotAdjective": "一个新潮的",
@@ -349,5 +349,6 @@
     "questEggRobotText": "机器人",
     "questEggDolphinAdjective": "一只活泼的",
     "questEggDolphinMountText": "海豚",
-    "questEggDolphinText": "海豚"
+    "questEggDolphinText": "海豚",
+    "hatchingPotionShadow": "阴影"
 }

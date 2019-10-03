@@ -159,5 +159,13 @@
     "spring2019CloudRogueSet": "云朵（盗贼）",
     "spring2019RobinHealerSet": "罗宾（医者）",
     "spring2019AmberMageSet": "琥珀（法师）",
-    "spring2019OrchidWarriorSet": "兰花（战士）"
+    "spring2019OrchidWarriorSet": "兰花（战士）",
+    "june2018": "2018年6月",
+    "eventAvailabilityReturning": "在<%= availableDate(locale) %>前可购买。这瓶药水上次可购的日期是<%= previousDate(locale) %>。",
+    "fall2019RavenSet": "乌鸦（战士）",
+    "fall2019LichSet": "死尸（医者）",
+    "fall2019CyclopsSet": "独眼巨人（法师）",
+    "fall2019OperaticSpecterSet": "歌剧幽灵（盗贼）",
+    "september2018": "2018年9月",
+    "september2017": "2017年9月"
 }

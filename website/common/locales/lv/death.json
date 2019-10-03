@@ -1,0 +1,17 @@
+{
+    "lostAllHealth": "Jums vairs nav veselības!",
+    "dontDespair": "Nekrīti izmisumā!",
+    "deathPenaltyDetails": "Jūs zaudējāt vienu līmeni, savu Zeltu un aprīkojuma daļu, bet Jūs to visu varat atgūt smagi strādājot! Lai veicas - Jums noteikti izdosies!",
+    "refillHealthTryAgain": "Piepildīt veselības skalu un mēģināt vēlreiz.",
+    "dyingOftenTips": "Vai šis notiek bieži? <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>Lūk, daži padomi!</a> Tie gan pagaidām ir pieejami tikai angļu valodā.",
+    "losingHealthWarning": "Uzmanīgi! Tu zaudē veselību!",
+    "losingHealthWarning2": "Neļauj savai veselībai nolaisties līdz nullei! Ja tu to pieļausi, tavs līmenis nokritīsies zemāk, kā arī tavs Zelts un aprīkojuma daļa tiks zaudēta.",
+    "toRegainHealth": "Lai atgūtu veselību:",
+    "lowHealthTips1": "Pārej uz nākamo līmeni, lai pilnībā atgūtu veselību!",
+    "lowHealthTips2": "Iegādājies Veselības Dziru no Atalgojumu saraksta, lai atgūtu 15 veselības punktus.",
+    "losingHealthQuickly": "Ātri zaudē veselību?",
+    "lowHealthTips3": "Neizpildīti Ikdienišķie atņems Tev veselību, tādēļ uzmanies - nepievieno pārāk daudzus uzreiz!",
+    "lowHealthTips4": "Ja Ikdienas uzdevums nav jāpilda konkrētā dienā, jūs varat to atslēgt, noklikšķinot uz zīmuļa ikonas.",
+    "goodLuck": "Veiksmi!",
+    "cannotRevive": "Nevar atdzīvināt, ja nav nomiris"
+}

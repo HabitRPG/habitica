@@ -156,7 +156,7 @@
     "optOutOfClasses": "Später entscheiden",
     "optOutOfPMs": "Private Nachrichten deaktivieren",
     "chooseClass": "Wähle Deine Klasse",
-    "chooseClassLearnMarkdown": "[Erfahre mehr über Habiticas Klassensystem](http://de.habitica.fandom.com/wiki/Klassen)",
+    "chooseClassLearnMarkdown": "[Erfahre mehr über Habiticas Klassensystem](https://habitica.fandom.com/de/wiki/Klassen)",
     "optOutOfClassesText": "Keine Lust auf Klassen oder Du möchtest Dich später entscheiden?  Brich jetzt ab und werde ein Krieger ohne Spezialfähigkeiten. Du kannst Dich im Wiki über das Klassensystem informieren und Deine Klasse jederzeit unter Benutzer Icon -> Statuswerte aktivieren.",
     "selectClass": "Wähle <%= heroClass %>",
     "select": "Auswählen",
