@@ -1,0 +1,9 @@
+{
+  "achievement": "Saavutus",
+  "share": "Jaa",
+  "onwards": "Eteenpäin!",
+  "levelup": "Saavuttamalla tosielämän tavoitteesi nousit seuraavalle tasolle, ja parannuit täydellisesti!",
+  "reachedLevel": "Saavutit tason <%= level %>",
+  "achievementLostMasterclasser": "Jahtisuoritus: Mestarisarja",
+  "achievementLostMasterclasserText": "Suorittanut kaikki jahdit Mestarijahtisarjassa ja ratkaissut Kadonneen mestarin mysteerin!"
+}

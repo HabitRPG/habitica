@@ -109,12 +109,13 @@ describe('getTaskClasses getter', () => {
     });
   });
 
-  xit('returns good todo classes', () => {
+  it('returns good todo classes', () => {
     const task = {type: 'todo', value: 2};
     expect(getTaskClasses(task, 'control')).to.deep.equal({
       bg: 'task-good-control-bg',
       checkbox: 'task-good-control-checkbox',
-      inner: 'task-good-control-inner-daily-todo`',
+      inner: 'task-good-control-inner-daily-todo',
+      icon: 'task-good-control-icon',
     });
   });
 
@@ -131,11 +132,23 @@ describe('getTaskClasses getter', () => {
       up: {
         bg: 'task-good-control-bg',
         inner: 'task-good-control-inner-habit',
+        icon: 'task-good-control-icon',
       },
       down: {
         bg: 'task-disabled-habit-control-bg',
         inner: 'task-disabled-habit-control-inner',
+        icon: 'task-good-control-icon',
       },
+    });
+  });
+
+  it('returns noninteractive classes and padlock icons for group board tasks', () => {
+    const task = {type: 'todo', value: 2, group: {id: 'group-id'}};
+    expect(getTaskClasses(task, 'control')).to.deep.equal({
+      bg: 'task-good-control-bg-noninteractive',
+      checkbox: 'task-good-control-checkbox',
+      inner: 'task-good-control-inner-daily-todo',
+      icon: 'task-good-control-icon',
     });
   });
 });

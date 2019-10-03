@@ -244,7 +244,7 @@ api.createChallengeTasks = {
 
     // If the challenge does not exist, or if it exists but user is not the leader -> throw error
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-    if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
+    if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
 
     let tasks = await createTasks(req, res, {user, challenge});
 
@@ -285,7 +285,8 @@ api.getUserTasks = {
   method: 'GET',
   url: '/tasks/user',
   middlewares: [authWithHeaders({
-    userFieldsToInclude: ['_id', 'tasksOrder', 'preferences'],
+    // Some fields (including _id, preferences) are always loaded (see middlewares/auth)
+    userFieldsToInclude: ['tasksOrder'],
   })],
   async handler (req, res) {
     let types = Tasks.tasksTypes.map(type => `${type}s`);
@@ -453,7 +454,7 @@ api.updateTask = {
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-      if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
+      if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
     } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
       throw new NotFound(res.t('taskNotFound'));
     }
@@ -566,41 +567,48 @@ api.scoreTask = {
     }
 
     if (task.group.approval.required && !task.group.approval.approved) {
-      if (task.group.approval.requested) {
-        throw new NotAuthorized(res.t('taskRequiresApproval'));
-      }
-
-      task.group.approval.requested = true;
-      task.group.approval.requestedDate = new Date();
-
       let fields = requiredGroupFields.concat(' managers');
       let group = await Group.getGroup({user, groupId: task.group.id, fields});
 
-      // @TODO: we can use the User.pushNotification function because we need to ensure notifications are translated
       let managerIds = Object.keys(group.managers);
       managerIds.push(group.leader);
-      let managers = await User.find({_id: managerIds}, 'notifications preferences').exec(); // Use this method so we can get access to notifications
 
-      let managerPromises = [];
-      managers.forEach((manager) => {
-        manager.addNotification('GROUP_TASK_APPROVAL', {
-          message: res.t('userHasRequestedTaskApproval', {
-            user: user.profile.name,
-            taskName: task.text,
-          }, manager.preferences.language),
-          groupId: group._id,
-          taskId: task._id, // user task id, used to match the notification when the task is approved
-          userId: user._id,
-          groupTaskId: task.group.taskId, // the original task id
-          direction,
+      if (managerIds.indexOf(user._id) !== -1) {
+        task.group.approval.approved = true;
+        task.group.approval.requested = true;
+        task.group.approval.requestedDate = new Date();
+      } else {
+        if (task.group.approval.requested) {
+          throw new NotAuthorized(res.t('taskRequiresApproval'));
+        }
+
+        task.group.approval.requested = true;
+        task.group.approval.requestedDate = new Date();
+
+        let managers = await User.find({_id: managerIds}, 'notifications preferences').exec(); // Use this method so we can get access to notifications
+
+        // @TODO: we can use the User.pushNotification function because we need to ensure notifications are translated
+        let managerPromises = [];
+        managers.forEach((manager) => {
+          manager.addNotification('GROUP_TASK_APPROVAL', {
+            message: res.t('userHasRequestedTaskApproval', {
+              user: user.profile.name,
+              taskName: task.text,
+            }, manager.preferences.language),
+            groupId: group._id,
+            taskId: task._id, // user task id, used to match the notification when the task is approved
+            userId: user._id,
+            groupTaskId: task.group.taskId, // the original task id
+            direction,
+          });
+          managerPromises.push(manager.save());
         });
-        managerPromises.push(manager.save());
-      });
 
-      managerPromises.push(task.save());
-      await Promise.all(managerPromises);
+        managerPromises.push(task.save());
+        await Promise.all(managerPromises);
 
-      throw new NotAuthorized(res.t('taskApprovalHasBeenRequested'));
+        throw new NotAuthorized(res.t('taskApprovalHasBeenRequested'));
+      }
     }
 
     let wasCompleted = task.completed;
@@ -637,6 +645,18 @@ api.scoreTask = {
 
     if (task.group && task.group.taskId) {
       await handleSharedCompletion(task);
+      try {
+        const groupTask = await Tasks.Task.findOne({
+          _id: task.group.taskId,
+        }).exec();
+
+        if (groupTask) {
+          const groupDelta = groupTask.group.assignedUsers ? delta / groupTask.group.assignedUsers.length : delta;
+          await groupTask.scoreChallengeTask(groupDelta, direction);
+        }
+      } catch (e) {
+        logger.error(e);
+      }
     }
 
     // Save results and handle request
@@ -796,7 +816,7 @@ api.addChecklistItem = {
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-      if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
+      if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
     } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
       throw new NotFound(res.t('taskNotFound'));
     }
@@ -912,7 +932,7 @@ api.updateChecklistItem = {
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-      if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
+      if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
     } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
       throw new NotFound(res.t('taskNotFound'));
     }
@@ -977,7 +997,7 @@ api.removeChecklistItem = {
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-      if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
+      if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
     } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
       throw new NotFound(res.t('taskNotFound'));
     }
@@ -1297,7 +1317,7 @@ api.deleteTask = {
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
       challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-      if (challenge.leader !== user._id) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
+      if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
     } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
       throw new NotFound(res.t('taskNotFound'));
     } else if (task.userId && task.challenge.id && !task.challenge.broken) {

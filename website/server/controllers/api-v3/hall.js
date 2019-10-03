@@ -7,7 +7,10 @@ import {
 import _ from 'lodash';
 import apiError from '../../libs/apiError';
 import validator from 'validator';
-import { validateItemPath } from '../../libs/items/utils';
+import {
+  validateItemPath,
+  castItemVal,
+} from '../../libs/items/utils';
 
 
 let api = {};
@@ -142,7 +145,7 @@ api.getHeroes = {
 // Note, while the following routes are called getHero / updateHero
 // they can be used by admins to get/update any user
 
-const heroAdminFields = 'contributor balance profile.name purchased items auth flags.chatRevoked';
+const heroAdminFields = 'contributor balance profile.name purchased items auth flags.chatRevoked flags.chatShadowMuted';
 
 /**
  * @api {get} /api/v3/hall/heroes/:heroId Get any user ("hero") given the UUID or Username
@@ -210,7 +213,10 @@ const gemsPerTier = {1: 3, 2: 3, 3: 3, 4: 4, 5: 4, 6: 4, 7: 4, 8: 0, 9: 0};
  * {
  *    "balance": 1000,
  *    "auth": {"blocked": false},
- *    "flags": {"chatRevoked": true},
+ *    "flags": {
+ *      "chatRevoked": true,
+ *      "chatShadowMuted": true
+ *    },
  *    "purchased": {"ads": true},
  *    "contributor": {
  *      "admin": true,
@@ -271,7 +277,7 @@ api.updateHero = {
       hero.markModified('items.pets');
     }
     if (updateData.itemPath && updateData.itemVal && validateItemPath(updateData.itemPath)) {
-      _.set(hero, updateData.itemPath, updateData.itemVal); // Sanitization at 5c30944 (deemed unnecessary)
+      _.set(hero, updateData.itemPath, castItemVal(updateData.itemPath, updateData.itemVal)); // Sanitization at 5c30944 (deemed unnecessary)
     }
 
     if (updateData.auth && updateData.auth.blocked === true) {
@@ -283,6 +289,7 @@ api.updateHero = {
     }
 
     if (updateData.flags && _.isBoolean(updateData.flags.chatRevoked)) hero.flags.chatRevoked = updateData.flags.chatRevoked;
+    if (updateData.flags && _.isBoolean(updateData.flags.chatShadowMuted)) hero.flags.chatShadowMuted = updateData.flags.chatShadowMuted;
 
     let savedHero = await hero.save();
     let heroJSON = savedHero.toJSON();

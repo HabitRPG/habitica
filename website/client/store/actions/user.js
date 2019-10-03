@@ -51,10 +51,8 @@ export async function set (store, changes) {
     }
   }
 
-  axios.put('/api/v4/user', changes);
-  // TODO
-  // .then((res) => console.log('set', res))
-  // .catch((err) => console.error('set', err));
+  let response = await axios.put('/api/v4/user', changes);
+  return response.data.data;
 }
 
 export async function sleep (store) {

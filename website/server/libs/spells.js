@@ -197,9 +197,30 @@ async function castSpell (req, res, {isV3 = false}) {
     });
 
     if (party && !spell.silent) {
-      let message = `\`${user.profile.name} casts ${spell.text()}${targetType === 'user' ? ` on ${partyMembers.profile.name}` : ' for the party'}.\``;
-      const newChatMessage = party.sendChat(message);
-      await newChatMessage.save();
+      if (targetType === 'user') {
+        const newChatMessage = party.sendChat({
+          message: `\`${common.i18n.t('chatCastSpellUser', {username: user.profile.name, spell: spell.text(), target: partyMembers.profile.name}, 'en')}\``,
+          info: {
+            type: 'spell_cast_user',
+            user: user.profile.name,
+            class: klass,
+            spell: spellId,
+            target: partyMembers.profile.name,
+          },
+        });
+        await newChatMessage.save();
+      } else {
+        const newChatMessage = party.sendChat({
+          message: `\`${common.i18n.t('chatCastSpellParty', {username: user.profile.name, spell: spell.text()}, 'en')}\``,
+          info: {
+            type: 'spell_cast_party',
+            user: user.profile.name,
+            class: klass,
+            spell: spellId,
+          },
+        });
+        await newChatMessage.save();
+      }
     }
   }
 }

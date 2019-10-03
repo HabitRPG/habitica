@@ -9,22 +9,27 @@ import url from 'url';
 import gcpStackdriverTracer from '../libs/gcpTraceAgent';
 
 const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS_COMMUNITY_MANAGER_EMAIL');
+const USER_FIELDS_ALWAYS_LOADED = ['_id', 'notifications', 'preferences', 'auth', 'flags'];
 
 function getUserFields (options, req) {
   // A list of user fields that aren't needed for the route and are not loaded from the db.
   // Must be an array
   if (options.userFieldsToExclude) {
-    return options.userFieldsToExclude.map(field => {
-      return `-${field}`; // -${field} means exclude ${field} in mongodb
-    }).join(' ');
+    return options.userFieldsToExclude
+      .filter(field => {
+        return !USER_FIELDS_ALWAYS_LOADED.find(fieldToInclude => field.startsWith(fieldToInclude));
+      })
+      .map(field => {
+        return `-${field}`; // -${field} means exclude ${field} in mongodb
+      })
+      .join(' ');
   }
 
   if (options.userFieldsToInclude) {
-    return options.userFieldsToInclude.join(' ');
+    return options.userFieldsToInclude.concat(USER_FIELDS_ALWAYS_LOADED).join(' ');
   }
 
   // Allows GET requests to /user to specify a list of user fields to return instead of the entire doc
-  // Notifications are always included
   const urlPath = url.parse(req.url).pathname;
   const userFields = req.query.userFields;
   if (!userFields || urlPath !== '/user') return '';
@@ -32,7 +37,7 @@ function getUserFields (options, req) {
   const userFieldOptions = userFields.split(',');
   if (userFieldOptions.length === 0) return '';
 
-  return `notifications ${userFieldOptions.join(' ')}`;
+  return userFieldOptions.concat(USER_FIELDS_ALWAYS_LOADED).join(' ');
 }
 
 // Make sure stackdriver traces are storing the user id
@@ -74,7 +79,7 @@ export function authWithHeaders (options = {}) {
         res.locals.user = user;
         req.session.userId = user._id;
         stackdriverTraceUserId(user._id);
-
+        user.auth.timestamps.updated = new Date();
         return next();
       })
       .catch(next);
@@ -103,6 +108,7 @@ export function authWithSession (req, res, next) {
 
       res.locals.user = user;
       stackdriverTraceUserId(user._id);
+      user.auth.timestamps.updated = new Date();
       return next();
     })
     .catch(next);

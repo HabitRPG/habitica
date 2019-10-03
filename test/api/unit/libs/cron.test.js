@@ -1232,7 +1232,7 @@ describe('cron', () => {
       cron({user, tasksByType, daysMissed, analytics});
 
       expect(user.history.exp).to.have.lengthOf(1);
-      expect(user.history.exp[0].value).to.equal(150);
+      expect(user.history.exp[0].value).to.equal(25);
     });
 
     it('increments perfect day achievement if all (at least 1) due dailies were completed', () => {

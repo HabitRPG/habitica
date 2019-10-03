@@ -476,7 +476,7 @@
     "whatIsGroupManager": "What is a Group Manager?",
     "whatIsGroupManagerDesc": "A Group Manager is a user role that do not have access to the group's billing details, but can create, assign, and approve shared Tasks for the Group's members. Promote Group Managers from the Group’s member list.",
     "goToTaskBoard": "Go to Task Board",
-    "sharedCompletion": "Shared Completion",
+    "sharedCompletion": "Completion Condition",
     "recurringCompletion": "None - Group task does not complete",
     "singleCompletion": "Single - Completes when any assigned user finishes",
     "allAssignedCompletion": "All - Completes when all assigned users finish",

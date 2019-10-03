@@ -62,7 +62,7 @@ schema.pre('init', function ensureSummaryIsFetched (chal) {
 });
 
 // A list of additional fields that cannot be updated (but can be set on creation)
-let noUpdate = ['group', 'official', 'shortName', 'prize'];
+let noUpdate = ['group', 'leader', 'official', 'shortName', 'prize'];
 schema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
   return this.sanitize(updateObj, noUpdate);
 };
@@ -346,7 +346,7 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
       sendPushNotification(savedWinner,
         {
           title: challenge.name,
-          message: shared.i18n.t('wonChallenge'),
+          message: shared.i18n.t('wonChallenge', savedWinner.preferences.language),
           identifier: 'wonChallenge',
         });
     }

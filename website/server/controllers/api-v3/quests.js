@@ -79,7 +79,7 @@ api.inviteToQuest = {
       'party._id': group._id,
       _id: {$ne: user._id},
     })
-      .select('auth.facebook auth.google auth.local preferences.emailNotifications profile.name pushDevices')
+      .select('auth.facebook auth.google auth.local preferences.emailNotifications preferences.pushNotifications preferences.language profile.name pushDevices')
       .exec();
 
     group.markModified('quest');
@@ -124,12 +124,11 @@ api.inviteToQuest = {
         sendPushNotification(
           member,
           {
-            title: res.t('questInvitationTitle'),
-            message: res.t('questInvitationInfo', {quest: quest.text(req.language)}),
+            title: quest.text(member.preferences.language),
+            message: res.t('questInvitationNotificationInfo', member.preferences.language),
             identifier: 'questInvitation',
             category: 'questInvitation',
           }
-
         );
       }
 
@@ -371,7 +370,14 @@ api.cancelQuest = {
     if (group.quest.active) throw new NotAuthorized(res.t('cantCancelActiveQuest'));
 
     let questName = questScrolls[group.quest.key].text('en');
-    const newChatMessage = group.sendChat(`\`${user.profile.name} cancelled the party quest ${questName}.\``);
+    const newChatMessage = group.sendChat({
+      message: `\`${user.profile.name} cancelled the party quest ${questName}.\``,
+      info: {
+        type: 'quest_cancel',
+        user: user.profile.name,
+        quest: group.quest.key,
+      },
+    });
 
     group.quest = Group.cleanGroupQuest();
     group.markModified('quest');
@@ -427,7 +433,14 @@ api.abortQuest = {
     if (user._id !== group.leader && user._id !== group.quest.leader) throw new NotAuthorized(res.t('onlyLeaderAbortQuest'));
 
     let questName = questScrolls[group.quest.key].text('en');
-    const newChatMessage = group.sendChat(`\`${user.profile.name} aborted the party quest ${questName}.\``);
+    const newChatMessage = group.sendChat({
+      message: `\`${common.i18n.t('chatQuestAborted', {username: user.profile.name, questName}, 'en')}\``,
+      info: {
+        type: 'quest_abort',
+        user: user.profile.name,
+        quest: group.quest.key,
+      },
+    });
     await newChatMessage.save();
 
     let memberUpdates = User.update({

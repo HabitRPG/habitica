@@ -289,6 +289,7 @@ export function cron (options = {}) {
   let todoTally = 0;
 
   tasksByType.todos.forEach(task => { // make uncompleted To-Dos redder (further incentive to complete them)
+    if (task.group.assignedDate && moment(task.group.assignedDate).isAfter(user.auth.timestamps.updated)) return;
     scoreTask({
       task,
       user,
@@ -308,6 +309,7 @@ export function cron (options = {}) {
   if (!user.party.quest.progress.down) user.party.quest.progress.down = 0;
 
   tasksByType.dailys.forEach((task) => {
+    if (task.group.assignedDate && moment(task.group.assignedDate).isAfter(user.auth.timestamps.updated)) return;
     let completed = task.completed;
     // Deduct points for missed Daily tasks
     let EvadeTask = 0;
@@ -389,6 +391,13 @@ export function cron (options = {}) {
         task.checklist.forEach(i => i.completed = false);
       }
     }
+
+    if (task.group && task.group.approval && task.group.approval.approved) {
+      task.group.approval.approved = false;
+      task.group.approval.dateApproved = null;
+      task.group.approval.requested = false;
+      task.group.approval.requestedDate = null;
+    }
   });
 
   resetHabitCounters(user, tasksByType, now, daysMissed);
@@ -398,6 +407,12 @@ export function cron (options = {}) {
     // move singleton Habits towards yellow.
     if (task.up === false || task.down === false) {
       task.value = Math.abs(task.value) < 0.1 ? 0 : task.value = task.value / 2;
+    }
+    if (task.group && task.group.approval && task.group.approval.approved) {
+      task.group.approval.approved = false;
+      task.group.approval.dateApproved = null;
+      task.group.approval.requested = false;
+      task.group.approval.requestedDate = null;
     }
   });
 

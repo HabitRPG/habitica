@@ -12,6 +12,8 @@ div
     banned-account-modal
     amazon-payments-modal(v-if='!isStaticPage')
     payments-success-modal
+    sub-cancel-modal-confirm(v-if='isUserLoaded')
+    sub-canceled-modal(v-if='isUserLoaded')
     snackbars
     router-view(v-if="!isUserLoggedIn || isStaticPage")
     template(v-else)
@@ -55,6 +57,7 @@ div
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    overflow-x: hidden;
   }
 
   #loading-screen-inapp {
@@ -87,7 +90,6 @@ div
   }
 
   .container-fluid {
-    overflow-x: hidden;
     flex: 1 0 auto;
   }
 
@@ -187,6 +189,8 @@ import notifications from 'client/mixins/notifications';
 import { setup as setupPayments } from 'client/libs/payments';
 import amazonPaymentsModal from 'client/components/payments/amazonModal';
 import paymentsSuccessModal from 'client/components/payments/successModal';
+import subCancelModalConfirm from 'client/components/payments/cancelModalConfirm';
+import subCanceledModal from 'client/components/payments/canceledModal';
 
 import spellsMixin from 'client/mixins/spells';
 import { CONSTANTS, getLocalSetting, removeLocalSetting } from 'client/libs/userlocalManager';
@@ -210,6 +214,8 @@ export default {
     amazonPaymentsModal,
     bannedAccountModal,
     paymentsSuccessModal,
+    subCancelModalConfirm,
+    subCanceledModal,
   },
   data () {
     return {
@@ -650,5 +656,7 @@ export default {
 <style src="assets/css/sprites/spritesmith-main-22.css"></style>
 <style src="assets/css/sprites/spritesmith-main-23.css"></style>
 <style src="assets/css/sprites/spritesmith-main-24.css"></style>
+<style src="assets/css/sprites/spritesmith-main-25.css"></style>
+<style src="assets/css/sprites/spritesmith-main-26.css"></style>
 <style src="assets/css/sprites.css"></style>
 <style src="smartbanner.js/dist/smartbanner.min.css"></style>

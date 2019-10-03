@@ -68,6 +68,7 @@ let schema = new Schema({
     timestamps: {
       created: {$type: Date, default: Date.now},
       loggedin: {$type: Date, default: Date.now},
+      updated: {$type: Date, default: Date.now},
     },
   },
   // We want to know *every* time an object updates. Mongoose uses __v to designate when an object contains arrays which
@@ -94,7 +95,7 @@ let schema = new Schema({
     spookySparkles: Number,
     shinySeed: Number,
     seafoam: Number,
-    streak: Number,
+    streak: {$type: Number, default: 0},
     challenges: Array,
     quests: {$type: Schema.Types.Mixed, default: () => {
       return {};
@@ -120,6 +121,13 @@ let schema = new Schema({
     joinedChallenge: Boolean,
     invitedFriend: Boolean,
     lostMasterclasser: Boolean,
+    mindOverMatter: Boolean,
+    justAddWater: Boolean,
+    backToBasics: Boolean,
+    allYourBase: Boolean,
+    dustDevil: Boolean,
+    aridAuthority: Boolean,
+    kickstarter2019: Boolean,
   },
 
   backer: {
@@ -221,10 +229,12 @@ let schema = new Schema({
     classSelected: {$type: Boolean, default: false},
     mathUpdates: Boolean,
     rebirthEnabled: {$type: Boolean, default: false},
+    lastFreeRebirth: Date,
     levelDrops: {$type: Schema.Types.Mixed, default: () => {
       return {};
     }},
     chatRevoked: Boolean,
+    chatShadowMuted: Boolean,
     // Used to track the status of recapture emails sent to each user,
     // can be 0 - no email sent - 1, 2, 3 or 4 - 4 means no more email will be sent to the user
     recaptureEmailsPhase: {$type: Number, default: 0},
@@ -481,6 +491,7 @@ let schema = new Schema({
       weeklyRecaps: {$type: Boolean, default: true},
       onboarding: {$type: Boolean, default: true},
       majorUpdates: {$type: Boolean, default: true},
+      subscriptionReminders: {$type: Boolean, default: true},
     },
     pushNotifications: {
       unsubscribeFromAll: {$type: Boolean, default: false},
@@ -493,6 +504,7 @@ let schema = new Schema({
       questStarted: {$type: Boolean, default: true},
       invitedQuest: {$type: Boolean, default: true},
       majorUpdates: {$type: Boolean, default: true},
+      partyActivity: {$type: Boolean, default: true},
     },
     suppressModals: {
       levelUp: {$type: Boolean, default: false},

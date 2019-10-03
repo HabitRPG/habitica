@@ -148,11 +148,11 @@
     "mysterySet201806": "Alluring Anglerfish Set",
     "mysterySet201807": "Sea Serpent Set",
     "mysterySet201808": "Lava Dragon Set",
-    "mysterySet201809": "Autumnal Armor Set",
+    "mysterySet201809": "סט עונת הסתיו",
     "mysterySet201810": "Dark Forest Set",
     "mysterySet201811": "Splendid Sorcerer Set",
     "mysterySet201812": "Arctic Fox Set",
-    "mysterySet201901": "Polaris Set",
+    "mysterySet201901": "סט כוכב צפוני",
     "mysterySet301404": "סט סטימפאנק רגיל",
     "mysterySet301405": "סט סטימפאנק אקססוריז",
     "mysterySet301703": "Peacock Steampunk Set",
@@ -214,5 +214,7 @@
     "purchaseAll": "Purchase Set",
     "gemsPurchaseNote": "Subscribers can buy gems for gold in the Market! For easy access, you can also pin the gem to your Rewards column.",
     "gemsRemaining": "gems remaining",
-    "notEnoughGemsToBuy": "You are unable to buy that amount of gems"
+    "notEnoughGemsToBuy": "You are unable to buy that amount of gems",
+    "mysterySet201902": "סט קריפטיק קראש",
+    "mysterySet201903": "סט ביצה טעימה"
 }

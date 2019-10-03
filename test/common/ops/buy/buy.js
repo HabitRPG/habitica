@@ -80,6 +80,13 @@ describe('shared.ops.buy', () => {
       headAccessory_special_redHeadband: true,
       headAccessory_special_whiteHeadband: true,
       headAccessory_special_yellowHeadband: true,
+      eyewear_special_blackHalfMoon: true,
+      eyewear_special_blueHalfMoon: true,
+      eyewear_special_greenHalfMoon: true,
+      eyewear_special_pinkHalfMoon: true,
+      eyewear_special_redHalfMoon: true,
+      eyewear_special_whiteHalfMoon: true,
+      eyewear_special_yellowHalfMoon: true,
     });
   });
 
@@ -141,5 +148,53 @@ describe('shared.ops.buy', () => {
     user.stats.hp = 30;
     buy(user, {params: {key: 'potion'}, quantity: 2});
     expect(user.stats.hp).to.eql(50);
+  });
+
+  it('errors if user supplies a non-numeric quantity', (done) => {
+    try {
+      buy(user, {
+        params: {
+          key: 'dilatoryDistress1',
+        },
+        type: 'quest',
+        quantity: 'bogle',
+      });
+    } catch (err) {
+      expect(err).to.be.an.instanceof(BadRequest);
+      expect(err.message).to.equal(errorMessage('invalidQuantity'));
+      done();
+    }
+  });
+
+  it('errors if user supplies a negative quantity', (done) => {
+    try {
+      buy(user, {
+        params: {
+          key: 'dilatoryDistress1',
+        },
+        type: 'quest',
+        quantity: -3,
+      });
+    } catch (err) {
+      expect(err).to.be.an.instanceof(BadRequest);
+      expect(err.message).to.equal(errorMessage('invalidQuantity'));
+      done();
+    }
+  });
+
+  it('errors if user supplies a decimal quantity', (done) => {
+    try {
+      buy(user, {
+        params: {
+          key: 'dilatoryDistress1',
+        },
+        type: 'quest',
+        quantity: 1.83,
+      });
+    } catch (err) {
+      expect(err).to.be.an.instanceof(BadRequest);
+      expect(err.message).to.equal(errorMessage('invalidQuantity'));
+      done();
+    }
   });
 });

@@ -93,13 +93,23 @@ describe('POST /tasks/:taskId/assign/:memberId', () => {
     expect(syncedTask).to.exist;
   });
 
-  it('sends a message to the group when a user claims a task', async () => {
+  it('sends notifications to group leader and managers when a task is claimed', async () => {
+    await user.post(`/groups/${guild._id}/add-manager`, {
+      managerId: member2._id,
+    });
     await member.post(`/tasks/${task._id}/assign/${member._id}`);
+    await user.sync();
+    await member2.sync();
+    let groupTask = await user.get(`/tasks/group/${guild._id}`);
 
-    let updateGroup = await user.get(`/groups/${guild._id}`);
-
-    expect(updateGroup.chat[0].text).to.equal(t('userIsClamingTask', {username: member.profile.name, task: task.text}));
-    expect(updateGroup.chat[0].uuid).to.equal('system');
+    expect(user.notifications.length).to.equal(2); // includes Guild Joined achievement
+    expect(user.notifications[1].type).to.equal('GROUP_TASK_CLAIMED');
+    expect(user.notifications[1].data.taskId).to.equal(groupTask[0]._id);
+    expect(user.notifications[1].data.groupId).to.equal(guild._id);
+    expect(member2.notifications.length).to.equal(1);
+    expect(member2.notifications[0].type).to.equal('GROUP_TASK_CLAIMED');
+    expect(member2.notifications[0].data.taskId).to.equal(groupTask[0]._id);
+    expect(member2.notifications[0].data.groupId).to.equal(guild._id);
   });
 
   it('assigns a task to a user', async () => {
@@ -111,6 +121,17 @@ describe('POST /tasks/:taskId/assign/:memberId', () => {
 
     expect(groupTask[0].group.assignedUsers).to.contain(member._id);
     expect(syncedTask).to.exist;
+  });
+
+  it('sends a notification to assigned user', async () => {
+    await user.post(`/tasks/${task._id}/assign/${member._id}`);
+    await member.sync();
+
+    let groupTask = await user.get(`/tasks/group/${guild._id}`);
+
+    expect(member.notifications.length).to.equal(1);
+    expect(member.notifications[0].type).to.equal('GROUP_TASK_ASSIGNED');
+    expect(member.notifications[0].taskId).to.equal(groupTask._id);
   });
 
   it('assigns a task to multiple users', async () => {

@@ -200,12 +200,27 @@ api.assignTask = {
     if (canNotEditTasks(group, user, assignedUserId)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
     let promises = [];
+    const taskText = task.text;
+    const userName = user.profile.name;
 
-    // User is claiming the task
     if (user._id === assignedUserId) {
-      let message = res.t('userIsClamingTask', {username: user.profile.name, task: task.text});
-      const newMessage = group.sendChat(message);
-      promises.push(newMessage.save());
+      const managerIds = Object.keys(group.managers);
+      managerIds.push(group.leader);
+      const managers = await User.find({_id: managerIds}, 'notifications preferences').exec();
+      managers.forEach((manager) => {
+        if (manager._id === user._id) return;
+        manager.addNotification('GROUP_TASK_CLAIMED', {
+          message: res.t('taskClaimed', {userName, taskText}, manager.preferences.language),
+          groupId: group._id,
+          taskId: task._id,
+        });
+        promises.push(manager.save());
+      });
+    } else {
+      assignedUser.addNotification('GROUP_TASK_ASSIGNED', {
+        message: res.t('youHaveBeenAssignedTask', {managerName: userName, taskText}),
+        taskId: task._id,
+      });
     }
 
     promises.push(group.syncTask(task, assignedUser));
@@ -261,6 +276,15 @@ api.unassignTask = {
 
     await group.unlinkTask(task, assignedUser);
 
+    let notificationIndex = assignedUser.notifications.findIndex(function findNotification (notification) {
+      return notification && notification.data && notification.type === 'GROUP_TASK_ASSIGNED' && notification.data.taskId === task._id;
+    });
+
+    if (notificationIndex !== -1) {
+      assignedUser.notifications.splice(notificationIndex, 1);
+      await assignedUser.save();
+    }
+
     res.respond(200, task);
   },
 };
@@ -308,6 +332,9 @@ api.approveTask = {
 
     if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
     if (task.group.approval.approved === true) throw new NotAuthorized(res.t('canOnlyApproveTaskOnce'));
+    if (!task.group.approval.requested) {
+      throw new NotAuthorized(res.t('taskApprovalWasNotRequested'));
+    }
 
     task.group.approval.dateApproved = new Date();
     task.group.approval.approvingUser = user._id;
@@ -489,15 +516,26 @@ api.getGroupApprovals = {
     let group = await Group.getGroup({user, groupId, fields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
-
-    let approvals = await Tasks.Task.find({
-      'group.id': groupId,
-      'group.approval.approved': false,
-      'group.approval.requested': true,
-    }, 'userId group text')
-      .populate('userId', 'profile')
-      .exec();
+    let approvals;
+    if (canNotEditTasks(group, user)) {
+      approvals = await Tasks.Task.find({
+        'group.id': groupId,
+        'group.approval.approved': false,
+        'group.approval.requested': true,
+        'group.assignedUsers': user._id,
+        userId: user._id,
+      }, 'userId group text')
+        .populate('userId', 'profile')
+        .exec();
+    } else {
+      approvals = await Tasks.Task.find({
+        'group.id': groupId,
+        'group.approval.approved': false,
+        'group.approval.requested': true,
+      }, 'userId group text')
+        .populate('userId', 'profile')
+        .exec();
+    }
 
     res.respond(200, approvals);
   },

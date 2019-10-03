@@ -3,7 +3,14 @@ import defaults from 'lodash/defaults';
 import each from 'lodash/each';
 import t from './translation';
 
-const CURRENT_SEASON = 'March';
+const CURRENT_SEASON = 'October';
+
+function hasQuestAchievementFunction (key) {
+  return (user) => {
+    return user.achievements.quests &&
+      user.achievements.quests[key] > 0;
+  };
+}
 
 let drops = {
   Base: {
@@ -100,7 +107,11 @@ let premium = {
     value: 2,
     text: t('hatchingPotionSpooky'),
     limited: true,
-    _season: '_PENDING_',
+    _season: 'October',
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndOctober'),
+      previousDate: t('september2017'),
+    }),
   },
   Ghost: {
     value: 2,
@@ -130,19 +141,27 @@ let premium = {
     value: 2,
     text: t('hatchingPotionRainbow'),
     limited: true,
-    _season: 'March',
+    _season: '_PENDING_',
   },
   Glass: {
     value: 2,
     text: t('hatchingPotionGlass'),
     limited: true,
     _season: '_PENDING_',
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndJuly'),
+      previousDate: t('june2018'),
+    }),
   },
   Glow: {
     value: 2,
     text: t('hatchingPotionGlow'),
     limited: true,
-    _season: '_PENDING_',
+    _season: 'October',
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndOctober'),
+      previousDate: t('september2018'),
+    }),
   },
   Frost: {
     value: 2,
@@ -166,7 +185,37 @@ let premium = {
     value: 2,
     text: t('hatchingPotionCelestial'),
     limited: true,
-    _season: 'March',
+    _season: '_PENDING_',
+  },
+  Sunshine: {
+    value: 2,
+    text: t('hatchingPotionSunshine'),
+    limited: true,
+    _season: '_PENDING_',
+  },
+  Bronze: {
+    value: 2,
+    text: t('hatchingPotionBronze'),
+    limited: true,
+    canBuy: hasQuestAchievementFunction('bronze'),
+  },
+  Watery: {
+    value: 2,
+    text: t('hatchingPotionWatery'),
+    limited: true,
+    _season: '_PENDING_',
+  },
+  Silver: {
+    value: 2,
+    text: t('hatchingPotionSilver'),
+    limited: true,
+    canBuy: hasQuestAchievementFunction('silver'),
+  },
+  Shadow: {
+    value: 2,
+    text: t('hatchingPotionShadow'),
+    limited: true,
+    _season: 'October',
   },
 };
 
@@ -174,7 +223,7 @@ const wacky = {
   Veggie: {
     text: t('hatchingPotionVeggie'),
     limited: true,
-    _season: 'March',
+    _season: '_PENDING_',
   },
 };
 
@@ -200,7 +249,7 @@ each(premium, (pot, key) => {
     notes: t('hatchingPotionNotes', {
       potText: pot.text,
     }),
-    _addlNotes: t('eventAvailability', {
+    _addlNotes: t('premiumPotionAddlNotes', {
       date: t(`dateEnd${pot._season}`),
     }),
     premium: true,

@@ -1,29 +1,29 @@
 <template lang="pug">
-  form(v-if="task", @submit.stop.prevent="submit()", @click="handleClick($event)")
-    b-modal#task-modal(v-bind:no-close-on-esc="showTagsSelect", v-bind:no-close-on-backdrop="showTagsSelect", size="sm", @hidden="onClose()", @show="handleOpen()", @shown="focusInput()")
-      .task-modal-header(slot="modal-header", :class="cssClass('bg')", @click="handleClick($event)")
-        .clearfix
-          h1.float-left {{ title }}
-          .float-right.d-flex.align-items-center
-            span.cancel-task-btn.mr-2(v-once, @click="cancel()") {{ $t('cancel') }}
-            button.btn.btn-secondary(type="submit", v-once) {{ $t('save') }}
-        .form-group
-          label(v-once) {{ `${$t('text')}*` }}
-          input.form-control.title-input(
-            type="text",
-            required, v-model="task.text",
-            ref="inputToFocus",
-            spellcheck="true",
-            :disabled="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
-          )
-        .form-group
-          label.d-flex.align-items-center.justify-content-between(v-once)
-            span {{ $t('notes') }}
-            small(v-once)
-              a(target="_blank", href="http://habitica.fandom.com/wiki/Markdown_Cheat_Sheet") {{ $t('markdownHelpLink') }}
+  b-modal#task-modal(v-bind:no-close-on-esc="showTagsSelect", v-bind:no-close-on-backdrop="showTagsSelect", size="sm", @hidden="onClose()", @show="handleOpen()", @shown="focusInput()")
+    .task-modal-header(slot="modal-header", :class="cssClass('bg')", @click="handleClick($event)", v-if="task")
+      .clearfix
+        h1.float-left {{ title }}
+        .float-right.d-flex.align-items-center
+          span.cancel-task-btn.mr-2(v-once, @click="cancel()") {{ $t('cancel') }}
+          button.btn.btn-secondary(@click="submit()", v-once) {{ $t('save') }}
+      .form-group
+        label(v-once) {{ `${$t('text')}*` }}
+        input.form-control.title-input(
+          type="text",
+          required, v-model="task.text",
+          ref="inputToFocus",
+          spellcheck="true",
+          :disabled="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
+        )
+      .form-group
+        label.d-flex.align-items-center.justify-content-between(v-once)
+          span {{ $t('notes') }}
+          small(v-once)
+            a(target="_blank", href="http://habitica.fandom.com/wiki/Markdown_Cheat_Sheet") {{ $t('markdownHelpLink') }}
 
-          textarea.form-control(v-model="task.notes", rows="3")
-      .task-modal-content(@click="handleClick($event)")
+        textarea.form-control(v-model="task.notes", rows="3")
+    .task-modal-content(@click="handleClick($event)")
+      form(v-if="task", @submit.stop.prevent="submit()", @click="handleClick($event)")
         .option.mt-0(v-if="task.type === 'reward'")
           .form-group
             label(v-once) {{ $t('cost') }}
@@ -159,6 +159,15 @@
                 | {{ $t(frequency) }}
 
         .option.group-options(v-if='groupId')
+          .form-group(v-if="task.type === 'todo'")
+            label(v-once) {{ $t('sharedCompletion') }}
+            b-dropdown.inline-dropdown(:text="$t(sharedCompletion)")
+              b-dropdown-item(
+                v-for="completionOption in ['recurringCompletion', 'singleCompletion', 'allAssignedCompletion']",
+                :key="completionOption",
+                @click="sharedCompletion = completionOption",
+                :class="{active: sharedCompletion === completionOption}"
+              ) {{ $t(completionOption) }}
           .form-group.row
             label.col-12(v-once) {{ $t('assignedTo') }}
             .col-12.mt-2
@@ -179,23 +188,12 @@
 
                   .row
                     button.btn.btn-primary(@click.stop.prevent="showAssignedSelect = !showAssignedSelect") {{$t('close')}}
-
-        .option.group-options(v-if='groupId')
           .form-group
             label(v-once) {{ $t('approvalRequired') }}
             toggle-switch.d-inline-block(
               :checked="requiresApproval",
               @change="updateRequiresApproval"
             )
-          .form-group(v-if="task.type === 'todo'")
-            label(v-once) {{ $t('sharedCompletion') }}
-            b-dropdown.inline-dropdown(:text="$t(sharedCompletion)")
-              b-dropdown-item(
-                v-for="completionOption in ['recurringCompletion', 'singleCompletion', 'allAssignedCompletion']",
-                :key="completionOption",
-                @click="sharedCompletion = completionOption",
-                :class="{active: sharedCompletion === completionOption}"
-              ) {{ $t(completionOption) }}
 
         .advanced-settings(v-if="task.type !== 'reward'")
           .advanced-settings-toggle.d-flex.justify-content-between.align-items-center(@click = "showAdvancedOptions = !showAdvancedOptions")
@@ -244,9 +242,9 @@
           .svg-icon.d-inline-b(v-html="icons.destroy")
           span {{ $t('deleteTask') }}
 
-      .task-modal-footer.d-flex.justify-content-center.align-items-center(slot="modal-footer", @click="handleClick($event)")
-        .cancel-task-btn(v-once, @click="cancel()") {{ $t('cancel') }}
-        button.btn.btn-primary(type="submit", v-once) {{ $t('save') }}
+    .task-modal-footer.d-flex.justify-content-center.align-items-center(slot="modal-footer", @click="handleClick($event)")
+      .cancel-task-btn(v-once, @click="cancel()") {{ $t('cancel') }}
+      button.btn.btn-primary(@click="submit()", v-once) {{ $t('save') }}
 </template>
 
 <style lang="scss">
@@ -360,8 +358,8 @@
       margin-top: 12px;
       position: relative;
 
-      label {
-        max-height: 30px;
+      .custom-control-label p {
+        word-break: break-word;
       }
     }
 
@@ -711,7 +709,7 @@ export default {
         calendar: calendarIcon,
       }),
       requiresApproval: false, // We can't set task.group fields so we use this field to toggle
-      sharedCompletion: 'recurringCompletion',
+      sharedCompletion: 'singleCompletion',
       members: [],
       memberNamesById: {},
       assignedMembers: [],
@@ -842,7 +840,7 @@ export default {
         });
         this.assignedMembers = [];
         if (this.task.group && this.task.group.assignedUsers) this.assignedMembers = this.task.group.assignedUsers;
-        if (this.task.group) this.sharedCompletion = this.task.group.sharedCompletion || 'recurringCompletion';
+        if (this.task.group) this.sharedCompletion = this.task.group.sharedCompletion || 'singleCompletion';
       }
 
       // @TODO: This whole component is mutating a prop and that causes issues. We need to not copy the prop similar to group modals
@@ -926,7 +924,6 @@ export default {
 
       // TODO Fix up permissions on task.group so we don't have to keep doing these hacks
       if (this.groupId) {
-        this.task.group.assignedUsers = this.assignedMembers;
         this.task.requiresApproval = this.requiresApproval;
         this.task.group.approval.required = this.requiresApproval;
         this.task.sharedCompletion = this.sharedCompletion;
@@ -954,6 +951,7 @@ export default {
             });
           });
           Promise.all(promises);
+          this.task.group.assignedUsers = this.assignedMembers;
           this.$emit('taskCreated', this.task);
         } else {
           this.createTask(this.task);

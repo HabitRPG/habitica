@@ -5,7 +5,7 @@ div
       slot(name="itemBadge", :item="item", :emptyItem="emptyItem")
 
       span.badge.badge-pill.badge-item.badge-clock(
-        v-if="item.event && showEventBadge",
+        v-if="item.event && item.owned == null && showEventBadge",
       )
         span.svg-icon.inline.clock(v-html="icons.clock")
 

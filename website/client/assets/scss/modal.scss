@@ -123,3 +123,87 @@
     }
   }
 }
+
+#subscription-cancel-modal, #subscription-canceled-modal {
+  .modal-content {
+    background: transparent;
+  }
+
+  &.modal-hidden-footer .modal-body {
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+  }
+
+  .modal-header {
+    justify-content: center;
+    padding-top: 24px;
+    padding-bottom: 0px;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    border-bottom: none;
+    background: $white;
+  }
+
+  .icon-container {
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+    margin: 0 auto;
+    margin-bottom: 8px;
+  }
+
+  .modal-footer {
+    background: $gray-700;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    justify-content: center;
+    border-top: none;
+
+    .small-text {
+      font-style: normal;
+    }
+  }
+
+  .modal-body {
+    padding-top: 16px;
+    padding-bottom: 24px;
+    background: white;
+
+    .modal-body-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+
+      .btn.btn-primary {
+        margin-top: 24px;
+      }
+    }
+
+    h2 {
+      margin-bottom: 8px;
+    }
+
+    .cancel-text {
+      color: $gray-50;
+      line-height: 1.71;
+    }
+
+    .details-block {
+      background: $gray-700;
+      border-radius: 4px;
+      padding: 8px 24px;
+      margin-top: 16px;
+      display: flex;
+      flex-direction: row;
+      text-align: center;
+    }
+
+    .auto-renew {
+      margin-top: 16px;
+      color: $orange-10;
+      font-style: normal;
+    }
+  }
+
+}

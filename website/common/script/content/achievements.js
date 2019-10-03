@@ -127,6 +127,36 @@ let basicAchievs = {
     titleKey: 'achievementLostMasterclasser',
     textKey: 'achievementLostMasterclasserText',
   },
+  mindOverMatter: {
+    icon: 'achievement-mindOverMatter',
+    titleKey: 'achievementMindOverMatter',
+    textKey: 'achievementMindOverMatterText',
+  },
+  justAddWater: {
+    icon: 'achievement-justAddWater',
+    titleKey: 'achievementJustAddWater',
+    textKey: 'achievementJustAddWaterText',
+  },
+  backToBasics: {
+    icon: 'achievement-backToBasics',
+    titleKey: 'achievementBackToBasics',
+    textKey: 'achievementBackToBasicsText',
+  },
+  allYourBase: {
+    icon: 'achievement-allYourBase',
+    titleKey: 'achievementAllYourBase',
+    textKey: 'achievementAllYourBaseText',
+  },
+  dustDevil: {
+    icon: 'achievement-dustDevil',
+    titleKey: 'achievementDustDevil',
+    textKey: 'achievementDustDevilText',
+  },
+  aridAuthority: {
+    icon: 'achievement-aridAuthority',
+    titleKey: 'achievementAridAuthority',
+    textKey: 'achievementAridAuthorityText',
+  },
 };
 Object.assign(achievementsData, basicAchievs);
 
@@ -162,6 +192,11 @@ let specialAchievs = {
     singularTextKey: 'surveysSingle',
     pluralTitleKey: 'helped',
     pluralTextKey: 'surveysMultiple',
+  },
+  kickstarter2019: {
+    icon: 'achievement-kickstarter2019',
+    titleKey: 'achievementKickstarter2019',
+    textKey: 'achievementKickstarter2019Text',
   },
 };
 Object.assign(achievementsData, specialAchievs);

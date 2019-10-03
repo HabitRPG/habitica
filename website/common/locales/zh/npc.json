@@ -91,7 +91,7 @@
     "unlocked": "物品已经解锁",
     "alreadyUnlocked": "全套已经解锁。",
     "alreadyUnlockedPart": "只有完整套装中的部分已解锁。",
-    "invalidQuantity": "购买数量必须是数字。",
+    "invalidQuantity": "购买数量必须是正整数。",
     "USD": "(美元)",
     "newStuff": "Bailey的新品",
     "newBaileyUpdate": "新的贝利更新！",
@@ -103,7 +103,7 @@
     "donationDesc": "给Habitica捐献",
     "payWithCard": "用信用卡付款",
     "payNote": "注意：PayPal有时会需要很长的时间。我们推荐用信用卡。",
-    "card": "信用卡(通过Stripe支付)",
+    "card": "信用卡",
     "amazonInstructions": "点击按钮来使用亚马逊账户支付",
     "paymentMethods": "支付通过",
     "paymentSuccessful": "支付成功！",
@@ -167,5 +167,7 @@
     "welcome4": "避免坏习惯扣除你的生命值(HP)，否则你的角色会死亡！",
     "welcome5": "现在你要设置你的角色形象和建立你的任务……",
     "imReady": "进入Habitica",
-    "limitedOffer": "有效期至<%= date %>"
+    "limitedOffer": "有效期至<%= date %>",
+    "paymentCanceledDisputes": "我们已为您的电子邮件发送了取消确认。如果您没有看到电子邮件，请联系我们，以防止将来发生账单纠纷。",
+    "paymentAutoRenew": "此订阅在被取消前会自动订阅。你可以在设置里取消订阅。"
 }

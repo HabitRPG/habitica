@@ -215,5 +215,15 @@
     "gemsPurchaseNote": "捐助者可以在市场上使用金币购买到宝石！ 为了方便购买，您还可以将宝石固定到“奖励”列。",
     "gemsRemaining": "剩下的宝石",
     "notEnoughGemsToBuy": "你无法购买那麽多的宝石",
-    "mysterySet201902": "神秘碎片套装"
+    "mysterySet201902": "神秘碎片套装",
+    "subCanceledTitle": "订阅已取消",
+    "mysterySet201908": "自由牧神套装",
+    "mysterySet201907": "海滩伙伴套装",
+    "mysterySet201906": "亲切锦鲤套装",
+    "mysterySet201905": "炫目飞龙套装",
+    "mysterySet201904": "华丽蛋白石套装",
+    "mysterySet201903": "美味鸡蛋套装",
+    "subWillBecomeInactive": "将会失效",
+    "confirmCancelSub": "你确定要取消订阅嘛？你会失去所有的订阅福利。",
+    "mysterySet201909": "和蔼橡子套装"
 }

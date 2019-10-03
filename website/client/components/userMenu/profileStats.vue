@@ -18,7 +18,7 @@
               :placement="'bottom'",
               :preventOverflow="false",
             )
-              h4.gearTitle {{ getGearTitle(equippedItems[key]) }}
+              h4.popover-title-only {{ getGearTitle(equippedItems[key]) }}
               attributesGrid.attributesGrid(
                 :item="content.gear.flat[equippedItems[key]]",
                 :user="user"
@@ -49,7 +49,7 @@
               :placement="'bottom'",
               :preventOverflow="false",
             )
-              h4.gearTitle {{ getGearTitle(costumeItems[key]) }}
+              h4.popover-title-only {{ getGearTitle(costumeItems[key]) }}
               attributesGrid.attributesGrid(
                :item="content.gear.flat[costumeItems[key]]",
                :user="user"
