@@ -290,7 +290,7 @@ spells.special = {
       user.stats.buffs.snowball = false;
       user.stats.gp -= 5;
       // Remove antidote from pinned items
-      user.pinnedItems = user.pinnedItems.filter(item => !item.path.includes('salt'));
+      user.pinnedItems = user.pinnedItems.filter(item => !item.path.includes('spells.special.salt'));
     },
   },
   spookySparkles: {
@@ -323,7 +323,7 @@ spells.special = {
       user.stats.buffs.spookySparkles = false;
       user.stats.gp -= 5;
       // Remove antidote from pinned items
-      user.pinnedItems = user.pinnedItems.filter(item => !item.path.includes('opaquePotion'));
+      user.pinnedItems = user.pinnedItems.filter(item => !item.path.includes('spells.special.opaquePotion'));
     },
   },
   shinySeed: {
@@ -356,7 +356,7 @@ spells.special = {
       user.stats.buffs.shinySeed = false;
       user.stats.gp -= 5;
       // Remove antidote from pinned items
-      user.pinnedItems = user.pinnedItems.filter(item => !item.path.includes('petalFreePotion'));
+      user.pinnedItems = user.pinnedItems.filter(item => !item.path.includes('spells.special.petalFreePotion'));
     },
   },
   seafoam: {
@@ -388,7 +388,7 @@ spells.special = {
     cast (user) {
       user.stats.buffs.seafoam = false;
       user.stats.gp -= 5;
-      user.pinnedItems = user.pinnedItems.filter(item => !item.path.includes('sand'));
+      user.pinnedItems = user.pinnedItems.filter(item => !item.path.includes('spells.special.sand'));
     },
   },
   nye: {
