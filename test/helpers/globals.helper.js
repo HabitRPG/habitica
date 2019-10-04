@@ -15,5 +15,5 @@ let sinonStubPromise = require('sinon-stub-promise');
 sinonStubPromise(global.sinon);
 global.sandbox = sinon.createSandbox();
 
-import setupNconf from '../../website/server/libs/setupNconf';
+const setupNconf = require('../../website/server/libs/setupNconf');
 setupNconf('./config.json.example');
