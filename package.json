@@ -97,7 +97,7 @@
     "universal-analytics": "^0.4.17",
     "update": "^0.7.4",
     "upgrade": "^1.1.0",
-    "url-loader": "^1.0.0",
+    "url-loader": "^2.2.0",
     "useragent": "^2.1.9",
     "uuid": "^3.0.1",
     "validator": "^11.0.0",
