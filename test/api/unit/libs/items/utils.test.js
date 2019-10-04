@@ -114,9 +114,9 @@ describe('Items Utils', () => {
 
     it('converts values for owned gear', () => {
       expect(castItemVal('items.gear.owned.shield_warrior_0', 'true')).to.equal(true);
-      expect(castItemVal('items.quests.invalid', 'false')).to.equal(false);
-      expect(castItemVal('items.quests.invalid', 'thruthy')).to.equal(true);
-      expect(castItemVal('items.quests.invalid', 0)).to.equal(false);
+      expect(castItemVal('items.gear.owned.invalid', 'false')).to.equal(false);
+      expect(castItemVal('items.gear.owned.invalid', 'thruthy')).to.equal(true);
+      expect(castItemVal('items.gear.owned.invalid', 0)).to.equal(false);
     });
   });
 });
