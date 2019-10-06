@@ -15,7 +15,7 @@ describe('GET /user/toggle-pinned-item', () => {
       .to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('cannotUnpinArmoirPotion'),
+        message: t('cannotUnpinItem'),
       });
   });
 

@@ -76,7 +76,7 @@
   "wrongItemType": "The item type \"<%= type %>\" is not valid.",
   "wrongItemPath": "The item path \"<%= path %>\" is not valid.",
   "unpinnedItem": "You unpinned <%= item %>! It will no longer display in your Rewards column.",
-  "cannotUnpinArmoirPotion": "The Health Potion and Enchanted Armoire cannot be unpinned.",
+  "cannotUnpinItem": "This item cannot be unpinned.",
   "purchasedItem": "You bought <%= itemName %>",
 
   "ian": "Ian",

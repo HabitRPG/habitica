@@ -177,6 +177,25 @@ module.exports = function getItemInfo (user, type, item, officialPinnedItems, la
         pinType: 'seasonalSpell',
       };
       break;
+    case 'debuffPotion':
+      itemInfo = {
+        key: item.key,
+        mana: item.mana,
+        cast: item.cast,
+        immediateUse: item.immediateUse,
+        target: item.target,
+        text: item.text(language),
+        notes: item.notes(language),
+        value: item.value,
+        type: 'debuffPotion',
+        currency: 'gold',
+        locked: false,
+        purchaseType: 'debuffPotion',
+        class: `inventory_special_${item.key}`,
+        path: `spells.special.${item.key}`,
+        pinType: 'debuffPotion',
+      };
+      break;
     case 'seasonalQuest':
       itemInfo = {
         key: item.key,
