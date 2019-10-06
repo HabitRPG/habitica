@@ -1,7 +1,7 @@
 import {
   generateUser,
 } from '../../../helpers/common.helper';
-import {BuyQuestWithGoldOperation} from '../../../../website/common/script/ops/buy/buyQuest';
+import {BuyQuestWithGoldOperation} from '../../../../website/common/script/ops/buy/buyQuestGold';
 import {
   BadRequest,
   NotAuthorized,
@@ -39,6 +39,18 @@ describe('shared.ops.buyQuest', () => {
     expect(user.items.quests).to.eql({
       dilatoryDistress1: 1,
     });
+    expect(user.stats.gp).to.equal(5);
+    expect(analytics.track).to.be.calledOnce;
+  });
+
+  it('if a user\'s count of a quest scroll is negative, it will be reset to 0 before incrementing when they buy a new one.', () => {
+    user.stats.gp = 205;
+    let key = 'dilatoryDistress1';
+    user.items.quests[key] = -1;
+    buyQuest(user, {
+      params: {key},
+    }, analytics);
+    expect(user.items.quests[key]).to.equal(1);
     expect(user.stats.gp).to.equal(5);
     expect(analytics.track).to.be.calledOnce;
   });
