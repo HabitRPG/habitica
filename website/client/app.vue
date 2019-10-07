@@ -161,7 +161,7 @@ div
     overflow-y: scroll !important;
   }
 
-  .modal-backdrop.show {
+  .modal-backdrop {
     opacity: .9 !important;
     background-color: $purple-100 !important;
   }
