@@ -45,6 +45,8 @@
   .avatar {
     width: 15%;
     min-width: 8rem;
+    height: 120px;
+    padding-top: 0 !important;
   }
 
   .avatar-left {
