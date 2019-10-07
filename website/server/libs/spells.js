@@ -68,9 +68,6 @@ async function castSelfSpell (req, user, spell, quantity = 1) {
   for (let i = 0; i < quantity; i += 1) {
     spell.cast(user, null, req);
   }
-
-  common.setDebuffPotionItems(user);
-
   await user.save();
 }
 
@@ -97,37 +94,34 @@ async function castPartySpell (req, party, partyMembers, user, spell, quantity =
   return partyMembers;
 }
 
-async function castUserSpell (res, req, party, partyMember, targetId, user, spell, quantity = 1) {
+async function castUserSpell (res, req, party, partyMembers, targetId, user, spell, quantity = 1) {
   if (!party && (!targetId || user._id === targetId)) {
-    partyMember = user;
+    partyMembers = user;
   } else {
     if (!targetId) throw new BadRequest(res.t('targetIdUUID'));
     if (!party) throw new NotFound(res.t('partyNotFound'));
-    partyMember = await User
+    partyMembers = await User
       .findOne({_id: targetId, 'party._id': party._id})
-      // We need all fields due to adding debuf spell to pinned items of target of the spell
-      // .select(partyMembersFields)
+      .select(partyMembersFields)
       .exec();
   }
 
-  if (!partyMember) throw new NotFound(res.t('userWithIDNotFound', {userId: targetId}));
+  if (!partyMembers) throw new NotFound(res.t('userWithIDNotFound', {userId: targetId}));
 
   for (let i = 0; i < quantity; i += 1) {
-    spell.cast(user, partyMember, req);
+    spell.cast(user, partyMembers, req);
   }
 
-  common.setDebuffPotionItems(partyMember);
-
-  if (partyMember !== user) {
+  if (partyMembers !== user) {
     await Promise.all([
       user.save(),
-      partyMember.save(),
+      partyMembers.save(),
     ]);
   } else {
-    await partyMember.save(); // partyMembers is user
+    await partyMembers.save(); // partyMembers is user
   }
 
-  return partyMember;
+  return partyMembers;
 }
 
 async function castSpell (req, res, {isV3 = false}) {
