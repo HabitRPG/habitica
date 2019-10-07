@@ -1,10 +1,16 @@
 <template lang="pug">
   #private-message
     .header-bar.d-flex.w-100
-      .d-flex.w-25
+      .d-flex.w-25.left-header
         .mail-icon.svg-icon(v-html="icons.mail", v-once)
         h2.flex-fill.text-center(v-once) {{ $t('messages') }}
       .d-flex.w-75.selected-conversion
+        face-avatar(
+          v-if="selectedConversation.userStyles",
+          :member="selectedConversation.userStyles",
+          :class="'tier'+selectedConversation.contributor.level"
+        )
+
         user-label(
           :backer="selectedConversation.backer",
           :contributor="selectedConversation.contributor",
@@ -136,13 +142,22 @@
     background-color: $white;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
-    padding-top: 1.25rem;
+    padding-top: 13px;
 
     .mail-icon {
       width: 32px;
       height: 24px;
       object-fit: contain;
     }
+  }
+
+  .left-header {
+    padding-top: 7px;
+  }
+
+  .user-label {
+    margin-top: 9px;
+    margin-left: 12px;
   }
 
   .selected-conversion {
@@ -329,18 +344,9 @@
   import privateMessages from './messageList';
   import messageIcon from 'assets/svg/message.svg';
   import svgClose from 'assets/svg/close.svg';
-  import tier1 from 'assets/svg/tier-1.svg';
-  import tier2 from 'assets/svg/tier-2.svg';
-  import tier3 from 'assets/svg/tier-3.svg';
-  import tier4 from 'assets/svg/tier-4.svg';
-  import tier5 from 'assets/svg/tier-5.svg';
-  import tier6 from 'assets/svg/tier-6.svg';
-  import tier7 from 'assets/svg/tier-7.svg';
-  import tier8 from 'assets/svg/tier-mod.svg';
-  import tier9 from 'assets/svg/tier-staff.svg';
-  import tierNPC from 'assets/svg/tier-npc.svg';
   import mail from 'assets/svg/mail.svg';
   import conversationItem from './conversationItem';
+  import faceAvatar from '../faceAvatar';
 
   export default {
     mixins: [styleHelper],
@@ -349,6 +355,7 @@
       toggleSwitch,
       conversationItem,
       userLabel,
+      faceAvatar,
     },
     async mounted () {
       this.$root.$on('habitica::new-private-message', (data) => {
@@ -395,16 +402,6 @@
         icons: Object.freeze({
           messageIcon,
           svgClose,
-          tier1,
-          tier2,
-          tier3,
-          tier4,
-          tier5,
-          tier6,
-          tier7,
-          tier8,
-          tier9,
-          tierNPC,
           mail,
         }),
         displayCreate: true,
@@ -442,6 +439,7 @@
             username: this.initiatedConversation.username,
             contributor: this.initiatedConversation.contributor,
             backer: this.initiatedConversation.backer,
+            userStyles: this.initiatedConversation.userStyles,
             id: '',
             text: '',
             timestamp: new Date(),
@@ -459,6 +457,7 @@
             date: recentMessage.timestamp,
             lastMessageText: recentMessage.text,
             contributor: recentMessage.contributor,
+            userStyles: recentMessage.userStyles,
             backer: recentMessage.backer,
             canLoadMore: true,
             page: 0,
@@ -635,14 +634,6 @@
       },
       close () {
         this.$root.$emit('bv::hide::modal', 'messages-modal');
-      },
-      tierIcon (message) {
-        const isNPC = Boolean(message.backer && message.backer.npc);
-        if (isNPC) {
-          return this.icons.tierNPC;
-        }
-        if (!message.contributor) return;
-        return this.icons[`tier${message.contributor.level}`];
       },
       removeTags (html) {
         let tmp = document.createElement('DIV');
