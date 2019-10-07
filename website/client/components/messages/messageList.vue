@@ -54,7 +54,7 @@
   }
 
   .avatar-right {
-    margin-left: -2rem;
+    margin-left: -1rem;
   }
 
   .card {

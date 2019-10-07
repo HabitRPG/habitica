@@ -46,11 +46,11 @@
             :last-message-text="conversation.lastMessageText ? removeTags(parseMarkdown(conversation.lastMessageText)) : ''")
 
       .w-75.messages.d-flex.flex-column.align-items-center
-        .empty-messages.m-auto.text-center(v-if='!selectedConversation.key')
+        .empty-messages.full-height.m-auto.text-center(v-if='!selectedConversation.key')
           .svg-icon.envelope(v-html="icons.messageIcon", v-once)
           h4 {{ placeholderTexts.title }}
           p(v-html="placeholderTexts.description")
-        .empty-messages.mt-auto.text-center(v-if='selectedConversation.key && selectedConversationMessages.length === 0')
+        .empty-messages.full-height.mt-auto.text-center(v-if='selectedConversation.key && selectedConversationMessages.length === 0')
           h3 {{ $t('beginningOfConversation', {userName: selectedConversation.name}) }}
           p {{ $t('beginningOfConversationReminder') }}
         private-messages.message-scroll(
@@ -149,6 +149,13 @@
       height: 24px;
       object-fit: contain;
     }
+  }
+
+  .full-height {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .left-header {
@@ -251,7 +258,7 @@
 
   .message-scroll {
     height: 33.5rem;
-    overflow-x: scroll;
+    overflow-x: hidden;
     padding-top: 0.5rem;
 
     @media (min-width: 992px) {
