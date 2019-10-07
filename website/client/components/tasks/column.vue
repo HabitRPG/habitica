@@ -273,7 +273,6 @@ import BuyQuestModal from 'client/components/shops/quests/buyQuestModal.vue';
 import notifications from 'client/mixins/notifications';
 import { shouldDo } from 'common/script/cron';
 import inAppRewards from 'common/script/libs/inAppRewards';
-import spells from 'common/script/content/spells';
 import taskDefaults from 'common/script/libs/taskDefaults';
 
 import {
@@ -382,26 +381,6 @@ export default {
     inAppRewards () {
       let watchRefresh = this.forceRefresh; // eslint-disable-line
       let rewards = inAppRewards(this.user);
-
-      // Add season rewards if user is affected
-      // @TODO: Add buff conditional
-      const seasonalSkills = {
-        snowball: 'salt',
-        spookySparkles: 'opaquePotion',
-        shinySeed: 'petalFreePotion',
-        seafoam: 'sand',
-      };
-
-      for (let key in seasonalSkills) {
-        if (this.getUserBuffs(key)) {
-          let debuff = seasonalSkills[key];
-          let item = Object.assign({}, spells.special[debuff]);
-          item.text = item.text();
-          item.notes = item.notes();
-          item.class = `shop_${key}`;
-          rewards.push(item);
-        }
-      }
 
       return rewards;
     },
