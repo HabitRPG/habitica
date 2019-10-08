@@ -119,8 +119,8 @@
     "giftedSubscriptionInfo": "<%= name %> hat Dir ein <%= months %>-monatiges Abonnement geschenkt",
     "giftedSubscriptionFull": "Hallo <%= username %>, <%= sender %> hat Dir <%= monthCount %> Monate Abonnement geschickt!",
     "giftedSubscriptionWinterPromo": "Hallo <%= username %>, Du hast durch unsere Festtags-Promo <%= monthCount %>Monate Abonnement geschenkt bekommen!",
-    "invitedParty": "In die Party eingeladen",
-    "invitedGuild": "In die Gilde eingeladen",
+    "invitedParty": "Du wurdest in eine Party eingeladen",
+    "invitedGuild": "Du wurdest in eine Gilde eingeladen",
     "importantAnnouncements": "Erinnerungen zur Anmeldung, um Aufgaben zu komplettieren und Preise zu erhalten",
     "weeklyRecaps": "Zusammenfassung Deiner Account-Aktivitäten in dieser Woche (Notiz: Ist zurzeit wegen Performance-Problemen deaktiviert. Wir hoffen, dass es bald wieder zurück ist und werden demnächst wieder E-Mails verschicken!)",
     "onboarding": "Hilfe, um Dein Habitica-Konto einzurichten",
@@ -205,5 +205,6 @@
     "usernameNotVerified": "Bitte bestätige Deinen Benutzernamen.",
     "changeUsernameDisclaimer": "Wir werden bald die Anmeldenamen zu eindeutigen, öffentlichen Benutzernamen umstellen. Dieser Benutzername wird für Einladungen, @Erwähnungen im Chat und Nachrichten verwendet werden.",
     "verifyUsernameVeteranPet": "Eines dieser Veteranen-Haustiere wartet auf Dich wenn Du die Bestätigung abgeschlossen hast!",
-    "subscriptionReminders": "Abonnement-Erinnerung"
+    "subscriptionReminders": "Abonnement-Erinnerung",
+    "newPMNotificationTitle": "Neue Nachricht von <%= name %>"
 }

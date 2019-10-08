@@ -1,66 +1,133 @@
 .promo_armoire_backgrounds_201910 {
+<<<<<<< HEAD:website/client/src/assets/css/sprites/spritesmith-largeSprites-0.css
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: 0px -190px;
+=======
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -389px;
+>>>>>>> develop:website/client/assets/css/sprites/spritesmith-largeSprites-0.css
   width: 423px;
   height: 147px;
 }
 .promo_costume_achievement {
+<<<<<<< HEAD:website/client/src/assets/css/sprites/spritesmith-largeSprites-0.css
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: -734px 0px;
+=======
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -698px -426px;
+>>>>>>> develop:website/client/assets/css/sprites/spritesmith-largeSprites-0.css
   width: 144px;
   height: 156px;
 }
 .promo_desert_pet_achievements {
+<<<<<<< HEAD:website/client/src/assets/css/sprites/spritesmith-largeSprites-0.css
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: 0px -634px;
+=======
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -891px -296px;
+>>>>>>> develop:website/client/assets/css/sprites/spritesmith-largeSprites-0.css
   width: 204px;
   height: 102px;
 }
 .promo_fall_festival_2018 {
+<<<<<<< HEAD:website/client/src/assets/css/sprites/spritesmith-largeSprites-0.css
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: -361px 0px;
+=======
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -208px;
+>>>>>>> develop:website/client/assets/css/sprites/spritesmith-largeSprites-0.css
   width: 372px;
   height: 180px;
 }
 .promo_fall_festival_2019 {
+<<<<<<< HEAD:website/client/src/assets/css/sprites/spritesmith-largeSprites-0.css
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: 0px 0px;
+=======
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -337px 0px;
+>>>>>>> develop:website/client/assets/css/sprites/spritesmith-largeSprites-0.css
   width: 360px;
   height: 189px;
 }
+.promo_fall_skins {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px 0px;
+  width: 336px;
+  height: 207px;
+}
+.customize-option.promo_fall_skins {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -25px -15px;
+  width: 60px;
+  height: 60px;
+}
 .promo_mystery_201909 {
+<<<<<<< HEAD:website/client/src/assets/css/sprites/spritesmith-largeSprites-0.css
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: -424px -190px;
+=======
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -698px -148px;
+>>>>>>> develop:website/client/assets/css/sprites/spritesmith-largeSprites-0.css
   width: 282px;
   height: 147px;
 }
 .promo_seasonal_shop_fall {
+<<<<<<< HEAD:website/client/src/assets/css/sprites/spritesmith-largeSprites-0.css
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: -424px -486px;
+=======
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -843px -426px;
+>>>>>>> develop:website/client/assets/css/sprites/spritesmith-largeSprites-0.css
   width: 162px;
   height: 138px;
 }
 .promo_shadow_spooky_potions {
+<<<<<<< HEAD:website/client/src/assets/css/sprites/spritesmith-largeSprites-0.css
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: 0px -338px;
+=======
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -698px 0px;
+>>>>>>> develop:website/client/assets/css/sprites/spritesmith-largeSprites-0.css
   width: 423px;
   height: 147px;
 }
 .promo_spooky_sparkles {
+<<<<<<< HEAD:website/client/src/assets/css/sprites/spritesmith-largeSprites-0.css
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: 0px -486px;
+=======
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -537px;
+>>>>>>> develop:website/client/assets/css/sprites/spritesmith-largeSprites-0.css
   width: 423px;
   height: 147px;
 }
 .promo_take_this {
+<<<<<<< HEAD:website/client/src/assets/css/sprites/spritesmith-largeSprites-0.css
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: -734px -157px;
+=======
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -981px -148px;
+>>>>>>> develop:website/client/assets/css/sprites/spritesmith-largeSprites-0.css
   width: 96px;
   height: 69px;
 }
 .scene_strength {
+<<<<<<< HEAD:website/client/src/assets/css/sprites/spritesmith-largeSprites-0.css
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: -424px -338px;
+=======
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -698px -296px;
+>>>>>>> develop:website/client/assets/css/sprites/spritesmith-largeSprites-0.css
   width: 192px;
   height: 129px;
 }
