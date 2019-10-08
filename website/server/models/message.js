@@ -38,6 +38,7 @@ chatSchema.plugin(baseModel, {
 
 const inboxSchema = new mongoose.Schema({
   sent: {$type: Boolean, default: false}, // if the owner sent this message
+  isRead: {$type: Boolean, default: false}, // if the owner has clicked on the message yet
   // the uuid of the user where the message is stored,
   // we store two copies of each inbox messages:
   // one for the sender and one for the receiver
