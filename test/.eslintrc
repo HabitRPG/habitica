@@ -1,11 +1,7 @@
 {
   "extends": [
-    "habitrpg/mocha",
-    "habitrpg/esnext"
+    "habitrpg/lib/mocha",
   ],
-  "env": {
-    "node": true,
-  },
   "globals": {
     "_": true,
   }

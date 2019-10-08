@@ -8,7 +8,7 @@ let authorUuid = ''; // ... own data is done
  * This migraition will copy user data from prod to test
  */
 
-const monk = require('monk');
+const monk = require('monk'); // eslint-disable-line import/no-extraneous-dependencies
 
 const connectionString = '';
 const Users = monk(connectionString).get('users', { castIds: false });

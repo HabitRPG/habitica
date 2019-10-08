@@ -18,7 +18,7 @@ async function syncChallengeToMembers (challenges) {
     return Promise.all(promises);
   });
 
-  return await Promise.all(challengSyncPromises);
+  return Promise.all(challengSyncPromises);
 }
 
 async function syncChallenges (lastChallengeDate) {

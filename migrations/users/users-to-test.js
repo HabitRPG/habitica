@@ -10,7 +10,7 @@ let authorUuid = ''; // ... own data is done
 
 import uniq from 'lodash/uniq';
 
-const monk = require('monk');
+const monk = require('monk'); // eslint-disable-line import/no-extraneous-dependencies
 
 const testConnectionSting = ''; // FOR TEST DATABASE
 const usersTest = monk(testConnectionSting).get('users', { castIds: false });
@@ -18,7 +18,7 @@ const groupsTest = monk(testConnectionSting).get('groups', { castIds: false });
 const challengesTest = monk(testConnectionSting).get('challenges', { castIds: false });
 const tasksTest = monk(testConnectionSting).get('tasks', { castIds: false });
 
-const monk2 = require('monk');
+const monk2 = require('monk'); // eslint-disable-line import/no-extraneous-dependencies
 
 const liveConnectString = ''; // FOR TEST DATABASE
 const userLive = monk2(liveConnectString).get('users', { castIds: false });

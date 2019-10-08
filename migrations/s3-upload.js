@@ -46,7 +46,7 @@ function getFileFromUrl (url) {
     request.get(url).end((err, res) => {
       if (err) return reject(err);
       const file = res.body;
-      resolve(file);
+      return resolve(file);
     });
   });
 }
@@ -70,7 +70,7 @@ function uploadToS3 (start, end, filesUrls) {
     .then(buffer => uploadFile(buffer, getFileName(fullUrl))));
   console.log(promises.length);
 
-  return Promise.all(promises)
+  Promise.all(promises)
     .then(() => {
       currentIndex += 50;
       uploadToS3(currentIndex, currentIndex + 50, filesUrls);

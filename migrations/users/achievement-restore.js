@@ -8,7 +8,7 @@ const authorUuid = ''; // ... own data is done
  * This migraition will copy user data from prod to test
  */
 
-const monk = require('monk');
+const monk = require('monk'); // eslint-disable-line import/no-extraneous-dependencies
 
 const connectionString = 'mongodb://localhost/new-habit';
 const Users = monk(connectionString).get('users', { castIds: false });
@@ -26,9 +26,11 @@ function getAchievementUpdate (newUser, oldUser) {
   if (!achievementsUpdate.ultimateGearSets && oldAchievements.ultimateGearSets) {
     achievementsUpdate.ultimateGearSets = oldAchievements.ultimateGearSets;
   } else if (oldAchievements.ultimateGearSets) {
-    for (const index in oldAchievements.ultimateGearSets) {
-      if (oldAchievements.ultimateGearSets[index]) achievementsUpdate.ultimateGearSets[index] = true;
-    }
+    Object.keys(oldAchievements.ultimateGearSets).forEach(index => {
+      if (oldAchievements.ultimateGearSets[index]) {
+        achievementsUpdate.ultimateGearSets[index] = true;
+      }
+    });
   }
 
   // challenges
@@ -38,35 +40,37 @@ function getAchievementUpdate (newUser, oldUser) {
 
   // Quests
   if (!achievementsUpdate.quests) achievementsUpdate.quests = {};
-  for (const index in oldAchievements.quests) {
+  Object.keys(oldAchievements.quests).forEach(index => {
     if (!achievementsUpdate.quests[index]) {
       achievementsUpdate.quests[index] = oldAchievements.quests[index];
     } else {
       achievementsUpdate.quests[index] += oldAchievements.quests[index];
     }
-  }
+  });
 
   // Rebirth level
   if (achievementsUpdate.rebirthLevel) {
-    achievementsUpdate.rebirthLevel = Math.max(achievementsUpdate.rebirthLevel, oldAchievements.rebirthLevel);
+    achievementsUpdate.rebirthLevel = Math.max(
+      achievementsUpdate.rebirthLevel, oldAchievements.rebirthLevel,
+    );
   } else if (oldAchievements.rebirthLevel) {
     achievementsUpdate.rebirthLevel = oldAchievements.rebirthLevel;
   }
 
   // All others
   const indexsToIgnore = ['ultimateGearSets', 'challenges', 'quests', 'rebirthLevel'];
-  for (const index in oldAchievements) {
-    if (indexsToIgnore.indexOf(index) !== -1) continue; // eslint-disable-line no-continue
+  Object.keys(oldAchievements).forEach(index => {
+    if (indexsToIgnore.indexOf(index) !== -1) return;
 
     if (!achievementsUpdate[index]) {
       achievementsUpdate[index] = oldAchievements[index];
-      continue; // eslint-disable-line no-continue
+      return;
     }
 
     if (Number.isInteger(oldAchievements[index])) {
       achievementsUpdate[index] += oldAchievements[index];
     } else if (oldAchievements[index] === true) achievementsUpdate[index] = true;
-  }
+  });
 
   return achievementsUpdate;
 }
@@ -75,9 +79,7 @@ module.exports = async function achievementRestore () {
   const userIds = [
   ];
 
-  /* eslint-disable no-await-in-loop */
-  for (const index in userIds) {
-    const userId = userIds[index];
+  Promise.all(userIds.map(userId => (async () => {
     const oldUser = await UsersOld.findOne({ _id: userId }, 'achievements');
     const newUser = await Users.findOne({ _id: userId }, 'achievements');
     const achievementUpdate = getAchievementUpdate(newUser, oldUser);
@@ -90,6 +92,5 @@ module.exports = async function achievementRestore () {
       },
     );
     console.log(`Updated ${userId}`);
-    /* eslint-enable no-await-in-loop */
-  }
+  })()));
 };

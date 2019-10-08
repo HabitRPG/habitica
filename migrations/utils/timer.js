@@ -1,9 +1,7 @@
-
 const logger = require('./logger');
 
 class Timer {
-  constructor (options) {
-    options = options || {};
+  constructor (options = {}) {
     const warningThreshold = options.minutesWarningThreshold || 10;
 
     this.count = 0;
@@ -14,7 +12,7 @@ class Timer {
 
   start () {
     this._internalTimer = setInterval(() => {
-      this.count++;
+      this.count *= 1;
 
       const shouldWarn = this._minutesWarningThreshold < this.count;
       const logStyle = shouldWarn ? 'error' : 'warn';

@@ -15,20 +15,20 @@ db.users.update(
 // db.users.update(
 //   {_id:''},
 //   {$set:{'purchased.plan':{
-//	  planId: 'basic_'+m+'mo',
-//	  paymentMethod: 'Paypal',
-//	  customerId: 'Gift',
-//	  dateCreated: new Date(),
-//	  dateTerminated: moment().add('month',m).toDate(),
-//	  dateUpdated: new Date(),
-//	  extraMonths: 0,
-//	  gemsBought: 0,
-//	  mysteryItems: [],
-//	  consecutive: {
-//	    count: 0,
-//	    offset: m,
-//	    gemCapExtra: m/3*5,
-//	    trinkets: m/3
-//	  }
+//    planId: 'basic_'+m+'mo',
+//    paymentMethod: 'Paypal',
+//    customerId: 'Gift',
+//    dateCreated: new Date(),
+//    dateTerminated: moment().add('month',m).toDate(),
+//    dateUpdated: new Date(),
+//    extraMonths: 0,
+//    gemsBought: 0,
+//    mysteryItems: [],
+//    consecutive: {
+//      count: 0,
+//      offset: m,
+//      gemCapExtra: m/3*5,
+//      trinkets: m/3
+//    }
 //   }}}
 // )

@@ -84,7 +84,7 @@ db.users.aggregate([
 ]).forEach(data => {
   // print( "\n" ); printjson(data);
   data.troublesomeIds.forEach(taskid => {
-    print(`non-unique task: ${taskid}`);
+    print(`non-unique task: ${taskid}`); // eslint-disable-line no-restricted-globals
     db.users.update({
       _id: uuid,
       todos: { $elemMatch: { id: taskid } },

@@ -1,7 +1,8 @@
 /* let migrationName = 'Jackalopes for Unlimited Subscribers'; */
 
 /*
- * This migration will find users with unlimited subscriptions who are also eligible for Jackalope mounts, and award them
+ * This migration will find users with unlimited subscriptions who are also eligible
+ * for Jackalope mounts, and award them
  */
 
 import { model as Group } from '../../website/server/models/group';
@@ -35,7 +36,7 @@ async function handOutJackalopes () {
 
   cursor.on('close', async () => {
     console.log('done');
-    return await Promise.all(promises);
+    return Promise.all(promises);
   });
 }
 

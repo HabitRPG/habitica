@@ -5,12 +5,12 @@ let authorUuid = ''; // ... own data is done
 */
 
 /*
- * This migrations will iterate through all groups with a group plan a subscription and resync the free
- * subscription to all members
+ * This migrations will iterate through all groups with a group plan
+ * a subscription and resync the free subscription to all members
  */
 
 import { model as Group } from '../../website/server/models/group';
-import * as payments from '../../website/server/libs/payments';
+import payments from '../../website/server/libs/payments/payments';
 
 async function updateGroupsWithGroupPlans () {
   const cursor = Group.find({
@@ -25,7 +25,7 @@ async function updateGroupsWithGroupPlans () {
     promises.push(group.save());
   });
 
-  cursor.on('close', async () => await Promise.all(promises));
+  cursor.on('close', async () => Promise.all(promises));
 }
 
 module.exports = updateGroupsWithGroupPlans;

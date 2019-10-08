@@ -3,10 +3,11 @@ const authorName = 'Sabe'; // in case script author needs to know when their ...
 const authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; // ... own data is done
 
 /*
- * Iterates over all tasks and sets invalid everyX values (less than 0 or more than 9999 or not an int) field to 0
+ * Iterates over all tasks and sets invalid everyX values
+ * (less than 0 or more than 9999 or not an int) field to 0
  */
 
-const monk = require('monk');
+const monk = require('monk'); // eslint-disable-line import/no-extraneous-dependencies
 
 const connectionString = 'mongodb://localhost:27017/habitrpg?auto_reconnect=true';
 const dbTasks = monk(connectionString).get('tasks', { castIds: false });
@@ -49,7 +50,7 @@ function updateTasks (tasks) {
   if (!tasks || tasks.length === 0) {
     console.warn('All appropriate tasks found and modified.');
     displayData();
-    return;
+    return null;
   }
 
   const taskPromises = tasks.map(updatetask);
@@ -60,7 +61,7 @@ function updateTasks (tasks) {
 }
 
 function updatetask (task) {
-  count++;
+  count += 1;
   const set = { everyX: 0 };
 
   dbTasks.update({ _id: task._id }, { $set: set });
@@ -75,9 +76,10 @@ function displayData () {
 }
 
 function exiting (code, msg) {
-  code = code || 0; // 0 = success
+  // 0 = success
+  code = code || 0; // eslint-disable-line no-param-reassign
   if (code && !msg) {
-    msg = 'ERROR!';
+    msg = 'ERROR!'; // eslint-disable-line no-param-reassign
   }
   if (msg) {
     if (code) {

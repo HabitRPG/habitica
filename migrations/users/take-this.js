@@ -9,7 +9,7 @@ const progressCount = 1000;
 let count = 0;
 
 async function updateUser (user) {
-  count++;
+  count += 1;
 
   const set = {};
   let push;
@@ -41,9 +41,9 @@ async function updateUser (user) {
   if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
 
   if (push) {
-    return await User.update({ _id: user._id }, { $set: set, $push: push }).exec();
+    return User.update({ _id: user._id }, { $set: set, $push: push }).exec();
   }
-  return await User.update({ _id: user._id }, { $set: set }).exec();
+  return User.update({ _id: user._id }, { $set: set }).exec();
 }
 
 module.exports = async function processUsers () {

@@ -1,6 +1,5 @@
 // Give contrib.level 7+ free subscription for life
 db.users.update(
-
   {
     'contributor.level': { $gte: 7 },
     'purchased.plan.customerId': null,

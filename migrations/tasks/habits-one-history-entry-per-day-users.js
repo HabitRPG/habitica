@@ -3,10 +3,10 @@ const authorName = 'paglias'; // in case script author needs to know when their 
 const authorUuid = 'ed4c688c-6652-4a92-9d03-a5a79844174a'; // ... own data is done
 
 /*
- * Iterates over all habits and condense multiple history entries for the same day into a single entry
+ * Iterates over all habits and condense multiple history entries for the same day into a single one
  */
 
-const monk = require('monk');
+const monk = require('monk'); // eslint-disable-line import/no-extraneous-dependencies
 const _ = require('lodash');
 const moment = require('moment');
 
@@ -44,7 +44,7 @@ function updateUsers (users) {
   if (!users || users.length === 0) {
     console.warn('All appropriate users and their tasks found and modified.');
     displayData();
-    return;
+    return null;
   }
 
   const usersPromises = users.map(updateUser);
@@ -110,10 +110,12 @@ function updateHabit (habit, timezoneOffset, dayStart) {
       $set: { history: habit.history },
     });
   }
+
+  return null;
 }
 
 function updateUser (user) {
-  count++;
+  count += 1;
 
   const { timezoneOffset } = user.preferences;
   const { dayStart } = user.preferences;
@@ -141,9 +143,10 @@ function displayData () {
 }
 
 function exiting (code, msg) {
-  code = code || 0; // 0 = success
+  // 0 = success
+  code = code || 0; // eslint-disable-line no-param-reassign
   if (code && !msg) {
-    msg = 'ERROR!';
+    msg = 'ERROR!'; // eslint-disable-line no-param-reassign
   }
   if (msg) {
     if (code) {

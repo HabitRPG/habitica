@@ -1,4 +1,4 @@
-import monk from 'monk';
+import monk from 'monk'; // eslint-disable-line import/no-extraneous-dependencies
 import nconf from 'nconf';
 import stripePayments from '../../website/server/libs/payments/stripe';
 
@@ -43,7 +43,7 @@ async function fixGroupPlanMembers () {
     },
   ).each(async (group, { close, pause, resume }) => { // eslint-disable-line no-unused-vars
     pause();
-    groupPlanCount++;
+    groupPlanCount += 1;
 
     const canonicalMemberCount = await dbUsers.count(
       {
@@ -78,7 +78,7 @@ async function fixGroupPlanMembers () {
 
     if (!groupUpdate) return;
 
-    fixedGroupCount++;
+    fixedGroupCount += 1;
     if (group.purchased.plan.paymentMethod === 'Stripe') {
       await stripePayments.chargeForAdditionalGroupMember(group);
       await dbGroups.update(

@@ -6,12 +6,12 @@ const authorUuid = ''; // ... own data is done
  * Check if users have empty profile data in new database and update it with old database info
  */
 
-const monk = require('monk');
+const monk = require('monk'); // eslint-disable-line import/no-extraneous-dependencies
 
 const connectionString = ''; // FOR TEST DATABASE
 const dbUsers = monk(connectionString).get('users', { castIds: false });
 
-const monk2 = require('monk');
+const monk2 = require('monk'); // eslint-disable-line import/no-extraneous-dependencies
 
 const oldDbConnectionString = 'mongodb://localhost:27017/habitrpg?auto_reconnect=true'; // FOR TEST DATABASE
 const olDbUsers = monk2(oldDbConnectionString).get('users', { castIds: false });
@@ -49,7 +49,7 @@ function updateUsers (users) {
   if (!users || users.length === 0) {
     console.warn('All appropriate users found and modified.');
     setTimeout(displayData, 300000);
-    return;
+    return null;
   }
 
   const userPaymentPromises = users.map(updateUser);
@@ -60,16 +60,16 @@ function updateUsers (users) {
 }
 
 function updateUser (user) {
-  count++;
+  count += 1;
 
   if (!user.profile.name || user.profile.name === 'profile name not found' || !user.profile.imageUrl || !user.profile.blurb) {
     return olDbUsers.findOne({ _id: user._id }, '_id profile')
       .then(oldUserData => {
-        if (!oldUserData) return;
+        if (!oldUserData) return null;
         // specify user data to change:
         const set = {};
 
-        if (oldUserData.profile.name === 'profile name not found') return;
+        if (oldUserData.profile.name === 'profile name not found') return null;
 
         const userNeedsProfileName = !user.profile.name || user.profile.name === 'profile name not found';
         if (userNeedsProfileName && oldUserData.profile.name) {
@@ -88,11 +88,15 @@ function updateUser (user) {
           console.log(set);
           return dbUsers.update({ _id: user._id }, { $set: set });
         }
+
+        return null;
       });
   }
 
   if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
   if (user._id === authorUuid) console.warn(`${authorName} processed`);
+
+  return null;
 }
 
 function displayData () {
@@ -101,9 +105,10 @@ function displayData () {
 }
 
 function exiting (code, msg) {
-  code = code || 0; // 0 = success
+  // 0 = success
+  code = code || 0; // eslint-disable-line no-param-reassign
   if (code && !msg) {
-    msg = 'ERROR!';
+    msg = 'ERROR!'; // eslint-disable-line no-param-reassign
   }
   if (msg) {
     if (code) {

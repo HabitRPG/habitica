@@ -12,7 +12,7 @@ const progressCount = 1000;
 let count = 0;
 
 async function updateUser (user) {
-  count++;
+  count += 1;
 
   if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
 
@@ -22,7 +22,7 @@ async function updateUser (user) {
     [{ name: 'BASE_URL', content: BASE_URL }], // Add variables from template
   );
 
-  return await User.update({ _id: user._id }, { $set: { migration: MIGRATION_NAME } }).exec();
+  return User.update({ _id: user._id }, { $set: { migration: MIGRATION_NAME } }).exec();
 }
 
 module.exports = async function processUsers () {

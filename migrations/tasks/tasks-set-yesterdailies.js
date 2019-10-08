@@ -5,7 +5,7 @@
  * Iterates over all tasks and sets the yseterDaily field to True
  */
 
-import monk from 'monk';
+import monk from 'monk'; // eslint-disable-line import/no-extraneous-dependencies
 
 const authorName = 'TheHollidayInn'; // in case script author needs to know when their ...
 const authorUuid = '';
@@ -17,9 +17,10 @@ const progressCount = 1000;
 let count = 0;
 
 function exiting (code, msg) {
-  code = code || 0; // 0 = success
+  // 0 = success
+  code = code || 0; // eslint-disable-line no-param-reassign
   if (code && !msg) {
-    msg = 'ERROR!';
+    msg = 'ERROR!'; // eslint-disable-line no-param-reassign
   }
   if (msg) {
     if (code) {
@@ -37,7 +38,7 @@ function displayData () {
 }
 
 function updatetask (task) {
-  count++;
+  count += 1;
   const set = { yesterDaily: true };
 
   dbTasks.update({ _id: task._id }, { $set: set });
@@ -50,15 +51,14 @@ function updateTasks (tasks) {
   if (!tasks || tasks.length === 0) {
     console.warn('All appropriate tasks found and modified.');
     displayData();
-    return;
+    return null;
   }
 
   const taskPromises = tasks.map(updatetask);
   const lasttask = tasks[tasks.length - 1];
 
   return Promise.all(taskPromises)
-    .then(() => processTasks(lasttask._id), // eslint-disable-line no-use-before-define
-    );
+    .then(() => processTasks(lasttask._id)); // eslint-disable-line no-use-before-define
 }
 
 function processTasks (lastId) {
@@ -76,7 +76,9 @@ function processTasks (lastId) {
   dbTasks.find(query, {
     sort: { _id: 1 },
     limit: 250,
-    fields: [ // specify fields we are interested in to limit retrieved data (empty if we're not reading data):
+    // specify fields we are interested in to limit retrieved data
+    // (empty if we're not reading data):
+    fields: [
     ],
   })
     .then(updateTasks)

@@ -44,7 +44,7 @@ function eachTranslationFile (languages, cb) {
       const englishFile = fs.readFileSync(ENGLISH_LOCALE + filename);
       const parsedEnglishFile = JSON.parse(englishFile);
 
-      cb(null, lang, filename, parsedEnglishFile, parsedTranslationFile);
+      return cb(null, lang, filename, parsedEnglishFile, parsedTranslationFile);
     });
   });
 }

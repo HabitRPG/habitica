@@ -29,8 +29,8 @@ const testCount = (stdout, regexp) => {
 const testBin = (string, additionalEnvVariables = '') => {
   if (os.platform() === 'win32') {
     if (additionalEnvVariables !== '') {
-      additionalEnvVariables = additionalEnvVariables.split(' ').join('&&set ');
-      additionalEnvVariables = `set ${additionalEnvVariables}&&`;
+      additionalEnvVariables = additionalEnvVariables.split(' ').join('&&set '); // eslint-disable-line no-param-reassign
+      additionalEnvVariables = `set ${additionalEnvVariables}&&`; // eslint-disable-line no-param-reassign
     }
     return `set NODE_ENV=test&&${additionalEnvVariables}${string}`;
   }
@@ -46,9 +46,9 @@ gulp.task('test:nodemon', gulp.series(done => {
 gulp.task('test:prepare:mongo', cb => {
   mongoose.connect(TEST_DB_URI, err => {
     if (err) return cb(`Unable to connect to mongo database. Are you sure it's running? \n\n${err}`);
-    mongoose.connection.dropDatabase(err2 => {
+    return mongoose.connection.dropDatabase(err2 => {
       if (err2) return cb(err2);
-      mongoose.connection.close(cb);
+      return mongoose.connection.close(cb);
     });
   });
 });

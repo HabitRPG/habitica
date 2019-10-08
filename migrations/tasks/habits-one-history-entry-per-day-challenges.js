@@ -3,10 +3,10 @@
 // const authorUuid = 'ed4c688c-6652-4a92-9d03-a5a79844174a'; // ... own data is done
 
 /*
- * Iterates over all habits and condense multiple history entries for the same day into a single entry
+ * Iterates over all habits and condense multiple history entries for the same day into a single one
  */
 
-const monk = require('monk');
+const monk = require('monk'); // eslint-disable-line import/no-extraneous-dependencies
 const _ = require('lodash');
 const moment = require('moment');
 
@@ -44,7 +44,7 @@ function updateChallengeHabits (habits) {
   if (!habits || habits.length === 0) {
     console.warn('All appropriate challenge habits found and modified.');
     displayData();
-    return;
+    return null;
   }
 
   const habitsPromises = habits.map(updateChallengeHabit);
@@ -55,7 +55,7 @@ function updateChallengeHabits (habits) {
 }
 
 function updateChallengeHabit (habit) {
-  count++;
+  count += 1;
 
   if (habit && habit.history && habit.history.length > 0) {
     // First remove missing entries
@@ -75,8 +75,8 @@ function updateChallengeHabit (habit) {
           entry.scoreDirection = entry.value > previousValue ? 'up' : 'down';
         }
       })
-      .groupBy(entry => // group entries by aggregateBy
-        moment(entry.date).format('YYYYMMDD'))
+      // group entries by aggregateBy
+      .groupBy(entry => moment(entry.date).format('YYYYMMDD'))
       .toPairs() // [key, entry]
       .sortBy(([key]) => key) // sort by date
       .map(keyEntryPair => {
@@ -111,6 +111,7 @@ function updateChallengeHabit (habit) {
   }
 
   if (count % progressCount === 0) console.warn(`${count} habits processed`);
+  return null;
 }
 
 function displayData () {
@@ -119,9 +120,10 @@ function displayData () {
 }
 
 function exiting (code, msg) {
-  code = code || 0; // 0 = success
+  // 0 = success
+  code = code || 0; // eslint-disable-line no-param-reassign
   if (code && !msg) {
-    msg = 'ERROR!';
+    msg = 'ERROR!'; // eslint-disable-line no-param-reassign
   }
   if (msg) {
     if (code) {

@@ -1,4 +1,4 @@
-require('babel-register');
+require('@babel/register'); // eslint-disable-line import/no-extraneous-dependencies
 
 // This file must use ES5, everything required can be in ES6
 
@@ -17,7 +17,7 @@ function setUpServer () {
 setUpServer();
 
 // Replace this with your migration
-const processUsers = require('');
+const processUsers = () => {}; // require('');
 
 processUsers()
   .then(() => {
