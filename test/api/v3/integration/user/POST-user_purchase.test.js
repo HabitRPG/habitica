@@ -6,8 +6,8 @@ import {
 
 describe('POST /user/purchase/:type/:key', () => {
   let user;
-  let type = 'hatchingPotions';
-  let key = 'Base';
+  const type = 'hatchingPotions';
+  const key = 'Base';
 
   beforeEach(async () => {
     user = await generateUser({
@@ -34,7 +34,7 @@ describe('POST /user/purchase/:type/:key', () => {
   });
 
   it('can convert gold to gems if subscribed', async () => {
-    let oldBalance = user.balance;
+    const oldBalance = user.balance;
     await user.update({
       'purchased.plan.customerId': 'group-plan',
       'stats.gp': 1000,
@@ -45,7 +45,7 @@ describe('POST /user/purchase/:type/:key', () => {
   });
 
   it('leader can convert gold to gems even if the group plan prevents it', async () => {
-    let { group, groupLeader } = await createAndPopulateGroup({
+    const { group, groupLeader } = await createAndPopulateGroup({
       groupDetails: {
         name: 'test',
         type: 'guild',
@@ -57,7 +57,7 @@ describe('POST /user/purchase/:type/:key', () => {
       'purchased.plan.customerId': 123,
     });
     await groupLeader.sync();
-    let oldBalance = groupLeader.balance;
+    const oldBalance = groupLeader.balance;
 
     await groupLeader.update({
       'purchased.plan.customerId': 'group-plan',
@@ -70,7 +70,7 @@ describe('POST /user/purchase/:type/:key', () => {
   });
 
   it('cannot convert gold to gems if the group plan prevents it', async () => {
-    let { group, members } = await createAndPopulateGroup({
+    const { group, members } = await createAndPopulateGroup({
       groupDetails: {
         name: 'test',
         type: 'guild',
@@ -82,7 +82,7 @@ describe('POST /user/purchase/:type/:key', () => {
       'leaderOnly.getGems': true,
       'purchased.plan.customerId': 123,
     });
-    let oldBalance = members[0].balance;
+    const oldBalance = members[0].balance;
 
     await members[0].update({
       'purchased.plan.customerId': 'group-plan',
@@ -101,19 +101,19 @@ describe('POST /user/purchase/:type/:key', () => {
 
   describe('bulk purchasing', () => {
     it('purchases a gem item', async () => {
-      await user.post(`/user/purchase/${type}/${key}`, {quantity: 2});
+      await user.post(`/user/purchase/${type}/${key}`, { quantity: 2 });
       await user.sync();
 
       expect(user.items[type][key]).to.equal(2);
     });
 
     it('can convert gold to gems if subscribed', async () => {
-      let oldBalance = user.balance;
+      const oldBalance = user.balance;
       await user.update({
         'purchased.plan.customerId': 'group-plan',
         'stats.gp': 1000,
       });
-      await user.post('/user/purchase/gems/gem', {quantity: 2});
+      await user.post('/user/purchase/gems/gem', { quantity: 2 });
       await user.sync();
       expect(user.balance).to.equal(oldBalance + 0.50);
     });

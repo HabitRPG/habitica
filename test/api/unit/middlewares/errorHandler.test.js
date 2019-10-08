@@ -15,7 +15,8 @@ import { BadRequest } from '../../../../website/server/libs/errors';
 import logger from '../../../../website/server/libs/logger';
 
 describe('errorHandler', () => {
-  let res, req, next;
+  let res; let req; let
+    next;
 
   beforeEach(() => {
     res = generateRes();
@@ -29,7 +30,7 @@ describe('errorHandler', () => {
   });
 
   it('sends internal server error if error is not a CustomError and is not identified', () => {
-    let error = new Error();
+    const error = new Error();
 
     errorHandler(error, req, res, next);
 
@@ -45,7 +46,7 @@ describe('errorHandler', () => {
   });
 
   it('identifies errors with statusCode property and format them correctly', () => {
-    let error = new Error('Error message');
+    const error = new Error('Error message');
     error.statusCode = 400;
 
     errorHandler(error, req, res, next);
@@ -62,7 +63,7 @@ describe('errorHandler', () => {
   });
 
   it('doesn\'t leak info about 500 errors', () => {
-    let error = new Error('Some secret error message');
+    const error = new Error('Some secret error message');
     error.statusCode = 500;
 
     errorHandler(error, req, res, next);
@@ -79,7 +80,7 @@ describe('errorHandler', () => {
   });
 
   it('sends CustomError', () => {
-    let error = new BadRequest();
+    const error = new BadRequest();
 
     errorHandler(error, req, res, next);
 
@@ -95,7 +96,7 @@ describe('errorHandler', () => {
   });
 
   it('handle http-errors errors', () => {
-    let error = new Error('custom message');
+    const error = new Error('custom message');
     error.statusCode = 422;
 
     errorHandler(error, req, res, next);
@@ -112,7 +113,7 @@ describe('errorHandler', () => {
   });
 
   it('handle express-validator errors', () => {
-    let error = [{param: 'param', msg: 'invalid param', value: 123}];
+    const error = [{ param: 'param', msg: 'invalid param', value: 123 }];
 
     errorHandler(error, req, res, next);
 
@@ -131,7 +132,7 @@ describe('errorHandler', () => {
   });
 
   it('handle Mongoose Validation errors', () => {
-    let error = new Error('User validation failed');
+    const error = new Error('User validation failed');
     error.name = 'ValidationError';
 
     error.errors = {
@@ -159,7 +160,7 @@ describe('errorHandler', () => {
   });
 
   it('logs error', () => {
-    let error = new BadRequest();
+    const error = new BadRequest();
 
     errorHandler(error, req, res, next);
 

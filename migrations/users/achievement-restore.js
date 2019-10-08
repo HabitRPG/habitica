@@ -79,7 +79,7 @@ module.exports = async function achievementRestore () {
   const userIds = [
   ];
 
-  Promise.all(userIds.map(userId => (async () => {
+  await Promise.all(userIds.map(userId => (async () => {
     const oldUser = await UsersOld.findOne({ _id: userId }, 'achievements');
     const newUser = await Users.findOne({ _id: userId }, 'achievements');
     const achievementUpdate = getAchievementUpdate(newUser, oldUser);

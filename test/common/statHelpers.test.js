@@ -42,7 +42,7 @@ describe('helper functions used in stat calculations', () => {
 
   describe('toNextLevel', () => {
     it('increases Experience target from one level to the next', () => {
-      _.times(110, (level) => {
+      _.times(110, level => {
         expect(tnl(level + 1)).to.be.greaterThan(tnl(level));
       });
     });
@@ -62,7 +62,8 @@ describe('helper functions used in stat calculations', () => {
     });
 
     it('provides a different curve if a halfway point is defined', () => {
-      expect(diminishingReturns(BONUS, MAXIMUM, HALFWAY)).to.not.eql(diminishingReturns(BONUS, MAXIMUM));
+      expect(diminishingReturns(BONUS, MAXIMUM, HALFWAY))
+        .to.not.eql(diminishingReturns(BONUS, MAXIMUM));
     });
   });
 });

@@ -4,7 +4,7 @@ import {
 import paypalPayments from '../../../../../../website/server/libs/payments/paypal';
 
 describe('payments - paypal - #ipn', () => {
-  let endpoint = '/paypal/ipn';
+  const endpoint = '/paypal/ipn';
   let user;
 
   beforeEach(async () => {
@@ -12,7 +12,7 @@ describe('payments - paypal - #ipn', () => {
   });
 
   it('verifies credentials', async () => {
-    let result = await user.post(endpoint);
+    const result = await user.post(endpoint);
     expect(result).to.eql('OK');
   });
 

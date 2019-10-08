@@ -19,7 +19,7 @@ describe('shared.ops.reroll', () => {
     tasks = [generateDaily(), generateReward()];
   });
 
-  it('returns an error when user balance is too low', (done) => {
+  it('returns an error when user balance is too low', done => {
     user.balance = 0;
 
     try {
@@ -32,7 +32,7 @@ describe('shared.ops.reroll', () => {
   });
 
   it('rerolls a user with enough gems', () => {
-    let [, message] = reroll(user);
+    const [, message] = reroll(user);
 
     expect(message).to.equal(i18n.t('fortifyComplete'));
   });

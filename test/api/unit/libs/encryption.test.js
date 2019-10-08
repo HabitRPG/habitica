@@ -5,9 +5,9 @@ import {
 
 describe('encryption', () => {
   it('can encrypt and decrypt', () => {
-    let data = 'some secret text';
-    let encrypted = encrypt(data);
-    let decrypted = decrypt(encrypted);
+    const data = 'some secret text';
+    const encrypted = encrypt(data);
+    const decrypted = decrypt(encrypted);
 
     expect(encrypted).not.to.equal(data);
     expect(data).to.equal(decrypted);

@@ -1,8 +1,0 @@
-{
-  "extends": [
-    "habitrpg/lib/mocha",
-  ],
-  "globals": {
-    "_": true,
-  }
-}
