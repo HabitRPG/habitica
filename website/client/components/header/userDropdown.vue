@@ -70,8 +70,6 @@ import { mapState } from 'client/libs/store';
 import * as Analytics from 'client/libs/analytics';
 import userIcon from 'assets/svg/user.svg';
 import MenuDropdown from '../ui/customMenuDropdown';
-import axios from 'axios';
-import markPMSRead from 'common/script/ops/markPMSRead';
 import MessageCount from './messageCount';
 
 export default {
@@ -97,8 +95,6 @@ export default {
       this.$root.$emit('bv::show::modal', 'avatar-modal');
     },
     showInbox () {
-      markPMSRead(this.user);
-      axios.post('/api/v4/user/mark-pms-read');
       this.$root.$emit('bv::show::modal', 'inbox-modal');
     },
     showProfile (startingPage) {
