@@ -1,5 +1,5 @@
 <template lang="pug">
-  b-modal#challenge-modal(:title="title", size='lg', @shown="shown")
+  b-modal#challenge-modal(:no-close-on-esc="true", :no-close-on-backdrop="true", :title="title", size='lg', @shown="shown")
     .form
       .form-group
         label
