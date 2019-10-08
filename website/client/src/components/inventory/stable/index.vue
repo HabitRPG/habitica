@@ -242,12 +242,6 @@
     }
   }
 
-
-  .modal-backdrop.fade.show {
-    background-color: $purple-50;
-    opacity: 0.9;
-  }
-
   .last {
     margin-right: 0 !important;
   }

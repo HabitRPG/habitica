@@ -52,6 +52,15 @@ describe('shared.ops.buyQuestGems', () => {
       expect(user.items.quests[key]).to.equal(1);
       expect(pinnedGearUtils.removeItemByPath.notCalled).to.equal(true);
     });
+    it('if a user\'s count of a quest scroll is negative, it will be reset to 0 before incrementing when they buy a new one.', () => {
+      let key = 'dustbunnies';
+      user.items.quests[key] = -1;
+
+      buyQuest(user, {params: {key}});
+
+      expect(user.items.quests[key]).to.equal(1);
+      expect(pinnedGearUtils.removeItemByPath.notCalled).to.equal(true);
+    });
   });
 
   context('bulk purchase', () => {

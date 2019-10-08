@@ -2,8 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 const nconf = require('nconf');
 const setupNconf = require('../../website/server/libs/setupNconf');
-const { DuplicatesPlugin } = require("inspectpack/plugin");
-const pkg = require('../../package.json');
+const { DuplicatesPlugin } = require('inspectpack/plugin');
+const pkg = require('./package.json');
 
 let configFile = path.join(path.resolve(__dirname, '../../config.json'));
 
@@ -47,6 +47,14 @@ module.exports = {
     ],
   },
   chainWebpack: config => {
+    // Fix issue with duplicated deps in monorepos 
+    // https://getpocket.com/redirect?url=https%3A%2F%2Fgithub.com%2Fwebpack%2Fwebpack%2Fissues%2F8886
+    // Manually resolve each dependency
+    Object.keys(pkg.dependencies).forEach(dep => {
+      config.resolve.alias
+        .set(dep, path.resolve(__dirname, `./node_modules/${dep}`));
+    });
+
     const pugRule = config.module.rule('pug')
     const svgRule = config.module.rule('svg')
 

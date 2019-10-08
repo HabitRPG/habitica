@@ -77,6 +77,13 @@ dt {
   }
 }
 
+// popover used in quest selection modal
+.popover-body {
+  dt {
+    color: inherit;
+  }
+}
+
 // making sure the star-colors always correct
 .star {
   fill: #ffb445;

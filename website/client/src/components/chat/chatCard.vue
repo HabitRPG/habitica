@@ -26,10 +26,10 @@ div
         .svg-icon(v-html="icons.delete", v-once)
         div(v-once) {{$t('delete')}}
       .ml-auto.d-flex(v-b-tooltip="{title: likeTooltip(msg.likes[user._id])}", v-if='!inbox')
-        .action.d-flex.align-items-center.mr-0(@click='like()', v-if='likeCount > 0', :class='{active: msg.likes[user._id]}')
+        .action.d-flex.align-items-center.mr-0(@click='like()', v-if='likeCount > 0', :class='{activeLike: msg.likes[user._id]}')
           .svg-icon(v-html="icons.liked", :title='$t("liked")')
           | +{{ likeCount }}
-        .action.d-flex.align-items-center.mr-0(@click='like()', v-if='likeCount === 0', :class='{active: msg.likes[user._id]}')
+        .action.d-flex.align-items-center.mr-0(@click='like()', v-if='likeCount === 0', :class='{activeLike: msg.likes[user._id]}')
           .svg-icon(v-html="icons.like", :title='$t("like")')
       span(v-if='!msg.likes[user._id] && !inbox') {{ $t('like') }}
 </template>
@@ -106,7 +106,7 @@ div
     }
   }
 
-  .active {
+  .activeLike {
     color: $purple-300;
 
     .svg-icon {
