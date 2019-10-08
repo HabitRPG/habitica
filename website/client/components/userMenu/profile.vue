@@ -497,6 +497,7 @@ export default {
   },
   mounted () {
     this.loadUser();
+    this.selectPage(this.startingPage);
   },
   watch: {
     startingPage () {
