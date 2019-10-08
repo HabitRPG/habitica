@@ -242,6 +242,7 @@ import { mapState } from 'client/libs/store';
 import habiticaMarkdown from 'habitica-markdown';
 import styleHelper from 'client/mixins/styleHelper';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
+import markPMSRead from 'common/script/ops/markPMSRead';
 import axios from 'axios';
 
 import chatMessages from '../chat/chatMessages';
@@ -582,6 +583,11 @@ export default {
       const requestUrl = `/api/v4/inbox/paged-messages?conversation=${this.selectedConversation.key}&page=${this.selectedConversation.page}`;
       const res = await axios.get(requestUrl);
       const loadedMessages = res.data.data;
+
+      const unreadMessageCount = loadedMessages.filter(msg => !msg.isRead).length;
+      const toUserUuid = this.selectedConversation.key;
+      markPMSRead(this.user, unreadMessageCount);
+      axios.post(`/api/v4/user/mark-pms-read?count=${unreadMessageCount}&to=${toUserUuid}`);
 
       this.messagesByConversation[this.selectedConversation.key] = this.messagesByConversation[this.selectedConversation.key] || [];
       const loadedMessagesToAdd = loadedMessages

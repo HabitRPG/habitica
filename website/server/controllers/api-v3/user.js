@@ -1460,10 +1460,13 @@ api.clearMessages = {
  * @apiName markPmsRead
  * @apiGroup User
  *
+ * @apiParam (Path) {Integer} count The count of pms marked as read
+ * @apiParam (Path) {UUID} to The uuid of user that is opposed to you in the conversation
+ *
  * @apiSuccess {Object} data user.inbox.newMessages
  *
  * @apiSuccessExample {json}
- * {"success":true,"data":[0,"Your private messages have been marked as read"],"notifications":[]}
+ * {"success":true,"message":["Your private messages have been marked as read"],"notifications":[]}
  *
  */
 api.markPmsRead = {
@@ -1472,9 +1475,14 @@ api.markPmsRead = {
   url: '/user/mark-pms-read',
   async handler (req, res) {
     let user = res.locals.user;
-    let markPmsResponse = common.ops.markPmsRead(user);
-    await user.save();
-    res.respond(200, markPmsResponse);
+    let count = req.query.count;
+    let toUserUuid = req.query.sender;
+
+    await inboxLib.markPmsRead(toUserUuid, user, count);
+
+    res.respond(200, {
+      message: res.t('pmsMarkedRead'),
+    });
   },
 };
 
