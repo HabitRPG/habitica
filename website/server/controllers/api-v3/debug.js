@@ -1,10 +1,10 @@
+import _ from 'lodash';
 import { authWithHeaders } from '../../middlewares/auth';
 import ensureDevelpmentMode from '../../middlewares/ensureDevelpmentMode';
 import { BadRequest } from '../../libs/errors';
 import common from '../../../common';
-import _ from 'lodash';
 
-const content = common.content;
+const { content } = common;
 
 /**
  * @apiDefine Development Development
@@ -16,7 +16,7 @@ const content = common.content;
  * This route only exists when developing Habitica in non-production environment.
  */
 
-let api = {};
+const api = {};
 
 /**
  * @api {post} /api/v3/debug/add-ten-gems Add ten gems to the current user
@@ -31,7 +31,7 @@ api.addTenGems = {
   url: '/debug/add-ten-gems',
   middlewares: [ensureDevelpmentMode, authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
 
     user.balance += 2.5;
 
@@ -54,7 +54,7 @@ api.addHourglass = {
   url: '/debug/add-hourglass',
   middlewares: [ensureDevelpmentMode, authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
 
     user.purchased.plan.consecutive.trinkets += 1;
 
@@ -77,8 +77,8 @@ api.setCron = {
   url: '/debug/set-cron',
   middlewares: [ensureDevelpmentMode, authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
-    let cron = req.body.lastCron;
+    const { user } = res.locals;
+    const cron = req.body.lastCron;
 
     user.lastCron = cron;
 
@@ -101,7 +101,7 @@ api.makeAdmin = {
   url: '/debug/make-admin',
   middlewares: [ensureDevelpmentMode, authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
 
     user.contributor.admin = true;
 
@@ -132,8 +132,8 @@ api.modifyInventory = {
   url: '/debug/modify-inventory',
   middlewares: [ensureDevelpmentMode, authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
-    let { gear } = req.body;
+    const { user } = res.locals;
+    const { gear } = req.body;
 
     if (gear) {
       user.items.gear.owned = gear;
@@ -148,7 +148,7 @@ api.modifyInventory = {
       'hatchingPotions',
       'food',
       'quests',
-    ].forEach((type) => {
+    ].forEach(type => {
       if (req.body[type]) {
         user.items[type] = req.body[type];
         user.markModified(`items.${type}`);
@@ -174,9 +174,9 @@ api.questProgress = {
   url: '/debug/quest-progress',
   middlewares: [ensureDevelpmentMode, authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
-    let key = _.get(user, 'party.quest.key');
-    let quest = content.quests[key];
+    const { user } = res.locals;
+    const key = _.get(user, 'party.quest.key');
+    const quest = content.quests[key];
 
     if (!quest) {
       throw new BadRequest('User is not on a valid quest.');

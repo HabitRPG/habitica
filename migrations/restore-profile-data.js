@@ -1,22 +1,24 @@
 /* let migrationName = 'restore_profile_data.js'; */
-let authorName = 'ThehollidayInn'; // in case script author needs to know when their ...
-let authorUuid = ''; // ... own data is done
+const authorName = 'ThehollidayInn'; // in case script author needs to know when their ...
+const authorUuid = ''; // ... own data is done
 
 /*
  * Check if users have empty profile data in new database and update it with old database info
  */
 
-let monk = require('monk');
-let connectionString = ''; // FOR TEST DATABASE
-let dbUsers = monk(connectionString).get('users', { castIds: false });
+const monk = require('monk');
 
-let monk2 = require('monk');
-let oldDbConnectionString = 'mongodb://localhost:27017/habitrpg?auto_reconnect=true'; // FOR TEST DATABASE
-let olDbUsers = monk2(oldDbConnectionString).get('users', { castIds: false });
+const connectionString = ''; // FOR TEST DATABASE
+const dbUsers = monk(connectionString).get('users', { castIds: false });
+
+const monk2 = require('monk');
+
+const oldDbConnectionString = 'mongodb://localhost:27017/habitrpg?auto_reconnect=true'; // FOR TEST DATABASE
+const olDbUsers = monk2(oldDbConnectionString).get('users', { castIds: false });
 
 function processUsers (lastId) {
   // specify a query to limit the affected users (empty for all users):
-  let query = {
+  const query = {
     // 'profile.name': 'profile name not found',
     'profile.blurb': null,
     // 'auth.timestamps.loggedin': {$gt: new Date('11/30/2016')},
@@ -29,18 +31,18 @@ function processUsers (lastId) {
   }
 
   dbUsers.find(query, {
-    sort: {_id: 1},
+    sort: { _id: 1 },
     limit: 250,
     fields: ['_id', 'profile', 'auth.timestamps.loggedin'], // specify fields we are interested in to limit retrieved data (empty if we're not reading data):
   })
     .then(updateUsers)
-    .catch((err) => {
+    .catch(err => {
       console.log(err);
-      return exiting(1, `ERROR! ${  err}`);
+      return exiting(1, `ERROR! ${err}`);
     });
 }
 
-let progressCount = 1000;
+const progressCount = 1000;
 let count = 0;
 
 function updateUsers (users) {
@@ -50,28 +52,26 @@ function updateUsers (users) {
     return;
   }
 
-  let userPaymentPromises = users.map(updateUser);
-  let lastUser = users[users.length - 1];
+  const userPaymentPromises = users.map(updateUser);
+  const lastUser = users[users.length - 1];
 
   return Promise.all(userPaymentPromises)
-    .then(() => {
-      return processUsers(lastUser._id);
-    });
+    .then(() => processUsers(lastUser._id));
 }
 
 function updateUser (user) {
   count++;
 
   if (!user.profile.name || user.profile.name === 'profile name not found' || !user.profile.imageUrl || !user.profile.blurb) {
-    return olDbUsers.findOne({_id: user._id}, '_id profile')
-      .then((oldUserData) => {
+    return olDbUsers.findOne({ _id: user._id }, '_id profile')
+      .then(oldUserData => {
         if (!oldUserData) return;
         // specify user data to change:
-        let set = {};
+        const set = {};
 
         if (oldUserData.profile.name === 'profile name not found') return;
 
-        let userNeedsProfileName = !user.profile.name || user.profile.name === 'profile name not found';
+        const userNeedsProfileName = !user.profile.name || user.profile.name === 'profile name not found';
         if (userNeedsProfileName && oldUserData.profile.name) {
           set['profile.name'] = oldUserData.profile.name;
         }
@@ -86,17 +86,17 @@ function updateUser (user) {
 
         if (Object.keys(set).length !== 0 && set.constructor === Object) {
           console.log(set);
-          return dbUsers.update({_id: user._id}, {$set: set});
+          return dbUsers.update({ _id: user._id }, { $set: set });
         }
       });
   }
 
-  if (count % progressCount === 0) console.warn(`${count  } ${  user._id}`);
-  if (user._id === authorUuid) console.warn(`${authorName  } processed`);
+  if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
+  if (user._id === authorUuid) console.warn(`${authorName} processed`);
 }
 
 function displayData () {
-  console.warn(`\n${  count  } users processed\n`);
+  console.warn(`\n${count} users processed\n`);
   return exiting(0);
 }
 
@@ -108,7 +108,7 @@ function exiting (code, msg) {
   if (msg) {
     if (code) {
       console.error(msg);
-    } else      {
+    } else {
       console.log(msg);
     }
   }

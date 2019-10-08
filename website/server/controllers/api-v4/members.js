@@ -1,7 +1,7 @@
 import { authWithHeaders } from '../../middlewares/auth';
 import { chatReporterFactory } from '../../libs/chatReporting/chatReporterFactory';
 
-let api = {};
+const api = {};
 
 /**
  * @api {post} /api/v4/members/flag-private-message/:messageId Flag a private message

@@ -1,7 +1,7 @@
-import i18n from '../../i18n';
-import content from '../../content/index';
 import get from 'lodash/get';
 import each from 'lodash/each';
+import i18n from '../../i18n';
+import content from '../../content/index';
 import {
   BadRequest,
   NotAuthorized,
@@ -10,15 +10,15 @@ import {
 import errorMessage from '../../libs/errorMessage';
 
 export default function buyMysterySet (user, req = {}, analytics) {
-  let key = get(req, 'params.key');
+  const key = get(req, 'params.key');
   if (!key) throw new BadRequest(errorMessage('missingKeyParam'));
 
   if (!(user.purchased.plan.consecutive.trinkets > 0)) {
     throw new NotAuthorized(i18n.t('notEnoughHourglasses', req.language));
   }
 
-  let ref = content.timeTravelerStore(user);
-  let mysterySet = ref ? ref[key] : undefined;
+  const ref = content.timeTravelerStore(user);
+  const mysterySet = ref ? ref[key] : undefined;
 
   if (!mysterySet) {
     throw new NotFound(i18n.t('mysterySetNotFound', req.language));

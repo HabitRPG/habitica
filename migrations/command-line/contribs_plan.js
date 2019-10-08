@@ -2,7 +2,7 @@
 db.users.update(
 
   {
-    'contributor.level': {$gte: 7},
+    'contributor.level': { $gte: 7 },
     'purchased.plan.customerId': null,
   },
 
@@ -18,6 +18,6 @@ db.users.update(
     },
   },
 
-  {multi: true}
+  { multi: true },
 
 );

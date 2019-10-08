@@ -3,7 +3,7 @@ import { model as Webhook } from '../../models/webhook';
 import { removeFromArray } from '../../libs/collectionManipulators';
 import { NotFound, BadRequest } from '../../libs/errors';
 
-let api = {};
+const api = {};
 
 /**
  * @apiDefine Webhook Webhook
@@ -76,10 +76,10 @@ api.addWebhook = {
   middlewares: [authWithHeaders()],
   url: '/user/webhook',
   async handler (req, res) {
-    let user = res.locals.user;
-    let webhook = new Webhook(req.body);
+    const { user } = res.locals;
+    const webhook = new Webhook(req.body);
 
-    let existingWebhook = user.webhooks.find(hook => hook.id === webhook.id);
+    const existingWebhook = user.webhooks.find(hook => hook.id === webhook.id);
 
     if (existingWebhook) {
       throw new BadRequest(res.t('webhookIdAlreadyTaken', { id: webhook.id }));
@@ -107,7 +107,7 @@ api.getWebhook = {
   middlewares: [authWithHeaders()],
   url: '/user/webhook',
   async handler (req, res) {
-    const user = res.locals.user;
+    const { user } = res.locals;
 
     res.respond(200, user.webhooks);
   },
@@ -154,13 +154,15 @@ api.updateWebhook = {
   middlewares: [authWithHeaders()],
   url: '/user/webhook/:id',
   async handler (req, res) {
-    let user = res.locals.user;
-    let id = req.params.id;
-    let webhook = user.webhooks.find(hook => hook.id === id);
-    let { url, label, type, enabled, options } = req.body;
+    const { user } = res.locals;
+    const { id } = req.params;
+    const webhook = user.webhooks.find(hook => hook.id === id);
+    const {
+      url, label, type, enabled, options,
+    } = req.body;
 
     if (!webhook) {
-      throw new NotFound(res.t('noWebhookWithId', {id}));
+      throw new NotFound(res.t('noWebhookWithId', { id }));
     }
 
     if (url) {
@@ -205,13 +207,13 @@ api.deleteWebhook = {
   middlewares: [authWithHeaders()],
   url: '/user/webhook/:id',
   async handler (req, res) {
-    let user = res.locals.user;
-    let id = req.params.id;
+    const { user } = res.locals;
+    const { id } = req.params;
 
-    let webhook = user.webhooks.find(hook => hook.id === id);
+    const webhook = user.webhooks.find(hook => hook.id === id);
 
     if (!webhook) {
-      throw new NotFound(res.t('noWebhookWithId', {id}));
+      throw new NotFound(res.t('noWebhookWithId', { id }));
     }
 
     removeFromArray(user.webhooks, webhook);

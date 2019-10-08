@@ -1,11 +1,11 @@
+import _ from 'lodash';
+import find from 'lodash/find';
 import { authWithHeaders } from '../../middlewares/auth';
 import { model as Tag } from '../../models/tag';
 import * as Tasks from '../../models/task';
 import {
   NotFound,
 } from '../../libs/errors';
-import _ from 'lodash';
-import find from 'lodash/find';
 
 /**
  * @apiDefine TagNotFound
@@ -18,7 +18,7 @@ import find from 'lodash/find';
  */
 
 
-let api = {};
+const api = {};
 
 /**
  * @api {post} /api/v3/tags Create a new tag
@@ -40,13 +40,13 @@ api.createTag = {
   url: '/tags',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
 
     user.tags.push(Tag.sanitize(req.body));
-    let savedUser = await user.save();
+    const savedUser = await user.save();
 
-    let l = savedUser.tags.length;
-    let tag = savedUser.tags[l - 1];
+    const l = savedUser.tags.length;
+    const tag = savedUser.tags[l - 1];
     res.respond(201, tag);
   },
 };
@@ -66,7 +66,7 @@ api.getTags = {
   url: '/tags',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
     res.respond(200, user.tags);
   },
 };
@@ -91,14 +91,14 @@ api.getTag = {
   url: '/tags/:tagId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
 
     req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let tag = _.find(user.tags, {id: req.params.tagId});
+    const tag = _.find(user.tags, { id: req.params.tagId });
     if (!tag) throw new NotFound(res.t('tagNotFound'));
     res.respond(200, tag);
   },
@@ -128,22 +128,22 @@ api.updateTag = {
   url: '/tags/:tagId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
 
     req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID();
 
-    let tagId = req.params.tagId;
+    const { tagId } = req.params;
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let tag = _.find(user.tags, {id: tagId});
+    const tag = _.find(user.tags, { id: tagId });
     if (!tag) throw new NotFound(res.t('tagNotFound'));
 
     _.merge(tag, Tag.sanitize(req.body));
 
-    let savedUser = await user.save();
-    res.respond(200, _.find(savedUser.tags, {id: tagId}));
+    const savedUser = await user.save();
+    res.respond(200, _.find(savedUser.tags, { id: tagId }));
   },
 };
 
@@ -170,17 +170,15 @@ api.reorderTags = {
   url: '/reorder-tags',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
 
     req.checkBody('to', res.t('toRequired')).notEmpty();
     req.checkBody('tagId', res.t('tagIdRequired')).notEmpty();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let tagIndex = _.findIndex(user.tags, function findTag (tag) {
-      return tag.id === req.body.tagId;
-    });
+    const tagIndex = _.findIndex(user.tags, tag => tag.id === req.body.tagId);
     if (tagIndex === -1) throw new NotFound(res.t('tagNotFound'));
 
     const removedItem = user.tags.splice(tagIndex, 1)[0];
@@ -212,16 +210,14 @@ api.deleteTag = {
   url: '/tags/:tagId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
 
     req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let tagFound = find(user.tags, (tag) => {
-      return tag.id === req.params.tagId;
-    });
+    const tagFound = find(user.tags, tag => tag.id === req.params.tagId);
     if (!tagFound) throw new NotFound(res.t('tagNotFound'));
 
     await user.update({
@@ -240,7 +236,7 @@ api.deleteTag = {
       $pull: {
         tags: tagFound.id,
       },
-    }, {multi: true}).exec();
+    }, { multi: true }).exec();
 
     res.respond(200, {});
   },

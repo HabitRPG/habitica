@@ -1,6 +1,6 @@
-import { authWithHeaders, authWithSession } from '../../middlewares/auth';
 import _ from 'lodash';
 import cloneDeep from 'lodash/cloneDeep';
+import { authWithHeaders, authWithSession } from '../../middlewares/auth';
 import { model as Challenge } from '../../models/challenge';
 import {
   model as Group,
@@ -29,7 +29,7 @@ import {
 } from '../../libs/challenges';
 import apiError from '../../libs/apiError';
 
-let api = {};
+const api = {};
 
 /**
  * @apiDefine ChallengeLeader Challenge Leader
@@ -186,19 +186,19 @@ api.createChallenge = {
   url: '/challenges',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
 
     req.checkBody('group', apiError('groupIdRequired')).notEmpty();
 
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    const {savedChal, group} = await createChallenge(user, req, res);
+    const { savedChal, group } = await createChallenge(user, req, res);
 
-    let response = savedChal.toJSON();
+    const response = savedChal.toJSON();
     response.leader = { // the leader is the authenticated user
       _id: user._id,
-      profile: {name: user.profile.name},
+      profile: { name: user.profile.name },
     };
     response.group = getChallengeGroupResponse(group);
 
@@ -235,18 +235,20 @@ api.joinChallenge = {
   url: '/challenges/:challengeId/join',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
 
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let challenge = await Challenge.findOne({ _id: req.params.challengeId }).exec();
+    const challenge = await Challenge.findOne({ _id: req.params.challengeId }).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
     if (challenge.isMember(user)) throw new NotAuthorized(res.t('userAlreadyInChallenge'));
 
-    let group = await Group.getGroup({user, groupId: challenge.group, fields: basicGroupFields, optionalMembership: true});
+    const group = await Group.getGroup({
+      user, groupId: challenge.group, fields: basicGroupFields, optionalMembership: true,
+    });
     if (!group || !challenge.canJoin(user, group)) throw new NotFound(res.t('challengeNotFound'));
 
     challenge.memberCount += 1;
@@ -254,12 +256,12 @@ api.joinChallenge = {
     addUserJoinChallengeNotification(user);
 
     // Add all challenge's tasks to user's tasks and save the challenge
-    let results = await Promise.all([challenge.syncToUser(user), challenge.save()]);
+    const results = await Promise.all([challenge.syncToUser(user), challenge.save()]);
 
-    let response = results[1].toJSON();
+    const response = results[1].toJSON();
     response.group = getChallengeGroupResponse(group);
-    let chalLeader = await User.findById(response.leader).select(nameFields).exec();
-    response.leader = chalLeader ? chalLeader.toJSON({minimize: true}) : null;
+    const chalLeader = await User.findById(response.leader).select(nameFields).exec();
+    response.leader = chalLeader ? chalLeader.toJSON({ minimize: true }) : null;
 
     res.analytics.track('challenge join', {
       uuid: user._id,
@@ -292,15 +294,15 @@ api.leaveChallenge = {
   url: '/challenges/:challengeId/leave',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
-    let keep = req.body.keep === 'remove-all' ? 'remove-all' : 'keep-all';
+    const { user } = res.locals;
+    const keep = req.body.keep === 'remove-all' ? 'remove-all' : 'keep-all';
 
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let challenge = await Challenge.findOne({ _id: req.params.challengeId }).exec();
+    const challenge = await Challenge.findOne({ _id: req.params.challengeId }).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
     if (!challenge.isMember(user)) throw new NotAuthorized(res.t('challengeMemberNotFound'));
@@ -342,50 +344,50 @@ api.getUserChallenges = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     const CHALLENGES_PER_PAGE = 10;
-    const page = req.query.page;
+    const { page } = req.query;
 
-    const user = res.locals.user;
-    let orOptions = [
-      {_id: {$in: user.challenges}}, // Challenges where the user is participating
+    const { user } = res.locals;
+    const orOptions = [
+      { _id: { $in: user.challenges } }, // Challenges where the user is participating
     ];
 
-    const owned = req.query.owned;
-    if (!owned)  {
-      orOptions.push({leader: user._id});
+    const { owned } = req.query;
+    if (!owned) {
+      orOptions.push({ leader: user._id });
     }
 
     if (!req.query.member) {
       orOptions.push({
-        group: {$in: user.getGroups()},
+        group: { $in: user.getGroups() },
       }); // Challenges in groups where I'm a member
     }
 
-    let query = {
-      $and: [{$or: orOptions}],
+    const query = {
+      $and: [{ $or: orOptions }],
     };
 
     if (owned) {
       if (owned === 'not_owned') {
-        query.$and.push({leader: {$ne: user._id}});
+        query.$and.push({ leader: { $ne: user._id } });
       }
 
       if (owned === 'owned') {
-        query.$and.push({leader: user._id});
+        query.$and.push({ leader: user._id });
       }
     }
 
     if (req.query.search) {
-      const searchOr = {$or: []};
+      const searchOr = { $or: [] };
       const searchWords = _.escapeRegExp(req.query.search).split(' ').join('|');
       const searchQuery = { $regex: new RegExp(`${searchWords}`, 'i') };
-      searchOr.$or.push({name: searchQuery});
-      searchOr.$or.push({description: searchQuery});
+      searchOr.$or.push({ name: searchQuery });
+      searchOr.$or.push({ description: searchQuery });
       query.$and.push(searchOr);
     }
 
     if (req.query.categories) {
-      let categorySlugs = req.query.categories.split(',');
-      query.categories = { $elemMatch: { slug: {$in: categorySlugs} } };
+      const categorySlugs = req.query.categories.split(',');
+      query.categories = { $elemMatch: { slug: { $in: categorySlugs } } };
     }
 
     let mongoQuery = Challenge.find(query)
@@ -404,20 +406,16 @@ api.getUserChallenges = {
 
     let resChals = challenges.map(challenge => challenge.toJSON());
 
-    resChals = _.orderBy(resChals, [challenge => {
-      return challenge.categories.map(category => category.slug).includes('habitica_official');
-    }], ['desc']);
+    resChals = _.orderBy(resChals, [challenge => challenge.categories.map(category => category.slug).includes('habitica_official')], ['desc']);
 
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
-    await Promise.all(resChals.map((chal, index) => {
-      return Promise.all([
-        User.findById(chal.leader).select(`${nameFields} backer contributor`).exec(),
-        Group.findById(chal.group).select(basicGroupFields).exec(),
-      ]).then(populatedData => {
-        resChals[index].leader = populatedData[0] ? populatedData[0].toJSON({minimize: true}) : null;
-        resChals[index].group = populatedData[1] ? populatedData[1].toJSON({minimize: true}) : null;
-      });
-    }));
+    await Promise.all(resChals.map((chal, index) => Promise.all([
+      User.findById(chal.leader).select(`${nameFields} backer contributor`).exec(),
+      Group.findById(chal.group).select(basicGroupFields).exec(),
+    ]).then(populatedData => {
+      resChals[index].leader = populatedData[0] ? populatedData[0].toJSON({ minimize: true }) : null;
+      resChals[index].group = populatedData[1] ? populatedData[1].toJSON({ minimize: true }) : null;
+    })));
 
     res.respond(200, resChals);
   },
@@ -446,12 +444,12 @@ api.getGroupChallenges = {
     userFieldsToInclude: ['party', 'guilds'], // Some fields are always loaded (see middlewares/auth)
   })],
   async handler (req, res) {
-    let user = res.locals.user;
-    let groupId = req.params.groupId;
+    const { user } = res.locals;
+    let { groupId } = req.params;
 
     req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
     if (groupId === 'party') groupId = user.party._id;
@@ -467,20 +465,16 @@ api.getGroupChallenges = {
 
     let resChals = challenges.map(challenge => challenge.toJSON());
 
-    resChals = _.orderBy(resChals, [challenge => {
-      return challenge.categories.map(category => category.slug).includes('habitica_official');
-    }], ['desc']);
+    resChals = _.orderBy(resChals, [challenge => challenge.categories.map(category => category.slug).includes('habitica_official')], ['desc']);
 
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
-    await Promise.all(resChals.map((chal, index) => {
-      return User
-        .findById(chal.leader)
-        .select(nameFields)
-        .exec()
-        .then(populatedLeader => {
-          resChals[index].leader = populatedLeader ? populatedLeader.toJSON({minimize: true}) : null;
-        });
-    }));
+    await Promise.all(resChals.map((chal, index) => User
+      .findById(chal.leader)
+      .select(nameFields)
+      .exec()
+      .then(populatedLeader => {
+        resChals[index].leader = populatedLeader ? populatedLeader.toJSON({ minimize: true }) : null;
+      })));
 
     res.respond(200, resChals);
   },
@@ -506,27 +500,29 @@ api.getChallenge = {
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let user = res.locals.user;
-    let challengeId = req.params.challengeId;
+    const { user } = res.locals;
+    const { challengeId } = req.params;
 
     // Don't populate the group as we'll fetch it manually later
     // .populate('leader', nameFields)
-    let challenge = await Challenge.findById(challengeId).exec();
+    const challenge = await Challenge.findById(challengeId).exec();
 
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
     // Fetching basic group data
-    let group = await Group.getGroup({user, groupId: challenge.group, fields: basicGroupFields, optionalMembership: true});
+    const group = await Group.getGroup({
+      user, groupId: challenge.group, fields: basicGroupFields, optionalMembership: true,
+    });
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
 
-    let chalRes = challenge.toJSON();
-    chalRes.group = group.toJSON({minimize: true});
+    const chalRes = challenge.toJSON();
+    chalRes.group = group.toJSON({ minimize: true });
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
-    let chalLeader = await User.findById(chalRes.leader).select(nameFields).exec();
-    chalRes.leader = chalLeader ? chalLeader.toJSON({minimize: true}) : null;
+    const chalLeader = await User.findById(chalRes.leader).select(nameFields).exec();
+    chalRes.leader = chalLeader ? chalLeader.toJSON({ minimize: true }) : null;
 
     res.respond(200, chalRes);
   },
@@ -550,33 +546,36 @@ api.exportChallengeCsv = {
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let user = res.locals.user;
-    let challengeId = req.params.challengeId;
+    const { user } = res.locals;
+    const { challengeId } = req.params;
 
-    let challenge = await Challenge.findById(challengeId).select('_id group leader tasksOrder').exec();
+    const challenge = await Challenge.findById(challengeId).select('_id group leader tasksOrder').exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-    let group = await Group.getGroup({user, groupId: challenge.group, fields: '_id type privacy', optionalMembership: true});
+    const group = await Group.getGroup({
+      user, groupId: challenge.group, fields: '_id type privacy', optionalMembership: true,
+    });
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
 
     // In v2 this used the aggregation framework to run some computation on MongoDB but then iterated through all
     // results on the server so the perf difference isn't that big (hopefully)
 
-    let [members, tasks] = await Promise.all([
-      User.find({challenges: challengeId})
+    const [members, tasks] = await Promise.all([
+      User.find({ challenges: challengeId })
         .select(nameFields)
-        .sort({_id: 1})
+        .sort({ _id: 1 })
         .lean() // so we don't involve mongoose
         .exec(),
 
       Tasks.Task.find({
         'challenge.id': challengeId,
-        userId: {$exists: true},
-      }).sort({userId: 1, text: 1})
+        userId: { $exists: true },
+      }).sort({ userId: 1, text: 1 })
         .select('userId type text value notes streak')
-        .lean().exec(),
+        .lean()
+        .exec(),
     ]);
 
     let resArray = members.map(member => [member._id, member.profile.name, member.auth.local.username]);
@@ -605,15 +604,13 @@ api.exportChallengeCsv = {
     });
 
     // The first row is going to be UUID name Task Value Notes repeated n times for the n challenge tasks
-    let challengeTasks = _.reduce(challenge.tasksOrder.toObject(), (result, array) => {
-      return result.concat(array);
-    }, []).sort();
+    const challengeTasks = _.reduce(challenge.tasksOrder.toObject(), (result, array) => result.concat(array), []).sort();
     resArray.unshift(['UUID', 'Display Name', 'Username']);
 
     _.times(challengeTasks.length, () => resArray[0].push('Task', 'Value', 'Notes', 'Streak'));
 
     // Remove lines for users without tasks info
-    resArray = resArray.filter((line) => {
+    resArray = resArray.filter(line => {
       if (line.length === 2) { // only user data ([id, profile name]), no task data
         return false;
       }
@@ -626,7 +623,7 @@ api.exportChallengeCsv = {
       'Content-disposition': `attachment; filename=${challengeId}.csv`,
     });
 
-    let csvRes = await csvStringify(resArray);
+    const csvRes = await csvStringify(resArray);
     res.status(200).send(csvRes);
   },
 };
@@ -660,26 +657,28 @@ api.updateChallenge = {
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let user = res.locals.user;
-    let challengeId = req.params.challengeId;
+    const { user } = res.locals;
+    const { challengeId } = req.params;
 
-    let challenge = await Challenge.findById(challengeId).exec();
+    const challenge = await Challenge.findById(challengeId).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
-    let group = await Group.getGroup({user, groupId: challenge.group, fields: basicGroupFields, optionalMembership: true});
+    const group = await Group.getGroup({
+      user, groupId: challenge.group, fields: basicGroupFields, optionalMembership: true,
+    });
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
     if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyLeaderUpdateChal'));
 
     _.merge(challenge, Challenge.sanitizeUpdate(req.body));
 
-    let savedChal = await challenge.save();
-    let response = savedChal.toJSON();
+    const savedChal = await challenge.save();
+    const response = savedChal.toJSON();
     response.group = getChallengeGroupResponse(group);
-    let chalLeader = await User.findById(response.leader).select(nameFields).exec();
-    response.leader = chalLeader ? chalLeader.toJSON({minimize: true}) : null;
+    const chalLeader = await User.findById(response.leader).select(nameFields).exec();
+    response.leader = chalLeader ? chalLeader.toJSON({ minimize: true }) : null;
     res.respond(200, response);
   },
 };
@@ -700,19 +699,19 @@ api.deleteChallenge = {
   url: '/challenges/:challengeId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
 
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let challenge = await Challenge.findOne({_id: req.params.challengeId}).exec();
+    const challenge = await Challenge.findOne({ _id: req.params.challengeId }).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
     if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyLeaderDeleteChal'));
 
     // Close channel in background, some ops are run in the background without `await`ing
-    await challenge.closeChal({broken: 'CHALLENGE_DELETED'});
+    await challenge.closeChal({ broken: 'CHALLENGE_DELETED' });
 
     res.analytics.track('challenge delete', {
       uuid: user._id,
@@ -745,23 +744,23 @@ api.selectChallengeWinner = {
   url: '/challenges/:challengeId/selectWinner/:winnerId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
 
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
     req.checkParams('winnerId', res.t('winnerIdRequired')).notEmpty().isUUID();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let challenge = await Challenge.findOne({_id: req.params.challengeId}).exec();
+    const challenge = await Challenge.findOne({ _id: req.params.challengeId }).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
     if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyLeaderDeleteChal'));
 
-    let winner = await User.findOne({_id: req.params.winnerId}).exec();
-    if (!winner || winner.challenges.indexOf(challenge._id) === -1) throw new NotFound(res.t('winnerNotFound', {userId: req.params.winnerId}));
+    const winner = await User.findOne({ _id: req.params.winnerId }).exec();
+    if (!winner || winner.challenges.indexOf(challenge._id) === -1) throw new NotFound(res.t('winnerNotFound', { userId: req.params.winnerId }));
 
     // Close channel in background, some ops are run in the background without `await`ing
-    await challenge.closeChal({broken: 'CHALLENGE_CLOSED', winner});
+    await challenge.closeChal({ broken: 'CHALLENGE_CLOSED', winner });
 
     res.analytics.track('challenge close', {
       uuid: user._id,
@@ -794,26 +793,26 @@ api.cloneChallenge = {
   url: '/challenges/:challengeId/clone',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
 
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    const challengeToClone = await Challenge.findOne({_id: req.params.challengeId}).exec();
+    const challengeToClone = await Challenge.findOne({ _id: req.params.challengeId }).exec();
     if (!challengeToClone) throw new NotFound(res.t('challengeNotFound'));
 
-    const {savedChal} = await createChallenge(user, req, res);
+    const { savedChal } = await createChallenge(user, req, res);
 
     const challengeTasks = await Tasks.Task.find({
       'challenge.id': challengeToClone._id,
-      userId: {$exists: false},
+      userId: { $exists: false },
     }).exec();
 
     const tasksToClone = challengeTasks.map(task => {
-      let clonedTask = cloneDeep(task.toObject());
-      let omittedTask = cleanUpTask(clonedTask);
+      const clonedTask = cloneDeep(task.toObject());
+      const omittedTask = cleanUpTask(clonedTask);
       return omittedTask;
     });
 
@@ -821,9 +820,9 @@ api.cloneChallenge = {
       body: tasksToClone,
     };
 
-    const clonedTasks = await createTasks(taskRequest, res, {user, challenge: savedChal});
+    const clonedTasks = await createTasks(taskRequest, res, { user, challenge: savedChal });
 
-    res.respond(200, {clonedTasks, clonedChallenge: savedChal});
+    res.respond(200, { clonedTasks, clonedChallenge: savedChal });
   },
 };
 

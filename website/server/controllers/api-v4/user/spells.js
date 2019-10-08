@@ -3,7 +3,7 @@ import {
   castSpell,
 } from '../../../libs/spells';
 
-let api = {};
+const api = {};
 
 /*
 * NOTE most spells routes are still in the v3 controller

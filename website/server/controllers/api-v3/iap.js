@@ -2,4 +2,5 @@
 // to be found at /api/v3/iap instead of /iap.
 
 import iap from '../top-level/payments/iap';
+
 export default iap;

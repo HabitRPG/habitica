@@ -12,7 +12,7 @@ import {
   buyGems,
 } from './gems';
 
-let api = {};
+const api = {};
 
 api.constants = {
   UNLIMITED_CUSTOMER_ID: 'habitrpg', // Users with the customerId have an unlimted free subscription

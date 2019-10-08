@@ -37,8 +37,8 @@ api.deleteMessage = {
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    const messageId = req.params.messageId;
-    const user = res.locals.user;
+    const { messageId } = req.params;
+    const { user } = res.locals;
 
     const deleted = await inboxLib.deleteMessage(user, messageId);
     if (!deleted) throw new NotFound(res.t('messageGroupChatNotFound'));
@@ -64,7 +64,7 @@ api.clearMessages = {
   middlewares: [authWithHeaders()],
   url: '/inbox/clear',
   async handler (req, res) {
-    const user = res.locals.user;
+    const { user } = res.locals;
 
     await inboxLib.clearPMs(user);
 
@@ -99,7 +99,7 @@ api.conversations = {
   middlewares: [authWithHeaders()],
   url: '/inbox/conversations',
   async handler (req, res) {
-    const user = res.locals.user;
+    const { user } = res.locals;
 
     const result = await inboxLib.listConversations(user);
 
@@ -123,9 +123,9 @@ api.getInboxMessages = {
   url: '/inbox/paged-messages',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    const user = res.locals.user;
-    const page = req.query.page;
-    const conversation = req.query.conversation;
+    const { user } = res.locals;
+    const { page } = req.query;
+    const { conversation } = req.query;
 
     const userInbox = await inboxLib.getUserInbox(user, {
       page, conversation, mapProps: true,

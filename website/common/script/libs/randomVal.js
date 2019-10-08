@@ -8,12 +8,12 @@ export function trueRandom () {
 // Get a random property from an object
 // returns random property (the value)
 export default function randomVal (obj, options = {}) {
-  let array = options.key ? keys(obj) : values(obj);
-  let random = options.predictableRandom || trueRandom();
+  const array = options.key ? keys(obj) : values(obj);
+  const random = options.predictableRandom || trueRandom();
 
   array.sort();
 
-  let randomIndex = Math.floor(random * array.length);
+  const randomIndex = Math.floor(random * array.length);
 
   return array[randomIndex];
 }

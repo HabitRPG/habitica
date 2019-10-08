@@ -72,7 +72,7 @@
     "npm": "^6"
   },
   "scripts": {
-    "lint": "eslint --ext .js . && cd website/client && npm run lint",
+    "lint": "eslint --ext .js ./website/common --fix",
     "test": "npm run lint && gulp test && gulp apidoc",
     "test:build": "gulp test:prepare:build",
     "test:api-v3": "gulp test:api-v3",
@@ -101,8 +101,8 @@
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "chalk": "^2.4.1",
-    "eslint": "^4.19.1",
-    "eslint-config-habitrpg": "^4.0.0",
+    "eslint": "^6.5.1",
+    "eslint-config-habitrpg": "^6.0.3",
     "eslint-plugin-mocha": "^5.0.0",
     "expect.js": "^0.3.1",
     "istanbul": "^1.1.0-alpha.1",

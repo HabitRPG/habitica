@@ -1,19 +1,19 @@
+import _ from 'lodash';
+import validator from 'validator';
 import { authWithHeaders } from '../../middlewares/auth';
 import { ensureAdmin } from '../../middlewares/ensureAccessRight';
 import { model as User } from '../../models/user';
 import {
   NotFound,
 } from '../../libs/errors';
-import _ from 'lodash';
 import apiError from '../../libs/apiError';
-import validator from 'validator';
 import {
   validateItemPath,
   castItemVal,
 } from '../../libs/items/utils';
 
 
-let api = {};
+const api = {};
 
 /**
  * @api {get} /api/v3/hall/patrons Get all patrons
@@ -69,17 +69,17 @@ api.getPatrons = {
   url: '/hall/patrons',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkQuery('page').optional().isInt({min: 0}, apiError('queryPageInteger'));
+    req.checkQuery('page').optional().isInt({ min: 0 }, apiError('queryPageInteger'));
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let page = req.query.page ? Number(req.query.page) : 0;
+    const page = req.query.page ? Number(req.query.page) : 0;
     const perPage = 50;
 
-    let patrons = await User
+    const patrons = await User
       .find({
-        'backer.tier': {$gt: 0},
+        'backer.tier': { $gt: 0 },
       })
       .select('contributor backer profile.name')
       .sort('-backer.tier')
@@ -129,9 +129,9 @@ api.getHeroes = {
   url: '/hall/heroes',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let heroes = await User
+    const heroes = await User
       .find({
-        'contributor.level': {$gt: 0},
+        'contributor.level': { $gt: 0 },
       })
       .select('contributor backer profile.name')
       .sort('-contributor.level')
@@ -174,13 +174,13 @@ api.getHero = {
     validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    const heroId = req.params.heroId;
+    const { heroId } = req.params;
 
     let query;
     if (validator.isUUID(heroId)) {
-      query = {_id: heroId};
+      query = { _id: heroId };
     } else {
-      query = {'auth.local.lowerCaseUsername': heroId.toLowerCase()};
+      query = { 'auth.local.lowerCaseUsername': heroId.toLowerCase() };
     }
 
     const hero = await User
@@ -188,8 +188,8 @@ api.getHero = {
       .select(heroAdminFields)
       .exec();
 
-    if (!hero) throw new NotFound(res.t('userWithIDNotFound', {userId: heroId}));
-    let heroRes = hero.toJSON({minimize: true});
+    if (!hero) throw new NotFound(res.t('userWithIDNotFound', { userId: heroId }));
+    const heroRes = hero.toJSON({ minimize: true });
     // supply to the possible absence of hero.contributor
     // if we didn't pass minimize: true it would have returned all fields as empty
     if (!heroRes.contributor) heroRes.contributor = {};
@@ -198,7 +198,9 @@ api.getHero = {
 };
 
 // e.g., tier 5 gives 4 gems. Tier 8 = moderator. Tier 9 = staff
-const gemsPerTier = {1: 3, 2: 3, 3: 3, 4: 4, 5: 4, 6: 4, 7: 4, 8: 0, 9: 0};
+const gemsPerTier = {
+  1: 3, 2: 3, 3: 3, 4: 4, 5: 4, 6: 4, 7: 4, 8: 0, 9: 0,
+};
 
 /**
  * @api {put} /api/v3/hall/heroes/:heroId Update any user ("hero")
@@ -240,22 +242,22 @@ api.updateHero = {
   url: '/hall/heroes/:heroId',
   middlewares: [authWithHeaders(), ensureAdmin],
   async handler (req, res) {
-    let heroId = req.params.heroId;
-    let updateData = req.body;
+    const { heroId } = req.params;
+    const updateData = req.body;
 
     req.checkParams('heroId', res.t('heroIdRequired')).notEmpty().isUUID();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let hero = await User.findById(heroId).exec();
-    if (!hero) throw new NotFound(res.t('userWithIDNotFound', {userId: heroId}));
+    const hero = await User.findById(heroId).exec();
+    if (!hero) throw new NotFound(res.t('userWithIDNotFound', { userId: heroId }));
 
     if (updateData.balance) hero.balance = updateData.balance;
 
     // give them gems if they got an higher level
     let newTier = updateData.contributor && updateData.contributor.level; // tier = level in this context
-    let oldTier = hero.contributor && hero.contributor.level || 0;
+    const oldTier = hero.contributor && hero.contributor.level || 0;
     if (newTier > oldTier) {
       hero.flags.contributor = true;
       let tierDiff = newTier - oldTier; // can be 2+ tier increases at once
@@ -291,9 +293,9 @@ api.updateHero = {
     if (updateData.flags && _.isBoolean(updateData.flags.chatRevoked)) hero.flags.chatRevoked = updateData.flags.chatRevoked;
     if (updateData.flags && _.isBoolean(updateData.flags.chatShadowMuted)) hero.flags.chatShadowMuted = updateData.flags.chatShadowMuted;
 
-    let savedHero = await hero.save();
-    let heroJSON = savedHero.toJSON();
-    let responseHero = {_id: heroJSON._id}; // only respond with important fields
+    const savedHero = await hero.save();
+    const heroJSON = savedHero.toJSON();
+    const responseHero = { _id: heroJSON._id }; // only respond with important fields
     heroAdminFields.split(' ').forEach(field => {
       _.set(responseHero, field, _.get(heroJSON, field));
     });

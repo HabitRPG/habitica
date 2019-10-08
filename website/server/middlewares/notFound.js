@@ -28,7 +28,6 @@ export default function NotFoundMiddleware (req, res, next) {
 
   if (isExistingRoute || req.method !== 'GET') {
     return next(new NotFound());
-  } else {
-    serveClient(res);
   }
+  serveClient(res);
 }

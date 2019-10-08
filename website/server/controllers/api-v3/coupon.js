@@ -1,16 +1,16 @@
+import _ from 'lodash';
+import couponCode from 'coupon-code';
 import csvStringify from '../../libs/csvStringify';
 import {
   authWithHeaders,
   authWithSession,
 } from '../../middlewares/auth';
 import { ensureSudo } from '../../middlewares/ensureAccessRight';
-import _ from 'lodash';
 import * as couponsLib from '../../libs/coupons';
-import couponCode from 'coupon-code';
 import apiError from '../../libs/apiError';
 import { model as Coupon } from '../../models/coupon';
 
-let api = {};
+const api = {};
 
 /**
  * @apiDefine Sudo Sudo Users
@@ -37,12 +37,10 @@ api.getCoupons = {
   url: '/coupons',
   middlewares: [authWithSession, ensureSudo],
   async handler (req, res) {
-    let coupons = await Coupon.find().sort('createdAt').lean().exec();
+    const coupons = await Coupon.find().sort('createdAt').lean().exec();
 
-    let output = [['code', 'event', 'date', 'user']].concat(_.map(coupons, coupon => {
-      return [coupon._id, coupon.event, coupon.createdAt, coupon.user];
-    }));
-    let csv = await csvStringify(output);
+    const output = [['code', 'event', 'date', 'user']].concat(_.map(coupons, coupon => [coupon._id, coupon.event, coupon.createdAt, coupon.user]));
+    const csv = await csvStringify(output);
 
     res.set({
       'Content-Type': 'text/csv',
@@ -74,10 +72,10 @@ api.generateCoupons = {
     req.checkParams('event', apiError('eventRequired')).notEmpty();
     req.checkQuery('count', apiError('countRequired')).notEmpty().isNumeric();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let coupons = await Coupon.generate(req.params.event, req.query.count);
+    const coupons = await Coupon.generate(req.params.event, req.query.count);
     res.respond(200, coupons);
   },
 };
@@ -98,7 +96,7 @@ api.enterCouponCode = {
   url: '/coupons/enter/:code',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    const user = res.locals.user;
+    const { user } = res.locals;
     await couponsLib.enterCode(req, res, user);
     const userToJSON = await user.toJSONWithInbox();
     res.respond(200, userToJSON);
@@ -123,17 +121,17 @@ api.validateCoupon = {
   async handler (req, res) {
     req.checkParams('code', res.t('couponCodeRequired')).notEmpty();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
     let valid = false;
-    let code = couponCode.validate(req.params.code);
+    const code = couponCode.validate(req.params.code);
     if (code) {
-      let coupon = await Coupon.findOne({_id: code}).exec();
-      valid = coupon ? true : false;
+      const coupon = await Coupon.findOne({ _id: code }).exec();
+      valid = !!coupon;
     }
 
-    res.respond(200, {valid});
+    res.respond(200, { valid });
   },
 };
 

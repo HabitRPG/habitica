@@ -11,10 +11,10 @@ import errorMessage from '../../libs/errorMessage';
 import hasClass from '../../libs/hasClass';
 
 export default function allocate (user, req = {}) {
-  let stat = get(req, 'query.stat', 'str');
+  const stat = get(req, 'query.stat', 'str');
 
   if (ATTRIBUTES.indexOf(stat) === -1) {
-    throw new BadRequest(errorMessage('invalidAttribute', {attr: stat}));
+    throw new BadRequest(errorMessage('invalidAttribute', { attr: stat }));
   }
 
   if (!hasClass(user)) {

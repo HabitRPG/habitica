@@ -1,3 +1,5 @@
+import _ from 'lodash';
+import moment from 'moment';
 import { authWithHeaders } from '../../middlewares/auth';
 import {
   taskActivityWebhook,
@@ -21,15 +23,13 @@ import {
   setNextDue,
 } from '../../libs/taskManager';
 import common from '../../../common';
-import _ from 'lodash';
 import logger from '../../libs/logger';
-import moment from 'moment';
 import apiError from '../../libs/apiError';
 
 function canNotEditTasks (group, user, assignedUserId) {
-  let isNotGroupLeader = group.leader !== user._id;
-  let isManager = Boolean(group.managers[user._id]);
-  let userIsAssigningToSelf = Boolean(assignedUserId && user._id === assignedUserId);
+  const isNotGroupLeader = group.leader !== user._id;
+  const isManager = Boolean(group.managers[user._id]);
+  const userIsAssigningToSelf = Boolean(assignedUserId && user._id === assignedUserId);
   return isNotGroupLeader && !isManager && !userIsAssigningToSelf;
 }
 
@@ -48,8 +48,8 @@ function canNotEditTasks (group, user, assignedUserId) {
  * @apiError (401) {NotAuthorized} There is no account that uses those credentials.
  */
 
-let api = {};
-let requiredGroupFields = '_id leader tasksOrder name';
+const api = {};
+const requiredGroupFields = '_id leader tasksOrder name';
 
 /**
  * @api {post} /api/v3/tasks/user Create a new task belonging to the user
@@ -160,12 +160,12 @@ api.createUserTasks = {
   url: '/tasks/user',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
-    let tasks = await createTasks(req, res, {user});
+    const { user } = res.locals;
+    const tasks = await createTasks(req, res, { user });
 
     res.respond(201, tasks.length === 1 ? tasks[0] : tasks);
 
-    tasks.forEach((task) => {
+    tasks.forEach(task => {
       // Track when new users (first 7 days) create tasks
       if (moment().diff(user.auth.timestamps.created, 'days') < 7) {
         res.analytics.track('task create', {
@@ -234,26 +234,26 @@ api.createChallengeTasks = {
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
 
-    let reqValidationErrors = req.validationErrors();
+    const reqValidationErrors = req.validationErrors();
     if (reqValidationErrors) throw reqValidationErrors;
 
-    let user = res.locals.user;
-    let challengeId = req.params.challengeId;
+    const { user } = res.locals;
+    const { challengeId } = req.params;
 
-    let challenge = await Challenge.findOne({_id: challengeId}).exec();
+    const challenge = await Challenge.findOne({ _id: challengeId }).exec();
 
     // If the challenge does not exist, or if it exists but user is not the leader -> throw error
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
     if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
 
-    let tasks = await createTasks(req, res, {user, challenge});
+    const tasks = await createTasks(req, res, { user, challenge });
 
     res.respond(201, tasks.length === 1 ? tasks[0] : tasks);
 
     // If adding tasks to a challenge -> sync users
     if (challenge) challenge.addTasks(tasks);
 
-    tasks.forEach((task) => {
+    tasks.forEach(task => {
       res.analytics.track('task create', {
         uuid: user._id,
         hitType: 'event',
@@ -289,15 +289,15 @@ api.getUserTasks = {
     userFieldsToInclude: ['tasksOrder'],
   })],
   async handler (req, res) {
-    let types = Tasks.tasksTypes.map(type => `${type}s`);
+    const types = Tasks.tasksTypes.map(type => `${type}s`);
     types.push('completedTodos', '_allCompletedTodos'); // _allCompletedTodos is currently in BETA and is likely to be removed in future
     req.checkQuery('type', res.t('invalidTasksTypeExtra')).optional().isIn(types);
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    const user = res.locals.user;
-    const dueDate = req.query.dueDate;
+    const { user } = res.locals;
+    const { dueDate } = req.query;
 
     const tasks = await getTasks(req, res, { user, dueDate });
     return res.respond(200, tasks);
@@ -328,21 +328,21 @@ api.getChallengeTasks = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
-    let types = Tasks.tasksTypes.map(type => `${type}s`);
+    const types = Tasks.tasksTypes.map(type => `${type}s`);
     req.checkQuery('type', res.t('invalidTasksType')).optional().isIn(types);
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let user = res.locals.user;
-    let challengeId = req.params.challengeId;
+    const { user } = res.locals;
+    const { challengeId } = req.params;
 
-    let challenge = await Challenge.findOne({
+    const challenge = await Challenge.findOne({
       _id: challengeId,
     }).select('group leader tasksOrder').exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
-    let group = await Group.getGroup({
+    const group = await Group.getGroup({
       user,
       groupId: challenge.group,
       fields: '_id type privacy',
@@ -350,7 +350,7 @@ api.getChallengeTasks = {
     });
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
 
-    let tasks = await getTasks(req, res, {user, challenge});
+    const tasks = await getTasks(req, res, { user, challenge });
     return res.respond(200, tasks);
   },
 };
@@ -377,14 +377,14 @@ api.getTask = {
   url: '/tasks/:taskId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
-    let taskId = req.params.taskId;
-    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
+    const { user } = res.locals;
+    const { taskId } = req.params;
+    const task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
-      let challenge = await Challenge.find({_id: task.challenge.id}).select('leader').exec();
+      const challenge = await Challenge.find({ _id: task.challenge.id }).select('leader').exec();
       if (!challenge || (user.challenges.indexOf(task.challenge.id) === -1 && challenge.leader !== user._id && !user.contributor.admin)) { // eslint-disable-line no-extra-parens
         throw new NotFound(res.t('taskNotFound'));
       }
@@ -431,37 +431,37 @@ api.updateTask = {
   url: '/tasks/:taskId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
     let challenge;
 
     req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let taskId = req.params.taskId;
-    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
+    const { taskId } = req.params;
+    const task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
     let group;
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
     } else if (task.group.id && !task.userId) {
       //  @TODO: Abstract this access snippet
-      let fields = requiredGroupFields.concat(' managers');
-      group = await Group.getGroup({user, groupId: task.group.id, fields});
+      const fields = requiredGroupFields.concat(' managers');
+      group = await Group.getGroup({ user, groupId: task.group.id, fields });
       if (!group) throw new NotFound(res.t('groupNotFound'));
       if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
-      challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
+      challenge = await Challenge.findOne({ _id: task.challenge.id }).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
       if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
     } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
       throw new NotFound(res.t('taskNotFound'));
     }
 
-    let oldCheckList = task.checklist;
+    const oldCheckList = task.checklist;
     // we have to convert task to an object because otherwise things don't get merged correctly. Bad for performances?
-    let [updatedTaskObj] = common.ops.updateTask(task.toObject(), req);
+    const [updatedTaskObj] = common.ops.updateTask(task.toObject(), req);
     // Sanitize differently user tasks linked to a challenge
     let sanitizedObj;
 
@@ -488,18 +488,16 @@ api.updateTask = {
     }
 
     setNextDue(task, user);
-    let savedTask = await task.save();
+    const savedTask = await task.save();
 
     if (group && task.group.id && task.group.assignedUsers.length > 0) {
-      let updateCheckListItems = _.remove(sanitizedObj.checklist, function getCheckListsToUpdate (checklist) {
-        let indexOld = _.findIndex(oldCheckList,  function findIndex (check) {
-          return check.id === checklist.id;
-        });
+      const updateCheckListItems = _.remove(sanitizedObj.checklist, checklist => {
+        const indexOld = _.findIndex(oldCheckList, check => check.id === checklist.id);
         if (indexOld !== -1) return checklist.text !== oldCheckList[indexOld].text;
         return false; // Only return changes. Adding and remove are handled differently
       });
 
-      await group.updateTask(savedTask, {updateCheckListItems});
+      await group.updateTask(savedTask, { updateCheckListItems });
     }
 
     res.respond(200, savedTask);
@@ -550,11 +548,11 @@ api.scoreTask = {
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    const user = res.locals.user;
-    const {taskId} = req.params;
+    const { user } = res.locals;
+    const { taskId } = req.params;
 
-    const task = await Tasks.Task.findByIdOrAlias(taskId, user._id, {userId: user._id});
-    const direction = req.params.direction;
+    const task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
+    const { direction } = req.params;
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
 
@@ -567,10 +565,10 @@ api.scoreTask = {
     }
 
     if (task.group.approval.required && !task.group.approval.approved) {
-      let fields = requiredGroupFields.concat(' managers');
-      let group = await Group.getGroup({user, groupId: task.group.id, fields});
+      const fields = requiredGroupFields.concat(' managers');
+      const group = await Group.getGroup({ user, groupId: task.group.id, fields });
 
-      let managerIds = Object.keys(group.managers);
+      const managerIds = Object.keys(group.managers);
       managerIds.push(group.leader);
 
       if (managerIds.indexOf(user._id) !== -1) {
@@ -585,11 +583,11 @@ api.scoreTask = {
         task.group.approval.requested = true;
         task.group.approval.requestedDate = new Date();
 
-        let managers = await User.find({_id: managerIds}, 'notifications preferences').exec(); // Use this method so we can get access to notifications
+        const managers = await User.find({ _id: managerIds }, 'notifications preferences').exec(); // Use this method so we can get access to notifications
 
         // @TODO: we can use the User.pushNotification function because we need to ensure notifications are translated
-        let managerPromises = [];
-        managers.forEach((manager) => {
+        const managerPromises = [];
+        managers.forEach(manager => {
           manager.addNotification('GROUP_TASK_APPROVAL', {
             message: res.t('userHasRequestedTaskApproval', {
               user: user.profile.name,
@@ -611,11 +609,11 @@ api.scoreTask = {
       }
     }
 
-    let wasCompleted = task.completed;
+    const wasCompleted = task.completed;
 
-    let [delta] = common.ops.scoreTask({task, user, direction}, req);
+    const [delta] = common.ops.scoreTask({ task, user, direction }, req);
     // Drop system (don't run on the client, as it would only be discarded since ops are sent to the API, not the results)
-    if (direction === 'up') common.fns.randomDrop(user, {task, delta}, req, res.analytics);
+    if (direction === 'up') common.fns.randomDrop(user, { task, delta }, req, res.analytics);
 
     // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
     // TODO move to common code?
@@ -638,7 +636,7 @@ api.scoreTask = {
 
     setNextDue(task, user);
 
-    let promises = [
+    const promises = [
       user.save(),
       task.save(),
     ];
@@ -661,12 +659,12 @@ api.scoreTask = {
 
     // Save results and handle request
     if (taskOrderPromise) promises.push(taskOrderPromise);
-    let results = await Promise.all(promises);
+    const results = await Promise.all(promises);
 
-    let savedUser = results[0];
+    const savedUser = results[0];
 
-    let userStats = savedUser.stats.toJSON();
-    let resJsonData = _.assign({delta, _tmp: user._tmp}, userStats);
+    const userStats = savedUser.stats.toJSON();
+    const resJsonData = _.assign({ delta, _tmp: user._tmp }, userStats);
     res.respond(200, resJsonData);
 
     taskScoredWebhook.send(user, {
@@ -729,25 +727,25 @@ api.moveTask = {
     req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
     req.checkParams('position', res.t('positionRequired')).notEmpty().isNumeric();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let user = res.locals.user;
-    let taskId = req.params.taskId;
-    let to = Number(req.params.position);
+    const { user } = res.locals;
+    const { taskId } = req.params;
+    const to = Number(req.params.position);
 
-    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
+    const task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
     if (task.type === 'todo' && task.completed) throw new BadRequest(res.t('cantMoveCompletedTodo'));
 
     // In memory updates
-    let order = user.tasksOrder[`${task.type}s`];
+    const order = user.tasksOrder[`${task.type}s`];
     moveTask(order, task._id, to);
 
     // Server updates
     // Cannot send $pull and $push on same field in one single op
-    let pullQuery = { $pull: {} };
+    const pullQuery = { $pull: {} };
     pullQuery.$pull[`tasksOrder.${task.type}s`] = task.id;
     await user.update(pullQuery).exec();
 
@@ -755,7 +753,7 @@ api.moveTask = {
     let position = to;
     if (to === -1) position = [`tasksOrder.${task.type}s`].length - 1;
 
-    let updateQuery = { $push: {} };
+    const updateQuery = { $push: {} };
     updateQuery.$push[`tasksOrder.${task.type}s`] = {
       $each: [task._id],
       $position: position,
@@ -795,26 +793,26 @@ api.addChecklistItem = {
   url: '/tasks/:taskId/checklist',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
     let challenge;
     let group;
 
     req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let taskId = req.params.taskId;
-    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
+    const { taskId } = req.params;
+    const task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
     } else if (task.group.id && !task.userId) {
-      let fields = requiredGroupFields.concat(' managers');
-      group = await Group.getGroup({user, groupId: task.group.id, fields});
+      const fields = requiredGroupFields.concat(' managers');
+      group = await Group.getGroup({ user, groupId: task.group.id, fields });
       if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
-      challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
+      challenge = await Challenge.findOne({ _id: task.challenge.id }).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
       if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
     } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
@@ -823,16 +821,16 @@ api.addChecklistItem = {
 
     if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
 
-    let newCheckListItem = Tasks.Task.sanitizeChecklist(req.body);
+    const newCheckListItem = Tasks.Task.sanitizeChecklist(req.body);
     task.checklist.push(newCheckListItem);
-    let savedTask = await task.save();
+    const savedTask = await task.save();
 
     newCheckListItem.id = savedTask.checklist[savedTask.checklist.length - 1].id;
 
     res.respond(200, savedTask);
     if (challenge) challenge.updateTask(savedTask);
     if (group && task.group.id && task.group.assignedUsers.length > 0) {
-      await group.updateTask(savedTask, {newCheckListItem});
+      await group.updateTask(savedTask, { newCheckListItem });
     }
   },
 };
@@ -855,25 +853,25 @@ api.scoreCheckListItem = {
   url: '/tasks/:taskId/checklist/:itemId/score',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
 
     req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let taskId = req.params.taskId;
-    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
+    const { taskId } = req.params;
+    const task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
     if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
 
-    let item = _.find(task.checklist, {id: req.params.itemId});
+    const item = _.find(task.checklist, { id: req.params.itemId });
 
     if (!item) throw new NotFound(res.t('checklistItemNotFound'));
     item.completed = !item.completed;
-    let savedTask = await task.save();
+    const savedTask = await task.save();
 
     res.respond(200, savedTask);
 
@@ -909,28 +907,28 @@ api.updateChecklistItem = {
   url: '/tasks/:taskId/checklist/:itemId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
     let challenge;
     let group;
 
     req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let taskId = req.params.taskId;
-    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
+    const { taskId } = req.params;
+    const task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
     } else if (task.group.id && !task.userId) {
-      let fields = requiredGroupFields.concat(' managers');
-      group = await Group.getGroup({user, groupId: task.group.id, fields});
+      const fields = requiredGroupFields.concat(' managers');
+      group = await Group.getGroup({ user, groupId: task.group.id, fields });
       if (!group) throw new NotFound(res.t('groupNotFound'));
       if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
-      challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
+      challenge = await Challenge.findOne({ _id: task.challenge.id }).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
       if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
     } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
@@ -938,11 +936,11 @@ api.updateChecklistItem = {
     }
     if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
 
-    let item = _.find(task.checklist, {id: req.params.itemId});
+    const item = _.find(task.checklist, { id: req.params.itemId });
     if (!item) throw new NotFound(res.t('checklistItemNotFound'));
 
     _.merge(item, Tasks.Task.sanitizeChecklist(req.body));
-    let savedTask = await task.save();
+    const savedTask = await task.save();
 
     res.respond(200, savedTask);
     if (challenge) challenge.updateTask(savedTask);
@@ -974,28 +972,28 @@ api.removeChecklistItem = {
   url: '/tasks/:taskId/checklist/:itemId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
     let challenge;
     let group;
 
     req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let taskId = req.params.taskId;
-    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
+    const { taskId } = req.params;
+    const task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
     } else if (task.group.id && !task.userId) {
-      let fields = requiredGroupFields.concat(' managers');
-      group = await Group.getGroup({user, groupId: task.group.id, fields});
+      const fields = requiredGroupFields.concat(' managers');
+      group = await Group.getGroup({ user, groupId: task.group.id, fields });
       if (!group) throw new NotFound(res.t('groupNotFound'));
       if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
-      challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
+      challenge = await Challenge.findOne({ _id: task.challenge.id }).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
       if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
     } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
@@ -1003,14 +1001,14 @@ api.removeChecklistItem = {
     }
     if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
 
-    let hasItem = removeFromArray(task.checklist, { id: req.params.itemId });
+    const hasItem = removeFromArray(task.checklist, { id: req.params.itemId });
     if (!hasItem) throw new NotFound(res.t('checklistItemNotFound'));
 
-    let savedTask = await task.save();
+    const savedTask = await task.save();
     res.respond(200, savedTask);
     if (challenge) challenge.updateTask(savedTask);
     if (group && task.group.id && task.group.assignedUsers.length > 0) {
-      await group.updateTask(savedTask, {removedCheckListItemId: req.params.itemId});
+      await group.updateTask(savedTask, { removedCheckListItemId: req.params.itemId });
     }
   },
 };
@@ -1037,27 +1035,27 @@ api.addTagToTask = {
   url: '/tasks/:taskId/tags/:tagId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
 
     req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
-    let userTags = user.tags.map(tag => tag.id);
+    const userTags = user.tags.map(tag => tag.id);
     req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID().isIn(userTags);
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let taskId = req.params.taskId;
-    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
+    const { taskId } = req.params;
+    const task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
-    let tagId = req.params.tagId;
+    const { tagId } = req.params;
 
-    let alreadyTagged = task.tags.indexOf(tagId) !== -1;
+    const alreadyTagged = task.tags.indexOf(tagId) !== -1;
     if (alreadyTagged) throw new BadRequest(res.t('alreadyTagged'));
 
     task.tags.push(tagId);
 
-    let savedTask = await task.save();
+    const savedTask = await task.save();
     res.respond(200, savedTask);
   },
 };
@@ -1086,23 +1084,23 @@ api.removeTagFromTask = {
   url: '/tasks/:taskId/tags/:tagId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
 
     req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
     req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let taskId = req.params.taskId;
-    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
+    const { taskId } = req.params;
+    const task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
 
-    let hasTag = removeFromArray(task.tags, req.params.tagId);
+    const hasTag = removeFromArray(task.tags, req.params.tagId);
     if (!hasTag) throw new NotFound(res.t('tagNotFound'));
 
-    let savedTask = await task.save();
+    const savedTask = await task.save();
     res.respond(200, savedTask);
   },
 };
@@ -1134,21 +1132,19 @@ api.unlinkAllTasks = {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
     req.checkQuery('keep', apiError('keepOrRemoveAll')).notEmpty().isIn(['keep-all', 'remove-all']);
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let user = res.locals.user;
-    let keep = req.query.keep;
-    let challengeId = req.params.challengeId;
+    const { user } = res.locals;
+    const { keep } = req.query;
+    const { challengeId } = req.params;
 
-    let tasks = await Tasks.Task.find({
+    const tasks = await Tasks.Task.find({
       'challenge.id': challengeId,
       userId: user._id,
     }).exec();
 
-    let validTasks = tasks.every(task => {
-      return task.challenge.broken;
-    });
+    const validTasks = tasks.every(task => task.challenge.broken);
 
     if (!validTasks) throw new BadRequest(res.t('cantOnlyUnlinkChalTask'));
 
@@ -1158,7 +1154,7 @@ api.unlinkAllTasks = {
         return task.save();
       }));
     } else { // remove
-      let toSave = [];
+      const toSave = [];
 
       tasks.forEach(task => {
         if (task.type !== 'todo' || !task.completed) { // eslint-disable-line no-lonely-if
@@ -1201,14 +1197,14 @@ api.unlinkOneTask = {
     req.checkParams('taskId', apiError('taskIdRequired')).notEmpty().isUUID();
     req.checkQuery('keep', apiError('keepOrRemove')).notEmpty().isIn(['keep', 'remove']);
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let user = res.locals.user;
-    let keep = req.query.keep;
-    let taskId = req.params.taskId;
+    const { user } = res.locals;
+    const { keep } = req.query;
+    const { taskId } = req.params;
 
-    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
+    const task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
     if (!task.challenge.id) throw new BadRequest(res.t('cantOnlyUnlinkChalTask'));
@@ -1248,7 +1244,7 @@ api.clearCompletedTodos = {
   url: '/tasks/clearCompletedTodos',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
 
     // Clear completed todos
     // Do not delete completed todos from challenges or groups, unless the task is broken
@@ -1259,14 +1255,14 @@ api.clearCompletedTodos = {
       $and: [ // exclude challenge and group tasks
         {
           $or: [
-            {'challenge.id': {$exists: false}},
-            {'challenge.broken': {$exists: true}},
+            { 'challenge.id': { $exists: false } },
+            { 'challenge.broken': { $exists: true } },
           ],
         },
         {
           $or: [
-            {'group.id': {$exists: false}},
-            {'group.broken': {$exists: true}},
+            { 'group.id': { $exists: false } },
+            { 'group.broken': { $exists: true } },
           ],
         },
       ],
@@ -1299,23 +1295,23 @@ api.deleteTask = {
   url: '/tasks/:taskId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
     let challenge;
 
-    let taskId = req.params.taskId;
-    let task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
+    const { taskId } = req.params;
+    const task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
     } else if (task.group.id && !task.userId) {
       //  @TODO: Abstract this access snippet
-      let fields = requiredGroupFields.concat(' managers');
-      let group = await Group.getGroup({user, groupId: task.group.id, fields});
+      const fields = requiredGroupFields.concat(' managers');
+      const group = await Group.getGroup({ user, groupId: task.group.id, fields });
       if (!group) throw new NotFound(res.t('groupNotFound'));
       if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
       await group.removeTask(task);
     } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
-      challenge = await Challenge.findOne({_id: task.challenge.id}).exec();
+      challenge = await Challenge.findOne({ _id: task.challenge.id }).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
       if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
     } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
@@ -1329,9 +1325,9 @@ api.deleteTask = {
     if (task.type !== 'todo' || !task.completed) {
       removeFromArray((challenge || user).tasksOrder[`${task.type}s`], taskId);
 
-      let pullQuery = {$pull: {}};
+      const pullQuery = { $pull: {} };
       pullQuery.$pull[`tasksOrder.${task.type}s`] = task._id;
-      let taskOrderUpdate = (challenge || user).update(pullQuery).exec();
+      const taskOrderUpdate = (challenge || user).update(pullQuery).exec();
 
       // Update the user version field manually,
       // it cannot be updated in the pre update hook

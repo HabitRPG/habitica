@@ -14,8 +14,8 @@ export default function taskDefaults (task, user) {
     task.type = 'habit';
   }
 
-  let defaultId = uuid();
-  let defaultTaskObj = {
+  const defaultId = uuid();
+  const defaultTaskObj = {
     _id: defaultId,
     text: task._id || defaultId,
     notes: '',
@@ -65,9 +65,9 @@ export default function taskDefaults (task, user) {
   }
 
   if (task.type === 'daily') {
-    let now = moment().zone(user.preferences.timezoneOffset);
-    let startOfDay = now.clone().startOf('day');
-    let startOfDayWithCDSTime = startOfDay
+    const now = moment().zone(user.preferences.timezoneOffset);
+    const startOfDay = now.clone().startOf('day');
+    const startOfDayWithCDSTime = startOfDay
       .clone()
       .add({
         hours: user.preferences.dayStart,
@@ -85,9 +85,9 @@ export default function taskDefaults (task, user) {
         su: true,
       },
       // If cron will happen today, start the daily yesterday
-      startDate: startOfDayWithCDSTime.isAfter(now) ?
-        startOfDay.clone().subtract(1, 'day').toDate() :
-        startOfDay.toDate(),
+      startDate: startOfDayWithCDSTime.isAfter(now)
+        ? startOfDay.clone().subtract(1, 'day').toDate()
+        : startOfDay.toDate(),
       everyX: 1,
       frequency: 'weekly',
       daysOfMonth: [],

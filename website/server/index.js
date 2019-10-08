@@ -1,4 +1,4 @@
-'use strict';
+
 /* eslint-disable global-require, no-process-env */
 
 // Register babel hook so we can write the real entry file (server.js) in ES6
@@ -8,7 +8,6 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 // Initialize configuration BEFORE anything
-const setupNconf = require('./libs/setupNconf').default;
 setupNconf();
 const nconf = require('nconf');
 
@@ -16,6 +15,7 @@ const nconf = require('nconf');
 require('./libs/gcpTraceAgent');
 
 const cluster = require('cluster');
+const setupNconf = require('./libs/setupNconf').default;
 const logger = require('./libs/logger').default;
 
 const IS_PROD = nconf.get('IS_PROD');
@@ -29,8 +29,8 @@ if (CORES !== 0 && cluster.isMaster && (IS_DEV || IS_PROD)) {
     cluster.fork();
   }
 
-  cluster.on('disconnect', function onWorkerDisconnect (worker) {
-    let w = cluster.fork(); // replace the dead worker
+  cluster.on('disconnect', worker => {
+    const w = cluster.fork(); // replace the dead worker
 
     logger.info('[%s] [master:%s] worker:%s disconnect! new worker:%s fork', new Date(), process.pid, worker.process.pid, w.process.pid);
   });

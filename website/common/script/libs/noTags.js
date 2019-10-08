@@ -8,7 +8,5 @@ are any tags active?
 // TODO move to client
 
 export default function noTags (tags) {
-  return isEmpty(tags) || isEmpty(filter(tags, (t) => {
-    return t;
-  }));
+  return isEmpty(tags) || isEmpty(filter(tags, t => t));
 }

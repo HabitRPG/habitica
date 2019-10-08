@@ -13,21 +13,19 @@ import { model as Group } from '../../website/server/models/group';
 import * as payments from '../../website/server/libs/payments';
 
 async function updateGroupsWithGroupPlans () {
-  let cursor = Group.find({
+  const cursor = Group.find({
     'purchased.plan.planId': 'group_monthly',
     'purchased.plan.dateTerminated': null,
   }).cursor();
 
-  let promises = [];
+  const promises = [];
 
-  cursor.on('data', (group) => {
+  cursor.on('data', group => {
     promises.push(payments.addSubscriptionToGroupUsers(group));
     promises.push(group.save());
   });
 
-  cursor.on('close', async () => {
-    return await Promise.all(promises);
-  });
+  cursor.on('close', async () => await Promise.all(promises));
 }
 
 module.exports = updateGroupsWithGroupPlans;

@@ -1,5 +1,5 @@
 import content from '../content/index';
-import {beastMasterProgress} from '../count';
+import { beastMasterProgress } from '../count';
 import i18n from '../i18n';
 import {
   NotAuthorized,
@@ -18,13 +18,13 @@ export default function releasePets (user, req = {}, analytics) {
 
   let giveBeastMasterAchievement = true;
 
-  let petInfo = content.petInfo[user.items.currentPet];
+  const petInfo = content.petInfo[user.items.currentPet];
 
   if (petInfo && petInfo.type === 'drop') {
     user.items.currentPet = '';
   }
 
-  for (let pet in content.pets) {
+  for (const pet in content.pets) {
     if (!user.items.pets[pet]) {
       giveBeastMasterAchievement = false;
     }

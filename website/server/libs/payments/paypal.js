@@ -3,11 +3,11 @@ import nconf from 'nconf';
 import moment from 'moment';
 import util from 'util';
 import _ from 'lodash';
-import payments from './payments';
 import ipn from 'paypal-ipn';
 import paypal from 'paypal-rest-sdk';
-import shared from '../../../common';
 import cc from 'coupon-code';
+import shared from '../../../common';
+import payments from './payments';
 import { model as Coupon } from '../../models/coupon';
 import { model as User } from '../../models/user';
 import {
@@ -22,12 +22,12 @@ import {
 
 
 const BASE_URL = nconf.get('BASE_URL');
-const i18n = shared.i18n;
+const { i18n } = shared;
 
 // This is the plan.id for paypal subscriptions. You have to set up billing plans via their REST sdk (they don't have
 // a web interface for billing-plan creation), see ./paypalBillingSetup.js for how. After the billing plan is created
 // there, get it's plan.id and store it in config.json
-_.each(shared.content.subscriptionBlocks, (block) => {
+_.each(shared.content.subscriptionBlocks, block => {
   block.paypalKey = nconf.get(`PAYPAL_BILLING_PLANS_${block.key}`);
 });
 
@@ -37,12 +37,12 @@ paypal.configure({
   client_secret: nconf.get('PAYPAL_CLIENT_SECRET'),
 });
 
-let experienceProfileId = nconf.get('PAYPAL_EXPERIENCE_PROFILE_ID');
+const experienceProfileId = nconf.get('PAYPAL_EXPERIENCE_PROFILE_ID');
 
 // TODO better handling of errors
 // @TODO: Create constants
 
-let api = {};
+const api = {};
 
 api.constants = {
   // CURRENCY_CODE: 'USD',
@@ -70,7 +70,7 @@ api.paypalBillingAgreementCancel = util.promisify(paypal.billingAgreement.cancel
 api.ipnVerifyAsync = util.promisify(ipn.verify.bind(ipn));
 
 api.checkout = async function checkout (options = {}) {
-  let {gift, user} = options;
+  const { gift, user } = options;
 
   let amount = 5.00;
   let description = 'Habitica Gems';
@@ -99,7 +99,7 @@ api.checkout = async function checkout (options = {}) {
   }
 
 
-  let createPayment = {
+  const createPayment = {
     intent: 'sale',
     payer: { payment_method: this.constants.PAYMENT_METHOD },
     redirect_urls: {
@@ -128,16 +128,18 @@ api.checkout = async function checkout (options = {}) {
     createPayment.experience_profile_id = experienceProfileId;
   }
 
-  let result = await this.paypalPaymentCreate(createPayment);
-  let link = _.find(result.links, { rel: 'approval_url' }).href;
+  const result = await this.paypalPaymentCreate(createPayment);
+  const link = _.find(result.links, { rel: 'approval_url' }).href;
   return link;
 };
 
 api.checkoutSuccess = async function checkoutSuccess (options = {}) {
-  let {user, gift, paymentId, customerId} = options;
+  const {
+    user, gift, paymentId, customerId,
+  } = options;
 
   let method = 'buyGems';
-  let data = {
+  const data = {
     user,
     customerId,
     paymentMethod: this.constants.PAYMENT_METHOD,
@@ -158,16 +160,16 @@ api.checkoutSuccess = async function checkoutSuccess (options = {}) {
 };
 
 api.subscribe = async function subscribe (options = {}) {
-  let {sub, coupon} = options;
+  const { sub, coupon } = options;
 
   if (sub.discount) {
     if (!coupon) throw new BadRequest(i18n.t('couponCodeRequired'));
-    let couponResult = await Coupon.findOne({_id: cc.validate(coupon), event: sub.key}).exec();
+    const couponResult = await Coupon.findOne({ _id: cc.validate(coupon), event: sub.key }).exec();
     if (!couponResult) throw new NotAuthorized(i18n.t('invalidCoupon'));
   }
 
-  let billingPlanTitle = `Habitica Subscription ($${sub.price} every ${sub.months} months, recurring)`;
-  let billingAgreementAttributes = {
+  const billingPlanTitle = `Habitica Subscription ($${sub.price} every ${sub.months} months, recurring)`;
+  const billingAgreementAttributes = {
     name: billingPlanTitle,
     description: billingPlanTitle,
     start_date: moment().add({ minutes: 5 }).format(),
@@ -178,15 +180,17 @@ api.subscribe = async function subscribe (options = {}) {
       payment_method: this.constants.PAYMENT_METHOD,
     },
   };
-  let billingAgreement = await this.paypalBillingAgreementCreate(billingAgreementAttributes);
+  const billingAgreement = await this.paypalBillingAgreementCreate(billingAgreementAttributes);
 
-  let link = _.find(billingAgreement.links, { rel: 'approval_url' }).href;
+  const link = _.find(billingAgreement.links, { rel: 'approval_url' }).href;
   return link;
 };
 
 api.subscribeSuccess = async function subscribeSuccess (options = {}) {
-  let {user, groupId, block, headers, token} = options;
-  let result = await this.paypalBillingAgreementExecute(token, {});
+  const {
+    user, groupId, block, headers, token,
+  } = options;
+  const result = await this.paypalBillingAgreementExecute(token, {});
   await payments.createSubscription({
     user,
     groupId,
@@ -208,12 +212,14 @@ api.subscribeSuccess = async function subscribeSuccess (options = {}) {
  * @return undefined
  */
 api.subscribeCancel = async function subscribeCancel (options = {}) {
-  let {groupId, user, cancellationReason} = options;
+  const { groupId, user, cancellationReason } = options;
 
   let customerId;
   if (groupId) {
-    let groupFields = basicGroupFields.concat(' purchased');
-    let group = await Group.getGroup({user, groupId, populateLeader: false, groupFields});
+    const groupFields = basicGroupFields.concat(' purchased');
+    const group = await Group.getGroup({
+      user, groupId, populateLeader: false, groupFields,
+    });
 
     if (!group) {
       throw new NotFound(i18n.t('groupNotFound'));
@@ -229,10 +235,10 @@ api.subscribeCancel = async function subscribeCancel (options = {}) {
 
   if (!customerId) throw new NotAuthorized(i18n.t('missingSubscription'));
 
-  let customer = await this.paypalBillingAgreementGet(customerId);
+  const customer = await this.paypalBillingAgreementGet(customerId);
 
   // @TODO: Handle error response
-  let nextBillingDate = customer.agreement_details.next_billing_date;
+  const nextBillingDate = customer.agreement_details.next_billing_date;
   if (customer.agreement_details.cycles_completed === '0') { // hasn't billed yet
     throw new BadRequest(i18n.t('planNotActive', { nextBillingDate }));
   }
@@ -250,9 +256,9 @@ api.subscribeCancel = async function subscribeCancel (options = {}) {
 api.ipn = async function ipnApi (options = {}) {
   await this.ipnVerifyAsync(options);
 
-  let {txn_type, recurring_payment_id} = options;
+  const { txn_type, recurring_payment_id } = options;
 
-  let ipnAcceptableTypes = [
+  const ipnAcceptableTypes = [
     'recurring_payment_profile_cancel',
     'recurring_payment_failed',
     'recurring_payment_expired',
@@ -263,7 +269,7 @@ api.ipn = async function ipnApi (options = {}) {
   if (ipnAcceptableTypes.indexOf(txn_type) === -1) return;
 
   // @TODO: Should this request billing date?
-  let user = await User.findOne({ 'purchased.plan.customerId': recurring_payment_id }).exec();
+  const user = await User.findOne({ 'purchased.plan.customerId': recurring_payment_id }).exec();
   if (user) {
     // If the user has already cancelled the subscription, return
     // Otherwise the subscription would be cancelled twice resulting in the loss of subscription credits
@@ -273,8 +279,8 @@ api.ipn = async function ipnApi (options = {}) {
     return;
   }
 
-  let groupFields = basicGroupFields.concat(' purchased');
-  let group = await Group
+  const groupFields = basicGroupFields.concat(' purchased');
+  const group = await Group
     .findOne({ 'purchased.plan.customerId': recurring_payment_id })
     .select(groupFields)
     .exec();

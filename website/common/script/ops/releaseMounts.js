@@ -1,5 +1,5 @@
 import content from '../content/index';
-import {mountMasterProgress} from '../count';
+import { mountMasterProgress } from '../count';
 import i18n from '../i18n';
 import {
   NotAuthorized,
@@ -18,13 +18,13 @@ export default function releaseMounts (user, req = {}, analytics) {
 
   let giveMountMasterAchievement = true;
 
-  let mountInfo = content.mountInfo[user.items.currentMount];
+  const mountInfo = content.mountInfo[user.items.currentMount];
 
   if (mountInfo && mountInfo.type === 'drop') {
     user.items.currentMount = '';
   }
 
-  for (let mount in content.pets) {
+  for (const mount in content.pets) {
     if (user.items.mounts[mount] === null || user.items.mounts[mount] === undefined) {
       giveMountMasterAchievement = false;
     }

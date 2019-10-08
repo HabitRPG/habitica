@@ -6,9 +6,9 @@ import {
   USER_CAN_OWN_QUEST_CATEGORIES,
 } from './constants';
 
-let userCanOwnQuestCategories = USER_CAN_OWN_QUEST_CATEGORIES;
+const userCanOwnQuestCategories = USER_CAN_OWN_QUEST_CATEGORIES;
 
-let quests = {
+const quests = {
   dilatory: {
     text: t('questDilatoryText'),
     notes: t('questDilatoryNotes'),
@@ -2261,7 +2261,7 @@ let quests = {
     unlockCondition: {
       condition: 'party invite',
       incentiveThreshold: 7,
-      text: t('loginReward', {count: 7}),
+      text: t('loginReward', { count: 7 }),
     },
     collect: {
       shard: {
@@ -2292,7 +2292,7 @@ let quests = {
     unlockCondition: {
       condition: 'party invite',
       incentiveThreshold: 22,
-      text: t('loginReward', {count: 22}),
+      text: t('loginReward', { count: 22 }),
     },
     boss: {
       name: t('questMoon2Boss'),
@@ -2322,7 +2322,7 @@ let quests = {
     unlockCondition: {
       condition: 'party invite',
       incentiveThreshold: 40,
-      text: t('loginReward', {count: 40}),
+      text: t('loginReward', { count: 40 }),
     },
     boss: {
       name: t('questMoon3Boss'),
@@ -3527,9 +3527,7 @@ each(quests, (v, key) => {
   }
 });
 
-let questsByLevel = sortBy(quests, (quest) => {
-  return quest.lvl || 0;
-});
+const questsByLevel = sortBy(quests, quest => quest.lvl || 0);
 
 export {
   quests,

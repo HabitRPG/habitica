@@ -1,3 +1,6 @@
+import _ from 'lodash';
+import nconf from 'nconf';
+import get from 'lodash/get';
 import { authWithHeaders } from '../../middlewares/auth';
 import common from '../../../common';
 import {
@@ -9,7 +12,6 @@ import {
   model as Group,
 } from '../../models/group';
 import * as Tasks from '../../models/task';
-import _ from 'lodash';
 import * as passwordUtils from '../../libs/password';
 import {
   userActivityWebhook,
@@ -20,8 +22,6 @@ import {
 } from '../../libs/email';
 import * as inboxLib from '../../libs/inbox';
 import * as userLib from '../../libs/user';
-import nconf from 'nconf';
-import get from 'lodash/get';
 
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS_TECH_ASSISTANCE_EMAIL');
 const DELETE_CONFIRMATION = 'DELETE';
@@ -31,7 +31,7 @@ const DELETE_CONFIRMATION = 'DELETE';
  * @apiError (404) {NotFound} UserNotFound The specified user could not be found.
  */
 
-let api = {};
+const api = {};
 
 /* NOTE this route has also an API v4 version */
 
@@ -118,7 +118,7 @@ api.getBuyList = {
   middlewares: [authWithHeaders()],
   url: '/user/inventory/buy',
   async handler (req, res) {
-    let list = _.cloneDeep(common.updateStore(res.locals.user));
+    const list = _.cloneDeep(common.updateStore(res.locals.user));
 
     // return text and notes strings
     _.each(list, item => {
@@ -161,7 +161,7 @@ api.getInAppRewardsList = {
   middlewares: [authWithHeaders()],
   url: '/user/in-app-rewards',
   async handler (req, res) {
-    let list = common.inAppRewards(res.locals.user);
+    const list = common.inAppRewards(res.locals.user);
 
     // return text and notes strings
     _.each(list, item => {
@@ -252,34 +252,32 @@ api.deleteUser = {
   middlewares: [authWithHeaders()],
   url: '/user',
   async handler (req, res) {
-    let user = res.locals.user;
-    let plan = user.purchased.plan;
+    const { user } = res.locals;
+    const { plan } = user.purchased;
 
-    let password = req.body.password;
+    const { password } = req.body;
     if (!password) throw new BadRequest(res.t('missingPassword'));
 
     if (user.auth.local.hashed_password && user.auth.local.email) {
-      let isValidPassword = await passwordUtils.compare(user, password);
+      const isValidPassword = await passwordUtils.compare(user, password);
       if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
     } else if ((user.auth.facebook.id || user.auth.google.id) && password !== DELETE_CONFIRMATION) {
-      throw new NotAuthorized(res.t('incorrectDeletePhrase', {magicWord: 'DELETE'}));
+      throw new NotAuthorized(res.t('incorrectDeletePhrase', { magicWord: 'DELETE' }));
     }
 
-    let feedback = req.body.feedback;
+    const { feedback } = req.body;
     if (feedback && feedback.length > 10000) throw new BadRequest(`Account deletion feedback is limited to 10,000 characters. For lengthy feedback, email ${TECH_ASSISTANCE_EMAIL}.`);
 
     if (plan && plan.customerId && !plan.dateTerminated) {
       throw new NotAuthorized(res.t('cannotDeleteActiveAccount'));
     }
 
-    let types = ['party', 'guilds'];
-    let groupFields = basicGroupFields.concat(' leader memberCount purchased');
+    const types = ['party', 'guilds'];
+    const groupFields = basicGroupFields.concat(' leader memberCount purchased');
 
-    let groupsUserIsMemberOf = await Group.getGroups({user, types, groupFields});
+    const groupsUserIsMemberOf = await Group.getGroups({ user, types, groupFields });
 
-    let groupLeavePromises = groupsUserIsMemberOf.map((group) => {
-      return group.leave(user, 'remove-all');
-    });
+    const groupLeavePromises = groupsUserIsMemberOf.map(group => group.leave(user, 'remove-all'));
 
     await Promise.all(groupLeavePromises);
 
@@ -290,13 +288,13 @@ api.deleteUser = {
     await user.remove();
 
     if (feedback) {
-      sendTxn({email: TECH_ASSISTANCE_EMAIL}, 'admin-feedback', [
-        {name: 'PROFILE_NAME', content: user.profile.name},
-        {name: 'USERNAME', content: user.auth.local.username},
-        {name: 'UUID', content: user._id},
-        {name: 'EMAIL', content: getUserInfo(user, ['email']).email},
-        {name: 'FEEDBACK_SOURCE', content: 'from deletion form'},
-        {name: 'FEEDBACK', content: feedback},
+      sendTxn({ email: TECH_ASSISTANCE_EMAIL }, 'admin-feedback', [
+        { name: 'PROFILE_NAME', content: user.profile.name },
+        { name: 'USERNAME', content: user.auth.local.username },
+        { name: 'UUID', content: user._id },
+        { name: 'EMAIL', content: getUserInfo(user, ['email']).email },
+        { name: 'FEEDBACK_SOURCE', content: 'from deletion form' },
+        { name: 'FEEDBACK', content: feedback },
       ]);
     }
 
@@ -333,13 +331,13 @@ function _cleanChecklist (task) {
  *
  * @apiSuccess {Object} data.user
  * @apiSuccess {Object} data.tasks
- **/
+ * */
 api.getUserAnonymized = {
   method: 'GET',
   middlewares: [authWithHeaders()],
   url: '/user/anonymized',
   async handler (req, res) {
-    let user = await res.locals.user.toJSONWithInbox();
+    const user = await res.locals.user.toJSONWithInbox();
     user.stats.toNextLevel = common.tnl(user.stats.lvl);
     user.stats.maxHealth = common.maxHealth;
     user.stats.maxMP = common.statsComputed(res.locals.user).maxMP;
@@ -361,25 +359,25 @@ api.getUserAnonymized = {
     delete user.achievements.challenges;
     delete user.notifications;
 
-    _.forEach(user.inbox.messages, (msg) => {
+    _.forEach(user.inbox.messages, msg => {
       msg.text = 'inbox message text';
     });
 
-    _.forEach(user.tags, (tag) => {
+    _.forEach(user.tags, tag => {
       tag.name = 'tag';
       tag.challenge = 'challenge';
     });
 
-    let query = {
+    const query = {
       userId: user._id,
       $or: [
         { type: 'todo', completed: false },
         { type: { $in: ['habit', 'daily', 'reward'] } },
       ],
     };
-    let tasks = await Tasks.Task.find(query).exec();
+    const tasks = await Tasks.Task.find(query).exec();
 
-    _.forEach(tasks, (task) => {
+    _.forEach(tasks, task => {
       task.text = 'task text';
       task.notes = 'task notes';
       if (task.type === 'todo' || task.type === 'daily') {
@@ -411,8 +409,8 @@ api.sleep = {
   middlewares: [authWithHeaders()],
   url: '/user/sleep',
   async handler (req, res) {
-    let user = res.locals.user;
-    let sleepRes = common.ops.sleep(user, req, res.analytics);
+    const { user } = res.locals;
+    const sleepRes = common.ops.sleep(user, req, res.analytics);
     await user.save();
     res.respond(200, ...sleepRes);
   },
@@ -455,11 +453,11 @@ api.buy = {
   middlewares: [authWithHeaders()],
   url: '/user/buy/:key',
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
 
     let buyRes;
     // @TODO: Remove this when mobile passes type in body
-    let type = req.params.key;
+    const type = req.params.key;
     if (buySpecialKeys.indexOf(type) !== -1) {
       req.type = 'special';
     } else if (buyKnownKeys.indexOf(type) === -1) {
@@ -519,8 +517,8 @@ api.buyGear = {
   middlewares: [authWithHeaders()],
   url: '/user/buy-gear/:key',
   async handler (req, res) {
-    let user = res.locals.user;
-    let buyGearRes = common.ops.buy(user, req, res.analytics);
+    const { user } = res.locals;
+    const buyGearRes = common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...buyGearRes);
   },
@@ -559,10 +557,10 @@ api.buyArmoire = {
   middlewares: [authWithHeaders()],
   url: '/user/buy-armoire',
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
     req.type = 'armoire';
     req.params.key = 'armoire';
-    let buyArmoireResponse = common.ops.buy(user, req, res.analytics);
+    const buyArmoireResponse = common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...buyArmoireResponse);
   },
@@ -599,10 +597,10 @@ api.buyHealthPotion = {
   middlewares: [authWithHeaders()],
   url: '/user/buy-health-potion',
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
     req.type = 'potion';
     req.params.key = 'potion';
-    let buyHealthPotionResponse = common.ops.buy(user, req, res.analytics);
+    const buyHealthPotionResponse = common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...buyHealthPotionResponse);
   },
@@ -641,9 +639,9 @@ api.buyMysterySet = {
   middlewares: [authWithHeaders()],
   url: '/user/buy-mystery-set/:key',
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
     req.type = 'mystery';
-    let buyMysterySetRes = common.ops.buy(user, req, res.analytics);
+    const buyMysterySetRes = common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...buyMysterySetRes);
   },
@@ -684,9 +682,9 @@ api.buyQuest = {
   middlewares: [authWithHeaders()],
   url: '/user/buy-quest/:key',
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
     req.type = 'quest';
-    let buyQuestRes = common.ops.buy(user, req, res.analytics);
+    const buyQuestRes = common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...buyQuestRes);
   },
@@ -724,9 +722,9 @@ api.buySpecialSpell = {
   middlewares: [authWithHeaders()],
   url: '/user/buy-special-spell/:key',
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
     req.type = 'special';
-    let buySpecialSpellRes = common.ops.buy(user, req);
+    const buySpecialSpellRes = common.ops.buy(user, req);
     await user.save();
     res.respond(200, ...buySpecialSpellRes);
   },
@@ -768,8 +766,8 @@ api.hatch = {
   middlewares: [authWithHeaders()],
   url: '/user/hatch/:egg/:hatchingPotion',
   async handler (req, res) {
-    let user = res.locals.user;
-    let hatchRes = common.ops.hatch(user, req);
+    const { user } = res.locals;
+    const hatchRes = common.ops.hatch(user, req);
 
     await user.save();
 
@@ -820,8 +818,8 @@ api.equip = {
   middlewares: [authWithHeaders()],
   url: '/user/equip/:type/:key',
   async handler (req, res) {
-    let user = res.locals.user;
-    let equipRes = common.ops.equip(user, req);
+    const { user } = res.locals;
+    const equipRes = common.ops.equip(user, req);
     await user.save();
     res.respond(200, ...equipRes);
   },
@@ -855,8 +853,8 @@ api.feed = {
   middlewares: [authWithHeaders()],
   url: '/user/feed/:pet/:food',
   async handler (req, res) {
-    let user = res.locals.user;
-    let feedRes = common.ops.feed(user, req);
+    const { user } = res.locals;
+    const feedRes = common.ops.feed(user, req);
 
     await user.save();
 
@@ -899,8 +897,8 @@ api.changeClass = {
   middlewares: [authWithHeaders()],
   url: '/user/change-class',
   async handler (req, res) {
-    let user = res.locals.user;
-    let changeClassRes = common.ops.changeClass(user, req, res.analytics);
+    const { user } = res.locals;
+    const changeClassRes = common.ops.changeClass(user, req, res.analytics);
     await user.save();
     res.respond(200, ...changeClassRes);
   },
@@ -920,8 +918,8 @@ api.disableClasses = {
   middlewares: [authWithHeaders()],
   url: '/user/disable-classes',
   async handler (req, res) {
-    let user = res.locals.user;
-    let disableClassesRes = common.ops.disableClasses(user, req);
+    const { user } = res.locals;
+    const disableClassesRes = common.ops.disableClasses(user, req);
     await user.save();
     res.respond(200, ...disableClassesRes);
   },
@@ -952,7 +950,7 @@ api.purchase = {
   middlewares: [authWithHeaders()],
   url: '/user/purchase/:type/:key',
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
     const type = get(req.params, 'type');
     const key = get(req.params, 'key');
 
@@ -969,7 +967,7 @@ api.purchase = {
     if (req.body.quantity) quantity = req.body.quantity;
     req.quantity = quantity;
 
-    let purchaseRes = common.ops.buy(user, req, res.analytics);
+    const purchaseRes = common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...purchaseRes);
   },
@@ -1002,10 +1000,10 @@ api.userPurchaseHourglass = {
   middlewares: [authWithHeaders()],
   url: '/user/purchase-hourglass/:type/:key',
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
     const quantity = req.body.quantity || 1;
     if (quantity < 1 || !Number.isInteger(quantity)) throw new BadRequest(res.t('invalidQuantity'), req.language);
-    let purchaseHourglassRes = common.ops.buy(user, req, res.analytics, {quantity, hourglass: true});
+    const purchaseHourglassRes = common.ops.buy(user, req, res.analytics, { quantity, hourglass: true });
     await user.save();
     res.respond(200, ...purchaseHourglassRes);
   },
@@ -1056,8 +1054,8 @@ api.readCard = {
   middlewares: [authWithHeaders()],
   url: '/user/read-card/:cardType',
   async handler (req, res) {
-    let user = res.locals.user;
-    let readCardRes = common.ops.readCard(user, req);
+    const { user } = res.locals;
+    const readCardRes = common.ops.readCard(user, req);
     await user.save();
     res.respond(200, ...readCardRes);
   },
@@ -1098,8 +1096,8 @@ api.userOpenMysteryItem = {
   middlewares: [authWithHeaders()],
   url: '/user/open-mystery-item',
   async handler (req, res) {
-    let user = res.locals.user;
-    let openMysteryItemRes = common.ops.openMysteryItem(user, req, res.analytics);
+    const { user } = res.locals;
+    const openMysteryItemRes = common.ops.openMysteryItem(user, req, res.analytics);
     await user.save();
     res.respond(200, ...openMysteryItemRes);
   },
@@ -1130,8 +1128,8 @@ api.userReleasePets = {
   middlewares: [authWithHeaders()],
   url: '/user/release-pets',
   async handler (req, res) {
-    let user = res.locals.user;
-    let releasePetsRes = common.ops.releasePets(user, req, res.analytics);
+    const { user } = res.locals;
+    const releasePetsRes = common.ops.releasePets(user, req, res.analytics);
     await user.save();
     res.respond(200, ...releasePetsRes);
   },
@@ -1179,8 +1177,8 @@ api.userReleaseBoth = {
   middlewares: [authWithHeaders()],
   url: '/user/release-both',
   async handler (req, res) {
-    let user = res.locals.user;
-    let releaseBothRes = common.ops.releaseBoth(user, req, res.analytics);
+    const { user } = res.locals;
+    const releaseBothRes = common.ops.releaseBoth(user, req, res.analytics);
     await user.save();
     res.respond(200, ...releaseBothRes);
   },
@@ -1215,8 +1213,8 @@ api.userReleaseMounts = {
   middlewares: [authWithHeaders()],
   url: '/user/release-mounts',
   async handler (req, res) {
-    let user = res.locals.user;
-    let releaseMountsRes = common.ops.releaseMounts(user, req, res.analytics);
+    const { user } = res.locals;
+    const releaseMountsRes = common.ops.releaseMounts(user, req, res.analytics);
     await user.save();
     res.respond(200, ...releaseMountsRes);
   },
@@ -1245,8 +1243,8 @@ api.userSell = {
   middlewares: [authWithHeaders()],
   url: '/user/sell/:type/:key',
   async handler (req, res) {
-    let user = res.locals.user;
-    let sellRes = common.ops.sell(user, req);
+    const { user } = res.locals;
+    const sellRes = common.ops.sell(user, req);
     await user.save();
     res.respond(200, ...sellRes);
   },
@@ -1288,8 +1286,8 @@ api.userUnlock = {
   middlewares: [authWithHeaders()],
   url: '/user/unlock',
   async handler (req, res) {
-    let user = res.locals.user;
-    let unlockRes = common.ops.unlock(user, req, res.analytics);
+    const { user } = res.locals;
+    const unlockRes = common.ops.unlock(user, req, res.analytics);
     await user.save();
     res.respond(200, ...unlockRes);
   },
@@ -1314,8 +1312,8 @@ api.userRevive = {
   middlewares: [authWithHeaders()],
   url: '/user/revive',
   async handler (req, res) {
-    let user = res.locals.user;
-    let reviveRes = common.ops.revive(user, req, res.analytics);
+    const { user } = res.locals;
+    const reviveRes = common.ops.revive(user, req, res.analytics);
     await user.save();
     res.respond(200, ...reviveRes);
   },
@@ -1380,8 +1378,8 @@ api.blockUser = {
   middlewares: [authWithHeaders()],
   url: '/user/block/:uuid',
   async handler (req, res) {
-    let user = res.locals.user;
-    let blockUserRes = common.ops.blockUser(user, req);
+    const { user } = res.locals;
+    const blockUserRes = common.ops.blockUser(user, req);
     await user.save();
     res.respond(200, ...blockUserRes);
   },
@@ -1422,11 +1420,11 @@ api.deleteMessage = {
   middlewares: [authWithHeaders()],
   url: '/user/messages/:id',
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
 
     await inboxLib.deleteMessage(user, req.params.id);
 
-    res.respond(200, ...[await inboxLib.getUserInbox(user, {asArray: false})]);
+    res.respond(200, ...[await inboxLib.getUserInbox(user, { asArray: false })]);
   },
 };
 
@@ -1447,7 +1445,7 @@ api.clearMessages = {
   middlewares: [authWithHeaders()],
   url: '/user/messages',
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
 
     await inboxLib.clearPMs(user);
 
@@ -1471,8 +1469,8 @@ api.markPmsRead = {
   middlewares: [authWithHeaders()],
   url: '/user/mark-pms-read',
   async handler (req, res) {
-    let user = res.locals.user;
-    let markPmsResponse = common.ops.markPmsRead(user);
+    const { user } = res.locals;
+    const markPmsResponse = common.ops.markPmsRead(user);
     await user.save();
     res.respond(200, markPmsResponse);
   },
@@ -1570,8 +1568,8 @@ api.setCustomDayStart = {
   middlewares: [authWithHeaders()],
   url: '/user/custom-day-start',
   async handler (req, res) {
-    let user = res.locals.user;
-    let dayStart = req.body.dayStart;
+    const { user } = res.locals;
+    const { dayStart } = req.body;
 
     user.preferences.dayStart = dayStart;
     user.lastCron = new Date();
@@ -1608,15 +1606,15 @@ api.togglePinnedItem = {
   middlewares: [authWithHeaders()],
   url: '/user/toggle-pinned-item/:type/:path',
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
     const path = get(req.params, 'path');
     const type = get(req.params, 'type');
 
-    common.ops.pinnedGearUtils.togglePinnedItem(user, {type, path}, req);
+    common.ops.pinnedGearUtils.togglePinnedItem(user, { type, path }, req);
 
     await user.save();
 
-    let userJson = user.toJSON();
+    const userJson = user.toJSON();
 
     res.respond(200, {
       pinnedItems: userJson.pinnedItems,
@@ -1648,28 +1646,28 @@ api.movePinnedItem = {
     req.checkParams('path', res.t('taskIdRequired')).notEmpty();
     req.checkParams('position', res.t('positionRequired')).notEmpty().isNumeric();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let user = res.locals.user;
-    let path = req.params.path;
-    let position = Number(req.params.position);
+    const { user } = res.locals;
+    const { path } = req.params;
+    const position = Number(req.params.position);
 
     // If something has been added or removed from the inAppRewards, we need
     // to reset pinnedItemsOrder to have the correct length. Since inAppRewards
     // Uses the current pinnedItemsOrder to return these in the right order,
     // the new reset array will be in the right order before we do the swap
-    let currentPinnedItems = common.inAppRewards(user);
+    const currentPinnedItems = common.inAppRewards(user);
     if (user.pinnedItemsOrder.length !== currentPinnedItems.length) {
       user.pinnedItemsOrder = currentPinnedItems.map(item => item.path);
     }
 
     // Adjust the order
-    let currentIndex = user.pinnedItemsOrder.findIndex(item => item === path);
-    let currentPinnedItemPath = user.pinnedItemsOrder[currentIndex];
+    const currentIndex = user.pinnedItemsOrder.findIndex(item => item === path);
+    const currentPinnedItemPath = user.pinnedItemsOrder[currentIndex];
 
     if (currentIndex === -1) {
-      throw new BadRequest(res.t('wrongItemPath', {path}, req.language));
+      throw new BadRequest(res.t('wrongItemPath', { path }, req.language));
     }
 
     // Remove the one we will move
@@ -1683,7 +1681,7 @@ api.movePinnedItem = {
     }
 
     await user.save();
-    let userJson = user.toJSON();
+    const userJson = user.toJSON();
 
     res.respond(200, userJson.pinnedItemsOrder);
   },

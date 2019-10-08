@@ -1,10 +1,10 @@
-import content from '../content/index';
-import i18n from '../i18n';
 import forEach from 'lodash/forEach';
 import findIndex from 'lodash/findIndex';
 import get from 'lodash/get';
 import keys from 'lodash/keys';
 import upperFirst from 'lodash/upperFirst';
+import i18n from '../i18n';
+import content from '../content/index';
 import {
   BadRequest,
   NotAuthorized,
@@ -32,7 +32,7 @@ function evolve (user, pet, req) {
 
 export default function feed (user, req = {}) {
   let pet = get(req, 'params.pet');
-  let foodK = get(req, 'params.food');
+  const foodK = get(req, 'params.food');
 
   if (!pet || !foodK) throw new BadRequest(errorMessage('missingPetFoodFeed'));
 
@@ -42,12 +42,12 @@ export default function feed (user, req = {}) {
     throw new BadRequest(errorMessage('invalidPetName'));
   }
 
-  let food = content.food[foodK];
+  const food = content.food[foodK];
   if (!food) {
     throw new NotFound(errorMessage('invalidFoodName', req.language));
   }
 
-  let userPets = user.items.pets;
+  const userPets = user.items.pets;
 
   if (!userPets[pet.key]) {
     throw new NotFound(i18n.t('messagePetNotFound', req.language));
@@ -70,7 +70,7 @@ export default function feed (user, req = {}) {
   if (food.key === 'Saddle') {
     message = evolve(user, pet, req);
   } else {
-    let messageParams = {
+    const messageParams = {
       egg: pet.text(req.language),
       foodText: food.textThe(req.language),
     };
@@ -93,11 +93,9 @@ export default function feed (user, req = {}) {
   user.items.food[food.key]--;
   if (user.markModified) user.markModified('items.food');
 
-  forEach(content.animalColorAchievements, (achievement) => {
+  forEach(content.animalColorAchievements, achievement => {
     if (!user.achievements[achievement.mountAchievement]) {
-      const mountIndex = findIndex(keys(content.dropEggs), (animal) => {
-        return !user.items.mounts[`${animal}-${achievement.color}`];
-      });
+      const mountIndex = findIndex(keys(content.dropEggs), animal => !user.items.mounts[`${animal}-${achievement.color}`]);
       if (mountIndex === -1) {
         user.achievements[achievement.mountAchievement] = true;
         if (user.addNotification) {

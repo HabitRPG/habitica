@@ -1,3 +1,4 @@
+import moment from 'moment';
 import shared from '../../../common';
 import iap from '../inAppPurchases';
 import payments from './payments';
@@ -6,10 +7,9 @@ import {
   BadRequest,
 } from '../errors';
 import { model as IapPurchaseReceipt } from '../../models/iapPurchaseReceipt';
-import {model as User } from '../../models/user';
-import moment from 'moment';
+import { model as User } from '../../models/user';
 
-let api = {};
+const api = {};
 
 api.constants = {
   PAYMENT_METHOD_APPLE: 'Apple',
@@ -22,7 +22,9 @@ api.constants = {
 };
 
 api.verifyGemPurchase = async function verifyGemPurchase (options) {
-  let {gift, user, receipt, headers} = options;
+  const {
+    gift, user, receipt, headers,
+  } = options;
 
   if (gift) {
     gift.member = await User.findById(gift.uuid).exec();
@@ -32,19 +34,19 @@ api.verifyGemPurchase = async function verifyGemPurchase (options) {
   if (!receiverCanGetGems) throw new NotAuthorized(shared.i18n.t('groupPolicyCannotGetGems', user.preferences.language));
 
   await iap.setup();
-  let appleRes = await iap.validate(iap.APPLE, receipt);
-  let isValidated = iap.isValidated(appleRes);
+  const appleRes = await iap.validate(iap.APPLE, receipt);
+  const isValidated = iap.isValidated(appleRes);
   if (!isValidated) throw new NotAuthorized(api.constants.RESPONSE_INVALID_RECEIPT);
   const purchaseDataList = iap.getPurchaseData(appleRes);
   if (purchaseDataList.length === 0) throw new NotAuthorized(api.constants.RESPONSE_NO_ITEM_PURCHASED);
   let correctReceipt = false;
 
   // Purchasing one item at a time (processing of await(s) below is sequential not parallel)
-  for (let index in purchaseDataList) {
-    let purchaseData = purchaseDataList[index];
-    let token = purchaseData.transactionId;
+  for (const index in purchaseDataList) {
+    const purchaseData = purchaseDataList[index];
+    const token = purchaseData.transactionId;
 
-    let existingReceipt = await IapPurchaseReceipt.findOne({ // eslint-disable-line no-await-in-loop
+    const existingReceipt = await IapPurchaseReceipt.findOne({ // eslint-disable-line no-await-in-loop
       _id: token,
     }).exec();
 
@@ -115,19 +117,19 @@ api.subscribe = async function subscribe (sku, user, receipt, headers, nextPayme
   if (!sub) throw new NotAuthorized(this.constants.RESPONSE_INVALID_ITEM);
   await iap.setup();
 
-  let appleRes = await iap.validate(iap.APPLE, receipt);
+  const appleRes = await iap.validate(iap.APPLE, receipt);
   const isValidated = iap.isValidated(appleRes);
   if (!isValidated) throw new NotAuthorized(api.constants.RESPONSE_INVALID_RECEIPT);
 
-  let purchaseDataList = iap.getPurchaseData(appleRes);
+  const purchaseDataList = iap.getPurchaseData(appleRes);
   if (purchaseDataList.length === 0) throw new NotAuthorized(api.constants.RESPONSE_NO_ITEM_PURCHASED);
 
   let transactionId;
 
-  for (let index in purchaseDataList) {
-    let purchaseData = purchaseDataList[index];
+  for (const index in purchaseDataList) {
+    const purchaseData = purchaseDataList[index];
 
-    let dateTerminated = new Date(Number(purchaseData.expirationDate));
+    const dateTerminated = new Date(Number(purchaseData.expirationDate));
     if (purchaseData.productId === sku && dateTerminated > new Date()) {
       transactionId = purchaseData.transactionId;
       break;
@@ -135,12 +137,12 @@ api.subscribe = async function subscribe (sku, user, receipt, headers, nextPayme
   }
 
   if (transactionId) {
-    let existingUser = await User.findOne({
+    const existingUser = await User.findOne({
       'purchased.plan.customerId': transactionId,
     }).exec();
     if (existingUser) throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
 
-    nextPaymentProcessing = nextPaymentProcessing ? nextPaymentProcessing : moment.utc().add({days: 2});
+    nextPaymentProcessing = nextPaymentProcessing || moment.utc().add({ days: 2 });
 
     await payments.createSubscription({
       user,
@@ -157,7 +159,9 @@ api.subscribe = async function subscribe (sku, user, receipt, headers, nextPayme
 };
 
 api.noRenewSubscribe = async function noRenewSubscribe (options) {
-  let {sku, gift, user, receipt, headers} = options;
+  const {
+    sku, gift, user, receipt, headers,
+  } = options;
 
   if (!sku) throw new BadRequest(shared.i18n.t('missingSubscriptionCode'));
 
@@ -180,19 +184,19 @@ api.noRenewSubscribe = async function noRenewSubscribe (options) {
   if (!sub) throw new NotAuthorized(this.constants.RESPONSE_INVALID_ITEM);
   await iap.setup();
 
-  let appleRes = await iap.validate(iap.APPLE, receipt);
+  const appleRes = await iap.validate(iap.APPLE, receipt);
   const isValidated = iap.isValidated(appleRes);
   if (!isValidated) throw new NotAuthorized(api.constants.RESPONSE_INVALID_RECEIPT);
 
-  let purchaseDataList = iap.getPurchaseData(appleRes);
+  const purchaseDataList = iap.getPurchaseData(appleRes);
   if (purchaseDataList.length === 0) throw new NotAuthorized(api.constants.RESPONSE_NO_ITEM_PURCHASED);
 
   let transactionId;
 
-  for (let index in purchaseDataList) {
-    let purchaseData = purchaseDataList[index];
+  for (const index in purchaseDataList) {
+    const purchaseData = purchaseDataList[index];
 
-    let dateTerminated = new Date(Number(purchaseData.expirationDate));
+    const dateTerminated = new Date(Number(purchaseData.expirationDate));
     if (purchaseData.productId === sku && dateTerminated > new Date()) {
       transactionId = purchaseData.transactionId;
       break;
@@ -200,7 +204,7 @@ api.noRenewSubscribe = async function noRenewSubscribe (options) {
   }
 
   if (transactionId) {
-    let existingReceipt = await IapPurchaseReceipt.findOne({ // eslint-disable-line no-await-in-loop
+    const existingReceipt = await IapPurchaseReceipt.findOne({ // eslint-disable-line no-await-in-loop
       _id: transactionId,
     }).exec();
     if (existingReceipt) throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
@@ -211,7 +215,7 @@ api.noRenewSubscribe = async function noRenewSubscribe (options) {
       // This should always be the buying user even for a gift.
       userId: user._id,
     });
-    let data = {
+    const data = {
       user,
       paymentMethod: this.constants.PAYMENT_METHOD_APPLE,
       headers,
@@ -233,7 +237,7 @@ api.noRenewSubscribe = async function noRenewSubscribe (options) {
 };
 
 api.cancelSubscribe = async function cancelSubscribe (user, headers) {
-  let plan = user.purchased.plan;
+  const { plan } = user.purchased;
 
   if (plan.paymentMethod !== api.constants.PAYMENT_METHOD_APPLE) throw new NotAuthorized(shared.i18n.t('missingSubscription'));
 
@@ -242,14 +246,14 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
   let dateTerminated;
 
   try {
-    let appleRes = await iap.validate(iap.APPLE, plan.additionalData);
+    const appleRes = await iap.validate(iap.APPLE, plan.additionalData);
 
-    let isValidated = iap.isValidated(appleRes);
+    const isValidated = iap.isValidated(appleRes);
     if (!isValidated) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
 
-    let purchases = iap.getPurchaseData(appleRes);
+    const purchases = iap.getPurchaseData(appleRes);
     if (purchases.length === 0) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
-    let subscriptionData = purchases[0];
+    const subscriptionData = purchases[0];
 
     dateTerminated = new Date(Number(subscriptionData.expirationDate));
     if (dateTerminated > new Date()) throw new NotAuthorized(this.constants.RESPONSE_STILL_VALID);

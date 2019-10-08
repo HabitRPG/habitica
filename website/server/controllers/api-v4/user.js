@@ -216,7 +216,7 @@ api.verifyDisplayName = {
   async handler (req, res) {
     req.checkBody({
       displayName: {
-        notEmpty: {errorMessage: res.t('messageMissingDisplayName')},
+        notEmpty: { errorMessage: res.t('messageMissingDisplayName') },
       },
     });
 

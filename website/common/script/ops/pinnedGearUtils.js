@@ -1,3 +1,7 @@
+import each from 'lodash/each';
+import sortBy from 'lodash/sortBy';
+import lodashFind from 'lodash/find';
+import reduce from 'lodash/reduce';
 import content from '../content/index';
 import getItemInfo from '../libs/getItemInfo';
 import { BadRequest } from '../libs/errors';
@@ -5,12 +9,8 @@ import i18n from '../i18n';
 import getItemByPathAndType from '../libs/getItemByPathAndType';
 import getOfficialPinnedItems from '../libs/getOfficialPinnedItems';
 
-import each from 'lodash/each';
-import sortBy from 'lodash/sortBy';
-import lodashFind from 'lodash/find';
-import reduce from 'lodash/reduce';
 
-let sortOrder = reduce(content.gearTypes, (accumulator, val, key) => {
+const sortOrder = reduce(content.gearTypes, (accumulator, val, key) => {
   accumulator[val] = key;
   return accumulator;
 }, {});
@@ -21,9 +21,7 @@ let sortOrder = reduce(content.gearTypes, (accumulator, val, key) => {
  * @param String path
  */
 function pathExistsInArray (array, path) {
-  return array.findIndex(item => {
-    return item.path === path;
-  });
+  return array.findIndex(item => item.path === path);
 }
 
 function checkForNullEntries (array) {
@@ -36,17 +34,15 @@ export function checkPinnedAreasForNullEntries (user) {
 }
 
 export function selectGearToPin (user) {
-  let changes = [];
+  const changes = [];
 
-  each(content.gearTypes, (type) => {
-    let found = lodashFind(content.gear.tree[type][user.stats.class], (item) => {
-      return !user.items.gear.owned[item.key];
-    });
+  each(content.gearTypes, type => {
+    const found = lodashFind(content.gear.tree[type][user.stats.class], item => !user.items.gear.owned[item.key]);
 
     if (found) changes.push(found);
   });
 
-  return sortBy(changes, (change) => sortOrder[change.type]);
+  return sortBy(changes, change => sortOrder[change.type]);
 }
 
 export function addPinnedGear (user, type, path) {
@@ -61,10 +57,10 @@ export function addPinnedGear (user, type, path) {
 }
 
 export function addPinnedGearByClass (user) {
-  let newPinnedItems = selectGearToPin(user);
+  const newPinnedItems = selectGearToPin(user);
 
-  for (let item of newPinnedItems) {
-    let itemInfo = getItemInfo(user, 'marketGear', item);
+  for (const item of newPinnedItems) {
+    const itemInfo = getItemInfo(user, 'marketGear', item);
 
     addPinnedGear(user, itemInfo.pinType, itemInfo.path);
   }
@@ -82,10 +78,10 @@ export function removeItemByPath (user, path) {
 }
 
 export function removePinnedGearByClass (user) {
-  let currentPinnedItems = selectGearToPin(user);
+  const currentPinnedItems = selectGearToPin(user);
 
-  for (let item of currentPinnedItems) {
-    let itemInfo = getItemInfo(user, 'marketGear', item);
+  for (const item of currentPinnedItems) {
+    const itemInfo = getItemInfo(user, 'marketGear', item);
 
     removeItemByPath(user, itemInfo.path);
   }
@@ -124,9 +120,9 @@ const PATHS_WITHOUT_ITEM = ['special.gems', 'special.rebirth_orb', 'special.fort
 /**
  * @returns {boolean} TRUE added the item / FALSE removed it
  */
-export function togglePinnedItem (user, {item, type, path}, req = {}) {
+export function togglePinnedItem (user, { item, type, path }, req = {}) {
   let arrayToChange;
-  let officialPinnedItems = getOfficialPinnedItems(user);
+  const officialPinnedItems = getOfficialPinnedItems(user);
 
   if (!path) {
     // If path isn't passed it means an item was passed
@@ -137,7 +133,7 @@ export function togglePinnedItem (user, {item, type, path}, req = {}) {
     if (!item && PATHS_WITHOUT_ITEM.indexOf(path) === -1) {
       // path not exists in our content structure
 
-      throw new BadRequest(i18n.t('wrongItemPath', {path}, req.language));
+      throw new BadRequest(i18n.t('wrongItemPath', { path }, req.language));
     }
 
     // check if item exists & valid to be pinned
@@ -171,10 +167,9 @@ export function togglePinnedItem (user, {item, type, path}, req = {}) {
   if (foundIndex >= 0) {
     arrayToChange.splice(foundIndex, 1);
     return isOfficialPinned;
-  } else {
-    arrayToChange.push({path, type});
-    return !isOfficialPinned;
   }
+  arrayToChange.push({ path, type });
+  return !isOfficialPinned;
 }
 
 export { default as isPinned } from '../libs/isPinned';

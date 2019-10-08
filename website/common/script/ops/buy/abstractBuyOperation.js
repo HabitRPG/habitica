@@ -1,11 +1,11 @@
+import _merge from 'lodash/merge';
+import _get from 'lodash/get';
 import i18n from '../../i18n';
 import {
   NotAuthorized,
   NotImplementedError,
   BadRequest,
 } from '../../libs/errors';
-import _merge from 'lodash/merge';
-import _get from 'lodash/get';
 
 export class AbstractBuyOperation {
   /**
@@ -18,7 +18,7 @@ export class AbstractBuyOperation {
     this.req = req || {};
     this.analytics = analytics;
 
-    let quantity = _get(req, 'quantity');
+    const quantity = _get(req, 'quantity');
 
     this.quantity = quantity ? Number(quantity) : 1;
     if (this.quantity < 1 || !Number.isInteger(this.quantity)) throw new BadRequest(this.i18n('invalidQuantity'));
@@ -48,8 +48,7 @@ export class AbstractBuyOperation {
    * @returns {String}
    */
   getItemType (item) {
-    if (!item.type)
-      throw new NotImplementedError('item doesn\'t have a type property');
+    if (!item.type) throw new NotImplementedError('item doesn\'t have a type property');
 
     return item.type;
   }
@@ -95,7 +94,7 @@ export class AbstractBuyOperation {
 
     this.extractAndValidateParams(this.user, this.req);
 
-    let resultObj = this.executeChanges(this.user, this.item, this.req);
+    const resultObj = this.executeChanges(this.user, this.item, this.req);
 
     if (this.analytics) {
       this.sendToAnalytics(this.analyticsData());
@@ -110,7 +109,7 @@ export class AbstractBuyOperation {
 
   sendToAnalytics (additionalData = {}) {
     // spread-operator produces an "unexpected token" error
-    let analyticsData = _merge(additionalData, {
+    const analyticsData = _merge(additionalData, {
       // ...additionalData,
       uuid: this.user._id,
       category: 'behavior',
@@ -132,9 +131,9 @@ export class AbstractGoldItemOperation extends AbstractBuyOperation {
 
   canUserPurchase (user, item) {
     this.item = item;
-    let itemValue = this.getItemValue(item);
+    const itemValue = this.getItemValue(item);
 
-    let userGold = user.stats.gp;
+    const userGold = user.stats.gp;
 
     if (userGold < itemValue * this.quantity) {
       throw new NotAuthorized(this.i18n('messageNotEnoughGold'));
@@ -146,7 +145,7 @@ export class AbstractGoldItemOperation extends AbstractBuyOperation {
   }
 
   subtractCurrency (user, item) {
-    let itemValue = this.getItemValue(item);
+    const itemValue = this.getItemValue(item);
 
     user.stats.gp -= itemValue * this.quantity;
   }
@@ -168,7 +167,7 @@ export class AbstractGemItemOperation extends AbstractBuyOperation {
 
   canUserPurchase (user, item) {
     this.item = item;
-    let itemValue = this.getItemValue(item);
+    const itemValue = this.getItemValue(item);
 
     if (!item.canBuy(user)) {
       throw new NotAuthorized(this.i18n('messageNotAvailable'));
@@ -180,7 +179,7 @@ export class AbstractGemItemOperation extends AbstractBuyOperation {
   }
 
   subtractCurrency (user, item) {
-    let itemValue = this.getItemValue(item);
+    const itemValue = this.getItemValue(item);
 
     user.balance -= itemValue * this.quantity;
   }

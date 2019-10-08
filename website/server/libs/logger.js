@@ -38,7 +38,7 @@ if (IS_PROD) {
 }
 
 // exports a public interface insteaf of accessing directly the logger module
-let loggerInterface = {
+const loggerInterface = {
   info (...args) {
     logger.info(...args);
   },
@@ -48,17 +48,17 @@ let loggerInterface = {
   // and an object of additional data to log alongside the error
   // If the first argument isn't an Error, it'll call logger.error with all the arguments supplied
   error (...args) {
-    let [err, errorData = {}, ...otherArgs] = args;
+    const [err, errorData = {}, ...otherArgs] = args;
 
     if (err instanceof Error) {
       // pass the error stack as the first parameter to logger.error
-      let stack = err.stack || err.message || err;
+      const stack = err.stack || err.message || err;
 
       if (_.isPlainObject(errorData) && !errorData.fullError) {
         // If the error object has interesting data (not only httpCode, message and name from the CustomError class)
         // add it to the logs
         if (err instanceof CustomError) {
-          let errWithoutCommonProps = _.omit(err, ['name', 'httpCode', 'message']);
+          const errWithoutCommonProps = _.omit(err, ['name', 'httpCode', 'message']);
 
           if (Object.keys(errWithoutCommonProps).length > 0) {
             errorData.fullError = errWithoutCommonProps;
@@ -68,7 +68,7 @@ let loggerInterface = {
         }
       }
 
-      let loggerArgs = [stack, errorData, ...otherArgs];
+      const loggerArgs = [stack, errorData, ...otherArgs];
 
       // Treat 4xx errors that are handled as warnings, 5xx and uncaught errors as serious problems
       if (!errorData || !errorData.isHandledError || errorData.httpCode >= 500) {
@@ -85,7 +85,7 @@ let loggerInterface = {
 // Logs unhandled promises errors
 // when no catch is attached to a promise a unhandledRejection event will be triggered
 // reason is the error, p the promise where it originated
-process.on('unhandledRejection', function handlePromiseRejection (reason, p) {
+process.on('unhandledRejection', (reason, p) => {
   loggerInterface.error(reason, 'unhandledPromiseRejection at', p);
 });
 

@@ -1,18 +1,19 @@
 /* let migrationName = 'tasks-set-everyX'; */
-let authorName = 'Sabe'; // in case script author needs to know when their ...
-let authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; // ... own data is done
+const authorName = 'Sabe'; // in case script author needs to know when their ...
+const authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; // ... own data is done
 
 /*
  * Iterates over all tasks and sets invalid everyX values (less than 0 or more than 9999 or not an int) field to 0
  */
 
-let monk = require('monk');
-let connectionString = 'mongodb://localhost:27017/habitrpg?auto_reconnect=true';
-let dbTasks = monk(connectionString).get('tasks', { castIds: false });
+const monk = require('monk');
+
+const connectionString = 'mongodb://localhost:27017/habitrpg?auto_reconnect=true';
+const dbTasks = monk(connectionString).get('tasks', { castIds: false });
 
 function processTasks (lastId) {
   // specify a query to limit the affected tasks (empty for all tasks):
-  let query = {
+  const query = {
     type: 'daily',
     everyX: {
       $not: {
@@ -30,18 +31,18 @@ function processTasks (lastId) {
   }
 
   dbTasks.find(query, {
-    sort: {_id: 1},
+    sort: { _id: 1 },
     limit: 250,
     fields: [],
   })
     .then(updateTasks)
-    .catch((err) => {
+    .catch(err => {
       console.log(err);
-      return exiting(1, `ERROR! ${  err}`);
+      return exiting(1, `ERROR! ${err}`);
     });
 }
 
-let progressCount = 1000;
+const progressCount = 1000;
 let count = 0;
 
 function updateTasks (tasks) {
@@ -51,27 +52,25 @@ function updateTasks (tasks) {
     return;
   }
 
-  let taskPromises = tasks.map(updatetask);
-  let lasttask = tasks[tasks.length - 1];
+  const taskPromises = tasks.map(updatetask);
+  const lasttask = tasks[tasks.length - 1];
 
   return Promise.all(taskPromises)
-    .then(() => {
-      return processTasks(lasttask._id);
-    });
+    .then(() => processTasks(lasttask._id));
 }
 
 function updatetask (task) {
   count++;
-  let set = {everyX: 0};
+  const set = { everyX: 0 };
 
-  dbTasks.update({_id: task._id}, {$set: set});
+  dbTasks.update({ _id: task._id }, { $set: set });
 
-  if (count % progressCount === 0) console.warn(`${count  } ${  task._id}`);
-  if (task._id === authorUuid) console.warn(`${authorName  } processed`);
+  if (count % progressCount === 0) console.warn(`${count} ${task._id}`);
+  if (task._id === authorUuid) console.warn(`${authorName} processed`);
 }
 
 function displayData () {
-  console.warn(`\n${  count  } tasks processed\n`);
+  console.warn(`\n${count} tasks processed\n`);
   return exiting(0);
 }
 
@@ -83,7 +82,7 @@ function exiting (code, msg) {
   if (msg) {
     if (code) {
       console.error(msg);
-    } else      {
+    } else {
       console.log(msg);
     }
   }

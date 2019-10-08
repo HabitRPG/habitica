@@ -1,10 +1,10 @@
-import common from '../../../common';
 import _ from 'lodash';
-import { langCodes } from '../../libs/i18n';
 import fsCallback from 'fs';
 import path from 'path';
-import logger from '../../libs/logger';
 import util from 'util';
+import logger from '../../libs/logger';
+import { langCodes } from '../../libs/i18n';
+import common from '../../../common';
 
 // Transform fs methods that accept callbacks in ones that return promises
 const fs = {
@@ -14,7 +14,7 @@ const fs = {
   mkdir: util.promisify(fsCallback.mkdir).bind(fsCallback),
 };
 
-let api = {};
+const api = {};
 
 function walkContent (obj, lang) {
   _.each(obj, (item, key, source) => {
@@ -26,10 +26,10 @@ function walkContent (obj, lang) {
 // After the getContent route is called the first time for a certain language
 // the response is saved on disk and subsequentially served directly from there to reduce computation.
 // Example: if `cachedContentResponses.en` is true it means that the response is cached
-let cachedContentResponses = {};
+const cachedContentResponses = {};
 
 // Language key set to true while the cache file is being written
-let cacheBeingWritten = {};
+const cacheBeingWritten = {};
 
 _.each(langCodes, code => {
   cachedContentResponses[code] = false;
@@ -52,11 +52,9 @@ async function saveContentToDisk (language, content) {
     if (err.code === 'ENOENT' && err.syscall === 'stat') { // the directory doesn't exists, create it and retry
       await fs.mkdir(CONTENT_CACHE_PATH);
       return saveContentToDisk(language, content);
-    } else {
-      cacheBeingWritten[language] = false;
-      logger.error(err);
-      return;
     }
+    cacheBeingWritten[language] = false;
+    logger.error(err);
   }
 }
 
@@ -104,7 +102,7 @@ api.getContent = {
   noLanguage: true,
   async handler (req, res) {
     let language = 'en';
-    let proposedLang = req.query.language && req.query.language.toString();
+    const proposedLang = req.query.language && req.query.language.toString();
 
     if (proposedLang in cachedContentResponses) {
       language = proposedLang;
@@ -125,7 +123,7 @@ api.getContent = {
       'Content-Type': 'application/json',
     });
 
-    let jsonResString = `{"success": true, "data": ${content}}`;
+    const jsonResString = `{"success": true, "data": ${content}}`;
     res.status(200).send(jsonResString);
 
     // save the file in background unless it's already cached or being written right now

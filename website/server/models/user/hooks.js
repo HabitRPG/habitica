@@ -1,6 +1,6 @@
-import common from '../../../common';
 import _ from 'lodash';
 import moment from 'moment';
+import common from '../../../common';
 import baseModel from '../../libs/baseModel';
 import * as Tasks from '../task';
 import {
@@ -33,9 +33,7 @@ schema.plugin(baseModel, {
 });
 
 function findTag (user, tagName) {
-  let tagID = _.find(user.tags, (userTag) => {
-    return userTag.name === tagName(user.preferences.language);
-  });
+  const tagID = _.find(user.tags, userTag => userTag.name === tagName(user.preferences.language));
   return tagID.id;
 }
 
@@ -47,11 +45,11 @@ function _populateDefaultTasks (user, taskTypes) {
   } else {
     defaultsData = common.content.userDefaults;
   }
-  let tagsI = taskTypes.indexOf('tag');
+  const tagsI = taskTypes.indexOf('tag');
 
   if (tagsI !== -1) {
-    user.tags = _.map(defaultsData.tags, (tag) => {
-      let newTag = _.cloneDeep(tag);
+    user.tags = _.map(defaultsData.tags, tag => {
+      const newTag = _.cloneDeep(tag);
 
       // tasks automatically get _id=helpers.uuid() from TaskSchema id.default, but tags are Schema.Types.Mixed - so we need to manually invoke here
       newTag.id = common.uuid();
@@ -63,7 +61,7 @@ function _populateDefaultTasks (user, taskTypes) {
 
   // @TODO: default tasks are handled differently now, and not during registration. We should move this code
 
-  let tasksToCreate = [];
+  const tasksToCreate = [];
   if (user.registeredThrough === 'habitica-web') return Promise.all(tasksToCreate);
 
   if (tagsI !== -1) {
@@ -71,15 +69,15 @@ function _populateDefaultTasks (user, taskTypes) {
     taskTypes.splice(tagsI, 1);
   }
 
-  _.each(taskTypes, (taskType) => {
-    let tasksOfType = _.map(defaultsData[`${taskType}s`], (taskDefaults) => {
-      let newTask = new Tasks[taskType](taskDefaults);
+  _.each(taskTypes, taskType => {
+    const tasksOfType = _.map(defaultsData[`${taskType}s`], taskDefaults => {
+      const newTask = new Tasks[taskType](taskDefaults);
 
       newTask.userId = user._id;
       newTask.text = taskDefaults.text(user.preferences.language);
       if (newTask.notes) newTask.notes = taskDefaults.notes(user.preferences.language);
       if (taskDefaults.checklist) {
-        newTask.checklist = _.map(taskDefaults.checklist, (checklistItem) => {
+        newTask.checklist = _.map(taskDefaults.checklist, checklistItem => {
           checklistItem.text = checklistItem.text(user.preferences.language);
           return checklistItem;
         });
@@ -96,8 +94,8 @@ function _populateDefaultTasks (user, taskTypes) {
   });
 
   return Promise.all(tasksToCreate)
-    .then((tasksCreated) => {
-      _.each(tasksCreated, (task) => {
+    .then(tasksCreated => {
+      _.each(tasksCreated, task => {
         user.tasksOrder[`${task.type}s`].push(task._id);
       });
     });
@@ -115,14 +113,14 @@ function pinBaseItems (user) {
   }));
 
   user.pinnedItems.push(
-    {type: 'potion', path: 'potion'},
-    {type: 'armoire', path: 'armoire'},
+    { type: 'potion', path: 'potion' },
+    { type: 'armoire', path: 'armoire' },
   );
 }
 
 function _setUpNewUser (user) {
   let taskTypes;
-  let iterableFlags = user.flags.toObject();
+  const iterableFlags = user.flags.toObject();
 
   user.items.quests.dustbunnies = 1;
   user.markModified('items.quests');
@@ -155,8 +153,8 @@ function _setUpNewUser (user) {
 }
 
 function _setProfileName (user) {
-  let localUsername = user.auth.local && user.auth.local.username;
-  let anonymous = 'profile name not found';
+  const localUsername = user.auth.local && user.auth.local.username;
+  const anonymous = 'profile name not found';
 
   return localUsername || anonymous;
 }
@@ -186,22 +184,22 @@ schema.pre('save', true, function preSaveUser (next, done) {
   // do not calculate achievements if items or achievements are not selected
   if (this.isDirectSelected('items') && this.isDirectSelected('achievements')) {
     // Determines if Beast Master should be awarded
-    let beastMasterProgress = common.count.beastMasterProgress(this.items.pets);
+    const beastMasterProgress = common.count.beastMasterProgress(this.items.pets);
 
     if (beastMasterProgress >= 90 || this.achievements.beastMasterCount > 0) {
       this.achievements.beastMaster = true;
     }
 
     // Determines if Mount Master should be awarded
-    let mountMasterProgress = common.count.mountMasterProgress(this.items.mounts);
+    const mountMasterProgress = common.count.mountMasterProgress(this.items.mounts);
 
     if (mountMasterProgress >= 90 || this.achievements.mountMasterCount > 0) {
       this.achievements.mountMaster = true;
     }
 
     // Determines if Triad Bingo should be awarded
-    let dropPetCount = common.count.dropPetsCurrentlyOwned(this.items.pets);
-    let qualifiesForTriad = dropPetCount >= 90 && mountMasterProgress >= 90;
+    const dropPetCount = common.count.dropPetsCurrentlyOwned(this.items.pets);
+    const qualifiesForTriad = dropPetCount >= 90 && mountMasterProgress >= 90;
 
     if (qualifiesForTriad || this.achievements.triadBingoCount > 0) {
       this.achievements.triadBingo = true;
@@ -216,10 +214,10 @@ schema.pre('save', true, function preSaveUser (next, done) {
 
   // Filter notifications, remove unvalid and not necessary, handle the ones that have special requirements
   if ( // Make sure all the data is loaded
-    this.isDirectSelected('notifications') &&
-    this.isDirectSelected('stats') &&
-    this.isDirectSelected('flags') &&
-    this.isDirectSelected('preferences')
+    this.isDirectSelected('notifications')
+    && this.isDirectSelected('stats')
+    && this.isDirectSelected('flags')
+    && this.isDirectSelected('preferences')
   ) {
     const unallocatedPointsNotifications = [];
 
@@ -289,7 +287,7 @@ schema.pre('save', true, function preSaveUser (next, done) {
 });
 
 schema.pre('update', function preUpdateUser () {
-  this.update({}, {$inc: {_v: 1}});
+  this.update({}, { $inc: { _v: 1 } });
 });
 
 schema.post('save', function postSaveUser () {
@@ -299,7 +297,7 @@ schema.post('save', function postSaveUser () {
     const firstLvlNotification = lvlUpNotifications[0];
     const lastLvlNotification = lvlUpNotifications[lvlUpNotifications.length - 1];
 
-    const initialLvl = firstLvlNotification.initialLvl;
+    const { initialLvl } = firstLvlNotification;
     const finalLvl = lastLvlNotification.newLvl;
 
     userActivityWebhook.send(this, {

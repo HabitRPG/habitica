@@ -1,10 +1,9 @@
-'use strict';
 
 const chalk = require('chalk');
 
 function loggerGenerator (type, color) {
   return function logger () {
-    let args = Array.from(arguments).map(arg => chalk[color](arg));
+    const args = Array.from(arguments).map(arg => chalk[color](arg));
     console[type].apply(null, args);
   };
 }

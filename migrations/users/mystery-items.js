@@ -1,8 +1,9 @@
 /* eslint-disable no-console */
-const MIGRATION_NAME = 'mystery_items_201909';
-const MYSTERY_ITEMS = ['armor_mystery_201909', 'head_mystery_201909'];
 import { model as User } from '../../website/server/models/user';
 import { model as UserNotification } from '../../website/server/models/userNotification';
+
+const MIGRATION_NAME = 'mystery_items_201909';
+const MYSTERY_ITEMS = ['armor_mystery_201909', 'head_mystery_201909'];
 
 const progressCount = 1000;
 let count = 0;
@@ -29,12 +30,12 @@ async function updateUser (user) {
 
   if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
 
-  return await User.update({_id: user._id}, {$set: set, $push: push, $addToSet: addToSet}).exec();
+  return await User.update({ _id: user._id }, { $set: set, $push: push, $addToSet: addToSet }).exec();
 }
 
 module.exports = async function processUsers () {
-  let query = {
-    migration: {$ne: MIGRATION_NAME},
+  const query = {
+    migration: { $ne: MIGRATION_NAME },
     'purchased.plan.customerId': { $ne: null },
     $or: [
       { 'purchased.plan.dateTerminated': { $gte: new Date() } },
@@ -51,7 +52,7 @@ module.exports = async function processUsers () {
     const users = await User // eslint-disable-line no-await-in-loop
       .find(query)
       .limit(250)
-      .sort({_id: 1})
+      .sort({ _id: 1 })
       .select(fields)
       .lean()
       .exec();

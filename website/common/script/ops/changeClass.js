@@ -1,6 +1,6 @@
-import i18n from '../i18n';
 import get from 'lodash/get';
 import pick from 'lodash/pick';
+import i18n from '../i18n';
 import splitWhitespace from '../libs/splitWhitespace';
 import { capByLevel } from '../statHelpers';
 import {
@@ -34,7 +34,7 @@ function resetClass (user, req = {}) {
 }
 
 export default function changeClass (user, req = {}, analytics) {
-  let klass = get(req, 'query.class');
+  const klass = get(req, 'query.class');
   let balanceRemoved = 0;
   // user.flags.classSelected is set to false after the user paid the 3 gems
   if (user.stats.lvl < 10) {

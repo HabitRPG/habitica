@@ -1,10 +1,11 @@
 {
   "root": true,
-  "env": {
-    "node": true,
-  },
   "extends": [
-    "habitrpg",
-    "habitrpg/esnext"
+    "habitrpg/lib/node"
   ],
+  "rules": {
+    'no-param-reassign': ['error', {
+      props: false,
+    }],
+  }
 }

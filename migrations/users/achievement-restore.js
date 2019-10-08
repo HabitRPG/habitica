@@ -9,6 +9,7 @@ const authorUuid = ''; // ... own data is done
  */
 
 const monk = require('monk');
+
 const connectionString = 'mongodb://localhost/new-habit';
 const Users = monk(connectionString).get('users', { castIds: false });
 
@@ -19,13 +20,13 @@ function getAchievementUpdate (newUser, oldUser) {
   const oldAchievements = oldUser.achievements;
   const newAchievements = newUser.achievements;
 
-  let achievementsUpdate = Object.assign({}, newAchievements);
+  const achievementsUpdate = { ...newAchievements };
 
   // ultimateGearSets
   if (!achievementsUpdate.ultimateGearSets && oldAchievements.ultimateGearSets) {
     achievementsUpdate.ultimateGearSets = oldAchievements.ultimateGearSets;
   } else if (oldAchievements.ultimateGearSets) {
-    for (let index in oldAchievements.ultimateGearSets) {
+    for (const index in oldAchievements.ultimateGearSets) {
       if (oldAchievements.ultimateGearSets[index]) achievementsUpdate.ultimateGearSets[index] = true;
     }
   }
@@ -37,7 +38,7 @@ function getAchievementUpdate (newUser, oldUser) {
 
   // Quests
   if (!achievementsUpdate.quests) achievementsUpdate.quests = {};
-  for (let index in oldAchievements.quests) {
+  for (const index in oldAchievements.quests) {
     if (!achievementsUpdate.quests[index]) {
       achievementsUpdate.quests[index] = oldAchievements.quests[index];
     } else {
@@ -54,10 +55,10 @@ function getAchievementUpdate (newUser, oldUser) {
 
   // All others
   const indexsToIgnore = ['ultimateGearSets', 'challenges', 'quests', 'rebirthLevel'];
-  for (let index in oldAchievements) {
+  for (const index in oldAchievements) {
     if (indexsToIgnore.indexOf(index) !== -1) continue; // eslint-disable-line no-continue
 
-    if (!achievementsUpdate[index])  {
+    if (!achievementsUpdate[index]) {
       achievementsUpdate[index] = oldAchievements[index];
       continue; // eslint-disable-line no-continue
     }
@@ -75,18 +76,19 @@ module.exports = async function achievementRestore () {
   ];
 
   /* eslint-disable no-await-in-loop */
-  for (let index in userIds) {
+  for (const index in userIds) {
     const userId = userIds[index];
-    const oldUser = await UsersOld.findOne({_id: userId}, 'achievements');
-    const newUser = await Users.findOne({_id: userId}, 'achievements');
+    const oldUser = await UsersOld.findOne({ _id: userId }, 'achievements');
+    const newUser = await Users.findOne({ _id: userId }, 'achievements');
     const achievementUpdate = getAchievementUpdate(newUser, oldUser);
     await Users.update(
-      {_id: userId},
+      { _id: userId },
       {
         $set: {
           achievements: achievementUpdate,
         },
-      });
+      },
+    );
     console.log(`Updated ${userId}`);
     /* eslint-enable no-await-in-loop */
   }

@@ -16,17 +16,17 @@ import splitWhitespace from '../libs/splitWhitespace';
 function getStatToAllocate (user) {
   let suggested;
 
-  let statsObj = user.stats.toObject ? user.stats.toObject() : user.stats;
+  const statsObj = user.stats.toObject ? user.stats.toObject() : user.stats;
 
   switch (user.preferences.allocationMode) {
     case 'flat': {
-      let stats = pick(statsObj, splitWhitespace('con str per int'));
+      const stats = pick(statsObj, splitWhitespace('con str per int'));
       return invert(stats)[min(values(stats))];
     }
     case 'classbased': {
       let preference;
-      let lvlDiv7 = statsObj.lvl / 7;
-      let ideal = [lvlDiv7 * 3, lvlDiv7 * 2, lvlDiv7, lvlDiv7];
+      const lvlDiv7 = statsObj.lvl / 7;
+      const ideal = [lvlDiv7 * 3, lvlDiv7 * 2, lvlDiv7, lvlDiv7];
 
       switch (statsObj.class) {
         case 'wizard': {
@@ -46,14 +46,14 @@ function getStatToAllocate (user) {
         }
       }
 
-      let diff = [
+      const diff = [
         statsObj[preference[0]] - ideal[0],
         statsObj[preference[1]] - ideal[1],
         statsObj[preference[2]] - ideal[2],
         statsObj[preference[3]] - ideal[3],
       ];
 
-      suggested = findIndex(diff, (val) => {
+      suggested = findIndex(diff, val => {
         if (val === min(diff)) return true;
       });
 
@@ -76,7 +76,7 @@ function getStatToAllocate (user) {
 }
 
 export default function autoAllocate (user) {
-  let statToIncrease = getStatToAllocate(user);
+  const statToIncrease = getStatToAllocate(user);
 
   return user.stats[statToIncrease]++;
 }

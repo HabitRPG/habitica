@@ -1,11 +1,11 @@
+import pick from 'lodash/pick';
 import content from '../content/index';
-import {beastMasterProgress, mountMasterProgress} from '../count';
+import { beastMasterProgress, mountMasterProgress } from '../count';
 import i18n from '../i18n';
 import {
   NotAuthorized,
 } from '../libs/errors';
 import splitWhitespace from '../libs/splitWhitespace';
-import pick from 'lodash/pick';
 
 export default function releaseBoth (user, req = {}) {
   let animal;
@@ -37,13 +37,13 @@ export default function releaseBoth (user, req = {}) {
   //   user.balance -= 1.5;
   // }
 
-  let mountInfo = content.mountInfo[user.items.currentMount];
+  const mountInfo = content.mountInfo[user.items.currentMount];
 
   if (mountInfo && mountInfo.type === 'drop') {
     user.items.currentMount = '';
   }
 
-  let petInfo = content.petInfo[user.items.currentPet];
+  const petInfo = content.petInfo[user.items.currentPet];
 
   if (petInfo && petInfo.type === 'drop') {
     user.items.currentPet = '';

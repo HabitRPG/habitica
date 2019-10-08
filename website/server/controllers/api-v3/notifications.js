@@ -9,7 +9,7 @@ import {
   model as UserNotification,
 } from '../../models/userNotification';
 
-let api = {};
+const api = {};
 
 /**
  * @api {post} /api/v3/notifications/:notificationId/read Mark one notification as read
@@ -25,16 +25,14 @@ api.readNotification = {
   url: '/notifications/:notificationId/read',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
 
     req.checkParams('notificationId', res.t('notificationIdRequired')).notEmpty();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    const index = user.notifications.findIndex(n => {
-      return n && n.id === req.params.notificationId;
-    });
+    const index = user.notifications.findIndex(n => n && n.id === req.params.notificationId);
 
     if (index === -1) {
       throw new NotificationNotFound(req.language);
@@ -67,18 +65,16 @@ api.readNotifications = {
   url: '/notifications/read',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
 
     req.checkBody('notificationIds', res.t('notificationsRequired')).notEmpty();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let notificationsIds = req.body.notificationIds;
-    for (let notificationId of notificationsIds) {
-      const index = user.notifications.findIndex(n => {
-        return n && n.id === notificationId;
-      });
+    const notificationsIds = req.body.notificationIds;
+    for (const notificationId of notificationsIds) {
+      const index = user.notifications.findIndex(n => n && n.id === notificationId);
 
       if (index === -1) {
         throw new NotificationNotFound(req.language);
@@ -115,18 +111,16 @@ api.seeNotification = {
   url: '/notifications/:notificationId/see',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
 
     req.checkParams('notificationId', res.t('notificationIdRequired')).notEmpty();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    const notificationId = req.params.notificationId;
+    const { notificationId } = req.params;
 
-    const notification = user.notifications.find(n => {
-      return n && n.id === notificationId;
-    });
+    const notification = user.notifications.find(n => n && n.id === notificationId);
 
     if (!notification) {
       throw new NotificationNotFound(req.language);
@@ -164,19 +158,17 @@ api.seeNotifications = {
   url: '/notifications/see',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
 
     req.checkBody('notificationIds', res.t('notificationsRequired')).notEmpty();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let notificationsIds = req.body.notificationIds;
+    const notificationsIds = req.body.notificationIds;
 
-    for (let notificationId of notificationsIds) {
-      const notification = user.notifications.find(n => {
-        return n && n.id === notificationId;
-      });
+    for (const notificationId of notificationsIds) {
+      const notification = user.notifications.find(n => n && n.id === notificationId);
 
       if (!notification) {
         throw new NotificationNotFound(req.language);

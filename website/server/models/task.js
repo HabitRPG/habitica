@@ -1,37 +1,37 @@
 import mongoose from 'mongoose';
-import shared from '../../common';
 import validator from 'validator';
 import moment from 'moment';
+import _ from 'lodash';
+import shared from '../../common';
 import baseModel from '../libs/baseModel';
 import { InternalServerError } from '../libs/errors';
-import _ from 'lodash';
 import { preenHistory } from '../libs/preening';
 import { SHARED_COMPLETION } from '../libs/groupTasks';
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
-let discriminatorOptions = {
+const discriminatorOptions = {
   discriminatorKey: 'type', // the key that distinguishes task types
 };
-let subDiscriminatorOptions = _.defaults(_.cloneDeep(discriminatorOptions), {
+const subDiscriminatorOptions = _.defaults(_.cloneDeep(discriminatorOptions), {
   _id: false,
   minimize: false, // So empty objects are returned
   typeKey: '$type', // So that we can use fields named `type`
 });
 
-export let tasksTypes = ['habit', 'daily', 'todo', 'reward'];
+export const tasksTypes = ['habit', 'daily', 'todo', 'reward'];
 export const taskIsGroupOrChallengeQuery = {
   $and: [ // exclude challenge and group tasks
     {
       $or: [
-        {'challenge.id': {$exists: false}},
-        {'challenge.broken': {$exists: true}},
+        { 'challenge.id': { $exists: false } },
+        { 'challenge.broken': { $exists: true } },
       ],
     },
     {
       $or: [
-        {'group.id': {$exists: false}},
-        {'group.broken': {$exists: true}},
+        { 'group.id': { $exists: false } },
+        { 'group.broken': { $exists: true } },
       ],
     },
   ],
@@ -39,9 +39,11 @@ export const taskIsGroupOrChallengeQuery = {
 
 const reminderSchema = new Schema({
   _id: false,
-  id: {$type: String, validate: [v => validator.isUUID(v), 'Invalid uuid.'], default: shared.uuid, required: true},
-  startDate: {$type: Date},
-  time: {$type: Date, required: true},
+  id: {
+    $type: String, validate: [v => validator.isUUID(v), 'Invalid uuid.'], default: shared.uuid, required: true,
+  },
+  startDate: { $type: Date },
+  time: { $type: Date, required: true },
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
@@ -56,10 +58,12 @@ reminderSchema.plugin(baseModel, {
 
 // Important
 // When something changes here remember to update the client side model at common/script/libs/taskDefaults
-export let TaskSchema = new Schema({
-  type: {$type: String, enum: tasksTypes, required: true, default: tasksTypes[0]},
-  text: {$type: String, required: true},
-  notes: {$type: String, default: ''},
+export const TaskSchema = new Schema({
+  type: {
+    $type: String, enum: tasksTypes, required: true, default: tasksTypes[0],
+  },
+  text: { $type: String, required: true },
+  notes: { $type: String, default: '' },
   alias: {
     $type: String,
     match: [/^[a-zA-Z0-9-_]+$/, 'Task short names can only contain alphanumeric characters, underscores and dashes.'],
@@ -81,7 +85,7 @@ export let TaskSchema = new Schema({
           alias,
         }).exec();
 
-        return taskDuplicated ? false : true;
+        return !taskDuplicated;
       },
       msg: 'Task alias already used on another task.',
     }],
@@ -90,47 +94,47 @@ export let TaskSchema = new Schema({
     $type: String,
     validate: [v => validator.isUUID(v), 'Invalid uuid.'],
   }],
-  value: {$type: Number, default: 0, required: true}, // redness or cost for rewards Required because it must be settable (for rewards)
+  value: { $type: Number, default: 0, required: true }, // redness or cost for rewards Required because it must be settable (for rewards)
   priority: {
     $type: Number,
     default: 1,
     required: true,
     validate: [
-      (val) => [0.1, 1, 1.5, 2].indexOf(val) !== -1,
+      val => [0.1, 1, 1.5, 2].indexOf(val) !== -1,
       'Valid priority values are 0.1, 1, 1.5, 2.',
     ],
   },
-  attribute: {$type: String, default: 'str', enum: ['str', 'con', 'int', 'per']},
-  userId: {$type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid.']}, // When not set it belongs to a challenge
+  attribute: { $type: String, default: 'str', enum: ['str', 'con', 'int', 'per'] },
+  userId: { $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid.'] }, // When not set it belongs to a challenge
 
   challenge: {
-    shortName: {$type: String},
-    id: {$type: String, ref: 'Challenge', validate: [v => validator.isUUID(v), 'Invalid uuid.']}, // When set (and userId not set) it's the original task
-    taskId: {$type: String, ref: 'Task', validate: [v => validator.isUUID(v), 'Invalid uuid.']}, // When not set but challenge.id defined it's the original task
-    broken: {$type: String, enum: ['CHALLENGE_DELETED', 'TASK_DELETED', 'UNSUBSCRIBED', 'CHALLENGE_CLOSED', 'CHALLENGE_TASK_NOT_FOUND']}, // CHALLENGE_TASK_NOT_FOUND comes from v3 migration
+    shortName: { $type: String },
+    id: { $type: String, ref: 'Challenge', validate: [v => validator.isUUID(v), 'Invalid uuid.'] }, // When set (and userId not set) it's the original task
+    taskId: { $type: String, ref: 'Task', validate: [v => validator.isUUID(v), 'Invalid uuid.'] }, // When not set but challenge.id defined it's the original task
+    broken: { $type: String, enum: ['CHALLENGE_DELETED', 'TASK_DELETED', 'UNSUBSCRIBED', 'CHALLENGE_CLOSED', 'CHALLENGE_TASK_NOT_FOUND'] }, // CHALLENGE_TASK_NOT_FOUND comes from v3 migration
     winner: String, // user.profile.name of the winner
   },
 
   group: {
-    id: {$type: String, ref: 'Group', validate: [v => validator.isUUID(v), 'Invalid uuid.']},
-    broken: {$type: String, enum: ['GROUP_DELETED', 'TASK_DELETED', 'UNSUBSCRIBED']},
-    assignedUsers: [{$type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid.']}],
-    assignedDate: {$type: Date},
-    taskId: {$type: String, ref: 'Task', validate: [v => validator.isUUID(v), 'Invalid uuid.']},
+    id: { $type: String, ref: 'Group', validate: [v => validator.isUUID(v), 'Invalid uuid.'] },
+    broken: { $type: String, enum: ['GROUP_DELETED', 'TASK_DELETED', 'UNSUBSCRIBED'] },
+    assignedUsers: [{ $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid.'] }],
+    assignedDate: { $type: Date },
+    taskId: { $type: String, ref: 'Task', validate: [v => validator.isUUID(v), 'Invalid uuid.'] },
     approval: {
-      required: {$type: Boolean, default: false},
-      approved: {$type: Boolean, default: false},
-      dateApproved: {$type: Date},
-      approvingUser: {$type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid.']},
-      requested: {$type: Boolean, default: false},
-      requestedDate: {$type: Date},
+      required: { $type: Boolean, default: false },
+      approved: { $type: Boolean, default: false },
+      dateApproved: { $type: Date },
+      approvingUser: { $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid.'] },
+      requested: { $type: Boolean, default: false },
+      requestedDate: { $type: Date },
     },
-    sharedCompletion: {$type: String, enum: _.values(SHARED_COMPLETION), default: SHARED_COMPLETION.single},
+    sharedCompletion: { $type: String, enum: _.values(SHARED_COMPLETION), default: SHARED_COMPLETION.single },
   },
 
   reminders: [reminderSchema],
 
-  byHabitica: {$type: Boolean, default: false}, // Flag of Tasks that were created by Habitica
+  byHabitica: { $type: Boolean, default: false }, // Flag of Tasks that were created by Habitica
 }, _.defaults({
   minimize: false, // So empty objects are returned
   strict: true,
@@ -145,7 +149,7 @@ TaskSchema.plugin(baseModel, {
     }
 
     if (taskObj.priority) {
-      let parsedFloat = Number.parseFloat(taskObj.priority);
+      const parsedFloat = Number.parseFloat(taskObj.priority);
 
       if (!Number.isNaN(parsedFloat)) {
         taskObj.priority = parsedFloat.toFixed(1);
@@ -163,7 +167,7 @@ TaskSchema.statics.findByIdOrAlias = async function findByIdOrAlias (identifier,
   if (!identifier) throw new InternalServerError('Task identifier is a required argument');
   if (!userId) throw new InternalServerError('User identifier is a required argument');
 
-  let query = _.cloneDeep(additionalQueries);
+  const query = _.cloneDeep(additionalQueries);
 
   if (validator.isUUID(String(identifier))) {
     query._id = identifier;
@@ -172,7 +176,7 @@ TaskSchema.statics.findByIdOrAlias = async function findByIdOrAlias (identifier,
     query.alias = identifier;
   }
 
-  let task = await this.findOne(query).exec();
+  const task = await this.findOne(query).exec();
 
   return task;
 };
@@ -202,19 +206,19 @@ TaskSchema.statics.sanitizeReminder = function sanitizeReminder (reminderObj) {
 };
 
 TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta, direction) {
-  let chalTask = this;
+  const chalTask = this;
 
   chalTask.value += delta;
 
   if (chalTask.type === 'habit' || chalTask.type === 'daily') {
     // Add only one history entry per day
-    const history = chalTask.history;
+    const { history } = chalTask;
     const lastChallengeHistoryIndex = history.length - 1;
     const lastHistoryEntry = history[lastChallengeHistoryIndex];
 
     if (
-      lastHistoryEntry && lastHistoryEntry.date &&
-      moment().isSame(lastHistoryEntry.date, 'day')
+      lastHistoryEntry && lastHistoryEntry.date
+      && moment().isSame(lastHistoryEntry.date, 'day')
     ) {
       lastHistoryEntry.value = chalTask.value;
       lastHistoryEntry.date = Number(new Date());
@@ -258,46 +262,46 @@ TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta
 export let Task = mongoose.model('Task', TaskSchema);
 
 // habits and dailies shared fields
-let habitDailySchema = () => {
+const habitDailySchema = () =>
   // Schema not defined because it causes serious perf problems
   // date is a date stored as a Number value
   // value is a Number
   // scoredUp and scoredDown only exist for habits and are numbers
-  return {history: Array};
-};
+  ({ history: Array })
+;
 
 // dailys and todos shared fields
-let dailyTodoSchema = () => {
-  return {
-    completed: {$type: Boolean, default: false},
-    // Checklist fields (dailies and todos)
-    collapseChecklist: {$type: Boolean, default: false},
-    checklist: [{
-      completed: {$type: Boolean, default: false},
-      text: {$type: String, required: false, default: ''}, // required:false because it can be empty on creation
-      _id: false,
-      id: {$type: String, default: shared.uuid, required: true, validate: [v => validator.isUUID(v), 'Invalid uuid.']},
-      linkId: {$type: String},
-    }],
-  };
-};
+const dailyTodoSchema = () => ({
+  completed: { $type: Boolean, default: false },
+  // Checklist fields (dailies and todos)
+  collapseChecklist: { $type: Boolean, default: false },
+  checklist: [{
+    completed: { $type: Boolean, default: false },
+    text: { $type: String, required: false, default: '' }, // required:false because it can be empty on creation
+    _id: false,
+    id: {
+      $type: String, default: shared.uuid, required: true, validate: [v => validator.isUUID(v), 'Invalid uuid.'],
+    },
+    linkId: { $type: String },
+  }],
+});
 
-export let HabitSchema = new Schema(_.defaults({
-  up: {$type: Boolean, default: true},
-  down: {$type: Boolean, default: true},
-  counterUp: {$type: Number, default: 0},
-  counterDown: {$type: Number, default: 0},
-  frequency: {$type: String, default: 'daily', enum: ['daily', 'weekly', 'monthly']},
+export const HabitSchema = new Schema(_.defaults({
+  up: { $type: Boolean, default: true },
+  down: { $type: Boolean, default: true },
+  counterUp: { $type: Number, default: 0 },
+  counterDown: { $type: Number, default: 0 },
+  frequency: { $type: String, default: 'daily', enum: ['daily', 'weekly', 'monthly'] },
 }, habitDailySchema()), subDiscriminatorOptions);
-export let habit = Task.discriminator('habit', HabitSchema);
+export const habit = Task.discriminator('habit', HabitSchema);
 
-export let DailySchema = new Schema(_.defaults({
-  frequency: {$type: String, default: 'weekly', enum: ['daily', 'weekly', 'monthly', 'yearly']},
+export const DailySchema = new Schema(_.defaults({
+  frequency: { $type: String, default: 'weekly', enum: ['daily', 'weekly', 'monthly', 'yearly'] },
   everyX: {
     $type: Number,
     default: 1,
     validate: [
-      (val) => val % 1 === 0 && val >= 0 && val <= 9999,
+      val => val % 1 === 0 && val >= 0 && val <= 9999,
       'Valid everyX values are integers from 0 to 9999',
     ],
   },
@@ -309,29 +313,29 @@ export let DailySchema = new Schema(_.defaults({
     required: true,
   },
   repeat: { // used only for 'weekly' frequency,
-    m: {$type: Boolean, default: true},
-    t: {$type: Boolean, default: true},
-    w: {$type: Boolean, default: true},
-    th: {$type: Boolean, default: true},
-    f: {$type: Boolean, default: true},
-    s: {$type: Boolean, default: true},
-    su: {$type: Boolean, default: true},
+    m: { $type: Boolean, default: true },
+    t: { $type: Boolean, default: true },
+    w: { $type: Boolean, default: true },
+    th: { $type: Boolean, default: true },
+    f: { $type: Boolean, default: true },
+    s: { $type: Boolean, default: true },
+    su: { $type: Boolean, default: true },
   },
-  streak: {$type: Number, default: 0},
-  daysOfMonth: {$type: [Number], default: []}, // Days of the month that the daily should repeat on
-  weeksOfMonth: {$type: [Number], default: []}, // Weeks of the month that the daily should repeat on
-  isDue: {$type: Boolean},
-  nextDue: [{$type: String}],
-  yesterDaily: {$type: Boolean, default: true, required: true},
+  streak: { $type: Number, default: 0 },
+  daysOfMonth: { $type: [Number], default: [] }, // Days of the month that the daily should repeat on
+  weeksOfMonth: { $type: [Number], default: [] }, // Weeks of the month that the daily should repeat on
+  isDue: { $type: Boolean },
+  nextDue: [{ $type: String }],
+  yesterDaily: { $type: Boolean, default: true, required: true },
 }, habitDailySchema(), dailyTodoSchema()), subDiscriminatorOptions);
-export let daily = Task.discriminator('daily', DailySchema);
+export const daily = Task.discriminator('daily', DailySchema);
 
-export let TodoSchema = new Schema(_.defaults({
+export const TodoSchema = new Schema(_.defaults({
   dateCompleted: Date,
   // TODO we're getting parse errors, people have stored as "today" and "3/13". Need to run a migration & put this back to $type: Date see http://stackoverflow.com/questions/1353684/detecting-an-invalid-date-date-instance-in-javascript
   date: String, // due date for todos
 }, dailyTodoSchema()), subDiscriminatorOptions);
-export let todo = Task.discriminator('todo', TodoSchema);
+export const todo = Task.discriminator('todo', TodoSchema);
 
-export let RewardSchema = new Schema({}, subDiscriminatorOptions);
-export let reward = Task.discriminator('reward', RewardSchema);
+export const RewardSchema = new Schema({}, subDiscriminatorOptions);
+export const reward = Task.discriminator('reward', RewardSchema);

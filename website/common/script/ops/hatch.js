@@ -1,10 +1,10 @@
-import content from '../content/index';
-import i18n from '../i18n';
 import findIndex from 'lodash/findIndex';
 import forEach from 'lodash/forEach';
 import get from 'lodash/get';
 import keys from 'lodash/keys';
 import upperFirst from 'lodash/upperFirst';
+import i18n from '../i18n';
+import content from '../content/index';
 import {
   BadRequest,
   NotAuthorized,
@@ -13,8 +13,8 @@ import {
 import errorMessage from '../libs/errorMessage';
 
 export default function hatch (user, req = {}) {
-  let egg = get(req, 'params.egg');
-  let hatchingPotion = get(req, 'params.hatchingPotion');
+  const egg = get(req, 'params.egg');
+  const hatchingPotion = get(req, 'params.hatchingPotion');
 
   if (!(egg && hatchingPotion)) {
     throw new BadRequest(errorMessage('missingEggHatchingPotion'));
@@ -28,7 +28,7 @@ export default function hatch (user, req = {}) {
     throw new BadRequest(i18n.t('messageInvalidEggPotionCombo', req.language));
   }
 
-  let pet = `${egg}-${hatchingPotion}`;
+  const pet = `${egg}-${hatchingPotion}`;
 
   if (user.items.pets[pet] && user.items.pets[pet] > 0) {
     throw new NotAuthorized(i18n.t('messageAlreadyPet', req.language));
@@ -43,11 +43,9 @@ export default function hatch (user, req = {}) {
     user.markModified('items.hatchingPotions');
   }
 
-  forEach(content.animalColorAchievements, (achievement) => {
+  forEach(content.animalColorAchievements, achievement => {
     if (!user.achievements[achievement.petAchievement]) {
-      const petIndex = findIndex(keys(content.dropEggs), (animal) => {
-        return isNaN(user.items.pets[`${animal}-${achievement.color}`]) || user.items.pets[`${animal}-${achievement.color}`] <= 0;
-      });
+      const petIndex = findIndex(keys(content.dropEggs), animal => isNaN(user.items.pets[`${animal}-${achievement.color}`]) || user.items.pets[`${animal}-${achievement.color}`] <= 0);
       if (petIndex === -1) {
         user.achievements[achievement.petAchievement] = true;
         if (user.addNotification) {

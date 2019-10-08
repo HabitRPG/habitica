@@ -1,3 +1,4 @@
+import _mapValues from 'lodash/mapValues';
 import i18n from '../i18n';
 import content from '../content/index';
 import { BadRequest } from './errors';
@@ -7,7 +8,6 @@ import isPinned from './isPinned';
 import isFreeRebirth from './isFreeRebirth';
 import getOfficialPinnedItems from './getOfficialPinnedItems';
 
-import _mapValues from 'lodash/mapValues';
 
 function lockQuest (quest, user) {
   if (quest.key === 'lostMasterclasser1') return !(user.achievements.quests.dilatoryDistress3 && user.achievements.quests.mayhemMistiflying3 && user.achievements.quests.stoikalmCalamity3 && user.achievements.quests.taskwoodsTerror3);
@@ -20,9 +20,7 @@ function lockQuest (quest, user) {
 }
 
 function isItemSuggested (officialPinnedItems, itemInfo) {
-  return officialPinnedItems.findIndex(officialItem => {
-    return officialItem.type === itemInfo.pinType && officialItem.path === itemInfo.path;
-  }) > -1;
+  return officialPinnedItems.findIndex(officialItem => officialItem.type === itemInfo.pinType && officialItem.path === itemInfo.path) > -1;
 }
 
 function getDefaultGearProps (item, language) {
@@ -57,7 +55,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
     case 'eggs':
       itemInfo = {
         key: item.key,
-        text: i18n.t('egg', {eggType: item.text(language)}, language),
+        text: i18n.t('egg', { eggType: item.text(language) }, language),
         notes: item.notes(language),
         value: item.value,
         class: `Pet_Egg_${item.key}`,
@@ -71,7 +69,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
     case 'hatchingPotions':
       itemInfo = {
         key: item.key,
-        text: i18n.t('potion', {potionType: item.text(language)}),
+        text: i18n.t('potion', { potionType: item.text(language) }),
         notes: item.notes(language),
         class: `Pet_HatchingPotion_${item.key}`,
         value: item.value,
@@ -85,7 +83,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
     case 'premiumHatchingPotion':
       itemInfo = {
         key: item.key,
-        text: i18n.t('potion', {potionType: item.text(language)}),
+        text: i18n.t('potion', { potionType: item.text(language) }),
         notes: `${item.notes(language)} ${item._addlNotes(language)}`,
         class: `Pet_HatchingPotion_${item.key}`,
         value: item.value,
@@ -137,12 +135,10 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         unlockCondition: item.unlockCondition,
         drop: item.drop,
         boss: item.boss,
-        collect: item.collect ? _mapValues(item.collect, (o) => {
-          return {
-            count: o.count,
-            text: o.text(),
-          };
-        }) : undefined,
+        collect: item.collect ? _mapValues(item.collect, o => ({
+          count: o.count,
+          text: o.text(),
+        })) : undefined,
         lvl: item.lvl,
         class: locked ? `inventory_quest_scroll_${item.key}_locked` : `inventory_quest_scroll_${item.key}`,
         purchaseType: 'quests',
@@ -264,7 +260,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
       };
       break;
     case 'card': {
-      let spellInfo = content.spells.special[item.key];
+      const spellInfo = content.spells.special[item.key];
 
       itemInfo = {
         key: item.key,
@@ -347,7 +343,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
     itemInfo.isSuggested = isItemSuggested(officialPinnedItems, itemInfo);
     itemInfo.pinned = isPinned(user, itemInfo, officialPinnedItems);
   } else {
-    throw new BadRequest(i18n.t('wrongItemType', {type}, language));
+    throw new BadRequest(i18n.t('wrongItemType', { type }, language));
   }
 
   return itemInfo;

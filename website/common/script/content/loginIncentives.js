@@ -4,7 +4,7 @@ import { MAX_INCENTIVES } from '../constants';
 // NOTE do not import this file alone but only access it through common.content
 // so that it's already compiled
 export default function getLoginIncentives (api) {
-  let loginIncentives = {
+  const loginIncentives = {
     1: {
       rewardKey: ['armor_special_bardRobes'],
       reward: [api.gear.flat.armor_special_bardRobes],
@@ -645,7 +645,7 @@ export default function getLoginIncentives (api) {
   // We could also, use a list, but then we would be cloning each of the rewards.
   // Create a new array if we want the loginIncentives to be immutable in the future
   let nextRewardKey;
-  range(MAX_INCENTIVES + 1).reverse().forEach(function addNextRewardLink (index) {
+  range(MAX_INCENTIVES + 1).reverse().forEach(index => {
     if (loginIncentives[index] && loginIncentives[index].rewardKey) {
       loginIncentives[index].nextRewardAt = nextRewardKey;
       nextRewardKey = index;
@@ -659,7 +659,7 @@ export default function getLoginIncentives (api) {
   });
 
   let prevRewardKey;
-  range(MAX_INCENTIVES + 1).forEach(function addPrevRewardLink (index) {
+  range(MAX_INCENTIVES + 1).forEach(index => {
     loginIncentives[index].prevRewardKey = prevRewardKey;
     if (loginIncentives[index].rewardKey) prevRewardKey = index;
   });

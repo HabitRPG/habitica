@@ -28,11 +28,11 @@ export const DAY_MAPPING_STRING_TO_NUMBER = invert(DAY_MAPPING);
  */
 
 function sanitizeOptions (o) {
-  let ref = Number(o.dayStart || 0);
-  let dayStart = !Number.isNaN(ref) && ref >= 0 && ref <= 24 ? ref : 0;
+  const ref = Number(o.dayStart || 0);
+  const dayStart = !Number.isNaN(ref) && ref >= 0 && ref <= 24 ? ref : 0;
 
   let timezoneOffset;
-  let timezoneOffsetDefault = Number(moment().zone());
+  const timezoneOffsetDefault = Number(moment().zone());
 
   if (isFinite(o.timezoneOffsetOverride)) {
     timezoneOffset = Number(o.timezoneOffsetOverride);
@@ -46,7 +46,7 @@ function sanitizeOptions (o) {
     timezoneOffset = timezoneOffsetDefault;
   }
 
-  let now = o.now ? moment(o.now).zone(timezoneOffset) : moment().zone(timezoneOffset);
+  const now = o.now ? moment(o.now).zone(timezoneOffset) : moment().zone(timezoneOffset);
   // return a new object, we don't want to add "now" to user object
   return {
     dayStart,
@@ -56,7 +56,7 @@ function sanitizeOptions (o) {
 }
 
 export function startOfWeek (options = {}) {
-  let o = sanitizeOptions(options);
+  const o = sanitizeOptions(options);
 
   return moment(o.now).startOf('week');
 }
@@ -69,8 +69,8 @@ export function startOfWeek (options = {}) {
  */
 
 export function startOfDay (options = {}) {
-  let o = sanitizeOptions(options);
-  let dayStart = moment(o.now).startOf('day').add({ hours: o.dayStart });
+  const o = sanitizeOptions(options);
+  const dayStart = moment(o.now).startOf('day').add({ hours: o.dayStart });
 
   if (moment(o.now).hour() < o.dayStart) {
     dayStart.subtract({ days: 1 });
@@ -84,9 +84,9 @@ export function startOfDay (options = {}) {
  */
 
 export function daysSince (yesterday, options = {}) {
-  let o = sanitizeOptions(options);
-  let startOfNow = startOfDay(defaults({ now: o.now }, o));
-  let startOfYesterday = startOfDay(defaults({ now: yesterday }, o));
+  const o = sanitizeOptions(options);
+  const startOfNow = startOfDay(defaults({ now: o.now }, o));
+  const startOfYesterday = startOfDay(defaults({ now: yesterday }, o));
 
   return startOfNow.diff(startOfYesterday, 'days');
 }
@@ -99,22 +99,22 @@ export function shouldDo (day, dailyTask, options = {}) {
   if (dailyTask.type !== 'daily' || dailyTask.startDate === null || dailyTask.everyX < 1 || dailyTask.everyX > 9999) {
     return false;
   }
-  let o = sanitizeOptions(options);
-  let startOfDayWithCDSTime = startOfDay(defaults({ now: day }, o));
+  const o = sanitizeOptions(options);
+  const startOfDayWithCDSTime = startOfDay(defaults({ now: day }, o));
 
   // The time portion of the Start Date is never visible to or modifiable by the user so we must ignore it.
   // Therefore, we must also ignore the time portion of the user's day start (startOfDayWithCDSTime), otherwise the date comparison will be wrong for some times.
   // NB: The user's day start date has already been converted to the PREVIOUS day's date if the time portion was before CDS.
 
-  let startDate = moment(dailyTask.startDate).zone(o.timezoneOffset).startOf('day');
+  const startDate = moment(dailyTask.startDate).zone(o.timezoneOffset).startOf('day');
 
   if (startDate > startOfDayWithCDSTime.startOf('day') && !options.nextDue) {
     return false; // Daily starts in the future
   }
 
-  let daysOfTheWeek = [];
+  const daysOfTheWeek = [];
   if (dailyTask.repeat) {
-    for (let [repeatDay, active] of Object.entries(dailyTask.repeat)) {
+    for (const [repeatDay, active] of Object.entries(dailyTask.repeat)) {
       if (!isFinite(DAY_MAPPING_STRING_TO_NUMBER[repeatDay])) continue; // eslint-disable-line no-continue
       if (active) daysOfTheWeek.push(parseInt(DAY_MAPPING_STRING_TO_NUMBER[repeatDay], 10));
     }
@@ -122,36 +122,36 @@ export function shouldDo (day, dailyTask, options = {}) {
 
   if (dailyTask.frequency === 'daily') {
     if (!dailyTask.everyX) return false; // error condition
-    let schedule = moment(startDate).recur()
+    const schedule = moment(startDate).recur()
       .every(dailyTask.everyX).days();
 
     if (options.nextDue) {
-      let filteredDates = [];
+      const filteredDates = [];
       for (let i = 1; filteredDates.length < 6; i++) {
-        let calcDate = moment(startDate).add(dailyTask.everyX * i, 'days');
+        const calcDate = moment(startDate).add(dailyTask.everyX * i, 'days');
         if (calcDate > startOfDayWithCDSTime) filteredDates.push(calcDate);
       }
       return filteredDates;
     }
 
     return schedule.matches(startOfDayWithCDSTime);
-  } else if (dailyTask.frequency === 'weekly') {
+  } if (dailyTask.frequency === 'weekly') {
     let schedule = moment(startDate).recur();
 
-    let differenceInWeeks = moment(startOfDayWithCDSTime).diff(moment(startDate), 'week');
-    let matchEveryX = differenceInWeeks % dailyTask.everyX === 0;
+    const differenceInWeeks = moment(startOfDayWithCDSTime).diff(moment(startDate), 'week');
+    const matchEveryX = differenceInWeeks % dailyTask.everyX === 0;
 
     if (daysOfTheWeek.length === 0) return false;
     schedule = schedule.every(daysOfTheWeek).daysOfWeek();
     if (options.nextDue) {
-      let filteredDates = [];
+      const filteredDates = [];
       for (let i = 0; filteredDates.length < 6; i++) {
         for (let j = 0; j < daysOfTheWeek.length && filteredDates.length < 6; j++) {
-          let calcDate = moment(startDate).day(daysOfTheWeek[j]).add(dailyTask.everyX * i, 'weeks');
+          const calcDate = moment(startDate).day(daysOfTheWeek[j]).add(dailyTask.everyX * i, 'weeks');
           if (calcDate > startOfDayWithCDSTime) filteredDates.push(calcDate);
         }
       }
-      let sortedDates = filteredDates.sort((date1, date2) => {
+      const sortedDates = filteredDates.sort((date1, date2) => {
         if (date1.toDate() > date2.toDate()) return 1;
         if (date2.toDate() > date1.toDate()) return -1;
         return 0;
@@ -160,15 +160,15 @@ export function shouldDo (day, dailyTask, options = {}) {
     }
 
     return schedule.matches(startOfDayWithCDSTime) && matchEveryX;
-  } else if (dailyTask.frequency === 'monthly') {
+  } if (dailyTask.frequency === 'monthly') {
     let schedule = moment(startDate).recur();
 
     // Use startOf to ensure that we are always comparing month
     // to the next rather than a month from the day
-    let differenceInMonths = moment(startOfDayWithCDSTime).startOf('month')
+    const differenceInMonths = moment(startOfDayWithCDSTime).startOf('month')
       .diff(moment(startDate).startOf('month'), 'month', true);
 
-    let matchEveryX = differenceInMonths % dailyTask.everyX === 0;
+    const matchEveryX = differenceInMonths % dailyTask.everyX === 0;
 
     if (dailyTask.weeksOfMonth && dailyTask.weeksOfMonth.length > 0) {
       if (daysOfTheWeek.length === 0) return false;
@@ -176,13 +176,13 @@ export function shouldDo (day, dailyTask, options = {}) {
         .every(dailyTask.weeksOfMonth).weeksOfMonthByDay();
 
       if (options.nextDue) {
-        let filteredDates = [];
+        const filteredDates = [];
         for (let i = 1; filteredDates.length < 6; i++) {
-          let recurDate = moment(startDate).add(dailyTask.everyX * i, 'months');
-          let calcDate = recurDate.clone();
+          const recurDate = moment(startDate).add(dailyTask.everyX * i, 'months');
+          const calcDate = recurDate.clone();
           calcDate.day(daysOfTheWeek[0]);
 
-          let startDateWeek = Math.ceil(moment(startDate).date() / 7);
+          const startDateWeek = Math.ceil(moment(startDate).date() / 7);
           let calcDateWeek = Math.ceil(calcDate.date() / 7);
 
           // adjust week since weeks will rollover to other months
@@ -193,19 +193,19 @@ export function shouldDo (day, dailyTask, options = {}) {
 
           calcDateWeek = Math.ceil(calcDate.date() / 7);
 
-          if (calcDate >= startOfDayWithCDSTime &&
-            calcDateWeek === startDateWeek && calcDate.month() === recurDate.month()) filteredDates.push(calcDate);
+          if (calcDate >= startOfDayWithCDSTime
+            && calcDateWeek === startDateWeek && calcDate.month() === recurDate.month()) filteredDates.push(calcDate);
         }
         return filteredDates;
       }
 
       return schedule.matches(startOfDayWithCDSTime) && matchEveryX;
-    } else if (dailyTask.daysOfMonth && dailyTask.daysOfMonth.length > 0) {
+    } if (dailyTask.daysOfMonth && dailyTask.daysOfMonth.length > 0) {
       schedule = schedule.every(dailyTask.daysOfMonth).daysOfMonth();
       if (options.nextDue) {
-        let filteredDates = [];
+        const filteredDates = [];
         for (let i = 1; filteredDates.length < 6; i++) {
-          let calcDate = moment(startDate).add(dailyTask.everyX * i, 'months');
+          const calcDate = moment(startDate).add(dailyTask.everyX * i, 'months');
           if (calcDate >= startOfDayWithCDSTime) filteredDates.push(calcDate);
         }
         return filteredDates;
@@ -213,15 +213,15 @@ export function shouldDo (day, dailyTask, options = {}) {
     }
 
     return schedule.matches(startOfDayWithCDSTime) && matchEveryX;
-  } else if (dailyTask.frequency === 'yearly') {
+  } if (dailyTask.frequency === 'yearly') {
     let schedule = moment(startDate).recur();
 
     schedule = schedule.every(dailyTask.everyX).years();
 
     if (options.nextDue) {
-      let filteredDates = [];
+      const filteredDates = [];
       for (let i = 1; filteredDates.length < 6; i++) {
-        let calcDate = moment(startDate).add(dailyTask.everyX * i, 'years');
+        const calcDate = moment(startDate).add(dailyTask.everyX * i, 'years');
         if (calcDate > startOfDayWithCDSTime) filteredDates.push(calcDate);
       }
       return filteredDates;

@@ -1,9 +1,9 @@
 import express from 'express';
 import expressValidator from 'express-validator';
+import path from 'path';
 import analytics from './analytics';
 import setupBody from './setupBody';
 import * as routes from '../libs/routes';
-import path from 'path';
 
 const API_V3_CONTROLLERS_PATH = path.join(__dirname, '/../controllers/api-v3/');
 const API_V4_CONTROLLERS_PATH = path.join(__dirname, '/../controllers/api-v4/');

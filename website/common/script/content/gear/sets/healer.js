@@ -1,6 +1,6 @@
 import t from '../../translation';
 
-let armor = {
+const armor = {
   1: {
     text: t('armorHealer1Text'),
     notes: t('armorHealer1Notes', { con: 6 }),
@@ -34,7 +34,7 @@ let armor = {
   },
 };
 
-let head = {
+const head = {
   1: {
     text: t('headHealer1Text'),
     notes: t('headHealer1Notes', { int: 2 }),
@@ -68,7 +68,7 @@ let head = {
   },
 };
 
-let shield = {
+const shield = {
   1: {
     text: t('shieldHealer1Text'),
     notes: t('shieldHealer1Notes', { con: 2 }),
@@ -102,7 +102,7 @@ let shield = {
   },
 };
 
-let weapon = {
+const weapon = {
 
   0: {
     text: t('weaponHealer0Text'),

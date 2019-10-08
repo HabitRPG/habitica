@@ -1,15 +1,15 @@
 // The error handler middleware that handles all errors
 // and respond to the client
+import {
+  map,
+  omit,
+} from 'lodash';
 import logger from '../libs/logger';
 import {
   CustomError,
   BadRequest,
   InternalServerError,
 } from '../libs/errors';
-import {
-  map,
-  omit,
-} from 'lodash';
 
 export default function errorHandler (err, req, res, next) { // eslint-disable-line no-unused-vars
   // In case of a CustomError class, use it's data
@@ -28,26 +28,22 @@ export default function errorHandler (err, req, res, next) { // eslint-disable-l
   // Handle errors by express-validator
   if (Array.isArray(err) && err[0].param && err[0].msg) {
     responseErr = new BadRequest(res.t('invalidReqParams'));
-    responseErr.errors = err.map((paramErr) => {
-      return {
-        message: paramErr.msg,
-        param: paramErr.param,
-        value: paramErr.value,
-      };
-    });
+    responseErr.errors = err.map(paramErr => ({
+      message: paramErr.msg,
+      param: paramErr.param,
+      value: paramErr.value,
+    }));
   }
 
   // Handle mongoose validation errors
   if (err.name === 'ValidationError') {
     const model = err.message.split(' ')[0];
     responseErr = new BadRequest(`${model} validation failed`);
-    responseErr.errors = map(err.errors, (mongooseErr) => {
-      return {
-        message: mongooseErr.message,
-        path: mongooseErr.path,
-        value: mongooseErr.value,
-      };
-    });
+    responseErr.errors = map(err.errors, mongooseErr => ({
+      message: mongooseErr.message,
+      path: mongooseErr.path,
+      value: mongooseErr.value,
+    }));
   }
 
   // Handle Stripe Card errors errors (can be safely shown to the users)
@@ -78,7 +74,7 @@ export default function errorHandler (err, req, res, next) { // eslint-disable-l
     isHandledError: responseErr.httpCode < 500,
   });
 
-  let jsonRes = {
+  const jsonRes = {
     success: false,
     error: responseErr.name,
     message: responseErr.message,

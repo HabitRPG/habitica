@@ -1,3 +1,4 @@
+import nconf from 'nconf';
 import { authWithHeaders } from '../../middlewares/auth';
 import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
@@ -12,17 +13,14 @@ import { removeFromArray } from '../../libs/collectionManipulators';
 import { getUserInfo, getGroupUrl, sendTxn } from '../../libs/email';
 import * as slack from '../../libs/slack';
 import { chatReporterFactory } from '../../libs/chatReporting/chatReporterFactory';
-import { getAuthorEmailFromMessage} from '../../libs/chat';
-import nconf from 'nconf';
+import { getAuthorEmailFromMessage } from '../../libs/chat';
 import bannedWords from '../../libs/bannedWords';
 import guildsAllowingBannedWords from '../../libs/guildsAllowingBannedWords';
 import { getMatchesByWordArray } from '../../libs/stringUtils';
 import bannedSlurs from '../../libs/bannedSlurs';
 import apiError from '../../libs/apiError';
 
-const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
-  return { email, canSend: true };
-});
+const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map(email => ({ email, canSend: true }));
 
 /**
  * @apiDefine MessageNotFound
@@ -44,10 +42,10 @@ const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email)
  * @apiError (400) {badRequest} messageIdRequired A message ID is required
  */
 
-let api = {};
+const api = {};
 
 function textContainsBannedSlur (message) {
-  let bannedSlursMatched = getMatchesByWordArray(message, bannedSlurs);
+  const bannedSlursMatched = getMatchesByWordArray(message, bannedSlurs);
   return bannedSlursMatched.length > 0;
 }
 
@@ -69,15 +67,15 @@ api.getChat = {
   url: '/groups/:groupId/chat',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
 
     req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    const groupId = req.params.groupId;
-    let group = await Group.getGroup({user, groupId, fields: 'chat'});
+    const { groupId } = req.params;
+    const group = await Group.getGroup({ user, groupId, fields: 'chat' });
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     const groupChat = await Group.toJSONCleanChat(group, user);
@@ -110,42 +108,42 @@ api.postChat = {
   url: '/groups/:groupId/chat',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
-    let groupId = req.params.groupId;
+    const { user } = res.locals;
+    const { groupId } = req.params;
     let chatUpdated;
 
     req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
     req.sanitize('message').trim();
     req.checkBody('message', res.t('messageGroupChatBlankMessage')).notEmpty();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId});
+    const group = await Group.getGroup({ user, groupId });
 
     // Check message for banned slurs
     if (textContainsBannedSlur(req.body.message)) {
-      let message = req.body.message;
+      const { message } = req.body;
       user.flags.chatRevoked = true;
       await user.save();
 
       // Email the mods
-      let authorEmail = getUserInfo(user, ['email']).email;
-      let groupUrl = getGroupUrl(group);
+      const authorEmail = getUserInfo(user, ['email']).email;
+      const groupUrl = getGroupUrl(group);
 
-      let report =  [
-        {name: 'MESSAGE_TIME', content: (new Date()).toString()},
-        {name: 'MESSAGE_TEXT', content: message},
+      const report = [
+        { name: 'MESSAGE_TIME', content: (new Date()).toString() },
+        { name: 'MESSAGE_TEXT', content: message },
 
-        {name: 'AUTHOR_USERNAME', content: user.profile.name},
-        {name: 'AUTHOR_UUID', content: user._id},
-        {name: 'AUTHOR_EMAIL', content: authorEmail},
-        {name: 'AUTHOR_MODAL_URL', content: `/profile/${user._id}`},
+        { name: 'AUTHOR_USERNAME', content: user.profile.name },
+        { name: 'AUTHOR_UUID', content: user._id },
+        { name: 'AUTHOR_EMAIL', content: authorEmail },
+        { name: 'AUTHOR_MODAL_URL', content: `/profile/${user._id}` },
 
-        {name: 'GROUP_NAME', content: group.name},
-        {name: 'GROUP_TYPE', content: group.type},
-        {name: 'GROUP_ID', content: group._id},
-        {name: 'GROUP_URL', content: groupUrl},
+        { name: 'GROUP_NAME', content: group.name },
+        { name: 'GROUP_TYPE', content: group.type },
+        { name: 'GROUP_ID', content: group._id },
+        { name: 'GROUP_URL', content: groupUrl },
       ];
 
       sendTxn(FLAG_REPORT_EMAILS, 'slur-report-to-mods', report);
@@ -169,15 +167,15 @@ api.postChat = {
 
     // prevent banned words being posted, except in private guilds/parties and in certain public guilds with specific topics
     if (group.privacy === 'public' && !guildsAllowingBannedWords[group._id]) {
-      let matchedBadWords = getBannedWordsFromText(req.body.message);
+      const matchedBadWords = getBannedWordsFromText(req.body.message);
       if (matchedBadWords.length > 0) {
-        throw new BadRequest(res.t('bannedWordUsed', {swearWordsUsed: matchedBadWords.join(', ')}));
+        throw new BadRequest(res.t('bannedWordUsed', { swearWordsUsed: matchedBadWords.join(', ') }));
       }
     }
 
     const chatRes = await Group.toJSONCleanChat(group, user);
     const lastClientMsg = req.query.previousMsg;
-    chatUpdated = lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg ? true : false;
+    chatUpdated = !!(lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg);
 
     if (group.checkChatSpam(user)) {
       throw new NotAuthorized(res.t('messageGroupChatSpam'));
@@ -191,25 +189,25 @@ api.postChat = {
     let flagCount = 0;
     if (group.privacy === 'public' && user.flags.chatShadowMuted) {
       flagCount = common.constants.CHAT_FLAG_FROM_SHADOW_MUTE;
-      let message = req.body.message;
+      const { message } = req.body;
 
       // Email the mods
-      let authorEmail = getUserInfo(user, ['email']).email;
-      let groupUrl = getGroupUrl(group);
+      const authorEmail = getUserInfo(user, ['email']).email;
+      const groupUrl = getGroupUrl(group);
 
-      let report =  [
-        {name: 'MESSAGE_TIME', content: (new Date()).toString()},
-        {name: 'MESSAGE_TEXT', content: message},
+      const report = [
+        { name: 'MESSAGE_TIME', content: (new Date()).toString() },
+        { name: 'MESSAGE_TEXT', content: message },
 
-        {name: 'AUTHOR_USERNAME', content: user.profile.name},
-        {name: 'AUTHOR_UUID', content: user._id},
-        {name: 'AUTHOR_EMAIL', content: authorEmail},
-        {name: 'AUTHOR_MODAL_URL', content: `/profile/${user._id}`},
+        { name: 'AUTHOR_USERNAME', content: user.profile.name },
+        { name: 'AUTHOR_UUID', content: user._id },
+        { name: 'AUTHOR_EMAIL', content: authorEmail },
+        { name: 'AUTHOR_MODAL_URL', content: `/profile/${user._id}` },
 
-        {name: 'GROUP_NAME', content: group.name},
-        {name: 'GROUP_TYPE', content: group.type},
-        {name: 'GROUP_ID', content: group._id},
-        {name: 'GROUP_URL', content: groupUrl},
+        { name: 'GROUP_NAME', content: group.name },
+        { name: 'GROUP_TYPE', content: group.type },
+        { name: 'GROUP_ID', content: group._id },
+        { name: 'GROUP_URL', content: groupUrl },
       ];
 
       sendTxn(FLAG_REPORT_EMAILS, 'shadow-muted-post-report-to-mods', report);
@@ -223,8 +221,10 @@ api.postChat = {
       });
     }
 
-    const newChatMessage = group.sendChat({message: req.body.message, user, flagCount, metaData: null, client, translate: res.t});
-    let toSave = [newChatMessage.save()];
+    const newChatMessage = group.sendChat({
+      message: req.body.message, user, flagCount, metaData: null, client, translate: res.t,
+    });
+    const toSave = [newChatMessage.save()];
 
     if (group.type === 'party') {
       user.party.lastMessageSeen = newChatMessage.id;
@@ -233,7 +233,7 @@ api.postChat = {
 
     await Promise.all(toSave);
 
-    let analyticsObject = {
+    const analyticsObject = {
       uuid: user._id,
       hitType: 'event',
       category: 'behavior',
@@ -255,9 +255,9 @@ api.postChat = {
     res.analytics.track('group chat', analyticsObject);
 
     if (chatUpdated) {
-      res.respond(200, {chat: chatRes.chat});
+      res.respond(200, { chat: chatRes.chat });
     } else {
-      res.respond(200, {message: newChatMessage});
+      res.respond(200, { message: newChatMessage });
     }
   },
 };
@@ -284,19 +284,19 @@ api.likeChat = {
   url: '/groups/:groupId/chat/:chatId/like',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
-    let groupId = req.params.groupId;
+    const { user } = res.locals;
+    const { groupId } = req.params;
 
     req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
     req.checkParams('chatId', apiError('chatIdRequired')).notEmpty();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId});
+    const group = await Group.getGroup({ user, groupId });
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    let message = await Chat.findOne({_id: req.params.chatId}).exec();
+    const message = await Chat.findOne({ _id: req.params.chatId }).exec();
     if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
     // @TODO correct this error type
     if (message.uuid === user._id) throw new NotFound(res.t('messageGroupChatLikeOwnMessage'));
@@ -371,55 +371,55 @@ api.clearChatFlags = {
   url: '/groups/:groupId/chat/:chatId/clearflags',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
-    let groupId = req.params.groupId;
-    let chatId = req.params.chatId;
+    const { user } = res.locals;
+    const { groupId } = req.params;
+    const { chatId } = req.params;
 
     req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
     req.checkParams('chatId', apiError('chatIdRequired')).notEmpty();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
     if (!user.contributor.admin) {
       throw new NotAuthorized(res.t('messageGroupChatAdminClearFlagCount'));
     }
 
-    let group = await Group.getGroup({
+    const group = await Group.getGroup({
       user,
       groupId,
       optionalMembership: user.contributor.admin,
     });
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    let message = await Chat.findOne({_id: chatId}).exec();
+    const message = await Chat.findOne({ _id: chatId }).exec();
     if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
 
     message.flagCount = 0;
     await message.save();
 
-    let adminEmailContent = getUserInfo(user, ['email']).email;
-    let authorEmail = getAuthorEmailFromMessage(message);
-    let groupUrl = getGroupUrl(group);
+    const adminEmailContent = getUserInfo(user, ['email']).email;
+    const authorEmail = getAuthorEmailFromMessage(message);
+    const groupUrl = getGroupUrl(group);
 
     sendTxn(FLAG_REPORT_EMAILS, 'unflag-report-to-mods', [
-      {name: 'MESSAGE_TIME', content: (new Date(message.timestamp)).toString()},
-      {name: 'MESSAGE_TEXT', content: message.text},
+      { name: 'MESSAGE_TIME', content: (new Date(message.timestamp)).toString() },
+      { name: 'MESSAGE_TEXT', content: message.text },
 
-      {name: 'ADMIN_USERNAME', content: user.profile.name},
-      {name: 'ADMIN_UUID', content: user._id},
-      {name: 'ADMIN_EMAIL', content: adminEmailContent},
-      {name: 'ADMIN_MODAL_URL', content: `/profile/${user._id}`},
+      { name: 'ADMIN_USERNAME', content: user.profile.name },
+      { name: 'ADMIN_UUID', content: user._id },
+      { name: 'ADMIN_EMAIL', content: adminEmailContent },
+      { name: 'ADMIN_MODAL_URL', content: `/profile/${user._id}` },
 
-      {name: 'AUTHOR_USERNAME', content: message.user},
-      {name: 'AUTHOR_UUID', content: message.uuid},
-      {name: 'AUTHOR_EMAIL', content: authorEmail},
-      {name: 'AUTHOR_MODAL_URL', content: `/profile/${message.uuid}`},
+      { name: 'AUTHOR_USERNAME', content: message.user },
+      { name: 'AUTHOR_UUID', content: message.uuid },
+      { name: 'AUTHOR_EMAIL', content: authorEmail },
+      { name: 'AUTHOR_MODAL_URL', content: `/profile/${message.uuid}` },
 
-      {name: 'GROUP_NAME', content: group.name},
-      {name: 'GROUP_TYPE', content: group.type},
-      {name: 'GROUP_ID', content: group._id},
-      {name: 'GROUP_URL', content: groupUrl},
+      { name: 'GROUP_NAME', content: group.name },
+      { name: 'GROUP_TYPE', content: group.type },
+      { name: 'GROUP_ID', content: group._id },
+      { name: 'GROUP_URL', content: groupUrl },
     ]);
 
     res.respond(200, {});
@@ -441,19 +441,19 @@ api.seenChat = {
   url: '/groups/:groupId/chat/seen',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
-    let groupId = req.params.groupId;
+    const { user } = res.locals;
+    const { groupId } = req.params;
 
     req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
     // Do not validate group existence, it doesn't really matter and make it works if the group gets deleted
     // let group = await Group.getGroup({user, groupId});
     // if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    let update = {
+    const update = {
       $unset: {},
       $pull: {},
     };
@@ -478,7 +478,7 @@ api.seenChat = {
     // See https://github.com/HabitRPG/habitica/pull/9321#issuecomment-354187666 for more info
     user._v++;
 
-    await User.update({_id: user._id}, update).exec();
+    await User.update({ _id: user._id }, update).exec();
     res.respond(200, {});
   },
 };
@@ -507,20 +507,20 @@ api.deleteChat = {
   url: '/groups/:groupId/chat/:chatId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
-    let groupId = req.params.groupId;
-    let chatId = req.params.chatId;
+    const { user } = res.locals;
+    const { groupId } = req.params;
+    const { chatId } = req.params;
 
     req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
     req.checkParams('chatId', apiError('chatIdRequired')).notEmpty();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId, fields: 'chat'});
+    const group = await Group.getGroup({ user, groupId, fields: 'chat' });
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    let message = await Chat.findOne({_id: chatId}).exec();
+    const message = await Chat.findOne({ _id: chatId }).exec();
     if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
 
     if (user._id !== message.uuid && !user.contributor.admin) {
@@ -529,12 +529,12 @@ api.deleteChat = {
 
     const chatRes = await Group.toJSONCleanChat(group, user);
     const lastClientMsg = req.query.previousMsg;
-    const chatUpdated = lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg ? true : false;
+    const chatUpdated = !!(lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg);
 
-    await Chat.remove({_id: message._id}).exec();
+    await Chat.remove({ _id: message._id }).exec();
 
     if (chatUpdated) {
-      removeFromArray(chatRes.chat, {id: chatId});
+      removeFromArray(chatRes.chat, { id: chatId });
       res.respond(200, chatRes.chat);
     } else {
       res.respond(200, {});

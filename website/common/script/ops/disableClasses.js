@@ -1,6 +1,6 @@
+import pick from 'lodash/pick';
 import splitWhitespace from '../libs/splitWhitespace';
 import { capByLevel } from '../statHelpers';
-import pick from 'lodash/pick';
 
 export default function disableClasses (user) {
   user.stats.class = 'warrior';

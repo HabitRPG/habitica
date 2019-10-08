@@ -1,13 +1,13 @@
+import get from 'lodash/get';
+import includes from 'lodash/includes';
+import keys from 'lodash/keys';
 import content from '../../content/index';
 import {
   BadRequest,
   NotAuthorized,
 } from '../../libs/errors';
 
-import {AbstractHourglassItemOperation} from './abstractBuyOperation';
-import get from 'lodash/get';
-import includes from 'lodash/includes';
-import keys from 'lodash/keys';
+import { AbstractHourglassItemOperation } from './abstractBuyOperation';
 
 export class BuyHourglassMountOperation extends AbstractHourglassItemOperation {
   constructor (user, req, analytics) {
@@ -19,7 +19,7 @@ export class BuyHourglassMountOperation extends AbstractHourglassItemOperation {
   }
 
   extractAndValidateParams (user, req) {
-    let key = this.key = get(req, 'params.key');
+    const key = this.key = get(req, 'params.key');
     if (!key) throw new BadRequest(this.i18n('missingKeyParam'));
 
 
@@ -43,7 +43,7 @@ export class BuyHourglassMountOperation extends AbstractHourglassItemOperation {
 
     this.subtractCurrency(user);
 
-    let message = this.i18n('hourglassPurchase');
+    const message = this.i18n('hourglassPurchase');
 
     return [
       { items: user.items, purchasedPlanConsecutive: user.purchased.plan.consecutive },
@@ -52,7 +52,7 @@ export class BuyHourglassMountOperation extends AbstractHourglassItemOperation {
   }
 
   analyticsData () {
-    let data = super.analyticsData();
+    const data = super.analyticsData();
     data.itemType = 'mounts';
     return data;
   }

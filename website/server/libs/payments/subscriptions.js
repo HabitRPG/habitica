@@ -24,13 +24,13 @@ const JOINED_GROUP_PLAN = 'joined group plan';
 function revealMysteryItems (user) {
   const pushedItems = [];
 
-  _.each(shared.content.gear.flat, function findMysteryItems (item) {
+  _.each(shared.content.gear.flat, item => {
     if (
-      item.klass === 'mystery' &&
-        moment().isAfter(shared.content.mystery[item.mystery].start) &&
-        moment().isBefore(shared.content.mystery[item.mystery].end) &&
-        !user.items.gear.owned[item.key] &&
-        user.purchased.plan.mysteryItems.indexOf(item.key) === -1
+      item.klass === 'mystery'
+        && moment().isAfter(shared.content.mystery[item.mystery].start)
+        && moment().isBefore(shared.content.mystery[item.mystery].end)
+        && !user.items.gear.owned[item.key]
+        && user.purchased.plan.mysteryItems.indexOf(item.key) === -1
     ) {
       user.purchased.plan.mysteryItems.push(item.key);
       pushedItems.push(item.key);
@@ -50,10 +50,10 @@ function _dateDiff (earlyDate, lateDate) {
 
 async function createSubscription (data) {
   let recipient = data.gift ? data.gift.member : data.user;
-  let block = shared.content.subscriptionBlocks[data.gift ? data.gift.subscription.key : data.sub.key];
-  let autoRenews = data.autoRenews !== undefined ? data.autoRenews : true;
-  let months = Number(block.months);
-  let today = new Date();
+  const block = shared.content.subscriptionBlocks[data.gift ? data.gift.subscription.key : data.sub.key];
+  const autoRenews = data.autoRenews !== undefined ? data.autoRenews : true;
+  const months = Number(block.months);
+  const today = new Date();
   let plan;
   let group;
   let groupId;
@@ -63,8 +63,10 @@ async function createSubscription (data) {
 
   //  If we are buying a group subscription
   if (data.groupId) {
-    let groupFields = basicGroupFields.concat(' purchased');
-    group = await Group.getGroup({user: data.user, groupId: data.groupId, populateLeader: false, groupFields});
+    const groupFields = basicGroupFields.concat(' purchased');
+    group = await Group.getGroup({
+      user: data.user, groupId: data.groupId, populateLeader: false, groupFields,
+    });
 
     if (!group) {
       throw new NotFound(shared.i18n.t('groupNotFound'));
@@ -92,9 +94,9 @@ async function createSubscription (data) {
     } else {
       if (!recipient.isSubscribed() || !plan.dateUpdated) plan.dateUpdated = today;
       if (moment(plan.dateTerminated).isAfter()) {
-        plan.dateTerminated = moment(plan.dateTerminated).add({months}).toDate();
+        plan.dateTerminated = moment(plan.dateTerminated).add({ months }).toDate();
       } else {
-        plan.dateTerminated = moment().add({months}).toDate();
+        plan.dateTerminated = moment().add({ months }).toDate();
         plan.dateCreated = today;
       }
     }
@@ -131,7 +133,7 @@ async function createSubscription (data) {
   }
 
   // Block sub perks
-  let perks = Math.floor(months / 3);
+  const perks = Math.floor(months / 3);
   if (perks) {
     plan.consecutive.offset += months;
     plan.consecutive.gemCapExtra += perks * 5;
@@ -166,10 +168,10 @@ async function createSubscription (data) {
   if (!group) data.user.purchased.txnCount++;
 
   if (data.gift) {
-    let byUserName = getUserInfo(data.user, ['name']).name;
+    const byUserName = getUserInfo(data.user, ['name']).name;
 
     // generate the message in both languages, so both users can understand it
-    let languages = [data.user.preferences.language, data.gift.member.preferences.language];
+    const languages = [data.user.preferences.language, data.gift.member.preferences.language];
     let senderMsg = shared.i18n.t('giftedSubscriptionFull', {
       username: data.gift.member.profile.name,
       sender: byUserName,
@@ -193,8 +195,8 @@ async function createSubscription (data) {
 
     if (data.gift.member.preferences.emailNotifications.giftedSubscription !== false) {
       txnEmail(data.gift.member, 'gifted-subscription', [
-        {name: 'GIFTER', content: byUserName},
-        {name: 'X_MONTHS_SUBSCRIPTION', content: months},
+        { name: 'GIFTER', content: byUserName },
+        { name: 'X_MONTHS_SUBSCRIPTION', content: months },
       ]);
     }
 
@@ -203,11 +205,10 @@ async function createSubscription (data) {
         sendPushNotification(data.gift.member,
           {
             title: shared.i18n.t('giftedSubscription', languages[1]),
-            message: shared.i18n.t('giftedSubscriptionInfo', {months, name: byUserName}, languages[1]),
+            message: shared.i18n.t('giftedSubscriptionInfo', { months, name: byUserName }, languages[1]),
             identifier: 'giftedSubscription',
-            payload: {replyTo: data.user._id},
-          }
-        );
+            payload: { replyTo: data.user._id },
+          });
       }
     }
   }
@@ -240,26 +241,28 @@ async function cancelSubscription (data) {
   let cancelType = 'unsubscribe';
   let groupId;
   let emailType;
-  let emailMergeData = [];
+  const emailMergeData = [];
   let sendEmail = true;
 
   if (data.groupId) {
     // cancelling a group plan
-    let groupFields = basicGroupFields.concat(' purchased');
-    group = await Group.getGroup({user: data.user, groupId: data.groupId, populateLeader: false, groupFields});
+    const groupFields = basicGroupFields.concat(' purchased');
+    group = await Group.getGroup({
+      user: data.user, groupId: data.groupId, populateLeader: false, groupFields,
+    });
 
     if (!group) {
       throw new NotFound(shared.i18n.t('groupNotFound'));
     }
 
-    let allowedManagers = [group.leader, group.purchased.plan.owner];
+    const allowedManagers = [group.leader, group.purchased.plan.owner];
 
     if (allowedManagers.indexOf(data.user._id) === -1) {
       throw new NotAuthorized(shared.i18n.t('onlyGroupLeaderCanManageSubscription'));
     }
     plan = group.purchased.plan;
     emailType = 'group-cancel-subscription';
-    emailMergeData.push({name: 'GROUP_NAME', content: group.name});
+    emailMergeData.push({ name: 'GROUP_NAME', content: group.name });
 
     await this.cancelGroupUsersSubscription(group);
   } else {
@@ -271,7 +274,7 @@ async function cancelSubscription (data) {
     if (data.cancellationReason && data.cancellationReason === JOINED_GROUP_PLAN) sendEmail = false;
   }
 
-  let now = moment();
+  const now = moment();
   let defaultRemainingDays = 30;
 
   if (plan.customerId === this.constants.GROUP_PLAN_CUSTOMER_ID) {
@@ -279,17 +282,16 @@ async function cancelSubscription (data) {
     sendEmail = false; // because group-member-cancel email has already been sent
   }
 
-  let remaining = data.nextBill ? moment(data.nextBill).diff(new Date(), 'days', true) : defaultRemainingDays;
+  const remaining = data.nextBill ? moment(data.nextBill).diff(new Date(), 'days', true) : defaultRemainingDays;
   if (plan.extraMonths < 0) plan.extraMonths = 0;
-  let extraDays = Math.ceil(30.5 * plan.extraMonths);
-  let nowStr = `${now.format('MM')}/${now.format('DD')}/${now.format('YYYY')}`;
-  let nowStrFormat = 'MM/DD/YYYY';
+  const extraDays = Math.ceil(30.5 * plan.extraMonths);
+  const nowStr = `${now.format('MM')}/${now.format('DD')}/${now.format('YYYY')}`;
+  const nowStrFormat = 'MM/DD/YYYY';
 
-  plan.dateTerminated =
-    moment(nowStr, nowStrFormat)
-      .add({days: remaining})
-      .add({days: extraDays})
-      .toDate();
+  plan.dateTerminated = moment(nowStr, nowStrFormat)
+    .add({ days: remaining })
+    .add({ days: extraDays })
+    .toDate();
 
   plan.extraMonths = 0; // clear extra time. If they subscribe again, it'll be recalculated from p.dateTerminated
 

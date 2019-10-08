@@ -18,11 +18,12 @@ setUpServer();
 
 // Replace this with your migration
 const processUsers = require('');
+
 processUsers()
-  .then(function success () {
+  .then(() => {
     process.exit(0);
   })
-  .catch(function failure (err) {
+  .catch(err => {
     console.log(err);
     process.exit(1);
   });

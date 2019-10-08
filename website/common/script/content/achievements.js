@@ -1,8 +1,8 @@
 import each from 'lodash/each';
 
-let achievementsData = {};
+const achievementsData = {};
 
-let worldQuestAchievs = {
+const worldQuestAchievs = {
   dilatoryQuest: {
     icon: 'achievement-dilatory',
     titleKey: 'achievementDilatory',
@@ -31,7 +31,7 @@ let worldQuestAchievs = {
 };
 Object.assign(achievementsData, worldQuestAchievs);
 
-let seasonalSpellAchievs = {
+const seasonalSpellAchievs = {
   snowball: {
     icon: 'achievement-snowball',
     titleKey: 'annoyingFriends',
@@ -55,7 +55,7 @@ let seasonalSpellAchievs = {
 };
 Object.assign(achievementsData, seasonalSpellAchievs);
 
-let masterAchievs = {
+const masterAchievs = {
   beastMaster: {
     icon: 'achievement-rat',
     titleKey: 'beastMasterName',
@@ -77,7 +77,7 @@ let masterAchievs = {
 };
 Object.assign(achievementsData, masterAchievs);
 
-let basicAchievs = {
+const basicAchievs = {
   partyUp: {
     icon: 'achievement-partyUp',
     titleKey: 'partyUpName',
@@ -160,7 +160,7 @@ let basicAchievs = {
 };
 Object.assign(achievementsData, basicAchievs);
 
-let specialAchievs = {
+const specialAchievs = {
   contributor: {
     icon: 'achievement-boot',
     titleKey: 'contribName',
@@ -201,7 +201,7 @@ let specialAchievs = {
 };
 Object.assign(achievementsData, specialAchievs);
 
-let holidayAchievs = {
+const holidayAchievs = {
   habiticaDays: {
     icon: 'achievement-habiticaDay',
     singularTitleKey: 'habiticaDay',
@@ -226,7 +226,7 @@ let holidayAchievs = {
 };
 Object.assign(achievementsData, holidayAchievs);
 
-let ultimateGearAchievs = ['healer', 'rogue', 'warrior', 'mage'].reduce((achievs, type) => {
+const ultimateGearAchievs = ['healer', 'rogue', 'warrior', 'mage'].reduce((achievs, type) => {
   achievs[`${type}UltimateGear`] = {
     icon: `achievement-ultimate-${type}`,
     titleKey: 'ultimGearName',
@@ -236,7 +236,7 @@ let ultimateGearAchievs = ['healer', 'rogue', 'warrior', 'mage'].reduce((achievs
 }, {});
 Object.assign(achievementsData, ultimateGearAchievs);
 
-let cardAchievs = ['greeting', 'thankyou', 'nye', 'valentine', 'birthday', 'congrats', 'getwell', 'goodluck'].reduce((achievs, type) => {
+const cardAchievs = ['greeting', 'thankyou', 'nye', 'valentine', 'birthday', 'congrats', 'getwell', 'goodluck'].reduce((achievs, type) => {
   achievs[`${type}Cards`] = {
     icon: `achievement-${type}`,
     titleKey: `${type}CardAchievementTitle`,

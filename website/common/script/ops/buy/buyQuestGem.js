@@ -1,13 +1,13 @@
+import get from 'lodash/get';
 import {
   BadRequest,
   NotAuthorized,
   NotFound,
 } from '../../libs/errors';
 import content from '../../content/index';
-import get from 'lodash/get';
 
 import errorMessage from '../../libs/errorMessage';
-import {AbstractGemItemOperation} from './abstractBuyOperation';
+import { AbstractGemItemOperation } from './abstractBuyOperation';
 
 export class BuyQuestWithGemOperation extends AbstractGemItemOperation {
   constructor (user, req, analytics) {
@@ -31,15 +31,15 @@ export class BuyQuestWithGemOperation extends AbstractGemItemOperation {
   }
 
   extractAndValidateParams (user, req) {
-    let key = this.key = get(req, 'params.key');
+    const key = this.key = get(req, 'params.key');
     if (!key) throw new BadRequest(errorMessage('missingKeyParam'));
 
-    let item = content.quests[key];
+    const item = content.quests[key];
 
-    if (!item) throw new NotFound(errorMessage('questNotFound', {key}));
+    if (!item) throw new NotFound(errorMessage('questNotFound', { key }));
 
     if (item.category === 'gold') {
-      throw new NotAuthorized(this.i18n('questNotGemPurchasable', {key}));
+      throw new NotAuthorized(this.i18n('questNotGemPurchasable', { key }));
     }
 
     this.canUserPurchase(user, item);

@@ -15,8 +15,8 @@ async function _deleteUnfinishedTasks (groupMemberTask) {
   await Tasks.Task.deleteMany({
     'group.taskId': groupMemberTask.group.taskId,
     $and: [
-      {userId: {$exists: true}},
-      {userId: {$ne: groupMemberTask.userId}},
+      { userId: { $exists: true } },
+      { userId: { $ne: groupMemberTask.userId } },
     ],
   }).exec();
 }
@@ -41,7 +41,7 @@ async function _evaluateAllAssignedCompletion (masterTask) {
 }
 
 async function handleSharedCompletion (groupMemberTask) {
-  let masterTask = await Tasks.Task.findOne({
+  const masterTask = await Tasks.Task.findOne({
     _id: groupMemberTask.group.taskId,
   }).exec();
 

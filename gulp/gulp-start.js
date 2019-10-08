@@ -1,9 +1,9 @@
 import gulp from 'gulp';
 import nodemon from 'gulp-nodemon';
 
-let pkg = require('../package.json');
+const pkg = require('../package.json');
 
-gulp.task('nodemon', (done) => {
+gulp.task('nodemon', done => {
   nodemon({
     script: pkg.main,
     ignore: [

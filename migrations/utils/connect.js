@@ -1,6 +1,5 @@
-'use strict';
 
-const MongoClient = require('mongodb').MongoClient;
+const { MongoClient } = require('mongodb');
 const logger = require('./logger');
 
 let dbConnection;

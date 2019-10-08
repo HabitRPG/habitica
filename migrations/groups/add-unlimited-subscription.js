@@ -13,7 +13,7 @@ import { model as Group } from '../../website/server/models/group';
 
 // @TODO: this should probably be a GroupManager library method
 async function addUnlimitedSubscription (groupId, dateTerminated) {
-  let group = await Group.findOne({_id: groupId});
+  const group = await Group.findOne({ _id: groupId });
 
   group.purchased.plan.customerId = 'group-unlimited';
   group.purchased.plan.dateCreated = new Date();
@@ -22,7 +22,7 @@ async function addUnlimitedSubscription (groupId, dateTerminated) {
   group.purchased.plan.planId = 'group_monthly';
   group.purchased.plan.dateTerminated = null;
   if (dateTerminated) {
-    let dateToEnd = moment(dateTerminated).toDate();
+    const dateToEnd = moment(dateTerminated).toDate();
     group.purchased.plan.dateTerminated = dateToEnd;
   }
   // group.purchased.plan.owner = ObjectId();
@@ -32,11 +32,11 @@ async function addUnlimitedSubscription (groupId, dateTerminated) {
 }
 
 module.exports = async function addUnlimitedSubscriptionCreator () {
-  let groupId = process.argv[2];
+  const groupId = process.argv[2];
 
   if (!groupId) throw Error('Group ID is required');
 
-  let dateTerminated = process.argv[3];
+  const dateTerminated = process.argv[3];
 
   await addUnlimitedSubscription(groupId, dateTerminated);
 };

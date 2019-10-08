@@ -3,7 +3,7 @@ import omit from 'lodash/omit';
 
 // From server pass task.toObject() not the task document directly
 export default function updateTask (task, req = {}) {
-  let body = req.body || {};
+  const body = req.body || {};
 
   // If reminders are updated -> replace the original ones
   if (body.reminders) {

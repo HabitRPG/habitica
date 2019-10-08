@@ -6,9 +6,9 @@ import {
 export default function responseHandler (req, res, next) {
   // Only used for successful responses
   res.respond = function respond (status = 200, data = {}, message) {
-    let user = res.locals && res.locals.user;
+    const user = res.locals && res.locals.user;
 
-    let response = {
+    const response = {
       success: status < 400,
       data,
     };

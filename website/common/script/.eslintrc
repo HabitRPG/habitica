@@ -1,6 +1,5 @@
 {
   "extends": [
-    "habitrpg/browser",
-    "habitrpg/esnext"
+    "habitrpg/lib/node",
   ]
 }

@@ -1,9 +1,9 @@
+import _ from 'lodash';
 import {
   translations,
   momentLangs,
   availableLanguages,
 } from '../../libs/i18n';
-import _ from 'lodash';
 
 const api = {};
 
@@ -32,7 +32,7 @@ api.geti18nBrowserScript = {
   method: 'GET',
   url: '/i18n/browser-script',
   async handler (req, res) {
-    const language = _.find(availableLanguages, {code: req.language});
+    const language = _.find(availableLanguages, { code: req.language });
 
     res.set({
       'Content-Type': 'application/javascript',

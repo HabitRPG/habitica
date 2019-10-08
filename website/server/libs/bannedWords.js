@@ -67,7 +67,7 @@
 
 
 // DO NOT EDIT! See the comments at the top of this file.
-let bannedWords = [
+const bannedWords = [
   'TESTPLACEHOLDERSWEARWORDHERE',
   'TESTPLACEHOLDERSWEARWORDHERE1',
 

@@ -25,7 +25,7 @@ api.enterCouponCode = {
   url: '/coupons/enter/:code',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    const user = res.locals.user;
+    const { user } = res.locals;
     await couponsLib.enterCode(req, res, user);
     res.respond(200, user);
   },

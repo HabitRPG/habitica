@@ -15,12 +15,11 @@ export default function predictableRandom (user, seed) {
     seed = reduce(stats, (accumulator, val) => {
       if (isNumber(val)) {
         return accumulator + val;
-      } else {
-        return accumulator;
       }
+      return accumulator;
     }, 0);
   }
 
-  let x = Math.sin(seed++) * 10000;
+  const x = Math.sin(seed++) * 10000;
   return x - Math.floor(x);
 }

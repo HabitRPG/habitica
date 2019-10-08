@@ -1,12 +1,12 @@
+import get from 'lodash/get';
 import {
   BadRequest,
   NotAuthorized,
   NotFound,
 } from '../../libs/errors';
 import content from '../../content/index';
-import get from 'lodash/get';
 
-import {AbstractGoldItemOperation} from './abstractBuyOperation';
+import { AbstractGoldItemOperation } from './abstractBuyOperation';
 import errorMessage from '../../libs/errorMessage';
 
 export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation {
@@ -19,10 +19,10 @@ export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation {
   }
 
   userAbleToStartMasterClasser (user) {
-    return user.achievements.quests.dilatoryDistress3 &&
-      user.achievements.quests.mayhemMistiflying3 &&
-      user.achievements.quests.stoikalmCalamity3 &&
-      user.achievements.quests.taskwoodsTerror3;
+    return user.achievements.quests.dilatoryDistress3
+      && user.achievements.quests.mayhemMistiflying3
+      && user.achievements.quests.stoikalmCalamity3
+      && user.achievements.quests.taskwoodsTerror3;
   }
 
   getItemKey () {
@@ -38,15 +38,15 @@ export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation {
   }
 
   extractAndValidateParams (user, req) {
-    let key = this.key = get(req, 'params.key');
+    const key = this.key = get(req, 'params.key');
     if (!key) throw new BadRequest(errorMessage('missingKeyParam'));
 
-    let item = content.quests[key];
+    const item = content.quests[key];
 
-    if (!item) throw new NotFound(errorMessage('questNotFound', {key}));
+    if (!item) throw new NotFound(errorMessage('questNotFound', { key }));
 
     if (!(item.category === 'gold' && item.goldValue)) {
-      throw new NotAuthorized(this.i18n('questNotGoldPurchasable', {key}));
+      throw new NotAuthorized(this.i18n('questNotGoldPurchasable', { key }));
     }
 
     this.checkPrerequisites(user, key);
@@ -61,7 +61,7 @@ export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation {
     }
 
     if (item && item.previous && !user.achievements.quests[item.previous]) {
-      throw new NotAuthorized(this.i18n('mustComplete', {quest: item.previous}));
+      throw new NotAuthorized(this.i18n('mustComplete', { quest: item.previous }));
     }
   }
 

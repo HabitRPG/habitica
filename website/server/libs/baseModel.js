@@ -41,13 +41,13 @@ export default function baseModel (schema, options = {}) {
     });
   }
 
-  let noSetFields = ['createdAt', 'updatedAt'];
-  let privateFields = ['__v'];
+  const noSetFields = ['createdAt', 'updatedAt'];
+  const privateFields = ['__v'];
 
   if (Array.isArray(options.noSet)) noSetFields.push(...options.noSet);
   // This method accepts an additional array of fields to be sanitized that can be passed at runtime
   schema.statics.sanitize = function sanitize (objToSanitize = {}, additionalFields = []) {
-    noSetFields.concat(additionalFields).forEach((fieldPath) => {
+    noSetFields.concat(additionalFields).forEach(fieldPath => {
       _.unset(objToSanitize, fieldPath);
     });
 
@@ -59,7 +59,7 @@ export default function baseModel (schema, options = {}) {
 
   if (!schema.options.toJSON) schema.options.toJSON = {};
   schema.options.toJSON.transform = function transformToObject (doc, plainObj) {
-    privateFields.forEach((fieldPath) => {
+    privateFields.forEach(fieldPath => {
       _.unset(plainObj, fieldPath);
     });
 

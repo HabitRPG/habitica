@@ -27,13 +27,13 @@ async function buyGemGift (data) {
   const languages = [data.user.preferences.language, data.gift.member.preferences.language];
 
   const senderMsg = getGiftMessage(data, byUsername, gemAmount, languages[0]);
-  const receiverMsg = getGiftMessage(data, byUsername, gemAmount,  languages[1]);
+  const receiverMsg = getGiftMessage(data, byUsername, gemAmount, languages[1]);
   data.user.sendMessage(data.gift.member, { receiverMsg, senderMsg, save: false });
 
   if (data.gift.member.preferences.emailNotifications.giftedGems !== false) {
     txnEmail(data.gift.member, 'gifted-gems', [
-      {name: 'GIFTER', content: byUsername},
-      {name: 'X_GEMS_GIFTED', content: gemAmount},
+      { name: 'GIFTER', content: byUsername },
+      { name: 'X_GEMS_GIFTED', content: gemAmount },
     ]);
   }
 
@@ -43,9 +43,9 @@ async function buyGemGift (data) {
       data.gift.member,
       {
         title: shared.i18n.t('giftedGems', languages[1]),
-        message: shared.i18n.t('giftedGemsInfo', {amount: gemAmount, name: byUsername}, languages[1]),
+        message: shared.i18n.t('giftedGemsInfo', { amount: gemAmount, name: byUsername }, languages[1]),
         identifier: 'giftedGems',
-      }
+      },
     );
   }
 

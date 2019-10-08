@@ -5,7 +5,7 @@ const { join, resolve } = require('path');
 const PATH_TO_CONFIG = join(resolve(__dirname, '../../../config.json'));
 
 module.exports = function setupNconf (file) {
-  let configFile = file || PATH_TO_CONFIG;
+  const configFile = file || PATH_TO_CONFIG;
 
   nconf
     .argv()

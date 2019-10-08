@@ -1,5 +1,5 @@
-import i18n from '../i18n';
 import each from 'lodash/each';
+import i18n from '../i18n';
 import {
   NotAuthorized,
 } from '../libs/errors';
@@ -12,7 +12,7 @@ export default function reroll (user, tasks = [], req = {}, analytics) {
   user.balance--;
   user.stats.hp = 50;
 
-  each(tasks, function resetTaskValues (task) {
+  each(tasks, task => {
     if (!task.challenge || !task.challenge.id || task.challenge.broken) {
       if (task.type !== 'reward') {
         task.value = 0;
@@ -31,7 +31,7 @@ export default function reroll (user, tasks = [], req = {}, analytics) {
   }
 
   return [
-    {user, tasks},
+    { user, tasks },
     i18n.t('fortifyComplete'),
   ];
 }

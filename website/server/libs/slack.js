@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
 import { IncomingWebhook } from '@slack/client';
-import logger from './logger';
-import { TAVERN_ID } from '../models/group';
 import nconf from 'nconf';
 import moment from 'moment';
+import logger from './logger';
+import { TAVERN_ID } from '../models/group';
 
 const SLACK_FLAGGING_URL = nconf.get('SLACK_FLAGGING_URL');
 const SLACK_FLAGGING_FOOTER_LINK = nconf.get('SLACK_FLAGGING_FOOTER_LINK');
@@ -115,17 +115,17 @@ function sendInboxFlagNotification ({
   if (SKIP_FLAG_METHODS) {
     return;
   }
-  let titleLink = '';
+  const titleLink = '';
   let authorName;
-  let title = `Flag in ${flagger.profile.name}'s Inbox`;
+  const title = `Flag in ${flagger.profile.name}'s Inbox`;
   let text = `${flagger.profile.name} (${flagger.id}; language: ${flagger.preferences.language}) flagged a PM`;
-  let footer = '';
+  const footer = '';
 
   if (userComment) {
     text += ` and commented: ${userComment}`;
   }
 
-  let messageText = message.text;
+  const messageText = message.text;
   let sender = '';
   let recipient = '';
 
@@ -180,7 +180,7 @@ function sendSubscriptionNotification ({
     return;
   }
   let text;
-  let timestamp = new Date();
+  const timestamp = new Date();
   if (recipient.id) {
     text = `${buyer.name} ${buyer.id} ${buyer.email} bought a ${months}-month gift subscription for ${recipient.name} ${recipient.id} ${recipient.email} using ${paymentMethod} on ${timestamp}`;
   } else if (groupId) {
@@ -205,8 +205,8 @@ function sendShadowMutedPostNotification ({
   }
   let titleLink;
   let authorName;
-  let title = `Shadow-Muted Post in ${group.name}`;
-  let text = `@${author.auth.local.username} / ${author.profile.name} posted while shadow-muted`;
+  const title = `Shadow-Muted Post in ${group.name}`;
+  const text = `@${author.auth.local.username} / ${author.profile.name} posted while shadow-muted`;
 
   if (group.id === TAVERN_ID) {
     titleLink = `${BASE_URL}/groups/tavern`;
@@ -249,7 +249,7 @@ function sendSlurNotification ({
   let titleLink;
   let authorName;
   let title = `Slur in ${group.name}`;
-  let text = `${author.profile.name} (${author._id}) tried to post a slur`;
+  const text = `${author.profile.name} (${author._id}) tried to post a slur`;
 
   if (group.id === TAVERN_ID) {
     titleLink = `${BASE_URL}/groups/tavern`;

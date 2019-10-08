@@ -6,9 +6,8 @@ Silver amount from their money
 
 export default function silver (num) {
   if (num) {
-    let centCount = Math.floor((num - Math.floor(num)) * 100);
+    const centCount = Math.floor((num - Math.floor(num)) * 100);
     return `0${centCount}`.slice(-2);
-  } else {
-    return '00';
   }
+  return '00';
 }

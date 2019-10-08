@@ -9,9 +9,8 @@ const DROP_ANIMALS = keys(content.pets);
 export function beastMasterProgress (pets = {}) {
   let count = 0;
 
-  each(DROP_ANIMALS, (animal) => {
-    if (pets[animal] > 0 || pets[animal] === -1)
-      count++;
+  each(DROP_ANIMALS, animal => {
+    if (pets[animal] > 0 || pets[animal] === -1) count++;
   });
 
   return count;
@@ -20,7 +19,7 @@ export function beastMasterProgress (pets = {}) {
 export function beastCount (pets = {}) {
   let count = 0;
 
-  each(DROP_ANIMALS, (animal) => {
+  each(DROP_ANIMALS, animal => {
     if (pets[animal] > 0) count++;
   });
 
@@ -30,9 +29,8 @@ export function beastCount (pets = {}) {
 export function dropPetsCurrentlyOwned (pets = {}) {
   let count = 0;
 
-  each(DROP_ANIMALS, (animal) => {
-    if (pets[animal] > 0)
-      count++;
+  each(DROP_ANIMALS, animal => {
+    if (pets[animal] > 0) count++;
   });
 
   return count;
@@ -41,36 +39,35 @@ export function dropPetsCurrentlyOwned (pets = {}) {
 export function mountMasterProgress (mounts = {}) {
   let count = 0;
 
-  each(DROP_ANIMALS, (animal) => {
-    if (mounts[animal])
-      count++;
+  each(DROP_ANIMALS, animal => {
+    if (mounts[animal]) count++;
   });
 
   return count;
 }
 
 export function remainingGearInSet (userGear = {}, set) {
-  let gear = filter(content.gear.flat, (item) => {
-    let setMatches = item.klass === set;
-    let hasItem = userGear[item.key];
+  const gear = filter(content.gear.flat, item => {
+    const setMatches = item.klass === set;
+    const hasItem = userGear[item.key];
 
     return setMatches && !hasItem;
   });
 
-  let count = size(gear);
+  const count = size(gear);
 
   return count;
 }
 
 export function questsOfCategory (userQuests = {}, category) {
-  let quests = filter(content.quests, (quest) => {
-    let categoryMatches = quest.category === category;
-    let hasQuest = userQuests[quest.key];
+  const quests = filter(content.quests, quest => {
+    const categoryMatches = quest.category === category;
+    const hasQuest = userQuests[quest.key];
 
     return categoryMatches && hasQuest;
   });
 
-  let count = size(quests);
+  const count = size(quests);
 
   return count;
 }

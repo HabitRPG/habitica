@@ -19,12 +19,12 @@ import {
   sendTxn as sendTxnEmail,
 } from '../../libs/email';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
-import common from '../../../../website/common/';
-import {sentMessage} from '../../libs/inbox';
+import common from '../../../common';
+import { sentMessage } from '../../libs/inbox';
 
-const achievements = common.achievements;
+const { achievements } = common;
 
-let api = {};
+const api = {};
 
 /**
  * @api {get} /api/v3/members/:memberId Get a member profile
@@ -100,22 +100,22 @@ api.getMember = {
   async handler (req, res) {
     req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let memberId = req.params.memberId;
+    const { memberId } = req.params;
 
-    let member = await User
+    const member = await User
       .findById(memberId)
       .select(memberFields)
       .exec();
 
-    if (!member) throw new NotFound(res.t('userWithIDNotFound', {userId: memberId}));
+    if (!member) throw new NotFound(res.t('userWithIDNotFound', { userId: memberId }));
 
     if (!member.flags.verifiedUsername) member.auth.local.username = null;
 
     // manually call toJSON with minimize: true so empty paths aren't returned
-    let memberToJSON = member.toJSON({minimize: true});
+    const memberToJSON = member.toJSON({ minimize: true });
     User.addComputedStatsToJSONObj(memberToJSON.stats, member);
 
     res.respond(200, memberToJSON);
@@ -129,21 +129,21 @@ api.getMemberByUsername = {
   async handler (req, res) {
     req.checkParams('username', res.t('invalidReqParams')).notEmpty();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
     let username = req.params.username.toLowerCase();
     if (username[0] === '@') username = username.slice(1, username.length);
 
-    let member = await User
-      .findOne({'auth.local.lowerCaseUsername': username, 'flags.verifiedUsername': true})
+    const member = await User
+      .findOne({ 'auth.local.lowerCaseUsername': username, 'flags.verifiedUsername': true })
       .select(memberFields)
       .exec();
 
     if (!member) throw new NotFound(res.t('userNotFound'));
 
     // manually call toJSON with minimize: true so empty paths aren't returned
-    let memberToJSON = member.toJSON({minimize: true});
+    const memberToJSON = member.toJSON({ minimize: true });
     User.addComputedStatsToJSONObj(memberToJSON.stats, member);
 
     res.respond(200, memberToJSON);
@@ -239,19 +239,19 @@ api.getMemberAchievements = {
   async handler (req, res) {
     req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let memberId = req.params.memberId;
+    const { memberId } = req.params;
 
-    let member = await User
+    const member = await User
       .findById(memberId)
       .select(memberFields)
       .exec();
 
-    if (!member) throw new NotFound(res.t('userWithIDNotFound', {userId: memberId}));
+    if (!member) throw new NotFound(res.t('userWithIDNotFound', { userId: memberId }));
 
-    let achievsObject = achievements.getAchievementsForProfile(member, req.language);
+    const achievsObject = achievements.getAchievementsForProfile(member, req.language);
 
     res.respond(200, achievsObject);
   },
@@ -274,13 +274,13 @@ function _getMembersForItem (type) {
     }
     req.checkQuery('lastId').optional().notEmpty().isUUID();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let groupId = req.params.groupId;
-    let challengeId = req.params.challengeId;
-    let lastId = req.query.lastId;
-    let user = res.locals.user;
+    const { groupId } = req.params;
+    const { challengeId } = req.params;
+    const { lastId } = req.query;
+    const { user } = res.locals;
     let challenge;
     let group;
 
@@ -299,11 +299,11 @@ function _getMembersForItem (type) {
 
       if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
     } else {
-      group = await Group.getGroup({user, groupId, fields: '_id type'});
+      group = await Group.getGroup({ user, groupId, fields: '_id type' });
       if (!group) throw new NotFound(res.t('groupNotFound'));
     }
 
-    let query = {};
+    const query = {};
     let fields = nameFields;
     let addComputedStats = false; // add computes stats to the member info when items and stats are available
 
@@ -316,7 +316,7 @@ function _getMembersForItem (type) {
       }
 
       if (req.query.search) {
-        query['profile.name'] = {$regex: req.query.search};
+        query['profile.name'] = { $regex: req.query.search };
       }
     } else if (type === 'group-members') {
       if (group.type === 'guild') {
@@ -357,7 +357,7 @@ function _getMembersForItem (type) {
       }
     }
 
-    if (lastId) query._id = {$gt: lastId};
+    if (lastId) query._id = { $gt: lastId };
 
     let limit = 30;
 
@@ -366,9 +366,9 @@ function _getMembersForItem (type) {
       limit = 0; // no limit
     }
 
-    let members = await User
+    const members = await User
       .find(query)
-      .sort({_id: 1})
+      .sort({ _id: 1 })
       .limit(limit)
       .select(fields)
       .lean()
@@ -541,26 +541,28 @@ api.getChallengeMemberProgress = {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
     req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let user = res.locals.user;
-    let challengeId = req.params.challengeId;
-    let memberId = req.params.memberId;
+    const { user } = res.locals;
+    const { challengeId } = req.params;
+    const { memberId } = req.params;
 
-    let member = await User.findById(memberId).select(`${nameFields} challenges`).exec();
-    if (!member) throw new NotFound(res.t('userWithIDNotFound', {userId: memberId}));
+    const member = await User.findById(memberId).select(`${nameFields} challenges`).exec();
+    if (!member) throw new NotFound(res.t('userWithIDNotFound', { userId: memberId }));
 
-    let challenge = await Challenge.findById(challengeId).exec();
+    const challenge = await Challenge.findById(challengeId).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
     // optionalMembership is set to true because even if you're not member of the group you may be able to access the challenge
     // for example if you've been booted from it, are the leader or a site admin
-    let group = await Group.getGroup({user, groupId: challenge.group, fields: '_id type privacy', optionalMembership: true});
+    const group = await Group.getGroup({
+      user, groupId: challenge.group, fields: '_id type privacy', optionalMembership: true,
+    });
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
     if (!challenge.isMember(member)) throw new NotFound(res.t('challengeMemberNotFound'));
 
-    let chalTasks = await Tasks.Task.find({
+    const chalTasks = await Tasks.Task.find({
       userId: memberId,
       'challenge.id': challengeId,
     })
@@ -568,11 +570,11 @@ api.getChallengeMemberProgress = {
       .exec();
 
     // manually call toJSON with minimize: true so empty paths aren't returned
-    let response = member.toJSON({minimize: true});
+    const response = member.toJSON({ minimize: true });
     delete response.challenges;
     response.tasks = chalTasks.map(chalTask => {
       chalTask.checklist = []; // Clear checklists as they are private
-      return chalTask.toJSON({minimize: true});
+      return chalTask.toJSON({ minimize: true });
     });
     res.respond(200, response);
   },
@@ -597,15 +599,15 @@ api.getObjectionsToInteraction = {
     req.checkParams('toUserId', res.t('toUserIDRequired')).notEmpty().isUUID();
     req.checkParams('interaction', res.t('interactionRequired')).notEmpty().isIn(KNOWN_INTERACTIONS);
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let sender = res.locals.user;
-    let receiver = await User.findById(req.params.toUserId).exec();
-    if (!receiver) throw new NotFound(res.t('userWithIDNotFound', {userId: req.params.toUserId}));
+    const sender = res.locals.user;
+    const receiver = await User.findById(req.params.toUserId).exec();
+    if (!receiver) throw new NotFound(res.t('userWithIDNotFound', { userId: req.params.toUserId }));
 
-    let interaction = req.params.interaction;
-    let response = sender.getObjectionsToInteraction(interaction, receiver);
+    const { interaction } = req.params;
+    const response = sender.getObjectionsToInteraction(interaction, receiver);
 
     res.respond(200, response.map(res.t));
   },
@@ -635,7 +637,7 @@ api.sendPrivateMessage = {
     if (validationErrors) throw validationErrors;
 
     const sender = res.locals.user;
-    const message = req.body.message;
+    const { message } = req.body;
 
     const receiver = await User.findById(req.body.toUserId).exec();
     if (!receiver) throw new NotFound(res.t('userNotFound'));
@@ -646,7 +648,7 @@ api.sendPrivateMessage = {
 
     const messageSent = await sentMessage(sender, receiver, message, res.t);
 
-    res.respond(200, {message: messageSent});
+    res.respond(200, { message: messageSent });
   },
 };
 
@@ -671,18 +673,18 @@ api.transferGems = {
     req.checkBody('toUserId', res.t('toUserIDRequired')).notEmpty().isUUID();
     req.checkBody('gemAmount', res.t('gemAmountRequired')).notEmpty().isInt();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let sender = res.locals.user;
-    let receiver = await User.findById(req.body.toUserId).exec();
+    const sender = res.locals.user;
+    const receiver = await User.findById(req.body.toUserId).exec();
     if (!receiver) throw new NotFound(res.t('userNotFound'));
 
-    let objections = sender.getObjectionsToInteraction('transfer-gems', receiver);
+    const objections = sender.getObjectionsToInteraction('transfer-gems', receiver);
     if (objections.length > 0) throw new NotAuthorized(res.t(objections[0]));
 
-    let gemAmount = req.body.gemAmount;
-    let amount = gemAmount / 4;
+    const { gemAmount } = req.body;
+    const amount = gemAmount / 4;
 
     if (amount <= 0 || sender.balance < amount) {
       throw new NotAuthorized(res.t('badAmountOfGemsToSend'));
@@ -691,13 +693,13 @@ api.transferGems = {
     receiver.balance += amount;
     sender.balance -= amount;
     // @TODO necessary? Also saved when sending the inbox message
-    let promises = [receiver.save(), sender.save()];
+    const promises = [receiver.save(), sender.save()];
     await Promise.all(promises);
 
     // generate the message in both languages, so both users can understand it
-    let receiverLang = receiver.preferences.language;
-    let senderLang = sender.preferences.language;
-    let [receiverMsg, senderMsg] = [receiverLang, senderLang].map((lang) => {
+    const receiverLang = receiver.preferences.language;
+    const senderLang = sender.preferences.language;
+    const [receiverMsg, senderMsg] = [receiverLang, senderLang].map(lang => {
       let messageContent = res.t('privateMessageGiftGemsMessage', {
         receiverName: receiver.profile.name,
         senderName: sender.profile.name,
@@ -716,21 +718,21 @@ api.transferGems = {
       receiverMsg,
     });
 
-    let byUsername = getUserInfo(sender, ['name']).name;
+    const byUsername = getUserInfo(sender, ['name']).name;
 
     if (receiver.preferences.emailNotifications.giftedGems !== false) {
       sendTxnEmail(receiver, 'gifted-gems', [
-        {name: 'GIFTER', content: byUsername},
-        {name: 'X_GEMS_GIFTED', content: gemAmount},
+        { name: 'GIFTER', content: byUsername },
+        { name: 'X_GEMS_GIFTED', content: gemAmount },
       ]);
     }
     if (receiver.preferences.pushNotifications.giftedGems !== false) {
       sendPushNotification(receiver,
         {
           title: res.t('giftedGems', receiverLang),
-          message: res.t('giftedGemsInfo', {amount: gemAmount, name: byUsername}, receiverLang),
+          message: res.t('giftedGemsInfo', { amount: gemAmount, name: byUsername }, receiverLang),
           identifier: 'giftedGems',
-          payload: {replyTo: sender._id},
+          payload: { replyTo: sender._id },
         });
     }
 

@@ -1,48 +1,48 @@
 import t from '../../../translation';
 
-let backSpecialWonderconRed = {
+const backSpecialWonderconRed = {
   text: t('backSpecialWonderconRedText'),
   notes: t('backSpecialWonderconRedNotes'),
   value: 0,
   mystery: 'wondercon',
 };
 
-let backSpecialWonderconBlack = {
+const backSpecialWonderconBlack = {
   text: t('backSpecialWonderconBlackText'),
   notes: t('backSpecialWonderconBlackNotes'),
   value: 0,
   mystery: 'wondercon',
 };
 
-let bodySpecialWonderconRed = {
+const bodySpecialWonderconRed = {
   text: t('bodySpecialWonderconRedText'),
   notes: t('bodySpecialWonderconRedNotes'),
   value: 0,
   mystery: 'wondercon',
 };
 
-let bodySpecialWonderconGold = {
+const bodySpecialWonderconGold = {
   text: t('bodySpecialWonderconGoldText'),
   notes: t('bodySpecialWonderconGoldNotes'),
   value: 0,
   mystery: 'wondercon',
 };
 
-let bodySpecialWonderconBlack = {
+const bodySpecialWonderconBlack = {
   text: t('bodySpecialWonderconBlackText'),
   notes: t('bodySpecialWonderconBlackNotes'),
   value: 0,
   mystery: 'wondercon',
 };
 
-let eyewearSpecialWonderconRed = {
+const eyewearSpecialWonderconRed = {
   text: t('eyewearSpecialWonderconRedText'),
   notes: t('eyewearSpecialWonderconRedNotes'),
   value: 0,
   mystery: 'wondercon',
 };
 
-let eyewearSpecialWonderconBlack = {
+const eyewearSpecialWonderconBlack = {
   text: t('eyewearSpecialWonderconBlackText'),
   notes: t('eyewearSpecialWonderconBlackNotes'),
   value: 0,

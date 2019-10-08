@@ -9,13 +9,14 @@
 const monk = require('monk');
 const _ = require('lodash');
 const moment = require('moment');
+
 const connectionString = 'mongodb://localhost:27017/habitrpg?auto_reconnect=true'; // FOR TEST DATABASE
 const dbTasks = monk(connectionString).get('tasks', { castIds: false });
 
 function processChallengeHabits (lastId) {
-  let query = {
-    'challenge.id': {$exists: true},
-    userId: {$exists: false},
+  const query = {
+    'challenge.id': { $exists: true },
+    userId: { $exists: false },
     type: 'habit',
   };
 
@@ -26,17 +27,17 @@ function processChallengeHabits (lastId) {
   }
 
   dbTasks.find(query, {
-    sort: {_id: 1},
+    sort: { _id: 1 },
     limit: 500,
   })
     .then(updateChallengeHabits)
-    .catch((err) => {
+    .catch(err => {
       console.log(err);
-      return exiting(1, `ERROR! ${  err}`);
+      return exiting(1, `ERROR! ${err}`);
     });
 }
 
-let progressCount = 1000;
+const progressCount = 1000;
 let count = 0;
 
 function updateChallengeHabits (habits) {
@@ -46,13 +47,11 @@ function updateChallengeHabits (habits) {
     return;
   }
 
-  let habitsPromises = habits.map(updateChallengeHabit);
-  let lastHabit = habits[habits.length - 1];
+  const habitsPromises = habits.map(updateChallengeHabit);
+  const lastHabit = habits[habits.length - 1];
 
   return Promise.all(habitsPromises)
-    .then(() => {
-      return processChallengeHabits(lastHabit._id);
-    });
+    .then(() => processChallengeHabits(lastHabit._id));
 }
 
 function updateChallengeHabit (habit) {
@@ -76,13 +75,12 @@ function updateChallengeHabit (habit) {
           entry.scoreDirection = entry.value > previousValue ? 'up' : 'down';
         }
       })
-      .groupBy(entry => { // group entries by aggregateBy
-        return moment(entry.date).format('YYYYMMDD');
-      })
+      .groupBy(entry => // group entries by aggregateBy
+        moment(entry.date).format('YYYYMMDD'))
       .toPairs() // [key, entry]
       .sortBy(([key]) => key) // sort by date
       .map(keyEntryPair => {
-        let entries = keyEntryPair[1]; // 1 is entry, 0 is key
+        const entries = keyEntryPair[1]; // 1 is entry, 0 is key
         let scoredUp = 0;
         let scoredDown = 0;
 
@@ -107,16 +105,16 @@ function updateChallengeHabit (habit) {
       })
       .value();
 
-    return dbTasks.update({_id: habit._id}, {
-      $set: {history: habit.history},
+    return dbTasks.update({ _id: habit._id }, {
+      $set: { history: habit.history },
     });
   }
 
-  if (count % progressCount === 0) console.warn(`${count  } habits processed`);
+  if (count % progressCount === 0) console.warn(`${count} habits processed`);
 }
 
 function displayData () {
-  console.warn(`\n${  count  } tasks processed\n`);
+  console.warn(`\n${count} tasks processed\n`);
   return exiting(0);
 }
 
@@ -128,7 +126,7 @@ function exiting (code, msg) {
   if (msg) {
     if (code) {
       console.error(msg);
-    } else      {
+    } else {
       console.log(msg);
     }
   }

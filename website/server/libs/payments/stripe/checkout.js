@@ -12,7 +12,7 @@ import {
   BadRequest,
   NotAuthorized,
 } from '../../errors';
-import payments from './../payments';
+import payments from '../payments';
 import stripeConstants from './constants';
 
 function getGiftAmount (gift) {
@@ -50,11 +50,11 @@ async function buyGems (gift, user, token, stripeApi) {
 async function buySubscription (sub, coupon, email, user, token, groupId, stripeApi) {
   if (sub.discount) {
     if (!coupon) throw new BadRequest(shared.i18n.t('couponCodeRequired'));
-    coupon = await Coupon.findOne({_id: cc.validate(coupon), event: sub.key}).exec();
+    coupon = await Coupon.findOne({ _id: cc.validate(coupon), event: sub.key }).exec();
     if (!coupon) throw new BadRequest(shared.i18n.t('invalidCoupon'));
   }
 
-  let customerObject = {
+  const customerObject = {
     email,
     metadata: { uuid: user._id },
     card: token,
@@ -64,7 +64,9 @@ async function buySubscription (sub, coupon, email, user, token, groupId, stripe
   if (groupId) {
     customerObject.quantity = sub.quantity;
     const groupFields = basicGroupFields.concat(' purchased');
-    const group = await Group.getGroup({user, groupId, populateLeader: false, groupFields});
+    const group = await Group.getGroup({
+      user, groupId, populateLeader: false, groupFields,
+    });
     const membersCount = await group.getMemberCount();
     customerObject.quantity = membersCount + sub.quantity - 1;
   }
@@ -95,7 +97,7 @@ async function applyGemPayment (user, response, gift) {
 }
 
 async function checkout (options, stripeInc) {
-  let {
+  const {
     token,
     user,
     gift,

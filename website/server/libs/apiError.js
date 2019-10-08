@@ -11,7 +11,7 @@ export default function (msgKey, vars = {}) {
   if (!message) message = commonErrors[msgKey];
   if (!message) throw new Error(`Error processing the API message "${msgKey}".`);
 
-  let clonedVars = vars ? _.clone(vars) : {};
+  const clonedVars = vars ? _.clone(vars) : {};
 
   // TODO cache the result of template() ? More memory usage, faster output
   return _.template(message)(clonedVars);

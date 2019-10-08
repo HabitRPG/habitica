@@ -19,7 +19,7 @@ function t (stringName) {
     locale = arguments[2];
   }
 
-  let i18nNotSetup = !i18n.strings && !i18n.translations[locale];
+  const i18nNotSetup = !i18n.strings && !i18n.translations[locale];
 
   if (!locale || i18nNotSetup) {
     locale = 'en';
@@ -33,7 +33,7 @@ function t (stringName) {
     string = i18n.translations[locale] && i18n.translations[locale][stringName];
   }
 
-  let clonedVars = clone(vars) || {};
+  const clonedVars = clone(vars) || {};
 
   clonedVars.locale = locale;
 

@@ -17,11 +17,11 @@ import stripeConstants from './stripe/constants';
 import { checkout } from './stripe/checkout';
 import { getStripeApi, setStripeApi } from './stripe/api';
 
-const i18n = shared.i18n;
+const { i18n } = shared;
 
-let api = {};
+const api = {};
 
-api.constants = Object.assign({}, stripeConstants);
+api.constants = { ...stripeConstants };
 
 api.setStripeApi = setStripeApi;
 
@@ -51,7 +51,7 @@ api.checkout = checkout;
  * @return undefined
  */
 api.editSubscription = async function editSubscription (options, stripeInc) {
-  let {token, groupId, user} = options;
+  const { token, groupId, user } = options;
   let customerId;
 
   // @TODO: We need to mock this, but curently we don't have correct Dependency Injection. And the Stripe Api doesn't seem to be a singleton?
@@ -59,14 +59,16 @@ api.editSubscription = async function editSubscription (options, stripeInc) {
   if (stripeInc) stripeApi = stripeInc;
 
   if (groupId) {
-    let groupFields = basicGroupFields.concat(' purchased');
-    let group = await Group.getGroup({user, groupId, populateLeader: false, groupFields});
+    const groupFields = basicGroupFields.concat(' purchased');
+    const group = await Group.getGroup({
+      user, groupId, populateLeader: false, groupFields,
+    });
 
     if (!group) {
       throw new NotFound(i18n.t('groupNotFound'));
     }
 
-    let allowedManagers = [group.leader, group.purchased.plan.owner];
+    const allowedManagers = [group.leader, group.purchased.plan.owner];
 
     if (allowedManagers.indexOf(user._id) === -1) {
       throw new NotAuthorized(i18n.t('onlyGroupLeaderCanManageSubscription'));
@@ -79,8 +81,8 @@ api.editSubscription = async function editSubscription (options, stripeInc) {
   if (!customerId) throw new NotAuthorized(i18n.t('missingSubscription'));
   if (!token) throw new BadRequest('Missing req.body.id');
 
-  let subscriptions = await stripeApi.subscriptions.list({customer: customerId}); // @TODO: Handle Stripe Error response
-  let subscriptionId = subscriptions.data[0].id;
+  const subscriptions = await stripeApi.subscriptions.list({ customer: customerId }); // @TODO: Handle Stripe Error response
+  const subscriptionId = subscriptions.data[0].id;
   await stripeApi.subscriptions.update(subscriptionId, { card: token });
 };
 
@@ -95,7 +97,7 @@ api.editSubscription = async function editSubscription (options, stripeInc) {
  * @return undefined
  */
 api.cancelSubscription = async function cancelSubscription (options, stripeInc) {
-  let {groupId, user, cancellationReason} = options;
+  const { groupId, user, cancellationReason } = options;
   let customerId;
 
   // @TODO: We need to mock this, but curently we don't have correct Dependency Injection. And the Stripe Api doesn't seem to be a singleton?
@@ -103,14 +105,16 @@ api.cancelSubscription = async function cancelSubscription (options, stripeInc) 
   if (stripeInc) stripeApi = stripeInc;
 
   if (groupId) {
-    let groupFields = basicGroupFields.concat(' purchased');
-    let group = await Group.getGroup({user, groupId, populateLeader: false, groupFields});
+    const groupFields = basicGroupFields.concat(' purchased');
+    const group = await Group.getGroup({
+      user, groupId, populateLeader: false, groupFields,
+    });
 
     if (!group) {
       throw new NotFound(i18n.t('groupNotFound'));
     }
 
-    let allowedManagers = [group.leader, group.purchased.plan.owner];
+    const allowedManagers = [group.leader, group.purchased.plan.owner];
 
     if (allowedManagers.indexOf(user._id) === -1) {
       throw new NotAuthorized(i18n.t('onlyGroupLeaderCanManageSubscription'));
@@ -123,13 +127,11 @@ api.cancelSubscription = async function cancelSubscription (options, stripeInc) 
   if (!customerId) throw new NotAuthorized(i18n.t('missingSubscription'));
 
   // @TODO: Handle error response
-  let customer = await stripeApi.customers.retrieve(customerId).catch(function errorCatch (err) {
-    return err;
-  });
+  const customer = await stripeApi.customers.retrieve(customerId).catch(err => err);
   let nextBill = moment().add(30, 'days').unix() * 1000;
 
   if (customer && (customer.subscription || customer.subscriptions)) {
-    let subscription = customer.subscription;
+    let { subscription } = customer;
     if (!subscription && customer.subscriptions) {
       subscription = customer.subscriptions.data[0];
     }
@@ -150,15 +152,15 @@ api.cancelSubscription = async function cancelSubscription (options, stripeInc) 
 };
 
 api.chargeForAdditionalGroupMember = async function chargeForAdditionalGroupMember (group) {
-  let stripeApi = getStripeApi();
-  let plan = shared.content.subscriptionBlocks.group_monthly;
+  const stripeApi = getStripeApi();
+  const plan = shared.content.subscriptionBlocks.group_monthly;
 
   await stripeApi.subscriptions.update(
     group.purchased.plan.subscriptionId,
     {
       plan: plan.key,
       quantity: group.memberCount + plan.quantity - 1,
-    }
+    },
   );
 
   group.purchased.plan.quantity = group.memberCount + plan.quantity - 1;
@@ -174,7 +176,7 @@ api.chargeForAdditionalGroupMember = async function chargeForAdditionalGroupMemb
  * @return undefined
  */
 api.handleWebhooks = async function handleWebhooks (options, stripeInc) {
-  let {requestBody} = options;
+  const { requestBody } = options;
 
   // @TODO: We need to mock this, but curently we don't have correct Dependency Injection. And the Stripe Api doesn't seem to be a singleton?
   let stripeApi = getStripeApi();
@@ -197,8 +199,8 @@ api.handleWebhooks = async function handleWebhooks (options, stripeInc) {
       let groupId;
 
       if (isGroupSub) {
-        let groupFields = basicGroupFields.concat(' purchased');
-        let group = await Group.findOne({
+        const groupFields = basicGroupFields.concat(' purchased');
+        const group = await Group.findOne({
           'purchased.plan.customerId': customerId,
           'purchased.plan.paymentMethod': this.constants.PAYMENT_METHOD,
         }).select(groupFields).exec();
@@ -223,13 +225,13 @@ api.handleWebhooks = async function handleWebhooks (options, stripeInc) {
         groupId,
         paymentMethod: this.constants.PAYMENT_METHOD,
         // Give three extra days to allow the user to resubscribe without losing benefits
-        nextBill: moment().add({days: 3}).toDate(),
+        nextBill: moment().add({ days: 3 }).toDate(),
       });
 
       break;
     }
     default: {
-      logger.error(new Error(`Missing handler for Stripe webhook ${event.type}`), {event});
+      logger.error(new Error(`Missing handler for Stripe webhook ${event.type}`), { event });
     }
   }
 };

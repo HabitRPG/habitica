@@ -24,18 +24,16 @@ function _passportProfile (network, accessToken) {
 export async function loginSocial (req, res) {
   const existingUser = res.locals.user;
   const accessToken = req.body.authResponse.access_token;
-  const network = req.body.network;
+  const { network } = req.body;
 
-  const isSupportedNetwork = common.constants.SUPPORTED_SOCIAL_NETWORKS.find(supportedNetwork => {
-    return supportedNetwork.key === network;
-  });
+  const isSupportedNetwork = common.constants.SUPPORTED_SOCIAL_NETWORKS.find(supportedNetwork => supportedNetwork.key === network);
   if (!isSupportedNetwork) throw new BadRequest(res.t('unsupportedNetwork'));
 
   const profile = await _passportProfile(network, accessToken);
 
   let user = await User.findOne({
     [`auth.${network}.id`]: profile.id,
-  }, {_id: 1, apiToken: 1, auth: 1}).exec();
+  }, { _id: 1, apiToken: 1, auth: 1 }).exec();
 
   // User already signed up
   if (user) {
@@ -85,7 +83,7 @@ export async function loginSocial (req, res) {
   // Clean previous email preferences
   if (savedUser.auth[network].emails && savedUser.auth[network].emails[0] && savedUser.auth[network].emails[0].value) {
     EmailUnsubscription
-      .remove({email: savedUser.auth[network].emails[0].value.toLowerCase()})
+      .remove({ email: savedUser.auth[network].emails[0].value.toLowerCase() })
       .exec()
       .then(() => {
         if (!existingUser) {

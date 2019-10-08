@@ -1,6 +1,6 @@
 import { authWithHeaders } from '../../middlewares/auth';
 
-let api = {};
+const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
 const LAST_ANNOUNCEMENT_TITLE = 'SPOOKY SPARKLES AND COSTUME CHALLENGE!';
@@ -65,13 +65,11 @@ api.tellMeLaterNews = {
   middlewares: [authWithHeaders()],
   url: '/news/tell-me-later',
   async handler (req, res) {
-    const user = res.locals.user;
+    const { user } = res.locals;
 
     user.flags.newStuff = false;
 
-    const existingNotificationIndex = user.notifications.findIndex(n => {
-      return n && n.type === 'NEW_STUFF';
-    });
+    const existingNotificationIndex = user.notifications.findIndex(n => n && n.type === 'NEW_STUFF');
     if (existingNotificationIndex !== -1) user.notifications.splice(existingNotificationIndex, 1);
     user.addNotification('NEW_STUFF', { title: LAST_ANNOUNCEMENT_TITLE }, true); // seen by default
 

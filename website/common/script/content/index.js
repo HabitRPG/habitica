@@ -2,7 +2,7 @@ import defaults from 'lodash/defaults';
 import each from 'lodash/each';
 import moment from 'moment';
 import t from './translation';
-import {tasksByCategory} from './tasks';
+import { tasksByCategory } from './tasks';
 
 import {
   CLASSES,
@@ -11,8 +11,6 @@ import {
   QUEST_SERIES_ACHIEVEMENTS,
   ANIMAL_COLOR_ACHIEVEMENTS,
 } from './constants';
-
-const api = {};
 
 import achievements from './achievements';
 
@@ -27,7 +25,7 @@ import {
 } from './quests';
 
 import appearances from './appearance';
-import {backgroundsTree, backgroundsFlat} from './appearance/backgrounds';
+import { backgroundsTree, backgroundsFlat } from './appearance/backgrounds';
 import spells from './spells';
 import subscriptionBlocks from './subscriptionBlocks';
 import faq from './faq';
@@ -36,6 +34,8 @@ import timeTravelers from './time-travelers';
 import loginIncentives from './loginIncentives';
 
 import officialPinnedItems from './officialPinnedItems';
+
+const api = {};
 
 api.achievements = achievements;
 api.questSeriesAchievements = QUEST_SERIES_ACHIEVEMENTS;
@@ -810,17 +810,15 @@ api.food = {
   /* eslint-enable camelcase */
 };
 
-each(api.food, (food, key) => {
-  return defaults(food, {
-    value: 1,
-    key,
-    notes: t('foodNotes'),
-    canBuy () {
-      return false;
-    },
-    canDrop: false,
-  });
-});
+each(api.food, (food, key) => defaults(food, {
+  value: 1,
+  key,
+  notes: t('foodNotes'),
+  canBuy () {
+    return false;
+  },
+  canDrop: false,
+}));
 
 api.appearances = appearances;
 
@@ -837,9 +835,9 @@ api.userDefaults = {
       down: false,
       attribute: 'per',
       tags: [
-        t('defaultTag1'),  // Work
-        t('defaultTag4'),  // School
-        t('defaultTag6'),  // Chores
+        t('defaultTag1'), // Work
+        t('defaultTag4'), // School
+        t('defaultTag6'), // Chores
       ],
     }, {
       type: 'habit',
@@ -849,7 +847,7 @@ api.userDefaults = {
       down: true,
       attribute: 'str',
       tags: [
-        t('defaultTag3'),  // Health + Wellness
+        t('defaultTag3'), // Health + Wellness
       ],
     }, {
       type: 'habit',
@@ -859,8 +857,8 @@ api.userDefaults = {
       down: true,
       attribute: 'str',
       tags: [
-        t('defaultTag2'),  // Exercise
-        t('defaultTag3'),  // Health + Wellness
+        t('defaultTag2'), // Exercise
+        t('defaultTag3'), // Health + Wellness
       ],
     },
   ],

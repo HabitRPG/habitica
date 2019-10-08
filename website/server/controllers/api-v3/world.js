@@ -3,10 +3,10 @@ import {
   TAVERN_ID as tavernId,
 } from '../../models/group';
 
-let api = {};
+const api = {};
 
 async function getWorldBoss () {
-  let tavern = await Group
+  const tavern = await Group
     .findById(tavernId)
     .select('quest.progress quest.key quest.active quest.extra')
     .exec();
@@ -34,7 +34,7 @@ api.getWorldState = {
   method: 'GET',
   url: '/world-state',
   async handler (req, res) {
-    let worldState = {};
+    const worldState = {};
 
     worldState.worldBoss = await getWorldBoss();
     worldState.npcImageSuffix = 'spring';

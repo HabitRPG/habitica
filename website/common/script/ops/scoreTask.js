@@ -17,18 +17,17 @@ const CLOSE_ENOUGH = 0.00001;
 function _getTaskValue (taskValue) {
   if (taskValue < MIN_TASK_VALUE) {
     return MIN_TASK_VALUE;
-  } else if (taskValue > MAX_TASK_VALUE) {
+  } if (taskValue > MAX_TASK_VALUE) {
     return MAX_TASK_VALUE;
-  } else {
-    return taskValue;
   }
+  return taskValue;
 }
 
 // Calculates the next task.value based on direction
 // Uses a capped inverse log y=.95^x, y>= -5
 function _calculateDelta (task, direction, cron) {
   // Min/max on task redness
-  let currVal = _getTaskValue(task.value);
+  const currVal = _getTaskValue(task.value);
   let nextDelta = Math.pow(0.9747, currVal) * (direction === 'down' ? -1 : 1);
 
   // Checklists
@@ -52,15 +51,15 @@ function _calculateDelta (task, direction, cron) {
 // First, calculate the value using the normal way for our first guess although
 // it will be a bit off
 function _calculateReverseDelta (task, direction) {
-  let currVal = _getTaskValue(task.value);
+  const currVal = _getTaskValue(task.value);
   let testVal = currVal + Math.pow(0.9747, currVal) * (direction === 'down' ? -1 : 1);
 
   // Now keep moving closer to the original value until we get "close enough"
   // Check how close we are to the original value by computing the delta off our guess
   // and looking at the difference between that and our current value.
   while (true) { // eslint-disable-line no-constant-condition
-    let calc = testVal + Math.pow(0.9747, testVal);
-    let diff = currVal - calc;
+    const calc = testVal + Math.pow(0.9747, testVal);
+    const diff = currVal - calc;
 
     if (Math.abs(diff) < CLOSE_ENOUGH) break;
 
@@ -101,30 +100,30 @@ function _subtractPoints (user, task, stats, delta) {
   let conBonus = 1 - statsComputed(user).con / 250;
   if (conBonus < 0.1) conBonus = 0.1;
 
-  let hpMod = delta * conBonus * task.priority * 2; // constant 2 multiplier for better results
+  const hpMod = delta * conBonus * task.priority * 2; // constant 2 multiplier for better results
   stats.hp += Math.round(hpMod * 10) / 10; // round to 1dp
   return stats.hp;
 }
 
 function _addPoints (user, task, stats, direction, delta) {
-  let _crit = user._tmp.crit || 1;
+  const _crit = user._tmp.crit || 1;
 
   // Exp Modifier
   // ===== Intelligence =====
   // TODO Increases Experience gain by .2% per point.
-  let intBonus = 1 + statsComputed(user).int * 0.025;
+  const intBonus = 1 + statsComputed(user).int * 0.025;
   stats.exp += Math.round(delta * intBonus * task.priority * _crit * 6);
 
   // GP modifier
   // ===== PERCEPTION =====
   // TODO Increases Gold gained from tasks by .3% per point.
-  let perBonus = 1 + statsComputed(user).per * 0.02;
-  let gpMod = delta * task.priority * _crit * perBonus;
+  const perBonus = 1 + statsComputed(user).per * 0.02;
+  const gpMod = delta * task.priority * _crit * perBonus;
 
   if (task.streak) {
-    let currStreak = direction === 'down' ? task.streak - 1 : task.streak;
-    let streakBonus = currStreak / 100 + 1; // eg, 1-day streak is 1.01, 2-day is 1.02, etc
-    let afterStreak = gpMod * streakBonus;
+    const currStreak = direction === 'down' ? task.streak - 1 : task.streak;
+    const streakBonus = currStreak / 100 + 1; // eg, 1-day streak is 1.01, 2-day is 1.02, etc
+    const afterStreak = gpMod * streakBonus;
     if (currStreak > 0 && gpMod > 0) {
       user._tmp.streakBonus = afterStreak - gpMod; // keep this on-hand for later, so we can notify streak-bonus
     }
@@ -140,14 +139,14 @@ function _changeTaskValue (user, task, direction, times, cron) {
 
   // ===== CRITICAL HITS =====
   // allow critical hit only when checking off a task, not when unchecking it:
-  let _crit = direction === 'up' ? crit.crit(user) : 1;
+  const _crit = direction === 'up' ? crit.crit(user) : 1;
   // if there was a crit, alert the user via notification
   if (_crit > 1) user._tmp.crit = _crit;
 
   // If multiple days have passed, multiply times days missed
   timesLodash(times, () => {
     // Each iteration calculate the nextDelta, which is then accumulated in the total delta.
-    let nextDelta = !cron && direction === 'down' ? _calculateReverseDelta(task, direction) : _calculateDelta(task, direction, cron);
+    const nextDelta = !cron && direction === 'down' ? _calculateReverseDelta(task, direction) : _calculateDelta(task, direction, cron);
 
     if (task.type !== 'reward') {
       if (user.preferences.automaticAllocation === true && user.preferences.allocationMode === 'taskbased' && !(task.type === 'todo' && direction === 'down')) {
@@ -156,7 +155,7 @@ function _changeTaskValue (user, task, direction, times, cron) {
 
       if (direction === 'up') { // Make progress on quest based on STR
         user.party.quest.progress.up = user.party.quest.progress.up || 0;
-        let prevProgress = user.party.quest.progress.up;
+        const prevProgress = user.party.quest.progress.up;
 
         if (task.type === 'todo' || task.type === 'daily') {
           user.party.quest.progress.up += nextDelta * _crit * (1 + statsComputed(user).str / 200);
@@ -185,9 +184,11 @@ function _updateCounter (task, direction, times) {
 }
 
 export default function scoreTask (options = {}, req = {}) {
-  let {user, task, direction, times = 1, cron = false} = options;
+  const {
+    user, task, direction, times = 1, cron = false,
+  } = options;
   let delta = 0;
-  let stats = {
+  const stats = {
     gp: user.stats.gp,
     hp: user.stats.hp,
     exp: user.stats.exp,
@@ -215,8 +216,8 @@ export default function scoreTask (options = {}, req = {}) {
 
     // Save history entry for habit
     task.history = task.history || [];
-    const timezoneOffset = user.preferences.timezoneOffset;
-    const dayStart = user.preferences.dayStart;
+    const { timezoneOffset } = user.preferences;
+    const { dayStart } = user.preferences;
     const historyLength = task.history.length;
     const lastHistoryEntry = task.history[historyLength - 1];
 
@@ -229,8 +230,8 @@ export default function scoreTask (options = {}, req = {}) {
     }
 
     if (
-      lastHistoryEntryDate &&
-      moment().zone(timezoneOffset).isSame(lastHistoryEntryDate, 'day')
+      lastHistoryEntryDate
+      && moment().zone(timezoneOffset).isSame(lastHistoryEntryDate, 'day')
     ) {
       lastHistoryEntry.value = task.value;
       lastHistoryEntry.date = Number(new Date());
@@ -278,7 +279,7 @@ export default function scoreTask (options = {}, req = {}) {
 
         // Save history entry for daily
         task.history = task.history || [];
-        let historyEntry = {
+        const historyEntry = {
           date: Number(new Date()),
           value: task.value,
         };
@@ -312,7 +313,7 @@ export default function scoreTask (options = {}, req = {}) {
       _addPoints(user, task, stats, direction, delta);
 
       // MP++ per checklist item in ToDo, bonus per CLI
-      let multiplier = max([reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 1), 1]);
+      const multiplier = max([reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 1), 1]);
       _gainMP(user, max([multiplier, 0.01 * statsComputed(user).maxMP * multiplier]) * (direction === 'down' ? -1 : 1));
     }
   } else if (task.type === 'reward') {

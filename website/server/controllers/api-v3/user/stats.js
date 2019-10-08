@@ -2,7 +2,7 @@
 import common from '../../../../common';
 import { authWithHeaders } from '../../../middlewares/auth';
 
-let api = {};
+const api = {};
 
 /**
  * @api {post} /api/v3/user/allocate Allocate a single Stat Point (previously called Attribute Point)
@@ -30,8 +30,8 @@ api.allocate = {
   middlewares: [authWithHeaders()],
   url: '/user/allocate',
   async handler (req, res) {
-    let user = res.locals.user;
-    let allocateRes = common.ops.allocate(user, req);
+    const { user } = res.locals;
+    const allocateRes = common.ops.allocate(user, req);
     await user.save();
     res.respond(200, ...allocateRes);
   },
@@ -70,8 +70,8 @@ api.allocateBulk = {
   middlewares: [authWithHeaders()],
   url: '/user/allocate-bulk',
   async handler (req, res) {
-    let user = res.locals.user;
-    let allocateRes = common.ops.allocateBulk(user, req);
+    const { user } = res.locals;
+    const allocateRes = common.ops.allocateBulk(user, req);
     await user.save();
     res.respond(200, ...allocateRes);
   },
@@ -127,8 +127,8 @@ api.allocateNow = {
   middlewares: [authWithHeaders()],
   url: '/user/allocate-now',
   async handler (req, res) {
-    let user = res.locals.user;
-    let allocateNowRes = common.ops.allocateNow(user);
+    const { user } = res.locals;
+    const allocateNowRes = common.ops.allocateNow(user);
     await user.save();
     res.respond(200, ...allocateNowRes);
   },

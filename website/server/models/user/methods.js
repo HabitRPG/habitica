@@ -1,4 +1,7 @@
 import moment from 'moment';
+import {
+  defaults, map, flatten, flow, compact, uniq, partialRight,
+} from 'lodash';
 import common from '../../../common';
 
 import {
@@ -12,7 +15,6 @@ import {
   inboxModel as Inbox,
 } from '../message';
 
-import { defaults, map, flatten, flow, compact, uniq, partialRight } from 'lodash';
 import { model as UserNotification } from '../userNotification';
 import schema from './schema';
 import payments from '../../libs/payments/payments';
@@ -21,27 +23,27 @@ import amazonPayments from '../../libs/payments/amazon';
 import stripePayments from '../../libs/payments/stripe';
 import paypalPayments from '../../libs/payments/paypal';
 
-const daysSince = common.daysSince;
+const { daysSince } = common;
 
 schema.methods.isSubscribed = function isSubscribed () {
   const now = new Date();
-  const plan = this.purchased.plan;
+  const { plan } = this.purchased;
   return plan && plan.customerId && (!plan.dateTerminated || moment(plan.dateTerminated).isAfter(now));
 };
 
 schema.methods.hasNotCancelled = function hasNotCancelled () {
-  let plan = this.purchased.plan;
+  const { plan } = this.purchased;
   return Boolean(this.isSubscribed() && !plan.dateTerminated);
 };
 
 schema.methods.hasCancelled = function hasCancelled () {
-  let plan = this.purchased.plan;
+  const { plan } = this.purchased;
   return Boolean(this.isSubscribed() && plan.dateTerminated);
 };
 
 // Get an array of groups ids the user is member of
 schema.methods.getGroups = function getUserGroups () {
-  let userGroups = this.guilds.slice(0); // clone this.guilds so we don't modify the original
+  const userGroups = this.guilds.slice(0); // clone this.guilds so we don't modify the original
   if (this.party._id) userGroups.push(this.party._id);
   userGroups.push(TAVERN_ID);
   return userGroups;
@@ -85,19 +87,19 @@ schema.methods.getObjectionsToInteraction = function getObjectionsToInteraction 
     throw new Error(`Unknown kind of interaction: "${interaction}", expected one of ${KNOWN_INTERACTIONS.join(', ')}`);
   }
 
-  let sender = this;
-  let checks = [
+  const sender = this;
+  const checks = [
     INTERACTION_CHECKS.always,
     INTERACTION_CHECKS[interaction],
   ];
 
-  let executeChecks = partialRight(map, (check) => check(sender, receiver));
+  const executeChecks = partialRight(map, check => check(sender, receiver));
 
   return flow(
     flatten,
     executeChecks,
     compact, // Remove passed checks (passed checks return falsy; failed checks return message keys)
-    uniq
+    uniq,
   )(checks);
 };
 
@@ -115,7 +117,7 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, o
   const sender = this;
   const senderMsg = options.senderMsg || options.receiverMsg;
   // whether to save users after sending the message, defaults to true
-  const saveUsers = options.save === false ? false : true;
+  const saveUsers = options.save !== false;
 
   const newReceiverMessage = new Inbox({
     ownerId: userToReceiveMessage._id,
@@ -202,14 +204,14 @@ schema.methods.addNotification = function addUserNotification (type, data = {}, 
  * @param  data  The data to add to the notification
  */
 schema.statics.pushNotification = async function pushNotification (query, type, data = {}, seen = false) {
-  let newNotification = new UserNotification({type, data, seen});
+  const newNotification = new UserNotification({ type, data, seen });
 
-  let validationResult = newNotification.validateSync();
+  const validationResult = newNotification.validateSync();
   if (validationResult) {
     throw validationResult;
   }
 
-  await this.update(query, {$push: {notifications: newNotification.toObject()}}, {multi: true}).exec();
+  await this.update(query, { $push: { notifications: newNotification.toObject() } }, { multi: true }).exec();
 };
 
 // Static method to add/remove properties to a JSON User object,
@@ -255,14 +257,14 @@ schema.statics.addComputedStatsToJSONObj = function addComputedStatsToUserJSONOb
 // In summary, currently is is best practice to use this method to cancel a user subscription, rather than calling the
 // payment helper.
 schema.methods.cancelSubscription = async function cancelSubscription (options = {}) {
-  let plan = this.purchased.plan;
+  const { plan } = this.purchased;
 
   options.user = this;
   if (plan.paymentMethod === amazonPayments.constants.PAYMENT_METHOD) {
     return await amazonPayments.cancelSubscription(options);
-  } else if (plan.paymentMethod === stripePayments.constants.PAYMENT_METHOD) {
+  } if (plan.paymentMethod === stripePayments.constants.PAYMENT_METHOD) {
     return await stripePayments.cancelSubscription(options);
-  } else if (plan.paymentMethod === paypalPayments.constants.PAYMENT_METHOD) {
+  } if (plan.paymentMethod === paypalPayments.constants.PAYMENT_METHOD) {
     return await paypalPayments.subscribeCancel(options);
   }
   // Android and iOS subscriptions cannot be cancelled by Habitica.
@@ -276,7 +278,7 @@ schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
   // both timezones to work out if cron should run.
   // CDS = Custom Day Start time.
   let timezoneOffsetFromUserPrefs = this.preferences.timezoneOffset;
-  let timezoneOffsetAtLastCron = isFinite(this.preferences.timezoneOffsetAtLastCron) ? this.preferences.timezoneOffsetAtLastCron : timezoneOffsetFromUserPrefs;
+  const timezoneOffsetAtLastCron = isFinite(this.preferences.timezoneOffsetAtLastCron) ? this.preferences.timezoneOffsetAtLastCron : timezoneOffsetFromUserPrefs;
   let timezoneOffsetFromBrowser = typeof req.header === 'function' && Number(req.header('x-user-timezoneoffset'));
   timezoneOffsetFromBrowser = isFinite(timezoneOffsetFromBrowser) ? timezoneOffsetFromBrowser : timezoneOffsetFromUserPrefs;
   // NB: All timezone offsets can be 0, so can't use `... || ...` to apply non-zero defaults
@@ -289,7 +291,7 @@ schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
   }
 
   // How many days have we missed using the user's current timezone:
-  let daysMissed = daysSince(this.lastCron, defaults({now}, this.preferences));
+  let daysMissed = daysSince(this.lastCron, defaults({ now }, this.preferences));
 
   if (timezoneOffsetAtLastCron !== timezoneOffsetFromUserPrefs) {
     // Give the user extra time based on the difference in timezones
@@ -300,8 +302,8 @@ schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
 
     // Since cron last ran, the user's timezone has changed.
     // How many days have we missed using the old timezone:
-    let daysMissedNewZone = daysMissed;
-    let daysMissedOldZone = daysSince(this.lastCron, defaults({
+    const daysMissedNewZone = daysMissed;
+    const daysMissedOldZone = daysSince(this.lastCron, defaults({
       now,
       timezoneOffsetOverride: timezoneOffsetAtLastCron,
     }, this.preferences));
@@ -335,7 +337,7 @@ schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
         // timezone interprets as being in today.
 
         daysMissed = 0; // prevent cron running now
-        let timezoneOffsetDiff = timezoneOffsetAtLastCron - timezoneOffsetFromUserPrefs;
+        const timezoneOffsetDiff = timezoneOffsetAtLastCron - timezoneOffsetFromUserPrefs;
         // e.g., for dangerous zone change: 240 - 300 = -60 or  -660 - -600 = -60
 
         this.lastCron = moment(this.lastCron).subtract(timezoneOffsetDiff, 'minutes');
@@ -355,7 +357,7 @@ schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
     }
   }
 
-  return {daysMissed, timezoneOffsetFromUserPrefs};
+  return { daysMissed, timezoneOffsetFromUserPrefs };
 };
 
 async function getUserGroupData (user) {
@@ -363,7 +365,7 @@ async function getUserGroupData (user) {
 
   const groups = await Group
     .find({
-      _id: {$in: userGroups},
+      _id: { $in: userGroups },
     })
     .select('leaderOnly leader purchased')
     .exec();
@@ -376,7 +378,7 @@ async function getUserGroupData (user) {
 // its the group leader
 schema.methods.canGetGems = async function canObtainGems () {
   const user = this;
-  const plan = user.purchased.plan;
+  const { plan } = user.purchased;
 
   if (!user.isSubscribed() || plan.customerId !== payments.constants.GROUP_PLAN_CUSTOMER_ID) {
     return true;
@@ -384,17 +386,13 @@ schema.methods.canGetGems = async function canObtainGems () {
 
   const groups = await getUserGroupData(user);
 
-  return groups.every(g => {
-    return !g.isSubscribed() || g.leader === user._id || g.leaderOnly.getGems !== true;
-  });
+  return groups.every(g => !g.isSubscribed() || g.leader === user._id || g.leaderOnly.getGems !== true);
 };
 
 schema.methods.isMemberOfGroupPlan = async function isMemberOfGroupPlan () {
   const groups = await getUserGroupData(this);
 
-  return groups.some(g => {
-    return g.isSubscribed();
-  });
+  return groups.some(g => g.isSubscribed());
 };
 
 schema.methods.isAdmin = function isAdmin () {
@@ -408,7 +406,7 @@ schema.methods.toJSONWithInbox = async function userToJSONWithInbox () {
   const toJSON = user.toJSON();
 
   if (toJSON.inbox) {
-    toJSON.inbox.messages = await inboxLib.getUserInbox(user, {asArray: false});
+    toJSON.inbox.messages = await inboxLib.getUserInbox(user, { asArray: false });
   }
 
   return toJSON;

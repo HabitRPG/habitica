@@ -1,18 +1,20 @@
 // This module is only used to attach middlewares to the express app
-import errorHandler from './errorHandler';
 import bodyParser from 'body-parser';
-import notFoundHandler from './notFound';
 import nconf from 'nconf';
 import morgan from 'morgan';
 import cookieSession from 'cookie-session';
+import mongoose from 'mongoose';
+import compression from 'compression';
+import methodOverride from 'method-override';
+import passport from 'passport';
+import basicAuth from 'express-basic-auth';
+import helmet from 'helmet';
+import errorHandler from './errorHandler';
+import notFoundHandler from './notFound';
 import cors from './cors';
 import staticMiddleware from './static';
 import domainMiddleware from './domain';
-import mongoose from 'mongoose';
-import compression from 'compression';
 // import favicon from 'serve-favicon';
-import methodOverride from 'method-override';
-import passport from 'passport';
 // import path from 'path';
 import maintenanceMode from './maintenanceMode';
 import {
@@ -26,8 +28,6 @@ import responseHandler from './response';
 import {
   attachTranslateFunction,
 } from './language';
-import basicAuth from 'express-basic-auth';
-import helmet from 'helmet';
 
 const IS_PROD = nconf.get('IS_PROD');
 const DISABLE_LOGGING = nconf.get('DISABLE_REQUEST_LOGGING') === 'true';

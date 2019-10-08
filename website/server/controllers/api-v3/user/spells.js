@@ -3,7 +3,7 @@ import {
   castSpell,
 } from '../../../libs/spells';
 
-let api = {};
+const api = {};
 
 /* NOTE this route has also an API v4 version */
 

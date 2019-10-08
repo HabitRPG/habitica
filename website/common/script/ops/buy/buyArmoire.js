@@ -1,15 +1,15 @@
-import content from '../../content/index';
 import filter from 'lodash/filter';
 import isEmpty from 'lodash/isEmpty';
 import pick from 'lodash/pick';
+import content from '../../content/index';
 import * as count from '../../count';
 import splitWhitespace from '../../libs/splitWhitespace';
 import {
   NotAuthorized,
 } from '../../libs/errors';
 import randomVal, * as randomValFns from '../../libs/randomVal';
-import {removeItemByPath} from '../pinnedGearUtils';
-import {AbstractGoldItemOperation} from './abstractBuyOperation';
+import { removeItemByPath } from '../pinnedGearUtils';
+import { AbstractGoldItemOperation } from './abstractBuyOperation';
 
 // TODO this is only used on the server
 // move out of common?
@@ -27,7 +27,7 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation {
   }
 
   extractAndValidateParams (user) {
-    let item = content.armoire;
+    const item = content.armoire;
 
     this.canUserPurchase(user, item);
   }
@@ -35,11 +35,9 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation {
   executeChanges (user, item) {
     let result = {};
 
-    let armoireResult = randomValFns.trueRandom();
-    let eligibleEquipment = filter(content.gear.flat, (eligible) => {
-      return eligible.klass === 'armoire' && !user.items.gear.owned[eligible.key];
-    });
-    let armoireHasEquipment = !isEmpty(eligibleEquipment);
+    const armoireResult = randomValFns.trueRandom();
+    const eligibleEquipment = filter(content.gear.flat, eligible => eligible.klass === 'armoire' && !user.items.gear.owned[eligible.key]);
+    const armoireHasEquipment = !isEmpty(eligibleEquipment);
 
     if (armoireHasEquipment && (armoireResult < YIELD_EQUIPMENT_THRESHOLD || !user.flags.armoireOpened)) {
       result = this._gearResult(user, eligibleEquipment);
@@ -51,7 +49,7 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation {
 
     this.subtractCurrency(user, item);
 
-    let {message, armoireResp} = result;
+    let { message, armoireResp } = result;
 
     if (!message) {
       message = this.i18n('messageBought', {
@@ -59,7 +57,7 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation {
       });
     }
 
-    let resData = pick(user, splitWhitespace('items flags'));
+    const resData = pick(user, splitWhitespace('items flags'));
     if (armoireResp) resData.armoire = armoireResp;
 
     return [
@@ -83,7 +81,7 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation {
 
   _gearResult (user, eligibleEquipment) {
     eligibleEquipment.sort();
-    let drop = randomVal(eligibleEquipment);
+    const drop = randomVal(eligibleEquipment);
 
     if (user.items.gear.owned[drop.key]) {
       throw new NotAuthorized(this.i18n('equipmentAlreadyOwned'));
@@ -93,7 +91,7 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation {
     if (user.markModified) user.markModified('items.gear.owned');
 
     user.flags.armoireOpened = true;
-    let message = this.i18n('armoireEquipment', {
+    const message = this.i18n('armoireEquipment', {
       image: `<span class="shop_${drop.key} pull-left"></span>`,
       dropText: drop.text(this.req.language),
     });
@@ -108,7 +106,7 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation {
       this._trackDropAnalytics(user._id, drop.key);
     }
 
-    let armoireResp = {
+    const armoireResp = {
       type: 'gear',
       dropKey: drop.key,
       dropText: drop.text(this.req.language),
@@ -121,7 +119,7 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation {
   }
 
   _foodResult (user) {
-    let drop = randomVal(filter(content.food, {
+    const drop = randomVal(filter(content.food, {
       canDrop: true,
     }));
 
@@ -147,7 +145,7 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation {
   }
 
   _experienceResult (user) {
-    let armoireExp = Math.floor(randomValFns.trueRandom() * 40 + 10);
+    const armoireExp = Math.floor(randomValFns.trueRandom() * 40 + 10);
     user.stats.exp += armoireExp;
 
     return {

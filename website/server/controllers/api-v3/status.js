@@ -1,4 +1,4 @@
-let api = {};
+const api = {};
 
 /**
  * @api {get} /api/v3/status Get Habitica's API status
