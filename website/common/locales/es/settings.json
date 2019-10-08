@@ -119,8 +119,8 @@
     "giftedSubscriptionInfo": "<%= name %> te ha regalado una suscripción de <%= months %> meses",
     "giftedSubscriptionFull": "¡Hola <%= username %>, <%= sender %> te ha enviado <%= monthCount %> meses de suscripción!",
     "giftedSubscriptionWinterPromo": "¡Hola <%= username %>, recibiste <%= monthCount %> meses de suscripción como parte de nuestra promoción de regalos festivos!",
-    "invitedParty": "Invitado al Equipo",
-    "invitedGuild": "Invitado al Gremio",
+    "invitedParty": "Has sido invitado a un Equipo",
+    "invitedGuild": "Has sido invitado a un Gremio",
     "importantAnnouncements": "Recordatorios para entrar en Habitica, completar tareas y recibir premios",
     "weeklyRecaps": "Resumen de la actividad de tu cuenta durante la última semana. (Nota: Esta función está deshabilitada en estos momentos por problemas de rendimiento, pero esperamos poder restablecerla y enviar correos de nuevo muy pronto).",
     "onboarding": "Pautas para configurar tu cuenta de Habitica",
@@ -204,5 +204,7 @@
     "usernameVerifiedConfirmation": "¡Tu nombre de usuario, <%= username %>, está confirmado!",
     "usernameNotVerified": "Por favor, confirma tu nombre de usuario.",
     "changeUsernameDisclaimer": "Pronto estaremos haciendo el cambio de nombres de inicio de sesión a nombres de usuario públicos únicos. Este nombre de usuario se usará para invitaciones, @menciones en los chats, y mensajes.",
-    "verifyUsernameVeteranPet": "¡Una de estas Mascotas Veteranas te estará esperando cuando hayas terminado de confirmar!"
+    "verifyUsernameVeteranPet": "¡Una de estas Mascotas Veteranas te estará esperando cuando hayas terminado de confirmar!",
+    "subscriptionReminders": "Recordatorios de Suscripciones",
+    "newPMNotificationTitle": "Nuevo mensaje de <%= name %>"
 }

@@ -152,7 +152,7 @@
     "mysterySet201810": "Conjunto del Bosque Oscuro",
     "mysterySet201811": "Conjunto de Hechicero Espléndido",
     "mysterySet201812": "Conjunto Zorro Ártico",
-    "mysterySet201901": "Polaris Set",
+    "mysterySet201901": "Conjunto Polaris",
     "mysterySet301404": "El Conjunto Steampunk",
     "mysterySet301405": "Accesorios Steampunk",
     "mysterySet301703": "Conjunto de Pavo real Steampunk",
@@ -219,10 +219,11 @@
     "subCanceledTitle": "Suscripción cancelada",
     "mysterySet201908": "Conjunto de Fauno Footloose",
     "mysterySet201907": "Conjunto de Colega Playero",
-    "mysterySet201906": "Conjunto de Amable Koi",
+    "mysterySet201906": "Conjunto Koi Bondadoso",
     "mysterySet201905": "Conjunto de Dragón Deslumbrante",
     "mysterySet201904": "Conjunto Ópalo Opulento",
     "mysterySet201903": "Conjunto Egg-quisito",
     "subWillBecomeInactive": "Dejará de estar activa",
-    "confirmCancelSub": "¿Seguro que quieres cancelar tu suscripción? Perderás todos los beneficios asociados a ella."
+    "confirmCancelSub": "¿Seguro que quieres cancelar tu suscripción? Perderás todos los beneficios asociados a ella.",
+    "mysterySet201909": "Conjunto Bellota Adorable"
 }
