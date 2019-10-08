@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'SPOOKY SPARKLES AND COSTUME CHALLENGE!';
+const LAST_ANNOUNCEMENT_TITLE = 'SUPERNATURAL SKINS AND HAUNTED HAIR COLORS';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,21 +30,15 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>10/3/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>10/8/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_spooky_sparkles center-block"></div>
-        <h3>Spooky Sparkles in the Seasonal Shop</h3>
-        <p>There's a new Gold-purchasable item in the Seasonal Shop: <a href='/shops/seasonal'>Spooky Sparkles</a>! Buy some and then cast it on your friends. I wonder what it will do?</p>
-        <p>If you have Spooky Sparkles cast on you, you will receive the "Alarming Friends" badge! Don't worry, any mysterious effects will wear off the next day.... or you can cancel them early by buying an Opaque Potion!</p>
-        <p>While you're at it, be sure to check out all the other items in the Seasonal Shop! There are lots of equipment items from the previous Fall Festivals. The Seasonal Shop will only be open until October 31st, so stock up now.</p>
-        <div class="small mb-3">by Lemoness and SabreCat</div>
-        <div class="promo_costume_achievement center-block"></div>
-        <h3>Costume Challenge</h3>
-        <p>The Community Costume Challenge has begun! Between now and October 31st, dress up as your avatar in real life and post a photo on social media to get the coveted Costume Challenge badge! <a href='/challenges/b2b4b952-c79e-47ff-9c5d-ae72d04aa8ee'>Read the full rules on the Challenge page</a>.</p>
-        <p>Looking for inspiration? Check out the <a href='https://blog.habitrpg.com/cosplay' target='_blank'>Cosplay hashtag on our Tumblr</a> to see past entries!</p>
-        <div class="small mb-3">by Beffymaroo</div>
+        <div class="promo_fall_skins center-block"></div>
+        <p>The Seasonal Edition Haunted Hair Colors are now available for purchase! Now you can dye your avatar's hair Pumpkin, Midnight, Candy Corn, Ghost White, Zombie, or Halloween. Get them before October 31st!</p>
+        <p>The Supernatural Skin Set is also available until October 31st! Now your avatar can become an Ogre, Skeleton, Pumpkin, Candy Corn, Reptile, or Dread Shade.</p>
+        <p>Seasonal Edition items recur unchanged every year, but they are only available to purchase during a short period of time. Find these exciting skins and hair colors in User>Edit Avatar. Get them now, or you'll have to wait until next year!</p>
+        <div class="small mb-3">by Lemoness, mariahm, and crystalphoenix</div>
       </div>
       `,
     });
