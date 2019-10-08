@@ -1,8 +1,11 @@
-require('babel-register');
+require('@babel/register'); // eslint-disable-line import/no-extraneous-dependencies
 
-// This file is used for creating paypal billing plans. PayPal doesn't have a web interface for setting up recurring
-// payment plan definitions, instead you have to create it via their REST SDK and keep it updated the same way. So this
-// file will be used once for initing your billing plan (then you get the resultant plan.id to store in config.json),
+// This file is used for creating paypal billing plans.
+// PayPal doesn't have a web interface for setting up recurring
+// payment plan definitions, instead you have to create it
+// via their REST SDK and keep it updated the same way. So this
+// file will be used once for initing your billing plan
+// (then you get the resultant plan.id to store in config.json),
 // and once for any time you need to edit the plan thereafter
 
 /* eslint-disable no-console, camelcase, no-case-declarations */
@@ -99,6 +102,8 @@ switch (OP) {
       paypal.billingPlan.update(plan.id, billingPlanUpdateAttributes, (err2, response) => {
         console.log({ err: err2, response, id: plan.id });
       });
+
+      return null;
     });
     break;
   case 'create-webprofile':
@@ -113,4 +118,6 @@ switch (OP) {
       console.log(error, result);
     });
     break;
+  default:
+    throw new Error('Invalid op');
 }

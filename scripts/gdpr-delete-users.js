@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import axios from 'axios';
+import axios from 'axios'; // eslint-disable-line import/no-extraneous-dependencies
 import nconf from 'nconf';
 import { model as User } from '../website/server/models/user';
 
@@ -77,10 +77,10 @@ async function processEmailAddress (email) {
   if (users.length < 1) {
     console.log(`No users found with email address ${email}`);
   } else {
-    for (const user of users) {
+    Promise.all(users.map(user => (async () => {
       await deleteAmplitudeData(user._id, email); // eslint-disable-line no-await-in-loop
       await deleteHabiticaData(user, email); // eslint-disable-line no-await-in-loop
-    }
+    })()));
   }
 }
 
