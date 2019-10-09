@@ -89,12 +89,14 @@ schema.methods.canModify = function canModifyChallenge (user) {
 // Returns true if user can join the challenge
 schema.methods.canJoin = function canJoinChallenge (user, group) {
   if (group.type === 'guild' && group.privacy === 'public') return true;
-  if (this.isLeader(user)) return true; // for when leader has left private group that contains the challenge
+  // for when leader has left private group that contains the challenge
+  if (this.isLeader(user)) return true;
   return user.getGroups().indexOf(this.group) !== -1;
 };
 
 // Returns true if user can view the challenge
-// Different from canJoin because you can see challenges of groups you've been removed from if you're participating in them
+// Different from canJoin because you can see challenges of groups
+// you've been removed from if you're participating in them
 schema.methods.canView = function canViewChallenge (user, group) {
   if (this.isMember(user)) return true;
   return this.canJoin(user, group);
@@ -108,7 +110,8 @@ schema.methods.syncToUser = async function syncChallengeToUser (user) {
 
   // Add challenge to user.challenges
   if (!_.includes(user.challenges, challenge._id)) {
-    // using concat because mongoose's protection against concurrent array modification isn't working as expected.
+    // using concat because mongoose's protection against
+    // concurrent array modification isn't working as expected.
     // see https://github.com/HabitRPG/habitica/pull/7787#issuecomment-232972394
     user.challenges = user.challenges.concat([challenge._id]);
   }
@@ -119,7 +122,8 @@ schema.methods.syncToUser = async function syncChallengeToUser (user) {
   if (i !== -1) {
     if (userTags[i].name !== challenge.shortName) {
       // update the name - it's been changed since
-      // @TODO: We probably want to remove this. Owner is not allowed to change participant's copy of the tag.
+      // @TODO: We probably want to remove this.
+      // Owner is not allowed to change participant's copy of the tag.
       userTags[i].name = challenge.shortName;
     }
   } else {
@@ -150,7 +154,11 @@ schema.methods.syncToUser = async function syncChallengeToUser (user) {
 
     if (!matchingTask) { // If the task is new, create it
       matchingTask = new Tasks[chalTask.type](Tasks.Task.sanitize(syncableAttrs(chalTask)));
-      matchingTask.challenge = { taskId: chalTask._id, id: challenge._id, shortName: challenge.shortName };
+      matchingTask.challenge = {
+        taskId: chalTask._id,
+        id: challenge._id,
+        shortName: challenge.shortName,
+      };
       matchingTask.userId = user._id;
       user.tasksOrder[`${chalTask.type}s`].push(matchingTask._id);
       setNextDue(matchingTask, user);
@@ -161,8 +169,10 @@ schema.methods.syncToUser = async function syncChallengeToUser (user) {
       if (orderList.indexOf(matchingTask._id) === -1 && (matchingTask.type !== 'todo' || !matchingTask.completed)) orderList.push(matchingTask._id);
     }
 
-    if (!matchingTask.notes) matchingTask.notes = chalTask.notes; // don't override the notes, but provide it if not provided
-    if (matchingTask.tags.indexOf(challenge._id) === -1) matchingTask.tags.push(challenge._id); // add tag if missing
+    // don't override the notes, but provide it if not provided
+    if (!matchingTask.notes) matchingTask.notes = chalTask.notes;
+    // add tag if missing
+    if (matchingTask.tags.indexOf(challenge._id) === -1) matchingTask.tags.push(challenge._id);
     toSave.push(matchingTask.save());
   });
 
@@ -188,7 +198,11 @@ async function _addTaskFn (challenge, tasks, memberId) {
 
   tasks.forEach(chalTask => {
     const userTask = new Tasks[chalTask.type](Tasks.Task.sanitize(syncableAttrs(chalTask)));
-    userTask.challenge = { taskId: chalTask._id, id: challenge._id, shortName: challenge.shortName };
+    userTask.challenge = {
+      taskId: chalTask._id,
+      id: challenge._id,
+      shortName: challenge.shortName,
+    };
     userTask.userId = memberId;
 
     // We want to sync the notes and tags when the task is first added to the challenge
@@ -212,7 +226,7 @@ async function _addTaskFn (challenge, tasks, memberId) {
 
   // Update the user
   toSave.unshift(User.update({ _id: memberId }, updateTasksOrderQ).exec());
-  return await Promise.all(toSave);
+  return Promise.all(toSave);
 }
 
 // Add a new task to challenge members
@@ -237,7 +251,8 @@ schema.methods.updateTask = async function challengeUpdateTask (task) {
   }
 
   const taskSchema = Tasks[task.type];
-  // Updating instead of loading and saving for performances, risks becoming a problem if we introduce more complexity in tasks
+  // Updating instead of loading and saving for performances,
+  // risks becoming a problem if we introduce more complexity in tasks
   await taskSchema.update({
     userId: { $exists: true },
     'challenge.id': challenge.id,
@@ -268,7 +283,7 @@ schema.methods.unlinkTasks = async function challengeUnlinkTasks (user, keep, sa
   };
 
   removeFromArray(user.challenges, challengeId);
-  this.memberCount--;
+  this.memberCount -= 1;
 
   if (keep === 'keep-all') {
     await Tasks.Task.update(findQuery, {
@@ -303,7 +318,8 @@ schema.methods.unlinkTasks = async function challengeUnlinkTasks (user, keep, sa
 };
 
 // TODO everything here should be moved to a worker
-// actually even for a worker it's probably just too big and will kill mongo, figure out something else
+// actually even for a worker it's probably just too big
+// and will kill mongo, figure out something else
 schema.methods.closeChal = async function closeChal (broken = {}) {
   const challenge = this;
 
@@ -329,7 +345,10 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
     // reimburse the leader
     const winnerCanGetGems = await winner.canGetGems();
     if (!winnerCanGetGems) {
-      await User.update({ _id: challenge.leader }, { $inc: { balance: challenge.prize / 4 } }).exec();
+      await User.update(
+        { _id: challenge.leader },
+        { $inc: { balance: challenge.prize / 4 } },
+      ).exec();
     } else {
       winner.balance += challenge.prize / 4;
     }
@@ -357,7 +376,8 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
   const backgroundTasks = [
     // And it's tasks
     Tasks.Task.remove({ 'challenge.id': challenge._id, userId: { $exists: false } }).exec(),
-    // Set the challenge tag to non-challenge status and remove the challenge from the user's challenges
+    // Set the challenge tag to non-challenge status
+    // and remove the challenge from the user's challenges
     User.update({
       challenges: challenge._id,
       'tags.id': challenge._id,
@@ -379,4 +399,4 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
   Promise.all(backgroundTasks);
 };
 
-export const model = mongoose.model('Challenge', schema);
+export const model = mongoose.model('Challenge', schema); // eslint-disable-line import/prefer-default-export

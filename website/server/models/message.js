@@ -128,7 +128,8 @@ export function messageDefaults (msg, user, client, flagCount = 0, info = {}) {
       contributor: user.contributor && user.contributor.toObject(),
       backer: user.backer && user.backer.toObject(),
       user: user.profile.name,
-      username: user.flags && user.flags.verifiedUsername && user.auth && user.auth.local && user.auth.local.username,
+      username: user.flags && user.flags.verifiedUsername
+        && user.auth && user.auth.local && user.auth.local.username,
     });
   } else {
     message.uuid = 'system';

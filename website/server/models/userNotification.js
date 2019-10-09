@@ -83,7 +83,7 @@ export const schema = new Schema({
  * @TODO Remove once https://github.com/HabitRPG/habitica/issues/9923
  * is fixed
  */
-schema.statics.convertNotificationsToSafeJson = function convertNotificationsToSafeJson (notifications) {
+schema.statics.convertNotificationsToSafeJson = function convNotifsToSafeJson (notifications) {
   if (!notifications) return notifications;
 
   let filteredNotifications = notifications.filter(n => {

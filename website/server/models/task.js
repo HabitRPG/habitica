@@ -56,8 +56,9 @@ reminderSchema.plugin(baseModel, {
   _id: false,
 });
 
-// Important
-// When something changes here remember to update the client side model at common/script/libs/taskDefaults
+// NOTE IMPORTANTE
+// When something changes here remember to update the client side model
+// at common/script/libs/taskDefaults
 export const TaskSchema = new Schema({
   type: {
     $type: String, enum: tasksTypes, required: true, default: tasksTypes[0],
@@ -94,7 +95,8 @@ export const TaskSchema = new Schema({
     $type: String,
     validate: [v => validator.isUUID(v), 'Invalid uuid.'],
   }],
-  value: { $type: Number, default: 0, required: true }, // redness or cost for rewards Required because it must be settable (for rewards)
+  // redness or cost for rewards Required because it must be settable (for rewards)
+  value: { $type: Number, default: 0, required: true },
   priority: {
     $type: Number,
     default: 1,
@@ -129,7 +131,11 @@ export const TaskSchema = new Schema({
       requested: { $type: Boolean, default: false },
       requestedDate: { $type: Date },
     },
-    sharedCompletion: { $type: String, enum: _.values(SHARED_COMPLETION), default: SHARED_COMPLETION.single },
+    sharedCompletion: {
+      $type: String,
+      enum: _.values(SHARED_COMPLETION),
+      default: SHARED_COMPLETION.single,
+    },
   },
 
   reminders: [reminderSchema],
@@ -162,8 +168,13 @@ TaskSchema.plugin(baseModel, {
   timestamps: true,
 });
 
-TaskSchema.statics.findByIdOrAlias = async function findByIdOrAlias (identifier, userId, additionalQueries = {}) {
-  // not using i18n strings because these errors are meant for devs who forgot to pass some parameters
+TaskSchema.statics.findByIdOrAlias = async function findByIdOrAlias (
+  identifier,
+  userId,
+  additionalQueries = {},
+) {
+  // not using i18n strings because these errors
+  // are meant for devs who forgot to pass some parameters
   if (!identifier) throw new InternalServerError('Task identifier is a required argument');
   if (!userId) throw new InternalServerError('User identifier is a required argument');
 
@@ -224,7 +235,8 @@ TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta
       lastHistoryEntry.date = Number(new Date());
 
       if (chalTask.type === 'habit') {
-        // @TODO remove this extra check after migration has run to set scoredUp and scoredDown in every task
+        // @TODO remove this extra check after migration has run to set scoredUp and scoredDown
+        // in every task
         lastHistoryEntry.scoredUp = lastHistoryEntry.scoredUp || 0;
         lastHistoryEntry.scoredDown = lastHistoryEntry.scoredDown || 0;
 
@@ -251,7 +263,8 @@ TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta
 
       // Only preen task history once a day when the task is scored first
       if (chalTask.history.length > 365) {
-        chalTask.history = preenHistory(chalTask.history, true); // true means the challenge will retain as many entries as a subscribed user
+        // true means the challenge will retain as many entries as a subscribed user
+        chalTask.history = preenHistory(chalTask.history, true);
       }
     }
   }
@@ -259,16 +272,15 @@ TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta
   await chalTask.save();
 };
 
-export let Task = mongoose.model('Task', TaskSchema);
+export const Task = mongoose.model('Task', TaskSchema);
 
 // habits and dailies shared fields
-const habitDailySchema = () =>
-  // Schema not defined because it causes serious perf problems
-  // date is a date stored as a Number value
-  // value is a Number
-  // scoredUp and scoredDown only exist for habits and are numbers
-  ({ history: Array })
-;
+// Schema for history not defined because it causes serious perf problems
+// date is a date stored as a Number value
+// value is a Number
+// scoredUp and scoredDown only exist for habits and are numbers
+
+const habitDailySchema = () => ({ history: Array });
 
 // dailys and todos shared fields
 const dailyTodoSchema = () => ({
@@ -322,8 +334,10 @@ export const DailySchema = new Schema(_.defaults({
     su: { $type: Boolean, default: true },
   },
   streak: { $type: Number, default: 0 },
-  daysOfMonth: { $type: [Number], default: [] }, // Days of the month that the daily should repeat on
-  weeksOfMonth: { $type: [Number], default: [] }, // Weeks of the month that the daily should repeat on
+  // Days of the month that the daily should repeat on
+  daysOfMonth: { $type: [Number], default: [] },
+  // Weeks of the month that the daily should repeat on
+  weeksOfMonth: { $type: [Number], default: [] },
   isDue: { $type: Boolean },
   nextDue: [{ $type: String }],
   yesterDaily: { $type: Boolean, default: true, required: true },

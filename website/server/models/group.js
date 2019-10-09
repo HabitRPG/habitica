@@ -204,14 +204,14 @@ function _cleanQuestParty (merge) {
 // return a clean user.quest of a particular user while keeping his progress
 function _cleanQuestUser (userProgress) {
   if (!userProgress) {
-    userProgress = {
+    userProgress = { // eslint-disable-line no-param-reassign
       up: 0,
       down: 0,
       collect: {},
       collectedItems: 0,
     };
   } else {
-    userProgress = userProgress.toObject();
+    userProgress = userProgress.toObject(); // eslint-disable-line no-param-reassign
   }
 
   const clean = {
@@ -226,7 +226,8 @@ function _cleanQuestUser (userProgress) {
 
 schema.statics.getGroup = async function getGroup (options = {}) {
   const {
-    user, groupId, fields, optionalMembership = false, populateLeader = false, requireMembership = false,
+    user, groupId, fields, optionalMembership = false,
+    populateLeader = false, requireMembership = false,
   } = options;
   let query;
 
@@ -286,7 +287,7 @@ schema.statics.getGroups = async function getGroups (options = {}) {
   if (!areValidTypes) throw new BadRequest(shared.i18n.t('groupTypesRequired'));
 
   types.forEach(type => {
-    switch (type) {
+    switch (type) { // eslint-disable-line default-case
       case 'party': {
         queries.push(this.getGroup({
           user, groupId: 'party', fields: groupFields, populateLeader,
@@ -318,7 +319,8 @@ schema.statics.getGroups = async function getGroups (options = {}) {
         queries.push(privateGuildsQuery);
         break;
       }
-      // NOTE: when returning publicGuilds we use `.lean()` so all mongoose methods won't be available.
+      // NOTE: when returning publicGuilds we use `.lean()` so all
+      // mongoose methods won't be available.
       // Docs are going to be plain javascript objects
       case 'publicGuilds': {
         const query = {
@@ -326,11 +328,16 @@ schema.statics.getGroups = async function getGroups (options = {}) {
           privacy: 'public',
         };
         _.assign(query, filters);
+
         const publicGuildsQuery = this.find(query).select(groupFields);
+
         if (populateLeader === true) publicGuildsQuery.populate('leader', nameFields);
-        if (paginate === true) publicGuildsQuery.limit(GUILDS_PER_PAGE).skip(page * GUILDS_PER_PAGE);
+        if (paginate === true) {
+          publicGuildsQuery.limit(GUILDS_PER_PAGE).skip(page * GUILDS_PER_PAGE);
+        }
         publicGuildsQuery.sort(sort).lean().exec();
         queries.push(publicGuildsQuery);
+
         break;
       }
       case 'tavern': {
@@ -343,8 +350,10 @@ schema.statics.getGroups = async function getGroups (options = {}) {
   });
 
   const groupsArray = _.reduce(await Promise.all(queries), (previousValue, currentValue) => {
-    if (_.isEmpty(currentValue)) return previousValue; // don't add anything to the results if the query returned null or an empty array
-    return previousValue.concat(Array.isArray(currentValue) ? currentValue : [currentValue]); // otherwise concat the new results to the previousValue
+    // don't add anything to the results if the query returned null or an empty array
+    if (_.isEmpty(currentValue)) return previousValue;
+    // otherwise concat the new results to the previousValue
+    return previousValue.concat(Array.isArray(currentValue) ? currentValue : [currentValue]);
   }, []);
 
   return groupsArray;
@@ -355,7 +364,8 @@ schema.statics.getGroups = async function getGroups (options = {}) {
 // Not putting into toJSON because there we can't access user
 // It also removes the _meta field that can be stored inside a chat message
 schema.statics.toJSONCleanChat = async function groupToJSONCleanChat (group, user) {
-  // @TODO: Adding this here for support the old chat, but we should depreciate accessing chat like this
+  // @TODO: Adding this here for support the old chat,
+  // but we should depreciate accessing chat like this
   // Also only return chat if requested, eventually we don't want to return chat here
   if (group && group.chat) {
     await getGroupChat(group);
@@ -384,7 +394,9 @@ schema.statics.toJSONCleanChat = async function groupToJSONCleanChat (group, use
         if (chatMsg._meta) chatMsg._meta = undefined;
 
         // Messages with too many flags are hidden to non-admins and non-authors
-        if (user._id !== chatMsg.uuid && chatMsg.flagCount >= CHAT_FLAG_LIMIT_FOR_HIDING) return undefined;
+        if (user._id !== chatMsg.uuid && chatMsg.flagCount >= CHAT_FLAG_LIMIT_FOR_HIDING) {
+          return undefined;
+        }
       }
 
       return chatMsg;
@@ -442,7 +454,7 @@ function getInviteCount (uuids, emails) {
  * @param  res  Express res object for use with translations
  * @throws BadRequest An error describing the issue with the invitations
  */
-schema.statics.validateInvitations = async function getInvitationError (invites, res, group = null) {
+schema.statics.validateInvitations = async function getInvitationErr (invites, res, group = null) {
   const {
     uuids,
     emails,
@@ -493,7 +505,8 @@ schema.methods.removeGroupInvitations = async function removeGroupInvitations ()
   const userUpdates = usersToRemoveInvitationsFrom.map(user => {
     if (group.type === 'party') {
       removeFromArray(user.invitations.parties, { id: group._id });
-      user.invitations.party = user.invitations.parties.length > 0 ? user.invitations.parties[user.invitations.parties.length - 1] : {};
+      user.invitations.party = user.invitations.parties.length > 0
+        ? user.invitations.parties[user.invitations.parties.length - 1] : {};
       this.markModified('invitations.party');
     } else {
       removeFromArray(user.invitations.guilds, { id: group._id });
@@ -521,7 +534,7 @@ schema.methods.getMemberCount = async function getMemberCount () {
     query = { 'party._id': this._id };
   }
 
-  return await User.count(query).exec();
+  return User.count(query).exec();
 };
 
 schema.methods.sendChat = function sendChat (options = {}) {
@@ -549,7 +562,11 @@ schema.methods.sendChat = function sendChat (options = {}) {
   // - groups that never send notifications (e.g., Tavern)
   // - groups with very many users
   // - messages that have already been flagged to hide them
-  if (NO_CHAT_NOTIFICATIONS.indexOf(this._id) !== -1 || this.memberCount > LARGE_GROUP_COUNT_MESSAGE_CUTOFF || newChatMessage.flagCount >= CHAT_FLAG_LIMIT_FOR_HIDING) {
+  if (
+    NO_CHAT_NOTIFICATIONS.indexOf(this._id) !== -1
+    || this.memberCount > LARGE_GROUP_COUNT_MESSAGE_CUTOFF
+    || newChatMessage.flagCount >= CHAT_FLAG_LIMIT_FOR_HIDING
+  ) {
     return newChatMessage;
   }
 
@@ -597,7 +614,8 @@ schema.methods.sendChat = function sendChat (options = {}) {
 };
 
 schema.methods.startQuest = async function startQuest (user) {
-  // not using i18n strings because these errors are meant for devs who forgot to pass some parameters
+  // not using i18n strings because these errors are meant
+  // for devs who forgot to pass some parameters
   if (this.type !== 'party') throw new InternalServerError('Must be a party to use this method');
   if (!this.quest.key) throw new InternalServerError('Party does not have a pending quest');
   if (this.quest.active) throw new InternalServerError('Quest is already active');
@@ -786,7 +804,7 @@ function _getUserUpdateForQuestReward (itemToAward, allAwardedItems) {
   };
   const dropK = itemToAward.key;
 
-  switch (itemToAward.type) {
+  switch (itemToAward.type) { // eslint-disable-line default-case
     case 'gear': {
       // TODO This means they can lose their new gear on death, is that what we want?
       updates.$set[`items.gear.owned.${dropK}`] = true;
@@ -860,7 +878,7 @@ schema.methods.finishQuest = async function finishQuest (quest) {
   this.markModified('quest');
 
   if (this._id === TAVERN_ID) {
-    return await User.update({}, updates, { multi: true }).exec();
+    return User.update({}, updates, { multi: true }).exec();
   }
 
   const promises = participants.map(userId => {
@@ -921,15 +939,18 @@ schema.methods.finishQuest = async function finishQuest (quest) {
         }).toObject(),
       };
 
-      promises.push(participants.map(userId => _updateUserWithRetries(userId, questAchievementUpdate, null, questAchievementQuery)));
+      promises.push(participants.map(userId => _updateUserWithRetries(
+        userId, questAchievementUpdate, null, questAchievementQuery,
+      )));
     }
   });
 
-  await Promise.all(promises);
+  return Promise.all(promises);
 };
 
 function _isOnQuest (user, progress, group) {
-  return group && progress && group.quest && group.quest.active && group.quest.members[user._id] === true;
+  return group && progress && group.quest && group.quest.active
+    && group.quest.members[user._id] === true;
 }
 
 schema.methods._processBossQuest = async function processBossQuest (options) {
@@ -989,8 +1010,11 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
       promises.push(rageMessage.save());
       group.quest.progress.rage = 0;
 
-      // TODO To make Rage effects more expandable, let's turn these into functions in quest.boss.rage
-      if (quest.boss.rage.healing) group.quest.progress.hp += group.quest.progress.hp * quest.boss.rage.healing;
+      // TODO To make Rage effects more expandable,
+      // let's turn these into functions in quest.boss.rage
+      if (quest.boss.rage.healing) {
+        group.quest.progress.hp += group.quest.progress.hp * quest.boss.rage.healing;
+      }
       if (group.quest.progress.hp > quest.boss.hp) group.quest.progress.hp = quest.boss.hp;
       if (quest.boss.rage.mpDrain) {
         updates.$set = { 'stats.mp': 0 };
@@ -1006,10 +1030,13 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
     updates,
     { multi: true },
   ).exec();
-  // Apply changes the currently cronning user locally so we don't have to reload it to get the updated state
+  // Apply changes the currently cronning user locally
+  // so we don't have to reload it to get the updated state
   // TODO how to mark not modified? https://github.com/Automattic/mongoose/pull/1167
-  // must be notModified or otherwise could overwrite future changes: if the user is saved it'll save
-  // the modified user.stats.hp but that must not happen as the hp value has already been updated by the User.update above
+  // must be notModified or otherwise could overwrite future changes:
+  // if the user is saved it'll save
+  // the modified user.stats.hp but that must not happen as the hp value has already been updated
+  // by the User.update above
   // if (down) user.stats.hp += down;
 
   // Boss slain, finish quest
@@ -1028,7 +1055,7 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
   }
 
   promises.unshift(group.save());
-  return await Promise.all(promises);
+  return Promise.all(promises);
 };
 
 schema.methods._processCollectionQuest = async function processCollectionQuest (options) {
@@ -1041,7 +1068,8 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
   const quest = questScrolls[group.quest.key];
   const itemsFound = {};
 
-  const possibleItemKeys = Object.keys(quest.collect).filter(key => group.quest.progress.collect[key] !== quest.collect[key].count);
+  const possibleItemKeys = Object.keys(quest.collect)
+    .filter(key => group.quest.progress.collect[key] !== quest.collect[key].count);
 
   const possibleItemsToCollect = possibleItemKeys.reduce((accumulator, current, index) => {
     accumulator[possibleItemKeys[index]] = quest.collect[current];
@@ -1054,8 +1082,8 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
     if (!itemsFound[item]) {
       itemsFound[item] = 0;
     }
-    itemsFound[item]++;
-    group.quest.progress.collect[item]++;
+    itemsFound[item] += 1;
+    group.quest.progress.collect[item] += 1;
   });
 
   // Add 0 for all items not found
@@ -1086,7 +1114,7 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
   const needsCompleted = _.find(quest.collect, (v, k) => group.quest.progress.collect[k] < v.count);
 
   if (needsCompleted) {
-    return await Promise.all([group.save(), foundChat.save()]);
+    return Promise.all([group.save(), foundChat.save()]);
   }
 
   await group.finishQuest(quest);
@@ -1099,7 +1127,7 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
 
   const promises = [group.save(), foundChat.save(), allItemsFoundChat.save()];
 
-  return await Promise.all(promises);
+  return Promise.all(promises);
 };
 
 schema.statics.processQuestProgress = async function processQuestProgress (user, progress) {
@@ -1122,7 +1150,9 @@ schema.statics.processQuestProgress = async function processQuestProgress (user,
   });
 };
 
-// to set a boss: `db.groups.update({_id:TAVERN_ID},{$set:{quest:{key:'dilatory',active:true,progress:{hp:1000,rage:1500}}}}).exec()`
+// to set a boss:
+// `db.groups.update({_id:TAVERN_ID},
+// {$set:{quest:{key:'dilatory',active:true,progress:{hp:1000,rage:1500}}}}).exec()`
 // we export an empty object that is then populated with the query-returned data
 export const tavernQuest = {};
 const tavernQ = { _id: TAVERN_ID, 'quest.key': { $ne: null } };
@@ -1144,15 +1174,15 @@ process.nextTick(() => {
 
 // returns a promise
 schema.statics.tavernBoss = async function tavernBoss (user, progress) {
-  if (!progress) return;
-  if (user.preferences.sleep) return;
+  if (!progress) return null;
+  if (user.preferences.sleep) return null;
 
   // hack: prevent crazy damage to world boss
   const dmg = Math.min(900, Math.abs(progress.up || 0));
   const rage = -Math.min(900, Math.abs(progress.down || 0));
 
   const tavern = await this.findOne(tavernQ).exec();
-  if (!(tavern && tavern.quest && tavern.quest.key)) return;
+  if (!(tavern && tavern.quest && tavern.quest.key)) return null;
 
   const quest = shared.content.quests[tavern.quest.key];
 
@@ -1171,7 +1201,9 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
     _.assign(tavernQuest, { extra: null });
     return tavern.save();
   }
-  // Deal damage. Note a couple things here, str & def are calculated. If str/def are defined in the database,
+
+  // Deal damage. Note a couple things here, str & def are calculated.
+  // If str/def are defined in the database,
   // use those first - which allows us to update the boss on the go if things are too easy/hard.
   if (!tavern.quest.extra) tavern.quest.extra = {};
   tavern.quest.progress.hp -= dmg / (tavern.quest.extra.def || quest.boss.def);
@@ -1222,7 +1254,11 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
     }
   }
 
-  if (quest.boss.desperation && tavern.quest.progress.hp < quest.boss.desperation.threshold && !tavern.quest.extra.desperate) {
+  if (
+    quest.boss.desperation
+    && tavern.quest.progress.hp < quest.boss.desperation.threshold
+    && !tavern.quest.extra.desperate
+  ) {
     const progressChat = tavern.sendChat({
       message: quest.boss.desperation.text('en'),
       info: {
@@ -1272,7 +1308,8 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
     userId: { $exists: false },
     'group.assignedUsers': user._id,
   }).exec();
-  const assignedTasksToRemoveUserFrom = assignedTasks.map(task => this.unlinkTask(task, user, keep, false));
+  const assignedTasksToRemoveUserFrom = assignedTasks
+    .map(task => this.unlinkTask(task, user, keep, false));
   await Promise.all(assignedTasksToRemoveUserFrom);
 
   // the user could be modified by calls to `unlinkTask` for challenge and group tasks
@@ -1294,7 +1331,8 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
 
   // If user is the last one in group and group is private, delete it
   if (group.memberCount <= 1 && group.privacy === 'private') {
-    // double check the member count is correct so we don't accidentally delete a group that still has users in it
+    // double check the member count is correct
+    // so we don't accidentally delete a group that still has users in it
     let members;
     if (group.type === 'guild') {
       members = await User.find({ guilds: group._id }).select('_id').exec();
@@ -1306,37 +1344,44 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
 
     if (members.length === 0) {
       promises.push(group.remove());
-      return await Promise.all(promises);
+      return Promise.all(promises);
     }
-  } else if (group.leader === user._id) { // otherwise If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
+  // otherwise If the leader is leaving
+  // (or if the leader previously left, and this wasn't accounted for)
+  } else if (group.leader === user._id) {
     const query = group.type === 'party' ? { 'party._id': group._id } : { guilds: group._id };
     query._id = { $ne: user._id };
     const seniorMember = await User.findOne(query).select('_id').exec();
 
-    // could be missing in case of public guild (that can have 0 members) with 1 member who is leaving
+    // could be missing in case of public guild (that can have 0 members)
+    // with 1 member who is leaving
     if (seniorMember) update.$set = { leader: seniorMember._id };
   }
-  // otherwise If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
+  // otherwise If the leader is leaving
+  // (or if the leader previously left, and this wasn't accounted for)
   update.$inc = { memberCount: -1 };
   if (group.leader === user._id) {
     const query = group.type === 'party' ? { 'party._id': group._id } : { guilds: group._id };
     query._id = { $ne: user._id };
     const seniorMember = await User.findOne(query).select('_id').exec();
 
-    // could be missing in case of public guild (that can have 0 members) with 1 member who is leaving
+    // could be missing in case of public guild (that can have 0 members)
+    // with 1 member who is leaving
     if (seniorMember) update.$set = { leader: seniorMember._id };
   }
   promises.push(group.update(update).exec());
 
-  return await Promise.all(promises);
+  return Promise.all(promises);
 };
 
 /**
  * Updates all linked tasks for a group task
  *
  * @param  taskToSync  The group task that will be synced
- * @param  options.newCheckListItem  The new checklist item that needs to be synced to all assigned users
- * @param  options.removedCheckListItem  The removed checklist item that needs to be removed from all assigned users
+ * @param  options.newCheckListItem  The new checklist item
+ *          that needs to be synced to all assigned users
+ * @param  options.removedCheckListItem  The removed checklist item that
+ *          needs to be removed from all assigned users
  *
  * @return The created tasks
  */
@@ -1395,7 +1440,8 @@ schema.methods.updateTask = async function updateTask (taskToSync, options = {})
     return;
   }
 
-  // Updating instead of loading and saving for performances, risks becoming a problem if we introduce more complexity in tasks
+  // Updating instead of loading and saving for performances,
+  // risks becoming a problem if we introduce more complexity in tasks
   await taskSchema.update(updateQuery, updateCmd, { multi: true }).exec();
 };
 
@@ -1461,14 +1507,19 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
     });
   }
 
-  if (!matchingTask.notes) matchingTask.notes = taskToSync.notes; // don't override the notes, but provide it if not provided
-  if (matchingTask.tags.indexOf(group._id) === -1) matchingTask.tags.push(group._id); // add tag if missing
+  // don't override the notes, but provide it if not provided
+  if (!matchingTask.notes) matchingTask.notes = taskToSync.notes;
+  // add tag if missing
+  if (matchingTask.tags.indexOf(group._id) === -1) matchingTask.tags.push(group._id);
 
   toSave.push(matchingTask.save(), taskToSync.save(), user.save());
   return Promise.all(toSave);
 };
 
-schema.methods.unlinkTask = async function groupUnlinkTask (unlinkingTask, user, keep, saveUser = true) {
+schema.methods.unlinkTask = async function groupUnlinkTask (
+  unlinkingTask, user,
+  keep, saveUser = true,
+) {
   const findQuery = {
     'group.taskId': unlinkingTask._id,
     userId: user._id,
@@ -1501,7 +1552,7 @@ schema.methods.unlinkTask = async function groupUnlinkTask (unlinkingTask, user,
     // save the user once outside of this function
     if (saveUser) promises.push(user.save());
 
-    return Promise.all(promises);
+    await Promise.all(promises);
   }
 };
 
@@ -1537,7 +1588,7 @@ schema.methods.removeTask = async function groupRemoveTask (task) {
   group.markModified('tasksOrder');
   removalPromises.push(group.save());
 
-  return await Promise.all(removalPromises);
+  return Promise.all(removalPromises);
 };
 
 // Returns true if the user has reached the spam message limit
@@ -1550,10 +1601,10 @@ schema.methods.checkChatSpam = function groupCheckChatSpam (user) {
 
   const currentTime = Date.now();
   let userMessages = 0;
-  for (let i = 0; i < this.chat.length; i++) {
+  for (let i = 0; i < this.chat.length; i += 1) {
     const message = this.chat[i];
     if (message.uuid === user._id && currentTime - message.timestamp <= SPAM_WINDOW_LENGTH) {
-      userMessages++;
+      userMessages += 1;
       if (userMessages >= SPAM_MESSAGE_LIMIT) {
         return true;
       }
@@ -1568,7 +1619,8 @@ schema.methods.checkChatSpam = function groupCheckChatSpam (user) {
 schema.methods.isSubscribed = function isSubscribed () {
   const now = new Date();
   const { plan } = this.purchased;
-  return plan && plan.customerId && (!plan.dateTerminated || moment(plan.dateTerminated).isAfter(now));
+  return plan && plan.customerId
+    && (!plan.dateTerminated || moment(plan.dateTerminated).isAfter(now));
 };
 
 schema.methods.hasNotCancelled = function hasNotCancelled () {
@@ -1593,12 +1645,15 @@ schema.methods.updateGroupPlan = async function updateGroupPlan (removingMember)
 
   if (this.purchased.plan.paymentMethod === stripePayments.constants.PAYMENT_METHOD) {
     await stripePayments.chargeForAdditionalGroupMember(this);
-  } else if (this.purchased.plan.paymentMethod === amazonPayments.constants.PAYMENT_METHOD && !removingMember) {
+  } else if (
+    this.purchased.plan.paymentMethod === amazonPayments.constants.PAYMENT_METHOD
+    && !removingMember
+  ) {
     await amazonPayments.chargeForAdditionalGroupMember(this);
   }
 };
 
-export let model = mongoose.model('Group', schema);
+export const model = mongoose.model('Group', schema);
 
 // initialize tavern if !exists (fresh installs)
 // do not run when testing as it's handled by the tests and can easily cause a race condition

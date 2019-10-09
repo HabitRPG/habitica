@@ -28,7 +28,7 @@ schema.plugin(baseModel, {
 schema.statics.generate = async function generateCoupons (event, count = 1) {
   const coupons = _.times(count, () => ({ event }));
 
-  return await this.create(coupons);
+  return this.create(coupons);
 };
 
 schema.statics.apply = async function applyCoupon (user, req, code) {
