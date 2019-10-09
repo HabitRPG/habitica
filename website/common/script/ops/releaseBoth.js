@@ -50,7 +50,7 @@ export default function releaseBoth (user, req = {}) {
     user.items.currentPet = '';
   }
 
-  Object.keys(content.pets).forEach(animal => {
+  for (const animal of Object.keys(content.pets)) {
     if (user.items.pets[animal] === -1) {
       giveTriadBingo = false;
     } else if (!user.items.pets[animal]) {
@@ -62,7 +62,7 @@ export default function releaseBoth (user, req = {}) {
 
     user.items.pets[animal] = 0;
     user.items.mounts[animal] = null;
-  });
+  }
 
   if (user.markModified) {
     user.markModified('items.pets');

@@ -24,12 +24,12 @@ export default function releasePets (user, req = {}, analytics) {
     user.items.currentPet = '';
   }
 
-  Object.keys(content.pets).forEach(pet => {
+  for (const pet of Object.keys(content.pets)) {
     if (!user.items.pets[pet]) {
       giveBeastMasterAchievement = false;
     }
     user.items.pets[pet] = 0;
-  });
+  }
 
   if (user.markModified) user.markModified('items.pets');
 

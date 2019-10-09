@@ -62,10 +62,10 @@ export function addPinnedGear (user, type, path) {
 export function addPinnedGearByClass (user) {
   const newPinnedItems = selectGearToPin(user);
 
-  newPinnedItems.forEach(item => {
+  for (const item of newPinnedItems) {
     const itemInfo = getItemInfo(user, 'marketGear', item);
     addPinnedGear(user, itemInfo.pinType, itemInfo.path);
-  });
+  }
 }
 
 export function removeItemByPath (user, path) {
@@ -82,10 +82,10 @@ export function removeItemByPath (user, path) {
 export function removePinnedGearByClass (user) {
   const currentPinnedItems = selectGearToPin(user);
 
-  currentPinnedItems.forEach(item => {
+  for (const item of currentPinnedItems) {
     const itemInfo = getItemInfo(user, 'marketGear', item);
     removeItemByPath(user, itemInfo.path);
-  });
+  }
 }
 
 export function removePinnedGearAddPossibleNewOnes (user, itemPath, newItemKey) {

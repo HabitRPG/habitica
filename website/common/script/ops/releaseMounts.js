@@ -24,12 +24,12 @@ export default function releaseMounts (user, req = {}, analytics) {
     user.items.currentMount = '';
   }
 
-  Object.keys(content.pets).forEach(mount => {
+  for (const mount of Object.keys(content.pets)) {
     if (user.items.mounts[mount] === null || user.items.mounts[mount] === undefined) {
       giveMountMasterAchievement = false;
     }
     user.items.mounts[mount] = null;
-  });
+  }
 
   if (user.markModified) user.markModified('items.mounts');
 

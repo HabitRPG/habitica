@@ -34,11 +34,11 @@ export default function allocateBulk (user, req = {}) {
     throw new NotAuthorized(i18n.t('notEnoughAttrPoints', req.language));
   }
 
-  Object.entries(stats).forEach(([stat, value]) => {
+  for (const [stat, value] of Object.entries(stats)) {
     user.stats[stat] += value;
     user.stats.points -= value;
     if (stat === 'int') user.stats.mp += value;
-  });
+  }
 
   return [
     user.stats,
