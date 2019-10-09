@@ -1870,5 +1870,9 @@
     "headSpecialSummer2019RogueText": "Elmo de Tubarão-martelo",
     "armorArmoireInvernessCapeNotes": "Essa roupa resistente permitirá que você busque por provas em qualquer clima. Aumenta Percepção e Inteligência em <%= attrs %> cada. Armário Encantado: Conjunto de Detetive (item 2 de 4).",
     "armorArmoireInvernessCapeText": "Capa de Detetive",
-    "armorArmoireAstronomersRobeText": "Roupão de Astrônomo"
+    "armorArmoireAstronomersRobeText": "Roupão de Astrônomo",
+    "armorSpecialKS2019Notes": "Brilhando por dentro como o coração nobre de um grifo, essa armadura resplandecente te encoraja a se orgulhar de suas realizações. Aumenta a Constituição em <%= con %>.",
+    "armorSpecialKS2019Text": "Armadura do Grifo Mítico",
+    "weaponSpecialKS2019Notes": "Curvo como o bico e as garras de um grifo, este cabo ornamentado o lembra da sua força quando a tarefa à frente parecer assustadora. Aumenta a Força em <%= str %>.",
+    "weaponSpecialKS2019Text": "Gládio do Grifo Mítico"
 }

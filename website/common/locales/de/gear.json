@@ -1920,5 +1920,21 @@
     "armorSpecialFall2019WarriorText": "Schwingen der Nacht",
     "armorSpecialFall2019RogueText": "Opernkutte mit Kapuze",
     "weaponSpecialFall2019HealerText": "Furchterregendes Phylakterium",
-    "weaponSpecialFall2019MageNotes": "Sei es die Beschwörung von Blitz und Donner, das Hochziehen von Barrikaden oder schlichtweg die Verbreitung von Angst und Schrecken unter den Sterblichen, dieser Stab verleiht Dir die Kraft der Giganten, um Wunder zu bewirken. Erhöht Intelligenz um <%= int %> und Wahrnehmung um <%= per %>. Limitierte Ausgabe 2019 Herbstausrüstung."
+    "weaponSpecialFall2019MageNotes": "Sei es die Beschwörung von Blitz und Donner, das Hochziehen von Barrikaden oder schlichtweg die Verbreitung von Angst und Schrecken unter den Sterblichen, dieser Stab verleiht Dir die Kraft der Giganten, um Wunder zu bewirken. Erhöht Intelligenz um <%= int %> und Wahrnehmung um <%= per %>. Limitierte Ausgabe 2019 Herbstausrüstung.",
+    "eyewearSpecialFall2019HealerText": "Dunkles Antlitz",
+    "eyewearSpecialFall2019RogueText": "Knochenweiße Halbmaske",
+    "eyewearSpecialKS2019Text": "Mythisches Greifenvisier",
+    "eyewearSpecialKS2019Notes": "Geschwungen wie des Greifen... hmm, Greife haben keine Visiere. Es erinnert Dich daran... ach, machen wir uns nichts vor, es sieht einfach cool aus! Gewährt keinen Attributionsbonus.",
+    "shieldSpecialFall2019HealerNotes": "Nutze mit diesem Grimoire die dunkle Seite der heilenden Künste! Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2019 Herbstausrüstung.",
+    "shieldSpecialFall2019HealerText": "Groteskes Grimoire",
+    "shieldSpecialFall2019WarriorText": "Rabenschwarzer Schild",
+    "shieldSpecialKS2019Text": "Mythisches Greifenschild",
+    "headSpecialFall2019HealerText": "Dunkle Mitra",
+    "headSpecialFall2019MageText": "Zyklopenmaske",
+    "headSpecialFall2019WarriorText": "Totenschädelhelm aus Obsidian",
+    "armorSpecialFall2019MageText": "Mantel des Polyphem",
+    "headSpecialKS2019Text": "Mythischer Greifenhelm",
+    "armorSpecialFall2019MageNotes": "Sein Namensvetter wurde von einem schrecklichen Schicksal ereilt. Aber Dich legt man nicht so leicht rein! Gewande Dich mit diesem Mantel aus Legenden und niemand wird Dich übertreffen. Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe 2019 Herbstausrüstung.",
+    "armorSpecialKS2019Text": "Mytische Greifenrüstung",
+    "weaponSpecialKS2019Text": "Mythische Greifenglefe"
 }

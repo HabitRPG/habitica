@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE FOR SEPTEMBER ITEMS';
+const LAST_ANNOUNCEMENT_TITLE = 'SUPERNATURAL SKINS AND HAUNTED HAIR COLORS';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,20 +30,15 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>9/30/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>10/8/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_mystery_201909 center-block"></div>
-        <h3>Last Chance for Affable Acorn Set</h3>
-        <p>Reminder: this is the final day to <a href='/user/settings/subscription'>subscribe and receive the Affable Acorn Set</a>! Subscribing also lets you buy Gems for Gold. The longer your subscription, the more Gems you get!</p>
-        <p>Thanks so much for your support! You help keep Habitica running.</p>
-        <div class="small mb-3">by Beffymaroo</div>
-        <div class="promo_rocking_reptiles_bundle center-block"></div>
-        <h3>Last Chance for Rocking Reptiles Quest Bundle</h3>
-        <p>This is also the final day to buy the discounted Rocking Reptiles Pet Quest Bundle, featuring the Alligator, Snake, and Velociraptor quests all for seven gems! Be sure to get your claws on it before it slithers away from the <a href='/shops/quests'>Quest Shop</a>!</p>
-        <div class="small">Art by Gully, Willow The Witty, mfonda, UncommonCriminal, tabbytoes, EmeraldOx, LordDarkly, PainterProphet, Seraphina, Anna Glassman, Procyon, and Lilith of Alfheim</div>
-        <div class="small mb-3">Writing by Mike.Antonacci, lilackbar, Daniel The Bard, and felipena</div>
+        <div class="promo_fall_skins center-block"></div>
+        <p>The Seasonal Edition Haunted Hair Colors are now available for purchase! Now you can dye your avatar's hair Pumpkin, Midnight, Candy Corn, Ghost White, Zombie, or Halloween. Get them before October 31st!</p>
+        <p>The Supernatural Skin Set is also available until October 31st! Now your avatar can become an Ogre, Skeleton, Pumpkin, Candy Corn, Reptile, or Dread Shade.</p>
+        <p>Seasonal Edition items recur unchanged every year, but they are only available to purchase during a short period of time. Find these exciting skins and hair colors in User>Edit Avatar. Get them now, or you'll have to wait until next year!</p>
+        <div class="small mb-3">by Lemoness, mariahm, and crystalphoenix</div>
       </div>
       `,
     });
