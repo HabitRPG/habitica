@@ -123,12 +123,12 @@ import questDialogContent from '../shops/quests/questDialogContent';
 import QuestInfo from '../shops/quests/questInfo';
 
 export default {
-  props: ['group'],
   components: {
     questDialogDrops,
     questDialogContent,
     QuestInfo,
   },
+  props: ['group'],
   data () {
     return {
       loading: false,
@@ -162,7 +162,7 @@ export default {
     this.$root.$off('selectQuest', this.selectQuest);
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     questData () {
       return quests.quests[this.selectedQuest];
     },
@@ -179,11 +179,11 @@ export default {
         partySize: this.group.memberCount,
       });
 
-      let groupId = this.group._id || this.user.party._id;
+      const groupId = this.group._id || this.user.party._id;
 
       const key = this.selectedQuest;
       try {
-        const response = await this.$store.dispatch('guilds:inviteToQuest', {groupId, key});
+        const response = await this.$store.dispatch('guilds:inviteToQuest', { groupId, key });
         const quest = response.data.data;
 
         if (this.$store.state.party.data) this.$store.state.party.data.quest = quest;

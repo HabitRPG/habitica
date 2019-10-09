@@ -327,167 +327,164 @@
 
 
 <script>
-  import {mapState} from '@/libs/store';
+import _filter from 'lodash/filter';
+import _sortBy from 'lodash/sortBy';
+import _throttle from 'lodash/throttle';
+import _groupBy from 'lodash/groupBy';
+import _map from 'lodash/map';
+import { mapState } from '@/libs/store';
 
-  import ShopItem from '../shopItem';
-  import Item from '@/components/inventory/item';
-  import CountBadge from '@/components/ui/countBadge';
-  import ItemRows from '@/components/ui/itemRows';
-  import toggleSwitch from '@/components/ui/toggleSwitch';
-  import Avatar from '@/components/avatar';
-  import buyMixin from '@/mixins/buy';
-  import pinUtils from '@/mixins/pinUtils';
-  import currencyMixin from '../_currencyMixin';
+import ShopItem from '../shopItem';
+import Item from '@/components/inventory/item';
+import CountBadge from '@/components/ui/countBadge';
+import ItemRows from '@/components/ui/itemRows';
+import toggleSwitch from '@/components/ui/toggleSwitch';
+import Avatar from '@/components/avatar';
+import buyMixin from '@/mixins/buy';
+import pinUtils from '@/mixins/pinUtils';
+import currencyMixin from '../_currencyMixin';
 
-  import BuyModal from './buyQuestModal.vue';
-  import QuestInfo from './questInfo.vue';
+import BuyModal from './buyQuestModal.vue';
+import QuestInfo from './questInfo.vue';
 
-  import svgPin from '@/assets/svg/pin.svg';
+import svgPin from '@/assets/svg/pin.svg';
 
-  import shops from '@/../../common/script/libs/shops';
+import shops from '@/../../common/script/libs/shops';
 
-  import isPinned from '@/../../common/script/libs/isPinned';
+import isPinned from '@/../../common/script/libs/isPinned';
 
-  import _filter from 'lodash/filter';
-  import _sortBy from 'lodash/sortBy';
-  import _throttle from 'lodash/throttle';
-  import _groupBy from 'lodash/groupBy';
-  import _map from 'lodash/map';
 
 export default {
-    mixins: [buyMixin, currencyMixin, pinUtils],
-    components: {
-      ShopItem,
-      Item,
-      CountBadge,
-      ItemRows,
-      toggleSwitch,
+  components: {
+    ShopItem,
+    Item,
+    CountBadge,
+    ItemRows,
+    toggleSwitch,
 
-      Avatar,
-      BuyModal,
-      QuestInfo,
-    },
-    watch: {
-      searchText: _throttle(function throttleSearch () {
-        this.searchTextThrottled = this.searchText.toLowerCase();
-      }, 250),
-    },
-    data () {
-      return {
-        viewOptions: {},
+    Avatar,
+    BuyModal,
+    QuestInfo,
+  },
+  mixins: [buyMixin, currencyMixin, pinUtils],
+  watch: {
+    searchText: _throttle(function throttleSearch () {
+      this.searchTextThrottled = this.searchText.toLowerCase();
+    }, 250),
+  },
+  data () {
+    return {
+      viewOptions: {},
 
-        searchText: null,
-        searchTextThrottled: null,
+      searchText: null,
+      searchTextThrottled: null,
 
-        icons: Object.freeze({
-          pin: svgPin,
-        }),
-
-        sortItemsBy: ['AZ', 'sortByNumber'],
-        selectedSortItemsBy: 'AZ',
-
-        selectedItemToBuy: null,
-
-        hideLocked: false,
-        hidePinned: false,
-
-        broken: false,
-      };
-    },
-    async mounted () {
-      const worldState = await this.$store.dispatch('worldState:getWorldState');
-      this.broken = worldState && worldState.worldBoss && worldState.worldBoss.extra && worldState.worldBoss.extra.worldDmg && worldState.worldBoss.extra.worldDmg.quests;
-    },
-    computed: {
-      ...mapState({
-        content: 'content',
-        user: 'user.data',
-        userStats: 'user.data.stats',
-        userItems: 'user.data.items',
+      icons: Object.freeze({
+        pin: svgPin,
       }),
-      shop () {
-        return shops.getQuestShop(this.user);
-      },
-      categories () {
-        if (this.shop.categories) {
-          this.shop.categories.map((category) => {
-            this.$set(this.viewOptions, category.identifier, {
-              selected: false,
-            });
+
+      sortItemsBy: ['AZ', 'sortByNumber'],
+      selectedSortItemsBy: 'AZ',
+
+      selectedItemToBuy: null,
+
+      hideLocked: false,
+      hidePinned: false,
+
+      broken: false,
+    };
+  },
+  async mounted () {
+    const worldState = await this.$store.dispatch('worldState:getWorldState');
+    this.broken = worldState && worldState.worldBoss && worldState.worldBoss.extra && worldState.worldBoss.extra.worldDmg && worldState.worldBoss.extra.worldDmg.quests;
+  },
+  computed: {
+    ...mapState({
+      content: 'content',
+      user: 'user.data',
+      userStats: 'user.data.stats',
+      userItems: 'user.data.items',
+    }),
+    shop () {
+      return shops.getQuestShop(this.user);
+    },
+    categories () {
+      if (this.shop.categories) {
+        this.shop.categories.map(category => {
+          this.$set(this.viewOptions, category.identifier, {
+            selected: false,
           });
+        });
 
-          return this.shop.categories;
-        } else {
-          return [];
-        }
-      },
-
-      anyFilterSelected () {
-        return Object.values(this.viewOptions).some(g => g.selected);
-      },
+        return this.shop.categories;
+      }
+      return [];
     },
-    methods: {
-      questItems (category, sortBy, searchBy, hideLocked, hidePinned) {
-        let result = _map(category.items, (e) => {
-          return {
-            ...e,
-            pinned: isPinned(this.user, e),
-          };
-        });
 
-        result = _filter(result, (i) => {
-          if (hideLocked && i.locked) {
-            return false;
-          }
-          if (hidePinned && i.pinned) {
-            return false;
-          }
+    anyFilterSelected () {
+      return Object.values(this.viewOptions).some(g => g.selected);
+    },
+  },
+  methods: {
+    questItems (category, sortBy, searchBy, hideLocked, hidePinned) {
+      let result = _map(category.items, e => ({
+        ...e,
+        pinned: isPinned(this.user, e),
+      }));
 
-          return !searchBy || i.text.toLowerCase().indexOf(searchBy) !== -1;
-        });
-
-        switch (sortBy) {
-          case 'AZ': {
-            result = _sortBy(result, ['text']);
-
-            break;
-          }
-          case 'sortByNumber': {
-            result = _sortBy(result, ['value']);
-
-            break;
-          }
+      result = _filter(result, i => {
+        if (hideLocked && i.locked) {
+          return false;
+        }
+        if (hidePinned && i.pinned) {
+          return false;
         }
 
-        return result;
-      },
-      getGrouped (entries) {
-        return _groupBy(entries, 'group');
-      },
-      resetItemToBuy ($event) {
-        if (!$event) {
-          this.selectedItemToBuy = null;
+        return !searchBy || i.text.toLowerCase().indexOf(searchBy) !== -1;
+      });
+
+      switch (sortBy) {
+        case 'AZ': {
+          result = _sortBy(result, ['text']);
+
+          break;
         }
-      },
-      isGearLocked (gear) {
-        if (gear.value > this.userStats.gp) {
-          return true;
+        case 'sortByNumber': {
+          result = _sortBy(result, ['value']);
+
+          break;
         }
+      }
 
-        return false;
-      },
-      selectItem (item) {
-        if (item.locked) return;
-
-        this.selectedItemToBuy = item;
-
-        this.$root.$emit('bv::show::modal', 'buy-quest-modal');
-      },
-      isBuyingDependentOnPrevious (item) {
-        let questsNotDependentToPrevious = ['moon2', 'moon3'];
-        if (item.key in questsNotDependentToPrevious) return false;
+      return result;
+    },
+    getGrouped (entries) {
+      return _groupBy(entries, 'group');
+    },
+    resetItemToBuy ($event) {
+      if (!$event) {
+        this.selectedItemToBuy = null;
+      }
+    },
+    isGearLocked (gear) {
+      if (gear.value > this.userStats.gp) {
         return true;
-      },
+      }
+
+      return false;
     },
-  };
+    selectItem (item) {
+      if (item.locked) return;
+
+      this.selectedItemToBuy = item;
+
+      this.$root.$emit('bv::show::modal', 'buy-quest-modal');
+    },
+    isBuyingDependentOnPrevious (item) {
+      const questsNotDependentToPrevious = ['moon2', 'moon3'];
+      if (item.key in questsNotDependentToPrevious) return false;
+      return true;
+    },
+  },
+};
 </script>

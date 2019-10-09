@@ -93,7 +93,7 @@ export default {
     window.removeEventListener('message', this.receiveMessage);
   },
   computed: {
-    ...mapState({user: 'user.data', credentials: 'credentials'}),
+    ...mapState({ user: 'user.data', credentials: 'credentials' }),
     apiToken () {
       return this.credentials.API_TOKEN;
     },
@@ -109,7 +109,7 @@ export default {
       eventFrom.source.postMessage(creds, eventFrom.origin);
     },
     async addWebhook (url) {
-      let webhookInfo = {
+      const webhookInfo = {
         id: uuid(),
         type: 'taskActivity',
         options: {
@@ -122,19 +122,19 @@ export default {
         enabled: true,
       };
 
-      let webhook = await this.$store.dispatch('user:addWebhook', {webhookInfo});
+      const webhook = await this.$store.dispatch('user:addWebhook', { webhookInfo });
       this.user.webhooks.push(webhook);
 
       this.newWebhook.url = '';
     },
     async saveWebhook (webhook, index) {
       delete webhook._editing;
-      let updatedWebhook = await this.$store.dispatch('user:updateWebhook', {webhook});
+      const updatedWebhook = await this.$store.dispatch('user:updateWebhook', { webhook });
       this.user.webhooks[index] = updatedWebhook;
     },
     async deleteWebhook (webhook, index) {
       delete webhook._editing;
-      await this.$store.dispatch('user:deleteWebhook', {webhook});
+      await this.$store.dispatch('user:deleteWebhook', { webhook });
       this.user.webhooks.splice(index, 1);
     },
   },

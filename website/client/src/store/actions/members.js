@@ -2,10 +2,10 @@ import axios from 'axios';
 // import omit from 'lodash/omit';
 // import findIndex from 'lodash/findIndex';
 
-let apiv4Prefix = '/api/v4';
+const apiv4Prefix = '/api/v4';
 
 export async function getGroupMembers (store, payload) {
-  let url = `${apiv4Prefix}/groups/${payload.groupId}/members`;
+  const url = `${apiv4Prefix}/groups/${payload.groupId}/members`;
 
   const params = {};
 
@@ -21,13 +21,13 @@ export async function getGroupMembers (store, payload) {
     params.search = payload.searchTerm;
   }
 
-  let response = await axios.get(url, { params });
+  const response = await axios.get(url, { params });
   return response.data.data;
 }
 
 export async function fetchMember (store, payload) {
-  let url = `${apiv4Prefix}/members/${payload.memberId}`;
-  let response = await axios.get(url);
+  const url = `${apiv4Prefix}/members/${payload.memberId}`;
+  const response = await axios.get(url);
   return response;
 }
 
@@ -36,12 +36,12 @@ export async function getGroupInvites (store, payload) {
   if (payload.includeAllPublicFields) {
     url += '?includeAllPublicFields=true';
   }
-  let response = await axios.get(url);
+  const response = await axios.get(url);
   return response.data.data;
 }
 
 export async function getChallengeMembers (store, payload) {
-  let url = `${apiv4Prefix}/challenges/${payload.challengeId}/members`;
+  const url = `${apiv4Prefix}/challenges/${payload.challengeId}/members`;
 
   const params = {};
 
@@ -57,44 +57,44 @@ export async function getChallengeMembers (store, payload) {
     params.search = payload.searchTerm;
   }
 
-  let response = await axios.get(url, { params });
+  const response = await axios.get(url, { params });
   return response.data.data;
 }
 
 export async function getChallengeMemberProgress (store, payload) {
-  let url = `${apiv4Prefix}/challenges/${payload.challengeId}/members/${payload.memberId}`;
-  let response = await axios.get(url);
+  const url = `${apiv4Prefix}/challenges/${payload.challengeId}/members/${payload.memberId}`;
+  const response = await axios.get(url);
   return response;
 }
 
 export async function sendPrivateMessage (store, payload) {
-  let url = `${apiv4Prefix}/members/send-private-message`;
-  let data = {
+  const url = `${apiv4Prefix}/members/send-private-message`;
+  const data = {
     message: payload.message,
     toUserId: payload.toUserId,
   };
-  let response = await axios.post(url, data);
+  const response = await axios.post(url, data);
   return response;
 }
 
 export async function transferGems (store, payload) {
-  let url = `${apiv4Prefix}/members/transfer-gems`;
-  let data = {
+  const url = `${apiv4Prefix}/members/transfer-gems`;
+  const data = {
     message: payload.message,
     toUserId: payload.toUserId,
     gemAmount: payload.gemAmount,
   };
-  let response = await axios.post(url, data);
+  const response = await axios.post(url, data);
   store.state.user.data.balance -= payload.gemAmount / 4;
   return response;
 }
 
 export async function removeMember (store, payload) {
-  let url = `${apiv4Prefix}/groups/${payload.groupId}/removeMember/${payload.memberId}`;
-  let data = {
+  const url = `${apiv4Prefix}/groups/${payload.groupId}/removeMember/${payload.memberId}`;
+  const data = {
     message: payload.message,
   };
-  let response = await axios.post(url, data);
+  const response = await axios.post(url, data);
   return response;
 }
 

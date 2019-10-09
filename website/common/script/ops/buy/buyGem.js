@@ -9,23 +9,19 @@ import { AbstractGoldItemOperation } from './abstractBuyOperation';
 import planGemLimits from '../../libs/planGemLimits';
 
 export class BuyGemOperation extends AbstractGoldItemOperation { // eslint-disable-line import/prefer-default-export, max-len
-  constructor (user, req, analytics) {
-    super(user, req, analytics);
-  }
-
-  multiplePurchaseAllowed () {
+  multiplePurchaseAllowed () { // eslint-disable-line class-methods-use-this
     return true;
   }
 
-  getItemValue () {
+  getItemValue () { // eslint-disable-line class-methods-use-this
     return planGemLimits.convRate;
   }
 
-  getItemKey () {
+  getItemKey () { // eslint-disable-line class-methods-use-this
     return 'gem';
   }
 
-  getItemType () {
+  getItemType () { // eslint-disable-line class-methods-use-this
     return 'gems';
   }
 
@@ -74,7 +70,7 @@ export class BuyGemOperation extends AbstractGoldItemOperation { // eslint-disab
     ];
   }
 
-  analyticsLabel () {
+  analyticsLabel () { // eslint-disable-line class-methods-use-this
     return 'purchase gems';
   }
 }

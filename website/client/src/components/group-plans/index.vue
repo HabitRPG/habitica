@@ -22,20 +22,18 @@ import SecondaryMenu from '@/components/secondaryMenu';
 import { mapState } from '@/libs/store';
 
 export default {
-  props: ['groupId'],
   components: {
     SecondaryMenu,
     groupFormModal,
   },
+  props: ['groupId'],
   computed: {
     ...mapState({
       user: 'user.data',
       groupPlans: 'groupPlans',
     }),
     currentGroup () {
-      let groupFound = this.groupPlans.find(group => {
-        return group._id === this.groupId;
-      });
+      const groupFound = this.groupPlans.find(group => group._id === this.groupId);
 
       return groupFound;
     },

@@ -10,19 +10,15 @@ import { AbstractGoldItemOperation } from './abstractBuyOperation';
 import errorMessage from '../../libs/errorMessage';
 
 export class BuySpellOperation extends AbstractGoldItemOperation { // eslint-disable-line import/prefer-default-export, max-len
-  constructor (user, req, analytics) {
-    super(user, req, analytics);
-  }
-
   getItemKey () {
     return this.key;
   }
 
-  getItemType () {
+  getItemType () { // eslint-disable-line class-methods-use-this
     return 'spell';
   }
 
-  multiplePurchaseAllowed () {
+  multiplePurchaseAllowed () { // eslint-disable-line class-methods-use-this
     return true;
   }
 

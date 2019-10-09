@@ -1,5 +1,5 @@
-import { asyncResourceFactory, loadAsyncResource } from '@/libs/asyncResource';
 import axios from 'axios';
+import { asyncResourceFactory, loadAsyncResource } from '@/libs/asyncResource';
 import generateStore from '@/store';
 import { sleep } from '@/../../../test/helpers/sleep';
 
@@ -61,7 +61,7 @@ describe('async resource', () => {
     it('returns the resource if it is already loaded and forceLoad is false', async () => {
       const store = generateStore();
       store.state.user.loadingStatus = 'LOADED';
-      store.state.user.data = {_id: 1};
+      store.state.user.data = { _id: 1 };
 
       sandbox.stub(axios, 'get');
 
@@ -80,7 +80,7 @@ describe('async resource', () => {
       const store = generateStore();
       store.state.user = asyncResourceFactory();
 
-      sandbox.stub(axios, 'get').withArgs('/api/v4/user').returns(Promise.resolve({data: {data: {_id: 1}}}));
+      sandbox.stub(axios, 'get').withArgs('/api/v4/user').returns(Promise.resolve({ data: { data: { _id: 1 } } }));
 
       const resource = await loadAsyncResource({
         store,
@@ -101,7 +101,7 @@ describe('async resource', () => {
       const store = generateStore();
       store.state.user.loadingStatus = 'LOADED';
 
-      sandbox.stub(axios, 'get').withArgs('/api/v4/user').returns(Promise.resolve({data: {data: {_id: 1}}}));
+      sandbox.stub(axios, 'get').withArgs('/api/v4/user').returns(Promise.resolve({ data: { data: { _id: 1 } } }));
 
       const resource = await loadAsyncResource({
         store,
@@ -123,7 +123,7 @@ describe('async resource', () => {
       const store = generateStore();
       store.state.user.loadingStatus = 'LOADING';
 
-      sandbox.stub(axios, 'get').withArgs('/api/v4/user').returns(Promise.resolve({data: {data: {_id: 1}}}));
+      sandbox.stub(axios, 'get').withArgs('/api/v4/user').returns(Promise.resolve({ data: { data: { _id: 1 } } }));
 
       const resourcePromise = loadAsyncResource({
         store,
@@ -136,7 +136,7 @@ describe('async resource', () => {
       });
 
       await sleep(0.1);
-      const userData = {_id: 1};
+      const userData = { _id: 1 };
 
       expect(store.state.user.loadingStatus).to.equal('LOADING');
       expect(axios.get).to.not.have.been.called;

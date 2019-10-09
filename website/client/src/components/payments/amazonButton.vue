@@ -4,12 +4,19 @@
 
 <script>
 import axios from 'axios';
-import { mapState } from '@/libs/store';
 import uuid from 'uuid';
+import { mapState } from '@/libs/store';
 import paymentsMixin from '@/mixins/payments';
 
 export default {
   mixins: [paymentsMixin],
+  props: {
+    amazonData: Object,
+    amazonDisabled: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data () {
     return { // @TODO what needed here? can be moved to mixin?
       amazonPayments: {
@@ -31,20 +38,13 @@ export default {
       buttonId: null,
     };
   },
-  props: {
-    amazonData: Object,
-    amazonDisabled: {
-      type: Boolean,
-      default: false,
-    },
-  },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     ...mapState(['isAmazonReady']),
     amazonPaymentsCanCheckout () {
       if (this.amazonPayments.type === 'single') {
         return this.amazonPayments.paymentSelected === true;
-      } else if (this.amazonPayments.type === 'subscription') {
+      } if (this.amazonPayments.type === 'subscription') {
         return this.amazonPayments.paymentSelected && this.amazonPayments.recurringConsent;
       }
       return false;
@@ -62,7 +62,7 @@ export default {
     this.amazonPaymentsInit(this.amazonData);
     if (this.isAmazonReady) return this.setupAmazon();
 
-    this.$store.watch(state => state.isAmazonReady, (isAmazonReady) => {
+    this.$store.watch(state => state.isAmazonReady, isAmazonReady => {
       if (isAmazonReady) return this.setupAmazon();
     });
   },
@@ -81,7 +81,7 @@ export default {
           color: 'Gold',
           size: 'large',
           agreementType: 'BillingAgreement',
-          onSignIn: async (contract) => { // @TODO send to modal
+          onSignIn: async contract => { // @TODO send to modal
             if (this.amazonDisabled === true) return null;
             // if (!this.checkGemAmount(this.amazonData)) return;
             this.amazonPayments.billingAgreementId = contract.getAmazonBillingAgreementId();
@@ -95,17 +95,18 @@ export default {
             window.amazon.Login.authorize({
               scope: 'payments:widget',
               popup: true,
-            }, function amazonSuccess (response) {
+            }, response => {
               if (response.error) return alert(response.error);
 
               const url = '/amazon/verifyAccessToken';
-              axios.post(url, response).catch((e) => {
+              axios.post(url, response).catch(e => {
                 alert(e.message);
               });
             });
           },
           onError: this.amazonOnError, // @TODO port here
-        });
+        },
+      );
     },
   },
 };

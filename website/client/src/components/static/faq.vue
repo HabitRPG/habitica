@@ -41,57 +41,57 @@
 </style>
 
 <script>
-  // @TODO:  env.EMAILS.TECH_ASSISTANCE_EMAIL
-  const TECH_ASSISTANCE_EMAIL = 'admin@habitica.com';
+// @TODO:  env.EMAILS.TECH_ASSISTANCE_EMAIL
+import markdownDirective from '@/directives/markdown';
 
-  import markdownDirective from '@/directives/markdown';
+const TECH_ASSISTANCE_EMAIL = 'admin@habitica.com';
 
-  export default {
-    directives: {
-      markdown: markdownDirective,
-    },
-    data () {
-      let headings = [
-        'overview',
-        'set-up-tasks',
-        'sample-tasks',
-        'task-color',
-        'health',
-        'party-with-friends',
-        'pets-mounts',
-        'character-classes',
-        'blue-mana-bar',
-        'monsters-quests',
-        'gems',
-        'bugs-features',
-        'world-boss',
-      ];
+export default {
+  directives: {
+    markdown: markdownDirective,
+  },
+  data () {
+    const headings = [
+      'overview',
+      'set-up-tasks',
+      'sample-tasks',
+      'task-color',
+      'health',
+      'party-with-friends',
+      'pets-mounts',
+      'character-classes',
+      'blue-mana-bar',
+      'monsters-quests',
+      'gems',
+      'bugs-features',
+      'world-boss',
+    ];
 
-      const hash = window.location.hash.replace('#', '');
+    const hash = window.location.hash.replace('#', '');
 
-      return  {
-        headings,
-        replacements: {
-          techAssistanceEmail: TECH_ASSISTANCE_EMAIL,
-          wikiTechAssistanceEmail: `mailto:${TECH_ASSISTANCE_EMAIL}`,
-        },
-        visible: hash && headings.includes(hash) ? hash : null,
-        // @TODO webFaqStillNeedHelp: {
-        // linkStart: '[',
-        // linkEnd: '](/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a)',
-        // },
-        // "webFaqStillNeedHelp": "If you have a question that isn't on this list or on the [Wiki FAQ](http://habitica.fandom.com/wiki/FAQ), come ask in the <%= linkStart %>Habitica Help guild<%= linkEnd %>! We're happy to help."
-      };
-    },
-    methods: {
-      isVisible (heading) {
-        return this.visible && this.visible === heading;
+    return {
+      headings,
+      replacements: {
+        techAssistanceEmail: TECH_ASSISTANCE_EMAIL,
+        wikiTechAssistanceEmail: `mailto:${TECH_ASSISTANCE_EMAIL}`,
       },
-      handleClick (e) {
-        if (!e) return;
-        const heading = e.target.nextElementSibling.id;
-        history.pushState({}, heading, `#${heading}`);
-      },
+      visible: hash && headings.includes(hash) ? hash : null,
+      // @TODO webFaqStillNeedHelp: {
+      // linkStart: '[',
+      // linkEnd: '](/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a)',
+      // },
+      // "webFaqStillNeedHelp": "If you have a question that isn't on this list or on the [Wiki FAQ](http://habitica.fandom.com/wiki/FAQ), come ask in the <%= linkStart %>Habitica Help guild<%= linkEnd %>! We're happy to help."
+    };
+  },
+  methods: {
+    isVisible (heading) {
+      return this.visible && this.visible === heading;
     },
-  };
+    handleClick (e) {
+      if (!e) return;
+      const heading = e.target.nextElementSibling.id;
+      history.pushState({}, heading, `#${heading}`);
+    },
+  },
+};
 </script>

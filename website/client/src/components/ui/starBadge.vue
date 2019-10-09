@@ -30,19 +30,19 @@ span.badge.badge-pill.badge-item.badge-star(
 </style>
 
 <script>
-  export default {
-    props: {
-      show: {
-        type: Boolean,
-      },
-      selected: {
-        type: Boolean,
-      },
+export default {
+  props: {
+    show: {
+      type: Boolean,
     },
-    methods: {
-      click () {
-        this.$emit('click');
-      },
+    selected: {
+      type: Boolean,
     },
-  };
+  },
+  methods: {
+    click () {
+      this.$emit('click');
+    },
+  },
+};
 </script>

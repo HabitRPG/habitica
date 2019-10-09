@@ -16,44 +16,44 @@ div
 </template>
 
 <script>
-  import uuid from 'uuid';
-  import { mapState } from '@/libs/store';
-  import {isOwned} from '../../../libs/createAnimal';
+import uuid from 'uuid';
+import { mapState } from '@/libs/store';
+import { isOwned } from '../../../libs/createAnimal';
 
-  export default {
-    props: {
-      item: {
-        type: Object,
-      },
-      popoverPosition: {
-        type: String,
-        default: 'bottom',
-      },
-      showPopover: {
-        type: Boolean,
-        default: true,
-      },
+export default {
+  props: {
+    item: {
+      type: Object,
     },
-    data () {
-      return Object.freeze({
-        itemId: uuid.v4(),
-      });
+    popoverPosition: {
+      type: String,
+      default: 'bottom',
     },
-    computed: {
-      ...mapState({
-        userItems: 'user.data.items',
-      }),
+    showPopover: {
+      type: Boolean,
+      default: true,
     },
-    methods: {
-      click () {
-        this.$emit('click', {});
-      },
-      isOwned () {
-        return isOwned('mount', this.item, this.userItems);
-      },
-      itemClass () {
-        return this.isOwned() ? `Mount_Icon_${this.item.key}` : 'PixelPaw GreyedOut';
-      },
+  },
+  data () {
+    return Object.freeze({
+      itemId: uuid.v4(),
+    });
+  },
+  computed: {
+    ...mapState({
+      userItems: 'user.data.items',
+    }),
+  },
+  methods: {
+    click () {
+      this.$emit('click', {});
     },
-  };
+    isOwned () {
+      return isOwned('mount', this.item, this.userItems);
+    },
+    itemClass () {
+      return this.isOwned() ? `Mount_Icon_${this.item.key}` : 'PixelPaw GreyedOut';
+    },
+  },
+};
 </script>

@@ -23,7 +23,7 @@
   .col-12(v-if='activePage === PAGES.PAY')
     h2 {{ $t('choosePaymentMethod') }}
     .payments-column
-      button.purchase.btn.btn-primary.payment-button.payment-item(@click='pay(PAYMENTS.STRIPE)') 
+      button.purchase.btn.btn-primary.payment-button.payment-item(@click='pay(PAYMENTS.STRIPE)')
         .svg-icon.credit-card-icon(v-html="icons.creditCardIcon")
         | {{ $t('card') }}
       amazon-button.payment-item(:amazon-data="pay(PAYMENTS.AMAZON)")
@@ -79,10 +79,10 @@ import amazonButton from '@/components/payments/amazonButton';
 import creditCardIcon from '@/assets/svg/credit-card-icon.svg';
 
 export default {
-  mixins: [paymentsMixin],
   components: {
     amazonButton,
   },
+  mixins: [paymentsMixin],
   data () {
     return {
       amazonPayments: {},
@@ -110,7 +110,7 @@ export default {
     };
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     newGroupIsReady () {
       return Boolean(this.newGroup.name);
     },
@@ -131,7 +131,7 @@ export default {
     },
     pay (paymentMethod) {
       const subscriptionKey = 'group_monthly';
-      let paymentData = {
+      const paymentData = {
         subscription: subscriptionKey,
         coupon: null,
       };

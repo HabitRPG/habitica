@@ -29,74 +29,73 @@
 </style>
 
 <script>
-  import ResizeDirective from '@/directives/resize.directive';
-  import openedItemRowsMixin from '@/mixins/openedItemRows';
+import _take from 'lodash/take';
+import ResizeDirective from '@/directives/resize.directive';
+import openedItemRowsMixin from '@/mixins/openedItemRows';
 
-  import _take from 'lodash/take';
 
-  export default {
-    mixins: [openedItemRowsMixin],
-    directives: {
-      resize: ResizeDirective,
+export default {
+  directives: {
+    resize: ResizeDirective,
+  },
+  mixins: [openedItemRowsMixin],
+  props: {
+    items: {
+      type: Array,
     },
-    computed: {
-      itemsPerRow () {
-        return Math.floor(this.currentWidth / (this.itemWidth + this.itemMargin));
-      },
+    type: {
+      type: String,
     },
-    data () {
-      return {
-        currentWidth: 0,
-        currentPage: 0,
-
-        showAll: false,
-      };
+    itemWidth: {
+      type: Number,
     },
-    methods: {
-      toggleItemsToShow () {
-        this.showAll = !this.showAll;
-
-        this.$_openedItemRows_toggleByType(this.type, this.showAll);
-      },
-      itemsToShow (showAll) {
-        let itemsLength = this.items.length;
-
-        if (itemsLength === 0)
-          return [];
-
-        let itemsPerRow = this.itemsPerRow;
-
-        if (showAll || itemsLength <= itemsPerRow) {
-          return this.items;
-        }
-
-        return _take(this.items, itemsPerRow);
-      },
-      setCurrentWidth ($event) {
-        if (this.currentWidth !== $event.width) {
-          this.currentWidth = $event.width;
-        }
-      },
+    itemMargin: {
+      type: Number,
     },
-    props: {
-      items: {
-        type: Array,
-      },
-      type: {
-        type: String,
-      },
-      itemWidth: {
-        type: Number,
-      },
-      itemMargin: {
-        type: Number,
-      },
-      noItemsLabel: {
-        type: String,
-      },
+    noItemsLabel: {
+      type: String,
     },
-    created () {
-      this.showAll = this.$_openedItemRows_isToggled(this.type);
+  },
+  data () {
+    return {
+      currentWidth: 0,
+      currentPage: 0,
+
+      showAll: false,
+    };
+  },
+  computed: {
+    itemsPerRow () {
+      return Math.floor(this.currentWidth / (this.itemWidth + this.itemMargin));
     },
-  };
+  },
+  created () {
+    this.showAll = this.$_openedItemRows_isToggled(this.type);
+  },
+  methods: {
+    toggleItemsToShow () {
+      this.showAll = !this.showAll;
+
+      this.$_openedItemRows_toggleByType(this.type, this.showAll);
+    },
+    itemsToShow (showAll) {
+      const itemsLength = this.items.length;
+
+      if (itemsLength === 0) return [];
+
+      const { itemsPerRow } = this;
+
+      if (showAll || itemsLength <= itemsPerRow) {
+        return this.items;
+      }
+
+      return _take(this.items, itemsPerRow);
+    },
+    setCurrentWidth ($event) {
+      if (this.currentWidth !== $event.width) {
+        this.currentWidth = $event.width;
+      }
+    },
+  },
+};
 </script>

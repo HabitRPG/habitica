@@ -56,13 +56,14 @@
 
 <script>
 // @TODO:
-let BASE_URL = 'https://habitica.com';
 import twitter from '@/assets/svg/twitter.svg';
 import facebook from '@/assets/svg/facebook.svg';
 
+const BASE_URL = 'https://habitica.com';
+
 export default {
   data () {
-    let tweet = this.$t('achievementShare');
+    const tweet = this.$t('achievementShare');
 
     return {
       icons: Object.freeze({

@@ -11,14 +11,14 @@ base-notification(
 </template>
 
 <script>
-import BaseNotification from './base';
 import moment from 'moment';
+import BaseNotification from './base';
 
 export default {
-  props: ['notification', 'canRemove'],
   components: {
     BaseNotification,
   },
+  props: ['notification', 'canRemove'],
   computed: {
     mysteryClass () {
       return `notif_inventory_present_${moment().format('MM')}`;
@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     action () {
-      this.$router.push({name: 'items'});
+      this.$router.push({ name: 'items' });
     },
   },
 };

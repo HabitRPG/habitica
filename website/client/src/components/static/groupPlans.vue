@@ -195,58 +195,58 @@
 </style>
 
 <script>
-  import * as Analytics from '@/libs/analytics';
-  import { setup as setupPayments } from '@/libs/payments';
-  import amazonPaymentsModal from '@/components/payments/amazonModal';
-  import StaticHeader from './header.vue';
-  import AuthForm from '../auth/authForm.vue';
-  import CreateGroupModalPages from '../group-plans/createGroupModalPages.vue';
+import * as Analytics from '@/libs/analytics';
+import { setup as setupPayments } from '@/libs/payments';
+import amazonPaymentsModal from '@/components/payments/amazonModal';
+import StaticHeader from './header.vue';
+import AuthForm from '../auth/authForm.vue';
+import CreateGroupModalPages from '../group-plans/createGroupModalPages.vue';
 
-  import party from '../../assets/images/group-plans-static/party.svg';
+import party from '../../assets/images/group-plans-static/party.svg';
 
-  export default {
-    components: {
-      StaticHeader,
-      AuthForm,
-      CreateGroupModalPages,
-      amazonPaymentsModal,
+export default {
+  components: {
+    StaticHeader,
+    AuthForm,
+    CreateGroupModalPages,
+    amazonPaymentsModal,
+  },
+  data () {
+    return {
+      svg: {
+        party,
+      },
+      modalTitle: this.$t('register'),
+      modalPage: 'account',
+    };
+  },
+  mounted () {
+    this.$nextTick(() => {
+      // Load external scripts after the app has been rendered
+      setupPayments();
+    });
+  },
+  methods: {
+    goToNewGroupPage () {
+      Analytics.track({
+        hitType: 'event',
+        eventCategory: 'group-plans-static',
+        eventAction: 'view',
+        eventLabel: 'view-auth-form',
+      });
+
+      this.$root.$emit('bv::show::modal', 'group-plan');
     },
-    data () {
-      return {
-        svg: {
-          party,
-        },
-        modalTitle: this.$t('register'),
-        modalPage: 'account',
-      };
-    },
-    mounted () {
-      this.$nextTick(() => {
-        // Load external scripts after the app has been rendered
-        setupPayments();
+    authenticate () {
+      this.modalPage = 'purchaseGroup';
+
+      Analytics.track({
+        hitType: 'event',
+        eventCategory: 'group-plans-static',
+        eventAction: 'view',
+        eventLabel: 'create-group',
       });
     },
-    methods: {
-      goToNewGroupPage () {
-        Analytics.track({
-          hitType: 'event',
-          eventCategory: 'group-plans-static',
-          eventAction: 'view',
-          eventLabel: 'view-auth-form',
-        });
-
-        this.$root.$emit('bv::show::modal', 'group-plan');
-      },
-      authenticate () {
-        this.modalPage = 'purchaseGroup';
-
-        Analytics.track({
-          hitType: 'event',
-          eventCategory: 'group-plans-static',
-          eventAction: 'view',
-          eventLabel: 'create-group',
-        });
-      },
-    },
-  };
+  },
+};
 </script>

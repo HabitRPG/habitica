@@ -51,38 +51,38 @@ b-modal#hatchedPet-modal(:hide-header="true")
 </style>
 
 <script>
-  import markdownDirective from '@/directives/markdown';
+import markdownDirective from '@/directives/markdown';
 
-  export default {
-    data () {
-      return {
-        pet: null,
-      };
+export default {
+  directives: {
+    markdown: markdownDirective,
+  },
+  props: {
+    hideText: {
+      type: Boolean,
     },
-    directives: {
-      markdown: markdownDirective,
+  },
+  data () {
+    return {
+      pet: null,
+    };
+  },
+  mounted () {
+    this.$root.$on('hatchedPet::open', this.openDialog);
+  },
+  destroyed () {
+    this.$root.$off('hatchedPet::open', this.openDialog);
+  },
+  methods: {
+    openDialog (item) {
+      this.pet = item;
+      this.$root.$emit('bv::show::modal', 'hatchedPet-modal');
     },
-    mounted () {
-      this.$root.$on('hatchedPet::open', this.openDialog);
+    close () {
+      this.$emit('closed', this.item);
+      this.$root.$emit('bv::hide::modal', 'hatchedPet-modal');
+      this.pet = null;
     },
-    destroyed () {
-      this.$root.$off('hatchedPet::open', this.openDialog);
-    },
-    methods: {
-      openDialog (item) {
-        this.pet = item;
-        this.$root.$emit('bv::show::modal', 'hatchedPet-modal');
-      },
-      close () {
-        this.$emit('closed', this.item);
-        this.$root.$emit('bv::hide::modal', 'hatchedPet-modal');
-        this.pet = null;
-      },
-    },
-    props: {
-      hideText: {
-        type: Boolean,
-      },
-    },
-  };
+  },
+};
 </script>

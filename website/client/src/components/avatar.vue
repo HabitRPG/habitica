@@ -146,9 +146,9 @@ export default {
       return val;
     },
     backgroundClass () {
-      let background = this.member.preferences.background;
+      const { background } = this.member.preferences;
 
-      let allowToShowBackground = !this.avatarOnly || this.withBackground;
+      const allowToShowBackground = !this.avatarOnly || this.withBackground;
 
       if (this.overrideAvatarGear && this.overrideAvatarGear.background) {
         return `background_${this.overrideAvatarGear.background}`;
@@ -169,7 +169,7 @@ export default {
       };
     },
     skinClass () {
-      let baseClass = `skin_${this.member.preferences.skin}`;
+      const baseClass = `skin_${this.member.preferences.skin}`;
 
       return `${baseClass}${this.member.preferences.sleep ? '_sleep' : ''}`;
     },
@@ -196,19 +196,19 @@ export default {
     },
     hideGear (gearType) {
       if (gearType === 'weapon') {
-        let equippedWeapon = this.member.items.gear[this.costumeClass][gearType];
+        const equippedWeapon = this.member.items.gear[this.costumeClass][gearType];
 
         if (!equippedWeapon) {
           return false;
         }
 
-        let equippedIsTwoHanded = this.flatGear[equippedWeapon].twoHanded;
-        let hasOverrideShield = this.overrideAvatarGear && this.overrideAvatarGear.shield;
+        const equippedIsTwoHanded = this.flatGear[equippedWeapon].twoHanded;
+        const hasOverrideShield = this.overrideAvatarGear && this.overrideAvatarGear.shield;
 
         return equippedIsTwoHanded && hasOverrideShield;
-      } else if (gearType === 'shield') {
-        let overrideWeapon = this.overrideAvatarGear && this.overrideAvatarGear.weapon;
-        let overrideIsTwoHanded = overrideWeapon && this.flatGear[overrideWeapon].twoHanded;
+      } if (gearType === 'shield') {
+        const overrideWeapon = this.overrideAvatarGear && this.overrideAvatarGear.weapon;
+        const overrideIsTwoHanded = overrideWeapon && this.flatGear[overrideWeapon].twoHanded;
 
         return overrideIsTwoHanded;
       }
@@ -218,10 +218,9 @@ export default {
       this.$root.$emit('castEnd', this.member, 'user', e);
     },
     showAvatar () {
-      if (!this.showVisualBuffs)
-        return true;
+      if (!this.showVisualBuffs) return true;
 
-      let buffs = this.member.stats.buffs;
+      const { buffs } = this.member.stats;
 
       return !buffs.snowball && !buffs.spookySparkles && !buffs.shinySeed && !buffs.seafoam;
     },

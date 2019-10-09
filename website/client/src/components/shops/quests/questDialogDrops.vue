@@ -66,57 +66,56 @@
 </style>
 
 <script>
-  import svgGold from '@/assets/svg/gold.svg';
-  import svgExperience from '@/assets/svg/experience.svg';
+import svgGold from '@/assets/svg/gold.svg';
+import svgExperience from '@/assets/svg/experience.svg';
 
-  export default {
-    mixins: [],
-    components: {
+export default {
+  components: {
+  },
+  mixins: [],
+  props: {
+    item: {
+      type: Object,
     },
-    data () {
-      return {
-        icons: Object.freeze({
-          gold: svgGold,
-          experience: svgExperience,
-        }),
-      };
+  },
+  data () {
+    return {
+      icons: Object.freeze({
+        gold: svgGold,
+        experience: svgExperience,
+      }),
+    };
+  },
+  methods: {
+    getDropIcon (drop) {
+      switch (drop.type) {
+        case 'gear':
+          return `shop_${drop.key}`;
+        case 'hatchingPotions':
+          return `Pet_HatchingPotion_${drop.key}`;
+        case 'food':
+          return `Pet_Food_${drop.key}`;
+        case 'eggs':
+          return `Pet_Egg_${drop.key}`;
+        case 'quests':
+          return `inventory_quest_scroll_${drop.key}`;
+        default:
+          return '';
+      }
     },
-    methods: {
-      getDropIcon (drop) {
-        switch (drop.type) {
-          case 'gear':
-            return `shop_${drop.key}`;
-          case 'hatchingPotions':
-            return `Pet_HatchingPotion_${drop.key}`;
-          case 'food':
-            return `Pet_Food_${drop.key}`;
-          case 'eggs':
-            return `Pet_Egg_${drop.key}`;
-          case 'quests':
-            return `inventory_quest_scroll_${drop.key}`;
-          default:
-            return '';
+    getDropName (drop) {
+      return drop.text();
+    },
+    getDropsList (drops, ownerOnly) {
+      if (!drops) return [];
+
+      return drops.filter(drop => {
+        if (ownerOnly) {
+          return drop.onlyOwner;
         }
-      },
-      getDropName (drop) {
-        return drop.text();
-      },
-      getDropsList (drops, ownerOnly) {
-        if (!drops) return [];
-
-        return drops.filter(function dropsList (drop) {
-          if (ownerOnly) {
-            return drop.onlyOwner;
-          } else {
-            return !drop.onlyOwner;
-          }
-        });
-      },
+        return !drop.onlyOwner;
+      });
     },
-    props: {
-      item: {
-        type: Object,
-      },
-    },
-  };
+  },
+};
 </script>

@@ -71,16 +71,16 @@ import { mapGetters } from '@/libs/store';
 import MemberDetails from '../memberDetails';
 
 export default {
-  props: ['group'],
   components: {
     MemberDetails,
   },
+  props: ['group'],
   computed: {
     ...mapGetters({
       partyMembers: 'party:members',
     }),
     participants () {
-      let partyMembers = this.partyMembers || [];
+      const partyMembers = this.partyMembers || [];
       return partyMembers.filter(member => this.group.quest.members[member._id] === true);
     },
   },

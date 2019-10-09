@@ -7,7 +7,7 @@ export function gems (store) {
 }
 
 export function buffs (store) {
-  return (key) => store.state.user.data.stats.buffs[key];
+  return key => store.state.user.data.stats.buffs[key];
 }
 
 export function preferences (store) {
@@ -15,5 +15,5 @@ export function preferences (store) {
 }
 
 export function tasksOrder (store) {
-  return (type) => store.state.user.tasksOrder[`${type}s`];
+  return type => store.state.user.tasksOrder[`${type}s`];
 }

@@ -95,64 +95,63 @@ dt {
 </style>
 
 <script>
-  import svgStar from '@/assets/svg/difficulty-star.svg';
-  import svgStarHalf from '@/assets/svg/difficulty-star-half.svg';
-  import svgStarEmpty from '@/assets/svg/difficulty-star-empty.svg';
+import svgStar from '@/assets/svg/difficulty-star.svg';
+import svgStarHalf from '@/assets/svg/difficulty-star-half.svg';
+import svgStarEmpty from '@/assets/svg/difficulty-star-empty.svg';
 
-  export default {
-    props: {
-      quest: {
-        type: Object,
-      },
-      smallVersion: {
-        type: Boolean,
-        default: false,
-      },
+export default {
+  props: {
+    quest: {
+      type: Object,
     },
-    data () {
-      return {
-        icons: Object.freeze({
-          star: svgStar,
-          starHalf: svgStarHalf,
-          starEmpty: svgStarEmpty,
-        }),
-      };
+    smallVersion: {
+      type: Boolean,
+      default: false,
     },
-    computed: {
-      difficulty () {
-        if (this.quest.boss) {
-          return this.quest.boss.str;
-        }
+  },
+  data () {
+    return {
+      icons: Object.freeze({
+        star: svgStar,
+        starHalf: svgStarHalf,
+        starEmpty: svgStarEmpty,
+      }),
+    };
+  },
+  computed: {
+    difficulty () {
+      if (this.quest.boss) {
+        return this.quest.boss.str;
+      }
 
-        return 1;
-      },
+      return 1;
     },
-    methods: {
-      stars () {
-        let result = [];
-        let difficulty = this.difficulty;
+  },
+  methods: {
+    stars () {
+      const result = [];
+      const { difficulty } = this;
 
-        for (let i = 1; i <= 4; i++) {
-          let diff = difficulty - i;
+      for (let i = 1; i <= 4; i++) {
+        const diff = difficulty - i;
 
-          if (diff >= 0) {
-            result.push('star');
-          } else if (diff <= -1) {
-            result.push('starEmpty');
-          } else {
-            result.push('starHalf');
-          }
-        }
-
-        return result;
-      },
-      getCollectText (collect) {
-        if (collect.text instanceof Function) {
-          return collect.text();
+        if (diff >= 0) {
+          result.push('star');
+        } else if (diff <= -1) {
+          result.push('starEmpty');
         } else {
-          return collect.text;
+          result.push('starHalf');
         }
-      },
+      }
+
+      return result;
     },
-  };
+    getCollectText (collect) {
+      if (collect.text instanceof Function) {
+        return collect.text();
+      }
+      return collect.text;
+    },
+  },
+};
 </script>

@@ -1,15 +1,15 @@
 import moment from 'moment';
 import axios from 'axios';
 
+import get from 'lodash/get';
 import unlock from '@/../../common/script/ops/unlock';
 import buy from '@/../../common/script/ops/buy/buy';
 
-import get from 'lodash/get';
 
 import appearanceSets from '@/../../common/script/content/appearance/sets';
 
 
-import {userStateMixin} from './userState';
+import { userStateMixin } from './userState';
 
 export const avatarEditorUtilies = {
   mixins: [userStateMixin],
@@ -31,16 +31,14 @@ export const avatarEditorUtilies = {
       option.pathKey = pathKey;
       option.active = userPreference === key;
       option.class = this.createClass(type, subType, key);
-      option.click = (optionParam) => {
-        return option.gemLocked ? this.unlock(`${optionParam.pathKey}.${key}`) : this.set({[`preferences.${optionParam.pathKey}`]: optionParam.key});
-      };
+      option.click = optionParam => (option.gemLocked ? this.unlock(`${optionParam.pathKey}.${key}`) : this.set({ [`preferences.${optionParam.pathKey}`]: optionParam.key }));
       return option;
     },
     mapKeysToOption (key, type, subType, set) {
       const option = this.mapKeysToFreeOption(key, type, subType);
 
-      let userPurchased = subType ? this.user.purchased[type][subType] : this.user.purchased[type];
-      let locked = !userPurchased || !userPurchased[key];
+      const userPurchased = subType ? this.user.purchased[type][subType] : this.user.purchased[type];
+      const locked = !userPurchased || !userPurchased[key];
       let hide = false;
 
       if (set && appearanceSets[set]) {
@@ -104,7 +102,7 @@ export const avatarEditorUtilies = {
       this.$store.dispatch('user:set', settings);
     },
     equip (key, type) {
-      this.$store.dispatch('common:equip', {key, type});
+      this.$store.dispatch('common:equip', { key, type });
     },
     /**
      * For gem-unlockable preferences, (a) if owned, select preference (b) else, purchase
@@ -112,8 +110,8 @@ export const avatarEditorUtilies = {
      *  Pass in this paramater as "skin.abc". Alternatively, pass as an array ["skin.abc", "skin.xyz"] to unlock sets
      */
     async unlock (path) {
-      let fullSet = path.indexOf(',') !== -1;
-      let isBackground = path.indexOf('background.') !== -1;
+      const fullSet = path.indexOf(',') !== -1;
+      const isBackground = path.indexOf('background.') !== -1;
 
       let cost;
 
@@ -123,7 +121,7 @@ export const avatarEditorUtilies = {
         cost = fullSet ? 1.25 : 0.5; // (Hair, skin, etc) 5G per set, 2G per individual
       }
 
-      let loginIncentives = [
+      const loginIncentives = [
         'background.blue',
         'background.green',
         'background.red',
@@ -134,11 +132,11 @@ export const avatarEditorUtilies = {
 
       if (loginIncentives.indexOf(path) === -1) {
         if (fullSet) {
-          if (confirm(this.$t('purchaseFor', {cost: cost * 4})) !== true) return;
+          if (confirm(this.$t('purchaseFor', { cost: cost * 4 })) !== true) return;
           // @TODO: implement gem modal
           // if (this.user.balance < cost) return $rootScope.openModal('buyGems');
         } else if (!get(this.user, `purchased.${path}`)) {
-          if (confirm(this.$t('purchaseFor', {cost: cost * 4})) !== true) return;
+          if (confirm(this.$t('purchaseFor', { cost: cost * 4 })) !== true) return;
           // @TODO: implement gem modal
           // if (this.user.balance < cost) return $rootScope.openModal('buyGems');
         }

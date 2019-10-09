@@ -1,10 +1,11 @@
+import Vue from 'vue';
 import groupsUtilities from '@/mixins/groupsUtilities';
 import { TAVERN_ID } from '@/../../common/script/constants';
 import generateStore from '@/store';
-import Vue from 'vue';
 
 describe('Groups Utilities Mixin', () => {
-  let instance, user;
+  let instance; let
+    user;
 
   before(() => {
     instance = new Vue({

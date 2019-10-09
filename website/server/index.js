@@ -7,15 +7,17 @@ if (process.env.NODE_ENV !== 'production') {
   require('@babel/register');
 }
 
+const cluster = require('cluster');
+const nconf = require('nconf');
+
+const setupNconf = require('./libs/setupNconf').default;
+
 // Initialize configuration BEFORE anything
 setupNconf();
-const nconf = require('nconf');
 
 // Initialize @google-cloud/trace-agent
 require('./libs/gcpTraceAgent');
 
-const cluster = require('cluster');
-const setupNconf = require('./libs/setupNconf').default;
 const logger = require('./libs/logger').default;
 
 const IS_PROD = nconf.get('IS_PROD');
@@ -24,7 +26,8 @@ const CORES = Number(nconf.get('WEB_CONCURRENCY')) || 0;
 
 // Setup the cluster module
 if (CORES !== 0 && cluster.isMaster && (IS_DEV || IS_PROD)) {
-  // Fork workers. If config.json has WEB_CONCURRENCY=x, use that - otherwise, use all cpus-1 (production)
+  // Fork workers. If config.json has WEB_CONCURRENCY=x,
+  // use that - otherwise, use all cpus-1 (production)
   for (let i = 0; i < CORES; i += 1) {
     cluster.fork();
   }

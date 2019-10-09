@@ -66,6 +66,8 @@
 </style>
 
 <script>
+import MugenScroll from 'vue-mugen-scroll';
+import debounce from 'lodash/debounce';
 import { mapState } from '@/libs/store';
 
 import Sidebar from './sidebar';
@@ -75,18 +77,15 @@ import challengeUtilities from '@/mixins/challengeUtilities';
 
 import positiveIcon from '@/assets/svg/positive.svg';
 
-import MugenScroll from 'vue-mugen-scroll';
-
-import debounce from 'lodash/debounce';
 
 export default {
-  mixins: [challengeUtilities],
   components: {
     Sidebar,
     ChallengeItem,
     challengeModal,
     MugenScroll,
   },
+  mixins: [challengeUtilities],
   data () {
     return {
       loading: true,
@@ -127,7 +126,7 @@ export default {
     this.loadChallenges();
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     filteredChallenges () {
       return this.challenges;
     },

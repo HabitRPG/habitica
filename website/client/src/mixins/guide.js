@@ -109,8 +109,8 @@ export default {
         ]],
       };
 
-      for (let key in this.chapters) {
-        let chapter = this.chapters[key][0][0];
+      for (const key in this.chapters) {
+        const chapter = this.chapters[key][0][0];
         chapter.intro = `
           <div class='featured-label'>
             <span class='rectangle'></span>
@@ -128,38 +128,38 @@ export default {
       this.initTour();
       switch (this.$route.name) {
         // case 'options.profile.avatar':   return goto('intro', 5);
-        case 'stats':        return this.goto('stats', 0);
-        case 'tavern':        return this.goto('tavern', 0);
-        case 'party':         return this.goto('party', 0);
+        case 'stats': return this.goto('stats', 0);
+        case 'tavern': return this.goto('tavern', 0);
+        case 'party': return this.goto('party', 0);
         case 'guildsDiscovery': return this.goto('guilds', 0);
-        case 'challenges':    return this.goto('challenges', 0);
-        case 'patrons':   return this.goto('hall', 0);
-        case 'items':      return this.goto('market', 0);
-        case 'stable':       return this.goto('pets', 0);
+        case 'challenges': return this.goto('challenges', 0);
+        case 'patrons': return this.goto('hall', 0);
+        case 'items': return this.goto('market', 0);
+        case 'stable': return this.goto('pets', 0);
         // @TODO: same page now case 'stable':     return this.goto('mounts', 0);
-        case 'equipment':  return this.goto('equipment', 0);
+        case 'equipment': return this.goto('equipment', 0);
       }
     },
     hoyo (user) {
       // @TODO: What is was the timeout for?
       // @TODO move to analytics
       window.amplitude.setUserId(user._id);
-      window.ga('set', {userId: user._id});
+      window.ga('set', { userId: user._id });
     },
     goto (chapter, page, force) {
-      if (chapter === 'intro' && this.user.flags.welcomed !== true)  {
+      if (chapter === 'intro' && this.user.flags.welcomed !== true) {
         // @TODO: Add dispatch User.set({'flags.welcomed': true});
       }
       if (chapter === 'classes' && this.user.flags.tour.classes === -2) return;
       if (page === -1) page = 0;
-      let curr = this.user.flags.tour[chapter];
+      const curr = this.user.flags.tour[chapter];
       if (page !== curr + 1 && !force) return;
 
-      let opts = {}; // @TODO: chap._options;
+      const opts = {}; // @TODO: chap._options;
       opts.steps = [];
       page += 1;
-      times(page, (p) => {
-        opts.steps  = opts.steps.concat(this.chapters[chapter][p]);
+      times(page, p => {
+        opts.steps = opts.steps.concat(this.chapters[chapter][p]);
       });
 
       Analytics.track({
@@ -185,8 +185,8 @@ export default {
       });
     },
     markTourComplete (chapter) {
-      let ups = {};
-      let lastKnownStep = this.user.flags.tour[chapter];
+      const ups = {};
+      const lastKnownStep = this.user.flags.tour[chapter];
 
       // Return early if user has already completed this tutorial
       if (lastKnownStep === -2) {

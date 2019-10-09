@@ -1,6 +1,8 @@
 import habiticaMarkdown from 'habitica-markdown';
 import { mapState } from '@/libs/store';
-import { getDropClass, getXPMessage, getSign, round } from '@/libs/notifications';
+import {
+  getDropClass, getXPMessage, getSign, round,
+} from '@/libs/notifications';
 
 // See https://stackoverflow.com/questions/4187146/truncate-number-to-two-decimal-places-without-rounding
 function toFixedWithoutRounding (num, fixed) {
@@ -10,18 +12,18 @@ function toFixedWithoutRounding (num, fixed) {
 
 export default {
   computed: {
-    ...mapState({notifications: 'notificationStore'}),
+    ...mapState({ notifications: 'notificationStore' }),
   },
   methods: {
     coins (money) {
       return this.round(money, 2);
     },
     crit (val) {
-      let message = `${this.$t('critBonus')} ${Math.round(val)} %`;
+      const message = `${this.$t('critBonus')} ${Math.round(val)} %`;
       this.notify(message, 'crit', 'glyphicon glyphicon-certificate');
     },
     drop (val, item) {
-      let dropClass = getDropClass({key: item.key, type: item.type});
+      const dropClass = getDropClass({ key: item.key, type: item.type });
       this.notify(val, 'drop', dropClass);
     },
     quest (type, val) {
@@ -46,7 +48,7 @@ export default {
     },
     markdown (val) {
       if (!val) return;
-      let parsedMarkdown = habiticaMarkdown.render(String(val));
+      const parsedMarkdown = habiticaMarkdown.render(String(val));
       this.notify(parsedMarkdown, 'info');
     },
     mp (val) {

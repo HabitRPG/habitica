@@ -2,13 +2,13 @@ import axios from 'axios';
 import * as Analytics from '@/libs/analytics';
 
 export async function getChat (store, payload) {
-  let response = await axios.get(`/api/v4/groups/${payload.groupId}/chat`);
+  const response = await axios.get(`/api/v4/groups/${payload.groupId}/chat`);
 
   return response.data.data;
 }
 
 export async function postChat (store, payload) {
-  const group = payload.group;
+  const { group } = payload;
 
   let url = `/api/v4/groups/${group._id}/chat`;
 
@@ -23,7 +23,7 @@ export async function postChat (store, payload) {
     });
   }
 
-  let response = await axios.post(url, {
+  const response = await axios.post(url, {
     message: payload.message,
   });
 
@@ -37,13 +37,13 @@ export async function deleteChat (store, payload) {
     url += `?previousMsg=${payload.previousMsg}`;
   }
 
-  let response = await axios.delete(url);
+  const response = await axios.delete(url);
   return response.data.data;
 }
 
 export async function like (store, payload) {
-  let url = `/api/v4/groups/${payload.groupId}/chat/${payload.chatId}/like`;
-  let response = await axios.post(url);
+  const url = `/api/v4/groups/${payload.groupId}/chat/${payload.chatId}/like`;
+  const response = await axios.post(url);
   return response.data.data;
 }
 
@@ -64,14 +64,14 @@ export async function flag (store, payload) {
 }
 
 export async function clearFlagCount (store, payload) {
-  let url = `/api/v4/groups/${payload.groupId}/chat/${payload.chatId}/clearflags`;
-  let response = await axios.post(url);
+  const url = `/api/v4/groups/${payload.groupId}/chat/${payload.chatId}/clearflags`;
+  const response = await axios.post(url);
   return response.data.data;
 }
 
 export async function markChatSeen (store, payload) {
   if (store.state.user.newMessages) delete store.state.user.newMessages[payload.groupId];
-  let url = `/api/v4/groups/${payload.groupId}/chat/seen`;
-  let response = await axios.post(url);
+  const url = `/api/v4/groups/${payload.groupId}/chat/seen`;
+  const response = await axios.post(url);
   return response.data.data;
 }

@@ -57,41 +57,41 @@ b-modal#mount-raised-modal(:hide-header="true")
 
 
 <script>
-  import markdownDirective from '@/directives/markdown';
-  import {mountInfo} from '@/../../common/script/content/stable';
+import markdownDirective from '@/directives/markdown';
+import { mountInfo } from '@/../../common/script/content/stable';
 
-  export default {
-    data () {
-      return {
-        mount: null,
-      };
+export default {
+  directives: {
+    markdown: markdownDirective,
+  },
+  props: {
+    hideText: {
+      type: Boolean,
     },
-    directives: {
-      markdown: markdownDirective,
-    },
-    created () {
+  },
+  data () {
+    return {
+      mount: null,
+    };
+  },
+  created () {
 
+  },
+  mounted () {
+    this.$root.$on('habitica::mount-raised', this.openDialog);
+  },
+  destroyed () {
+    this.$root.$off('habitica::mount-raised', this.openDialog);
+  },
+  methods: {
+    openDialog (mountKey) {
+      this.mount = mountInfo[mountKey];
+      this.$root.$emit('bv::show::modal', 'mount-raised-modal');
     },
-    mounted () {
-      this.$root.$on('habitica::mount-raised', this.openDialog);
+    close () {
+      this.$root.$emit('bv::hide::modal', 'mount-raised-modal');
+      this.mount = null;
     },
-    destroyed () {
-      this.$root.$off('habitica::mount-raised', this.openDialog);
-    },
-    methods: {
-      openDialog (mountKey) {
-        this.mount = mountInfo[mountKey];
-        this.$root.$emit('bv::show::modal', 'mount-raised-modal');
-      },
-      close () {
-        this.$root.$emit('bv::hide::modal', 'mount-raised-modal');
-        this.mount = null;
-      },
-    },
-    props: {
-      hideText: {
-        type: Boolean,
-      },
-    },
-  };
+  },
+};
 </script>

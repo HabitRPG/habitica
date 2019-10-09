@@ -9,22 +9,22 @@
 </template>
 
 <script>
-  import BaseNotification from './base';
+import BaseNotification from './base';
 
-  export default {
-    props: ['notification', 'canRemove'],
-    components: {
-      BaseNotification,
+export default {
+  components: {
+    BaseNotification,
+  },
+  props: ['notification', 'canRemove'],
+  computed: {
+    achievementString () {
+      return `<strong>${this.$t('achievement')}</strong>: ${this.$t('achievementJustAddWater')}`;
     },
-    computed: {
-      achievementString () {
-        return `<strong>${this.$t('achievement')}</strong>: ${this.$t('achievementJustAddWater')}`;
-      },
+  },
+  methods: {
+    action () {
+      this.$root.$emit('bv::show::modal', 'just-add-water');
     },
-    methods: {
-      action () {
-        this.$root.$emit('bv::show::modal', 'just-add-water');
-      },
-    },
-  };
+  },
+};
 </script>

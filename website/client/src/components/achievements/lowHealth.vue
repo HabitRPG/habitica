@@ -59,7 +59,7 @@
 import Avatar from '../avatar';
 import { mapState } from '@/libs/store';
 import percent from '@/../../common/script/libs/percent';
-import {MAX_HEALTH as maxHealth} from '@/../../common/script/constants';
+import { MAX_HEALTH as maxHealth } from '@/../../common/script/constants';
 
 export default {
   components: {
@@ -71,7 +71,7 @@ export default {
     };
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     barStyle () {
       return {
         width: `${percent(this.user.stats.hp, maxHealth)}%`,

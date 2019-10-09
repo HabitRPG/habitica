@@ -1,11 +1,11 @@
 const path = require('path');
 const webpack = require('webpack');
 const nconf = require('nconf');
-const setupNconf = require('../../website/server/libs/setupNconf');
 const { DuplicatesPlugin } = require('inspectpack/plugin');
+const setupNconf = require('../../website/server/libs/setupNconf');
 const pkg = require('./package.json');
 
-let configFile = path.join(path.resolve(__dirname, '../../config.json'));
+const configFile = path.join(path.resolve(__dirname, '../../config.json'));
 
 // TODO abstract from server
 setupNconf(configFile);
@@ -40,14 +40,14 @@ module.exports = {
   configureWebpack: {
     plugins: [
       new DuplicatesPlugin({
-        verbose: true
+        verbose: true,
       }),
       new webpack.EnvironmentPlugin(envObject),
       new webpack.ContextReplacementPlugin(/moment[\\/]locale$/, /^\.\/(NOT_EXISTING)$/),
     ],
   },
   chainWebpack: config => {
-    // Fix issue with duplicated deps in monorepos 
+    // Fix issue with duplicated deps in monorepos
     // https://getpocket.com/redirect?url=https%3A%2F%2Fgithub.com%2Fwebpack%2Fwebpack%2Fissues%2F8886
     // Manually resolve each dependency
     Object.keys(pkg.dependencies).forEach(dep => {
@@ -55,8 +55,8 @@ module.exports = {
         .set(dep, path.resolve(__dirname, `./node_modules/${dep}`));
     });
 
-    const pugRule = config.module.rule('pug')
-    const svgRule = config.module.rule('svg')
+    const pugRule = config.module.rule('pug');
+    const svgRule = config.module.rule('svg');
 
     // clear all existing loaders.
     // if you don't do this, the loader below will be appended to
@@ -69,10 +69,10 @@ module.exports = {
       .test(/\.pug$/)
       // this applies to <template lang="pug"> in Vue components
       .oneOf('vue-loader')
-        .resourceQuery(/^\?vue/)
-        .use('pug-plain')
-          .loader('pug-plain-loader')
-          .end()
+      .resourceQuery(/^\?vue/)
+      .use('pug-plain')
+      .loader('pug-plain-loader')
+      .end()
       .end();
 
 
@@ -83,40 +83,40 @@ module.exports = {
     svgRule
       .test(/\.svg$/)
       .oneOf('normal')
-        .exclude
-          .add(path.resolve(__dirname, 'src/assets/svg/for-css'))
-          .end()
-        .use('svg-ingline-loader')
-          .loader('svg-inline-loader')
-          .end()
-        .use('svgo-loader')
-          .loader('svgo-loader')
-          .options({
-            plugins: [
-              {removeViewBox: false},
-              {convertPathData: {noSpaceAfterFlags: false}},
-            ],
-          })
-          .end()
-        .end()
+      .exclude
+      .add(path.resolve(__dirname, 'src/assets/svg/for-css'))
+      .end()
+      .use('svg-ingline-loader')
+      .loader('svg-inline-loader')
+      .end()
+      .use('svgo-loader')
+      .loader('svgo-loader')
+      .options({
+        plugins: [
+          { removeViewBox: false },
+          { convertPathData: { noSpaceAfterFlags: false } },
+        ],
+      })
+      .end()
+      .end()
       .oneOf('in-css')
-        .include
-          .add(path.resolve(__dirname, 'src/assets/svg/for-css'))
-          .end()
-        .use('svg-in-css')
-          .loader('svg-url-loader')
-          .options({
-            limit: 10000,
-          })
-          .end()
-        .use('svgo-loader')
-          .loader('svgo-loader')
-          .options({
-            plugins: [
-              {removeViewBox: false},
-              {convertPathData: {noSpaceAfterFlags: false}},
-            ],
-          });
+      .include
+      .add(path.resolve(__dirname, 'src/assets/svg/for-css'))
+      .end()
+      .use('svg-in-css')
+      .loader('svg-url-loader')
+      .options({
+        limit: 10000,
+      })
+      .end()
+      .use('svgo-loader')
+      .loader('svgo-loader')
+      .options({
+        plugins: [
+          { removeViewBox: false },
+          { convertPathData: { noSpaceAfterFlags: false } },
+        ],
+      });
   },
 
   devServer: {
@@ -150,6 +150,6 @@ module.exports = {
         target: DEV_BASE_URL,
         changeOrigin: true,
       },
-    }
-  }
+    },
+  },
 };

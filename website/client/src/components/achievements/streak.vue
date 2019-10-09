@@ -38,15 +38,15 @@ export default {
     achievementAvatar,
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
   },
   methods: {
     close () {
       this.$root.$emit('bv::hide::modal', 'streak');
     },
     suppressModals () {
-      let surpress = this.user.preferences.suppressModals.streak ? true : false;
-      this.$store.dispatch('user:set', {'preferences.suppressModals.streak': surpress});
+      const surpress = !!this.user.preferences.suppressModals.streak;
+      this.$store.dispatch('user:set', { 'preferences.suppressModals.streak': surpress });
     },
   },
 };

@@ -5,7 +5,7 @@ import SidebarSection from '@/components/sidebarSection.vue';
 describe('Sidebar Section', () => {
   let wrapper;
 
-  beforeEach(function () {
+  beforeEach(() => {
     wrapper = mount(SidebarSection, {
       propsData: {
         title: 'Hello World',
@@ -26,7 +26,7 @@ describe('Sidebar Section', () => {
 
   it('displays tooltip icon', () => {
     expect(wrapper.contains('.section-info')).to.eq(false);
-    wrapper.setProps({tooltip: 'This is a test'});
+    wrapper.setProps({ tooltip: 'This is a test' });
     expect(wrapper.contains('.section-info')).to.eq(true);
   });
 

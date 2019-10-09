@@ -66,11 +66,11 @@ menu-dropdown.item-user(:right="true")
 </style>
 
 <script>
+import axios from 'axios';
 import { mapState } from '@/libs/store';
 import * as Analytics from '@/libs/analytics';
 import userIcon from '@/assets/svg/user.svg';
 import MenuDropdown from '../ui/customMenuDropdown';
-import axios from 'axios';
 import markPMSRead from '@/../../common/script/ops/markPMSRead';
 import MessageCount from './messageCount';
 
@@ -87,7 +87,7 @@ export default {
     };
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
   },
   methods: {
     showAvatar (startingPage, subpage) {
@@ -102,7 +102,7 @@ export default {
       this.$root.$emit('bv::show::modal', 'inbox-modal');
     },
     showProfile (startingPage) {
-      this.$router.push({name: startingPage});
+      this.$router.push({ name: startingPage });
     },
     showBuyGemsModal (startingPage) {
       this.$store.state.gemModalOptions.startingPage = startingPage;
@@ -114,7 +114,7 @@ export default {
         eventLabel: 'Gems > User Dropdown',
       });
 
-      this.$root.$emit('bv::show::modal', 'buy-gems', {alreadyTracked: true});
+      this.$root.$emit('bv::show::modal', 'buy-gems', { alreadyTracked: true });
     },
     logout () {
       this.$store.dispatch('auth:logout');

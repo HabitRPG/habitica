@@ -28,7 +28,7 @@ import questDialogDrops from '@/components/shops/quests/questDialogDrops';
 
 import { mapState } from '@/libs/store';
 import percent from '@/../../common/script/libs/percent';
-import {MAX_HEALTH as maxHealth} from '@/../../common/script/constants';
+import { MAX_HEALTH as maxHealth } from '@/../../common/script/constants';
 
 export default {
   components: {
@@ -41,7 +41,7 @@ export default {
     };
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     questData () {
       return this.quests.quests[this.user.party.quest.completed];
     },
@@ -62,7 +62,7 @@ export default {
       this.close();
     },
     hide () {
-      this.$store.dispatch('user:set', {'party.quest.completed': ''});
+      this.$store.dispatch('user:set', { 'party.quest.completed': '' });
     },
   },
 };

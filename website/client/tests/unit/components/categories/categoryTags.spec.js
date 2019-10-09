@@ -1,4 +1,4 @@
-import {mount} from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import Vue from 'vue';
 
 import CategoryTags from '@/components/categories/categoryTags.vue';
@@ -6,7 +6,7 @@ import CategoryTags from '@/components/categories/categoryTags.vue';
 describe('Category Tags', () => {
   let wrapper;
 
-  beforeEach(function () {
+  beforeEach(() => {
     wrapper = mount(CategoryTags, {
       propsData: {
         categories: [],
@@ -15,7 +15,7 @@ describe('Category Tags', () => {
         default: '<p>This is a slot.</p>',
       },
       mocks: {
-        $t: (string) => string,
+        $t: string => string,
       },
     });
   });

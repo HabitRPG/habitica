@@ -26,9 +26,9 @@ export default {
 
       if (spell.target === 'self') {
         return this.castEnd(null, spell.target);
-      } else if (spell.target === 'party') {
+      } if (spell.target === 'party') {
         if (!this.user.party._id) {
-          let party = [this.user];
+          const party = [this.user];
           return this.castEnd(party, spell.target);
         }
 
@@ -38,20 +38,20 @@ export default {
         }
         this.castEnd(partyMembers, spell.target);
       } else if (spell.target === 'tasks') {
-        let userTasks = this.$store.state.tasks.data;
+        const userTasks = this.$store.state.tasks.data;
         // exclude rewards
         let tasks = userTasks.habits
           .concat(userTasks.dailys)
           .concat(userTasks.todos);
         // exclude challenge and group plan tasks
-        tasks = tasks.filter((task) => {
+        tasks = tasks.filter(task => {
           if (task.challenge && task.challenge.id && !task.challenge.broken) return false;
           if (task.group && task.group.id && !task.group.broken) return false;
           return true;
         });
         return this.castEnd(tasks, spell.target);
       } else if (spell.target === 'user') {
-        let result = await this.castEnd(member, spell.target);
+        const result = await this.castEnd(member, spell.target);
 
         if (member.id === this.user.id) {
           this.$set(this.$store.state.user.data, 'stats', member.stats);
@@ -79,7 +79,7 @@ export default {
       if (target && target.challenge && target.challenge.id) return this.text(this.$t('invalidTarget'));
       if (target && target.group && target.group.id) return this.text(this.$t('invalidTarget'));
 
-      let spell = this.spell;
+      const { spell } = this;
 
       this.castCancel();
 
@@ -95,17 +95,16 @@ export default {
               type: 'error',
             });
             return;
-          } else {
-            throw e;
           }
+          throw e;
         }
       }
 
-      let targetId = target ? target._id : null;
+      const targetId = target ? target._id : null;
 
-      let spellText = typeof spell.text === 'function' ? spell.text() : spell.text;
+      const spellText = typeof spell.text === 'function' ? spell.text() : spell.text;
 
-      let apiResult = await this.$store.dispatch('user:castSpell', {
+      const apiResult = await this.$store.dispatch('user:castSpell', {
         key: spell.key,
         targetId,
         pinType: spell.pinType,
@@ -120,9 +119,9 @@ export default {
           });
           break;
         case 'user':
-          msg = spell.pinType === 'card' ?
-            this.$t('sentCardToUser', { profileName: target.profile.name }) :
-            this.$t('youCastTarget', {
+          msg = spell.pinType === 'card'
+            ? this.$t('sentCardToUser', { profileName: target.profile.name })
+            : this.$t('youCastTarget', {
               spell: spellText,
               target: target.profile.name,
             });
@@ -147,9 +146,9 @@ export default {
 
       this.markdown(msg); // @TODO: mardown directive?
       if (!beforeQuestProgress) return;
-      let questProgress = this.questProgress() - beforeQuestProgress;
+      const questProgress = this.questProgress() - beforeQuestProgress;
       if (questProgress > 0) {
-        let userQuest = this.quests[this.user.party.quest.key];
+        const userQuest = this.quests[this.user.party.quest.key];
         if (userQuest.boss) {
           this.quest('questDamage', questProgress.toFixed(1));
         } else if (userQuest.collection && userQuest.collect) {
@@ -157,7 +156,7 @@ export default {
         }
       }
 
-      return;
+
       // @TOOD: User.sync();
     },
     castCancel () {

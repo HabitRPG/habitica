@@ -41,7 +41,7 @@ describe('Notifications', () => {
       store,
       localVue,
       mocks: {
-        $t: (string) => string,
+        $t: string => string,
       },
     });
   });

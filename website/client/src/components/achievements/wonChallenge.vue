@@ -49,10 +49,10 @@ export default {
     markdown: markdownDirective,
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
   },
   data () {
-    let tweet = this.$t('wonChallengeShare');
+    const tweet = this.$t('wonChallengeShare');
     return {
       tweet,
     };

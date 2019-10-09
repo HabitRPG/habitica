@@ -233,191 +233,183 @@
 
 
 <script>
-  import {mapState} from '@/libs/store';
+import _filter from 'lodash/filter';
+import _sortBy from 'lodash/sortBy';
+import _throttle from 'lodash/throttle';
+import _groupBy from 'lodash/groupBy';
+import _map from 'lodash/map';
+import { mapState } from '@/libs/store';
 
-  import ShopItem from '../shopItem';
-  import Item from '@/components/inventory/item';
-  import CountBadge from '@/components/ui/countBadge';
-  import ItemRows from '@/components/ui/itemRows';
-  import toggleSwitch from '@/components/ui/toggleSwitch';
-  import Avatar from '@/components/avatar';
-  import QuestInfo from '../quests/questInfo.vue';
+import ShopItem from '../shopItem';
+import Item from '@/components/inventory/item';
+import CountBadge from '@/components/ui/countBadge';
+import ItemRows from '@/components/ui/itemRows';
+import toggleSwitch from '@/components/ui/toggleSwitch';
+import Avatar from '@/components/avatar';
+import QuestInfo from '../quests/questInfo.vue';
 
-  import BuyModal from '../buyModal.vue';
-  import BuyQuestModal from '../quests/buyQuestModal.vue';
+import BuyModal from '../buyModal.vue';
+import BuyQuestModal from '../quests/buyQuestModal.vue';
 
-  import svgPin from '@/assets/svg/pin.svg';
-  import svgHourglass from '@/assets/svg/hourglass.svg';
+import svgPin from '@/assets/svg/pin.svg';
+import svgHourglass from '@/assets/svg/hourglass.svg';
 
-  import _filter from 'lodash/filter';
-  import _sortBy from 'lodash/sortBy';
-  import _throttle from 'lodash/throttle';
-  import _groupBy from 'lodash/groupBy';
-  import _map from 'lodash/map';
 
-  import isPinned from '@/../../common/script/libs/isPinned';
-  import shops from '@/../../common/script/libs/shops';
+import isPinned from '@/../../common/script/libs/isPinned';
+import shops from '@/../../common/script/libs/shops';
 
-  import pinUtils from '@/mixins/pinUtils';
+import pinUtils from '@/mixins/pinUtils';
 
-  export default {
-    mixins: [pinUtils],
-    components: {
-      ShopItem,
-      Item,
-      CountBadge,
-      ItemRows,
-      toggleSwitch,
-      QuestInfo,
+export default {
+  components: {
+    ShopItem,
+    Item,
+    CountBadge,
+    ItemRows,
+    toggleSwitch,
+    QuestInfo,
 
-      Avatar,
-      BuyModal,
-      BuyQuestModal,
-    },
-    watch: {
-      searchText: _throttle(function throttleSearch () {
-        this.searchTextThrottled = this.searchText.toLowerCase();
-      }, 250),
-    },
-    data () {
-      return {
-        viewOptions: {},
+    Avatar,
+    BuyModal,
+    BuyQuestModal,
+  },
+  mixins: [pinUtils],
+  watch: {
+    searchText: _throttle(function throttleSearch () {
+      this.searchTextThrottled = this.searchText.toLowerCase();
+    }, 250),
+  },
+  data () {
+    return {
+      viewOptions: {},
 
-        searchText: null,
-        searchTextThrottled: null,
+      searchText: null,
+      searchTextThrottled: null,
 
-        icons: Object.freeze({
-          pin: svgPin,
-          hourglass: svgHourglass,
-        }),
-
-        sortItemsBy: ['AZ', 'sortByNumber'],
-        selectedSortItemsBy: 'AZ',
-
-        selectedItemToBuy: null,
-
-        hidePinned: false,
-
-        backgroundUpdate: new Date(),
-      };
-    },
-    computed: {
-      ...mapState({
-        content: 'content',
-        quests: 'shops.quests.data',
-        user: 'user.data',
-        userStats: 'user.data.stats',
-        userItems: 'user.data.items',
+      icons: Object.freeze({
+        pin: svgPin,
+        hourglass: svgHourglass,
       }),
 
-      closed () {
-        return this.user.purchased.plan.consecutive.trinkets === 0;
-      },
+      sortItemsBy: ['AZ', 'sortByNumber'],
+      selectedSortItemsBy: 'AZ',
 
-      shop () {
-        return shops.getTimeTravelersShop(this.user);
-      },
+      selectedItemToBuy: null,
 
-      categories () {
-        let apiCategories = this.shop.categories;
+      hidePinned: false,
 
-        // FIX ME Refactor the apiCategories Hack to force update for now until we restructure the data
+      backgroundUpdate: new Date(),
+    };
+  },
+  computed: {
+    ...mapState({
+      content: 'content',
+      quests: 'shops.quests.data',
+      user: 'user.data',
+      userStats: 'user.data.stats',
+      userItems: 'user.data.items',
+    }),
+
+    closed () {
+      return this.user.purchased.plan.consecutive.trinkets === 0;
+    },
+
+    shop () {
+      return shops.getTimeTravelersShop(this.user);
+    },
+
+    categories () {
+      const apiCategories = this.shop.categories;
+
+      // FIX ME Refactor the apiCategories Hack to force update for now until we restructure the data
         let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
 
-        let normalGroups = _filter(apiCategories, (c) => {
-          return c.identifier === 'mounts' || c.identifier === 'pets' || c.identifier === 'quests';
+      const normalGroups = _filter(apiCategories, c => c.identifier === 'mounts' || c.identifier === 'pets' || c.identifier === 'quests');
+
+      const setGroups = _filter(apiCategories, c => c.identifier !== 'mounts' && c.identifier !== 'pets' && c.identifier !== 'quests');
+
+      const setCategory = {
+        identifier: 'sets',
+        text: this.$t('mysterySets'),
+        items: setGroups.map(c => ({
+          ...c,
+          value: 1,
+          currency: 'hourglasses',
+          key: c.identifier,
+          class: `shop_set_mystery_${c.identifier}`,
+          purchaseType: 'mystery_set',
+        })),
+      };
+
+      normalGroups.push(setCategory);
+
+      normalGroups.map(category => {
+        this.$set(this.viewOptions, category.identifier, {
+          selected: false,
         });
-
-        let setGroups = _filter(apiCategories, (c) => {
-          return c.identifier !== 'mounts' && c.identifier !== 'pets' && c.identifier !== 'quests';
-        });
-
-        let setCategory = {
-          identifier: 'sets',
-          text: this.$t('mysterySets'),
-          items: setGroups.map((c) => {
-            return {
-              ...c,
-              value: 1,
-              currency: 'hourglasses',
-              key: c.identifier,
-              class: `shop_set_mystery_${c.identifier}`,
-              purchaseType: 'mystery_set',
-            };
-          }),
-        };
-
-        normalGroups.push(setCategory);
-
-        normalGroups.map((category) => {
-          this.$set(this.viewOptions, category.identifier, {
-            selected: false,
-          });
-        });
-
-        return normalGroups;
-      },
-      anyFilterSelected () {
-        return Object.values(this.viewOptions).some(g => g.selected);
-      },
-    },
-    methods: {
-      travelersItems (category, sortBy, searchBy, hidePinned) {
-        let result = _map(category.items, (e) => {
-          return {
-            ...e,
-            pinned: isPinned(this.user, e),
-          };
-        });
-
-        result = _filter(result, (i) => {
-          if (hidePinned && i.pinned) {
-            return false;
-          }
-
-          return !searchBy || i.text.toLowerCase().indexOf(searchBy) !== -1;
-        });
-
-        switch (sortBy) {
-          case 'AZ': {
-            result = _sortBy(result, ['text']);
-
-            break;
-          }
-          case 'sortByNumber': {
-            result = _sortBy(result, ['value']);
-
-            break;
-          }
-        }
-
-        return result;
-      },
-      getGrouped (entries) {
-        return _groupBy(entries, 'group');
-      },
-      selectItemToBuy (item) {
-        if (item.purchaseType === 'quests') {
-          this.selectedItemToBuy = item;
-
-          this.$root.$emit('bv::show::modal', 'buy-quest-modal');
-        } else {
-          this.$root.$emit('buyModal::showItem', item);
-        }
-      },
-      resetItemToBuy ($event) {
-        if (!$event) {
-          this.selectedItemToBuy = null;
-        }
-      },
-    },
-    created () {
-      this.$root.$on('buyModal::boughtItem', () => {
-        this.backgroundUpdate = new Date();
       });
+
+      return normalGroups;
     },
-    beforeDestroy () {
-      this.$root.$off('buyModal::boughtItem');
+    anyFilterSelected () {
+      return Object.values(this.viewOptions).some(g => g.selected);
     },
-  };
+  },
+  created () {
+    this.$root.$on('buyModal::boughtItem', () => {
+      this.backgroundUpdate = new Date();
+    });
+  },
+  beforeDestroy () {
+    this.$root.$off('buyModal::boughtItem');
+  },
+  methods: {
+    travelersItems (category, sortBy, searchBy, hidePinned) {
+      let result = _map(category.items, e => ({
+        ...e,
+        pinned: isPinned(this.user, e),
+      }));
+
+      result = _filter(result, i => {
+        if (hidePinned && i.pinned) {
+          return false;
+        }
+
+        return !searchBy || i.text.toLowerCase().indexOf(searchBy) !== -1;
+      });
+
+      switch (sortBy) {
+        case 'AZ': {
+          result = _sortBy(result, ['text']);
+
+          break;
+        }
+        case 'sortByNumber': {
+          result = _sortBy(result, ['value']);
+
+          break;
+        }
+      }
+
+      return result;
+    },
+    getGrouped (entries) {
+      return _groupBy(entries, 'group');
+    },
+    selectItemToBuy (item) {
+      if (item.purchaseType === 'quests') {
+        this.selectedItemToBuy = item;
+
+        this.$root.$emit('bv::show::modal', 'buy-quest-modal');
+      } else {
+        this.$root.$emit('buyModal::showItem', item);
+      }
+    },
+    resetItemToBuy ($event) {
+      if (!$event) {
+        this.selectedItemToBuy = null;
+      }
+    },
+  },
+};
 </script>

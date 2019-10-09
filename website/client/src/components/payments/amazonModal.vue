@@ -29,11 +29,11 @@
 </style>
 
 <script>
-import * as Analytics from '@/libs/analytics';
 import axios from 'axios';
+import pick from 'lodash/pick';
+import * as Analytics from '@/libs/analytics';
 import { mapState } from '@/libs/store';
 import { CONSTANTS, setLocalSetting } from '@/libs/userlocalManager';
-import pick from 'lodash/pick';
 
 const habiticaUrl = `${location.protocol}//${location.host}`;
 
@@ -59,26 +59,26 @@ export default {
     };
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     ...mapState(['isAmazonReady']),
     amazonPaymentsCanCheckout () {
       if (this.amazonPayments.type === 'single') {
         return this.amazonPayments.paymentSelected === true;
-      } else if (this.amazonPayments.type === 'subscription') {
+      } if (this.amazonPayments.type === 'subscription') {
         return this.amazonPayments.paymentSelected && this.amazonPayments.recurringConsent;
       }
       return false;
     },
   },
   mounted () {
-    this.$root.$on('habitica::pay-with-amazon', (amazonPaymentsData) => {
+    this.$root.$on('habitica::pay-with-amazon', amazonPaymentsData => {
       if (!amazonPaymentsData) return;
 
-      let amazonPayments = {
+      const amazonPayments = {
         type: 'single',
         loggedIn: false,
       };
-      this.amazonPayments = Object.assign({}, amazonPayments, amazonPaymentsData);
+      this.amazonPayments = { ...amazonPayments, ...amazonPaymentsData };
 
       this.$root.$emit('bv::show::modal', 'amazon-payment');
 
@@ -86,8 +86,8 @@ export default {
         if (this.amazonPayments.type === 'subscription') {
           this.amazonInitWidgets();
         } else {
-          let url = '/amazon/createOrderReferenceId';
-          let response = await axios.post(url, {
+          const url = '/amazon/createOrderReferenceId';
+          const response = await axios.post(url, {
             billingAgreementId: this.amazonPayments.billingAgreementId,
           });
 
@@ -106,7 +106,7 @@ export default {
   },
   methods: {
     amazonInitWidgets () {
-      let walletParams = {
+      const walletParams = {
         sellerId: process.env.AMAZON_PAYMENTS_SELLER_ID, // @TODO: Import
         design: {
           designMode: 'responsive',
@@ -118,7 +118,7 @@ export default {
       if (this.amazonPayments.type === 'subscription') {
         walletParams.agreementType = 'BillingAgreement';
         walletParams.billingAgreementId = this.amazonPayments.billingAgreementId;
-        walletParams.onReady = (billingAgreement) => {
+        walletParams.onReady = billingAgreement => {
           this.amazonPayments.billingAgreementId = billingAgreement.getAmazonBillingAgreementId();
 
           new window.OffAmazonPayments.Widgets.Consent({
@@ -127,11 +127,11 @@ export default {
             design: {
               designMode: 'responsive',
             },
-            onReady: (consent) => {
+            onReady: consent => {
               this.$set(this.amazonPayments, 'recurringConsent', consent.getConsentStatus ? Boolean(consent.getConsentStatus()) : false);
               this.$set(this, 'amazonButtonEnabled', true);
             },
-            onConsent: (consent) => {
+            onConsent: consent => {
               this.$set(this.amazonPayments, 'recurringConsent', Boolean(consent.getConsentStatus()));
             },
             onError: this.amazonOnError,
@@ -189,7 +189,7 @@ export default {
       // @TODO: Create factory functions
       // @TODO: A gift should not read the same as buying gems for yourself.
       if (this.amazonPayments.type === 'single') {
-        let url = '/amazon/checkout';
+        const url = '/amazon/checkout';
 
         try {
           await axios.post(url, {
@@ -223,7 +223,7 @@ export default {
 
           this.$root.$emit('bv::hide::modal', 'amazon-payment');
 
-          let newGroup = response.data.data;
+          const newGroup = response.data.data;
           if (newGroup && newGroup._id) {
             // Handle new user signup
             if (!this.$store.state.isUserLoggedIn) {

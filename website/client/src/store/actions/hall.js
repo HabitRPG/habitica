@@ -1,20 +1,20 @@
 import axios from 'axios';
 
-export async function getHeroes  () {
-  let url = '/api/v4/hall/heroes';
-  let response = await axios.get(url);
+export async function getHeroes () {
+  const url = '/api/v4/hall/heroes';
+  const response = await axios.get(url);
   return response.data.data;
 }
 
-export async function getHero  (store, payload) {
-  let url = `/api/v4/hall/heroes/${payload.uuid}`;
-  let response = await axios.get(url);
+export async function getHero (store, payload) {
+  const url = `/api/v4/hall/heroes/${payload.uuid}`;
+  const response = await axios.get(url);
   return response.data.data;
 }
 
-export async function updateHero  (store, payload) {
-  let url = `/api/v4/hall/heroes/${payload.heroDetails._id}`;
-  let response = await axios.put(url, payload.heroDetails);
+export async function updateHero (store, payload) {
+  const url = `/api/v4/hall/heroes/${payload.heroDetails._id}`;
+  const response = await axios.put(url, payload.heroDetails);
   return response.data.data;
 }
 
@@ -22,7 +22,7 @@ export async function getPatrons (store, payload) {
   let page = 0;
   if (payload.page) page = payload.page;
 
-  let url = `/api/v4/hall/patrons/?page=${page}`;
-  let response = await axios.get(url);
+  const url = `/api/v4/hall/patrons/?page=${page}`;
+  const response = await axios.get(url);
   return response.data.data;
 }

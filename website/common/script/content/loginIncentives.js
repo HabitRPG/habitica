@@ -299,14 +299,24 @@ export default function getLoginIncentives (api) {
     },
     120: {
       rewardKey: ['Pet_HatchingPotion_Base', 'Pet_HatchingPotion_Red', 'Pet_HatchingPotion_Golden'],
-      reward: [api.hatchingPotions.Base, api.hatchingPotions.CottonCandyBlue, api.hatchingPotions.CottonCandyPink, api.hatchingPotions.Desert, api.hatchingPotions.Golden, api.hatchingPotions.Red, api.hatchingPotions.Shade, api.hatchingPotions.Skeleton, api.hatchingPotions.White, api.hatchingPotions.Zombie],
+      reward: [
+        api.hatchingPotions.Base, api.hatchingPotions.CottonCandyBlue,
+        api.hatchingPotions.CottonCandyPink, api.hatchingPotions.Desert,
+        api.hatchingPotions.Golden, api.hatchingPotions.Red,
+        api.hatchingPotions.Shade, api.hatchingPotions.Skeleton,
+        api.hatchingPotions.White, api.hatchingPotions.Zombie,
+      ],
       rewardName: 'oneOfAllHatchingPotions',
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.Base) user.items.hatchingPotions.Base = 0;
         user.items.hatchingPotions.Base += 1;
-        if (!user.items.hatchingPotions.CottonCandyBlue) user.items.hatchingPotions.CottonCandyBlue = 0;
+        if (!user.items.hatchingPotions.CottonCandyBlue) {
+          user.items.hatchingPotions.CottonCandyBlue = 0;
+        }
         user.items.hatchingPotions.CottonCandyBlue += 1;
-        if (!user.items.hatchingPotions.CottonCandyPink) user.items.hatchingPotions.CottonCandyPink = 0;
+        if (!user.items.hatchingPotions.CottonCandyPink) {
+          user.items.hatchingPotions.CottonCandyPink = 0;
+        }
         user.items.hatchingPotions.CottonCandyPink += 1;
         if (!user.items.hatchingPotions.Desert) user.items.hatchingPotions.Desert = 0;
         user.items.hatchingPotions.Desert += 1;
@@ -336,7 +346,11 @@ export default function getLoginIncentives (api) {
     },
     130: {
       rewardKey: ['Pet_Food_Meat', 'Pet_Food_Potatoe', 'Pet_Food_Milk'],
-      reward: [api.food.Meat, api.food.CottonCandyBlue, api.food.CottonCandyPink, api.food.Potatoe, api.food.Honey, api.food.Strawberry, api.food.Chocolate, api.food.Fish, api.food.Milk, api.food.RottenMeat],
+      reward: [
+        api.food.Meat, api.food.CottonCandyBlue, api.food.CottonCandyPink, api.food.Potatoe,
+        api.food.Honey, api.food.Strawberry, api.food.Chocolate, api.food.Fish, api.food.Milk,
+        api.food.RottenMeat,
+      ],
       rewardName: 'threeOfEachFood',
       assignReward: function assignReward (user) {
         if (!user.items.food.Meat) user.items.food.Meat = 0;

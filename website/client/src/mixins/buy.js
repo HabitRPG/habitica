@@ -18,9 +18,8 @@ export default {
             type: 'error',
           });
           return;
-        } else {
-          throw e;
         }
+        throw e;
       }
 
       this.$root.$emit('playSound', 'Reward');

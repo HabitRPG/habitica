@@ -138,35 +138,35 @@
 </style>
 
 <script>
-  import { mapState } from '@/libs/store';
-  import statsMixin from '@/mixins/stats';
+import { mapState } from '@/libs/store';
+import statsMixin from '@/mixins/stats';
 
-  export default {
-    mixins: [statsMixin],
-    props: {
-      item: {
-        type: Object,
-      },
-      user: {
-        type: Object,
-      },
+export default {
+  mixins: [statsMixin],
+  props: {
+    item: {
+      type: Object,
     },
-    computed: {
-      ...mapState({
-        ATTRIBUTES: 'constants.ATTRIBUTES',
-        flatGear: 'content.gear.flat',
-      }),
+    user: {
+      type: Object,
     },
-    methods: {
-      hasSumValue (attr) {
-        return this.stats.sum[attr] > 0;
-      },
-      hasGearValue (attr) {
-        return this.stats.gear[attr] > 0;
-      },
-      hasClassBonus (attr) {
-        return this.stats.classBonus[attr] > 0;
-      },
+  },
+  computed: {
+    ...mapState({
+      ATTRIBUTES: 'constants.ATTRIBUTES',
+      flatGear: 'content.gear.flat',
+    }),
+  },
+  methods: {
+    hasSumValue (attr) {
+      return this.stats.sum[attr] > 0;
     },
-  };
+    hasGearValue (attr) {
+      return this.stats.gear[attr] > 0;
+    },
+    hasClassBonus (attr) {
+      return this.stats.classBonus[attr] > 0;
+    },
+  },
+};
 </script>

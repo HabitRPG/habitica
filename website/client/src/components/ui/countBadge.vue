@@ -21,14 +21,14 @@ span.badge.badge-pill.badge-item.badge-count(
 </style>
 
 <script>
-  export default {
-    props: {
-      show: {
-        type: Boolean,
-      },
-      count: {
-        type: Number,
-      },
+export default {
+  props: {
+    show: {
+      type: Boolean,
     },
-  };
+    count: {
+      type: Number,
+    },
+  },
+};
 </script>

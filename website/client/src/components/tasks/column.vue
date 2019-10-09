@@ -261,10 +261,11 @@
 </style>
 
 <script>
-import Task from './task';
-import ClearCompletedTodos from './clearCompletedTodos';
 import throttle from 'lodash/throttle';
 import isEmpty from 'lodash/isEmpty';
+import draggable from 'vuedraggable';
+import Task from './task';
+import ClearCompletedTodos from './clearCompletedTodos';
 import buyMixin from '@/mixins/buy';
 import { mapState, mapActions, mapGetters } from '@/libs/store';
 import shopItem from '../shops/shopItem';
@@ -287,10 +288,8 @@ import habitIcon from '@/assets/svg/habit.svg';
 import dailyIcon from '@/assets/svg/daily.svg';
 import todoIcon from '@/assets/svg/todo.svg';
 import rewardIcon from '@/assets/svg/reward.svg';
-import draggable from 'vuedraggable';
 
 export default {
-  mixins: [buyMixin, notifications],
   components: {
     Task,
     ClearCompletedTodos,
@@ -298,6 +297,7 @@ export default {
     shopItem,
     draggable,
   },
+  mixins: [buyMixin, notifications],
   // Set default values for props
   // allows for better control of props values
   // allows for better control of where this component is called
@@ -325,9 +325,9 @@ export default {
       pin: svgPin,
     });
 
-    let typeLabel = '';
-    let typeFilters = [];
-    let activeFilter = {};
+    const typeLabel = '';
+    const typeFilters = [];
+    const activeFilter = {};
 
     return {
       typeLabel,
@@ -367,21 +367,21 @@ export default {
     }),
     taskList () {
       // @TODO: This should not default to user's tasks. It should require that you pass options in
-      let filteredTaskList = this.isUser ?
-        this.getFilteredTaskList({
+      const filteredTaskList = this.isUser
+        ? this.getFilteredTaskList({
           type: this.type,
           filterType: this.activeFilter.label,
-        }) :
-        this.filterByLabel(this.taskListOverride, this.activeFilter.label);
+        })
+        : this.filterByLabel(this.taskListOverride, this.activeFilter.label);
 
-      let taggedList = this.filterByTagList(filteredTaskList, this.selectedTags);
-      let searchedList = this.filterBySearchText(taggedList, this.searchText);
+      const taggedList = this.filterByTagList(filteredTaskList, this.selectedTags);
+      const searchedList = this.filterBySearchText(taggedList, this.searchText);
 
       return searchedList;
     },
     inAppRewards () {
       let watchRefresh = this.forceRefresh; // eslint-disable-line
-      let rewards = inAppRewards(this.user);
+      const rewards = inAppRewards(this.user);
 
       // Add season rewards if user is affected
       // @TODO: Add buff conditional
@@ -392,10 +392,10 @@ export default {
         seafoam: 'sand',
       };
 
-      for (let key in seasonalSkills) {
+      for (const key in seasonalSkills) {
         if (this.getUserBuffs(key)) {
-          let debuff = seasonalSkills[key];
-          let item = Object.assign({}, spells.special[debuff]);
+          const debuff = seasonalSkills[key];
+          const item = { ...spells.special[debuff] };
           item.text = item.text();
           item.notes = item.notes();
           item.class = `shop_${key}`;
@@ -418,7 +418,7 @@ export default {
     },
     quickAddPlaceholder () {
       const type = this.$t(this.type);
-      return this.$t('addATask', {type});
+      return this.$t('addATask', { type });
     },
     badgeCount () {
       // 0 means the badge will not be shown
@@ -426,13 +426,11 @@ export default {
       // and for the active and scheduled views of todos.
       if (this.type === 'todo' && this.activeFilter.label !== 'complete2') {
         return this.taskList.length;
-      } else if (this.type === 'daily') {
+      } if (this.type === 'daily') {
         if (this.activeFilter.label === 'due') {
           return this.taskList.length;
-        } else if (this.activeFilter.label === 'all') {
-          return this.taskList.reduce((count, t) => {
-            return !t.completed && shouldDo(new Date(), t, this.getUserPreferences) ? count + 1 : count;
-          }, 0);
+        } if (this.activeFilter.label === 'all') {
+          return this.taskList.reduce((count, t) => (!t.completed && shouldDo(new Date(), t, this.getUserPreferences) ? count + 1 : count), 0);
         }
       }
 
@@ -512,7 +510,7 @@ export default {
       const newPosition = where === 'top' ? 0 : list.length;
       list.splice(newPosition, 0, moved[0]);
 
-      let newOrder = await this.$store.dispatch('tasks:move', {
+      const newOrder = await this.$store.dispatch('tasks:move', {
         taskId: taskIdToMove,
         position: newPosition,
       });
@@ -522,7 +520,7 @@ export default {
       const rewardsList = this.inAppRewards;
       const rewardToMove = rewardsList[data.oldIndex];
 
-      let newOrder = await this.$store.dispatch('user:movePinnedItem', {
+      const newOrder = await this.$store.dispatch('user:movePinnedItem', {
         path: rewardToMove.path,
         position: data.newIndex,
       });
@@ -549,10 +547,8 @@ export default {
       const text = this.quickAddText;
       if (!text) return false;
 
-      const tasks = text.split('\n').reverse().filter(taskText => {
-        return taskText ? true : false;
-      }).map(taskText => {
-        const task = taskDefaults({type: this.type, text: taskText}, this.user);
+      const tasks = text.split('\n').reverse().filter(taskText => (!!taskText)).map(taskText => {
+        const task = taskDefaults({ type: this.type, text: taskText }, this.user);
         task.tags = this.selectedTags;
         return task;
       });
@@ -624,7 +620,7 @@ export default {
       // filter requested tasks by tags
       if (!isEmpty(tagList)) {
         filteredTaskList = taskList.filter(
-          task => tagList.every(tag => task.tags.indexOf(tag) !== -1)
+          task => tagList.every(tag => task.tags.indexOf(tag) !== -1),
         );
       }
       return filteredTaskList;
@@ -634,19 +630,19 @@ export default {
       // filter requested tasks by search text
       if (searchText) {
         // to ensure broadest case insensitive search matching
-        let searchTextLowerCase = searchText.toLowerCase();
+        const searchTextLowerCase = searchText.toLowerCase();
         filteredTaskList = taskList.filter(
-          task => {
+          task =>
             // eslint rule disabled for block to allow nested binary expression
             /* eslint-disable no-extra-parens */
-            return (
-              task.text.toLowerCase().indexOf(searchTextLowerCase) > -1 ||
-              (task.notes && task.notes.toLowerCase().indexOf(searchTextLowerCase) > -1) ||
-              (task.checklist && task.checklist.length > 0 &&
-                task.checklist.some(checkItem => checkItem.text.toLowerCase().indexOf(searchTextLowerCase) > -1))
-            );
-            /* eslint-enable no-extra-parens */
-          });
+            (
+              task.text.toLowerCase().indexOf(searchTextLowerCase) > -1
+              || (task.notes && task.notes.toLowerCase().indexOf(searchTextLowerCase) > -1)
+              || (task.checklist && task.checklist.length > 0
+                && task.checklist.some(checkItem => checkItem.text.toLowerCase().indexOf(searchTextLowerCase) > -1))
+            ),
+          /* eslint-enable no-extra-parens */
+        );
       }
       return filteredTaskList;
     },
@@ -654,7 +650,7 @@ export default {
       if (rewardItem.locked) return;
 
       // Buy armoire and health potions immediately
-      let itemsToPurchaseImmediately = ['potion', 'armoire'];
+      const itemsToPurchaseImmediately = ['potion', 'armoire'];
       if (itemsToPurchaseImmediately.indexOf(rewardItem.key) !== -1) {
         this.makeGenericPurchase(rewardItem);
         this.$emit('buyPressed', rewardItem);
@@ -683,8 +679,8 @@ export default {
       }
 
       try {
-        if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
-          this.text(this.$t('unpinnedItem', {item: item.text}));
+        if (!this.$store.dispatch('user:togglePinnedItem', { type: item.pinType, path: item.path })) {
+          this.text(this.$t('unpinnedItem', { item: item.text }));
         }
       } catch (e) {
         this.error(e.message);

@@ -312,500 +312,489 @@
 </style>
 
 <script>
-  import { mapState } from '@/libs/store';
 
-  import _each from 'lodash/each';
-  import _sortBy from 'lodash/sortBy';
-  import _filter from 'lodash/filter';
-  import _throttle from 'lodash/throttle';
-  import groupBy from 'lodash/groupBy';
+import _each from 'lodash/each';
+import _sortBy from 'lodash/sortBy';
+import _filter from 'lodash/filter';
+import _throttle from 'lodash/throttle';
+import groupBy from 'lodash/groupBy';
+import { mapState } from '@/libs/store';
 
-  import Item from '../item';
-  import ItemRows from '@/components/ui/itemRows';
-  import PetItem from './petItem';
-  import MountItem from './mountItem.vue';
-  import FoodItem from './foodItem';
-  import HatchedPetDialog from './hatchedPetDialog';
-  import MountRaisedModal from './mountRaisedModal';
-  import WelcomeModal from './welcomeModal';
-  import HatchingModal from './hatchingModal';
-  import Drawer from '@/components/ui/drawer';
-  import toggleSwitch from '@/components/ui/toggleSwitch';
-  import StarBadge from '@/components/ui/starBadge';
-  import CountBadge from '@/components/ui/countBadge';
-  import DrawerSlider from '@/components/ui/drawerSlider';
-  import InventoryDrawer from '@/components/shared/inventoryDrawer';
+import Item from '../item';
+import ItemRows from '@/components/ui/itemRows';
+import PetItem from './petItem';
+import MountItem from './mountItem.vue';
+import FoodItem from './foodItem';
+import HatchedPetDialog from './hatchedPetDialog';
+import MountRaisedModal from './mountRaisedModal';
+import WelcomeModal from './welcomeModal';
+import HatchingModal from './hatchingModal';
+import Drawer from '@/components/ui/drawer';
+import toggleSwitch from '@/components/ui/toggleSwitch';
+import StarBadge from '@/components/ui/starBadge';
+import CountBadge from '@/components/ui/countBadge';
+import DrawerSlider from '@/components/ui/drawerSlider';
+import InventoryDrawer from '@/components/shared/inventoryDrawer';
 
-  import ResizeDirective from '@/directives/resize.directive';
-  import DragDropDirective from '@/directives/dragdrop.directive';
-  import MouseMoveDirective from '@/directives/mouseposition.directive';
+import ResizeDirective from '@/directives/resize.directive';
+import DragDropDirective from '@/directives/dragdrop.directive';
+import MouseMoveDirective from '@/directives/mouseposition.directive';
 
-  import { createAnimal } from '@/libs/createAnimal';
+import { createAnimal } from '@/libs/createAnimal';
 
-  import svgInformation from '@/assets/svg/information.svg';
+import svgInformation from '@/assets/svg/information.svg';
 
-  import notifications from '@/mixins/notifications';
-  import openedItemRowsMixin from '@/mixins/openedItemRows';
-  import petMixin from '@/mixins/petMixin';
+import notifications from '@/mixins/notifications';
+import openedItemRowsMixin from '@/mixins/openedItemRows';
+import petMixin from '@/mixins/petMixin';
 
-  import { CONSTANTS, setLocalSetting, getLocalSetting } from '@/libs/userlocalManager';
-  import {isOwned} from '../../../libs/createAnimal';
+import { CONSTANTS, setLocalSetting, getLocalSetting } from '@/libs/userlocalManager';
+import { isOwned } from '../../../libs/createAnimal';
 
-  // TODO Normalize special pets and mounts
-  // import Store from '@/store';
-  // import deepFreeze from '@/libs/deepFreeze';
-  // const specialMounts =
+// TODO Normalize special pets and mounts
+// import Store from '@/store';
+// import deepFreeze from '@/libs/deepFreeze';
+// const specialMounts =
 
-  let lastMouseMoveEvent = {};
+let lastMouseMoveEvent = {};
 
-  export default {
-    mixins: [notifications, openedItemRowsMixin, petMixin],
-    components: {
-      PetItem,
-      Item,
-      ItemRows,
-      FoodItem,
-      MountItem,
-      Drawer,
-      toggleSwitch,
-      StarBadge,
-      CountBadge,
-      DrawerSlider,
-      HatchedPetDialog,
-      MountRaisedModal,
-      WelcomeModal,
-      HatchingModal,
-      InventoryDrawer,
-    },
-    directives: {
-      resize: ResizeDirective,
-      drag: DragDropDirective,
-      mousePosition: MouseMoveDirective,
-    },
-    data () {
-      const stableSortState = getLocalSetting(CONSTANTS.keyConstants.STABLE_SORT_STATE) || 'standard';
+export default {
+  components: {
+    PetItem,
+    Item,
+    ItemRows,
+    FoodItem,
+    MountItem,
+    Drawer,
+    toggleSwitch,
+    StarBadge,
+    CountBadge,
+    DrawerSlider,
+    HatchedPetDialog,
+    MountRaisedModal,
+    WelcomeModal,
+    HatchingModal,
+    InventoryDrawer,
+  },
+  directives: {
+    resize: ResizeDirective,
+    drag: DragDropDirective,
+    mousePosition: MouseMoveDirective,
+  },
+  mixins: [notifications, openedItemRowsMixin, petMixin],
+  data () {
+    const stableSortState = getLocalSetting(CONSTANTS.keyConstants.STABLE_SORT_STATE) || 'standard';
 
-      return {
-        viewOptions: {},
-        hideMissing: false,
-        searchText: null,
-        searchTextThrottled: '',
-        // sort has the translation-keys as values
-        selectedSortBy: stableSortState,
-        sortByItems: [
-          'standard',
-          'AZ',
-          'sortByColor',
-          'sortByHatchable',
-        ],
-        icons: Object.freeze({
-          information: svgInformation,
-        }),
-
-        highlightPet: '',
-
-        hatchablePet: null,
-        foodClickMode: false,
-        currentDraggingFood: null,
-
-        selectedDrawerTab: 0,
-      };
-    },
-    watch: {
-      searchText: _throttle(function throttleSearch () {
-        let search = this.searchText.toLowerCase();
-        this.searchTextThrottled = search;
-      }, 250),
-      selectedSortBy: {
-        handler () {
-          setLocalSetting(CONSTANTS.keyConstants.STABLE_SORT_STATE, this.selectedSortBy);
-        },
-      },
-    },
-    computed: {
-      ...mapState({
-        content: 'content',
-        currentPet: 'user.data.items.currentPet',
-        currentMount: 'user.data.items.currentMount',
-        userItems: 'user.data.items',
-        user: 'user.data',
+    return {
+      viewOptions: {},
+      hideMissing: false,
+      searchText: null,
+      searchTextThrottled: '',
+      // sort has the translation-keys as values
+      selectedSortBy: stableSortState,
+      sortByItems: [
+        'standard',
+        'AZ',
+        'sortByColor',
+        'sortByHatchable',
+      ],
+      icons: Object.freeze({
+        information: svgInformation,
       }),
-      petGroups () {
-        let petGroups = [
-          {
-            label: this.$t('filterByStandard'),
-            key: 'standardPets',
-            petSource: {
-              eggs: this.content.dropEggs,
-              potions: this.content.dropHatchingPotions,
-            },
-          },
-          {
-            label: this.$t('filterByMagicPotion'),
-            key: 'magicPets',
-            petSource: {
-              eggs: this.content.dropEggs,
-              potions: this.content.premiumHatchingPotions,
-            },
-          },
-          {
-            label: this.$t('filterByQuest'),
-            key: 'questPets',
-            petSource: {
-              eggs: this.content.questEggs,
-              potions: this.content.dropHatchingPotions,
-            },
-          },
-          {
-            label: this.$t('filterByWacky'),
-            key: 'wackyPets',
-            petSource: {
-              eggs: this.content.dropEggs,
-              potions: this.content.wackyHatchingPotions,
-            },
-          },
-          {
-            label: this.$t('special'),
-            key: 'specialPets',
-            petSource: {
-              special: this.content.specialPets,
-            },
-          },
-        ];
 
-        petGroups.map((petGroup) => {
-          this.$set(this.viewOptions, petGroup.key, {
-            selected: false,
-            animalCount: 0,
-          });
-        });
+      highlightPet: '',
 
+      hatchablePet: null,
+      foodClickMode: false,
+      currentDraggingFood: null,
 
-        return petGroups;
-      },
-      mountGroups () {
-        let mountGroups = [
-          {
-            label: this.$t('filterByStandard'),
-            key: 'standardMounts',
-            petSource: {
-              eggs: this.content.dropEggs,
-              potions: this.content.dropHatchingPotions,
-            },
-          },
-          {
-            label: this.$t('filterByMagicPotion'),
-            key: 'magicMounts',
-            petSource: {
-              eggs: this.content.dropEggs,
-              potions: this.content.premiumHatchingPotions,
-            },
-          },
-          {
-            label: this.$t('filterByQuest'),
-            key: 'questMounts',
-            petSource: {
-              eggs: this.content.questEggs,
-              potions: this.content.dropHatchingPotions,
-            },
-          },
-          {
-            label: this.$t('special'),
-            key: 'specialMounts',
-            petSource: {
-              special: this.content.specialMounts,
-            },
-          },
-        ];
-
-        mountGroups.map((mountGroup) => {
-          this.$set(this.viewOptions, mountGroup.key, {
-            selected: false,
-            animalCount: 0,
-          });
-        });
-
-
-        return mountGroups;
-      },
-      drawerTabs () {
-        return [
-          {
-            label: this.$t('foodTitle'),
-            items: _filter(this.content.food, f => {
-              return f.key !== 'Saddle' && this.userItems.food[f.key];
-            }),
-          },
-          {
-            label: this.$t('special'),
-            items: _filter(this.content.food, f => {
-              return f.key === 'Saddle' && this.userItems.food[f.key];
-            }),
-          },
-        ];
-      },
-      anyFilterSelected () {
-        return Object.values(this.viewOptions).some(g => g.selected);
+      selectedDrawerTab: 0,
+    };
+  },
+  watch: {
+    searchText: _throttle(function throttleSearch () {
+      const search = this.searchText.toLowerCase();
+      this.searchTextThrottled = search;
+    }, 250),
+    selectedSortBy: {
+      handler () {
+        setLocalSetting(CONSTANTS.keyConstants.STABLE_SORT_STATE, this.selectedSortBy);
       },
     },
-    methods: {
-      setShowMore (key) {
-        this.$_openedItemRows_toggleByType(key, !this.$_openedItemRows_isToggled(key));
-      },
-      getAnimalList (animalGroup, type) {
-        let key = animalGroup.key;
+  },
+  computed: {
+    ...mapState({
+      content: 'content',
+      currentPet: 'user.data.items.currentPet',
+      currentMount: 'user.data.items.currentMount',
+      userItems: 'user.data.items',
+      user: 'user.data',
+    }),
+    petGroups () {
+      const petGroups = [
+        {
+          label: this.$t('filterByStandard'),
+          key: 'standardPets',
+          petSource: {
+            eggs: this.content.dropEggs,
+            potions: this.content.dropHatchingPotions,
+          },
+        },
+        {
+          label: this.$t('filterByMagicPotion'),
+          key: 'magicPets',
+          petSource: {
+            eggs: this.content.dropEggs,
+            potions: this.content.premiumHatchingPotions,
+          },
+        },
+        {
+          label: this.$t('filterByQuest'),
+          key: 'questPets',
+          petSource: {
+            eggs: this.content.questEggs,
+            potions: this.content.dropHatchingPotions,
+          },
+        },
+        {
+          label: this.$t('filterByWacky'),
+          key: 'wackyPets',
+          petSource: {
+            eggs: this.content.dropEggs,
+            potions: this.content.wackyHatchingPotions,
+          },
+        },
+        {
+          label: this.$t('special'),
+          key: 'specialPets',
+          petSource: {
+            special: this.content.specialPets,
+          },
+        },
+      ];
 
-        this.cachedAnimalList = this.cachedAnimalList || {};
-        if (this.cachedAnimalList[key]) {
-          return this.cachedAnimalList[key];
-        }
-
-        let animals = [];
-        let userItems = this.userItems;
-
-        switch (key) {
-          case 'specialPets':
-          case 'specialMounts': {
-            _each(animalGroup.petSource.special, (value, specialKey) => {
-              let eggKey = specialKey.split('-')[0];
-              let potionKey = specialKey.split('-')[1];
-
-              animals.push({
-                key: specialKey,
-                eggKey,
-                potionKey,
-                name: this.content[`${type}Info`][specialKey].text(),
-                isOwned ()  {
-                  return isOwned(type, this, userItems);
-                },
-                mountOwned () {
-                  return isOwned('mount', this, userItems);
-                },
-                isAllowedToFeed () {
-                  return type === 'pet' && this.isOwned() && !this.mountOwned();
-                },
-                isHatchable () {
-                  return false;
-                },
-              });
-            });
-            break;
-          }
-
-          default: {
-            _each(animalGroup.petSource.eggs, (egg) => {
-              _each(animalGroup.petSource.potions, (potion) => {
-                animals.push(createAnimal(egg, potion, type, this.content, userItems));
-              });
-            });
-          }
-        }
-
-        this.cachedAnimalList[key] = animals;
-
-        return animals;
-      },
-      listAnimals (animalGroup, type, hideMissing, sort, searchText) {
-        let animals = this.getAnimalList(animalGroup, type);
-        let isPetList = type === 'pet';
-
-        // 1. Filter
-        if (hideMissing) {
-          animals = _filter(animals, (a) => {
-            return a.isOwned();
-          });
-        }
-
-        if (searchText && searchText !== '') {
-          animals = _filter(animals, (a) => {
-            return a.name.toLowerCase().indexOf(searchText) !== -1;
-          });
-        }
-
-        // 2. Sort
-        switch (sort) {
-          case 'AZ':
-            animals = _sortBy(animals, ['eggName']);
-            break;
-
-          case 'sortByColor':
-            animals = _sortBy(animals, ['potionName']);
-            break;
-
-          case 'sortByHatchable': {
-            if (isPetList) {
-              let sortFunc = (i) => {
-                return i.isHatchable() ? 0 : 1;
-              };
-
-              animals = _sortBy(animals, [sortFunc]);
-            }
-            break;
-          }
-        }
-
-        this.viewOptions[animalGroup.key].animalCount = animals.length;
-
-        return animals;
-      },
-      countOwnedAnimals (animalGroup, type) {
-        let animals = this.getAnimalList(animalGroup, type);
-
-        let countAll = animals.length;
-        let countOwned = _filter(animals, (a) => {
-          // when counting pets, include those that have been raised into mounts
-          return a.isOwned() || a.mountOwned();
+      petGroups.map(petGroup => {
+        this.$set(this.viewOptions, petGroup.key, {
+          selected: false,
+          animalCount: 0,
         });
+      });
 
-        return `${countOwned.length}/${countAll}`;
-      },
-      pets (animalGroup, hideMissing, sortBy, searchText) {
-        let pets = this.listAnimals(animalGroup, 'pet', hideMissing, sortBy, searchText);
 
-        // Don't group special
-        if (animalGroup.key === 'specialPets' || animalGroup.key === 'wackyPets') {
-          return {none: pets};
+      return petGroups;
+    },
+    mountGroups () {
+      const mountGroups = [
+        {
+          label: this.$t('filterByStandard'),
+          key: 'standardMounts',
+          petSource: {
+            eggs: this.content.dropEggs,
+            potions: this.content.dropHatchingPotions,
+          },
+        },
+        {
+          label: this.$t('filterByMagicPotion'),
+          key: 'magicMounts',
+          petSource: {
+            eggs: this.content.dropEggs,
+            potions: this.content.premiumHatchingPotions,
+          },
+        },
+        {
+          label: this.$t('filterByQuest'),
+          key: 'questMounts',
+          petSource: {
+            eggs: this.content.questEggs,
+            potions: this.content.dropHatchingPotions,
+          },
+        },
+        {
+          label: this.$t('special'),
+          key: 'specialMounts',
+          petSource: {
+            special: this.content.specialMounts,
+          },
+        },
+      ];
+
+      mountGroups.map(mountGroup => {
+        this.$set(this.viewOptions, mountGroup.key, {
+          selected: false,
+          animalCount: 0,
+        });
+      });
+
+
+      return mountGroups;
+    },
+    drawerTabs () {
+      return [
+        {
+          label: this.$t('foodTitle'),
+          items: _filter(this.content.food, f => f.key !== 'Saddle' && this.userItems.food[f.key]),
+        },
+        {
+          label: this.$t('special'),
+          items: _filter(this.content.food, f => f.key === 'Saddle' && this.userItems.food[f.key]),
+        },
+      ];
+    },
+    anyFilterSelected () {
+      return Object.values(this.viewOptions).some(g => g.selected);
+    },
+  },
+  methods: {
+    setShowMore (key) {
+      this.$_openedItemRows_toggleByType(key, !this.$_openedItemRows_isToggled(key));
+    },
+    getAnimalList (animalGroup, type) {
+      const { key } = animalGroup;
+
+      this.cachedAnimalList = this.cachedAnimalList || {};
+      if (this.cachedAnimalList[key]) {
+        return this.cachedAnimalList[key];
+      }
+
+      const animals = [];
+      const { userItems } = this;
+
+      switch (key) {
+        case 'specialPets':
+        case 'specialMounts': {
+          _each(animalGroup.petSource.special, (value, specialKey) => {
+            const eggKey = specialKey.split('-')[0];
+            const potionKey = specialKey.split('-')[1];
+
+            animals.push({
+              key: specialKey,
+              eggKey,
+              potionKey,
+              name: this.content[`${type}Info`][specialKey].text(),
+              isOwned () {
+                return isOwned(type, this, userItems);
+              },
+              mountOwned () {
+                return isOwned('mount', this, userItems);
+              },
+              isAllowedToFeed () {
+                return type === 'pet' && this.isOwned() && !this.mountOwned();
+              },
+              isHatchable () {
+                return false;
+              },
+            });
+          });
+          break;
         }
 
-        let groupKey = 'eggKey';
-        if (sortBy === 'sortByColor') {
-          groupKey = 'potionKey';
-        } else if (sortBy === 'AZ') {
-          groupKey = '';
-        }
-
-        return groupBy(pets, groupKey);
-      },
-      mounts (animalGroup, hideMissing, sortBy, searchText) {
-        let mounts = this.listAnimals(animalGroup, 'mount', hideMissing, sortBy, searchText);
-
-        // Don't group special
-        if (animalGroup.key === 'specialMounts') {
-          return {none: mounts};
-        }
-
-        let groupKey = 'eggKey';
-        if (sortBy === 'sortByColor') {
-          groupKey = 'potionKey';
-        } else if (sortBy === 'AZ') {
-          groupKey = '';
-        }
-
-        return groupBy(mounts, groupKey);
-      },
-      hasDrawerTabItems (index) {
-        return this.drawerTabs && this.drawerTabs[index].items.length !== 0;
-      },
-      // Actions
-      updateHideMissing (newVal) {
-        this.hideMissing = newVal;
-      },
-      selectPet (item) {
-        this.$store.dispatch('common:equip', {key: item.key, type: 'pet'});
-      },
-      selectMount (item) {
-        this.$store.dispatch('common:equip', {key: item.key, type: 'mount'});
-      },
-      onDragStart (ev, food) {
-        this.currentDraggingFood = food;
-
-        let itemRef = this.$refs.dragginFoodInfo;
-
-        let dragEvent = ev.event;
-
-        dragEvent.dataTransfer.setDragImage(itemRef, -20, -20);
-      },
-      onDragOver (ev, pet) {
-        if (!pet.isAllowedToFeed()) {
-          ev.dropable = false;
-        } else {
-          this.highlightPet = pet.key;
-        }
-      },
-      async onDrop (ev, pet) {
-        this.highlightPet = '';
-
-        this.feedAction(pet.key, ev.draggingKey);
-      },
-
-      onDragEnd () {
-        this.currentDraggingFood = null;
-        this.highlightPet = '';
-      },
-      onDragLeave () {
-        this.highlightPet = '';
-      },
-      isOwned (type, pet) {
-        return isOwned(type, pet, this.userItems);
-      },
-      petClicked (pet) {
-        if (this.currentDraggingFood !== null) {
-          if (pet.isAllowedToFeed()) {
-            // food process
-            this.feedAction(pet.key, this.currentDraggingFood.key);
-            this.currentDraggingFood = null;
-            this.foodClickMode = false;
-          }
-        } else {
-          if (pet.isOwned()) {
-            this.selectPet(pet);
-            return;
-          }
-
-          if (!pet.isHatchable()) {
-            return;
-          }
-
-          if (this.user.preferences.suppressModals.raisePet) {
-            this.hatchPet(pet);
-            return;
-          }
-
-          // Confirm
-          this.hatchablePet = pet;
-          this.$root.$emit('bv::show::modal', 'hatching-modal');
-        }
-      },
-      async feedAction (petKey, foodKey) {
-        try {
-          const result = await this.$store.dispatch('common:feed', {pet: petKey, food: foodKey});
-
-          if (result.message) this.text(result.message);
-          if (this.user.preferences.suppressModals.raisePet) return;
-          if (this.user.items.pets[petKey] === -1) this.$root.$emit('habitica::mount-raised', petKey);
-        } catch (e) {
-          const errorMessage = e.message || e;
-
-          this.$store.dispatch('snackbars:add', {
-            title: 'Habitica',
-            text: errorMessage,
-            type: 'error',
-            timeout: true,
+        default: {
+          _each(animalGroup.petSource.eggs, egg => {
+            _each(animalGroup.petSource.potions, potion => {
+              animals.push(createAnimal(egg, potion, type, this.content, userItems));
+            });
           });
         }
-      },
-      onFoodClicked ($event, food) {
-        if (this.currentDraggingFood === null || this.currentDraggingFood !== food) {
-          this.currentDraggingFood = food;
-          this.foodClickMode = true;
+      }
 
-          this.$nextTick(() => {
-            this.mouseMoved(lastMouseMoveEvent);
-          });
-        } else {
+      this.cachedAnimalList[key] = animals;
+
+      return animals;
+    },
+    listAnimals (animalGroup, type, hideMissing, sort, searchText) {
+      let animals = this.getAnimalList(animalGroup, type);
+      const isPetList = type === 'pet';
+
+      // 1. Filter
+      if (hideMissing) {
+        animals = _filter(animals, a => a.isOwned());
+      }
+
+      if (searchText && searchText !== '') {
+        animals = _filter(animals, a => a.name.toLowerCase().indexOf(searchText) !== -1);
+      }
+
+      // 2. Sort
+      switch (sort) {
+        case 'AZ':
+          animals = _sortBy(animals, ['eggName']);
+          break;
+
+        case 'sortByColor':
+          animals = _sortBy(animals, ['potionName']);
+          break;
+
+        case 'sortByHatchable': {
+          if (isPetList) {
+            const sortFunc = i => (i.isHatchable() ? 0 : 1);
+
+            animals = _sortBy(animals, [sortFunc]);
+          }
+          break;
+        }
+      }
+
+      this.viewOptions[animalGroup.key].animalCount = animals.length;
+
+      return animals;
+    },
+    countOwnedAnimals (animalGroup, type) {
+      const animals = this.getAnimalList(animalGroup, type);
+
+      const countAll = animals.length;
+      const countOwned = _filter(animals, a =>
+      // when counting pets, include those that have been raised into mounts
+        a.isOwned() || a.mountOwned());
+
+      return `${countOwned.length}/${countAll}`;
+    },
+    pets (animalGroup, hideMissing, sortBy, searchText) {
+      const pets = this.listAnimals(animalGroup, 'pet', hideMissing, sortBy, searchText);
+
+      // Don't group special
+      if (animalGroup.key === 'specialPets' || animalGroup.key === 'wackyPets') {
+        return { none: pets };
+      }
+
+      let groupKey = 'eggKey';
+      if (sortBy === 'sortByColor') {
+        groupKey = 'potionKey';
+      } else if (sortBy === 'AZ') {
+        groupKey = '';
+      }
+
+      return groupBy(pets, groupKey);
+    },
+    mounts (animalGroup, hideMissing, sortBy, searchText) {
+      const mounts = this.listAnimals(animalGroup, 'mount', hideMissing, sortBy, searchText);
+
+      // Don't group special
+      if (animalGroup.key === 'specialMounts') {
+        return { none: mounts };
+      }
+
+      let groupKey = 'eggKey';
+      if (sortBy === 'sortByColor') {
+        groupKey = 'potionKey';
+      } else if (sortBy === 'AZ') {
+        groupKey = '';
+      }
+
+      return groupBy(mounts, groupKey);
+    },
+    hasDrawerTabItems (index) {
+      return this.drawerTabs && this.drawerTabs[index].items.length !== 0;
+    },
+    // Actions
+    updateHideMissing (newVal) {
+      this.hideMissing = newVal;
+    },
+    selectPet (item) {
+      this.$store.dispatch('common:equip', { key: item.key, type: 'pet' });
+    },
+    selectMount (item) {
+      this.$store.dispatch('common:equip', { key: item.key, type: 'mount' });
+    },
+    onDragStart (ev, food) {
+      this.currentDraggingFood = food;
+
+      const itemRef = this.$refs.dragginFoodInfo;
+
+      const dragEvent = ev.event;
+
+      dragEvent.dataTransfer.setDragImage(itemRef, -20, -20);
+    },
+    onDragOver (ev, pet) {
+      if (!pet.isAllowedToFeed()) {
+        ev.dropable = false;
+      } else {
+        this.highlightPet = pet.key;
+      }
+    },
+    async onDrop (ev, pet) {
+      this.highlightPet = '';
+
+      this.feedAction(pet.key, ev.draggingKey);
+    },
+
+    onDragEnd () {
+      this.currentDraggingFood = null;
+      this.highlightPet = '';
+    },
+    onDragLeave () {
+      this.highlightPet = '';
+    },
+    isOwned (type, pet) {
+      return isOwned(type, pet, this.userItems);
+    },
+    petClicked (pet) {
+      if (this.currentDraggingFood !== null) {
+        if (pet.isAllowedToFeed()) {
+          // food process
+          this.feedAction(pet.key, this.currentDraggingFood.key);
           this.currentDraggingFood = null;
           this.foodClickMode = false;
         }
-      },
-      mouseMoved ($event) {
-        // Keep track of the last mouse position even in click mode so that we
-        // know where to position the dragged food icon on click.
-        lastMouseMoveEvent = $event;
-        if (this.foodClickMode) {
-          this.$refs.clickFoodInfo.style.left = `${$event.x - 70}px`;
-          this.$refs.clickFoodInfo.style.top = `${$event.y}px`;
+      } else {
+        if (pet.isOwned()) {
+          this.selectPet(pet);
+          return;
         }
-      },
+
+        if (!pet.isHatchable()) {
+          return;
+        }
+
+        if (this.user.preferences.suppressModals.raisePet) {
+          this.hatchPet(pet);
+          return;
+        }
+
+        // Confirm
+        this.hatchablePet = pet;
+        this.$root.$emit('bv::show::modal', 'hatching-modal');
+      }
     },
-  };
+    async feedAction (petKey, foodKey) {
+      try {
+        const result = await this.$store.dispatch('common:feed', { pet: petKey, food: foodKey });
+
+        if (result.message) this.text(result.message);
+        if (this.user.preferences.suppressModals.raisePet) return;
+        if (this.user.items.pets[petKey] === -1) this.$root.$emit('habitica::mount-raised', petKey);
+      } catch (e) {
+        const errorMessage = e.message || e;
+
+        this.$store.dispatch('snackbars:add', {
+          title: 'Habitica',
+          text: errorMessage,
+          type: 'error',
+          timeout: true,
+        });
+      }
+    },
+    onFoodClicked ($event, food) {
+      if (this.currentDraggingFood === null || this.currentDraggingFood !== food) {
+        this.currentDraggingFood = food;
+        this.foodClickMode = true;
+
+        this.$nextTick(() => {
+          this.mouseMoved(lastMouseMoveEvent);
+        });
+      } else {
+        this.currentDraggingFood = null;
+        this.foodClickMode = false;
+      }
+    },
+    mouseMoved ($event) {
+      // Keep track of the last mouse position even in click mode so that we
+      // know where to position the dragged food icon on click.
+      lastMouseMoveEvent = $event;
+      if (this.foodClickMode) {
+        this.$refs.clickFoodInfo.style.left = `${$event.x - 70}px`;
+        this.$refs.clickFoodInfo.style.top = `${$event.y}px`;
+      }
+    },
+  },
+};
 </script>

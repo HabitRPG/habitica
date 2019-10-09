@@ -66,10 +66,10 @@ import { beastCount, mountMasterProgress } from '@/../../common/script/count';
 import notifications from '@/mixins/notifications';
 
 export default {
-  mixins: [notifications],
   components: {
     ShopItem,
   },
+  mixins: [notifications],
   data () {
     // @TODO: should these be clases
     return {
@@ -86,7 +86,7 @@ export default {
         buy: () => {
           if (!confirm(this.$t('releasePetsConfirm'))) return;
           try {
-            this.$store.dispatch('shops:releasePets', {user: this.user});
+            this.$store.dispatch('shops:releasePets', { user: this.user });
             this.text(this.$t('releasePetsSuccess'));
             // this.$router.push({name: 'stable'});
             // Reload because achievement is set in user.save instead of common
@@ -109,7 +109,7 @@ export default {
         buy: () => {
           if (!confirm(this.$t('releaseMountsConfirm'))) return;
           try {
-            this.$store.dispatch('shops:releaseMounts', {user: this.user});
+            this.$store.dispatch('shops:releaseMounts', { user: this.user });
             this.text(this.$t('releaseMountsSuccess'));
             // this.$router.push({name: 'stable'});
             // Reload because achievement is set in user.save instead of common
@@ -132,7 +132,7 @@ export default {
         buy: () => {
           if (!confirm(this.$t('releaseBothConfirm'))) return;
           try {
-            this.$store.dispatch('shops:releaseBoth', {user: this.user});
+            this.$store.dispatch('shops:releaseBoth', { user: this.user });
             this.text(this.$t('releaseBothSuccess'));
             // this.$router.push({name: 'stable'});
             // Reload because achievement is set in user.save instead of common
@@ -145,7 +145,7 @@ export default {
     };
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     userHasAllPets () {
       return beastCount(this.user.items.pets) === 90;
     },

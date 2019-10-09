@@ -26,13 +26,13 @@ import * as quests from '@/../../common/script/content/quests';
 import questInfo from '@/components/shops/quests/questInfo';
 
 export default {
-  props: ['notification', 'canRemove'],
   components: {
     BaseNotification,
     questInfo,
   },
+  props: ['notification', 'canRemove'],
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     questData () {
       return quests.quests[this.notification.data.quest];
     },

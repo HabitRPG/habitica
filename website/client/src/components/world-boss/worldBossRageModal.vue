@@ -66,26 +66,26 @@
 </style>
 
 <script>
-  export default {
-    computed: {
-      npcOption () {
-        return this.$store.state.rageModalOptions.npc;
-      },
+export default {
+  data () {
+    return {
+      npc: 'seasonalShop',
+    };
+  },
+  computed: {
+    npcOption () {
+      return this.$store.state.rageModalOptions.npc;
     },
-    data () {
-      return {
-        npc: 'seasonalShop',
-      };
+  },
+  watch: {
+    npcOption () {
+      this.npc = this.$store.state.rageModalOptions.npc;
     },
-    methods: {
-      close () {
-        this.$root.$emit('bv::hide::modal', 'world-boss-rage');
-      },
+  },
+  methods: {
+    close () {
+      this.$root.$emit('bv::hide::modal', 'world-boss-rage');
     },
-    watch: {
-      npcOption () {
-        this.npc = this.$store.state.rageModalOptions.npc;
-      },
-    },
-  };
+  },
+};
 </script>

@@ -1,4 +1,4 @@
-export function getDropClass ({type, key}) {
+export function getDropClass ({ type, key }) {
   let dropClass = '';
 
   if (type) {

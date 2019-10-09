@@ -48,190 +48,190 @@
 </template>
 
 <script>
-  import debounce from 'lodash/debounce';
+import debounce from 'lodash/debounce';
 
-  import autocomplete from '../chat/autoComplete';
-  import communityGuidelines from './communityGuidelines';
-  import chatMessage from '../chat/chatMessages';
-  import { mapState } from '@/libs/store';
-  import markdownDirective from '@/directives/markdown';
+import autocomplete from '../chat/autoComplete';
+import communityGuidelines from './communityGuidelines';
+import chatMessage from '../chat/chatMessages';
+import { mapState } from '@/libs/store';
+import markdownDirective from '@/directives/markdown';
 
-  export default {
-    props: ['label', 'group', 'placeholder'],
-    directives: {
-      markdown: markdownDirective,
-    },
-    components: {
-      autocomplete,
-      communityGuidelines,
-      chatMessage,
-    },
-    data () {
-      return {
-        newMessage: '',
-        sending: false,
-        caretPosition: 0,
-        chat: {
-          submitDisable: false,
-          submitTimeout: null,
-        },
-        coords: {
-          TOP: 0,
-          LEFT: 0,
-        },
-        textbox: this.$refs,
-      };
-    },
-    computed: {
-      ...mapState({user: 'user.data'}),
-      currentLength () {
-        return this.newMessage.length;
+export default {
+  directives: {
+    markdown: markdownDirective,
+  },
+  components: {
+    autocomplete,
+    communityGuidelines,
+    chatMessage,
+  },
+  props: ['label', 'group', 'placeholder'],
+  data () {
+    return {
+      newMessage: '',
+      sending: false,
+      caretPosition: 0,
+      chat: {
+        submitDisable: false,
+        submitTimeout: null,
       },
-      communityGuidelinesAccepted () {
-        return this.user.flags.communityGuidelinesAccepted;
-      },
-    },
-    methods: {
-      // https://medium.com/@_jh3y/how-to-where-s-the-caret-getting-the-xy-position-of-the-caret-a24ba372990a
-      getCoord (e, text) {
-        this.caretPosition = text.selectionEnd;
-        let div = document.createElement('div');
-        let span = document.createElement('span');
-        let copyStyle = getComputedStyle(text);
-
-        [].forEach.call(copyStyle, (prop) => {
-          div.style[prop] = copyStyle[prop];
-        });
-
-        div.style.position = 'absolute';
-        document.body.appendChild(div);
-        div.textContent = text.value.substr(0, this.caretPosition);
-        span.textContent = text.value.substr(this.caretPosition) || '.';
-        div.appendChild(span);
-        this.coords = {
-          TOP: span.offsetTop,
-          LEFT: span.offsetLeft,
-        };
-        document.body.removeChild(div);
-      },
-      updateCarretPosition: debounce(function updateCarretPosition (eventUpdate) {
-        this._updateCarretPosition(eventUpdate);
-      }, 250),
-      _updateCarretPosition (eventUpdate) {
-        let text = eventUpdate.target;
-        this.getCoord(eventUpdate, text);
-      },
-      async sendMessageShortcut () {
-        // If the user recently pasted in the text field, don't submit
-        if (!this.chat.submitDisable) {
-          this.sendMessage();
-        }
-      },
-      async sendMessage () {
-        if (this.sending) return;
-        this.sending = true;
-        let response;
-
-        try {
-          response = await this.$store.dispatch('chat:postChat', {
-            group: this.group,
-            message: this.newMessage,
-          });
-        } catch (e) {
-          // catch exception to allow function to continue
-        }
-
-        if (response) {
-          this.group.chat.unshift(response.message);
-          this.newMessage = '';
-        }
-
-        this.sending = false;
-
-        // @TODO: I would like to not reload everytime we send. Why are we reloading?
-        // The response has all the necessary data...
-        let chat = await this.$store.dispatch('chat:getChat', {groupId: this.group._id});
-        this.group.chat = chat;
-      },
-
-      disableMessageSendShortcut () {
-        // Some users were experiencing accidental sending of messages after pasting
-        // So, after pasting, disable the shortcut for a second.
-        this.chat.submitDisable = true;
-
-        if (this.chat.submitTimeout) {
-          // If someone pastes during the disabled period, prevent early re-enable
-          clearTimeout(this.chat.submitTimeout);
-          this.chat.submitTimeout = null;
-        }
-
-        this.chat.submitTimeout = window.setTimeout(() => {
-          this.chat.submitTimeout = null;
-          this.chat.submitDisable = false;
-        }, 500);
-      },
-
-      handleTab (e) {
-        if (this.$refs.autocomplete.searchActive) {
-          e.preventDefault();
-          if (e.shiftKey) {
-            this.$refs.autocomplete.selectPrevious();
-          } else {
-            this.$refs.autocomplete.selectNext();
-          }
-        }
-      },
-
-      handleEscape (e) {
-        if (this.$refs.autocomplete.searchActive) {
-          e.preventDefault();
-          this.$refs.autocomplete.cancel();
-        }
-      },
-
-      selectNextAutocomplete (e) {
-        if (this.$refs.autocomplete.searchActive) {
-          e.preventDefault();
-          this.$refs.autocomplete.selectNext();
-        }
-      },
-
-      selectPreviousAutocomplete (e) {
-        if (this.$refs.autocomplete.searchActive) {
-          e.preventDefault();
-          this.$refs.autocomplete.selectPrevious();
-        }
-      },
-
-      selectAutocomplete (e) {
-        if (this.$refs.autocomplete.searchActive) {
-          e.preventDefault();
-          this.$refs.autocomplete.makeSelection();
-        }
-      },
-
-      selectedAutocomplete (newText) {
-        this.newMessage = newText;
-      },
-
-      fetchRecentMessages () {
-        this.$emit('fetchRecentMessages');
-      },
-      reverseChat () {
-        this.group.chat.reverse();
-      },
-    },
-    beforeRouteUpdate (to, from, next) {
-      // Reset chat
-      this.newMessage = '';
-      this.coords = {
+      coords: {
         TOP: 0,
         LEFT: 0,
-      };
-
-      next();
+      },
+      textbox: this.$refs,
+    };
+  },
+  computed: {
+    ...mapState({ user: 'user.data' }),
+    currentLength () {
+      return this.newMessage.length;
     },
-  };
+    communityGuidelinesAccepted () {
+      return this.user.flags.communityGuidelinesAccepted;
+    },
+  },
+  methods: {
+    // https://medium.com/@_jh3y/how-to-where-s-the-caret-getting-the-xy-position-of-the-caret-a24ba372990a
+    getCoord (e, text) {
+      this.caretPosition = text.selectionEnd;
+      const div = document.createElement('div');
+      const span = document.createElement('span');
+      const copyStyle = getComputedStyle(text);
+
+      [].forEach.call(copyStyle, prop => {
+        div.style[prop] = copyStyle[prop];
+      });
+
+      div.style.position = 'absolute';
+      document.body.appendChild(div);
+      div.textContent = text.value.substr(0, this.caretPosition);
+      span.textContent = text.value.substr(this.caretPosition) || '.';
+      div.appendChild(span);
+      this.coords = {
+        TOP: span.offsetTop,
+        LEFT: span.offsetLeft,
+      };
+      document.body.removeChild(div);
+    },
+    updateCarretPosition: debounce(function updateCarretPosition (eventUpdate) {
+      this._updateCarretPosition(eventUpdate);
+    }, 250),
+    _updateCarretPosition (eventUpdate) {
+      const text = eventUpdate.target;
+      this.getCoord(eventUpdate, text);
+    },
+    async sendMessageShortcut () {
+      // If the user recently pasted in the text field, don't submit
+      if (!this.chat.submitDisable) {
+        this.sendMessage();
+      }
+    },
+    async sendMessage () {
+      if (this.sending) return;
+      this.sending = true;
+      let response;
+
+      try {
+        response = await this.$store.dispatch('chat:postChat', {
+          group: this.group,
+          message: this.newMessage,
+        });
+      } catch (e) {
+        // catch exception to allow function to continue
+      }
+
+      if (response) {
+        this.group.chat.unshift(response.message);
+        this.newMessage = '';
+      }
+
+      this.sending = false;
+
+      // @TODO: I would like to not reload everytime we send. Why are we reloading?
+      // The response has all the necessary data...
+      const chat = await this.$store.dispatch('chat:getChat', { groupId: this.group._id });
+      this.group.chat = chat;
+    },
+
+    disableMessageSendShortcut () {
+      // Some users were experiencing accidental sending of messages after pasting
+      // So, after pasting, disable the shortcut for a second.
+      this.chat.submitDisable = true;
+
+      if (this.chat.submitTimeout) {
+        // If someone pastes during the disabled period, prevent early re-enable
+        clearTimeout(this.chat.submitTimeout);
+        this.chat.submitTimeout = null;
+      }
+
+      this.chat.submitTimeout = window.setTimeout(() => {
+        this.chat.submitTimeout = null;
+        this.chat.submitDisable = false;
+      }, 500);
+    },
+
+    handleTab (e) {
+      if (this.$refs.autocomplete.searchActive) {
+        e.preventDefault();
+        if (e.shiftKey) {
+          this.$refs.autocomplete.selectPrevious();
+        } else {
+          this.$refs.autocomplete.selectNext();
+        }
+      }
+    },
+
+    handleEscape (e) {
+      if (this.$refs.autocomplete.searchActive) {
+        e.preventDefault();
+        this.$refs.autocomplete.cancel();
+      }
+    },
+
+    selectNextAutocomplete (e) {
+      if (this.$refs.autocomplete.searchActive) {
+        e.preventDefault();
+        this.$refs.autocomplete.selectNext();
+      }
+    },
+
+    selectPreviousAutocomplete (e) {
+      if (this.$refs.autocomplete.searchActive) {
+        e.preventDefault();
+        this.$refs.autocomplete.selectPrevious();
+      }
+    },
+
+    selectAutocomplete (e) {
+      if (this.$refs.autocomplete.searchActive) {
+        e.preventDefault();
+        this.$refs.autocomplete.makeSelection();
+      }
+    },
+
+    selectedAutocomplete (newText) {
+      this.newMessage = newText;
+    },
+
+    fetchRecentMessages () {
+      this.$emit('fetchRecentMessages');
+    },
+    reverseChat () {
+      this.group.chat.reverse();
+    },
+  },
+  beforeRouteUpdate (to, from, next) {
+    // Reset chat
+    this.newMessage = '';
+    this.coords = {
+      TOP: 0,
+      LEFT: 0,
+    };
+
+    next();
+  },
+};
 </script>
 
 <style scoped lang="scss">

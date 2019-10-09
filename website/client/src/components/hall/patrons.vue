@@ -32,7 +32,7 @@ export default {
     this.patrons = await this.$store.dispatch('hall:getPatrons', { page: 0 });
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
   },
   methods: {
     //  @TODO: Import member modal - clickMember()

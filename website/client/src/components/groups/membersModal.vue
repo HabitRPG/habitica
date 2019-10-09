@@ -214,11 +214,11 @@ import starIcon from '@/assets/members/star.svg';
 import dots from '@/assets/svg/dots.svg';
 
 export default {
-  props: ['hideBadge'],
   components: {
     MemberDetails,
     removeMemberModal,
   },
+  props: ['hideBadge'],
   data () {
     return {
       sortOption: {},
@@ -278,7 +278,7 @@ export default {
     };
   },
   mounted () {
-    this.$root.$on('habitica:show-member-modal', (data) => {
+    this.$root.$on('habitica:show-member-modal', data => {
       // @TODO: Remove store
       this.$store.state.memberModalOptions.challengeId = data.challengeId;
       this.$store.state.memberModalOptions.groupId = data.groupId;
@@ -294,7 +294,7 @@ export default {
     this.$root.$off('habitica:show-member-modal');
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     isLeader () {
       if (!this.group || !this.group.leader) return false;
       return this.user._id === this.group.leader || this.user._id === this.group.leader._id;
@@ -370,10 +370,10 @@ export default {
       });
     },
     async getMembers () {
-      let groupId = this.groupId;
+      const { groupId } = this;
 
       if (groupId && groupId !== 'challenge') {
-        let invites = await this.$store.dispatch('members:getGroupInvites', {
+        const invites = await this.$store.dispatch('members:getGroupInvites', {
           groupId,
           includeAllPublicFields: true,
         });
@@ -383,7 +383,7 @@ export default {
       this.members = this.$store.state.memberModalOptions.viewingMembers;
     },
     async clickMember (uid, forceShow) {
-      let user = this.$store.state.user.data;
+      const user = this.$store.state.user.data;
 
       if (user._id === uid && !forceShow) {
         if (this.$route.name === 'tasks') {
@@ -409,7 +409,7 @@ export default {
     memberRemoved () {
       this.members.splice(this.memberToRemove.index, 1);
       this.group.memberCount -= 1;
-      this.memberToRemove =  {};
+      this.memberToRemove = {};
     },
     async quickReply (uid) {
       this.memberToReply = uid;
@@ -459,7 +459,7 @@ export default {
       const lastMember = this.members[this.members.length - 1];
       if (!lastMember) return;
 
-      let newMembers = await this.$store.state.memberModalOptions.fetchMoreMembers({
+      const newMembers = await this.$store.state.memberModalOptions.fetchMoreMembers({
         challengeId: this.challengeId,
         groupId: this.groupId,
         lastMemberId: lastMember._id,
@@ -483,10 +483,10 @@ export default {
       this.viewMembers();
     },
     async promoteToLeader (member) {
-      let groupData = Object.assign({}, this.group);
+      const groupData = { ...this.group };
 
       groupData.leader = member._id;
-      await this.$store.dispatch('guilds:update', {group: groupData});
+      await this.$store.dispatch('guilds:update', { group: groupData });
 
       alert(this.$t('leaderChanged'));
 

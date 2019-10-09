@@ -108,14 +108,6 @@
 
 <script>
 export default {
-  data () {
-    return {
-      // The toggle requires a unique id to link it to the label
-      toggleId: this.generateId(),
-      // The container requires a unique id to link it to the pop-over
-      containerId: this.generateId(),
-    };
-  },
   model: {
     prop: 'checked',
     event: 'change',
@@ -135,6 +127,14 @@ export default {
       type: String,
     },
   },
+  data () {
+    return {
+      // The toggle requires a unique id to link it to the label
+      toggleId: this.generateId(),
+      // The container requires a unique id to link it to the pop-over
+      containerId: this.generateId(),
+    };
+  },
   computed: {
     isChecked () {
       return this.checked === this.value;
@@ -150,4 +150,3 @@ export default {
   },
 };
 </script>
-

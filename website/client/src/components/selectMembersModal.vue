@@ -103,10 +103,10 @@ import starIcon from '@/assets/members/star.svg';
 import { mapState } from '@/libs/store';
 
 export default {
-  props: ['group', 'hideBadge', 'item'],
   components: {
     MemberDetails,
   },
+  props: ['group', 'hideBadge', 'item'],
   data () {
     return {
       sortOption: '',
@@ -139,20 +139,20 @@ export default {
     };
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     sortedMembers () {
-      let sortedMembers = this.members;
+      const sortedMembers = this.members;
       if (!this.sortOption) return sortedMembers;
 
-      sortBy(this.members, [(member) => {
+      sortBy(this.members, [member => {
         if (this.sortOption === 'tier') {
           if (!member.contributor) return;
           return member.contributor.level;
-        } else if (this.sortOption === 'name') {
+        } if (this.sortOption === 'name') {
           return member.profile.name;
-        } else if (this.sortOption === 'lvl') {
+        } if (this.sortOption === 'lvl') {
           return member.stats.lvl;
-        } else if (this.sortOption === 'class') {
+        } if (this.sortOption === 'class') {
           return member.stats.class;
         }
       }]);
@@ -172,17 +172,17 @@ export default {
   },
   methods: {
     async getMembers () {
-      let groupId = this.groupId;
+      const { groupId } = this;
       if (groupId && groupId !== 'challenge') {
-        let members = await this.$store.dispatch('members:getGroupMembers', {
+        const members = await this.$store.dispatch('members:getGroupMembers', {
           groupId,
           includeAllPublicFields: true,
         });
         this.members = members;
       }
 
-      if ((!this.members || this.members.length === 0) &&
-          this.$store.state.memberModalOptions.viewingMembers.length > 0
+      if ((!this.members || this.members.length === 0)
+          && this.$store.state.memberModalOptions.viewingMembers.length > 0
       ) {
         this.members = this.$store.state.memberModalOptions.viewingMembers;
       }

@@ -303,89 +303,89 @@
 </style>
 
 <script>
-  import { TAVERN_ID } from '@/../../common/script/constants';
-  import userLink from '../userLink';
-  import groupLink from '../groupLink';
-  import categoryTags from '../categories/categoryTags';
-  import markdownDirective from '@/directives/markdown';
-  import {mapState} from '@/libs/store';
+import { TAVERN_ID } from '@/../../common/script/constants';
+import userLink from '../userLink';
+import groupLink from '../groupLink';
+import categoryTags from '../categories/categoryTags';
+import markdownDirective from '@/directives/markdown';
+import { mapState } from '@/libs/store';
 
-  import gemIcon from '@/assets/svg/gem.svg';
-  import memberIcon from '@/assets/svg/member-icon.svg';
-  import calendarIcon from '@/assets/svg/calendar.svg';
-  import habitIcon from '@/assets/svg/habit.svg';
-  import todoIcon from '@/assets/svg/todo.svg';
-  import dailyIcon from '@/assets/svg/daily.svg';
-  import rewardIcon from '@/assets/svg/reward.svg';
-  import officialIcon from '@/assets/svg/official.svg';
+import gemIcon from '@/assets/svg/gem.svg';
+import memberIcon from '@/assets/svg/member-icon.svg';
+import calendarIcon from '@/assets/svg/calendar.svg';
+import habitIcon from '@/assets/svg/habit.svg';
+import todoIcon from '@/assets/svg/todo.svg';
+import dailyIcon from '@/assets/svg/daily.svg';
+import rewardIcon from '@/assets/svg/reward.svg';
+import officialIcon from '@/assets/svg/official.svg';
 
-  export default {
-    props: {
-      challenge: {
-        required: true,
-      },
-      fullLayout: {
-        default: true,
-      },
+export default {
+  components: {
+    userLink,
+    groupLink,
+    categoryTags,
+  },
+  directives: {
+    markdown: markdownDirective,
+  },
+  props: {
+    challenge: {
+      required: true,
     },
-    components: {
-      userLink,
-      groupLink,
-      categoryTags,
+    fullLayout: {
+      default: true,
     },
-    directives: {
-      markdown: markdownDirective,
+  },
+  data () {
+    return {
+      icons: Object.freeze({
+        gemIcon,
+        memberIcon,
+        calendarIcon,
+        officialIcon,
+      }),
+    };
+  },
+  computed: {
+    ...mapState({ user: 'user.data' }),
+    isOwner () {
+      return this.challenge.leader && this.challenge.leader._id === this.user._id;
     },
-    data () {
-      return {
-        icons: Object.freeze({
-          gemIcon,
-          memberIcon,
-          calendarIcon,
-          officialIcon,
-        }),
-      };
+    isMember () {
+      return this.user.challenges.indexOf(this.challenge._id) !== -1;
     },
-    computed: {
-      ...mapState({user: 'user.data'}),
-      isOwner () {
-        return this.challenge.leader && this.challenge.leader._id === this.user._id;
-      },
-      isMember () {
-        return this.user.challenges.indexOf(this.challenge._id) !== -1;
-      },
-      isOfficial () {
-        return this.challenge.official || this.challenge.categories.map(category => category.slug).includes('habitica_official');
-      },
-      tasksData () {
-        return [
-          {
-            icon: habitIcon,
-            label: 'habit',
-            value: this.challenge.tasksOrder.habits.length,
-          },
-          {
-            icon: dailyIcon,
-            label: 'daily',
-            value: this.challenge.tasksOrder.dailys.length,
-          },
-          {
-            icon: todoIcon,
-            label: 'todo',
-            value: this.challenge.tasksOrder.todos.length,
-          },
-          {
-            icon: rewardIcon,
-            label: 'reward',
-            value: this.challenge.tasksOrder.rewards.length,
-          },
-        ];
-      },
+    isOfficial () {
+      return this.challenge.official || this.challenge.categories.map(category => category.slug).includes('habitica_official');
     },
-    methods: {
-      isTavern (group) {
-        return group._id === TAVERN_ID;
-      },
+    tasksData () {
+      return [
+        {
+          icon: habitIcon,
+          label: 'habit',
+          value: this.challenge.tasksOrder.habits.length,
+        },
+        {
+          icon: dailyIcon,
+          label: 'daily',
+          value: this.challenge.tasksOrder.dailys.length,
+        },
+        {
+          icon: todoIcon,
+          label: 'todo',
+          value: this.challenge.tasksOrder.todos.length,
+        },
+        {
+          icon: rewardIcon,
+          label: 'reward',
+          value: this.challenge.tasksOrder.rewards.length,
+        },
+      ];
     },
-  };
+  },
+  methods: {
+    isTavern (group) {
+      return group._id === TAVERN_ID;
+    },
+  },
+};
 </script>

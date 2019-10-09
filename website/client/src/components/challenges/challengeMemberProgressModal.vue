@@ -23,10 +23,10 @@ import axios from 'axios';
 import Column from '../tasks/column';
 
 export default {
-  props: ['challengeId'],
   components: {
     TaskColumn: Column,
   },
+  props: ['challengeId'],
   data () {
     return {
       columns: ['habit', 'daily', 'todo', 'reward'],
@@ -41,18 +41,6 @@ export default {
       isAdmin: false,
     };
   },
-  mounted () {
-    this.$root.$on('habitica:challenge:member-progress', (data) => {
-      if (!data.progressMemberId) return;
-      this.memberId = data.progressMemberId;
-      this.isLeader = data.isLeader;
-      this.isAdmin = data.isAdmin;
-      this.$root.$emit('bv::show::modal', 'challenge-member-modal');
-    });
-  },
-  beforeDestroy () {
-    this.$root.$off('habitica:challenge:member-progress');
-  },
   watch: {
     async memberId (id) {
       if (!id) return;
@@ -63,12 +51,24 @@ export default {
         reward: [],
       };
 
-      let response = await axios.get(`/api/v4/challenges/${this.challengeId}/members/${this.memberId}`);
-      let tasks = response.data.data.tasks;
-      tasks.forEach((task) => {
+      const response = await axios.get(`/api/v4/challenges/${this.challengeId}/members/${this.memberId}`);
+      const { tasks } = response.data.data;
+      tasks.forEach(task => {
         this.tasksByType[task.type].push(task);
       });
     },
+  },
+  mounted () {
+    this.$root.$on('habitica:challenge:member-progress', data => {
+      if (!data.progressMemberId) return;
+      this.memberId = data.progressMemberId;
+      this.isLeader = data.isLeader;
+      this.isAdmin = data.isAdmin;
+      this.$root.$emit('bv::show::modal', 'challenge-member-modal');
+    });
+  },
+  beforeDestroy () {
+    this.$root.$off('habitica:challenge:member-progress');
   },
   methods: {
     async closeChallenge () {

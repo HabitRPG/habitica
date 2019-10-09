@@ -74,10 +74,10 @@ div
 import memberSearchDropdown from '@/components/members/memberSearchDropdown';
 
 export default {
-  props: ['challengeId', 'members', 'prize'],
   components: {
     memberSearchDropdown,
   },
+  props: ['challengeId', 'members', 'prize'],
   data () {
     return {
       winner: {},

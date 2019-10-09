@@ -3,16 +3,16 @@ import isEqual from 'lodash/isEqual';
 import keys from 'lodash/keys';
 import pick from 'lodash/pick';
 import includes from 'lodash/includes';
-import getStore from '@/store';
 import amplitude from 'amplitude-js';
 import Vue from 'vue';
+import getStore from '@/store';
 
 const IS_PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
-const AMPLITUDE_KEY = process.env.AMPLITUDE_KEY; // eslint-disable-line no-process-env
-const GA_ID = process.env.GA_ID; // eslint-disable-line no-process-env
+const { AMPLITUDE_KEY } = process.env; // eslint-disable-line no-process-env
+const { GA_ID } = process.env; // eslint-disable-line no-process-env
 
-let REQUIRED_FIELDS = ['hitType', 'eventCategory', 'eventAction'];
-let ALLOWED_HIT_TYPES = [
+const REQUIRED_FIELDS = ['hitType', 'eventCategory', 'eventAction'];
+const ALLOWED_HIT_TYPES = [
   'pageview',
   'screenview',
   'event',
@@ -73,7 +73,7 @@ export function setUser () {
   const store = getStore();
   const user = store.state.user.data;
   amplitude.getInstance().setUserId(user._id);
-  window.ga('set', {userId: user._id});
+  window.ga('set', { userId: user._id });
 }
 
 export function track (properties) {

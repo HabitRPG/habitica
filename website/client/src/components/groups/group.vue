@@ -289,8 +289,6 @@ import silverGuildBadgeIcon from '@/assets/svg/silver-guild-badge-small.svg';
 import bronzeGuildBadgeIcon from '@/assets/svg/bronze-guild-badge-small.svg';
 
 export default {
-  mixins: [groupUtilities, styleHelper],
-  props: ['groupId'],
   components: {
     membersModal,
     startQuestModal,
@@ -307,6 +305,8 @@ export default {
   directives: {
     markdown: markdownDirective,
   },
+  mixins: [groupUtilities, styleHelper],
+  props: ['groupId'],
   data () {
     return {
       searchId: '',
@@ -333,7 +333,7 @@ export default {
     };
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     partyStore () {
       return this.$store.state.party;
     },
@@ -353,16 +353,6 @@ export default {
       return this.group.memberCount > this.$store.state.constants.LARGE_GROUP_COUNT_MESSAGE_CUTOFF;
     },
   },
-  mounted () {
-    if (this.isParty) this.searchId = 'party';
-    if (!this.searchId) this.searchId = this.groupId;
-    this.load();
-  },
-  beforeRouteUpdate (to, from, next) {
-    this.$set(this, 'searchId', to.params.groupId);
-
-    next();
-  },
   watch: {
     // call again the method if the route changes (when this route is already active)
     $route: 'fetchGuild',
@@ -375,9 +365,19 @@ export default {
       }
     },
   },
+  mounted () {
+    if (this.isParty) this.searchId = 'party';
+    if (!this.searchId) this.searchId = this.groupId;
+    this.load();
+  },
+  beforeRouteUpdate (to, from, next) {
+    this.$set(this, 'searchId', to.params.groupId);
+
+    next();
+  },
   methods: {
     acceptCommunityGuidelines () {
-      this.$store.dispatch('user:set', {'flags.communityGuidelinesAccepted': true});
+      this.$store.dispatch('user:set', { 'flags.communityGuidelinesAccepted': true });
     },
     async load () {
       if (this.isParty) {
@@ -393,7 +393,7 @@ export default {
         includeAllPublicFields: true,
       });
       this.$root.$on('updatedGroup', group => {
-        let updatedGroup = extend(this.group, group);
+        const updatedGroup = extend(this.group, group);
         this.$set(this.group, updatedGroup);
       });
     },
@@ -442,7 +442,7 @@ export default {
         this.group = this.$store.state.party.data;
         this.checkForAchievements();
       } else {
-        const group = await this.$store.dispatch('guilds:getGroup', {groupId: this.searchId});
+        const group = await this.$store.dispatch('guilds:getGroup', { groupId: this.searchId });
         this.$set(this, 'group', group);
       }
 
@@ -450,7 +450,7 @@ export default {
       if (this.hasUnreadMessages(groupId)) {
         // Delay by 1sec to make sure it returns after other requests that don't have the notification marked as read
         setTimeout(() => {
-          this.$store.dispatch('chat:markChatSeen', {groupId});
+          this.$store.dispatch('chat:markChatSeen', { groupId });
           this.$delete(this.user.newMessages, groupId);
         }, 1000);
       }
@@ -458,9 +458,7 @@ export default {
     hasUnreadMessages (groupId) {
       if (this.user.newMessages[groupId]) return true;
 
-      return this.user.notifications.some(n => {
-        return n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === groupId;
-      });
+      return this.user.notifications.some(n => n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === groupId);
     },
     checkForAchievements () {
       // Checks if user's party has reached 2 players for the first time.
@@ -481,7 +479,7 @@ export default {
       if (this.group.cancelledPlan && !confirm(this.$t('aboutToJoinCancelledGroupPlan'))) {
         return;
       }
-      await this.$store.dispatch('guilds:join', {groupId: this.group._id, type: 'guild'});
+      await this.$store.dispatch('guilds:join', { groupId: this.group._id, type: 'guild' });
     },
     clickLeave () {
       Analytics.track({
@@ -493,13 +491,13 @@ export default {
 
       // @TODO: Get challenges and ask to keep or remove
       if (!confirm('Are you sure you want to leave?')) return;
-      let keep = true;
+      const keep = true;
       this.leave(keep);
     },
     async leave (keepTasks) {
-      let keepChallenges = 'remain-in-challenges';
+      const keepChallenges = 'remain-in-challenges';
 
-      let data = {
+      const data = {
         groupId: this.group._id,
         keep: keepTasks,
         keepChallenges,
@@ -507,14 +505,14 @@ export default {
 
       if (this.isParty) {
         data.type = 'party';
-        Analytics.updateUser({partySize: null, partyID: null});
+        Analytics.updateUser({ partySize: null, partyID: null });
         this.$store.state.partyMembers = [];
       }
 
       await this.$store.dispatch('guilds:leave', data);
 
       if (this.isParty) {
-        this.$router.push({name: 'tasks'});
+        this.$router.push({ name: 'tasks' });
       }
     },
     upgradeGroup () {

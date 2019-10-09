@@ -2,7 +2,7 @@ import deepFreeze from '@/libs/deepFreeze';
 
 describe('deepFreeze', () => {
   it('deeply freezes an object', () => {
-    let obj = {
+    const obj = {
       a: 1,
       b () {
         return this.a;
@@ -15,7 +15,7 @@ describe('deepFreeze', () => {
       },
     };
 
-    let result = deepFreeze(obj);
+    const result = deepFreeze(obj);
     expect(result).to.equal(obj);
 
     expect(Object.isFrozen(obj)).to.equal(true);

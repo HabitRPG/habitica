@@ -4,7 +4,7 @@
     :hideFooter="true",
     :modalClass="['modal-hidden-footer']"
   )
-    div(slot="modal-header") 
+    div(slot="modal-header")
       .svg-icon.close(v-html="icons.close", v-once, @click="close()")
       .icon-container.check-container.d-flex.align-items-center.justify-content-center
         .svg-icon.check(v-html="icons.check", v-once)
@@ -80,7 +80,7 @@ export default {
     };
   },
   mounted () {
-    this.$root.$on('habitica:subscription-canceled', ({dateTerminated, isGroup}) => {
+    this.$root.$on('habitica:subscription-canceled', ({ dateTerminated, isGroup }) => {
       this.isGroup = isGroup;
       if (isGroup) {
         this.groupDateTerminated = dateTerminated;

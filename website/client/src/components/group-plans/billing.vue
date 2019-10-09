@@ -62,7 +62,7 @@ export default {
     }
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     isLeader () {
       return this.user._id === this.group.leader._id;
     },
@@ -81,8 +81,8 @@ export default {
   },
   methods: {
     async loadGroup () {
-      let group = await this.$store.dispatch('guilds:getGroup', {groupId: this.groupId});
-      this.group = Object.assign({}, group);
+      const group = await this.$store.dispatch('guilds:getGroup', { groupId: this.groupId });
+      this.group = { ...group };
     },
     upgradeGroup () {
       this.$store.state.upgradingGroup = this.group;

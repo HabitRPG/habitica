@@ -196,146 +196,144 @@
 </style>
 
 <script>
-  import {mapState} from '@/libs/store';
+import { mapState } from '@/libs/store';
 
-  import svgClose from '@/assets/svg/close.svg';
-  import svgGold from '@/assets/svg/gold.svg';
-  import svgGem from '@/assets/svg/gem.svg';
-  import svgPin from '@/assets/svg/pin.svg';
-  import svgExperience from '@/assets/svg/experience.svg';
-  import svgHourglasses from '@/assets/svg/hourglass.svg';
+import svgClose from '@/assets/svg/close.svg';
+import svgGold from '@/assets/svg/gold.svg';
+import svgGem from '@/assets/svg/gem.svg';
+import svgPin from '@/assets/svg/pin.svg';
+import svgExperience from '@/assets/svg/experience.svg';
+import svgHourglasses from '@/assets/svg/hourglass.svg';
 
-  import BalanceInfo  from '../balanceInfo.vue';
-  import currencyMixin from '../_currencyMixin';
-  import QuestInfo from './questInfo.vue';
-  import notifications from '@/mixins/notifications';
-  import buyMixin from '@/mixins/buy';
-  import numberInvalid from '@/mixins/numberInvalid';
+import BalanceInfo from '../balanceInfo.vue';
+import currencyMixin from '../_currencyMixin';
+import QuestInfo from './questInfo.vue';
+import notifications from '@/mixins/notifications';
+import buyMixin from '@/mixins/buy';
+import numberInvalid from '@/mixins/numberInvalid';
 
-  import questDialogDrops from './questDialogDrops';
-  import questDialogContent from './questDialogContent';
+import questDialogDrops from './questDialogDrops';
+import questDialogContent from './questDialogContent';
 
-  export default {
-    mixins: [buyMixin, currencyMixin, notifications, numberInvalid],
-    components: {
-      BalanceInfo,
-      QuestInfo,
-      questDialogDrops,
-      questDialogContent,
-    },
-    data () {
-      return {
-        icons: Object.freeze({
-          close: svgClose,
-          gold: svgGold,
-          gem: svgGem,
-          pin: svgPin,
-          experience: svgExperience,
-          hourglass: svgHourglasses,
-        }),
-
-        isPinned: false,
-        selectedAmountToBuy: 1,
-      };
-    },
-    watch: {
-      item: function itemChanged () {
-        this.isPinned = this.item && this.item.pinned;
-      },
-    },
-    computed: {
-      ...mapState({
-        content: 'content',
+export default {
+  components: {
+    BalanceInfo,
+    QuestInfo,
+    questDialogDrops,
+    questDialogContent,
+  },
+  mixins: [buyMixin, currencyMixin, notifications, numberInvalid],
+  data () {
+    return {
+      icons: Object.freeze({
+        close: svgClose,
+        gold: svgGold,
+        gem: svgGem,
+        pin: svgPin,
+        experience: svgExperience,
+        hourglass: svgHourglasses,
       }),
-      itemText () {
-        if (this.item.text instanceof Function) {
-          return this.item.text();
-        } else {
-          return this.item.text;
-        }
-      },
-      itemNotes () {
-        if (this.item.notes instanceof Function) {
-          return this.item.notes();
-        } else {
-          return this.item.notes;
-        }
-      },
-      currencyIcon () {
-        if (this.priceType === 'gold') return this.icons.gold;
-        if (this.priceType === 'hourglasses') return this.icons.hourglass;
-        return this.icons.gem;
-      },
-    },
-    methods: {
-      onChange ($event) {
-        this.selectedAmountToBuy = 1;
-        this.$emit('change', $event);
-      },
-      buyItem () {
-        if (!this.confirmPurchase(this.item.currency, this.item.value * this.selectedAmountToBuy)) {
-          return;
-        }
-        this.makeGenericPurchase(this.item, 'buyQuestModal', this.selectedAmountToBuy);
-        this.purchased(this.item.text);
-        this.hideDialog();
-      },
-      togglePinned () {
-        this.isPinned = this.$store.dispatch('user:togglePinnedItem', {type: this.item.pinType, path: this.item.path});
 
-        if (!this.isPinned) {
-          this.text(this.$t('unpinnedItem', {item: this.item.text}));
-        }
-      },
-      hideDialog () {
-        this.$root.$emit('bv::hide::modal', 'buy-quest-modal');
-      },
-      getDropIcon (drop) {
-        switch (drop.type) {
-          case 'gear':
-            return `shop_${drop.key}`;
-          case 'hatchingPotions':
-            return `Pet_HatchingPotion_${drop.key}`;
-          case 'food':
-            return `Pet_Food_${drop.key}`;
-          case 'eggs':
-            return `Pet_Egg_${drop.key}`;
-          case 'quests':
-            return `inventory_quest_scroll_${drop.key}`;
-          default:
-            return '';
-        }
-      },
-      getDropName (drop) {
-        switch (drop.type) {
-          case 'gear':
-            return this.content.gear.flat[drop.key].text();
-          case 'quests':
-            return this.content.quests[drop.key].text();
-          case 'hatchingPotions':
-            return this.$t('namedHatchingPotion', { type: this.content.hatchingPotions[drop.key].text() });
-          case 'food':
-            return this.content.food[drop.key].text();
-          case 'eggs':
-            return this.content.eggs[drop.key].text();
-          default:
-            return `Unknown type: ${drop.type}`;
-        }
-      },
-      purchaseGems () {
-        this.$root.$emit('bv::show::modal', 'buy-gems');
-      },
+      isPinned: false,
+      selectedAmountToBuy: 1,
+    };
+  },
+  watch: {
+    item: function itemChanged () {
+      this.isPinned = this.item && this.item.pinned;
     },
-    props: {
-      item: {
-        type: Object,
-      },
-      priceType: {
-        type: String,
-      },
-      withPin: {
-        type: Boolean,
-      },
+  },
+  computed: {
+    ...mapState({
+      content: 'content',
+    }),
+    itemText () {
+      if (this.item.text instanceof Function) {
+        return this.item.text();
+      }
+      return this.item.text;
     },
-  };
+    itemNotes () {
+      if (this.item.notes instanceof Function) {
+        return this.item.notes();
+      }
+      return this.item.notes;
+    },
+    currencyIcon () {
+      if (this.priceType === 'gold') return this.icons.gold;
+      if (this.priceType === 'hourglasses') return this.icons.hourglass;
+      return this.icons.gem;
+    },
+  },
+  methods: {
+    onChange ($event) {
+      this.selectedAmountToBuy = 1;
+      this.$emit('change', $event);
+    },
+    buyItem () {
+      if (!this.confirmPurchase(this.item.currency, this.item.value * this.selectedAmountToBuy)) {
+        return;
+      }
+      this.makeGenericPurchase(this.item, 'buyQuestModal', this.selectedAmountToBuy);
+      this.purchased(this.item.text);
+      this.hideDialog();
+    },
+    togglePinned () {
+      this.isPinned = this.$store.dispatch('user:togglePinnedItem', { type: this.item.pinType, path: this.item.path });
+
+      if (!this.isPinned) {
+        this.text(this.$t('unpinnedItem', { item: this.item.text }));
+      }
+    },
+    hideDialog () {
+      this.$root.$emit('bv::hide::modal', 'buy-quest-modal');
+    },
+    getDropIcon (drop) {
+      switch (drop.type) {
+        case 'gear':
+          return `shop_${drop.key}`;
+        case 'hatchingPotions':
+          return `Pet_HatchingPotion_${drop.key}`;
+        case 'food':
+          return `Pet_Food_${drop.key}`;
+        case 'eggs':
+          return `Pet_Egg_${drop.key}`;
+        case 'quests':
+          return `inventory_quest_scroll_${drop.key}`;
+        default:
+          return '';
+      }
+    },
+    getDropName (drop) {
+      switch (drop.type) {
+        case 'gear':
+          return this.content.gear.flat[drop.key].text();
+        case 'quests':
+          return this.content.quests[drop.key].text();
+        case 'hatchingPotions':
+          return this.$t('namedHatchingPotion', { type: this.content.hatchingPotions[drop.key].text() });
+        case 'food':
+          return this.content.food[drop.key].text();
+        case 'eggs':
+          return this.content.eggs[drop.key].text();
+        default:
+          return `Unknown type: ${drop.type}`;
+      }
+    },
+    purchaseGems () {
+      this.$root.$emit('bv::show::modal', 'buy-gems');
+    },
+  },
+  props: {
+    item: {
+      type: Object,
+    },
+    priceType: {
+      type: String,
+    },
+    withPin: {
+      type: Boolean,
+    },
+  },
+};
 </script>

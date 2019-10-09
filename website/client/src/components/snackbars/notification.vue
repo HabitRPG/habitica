@@ -132,32 +132,6 @@ export default {
       show: true,
     };
   },
-  created () {
-    let timeout = this.notification.hasOwnProperty('timeout') ? this.notification.timeout : true;
-    if (timeout) {
-      let delay = this.notification.delay || 1500;
-      delay += this.$store.state.notificationStore.length * 1000;
-      this.timer = setTimeout(() => {
-        this.show = false;
-      }, delay);
-    }
-  },
-  beforeDestroy () {
-    clearTimeout(this.timer);
-  },
-  watch: {
-    show () {
-      this.$store.dispatch('snackbars:remove', this.notification);
-    },
-  },
-  methods: {
-    handleOnClick () {
-      if (typeof this.notification.onClick === 'function') {
-        this.notification.onClick();
-      }
-      this.show = false;
-    },
-  },
   computed: {
     message () {
       if (this.notification.flavorMessage) {
@@ -177,6 +151,32 @@ export default {
     },
     classes () {
       return `${this.notification.type} ${this.negative}`;
+    },
+  },
+  watch: {
+    show () {
+      this.$store.dispatch('snackbars:remove', this.notification);
+    },
+  },
+  created () {
+    const timeout = this.notification.hasOwnProperty('timeout') ? this.notification.timeout : true;
+    if (timeout) {
+      let delay = this.notification.delay || 1500;
+      delay += this.$store.state.notificationStore.length * 1000;
+      this.timer = setTimeout(() => {
+        this.show = false;
+      }, delay);
+    }
+  },
+  beforeDestroy () {
+    clearTimeout(this.timer);
+  },
+  methods: {
+    handleOnClick () {
+      if (typeof this.notification.onClick === 'function') {
+        this.notification.onClick();
+      }
+      this.show = false;
     },
   },
 };

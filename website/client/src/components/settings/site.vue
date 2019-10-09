@@ -209,33 +209,33 @@
 import hello from 'hellojs';
 import moment from 'moment';
 import axios from 'axios';
-import { mapState } from '@/libs/store';
 import debounce from 'lodash/debounce';
+import { mapState } from '@/libs/store';
 import restoreModal from './restoreModal';
 import resetModal from './resetModal';
 import deleteModal from './deleteModal';
 import { SUPPORTED_SOCIAL_NETWORKS } from '@/../../common/script/constants';
-import changeClass from  '@/../../common/script/ops/changeClass';
+import changeClass from '@/../../common/script/ops/changeClass';
 import notificationsMixin from '../../mixins/notifications';
 import sounds from '../../libs/sounds';
 // @TODO: this needs our window.env fix
 // import { availableLanguages } from '../../../server/libs/i18n';
 
 export default {
-  mixins: [notificationsMixin],
   components: {
     restoreModal,
     resetModal,
     deleteModal,
   },
+  mixins: [notificationsMixin],
   data () {
-    let dayStartOptions = [];
+    const dayStartOptions = [];
     for (let number = 0; number < 24; number += 1) {
-      let meridian = number < 12 ? 'AM' : 'PM';
-      let hour = number % 12;
-      let option = {
+      const meridian = number < 12 ? 'AM' : 'PM';
+      const hour = number % 12;
+      const option = {
         value: number,
-        name: `${hour ? hour : 12}:00 ${meridian}`,
+        name: `${hour || 12}:00 ${meridian}`,
       };
       dayStartOptions.push(option);
     }
@@ -248,7 +248,7 @@ export default {
       dayStartOptions,
       newDayStart: 0,
       temporaryDisplayName: '',
-      usernameUpdates: {username: ''},
+      usernameUpdates: { username: '' },
       emailUpdates: {},
       passwordUpdates: {},
       localAuth: {
@@ -299,14 +299,14 @@ export default {
     },
     timezoneOffsetToUtc () {
       let offset = this.user.preferences.timezoneOffset;
-      let sign = offset > 0 ? '-' : '+';
+      const sign = offset > 0 ? '-' : '+';
 
       offset = Math.abs(offset) / 60;
 
-      let hour = Math.floor(offset);
+      const hour = Math.floor(offset);
 
-      let minutesInt = (offset - hour) * 60;
-      let minutes = minutesInt < 10 ? `0${minutesInt}` : minutesInt;
+      const minutesInt = (offset - hour) * 60;
+      const minutes = minutesInt < 10 ? `0${minutesInt}` : minutesInt;
 
       return `UTC${sign}${hour}:${minutes}`;
     },
@@ -390,7 +390,7 @@ export default {
       });
     }, 500),
     set (preferenceType, subtype) {
-      let settings = {};
+      const settings = {};
       if (!subtype) {
         settings[`preferences.${preferenceType}`] = this.user.preferences[preferenceType];
       } else {
@@ -420,7 +420,7 @@ export default {
         return true;
       }
 
-      return find(this.SOCIAL_AUTH_NETWORKS, (network) => {
+      return find(this.SOCIAL_AUTH_NETWORKS, network => {
         if (network.key !== networkKeyToCheck) {
           if (this.user.auth.hasOwnProperty(network.key)) {
             return this.user.auth[network.key].id;
@@ -429,9 +429,10 @@ export default {
       });
     },
     calculateNextCron () {
-      let nextCron = moment().hours(this.newDayStart).minutes(0).seconds(0).milliseconds(0);
+      let nextCron = moment().hours(this.newDayStart).minutes(0).seconds(0)
+        .milliseconds(0);
 
-      let currentHour = moment().format('H');
+      const currentHour = moment().format('H');
       if (currentHour >= this.newDayStart) {
         nextCron = nextCron.add(1, 'day');
       }
@@ -439,9 +440,9 @@ export default {
       return nextCron.format(`${this.user.preferences.dateFormat.toUpperCase()} @ h:mm a`);
     },
     openDayStartModal () {
-      let nextCron = this.calculateNextCron();
+      const nextCron = this.calculateNextCron();
       // @TODO: Add generic modal
-      if (!confirm(this.$t('sureChangeCustomDayStartTime', {time: nextCron}))) return;
+      if (!confirm(this.$t('sureChangeCustomDayStartTime', { time: nextCron }))) return;
       this.saveDayStart();
       // $rootScope.openModal('change-day-start', { scope: $scope });
     },
@@ -470,7 +471,7 @@ export default {
       }
     },
     async changeDisplayName (newName) {
-      await axios.put('/api/v4/user/', {'profile.name': newName});
+      await axios.put('/api/v4/user/', { 'profile.name': newName });
       alert(this.$t('displayNameSuccess'));
       this.user.profile.name = newName;
       this.temporaryDisplayName = newName;
@@ -486,10 +487,10 @@ export default {
     },
     async deleteSocialAuth (network) {
       await axios.delete(`/api/v4/user/auth/social/${network.key}`);
-      this.text(this.$t('detachedSocial', {network: network.name}));
+      this.text(this.$t('detachedSocial', { network: network.name }));
     },
     async socialAuth (network) {
-      let auth = await hello(network).login({scope: 'email'});
+      const auth = await hello(network).login({ scope: 'email' });
 
       await this.$store.dispatch('auth:socialAuth', {
         auth,

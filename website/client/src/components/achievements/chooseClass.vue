@@ -136,6 +136,9 @@ export default {
       classes: 'content.classes',
     }),
   },
+  directives: {
+    markdown: markdownDirective,
+  },
   data () {
     return {
       icons: Object.freeze({
@@ -147,16 +150,13 @@ export default {
       selectedClass: 'warrior',
     };
   },
-  directives: {
-    markdown: markdownDirective,
-  },
   methods: {
     close () {
       this.$root.$emit('bv::hide::modal', 'choose-class');
     },
     clickSelectClass (heroClass) {
       if (this.user.flags.classSelected && !confirm(this.$t('changeClassConfirmCost'))) return;
-      this.$store.dispatch('user:changeClass', {query: {class: heroClass}});
+      this.$store.dispatch('user:changeClass', { query: { class: heroClass } });
     },
     clickDisableClasses () {
       this.$store.dispatch('user:disableClasses');
@@ -170,13 +170,13 @@ export default {
           shield: 'shield_special_fall2019Rogue',
           weapon: 'weapon_special_fall2019Rogue',
         };
-      } else if (heroClass === 'wizard') {
+      } if (heroClass === 'wizard') {
         return {
           armor: 'armor_special_fall2019Mage',
           head: 'head_special_fall2019Mage',
           weapon: 'weapon_special_fall2019Mage',
         };
-      } else if (heroClass === 'healer') {
+      } if (heroClass === 'healer') {
         return {
           armor: 'armor_special_fall2019Healer',
           eyewear: 'eyewear_special_fall2019Healer',
@@ -184,14 +184,13 @@ export default {
           shield: 'shield_special_fall2019Healer',
           weapon: 'weapon_special_fall2019Healer',
         };
-      } else {
-        return {
-          armor: 'armor_special_fall2019Warrior',
-          head: 'head_special_fall2019Warrior',
-          shield: 'shield_special_fall2019Warrior',
-          weapon: 'weapon_special_fall2019Warrior',
-        };
       }
+      return {
+        armor: 'armor_special_fall2019Warrior',
+        head: 'head_special_fall2019Warrior',
+        shield: 'shield_special_fall2019Warrior',
+        weapon: 'weapon_special_fall2019Warrior',
+      };
     },
     selectionBox (selectedClass, heroClass) {
       if (selectedClass === heroClass) {

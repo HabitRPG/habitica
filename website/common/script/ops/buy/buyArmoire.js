@@ -18,11 +18,7 @@ const YIELD_EQUIPMENT_THRESHOLD = 0.6;
 const YIELD_FOOD_THRESHOLD = 0.8;
 
 export class BuyArmoireOperation extends AbstractGoldItemOperation { // eslint-disable-line import/prefer-default-export, max-len
-  constructor (user, req, analytics) {
-    super(user, req, analytics);
-  }
-
-  multiplePurchaseAllowed () {
+  multiplePurchaseAllowed () { // eslint-disable-line class-methods-use-this
     return false;
   }
 

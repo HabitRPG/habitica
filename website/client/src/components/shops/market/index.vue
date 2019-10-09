@@ -124,230 +124,220 @@
 
 
 <script>
-  import {mapState} from '@/libs/store';
+import _filter from 'lodash/filter';
+import _map from 'lodash/map';
+import _throttle from 'lodash/throttle';
+import { mapState } from '@/libs/store';
 
-  import ShopItem from '../shopItem';
-  import KeysToKennel from './keysToKennel';
-  import EquipmentSection from './equipmentSection';
-  import CategoryRow from './categoryRow';
-  import Item from '@/components/inventory/item';
-  import CountBadge from '@/components/ui/countBadge';
-  import ItemRows from '@/components/ui/itemRows';
-  import Avatar from '@/components/avatar';
-  import InventoryDrawer from '@/components/shared/inventoryDrawer';
-  import FeaturedItemsHeader from '../featuredItemsHeader';
-  import PageLayout from '@/components/ui/pageLayout';
-  import LayoutSection from '@/components/ui/layoutSection';
-  import FilterDropdown from '@/components/ui/filterDropdown';
-  import MarketFilter from './filter';
+import ShopItem from '../shopItem';
+import KeysToKennel from './keysToKennel';
+import EquipmentSection from './equipmentSection';
+import CategoryRow from './categoryRow';
+import Item from '@/components/inventory/item';
+import CountBadge from '@/components/ui/countBadge';
+import ItemRows from '@/components/ui/itemRows';
+import Avatar from '@/components/avatar';
+import InventoryDrawer from '@/components/shared/inventoryDrawer';
+import FeaturedItemsHeader from '../featuredItemsHeader';
+import PageLayout from '@/components/ui/pageLayout';
+import LayoutSection from '@/components/ui/layoutSection';
+import FilterDropdown from '@/components/ui/filterDropdown';
+import MarketFilter from './filter';
 
-  import SellModal from './sellModal.vue';
-  import EquipmentAttributesGrid from '../../inventory/equipment/attributesGrid.vue';
-  import SelectMembersModal from '@/components/selectMembersModal.vue';
+import SellModal from './sellModal.vue';
+import EquipmentAttributesGrid from '../../inventory/equipment/attributesGrid.vue';
+import SelectMembersModal from '@/components/selectMembersModal.vue';
 
-  import svgPin from '@/assets/svg/pin.svg';
-  import svgGem from '@/assets/svg/gem.svg';
-  import svgInformation from '@/assets/svg/information.svg';
+import svgPin from '@/assets/svg/pin.svg';
+import svgGem from '@/assets/svg/gem.svg';
+import svgInformation from '@/assets/svg/information.svg';
 
-  import getItemInfo from '@/../../common/script/libs/getItemInfo';
-  import shops from '@/../../common/script/libs/shops';
+import getItemInfo from '@/../../common/script/libs/getItemInfo';
+import shops from '@/../../common/script/libs/shops';
 
-  import _filter from 'lodash/filter';
-  import _map from 'lodash/map';
-  import _throttle from 'lodash/throttle';
 
-  const sortItems = ['AZ', 'sortByNumber'].map(g => ({id: g}));
+import notifications from '@/mixins/notifications';
+import buyMixin from '@/mixins/buy';
+import currencyMixin from '../_currencyMixin';
+import inventoryUtils from '@/mixins/inventoryUtils';
+import pinUtils from '@/mixins/pinUtils';
 
-  import notifications from '@/mixins/notifications';
-  import buyMixin from '@/mixins/buy';
-  import currencyMixin from '../_currencyMixin';
-  import inventoryUtils from '@/mixins/inventoryUtils';
-  import pinUtils from '@/mixins/pinUtils';
+const sortItems = ['AZ', 'sortByNumber'].map(g => ({ id: g }));
 
 export default {
-    mixins: [notifications, buyMixin, currencyMixin, inventoryUtils, pinUtils],
-    components: {
-      ShopItem,
-      KeysToKennel,
-      Item,
-      CountBadge,
+  components: {
+    ShopItem,
+    KeysToKennel,
+    Item,
+    CountBadge,
 
-      ItemRows,
+    ItemRows,
 
-      SellModal,
-      EquipmentAttributesGrid,
-      Avatar,
+    SellModal,
+    EquipmentAttributesGrid,
+    Avatar,
 
-      InventoryDrawer,
-      FeaturedItemsHeader,
-      PageLayout,
-      LayoutSection,
-      FilterDropdown,
-      EquipmentSection,
-      CategoryRow,
-      MarketFilter,
+    InventoryDrawer,
+    FeaturedItemsHeader,
+    PageLayout,
+    LayoutSection,
+    FilterDropdown,
+    EquipmentSection,
+    CategoryRow,
+    MarketFilter,
 
-      SelectMembersModal,
-    },
-    watch: {
-      searchText: _throttle(function throttleSearch () {
-        this.searchTextThrottled = this.searchText.toLowerCase();
-      }, 250),
-    },
-    data () {
-      return {
-        viewOptions: {
-          equipment: {
-            selected: false,
-            text: this.$t('equipment'),
-          },
+    SelectMembersModal,
+  },
+  mixins: [notifications, buyMixin, currencyMixin, inventoryUtils, pinUtils],
+  watch: {
+    searchText: _throttle(function throttleSearch () {
+      this.searchTextThrottled = this.searchText.toLowerCase();
+    }, 250),
+  },
+  data () {
+    return {
+      viewOptions: {
+        equipment: {
+          selected: false,
+          text: this.$t('equipment'),
         },
+      },
 
-        searchText: null,
-        searchTextThrottled: null,
+      searchText: null,
+      searchTextThrottled: null,
 
-        icons: Object.freeze({
-          pin: svgPin,
-          gem: svgGem,
-          information: svgInformation,
-        }),
-
-        sortItemsBy: sortItems,
-        selectedSortItemsBy: sortItems[0],
-
-        hideLocked: false,
-        hidePinned: false,
-
-        broken: false,
-      };
-    },
-    async mounted () {
-      const worldState = await this.$store.dispatch('worldState:getWorldState');
-      this.broken = worldState && worldState.worldBoss && worldState.worldBoss.extra && worldState.worldBoss.extra.worldDmg && worldState.worldBoss.extra.worldDmg.market;
-    },
-    computed: {
-      ...mapState({
-        content: 'content',
-        user: 'user.data',
-        userStats: 'user.data.stats',
-        userItems: 'user.data.items',
+      icons: Object.freeze({
+        pin: svgPin,
+        gem: svgGem,
+        information: svgInformation,
       }),
-      market () {
-        return shops.getMarketShop(this.user);
-      },
-      categories () {
-        if (!this.market) return [];
 
-        let categories = [
-          ...this.market.categories,
-        ];
+      sortItemsBy: sortItems,
+      selectedSortItemsBy: sortItems[0],
 
-        categories.push({
-          identifier: 'cards',
-          text: this.$t('cards'),
-          items: _map(_filter(this.content.cardTypes, (value) => {
-            return value.yearRound;
-          }), (value) => {
-            return {
-              ...getItemInfo(this.user, 'card', value),
-              showCount: false,
-            };
-          }),
-        });
+      hideLocked: false,
+      hidePinned: false,
 
-        let specialItems = [{
-          ...getItemInfo(this.user, 'fortify'),
-          showCount: false,
-        }];
-
-        if (this.user.purchased.plan.customerId) {
-          let gemItem = getItemInfo(this.user, 'gem');
-
-          specialItems.push({
-            ...gemItem,
-            showCount: false,
-          });
-        }
-
-        if (this.user.flags.rebirthEnabled) {
-          let rebirthItem = getItemInfo(this.user, 'rebirth_orb');
-
-          specialItems.push({
-            showCount: false,
-            ...rebirthItem,
-          });
-        }
-
-        if (specialItems.length > 0) {
-          categories.push({
-            identifier: 'special',
-            text: this.$t('special'),
-            items: specialItems,
-          });
-        }
-
-        categories.map((category) => {
-          if (!this.viewOptions[category.identifier]) {
-            this.$set(this.viewOptions, category.identifier, {
-              selected: false,
-              text: category.text,
-            });
-          }
-        });
-
-        return categories;
-      },
-      anyFilterSelected () {
-        return Object.values(this.viewOptions).some(g => g.selected);
-      },
+      broken: false,
+    };
+  },
+  async mounted () {
+    const worldState = await this.$store.dispatch('worldState:getWorldState');
+    this.broken = worldState && worldState.worldBoss && worldState.worldBoss.extra && worldState.worldBoss.extra.worldDmg && worldState.worldBoss.extra.worldDmg.market;
+  },
+  computed: {
+    ...mapState({
+      content: 'content',
+      user: 'user.data',
+      userStats: 'user.data.stats',
+      userItems: 'user.data.items',
+    }),
+    market () {
+      return shops.getMarketShop(this.user);
     },
-    methods: {
-      sellItem (itemScope) {
-        this.$root.$emit('sellItem', itemScope);
-      },
-      ownedItems (type) {
-        let mappedItems = _filter(this.content[type], i => {
-          return this.userItems[type][i.key] > 0;
-        });
+    categories () {
+      if (!this.market) return [];
 
-        switch (type) {
-          case 'food':
-            return _filter(mappedItems, f => {
-              return f.key !== 'Saddle';
-            });
-          case 'special':
-            if (this.userItems.food.Saddle) {
-              return _filter(this.content.food, f => {
-                return f.key === 'Saddle';
-              });
-            } else {
-              return [];
-            }
-          default:
-            return mappedItems;
+      const categories = [
+        ...this.market.categories,
+      ];
+
+      categories.push({
+        identifier: 'cards',
+        text: this.$t('cards'),
+        items: _map(_filter(this.content.cardTypes, value => value.yearRound), value => ({
+          ...getItemInfo(this.user, 'card', value),
+          showCount: false,
+        })),
+      });
+
+      const specialItems = [{
+        ...getItemInfo(this.user, 'fortify'),
+        showCount: false,
+      }];
+
+      if (this.user.purchased.plan.customerId) {
+        const gemItem = getItemInfo(this.user, 'gem');
+
+        specialItems.push({
+          ...gemItem,
+          showCount: false,
+        });
+      }
+
+      if (this.user.flags.rebirthEnabled) {
+        const rebirthItem = getItemInfo(this.user, 'rebirth_orb');
+
+        specialItems.push({
+          showCount: false,
+          ...rebirthItem,
+        });
+      }
+
+      if (specialItems.length > 0) {
+        categories.push({
+          identifier: 'special',
+          text: this.$t('special'),
+          items: specialItems,
+        });
+      }
+
+      categories.map(category => {
+        if (!this.viewOptions[category.identifier]) {
+          this.$set(this.viewOptions, category.identifier, {
+            selected: false,
+            text: category.text,
+          });
         }
-      },
-      hasOwnedItemsForType (type) {
-        return this.ownedItems(type).length > 0;
-      },
-      inventoryDrawerErrorMessage (type) {
-        if (!this.hasOwnedItemsForType(type)) {
-          // @TODO: Change any places using similar locales from `pets.json` and use these new locales from 'inventory.json'
-          return this.$t('noItemsAvailableForType', { type: this.$t(`${type}ItemType`) });
-        }
-      },
-      itemSelected (item) {
-        this.$root.$emit('buyModal::showItem', item);
-      },
-      featuredItemSelected (item) {
-        if (item.purchaseType === 'gear') {
-          if (!item.locked) {
-            this.itemSelected(item);
+      });
+
+      return categories;
+    },
+    anyFilterSelected () {
+      return Object.values(this.viewOptions).some(g => g.selected);
+    },
+  },
+  methods: {
+    sellItem (itemScope) {
+      this.$root.$emit('sellItem', itemScope);
+    },
+    ownedItems (type) {
+      const mappedItems = _filter(this.content[type], i => this.userItems[type][i.key] > 0);
+
+      switch (type) {
+        case 'food':
+          return _filter(mappedItems, f => f.key !== 'Saddle');
+        case 'special':
+          if (this.userItems.food.Saddle) {
+            return _filter(this.content.food, f => f.key === 'Saddle');
           }
-        } else {
+          return [];
+
+        default:
+          return mappedItems;
+      }
+    },
+    hasOwnedItemsForType (type) {
+      return this.ownedItems(type).length > 0;
+    },
+    inventoryDrawerErrorMessage (type) {
+      if (!this.hasOwnedItemsForType(type)) {
+        // @TODO: Change any places using similar locales from `pets.json` and use these new locales from 'inventory.json'
+        return this.$t('noItemsAvailableForType', { type: this.$t(`${type}ItemType`) });
+      }
+    },
+    itemSelected (item) {
+      this.$root.$emit('buyModal::showItem', item);
+    },
+    featuredItemSelected (item) {
+      if (item.purchaseType === 'gear') {
+        if (!item.locked) {
           this.itemSelected(item);
         }
-      },
+      } else {
+        this.itemSelected(item);
+      }
     },
-  };
+  },
+};
 </script>

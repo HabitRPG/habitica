@@ -12,39 +12,39 @@
 </style>
 
 <script>
-  import profile from './profile';
+import profile from './profile';
 
-  export default {
-    components: {
-      profile,
+export default {
+  components: {
+    profile,
+  },
+  data () {
+    return {
+      userId: undefined,
+      startingPage: undefined,
+      path: undefined,
+    };
+  },
+  mounted () {
+    this.$root.$on('habitica:show-profile', data => {
+      this.userId = data.userId;
+      this.startingPage = data.startingPage || 'profile';
+      this.path = data.path;
+      this.$root.$emit('bv::show::modal', 'profile');
+    });
+  },
+  destroyed () {
+    this.$root.$off('habitica:show-profile');
+  },
+  methods: {
+    onShown () {
+      history.pushState('', null, this.path);
     },
-    data () {
-      return {
-        userId: undefined,
-        startingPage: undefined,
-        path: undefined,
-      };
+    onHidden () {
+      if (this.$route.path !== window.location.pathname) {
+        this.$router.go(-1);
+      }
     },
-    mounted () {
-      this.$root.$on('habitica:show-profile', (data) => {
-        this.userId = data.userId;
-        this.startingPage = data.startingPage || 'profile';
-        this.path = data.path;
-        this.$root.$emit('bv::show::modal', 'profile');
-      });
-    },
-    destroyed () {
-      this.$root.$off('habitica:show-profile');
-    },
-    methods: {
-      onShown () {
-        history.pushState('', null, this.path);
-      },
-      onHidden () {
-        if (this.$route.path !== window.location.pathname) {
-          this.$router.go(-1);
-        }
-      },
-    },
-  };
+  },
+};
 </script>

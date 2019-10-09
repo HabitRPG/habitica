@@ -116,20 +116,20 @@
 <script>
 import Avatar from '../avatar';
 import { mapState } from '@/libs/store';
-import {MAX_HEALTH as maxHealth} from '@/../../common/script/constants';
+import { MAX_HEALTH as maxHealth } from '@/../../common/script/constants';
 import styleHelper from '@/mixins/styleHelper';
 import twitter from '@/assets/svg/twitter.svg';
 import facebook from '@/assets/svg/facebook.svg';
 
-let BASE_URL = 'https://habitica.com';
+const BASE_URL = 'https://habitica.com';
 
 export default {
-  mixins: [styleHelper],
   components: {
     Avatar,
   },
+  mixins: [styleHelper],
   data () {
-    let tweet = this.$t('levelUpShare');
+    const tweet = this.$t('levelUpShare');
     return {
       icons: Object.freeze({
         twitter,
@@ -147,7 +147,7 @@ export default {
     this.loadWidgets();
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     showAllocation () {
       return this.$store.getters['members:hasClass'](this.user) && !this.user.preferences.automaticAllocation;
     },

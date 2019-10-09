@@ -16,12 +16,12 @@ import BaseNotification from './base';
 import { mapState } from '@/libs/store';
 
 export default {
-  props: ['notification', 'canRemove'],
   components: {
     BaseNotification,
   },
+  props: ['notification', 'canRemove'],
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
   },
   methods: {
     async accept () {
@@ -31,11 +31,11 @@ export default {
         return;
       }
 
-      await this.$store.dispatch('guilds:join', {groupId: group.id, type: 'party'});
+      await this.$store.dispatch('guilds:join', { groupId: group.id, type: 'party' });
       this.$router.push('/party');
     },
     reject () {
-      this.$store.dispatch('guilds:rejectInvite', {groupId: this.notification.data.id, type: 'party'});
+      this.$store.dispatch('guilds:rejectInvite', { groupId: this.notification.data.id, type: 'party' });
     },
   },
 };

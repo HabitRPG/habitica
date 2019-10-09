@@ -64,7 +64,7 @@ import groupUtilities from '@/mixins/groupsUtilities';
 import positiveIcon from '@/assets/svg/positive.svg';
 
 function _mapCategories (guilds) {
-  guilds.forEach((guild) => {
+  guilds.forEach(guild => {
     if (!guild.categories) return;
     guild.categorySlugs = guild.categories.map(cat => {
       if (!cat) return;
@@ -74,8 +74,8 @@ function _mapCategories (guilds) {
 }
 
 export default {
-  mixins: [groupUtilities],
   components: { PublicGuildItem, MugenScroll, Sidebar },
+  mixins: [groupUtilities],
   data () {
     return {
       icons: Object.freeze({
@@ -113,14 +113,12 @@ export default {
   },
   computed: {
     filteredGuilds () {
-      let search = this.search;
-      let filters = this.filters;
-      let user = this.$store.state.user.data;
-      let filterGuild = this.filterGuild;
+      const { search } = this;
+      const { filters } = this;
+      const user = this.$store.state.user.data;
+      const { filterGuild } = this;
       // @TODO: Move this to the server
-      return this.guilds.filter((guild) => {
-        return filterGuild(guild, filters, search, user);
-      });
+      return this.guilds.filter(guild => filterGuild(guild, filters, search, user));
     },
   },
   methods: {
@@ -133,7 +131,7 @@ export default {
 
       this.queryFilters.search = eventData.searchTerm;
 
-      let guilds = await this.$store.dispatch('guilds:getPublicGuilds', this.queryFilters);
+      const guilds = await this.$store.dispatch('guilds:getPublicGuilds', this.queryFilters);
       _mapCategories(guilds);
       this.guilds = guilds;
     },
@@ -157,7 +155,7 @@ export default {
       this.queryFilters.categories = eventData.categories.join(',');
 
       // Role filters
-      let filteringRole = eventData.roles && eventData.roles.length > 0;
+      const filteringRole = eventData.roles && eventData.roles.length > 0;
       if (filteringRole && eventData.roles.indexOf('member') !== -1) {
         this.queryFilters.member = true;
       }
@@ -182,7 +180,7 @@ export default {
         this.queryFilters.maxMemberCount = 99;
       }
 
-      let guilds = await this.$store.dispatch('guilds:getPublicGuilds', this.queryFilters);
+      const guilds = await this.$store.dispatch('guilds:getPublicGuilds', this.queryFilters);
       _mapCategories(guilds);
       this.guilds = guilds;
     },
@@ -194,7 +192,7 @@ export default {
 
       this.loading = true;
       this.queryFilters.page = this.lastPageLoaded;
-      let guilds = await this.$store.dispatch('guilds:getPublicGuilds', this.queryFilters);
+      const guilds = await this.$store.dispatch('guilds:getPublicGuilds', this.queryFilters);
       if (guilds.length === 0) this.hasLoadedAllGuilds = true;
 
       _mapCategories(guilds);

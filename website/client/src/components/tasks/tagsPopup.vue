@@ -98,10 +98,10 @@
 import markdownDirective from '@/directives/markdown';
 
 export default {
-  props: ['tags', 'value'],
   directives: {
     markdown: markdownDirective,
   },
+  props: ['tags', 'value'],
   data () {
     return {
       selectedTags: [],

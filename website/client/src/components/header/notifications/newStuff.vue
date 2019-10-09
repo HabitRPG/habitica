@@ -16,10 +16,10 @@ base-notification(
 import BaseNotification from './base';
 
 export default {
-  props: ['notification', 'canRemove'],
   components: {
     BaseNotification,
   },
+  props: ['notification', 'canRemove'],
   methods: {
     action () {
       this.$root.$emit('bv::show::modal', 'new-stuff');

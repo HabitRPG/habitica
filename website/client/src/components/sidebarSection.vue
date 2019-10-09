@@ -54,38 +54,38 @@
 </style>
 
 <script>
-  import uuid from 'uuid/v4';
-  import upIcon from '@/assets/svg/up.svg';
-  import downIcon from '@/assets/svg/down.svg';
-  import informationIcon from '@/assets/svg/information.svg';
+import uuid from 'uuid/v4';
+import upIcon from '@/assets/svg/up.svg';
+import downIcon from '@/assets/svg/down.svg';
+import informationIcon from '@/assets/svg/information.svg';
 
-  export default {
-    props: {
-      title: {
-        required: true,
-      },
-      tooltip: {
-        default: null,
-      },
-      show: {
-        default: true,
-      },
+export default {
+  props: {
+    title: {
+      required: true,
     },
-    data () {
-      return {
-        tooltipId: uuid(),
-        visible: this.show,
-        icons: {
-          upIcon,
-          downIcon,
-          information: informationIcon,
-        },
-      };
+    tooltip: {
+      default: null,
     },
-    methods: {
-      toggle () {
-        this.visible = !this.visible;
+    show: {
+      default: true,
+    },
+  },
+  data () {
+    return {
+      tooltipId: uuid(),
+      visible: this.show,
+      icons: {
+        upIcon,
+        downIcon,
+        information: informationIcon,
       },
+    };
+  },
+  methods: {
+    toggle () {
+      this.visible = !this.visible;
     },
-  };
+  },
+};
 </script>

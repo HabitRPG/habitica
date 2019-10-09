@@ -7,14 +7,14 @@
 </template>
 
 <script>
-    export default {
-      props: {
-        showSidebar: {
-          type: Boolean,
-          default: true,
-        },
-      },
-    };
+export default {
+  props: {
+    showSidebar: {
+      type: Boolean,
+      default: true,
+    },
+  },
+};
 </script>
 
 <style scoped lang="scss">

@@ -163,7 +163,7 @@ export default {
     this.worldBoss = result.worldBoss;
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     bossHp () {
       if (this.worldBoss && this.worldBoss.progress) {
         return this.worldBoss.progress.hp;
@@ -173,7 +173,7 @@ export default {
   },
   methods: {
     action () {
-      this.$router.push({name: 'tavern'});
+      this.$router.push({ name: 'tavern' });
     },
   },
 };

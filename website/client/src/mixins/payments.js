@@ -1,21 +1,21 @@
-import axios from 'axios';
-
-const STRIPE_PUB_KEY = process.env.STRIPE_PUB_KEY; // eslint-disable-line no-process-env
+import axios from 'axios'; // eslint-disable-line no-process-env
+import pick from 'lodash/pick';
+import moment from 'moment';
 import subscriptionBlocks from '@/../../common/script/content/subscriptionBlocks';
 import { mapState } from '@/libs/store';
 import encodeParams from '@/libs/encodeParams';
 import notificationsMixin from '@/mixins/notifications';
 import * as Analytics from '@/libs/analytics';
 import { CONSTANTS, setLocalSetting } from '@/libs/userlocalManager';
-import pick from 'lodash/pick';
-import moment from 'moment';
+
+const { STRIPE_PUB_KEY } = process.env;
 
 const habiticaUrl = `${location.protocol}//${location.host}`;
 
 export default {
   mixins: [notificationsMixin],
   computed: {
-    ...mapState({user: 'user.data', credentials: 'credentials'}),
+    ...mapState({ user: 'user.data', credentials: 'credentials' }),
     paypalCheckoutLink () {
       return '/paypal/checkout';
     },
@@ -40,13 +40,13 @@ export default {
   methods: {
     encodeGift (uuid, gift) {
       gift.uuid = uuid;
-      let encodedString = JSON.stringify(gift);
+      const encodedString = JSON.stringify(gift);
       return encodeURIComponent(encodedString);
     },
     openPaypalGift (data) {
       if (!this.checkGemAmount(data)) return;
 
-      let gift = this.encodeGift(data.giftedTo, data.gift);
+      const gift = this.encodeGift(data.giftedTo, data.gift);
       const url = `/paypal/checkout?gift=${gift}`;
 
       this.openPaypal(url, `gift-${data.gift.type === 'gems' ? 'gems' : 'subscription'}`, data);
@@ -114,7 +114,7 @@ export default {
         description: sub ? this.$t('subscribe') : this.$t('checkout'),
         // image: '/apple-touch-icon-144-precomposed.png',
         panelLabel: sub ? this.$t('subscribe') : this.$t('checkout'),
-        token: async (res) => {
+        token: async res => {
           let url = '/stripe/checkout?a=a'; // just so I can concat &x=x below
 
           if (data.groupToCreate) {
@@ -128,10 +128,10 @@ export default {
           if (data.coupon) url += `&coupon=${data.coupon}`;
           if (data.groupId) url += `&groupId=${data.groupId}`;
 
-          let response = await axios.post(url, res);
+          const response = await axios.post(url, res);
 
           // @TODO handle with normal notifications?
-          let responseStatus = response.status;
+          const responseStatus = response.status;
           if (responseStatus >= 400) {
             alert(`Error: ${response.message}`);
             return;
@@ -162,7 +162,7 @@ export default {
 
           setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
 
-          let newGroup = response.data.data;
+          const newGroup = response.data.data;
           if (newGroup && newGroup._id) {
             // @TODO this does not do anything as we reload just below
             // @TODO: Just append? or $emit?
@@ -206,10 +206,10 @@ export default {
         name: this.$t('subUpdateTitle'),
         description: this.$t('subUpdateDescription'),
         panelLabel: this.$t('subUpdateCard'),
-        token: async (data) => {
+        token: async data => {
           data.groupId = groupId;
-          let url = '/stripe/subscribe/edit';
-          let response = await axios.post(url, data);
+          const url = '/stripe/subscribe/edit';
+          const response = await axios.post(url, data);
 
           // Success
           window.location.reload(true);
@@ -219,8 +219,8 @@ export default {
       });
     },
     checkGemAmount (data) {
-      let isGem = data && data.gift && data.gift.type === 'gems';
-      let notEnoughGem = isGem && (!data.gift.gems.amount || data.gift.gems.amount === 0);
+      const isGem = data && data.gift && data.gift.type === 'gems';
+      const notEnoughGem = isGem && (!data.gift.gems.amount || data.gift.gems.amount === 0);
       if (notEnoughGem) {
         this.error(this.$t('badAmountOfGemsToPurchase'), true);
         return false;
@@ -307,7 +307,7 @@ export default {
         await axios.get(cancelUrl);
 
         if (!config || !config.group) {
-          await this.$store.dispatch('user:fetch', {forceLoad: true});
+          await this.$store.dispatch('user:fetch', { forceLoad: true });
           this.$root.$emit('habitica:subscription-canceled', {
             dateTerminated: this.dateTerminated,
             isGroup: false,

@@ -1,5 +1,5 @@
-import Avatar from '@/components/avatar';
 import Vue from 'vue';
+import Avatar from '@/components/avatar';
 import generateStore from '@/store';
 
 context('avatar.vue', () => {
@@ -129,10 +129,10 @@ context('avatar.vue', () => {
         },
       };
 
-      expect(vm.visualBuffs).to.include({snowball: 'snowman'});
-      expect(vm.visualBuffs).to.include({spookySparkles: 'ghost'});
-      expect(vm.visualBuffs).to.include({shinySeed: 'avatar_floral_Warrior'});
-      expect(vm.visualBuffs).to.include({seafoam: 'seafoam_star'});
+      expect(vm.visualBuffs).to.include({ snowball: 'snowman' });
+      expect(vm.visualBuffs).to.include({ spookySparkles: 'ghost' });
+      expect(vm.visualBuffs).to.include({ shinySeed: 'avatar_floral_Warrior' });
+      expect(vm.visualBuffs).to.include({ seafoam: 'seafoam_star' });
     });
   });
 
@@ -274,7 +274,7 @@ context('avatar.vue', () => {
       it('does if not showing visual buffs', () => {
         expect(vm.showAvatar()).to.equal(true);
 
-        let buffs = vm.member.stats.buffs;
+        const { buffs } = vm.member.stats;
 
         buffs.snowball = true;
         expect(vm.showAvatar()).to.equal(false);

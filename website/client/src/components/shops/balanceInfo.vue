@@ -37,66 +37,66 @@ span {
 </style>
 
 <script>
-  import svgGem from '@/assets/svg/gem.svg';
-  import svgGold from '@/assets/svg/gold.svg';
-  import svgHourglasses from '@/assets/svg/hourglass.svg';
+import svgGem from '@/assets/svg/gem.svg';
+import svgGold from '@/assets/svg/gold.svg';
+import svgHourglasses from '@/assets/svg/hourglass.svg';
 
-  import currencyMixin from './_currencyMixin';
+import currencyMixin from './_currencyMixin';
 
-  export default {
-    mixins: [currencyMixin],
-    data () {
-      return {
-        icons: Object.freeze({
-          gem: svgGem,
-          gold: svgGold,
-          hourglasses: svgHourglasses,
-        }),
-      };
+export default {
+  mixins: [currencyMixin],
+  props: {
+    withHourglass: {
+      type: Boolean,
     },
-    computed: {
-      currencies () {
-        let currencies = [];
+    currencyNeeded: {
+      type: String,
+    },
+    amountNeeded: {
+      type: Number,
+    },
+  },
+  data () {
+    return {
+      icons: Object.freeze({
+        gem: svgGem,
+        gold: svgGold,
+        hourglasses: svgHourglasses,
+      }),
+    };
+  },
+  computed: {
+    currencies () {
+      const currencies = [];
 
-        if (this.withHourglass) {
-          currencies.push({
-            type: 'hourglasses',
-            icon: this.icons.hourglasses,
-            value: this.userHourglasses,
-          });
-        }
-
+      if (this.withHourglass) {
         currencies.push({
-          type: 'gems',
-          icon: this.icons.gem,
-          value: this.userGems,
+          type: 'hourglasses',
+          icon: this.icons.hourglasses,
+          value: this.userHourglasses,
         });
+      }
 
-        currencies.push({
-          type: 'gold',
-          icon: this.icons.gold,
-          value: this.userGold,
-        });
+      currencies.push({
+        type: 'gems',
+        icon: this.icons.gem,
+        value: this.userGems,
+      });
 
-        for (let currency of currencies) {
-          if (currency.type === this.currencyNeeded && !this.enoughCurrency(this.currencyNeeded, this.amountNeeded)) {
-            currency.notEnough = true;
-          }
+      currencies.push({
+        type: 'gold',
+        icon: this.icons.gold,
+        value: this.userGold,
+      });
+
+      for (const currency of currencies) {
+        if (currency.type === this.currencyNeeded && !this.enoughCurrency(this.currencyNeeded, this.amountNeeded)) {
+          currency.notEnough = true;
         }
+      }
 
-        return currencies;
-      },
+      return currencies;
     },
-    props: {
-      withHourglass: {
-        type: Boolean,
-      },
-      currencyNeeded: {
-        type: String,
-      },
-      amountNeeded: {
-        type: Number,
-      },
-    },
-  };
+  },
+};
 </script>

@@ -5,7 +5,7 @@ import feedOp from '@/../../common/script/ops/feed';
 
 export function equip (store, params) {
   const user = store.state.user.data;
-  equipOp(user, {params});
+  equipOp(user, { params });
   axios
     .post(`/api/v4/user/equip/${params.type}/${params.key}`);
   // TODO
@@ -15,7 +15,7 @@ export function equip (store, params) {
 
 export function hatch (store, params) {
   const user = store.state.user.data;
-  hatchOp(user, {params});
+  hatchOp(user, { params });
   axios
     .post(`/api/v4/user/hatch/${params.egg}/${params.hatchingPotion}`);
   // TODO
@@ -25,7 +25,7 @@ export function hatch (store, params) {
 
 export async function feed (store, params) {
   const user = store.state.user.data;
-  feedOp(user, {params});
+  feedOp(user, { params });
   const response = await axios
     .post(`/api/v4/user/feed/${params.pet}/${params.food}`);
   return response.data;

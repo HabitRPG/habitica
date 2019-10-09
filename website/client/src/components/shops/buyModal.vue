@@ -274,250 +274,246 @@
 </style>
 
 <script>
-  import * as Analytics from '@/libs/analytics';
-  import spellsMixin from '@/mixins/spells';
-  import planGemLimits from '@/../../common/script/libs/planGemLimits';
-  import numberInvalid from '@/mixins/numberInvalid';
+import keys from 'lodash/keys';
+import reduce from 'lodash/reduce';
+import moment from 'moment';
+import * as Analytics from '@/libs/analytics';
+import spellsMixin from '@/mixins/spells';
+import planGemLimits from '@/../../common/script/libs/planGemLimits';
+import numberInvalid from '@/mixins/numberInvalid';
 
-  import svgClose from '@/assets/svg/close.svg';
-  import svgGold from '@/assets/svg/gold.svg';
-  import svgGem from '@/assets/svg/gem.svg';
-  import svgHourglasses from '@/assets/svg/hourglass.svg';
-  import svgPin from '@/assets/svg/pin.svg';
-  import svgClock from '@/assets/svg/clock.svg';
-  import svgWhiteClock from '@/assets/svg/clock-white.svg';
+import svgClose from '@/assets/svg/close.svg';
+import svgGold from '@/assets/svg/gold.svg';
+import svgGem from '@/assets/svg/gem.svg';
+import svgHourglasses from '@/assets/svg/hourglass.svg';
+import svgPin from '@/assets/svg/pin.svg';
+import svgClock from '@/assets/svg/clock.svg';
+import svgWhiteClock from '@/assets/svg/clock-white.svg';
 
-  import BalanceInfo  from './balanceInfo.vue';
-  import currencyMixin from './_currencyMixin';
-  import notifications from '@/mixins/notifications';
-  import buyMixin from '@/mixins/buy';
+import BalanceInfo from './balanceInfo.vue';
+import currencyMixin from './_currencyMixin';
+import notifications from '@/mixins/notifications';
+import buyMixin from '@/mixins/buy';
 
-  import { mapState } from '@/libs/store';
+import { mapState } from '@/libs/store';
 
-  import EquipmentAttributesGrid from '../inventory/equipment/attributesGrid.vue';
+import EquipmentAttributesGrid from '../inventory/equipment/attributesGrid.vue';
 
-  import Item from '@/components/inventory/item';
-  import Avatar from '@/components/avatar';
+import Item from '@/components/inventory/item';
+import Avatar from '@/components/avatar';
 
-  import seasonalShopConfig from '@/../../common/script/libs/shops-seasonal.config';
-  import { drops as dropEggs } from '@/../../common/script/content/eggs';
+import seasonalShopConfig from '@/../../common/script/libs/shops-seasonal.config';
+import { drops as dropEggs } from '@/../../common/script/content/eggs';
 
-  import keys from 'lodash/keys';
-  import reduce from 'lodash/reduce';
-  import moment from 'moment';
 
-  const dropEggKeys = keys(dropEggs);
+const dropEggKeys = keys(dropEggs);
 
-  const hideAmountSelectionForPurchaseTypes = [
-    'gear', 'backgrounds', 'mystery_set', 'card',
-    'rebirth_orb', 'fortify', 'armoire', 'keys',
-    'debuffPotion', 'pets', 'mounts',
-  ];
+const hideAmountSelectionForPurchaseTypes = [
+  'gear', 'backgrounds', 'mystery_set', 'card',
+  'rebirth_orb', 'fortify', 'armoire', 'keys',
+  'debuffPotion', 'pets', 'mounts',
+];
 
-  export default {
-    mixins: [buyMixin, currencyMixin, notifications, numberInvalid, spellsMixin],
-    components: {
-      BalanceInfo,
-      EquipmentAttributesGrid,
-      Item,
-      Avatar,
+export default {
+  components: {
+    BalanceInfo,
+    EquipmentAttributesGrid,
+    Item,
+    Avatar,
+  },
+  mixins: [buyMixin, currencyMixin, notifications, numberInvalid, spellsMixin],
+  data () {
+    return {
+      icons: Object.freeze({
+        close: svgClose,
+        gold: svgGold,
+        gems: svgGem,
+        hourglasses: svgHourglasses,
+        pin: svgPin,
+        clock: svgClock,
+        whiteClock: svgWhiteClock,
+      }),
+
+      selectedAmountToBuy: 1,
+      isPinned: false,
+    };
+  },
+  computed: {
+    ...mapState({ user: 'user.data' }),
+    showAvatar () {
+      return ['backgrounds', 'gear', 'mystery_set'].includes(this.item.purchaseType);
     },
-    data () {
-      return {
-        icons: Object.freeze({
-          close: svgClose,
-          gold: svgGold,
-          gems: svgGem,
-          hourglasses: svgHourglasses,
-          pin: svgPin,
-          clock: svgClock,
-          whiteClock: svgWhiteClock,
-        }),
 
-        selectedAmountToBuy: 1,
-        isPinned: false,
-      };
-    },
-    computed: {
-      ...mapState({user: 'user.data'}),
-      showAvatar () {
-        return ['backgrounds', 'gear', 'mystery_set'].includes(this.item.purchaseType);
-      },
-
-      preventHealthPotion () {
-        if (this.item.key === 'potion' && this.user.stats.hp >= 50) {
-          return false;
-        }
-
-        return true;
-      },
-
-      showAttributesGrid () {
-        return this.item.purchaseType === 'gear';
-      },
-
-      itemText () {
-        if (this.item.text instanceof Function) {
-          return this.item.text();
-        } else {
-          return this.item.text;
-        }
-      },
-      itemNotes () {
-        if (this.item.notes instanceof Function) {
-          return this.item.notes();
-        } else {
-          return this.item.notes;
-        }
-      },
-      limitedString () {
-        return this.$t('limitedOffer', {date: moment(seasonalShopConfig.dateRange.end).format('LL')});
-      },
-      gemsLeft () {
-        if (!this.user.purchased.plan) return 0;
-        return planGemLimits.convCap + this.user.purchased.plan.consecutive.gemCapExtra - this.user.purchased.plan.gemsBought;
-      },
-      attemptingToPurchaseMoreGemsThanAreLeft () {
-        if (this.item && this.item.key && this.item.key === 'gem' && this.selectedAmountToBuy > this.gemsLeft) return true;
+    preventHealthPotion () {
+      if (this.item.key === 'potion' && this.user.stats.hp >= 50) {
         return false;
-      },
-      notEnoughCurrency () {
-        return !this.enoughCurrency(this.getPriceClass(), this.item.value * this.selectedAmountToBuy);
-      },
-      nextFreeRebirth () {
-        return 45 - moment().diff(moment(this.user.flags.lastFreeRebirth), 'days');
-      },
+      }
+
+      return true;
     },
-    watch: {
-      item: function itemChanged () {
-        this.isPinned = this.item && this.item.pinned;
-        this.selectedAmountToBuy = 1;
-      },
+
+    showAttributesGrid () {
+      return this.item.purchaseType === 'gear';
     },
-    methods: {
-      onChange ($event) {
-        this.$emit('change', $event);
-      },
-      buyItem () {
-        // @TODO: I  think we should buying to the items. Turn the items into classes, and use polymorphism
-        if (this.item.buy) {
-          this.item.buy();
-          this.$emit('buyPressed', this.item);
-          this.hideDialog();
-          return;
-        }
 
-        if (this.item.pinType === 'premiumHatchingPotion' || this.item.pinType === 'eggs' && dropEggKeys.indexOf(this.item.key) === -1) {
-          let petsRemaining = 20 - this.selectedAmountToBuy;
-          petsRemaining -= reduce(this.user.items.pets, (sum, petValue, petKey) => {
-            if (petKey.indexOf(this.item.key) !== -1 && petValue > 0) return sum + 1;
-            return sum;
-          }, 0);
-          petsRemaining -= reduce(this.user.items.mounts, (sum, mountValue, mountKey) => {
-            if (mountKey.indexOf(this.item.key) !== -1 && mountValue === true) return sum + 1;
-            return sum;
-          }, 0);
-          if (this.item.pinType === 'premiumHatchingPotion') {
-            petsRemaining -= this.user.items.hatchingPotions[this.item.key] + 2 || 2;
-          } else {
-            petsRemaining -= this.user.items.eggs[this.item.key] || 0;
-          }
-
-          if (petsRemaining < 0 && !confirm(this.$t('purchasePetItemConfirm', {itemText: this.item.text}))) return;
-        }
-
-        const shouldConfirmPurchase = this.item.currency === 'gems' || this.item.currency === 'hourglasses';
-        if (shouldConfirmPurchase && !this.confirmPurchase(this.item.currency, this.item.value * this.selectedAmountToBuy)) {
-          return;
-        }
-
-        if (this.genericPurchase) {
-          this.makeGenericPurchase(this.item, 'buyModal', this.selectedAmountToBuy);
-          this.purchased(this.item.text);
-        }
-
+    itemText () {
+      if (this.item.text instanceof Function) {
+        return this.item.text();
+      }
+      return this.item.text;
+    },
+    itemNotes () {
+      if (this.item.notes instanceof Function) {
+        return this.item.notes();
+      }
+      return this.item.notes;
+    },
+    limitedString () {
+      return this.$t('limitedOffer', { date: moment(seasonalShopConfig.dateRange.end).format('LL') });
+    },
+    gemsLeft () {
+      if (!this.user.purchased.plan) return 0;
+      return planGemLimits.convCap + this.user.purchased.plan.consecutive.gemCapExtra - this.user.purchased.plan.gemsBought;
+    },
+    attemptingToPurchaseMoreGemsThanAreLeft () {
+      if (this.item && this.item.key && this.item.key === 'gem' && this.selectedAmountToBuy > this.gemsLeft) return true;
+      return false;
+    },
+    notEnoughCurrency () {
+      return !this.enoughCurrency(this.getPriceClass(), this.item.value * this.selectedAmountToBuy);
+    },
+    nextFreeRebirth () {
+      return 45 - moment().diff(moment(this.user.flags.lastFreeRebirth), 'days');
+    },
+  },
+  watch: {
+    item: function itemChanged () {
+      this.isPinned = this.item && this.item.pinned;
+      this.selectedAmountToBuy = 1;
+    },
+  },
+  methods: {
+    onChange ($event) {
+      this.$emit('change', $event);
+    },
+    buyItem () {
+      // @TODO: I  think we should buying to the items. Turn the items into classes, and use polymorphism
+      if (this.item.buy) {
+        this.item.buy();
         this.$emit('buyPressed', this.item);
         this.hideDialog();
+        return;
+      }
 
-        if (this.item.key === 'rebirth_orb') {
-          window.location.reload(true);
+      if (this.item.pinType === 'premiumHatchingPotion' || this.item.pinType === 'eggs' && dropEggKeys.indexOf(this.item.key) === -1) {
+        let petsRemaining = 20 - this.selectedAmountToBuy;
+        petsRemaining -= reduce(this.user.items.pets, (sum, petValue, petKey) => {
+          if (petKey.indexOf(this.item.key) !== -1 && petValue > 0) return sum + 1;
+          return sum;
+        }, 0);
+        petsRemaining -= reduce(this.user.items.mounts, (sum, mountValue, mountKey) => {
+          if (mountKey.indexOf(this.item.key) !== -1 && mountValue === true) return sum + 1;
+          return sum;
+        }, 0);
+        if (this.item.pinType === 'premiumHatchingPotion') {
+          petsRemaining -= this.user.items.hatchingPotions[this.item.key] + 2 || 2;
+        } else {
+          petsRemaining -= this.user.items.eggs[this.item.key] || 0;
         }
-      },
-      purchaseGems () {
-        if (this.item.key === 'rebirth_orb') {
-          Analytics.track({
-            hitType: 'event',
-            eventCategory: 'button',
-            eventAction: 'click',
-            eventLabel: 'Gems > Rebirth',
+
+        if (petsRemaining < 0 && !confirm(this.$t('purchasePetItemConfirm', { itemText: this.item.text }))) return;
+      }
+
+      const shouldConfirmPurchase = this.item.currency === 'gems' || this.item.currency === 'hourglasses';
+      if (shouldConfirmPurchase && !this.confirmPurchase(this.item.currency, this.item.value * this.selectedAmountToBuy)) {
+        return;
+      }
+
+      if (this.genericPurchase) {
+        this.makeGenericPurchase(this.item, 'buyModal', this.selectedAmountToBuy);
+        this.purchased(this.item.text);
+      }
+
+      this.$emit('buyPressed', this.item);
+      this.hideDialog();
+
+      if (this.item.key === 'rebirth_orb') {
+        window.location.reload(true);
+      }
+    },
+    purchaseGems () {
+      if (this.item.key === 'rebirth_orb') {
+        Analytics.track({
+          hitType: 'event',
+          eventCategory: 'button',
+          eventAction: 'click',
+          eventLabel: 'Gems > Rebirth',
+        });
+      }
+      this.$root.$emit('bv::show::modal', 'buy-gems');
+    },
+    togglePinned () {
+      this.isPinned = this.$store.dispatch('user:togglePinnedItem', { type: this.item.pinType, path: this.item.path });
+
+      if (!this.isPinned) {
+        this.text(this.$t('unpinnedItem', { item: this.item.text }));
+      }
+    },
+    hideDialog () {
+      this.$root.$emit('bv::hide::modal', 'buy-modal');
+    },
+    getPriceClass () {
+      if (this.priceType && this.icons[this.priceType]) {
+        return this.priceType;
+      } if (this.item.currency && this.icons[this.item.currency]) {
+        return this.item.currency;
+      }
+      return 'gold';
+    },
+    showAmountToBuy (item) {
+      if (hideAmountSelectionForPurchaseTypes.includes(item.purchaseType)) {
+        return false;
+      }
+      return true;
+    },
+    getAvatarOverrides (item) {
+      switch (item.purchaseType) {
+        case 'gear':
+          return {
+            [item.type]: item.key,
+          };
+        case 'backgrounds':
+          return {
+            background: item.key,
+          };
+        case 'mystery_set': {
+          const gear = {};
+
+          item.items.map(setItem => {
+            gear[setItem.type] = setItem.key;
           });
-        }
-        this.$root.$emit('bv::show::modal', 'buy-gems');
-      },
-      togglePinned () {
-        this.isPinned = this.$store.dispatch('user:togglePinnedItem', {type: this.item.pinType, path: this.item.path});
 
-        if (!this.isPinned) {
-          this.text(this.$t('unpinnedItem', {item: this.item.text}));
+          return gear;
         }
-      },
-      hideDialog () {
-        this.$root.$emit('bv::hide::modal', 'buy-modal');
-      },
-      getPriceClass () {
-        if (this.priceType && this.icons[this.priceType]) {
-          return this.priceType;
-        } else if (this.item.currency && this.icons[this.item.currency]) {
-          return this.item.currency;
-        } else {
-          return 'gold';
-        }
-      },
-      showAmountToBuy (item) {
-        if (hideAmountSelectionForPurchaseTypes.includes(item.purchaseType)) {
-          return false;
-        } else {
-          return true;
-        }
-      },
-      getAvatarOverrides (item) {
-        switch (item.purchaseType) {
-          case 'gear':
-            return {
-              [item.type]: item.key,
-            };
-          case 'backgrounds':
-            return {
-              background: item.key,
-            };
-          case 'mystery_set': {
-            let gear = {};
+      }
 
-            item.items.map((setItem) => {
-              gear[setItem.type] = setItem.key;
-            });
-
-            return gear;
-          }
-        }
-
-        return {};
-      },
+      return {};
     },
-    props: {
-      item: {
-        type: Object,
-      },
-      priceType: {
-        type: String,
-      },
-      withPin: {
-        type: Boolean,
-      },
-      genericPurchase: {
-        type: Boolean,
-        default: true,
-      },
+  },
+  props: {
+    item: {
+      type: Object,
     },
-  };
+    priceType: {
+      type: String,
+    },
+    withPin: {
+      type: Boolean,
+    },
+    genericPurchase: {
+      type: Boolean,
+      default: true,
+    },
+  },
+};
 </script>

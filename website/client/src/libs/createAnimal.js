@@ -7,9 +7,8 @@ const wackyPets = Object.keys(content.wackyPets);
 function getText (textOrFunction) {
   if (textOrFunction instanceof Function) {
     return textOrFunction();
-  } else {
-    return textOrFunction;
   }
+  return textOrFunction;
 }
 
 export function isOwned (type, animal, userItems) {
@@ -17,16 +16,16 @@ export function isOwned (type, animal, userItems) {
 }
 
 export function isHatchable (animal, userItems) {
-  return !isOwned('pet', animal, userItems) &&
-    userItems.eggs[animal.eggKey] &&
-    userItems.hatchingPotions[animal.potionKey];
+  return !isOwned('pet', animal, userItems)
+    && userItems.eggs[animal.eggKey]
+    && userItems.hatchingPotions[animal.potionKey];
 }
 
 export function isAllowedToFeed (animal, userItems) {
-  return !specialPets.includes(animal.key) &&
-    !wackyPets.includes(animal.key) &&
-    isOwned('pet', animal, userItems) &&
-    !isOwned('mount', animal, userItems);
+  return !specialPets.includes(animal.key)
+    && !wackyPets.includes(animal.key)
+    && isOwned('pet', animal, userItems)
+    && !isOwned('mount', animal, userItems);
 }
 
 export function isSpecial (animal) {
@@ -34,7 +33,7 @@ export function isSpecial (animal) {
 }
 
 export function createAnimal (egg, potion, type, _content, userItems) {
-  let animalKey = `${egg.key}-${potion.key}`;
+  const animalKey = `${egg.key}-${potion.key}`;
 
   return {
     key: animalKey,

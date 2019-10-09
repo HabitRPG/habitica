@@ -30,7 +30,7 @@ export default {
     };
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     firstDropText () {
       return this.$t('firstDrop', {
         eggText: this.eggs.all.Wolf.text(),

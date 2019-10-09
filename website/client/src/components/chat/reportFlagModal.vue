@@ -66,15 +66,15 @@ import notifications from '@/mixins/notifications';
 import markdownDirective from '@/directives/markdown';
 
 export default {
-  mixins: [notifications],
   directives: {
     markdown: markdownDirective,
   },
+  mixins: [notifications],
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     reportData () {
       let reportMessage = this.abuseObject.user;
-      let isSystemMessage = this.abuseObject.uuid === 'system';
+      const isSystemMessage = this.abuseObject.uuid === 'system';
       if (isSystemMessage) reportMessage = this.$t('systemMessage');
       return {
         name: `<span class='text-danger'>${reportMessage}</span>`,
@@ -82,7 +82,7 @@ export default {
     },
   },
   data () {
-    let abuseFlagModalBody = {
+    const abuseFlagModalBody = {
       firstLinkStart: '<a href="/static/community-guidelines" target="_blank">',
       secondLinkStart: '<a href="/static/terms" target="_blank">',
       linkEnd: '</a>',
@@ -108,7 +108,7 @@ export default {
     async reportAbuse () {
       this.text(this.$t(this.groupId === 'privateMessage' ? 'pmReported' : 'abuseReported'));
 
-      let result = await this.$store.dispatch('chat:flag', {
+      const result = await this.$store.dispatch('chat:flag', {
         groupId: this.groupId,
         chatId: this.abuseObject.id,
         comment: this.reportComment,

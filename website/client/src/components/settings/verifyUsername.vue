@@ -66,19 +66,19 @@
 </style>
 
 <script>
-  import helloNametag from '@/assets/svg/hello-habitican.svg';
-  import usernameForm from './usernameForm';
+import helloNametag from '@/assets/svg/hello-habitican.svg';
+import usernameForm from './usernameForm';
 
-  export default {
-    components: {
-      usernameForm,
-    },
-    data () {
-      return {
-        icons: Object.freeze({
-          helloNametag,
-        }),
-      };
-    },
-  };
+export default {
+  components: {
+    usernameForm,
+  },
+  data () {
+    return {
+      icons: Object.freeze({
+        helloNametag,
+      }),
+    };
+  },
+};
 </script>

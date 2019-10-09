@@ -8,7 +8,7 @@ export function setUpAxios (AUTH_SETTINGS) {
     AUTH_SETTINGS = JSON.parse(AUTH_SETTINGS);
   }
 
-  let browserTimezoneOffset = moment().zone();
+  const browserTimezoneOffset = moment().zone();
 
   if (AUTH_SETTINGS.auth && AUTH_SETTINGS.auth.apiId && AUTH_SETTINGS.auth.apiToken) {
     axios.defaults.headers.common['x-api-user'] = AUTH_SETTINGS.auth.apiId;

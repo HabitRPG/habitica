@@ -34,36 +34,36 @@ div.featuredItems
 </template>
 
 <script>
-  import ShopItem from './shopItem';
+import ShopItem from './shopItem';
 
-  import pinUtils from '@/mixins/pinUtils';
+import pinUtils from '@/mixins/pinUtils';
 
-  import svgPin from '@/assets/svg/pin.svg';
+import svgPin from '@/assets/svg/pin.svg';
 
-  export default {
-    mixins: [pinUtils],
-    props: {
-      broken: Boolean,
-      npcName: String,
-      featuredText: String,
-      featuredItems: Array,
+export default {
+  components: {
+    ShopItem,
+  },
+  mixins: [pinUtils],
+  props: {
+    broken: Boolean,
+    npcName: String,
+    featuredText: String,
+    featuredItems: Array,
+  },
+  data () {
+    return {
+      icons: Object.freeze({
+        pin: svgPin,
+      }),
+    };
+  },
+  methods: {
+    featuredItemSelected (item) {
+      this.$emit('featuredItemSelected', item);
     },
-    components: {
-      ShopItem,
-    },
-    data () {
-      return {
-        icons: Object.freeze({
-          pin: svgPin,
-        }),
-      };
-    },
-    methods: {
-      featuredItemSelected (item) {
-        this.$emit('featuredItemSelected', item);
-      },
-    },
-  };
+  },
+};
 </script>
 
 <style lang="scss" scoped>

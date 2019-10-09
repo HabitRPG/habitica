@@ -45,7 +45,7 @@
         .row.text-center
           h2.mx-auto.text-payment {{ $t('choosePaymentMethod') }}
         .payments-column
-          button.purchase.btn.btn-primary.payment-button.payment-item(@click='showStripe({})') 
+          button.purchase.btn.btn-primary.payment-button.payment-item(@click='showStripe({})')
             .svg-icon.credit-card-icon(v-html="icons.creditCardIcon")
             | {{ $t('card') }}
           button.btn.payment-item.paypal-checkout.payment-button(@click="openPaypal(paypalCheckoutLink, 'gems')")
@@ -127,7 +127,7 @@
           .row.text-center
             a.mx-auto(v-once) {{ $t('haveCouponCode') }}
           .payments-column(v-if='subscriptionPlan')
-            button.purchase.btn.btn-primary.payment-button.payment-item(@click='showStripe({subscription: subscriptionPlan})') 
+            button.purchase.btn.btn-primary.payment-button.payment-item(@click='showStripe({subscription: subscriptionPlan})')
               .svg-icon.credit-card-icon(v-html="icons.creditCardIcon")
               | {{ $t('card') }}
             button.btn.payment-item.paypal-checkout.payment-button(@click="openPaypal(paypalSubscriptionLink, 'subscription')")
@@ -307,71 +307,71 @@
 </style>
 
 <script>
-  import { mapState } from '@/libs/store';
-  import markdown from '@/directives/markdown';
-  import planGemLimits from '@/../../common/script/libs/planGemLimits';
-  import paymentsMixin from '@/mixins/payments';
+import { mapState } from '@/libs/store';
+import markdown from '@/directives/markdown';
+import planGemLimits from '@/../../common/script/libs/planGemLimits';
+import paymentsMixin from '@/mixins/payments';
 
-  import checkIcon from '@/assets/svg/check.svg';
-  import creditCardIcon from '@/assets/svg/credit-card-icon.svg';
-  import heart from '@/assets/svg/health.svg';
-  import logo from '@/assets/svg/habitica-logo.svg';
+import checkIcon from '@/assets/svg/check.svg';
+import creditCardIcon from '@/assets/svg/credit-card-icon.svg';
+import heart from '@/assets/svg/health.svg';
+import logo from '@/assets/svg/habitica-logo.svg';
 
-  import fourGems from '@/assets/svg/4-gems.svg';
-  import twentyOneGems from '@/assets/svg/21-gems.svg';
-  import fortyTwoGems from '@/assets/svg/42-gems.svg';
-  import eightyFourGems from '@/assets/svg/84-gems.svg';
+import fourGems from '@/assets/svg/4-gems.svg';
+import twentyOneGems from '@/assets/svg/21-gems.svg';
+import fortyTwoGems from '@/assets/svg/42-gems.svg';
+import eightyFourGems from '@/assets/svg/84-gems.svg';
 
-  import amazonButton from '@/components/payments/amazonButton';
+import amazonButton from '@/components/payments/amazonButton';
 
-  export default {
-    mixins: [paymentsMixin],
-    components: {
+export default {
+  components: {
+    planGemLimits,
+    amazonButton,
+  },
+  mixins: [paymentsMixin],
+  computed: {
+    ...mapState({ user: 'user.data' }),
+    startingPageOption () {
+      return this.$store.state.gemModalOptions.startingPage;
+    },
+    hasSubscription () {
+      return Boolean(this.user.purchased.plan.customerId);
+    },
+    userReachedGemCap () {
+      return this.user.purchased.plan.customerId && this.user.purchased.plan.gemsBought >= this.user.purchased.plan.consecutive.gemCapExtra + this.planGemLimits.convCap;
+    },
+  },
+  directives: {
+    markdown,
+  },
+  data () {
+    return {
+      icons: Object.freeze({
+        logo,
+        check: checkIcon,
+        creditCardIcon,
+        fourGems,
+        heart,
+        twentyOneGems,
+        fortyTwoGems,
+        eightyFourGems,
+      }),
+      gemAmount: 0,
+      subscriptionPlan: '',
+      selectedPage: 'subscribe',
       planGemLimits,
-      amazonButton,
+    };
+  },
+  watch: {
+    startingPageOption () {
+      this.selectedPage = this.$store.state.gemModalOptions.startingPage;
     },
-    computed: {
-      ...mapState({user: 'user.data'}),
-      startingPageOption () {
-        return this.$store.state.gemModalOptions.startingPage;
-      },
-      hasSubscription () {
-        return Boolean(this.user.purchased.plan.customerId);
-      },
-      userReachedGemCap () {
-        return this.user.purchased.plan.customerId && this.user.purchased.plan.gemsBought >= this.user.purchased.plan.consecutive.gemCapExtra + this.planGemLimits.convCap;
-      },
+  },
+  methods: {
+    close () {
+      this.$root.$emit('bv::hide::modal', 'buy-gems');
     },
-    directives: {
-      markdown,
-    },
-    data () {
-      return {
-        icons: Object.freeze({
-          logo,
-          check: checkIcon,
-          creditCardIcon,
-          fourGems,
-          heart,
-          twentyOneGems,
-          fortyTwoGems,
-          eightyFourGems,
-        }),
-        gemAmount: 0,
-        subscriptionPlan: '',
-        selectedPage: 'subscribe',
-        planGemLimits,
-      };
-    },
-    methods: {
-      close () {
-        this.$root.$emit('bv::hide::modal', 'buy-gems');
-      },
-    },
-    watch: {
-      startingPageOption () {
-        this.selectedPage = this.$store.state.gemModalOptions.startingPage;
-      },
-    },
-  };
+  },
+};
 </script>

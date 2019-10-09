@@ -45,43 +45,40 @@ import approvalModal from './approvalModal';
 import sync from '@/mixins/sync';
 
 export default {
-  mixins: [sync],
-  props: ['task', 'group'],
   components: {
     approvalModal,
   },
+  mixins: [sync],
+  props: ['task', 'group'],
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     userIsAssigned () {
       return this.task.group.assignedUsers && this.task.group.assignedUsers.indexOf(this.user._id) !== -1;
     },
     message () {
-      let assignedUsers = this.task.group.assignedUsers;
-      let assignedUsersNames = [];
-      let assignedUsersLength = assignedUsers.length;
+      const { assignedUsers } = this.task.group;
+      const assignedUsersNames = [];
+      const assignedUsersLength = assignedUsers.length;
 
       // @TODO: Eh, I think we only ever display one user name
       if (this.group && this.group.members) {
         assignedUsers.forEach(userId => {
-          let index = findIndex(this.group.members, (member) => {
-            return member._id === userId;
-          });
-          let assignedMember = this.group.members[index];
+          const index = findIndex(this.group.members, member => member._id === userId);
+          const assignedMember = this.group.members[index];
           assignedUsersNames.push(assignedMember.profile.name);
         });
       }
 
       if (assignedUsersLength === 1 && !this.userIsAssigned) {
-        return this.$t('assignedToUser', {userName: assignedUsersNames[0]});
-      } else if (assignedUsersLength > 1 && !this.userIsAssigned) {
-        return this.$t('assignedToMembers', {userCount: assignedUsersLength});
-      } else if (assignedUsersLength > 1 && this.userIsAssigned) {
-        return this.$t('assignedToYouAndMembers', {userCount: assignedUsersLength - 1});
-      } else if (this.userIsAssigned) {
+        return this.$t('assignedToUser', { userName: assignedUsersNames[0] });
+      } if (assignedUsersLength > 1 && !this.userIsAssigned) {
+        return this.$t('assignedToMembers', { userCount: assignedUsersLength });
+      } if (assignedUsersLength > 1 && this.userIsAssigned) {
+        return this.$t('assignedToYouAndMembers', { userCount: assignedUsersLength - 1 });
+      } if (this.userIsAssigned) {
         return this.$t('youAreAssigned');
-      } else { // if (assignedUsersLength === 0) {
-        return this.$t('taskIsUnassigned');
-      }
+      } // if (assignedUsersLength === 0) {
+      return this.$t('taskIsUnassigned');
     },
     userIsManager () {
       if (this.group && (this.group.leader.id === this.user._id || this.group.managers[this.user._id])) return true;
@@ -124,13 +121,13 @@ export default {
         taskId,
         userId: this.user._id,
       });
-      let index = this.task.group.assignedUsers.indexOf(this.user._id);
+      const index = this.task.group.assignedUsers.indexOf(this.user._id);
       this.task.group.assignedUsers.splice(index, 1);
 
       this.sync();
     },
     approve () {
-      let userIdToApprove = this.task.group.assignedUsers[0];
+      const userIdToApprove = this.task.group.assignedUsers[0];
       this.$store.dispatch('tasks:approve', {
         taskId: this.task._id,
         userId: userIdToApprove,
@@ -140,7 +137,7 @@ export default {
     },
     needsWork () {
       if (!confirm(this.$t('confirmNeedsWork'))) return;
-      let userIdNeedsMoreWork = this.task.group.assignedUsers[0];
+      const userIdNeedsMoreWork = this.task.group.assignedUsers[0];
       this.$store.dispatch('tasks:needsWork', {
         taskId: this.task._id,
         userId: userIdNeedsMoreWork,

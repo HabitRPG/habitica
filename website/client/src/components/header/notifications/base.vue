@@ -11,7 +11,7 @@
     slot(name="content")
   .notification-remove(@click.stop="canRemove ? remove() : null",)
     .svg-icon(
-      v-if="canRemove", 
+      v-if="canRemove",
       v-html="icons.close",
     )
 </template>
@@ -130,7 +130,7 @@ export default {
     };
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     isNotBailey () {
       return this.notification.type !== 'NEW_STUFF';
     },
@@ -141,7 +141,7 @@ export default {
     }),
     clicked () {
       if (this.readAfterClick === true) {
-        this.readNotification({notificationId: this.notification.id});
+        this.readNotification({ notificationId: this.notification.id });
       }
 
       this.$emit('click');
@@ -149,12 +149,12 @@ export default {
     remove () {
       if (this.notification.type === 'NEW_CHAT_MESSAGE') {
         const groupId = this.notification.data.group.id;
-        this.$store.dispatch('chat:markChatSeen', {groupId});
+        this.$store.dispatch('chat:markChatSeen', { groupId });
         if (this.user.newMessages[groupId]) {
           this.$delete(this.user.newMessages, groupId);
         }
       } else {
-        this.readNotification({notificationId: this.notification.id});
+        this.readNotification({ notificationId: this.notification.id });
       }
     },
   },

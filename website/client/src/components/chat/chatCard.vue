@@ -140,7 +140,16 @@ import { highlightUsers } from '../../libs/highlightUsers';
 import { CHAT_FLAG_LIMIT_FOR_HIDING, CHAT_FLAG_FROM_SHADOW_MUTE } from '@/../../common/script/constants';
 
 export default {
-  components: {userLink},
+  components: { userLink },
+  filters: {
+    timeAgo (value) {
+      return moment(value).fromNow();
+    },
+    date (value) {
+      // @TODO: Vue doesn't support this so we cant user preference
+      return moment(value).toDate().toString();
+    },
+  },
   props: {
     msg: {},
     inbox: {
@@ -161,20 +170,11 @@ export default {
       reported: false,
     };
   },
-  filters: {
-    timeAgo (value) {
-      return moment(value).fromNow();
-    },
-    date (value) {
-      // @TODO: Vue doesn't support this so we cant user preference
-      return moment(value).toDate().toString();
-    },
-  },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     isUserMentioned () {
       const message = this.msg;
-      const user = this.user;
+      const { user } = this;
 
       if (message.hasOwnProperty('highlight')) return message.highlight;
 
@@ -190,7 +190,7 @@ export default {
       const pattern = `@(${escapedUsername}|${escapedDisplayName})(\\b)`;
       const precedingChar = messageText.substring(mentioned - 1, mentioned);
       if (mentioned === 0 || precedingChar.trim() === '' || precedingChar === '@') {
-        let regex = new RegExp(pattern, 'i');
+        const regex = new RegExp(pattern, 'i');
         message.highlight = regex.test(messageText);
       }
 
@@ -201,8 +201,8 @@ export default {
       if (!message.likes) return 0;
 
       let likeCount = 0;
-      for (let key in message.likes) {
-        let like = message.likes[key];
+      for (const key in message.likes) {
+        const like = message.likes[key];
         if (like) likeCount += 1;
       }
       return likeCount;
@@ -217,9 +217,14 @@ export default {
       return 'Message hidden (shadow-muted)';
     },
   },
+  mounted () {
+    this.CHAT_FLAG_LIMIT_FOR_HIDING = CHAT_FLAG_LIMIT_FOR_HIDING;
+    this.CHAT_FLAG_FROM_SHADOW_MUTE = CHAT_FLAG_FROM_SHADOW_MUTE;
+    this.$emit('chat-card-mounted', this.msg.id);
+  },
   methods: {
     async like () {
-      let message = cloneDeep(this.msg);
+      const message = cloneDeep(this.msg);
 
       await this.$store.dispatch('chat:like', {
         groupId: this.groupId,
@@ -278,11 +283,6 @@ export default {
       if (!text) return;
       return habiticaMarkdown.render(String(text));
     },
-  },
-  mounted () {
-    this.CHAT_FLAG_LIMIT_FOR_HIDING = CHAT_FLAG_LIMIT_FOR_HIDING;
-    this.CHAT_FLAG_FROM_SHADOW_MUTE = CHAT_FLAG_FROM_SHADOW_MUTE;
-    this.$emit('chat-card-mounted', this.msg.id);
   },
 };
 </script>

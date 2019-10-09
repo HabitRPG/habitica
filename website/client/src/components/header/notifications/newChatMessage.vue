@@ -15,12 +15,12 @@ import BaseNotification from './base';
 import { mapState } from '@/libs/store';
 
 export default {
-  props: ['notification', 'canRemove'],
   components: {
     BaseNotification,
   },
+  props: ['notification', 'canRemove'],
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     groupId () {
       return this.notification.data.group.id;
     },
@@ -29,7 +29,7 @@ export default {
     },
     string () {
       const stringKey = this.isParty ? 'newMsgParty' : 'newMsgGuild';
-      return this.$t(stringKey, {name: this.notification.data.group.name});
+      return this.$t(stringKey, { name: this.notification.data.group.name });
     },
   },
   methods: {
@@ -39,7 +39,7 @@ export default {
         return;
       }
 
-      this.$router.push({ name: 'guild', params: { groupId: this.groupId }});
+      this.$router.push({ name: 'guild', params: { groupId: this.groupId } });
     },
   },
 };

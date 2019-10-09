@@ -10,9 +10,11 @@ describe('DrawerComponent', () => {
 
   it('renders the correct title', () => {
     const Ctor = Vue.extend(DrawerComponent);
-    const vm = new Ctor({propsData: {
-      title: 'My title',
-    }}).$mount();
+    const vm = new Ctor({
+      propsData: {
+        title: 'My title',
+      },
+    }).$mount();
 
     expect(vm.$el.textContent).to.be.equal('My title');
   });

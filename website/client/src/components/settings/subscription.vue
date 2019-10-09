@@ -74,7 +74,7 @@
         .subscribe-pay(v-if='!hasSubscription || hasCanceledSubscription')
           h3 {{ $t('subscribeUsing') }}
           .payments-column
-            button.purchase.btn.btn-primary.payment-button.payment-item(@click='showStripe({subscription:subscription.key, coupon:subscription.coupon})', :disabled='!subscription.key') 
+            button.purchase.btn.btn-primary.payment-button.payment-item(@click='showStripe({subscription:subscription.key, coupon:subscription.coupon})', :disabled='!subscription.key')
               .svg-icon.credit-card-icon(v-html="icons.creditCardIcon")
               | {{ $t('card') }}
             button.btn.payment-item.paypal-checkout.payment-button(@click="openPaypal(paypalPurchaseLink, 'subscription')", :disabled='!subscription.key')
@@ -118,10 +118,10 @@ import amazonButton from '@/components/payments/amazonButton';
 import creditCardIcon from '@/assets/svg/credit-card-icon.svg';
 
 export default {
-  mixins: [paymentsMixin, notificationsMixin],
   components: {
     amazonButton,
   },
+  mixins: [paymentsMixin, notificationsMixin],
   data () {
     return {
       loading: false,
@@ -148,15 +148,11 @@ export default {
     };
   },
   computed: {
-    ...mapState({user: 'user.data', credentials: 'credentials'}),
+    ...mapState({ user: 'user.data', credentials: 'credentials' }),
     subscriptionBlocksOrdered () {
-      let subscriptions = filter(subscriptionBlocks, (o) => {
-        return o.discount !== true;
-      });
+      const subscriptions = filter(subscriptionBlocks, o => o.discount !== true);
 
-      return sortBy(subscriptions, [(o) => {
-        return o.months;
-      }]);
+      return sortBy(subscriptions, [o => o.months]);
     },
     purchasedPlanIdInfo () {
       if (!this.subscriptionBlocks[this.user.purchased.plan.planId]) {
@@ -180,8 +176,8 @@ export default {
     },
     canEditCardDetails () {
       return Boolean(
-        !this.hasCanceledSubscription &&
-        this.user.purchased.plan.paymentMethod === this.paymentMethods.STRIPE
+        !this.hasCanceledSubscription
+        && this.user.purchased.plan.paymentMethod === this.paymentMethods.STRIPE,
       );
     },
     hasSubscription () {
@@ -189,8 +185,8 @@ export default {
     },
     hasCanceledSubscription () {
       return (
-        this.hasSubscription &&
-        Boolean(this.user.purchased.plan.dateTerminated)
+        this.hasSubscription
+        && Boolean(this.user.purchased.plan.dateTerminated)
       );
     },
     hasPlan () {
@@ -213,20 +209,20 @@ export default {
       };
     },
     gemGoldCap () {
-      let baseCap = 25;
-      let gemCapIncrement = 5;
-      let capIncrementThreshold = 3;
-      let gemCapExtra = this.user.purchased.plan.consecutive.gemCapExtra;
-      let blocks = subscriptionBlocks[this.subscription.key].months / capIncrementThreshold;
-      let flooredBlocks = Math.floor(blocks);
+      const baseCap = 25;
+      const gemCapIncrement = 5;
+      const capIncrementThreshold = 3;
+      const { gemCapExtra } = this.user.purchased.plan.consecutive;
+      const blocks = subscriptionBlocks[this.subscription.key].months / capIncrementThreshold;
+      const flooredBlocks = Math.floor(blocks);
 
-      let userTotalDropCap = baseCap + gemCapExtra + flooredBlocks * gemCapIncrement;
-      let maxDropCap = 50;
+      const userTotalDropCap = baseCap + gemCapExtra + flooredBlocks * gemCapIncrement;
+      const maxDropCap = 50;
 
       return [userTotalDropCap, maxDropCap];
     },
     numberOfMysticHourglasses () {
-      let numberOfHourglasses = subscriptionBlocks[this.subscription.key].months / 3;
+      const numberOfHourglasses = subscriptionBlocks[this.subscription.key].months / 3;
       return Math.floor(numberOfHourglasses);
     },
     mysticHourglass () {
@@ -236,10 +232,10 @@ export default {
     },
     canCancelSubscription () {
       return (
-        this.user.purchased.plan.paymentMethod !== this.paymentMethods.GOOGLE &&
-        this.user.purchased.plan.paymentMethod !== this.paymentMethods.APPLE &&
-        !this.hasCanceledSubscription &&
-        !this.hasGroupPlan
+        this.user.purchased.plan.paymentMethod !== this.paymentMethods.GOOGLE
+        && this.user.purchased.plan.paymentMethod !== this.paymentMethods.APPLE
+        && !this.hasCanceledSubscription
+        && !this.hasGroupPlan
       );
     },
   },

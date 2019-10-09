@@ -34,7 +34,7 @@ export default {
     achievementAvatar,
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
   },
   methods: {
     close () {

@@ -10,12 +10,12 @@
 </template>
 
 <script>
-  import SecondaryMenu from '@/components/secondaryMenu';
+import SecondaryMenu from '@/components/secondaryMenu';
 
-  export default {
-    components: {
-      SecondaryMenu,
-    },
-    methods: {},
-  };
+export default {
+  components: {
+    SecondaryMenu,
+  },
+  methods: {},
+};
 </script>

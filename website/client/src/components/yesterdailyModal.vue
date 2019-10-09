@@ -69,17 +69,17 @@ import { mapState } from '@/libs/store';
 import Task from './tasks/task';
 
 export default {
-  props: ['yesterDailies'],
   components: {
     Task,
   },
+  props: ['yesterDailies'],
   data () {
     return {
       dueDate: moment().subtract(1, 'days'),
     };
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     tasksByType () {
       this.dueDate = moment().subtract(1, 'days'); // eslint-disable-line vue/no-side-effects-in-computed-properties
 

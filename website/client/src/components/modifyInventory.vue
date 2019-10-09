@@ -262,11 +262,11 @@ import Content from '@/../../common/script/content';
 
 export default {
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
   },
   data () {
-    let showInv = {};
-    let inv = {
+    const showInv = {};
+    const inv = {
       gear: {},
       special: {},
       pets: {},
@@ -285,9 +285,9 @@ export default {
   },
   methods: {
     setAllItems (type, value) {
-      let set = this.inv[type];
+      const set = this.inv[type];
 
-      for (let item in set) {
+      for (const item in set) {
         if (set.hasOwnProperty(item)) {
           set[item] = value;
         }

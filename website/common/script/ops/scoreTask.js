@@ -34,7 +34,11 @@ function _calculateDelta (task, direction, cron) {
   if (task.checklist && task.checklist.length > 0) {
     // If the Daily, only dock them a portion based on their checklist completion
     if (direction === 'down' && task.type === 'daily' && cron) {
-      nextDelta *= 1 - reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 0) / task.checklist.length;
+      nextDelta *= 1 - reduce(
+        task.checklist,
+        (m, i) => m + (i.completed ? 1 : 0),
+        0,
+      ) / task.checklist.length;
     }
 
     // If To-Do, point-match the TD per checklist item completed

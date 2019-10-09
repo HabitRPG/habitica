@@ -72,7 +72,7 @@ export default {
     this.restoreValues.achievements.streak = clone(this.user.achievements.streak);
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
   },
   methods: {
     close () {
@@ -92,7 +92,7 @@ export default {
       this.user.stats = clone(this.restoreValues.stats);
       this.user.achievements.streak = clone(this.restoreValues.achievements.streak);
 
-      let settings = {
+      const settings = {
         'stats.hp': Number(this.restoreValues.stats.hp),
         'stats.exp': Number(this.restoreValues.stats.exp),
         'stats.gp': Number(this.restoreValues.stats.gp),

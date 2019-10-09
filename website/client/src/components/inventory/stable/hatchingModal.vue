@@ -64,8 +64,8 @@ import svgClose from '@/assets/svg/close.svg';
 import petMixin from '@/mixins/petMixin';
 
 export default {
-  props: ['hatchablePet'],
   mixins: [petMixin],
+  props: ['hatchablePet'],
   data () {
     return {
       icons: Object.freeze({

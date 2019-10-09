@@ -284,257 +284,243 @@
 </style>
 
 <script>
-  import {mapState} from '@/libs/store';
+import _filter from 'lodash/filter';
+import _map from 'lodash/map';
+import _mapValues from 'lodash/mapValues';
+import _forEach from 'lodash/forEach';
+import _sortBy from 'lodash/sortBy';
+import _throttle from 'lodash/throttle';
+import _groupBy from 'lodash/groupBy';
+import _reverse from 'lodash/reverse';
+import { mapState } from '@/libs/store';
 
-  import ShopItem from '../shopItem';
-  import Item from '@/components/inventory/item';
-  import CountBadge from '@/components/ui/countBadge';
-  import ItemRows from '@/components/ui/itemRows';
-  import Checkbox from '@/components/ui/checkbox';
-  import toggleSwitch from '@/components/ui/toggleSwitch';
-  import Avatar from '@/components/avatar';
-  import buyMixin from '@/mixins/buy';
-  import currencyMixin from '../_currencyMixin';
-  import pinUtils from '@/mixins/pinUtils';
+import ShopItem from '../shopItem';
+import Item from '@/components/inventory/item';
+import CountBadge from '@/components/ui/countBadge';
+import ItemRows from '@/components/ui/itemRows';
+import Checkbox from '@/components/ui/checkbox';
+import toggleSwitch from '@/components/ui/toggleSwitch';
+import Avatar from '@/components/avatar';
+import buyMixin from '@/mixins/buy';
+import currencyMixin from '../_currencyMixin';
+import pinUtils from '@/mixins/pinUtils';
 
-  import svgPin from '@/assets/svg/pin.svg';
-  import svgWarrior from '@/assets/svg/warrior.svg';
-  import svgWizard from '@/assets/svg/wizard.svg';
-  import svgRogue from '@/assets/svg/rogue.svg';
-  import svgHealer from '@/assets/svg/healer.svg';
+import svgPin from '@/assets/svg/pin.svg';
+import svgWarrior from '@/assets/svg/warrior.svg';
+import svgWizard from '@/assets/svg/wizard.svg';
+import svgRogue from '@/assets/svg/rogue.svg';
+import svgHealer from '@/assets/svg/healer.svg';
 
-  import _filter from 'lodash/filter';
-  import _map from 'lodash/map';
-  import _mapValues from 'lodash/mapValues';
-  import _forEach from 'lodash/forEach';
-  import _sortBy from 'lodash/sortBy';
-  import _throttle from 'lodash/throttle';
-  import _groupBy from 'lodash/groupBy';
-  import _reverse from 'lodash/reverse';
 
-  import isPinned from '@/../../common/script/libs/isPinned';
-  import getOfficialPinnedItems from '@/../../common/script/libs/getOfficialPinnedItems';
+import isPinned from '@/../../common/script/libs/isPinned';
+import getOfficialPinnedItems from '@/../../common/script/libs/getOfficialPinnedItems';
 
-  import i18n from '@/../../common/script/i18n';
+import i18n from '@/../../common/script/i18n';
 
-  import shops from '@/../../common/script/libs/shops';
+import shops from '@/../../common/script/libs/shops';
 
-  export default {
-    mixins: [buyMixin, currencyMixin, pinUtils],
-    components: {
-      ShopItem,
-      Item,
-      CountBadge,
-      ItemRows,
-      toggleSwitch,
-      Checkbox,
+export default {
+  components: {
+    ShopItem,
+    Item,
+    CountBadge,
+    ItemRows,
+    toggleSwitch,
+    Checkbox,
 
-      Avatar,
-    },
-    watch: {
-      searchText: _throttle(function throttleSearch () {
-        this.searchTextThrottled = this.searchText.toLowerCase();
-      }, 250),
-    },
-    data () {
-      return {
-        viewOptions: {},
-        searchText: null,
-        searchTextThrottled: null,
+    Avatar,
+  },
+  mixins: [buyMixin, currencyMixin, pinUtils],
+  watch: {
+    searchText: _throttle(function throttleSearch () {
+      this.searchTextThrottled = this.searchText.toLowerCase();
+    }, 250),
+  },
+  data () {
+    return {
+      viewOptions: {},
+      searchText: null,
+      searchTextThrottled: null,
 
-        icons: Object.freeze({
-          pin: svgPin,
-          warrior: svgWarrior,
-          wizard: svgWizard,
-          rogue: svgRogue,
-          healer: svgHealer,
-        }),
-
-        gearTypesToStrings: Object.freeze({ // TODO use content.itemList?
-          weapon: i18n.t('weaponCapitalized'),
-          shield: i18n.t('offhandCapitalized'),
-          head: i18n.t('headgearCapitalized'),
-          armor: i18n.t('armorCapitalized'),
-          headAccessory: i18n.t('headAccessoryCapitalized'),
-          body: i18n.t('body'),
-          back: i18n.t('back'),
-          eyewear: i18n.t('eyewear'),
-        }),
-
-        sortItemsBy: ['AZ'],
-        selectedSortItemsBy: 'AZ',
-
-        hidePinned: false,
-        featuredGearBought: false,
-
-        backgroundUpdate: new Date(),
-
-        broken: false,
-      };
-    },
-    async mounted () {
-      const worldState = await this.$store.dispatch('worldState:getWorldState');
-      this.broken = worldState && worldState.worldBoss && worldState.worldBoss.extra && worldState.worldBoss.extra.worldDmg && worldState.worldBoss.extra.worldDmg.seasonalShop;
-    },
-    computed: {
-      ...mapState({
-        content: 'content',
-        user: 'user.data',
-        userStats: 'user.data.stats',
+      icons: Object.freeze({
+        pin: svgPin,
+        warrior: svgWarrior,
+        wizard: svgWizard,
+        rogue: svgRogue,
+        healer: svgHealer,
       }),
 
-      usersOfficalPinnedItems () {
-        return getOfficialPinnedItems(this.user);
-      },
+      gearTypesToStrings: Object.freeze({ // TODO use content.itemList?
+        weapon: i18n.t('weaponCapitalized'),
+        shield: i18n.t('offhandCapitalized'),
+        head: i18n.t('headgearCapitalized'),
+        armor: i18n.t('armorCapitalized'),
+        headAccessory: i18n.t('headAccessoryCapitalized'),
+        body: i18n.t('body'),
+        back: i18n.t('back'),
+        eyewear: i18n.t('eyewear'),
+      }),
 
-      seasonal () {
-        // vue subscriptions, don't remove
+      sortItemsBy: ['AZ'],
+      selectedSortItemsBy: 'AZ',
+
+      hidePinned: false,
+      featuredGearBought: false,
+
+      backgroundUpdate: new Date(),
+
+      broken: false,
+    };
+  },
+  async mounted () {
+    const worldState = await this.$store.dispatch('worldState:getWorldState');
+    this.broken = worldState && worldState.worldBoss && worldState.worldBoss.extra && worldState.worldBoss.extra.worldDmg && worldState.worldBoss.extra.worldDmg.seasonalShop;
+  },
+  computed: {
+    ...mapState({
+      content: 'content',
+      user: 'user.data',
+      userStats: 'user.data.stats',
+    }),
+
+    usersOfficalPinnedItems () {
+      return getOfficialPinnedItems(this.user);
+    },
+
+    seasonal () {
+      // vue subscriptions, don't remove
         let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
         const myUserVersion = this.user._v; // eslint-disable-line
 
-        let seasonal = shops.getSeasonalShop(this.user);
+      const seasonal = shops.getSeasonalShop(this.user);
 
-        let itemsNotOwned = seasonal.featured.items.filter(item => {
-          return !this.user.items.gear.owned[item.key];
-        });
-        seasonal.featured.items = itemsNotOwned;
+      const itemsNotOwned = seasonal.featured.items.filter(item => !this.user.items.gear.owned[item.key]);
+      seasonal.featured.items = itemsNotOwned;
 
-        // If we are out of gear, show the spells
-        // @TODO: add dates to check instead?
-        if (seasonal.featured.items.length === 0) {
-          this.featuredGearBought = true; // eslint-disable-line vue/no-side-effects-in-computed-properties
-          if (seasonal.categories.length > 0) {
-            seasonal.featured.items = seasonal.featured.items.concat(seasonal.categories[0].items);
-          }
+      // If we are out of gear, show the spells
+      // @TODO: add dates to check instead?
+      if (seasonal.featured.items.length === 0) {
+        this.featuredGearBought = true; // eslint-disable-line vue/no-side-effects-in-computed-properties
+        if (seasonal.categories.length > 0) {
+          seasonal.featured.items = seasonal.featured.items.concat(seasonal.categories[0].items);
         }
+      }
 
-        return seasonal;
-      },
-      seasonalCategories () {
-        return this.seasonal.categories;
-      },
-      categories () {
-        if (this.seasonalCategories) {
-          return _reverse(_sortBy(this.seasonalCategories, (c) => {
-            if (c.event) {
-              return c.event.start;
-            } else {
-              return -1;
-            }
-          }));
-        } else {
-          return [];
-        }
-      },
-      filterCategories () {
-        if (this.content) {
-          let equipmentList = _mapValues(this.gearTypesToStrings, (value, key) => {
-            return {
-              key,
-              value,
-            };
-          });
-
-          _forEach(equipmentList, (value) => {
-            this.$set(this.viewOptions, value.key, {
-              selected: false,
-            });
-          });
-
-          return equipmentList;
-        } else {
-          return [];
-        }
-      },
-
-      anyFilterSelected () {
-        return Object.values(this.viewOptions).some(g => g.selected);
-      },
+      return seasonal;
     },
-    methods: {
-      getClassName (classType) {
-        if (classType === 'wizard') {
-          return this.$t('mage');
-        } else {
-          return this.$t(classType);
-        }
-      },
-      seasonalItems (category, sortBy, searchBy, viewOptions, hidePinned) {
-        let result = _map(category.items, (e) => {
-          return {
-            ...e,
-            pinned: isPinned(this.user, e, this.usersOfficalPinnedItems),
-          };
-        });
-
-        result = _filter(result, (i) => {
-          if (hidePinned && i.pinned) {
-            return false;
-          }
-
-          if (this.anyFilterSelected && viewOptions[i.type] && !viewOptions[i.type].selected) {
-            return false;
-          }
-
-          return !searchBy || i.text.toLowerCase().indexOf(searchBy) !== -1;
-        });
-
-        switch (sortBy) {
-          case 'AZ': {
-            result = _sortBy(result, ['text']);
-
-            break;
-          }
-        }
-
-        return result;
-      },
-      getGroupedCategories (categories) {
-        let spellCategory = _filter(categories, (c) => {
-          return c.identifier === 'spells';
-        })[0];
-
-        let questsCategory = _filter(categories, (c) => {
-          return c.identifier === 'quests';
-        })[0];
-
-        let setCategories = _filter(categories, 'specialClass');
-
-        let result = _groupBy(setCategories, 'specialClass');
-
-        if (spellCategory) {
-          result.spells = [
-            spellCategory,
-          ];
-        }
-
-        if (questsCategory) {
-          result.quests = [
-            questsCategory,
-          ];
-        }
-
-        return result;
-      },
-      isGearLocked (gear) {
-        if (gear.value > this.userStats.gp) {
-          return true;
-        }
-
-        return false;
-      },
-      itemSelected (item) {
-        if (item.locked) return;
-        this.$root.$emit('buyModal::showItem', item);
-      },
+    seasonalCategories () {
+      return this.seasonal.categories;
     },
-    created () {
-      this.$root.$on('buyModal::boughtItem', () => {
-        this.backgroundUpdate = new Date();
+    categories () {
+      if (this.seasonalCategories) {
+        return _reverse(_sortBy(this.seasonalCategories, c => {
+          if (c.event) {
+            return c.event.start;
+          }
+          return -1;
+        }));
+      }
+      return [];
+    },
+    filterCategories () {
+      if (this.content) {
+        const equipmentList = _mapValues(this.gearTypesToStrings, (value, key) => ({
+          key,
+          value,
+        }));
+
+        _forEach(equipmentList, value => {
+          this.$set(this.viewOptions, value.key, {
+            selected: false,
+          });
+        });
+
+        return equipmentList;
+      }
+      return [];
+    },
+
+    anyFilterSelected () {
+      return Object.values(this.viewOptions).some(g => g.selected);
+    },
+  },
+  created () {
+    this.$root.$on('buyModal::boughtItem', () => {
+      this.backgroundUpdate = new Date();
+    });
+  },
+  beforeDestroy () {
+    this.$root.$off('buyModal::boughtItem');
+  },
+  methods: {
+    getClassName (classType) {
+      if (classType === 'wizard') {
+        return this.$t('mage');
+      }
+      return this.$t(classType);
+    },
+    seasonalItems (category, sortBy, searchBy, viewOptions, hidePinned) {
+      let result = _map(category.items, e => ({
+        ...e,
+        pinned: isPinned(this.user, e, this.usersOfficalPinnedItems),
+      }));
+
+      result = _filter(result, i => {
+        if (hidePinned && i.pinned) {
+          return false;
+        }
+
+        if (this.anyFilterSelected && viewOptions[i.type] && !viewOptions[i.type].selected) {
+          return false;
+        }
+
+        return !searchBy || i.text.toLowerCase().indexOf(searchBy) !== -1;
       });
+
+      switch (sortBy) {
+        case 'AZ': {
+          result = _sortBy(result, ['text']);
+
+          break;
+        }
+      }
+
+      return result;
     },
-    beforeDestroy () {
-      this.$root.$off('buyModal::boughtItem');
+    getGroupedCategories (categories) {
+      const spellCategory = _filter(categories, c => c.identifier === 'spells')[0];
+
+      const questsCategory = _filter(categories, c => c.identifier === 'quests')[0];
+
+      const setCategories = _filter(categories, 'specialClass');
+
+      const result = _groupBy(setCategories, 'specialClass');
+
+      if (spellCategory) {
+        result.spells = [
+          spellCategory,
+        ];
+      }
+
+      if (questsCategory) {
+        result.quests = [
+          questsCategory,
+        ];
+      }
+
+      return result;
     },
-  };
+    isGearLocked (gear) {
+      if (gear.value > this.userStats.gp) {
+        return true;
+      }
+
+      return false;
+    },
+    itemSelected (item) {
+      if (item.locked) return;
+      this.$root.$emit('buyModal::showItem', item);
+    },
+  },
+};
 </script>

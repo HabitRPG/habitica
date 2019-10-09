@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import MembersModalComponent from '@/components/groups/membersModal.vue';
+
 describe.skip('Members Modal Component', () => {
   describe('Party Sort', () => {
     let CTor;

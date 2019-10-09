@@ -22,10 +22,10 @@ import { mapState } from '@/libs/store';
 import markdown from '@/directives/markdown';
 
 export default {
-  props: ['cardOptions'],
   directives: {
     markdown,
   },
+  props: ['cardOptions'],
   computed: {
     ...mapState({
       user: 'user.data',
@@ -41,13 +41,13 @@ export default {
       return numberOfVariations;
     },
     cardMessage () {
-      let random = Math.random() * this.numberOfVariations;
-      let selection = Math.floor(random);
+      const random = Math.random() * this.numberOfVariations;
+      const selection = Math.floor(random);
       return this.$t(`${this.cardType}${selection}`);
     },
     fromName () {
       let fromName = '';
-      let card = this.user.items.special[`${this.cardType}Received`];
+      const card = this.user.items.special[`${this.cardType}Received`];
       if (card && card[0]) fromName = card[0];
       return fromName;
     },

@@ -178,7 +178,7 @@ export default {
     }
   },
   mounted () {
-    this.$root.$on('inviteModal::inviteToGroup', (group) => {
+    this.$root.$on('inviteModal::inviteToGroup', group => {
       this.inviteModalGroup = group;
       this.inviteModalGroupType = group.type === 'guild' ? 'Guild' : 'Party';
       this.$root.$emit('bv::show::modal', 'invite-modal');

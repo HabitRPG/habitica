@@ -32,13 +32,15 @@ describe('Challenge Detail', () => {
       actions: {
         'members:getChallengeMembers': () => {},
         'challenges:getChallenge': () => [
-          {_id: '1', group: { name: '', type: ''}, memberCount: 1, name: '', summary: '', description: '', leader: '', price: 1},
+          {
+            _id: '1', group: { name: '', type: '' }, memberCount: 1, name: '', summary: '', description: '', leader: '', price: 1,
+          },
         ],
         'tasks:getChallengeTasks': () => [
-          {_id: '1', type: 'habit'},
-          {_id: '2', type: 'daily'},
-          {_id: '3', type: 'reward'},
-          {_id: '4', type: 'todo'},
+          { _id: '1', type: 'habit' },
+          { _id: '2', type: 'daily' },
+          { _id: '3', type: 'reward' },
+          { _id: '4', type: 'todo' },
         ],
       },
       getters: {
@@ -48,13 +50,13 @@ describe('Challenge Detail', () => {
       store,
       localVue,
       mocks: {
-        $t: (string) => string,
+        $t: string => string,
       },
     });
   });
 
   it('removes a destroyed task from task list', () => {
-    let taskToRemove = {_id: '1', type: 'habit'};
+    const taskToRemove = { _id: '1', type: 'habit' };
     wrapper.vm.taskDestroyed(taskToRemove);
     expect(wrapper.vm.tasksByType[taskToRemove.type].length).to.eq(0);
   });

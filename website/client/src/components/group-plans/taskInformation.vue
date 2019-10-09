@@ -67,6 +67,10 @@
 </style>
 
 <script>
+import Vue from 'vue';
+import cloneDeep from 'lodash/cloneDeep';
+import findIndex from 'lodash/findIndex';
+import groupBy from 'lodash/groupBy';
 import taskDefaults from '@/../../common/script/libs/taskDefaults';
 import TaskColumn from '../tasks/column';
 import TaskModal from '../tasks/taskModal';
@@ -80,19 +84,15 @@ import dailyIcon from '@/assets/svg/daily.svg';
 import todoIcon from '@/assets/svg/todo.svg';
 import rewardIcon from '@/assets/svg/reward.svg';
 
-import Vue from 'vue';
-import cloneDeep from 'lodash/cloneDeep';
-import findIndex from 'lodash/findIndex';
-import groupBy from 'lodash/groupBy';
 import { mapState } from '@/libs/store';
 
 export default {
-  props: ['groupId'],
   components: {
     TaskColumn,
     TaskModal,
     GroupPlanOverviewModal,
   },
+  props: ['groupId'],
   data () {
     return {
       openCreateBtn: false,
@@ -143,7 +143,7 @@ export default {
     }
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     tagsByType () {
       const userTags = this.user.tags;
       const tagsByType = {
@@ -194,22 +194,22 @@ export default {
         groupId: this.searchId,
       });
 
-      let members = await this.$store.dispatch('members:getGroupMembers', {groupId: this.searchId});
+      const members = await this.$store.dispatch('members:getGroupMembers', { groupId: this.searchId });
       this.group.members = members;
 
-      let tasks = await this.$store.dispatch('tasks:getGroupTasks', {
+      const tasks = await this.$store.dispatch('tasks:getGroupTasks', {
         groupId: this.searchId,
       });
 
-      let groupedApprovals = await this.loadApprovals();
+      const groupedApprovals = await this.loadApprovals();
 
-      tasks.forEach((task) => {
+      tasks.forEach(task => {
         if (groupedApprovals[task._id] && groupedApprovals[task._id].length > 0) task.approvals = groupedApprovals[task._id];
         this.tasksByType[task.type].push(task);
       });
     },
     async loadApprovals () {
-      let approvalRequests = await this.$store.dispatch('tasks:getGroupApprovals', {
+      const approvalRequests = await this.$store.dispatch('tasks:getGroupApprovals', {
         groupId: this.searchId,
       });
 
@@ -229,10 +229,8 @@ export default {
         groupId: this.searchId,
       });
 
-      completedTodos.forEach((task) => {
-        const existingTaskIndex = findIndex(this.tasksByType.todo, (todo) => {
-          return todo._id === task._id;
-        });
+      completedTodos.forEach(task => {
+        const existingTaskIndex = findIndex(this.tasksByType.todo, todo => todo._id === task._id);
         if (existingTaskIndex === -1) {
           this.tasksByType.todo.push(task);
         }
@@ -241,7 +239,7 @@ export default {
     createTask (type) {
       this.openCreateBtn = false;
       this.taskFormPurpose = 'create';
-      this.creatingTask = taskDefaults({type, text: ''}, this.user);
+      this.creatingTask = taskDefaults({ type, text: '' }, this.user);
       this.workingTask = this.creatingTask;
       // Necessary otherwise the first time the modal is not rendered
       Vue.nextTick(() => {
@@ -253,15 +251,11 @@ export default {
       this.tasksByType[task.type].push(task);
     },
     taskEdited (task) {
-      let index = findIndex(this.tasksByType[task.type], (taskItem) => {
-        return taskItem._id === task._id;
-      });
+      const index = findIndex(this.tasksByType[task.type], taskItem => taskItem._id === task._id);
       this.tasksByType[task.type].splice(index, 1, task);
     },
     taskDestroyed (task) {
-      let index = findIndex(this.tasksByType[task.type], (taskItem) => {
-        return taskItem._id === task._id;
-      });
+      const index = findIndex(this.tasksByType[task.type], taskItem => taskItem._id === task._id);
       this.tasksByType[task.type].splice(index, 1);
     },
     cancelTaskModal () {
@@ -289,12 +283,12 @@ export default {
       this.closeFilterPanel();
     },
     applyFilters () {
-      const temporarilySelectedTags = this.temporarilySelectedTags;
+      const { temporarilySelectedTags } = this;
       this.selectedTags = temporarilySelectedTags.slice();
       this.closeFilterPanel();
     },
     toggleTag (tag) {
-      const temporarilySelectedTags = this.temporarilySelectedTags;
+      const { temporarilySelectedTags } = this;
       const tagI = temporarilySelectedTags.indexOf(tag.id);
       if (tagI === -1) {
         temporarilySelectedTags.push(tag.id);

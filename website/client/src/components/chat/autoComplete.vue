@@ -66,6 +66,7 @@ import tier9 from '@/assets/svg/tier-staff.svg';
 import tierNPC from '@/assets/svg/tier-npc.svg';
 
 export default {
+  mixins: [styleHelper],
   props: ['selections', 'text', 'caretPosition', 'coords', 'chat', 'textbox'],
   data () {
     return {
@@ -93,7 +94,7 @@ export default {
   computed: {
     autocompleteStyle () {
       function heightToUse (textBox, topCoords) {
-        let textBoxHeight = textBox['user-entry'].clientHeight;
+        const textBoxHeight = textBox['user-entry'].clientHeight;
         return topCoords < textBoxHeight ? topCoords + 30 : textBoxHeight + 10;
       }
       return {
@@ -113,14 +114,9 @@ export default {
       this.currentSearch = this.atRegex.exec(this.text)[0]; // eslint-disable-line vue/no-side-effects-in-computed-properties
       this.currentSearch = this.currentSearch.substring(1, this.currentSearch.length); // eslint-disable-line vue/no-side-effects-in-computed-properties
 
-      return this.tmpSelections.filter((option) => {
-        return option.displayName.toLowerCase().indexOf(this.currentSearch.toLowerCase()) !== -1 || option.username && option.username.toLowerCase().indexOf(this.currentSearch.toLowerCase()) !== -1;
-      }).slice(0, 4);
+      return this.tmpSelections.filter(option => option.displayName.toLowerCase().indexOf(this.currentSearch.toLowerCase()) !== -1 || option.username && option.username.toLowerCase().indexOf(this.currentSearch.toLowerCase()) !== -1).slice(0, 4);
     },
 
-  },
-  mounted () {
-    this.grabUserNames();
   },
   watch: {
     text (newText) {
@@ -143,6 +139,9 @@ export default {
       this.grabUserNames();
     },
   },
+  mounted () {
+    this.grabUserNames();
+  },
   methods: {
     resetDefaults () {
       // Mounted is not called when switching between group pages because they have the
@@ -153,9 +152,9 @@ export default {
       this.resetSelection();
     },
     grabUserNames () {
-      let usersThatMessage = groupBy(this.chat, 'user');
-      for (let userKey in usersThatMessage) {
-        let systemMessage = userKey === 'undefined';
+      const usersThatMessage = groupBy(this.chat, 'user');
+      for (const userKey in usersThatMessage) {
+        const systemMessage = userKey === 'undefined';
         if (!systemMessage && this.tmpSelections.indexOf(userKey) === -1) {
           this.tmpSelections.push({
             displayName: userKey,
@@ -204,18 +203,18 @@ export default {
     selectNext () {
       if (this.searchResults.length > 0) {
         this.clearHover();
-        this.selected = this.selected === null ?
-          0 :
-          (this.selected + 1) % this.searchResults.length;
+        this.selected = this.selected === null
+          ? 0
+          : (this.selected + 1) % this.searchResults.length;
         this.searchResults[this.selected].hover = true;
       }
     },
     selectPrevious () {
       if (this.searchResults.length > 0) {
         this.clearHover();
-        this.selected = this.selected === null ?
-          this.searchResults.length - 1 :
-          (this.selected - 1 + this.searchResults.length) % this.searchResults.length;
+        this.selected = this.selected === null
+          ? this.searchResults.length - 1
+          : (this.selected - 1 + this.searchResults.length) % this.searchResults.length;
         this.searchResults[this.selected].hover = true;
       }
     },
@@ -231,6 +230,5 @@ export default {
       this.resetSelection();
     },
   },
-  mixins: [styleHelper],
 };
 </script>

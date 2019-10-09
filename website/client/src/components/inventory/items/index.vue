@@ -221,20 +221,17 @@ const groups = [
   ['food', 'Pet_Food_'],
   ['special', 'inventory_special_', allowedSpecialItems],
   ['quests', 'inventory_quest_scroll_'],
-].map(([group, classPrefix, allowedItems]) => {
-  return {
-    key: group,
-    quantity: 0,
-    selected: false,
-    classPrefix,
-    allowedItems,
-  };
-});
+].map(([group, classPrefix, allowedItems]) => ({
+  key: group,
+  quantity: 0,
+  selected: false,
+  classPrefix,
+  allowedItems,
+}));
 
 let lastMouseMoveEvent = {};
 
 export default {
-  mixins: [notifications],
   name: 'Items',
   components: {
     Item,
@@ -249,6 +246,7 @@ export default {
     drag: DragDropDirective,
     mousePosition: MouseMoveDirective,
   },
+  mixins: [notifications],
   data () {
     return {
       searchText: null,
@@ -283,11 +281,11 @@ export default {
       this.groups.forEach(group => {
         const groupKey = group.key;
         group.quantity = 0; // resetf the count
-        let itemsArray = itemsByType[groupKey] = [];
+        const itemsArray = itemsByType[groupKey] = [];
         const contentItems = this.content[groupKey];
 
         each(this.user.items[groupKey], (itemQuantity, itemKey) => {
-          let isAllowed = !group.allowedItems || group.allowedItems.indexOf(itemKey) !== -1;
+          const isAllowed = !group.allowedItems || group.allowedItems.indexOf(itemKey) !== -1;
 
           if (itemQuantity > 0 && isAllowed) {
             const item = contentItems[itemKey];
@@ -310,13 +308,12 @@ export default {
         itemsArray.sort((a, b) => {
           if (this.sortBy === 'quantity') {
             return b.quantity - a.quantity;
-          } else { // AZ
-            return a.text.localeCompare(b.text);
-          }
+          } // AZ
+          return a.text.localeCompare(b.text);
         });
       });
 
-      let specialArray = itemsByType.special;
+      const specialArray = itemsByType.special;
 
       specialArray.push({
         key: 'mysteryItem',
@@ -325,14 +322,14 @@ export default {
         quantity: this.user.purchased.plan.mysteryItems.length,
       });
 
-      for (let type in this.content.cardTypes) {
-        let card = this.user.items.special[`${type}Received`] || [];
+      for (const type in this.content.cardTypes) {
+        const card = this.user.items.special[`${type}Received`] || [];
         if (this.user.items.special[type] > 0 || card.length > 0) {
           specialArray.push({
             type: 'card',
             key: type,
             class: `inventory_special_${type}`,
-            text: this.$t('toAndFromCard', { toName: this.user.profile.name, fromName: card[0]}),
+            text: this.$t('toAndFromCard', { toName: this.user.profile.name, fromName: card[0] }),
             quantity: this.user.items.special[type],
           });
         }
@@ -347,15 +344,15 @@ export default {
   },
   methods: {
     userHasPet (potionKey, eggKey) {
-      let animalKey = `${eggKey}-${potionKey}`;
+      const animalKey = `${eggKey}-${potionKey}`;
 
-      let result =  this.user.items.pets[animalKey] > 0;
+      const result = this.user.items.pets[animalKey] > 0;
 
       return result;
     },
     hatchPet (potion, egg) {
-      this.$store.dispatch('common:hatch', {egg: egg.key, hatchingPotion: potion.key});
-      this.text(this.$t('hatchedPet', {egg: egg.text, potion: potion.text}));
+      this.$store.dispatch('common:hatch', { egg: egg.key, hatchingPotion: potion.key });
+      this.text(this.$t('hatchedPet', { egg: egg.text, potion: potion.text }));
       if (this.user.preferences.suppressModals.hatchPet) return;
       const newPet = createAnimal(egg, potion, 'pet', this.content, this.user.items);
       this.$root.$emit('hatchedPet::open', newPet);
@@ -367,23 +364,21 @@ export default {
       // Dragging needs to be added for egg items
       this.currentDraggingPotion = potion;
 
-      let itemRef = this.$refs.draggingPotionInfo;
+      const itemRef = this.$refs.draggingPotionInfo;
 
-      let dragEvent = $event.event;
+      const dragEvent = $event.event;
 
       dragEvent.dataTransfer.setDragImage(itemRef, -20, -20);
     },
     isHatchable (potion, egg) {
-      if (potion === null || egg === null)
-        return false;
+      if (potion === null || egg === null) return false;
 
       const petKey = `${egg.key}-${potion.key}`;
 
       const petInfo = this.content.petInfo[petKey];
 
       // Check pet exists and is hatchable
-      if (!petInfo || !petInfo.potion)
-        return false;
+      if (!petInfo || !petInfo.potion) return false;
 
       return !this.userHasPet(potion.key, egg.key);
     },
@@ -459,16 +454,15 @@ export default {
 
       if (groupKey === 'special') {
         if (item.key === 'timeTravelers') {
-          this.$router.push({name: 'time'});
+          this.$router.push({ name: 'time' });
         } else if (item.key === 'mysteryItem') {
-          if (item.quantity === 0)
-            return;
+          if (item.quantity === 0) return;
 
-          let result = await this.$store.dispatch('user:openMysteryItem');
+          const result = await this.$store.dispatch('user:openMysteryItem');
 
-          let openedItem = result.data.data;
-          let text = this.content.gear.flat[openedItem.key].text();
-          this.drop(this.$t('messageDropMysteryItem', {dropText: text}), openedItem);
+          const openedItem = result.data.data;
+          const text = this.content.gear.flat[openedItem.key].text();
+          this.drop(this.$t('messageDropMysteryItem', { dropText: text }), openedItem);
         } else {
           this.$root.$emit('selectMembersModal::showItem', item);
         }

@@ -1,5 +1,5 @@
-import {highlightUsers} from '@/libs/highlightUsers';
 import habiticaMarkdown from 'habitica-markdown';
+import { highlightUsers } from '@/libs/highlightUsers';
 
 describe('highlightUserAndEmail', () => {
   it('highlights displayname', () => {

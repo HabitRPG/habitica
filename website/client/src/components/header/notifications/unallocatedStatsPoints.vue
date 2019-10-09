@@ -22,6 +22,9 @@ import BaseNotification from './base';
 import sparklesIcon from '@/assets/svg/sparkles.svg';
 
 export default {
+  components: {
+    BaseNotification,
+  },
   props: ['notification', 'canRemove'],
   data () {
     return {
@@ -30,12 +33,9 @@ export default {
       }),
     };
   },
-  components: {
-    BaseNotification,
-  },
   methods: {
     action () {
-      this.$router.push({name: 'stats'});
+      this.$router.push({ name: 'stats' });
     },
   },
 };

@@ -198,10 +198,10 @@ import sidebarSection from '../sidebarSection';
 import questIcon from '@/assets/svg/quest.svg';
 
 export default {
-  props: ['group'],
   components: {
     sidebarSection,
   },
+  props: ['group'],
   data () {
     return {
       icons: Object.freeze({
@@ -210,7 +210,7 @@ export default {
     };
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     userIsOnQuest () {
       if (!this.group.quest || !this.group.quest.members) return false;
       return Boolean(this.group.quest.members[this.user._id]);
@@ -230,20 +230,20 @@ export default {
     },
     canEditQuest () {
       if (!this.group.quest) return false;
-      let isQuestLeader = this.group.quest.leader === this.user._id;
-      let isPartyLeader = this.group.leader._id === this.user._id;
+      const isQuestLeader = this.group.quest.leader === this.user._id;
+      const isPartyLeader = this.group.leader._id === this.user._id;
       return isQuestLeader || isPartyLeader;
     },
     isMemberOfPendingQuest () {
-      let userid = this.user._id;
-      let group = this.group;
+      const userid = this.user._id;
+      const { group } = this;
       if (!group.quest || !group.quest.members) return false;
       if (group.quest.active) return false; // quest is started, not pending
       return userid in group.quest.members && group.quest.members[userid] !== false;
     },
     isMemberOfRunningQuest () {
-      let userid = this.user._id;
-      let group = this.group;
+      const userid = this.user._id;
+      const { group } = this;
       if (!group.quest || !group.quest.members) return false;
       if (!group.quest.active) return false; // quest is pending, not started
       return group.quest.members[userid];
@@ -253,7 +253,7 @@ export default {
 
       if (!this.group || !this.group.quest) return count;
 
-      for (let uuid in this.group.quest.members) {
+      for (const uuid in this.group.quest.members) {
         if (this.group.quest.members[uuid]) count += 1;
       }
 
@@ -273,20 +273,20 @@ export default {
     async questAbort () {
       if (!confirm(this.$t('sureAbort'))) return;
       if (!confirm(this.$t('doubleSureAbort'))) return;
-      let quest = await this.$store.dispatch('quests:sendAction', {groupId: this.group._id, action: 'quests/abort'});
+      const quest = await this.$store.dispatch('quests:sendAction', { groupId: this.group._id, action: 'quests/abort' });
       this.group.quest = quest;
     },
     async questLeave () {
       if (!confirm(this.$t('sureLeave'))) return;
-      let quest = await this.$store.dispatch('quests:sendAction', {groupId: this.group._id, action: 'quests/leave'});
+      const quest = await this.$store.dispatch('quests:sendAction', { groupId: this.group._id, action: 'quests/leave' });
       this.group.quest = quest;
     },
     async questAccept (partyId) {
-      let quest = await this.$store.dispatch('quests:sendAction', {groupId: partyId, action: 'quests/accept'});
+      const quest = await this.$store.dispatch('quests:sendAction', { groupId: partyId, action: 'quests/accept' });
       this.user.party.quest = quest;
     },
     async questReject (partyId) {
-      let quest = await this.$store.dispatch('quests:sendAction', {groupId: partyId, action: 'quests/reject'});
+      const quest = await this.$store.dispatch('quests:sendAction', { groupId: partyId, action: 'quests/reject' });
       this.user.party.quest = quest;
     },
   },

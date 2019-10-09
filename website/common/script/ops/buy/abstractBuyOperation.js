@@ -30,7 +30,7 @@ export class AbstractBuyOperation {
    * @param item
    * @returns {number}
    */
-  getItemValue (item) {
+  getItemValue (item) { // eslint-disable-line class-methods-use-this
     return item.value;
   }
 
@@ -39,7 +39,7 @@ export class AbstractBuyOperation {
    * @param item
    * @returns {String}
    */
-  getItemKey (item) {
+  getItemKey (item) { // eslint-disable-line class-methods-use-this
     return item.key;
   }
 
@@ -48,7 +48,7 @@ export class AbstractBuyOperation {
    * @param item
    * @returns {String}
    */
-  getItemType (item) {
+  getItemType (item) { // eslint-disable-line class-methods-use-this
     if (!item.type) throw new NotImplementedError('item doesn\'t have a type property');
 
     return item.type;
@@ -69,22 +69,22 @@ export class AbstractBuyOperation {
    * If the Operation allows purchasing items by quantity
    * @returns Boolean
    */
-  multiplePurchaseAllowed () {
+  multiplePurchaseAllowed () { // eslint-disable-line class-methods-use-this
     throw new NotImplementedError('multiplePurchaseAllowed');
   }
 
   /**
    * Method is called to save the params as class-fields in order to access them
    */
-  extractAndValidateParams () {
+  extractAndValidateParams () { // eslint-disable-line class-methods-use-this
     throw new NotImplementedError('extractAndValidateParams');
   }
 
-  executeChanges () {
+  executeChanges () { // eslint-disable-line class-methods-use-this
     throw new NotImplementedError('executeChanges');
   }
 
-  analyticsData () {
+  analyticsData () { // eslint-disable-line class-methods-use-this
     throw new NotImplementedError('sendToAnalytics');
   }
 
@@ -104,7 +104,7 @@ export class AbstractBuyOperation {
     return resultObj;
   }
 
-  analyticsLabel () {
+  analyticsLabel () { // eslint-disable-line class-methods-use-this
     return 'acquire item';
   }
 
@@ -126,10 +126,6 @@ export class AbstractBuyOperation {
 }
 
 export class AbstractGoldItemOperation extends AbstractBuyOperation {
-  constructor (user, req, analytics) {
-    super(user, req, analytics);
-  }
-
   canUserPurchase (user, item) {
     this.item = item;
     const itemValue = this.getItemValue(item);
@@ -162,10 +158,6 @@ export class AbstractGoldItemOperation extends AbstractBuyOperation {
 }
 
 export class AbstractGemItemOperation extends AbstractBuyOperation {
-  constructor (user, req, analytics) {
-    super(user, req, analytics);
-  }
-
   canUserPurchase (user, item) {
     this.item = item;
     const itemValue = this.getItemValue(item);
@@ -196,10 +188,6 @@ export class AbstractGemItemOperation extends AbstractBuyOperation {
 }
 
 export class AbstractHourglassItemOperation extends AbstractBuyOperation {
-  constructor (user, req, analytics) {
-    super(user, req, analytics);
-  }
-
   canUserPurchase (user, item) {
     this.item = item;
 
@@ -208,8 +196,8 @@ export class AbstractHourglassItemOperation extends AbstractBuyOperation {
     }
   }
 
-  subtractCurrency (user) {
-    user.purchased.plan.consecutive.trinkets--;
+  subtractCurrency (user) { // eslint-disable-line class-methods-use-this
+    user.purchased.plan.consecutive.trinkets -= 1;
   }
 
   analyticsData () {

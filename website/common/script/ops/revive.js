@@ -63,7 +63,8 @@ export default function revive (user, req = {}, analytics) {
         const itemClassEqualsUserClass = itm.klass === userClass;
 
         const itemClassSpecial = itm.klass === 'special';
-        const itemNotSpecialOrUserClassIsSpecial = !itm.specialClass || itm.specialClass === userClass;
+        const itemNotSpecialOrUserClassIsSpecial = !itm.specialClass
+          || itm.specialClass === userClass;
         const itemIsSpecial = itemNotSpecialOrUserClassIsSpecial && itemClassSpecial;
 
         const itemIsArmoire = itm.klass === 'armoire';

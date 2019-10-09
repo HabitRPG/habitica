@@ -26,7 +26,7 @@ import {
 
 import appearances from './appearance';
 import { backgroundsTree, backgroundsFlat } from './appearance/backgrounds';
-import spells from './spells';
+import spells from './spells'; // eslint-disable-line import/no-cycle
 import subscriptionBlocks from './subscriptionBlocks';
 import faq from './faq';
 import timeTravelers from './time-travelers';

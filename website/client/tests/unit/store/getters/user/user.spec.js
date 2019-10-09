@@ -1,4 +1,6 @@
-import { data, gems, buffs, preferences, tasksOrder } from '@/store/getters/user';
+import {
+  data, gems, buffs, preferences, tasksOrder,
+} from '@/store/getters/user';
 
 context('user getters', () => {
   describe('data', () => {

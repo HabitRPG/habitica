@@ -119,10 +119,13 @@ import notifications from '@/mixins/notifications';
 import userLink from '../userLink';
 
 export default {
-  mixins: [notifications, styleHelper],
   components: {
     userLink,
   },
+  directives: {
+    markdown: markdownDirective,
+  },
+  mixins: [notifications, styleHelper],
   data () {
     return {
       heroes: [],
@@ -141,14 +144,11 @@ export default {
       expandAuth: false,
     };
   },
-  directives: {
-    markdown: markdownDirective,
-  },
   async mounted () {
     this.heroes = await this.$store.dispatch('hall:getHeroes');
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
   },
   methods: {
     getAllItemPaths () {
@@ -172,7 +172,7 @@ export default {
     getFormattedItemReference (pathPrefix, itemKeys, values) {
       let finishedString = '\n'.concat('path: ', pathPrefix, ', ', 'value: {', values, '}\n');
 
-      each(itemKeys, (key) => {
+      each(itemKeys, key => {
         finishedString = finishedString.concat('\t', pathPrefix, '.', key, '\n');
       });
 
@@ -180,8 +180,8 @@ export default {
     },
     async loadHero (uuid, heroIndex) {
       this.currentHeroIndex = heroIndex;
-      let hero = await this.$store.dispatch('hall:getHero', { uuid });
-      this.hero = Object.assign({}, hero);
+      const hero = await this.$store.dispatch('hall:getHero', { uuid });
+      this.hero = { ...hero };
       if (!this.hero.flags) {
         this.hero.flags = {
           chatRevoked: false,
@@ -192,8 +192,8 @@ export default {
       this.expandAuth = false;
     },
     async saveHero () {
-      this.hero.contributor.admin = this.hero.contributor.level > 7 ? true : false;
-      let heroUpdated = await this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
+      this.hero.contributor.admin = this.hero.contributor.level > 7;
+      const heroUpdated = await this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
       this.text('User updated');
       this.hero = {};
       this.heroID = -1;

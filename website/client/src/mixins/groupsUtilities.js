@@ -3,13 +3,13 @@ import intersection from 'lodash/intersection';
 export default {
   filters: {
     // https://stackoverflow.com/questions/2685911/is-there-a-way-to-round-numbers-into-a-reader-friendly-format-e-g-1-1k
-    abbrNum: (number) => {
+    abbrNum: number => {
       let decPlaces = 1;
       decPlaces = Math.pow(10, decPlaces);
 
-      let abbrev = ['k', 'm', 'b', 't'];
+      const abbrev = ['k', 'm', 'b', 't'];
       for (let i = abbrev.length - 1; i >= 0; i--) {
-        let size = Math.pow(10, (i + 1) * 3);
+        const size = Math.pow(10, (i + 1) * 3);
 
         if (size <= number) {
           number = Math.floor(number * decPlaces / size) / decPlaces;
@@ -61,11 +61,11 @@ export default {
       }
 
       if (filters.categories && filters.categories.length > 0) {
-        let intersectingCats = intersection(filters.categories, group.categorySlugs);
+        const intersectingCats = intersection(filters.categories, group.categorySlugs);
         hasCategories = intersectingCats.length > 0;
       }
 
-      let filteringRole = filters.roles && filters.roles.length > 0;
+      const filteringRole = filters.roles && filters.roles.length > 0;
       if (filteringRole && filters.roles.indexOf('member') !== -1) {
         isMember = this.isMemberOfGroup(user, group);
       }

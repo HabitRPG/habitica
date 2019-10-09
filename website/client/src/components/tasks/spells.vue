@@ -181,13 +181,13 @@ import * as quests from '@/../../common/script/content/quests';
 import { CONSTANTS, setLocalSetting, getLocalSetting } from '@/libs/userlocalManager';
 
 export default {
-  mixins: [notifications, spellsMixin],
   components: {
     Drawer,
   },
   directives: {
     mousePosition: MouseMoveDirective,
   },
+  mixins: [notifications, spellsMixin],
   data () {
     return {
       spells,
@@ -209,7 +209,7 @@ export default {
     }
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     openStatus () {
       return this.$store.state.spellOptions.spellDrawOpen ? 1 : 0;
     },
@@ -253,10 +253,10 @@ export default {
       return notes;
     },
     questProgress () {
-      let user = this.user;
+      const { user } = this;
       if (!user.party.quest) return 0;
 
-      let userQuest = this.quests[user.party.quest.key];
+      const userQuest = this.quests[user.party.quest.key];
 
       if (!userQuest) {
         return 0;

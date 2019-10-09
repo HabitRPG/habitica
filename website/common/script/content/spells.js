@@ -1,8 +1,8 @@
 import each from 'lodash/each';
 import t from './translation';
 import { NotAuthorized } from '../libs/errors';
-import statsComputed from '../libs/statsComputed';
-import crit from '../fns/crit';
+import statsComputed from '../libs/statsComputed'; // eslint-disable-line import/no-cycle
+import crit from '../fns/crit'; // eslint-disable-line import/no-cycle
 import updateStats from '../fns/updateStats';
 
 /*
@@ -207,7 +207,9 @@ spells.rogue = {
     notes: t('spellRogueStealthNotes'),
     cast (user) {
       if (!user.stats.buffs.stealth) user.stats.buffs.stealth = 0;
-      user.stats.buffs.stealth += Math.ceil(diminishingReturns(statsComputed(user).per, user.tasksOrder.dailys.length * 0.64, 55));
+      user.stats.buffs.stealth += Math.ceil(diminishingReturns(
+        statsComputed(user).per, user.tasksOrder.dailys.length * 0.64, 55,
+      ));
     },
   },
 };

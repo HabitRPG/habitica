@@ -19,24 +19,24 @@
 </style>
 
 <script>
-  import achievementFooter from './achievementFooter';
-  import achievementAvatar from './achievementAvatar';
+import achievementFooter from './achievementFooter';
+import achievementAvatar from './achievementAvatar';
 
-  import {mapState} from '@/libs/store';
+import { mapState } from '@/libs/store';
 
-  export default {
-    components: {
-      achievementFooter,
-      achievementAvatar,
+export default {
+  components: {
+    achievementFooter,
+    achievementAvatar,
+  },
+  props: ['data'],
+  computed: {
+    ...mapState({ user: 'user.data' }),
+  },
+  methods: {
+    close () {
+      this.$root.$emit('bv::hide::modal', 'generic-achievement');
     },
-    props: ['data'],
-    computed: {
-      ...mapState({user: 'user.data'}),
-    },
-    methods: {
-      close () {
-        this.$root.$emit('bv::hide::modal', 'generic-achievement');
-      },
-    },
-  };
+  },
+};
 </script>

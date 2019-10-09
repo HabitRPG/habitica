@@ -80,9 +80,9 @@
 
 <script>
 import hello from 'hellojs';
-import { setUpAxios } from '@/libs/auth';
 import debounce from 'lodash/debounce';
 import isEmail from 'validator/lib/isEmail';
+import { setUpAxios } from '@/libs/auth';
 
 import facebookSquareIcon from '@/assets/svg/facebook-square.svg';
 import googleIcon from '@/assets/svg/google.svg';
@@ -90,7 +90,7 @@ import googleIcon from '@/assets/svg/google.svg';
 export default {
   name: 'AuthForm',
   data () {
-    let data = {
+    const data = {
       registering: true,
       username: '',
       email: '',
@@ -105,13 +105,6 @@ export default {
     });
 
     return data;
-  },
-  mounted () {
-    hello.init({
-      facebook: process.env.FACEBOOK_KEY, // eslint-disable-line
-      // windows: WINDOWS_CLIENT_ID,
-      google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
-    });
   },
   computed: {
     emailValid () {
@@ -141,6 +134,13 @@ export default {
       this.validateUsername(this.username);
     },
   },
+  mounted () {
+    hello.init({
+      facebook: process.env.FACEBOOK_KEY, // eslint-disable-line
+      // windows: WINDOWS_CLIENT_ID,
+      google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
+    });
+  },
   methods: {
     // eslint-disable-next-line func-names
     validateUsername: debounce(function (username) {
@@ -165,7 +165,7 @@ export default {
 
       try {
         const redirectUrl = `${window.location.protocol}//${window.location.host}`;
-        let auth = await hello(network).login({
+        const auth = await hello(network).login({
           scope: 'email',
           redirect_uri: redirectUrl, // eslint-disable-line camelcase
         });
@@ -212,7 +212,7 @@ export default {
     async finishAuth () {
       setUpAxios();
 
-      await this.$store.dispatch('user:fetch', {forceLoad: true});
+      await this.$store.dispatch('user:fetch', { forceLoad: true });
 
       this.$emit('authenticate');
     },

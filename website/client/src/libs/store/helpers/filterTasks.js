@@ -38,15 +38,15 @@ const taskFilters = {
 };
 
 function typeLabel (filterList) {
-  return (type) => filterList[type].label;
+  return type => filterList[type].label;
 }
 
 export const getTypeLabel = typeLabel(taskFilters);
 
 function filterLabel (filterList) {
-  return (type) => {
-    let filterListByType = filterList[type].filters;
-    let filterListOfLabels = new Array(filterListByType.length);
+  return type => {
+    const filterListByType = filterList[type].filters;
+    const filterListOfLabels = new Array(filterListByType.length);
     filterListByType.forEach(({ label }, i) => filterListOfLabels[i] = label);
 
     return filterListOfLabels;
@@ -57,7 +57,7 @@ export const getFilterLabels = filterLabel(taskFilters);
 
 function activeFilter (filterList) {
   return (type, filterType = '') => {
-    let filterListByType = filterList[type].filters;
+    const filterListByType = filterList[type].filters;
     if (filterType) {
       return filterListByType.find(f => f.label === filterType);
     }

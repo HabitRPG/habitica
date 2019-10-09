@@ -33,83 +33,82 @@
 
 <script>
 
-  import styleHelper from '@/mixins/styleHelper';
+import styleHelper from '@/mixins/styleHelper';
 
-  import achievementsLib from '@/../../common/script/libs/achievements';
+import achievementsLib from '@/../../common/script/libs/achievements';
 
-  import tier1 from '@/assets/svg/tier-1.svg';
-  import tier2 from '@/assets/svg/tier-2.svg';
-  import tier3 from '@/assets/svg/tier-3.svg';
-  import tier4 from '@/assets/svg/tier-4.svg';
-  import tier5 from '@/assets/svg/tier-5.svg';
-  import tier6 from '@/assets/svg/tier-6.svg';
-  import tier7 from '@/assets/svg/tier-7.svg';
-  import tier8 from '@/assets/svg/tier-mod.svg';
-  import tier9 from '@/assets/svg/tier-staff.svg';
-  import tierNPC from '@/assets/svg/tier-npc.svg';
+import tier1 from '@/assets/svg/tier-1.svg';
+import tier2 from '@/assets/svg/tier-2.svg';
+import tier3 from '@/assets/svg/tier-3.svg';
+import tier4 from '@/assets/svg/tier-4.svg';
+import tier5 from '@/assets/svg/tier-5.svg';
+import tier6 from '@/assets/svg/tier-6.svg';
+import tier7 from '@/assets/svg/tier-7.svg';
+import tier8 from '@/assets/svg/tier-mod.svg';
+import tier9 from '@/assets/svg/tier-staff.svg';
+import tierNPC from '@/assets/svg/tier-npc.svg';
 
-  export default {
-    props: ['user', 'userId', 'name', 'backer', 'contributor'],
-    mixins: [styleHelper],
-    data () {
-      return {
-        icons: Object.freeze({
-          tier1,
-          tier2,
-          tier3,
-          tier4,
-          tier5,
-          tier6,
-          tier7,
-          tier8,
-          tier9,
-          tierNPC,
-        }),
-      };
+export default {
+  mixins: [styleHelper],
+  props: ['user', 'userId', 'name', 'backer', 'contributor'],
+  data () {
+    return {
+      icons: Object.freeze({
+        tier1,
+        tier2,
+        tier3,
+        tier4,
+        tier5,
+        tier6,
+        tier7,
+        tier8,
+        tier9,
+        tierNPC,
+      }),
+    };
+  },
+  computed: {
+    displayName () {
+      if (this.name) {
+        return this.name;
+      } if (this.user && this.user.profile) {
+        return this.user.profile.name;
+      }
+      return null;
     },
-    computed: {
-      displayName () {
-        if (this.name) {
-          return this.name;
-        } else if (this.user && this.user.profile) {
-          return this.user.profile.name;
-        } else {
-          return null;
-        }
-      },
-      level () {
-        if (this.contributor) {
-          return this.contributor.level;
-        } else if (this.user && this.user.contributor) {
-          return this.user.contributor.level;
-        }
-        return 0;
-      },
-      isNPC () {
-        if (this.backer) {
-          return this.backer.level;
-        } else if (this.user && this.user.backer) {
-          return this.user.backer.level;
-        }
-        return false;
-      },
-      id () {
-        return this.userId || this.user._id;
-      },
+    level () {
+      if (this.contributor) {
+        return this.contributor.level;
+      } if (this.user && this.user.contributor) {
+        return this.user.contributor.level;
+      }
+      return 0;
     },
-    methods: {
-      tierIcon () {
-        if (this.isNPC) {
-          return this.icons.tierNPC;
-        }
-        return this.icons[`tier${this.level}`];
-      },
-      tierTitle () {
-        return achievementsLib.getContribText(this.contributor, this.isNPC) || '';
-      },
-      levelStyle () {
-        return this.userLevelStyleFromLevel(this.level, this.isNPC);
-      },
+    isNPC () {
+      if (this.backer) {
+        return this.backer.level;
+      } if (this.user && this.user.backer) {
+        return this.user.backer.level;
+      }
+      return false;
     },
-  };
+    id () {
+      return this.userId || this.user._id;
+    },
+  },
+  methods: {
+    tierIcon () {
+      if (this.isNPC) {
+        return this.icons.tierNPC;
+      }
+      return this.icons[`tier${this.level}`];
+    },
+    tierTitle () {
+      return achievementsLib.getContribText(this.contributor, this.isNPC) || '';
+    },
+    levelStyle () {
+      return this.userLevelStyleFromLevel(this.level, this.isNPC);
+    },
+  },
+};
 </script>

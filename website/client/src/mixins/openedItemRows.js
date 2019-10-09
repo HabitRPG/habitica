@@ -10,12 +10,12 @@ export default {
   },
   methods: {
     $_openedItemRows_toggleByType (typeId, add) {
-      let array = this.$store.state.openedItemRows;
+      const array = this.$store.state.openedItemRows;
 
       if (add) {
         array.push(typeId);
       } else {
-        let index = array.indexOf(typeId);
+        const index = array.indexOf(typeId);
 
         if (index > -1) {
           array.splice(index, 1);

@@ -181,10 +181,10 @@ import keys from 'lodash/keys';
 import { mapState } from '@/libs/store';
 import Content from '@/../../common/script/content';
 import { beastMasterProgress, mountMasterProgress } from '@/../../common/script/count';
-import statsComputed from  '@/../../common/script/libs/statsComputed';
+import statsComputed from '@/../../common/script/libs/statsComputed';
 import autoAllocate from '@/../../common/script/fns/autoAllocate';
-import changeClass from  '@/../../common/script/ops/changeClass';
-import allocate from  '@/../../common/script/ops/stats/allocate';
+import changeClass from '@/../../common/script/ops/changeClass';
+import allocate from '@/../../common/script/ops/stats/allocate';
 
 const DROP_ANIMALS = keys(Content.pets);
 const TOTAL_NUMBER_OF_DROP_ANIMALS = DROP_ANIMALS.length;
@@ -230,7 +230,7 @@ export default {
       return this.user.stats.lvl >= 100;
     },
     classText () {
-      let classTexts = {
+      const classTexts = {
         warrior: this.$t('warrior'),
         wizard: this.$t('mage'),
         rogue: this.$t('rogue'),
@@ -248,19 +248,17 @@ export default {
       if (type === 'pet') {
         if (Content.petInfo.hasOwnProperty(animalName)) {
           return Content.petInfo[animalName].text();
-        } else {
-          return this.$t('noActivePet');
         }
-      } else if (type === 'mount') {
+        return this.$t('noActivePet');
+      } if (type === 'mount') {
         if (Content.mountInfo.hasOwnProperty(animalName)) {
           return Content.mountInfo[animalName].text();
-        } else {
-          return this.$t('noActiveMount');
         }
+        return this.$t('noActiveMount');
       }
     },
     formatBackground (background) {
-      let bg = Content.appearances.background;
+      const bg = Content.appearances.background;
 
       if (bg.hasOwnProperty(background)) {
         return `${bg[background].text()} (${this.$t(bg[background].set.text)})`;
@@ -268,23 +266,23 @@ export default {
       return window.env.t('noBackground');
     },
     totalCount (objectToCount) {
-      let total = size(objectToCount);
+      const total = size(objectToCount);
       return total;
     },
     beastMasterProgress (pets) {
-      let dropPetsFound = beastMasterProgress(pets);
-      let display = this.formatOutOfTotalDisplay(dropPetsFound, TOTAL_NUMBER_OF_DROP_ANIMALS);
+      const dropPetsFound = beastMasterProgress(pets);
+      const display = this.formatOutOfTotalDisplay(dropPetsFound, TOTAL_NUMBER_OF_DROP_ANIMALS);
 
       return display;
     },
     mountMasterProgress (mounts) {
-      let dropMountsFound = mountMasterProgress(mounts);
-      let display = this.formatOutOfTotalDisplay(dropMountsFound, TOTAL_NUMBER_OF_DROP_ANIMALS);
+      const dropMountsFound = mountMasterProgress(mounts);
+      const display = this.formatOutOfTotalDisplay(dropMountsFound, TOTAL_NUMBER_OF_DROP_ANIMALS);
 
       return display;
     },
     formatOutOfTotalDisplay (stat, totalStat) {
-      let display = `${stat}/${totalStat}`;
+      const display = `${stat}/${totalStat}`;
       return display;
     },
     changeClass () {

@@ -37,7 +37,7 @@ export default {
     };
   },
   computed: {
-    ...mapState({user: 'user.data', credentials: 'credentials'}),
+    ...mapState({ user: 'user.data', credentials: 'credentials' }),
     getCodesUrl () {
       if (!this.user) return '';
       return '/api/v4/coupons';
@@ -53,7 +53,7 @@ export default {
       //   })
     },
     async enterCoupon () {
-      let code = await axios.post(`/api/v4/coupons/enter/${this.couponCode}`);
+      const code = await axios.post(`/api/v4/coupons/enter/${this.couponCode}`);
       if (!code) return;
 
       this.$store.state.user.data = code.data.data;

@@ -501,14 +501,14 @@ export default {
     };
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     questData () {
       if (!this.group.quest) return {};
       return quests.quests[this.group.quest.key];
     },
   },
   async mounted () {
-    this.group = await this.$store.dispatch('guilds:getGroup', {groupId: TAVERN_ID});
+    this.group = await this.$store.dispatch('guilds:getGroup', { groupId: TAVERN_ID });
   },
   methods: {
     modForm () {
@@ -543,7 +543,7 @@ export default {
       }
     },
     async fetchRecentMessages () {
-      this.group = await this.$store.dispatch('guilds:getGroup', {groupId: TAVERN_ID});
+      this.group = await this.$store.dispatch('guilds:getGroup', { groupId: TAVERN_ID });
     },
   },
 };

@@ -32,32 +32,30 @@
 </style>
 
 <script>
-  import QuestInfo from './questInfo.vue';
+import QuestInfo from './questInfo.vue';
 
-  export default {
-    components: {
-      QuestInfo,
+export default {
+  components: {
+    QuestInfo,
+  },
+  props: {
+    item: {
+      type: Object,
     },
-    computed: {
-      itemText () {
-        if (this.item.text instanceof Function) {
-          return this.item.text();
-        } else {
-          return this.item.text;
-        }
-      },
-      itemNotes () {
-        if (this.item.notes instanceof Function) {
-          return this.item.notes();
-        } else {
-          return this.item.notes;
-        }
-      },
+  },
+  computed: {
+    itemText () {
+      if (this.item.text instanceof Function) {
+        return this.item.text();
+      }
+      return this.item.text;
     },
-    props: {
-      item: {
-        type: Object,
-      },
+    itemNotes () {
+      if (this.item.notes instanceof Function) {
+        return this.item.notes();
+      }
+      return this.item.notes;
     },
-  };
+  },
+};
 </script>

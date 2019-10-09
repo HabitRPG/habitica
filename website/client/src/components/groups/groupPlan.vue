@@ -49,7 +49,7 @@ div
           .box.payment-providers
             h3 Choose your payment method
             .payments-column
-              button.purchase.btn.btn-primary.payment-button.payment-item(@click='pay(PAYMENTS.STRIPE)') 
+              button.purchase.btn.btn-primary.payment-button.payment-item(@click='pay(PAYMENTS.STRIPE)')
                 .svg-icon.credit-card-icon(v-html="icons.creditCardIcon")
                 | {{ $t('card') }}
               amazon-button.payment-item(:amazon-data="pay(PAYMENTS.AMAZON)")
@@ -99,7 +99,7 @@ div
       .text-center
         h3 Choose your payment method
         .payments-column.mx-auto
-          button.purchase.btn.btn-primary.payment-button.payment-item(@click='pay(PAYMENTS.STRIPE)') 
+          button.purchase.btn.btn-primary.payment-button.payment-item(@click='pay(PAYMENTS.STRIPE)')
             .svg-icon.credit-card-icon(v-html="icons.creditCardIcon")
             | {{ $t('card') }}
           amazon-button.payment-item(:amazon-data="pay(PAYMENTS.AMAZON)")
@@ -297,10 +297,10 @@ import creditCardIcon from '@/assets/svg/credit-card-icon.svg';
 import amazonButton from '@/components/payments/amazonButton';
 
 export default {
-  mixins: [paymentsMixin],
   components: {
     amazonButton,
   },
+  mixins: [paymentsMixin],
   data () {
     return {
       amazonPayments: {},
@@ -341,7 +341,7 @@ export default {
       return this.$store.state.upgradingGroup;
     },
     // @TODO: can we move this to payment mixin?
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
   },
   methods: {
     launchModal () {

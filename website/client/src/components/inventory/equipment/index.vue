@@ -139,14 +139,14 @@
 </style>
 
 <script>
-import { mapState } from '@/libs/store';
-import { CONSTANTS, setLocalSetting, getLocalSetting } from '@/libs/userlocalManager';
 
 import each from 'lodash/each';
 import map from 'lodash/map';
 import throttle from 'lodash/throttle';
 import _sortBy from 'lodash/sortBy';
 import _reverse from 'lodash/reverse';
+import { CONSTANTS, setLocalSetting, getLocalSetting } from '@/libs/userlocalManager';
+import { mapState } from '@/libs/store';
 
 import toggleSwitch from '@/components/ui/toggleSwitch';
 import Item from '@/components/inventory/item';
@@ -162,7 +162,7 @@ import EquipGearModal from './equipGearModal';
 const sortGearTypes = ['sortByName', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'];
 
 const sortGearTypeMap = {
-  sortByName: (i) => i.text(),
+  sortByName: i => i.text(),
   sortByCon: 'con',
   sortByPer: 'per',
   sortByStr: 'str',
@@ -223,7 +223,7 @@ export default {
       this.$store.state.equipmentDrawerOpen = false;
     }
 
-    this.costumeMode = getLocalSetting(CONSTANTS.keyConstants.CURRENT_EQUIPMENT_DRAWER_TAB) === CONSTANTS.equipmentDrawerTabValues.COSTUME_TAB ? true : false;
+    this.costumeMode = getLocalSetting(CONSTANTS.keyConstants.CURRENT_EQUIPMENT_DRAWER_TAB) === CONSTANTS.equipmentDrawerTabValues.COSTUME_TAB;
   },
   methods: {
     selectDrawerTab (tabName) {
@@ -246,7 +246,7 @@ export default {
       }
     },
     equipItem (item) {
-      this.$store.dispatch('common:equip', {key: item.key, type: this.costumeMode ? 'costume' : 'equipped'});
+      this.$store.dispatch('common:equip', { key: item.key, type: this.costumeMode ? 'costume' : 'equipped' });
       this.gearToEquip = null;
     },
     changeDrawerPreference (newVal) {
@@ -255,12 +255,12 @@ export default {
       });
     },
     sortItems (items, sortBy) {
-      let userClass = this.user.stats.class;
+      const userClass = this.user.stats.class;
 
-      return sortBy === 'sortByName' ?
-        _sortBy(items, sortGearTypeMap[sortBy]) :
-        _reverse(_sortBy(items, (item) => {
-          let attrToSort = sortGearTypeMap[sortBy];
+      return sortBy === 'sortByName'
+        ? _sortBy(items, sortGearTypeMap[sortBy])
+        : _reverse(_sortBy(items, item => {
+          const attrToSort = sortGearTypeMap[sortBy];
           let attrValue = item[attrToSort];
           if (item.klass === userClass || item.specialClass === userClass) {
             attrValue *= 1.5;
@@ -312,11 +312,11 @@ export default {
           const isSearched = !searchText || ownedItem.text().toLowerCase().indexOf(searchText) !== -1;
 
           if (ownedItem.klass !== 'base' && isSearched) {
-            const type = ownedItem.type;
+            const { type } = ownedItem;
             const isEquipped = this.activeItems[type] === ownedItem.key;
             const viewOptions = this.viewOptions[type];
-            const firstRender = viewOptions.firstRender;
-            const itemsInFirstPosition = viewOptions.itemsInFirstPosition;
+            const { firstRender } = viewOptions;
+            const { itemsInFirstPosition } = viewOptions;
 
             // Render selected items in first postion only for the first render
             if (itemsInFirstPosition.indexOf(ownedItem.key) !== -1 && firstRender === false) {
@@ -348,15 +348,15 @@ export default {
       each(this.ownedItems, (isOwned, gearKey) => {
         if (isOwned === true) {
           const ownedItem = this.flatGear[gearKey];
-          const klass = ownedItem.klass;
+          const { klass } = ownedItem;
 
           const isSearched = !searchText || ownedItem.text().toLowerCase().indexOf(searchText) !== -1;
 
           if (klass !== 'base' && isSearched) {
             const isEquipped = this.activeItems[ownedItem.type] === ownedItem.key;
             const viewOptions = this.viewOptions[klass];
-            const firstRender = viewOptions.firstRender;
-            const itemsInFirstPosition = viewOptions.itemsInFirstPosition;
+            const { firstRender } = viewOptions;
+            const { itemsInFirstPosition } = viewOptions;
 
             // Render selected items in first postion only for the first render
             if (itemsInFirstPosition.indexOf(ownedItem.key) !== -1 && firstRender === false) {

@@ -47,14 +47,14 @@ import { mapState } from '@/libs/store';
 
 export default {
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     communityGuidelinesAccepted () {
       return this.user.flags.communityGuidelinesAccepted;
     },
   },
   methods: {
     acceptCommunityGuidelines () {
-      this.$store.dispatch('user:set', {'flags.communityGuidelinesAccepted': true});
+      this.$store.dispatch('user:set', { 'flags.communityGuidelinesAccepted': true });
     },
   },
 };

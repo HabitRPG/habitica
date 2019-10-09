@@ -488,7 +488,7 @@ export default {
         eventLabel: 'Gems > Toolbar',
       });
 
-      this.$root.$emit('bv::show::modal', 'buy-gems', {alreadyTracked: true});
+      this.$root.$emit('bv::show::modal', 'buy-gems', { alreadyTracked: true });
     },
     dropdownDesktop (hover) {
       if (this.isDesktop() && hover.target.classList.contains('droppable')) {
@@ -499,7 +499,7 @@ export default {
       this.dropdown(click.currentTarget.parentElement);
     },
     dropdown (element) {
-      let droppedElement = document.getElementsByClassName('down')[0];
+      const droppedElement = document.getElementsByClassName('down')[0];
       if (droppedElement && droppedElement !== element) {
         droppedElement.classList.remove('down');
         if (droppedElement.lastChild) {

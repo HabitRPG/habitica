@@ -144,16 +144,16 @@ import bronzeGuildBadgeIcon from '@/assets/svg/bronze-guild-badge-large.svg';
 import { MAX_SUMMARY_SIZE_FOR_GUILDS } from '@/../../common/script/constants';
 
 export default {
-  mixins: [groupUtilities],
   directives: {
     markdown,
   },
-  props: ['guild', 'displayLeave', 'displayGemBank'],
   components: {
     categoryTags,
   },
+  mixins: [groupUtilities],
+  props: ['guild', 'displayLeave', 'displayGemBank'],
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     isOwner () {
       return this.guild.leader && this.guild.leader === this.user._id;
     },
@@ -174,9 +174,9 @@ export default {
   },
   methods: {
     showSuggested (guildId) {
-      let habiticaHelpingGuildId = '5481ccf3-5d2d-48a9-a871-70a7380cee5a';
-      let sixtyDaysAgoFromNow = moment().subtract(60, 'days');
-      let isUserNew = moment(this.user.auth.timestamps.created).isAfter(sixtyDaysAgoFromNow);
+      const habiticaHelpingGuildId = '5481ccf3-5d2d-48a9-a871-70a7380cee5a';
+      const sixtyDaysAgoFromNow = moment().subtract(60, 'days');
+      const isUserNew = moment(this.user.auth.timestamps.created).isAfter(sixtyDaysAgoFromNow);
       return guildId === habiticaHelpingGuildId && isUserNew;
     },
     async join () {
@@ -184,11 +184,11 @@ export default {
       if (this.guild.cancelledPlan && !confirm(window.env.t('aboutToJoinCancelledGroupPlan'))) {
         return;
       }
-      await this.$store.dispatch('guilds:join', {groupId: this.guild._id, type: 'guild'});
+      await this.$store.dispatch('guilds:join', { groupId: this.guild._id, type: 'guild' });
     },
     async leave () {
       // @TODO: ask about challenges when we add challenges
-      await this.$store.dispatch('guilds:leave', {groupId: this.guild._id, type: 'myGuilds'});
+      await this.$store.dispatch('guilds:leave', { groupId: this.guild._id, type: 'myGuilds' });
     },
   },
 };

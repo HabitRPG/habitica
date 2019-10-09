@@ -19,22 +19,20 @@ import { mapState } from '@/libs/store';
 import notifications from '@/mixins/notifications';
 
 export default {
-  props: ['challengeId'],
   mixins: [notifications],
+  props: ['challengeId'],
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
   },
   methods: {
     async leaveChallenge (keep) {
-      let index = findIndex(this.user.challenges, (id) => {
-        return id === this.challengeId;
-      });
+      const index = findIndex(this.user.challenges, id => id === this.challengeId);
       this.user.challenges.splice(index, 1);
       await this.$store.dispatch('challenges:leaveChallenge', {
         challengeId: this.challengeId,
         keep,
       });
-      await this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true});
+      await this.$store.dispatch('tasks:fetchUserTasks', { forceLoad: true });
       this.close();
     },
     close () {

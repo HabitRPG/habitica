@@ -16,9 +16,9 @@ export default {
     getItemName (type, item) {
       switch (type) {
         case 'eggs':
-          return this.$t('egg', {eggType: item.text()});
+          return this.$t('egg', { eggType: item.text() });
         case 'hatchingPotions':
-          return this.$t('potion', {potionType: item.text()});
+          return this.$t('potion', { potionType: item.text() });
         default:
           return item.text();
       }

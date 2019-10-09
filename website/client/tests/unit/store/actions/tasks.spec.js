@@ -11,8 +11,8 @@ describe('tasks actions', () => {
   describe('fetchUserTasks', () => {
     xit('fetches user tasks', async () => {
       expect(store.state.tasks.loadingStatus).to.equal('NOT_LOADED');
-      const tasks = [{_id: 1}];
-      sandbox.stub(axios, 'get').withArgs('/api/v4/tasks/user').returns(Promise.resolve({data: {data: tasks}}));
+      const tasks = [{ _id: 1 }];
+      sandbox.stub(axios, 'get').withArgs('/api/v4/tasks/user').returns(Promise.resolve({ data: { data: tasks } }));
 
       await store.dispatch('tasks:fetchUserTasks');
 
@@ -21,14 +21,14 @@ describe('tasks actions', () => {
     });
 
     it('does not reload tasks by default', async () => {
-      const originalTask = [{_id: 1}];
+      const originalTask = [{ _id: 1 }];
       store.state.tasks = {
         loadingStatus: 'LOADED',
         data: originalTask,
       };
 
-      const tasks = [{_id: 2}];
-      sandbox.stub(axios, 'get').withArgs('/api/v4/tasks/user').returns(Promise.resolve({data: {data: tasks}}));
+      const tasks = [{ _id: 2 }];
+      sandbox.stub(axios, 'get').withArgs('/api/v4/tasks/user').returns(Promise.resolve({ data: { data: tasks } }));
 
       await store.dispatch('tasks:fetchUserTasks');
 
@@ -39,11 +39,11 @@ describe('tasks actions', () => {
     xit('can reload tasks if forceLoad is true', async () => {
       store.state.tasks = {
         loadingStatus: 'LOADED',
-        data: [{_id: 1}],
+        data: [{ _id: 1 }],
       };
 
-      const tasks = [{_id: 2}];
-      sandbox.stub(axios, 'get').withArgs('/api/v4/tasks/user').returns(Promise.resolve({data: {data: tasks}}));
+      const tasks = [{ _id: 2 }];
+      sandbox.stub(axios, 'get').withArgs('/api/v4/tasks/user').returns(Promise.resolve({ data: { data: tasks } }));
 
       await store.dispatch('tasks:fetchUserTasks', true);
 

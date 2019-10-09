@@ -140,15 +140,20 @@
 <script>
 import moment from 'moment';
 import axios from 'axios';
-import { mapState } from '@/libs/store';
 import debounce from 'lodash/debounce';
 import findIndex from 'lodash/findIndex';
+import { mapState } from '@/libs/store';
 
 import Avatar from '../avatar';
 import copyAsTodoModal from './copyAsTodoModal';
 import chatCard from './chatCard';
 
 export default {
+  components: {
+    copyAsTodoModal,
+    chatCard,
+    Avatar,
+  },
   props: {
     chat: {},
     inbox: {
@@ -162,20 +167,6 @@ export default {
     isLoading: Boolean,
     canLoadMore: Boolean,
   },
-  components: {
-    copyAsTodoModal,
-    chatCard,
-    Avatar,
-  },
-  mounted () {
-    this.loadProfileCache();
-  },
-  created () {
-    window.addEventListener('scroll', this.handleScroll);
-  },
-  destroyed () {
-    window.removeEventListener('scroll', this.handleScroll);
-  },
   data () {
     return {
       currentDayDividerDisplay: moment().day(),
@@ -187,8 +178,17 @@ export default {
       lastOffset: -1,
     };
   },
+  mounted () {
+    this.loadProfileCache();
+  },
+  created () {
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  destroyed () {
+    window.removeEventListener('scroll', this.handleScroll);
+  },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     // @TODO: We need a different lazy load mechnism.
     // But honestly, adding a paging route to chat would solve this
     messages () {
@@ -201,7 +201,7 @@ export default {
       this.loadProfileCache(window.scrollY / 1000);
     },
     async triggerLoad () {
-      const container = this.$refs.container;
+      const { container } = this.$refs;
 
       // get current offset
       this.lastOffset = container.scrollTop - (container.scrollHeight - container.clientHeight);
@@ -226,7 +226,7 @@ export default {
       if (this.loading) return;
       this.loading = true;
 
-      let promises = [];
+      const promises = [];
       const noProfilesLoaded = Object.keys(this.cachedProfileData).length === 0;
 
       // @TODO: write an explination
@@ -237,9 +237,9 @@ export default {
         return;
       }
 
-      let aboutToCache = {};
+      const aboutToCache = {};
       this.messages.forEach(message => {
-        let uuid = message.uuid;
+        const { uuid } = message;
 
         if (message.userStyles) {
           this.$set(this.cachedProfileData, uuid, message.userStyles);
@@ -253,21 +253,21 @@ export default {
         }
       });
 
-      let results = await Promise.all(promises);
+      const results = await Promise.all(promises);
       results.forEach(result => {
         // We could not load the user. Maybe they were deleted. So, let's cache empty so we don't try again
         if (!result || !result.data || result.status >= 400) {
           return;
         }
 
-        let userData = result.data.data;
+        const userData = result.data.data;
         this.$set(this.cachedProfileData, userData._id, userData);
       });
 
       // Merge in any attempts that were rejected so we don't attempt again
-      for (let uuid in aboutToCache) {
+      for (const uuid in aboutToCache) {
         if (!this.cachedProfileData[uuid]) {
-          this.$set(this.cachedProfileData, uuid, {rejected: true});
+          this.$set(this.cachedProfileData, uuid, { rejected: true });
         }
       }
 
@@ -293,22 +293,21 @@ export default {
             type: 'error',
             timeout: false,
           });
-        } else {
-          this.cachedProfileData[memberId] = result.data.data;
-          profile = result.data.data;
         }
+        this.cachedProfileData[memberId] = result.data.data;
+        profile = result.data.data;
       }
 
       // Open the modal only if the data is available
       if (profile && !profile.rejected) {
-        this.$router.push({name: 'userProfile', params: {userId: profile._id}});
+        this.$router.push({ name: 'userProfile', params: { userId: profile._id } });
       }
     },
-    itemWasMounted: debounce(function itemWasMounted ()  {
+    itemWasMounted: debounce(function itemWasMounted () {
       if (this.handleScrollBack) {
         this.handleScrollBack = false;
 
-        const container = this.$refs.container;
+        const { container } = this.$refs;
         const offset = container.scrollHeight - container.clientHeight;
 
         const newOffset = offset + this.lastOffset;
@@ -319,9 +318,7 @@ export default {
       }
     }, 50),
     messageLiked (message) {
-      const chatIndex = findIndex(this.chat, chatMessage => {
-        return chatMessage.id === message.id;
-      });
+      const chatIndex = findIndex(this.chat, chatMessage => chatMessage.id === message.id);
       this.chat.splice(chatIndex, 1, message);
     },
     messageRemoved (message) {
@@ -330,9 +327,7 @@ export default {
         return;
       }
 
-      const chatIndex = findIndex(this.chat, chatMessage => {
-        return chatMessage.id === message.id;
-      });
+      const chatIndex = findIndex(this.chat, chatMessage => chatMessage.id === message.id);
       this.chat.splice(chatIndex, 1);
     },
   },

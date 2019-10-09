@@ -38,7 +38,8 @@ export default function getPinnedItems (user) {
   const officialPinnedItems = getOfficialPinnedItems(user);
 
   const officialPinnedItemsNotUnpinned = officialPinnedItems.filter(officialPin => {
-    const isUnpinned = user.unpinnedItems.findIndex(unpinned => unpinned.path === officialPin.path) > -1;
+    const isUnpinned = user.unpinnedItems
+      .findIndex(unpinned => unpinned.path === officialPin.path) > -1;
     return !isUnpinned;
   });
 

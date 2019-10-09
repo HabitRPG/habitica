@@ -731,12 +731,11 @@ import pin from '@/assets/svg/pin.svg';
 import arrowRight from '@/assets/svg/arrow_right.svg';
 import arrowLeft from '@/assets/svg/arrow_left.svg';
 import isPinned from '@/../../common/script/libs/isPinned';
-import {avatarEditorUtilies} from '../mixins/avatarEditUtilities';
+import { avatarEditorUtilies } from '../mixins/avatarEditUtilities';
 
 import content from '@/../../common/script/content/index';
 
 export default {
-  mixins: [guide, notifications, avatarEditorUtilies],
   components: {
     avatar,
     toggleSwitch,
@@ -748,13 +747,9 @@ export default {
 
     subMenu,
   },
-  mounted () {
-    if (this.editing) this.modalPage = 2;
-    // Buy modal is global, so we listen at root. I'd like to not
-    this.$root.$on('buyModal::boughtItem', this.backgroundPurchased);
-  },
+  mixins: [guide, notifications, avatarEditorUtilies],
   data () {
-    let backgroundShopSets = shops.getBackgroundShopSets();
+    const backgroundShopSets = shops.getBackgroundShopSets();
 
     return {
       loading: false,
@@ -786,12 +781,10 @@ export default {
         },
       ],
 
-      bgSubMenuItems: ['2019', '2018', '2017', '2016', '2015', '2014'].map(y =>
-        ({
-          id: y,
-          label: y,
-        })
-      ),
+      bgSubMenuItems: ['2019', '2018', '2017', '2016', '2015', '2014'].map(y => ({
+        id: y,
+        label: y,
+      })),
     };
   },
   watch: {
@@ -806,8 +799,13 @@ export default {
       this.$store.state.avatarEditorOptions.subpage = '';
     },
   },
+  mounted () {
+    if (this.editing) this.modalPage = 2;
+    // Buy modal is global, so we listen at root. I'd like to not
+    this.$root.$on('buyModal::boughtItem', this.backgroundPurchased);
+  },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
 
 
     editing () {
@@ -818,7 +816,7 @@ export default {
     },
     backgroundShopSetsByYear () {
       // @TODO: add dates to backgrounds
-      let backgroundShopSetsByYear = {
+      const backgroundShopSetsByYear = {
         2014: [],
         2015: [],
         2016: [],
@@ -830,12 +828,12 @@ export default {
       // Hack to force update for now until we restructure the data
       let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
 
-      this.backgroundShopSets.forEach((set) => {
-        let year = set.identifier.substr(set.identifier.length - 4);
+      this.backgroundShopSets.forEach(set => {
+        const year = set.identifier.substr(set.identifier.length - 4);
         if (!backgroundShopSetsByYear[year]) return;
 
         let setOwnedByUser = false;
-        for (let key in set.items) {
+        for (const key in set.items) {
           if (this.user.purchased.background[key]) setOwnedByUser = true;
         }
         set.userOwns = setOwnedByUser;
@@ -845,13 +843,13 @@ export default {
       return backgroundShopSetsByYear;
     },
     ownedBackgrounds () {
-      let ownedBackgrounds = [];
+      const ownedBackgrounds = [];
 
       // Hack to force update for now until we restructure the data
       let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
 
-      this.backgroundShopSets.forEach((set) => {
-        set.items.forEach((bg) => {
+      this.backgroundShopSets.forEach(set => {
+        set.items.forEach(bg => {
           if (this.user.purchased.background[bg.key]) {
             ownedBackgrounds.push(bg);
           }
@@ -885,7 +883,7 @@ export default {
       this.loading = true;
 
       let tasksToCreate = [
-        ...content.tasksByCategory.defaults.map(t =>  ({
+        ...content.tasksByCategory.defaults.map(t => ({
           ...t,
           text: t.text(),
           notes: t.notes && t.notes(),
@@ -900,8 +898,8 @@ export default {
       });
 
       // @TODO: Move to the action
-      let response = await axios.post('/api/v4/tasks/user', tasksToCreate);
-      let tasks = response.data.data;
+      const response = await axios.post('/api/v4/tasks/user', tasksToCreate);
+      const tasks = response.data.data;
       tasks.forEach(task => {
         this.$store.state.user.data.tasksOrder[`${task.type}s`].unshift(task._id);
         this.$store.state.tasks.data[`${task.type}s`].unshift(task);
@@ -926,7 +924,7 @@ export default {
       let setOwnedByUser = false;
 
       for (let key in set) {
-        let value = set[key];
+        const value = set[key];
         if (type === 'background') key = value.key;
         if (this.user.purchased[type][key]) setOwnedByUser = true;
       }
@@ -948,8 +946,8 @@ export default {
       return isPinned(this.user, bg);
     },
     togglePinned (bg) {
-      if (!this.$store.dispatch('user:togglePinnedItem', {type: bg.pinType, path: bg.path})) {
-        this.text(this.$t('unpinnedItem', {item: bg.text}));
+      if (!this.$store.dispatch('user:togglePinnedItem', { type: bg.pinType, path: bg.path })) {
+        this.text(this.$t('unpinnedItem', { item: bg.text }));
       }
     },
     backgroundSelected (bg) {

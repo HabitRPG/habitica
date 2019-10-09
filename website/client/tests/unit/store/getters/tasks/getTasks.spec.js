@@ -1,7 +1,8 @@
 import generateStore from '@/store';
 
 describe('Store Getters for Tasks', () => {
-  let store, habits, dailys, todos, rewards;
+  let store; let habits; let dailys; let todos; let
+    rewards;
 
   beforeEach(() => {
     store = generateStore();
@@ -80,7 +81,7 @@ describe('Store Getters for Tasks', () => {
     });
 
     it('should return weak habits', () => {
-      let returnedTasks = store.getters['tasks:getFilteredTaskList']({
+      const returnedTasks = store.getters['tasks:getFilteredTaskList']({
         type: 'habit',
         filterType: 'yellowred',
       });
@@ -89,7 +90,7 @@ describe('Store Getters for Tasks', () => {
     });
 
     it('should return strong habits', () => {
-      let returnedTasks = store.getters['tasks:getFilteredTaskList']({
+      const returnedTasks = store.getters['tasks:getFilteredTaskList']({
         type: 'habit',
         filterType: 'greenblue',
       });
@@ -98,7 +99,7 @@ describe('Store Getters for Tasks', () => {
     });
 
     it('should return scheduled todos', () => {
-      let returnedTasks = store.getters['tasks:getFilteredTaskList']({
+      const returnedTasks = store.getters['tasks:getFilteredTaskList']({
         type: 'todo',
         filterType: 'scheduled',
       });
@@ -107,7 +108,7 @@ describe('Store Getters for Tasks', () => {
     });
 
     it('should return completed todos', () => {
-      let returnedTasks = store.getters['tasks:getFilteredTaskList']({
+      const returnedTasks = store.getters['tasks:getFilteredTaskList']({
         type: 'todo',
         filterType: 'complete2',
       });

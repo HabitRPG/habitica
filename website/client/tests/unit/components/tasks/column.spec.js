@@ -7,15 +7,17 @@ localVue.use(Store);
 
 describe('Task Column', () => {
   let wrapper;
-  let store, getters;
-  let habits, taskListOverride, tasks;
+  let store; let
+    getters;
+  let habits; let taskListOverride; let
+    tasks;
 
   function makeWrapper (additionalSetup = {}) {
-    let type = 'habit';
-    let mocks = {
+    const type = 'habit';
+    const mocks = {
       $t () {},
     };
-    let stubs = ['b-modal'];  // <b-modal> is a custom component and not tested here
+    const stubs = ['b-modal']; // <b-modal> is a custom component and not tested here
 
     return mount(TaskColumn, {
       propsData: {
@@ -72,9 +74,9 @@ describe('Task Column', () => {
         'tasks:getFilteredTaskList': () => () => habits,
       };
 
-      store = new Store({getters});
+      store = new Store({ getters });
 
-      wrapper = makeWrapper({store});
+      wrapper = makeWrapper({ store });
     });
 
     it('returns task list from props for group-plan', () => {
@@ -112,7 +114,7 @@ describe('Task Column', () => {
       });
 
       it('returns all tasks if no tag is given', () => {
-        let returnedTasks = wrapper.vm.filterByTagList(tasks);
+        const returnedTasks = wrapper.vm.filterByTagList(tasks);
         expect(returnedTasks).to.have.lengthOf(tasks.length);
         tasks.forEach((task, i) => {
           expect(returnedTasks[i]).to.eq(task);
@@ -120,7 +122,7 @@ describe('Task Column', () => {
       });
 
       it('returns tasks for given single tag', () => {
-        let returnedTasks = wrapper.vm.filterByTagList(tasks, [3]);
+        const returnedTasks = wrapper.vm.filterByTagList(tasks, [3]);
 
         expect(returnedTasks).to.have.lengthOf(3);
         expect(returnedTasks[0]).to.eq(tasks[0]);
@@ -129,7 +131,7 @@ describe('Task Column', () => {
       });
 
       it('returns tasks for given multiple tags', () => {
-        let returnedTasks = wrapper.vm.filterByTagList(tasks, [2, 3]);
+        const returnedTasks = wrapper.vm.filterByTagList(tasks, [2, 3]);
 
         expect(returnedTasks).to.have.lengthOf(1);
         expect(returnedTasks[0]).to.eq(tasks[1]);
@@ -171,7 +173,7 @@ describe('Task Column', () => {
       });
 
       it('returns all tasks for empty search term', () => {
-        let returnedTasks = wrapper.vm.filterBySearchText(tasks);
+        const returnedTasks = wrapper.vm.filterBySearchText(tasks);
         expect(returnedTasks).to.have.lengthOf(tasks.length);
         tasks.forEach((task, i) => {
           expect(returnedTasks[i]).to.eq(task);
@@ -179,26 +181,26 @@ describe('Task Column', () => {
       });
 
       it('returns tasks for search term in title /i', () => {
-        ['Title', 'TITLE', 'title', 'tItLe'].forEach((term) => {
+        ['Title', 'TITLE', 'title', 'tItLe'].forEach(term => {
           expect(wrapper.vm.filterBySearchText(tasks, term)[0]).to.eq(tasks[2]);
         });
       });
 
       it('returns tasks for search term in note /i', () => {
-        ['Note', 'NOTE', 'note', 'nOtE'].forEach((term) => {
+        ['Note', 'NOTE', 'note', 'nOtE'].forEach(term => {
           expect(wrapper.vm.filterBySearchText(tasks, term)[0]).to.eq(tasks[3]);
         });
       });
 
       it('returns tasks for search term in checklist title /i', () => {
-        ['Check', 'CHECK', 'check', 'cHeCK'].forEach((term) => {
-          let returnedTasks = wrapper.vm.filterBySearchText(tasks, term);
+        ['Check', 'CHECK', 'check', 'cHeCK'].forEach(term => {
+          const returnedTasks = wrapper.vm.filterBySearchText(tasks, term);
 
           expect(returnedTasks[0]).to.eq(tasks[2]);
           expect(returnedTasks[1]).to.eq(tasks[3]);
         });
 
-        ['Checkitem', 'CHECKITEM', 'checkitem', 'cHeCKiTEm'].forEach((term) => {
+        ['Checkitem', 'CHECKITEM', 'checkitem', 'cHeCKiTEm'].forEach(term => {
           expect(wrapper.vm.filterBySearchText(tasks, term)[0]).to.eq(tasks[3]);
         });
       });

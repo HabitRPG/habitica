@@ -10,11 +10,7 @@ import {
 import { AbstractHourglassItemOperation } from './abstractBuyOperation';
 
 export class BuyHourglassMountOperation extends AbstractHourglassItemOperation { // eslint-disable-line import/prefer-default-export, max-len
-  constructor (user, req, analytics) {
-    super(user, req, analytics);
-  }
-
-  multiplePurchaseAllowed () {
+  multiplePurchaseAllowed () { // eslint-disable-line class-methods-use-this
     return false;
   }
 

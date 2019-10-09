@@ -18,7 +18,7 @@ function buyItem (store, params) {
   const quantity = params.quantity || 1;
   const user = store.state.user.data;
 
-  let opResult = buyOp(user, {params, quantity});
+  const opResult = buyOp(user, { params, quantity });
 
   return {
     result: opResult,
@@ -29,7 +29,7 @@ function buyItem (store, params) {
 export function buyQuestItem (store, params) {
   const quantity = params.quantity || 1;
   const user = store.state.user.data;
-  let opResult = buyOp(user, {
+  const opResult = buyOp(user, {
     params,
     type: 'quest',
     quantity,
@@ -37,25 +37,25 @@ export function buyQuestItem (store, params) {
 
   return {
     result: opResult,
-    httpCall: axios.post(`/api/v4/user/buy/${params.key}`, {type: 'quest', quantity}),
+    httpCall: axios.post(`/api/v4/user/buy/${params.key}`, { type: 'quest', quantity }),
   };
 }
 
 async function buyArmoire (store, params) {
   const quantity = params.quantity || 1;
-  let armoire = content.armoire;
+  const { armoire } = content;
 
   // We need the server result because Armoire has random item in the result
-  let result = await axios.post('/api/v4/user/buy/armoire', {
+  const result = await axios.post('/api/v4/user/buy/armoire', {
     type: 'armoire',
     quantity,
   });
-  let buyResult = result.data.data;
+  const buyResult = result.data.data;
 
   if (buyResult) {
     const resData = buyResult;
     const item = resData.armoire;
-    const message = result.data.message;
+    const { message } = result.data;
 
     const isExperience = item.type === 'experience';
     if (item.type === 'gear') {
@@ -70,16 +70,16 @@ async function buyArmoire (store, params) {
     store.state.user.data.stats.gp -= armoire.value;
 
     // @TODO: We might need to abstract notifications to library rather than mixin
-    const notificationOptions = isExperience ?
-      {
+    const notificationOptions = isExperience
+      ? {
         text: `+ ${item.value}`,
         type: 'xp',
         flavorMessage: message,
-      } :
-      {
+      }
+      : {
         text: message,
         type: 'drop',
-        icon: getDropClass({type: item.type, key: item.dropKey}),
+        icon: getDropClass({ type: item.type, key: item.dropKey }),
       };
 
     store.dispatch('snackbars:add', {
@@ -93,38 +93,38 @@ async function buyArmoire (store, params) {
 export function purchase (store, params) {
   const quantity = params.quantity || 1;
   const user = store.state.user.data;
-  let opResult = buyOp(user, {params, quantity});
+  const opResult = buyOp(user, { params, quantity });
 
   return {
     result: opResult,
-    httpCall: axios.post(`/api/v4/user/purchase/${params.type}/${params.key}`, {quantity}),
+    httpCall: axios.post(`/api/v4/user/purchase/${params.type}/${params.key}`, { quantity }),
   };
 }
 
 export function purchaseMysterySet (store, params) {
   const user = store.state.user.data;
-  let opResult = buyOp(user, {params, type: 'mystery'});
+  const opResult = buyOp(user, { params, type: 'mystery' });
 
   return {
     result: opResult,
-    httpCall: axios.post(`/api/v4/user/buy/${params.key}`, {type: 'mystery'}),
+    httpCall: axios.post(`/api/v4/user/buy/${params.key}`, { type: 'mystery' }),
   };
 }
 
 export function purchaseHourglassItem (store, params) {
   const quantity = params.quantity || 1;
   const user = store.state.user.data;
-  let opResult = hourglassPurchaseOp(user, {params, quantity});
+  const opResult = hourglassPurchaseOp(user, { params, quantity });
 
   return {
     result: opResult,
-    httpCall: axios.post(`/api/v4/user/purchase-hourglass/${params.type}/${params.key}`, {quantity}),
+    httpCall: axios.post(`/api/v4/user/purchase-hourglass/${params.type}/${params.key}`, { quantity }),
   };
 }
 
 export function unlock (store, params) {
   const user = store.state.user.data;
-  let opResult = unlockOp(user, params);
+  const opResult = unlockOp(user, params);
 
   return {
     result: opResult,
@@ -140,12 +140,12 @@ export async function genericPurchase (store, params) {
       await buyArmoire(store, params);
       return;
     case 'fortify': {
-      let rerollResult = rerollOp(store.state.user.data, store.state.tasks.data);
+      const rerollResult = rerollOp(store.state.user.data, store.state.tasks.data);
 
       await axios.post('/api/v4/user/reroll');
       await Promise.all([
-        store.dispatch('user:fetch', {forceLoad: true}),
-        store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
+        store.dispatch('user:fetch', { forceLoad: true }),
+        store.dispatch('tasks:fetchUserTasks', { forceLoad: true }),
       ]);
 
       return rerollResult;
@@ -156,7 +156,7 @@ export async function genericPurchase (store, params) {
     case 'marketGear':
       // 'marketGear' gets `type`= `gear` which is used for gem-purchasable gear
       // resetting type to pinType only here
-      return buyItem(store, {...params, type: params.pinType});
+      return buyItem(store, { ...params, type: params.pinType });
     case 'background':
       return unlock(store, {
         query: {
@@ -166,17 +166,16 @@ export async function genericPurchase (store, params) {
     default:
       if (params.pinType === 'quests' && params.currency === 'gold') {
         return buyQuestItem(store, params);
-      } else if (params.currency === 'hourglasses') {
+      } if (params.currency === 'hourglasses') {
         return purchaseHourglassItem(store, params);
-      } else {
-        return purchase(store, params);
       }
+      return purchase(store, params);
   }
 }
 
 export function sellItems (store, params) {
   const user = store.state.user.data;
-  sellOp(user, {params, query: {amount: params.amount}});
+  sellOp(user, { params, query: { amount: params.amount } });
   axios.post(`/api/v4/user/sell/${params.type}/${params.key}?amount=${params.amount}`);
 }
 

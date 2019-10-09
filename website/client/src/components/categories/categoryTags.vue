@@ -13,22 +13,22 @@
 </template>
 
 <script>
-  export default {
-    props: {
-      categories: {
-        required: true,
-      },
-      owner: {
-        default: false,
-      },
-      member: {
-        default: false,
-      },
+export default {
+  props: {
+    categories: {
+      required: true,
     },
-    methods: {
-      isOfficial (category) {
-        return category.name === 'habitica_official';
-      },
+    owner: {
+      default: false,
     },
-  };
+    member: {
+      default: false,
+    },
+  },
+  methods: {
+    isOfficial (category) {
+      return category.name === 'habitica_official';
+    },
+  },
+};
 </script>

@@ -17,12 +17,12 @@ import BaseNotification from './base';
 import { mapState } from '@/libs/store';
 
 export default {
-  props: ['notification', 'canRemove'],
   components: {
     BaseNotification,
   },
+  props: ['notification', 'canRemove'],
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     isPublicGuild () {
       if (this.notification.data.publicGuild === true) return true;
       return false;
@@ -31,10 +31,9 @@ export default {
       const guild = this.notification.data.name;
 
       if (this.isPublicGuild) {
-        return this.$t('invitedToPublicGuild', {guild});
-      } else {
-        return this.$t('invitedToPrivateGuild', {guild});
+        return this.$t('invitedToPublicGuild', { guild });
       }
+      return this.$t('invitedToPrivateGuild', { guild });
     },
   },
   methods: {
@@ -52,11 +51,11 @@ export default {
         return;
       }
 
-      await this.$store.dispatch('guilds:join', {groupId: group.id, type: 'guild'});
+      await this.$store.dispatch('guilds:join', { groupId: group.id, type: 'guild' });
       this.$router.push({ name: 'guild', params: { groupId: group.id } });
     },
     reject () {
-      this.$store.dispatch('guilds:rejectInvite', {groupId: this.notification.data.id, type: 'guild'});
+      this.$store.dispatch('guilds:rejectInvite', { groupId: this.notification.data.id, type: 'guild' });
     },
 
   },

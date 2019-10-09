@@ -15,11 +15,10 @@ function _convertToBillion (num) {
 export default function roundBigNumber (num) {
   if (num > 999999999) {
     return _convertToBillion(num);
-  } else if (num > 999999) {
+  } if (num > 999999) {
     return _convertToMillion(num);
-  } else if (num > 999) {
+  } if (num > 999) {
     return _convertToThousand(num);
-  } else {
-    return round(num);
   }
+  return round(num);
 }

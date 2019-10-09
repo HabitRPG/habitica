@@ -16,11 +16,7 @@ import { AbstractGoldItemOperation } from './abstractBuyOperation';
 import errorMessage from '../../libs/errorMessage';
 
 export class BuyMarketGearOperation extends AbstractGoldItemOperation { // eslint-disable-line import/prefer-default-export, max-len
-  constructor (user, req, analytics) {
-    super(user, req, analytics);
-  }
-
-  multiplePurchaseAllowed () {
+  multiplePurchaseAllowed () { // eslint-disable-line class-methods-use-this
     return false;
   }
 
@@ -55,7 +51,7 @@ export class BuyMarketGearOperation extends AbstractGoldItemOperation { // eslin
     if (Number.isInteger(itemIndex) && content.classes.includes(item.klass)) {
       const previousLevelGear = key.replace(/[0-9]/, itemIndex - 1);
       const hasPreviousLevelGear = user.items.gear.owned[previousLevelGear];
-      const checkIndexToType = itemIndex > (item.type === 'weapon' || item.type === 'shield' && item.klass === 'rogue' ? 0 : 1);
+      const checkIndexToType = itemIndex > (item.type === 'weapon' || (item.type === 'shield' && item.klass === 'rogue') ? 0 : 1);
 
       if (checkIndexToType && !hasPreviousLevelGear) {
         throw new NotAuthorized(this.i18n('previousGearNotOwned'));

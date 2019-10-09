@@ -90,16 +90,16 @@
 </style>
 
 <script>
-  import markdownDirective from '@/directives/markdown';
+import markdownDirective from '@/directives/markdown';
 
-  export default {
-    directives: {
-      markdown: markdownDirective,
+export default {
+  directives: {
+    markdown: markdownDirective,
+  },
+  methods: {
+    playButtonClick () {
+      this.$router.push('/register');
     },
-    methods: {
-      playButtonClick () {
-        this.$router.push('/register');
-      },
-    },
-  };
+  },
+};
 </script>

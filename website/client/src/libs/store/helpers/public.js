@@ -25,9 +25,9 @@ The code has been slightly changed to match our code style and to support nested
 import get from 'lodash/get';
 
 function normalizeMap (map) {
-  return Array.isArray(map) ?
-    map.map(key => ({ key, val: key })) :
-    Object.keys(map).map(key => ({ key, val: map[key] }));
+  return Array.isArray(map)
+    ? map.map(key => ({ key, val: key }))
+    : Object.keys(map).map(key => ({ key, val: map[key] }));
 }
 
 export function mapState (states) {
@@ -35,9 +35,9 @@ export function mapState (states) {
 
   normalizeMap(states).forEach(({ key, val }) => {
     res[key] = function mappedState () {
-      return typeof val === 'function' ?
-        val.call(this, this.$store.state, this.$store.getters) :
-        get(this.$store.state, val);
+      return typeof val === 'function'
+        ? val.call(this, this.$store.state, this.$store.getters)
+        : get(this.$store.state, val);
     };
   });
 

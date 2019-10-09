@@ -117,103 +117,100 @@
 </style>
 
 <script>
-  import { mapState } from '@/libs/store';
+import { mapState } from '@/libs/store';
 
-  import svgClose from '@/assets/svg/close.svg';
-  import svgWarrior from '@/assets/svg/warrior.svg';
-  import svgWizard from '@/assets/svg/wizard.svg';
-  import svgRogue from '@/assets/svg/rogue.svg';
-  import svgHealer from '@/assets/svg/healer.svg';
+import svgClose from '@/assets/svg/close.svg';
+import svgWarrior from '@/assets/svg/warrior.svg';
+import svgWizard from '@/assets/svg/wizard.svg';
+import svgRogue from '@/assets/svg/rogue.svg';
+import svgHealer from '@/assets/svg/healer.svg';
 
-  import Avatar from '@/components/avatar';
-  import attributesGrid from '@/components/inventory/equipment/attributesGrid.vue';
+import Avatar from '@/components/avatar';
+import attributesGrid from '@/components/inventory/equipment/attributesGrid.vue';
 
-  export default {
-    components: {
-      Avatar,
-      attributesGrid,
+export default {
+  components: {
+    Avatar,
+    attributesGrid,
+  },
+  data () {
+    return {
+      icons: Object.freeze({
+        close: svgClose,
+        warrior: svgWarrior,
+        wizard: svgWizard,
+        rogue: svgRogue,
+        healer: svgHealer,
+      }),
+    };
+  },
+  computed: {
+    ...mapState({
+      content: 'content',
+      user: 'user.data',
+    }),
+    showClassTag () {
+      return this.content.classes.includes(this.itemClass);
     },
-    data () {
+    itemText () {
+      if (this.item.text instanceof Function) {
+        return this.item.text();
+      }
+      return this.item.text;
+    },
+    itemNotes () {
+      if (this.item.notes instanceof Function) {
+        return this.item.notes();
+      }
+      return this.item.notes;
+    },
+    itemClass () {
+      return this.item.klass || this.item.specialClass;
+    },
+    attributesGridVisible () {
+      if (this.costumeMode) {
+        return false;
+      }
+
+      return true;
+    },
+  },
+  methods: {
+    onChange ($event) {
+      this.$emit('change', $event);
+    },
+    equipItem () {
+      this.$emit('equipItem', this.item);
+      this.hideDialog();
+    },
+    hideDialog () {
+      this.$root.$emit('bv::hide::modal', 'equipgear-modal');
+    },
+    memberOverrideAvatarGear (gear) {
       return {
-        icons: Object.freeze({
-          close: svgClose,
-          warrior: svgWarrior,
-          wizard: svgWizard,
-          rogue: svgRogue,
-          healer: svgHealer,
-        }),
+        [gear.type]: gear.key,
       };
     },
-    computed: {
-      ...mapState({
-        content: 'content',
-        user: 'user.data',
-      }),
-      showClassTag () {
-        return this.content.classes.includes(this.itemClass);
-      },
-      itemText () {
-        if (this.item.text instanceof Function) {
-          return this.item.text();
-        } else {
-          return this.item.text;
-        }
-      },
-      itemNotes () {
-        if (this.item.notes instanceof Function) {
-          return this.item.notes();
-        } else {
-          return this.item.notes;
-        }
-      },
-      itemClass () {
-        return this.item.klass || this.item.specialClass;
-      },
-      attributesGridVisible () {
-        if (this.costumeMode) {
-          return false;
-        }
-
-        return true;
-      },
+    getClassName (classType) {
+      if (classType === 'wizard') {
+        return this.$t('mage');
+      }
+      return this.$t(classType);
     },
-    methods: {
-      onChange ($event) {
-        this.$emit('change', $event);
-      },
-      equipItem () {
-        this.$emit('equipItem', this.item);
-        this.hideDialog();
-      },
-      hideDialog () {
-        this.$root.$emit('bv::hide::modal', 'equipgear-modal');
-      },
-      memberOverrideAvatarGear (gear) {
-        return {
-          [gear.type]: gear.key,
-        };
-      },
-      getClassName (classType) {
-        if (classType === 'wizard') {
-          return this.$t('mage');
-        } else {
-          return this.$t(classType);
-        }
-      },
+  },
+  props: {
+    item: {
+      type: Object,
     },
-    props: {
-      item: {
-        type: Object,
-      },
-      priceType: {
-        type: String,
-      },
-      costumeMode: {
-        type: Boolean,
-      },
-      isEquipped: {
-        type: Boolean,
-      },
+    priceType: {
+      type: String,
     },
-  };
+    costumeMode: {
+      type: Boolean,
+    },
+    isEquipped: {
+      type: Boolean,
+    },
+  },
+};
 </script>

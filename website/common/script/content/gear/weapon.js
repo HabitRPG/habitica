@@ -46,9 +46,10 @@ const rtlLanguages = [
   'ur', /* 'اردو', Urdu */
   'yi', /* 'ייִדיש', Yiddish */
 ];
-for (const key in weapon) {
+
+for (const key of Object.keys(weapon)) {
   const set = weapon[key];
-  for (const weaponKey in set) {
+  for (const weaponKey of Object.keys(set)) {
     const item = set[weaponKey];
     const oldnotes = item.notes;
     item.notes = lang => {

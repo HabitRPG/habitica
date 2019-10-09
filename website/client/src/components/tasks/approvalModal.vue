@@ -24,7 +24,7 @@ export default {
   props: ['task'],
   methods: {
     approve (index) {
-      let userIdToApprove = this.task.group.assignedUsers[index];
+      const userIdToApprove = this.task.group.assignedUsers[index];
       this.$store.dispatch('tasks:approve', {
         taskId: this.task._id,
         userId: userIdToApprove,
@@ -34,7 +34,7 @@ export default {
     },
     needsWork (index) {
       if (!confirm(this.$t('confirmNeedsWork'))) return;
-      let userIdNeedsMoreWork = this.task.group.assignedUsers[index];
+      const userIdNeedsMoreWork = this.task.group.assignedUsers[index];
       this.$store.dispatch('tasks:needsWork', {
         taskId: this.task._id,
         userId: userIdNeedsMoreWork,

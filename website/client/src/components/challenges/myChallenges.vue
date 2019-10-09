@@ -80,6 +80,8 @@
 </style>
 
 <script>
+import MugenScroll from 'vue-mugen-scroll';
+import debounce from 'lodash/debounce';
 import { mapState } from '@/libs/store';
 import Sidebar from './sidebar';
 import ChallengeItem from './challengeItem';
@@ -88,18 +90,16 @@ import challengeUtilities from '@/mixins/challengeUtilities';
 
 import challengeIcon from '@/assets/svg/challenge.svg';
 import positiveIcon from '@/assets/svg/positive.svg';
-import MugenScroll from 'vue-mugen-scroll';
 
-import debounce from 'lodash/debounce';
 
 export default {
-  mixins: [challengeUtilities],
   components: {
     Sidebar,
     ChallengeItem,
     challengeModal,
     MugenScroll,
   },
+  mixins: [challengeUtilities],
   data () {
     return {
       icons: Object.freeze({
@@ -141,15 +141,15 @@ export default {
     this.loadChallenges();
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     filteredChallenges () {
-      const filters = this.filters;
-      const user = this.user;
+      const { filters } = this;
+      const { user } = this;
 
       return this.challenges.filter(challenge => {
         let isMember = true;
 
-        let filteringRole = filters.roles && filters.roles.length > 0;
+        const filteringRole = filters.roles && filters.roles.length > 0;
         if (filteringRole && filters.roles.indexOf('participating') !== -1) {
           isMember = this.isMemberOfChallenge(user, challenge);
         }

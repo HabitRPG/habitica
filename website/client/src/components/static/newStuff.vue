@@ -16,7 +16,7 @@ export default {
     };
   },
   async mounted () {
-    let response = await axios.get('/api/v4/news');
+    const response = await axios.get('/api/v4/news');
     this.html = response.data.html;
   },
 };

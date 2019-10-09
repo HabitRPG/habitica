@@ -61,10 +61,10 @@
 </style>
 
 <script>
+import MugenScroll from 'vue-mugen-scroll';
 import { mapState } from '@/libs/store';
 import groupUtilities from '@/mixins/groupsUtilities';
 
-import MugenScroll from 'vue-mugen-scroll';
 
 import PublicGuildItem from './publicGuildItem';
 import Sidebar from './sidebar';
@@ -73,8 +73,8 @@ import greyBadgeIcon from '@/assets/svg/grey-badge.svg';
 import positiveIcon from '@/assets/svg/positive.svg';
 
 export default {
-  mixins: [groupUtilities],
   components: { PublicGuildItem, MugenScroll, Sidebar },
+  mixins: [groupUtilities],
   data () {
     return {
       icons: Object.freeze({
@@ -109,15 +109,13 @@ export default {
       guilds: 'myGuilds',
     }),
     filteredGuilds () {
-      let search = this.search;
-      let filters = this.filters;
-      let user = this.$store.state.user.data;
-      let filterGuild = this.filterGuild;
-      return this.guilds.filter((guild) => {
+      const { search } = this;
+      const { filters } = this;
+      const user = this.$store.state.user.data;
+      const { filterGuild } = this;
+      return this.guilds.filter(guild => {
         if (guild.categories) {
-          guild.categorySlugs = guild.categories.map(cat => {
-            return cat.slug;
-          });
+          guild.categorySlugs = guild.categories.map(cat => cat.slug);
         }
         return filterGuild(guild, filters, search, user);
       });

@@ -547,11 +547,12 @@
 
 
 <script>
-import { mapState, mapGetters, mapActions } from '@/libs/store';
 import moment from 'moment';
 import axios from 'axios';
-import scoreTask from '@/../../common/script/ops/scoreTask';
 import Vue from 'vue';
+import uuid from 'uuid';
+import { mapState, mapGetters, mapActions } from '@/libs/store';
+import scoreTask from '@/../../common/script/ops/scoreTask';
 import * as Analytics from '@/libs/analytics';
 
 import positiveIcon from '@/assets/svg/positive.svg';
@@ -575,10 +576,8 @@ import notifications from '@/mixins/notifications';
 import approvalHeader from './approvalHeader';
 import approvalFooter from './approvalFooter';
 import MenuDropdown from '../ui/customMenuDropdown';
-import uuid from 'uuid';
 
 export default {
-  mixins: [notifications],
   components: {
     approvalFooter,
     approvalHeader,
@@ -587,6 +586,7 @@ export default {
   directives: {
     markdown: markdownDirective,
   },
+  mixins: [notifications],
   props: ['task', 'isUser', 'group', 'dueDate', 'showOptions'], // @TODO: maybe we should store the group on state?
   data () {
     return {
@@ -626,23 +626,21 @@ export default {
       return this.task.checklist && this.task.checklist.length > 0;
     },
     canViewchecklist () {
-      let userIsTaskUser = this.task.userId ? this.task.userId === this.user._id : true;
+      const userIsTaskUser = this.task.userId ? this.task.userId === this.user._id : true;
       return this.hasChecklist && userIsTaskUser;
     },
     checklistProgress () {
       const totalItems = this.task.checklist.length;
-      const completedItems = this.task.checklist.reduce((total, item) => {
-        return item.completed ? total + 1 : total;
-      }, 0);
+      const completedItems = this.task.checklist.reduce((total, item) => (item.completed ? total + 1 : total), 0);
       return `${completedItems}/${totalItems}`;
     },
     leftControl () {
-      const task = this.task;
+      const { task } = this;
       if (task.type === 'reward') return false;
       return true;
     },
     rightControl () {
-      const task = this.task;
+      const { task } = this;
       if (task.type === 'reward') return true;
       if (task.type === 'habit') return true;
       return false;
@@ -654,7 +652,7 @@ export default {
       return this.getTaskClasses(this.task, 'control', this.dueDate);
     },
     contentClass () {
-      const type = this.task.type;
+      const { type } = this.task;
 
       const classes = [];
       classes.push(this.getTaskClasses(this.task, 'control', this.dueDate).content);
@@ -685,9 +683,9 @@ export default {
       return this.timeTillDue.asDays() <= 0;
     },
     dueIn () {
-      const dueIn = this.timeTillDue.asDays() === 0 ?
-        this.$t('today') :
-        this.timeTillDue.humanize(true);
+      const dueIn = this.timeTillDue.asDays() === 0
+        ? this.$t('today')
+        : this.timeTillDue.humanize(true);
 
       // this.task && is necessary to make sure the computed property updates correctly
       return this.task && this.task.date && this.$t('dueIn', { dueIn });
@@ -710,7 +708,7 @@ export default {
     toggleChecklistItem (item) {
       if (this.castingSpell) return;
       item.completed = !item.completed; // @TODO this should go into the action?
-      this.scoreChecklistItem({taskId: this.task._id, itemId: item.id});
+      this.scoreChecklistItem({ taskId: this.task._id, itemId: item.id });
     },
     edit (e, task) {
       if (this.isRunningYesterdailies) return;
@@ -748,13 +746,13 @@ export default {
 
       // TODO move to an action
       const Content = this.$store.state.content;
-      const user = this.user;
-      const task = this.task;
+      const { user } = this;
+      const { task } = this;
 
       if (task.group.approval.required) {
         task.group.approval.requested = true;
         const groupResponse = await axios.get(`/api/v4/groups/${task.group.id}`);
-        let managers = Object.keys(groupResponse.data.data.managers);
+        const managers = Object.keys(groupResponse.data.data.managers);
         managers.push(groupResponse.data.data.leader._id);
         if (managers.indexOf(user._id) !== -1) {
           task.group.approval.approved = true;
@@ -762,7 +760,7 @@ export default {
       }
 
       try {
-        scoreTask({task, user, direction});
+        scoreTask({ task, user, direction });
       } catch (err) {
         this.text(err.message);
         return;
@@ -787,9 +785,9 @@ export default {
       Analytics.updateUser();
       const response = await axios.post(`/api/v4/tasks/${task._id}/score/${direction}`);
       const tmp = response.data.data._tmp || {}; // used to notify drops, critical hits and other bonuses
-      const crit = tmp.crit;
-      const drop = tmp.drop;
-      const quest = tmp.quest;
+      const { crit } = tmp;
+      const { drop } = tmp;
+      const { quest } = tmp;
 
       if (crit) {
         const critBonus = crit * 100 - 100;
@@ -834,15 +832,15 @@ export default {
         if (drop.type === 'HatchingPotion') {
           dropText = Content.hatchingPotions[drop.key].text();
           dropNotes = Content.hatchingPotions[drop.key].notes();
-          this.drop(this.$t('messageDropPotion', {dropText, dropNotes}), drop);
+          this.drop(this.$t('messageDropPotion', { dropText, dropNotes }), drop);
         } else if (drop.type === 'Egg') {
           dropText = Content.eggs[drop.key].text();
           dropNotes = Content.eggs[drop.key].notes();
-          this.drop(this.$t('messageDropEgg', {dropText, dropNotes}), drop);
+          this.drop(this.$t('messageDropEgg', { dropText, dropNotes }), drop);
         } else if (drop.type === 'Food') {
           dropText = Content.food[drop.key].textA();
           dropNotes = Content.food[drop.key].notes();
-          this.drop(this.$t('messageDropFood', {dropText, dropNotes}), drop);
+          this.drop(this.$t('messageDropFood', { dropText, dropNotes }), drop);
         } else if (drop.type === 'Quest') {
           // TODO $rootScope.selectedQuest = Content.quests[drop.key];
           // $rootScope.openModal('questDrop', {controller:'PartyCtrl', size:'sm'});

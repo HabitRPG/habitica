@@ -105,12 +105,24 @@ export default {
     MenuDropdown,
     MessageCount,
     // One component for each type
-    NEW_STUFF, GROUP_TASK_NEEDS_WORK,
-    GUILD_INVITATION, PARTY_INVITATION, CHALLENGE_INVITATION,
-    QUEST_INVITATION, GROUP_TASK_APPROVAL, GROUP_TASK_APPROVED, GROUP_TASK_ASSIGNED, GROUP_TASK_CLAIMED,
-    UNALLOCATED_STATS_POINTS, NEW_MYSTERY_ITEMS, CARD_RECEIVED,
-    NEW_INBOX_MESSAGE, NEW_CHAT_MESSAGE,
-    ACHIEVEMENT_JUST_ADD_WATER, ACHIEVEMENT_LOST_MASTERCLASSER, ACHIEVEMENT_MIND_OVER_MATTER,
+    NEW_STUFF,
+    GROUP_TASK_NEEDS_WORK,
+    GUILD_INVITATION,
+    PARTY_INVITATION,
+    CHALLENGE_INVITATION,
+    QUEST_INVITATION,
+    GROUP_TASK_APPROVAL,
+    GROUP_TASK_APPROVED,
+    GROUP_TASK_ASSIGNED,
+    GROUP_TASK_CLAIMED,
+    UNALLOCATED_STATS_POINTS,
+    NEW_MYSTERY_ITEMS,
+    CARD_RECEIVED,
+    NEW_INBOX_MESSAGE,
+    NEW_CHAT_MESSAGE,
+    ACHIEVEMENT_JUST_ADD_WATER,
+    ACHIEVEMENT_LOST_MASTERCLASSER,
+    ACHIEVEMENT_MIND_OVER_MATTER,
     WorldBoss: WORLD_BOSS,
     VERIFY_USERNAME,
   },
@@ -141,7 +153,7 @@ export default {
     };
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     notificationsOrder () {
       // Returns a map of NOTIFICATION_TYPE -> POSITION
       const orderMap = {};
@@ -157,24 +169,20 @@ export default {
       const notifications = [];
 
       // Parties invitations
-      notifications.push(...this.user.invitations.parties.map(partyInvitation => {
-        return {
-          type: 'PARTY_INVITATION',
-          data: partyInvitation,
-          // Create a custom id for notifications outside user.notifications (must be unique)
-          id: `custom-party-invitation-${partyInvitation.id}`,
-        };
-      }));
+      notifications.push(...this.user.invitations.parties.map(partyInvitation => ({
+        type: 'PARTY_INVITATION',
+        data: partyInvitation,
+        // Create a custom id for notifications outside user.notifications (must be unique)
+        id: `custom-party-invitation-${partyInvitation.id}`,
+      })));
 
       // Guilds invitations
-      notifications.push(...this.user.invitations.guilds.map(guildInvitation => {
-        return {
-          type: 'GUILD_INVITATION',
-          data: guildInvitation,
-          // Create a custom id for notifications outside user.notifications (must be unique)
-          id: `custom-guild-invitation-${guildInvitation.id}`,
-        };
-      }));
+      notifications.push(...this.user.invitations.guilds.map(guildInvitation => ({
+        type: 'GUILD_INVITATION',
+        data: guildInvitation,
+        // Create a custom id for notifications outside user.notifications (must be unique)
+        id: `custom-guild-invitation-${guildInvitation.id}`,
+      })));
 
       // Quest invitation
       if (this.user.party.quest.RSVPNeeded === true) {
@@ -228,9 +236,7 @@ export default {
       return this.notifications.length;
     },
     hasUnseenNotifications () {
-      return this.notifications.some((notification) => {
-        return notification.seen === false ? true : false;
-      });
+      return this.notifications.some(notification => (notification.seen === false));
     },
     hasClass () {
       return this.$store.getters['members:hasClass'](this.user);
@@ -257,7 +263,7 @@ export default {
         }
       }).filter(id => Boolean(id));
 
-      if (idsToSee.length > 0) this.seeNotifications({notificationIds: idsToSee});
+      if (idsToSee.length > 0) this.seeNotifications({ notificationIds: idsToSee });
     },
     dismissAll () {
       const idsToRead = this.notifications.map(notification => {
@@ -270,7 +276,7 @@ export default {
       }).filter(id => Boolean(id));
       this.openStatus = 0;
 
-      if (idsToRead.length > 0) this.readNotifications({notificationIds: idsToRead});
+      if (idsToRead.length > 0) this.readNotifications({ notificationIds: idsToRead });
     },
     isActionable (notification) {
       return this.actionableNotifications.indexOf(notification.type) !== -1;

@@ -10,15 +10,11 @@ import { AbstractGoldItemOperation } from './abstractBuyOperation';
 import errorMessage from '../../libs/errorMessage';
 
 export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation { // eslint-disable-line import/prefer-default-export, max-len
-  constructor (user, req, analytics) {
-    super(user, req, analytics);
-  }
-
-  multiplePurchaseAllowed () {
+  multiplePurchaseAllowed () { // eslint-disable-line class-methods-use-this
     return true;
   }
 
-  userAbleToStartMasterClasser (user) {
+  userAbleToStartMasterClasser (user) { // eslint-disable-line class-methods-use-this
     return user.achievements.quests.dilatoryDistress3
       && user.achievements.quests.mayhemMistiflying3
       && user.achievements.quests.stoikalmCalamity3
@@ -29,16 +25,17 @@ export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation { // es
     return this.key;
   }
 
-  getItemValue (item) {
+  getItemValue (item) { // eslint-disable-line class-methods-use-this
     return item.goldValue;
   }
 
-  getItemType () {
+  getItemType () { // eslint-disable-line class-methods-use-this
     return 'quest';
   }
 
   extractAndValidateParams (user, req) {
-    const key = this.key = get(req, 'params.key');
+    this.key = get(req, 'params.key');
+    const { key } = this;
     if (!key) throw new BadRequest(errorMessage('missingKeyParam'));
 
     const item = content.quests[key];

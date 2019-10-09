@@ -304,7 +304,7 @@ import googleIcon from '@/assets/svg/google.svg';
 
 export default {
   data () {
-    let data = {
+    const data = {
       username: '',
       email: '',
       password: '',
@@ -364,29 +364,22 @@ export default {
       return !this.passwordConfirmValid;
     },
   },
-  mounted () {
-    hello.init({
-      facebook: process.env.FACEBOOK_KEY, // eslint-disable-line
-      // windows: WINDOWS_CLIENT_ID,
-      google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
-    });
-  },
   watch: {
     $route: {
       handler () {
         if (this.resetPasswordSetNewOne) {
-          const query = this.$route.query;
-          const code = query.code;
-          const hasError =  query.hasError === 'true' ? true : false;
+          const { query } = this.$route;
+          const { code } = query;
+          const hasError = query.hasError === 'true';
           if (hasError) {
             alert(query.message);
-            this.$router.push({name: 'login'});
+            this.$router.push({ name: 'login' });
             return;
           }
 
           if (!code) {
             alert(this.$t('invalidPasswordResetCode'));
-            this.$router.push({name: 'login'});
+            this.$router.push({ name: 'login' });
             return;
           }
 
@@ -399,6 +392,13 @@ export default {
     username () {
       this.validateUsername(this.username);
     },
+  },
+  mounted () {
+    hello.init({
+      facebook: process.env.FACEBOOK_KEY, // eslint-disable-line
+      // windows: WINDOWS_CLIENT_ID,
+      google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
+    });
   },
   methods: {
     // eslint-disable-next-line func-names
@@ -488,7 +488,7 @@ export default {
       } catch (e) {} // eslint-disable-line
 
       const redirectUrl = `${window.location.protocol}//${window.location.host}`;
-      let auth = await hello(network).login({
+      const auth = await hello(network).login({
         scope: 'email',
         // explicitly pass the redirect url or it might redirect to /home
         redirect_uri: redirectUrl, // eslint-disable-line camelcase
@@ -568,7 +568,7 @@ export default {
       this.passwordConfirm = '';
       this.resetPasswordSetNewOneData.code = '';
       this.resetPasswordSetNewOneData.hasError = false;
-      this.$router.push({name: 'login'});
+      this.$router.push({ name: 'login' });
     },
   },
 };

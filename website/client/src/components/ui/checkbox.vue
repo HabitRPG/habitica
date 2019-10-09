@@ -6,21 +6,21 @@
 </template>
 
 <script>
-  export default {
-    props: {
-      checked: Boolean,
-      id: String,
-      text: String,
+export default {
+  props: {
+    checked: Boolean,
+    id: String,
+    text: String,
+  },
+  data () {
+    return {
+      isChecked: this.checked,
+    };
+  },
+  watch: {
+    isChecked (after) {
+      this.$emit('update:checked', after);
     },
-    data () {
-      return {
-        isChecked: this.checked,
-      };
-    },
-    watch: {
-      isChecked (after) {
-        this.$emit('update:checked', after);
-      },
-    },
-  };
+  },
+};
 </script>

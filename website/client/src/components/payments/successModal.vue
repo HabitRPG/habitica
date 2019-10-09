@@ -1,11 +1,11 @@
 <template lang="pug">
   b-modal#payments-success-modal(
-    :title="$t('accountSuspendedTitle')", 
+    :title="$t('accountSuspendedTitle')",
     size='sm',
     :hideFooter="isFromBalance",
     :modalClass="isFromBalance ? ['modal-hidden-footer'] : []"
   )
-    div(slot="modal-header") 
+    div(slot="modal-header")
       .check-container.d-flex.align-items-center.justify-content-center
         .svg-icon.check(v-html="icons.check", v-once)
       h2 {{ $t(isFromBalance ? 'success' : 'paymentSuccessful') }}
@@ -15,12 +15,12 @@
       .col-12.modal-body-col
         template(v-if="paymentData.paymentType === 'gems'")
           strong(v-once) {{ $t('paymentYouReceived') }}
-          .details-block.gems 
+          .details-block.gems
             .svg-icon(v-html="icons.gem", v-once)
             span 20
         template(v-if="paymentData.paymentType === 'gift-gems' || paymentData.paymentType === 'gift-gems-balance'")
           span(v-html="$t('paymentYouSentGems', {name: paymentData.giftReceiver})")
-          .details-block.gems 
+          .details-block.gems
             .svg-icon(v-html="icons.gem", v-once)
             span {{ paymentData.gift.gems.amount }}
         template(v-if="paymentData.paymentType === 'gift-subscription'")
@@ -59,8 +59,8 @@
   border-top-left-radius: 8px;
   border-bottom: none;
 
-  h2 { 
-    color: white; 
+  h2 {
+    color: white;
   }
 
   .check-container {
@@ -154,8 +154,18 @@ export default {
       paymentData: {},
     };
   },
+  computed: {
+    groupPlanCost () {
+      const sub = this.paymentData.subscription;
+      const memberCount = this.paymentData.group.memberCount || 1;
+      return sub.price + 3 * (memberCount - 1);
+    },
+    isFromBalance () {
+      return this.paymentData.paymentType === 'gift-gems-balance';
+    },
+  },
   mounted () {
-    this.$root.$on('habitica:payment-success', (data) => {
+    this.$root.$on('habitica:payment-success', data => {
       if (['subscription', 'groupPlan', 'gift-subscription'].indexOf(data.paymentType) !== -1) {
         data.subscription = subscriptionBlocks[data.subscriptionKey || data.gift.subscription.key];
       }
@@ -166,16 +176,6 @@ export default {
   destroyed () {
     this.paymentData = {};
     this.$root.$off('habitica:payments-success');
-  },
-  computed: {
-    groupPlanCost () {
-      const sub = this.paymentData.subscription;
-      const memberCount = this.paymentData.group.memberCount || 1;
-      return sub.price + 3 * (memberCount - 1);
-    },
-    isFromBalance () {
-      return this.paymentData.paymentType === 'gift-gems-balance';
-    },
   },
   methods: {
     close () {

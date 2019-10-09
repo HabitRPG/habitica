@@ -1,7 +1,7 @@
 import { CONSTANTS, getLocalSetting, setLocalSetting } from '@/libs/userlocalManager';
 
 export default function (to, from, next) {
-  const redirect = to.params.redirect;
+  const { redirect } = to.params;
 
   switch (redirect) {
     case 'paypal-success-checkout':
@@ -16,6 +16,6 @@ export default function (to, from, next) {
       break;
     }
     default:
-      next({name: 'notFound'});
+      next({ name: 'notFound' });
   }
 }

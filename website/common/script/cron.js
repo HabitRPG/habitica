@@ -128,7 +128,7 @@ export function shouldDo (day, dailyTask, options = {}) {
   const daysOfTheWeek = [];
   if (dailyTask.repeat) {
     for (const [repeatDay, active] of Object.entries(dailyTask.repeat)) {
-      if (!Number.isFinite(DAY_MAPPING_STRING_TO_NUMBER[repeatDay])) continue; // eslint-disable-line no-continue
+      if (!Number.isFinite(DAY_MAPPING_STRING_TO_NUMBER[repeatDay])) continue; // eslint-disable-line no-continue, max-len
       if (active) daysOfTheWeek.push(parseInt(DAY_MAPPING_STRING_TO_NUMBER[repeatDay], 10));
     }
   }

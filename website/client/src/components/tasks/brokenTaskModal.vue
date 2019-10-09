@@ -43,8 +43,8 @@ export default {
     };
   },
   created () {
-    this.$root.$on('handle-broken-task', (task) => {
-      this.brokenChallengeTask = Object.assign({}, task);
+    this.$root.$on('handle-broken-task', task => {
+      this.brokenChallengeTask = { ...task };
       this.$root.$emit('bv::show::modal', 'broken-task-modal');
     });
   },
@@ -64,10 +64,10 @@ export default {
           keep: keepOption,
         });
 
-        await this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true});
+        await this.$store.dispatch('tasks:fetchUserTasks', { forceLoad: true });
 
         if (this.brokenChallengeTask.type === 'todo') {
-          await this.$store.dispatch('tasks:fetchCompletedTodos', {forceLoad: true});
+          await this.$store.dispatch('tasks:fetchCompletedTodos', { forceLoad: true });
         }
 
         this.close();

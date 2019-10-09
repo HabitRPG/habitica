@@ -10,17 +10,17 @@
 </template>
 
 <script>
-  import BaseNotification from './base';
+import BaseNotification from './base';
 
-  export default {
-    props: ['notification', 'canRemove'],
-    components: {
-      BaseNotification,
+export default {
+  components: {
+    BaseNotification,
+  },
+  props: ['notification', 'canRemove'],
+  methods: {
+    action () {
+      this.$router.push({ name: 'tasks' });
     },
-    methods: {
-      action () {
-        this.$router.push({ name: 'tasks'});
-      },
-    },
-  };
+  },
+};
 </script>

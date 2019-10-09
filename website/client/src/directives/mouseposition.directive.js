@@ -12,7 +12,7 @@ const EVENT_NAME = 'mouseMoved';
 
 export default {
   bind (el, binding, vnode) {
-    el.handleMouseMove = _throttle((ev) => {
+    el.handleMouseMove = _throttle(ev => {
       emit(vnode, EVENT_NAME, {
         x: ev.clientX,
         y: ev.clientY,

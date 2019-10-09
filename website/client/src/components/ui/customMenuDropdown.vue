@@ -69,7 +69,7 @@ export default {
   computed: {
     isOpen () {
       // Open status is a number so we can tell if the value was passed
-      if (this.openStatus !== undefined) return this.openStatus === 1 ? true : false;
+      if (this.openStatus !== undefined) return this.openStatus === 1;
       return this.isDropdownOpen;
     },
     isPressed () {

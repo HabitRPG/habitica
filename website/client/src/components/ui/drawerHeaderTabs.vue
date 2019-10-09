@@ -56,23 +56,23 @@
 </style>
 
 <script>
-  export default {
-    props: {
-      tabs: {
-        type: Array,
-        required: true,
-      },
+export default {
+  props: {
+    tabs: {
+      type: Array,
+      required: true,
     },
-    data () {
-      return {
-        selectedTabPosition: 0,
-      };
+  },
+  data () {
+    return {
+      selectedTabPosition: 0,
+    };
+  },
+  methods: {
+    changeTab (newIndex) {
+      this.selectedTabPosition = newIndex;
+      this.$emit('changedPosition', newIndex);
     },
-    methods: {
-      changeTab (newIndex) {
-        this.selectedTabPosition = newIndex;
-        this.$emit('changedPosition', newIndex);
-      },
-    },
-  };
+  },
+};
 </script>

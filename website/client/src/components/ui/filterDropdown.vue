@@ -16,28 +16,28 @@ span
 </template>
 
 <script>
-    export default {
-      props: {
-        label: String,
-        items: Array,
-        initialItem: Object,
-        withIcon: {
-          type: Boolean,
-          default: false,
-        },
-      },
-      data () {
-        return {
-          selectedItem: this.initialItem,
-        };
-      },
-      methods: {
-        selectItem (item) {
-          this.selectedItem = item;
-          this.$emit('selected', item);
-        },
-      },
+export default {
+  props: {
+    label: String,
+    items: Array,
+    initialItem: Object,
+    withIcon: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  data () {
+    return {
+      selectedItem: this.initialItem,
     };
+  },
+  methods: {
+    selectItem (item) {
+      this.selectedItem = item;
+      this.$emit('selected', item);
+    },
+  },
+};
 </script>
 
 <style scoped lang="scss">

@@ -20,7 +20,7 @@ Example:
       tasks:dailys
 */
 export function flattenAndNamespace (namespaces) {
-  let result = {};
+  const result = {};
 
   Object.keys(namespaces).forEach(namespace => {
     Object.keys(namespaces[namespace]).forEach(itemName => {

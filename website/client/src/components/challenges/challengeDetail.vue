@@ -167,8 +167,6 @@
 </style>
 
 <script>
-const TASK_KEYS_TO_REMOVE = ['_id', 'completed', 'date', 'dateCompleted', 'history', 'id', 'streak', 'createdAt', 'challenge'];
-
 import Vue from 'vue';
 import findIndex from 'lodash/findIndex';
 import cloneDeep from 'lodash/cloneDeep';
@@ -194,9 +192,9 @@ import gemIcon from '@/assets/svg/gem.svg';
 import memberIcon from '@/assets/svg/member-icon.svg';
 import calendarIcon from '@/assets/svg/calendar.svg';
 
+const TASK_KEYS_TO_REMOVE = ['_id', 'completed', 'date', 'dateCompleted', 'history', 'id', 'streak', 'createdAt', 'challenge'];
+
 export default {
-  props: ['challengeId'],
-  mixins: [challengeMemberSearchMixin],
   directives: {
     markdown: markdownDirective,
   },
@@ -212,6 +210,8 @@ export default {
     userLink,
     groupLink,
   },
+  mixins: [challengeMemberSearchMixin],
+  props: ['challengeId'],
   data () {
     return {
       searchId: '',
@@ -238,7 +238,7 @@ export default {
     };
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     isMember () {
       return this.user.challenges.indexOf(this.challenge._id) !== -1;
     },
@@ -267,11 +267,11 @@ export default {
   },
   methods: {
     cleanUpTask (task) {
-      let cleansedTask = omit(task, TASK_KEYS_TO_REMOVE);
+      const cleansedTask = omit(task, TASK_KEYS_TO_REMOVE);
 
       // Copy checklists but reset to uncomplete and assign new id
       if (!cleansedTask.checklist) cleansedTask.checklist = [];
-      cleansedTask.checklist.forEach((item) => {
+      cleansedTask.checklist.forEach(item => {
         item.completed = false;
         item.id = uuid();
       });
@@ -283,16 +283,16 @@ export default {
       return cleansedTask;
     },
     async loadChallenge () {
-      this.challenge = await this.$store.dispatch('challenges:getChallenge', {challengeId: this.searchId});
+      this.challenge = await this.$store.dispatch('challenges:getChallenge', { challengeId: this.searchId });
       this.members = await this.loadMembers({ challengeId: this.searchId, includeAllPublicFields: true });
-      let tasks = await this.$store.dispatch('tasks:getChallengeTasks', {challengeId: this.searchId});
+      const tasks = await this.$store.dispatch('tasks:getChallengeTasks', { challengeId: this.searchId });
       this.tasksByType = {
         habit: [],
         daily: [],
         todo: [],
         reward: [],
       };
-      tasks.forEach((task) => {
+      tasks.forEach(task => {
         this.tasksByType[task.type].push(task);
       });
     },
@@ -322,7 +322,7 @@ export default {
     },
     createTask (type) {
       this.taskFormPurpose = 'create';
-      this.creatingTask = taskDefaults({type, text: ''}, this.user);
+      this.creatingTask = taskDefaults({ type, text: '' }, this.user);
       this.workingTask = this.creatingTask;
       // Necessary otherwise the first time the modal is not rendered
       Vue.nextTick(() => {
@@ -337,15 +337,11 @@ export default {
       this.tasksByType[task.type].push(task);
     },
     taskEdited (task) {
-      let index = findIndex(this.tasksByType[task.type], (taskItem) => {
-        return taskItem._id === task._id;
-      });
+      const index = findIndex(this.tasksByType[task.type], taskItem => taskItem._id === task._id);
       this.tasksByType[task.type].splice(index, 1, task);
     },
     taskDestroyed (task) {
-      let index = findIndex(this.tasksByType[task.type], (taskItem) => {
-        return taskItem._id === task._id;
-      });
+      const index = findIndex(this.tasksByType[task.type], taskItem => taskItem._id === task._id);
       this.tasksByType[task.type].splice(index, 1);
     },
     showMemberModal () {
@@ -360,8 +356,8 @@ export default {
     },
     async joinChallenge () {
       this.user.challenges.push(this.searchId);
-      await this.$store.dispatch('challenges:joinChallenge', {challengeId: this.searchId});
-      await this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true});
+      await this.$store.dispatch('challenges:joinChallenge', { challengeId: this.searchId });
+      await this.$store.dispatch('tasks:fetchUserTasks', { forceLoad: true });
     },
     async leaveChallenge () {
       this.$root.$emit('bv::show::modal', 'leave-challenge-modal');

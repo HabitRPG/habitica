@@ -5,7 +5,7 @@ import Vue from 'vue';
 // similar internal implementation (thanks!), main difference is the absence of mutations.
 
 export default class Store {
-  constructor ({state, getters, actions}) {
+  constructor ({ state, getters, actions }) {
     // Store actions
     this._actions = actions;
 
@@ -16,7 +16,7 @@ export default class Store {
     const _computed = {};
 
     Object.keys(getters).forEach(key => {
-      let getter = getters[key];
+      const getter = getters[key];
 
       // Each getter is compiled to a computed property on the internal VM
       _computed[key] = () => getter(this);
@@ -41,7 +41,7 @@ export default class Store {
   // Actions should be called using store.dispatch(ACTION_NAME, ...ARGS)
   // They get passed the store instance and any additional argument passed to dispatch()
   dispatch (type, ...args) {
-    let action = this._actions[type];
+    const action = this._actions[type];
 
     if (!action) throw new Error(`Action "${type}" not found.`);
     return action(this, ...args);

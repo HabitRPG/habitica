@@ -100,90 +100,89 @@
 </style>
 
 <script>
-  import previous from '@/assets/svg/previous.svg';
-  import next from '@/assets/svg/next.svg';
-  import ResizeDirective from '@/directives/resize.directive';
+import previous from '@/assets/svg/previous.svg';
+import next from '@/assets/svg/next.svg';
+import ResizeDirective from '@/directives/resize.directive';
 
-  export default {
-    directives: {
-      resize: ResizeDirective,
+export default {
+  directives: {
+    resize: ResizeDirective,
+  },
+  props: {
+    items: {
+      type: Array,
     },
-    data () {
+    itemType: {
+      type: Number,
+    },
+    itemWidth: {
+      type: Number,
+    },
+    itemMargin: {
+      type: Number,
+    },
+  },
+  data () {
+    return {
+      icons: Object.freeze({
+        previous,
+        next,
+      }),
+      currentWidth: 0,
+      pointer: 0,
+    };
+  },
+  computed: {
+    showItems () {
+      const { items } = this;
+      const { pointer } = this;
+      const itemsPerPage = this.itemsPerPage();
+      const firstSlice = items.slice(pointer, pointer + itemsPerPage);
+
+      if (firstSlice.length === itemsPerPage || items.length < itemsPerPage) {
+        return firstSlice;
+      }
+      const getRemainderItems = itemsPerPage - firstSlice.length;
+      const secondSlice = items.slice(0, getRemainderItems);
+
+      return firstSlice.concat(secondSlice);
+    },
+    dividerMargins () {
       return {
-        icons: Object.freeze({
-          previous,
-          next,
-        }),
-        currentWidth: 0,
-        pointer: 0,
+        marginLeft: `${-this.itemMargin / 2}px`,
+        marginRight: `${this.itemMargin / 2}px`,
       };
     },
-    computed: {
-      showItems () {
-        let items = this.items;
-        let pointer = this.pointer;
-        let itemsPerPage = this.itemsPerPage();
-        let firstSlice = items.slice(pointer, pointer + itemsPerPage);
-
-        if (firstSlice.length === itemsPerPage || items.length < itemsPerPage) {
-          return firstSlice;
-        } else {
-          let getRemainderItems = itemsPerPage - firstSlice.length;
-          let secondSlice = items.slice(0, getRemainderItems);
-
-          return firstSlice.concat(secondSlice);
-        }
-      },
-      dividerMargins () {
-        return {
-          marginLeft: `${-this.itemMargin / 2}px`,
-          marginRight: `${this.itemMargin / 2}px`,
-        };
-      },
+  },
+  watch: {
+    itemType () {
+      this.pointer = 0;
     },
-    watch: {
-      itemType () {
+  },
+  methods: {
+    shiftLeft () {
+      if (this.pointer < this.items.length - 1) {
+        this.pointer++;
+      } else {
         this.pointer = 0;
-      },
+      }
     },
-    methods: {
-      shiftLeft () {
-        if (this.pointer < this.items.length - 1) {
-          this.pointer++;
-        } else {
-          this.pointer = 0;
-        }
-      },
-      shiftRight () {
-        if (this.pointer > 0) {
-          this.pointer--;
-        } else {
-          this.pointer = this.items.length - 1;
-        }
-      },
-      itemsPerPage () {
-        return Math.floor(this.currentWidth / (this.itemWidth + this.itemMargin));
-      },
-      shouldAddVerticalLine (item) {
-        return this.items[this.itemsPerPage() - 1] === item && this.pointer !== 5;
-      },
-      scrollButtonsVisible () {
-        return this.items.length > this.itemsPerPage();
-      },
+    shiftRight () {
+      if (this.pointer > 0) {
+        this.pointer--;
+      } else {
+        this.pointer = this.items.length - 1;
+      }
     },
-    props: {
-      items: {
-        type: Array,
-      },
-      itemType: {
-        type: Number,
-      },
-      itemWidth: {
-        type: Number,
-      },
-      itemMargin: {
-        type: Number,
-      },
+    itemsPerPage () {
+      return Math.floor(this.currentWidth / (this.itemWidth + this.itemMargin));
     },
-  };
+    shouldAddVerticalLine (item) {
+      return this.items[this.itemsPerPage() - 1] === item && this.pointer !== 5;
+    },
+    scrollButtonsVisible () {
+      return this.items.length > this.itemsPerPage();
+    },
+  },
+};
 </script>

@@ -13,14 +13,14 @@ base-notification(
 import BaseNotification from './base';
 
 export default {
-  props: ['notification', 'canRemove'],
   components: {
     BaseNotification,
   },
+  props: ['notification', 'canRemove'],
   methods: {
     action () {
       const groupId = this.notification.data.group.id;
-      this.$router.push({ name: 'groupPlanDetailTaskInformation', params: { groupId }});
+      this.$router.push({ name: 'groupPlanDetailTaskInformation', params: { groupId } });
     },
   },
 };

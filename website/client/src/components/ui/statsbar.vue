@@ -75,52 +75,51 @@
 </style>
 
 <script>
-  import percent from '@/../../common/script/libs/percent';
+import percent from '@/../../common/script/libs/percent';
 
-  export default {
-    props: {
-      icon: {
-        type: String,
-      },
-      value: {
-        type: Number,
-      },
-      maxValue: {
-        type: Number,
-      },
-      tooltip: {
-        type: String,
-      },
-      progressClass: {
-        type: String,
-      },
-      condensed: {
-        type: Boolean,
-        default: false,
-      },
+export default {
+  filters: {
+    statFloor (value) {
+      if (value < 1 && value > 0) {
+        return Math.ceil(value * 10) / 10;
+      }
+      return Math.floor(value);
     },
-    data () {
-      return {
-        elementId: null,
-      };
+  },
+  props: {
+    icon: {
+      type: String,
     },
-    filters: {
-      statFloor (value) {
-        if (value < 1 && value > 0) {
-          return Math.ceil(value * 10) / 10;
-        } else {
-          return Math.floor(value);
-        }
-      },
+    value: {
+      type: Number,
     },
-    methods: {
-      percent,
-      click () {
-        this.$emit('click');
-      },
+    maxValue: {
+      type: Number,
     },
-    mounted () {
-      this.elementId = `container_${this._uid}`;
+    tooltip: {
+      type: String,
     },
-  };
+    progressClass: {
+      type: String,
+    },
+    condensed: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  data () {
+    return {
+      elementId: null,
+    };
+  },
+  mounted () {
+    this.elementId = `container_${this._uid}`;
+  },
+  methods: {
+    percent,
+    click () {
+      this.$emit('click');
+    },
+  },
+};
 </script>

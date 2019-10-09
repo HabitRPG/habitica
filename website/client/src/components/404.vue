@@ -3,8 +3,8 @@
   .col-12.text-center
     // @TODO i18n. How to setup the strings with the router-link inside?
     img.not-found-img(src='~@/assets/images/404.png')
-    h1.not-found Sometimes even the bravest adventurer gets lost. 
-    h2.not-found Looks like this link is broken or the page may have moved, sorry! 
+    h1.not-found Sometimes even the bravest adventurer gets lost.
+    h2.not-found Looks like this link is broken or the page may have moved, sorry!
     h2.not-found Head back to the <router-link to="/">Homepage</router-link> or <router-link :to="contactUsLink">Contact Us</router-link> about the issue.
 </template>
 
@@ -16,10 +16,9 @@ export default {
     ...mapState(['isUserLoggedIn']),
     contactUsLink () {
       if (this.isUserLoggedIn) {
-        return {name: 'guild', params: {groupId: 'a29da26b-37de-4a71-b0c6-48e72a900dac'} };
-      } else {
-        return {name: 'contact'};
+        return { name: 'guild', params: { groupId: 'a29da26b-37de-4a71-b0c6-48e72a900dac' } };
       }
+      return { name: 'contact' };
     },
   },
 };

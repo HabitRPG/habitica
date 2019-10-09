@@ -201,8 +201,7 @@ import bannedAccountModal from '@/components/bannedAccountModal';
 const COMMUNITY_MANAGER_EMAIL = process.env.EMAILS_COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
 
 export default {
-  mixins: [notifications, spellsMixin],
-  name: 'app',
+  name: 'App',
   components: {
     AppMenu,
     AppHeader,
@@ -217,6 +216,7 @@ export default {
     subCancelModalConfirm,
     subCanceledModal,
   },
+  mixins: [notifications, spellsMixin],
   data () {
     return {
       icons: Object.freeze({
@@ -235,9 +235,9 @@ export default {
   },
   computed: {
     ...mapState(['isUserLoggedIn', 'browserTimezoneOffset', 'isUserLoaded']),
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     isStaticPage () {
-      return this.$route.meta.requiresLogin === false ? true : false;
+      return this.$route.meta.requiresLogin === false;
     },
     castingSpell () {
       return this.$store.state.spellOptions.castingSpell;
@@ -256,14 +256,14 @@ export default {
     },
   },
   created () {
-    this.$root.$on('playSound', (sound) => {
-      let theme = this.user.preferences.sound;
+    this.$root.$on('playSound', sound => {
+      const theme = this.user.preferences.sound;
 
       if (!theme || theme === 'off') {
         return;
       }
 
-      let file = `/static/audio/${theme}/${sound}`;
+      const file = `/static/audio/${theme}/${sound}`;
 
       if (this.audioSuffix === null) {
         this.audioSource = document.createElement('source');
@@ -284,12 +284,12 @@ export default {
     });
 
     // @TODO: I'm not sure these should be at the app level. Can we move these back into shop/inventory or maybe they need a lateral move?
-    this.$root.$on('buyModal::showItem', (item) => {
+    this.$root.$on('buyModal::showItem', item => {
       this.selectedItemToBuy = item;
       this.$root.$emit('bv::show::modal', 'buy-modal');
     });
 
-    this.$root.$on('selectMembersModal::showItem', (item) => {
+    this.$root.$on('selectMembersModal::showItem', item => {
       this.selectedSpellToBuy = item;
       this.$root.$emit('bv::show::modal', 'select-member-modal');
     });
@@ -301,18 +301,18 @@ export default {
     });
 
     // Set up Error interceptors
-    axios.interceptors.response.use((response) => {
+    axios.interceptors.response.use(response => {
       if (this.user && response.data && response.data.notifications) {
         this.$set(this.user, 'notifications', response.data.notifications);
       }
       return response;
-    }, (error) => {
+    }, error => {
       if (error.response.status >= 400) {
         this.checkForBannedUser(error);
 
         // Don't show errors from getting user details. These users have delete their account,
         // but their chat message still exists.
-        let configExists = Boolean(error.response) && Boolean(error.response.config);
+        const configExists = Boolean(error.response) && Boolean(error.response.config);
         if (configExists && error.response.config.method === 'get' && error.response.config.url.indexOf('/api/v4/members/') !== -1) {
           // @TODO: We resolve the promise because we need our caching to cache this user as tried
           // Chat paging should help this, but maybe we can also find another solution..
@@ -333,11 +333,11 @@ export default {
         let snackbarTimeout = false;
         if (error.response.status === 502) snackbarTimeout = true;
 
-        let errorsToShow = [];
+        const errorsToShow = [];
         // show only the first error for each param
-        let paramErrorsFound = {};
+        const paramErrorsFound = {};
         if (errorData.errors) {
-          for (let e of errorData.errors) {
+          for (const e of errorData.errors) {
             if (!paramErrorsFound[e.param]) {
               errorsToShow.push(e.message);
               paramErrorsFound[e.param] = true;
@@ -362,11 +362,11 @@ export default {
       return Promise.reject(error);
     });
 
-    axios.interceptors.response.use((response) => {
+    axios.interceptors.response.use(response => {
       // Verify that the user was not updated from another browser/app/client
       // If it was, sync
-      const url = response.config.url;
-      const method = response.config.method;
+      const { url } = response.config;
+      const { method } = response.config;
 
       const isApiCall = url.indexOf('api/v4') !== -1;
       const userV = response.data && response.data.userV;
@@ -380,14 +380,14 @@ export default {
         const isUserSync = url.indexOf('/api/v4/user') === 0 && method === 'get';
         const isTasksSync = url.indexOf('/api/v4/tasks/user') === 0 && method === 'get';
         // exclude chat seen requests because with real time chat they would be too many
-        const isChatSeen = url.indexOf('/chat/seen') !== -1  && method === 'post';
+        const isChatSeen = url.indexOf('/chat/seen') !== -1 && method === 'post';
         // exclude POST /api/v4/cron because the user is synced automatically after cron runs
 
         // Something has changed on the user object that was not tracked here, sync the user
         if (userV - oldUserV > 1 && !isCron && !isChatSeen && !isUserSync && !isTasksSync) {
           Promise.all([
-            this.$store.dispatch('user:fetch', {forceLoad: true}),
-            this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
+            this.$store.dispatch('user:fetch', { forceLoad: true }),
+            this.$store.dispatch('tasks:fetchUserTasks', { forceLoad: true }),
           ]);
         }
       }
@@ -407,7 +407,7 @@ export default {
     });
 
     // Setup listener for title
-    this.$store.watch(state => state.title, (title) => {
+    this.$store.watch(state => state.title, title => {
       document.title = title;
     });
     this.$nextTick(() => {
@@ -446,7 +446,7 @@ export default {
           // Load external scripts after the app has been rendered
           setupPayments();
         });
-      }).catch((err) => {
+      }).catch(err => {
         console.error('Impossible to fetch user. Clean up localStorage and refresh.', err); // eslint-disable-line no-console
       });
     } else {
@@ -491,17 +491,17 @@ export default {
       // Manage modals
       this.$root.$on('bv::show::modal', (modalId, data = {}) => {
         if (data.fromRoot) return;
-        const modalStack = this.$store.state.modalStack;
+        const { modalStack } = this.$store.state;
 
         this.trackGemPurchase(modalId, data);
 
         // Add new modal to the stack
         const prev = modalStack[modalStack.length - 1];
         const prevId = prev ? prev.modalId : undefined;
-        modalStack.push({modalId, prev: prevId});
+        modalStack.push({ modalId, prev: prevId });
       });
 
-      this.$root.$on('bv::modal::hidden', (bvEvent) => {
+      this.$root.$on('bv::modal::hidden', bvEvent => {
         let modalId = bvEvent.target && bvEvent.target.id;
 
         // sometimes the target isn't passed to the hidden event, fallback is the vueTarget
@@ -513,7 +513,7 @@ export default {
           return;
         }
 
-        const modalStack = this.$store.state.modalStack;
+        const { modalStack } = this.$store.state;
 
         const modalOnTop = modalStack[modalStack.length - 1];
 
@@ -529,7 +529,7 @@ export default {
         // Get previous modal
         const modalBefore = modalOnTop ? modalOnTop.prev : undefined;
 
-        if (modalBefore) this.$root.$emit('bv::show::modal', modalBefore, {fromRoot: true});
+        if (modalBefore) this.$root.$emit('bv::show::modal', modalBefore, { fromRoot: true });
       });
     },
     validStack (modalStack) {
@@ -537,7 +537,7 @@ export default {
       const modalCount = {};
       const prevAndCurrent = 2;
 
-      for (let index in modalStack) {
+      for (const index in modalStack) {
         const current = modalStack[index];
 
         if (!modalCount[current.modalId]) modalCount[current.modalId] = 0;
@@ -574,11 +574,9 @@ export default {
       this.selectedItemToBuy = item;
     },
     genericPurchase (item) {
-      if (!item)
-        return false;
+      if (!item) return false;
 
-      if (['card', 'debuffPotion'].includes(item.purchaseType))
-        return false;
+      if (['card', 'debuffPotion'].includes(item.purchaseType)) return false;
 
       return true;
     },
@@ -609,7 +607,7 @@ export default {
       this.selectedSpellToBuy = null;
 
       if (this.user.party._id) {
-        this.$store.dispatch('party:getMembers', {forceLoad: true});
+        this.$store.dispatch('party:getMembers', { forceLoad: true });
       }
 
       this.$root.$emit('bv::hide::modal', 'select-member-modal');

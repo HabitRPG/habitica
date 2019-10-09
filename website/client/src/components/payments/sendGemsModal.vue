@@ -49,7 +49,7 @@ b-modal#send-gems(:title="title", :hide-footer="true", size='md', @hide='onHide(
       :disabled="sendingInProgress"
     ) {{ $t("send") }}
     .payments-column.mx-auto(v-else, :class="{'payments-disabled': !gift.subscription.key && gift.gems.amount < 1}")
-      button.purchase.btn.btn-primary.payment-button.payment-item(@click='showStripe({gift, uuid: userReceivingGems._id, receiverName})', :disabled="!gift.subscription.key && gift.gems.amount < 1") 
+      button.purchase.btn.btn-primary.payment-button.payment-item(@click='showStripe({gift, uuid: userReceivingGems._id, receiverName})', :disabled="!gift.subscription.key && gift.gems.amount < 1")
         .svg-icon.credit-card-icon(v-html="icons.creditCardIcon")
         | {{ $t('card') }}
       button.btn.payment-item.paypal-checkout.payment-button(@click="openPaypalGift({gift: gift, giftedTo: userReceivingGems._id, receiverName})", :disabled="!gift.subscription.key && gift.gems.amount < 1")
@@ -106,10 +106,10 @@ import creditCardIcon from '@/assets/svg/credit-card-icon.svg';
 const TECH_ASSISTANCE_EMAIL = 'admin@habitica.com';
 
 export default {
-  mixins: [paymentsMixin, notificationsMixin],
   components: {
     amazonButton,
   },
+  mixins: [paymentsMixin, notificationsMixin],
   data () {
     return {
       planGemLimits,
@@ -119,7 +119,7 @@ export default {
           amount: 0,
           fromBalance: true,
         },
-        subscription: {key: ''},
+        subscription: { key: '' },
         message: '',
       },
       amazonPayments: {},
@@ -140,9 +140,7 @@ export default {
     }),
     subscriptionBlocks () {
       let subscriptionBlocks = toArray(this.originalSubscriptionBlocks);
-      subscriptionBlocks = omitBy(subscriptionBlocks, (block) => {
-        return block.discount === true;
-      });
+      subscriptionBlocks = omitBy(subscriptionBlocks, block => block.discount === true);
       subscriptionBlocks = orderBy(subscriptionBlocks, ['months']);
 
       return subscriptionBlocks;
@@ -152,15 +150,20 @@ export default {
     },
     title () {
       if (!this.userReceivingGems) return '';
-      return this.$t('sendGiftHeading', {name: this.userReceivingGems.profile.name});
+      return this.$t('sendGiftHeading', { name: this.userReceivingGems.profile.name });
     },
     receiverName () {
       if (this.userReceivingGems.auth && this.userReceivingGems.auth.local && this.userReceivingGems.auth.local.username) {
         return this.userReceivingGems.auth.local.username;
-      } else {
-        return this.userReceivingGems.profile.name;
       }
+      return this.userReceivingGems.profile.name;
     },
+  },
+  mounted () {
+    this.$root.$on('habitica::send-gems', data => {
+      this.userReceivingGems = data;
+      this.$root.$emit('bv::show::modal', 'send-gems');
+    });
   },
   methods: {
     // @TODO move to payments mixin or action (problem is that we need notifications)
@@ -196,12 +199,6 @@ export default {
     close () {
       this.$root.$emit('bv::hide::modal', 'send-gems');
     },
-  },
-  mounted () {
-    this.$root.$on('habitica::send-gems', (data) => {
-      this.userReceivingGems = data;
-      this.$root.$emit('bv::show::modal', 'send-gems');
-    });
   },
 };
 </script>

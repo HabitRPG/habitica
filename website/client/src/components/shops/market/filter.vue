@@ -24,21 +24,22 @@
 </template>
 
 <script>
-  import Checkbox from '@/components/ui/checkbox';
-  import toggleSwitch from '@/components/ui/toggleSwitch';
-  export default {
-    props: ['hidePinned', 'hideLocked', 'viewOptions'],
-    components: {
-      Checkbox,
-      toggleSwitch,
-    },
-    data () {
-      return {
-        lockedChecked: this.hideLocked,
-        pinnedChecked: this.hidePinned,
-      };
-    },
-  };
+import Checkbox from '@/components/ui/checkbox';
+import toggleSwitch from '@/components/ui/toggleSwitch';
+
+export default {
+  components: {
+    Checkbox,
+    toggleSwitch,
+  },
+  props: ['hidePinned', 'hideLocked', 'viewOptions'],
+  data () {
+    return {
+      lockedChecked: this.hideLocked,
+      pinnedChecked: this.hidePinned,
+    };
+  },
+};
 </script>
 
 <style scoped>

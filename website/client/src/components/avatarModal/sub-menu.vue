@@ -10,9 +10,9 @@
 </template>
 
 <script>
-    export default {
-      props: ['items', 'activeSubPage'],
-    };
+export default {
+  props: ['items', 'activeSubPage'],
+};
 </script>
 
 <style scoped lang="scss">

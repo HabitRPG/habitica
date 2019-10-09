@@ -295,7 +295,7 @@ export default {
     };
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     ...mapState(['isUserLoaded']),
     getDataDisplayToolUrl () {
       const base = 'https://oldgods.net/habitrpg/habitrpg_user_data_display.html';
@@ -318,7 +318,7 @@ export default {
     async addMissedDay (numberOfDays) {
       if (!confirm(`Are you sure you want to reset the day by ${numberOfDays} day(s)?`)) return;
 
-      let date = moment(this.user.lastCron).subtract(numberOfDays, 'days').toDate();
+      const date = moment(this.user.lastCron).subtract(numberOfDays, 'days').toDate();
 
       await axios.post('/api/v4/debug/set-cron', {
         lastCron: date,
@@ -349,18 +349,18 @@ export default {
     addLevelsAndGold () {
       this.$store.dispatch('user:set', {
         'stats.exp': this.user.stats.exp + 10000,
-        'stats.gp': this.user.stats.gp  + 10000,
-        'stats.mp': this.user.stats.mp  + 10000,
+        'stats.gp': this.user.stats.gp + 10000,
+        'stats.mp': this.user.stats.mp + 10000,
       });
     },
     addExp () {
       // @TODO: Name these variables better
       let exp = 0;
-      let five = 10 * this.user.stats.lvl;
-      let four = Math.pow(this.user.stats.lvl, 2) * 0.25;
-      let three = four + five + 139.75;
-      let two = three / 10;
-      let one = Math.round(two) * 10;
+      const five = 10 * this.user.stats.lvl;
+      const four = Math.pow(this.user.stats.lvl, 2) * 0.25;
+      const three = four + five + 139.75;
+      const two = three / 10;
+      const one = Math.round(two) * 10;
       exp = this.user.stats.exp + one;
 
       this.$store.dispatch('user:set', {
@@ -394,7 +394,7 @@ export default {
         eventAction: 'click',
         eventLabel: 'Gems > Donate',
       });
-      this.$root.$emit('bv::show::modal', 'buy-gems', {alreadyTracked: true});
+      this.$root.$emit('bv::show::modal', 'buy-gems', { alreadyTracked: true });
     },
   },
 };

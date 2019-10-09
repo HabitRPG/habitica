@@ -46,29 +46,29 @@
 
 </style>
 <script>
-  import BaseNotification from './base';
-  import { mapState } from '@/libs/store';
-  import axios from 'axios';
+import axios from 'axios';
+import BaseNotification from './base';
+import { mapState } from '@/libs/store';
 
-  export default {
-    props: ['notification'],
-    components: {
-      BaseNotification,
+export default {
+  components: {
+    BaseNotification,
+  },
+  props: ['notification'],
+  computed: {
+    ...mapState({ user: 'user.data' }),
+  },
+  methods: {
+    action () {
+      this.$router.push({ name: 'site' });
     },
-    computed: {
-      ...mapState({user: 'user.data'}),
+    async confirmUsername () {
+      await axios.put('/api/v4/user/auth/update-username', { username: this.user.auth.local.username });
     },
-    methods: {
-      action () {
-        this.$router.push({ name: 'site' });
-      },
-      async confirmUsername () {
-        await axios.put('/api/v4/user/auth/update-username', {username: this.user.auth.local.username});
-      },
-      changeUsername () {
-        this.$router.push({ name: 'site' });
-      },
+    changeUsername () {
+      this.$router.push({ name: 'site' });
+    },
 
-    },
-  };
+  },
+};
 </script>

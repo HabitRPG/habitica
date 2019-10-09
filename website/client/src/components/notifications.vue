@@ -132,53 +132,52 @@ import verifyUsername from './settings/verifyUsername';
 const NOTIFICATIONS = {
   CHALLENGE_JOINED_ACHIEVEMENT: {
     achievement: true,
-    label: ($t) => `${$t('achievement')}: ${$t('joinedChallenge')}`,
+    label: $t => `${$t('achievement')}: ${$t('joinedChallenge')}`,
     modalId: 'joined-challenge',
   },
   ULTIMATE_GEAR_ACHIEVEMENT: {
     achievement: true,
-    label: ($t) => `${$t('achievement')}: ${$t('gearAchievementNotification')}`,
+    label: $t => `${$t('achievement')}: ${$t('gearAchievementNotification')}`,
     modalId: 'ultimate-gear',
   },
   GUILD_JOINED_ACHIEVEMENT: {
-    label: ($t) => `${$t('achievement')}: ${$t('joinedGuild')}`,
+    label: $t => `${$t('achievement')}: ${$t('joinedGuild')}`,
     achievement: true,
     modalId: 'joined-guild',
   },
   INVITED_FRIEND_ACHIEVEMENT: {
     achievement: true,
-    label: ($t) => `${$t('achievement')}: ${$t('invitedFriend')}`,
+    label: $t => `${$t('achievement')}: ${$t('invitedFriend')}`,
     modalId: 'invited-friend',
   },
   NEW_CONTRIBUTOR_LEVEL: {
     achievement: true,
-    label: ($t) => $t('modalContribAchievement'),
+    label: $t => $t('modalContribAchievement'),
     modalId: 'contributor',
   },
   ACHIEVEMENT_ALL_YOUR_BASE: {
     achievement: true,
-    label: ($t) => `${$t('achievement')}: ${$t('achievementAllYourBase')}`,
+    label: $t => `${$t('achievement')}: ${$t('achievementAllYourBase')}`,
     modalId: 'generic-achievement',
   },
   ACHIEVEMENT_BACK_TO_BASICS: {
     achievement: true,
-    label: ($t) => `${$t('achievement')}: ${$t('achievementBackToBasics')}`,
+    label: $t => `${$t('achievement')}: ${$t('achievementBackToBasics')}`,
     modalId: 'generic-achievement',
   },
   ACHIEVEMENT_DUST_DEVIL: {
     achievement: true,
-    label: ($t) => `${$t('achievement')}: ${$t('achievementDustDevil')}`,
+    label: $t => `${$t('achievement')}: ${$t('achievementDustDevil')}`,
     modalId: 'generic-achievement',
   },
   ACHIEVEMENT_ARID_AUTHORITY: {
     achievement: true,
-    label: ($t) => `${$t('achievement')}: ${$t('achievementAridAuthority')}`,
+    label: $t => `${$t('achievement')}: ${$t('achievementAridAuthority')}`,
     modalId: 'generic-achievement',
   },
 };
 
 export default {
-  mixins: [notifications, guide],
   components: {
     yesterdailyModal,
     wonChallenge,
@@ -209,17 +208,18 @@ export default {
     mindOverMatter,
     justAddWater,
   },
+  mixins: [notifications, guide],
   data () {
     // Levels that already display modals and should not trigger generic Level Up
-    let unlockLevels = {
+    const unlockLevels = {
       3: 'drop system',
       10: 'class system',
       50: 'Orb of Rebirth',
     };
 
     // Avoid showing the same notiication more than once
-    let lastShownNotifications = [];
-    let alreadyReadNotification = [];
+    const lastShownNotifications = [];
+    const alreadyReadNotification = [];
 
     // A list of notifications handled by this component,
     // NOTE: Those not listed here won't be handled at all!
@@ -292,7 +292,7 @@ export default {
       if (after === before) return;
       if (this.user.stats.lvl === 0) return;
 
-      let money = after - before;
+      const money = after - before;
       let bonus;
       if (this.user._tmp) {
         bonus = this.user._tmp.streakBonus || 0;
@@ -427,7 +427,7 @@ export default {
       }
 
       // Lvl evaluation
-      if (afterLvl !== beforeLvl)  {
+      if (afterLvl !== beforeLvl) {
         if (afterLvl <= beforeLvl || this.$store.state.isRunningYesterdailies) return;
         this.showLevelUpNotifications(afterLvl);
       }
@@ -472,8 +472,8 @@ export default {
     checkNextCron: throttle(function checkNextCron () {
       if (!this.$store.state.isRunningYesterdailies && this.nextCron && Date.now() > this.nextCron) {
         Promise.all([
-          this.$store.dispatch('user:fetch', {forceLoad: true}),
-          this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
+          this.$store.dispatch('user:fetch', { forceLoad: true }),
+          this.$store.dispatch('tasks:fetchUserTasks', { forceLoad: true }),
         ]).then(() => this.runYesterDailies());
       }
     }, 1000),
@@ -482,8 +482,9 @@ export default {
       this.yesterDailies = [];
 
       // Open yesterdailies modal the next time cron runs
-      const dayStart = this.user.preferences.dayStart;
-      let nextCron = moment().hours(dayStart).minutes(0).seconds(0).milliseconds(0);
+      const { dayStart } = this.user.preferences;
+      let nextCron = moment().hours(dayStart).minutes(0).seconds(0)
+        .milliseconds(0);
 
       const currentHour = moment().format('H');
       if (currentHour >= dayStart) {
@@ -504,16 +505,16 @@ export default {
         return;
       }
 
-      let dailys = this.$store.state.tasks.data.dailys;
+      const { dailys } = this.$store.state.tasks.data;
 
-      let yesterDay = moment().subtract('1', 'day').startOf('day').add({
+      const yesterDay = moment().subtract('1', 'day').startOf('day').add({
         hours: this.user.preferences.dayStart,
       });
 
-      dailys.forEach((task) => {
+      dailys.forEach(task => {
         if (task && task.group.approval && task.group.approval.requested) return;
         if (task.completed) return;
-        let due = shouldDo(yesterDay, task);
+        const due = shouldDo(yesterDay, task);
         if (task.yesterDaily && due) this.yesterDailies.push(task);
       });
 
@@ -533,8 +534,8 @@ export default {
 
       // Sync
       await Promise.all([
-        this.$store.dispatch('user:fetch', {forceLoad: true}),
-        this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
+        this.$store.dispatch('user:fetch', { forceLoad: true }),
+        this.$store.dispatch('tasks:fetchUserTasks', { forceLoad: true }),
       ]);
 
       this.$store.state.isRunningYesterdailies = false;
@@ -551,10 +552,10 @@ export default {
 
       if (!after || after.length === 0 || !Array.isArray(after)) return;
 
-      let notificationsToRead = [];
-      let scoreTaskNotification = [];
+      const notificationsToRead = [];
+      const scoreTaskNotification = [];
 
-      after.forEach((notification) => {
+      after.forEach(notification => {
         // This notification type isn't implemented here
         if (!this.handledNotifications[notification.type]) return;
 
@@ -644,7 +645,7 @@ export default {
         if (markAsRead) notificationsToRead.push(notification.id);
       });
 
-      let userReadNotifsPromise = false;
+      const userReadNotifsPromise = false;
 
       if (notificationsToRead.length > 0) {
         await axios.post('/api/v4/notifications/read', {
@@ -657,7 +658,7 @@ export default {
         userReadNotifsPromise.then(() => {
           // Only run this code for scoring approved tasks
           if (scoreTaskNotification.length > 0) {
-            let approvedTasks = [];
+            const approvedTasks = [];
             for (let i = 0; i < scoreTaskNotification.length; i++) {
               // Array with all approved tasks
               const scoreData = scoreTaskNotification[i].data;

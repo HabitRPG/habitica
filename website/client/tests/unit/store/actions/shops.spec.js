@@ -15,7 +15,7 @@ describe('shops actions', () => {
 
   describe('genericPurchase', () => {
     it('buy gear', async () => {
-      let user = {
+      const user = {
         id: 1,
         stats: {
           class: 'rogue',
@@ -35,11 +35,11 @@ describe('shops actions', () => {
       store.state.user.data = user;
 
       // select a gear item
-      let gearItem = content.gear.flat.armor_rogue_1;
+      const gearItem = content.gear.flat.armor_rogue_1;
 
-      let item = getItemInfo(user, 'marketGear', gearItem, getOfficialPinnedItems(user));
+      const item = getItemInfo(user, 'marketGear', gearItem, getOfficialPinnedItems(user));
 
-      sandbox.stub(axios, 'post').withArgs('/api/v4/user/buy/armor_rogue_1').returns(Promise.resolve({data: {data: {}}}));
+      sandbox.stub(axios, 'post').withArgs('/api/v4/user/buy/armor_rogue_1').returns(Promise.resolve({ data: { data: {} } }));
 
       await store.dispatch('shops:genericPurchase', {
         pinType: item.pinType,

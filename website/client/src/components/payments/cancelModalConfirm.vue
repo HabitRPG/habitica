@@ -50,7 +50,7 @@ export default {
     };
   },
   mounted () {
-    this.$root.$on('habitica:cancel-subscription-confirm', (config) => {
+    this.$root.$on('habitica:cancel-subscription-confirm', config => {
       this.config = config;
       this.$root.$emit('bv::show::modal', 'subscription-cancel-modal');
     });

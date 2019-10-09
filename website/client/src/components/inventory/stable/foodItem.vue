@@ -22,11 +22,11 @@ div
 </template>
 
 <script>
+import uuid from 'uuid';
 import DragDropDirective from '@/directives/dragdrop.directive';
 
 import CountBadge from '@/components/ui/countBadge';
 
-import uuid from 'uuid';
 
 export default {
   components: {

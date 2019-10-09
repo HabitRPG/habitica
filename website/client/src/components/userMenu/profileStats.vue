@@ -150,205 +150,202 @@
 </template>
 
 <script>
-  import toggleSwitch from '@/components/ui/toggleSwitch';
-  import attributesGrid from '@/components/inventory/equipment/attributesGrid';
+import axios from 'axios';
+import size from 'lodash/size';
+import keys from 'lodash/keys';
+import toggleSwitch from '@/components/ui/toggleSwitch';
+import attributesGrid from '@/components/inventory/equipment/attributesGrid';
 
-  import { mapState } from '@/libs/store';
-  import Content from '@/../../common/script/content';
-  import { beastMasterProgress, mountMasterProgress } from '@/../../common/script/count';
-  import autoAllocate from '@/../../common/script/fns/autoAllocate';
-  import allocateBulk from  '@/../../common/script/ops/stats/allocateBulk';
-  import statsComputed from  '@/../../common/script/libs/statsComputed';
+import { mapState } from '@/libs/store';
+import Content from '@/../../common/script/content';
+import { beastMasterProgress, mountMasterProgress } from '@/../../common/script/count';
+import autoAllocate from '@/../../common/script/fns/autoAllocate';
+import allocateBulk from '@/../../common/script/ops/stats/allocateBulk';
+import statsComputed from '@/../../common/script/libs/statsComputed';
 
-  import axios from 'axios';
 
-  import size from 'lodash/size';
-  import keys from 'lodash/keys';
+const DROP_ANIMALS = keys(Content.pets);
+const TOTAL_NUMBER_OF_DROP_ANIMALS = DROP_ANIMALS.length;
+export default {
+  components: {
+    toggleSwitch,
+    attributesGrid,
+  },
+  props: ['user', 'showAllocation'],
+  data () {
+    return {
+      loading: false,
+      equipTypes: {
+        eyewear: this.$t('eyewear'),
+        head: this.$t('headgearCapitalized'),
+        headAccessory: this.$t('headAccess'),
+        back: this.$t('backAccess'),
+        armor: this.$t('armorCapitalized'),
+        body: this.$t('bodyAccess'),
+        weapon: this.$t('mainHand'),
+        _skip: 'skip',
+        shield: this.$t('offHand'),
+      },
 
-  const DROP_ANIMALS = keys(Content.pets);
-  const TOTAL_NUMBER_OF_DROP_ANIMALS = DROP_ANIMALS.length;
-  export default {
-    props: ['user', 'showAllocation'],
-    components: {
-      toggleSwitch,
-      attributesGrid,
+      allocateStatsList: {
+        str: { title: 'allocateStr', popover: 'strengthText', allocatepop: 'allocateStrPop' },
+        int: { title: 'allocateInt', popover: 'intText', allocatepop: 'allocateIntPop' },
+        con: { title: 'allocateCon', popover: 'conText', allocatepop: 'allocateConPop' },
+        per: { title: 'allocatePer', popover: 'perText', allocatepop: 'allocatePerPop' },
+      },
+
+      stats: {
+        str: {
+          title: 'strength',
+          popover: 'strengthText',
+        },
+        int: {
+          title: 'intelligence',
+          popover: 'intText',
+        },
+        con: {
+          title: 'constitution',
+          popover: 'conText',
+        },
+        per: {
+          title: 'perception',
+          popover: 'perText',
+        },
+      },
+      statUpdates: {
+        str: 0,
+        int: 0,
+        con: 0,
+        per: 0,
+      },
+      content: Content,
+    };
+  },
+  computed: {
+    ...mapState({
+      flatGear: 'content.gear.flat',
+    }),
+    equippedItems () {
+      return this.user.items.gear.equipped;
     },
-    data () {
-      return {
-        loading: false,
-        equipTypes: {
-          eyewear: this.$t('eyewear'),
-          head: this.$t('headgearCapitalized'),
-          headAccessory: this.$t('headAccess'),
-          back: this.$t('backAccess'),
-          armor: this.$t('armorCapitalized'),
-          body: this.$t('bodyAccess'),
-          weapon: this.$t('mainHand'),
-          _skip: 'skip',
-          shield: this.$t('offHand'),
-        },
+    costumeItems () {
+      return this.user.items.gear.costume;
+    },
+    statsComputed () {
+      return statsComputed(this.user);
+    },
+    userLevel100Plus () {
+      return this.user.stats.lvl >= 100;
+    },
+    showStatsSave () {
+      return Boolean(this.user.stats.points);
+    },
+    pointsRemaining () {
+      let { points } = this.user.stats;
+      Object.values(this.statUpdates).forEach(value => {
+        points -= value;
+      });
+      return points;
+    },
 
-        allocateStatsList: {
-          str: { title: 'allocateStr', popover: 'strengthText', allocatepop: 'allocateStrPop' },
-          int: { title: 'allocateInt', popover: 'intText', allocatepop: 'allocateIntPop' },
-          con: { title: 'allocateCon', popover: 'conText', allocatepop: 'allocateConPop' },
-          per: { title: 'allocatePer', popover: 'perText', allocatepop: 'allocatePerPop' },
-        },
+  },
+  methods: {
+    getGearTitle (key) {
+      return this.flatGear[key].text();
+    },
+    totalAllocatedStats (stat) {
+      return this.user.stats[stat] + this.statUpdates[stat];
+    },
+    totalStatPoints (stat) {
+      return this.statsComputed[stat] + this.statUpdates[stat];
+    },
+    totalCount (objectToCount) {
+      const total = size(objectToCount);
+      return total;
+    },
+    formatAnimal (animalName, type) {
+      if (type === 'pet') {
+        if (Content.petInfo.hasOwnProperty(animalName)) {
+          return Content.petInfo[animalName].text();
+        }
+        return this.$t('noActivePet');
+      } if (type === 'mount') {
+        if (Content.mountInfo.hasOwnProperty(animalName)) {
+          return Content.mountInfo[animalName].text();
+        }
+        return this.$t('noActiveMount');
+      }
+    },
+    formatBackground (background) {
+      const bg = Content.appearances.background;
 
-        stats: {
-          str: {
-            title: 'strength',
-            popover: 'strengthText',
-          },
-          int: {
-            title: 'intelligence',
-            popover: 'intText',
-          },
-          con: {
-            title: 'constitution',
-            popover: 'conText',
-          },
-          per: {
-            title: 'perception',
-            popover: 'perText',
-          },
-        },
-        statUpdates: {
-          str: 0,
-          int: 0,
-          con: 0,
-          per: 0,
-        },
-        content: Content,
+      if (bg.hasOwnProperty(background)) {
+        return `${bg[background].text()} (${this.$t(bg[background].set.text)})`;
+      }
+
+      return this.$t('noBackground');
+    },
+    beastMasterProgress (pets) {
+      const dropPetsFound = beastMasterProgress(pets);
+      const display = this.formatOutOfTotalDisplay(dropPetsFound, TOTAL_NUMBER_OF_DROP_ANIMALS);
+
+      return display;
+    },
+    mountMasterProgress (mounts) {
+      const dropMountsFound = mountMasterProgress(mounts);
+      const display = this.formatOutOfTotalDisplay(dropMountsFound, TOTAL_NUMBER_OF_DROP_ANIMALS);
+
+      return display;
+    },
+    formatOutOfTotalDisplay (stat, totalStat) {
+      const display = `${stat}/${totalStat}`;
+      return display;
+    },
+    allocate (stat) {
+      if (this.pointsRemaining === 0) return;
+      this.statUpdates[stat]++;
+    },
+    deallocate (stat) {
+      if (this.statUpdates[stat] === 0) return;
+      this.statUpdates[stat]--;
+    },
+    async saveAttributes () {
+      this.loading = true;
+
+      const statUpdates = {};
+      ['str', 'int', 'per', 'con'].forEach(stat => {
+        if (this.statUpdates[stat] > 0) statUpdates[stat] = this.statUpdates[stat];
+      });
+
+      // reset statUpdates to zero before request to avoid display errors while waiting for server
+      this.statUpdates = {
+        str: 0,
+        int: 0,
+        con: 0,
+        per: 0,
       };
+
+      allocateBulk(this.user, { body: { stats: statUpdates } });
+
+      await axios.post('/api/v4/user/allocate-bulk', {
+        stats: statUpdates,
+      });
+
+      this.loading = false;
     },
-    computed: {
-      ...mapState({
-        flatGear: 'content.gear.flat',
-      }),
-      equippedItems () {
-        return this.user.items.gear.equipped;
-      },
-      costumeItems () {
-        return this.user.items.gear.costume;
-      },
-      statsComputed () {
-        return statsComputed(this.user);
-      },
-      userLevel100Plus () {
-        return this.user.stats.lvl >= 100;
-      },
-      showStatsSave () {
-        return Boolean(this.user.stats.points);
-      },
-      pointsRemaining () {
-        let points = this.user.stats.points;
-        Object.values(this.statUpdates).forEach(value => {
-          points -= value;
-        });
-        return points;
-      },
-
+    allocateNow () {
+      autoAllocate(this.user);
     },
-    methods: {
-      getGearTitle (key) {
-        return this.flatGear[key].text();
-      },
-      totalAllocatedStats (stat) {
-        return this.user.stats[stat] + this.statUpdates[stat];
-      },
-      totalStatPoints (stat) {
-        return this.statsComputed[stat] + this.statUpdates[stat];
-      },
-      totalCount (objectToCount) {
-        let total = size(objectToCount);
-        return total;
-      },
-      formatAnimal (animalName, type) {
-        if (type === 'pet') {
-          if (Content.petInfo.hasOwnProperty(animalName)) {
-            return Content.petInfo[animalName].text();
-          } else {
-            return this.$t('noActivePet');
-          }
-        } else if (type === 'mount') {
-          if (Content.mountInfo.hasOwnProperty(animalName)) {
-            return Content.mountInfo[animalName].text();
-          } else {
-            return this.$t('noActiveMount');
-          }
-        }
-      },
-      formatBackground (background) {
-        let bg = Content.appearances.background;
+    setAutoAllocate () {
+      const settings = {
+        'preferences.automaticAllocation': Boolean(this.user.preferences.automaticAllocation),
+        'preferences.allocationMode': 'taskbased',
+      };
 
-        if (bg.hasOwnProperty(background)) {
-          return `${bg[background].text()} (${this.$t(bg[background].set.text)})`;
-        }
-
-        return this.$t('noBackground');
-      },
-      beastMasterProgress (pets) {
-        let dropPetsFound = beastMasterProgress(pets);
-        let display = this.formatOutOfTotalDisplay(dropPetsFound, TOTAL_NUMBER_OF_DROP_ANIMALS);
-
-        return display;
-      },
-      mountMasterProgress (mounts) {
-        let dropMountsFound = mountMasterProgress(mounts);
-        let display = this.formatOutOfTotalDisplay(dropMountsFound, TOTAL_NUMBER_OF_DROP_ANIMALS);
-
-        return display;
-      },
-      formatOutOfTotalDisplay (stat, totalStat) {
-        let display = `${stat}/${totalStat}`;
-        return display;
-      },
-      allocate (stat) {
-        if (this.pointsRemaining === 0) return;
-        this.statUpdates[stat]++;
-      },
-      deallocate (stat) {
-        if (this.statUpdates[stat] === 0) return;
-        this.statUpdates[stat]--;
-      },
-      async saveAttributes () {
-        this.loading = true;
-
-        const statUpdates = {};
-        ['str', 'int', 'per', 'con'].forEach(stat => {
-          if (this.statUpdates[stat] > 0) statUpdates[stat] = this.statUpdates[stat];
-        });
-
-        // reset statUpdates to zero before request to avoid display errors while waiting for server
-        this.statUpdates = {
-          str: 0,
-          int: 0,
-          con: 0,
-          per: 0,
-        };
-
-        allocateBulk(this.user, { body: { stats: statUpdates } });
-
-        await axios.post('/api/v4/user/allocate-bulk', {
-          stats: statUpdates,
-        });
-
-        this.loading = false;
-      },
-      allocateNow () {
-        autoAllocate(this.user);
-      },
-      setAutoAllocate () {
-        let settings = {
-          'preferences.automaticAllocation': Boolean(this.user.preferences.automaticAllocation),
-          'preferences.allocationMode': 'taskbased',
-        };
-
-        this.$store.dispatch('user:set', settings);
-      },
+      this.$store.dispatch('user:set', settings);
     },
-  };
+  },
+};
 </script>
 
 <style lang="scss" scoped>

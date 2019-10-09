@@ -14,10 +14,10 @@ base-notification(
 import BaseNotification from './base';
 
 export default {
-  props: ['notification', 'canRemove'],
   components: {
     BaseNotification,
   },
+  props: ['notification', 'canRemove'],
   computed: {
     cardString () {
       return this.$t(`${this.notification.data.card}Card`);
@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     action () {
-      this.$router.push({name: 'items'});
+      this.$router.push({ name: 'items' });
     },
   },
 };

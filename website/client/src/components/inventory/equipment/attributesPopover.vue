@@ -18,39 +18,37 @@ div
 </style>
 
 <script>
-  import { mapState } from '@/libs/store';
-  import attributesGrid from './attributesGrid';
-  import statsMixin from '@/mixins/stats';
+import { mapState } from '@/libs/store';
+import attributesGrid from './attributesGrid';
+import statsMixin from '@/mixins/stats';
 
-  export default {
-    mixins: [statsMixin],
-    components: {
-      attributesGrid,
+export default {
+  components: {
+    attributesGrid,
+  },
+  mixins: [statsMixin],
+  props: {
+    item: {
+      type: Object,
     },
-    props: {
-      item: {
-        type: Object,
-      },
+  },
+  computed: {
+    ...mapState({
+      ATTRIBUTES: 'constants.ATTRIBUTES',
+      user: 'user.data',
+    }),
+    itemText () {
+      if (this.item.text instanceof Function) {
+        return this.item.text();
+      }
+      return this.item.text;
     },
-    computed: {
-      ...mapState({
-        ATTRIBUTES: 'constants.ATTRIBUTES',
-        user: 'user.data',
-      }),
-      itemText () {
-        if (this.item.text instanceof Function) {
-          return this.item.text();
-        } else {
-          return this.item.text;
-        }
-      },
-      itemNotes () {
-        if (this.item.notes instanceof Function) {
-          return this.item.notes();
-        } else {
-          return this.item.notes;
-        }
-      },
+    itemNotes () {
+      if (this.item.notes instanceof Function) {
+        return this.item.notes();
+      }
+      return this.item.notes;
     },
-  };
+  },
+};
 </script>

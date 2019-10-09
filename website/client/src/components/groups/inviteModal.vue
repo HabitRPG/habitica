@@ -90,111 +90,103 @@
 </style>
 
 <script>
-  import { mapState } from '@/libs/store';
-  import clone from 'lodash/clone';
-  import debounce from 'lodash/debounce';
-  import filter from 'lodash/filter';
-  import forEach from 'lodash/forEach';
-  import isEmail from 'validator/lib/isEmail';
-  import isUUID from 'validator/lib/isUUID';
-  import notifications from '@/mixins/notifications';
-  import positiveIcon from '@/assets/svg/positive.svg';
+import clone from 'lodash/clone';
+import debounce from 'lodash/debounce';
+import filter from 'lodash/filter';
+import forEach from 'lodash/forEach';
+import isEmail from 'validator/lib/isEmail';
+import isUUID from 'validator/lib/isUUID';
+import { mapState } from '@/libs/store';
+import notifications from '@/mixins/notifications';
+import positiveIcon from '@/assets/svg/positive.svg';
 
-  const INVITE_DEFAULTS = {text: '', error: null, valid: null};
+const INVITE_DEFAULTS = { text: '', error: null, valid: null };
 
-  export default {
-    computed: {
-      ...mapState({user: 'user.data'}),
-      cannotSubmit () {
-        const filteredInvites = filter(this.invites, (invite) => {
-          return invite.text.length > 0 && !invite.valid;
-        });
-        if (filteredInvites.length > 0) return true;
-        return false;
-      },
-      inviter () {
-        return this.user.profile.name;
-      },
+export default {
+  computed: {
+    ...mapState({ user: 'user.data' }),
+    cannotSubmit () {
+      const filteredInvites = filter(this.invites, invite => invite.text.length > 0 && !invite.valid);
+      if (filteredInvites.length > 0) return true;
+      return false;
     },
-    data () {
-      return {
-        invites: [clone(INVITE_DEFAULTS), clone(INVITE_DEFAULTS)],
-        icons: Object.freeze({
-          positiveIcon,
-        }),
-      };
+    inviter () {
+      return this.user.profile.name;
     },
-    methods: {
-      checkInviteList: debounce(function checkList () {
-        this.invites = filter(this.invites, (invite, index) => {
-          return invite.text.length > 0 || index === this.invites.length - 1;
-        });
-        while (this.invites.length < 2) this.invites.push(clone(INVITE_DEFAULTS));
-        forEach(this.invites, (value, index) => {
-          if (value.text.length < 1 || isEmail(value.text)) {
-            return this.fillErrors(index);
-          }
-          if (isUUID(value.text)) {
-            this.$store.dispatch('user:userLookup', {uuid: value.text})
-              .then(res => {
-                return this.fillErrors(index, res);
-              });
-          } else {
-            let searchUsername = value.text;
-            if (searchUsername[0] === '@') searchUsername = searchUsername.slice(1, searchUsername.length);
-            this.$store.dispatch('user:userLookup', {username: searchUsername})
-              .then(res => {
-                return this.fillErrors(index, res);
-              });
-          }
-        });
-      }, 250),
-      expandInviteList () {
-        if (this.invites[this.invites.length - 1].text.length > 0) this.invites.push(clone(INVITE_DEFAULTS));
-      },
-      fillErrors (index, res) {
-        if (!res || res.status === 200) {
-          this.invites[index].error = null;
-          if (this.invites[index].text.length < 1) return this.invites[index].valid = null;
-          return this.invites[index].valid = true;
+  },
+  data () {
+    return {
+      invites: [clone(INVITE_DEFAULTS), clone(INVITE_DEFAULTS)],
+      icons: Object.freeze({
+        positiveIcon,
+      }),
+    };
+  },
+  methods: {
+    checkInviteList: debounce(function checkList () {
+      this.invites = filter(this.invites, (invite, index) => invite.text.length > 0 || index === this.invites.length - 1);
+      while (this.invites.length < 2) this.invites.push(clone(INVITE_DEFAULTS));
+      forEach(this.invites, (value, index) => {
+        if (value.text.length < 1 || isEmail(value.text)) {
+          return this.fillErrors(index);
         }
-        this.invites[index].error = res.response.data.message;
-        return this.invites[index].valid = false;
-      },
-      close () {
-        this.invites = [clone(INVITE_DEFAULTS), clone(INVITE_DEFAULTS)];
-        this.$root.$emit('bv::hide::modal', 'invite-modal');
-      },
-      async sendInvites () {
-        let invitationDetails = {
-          inviter: this.inviter,
-          emails: [],
-          uuids: [],
-          usernames: [],
-        };
-        forEach(this.invites, (invite) => {
-          if (invite.text.length < 1) return;
-          if (isEmail(invite.text)) {
-            invitationDetails.emails.push({email: invite.text});
-          } else if (isUUID(invite.text)) {
-            invitationDetails.uuids.push(invite.text);
-          } else {
-            invitationDetails.usernames.push(invite.text);
-          }
-        });
-        await this.$store.dispatch('guilds:invite', {
-          invitationDetails,
-          groupId: this.group._id,
-        });
-
-        const invitesSent = invitationDetails.emails.length + invitationDetails.uuids.length + invitationDetails.usernames.length;
-        let invitationString = invitesSent > 1 ? 'invitationsSent' : 'invitationSent';
-
-        this.text(this.$t(invitationString));
-        this.close();
-      },
+        if (isUUID(value.text)) {
+          this.$store.dispatch('user:userLookup', { uuid: value.text })
+            .then(res => this.fillErrors(index, res));
+        } else {
+          let searchUsername = value.text;
+          if (searchUsername[0] === '@') searchUsername = searchUsername.slice(1, searchUsername.length);
+          this.$store.dispatch('user:userLookup', { username: searchUsername })
+            .then(res => this.fillErrors(index, res));
+        }
+      });
+    }, 250),
+    expandInviteList () {
+      if (this.invites[this.invites.length - 1].text.length > 0) this.invites.push(clone(INVITE_DEFAULTS));
     },
-    mixins: [notifications],
-    props: ['group', 'groupType'],
-  };
+    fillErrors (index, res) {
+      if (!res || res.status === 200) {
+        this.invites[index].error = null;
+        if (this.invites[index].text.length < 1) return this.invites[index].valid = null;
+        return this.invites[index].valid = true;
+      }
+      this.invites[index].error = res.response.data.message;
+      return this.invites[index].valid = false;
+    },
+    close () {
+      this.invites = [clone(INVITE_DEFAULTS), clone(INVITE_DEFAULTS)];
+      this.$root.$emit('bv::hide::modal', 'invite-modal');
+    },
+    async sendInvites () {
+      const invitationDetails = {
+        inviter: this.inviter,
+        emails: [],
+        uuids: [],
+        usernames: [],
+      };
+      forEach(this.invites, invite => {
+        if (invite.text.length < 1) return;
+        if (isEmail(invite.text)) {
+          invitationDetails.emails.push({ email: invite.text });
+        } else if (isUUID(invite.text)) {
+          invitationDetails.uuids.push(invite.text);
+        } else {
+          invitationDetails.usernames.push(invite.text);
+        }
+      });
+      await this.$store.dispatch('guilds:invite', {
+        invitationDetails,
+        groupId: this.group._id,
+      });
+
+      const invitesSent = invitationDetails.emails.length + invitationDetails.uuids.length + invitationDetails.usernames.length;
+      const invitationString = invitesSent > 1 ? 'invitationsSent' : 'invitationSent';
+
+      this.text(this.$t(invitationString));
+      this.close();
+    },
+  },
+  mixins: [notifications],
+  props: ['group', 'groupType'],
+};
 </script>

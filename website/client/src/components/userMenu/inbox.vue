@@ -238,11 +238,11 @@ import moment from 'moment';
 import filter from 'lodash/filter';
 import groupBy from 'lodash/groupBy';
 import orderBy from 'lodash/orderBy';
-import { mapState } from '@/libs/store';
 import habiticaMarkdown from 'habitica-markdown';
+import axios from 'axios';
+import { mapState } from '@/libs/store';
 import styleHelper from '@/mixins/styleHelper';
 import toggleSwitch from '@/components/ui/toggleSwitch';
-import axios from 'axios';
 
 import chatMessages from '../chat/chatMessages';
 import messageIcon from '@/assets/svg/message.svg';
@@ -259,44 +259,16 @@ import tier9 from '@/assets/svg/tier-staff.svg';
 import tierNPC from '@/assets/svg/tier-npc.svg';
 
 export default {
-  mixins: [styleHelper],
   components: {
     chatMessages,
     toggleSwitch,
   },
-  mounted () {
-    this.$root.$on('habitica::new-inbox-message', (data) => {
-      this.$root.$emit('bv::show::modal', 'inbox-modal');
-
-      // Wait for messages to be loaded
-      const unwatchLoaded = this.$watch('loaded', (loaded) => {
-        if (!loaded) return;
-
-        const conversation = this.conversations.find(convo => {
-          return convo.key === data.userIdToMessage;
-        });
-        if (loaded) setImmediate(() => unwatchLoaded());
-
-        if (conversation) {
-          this.selectConversation(data.userIdToMessage);
-          return;
-        }
-
-        this.initiatedConversation = {
-          uuid: data.userIdToMessage,
-          user: data.displayName,
-          username: data.username,
-          backer: data.backer,
-          contributor: data.contributor,
-        };
-
-        this.selectConversation(data.userIdToMessage);
-      }, {immediate: true});
-    });
+  filters: {
+    timeAgo (value) {
+      return moment(new Date(value)).fromNow();
+    },
   },
-  destroyed () {
-    this.$root.$off('habitica::new-inbox-message');
-  },
+  mixins: [styleHelper],
   data () {
     return {
       icons: Object.freeze({
@@ -327,13 +299,39 @@ export default {
       updateConversionsCounter: 0,
     };
   },
-  filters: {
-    timeAgo (value) {
-      return moment(new Date(value)).fromNow();
-    },
+  mounted () {
+    this.$root.$on('habitica::new-inbox-message', data => {
+      this.$root.$emit('bv::show::modal', 'inbox-modal');
+
+      // Wait for messages to be loaded
+      const unwatchLoaded = this.$watch('loaded', loaded => {
+        if (!loaded) return;
+
+        const conversation = this.conversations.find(convo => convo.key === data.userIdToMessage);
+        if (loaded) setImmediate(() => unwatchLoaded());
+
+        if (conversation) {
+          this.selectConversation(data.userIdToMessage);
+          return;
+        }
+
+        this.initiatedConversation = {
+          uuid: data.userIdToMessage,
+          user: data.displayName,
+          username: data.username,
+          backer: data.backer,
+          contributor: data.contributor,
+        };
+
+        this.selectConversation(data.userIdToMessage);
+      }, { immediate: true });
+    });
+  },
+  destroyed () {
+    this.$root.$off('habitica::new-inbox-message');
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     canLoadMore () {
       return this.selectedConversation && this.selectedConversation.canLoadMore;
     },
@@ -354,7 +352,7 @@ export default {
       }
       // Create conversation objects
       const convos = [];
-      for (let key in inboxGroup) {
+      for (const key in inboxGroup) {
         const recentMessage = inboxGroup[key][0];
 
         const convoModel = {
@@ -381,9 +379,7 @@ export default {
       const selectedConversation = this.messagesByConversation[selectedConversationKey];
       this.messages = selectedConversation || []; // eslint-disable-line vue/no-side-effects-in-computed-properties
 
-      const ordered = orderBy(this.messages, [(m) => {
-        return m.timestamp;
-      }], ['asc']);
+      const ordered = orderBy(this.messages, [m => m.timestamp], ['asc']);
 
       if (subScribeToUpdate) {
         return ordered;
@@ -395,15 +391,11 @@ export default {
       // Vue-subscribe to changes
       const subScribeToUpdate = this.updateConversionsCounter > -1;
 
-      const filtered = subScribeToUpdate && !this.search ?
-        this.conversations :
-        filter(this.conversations, (conversation) => {
-          return conversation.name.toLowerCase().indexOf(this.search.toLowerCase()) !== -1;
-        });
+      const filtered = subScribeToUpdate && !this.search
+        ? this.conversations
+        : filter(this.conversations, conversation => conversation.name.toLowerCase().indexOf(this.search.toLowerCase()) !== -1);
 
-      const ordered = orderBy(filtered, [(o) => {
-        return moment(o.date).toDate();
-      }], ['desc']);
+      const ordered = orderBy(filtered, [o => moment(o.date).toDate()], ['desc']);
 
       return ordered;
     },
@@ -474,9 +466,7 @@ export default {
       this.$store.dispatch('user:togglePrivateMessagesOpt');
     },
     async selectConversation (key) {
-      let convoFound = this.conversations.find((conversation) => {
-        return conversation.key === key;
-      });
+      const convoFound = this.conversations.find(conversation => conversation.key === key);
 
       this.selectedConversation = convoFound || {};
 
@@ -486,7 +476,7 @@ export default {
 
       Vue.nextTick(() => {
         if (!this.$refs.chatscroll) return;
-        let chatscroll = this.$refs.chatscroll.$el;
+        const chatscroll = this.$refs.chatscroll.$el;
         chatscroll.scrollTop = chatscroll.scrollHeight;
       });
     },
@@ -527,7 +517,7 @@ export default {
 
       Vue.nextTick(() => {
         if (!this.$refs.chatscroll) return;
-        let chatscroll = this.$refs.chatscroll.$el;
+        const chatscroll = this.$refs.chatscroll.$el;
         chatscroll.scrollTop = chatscroll.scrollHeight;
       });
 
@@ -556,7 +546,7 @@ export default {
       return this.icons[`tier${message.contributor.level}`];
     },
     removeTags (html) {
-      let tmp = document.createElement('DIV');
+      const tmp = document.createElement('DIV');
       tmp.innerHTML = html;
       return tmp.textContent || tmp.innerText || '';
     },
@@ -586,8 +576,7 @@ export default {
 
       this.messagesByConversation[this.selectedConversation.key] = this.messagesByConversation[this.selectedConversation.key] || [];
       const loadedMessagesToAdd = loadedMessages
-        .filter(m => this.messagesByConversation[this.selectedConversation.key].findIndex(mI => mI.id === m.id) === -1)
-      ;
+        .filter(m => this.messagesByConversation[this.selectedConversation.key].findIndex(mI => mI.id === m.id) === -1);
       this.messagesByConversation[this.selectedConversation.key].push(...loadedMessagesToAdd);
 
       // only show the load more Button if the max count was returned

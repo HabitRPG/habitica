@@ -62,9 +62,11 @@ export default function randomDrop (user, options, req = {}, analytics) {
     dropMultiplier = 1;
   }
 
+  const maxDropCount = dropMultiplier * (5 + Math.floor(statsComputed(user).per / 25) + (user.contributor.level || 0)); // eslint-disable-line max-len
+
   if (
     daysSince(user.items.lastDrop.date, user.preferences) === 0
-    && user.items.lastDrop.count >= dropMultiplier * (5 + Math.floor(statsComputed(user).per / 25) + (user.contributor.level || 0))
+    && user.items.lastDrop.count >= maxDropCount
   ) {
     return;
   }

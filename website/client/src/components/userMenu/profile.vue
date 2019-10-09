@@ -393,14 +393,12 @@
 import moment from 'moment';
 import axios from 'axios';
 import each from 'lodash/each';
-import { mapState } from '@/libs/store';
 import cloneDeep from 'lodash/cloneDeep';
+import { mapState } from '@/libs/store';
 
 import MemberDetails from '../memberDetails';
 import markdown from '@/directives/markdown';
 import achievementsLib from '@/../../common/script/libs/achievements';
-// @TODO: EMAILS.COMMUNITY_MANAGER_EMAIL
-const COMMUNITY_MANAGER_EMAIL = 'admin@habitica.com';
 import Content from '@/../../common/script/content';
 import profileStats from './profileStats';
 
@@ -415,9 +413,10 @@ import lock from '@/assets/svg/lock.svg';
 import challenge from '@/assets/svg/challenge.svg';
 import member from '@/assets/svg/member-icon.svg';
 import staff from '@/assets/svg/tier-staff.svg';
+// @TODO: EMAILS.COMMUNITY_MANAGER_EMAIL
+const COMMUNITY_MANAGER_EMAIL = 'admin@habitica.com';
 
 export default {
-  props: ['userId', 'startingPage'],
   directives: {
     markdown,
   },
@@ -425,6 +424,7 @@ export default {
     MemberDetails,
     profileStats,
   },
+  props: ['userId', 'startingPage'],
   data () {
     return {
       icons: Object.freeze({
@@ -479,7 +479,7 @@ export default {
     },
 
     classText () {
-      let classTexts = {
+      const classTexts = {
         warrior: this.$t('warrior'),
         wizard: this.$t('mage'),
         rogue: this.$t('rogue'),
@@ -495,9 +495,6 @@ export default {
       return this.$store.getters['members:hasClass'](this.userLoggedIn);
     },
   },
-  mounted () {
-    this.loadUser();
-  },
   watch: {
     startingPage () {
       this.selectedPage = this.startingPage;
@@ -509,6 +506,9 @@ export default {
       this.loadUser();
     },
   },
+  mounted () {
+    this.loadUser();
+  },
   methods: {
     async loadUser () {
       let user = this.userLoggedIn;
@@ -518,10 +518,10 @@ export default {
       this.hero = {};
       this.adminToolsLoaded = false;
 
-      let profileUserId = this.userId;
+      const profileUserId = this.userId;
 
       if (profileUserId && profileUserId !== this.userLoggedIn._id) {
-        let response = await this.$store.dispatch('members:fetchMember', { memberId: profileUserId });
+        const response = await this.$store.dispatch('members:fetchMember', { memberId: profileUserId });
         user = response.data.data;
       }
 
@@ -566,20 +566,20 @@ export default {
       // return `${this.$t('checkinProgressTitle')} ${start}/${end}`;
     },
     getIncentivesProgress () {
-      let currentLoginDay = Content.loginIncentives[this.user.loginIncentives];
+      const currentLoginDay = Content.loginIncentives[this.user.loginIncentives];
       if (!currentLoginDay) return 0;
-      let previousRewardDay = currentLoginDay.prevRewardKey;
-      let nextRewardAt = currentLoginDay.nextRewardAt;
+      const previousRewardDay = currentLoginDay.prevRewardKey;
+      const { nextRewardAt } = currentLoginDay;
       return (this.user.loginIncentives - previousRewardDay) / (nextRewardAt - previousRewardDay) * 100;
     },
     save () {
-      let values = {};
+      const values = {};
 
-      let edits = cloneDeep(this.editingProfile);
+      const edits = cloneDeep(this.editingProfile);
 
       each(edits, (value, key) => {
         // Using toString because we need to compare two arrays (websites)
-        let curVal = this.user.profile[key];
+        const curVal = this.user.profile[key];
 
         if (!curVal || value.toString() !== curVal.toString()) {
           values[`profile.${key}`] = value;
@@ -596,7 +596,7 @@ export default {
       axios.post(`/api/v4/user/block/${this.user._id}`);
     },
     unblockUser () {
-      let index = this.userLoggedIn.inbox.blocks.indexOf(this.user._id);
+      const index = this.userLoggedIn.inbox.blocks.indexOf(this.user._id);
       this.userLoggedIn.inbox.blocks.splice(index, 1);
       axios.post(`/api/v4/user/block/${this.user._id}`);
     },

@@ -18,13 +18,13 @@ import { mapState } from '@/libs/store';
 import sync from '@/mixins/sync';
 
 export default {
-  mixins: [sync],
-  props: ['notification', 'canRemove'],
   components: {
     BaseNotification,
   },
+  mixins: [sync],
+  props: ['notification', 'canRemove'],
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     // Check that the notification has all the necessary data (old ones are missing some fields)
     notificationHasData () {
       return Boolean(this.notification.data.groupTaskId && this.notification.data.userId);
@@ -33,14 +33,17 @@ export default {
   methods: {
     action () {
       const groupId = this.notification.data.group.id;
-      this.$router.push({ name: 'groupPlanDetailTaskInformation', params: { groupId }});
+      this.$router.push({ name: 'groupPlanDetailTaskInformation', params: { groupId } });
     },
     async approve () {
       // Redirect users to the group tasks page if the notification doesn't have data
       if (!this.notificationHasData) {
-        this.$router.push({ name: 'groupPlanDetailTaskInformation', params: {
-          groupId: this.notification.data.groupId,
-        }});
+        this.$router.push({
+          name: 'groupPlanDetailTaskInformation',
+          params: {
+            groupId: this.notification.data.groupId,
+          },
+        });
 
         return;
       }
@@ -55,9 +58,12 @@ export default {
     async needsWork () {
       // Redirect users to the group tasks page if the notification doesn't have data
       if (!this.notificationHasData) {
-        this.$router.push({ name: 'groupPlanDetailTaskInformation', params: {
-          groupId: this.notification.data.groupId,
-        }});
+        this.$router.push({
+          name: 'groupPlanDetailTaskInformation',
+          params: {
+            groupId: this.notification.data.groupId,
+          },
+        });
 
         return;
       }

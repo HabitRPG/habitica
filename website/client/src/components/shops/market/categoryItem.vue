@@ -23,11 +23,11 @@ import planGemLimits from '@/../../common/script/libs/planGemLimits';
 import pinUtils from '../../../mixins/pinUtils';
 
 export default {
-  mixins: [pinUtils],
-  props: ['item'],
   components: {
     CountBadge,
   },
+  mixins: [pinUtils],
+  props: ['item'],
   data () {
     return {
       icons: Object.freeze({

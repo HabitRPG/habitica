@@ -71,91 +71,93 @@
 </style>
 
 <script>
-  import uuid from 'uuid';
-  import { mapState } from '@/libs/store';
-  import {isAllowedToFeed, isHatchable, isOwned, isSpecial} from '../../../libs/createAnimal';
+import uuid from 'uuid';
+import { mapState } from '@/libs/store';
+import {
+  isAllowedToFeed, isHatchable, isOwned, isSpecial,
+} from '../../../libs/createAnimal';
 
-  export default {
-    props: {
-      item: {
-        type: Object,
-      },
-      label: {
-        type: String,
-      },
-      highlightBorder: {
-        type: Boolean,
-        default: false,
-      },
-      popoverPosition: {
-        type: String,
-        default: 'bottom',
-      },
-      showPopover: {
-        type: Boolean,
-        default: true,
-      },
+export default {
+  props: {
+    item: {
+      type: Object,
     },
-    data () {
-      return Object.freeze({
-        itemId: uuid.v4(),
-      });
+    label: {
+      type: String,
     },
-    methods: {
-      click () {
-        this.$emit('click', {});
-      },
-      isOwned () {
-        return isOwned('pet', this.item, this.userItems);
-      },
-      isAllowedToFeed () {
-        return isAllowedToFeed(this.item, this.userItems);
-      },
-      getPetItemClass () {
-        if (this.isOwned() || this.mountOwned() && this.isHatchable()) {
-          return `Pet Pet-${this.item.key} ${this.item.eggKey}`;
-        }
+    highlightBorder: {
+      type: Boolean,
+      default: false,
+    },
+    popoverPosition: {
+      type: String,
+      default: 'bottom',
+    },
+    showPopover: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  data () {
+    return Object.freeze({
+      itemId: uuid.v4(),
+    });
+  },
+  methods: {
+    click () {
+      this.$emit('click', {});
+    },
+    isOwned () {
+      return isOwned('pet', this.item, this.userItems);
+    },
+    isAllowedToFeed () {
+      return isAllowedToFeed(this.item, this.userItems);
+    },
+    getPetItemClass () {
+      if (this.isOwned() || this.mountOwned() && this.isHatchable()) {
+        return `Pet Pet-${this.item.key} ${this.item.eggKey}`;
+      }
 
-        if (!this.isOwned() && this.isSpecial()) {
-          return 'GreyedOut PixelPaw';
-        }
-
-        if (this.isHatchable()) {
-          return 'PixelPaw';
-        }
-
-        if (this.mountOwned()) {
-          return `GreyedOut Pet Pet-${this.item.key} ${this.item.eggKey}`;
-        }
-
-        // Can't hatch
+      if (!this.isOwned() && this.isSpecial()) {
         return 'GreyedOut PixelPaw';
-      },
-      progress () {
-        return this.userItems.pets[this.item.key];
-      },
-      // due to some state-refresh issues these methods are needed,
-      // the computed-properties just didn't refresh on each state-change
-      isHatchable () {
-        return isHatchable(this.item, this.userItems);
-      },
-      mountOwned () {
-        return isOwned('mount', this.item, this.userItems);
-      },
-      isSpecial () {
-        return isSpecial(this.item);
-      },
+      }
+
+      if (this.isHatchable()) {
+        return 'PixelPaw';
+      }
+
+      if (this.mountOwned()) {
+        return `GreyedOut Pet Pet-${this.item.key} ${this.item.eggKey}`;
+      }
+
+      // Can't hatch
+      return 'GreyedOut PixelPaw';
     },
-    computed: {
-      ...mapState({
-        userItems: 'user.data.items',
-      }),
-      potionClass () {
-        return `Pet_HatchingPotion_${this.item.potionKey}`;
-      },
-      eggClass () {
-        return `Pet_Egg_${this.item.eggKey}`;
-      },
+    progress () {
+      return this.userItems.pets[this.item.key];
     },
-  };
+    // due to some state-refresh issues these methods are needed,
+    // the computed-properties just didn't refresh on each state-change
+    isHatchable () {
+      return isHatchable(this.item, this.userItems);
+    },
+    mountOwned () {
+      return isOwned('mount', this.item, this.userItems);
+    },
+    isSpecial () {
+      return isSpecial(this.item);
+    },
+  },
+  computed: {
+    ...mapState({
+      userItems: 'user.data.items',
+    }),
+    potionClass () {
+      return `Pet_HatchingPotion_${this.item.potionKey}`;
+    },
+    eggClass () {
+      return `Pet_Egg_${this.item.eggKey}`;
+    },
+  },
+};
 </script>

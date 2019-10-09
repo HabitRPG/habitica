@@ -102,10 +102,16 @@ const router = new VueRouter({
   },
   // requiresLogin is true by default, isStatic false
   routes: [
-    { name: 'register', path: '/register', component: RegisterLoginReset, meta: {requiresLogin: false} },
-    { name: 'login', path: '/login', component: RegisterLoginReset, meta: {requiresLogin: false} },
+    {
+      name: 'register', path: '/register', component: RegisterLoginReset, meta: { requiresLogin: false },
+    },
+    {
+      name: 'login', path: '/login', component: RegisterLoginReset, meta: { requiresLogin: false },
+    },
     { name: 'logout', path: '/logout', component: Logout },
-    { name: 'resetPassword', path: '/reset-password', component: RegisterLoginReset, meta: {requiresLogin: false} },
+    {
+      name: 'resetPassword', path: '/reset-password', component: RegisterLoginReset, meta: { requiresLogin: false },
+    },
     { name: 'tasks', path: '/', component: UserTasks },
     {
       name: 'userProfile',
@@ -259,23 +265,57 @@ const router = new VueRouter({
       path: '/static',
       component: StaticWrapper,
       children: [
-        { name: 'app', path: 'app', component: AppPage, meta: {requiresLogin: false}},
-        { name: 'clearBrowserData', path: 'clear-browser-data', component: ClearBrowserDataPage, meta: {requiresLogin: false}},
-        { name: 'communityGuidelines', path: 'community-guidelines', component: CommunityGuidelinesPage, meta: {requiresLogin: false}},
-        { name: 'contact', path: 'contact', component: ContactPage, meta: {requiresLogin: false}},
-        { name: 'faq', path: 'faq', component: FAQPage, meta: {requiresLogin: false}},
-        { name: 'features', path: 'features', component: FeaturesPage, meta: {requiresLogin: false}},
-        { name: 'groupPlans', path: 'group-plans', component: GroupPlansPage, meta: {requiresLogin: false}},
-        { name: 'home', path: 'home', component: HomePage, meta: {requiresLogin: false} },
-        { name: 'front', path: 'front', component: HomePage, meta: {requiresLogin: false} },
-        { name: 'merch', path: 'merch', component: MerchPage, meta: {requiresLogin: false}},
-        { name: 'news', path: 'new-stuff', component: NewsPage, meta: {requiresLogin: false}},
-        { name: 'overview', path: 'overview', component: OverviewPage, meta: {requiresLogin: false}},
-        { name: 'plans', path: 'plans', component: GroupPlansPage, meta: {requiresLogin: false}},
-        { name: 'pressKit', path: 'press-kit', component: PressKitPage, meta: {requiresLogin: false}},
-        { name: 'privacy', path: 'privacy', component: PrivacyPage, meta: {requiresLogin: false}},
-        { name: 'terms', path: 'terms', component: TermsPage, meta: {requiresLogin: false}},
-        { name: 'notFound', path: 'not-found', component: NotFoundPage, meta: {requiresLogin: false} },
+        {
+          name: 'app', path: 'app', component: AppPage, meta: { requiresLogin: false },
+        },
+        {
+          name: 'clearBrowserData', path: 'clear-browser-data', component: ClearBrowserDataPage, meta: { requiresLogin: false },
+        },
+        {
+          name: 'communityGuidelines', path: 'community-guidelines', component: CommunityGuidelinesPage, meta: { requiresLogin: false },
+        },
+        {
+          name: 'contact', path: 'contact', component: ContactPage, meta: { requiresLogin: false },
+        },
+        {
+          name: 'faq', path: 'faq', component: FAQPage, meta: { requiresLogin: false },
+        },
+        {
+          name: 'features', path: 'features', component: FeaturesPage, meta: { requiresLogin: false },
+        },
+        {
+          name: 'groupPlans', path: 'group-plans', component: GroupPlansPage, meta: { requiresLogin: false },
+        },
+        {
+          name: 'home', path: 'home', component: HomePage, meta: { requiresLogin: false },
+        },
+        {
+          name: 'front', path: 'front', component: HomePage, meta: { requiresLogin: false },
+        },
+        {
+          name: 'merch', path: 'merch', component: MerchPage, meta: { requiresLogin: false },
+        },
+        {
+          name: 'news', path: 'new-stuff', component: NewsPage, meta: { requiresLogin: false },
+        },
+        {
+          name: 'overview', path: 'overview', component: OverviewPage, meta: { requiresLogin: false },
+        },
+        {
+          name: 'plans', path: 'plans', component: GroupPlansPage, meta: { requiresLogin: false },
+        },
+        {
+          name: 'pressKit', path: 'press-kit', component: PressKitPage, meta: { requiresLogin: false },
+        },
+        {
+          name: 'privacy', path: 'privacy', component: PrivacyPage, meta: { requiresLogin: false },
+        },
+        {
+          name: 'terms', path: 'terms', component: TermsPage, meta: { requiresLogin: false },
+        },
+        {
+          name: 'notFound', path: 'not-found', component: NotFoundPage, meta: { requiresLogin: false },
+        },
       ],
     },
     {
@@ -295,8 +335,8 @@ const router = new VueRouter({
 
 const store = getStore();
 
-router.beforeEach(function routerGuard (to, from, next) {
-  const isUserLoggedIn = store.state.isUserLoggedIn;
+router.beforeEach((to, from, next) => {
+  const { isUserLoggedIn } = store.state;
   const routeRequiresLogin = to.meta.requiresLogin !== false;
 
   if (to.name === 'redirect') return handleRedirect(to, from, next);
@@ -327,7 +367,7 @@ router.beforeEach(function routerGuard (to, from, next) {
   }
 
   if (isUserLoggedIn && (to.name === 'login' || to.name === 'register')) {
-    return next({name: 'tasks'});
+    return next({ name: 'tasks' });
   }
 
   // Redirect old guild urls

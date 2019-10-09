@@ -1,46 +1,43 @@
+import sortBy from 'lodash/sortBy';
 import { shouldDo } from '@/../../common/script/cron';
 
 // Library / Utility function
 import { orderSingleTypeTasks } from '@/libs/store/helpers/orderTasks.js';
 import { getActiveFilter } from '@/libs/store/helpers/filterTasks.js';
 
-import sortBy from 'lodash/sortBy';
 
 // Return all the tags belonging to an user task
 export function getTagsFor (store) {
-  return (task) => {
-    return store.state.user.data.tags
-      .filter(tag => task.tags && task.tags.indexOf(tag.id) !== -1)
-      .map(tag => tag.name);
-  };
+  return task => store.state.user.data.tags
+    .filter(tag => task.tags && task.tags.indexOf(tag.id) !== -1)
+    .map(tag => tag.name);
 }
 
 function getTaskColor (task) {
   if (task.type === 'reward' || task.byHabitica) return 'purple';
 
-  const value = task.value;
+  const { value } = task;
 
   if (value < -20) {
     return 'worst';
-  } else if (value < -10) {
+  } if (value < -10) {
     return 'worse';
-  } else if (value < -1) {
+  } if (value < -1) {
     return 'bad';
-  } else if (value < 1) {
+  } if (value < 1) {
     return 'neutral';
-  } else if (value < 5) {
+  } if (value < 5) {
     return 'good';
-  } else if (value < 10) {
+  } if (value < 10) {
     return 'better';
-  } else {
-    return 'best';
   }
+  return 'best';
 }
 
 export function canDelete () {
-  return (task) => {
-    let isUserChallenge = Boolean(task.userId);
-    let activeChallenge = isUserChallenge && task.challenge && task.challenge.id && !task.challenge.broken;
+  return task => {
+    const isUserChallenge = Boolean(task.userId);
+    const activeChallenge = isUserChallenge && task.challenge && task.challenge.id && !task.challenge.broken;
     return !activeChallenge;
   };
 }
@@ -54,7 +51,7 @@ export function getTaskClasses (store) {
   // Control: 'control'
   return (task, purpose, dueDate) => {
     if (!dueDate) dueDate = new Date();
-    const type = task.type;
+    const { type } = task;
     const color = getTaskColor(task);
 
     switch (purpose) {
@@ -96,18 +93,18 @@ export function getTaskClasses (store) {
             inner: `task-${color}-control-inner-daily-todo`,
             icon: `task-${color}-control-icon`,
           };
-        } else if (type === 'reward') {
+        } if (type === 'reward') {
           return {
             bg: task.group && task.group.id && !task.userId ? 'task-reward-control-bg-noninteractive' : 'task-reward-control-bg',
           };
-        } else if (type === 'habit') {
+        } if (type === 'habit') {
           return {
-            up: task.up ?
-              { bg: task.group && task.group.id && !task.userId ? `task-${color}-control-bg-noninteractive` : `task-${color}-control-bg`, inner: `task-${color}-control-inner-habit`, icon: `task-${color}-control-icon`} :
-              { bg: 'task-disabled-habit-control-bg', inner: 'task-disabled-habit-control-inner', icon: `task-${color}-control-icon` },
-            down: task.down ?
-              { bg: task.group && task.group.id && !task.userId ? `task-${color}-control-bg-noninteractive` : `task-${color}-control-bg`, inner: `task-${color}-control-inner-habit`, icon: `task-${color}-control-icon`} :
-              { bg: 'task-disabled-habit-control-bg', inner: 'task-disabled-habit-control-inner', icon: `task-${color}-control-icon` },
+            up: task.up
+              ? { bg: task.group && task.group.id && !task.userId ? `task-${color}-control-bg-noninteractive` : `task-${color}-control-bg`, inner: `task-${color}-control-inner-habit`, icon: `task-${color}-control-icon` }
+              : { bg: 'task-disabled-habit-control-bg', inner: 'task-disabled-habit-control-inner', icon: `task-${color}-control-icon` },
+            down: task.down
+              ? { bg: task.group && task.group.id && !task.userId ? `task-${color}-control-bg-noninteractive` : `task-${color}-control-bg`, inner: `task-${color}-control-inner-habit`, icon: `task-${color}-control-icon` }
+              : { bg: 'task-disabled-habit-control-bg', inner: 'task-disabled-habit-control-inner', icon: `task-${color}-control-icon` },
           };
         }
         break;
@@ -118,13 +115,13 @@ export function getTaskClasses (store) {
 }
 
 // Returns all list for given task type
-export function getUnfilteredTaskList ({state}) {
-  return (type) => state.tasks.data[`${type}s`];
+export function getUnfilteredTaskList ({ state }) {
+  return type => state.tasks.data[`${type}s`];
 }
 
 // Returns filtered, sorted, ordered, tag filtered, and search filtered task list
 // @TODO: sort task list based on used preferences
-export function getFilteredTaskList ({state, getters}) {
+export function getFilteredTaskList ({ state, getters }) {
   return ({
     type,
     filterType = '',
@@ -134,8 +131,8 @@ export function getFilteredTaskList ({state, getters}) {
     // assumption: type will always be passed as param
     let requestedTasks = getters['tasks:getUnfilteredTaskList'](type);
 
-    let userPreferences = state.user.data.preferences;
-    let taskOrderForType = state.user.data.tasksOrder[type];
+    const userPreferences = state.user.data.preferences;
+    const taskOrderForType = state.user.data.tasksOrder[type];
 
     // order tasks based on user set task order
     // Still needs unit test for this..

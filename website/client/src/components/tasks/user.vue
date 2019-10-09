@@ -258,6 +258,11 @@
 </style>
 
 <script>
+import uuid from 'uuid';
+import Vue from 'vue';
+import throttle from 'lodash/throttle';
+import cloneDeep from 'lodash/cloneDeep';
+import draggable from 'vuedraggable';
 import TaskColumn from './column';
 import TaskModal from './taskModal';
 import spells from './spells';
@@ -272,16 +277,11 @@ import todoIcon from '@/assets/svg/todo.svg';
 import rewardIcon from '@/assets/svg/reward.svg';
 import dragIcon from '@/assets/svg/drag_indicator.svg';
 
-import uuid from 'uuid';
-import Vue from 'vue';
-import throttle from 'lodash/throttle';
-import cloneDeep from 'lodash/cloneDeep';
 import { mapState, mapActions } from '@/libs/store';
 import taskDefaults from '@/../../common/script/libs/taskDefaults';
 import brokenTaskModal from './brokenTaskModal';
 
 import Item from '@/components/inventory/item.vue';
-import draggable from 'vuedraggable';
 
 export default {
   components: {
@@ -325,7 +325,7 @@ export default {
     };
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     tagsByType () {
       const userTags = this.user.tags;
       const tagsByType = {
@@ -362,7 +362,7 @@ export default {
     }, 250),
   },
   methods: {
-    ...mapActions({setUser: 'user:set'}),
+    ...mapActions({ setUser: 'user:set' }),
     checkMouseOver: throttle(function throttleSearch () {
       if (this.editingTags) return;
       this.closeFilterPanel();
@@ -374,7 +374,7 @@ export default {
       this.editingTags = true;
     },
     addTag (eventObj, key) {
-      this.tagsSnap[key].push({id: uuid.v4(), name: this.newTag});
+      this.tagsSnap[key].push({ id: uuid.v4(), name: this.newTag });
       this.newTag = null;
     },
     removeTag (index, key) {
@@ -389,7 +389,7 @@ export default {
       this.tagsByType.user.tags = this.tagsSnap.tags;
       this.tagsByType.challenges.tags = this.tagsSnap.challenges;
 
-      this.setUser({tags: this.tagsSnap.tags.concat(this.tagsSnap.challenges)});
+      this.setUser({ tags: this.tagsSnap.tags.concat(this.tagsSnap.challenges) });
       this.cancelTagsEditing();
     },
     cancelTagsEditing () {
@@ -409,7 +409,7 @@ export default {
     },
     createTask (type) {
       this.openCreateBtn = false;
-      this.creatingTask = taskDefaults({type, text: ''}, this.user);
+      this.creatingTask = taskDefaults({ type, text: '' }, this.user);
       this.creatingTask.tags = this.selectedTags;
 
       // Necessary otherwise the first time the modal is not rendered
@@ -441,11 +441,11 @@ export default {
       this.closeFilterPanel();
     },
     applyFilters () {
-      const temporarilySelectedTags = this.temporarilySelectedTags;
+      const { temporarilySelectedTags } = this;
       this.selectedTags = temporarilySelectedTags.slice();
     },
     toggleTag (tag) {
-      const temporarilySelectedTags = this.temporarilySelectedTags;
+      const { temporarilySelectedTags } = this;
       const tagI = temporarilySelectedTags.indexOf(tag.id);
       if (tagI === -1) {
         temporarilySelectedTags.push(tag.id);

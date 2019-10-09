@@ -1,3 +1,5 @@
+import axios from 'axios';
+import moment from 'moment';
 import Store from '@/libs/store';
 import deepFreeze from '@/libs/deepFreeze';
 import content from '@/../../common/script/content/index';
@@ -5,8 +7,6 @@ import * as commonConstants from '@/../../common/script/constants';
 import { DAY_MAPPING } from '@/../../common/script/cron';
 import { asyncResourceFactory } from '@/libs/asyncResource';
 import { setUpAxios } from '@/libs/auth';
-import axios from 'axios';
-import moment from 'moment';
 
 import actions from './actions';
 import getters from './getters';
@@ -16,7 +16,7 @@ const IS_TEST = process.env.NODE_ENV === 'test'; // eslint-disable-line no-proce
 // Load user auth parameters and determine if it's logged in
 // before trying to load data
 let isUserLoggedIn = false;
-let browserTimezoneOffset = moment().zone(); // eg, 240 - this will be converted on server as -(offset/60)
+const browserTimezoneOffset = moment().zone(); // eg, 240 - this will be converted on server as -(offset/60)
 axios.defaults.headers.common['x-client'] = 'habitica-web';
 
 let AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings');
@@ -91,7 +91,7 @@ export default function () {
       // @TODO apply freezing to the entire codebase (the server) and not only to the client side?
       // NOTE this takes about 10-15ms on a fast computer
       content: deepFreeze(content),
-      constants: deepFreeze({...commonConstants, DAY_MAPPING}),
+      constants: deepFreeze({ ...commonConstants, DAY_MAPPING }),
       i18n: deepFreeze({
         availableLanguages,
         selectedLanguage,

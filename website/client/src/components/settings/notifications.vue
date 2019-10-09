@@ -73,7 +73,7 @@ export default {
     };
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
   },
   async mounted () {
     // If ?unsubFrom param is passed with valid email type,
@@ -86,7 +86,7 @@ export default {
       importantAnnouncements: 'inactivityEmails',
     };
 
-    const unsubFrom = this.$route.query.unsubFrom;
+    const { unsubFrom } = this.$route.query;
 
     if (unsubFrom) {
       await this.$store.dispatch('user:set', {
@@ -94,12 +94,12 @@ export default {
       });
 
       const emailTypeString = this.$t(MAP_PREF_TO_EMAIL_STRING[unsubFrom] || unsubFrom);
-      this.text(this.$t('correctlyUnsubscribedEmailType', {emailType: emailTypeString}));
+      this.text(this.$t('correctlyUnsubscribedEmailType', { emailType: emailTypeString }));
     }
   },
   methods: {
     set (preferenceType, notification) {
-      let settings = {};
+      const settings = {};
       settings[`preferences.${preferenceType}.${notification}`] = this.user.preferences[preferenceType][notification];
       this.$store.dispatch('user:set', settings);
     },

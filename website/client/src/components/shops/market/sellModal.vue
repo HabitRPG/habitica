@@ -121,75 +121,75 @@
 </style>
 
 <script>
-  import svgClose from '@/assets/svg/close.svg';
-  import svgGold from '@/assets/svg/gold.svg';
-  import svgGem from '@/assets/svg/gem.svg';
+import svgClose from '@/assets/svg/close.svg';
+import svgGold from '@/assets/svg/gold.svg';
+import svgGem from '@/assets/svg/gem.svg';
 
-  import BalanceInfo  from '../balanceInfo.vue';
-  import Item from '@/components/inventory/item';
-  import CountBadge from '@/components/ui/countBadge';
+import BalanceInfo from '../balanceInfo.vue';
+import Item from '@/components/inventory/item';
+import CountBadge from '@/components/ui/countBadge';
 
-  export default {
-    components: {
-      BalanceInfo,
-      Item,
-      CountBadge,
-    },
-    data () {
-      return {
-        selectedAmountToSell: 1,
-        itemContextToSell: null,
+export default {
+  components: {
+    BalanceInfo,
+    Item,
+    CountBadge,
+  },
+  data () {
+    return {
+      selectedAmountToSell: 1,
+      itemContextToSell: null,
 
-        icons: Object.freeze({
-          close: svgClose,
-          gold: svgGold,
-          gem: svgGem,
-        }),
-      };
+      icons: Object.freeze({
+        close: svgClose,
+        gold: svgGold,
+        gem: svgGem,
+      }),
+    };
+  },
+  computed: {
+    item () {
+      return this.itemContextToSell && this.itemContextToSell.item;
     },
-    computed: {
-      item () {
-        return this.itemContextToSell && this.itemContextToSell.item;
-      },
+  },
+  mounted () {
+    this.$root.$on('sellItem', itemCtx => {
+      this.itemContextToSell = itemCtx;
+      this.$root.$emit('bv::show::modal', 'sell-modal');
+    });
+  },
+  destroyed () {
+    this.$root.$off('sellItem');
+  },
+  methods: {
+    onChange ($event) {
+      this.$emit('change', $event);
+
+      this.selectedAmountToSell = 1;
     },
-    mounted () {
-      this.$root.$on('sellItem', (itemCtx) => {
-        this.itemContextToSell = itemCtx;
-        this.$root.$emit('bv::show::modal', 'sell-modal');
+    preventNegative ($event) {
+      const { value } = $event.target;
+
+      if (Number(value) < 0) {
+        this.selectedAmountToSell = 0;
+      }
+    },
+    sellItems () {
+      if (!Number.isInteger(Number(this.selectedAmountToSell))) {
+        this.selectedAmountToSell = 0;
+        return;
+      }
+
+      this.$store.dispatch('shops:sellItems', {
+        type: this.itemContextToSell.itemType,
+        key: this.item.key,
+        amount: this.selectedAmountToSell,
       });
+      this.hideDialog();
     },
-    destroyed () {
-      this.$root.$off('sellItem');
+    hideDialog () {
+      this.$root.$emit('bv::hide::modal', 'sell-modal');
     },
-    methods: {
-      onChange ($event) {
-        this.$emit('change', $event);
-
-        this.selectedAmountToSell = 1;
-      },
-      preventNegative ($event) {
-        let value = $event.target.value;
-
-        if (Number(value) < 0) {
-          this.selectedAmountToSell = 0;
-        }
-      },
-      sellItems () {
-        if (!Number.isInteger(Number(this.selectedAmountToSell))) {
-          this.selectedAmountToSell = 0;
-          return;
-        }
-
-        this.$store.dispatch('shops:sellItems', {
-          type: this.itemContextToSell.itemType,
-          key: this.item.key,
-          amount: this.selectedAmountToSell,
-        });
-        this.hideDialog();
-      },
-      hideDialog () {
-        this.$root.$emit('bv::hide::modal', 'sell-modal');
-      },
-    },
-  };
+  },
+};
 </script>

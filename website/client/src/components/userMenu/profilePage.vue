@@ -13,12 +13,12 @@
 </style>
 
 <script>
-  import profile from './profile';
+import profile from './profile';
 
-  export default {
-    props: ['userId', 'startingPage'],
-    components: {
-      profile,
-    },
-  };
+export default {
+  components: {
+    profile,
+  },
+  props: ['userId', 'startingPage'],
+};
 </script>

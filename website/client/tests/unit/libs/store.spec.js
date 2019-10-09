@@ -42,7 +42,7 @@ describe('Store', () => {
     Vue.use(StoreModule);
   });
 
-  it('injects itself in all component', (done) => {
+  it('injects itself in all component', done => {
     new Vue({ // eslint-disable-line no-new
       store,
       created () {
@@ -52,8 +52,8 @@ describe('Store', () => {
     });
   });
 
-  it('can watch a function on the state', (done) => {
-    store.watch(state => state.name, (newName) => {
+  it('can watch a function on the state', done => {
+    store.watch(state => state.name, newName => {
       expect(newName).to.equal('test updated');
       done();
     });
@@ -90,7 +90,7 @@ describe('Store', () => {
   });
 
   describe('helpers', () => {
-    it('mapState', (done) => {
+    it('mapState', done => {
       new Vue({ // eslint-disable-line no-new
         store,
         data: {
@@ -103,7 +103,7 @@ describe('Store', () => {
               return `${this.title} ${getters.computedName} ${state.name}`;
             },
           }),
-          ...mapState({nestedTest: 'nested.name'}),
+          ...mapState({ nestedTest: 'nested.name' }),
         },
         created () {
           expect(this.name).to.equal('test');
@@ -114,7 +114,7 @@ describe('Store', () => {
       });
     });
 
-    it('mapGetters', (done) => {
+    it('mapGetters', done => {
       new Vue({ // eslint-disable-line no-new
         store,
         data: {
@@ -134,7 +134,7 @@ describe('Store', () => {
       });
     });
 
-    it('mapActions', (done) => {
+    it('mapActions', done => {
       new Vue({ // eslint-disable-line no-new
         store,
         data: {
@@ -155,7 +155,7 @@ describe('Store', () => {
     });
 
     it('flattenAndNamespace', () => {
-      let result = flattenAndNamespace({
+      const result = flattenAndNamespace({
         nested: {
           computed ({ state }, ...args) {
             return [state.name, ...args];

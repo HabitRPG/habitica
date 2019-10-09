@@ -149,11 +149,11 @@ import questDialogDrops from '../shops/quests/questDialogDrops';
 import questDialogContent from '../shops/quests/questDialogContent';
 
 export default {
-  props: ['group'],
   components: {
     questDialogDrops,
     questDialogContent,
   },
+  props: ['group'],
   data () {
     return {
       loading: false,
@@ -181,38 +181,36 @@ export default {
       return quests.quests[this.group.quest.key];
     },
     members () {
-      let partyMembers = this.partyMembers || [];
-      return partyMembers.map(member => {
-        return {
-          name: member.profile.name,
-          accepted: this.group.quest.members[member._id],
-        };
-      });
+      const partyMembers = this.partyMembers || [];
+      return partyMembers.map(member => ({
+        name: member.profile.name,
+        accepted: this.group.quest.members[member._id],
+      }));
     },
     canEditQuest () {
       if (!this.group.quest) return false;
-      let isQuestLeader = this.group.quest.leader === this.user._id;
-      let isPartyLeader = this.group.leader._id === this.user._id;
+      const isQuestLeader = this.group.quest.leader === this.user._id;
+      const isPartyLeader = this.group.leader._id === this.user._id;
       return isQuestLeader || isPartyLeader;
     },
   },
   methods: {
     async questConfirm () {
       let count = 0;
-      for (let uuid in this.group.quest.members) {
+      for (const uuid in this.group.quest.members) {
         if (this.group.quest.members[uuid]) count += 1;
       }
-      if (!confirm(this.$t('questConfirm', { questmembers: count, totalmembers: this.group.memberCount}))) return;
+      if (!confirm(this.$t('questConfirm', { questmembers: count, totalmembers: this.group.memberCount }))) return;
       this.questForceStart();
     },
     async questForceStart () {
-      let quest = await this.$store.dispatch('quests:sendAction', {groupId: this.group._id, action: 'quests/force-start'});
+      const quest = await this.$store.dispatch('quests:sendAction', { groupId: this.group._id, action: 'quests/force-start' });
       this.group.quest = quest;
       this.close();
     },
     async questCancel () {
       if (!confirm(this.$t('sureCancel'))) return;
-      let quest = await this.$store.dispatch('quests:sendAction', {groupId: this.group._id, action: 'quests/cancel'});
+      const quest = await this.$store.dispatch('quests:sendAction', { groupId: this.group._id, action: 'quests/cancel' });
       this.group.quest = quest;
       this.close();
     },

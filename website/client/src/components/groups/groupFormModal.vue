@@ -185,7 +185,7 @@ export default {
     markdown: markdownDirective,
   },
   data () {
-    let data = {
+    const data = {
       workingGroup: {
         id: '',
         name: '',
@@ -267,8 +267,8 @@ export default {
       membersToInvite: [],
     };
 
-    let hashedCategories = {};
-    data.categoryOptions.forEach((category) => {
+    const hashedCategories = {};
+    data.categoryOptions.forEach(category => {
       hashedCategories[category.key] = category.label;
     });
     data.categoriesHashByKey = hashedCategories;
@@ -281,12 +281,12 @@ export default {
     return data;
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     editingGroup () {
       return this.$store.state.editingGroup;
     },
     charactersRemaining () {
-      let currentLength = this.workingGroup.summary ? this.workingGroup.summary.length : 0;
+      const currentLength = this.workingGroup.summary ? this.workingGroup.summary.length : 0;
       return MAX_SUMMARY_SIZE_FOR_GUILDS - currentLength;
     },
     title () {
@@ -304,7 +304,7 @@ export default {
   },
   watch: {
     editingGroup () {
-      let editingGroup = this.editingGroup;
+      const { editingGroup } = this;
 
       if (!editingGroup._id) {
         this.resetWorkingGroup();
@@ -339,7 +339,7 @@ export default {
   methods: {
     async getMembers () {
       if (!this.workingGroup.id) return;
-      let members = await this.$store.dispatch('members:getGroupMembers', {
+      const members = await this.$store.dispatch('members:getGroupMembers', {
         groupId: this.workingGroup.id,
         includeAllPublicFields: true,
       });
@@ -367,7 +367,7 @@ export default {
         // @TODO return $rootScope.openModal('buyGems', {track:"Gems > Gems > Create Group"});
       }
 
-      let errors = [];
+      const errors = [];
 
       if (!this.workingGroup.name) errors.push(this.$t('nameRequired'));
       if (!this.workingGroup.summary) errors.push(this.$t('summaryRequired'));
@@ -391,10 +391,10 @@ export default {
         challenges: this.workingGroup.onlyLeaderCreatesChallenges,
       };
 
-      let categoryKeys = this.workingGroup.categories;
-      let serverCategories = [];
+      const categoryKeys = this.workingGroup.categories;
+      const serverCategories = [];
       categoryKeys.forEach(key => {
-        let catName = this.categoriesHashByKey[key];
+        const catName = this.categoriesHashByKey[key];
         serverCategories.push({
           slug: key,
           name: catName,
@@ -402,16 +402,16 @@ export default {
       });
       this.workingGroup.categories = serverCategories;
 
-      let groupData = Object.assign({}, this.workingGroup);
+      const groupData = { ...this.workingGroup };
 
       let newgroup;
       if (groupData.id) {
-        await this.$store.dispatch('guilds:update', {group: groupData});
+        await this.$store.dispatch('guilds:update', { group: groupData });
         this.$root.$emit('updatedGroup', this.workingGroup);
         // @TODO: this doesn't work because of the async resource
         // if (updatedGroup.type === 'party') this.$store.state.party = {data: updatedGroup};
       } else {
-        newgroup = await this.$store.dispatch('guilds:create', {group: groupData});
+        newgroup = await this.$store.dispatch('guilds:create', { group: groupData });
         this.$store.state.user.data.balance -= 1;
       }
 

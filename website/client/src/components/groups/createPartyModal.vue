@@ -140,55 +140,55 @@ b-modal#create-party-modal(size='lg', hide-footer=true)
 </style>
 
 <script>
-  import { mapState } from '@/libs/store';
-  import * as Analytics from '@/libs/analytics';
-  import notifications from '@/mixins/notifications';
+import { mapState } from '@/libs/store';
+import * as Analytics from '@/libs/analytics';
+import notifications from '@/mixins/notifications';
 
-  import copyIcon from '@/assets/svg/copy.svg';
+import copyIcon from '@/assets/svg/copy.svg';
 
-  export default {
-    data () {
-      return {
-        icons: Object.freeze({
-          copy: copyIcon,
-        }),
+export default {
+  data () {
+    return {
+      icons: Object.freeze({
+        copy: copyIcon,
+      }),
+    };
+  },
+  computed: {
+    ...mapState({ user: 'user.data' }),
+  },
+  methods: {
+    async createParty () {
+      const group = {
+        type: 'party',
       };
-    },
-    computed: {
-      ...mapState({user: 'user.data'}),
-    },
-    methods: {
-      async createParty () {
-        let group = {
-          type: 'party',
-        };
-        group.name = this.$t('possessiveParty', {name: this.user.profile.name});
-        let party = await this.$store.dispatch('guilds:create', {group});
-        this.$store.state.party.data = party;
-        this.user.party._id = party._id;
+      group.name = this.$t('possessiveParty', { name: this.user.profile.name });
+      const party = await this.$store.dispatch('guilds:create', { group });
+      this.$store.state.party.data = party;
+      this.user.party._id = party._id;
 
-        Analytics.updateUser({
-          partyID: party._id,
-          partySize: 1,
-        });
+      Analytics.updateUser({
+        partyID: party._id,
+        partySize: 1,
+      });
 
-        this.$root.$emit('bv::hide::modal', 'create-party-modal');
-        this.$router.push('/party');
-      },
-      copyUsername () {
-        if (navigator.clipboard) {
-          navigator.clipboard.writeText(this.user.auth.local.username);
-        } else {
-          let copyText = document.createElement('textarea');
-          copyText.value = this.user.auth.local.username;
-          document.body.appendChild(copyText);
-          copyText.select();
-          document.execCommand('copy');
-          document.body.removeChild(copyText);
-        }
-        this.text(this.$t('usernameCopied'));
-      },
+      this.$root.$emit('bv::hide::modal', 'create-party-modal');
+      this.$router.push('/party');
     },
-    mixins: [notifications],
-  };
+    copyUsername () {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(this.user.auth.local.username);
+      } else {
+        const copyText = document.createElement('textarea');
+        copyText.value = this.user.auth.local.username;
+        document.body.appendChild(copyText);
+        copyText.select();
+        document.execCommand('copy');
+        document.body.removeChild(copyText);
+      }
+      this.text(this.$t('usernameCopied'));
+    },
+  },
+  mixins: [notifications],
+};
 </script>

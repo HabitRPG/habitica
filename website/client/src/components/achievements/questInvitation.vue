@@ -48,7 +48,7 @@
 import * as quests from '@/../../common/script/content/quests';
 import { mapState } from '@/libs/store';
 import percent from '@/../../common/script/libs/percent';
-import {MAX_HEALTH as maxHealth} from '@/../../common/script/constants';
+import { MAX_HEALTH as maxHealth } from '@/../../common/script/constants';
 
 export default {
   data () {
@@ -58,7 +58,7 @@ export default {
     };
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     barStyle () {
       return {
         width: `${percent(this.user.stats.hp, maxHealth)}%`,

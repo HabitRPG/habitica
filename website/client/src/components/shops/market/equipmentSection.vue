@@ -47,126 +47,125 @@ layout-section(:title="$t('equipment')")
 </template>
 
 <script>
-  import {mapState} from '@/libs/store';
-  import LayoutSection from '@/components/ui/layoutSection';
-  import FilterDropdown from '@/components/ui/filterDropdown';
-  import ItemRows from '@/components/ui/itemRows';
-  import ShopItem from '../shopItem';
+import _filter from 'lodash/filter';
+import _orderBy from 'lodash/orderBy';
+import { mapState } from '@/libs/store';
+import LayoutSection from '@/components/ui/layoutSection';
+import FilterDropdown from '@/components/ui/filterDropdown';
+import ItemRows from '@/components/ui/itemRows';
+import ShopItem from '../shopItem';
 
-  import shops from '@/../../common/script/libs/shops';
+import shops from '@/../../common/script/libs/shops';
 
-  import svgPin from '@/assets/svg/pin.svg';
-  import svgWarrior from '@/assets/svg/warrior.svg';
-  import svgWizard from '@/assets/svg/wizard.svg';
-  import svgRogue from '@/assets/svg/rogue.svg';
-  import svgHealer from '@/assets/svg/healer.svg';
+import svgPin from '@/assets/svg/pin.svg';
+import svgWarrior from '@/assets/svg/warrior.svg';
+import svgWizard from '@/assets/svg/wizard.svg';
+import svgRogue from '@/assets/svg/rogue.svg';
+import svgHealer from '@/assets/svg/healer.svg';
 
-  import _filter from 'lodash/filter';
-  import _orderBy from 'lodash/orderBy';
-  import pinUtils from '../../../mixins/pinUtils';
+import pinUtils from '../../../mixins/pinUtils';
 
-  const sortGearTypes = ['sortByType', 'sortByPrice', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'].map(g => ({id: g}));
+const sortGearTypes = ['sortByType', 'sortByPrice', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'].map(g => ({ id: g }));
 
-  const sortGearTypeMap = {
-    sortByType: 'type',
-    sortByPrice: 'value',
-    sortByCon: 'con',
-    sortByPer: 'per',
-    sortByStr: 'str',
-    sortByInt: 'int',
-  };
+const sortGearTypeMap = {
+  sortByType: 'type',
+  sortByPrice: 'value',
+  sortByCon: 'con',
+  sortByPer: 'per',
+  sortByStr: 'str',
+  sortByInt: 'int',
+};
 
-  export default {
-    mixins: [pinUtils],
-    props: ['hideLocked', 'hidePinned', 'searchBy'],
-    components: {
-      LayoutSection,
-      FilterDropdown,
-      ItemRows,
-      ShopItem,
-    },
-    data () {
-      return {
-        sortGearBy: sortGearTypes,
-        selectedSortGearBy: sortGearTypes[0],
-        selectedGroupGearByClass: '',
-        icons: Object.freeze({
-          pin: svgPin,
-          warrior: svgWarrior,
-          wizard: svgWizard,
-          rogue: svgRogue,
-          healer: svgHealer,
-        }),
-      };
-    },
-    computed: {
-      ...mapState({
-        content: 'content',
-        user: 'user.data',
-        userItems: 'user.data.items',
-        userStats: 'user.data.stats',
+export default {
+  components: {
+    LayoutSection,
+    FilterDropdown,
+    ItemRows,
+    ShopItem,
+  },
+  mixins: [pinUtils],
+  props: ['hideLocked', 'hidePinned', 'searchBy'],
+  data () {
+    return {
+      sortGearBy: sortGearTypes,
+      selectedSortGearBy: sortGearTypes[0],
+      selectedGroupGearByClass: '',
+      icons: Object.freeze({
+        pin: svgPin,
+        warrior: svgWarrior,
+        wizard: svgWizard,
+        rogue: svgRogue,
+        healer: svgHealer,
       }),
-      marketGearCategories () {
-        return shops.getMarketGearCategories(this.user).map(c => {
-          c.id = c.identifier;
+    };
+  },
+  computed: {
+    ...mapState({
+      content: 'content',
+      user: 'user.data',
+      userItems: 'user.data.items',
+      userStats: 'user.data.stats',
+    }),
+    marketGearCategories () {
+      return shops.getMarketGearCategories(this.user).map(c => {
+        c.id = c.identifier;
 
-          return c;
-        });
-      },
-      selectedGearCategory () {
-        return this.marketGearCategories.filter(c => c.id === this.selectedGroupGearByClass)[0];
-      },
-      sortedGearItems () {
-        let result = this.filterGearItems();
-        let selectedSortKey = sortGearTypeMap[this.selectedSortGearBy.id];
-        let sortingByStat = selectedSortKey !== 'type' && selectedSortKey !== 'value';
-        let order = sortingByStat ? 'desc' : 'asc';
-
-        // split into unlocked and locked, then apply selected sort
-        return _orderBy(result, ['locked', selectedSortKey], ['asc', order]);
-      },
+        return c;
+      });
     },
-    methods: {
-      getClassName (classType) {
-        if (classType === 'wizard') {
-          return this.$t('mage');
-        } else {
-          return this.$t(classType);
-        }
-      },
-      gearSelected (item) {
-        if (!item.locked) {
-          this.$root.$emit('buyModal::showItem', item);
-        }
-      },
-      filterGearItems () {
-        let category = _filter(this.marketGearCategories, ['identifier', this.selectedGroupGearByClass]);
-        let items = category[0].items;
+    selectedGearCategory () {
+      return this.marketGearCategories.filter(c => c.id === this.selectedGroupGearByClass)[0];
+    },
+    sortedGearItems () {
+      const result = this.filterGearItems();
+      const selectedSortKey = sortGearTypeMap[this.selectedSortGearBy.id];
+      const sortingByStat = selectedSortKey !== 'type' && selectedSortKey !== 'value';
+      const order = sortingByStat ? 'desc' : 'asc';
 
-        return _filter(items, (gear) => {
-          if (this.hideLocked && gear.locked) {
+      // split into unlocked and locked, then apply selected sort
+      return _orderBy(result, ['locked', selectedSortKey], ['asc', order]);
+    },
+  },
+  created () {
+    this.selectedGroupGearByClass = this.userStats.class;
+  },
+  methods: {
+    getClassName (classType) {
+      if (classType === 'wizard') {
+        return this.$t('mage');
+      }
+      return this.$t(classType);
+    },
+    gearSelected (item) {
+      if (!item.locked) {
+        this.$root.$emit('buyModal::showItem', item);
+      }
+    },
+    filterGearItems () {
+      const category = _filter(this.marketGearCategories, ['identifier', this.selectedGroupGearByClass]);
+      const { items } = category[0];
+
+      return _filter(items, gear => {
+        if (this.hideLocked && gear.locked) {
+          return false;
+        }
+        if (this.hidePinned && gear.pinned) {
+          return false;
+        }
+
+        if (this.searchBy) {
+          const foundPosition = gear.text.toLowerCase().indexOf(this.searchBy);
+          if (foundPosition === -1) {
             return false;
           }
-          if (this.hidePinned && gear.pinned) {
-            return false;
-          }
+        }
 
-          if (this.searchBy) {
-            let foundPosition = gear.text.toLowerCase().indexOf(this.searchBy);
-            if (foundPosition === -1) {
-              return false;
-            }
-          }
-
-          // hide already owned
-          return !this.userItems.gear.owned[gear.key];
-        });
-      },
+        // hide already owned
+        return !this.userItems.gear.owned[gear.key];
+      });
     },
-    created () {
-      this.selectedGroupGearByClass = this.userStats.class;
-    },
-  };
+  },
+};
 </script>
 
 <style lang="scss" scoped>

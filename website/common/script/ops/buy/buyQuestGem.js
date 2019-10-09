@@ -10,11 +10,7 @@ import errorMessage from '../../libs/errorMessage';
 import { AbstractGemItemOperation } from './abstractBuyOperation';
 
 export class BuyQuestWithGemOperation extends AbstractGemItemOperation { // eslint-disable-line import/prefer-default-export, max-len
-  constructor (user, req, analytics) {
-    super(user, req, analytics);
-  }
-
-  multiplePurchaseAllowed () {
+  multiplePurchaseAllowed () { // eslint-disable-line class-methods-use-this
     return true;
   }
 
@@ -22,11 +18,11 @@ export class BuyQuestWithGemOperation extends AbstractGemItemOperation { // esli
     return this.key;
   }
 
-  getItemValue (item) {
+  getItemValue (item) { // eslint-disable-line class-methods-use-this
     return item.value / 4;
   }
 
-  getItemType () {
+  getItemType () { // eslint-disable-line class-methods-use-this
     return 'quest';
   }
 

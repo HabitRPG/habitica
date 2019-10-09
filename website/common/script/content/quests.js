@@ -3520,7 +3520,7 @@ each(quests, (v, key) => {
       def: 1,
     });
     if (b.rage) {
-      return defaults(b.rage, {
+      defaults(b.rage, {
         title: t('bossRageTitle'),
         description: t('bossRageDescription'),
       });

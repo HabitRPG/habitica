@@ -15,7 +15,8 @@ describe('Filter Category for Tasks', () => {
   });
 
   describe('getFilterLabels', () => {
-    let habit, daily, todo, reward;
+    let habit; let daily; let todo; let
+      reward;
     beforeEach(() => {
       habit = ['all', 'yellowred', 'greenblue'];
       daily = ['all', 'due', 'notDue'];
@@ -45,15 +46,15 @@ describe('Filter Category for Tasks', () => {
 
   describe('getActiveFilter', () => {
     it('should return single function by default', () => {
-      let activeFilter = getActiveFilter('habit');
+      const activeFilter = getActiveFilter('habit');
       expect(activeFilter).to.be.an('object');
       expect(activeFilter).to.have.all.keys('label', 'filterFn', 'default');
       expect(activeFilter.default).to.be.true;
     });
 
     it('should return single function for given filter type', () => {
-      let activeFilterLabel = 'yellowred';
-      let activeFilter = getActiveFilter('habit', activeFilterLabel);
+      const activeFilterLabel = 'yellowred';
+      const activeFilter = getActiveFilter('habit', activeFilterLabel);
       expect(activeFilter).to.be.an('object');
       expect(activeFilter).to.have.all.keys('label', 'filterFn');
       expect(activeFilter.label).to.eq(activeFilterLabel);

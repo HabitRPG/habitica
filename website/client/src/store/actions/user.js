@@ -1,6 +1,6 @@
-import { loadAsyncResource } from '@/libs/asyncResource';
 import setProps from 'lodash/set';
 import axios from 'axios';
+import { loadAsyncResource } from '@/libs/asyncResource';
 
 import { togglePinnedItem as togglePinnedItemOp } from '@/../../common/script/ops/pinnedGearUtils';
 import changeClassOp from '@/../../common/script/ops/changeClass';
@@ -22,12 +22,10 @@ export function fetch (store, options = {}) { // eslint-disable-line no-shadow
 export async function set (store, changes) {
   const user = store.state.user.data;
 
-  for (let key in changes) {
+  for (const key in changes) {
     if (key === 'tags') {
       // Keep challenge and group tags
-      const oldTags = user.tags.filter(t => {
-        return t.group;
-      });
+      const oldTags = user.tags.filter(t => t.group);
 
       user.tags = changes[key].concat(oldTags);
 
@@ -51,7 +49,7 @@ export async function set (store, changes) {
     }
   }
 
-  let response = await axios.put('/api/v4/user', changes);
+  const response = await axios.put('/api/v4/user', changes);
   return response.data.data;
 }
 
@@ -60,22 +58,22 @@ export async function sleep (store) {
 
   user.preferences.sleep = !user.preferences.sleep;
 
-  let response = await axios.post('/api/v4/user/sleep');
+  const response = await axios.post('/api/v4/user/sleep');
   return response.data.data;
 }
 
 export async function addWebhook (store, payload) {
-  let response = await axios.post('/api/v4/user/webhook', payload.webhookInfo);
+  const response = await axios.post('/api/v4/user/webhook', payload.webhookInfo);
   return response.data.data;
 }
 
 export async function updateWebhook (store, payload) {
-  let response = await axios.put(`/api/v4/user/webhook/${payload.webhook.id}`, payload.webhook);
+  const response = await axios.put(`/api/v4/user/webhook/${payload.webhook.id}`, payload.webhook);
   return response.data.data;
 }
 
 export async function deleteWebhook (store, payload) {
-  let response = await axios.delete(`/api/v4/user/webhook/${payload.webhook.id}`);
+  const response = await axios.delete(`/api/v4/user/webhook/${payload.webhook.id}`);
   return response.data.data;
 }
 
@@ -85,7 +83,7 @@ export async function changeClass (store, params) {
   changeClassOp(user, params);
   user.flags.classSelected = true;
 
-  let response = await axios.post(`/api/v4/user/change-class?class=${params.query.class}`);
+  const response = await axios.post(`/api/v4/user/change-class?class=${params.query.class}`);
   return response.data.data;
 }
 
@@ -93,14 +91,14 @@ export async function disableClasses (store) {
   const user = store.state.user.data;
 
   disableClassesOp(user);
-  let response = await axios.post('/api/v4/user/disable-classes');
+  const response = await axios.post('/api/v4/user/disable-classes');
   return response.data.data;
 }
 
 export function togglePinnedItem (store, params) {
   const user = store.state.user.data;
 
-  let addedItem = togglePinnedItemOp(user, params);
+  const addedItem = togglePinnedItemOp(user, params);
 
   axios.get(`/api/v4/user/toggle-pinned-item/${params.type}/${params.path}`);
   // TODO
@@ -111,7 +109,7 @@ export function togglePinnedItem (store, params) {
 }
 
 export async function movePinnedItem (store, params) {
-  let response = await axios.post(`/api/v4/user/move-pinned-item/${params.path}/move/to/${params.position}`);
+  const response = await axios.post(`/api/v4/user/move-pinned-item/${params.path}/move/to/${params.position}`);
   return response.data.data;
 }
 
@@ -127,7 +125,7 @@ export function castSpell (store, params) {
 }
 
 export async function openMysteryItem (store) {
-  let user = store.state.user.data;
+  const user = store.state.user.data;
   openMysteryItemOp(user);
   return axios.post('/api/v4/user/open-mystery-item');
 }
@@ -138,17 +136,16 @@ export function newStuffLater (store) {
 }
 
 export async function rebirth () {
-  let result = await axios.post('/api/v4/user/rebirth');
+  const result = await axios.post('/api/v4/user/rebirth');
 
   return result;
 }
 
 export async function togglePrivateMessagesOpt (store) {
-  let response = await axios.put('/api/v4/user',
+  const response = await axios.put('/api/v4/user',
     {
       'inbox.optOut': !store.state.user.data.inbox.optOut,
-    }
-  );
+    });
   store.state.user.data.inbox.optOut = !store.state.user.data.inbox.optOut;
   return response;
 }

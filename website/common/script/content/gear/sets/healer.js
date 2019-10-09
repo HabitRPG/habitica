@@ -103,7 +103,6 @@ const shield = {
 };
 
 const weapon = {
-
   0: {
     text: t('weaponHealer0Text'),
     notes: t('weaponHealer0Notes'),

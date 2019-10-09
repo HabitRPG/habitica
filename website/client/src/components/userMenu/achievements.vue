@@ -66,7 +66,7 @@ export default {
     this.achievements = achievementsLib.getAchievementsForProfile(this.user);
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
   },
 };
 </script>

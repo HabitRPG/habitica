@@ -40,124 +40,118 @@ drawer.inventoryDrawer(
 </template>
 
 <script>
-  import {mapState} from '@/libs/store';
-  import inventoryUtils from '@/mixins/inventoryUtils';
-  import svgInformation from '@/assets/svg/information.svg';
-  import _filter from 'lodash/filter';
+import _filter from 'lodash/filter';
+import { mapState } from '@/libs/store';
+import inventoryUtils from '@/mixins/inventoryUtils';
+import svgInformation from '@/assets/svg/information.svg';
 
-  import CountBadge from '@/components/ui/countBadge';
-  import Item from '@/components/inventory/item';
-  import Drawer from '@/components/ui/drawer';
-  import DrawerSlider from '@/components/ui/drawerSlider';
-  import DrawerHeaderTabs from '@/components/ui/drawerHeaderTabs';
+import CountBadge from '@/components/ui/countBadge';
+import Item from '@/components/inventory/item';
+import Drawer from '@/components/ui/drawer';
+import DrawerSlider from '@/components/ui/drawerSlider';
+import DrawerHeaderTabs from '@/components/ui/drawerHeaderTabs';
 
-  export default {
-    mixins: [inventoryUtils],
-    components: {
-      Item,
-      CountBadge,
-      Drawer,
-      DrawerSlider,
-      DrawerHeaderTabs,
+export default {
+  components: {
+    Item,
+    CountBadge,
+    Drawer,
+    DrawerSlider,
+    DrawerHeaderTabs,
+  },
+  mixins: [inventoryUtils],
+  props: {
+    defaultSelectedTab: {
+      type: Number,
+      default: 0,
     },
-    props: {
-      defaultSelectedTab: {
-        type: Number,
-        default: 0,
-      },
-      showEggs: Boolean,
-      showPotions: Boolean,
-    },
-    data () {
-      return {
-        drawerTabs: [
-          {
-            key: 'eggs',
-            label: this.$t('eggs'),
-            show: () => this.showEggs,
-          },
-          {
-            key: 'food',
-            label: this.$t('foodTitle'),
-            show: () => true,
-          },
-          {
-            key: 'hatchingPotions',
-            label: this.$t('hatchingPotions'),
-            show: () => this.showPotions,
-          },
-          {
-            key: 'special',
-            contentType: 'food',
-            label: this.$t('special'),
-            show: () => true,
-          },
-        ],
-        selectedDrawerTab: this.defaultSelectedTab,
+    showEggs: Boolean,
+    showPotions: Boolean,
+  },
+  data () {
+    return {
+      drawerTabs: [
+        {
+          key: 'eggs',
+          label: this.$t('eggs'),
+          show: () => this.showEggs,
+        },
+        {
+          key: 'food',
+          label: this.$t('foodTitle'),
+          show: () => true,
+        },
+        {
+          key: 'hatchingPotions',
+          label: this.$t('hatchingPotions'),
+          show: () => this.showPotions,
+        },
+        {
+          key: 'special',
+          contentType: 'food',
+          label: this.$t('special'),
+          show: () => true,
+        },
+      ],
+      selectedDrawerTab: this.defaultSelectedTab,
 
-        icons: Object.freeze({
-          information: svgInformation,
-        }),
-      };
-    },
-    computed: {
-      ...mapState({
-        content: 'content',
-        userItems: 'user.data.items',
+      icons: Object.freeze({
+        information: svgInformation,
       }),
-      selectedDrawerItemType () {
-        return this.filteredTabs[this.selectedDrawerTab].key;
-      },
-      selectedDrawerContentType () {
-        return this.filteredTabs[this.selectedDrawerTab].contentType ||
-          this.selectedDrawerItemType;
-      },
-      filteredTabs () {
-        return this.drawerTabs.filter(t => t.show());
-      },
+    };
+  },
+  computed: {
+    ...mapState({
+      content: 'content',
+      userItems: 'user.data.items',
+    }),
+    selectedDrawerItemType () {
+      return this.filteredTabs[this.selectedDrawerTab].key;
     },
-    methods: {
-      ownedItems (type) {
-        let mappedItems = _filter(this.content[type], i => {
-          return this.userItems[type][i.key] > 0;
-        });
+    selectedDrawerContentType () {
+      return this.filteredTabs[this.selectedDrawerTab].contentType
+          || this.selectedDrawerItemType;
+    },
+    filteredTabs () {
+      return this.drawerTabs.filter(t => t.show());
+    },
+  },
+  methods: {
+    ownedItems (type) {
+      const mappedItems = _filter(this.content[type], i => this.userItems[type][i.key] > 0);
 
-        switch (type) {
-          case 'food':
-            return _filter(mappedItems, f => {
-              return f.key !== 'Saddle';
-            });
-          case 'special':
-            if (this.userItems.food.Saddle) {
-              return _filter(this.content.food, f => {
-                return f.key === 'Saddle';
-              });
-            } else {
-              return [];
-            }
-          default:
-            return mappedItems;
-        }
-      },
-      tabSelected ($event) {
-        this.selectedDrawerTab = $event;
-      },
-      hasOwnedItemsForType (type) {
-        return this.ownedItems(type).length > 0;
-      },
-      inventoryDrawerErrorMessage (type) {
-        if (!this.hasOwnedItemsForType(type)) {
-          switch (type) {
-            case 'food': return this.$t('noFoodAvailable');
-            case 'special': return this.$t('noSaddlesAvailable');
-            default:
-              // @TODO: Change any places using similar locales from `pets.json` and use these new locales from 'inventory.json'
-              return this.$t('noItemsAvailableForType', {type: this.$t(`${type}ItemType`)});
+      switch (type) {
+        case 'food':
+          return _filter(mappedItems, f => f.key !== 'Saddle');
+        case 'special':
+          if (this.userItems.food.Saddle) {
+            return _filter(this.content.food, f => f.key === 'Saddle');
           }
-        }
-      },
+          return [];
+
+        default:
+          return mappedItems;
+      }
     },
-  };
+    tabSelected ($event) {
+      this.selectedDrawerTab = $event;
+    },
+    hasOwnedItemsForType (type) {
+      return this.ownedItems(type).length > 0;
+    },
+    inventoryDrawerErrorMessage (type) {
+      if (!this.hasOwnedItemsForType(type)) {
+        switch (type) {
+          case 'food': return this.$t('noFoodAvailable');
+          case 'special': return this.$t('noSaddlesAvailable');
+          default:
+            // @TODO: Change any places using similar locales from `pets.json` and use these new locales from 'inventory.json'
+            return this.$t('noItemsAvailableForType', { type: this.$t(`${type}ItemType`) });
+        }
+      }
+    },
+  },
+};
 </script>
 
 <style lang="scss">

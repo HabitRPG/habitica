@@ -23,29 +23,29 @@
 </template>
 
 <script>
-  import gem from '@/assets/svg/gem.svg';
-  import gold from '@/assets/svg/gold.svg';
-  import {avatarEditorUtilies} from '../../mixins/avatarEditUtilities';
+import gem from '@/assets/svg/gem.svg';
+import gold from '@/assets/svg/gold.svg';
+import { avatarEditorUtilies } from '../../mixins/avatarEditUtilities';
 
-  export default {
-    props: ['items', 'currentValue', 'fullSet'],
-    mixins: [
-      avatarEditorUtilies,
-    ],
-    data () {
-      return {
-        icons: Object.freeze({
-          gem,
-          gold,
-        }),
-      };
+export default {
+  mixins: [
+    avatarEditorUtilies,
+  ],
+  props: ['items', 'currentValue', 'fullSet'],
+  data () {
+    return {
+      icons: Object.freeze({
+        gem,
+        gold,
+      }),
+    };
+  },
+  methods: {
+    unlock () {
+      this.$emit('unlock');
     },
-    methods: {
-      unlock () {
-        this.$emit('unlock');
-      },
-    },
-  };
+  },
+};
 </script>
 
 <style lang="scss" scoped>

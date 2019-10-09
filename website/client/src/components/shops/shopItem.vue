@@ -150,104 +150,102 @@ div
 </style>
 
 <script>
-  import uuid from 'uuid';
+import uuid from 'uuid';
 
-  import svgGem from '@/assets/svg/gem.svg';
-  import svgGold from '@/assets/svg/gold.svg';
-  import svgHourglasses from '@/assets/svg/hourglass.svg';
-  import svgLock from '@/assets/svg/lock.svg';
-  import svgClock from '@/assets/svg/clock.svg';
+import moment from 'moment';
+import svgGem from '@/assets/svg/gem.svg';
+import svgGold from '@/assets/svg/gold.svg';
+import svgHourglasses from '@/assets/svg/hourglass.svg';
+import svgLock from '@/assets/svg/lock.svg';
+import svgClock from '@/assets/svg/clock.svg';
 
-  import EquipmentAttributesPopover from '@/components/inventory/equipment/attributesPopover';
+import EquipmentAttributesPopover from '@/components/inventory/equipment/attributesPopover';
 
-  import QuestInfo from './quests/questInfo.vue';
+import QuestInfo from './quests/questInfo.vue';
 
-  import moment from 'moment';
 
-  import seasonalShopConfig from '@/../../common/script/libs/shops-seasonal.config';
+import seasonalShopConfig from '@/../../common/script/libs/shops-seasonal.config';
 
-  export default {
-    components: {
-      EquipmentAttributesPopover,
-      QuestInfo,
+export default {
+  components: {
+    EquipmentAttributesPopover,
+    QuestInfo,
+  },
+  props: {
+    item: {
+      type: Object,
     },
-    data () {
-      return Object.freeze({
-        itemId: uuid.v4(),
-        icons: {
-          gems: svgGem,
-          gold: svgGold,
-          lock: svgLock,
-          hourglasses: svgHourglasses,
-          clock: svgClock,
-        },
-      });
+    price: {
+      type: Number,
+      default: -1,
     },
-    props: {
-      item: {
-        type: Object,
-      },
-      price: {
-        type: Number,
-        default: -1,
-      },
-      emptyItem: {
-        type: Boolean,
-        default: false,
-      },
-      highlightBorder: {
-        type: Boolean,
-        default: false,
-      },
-      popoverPosition: {
-        type: String,
-        default: 'bottom',
-      },
-      showPopover: {
-        type: Boolean,
-        default: true,
-      },
-      showEventBadge: {
-        type: Boolean,
-        default: true,
-      },
+    emptyItem: {
+      type: Boolean,
+      default: false,
     },
-    computed: {
-      showNotes () {
-        if (['armoire', 'potion'].indexOf(this.item.path) > -1) return true;
-        return false;
-      },
-      currencyClass () {
-        if (this.item.currency && this.icons[this.item.currency]) {
-          return this.item.currency;
-        } else {
-          return 'gold';
-        }
-      },
-      limitedString () {
-        return this.item.owned === false ? '' :
-          this.$t('limitedOffer', {date: moment(seasonalShopConfig.dateRange.end).format('LL')});
-      },
+    highlightBorder: {
+      type: Boolean,
+      default: false,
     },
-    methods: {
-      click () {
-        this.$emit('click', {});
-      },
-      getPrice () {
-        if (this.price === -1) {
-          return this.item.value;
-        } else {
-          return this.price;
-        }
-      },
-      getItemClasses () {
-        return {
-          'item-empty': this.emptyItem,
-          'highlight-border': this.highlightBorder,
-          suggested: this.item.isSuggested,
-          locked: this.item.locked,
-        };
-      },
+    popoverPosition: {
+      type: String,
+      default: 'bottom',
     },
-  };
+    showPopover: {
+      type: Boolean,
+      default: true,
+    },
+    showEventBadge: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  data () {
+    return Object.freeze({
+      itemId: uuid.v4(),
+      icons: {
+        gems: svgGem,
+        gold: svgGold,
+        lock: svgLock,
+        hourglasses: svgHourglasses,
+        clock: svgClock,
+      },
+    });
+  },
+  computed: {
+    showNotes () {
+      if (['armoire', 'potion'].indexOf(this.item.path) > -1) return true;
+      return false;
+    },
+    currencyClass () {
+      if (this.item.currency && this.icons[this.item.currency]) {
+        return this.item.currency;
+      }
+      return 'gold';
+    },
+    limitedString () {
+      return this.item.owned === false ? ''
+        : this.$t('limitedOffer', { date: moment(seasonalShopConfig.dateRange.end).format('LL') });
+    },
+  },
+  methods: {
+    click () {
+      this.$emit('click', {});
+    },
+    getPrice () {
+      if (this.price === -1) {
+        return this.item.value;
+      }
+      return this.price;
+    },
+    getItemClasses () {
+      return {
+        'item-empty': this.emptyItem,
+        'highlight-border': this.highlightBorder,
+        suggested: this.item.isSuggested,
+        locked: this.item.locked,
+      };
+    },
+  },
+};
 </script>

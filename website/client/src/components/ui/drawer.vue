@@ -165,15 +165,19 @@ export default {
   computed: {
     isOpen () {
       // Open status is a number so we can tell if the value was passed
-      if (this.openStatus !== undefined) return this.openStatus === 1 ? true : false;
+      if (this.openStatus !== undefined) return this.openStatus === 1;
       return this.open;
     },
   },
+  mounted () {
+    // Make sure the page has enough space so the drawer does not overlap content
+    this.adjustPagePadding();
+  },
   methods: {
     adjustPagePadding () {
-      let minPaddingBottom = 20;
-      let drawerHeight = this.$el.offsetHeight;
-      let standardPage = document.getElementsByClassName('standard-page')[0];
+      const minPaddingBottom = 20;
+      const drawerHeight = this.$el.offsetHeight;
+      const standardPage = document.getElementsByClassName('standard-page')[0];
       if (standardPage) {
         standardPage.style.paddingBottom = `${drawerHeight + minPaddingBottom}px`;
       }
@@ -182,10 +186,6 @@ export default {
       this.open = !this.isOpen;
       this.$emit('toggled', this.open);
     },
-  },
-  mounted () {
-    // Make sure the page has enough space so the drawer does not overlap content
-    this.adjustPagePadding();
   },
 };
 </script>

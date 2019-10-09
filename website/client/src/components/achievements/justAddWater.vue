@@ -19,28 +19,28 @@
 </style>
 
 <script>
-  import achievementFooter from './achievementFooter';
-  import achievementAvatar from './achievementAvatar';
+import achievementFooter from './achievementFooter';
+import achievementAvatar from './achievementAvatar';
 
-  import {mapState} from '@/libs/store';
+import { mapState } from '@/libs/store';
 
-  export default {
-    components: {
-      achievementFooter,
-      achievementAvatar,
+export default {
+  components: {
+    achievementFooter,
+    achievementAvatar,
+  },
+  computed: {
+    ...mapState({ user: 'user.data' }),
+  },
+  data () {
+    return {
+      title: `${this.$t('modalAchievement')} ${this.$t('achievementJustAddWater')}`,
+    };
+  },
+  methods: {
+    close () {
+      this.$root.$emit('bv::hide::modal', 'just-add-water');
     },
-    computed: {
-      ...mapState({user: 'user.data'}),
-    },
-    data () {
-      return {
-        title: `${this.$t('modalAchievement')} ${this.$t('achievementJustAddWater')}`,
-      };
-    },
-    methods: {
-      close () {
-        this.$root.$emit('bv::hide::modal', 'just-add-water');
-      },
-    },
-  };
+  },
+};
 </script>

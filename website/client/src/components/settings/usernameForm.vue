@@ -95,127 +95,127 @@
 </style>
 
 <script>
-  import axios from 'axios';
-  import debounce from 'lodash/debounce';
-  import { mapState } from '@/libs/store';
+import axios from 'axios';
+import debounce from 'lodash/debounce';
+import { mapState } from '@/libs/store';
 
-  export default {
-    computed: {
-      ...mapState({
-        user: 'user.data',
-      }),
-      displayNameInvalid () {
-        if (this.temporaryDisplayName.length < 1) return false;
-        return !this.displayNameValid;
-      },
-      displayNameValid () {
-        if (this.temporaryDisplayName.length < 1) return false;
-        return this.displayNameIssues.length === 0;
-      },
-      usernameCannotSubmit () {
-        if (this.temporaryUsername.length < 1) return true;
-        return !this.usernameValid || !this.displayNameValid;
-      },
-      usernameInvalid () {
-        if (this.temporaryUsername.length < 1) return false;
-        return !this.usernameValid;
-      },
-      usernameValid () {
-        if (this.temporaryUsername.length < 1) return false;
-        return this.usernameIssues.length === 0;
-      },
+export default {
+  computed: {
+    ...mapState({
+      user: 'user.data',
+    }),
+    displayNameInvalid () {
+      if (this.temporaryDisplayName.length < 1) return false;
+      return !this.displayNameValid;
     },
-    data () {
-      return {
-        displayNameIssues: [],
-        temporaryDisplayName: '',
-        temporaryUsername: '',
-        usernameIssues: [],
-      };
+    displayNameValid () {
+      if (this.temporaryDisplayName.length < 1) return false;
+      return this.displayNameIssues.length === 0;
     },
-    methods: {
-      async close () {
-        this.$root.$emit('habitica::resync-requested');
-        await this.$store.dispatch('user:fetch', {forceLoad: true});
-        this.$root.$emit('habitica::resync-completed');
-        if (this.avatarIntro) {
-          this.$emit('usernameConfirmed');
+    usernameCannotSubmit () {
+      if (this.temporaryUsername.length < 1) return true;
+      return !this.usernameValid || !this.displayNameValid;
+    },
+    usernameInvalid () {
+      if (this.temporaryUsername.length < 1) return false;
+      return !this.usernameValid;
+    },
+    usernameValid () {
+      if (this.temporaryUsername.length < 1) return false;
+      return this.usernameIssues.length === 0;
+    },
+  },
+  data () {
+    return {
+      displayNameIssues: [],
+      temporaryDisplayName: '',
+      temporaryUsername: '',
+      usernameIssues: [],
+    };
+  },
+  methods: {
+    async close () {
+      this.$root.$emit('habitica::resync-requested');
+      await this.$store.dispatch('user:fetch', { forceLoad: true });
+      this.$root.$emit('habitica::resync-completed');
+      if (this.avatarIntro) {
+        this.$emit('usernameConfirmed');
+      } else {
+        this.$root.$emit('bv::hide::modal', 'verify-username');
+        this.$router.go(0);
+      }
+    },
+    restoreEmptyDisplayName () {
+      if (this.temporaryDisplayName.length < 1) {
+        this.temporaryDisplayName = this.user.profile.name;
+      }
+    },
+    restoreEmptyUsername () {
+      if (this.temporaryUsername.length < 1) {
+        this.temporaryUsername = this.user.auth.local.username;
+      }
+    },
+    async submitNames () {
+      if (this.temporaryDisplayName !== this.user.profile.name) {
+        await axios.put('/api/v4/user/', { 'profile.name': this.temporaryDisplayName });
+      }
+      await axios.put('/api/v4/user/auth/update-username', { username: this.temporaryUsername });
+      this.close();
+    },
+    validateDisplayName: debounce(function checkName (displayName) {
+      if (displayName.length <= 1 || displayName === this.user.profile.name) {
+        this.displayNameIssues = [];
+        return;
+      }
+      this.$store.dispatch('auth:verifyDisplayName', {
+        displayName,
+      }).then(res => {
+        if (res.issues !== undefined) {
+          this.displayNameIssues = res.issues;
         } else {
-          this.$root.$emit('bv::hide::modal', 'verify-username');
-          this.$router.go(0);
-        }
-      },
-      restoreEmptyDisplayName () {
-        if (this.temporaryDisplayName.length < 1) {
-          this.temporaryDisplayName = this.user.profile.name;
-        }
-      },
-      restoreEmptyUsername () {
-        if (this.temporaryUsername.length < 1) {
-          this.temporaryUsername = this.user.auth.local.username;
-        }
-      },
-      async submitNames () {
-        if (this.temporaryDisplayName !== this.user.profile.name) {
-          await axios.put('/api/v4/user/', {'profile.name': this.temporaryDisplayName});
-        }
-        await axios.put('/api/v4/user/auth/update-username', {username: this.temporaryUsername});
-        this.close();
-      },
-      validateDisplayName: debounce(function checkName (displayName) {
-        if (displayName.length <= 1 || displayName === this.user.profile.name) {
           this.displayNameIssues = [];
-          return;
         }
-        this.$store.dispatch('auth:verifyDisplayName', {
-          displayName,
-        }).then(res => {
-          if (res.issues !== undefined) {
-            this.displayNameIssues = res.issues;
-          } else {
-            this.displayNameIssues = [];
-          }
-        });
-      }, 500),
-      validateUsername: debounce(function checkName (username) {
-        if (username.length <= 1 || username === this.user.auth.local.username) {
+      });
+    }, 500),
+    validateUsername: debounce(function checkName (username) {
+      if (username.length <= 1 || username === this.user.auth.local.username) {
+        this.usernameIssues = [];
+        return;
+      }
+      this.$store.dispatch('auth:verifyUsername', {
+        username,
+      }).then(res => {
+        if (res.issues !== undefined) {
+          this.usernameIssues = res.issues;
+        } else {
           this.usernameIssues = [];
-          return;
         }
-        this.$store.dispatch('auth:verifyUsername', {
-          username,
-        }).then(res => {
-          if (res.issues !== undefined) {
-            this.usernameIssues = res.issues;
-          } else {
-            this.usernameIssues = [];
-          }
-        });
-      }, 500),
-    },
-    mounted () {
-      this.temporaryDisplayName = this.user.profile.name;
-      this.temporaryUsername = this.user.auth.local.username;
-    },
-    props: {
-      avatarIntro: {
-        type: Boolean,
-        default: false,
+      });
+    }, 500),
+  },
+  watch: {
+    temporaryDisplayName: {
+      handler () {
+        this.validateDisplayName(this.temporaryDisplayName);
       },
+      deep: true,
     },
-    watch: {
-      temporaryDisplayName: {
-        handler () {
-          this.validateDisplayName(this.temporaryDisplayName);
-        },
-        deep: true,
+    temporaryUsername: {
+      handler () {
+        this.validateUsername(this.temporaryUsername);
       },
-      temporaryUsername: {
-        handler () {
-          this.validateUsername(this.temporaryUsername);
-        },
-        deep: true,
-      },
+      deep: true,
     },
-  };
+  },
+  mounted () {
+    this.temporaryDisplayName = this.user.profile.name;
+    this.temporaryUsername = this.user.auth.local.username;
+  },
+  props: {
+    avatarIntro: {
+      type: Boolean,
+      default: false,
+    },
+  },
+};
 </script>

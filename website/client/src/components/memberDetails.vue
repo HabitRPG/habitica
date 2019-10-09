@@ -161,6 +161,14 @@ export default {
     ClassBadge,
     StatsBar,
   },
+  filters: {
+    statFloor (value) {
+      if (value < 1 && value > 0) {
+        return Math.ceil(value * 10) / 10;
+      }
+      return Math.floor(value);
+    },
+  },
   props: {
     member: {
       type: Object,
@@ -193,19 +201,10 @@ export default {
       }),
     };
   },
-  filters: {
-    statFloor (value) {
-      if (value < 1 && value > 0) {
-        return Math.ceil(value * 10) / 10;
-      } else {
-        return Math.floor(value);
-      }
-    },
-  },
   methods: {
     percent,
     showMemberModal (member) {
-      this.$router.push({name: 'userProfile', params: {userId: member._id}});
+      this.$router.push({ name: 'userProfile', params: { userId: member._id } });
     },
   },
   computed: {
