@@ -6,7 +6,7 @@
         button.btn.btn-secondary(@click='triggerLoad()') {{ $t('loadEarlierMessages') }}
         .loadmore-divider
       h2.col-12.loading(v-show="isLoading") {{ $t('loading') }}
-    .row.ml-2(v-for="(msg, index) in messages", v-if='chat', :class='{"mr-2": user._id !== msg.uuid}')
+    .row.message-row(v-for="(msg, index) in messages", v-if='chat', :class='{"margin-right": user._id !== msg.uuid}')
       .d-flex.flex-grow-1(v-if='user._id !== msg.uuid')
         avatar.avatar-left(
           v-if='msg.userStyles || (cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected)',
@@ -50,7 +50,7 @@
   }
 
   .avatar-left {
-    margin-left: -3rem;
+    margin-left: -1rem;
   }
 
   .avatar-right {
@@ -61,7 +61,7 @@
     border: 0px;
     margin-bottom: 0.5em;
     padding: 0rem;
-    width: 85%;
+    width: 100%;
   }
 
   .card-left {
@@ -121,6 +121,11 @@
     &:last-of-type {
       margin-right: 0;
     }
+  }
+
+  .message-row {
+    margin-left: 12px;
+    margin-right: 12px;
   }
 </style>
 

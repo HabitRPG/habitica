@@ -32,8 +32,8 @@
   @import '~client/assets/scss/colors.scss';
 
   .conversation {
-    padding: 1.5em;
-    border-top: 1px solid $gray-500;
+    padding: 1.5rem;
+    border-bottom: 1px solid $gray-500;
 
     &:hover {
       cursor: pointer;

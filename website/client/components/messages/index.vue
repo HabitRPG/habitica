@@ -70,11 +70,14 @@
           textarea.flex-fill(
             v-model='newMessage',
             @keyup.ctrl.enter='sendPrivateMessage()',
-            maxlength='3000'
+            :placeholder='$t("needsTextPlaceholder")',
+            maxlength='3000',
+            :class="{'has-content': newMessage !== ''}"
           )
-          button.btn.btn-primary(@click='sendPrivateMessage()') {{ $t('send') }}
-        .length-readout(v-if='selectedConversation.key && !user.flags.chatRevoked')
-          .ml-3 {{ currentLength }} / 3000
+        .sub-new-message-row.d-flex(v-if='selectedConversation.key && !user.flags.chatRevoked')
+          .guidelines.flex-fill(v-once, v-html="$t('communityGuidelinesIntro')")
+
+          button.btn.btn-primary(@click='sendPrivateMessage()', :class="{'disabled':newMessage === ''}") {{ $t('send') }}
 </template>
 
 <style lang="scss">
@@ -234,14 +237,6 @@
     }
   }
 
-  .length-readout {
-    background-color: $gray-700;
-    width: 100%;
-    border-bottom-right-radius: 3px;
-    margin: auto 0rem 0rem 0rem;
-    padding-bottom: 0.25rem;
-  }
-
   .messagePreview {
     display: block;
     display: -webkit-box;
@@ -268,24 +263,57 @@
   }
 
   .new-message-row {
-    background-color: $gray-700;
-    height: 4rem;
     width: 100%;
-    padding-left: 1rem;
-    padding-top: 1rem;
+    padding-left: 1.5rem;
+    padding-top: 1.5rem;
+    padding-right: 1.5rem;
 
     textarea {
-      height: 2.7rem;
+      height: 5.5rem;
       display: inline-block;
       vertical-align: bottom;
+      border-radius: 2px;
       z-index: 5;
+      border: solid 1px $gray-400;
+      opacity: 0.64;
+      background-color: $gray-500;
+
+      &:focus, &.has-content {
+        opacity: 1;
+        background-color: $white;
+      }
+    }
+  }
+
+  .sub-new-message-row {
+    padding: 1rem 1.5rem 1.5rem;
+
+    .guidelines {
+      height: 32px;
+      font-size: 12px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.33;
+      letter-spacing: normal;
+      color: $gray-200;
+      margin-top: 0.25rem;
+      margin-bottom: 0.25rem;
     }
 
     button {
-      vertical-align: bottom;
-      display: inline-block;
-      box-shadow: none;
-      margin: 0rem 0.75rem;
+      width: 65px;
+      height: 40px;
+      border-radius: 2px;
+      margin-left: 1.5rem;
+
+
+      &.disabled {
+        cursor: default;
+        pointer-events: none;
+        opacity: 0.64;
+        background-color: $gray-500;
+      }
     }
   }
 
@@ -318,7 +346,7 @@
 
     .search-section {
       padding: 1rem 1.5rem;
-      // box-shadow: 0 1px 2px 0 rgba(26, 24, 29, 0.24);
+      border-bottom: 1px solid $gray-500;
     }
   }
 
