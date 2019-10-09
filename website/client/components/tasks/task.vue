@@ -1,15 +1,15 @@
 <template lang="pug">
 .task-wrapper
-  .task(@click='castEnd($event, task)')
-    approval-header(:task='task', v-if='this.task.group.id', :group='group')
+  .task(@click='castEnd($event, task)', :class="[{'groupTask': task.group.id}, `type_${task.type}`]")
+    approval-header(:task='task', v-if='task.group.id', :group='group')
     .d-flex(:class="{'task-not-scoreable': isUser !== true}")
       // Habits left side control
-      .left-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="controlClass.up.bg")
+      .left-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="[{'control-bottom-box': this.task.group.id, 'control-top-box': approvalsClass}, controlClass.up.bg]")
         .task-control.habit-control(:class="controlClass.up.inner", @click="(isUser && task.up) ? score('up') : null")
           .svg-icon.lock(v-if="this.task.group.id && !isUser", v-html="icons.lock", :class="controlClass.up.icon")
           .svg-icon.positive(v-else, v-html="icons.positive")
       // Dailies and todos left side control
-      .left-control.d-flex.justify-content-center(v-if="task.type === 'daily' || task.type === 'todo'", :class="controlClass.bg")
+      .left-control.d-flex.justify-content-center(v-if="task.type === 'daily' || task.type === 'todo'", :class="[{'control-bottom-box': this.task.group.id, 'control-top-box': approvalsClass}, controlClass.bg]")
         .task-control.daily-todo-control(:class="controlClass.inner", @click="isUser ? score(task.completed ? 'down' : 'up') : null")
           .svg-icon.lock(v-html="icons.lock", v-if="this.task.group.id && !isUser && !task.completed", :class="controlClass.icon")
           .svg-icon.check(v-else, v-html="icons.check", :class="{'display-check-icon': task.completed, [controlClass.checkbox]: true}")
@@ -27,7 +27,7 @@
               div(slot="dropdown-toggle", draggable=false)
                 .svg-icon.dropdown-icon(v-html="icons.menu")
               div(slot="dropdown-content", draggable=false)
-                .dropdown-item.edit-task-item(ref="editTaskItem" v-if="showEdit")
+                .dropdown-item.edit-task-item(ref="editTaskItem")
                   span.dropdown-icon-item
                     span.svg-icon.inline.edit-icon(v-html="icons.edit")
                     span.text {{ $t('edit') }}
@@ -39,7 +39,7 @@
                   span.dropdown-icon-item
                     span.svg-icon.inline.push-to-bottom(v-html="icons.bottom")
                     span.text {{ $t('taskToBottom') }}
-                .dropdown-item(@click="destroy", v-if="showDelete")
+                .dropdown-item(@click="destroy", v-if="canDelete(task)")
                   span.dropdown-icon-item.delete-task-item
                     span.svg-icon.inline.delete(v-html="icons.delete")
                     span.text {{ $t('delete') }}
@@ -99,7 +99,7 @@
                   .tag-label(v-for="tag in getTagsFor(task)", v-markdown="tag")
 
       // Habits right side control
-      .right-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="controlClass.down.bg")
+      .right-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="[{'control-bottom-box': this.task.group.id, 'control-top-box': approvalsClass}, controlClass.down.bg]")
         .task-control.habit-control(:class="controlClass.down.inner", @click="(isUser && task.down) ? score('down') : null")
           .svg-icon.lock(v-if="this.task.group.id && !isUser", v-html="icons.lock", :class="controlClass.down.icon")
           .svg-icon.negative(v-else, v-html="icons.negative")
@@ -107,11 +107,22 @@
       .right-control.d-flex.align-items-center.justify-content-center.reward-control(v-if="task.type === 'reward'", :class="controlClass.bg", @click="isUser ? score('down') : null")
         .svg-icon(v-html="icons.gold")
         .small-text {{task.value}}
-    approval-footer(:task='task', v-if='this.task.group.id', :group='group')
+    approval-footer(:task='task', v-if='task.group.id', :group='group')
 </template>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
+
+  .control-bottom-box {
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+  }
+
+  .control-top-box {
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+  }
+
 
   .task {
     margin-bottom: 2px;
@@ -122,10 +133,26 @@
 
     &:hover {
       box-shadow: 0 1px 8px 0 rgba($black, 0.12), 0 4px 4px 0 rgba($black, 0.16);
+      z-index: 10;
+    }
+  }
 
+  .task:not(.groupTask) {
+    &:hover {
       .left-control, .right-control, .task-content {
         border-color: $purple-400;
       }
+    }
+  }
+
+  .task.groupTask {
+
+    &:hover {
+      border: $purple-400 solid 1px;
+      border-radius: 3px;
+      margin: -1px; // to counter the border width
+      margin-bottom: 1px;
+      transition: none; // with transition, the border color switches from black to $purple-400
     }
   }
 
@@ -418,7 +445,6 @@
     transition-property: border-color, background, color;
     transition-timing-function: ease-in;
   }
-
   .left-control {
     border-top-left-radius: 2px;
     border-bottom-left-radius: 2px;
@@ -428,8 +454,14 @@
 
     & + .task-content {
       border-left: none;
-      border-top-right-radius: 2px;
-      border-bottom-right-radius: 2px;
+    }
+  }
+  .task:not(.type_habit) {
+    .left-control {
+      & + .task-content {
+        border-top-right-radius: 2px;
+        border-bottom-right-radius: 2px;
+      }
     }
   }
 
@@ -521,7 +553,6 @@ import axios from 'axios';
 import scoreTask from 'common/script/ops/scoreTask';
 import Vue from 'vue';
 import * as Analytics from 'client/libs/analytics';
-import isEmpty from 'lodash/isEmpty';
 
 import positiveIcon from 'assets/svg/positive.svg';
 import negativeIcon from 'assets/svg/negative.svg';
@@ -556,7 +587,7 @@ export default {
   directives: {
     markdown: markdownDirective,
   },
-  props: ['task', 'isUser', 'group', 'challenge', 'dueDate'], // @TODO: maybe we should store the group on state?
+  props: ['task', 'isUser', 'group', 'dueDate', 'showOptions'], // @TODO: maybe we should store the group on state?
   data () {
     return {
       random: uuid.v4(), // used to avoid conflicts between checkboxes ids
@@ -590,7 +621,6 @@ export default {
       getTagsFor: 'tasks:getTagsFor',
       getTaskClasses: 'tasks:getTaskClasses',
       canDelete: 'tasks:canDelete',
-      canEdit: 'tasks:canEdit',
     }),
     hasChecklist () {
       return this.task.checklist && this.task.checklist.length > 0;
@@ -616,6 +646,9 @@ export default {
       if (task.type === 'reward') return true;
       if (task.type === 'habit') return true;
       return false;
+    },
+    approvalsClass () {
+      return this.group && this.task.approvals && this.task.approvals.length > 0;
     },
     controlClass () {
       return this.getTaskClasses(this.task, 'control', this.dueDate);
@@ -667,27 +700,6 @@ export default {
 
       return this.task.challenge.shortName ? this.task.challenge.shortName.toString() : '';
     },
-    isChallangeTask () {
-      return !isEmpty(this.task.challenge);
-    },
-    isGroupTask () {
-      return !isEmpty(this.task.group) && (this.task.group.taskId || this.task.group.id);
-    },
-    taskCategory () {
-      let taskCategory = 'default';
-      if (this.isGroupTask) taskCategory = 'group';
-      else if (this.isChallangeTask) taskCategory = 'challenge';
-      return taskCategory;
-    },
-    showDelete () {
-      return this.canDelete(this.task, this.taskCategory, this.isUser, this.group, this.challenge);
-    },
-    showEdit () {
-      return this.canEdit(this.task, this.taskCategory, this.isUser, this.group, this.challenge);
-    },
-    showOptions () {
-      return this.showEdit || this.showDelete || this.isUser;
-    },
   },
   methods: {
     ...mapActions({
@@ -701,7 +713,7 @@ export default {
       this.scoreChecklistItem({taskId: this.task._id, itemId: item.id});
     },
     edit (e, task) {
-      if (this.isRunningYesterdailies || !this.showEdit) return;
+      if (this.isRunningYesterdailies) return;
 
       // Prevent clicking on a link from opening the edit modal
       const target = e.target || e.srcElement;
@@ -739,6 +751,16 @@ export default {
       const user = this.user;
       const task = this.task;
 
+      if (task.group.approval.required) {
+        task.group.approval.requested = true;
+        const groupResponse = await axios.get(`/api/v4/groups/${task.group.id}`);
+        let managers = Object.keys(groupResponse.data.data.managers);
+        managers.push(groupResponse.data.data.leader._id);
+        if (managers.indexOf(user._id) !== -1) {
+          task.group.approval.approved = true;
+        }
+      }
+
       try {
         scoreTask({task, user, direction});
       } catch (err) {
@@ -761,8 +783,6 @@ export default {
           break;
       }
 
-
-      if (task.group.approval.required) task.group.approval.requested = true;
 
       Analytics.updateUser();
       const response = await axios.post(`/api/v4/tasks/${task._id}/score/${direction}`);

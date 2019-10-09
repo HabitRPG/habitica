@@ -57,7 +57,7 @@
         :type="column",
         :key="column",
         :taskListOverride='tasksByType[column]',
-        :challenge="challenge"
+        :showOptions="showOptions",
         @editTask="editTask",
         @taskDestroyed="taskDestroyed",
         v-if='tasksByType[column].length > 0')
@@ -251,6 +251,9 @@ export default {
     },
     canJoin () {
       return !this.isMember;
+    },
+    showOptions () {
+      return this.isLeader;
     },
   },
   mounted () {

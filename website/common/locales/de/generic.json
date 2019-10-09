@@ -15,7 +15,7 @@
     "titleProfile": "Profil",
     "titleInbox": "Posteingang",
     "titleTavern": "Taverne",
-    "titleParty": "Gruppe",
+    "titleParty": "Party",
     "titleHeroes": "Halle der Helden",
     "titlePatrons": "Halle der Schirmherren",
     "titleGuilds": "Gilden",
@@ -293,5 +293,6 @@
     "contactForm": "Kontaktiere das Moderatoren-Team",
     "options": "Optionen",
     "loadEarlierMessages": "Lade ältere Nachrichten",
-    "demo": "Demo"
+    "demo": "Demo",
+    "finish": "Abschliessen"
 }

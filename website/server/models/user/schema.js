@@ -68,6 +68,7 @@ let schema = new Schema({
     timestamps: {
       created: {$type: Date, default: Date.now},
       loggedin: {$type: Date, default: Date.now},
+      updated: {$type: Date, default: Date.now},
     },
   },
   // We want to know *every* time an object updates. Mongoose uses __v to designate when an object contains arrays which
@@ -126,6 +127,7 @@ let schema = new Schema({
     allYourBase: Boolean,
     dustDevil: Boolean,
     aridAuthority: Boolean,
+    kickstarter2019: Boolean,
   },
 
   backer: {
@@ -502,6 +504,7 @@ let schema = new Schema({
       questStarted: {$type: Boolean, default: true},
       invitedQuest: {$type: Boolean, default: true},
       majorUpdates: {$type: Boolean, default: true},
+      partyActivity: {$type: Boolean, default: true},
     },
     suppressModals: {
       levelUp: {$type: Boolean, default: false},

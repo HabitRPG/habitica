@@ -212,7 +212,7 @@
     "hatchingPotionFrost": "Морозный",
     "hatchingPotionIcySnow": "Ледяной",
     "hatchingPotionNotes": "Полейте его на яйцо и из него вылупится <%= potText(locale) %> питомец.",
-    "premiumPotionAddlNotes": "Несовместим с яйцами квестовых питомцев.",
+    "premiumPotionAddlNotes": "Несовместим с яйцами квестовых питомцев. Доступен для покупки до <%= date(locale) %>.",
     "foodMeat": "Мясо",
     "foodMeatThe": "Мясная пища",
     "foodMeatA": "Мясо",
@@ -349,5 +349,6 @@
     "hatchingPotionSilver": "Серебряный",
     "questEggRobotAdjective": "футуристический",
     "questEggRobotMountText": "Робот",
-    "questEggRobotText": "Робот"
+    "questEggRobotText": "Робот",
+    "hatchingPotionShadow": "Теневой"
 }

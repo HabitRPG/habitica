@@ -115,6 +115,7 @@ export let TaskSchema = new Schema({
     id: {$type: String, ref: 'Group', validate: [v => validator.isUUID(v), 'Invalid uuid.']},
     broken: {$type: String, enum: ['GROUP_DELETED', 'TASK_DELETED', 'UNSUBSCRIBED']},
     assignedUsers: [{$type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid.']}],
+    assignedDate: {$type: Date},
     taskId: {$type: String, ref: 'Task', validate: [v => validator.isUUID(v), 'Invalid uuid.']},
     approval: {
       required: {$type: Boolean, default: false},
@@ -128,6 +129,8 @@ export let TaskSchema = new Schema({
   },
 
   reminders: [reminderSchema],
+
+  byHabitica: {$type: Boolean, default: false}, // Flag of Tasks that were created by Habitica
 }, _.defaults({
   minimize: false, // So empty objects are returned
   strict: true,

@@ -1,0 +1,17 @@
+{
+    "lostAllHealth": "Acabóuseche a Saúde!",
+    "dontDespair": "Non desesperes!",
+    "deathPenaltyDetails": "Perdiches un Nivel, o teu Ouro, e un elemento do teu Equipamento, pero podes recuperalos con traballo duro! Boa sorte, faralo xenial.",
+    "refillHealthTryAgain": "Recupera a Saúde e volve a intentalo",
+    "dyingOftenTips": "Pasa isto a miúdo? <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>Velaquí uns consellos!</a>",
+    "losingHealthWarning": "Coidado, estás perdendo Saúde!",
+    "losingHealthWarning2": "Non deixes a túa Saúde descender ata cero! Se ocorre, perderás un nivel, o teu Ouro e un elemento do teu Equipamento.",
+    "toRegainHealth": "Para recuperar Saúde:",
+    "lowHealthTips1": "Sube de nivel para recuperarte completamente!",
+    "lowHealthTips2": "Merca unha Poción de Saúde na columna Recompensas para recuperar 15 Puntos de Saúde.",
+    "losingHealthQuickly": "Perdes Saúde rapidamente?",
+    "lowHealthTips3": "Os Diarios incompletos prexudícante pola noite, así que ten coidado de non engadir demasiados ao principio!",
+    "lowHealthTips4": "Se un Diario debe facerse ata un certo día, podes desactivalo pulsando no icono do lápiz.",
+    "goodLuck": "Boa sorte!",
+    "cannotRevive": "Non podes resucitar se non estás morto"
+}

@@ -899,6 +899,20 @@ let backgrounds = {
       notes: t('backgroundInAClassroomNotes'),
     },
   },
+  backgrounds102019: {
+    foggy_moor: {
+      text: t('backgroundFoggyMoorText'),
+      notes: t('backgroundFoggyMoorNotes'),
+    },
+    monster_makers_workshop: {
+      text: t('backgroundMonsterMakersWorkshopText'),
+      notes: t('backgroundMonsterMakersWorkshopNotes'),
+    },
+    pumpkin_carriage: {
+      text: t('backgroundPumpkinCarriageText'),
+      notes: t('backgroundPumpkinCarriageNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),

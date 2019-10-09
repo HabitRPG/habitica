@@ -1,5 +1,5 @@
 {
-    "languageName": "中文 (正體)",
+    "languageName": "中文 (繁體)",
     "stringNotFound": "找不到字串 '<%= string %>'。",
     "titleIndex": "Habitica | 您的人生 RPG 遊戲",
     "habitica": "Habitica",
@@ -220,12 +220,12 @@
     "getwellCardAchievementTitle": "關愛知己",
     "getwellCardAchievementText": "祝福是最好的禮物！已發送或收到 <%= count %> 張慰問卡。",
     "goodluckCard": "好運卡",
-    "goodluckCardExplanation": "你們都獲得了「信運信封」成就！",
+    "goodluckCardExplanation": "你們都獲得了「幸運信封」成就！",
     "goodluckCardNotes": "送張好運卡給隊伍成員。",
     "goodluck0": "祝好運永遠跟著您！",
     "goodluck1": "祝您有滿滿的好運！",
     "goodluck2": "祝福好運能永遠能站在您這邊！！",
-    "goodluckCardAchievementTitle": "信運信封",
+    "goodluckCardAchievementTitle": "幸運信封",
     "goodluckCardAchievementText": "祝福好運是個很大的鼓勵！已發送或收到 <%= count %> 張幸運卡。",
     "streakAchievement": "您已獲得「連擊」成就！",
     "firstStreakAchievement": "21 天連擊",
@@ -293,5 +293,6 @@
     "contactForm": "聯絡管理員團隊",
     "options": "選項",
     "loadEarlierMessages": "載入先前訊息",
-    "demo": "演示"
+    "demo": "演示",
+    "finish": "完成"
 }

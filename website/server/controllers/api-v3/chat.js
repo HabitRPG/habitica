@@ -11,8 +11,8 @@ import {
 import { removeFromArray } from '../../libs/collectionManipulators';
 import { getUserInfo, getGroupUrl, sendTxn } from '../../libs/email';
 import slack from '../../libs/slack';
-import { getAuthorEmailFromMessage } from '../../libs/chat';
 import { chatReporterFactory } from '../../libs/chatReporting/chatReporterFactory';
+import { getAuthorEmailFromMessage} from '../../libs/chat';
 import nconf from 'nconf';
 import bannedWords from '../../libs/bannedWords';
 import guildsAllowingBannedWords from '../../libs/guildsAllowingBannedWords';
@@ -223,7 +223,7 @@ api.postChat = {
       });
     }
 
-    const newChatMessage = group.sendChat({message: req.body.message, user, flagCount, metaData: null, client});
+    const newChatMessage = group.sendChat({message: req.body.message, user, flagCount, metaData: null, client, translate: res.t});
     let toSave = [newChatMessage.save()];
 
     if (group.type === 'party') {
