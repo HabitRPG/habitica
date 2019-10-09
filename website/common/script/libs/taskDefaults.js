@@ -2,7 +2,8 @@ import { v4 as uuid } from 'uuid';
 import defaults from 'lodash/defaults';
 import moment from 'moment';
 
-// Even though Mongoose handles task defaults, we want to make sure defaults are set on the client-side before
+// Even though Mongoose handles task defaults,
+// we want to make sure defaults are set on the client-side before
 // sending up to the server for performance
 
 // TODO move to client code?

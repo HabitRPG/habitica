@@ -54,14 +54,14 @@ function purchaseItem (user, item, price, type, key) {
       if (!user.items[subType][bundledKey] || user.items[subType][key] < 0) {
         user.items[subType][bundledKey] = 0;
       }
-      user.items[subType][bundledKey]++;
+      user.items[subType][bundledKey] += 1;
     });
     if (user.markModified) user.markModified(`items.${subType}`);
   } else {
     if (!user.items[type][key] || user.items[type][key] < 0) {
       user.items[type][key] = 0;
     }
-    user.items[type][key]++;
+    user.items[type][key] += 1;
     if (user.markModified) user.markModified(`items.${type}`);
   }
 }

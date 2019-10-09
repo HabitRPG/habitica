@@ -40,7 +40,7 @@ export default function buyMysterySet (user, req = {}, analytics) {
 
   if (user.markModified) user.markModified('items.gear.owned');
 
-  user.purchased.plan.consecutive.trinkets--;
+  user.purchased.plan.consecutive.trinkets -= 1;
 
   return [
     { items: user.items, purchasedPlanConsecutive: user.purchased.plan.consecutive },

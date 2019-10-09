@@ -21,7 +21,7 @@ export default function equip (user, req = {}) {
 
   let message;
 
-  switch (type) {
+  switch (type) { // eslint-disable-line default-case
     case 'mount': {
       if (!user.items.mounts[key]) {
         throw new NotFound(i18n.t('mountNotOwned', req.language));
@@ -49,7 +49,11 @@ export default function equip (user, req = {}) {
       if (user.items.gear[type][item.type] === key) {
         user.items.gear[type] = {
 
-          ...(user.items.gear[type].toObject ? user.items.gear[type].toObject() : user.items.gear[type]),
+          ...(
+            user.items.gear[type].toObject
+              ? user.items.gear[type].toObject()
+              : user.items.gear[type]
+          ),
           [item.type]: `${item.type}_base_0`,
         };
         if (user.markModified && type === 'owned') user.markModified('items.gear.owned');
@@ -60,7 +64,11 @@ export default function equip (user, req = {}) {
       } else {
         user.items.gear[type] = {
 
-          ...(user.items.gear[type].toObject ? user.items.gear[type].toObject() : user.items.gear[type]),
+          ...(
+            user.items.gear[type].toObject
+              ? user.items.gear[type].toObject()
+              : user.items.gear[type]
+          ),
           [item.type]: item.key,
         };
         if (user.markModified && type === 'owned') user.markModified('items.gear.owned');

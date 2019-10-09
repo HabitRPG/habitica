@@ -14,12 +14,14 @@ export default function getOfficialPinnedItems (user) {
 
     // pinnedSets == current seasonal class set are always gold purchaseable
 
-    flatGearArray.filter(gear => user.items.gear.owned[gear.key] === undefined && gear.set === setToAdd).map(gear => {
-      officialItemsArray.push({
-        type: 'marketGear',
-        path: `gear.flat.${gear.key}`,
+    flatGearArray
+      .filter(gear => user.items.gear.owned[gear.key] === undefined && gear.set === setToAdd)
+      .forEach(gear => {
+        officialItemsArray.push({
+          type: 'marketGear',
+          path: `gear.flat.${gear.key}`,
+        });
       });
-    });
   }
 
   return officialItemsArray;

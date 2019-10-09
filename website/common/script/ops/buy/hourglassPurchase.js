@@ -44,7 +44,7 @@ export default function purchaseHourglass (user, req = {}, analytics, quantity =
       throw new NotAuthorized(i18n.t('notEnoughHourglasses', req.language));
     }
 
-    user.purchased.plan.consecutive.trinkets--;
+    user.purchased.plan.consecutive.trinkets -= 1;
 
     if (type === 'pets') {
       user.items.pets[key] = 5;

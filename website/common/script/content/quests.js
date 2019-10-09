@@ -3505,14 +3505,15 @@ const quests = {
 };
 
 each(quests, (v, key) => {
-  let b;
   defaults(v, {
     key,
     canBuy () {
       return true;
     },
   });
-  b = v.boss;
+
+  const b = v.boss;
+
   if (b) {
     defaults(b, {
       str: 1,

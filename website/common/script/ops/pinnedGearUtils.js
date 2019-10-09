@@ -37,7 +37,10 @@ export function selectGearToPin (user) {
   const changes = [];
 
   each(content.gearTypes, type => {
-    const found = lodashFind(content.gear.tree[type][user.stats.class], item => !user.items.gear.owned[item.key]);
+    const found = lodashFind(
+      content.gear.tree[type][user.stats.class],
+      item => !user.items.gear.owned[item.key],
+    );
 
     if (found) changes.push(found);
   });
@@ -59,11 +62,10 @@ export function addPinnedGear (user, type, path) {
 export function addPinnedGearByClass (user) {
   const newPinnedItems = selectGearToPin(user);
 
-  for (const item of newPinnedItems) {
+  newPinnedItems.forEach(item => {
     const itemInfo = getItemInfo(user, 'marketGear', item);
-
     addPinnedGear(user, itemInfo.pinType, itemInfo.path);
-  }
+  });
 }
 
 export function removeItemByPath (user, path) {
@@ -80,11 +82,10 @@ export function removeItemByPath (user, path) {
 export function removePinnedGearByClass (user) {
   const currentPinnedItems = selectGearToPin(user);
 
-  for (const item of currentPinnedItems) {
+  currentPinnedItems.forEach(item => {
     const itemInfo = getItemInfo(user, 'marketGear', item);
-
     removeItemByPath(user, itemInfo.path);
-  }
+  });
 }
 
 export function removePinnedGearAddPossibleNewOnes (user, itemPath, newItemKey) {
@@ -100,11 +101,12 @@ export function removePinnedGearAddPossibleNewOnes (user, itemPath, newItemKey) 
   addPinnedGearByClass(user);
 
   // update the version, so that vue can refresh the seasonal shop
-  user._v++;
+  user._v += 1;
 }
 
 /**
- * removes all pinned gear that the user already owns (like class starter gear which has been pinned before)
+ * removes all pinned gear that the user already owns
+ *(like class starter gear which has been pinned before)
  * @param user
  */
 export function removePinnedItemsByOwnedGear (user) {
@@ -126,9 +128,9 @@ export function togglePinnedItem (user, { item, type, path }, req = {}) {
 
   if (!path) {
     // If path isn't passed it means an item was passed
-    path = getItemInfo(user, type, item, officialPinnedItems, req.language).path;
+    path = getItemInfo(user, type, item, officialPinnedItems, req.language).path; // eslint-disable-line no-param-reassign, max-len
   } else {
-    item = getItemByPathAndType(type, path);
+    item = getItemByPathAndType(type, path); // eslint-disable-line no-param-reassign
 
     if (!item && PATHS_WITHOUT_ITEM.indexOf(path) === -1) {
       // path not exists in our content structure

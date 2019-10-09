@@ -29,7 +29,8 @@ const gear = {
 };
 
 /*
-  The gear is exported as a tree (defined above), and a flat list (eg, {weapon_healer_1: .., shield_special_0: ...}) since
+  The gear is exported as a tree (defined above), and a flat list
+  (eg, {weapon_healer_1: .., shield_special_0: ...}) since
   they are needed in different forms at different points in the app
  */
 const flat = {};
@@ -61,8 +62,11 @@ each(GEAR_TYPES, type => {
 
         item.canOwn = user => {
           const userHasOwnedItem = ownsItem(key)(user);
-          const eventIsCurrent = moment().isAfter(item.event.start) && moment().isBefore(item.event.end);
-          const compatibleWithUserClass = item.specialClass ? user.stats.class === item.specialClass : true;
+          const eventIsCurrent = moment()
+            .isAfter(item.event.start) && moment().isBefore(item.event.end);
+          const compatibleWithUserClass = item.specialClass
+            ? user.stats.class === item.specialClass
+            : true;
 
           return _canOwn(user) && (userHasOwnedItem || eventIsCurrent) && compatibleWithUserClass;
         };

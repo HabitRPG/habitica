@@ -24,7 +24,13 @@ export default function hatch (user, req = {}) {
     throw new NotFound(i18n.t('messageMissingEggPotion', req.language));
   }
 
-  if ((content.hatchingPotions[hatchingPotion].premium || content.hatchingPotions[hatchingPotion].wacky) && !content.dropEggs[egg]) {
+  if (
+    (
+      content.hatchingPotions[hatchingPotion].premium
+      || content.hatchingPotions[hatchingPotion].wacky
+    )
+    && !content.dropEggs[egg]
+  ) {
     throw new BadRequest(i18n.t('messageInvalidEggPotionCombo', req.language));
   }
 
@@ -35,8 +41,8 @@ export default function hatch (user, req = {}) {
   }
 
   user.items.pets[pet] = 5;
-  user.items.eggs[egg]--;
-  user.items.hatchingPotions[hatchingPotion]--;
+  user.items.eggs[egg] -= 1;
+  user.items.hatchingPotions[hatchingPotion] -= 1;
   if (user.markModified) {
     user.markModified('items.pets');
     user.markModified('items.eggs');
@@ -45,7 +51,10 @@ export default function hatch (user, req = {}) {
 
   forEach(content.animalColorAchievements, achievement => {
     if (!user.achievements[achievement.petAchievement]) {
-      const petIndex = findIndex(keys(content.dropEggs), animal => isNaN(user.items.pets[`${animal}-${achievement.color}`]) || user.items.pets[`${animal}-${achievement.color}`] <= 0);
+      const petIndex = findIndex(
+        keys(content.dropEggs),
+        animal => Number.isNaN(user.items.pets[`${animal}-${achievement.color}`]) || user.items.pets[`${animal}-${achievement.color}`] <= 0,
+      );
       if (petIndex === -1) {
         user.achievements[achievement.petAchievement] = true;
         if (user.addNotification) {

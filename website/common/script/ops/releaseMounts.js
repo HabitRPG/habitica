@@ -24,19 +24,20 @@ export default function releaseMounts (user, req = {}, analytics) {
     user.items.currentMount = '';
   }
 
-  for (const mount in content.pets) {
+  Object.keys(content.pets).forEach(mount => {
     if (user.items.mounts[mount] === null || user.items.mounts[mount] === undefined) {
       giveMountMasterAchievement = false;
     }
     user.items.mounts[mount] = null;
-  }
+  });
+
   if (user.markModified) user.markModified('items.mounts');
 
   if (giveMountMasterAchievement) {
     if (!user.achievements.mountMasterCount) {
       user.achievements.mountMasterCount = 0;
     }
-    user.achievements.mountMasterCount++;
+    user.achievements.mountMasterCount += 1;
   }
 
   if (analytics) {

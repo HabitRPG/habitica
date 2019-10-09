@@ -9,9 +9,11 @@ import gear from './gear';
 
 const mystery = mysterySets;
 
-each(mystery, (v, k) => v.items = filter(gear.flat, {
-  mystery: k,
-}));
+each(mystery, (v, k) => {
+  v.items = filter(gear.flat, {
+    mystery: k,
+  });
+});
 
 const timeTravelerStore = user => {
   let ownedKeys;

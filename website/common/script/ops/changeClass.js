@@ -40,7 +40,8 @@ export default function changeClass (user, req = {}, analytics) {
   if (user.stats.lvl < 10) {
     throw new NotAuthorized(i18n.t('lvl10ChangeClass', req.language));
   } else if (!klass) {
-    // if no class is specified, reset points and set user.flags.classSelected to false. User will have paid 3 gems and will be prompted to select class.
+    // if no class is specified, reset points and set user.flags.classSelected to false.
+    // User will have paid 3 gems and will be prompted to select class.
     balanceRemoved = resetClass(user, req);
   } else if (klass === 'warrior' || klass === 'rogue' || klass === 'wizard' || klass === 'healer') {
     if (user.flags.classSelected) {

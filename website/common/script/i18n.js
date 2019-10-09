@@ -9,14 +9,15 @@ const i18n = {
 };
 
 function t (stringName) {
-  let vars = arguments[1];
+  const args = Array.from(arguments); // eslint-disable-line prefer-rest-params
+  let vars = args[1];
   let locale;
 
-  if (isString(arguments[1])) {
+  if (isString(args[1])) {
     vars = null;
-    locale = arguments[1];
-  } else if (arguments[2]) {
-    locale = arguments[2];
+    locale = args[1]; // eslint-disable-line prefer-destructuring
+  } else if (args[2]) {
+    locale = args[2]; // eslint-disable-line prefer-destructuring
   }
 
   const i18nNotSetup = !i18n.strings && !i18n.translations[locale];

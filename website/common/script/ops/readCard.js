@@ -16,6 +16,8 @@ function markNotificationAsRead (user, cardType) {
       && notification.data
       && notification.data.card === cardType
     ) return true;
+
+    return false;
   });
 
   if (indexToRemove !== -1) user.notifications.splice(indexToRemove, 1);

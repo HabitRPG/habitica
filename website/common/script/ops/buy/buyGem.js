@@ -8,7 +8,7 @@ import {
 import { AbstractGoldItemOperation } from './abstractBuyOperation';
 import planGemLimits from '../../libs/planGemLimits';
 
-export class BuyGemOperation extends AbstractGoldItemOperation {
+export class BuyGemOperation extends AbstractGoldItemOperation { // eslint-disable-line import/prefer-default-export, max-len
   constructor (user, req, analytics) {
     super(user, req, analytics);
   }
@@ -30,7 +30,8 @@ export class BuyGemOperation extends AbstractGoldItemOperation {
   }
 
   extractAndValidateParams (user, req) {
-    const key = this.key = get(req, 'params.key');
+    this.key = get(req, 'params.key');
+    const { key } = this.key;
     if (!key) throw new BadRequest(this.i18n('missingKeyParam'));
 
     let { convCap } = planGemLimits;

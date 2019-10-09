@@ -17,7 +17,7 @@ import { AbstractGoldItemOperation } from './abstractBuyOperation';
 const YIELD_EQUIPMENT_THRESHOLD = 0.6;
 const YIELD_FOOD_THRESHOLD = 0.8;
 
-export class BuyArmoireOperation extends AbstractGoldItemOperation {
+export class BuyArmoireOperation extends AbstractGoldItemOperation { // eslint-disable-line import/prefer-default-export, max-len
   constructor (user, req, analytics) {
     super(user, req, analytics);
   }
@@ -39,9 +39,15 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation {
     const eligibleEquipment = filter(content.gear.flat, eligible => eligible.klass === 'armoire' && !user.items.gear.owned[eligible.key]);
     const armoireHasEquipment = !isEmpty(eligibleEquipment);
 
-    if (armoireHasEquipment && (armoireResult < YIELD_EQUIPMENT_THRESHOLD || !user.flags.armoireOpened)) {
+    if (
+      armoireHasEquipment
+      && (armoireResult < YIELD_EQUIPMENT_THRESHOLD || !user.flags.armoireOpened)
+    ) {
       result = this._gearResult(user, eligibleEquipment);
-    } else if ((armoireHasEquipment && armoireResult < YIELD_FOOD_THRESHOLD) || armoireResult < 0.5) { // eslint-disable-line no-extra-parens
+    } else if (
+      (armoireHasEquipment && armoireResult < YIELD_FOOD_THRESHOLD)
+      || armoireResult < 0.5
+    ) {
       result = this._foodResult(user);
     } else {
       result = this._experienceResult(user);
@@ -49,7 +55,8 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation {
 
     this.subtractCurrency(user, item);
 
-    let { message, armoireResp } = result;
+    let { message } = result;
+    const { armoireResp } = result;
 
     if (!message) {
       message = this.i18n('messageBought', {

@@ -1,5 +1,5 @@
-import prefill from './prefill.js';
-import sets from './sets.js';
+import prefill from './prefill';
+import sets from './sets';
 
 export default prefill({
   /* eslint-disable quote-props */

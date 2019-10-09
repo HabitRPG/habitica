@@ -97,7 +97,7 @@ export default function rebirth (user, tasks = [], req = {}, analytics) {
     user.achievements.rebirths = 1;
     user.achievements.rebirthLevel = lvl;
   } else if (lvl > user.achievements.rebirthLevel || lvl === MAX_LEVEL) {
-    user.achievements.rebirths++;
+    user.achievements.rebirths += 1;
     user.achievements.rebirthLevel = lvl;
   }
 

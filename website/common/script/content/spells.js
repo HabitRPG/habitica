@@ -11,23 +11,32 @@ import updateStats from '../fns/updateStats';
   ---------------------------------------------------------------
   Text, notes, and mana are obvious. The rest:
 
-  * {target}: one of [task, self, party, user]. This is very important, because if the cast() function is expecting one
-    thing and receives another, it will cause errors. `self` is used for self buffs, multi-task debuffs, AOEs (eg, meteor-shower),
+  * {target}: one of [task, self, party, user].
+  * This is very important, because if the cast() function is expecting one
+    thing and receives another, it will cause errors.
+    `self` is used for self buffs, multi-task debuffs, AOEs (eg, meteor-shower),
     etc. Basically, use self for anything that's not [task, party, user] and is an instant-cast
 
-  * {cast}: the function that's run to perform the ability's action. This is pretty slick - because this is exported to the
-    web, this function can be performed on the client and on the server. `user` param is self (needed for determining your
-    own stats for effectiveness of cast), and `target` param is one of [task, party, user]. In the case of `self` skills,
-    you act on `user` instead of `target`. You can trust these are the correct objects, as long as the `target` attr of the
-    spell is correct. Take a look at habitrpg/website/server/models/user.js and habitrpg/website/server/models/task.js for what attributes are
-    available on each model. Note `task.value` is its "redness". If party is passed in, it's an array of users,
+  * {cast}: the function that's run to perform the ability's action.
+    This is pretty slick - because this is exported to the
+    web, this function can be performed on the client and on the server.
+    `user` param is self (needed for determining your
+    own stats for effectiveness of cast), and `target` param is one of [task, party, user].
+    In the case of `self` skills,
+    you act on `user` instead of `target`. You can trust these are the correct objects,
+    as long as the `target` attr of the
+    spell is correct. Take a look at habitrpg/website/server/models/user.js and
+    habitrpg/website/server/models/task.js for what attributes are
+    available on each model. Note `task.value` is its "redness".
+    If party is passed in, it's an array of users,
     so you'll want to iterate over them like: `_.each(target,function(member){...})`
 
-  Note, user.stats.mp is docked after automatically (it's appended to functions automatically down below in an _.each)
+  Note, user.stats.mp is docked after automatically
+  (it's appended to functions automatically down below in an _.each)
  */
 
 function diminishingReturns (bonus, max, halfway) {
-  if (!halfway) halfway = max / 2;
+  if (!halfway) halfway = max / 2; // eslint-disable-line no-param-reassign
   return max * (bonus / (bonus + halfway));
 }
 
@@ -274,8 +283,8 @@ spells.special = {
       target.stats.buffs.shinySeed = false;
       target.stats.buffs.seafoam = false;
       if (!target.achievements.snowball) target.achievements.snowball = 0;
-      target.achievements.snowball++;
-      user.items.special.snowball--;
+      target.achievements.snowball += 1;
+      user.items.special.snowball -= 1;
     },
   },
   salt: {
@@ -305,8 +314,8 @@ spells.special = {
       target.stats.buffs.shinySeed = false;
       target.stats.buffs.seafoam = false;
       if (!target.achievements.spookySparkles) target.achievements.spookySparkles = 0;
-      target.achievements.spookySparkles++;
-      user.items.special.spookySparkles--;
+      target.achievements.spookySparkles += 1;
+      user.items.special.spookySparkles -= 1;
     },
   },
   opaquePotion: {
@@ -336,8 +345,8 @@ spells.special = {
       target.stats.buffs.shinySeed = true;
       target.stats.buffs.seafoam = false;
       if (!target.achievements.shinySeed) target.achievements.shinySeed = 0;
-      target.achievements.shinySeed++;
-      user.items.special.shinySeed--;
+      target.achievements.shinySeed += 1;
+      user.items.special.shinySeed -= 1;
     },
   },
   petalFreePotion: {
@@ -367,8 +376,8 @@ spells.special = {
       target.stats.buffs.shinySeed = false;
       target.stats.buffs.seafoam = true;
       if (!target.achievements.seafoam) target.achievements.seafoam = 0;
-      target.achievements.seafoam++;
-      user.items.special.seafoam--;
+      target.achievements.seafoam += 1;
+      user.items.special.seafoam -= 1;
     },
   },
   sand: {
@@ -395,11 +404,11 @@ spells.special = {
     cast (user, target) {
       if (user === target) {
         if (!user.achievements.nye) user.achievements.nye = 0;
-        user.achievements.nye++;
+        user.achievements.nye += 1;
       } else {
         each([user, target], u => {
           if (!u.achievements.nye) u.achievements.nye = 0;
-          u.achievements.nye++;
+          u.achievements.nye += 1;
         });
       }
 
@@ -432,11 +441,11 @@ spells.special = {
     cast (user, target) {
       if (user === target) {
         if (!user.achievements.valentine) user.achievements.valentine = 0;
-        user.achievements.valentine++;
+        user.achievements.valentine += 1;
       } else {
         each([user, target], u => {
           if (!u.achievements.valentine) u.achievements.valentine = 0;
-          u.achievements.valentine++;
+          u.achievements.valentine += 1;
         });
       }
 
@@ -469,11 +478,11 @@ spells.special = {
     cast (user, target) {
       if (user === target) {
         if (!user.achievements.greeting) user.achievements.greeting = 0;
-        user.achievements.greeting++;
+        user.achievements.greeting += 1;
       } else {
         each([user, target], u => {
           if (!u.achievements.greeting) u.achievements.greeting = 0;
-          u.achievements.greeting++;
+          u.achievements.greeting += 1;
         });
       }
 
@@ -506,11 +515,11 @@ spells.special = {
     cast (user, target) {
       if (user === target) {
         if (!user.achievements.thankyou) user.achievements.thankyou = 0;
-        user.achievements.thankyou++;
+        user.achievements.thankyou += 1;
       } else {
         each([user, target], u => {
           if (!u.achievements.thankyou) u.achievements.thankyou = 0;
-          u.achievements.thankyou++;
+          u.achievements.thankyou += 1;
         });
       }
 
@@ -543,11 +552,11 @@ spells.special = {
     cast (user, target) {
       if (user === target) {
         if (!user.achievements.birthday) user.achievements.birthday = 0;
-        user.achievements.birthday++;
+        user.achievements.birthday += 1;
       } else {
         each([user, target], u => {
           if (!u.achievements.birthday) u.achievements.birthday = 0;
-          u.achievements.birthday++;
+          u.achievements.birthday += 1;
         });
       }
 
@@ -580,11 +589,11 @@ spells.special = {
     cast (user, target) {
       if (user === target) {
         if (!user.achievements.congrats) user.achievements.congrats = 0;
-        user.achievements.congrats++;
+        user.achievements.congrats += 1;
       } else {
         each([user, target], u => {
           if (!u.achievements.congrats) u.achievements.congrats = 0;
-          u.achievements.congrats++;
+          u.achievements.congrats += 1;
         });
       }
 
@@ -617,11 +626,11 @@ spells.special = {
     cast (user, target) {
       if (user === target) {
         if (!user.achievements.getwell) user.achievements.getwell = 0;
-        user.achievements.getwell++;
+        user.achievements.getwell += 1;
       } else {
         each([user, target], u => {
           if (!u.achievements.getwell) u.achievements.getwell = 0;
-          u.achievements.getwell++;
+          u.achievements.getwell += 1;
         });
       }
 
@@ -654,11 +663,11 @@ spells.special = {
     cast (user, target) {
       if (user === target) {
         if (!user.achievements.goodluck) user.achievements.goodluck = 0;
-        user.achievements.goodluck++;
+        user.achievements.goodluck += 1;
       } else {
         each([user, target], u => {
           if (!u.achievements.goodluck) u.achievements.goodluck = 0;
-          u.achievements.goodluck++;
+          u.achievements.goodluck += 1;
         });
       }
 

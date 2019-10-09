@@ -17,7 +17,10 @@ export default function updateStore (user) {
   let changes = [];
 
   each(content.gearTypes, type => {
-    const found = lodashFind(content.gear.tree[type][user.stats.class], item => !user.items.gear.owned[item.key]);
+    const found = lodashFind(
+      content.gear.tree[type][user.stats.class],
+      item => !user.items.gear.owned[item.key],
+    );
 
     if (found) changes.push(found);
   });

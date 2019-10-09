@@ -50,6 +50,6 @@ const subscriptionBlocks = {
   },
 };
 
-each(subscriptionBlocks, (b, k) => b.key = k);
+each(subscriptionBlocks, (b, k) => { b.key = k; });
 
 export default subscriptionBlocks;

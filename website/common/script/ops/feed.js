@@ -90,7 +90,7 @@ export default function feed (user, req = {}) {
     }
   }
 
-  user.items.food[food.key]--;
+  user.items.food[food.key] -= 1;
   if (user.markModified) user.markModified('items.food');
 
   forEach(content.animalColorAchievements, achievement => {

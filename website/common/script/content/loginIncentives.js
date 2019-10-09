@@ -261,7 +261,10 @@ export default function getLoginIncentives (api) {
     },
     110: {
       rewardKey: ['Pet_Egg_Cactus', 'Pet_Egg_Dragon', 'Pet_Egg_Wolf'],
-      reward: [api.eggs.BearCub, api.eggs.Cactus, api.eggs.Dragon, api.eggs.FlyingPig, api.eggs.Fox, api.eggs.LionCub, api.eggs.PandaCub, api.eggs.TigerCub, api.eggs.Wolf],
+      reward: [
+        api.eggs.BearCub, api.eggs.Cactus, api.eggs.Dragon, api.eggs.FlyingPig,
+        api.eggs.Fox, api.eggs.LionCub, api.eggs.PandaCub, api.eggs.TigerCub, api.eggs.Wolf,
+      ],
       rewardName: 'oneOfAllPetEggs',
       assignReward: function assignReward (user) {
         if (!user.items.eggs.BearCub) user.items.eggs.BearCub = 0;
@@ -388,7 +391,10 @@ export default function getLoginIncentives (api) {
     },
     150: {
       rewardKey: ['shop_head_special_clandestineCowl', 'shop_armor_special_sneakthiefRobes'],
-      reward: [api.gear.flat.head_special_clandestineCowl, api.gear.flat.armor_special_sneakthiefRobes],
+      reward: [
+        api.gear.flat.head_special_clandestineCowl,
+        api.gear.flat.armor_special_sneakthiefRobes,
+      ],
       assignReward: function assignReward (user) {
         user.items.gear.owned.head_special_clandestineCowl = true; // eslint-disable-line camelcase
         user.items.gear.owned.armor_special_sneakthiefRobes = true; // eslint-disable-line camelcase
@@ -406,10 +412,13 @@ export default function getLoginIncentives (api) {
     },
     170: {
       rewardKey: ['shop_head_special_snowSovereignCrown', 'shop_armor_special_snowSovereignRobes'],
-      reward: [api.gear.flat.head_special_snowSovereignCrown, api.gear.flat.armor_special_snowSovereignRobes],
+      reward: [
+        api.gear.flat.head_special_snowSovereignCrown,
+        api.gear.flat.armor_special_snowSovereignRobes,
+      ],
       assignReward: function assignReward (user) {
-        user.items.gear.owned.head_special_snowSovereignCrown = true; // eslint-disable-line camelcase
-        user.items.gear.owned.armor_special_snowSovereignRobes = true; // eslint-disable-line camelcase
+        user.items.gear.owned.head_special_snowSovereignCrown = true; // eslint-disable-line camelcase, max-len
+        user.items.gear.owned.armor_special_snowSovereignRobes = true; // eslint-disable-line camelcase, max-len
         if (user.markModified) user.markModified('items.gear.owned');
       },
     },
@@ -451,7 +460,10 @@ export default function getLoginIncentives (api) {
     },
     240: {
       rewardKey: ['shop_weapon_special_nomadsScimitar', 'shop_armor_special_nomadsCuirass'],
-      reward: [api.gear.flat.weapon_special_nomadsScimitar, api.gear.flat.armor_special_nomadsCuirass],
+      reward: [
+        api.gear.flat.weapon_special_nomadsScimitar,
+        api.gear.flat.armor_special_nomadsCuirass,
+      ],
       assignReward: function assignReward (user) {
         user.items.gear.owned.weapon_special_nomadsScimitar = true; // eslint-disable-line camelcase
         user.items.gear.owned.armor_special_nomadsCuirass = true; // eslint-disable-line camelcase
@@ -468,7 +480,11 @@ export default function getLoginIncentives (api) {
     },
     280: {
       rewardKey: ['Pet_Food_Meat', 'Pet_Food_Potatoe', 'Pet_Food_Milk'],
-      reward: [api.food.Meat, api.food.CottonCandyBlue, api.food.CottonCandyPink, api.food.Potatoe, api.food.Honey, api.food.Strawberry, api.food.Chocolate, api.food.Fish, api.food.Milk, api.food.RottenMeat],
+      reward: [
+        api.food.Meat, api.food.CottonCandyBlue, api.food.CottonCandyPink,
+        api.food.Potatoe, api.food.Honey, api.food.Strawberry, api.food.Chocolate,
+        api.food.Fish, api.food.Milk, api.food.RottenMeat,
+      ],
       rewardName: 'threeOfEachFood',
       assignReward: function assignReward (user) {
         if (!user.items.food.Meat) user.items.food.Meat = 0;
@@ -496,7 +512,10 @@ export default function getLoginIncentives (api) {
     },
     300: {
       rewardKey: ['Pet_Egg_Cactus', 'Pet_Egg_Dragon', 'Pet_Egg_Wolf'],
-      reward: [api.eggs.BearCub, api.eggs.Cactus, api.eggs.Dragon, api.eggs.FlyingPig, api.eggs.Fox, api.eggs.LionCub, api.eggs.PandaCub, api.eggs.TigerCub, api.eggs.Wolf],
+      reward: [
+        api.eggs.BearCub, api.eggs.Cactus, api.eggs.Dragon, api.eggs.FlyingPig,
+        api.eggs.Fox, api.eggs.LionCub, api.eggs.PandaCub, api.eggs.TigerCub, api.eggs.Wolf,
+      ],
       rewardName: 'twoOfAllPetEggs',
       assignReward: function assignReward (user) {
         if (!user.items.eggs.BearCub) user.items.eggs.BearCub = 0;
@@ -549,7 +568,10 @@ export default function getLoginIncentives (api) {
     },
     380: {
       rewardKey: ['Pet_Egg_Cactus', 'Pet_Egg_Dragon', 'Pet_Egg_Wolf'],
-      reward: [api.eggs.BearCub, api.eggs.Cactus, api.eggs.Dragon, api.eggs.FlyingPig, api.eggs.Fox, api.eggs.LionCub, api.eggs.PandaCub, api.eggs.TigerCub, api.eggs.Wolf],
+      reward: [
+        api.eggs.BearCub, api.eggs.Cactus, api.eggs.Dragon, api.eggs.FlyingPig,
+        api.eggs.Fox, api.eggs.LionCub, api.eggs.PandaCub, api.eggs.TigerCub, api.eggs.Wolf,
+      ],
       rewardName: 'threeOfAllPetEggs',
       assignReward: function assignReward (user) {
         if (!user.items.eggs.BearCub) user.items.eggs.BearCub = 0;
@@ -575,7 +597,11 @@ export default function getLoginIncentives (api) {
     },
     400: {
       rewardKey: ['Pet_Food_Meat', 'Pet_Food_Potatoe', 'Pet_Food_Milk'],
-      reward: [api.food.Meat, api.food.CottonCandyBlue, api.food.CottonCandyPink, api.food.Potatoe, api.food.Honey, api.food.Strawberry, api.food.Chocolate, api.food.Fish, api.food.Milk, api.food.RottenMeat],
+      reward: [
+        api.food.Meat, api.food.CottonCandyBlue, api.food.CottonCandyPink,
+        api.food.Potatoe, api.food.Honey, api.food.Strawberry, api.food.Chocolate,
+        api.food.Fish, api.food.Milk, api.food.RottenMeat,
+      ],
       rewardName: 'fourOfEachFood',
       assignReward: function assignReward (user) {
         if (!user.items.food.Meat) user.items.food.Meat = 0;
@@ -638,10 +664,12 @@ export default function getLoginIncentives (api) {
       },
     },
   };
-  // When the final check-in prize is added here, change checkinReceivedAllRewardsMessage in website/common/locales/en/loginIncentives.json
+  // When the final check-in prize is added here,
+  // change checkinReceivedAllRewardsMessage in website/common/locales/en/loginIncentives.json
   // to say "You have received the final Check-In prize!". Confirm the message with Lemoness first.
 
-  // Add reference link to next reward and add filler days so we have a map to reference the next reward from any day
+  // Add reference link to next reward and add filler days
+  // so we have a map to reference the next reward from any day
   // We could also, use a list, but then we would be cloning each of the rewards.
   // Create a new array if we want the loginIncentives to be immutable in the future
   let nextRewardKey;

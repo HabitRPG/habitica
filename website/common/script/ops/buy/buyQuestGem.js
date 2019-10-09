@@ -9,7 +9,7 @@ import content from '../../content/index';
 import errorMessage from '../../libs/errorMessage';
 import { AbstractGemItemOperation } from './abstractBuyOperation';
 
-export class BuyQuestWithGemOperation extends AbstractGemItemOperation {
+export class BuyQuestWithGemOperation extends AbstractGemItemOperation { // eslint-disable-line import/prefer-default-export, max-len
   constructor (user, req, analytics) {
     super(user, req, analytics);
   }
@@ -31,7 +31,8 @@ export class BuyQuestWithGemOperation extends AbstractGemItemOperation {
   }
 
   extractAndValidateParams (user, req) {
-    const key = this.key = get(req, 'params.key');
+    this.key = get(req, 'params.key');
+    const { key } = this.key;
     if (!key) throw new BadRequest(errorMessage('missingKeyParam'));
 
     const item = content.quests[key];
@@ -46,7 +47,10 @@ export class BuyQuestWithGemOperation extends AbstractGemItemOperation {
   }
 
   executeChanges (user, item, req) {
-    if (!user.items.quests[item.key] || user.items.quests[item.key] < 0) user.items.quests[item.key] = 0;
+    if (
+      !user.items.quests[item.key]
+      || user.items.quests[item.key] < 0
+    ) user.items.quests[item.key] = 0;
     user.items.quests[item.key] += this.quantity;
     if (user.markModified) user.markModified('items.quests');
 

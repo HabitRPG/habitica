@@ -9,7 +9,7 @@ export default function reroll (user, tasks = [], req = {}, analytics) {
     throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
   }
 
-  user.balance--;
+  user.balance -= 1;
   user.stats.hp = 50;
 
   each(tasks, task => {

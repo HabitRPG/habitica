@@ -24,7 +24,7 @@ export default function revive (user, req = {}, analytics) {
   });
 
   if (user.stats.lvl > 1) {
-    user.stats.lvl--;
+    user.stats.lvl -= 1;
   }
 
   const lostStat = randomVal(reduce(['str', 'con', 'per', 'int'], (m, k) => {
@@ -37,7 +37,7 @@ export default function revive (user, req = {}, analytics) {
   });
 
   if (lostStat) {
-    user.stats[lostStat]--;
+    user.stats[lostStat] -= 1;
   }
 
   const base = user.items.gear.owned;
@@ -68,9 +68,11 @@ export default function revive (user, req = {}, analytics) {
 
         const itemIsArmoire = itm.klass === 'armoire';
 
-        if (itemHasValueOrWarrior0 && (itemClassEqualsUserClass || itemIsSpecial || itemIsArmoire)) {
+        if (
+          itemHasValueOrWarrior0
+          && (itemClassEqualsUserClass || itemIsSpecial || itemIsArmoire)
+        ) {
           losableItems[key] = key;
-          return losableItems[key];
         }
       }
     }

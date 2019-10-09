@@ -72,7 +72,7 @@
     "npm": "^6"
   },
   "scripts": {
-    "lint": "eslint --ext .js .",
+    "lint": "eslint --ext .js --fix ./website/server",
     "test": "npm run lint && gulp test && gulp apidoc",
     "test:build": "gulp test:prepare:build",
     "test:api-v3": "gulp test:api-v3",

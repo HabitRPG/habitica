@@ -23,8 +23,10 @@ export const DAY_MAPPING_STRING_TO_NUMBER = invert(DAY_MAPPING);
 
 /*
   Each time we perform date maths (cron, task-due-days, etc), we need to consider user preferences.
-  Specifically {dayStart} (custom day start) and {timezoneOffset}. This function sanitizes / defaults those values.
-  {now} is also passed in for various purposes, one example being the test scripts scripts testing different "now" times.
+  Specifically {dayStart} (custom day start) and {timezoneOffset}.
+  This function sanitizes / defaults those values.
+  {now} is also passed in for various purposes,
+  one example being the test scripts scripts testing different "now" times.
  */
 
 function sanitizeOptions (o) {
@@ -34,7 +36,7 @@ function sanitizeOptions (o) {
   let timezoneOffset;
   const timezoneOffsetDefault = Number(moment().zone());
 
-  if (isFinite(o.timezoneOffsetOverride)) {
+  if (Number.isFinite(o.timezoneOffsetOverride)) {
     timezoneOffset = Number(o.timezoneOffsetOverride);
   } else if (Number.isFinite(o.timezoneOffset)) {
     timezoneOffset = Number(o.timezoneOffset);
@@ -62,10 +64,17 @@ export function startOfWeek (options = {}) {
 }
 
 /*
-  This is designed for use with any date that has an important time portion (e.g., when comparing the current date-time with the previous cron's date-time for determing if cron should run now).
-  It changes the time portion of the date-time to be the Custom Day Start hour, so that the date-time is now the user's correct start of day.
-  It SUBTRACTS a day if the date-time's original hour is before CDS (e.g., if your CDS is 5am and it's currently 4am, it's still the previous day).
-  This is NOT suitable for manipulating any dates that are displayed to the user as a date with no time portion, such as a Daily's Start Dates (e.g., a Start Date of today shows only the date, so it should be considered to be today even if the hidden time portion is before CDS).
+  This is designed for use with any date that has an important time portion
+  (e.g., when comparing the current date-time with the previous cron's date-time
+   for determing if cron should run now).
+  It changes the time portion of the date-time to be the Custom Day Start hour,
+  so that the date-time is now the user's correct start of day.
+  It SUBTRACTS a day if the date-time's original hour is before CDS
+  (e.g., if your CDS is 5am and it's currently 4am, it's still the previous day).
+  This is NOT suitable for manipulating any dates that are displayed to the user
+  as a date with no time portion, such as a Daily's Start Dates
+  (e.g., a Start Date of today shows only the date,
+  so it should be considered to be today even if the hidden time portion is before CDS).
  */
 
 export function startOfDay (options = {}) {
@@ -92,7 +101,8 @@ export function daysSince (yesterday, options = {}) {
 }
 
 /*
-  Should the user do this task on this date, given the task's repeat options and user.preferences.dayStart?
+  Should the user do this task on this date,
+  given the task's repeat options and user.preferences.dayStart?
  */
 
 export function shouldDo (day, dailyTask, options = {}) {
@@ -102,9 +112,12 @@ export function shouldDo (day, dailyTask, options = {}) {
   const o = sanitizeOptions(options);
   const startOfDayWithCDSTime = startOfDay(defaults({ now: day }, o));
 
-  // The time portion of the Start Date is never visible to or modifiable by the user so we must ignore it.
-  // Therefore, we must also ignore the time portion of the user's day start (startOfDayWithCDSTime), otherwise the date comparison will be wrong for some times.
-  // NB: The user's day start date has already been converted to the PREVIOUS day's date if the time portion was before CDS.
+  // The time portion of the Start Date is never visible to
+  // or modifiable by the user so we must ignore it.
+  // Therefore, we must also ignore the time portion of the user's day start
+  // (startOfDayWithCDSTime), otherwise the date comparison will be wrong for some times.
+  // NB: The user's day start date has already been converted to the PREVIOUS
+  // day's date if the time portion was before CDS.
 
   const startDate = moment(dailyTask.startDate).zone(o.timezoneOffset).startOf('day');
 
@@ -115,7 +128,7 @@ export function shouldDo (day, dailyTask, options = {}) {
   const daysOfTheWeek = [];
   if (dailyTask.repeat) {
     for (const [repeatDay, active] of Object.entries(dailyTask.repeat)) {
-      if (!isFinite(DAY_MAPPING_STRING_TO_NUMBER[repeatDay])) continue; // eslint-disable-line no-continue
+      if (!Number.isFinite(DAY_MAPPING_STRING_TO_NUMBER[repeatDay])) continue; // eslint-disable-line no-continue
       if (active) daysOfTheWeek.push(parseInt(DAY_MAPPING_STRING_TO_NUMBER[repeatDay], 10));
     }
   }
@@ -127,7 +140,7 @@ export function shouldDo (day, dailyTask, options = {}) {
 
     if (options.nextDue) {
       const filteredDates = [];
-      for (let i = 1; filteredDates.length < 6; i++) {
+      for (let i = 1; filteredDates.length < 6; i += 1) {
         const calcDate = moment(startDate).add(dailyTask.everyX * i, 'days');
         if (calcDate > startOfDayWithCDSTime) filteredDates.push(calcDate);
       }
@@ -145,8 +158,8 @@ export function shouldDo (day, dailyTask, options = {}) {
     schedule = schedule.every(daysOfTheWeek).daysOfWeek();
     if (options.nextDue) {
       const filteredDates = [];
-      for (let i = 0; filteredDates.length < 6; i++) {
-        for (let j = 0; j < daysOfTheWeek.length && filteredDates.length < 6; j++) {
+      for (let i = 0; filteredDates.length < 6; i += 1) {
+        for (let j = 0; j < daysOfTheWeek.length && filteredDates.length < 6; j += 1) {
           const calcDate = moment(startDate).day(daysOfTheWeek[j]).add(dailyTask.everyX * i, 'weeks');
           if (calcDate > startOfDayWithCDSTime) filteredDates.push(calcDate);
         }
@@ -177,7 +190,7 @@ export function shouldDo (day, dailyTask, options = {}) {
 
       if (options.nextDue) {
         const filteredDates = [];
-        for (let i = 1; filteredDates.length < 6; i++) {
+        for (let i = 1; filteredDates.length < 6; i += 1) {
           const recurDate = moment(startDate).add(dailyTask.everyX * i, 'months');
           const calcDate = recurDate.clone();
           calcDate.day(daysOfTheWeek[0]);
@@ -193,8 +206,11 @@ export function shouldDo (day, dailyTask, options = {}) {
 
           calcDateWeek = Math.ceil(calcDate.date() / 7);
 
-          if (calcDate >= startOfDayWithCDSTime
-            && calcDateWeek === startDateWeek && calcDate.month() === recurDate.month()) filteredDates.push(calcDate);
+          if (
+            calcDate >= startOfDayWithCDSTime
+            && calcDateWeek === startDateWeek
+            && calcDate.month() === recurDate.month()
+          ) filteredDates.push(calcDate);
         }
         return filteredDates;
       }
@@ -204,7 +220,7 @@ export function shouldDo (day, dailyTask, options = {}) {
       schedule = schedule.every(dailyTask.daysOfMonth).daysOfMonth();
       if (options.nextDue) {
         const filteredDates = [];
-        for (let i = 1; filteredDates.length < 6; i++) {
+        for (let i = 1; filteredDates.length < 6; i += 1) {
           const calcDate = moment(startDate).add(dailyTask.everyX * i, 'months');
           if (calcDate >= startOfDayWithCDSTime) filteredDates.push(calcDate);
         }
@@ -220,7 +236,7 @@ export function shouldDo (day, dailyTask, options = {}) {
 
     if (options.nextDue) {
       const filteredDates = [];
-      for (let i = 1; filteredDates.length < 6; i++) {
+      for (let i = 1; filteredDates.length < 6; i += 1) {
         const calcDate = moment(startDate).add(dailyTask.everyX * i, 'years');
         if (calcDate > startOfDayWithCDSTime) filteredDates.push(calcDate);
       }

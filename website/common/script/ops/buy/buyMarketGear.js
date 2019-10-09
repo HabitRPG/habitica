@@ -15,7 +15,7 @@ import { removePinnedGearAddPossibleNewOnes } from '../pinnedGearUtils';
 import { AbstractGoldItemOperation } from './abstractBuyOperation';
 import errorMessage from '../../libs/errorMessage';
 
-export class BuyMarketGearOperation extends AbstractGoldItemOperation {
+export class BuyMarketGearOperation extends AbstractGoldItemOperation { // eslint-disable-line import/prefer-default-export, max-len
   constructor (user, req, analytics) {
     super(user, req, analytics);
   }
@@ -37,7 +37,8 @@ export class BuyMarketGearOperation extends AbstractGoldItemOperation {
   }
 
   extractAndValidateParams (user, req) {
-    const key = this.key = get(req, 'params.key');
+    this.key = get(req, 'params.key');
+    const { key } = this.key;
     if (!key) throw new BadRequest(errorMessage('missingKeyParam'));
 
     const item = content.gear.flat[key];

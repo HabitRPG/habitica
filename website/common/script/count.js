@@ -10,7 +10,7 @@ export function beastMasterProgress (pets = {}) {
   let count = 0;
 
   each(DROP_ANIMALS, animal => {
-    if (pets[animal] > 0 || pets[animal] === -1) count++;
+    if (pets[animal] > 0 || pets[animal] === -1) count += 1;
   });
 
   return count;
@@ -20,7 +20,7 @@ export function beastCount (pets = {}) {
   let count = 0;
 
   each(DROP_ANIMALS, animal => {
-    if (pets[animal] > 0) count++;
+    if (pets[animal] > 0) count += 1;
   });
 
   return count;
@@ -30,7 +30,7 @@ export function dropPetsCurrentlyOwned (pets = {}) {
   let count = 0;
 
   each(DROP_ANIMALS, animal => {
-    if (pets[animal] > 0) count++;
+    if (pets[animal] > 0) count += 1;
   });
 
   return count;
@@ -40,7 +40,7 @@ export function mountMasterProgress (mounts = {}) {
   let count = 0;
 
   each(DROP_ANIMALS, animal => {
-    if (mounts[animal]) count++;
+    if (mounts[animal]) count += 1;
   });
 
   return count;

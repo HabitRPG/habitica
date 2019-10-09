@@ -24,19 +24,20 @@ export default function releasePets (user, req = {}, analytics) {
     user.items.currentPet = '';
   }
 
-  for (const pet in content.pets) {
+  Object.keys(content.pets).forEach(pet => {
     if (!user.items.pets[pet]) {
       giveBeastMasterAchievement = false;
     }
     user.items.pets[pet] = 0;
-  }
+  });
+
   if (user.markModified) user.markModified('items.pets');
 
   if (giveBeastMasterAchievement) {
     if (!user.achievements.beastMasterCount) {
       user.achievements.beastMasterCount = 0;
     }
-    user.achievements.beastMasterCount++;
+    user.achievements.beastMasterCount += 1;
   }
 
   if (analytics) {

@@ -5,7 +5,7 @@ import {
 
 import { AbstractGoldItemOperation } from './abstractBuyOperation';
 
-export class BuyHealthPotionOperation extends AbstractGoldItemOperation {
+export class BuyHealthPotionOperation extends AbstractGoldItemOperation { // eslint-disable-line import/prefer-default-export, max-len
   constructor (user, req, analytics) {
     super(user, req, analytics);
   }

@@ -7,8 +7,9 @@ const achievsContent = content.achievements;
 let index = 0;
 
 function contribText (contrib, backer, language) {
-  if (!contrib && !backer) return;
+  if (!contrib && !backer) return null;
   if (backer && backer.npc) return backer.npc;
+
   const lvl = contrib && contrib.level;
   if (lvl && lvl > 0) {
     let contribTitle = '';
@@ -29,6 +30,8 @@ function contribText (contrib, backer, language) {
 
     return `${contribTitle} ${contrib.text}`;
   }
+
+  return null;
 }
 
 function _add (result, data) {
@@ -38,7 +41,7 @@ function _add (result, data) {
     icon: data.icon,
     earned: data.earned,
     value: data.value,
-    index: index++,
+    index: index += 1,
     optionalCount: data.optionalCount,
   };
 }

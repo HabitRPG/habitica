@@ -20,7 +20,9 @@ import { BuyHourglassMountOperation } from './buyMount';
 
 // @TODO: when we are sure buy is the only function used, let's move the buy files to a folder
 
-export default function buy (user, req = {}, analytics, options = { quantity: 1, hourglass: false }) {
+export default function buy (
+  user, req = {}, analytics, options = { quantity: 1, hourglass: false },
+) {
   const key = get(req, 'params.key');
   const { hourglass } = options;
   const { quantity } = options;

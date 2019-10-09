@@ -8,13 +8,14 @@ import {
 import splitWhitespace from '../libs/splitWhitespace';
 
 export default function releaseBoth (user, req = {}) {
-  let animal;
-
   if (!user.achievements.triadBingo) {
     throw new NotAuthorized(i18n.t('notEnoughPetsMounts', req.language));
   }
 
-  if (beastMasterProgress(user.items.pets) !== 90 || mountMasterProgress(user.items.mounts) !== 90) {
+  if (
+    beastMasterProgress(user.items.pets) !== 90
+    || mountMasterProgress(user.items.mounts) !== 90
+  ) {
     throw new NotAuthorized(i18n.t('notEnoughPetsMounts', req.language));
   }
 
@@ -49,7 +50,7 @@ export default function releaseBoth (user, req = {}) {
     user.items.currentPet = '';
   }
 
-  for (animal in content.pets) {
+  Object.keys(content.pets).forEach(animal => {
     if (user.items.pets[animal] === -1) {
       giveTriadBingo = false;
     } else if (!user.items.pets[animal]) {
@@ -61,7 +62,8 @@ export default function releaseBoth (user, req = {}) {
 
     user.items.pets[animal] = 0;
     user.items.mounts[animal] = null;
-  }
+  });
+
   if (user.markModified) {
     user.markModified('items.pets');
     user.markModified('items.mounts');
@@ -71,21 +73,21 @@ export default function releaseBoth (user, req = {}) {
     if (!user.achievements.beastMasterCount) {
       user.achievements.beastMasterCount = 0;
     }
-    user.achievements.beastMasterCount++;
+    user.achievements.beastMasterCount += 1;
   }
 
   if (giveMountMasterAchievement) {
     if (!user.achievements.mountMasterCount) {
       user.achievements.mountMasterCount = 0;
     }
-    user.achievements.mountMasterCount++;
+    user.achievements.mountMasterCount += 1;
   }
 
   if (giveTriadBingo) {
     if (!user.achievements.triadBingoCount) {
       user.achievements.triadBingoCount = 0;
     }
-    user.achievements.triadBingoCount++;
+    user.achievements.triadBingoCount += 1;
   }
 
   return [

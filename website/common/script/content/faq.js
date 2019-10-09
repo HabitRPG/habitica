@@ -10,7 +10,7 @@ const faq = {
   },
 };
 
-for (let i = 0; i <= NUMBER_OF_QUESTIONS; i++) {
+for (let i = 0; i <= NUMBER_OF_QUESTIONS; i += 1) {
   const question = {
     question: t(`faqQuestion${i}`),
     ios: t(`iosFaqAnswer${i}`),

@@ -26,7 +26,7 @@ const weapon = {
 
 // Add Two Handed message to all weapons
 const rtlLanguages = [
-  'ae',	/* Avestan */
+  'ae', /* Avestan */
   'ar', /* 'العربية', Arabic */
   'arc', /* Aramaic */
   'bcc', /* 'بلوچی مکرانی', Southern Balochi */

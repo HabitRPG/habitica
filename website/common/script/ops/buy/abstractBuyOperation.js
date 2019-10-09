@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import _merge from 'lodash/merge';
 import _get from 'lodash/get';
 import i18n from '../../i18n';
@@ -61,7 +62,7 @@ export class AbstractBuyOperation {
    */
   // eslint-disable-next-line no-unused-vars
   i18n (key, params = {}) {
-    return i18n.t.apply(null, [...arguments, this.req.language]);
+    return i18n.t.apply(null, [...arguments, this.req.language]); // eslint-disable-line prefer-rest-params, max-len
   }
 
   /**

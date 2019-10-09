@@ -22,10 +22,10 @@ export default function allocate (user, req = {}) {
   }
 
   if (user.stats.points > 0) {
-    user.stats[stat]++;
-    user.stats.points--;
+    user.stats[stat] += 1;
+    user.stats.points -= 1;
     if (stat === 'int') {
-      user.stats.mp++;
+      user.stats.mp += 1;
     }
   } else {
     throw new NotAuthorized(i18n.t('notEnoughAttrPoints', req.language));

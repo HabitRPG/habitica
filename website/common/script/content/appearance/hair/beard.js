@@ -1,5 +1,5 @@
-import sets from '../sets.js';
-import prefill from '../prefill.js';
+import sets from '../sets';
+import prefill from '../prefill';
 
 export default prefill({
   0: {},

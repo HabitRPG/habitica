@@ -9,7 +9,7 @@ import {
 
 import { AbstractHourglassItemOperation } from './abstractBuyOperation';
 
-export class BuyHourglassMountOperation extends AbstractHourglassItemOperation {
+export class BuyHourglassMountOperation extends AbstractHourglassItemOperation { // eslint-disable-line import/prefer-default-export, max-len
   constructor (user, req, analytics) {
     super(user, req, analytics);
   }
@@ -19,7 +19,8 @@ export class BuyHourglassMountOperation extends AbstractHourglassItemOperation {
   }
 
   extractAndValidateParams (user, req) {
-    const key = this.key = get(req, 'params.key');
+    this.key = get(req, 'params.key');
+    const { key } = this;
     if (!key) throw new BadRequest(this.i18n('missingKeyParam'));
 
 

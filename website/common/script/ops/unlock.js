@@ -45,13 +45,14 @@ export default function unlock (user, req = {}, analytics) {
 
     each(setPaths, singlePath => {
       if (get(user, `purchased.${singlePath}`) === true) {
-        alreadyOwnedItems++;
+        alreadyOwnedItems += 1;
       }
     });
 
     if (alreadyOwnedItems === setPaths.length) {
       throw new NotAuthorized(i18n.t('alreadyUnlocked', req.language));
-    // TODO write math formula to check if buying the full set is cheaper than the items individually
+    // TODO write math formula to check if buying
+    // the full set is cheaper than the items individually
     // (item cost * number of remaining items) < setCost`
     } /* else if (alreadyOwnedItems > 0) {
       throw new NotAuthorized(i18n.t('alreadyUnlockedPart', req.language));

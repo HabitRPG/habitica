@@ -10,7 +10,8 @@ import splitWhitespace from '../libs/splitWhitespace';
 /*
   Updates user stats with new stats. Handles death, leveling up, etc
   {stats} new stats
-  {update} if aggregated changes, pass in userObj as update. otherwise commits will be made immediately
+  {update} if aggregated changes, pass in userObj as update.
+  otherwise commits will be made immediately
  */
 
 function getStatToAllocate (user) {
@@ -53,9 +54,7 @@ function getStatToAllocate (user) {
         statsObj[preference[3]] - ideal[3],
       ];
 
-      suggested = findIndex(diff, val => {
-        if (val === min(diff)) return true;
-      });
+      suggested = findIndex(diff, val => val === min(diff));
 
       return suggested !== -1 ? preference[suggested] : 'str';
     }
@@ -77,6 +76,6 @@ function getStatToAllocate (user) {
 
 export default function autoAllocate (user) {
   const statToIncrease = getStatToAllocate(user);
-
-  return user.stats[statToIncrease]++;
+  user.stats[statToIncrease] += 1;
+  return user.stats[statToIncrease];
 }

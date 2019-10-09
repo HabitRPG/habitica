@@ -4,7 +4,9 @@ import includes from 'lodash/includes';
 import content from '../content/index';
 
 export default function ultimateGear (user) {
-  const owned = user.items.gear.owned.toObject ? user.items.gear.owned.toObject() : user.items.gear.owned;
+  const owned = user.items.gear.owned.toObject
+    ? user.items.gear.owned.toObject()
+    : user.items.gear.owned;
 
   content.classes.forEach(klass => {
     if (user.achievements.ultimateGearSets[klass] !== true) {

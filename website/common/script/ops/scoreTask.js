@@ -28,7 +28,7 @@ function _getTaskValue (taskValue) {
 function _calculateDelta (task, direction, cron) {
   // Min/max on task redness
   const currVal = _getTaskValue(task.value);
-  let nextDelta = Math.pow(0.9747, currVal) * (direction === 'down' ? -1 : 1);
+  let nextDelta = (0.9747 ** currVal) * (direction === 'down' ? -1 : 1);
 
   // Checklists
   if (task.checklist && task.checklist.length > 0) {
@@ -52,13 +52,13 @@ function _calculateDelta (task, direction, cron) {
 // it will be a bit off
 function _calculateReverseDelta (task, direction) {
   const currVal = _getTaskValue(task.value);
-  let testVal = currVal + Math.pow(0.9747, currVal) * (direction === 'down' ? -1 : 1);
+  let testVal = currVal + (0.9747 ** currVal) * (direction === 'down' ? -1 : 1);
 
   // Now keep moving closer to the original value until we get "close enough"
   // Check how close we are to the original value by computing the delta off our guess
   // and looking at the difference between that and our current value.
   while (true) { // eslint-disable-line no-constant-condition
-    const calc = testVal + Math.pow(0.9747, testVal);
+    const calc = testVal + (0.9747 ** testVal);
     const diff = currVal - calc;
 
     if (Math.abs(diff) < CLOSE_ENOUGH) break;
@@ -84,7 +84,7 @@ function _calculateReverseDelta (task, direction) {
 }
 
 function _gainMP (user, val) {
-  val *= user._tmp.crit || 1;
+  val *= user._tmp.crit || 1; // eslint-disable-line no-param-reassign
   user.stats.mp += val;
 
   if (user.stats.mp >= statsComputed(user).maxMP) user.stats.mp = statsComputed(user).maxMP;
@@ -125,7 +125,8 @@ function _addPoints (user, task, stats, direction, delta) {
     const streakBonus = currStreak / 100 + 1; // eg, 1-day streak is 1.01, 2-day is 1.02, etc
     const afterStreak = gpMod * streakBonus;
     if (currStreak > 0 && gpMod > 0) {
-      user._tmp.streakBonus = afterStreak - gpMod; // keep this on-hand for later, so we can notify streak-bonus
+      // keep this on-hand for later, so we can notify streak-bonus
+      user._tmp.streakBonus = afterStreak - gpMod;
     }
 
     stats.gp += afterStreak;
@@ -194,9 +195,13 @@ export default function scoreTask (options = {}, req = {}) {
     exp: user.stats.exp,
   };
 
-  if (task.group && task.group.approval && task.group.approval.required && !task.group.approval.approved) return 0;
+  if (
+    task.group && task.group.approval && task.group.approval.required
+    && !task.group.approval.approved
+  ) return 0;
 
-  // This is for setting one-time temporary flags, such as streakBonus or itemDropped. Useful for notifying
+  // This is for setting one-time temporary flags,
+  // such as streakBonus or itemDropped. Useful for notifying
   // the API consumer, then cleared afterwards
   user._tmp = {};
 
@@ -236,7 +241,8 @@ export default function scoreTask (options = {}, req = {}) {
       lastHistoryEntry.value = task.value;
       lastHistoryEntry.date = Number(new Date());
 
-      // @TODO remove this extra check after migration has run to set scoredUp and scoredDown in every task
+      // @TODO remove this extra check after migration
+      // has run to set scoredUp and scoredDown in every task
       lastHistoryEntry.scoredUp = lastHistoryEntry.scoredUp || 0;
       lastHistoryEntry.scoredDown = lastHistoryEntry.scoredDown || 0;
 
@@ -265,7 +271,8 @@ export default function scoreTask (options = {}, req = {}) {
     } else {
       delta += _changeTaskValue(user, task, direction, times, cron);
       if (direction === 'down') delta = _calculateDelta(task, direction, cron); // recalculate delta for unchecking so the gp and exp come out correctly
-      _addPoints(user, task, stats, direction, delta); // obviously for delta>0, but also a trick to undo accidental checkboxes
+      // obviously for delta>0, but also a trick to undo accidental checkboxes
+      _addPoints(user, task, stats, direction, delta);
       _gainMP(user, max([1, 0.01 * statsComputed(user).maxMP]) * (direction === 'down' ? -1 : 1));
 
       if (direction === 'up') {
@@ -286,7 +293,9 @@ export default function scoreTask (options = {}, req = {}) {
         task.history.push(historyEntry);
       } else if (direction === 'down') {
         // Remove a streak achievement if streak was a multiple of 21 and the daily was undone
-        if (task.streak !== 0 && task.streak % 21 === 0) user.achievements.streak = user.achievements.streak ? user.achievements.streak - 1 : 0;
+        if (task.streak !== 0 && task.streak % 21 === 0) {
+          user.achievements.streak = user.achievements.streak ? user.achievements.streak - 1 : 0;
+        }
         task.streak -= 1;
         task.completed = false;
 

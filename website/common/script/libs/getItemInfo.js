@@ -20,7 +20,9 @@ function lockQuest (quest, user) {
 }
 
 function isItemSuggested (officialPinnedItems, itemInfo) {
-  return officialPinnedItems.findIndex(officialItem => officialItem.type === itemInfo.pinType && officialItem.path === itemInfo.path) > -1;
+  return officialPinnedItems.findIndex(officialItem => { // eslint-disable-line arrow-body-style
+    return officialItem.type === itemInfo.pinType && officialItem.path === itemInfo.path;
+  }) > -1;
 }
 
 function getDefaultGearProps (item, language) {
@@ -46,12 +48,12 @@ function getDefaultGearProps (item, language) {
 
 export default function getItemInfo (user, type, item, officialPinnedItems, language = 'en') {
   if (officialPinnedItems === undefined) {
-    officialPinnedItems = getOfficialPinnedItems(user);
+    officialPinnedItems = getOfficialPinnedItems(user); // eslint-disable-line no-param-reassign
   }
 
   let itemInfo;
 
-  switch (type) {
+  switch (type) { // eslint-disable-line default-case
     case 'eggs':
       itemInfo = {
         key: item.key,
@@ -131,7 +133,9 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         group: item.group,
         value: item.goldValue ? item.goldValue : item.value,
         locked,
-        previous: content.quests[item.previous] ? content.quests[item.previous].text(language) : null,
+        previous: content.quests[item.previous]
+          ? content.quests[item.previous].text(language)
+          : null,
         unlockCondition: item.unlockCondition,
         drop: item.drop,
         boss: item.boss,

@@ -9,7 +9,7 @@ import content from '../../content/index';
 import { AbstractGoldItemOperation } from './abstractBuyOperation';
 import errorMessage from '../../libs/errorMessage';
 
-export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation {
+export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation { // eslint-disable-line import/prefer-default-export, max-len
   constructor (user, req, analytics) {
     super(user, req, analytics);
   }
@@ -66,7 +66,10 @@ export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation {
   }
 
   executeChanges (user, item, req) {
-    if (!user.items.quests[item.key] || user.items.quests[item.key] < 0) user.items.quests[item.key] = 0;
+    if (
+      !user.items.quests[item.key]
+      || user.items.quests[item.key] < 0
+    ) user.items.quests[item.key] = 0;
     user.items.quests[item.key] += this.quantity;
     if (user.markModified) user.markModified('items.quests');
 
