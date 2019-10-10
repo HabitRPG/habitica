@@ -511,19 +511,13 @@ export default {
   },
   methods: {
     async loadUser () {
-      let user = this.userLoggedIn;
+      let response = await this.$store.dispatch('members:fetchMember', { memberId: this.userLoggedIn._id });
+      let user = response.data.data;
 
       // Reset editing when user is changed. Move to watch or is this good?
       this.editing = false;
       this.hero = {};
       this.adminToolsLoaded = false;
-
-      let profileUserId = this.userId;
-
-      if (profileUserId && profileUserId !== this.userLoggedIn._id) {
-        let response = await this.$store.dispatch('members:fetchMember', { memberId: profileUserId });
-        user = response.data.data;
-      }
 
       this.editingProfile.name = user.profile.name;
       this.editingProfile.imageUrl = user.profile.imageUrl;
