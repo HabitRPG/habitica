@@ -12,7 +12,12 @@ export function generateUsername () {
 }
 
 export function loginRes (user, req, res) {
-  if (user.auth.blocked) throw new NotAuthorized(res.t('accountSuspended', { communityManagerEmail: COMMUNITY_MANAGER_EMAIL, userId: user._id }));
+  if (user.auth.blocked) {
+    throw new NotAuthorized(res.t(
+      'accountSuspended',
+      { communityManagerEmail: COMMUNITY_MANAGER_EMAIL, userId: user._id },
+    ));
+  }
 
   const responseData = {
     id: user._id,

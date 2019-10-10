@@ -2,12 +2,12 @@ import nconf from 'nconf';
 import _ from 'lodash';
 import moment from 'moment';
 
-import { model as User } from '../../models/user';
-import {
+import { model as User } from '../../models/user'; // eslint-disable-line import/no-cycle
+import { // eslint-disable-line import/no-cycle
   model as Group,
   basicFields as basicGroupFields,
 } from '../../models/group';
-import {
+import { // eslint-disable-line import/no-cycle
   getUserInfo,
   sendTxn as txnEmail,
 } from '../email';
@@ -61,8 +61,14 @@ async function addSubToGroupUser (member, group) {
 
   // When changing customerIdsToIgnore or paymentMethodsToIgnore, the code blocks below for
   // the `group-member-join` email template will probably need to be changed.
-  const customerIdsToIgnore = [this.constants.GROUP_PLAN_CUSTOMER_ID, this.constants.UNLIMITED_CUSTOMER_ID];
-  const paymentMethodsToIgnore = [this.constants.GOOGLE_PAYMENT_METHOD, this.constants.IOS_PAYMENT_METHOD];
+  const customerIdsToIgnore = [
+    this.constants.GROUP_PLAN_CUSTOMER_ID,
+    this.constants.UNLIMITED_CUSTOMER_ID,
+  ];
+  const paymentMethodsToIgnore = [
+    this.constants.GOOGLE_PAYMENT_METHOD,
+    this.constants.IOS_PAYMENT_METHOD,
+  ];
   let previousSubscriptionType = EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_NONE;
   const leader = await User.findById(group.leader).exec();
 
@@ -96,7 +102,10 @@ async function addSubToGroupUser (member, group) {
 
   const memberPlan = member.purchased.plan;
   if (member.isSubscribed()) {
-    const customerHasCancelledGroupPlan = memberPlan.customerId === this.constants.GROUP_PLAN_CUSTOMER_ID && !member.hasNotCancelled();
+    const customerHasCancelledGroupPlan = (
+      memberPlan.customerId === this.constants.GROUP_PLAN_CUSTOMER_ID
+      && !member.hasNotCancelled()
+    );
     const ignorePaymentPlan = paymentMethodsToIgnore.indexOf(memberPlan.paymentMethod) !== -1;
     const ignoreCustomerId = customerIdsToIgnore.indexOf(memberPlan.customerId) !== -1;
 
@@ -108,7 +117,9 @@ async function addSubToGroupUser (member, group) {
         { name: 'PAYMENT_METHOD', content: memberPlan.paymentMethod },
         { name: 'PURCHASED_PLAN', content: JSON.stringify(memberPlan) },
         { name: 'ACTION_NEEDED', content: 'User has joined group plan and has been told to cancel their subscription then email us. Ensure they do that then give them free sub.' },
-        // TODO User won't get email instructions if they've opted out of all emails. See if we can make this email an exception and if not, report here whether they've opted out.
+        // TODO User won't get email instructions if they've opted out of all emails.
+        // See if we can make this email an exception and if not,
+        // report here whether they've opted out.
       ]);
     }
 

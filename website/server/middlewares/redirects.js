@@ -21,11 +21,14 @@ function isHTTP (req) {
 
 export function forceSSL (req, res, next) {
   const { skipSSLCheck } = req.query;
-  if (isHTTP(req) && (!SKIP_SSL_CHECK_KEY || !skipSSLCheck || skipSSLCheck !== SKIP_SSL_CHECK_KEY)) {
+  if (
+    isHTTP(req)
+    && (!SKIP_SSL_CHECK_KEY || !skipSSLCheck || skipSSLCheck !== SKIP_SSL_CHECK_KEY)
+  ) {
     return res.redirect(BASE_URL + req.originalUrl);
   }
 
-  next();
+  return next();
 }
 
 // Redirect to habitica for non-api urls
@@ -39,5 +42,5 @@ export function forceHabitica (req, res, next) {
     return res.redirect(301, BASE_URL + req.url);
   }
 
-  next();
+  return next();
 }

@@ -12,19 +12,22 @@ import common from '../../../common';
 import logger from '../logger';
 import { decrypt } from '../encryption';
 import { model as Group } from '../../models/group';
-import { loginSocial } from './social.js';
+import { loginSocial } from './social';
 import { loginRes } from './utils';
 import { verifyUsername } from '../user/validation';
 
 const USERNAME_LENGTH_MIN = 1;
 const USERNAME_LENGTH_MAX = 20;
 
-// When the user signed up after having been invited to a group, invite them automatically to the group
+// When the user signed up after having been invited to a group,
+// invite them automatically to the group
 async function _handleGroupInvitation (user, invite) {
   // wrapping the code in a try because we don't want it to prevent the user from signing up
   // that's why errors are not translated
   try {
-    let { sentAt, id: groupId, inviter } = JSON.parse(decrypt(invite));
+    const decryptedInvite = JSON.parse(decrypt(invite));
+    let { inviter } = decryptedInvite;
+    const { sentAt, id: groupId } = decryptedInvite;
 
     // check that the invite has not expired (after 7 days)
     if (sentAt && moment().subtract(7, 'days').isAfter(sentAt)) {
@@ -66,7 +69,8 @@ function hasBackupAuth (user, networkToRemove) {
     return true;
   }
 
-  const hasAlternateNetwork = common.constants.SUPPORTED_SOCIAL_NETWORKS.find(network => network.key !== networkToRemove && user.auth[network.key].id);
+  const hasAlternateNetwork = common.constants.SUPPORTED_SOCIAL_NETWORKS
+    .find(network => network.key !== networkToRemove && user.auth[network.key].id);
 
   return hasAlternateNetwork;
 }
@@ -100,10 +104,12 @@ async function registerLocal (req, res, { isV3 = false }) {
   const issues = verifyUsername(req.body.username, res);
   if (issues.length > 0) throw new BadRequest(issues.join(' '));
 
-  let { email, username, password } = req.body;
+  let { email, username } = req.body;
+  const { password } = req.body;
 
   // Get the lowercase version of username to check that we do not have duplicates
-  // So we can search for it in the database and then reject the choosen username if 1 or more results are found
+  // So we can search for it in the database and then reject the choosen
+  // username if 1 or more results are found
   email = email.toLowerCase();
   username = username.trim();
   const lowerCaseUsername = username.toLowerCase();
@@ -147,9 +153,10 @@ async function registerLocal (req, res, { isV3 = false }) {
 
   if (existingUser) {
     const hasSocialAuth = common.constants.SUPPORTED_SOCIAL_NETWORKS.find(network => {
-      if (existingUser.auth.hasOwnProperty(network.key)) {
+      if (existingUser.auth.hasOwnProperty(network.key)) { // eslint-disable-line no-prototype-builtins, max-len
         return existingUser.auth[network.key].id;
       }
+      return false;
     });
     if (!hasSocialAuth) throw new NotAuthorized(res.t('onlySocialAttachLocal'));
     existingUser.auth.local = newUser.auth.local;

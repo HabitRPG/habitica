@@ -305,7 +305,9 @@ api.forceStart = {
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
     if (!group.quest.key) throw new NotFound(res.t('questNotPending'));
     if (group.quest.active) throw new NotAuthorized(res.t('questAlreadyUnderway'));
-    if (!(user._id === group.quest.leader || user._id === group.leader)) throw new NotAuthorized(res.t('questOrGroupLeaderOnlyStartQuest'));
+    if (!(user._id === group.quest.leader || user._id === group.leader)) {
+      throw new NotAuthorized(res.t('questOrGroupLeaderOnlyStartQuest'));
+    }
 
     group.markModified('quest');
 
@@ -352,7 +354,8 @@ api.cancelQuest = {
   async handler (req, res) {
     // Cancel a quest BEFORE it has begun (i.e., in the invitation stage)
     // Quest scroll has not yet left quest owner's inventory so no need to return it.
-    // Do not wipe quest progress for members because they'll want it to be applied to the next quest that's started.
+    // Do not wipe quest progress for members because they'll
+    // want it to be applied to the next quest that's started.
     const { user } = res.locals;
     const { groupId } = req.params;
 
@@ -366,7 +369,9 @@ api.cancelQuest = {
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
     if (!group.quest.key) throw new NotFound(res.t('questInvitationDoesNotExist'));
-    if (user._id !== group.leader && group.quest.leader !== user._id) throw new NotAuthorized(res.t('onlyLeaderCancelQuest'));
+    if (user._id !== group.leader && group.quest.leader !== user._id) {
+      throw new NotAuthorized(res.t('onlyLeaderCancelQuest'));
+    }
     if (group.quest.active) throw new NotAuthorized(res.t('cantCancelActiveQuest'));
 
     const questName = questScrolls[group.quest.key].text('en');

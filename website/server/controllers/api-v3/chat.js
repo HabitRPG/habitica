@@ -110,7 +110,6 @@ api.postChat = {
   async handler (req, res) {
     const { user } = res.locals;
     const { groupId } = req.params;
-    let chatUpdated;
 
     req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
     req.sanitize('message').trim();
@@ -165,7 +164,8 @@ api.postChat = {
       throw new NotAuthorized(res.t('chatPrivilegesRevoked'));
     }
 
-    // prevent banned words being posted, except in private guilds/parties and in certain public guilds with specific topics
+    // prevent banned words being posted, except in private guilds/parties
+    // and in certain public guilds with specific topics
     if (group.privacy === 'public' && !guildsAllowingBannedWords[group._id]) {
       const matchedBadWords = getBannedWordsFromText(req.body.message);
       if (matchedBadWords.length > 0) {
@@ -175,7 +175,9 @@ api.postChat = {
 
     const chatRes = await Group.toJSONCleanChat(group, user);
     const lastClientMsg = req.query.previousMsg;
-    chatUpdated = !!(lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg);
+    const chatUpdated = !!(
+      lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg
+    );
 
     if (group.checkChatSpam(user)) {
       throw new NotAuthorized(res.t('messageGroupChatSpam'));
@@ -449,7 +451,8 @@ api.seenChat = {
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    // Do not validate group existence, it doesn't really matter and make it works if the group gets deleted
+    // Do not validate group existence,
+    // it doesn't really matter and make it works if the group gets deleted
     // let group = await Group.getGroup({user, groupId});
     // if (!group) throw new NotFound(res.t('groupNotFound'));
 
@@ -476,7 +479,7 @@ api.seenChat = {
     // Update the user version field manually,
     // it cannot be updated in the pre update hook
     // See https://github.com/HabitRPG/habitica/pull/9321#issuecomment-354187666 for more info
-    user._v++;
+    user._v += 1;
 
     await User.update({ _id: user._id }, update).exec();
     res.respond(200, {});
@@ -529,7 +532,9 @@ api.deleteChat = {
 
     const chatRes = await Group.toJSONCleanChat(group, user);
     const lastClientMsg = req.query.previousMsg;
-    const chatUpdated = !!(lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg);
+    const chatUpdated = !!(
+      lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg
+    );
 
     await Chat.remove({ _id: message._id }).exec();
 

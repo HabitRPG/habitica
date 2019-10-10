@@ -46,7 +46,13 @@ api.iapSubscriptionAndroid = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     if (!req.body.sku) throw new BadRequest(res.t('missingSubscriptionCode'));
-    await googlePayments.subscribe(req.body.sku, res.locals.user, req.body.transaction.receipt, req.body.transaction.signature, req.headers);
+    await googlePayments.subscribe(
+      req.body.sku,
+      res.locals.user,
+      req.body.transaction.receipt,
+      req.body.transaction.signature,
+      req.headers,
+    );
 
     res.respond(200);
   },

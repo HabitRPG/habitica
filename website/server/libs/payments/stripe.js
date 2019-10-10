@@ -6,15 +6,15 @@ import {
   NotAuthorized,
   NotFound,
 } from '../errors';
-import payments from './payments';
-import { model as User } from '../../models/user';
-import {
+import payments from './payments'; // eslint-disable-line import/no-cycle
+import { model as User } from '../../models/user'; // eslint-disable-line import/no-cycle
+import { // eslint-disable-line import/no-cycle
   model as Group,
   basicFields as basicGroupFields,
 } from '../../models/group';
 import shared from '../../../common';
 import stripeConstants from './stripe/constants';
-import { checkout } from './stripe/checkout';
+import { checkout } from './stripe/checkout'; // eslint-disable-line import/no-cycle
 import { getStripeApi, setStripeApi } from './stripe/api';
 
 const { i18n } = shared;
@@ -54,7 +54,8 @@ api.editSubscription = async function editSubscription (options, stripeInc) {
   const { token, groupId, user } = options;
   let customerId;
 
-  // @TODO: We need to mock this, but curently we don't have correct Dependency Injection. And the Stripe Api doesn't seem to be a singleton?
+  // @TODO: We need to mock this, but curently we don't have correct
+  // Dependency Injection. And the Stripe Api doesn't seem to be a singleton?
   let stripeApi = getStripeApi();
   if (stripeInc) stripeApi = stripeInc;
 
@@ -81,7 +82,8 @@ api.editSubscription = async function editSubscription (options, stripeInc) {
   if (!customerId) throw new NotAuthorized(i18n.t('missingSubscription'));
   if (!token) throw new BadRequest('Missing req.body.id');
 
-  const subscriptions = await stripeApi.subscriptions.list({ customer: customerId }); // @TODO: Handle Stripe Error response
+  // @TODO: Handle Stripe Error response
+  const subscriptions = await stripeApi.subscriptions.list({ customer: customerId });
   const subscriptionId = subscriptions.data[0].id;
   await stripeApi.subscriptions.update(subscriptionId, { card: token });
 };
@@ -100,7 +102,8 @@ api.cancelSubscription = async function cancelSubscription (options, stripeInc) 
   const { groupId, user, cancellationReason } = options;
   let customerId;
 
-  // @TODO: We need to mock this, but curently we don't have correct Dependency Injection. And the Stripe Api doesn't seem to be a singleton?
+  // @TODO: We need to mock this, but curently we don't have correct
+  // Dependency Injection. And the Stripe Api doesn't seem to be a singleton?
   let stripeApi = getStripeApi();
   if (stripeInc) stripeApi = stripeInc;
 
@@ -133,7 +136,7 @@ api.cancelSubscription = async function cancelSubscription (options, stripeInc) 
   if (customer && (customer.subscription || customer.subscriptions)) {
     let { subscription } = customer;
     if (!subscription && customer.subscriptions) {
-      subscription = customer.subscriptions.data[0];
+      subscription = [customer.subscriptions.data];
     }
     await stripeApi.customers.del(customerId);
 
@@ -178,7 +181,8 @@ api.chargeForAdditionalGroupMember = async function chargeForAdditionalGroupMemb
 api.handleWebhooks = async function handleWebhooks (options, stripeInc) {
   const { requestBody } = options;
 
-  // @TODO: We need to mock this, but curently we don't have correct Dependency Injection. And the Stripe Api doesn't seem to be a singleton?
+  // @TODO: We need to mock this, but curently we don't have correct
+  // Dependency Injection. And the Stripe Api doesn't seem to be a singleton?
   let stripeApi = getStripeApi();
   if (stripeInc) stripeApi = stripeInc;
 

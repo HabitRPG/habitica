@@ -36,7 +36,7 @@ export async function recoverCron (status, locals) {
   if (!reloadedUser) {
     throw new Error(`User ${user._id} not found while recovering.`);
   } else if (reloadedUser._cronSignature !== 'NOT_RUNNING') {
-    status.times++;
+    status.times += 1;
 
     if (status.times < 5) {
       await recoverCron(status, locals);
@@ -45,7 +45,6 @@ export async function recoverCron (status, locals) {
     }
   } else {
     locals.user = reloadedUser;
-    return null;
   }
 }
 
@@ -59,7 +58,8 @@ const CLEAR_BUFFS = {
 };
 
 function grantEndOfTheMonthPerks (user, now) {
-  const SUBSCRIPTION_BASIC_BLOCK_LENGTH = 3; // multi-month subscriptions are for multiples of 3 months
+  // multi-month subscriptions are for multiples of 3 months
+  const SUBSCRIPTION_BASIC_BLOCK_LENGTH = 3;
   const { plan } = user.purchased;
   const subscriptionEndDate = moment(plan.dateTerminated).isBefore() ? moment(plan.dateTerminated).startOf('month') : moment(now).startOf('month');
   const dateUpdatedMoment = moment(plan.dateUpdated).startOf('month');
@@ -67,54 +67,74 @@ function grantEndOfTheMonthPerks (user, now) {
 
   if (elapsedMonths > 0) {
     plan.dateUpdated = now;
-    // For every month, inc their "consecutive months" counter. Give perks based on consecutive blocks
-    // If they already got perks for those blocks (eg, 6mo subscription, subscription gifts, etc) - then dec the offset until it hits 0
+    // For every month, inc their "consecutive months" counter.
+    // Give perks based on consecutive blocks
+    // If they already got perks for those blocks (eg, 6mo subscription,
+    // subscription gifts, etc) - then dec the offset until it hits 0
     _.defaults(plan.consecutive, {
       count: 0, offset: 0, trinkets: 0, gemCapExtra: 0,
     });
 
-    let planMonthsLength = 1; // 1 for one-month recurring or gift subscriptions; later set to 3 for 3-month recurring, etc.
+    // 1 for one-month recurring or gift subscriptions; later set to 3 for 3-month recurring, etc.
+    let planMonthsLength = 1;
 
-    for (let i = 0; i < elapsedMonths; i++) {
-      plan.consecutive.count++;
+    for (let i = 0; i < elapsedMonths; i += 1) {
+      plan.consecutive.count += 1;
 
-      plan.consecutive.offset--;
-      // If offset is now greater than 0, the user is within a period for which they have already been given the consecutive months perks.
+      plan.consecutive.offset -= 1;
+      // If offset is now greater than 0, the user is within a period
+      // for which they have already been given the consecutive months perks.
       //
-      // If offset now equals 0, this is the final month for which the user has already been given the consecutive month perks.
-      // We do not give them more perks yet because they might cancel the subscription before the next payment is taken.
+      // If offset now equals 0, this is the final month for which
+      // the user has already been given the consecutive month perks.
+      // We do not give them more perks yet because they might cancel
+      // the subscription before the next payment is taken.
       //
-      // If offset is now less than 0, the user EITHER has a single-month recurring subscription and MIGHT be due for perks,
-      // OR has a multi-month subscription that renewed some time in the previous calendar month and so they are due for a new set of perks
-      // (strictly speaking, they should have been given the perks at the time that next payment was taken, but we don't have support for
+      // If offset is now less than 0, the user EITHER has
+      // a single-month recurring subscription and MIGHT be due for perks,
+      // OR has a multi-month subscription that renewed some time
+      // in the previous calendar month and so they are due for a new set of perks
+      // (strictly speaking, they should have been given the perks
+      // at the time that next payment was taken, but we don't have support for
       // tracking payments like that - giving the perks when offset is < 0 is a workaround).
 
       if (plan.consecutive.offset < 0) {
         if (plan.planId) {
-          // NB gift subscriptions don't have a planID (which doesn't matter because we don't need to reapply perks for them and by this point they should have expired anyway)
+          // NB gift subscriptions don't have a planID
+          // (which doesn't matter because we don't need to reapply perks
+          // for them and by this point they should have expired anyway)
           const planIdRegExp = new RegExp('_([0-9]+)mo'); // e.g., matches 'google_6mo' / 'basic_12mo' and captures '6' / '12'
           const match = plan.planId.match(planIdRegExp);
           if (match !== null && match[0] !== null) {
-            planMonthsLength = match[1]; // 3 for 3-month recurring subscription, etc
+            // 3 for 3-month recurring subscription, etc
+            planMonthsLength = match[1]; // eslint-disable-line prefer-destructuring
           }
         }
 
-        let perkAmountNeeded = 0; // every 3 months you get one set of perks - this variable records how many sets you need
+        // every 3 months you get one set of perks - this variable records how many sets you need
+        let perkAmountNeeded = 0;
         if (planMonthsLength === 1) {
-          // User has a single-month recurring subscription and are due for perks IF they've been subscribed for a multiple of 3 months.
+          // User has a single-month recurring subscription and are due for perks
+          // IF they've been subscribed for a multiple of 3 months.
           if (plan.consecutive.count % SUBSCRIPTION_BASIC_BLOCK_LENGTH === 0) { // every 3 months
             perkAmountNeeded = 1;
           }
           plan.consecutive.offset = 0; // allow the same logic to be run next month
         } else {
-          // User has a multi-month recurring subscription and it renewed in the previous calendar month.
-          perkAmountNeeded = planMonthsLength / SUBSCRIPTION_BASIC_BLOCK_LENGTH; // e.g., for a 6-month subscription, give two sets of perks
-          plan.consecutive.offset = planMonthsLength - 1; // don't need to check for perks again for this many months (subtract 1 because we should have run this when the payment was taken last month)
+          // User has a multi-month recurring subscription
+          // and it renewed in the previous calendar month.
+
+          // e.g., for a 6-month subscription, give two sets of perks
+          perkAmountNeeded = planMonthsLength / SUBSCRIPTION_BASIC_BLOCK_LENGTH;
+          // don't need to check for perks again for this many months
+          // (subtract 1 because we should have run this when the payment was taken last month)
+          plan.consecutive.offset = planMonthsLength - 1;
         }
         if (perkAmountNeeded > 0) {
           plan.consecutive.trinkets += perkAmountNeeded; // one Hourglass every 3 months
           plan.consecutive.gemCapExtra += 5 * perkAmountNeeded; // 5 extra Gems every 3 months
-          if (plan.consecutive.gemCapExtra > 25) plan.consecutive.gemCapExtra = 25; // cap it at 50 (hard 25 limit + extra 25)
+          // cap it at 50 (hard 25 limit + extra 25)
+          if (plan.consecutive.gemCapExtra > 25) plan.consecutive.gemCapExtra = 25;
         }
       }
     }
@@ -143,11 +163,13 @@ function resetHabitCounters (user, tasksByType, now, daysMissed) {
   // check if we've passed a day on which we should reset the habit counters, including today
   let resetWeekly = false;
   let resetMonthly = false;
-  for (let i = 0; i < daysMissed; i++) {
+  for (let i = 0; i < daysMissed; i += 1) {
     if (resetWeekly === true && resetMonthly === true) {
       break;
     }
-    const thatDay = moment(now).zone(user.preferences.timezoneOffset + user.preferences.dayStart * 60).subtract({ days: i });
+    const thatDay = moment(now)
+      .zone(user.preferences.timezoneOffset + user.preferences.dayStart * 60)
+      .subtract({ days: i });
     if (thatDay.day() === 1) {
       resetWeekly = true;
     }
@@ -189,7 +211,10 @@ function trackCronAnalytics (analytics, user, _progress, options) {
     loginIncentives: user.loginIncentives,
   });
 
-  if (user.party && user.party.quest && !user.party.quest.RSVPNeeded && !user.party.quest.completed && user.party.quest.key && !user.preferences.sleep) {
+  if (
+    user.party && user.party.quest && !user.party.quest.RSVPNeeded
+    && !user.party.quest.completed && user.party.quest.key && !user.preferences.sleep
+  ) {
     analytics.track('quest participation', {
       category: 'behavior',
       uuid: user._id,
@@ -278,22 +303,28 @@ export function cron (options = {}) {
   }
 
   const { plan } = user.purchased;
-  const userHasTerminatedSubscription = plan.dateTerminated && moment(plan.dateTerminated).isBefore(new Date());
+  const userHasTerminatedSubscription = plan.dateTerminated
+    && moment(plan.dateTerminated).isBefore(new Date());
   if (!CRON_SAFE_MODE && userHasTerminatedSubscription) removeTerminatedSubscription(user);
 
   // Login Incentives
-  user.loginIncentives++;
+  user.loginIncentives += 1;
   awardLoginIncentives(user);
 
   const multiDaysCountAsOneDay = true;
-  // If the user does not log in for two or more days, cron (mostly) acts as if it were only one day.
+  // If the user does not log in for two or more days,
+  // cron (mostly) acts as if it were only one day.
   // When site-wide difficulty settings are introduced, this can be a user preference option.
 
   // Tally each task
   let todoTally = 0;
 
-  tasksByType.todos.forEach(task => { // make uncompleted To-Dos redder (further incentive to complete them)
-    if (task.group.assignedDate && moment(task.group.assignedDate).isAfter(user.auth.timestamps.updated)) return;
+  // make uncompleted To-Dos redder (further incentive to complete them)
+  tasksByType.todos.forEach(task => {
+    if (
+      task.group.assignedDate
+      && moment(task.group.assignedDate).isAfter(user.auth.timestamps.updated)
+    ) return;
     scoreTask({
       task,
       user,
@@ -305,7 +336,8 @@ export function cron (options = {}) {
     todoTally += task.value;
   });
 
-  // For incomplete Dailys, add value (further incentive), deduct health, keep records for later decreasing the nightly mana gain.
+  // For incomplete Dailys, add value (further incentive),
+  // deduct health, keep records for later decreasing the nightly mana gain.
   // The negative effects are not done when resting in the inn.
   let dailyChecked = 0; // how many dailies were checked?
   let dailyDueUnchecked = 0; // how many dailies were un-checked?
@@ -313,7 +345,10 @@ export function cron (options = {}) {
   if (!user.party.quest.progress.down) user.party.quest.progress.down = 0;
 
   tasksByType.dailys.forEach(task => {
-    if (task.group.assignedDate && moment(task.group.assignedDate).isAfter(user.auth.timestamps.updated)) return;
+    if (
+      task.group.assignedDate
+      && moment(task.group.assignedDate).isAfter(user.auth.timestamps.updated)
+    ) return;
     const { completed } = task;
     // Deduct points for missed Daily tasks
     let EvadeTask = 0;
@@ -329,29 +364,35 @@ export function cron (options = {}) {
       // dailys repeat, so need to calculate how many they've missed according to their own schedule
       scheduleMisses = 0;
 
-      for (let i = 0; i < daysMissed; i++) {
+      for (let i = 0; i < daysMissed; i += 1) {
         const thatDay = moment(now).subtract({ days: i + 1 });
 
         if (shouldDo(thatDay.toDate(), task, user.preferences)) {
           atLeastOneDailyDue = true;
-          scheduleMisses++;
+          scheduleMisses += 1;
           if (user.stats.buffs.stealth) {
-            user.stats.buffs.stealth--;
-            EvadeTask++;
+            user.stats.buffs.stealth -= 1;
+            EvadeTask += 1;
           }
         }
         if (multiDaysCountAsOneDay) break;
       }
 
       if (scheduleMisses > EvadeTask) {
-        // The user did not complete this due Daily (but no penalty if cron is running in safe mode).
+        // The user did not complete this due Daily
+        // (but no penalty if cron is running in safe mode).
         if (CRON_SAFE_MODE) {
           dailyChecked += 1; // allows full allotment of mp to be gained
         } else {
           perfect = false;
 
-          if (task.checklist && task.checklist.length > 0) { // Partially completed checklists dock fewer mana points
-            const fractionChecked = _.reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 0) / task.checklist.length;
+          // Partially completed checklists dock fewer mana points
+          if (task.checklist && task.checklist.length > 0) {
+            const fractionChecked = _.reduce(
+              task.checklist,
+              (m, i) => m + (i.completed ? 1 : 0),
+              0,
+            ) / task.checklist.length;
             dailyDueUnchecked += 1 - fractionChecked;
             dailyChecked += fractionChecked;
           } else {
@@ -370,7 +411,8 @@ export function cron (options = {}) {
             if (!CRON_SEMI_SAFE_MODE) {
               // Apply damage from a boss, less damage for Trivial priority (difficulty)
               user.party.quest.progress.down += delta * (task.priority < 1 ? task.priority : 1);
-              // NB: Medium and Hard priorities do not increase damage from boss. This was by accident
+              // NB: Medium and Hard priorities do not increase damage from boss.
+              // This was by accident
               // initially, and when we realised, we could not fix it because users are used to
               // their Medium and Hard Dailies doing an Easy amount of damage from boss.
               // Easy is task.priority = 1. Anything < 1 will be Trivial (0.1) or any future
@@ -392,7 +434,7 @@ export function cron (options = {}) {
 
     if (completed || scheduleMisses > 0) {
       if (task.checklist) {
-        task.checklist.forEach(i => i.completed = false);
+        task.checklist.forEach(i => { i.completed = false; });
       }
     }
 
@@ -427,14 +469,18 @@ export function cron (options = {}) {
   let expTally = user.stats.exp;
   let lvl = 0; // iterator
   while (lvl < user.stats.lvl - 1) {
-    lvl++;
+    lvl += 1;
     expTally += common.tnl(lvl);
   }
 
   user.history.exp.push({ date: now, value: expTally });
 
   // Remove any remaining completed todos from the list of active todos
-  user.tasksOrder.todos = user.tasksOrder.todos.filter(taskOrderId => _.some(tasksByType.todos, taskType => taskType._id === taskOrderId && taskType.completed === false));
+  user.tasksOrder.todos = user.tasksOrder.todos
+    .filter(taskOrderId => _.some(
+      tasksByType.todos,
+      taskType => taskType._id === taskOrderId && taskType.completed === false,
+    ));
   // TODO also adjust tasksOrder arrays to remove deleted tasks of any kind (including rewards), ensure that all existing tasks are in the arrays, no tasks IDs are duplicated -- https://github.com/HabitRPG/habitica/issues/7645
 
   // preen user history so that it doesn't become a performance problem
@@ -442,7 +488,7 @@ export function cron (options = {}) {
   preenUserHistory(user, tasksByType);
 
   if (perfect && atLeastOneDailyDue) {
-    user.achievements.perfect++;
+    user.achievements.perfect += 1;
     const lvlDiv2 = Math.ceil(common.capByLevel(user.stats.lvl) / 2);
     user.stats.buffs = {
       str: lvlDiv2,
@@ -456,15 +502,19 @@ export function cron (options = {}) {
     user.stats.buffs = _.cloneDeep(CLEAR_BUFFS);
   }
 
-  // Add 10 MP, or 10% of max MP if that'd be more. Perform this after Perfect Day for maximum benefit
+  // Add 10 MP, or 10% of max MP if that'd be more.
+  // Perform this after Perfect Day for maximum benefit
   // Adjust for fraction of dailies completed
   if (!user.preferences.sleep) {
     if (dailyDueUnchecked === 0 && dailyChecked === 0) dailyChecked = 1;
-    user.stats.mp += _.max([10, 0.1 * common.statsComputed(user).maxMP]) * dailyChecked / (dailyDueUnchecked + dailyChecked);
-    if (user.stats.mp > common.statsComputed(user).maxMP) user.stats.mp = common.statsComputed(user).maxMP;
+    user.stats.mp += (_.max([10, 0.1 * common.statsComputed(user).maxMP]) * dailyChecked) / (dailyDueUnchecked + dailyChecked); // eslint-disable-line max-len
+    if (user.stats.mp > common.statsComputed(user).maxMP) {
+      user.stats.mp = common.statsComputed(user).maxMP;
+    }
   }
 
-  // After all is said and done, progress up user's effect on quest, return those values & reset the user's
+  // After all is said and done,
+  // progress up user's effect on quest, return those values & reset the user's
   if (!user.preferences.sleep) {
     const { progress } = user.party.quest;
     _progress = progress.toObject(); // clone the old progress object
@@ -488,7 +538,7 @@ export function cron (options = {}) {
   });
 
   // Analytics
-  user.flags.cronCount++;
+  user.flags.cronCount += 1;
   trackCronAnalytics(analytics, user, _progress, options);
 
   return _progress;

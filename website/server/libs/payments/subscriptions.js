@@ -2,12 +2,12 @@ import _ from 'lodash';
 import moment from 'moment';
 
 import * as analytics from '../analyticsService';
-import * as slack from '../slack';
-import {
+import * as slack from '../slack'; // eslint-disable-line import/no-cycle
+import { // eslint-disable-line import/no-cycle
   getUserInfo,
   sendTxn as txnEmail,
 } from '../email';
-import {
+import { // eslint-disable-line import/no-cycle
   model as Group,
   basicFields as basicGroupFields,
 } from '../../models/group';
@@ -50,11 +50,12 @@ function _dateDiff (earlyDate, lateDate) {
 
 async function createSubscription (data) {
   let recipient = data.gift ? data.gift.member : data.user;
-  const block = shared.content.subscriptionBlocks[data.gift ? data.gift.subscription.key : data.sub.key];
+  const block = shared.content.subscriptionBlocks[data.gift
+    ? data.gift.subscription.key
+    : data.sub.key];
   const autoRenews = data.autoRenews !== undefined ? data.autoRenews : true;
   const months = Number(block.months);
   const today = new Date();
-  let plan;
   let group;
   let groupId;
   let itemPurchased = 'Subscription';
@@ -86,7 +87,7 @@ async function createSubscription (data) {
     await this.addSubscriptionToGroupUsers(group);
   }
 
-  plan = recipient.purchased.plan;
+  const { plan } = recipient.purchased;
 
   if (data.gift || !autoRenews) {
     if (plan.customerId && !plan.dateTerminated) { // User has active plan
@@ -165,7 +166,7 @@ async function createSubscription (data) {
     headers: data.headers,
   });
 
-  if (!group) data.user.purchased.txnCount++;
+  if (!group) data.user.purchased.txnCount += 1;
 
   if (data.gift) {
     const byUserName = getUserInfo(data.user, ['name']).name;
@@ -200,7 +201,8 @@ async function createSubscription (data) {
       ]);
     }
 
-    if (data.gift.member._id !== data.user._id) { // Only send push notifications if sending to a user other than yourself
+    // Only send push notifications if sending to a user other than yourself
+    if (data.gift.member._id !== data.user._id) {
       if (data.gift.member.preferences.pushNotifications.giftedSubscription !== false) {
         sendPushNotification(data.gift.member,
           {
@@ -293,7 +295,8 @@ async function cancelSubscription (data) {
     .add({ days: extraDays })
     .toDate();
 
-  plan.extraMonths = 0; // clear extra time. If they subscribe again, it'll be recalculated from p.dateTerminated
+  // clear extra time. If they subscribe again, it'll be recalculated from p.dateTerminated
+  plan.extraMonths = 0;
 
   if (group) {
     await group.save();

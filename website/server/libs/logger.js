@@ -28,7 +28,9 @@ if (IS_PROD) {
       json: true,
     });
   }
-} else if (!IS_TEST || IS_TEST && ENABLE_LOGS_IN_TEST) { // Do not log anything when testing unless specified
+
+// Do not log anything when testing unless specified
+} else if (!IS_TEST || (IS_TEST && ENABLE_LOGS_IN_TEST)) {
   logger
     .add(winston.transports.Console, {
       timestamp: true,
@@ -55,7 +57,8 @@ const loggerInterface = {
       const stack = err.stack || err.message || err;
 
       if (_.isPlainObject(errorData) && !errorData.fullError) {
-        // If the error object has interesting data (not only httpCode, message and name from the CustomError class)
+        // If the error object has interesting data
+        // (not only httpCode, message and name from the CustomError class)
         // add it to the logs
         if (err instanceof CustomError) {
           const errWithoutCommonProps = _.omit(err, ['name', 'httpCode', 'message']);

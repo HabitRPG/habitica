@@ -55,15 +55,20 @@
 // 'fu' and 'fuq' because they have legitimate meanings in English and/or other languages.
 // 'tard' because it's French for 'late' and there's no common synonyms.
 // 'god' because it is allowed for use in ways that are not oaths.
-// Tobacco products because they are more often mentioned when celebrating quitting than in a way that might trigger addictive behaviour.
+// Tobacco products because they are more often mentioned when celebrating
+// quitting than in a way that might trigger addictive behaviour.
 // Legitimate given names: 'Jesus', 'Sherry'
 // Legitimate surnames: 'Christ', 'Mead'
 // Legitimate place names: 'Dyke'
 //
 // Explanations for some blocked words:
-// 'fag' means 'subject' in some Scandinavian languages but we have decided to block it for its use as an English-language slur; hopefully the Scandinavian languages have suitable synonyms.
+// 'fag' means 'subject' in some Scandinavian languages but
+// we have decided to block it for its use as an English-language slur;
+// hopefully the Scandinavian languages have suitable synonyms.
 // 'slut' means 'end' in Danish but is blocked for the same reason as 'fag'.
-// These words are blocked from use in the Tavern but do not appear in bannedSlurs.js because we do not want people to be automatically muted when the words are used appropriately in guilds.
+// These words are blocked from use in the Tavern but do not appear in bannedSlurs.js
+// because we do not want people to be automatically muted when the words are used
+// appropriately in guilds.
 
 
 // DO NOT EDIT! See the comments at the top of this file.

@@ -6,13 +6,14 @@ import * as Tasks from '../task';
 import {
   model as UserNotification,
 } from '../userNotification';
-import {
+import { // eslint-disable-line import/no-cycle
   userActivityWebhook,
 } from '../../libs/webhook';
-import schema from './schema';
+import schema from './schema'; // eslint-disable-line import/no-cycle
 
 schema.plugin(baseModel, {
-  // noSet is not used as updating uses a whitelist and creating only accepts specific params (password, email, username, ...)
+  // noSet is not used as updating uses a whitelist and creating only accepts
+  // specific params (password, email, username, ...)
   noSet: [],
   private: ['auth.local.hashed_password', 'auth.local.passwordHashMethod', 'auth.local.salt', '_cronSignature', '_ABtests'],
   toJSONTransform: function userToJSON (plainObj, originalDoc) {
@@ -25,7 +26,8 @@ schema.plugin(baseModel, {
     delete plainObj.filters;
 
     if (originalDoc.notifications) {
-      plainObj.notifications = UserNotification.convertNotificationsToSafeJson(originalDoc.notifications);
+      plainObj.notifications = UserNotification
+        .convertNotificationsToSafeJson(originalDoc.notifications);
     }
 
     return plainObj;
@@ -51,7 +53,8 @@ function _populateDefaultTasks (user, taskTypes) {
     user.tags = _.map(defaultsData.tags, tag => {
       const newTag = _.cloneDeep(tag);
 
-      // tasks automatically get _id=helpers.uuid() from TaskSchema id.default, but tags are Schema.Types.Mixed - so we need to manually invoke here
+      // tasks automatically get _id=helpers.uuid() from TaskSchema id.default,
+      // but tags are Schema.Types.Mixed - so we need to manually invoke here
       newTag.id = common.uuid();
       // Render tag's name in user's language
       newTag.name = newTag.name(user.preferences.language);
@@ -59,13 +62,14 @@ function _populateDefaultTasks (user, taskTypes) {
     });
   }
 
-  // @TODO: default tasks are handled differently now, and not during registration. We should move this code
+  // @TODO: default tasks are handled differently now, and not during registration.
+  // We should move this code
 
   const tasksToCreate = [];
   if (user.registeredThrough === 'habitica-web') return Promise.all(tasksToCreate);
 
   if (tagsI !== -1) {
-    taskTypes = _.clone(taskTypes);
+    taskTypes = _.clone(taskTypes); // eslint-disable-line no-param-reassign
     taskTypes.splice(tagsI, 1);
   }
 
@@ -212,7 +216,8 @@ schema.pre('save', true, function preSaveUser (next, done) {
     // this.markModified('items.pets');
   }
 
-  // Filter notifications, remove unvalid and not necessary, handle the ones that have special requirements
+  // Filter notifications, remove unvalid and not necessary,
+  // handle the ones that have special requirements
   if ( // Make sure all the data is loaded
     this.isDirectSelected('notifications')
     && this.isDirectSelected('stats')
@@ -239,10 +244,12 @@ schema.pre('save', true, function preSaveUser (next, done) {
     const classNotEnabled = !this.flags.classSelected || this.preferences.disableClasses;
 
     // Take the most recent notification
-    const lastExistingNotification = unallocatedPointsNotifications[unallocatedPointsNotifications.length - 1];
+    const unallLengh = unallocatedPointsNotifications.length;
+    const lastExistingNotification = unallocatedPointsNotifications[unallLengh - 1];
 
     // Decide if it's outdated or not
-    const outdatedNotification = !lastExistingNotification || lastExistingNotification.data.points !== pointsToAllocate;
+    const outdatedNotification = !lastExistingNotification
+      || lastExistingNotification.data.points !== pointsToAllocate;
 
     // If there are points to allocate and the notification is outdated, add a new notifications
     if (pointsToAllocate > 0 && !classNotEnabled) {
@@ -265,7 +272,11 @@ schema.pre('save', true, function preSaveUser (next, done) {
   }
 
   if (this.isDirectSelected('preferences')) {
-    if (_.isNaN(this.preferences.dayStart) || this.preferences.dayStart < 0 || this.preferences.dayStart > 23) {
+    if (
+      _.isNaN(this.preferences.dayStart)
+      || this.preferences.dayStart < 0
+      || this.preferences.dayStart > 23
+    ) {
       this.preferences.dayStart = 0;
     }
   }
@@ -273,7 +284,7 @@ schema.pre('save', true, function preSaveUser (next, done) {
   // our own version incrementer
   if (this.isDirectSelected('_v')) {
     if (_.isNaN(this._v) || !_.isNumber(this._v)) this._v = 0;
-    this._v++;
+    this._v += 1;
   }
 
   // Populate new users with default content

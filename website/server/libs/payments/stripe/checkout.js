@@ -1,9 +1,9 @@
 import cc from 'coupon-code';
 
 import { getStripeApi } from './api';
-import { model as User } from '../../../models/user';
+import { model as User } from '../../../models/user'; // eslint-disable-line import/no-cycle
 import { model as Coupon } from '../../../models/coupon';
-import {
+import { // eslint-disable-line import/no-cycle
   model as Group,
   basicFields as basicGroupFields,
 } from '../../../models/group';
@@ -12,7 +12,7 @@ import {
   BadRequest,
   NotAuthorized,
 } from '../../errors';
-import payments from '../payments';
+import payments from '../payments'; // eslint-disable-line import/no-cycle
 import stripeConstants from './constants';
 
 function getGiftAmount (gift) {
@@ -24,7 +24,7 @@ function getGiftAmount (gift) {
     throw new BadRequest(shared.i18n.t('badAmountOfGemsToPurchase'));
   }
 
-  return `${gift.gems.amount / 4 * 100}`;
+  return `${(gift.gems.amount / 4) * 100}`;
 }
 
 async function buyGems (gift, user, token, stripeApi) {
@@ -50,7 +50,8 @@ async function buyGems (gift, user, token, stripeApi) {
 async function buySubscription (sub, coupon, email, user, token, groupId, stripeApi) {
   if (sub.discount) {
     if (!coupon) throw new BadRequest(shared.i18n.t('couponCodeRequired'));
-    coupon = await Coupon.findOne({ _id: cc.validate(coupon), event: sub.key }).exec();
+    coupon = await Coupon // eslint-disable-line no-param-reassign
+      .findOne({ _id: cc.validate(coupon), event: sub.key }).exec();
     if (!coupon) throw new BadRequest(shared.i18n.t('invalidCoupon'));
   }
 
@@ -110,7 +111,8 @@ async function checkout (options, stripeInc) {
   let response;
   let subscriptionId;
 
-  // @TODO: We need to mock this, but curently we don't have correct Dependency Injection. And the Stripe Api doesn't seem to be a singleton?
+  // @TODO: We need to mock this, but curently we don't have correct
+  // Dependency Injection. And the Stripe Api doesn't seem to be a singleton?
   let stripeApi = getStripeApi();
   if (stripeInc) stripeApi = stripeInc;
 
@@ -122,7 +124,9 @@ async function checkout (options, stripeInc) {
   }
 
   if (sub) {
-    const { subId, subResponse } = await buySubscription(sub, coupon, email, user, token, groupId, stripeApi);
+    const { subId, subResponse } = await buySubscription(
+      sub, coupon, email, user, token, groupId, stripeApi,
+    );
     subscriptionId = subId;
     response = subResponse;
   } else {
@@ -145,4 +149,4 @@ async function checkout (options, stripeInc) {
   await applyGemPayment(user, response, gift);
 }
 
-export { checkout };
+export { checkout }; // eslint-disable-line import/prefer-default-export

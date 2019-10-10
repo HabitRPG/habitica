@@ -15,7 +15,11 @@ function _aggregate (history, aggregateBy, timezoneOffset, dayStart) {
       const entries = keyEntryPair[1]; // 1 is entry, 0 is key
       return {
         date: Number(entries[0].date),
-        value: _.reduce(entries, (previousValue, entry) => previousValue + entry.value, 0) / entries.length,
+        value: _.reduce(
+          entries,
+          (previousValue, entry) => previousValue + entry.value,
+          0,
+        ) / entries.length,
       };
     })
     .value();

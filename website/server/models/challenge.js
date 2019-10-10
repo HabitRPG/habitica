@@ -4,13 +4,13 @@ import _ from 'lodash';
 import { TaskQueue } from 'cwait';
 import baseModel from '../libs/baseModel';
 import * as Tasks from './task';
-import { model as User } from './user';
-import {
+import { model as User } from './user'; // eslint-disable-line import/no-cycle
+import { // eslint-disable-line import/no-cycle
   model as Group,
 } from './group';
 import { removeFromArray } from '../libs/collectionManipulators';
 import shared from '../../common';
-import { sendTxn as txnEmail } from '../libs/email';
+import { sendTxn as txnEmail } from '../libs/email'; // eslint-disable-line import/no-cycle
 import { sendNotification as sendPushNotification } from '../libs/pushNotifications';
 import { syncableAttrs, setNextDue } from '../libs/taskManager';
 
@@ -246,7 +246,7 @@ schema.methods.updateTask = async function challengeUpdateTask (task) {
   const updateCmd = { $set: {} };
 
   const syncableTask = syncableAttrs(task);
-  for (const key in syncableTask) {
+  for (const key of Object.keys(syncableTask)) {
     updateCmd.$set[key] = syncableTask[key];
   }
 

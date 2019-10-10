@@ -38,15 +38,16 @@ api.verifyGemPurchase = async function verifyGemPurchase (options) {
   const isValidated = iap.isValidated(appleRes);
   if (!isValidated) throw new NotAuthorized(api.constants.RESPONSE_INVALID_RECEIPT);
   const purchaseDataList = iap.getPurchaseData(appleRes);
-  if (purchaseDataList.length === 0) throw new NotAuthorized(api.constants.RESPONSE_NO_ITEM_PURCHASED);
+  if (purchaseDataList.length === 0) {
+    throw new NotAuthorized(api.constants.RESPONSE_NO_ITEM_PURCHASED);
+  }
   let correctReceipt = false;
 
   // Purchasing one item at a time (processing of await(s) below is sequential not parallel)
-  for (const index in purchaseDataList) {
-    const purchaseData = purchaseDataList[index];
+  for (const purchaseData of purchaseDataList) {
     const token = purchaseData.transactionId;
 
-    const existingReceipt = await IapPurchaseReceipt.findOne({ // eslint-disable-line no-await-in-loop
+    const existingReceipt = await IapPurchaseReceipt.findOne({ // eslint-disable-line no-await-in-loop, max-len
       _id: token,
     }).exec();
 
@@ -59,7 +60,7 @@ api.verifyGemPurchase = async function verifyGemPurchase (options) {
       });
 
       let amount;
-      switch (purchaseData.productId) {
+      switch (purchaseData.productId) { // eslint-disable-line default-case
         case 'com.habitrpg.ios.Habitica.4gems':
           amount = 1;
           break;
@@ -99,7 +100,7 @@ api.subscribe = async function subscribe (sku, user, receipt, headers, nextPayme
   if (!sku) throw new BadRequest(shared.i18n.t('missingSubscriptionCode'));
 
   let subCode;
-  switch (sku) {
+  switch (sku) { // eslint-disable-line default-case
     case 'subscription1month':
       subCode = 'basic_earned';
       break;
@@ -122,13 +123,13 @@ api.subscribe = async function subscribe (sku, user, receipt, headers, nextPayme
   if (!isValidated) throw new NotAuthorized(api.constants.RESPONSE_INVALID_RECEIPT);
 
   const purchaseDataList = iap.getPurchaseData(appleRes);
-  if (purchaseDataList.length === 0) throw new NotAuthorized(api.constants.RESPONSE_NO_ITEM_PURCHASED);
+  if (purchaseDataList.length === 0) {
+    throw new NotAuthorized(api.constants.RESPONSE_NO_ITEM_PURCHASED);
+  }
 
   let transactionId;
 
-  for (const index in purchaseDataList) {
-    const purchaseData = purchaseDataList[index];
-
+  for (const purchaseData of purchaseDataList) {
     const dateTerminated = new Date(Number(purchaseData.expirationDate));
     if (purchaseData.productId === sku && dateTerminated > new Date()) {
       transactionId = purchaseData.transactionId;
@@ -142,7 +143,7 @@ api.subscribe = async function subscribe (sku, user, receipt, headers, nextPayme
     }).exec();
     if (existingUser) throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
 
-    nextPaymentProcessing = nextPaymentProcessing || moment.utc().add({ days: 2 });
+    nextPaymentProcessing = nextPaymentProcessing || moment.utc().add({ days: 2 }); // eslint-disable-line max-len, no-param-reassign
 
     await payments.createSubscription({
       user,
@@ -166,7 +167,7 @@ api.noRenewSubscribe = async function noRenewSubscribe (options) {
   if (!sku) throw new BadRequest(shared.i18n.t('missingSubscriptionCode'));
 
   let subCode;
-  switch (sku) {
+  switch (sku) { // eslint-disable-line default-case
     case 'com.habitrpg.ios.habitica.norenew_subscription.1month':
       subCode = 'basic_earned';
       break;
@@ -189,13 +190,13 @@ api.noRenewSubscribe = async function noRenewSubscribe (options) {
   if (!isValidated) throw new NotAuthorized(api.constants.RESPONSE_INVALID_RECEIPT);
 
   const purchaseDataList = iap.getPurchaseData(appleRes);
-  if (purchaseDataList.length === 0) throw new NotAuthorized(api.constants.RESPONSE_NO_ITEM_PURCHASED);
+  if (purchaseDataList.length === 0) {
+    throw new NotAuthorized(api.constants.RESPONSE_NO_ITEM_PURCHASED);
+  }
 
   let transactionId;
 
-  for (const index in purchaseDataList) {
-    const purchaseData = purchaseDataList[index];
-
+  for (const purchaseData of purchaseDataList) {
     const dateTerminated = new Date(Number(purchaseData.expirationDate));
     if (purchaseData.productId === sku && dateTerminated > new Date()) {
       transactionId = purchaseData.transactionId;
@@ -204,7 +205,7 @@ api.noRenewSubscribe = async function noRenewSubscribe (options) {
   }
 
   if (transactionId) {
-    const existingReceipt = await IapPurchaseReceipt.findOne({ // eslint-disable-line no-await-in-loop
+    const existingReceipt = await IapPurchaseReceipt.findOne({
       _id: transactionId,
     }).exec();
     if (existingReceipt) throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
@@ -259,7 +260,10 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
     if (dateTerminated > new Date()) throw new NotAuthorized(this.constants.RESPONSE_STILL_VALID);
   } catch (err) {
     // If we have an invalid receipt, cancel anyway
-    if (!err || !err.validatedData || err.validatedData.is_retryable === true || err.validatedData.status !== 21010) {
+    if (
+      !err || !err.validatedData || err.validatedData.is_retryable === true
+      || err.validatedData.status !== 21010
+    ) {
       throw err;
     }
   }

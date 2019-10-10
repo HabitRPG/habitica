@@ -259,7 +259,8 @@ api.getMemberAchievements = {
 
 // Return a request handler for getMembersForGroup / getInvitesForGroup / getMembersForChallenge
 
-// @TODO: This violates the Liskov substitution principle. We should create factory functions. See Webhooks for a good example
+// @TODO: This violates the Liskov substitution principle.
+// We should create factory functions. See Webhooks for a good example
 function _getMembersForItem (type) {
   // check for allowed `type`
   if (['group-members', 'group-invites', 'challenge-members'].indexOf(type) === -1) {
@@ -288,7 +289,8 @@ function _getMembersForItem (type) {
       challenge = await Challenge.findById(challengeId).select('_id type leader group').exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
-      // optionalMembership is set to true because even if you're not member of the group you may be able to access the challenge
+      // optionalMembership is set to true because even
+      // if you're not member of the group you may be able to access the challenge
       // for example if you've been booted from it, are the leader or a site admin
       group = await Group.getGroup({
         user,
@@ -305,7 +307,8 @@ function _getMembersForItem (type) {
 
     const query = {};
     let fields = nameFields;
-    let addComputedStats = false; // add computes stats to the member info when items and stats are available
+    // add computes stats to the member info when items and stats are available
+    let addComputedStats = false;
 
     if (type === 'challenge-members') {
       query.challenges = challenge._id;
@@ -349,7 +352,8 @@ function _getMembersForItem (type) {
         }
       } else {
         query['invitations.party.id'] = group._id; // group._id and not groupId because groupId could be === 'party'
-        // @TODO invitations are now stored like this: `'invitations.parties': []`  Probably need a database index for it.
+        // @TODO invitations are now stored like this: `'invitations.parties': []`
+        //  Probably need a database index for it.
         if (req.query.includeAllPublicFields === 'true') {
           fields = memberFields;
           addComputedStats = true;
@@ -554,7 +558,8 @@ api.getChallengeMemberProgress = {
     const challenge = await Challenge.findById(challengeId).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
-    // optionalMembership is set to true because even if you're not member of the group you may be able to access the challenge
+    // optionalMembership is set to true because even if you're
+    // not member of the group you may be able to access the challenge
     // for example if you've been booted from it, are the leader or a site admin
     const group = await Group.getGroup({
       user, groupId: challenge.group, fields: '_id type privacy', optionalMembership: true,

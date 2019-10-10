@@ -3,7 +3,7 @@ import { IncomingWebhook } from '@slack/client';
 import nconf from 'nconf';
 import moment from 'moment';
 import logger from './logger';
-import { TAVERN_ID } from '../models/group';
+import { TAVERN_ID } from '../models/group'; // eslint-disable-line import/no-cycle
 
 const SLACK_FLAGGING_URL = nconf.get('SLACK_FLAGGING_URL');
 const SLACK_FLAGGING_FOOTER_LINK = nconf.get('SLACK_FLAGGING_FOOTER_LINK');
@@ -24,11 +24,12 @@ try {
   logger.error(err);
 
   if (!IS_PRODUCTION) {
-    flagSlack = subscriptionSlack = {
+    subscriptionSlack = {
       send (data) {
         logger.info('Data sent to slack', data);
       },
     };
+    flagSlack = subscriptionSlack;
   }
 }
 
@@ -116,7 +117,6 @@ function sendInboxFlagNotification ({
     return;
   }
   const titleLink = '';
-  let authorName;
   const title = `Flag in ${flagger.profile.name}'s Inbox`;
   let text = `${flagger.profile.name} (${flagger.id}; language: ${flagger.preferences.language}) flagged a PM`;
   const footer = '';
@@ -150,7 +150,7 @@ function sendInboxFlagNotification ({
     recipient = flaggerFormat;
   }
 
-  authorName = `${sender} wrote this message to ${recipient}.`;
+  const authorName = `${sender} wrote this message to ${recipient}.`;
 
   flagSlack.send({
     text,
@@ -203,18 +203,17 @@ function sendShadowMutedPostNotification ({
   if (SKIP_FLAG_METHODS) {
     return;
   }
-  let titleLink;
-  let authorName;
   const title = `Shadow-Muted Post in ${group.name}`;
   const text = `@${author.auth.local.username} / ${author.profile.name} posted while shadow-muted`;
 
+  let titleLink;
   if (group.id === TAVERN_ID) {
     titleLink = `${BASE_URL}/groups/tavern`;
   } else {
     titleLink = `${BASE_URL}/groups/guild/${group.id}`;
   }
 
-  authorName = formatUser({
+  const authorName = formatUser({
     name: author.auth.local.username,
     displayName: author.profile.name,
     email: authorEmail,
@@ -246,10 +245,10 @@ function sendSlurNotification ({
   if (SKIP_FLAG_METHODS) {
     return;
   }
-  let titleLink;
-  let authorName;
-  let title = `Slur in ${group.name}`;
   const text = `${author.profile.name} (${author._id}) tried to post a slur`;
+
+  let titleLink;
+  let title = `Slur in ${group.name}`;
 
   if (group.id === TAVERN_ID) {
     titleLink = `${BASE_URL}/groups/tavern`;
@@ -259,7 +258,7 @@ function sendSlurNotification ({
     title += ` - (${group.privacy} ${group.type})`;
   }
 
-  authorName = formatUser({
+  const authorName = formatUser({
     name: author.auth.local.username,
     displayName: author.profile.name,
     email: authorEmail,

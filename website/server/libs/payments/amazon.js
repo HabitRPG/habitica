@@ -11,9 +11,9 @@ import {
   NotAuthorized,
   NotFound,
 } from '../errors';
-import payments from './payments';
-import { model as User } from '../../models/user';
-import {
+import payments from './payments'; // eslint-disable-line import/no-cycle
+import { model as User } from '../../models/user'; // eslint-disable-line import/no-cycle
+import { // eslint-disable-line import/no-cycle
   model as Group,
   basicFields as basicGroupFields,
 } from '../../models/group';
@@ -52,14 +52,30 @@ api.constants = {
 };
 
 api.getTokenInfo = util.promisify(amzPayment.api.getTokenInfo).bind(amzPayment.api);
-api.createOrderReferenceId = util.promisify(amzPayment.offAmazonPayments.createOrderReferenceForId).bind(amzPayment.offAmazonPayments);
-api.setOrderReferenceDetails = util.promisify(amzPayment.offAmazonPayments.setOrderReferenceDetails).bind(amzPayment.offAmazonPayments);
-api.confirmOrderReference = util.promisify(amzPayment.offAmazonPayments.confirmOrderReference).bind(amzPayment.offAmazonPayments);
-api.closeOrderReference = util.promisify(amzPayment.offAmazonPayments.closeOrderReference).bind(amzPayment.offAmazonPayments);
-api.setBillingAgreementDetails = util.promisify(amzPayment.offAmazonPayments.setBillingAgreementDetails).bind(amzPayment.offAmazonPayments);
-api.getBillingAgreementDetails = util.promisify(amzPayment.offAmazonPayments.getBillingAgreementDetails).bind(amzPayment.offAmazonPayments);
-api.confirmBillingAgreement = util.promisify(amzPayment.offAmazonPayments.confirmBillingAgreement).bind(amzPayment.offAmazonPayments);
-api.closeBillingAgreement = util.promisify(amzPayment.offAmazonPayments.closeBillingAgreement).bind(amzPayment.offAmazonPayments);
+api.createOrderReferenceId = util
+  .promisify(amzPayment.offAmazonPayments.createOrderReferenceForId)
+  .bind(amzPayment.offAmazonPayments);
+api.setOrderReferenceDetails = util
+  .promisify(amzPayment.offAmazonPayments.setOrderReferenceDetails)
+  .bind(amzPayment.offAmazonPayments);
+api.confirmOrderReference = util
+  .promisify(amzPayment.offAmazonPayments.confirmOrderReference)
+  .bind(amzPayment.offAmazonPayments);
+api.closeOrderReference = util
+  .promisify(amzPayment.offAmazonPayments.closeOrderReference)
+  .bind(amzPayment.offAmazonPayments);
+api.setBillingAgreementDetails = util
+  .promisify(amzPayment.offAmazonPayments.setBillingAgreementDetails)
+  .bind(amzPayment.offAmazonPayments);
+api.getBillingAgreementDetails = util
+  .promisify(amzPayment.offAmazonPayments.getBillingAgreementDetails)
+  .bind(amzPayment.offAmazonPayments);
+api.confirmBillingAgreement = util
+  .promisify(amzPayment.offAmazonPayments.confirmBillingAgreement)
+  .bind(amzPayment.offAmazonPayments);
+api.closeBillingAgreement = util
+  .promisify(amzPayment.offAmazonPayments.closeBillingAgreement)
+  .bind(amzPayment.offAmazonPayments);
 
 api.authorizeOnBillingAgreement = function authorizeOnBillingAgreement (inputSet) {
   return new Promise((resolve, reject) => {
@@ -158,7 +174,9 @@ api.checkout = async function checkout (options = {}) {
   };
 
   if (gift) {
-    if (gift.type === this.constants.GIFT_TYPE_SUBSCRIPTION) method = this.constants.METHOD_CREATE_SUBSCRIPTION;
+    if (gift.type === this.constants.GIFT_TYPE_SUBSCRIPTION) {
+      method = this.constants.METHOD_CREATE_SUBSCRIPTION;
+    }
     gift.member = await User.findById(gift.uuid).exec();
     data.gift = gift;
     data.paymentMethod = this.constants.PAYMENT_METHOD_GIFT;
@@ -217,8 +235,12 @@ api.cancelSubscription = async function cancelSubscription (options = {}) {
   }).catch(err => err);
 
   const badBAStates = ['Canceled', 'Closed', 'Suspended'];
-  if (details && details.BillingAgreementDetails && details.BillingAgreementDetails.BillingAgreementStatus
-      && badBAStates.indexOf(details.BillingAgreementDetails.BillingAgreementStatus.State) === -1) {
+  if (
+    details
+    && details.BillingAgreementDetails
+    && details.BillingAgreementDetails.BillingAgreementStatus
+    && badBAStates.indexOf(details.BillingAgreementDetails.BillingAgreementStatus.State) === -1
+  ) {
     await this.closeBillingAgreement({
       AmazonBillingAgreementId: billingAgreementId,
     });

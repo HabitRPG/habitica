@@ -1,5 +1,5 @@
 import * as analytics from '../analyticsService';
-import {
+import { // eslint-disable-line import/no-cycle
   getUserInfo,
   sendTxn as txnEmail,
 } from '../email';
@@ -38,7 +38,10 @@ async function buyGemGift (data) {
   }
 
   // Only send push notifications if sending to a user other than yourself
-  if (data.gift.member._id !== data.user._id && data.gift.member.preferences.pushNotifications.giftedGems !== false) {
+  if (
+    data.gift.member._id !== data.user._id
+    && data.gift.member.preferences.pushNotifications.giftedGems !== false
+  ) {
     sendPushNotification(
       data.gift.member,
       {
@@ -73,7 +76,7 @@ async function buyGems (data) {
   const amt = getAmountForGems(data);
 
   updateUserBalance(data, amt);
-  data.user.purchased.txnCount++;
+  data.user.purchased.txnCount += 1;
 
   if (!data.gift) txnEmail(data.user, 'donation');
 
@@ -94,4 +97,4 @@ async function buyGems (data) {
   await data.user.save();
 }
 
-export { buyGems };
+export { buyGems }; // eslint-disable-line import/prefer-default-export

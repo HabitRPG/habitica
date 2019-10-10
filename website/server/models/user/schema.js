@@ -10,7 +10,7 @@ import {
 import {
   schema as SubscriptionPlanSchema,
 } from '../subscriptionPlan';
-import {
+import { // eslint-disable-line import/no-cycle
   getDefaultOwnedGear,
 } from '../../libs/items/utils';
 
@@ -71,7 +71,8 @@ export default new Schema({
       updated: { $type: Date, default: Date.now },
     },
   },
-  // We want to know *every* time an object updates. Mongoose uses __v to designate when an object contains arrays which
+  // We want to know *every* time an object updates.
+  // Mongoose uses __v to designate when an object contains arrays which
   // have been updated (http://goo.gl/gQLz41), but we want *every* update
   _v: { $type: Number, default: 0 },
   migration: String,
@@ -138,7 +139,8 @@ export default new Schema({
   },
 
   contributor: {
-    // 1-9, see https://trello.com/c/wkFzONhE/277-contributor-gear https://github.com/HabitRPG/habitica/issues/3801
+    // 1-9, see https://trello.com/c/wkFzONhE/277-contributor-gear
+    // https://github.com/HabitRPG/habitica/issues/3801
     level: {
       $type: Number,
       min: 0,
@@ -186,7 +188,8 @@ export default new Schema({
     customizationsNotification: { $type: Boolean, default: false },
     showTour: { $type: Boolean, default: true },
     tour: {
-      // -1 indicates "uninitiated", -2 means "complete", any other number is the current tour step (0-index)
+      // -1 indicates "uninitiated", -2 means "complete",
+      // any other number is the current tour step (0-index)
       intro: { $type: Number, default: -1 },
       classes: { $type: Number, default: -1 },
       stats: { $type: Number, default: -1 },
@@ -398,11 +401,13 @@ export default new Schema({
   challenges: [{ $type: String, ref: 'Challenge', validate: [v => validator.isUUID(v), 'Invalid uuid.'] }],
 
   invitations: {
-    // Using an array without validation because otherwise mongoose treat this as a subdocument and applies _id by default
+    // Using an array without validation because otherwise mongoose
+    // treat this as a subdocument and applies _id by default
     // Schema is (id, name, inviter, publicGuild)
     // TODO one way to fix is http://mongoosejs.com/docs/guide.html#_id
     guilds: { $type: Array, default: () => [] },
-    // Using a Mixed type because otherwise user.invitations.party = {} // to reset invitation, causes validation to fail TODO
+    // Using a Mixed type because otherwise user.invitations.party = {}
+    // to reset invitation, causes validation to fail TODO
     // schema is the same as for guild invitations (id, name, inviter)
     party: {
       $type: Schema.Types.Mixed,
@@ -445,8 +450,12 @@ export default new Schema({
         },
         collectedItems: { $type: Number, default: 0 },
       },
-      completed: String, // When quest is done, we move it from key => completed, and it's a one-time flag (for modal) that they unset by clicking "ok" in browser
-      RSVPNeeded: { $type: Boolean, default: false }, // Set to true when invite is pending, set to false when quest invite is accepted or rejected, quest starts, or quest is cancelled
+      // When quest is done, we move it from key => completed,
+      // and it's a one-time flag (for modal) that they unset by clicking "ok" in browser
+      completed: String,
+      // Set to true when invite is pending, set to false when quest
+      // invite is accepted or rejected, quest starts, or quest is cancelled
+      RSVPNeeded: { $type: Boolean, default: false },
     },
   },
   preferences: {
@@ -489,7 +498,8 @@ export default new Schema({
       $type: Schema.Types.Mixed,
       default: () => ({}),
     },
-    // For the following fields make sure to use strict comparison when searching for falsey values (=== false)
+    // For the following fields make sure to use strict
+    // comparison when searching for falsey values (=== false)
     // As users who didn't login after these were introduced may have them undefined/null
     emailNotifications: {
       unsubscribeFromAll: { $type: Boolean, default: false },
@@ -537,7 +547,8 @@ export default new Schema({
       $type: Array,
       validate: categories => {
         const validCategories = ['work', 'exercise', 'healthWellness', 'school', 'teams', 'chores', 'creativity'];
-        const isValidCategory = categories.every(category => validCategories.indexOf(category) !== -1);
+        const isValidCategory = categories
+          .every(category => validCategories.indexOf(category) !== -1);
         return isValidCategory;
       },
     },
@@ -621,7 +632,8 @@ export default new Schema({
     path: { $type: String },
     type: { $type: String },
   }],
-  // Ordered array of shown pinned items, necessary for sorting because seasonal items are not stored in pinnedItems
+  // Ordered array of shown pinned items,
+  // necessary for sorting because seasonal items are not stored in pinnedItems
   pinnedItemsOrder: [{ $type: String }],
   // Items the user manually unpinned from the ones suggested by Habitica
   unpinnedItems: [{

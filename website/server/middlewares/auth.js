@@ -16,9 +16,9 @@ function getUserFields (options, req) {
   // Must be an array
   if (options.userFieldsToExclude) {
     return options.userFieldsToExclude
-      .filter(field => !USER_FIELDS_ALWAYS_LOADED.find(fieldToInclude => field.startsWith(fieldToInclude)))
-      .map(field => `-${field}`, // -${field} means exclude ${field} in mongodb
-      )
+      .filter(field => !USER_FIELDS_ALWAYS_LOADED
+        .find(fieldToInclude => field.startsWith(fieldToInclude)))
+      .map(field => `-${field}`) // -${field} means exclude ${field} in mongodb
       .join(' ');
   }
 
@@ -26,7 +26,8 @@ function getUserFields (options, req) {
     return options.userFieldsToInclude.concat(USER_FIELDS_ALWAYS_LOADED).join(' ');
   }
 
-  // Allows GET requests to /user to specify a list of user fields to return instead of the entire doc
+  // Allows GET requests to /user to specify a list
+  // of user fields to return instead of the entire doc
   const urlPath = url.parse(req.url).pathname;
   const { userFields } = req.query;
   if (!userFields || urlPath !== '/user') return '';

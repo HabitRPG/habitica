@@ -15,7 +15,10 @@ const AMPLITUDE_TOKEN = nconf.get('AMPLITUDE_KEY');
 const GA_TOKEN = nconf.get('GA_ID');
 const GA_POSSIBLE_LABELS = ['gaLabel', 'itemKey'];
 const GA_POSSIBLE_VALUES = ['gaValue', 'gemCost', 'goldCost'];
-const AMPLITUDE_PROPERTIES_TO_SCRUB = ['uuid', 'user', 'purchaseValue', 'gaLabel', 'gaValue', 'headers', 'registeredThrough'];
+const AMPLITUDE_PROPERTIES_TO_SCRUB = [
+  'uuid', 'user', 'purchaseValue',
+  'gaLabel', 'gaValue', 'headers', 'registeredThrough',
+];
 
 const PLATFORM_MAP = Object.freeze({
   'habitica-web': 'Web',
@@ -31,7 +34,7 @@ const ga = googleAnalytics(GA_TOKEN);
 const Content = common.content;
 
 function _lookUpItemName (itemKey) {
-  if (!itemKey) return;
+  if (!itemKey) return null;
 
   const gear = Content.gear.flat[itemKey];
   const egg = Content.eggs[itemKey];
@@ -186,6 +189,8 @@ function _generateLabelForGoogleAnalytics (data) {
       label = data[key];
       return false; // exit each early
     }
+
+    return true;
   });
 
   return label;
@@ -199,6 +204,8 @@ function _generateValueForGoogleAnalytics (data) {
       value = data[key];
       return false; // exit each early
     }
+
+    return true;
   });
 
   return value;
@@ -225,7 +232,7 @@ function _sendDataToGoogle (eventType, data) {
   const promise = new Promise((resolve, reject) => {
     ga.event(eventData, err => {
       if (err) return reject(err);
-      resolve();
+      return resolve();
     });
   });
 
@@ -264,7 +271,7 @@ function _sendPurchaseDataToGoogle (data) {
   const eventPromise = new Promise((resolve, reject) => {
     ga.event(eventData, err => {
       if (err) return reject(err);
-      resolve();
+      return resolve();
     });
   });
 
@@ -273,7 +280,7 @@ function _sendPurchaseDataToGoogle (data) {
       .item(price, qty, sku, itemKey, variation)
       .send(err => {
         if (err) return reject(err);
-        resolve();
+        return resolve();
       });
   });
 
@@ -308,7 +315,8 @@ async function track (eventType, data) {
   return Promise.all(promises);
 }
 
-// There's no error handling directly here because it's handled inside _sendPurchaseDataTo{Amplitude|Google}
+// There's no error handling directly here because
+// it's handled inside _sendPurchaseDataTo{Amplitude|Google}
 async function trackPurchase (data) {
   return Promise.all([
     _sendPurchaseDataToAmplitude(data),

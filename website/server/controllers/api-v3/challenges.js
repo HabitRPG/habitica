@@ -413,8 +413,12 @@ api.getUserChallenges = {
       User.findById(chal.leader).select(`${nameFields} backer contributor`).exec(),
       Group.findById(chal.group).select(basicGroupFields).exec(),
     ]).then(populatedData => {
-      resChals[index].leader = populatedData[0] ? populatedData[0].toJSON({ minimize: true }) : null;
-      resChals[index].group = populatedData[1] ? populatedData[1].toJSON({ minimize: true }) : null;
+      resChals[index].leader = populatedData[0]
+        ? populatedData[0].toJSON({ minimize: true })
+        : null;
+      resChals[index].group = populatedData[1]
+        ? populatedData[1].toJSON({ minimize: true })
+        : null;
     })));
 
     res.respond(200, resChals);
@@ -460,12 +464,17 @@ api.getGroupChallenges = {
 
     const challenges = await Challenge.find({ group: groupId })
       .sort('-createdAt')
-      // .populate('leader', nameFields) // Only populate the leader as the group is implicit // see below why we're not using populate
+      // Only populate the leader as the group is implicit // see below why we're not using populate
+      // .populate('leader', nameFields)
       .exec();
 
     let resChals = challenges.map(challenge => challenge.toJSON());
 
-    resChals = _.orderBy(resChals, [challenge => challenge.categories.map(category => category.slug).includes('habitica_official')], ['desc']);
+    resChals = _.orderBy(
+      resChals,
+      [challenge => challenge.categories.map(category => category.slug).includes('habitica_official')],
+      ['desc'],
+    );
 
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
     await Promise.all(resChals.map((chal, index) => User
@@ -473,7 +482,9 @@ api.getGroupChallenges = {
       .select(nameFields)
       .exec()
       .then(populatedLeader => {
-        resChals[index].leader = populatedLeader ? populatedLeader.toJSON({ minimize: true }) : null;
+        resChals[index].leader = populatedLeader
+          ? populatedLeader.toJSON({ minimize: true })
+          : null;
       })));
 
     res.respond(200, resChals);
@@ -559,7 +570,8 @@ api.exportChallengeCsv = {
     });
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
 
-    // In v2 this used the aggregation framework to run some computation on MongoDB but then iterated through all
+    // In v2 this used the aggregation framework to run some
+    // computation on MongoDB but then iterated through all
     // results on the server so the perf difference isn't that big (hopefully)
 
     const [members, tasks] = await Promise.all([
@@ -578,7 +590,8 @@ api.exportChallengeCsv = {
         .exec(),
     ]);
 
-    let resArray = members.map(member => [member._id, member.profile.name, member.auth.local.username]);
+    let resArray = members
+      .map(member => [member._id, member.profile.name, member.auth.local.username]);
 
     let lastUserId;
     let index = -1;
@@ -594,8 +607,8 @@ api.exportChallengeCsv = {
         return;
       }
       while (task.userId !== lastUserId) {
-        index++;
-        lastUserId = resArray[index][0]; // resArray[index][0] is an user id
+        index += 1;
+        lastUserId = [resArray[index]]; // resArray[index][0] is an user id
       }
 
       const streak = task.streak || 0;
@@ -603,8 +616,12 @@ api.exportChallengeCsv = {
       resArray[index].push(`${task.type}:${task.text}`, task.value, task.notes, streak);
     });
 
-    // The first row is going to be UUID name Task Value Notes repeated n times for the n challenge tasks
-    const challengeTasks = _.reduce(challenge.tasksOrder.toObject(), (result, array) => result.concat(array), []).sort();
+    // The first row is going to be UUID name Task Value Notes
+    // repeated n times for the n challenge tasks
+    const challengeTasks = _.reduce(
+      challenge.tasksOrder.toObject(),
+      (result, array) => result.concat(array), [],
+    ).sort();
     resArray.unshift(['UUID', 'Display Name', 'Username']);
 
     _.times(challengeTasks.length, () => resArray[0].push('Task', 'Value', 'Notes', 'Streak'));

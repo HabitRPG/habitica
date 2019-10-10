@@ -12,7 +12,6 @@ import {
 } from '../../libs/errors';
 import * as passwordUtils from '../../libs/password';
 import { sendTxn as sendTxnEmail } from '../../libs/email';
-import { validatePasswordResetCodeAndFindUser, convertToBcrypt } from '../../libs/password';
 import { encrypt } from '../../libs/encryption';
 import {
   loginRes,
@@ -125,7 +124,7 @@ api.loginLocal = {
       headers: req.headers,
     });
 
-    return loginRes(user, ...arguments);
+    return loginRes(user, req, res);
   },
 };
 
@@ -137,7 +136,7 @@ api.loginSocial = {
   })],
   url: '/user/auth/social',
   async handler (req, res) {
-    return await loginSocial(req, res);
+    await loginSocial(req, res);
   },
 };
 
@@ -377,7 +376,7 @@ api.resetPasswordSetNewOne = {
   method: 'POST',
   url: '/user/auth/reset-password-set-new-one',
   async handler (req, res) {
-    const user = await validatePasswordResetCodeAndFindUser(req.body.code);
+    const user = await passwordUtils.validatePasswordResetCodeAndFindUser(req.body.code);
     const isValidCode = Boolean(user);
 
     if (!isValidCode) throw new NotAuthorized(res.t('invalidPasswordResetCode'));
@@ -395,7 +394,7 @@ api.resetPasswordSetNewOne = {
     }
 
     // set new password and make sure it's using bcrypt for hashing
-    await convertToBcrypt(user, String(newPassword));
+    await passwordUtils.convertToBcrypt(user, String(newPassword));
     user.auth.local.passwordResetCode = undefined; // Reset saved password reset code
     await user.save();
 
@@ -418,7 +417,8 @@ api.deleteSocial = {
   async handler (req, res) {
     const { user } = res.locals;
     const { network } = req.params;
-    const isSupportedNetwork = common.constants.SUPPORTED_SOCIAL_NETWORKS.find(supportedNetwork => supportedNetwork.key === network);
+    const isSupportedNetwork = common.constants.SUPPORTED_SOCIAL_NETWORKS
+      .find(supportedNetwork => supportedNetwork.key === network);
     if (!isSupportedNetwork) throw new BadRequest(res.t('unsupportedNetwork'));
     if (!hasBackupAuth(user, network)) throw new NotAuthorized(res.t('cantDetachSocial'));
     const unset = {

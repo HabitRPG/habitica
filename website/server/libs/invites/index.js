@@ -121,6 +121,8 @@ async function addInvitationToUser (userToInvite, group, inviter, res) {
   if (group.type === 'party') {
     return userInvited.invitations.parties[userToInvite.invitations.parties.length - 1];
   }
+
+  throw new Error('Invalid group type');
 }
 
 async function inviteByUUID (uuid, group, inviter, req, res) {
@@ -134,10 +136,13 @@ async function inviteByUUID (uuid, group, inviter, req, res) {
 
   const objections = inviter.getObjectionsToInteraction('group-invitation', userToInvite);
   if (objections.length > 0) {
-    throw new NotAuthorized(res.t(objections[0], { userId: uuid, username: userToInvite.profile.name }));
+    throw new NotAuthorized(res.t(
+      objections[0],
+      { userId: uuid, username: userToInvite.profile.name },
+    ));
   }
 
-  return await addInvitationToUser(userToInvite, group, inviter, res);
+  return addInvitationToUser(userToInvite, group, inviter, res);
 }
 
 async function inviteByEmail (invite, group, inviter, req, res) {
@@ -191,8 +196,8 @@ async function inviteByEmail (invite, group, inviter, req, res) {
 }
 
 async function inviteByUserName (username, group, inviter, req, res) {
-  if (username.indexOf('@') === 0) username = username.slice(1, username.length);
-  username = username.toLowerCase();
+  if (username.indexOf('@') === 0) username = username.slice(1, username.length); // eslint-disable-line no-param-reassign
+  username = username.toLowerCase(); // eslint-disable-line no-param-reassign
   const userToInvite = await User.findOne({ 'auth.local.lowerCaseUsername': username }).exec();
 
   if (!userToInvite) {
@@ -203,7 +208,7 @@ async function inviteByUserName (username, group, inviter, req, res) {
     throw new BadRequest(res.t('cannotInviteSelfToGroup'));
   }
 
-  return await addInvitationToUser(userToInvite, group, inviter, res);
+  return addInvitationToUser(userToInvite, group, inviter, res);
 }
 
 export {

@@ -1,4 +1,4 @@
-import * as Tasks from '../models/task';
+import * as Tasks from '../models/task'; // eslint-disable-line import/no-cycle
 
 const SHARED_COMPLETION = {
   default: 'recurringCompletion',
@@ -28,7 +28,7 @@ async function _evaluateAllAssignedCompletion (masterTask) {
       'group.taskId': masterTask._id,
       'group.approval.approved': true,
     }).exec();
-    completions++;
+    completions += 1;
   } else {
     completions = await Tasks.Task.count({
       'group.taskId': masterTask._id,

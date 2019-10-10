@@ -1,4 +1,4 @@
-import common from '../../common';
+import common from '../../common'; // eslint-disable-line max-classes-per-file
 
 export const { CustomError } = common.errors;
 

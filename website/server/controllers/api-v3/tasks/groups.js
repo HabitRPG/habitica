@@ -18,7 +18,8 @@ import apiError from '../../../libs/apiError';
 const requiredGroupFields = '_id leader tasksOrder name';
 // @TODO: abstract to task lib
 const types = Tasks.tasksTypes.map(type => `${type}s`);
-types.push('completedTodos', '_allCompletedTodos'); // _allCompletedTodos is currently in BETA and is likely to be removed in future
+// _allCompletedTodos is currently in BETA and is likely to be removed in future
+types.push('completedTodos', '_allCompletedTodos');
 
 function canNotEditTasks (group, user, assignedUserId) {
   const isNotGroupLeader = group.leader !== user._id;
@@ -96,7 +97,11 @@ api.getGroupTasks = {
 
     const { user } = res.locals;
 
-    const group = await Group.getGroup({ user, groupId: req.params.groupId, fields: requiredGroupFields });
+    const group = await Group.getGroup({
+      user,
+      groupId: req.params.groupId,
+      fields: requiredGroupFields,
+    });
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     const tasks = await getTasks(req, res, { user, group });
@@ -142,7 +147,11 @@ api.groupMoveTask = {
 
     if (task.type === 'todo' && task.completed) throw new BadRequest(res.t('cantMoveCompletedTodo'));
 
-    const group = await Group.getGroup({ user, groupId: task.group.id, fields: requiredGroupFields });
+    const group = await Group.getGroup({
+      user,
+      groupId: task.group.id,
+      fields: requiredGroupFields,
+    });
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));

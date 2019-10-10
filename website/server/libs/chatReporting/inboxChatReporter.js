@@ -12,7 +12,9 @@ import apiError from '../apiError';
 import * as inboxLib from '../inbox';
 import { getAuthorEmailFromMessage } from '../chat';
 
-const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map(email => ({ email, canSend: true }));
+const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL')
+  .split(',')
+  .map(email => ({ email, canSend: true }));
 
 export default class InboxChatReporter extends ChatReporter {
   constructor (req, res) {
@@ -89,7 +91,7 @@ export default class InboxChatReporter extends ChatReporter {
     ];
   }
 
-  updateMessageAndSave (message, ...changedFields) {
+  updateMessageAndSave (message, ...changedFields) { // eslint-disable-line class-methods-use-this
     for (const changedField of changedFields) {
       message.markModified(changedField);
     }

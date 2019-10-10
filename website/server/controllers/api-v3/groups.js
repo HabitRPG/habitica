@@ -25,7 +25,6 @@ import common from '../../../common';
 import payments from '../../libs/payments/payments';
 import stripePayments from '../../libs/payments/stripe';
 import amzLib from '../../libs/payments/amazon';
-import shared from '../../../common';
 import apiError from '../../libs/apiError';
 
 const MAX_EMAIL_INVITES_BY_USER = 200;
@@ -122,7 +121,7 @@ api.createGroup = {
 
       group.balance = 1;
 
-      user.balance--;
+      user.balance -= 1;
       user.guilds.push(group._id);
       if (!user.achievements.joinedGuild) {
         user.achievements.joinedGuild = true;
@@ -139,7 +138,8 @@ api.createGroup = {
     const savedGroup = results[1];
 
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
-    // await Q.ninvoke(savedGroup, 'populate', ['leader', nameFields]); // doc.populate doesn't return a promise
+    // await Q.ninvoke(savedGroup, 'populate', ['leader', nameFields]);
+    // doc.populate doesn't return a promise
     const response = savedGroup.toJSON();
     // the leader is the authenticated user
     response.leader = {
@@ -210,7 +210,7 @@ api.createGroupPlan = {
     if (req.body.paymentType === 'Stripe') {
       const token = req.body.id;
       const gift = req.query.gift ? JSON.parse(req.query.gift) : undefined;
-      const sub = req.query.sub ? shared.content.subscriptionBlocks[req.query.sub] : false;
+      const sub = req.query.sub ? common.content.subscriptionBlocks[req.query.sub] : false;
       const groupId = savedGroup._id;
       const { email } = req.body;
       const { headers } = req;
@@ -228,7 +228,9 @@ api.createGroupPlan = {
       });
     } else if (req.body.paymentType === 'Amazon') {
       const { billingAgreementId } = req.body;
-      const sub = req.body.subscription ? shared.content.subscriptionBlocks[req.body.subscription] : false;
+      const sub = req.body.subscription
+        ? common.content.subscriptionBlocks[req.body.subscription]
+        : false;
       const { coupon } = req.body;
       const groupId = savedGroup._id;
       const { headers } = req;
@@ -244,7 +246,8 @@ api.createGroupPlan = {
     }
 
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
-    // await Q.ninvoke(savedGroup, 'populate', ['leader', nameFields]); // doc.populate doesn't return a promise
+    // await Q.ninvoke(savedGroup, 'populate', ['leader', nameFields]);
+    // doc.populate doesn't return a promise
     const response = savedGroup.toJSON();
     // the leader is the authenticated user
     response.leader = {
@@ -514,7 +517,9 @@ api.joinGroup = {
     if (validationErrors) throw validationErrors;
 
     // Works even if the user is not yet a member of the group
-    const group = await Group.getGroup({ user, groupId: req.params.groupId, optionalMembership: true }); // Do not fetch chat and work even if the user is not yet a member of the group
+    // Do not fetch chat and work even if the user is not yet a member of the group
+    const group = await Group
+      .getGroup({ user, groupId: req.params.groupId, optionalMembership: true });
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     let isUserInvited = false;
@@ -565,7 +570,8 @@ api.joinGroup = {
     }
 
     if (isUserInvited && group.type === 'guild') {
-      if (user.guilds.indexOf(group._id) !== -1) { // if user is already a member (party is checked previously)
+      // if user is already a member (party is checked previously)
+      if (user.guilds.indexOf(group._id) !== -1) {
         throw new NotAuthorized(res.t('youAreAlreadyInGroup'));
       }
       user.guilds.push(group._id); // Add group to user's guilds
@@ -577,7 +583,9 @@ api.joinGroup = {
     if (!isUserInvited) throw new NotAuthorized(res.t('messageGroupRequiresInvite'));
 
     // @TODO: Review the need for this and if still needed, don't base this on memberCount
-    if (!group.hasNotCancelled() && group.memberCount === 0) group.leader = user._id; // If new user is only member -> set as leader
+    if (!group.hasNotCancelled() && group.memberCount === 0) {
+      group.leader = user._id; // If new user is only member -> set as leader
+    }
 
     group.memberCount += 1;
 
@@ -600,7 +608,7 @@ api.joinGroup = {
         if (!inviter.items.quests.basilist) {
           inviter.items.quests.basilist = 0;
         }
-        inviter.items.quests.basilist++;
+        inviter.items.quests.basilist += 1;
         inviter.markModified('items.quests');
       }
       promises.push(inviter.save());
@@ -686,7 +694,9 @@ api.rejectGroupInvite = {
 
     const hasPartyInvitation = removeFromArray(user.invitations.parties, { id: groupId });
     if (hasPartyInvitation) {
-      user.invitations.party = user.invitations.parties.length > 0 ? user.invitations.parties[user.invitations.parties.length - 1] : {};
+      user.invitations.party = user.invitations.parties.length > 0
+        ? user.invitations.parties[user.invitations.parties.length - 1]
+        : {};
       user.markModified('invitations.party');
       isUserInvited = true;
     } else {
@@ -772,7 +782,10 @@ api.leaveGroup = {
         throw new NotAuthorized(res.t('questLeaderCannotLeaveGroup'));
       }
 
-      if (group.quest && group.quest.active && group.quest.members && group.quest.members[user._id]) {
+      if (
+        group.quest && group.quest.active
+        && group.quest.members && group.quest.members[user._id]
+      ) {
         throw new NotAuthorized(res.t('cannotLeaveWhileActiveQuest'));
       }
     }
@@ -909,7 +922,9 @@ api.removeGroupMember = {
       }
       if (isInvited === 'party') {
         removeFromArray(member.invitations.parties, { id: group._id });
-        member.invitations.party = member.invitations.parties.length > 0 ? member.invitations.parties[member.invitations.parties.length - 1] : {};
+        member.invitations.party = member.invitations.parties.length > 0
+          ? member.invitations.parties[member.invitations.parties.length - 1]
+          : {};
         member.markModified('invitations.party');
       }
     } else {
@@ -1064,7 +1079,8 @@ api.inviteToGroup = {
     }
 
     if (usernames) {
-      const usernameInvites = usernames.map(username => inviteByUserName(username, group, user, req, res));
+      const usernameInvites = usernames
+        .map(username => inviteByUserName(username, group, user, req, res));
       const usernameResults = await Promise.all(usernameInvites);
       results.push(...usernameResults);
     }

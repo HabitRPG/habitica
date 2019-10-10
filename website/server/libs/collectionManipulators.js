@@ -1,7 +1,7 @@
 import findIndex from 'lodash/findIndex';
 import isPlainObject from 'lodash/isPlainObject';
 
-export function removeFromArray (array, element) {
+export function removeFromArray (array, element) { // eslint-disable-line import/prefer-default-export, max-len
   let elementIndex;
 
   if (isPlainObject(element)) {

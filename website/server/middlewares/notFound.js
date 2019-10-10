@@ -14,7 +14,8 @@ const TOP_LEVEL_ROUTES = [
   '/export',
   '/email',
   '/qr-code',
-  // logout, old-client and /static/user/auth/local/reset-password-set-new-one don't need the not found
+  // logout, old-client
+  // and /static/user/auth/local/reset-password-set-new-one don't need the not found
   // handler because they don't have any child route
 ];
 

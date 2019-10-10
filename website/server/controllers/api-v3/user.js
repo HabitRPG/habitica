@@ -123,7 +123,10 @@ api.getBuyList = {
     // return text and notes strings
     _.each(list, item => {
       _.each(item, (itemPropVal, itemPropKey) => {
-        if (_.isFunction(itemPropVal) && itemPropVal.i18nLangFunc) item[itemPropKey] = itemPropVal(req.language);
+        if (
+          _.isFunction(itemPropVal)
+          && itemPropVal.i18nLangFunc
+        ) item[itemPropKey] = itemPropVal(req.language);
       });
     });
 
@@ -166,7 +169,10 @@ api.getInAppRewardsList = {
     // return text and notes strings
     _.each(list, item => {
       _.each(item, (itemPropVal, itemPropKey) => {
-        if (_.isFunction(itemPropVal) && itemPropVal.i18nLangFunc) item[itemPropKey] = itemPropVal(req.language);
+        if (
+          _.isFunction(itemPropVal)
+          && itemPropVal.i18nLangFunc
+        ) item[itemPropKey] = itemPropVal(req.language);
       });
     });
 
@@ -455,7 +461,6 @@ api.buy = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    let buyRes;
     // @TODO: Remove this when mobile passes type in body
     const type = req.params.key;
     if (buySpecialKeys.indexOf(type) !== -1) {
@@ -470,7 +475,7 @@ api.buy = {
     let quantity = 1;
     if (req.body.quantity) quantity = req.body.quantity;
     req.quantity = quantity;
-    buyRes = common.ops.buy(user, req, res.analytics);
+    const buyRes = common.ops.buy(user, req, res.analytics);
 
     await user.save();
     res.respond(200, ...buyRes);
@@ -1003,7 +1008,12 @@ api.userPurchaseHourglass = {
     const { user } = res.locals;
     const quantity = req.body.quantity || 1;
     if (quantity < 1 || !Number.isInteger(quantity)) throw new BadRequest(res.t('invalidQuantity'), req.language);
-    const purchaseHourglassRes = common.ops.buy(user, req, res.analytics, { quantity, hourglass: true });
+    const purchaseHourglassRes = common.ops.buy(
+      user,
+      req,
+      res.analytics,
+      { quantity, hourglass: true },
+    );
     await user.save();
     res.respond(200, ...purchaseHourglassRes);
   },

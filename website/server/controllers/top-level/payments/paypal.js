@@ -155,8 +155,9 @@ api.subscribeCancel = {
   },
 };
 
-// General IPN handler. We catch cancelled Habitica subscriptions for users who manually cancel their
-// recurring paypal payments in their paypal dashboard. TODO ? Remove this when we can move to webhooks or some other solution
+// General IPN handler. We catch cancelled Habitica subscriptions
+// for users who manually cancel their recurring paypal payments in their paypal dashboard.
+// TODO ? Remove this when we can move to webhooks or some other solution
 
 /**
  * @apiIgnore Payments are considered part of the private API

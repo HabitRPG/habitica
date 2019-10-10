@@ -46,9 +46,9 @@ export async function compare (user, passwordToCheck) {
   const passwordSalt = user.auth.local.salt; // Only used for SHA1
 
   if (passwordHashMethod === 'bcrypt') {
-    return await bcryptCompare(passwordToCheck, passwordHash);
+    return bcryptCompare(passwordToCheck, passwordHash);
   // default to sha1 if the user has a salt but no passwordHashMethod
-  } if (passwordHashMethod === 'sha1' || !passwordHashMethod && passwordSalt) {
+  } if (passwordHashMethod === 'sha1' || (!passwordHashMethod && passwordSalt)) {
     return passwordHash === sha1Encrypt(passwordToCheck, passwordSalt);
   }
   throw new Error('Invalid password hash method.');
@@ -63,7 +63,7 @@ export async function convertToBcrypt (user, plainTextPassword) {
 
   user.auth.local.salt = undefined;
   user.auth.local.passwordHashMethod = 'bcrypt';
-  user.auth.local.hashed_password = await bcryptHash(plainTextPassword); // eslint-disable-line camelcase
+  user.auth.local.hashed_password = await bcryptHash(plainTextPassword); // eslint-disable-line camelcase, max-len
 }
 
 // Returns the user if a valid password reset code is supplied, otherwise false

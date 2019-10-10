@@ -7,10 +7,10 @@ import ipn from 'paypal-ipn';
 import paypal from 'paypal-rest-sdk';
 import cc from 'coupon-code';
 import shared from '../../../common';
-import payments from './payments';
+import payments from './payments'; // eslint-disable-line import/no-cycle
 import { model as Coupon } from '../../models/coupon';
-import { model as User } from '../../models/user';
-import {
+import { model as User } from '../../models/user'; // eslint-disable-line import/no-cycle
+import { // eslint-disable-line import/no-cycle
   model as Group,
   basicFields as basicGroupFields,
 } from '../../models/group';
@@ -24,8 +24,10 @@ import {
 const BASE_URL = nconf.get('BASE_URL');
 const { i18n } = shared;
 
-// This is the plan.id for paypal subscriptions. You have to set up billing plans via their REST sdk (they don't have
-// a web interface for billing-plan creation), see ./paypalBillingSetup.js for how. After the billing plan is created
+// This is the plan.id for paypal subscriptions.
+// You have to set up billing plans via their REST sdk (they don't have
+// a web interface for billing-plan creation), see ./paypalBillingSetup.js for how.
+// After the billing plan is created
 // there, get it's plan.id and store it in config.json
 _.each(shared.content.subscriptionBlocks, block => {
   block.paypalKey = nconf.get(`PAYPAL_BILLING_PLANS_${block.key}`);
@@ -62,10 +64,14 @@ api.constants = {
 
 api.paypalPaymentCreate = util.promisify(paypal.payment.create.bind(paypal.payment));
 api.paypalPaymentExecute = util.promisify(paypal.payment.execute.bind(paypal.payment));
-api.paypalBillingAgreementCreate = util.promisify(paypal.billingAgreement.create.bind(paypal.billingAgreement));
-api.paypalBillingAgreementExecute = util.promisify(paypal.billingAgreement.execute.bind(paypal.billingAgreement));
-api.paypalBillingAgreementGet = util.promisify(paypal.billingAgreement.get.bind(paypal.billingAgreement));
-api.paypalBillingAgreementCancel = util.promisify(paypal.billingAgreement.cancel.bind(paypal.billingAgreement));
+api.paypalBillingAgreementCreate = util
+  .promisify(paypal.billingAgreement.create.bind(paypal.billingAgreement));
+api.paypalBillingAgreementExecute = util
+  .promisify(paypal.billingAgreement.execute.bind(paypal.billingAgreement));
+api.paypalBillingAgreementGet = util
+  .promisify(paypal.billingAgreement.get.bind(paypal.billingAgreement));
+api.paypalBillingAgreementCancel = util
+  .promisify(paypal.billingAgreement.cancel.bind(paypal.billingAgreement));
 
 api.ipnVerifyAsync = util.promisify(ipn.verify.bind(ipn));
 
@@ -272,7 +278,8 @@ api.ipn = async function ipnApi (options = {}) {
   const user = await User.findOne({ 'purchased.plan.customerId': recurring_payment_id }).exec();
   if (user) {
     // If the user has already cancelled the subscription, return
-    // Otherwise the subscription would be cancelled twice resulting in the loss of subscription credits
+    // Otherwise the subscription would be cancelled twice
+    // resulting in the loss of subscription credits
     if (user.hasCancelled()) return;
 
     await payments.cancelSubscription({ user, paymentMethod: this.constants.PAYMENT_METHOD });
@@ -287,10 +294,14 @@ api.ipn = async function ipnApi (options = {}) {
 
   if (group) {
     // If the group subscription has already been cancelled the subscription, return
-    // Otherwise the subscription would be cancelled twice resulting in the loss of subscription credits
+    // Otherwise the subscription would be cancelled
+    // twice resulting in the loss of subscription credits
     if (group.hasCancelled()) return;
 
-    await payments.cancelSubscription({ groupId: group._id, paymentMethod: this.constants.PAYMENT_METHOD });
+    await payments.cancelSubscription({
+      groupId: group._id,
+      paymentMethod: this.constants.PAYMENT_METHOD,
+    });
   }
 };
 

@@ -168,10 +168,9 @@ api.getHero = {
   url: '/hall/heroes/:heroId',
   middlewares: [authWithHeaders(), ensureAdmin],
   async handler (req, res) {
-    let validationErrors;
     req.checkParams('heroId', res.t('heroIdRequired')).notEmpty();
 
-    validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
     const { heroId } = req.params;
@@ -256,22 +255,26 @@ api.updateHero = {
     if (updateData.balance) hero.balance = updateData.balance;
 
     // give them gems if they got an higher level
-    let newTier = updateData.contributor && updateData.contributor.level; // tier = level in this context
-    const oldTier = hero.contributor && hero.contributor.level || 0;
+    // tier = level in this context
+    let newTier = updateData.contributor && updateData.contributor.level;
+
+    const oldTier = (hero.contributor && hero.contributor.level) || 0;
     if (newTier > oldTier) {
       hero.flags.contributor = true;
       let tierDiff = newTier - oldTier; // can be 2+ tier increases at once
       while (tierDiff) {
         hero.balance += gemsPerTier[newTier] / 4; // balance is in $
-        tierDiff--;
-        newTier--; // give them gems for the next tier down if they weren't aready that tier
+        tierDiff -= 1;
+        newTier -= 1; // give them gems for the next tier down if they weren't aready that tier
       }
 
       hero.addNotification('NEW_CONTRIBUTOR_LEVEL');
     }
 
     if (updateData.contributor) _.assign(hero.contributor, updateData.contributor);
-    if (updateData.purchased && updateData.purchased.ads) hero.purchased.ads = updateData.purchased.ads;
+    if (updateData.purchased && updateData.purchased.ads) {
+      hero.purchased.ads = updateData.purchased.ads;
+    }
 
     // give them the Dragon Hydra pet if they're above level 6
     if (hero.contributor.level >= 6) {
@@ -279,7 +282,8 @@ api.updateHero = {
       hero.markModified('items.pets');
     }
     if (updateData.itemPath && updateData.itemVal && validateItemPath(updateData.itemPath)) {
-      _.set(hero, updateData.itemPath, castItemVal(updateData.itemPath, updateData.itemVal)); // Sanitization at 5c30944 (deemed unnecessary)
+      // Sanitization at 5c30944 (deemed unnecessary)
+      _.set(hero, updateData.itemPath, castItemVal(updateData.itemPath, updateData.itemVal));
     }
 
     if (updateData.auth && updateData.auth.blocked === true) {
@@ -290,8 +294,12 @@ api.updateHero = {
       hero.auth.blocked = false;
     }
 
-    if (updateData.flags && _.isBoolean(updateData.flags.chatRevoked)) hero.flags.chatRevoked = updateData.flags.chatRevoked;
-    if (updateData.flags && _.isBoolean(updateData.flags.chatShadowMuted)) hero.flags.chatShadowMuted = updateData.flags.chatShadowMuted;
+    if (updateData.flags && _.isBoolean(updateData.flags.chatRevoked)) {
+      hero.flags.chatRevoked = updateData.flags.chatRevoked;
+    }
+    if (updateData.flags && _.isBoolean(updateData.flags.chatShadowMuted)) {
+      hero.flags.chatShadowMuted = updateData.flags.chatShadowMuted;
+    }
 
     const savedHero = await hero.save();
     const heroJSON = savedHero.toJSON();

@@ -2,7 +2,7 @@ import got from 'got';
 import { isURL } from 'validator';
 import nconf from 'nconf';
 import logger from './logger';
-import {
+import { // eslint-disable-line import/no-cycle
   model as User,
 } from '../models/user';
 

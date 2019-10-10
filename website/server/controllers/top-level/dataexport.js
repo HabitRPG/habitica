@@ -285,7 +285,7 @@ api.exportUserAvatarPng = {
       });
     });
 
-    res.redirect(s3res.Location);
+    return res.redirect(s3res.Location);
   },
 };
 
@@ -317,11 +317,11 @@ api.exportUserPrivateMessages = {
       const messageUser = message.user;
       const timestamp = moment.utc(message.timestamp).zone(timezoneOffset).format(`${dateFormat} HH:mm:ss`);
       const text = md.render(message.text);
-      index = `(${index + 1}/${inbox.length})`;
+      const pageIndex = `(${index + 1}/${inbox.length})`;
       messages += `
       <p>
         ${recipientLabel} <strong>${messageUser}</strong> ${timestamp}
-        ${index}
+        ${pageIndex}
         <br />
         ${text}
       </p>

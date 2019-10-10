@@ -61,7 +61,7 @@ api.verifyGemPurchase = async function verifyGemPurchase (options) {
 
   let amount;
 
-  switch (receiptObj.productId) {
+  switch (receiptObj.productId) { // eslint-disable-line default-case
     case 'com.habitrpg.android.habitica.iap.4gems':
       amount = 1;
       break;
@@ -89,10 +89,13 @@ api.verifyGemPurchase = async function verifyGemPurchase (options) {
   return googleRes;
 };
 
-api.subscribe = async function subscribe (sku, user, receipt, signature, headers, nextPaymentProcessing = undefined) {
+api.subscribe = async function subscribe (
+  sku, user, receipt, signature,
+  headers, nextPaymentProcessing = undefined,
+) {
   if (!sku) throw new BadRequest(shared.i18n.t('missingSubscriptionCode'));
   let subCode;
-  switch (sku) {
+  switch (sku) { // eslint-disable-line default-case
     case 'com.habitrpg.android.habitica.subscription.1month':
       subCode = 'basic_earned';
       break;
@@ -129,7 +132,7 @@ api.subscribe = async function subscribe (sku, user, receipt, signature, headers
   const isValidated = iap.isValidated(googleRes);
   if (!isValidated) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
 
-  nextPaymentProcessing = nextPaymentProcessing || moment.utc().add({ days: 2 });
+  nextPaymentProcessing = nextPaymentProcessing || moment.utc().add({ days: 2 }); // eslint-disable-line no-param-reassign, max-len
 
   await payments.createSubscription({
     user,
@@ -148,7 +151,7 @@ api.noRenewSubscribe = async function noRenewSubscribe (options) {
   } = options;
   if (!sku) throw new BadRequest(shared.i18n.t('missingSubscriptionCode'));
   let subCode;
-  switch (sku) {
+  switch (sku) { // eslint-disable-line default-case
     case 'com.habitrpg.android.habitica.norenew_subscription.1month':
       subCode = 'basic_earned';
       break;

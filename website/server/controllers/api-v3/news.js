@@ -2,7 +2,8 @@ import { authWithHeaders } from '../../middlewares/auth';
 
 const api = {};
 
-// @TODO export this const, cannot export it from here because only routes are exported from controllers
+// @TODO export this const, cannot export it
+// from here because only routes are exported from controllers
 const LAST_ANNOUNCEMENT_TITLE = 'SUPERNATURAL SKINS AND HAUNTED HAIR COLORS';
 const worldDmg = { // @TODO
   bailey: false,

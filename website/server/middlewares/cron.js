@@ -8,12 +8,14 @@ import { recoverCron, cron } from '../libs/cron';
 const CRON_TIMEOUT_WAIT = new Date(60 * 60 * 1000).getTime();
 
 async function checkForActiveCron (user, now) {
-  // set _cronSignature to current time in ms since epoch time so we can make sure to wait at least CRONT_TIMEOUT_WAIT before attempting another cron
+  // set _cronSignature to current time in ms since epoch time
+  // so we can make sure to wait at least CRONT_TIMEOUT_WAIT before attempting another cron
   const _cronSignature = now.getTime();
   // Calculate how long ago cron must have been attempted to try again
   const cronRetryTime = _cronSignature - CRON_TIMEOUT_WAIT;
 
-  // To avoid double cron we first set _cronSignature and then check that it's not changed while processing
+  // To avoid double cron we first set _cronSignature
+  // and then check that it's not changed while processing
   const userUpdateResult = await User.update({
     _id: user._id,
     $or: [ // Make sure last cron was successful or failed before cronRetryTime
@@ -60,7 +62,8 @@ async function cronAsync (req, res) {
   try {
     await checkForActiveCron(user, now);
 
-    user = res.locals.user = await User.findOne({ _id: user._id }).exec();
+    user = await User.findOne({ _id: user._id }).exec();
+    res.locals.user = user;
     const { daysMissed, timezoneOffsetFromUserPrefs } = user.daysUserHasMissed(now, req);
 
     await updateLastCron(user, now);
@@ -86,7 +89,13 @@ async function cronAsync (req, res) {
 
     // Run cron
     const progress = cron({
-      user, tasksByType, now, daysMissed, analytics, timezoneOffsetFromUserPrefs, headers: req.headers,
+      user,
+      tasksByType,
+      now,
+      daysMissed,
+      analytics,
+      timezoneOffsetFromUserPrefs,
+      headers: req.headers,
     });
 
     // Clear old completed todos - 30 days for free users, 90 for subscribers
@@ -117,7 +126,7 @@ async function cronAsync (req, res) {
         }).exec();
 
         if (groupTask) {
-          let delta = Math.pow(0.9747, task.value) * -1;
+          let delta = (0.9747 ** task.value) * -1;
           if (groupTask.group.assignedUsers) delta /= groupTask.group.assignedUsers.length;
           await groupTask.scoreChallengeTask(delta, 'down');
         }
@@ -143,7 +152,8 @@ async function cronAsync (req, res) {
     // If cron was aborted for a race condition try to recover from it
     if (err.message === 'CRON_ALREADY_RUNNING') {
       // Recovering after abort, wait 300ms and reload user
-      // do it for max 5 times then reset _cronSignature so that it doesn't prevent cron from running
+      // do it for max 5 times then reset _cronSignature
+      // so that it doesn't prevent cron from running
       // at the next request
       const recoveryStatus = {
         times: 0,
@@ -151,7 +161,8 @@ async function cronAsync (req, res) {
 
       await recoverCron(recoveryStatus, res.locals);
     } else {
-      // For any other error make sure to reset _cronSignature so that it doesn't prevent cron from running
+      // For any other error make sure to reset _cronSignature
+      // so that it doesn't prevent cron from running
       // at the next request
       await User.update({
         _id: user._id,
@@ -161,6 +172,8 @@ async function cronAsync (req, res) {
 
       throw err; // re-throw the original error
     }
+
+    return null;
   }
 }
 

@@ -1,6 +1,6 @@
 import { last } from 'lodash';
 import shared from '../../../common';
-import { model as User } from '../../models/user';
+import { model as User } from '../../models/user'; // eslint-disable-line import/no-cycle
 
 // Build a list of gear items owned by default
 const defaultOwnedGear = {};
@@ -54,6 +54,8 @@ export function validateItemPath (itemPath) {
   if (itemPath.indexOf('items.quests') === 0) {
     return Boolean(shared.content.quests[key]);
   }
+
+  return false;
 }
 
 // When passed a value of an item in the user object it'll convert the

@@ -33,7 +33,12 @@ export function setNextDue (task, user, dueDateOption) {
     dateTaskIsDue = moment(dueDateOption);
 
     // If not time is supplied. Let's assume we want start of Custom Day Start day.
-    if (dateTaskIsDue.hour() === 0 && dateTaskIsDue.minute() === 0 && dateTaskIsDue.second() === 0 && dateTaskIsDue.millisecond() === 0) {
+    if (
+      dateTaskIsDue.hour() === 0
+      && dateTaskIsDue.minute() === 0
+      && dateTaskIsDue.second() === 0
+      && dateTaskIsDue.millisecond() === 0
+    ) {
       dateTaskIsDue.add(user.preferences.timezoneOffset, 'minutes');
       dateTaskIsDue.add(user.preferences.dayStart, 'hours');
     }
@@ -103,7 +108,9 @@ export async function createTasks (req, res, options = {}) {
     setNextDue(newTask, user);
 
     // Validate that the task is valid and throw if it isn't
-    // otherwise since we're saving user/challenge/group and task in parallel it could save the user/challenge/group with a tasksOrder that doens't match reality
+    // otherwise since we're saving user/challenge/group
+    // and task in parallel it could save the user/challenge/group
+    // with a tasksOrder that doens't match reality
     const validationErrors = newTask.validateSync();
     if (validationErrors) throw validationErrors;
 
@@ -116,7 +123,7 @@ export async function createTasks (req, res, options = {}) {
 
   // Push all task ids
   const taskOrderUpdateQuery = { $push: {} };
-  for (const taskType in taskOrderToAdd) {
+  for (const taskType of Object.keys(taskOrderToAdd)) {
     taskOrderUpdateQuery.$push[`tasksOrder.${taskType}`] = {
       $each: taskOrderToAdd[taskType],
       $position: 0,
@@ -128,7 +135,9 @@ export async function createTasks (req, res, options = {}) {
   // tasks with aliases need to be validated asynchronously
   await _validateTaskAlias(toSave, res);
 
-  toSave = toSave.map(task => task.save({ // If all tasks are valid (this is why it's not in the previous .map()), save everything, withough running validation again
+  // If all tasks are valid (this is why it's not in the previous .map()),
+  // save everything, withough running validation again
+  toSave = toSave.map(task => task.save({
     validateBeforeSave: false,
   }));
 
@@ -239,7 +248,6 @@ export async function getTasks (req, res, options = {}) {
 }
 
 // Takes a Task document and return a plain object of attributes that can be synced to the user
-
 export function syncableAttrs (task) {
   const t = task.toObject(); // lodash doesn't seem to like _.omit on Document
   // only sync/compare important attrs

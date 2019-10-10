@@ -383,12 +383,23 @@ api.getTask = {
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
-    } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
+
+    // If the task belongs to a challenge make sure the user has rights
+    } else if (task.challenge.id && !task.userId) {
       const challenge = await Challenge.find({ _id: task.challenge.id }).select('leader').exec();
-      if (!challenge || (user.challenges.indexOf(task.challenge.id) === -1 && challenge.leader !== user._id && !user.contributor.admin)) { // eslint-disable-line no-extra-parens
+      if (
+        !challenge
+        || (
+          user.challenges.indexOf(task.challenge.id) === -1
+          && challenge.leader !== user._id
+          && !user.contributor.admin
+        )
+      ) { // eslint-disable-line no-extra-parens
         throw new NotFound(res.t('taskNotFound'));
       }
-    } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
+
+    // If the task is owned by a user make it's the current one
+    } else if (task.userId !== user._id) {
       throw new NotFound(res.t('taskNotFound'));
     }
 
@@ -451,16 +462,21 @@ api.updateTask = {
       group = await Group.getGroup({ user, groupId: task.group.id, fields });
       if (!group) throw new NotFound(res.t('groupNotFound'));
       if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
-    } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
+
+    // If the task belongs to a challenge make sure the user has rights
+    } else if (task.challenge.id && !task.userId) {
       challenge = await Challenge.findOne({ _id: task.challenge.id }).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
       if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
-    } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
+
+    // If the task is owned by a user make it's the current one
+    } else if (task.userId !== user._id) {
       throw new NotFound(res.t('taskNotFound'));
     }
 
     const oldCheckList = task.checklist;
-    // we have to convert task to an object because otherwise things don't get merged correctly. Bad for performances?
+    // we have to convert task to an object because otherwise things
+    // don't get merged correctly. Bad for performances?
     const [updatedTaskObj] = common.ops.updateTask(task.toObject(), req);
     // Sanitize differently user tasks linked to a challenge
     let sanitizedObj;
@@ -476,7 +492,8 @@ api.updateTask = {
     _.assign(task, sanitizedObj);
 
     // console.log(task.modifiedPaths(), task.toObject().repeat === tep)
-    // repeat is always among modifiedPaths because mongoose changes the other of the keys when using .toObject()
+    // repeat is always among modifiedPaths because mongoose changes
+    // the other of the keys when using .toObject()
     // see https://github.com/Automattic/mongoose/issues/2749
 
     task.group.approval.required = false;
@@ -585,7 +602,8 @@ api.scoreTask = {
 
         const managers = await User.find({ _id: managerIds }, 'notifications preferences').exec(); // Use this method so we can get access to notifications
 
-        // @TODO: we can use the User.pushNotification function because we need to ensure notifications are translated
+        // @TODO: we can use the User.pushNotification function because
+        // we need to ensure notifications are translated
         const managerPromises = [];
         managers.forEach(manager => {
           manager.addNotification('GROUP_TASK_APPROVAL', {
@@ -594,7 +612,8 @@ api.scoreTask = {
               taskName: task.text,
             }, manager.preferences.language),
             groupId: group._id,
-            taskId: task._id, // user task id, used to match the notification when the task is approved
+            // user task id, used to match the notification when the task is approved
+            taskId: task._id,
             userId: user._id,
             groupTaskId: task.group.taskId, // the original task id
             direction,
@@ -612,7 +631,8 @@ api.scoreTask = {
     const wasCompleted = task.completed;
 
     const [delta] = common.ops.scoreTask({ task, user, direction }, req);
-    // Drop system (don't run on the client, as it would only be discarded since ops are sent to the API, not the results)
+    // Drop system (don't run on the client,
+    // as it would only be discarded since ops are sent to the API, not the results)
     if (direction === 'up') common.fns.randomDrop(user, { task, delta }, req, res.analytics);
 
     // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
@@ -626,7 +646,11 @@ api.scoreTask = {
           $pull: { 'tasksOrder.todos': task._id },
         }).exec();
         // user.tasksOrder.todos.pull(task._id);
-      } else if (wasCompleted && !task.completed && user.tasksOrder.todos.indexOf(task._id) === -1) {
+      } else if (
+        wasCompleted
+        && !task.completed
+        && user.tasksOrder.todos.indexOf(task._id) === -1
+      ) {
         taskOrderPromise = user.update({
           $push: { 'tasksOrder.todos': task._id },
         }).exec();
@@ -649,7 +673,9 @@ api.scoreTask = {
         }).exec();
 
         if (groupTask) {
-          const groupDelta = groupTask.group.assignedUsers ? delta / groupTask.group.assignedUsers.length : delta;
+          const groupDelta = groupTask.group.assignedUsers
+            ? delta / groupTask.group.assignedUsers.length
+            : delta;
           await groupTask.scoreChallengeTask(groupDelta, direction);
         }
       } catch (e) {
@@ -675,7 +701,8 @@ api.scoreTask = {
     });
 
     if (task.challenge && task.challenge.id && task.challenge.taskId && !task.challenge.broken && task.type !== 'reward') {
-      // Wrapping everything in a try/catch block because if an error occurs using `await` it MUST NOT bubble up because the request has already been handled
+      // Wrapping everything in a try/catch block because if an error occurs
+      // using `await` it MUST NOT bubble up because the request has already been handled
       try {
         const chalTask = await Tasks.Task.findOne({
           _id: task.challenge.taskId,
@@ -763,7 +790,7 @@ api.moveTask = {
     // Update the user version field manually,
     // it cannot be updated in the pre update hook
     // See https://github.com/HabitRPG/habitica/pull/9321#issuecomment-354187666 for more info
-    user._v++;
+    user._v += 1;
 
     res.respond(200, order);
   },
@@ -811,11 +838,15 @@ api.addChecklistItem = {
       const fields = requiredGroupFields.concat(' managers');
       group = await Group.getGroup({ user, groupId: task.group.id, fields });
       if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
-    } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
+
+    // If the task belongs to a challenge make sure the user has rights
+    } else if (task.challenge.id && !task.userId) {
       challenge = await Challenge.findOne({ _id: task.challenge.id }).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
       if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
-    } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
+
+    // If the task is owned by a user make it's the current one
+    } else if (task.userId !== user._id) {
       throw new NotFound(res.t('taskNotFound'));
     }
 
@@ -927,11 +958,15 @@ api.updateChecklistItem = {
       group = await Group.getGroup({ user, groupId: task.group.id, fields });
       if (!group) throw new NotFound(res.t('groupNotFound'));
       if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
-    } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
+
+    // If the task belongs to a challenge make sure the user has rights
+    } else if (task.challenge.id && !task.userId) {
       challenge = await Challenge.findOne({ _id: task.challenge.id }).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
       if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
-    } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
+
+    // If the task is owned by a user make it's the current one
+    } else if (task.userId !== user._id) {
       throw new NotFound(res.t('taskNotFound'));
     }
     if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
@@ -992,11 +1027,15 @@ api.removeChecklistItem = {
       group = await Group.getGroup({ user, groupId: task.group.id, fields });
       if (!group) throw new NotFound(res.t('groupNotFound'));
       if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
-    } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
+
+    // If the task belongs to a challenge make sure the user has rights
+    } else if (task.challenge.id && !task.userId) {
       challenge = await Challenge.findOne({ _id: task.challenge.id }).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
       if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
-    } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
+
+    // If the task is owned by a user make it's the current one
+    } else if (task.userId !== user._id) {
       throw new NotFound(res.t('taskNotFound'));
     }
     if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
@@ -1310,15 +1349,23 @@ api.deleteTask = {
       if (!group) throw new NotFound(res.t('groupNotFound'));
       if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
       await group.removeTask(task);
-    } else if (task.challenge.id && !task.userId) { // If the task belongs to a challenge make sure the user has rights
+
+    // If the task belongs to a challenge make sure the user has rights
+    } else if (task.challenge.id && !task.userId) {
       challenge = await Challenge.findOne({ _id: task.challenge.id }).exec();
       if (!challenge) throw new NotFound(res.t('challengeNotFound'));
       if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
-    } else if (task.userId !== user._id) { // If the task is owned by a user make it's the current one
+
+    // If the task is owned by a user make it's the current one
+    } else if (task.userId !== user._id) {
       throw new NotFound(res.t('taskNotFound'));
     } else if (task.userId && task.challenge.id && !task.challenge.broken) {
       throw new NotAuthorized(res.t('cantDeleteChallengeTasks'));
-    } else if (task.group.id && task.group.assignedUsers.indexOf(user._id) !== -1 && !task.group.broken) {
+    } else if (
+      task.group.id
+      && task.group.assignedUsers.indexOf(user._id) !== -1
+      && !task.group.broken
+    ) {
       throw new NotAuthorized(res.t('cantDeleteAssignedGroupTasks'));
     }
 
@@ -1332,7 +1379,7 @@ api.deleteTask = {
       // Update the user version field manually,
       // it cannot be updated in the pre update hook
       // See https://github.com/HabitRPG/habitica/pull/9321#issuecomment-354187666 for more info
-      if (!challenge) user._v++;
+      if (!challenge) user._v += 1;
 
       await Promise.all([taskOrderUpdate, task.remove()]);
     } else {

@@ -1,5 +1,5 @@
-import { model as User } from '../models/user';
-import { getUserInfo } from './email';
+import { model as User } from '../models/user'; // eslint-disable-line import/no-cycle
+import { getUserInfo } from './email'; // eslint-disable-line import/no-cycle
 import { sendNotification as sendPushNotification } from './pushNotifications';
 
 export async function getAuthorEmailFromMessage (message) {
@@ -34,7 +34,12 @@ export async function sendChatPushNotifications (user, group, message, translate
           identifier: 'groupActivity',
           category: 'groupActivity',
           payload: {
-            groupID: group._id, type: group.type, groupName: group.name, message: message.text, timestamp: message.timestamp, senderName: message.user,
+            groupID: group._id,
+            type: group.type,
+            groupName: group.name,
+            message: message.text,
+            timestamp: message.timestamp,
+            senderName: message.user,
           },
         },
       );

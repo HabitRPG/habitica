@@ -56,8 +56,8 @@ function _getFromUser (user, req) {
 }
 
 export function attachTranslateFunction (req, res, next) {
-  res.t = function reqTranslation () {
-    return i18n.t(...arguments, req.language);
+  res.t = function reqTranslation (...args) {
+    return i18n.t(...args, req.language);
   };
 
   next();
@@ -67,7 +67,9 @@ export function getUserLanguage (req, res, next) {
   if (req.query.lang) { // In case the language is specified in the request url, use it
     req.language = translations[req.query.lang] ? req.query.lang : 'en';
     return next();
-  } if (req.locals && req.locals.user) { // If the request is authenticated, use the user's preferred language
+
+  // If the request is authenticated, use the user's preferred language
+  } if (req.locals && req.locals.user) {
     req.language = _getFromUser(req.locals.user, req);
     return next();
   } if (req.session && req.session.userId) { // Same thing if the user has a valid session

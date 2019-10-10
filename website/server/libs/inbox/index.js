@@ -1,5 +1,5 @@
 import { mapInboxMessage, inboxModel as Inbox } from '../../models/message';
-import { getUserInfo, sendTxn as sendTxnEmail } from '../email';
+import { getUserInfo, sendTxn as sendTxnEmail } from '../email'; // eslint-disable-line import/no-cycle
 import { sendNotification as sendPushNotification } from '../pushNotifications';
 
 const PM_PER_PAGE = 10;
@@ -18,7 +18,11 @@ export async function sentMessage (sender, receiver, message, translate) {
     sendPushNotification(
       receiver,
       {
-        title: translate('newPMNotificationTitle', { name: getUserInfo(sender, ['name']).name }, receiver.preferences.language),
+        title: translate(
+          'newPMNotificationTitle',
+          { name: getUserInfo(sender, ['name']).name },
+          receiver.preferences.language,
+        ),
         message,
         identifier: 'newPM',
         category: 'newPM',
@@ -71,7 +75,7 @@ export async function getUserInbox (user, options = {
     return messages;
   }
   const messagesObj = {};
-  messages.forEach(msg => messagesObj[msg._id] = msg);
+  messages.forEach(msg => { messagesObj[msg._id] = msg; });
 
   return messagesObj;
 }

@@ -3,12 +3,12 @@ import mongoose from 'mongoose';
 import _ from 'lodash';
 import validator from 'validator';
 import nconf from 'nconf';
-import {
+import { // eslint-disable-line import/no-cycle
   model as User,
   nameFields,
 } from './user';
 import shared from '../../common';
-import { model as Challenge } from './challenge';
+import { model as Challenge } from './challenge'; // eslint-disable-line import/no-cycle
 import {
   chatModel as Chat,
   setUserStyles,
@@ -16,8 +16,8 @@ import {
 } from './message';
 import * as Tasks from './task';
 import { removeFromArray } from '../libs/collectionManipulators';
-import payments from '../libs/payments/payments';
-import {
+import payments from '../libs/payments/payments'; // eslint-disable-line import/no-cycle
+import { // eslint-disable-line import/no-cycle
   groupChatReceivedWebhook,
   questActivityWebhook,
 } from '../libs/webhook';
@@ -27,7 +27,7 @@ import {
   NotAuthorized,
 } from '../libs/errors';
 import baseModel from '../libs/baseModel';
-import { sendTxn as sendTxnEmail } from '../libs/email';
+import { sendTxn as sendTxnEmail } from '../libs/email'; // eslint-disable-line import/no-cycle
 import { sendNotification as sendPushNotification } from '../libs/pushNotifications';
 import {
   syncableAttrs,
@@ -35,11 +35,11 @@ import {
 import {
   schema as SubscriptionPlanSchema,
 } from './subscriptionPlan';
-import amazonPayments from '../libs/payments/amazon';
-import stripePayments from '../libs/payments/stripe';
-import { getGroupChat, translateMessage } from '../libs/chat/group-chat';
+import amazonPayments from '../libs/payments/amazon'; // eslint-disable-line import/no-cycle
+import stripePayments from '../libs/payments/stripe'; // eslint-disable-line import/no-cycle
+import { getGroupChat, translateMessage } from '../libs/chat/group-chat'; // eslint-disable-line import/no-cycle
 import { model as UserNotification } from './userNotification';
-import { sendChatPushNotifications } from '../libs/chat';
+import { sendChatPushNotifications } from '../libs/chat'; // eslint-disable-line import/no-cycle
 
 const questScrolls = shared.content.quests;
 const { questSeriesAchievements } = shared.content;
@@ -108,8 +108,10 @@ export const schema = new Schema({
       rage: Number, // limit break / "energy stored in shell", for explosion-attacks
     },
 
-    // Shows boolean for each party-member who has accepted the quest. Eg {UUID: true, UUID: false}. Once all users click
-    // 'Accept', the quest begins. If a false user waits too long, probably a good sign to prod them or boot them.
+    // Shows boolean for each party-member who has accepted the quest.
+    // Eg {UUID: true, UUID: false}. Once all users click
+    // 'Accept', the quest begins.
+    // If a false user waits too long, probably a good sign to prod them or boot them.
     // TODO when booting user, remove from .joined and check again if we can now start the quest
     members: {
       $type: Schema.Types.Mixed,
@@ -836,7 +838,8 @@ async function _updateUserWithRetries (userId, updates, numTry = 1, query = {}) 
     return await User.update(query, updates).exec();
   } catch (err) {
     if (numTry < MAX_UPDATE_RETRIES) {
-      return _updateUserWithRetries(userId, updates, ++numTry, query);
+      numTry += 1; // eslint-disable-line no-param-reassign
+      return _updateUserWithRetries(userId, updates, numTry, query);
     }
     throw err;
   }
@@ -1391,7 +1394,7 @@ schema.methods.updateTask = async function updateTask (taskToSync, options = {})
   const updateCmd = { $set: {} };
 
   const syncableAttributes = syncableAttrs(taskToSync);
-  for (const key in syncableAttributes) {
+  for (const key of Object.keys(syncableAttributes)) {
     updateCmd.$set[key] = syncableAttributes[key];
   }
 

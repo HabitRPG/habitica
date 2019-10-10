@@ -3,7 +3,8 @@
 // - literature guilds (quoting of passages containing words banned as oaths);
 // - food/drink/lifestyle/perfume guilds (alcohol allowed);
 // - guilds dealing with traumatic life events (must be allowed to describe them);
-// - foreign language guilds using the Roman alphabet (avoid accidental banning of non-English words).
+// - foreign language guilds using the Roman alphabet
+// (avoid accidental banning of non-English words).
 //
 // This is for a short-term, partial solution to the need for swearword blocking in guilds.
 // Later, it will be replaced with customised lists of disallowed words based on the guilds' tags.

@@ -4,7 +4,7 @@ import nconf from 'nconf';
 
 const MANIFEST_FILE_PATH = path.join(__dirname, '/../../client-old/manifest.json');
 const BUILD_FOLDER_PATH = path.join(__dirname, '/../../build');
-const manifestFiles = require(MANIFEST_FILE_PATH);
+const manifestFiles = require(MANIFEST_FILE_PATH); // eslint-disable-line import/no-dynamic-require
 
 const IS_PROD = nconf.get('IS_PROD');
 const buildFiles = [];
@@ -23,7 +23,7 @@ function _walk (folder) {
 
       if (relFolder) {
         original = `${relFolder}/${original}`;
-        fileName = `${relFolder}/${fileName}`;
+        fileName = `${relFolder}/${fileName}`; // eslint-disable-line no-param-reassign
       }
 
       buildFiles[original] = fileName;

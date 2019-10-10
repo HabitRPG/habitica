@@ -1,11 +1,12 @@
 import mongoose from 'mongoose';
 
-import schema from './schema';
+import schema from './schema'; // eslint-disable-line import/no-cycle
 
-import './hooks';
-import './methods';
+import './hooks'; // eslint-disable-line import/no-cycle
+import './methods'; // eslint-disable-line import/no-cycle
 
-// A list of publicly accessible fields (not everything from preferences because there are also a lot of settings tha should remain private)
+// A list of publicly accessible fields (not everything from preferences
+// because there are also a lot of settings tha should remain private)
 export const publicFields = `preferences.size preferences.hair preferences.skin preferences.shirt
   preferences.chair preferences.costume preferences.sleep preferences.background preferences.tasks preferences.disableClasses profile stats
   achievements party backer contributor auth.timestamps items inbox.optOut loginIncentives flags.classSelected

@@ -4,7 +4,7 @@
 // Register babel hook so we can write the real entry file (server.js) in ES6
 // In production, the es6 code is pre-transpiled so it doesn't need it
 if (process.env.NODE_ENV !== 'production') {
-  require('@babel/register');
+  require('@babel/register'); // eslint-disable-line import/no-extraneous-dependencies
 }
 
 const cluster = require('cluster');

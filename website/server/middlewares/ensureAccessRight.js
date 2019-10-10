@@ -10,7 +10,7 @@ export function ensureAdmin (req, res, next) {
     return next(new NotAuthorized(res.t('noAdminAccess')));
   }
 
-  next();
+  return next();
 }
 
 export function ensureSudo (req, res, next) {
@@ -20,5 +20,5 @@ export function ensureSudo (req, res, next) {
     return next(new NotAuthorized(apiError('noSudoAccess')));
   }
 
-  next();
+  return next();
 }

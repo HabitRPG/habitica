@@ -1,6 +1,6 @@
 
 export function removePunctuationFromString (str) {
-  return str.replace(/[.,\/#!@$%\^&;:{}=\-_`~()]/g, ' ');
+  return str.replace(/[.,/#!@$%^&;:{}=\-_`~()]/g, ' ');
 }
 
 export function getMatchesByWordArray (str, wordsToMatch) {

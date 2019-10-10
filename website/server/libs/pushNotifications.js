@@ -36,7 +36,7 @@ function sendNotification (user, details = {}) {
   payload.identifier = details.identifier;
 
   _.each(pushDevices, pushDevice => {
-    switch (pushDevice.type) {
+    switch (pushDevice.type) { // eslint-disable-line default-case
       case 'android':
         // Required for fcm to be received in background
         payload.title = details.title;
@@ -82,5 +82,5 @@ function sendNotification (user, details = {}) {
 }
 
 export {
-  sendNotification,
+  sendNotification, // eslint-disable-line import/prefer-default-export
 };

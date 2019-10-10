@@ -1,7 +1,10 @@
 import _ from 'lodash';
 import { chatModel as Chat } from '../../models/message';
 import shared from '../../../common';
-import { MAX_CHAT_COUNT, MAX_SUBBED_GROUP_CHAT_COUNT } from '../../models/group';
+import { // eslint-disable-line import/no-cycle
+  MAX_CHAT_COUNT,
+  MAX_SUBBED_GROUP_CHAT_COUNT,
+} from '../../models/group';
 
 const questScrolls = shared.content.quests;
 
@@ -31,14 +34,17 @@ export function translateMessage (lang, info) {
   const { spells } = shared.content;
   const { quests } = shared.content;
 
-  switch (info.type) {
+  switch (info.type) { // eslint-disable-line default-case
     case 'quest_start':
       msg = shared.i18n.t('chatQuestStarted', { questName: questScrolls[info.quest].text(lang) }, lang);
       break;
 
     case 'boss_damage':
       msg = shared.i18n.t('chatBossDamage', {
-        username: info.user, bossName: questScrolls[info.quest].boss.name(lang), userDamage: info.userDamage, bossDamage: info.bossDamage,
+        username: info.user,
+        bossName: questScrolls[info.quest].boss.name(lang),
+        userDamage: info.userDamage,
+        bossDamage: info.bossDamage,
       }, lang);
       break;
 

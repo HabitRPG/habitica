@@ -18,13 +18,17 @@ const api = {};
 
 function walkContent (obj, lang) {
   _.each(obj, (item, key, source) => {
-    if (_.isPlainObject(item) || _.isArray(item)) return walkContent(item, lang);
-    if (_.isFunction(item) && item.i18nLangFunc) source[key] = item(lang);
+    if (_.isPlainObject(item) || _.isArray(item)) {
+      walkContent(item, lang);
+    } else if (_.isFunction(item) && item.i18nLangFunc) {
+      source[key] = item(lang);
+    }
   });
 }
 
 // After the getContent route is called the first time for a certain language
-// the response is saved on disk and subsequentially served directly from there to reduce computation.
+// the response is saved on disk and subsequentially served
+// directly from there to reduce computation.
 // Example: if `cachedContentResponses.en` is true it means that the response is cached
 const cachedContentResponses = {};
 
@@ -43,18 +47,21 @@ async function saveContentToDisk (language, content) {
   try {
     cacheBeingWritten[language] = true;
 
-    await fs.stat(CONTENT_CACHE_PATH); // check if the directory exists, if it doesn't an error is thrown
+    // check if the directory exists, if it doesn't an error is thrown
+    await fs.stat(CONTENT_CACHE_PATH);
     await fs.writeFile(`${CONTENT_CACHE_PATH}${language}.json`, content, 'utf8');
 
     cacheBeingWritten[language] = false;
     cachedContentResponses[language] = true;
   } catch (err) {
-    if (err.code === 'ENOENT' && err.syscall === 'stat') { // the directory doesn't exists, create it and retry
+    // the directory doesn't exists, create it and retry
+    if (err.code === 'ENOENT' && err.syscall === 'stat') {
       await fs.mkdir(CONTENT_CACHE_PATH);
-      return saveContentToDisk(language, content);
+      saveContentToDisk(language, content);
+    } else {
+      cacheBeingWritten[language] = false;
+      logger.error(err);
     }
-    cacheBeingWritten[language] = false;
-    logger.error(err);
   }
 }
 

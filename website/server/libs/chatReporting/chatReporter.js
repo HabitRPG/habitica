@@ -7,7 +7,9 @@ export default class ChatReporter {
     this.res = res;
   }
 
-  async validate () {}
+  async validate () { // eslint-disable-line class-methods-use-this
+    throw new Error('Not implemented');
+  }
 
   async getMessageVariables (group, message) {
     const reporterEmail = getUserInfo(this.user, ['email']).email;
@@ -34,7 +36,7 @@ export default class ChatReporter {
     ];
   }
 
-  createGenericAuthorVariables (prefix, {
+  createGenericAuthorVariables (prefix, { // eslint-disable-line class-methods-use-this
     user, username, uuid, email,
   }) {
     return [
@@ -56,7 +58,7 @@ export default class ChatReporter {
     });
   }
 
-  async flag () {
+  async flag () { // eslint-disable-line class-methods-use-this
     throw new Error('Flag must be implemented');
   }
 }

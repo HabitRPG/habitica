@@ -12,8 +12,9 @@ const noop = (req, res, next) => next();
 export function readController (router, controller, overrides = []) {
   _.each(controller, action => {
     let {
-      method, url, middlewares = [], handler,
+      method,
     } = action;
+    const { url, middlewares = [], handler } = action;
 
     // Allow to specify a list of routes (METHOD + URL) to skip
     if (overrides.indexOf(`${method}-${url}`) !== -1) return;
@@ -30,7 +31,8 @@ export function readController (router, controller, overrides = []) {
     const middlewaresToAdd = [getUserLanguage];
 
     if (action.noLanguage !== true) {
-      if (authMiddlewareIndex !== -1) { // the user will be authenticated, getUserLanguage after authentication
+      // the user will be authenticated, getUserLanguage after authentication
+      if (authMiddlewareIndex !== -1) {
         if (authMiddlewareIndex === middlewares.length - 1) {
           middlewares.push(...middlewaresToAdd);
         } else {
@@ -55,7 +57,7 @@ export function walkControllers (router, filePath, overrides) {
       if (!fs.statSync(filePath + fileName).isFile()) {
         walkControllers(router, `${filePath}${fileName}/`, overrides);
       } else if (fileName.match(/\.js$/)) {
-        const controller = require(filePath + fileName).default; // eslint-disable-line global-require
+        const controller = require(filePath + fileName).default; // eslint-disable-line global-require, import/no-dynamic-require, max-len
         readController(router, controller, overrides);
       }
     });

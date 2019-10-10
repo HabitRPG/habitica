@@ -13,7 +13,10 @@ import { chatModel as Chat } from '../../models/message';
 import apiError from '../apiError';
 
 const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS_COMMUNITY_MANAGER_EMAIL');
-const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map(email => ({ email, canSend: true }));
+const FLAG_REPORT_EMAILS = nconf
+  .get('FLAG_REPORT_EMAIL')
+  .split(',')
+  .map(email => ({ email, canSend: true }));
 const USER_AGE_FOR_FLAGGING = 3; // accounts less than this many days old don't increment flagCount
 
 export default class GroupChatReporter extends ChatReporter {
@@ -79,7 +82,7 @@ export default class GroupChatReporter extends ChatReporter {
       // Arbitrary amount, higher than 2
       message.flagCount = 5;
     } else if (increaseFlagCount) {
-      message.flagCount++;
+      message.flagCount += 1;
     }
 
     await message.save();

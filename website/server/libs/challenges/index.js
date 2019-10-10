@@ -1,4 +1,5 @@
-// Currently this holds helpers for challenge api, but we should break this up into submodules as it expands
+// Currently this holds helpers for challenge api,
+// but we should break this up into submodules as it expands
 import omit from 'lodash/omit';
 import uuid from 'uuid';
 import { model as Challenge } from '../../models/challenge';
@@ -11,7 +12,10 @@ import {
   NotAuthorized,
 } from '../errors';
 
-const TASK_KEYS_TO_REMOVE = ['_id', 'completed', 'dateCompleted', 'history', 'id', 'streak', 'createdAt', 'challenge'];
+const TASK_KEYS_TO_REMOVE = [
+  '_id', 'completed', 'dateCompleted', 'history',
+  'id', 'streak', 'createdAt', 'challenge',
+];
 
 export function addUserJoinChallengeNotification (user) {
   if (user.achievements.joinedChallenge) return;

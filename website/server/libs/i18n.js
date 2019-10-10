@@ -61,7 +61,7 @@ function _loadTranslations (locale) {
     if (path.extname(file) !== '.json') return;
 
     // We use require to load and parse a JSON file
-    _.merge(translations[locale], require(path.join(localePath, locale, file))); // eslint-disable-line global-require
+    _.merge(translations[locale], require(path.join(localePath, locale, file))); // eslint-disable-line global-require, import/no-dynamic-require, max-len
   });
 }
 
@@ -93,7 +93,8 @@ langCodes.forEach(code => {
   lang.momentLangCode = momentLangsMapping[code] || code;
 
   try {
-    // MomentJS lang files are JS files that has to be executed in the browser so we load them as plain text files
+    // MomentJS lang files are JS files that has to be executed
+    // in the browser so we load them as plain text files
     // We wrap everything in a try catch because the file might not exist
     const f = fs.readFileSync(path.join(__dirname, `/../../../node_modules/moment/locale/${lang.momentLangCode}.js`), 'utf8');
 
@@ -104,7 +105,8 @@ langCodes.forEach(code => {
 });
 
 // Remove en_GB from langCodes checked by browser to avoid it being
-// used in place of plain original 'en' (it's an optional language that can be enabled only in setting)
+// used in place of plain original 'en'
+// (it's an optional language that can be enabled only in setting)
 export const defaultLangCodes = _.without(langCodes, 'en_GB');
 
 // A map of languages that have different versions and the relative versions
