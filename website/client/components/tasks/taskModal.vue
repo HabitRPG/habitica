@@ -38,14 +38,22 @@
           draggable(
             v-model="checklist",
             :options="{handle: '.grippy', filter: '.task-dropdown'}",
-            @update="sortedChecklist"
+            @update="sortedChecklist",
+            :disabled="groupAccessRequiredAndOnPersonalPage",
           )
             .inline-edit-input-group.checklist-group.input-group(v-for="(item, $index) in checklist")
-              span.grippy
-              input.inline-edit-input.checklist-item.form-control(type="text", v-model="item.text")
-              span.input-group-append(@click="removeChecklistItem($index)")
+              span.grippy(v-if='!groupAccessRequiredAndOnPersonalPage')
+              input.inline-edit-input.checklist-item.form-control(type="text", v-model="item.text", :disabled="groupAccessRequiredAndOnPersonalPage")
+              span.input-group-append(v-if='!groupAccessRequiredAndOnPersonalPage', @click="removeChecklistItem($index)")
                 .svg-icon.destroy-icon(v-html="icons.destroy")
-          input.inline-edit-input.checklist-item.form-control(type="text", :placeholder="$t('newChecklistItem')", @keydown.enter="addChecklistItem($event)", v-model="newChecklistItem")
+              span.input-group-append.no-pointer(v-else)
+          input.inline-edit-input.checklist-item.form-control(
+            type="text",
+            :placeholder="$t('newChecklistItem')",
+            @keydown.enter="addChecklistItem($event)",
+            v-model="newChecklistItem",
+            v-if="!groupAccessRequiredAndOnPersonalPage",
+          )
         .d-flex.justify-content-center(v-if="task.type === 'habit'")
           .option-item.habit-control(@click="toggleUpDirection()", :class="task.up ? 'habit-control-enabled' : cssClass('habit-control-disabled')")
             .option-item-box(:class="task.up ? cssClass('bg') : ''")
@@ -649,6 +657,9 @@
   .gold {
     width: 24px;
     margin: 0 7px;
+  }
+  .no-pointer {
+    cursor: default;
   }
 </style>
 
