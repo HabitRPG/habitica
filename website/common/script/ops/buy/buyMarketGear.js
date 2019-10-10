@@ -34,7 +34,7 @@ export class BuyMarketGearOperation extends AbstractGoldItemOperation { // eslin
 
   extractAndValidateParams (user, req) {
     this.key = get(req, 'params.key');
-    const { key } = this.key;
+    const { key } = this;
     if (!key) throw new BadRequest(errorMessage('missingKeyParam'));
 
     const item = content.gear.flat[key];

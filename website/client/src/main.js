@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import BootstrapVue from 'bootstrap-vue';
 import AppComponent from './app';
 import {
   setup as setupAnalytics,
@@ -9,9 +10,7 @@ import getStore from './store';
 import StoreModule from './libs/store';
 import './filters/registerGlobals';
 import i18n from './libs/i18n';
-import 'smartbanner.js/dist/smartbanner.js';
-
-import BootstrapVue from 'bootstrap-vue';
+import 'smartbanner.js/dist/smartbanner';
 
 const IS_PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
 
@@ -34,7 +33,7 @@ setUpLogging();
 setupAnalytics(); // just create queues for analytics, no scripts loaded at this time
 const store = getStore();
 
-new Vue({
+export default new Vue({
   el: '#app',
   router,
   store,

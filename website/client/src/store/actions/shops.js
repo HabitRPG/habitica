@@ -11,7 +11,8 @@ import releaseBothOp from '@/../../common/script/ops/releaseBoth';
 
 import { getDropClass } from '@/libs/notifications';
 
-// @TODO: Purchase means gems and buy means gold. That wording is misused below, but we should also change
+// @TODO: Purchase means gems and buy means gold.
+// That wording is misused below, but we should also change
 // the generic buy functions to something else. Or have a Gold Vendor and Gem Vendor, etc
 
 function buyItem (store, params) {
@@ -63,7 +64,9 @@ async function buyArmoire (store, params) {
     }
 
     if (item.type === 'food') {
-      if (!store.state.user.data.items.food[item.dropKey]) store.state.user.data.items.food[item.dropKey] = 0;
+      if (!store.state.user.data.items.food[item.dropKey]) {
+        store.state.user.data.items.food[item.dropKey] = 0;
+      }
       store.state.user.data.items.food[item.dropKey] += 1;
     }
 
@@ -136,9 +139,8 @@ export async function genericPurchase (store, params) {
   switch (params.pinType) {
     case 'mystery_set':
       return purchaseMysterySet(store, params);
-    case 'armoire': // eslint-disable-line
-      await buyArmoire(store, params);
-      return;
+    case 'armoire':
+      return buyArmoire(store, params);
     case 'fortify': {
       const rerollResult = rerollOp(store.state.user.data, store.state.tasks.data);
 

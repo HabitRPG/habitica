@@ -16,7 +16,10 @@ const IS_TEST = process.env.NODE_ENV === 'test'; // eslint-disable-line no-proce
 // Load user auth parameters and determine if it's logged in
 // before trying to load data
 let isUserLoggedIn = false;
-const browserTimezoneOffset = moment().zone(); // eg, 240 - this will be converted on server as -(offset/60)
+
+// eg, 240 - this will be converted on server as -(offset/60)
+const browserTimezoneOffset = moment().zone();
+
 axios.defaults.headers.common['x-client'] = 'habitica-web';
 
 let AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings');

@@ -76,7 +76,9 @@ export async function exportChallengeCsv (store, payload) {
 export async function updateChallenge (store, payload) {
   const challengeDataToSend = omit(payload.challenge, ['tasks', 'habits', 'todos', 'rewards', 'group']);
 
-  if (challengeDataToSend.leader && challengeDataToSend.leader._id) challengeDataToSend.leader = challengeDataToSend.leader._id;
+  if (challengeDataToSend.leader && challengeDataToSend.leader._id) {
+    challengeDataToSend.leader = challengeDataToSend.leader._id;
+  }
 
   const response = await axios.put(`/api/v4/challenges/${payload.challenge._id}`, challengeDataToSend);
 

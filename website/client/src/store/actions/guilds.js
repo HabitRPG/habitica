@@ -60,7 +60,7 @@ export async function join (store, payload) {
     response = await axios.post(`/api/v4/groups/${groupId}/join`);
   } catch (err) {
     alert(err.response.data.message);
-    return;
+    return null;
   }
 
   if (type === 'guild') {
@@ -120,7 +120,9 @@ export async function create (store, payload) {
 export async function update (store, payload) {
   //  Remove populated fields
   const groupDetailsToSend = omit(payload.group, ['chat', 'challenges', 'members', 'invites']);
-  if (groupDetailsToSend.leader && groupDetailsToSend.leader._id) groupDetailsToSend.leader = groupDetailsToSend.leader._id;
+  if (groupDetailsToSend.leader && groupDetailsToSend.leader._id) {
+    groupDetailsToSend.leader = groupDetailsToSend.leader._id;
+  }
 
   const response = await axios.put(`/api/v4/groups/${payload.group.id}`, groupDetailsToSend);
 

@@ -4,7 +4,7 @@ import * as Analytics from '@/libs/analytics';
 // export async function initQuest (store) {
 // }
 
-export async function sendAction (store, payload) {
+export async function sendAction (store, payload) { // eslint-disable-line import/prefer-default-export, max-len
   // @TODO: Maybe move this to server
   let partyData = {};
   if (store.state.party && store.state.party.data) {

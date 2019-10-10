@@ -247,7 +247,7 @@ export default {
       const min = 1;
       const randomNumber = Math.random() * (numberOfTips - min) + min;
       const tipNumber = Math.floor(randomNumber);
-      this.currentTipNumber = tipNumber; // eslint-disable-line vue/no-side-effects-in-computed-properties
+      this.currentTipNumber = tipNumber; // eslint-disable-line vue/no-side-effects-in-computed-properties, max-len
 
       return this.$t(`tip${tipNumber}`);
     },
@@ -283,7 +283,8 @@ export default {
       this.$refs.sound.load();
     });
 
-    // @TODO: I'm not sure these should be at the app level. Can we move these back into shop/inventory or maybe they need a lateral move?
+    // @TODO: I'm not sure these should be at the app level.
+    // Can we move these back into shop/inventory or maybe they need a lateral move?
     this.$root.$on('buyModal::showItem', item => {
       this.selectedItemToBuy = item;
       this.$root.$emit('bv::show::modal', 'buy-modal');
@@ -398,7 +399,8 @@ export default {
       // if (isApiCall && !serverAppVersionState) {
       //   this.$store.state.serverAppVersion = serverAppVersion;
       // } else if (isApiCall && serverAppVersionState !== serverAppVersion) {
-      //   if (document.activeElement.tagName !== 'INPUT' || confirm(this.$t('habiticaHasUpdated'))) {
+      //   if (document.activeElement.tagName !== 'INPUT'
+      // || confirm(this.$t('habiticaHasUpdated'))) {
       //     location.reload(true);
       //   }
       // }
@@ -537,12 +539,13 @@ export default {
       const modalCount = {};
       const prevAndCurrent = 2;
 
-      for (const index in modalStack) {
-        const current = modalStack[index];
-
+      for (const current of modalStack) {
         if (!modalCount[current.modalId]) modalCount[current.modalId] = 0;
         modalCount[current.modalId] += 1;
-        if (modalCount[current.modalId] > prevAndCurrent && modalsThatCanShowTwice.indexOf(current.modalId) === -1) {
+        if (
+          modalCount[current.modalId] > prevAndCurrent
+          && modalsThatCanShowTwice.indexOf(current.modalId) === -1
+        ) {
           this.$store.state.modalStack = [];
           return false;
         }
@@ -550,7 +553,10 @@ export default {
         if (!current.prev) continue; // eslint-disable-line
         if (!modalCount[current.prev]) modalCount[current.prev] = 0;
         modalCount[current.prev] += 1;
-        if (modalCount[current.prev] > prevAndCurrent && modalsThatCanShowTwice.indexOf(current.prev) === -1) {
+        if (
+          modalCount[current.prev] > prevAndCurrent
+          && modalsThatCanShowTwice.indexOf(current.prev) === -1
+        ) {
           this.$store.state.modalStack = [];
           return false;
         }

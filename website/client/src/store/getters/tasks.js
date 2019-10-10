@@ -2,8 +2,8 @@ import sortBy from 'lodash/sortBy';
 import { shouldDo } from '@/../../common/script/cron';
 
 // Library / Utility function
-import { orderSingleTypeTasks } from '@/libs/store/helpers/orderTasks.js';
-import { getActiveFilter } from '@/libs/store/helpers/filterTasks.js';
+import { orderSingleTypeTasks } from '@/libs/store/helpers/orderTasks';
+import { getActiveFilter } from '@/libs/store/helpers/filterTasks';
 
 
 // Return all the tags belonging to an user task
@@ -37,7 +37,8 @@ function getTaskColor (task) {
 export function canDelete () {
   return task => {
     const isUserChallenge = Boolean(task.userId);
-    const activeChallenge = isUserChallenge && task.challenge && task.challenge.id && !task.challenge.broken;
+    const activeChallenge = isUserChallenge
+      && task.challenge && task.challenge.id && !task.challenge.broken;
     return !activeChallenge;
   };
 }
@@ -50,7 +51,7 @@ export function getTaskClasses (store) {
   // Create Modal: create-modal-bg, create-modal-text, create-modal-icon
   // Control: 'control'
   return (task, purpose, dueDate) => {
-    if (!dueDate) dueDate = new Date();
+    if (!dueDate) dueDate = new Date(); // eslint-disable-line no-param-reassign
     const { type } = task;
     const color = getTaskColor(task);
 
@@ -78,7 +79,7 @@ export function getTaskClasses (store) {
 
       case 'control':
         if (type === 'todo' || type === 'daily') {
-          if (task.completed || !shouldDo(dueDate, task, userPreferences) && type === 'daily') {
+          if (task.completed || (!shouldDo(dueDate, task, userPreferences) && type === 'daily')) {
             return {
               bg: 'task-disabled-daily-todo-control-bg',
               checkbox: 'task-disabled-daily-todo-control-checkbox',
@@ -107,7 +108,7 @@ export function getTaskClasses (store) {
               : { bg: 'task-disabled-habit-control-bg', inner: 'task-disabled-habit-control-inner', icon: `task-${color}-control-icon` },
           };
         }
-        break;
+        return null;
       default:
         return 'not a valid class';
     }

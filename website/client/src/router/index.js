@@ -29,7 +29,8 @@ const Logout = () => import(/* webpackChunkName: "auth" */'@/components/auth/log
 
 // User Pages
 // const StatsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/stats');
-// const AchievementsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/achievements');
+// const AchievementsPage =
+// () => import(/* webpackChunkName: "user" */'./components/userMenu/achievements');
 const ProfilePage = () => import(/* webpackChunkName: "user" */'@/components/userMenu/profilePage');
 
 // Settings
@@ -413,7 +414,8 @@ router.beforeEach((to, from, next) => {
       startingPage,
       path: to.path,
     });
-    return;
+
+    return null;
   }
 
   if ((to.name === 'stats' || to.name === 'achievements' || to.name === 'profile') && from.name !== null) {
@@ -421,7 +423,7 @@ router.beforeEach((to, from, next) => {
       startingPage: to.name,
       path: to.path,
     });
-    return;
+    return null;
   }
 
   if (from.name === 'userProfile' || from.name === 'userProfilePage' || from.name === 'stats' || from.name === 'achievements' || from.name === 'profile') {

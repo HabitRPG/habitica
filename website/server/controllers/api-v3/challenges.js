@@ -608,7 +608,7 @@ api.exportChallengeCsv = {
       }
       while (task.userId !== lastUserId) {
         index += 1;
-        lastUserId = [resArray[index]]; // resArray[index][0] is an user id
+        [lastUserId] = resArray[index]; // resArray[index][0] is an user id
       }
 
       const streak = task.streak || 0;

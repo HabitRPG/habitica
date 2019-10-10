@@ -45,6 +45,7 @@ export async function recoverCron (status, locals) {
     }
   } else {
     locals.user = reloadedUser;
+    return null;
   }
 }
 

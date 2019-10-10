@@ -27,7 +27,7 @@ export class BuyGemOperation extends AbstractGoldItemOperation { // eslint-disab
 
   extractAndValidateParams (user, req) {
     this.key = get(req, 'params.key');
-    const { key } = this.key;
+    const { key } = this;
     if (!key) throw new BadRequest(this.i18n('missingKeyParam'));
 
     let { convCap } = planGemLimits;

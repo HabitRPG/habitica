@@ -22,7 +22,7 @@ export function fetch (store, options = {}) { // eslint-disable-line no-shadow
 export async function set (store, changes) {
   const user = store.state.user.data;
 
-  for (const key in changes) {
+  for (const key of Object.keys(changes)) {
     if (key === 'tags') {
       // Keep challenge and group tags
       const oldTags = user.tags.filter(t => t.group);
@@ -37,7 +37,7 @@ export async function set (store, changes) {
           const tagsIndexesToRemove = [];
 
           task.tags.forEach((tagId, tagIndex) => {
-            if (user.tags.find(tag => tag.id === tagId)) return; // eslint-disable-line max-nested-callbacks
+            if (user.tags.find(tag => tag.id === tagId)) return;
             tagsIndexesToRemove.push(tagIndex);
           });
 

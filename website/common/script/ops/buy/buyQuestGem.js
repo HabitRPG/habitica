@@ -28,7 +28,7 @@ export class BuyQuestWithGemOperation extends AbstractGemItemOperation { // esli
 
   extractAndValidateParams (user, req) {
     this.key = get(req, 'params.key');
-    const { key } = this.key;
+    const { key } = this;
     if (!key) throw new BadRequest(errorMessage('missingKeyParam'));
 
     const item = content.quests[key];

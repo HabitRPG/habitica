@@ -136,7 +136,7 @@ api.cancelSubscription = async function cancelSubscription (options, stripeInc) 
   if (customer && (customer.subscription || customer.subscriptions)) {
     let { subscription } = customer;
     if (!subscription && customer.subscriptions) {
-      subscription = [customer.subscriptions.data];
+      [subscription] = customer.subscriptions.data;
     }
     await stripeApi.customers.del(customerId);
 
