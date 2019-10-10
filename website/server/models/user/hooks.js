@@ -188,23 +188,47 @@ schema.pre('save', true, function preSaveUser (next, done) {
     // Determines if Beast Master should be awarded
     let beastMasterProgress = common.count.beastMasterProgress(this.items.pets);
 
-    if (beastMasterProgress >= 90 || this.achievements.beastMasterCount > 0) {
+    if (!this.achievements.beastMaster && (beastMasterProgress >= 90 || this.achievements.beastMasterCount > 0)) {
       this.achievements.beastMaster = true;
+
+      if (this.addNotification) {
+        this.addNotification('ACHIEVEMENT_BEAST_MASTER', {
+          achievement: 'beastMaster',
+          message: `${common.i18n.t('modalAchievement')} ${common.i18n.t('beastMasterName')}`,
+          modalText: common.i18n.t('beastAchievement'),
+        });
+      }
     }
 
     // Determines if Mount Master should be awarded
     let mountMasterProgress = common.count.mountMasterProgress(this.items.mounts);
 
-    if (mountMasterProgress >= 90 || this.achievements.mountMasterCount > 0) {
+    if (!this.achievements.mountMaster && (mountMasterProgress >= 90 || this.achievements.mountMasterCount > 0)) {
       this.achievements.mountMaster = true;
+
+      if (this.addNotification) {
+        this.addNotification('ACHIEVEMENT_MOUNT_MASTER', {
+          achievement: 'mountMaster',
+          message: `${common.i18n.t('modalAchievement')} ${common.i18n.t('mountMasterName')}`,
+          modalText: common.i18n.t('mountAchievement'),
+        });
+      }
     }
 
     // Determines if Triad Bingo should be awarded
     let dropPetCount = common.count.dropPetsCurrentlyOwned(this.items.pets);
     let qualifiesForTriad = dropPetCount >= 90 && mountMasterProgress >= 90;
 
-    if (qualifiesForTriad || this.achievements.triadBingoCount > 0) {
+    if (!this.achievements.triadBingo && (qualifiesForTriad || this.achievements.triadBingoCount > 0)) {
       this.achievements.triadBingo = true;
+
+      if (this.addNotification) {
+        this.addNotification('ACHIEVEMENT_TRIAD_BINGO', {
+          achievement: 'triadBingo',
+          message: `${common.i18n.t('modalAchievement')} ${common.i18n.t('triadBingoName')}`,
+          modalText: common.i18n.t('triadBingoAchievement'),
+        });
+      }
     }
 
     // EXAMPLE CODE for allowing all existing and new players to be
