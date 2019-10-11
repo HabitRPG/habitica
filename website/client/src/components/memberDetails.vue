@@ -201,12 +201,6 @@ export default {
       }),
     };
   },
-  methods: {
-    percent,
-    showMemberModal (member) {
-      this.$router.push({ name: 'userProfile', params: { userId: member._id } });
-    },
-  },
   computed: {
     ...mapState({
       MAX_HEALTH: 'constants.MAX_HEALTH',
@@ -227,6 +221,12 @@ export default {
     },
     hasClass () {
       return this.$store.getters['members:hasClass'](this.member);
+    },
+  },
+  methods: {
+    percent,
+    showMemberModal (member) {
+      this.$router.push({ name: 'userProfile', params: { userId: member._id } });
     },
   },
 };

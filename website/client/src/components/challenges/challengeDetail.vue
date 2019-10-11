@@ -284,7 +284,8 @@ export default {
     },
     async loadChallenge () {
       this.challenge = await this.$store.dispatch('challenges:getChallenge', { challengeId: this.searchId });
-      this.members = await this.loadMembers({ challengeId: this.searchId, includeAllPublicFields: true });
+      this.members = await this
+        .loadMembers({ challengeId: this.searchId, includeAllPublicFields: true });
       const tasks = await this.$store.dispatch('tasks:getChallengeTasks', { challengeId: this.searchId });
       this.tasksByType = {
         habit: [],

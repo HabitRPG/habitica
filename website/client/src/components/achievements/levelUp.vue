@@ -143,14 +143,14 @@ export default {
       facebookLink: `https://www.facebook.com/sharer/sharer.php?text=${tweet}&u=${BASE_URL}/social/level-up`,
     };
   },
-  mounted () {
-    this.loadWidgets();
-  },
   computed: {
     ...mapState({ user: 'user.data' }),
     showAllocation () {
       return this.$store.getters['members:hasClass'](this.user) && !this.user.preferences.automaticAllocation;
     },
+  },
+  mounted () {
+    this.loadWidgets();
   },
   methods: {
     close () {
@@ -160,7 +160,8 @@ export default {
       // @TODO:
     },
     changeLevelupSuppress () {
-      // @TODO: dispatch set({"preferences.suppressModals.levelUp": user.preferences.suppressModals.levelUp?true: false})
+      // @TODO: dispatch set({"preferences.suppressModals.levelUp":
+      // user.preferences.suppressModals.levelUp?true: false})
     },
   },
 };

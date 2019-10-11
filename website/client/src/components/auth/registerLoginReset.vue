@@ -372,13 +372,13 @@ export default {
           const { code } = query;
           const hasError = query.hasError === 'true';
           if (hasError) {
-            alert(query.message);
+            window.alert(query.message);
             this.$router.push({ name: 'login' });
             return;
           }
 
           if (!code) {
-            alert(this.$t('invalidPasswordResetCode'));
+            window.alert(this.$t('invalidPasswordResetCode'));
             this.$router.push({ name: 'login' });
             return;
           }
@@ -419,18 +419,19 @@ export default {
     async register () {
       // @TODO do not use alert
       if (!this.email) {
-        alert(this.$t('missingEmail'));
+        window.alert(this.$t('missingEmail'));
         return;
       }
 
       if (this.password !== this.passwordConfirm) {
-        alert(this.$t('passwordConfirmationMatch'));
+        window.alert(this.$t('passwordConfirmationMatch'));
         return;
       }
 
       // @TODO: implement langauge and invite accepting
       // var url = ApiUrl.get() + "/api/v4/user/auth/local/register";
-      // if (location.search && location.search.indexOf('Invite=') !== -1) { // matches groupInvite and partyInvite
+      // if (location.search && location.search.indexOf('Invite=') !== -1)
+      // { // matches groupInvite and partyInvite
       //   url += location.search;
       // }
       //
@@ -457,7 +458,8 @@ export default {
       // @TODO do not reload entire page
       // problem is that app.vue created hook should be called again
       // after user is logged in / just signed up
-      // ALSO it's the only way to make sure language data is reloaded and correct for the logged in user
+      // ALSO it's the only way to make sure language data
+      // is reloaded and correct for the logged in user
       window.location.href = redirectTo;
     },
     async login () {
@@ -478,7 +480,8 @@ export default {
       // @TODO do not reload entire page
       // problem is that app.vue created hook should be called again
       // after user is logged in / just signed up
-      // ALSO it's the only way to make sure language data is reloaded and correct for the logged in user
+      // ALSO it's the only way to make sure language data
+      // is reloaded and correct for the logged in user
       window.location.href = redirectTo;
     },
     // @TODO: Abstract hello in to action or lib
@@ -509,7 +512,8 @@ export default {
       // @TODO do not reload entire page
       // problem is that app.vue created hook should be called again
       // after user is logged in / just signed up
-      // ALSO it's the only way to make sure language data is reloaded and correct for the logged in user
+      // ALSO it's the only way to make sure language data
+      // is reloaded and correct for the logged in user
       window.location.href = redirectTo;
     },
     handleSubmit () {
@@ -532,7 +536,7 @@ export default {
     },
     async forgotPasswordLink () {
       if (!this.username) {
-        alert(this.$t('missingEmail'));
+        window.alert(this.$t('missingEmail'));
         return;
       }
 
@@ -540,17 +544,17 @@ export default {
         email: this.username,
       });
 
-      alert(this.$t('newPassSent'));
+      window.alert(this.$t('newPassSent'));
     },
     async resetPasswordSetNewOneLink () {
       if (!this.password) {
-        alert(this.$t('missingNewPassword'));
+        window.alert(this.$t('missingNewPassword'));
         return;
       }
 
       if (this.password !== this.passwordConfirm) {
         // @TODO i18n and don't use alerts
-        alert(this.$t('passwordConfirmationMatch'));
+        window.alert(this.$t('passwordConfirmationMatch'));
         return;
       }
 
@@ -561,7 +565,7 @@ export default {
       });
 
       if (res.data.message) {
-        alert(res.data.message);
+        window.alert(res.data.message);
       }
 
       this.password = '';

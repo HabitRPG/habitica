@@ -50,10 +50,10 @@ export default {
     challengeModal,
     challengeItem,
   },
-  props: ['groupId'],
-  computed: {
-    ...mapState({ user: 'user.data' }),
+  directives: {
+    markdown: markdownDirective,
   },
+  props: ['groupId'],
   data () {
     return {
       challenges: [],
@@ -63,8 +63,8 @@ export default {
       groupIdForChallenges: '',
     };
   },
-  directives: {
-    markdown: markdownDirective,
+  computed: {
+    ...mapState({ user: 'user.data' }),
   },
   watch: {
     async groupId () {

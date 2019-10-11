@@ -129,7 +129,8 @@ export default {
       return true;
     },
     hasParty () {
-      return this.user.party && this.user.party._id && this.partyMembers && this.partyMembers.length > 1;
+      return this.user.party && this.user.party._id
+        && this.partyMembers && this.partyMembers.length > 1;
     },
     membersToShow () {
       return Math.floor(this.currentWidth / 140) + 1;
@@ -137,6 +138,22 @@ export default {
     sortedPartyMembers () {
       return orderBy(this.partyMembers, [this.user.party.order], [this.user.party.orderAscending]);
     },
+  },
+  created () {
+    if (this.user.party && this.user.party._id) {
+      this.$store.state.memberModalOptions.groupId = this.user.party._id;
+      this.getPartyMembers();
+    }
+  },
+  mounted () {
+    this.$root.$on('inviteModal::inviteToGroup', group => {
+      this.inviteModalGroup = group;
+      this.inviteModalGroupType = group.type === 'guild' ? 'Guild' : 'Party';
+      this.$root.$emit('bv::show::modal', 'invite-modal');
+    });
+  },
+  destroyed () {
+    this.$root.off('inviteModal::inviteToGroup');
   },
   methods: {
     ...mapActions({
@@ -170,22 +187,6 @@ export default {
         this.currentWidth = $event.width;
       }
     },
-  },
-  created () {
-    if (this.user.party && this.user.party._id) {
-      this.$store.state.memberModalOptions.groupId = this.user.party._id;
-      this.getPartyMembers();
-    }
-  },
-  mounted () {
-    this.$root.$on('inviteModal::inviteToGroup', group => {
-      this.inviteModalGroup = group;
-      this.inviteModalGroupType = group.type === 'guild' ? 'Guild' : 'Party';
-      this.$root.$emit('bv::show::modal', 'invite-modal');
-    });
-  },
-  destroyed () {
-    this.$root.off('inviteModal::inviteToGroup');
   },
 };
 </script>

@@ -144,28 +144,43 @@ export default {
       expandAuth: false,
     };
   },
-  async mounted () {
-    this.heroes = await this.$store.dispatch('hall:getHeroes');
-  },
   computed: {
     ...mapState({ user: 'user.data' }),
   },
+  async mounted () {
+    this.heroes = await this.$store.dispatch('hall:getHeroes');
+  },
   methods: {
     getAllItemPaths () {
-      // let questsFormat = this.getFormattedItemReference('items.quests', keys(this.quests), 'Numeric Quantity');
-      // let mountsFormat = this.getFormattedItemReference('items.mounts', keys(this.mountInfo), 'Boolean');
-      // let foodFormat = this.getFormattedItemReference('items.food', keys(this.food), 'Numeric Quantity');
-      // let eggsFormat = this.getFormattedItemReference('items.eggs', keys(this.eggs), 'Numeric Quantity');
-      // let hatchingPotionsFormat = this.getFormattedItemReference('items.hatchingPotions', keys(this.hatchingPotions), 'Numeric Quantity');
-      // let petsFormat = this.getFormattedItemReference('items.pets', keys(this.petInfo), '-1: Owns Mount, 0: Not Owned, 1-49: Progress to mount');
-      // let specialFormat = this.getFormattedItemReference('items.special', keys(this.special), 'Numeric Quantity');
-      // let gearFormat = this.getFormattedItemReference('items.gear.owned', keys(this.gear.flat), 'Boolean');
+      // let questsFormat = this.getFormattedItemReference
+      // ('items.quests', keys(this.quests), 'Numeric Quantity');
+      // let mountsFormat = this.getFormattedItemReference
+      // ('items.mounts', keys(this.mountInfo), 'Boolean');
+      // let foodFormat = this.getFormattedItemReference
+      // ('items.food', keys(this.food), 'Numeric Quantity');
+      // let eggsFormat = this.getFormattedItemReference
+      // ('items.eggs', keys(this.eggs), 'Numeric Quantity');
+      // let hatchingPotionsFormat = this.getFormattedItemReference
+      // ('items.hatchingPotions', keys(this.hatchingPotions), 'Numeric Quantity');
+      // let petsFormat = this.getFormattedItemReference
+      // ('items.pets', keys(this.petInfo), '-1:
+      // Owns Mount, 0: Not Owned, 1-49: Progress to mount');
+      // let specialFormat = this.getFormattedItemReference
+      // ('items.special', keys(this.special), 'Numeric Quantity');
+      // let gearFormat = this.getFormattedItemReference
+      // ('items.gear.owned', keys(this.gear.flat), 'Boolean');
       //
-      // let equippedGearFormat = ''; // @TODO: '\nEquipped Gear:\n\titems.gear.{equipped/costume}.{head/headAccessory/eyewear/armor/body/back/shield/weapon}.{gearKey}\n';
-      // let equippedPetFormat = ''; // @TODO: '\nEquipped Pet:\n\titems.currentPet.{petKey}\n';
-      // let equippedMountFormat = ''; // @TODO: '\nEquipped Mount:\n\titems.currentMount.{mountKey}\n';
+      // let equippedGearFormat = ''; // @TODO:
+      // '\nEquipped Gear:\n\titems.gear.{equipped/costume}
+      // .{head/headAccessory/eyewear/armor/body/back/shield/weapon}.{gearKey}\n';
+      // let equippedPetFormat = ''; // @TODO:'\nEquipped Pet:\n\titems.currentPet.{petKey}\n';
+      // let equippedMountFormat = ''; // @TODO:
+      // '\nEquipped Mount:\n\titems.currentMount.{mountKey}\n';
       //
-      // let data = questsFormat.concat(mountsFormat, foodFormat, eggsFormat, hatchingPotionsFormat, petsFormat, specialFormat, gearFormat, equippedGearFormat, equippedPetFormat, equippedMountFormat);
+      // let data = questsFormat.concat(mountsFormat,
+      // foodFormat, eggsFormat, hatchingPotionsFormat,
+      // petsFormat, specialFormat, gearFormat, equippedGearFormat,
+      // equippedPetFormat, equippedMountFormat);
       //
       // return data;
     },

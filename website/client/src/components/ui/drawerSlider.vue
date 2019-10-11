@@ -162,14 +162,14 @@ export default {
   methods: {
     shiftLeft () {
       if (this.pointer < this.items.length - 1) {
-        this.pointer++;
+        this.pointer += 1;
       } else {
         this.pointer = 0;
       }
     },
     shiftRight () {
       if (this.pointer > 0) {
-        this.pointer--;
+        this.pointer -= 1;
       } else {
         this.pointer = this.items.length - 1;
       }

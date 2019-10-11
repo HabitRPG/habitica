@@ -111,10 +111,12 @@ export default {
     searchResults () {
       if (!this.searchActive) return [];
       if (!this.atRegex.exec(this.text)) return [];
-      this.currentSearch = this.atRegex.exec(this.text)[0]; // eslint-disable-line vue/no-side-effects-in-computed-properties
-      this.currentSearch = this.currentSearch.substring(1, this.currentSearch.length); // eslint-disable-line vue/no-side-effects-in-computed-properties
+      this.currentSearch = this.atRegex.exec(this.text)[0]; // eslint-disable-line vue/no-side-effects-in-computed-properties, max-len, prefer-destructuring
+      this.currentSearch = this.currentSearch.substring(1, this.currentSearch.length); // eslint-disable-line vue/no-side-effects-in-computed-properties, max-len
 
-      return this.tmpSelections.filter(option => option.displayName.toLowerCase().indexOf(this.currentSearch.toLowerCase()) !== -1 || option.username && option.username.toLowerCase().indexOf(this.currentSearch.toLowerCase()) !== -1).slice(0, 4);
+      return this.tmpSelections
+        .filter(option => option.displayName.toLowerCase().indexOf(this.currentSearch.toLowerCase()) !== -1 || option.username && option.username.toLowerCase().indexOf(this.currentSearch.toLowerCase()) !== -1)
+        .slice(0, 4);
     },
 
   },
@@ -153,7 +155,7 @@ export default {
     },
     grabUserNames () {
       const usersThatMessage = groupBy(this.chat, 'user');
-      for (const userKey in usersThatMessage) {
+      for (const userKey of Object.keys(usersThatMessage)) {
         const systemMessage = userKey === 'undefined';
         if (!systemMessage && this.tmpSelections.indexOf(userKey) === -1) {
           this.tmpSelections.push({

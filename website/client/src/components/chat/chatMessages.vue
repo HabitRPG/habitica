@@ -178,15 +178,6 @@ export default {
       lastOffset: -1,
     };
   },
-  mounted () {
-    this.loadProfileCache();
-  },
-  created () {
-    window.addEventListener('scroll', this.handleScroll);
-  },
-  destroyed () {
-    window.removeEventListener('scroll', this.handleScroll);
-  },
   computed: {
     ...mapState({ user: 'user.data' }),
     // @TODO: We need a different lazy load mechnism.
@@ -195,6 +186,15 @@ export default {
       this.loadProfileCache();
       return this.chat;
     },
+  },
+  mounted () {
+    this.loadProfileCache();
+  },
+  created () {
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  destroyed () {
+    window.removeEventListener('scroll', this.handleScroll);
   },
   methods: {
     handleScroll () {
@@ -231,7 +231,10 @@ export default {
 
       // @TODO: write an explination
       // @TODO: Remove this after enough messages are cached
-      if (!noProfilesLoaded && screenPosition && Math.floor(screenPosition) + 1 > this.currentProfileLoadedEnd / 10) {
+      if (
+        !noProfilesLoaded
+        && screenPosition && Math.floor(screenPosition) + 1 > this.currentProfileLoadedEnd / 10
+      ) {
         this.currentProfileLoadedEnd = 10 * (Math.floor(screenPosition) + 1);
       } else if (!noProfilesLoaded && screenPosition) {
         return;
@@ -255,7 +258,8 @@ export default {
 
       const results = await Promise.all(promises);
       results.forEach(result => {
-        // We could not load the user. Maybe they were deleted. So, let's cache empty so we don't try again
+        // We could not load the user. Maybe they were deleted.
+        // So, let's cache empty so we don't try again
         if (!result || !result.data || result.status >= 400) {
           return;
         }
@@ -287,15 +291,16 @@ export default {
       if (!profile._id) {
         const result = await this.$store.dispatch('members:fetchMember', { memberId });
         if (result.response && result.response.status === 404) {
-          return this.$store.dispatch('snackbars:add', {
+          this.$store.dispatch('snackbars:add', {
             title: 'Habitica',
             text: this.$t('messageDeletedUser'),
             type: 'error',
             timeout: false,
           });
+        } else {
+          this.cachedProfileData[memberId] = result.data.data;
+          profile = result.data.data;
         }
-        this.cachedProfileData[memberId] = result.data.data;
-        profile = result.data.data;
       }
 
       // Open the modal only if the data is available

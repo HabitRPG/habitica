@@ -184,12 +184,12 @@ export default {
     },
     async register () {
       if (!this.email) {
-        alert(this.$t('missingEmail'));
+        window.alert(this.$t('missingEmail'));
         return;
       }
 
       if (this.password !== this.passwordConfirm) {
-        alert(this.$t('passwordConfirmationMatch'));
+        window.alert(this.$t('passwordConfirmationMatch'));
         return;
       }
 
@@ -205,7 +205,7 @@ export default {
       } catch (e) {
         if (e.response.data.data && e.response.data.data.errors) {
           const message = e.response.data.data.errors.map(error => `${error.message}\n`);
-          alert(message);
+          window.alert(message);
         }
       }
     },

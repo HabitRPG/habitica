@@ -35,13 +35,13 @@ export default {
       memberResults: [],
     };
   },
-  mounted () {
-    this.memberResults = this.members;
-  },
   watch: {
     searchTerm: debounce(function searchTerm (newSearch) {
       this.searchMember(newSearch);
     }, 500),
+  },
+  mounted () {
+    this.memberResults = this.members;
   },
   methods: {
     selectMember (member) {

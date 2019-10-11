@@ -25,7 +25,7 @@
 export default {
   methods: {
     clearTodos () {
-      if (!confirm(this.$t('clearCompletedConfirm'))) return;
+      if (!window.confirm(this.$t('clearCompletedConfirm'))) return;
       this.$store.dispatch('tasks:clearCompletedTodos');
     },
   },

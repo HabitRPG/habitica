@@ -631,7 +631,8 @@ export default {
     },
     checklistProgress () {
       const totalItems = this.task.checklist.length;
-      const completedItems = this.task.checklist.reduce((total, item) => (item.completed ? total + 1 : total), 0);
+      const completedItems = this.task.checklist
+        .reduce((total, item) => (item.completed ? total + 1 : total), 0);
       return `${completedItems}/${totalItems}`;
     },
     leftControl () {
@@ -734,7 +735,7 @@ export default {
       this.$emit('moveTo', this.task, 'bottom');
     },
     destroy () {
-      if (!confirm(this.$t('sureDelete'))) return;
+      if (!window.confirm(this.$t('sureDelete'))) return;
       this.destroyTask(this.task);
       this.$emit('taskDestroyed', this.task);
     },

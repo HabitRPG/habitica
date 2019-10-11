@@ -433,11 +433,14 @@ export default {
       }
     },
     checkUserAchievements () {
-      if (this.user.needsCron) return;
+      if (this.user.needsCron) return null;
 
-      // List of prompts for user on changes. Sounds like we may need a refactor here, but it is clean for now
+      // List of prompts for user on changes.
+      // Sounds like we may need a refactor here, but it is clean for now
       if (!this.user.flags.welcomed) {
-        if (this.$store.state.avatarEditorOptions) this.$store.state.avatarEditorOptions.editingUser = false;
+        if (this.$store.state.avatarEditorOptions) {
+          this.$store.state.avatarEditorOptions.editingUser = false;
+        }
         return this.$root.$emit('bv::show::modal', 'avatar-modal');
       }
 
@@ -458,6 +461,8 @@ export default {
         this.playSound('Achievement_Unlocked');
         return this.$root.$emit('bv::show::modal', 'choose-class');
       }
+
+      return null;
     },
     showLevelUpNotifications (newlevel) {
       this.lvl();
@@ -470,7 +475,11 @@ export default {
       this.$root.$emit('playSound', sound);
     },
     checkNextCron: throttle(function checkNextCron () {
-      if (!this.$store.state.isRunningYesterdailies && this.nextCron && Date.now() > this.nextCron) {
+      if (
+        !this.$store.state.isRunningYesterdailies
+        && this.nextCron
+        && Date.now() > this.nextCron
+      ) {
         Promise.all([
           this.$store.dispatch('user:fetch', { forceLoad: true }),
           this.$store.dispatch('tasks:fetchUserTasks', { forceLoad: true }),
@@ -540,7 +549,10 @@ export default {
 
       this.$store.state.isRunningYesterdailies = false;
 
-      if (this.levelBeforeYesterdailies > 0 && this.levelBeforeYesterdailies < this.user.stats.lvl) {
+      if (
+        this.levelBeforeYesterdailies > 0
+        && this.levelBeforeYesterdailies < this.user.stats.lvl
+      ) {
         this.showLevelUpNotifications(this.user.stats.lvl);
       }
 
@@ -571,7 +583,7 @@ export default {
         let markAsRead = true;
 
         // @TODO: Use factory function instead
-        switch (notification.type) {
+        switch (notification.type) { // eslint-disable-line default-case
           case 'GUILD_PROMPT':
             // @TODO: I'm pretty sure we can find better names for these
             if (notification.data.textletiant === -1) {
@@ -619,7 +631,7 @@ export default {
             break;
           case 'SCORED_TASK':
             // Search if it is a read notification
-            for (let i = 0; i < this.alreadyReadNotification.length; i++) {
+            for (let i = 0; i < this.alreadyReadNotification.length; i += 1) {
               if (this.alreadyReadNotification[i] === notification.id) {
                 markAsRead = false; // Do not let it be read again
                 break;
@@ -659,7 +671,7 @@ export default {
           // Only run this code for scoring approved tasks
           if (scoreTaskNotification.length > 0) {
             const approvedTasks = [];
-            for (let i = 0; i < scoreTaskNotification.length; i++) {
+            for (let i = 0; i < scoreTaskNotification.length; i += 1) {
               // Array with all approved tasks
               const scoreData = scoreTaskNotification[i].data;
               let direction = 'up';

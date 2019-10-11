@@ -133,6 +133,20 @@ export default {
     Avatar,
     attributesGrid,
   },
+  props: {
+    item: {
+      type: Object,
+    },
+    priceType: {
+      type: String,
+    },
+    costumeMode: {
+      type: Boolean,
+    },
+    isEquipped: {
+      type: Boolean,
+    },
+  },
   data () {
     return {
       icons: Object.freeze({
@@ -196,20 +210,6 @@ export default {
         return this.$t('mage');
       }
       return this.$t(classType);
-    },
-  },
-  props: {
-    item: {
-      type: Object,
-    },
-    priceType: {
-      type: String,
-    },
-    costumeMode: {
-      type: Boolean,
-    },
-    isEquipped: {
-      type: Boolean,
     },
   },
 };

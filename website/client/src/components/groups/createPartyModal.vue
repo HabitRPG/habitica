@@ -147,6 +147,7 @@ import notifications from '@/mixins/notifications';
 import copyIcon from '@/assets/svg/copy.svg';
 
 export default {
+  mixins: [notifications],
   data () {
     return {
       icons: Object.freeze({
@@ -189,6 +190,5 @@ export default {
       this.text(this.$t('usernameCopied'));
     },
   },
-  mixins: [notifications],
 };
 </script>

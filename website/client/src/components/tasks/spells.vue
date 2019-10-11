@@ -201,36 +201,44 @@ export default {
       potionClickMode: false,
     };
   },
-  mounted () {
-    // @TODO: should we abstract the drawer state/local store to a library and mixing combo? We use a similar pattern in equipment
-    const spellDrawerState = getLocalSetting(CONSTANTS.keyConstants.SPELL_DRAWER_STATE);
-    if (spellDrawerState === CONSTANTS.drawerStateValues.DRAWER_CLOSED) {
-      this.$store.state.spellOptions.spellDrawOpen = false;
-    }
-  },
   computed: {
     ...mapState({ user: 'user.data' }),
     openStatus () {
       return this.$store.state.spellOptions.spellDrawOpen ? 1 : 0;
     },
   },
+  mounted () {
+    // @TODO: should we abstract the drawer state/local
+    // store to a library and mixing combo? We use a similar pattern in equipment
+    const spellDrawerState = getLocalSetting(CONSTANTS.keyConstants.SPELL_DRAWER_STATE);
+    if (spellDrawerState === CONSTANTS.drawerStateValues.DRAWER_CLOSED) {
+      this.$store.state.spellOptions.spellDrawOpen = false;
+    }
+  },
   methods: {
     drawerToggled (newState) {
       this.$store.state.spellOptions.spellDrawOpen = newState;
 
       if (newState) {
-        setLocalSetting(CONSTANTS.keyConstants.SPELL_DRAWER_STATE, CONSTANTS.drawerStateValues.DRAWER_OPEN);
+        setLocalSetting(
+          CONSTANTS.keyConstants.SPELL_DRAWER_STATE,
+          CONSTANTS.drawerStateValues.DRAWER_OPEN,
+        );
         return;
       }
 
-      setLocalSetting(CONSTANTS.keyConstants.SPELL_DRAWER_STATE, CONSTANTS.drawerStateValues.DRAWER_CLOSED);
+      setLocalSetting(
+        CONSTANTS.keyConstants.SPELL_DRAWER_STATE,
+        CONSTANTS.drawerStateValues.DRAWER_CLOSED,
+      );
     },
     spellDisabled (skill) {
       if (skill === 'frost' && this.user.stats.buffs.streaks) {
         return true;
       }
       // @TODO: Implement
-      // } else if (skill === 'stealth' && this.user.stats.buffs.stealth >= this.user.dailys.length) {
+      // } else if (skill === 'stealth' && this.user.stats.buffs.stealth
+      // >= this.user.dailys.length) {
       //   return true;
       // }
 

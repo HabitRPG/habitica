@@ -112,11 +112,12 @@ export default {
       return freeHairColorKeys.map(s => this.mapKeysToFreeOption(s, 'hair', 'color'));
     },
     seasonalHairColors () {
-      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
-        let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+      // @TODO: For some resonse when I use $set on the user purchases object,
+      // this is not recomputed. Hack for now
+      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
 
       const seasonalHairColors = [];
-      for (const key in hairColorBySet) {
+      for (const key of Object.keys(hairColorBySet)) {
         const set = hairColorBySet[key];
 
         const keys = set.map(item => item.key);
@@ -143,22 +144,25 @@ export default {
       return seasonalHairColors;
     },
     premiumHairColors () {
-      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
-        let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+      // @TODO: For some resonse when I use $set on the user purchases object,
+      // this is not recomputed. Hack for now
+      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
       const keys = this.premiumHairColorKeys;
       const options = keys.map(key => this.mapKeysToOption(key, 'hair', 'color'));
       return options;
     },
     baseHair2 () {
-      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
-        let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+      // @TODO: For some resonse when I use $set on the user purchases object,
+      // this is not recomputed. Hack for now
+      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
       const keys = this.baseHair2Keys;
       const options = keys.map(key => this.mapKeysToOption(key, 'hair', 'base'));
       return options;
     },
     baseHair3 () {
-      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
-        let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+      // @TODO: For some resonse when I use $set on the user purchases object,
+      // this is not recomputed. Hack for now
+      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
       const keys = this.baseHair3Keys;
       const options = keys.map(key => {
         const option = this.mapKeysToOption(key, 'hair', 'base');
@@ -167,22 +171,25 @@ export default {
       return options;
     },
     baseHair4 () {
-      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
-        let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+      // @TODO: For some resonse when I use $set on the user purchases object,
+      // this is not recomputed. Hack for now
+      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
       const keys = this.baseHair4Keys;
       const options = keys.map(key => this.mapKeysToOption(key, 'hair', 'base'));
       return options;
     },
     baseHair5 () {
-      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
-        let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+      // @TODO: For some resonse when I use $set on the user purchases object,
+      // this is not recomputed. Hack for now
+      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
       const keys = this.baseHair5Keys;
       const options = keys.map(key => this.mapKeysToOption(key, 'hair', 'mustache'));
       return options;
     },
     baseHair6 () {
-      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
-        let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+      // @TODO: For some resonse when I use $set on the user purchases object,
+      // this is not recomputed. Hack for now
+      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
       const keys = this.baseHair6Keys;
       const options = keys.map(key => this.mapKeysToOption(key, 'hair', 'beard'));
       return options;
@@ -259,11 +266,13 @@ export default {
   },
   methods: {
     /**
-       * Allows you to find out whether you need the "Purchase All" button or not. If there are more than 2 unpurchased items, returns true, otherwise returns false.
+       * Allows you to find out whether you need the "Purchase All" button or not.
+       * If there are more than 2 unpurchased items, returns true, otherwise returns false.
        * @param {string} category - The selected category.
        * @param {string[]} keySets - The items keySets.
        * @param {string[]} [types] - The items types (subcategories). Optional.
-       * @returns {boolean} - Determines whether the "Purchase All" button is needed (true) or not (false).
+       * @returns {boolean} - Determines whether the "Purchase All" button
+       * is needed (true) or not (false).
        */
     isPurchaseAllNeeded (category, keySets, types) {
       const purchasedItemsLengths = [];

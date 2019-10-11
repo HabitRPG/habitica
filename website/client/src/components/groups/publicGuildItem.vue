@@ -152,15 +152,6 @@ export default {
   },
   mixins: [groupUtilities],
   props: ['guild', 'displayLeave', 'displayGemBank'],
-  computed: {
-    ...mapState({ user: 'user.data' }),
-    isOwner () {
-      return this.guild.leader && this.guild.leader === this.user._id;
-    },
-    isMember () {
-      return this.isMemberOfGroup(this.user, this.guild);
-    },
-  },
   data () {
     return {
       MAX_SUMMARY_SIZE_FOR_GUILDS,
@@ -172,6 +163,15 @@ export default {
       }),
     };
   },
+  computed: {
+    ...mapState({ user: 'user.data' }),
+    isOwner () {
+      return this.guild.leader && this.guild.leader === this.user._id;
+    },
+    isMember () {
+      return this.isMemberOfGroup(this.user, this.guild);
+    },
+  },
   methods: {
     showSuggested (guildId) {
       const habiticaHelpingGuildId = '5481ccf3-5d2d-48a9-a871-70a7380cee5a';
@@ -181,7 +181,7 @@ export default {
     },
     async join () {
       // @TODO: This needs to be in the notifications where users will now accept invites
-      if (this.guild.cancelledPlan && !confirm(window.env.t('aboutToJoinCancelledGroupPlan'))) {
+      if (this.guild.cancelledPlan && !window.confirm(window.env.t('aboutToJoinCancelledGroupPlan'))) {
         return;
       }
       await this.$store.dispatch('guilds:join', { groupId: this.guild._id, type: 'guild' });

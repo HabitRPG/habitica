@@ -176,7 +176,7 @@ export default {
       const message = this.msg;
       const { user } = this;
 
-      if (message.hasOwnProperty('highlight')) return message.highlight;
+      if (message.highlight) return message.highlight;
 
       message.highlight = false;
       const messageText = message.text.toLowerCase();
@@ -201,14 +201,14 @@ export default {
       if (!message.likes) return 0;
 
       let likeCount = 0;
-      for (const key in message.likes) {
+      for (const key of Object.keys(message.likes)) {
         const like = message.likes[key];
         if (like) likeCount += 1;
       }
       return likeCount;
     },
     isMessageReported () {
-      return this.msg.flags && this.msg.flags[this.user.id] || this.reported;
+      return (this.msg.flags && this.msg.flags[this.user.id]) || this.reported;
     },
     flagCountDescription () {
       if (!this.msg.flagCount) return '';
@@ -242,6 +242,7 @@ export default {
     },
     likeTooltip (likedStatus) {
       if (!likedStatus) return this.$t('like');
+      return null;
     },
     copyAsTodo (message) {
       this.$root.$emit('habitica::copy-as-todo', message);
@@ -261,7 +262,7 @@ export default {
       });
     },
     async remove () {
-      if (!confirm(this.$t('areYouSureDeleteMessage'))) return;
+      if (!window.confirm(this.$t('areYouSureDeleteMessage'))) return;
 
       const message = this.msg;
       this.$emit('message-removed', message);
@@ -280,7 +281,7 @@ export default {
       return highlightUsers(text, this.user.auth.local.username, this.user.profile.name);
     },
     parseMarkdown (text) {
-      if (!text) return;
+      if (!text) return null;
       return habiticaMarkdown.render(String(text));
     },
   },

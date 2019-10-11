@@ -277,22 +277,6 @@ export default {
       userIdToMessage: '',
     };
   },
-  mounted () {
-    this.$root.$on('habitica:show-member-modal', data => {
-      // @TODO: Remove store
-      this.$store.state.memberModalOptions.challengeId = data.challengeId;
-      this.$store.state.memberModalOptions.groupId = data.groupId;
-      this.$store.state.memberModalOptions.group = data.group;
-      this.$store.state.memberModalOptions.memberCount = data.memberCount;
-      this.$store.state.memberModalOptions.viewingMembers = data.viewingMembers;
-      this.$store.state.memberModalOptions.fetchMoreMembers = data.fetchMoreMembers;
-      this.$root.$emit('bv::show::modal', 'members-modal');
-      this.getMembers();
-    });
-  },
-  destroyed () {
-    this.$root.$off('habitica:show-member-modal');
-  },
   computed: {
     ...mapState({ user: 'user.data' }),
     isLeader () {
@@ -324,7 +308,11 @@ export default {
 
       if (!isEmpty(this.sortOption)) {
         // Use the memberlist filtered by searchTerm
-        sortedMembers = orderBy(sortedMembers, [this.sortOption.value], [this.sortOption.direction]);
+        sortedMembers = orderBy(
+          sortedMembers,
+          [this.sortOption.value],
+          [this.sortOption.direction],
+        );
       }
 
       return sortedMembers;
@@ -350,6 +338,22 @@ export default {
         this.getMembers();
       }
     },
+  },
+  mounted () {
+    this.$root.$on('habitica:show-member-modal', data => {
+      // @TODO: Remove store
+      this.$store.state.memberModalOptions.challengeId = data.challengeId;
+      this.$store.state.memberModalOptions.groupId = data.groupId;
+      this.$store.state.memberModalOptions.group = data.group;
+      this.$store.state.memberModalOptions.memberCount = data.memberCount;
+      this.$store.state.memberModalOptions.viewingMembers = data.viewingMembers;
+      this.$store.state.memberModalOptions.fetchMoreMembers = data.fetchMoreMembers;
+      this.$root.$emit('bv::show::modal', 'members-modal');
+      this.getMembers();
+    });
+  },
+  destroyed () {
+    this.$root.$off('habitica:show-member-modal');
   },
   methods: {
     sendMessage (member) {
@@ -423,14 +427,14 @@ export default {
         groupId: this.groupId,
         memberId,
       });
-      alert(this.$t('managerAdded'));
+      window.alert(this.$t('managerAdded'));
     },
     async removeManager (memberId) {
       await this.$store.dispatch('guilds:removeManager', {
         groupId: this.groupId,
         memberId,
       });
-      alert(this.$t('managerRemoved'));
+      window.alert(this.$t('managerRemoved'));
     },
     close () {
       this.$root.$emit('bv::hide::modal', 'members-modal');
@@ -488,7 +492,7 @@ export default {
       groupData.leader = member._id;
       await this.$store.dispatch('guilds:update', { group: groupData });
 
-      alert(this.$t('leaderChanged'));
+      window.alert(this.$t('leaderChanged'));
 
       groupData.leader = member;
       this.$root.$emit('updatedGroup', groupData);

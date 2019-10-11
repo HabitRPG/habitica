@@ -101,9 +101,6 @@ export default {
       ],
     };
   },
-  created () {
-    this.fetchGuilds();
-  },
   computed: {
     ...mapState({
       guilds: 'myGuilds',
@@ -120,6 +117,9 @@ export default {
         return filterGuild(guild, filters, search, user);
       });
     },
+  },
+  created () {
+    this.fetchGuilds();
   },
   methods: {
     updateSearch (eventData) {

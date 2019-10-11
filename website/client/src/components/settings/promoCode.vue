@@ -45,11 +45,13 @@ export default {
   },
   methods: {
     generateCodes () {
-      // $http.post(ApiUrl.get() + '/api/v2/coupons/generate/'+codes.event+'?count='+(codes.count || 1))
+      // $http.post(ApiUrl.get() + '/api/v2/coupons/generate/
+      // '+codes.event+'?count='+(codes.count || 1))
       //   .success(function(res,code){
       //     $scope._codes = {};
       //     if (code!==200) return;
-      //     window.location.href = '/api/v2/coupons?limit='+codes.count+'&_id='+User.user._id+'&apiToken='+User.settings.auth.apiToken;
+      //     window.location.href = '/api/v2/coupons?limit='+codes.count+'&_id='+User.user._id+
+      // '&apiToken='+User.settings.auth.apiToken;
       //   })
     },
     async enterCoupon () {

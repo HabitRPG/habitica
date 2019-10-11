@@ -90,7 +90,10 @@ export default {
       });
 
       for (const currency of currencies) {
-        if (currency.type === this.currencyNeeded && !this.enoughCurrency(this.currencyNeeded, this.amountNeeded)) {
+        if (
+          currency.type === this.currencyNeeded
+          && !this.enoughCurrency(this.currencyNeeded, this.amountNeeded)
+        ) {
           currency.notEnough = true;
         }
       }

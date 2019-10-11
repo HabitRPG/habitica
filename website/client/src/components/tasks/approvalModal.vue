@@ -33,7 +33,7 @@ export default {
       this.task.approvals.splice(index, 1);
     },
     needsWork (index) {
-      if (!confirm(this.$t('confirmNeedsWork'))) return;
+      if (!window.confirm(this.$t('confirmNeedsWork'))) return;
       const userIdNeedsMoreWork = this.task.group.assignedUsers[index];
       this.$store.dispatch('tasks:needsWork', {
         taskId: this.task._id,

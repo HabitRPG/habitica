@@ -74,9 +74,6 @@ export default {
       mount: null,
     };
   },
-  created () {
-
-  },
   mounted () {
     this.$root.$on('habitica::mount-raised', this.openDialog);
   },

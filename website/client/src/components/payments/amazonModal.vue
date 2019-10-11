@@ -35,7 +35,7 @@ import * as Analytics from '@/libs/analytics';
 import { mapState } from '@/libs/store';
 import { CONSTANTS, setLocalSetting } from '@/libs/userlocalManager';
 
-const habiticaUrl = `${location.protocol}//${location.host}`;
+const habiticaUrl = `${window.location.protocol}//${window.location.host}`;
 
 export default {
   data () {
@@ -95,7 +95,7 @@ export default {
             this.amazonPayments.orderReferenceId = response.data.data.orderReferenceId;
             this.amazonInitWidgets();
           } else {
-            alert(response.message);
+            window.alert(response.message);
           }
         }
       });

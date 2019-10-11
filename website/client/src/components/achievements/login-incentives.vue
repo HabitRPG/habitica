@@ -70,7 +70,7 @@ export default {
       user: 'user.data',
     }),
     nextReward () {
-      if (!this.loginIncentives[this.user.loginIncentives]) return;
+      if (!this.loginIncentives[this.user.loginIncentives]) return null;
       const nextRewardKey = this.loginIncentives[this.user.loginIncentives].nextRewardAt;
       const nextReward = this.loginIncentives[nextRewardKey];
       return nextReward;

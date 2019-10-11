@@ -411,17 +411,6 @@ export default {
       selectedDrawerTab: 0,
     };
   },
-  watch: {
-    searchText: _throttle(function throttleSearch () {
-      const search = this.searchText.toLowerCase();
-      this.searchTextThrottled = search;
-    }, 250),
-    selectedSortBy: {
-      handler () {
-        setLocalSetting(CONSTANTS.keyConstants.STABLE_SORT_STATE, this.selectedSortBy);
-      },
-    },
-  },
   computed: {
     ...mapState({
       content: 'content',
@@ -473,7 +462,7 @@ export default {
         },
       ];
 
-      petGroups.map(petGroup => {
+      petGroups.forEach(petGroup => {
         this.$set(this.viewOptions, petGroup.key, {
           selected: false,
           animalCount: 0,
@@ -518,7 +507,7 @@ export default {
         },
       ];
 
-      mountGroups.map(mountGroup => {
+      mountGroups.forEach(mountGroup => {
         this.$set(this.viewOptions, mountGroup.key, {
           selected: false,
           animalCount: 0,
@@ -542,6 +531,17 @@ export default {
     },
     anyFilterSelected () {
       return Object.values(this.viewOptions).some(g => g.selected);
+    },
+  },
+  watch: {
+    searchText: _throttle(function throttleSearch () {
+      const search = this.searchText.toLowerCase();
+      this.searchTextThrottled = search;
+    }, 250),
+    selectedSortBy: {
+      handler () {
+        setLocalSetting(CONSTANTS.keyConstants.STABLE_SORT_STATE, this.selectedSortBy);
+      },
     },
   },
   methods: {
@@ -615,7 +615,7 @@ export default {
       }
 
       // 2. Sort
-      switch (sort) {
+      switch (sort) { // eslint-disable-line default-case
         case 'AZ':
           animals = _sortBy(animals, ['eggName']);
           break;
@@ -642,9 +642,8 @@ export default {
       const animals = this.getAnimalList(animalGroup, type);
 
       const countAll = animals.length;
-      const countOwned = _filter(animals, a =>
       // when counting pets, include those that have been raised into mounts
-        a.isOwned() || a.mountOwned());
+      const countOwned = _filter(animals, a => a.isOwned() || a.mountOwned());
 
       return `${countOwned.length}/${countAll}`;
     },

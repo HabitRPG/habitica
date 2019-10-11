@@ -28,11 +28,11 @@ export default {
       patrons: [],
     };
   },
-  async mounted () {
-    this.patrons = await this.$store.dispatch('hall:getPatrons', { page: 0 });
-  },
   computed: {
     ...mapState({ user: 'user.data' }),
+  },
+  async mounted () {
+    this.patrons = await this.$store.dispatch('hall:getPatrons', { page: 0 });
   },
   methods: {
     //  @TODO: Import member modal - clickMember()

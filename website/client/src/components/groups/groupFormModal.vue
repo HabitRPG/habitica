@@ -362,7 +362,7 @@ export default {
     async submit () {
       if (this.$store.state.user.data.balance < 1 && !this.workingGroup.id) {
         // @TODO: Add proper notifications
-        alert(this.$t('notEnoughGems'));
+        window.alert(this.$t('notEnoughGems'));
         return;
         // @TODO return $rootScope.openModal('buyGems', {track:"Gems > Gems > Create Group"});
       }
@@ -376,12 +376,12 @@ export default {
       if (!this.isParty && (!this.workingGroup.categories || this.workingGroup.categories.length === 0)) errors.push(this.$t('categoiresRequired'));
 
       if (errors.length > 0) {
-        alert(errors.join('\n'));
+        window.alert(errors.join('\n'));
         return;
       }
 
       // @TODO: Add proper notifications
-      if (!this.workingGroup.id && !confirm(this.$t('confirmGuild'))) return;
+      if (!this.workingGroup.id && !window.confirm(this.$t('confirmGuild'))) return;
 
       if (!this.workingGroup.privateGuild) {
         this.workingGroup.privacy = 'public';

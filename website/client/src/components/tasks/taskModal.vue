@@ -724,20 +724,6 @@ export default {
       calendarHighlights: { dates: [new Date()] },
     };
   },
-  watch: {
-    task () {
-      this.syncTask();
-    },
-    'task.startDate': function () {
-      this.calculateMonthlyRepeatDays();
-    },
-    'task.frequency': function () {
-      this.calculateMonthlyRepeatDays();
-    },
-  },
-  mounted () {
-    this.showAdvancedOptions = !this.user.preferences.advancedCollapsed;
-  },
   computed: {
     ...mapGetters({
       getTaskClasses: 'tasks:getTaskClasses',
@@ -767,7 +753,8 @@ export default {
     },
     isOriginalChallengeTask () {
       const isUserChallenge = Boolean(this.task.userId);
-      return !isUserChallenge && (this.challengeId || this.task.challenge && this.task.challenge.id);
+      return !isUserChallenge
+        && (this.challengeId || (this.task.challenge && this.task.challenge.id));
     },
     canDelete () {
       return this.purpose !== 'create' && this.canDeleteTask(this.task);
@@ -817,6 +804,20 @@ export default {
       return this.selectedTags.slice(this.maxTags);
     },
   },
+  watch: {
+    task () {
+      this.syncTask();
+    },
+    'task.startDate': function taskStartDate () {
+      this.calculateMonthlyRepeatDays();
+    },
+    'task.frequency': function taskFrequency () {
+      this.calculateMonthlyRepeatDays();
+    },
+  },
+  mounted () {
+    this.showAdvancedOptions = !this.user.preferences.advancedCollapsed;
+  },
   created () {
     document.addEventListener('keyup', this.handleEsc);
   },
@@ -840,11 +841,16 @@ export default {
           this.memberNamesById[member._id] = member.profile.name;
         });
         this.assignedMembers = [];
-        if (this.task.group && this.task.group.assignedUsers) this.assignedMembers = this.task.group.assignedUsers;
-        if (this.task.group) this.sharedCompletion = this.task.group.sharedCompletion || 'singleCompletion';
+        if (this.task.group && this.task.group.assignedUsers) {
+          this.assignedMembers = this.task.group.assignedUsers;
+        }
+        if (this.task.group) {
+          this.sharedCompletion = this.task.group.sharedCompletion || 'singleCompletion';
+        }
       }
 
-      // @TODO: This whole component is mutating a prop and that causes issues. We need to not copy the prop similar to group modals
+      // @TODO: This whole component is mutating a prop
+      // and that causes issues. We need to not copy the prop similar to group modals
       if (this.task) this.checklist = clone(this.task.checklist);
     },
     async handleOpen () {
@@ -913,7 +919,7 @@ export default {
           const shortDay = this.dayMapping[dayOfWeek];
           task.daysOfMonth = [];
           task.weeksOfMonth = [week];
-          for (const key in task.repeat) {
+          for (const key of Object.keys(task.repeat)) {
             task.repeat[key] = false;
           }
           task.repeat[shortDay] = true;
@@ -962,7 +968,7 @@ export default {
       this.$root.$emit('bv::hide::modal', 'task-modal');
     },
     destroy () {
-      if (!confirm(this.$t('sureDelete'))) return;
+      if (!window.confirm(this.$t('sureDelete'))) return;
       this.destroyTask(this.task);
       this.$emit('taskDestroyed', this.task);
       this.$root.$emit('bv::hide::modal', 'task-modal');

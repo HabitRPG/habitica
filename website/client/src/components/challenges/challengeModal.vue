@@ -233,35 +233,6 @@ export default {
       groups: [],
     };
   },
-  watch: {
-    user () {
-      if (!this.challenge) this.workingChallenge.leader = this.user._id;
-    },
-    challenge () {
-      this.setUpWorkingChallenge();
-    },
-    cloning () {
-      this.setUpWorkingChallenge();
-    },
-  },
-  mounted () {
-    this.$root.$on('habitica:clone-challenge', data => {
-      if (!data.challenge) return;
-      this.cloning = true;
-      this.cloningChallengeId = data.challenge._id;
-      this.$store.state.challengeOptions.workingChallenge = { ...this.$store.state.challengeOptions.workingChallenge, ...data.challenge };
-      this.$root.$emit('bv::show::modal', 'challenge-modal');
-    });
-    this.$root.$on('habitica:update-challenge', data => {
-      if (!data.challenge) return;
-      this.cloning = false;
-      this.$store.state.challengeOptions.workingChallenge = { ...this.$store.state.challengeOptions.workingChallenge, ...data.challenge };
-      this.$root.$emit('bv::show::modal', 'challenge-modal');
-    });
-  },
-  beforeDestroy () {
-    this.$root.$off('habitica:clone-challenge');
-  },
   computed: {
     ...mapState({ user: 'user.data' }),
     creating () {
@@ -274,7 +245,9 @@ export default {
       return this.$t('editingChallenge');
     },
     charactersRemaining () {
-      const currentLength = this.workingChallenge.summary ? this.workingChallenge.summary.length : 0;
+      const currentLength = this.workingChallenge.summary 
+        ? this.workingChallenge.summary.length 
+        : 0;
       return MAX_SUMMARY_SIZE_FOR_CHALLENGES - currentLength;
     },
     maxPrize () {
@@ -311,6 +284,41 @@ export default {
     challenge () {
       return this.$store.state.challengeOptions.workingChallenge;
     },
+  },
+  watch: {
+    user () {
+      if (!this.challenge) this.workingChallenge.leader = this.user._id;
+    },
+    challenge () {
+      this.setUpWorkingChallenge();
+    },
+    cloning () {
+      this.setUpWorkingChallenge();
+    },
+  },
+  mounted () {
+    this.$root.$on('habitica:clone-challenge', data => {
+      if (!data.challenge) return;
+      this.cloning = true;
+      this.cloningChallengeId = data.challenge._id;
+      this.$store.state.challengeOptions.workingChallenge = {
+        ...this.$store.state.challengeOptions.workingChallenge,
+        ...data.challenge,
+      };
+      this.$root.$emit('bv::show::modal', 'challenge-modal');
+    });
+    this.$root.$on('habitica:update-challenge', data => {
+      if (!data.challenge) return;
+      this.cloning = false;
+      this.$store.state.challengeOptions.workingChallenge = {
+        ...this.$store.state.challengeOptions.workingChallenge,
+        ...data.challenge,
+      };
+      this.$root.$emit('bv::show::modal', 'challenge-modal');
+    });
+  },
+  beforeDestroy () {
+    this.$root.$off('habitica:clone-challenge');
   },
   methods: {
     async shown () {
@@ -378,7 +386,10 @@ export default {
     },
     async createChallenge () {
       this.loading = true;
-      // @TODO: improve error handling, add it to updateChallenge, make errors translatable. Suggestion: `<% fieldName %> is required` where possible, where `fieldName` is inserted as the translatable string that's used for the field header.
+      // @TODO: improve error handling, add it to updateChallenge,
+      // make errors translatable. Suggestion: `<% fieldName %>
+      // is required` where possible, where `fieldName` is inserted
+      // as the translatable string that's used for the field header.
       const errors = [];
 
       if (!this.workingChallenge.name) errors.push(this.$t('nameRequired'));
@@ -390,7 +401,7 @@ export default {
       if (!this.workingChallenge.categories || this.workingChallenge.categories.length === 0) errors.push(this.$t('categoiresRequired'));
 
       if (errors.length > 0) {
-        alert(errors.join('\n'));
+        window.alert(errors.join('\n'));
         this.loading = false;
         return;
       }
@@ -425,9 +436,14 @@ export default {
 
       // @TODO: Share with server
       const prizeCost = this.workingChallenge.prize / 4;
-      const challengeGroupLeader = challengeGroup.leader && challengeGroup.leader._id ? challengeGroup.leader._id : challengeGroup.leader;
+      const challengeGroupLeader = challengeGroup.leader && challengeGroup.leader._id
+        ? challengeGroup.leader._id
+        : challengeGroup.leader;
       const userIsLeader = challengeGroupLeader === this.user._id;
-      if (challengeGroup && userIsLeader && challengeGroup.balance > 0 && challengeGroup.balance >= prizeCost) {
+      if (
+        challengeGroup && userIsLeader
+        && challengeGroup.balance > 0 && challengeGroup.balance >= prizeCost
+      ) {
         // Group pays for all of prize
       } else if (challengeGroup && userIsLeader && challengeGroup.balance > 0) {
         // User pays remainder of prize cost after group

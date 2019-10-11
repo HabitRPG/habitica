@@ -134,7 +134,9 @@ export default {
         const newKey = `eyewear_special_${key}`;
         const option = {};
         option.key = key;
-        option.active = this.user.preferences.costume ? this.user.items.gear.costume.eyewear === newKey : this.user.items.gear.equipped.eyewear === newKey;
+        option.active = this.user.preferences.costume
+          ? this.user.items.gear.costume.eyewear === newKey
+          : this.user.items.gear.equipped.eyewear === newKey;
         option.class = `eyewear_special_${key}`;
         option.click = () => {
           const type = this.user.preferences.costume ? 'costume' : 'equipped';
@@ -160,7 +162,9 @@ export default {
         const newKey = `headAccessory_special_${key}`;
         const option = {};
         option.key = key;
-        option.active = this.user.preferences.costume ? this.user.items.gear.costume.headAccessory === newKey : this.user.items.gear.equipped.headAccessory === newKey;
+        option.active = this.user.preferences.costume
+          ? this.user.items.gear.costume.headAccessory === newKey
+          : this.user.items.gear.equipped.headAccessory === newKey;
         option.class = `headAccessory_special_${option.key} headband`;
         option.click = () => {
           const type = this.user.preferences.costume ? 'costume' : 'equipped';
@@ -205,7 +209,8 @@ export default {
   },
   methods: {
     animalItems (category) {
-      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
+      // @TODO: For some resonse when I use $set on the
+      // user purchases object, this is not recomputed. Hack for now
         let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
       const keys = this.animalItemKeys[category];
       const options = keys.map(key => {
@@ -214,7 +219,9 @@ export default {
 
         const option = {};
         option.key = key;
-        option.active = this.user.preferences.costume ? this.user.items.gear.costume[category] === newKey : this.user.items.gear.equipped[category] === newKey;
+        option.active = this.user.preferences.costume
+          ? this.user.items.gear.costume[category] === newKey
+          : this.user.items.gear.equipped[category] === newKey;
         option.class = `headAccessory_special_${option.key} ${category}`;
         if (category === 'back') {
           option.class = `icon_back_special_${option.key} back`;
@@ -247,7 +254,8 @@ export default {
       return keys.join(',');
     },
     animalItemsOwned (category) {
-      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
+      // @TODO: For some resonse when I use $set on the user purchases object,
+      // this is not recomputed. Hack for now
         let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
 
       let own = true;

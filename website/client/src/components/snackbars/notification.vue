@@ -144,7 +144,9 @@ export default {
       if (this.notification.type === 'gp') localeKey += 'Gold';
       if (this.notification.type === 'streak') localeKey = 'streakCoins';
       return this.$t(localeKey);
-      // This requires eight translatable strings, but that gives the translators the most flexibility for matching gender/number and for using idioms for lost/spent/used/gained.
+      // This requires eight translatable strings, but that gives the
+      // translators the most flexibility for matching gender/number
+      // and for using idioms for lost/spent/used/gained.
     },
     negative () {
       return this.notification.sign === '-' ? 'negative' : 'positive';
@@ -159,7 +161,8 @@ export default {
     },
   },
   created () {
-    const timeout = this.notification.hasOwnProperty('timeout') ? this.notification.timeout : true;
+    const timeout = this.notification && this.notification.timeout
+      ? this.notification.timeout : true;
     if (timeout) {
       let delay = this.notification.delay || 1500;
       delay += this.$store.state.notificationStore.length * 1000;

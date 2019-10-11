@@ -274,11 +274,6 @@ export default {
     BuyQuestModal,
   },
   mixins: [pinUtils],
-  watch: {
-    searchText: _throttle(function throttleSearch () {
-      this.searchTextThrottled = this.searchText.toLowerCase();
-    }, 250),
-  },
   data () {
     return {
       viewOptions: {},
@@ -321,8 +316,9 @@ export default {
     categories () {
       const apiCategories = this.shop.categories;
 
-      // FIX ME Refactor the apiCategories Hack to force update for now until we restructure the data
-        let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+      // FIX ME Refactor the apiCategories Hack to
+      // force update for now until we restructure the data
+      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
 
       const normalGroups = _filter(apiCategories, c => c.identifier === 'mounts' || c.identifier === 'pets' || c.identifier === 'quests');
 
@@ -343,7 +339,7 @@ export default {
 
       normalGroups.push(setCategory);
 
-      normalGroups.map(category => {
+      normalGroups.forEach(category => {
         this.$set(this.viewOptions, category.identifier, {
           selected: false,
         });
@@ -354,6 +350,11 @@ export default {
     anyFilterSelected () {
       return Object.values(this.viewOptions).some(g => g.selected);
     },
+  },
+  watch: {
+    searchText: _throttle(function throttleSearch () {
+      this.searchTextThrottled = this.searchText.toLowerCase();
+    }, 250),
   },
   created () {
     this.$root.$on('buyModal::boughtItem', () => {
@@ -378,7 +379,7 @@ export default {
         return !searchBy || i.text.toLowerCase().indexOf(searchBy) !== -1;
       });
 
-      switch (sortBy) {
+      switch (sortBy) { // eslint-disable-line default-case
         case 'AZ': {
           result = _sortBy(result, ['text']);
 

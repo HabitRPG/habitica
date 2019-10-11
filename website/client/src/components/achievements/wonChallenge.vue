@@ -48,14 +48,14 @@ export default {
   directives: {
     markdown: markdownDirective,
   },
-  computed: {
-    ...mapState({ user: 'user.data' }),
-  },
   data () {
     const tweet = this.$t('wonChallengeShare');
     return {
       tweet,
     };
+  },
+  computed: {
+    ...mapState({ user: 'user.data' }),
   },
   methods: {
     close () {

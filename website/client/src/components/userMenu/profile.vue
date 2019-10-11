@@ -463,10 +463,12 @@ export default {
       flatGear: 'content.gear.flat',
     }),
     userJoinedDate () {
-      return moment(this.user.auth.timestamps.created).format(this.userLoggedIn.preferences.dateFormat.toUpperCase());
+      return moment(this.user.auth.timestamps.created)
+        .format(this.userLoggedIn.preferences.dateFormat.toUpperCase());
     },
     userLastLoggedIn () {
-      return moment(this.user.auth.timestamps.loggedin).format(this.userLoggedIn.preferences.dateFormat.toUpperCase());
+      return moment(this.user.auth.timestamps.loggedin)
+        .format(this.userLoggedIn.preferences.dateFormat.toUpperCase());
     },
     equippedItems () {
       return this.user.items.gear.equipped;
@@ -570,7 +572,7 @@ export default {
       if (!currentLoginDay) return 0;
       const previousRewardDay = currentLoginDay.prevRewardKey;
       const { nextRewardAt } = currentLoginDay;
-      return (this.user.loginIncentives - previousRewardDay) / (nextRewardAt - previousRewardDay) * 100;
+      return ((this.user.loginIncentives - previousRewardDay) / (nextRewardAt - previousRewardDay)) * 100;
     },
     save () {
       const values = {};

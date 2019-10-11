@@ -101,7 +101,7 @@ export default {
       this.$router.push('/challenges/myChallenges');
     },
     async deleteChallenge () {
-      if (!confirm('Are you sure you want to delete this challenge?')) return;
+      if (!window.confirm('Are you sure you want to delete this challenge?')) return;
       this.challenge = await this.$store.dispatch('challenges:deleteChallenge', {
         challengeId: this.challengeId,
         prize: this.prize,

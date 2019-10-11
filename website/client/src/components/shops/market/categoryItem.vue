@@ -45,7 +45,8 @@ export default {
     },
     gemsLeft () {
       if (!this.user.purchased.plan) return 0;
-      return planGemLimits.convCap + this.user.purchased.plan.consecutive.gemCapExtra - this.user.purchased.plan.gemsBought;
+      return planGemLimits.convCap
+        + this.user.purchased.plan.consecutive.gemCapExtra - this.user.purchased.plan.gemsBought;
     },
   },
 };

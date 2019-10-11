@@ -448,7 +448,8 @@ export default {
 
       const groupId = this.searchId === 'party' ? this.user.party._id : this.searchId;
       if (this.hasUnreadMessages(groupId)) {
-        // Delay by 1sec to make sure it returns after other requests that don't have the notification marked as read
+        // Delay by 1sec to make sure it returns after
+        // other requests that don't have the notification marked as read
         setTimeout(() => {
           this.$store.dispatch('chat:markChatSeen', { groupId });
           this.$delete(this.user.newMessages, groupId);
@@ -476,7 +477,7 @@ export default {
       }
     },
     async join () {
-      if (this.group.cancelledPlan && !confirm(this.$t('aboutToJoinCancelledGroupPlan'))) {
+      if (this.group.cancelledPlan && !window.confirm(this.$t('aboutToJoinCancelledGroupPlan'))) {
         return;
       }
       await this.$store.dispatch('guilds:join', { groupId: this.group._id, type: 'guild' });
@@ -490,7 +491,7 @@ export default {
       });
 
       // @TODO: Get challenges and ask to keep or remove
-      if (!confirm('Are you sure you want to leave?')) return;
+      if (!window.confirm('Are you sure you want to leave?')) return;
       const keep = true;
       this.leave(keep);
     },

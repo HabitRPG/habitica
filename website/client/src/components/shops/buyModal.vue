@@ -373,7 +373,8 @@ export default {
     },
     gemsLeft () {
       if (!this.user.purchased.plan) return 0;
-      return planGemLimits.convCap + this.user.purchased.plan.consecutive.gemCapExtra - this.user.purchased.plan.gemsBought;
+      return planGemLimits.convCap
+        + this.user.purchased.plan.consecutive.gemCapExtra - this.user.purchased.plan.gemsBought;
     },
     attemptingToPurchaseMoreGemsThanAreLeft () {
       if (this.item && this.item.key && this.item.key === 'gem' && this.selectedAmountToBuy > this.gemsLeft) return true;
@@ -397,7 +398,8 @@ export default {
       this.$emit('change', $event);
     },
     buyItem () {
-      // @TODO: I  think we should buying to the items. Turn the items into classes, and use polymorphism
+      // @TODO: I  think we should buying to the items.
+      // Turn the items into classes, and use polymorphism
       if (this.item.buy) {
         this.item.buy();
         this.$emit('buyPressed', this.item);
@@ -405,7 +407,10 @@ export default {
         return;
       }
 
-      if (this.item.pinType === 'premiumHatchingPotion' || this.item.pinType === 'eggs' && dropEggKeys.indexOf(this.item.key) === -1) {
+      if (
+        this.item.pinType === 'premiumHatchingPotion'
+        || (this.item.pinType === 'eggs' && dropEggKeys.indexOf(this.item.key) === -1)
+      ) {
         let petsRemaining = 20 - this.selectedAmountToBuy;
         petsRemaining -= reduce(this.user.items.pets, (sum, petValue, petKey) => {
           if (petKey.indexOf(this.item.key) !== -1 && petValue > 0) return sum + 1;
@@ -421,11 +426,17 @@ export default {
           petsRemaining -= this.user.items.eggs[this.item.key] || 0;
         }
 
-        if (petsRemaining < 0 && !confirm(this.$t('purchasePetItemConfirm', { itemText: this.item.text }))) return;
+        if (
+          petsRemaining < 0
+          && !window.confirm(this.$t('purchasePetItemConfirm', { itemText: this.item.text }))
+        ) return;
       }
 
       const shouldConfirmPurchase = this.item.currency === 'gems' || this.item.currency === 'hourglasses';
-      if (shouldConfirmPurchase && !this.confirmPurchase(this.item.currency, this.item.value * this.selectedAmountToBuy)) {
+      if (
+        shouldConfirmPurchase
+        && !this.confirmPurchase(this.item.currency, this.item.value * this.selectedAmountToBuy)
+      ) {
         return;
       }
 
@@ -477,7 +488,7 @@ export default {
       return true;
     },
     getAvatarOverrides (item) {
-      switch (item.purchaseType) {
+      switch (item.purchaseType) { // eslint-disable-line default-case
         case 'gear':
           return {
             [item.type]: item.key,
@@ -489,7 +500,7 @@ export default {
         case 'mystery_set': {
           const gear = {};
 
-          item.items.map(setItem => {
+          item.items.forEach(setItem => {
             gear[setItem.type] = setItem.key;
           });
 

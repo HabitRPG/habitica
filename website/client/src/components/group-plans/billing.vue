@@ -46,6 +46,29 @@ export default {
       group: {},
     };
   },
+  computed: {
+    ...mapState({ user: 'user.data' }),
+    isLeader () {
+      return this.user._id === this.group.leader._id;
+    },
+    groupIsSubscribed () {
+      return this.group.purchased && this.group.purchased.plan 
+        && this.group.purchased.plan.customerId;
+    },
+    dateTerminated () {
+      if (!this.user.preferences || !this.user.preferences.dateFormat) {
+        return moment(this.group.purchased.plan.dateTerminated);
+      }
+
+      return moment(this.group.purchased.plan.dateTerminated)
+        .format(this.user.preferences.dateFormat.toUpperCase());
+    },
+    purchasedGroupPlanPlanExtraMonths () {
+      return {
+        months: parseFloat(this.group.purchased.plan.extraMonths).toFixed(2),
+      };
+    },
+  },
   async mounted () {
     await this.loadGroup();
 
@@ -60,24 +83,6 @@ export default {
         });
       }
     }
-  },
-  computed: {
-    ...mapState({ user: 'user.data' }),
-    isLeader () {
-      return this.user._id === this.group.leader._id;
-    },
-    groupIsSubscribed () {
-      return this.group.purchased && this.group.purchased.plan && this.group.purchased.plan.customerId;
-    },
-    dateTerminated () {
-      if (!this.user.preferences || !this.user.preferences.dateFormat) return moment(this.group.purchased.plan.dateTerminated);
-      return moment(this.group.purchased.plan.dateTerminated).format(this.user.preferences.dateFormat.toUpperCase());
-    },
-    purchasedGroupPlanPlanExtraMonths () {
-      return {
-        months: parseFloat(this.group.purchased.plan.extraMonths).toFixed(2),
-      };
-    },
   },
   methods: {
     async loadGroup () {

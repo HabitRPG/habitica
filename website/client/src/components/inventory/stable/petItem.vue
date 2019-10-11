@@ -103,6 +103,17 @@ export default {
       itemId: uuid.v4(),
     });
   },
+  computed: {
+    ...mapState({
+      userItems: 'user.data.items',
+    }),
+    potionClass () {
+      return `Pet_HatchingPotion_${this.item.potionKey}`;
+    },
+    eggClass () {
+      return `Pet_Egg_${this.item.eggKey}`;
+    },
+  },
   methods: {
     click () {
       this.$emit('click', {});
@@ -114,7 +125,7 @@ export default {
       return isAllowedToFeed(this.item, this.userItems);
     },
     getPetItemClass () {
-      if (this.isOwned() || this.mountOwned() && this.isHatchable()) {
+      if (this.isOwned() || (this.mountOwned() && this.isHatchable())) {
         return `Pet Pet-${this.item.key} ${this.item.eggKey}`;
       }
 
@@ -146,17 +157,6 @@ export default {
     },
     isSpecial () {
       return isSpecial(this.item);
-    },
-  },
-  computed: {
-    ...mapState({
-      userItems: 'user.data.items',
-    }),
-    potionClass () {
-      return `Pet_HatchingPotion_${this.item.potionKey}`;
-    },
-    eggClass () {
-      return `Pet_Egg_${this.item.eggKey}`;
     },
   },
 };

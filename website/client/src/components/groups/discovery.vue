@@ -67,7 +67,7 @@ function _mapCategories (guilds) {
   guilds.forEach(guild => {
     if (!guild.categories) return;
     guild.categorySlugs = guild.categories.map(cat => {
-      if (!cat) return;
+      if (!cat) return undefined;
       return cat.slug;
     });
   });
@@ -198,7 +198,7 @@ export default {
       _mapCategories(guilds);
       this.guilds.push(...guilds);
 
-      this.lastPageLoaded++;
+      this.lastPageLoaded += 1;
       this.loading = false;
     },
     createGroup () {

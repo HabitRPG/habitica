@@ -70,17 +70,6 @@ export default {
     markdown: markdownDirective,
   },
   mixins: [notifications],
-  computed: {
-    ...mapState({ user: 'user.data' }),
-    reportData () {
-      let reportMessage = this.abuseObject.user;
-      const isSystemMessage = this.abuseObject.uuid === 'system';
-      if (isSystemMessage) reportMessage = this.$t('systemMessage');
-      return {
-        name: `<span class='text-danger'>${reportMessage}</span>`,
-      };
-    },
-  },
   data () {
     const abuseFlagModalBody = {
       firstLinkStart: '<a href="/static/community-guidelines" target="_blank">',
@@ -94,6 +83,17 @@ export default {
       groupId: '',
       reportComment: '',
     };
+  },
+  computed: {
+    ...mapState({ user: 'user.data' }),
+    reportData () {
+      let reportMessage = this.abuseObject.user;
+      const isSystemMessage = this.abuseObject.uuid === 'system';
+      if (isSystemMessage) reportMessage = this.$t('systemMessage');
+      return {
+        name: `<span class='text-danger'>${reportMessage}</span>`,
+      };
+    },
   },
   created () {
     this.$root.$on('habitica::report-chat', this.handleReport);

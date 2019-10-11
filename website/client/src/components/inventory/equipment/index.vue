@@ -212,6 +212,130 @@ export default {
       selectedSortGearBy: 'sortByName',
     };
   },
+  computed: {
+    ...mapState({
+      content: 'content',
+      user: 'user.data',
+      ownedItems: 'user.data.items.gear.owned',
+      equippedItems: 'user.data.items.gear.equipped',
+      costumeItems: 'user.data.items.gear.costume',
+      flatGear: 'content.gear.flat',
+    }),
+    openStatus () {
+      return this.$store.state.equipmentDrawerOpen ? 1 : 0;
+    },
+    drawerPreference () {
+      return this.costumeMode ? 'costume' : 'autoEquip';
+    },
+    activeItems () {
+      return this.costumeMode ? this.costumeItems : this.equippedItems;
+    },
+    gearItemsByType () {
+      const searchText = this.searchTextThrottled;
+      const gearItemsByType = {};
+      each(this.gearTypesToStrings, (string, type) => {
+        gearItemsByType[type] = [];
+      });
+
+      each(this.ownedItems, (isOwned, gearKey) => {
+        if (isOwned === true) {
+          const ownedItem = this.flatGear[gearKey];
+
+          const isSearched = !searchText
+            || ownedItem.text().toLowerCase().indexOf(searchText) !== -1;
+
+          if (ownedItem.klass !== 'base' && isSearched) {
+            const { type } = ownedItem;
+            const isEquipped = this.activeItems[type] === ownedItem.key;
+            const viewOptions = this.viewOptions[type];
+            const { firstRender } = viewOptions;
+            const { itemsInFirstPosition } = viewOptions;
+
+            // Render selected items in first postion only for the first render
+            if (itemsInFirstPosition.indexOf(ownedItem.key) !== -1 && firstRender === false) {
+              gearItemsByType[type].unshift(ownedItem);
+            } else if (isEquipped === true && firstRender === true) {
+              gearItemsByType[type].unshift(ownedItem);
+              itemsInFirstPosition.push(ownedItem.key);
+            } else {
+              gearItemsByType[type].push(ownedItem);
+            }
+          }
+        }
+      });
+
+
+      each(this.gearTypesToStrings, (string, type) => {
+        this.viewOptions[type].firstRender = false; // eslint-disable-line vue/no-side-effects-in-computed-properties, max-len
+      });
+
+      return gearItemsByType;
+    },
+    gearItemsByClass () {
+      const searchText = this.searchTextThrottled;
+      const gearItemsByClass = {};
+      each(this.gearClassesToStrings, (string, klass) => {
+        gearItemsByClass[klass] = [];
+      });
+
+      each(this.ownedItems, (isOwned, gearKey) => {
+        if (isOwned === true) {
+          const ownedItem = this.flatGear[gearKey];
+          const { klass } = ownedItem;
+
+          const isSearched = !searchText
+            || ownedItem.text().toLowerCase().indexOf(searchText) !== -1;
+
+          if (klass !== 'base' && isSearched) {
+            const isEquipped = this.activeItems[ownedItem.type] === ownedItem.key;
+            const viewOptions = this.viewOptions[klass];
+            const { firstRender } = viewOptions;
+            const { itemsInFirstPosition } = viewOptions;
+
+            // Render selected items in first postion only for the first render
+            if (itemsInFirstPosition.indexOf(ownedItem.key) !== -1 && firstRender === false) {
+              gearItemsByClass[klass].unshift(ownedItem);
+            } else if (isEquipped === true && firstRender === true) {
+              gearItemsByClass[klass].unshift(ownedItem);
+              itemsInFirstPosition.push(ownedItem.key);
+            } else {
+              gearItemsByClass[klass].push(ownedItem);
+            }
+          }
+        }
+      });
+
+      each(this.gearClassesToStrings, (string, klass) => {
+        this.viewOptions[klass].firstRender = false; // eslint-disable-line vue/no-side-effects-in-computed-properties, max-len
+      });
+
+      return gearItemsByClass;
+    },
+    groups () {
+      return this.groupBy === 'type' ? this.gearTypesToStrings : this.gearClassesToStrings;
+    },
+    items () {
+      return this.groupBy === 'type' ? this.gearItemsByType : this.gearItemsByClass;
+    },
+    anyFilterSelected () {
+      return Object.values(this.viewOptions).some(g => g.selected);
+    },
+    itemsGroups () {
+      return map(this.groups, (label, group) => {
+        this.$set(this.viewOptions, group, {
+          selected: false,
+          open: false,
+          itemsInFirstPosition: [],
+          firstRender: true,
+        });
+
+        return {
+          key: group,
+          label,
+        };
+      });
+    },
+  },
   watch: {
     searchText: throttle(function throttleSearch () {
       this.searchTextThrottled = this.searchText.toLowerCase();
@@ -223,7 +347,9 @@ export default {
       this.$store.state.equipmentDrawerOpen = false;
     }
 
-    this.costumeMode = getLocalSetting(CONSTANTS.keyConstants.CURRENT_EQUIPMENT_DRAWER_TAB) === CONSTANTS.equipmentDrawerTabValues.COSTUME_TAB;
+    this.costumeMode = getLocalSetting(
+      CONSTANTS.keyConstants.CURRENT_EQUIPMENT_DRAWER_TAB,
+    ) === CONSTANTS.equipmentDrawerTabValues.COSTUME_TAB;
   },
   methods: {
     selectDrawerTab (tabName) {
@@ -273,133 +399,17 @@ export default {
       this.$store.state.equipmentDrawerOpen = newState;
 
       if (newState) {
-        setLocalSetting(CONSTANTS.keyConstants.EQUIPMENT_DRAWER_STATE, CONSTANTS.drawerStateValues.DRAWER_OPEN);
+        setLocalSetting(
+          CONSTANTS.keyConstants.EQUIPMENT_DRAWER_STATE,
+          CONSTANTS.drawerStateValues.DRAWER_OPEN,
+        );
         return;
       }
 
-      setLocalSetting(CONSTANTS.keyConstants.EQUIPMENT_DRAWER_STATE, CONSTANTS.drawerStateValues.DRAWER_CLOSED);
-    },
-  },
-  computed: {
-    ...mapState({
-      content: 'content',
-      user: 'user.data',
-      ownedItems: 'user.data.items.gear.owned',
-      equippedItems: 'user.data.items.gear.equipped',
-      costumeItems: 'user.data.items.gear.costume',
-      flatGear: 'content.gear.flat',
-    }),
-    openStatus () {
-      return this.$store.state.equipmentDrawerOpen ? 1 : 0;
-    },
-    drawerPreference () {
-      return this.costumeMode ? 'costume' : 'autoEquip';
-    },
-    activeItems () {
-      return this.costumeMode ? this.costumeItems : this.equippedItems;
-    },
-    gearItemsByType () {
-      const searchText = this.searchTextThrottled;
-      const gearItemsByType = {};
-      each(this.gearTypesToStrings, (string, type) => {
-        gearItemsByType[type] = [];
-      });
-
-      each(this.ownedItems, (isOwned, gearKey) => {
-        if (isOwned === true) {
-          const ownedItem = this.flatGear[gearKey];
-
-          const isSearched = !searchText || ownedItem.text().toLowerCase().indexOf(searchText) !== -1;
-
-          if (ownedItem.klass !== 'base' && isSearched) {
-            const { type } = ownedItem;
-            const isEquipped = this.activeItems[type] === ownedItem.key;
-            const viewOptions = this.viewOptions[type];
-            const { firstRender } = viewOptions;
-            const { itemsInFirstPosition } = viewOptions;
-
-            // Render selected items in first postion only for the first render
-            if (itemsInFirstPosition.indexOf(ownedItem.key) !== -1 && firstRender === false) {
-              gearItemsByType[type].unshift(ownedItem);
-            } else if (isEquipped === true && firstRender === true) {
-              gearItemsByType[type].unshift(ownedItem);
-              itemsInFirstPosition.push(ownedItem.key);
-            } else {
-              gearItemsByType[type].push(ownedItem);
-            }
-          }
-        }
-      });
-
-
-      each(this.gearTypesToStrings, (string, type) => {
-        this.viewOptions[type].firstRender = false; // eslint-disable-line vue/no-side-effects-in-computed-properties
-      });
-
-      return gearItemsByType;
-    },
-    gearItemsByClass () {
-      const searchText = this.searchTextThrottled;
-      const gearItemsByClass = {};
-      each(this.gearClassesToStrings, (string, klass) => {
-        gearItemsByClass[klass] = [];
-      });
-
-      each(this.ownedItems, (isOwned, gearKey) => {
-        if (isOwned === true) {
-          const ownedItem = this.flatGear[gearKey];
-          const { klass } = ownedItem;
-
-          const isSearched = !searchText || ownedItem.text().toLowerCase().indexOf(searchText) !== -1;
-
-          if (klass !== 'base' && isSearched) {
-            const isEquipped = this.activeItems[ownedItem.type] === ownedItem.key;
-            const viewOptions = this.viewOptions[klass];
-            const { firstRender } = viewOptions;
-            const { itemsInFirstPosition } = viewOptions;
-
-            // Render selected items in first postion only for the first render
-            if (itemsInFirstPosition.indexOf(ownedItem.key) !== -1 && firstRender === false) {
-              gearItemsByClass[klass].unshift(ownedItem);
-            } else if (isEquipped === true && firstRender === true) {
-              gearItemsByClass[klass].unshift(ownedItem);
-              itemsInFirstPosition.push(ownedItem.key);
-            } else {
-              gearItemsByClass[klass].push(ownedItem);
-            }
-          }
-        }
-      });
-
-      each(this.gearClassesToStrings, (string, klass) => {
-        this.viewOptions[klass].firstRender = false; // eslint-disable-line vue/no-side-effects-in-computed-properties
-      });
-
-      return gearItemsByClass;
-    },
-    groups () {
-      return this.groupBy === 'type' ? this.gearTypesToStrings : this.gearClassesToStrings;
-    },
-    items () {
-      return this.groupBy === 'type' ? this.gearItemsByType : this.gearItemsByClass;
-    },
-    anyFilterSelected () {
-      return Object.values(this.viewOptions).some(g => g.selected);
-    },
-    itemsGroups () {
-      return map(this.groups, (label, group) => {
-        this.$set(this.viewOptions, group, {
-          selected: false,
-          open: false,
-          itemsInFirstPosition: [],
-          firstRender: true,
-        });
-
-        return {
-          key: group,
-          label,
-        };
-      });
+      setLocalSetting(
+        CONSTANTS.keyConstants.EQUIPMENT_DRAWER_STATE,
+        CONSTANTS.drawerStateValues.DRAWER_CLOSED,
+      );
     },
   },
 };

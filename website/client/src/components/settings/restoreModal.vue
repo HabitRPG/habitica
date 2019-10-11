@@ -67,12 +67,12 @@ export default {
       },
     };
   },
+  computed: {
+    ...mapState({ user: 'user.data' }),
+  },
   mounted () {
     this.restoreValues.stats = clone(this.user.stats);
     this.restoreValues.achievements.streak = clone(this.user.achievements.streak);
-  },
-  computed: {
-    ...mapState({ user: 'user.data' }),
   },
   methods: {
     close () {

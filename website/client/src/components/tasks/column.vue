@@ -347,14 +347,6 @@ export default {
       dragging: false,
     };
   },
-  created () {
-    // Set Task Column Label
-    this.typeLabel = getTypeLabel(this.type);
-    // Get Category Filter Labels
-    this.typeFilters = getFilterLabels(this.type);
-    // Set default filter for task column
-    this.activateFilter(this.type);
-  },
   computed: {
     ...mapState({
       user: 'user.data',
@@ -409,7 +401,8 @@ export default {
       return this.isUser === true && this.type === 'reward' && this.activeFilter.label !== 'custom';
     },
     initialColumnDescription () {
-      // Show the column description in the middle only if there are no elements (tasks or in app items)
+      // Show the column description in the middle only
+      // if there are no elements (tasks or in app items)
       if (this.hasRewardsList) {
         if (this.inAppRewards && this.inAppRewards.length >= 0) return false;
       }
@@ -430,7 +423,8 @@ export default {
         if (this.activeFilter.label === 'due') {
           return this.taskList.length;
         } if (this.activeFilter.label === 'all') {
-          return this.taskList.reduce((count, t) => (!t.completed && shouldDo(new Date(), t, this.getUserPreferences) ? count + 1 : count), 0);
+          return this.taskList
+            .reduce((count, t) => (!t.completed && shouldDo(new Date(), t, this.getUserPreferences) ? count + 1 : count), 0);
         }
       }
 
@@ -448,6 +442,14 @@ export default {
       if (newValue) this.quickAddRows = this.quickAddText.split('\n').length;
       if (!newValue) this.quickAddRows = 1;
     },
+  },
+  created () {
+    // Set Task Column Label
+    this.typeLabel = getTypeLabel(this.type);
+    // Get Category Filter Labels
+    this.typeFilters = getFilterLabels(this.type);
+    // Set default filter for task column
+    this.activateFilter(this.type);
   },
   mounted () {
     this.setColumnBackgroundVisibility();
@@ -538,7 +540,7 @@ export default {
     quickAdd (ev) {
       // Add a new line if Shift+Enter Pressed
       if (ev.shiftKey) {
-        this.quickAddRows++;
+        this.quickAddRows += 1;
         return true;
       }
 
@@ -557,6 +559,7 @@ export default {
       this.quickAddRows = 1;
       this.createTask(tasks);
       this.$refs.quickAdd.blur();
+      return true;
     },
     editTask (task) {
       this.$emit('editTask', task);
@@ -571,11 +574,14 @@ export default {
         }
       }
 
-      // the only time activateFilter is called with filter==='' is when the component is first created
-      // this can be used to check If the user has set 'due' as default filter for daily
-      // and set the filter as 'due' only when the component first loads and not on subsequent reloads.
+      // the only time activateFilter is called with filter===''
+      // is when the component is first created
+      // this can be used to check If the user has set 'due'
+      // as default filter for daily
+      // and set the filter as 'due' only when the component first
+      // loads and not on subsequent reloads.
       if (type === 'daily' && filter === '' && this.user.preferences.dailyDueDefaultView) {
-        filter = 'due';
+        filter = 'due'; // eslint-disable-line no-param-reassign
       }
 
       this.activeFilter = getActiveFilter(type, filter);

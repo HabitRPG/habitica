@@ -157,7 +157,8 @@ export default {
     purchasedPlanIdInfo () {
       if (!this.subscriptionBlocks[this.user.purchased.plan.planId]) {
         // @TODO: find which subs are in the common
-        // console.log(this.subscriptionBlocks[this.user.purchased.plan.planId]); // eslint-disable-line
+        // console.log(this.subscriptionBlocks
+        // [this.user.purchased.plan.planId]); // eslint-disable-line
         return {
           price: 0,
           months: 0,
@@ -196,7 +197,8 @@ export default {
       return this.user.purchased.plan.customerId === 'group-plan';
     },
     hasConsecutiveSubscription () {
-      return Boolean(this.user.purchased.plan.consecutive.count) || Boolean(this.user.purchased.plan.consecutive.offset);
+      return Boolean(this.user.purchased.plan.consecutive.count)
+        || Boolean(this.user.purchased.plan.consecutive.offset);
     },
     purchasedPlanExtraMonthsDetails () {
       return {

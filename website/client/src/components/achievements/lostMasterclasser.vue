@@ -29,13 +29,13 @@ export default {
     achievementFooter,
     achievementAvatar,
   },
-  computed: {
-    ...mapState({ user: 'user.data' }),
-  },
   data () {
     return {
       title: `${this.$t('modalAchievement')} ${this.$t('achievementLostMasterclasser')}`,
     };
+  },
+  computed: {
+    ...mapState({ user: 'user.data' }),
   },
   methods: {
     close () {

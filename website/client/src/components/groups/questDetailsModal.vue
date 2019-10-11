@@ -200,7 +200,10 @@ export default {
       for (const uuid in this.group.quest.members) {
         if (this.group.quest.members[uuid]) count += 1;
       }
-      if (!confirm(this.$t('questConfirm', { questmembers: count, totalmembers: this.group.memberCount }))) return;
+      if (!window.confirm(this.$t('questConfirm', {
+        questmembers: count,
+        totalmembers: this.group.memberCount,
+      }))) return;
       this.questForceStart();
     },
     async questForceStart () {
@@ -209,7 +212,7 @@ export default {
       this.close();
     },
     async questCancel () {
-      if (!confirm(this.$t('sureCancel'))) return;
+      if (!window.confirm(this.$t('sureCancel'))) return;
       const quest = await this.$store.dispatch('quests:sendAction', { groupId: this.group._id, action: 'quests/cancel' });
       this.group.quest = quest;
       this.close();

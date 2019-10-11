@@ -189,11 +189,6 @@ export default {
     SelectMembersModal,
   },
   mixins: [notifications, buyMixin, currencyMixin, inventoryUtils, pinUtils],
-  watch: {
-    searchText: _throttle(function throttleSearch () {
-      this.searchTextThrottled = this.searchText.toLowerCase();
-    }, 250),
-  },
   data () {
     return {
       viewOptions: {
@@ -220,10 +215,6 @@ export default {
 
       broken: false,
     };
-  },
-  async mounted () {
-    const worldState = await this.$store.dispatch('worldState:getWorldState');
-    this.broken = worldState && worldState.worldBoss && worldState.worldBoss.extra && worldState.worldBoss.extra.worldDmg && worldState.worldBoss.extra.worldDmg.market;
   },
   computed: {
     ...mapState({
@@ -282,7 +273,7 @@ export default {
         });
       }
 
-      categories.map(category => {
+      categories.forEach(category => {
         if (!this.viewOptions[category.identifier]) {
           this.$set(this.viewOptions, category.identifier, {
             selected: false,
@@ -296,6 +287,17 @@ export default {
     anyFilterSelected () {
       return Object.values(this.viewOptions).some(g => g.selected);
     },
+  },
+  watch: {
+    searchText: _throttle(function throttleSearch () {
+      this.searchTextThrottled = this.searchText.toLowerCase();
+    }, 250),
+  },
+  async mounted () {
+    const worldState = await this.$store.dispatch('worldState:getWorldState');
+    this.broken = worldState && worldState.worldBoss
+      && worldState.worldBoss.extra && worldState.worldBoss.extra.worldDmg
+      && worldState.worldBoss.extra.worldDmg.market;
   },
   methods: {
     sellItem (itemScope) {
@@ -322,9 +324,12 @@ export default {
     },
     inventoryDrawerErrorMessage (type) {
       if (!this.hasOwnedItemsForType(type)) {
-        // @TODO: Change any places using similar locales from `pets.json` and use these new locales from 'inventory.json'
+        // @TODO: Change any places using similar locales
+        // from `pets.json` and use these new locales from 'inventory.json'
         return this.$t('noItemsAvailableForType', { type: this.$t(`${type}ItemType`) });
       }
+
+      return null;
     },
     itemSelected (item) {
       this.$root.$emit('buyModal::showItem', item);

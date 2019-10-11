@@ -37,7 +37,10 @@ export default {
     },
     numberOfVariations () {
       let numberOfVariations = 0;
-      if (this.cardOptions && this.cardOptions.messageOptions) numberOfVariations = this.cardOptions.messageOptions;
+      if (
+        this.cardOptions
+        && this.cardOptions.messageOptions
+      ) numberOfVariations = this.cardOptions.messageOptions;
       return numberOfVariations;
     },
     cardMessage () {
@@ -48,7 +51,7 @@ export default {
     fromName () {
       let fromName = '';
       const card = this.user.items.special[`${this.cardType}Received`];
-      if (card && card[0]) fromName = card[0];
+      if (card && card[0]) [fromName] = card;
       return fromName;
     },
   },

@@ -86,17 +86,17 @@ export default {
       showApiToken: false,
     };
   },
-  mounted () {
-    window.addEventListener('message', this.receiveMessage, false);
-  },
-  destroy () {
-    window.removeEventListener('message', this.receiveMessage);
-  },
   computed: {
     ...mapState({ user: 'user.data', credentials: 'credentials' }),
     apiToken () {
       return this.credentials.API_TOKEN;
     },
+  },
+  mounted () {
+    window.addEventListener('message', this.receiveMessage, false);
+  },
+  destroy () {
+    window.removeEventListener('message', this.receiveMessage);
   },
   methods: {
     receiveMessage (eventFrom) {

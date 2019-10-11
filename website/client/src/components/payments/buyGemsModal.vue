@@ -329,22 +329,10 @@ export default {
     planGemLimits,
     amazonButton,
   },
-  mixins: [paymentsMixin],
-  computed: {
-    ...mapState({ user: 'user.data' }),
-    startingPageOption () {
-      return this.$store.state.gemModalOptions.startingPage;
-    },
-    hasSubscription () {
-      return Boolean(this.user.purchased.plan.customerId);
-    },
-    userReachedGemCap () {
-      return this.user.purchased.plan.customerId && this.user.purchased.plan.gemsBought >= this.user.purchased.plan.consecutive.gemCapExtra + this.planGemLimits.convCap;
-    },
-  },
   directives: {
     markdown,
   },
+  mixins: [paymentsMixin],
   data () {
     return {
       icons: Object.freeze({
@@ -362,6 +350,19 @@ export default {
       selectedPage: 'subscribe',
       planGemLimits,
     };
+  },
+  computed: {
+    ...mapState({ user: 'user.data' }),
+    startingPageOption () {
+      return this.$store.state.gemModalOptions.startingPage;
+    },
+    hasSubscription () {
+      return Boolean(this.user.purchased.plan.customerId);
+    },
+    userReachedGemCap () {
+      return this.user.purchased.plan.customerId
+        && this.user.purchased.plan.gemsBought >= this.user.purchased.plan.consecutive.gemCapExtra + this.planGemLimits.convCap;
+    },
   },
   watch: {
     startingPageOption () {

@@ -299,7 +299,7 @@ export default {
     ...mapState(['isUserLoaded']),
     getDataDisplayToolUrl () {
       const base = 'https://oldgods.net/habitrpg/habitrpg_user_data_display.html';
-      if (!this.user) return;
+      if (!this.user) return null;
 
       return `${base}?uuid=${this.user._id}`;
     },
@@ -357,7 +357,7 @@ export default {
       // @TODO: Name these variables better
       let exp = 0;
       const five = 10 * this.user.stats.lvl;
-      const four = Math.pow(this.user.stats.lvl, 2) * 0.25;
+      const four = (this.user.stats.lvl ** 2) * 0.25;
       const three = four + five + 139.75;
       const two = three / 10;
       const one = Math.round(two) * 10;
@@ -381,7 +381,8 @@ export default {
     async makeAdmin  () {
       await axios.post('/api/v4/debug/make-admin');
 
-      // @TODO: Notification.text('You are now an admin! Go to the Hall of Heroes to change your contributor level.');
+      // @TODO: Notification.text('You are now an admin!
+      // Go to the Hall of Heroes to change your contributor level.');
       // @TODO: sync()
     },
     openModifyInventoryModal  () {

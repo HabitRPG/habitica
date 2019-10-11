@@ -271,13 +271,13 @@ export default {
       this.$root.$emit('bv::show::modal', 'participant-list');
     },
     async questAbort () {
-      if (!confirm(this.$t('sureAbort'))) return;
-      if (!confirm(this.$t('doubleSureAbort'))) return;
+      if (!window.confirm(this.$t('sureAbort'))) return;
+      if (!window.confirm(this.$t('doubleSureAbort'))) return;
       const quest = await this.$store.dispatch('quests:sendAction', { groupId: this.group._id, action: 'quests/abort' });
       this.group.quest = quest;
     },
     async questLeave () {
-      if (!confirm(this.$t('sureLeave'))) return;
+      if (!window.confirm(this.$t('sureLeave'))) return;
       const quest = await this.$store.dispatch('quests:sendAction', { groupId: this.group._id, action: 'quests/leave' });
       this.group.quest = quest;
     },

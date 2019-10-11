@@ -331,11 +331,6 @@ export default {
     Avatar,
   },
   mixins: [buyMixin, currencyMixin, pinUtils],
-  watch: {
-    searchText: _throttle(function throttleSearch () {
-      this.searchTextThrottled = this.searchText.toLowerCase();
-    }, 250),
-  },
   data () {
     return {
       viewOptions: {},
@@ -372,10 +367,6 @@ export default {
       broken: false,
     };
   },
-  async mounted () {
-    const worldState = await this.$store.dispatch('worldState:getWorldState');
-    this.broken = worldState && worldState.worldBoss && worldState.worldBoss.extra && worldState.worldBoss.extra.worldDmg && worldState.worldBoss.extra.worldDmg.seasonalShop;
-  },
   computed: {
     ...mapState({
       content: 'content',
@@ -389,18 +380,19 @@ export default {
 
     seasonal () {
       // vue subscriptions, don't remove
-        let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
-        const myUserVersion = this.user._v; // eslint-disable-line
+      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+      const myUserVersion = this.user._v; // eslint-disable-line
 
       const seasonal = shops.getSeasonalShop(this.user);
 
-      const itemsNotOwned = seasonal.featured.items.filter(item => !this.user.items.gear.owned[item.key]);
+      const itemsNotOwned = seasonal.featured.items
+        .filter(item => !this.user.items.gear.owned[item.key]);
       seasonal.featured.items = itemsNotOwned;
 
       // If we are out of gear, show the spells
       // @TODO: add dates to check instead?
       if (seasonal.featured.items.length === 0) {
-        this.featuredGearBought = true; // eslint-disable-line vue/no-side-effects-in-computed-properties
+        this.featuredGearBought = true; // eslint-disable-line vue/no-side-effects-in-computed-properties, max-len
         if (seasonal.categories.length > 0) {
           seasonal.featured.items = seasonal.featured.items.concat(seasonal.categories[0].items);
         }
@@ -444,6 +436,16 @@ export default {
       return Object.values(this.viewOptions).some(g => g.selected);
     },
   },
+  watch: {
+    searchText: _throttle(function throttleSearch () {
+      this.searchTextThrottled = this.searchText.toLowerCase();
+    }, 250),
+  },
+  async mounted () {
+    const worldState = await this.$store.dispatch('worldState:getWorldState');
+    this.broken = worldState && worldState.worldBoss && worldState.worldBoss.extra
+      && worldState.worldBoss.extra.worldDmg && worldState.worldBoss.extra.worldDmg.seasonalShop;
+  },
   created () {
     this.$root.$on('buyModal::boughtItem', () => {
       this.backgroundUpdate = new Date();
@@ -477,7 +479,7 @@ export default {
         return !searchBy || i.text.toLowerCase().indexOf(searchBy) !== -1;
       });
 
-      switch (sortBy) {
+      switch (sortBy) { // eslint-disable-line default-case
         case 'AZ': {
           result = _sortBy(result, ['text']);
 

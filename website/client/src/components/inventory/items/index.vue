@@ -264,11 +264,6 @@ export default {
       },
     };
   },
-  watch: {
-    searchText: throttle(function throttleSearch () {
-      this.searchTextThrottled = this.searchText.toLowerCase();
-    }, 250),
-  },
   computed: {
     ...mapState({
       content: 'content',
@@ -281,7 +276,8 @@ export default {
       this.groups.forEach(group => {
         const groupKey = group.key;
         group.quantity = 0; // resetf the count
-        const itemsArray = itemsByType[groupKey] = [];
+        itemsByType[groupKey] = [];
+        const itemsArray = itemsByType[groupKey];
         const contentItems = this.content[groupKey];
 
         each(this.user.items[groupKey], (itemQuantity, itemKey) => {
@@ -341,6 +337,11 @@ export default {
     anyFilterSelected () {
       return this.groups.some(g => g.selected);
     },
+  },
+  watch: {
+    searchText: throttle(function throttleSearch () {
+      this.searchTextThrottled = this.searchText.toLowerCase();
+    }, 250),
   },
   methods: {
     userHasPet (potionKey, eggKey) {

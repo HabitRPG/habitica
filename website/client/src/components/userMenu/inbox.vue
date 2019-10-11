@@ -299,37 +299,6 @@ export default {
       updateConversionsCounter: 0,
     };
   },
-  mounted () {
-    this.$root.$on('habitica::new-inbox-message', data => {
-      this.$root.$emit('bv::show::modal', 'inbox-modal');
-
-      // Wait for messages to be loaded
-      const unwatchLoaded = this.$watch('loaded', loaded => {
-        if (!loaded) return;
-
-        const conversation = this.conversations.find(convo => convo.key === data.userIdToMessage);
-        if (loaded) setImmediate(() => unwatchLoaded());
-
-        if (conversation) {
-          this.selectConversation(data.userIdToMessage);
-          return;
-        }
-
-        this.initiatedConversation = {
-          uuid: data.userIdToMessage,
-          user: data.displayName,
-          username: data.username,
-          backer: data.backer,
-          contributor: data.contributor,
-        };
-
-        this.selectConversation(data.userIdToMessage);
-      }, { immediate: true });
-    });
-  },
-  destroyed () {
-    this.$root.$off('habitica::new-inbox-message');
-  },
   computed: {
     ...mapState({ user: 'user.data' }),
     canLoadMore () {
@@ -427,6 +396,37 @@ export default {
       };
     },
   },
+  mounted () {
+    this.$root.$on('habitica::new-inbox-message', data => {
+      this.$root.$emit('bv::show::modal', 'inbox-modal');
+
+      // Wait for messages to be loaded
+      const unwatchLoaded = this.$watch('loaded', loaded => {
+        if (!loaded) return;
+
+        const conversation = this.conversations.find(convo => convo.key === data.userIdToMessage);
+        if (loaded) setImmediate(() => unwatchLoaded());
+
+        if (conversation) {
+          this.selectConversation(data.userIdToMessage);
+          return;
+        }
+
+        this.initiatedConversation = {
+          uuid: data.userIdToMessage,
+          user: data.displayName,
+          username: data.username,
+          backer: data.backer,
+          contributor: data.contributor,
+        };
+
+        this.selectConversation(data.userIdToMessage);
+      }, { immediate: true });
+    });
+  },
+  destroyed () {
+    this.$root.$off('habitica::new-inbox-message');
+  },
   methods: {
     async onModalShown () {
       this.loaded = false;
@@ -507,7 +507,10 @@ export default {
       });
 
       // Remove the placeholder message
-      if (this.initiatedConversation && this.initiatedConversation.uuid === this.selectedConversation.key) {
+      if (
+        this.initiatedConversation &&
+        this.initiatedConversation.uuid === this.selectedConversation.key
+      ) {
         this.loadedConversations.unshift(this.initiatedConversation);
         this.initiatedConversation = null;
       }
@@ -529,7 +532,7 @@ export default {
         const messageToReset = messages[messages.length - 1];
         messageToReset.id = newMessage.id; // just set the id, all other infos already set
         Object.assign(messages[messages.length - 1], messageToReset);
-        this.updateConversionsCounter++;
+        this.updateConversionsCounter += 1;
       });
 
       this.newMessage = '';
@@ -542,7 +545,7 @@ export default {
       if (isNPC) {
         return this.icons.tierNPC;
       }
-      if (!message.contributor) return;
+      if (!message.contributor) return null;
       return this.icons[`tier${message.contributor.level}`];
     },
     removeTags (html) {
@@ -551,7 +554,7 @@ export default {
       return tmp.textContent || tmp.innerText || '';
     },
     parseMarkdown (text) {
-      if (!text) return;
+      if (!text) return null;
       return habiticaMarkdown.render(String(text));
     },
     infiniteScrollTrigger () {

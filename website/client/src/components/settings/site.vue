@@ -261,33 +261,6 @@ export default {
       usernameIssues: [],
     };
   },
-  mounted () {
-    this.SOCIAL_AUTH_NETWORKS = SUPPORTED_SOCIAL_NETWORKS;
-    // @TODO: We may need to request the party here
-    this.party = this.$store.state.party;
-    this.newDayStart = this.user.preferences.dayStart;
-    this.usernameUpdates.username = this.user.auth.local.username || null;
-    this.temporaryDisplayName = this.user.profile.name;
-    this.emailUpdates.newEmail = this.user.auth.local.email || null;
-    this.localAuth.username = this.user.auth.local.username || null;
-    this.soundIndex = 0;
-    hello.init({
-      facebook: process.env.FACEBOOK_KEY, // eslint-disable-line no-process-env
-      google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line no-process-env
-    }, {
-      redirect_uri: '', // eslint-disable-line
-    });
-
-    const focusID = this.$route.query.focus;
-    if (focusID !== undefined && focusID !== null) {
-      this.$nextTick(() => {
-        const element = document.getElementById(focusID);
-        if (element !== undefined && element !== null) {
-          element.focus();
-        }
-      });
-    }
-  },
   computed: {
     ...mapState({
       user: 'user.data',
@@ -358,6 +331,33 @@ export default {
       deep: true,
     },
   },
+  mounted () {
+    this.SOCIAL_AUTH_NETWORKS = SUPPORTED_SOCIAL_NETWORKS;
+    // @TODO: We may need to request the party here
+    this.party = this.$store.state.party;
+    this.newDayStart = this.user.preferences.dayStart;
+    this.usernameUpdates.username = this.user.auth.local.username || null;
+    this.temporaryDisplayName = this.user.profile.name;
+    this.emailUpdates.newEmail = this.user.auth.local.email || null;
+    this.localAuth.username = this.user.auth.local.username || null;
+    this.soundIndex = 0;
+    hello.init({
+      facebook: process.env.FACEBOOK_KEY, // eslint-disable-line no-process-env
+      google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line no-process-env
+    }, {
+      redirect_uri: '', // eslint-disable-line
+    });
+
+    const focusID = this.$route.query.focus;
+    if (focusID !== undefined && focusID !== null) {
+      this.$nextTick(() => {
+        const element = document.getElementById(focusID);
+        if (element !== undefined && element !== null) {
+          element.focus();
+        }
+      });
+    }
+  },
   methods: {
     validateDisplayName: debounce(function checkName (displayName) {
       if (displayName.length <= 1 || displayName === this.user.profile.name) {
@@ -422,10 +422,12 @@ export default {
 
       return find(this.SOCIAL_AUTH_NETWORKS, network => {
         if (network.key !== networkKeyToCheck) {
-          if (this.user.auth.hasOwnProperty(network.key)) {
+          if (this.user.auth[network.key]) {
             return this.user.auth[network.key].id;
           }
         }
+
+        return false;
       });
     },
     calculateNextCron () {
@@ -442,7 +444,7 @@ export default {
     openDayStartModal () {
       const nextCron = this.calculateNextCron();
       // @TODO: Add generic modal
-      if (!confirm(this.$t('sureChangeCustomDayStartTime', { time: nextCron }))) return;
+      if (!window.confirm(this.$t('sureChangeCustomDayStartTime', { time: nextCron }))) return;
       this.saveDayStart();
       // $rootScope.openModal('change-day-start', { scope: $scope });
     },
@@ -472,7 +474,7 @@ export default {
     },
     async changeDisplayName (newName) {
       await axios.put('/api/v4/user/', { 'profile.name': newName });
-      alert(this.$t('displayNameSuccess'));
+      window.alert(this.$t('displayNameSuccess'));
       this.user.profile.name = newName;
       this.temporaryDisplayName = newName;
     },
@@ -499,17 +501,17 @@ export default {
       window.location.href = '/';
     },
     async changeClassForUser (confirmationNeeded) {
-      if (confirmationNeeded && !confirm(this.$t('changeClassConfirmCost'))) return;
+      if (confirmationNeeded && !window.confirm(this.$t('changeClassConfirmCost'))) return;
       try {
         changeClass(this.user);
         await axios.post('/api/v4/user/change-class');
       } catch (e) {
-        alert(e.message);
+        window.alert(e.message);
       }
     },
     async addLocalAuth () {
       await axios.post('/api/v4/user/auth/local/register', this.localAuth);
-      alert(this.$t('addedLocalAuth'));
+      window.alert(this.$t('addedLocalAuth'));
     },
     restoreEmptyUsername () {
       if (this.usernameUpdates.username.length < 1) {

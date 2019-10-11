@@ -53,7 +53,8 @@ export default {
   computed: {
     ...mapState({ user: 'user.data' }),
     userIsAssigned () {
-      return this.task.group.assignedUsers && this.task.group.assignedUsers.indexOf(this.user._id) !== -1;
+      return this.task.group.assignedUsers
+        && this.task.group.assignedUsers.indexOf(this.user._id) !== -1;
     },
     message () {
       const { assignedUsers } = this.task.group;
@@ -81,11 +82,19 @@ export default {
       return this.$t('taskIsUnassigned');
     },
     userIsManager () {
-      if (this.group && (this.group.leader.id === this.user._id || this.group.managers[this.user._id])) return true;
+      if (
+        this.group
+        && (this.group.leader.id === this.user._id || this.group.managers[this.user._id])
+      ) return true;
       return false;
     },
     approvalRequested () {
-      if (this.task.approvals && this.task.approvals.length === 1 || this.task.group && this.task.group.approval && this.task.group.approval.requested) return true;
+      if (
+        (this.task.approvals && this.task.approvals.length === 1)
+        || (this.task.group && this.task.group.approval && this.task.group.approval.requested)
+      ) {
+        return true;
+      }
       return false;
     },
     multipleApprovalsRequested () {
@@ -109,7 +118,7 @@ export default {
       this.sync();
     },
     async unassign () {
-      if (!confirm(this.$t('confirmUnClaim'))) return;
+      if (!window.confirm(this.$t('confirmUnClaim'))) return;
 
       let taskId = this.task._id;
       // If we are on the user task
@@ -136,7 +145,7 @@ export default {
       this.task.approvals.splice(0, 1);
     },
     needsWork () {
-      if (!confirm(this.$t('confirmNeedsWork'))) return;
+      if (!window.confirm(this.$t('confirmNeedsWork'))) return;
       const userIdNeedsMoreWork = this.task.group.assignedUsers[0];
       this.$store.dispatch('tasks:needsWork', {
         taskId: this.task._id,

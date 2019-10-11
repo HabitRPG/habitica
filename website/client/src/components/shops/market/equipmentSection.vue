@@ -65,7 +65,10 @@ import svgHealer from '@/assets/svg/healer.svg';
 
 import pinUtils from '../../../mixins/pinUtils';
 
-const sortGearTypes = ['sortByType', 'sortByPrice', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'].map(g => ({ id: g }));
+const sortGearTypes = [
+  'sortByType', 'sortByPrice', 'sortByCon', 
+  'sortByPer', 'sortByStr', 'sortByInt',
+].map(g => ({ id: g }));
 
 const sortGearTypeMap = {
   sortByType: 'type',

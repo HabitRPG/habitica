@@ -31,8 +31,8 @@ const skinsBySet = groupBy(appearance.skin, 'set.key');
 
 const freeSkinKeys = skinsBySet[undefined].map(s => s.key);
 
-// const specialSkinKeys = Object.keys(appearance.shirt).filter(k => appearance.shirt[k].price !== 0);
-
+// const specialSkinKeys = Object.keys(appearance.shirt)
+// .filter(k => appearance.shirt[k].price !== 0);
 
 export default {
   components: {
@@ -66,11 +66,12 @@ export default {
       return freeSkinKeys.map(s => this.mapKeysToFreeOption(s, 'skin'));
     },
     seasonalSkins () {
-      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
-        let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+      // @TODO: For some resonse when I use $set on the user purchases object,
+      // this is not recomputed. Hack for now
+      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
 
       const seasonalSkins = [];
-      for (const setKey in skinsBySet) {
+      for (const setKey of Object.keys(skinsBySet)) {
         const set = skinsBySet[setKey];
 
         const keys = set.map(item => item.key);
@@ -101,12 +102,5 @@ export default {
   mounted () {
     this.changeSubPage('color');
   },
-  methods: {
-
-  },
 };
 </script>
-
-<style scoped>
-
-</style>

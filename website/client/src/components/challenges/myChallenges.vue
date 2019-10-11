@@ -137,9 +137,6 @@ export default {
       page: 0,
     };
   },
-  mounted () {
-    this.loadChallenges();
-  },
   computed: {
     ...mapState({ user: 'user.data' }),
     filteredChallenges () {
@@ -161,6 +158,9 @@ export default {
         return isMember;
       });
     },
+  },
+  mounted () {
+    this.loadChallenges();
   },
   methods: {
     updateSearch (eventData) {
@@ -188,7 +188,7 @@ export default {
       let owned = '';
       // @TODO: we skip ownership === 2 because it is the same as === 0 right now
       if (this.filters.ownership && this.filters.ownership.length === 1) {
-        owned = this.filters.ownership[0];
+        [owned] = this.filters.ownership;
       }
 
       const challenges = await this.$store.dispatch('challenges:getUserChallenges', {

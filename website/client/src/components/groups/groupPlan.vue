@@ -330,9 +330,6 @@ export default {
       type: 'guild', // Guild or Party @TODO enum this
     };
   },
-  mounted () {
-    this.activePage = this.PAGES.BENEFITS;
-  },
   computed: {
     newGroupIsReady () {
       return Boolean(this.newGroup.name);
@@ -342,6 +339,9 @@ export default {
     },
     // @TODO: can we move this to payment mixin?
     ...mapState({ user: 'user.data' }),
+  },
+  mounted () {
+    this.activePage = this.PAGES.BENEFITS;
   },
   methods: {
     launchModal () {
@@ -370,12 +370,17 @@ export default {
       }
 
       this.paymentMethod = paymentMethod;
-      if (this.paymentMethod === this.PAYMENTS.STRIPE) {
-        this.showStripe(paymentData);
-      } else if (this.paymentMethod === this.PAYMENTS.AMAZON) {
+
+      if (this.paymentMethod === this.PAYMENTS.AMAZON) {
         paymentData.type = 'subscription';
         return paymentData;
       }
+
+      if (this.paymentMethod === this.PAYMENTS.STRIPE) {
+        this.showStripe(paymentData);
+      }
+
+      return null;
     },
   },
 };

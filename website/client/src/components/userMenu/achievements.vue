@@ -62,11 +62,11 @@ export default {
       content: Content,
     };
   },
-  mounted () {
-    this.achievements = achievementsLib.getAchievementsForProfile(this.user);
-  },
   computed: {
     ...mapState({ user: 'user.data' }),
+  },
+  mounted () {
+    this.achievements = achievementsLib.getAchievementsForProfile(this.user);
   },
 };
 </script>

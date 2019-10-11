@@ -787,23 +787,6 @@ export default {
       })),
     };
   },
-  watch: {
-    editing () {
-      if (this.editing) this.modalPage = 2;
-    },
-    startingPage () {
-      if (!this.$store.state.avatarEditorOptions.startingPage) return;
-      this.activeTopPage = this.$store.state.avatarEditorOptions.startingPage;
-      this.activeSubPage = this.$store.state.avatarEditorOptions.subpage;
-      this.$store.state.avatarEditorOptions.startingPage = '';
-      this.$store.state.avatarEditorOptions.subpage = '';
-    },
-  },
-  mounted () {
-    if (this.editing) this.modalPage = 2;
-    // Buy modal is global, so we listen at root. I'd like to not
-    this.$root.$on('buyModal::boughtItem', this.backgroundPurchased);
-  },
   computed: {
     ...mapState({ user: 'user.data' }),
 
@@ -857,6 +840,23 @@ export default {
       });
       return ownedBackgrounds;
     },
+  },
+  watch: {
+    editing () {
+      if (this.editing) this.modalPage = 2;
+    },
+    startingPage () {
+      if (!this.$store.state.avatarEditorOptions.startingPage) return;
+      this.activeTopPage = this.$store.state.avatarEditorOptions.startingPage;
+      this.activeSubPage = this.$store.state.avatarEditorOptions.subpage;
+      this.$store.state.avatarEditorOptions.startingPage = '';
+      this.$store.state.avatarEditorOptions.subpage = '';
+    },
+  },
+  mounted () {
+    if (this.editing) this.modalPage = 2;
+    // Buy modal is global, so we listen at root. I'd like to not
+    this.$root.$on('buyModal::boughtItem', this.backgroundPurchased);
   },
   methods: {
     purchase (type, key) {
@@ -923,7 +923,7 @@ export default {
     ownsSet (type, set) {
       let setOwnedByUser = false;
 
-      for (let key in set) {
+      for (let key of Object.keys(set)) {
         const value = set[key];
         if (type === 'background') key = value.key;
         if (this.user.purchased[type][key]) setOwnedByUser = true;
@@ -933,7 +933,7 @@ export default {
     },
     setKeys (type, _set) {
       return map(_set, (v, k) => {
-        if (type === 'background') k = v.key;
+        if (type === 'background') k = v.key; // eslint-disable-line no-param-reassign
         return `${type}.${k}`;
       }).join(',');
     },

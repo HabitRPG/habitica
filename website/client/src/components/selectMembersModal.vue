@@ -187,7 +187,7 @@ export default {
         this.members = this.$store.state.memberModalOptions.viewingMembers;
       }
 
-      if (!this.members || this.members.length === 0 && !this.groupId) {
+      if (!this.members || (this.members.length === 0 && !this.groupId)) {
         this.members = [this.user];
       }
     },

@@ -62,13 +62,14 @@ export default {
     this.amazonPaymentsInit(this.amazonData);
     if (this.isAmazonReady) return this.setupAmazon();
 
-    this.$store.watch(state => state.isAmazonReady, isAmazonReady => {
+    return this.$store.watch(state => state.isAmazonReady, isAmazonReady => {
       if (isAmazonReady) return this.setupAmazon();
+      return null;
     });
   },
   methods: {
     setupAmazon () {
-      if (this.isAmazonSetup) return false;
+      if (this.isAmazonSetup) return;
       this.isAmazonSetup = true;
       this.showButton();
     },
@@ -91,16 +92,17 @@ export default {
             this.$root.$emit('habitica::pay-with-amazon', this.amazonPayments);
           },
           authorization: () => {
-            if (this.amazonDisabled === true) return null;
+            if (this.amazonDisabled === true) return;
+
             window.amazon.Login.authorize({
               scope: 'payments:widget',
               popup: true,
             }, response => {
-              if (response.error) return alert(response.error);
+              if (response.error) return window.alert(response.error);
 
               const url = '/amazon/verifyAccessToken';
-              axios.post(url, response).catch(e => {
-                alert(e.message);
+              return axios.post(url, response).catch(e => {
+                window.alert(e.message);
               });
             });
           },

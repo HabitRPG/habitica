@@ -47,7 +47,7 @@ function filterLabel (filterList) {
   return type => {
     const filterListByType = filterList[type].filters;
     const filterListOfLabels = new Array(filterListByType.length);
-    filterListByType.forEach(({ label }, i) => filterListOfLabels[i] = label);
+    filterListByType.forEach(({ label }, i) => { filterListOfLabels[i] = label; });
 
     return filterListOfLabels;
   };

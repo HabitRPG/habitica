@@ -90,7 +90,7 @@ export default {
     handleClick (e) {
       if (!e) return;
       const heading = e.target.nextElementSibling.id;
-      history.pushState({}, heading, `#${heading}`);
+      window.history.pushState({}, heading, `#${heading}`);
     },
   },
 };

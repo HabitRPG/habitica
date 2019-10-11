@@ -103,17 +103,8 @@ import positiveIcon from '@/assets/svg/positive.svg';
 const INVITE_DEFAULTS = { text: '', error: null, valid: null };
 
 export default {
-  computed: {
-    ...mapState({ user: 'user.data' }),
-    cannotSubmit () {
-      const filteredInvites = filter(this.invites, invite => invite.text.length > 0 && !invite.valid);
-      if (filteredInvites.length > 0) return true;
-      return false;
-    },
-    inviter () {
-      return this.user.profile.name;
-    },
-  },
+  mixins: [notifications],
+  props: ['group', 'groupType'],
   data () {
     return {
       invites: [clone(INVITE_DEFAULTS), clone(INVITE_DEFAULTS)],
@@ -122,36 +113,61 @@ export default {
       }),
     };
   },
+  computed: {
+    ...mapState({ user: 'user.data' }),
+    cannotSubmit () {
+      const filteredInvites = filter(
+        this.invites,
+        invite => invite.text.length > 0 && !invite.valid,
+      );
+      if (filteredInvites.length > 0) return true;
+      return false;
+    },
+    inviter () {
+      return this.user.profile.name;
+    },
+  },
   methods: {
     checkInviteList: debounce(function checkList () {
-      this.invites = filter(this.invites, (invite, index) => invite.text.length > 0 || index === this.invites.length - 1);
+      this.invites = filter(
+        this.invites,
+        (invite, index) => invite.text.length > 0 || index === this.invites.length - 1,
+      );
       while (this.invites.length < 2) this.invites.push(clone(INVITE_DEFAULTS));
       forEach(this.invites, (value, index) => {
         if (value.text.length < 1 || isEmail(value.text)) {
           return this.fillErrors(index);
         }
+
         if (isUUID(value.text)) {
-          this.$store.dispatch('user:userLookup', { uuid: value.text })
-            .then(res => this.fillErrors(index, res));
-        } else {
-          let searchUsername = value.text;
-          if (searchUsername[0] === '@') searchUsername = searchUsername.slice(1, searchUsername.length);
-          this.$store.dispatch('user:userLookup', { username: searchUsername })
+          return this.$store.dispatch('user:userLookup', { uuid: value.text })
             .then(res => this.fillErrors(index, res));
         }
+
+        let searchUsername = value.text;
+        if (searchUsername[0] === '@') searchUsername = searchUsername.slice(1, searchUsername.length);
+        return this.$store.dispatch('user:userLookup', { username: searchUsername })
+          .then(res => this.fillErrors(index, res));
       });
     }, 250),
     expandInviteList () {
-      if (this.invites[this.invites.length - 1].text.length > 0) this.invites.push(clone(INVITE_DEFAULTS));
+      if (this.invites[this.invites.length - 1].text.length > 0) {
+        this.invites.push(clone(INVITE_DEFAULTS));
+      }
     },
     fillErrors (index, res) {
       if (!res || res.status === 200) {
         this.invites[index].error = null;
-        if (this.invites[index].text.length < 1) return this.invites[index].valid = null;
-        return this.invites[index].valid = true;
+        if (this.invites[index].text.length < 1) {
+          this.invites[index].valid = null;
+          return;
+        }
+
+        this.invites[index].valid = true;
+        return;
       }
       this.invites[index].error = res.response.data.message;
-      return this.invites[index].valid = false;
+      this.invites[index].valid = false;
     },
     close () {
       this.invites = [clone(INVITE_DEFAULTS), clone(INVITE_DEFAULTS)];
@@ -179,14 +195,13 @@ export default {
         groupId: this.group._id,
       });
 
-      const invitesSent = invitationDetails.emails.length + invitationDetails.uuids.length + invitationDetails.usernames.length;
+      const invitesSent = invitationDetails.emails.length
+        + invitationDetails.uuids.length + invitationDetails.usernames.length;
       const invitationString = invitesSent > 1 ? 'invitationsSent' : 'invitationSent';
 
       this.text(this.$t(invitationString));
       this.close();
     },
   },
-  mixins: [notifications],
-  props: ['group', 'groupType'],
 };
 </script>

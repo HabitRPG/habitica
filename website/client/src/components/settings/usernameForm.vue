@@ -100,6 +100,20 @@ import debounce from 'lodash/debounce';
 import { mapState } from '@/libs/store';
 
 export default {
+  props: {
+    avatarIntro: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  data () {
+    return {
+      displayNameIssues: [],
+      temporaryDisplayName: '',
+      temporaryUsername: '',
+      usernameIssues: [],
+    };
+  },
   computed: {
     ...mapState({
       user: 'user.data',
@@ -125,13 +139,23 @@ export default {
       return this.usernameIssues.length === 0;
     },
   },
-  data () {
-    return {
-      displayNameIssues: [],
-      temporaryDisplayName: '',
-      temporaryUsername: '',
-      usernameIssues: [],
-    };
+  watch: {
+    temporaryDisplayName: {
+      handler () {
+        this.validateDisplayName(this.temporaryDisplayName);
+      },
+      deep: true,
+    },
+    temporaryUsername: {
+      handler () {
+        this.validateUsername(this.temporaryUsername);
+      },
+      deep: true,
+    },
+  },
+  mounted () {
+    this.temporaryDisplayName = this.user.profile.name;
+    this.temporaryUsername = this.user.auth.local.username;
   },
   methods: {
     async close () {
@@ -192,30 +216,6 @@ export default {
         }
       });
     }, 500),
-  },
-  watch: {
-    temporaryDisplayName: {
-      handler () {
-        this.validateDisplayName(this.temporaryDisplayName);
-      },
-      deep: true,
-    },
-    temporaryUsername: {
-      handler () {
-        this.validateUsername(this.temporaryUsername);
-      },
-      deep: true,
-    },
-  },
-  mounted () {
-    this.temporaryDisplayName = this.user.profile.name;
-    this.temporaryUsername = this.user.auth.local.username;
-  },
-  props: {
-    avatarIntro: {
-      type: Boolean,
-      default: false,
-    },
   },
 };
 </script>

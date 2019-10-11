@@ -150,6 +150,8 @@ export default {
         paymentData.type = 'subscription';
         return paymentData;
       }
+
+      return null;
     },
   },
 };

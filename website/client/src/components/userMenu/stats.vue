@@ -246,21 +246,23 @@ export default {
   methods: {
     formatAnimal (animalName, type) {
       if (type === 'pet') {
-        if (Content.petInfo.hasOwnProperty(animalName)) {
+        if (Content.petInfo[animalName]) {
           return Content.petInfo[animalName].text();
         }
         return this.$t('noActivePet');
       } if (type === 'mount') {
-        if (Content.mountInfo.hasOwnProperty(animalName)) {
+        if (Content.mountInfo[animalName]) {
           return Content.mountInfo[animalName].text();
         }
         return this.$t('noActiveMount');
       }
+
+      return null;
     },
     formatBackground (background) {
       const bg = Content.appearances.background;
 
-      if (bg.hasOwnProperty(background)) {
+      if (bg[background]) {
         return `${bg[background].text()} (${this.$t(bg[background].set.text)})`;
       }
       return window.env.t('noBackground');

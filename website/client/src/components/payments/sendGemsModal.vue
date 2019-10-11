@@ -153,7 +153,11 @@ export default {
       return this.$t('sendGiftHeading', { name: this.userReceivingGems.profile.name });
     },
     receiverName () {
-      if (this.userReceivingGems.auth && this.userReceivingGems.auth.local && this.userReceivingGems.auth.local.username) {
+      if (
+        this.userReceivingGems.auth
+        && this.userReceivingGems.auth.local
+        && this.userReceivingGems.auth.local.username
+      ) {
         return this.userReceivingGems.auth.local.username;
       }
       return this.userReceivingGems.profile.name;

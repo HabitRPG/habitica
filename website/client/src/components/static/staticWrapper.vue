@@ -170,7 +170,7 @@ export default {
       return this.$route.name !== 'news';
     },
     footerId () {
-      if (this.$route.name === 'plans') return;
+      if (this.$route.name === 'plans') return null;
       return 'purple-footer';
     },
   },

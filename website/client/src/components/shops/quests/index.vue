@@ -367,11 +367,6 @@ export default {
     QuestInfo,
   },
   mixins: [buyMixin, currencyMixin, pinUtils],
-  watch: {
-    searchText: _throttle(function throttleSearch () {
-      this.searchTextThrottled = this.searchText.toLowerCase();
-    }, 250),
-  },
   data () {
     return {
       viewOptions: {},
@@ -394,10 +389,6 @@ export default {
       broken: false,
     };
   },
-  async mounted () {
-    const worldState = await this.$store.dispatch('worldState:getWorldState');
-    this.broken = worldState && worldState.worldBoss && worldState.worldBoss.extra && worldState.worldBoss.extra.worldDmg && worldState.worldBoss.extra.worldDmg.quests;
-  },
   computed: {
     ...mapState({
       content: 'content',
@@ -410,7 +401,7 @@ export default {
     },
     categories () {
       if (this.shop.categories) {
-        this.shop.categories.map(category => {
+        this.shop.categories.forEach(category => {
           this.$set(this.viewOptions, category.identifier, {
             selected: false,
           });
@@ -424,6 +415,16 @@ export default {
     anyFilterSelected () {
       return Object.values(this.viewOptions).some(g => g.selected);
     },
+  },
+  watch: {
+    searchText: _throttle(function throttleSearch () {
+      this.searchTextThrottled = this.searchText.toLowerCase();
+    }, 250),
+  },
+  async mounted () {
+    const worldState = await this.$store.dispatch('worldState:getWorldState');
+    this.broken = worldState && worldState.worldBoss && worldState.worldBoss.extra
+      && worldState.worldBoss.extra.worldDmg && worldState.worldBoss.extra.worldDmg.quests;
   },
   methods: {
     questItems (category, sortBy, searchBy, hideLocked, hidePinned) {
@@ -443,7 +444,7 @@ export default {
         return !searchBy || i.text.toLowerCase().indexOf(searchBy) !== -1;
       });
 
-      switch (sortBy) {
+      switch (sortBy) { // eslint-disable-line default-case
         case 'AZ': {
           result = _sortBy(result, ['text']);
 

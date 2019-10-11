@@ -6,7 +6,7 @@ export default {
   },
   methods: {
     async logout () {
-      return await this.$store.dispatch('auth:logout');
+      return this.$store.dispatch('auth:logout');
     },
   },
 };

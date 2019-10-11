@@ -130,12 +130,6 @@ export default {
   components: {
     Avatar,
   },
-  computed: {
-    ...mapState({
-      user: 'user.data',
-      classes: 'content.classes',
-    }),
-  },
   directives: {
     markdown: markdownDirective,
   },
@@ -150,12 +144,18 @@ export default {
       selectedClass: 'warrior',
     };
   },
+  computed: {
+    ...mapState({
+      user: 'user.data',
+      classes: 'content.classes',
+    }),
+  },
   methods: {
     close () {
       this.$root.$emit('bv::hide::modal', 'choose-class');
     },
     clickSelectClass (heroClass) {
-      if (this.user.flags.classSelected && !confirm(this.$t('changeClassConfirmCost'))) return;
+      if (this.user.flags.classSelected && !window.confirm(this.$t('changeClassConfirmCost'))) return;
       this.$store.dispatch('user:changeClass', { query: { class: heroClass } });
     },
     clickDisableClasses () {
@@ -196,6 +196,8 @@ export default {
       if (selectedClass === heroClass) {
         return 'selection-box';
       }
+
+      return null;
     },
   },
 };

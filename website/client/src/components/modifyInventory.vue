@@ -261,9 +261,6 @@ import { mapState } from '@/libs/store';
 import Content from '@/../../common/script/content';
 
 export default {
-  computed: {
-    ...mapState({ user: 'user.data' }),
-  },
   data () {
     const showInv = {};
     const inv = {
@@ -283,14 +280,15 @@ export default {
       content: Content,
     };
   },
+  computed: {
+    ...mapState({ user: 'user.data' }),
+  },
   methods: {
     setAllItems (type, value) {
       const set = this.inv[type];
 
-      for (const item in set) {
-        if (set.hasOwnProperty(item)) {
-          set[item] = value;
-        }
+      for (const item of Object.keys(set)) {
+        set[item] = value;
       }
     },
     async modifyInventory  () {

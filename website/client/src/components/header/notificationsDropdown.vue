@@ -220,7 +220,8 @@ export default {
       }));
 
       // Sort notifications
-      notifications.sort((a, b) => { // a and b are notifications
+      // a and b are notifications
+      notifications.sort((a, b) => { // eslint-disable-line array-callback-return, consistent-return
         const aOrder = orderMap[a.type];
         const bOrder = orderMap[b.type];
 
@@ -261,6 +262,7 @@ export default {
         if (notification.seen === false && notification.id && notification.id.indexOf('custom-') !== 0) {
           return notification.id;
         }
+        return null;
       }).filter(id => Boolean(id));
 
       if (idsToSee.length > 0) this.seeNotifications({ notificationIds: idsToSee });
@@ -273,6 +275,7 @@ export default {
         if (!this.isActionable(notification) && notification.id.indexOf('custom-') !== 0) {
           return notification.id;
         }
+        return null;
       }).filter(id => Boolean(id));
       this.openStatus = 0;
 

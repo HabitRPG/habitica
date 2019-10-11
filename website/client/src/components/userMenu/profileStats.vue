@@ -303,11 +303,11 @@ export default {
     },
     allocate (stat) {
       if (this.pointsRemaining === 0) return;
-      this.statUpdates[stat]++;
+      this.statUpdates[stat] += 1;
     },
     deallocate (stat) {
       if (this.statUpdates[stat] === 0) return;
-      this.statUpdates[stat]--;
+      this.statUpdates[stat] -= 1;
     },
     async saveAttributes () {
       this.loading = true;

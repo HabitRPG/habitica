@@ -61,7 +61,7 @@ export function mapActions (actions) {
 
   normalizeMap(actions).forEach(({ key, val }) => {
     res[key] = function mappedAction (...args) {
-      return this.$store.dispatch.apply(this.$store, [val].concat(args)); // eslint-disable-line prefer-spread
+      return this.$store.dispatch.apply(this.$store, [val].concat(args)); // eslint-disable-line prefer-spread, max-len
     };
   });
 

@@ -132,7 +132,7 @@ export default {
       const result = [];
       const { difficulty } = this;
 
-      for (let i = 1; i <= 4; i++) {
+      for (let i = 1; i <= 4; i += 1) {
         const diff = difficulty - i;
 
         if (diff >= 0) {

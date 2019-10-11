@@ -9,7 +9,8 @@ export default class Store {
     // Store actions
     this._actions = actions;
 
-    // Store getters (computed properties), implemented as computed properties in the internal Vue VM
+    // Store getters (computed properties),
+    // implemented as computed properties in the internal Vue VM
     this.getters = {};
 
     // Setup getters

@@ -223,6 +223,17 @@ export default {
     questDialogContent,
   },
   mixins: [buyMixin, currencyMixin, notifications, numberInvalid],
+  props: {
+    item: {
+      type: Object,
+    },
+    priceType: {
+      type: String,
+    },
+    withPin: {
+      type: Boolean,
+    },
+  },
   data () {
     return {
       icons: Object.freeze({
@@ -237,11 +248,6 @@ export default {
       isPinned: false,
       selectedAmountToBuy: 1,
     };
-  },
-  watch: {
-    item: function itemChanged () {
-      this.isPinned = this.item && this.item.pinned;
-    },
   },
   computed: {
     ...mapState({
@@ -263,6 +269,11 @@ export default {
       if (this.priceType === 'gold') return this.icons.gold;
       if (this.priceType === 'hourglasses') return this.icons.hourglass;
       return this.icons.gem;
+    },
+  },
+  watch: {
+    item: function itemChanged () {
+      this.isPinned = this.item && this.item.pinned;
     },
   },
   methods: {
@@ -322,17 +333,6 @@ export default {
     },
     purchaseGems () {
       this.$root.$emit('bv::show::modal', 'buy-gems');
-    },
-  },
-  props: {
-    item: {
-      type: Object,
-    },
-    priceType: {
-      type: String,
-    },
-    withPin: {
-      type: Boolean,
     },
   },
 };

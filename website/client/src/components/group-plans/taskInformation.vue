@@ -126,22 +126,6 @@ export default {
       group: {},
     };
   },
-  watch: {
-    // call again the method if the route changes (when this route is already active)
-    $route: 'load',
-  },
-  beforeRouteUpdate (to, from, next) {
-    this.$set(this, 'searchId', to.params.groupId);
-    next();
-  },
-  mounted () {
-    if (!this.searchId) this.searchId = this.groupId;
-    this.load();
-
-    if (this.$route.query.showGroupOverview) {
-      this.$root.$emit('bv::show::modal', 'group-plan-overview');
-    }
-  },
   computed: {
     ...mapState({ user: 'user.data' }),
     tagsByType () {
@@ -175,11 +159,28 @@ export default {
     },
     canCreateTasks () {
       if (!this.group) return false;
-      return this.group.leader && this.group.leader._id === this.user._id || this.group.managers && Boolean(this.group.managers[this.user._id]);
+      return (this.group.leader && this.group.leader._id === this.user._id)
+        || (this.group.managers && Boolean(this.group.managers[this.user._id]));
     },
     showOptions () {
       return this.canCreateTasks;
     },
+  },
+  watch: {
+    // call again the method if the route changes (when this route is already active)
+    $route: 'load',
+  },
+  beforeRouteUpdate (to, from, next) {
+    this.$set(this, 'searchId', to.params.groupId);
+    next();
+  },
+  mounted () {
+    if (!this.searchId) this.searchId = this.groupId;
+    this.load();
+
+    if (this.$route.query.showGroupOverview) {
+      this.$root.$emit('bv::show::modal', 'group-plan-overview');
+    }
   },
   methods: {
     async load () {
@@ -204,7 +205,10 @@ export default {
       const groupedApprovals = await this.loadApprovals();
 
       tasks.forEach(task => {
-        if (groupedApprovals[task._id] && groupedApprovals[task._id].length > 0) task.approvals = groupedApprovals[task._id];
+        if (
+          groupedApprovals[task._id]
+          && groupedApprovals[task._id].length > 0
+        ) task.approvals = groupedApprovals[task._id];
         this.tasksByType[task.type].push(task);
       });
     },

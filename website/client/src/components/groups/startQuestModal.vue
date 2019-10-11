@@ -147,6 +147,12 @@ export default {
       quests,
     };
   },
+  computed: {
+    ...mapState({ user: 'user.data' }),
+    questData () {
+      return quests.quests[this.selectedQuest];
+    },
+  },
   mounted () {
     const userQuests = this.user.items.quests;
     for (const key in userQuests) {
@@ -160,12 +166,6 @@ export default {
   },
   destroyed () {
     this.$root.$off('selectQuest', this.selectQuest);
-  },
-  computed: {
-    ...mapState({ user: 'user.data' }),
-    questData () {
-      return quests.quests[this.selectedQuest];
-    },
   },
   methods: {
     selectQuest (quest) {
