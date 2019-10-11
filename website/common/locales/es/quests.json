@@ -126,5 +126,16 @@
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Salud",
     "rageAttack": "Ataque de Ira:",
     "bossRage": "<%= currentRage %> / <%= maxRage %> Ira",
-    "rageStrikes": "Golpes de Ira"
+    "rageStrikes": "Golpes de Ira",
+    "tavernBossTired": "<%= bossName %> intenta lanzar <%= rageName %> pero se encuentra demasiado cansado.",
+    "chatQuestCancelled": "<%= username %> canceló la misión <%= questName %>.",
+    "chatQuestAborted": "<%= username %> abortó la misión <%= questName %>.",
+    "chatItemQuestFinish": "¡Todos los objetos encontrados! El equipo ha recibido su recompensa.",
+    "chatFindItems": "<%= username %> encontró <%= items %>.",
+    "chatBossDefeated": "¡Derrotásteis a <%= bossName %>! Los miembros del equipo que participaron de la misión reciben las recompensas de la victoria.",
+    "chatBossDontAttack": "<%= username %> ataca a <%= bossName %> por <%= userDamage %> puntos de daño. <%= bossName %> no ataca, porque tiene en cuenta el hecho de que hay algunos problemas post-mantenimiento, y no quiere herir a nadie de manera injusta. ¡Continuará su devastación pronto!",
+    "chatBossDamage": "<%= username %> ataca a <%= bossName %> por <%= userDamage %> puntos de daño. <%= bossName %> ataca al equipo por <%= bossDamage %> puntos de daño.",
+    "chatQuestStarted": "Tu misión, <%= questName %>, ha comenzado.",
+    "questInvitationNotificationInfo": "Fuiste invitado a unirte a una misión",
+    "hatchingPotionQuests": "Misiones de Pociones de Eclosión Mágicas"
 }

@@ -14,9 +14,17 @@
     "achievementJustAddWaterText": "Ha completado las misiones del Pulpo, el Caballito de Mar, la Ballena, la Tortuga, el Nudibranquio, la Serpiente Marina, y el Delfín.",
     "achievementJustAddWaterModalText": "¡Completaste las misiones del Pulpo, el Caballito de Mar, la Ballena, la Tortuga, el Nudibranquio, la Serpiente Marina, y el Delfín!",
     "achievementBackToBasics": "Volver a lo Básico",
-    "achievementBackToBasicsText": "Ha coleccionado todas las Mascotas Básicas.",
-    "achievementBackToBasicsModalText": "¡Coleccionaste todas las Mascotas Básicas!",
+    "achievementBackToBasicsText": "Ha conseguido todas las Mascotas Básicas.",
+    "achievementBackToBasicsModalText": "¡Conseguiste todas las Mascotas Básicas!",
     "achievementAllYourBase": "Toda tu Base",
-    "achievementAllYourBaseText": "Ha domado todos los Montes Básicos.",
-    "achievementAllYourBaseModalText": "¡Domaste todos los Montes Básicos!"
+    "achievementAllYourBaseText": "Ha domado todas las Monturas Básicas.",
+    "achievementAllYourBaseModalText": "¡Domaste todas las Monturas Básicas!",
+    "achievementKickstarter2019Text": "Apoyó el Proyecto de Kickstarter de Imperdibles de 2019",
+    "achievementKickstarter2019": "Sponsor Imperdibles de Kickstarter",
+    "achievementAridAuthorityModalText": "¡Domaste todas las Monturas Desérticas!",
+    "achievementAridAuthorityText": "Ha domado todas las Monturas Desérticas.",
+    "achievementAridAuthority": "Autoridad Árida",
+    "achievementDustDevilModalText": "¡Conseguiste todas las Mascotas Desérticas!",
+    "achievementDustDevilText": "Ha conseguido todas las Mascotas Desérticas.",
+    "achievementDustDevil": "Remolino de Polvo"
 }
