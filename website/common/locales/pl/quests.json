@@ -71,8 +71,8 @@
     "scrollsText1": "Do wykonania misji potrzebna jest drużyna. Jeśli chcesz je wykonywać w pojedynkę,",
     "scrollsText2": "stwórz pustą drużynę",
     "scrollsPre": "Jeszcze nie odblokowałeś tej misji!",
-    "alreadyEarnedQuestLevel": "Już zdobyłeś tę misję dzięki osiągnięciu poziomu <%= level %>. ",
-    "alreadyEarnedQuestReward": "Już zdobyłeś tę misję dzięki ukończeniu <%= priorQuest %>. ",
+    "alreadyEarnedQuestLevel": "Już zdobyłeś(-aś) tą misję dzięki osiągnięciu poziomu <%= level %>. ",
+    "alreadyEarnedQuestReward": "Już zdobyłeś(-aś) tą misję dzięki ukończeniu <%= priorQuest %>. ",
     "completedQuests": "Zakończył następujące misje",
     "mustComplete": "Musisz najpierw ukończyć <%= quest %>.",
     "mustLevel": "Musisz mieć co najmniej poziom <%= level %>, by rozpocząć tą misję.",
@@ -136,5 +136,6 @@
     "chatItemQuestFinish": "Wszystkie przedmioty zostały znalezione! Drużyna otrzymuje swoje nagrody.",
     "chatQuestAborted": "<%= username %> przerywa drużynową misję <%= questName %>.",
     "chatQuestCancelled": "<%= username %> anuluje drużynową misję <%= questName %>.",
-    "tavernBossTired": "<%= bossName %> próbuje wyzwolić <%= rageName %> ale zmęczenie na to nie pozwala."
+    "tavernBossTired": "<%= bossName %> próbuje wyzwolić <%= rageName %> ale zmęczenie na to nie pozwala.",
+    "questInvitationNotificationInfo": "Zostałeś(-aś) zaproszony(-a) do przyłączenia się do misji"
 }
