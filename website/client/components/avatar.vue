@@ -47,7 +47,7 @@
   @import '~client/assets/scss/colors.scss';
 
   .avatar {
-    width: 140px;
+    width: 141px;
     height: 147px;
     image-rendering: pixelated;
     position: relative;
