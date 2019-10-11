@@ -136,7 +136,7 @@ export default {
         return this.overrideTopPadding;
       }
 
-      let val = '28px';
+      let val = '27px';
 
       if (!this.avatarOnly) {
         if (this.member.items.currentPet) val = '24px';
