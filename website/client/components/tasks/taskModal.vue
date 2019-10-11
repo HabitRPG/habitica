@@ -920,6 +920,7 @@ export default {
       }
     },
     async submit () {
+      if (!this.task.title) return;
       if (this.newChecklistItem) this.addChecklistItem();
 
       // TODO Fix up permissions on task.group so we don't have to keep doing these hacks
