@@ -12,7 +12,8 @@ const api = {};
  * @apiDescription Does not require authentication
  * @apiName UnsubscribeEmail
  * @apiGroup Unsubscribe
- * @apiDescription This is a GET method included in official emails from Habitica that will unsubscribe the user from emails.
+ * @apiDescription This is a GET method included in official emails from Habitica
+ * that will unsubscribe the user from emails.
  *
  * @apiParam (Query) {String} code An unsubscription code
  *

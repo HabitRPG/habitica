@@ -1,7 +1,7 @@
 import axios from 'axios';
 import moment from 'moment';
 
-export function setUpAxios (AUTH_SETTINGS) {
+export function setUpAxios (AUTH_SETTINGS) { // eslint-disable-line import/prefer-default-export
   if (!AUTH_SETTINGS) {
     AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings');
     if (!AUTH_SETTINGS) return false;

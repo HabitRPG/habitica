@@ -73,11 +73,7 @@ export default {
     round (number, nDigits) {
       return round(number, nDigits);
     },
-    notify (html, type, icon, sign, onClick, timeout) {
-      if (typeof timeout === 'undefined') {
-        timeout = true;
-      }
-
+    notify (html, type, icon, sign, onClick, timeout = true) {
       this.$store.dispatch('snackbars:add', {
         title: '',
         text: html,

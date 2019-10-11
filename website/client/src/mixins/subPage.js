@@ -1,4 +1,4 @@
-export const subPageMixin = {
+export const subPageMixin = { // eslint-disable-line import/prefer-default-export
   data () {
     return {
       activeSubPage: '',

@@ -40,7 +40,8 @@ const api = {};
  * @apiSuccess {Object} data.profile Includes name
  * @apiSuccess {Object} data.preferences Includes info about appearance and public prefs
  * @apiSuccess {Object} data.party Includes basic info about current party and quests
- * @apiSuccess {Object} data.items Basic inventory information includes quests, food, potions, eggs, gear, special items
+ * @apiSuccess {Object} data.items Basic inventory information includes quests,
+ *                                 food, potions, eggs, gear, special items
  * @apiSuccess {Object} data.achievements Lists current achievements
  * @apiSuccess {Object} data.auth Includes latest timestamps
  *
@@ -154,7 +155,8 @@ api.getMemberByUsername = {
  * @api {get} /api/v3/members/:memberId/achievements Get member achievements object
  * @apiName GetMemberAchievements
  * @apiGroup Member
- * @apiDescription Get a list of achievements of the requested member, grouped by basic / seasonal / special.
+ * @apiDescription Get a list of achievements
+ * of the requested member, grouped by basic / seasonal / special.
  *
  * @apiParam (Path) {UUID} memberId The member's id
  *
@@ -170,9 +172,12 @@ api.getMemberByUsername = {
  * @apiSuccess {String} data.*.achievements.title The localized title string
  * @apiSuccess {String} data.*.achievements.text The localized description string
  * @apiSuccess {Boolean} data.*.achievements.earned Whether the user has earned the achievement
- * @apiSuccess {Number} data.*.achievements.index The unique index assigned to the achievement (only for sorting purposes)
- * @apiSuccess {Anything} data.*.achievements.value The value related to the achievement (if applicable)
- * @apiSuccess {Number} data.*.achievements.optionalCount The count related to the achievement (if applicable)
+ * @apiSuccess {Number} data.*.achievements.index The unique index assigned
+ *                                                to the achievement (only for sorting purposes).
+ * @apiSuccess {Anything} data.*.achievements.value The value related to the achievement
+ *                                                  (if applicable)
+ * @apiSuccess {Number} data.*.achievements.optionalCount The count related to the achievement
+ *                                                        (if applicable)
  *
  * @apiSuccessExample {json} Successful Response
  * {
@@ -190,7 +195,9 @@ api.getMemberByUsername = {
  *       },
  *       perfect: {
  *         title: "5 Perfect Days",
- *         text: "Completed all active Dailies on 5 days. With this achievement you get a +level/2 buff to all attributes for the next day. Levels greater than 100 don't have any additional effects on buffs.",
+ *         text: "Completed all active Dailies on 5 days. With this achievement
+ *                you get a +level/2 buff to all attributes for the next day.
+ *                Levels greater than 100 don't have any additional effects on buffs.",
  *         icon: "achievement-perfect",
  *         earned: true,
  *         value: 5,
@@ -218,7 +225,8 @@ api.getMemberByUsername = {
  *     achievements: {
  *       habitSurveys: {
  *         title: "Helped Habitica Grow",
- *         text: "Helped Habitica grow on 0 occasions, either by filling out a survey or helping with a major testing effort. Thank you!",
+ *         text: "Helped Habitica grow on 0 occasions, either by filling out
+ *               a survey or helping with a major testing effort. Thank you!",
  *         icon: "achievement-tree",
  *         earned: false,
  *         value: 0,
@@ -229,8 +237,10 @@ api.getMemberByUsername = {
  *   }
  * }
  *
- * @apiError (400) {BadRequest} MemberIdRequired The `id` param is required and must be a valid `UUID`
- * @apiError (404) {NotFound} UserWithIdNotFound The `id` param did not belong to an existing member
+ * @apiError (400) {BadRequest} MemberIdRequired The `id` param is required
+ *                                               and must be a valid `UUID`.
+ * @apiError (404) {NotFound} UserWithIdNotFound The `id` param did not
+ *                                               belong to an existing member.
  */
 api.getMemberAchievements = {
   method: 'GET',
@@ -386,13 +396,21 @@ function _getMembersForItem (type) {
 
 /**
  * @api {get} /api/v3/groups/:groupId/members Get members for a group
- * @apiDescription With a limit of 30 member per request. To get all members run requests against this routes (updating the lastId query parameter) until you get less than 30 results.
+ * @apiDescription With a limit of 30 member per request.
+ * To get all members run requests against this routes (updating the lastId query parameter)
+ * until you get less than 30 results.
  * @apiName GetMembersForGroup
  * @apiGroup Member
  *
  * @apiParam (Path) {UUID} groupId The group id
- * @apiParam (Query) {UUID} lastId Query parameter to specify the last member returned in a previous request to this route and get the next batch of results
- * @apiParam (Query) {Boolean} includeAllPublicFields Query parameter available only when fetching a party. If === `true` then all public fields for members will be returned (like when making a request for a single member)
+ * @apiParam (Query) {UUID} lastId Query parameter to specify the last member
+ *                                 returned in a previous request to this route and
+ *                                 get the next batch of results.
+ * @apiParam (Query) {Boolean} includeAllPublicFields Query parameter available
+ *                                                    only when fetching a party. If === `true`
+ *                                                    then all public fields for members
+ *                                                    will be returned (like when making a request
+ *                                                    for a single member).
  *
  * @apiSuccess {Array} data An array of members, sorted by _id
  *
@@ -422,12 +440,16 @@ api.getMembersForGroup = {
 
 /**
  * @api {get} /api/v3/groups/:groupId/invites Get invites for a group
- * @apiDescription With a limit of 30 member per request. To get all invites run requests against this routes (updating the lastId query parameter) until you get less than 30 results.
+ * @apiDescription With a limit of 30 member per request. To get all invites run
+ * requests against this routes (updating the lastId query parameter)
+ * until you get less than 30 results.
  * @apiName GetInvitesForGroup
  * @apiGroup Member
  *
  * @apiParam (Path) {UUID} groupId The group id
- * @apiParam (Query) {UUID} lastId Query parameter to specify the last invite returned in a previous request to this route and get the next batch of results
+ * @apiParam (Query) {UUID} lastId Query parameter to specify the last invite
+ *                                 returned in a previous request to this route and
+ *                                 get the next batch of results.
  *
  * @apiSuccess {array} data An array of invites, sorted by _id
  *
@@ -459,16 +481,21 @@ api.getInvitesForGroup = {
 /**
  * @api {get} /api/v3/challenges/:challengeId/members Get members for a challenge
  * @apiDescription With a limit of 30 member per request.
- * To get all members run requests against this routes (updating the lastId query parameter) until you get less than 30 results.
- * BETA You can also use ?includeAllMembers=true. This option is currently in BETA and may be removed in future.
+ * To get all members run requests against this routes (updating the lastId query parameter)
+ * until you get less than 30 results.
+ * BETA You can also use ?includeAllMembers=true. This option is currently in BETA
+ * and may be removed in future.
  * Its use is discouraged and its performaces are not optimized especially for large challenges.
  *
  * @apiName GetMembersForChallenge
  * @apiGroup Member
  *
  * @apiParam (Path) {UUID} challengeId The challenge id
- * @apiParam (Query) {UUID} lastId Query parameter to specify the last member returned in a previous request to this route and get the next batch of results
- * @apiParam (Query) {String} includeAllMembers BETA Query parameter - If 'true' all challenge members are returned
+ * @apiParam (Query) {UUID} lastId Query parameter to specify the last member returned
+ *                                 in a previous request to this route and
+ *                                 get the next batch of results.
+ * @apiParam (Query) {String} includeAllMembers BETA Query parameter - If 'true' all
+ *                                              challenge members are returned.
 
  * @apiSuccess {Array} data An array of members, sorted by _id
  *
@@ -490,7 +517,8 @@ api.getMembersForChallenge = {
  * @apiParam (Path) {UUID} challengeId The challenge _id
  * @apiParam (Path) {UUID} memberId The member _id
  *
- * @apiSuccess {Object} data Return an object with member _id, profile.name and a tasks object with the challenge tasks for the member
+ * @apiSuccess {Object} data Return an object with member _id, profile.name
+ *                           and a tasks object with the challenge tasks for the member.
  *
  * @apiSuccessExample {json} Success-Response:
  * {
@@ -586,15 +614,21 @@ api.getChallengeMemberProgress = {
 };
 
 /**
- * @api {get} /api/v3/members/:toUserId/objections/:interaction Get any objections that would occur if the given interaction was attempted - BETA
+ * @api {get} /api/v3/members/:toUserId/objections/:interaction Get objections to interaction
+ * @apiDescription Get any objections that would occur
+ * if the given interaction was attempted - BETA.
+ *
  * @apiVersion 3.0.0
  * @apiName GetObjectionsToInteraction
  * @apiGroup Member
  *
  * @apiParam (Path) {UUID} toUserId The user to interact with
- * @apiParam (Path) {String="send-private-message","transfer-gems"} interaction Name of the interaction to query
+ * @apiParam (Path) {String="send-private-message","transfer-gems"} interaction Name of the
+ *                                                                              interaction
+ *                                                                              to query.
  *
- * @apiSuccess {Array} data Return an array of objections, if the interaction would be blocked; otherwise an empty array
+ * @apiSuccess {Array} data Return an array of objections,
+ *                          if the interaction would be blocked; otherwise an empty array.
  */
 api.getObjectionsToInteraction = {
   method: 'GET',

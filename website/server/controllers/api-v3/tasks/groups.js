@@ -32,7 +32,8 @@ const api = {};
 
 /**
  * @api {post} /api/v3/tasks/group/:groupId Create a new task belonging to a group
- * @apiDescription Can be passed an object to create a single task or an array of objects to create multiple tasks.
+ * @apiDescription Can be passed an object to create a single task or
+ * an array of objects to create multiple tasks.
  * @apiName CreateGroupTasks
  * @apiGroup Task
  *
@@ -80,7 +81,8 @@ api.createGroupTasks = {
  * @apiGroup Task
  *
  * @apiParam (Path) {UUID} groupId The id of the group from which to retrieve the tasks
- * @apiParam (Query) {string="habits","dailys","todos","rewards"} [type] Query parameter to return just a type of tasks
+ * @apiParam (Query) {string="habits","dailys","todos","rewards"} [type] Query parameter to
+ *                                                                       return just a type of tasks
  *
  * @apiSuccess {Array} data An array of tasks
  */
@@ -110,14 +112,16 @@ api.getGroupTasks = {
 };
 
 /**
- * @api {post} /api/v3/group/:groupId/tasks/:taskId/move/to/:position Move a group task to a specified position
+ * @api {post} /api/v3/group/:groupId/tasks/:taskId/move/to/:position Move a group task to
+ * a specified position
  * @apiDescription Moves a group task to a specified position
  * @apiVersion 3.0.0
  * @apiName GroupMoveTask
  * @apiGroup Task
  *
  * @apiParam (Path) {String} taskId The task _id
- * @apiParam (Path) {Number} position Where to move the task (-1 means push to bottom). First position is 0
+ * @apiParam (Path) {Number} position Where to move the task (-1 means push to bottom).
+ *                                    First position is 0
  *
  * @apiSuccess {Array} data The new tasks order (group.tasksOrder.{task.type}s)
  */

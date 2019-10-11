@@ -14,7 +14,9 @@ import {
 
 /**
  * @apiDefine InvalidUUID
- * @apiError (400) {BadRequest} InvalidRequestParameters "tagId" must be a valid UUID corresponding to a tag belonging to the user.
+ * @apiError (400) {BadRequest} InvalidRequestParameters "tagId" must be a valid UUID
+ *                                                       corresponding to a tag
+ *                                                       belonging to the user.
  */
 
 
@@ -33,7 +35,8 @@ const api = {};
  * @apiSuccess (201) {Object} data The newly created tag
  *
  * @apiSuccessExample {json} Example return:
- * {"success":true,"data":{"name":"practicetag","id":"8bc0afbf-ab8e-49a4-982d-67a40557ed1a"},"notifications":[]}
+ * {"success":true,"data":{"name":"practicetag","id":"8bc0afbf-ab8e-49a4-982d-67a40557ed1a"},
+ * "notifications":[]}
  */
 api.createTag = {
   method: 'POST',
@@ -59,7 +62,10 @@ api.createTag = {
  * @apiSuccess {Array} data An array of tags
  *
  * @apiSuccessExample {json} Example return:
- * {"success":true,"data":[{"name":"Work","id":"3d5d324d-a042-4d5f-872e-0553e228553e"},{"name":"apitester","challenge":"true","id":"f23c12f2-5830-4f15-9c36-e17fd729a812"},{"name":"practicetag","id":"8bc0afbf-ab8e-49a4-982d-67a40557ed1a"}],"notifications":[]}
+ * {"success":true,"data":[{"name":"Work",
+ * "id":"3d5d324d-a042-4d5f-872e-0553e228553e"},
+ * {"name":"apitester","challenge":"true","id":"f23c12f2-5830-4f15-9c36-e17fd729a812"},
+ * {"name":"practicetag","id":"8bc0afbf-ab8e-49a4-982d-67a40557ed1a"}],"notifications":[]}
  */
 api.getTags = {
   method: 'GET',
@@ -81,7 +87,8 @@ api.getTags = {
  * @apiSuccess {Object} data The tag object
  *
  * @apiSuccessExample {json} Example return:
- * {"success":true,"data":{"name":"practicetag","id":"8bc0afbf-ab8e-49a4-982d-67a40557ed1a"},"notifications":[]}
+ * {"success":true,"data":{"name":"practicetag",
+ * "id":"8bc0afbf-ab8e-49a4-982d-67a40557ed1a"},"notifications":[]}
  *
  * @apiUse TagNotFound
  * @apiUSe InvalidUUID
@@ -118,7 +125,8 @@ api.getTag = {
  * @apiSuccess {Object} data The updated tag
  *
  * @apiSuccessExample {json} Example result:
- * {"success":true,"data":{"name":"practice-tag","id":"8bc0afbf-ab8e-49a4-982d-67a40557ed1a"},"notifications":[]}
+ * {"success":true,"data":{"name":"practice-tag",
+ * "id":"8bc0afbf-ab8e-49a4-982d-67a40557ed1a"},"notifications":[]}
  *
  * @apiUse TagNotFound
  * @apiUSe InvalidUUID

@@ -7,9 +7,11 @@ const api = {};
 
 /**
  * @apiDefine Webhook Webhook
- * Webhooks fire when a particular action is performed, such as updating a task, or sending a message in a group.
+ * Webhooks fire when a particular action is performed, such as updating a task,
+ * or sending a message in a group.
  *
- * Your user's configured webhooks are stored as an `Array` on the user object under the `webhooks` property.
+ * Your user's configured webhooks are stored as an `Array` on the user
+ * object under the `webhooks` property.
  */
 
 /**
@@ -19,7 +21,8 @@ const api = {};
 
 /**
  * @apiDefine WebhookBodyInvalid
- * @apiError (400) {BadRequest} WebhookBodyInvalid A body parameter passed in the request did not pass validation.
+ * @apiError (400) {BadRequest} WebhookBodyInvalid A body parameter passed in the
+ *                                                 request did not pass validation.
  */
 
 /**
@@ -31,8 +34,12 @@ const api = {};
  * @apiParam (Body) {String} url The webhook's URL
  * @apiParam (Body) {String} [label] A label to remind you what this webhook does
  * @apiParam (Body) {Boolean} [enabled=true] If the webhook should be enabled
- * @apiParam (Body) {String="taskActivity","groupChatReceived","userActivity"} [type="taskActivity"] The webhook's type.
- * @apiParam (Body) {Object} [options] The webhook's options. Wil differ depending on type. Required for `groupChatReceived` type. If a webhook supports options, the default values are displayed in the examples below
+ * @apiParam (Body) {String="taskActivity","groupChatReceived",
+                    "userActivity"} [type="taskActivity"] The webhook's type.
+ * @apiParam (Body) {Object} [options] The webhook's options. Wil differ depending on type.
+ *                                     Required for `groupChatReceived` type.
+ *                                     If a webhook supports options, the default values
+ *                                     are displayed in the examples below
  * @apiParamExample {json} Task Activity Example
  *   {
  *     "enabled": true, // default
@@ -117,14 +124,17 @@ api.getWebhook = {
  * @api {put} /api/v3/user/webhook/:id Edit a webhook - BETA
  * @apiName UserUpdateWebhook
  * @apiGroup Webhook
- * @apiDescription Can change `url`, `enabled`, `type`, and `options` properties. Cannot change `id`.
+ * @apiDescription Can change `url`, `enabled`, `type`, and `options`
+ * properties. Cannot change `id`.
  *
  * @apiParam (Path) {UUID} id URL parameter - The id of the webhook to update
  * @apiParam (Body) {String} [url] The webhook's URL
  * @apiParam (Body) {String} [label] A label to remind you what this webhook does
  * @apiParam (Body) {Boolean} [enabled] If the webhook should be enabled
  * @apiParam (Body) {String="taskActivity","groupChatReceived"} [type] The webhook's type.
- * @apiParam (Body) {Object} [options] The webhook's options. Wil differ depending on type. The options are enumerated in the [add webhook examples](#api-Webhook-UserAddWebhook).
+ * @apiParam (Body) {Object} [options] The webhook's options. Wil differ depending on type.
+ *                                     The options are enumerated in the
+ *                                     [add webhook examples](#api-Webhook-UserAddWebhook).
  * @apiParamExample {json} Update Enabled and Type Properties
  *   {
  *     "enabled": false,

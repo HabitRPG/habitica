@@ -40,7 +40,8 @@ const api = {};
  * @apiName UserGet
  * @apiGroup User
  *
- * @apiDescription The user profile contains data related to the authenticated user including (but not limited to);
+ * @apiDescription The user profile contains data related to the authenticated
+ * user including (but not limited to);
  * Achievements
  * Authentications (including types and timestamps)
  * Challenges
@@ -61,7 +62,9 @@ const api = {};
  * Tags
  * TasksOrder (list of all ids for dailys, habits, rewards and todos)
  *
- * @apiParam (Query) {String} [userFields] A list of comma separated user fields to be returned instead of the entire document. Notifications are always returned.
+ * @apiParam (Query) {String} [userFields] A list of comma separated user fields to
+ *                                         be returned instead of the entire document.
+ *                                         Notifications are always returned.
  *
  * @apiExample {curl} Example use:
  * curl -i https://habitica.com/api/v3/user?userFields=achievements,items.mounts
@@ -88,7 +91,8 @@ api.getUser = {
 };
 
 /**
- * @api {get} /api/v3/user/inventory/buy Get the gear items available for purchase for the authenticated user
+ * @api {get} /api/v3/user/inventory/buy Get the gear items available for purchase
+ * for the authenticated user
  * @apiName UserGetBuyList
  * @apiGroup User
  *
@@ -146,7 +150,9 @@ api.getBuyList = {
  *     {
  *       "key":"weapon_armoire_battleAxe",
  *       "text":"Battle Axe",
- *       "notes":"This fine iron axe is well-suited to battling your fiercest foes or your most difficult tasks. Increases Intelligence by 6 and Constitution by 8. Enchanted Armoire: Independent Item.",
+ *       "notes":"This fine iron axe is well-suited to battling your fiercest
+ *               foes or your most difficult tasks. Increases Intelligence by 6 and
+ *               Constitution by 8. Enchanted Armoire: Independent Item.",
  *       "value":1,
  *       "type":"weapon",
  *       "locked":false,
@@ -201,7 +207,8 @@ api.getInAppRewardsList = {
  *
  * @apiSuccess {Object} data The updated user object, the result is identical to the get user call
  *
- * @apiError (401) {NotAuthorized} messageUserOperationProtected Returned if the change is not allowed.
+ * @apiError (401) {NotAuthorized} messageUserOperationProtected Returned if the change
+ *                                                               is not allowed.
  *
  * @apiErrorExample {json} Error-Response:
  *  {
@@ -697,11 +704,13 @@ api.buyQuest = {
 
 /**
  * @api {post} /api/v3/user/buy-special-spell/:key Buy special "spell" item
- * @apiDescription Includes gift cards (e.g., birthday card), and avatar Transformation Items and their antidotes (e.g., Snowball item and Salt reward).
+ * @apiDescription Includes gift cards (e.g., birthday card), and avatar Transformation
+ * Items and their antidotes (e.g., Snowball item and Salt reward).
  * @apiName UserBuySpecialSpell
  * @apiGroup User
  *
- * @apiParam (Path) {String} key The special item to buy. Must be one of the keys from "content.special", such as birthday, snowball, salt.
+ * @apiParam (Path) {String} key The special item to buy. Must be one of the keys
+ *                               from "content.special", such as birthday, snowball, salt.
  *
  * @apiSuccess {Object} data.stats User's current stats
  * @apiSuccess {Object} data.items User's current inventory
@@ -760,11 +769,13 @@ api.buySpecialSpell = {
  * @apiError {NotFound} messageInvalidEggPotionCombo Cannot use that combination of egg and potion.
  *
  * @apiErrorExample {json} Already have that pet.
- * {"success":false,"error":"NotAuthorized","message":"You already have that pet. Try hatching a different combination
+ * {"success":false,"error":"NotAuthorized","message":"You already have that pet.
+ * Try hatching a different combination"}
  * @apiErrorExample {json} Either potion or egg (or both) not in inventory
  * {"success":false,"error":"NotFound","message":"You're missing either that egg or that potion"}
  * @apiErrorExample {json} Cannot use that combination
- * {"success":false,"error":"NotAuthorized","message":"You can't hatch Quest Pet Eggs with Magic Hatching Potions! Try a different egg."}
+ * {"success":false,"error":"NotAuthorized","message":"You can't hatch Quest
+ * Pet Eggs with Magic Hatching Potions! Try a different egg."}
  */
 api.hatch = {
   method: 'POST',
@@ -794,7 +805,8 @@ api.hatch = {
  * @apiName UserEquip
  * @apiGroup User
  *
- * @apiParam (Path) {String="mount","pet","costume","equipped"} type The type of item to equip or unequip
+ * @apiParam (Path) {String="mount","pet","costume","equipped"} type The type of item
+ *                                                                   to equip or unequip.
  * @apiParam (Path) {String} key The item to equip or unequip
  *
  * @apiParamExample {URL} Example-URL
@@ -810,7 +822,8 @@ api.hatch = {
  *   "message": "Training Sword unequipped."
  * }
  *
- * @apiError {NotFound} notOwned Item is not in inventory, item doesn't exist, or item is of the wrong type.
+ * @apiError {NotFound} notOwned Item is not in inventory, item doesn't
+ *                               exist, or item is of the wrong type.
  *
  * @apiErrorExample {json} Item not owned or doesn't exist.
  * {"success":false,"error":"NotFound","message":"You do not own this item."}
@@ -845,11 +858,13 @@ api.equip = {
  * @apiSuccess {String} message Success message
  *
  * @apiSuccessExample {json}
- * {"success":true,"data":10,"message":"Shade Armadillo really likes the Chocolate!","notifications":[]}
+ * {"success":true,"data":10,"message":"Shade Armadillo
+ * really likes the Chocolate!","notifications":[]}
  *
  * @apiError {NotFound} PetNotOwned :pet not found in user.items.pets
  * @apiError {BedRequest} InvalidPet Invalid pet name supplied.
- * @apiError {NotFound} FoodNotOwned :food not found in user.items.food  Note: also sent if food name is invalid.
+ * @apiError {NotFound} FoodNotOwned :food not found in user.items.food
+ *                                   Note: also sent if food name is invalid.
  *
  *
  */
@@ -880,7 +895,10 @@ api.feed = {
 
 /**
  * @api {post} /api/v3/user/change-class Change class
- * @apiDescription User must be at least level 10. If ?class is defined and user.flags.classSelected is false it'll change the class. If user.preferences.disableClasses it'll enable classes, otherwise it sets user.flags.classSelected to false (costs 3 gems)
+ * @apiDescription User must be at least level 10. If ?class is
+ * defined and user.flags.classSelected is false it'll change the class.
+ * If user.preferences.disableClasses it'll enable classes, otherwise it
+ * sets user.flags.classSelected to false (costs 3 gems).
  * @apiName UserChangeClass
  * @apiGroup User
  *
@@ -891,7 +909,8 @@ api.feed = {
  * @apiSuccess {Object} data.preferences user.preferences
  * @apiSuccess {Object} data.items user.items
  *
- * @apiError {NotAuthorized} Gems Not enough gems, if class was already selected and gems needed to be paid.
+ * @apiError {NotAuthorized} Gems Not enough gems, if class was already
+ *                           selected and gems needed to be paid.
  * @apiError {NotAuthorized} Level To change class you must be at least level 10.
  *
  * @apiErrorExample {json}
@@ -935,20 +954,23 @@ api.disableClasses = {
  * @apiName UserPurchase
  * @apiGroup User
  *
- * @apiParam (Path) {String="gems","eggs","hatchingPotions","premiumHatchingPotions",food","quests","gear"} type Type of item to purchase.
+ * @apiParam (Path) {String="gems","eggs","hatchingPotions","premiumHatchingPotions"
+                    ,food","quests","gear"} type Type of item to purchase.
  * @apiParam (Path) {String} key Item's key (use "gem" for purchasing gems)
  *
  * @apiSuccess {Object} data.items user.items
  * @apiSuccess {Number} data.balance user.balance
  * @apiSuccess {String} message Success message
  *
- * @apiError {NotAuthorized} NotAvailable Item is not available to be purchased (not unlocked for the user).
+ * @apiError {NotAuthorized} NotAvailable Item is not available to be purchased
+ *                                        (not unlocked for the user).
  * @apiError {NotAuthorized} Gems Not enough gems
  * @apiError {NotFound} Key Key not found for Content type.
  * @apiError {NotFound} Type Type invalid.
  *
  * @apiErrorExample {json}
- * {"success":false,"error":"NotAuthorized","message":"This item is not currently available for purchase."}
+ * {"success":false,"error":"NotAuthorized","message":
+ * "This item is not currently available for purchase."}
  */
 api.purchase = {
   method: 'POST',
@@ -986,7 +1008,9 @@ api.purchase = {
  * @apiParam (Path) {String="pets","mounts"} type The type of item to purchase
  * @apiParam (Path) {String} key Ex: {Phoenix-Base}. The key for the mount/pet
  *
- * @apiParam (Body) {Integer} [quantity=1] Count of items to buy. Defaults to 1 and is ignored for items where quantity is irrelevant.
+ * @apiParam (Body) {Integer} [quantity=1] Count of items to buy.
+ *                                         Defaults to 1 and is ignored
+ *                                         for items where quantity is irrelevant.
  *
  * @apiSuccess {Object} data.items user.items
  * @apiSuccess {Object} data.purchasedPlanConsecutive user.purchased.plan.consecutive
@@ -1024,7 +1048,8 @@ api.userPurchaseHourglass = {
  * @apiName UserReadCard
  * @apiGroup User
  *
- * @apiParam (Path) {String} cardType Type of card to read (e.g. - birthday, greeting, nye, thankyou, valentine)
+ * @apiParam (Path) {String} cardType Type of card to read (e.g. - birthday,
+ *                                    greeting, nye, thankyou, valentine).
  *
  * @apiSuccess {Object} data.specialItems user.items.special
  * @apiSuccess {Boolean} data.cardReceived user.flags.cardReceived
@@ -1242,11 +1267,14 @@ api.userReleaseMounts = {
  * @apiSuccess {Object} data.stats
  * @apiSuccess {Object} data.items
  *
- * @apiError {NotFound} InvalidKey Key not found for user.items eggs (either the key does not exist or the user has none in inventory)
+ * @apiError {NotFound} InvalidKey Key not found for user.items eggs
+ *                                 (either the key does not exist or the
+ *                                 user has none in inventory).
  * @apiError {NotAuthorized} InvalidType Type is not a valid type.
  *
  * @apiErrorExample {json}
- * {"success":false,"error":"NotAuthorized","message":"Type is not sellable. Must be one of the following eggs, hatchingPotions, food"}
+ * {"success":false,"error":"NotAuthorized","message":"Type is not sellable.
+ * Must be one of the following eggs, hatchingPotions, food"}
  */
 api.userSell = {
   method: 'POST',
@@ -1552,12 +1580,14 @@ api.userReset = {
 };
 
 /**
- * @api {post} /api/v3/user/custom-day-start Set preferences.dayStart (Custom Day Start time) for user
+ * @api {post} /api/v3/user/custom-day-start Set preferences.dayStart
+ * (Custom Day Start time) for user.
  * @apiName setCustomDayStart
  * @apiGroup User
  *
  *
- * @apiParam (Body) {number} [dayStart=0] The hour number 0-23 for day to begin. If body is not included, will default to 0.
+ * @apiParam (Body) {number} [dayStart=0] The hour number 0-23 for day to begin.
+ *                                        If body is not included, will default to 0.
  *
  * @apiParamExample {json} Request-Example:
  * {"dayStart":2}
@@ -1571,7 +1601,9 @@ api.userReset = {
  * @apiError {BadRequest} Validation Value provided is not a number, or is outside the range of 0-23
  *
  * @apiErrorExample {json}
- * {"success":false,"error":"BadRequest","message":"User validation failed","errors":[{"message":"Path `preferences.dayStart` (25) is more than maximum allowed value (23).","path":"preferences.dayStart","value":25}]}
+ * {"success":false,"error":"BadRequest","message":"User validation failed",
+ * "errors":[{"message":"Path `preferences.dayStart` (25) is more than maximum allowed value (23)."
+ * ,"path":"preferences.dayStart","value":25}]}
  */
 api.setCustomDayStart = {
   method: 'POST',
@@ -1634,17 +1666,21 @@ api.togglePinnedItem = {
 };
 
 /**
- * @api {post} /api/v3/user/move-pinned-item/:type/:path/move/to/:position Move a pinned item in the rewards column to a new position after being sorted
+ * @api {post} /api/v3/user/move-pinned-item/:type/:path/move/to/:position Move a pinned
+ * item in the rewards column to a new position after being sorted
  * @apiName MovePinnedItem
  * @apiGroup User
  *
  * @apiParam (Path) {String} path The unique item path used for pinning
- * @apiParam (Path) {Number} position Where to move the task. 0 = top of the list. -1 = bottom of the list.  (-1 means push to bottom). First position is 0
+ * @apiParam (Path) {Number} position Where to move the task. 0 = top of the list.
+ *                                    -1 = bottom of the list.
+ *                                    (-1 means push to bottom). First position is 0.
  *
  * @apiSuccess {Array} data The new pinned items order.
  *
  * @apiSuccessExample {json}
- * {"success":true,"data":{"path":"quests.mayhemMistiflying3","type":"quests","_id": "5a32d357232feb3bc94c2bdf"},"notifications":[]}
+ * {"success":true,"data":{"path":"quests.mayhemMistiflying3","type":"quests",
+ * "_id": "5a32d357232feb3bc94c2bdf"},"notifications":[]}
  *
  * @apiUse TaskNotFound
  */

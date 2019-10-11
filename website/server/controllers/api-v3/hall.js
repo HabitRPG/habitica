@@ -208,7 +208,9 @@ const gemsPerTier = {
  * @apiGroup Hall
  * @apiPermission Admin
  *
- * @apiDescription Update user's gem balance, contributions & contribution tier and admin status. Grant items, block / unblock user's account and revoke / unrevoke chat privileges.
+ * @apiDescription Update user's gem balance, contributions & contribution tier
+ * and admin status. Grant items, block / unblock user's account
+ * and revoke / unrevoke chat privileges.
  *
  * @apiExample Example Body:
  * {

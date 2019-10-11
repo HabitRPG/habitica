@@ -11,7 +11,7 @@ import appearanceSets from '@/../../common/script/content/appearance/sets';
 
 import { userStateMixin } from './userState';
 
-export const avatarEditorUtilies = {
+export const avatarEditorUtilies = { // eslint-disable-line import/prefer-default-export
   mixins: [userStateMixin],
   data () {
     return {

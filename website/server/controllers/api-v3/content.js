@@ -71,7 +71,15 @@ async function saveContentToDisk (language, content) {
  * @apiName ContentGet
  * @apiGroup Content
  *
- * @apiParam (Query) {String="bg","cs","da","de","en","en@pirate","en_GB","es","es_419","fr","he","hu","id","it","ja","nl","pl","pt","pt_BR","ro","ru","sk","sr","sv","uk","zh","zh_TW"} [language=en]  Language code used for the items' strings. If the authenticated user makes the request, the content will return with the user's configured language.
+ * @apiParam (Query) {String="bg","cs","da","de",
+ *                   "en","en@pirate","en_GB",
+ *                    "es","es_419","fr","he","hu",
+ *                    "id","it","ja","nl","pl","pt","pt_BR",
+ *                    "ro","ru","sk","sr","sv",
+ *                    "uk","zh","zh_TW"} [language=en] Language code used for the items'
+ *                                                     strings. If the authenticated user makes
+ *                                                     the request, the content will return with
+ *                                                     the user's configured language.
  *
  * @apiSuccess {Object} data Various data about the content of Habitica. The content route
  * contains many keys, but the data listed below are the recomended data to use.
@@ -84,8 +92,9 @@ async function saveContentToDisk (language, content) {
  * @apiSuccess {Object} data.armoire Data about the armoire.
  * @apiSuccess {Array} data.classes The available classes.
  * @apiSuccess {Object} data.eggs All available eggs.
- * @apiSuccess {Object} data.timeTravelStable The animals available in the Time Traveler's stable, separated
- * into pets and mounts.
+ * @apiSuccess {Object} data.timeTravelStable The animals available
+ *                                            in the Time Traveler's stable, separated
+ *                                            into pets and mounts.
  * @apiSuccess {Object} data.hatchingPotions All the hatching potions.
  * @apiSuccess {Object} data.petInfo All the pets with extra info.
  * @apiSuccess {Object} data.mountInfo All the mounts with extra info.

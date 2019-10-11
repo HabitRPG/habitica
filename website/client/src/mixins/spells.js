@@ -10,7 +10,7 @@ export default {
     async castStart (spell, member) {
       if (this.$store.state.spellOptions.castingSpell) {
         this.castCancel();
-        return;
+        return null;
       }
 
       if (this.user.stats.mp < spell.mana) return this.text(this.$t('notEnoughMana'));
@@ -65,10 +65,12 @@ export default {
         this.$root.$on('castEnd', (target, type, $event) => {
           this.castEnd(target, type, $event);
         });
+
+        return null;
       }
     },
     async castEnd (target, type) {
-      if (!this.$store.state.spellOptions.castingSpell) return;
+      if (!this.$store.state.spellOptions.castingSpell) return null;
       let beforeQuestProgress;
       if (this.spell.target === 'party') beforeQuestProgress = this.questProgress();
 
@@ -94,7 +96,7 @@ export default {
               text: e.message,
               type: 'error',
             });
-            return;
+            return null;
           }
           throw e;
         }
@@ -145,7 +147,7 @@ export default {
 
 
       this.markdown(msg); // @TODO: mardown directive?
-      if (!beforeQuestProgress) return;
+      if (!beforeQuestProgress) return null;
       const questProgress = this.questProgress() - beforeQuestProgress;
       if (questProgress > 0) {
         const userQuest = this.quests[this.user.party.quest.key];
@@ -156,7 +158,7 @@ export default {
         }
       }
 
-
+      return null;
       // @TOOD: User.sync();
     },
     castCancel () {

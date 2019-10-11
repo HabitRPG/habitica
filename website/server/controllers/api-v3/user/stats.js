@@ -5,7 +5,8 @@ import { authWithHeaders } from '../../../middlewares/auth';
 const api = {};
 
 /**
- * @api {post} /api/v3/user/allocate Allocate a single Stat Point (previously called Attribute Point)
+ * @api {post} /api/v3/user/allocate Allocate a single Stat Point
+ * (previously called Attribute Point)
  * @apiName UserAllocate
  * @apiGroup User
  *
@@ -79,7 +80,9 @@ api.allocateBulk = {
 
 /**
  * @api {post} /api/v3/user/allocate-now Allocate all Stat Points
- * @apiDescription Uses the user's chosen automatic allocation method, or if none, assigns all to STR. Note: will return success, even if there are 0 points to allocate.
+ * @apiDescription Uses the user's chosen automatic allocation method,
+ * or if none, assigns all to STR. Note: will return success,
+ * even if there are 0 points to allocate.
  * @apiName UserAllocateNow
  * @apiGroup User
  *

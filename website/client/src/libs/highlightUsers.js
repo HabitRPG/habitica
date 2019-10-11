@@ -6,7 +6,7 @@ const optionalPostMentionRegExStr = '(\\.\\w+)?'; // like dot-TLD
 
 const finalMentionRegEx = new RegExp(`${optionalAnchorTagRegExStr}${mentionRegExStr}${optionalPostMentionRegExStr}`, 'gi');
 
-export function highlightUsers (text, userName, displayName) {
+export function highlightUsers (text, userName, displayName) { // eslint-disable-line import/prefer-default-export
   const currentUser = [`@${userName}`, `@${displayName}`].map(escapeRegExp);
 
   text = text.replace(finalMentionRegEx, (fullMatched, preMention, mentionStr, postMention) => {

@@ -28,16 +28,20 @@ const api = {};
 
 /**
  * @api {post} /api/v3/user/auth/local/register Register
- * @apiDescription Register a new user with email, login name, and password or attach local auth to a social user
+ * @apiDescription Register a new user with email, login name, and password or
+ * attach local auth to a social user
  * @apiName UserRegisterLocal
  * @apiGroup User
  *
- * @apiParam (Body) {String} username Login name of the new user. Must be 1-36 characters, containing only a-z, 0-9, hyphens (-), or underscores (_).
+ * @apiParam (Body) {String} username Login name of the new user.
+ *                                    Must be 1-36 characters, containing only a-z, 0-9,
+ *                                    hyphens (-), or underscores (_).
  * @apiParam (Body) {String} email Email address of the new user
  * @apiParam (Body) {String} password Password for the new user
  * @apiParam (Body) {String} confirmPassword Password confirmation
  *
- * @apiSuccess {Object} data The user object, if local auth was just attached to a social user then only user.auth.local
+ * @apiSuccess {Object} data The user object, if local auth was just
+ *                           attached to a social user then only user.auth.local
  */
 api.registerLocal = {
   method: 'POST',
@@ -60,8 +64,10 @@ api.registerLocal = {
  * @apiParam (Body) {String} password The user's password
  *
  * @apiSuccess {String} data._id The user's unique identifier
- * @apiSuccess {String} data.apiToken The user's api token that must be used to authenticate requests.
- * @apiSuccess {Boolean} data.newUser Returns true if the user was just created (always false for local login).
+ * @apiSuccess {String} data.apiToken The user's api token
+ *                                    that must be used to authenticate requests.
+ * @apiSuccess {Boolean} data.newUser Returns true if the user was just created
+ *                                    (always false for local login).
  */
 api.loginLocal = {
   method: 'POST',
@@ -404,7 +410,8 @@ api.resetPasswordSetNewOne = {
 
 /**
  * @api {delete} /api/v3/user/auth/social/:network Delete social authentication method
- * @apiDescription Remove a social authentication method (only facebook supported) from a user profile. The user must have local authentication enabled
+ * @apiDescription Remove a social authentication method (only facebook supported)
+ * from a user profile. The user must have local authentication enabled
  * @apiName UserDeleteSocial
  * @apiGroup User
  *

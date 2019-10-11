@@ -58,12 +58,14 @@ const api = {};
  * @apiSuccess {UUID} challenge._id Same as `challenge.id`.
  * @apiSuccess {String} challenge.prize Number of gems offered as prize to winner (can be 0).
  * @apiSuccess {String} challenge.memberCount Number users participating in challenge.
- * @apiSuccess {Object} challenge.tasksOrder Object containing IDs of the challenge's tasks and rewards in their preferred sort order.
+ * @apiSuccess {Object} challenge.tasksOrder Object containing IDs of the challenge's
+ *                                           tasks and rewards in their preferred sort order.
  * @apiSuccess {Array} challenge.tasksOrder.rewards Array of `reward` task IDs.
  * @apiSuccess {Array} challenge.tasksOrder.todos Array of `todo` task IDs.
  * @apiSuccess {Array} challenge.tasksOrder.dailys Array of `daily` task IDs.
  * @apiSuccess {Array} challenge.tasksOrder.habits Array of `habit` task IDs.
- * @apiSuccess {Boolean} challenge.official Boolean indicating if this is an official Habitica challenge.
+ * @apiSuccess {Boolean} challenge.official Boolean indicating if
+ *                                          this is an official Habitica challenge.
  *
  */
 
@@ -159,24 +161,32 @@ const api = {};
  * @api {post} /api/v3/challenges Create a new challenge
  * @apiName CreateChallenge
  * @apiGroup Challenge
- * @apiDescription Creates a challenge. Cannot create associated tasks with this route. See <a href="#api-Task-CreateChallengeTasks">CreateChallengeTasks</a>.
+ * @apiDescription Creates a challenge. Cannot create associated
+ * tasks with this route. See <a href="#api-Task-CreateChallengeTasks">CreateChallengeTasks</a>.
  *
  * @apiParam (Body) {Object} challenge An object representing the challenge to be created
  * @apiParam (Body) {UUID} challenge.group The id of the group to which the challenge belongs
  * @apiParam (Body) {String} challenge.name The full name of the challenge
- * @apiParam (Body) {String} challenge.shortName A shortened name for the challenge, to be used as a tag
- * @apiParam (Body) {String} [challenge.summary] A short summary advertising the main purpose of the challenge; maximum 250 characters; if not supplied, challenge.name will be used
+ * @apiParam (Body) {String} challenge.shortName A shortened name for the challenge,
+ *                                               to be used as a tag.
+ * @apiParam (Body) {String} [challenge.summary] A short summary advertising the main purpose
+ *                                               of the challenge; maximum 250 characters;
+ *                                               if not supplied, challenge.name will be used.
  * @apiParam (Body) {String} [challenge.description] A detailed description of the challenge
- * @apiParam (Body) {Boolean} [official=false] Whether or not a challenge is an official Habitica challenge (requires admin)
- * @apiParam (Body) {Number} [challenge.prize=0] Number of gems offered as a prize to challenge winner
+ * @apiParam (Body) {Boolean} [official=false] Whether or not a challenge is an official
+ *                                             Habitica challenge (requires admin).
+ * @apiParam (Body) {Number} [challenge.prize=0] Number of gems offered as
+ *                                               a prize to challenge winner.
  *
  * @apiSuccess (201) {Object} challenge The newly created challenge.
  * @apiUse SuccessfulChallengeRequest
  *
  * @apiUse ChallengeSuccessExample
  *
- * @apiError (401) {NotAuthorized} CantAffordPrize User does not have enough gems to offer this prize.
- * @apiError (400) {BadRequest} ChallengeValidationFailed Invalid or missing parameter in challenge body.
+ * @apiError (401) {NotAuthorized} CantAffordPrize User does not have enough
+                                                   gems to offer this prize.
+ * @apiError (400) {BadRequest} ChallengeValidationFailed Invalid or missing parameter
+                                                          in challenge body.
  *
  * @apiUse GroupNotFound
  * @apiUse UserNotFound
@@ -282,7 +292,9 @@ api.joinChallenge = {
  * @apiName LeaveChallenge
  * @apiGroup Challenge
  * @apiParam (Path) {UUID} challengeId The challenge _id
- * @apiParam (Body) {String="remove-all","keep-all"} [keep="keep-all"] Whether or not to keep or remove the challenge's tasks
+ * @apiParam (Body) {String="remove-all","keep-all"} [keep="keep-all"] Whether or not to
+ *                                                                     keep or remove the
+ *                                                                     challenge's tasks.
  *
  * @apiSuccess {Object} data An empty object
  *
@@ -328,9 +340,12 @@ api.leaveChallenge = {
  * @api {get} /api/v3/challenges/user Get challenges for a user
  * @apiName GetUserChallenges
  * @apiGroup Challenge
- * @apiDescription Get challenges the user has access to. Includes public challenges, challenges belonging to the user's group, and challenges the user has already joined.
+ * @apiDescription Get challenges the user has access to. Includes public challenges,
+ * challenges belonging to the user's group, and challenges the user has already joined.
  *
- * @apiSuccess {Object[]} challenges An array of challenges sorted with official challenges first, followed by the challenges in order from newest to oldest
+ * @apiSuccess {Object[]} challenges An array of challenges sorted with official
+ *                                   challenges first, followed by the challenges
+ *                                   in order from newest to oldest.
  *
  * @apiUse SuccessfulChallengeRequest
  *
@@ -431,9 +446,11 @@ api.getUserChallenges = {
  * @apiName GetGroupChallenges
  * @apiGroup Challenge
  *
- * @apiParam (Path) {UUID} groupId The group id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {UUID} groupId The group id ('party' for the user party and 'habitrpg'
+ *                                 for tavern are accepted)
  *
- * @apiSuccess {Array} data An array of challenges sorted with official challenges first, followed by the challenges in order from newest to oldest
+ * @apiSuccess {Array} data An array of challenges sorted with official challenges first,
+ *                          followed by the challenges in order from newest to oldest.
  *
  * @apiUse SuccessfulChallengeRequest
  * @apiUse ChallengeArrayExample

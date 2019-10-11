@@ -22,9 +22,10 @@ function geti18nBrowserScript (language) {
 }
 
 /**
- * @api {get} /api/v3/i18n/browser-script Returns a JS script to make all the i18n strings available in the browser
- * under window.i18n.strings
- * @apiDescription Does not require authentication.
+ * @api {get} /api/v3/i18n/browser-script Returns the i18n JS script.
+ * @apiDescription Returns the i18n JS script to make
+ * all the i18n strings available in the browser under window.i18n.strings.
+ * Does not require authentication.
  * @apiName i18nBrowserScriptGet
  * @apiGroup i18n
  */

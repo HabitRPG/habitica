@@ -11,12 +11,14 @@ const allModels = ['user', 'tag', 'challenge', 'group'].concat(tasksModels);
  * @apiName GetUserModelPaths
  * @apiGroup Meta
  *
- * @apiParam (Path) {String="user","group","challenge","tag","habit","daily","todo","reward"} model The name of the model
+ * @apiParam (Path) {String="user","group","challenge","tag","habit",
+                    "daily","todo","reward"} model The name of the model
  *
  * @apiExample {curl} Tag
  * curl https://habitica.com/api/v3/models/tag/paths
  *
- * @apiSuccess {Object} data A key-value object made of fieldPath: fieldType (like {'field.nested': Boolean})
+ * @apiSuccess {Object} data A key-value object made of fieldPath: fieldType
+                             (like {'field.nested': Boolean})
  *
  * @apiSuccessExample {json} Tag
  * {

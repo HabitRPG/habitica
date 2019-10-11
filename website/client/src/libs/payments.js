@@ -1,7 +1,7 @@
 import getStore from '@/store';
 
 
-export function setup () {
+export function setup () { // eslint-disable-line import/prefer-default-export
   const store = getStore();
 
   // Set Amazon Payments as ready in the store,

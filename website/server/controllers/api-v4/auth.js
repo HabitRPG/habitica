@@ -56,16 +56,20 @@ api.verifyUsername = {
 
 /**
  * @api {post} /api/v4/user/auth/local/register Register
- * @apiDescription Register a new user with email, login name, and password or attach local auth to a social user
+ * @apiDescription Register a new user with email, login name, and password
+ * or attach local auth to a social user
  * @apiName UserRegisterLocal
  * @apiGroup User
  *
- * @apiParam (Body) {String} username Login name of the new user. Must be 1-36 characters, containing only a-z, 0-9, hyphens (-), or underscores (_).
+ * @apiParam (Body) {String} username Login name of the new user.
+ *                                    Must be 1-36 characters, containing only
+ *                                    a-z, 0-9, hyphens (-), or underscores (_).
  * @apiParam (Body) {String} email Email address of the new user
  * @apiParam (Body) {String} password Password for the new user
  * @apiParam (Body) {String} confirmPassword Password confirmation
  *
- * @apiSuccess {Object} data The user object, if local auth was just attached to a social user then only user.auth.local
+ * @apiSuccess {Object} data The user object, if local auth was just
+ *                           attached to a social user then only user.auth.local
  */
 api.registerLocal = {
   method: 'POST',

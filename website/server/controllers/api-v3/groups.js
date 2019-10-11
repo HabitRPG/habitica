@@ -52,7 +52,8 @@ const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS_TECH_ASSISTANCE_EMAIL');
 
 /**
  * @apiDefine messageGroupRequiresInvite
- * @apiError (400) {NotAuthorized} messageGroupRequiresInvite Group requires an invitation to join (e.g. private group, party)
+ * @apiError (400) {NotAuthorized} messageGroupRequiresInvite Group requires an invitation
+ *                                                            to join (e.g. private group, party).
  */
 
 /**
@@ -81,7 +82,8 @@ const api = {};
  * @apiError (401) {NotAuthorized} messageInsufficientGems User does not have enough gems (4)
  * @apiError (401) {NotAuthorized} partyMustbePrivate Party must have privacy set to private
  * @apiError (401) {NotAuthorized} messageGroupAlreadyInParty
- * @apiError (401) {NotAuthorized} chatPrivilegesRevoked You cannot do this because your chat privileges have been removed...
+ * @apiError (401) {NotAuthorized} chatPrivilegesRevoked You cannot do this because your chat
+                                                         privileges have been removed...
  *
  * @apiSuccess (201) {Object} data The created group (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
  *
@@ -264,9 +266,16 @@ api.createGroupPlan = {
  * @apiName GetGroups
  * @apiGroup Group
  *
- * @apiParam (Query) {String} type The type of groups to retrieve. Must be a query string representing a list of values like 'tavern,party'. Possible values are party, guilds, privateGuilds, publicGuilds, tavern
- * @apiParam (Query) {String="true","false"} [paginate] Public guilds support pagination. When true guilds are returned in groups of 30
- * @apiParam (Query) {Number} [page] When pagination is enabled for public guilds this parameter can be used to specify the page number (the initial page is number 0 and not required)
+ * @apiParam (Query) {String} type The type of groups to retrieve.
+ *                                 Must be a query string representing a list of values
+ *                                 like 'tavern,party'. Possible values are party, guilds,
+ *                                 privateGuilds, publicGuilds, tavern.
+ * @apiParam (Query) {String="true","false"} [paginate] Public guilds support pagination.
+ *                                                      When true guilds are returned in
+ *                                                      groups of 30.
+ * @apiParam (Query) {Number} [page] When pagination is enabled for public guilds this
+                                     parameter can be used to specify the page number
+                                    (the initial page is number 0 and not required).
  *
  * @apiParamExample {json} Private Guilds, Tavern:
  *     {
@@ -274,7 +283,8 @@ api.createGroupPlan = {
  *     }
  *
  * @apiError (400) {BadRequest} groupTypesRequired Group types are required
- * @apiError (400) {BadRequest} guildsPaginateBooleanString Paginate query parameter must be a boolean (true or false)
+ * @apiError (400) {BadRequest} guildsPaginateBooleanString Paginate query parameter
+ *                                                          must be a boolean (true or false).
  * @apiError (400) {BadRequest} queryPageInteger Page query parameter must be a positive integer
  * @apiError (400) {BadRequest} guildsOnlyPaginate Only public guilds support pagination
  *
@@ -362,7 +372,8 @@ api.getGroups = {
  * @apiName GetGroup
  * @apiGroup Group
  *
- * @apiParam (Path) {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {String} groupId The group _id ('party' for the user party
+ *                                   and 'habitrpg' for tavern are accepted)
  *
  * @apiParamExample {String} Tavern:
  *     /api/v3/groups/habitrpg
@@ -419,12 +430,14 @@ api.getGroup = {
  * @apiName UpdateGroup
  * @apiGroup Group
  *
- * @apiParam (Path) {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {String} groupId The group _id ('party' for the user party and 'habitrpg'
+ *                                   for tavern are accepted).
  *
  * @apiParamExample {String} Tavern:
  *     /api/v3/groups/habitrpg
  *
- * @apiError (400) {NotAuthorized} messageGroupOnlyLeaderCanUpdate Only the group's leader can update the party
+ * @apiError (400) {NotAuthorized} messageGroupOnlyLeaderCanUpdate Only the group's leader
+ *                                                                 can update the party.
  *
  * @apiSuccess {Object} data The updated group (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
  *
@@ -485,7 +498,8 @@ api.updateGroup = {
  * @apiName JoinGroup
  * @apiGroup Group
  *
- * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg'
+ *                                 for tavern are accepted).
  *
  * @apiParamExample {String} Tavern:
  *     /api/v3/groups/habitrpg/join
@@ -667,7 +681,8 @@ api.joinGroup = {
  * @apiName RejectGroupInvite
  * @apiGroup Group
  *
- * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg'
+ *                                 for tavern are accepted).
  *
  * @apiParamExample {String} party:
  *     /api/v3/groups/party/reject-invite
@@ -735,9 +750,16 @@ function _removeMessagesFromMember (member, groupId) {
  * @apiName LeaveGroup
  * @apiGroup Group
  *
- * @apiParam (Path) {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam (Query) {String="remove-all","keep-all"} keep=keep-all Whether or not to keep challenge tasks belonging to the group being left.
- * @apiParam (Body) {String="remain-in-challenges","leave-challenges"} [keepChallenges=leave-challenges] Whether or not to remain in the challenges of the group being left.
+ * @apiParam (Path) {String} groupId The group _id ('party' for the user party and 'habitrpg'
+ *                                    for tavern are accepted).
+ * @apiParam (Query) {String="remove-all","keep-all"} keep=keep-all Whether or not to keep
+ *                                                                  challenge tasks belonging to
+ *                                                                  the group being left.
+ * @apiParam (Body) {String="remain-in-challenges"
+ *                  ,"leave-challenges"} [keepChallenges=leave-challenges] Whether or not
+ *                                                                         to remain in the
+ *                                                                         challenges of the
+ *                                                                         group being left.
  *
  * @apiParamExample {json} Leave Party:
  *     /api/v3/groups/party/leave
@@ -746,8 +768,11 @@ function _removeMessagesFromMember (member, groupId) {
  *     }
  *
  * @apiError (400) {BadRequest} keepOrRemoveAll "keep" parameter is not "remove-all" or "keep-all"
- * @apiError (400) {NotAuthorized} questLeaderCannotLeaveGroup User could not leave party because they are the owner of a quest currently running
- * @apiError (400) {NotAuthorized} cannotLeaveWhileActiveQuest User could not leave party due to being in a quest
+ * @apiError (400) {NotAuthorized} questLeaderCannotLeaveGroup User could not leave party because
+ *                                                             they are the owner of a quest
+ *                                                             currently running.
+ * @apiError (400) {NotAuthorized} cannotLeaveWhileActiveQuest User could not leave party due to
+ *                                                             being in a quest.
  *
  * @apiSuccess {Object} data An empty object
  *
@@ -827,7 +852,8 @@ function _sendMessageToRemoved (group, removedUser, message, isInGroup) {
  * @apiName RemoveGroupMember
  * @apiGroup Group
  *
- * @apiParam (Path) {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {String} groupId The group _id ('party' for the user party and 'habitrpg'
+ *                                   for tavern are accepted).
  * @apiParam (Path) {UUID} memberId The _id of the member to remove
  * @apiParam (Query) {String} message Query parameter - The message to send to the removed members
  *
@@ -835,7 +861,8 @@ function _sendMessageToRemoved (group, removedUser, message, isInGroup) {
  *     /api/v3/groups/party/removeMember/[User's ID]?message=Bye
  *
  * @apiError (400) {BadRequest} userIdrequired "memberId" cannot be empty or not a UUID
- * @apiError (400) {NotAuthorized} onlyLeaderCanRemoveMember Only the group leader can remove members
+ * @apiError (400) {NotAuthorized} onlyLeaderCanRemoveMember Only the group
+                                                             leader can remove members.
  * @apiError (400) {NotAuthorized} memberCannotRemoveYourself Group leader cannot remove themselves
  * @apiError (404) {NotFound} groupMemberNotFound Group member was not found
  *
@@ -952,11 +979,14 @@ api.removeGroupMember = {
  * @api {post} /api/v3/groups/:groupId/invite Invite users to a group
  * @apiName InviteToGroup
  * @apiGroup Group
- * @apiDescription You can provide both `emails` and `uuids`, or just one. You must provide at least one.
+ * @apiDescription You can provide both `emails` and `uuids`, or just one.
+ * You must provide at least one.
  *
- * @apiParam (Path) {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {String} groupId The group _id ('party' for the user party and 'habitrpg'
+ *                                   for tavern are accepted)
  *
- * @apiParam (Body) {Object[]} [emails] An array of objects, each representing one email address to invite
+ * @apiParam (Body) {Object[]} [emails] An array of objects, each representing one
+ *                                      email address to invite.
  * @apiParam (Body) {String} emails.email The email address of the user being invited.
  * @apiParam (Body) {String} [emails.name] The name of the user being invited.
  * @apiParam (Body) {Array} [uuids] An array of uuids to invite
@@ -982,8 +1012,10 @@ api.removeGroupMember = {
  * }
  *
  * @apiSuccess {Array} data The invites
- * @apiSuccess {Object} data[0] If the invitation was a User ID, you'll receive back an object. You'll receive one Object for each succesful User ID invite.
- * @apiSuccess {String} data[1] If the invitation was an email, you'll receive back the email. You'll receive one String for each successful email invite.
+ * @apiSuccess {Object} data[0] If the invitation was a User ID, you'll receive back an object.
+ *                              You'll receive one Object for each succesful User ID invite.
+ * @apiSuccess {String} data[1] If the invitation was an email, you'll receive back the email.
+ *                              You'll receive one String for each successful email invite.
  *
  * @apiSuccessExample {json} Successful Response with Emails
  * {
@@ -1010,20 +1042,30 @@ api.removeGroupMember = {
  *
  * @apiUse GroupBodyInvalid
  *
- * @apiError (400) {BadRequest} NoEmailProvided An email address was not provided in the `emails` body
- * param `Array`.
- * @apiError (400) {BadRequest} UuidOrEmailOnly The `emails` and `uuids` params were both missing and/or a
- * key other than `emails` or `uuids` was provided in the body param.
- * @apiError (400) {BadRequest} CannotInviteSelf User ID or email of invitee matches that of the inviter.
+ * @apiError (400) {BadRequest} NoEmailProvided An email address was not provided
+ *                                              in the `emails` body param `Array`.
+ * @apiError (400) {BadRequest} UuidOrEmailOnly The `emails` and `uuids` params
+ *                                              were both missing and/or a.
+ *                                              key other than `emails` or `uuids` was provided
+ *                                              in the body param.
+ * @apiError (400) {BadRequest} CannotInviteSelf User ID or email of invitee matches
+ *                                               that of the inviter.
  * @apiError (400) {BadRequest} MustBeArray The `uuids` or `emails` body param was not an array.
- * @apiError (400) {BadRequest} TooManyInvites A max of 100 invites (combined emails and User IDs) can
- * be sent out at a time.
+ * @apiError (400) {BadRequest} TooManyInvites A max of 100 invites (combined
+ *                                             emails and User IDs) can
+ *                                             be sent out at a time.
  * @apiError (400) {BadRequest} ExceedsMembersLimit A max of 30 members can join a party.
  *
- * @apiError (401) {NotAuthorized} UserAlreadyInvited The user has already been invited to the group.
+ * @apiError (401) {NotAuthorized} UserAlreadyInvited The user has already
+ *                                                    been invited to the group.
  * @apiError (401) {NotAuthorized} UserAlreadyInGroup The user is already a member of the group.
- * @apiError (401) {NotAuthorized} CannotInviteWhenMuted You cannot invite anyone to a guild or party because your chat privileges have been revoked.
- * @apiError (401) {NotAuthorized} NotAuthorizedToSendMessageToThisUser You can't send a message to this player because they have chosen to block messages.
+ * @apiError (401) {NotAuthorized} CannotInviteWhenMuted You cannot invite anyone
+ *                                                       to a guild or party because your
+ *                                                       chat privileges have been revoked.
+ * @apiError (401) {NotAuthorized} NotAuthorizedToSendMessageToThisUser You can't send a
+ *                                                                      message to this player
+ *                                                                      because they have chosen to
+ *                                                                      block messages.
  *
  * @apiUse GroupNotFound
  * @apiUse UserNotFound
@@ -1104,7 +1146,8 @@ api.inviteToGroup = {
  * @apiName AddGroupManager
  * @apiGroup Group
  *
- * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg'
+ *                                 for tavern are accepted).
  *
  * @apiParamExample {String} party:
  *     /api/v3/groups/party/add-manager
@@ -1153,7 +1196,8 @@ api.addGroupManager = {
  * @apiName RemoveGroupManager
  * @apiGroup Group
  *
- * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg'
+ *                                 for tavern are accepted).
  *
  * @apiParamExample {String} party:
  *     /api/v3/groups/party/add-manager

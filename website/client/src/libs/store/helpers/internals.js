@@ -19,7 +19,7 @@ Example:
       tasks:todos
       tasks:dailys
 */
-export function flattenAndNamespace (namespaces) {
+export function flattenAndNamespace (namespaces) { // eslint-disable-line import/prefer-default-export
   const result = {};
 
   Object.keys(namespaces).forEach(namespace => {

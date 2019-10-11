@@ -56,12 +56,15 @@ api.getCoupons = {
  * @apiGroup Coupon
  * @apiPermission sudo
  *
- * @apiParam (Path) {String=wondercon,google_6mo} event The event for which the coupon should be generated
+ * @apiParam (Path) {String=wondercon,google_6mo} event The event for which the coupon
+ *                                                      should be generated
  * @apiParam (Query) {Number} count The number of coupon codes to generate
  *
  * @apiSuccess {Array} data Generated coupons
  *
- * @apiError (400) {BadRequest} CouponValidationError The request was missing the count query parameter or used an invalid event.
+ * @apiError (400) {BadRequest} CouponValidationError The request was missing the
+ *                                                    count query parameter or used
+ *                                                    an invalid event.
  *
  */
 api.generateCoupons = {

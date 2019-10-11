@@ -111,7 +111,8 @@ api.conversations = {
  * @api {get} /api/v4/inbox/paged-messages Get inbox messages for a user
  * @apiName GetInboxMessages
  * @apiGroup Inbox
- * @apiDescription Get inbox messages for a user. Entries already populated with the correct `sent` - information
+ * @apiDescription Get inbox messages for a user.
+ * Entries already populated with the correct `sent` - information
  *
  * @apiParam (Query) {Number} page Load the messages of the selected Page - 10 Messages per Page
  * @apiParam (Query) {GUID} conversation Loads only the messages of a conversation

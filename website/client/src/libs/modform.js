@@ -11,7 +11,7 @@ function getApiKey () {
   }
 }
 
-export function goToModForm (user) {
+export function goToModForm (user) { // eslint-disable-line import/prefer-default-export
   if (!user) return;
 
   const apiKey = getApiKey();

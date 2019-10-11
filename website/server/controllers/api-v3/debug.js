@@ -8,7 +8,8 @@ const { content } = common;
 
 /**
  * @apiDefine Development Development
- * These routes only exist while Habitica is in development mode. (Such as running a local instance on your computer)
+ * These routes only exist while Habitica is in development mode.
+ * (Such as running a local instance on your computer).
  */
 
 /**
