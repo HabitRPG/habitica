@@ -1823,7 +1823,7 @@
     "weaponArmoireFloridFanText": "炫彩扇子",
     "weaponArmoireMagnifyingGlassNotes": "啊哈！一个证据！用这个精细的放大镜仔细检查它。增加<％= per％>点感知。魔法衣橱：侦探套装（第3项，共4项）。",
     "armorArmoireAstronomersRobeText": "天文学家的长袍",
-    "armorArmoireBoatingJacketNotes": "无论你是在一艘时髦的游艇上，还是在一辆破车上，你都会开心地穿着这件夹克和领带。力量智力和感知各增加 <%= attrs %>点。魔法衣柜：划船套装（第 1 项，共 3 项）。",
+    "armorArmoireBoatingJacketNotes": "无论你是在一艘时髦的游艇上，还是在一辆破车上，穿着这件夹克、戴着领带的你都将惹人注目。力量智力和感知各增加 <%= attrs %>点。魔法衣柜：划船套装（第 1 项，共 3 项）。",
     "armorArmoireBoatingJacketText": "划船夹克",
     "armorArmoireNephriteArmorNotes": "这款盔甲由坚固的钢环制成，饰有玉石，可保护您免受拖延！增加<%= str %>点力量和<%= per %>点感知。魔法衣柜：软玉射手套装（第3项，共3项）。",
     "armorArmoireNephriteArmorText": "软玉盔甲",

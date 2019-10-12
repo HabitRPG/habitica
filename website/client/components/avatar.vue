@@ -47,7 +47,7 @@
   @import '~client/assets/scss/colors.scss';
 
   .avatar {
-    width: 140px;
+    width: 141px;
     height: 147px;
     image-rendering: pixelated;
     position: relative;
@@ -136,7 +136,7 @@ export default {
         return this.overrideTopPadding;
       }
 
-      let val = '28px';
+      let val = '27px';
 
       if (!this.avatarOnly) {
         if (this.member.items.currentPet) val = '24px';
