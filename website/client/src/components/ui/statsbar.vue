@@ -1,10 +1,28 @@
-<template lang="pug">
-  .progress-container(ref="container", :id="elementId", :class="{condensed}")
-    .svg-icon(v-html="icon")
-    .progress
-      .progress-bar(:class="progressClass", :style="{width: `${percent(value, maxValue)}%`}")
-    span.small-text {{value | statFloor}} / {{maxValue}}
-    b-tooltip.myClass(:target="() => $refs.container", :container="elementId", :title="tooltip", triggers="hover", placement="bottom")
+<template>
+  <div
+    :id="elementId"
+    ref="container"
+    class="progress-container"
+    :class="{condensed}"
+  >
+    <div
+      class="svg-icon"
+      v-html="icon"
+    ></div><div class="progress">
+      <div
+        class="progress-bar"
+        :class="progressClass"
+        :style="{width: `${percent(value, maxValue)}%`}"
+      ></div>
+    </div><span class="small-text">{{ value | statFloor }} / {{ maxValue }}</span><b-tooltip
+      class="myClass"
+      :target="() => $refs.container"
+      :container="elementId"
+      :title="tooltip"
+      triggers="hover"
+      placement="bottom"
+    />
+  </div>
 </template>
 
 <style lang="scss" scoped>

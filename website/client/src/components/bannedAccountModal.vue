@@ -1,12 +1,27 @@
-<template lang="pug">
-  b-modal#banned-account(:title="$t('accountSuspendedTitle')", size='md', :hide-footer="true")
-    .modal-body
-      .row
-        .col-12
-          p(v-markdown='bannedMessage')
-    .modal-footer
-      .col-12.text-center
-          button.btn.btn-primary(@click='close()') {{$t('close')}}
+<template>
+  <b-modal
+    id="banned-account"
+    :title="$t('accountSuspendedTitle')"
+    size="md"
+    :hide-footer="true"
+  >
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-12">
+          <p v-markdown="bannedMessage"></p>
+        </div>
+      </div>
+    </div><div class="modal-footer">
+      <div class="col-12 text-center">
+        <button
+          class="btn btn-primary"
+          @click="close()"
+        >
+          {{ $t('close') }}
+        </button>
+      </div>
+    </div>
+  </b-modal>
 </template>
 
 <style scoped>

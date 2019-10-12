@@ -1,14 +1,41 @@
-<template lang="pug">
-  b-modal#copyAsTodo(:title="$t('copyMessageAsToDo')", :hide-footer="true", size='md')
-    .form-group
-      input.form-control(type='text', v-model='task.text')
-    .form-group
-      textarea.form-control(rows='5', v-model='task.notes' focus-element='true')
-    hr
-    task(v-if='task._id', :isUser="isUser", :task="task")
-    .modal-footer
-      button.btn.btn-secondary(@click='close()') {{ $t('close') }}
-      button.btn.btn-primary(@click='saveTodo()') {{ $t('submit') }}
+<template>
+  <b-modal
+    id="copyAsTodo"
+    :title="$t('copyMessageAsToDo')"
+    :hide-footer="true"
+    size="md"
+  >
+    <div class="form-group">
+      <input
+        v-model="task.text"
+        class="form-control"
+        type="text"
+      >
+    </div><div class="form-group">
+      <textarea
+        v-model="task.notes"
+        class="form-control"
+        rows="5"
+        focus-element="true"
+      ></textarea>
+    </div><hr><task
+      v-if="task._id"
+      :is-user="isUser"
+      :task="task"
+    /><div class="modal-footer">
+      <button
+        class="btn btn-secondary"
+        @click="close()"
+      >
+        {{ $t('close') }}
+      </button><button
+        class="btn btn-primary"
+        @click="saveTodo()"
+      >
+        {{ $t('submit') }}
+      </button>
+    </div>
+  </b-modal>
 </template>
 
 <script>

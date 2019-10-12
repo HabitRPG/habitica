@@ -1,33 +1,78 @@
-<template lang="pug">
-  div
-    .form-group
-      .d-flex.align-items-center
-        label.mr-3(for='displayName') {{ $t('displayName') }}
-        .flex-grow-1
-          input#displayName.form-control(
-            type='text',
-            :placeholder="$t('newDisplayName')",
-            v-model='temporaryDisplayName',
-            @blur='restoreEmptyDisplayName()',
-            :class='{"is-invalid input-invalid": displayNameInvalid, "input-valid": displayNameValid, "text-darker": temporaryDisplayName.length > 0}')
-    .mb-3(v-if="displayNameIssues.length > 0")
-      .input-error.text-center(v-for="issue in displayNameIssues") {{ issue }}
-    .form-group
-      .d-flex.align-items-center
-        label.mr-3(for='username') {{ $t('username') }}
-        .flex-grow-1
-          .input-group-prepend.input-group-text @
-            input#username.form-control(
-              type='text',
-              :placeholder="$t('newUsername')",
-              v-model='temporaryUsername',
-              @blur='restoreEmptyUsername()',
-              :class='{"is-invalid input-invalid": usernameInvalid, "input-valid": usernameValid, "text-darker": temporaryUsername.length > 0}')
-    .mb-3(v-if="usernameIssues.length > 0")
-      .input-error.text-center(v-for="issue in usernameIssues") {{ issue }}
-    .small.text-center.mb-3(v-if='!avatarIntro') {{ $t('usernameLimitations') }}
-    .row.justify-content-center
-      button.btn.btn-primary(type='submit', @click='submitNames()', :class='{disabled: usernameCannotSubmit}', :disabled='usernameCannotSubmit') {{ $t(avatarIntro ? 'getStarted' : 'saveAndConfirm') }}
+<template>
+  <div>
+    <div class="form-group">
+      <div class="d-flex align-items-center">
+        <label
+          class="mr-3"
+          for="displayName"
+        >{{ $t('displayName') }}</label><div class="flex-grow-1">
+          <input
+            id="displayName"
+            v-model="temporaryDisplayName"
+            class="form-control"
+            type="text"
+            :placeholder="$t('newDisplayName')"
+            :class="{'is-invalid input-invalid': displayNameInvalid, 'input-valid': displayNameValid, 'text-darker': temporaryDisplayName.length > 0}"
+            @blur="restoreEmptyDisplayName()"
+          >
+        </div>
+      </div>
+    </div><div
+      v-if="displayNameIssues.length > 0"
+      class="mb-3"
+    >
+      <div
+        v-for="issue in displayNameIssues"
+        class="input-error text-center"
+      >
+        {{ issue }}
+      </div>
+    </div><div class="form-group">
+      <div class="d-flex align-items-center">
+        <label
+          class="mr-3"
+          for="username"
+        >{{ $t('username') }}</label><div class="flex-grow-1">
+          <div class="input-group-prepend input-group-text">
+            @<input
+              id="username"
+              v-model="temporaryUsername"
+              class="form-control"
+              type="text"
+              :placeholder="$t('newUsername')"
+              :class="{'is-invalid input-invalid': usernameInvalid, 'input-valid': usernameValid, 'text-darker': temporaryUsername.length > 0}"
+              @blur="restoreEmptyUsername()"
+            >
+          </div>
+        </div>
+      </div>
+    </div><div
+      v-if="usernameIssues.length > 0"
+      class="mb-3"
+    >
+      <div
+        v-for="issue in usernameIssues"
+        class="input-error text-center"
+      >
+        {{ issue }}
+      </div>
+    </div><div
+      v-if="!avatarIntro"
+      class="small text-center mb-3"
+    >
+      {{ $t('usernameLimitations') }}
+    </div><div class="row justify-content-center">
+      <button
+        class="btn btn-primary"
+        type="submit"
+        :class="{disabled: usernameCannotSubmit}"
+        :disabled="usernameCannotSubmit"
+        @click="submitNames()"
+      >
+        {{ $t(avatarIntro ? 'getStarted' : 'saveAndConfirm') }}
+      </button>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>

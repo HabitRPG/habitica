@@ -1,13 +1,26 @@
-<template lang="pug">
-b-modal#welcome-modal(:ok-only="true",
-  :ok-title="$t('gotIt')",
-  :visible="!hideDialog",
-  :hide-header="true",
-  @hide="hideFlag()")
-  div.content
-    div.npc_matt
-    h1.page-header(v-once) {{ $t('welcomeStable') }}
-    div.content-text(v-once) {{ $t('welcomeStableText') }}
+<template>
+  <b-modal
+    id="welcome-modal"
+    :ok-only="true"
+    :ok-title="$t('gotIt')"
+    :visible="!hideDialog"
+    :hide-header="true"
+    @hide="hideFlag()"
+  >
+    <div class="content">
+      <div class="npc_matt"></div><h1
+        v-once
+        class="page-header"
+      >
+        {{ $t('welcomeStable') }}
+      </h1><div
+        v-once
+        class="content-text"
+      >
+        {{ $t('welcomeStableText') }}
+      </div>
+    </div>
+  </b-modal>
 </template>
 
 <style lang="scss" scoped>

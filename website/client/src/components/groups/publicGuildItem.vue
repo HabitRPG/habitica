@@ -1,31 +1,97 @@
-<template lang="pug">
-router-link.card-link(:to="{ name: 'guild', params: { groupId: guild._id } }")
-  .card
-    .card-body
-      .row
-        .col-md-2.badge-column
-          .shield-wrap(:class="{gold: guild.memberCount >= 1000, silver: guild.memberCount >= 100 && guild.memberCount < 1000}")
-            .svg-icon.shield(v-html="icons.goldGuildBadge", v-if='guild.memberCount >= 1000')
-            .svg-icon.shield(v-html="icons.silverGuildBadgeIcon", v-if='guild.memberCount >= 100 && guild.memberCount < 1000')
-            .svg-icon.shield(v-html="icons.bronzeGuildBadgeIcon", v-if='guild.memberCount < 100')
-            .member-count {{ guild.memberCount | abbrNum }}
-        .col-md-10
-          .row
-            .col-md-8
-                router-link(:to="{ name: 'guild', params: { groupId: guild._id } }")
-                  h3 {{ guild.name }}
-                p.summary(v-if='guild.summary') {{guild.summary.substr(0, MAX_SUMMARY_SIZE_FOR_GUILDS)}}
-                p.summary(v-else) {{ guild.name }}
-            .col-md-2.cta-container
-              button.btn.btn-danger(v-if='isMember && displayLeave' @click.prevent='leave()', v-once) {{ $t('leave') }}
-              button.btn.btn-success(v-if='!isMember'  @click='join()', v-once) {{ $t('join') }}
-              div.item-with-icon.gem-bank(v-if='displayGemBank')
-                .svg-icon.gem(v-html="icons.gem")
-                span.count {{ guild.balance * 4 }}
-              div.guild-bank(v-if='displayGemBank', v-once) {{$t('guildBank')}}
-          .row
-            category-tags.col-md-12(:categories="guild.categories", :owner="isOwner", v-once)
-              span.recommend-text(v-if='showSuggested(guild._id)')  {{$t('suggestedGroup')}}
+<template>
+  <router-link
+    class="card-link"
+    :to="{ name: 'guild', params: { groupId: guild._id } }"
+  >
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-2 badge-column">
+            <div
+              class="shield-wrap"
+              :class="{gold: guild.memberCount >= 1000, silver: guild.memberCount >= 100 && guild.memberCount < 1000}"
+            >
+              <div
+                v-if="guild.memberCount >= 1000"
+                class="svg-icon shield"
+                v-html="icons.goldGuildBadge"
+              ></div><div
+                v-if="guild.memberCount >= 100 && guild.memberCount < 1000"
+                class="svg-icon shield"
+                v-html="icons.silverGuildBadgeIcon"
+              ></div><div
+                v-if="guild.memberCount < 100"
+                class="svg-icon shield"
+                v-html="icons.bronzeGuildBadgeIcon"
+              ></div><div class="member-count">
+                {{ guild.memberCount | abbrNum }}
+              </div>
+            </div>
+          </div><div class="col-md-10">
+            <div class="row">
+              <div class="col-md-8">
+                <router-link :to="{ name: 'guild', params: { groupId: guild._id } }">
+                  <h3>{{ guild.name }}</h3>
+                </router-link><p
+                  v-if="guild.summary"
+                  class="summary"
+                >
+                  {{ guild.summary.substr(0, MAX_SUMMARY_SIZE_FOR_GUILDS) }}
+                </p><p
+                  v-else
+                  class="summary"
+                >
+                  {{ guild.name }}
+                </p>
+              </div><div class="col-md-2 cta-container">
+                <button
+                  v-if="isMember && displayLeave"
+                  v-once
+                  class="btn btn-danger"
+                  @click.prevent="leave()"
+                >
+                  {{ $t('leave') }}
+                </button><button
+                  v-if="!isMember"
+                  v-once
+                  class="btn btn-success"
+                  @click="join()"
+                >
+                  {{ $t('join') }}
+                </button><div
+                  v-if="displayGemBank"
+                  class="item-with-icon gem-bank"
+                >
+                  <div
+                    class="svg-icon gem"
+                    v-html="icons.gem"
+                  ></div><span class="count">{{ guild.balance * 4 }}</span>
+                </div><div
+                  v-if="displayGemBank"
+                  v-once
+                  class="guild-bank"
+                >
+                  {{ $t('guildBank') }}
+                </div>
+              </div>
+            </div><div class="row">
+              <category-tags
+                v-once
+                class="col-md-12"
+                :categories="guild.categories"
+                :owner="isOwner"
+              >
+                <span
+                  v-if="showSuggested(guild._id)"
+                  class="recommend-text"
+                > {{ $t('suggestedGroup') }}</span>
+              </category-tags>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </router-link>
 </template>
 
 <style lang="scss" scoped>

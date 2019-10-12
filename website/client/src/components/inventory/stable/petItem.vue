@@ -1,34 +1,69 @@
-<template lang="pug">
-  div
-    .item-wrapper(@click="click()", :id="itemId")
-      .item.pet-slot(
-      :class="{'item-empty': !isOwned(), 'highlight': highlightBorder}",
-      )
-        slot(name="itemBadge", :item="item")
-        span.item-content.hatchAgain(v-if="mountOwned() && isHatchable() && !item.isSpecial()")
-          span.egg(:class="eggClass")
-          span.potion(:class="potionClass")
-        span.item-content(v-else, :class="getPetItemClass()")
-        span.pet-progress-background(v-if="isAllowedToFeed() && progress() > 0")
-          div.pet-progress-bar(v-bind:style="{width: 100 * progress()/50 + '%' }")
-      span.item-label(v-if="label") {{ label }}
-
-    b-popover(
-    :target="itemId",
-    :triggers="showPopover ? 'hover' : ''",
-    :placement="popoverPosition",
-    )
-      div.hatchablePopover(v-if="item.isHatchable()")
-        h4.popover-content-title {{ item.name }}
-        div.popover-content-text(v-html="$t('haveHatchablePet', { potion: item.potionName, egg: item.eggName })")
-        div.potionEggGroup
-          div.potionEggBackground
-            div(:class="potionClass")
-          div.potionEggBackground
-            div(:class="eggClass")
-      div(v-else)
-        h4.popover-content-title {{ item.name }}
-
+<template>
+  <div>
+    <div
+      :id="itemId"
+      class="item-wrapper"
+      @click="click()"
+    >
+      <div
+        class="item pet-slot"
+        :class="{'item-empty': !isOwned(), 'highlight': highlightBorder}"
+      >
+        <slot
+          name="itemBadge"
+          :item="item"
+        ></slot><span
+          v-if="mountOwned() && isHatchable() && !item.isSpecial()"
+          class="item-content hatchAgain"
+        ><span
+          class="egg"
+          :class="eggClass"
+        ></span><span
+          class="potion"
+          :class="potionClass"
+        ></span></span><span
+          v-else
+          class="item-content"
+          :class="getPetItemClass()"
+        ></span><span
+          v-if="isAllowedToFeed() && progress() > 0"
+          class="pet-progress-background"
+        ><div
+          class="pet-progress-bar"
+          :style="{width: 100 * progress()/50 + '%' }"
+        ></div></span>
+      </div><span
+        v-if="label"
+        class="item-label"
+      >{{ label }}</span>
+    </div><b-popover
+      :target="itemId"
+      :triggers="showPopover ? 'hover' : ''"
+      :placement="popoverPosition"
+    >
+      <div
+        v-if="item.isHatchable()"
+        class="hatchablePopover"
+      >
+        <h4 class="popover-content-title">
+          {{ item.name }}
+        </h4><div
+          class="popover-content-text"
+          v-html="$t('haveHatchablePet', { potion: item.potionName, egg: item.eggName })"
+        ></div><div class="potionEggGroup">
+          <div class="potionEggBackground">
+            <div :class="potionClass"></div>
+          </div><div class="potionEggBackground">
+            <div :class="eggClass"></div>
+          </div>
+        </div>
+      </div><div v-else>
+        <h4 class="popover-content-title">
+          {{ item.name }}
+        </h4>
+      </div>
+    </b-popover>
+  </div>
 </template>
 
 <style lang="scss">

@@ -1,7 +1,15 @@
-<template lang="pug">
-.notifications(:class="notificationsTopPos")
-  div(v-for='notification in notificationStore', :key='notification.uuid')
-    notification(:notification='notification')
+<template>
+  <div
+    class="notifications"
+    :class="notificationsTopPos"
+  >
+    <div
+      v-for="notification in notificationStore"
+      :key="notification.uuid"
+    >
+      <notification :notification="notification" />
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>

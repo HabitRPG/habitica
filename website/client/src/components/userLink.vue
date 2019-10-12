@@ -1,11 +1,16 @@
-<template lang="pug">
-  router-link.leader(
-  :to="{'name': 'userProfile', 'params': {'userId': id}}",
-  :class='levelStyle()',
-  v-b-tooltip.hover.top="tierTitle",
-  v-if='displayName')
-    | {{displayName}}
-    .svg-icon(v-html="tierIcon()")
+<template>
+  <router-link
+    v-if="displayName"
+    v-b-tooltip.hover.top="tierTitle"
+    class="leader"
+    :to="{'name': 'userProfile', 'params': {'userId': id}}"
+    :class="levelStyle()"
+  >
+    {{ displayName }}<div
+      class="svg-icon"
+      v-html="tierIcon()"
+    ></div>
+  </router-link>
 </template>
 
 <style scoped lang="scss">

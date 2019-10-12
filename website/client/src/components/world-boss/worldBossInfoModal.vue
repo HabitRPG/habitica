@@ -1,24 +1,47 @@
-<template lang="pug">
-  b-modal#world-boss-info(title="", size='md', :hide-footer="true", :hide-header="true")
-    .modal-header.d-flex
-      .left-hearts
-      .quest_dysheartener_modal
-      .phobia_dysheartener_modal
-      .right-hearts
-    .modal-body
-      .row
-        .col-12.text-center
-          h2 {{ $t('whatIsWorldBoss') }}
-          p.text-center {{ $t('worldBossDesc') }}
-      .row
-        .col-12
-          .bullet-point.d-flex.align-items-center.justify-content-left(v-for='bullet in bullets')
-            .check-icon
-              .svg-icon.red-check(v-html="icons.redCheck")
-            .info {{ $t(bullet) }}
-    .row
-      .col-12.text-center
-        a(href='http://habitica.fandom.com/wiki/World_Bosses' target='_blank').footer-link {{ $t('worldBossLink') }}
+<template>
+  <b-modal
+    id="world-boss-info"
+    title=""
+    size="md"
+    :hide-footer="true"
+    :hide-header="true"
+  >
+    <div class="modal-header d-flex">
+      <div class="left-hearts"></div><div class="quest_dysheartener_modal"></div><div class="phobia_dysheartener_modal"></div><div class="right-hearts"></div>
+    </div><div class="modal-body">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h2>{{ $t('whatIsWorldBoss') }}</h2><p class="text-center">
+            {{ $t('worldBossDesc') }}
+          </p>
+        </div>
+      </div><div class="row">
+        <div class="col-12">
+          <div
+            v-for="bullet in bullets"
+            class="bullet-point d-flex align-items-center justify-content-left"
+          >
+            <div class="check-icon">
+              <div
+                class="svg-icon red-check"
+                v-html="icons.redCheck"
+              ></div>
+            </div><div class="info">
+              {{ $t(bullet) }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><div class="row">
+      <div class="col-12 text-center">
+        <a
+          class="footer-link"
+          href="http://habitica.fandom.com/wiki/World_Bosses"
+          target="_blank"
+        >{{ $t('worldBossLink') }}</a>
+      </div>
+    </div>
+  </b-modal>
 </template>
 
 <style>

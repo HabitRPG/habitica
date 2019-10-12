@@ -1,127 +1,191 @@
-<template lang="pug">
-.row
-  .standard-sidebar.d-none.d-sm-block
-    .form-group
-      input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
-
-    .form
-      h2(v-once) {{ $t('filter') }}
-      h3 {{ this.groupBy === 'type' ? $t('equipmentType') : $t('class') }}
-      .form-group
-        .form-check(
-          v-for="group in itemsGroups",
-          :key="group.key",
-        )
-          .custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox", v-model="viewOptions[group.key].selected", :id="groupBy + group.key")
-            label.custom-control-label(v-once, :for="groupBy + group.key") {{ group.label }}
-
-  .standard-page
-    .clearfix
-      h1.float-left.mb-4.page-header(v-once) {{ $t('equipment') }}
-      .float-right
-        span.dropdown-label {{ $t('sortBy') }}
-        b-dropdown(:text="$t(selectedSortGearBy)", right=true)
-          b-dropdown-item(
-            v-for="sort in sortGearBy",
-            @click="selectedSortGearBy = sort",
-            :active="selectedSortGearBy === sort",
-            :key="sort"
-          ) {{ $t(sort) }}
-
-        span.dropdown-label {{ $t('groupBy2') }}
-        b-dropdown(:text="$t(groupBy === 'type' ? 'equipmentType' : 'class')", right=true)
-          b-dropdown-item(@click="groupBy = 'type'", :active="groupBy === 'type'") {{ $t('equipmentType') }}
-          b-dropdown-item(@click="groupBy = 'class'", :active="groupBy === 'class'") {{ $t('class') }}
-
-    drawer(
-      :title="$t('equipment')",
-      :errorMessage="(costumeMode && !user.preferences.costume) ? $t('costumeDisabled') : null",
-      :openStatus='openStatus',
-      v-on:toggled='drawerToggled'
-    )
-      div(slot="drawer-header")
-        .drawer-tab-container
-          .drawer-tab.text-right
-            a.drawer-tab-text(
-              @click="selectDrawerTab('equipment')",
-              :class="{'drawer-tab-text-active': !costumeMode}",
-            ) {{ $t('equipment') }}
-          .clearfix
-            .drawer-tab.float-left
-              a.drawer-tab-text(
-                @click="selectDrawerTab('costume')",
-                :class="{'drawer-tab-text-active': costumeMode}",
-              ) {{ $t('costume') }}
-
-            toggle-switch.float-right.align-with-tab(
-              :label="$t(costumeMode ? 'useCostume' : 'autoEquipBattleGear')",
-              :checked="user.preferences[drawerPreference]",
-              @change="changeDrawerPreference",
-              :hoverText="$t(drawerPreference+'PopoverText')",
-            )
-      .items.items-one-line(slot="drawer-slider")
-        item.pointer(
-          v-for="(label, group) in gearTypesToStrings",
-          :key="flatGear[activeItems[group]] ? flatGear[activeItems[group]].key : group",
-          :item="flatGear[activeItems[group]]",
-          :itemContentClass="flatGear[activeItems[group]] ? 'shop_' + flatGear[activeItems[group]].key : null",
-          :emptyItem="!flatGear[activeItems[group]] || flatGear[activeItems[group]].key.indexOf('_base_0') !== -1",
-          :label="label",
-          :popoverPosition="'top'",
-          :showPopover="flatGear[activeItems[group]] && Boolean(flatGear[activeItems[group]].text)",
-          @click="equipItem(flatGear[activeItems[group]])",
-        )
-          template(slot="popoverContent", slot-scope="context")
-            equipmentAttributesPopover(:item="context.item")
-          template(slot="itemBadge", slot-scope="context")
-            starBadge(
-              :selected="true",
-              :show="!costumeMode || user.preferences.costume",
-              @click="equipItem(context.item)",
-            )
-    div(
-      v-for="group in itemsGroups",
-      v-if="!anyFilterSelected || viewOptions[group.key].selected",
-      :key="group.key",
-      :class='group.key',
-    )
-      h2.mb-3
-       | {{ group.label }}
-       |
-       span.badge.badge-pill.badge-default {{items[group.key].length}}
-
-      itemRows(
-        :items="sortItems(items[group.key], selectedSortGearBy)",
-        :itemWidth=94,
-        :itemMargin=24,
-        :type="group.key",
-        :noItemsLabel="$t('noGearItemsOfType', { type: group.label })"
-      )
-        template(slot="item", slot-scope="context")
-          item(
-            :item="context.item",
-            :itemContentClass="'shop_' + context.item.key",
-            :emptyItem="!context.item || context.item.key.indexOf('_base_0') !== -1",
-            :key="context.item.key",
-            @click="openEquipDialog(context.item)"
-          )
-            template(slot="itemBadge", slot-scope="context")
-              starBadge(
-                :selected="activeItems[context.item.type] === context.item.key",
-                :show="!costumeMode || user.preferences.costume",
-                @click="equipItem(context.item)",
-              )
-            template(slot="popoverContent", slot-scope="context")
-              equipmentAttributesPopover(:item="context.item")
-
-  equipGearModal(
-    :item="gearToEquip",
-    @equipItem="equipItem($event)",
-    @change="changeModalState($event)",
-    :costumeMode="costumeMode",
-    :isEquipped="gearToEquip == null ? false : activeItems[gearToEquip.type] === gearToEquip.key"
-  )
+<template>
+  <div class="row">
+    <div class="standard-sidebar d-none d-sm-block">
+      <div class="form-group">
+        <input
+          v-model="searchText"
+          class="form-control input-search"
+          type="text"
+          :placeholder="$t('search')"
+        >
+      </div><div class="form">
+        <h2 v-once>
+          {{ $t('filter') }}
+        </h2><h3>{{ this.groupBy === 'type' ? $t('equipmentType') : $t('class') }}</h3><div class="form-group">
+          <div
+            v-for="group in itemsGroups"
+            :key="group.key"
+            class="form-check"
+          >
+            <div class="custom-control custom-checkbox">
+              <input
+                :id="groupBy + group.key"
+                v-model="viewOptions[group.key].selected"
+                class="custom-control-input"
+                type="checkbox"
+              ><label
+                v-once
+                class="custom-control-label"
+                :for="groupBy + group.key"
+              >{{ group.label }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><div class="standard-page">
+      <div class="clearfix">
+        <h1
+          v-once
+          class="float-left mb-4 page-header"
+        >
+          {{ $t('equipment') }}
+        </h1><div class="float-right">
+          <span class="dropdown-label">{{ $t('sortBy') }}</span><b-dropdown
+            :text="$t(selectedSortGearBy)"
+            right="right"
+          >
+            <b-dropdown-item
+              v-for="sort in sortGearBy"
+              :key="sort"
+              :active="selectedSortGearBy === sort"
+              @click="selectedSortGearBy = sort"
+            >
+              {{ $t(sort) }}
+            </b-dropdown-item>
+          </b-dropdown><span class="dropdown-label">{{ $t('groupBy2') }}</span><b-dropdown
+            :text="$t(groupBy === 'type' ? 'equipmentType' : 'class')"
+            right="right"
+          >
+            <b-dropdown-item
+              :active="groupBy === 'type'"
+              @click="groupBy = 'type'"
+            >
+              {{ $t('equipmentType') }}
+            </b-dropdown-item><b-dropdown-item
+              :active="groupBy === 'class'"
+              @click="groupBy = 'class'"
+            >
+              {{ $t('class') }}
+            </b-dropdown-item>
+          </b-dropdown>
+        </div>
+      </div><drawer
+        :title="$t('equipment')"
+        :error-message="(costumeMode && !user.preferences.costume) ? $t('costumeDisabled') : null"
+        :open-status="openStatus"
+        @toggled="drawerToggled"
+      >
+        <div slot="drawer-header">
+          <div class="drawer-tab-container">
+            <div class="drawer-tab text-right">
+              <a
+                class="drawer-tab-text"
+                :class="{'drawer-tab-text-active': !costumeMode}"
+                @click="selectDrawerTab('equipment')"
+              >{{ $t('equipment') }}</a>
+            </div><div class="clearfix">
+              <div class="drawer-tab float-left">
+                <a
+                  class="drawer-tab-text"
+                  :class="{'drawer-tab-text-active': costumeMode}"
+                  @click="selectDrawerTab('costume')"
+                >{{ $t('costume') }}</a>
+              </div><toggle-switch
+                class="float-right align-with-tab"
+                :label="$t(costumeMode ? 'useCostume' : 'autoEquipBattleGear')"
+                :checked="user.preferences[drawerPreference]"
+                :hover-text="$t(drawerPreference+'PopoverText')"
+                @change="changeDrawerPreference"
+              />
+            </div>
+          </div>
+        </div><div
+          slot="drawer-slider"
+          class="items items-one-line"
+        >
+          <item
+            v-for="(label, group) in gearTypesToStrings"
+            :key="flatGear[activeItems[group]] ? flatGear[activeItems[group]].key : group"
+            class="pointer"
+            :item="flatGear[activeItems[group]]"
+            :item-content-class="flatGear[activeItems[group]] ? 'shop_' + flatGear[activeItems[group]].key : null"
+            :empty-item="!flatGear[activeItems[group]] || flatGear[activeItems[group]].key.indexOf('_base_0') !== -1"
+            :label="label"
+            :popover-position="'top'"
+            :show-popover="flatGear[activeItems[group]] && Boolean(flatGear[activeItems[group]].text)"
+@click="equipItem(flatGear[activeItems[group]])"
+          >
+            <template
+              slot="popoverContent"
+              slot-scope="context"
+            >
+              <equipmentAttributesPopover :item="context.item" />
+            </template><template
+              slot="itemBadge"
+              slot-scope="context"
+            >
+              <starBadge
+                :selected="true"
+                :show="!costumeMode || user.preferences.costume"
+                @click="equipItem(context.item)"
+              />
+            </template>
+          </item>
+        </div>
+      </drawer><div
+        v-for="group in itemsGroups"
+        v-if="!anyFilterSelected || viewOptions[group.key].selected"
+        :key="group.key"
+        :class="group.key"
+      >
+        <h2 class="mb-3">
+          {{ group.label }}
+          <span class="badge badge-pill badge-default">{{ items[group.key].length }}</span>
+        </h2><itemRows
+          :items="sortItems(items[group.key], selectedSortGearBy)"
+          :item-width="94"
+          :item-margin="24"
+          :type="group.key"
+          :no-items-label="$t('noGearItemsOfType', { type: group.label })"
+        >
+          <template
+            slot="item"
+            slot-scope="context"
+          >
+            <item
+              :key="context.item.key"
+              :item="context.item"
+              :item-content-class="'shop_' + context.item.key"
+              :empty-item="!context.item || context.item.key.indexOf('_base_0') !== -1"
+              @click="openEquipDialog(context.item)"
+            >
+              <template
+                slot="itemBadge"
+                slot-scope="context"
+              >
+                <starBadge
+                  :selected="activeItems[context.item.type] === context.item.key"
+                  :show="!costumeMode || user.preferences.costume"
+                  @click="equipItem(context.item)"
+                />
+              </template><template
+                slot="popoverContent"
+                slot-scope="context"
+              >
+                <equipmentAttributesPopover :item="context.item" />
+              </template>
+            </item>
+          </template>
+        </itemRows>
+      </div>
+    </div><equipGearModal
+      :item="gearToEquip"
+      :costume-mode="costumeMode"
+      :is-equipped="gearToEquip == null ? false : activeItems[gearToEquip.type] === gearToEquip.key"
+      @equipItem="equipItem($event)"
+      @change="changeModalState($event)"
+    />
+  </div>
 </template>
 
 <style lang="scss">

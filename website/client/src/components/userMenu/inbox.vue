@@ -1,71 +1,147 @@
-<template lang="pug">
-  b-modal#inbox-modal(title="", :hide-footer="true", size='lg', @shown="onModalShown", @hide="onModalHide")
-    .header-wrap.container.align-items-center(slot="modal-header")
-      .row.align-items-center
-        .col-4
-          .row.align-items-center
-            .col-2
-              .svg-icon.envelope(v-html="icons.messageIcon")
-            .col-6
-              h2.text-center(v-once) {{ $t('messages') }}
-        .col-4.offset-3
-          toggle-switch.float-right(
-            :label="optTextSet.switchDescription",
+<template>
+  <b-modal
+    id="inbox-modal"
+    title=""
+    :hide-footer="true"
+    size="lg"
+    @shown="onModalShown"
+    @hide="onModalHide"
+  >
+    <div
+      slot="modal-header"
+      class="header-wrap container align-items-center"
+    >
+      <div class="row align-items-center">
+        <div class="col-4">
+          <div class="row align-items-center">
+            <div class="col-2">
+              <div
+                class="svg-icon envelope"
+                v-html="icons.messageIcon"
+              ></div>
+            </div><div class="col-6">
+              <h2
+                v-once
+                class="text-center"
+              >
+                {{ $t('messages') }}
+              </h2>
+            </div>
+          </div>
+        </div><div class="col-4 offset-3">
+          <toggle-switch
+            class="float-right"
+            :label="optTextSet.switchDescription"
             :checked="!this.user.inbox.optOut"
-            :hoverText="optTextSet.popoverText",
+            :hover-text="optTextSet.popoverText"
             @change="toggleOpt()"
-          )
-        .col-1
-          .close
-            span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.svgClose", @click="close()")
-    .row
-      .col-4.sidebar
-        .search-section
-          b-form-input(:placeholder="$t('search')", v-model='search')
-        .empty-messages.text-center(v-if='filtersConversations.length === 0')
-          .svg-icon.envelope(v-html="icons.messageIcon")
-          h4(v-once) {{$t('emptyMessagesLine1')}}
-          p(v-if="!user.flags.chatRevoked") {{$t('emptyMessagesLine2')}}
-        .conversations(v-if='filtersConversations.length > 0')
-          .conversation(v-for='conversation in filtersConversations', @click='selectConversation(conversation.key)',
-            :class="{active: selectedConversation.key === conversation.key}")
-            div
-              h3(:class="userLevelStyle(conversation)") {{ conversation.name }}
-                .svg-icon(v-html="tierIcon(conversation)")
-            .time
-              span.mr-1(v-if='conversation.username') @{{ conversation.username }} •
-              span(v-if="conversation.date") {{ conversation.date | timeAgo }}
-            div.messagePreview {{ conversation.lastMessageText ? removeTags(parseMarkdown(conversation.lastMessageText)) : '' }}
-      .col-8.messages.d-flex.flex-column.justify-content-between
-        .empty-messages.text-center(v-if='!selectedConversation.key')
-          .svg-icon.envelope(v-html="icons.messageIcon")
-          h4 {{placeholderTexts.title}}
-          p(v-html="placeholderTexts.description")
-        .empty-messages.text-center(v-if='selectedConversation && selectedConversationMessages.length === 0')
-          p {{ $t('beginningOfConversation', {userName: selectedConversation.name})}}
-        chat-messages.message-scroll(
-          v-if="selectedConversation && selectedConversationMessages.length > 0",
-          :chat='selectedConversationMessages',
-          :inbox='true',
-          @message-removed='messageRemoved',
-          ref="chatscroll",
-
-          :canLoadMore="canLoadMore",
-          :isLoading="messagesLoading",
-          @triggerLoad="infiniteScrollTrigger"
-        )
-        .pm-disabled-caption.text-center(v-if="user.inbox.optOut && selectedConversation.key")
-          h4 {{$t('PMDisabledCaptionTitle')}}
-          p {{$t('PMDisabledCaptionText')}}
-        .new-message-row(v-if='selectedConversation.key && !user.flags.chatRevoked')
-          textarea(
-            v-model='newMessage',
-            @keyup.ctrl.enter='sendPrivateMessage()',
-            maxlength='3000'
-          )
-          button.btn.btn-secondary(@click='sendPrivateMessage()') {{$t('send')}}
-          .row
-            span.ml-3 {{ currentLength }} / 3000
+          />
+        </div><div class="col-1">
+          <div class="close">
+            <span
+              class="svg-icon inline icon-10"
+              aria-hidden="true"
+              @click="close()"
+              v-html="icons.svgClose"
+            ></span>
+          </div>
+        </div>
+      </div>
+    </div><div class="row">
+      <div class="col-4 sidebar">
+        <div class="search-section">
+          <b-form-input
+            v-model="search"
+            :placeholder="$t('search')"
+          />
+        </div><div
+          v-if="filtersConversations.length === 0"
+          class="empty-messages text-center"
+        >
+          <div
+            class="svg-icon envelope"
+            v-html="icons.messageIcon"
+          ></div><h4 v-once>
+            {{ $t('emptyMessagesLine1') }}
+          </h4><p v-if="!user.flags.chatRevoked">
+            {{ $t('emptyMessagesLine2') }}
+          </p>
+        </div><div
+          v-if="filtersConversations.length > 0"
+          class="conversations"
+        >
+          <div
+            v-for="conversation in filtersConversations"
+            class="conversation"
+            :class="{active: selectedConversation.key === conversation.key}"
+            @click="selectConversation(conversation.key)"
+          >
+            <div>
+              <h3 :class="userLevelStyle(conversation)">
+                {{ conversation.name }}<div
+                  class="svg-icon"
+                  v-html="tierIcon(conversation)"
+                ></div>
+              </h3>
+            </div><div class="time">
+              <span
+                v-if="conversation.username"
+                class="mr-1"
+              >@{{ conversation.username }} •</span><span v-if="conversation.date">{{ conversation.date | timeAgo }}</span>
+            </div><div class="messagePreview">
+              {{ conversation.lastMessageText ? removeTags(parseMarkdown(conversation.lastMessageText)) : '' }}
+            </div>
+          </div>
+        </div>
+      </div><div class="col-8 messages d-flex flex-column justify-content-between">
+        <div
+          v-if="!selectedConversation.key"
+          class="empty-messages text-center"
+        >
+          <div
+            class="svg-icon envelope"
+            v-html="icons.messageIcon"
+          ></div><h4>{{ placeholderTexts.title }}</h4><p v-html="placeholderTexts.description"></p>
+        </div><div
+          v-if="selectedConversation && selectedConversationMessages.length === 0"
+          class="empty-messages text-center"
+        >
+          <p>{{ $t('beginningOfConversation', {userName: selectedConversation.name}) }}</p>
+        </div><chat-messages
+          v-if="selectedConversation && selectedConversationMessages.length > 0"
+          ref="chatscroll"
+          class="message-scroll"
+          :chat="selectedConversationMessages"
+          :inbox="true"
+          :can-load-more="canLoadMore"
+          :is-loading="messagesLoading"
+          @message-removed="messageRemoved"
+@triggerLoad="infiniteScrollTrigger"
+        /><div
+          v-if="user.inbox.optOut && selectedConversation.key"
+          class="pm-disabled-caption text-center"
+        >
+          <h4>{{ $t('PMDisabledCaptionTitle') }}</h4><p>{{ $t('PMDisabledCaptionText') }}</p>
+        </div><div
+          v-if="selectedConversation.key && !user.flags.chatRevoked"
+          class="new-message-row"
+        >
+          <textarea
+            v-model="newMessage"
+            maxlength="3000"
+            @keyup.ctrl.enter="sendPrivateMessage()"
+          ></textarea><button
+            class="btn btn-secondary"
+            @click="sendPrivateMessage()"
+          >
+            {{ $t('send') }}
+          </button><div class="row">
+            <span class="ml-3">{{ currentLength }} / 3000</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </b-modal>
 </template>
 
 <style lang="scss">
@@ -508,8 +584,8 @@ export default {
 
       // Remove the placeholder message
       if (
-        this.initiatedConversation &&
-        this.initiatedConversation.uuid === this.selectedConversation.key
+        this.initiatedConversation
+        && this.initiatedConversation.uuid === this.selectedConversation.key
       ) {
         this.loadedConversations.unshift(this.initiatedConversation);
         this.initiatedConversation = null;

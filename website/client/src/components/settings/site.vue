@@ -1,179 +1,418 @@
-<template lang="pug">
-  .row.standard-page
-    restore-modal
-    reset-modal
-    delete-modal
-    h1.col-12 {{ $t('settings') }}
-    .col-sm-6
-      .form-horizontal
-        h5 {{ $t('language') }}
-        select.form-control(:value='user.preferences.language',
-          @change='changeLanguage($event)')
-          option(v-for='lang in availableLanguages', :value='lang.code') {{lang.name}}
-
-        small
-          | {{ $t('americanEnglishGovern') }}
-          br
-          strong(v-html="$t('helpWithTranslation')")
-      hr
-
-      .form-horizontal
-        h5 {{ $t('dateFormat') }}
-        select.form-control(v-model='user.preferences.dateFormat',
-          @change='set("dateFormat")')
-          option(v-for='dateFormat in availableFormats', :value='dateFormat') {{dateFormat}}
-      hr
-
-      .form-horizontal
-        .form-group
-          h5 {{ $t('audioTheme') }}
-          select.form-control(v-model='user.preferences.sound',
-            @change='changeAudioTheme')
-            option(v-for='sound in availableAudioThemes', :value='sound') {{ $t(`audioTheme_${sound}`) }}
-        button.btn.btn-primary.btn-xs(@click='playAudio', v-once) {{ $t('demo') }}
-      hr
-
-      .form-horizontal(v-if='hasClass')
-        h5 {{ $t('characterBuild') }}
-        h6(v-once) {{ $t('class') + ': ' }}
-          // @TODO: what is classText
-          // span(v-if='classText') {{ classText }}&nbsp;
-          button.btn.btn-danger.btn-xs(@click='changeClassForUser(true)', v-once) {{ $t('changeClass') }}
-          small.cost &nbsp; 3 {{ $t('gems') }}
-            // @TODO add icon span.Pet_Currency_Gem1x.inline-gems
-        hr
-
-      div
-        .checkbox
-          label
-            input(type='checkbox', v-model='user.preferences.advancedCollapsed', @change='set("advancedCollapsed")')
-            span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('startAdvCollapsedPop')") {{ $t('startAdvCollapsed') }}
-        .checkbox
-          label
-            input(type='checkbox', v-model='user.preferences.dailyDueDefaultView', @change='set("dailyDueDefaultView")')
-            span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('dailyDueDefaultViewPop')") {{ $t('dailyDueDefaultView') }}
-        .checkbox(v-if='party.memberCount === 1')
-          label
-            input(type='checkbox', v-model='user.preferences.displayInviteToPartyWhenPartyIs1', @change='set("displayInviteToPartyWhenPartyIs1")')
-            span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('displayInviteToPartyWhenPartyIs1')") {{ $t('displayInviteToPartyWhenPartyIs1') }}
-        .checkbox
-          input(type='checkbox', v-model='user.preferences.suppressModals.levelUp', @change='set("suppressModals", "levelUp")')
-          label {{ $t('suppressLevelUpModal') }}
-        .checkbox
-          input(type='checkbox', v-model='user.preferences.suppressModals.hatchPet', @change='set("suppressModals", "hatchPet")')
-          label {{ $t('suppressHatchPetModal') }}
-        .checkbox
-          input(type='checkbox', v-model='user.preferences.suppressModals.raisePet', @change='set("suppressModals", "raisePet")')
-          label {{ $t('suppressRaisePetModal') }}
-        .checkbox
-          input(type='checkbox', v-model='user.preferences.suppressModals.streak', @change='set("suppressModals", "streak")')
-          label {{ $t('suppressStreakModal') }}
-        //- .checkbox
-        //-   label {{ $t('confirmScoreNotes') }}
-        //-     input(type='checkbox', v-model='user.preferences.tasks.confirmScoreNotes', @change='set({"preferences.tasks.confirmScoreNotes": user.preferences.tasks.confirmScoreNotes ? true: false})')
-
-        //- .checkbox
-        //-   label {{ $t('groupTasksByChallenge') }}
-        //-     input(type='checkbox', v-model='user.preferences.tasks.groupByChallenge', @change='set({"preferences.tasks.groupByChallenge": user.preferences.tasks.groupByChallenge ? true: false})')
-
-        hr
-
-        button.btn.btn-primary.mr-2.mb-2(@click='showBailey()', popover-trigger='mouseenter', popover-placement='right', :popover="$t('showBaileyPop')") {{ $t('showBailey') }}
-        button.btn.btn-primary.mr-2.mb-2(@click='openRestoreModal()', popover-trigger='mouseenter', popover-placement='right', :popover="$t('fixValPop')") {{ $t('fixVal') }}
-        button.btn.btn-primary.mb-2(v-if='user.preferences.disableClasses == true', @click='changeClassForUser(false)',
-          popover-trigger='mouseenter', popover-placement='right', :popover="$t('enableClassPop')") {{ $t('enableClass') }}
-
-        hr
-
-        div
-          h5 {{ $t('customDayStart') }}
-          .alert.alert-warning {{ $t('customDayStartInfo1') }}
-          .form-horizontal
-            .form-group
-              .col-7
-                select.form-control(v-model='newDayStart')
-                  option(v-for='option in dayStartOptions' :value='option.value') {{option.name}}
-
-              .col-5
-                button.btn.btn-block.btn-primary.mt-1(@click='openDayStartModal()',
-                  :disabled='newDayStart === user.preferences.dayStart')
-                  | {{ $t('saveCustomDayStart') }}
-          hr
-
-        h5 {{ $t('timezone') }}
-        .form-horizontal
-          .form-group
-            .col-12
-              p(v-html="$t('timezoneUTC', {utc: timezoneOffsetToUtc})")
-              p(v-html="$t('timezoneInfo')")
-
-    .col-sm-6
-      h2 {{ $t('registration') }}
-      .panel-body
-        div
-          ul.list-inline
-            li(v-for='network in SOCIAL_AUTH_NETWORKS')
-              button.btn.btn-primary.mb-2(v-if='!user.auth[network.key].id', @click='socialAuth(network.key, user)') {{ $t('registerWithSocial', {network: network.name}) }}
-              button.btn.btn-primary.mb-2(disabled='disabled', v-if='!hasBackupAuthOption(network.key) && user.auth[network.key].id') {{ $t('registeredWithSocial', {network: network.name}) }}
-              button.btn.btn-danger(@click='deleteSocialAuth(network)', v-if='hasBackupAuthOption(network.key) && user.auth[network.key].id') {{ $t('detachSocial', {network: network.name}) }}
-          hr
-          div(v-if='!user.auth.local.email')
-            p {{ $t('addLocalAuth') }}
-            .form(name='localAuth', novalidate)
-              .form-group
-                input.form-control(type='text', :placeholder="$t('email')", v-model='localAuth.email', required)
-              .form-group
-                input.form-control(type='password', :placeholder="$t('password')", v-model='localAuth.password', required)
-              .form-group
-                input.form-control(type='password', :placeholder="$t('confirmPass')", v-model='localAuth.confirmPassword', required)
-              button.btn.btn-primary(type='submit', @click='addLocalAuth()') {{ $t('submit') }}
-
-        .usersettings
-          h5 {{ $t('changeDisplayName') }}
-          .form(name='changeDisplayName', novalidate)
-            .form-group
-              input#changeDisplayname.form-control(type='text', :placeholder="$t('newDisplayName')", v-model='temporaryDisplayName', :class='{"is-invalid input-invalid": displayNameInvalid}')
-              .mb-3(v-if="displayNameIssues.length > 0")
-                .input-error(v-for="issue in displayNameIssues") {{ issue }}
-            button.btn.btn-primary(type='submit', @click='changeDisplayName(temporaryDisplayName)', :disabled='displayNameCannotSubmit') {{ $t('submit') }}
-
-          h5 {{ $t('changeUsername') }}
-          .form(name='changeUsername', novalidate)
-            .iconalert.iconalert-success(v-if='verifiedUsername') {{ $t('usernameVerifiedConfirmation', {'username': user.auth.local.username}) }}
-            .iconalert.iconalert-warning(v-else)
-              div.align-middle
-                span {{ $t('usernameNotVerified') }}
-            .form-group
-              input#changeUsername.form-control(@blur='restoreEmptyUsername()',type='text', :placeholder="$t('newUsername')", v-model='usernameUpdates.username', :class='{"is-invalid input-invalid": usernameInvalid}')
-              .input-error(v-for="issue in usernameIssues") {{ issue }}
-              small.form-text.text-muted {{ $t('changeUsernameDisclaimer') }}
-            button.btn.btn-primary(type='submit', @click='changeUser("username", usernameUpdates)', :disabled='usernameCannotSubmit') {{ $t('saveAndConfirm') }}
-          h5(v-if='user.auth.local.email') {{ $t('changeEmail') }}
-          .form(v-if='user.auth.local.email', name='changeEmail', novalidate)
-            .form-group
-              input#changeEmail.form-control(type='text', :placeholder="$t('newEmail')", v-model='emailUpdates.newEmail')
-            .form-group
-              input.form-control(type='password', :placeholder="$t('password')", v-model='emailUpdates.password')
-            button.btn.btn-primary(type='submit', @click='changeUser("email", emailUpdates)') {{ $t('submit') }}
-
-          h5(v-if='user.auth.local.email') {{ $t('changePass') }}
-          .form(v-if='user.auth.local.email', name='changePassword', novalidate)
-            .form-group
-              input#changePassword.form-control(type='password', :placeholder="$t('oldPass')", v-model='passwordUpdates.password')
-            .form-group
-              input.form-control(type='password', :placeholder="$t('newPass')", v-model='passwordUpdates.newPassword')
-            .form-group
-              input.form-control(type='password', :placeholder="$t('confirmPass')", v-model='passwordUpdates.confirmPassword')
-            button.btn.btn-primary(type='submit', @click='changeUser("password", passwordUpdates)') {{ $t('submit')  }}
-          hr
-
-        div
-          h5 {{ $t('dangerZone') }}
-          div
-            button.btn.btn-danger.mr-2.mb-2(@click='openResetModal()',
-              popover-trigger='mouseenter', popover-placement='right', v-b-popover.hover.auto="$t('resetAccPop')") {{ $t('resetAccount') }}
-            button.btn.btn-danger.mb-2(@click='openDeleteModal()',
-              popover-trigger='mouseenter', v-b-popover.hover.auto="$t('deleteAccPop')") {{ $t('deleteAccount') }}
+<template>
+  <div class="row standard-page">
+    <restore-modal /><reset-modal /><delete-modal /><h1 class="col-12">
+      {{ $t('settings') }}
+    </h1><div class="col-sm-6">
+      <div class="form-horizontal">
+        <h5>{{ $t('language') }}</h5><select
+          class="form-control"
+          :value="user.preferences.language"
+          @change="changeLanguage($event)"
+        >
+          <option
+            v-for="lang in availableLanguages"
+            :value="lang.code"
+          >
+            {{ lang.name }}
+          </option>
+        </select><small>{{ $t('americanEnglishGovern') }}<br><strong v-html="$t('helpWithTranslation')"></strong></small>
+      </div><hr><div class="form-horizontal">
+        <h5>{{ $t('dateFormat') }}</h5><select
+          v-model="user.preferences.dateFormat"
+          class="form-control"
+          @change="set('dateFormat')"
+        >
+          <option
+            v-for="dateFormat in availableFormats"
+            :value="dateFormat"
+          >
+            {{ dateFormat }}
+          </option>
+        </select>
+      </div><hr><div class="form-horizontal">
+        <div class="form-group">
+          <h5>{{ $t('audioTheme') }}</h5><select
+            v-model="user.preferences.sound"
+            class="form-control"
+            @change="changeAudioTheme"
+          >
+            <option
+              v-for="sound in availableAudioThemes"
+              :value="sound"
+            >
+              {{ $t(`audioTheme_${sound}`) }}
+            </option>
+          </select>
+        </div><button
+          v-once
+          class="btn btn-primary btn-xs"
+          @click="playAudio"
+        >
+          {{ $t('demo') }}
+        </button>
+      </div><hr><div
+        v-if="hasClass"
+        class="form-horizontal"
+      >
+        <h5>{{ $t('characterBuild') }}</h5><h6 v-once>
+          {{ $t('class') + ': ' }}<!-- @TODO: what is classText--><!-- span(v-if='classText') {{ classText }}&nbsp;--><button
+            v-once
+            class="btn btn-danger btn-xs"
+            @click="changeClassForUser(true)"
+          >
+            {{ $t('changeClass') }}
+          </button><small class="cost">&nbsp; 3 {{ $t('gems') }}<!-- @TODO add icon span.Pet_Currency_Gem1x.inline-gems--></small>
+        </h6><hr>
+      </div><div>
+        <div class="checkbox">
+          <label><input
+            v-model="user.preferences.advancedCollapsed"
+            type="checkbox"
+            @change="set('advancedCollapsed')"
+          ><span
+            class="hint"
+            popover-trigger="mouseenter"
+            popover-placement="right"
+            :popover="$t('startAdvCollapsedPop')"
+          >{{ $t('startAdvCollapsed') }}</span></label>
+        </div><div class="checkbox">
+          <label><input
+            v-model="user.preferences.dailyDueDefaultView"
+            type="checkbox"
+            @change="set('dailyDueDefaultView')"
+          ><span
+            class="hint"
+            popover-trigger="mouseenter"
+            popover-placement="right"
+            :popover="$t('dailyDueDefaultViewPop')"
+          >{{ $t('dailyDueDefaultView') }}</span></label>
+        </div><div
+          v-if="party.memberCount === 1"
+          class="checkbox"
+        >
+          <label><input
+            v-model="user.preferences.displayInviteToPartyWhenPartyIs1"
+            type="checkbox"
+            @change="set('displayInviteToPartyWhenPartyIs1')"
+          ><span
+            class="hint"
+            popover-trigger="mouseenter"
+            popover-placement="right"
+            :popover="$t('displayInviteToPartyWhenPartyIs1')"
+          >{{ $t('displayInviteToPartyWhenPartyIs1') }}</span></label>
+        </div><div class="checkbox">
+          <input
+            v-model="user.preferences.suppressModals.levelUp"
+            type="checkbox"
+            @change="set('suppressModals', 'levelUp')"
+          ><label>{{ $t('suppressLevelUpModal') }}</label>
+        </div><div class="checkbox">
+          <input
+            v-model="user.preferences.suppressModals.hatchPet"
+            type="checkbox"
+            @change="set('suppressModals', 'hatchPet')"
+          ><label>{{ $t('suppressHatchPetModal') }}</label>
+        </div><div class="checkbox">
+          <input
+            v-model="user.preferences.suppressModals.raisePet"
+            type="checkbox"
+            @change="set('suppressModals', 'raisePet')"
+          ><label>{{ $t('suppressRaisePetModal') }}</label>
+        </div><div class="checkbox">
+          <input
+            v-model="user.preferences.suppressModals.streak"
+            type="checkbox"
+            @change="set('suppressModals', 'streak')"
+          ><label>{{ $t('suppressStreakModal') }}</label>
+        </div><hr><button
+          class="btn btn-primary mr-2 mb-2"
+          popover-trigger="mouseenter"
+          popover-placement="right"
+          :popover="$t('showBaileyPop')"
+          @click="showBailey()"
+        >
+          {{ $t('showBailey') }}
+        </button><button
+          class="btn btn-primary mr-2 mb-2"
+          popover-trigger="mouseenter"
+          popover-placement="right"
+          :popover="$t('fixValPop')"
+          @click="openRestoreModal()"
+        >
+          {{ $t('fixVal') }}
+        </button><button
+          v-if="user.preferences.disableClasses == true"
+          class="btn btn-primary mb-2"
+          popover-trigger="mouseenter"
+          popover-placement="right"
+          :popover="$t('enableClassPop')"
+          @click="changeClassForUser(false)"
+        >
+          {{ $t('enableClass') }}
+        </button><hr><div>
+          <h5>{{ $t('customDayStart') }}</h5><div class="alert alert-warning">
+            {{ $t('customDayStartInfo1') }}
+          </div><div class="form-horizontal">
+            <div class="form-group">
+              <div class="col-7">
+                <select
+                  v-model="newDayStart"
+                  class="form-control"
+                >
+                  <option
+                    v-for="option in dayStartOptions"
+                    :value="option.value"
+                  >
+                    {{ option.name }}
+                  </option>
+                </select>
+              </div><div class="col-5">
+                <button
+                  class="btn btn-block btn-primary mt-1"
+                  :disabled="newDayStart === user.preferences.dayStart"
+                  @click="openDayStartModal()"
+                >
+                  {{ $t('saveCustomDayStart') }}
+                </button>
+              </div>
+            </div>
+          </div><hr>
+        </div><h5>{{ $t('timezone') }}</h5><div class="form-horizontal">
+          <div class="form-group">
+            <div class="col-12">
+              <p v-html="$t('timezoneUTC', {utc: timezoneOffsetToUtc})"></p><p v-html="$t('timezoneInfo')"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><div class="col-sm-6">
+      <h2>{{ $t('registration') }}</h2><div class="panel-body">
+        <div>
+          <ul class="list-inline">
+            <li v-for="network in SOCIAL_AUTH_NETWORKS">
+              <button
+                v-if="!user.auth[network.key].id"
+                class="btn btn-primary mb-2"
+                @click="socialAuth(network.key, user)"
+              >
+                {{ $t('registerWithSocial', {network: network.name}) }}
+              </button><button
+                v-if="!hasBackupAuthOption(network.key) && user.auth[network.key].id"
+                class="btn btn-primary mb-2"
+                disabled="disabled"
+              >
+                {{ $t('registeredWithSocial', {network: network.name}) }}
+              </button><button
+                v-if="hasBackupAuthOption(network.key) && user.auth[network.key].id"
+                class="btn btn-danger"
+                @click="deleteSocialAuth(network)"
+              >
+                {{ $t('detachSocial', {network: network.name}) }}
+              </button>
+            </li>
+          </ul><hr><div v-if="!user.auth.local.email">
+            <p>{{ $t('addLocalAuth') }}</p><div
+              class="form"
+              name="localAuth"
+              novalidate="novalidate"
+            >
+              <div class="form-group">
+                <input
+                  v-model="localAuth.email"
+                  class="form-control"
+                  type="text"
+                  :placeholder="$t('email')"
+                  required="required"
+                >
+              </div><div class="form-group">
+                <input
+                  v-model="localAuth.password"
+                  class="form-control"
+                  type="password"
+                  :placeholder="$t('password')"
+                  required="required"
+                >
+              </div><div class="form-group">
+                <input
+                  v-model="localAuth.confirmPassword"
+                  class="form-control"
+                  type="password"
+                  :placeholder="$t('confirmPass')"
+                  required="required"
+                >
+              </div><button
+                class="btn btn-primary"
+                type="submit"
+                @click="addLocalAuth()"
+              >
+                {{ $t('submit') }}
+              </button>
+            </div>
+          </div>
+        </div><div class="usersettings">
+          <h5>{{ $t('changeDisplayName') }}</h5><div
+            class="form"
+            name="changeDisplayName"
+            novalidate="novalidate"
+          >
+            <div class="form-group">
+              <input
+                id="changeDisplayname"
+                v-model="temporaryDisplayName"
+                class="form-control"
+                type="text"
+                :placeholder="$t('newDisplayName')"
+                :class="{'is-invalid input-invalid': displayNameInvalid}"
+              ><div
+                v-if="displayNameIssues.length > 0"
+                class="mb-3"
+              >
+                <div
+                  v-for="issue in displayNameIssues"
+                  class="input-error"
+                >
+                  {{ issue }}
+                </div>
+              </div>
+            </div><button
+              class="btn btn-primary"
+              type="submit"
+              :disabled="displayNameCannotSubmit"
+              @click="changeDisplayName(temporaryDisplayName)"
+            >
+              {{ $t('submit') }}
+            </button>
+          </div><h5>{{ $t('changeUsername') }}</h5><div
+            class="form"
+            name="changeUsername"
+            novalidate="novalidate"
+          >
+            <div
+              v-if="verifiedUsername"
+              class="iconalert iconalert-success"
+            >
+              {{ $t('usernameVerifiedConfirmation', {'username': user.auth.local.username}) }}
+            </div><div
+              v-else
+              class="iconalert iconalert-warning"
+            >
+              <div class="align-middle">
+                <span>{{ $t('usernameNotVerified') }}</span>
+              </div>
+            </div><div class="form-group">
+              <input
+                id="changeUsername"
+                v-model="usernameUpdates.username"
+                class="form-control"
+                type="text"
+                :placeholder="$t('newUsername')"
+                :class="{'is-invalid input-invalid': usernameInvalid}"
+                @blur="restoreEmptyUsername()"
+              ><div
+                v-for="issue in usernameIssues"
+                class="input-error"
+              >
+                {{ issue }}
+              </div><small class="form-text text-muted">{{ $t('changeUsernameDisclaimer') }}</small>
+            </div><button
+              class="btn btn-primary"
+              type="submit"
+              :disabled="usernameCannotSubmit"
+              @click="changeUser('username', usernameUpdates)"
+            >
+              {{ $t('saveAndConfirm') }}
+            </button>
+          </div><h5 v-if="user.auth.local.email">
+            {{ $t('changeEmail') }}
+          </h5><div
+            v-if="user.auth.local.email"
+            class="form"
+            name="changeEmail"
+            novalidate="novalidate"
+          >
+            <div class="form-group">
+              <input
+                id="changeEmail"
+                v-model="emailUpdates.newEmail"
+                class="form-control"
+                type="text"
+                :placeholder="$t('newEmail')"
+              >
+            </div><div class="form-group">
+              <input
+                v-model="emailUpdates.password"
+                class="form-control"
+                type="password"
+                :placeholder="$t('password')"
+              >
+            </div><button
+              class="btn btn-primary"
+              type="submit"
+              @click="changeUser('email', emailUpdates)"
+            >
+              {{ $t('submit') }}
+            </button>
+          </div><h5 v-if="user.auth.local.email">
+            {{ $t('changePass') }}
+          </h5><div
+            v-if="user.auth.local.email"
+            class="form"
+            name="changePassword"
+            novalidate="novalidate"
+          >
+            <div class="form-group">
+              <input
+                id="changePassword"
+                v-model="passwordUpdates.password"
+                class="form-control"
+                type="password"
+                :placeholder="$t('oldPass')"
+              >
+            </div><div class="form-group">
+              <input
+                v-model="passwordUpdates.newPassword"
+                class="form-control"
+                type="password"
+                :placeholder="$t('newPass')"
+              >
+            </div><div class="form-group">
+              <input
+                v-model="passwordUpdates.confirmPassword"
+                class="form-control"
+                type="password"
+                :placeholder="$t('confirmPass')"
+              >
+            </div><button
+              class="btn btn-primary"
+              type="submit"
+              @click="changeUser('password', passwordUpdates)"
+            >
+              {{ $t('submit') }}
+            </button>
+          </div><hr>
+        </div><div>
+          <h5>{{ $t('dangerZone') }}</h5><div>
+            <button
+              v-b-popover.hover.auto="$t('resetAccPop')"
+              class="btn btn-danger mr-2 mb-2"
+              popover-trigger="mouseenter"
+              popover-placement="right"
+              @click="openResetModal()"
+            >
+              {{ $t('resetAccount') }}
+            </button><button
+              v-b-popover.hover.auto="$t('deleteAccPop')"
+              class="btn btn-danger mb-2"
+              popover-trigger="mouseenter"
+              @click="openDeleteModal()"
+            >
+              {{ $t('deleteAccount') }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>

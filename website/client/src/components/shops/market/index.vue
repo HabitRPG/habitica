@@ -1,72 +1,89 @@
-<template lang="pug">
-  page-layout.market
-    div(slot="sidebar")
-      .form-group
-        input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
-      market-filter(
-        :hideLocked.sync="hideLocked",
-        :hidePinned.sync="hidePinned",
-        :viewOptions="viewOptions"
-      )
-    div(slot="page")
-      featured-items-header(
-        :broken="broken",
-        :npcName="'Alex'",
-        :featuredText="market.featured.text",
-        :featuredItems="market.featured.items"
+<template>
+  <page-layout class="market">
+    <div slot="sidebar">
+      <div class="form-group">
+        <input
+          v-model="searchText"
+          class="form-control input-search"
+          type="text"
+          :placeholder="$t('search')"
+        >
+      </div><market-filter
+        :hide-locked.sync="hideLocked"
+        :hide-pinned.sync="hidePinned"
+        :view-options="viewOptions"
+      />
+    </div><div slot="page">
+      <featured-items-header
+        :broken="broken"
+        :npc-name="'Alex'"
+        :featured-text="market.featured.text"
+        :featured-items="market.featured.items"
         @featuredItemSelected="featuredItemSelected($event)"
-      )
-
-      h1.mb-4.page-header(v-once) {{ $t('market') }}
-
-      equipment-section(
-        v-if="!anyFilterSelected || viewOptions['equipment'].selected",
-        :hidePinned="hidePinned",
-        :hideLocked="hideLocked",
-        :searchBy="searchTextThrottled"
-      )
-
-      layout-section(:title="$t('items')")
-        div(slot="filters")
-          filter-dropdown(
-            :label="$t('sortBy')",
-            :initialItem="selectedSortItemsBy",
-            :items="sortItemsBy",
+      /><h1
+        v-once
+        class="mb-4 page-header"
+      >
+        {{ $t('market') }}
+      </h1><equipment-section
+        v-if="!anyFilterSelected || viewOptions['equipment'].selected"
+        :hide-pinned="hidePinned"
+        :hide-locked="hideLocked"
+        :search-by="searchTextThrottled"
+      /><layout-section :title="$t('items')">
+        <div slot="filters">
+          <filter-dropdown
+            :label="$t('sortBy')"
+            :initial-item="selectedSortItemsBy"
+            :items="sortItemsBy"
             @selected="selectedSortItemsBy = $event"
-          )
-            span(slot="item", slot-scope="ctx")
-              span.text {{ $t(ctx.item.id) }}
-      div(
-        v-for="category in categories",
+          >
+            <span
+              slot="item"
+              slot-scope="ctx"
+            ><span class="text">{{ $t(ctx.item.id) }}</span></span>
+          </filter-dropdown>
+        </div>
+      </layout-section><div
+        v-for="category in categories"
         v-if="!anyFilterSelected || viewOptions[category.identifier].selected"
-      )
-        h4 {{ category.text }}
-        category-row(
-          :hidePinned="hidePinned",
-          :hideLocked="hideLocked",
-          :searchBy="searchTextThrottled",
-          :sortBy="selectedSortItemsBy.id",
+      >
+        <h4>{{ category.text }}</h4><category-row
+          :hide-pinned="hidePinned"
+          :hide-locked="hideLocked"
+          :search-by="searchTextThrottled"
+          :sort-by="selectedSortItemsBy.id"
           :category="category"
-        )
-        keys-to-kennel(v-if='category.identifier === "special"')
-        div.fill-height
-
-      inventoryDrawer(:showEggs="true", :showPotions="true")
-        template(slot="item", slot-scope="ctx")
-          item(
-            :item="ctx.item",
-            :itemContentClass="ctx.itemClass",
-            popoverPosition="top",
+        /><keys-to-kennel v-if="category.identifier === 'special'" /><div class="fill-height"></div>
+      </div><inventoryDrawer
+        :show-eggs="true"
+        :show-potions="true"
+      >
+        <template
+          slot="item"
+          slot-scope="ctx"
+        >
+          <item
+            :item="ctx.item"
+            :item-content-class="ctx.itemClass"
+            popover-position="top"
             @click="sellItem(ctx)"
-          )
-            countBadge(
+          >
+            <countBadge
               slot="itemBadge"
-              :show="true",
+              :show="true"
               :count="ctx.itemCount"
-            )
-            h4.popover-content-title(slot="popoverContent") {{ ctx.itemName }}
-
-      sellModal
+            /><h4
+              slot="popoverContent"
+              class="popover-content-title"
+            >
+              {{ ctx.itemName }}
+            </h4>
+          </item>
+        </template>
+      </inventoryDrawer><sellModal />
+    </div>
+  </page-layout>
 </template>
 
 <style lang="scss">

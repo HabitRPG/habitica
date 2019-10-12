@@ -1,21 +1,46 @@
-<template lang="pug">
-.tags-popup
-  .tags-category.d-flex(
-    v-for="tagsType in tagsByType",
-    v-if="tagsType.tags.length > 0 || tagsType.key === 'tags'",
-    :key="tagsType.key"
-  )
-    .tags-header
-      strong(v-once) {{ $t(tagsType.key) }}
-    .tags-list.container
-      .row
-        .col-4(v-for="(tag, tagIndex) in tagsType.tags")
-          .custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox", :value="tag.id", v-model="selectedTags", :id="`tag-${tag.id}`")
-            label.custom-control-label(:title="tag.name", :for="`tag-${tag.id}`", v-markdown="tag.name")
-  .tags-footer
-    span.clear-tags(@click="clearTags()") {{$t("clearTags")}}
-    span.close-tags(@click="close()") {{$t("close")}}
+<template>
+  <div class="tags-popup">
+    <div
+      v-for="tagsType in tagsByType"
+      v-if="tagsType.tags.length > 0 || tagsType.key === 'tags'"
+      :key="tagsType.key"
+      class="tags-category d-flex"
+    >
+      <div class="tags-header">
+        <strong v-once>{{ $t(tagsType.key) }}</strong>
+      </div><div class="tags-list container">
+        <div class="row">
+          <div
+            v-for="(tag, tagIndex) in tagsType.tags"
+            class="col-4"
+          >
+            <div class="custom-control custom-checkbox">
+              <input
+                :id="`tag-${tag.id}`"
+                v-model="selectedTags"
+                class="custom-control-input"
+                type="checkbox"
+                :value="tag.id"
+              ><label
+                v-markdown="tag.name"
+                class="custom-control-label"
+                :title="tag.name"
+                :for="`tag-${tag.id}`"
+              ></label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><div class="tags-footer">
+      <span
+        class="clear-tags"
+        @click="clearTags()"
+      >{{ $t("clearTags") }}</span><span
+        class="close-tags"
+        @click="close()"
+      >{{ $t("close") }}</span>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>

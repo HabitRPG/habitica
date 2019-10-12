@@ -1,52 +1,80 @@
-<template lang="pug">
-.standard-page
-  group-plan-overview-modal
-  task-modal(
-    :task="workingTask",
-    :purpose="taskFormPurpose",
-    @cancel="cancelTaskModal()",
-    ref="taskModal",
-    :groupId="groupId",
-    v-on:taskCreated='taskCreated',
-    v-on:taskEdited='taskEdited',
-    v-on:taskDestroyed='taskDestroyed'
-  )
-  .row.tasks-navigation
-    .col-12.col-md-4
-      h1 {{ $t('groupTasksTitle') }}
-    // @TODO: Abstract to component!
-    .col-12.col-md-4
-      input.form-control.input-search(type="text", :placeholder="$t('search')", v-model="searchText")
-    .create-task-area.d-flex(v-if='canCreateTasks')
-      transition(name="slide-tasks-btns")
-        .d-flex(v-if="openCreateBtn")
-          .create-task-btn.diamond-btn(
-            v-for="type in columns",
-            :key="type",
-            @click="createTask(type)",
-            v-b-tooltip.hover.bottom="$t(type)",
-          )
-            .svg-icon(v-html="icons[type]", :class='`icon-${type}`')
-
-      #create-task-btn.create-btn.diamond-btn.btn.btn-success(
-        @click="openCreateBtn = !openCreateBtn",
-        :class="{open: openCreateBtn}",
-      )
-        .svg-icon(v-html="icons.positive")
-      b-tooltip(target="create-task-btn", placement="bottom", v-if="!openCreateBtn") {{ $t('addTaskToGroupPlan') }}
-
-  .row
-    task-column.col-12.col-md-3(
-      v-for="column in columns",
-      :type="column",
-      :key="column",
-      :taskListOverride='tasksByType[column]',
-      :showOptions="showOptions"
-      v-on:editTask="editTask",
-      v-on:loadGroupCompletedTodos="loadGroupCompletedTodos",
-      v-on:taskDestroyed="taskDestroyed",
-      :group='group',
-      :searchText="searchText")
+<template>
+  <div class="standard-page">
+    <group-plan-overview-modal /><task-modal
+      ref="taskModal"
+      :task="workingTask"
+      :purpose="taskFormPurpose"
+      :group-id="groupId"
+      @cancel="cancelTaskModal()"
+      @taskCreated="taskCreated"
+      @taskEdited="taskEdited"
+      @taskDestroyed="taskDestroyed"
+    /><div class="row tasks-navigation">
+      <div class="col-12 col-md-4">
+        <h1>{{ $t('groupTasksTitle') }}</h1>
+      </div><!-- @TODO: Abstract to component!--><div class="col-12 col-md-4">
+        <input
+          v-model="searchText"
+          class="form-control input-search"
+          type="text"
+          :placeholder="$t('search')"
+        >
+      </div><div
+        v-if="canCreateTasks"
+        class="create-task-area d-flex"
+      >
+        <transition name="slide-tasks-btns">
+          <div
+            v-if="openCreateBtn"
+            class="d-flex"
+          >
+            <div
+              v-for="type in columns"
+              :key="type"
+              v-b-tooltip.hover.bottom="$t(type)"
+              class="create-task-btn diamond-btn"
+              @click="createTask(type)"
+            >
+              <div
+                class="svg-icon"
+                :class="`icon-${type}`"
+                v-html="icons[type]"
+              ></div>
+            </div>
+          </div>
+        </transition><div
+          id="create-task-btn"
+          class="create-btn diamond-btn btn btn-success"
+          :class="{open: openCreateBtn}"
+          @click="openCreateBtn = !openCreateBtn"
+        >
+          <div
+            class="svg-icon"
+            v-html="icons.positive"
+          ></div>
+        </div><b-tooltip
+          v-if="!openCreateBtn"
+          target="create-task-btn"
+          placement="bottom"
+        >
+          {{ $t('addTaskToGroupPlan') }}
+        </b-tooltip>
+      </div>
+    </div><div class="row">
+      <task-column
+        v-for="column in columns"
+        :key="column"
+        class="col-12 col-md-3"
+        :type="column"
+        :task-list-override="tasksByType[column]"
+        :show-options="showOptions"
+        :group="group"
+        :search-text="searchText"
+        @editTask="editTask"
+@loadGroupCompletedTodos="loadGroupCompletedTodos" @taskDestroyed="taskDestroyed"
+      />
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>

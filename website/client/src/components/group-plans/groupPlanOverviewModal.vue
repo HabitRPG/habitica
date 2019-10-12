@@ -1,66 +1,186 @@
-<template lang="pug">
-b-modal#group-plan-overview(title="Empty", size='lg', hide-footer=true, @shown='shown()')
-  .header-wrap.text-center(slot="modal-header")
-    h2(v-once) {{ $t('gettingStarted') }}
-    p(v-once) {{ $t('congratsOnGroupPlan') }}
-  .row
-    .col-12
-      .card(:class='{expanded: expandedQuestions.question1}')
-        .question-head
-          .q Q.
-          .title {{ $t('whatsIncludedGroup') }}
-          .arrow.float-right(@click='toggle("question1")')
-            .svg-icon(v-html="icons.upIcon", v-if='expandedQuestions.question1')
-            .svg-icon(v-html="icons.downIcon", v-else)
-        .question-body(v-if='expandedQuestions.question1')
-          p {{ $t('whatsIncludedGroupDesc') }}
-    .col-12
-      .card(:class='{expanded: expandedQuestions.question2}')
-        .question-head
-          .q Q.
-          .title {{ $t('howDoesBillingWork') }}
-          .arrow.float-right(@click='toggle("question2")')
-            .svg-icon(v-html="icons.upIcon", v-if='expandedQuestions.question2')
-            .svg-icon(v-html="icons.downIcon", v-else)
-        .question-body(v-if='expandedQuestions.question2')
-          p {{ $t('howDoesBillingWorkDesc') }}
-    .col-12
-      .card(:class='{expanded: expandedQuestions.question3}')
-        .question-head
-          .q Q.
-          .title {{ $t('howToAssignTask') }}
-          .arrow.float-right(@click='toggle("question3")')
-            .svg-icon(v-html="icons.upIcon", v-if='expandedQuestions.question3')
-            .svg-icon(v-html="icons.downIcon", v-else)
-        .question-body(v-if='expandedQuestions.question3')
-          p {{ $t('howToAssignTaskDesc') }}
-          .assign-tasks.image-example
-    .col-12
-      .card(:class='{expanded: expandedQuestions.question4}')
-        .question-head
-          .q Q.
-          .title {{ $t('howToRequireApproval') }}
-          .arrow.float-right(@click='toggle("question4")')
-            .svg-icon(v-html="icons.upIcon", v-if='expandedQuestions.question4')
-            .svg-icon(v-html="icons.downIcon", v-else)
-        .question-body(v-if='expandedQuestions.question4')
-          p {{ $t('howToRequireApprovalDesc') }}
-          .requires-approval.image-example
-          p {{ $t('howToRequireApprovalDesc2') }}
-          .approval-requested.image-example
-    .col-12
-      .card(:class='{expanded: expandedQuestions.question5}')
-        .question-head
-          .q Q.
-          .title {{ $t('whatIsGroupManager') }}
-          .arrow.float-right(@click='toggle("question5")')
-            .svg-icon(v-html="icons.upIcon", v-if='expandedQuestions.question5')
-            .svg-icon(v-html="icons.downIcon", v-else)
-        .question-body(v-if='expandedQuestions.question5')
-          p {{ $t('whatIsGroupManagerDesc') }}
-          .promote-leader.image-example
-    .col-12.text-center
-      button.btn.btn-primary.close-button(@click='close()') {{ $t('goToTaskBoard') }}
+<template>
+  <b-modal
+    id="group-plan-overview"
+    title="Empty"
+    size="lg"
+    hide-footer="hide-footer"
+    @shown="shown()"
+  >
+    <div
+      slot="modal-header"
+      class="header-wrap text-center"
+    >
+      <h2 v-once>
+        {{ $t('gettingStarted') }}
+      </h2><p v-once>
+        {{ $t('congratsOnGroupPlan') }}
+      </p>
+    </div><div class="row">
+      <div class="col-12">
+        <div
+          class="card"
+          :class="{expanded: expandedQuestions.question1}"
+        >
+          <div class="question-head">
+            <div class="q">
+              Q.
+            </div><div class="title">
+              {{ $t('whatsIncludedGroup') }}
+            </div><div
+              class="arrow float-right"
+              @click="toggle('question1')"
+            >
+              <div
+                v-if="expandedQuestions.question1"
+                class="svg-icon"
+                v-html="icons.upIcon"
+              ></div><div
+                v-else
+                class="svg-icon"
+                v-html="icons.downIcon"
+              ></div>
+            </div>
+          </div><div
+            v-if="expandedQuestions.question1"
+            class="question-body"
+          >
+            <p>{{ $t('whatsIncludedGroupDesc') }}</p>
+          </div>
+        </div>
+      </div><div class="col-12">
+        <div
+          class="card"
+          :class="{expanded: expandedQuestions.question2}"
+        >
+          <div class="question-head">
+            <div class="q">
+              Q.
+            </div><div class="title">
+              {{ $t('howDoesBillingWork') }}
+            </div><div
+              class="arrow float-right"
+              @click="toggle('question2')"
+            >
+              <div
+                v-if="expandedQuestions.question2"
+                class="svg-icon"
+                v-html="icons.upIcon"
+              ></div><div
+                v-else
+                class="svg-icon"
+                v-html="icons.downIcon"
+              ></div>
+            </div>
+          </div><div
+            v-if="expandedQuestions.question2"
+            class="question-body"
+          >
+            <p>{{ $t('howDoesBillingWorkDesc') }}</p>
+          </div>
+        </div>
+      </div><div class="col-12">
+        <div
+          class="card"
+          :class="{expanded: expandedQuestions.question3}"
+        >
+          <div class="question-head">
+            <div class="q">
+              Q.
+            </div><div class="title">
+              {{ $t('howToAssignTask') }}
+            </div><div
+              class="arrow float-right"
+              @click="toggle('question3')"
+            >
+              <div
+                v-if="expandedQuestions.question3"
+                class="svg-icon"
+                v-html="icons.upIcon"
+              ></div><div
+                v-else
+                class="svg-icon"
+                v-html="icons.downIcon"
+              ></div>
+            </div>
+          </div><div
+            v-if="expandedQuestions.question3"
+            class="question-body"
+          >
+            <p>{{ $t('howToAssignTaskDesc') }}</p><div class="assign-tasks image-example"></div>
+          </div>
+        </div>
+      </div><div class="col-12">
+        <div
+          class="card"
+          :class="{expanded: expandedQuestions.question4}"
+        >
+          <div class="question-head">
+            <div class="q">
+              Q.
+            </div><div class="title">
+              {{ $t('howToRequireApproval') }}
+            </div><div
+              class="arrow float-right"
+              @click="toggle('question4')"
+            >
+              <div
+                v-if="expandedQuestions.question4"
+                class="svg-icon"
+                v-html="icons.upIcon"
+              ></div><div
+                v-else
+                class="svg-icon"
+                v-html="icons.downIcon"
+              ></div>
+            </div>
+          </div><div
+            v-if="expandedQuestions.question4"
+            class="question-body"
+          >
+            <p>{{ $t('howToRequireApprovalDesc') }}</p><div class="requires-approval image-example"></div><p>{{ $t('howToRequireApprovalDesc2') }}</p><div class="approval-requested image-example"></div>
+          </div>
+        </div>
+      </div><div class="col-12">
+        <div
+          class="card"
+          :class="{expanded: expandedQuestions.question5}"
+        >
+          <div class="question-head">
+            <div class="q">
+              Q.
+            </div><div class="title">
+              {{ $t('whatIsGroupManager') }}
+            </div><div
+              class="arrow float-right"
+              @click="toggle('question5')"
+            >
+              <div
+                v-if="expandedQuestions.question5"
+                class="svg-icon"
+                v-html="icons.upIcon"
+              ></div><div
+                v-else
+                class="svg-icon"
+                v-html="icons.downIcon"
+              ></div>
+            </div>
+          </div><div
+            v-if="expandedQuestions.question5"
+            class="question-body"
+          >
+            <p>{{ $t('whatIsGroupManagerDesc') }}</p><div class="promote-leader image-example"></div>
+          </div>
+        </div>
+      </div><div class="col-12 text-center">
+        <button
+          class="btn btn-primary close-button"
+          @click="close()"
+        >
+          {{ $t('goToTaskBoard') }}
+        </button>
+      </div>
+    </div>
+  </b-modal>
 </template>
 
 <style>

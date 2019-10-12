@@ -1,8 +1,20 @@
-<template lang="pug">
-b-dropdown.select-member(:text="text")
-  input.form-control(type='text', v-model='searchTerm')
-  b-dropdown-item(v-for="member in memberResults", :key="member._id", @click="selectMember(member)")
-    | {{ member.profile.name }}
+<template>
+  <b-dropdown
+    class="select-member"
+    :text="text"
+  >
+    <input
+      v-model="searchTerm"
+      class="form-control"
+      type="text"
+    ><b-dropdown-item
+      v-for="member in memberResults"
+      :key="member._id"
+      @click="selectMember(member)"
+    >
+      {{ member.profile.name }}
+    </b-dropdown-item>
+  </b-dropdown>
 </template>
 
 <style lang="scss" scoped>

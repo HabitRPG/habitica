@@ -1,25 +1,55 @@
-<template lang="pug">
-  .customize-options(:class="{'background-set': fullSet}")
-    .outer-option-background(
-      v-for='option in items',
-      :key='option.key',
-      @click='option.click(option)',
-      :class='{locked: option.gemLocked || option.goldLocked, premium: Boolean(option.gem), active: option.active || currentValue === option.key, none: option.none, hide: option.hide }'
-    )
-      .option
-        .sprite.customize-option(:class='option.class')
-          .redline-outer(v-if="option.none")
-            .redline
-      .gem-lock(v-if='option.gemLocked')
-        .svg-icon.gem(v-html='icons.gem')
-        span {{ option.gem }}
-      .gold-lock(v-if='option.goldLocked')
-        .svg-icon.gold(v-html='icons.gold')
-        span {{ option.gold }}
-    .purchase-set(v-if='fullSet', @click='unlock()')
-      span.label {{ $t('purchaseAll') }}
-      .svg-icon.gem(v-html='icons.gem')
-      span.price 5
+<template>
+  <div
+    class="customize-options"
+    :class="{'background-set': fullSet}"
+  >
+    <div
+      v-for="option in items"
+      :key="option.key"
+      class="outer-option-background"
+      :class="{locked: option.gemLocked || option.goldLocked, premium: Boolean(option.gem), active: option.active || currentValue === option.key, none: option.none, hide: option.hide }"
+      @click="option.click(option)"
+    >
+      <div class="option">
+        <div
+          class="sprite customize-option"
+          :class="option.class"
+        >
+          <div
+            v-if="option.none"
+            class="redline-outer"
+          >
+            <div class="redline"></div>
+          </div>
+        </div>
+      </div><div
+        v-if="option.gemLocked"
+        class="gem-lock"
+      >
+        <div
+          class="svg-icon gem"
+          v-html="icons.gem"
+        ></div><span>{{ option.gem }}</span>
+      </div><div
+        v-if="option.goldLocked"
+        class="gold-lock"
+      >
+        <div
+          class="svg-icon gold"
+          v-html="icons.gold"
+        ></div><span>{{ option.gold }}</span>
+      </div>
+    </div><div
+      v-if="fullSet"
+      class="purchase-set"
+      @click="unlock()"
+    >
+      <span class="label">{{ $t('purchaseAll') }}</span><div
+        class="svg-icon gem"
+        v-html="icons.gem"
+      ></div><span class="price">5</span>
+    </div>
+  </div>
 </template>
 
 <script>

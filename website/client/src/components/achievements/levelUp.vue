@@ -1,30 +1,48 @@
-<template lang="pug">
-  b-modal#level-up(:title="$t('levelUpShare')", size='sm', :hide-footer="true", :hide-header="true")
-    .modal-body.text-center
-      h2 {{ $t('reachedLevel', {level: user.stats.lvl}) }}
-
-      avatar.avatar(:member='user')
-
-      p.text {{ $t('levelup') }}
-
-      button.btn.btn-primary(@click='close()') {{ $t('onwards') }}
-      br
-      // @TODO: Keep this? .checkbox
-        input(type='checkbox', v-model=
-        'user.preferences.suppressModals.levelUp', @change='changeLevelupSuppress()')
-        label(style='display:inline-block') {{ $t('dontShowAgain') }}
-
-    .container-fluid.share-buttons
-      .row
-        .col-12.text-center
-          a.twitter-share-button.share-button(:href='twitterLink', target='_blank')
-            .social-icon.twitter.svg-icon(v-html='icons.twitter')
-            | {{ $t('tweet') }}
-          a.fb-share-button.share-button(:href='facebookLink', target='_blank')
-            .social-icon.facebook.svg-icon(v-html='icons.facebook')
-            | {{ $t('share') }}
-        // @TODO: Still want this? .col-4
-          a.tumblr-share-button(:data-href='socialLevelLink', data-notes='none')
+<template>
+  <b-modal
+    id="level-up"
+    :title="$t('levelUpShare')"
+    size="sm"
+    :hide-footer="true"
+    :hide-header="true"
+  >
+    <div class="modal-body text-center">
+      <h2>{{ $t('reachedLevel', {level: user.stats.lvl}) }}</h2><avatar
+        class="avatar"
+        :member="user"
+      /><p class="text">
+        {{ $t('levelup') }}
+      </p><button
+        class="btn btn-primary"
+        @click="close()"
+      >
+        {{ $t('onwards') }}
+      </button><br><!-- @TODO: Keep this? .checkboxinput(type='checkbox', v-model=
+'user.preferences.suppressModals.levelUp', @change='changeLevelupSuppress()')
+label(style='display:inline-block') {{ $t('dontShowAgain') }}
+-->
+    </div><div class="container-fluid share-buttons">
+      <div class="row">
+        <div class="col-12 text-center">
+          <a
+            class="twitter-share-button share-button"
+            :href="twitterLink"
+            target="_blank"
+          ><div
+            class="social-icon twitter svg-icon"
+            v-html="icons.twitter"
+          ></div>{{ $t('tweet') }}</a><a
+            class="fb-share-button share-button"
+            :href="facebookLink"
+            target="_blank"
+          ><div
+            class="social-icon facebook svg-icon"
+            v-html="icons.facebook"
+          ></div>{{ $t('share') }}</a>
+        </div><!-- @TODO: Still want this? .col-4a.tumblr-share-button(:data-href='socialLevelLink', data-notes='none')-->
+      </div>
+    </div>
+  </b-modal>
 </template>
 
 <style lang="scss">

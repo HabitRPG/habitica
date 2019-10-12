@@ -1,13 +1,19 @@
-<template lang="pug">
-base-notification(
-  :can-remove="canRemove",
-  :has-icon="true",
-  :notification="notification",
-  :read-after-click="true",
-  @click="action"
-)
-  div(slot="content", v-html="$t('cardReceived', {card: cardString})")
-  div(slot="icon", :class="cardClass")
+<template>
+  <base-notification
+    :can-remove="canRemove"
+    :has-icon="true"
+    :notification="notification"
+    :read-after-click="true"
+    @click="action"
+  >
+    <div
+      slot="content"
+      v-html="$t('cardReceived', {card: cardString})"
+    ></div><div
+      slot="icon"
+      :class="cardClass"
+    ></div>
+  </base-notification>
 </template>
 
 <script>

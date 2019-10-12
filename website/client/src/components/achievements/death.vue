@@ -1,30 +1,56 @@
-<template lang="pug">
-  b-modal#death(
-    :title="$t('lostAllHealth')",
-    size='md',
-    :hide-footer="true",
-    no-close-on-esc,
-    no-close-on-backdrop,
-  )
-    .row
-      .col-12
-        .hero-stats
-          .meter-label(:tooltip="$t('health')")
-            span.glyphicon.glyphicon-heart
-          .meter.health(:tooltip='Math.round(user.stats.hp * 100) / 100')
-            .bar(:style='barStyle')
-          // span.meter-text.value
-            | {{Math.ceil(user.stats.hp)}} / {{maxHealth}}
-          avatar(:member='user', :sleep='true', :avatarOnly='true', :withBackground='true')
-          // @TOOD: Sleep +generatedAvatar({sleep:true})
-          span(class='knockout')
-      .col-6.offset-3
-        h4.dont-despair {{ $t('dontDespair') }}
-        p.death-penalty {{ $t('deathPenaltyDetails') }}
-    .modal-footer
-      .col-12.text-center
-        button.btn.btn-danger(@click='revive()') {{ $t('refillHealthTryAgain') }}
-        h4.text-center(v-html="$t('dyingOftenTips')")
+<template>
+  <b-modal
+    id="death"
+    :title="$t('lostAllHealth')"
+    size="md"
+    :hide-footer="true"
+    no-close-on-esc="no-close-on-esc"
+    no-close-on-backdrop="no-close-on-backdrop"
+  >
+    <div class="row">
+      <div class="col-12">
+        <div class="hero-stats">
+          <div
+            class="meter-label"
+            :tooltip="$t('health')"
+          >
+            <span class="glyphicon glyphicon-heart"></span>
+          </div><div
+            class="meter health"
+            :tooltip="Math.round(user.stats.hp * 100) / 100"
+          >
+            <div
+              class="bar"
+              :style="barStyle"
+            ></div>
+          </div><!-- span.meter-text.value| {{Math.ceil(user.stats.hp)}} / {{maxHealth}}--><avatar
+            :member="user"
+            :sleep="true"
+            :avatar-only="true"
+            :with-background="true"
+          /><!-- @TOOD: Sleep +generatedAvatar({sleep:true})--><span class="knockout"></span>
+        </div>
+      </div><div class="col-6 offset-3">
+        <h4 class="dont-despair">
+          {{ $t('dontDespair') }}
+        </h4><p class="death-penalty">
+          {{ $t('deathPenaltyDetails') }}
+        </p>
+      </div>
+    </div><div class="modal-footer">
+      <div class="col-12 text-center">
+        <button
+          class="btn btn-danger"
+          @click="revive()"
+        >
+          {{ $t('refillHealthTryAgain') }}
+        </button><h4
+          class="text-center"
+          v-html="$t('dyingOftenTips')"
+        ></h4>
+      </div>
+    </div>
+  </b-modal>
 </template>
 
 <style scoped>

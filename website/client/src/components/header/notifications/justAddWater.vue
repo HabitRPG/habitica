@@ -1,11 +1,15 @@
-<template lang="pug">
-  base-notification(
-    :can-remove="canRemove",
-    :notification="notification",
-    :read-after-click="true",
+<template>
+  <base-notification
+    :can-remove="canRemove"
+    :notification="notification"
+    :read-after-click="true"
     @click="action"
-  )
-    div(slot="content", v-html="achievementString")
+  >
+    <div
+      slot="content"
+      v-html="achievementString"
+    ></div>
+  </base-notification>
 </template>
 
 <script>

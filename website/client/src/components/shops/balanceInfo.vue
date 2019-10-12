@@ -1,11 +1,13 @@
-<template lang="pug">
-  div
-    span(
-      v-for="currency of currencies",
+<template>
+  <div>
+    <span
+      v-for="currency of currencies"
       :key="currency.key"
-    )
-      .svg-icon(v-html="currency.icon")
-      span(:class="{'notEnough': currency.notEnough}") {{ currency.value | roundBigNumber}}
+    ><div
+      class="svg-icon"
+      v-html="currency.icon"
+    ></div><span :class="{'notEnough': currency.notEnough}">{{ currency.value | roundBigNumber }}</span></span>
+  </div>
 </template>
 
 <style lang="scss" scoped>

@@ -1,18 +1,34 @@
-<template lang="pug">
-  b-modal#subscription-cancel-modal(
-    size='sm',
-    :hideFooter="true",
-    :modalClass="['modal-hidden-footer']"
-  )
-    div(slot="modal-header")
-      .icon-container.warning-container.d-flex.align-items-center.justify-content-center
-        .svg-icon.warning(v-html="icons.warning", v-once)
-    .row
-      .col-12.modal-body-col
-        h2 {{ config && config.group ? $t('cancelGroupSub') : $t('cancelSub') }}
-        span.cancel-text {{ config && config.group ? $t('confirmCancelGroupPlan') : $t('confirmCancelSub') }}
-        button.btn.btn-danger.mt-4.mb-3(v-once, @click="close(); cancelSubscription(config)") {{ $t('cancelSub') }}
-        a.standard-link(v-once, @click="close()") {{ $t('neverMind') }}
+<template>
+  <b-modal
+    id="subscription-cancel-modal"
+    size="sm"
+    :hide-footer="true"
+    :modal-class="['modal-hidden-footer']"
+  >
+    <div slot="modal-header">
+      <div class="icon-container warning-container d-flex align-items-center justify-content-center">
+        <div
+          v-once
+          class="svg-icon warning"
+          v-html="icons.warning"
+        ></div>
+      </div>
+    </div><div class="row">
+      <div class="col-12 modal-body-col">
+        <h2>{{ config && config.group ? $t('cancelGroupSub') : $t('cancelSub') }}</h2><span class="cancel-text">{{ config && config.group ? $t('confirmCancelGroupPlan') : $t('confirmCancelSub') }}</span><button
+          v-once
+          class="btn btn-danger mt-4 mb-3"
+          @click="close(); cancelSubscription(config)"
+        >
+          {{ $t('cancelSub') }}
+        </button><a
+          v-once
+          class="standard-link"
+          @click="close()"
+        >{{ $t('neverMind') }}</a>
+      </div>
+    </div>
+  </b-modal>
 </template>
 
 <style lang="scss">

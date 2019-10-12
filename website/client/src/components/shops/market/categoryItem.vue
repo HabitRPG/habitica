@@ -1,17 +1,23 @@
-<template lang="pug">
-div
-  countBadge(
-    v-if="item.showCount !== false",
-    :show="true",
-    :count="count"
-  )
-  .badge.badge-pill.badge-purple.gems-left(v-if='item.key === "gem"')
-    | {{ gemsLeft }}
-  span.badge.badge-pill.badge-item.badge-svg(
-    :class="{'item-selected-badge': item.pinned, 'hide': !item.pinned}",
-    @click.prevent.stop="togglePinned(item)"
-  )
-    span.svg-icon.inline.icon-12.color(v-html="icons.pin")
+<template>
+  <div>
+    <countBadge
+      v-if="item.showCount !== false"
+      :show="true"
+      :count="count"
+    /><div
+      v-if="item.key === 'gem'"
+      class="badge badge-pill badge-purple gems-left"
+    >
+      {{ gemsLeft }}
+    </div><span
+      class="badge badge-pill badge-item badge-svg"
+      :class="{'item-selected-badge': item.pinned, 'hide': !item.pinned}"
+      @click.prevent.stop="togglePinned(item)"
+    ><span
+      class="svg-icon inline icon-12 color"
+      v-html="icons.pin"
+    ></span></span>
+  </div>
 </template>
 
 <script>

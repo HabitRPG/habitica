@@ -1,55 +1,72 @@
-<template lang="pug">
-.member-details(
-  :class="{ condensed, expanded, 'd-flex': isHeader, row: !isHeader, }",
-  @click='showMemberModal(member)'
-)
-  div(:class="{ 'col-4': !isHeader }")
-    avatar(
-      :member="member",
-      @click.native="$emit('click')",
-      @mouseover.native="$emit('onHover')",
-      @mouseout.native="$emit('onHover')",
-      :hide-class-badge="classBadgePosition !== 'under-avatar'",
-    )
-  .member-stats(:class="{'col-8': !expanded && !isHeader}")
-    .d-flex.align-items-center.profile-first-row
-      class-badge(v-if="classBadgePosition === 'next-to-name'", :member-class="member.stats.class")
-      .d-flex.flex-column.profile-name-character
-        h3.character-name
-          | {{member.profile.name}}
-          .is-buffed(v-if="isBuffed", v-b-tooltip.hover.bottom="$t('buffed')")
-            .svg-icon(v-html="icons.buff")
-        .small-text.character-level
-          span.mr-1(
-            v-if="member.auth && member.auth.local && member.auth.local.username"
-          ) @{{ member.auth.local.username }}
-          span.mr-1(v-if="member.auth && member.auth.local && member.auth.local.username") •
-          span {{ characterLevel }}
-    stats-bar(
-      :icon="icons.health",
-      :value="member.stats.hp",
-      :maxValue="MAX_HEALTH",
-      :tooltip="$t('health')",
-      progressClass="bg-health",
-      :condensed="condensed"
-    )
-    stats-bar(
-      :icon="icons.experience",
-      :value="member.stats.exp",
-      :maxValue="toNextLevel",
-      :tooltip="$t('experience')",
-      progressClass="bg-experience",
-      :condensed="condensed"
-    )
-    stats-bar(
-      v-if="hasClass",
-      :icon="icons.mana",
-      :value="member.stats.mp",
-      :maxValue="maxMP",
-      :tooltip="$t('mana')",
-      progressClass="bg-mana",
-      :condensed="condensed"
-    )
+<template>
+  <div
+    class="member-details"
+    :class="{ condensed, expanded, 'd-flex': isHeader, row: !isHeader, }"
+    @click="showMemberModal(member)"
+  >
+    <div :class="{ 'col-4': !isHeader }">
+      <avatar
+        :member="member"
+        :hide-class-badge="classBadgePosition !== 'under-avatar'"
+        @click.native="$emit('click')"
+        @mouseover.native="$emit('onHover')"
+        @mouseout.native="$emit('onHover')"
+      />
+    </div><div
+      class="member-stats"
+      :class="{'col-8': !expanded && !isHeader}"
+    >
+      <div class="d-flex align-items-center profile-first-row">
+        <class-badge
+          v-if="classBadgePosition === 'next-to-name'"
+          :member-class="member.stats.class"
+        /><div class="d-flex flex-column profile-name-character">
+          <h3 class="character-name">
+            {{ member.profile.name }}<div
+              v-if="isBuffed"
+              v-b-tooltip.hover.bottom="$t('buffed')"
+              class="is-buffed"
+            >
+              <div
+                class="svg-icon"
+                v-html="icons.buff"
+              ></div>
+            </div>
+          </h3><div class="small-text character-level">
+            <span
+              v-if="member.auth && member.auth.local && member.auth.local.username"
+              class="mr-1"
+            >@{{ member.auth.local.username }}</span><span
+              v-if="member.auth && member.auth.local && member.auth.local.username"
+              class="mr-1"
+            >•</span><span>{{ characterLevel }}</span>
+          </div>
+        </div>
+      </div><stats-bar
+        :icon="icons.health"
+        :value="member.stats.hp"
+        :max-value="MAX_HEALTH"
+        :tooltip="$t('health')"
+        progress-class="bg-health"
+        :condensed="condensed"
+      /><stats-bar
+        :icon="icons.experience"
+        :value="member.stats.exp"
+        :max-value="toNextLevel"
+        :tooltip="$t('experience')"
+        progress-class="bg-experience"
+        :condensed="condensed"
+      /><stats-bar
+        v-if="hasClass"
+        :icon="icons.mana"
+        :value="member.stats.mp"
+        :max-value="maxMP"
+        :tooltip="$t('mana')"
+        progress-class="bg-mana"
+        :condensed="condensed"
+      />
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>

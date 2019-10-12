@@ -1,35 +1,70 @@
-<template lang="pug">
-.row
-  sidebar(v-on:search="updateSearch", v-on:filter="updateFilters")
-
-  .standard-page
-    .row
-      .col-md-8.text-left
-        h1.page-header(v-once) {{ $t('myGuilds') }}
-        h2(v-if='loading && guilds.length === 0') {{ $t('loading') }}
-      .col-4
-        button.btn.btn-secondary.create-group-button.float-right(@click='createGroup()')
-          .svg-icon.positive-icon(v-html="icons.positiveIcon")
-          span(v-once) {{$t('createGuild2')}}
-        // @TODO: Add when we implement recent activity .float-right
-          span.dropdown-label {{ $t('sortBy') }}
-          b-dropdown(:text="$t('sort')", right=true)
-            b-dropdown-item(v-for='sortOption in sortOptions', :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}
-
-    .row
-      .no-guilds.text-center.col-md-6.offset-md-3(v-if='!loading && guilds.length === 0')
-        .svg-icon(v-html='icons.greyBadge')
-        h2(v-once) {{$t('noGuildsTitle')}}
-        p(v-once) {{$t('noGuildsParagraph1')}}
-        p(v-once) {{$t('noGuildsParagraph2')}}
-
-    .row
-      .no-guilds.text-center.col-md-6.offset-md-3(v-if='!loading && guilds.length > 0 && filteredGuilds.length === 0')
-        h2(v-once) {{$t('noGuildsMatchFilters')}}
-
-    .row
-      .col-md-12
-        public-guild-item(v-for="guild in filteredGuilds", :key='guild._id', :guild="guild", :display-gem-bank='true')
+<template>
+  <div class="row">
+    <sidebar
+      @search="updateSearch"
+      @filter="updateFilters"
+    /><div class="standard-page">
+      <div class="row">
+        <div class="col-md-8 text-left">
+          <h1
+            v-once
+            class="page-header"
+          >
+            {{ $t('myGuilds') }}
+          </h1><h2 v-if="loading && guilds.length === 0">
+            {{ $t('loading') }}
+          </h2>
+        </div><div class="col-4">
+          <button
+            class="btn btn-secondary create-group-button float-right"
+            @click="createGroup()"
+          >
+            <div
+              class="svg-icon positive-icon"
+              v-html="icons.positiveIcon"
+            ></div><span v-once>{{ $t('createGuild2') }}</span>
+          </button><!-- @TODO: Add when we implement recent activity .float-rightspan.dropdown-label {{ $t('sortBy') }}
+b-dropdown(:text="$t('sort')", right=true)
+  b-dropdown-item(v-for='sortOption in sortOptions', :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}
+-->
+        </div>
+      </div><div class="row">
+        <div
+          v-if="!loading && guilds.length === 0"
+          class="no-guilds text-center col-md-6 offset-md-3"
+        >
+          <div
+            class="svg-icon"
+            v-html="icons.greyBadge"
+          ></div><h2 v-once>
+            {{ $t('noGuildsTitle') }}
+          </h2><p v-once>
+            {{ $t('noGuildsParagraph1') }}
+          </p><p v-once>
+            {{ $t('noGuildsParagraph2') }}
+          </p>
+        </div>
+      </div><div class="row">
+        <div
+          v-if="!loading && guilds.length > 0 && filteredGuilds.length === 0"
+          class="no-guilds text-center col-md-6 offset-md-3"
+        >
+          <h2 v-once>
+            {{ $t('noGuildsMatchFilters') }}
+          </h2>
+        </div>
+      </div><div class="row">
+        <div class="col-md-12">
+          <public-guild-item
+            v-for="guild in filteredGuilds"
+            :key="guild._id"
+            :guild="guild"
+            :display-gem-bank="true"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>

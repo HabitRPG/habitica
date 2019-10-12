@@ -1,15 +1,34 @@
-<template lang="pug">
-  b-modal#amazon-payment(title="Amazon", :hide-footer="true", size='md')
-    h2.text-center Continue with Amazon
-    #AmazonPayWallet(v-if="amazonPayments.loggedIn", style="width: 400px; height: 228px;")
-    template(v-if="amazonPayments.loggedIn && amazonPayments.type === 'subscription'")
-      br
-      p(v-html="$t('amazonPaymentsRecurring')")
-      #AmazonPayRecurring(style="width: 400px; height: 140px;")
-    .modal-footer
-      .text-center
-        button.btn.btn-primary(v-if="amazonPaymentsCanCheckout",
-          @click="amazonCheckOut()", :disabled='!amazonButtonEnabled') {{ $t('checkout') }}
+<template>
+  <b-modal
+    id="amazon-payment"
+    title="Amazon"
+    :hide-footer="true"
+    size="md"
+  >
+    <h2 class="text-center">
+      Continue with Amazon
+    </h2><div
+      v-if="amazonPayments.loggedIn"
+      id="AmazonPayWallet"
+      style="width: 400px; height: 228px;"
+    ></div><template v-if="amazonPayments.loggedIn && amazonPayments.type === 'subscription'">
+      <br><p v-html="$t('amazonPaymentsRecurring')"></p><div
+        id="AmazonPayRecurring"
+        style="width: 400px; height: 140px;"
+      ></div>
+    </template><div class="modal-footer">
+      <div class="text-center">
+        <button
+          v-if="amazonPaymentsCanCheckout"
+          class="btn btn-primary"
+          :disabled="!amazonButtonEnabled"
+          @click="amazonCheckOut()"
+        >
+          {{ $t('checkout') }}
+        </button>
+      </div>
+    </div>
+  </b-modal>
 </template>
 
 <style scoped>

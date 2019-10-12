@@ -1,7 +1,8 @@
-<template lang="pug">
-span.badge.badge-pill.badge-item.badge-count(
-  v-if="show && count > 0",
-) {{ count }}
+<template>
+  <span
+    v-if="show && count > 0"
+    class="badge badge-pill badge-item badge-count"
+  >{{ count }}</span>
 </template>
 
 <style lang="scss">

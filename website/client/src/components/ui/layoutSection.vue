@@ -1,15 +1,13 @@
-<template lang="pug">
-div
-  .clearfix
-    h2.float-left.mb-3.filters-title {{ title }}
-
-    .filters.float-right
-      slot(name="filters")
-
-  br
-
-  slot(name="content")
-
+<template>
+  <div>
+    <div class="clearfix">
+      <h2 class="float-left mb-3 filters-title">
+        {{ title }}
+      </h2><div class="filters float-right">
+        <slot name="filters"></slot>
+      </div>
+    </div><br><slot name="content"></slot>
+  </div>
 </template>
 
 <script>

@@ -1,9 +1,26 @@
-<template lang="pug">
-b-dropdown.create-dropdown(:text="text", no-flip)
-  b-dropdown-form(:disabled='false', v-on:submit.prevent="onSubmit")
-    input.form-control(type='text', v-model='searchTerm')
-  b-dropdown-item(v-for="member in memberResults", :key="member._id", @click="selectMember(member)")
-    | {{ member.profile.name }}
+<template>
+  <b-dropdown
+    class="create-dropdown"
+    :text="text"
+    no-flip="no-flip"
+  >
+    <b-dropdown-form
+      :disabled="false"
+      @submit.prevent="onSubmit"
+    >
+      <input
+        v-model="searchTerm"
+        class="form-control"
+        type="text"
+      >
+    </b-dropdown-form><b-dropdown-item
+      v-for="member in memberResults"
+      :key="member._id"
+      @click="selectMember(member)"
+    >
+      {{ member.profile.name }}
+    </b-dropdown-item>
+  </b-dropdown>
 </template>
 
 <style lang="scss" scoped>

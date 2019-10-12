@@ -1,16 +1,41 @@
-<template lang="pug">
-  b-modal#remove-member(:title="$t('removeMember')", size='md', :hide-footer="true")
-    .text-center
-      h2.col-12 {{ $t('sureKick') }}
-      .col-12.removing-member(v-if='memberToRemove.profile') {{memberToRemove.profile.name}}
-    .modal-body
-      textarea.form-control(type='text',
-        rows='5',
-        :placeholder="$t('optionalMessage')",
-        v-model='removeMessage')
-    .modal-footer
-      button.pull-left.btn.btn-danger(@click='confirmRemoveMember()') {{ $t('yesRemove') }}
-      button.btn.btn-secondary(@click='close()') {{ $t('cancel') }}
+<template>
+  <b-modal
+    id="remove-member"
+    :title="$t('removeMember')"
+    size="md"
+    :hide-footer="true"
+  >
+    <div class="text-center">
+      <h2 class="col-12">
+        {{ $t('sureKick') }}
+      </h2><div
+        v-if="memberToRemove.profile"
+        class="col-12 removing-member"
+      >
+        {{ memberToRemove.profile.name }}
+      </div>
+    </div><div class="modal-body">
+      <textarea
+        v-model="removeMessage"
+        class="form-control"
+        type="text"
+        rows="5"
+        :placeholder="$t('optionalMessage')"
+      ></textarea>
+    </div><div class="modal-footer">
+      <button
+        class="pull-left btn btn-danger"
+        @click="confirmRemoveMember()"
+      >
+        {{ $t('yesRemove') }}
+      </button><button
+        class="btn btn-secondary"
+        @click="close()"
+      >
+        {{ $t('cancel') }}
+      </button>
+    </div>
+  </b-modal>
 </template>
 
 <style scoped>

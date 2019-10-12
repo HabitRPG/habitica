@@ -1,17 +1,35 @@
-<template lang="pug">
-  b-modal#new-stuff(
-    size='lg',
-    :hide-header='true',
-    :hide-footer='true',
-    no-close-on-esc,
-    no-close-on-backdrop
-  )
-    .modal-body
-      .static-view(v-html='html')
-    .modal-footer
-      a.btn.btn-info(href='http://habitica.fandom.com/wiki/Whats_New', target='_blank') {{ this.$t('newsArchive') }}
-      button.btn.btn-secondary(@click='tellMeLater()') {{ this.$t('tellMeLater') }}
-      button.btn.btn-warning(@click='dismissAlert();') {{ this.$t('dismissAlert') }}
+<template>
+  <b-modal
+    id="new-stuff"
+    size="lg"
+    :hide-header="true"
+    :hide-footer="true"
+    no-close-on-esc="no-close-on-esc"
+    no-close-on-backdrop="no-close-on-backdrop"
+  >
+    <div class="modal-body">
+      <div
+        class="static-view"
+        v-html="html"
+      ></div>
+    </div><div class="modal-footer">
+      <a
+        class="btn btn-info"
+        href="http://habitica.fandom.com/wiki/Whats_New"
+        target="_blank"
+      >{{ this.$t('newsArchive') }}</a><button
+        class="btn btn-secondary"
+        @click="tellMeLater()"
+      >
+        {{ this.$t('tellMeLater') }}
+      </button><button
+        class="btn btn-warning"
+        @click="dismissAlert();"
+      >
+        {{ this.$t('dismissAlert') }}
+      </button>
+    </div>
+  </b-modal>
 </template>
 
 <style lang='scss'>

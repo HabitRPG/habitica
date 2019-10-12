@@ -1,13 +1,20 @@
-<template lang="pug">
-base-notification(
-  :can-remove="canRemove",
-  :has-icon="true",
-  :notification="notification",
-  :read-after-click="true",
-  @click="action"
-)
-  div(slot="content", v-html="$t('unallocatedStatsPoints', {points: notification.data.points})")
-  .svg-icon(slot="icon", v-html="icons.sparkles")
+<template>
+  <base-notification
+    :can-remove="canRemove"
+    :has-icon="true"
+    :notification="notification"
+    :read-after-click="true"
+    @click="action"
+  >
+    <div
+      slot="content"
+      v-html="$t('unallocatedStatsPoints', {points: notification.data.points})"
+    ></div><div
+      slot="icon"
+      class="svg-icon"
+      v-html="icons.sparkles"
+    ></div>
+  </base-notification>
 </template>
 
 <style lang="scss" scoped>

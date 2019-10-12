@@ -1,107 +1,169 @@
-<template lang="pug">
-  .row.seasonal
-    .standard-sidebar.d-none.d-sm-block
-      .form-group
-        input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
-
-      .form
-        h2(v-once) {{ $t('filter') }}
-        .form-group
-          checkbox(
-            v-for="category in filterCategories",
-            :key="category.key",
-            :id="`category-${category.key}`",
-            :checked.sync="viewOptions[category.key].selected",
+<template>
+  <div class="row seasonal">
+    <div class="standard-sidebar d-none d-sm-block">
+      <div class="form-group">
+        <input
+          v-model="searchText"
+          class="form-control input-search"
+          type="text"
+          :placeholder="$t('search')"
+        >
+      </div><div class="form">
+        <h2 v-once>
+          {{ $t('filter') }}
+        </h2><div class="form-group">
+          <checkbox
+            v-for="category in filterCategories"
+            :id="`category-${category.key}`"
+            :key="category.key"
+            :checked.sync="viewOptions[category.key].selected"
             :text="category.value"
-          )
-
-        div.form-group.clearfix
-          h3.float-left(v-once) {{ $t('hidePinned') }}
-          toggle-switch.float-right(
-            v-model="hidePinned",
-          )
-    .standard-page
-      div.featuredItems
-        .background(:class="{opened: seasonal.opened}")
-          div.npc
-            div.featured-label
-              span.rectangle
-              span.text Leslie
-              span.rectangle
-          div.content(v-if="!seasonal.opened")
-            div.featured-label.with-border.closed
-              span.rectangle
-              span.text(v-if="!broken", v-html="seasonal.notes")
-              span.text(v-if="broken") {{ $t('seasonalShopBrokenText') }}
-              span.rectangle
-          div.content(v-else-if="seasonal.featured.items.length !== 0")
-            div.featured-label.with-border(v-if='!featuredGearBought')
-              span.rectangle
-              span.text(v-once) {{ $t('featuredset', { name: seasonal.featured.text }) }}
-              span.rectangle
-            div.featured-label.with-border(v-else)
-              span.rectangle
-              span.text(v-once) {{ $t('featuredItems') }}
-              span.rectangle
-
-            div.items.margin-center
-              shopItem(
-                v-for="item in seasonal.featured.items",
-                :key="item.key",
-                :item="item",
-                :price="item.value",
-                :emptyItem="false",
-                :popoverPosition="'top'",
-                :showEventBadge="false",
+          />
+        </div><div class="form-group clearfix">
+          <h3
+            v-once
+            class="float-left"
+          >
+            {{ $t('hidePinned') }}
+          </h3><toggle-switch
+            v-model="hidePinned"
+            class="float-right"
+          />
+        </div>
+      </div>
+    </div><div class="standard-page">
+      <div class="featuredItems">
+        <div
+          class="background"
+          :class="{opened: seasonal.opened}"
+        >
+          <div class="npc">
+            <div class="featured-label">
+              <span class="rectangle"></span><span class="text">Leslie</span><span class="rectangle"></span>
+            </div>
+          </div><div
+            v-if="!seasonal.opened"
+            class="content"
+          >
+            <div class="featured-label with-border closed">
+              <span class="rectangle"></span><span
+                v-if="!broken"
+                class="text"
+                v-html="seasonal.notes"
+              ></span><span
+                v-if="broken"
+                class="text"
+              >{{ $t('seasonalShopBrokenText') }}</span><span class="rectangle"></span>
+            </div>
+          </div><div
+            v-else-if="seasonal.featured.items.length !== 0"
+            class="content"
+          >
+            <div
+              v-if="!featuredGearBought"
+              class="featured-label with-border"
+            >
+              <span class="rectangle"></span><span
+                v-once
+                class="text"
+              >{{ $t('featuredset', { name: seasonal.featured.text }) }}</span><span class="rectangle"></span>
+            </div><div
+              v-else
+              class="featured-label with-border"
+            >
+              <span class="rectangle"></span><span
+                v-once
+                class="text"
+              >{{ $t('featuredItems') }}</span><span class="rectangle"></span>
+            </div><div class="items margin-center">
+              <shopItem
+                v-for="item in seasonal.featured.items"
+                :key="item.key"
+                :item="item"
+                :price="item.value"
+                :empty-item="false"
+                :popover-position="'top'"
+                :show-event-badge="false"
                 @click="itemSelected(item)"
-              )
-
-      h1.mb-4.page-header(v-once, v-if='seasonal.opened') {{ $t('seasonalShop') }}
-
-      .clearfix(v-if="seasonal.opened")
-        h2.float-left.mb-3
-          | {{ $t('classArmor') }}
-
-        div.float-right
-          span.dropdown-label {{ $t('sortBy') }}
-          b-dropdown(:text="$t(selectedSortItemsBy)", right=true)
-            b-dropdown-item(
-              v-for="sort in sortItemsBy",
-              @click="selectedSortItemsBy = sort",
-              :active="selectedSortItemsBy === sort",
+              />
+            </div>
+          </div>
+        </div>
+      </div><h1
+        v-if="seasonal.opened"
+        v-once
+        class="mb-4 page-header"
+      >
+        {{ $t('seasonalShop') }}
+      </h1><div
+        v-if="seasonal.opened"
+        class="clearfix"
+      >
+        <h2 class="float-left mb-3">
+          {{ $t('classArmor') }}
+        </h2><div class="float-right">
+          <span class="dropdown-label">{{ $t('sortBy') }}</span><b-dropdown
+            :text="$t(selectedSortItemsBy)"
+            right="right"
+          >
+            <b-dropdown-item
+              v-for="sort in sortItemsBy"
               :key="sort"
-            ) {{ $t(sort) }}
-
-
-      div(
-        v-for="(groupSets, categoryGroup) in getGroupedCategories(categories)",
-      )
-        h3.classgroup(v-if='categoryGroup !== "spells" && categoryGroup !== "quests"')
-          span.svg-icon.inline(v-html="icons[categoryGroup]")
-          span.name(:class="categoryGroup") {{ getClassName(categoryGroup) }}
-
-        div.grouped-parent
-          div.group(
+              :active="selectedSortItemsBy === sort"
+              @click="selectedSortItemsBy = sort"
+            >
+              {{ $t(sort) }}
+            </b-dropdown-item>
+          </b-dropdown>
+        </div>
+      </div><div v-for="(groupSets, categoryGroup) in getGroupedCategories(categories)">
+        <h3
+          v-if="categoryGroup !== 'spells' && categoryGroup !== 'quests'"
+          class="classgroup"
+        >
+          <span
+            class="svg-icon inline"
+            v-html="icons[categoryGroup]"
+          ></span><span
+            class="name"
+            :class="categoryGroup"
+          >{{ getClassName(categoryGroup) }}</span>
+        </h3><div class="grouped-parent">
+          <div
             v-for="category in groupSets"
-          )
-            h3 {{ category.text }}
-            div.items
-              shopItem(
-                v-for="item in seasonalItems(category, selectedSortItemsBy, searchTextThrottled, viewOptions, hidePinned)",
-                :key="item.key",
-                :item="item",
-                :price="item.value",
-                :emptyItem="false",
-                :popoverPosition="'top'",
-                :showEventBadge="false",
+            class="group"
+          >
+            <h3>{{ category.text }}</h3><div class="items">
+              <shopItem
+                v-for="item in seasonalItems(category, selectedSortItemsBy, searchTextThrottled, viewOptions, hidePinned)"
+                :key="item.key"
+                :item="item"
+                :price="item.value"
+                :empty-item="false"
+                :popover-position="'top'"
+                :show-event-badge="false"
                 @click="itemSelected(item)"
-              )
-                template(slot="itemBadge", slot-scope="ctx")
-                  span.badge.badge-pill.badge-item.badge-svg(
-                    :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
+              >
+                <template
+                  slot="itemBadge"
+                  slot-scope="ctx"
+                >
+                  <span
+                    class="badge badge-pill badge-item badge-svg"
+                    :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}"
                     @click.prevent.stop="togglePinned(ctx.item)"
-                  )
-                    span.svg-icon.inline.icon-12.color(v-html="icons.pin")
+                  ><span
+                    class="svg-icon inline icon-12 color"
+                    v-html="icons.pin"
+                  ></span></span>
+                </template>
+              </shopItem>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style lang="scss">

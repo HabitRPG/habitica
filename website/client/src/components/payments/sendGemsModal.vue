@@ -1,65 +1,132 @@
-<template lang="pug">
-b-modal#send-gems(:title="title", :hide-footer="true", size='md', @hide='onHide()')
-  div(v-if='userReceivingGems')
-    .panel.panel-default(
-      :class="gift.type === 'gems' ? 'panel-primary' : 'transparent'",
-      @click='gift.type = "gems"'
-    )
-      h3.panel-heading.clearfix
-        .float-right
-          span(v-if='gift.gems.fromBalance') {{ $t('sendGiftGemsBalance', {number: userLoggedIn.balance * 4}) }}
-          span(v-if='!gift.gems.fromBalance') {{ $t('sendGiftCost', {cost: gift.gems.amount / 4}) }}
-        | {{ $t('gemsPopoverTitle') }}
-      .panel-body
-        .row
-          .col-md-6
-            .form-group
-              input.form-control(type='number', placeholder='Number of Gems',
-                min='0', :max='gift.gems.fromBalance ? userLoggedIn.balance * 4 : 9999',
-                v-model='gift.gems.amount')
-          .col-md-6
-            .btn-group
-              button.btn.btn-secondary(:class="{active: gift.gems.fromBalance}", @click="gift.gems.fromBalance = true") {{ $t('sendGiftFromBalance') }}
-              button.btn.btn-secondary(:class="{active: !gift.gems.fromBalance}", @click="gift.gems.fromBalance = false") {{ $t('sendGiftPurchase') }}
-        .row
-          .col-md-12
-            p.small(v-html="$t('gemGiftsAreOptional', assistanceEmailObject)")
-
-    .panel.panel-default(
-      :class="gift.type=='subscription' ? 'panel-primary' : 'transparent'",
-      @click='gift.type = "subscription"'
-    )
-      h3.panel-heading {{ $t('subscription') }}
-      .panel-body
-        .row
-          .col-md-12
-            .form-group
-              .radio(v-for='block in subscriptionBlocks', v-if="block.target !== 'group' && block.canSubscribe === true")
-                label
-                  input(type="radio", name="subRadio", :value="block.key", v-model='gift.subscription.key')
-                  | {{ $t('sendGiftSubscription', {price: block.price, months: block.months}) }}
-
-    textarea.form-control(rows='3', v-model='gift.message', :placeholder="$t('sendGiftMessagePlaceholder')")
-    //include ../formatting-help
-
-  .modal-footer
-    button.btn.btn-primary(
-      v-if="fromBal",
-      @click="sendGift()",
-      :disabled="sendingInProgress"
-    ) {{ $t("send") }}
-    .payments-column.mx-auto(v-else, :class="{'payments-disabled': !gift.subscription.key && gift.gems.amount < 1}")
-      button.purchase.btn.btn-primary.payment-button.payment-item(@click='showStripe({gift, uuid: userReceivingGems._id, receiverName})', :disabled="!gift.subscription.key && gift.gems.amount < 1")
-        .svg-icon.credit-card-icon(v-html="icons.creditCardIcon")
-        | {{ $t('card') }}
-      button.btn.payment-item.paypal-checkout.payment-button(@click="openPaypalGift({gift: gift, giftedTo: userReceivingGems._id, receiverName})", :disabled="!gift.subscription.key && gift.gems.amount < 1")
-        | &nbsp;
-        img(src='~@/assets/images/paypal-checkout.png', :alt="$t('paypal')")
-        | &nbsp;
-      amazon-button.payment-item.mb-0(
-        :amazon-data="{type: 'single', gift, giftedTo: userReceivingGems._id, receiverName}",
-        :amazon-disabled="!gift.subscription.key && gift.gems.amount < 1",
-      )
+<template>
+  <b-modal
+    id="send-gems"
+    :title="title"
+    :hide-footer="true"
+    size="md"
+    @hide="onHide()"
+  >
+    <div v-if="userReceivingGems">
+      <div
+        class="panel panel-default"
+        :class="gift.type === 'gems' ? 'panel-primary' : 'transparent'"
+        @click="gift.type = 'gems'"
+      >
+        <h3 class="panel-heading clearfix">
+          <div class="float-right">
+            <span v-if="gift.gems.fromBalance">{{ $t('sendGiftGemsBalance', {number: userLoggedIn.balance * 4}) }}</span><span v-if="!gift.gems.fromBalance">{{ $t('sendGiftCost', {cost: gift.gems.amount / 4}) }}</span>
+          </div>{{ $t('gemsPopoverTitle') }}
+        </h3><div class="panel-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <input
+                  v-model="gift.gems.amount"
+                  class="form-control"
+                  type="number"
+                  placeholder="Number of Gems"
+                  min="0"
+                  :max="gift.gems.fromBalance ? userLoggedIn.balance * 4 : 9999"
+                >
+              </div>
+            </div><div class="col-md-6">
+              <div class="btn-group">
+                <button
+                  class="btn btn-secondary"
+                  :class="{active: gift.gems.fromBalance}"
+                  @click="gift.gems.fromBalance = true"
+                >
+                  {{ $t('sendGiftFromBalance') }}
+                </button><button
+                  class="btn btn-secondary"
+                  :class="{active: !gift.gems.fromBalance}"
+                  @click="gift.gems.fromBalance = false"
+                >
+                  {{ $t('sendGiftPurchase') }}
+                </button>
+              </div>
+            </div>
+          </div><div class="row">
+            <div class="col-md-12">
+              <p
+                class="small"
+                v-html="$t('gemGiftsAreOptional', assistanceEmailObject)"
+              ></p>
+            </div>
+          </div>
+        </div>
+      </div><div
+        class="panel panel-default"
+        :class="gift.type=='subscription' ? 'panel-primary' : 'transparent'"
+        @click="gift.type = 'subscription'"
+      >
+        <h3 class="panel-heading">
+          {{ $t('subscription') }}
+        </h3><div class="panel-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <div
+                  v-for="block in subscriptionBlocks"
+                  v-if="block.target !== 'group' && block.canSubscribe === true"
+                  class="radio"
+                >
+                  <label><input
+                    v-model="gift.subscription.key"
+                    type="radio"
+                    name="subRadio"
+                    :value="block.key"
+                  >{{ $t('sendGiftSubscription', {price: block.price, months: block.months}) }}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><textarea
+        v-model="gift.message"
+        class="form-control"
+        rows="3"
+        :placeholder="$t('sendGiftMessagePlaceholder')"
+      ></textarea><!--include ../formatting-help-->
+    </div><div class="modal-footer">
+      <button
+        v-if="fromBal"
+        class="btn btn-primary"
+        :disabled="sendingInProgress"
+        @click="sendGift()"
+      >
+        {{ $t("send") }}
+      </button><div
+        v-else
+        class="payments-column mx-auto"
+        :class="{'payments-disabled': !gift.subscription.key && gift.gems.amount < 1}"
+      >
+        <button
+          class="purchase btn btn-primary payment-button payment-item"
+          :disabled="!gift.subscription.key && gift.gems.amount < 1"
+          @click="showStripe({gift, uuid: userReceivingGems._id, receiverName})"
+        >
+          <div
+            class="svg-icon credit-card-icon"
+            v-html="icons.creditCardIcon"
+          ></div>{{ $t('card') }}
+        </button><button
+          class="btn payment-item paypal-checkout payment-button"
+          :disabled="!gift.subscription.key && gift.gems.amount < 1"
+          @click="openPaypalGift({gift: gift, giftedTo: userReceivingGems._id, receiverName})"
+        >
+          &nbsp;<img
+            src="~@/assets/images/paypal-checkout.png"
+            :alt="$t('paypal')"
+          >&nbsp;
+        </button><amazon-button
+          class="payment-item mb-0"
+          :amazon-data="{type: 'single', gift, giftedTo: userReceivingGems._id, receiverName}"
+          :amazon-disabled="!gift.subscription.key && gift.gems.amount < 1"
+        />
+      </div>
+    </div>
+  </b-modal>
 </template>
 
 <style lang="scss">

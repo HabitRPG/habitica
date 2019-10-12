@@ -1,106 +1,216 @@
-<template lang="pug">
-.row.user-tasks-page
-  broken-task-modal
-  task-modal(
-    :task="editingTask || creatingTask",
-    :purpose="creatingTask !== null ? 'create' : 'edit'",
-    @cancel="cancelTaskModal()",
-    ref="taskModal",
-  )
-  .col-12
-    .row.tasks-navigation
-      .col-12.col-md-4.offset-md-4
-        .d-flex
-          input.form-control.input-search(type="text", :placeholder="$t('search')", v-model="searchText")
-          button.btn.btn-secondary.dropdown-toggle.ml-2.d-flex.align-items-center.search-button(
-            type="button",
-            @click="toggleFilterPanel()",
-            :class="{active: selectedTags.length > 0}",
-          )
-            .svg-icon.filter-icon.mr-2(v-html="icons.filter")
-            span(v-once) {{ $t('tags') }}
-        .filter-panel(v-if="isFilterPanelOpen", v-on:mouseleave="checkMouseOver")
-          .tags-category.d-flex(
-            v-for="tagsType in tagsByType",
-            v-if="tagsType.tags.length > 0 || tagsType.key === 'tags'",
-            :key="tagsType.key"
-          )
-            .tags-header
-              strong(v-once) {{ $t(tagsType.key) }}
-              a.d-block(v-if="tagsType.key !== 'groups' && !editingTags", @click="editTags(tagsType.key)") {{ $t('editTags2') }}
-            .tags-list.container
-              .row(:class="{'no-gutters': !editingTags}")
-                template(v-if="editingTags && tagsType.key === 'tags'")
-                  draggable(
-                    v-if="tagsType.key === 'tags'",
-                    v-model="tagsSnap[tagsType.key]",
-                    class="row"
-                  )
-                    .col-6(v-for="(tag, tagIndex) in tagsSnap[tagsType.key]")
-                      .inline-edit-input-group.tag-edit-item.input-group
-                        .svg-icon.inline.drag(v-html="icons.drag")
-                        input.tag-edit-input.inline-edit-input.form-control(type="text", v-model="tag.name")
-                        .input-group-append(@click="removeTag(tagIndex, tagsType.key)")
-                          .svg-icon.destroy-icon(v-html="icons.destroy")
-
-                    .col-6.dragSpace
-                      input.new-tag-item.edit-tag-item.inline-edit-input.form-control(type="text", :placeholder="$t('newTag')", @keydown.enter="addTag($event, tagsType.key)", v-model="newTag")
-                template(v-if="editingTags && tagsType.key === 'challenges'")
-                    .col-6(v-for="(tag, tagIndex) in tagsSnap[tagsType.key]")
-                      .inline-edit-input-group.tag-edit-item.input-group
-                        input.tag-edit-input.inline-edit-input.form-control(type="text", v-model="tag.name")
-                        .input-group-append(@click="removeTag(tagIndex, tagsType.key)")
-                          .svg-icon.destroy-icon(v-html="icons.destroy")
-
-                template(v-if="!editingTags || tagsType.key === 'groups'")
-                  .col-6(v-for="(tag, tagIndex) in tagsType.tags")
-                    .custom-control.custom-checkbox
-                      input.custom-control-input(
-                        type="checkbox",
-                        :checked="isTagSelected(tag)",
-                        @change="toggleTag(tag)", :id="`tag-${tag.id}`"
-                      )
-                      label.custom-control-label(v-markdown='tag.name', :for="`tag-${tag.id}`")
-
-          .filter-panel-footer.clearfix
-            template(v-if="editingTags === true")
-              .text-center
-                a.mr-3.btn-filters-primary(@click="saveTags()", v-once) {{ $t('saveEdits') }}
-                a.btn-filters-secondary(@click="cancelTagsEditing()", v-once) {{ $t('cancel') }}
-            template(v-else)
-              .float-left
-                a.btn-filters-danger(@click="resetFilters()", v-once) {{ $t('resetFilters') }}
-              .float-right
-                a.btn-filters-secondary(@click="closeFilterPanel()", v-once) {{ $t('cancel') }}
-      .create-task-area.d-flex
-        transition(name="slide-tasks-btns")
-          .d-flex(v-if="openCreateBtn")
-            .create-task-btn.diamond-btn(
-              v-for="type in columns",
-              :key="type",
-              @click="createTask(type)",
-              v-b-tooltip.hover.bottom="$t(type)",
-            )
-              .svg-icon(v-html="icons[type]", :class='`icon-${type}`')
-
-        #create-task-btn.create-btn.diamond-btn.btn.btn-success(
-          @click="openCreateBtn = !openCreateBtn",
-          :class="{open: openCreateBtn}",
-        )
-          .svg-icon(v-html="icons.positive")
-        b-tooltip(target="create-task-btn", placement="bottom", v-if="!openCreateBtn") {{ $t('addTaskToUser') }}
-
-    .row.tasks-columns
-      task-column.col-lg-3.col-md-6(
-        v-for="column in columns",
-        :type="column", :key="column",
-        :isUser="true", :searchText="searchTextThrottled",
-        :selectedTags="selectedTags",
-        @editTask="editTask",
-        @openBuyDialog="openBuyDialog($event)"
-      )
-
-  spells
+<template>
+  <div class="row user-tasks-page">
+    <broken-task-modal /><task-modal
+      ref="taskModal"
+      :task="editingTask || creatingTask"
+      :purpose="creatingTask !== null ? 'create' : 'edit'"
+      @cancel="cancelTaskModal()"
+    /><div class="col-12">
+      <div class="row tasks-navigation">
+        <div class="col-12 col-md-4 offset-md-4">
+          <div class="d-flex">
+            <input
+              v-model="searchText"
+              class="form-control input-search"
+              type="text"
+              :placeholder="$t('search')"
+            ><button
+              class="btn btn-secondary dropdown-toggle ml-2 d-flex align-items-center search-button"
+              type="button"
+              :class="{active: selectedTags.length > 0}"
+              @click="toggleFilterPanel()"
+            >
+              <div
+                class="svg-icon filter-icon mr-2"
+                v-html="icons.filter"
+              ></div><span v-once>{{ $t('tags') }}</span>
+            </button>
+          </div><div
+            v-if="isFilterPanelOpen"
+            class="filter-panel"
+            @mouseleave="checkMouseOver"
+          >
+            <div
+              v-for="tagsType in tagsByType"
+              v-if="tagsType.tags.length > 0 || tagsType.key === 'tags'"
+              :key="tagsType.key"
+              class="tags-category d-flex"
+            >
+              <div class="tags-header">
+                <strong v-once>{{ $t(tagsType.key) }}</strong><a
+                  v-if="tagsType.key !== 'groups' && !editingTags"
+                  class="d-block"
+                  @click="editTags(tagsType.key)"
+                >{{ $t('editTags2') }}</a>
+              </div><div class="tags-list container">
+                <div
+                  class="row"
+                  :class="{'no-gutters': !editingTags}"
+                >
+                  <template v-if="editingTags && tagsType.key === 'tags'">
+                    <draggable
+                      v-if="tagsType.key === 'tags'"
+                      v-model="tagsSnap[tagsType.key]"
+                      class="row"
+                    >
+                      <div
+                        v-for="(tag, tagIndex) in tagsSnap[tagsType.key]"
+                        class="col-6"
+                      >
+                        <div class="inline-edit-input-group tag-edit-item input-group">
+                          <div
+                            class="svg-icon inline drag"
+                            v-html="icons.drag"
+                          ></div><input
+                            v-model="tag.name"
+                            class="tag-edit-input inline-edit-input form-control"
+                            type="text"
+                          ><div
+                            class="input-group-append"
+                            @click="removeTag(tagIndex, tagsType.key)"
+                          >
+                            <div
+                              class="svg-icon destroy-icon"
+                              v-html="icons.destroy"
+                            ></div>
+                          </div>
+                        </div>
+                      </div><div class="col-6 dragSpace">
+                        <input
+                          v-model="newTag"
+                          class="new-tag-item edit-tag-item inline-edit-input form-control"
+                          type="text"
+                          :placeholder="$t('newTag')"
+                          @keydown.enter="addTag($event, tagsType.key)"
+                        >
+                      </div>
+                    </draggable>
+                  </template><template v-if="editingTags && tagsType.key === 'challenges'">
+                    <div
+                      v-for="(tag, tagIndex) in tagsSnap[tagsType.key]"
+                      class="col-6"
+                    >
+                      <div class="inline-edit-input-group tag-edit-item input-group">
+                        <input
+                          v-model="tag.name"
+                          class="tag-edit-input inline-edit-input form-control"
+                          type="text"
+                        ><div
+                          class="input-group-append"
+                          @click="removeTag(tagIndex, tagsType.key)"
+                        >
+                          <div
+                            class="svg-icon destroy-icon"
+                            v-html="icons.destroy"
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+                  </template><template v-if="!editingTags || tagsType.key === 'groups'">
+                    <div
+                      v-for="(tag, tagIndex) in tagsType.tags"
+                      class="col-6"
+                    >
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          :id="`tag-${tag.id}`"
+                          class="custom-control-input"
+                          type="checkbox"
+                          :checked="isTagSelected(tag)"
+                          @change="toggleTag(tag)"
+                        ><label
+                          v-markdown="tag.name"
+                          class="custom-control-label"
+                          :for="`tag-${tag.id}`"
+                        ></label>
+                      </div>
+                    </div>
+                  </template>
+                </div>
+              </div>
+            </div><div class="filter-panel-footer clearfix">
+              <template v-if="editingTags === true">
+                <div class="text-center">
+                  <a
+                    v-once
+                    class="mr-3 btn-filters-primary"
+                    @click="saveTags()"
+                  >{{ $t('saveEdits') }}</a><a
+                    v-once
+                    class="btn-filters-secondary"
+                    @click="cancelTagsEditing()"
+                  >{{ $t('cancel') }}</a>
+                </div>
+              </template><template v-else>
+                <div class="float-left">
+                  <a
+                    v-once
+                    class="btn-filters-danger"
+                    @click="resetFilters()"
+                  >{{ $t('resetFilters') }}</a>
+                </div><div class="float-right">
+                  <a
+                    v-once
+                    class="btn-filters-secondary"
+                    @click="closeFilterPanel()"
+                  >{{ $t('cancel') }}</a>
+                </div>
+              </template>
+            </div>
+          </div>
+        </div><div class="create-task-area d-flex">
+          <transition name="slide-tasks-btns">
+            <div
+              v-if="openCreateBtn"
+              class="d-flex"
+            >
+              <div
+                v-for="type in columns"
+                :key="type"
+                v-b-tooltip.hover.bottom="$t(type)"
+                class="create-task-btn diamond-btn"
+                @click="createTask(type)"
+              >
+                <div
+                  class="svg-icon"
+                  :class="`icon-${type}`"
+                  v-html="icons[type]"
+                ></div>
+              </div>
+            </div>
+          </transition><div
+            id="create-task-btn"
+            class="create-btn diamond-btn btn btn-success"
+            :class="{open: openCreateBtn}"
+            @click="openCreateBtn = !openCreateBtn"
+          >
+            <div
+              class="svg-icon"
+              v-html="icons.positive"
+            ></div>
+          </div><b-tooltip
+            v-if="!openCreateBtn"
+            target="create-task-btn"
+            placement="bottom"
+          >
+            {{ $t('addTaskToUser') }}
+          </b-tooltip>
+        </div>
+      </div><div class="row tasks-columns">
+        <task-column
+          v-for="column in columns"
+          :key="column"
+          class="col-lg-3 col-md-6"
+          :type="column"
+          :is-user="true"
+          :search-text="searchTextThrottled"
+          :selected-tags="selectedTags"
+          @editTask="editTask"
+          @openBuyDialog="openBuyDialog($event)"
+        />
+      </div>
+    </div><spells />
+  </div>
 </template>
 
 <style lang="scss" scoped>

@@ -1,17 +1,44 @@
-<template lang="pug">
-div
-  approval-modal(:task='task')
-  .claim-bottom-message.d-flex.align-items-center(v-if='!approvalRequested && !multipleApprovalsRequested')
-    .mr-auto.ml-2(v-html='message')
-    .ml-auto.mr-2(v-if='!userIsAssigned')
-      a(@click='claim()').claim-color {{ $t('claim') }}
-    .ml-auto.mr-2(v-if='userIsAssigned')
-      a(@click='unassign()').unclaim-color {{ $t('removeClaim') }}
-  .claim-bottom-message.d-flex.align-items-center.justify-content-around(v-if='approvalRequested && userIsManager')
-    a(@click='approve()').approve-color {{ $t('approveTask') }}
-    a(@click='needsWork()') {{ $t('needsWork') }}
-  .claim-bottom-message.d-flex.align-items-center(v-if='multipleApprovalsRequested && userIsManager')
-    a(@click='showRequests()') {{ $t('viewRequests') }}
+<template>
+  <div>
+    <approval-modal :task="task" /><div
+      v-if="!approvalRequested && !multipleApprovalsRequested"
+      class="claim-bottom-message d-flex align-items-center"
+    >
+      <div
+        class="mr-auto ml-2"
+        v-html="message"
+      ></div><div
+        v-if="!userIsAssigned"
+        class="ml-auto mr-2"
+      >
+        <a
+          class="claim-color"
+          @click="claim()"
+        >{{ $t('claim') }}</a>
+      </div><div
+        v-if="userIsAssigned"
+        class="ml-auto mr-2"
+      >
+        <a
+          class="unclaim-color"
+          @click="unassign()"
+        >{{ $t('removeClaim') }}</a>
+      </div>
+    </div><div
+      v-if="approvalRequested && userIsManager"
+      class="claim-bottom-message d-flex align-items-center justify-content-around"
+    >
+      <a
+        class="approve-color"
+        @click="approve()"
+      >{{ $t('approveTask') }}</a><a @click="needsWork()">{{ $t('needsWork') }}</a>
+    </div><div
+      v-if="multipleApprovalsRequested && userIsManager"
+      class="claim-bottom-message d-flex align-items-center"
+    >
+      <a @click="showRequests()">{{ $t('viewRequests') }}</a>
+    </div>
+  </div>
 </template>
 
 <style lang="scss", scoped>

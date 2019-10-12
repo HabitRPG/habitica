@@ -1,78 +1,122 @@
-<template lang="pug">
-.tasks-column(:class='type')
-  b-modal(ref="editTaskModal")
-  buy-quest-modal(:item="selectedItemToBuy || {}",
-    :priceType="selectedItemToBuy ? selectedItemToBuy.currency : ''",
-    :withPin="true",
-    @change="resetItemToBuy($event)"
-    v-if='type === "reward"')
-  .d-flex.align-items-center
-    h2.column-title {{ $t(typeLabel) }}
-    .badge.badge-pill.badge-purple.column-badge.mx-1(v-if="badgeCount > 0") {{ badgeCount }}
-    .filters.d-flex.justify-content-end
-      .filter.small-text(
-        v-for="filter in typeFilters",
-        :class="{active: activeFilter.label === filter}",
-        @click="activateFilter(type, filter)",
-      ) {{ $t(filter) }}
-  .tasks-list(ref="tasksWrapper")
-    textarea.quick-add(
-      :rows="quickAddRows",
-      v-if="isUser", :placeholder="quickAddPlaceholder",
-      v-model="quickAddText", @keypress.enter="quickAdd",
-      ref="quickAdd",
-      @focus="quickAddFocused = true", @blur="quickAddFocused = false",
-    )
-    transition(name="quick-add-tip-slide")
-      .quick-add-tip.small-text(v-show="quickAddFocused", v-html="$t('addMultipleTip', {taskType: $t(typeLabel)})")
-    clear-completed-todos(v-if="activeFilter.label === 'complete2' && isUser === true && taskList.length > 0")
-    .column-background(
-      v-if="isUser === true",
-      :class="{'initial-description': initialColumnDescription}",
-      ref="columnBackground",
-    )
-      .svg-icon(v-html="icons[type]", :class="`icon-${type}`", v-once)
-      h3(v-once) {{$t('theseAreYourTasks', {taskType: $t(typeLabel)})}}
-      .small-text {{$t(`${type}sDesc`)}}
-    draggable.sortable-tasks(
-      ref="tasksList",
-      @update='taskSorted',
-      @start="isDragging(true)",
-      @end="isDragging(false)",
-      :options='{disabled: activeFilter.label === "scheduled" || !isUser, scrollSensitivity: 64}',
-    )
-      task(
-        v-for="task in taskList",
-        :key="task.id", :task="task",
-        :isUser="isUser",
-        :showOptions="showOptions"
-        @editTask="editTask",
-        @moveTo="moveTo",
-        :group='group',
-        v-on:taskDestroyed='taskDestroyed'
-      )
-    template(v-if="hasRewardsList")
-      draggable.reward-items(
-        ref="rewardsList",
-        @update="rewardSorted",
-        @start="rewardDragStart",
-        @end="rewardDragEnd",
-      )
-        shopItem(
-          v-for="reward in inAppRewards",
-          :item="reward",
-          :key="reward.key",
-          :highlightBorder="reward.isSuggested",
-          :showPopover="showPopovers"
-          @click="openBuyDialog(reward)",
-          :popoverPosition="'left'"
-        )
-          template(slot="itemBadge", slot-scope="ctx")
-            span.badge.badge-pill.badge-item.badge-svg(
-              :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.highlightBorder}",
-              @click.prevent.stop="togglePinned(ctx.item)"
-            )
-              span.svg-icon.inline.icon-12.color(v-html="icons.pin")
+<template>
+  <div
+    class="tasks-column"
+    :class="type"
+  >
+    <b-modal ref="editTaskModal" /><buy-quest-modal
+      v-if="type === 'reward'"
+      :item="selectedItemToBuy || {}"
+      :price-type="selectedItemToBuy ? selectedItemToBuy.currency : ''"
+      :with-pin="true"
+      @change="resetItemToBuy($event)"
+    /><div class="d-flex align-items-center">
+      <h2 class="column-title">
+        {{ $t(typeLabel) }}
+      </h2><div
+        v-if="badgeCount > 0"
+        class="badge badge-pill badge-purple column-badge mx-1"
+      >
+        {{ badgeCount }}
+      </div><div class="filters d-flex justify-content-end">
+        <div
+          v-for="filter in typeFilters"
+          class="filter small-text"
+          :class="{active: activeFilter.label === filter}"
+          @click="activateFilter(type, filter)"
+        >
+          {{ $t(filter) }}
+        </div>
+      </div>
+    </div><div
+      ref="tasksWrapper"
+      class="tasks-list"
+    >
+      <textarea
+        v-if="isUser"
+        ref="quickAdd"
+        v-model="quickAddText"
+        class="quick-add"
+        :rows="quickAddRows"
+        :placeholder="quickAddPlaceholder"
+        @keypress.enter="quickAdd"
+        @focus="quickAddFocused = true"
+        @blur="quickAddFocused = false"
+      ></textarea><transition name="quick-add-tip-slide">
+        <div
+          v-show="quickAddFocused"
+          class="quick-add-tip small-text"
+          v-html="$t('addMultipleTip', {taskType: $t(typeLabel)})"
+        ></div>
+      </transition><clear-completed-todos v-if="activeFilter.label === 'complete2' && isUser === true && taskList.length > 0" /><div
+        v-if="isUser === true"
+        ref="columnBackground"
+        class="column-background"
+        :class="{'initial-description': initialColumnDescription}"
+      >
+        <div
+          v-once
+          class="svg-icon"
+          :class="`icon-${type}`"
+          v-html="icons[type]"
+        ></div><h3 v-once>
+          {{ $t('theseAreYourTasks', {taskType: $t(typeLabel)}) }}
+        </h3><div class="small-text">
+          {{ $t(`${type}sDesc`) }}
+        </div>
+      </div><draggable
+        ref="tasksList"
+        class="sortable-tasks"
+        :options="{disabled: activeFilter.label === 'scheduled' || !isUser, scrollSensitivity: 64}"
+        @update="taskSorted"
+        @start="isDragging(true)"
+        @end="isDragging(false)"
+      >
+        <task
+          v-for="task in taskList"
+          :key="task.id"
+          :task="task"
+          :is-user="isUser"
+          :show-options="showOptions"
+          :group="group"
+          @editTask="editTask"
+          @moveTo="moveTo"
+          @taskDestroyed="taskDestroyed"
+        />
+      </draggable><template v-if="hasRewardsList">
+        <draggable
+          ref="rewardsList"
+          class="reward-items"
+          @update="rewardSorted"
+          @start="rewardDragStart"
+          @end="rewardDragEnd"
+        >
+          <shopItem
+            v-for="reward in inAppRewards"
+            :key="reward.key"
+            :item="reward"
+            :highlight-border="reward.isSuggested"
+            :show-popover="showPopovers"
+            :popover-position="'left'"
+            @click="openBuyDialog(reward)"
+          >
+            <template
+              slot="itemBadge"
+              slot-scope="ctx"
+            >
+              <span
+                class="badge badge-pill badge-item badge-svg"
+                :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.highlightBorder}"
+                @click.prevent.stop="togglePinned(ctx.item)"
+              ><span
+                class="svg-icon inline icon-12 color"
+                v-html="icons.pin"
+              ></span></span>
+            </template>
+          </shopItem>
+        </draggable>
+      </template>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>

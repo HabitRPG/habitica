@@ -1,78 +1,202 @@
-<template lang="pug">
-// @TODO: Move this to a member directory
-div
-  remove-member-modal(:member-to-remove='memberToRemove', :group-id='this.groupId' @member-removed='memberRemoved')
-  b-modal#members-modal(:title="$t('createGuild')", size='md', :hide-footer='true')
-    .header-wrap(slot="modal-header")
-      .row
-        .col-6
-          h1(v-once) {{$t('members')}}
-        .col-6
-          button(type="button" aria-label="Close" class="close", @click='close()')
-            span(aria-hidden="true") ×
-      .row.d-flex.align-items-center
-        .col-4
-          input.form-control.input-search(type="text", :placeholder="$t('search')", v-model='searchTerm')
-        .col
-          select.form-control(@change='changeSortOption($event)')
-            option(v-for='sortOption in sortOptions', :value='sortOption.value') {{sortOption.text}}
-        .col-3
-          select.form-control(@change='changeSortDirection($event)')
-            option(v-for='sortDirection in sortDirections', :value='sortDirection.value') {{sortDirection.text}}
-
-    .row.apply-options.d-flex.justify-content-center(v-if='sortDirty && group.type === "party"')
-      a(@click='applySortOptions()') {{ $t('applySortToHeader') }}
-    .row(v-if='invites.length > 0')
-      .col-6.offset-3.nav
-        .nav-item(@click='viewMembers()', :class="{active: selectedPage === 'members'}") {{ $t('members') }}
-        .nav-item(@click='viewInvites()', :class="{active: selectedPage === 'invites'}") {{ $t('invites') }}
-    div(v-if='selectedPage === "members"')
-      .row(v-for='(member, index) in sortedMembers')
-        .col-11.no-padding-left
-          member-details(:member='member')
-        .col-1.actions
-          b-dropdown(right=true)
-            .svg-icon.inline.dots(slot='button-content', v-html="icons.dots")
-            b-dropdown-item(@click='sendMessage(member)')
-              span.dropdown-icon-item
-                .svg-icon.inline(v-html="icons.messageIcon")
-                span.text {{$t('sendMessage')}}
-            b-dropdown-item(@click='promoteToLeader(member)', v-if='shouldShowLeaderFunctions(member._id)')
-              span.dropdown-icon-item
-                .svg-icon.inline(v-html="icons.starIcon")
-                span.text {{$t('promoteToLeader')}}
-            b-dropdown-item(@click='addManager(member._id)', v-if='shouldShowAddManager(member._id)')
-              span.dropdown-icon-item
-                .svg-icon.inline(v-html="icons.starIcon")
-                span.text {{$t('addManager')}}
-            b-dropdown-item(@click='removeManager(member._id)', v-if='shouldShowRemoveManager(member._id)')
-              span.dropdown-icon-item
-                .svg-icon.inline(v-html="icons.removeIcon")
-                span.text {{$t('removeManager2')}}
-            b-dropdown-item(@click='viewProgress(member)', v-if='challengeId')
-              span.dropdown-icon-item
-                span.text {{ $t('viewProgress') }}
-            b-dropdown-item(@click='removeMember(member, index)', v-if='shouldShowLeaderFunctions(member._id)')
-              span.dropdown-icon-item
-                .svg-icon.inline(v-html="icons.removeIcon")
-                span.text {{$t('removeMember')}}
-      .row(v-if='isLoadMoreAvailable')
-        .col-12.text-center
-          button.btn.btn-secondary(@click='loadMoreMembers()') {{ $t('loadMore') }}
-      .row.gradient(v-if='members.length > 3')
-    div(v-if='selectedPage === "invites"')
-      .row(v-for='(member, index) in invites')
-        .col-11.no-padding-left
-          member-details(:member='member')
-        .col-1.actions
-          b-dropdown(right=true)
-            .svg-icon.inline.dots(slot='button-content', v-html="icons.dots")
-            b-dropdown-item(@click='removeInvite(member, index)', v-if='isLeader')
-              span.dropdown-icon-item
-                .svg-icon.inline(v-html="icons.removeIcon", v-if='isLeader')
-                span.text {{$t('removeInvite')}}
-    .modal-footer
-      button.btn.btn-primary(@click='close()') {{ $t('close') }}
+<template>
+  <!-- @TODO: Move this to a member directory--><div>
+    <remove-member-modal
+      :member-to-remove="memberToRemove"
+      :group-id="this.groupId"
+      @member-removed="memberRemoved"
+    /><b-modal
+      id="members-modal"
+      :title="$t('createGuild')"
+      size="md"
+      :hide-footer="true"
+    >
+      <div
+        slot="modal-header"
+        class="header-wrap"
+      >
+        <div class="row">
+          <div class="col-6">
+            <h1 v-once>
+              {{ $t('members') }}
+            </h1>
+          </div><div class="col-6">
+            <button
+              class="close"
+              type="button"
+              aria-label="Close"
+              @click="close()"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+        </div><div class="row d-flex align-items-center">
+          <div class="col-4">
+            <input
+              v-model="searchTerm"
+              class="form-control input-search"
+              type="text"
+              :placeholder="$t('search')"
+            >
+          </div><div class="col">
+            <select
+              class="form-control"
+              @change="changeSortOption($event)"
+            >
+              <option
+                v-for="sortOption in sortOptions"
+                :value="sortOption.value"
+              >
+                {{ sortOption.text }}
+              </option>
+            </select>
+          </div><div class="col-3">
+            <select
+              class="form-control"
+              @change="changeSortDirection($event)"
+            >
+              <option
+                v-for="sortDirection in sortDirections"
+                :value="sortDirection.value"
+              >
+                {{ sortDirection.text }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div><div
+        v-if="sortDirty && group.type === 'party'"
+        class="row apply-options d-flex justify-content-center"
+      >
+        <a @click="applySortOptions()">{{ $t('applySortToHeader') }}</a>
+      </div><div
+        v-if="invites.length > 0"
+        class="row"
+      >
+        <div class="col-6 offset-3 nav">
+          <div
+            class="nav-item"
+            :class="{active: selectedPage === 'members'}"
+            @click="viewMembers()"
+          >
+            {{ $t('members') }}
+          </div><div
+            class="nav-item"
+            :class="{active: selectedPage === 'invites'}"
+            @click="viewInvites()"
+          >
+            {{ $t('invites') }}
+          </div>
+        </div>
+      </div><div v-if="selectedPage === 'members'">
+        <div
+          v-for="(member, index) in sortedMembers"
+          class="row"
+        >
+          <div class="col-11 no-padding-left">
+            <member-details :member="member" />
+          </div><div class="col-1 actions">
+            <b-dropdown right="right">
+              <div
+                slot="button-content"
+                class="svg-icon inline dots"
+                v-html="icons.dots"
+              ></div><b-dropdown-item @click="sendMessage(member)">
+                <span class="dropdown-icon-item"><div
+                  class="svg-icon inline"
+                  v-html="icons.messageIcon"
+                ></div><span class="text">{{ $t('sendMessage') }}</span></span>
+              </b-dropdown-item><b-dropdown-item
+                v-if="shouldShowLeaderFunctions(member._id)"
+                @click="promoteToLeader(member)"
+              >
+                <span class="dropdown-icon-item"><div
+                  class="svg-icon inline"
+                  v-html="icons.starIcon"
+                ></div><span class="text">{{ $t('promoteToLeader') }}</span></span>
+              </b-dropdown-item><b-dropdown-item
+                v-if="shouldShowAddManager(member._id)"
+                @click="addManager(member._id)"
+              >
+                <span class="dropdown-icon-item"><div
+                  class="svg-icon inline"
+                  v-html="icons.starIcon"
+                ></div><span class="text">{{ $t('addManager') }}</span></span>
+              </b-dropdown-item><b-dropdown-item
+                v-if="shouldShowRemoveManager(member._id)"
+                @click="removeManager(member._id)"
+              >
+                <span class="dropdown-icon-item"><div
+                  class="svg-icon inline"
+                  v-html="icons.removeIcon"
+                ></div><span class="text">{{ $t('removeManager2') }}</span></span>
+              </b-dropdown-item><b-dropdown-item
+                v-if="challengeId"
+                @click="viewProgress(member)"
+              >
+                <span class="dropdown-icon-item"><span class="text">{{ $t('viewProgress') }}</span></span>
+              </b-dropdown-item><b-dropdown-item
+                v-if="shouldShowLeaderFunctions(member._id)"
+                @click="removeMember(member, index)"
+              >
+                <span class="dropdown-icon-item"><div
+                  class="svg-icon inline"
+                  v-html="icons.removeIcon"
+                ></div><span class="text">{{ $t('removeMember') }}</span></span>
+              </b-dropdown-item>
+            </b-dropdown>
+          </div>
+        </div><div
+          v-if="isLoadMoreAvailable"
+          class="row"
+        >
+          <div class="col-12 text-center">
+            <button
+              class="btn btn-secondary"
+              @click="loadMoreMembers()"
+            >
+              {{ $t('loadMore') }}
+            </button>
+          </div>
+        </div><div
+          v-if="members.length > 3"
+          class="row gradient"
+        ></div>
+      </div><div v-if="selectedPage === 'invites'">
+        <div
+          v-for="(member, index) in invites"
+          class="row"
+        >
+          <div class="col-11 no-padding-left">
+            <member-details :member="member" />
+          </div><div class="col-1 actions">
+            <b-dropdown right="right">
+              <div
+                slot="button-content"
+                class="svg-icon inline dots"
+                v-html="icons.dots"
+              ></div><b-dropdown-item
+                v-if="isLeader"
+                @click="removeInvite(member, index)"
+              >
+                <span class="dropdown-icon-item"><div
+                  v-if="isLeader"
+                  class="svg-icon inline"
+                  v-html="icons.removeIcon"
+                ></div><span class="text">{{ $t('removeInvite') }}</span></span>
+              </b-dropdown-item>
+            </b-dropdown>
+          </div>
+        </div>
+      </div><div class="modal-footer">
+        <button
+          class="btn btn-primary"
+          @click="close()"
+        >
+          {{ $t('close') }}
+        </button>
+      </div>
+    </b-modal>
+  </div>
 </template>
 
 <style lang='scss'>

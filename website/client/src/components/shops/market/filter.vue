@@ -1,26 +1,39 @@
-<template lang="pug">
-.form
-  h2(v-once) {{ $t('filter') }}
-  .form-group
-    checkbox(
-      v-for="viewOptionKey in Object.keys(viewOptions)",
-      :key="viewOptionKey",
-      :id="`category-${viewOptionKey}`",
-      :checked.sync="viewOptions[viewOptionKey].selected",
-      :text="viewOptions[viewOptionKey].text"
-    )
-  div.form-group.clearfix
-    h3.float-left(v-once) {{ $t('hideLocked') }}
-    toggle-switch.float-right(
-      v-model="lockedChecked",
-      @change="$emit('update:hideLocked', $event)"
-    )
-  div.form-group.clearfix
-    h3.float-left(v-once) {{ $t('hidePinned') }}
-    toggle-switch.float-right(
-      v-model="pinnedChecked",
-      @change="$emit('update:hidePinned', $event)"
-    )
+<template>
+  <div class="form">
+    <h2 v-once>
+      {{ $t('filter') }}
+    </h2><div class="form-group">
+      <checkbox
+        v-for="viewOptionKey in Object.keys(viewOptions)"
+        :id="`category-${viewOptionKey}`"
+        :key="viewOptionKey"
+        :checked.sync="viewOptions[viewOptionKey].selected"
+        :text="viewOptions[viewOptionKey].text"
+      />
+    </div><div class="form-group clearfix">
+      <h3
+        v-once
+        class="float-left"
+      >
+        {{ $t('hideLocked') }}
+      </h3><toggle-switch
+        v-model="lockedChecked"
+        class="float-right"
+        @change="$emit('update:hideLocked', $event)"
+      />
+    </div><div class="form-group clearfix">
+      <h3
+        v-once
+        class="float-left"
+      >
+        {{ $t('hidePinned') }}
+      </h3><toggle-switch
+        v-model="pinnedChecked"
+        class="float-right"
+        @change="$emit('update:hidePinned', $event)"
+      />
+    </div>
+  </div>
 </template>
 
 <script>

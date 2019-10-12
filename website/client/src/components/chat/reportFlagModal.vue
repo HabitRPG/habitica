@@ -1,19 +1,36 @@
-<template lang="pug">
-  b-modal#report-flag(:title='$t("abuseFlagModalHeading")', size='md', :hide-footer='true')
-    .modal-body
-      strong(v-html="$t('abuseFlagModalHeading', reportData)")
-      blockquote
-        div(v-markdown='abuseObject.text')
-      div
-        strong {{$t('whyReportingPost')}}
-        span.optional {{$t('optional')}}
-        textarea.form-control(v-model='reportComment', :placeholder='$t("whyReportingPostPlaceholder")')
-      small(v-html="$t('abuseFlagModalBody', abuseFlagModalBody)")
-    .footer.text-center
-      button.pull-left.btn.btn-danger(@click='clearFlagCount()', v-if='user.contributor.admin && abuseObject.flagCount > 0')
-        | Reset Flag Count
-      a.cancel-link(@click.prevent='close()') {{ $t('cancel') }}
-      button.btn.btn-danger(@click='reportAbuse()') {{ $t('report') }}
+<template>
+  <b-modal
+    id="report-flag"
+    :title="$t('abuseFlagModalHeading')"
+    size="md"
+    :hide-footer="true"
+  >
+    <div class="modal-body">
+      <strong v-html="$t('abuseFlagModalHeading', reportData)"></strong><blockquote><div v-markdown="abuseObject.text"></div></blockquote><div>
+        <strong>{{ $t('whyReportingPost') }}</strong><span class="optional">{{ $t('optional') }}</span><textarea
+          v-model="reportComment"
+          class="form-control"
+          :placeholder="$t('whyReportingPostPlaceholder')"
+        ></textarea>
+      </div><small v-html="$t('abuseFlagModalBody', abuseFlagModalBody)"></small>
+    </div><div class="footer text-center">
+      <button
+        v-if="user.contributor.admin && abuseObject.flagCount > 0"
+        class="pull-left btn btn-danger"
+        @click="clearFlagCount()"
+      >
+        Reset Flag Count
+      </button><a
+        class="cancel-link"
+        @click.prevent="close()"
+      >{{ $t('cancel') }}</a><button
+        class="btn btn-danger"
+        @click="reportAbuse()"
+      >
+        {{ $t('report') }}
+      </button>
+    </div>
+  </b-modal>
 </template>
 
 <style>

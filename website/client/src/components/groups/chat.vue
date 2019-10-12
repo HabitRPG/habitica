@@ -1,50 +1,71 @@
-<template lang="pug">
-  .row.chat-row
-    .col-12
-      h3.float-left.label(:class="{accepted: communityGuidelinesAccepted }") {{ label }}
-      div.float-right(v-markdown='$t("markdownFormattingHelp")')
-
-      .row(v-if="communityGuidelinesAccepted")
-        textarea(:placeholder='placeholder',
-                  v-model='newMessage',
-                  ref='user-entry',
-                  :class='{"user-entry": newMessage}',
-                  @keydown='updateCarretPosition',
-                  @keyup.ctrl.enter='sendMessageShortcut()',
-                  @keydown.tab='handleTab($event)',
-                  @keydown.up='selectPreviousAutocomplete($event)',
-                  @keydown.down='selectNextAutocomplete($event)',
-                  @keydown.enter='selectAutocomplete($event)',
-                  @keydown.esc='handleEscape($event)',
-                  @paste='disableMessageSendShortcut()',
-                  maxlength='3000'
-                )
-        span {{ currentLength }} / 3000
-        autocomplete(
-                ref='autocomplete',
-                :text='newMessage',
-                v-on:select="selectedAutocomplete",
-                :textbox='textbox',
-                :coords='coords',
-                :caretPosition = 'caretPosition',
-                :chat='group.chat')
-
-      community-guidelines
-
-      .row.chat-actions
-        .col-6.chat-receive-actions
-          button.btn.btn-secondary.float-left.fetch(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
-          button.btn.btn-secondary.float-left(v-once, @click='reverseChat()') {{ $t('reverseChat') }}
-        .col-6.chat-send-actions
-          button.btn.btn-primary.send-chat.float-right(:disabled="!communityGuidelinesAccepted", @click='sendMessage()') {{ $t('send') }}
-
-      slot(
-        name="additionRow",
-      )
-
-      .row
-        .hr.col-12
-        chat-message(:chat.sync='group.chat', :group-type='group.type', :group-id='group._id', :group-name='group.name')
+<template>
+  <div class="row chat-row">
+    <div class="col-12">
+      <h3
+        class="float-left label"
+        :class="{accepted: communityGuidelinesAccepted }"
+      >
+        {{ label }}
+      </h3><div
+        v-markdown="$t('markdownFormattingHelp')"
+        class="float-right"
+      ></div><div
+        v-if="communityGuidelinesAccepted"
+        class="row"
+      >
+        <textarea
+          ref="user-entry"
+          v-model="newMessage"
+          :placeholder="placeholder"
+          :class="{'user-entry': newMessage}"
+          maxlength="3000"
+          @keydown="updateCarretPosition"
+          @keyup.ctrl.enter="sendMessageShortcut()"
+          @keydown.tab="handleTab($event)"
+@keydown.up="selectPreviousAutocomplete($event)" @keydown.down="selectNextAutocomplete($event)" @keydown.enter="selectAutocomplete($event)" @keydown.esc="handleEscape($event)" @paste="disableMessageSendShortcut()"
+        ></textarea><span>{{ currentLength }} / 3000</span><autocomplete
+          ref="autocomplete"
+          :text="newMessage"
+          :textbox="textbox"
+          :coords="coords"
+          :caret-position="caretPosition"
+          :chat="group.chat"
+          @select="selectedAutocomplete"
+        />
+      </div><community-guidelines /><div class="row chat-actions">
+        <div class="col-6 chat-receive-actions">
+          <button
+            v-once
+            class="btn btn-secondary float-left fetch"
+            @click="fetchRecentMessages()"
+          >
+            {{ $t('fetchRecentMessages') }}
+          </button><button
+            v-once
+            class="btn btn-secondary float-left"
+            @click="reverseChat()"
+          >
+            {{ $t('reverseChat') }}
+          </button>
+        </div><div class="col-6 chat-send-actions">
+          <button
+            class="btn btn-primary send-chat float-right"
+            :disabled="!communityGuidelinesAccepted"
+            @click="sendMessage()"
+          >
+            {{ $t('send') }}
+          </button>
+        </div>
+      </div><slot name="additionRow"></slot><div class="row">
+        <div class="hr col-12"></div><chat-message
+          :chat.sync="group.chat"
+          :group-type="group.type"
+          :group-id="group._id"
+          :group-name="group.name"
+        />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>

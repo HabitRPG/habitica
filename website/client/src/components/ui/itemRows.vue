@@ -1,21 +1,31 @@
-<template lang="pug">
-  .item-rows
-    div.items(v-resize="500", @resized="setCurrentWidth($event)")
-      template(v-for="item in itemsToShow(showAll)")
-        slot(
-          name="item",
+<template>
+  <div class="item-rows">
+    <div
+      v-resize="500"
+      class="items"
+      @resized="setCurrentWidth($event)"
+    >
+      <template v-for="item in itemsToShow(showAll)">
+        <slot
+          name="item"
           :item="item"
-        )
-
-    div(v-if="items.length === 0")
-      p(v-once) {{ noItemsLabel }}
-
-    .btn.btn-flat.btn-show-more(
-      @click="toggleItemsToShow()",
+        ></slot>
+      </template>
+    </div><div v-if="items.length === 0">
+      <p v-once>
+        {{ noItemsLabel }}
+      </p>
+    </div><div
       v-if="items.length > itemsPerRow"
-    ) {{ showAll ? $t('showLess') : $t('showMore') }}
-
-    div.fill-height(v-else)
+      class="btn btn-flat btn-show-more"
+      @click="toggleItemsToShow()"
+    >
+      {{ showAll ? $t('showLess') : $t('showMore') }}
+    </div><div
+      v-else
+      class="fill-height"
+    ></div>
+  </div>
 </template>
 
 <style lang="scss" scoped>

@@ -1,49 +1,53 @@
-<template lang="pug">
-.avatar(:style="{width, height, paddingTop}", :class="backgroundClass", @click.prevent='castEnd()')
-  .character-sprites(:style='{margin: spritesMargin}')
-    template(v-if="!avatarOnly")
-      // Mount Body
-      span(v-if="member.items.currentMount", :class="'Mount_Body_' + member.items.currentMount")
-
-    // Buffs that cause visual changes to avatar: Snowman, Ghost, Flower, etc
-    template(v-for="(klass, item) in visualBuffs")
-      span(v-if="member.stats.buffs[item] && showVisualBuffs", :class="klass")
-
-    // Show flower ALL THE TIME!!!
-    // See https://github.com/HabitRPG/habitica/issues/7133
-    span(:class="'hair_flower_' + member.preferences.hair.flower")
-
-    // Show avatar only if not currently affected by visual buff
-    template(v-if="showAvatar()")
-      span(:class="['chair_' + member.preferences.chair, specialMountClass]")
-      span(:class="[getGearClass('back'), specialMountClass]")
-      span(:class="[skinClass, specialMountClass]")
-      span(
-        :class="[member.preferences.size + '_shirt_' + member.preferences.shirt, specialMountClass]"
-      )
-      span(:class="['head_0', specialMountClass]")
-      span(:class="[member.preferences.size + '_' + getGearClass('armor'), specialMountClass]")
-      span(:class="[getGearClass('back_collar'), specialMountClass]")
-      template(v-for="type in ['bangs', 'base', 'mustache', 'beard']")
-        // eslint-disable-next-line max-len
-        span(:class="['hair_' + type + '_' + member.preferences.hair[type] + '_' + member.preferences.hair.color, specialMountClass]")
-      span(:class="[getGearClass('body'), specialMountClass]")
-      span(:class="[getGearClass('eyewear'), specialMountClass]")
-      span(:class="[getGearClass('head'), specialMountClass]")
-      span(:class="[getGearClass('headAccessory'), specialMountClass]")
-      span(:class="['hair_flower_' + member.preferences.hair.flower, specialMountClass]")
-      span(v-if="!hideGear('shield')", :class="[getGearClass('shield'), specialMountClass]")
-      span(v-if="!hideGear('weapon')", :class="[getGearClass('weapon'), specialMountClass]")
-
-    // Resting
-    span.zzz(v-if="member.preferences.sleep")
-
-    template(v-if="!avatarOnly")
-      // Mount Head
-      span(v-if="member.items.currentMount", :class="'Mount_Head_' + member.items.currentMount")
-      // Pet
-      span.current-pet(v-if="member.items.currentPet", :class="'Pet-' + member.items.currentPet")
-  class-badge.under-avatar(v-if="hasClass && !hideClassBadge", :member-class="member.stats.class")
+<template>
+  <div
+    class="avatar"
+    :style="{width, height, paddingTop}"
+    :class="backgroundClass"
+    @click.prevent="castEnd()"
+  >
+    <div
+      class="character-sprites"
+      :style="{margin: spritesMargin}"
+    >
+      <template v-if="!avatarOnly">
+        <!-- Mount Body--><span
+          v-if="member.items.currentMount"
+          :class="'Mount_Body_' + member.items.currentMount"
+        ></span>
+      </template><!-- Buffs that cause visual changes to avatar: Snowman, Ghost, Flower, etc--><template v-for="(klass, item) in visualBuffs">
+        <span
+          v-if="member.stats.buffs[item] && showVisualBuffs"
+          :class="klass"
+        ></span>
+      </template><!-- Show flower ALL THE TIME!!!--><!-- See https://github.com/HabitRPG/habitica/issues/7133--><span :class="'hair_flower_' + member.preferences.hair.flower"></span><!-- Show avatar only if not currently affected by visual buff--><template v-if="showAvatar()">
+        <span :class="['chair_' + member.preferences.chair, specialMountClass]"></span><span :class="[getGearClass('back'), specialMountClass]"></span><span :class="[skinClass, specialMountClass]"></span><span :class="[member.preferences.size + '_shirt_' + member.preferences.shirt, specialMountClass]"></span><span :class="['head_0', specialMountClass]"></span><span :class="[member.preferences.size + '_' + getGearClass('armor'), specialMountClass]"></span><span :class="[getGearClass('back_collar'), specialMountClass]"></span><template v-for="type in ['bangs', 'base', 'mustache', 'beard']">
+          <!-- eslint-disable-next-line max-len--><span :class="['hair_' + type + '_' + member.preferences.hair[type] + '_' + member.preferences.hair.color, specialMountClass]"></span>
+        </template><span :class="[getGearClass('body'), specialMountClass]"></span><span :class="[getGearClass('eyewear'), specialMountClass]"></span><span :class="[getGearClass('head'), specialMountClass]"></span><span :class="[getGearClass('headAccessory'), specialMountClass]"></span><span :class="['hair_flower_' + member.preferences.hair.flower, specialMountClass]"></span><span
+          v-if="!hideGear('shield')"
+          :class="[getGearClass('shield'), specialMountClass]"
+        ></span><span
+          v-if="!hideGear('weapon')"
+          :class="[getGearClass('weapon'), specialMountClass]"
+        ></span>
+      </template><!-- Resting--><span
+        v-if="member.preferences.sleep"
+        class="zzz"
+      ></span><template v-if="!avatarOnly">
+        <!-- Mount Head--><span
+          v-if="member.items.currentMount"
+          :class="'Mount_Head_' + member.items.currentMount"
+        ></span><!-- Pet--><span
+          v-if="member.items.currentPet"
+          class="current-pet"
+          :class="'Pet-' + member.items.currentPet"
+        ></span>
+      </template>
+    </div><class-badge
+      v-if="hasClass && !hideClassBadge"
+      class="under-avatar"
+      :member-class="member.stats.class"
+    />
+  </div>
 </template>
 
 <style lang="scss" scoped>

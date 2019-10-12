@@ -1,72 +1,158 @@
-<template lang="pug">
-.row(v-if="group._id")
-  group-form-modal(v-if='isParty')
-  start-quest-modal(:group='this.group')
-  quest-details-modal(:group='this.group')
-  participant-list-modal(:group='this.group')
-  group-gems-modal
-  .col-12.col-sm-8.standard-page
-    .row
-      .col-12.col-md-6.title-details
-        h1 {{group.name}}
-        div
-          span.mr-1.ml-0
-            strong(v-once) {{$t('groupLeader')}}:
-            user-link.mx-1(:user="group.leader")
-      .col-12.col-md-6
-        .row.icon-row
-          .col-4.offset-4(v-bind:class="{ 'offset-8': isParty }")
-            .item-with-icon(@click="showMemberModal()")
-              .svg-icon.shield(v-html="icons.goldGuildBadgeIcon", v-if='group.memberCount > 1000')
-              .svg-icon.shield(v-html="icons.silverGuildBadgeIcon", v-if='group.memberCount > 100 && group.memberCount < 999')
-              .svg-icon.shield(v-html="icons.bronzeGuildBadgeIcon", v-if='group.memberCount < 100')
-              span.number {{ group.memberCount | abbrNum }}
-              div.member-list.label(v-once) {{ $t('memberList') }}
-          .col-4(v-if='!isParty')
-            .item-with-icon(@click='showGroupGems()')
-              .svg-icon.gem(v-html="icons.gem")
-              span.number {{group.balance * 4}}
-              div.label(v-once) {{ $t('guildBank') }}
-    chat(
-      :label="$t('chat')",
-      :group="group",
-      :placeholder="!isParty ? $t('chatPlaceholder') : $t('partyChatPlaceholder')",
-      @fetchRecentMessages="fetchRecentMessages()"
-    )
-      template(slot="additionRow")
-        .row(v-if='showNoNotificationsMessage')
-          .col-12.no-notifications
-            | {{$t('groupNoNotifications')}}
-  .col-12.col-sm-4.sidebar
-    .row(:class='{"guild-background": !isParty}')
-      .col-12.buttons-wrapper
-        .button-container
-          button.btn.btn-success(class='btn-success', v-if='isLeader && !group.purchased.active', @click='upgradeGroup()')
-            | {{ $t('upgrade') }}
-        .button-container
-          button.btn.btn-primary(b-btn, @click="updateGuild", v-once, v-if='isLeader || isAdmin') {{ $t('edit') }}
-        .button-container
-          button.btn.btn-success(class='btn-success', v-if='!isMember', @click='join()') {{ $t('join') }}
-        .button-container
-          button.btn.btn-primary(v-once, @click='showInviteModal()') {{$t('invite')}}
-          // @TODO: hide the invitation button if there's an active group plan and the player is not the leader
-        .button-container
-          // @TODO: V2 button.btn.btn-primary(v-once, v-if='!isLeader') {{$t('messageGuildLeader')}} // Suggest making the button visible to the leader too - useful for them to test how the feature works or to send a note to themself. -- Alys
-        .button-container
-          // @TODO: V2 button.btn.btn-primary(v-once, v-if='isMember && !isParty') {{$t('donateGems')}} // Suggest removing the isMember restriction - it's okay if non-members donate to a public guild. Also probably allow it for parties if parties can buy imagery. -- Alys
-    div
-      quest-sidebar-section(:group='group', v-if='isParty')
-      sidebar-section(:title="$t('guildSummary')", v-if='!isParty')
-        p(v-markdown='group.summary')
-      sidebar-section(:title="$t('groupDescription')")
-        p(v-markdown='group.description')
-      sidebar-section(
-        :title="$t('challenges')",
-        :tooltip="$t('challengeDetails')"
-      )
-        group-challenges(:groupId='searchId')
-    div.text-center
-      button.btn.btn-danger(v-if='isMember', @click='clickLeave()') {{ isParty ? $t('leaveParty') : $t('leaveGroup') }}
+<template>
+  <div
+    v-if="group._id"
+    class="row"
+  >
+    <group-form-modal v-if="isParty" /><start-quest-modal :group="this.group" /><quest-details-modal :group="this.group" /><participant-list-modal :group="this.group" /><group-gems-modal /><div class="col-12 col-sm-8 standard-page">
+      <div class="row">
+        <div class="col-12 col-md-6 title-details">
+          <h1>{{ group.name }}</h1><div>
+            <span class="mr-1 ml-0"><strong v-once>{{ $t('groupLeader') }}:</strong><user-link
+              class="mx-1"
+              :user="group.leader"
+            /></span>
+          </div>
+        </div><div class="col-12 col-md-6">
+          <div class="row icon-row">
+            <div
+              class="col-4 offset-4"
+              :class="{ 'offset-8': isParty }"
+            >
+              <div
+                class="item-with-icon"
+                @click="showMemberModal()"
+              >
+                <div
+                  v-if="group.memberCount > 1000"
+                  class="svg-icon shield"
+                  v-html="icons.goldGuildBadgeIcon"
+                ></div><div
+                  v-if="group.memberCount > 100 && group.memberCount < 999"
+                  class="svg-icon shield"
+                  v-html="icons.silverGuildBadgeIcon"
+                ></div><div
+                  v-if="group.memberCount < 100"
+                  class="svg-icon shield"
+                  v-html="icons.bronzeGuildBadgeIcon"
+                ></div><span class="number">{{ group.memberCount | abbrNum }}</span><div
+                  v-once
+                  class="member-list label"
+                >
+                  {{ $t('memberList') }}
+                </div>
+              </div>
+            </div><div
+              v-if="!isParty"
+              class="col-4"
+            >
+              <div
+                class="item-with-icon"
+                @click="showGroupGems()"
+              >
+                <div
+                  class="svg-icon gem"
+                  v-html="icons.gem"
+                ></div><span class="number">{{ group.balance * 4 }}</span><div
+                  v-once
+                  class="label"
+                >
+                  {{ $t('guildBank') }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><chat
+        :label="$t('chat')"
+        :group="group"
+        :placeholder="!isParty ? $t('chatPlaceholder') : $t('partyChatPlaceholder')"
+        @fetchRecentMessages="fetchRecentMessages()"
+      >
+        <template slot="additionRow">
+          <div
+            v-if="showNoNotificationsMessage"
+            class="row"
+          >
+            <div class="col-12 no-notifications">
+              {{ $t('groupNoNotifications') }}
+            </div>
+          </div>
+        </template>
+      </chat>
+    </div><div class="col-12 col-sm-4 sidebar">
+      <div
+        class="row"
+        :class="{'guild-background': !isParty}"
+      >
+        <div class="col-12 buttons-wrapper">
+          <div class="button-container">
+            <button
+              v-if="isLeader && !group.purchased.active"
+              class="btn btn-success btn-success"
+              @click="upgradeGroup()"
+            >
+              {{ $t('upgrade') }}
+            </button>
+          </div><div class="button-container">
+            <button
+              v-if="isLeader || isAdmin"
+              v-once
+              class="btn btn-primary"
+              b-btn="b-btn"
+              @click="updateGuild"
+            >
+              {{ $t('edit') }}
+            </button>
+          </div><div class="button-container">
+            <button
+              v-if="!isMember"
+              class="btn btn-success btn-success"
+              @click="join()"
+            >
+              {{ $t('join') }}
+            </button>
+          </div><div class="button-container">
+            <button
+              v-once
+              class="btn btn-primary"
+              @click="showInviteModal()"
+            >
+              {{ $t('invite') }}
+            </button><!-- @TODO: hide the invitation button if there's an active group plan and the player is not the leader-->
+          </div><div class="button-container">
+            <!-- @TODO: V2 button.btn.btn-primary(v-once, v-if='!isLeader') {{$t('messageGuildLeader')}} // Suggest making the button visible to the leader too - useful for them to test how the feature works or to send a note to themself. -- Alys-->
+          </div><div class="button-container">
+            <!-- @TODO: V2 button.btn.btn-primary(v-once, v-if='isMember && !isParty') {{$t('donateGems')}} // Suggest removing the isMember restriction - it's okay if non-members donate to a public guild. Also probably allow it for parties if parties can buy imagery. -- Alys-->
+          </div>
+        </div>
+      </div><div>
+        <quest-sidebar-section
+          v-if="isParty"
+          :group="group"
+        /><sidebar-section
+          v-if="!isParty"
+          :title="$t('guildSummary')"
+        >
+          <p v-markdown="group.summary"></p>
+        </sidebar-section><sidebar-section :title="$t('groupDescription')">
+          <p v-markdown="group.description"></p>
+        </sidebar-section><sidebar-section
+          :title="$t('challenges')"
+          :tooltip="$t('challengeDetails')"
+        >
+          <group-challenges :group-id="searchId" />
+        </sidebar-section>
+      </div><div class="text-center">
+        <button
+          v-if="isMember"
+          class="btn btn-danger"
+          @click="clickLeave()"
+        >
+          {{ isParty ? $t('leaveParty') : $t('leaveGroup') }}
+        </button>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>

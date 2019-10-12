@@ -1,28 +1,43 @@
-<template lang="pug">
-base-notification(
-  :can-remove="false",
-  :notification="{}",
-  :read-after-click="false",
-  @click="action",
-  v-if="worldBoss.active"
-)
-  .background(slot="content")
-    .text
-      .title {{ $t('worldBoss') }}
-      .sub-title {{ $t('questDysheartenerText') }}
-    .d-flex.align-items-center.justify-content-left
-      div
-        .left-hearts
-      .float-right
-        .quest_dysheartener_notification
-        .phobia_dysheartener_notification
-    .health-bar.d-flex.align-items-center.justify-content-center
-      .svg-icon(v-html="icons.health")
-      .boss-health-wrap
-        .boss-health-bar(:style="{width: (parseInt(bossHp) / questData.boss.hp) * 100 + '%'}")
-      .pending-damage
-        .svg-icon(v-html="icons.sword")
-        span +{{parseInt(user.party.quest.progress.up) || 0}}
+<template>
+  <base-notification
+    v-if="worldBoss.active"
+    :can-remove="false"
+    :notification="{}"
+    :read-after-click="false"
+    @click="action"
+  >
+    <div
+      slot="content"
+      class="background"
+    >
+      <div class="text">
+        <div class="title">
+          {{ $t('worldBoss') }}
+        </div><div class="sub-title">
+          {{ $t('questDysheartenerText') }}
+        </div>
+      </div><div class="d-flex align-items-center justify-content-left">
+        <div><div class="left-hearts"></div></div><div class="float-right">
+          <div class="quest_dysheartener_notification"></div><div class="phobia_dysheartener_notification"></div>
+        </div>
+      </div><div class="health-bar d-flex align-items-center justify-content-center">
+        <div
+          class="svg-icon"
+          v-html="icons.health"
+        ></div><div class="boss-health-wrap">
+          <div
+            class="boss-health-bar"
+            :style="{width: (parseInt(bossHp) / questData.boss.hp) * 100 + '%'}"
+          ></div>
+        </div><div class="pending-damage">
+          <div
+            class="svg-icon"
+            v-html="icons.sword"
+          ></div><span>+{{ parseInt(user.party.quest.progress.up) || 0 }}</span>
+        </div>
+      </div>
+    </div>
+  </base-notification>
 </template>
 
 <style lang="scss" scoped>

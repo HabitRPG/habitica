@@ -1,12 +1,15 @@
-<template lang="pug">
-  .sub-menu.text-center
-    .sub-menu-item(
-      v-for="item of items",
-      :key="item.id",
-      @click='$emit("changeSubPage", item.id)',
-      :class='{active: activeSubPage === item.id}'
-    )
-      strong(v-once) {{ item.label }}
+<template>
+  <div class="sub-menu text-center">
+    <div
+      v-for="item of items"
+      :key="item.id"
+      class="sub-menu-item"
+      :class="{active: activeSubPage === item.id}"
+      @click="$emit('changeSubPage', item.id)"
+    >
+      <strong v-once>{{ item.label }}</strong>
+    </div>
+  </div>
 </template>
 
 <script>

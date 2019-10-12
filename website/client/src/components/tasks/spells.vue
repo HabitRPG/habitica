@@ -1,40 +1,65 @@
-<template lang="pug">
-div(v-if='user.stats.lvl > 10')
-  div.dragInfo.mouse(ref="clickPotionInfo", v-if="potionClickMode")
-    .spell.col-12.row
-      .col-8.details
-        p.title {{spell.text()}}
-        p.notes {{ `Click on a ${spell.target} to cast!`}}
-        // @TODO make that translatable
-      .col-4.mana
-        .img(:class='`shop_${spell.key} shop-sprite item-img`')
-
-  .drawer-wrapper.d-flex.justify-content-center
-    drawer(
-      :title="$t('skillsTitle')",
-      v-if='user.stats.class && !user.preferences.disableClasses',
-      v-mousePosition="30",
-      @mouseMoved="mouseMoved($event)",
-      :openStatus='openStatus',
-      @toggled='drawerToggled'
-    )
-      div(slot="drawer-slider")
-        .container.spell-container
-          .row
-            .col-12.col-md-3(
-              @click='castStart(skill)',
-              v-for='(skill, key) in spells[user.stats.class]',
-              v-if='user.stats.lvl >= skill.lvl',
-              v-b-popover.hover.auto='skill.notes()')
-              .spell.col-12.row
-                .col-8.details
-                  a(:class='{"disabled": spellDisabled(key)}')
-                  div.img(:class='`shop_${skill.key} shop-sprite item-img`')
-                  span.title {{skill.text()}}
-                .col-4.mana
-                  .mana-text
-                    .svg-icon(v-html="icons.mana")
-                    div {{skill.mana}}
+<template>
+  <div v-if="user.stats.lvl > 10">
+    <div
+      v-if="potionClickMode"
+      ref="clickPotionInfo"
+      class="dragInfo mouse"
+    >
+      <div class="spell col-12 row">
+        <div class="col-8 details">
+          <p class="title">
+            {{ spell.text() }}
+          </p><p class="notes">
+            {{ `Click on a ${spell.target} to cast!` }}
+          </p><!-- @TODO make that translatable-->
+        </div><div class="col-4 mana">
+          <div
+            class="img"
+            :class="`shop_${spell.key} shop-sprite item-img`"
+          ></div>
+        </div>
+      </div>
+    </div><div class="drawer-wrapper d-flex justify-content-center">
+      <drawer
+        v-if="user.stats.class && !user.preferences.disableClasses"
+        v-mousePosition="30"
+        :title="$t('skillsTitle')"
+        :open-status="openStatus"
+        @mouseMoved="mouseMoved($event)"
+        @toggled="drawerToggled"
+      >
+        <div slot="drawer-slider">
+          <div class="container spell-container">
+            <div class="row">
+              <div
+                v-for="(skill, key) in spells[user.stats.class]"
+                v-if="user.stats.lvl >= skill.lvl"
+                v-b-popover.hover.auto="skill.notes()"
+                class="col-12 col-md-3"
+                @click="castStart(skill)"
+              >
+                <div class="spell col-12 row">
+                  <div class="col-8 details">
+                    <a :class="{'disabled': spellDisabled(key)}"></a><div
+                      class="img"
+                      :class="`shop_${skill.key} shop-sprite item-img`"
+                    ></div><span class="title">{{ skill.text() }}</span>
+                  </div><div class="col-4 mana">
+                    <div class="mana-text">
+                      <div
+                        class="svg-icon"
+                        v-html="icons.mana"
+                      ></div><div>{{ skill.mana }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </drawer>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>

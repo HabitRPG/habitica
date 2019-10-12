@@ -1,15 +1,26 @@
-<template lang="pug">
-base-notification(
-  :can-remove="canRemove",
-  :has-icon="false",
-  :notification="notification",
-  @click="action",
-)
-  div(slot="content")
-    div(v-html="notification.data.message")
-    .notifications-buttons
-      .btn.btn-small.btn-success(@click.stop="approve()") {{ $t('approve') }}
-      .btn.btn-small.btn-warning(@click.stop="needsWork()") {{ $t('needsWork') }}
+<template>
+  <base-notification
+    :can-remove="canRemove"
+    :has-icon="false"
+    :notification="notification"
+    @click="action"
+  >
+    <div slot="content">
+      <div v-html="notification.data.message"></div><div class="notifications-buttons">
+        <div
+          class="btn btn-small btn-success"
+          @click.stop="approve()"
+        >
+          {{ $t('approve') }}
+        </div><div
+          class="btn btn-small btn-warning"
+          @click.stop="needsWork()"
+        >
+          {{ $t('needsWork') }}
+        </div>
+      </div>
+    </div>
+  </base-notification>
 </template>
 
 <script>

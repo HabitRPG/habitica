@@ -1,13 +1,16 @@
-<template lang="pug">
-// Read automatically from the group page mounted hook
-base-notification(
-  :can-remove="canRemove",
-  :has-icon="false",
-  :notification="notification",
-  :read-after-click="false",
-  @click="action"
-)
-  div(slot="content", v-html="string")
+<template>
+  <!-- Read automatically from the group page mounted hook--><base-notification
+    :can-remove="canRemove"
+    :has-icon="false"
+    :notification="notification"
+    :read-after-click="false"
+    @click="action"
+  >
+    <div
+      slot="content"
+      v-html="string"
+    ></div>
+  </base-notification>
 </template>
 
 <script>

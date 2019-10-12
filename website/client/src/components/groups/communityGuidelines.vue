@@ -1,9 +1,22 @@
-<template lang="pug">
-.row.community-guidelines(v-if='!communityGuidelinesAccepted')
-  div.col.col-sm-12.col-xl-8(v-once, v-html="$t('communityGuidelinesIntro')")
-
-  div.col-md-auto.col-md-12.col-xl-4
-    button.btn.btn-info.btn-follow-guidelines(@click='acceptCommunityGuidelines()', v-once) {{ $t('acceptCommunityGuidelines') }}
+<template>
+  <div
+    v-if="!communityGuidelinesAccepted"
+    class="row community-guidelines"
+  >
+    <div
+      v-once
+      class="col col-sm-12 col-xl-8"
+      v-html="$t('communityGuidelinesIntro')"
+    ></div><div class="col-md-auto col-md-12 col-xl-4">
+      <button
+        v-once
+        class="btn btn-info btn-follow-guidelines"
+        @click="acceptCommunityGuidelines()"
+      >
+        {{ $t('acceptCommunityGuidelines') }}
+      </button>
+    </div>
+  </div>
 </template>
 
 <style lang="scss">

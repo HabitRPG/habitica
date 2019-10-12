@@ -1,10 +1,26 @@
-<template lang="pug">
-  b-modal#leave-challenge-modal(:title="$t('leaveChallenge')", size='sm', :hide-footer="true")
-    .modal-body
-      h2 {{ $t('confirmKeepChallengeTasks') }}
-      div
-        button.btn.btn-primary(@click='leaveChallenge("keep")') {{ $t('keepThem') }}
-        button.btn.btn-danger(@click='leaveChallenge("remove-all")') {{ $t('removeThem') }}
+<template>
+  <b-modal
+    id="leave-challenge-modal"
+    :title="$t('leaveChallenge')"
+    size="sm"
+    :hide-footer="true"
+  >
+    <div class="modal-body">
+      <h2>{{ $t('confirmKeepChallengeTasks') }}</h2><div>
+        <button
+          class="btn btn-primary"
+          @click="leaveChallenge('keep')"
+        >
+          {{ $t('keepThem') }}
+        </button><button
+          class="btn btn-danger"
+          @click="leaveChallenge('remove-all')"
+        >
+          {{ $t('removeThem') }}
+        </button>
+      </div>
+    </div>
+  </b-modal>
 </template>
 
 <style scoped>

@@ -1,91 +1,337 @@
-<template lang="pug">
-div
-  inbox-modal
-  creator-intro
-  profileModal
-  report-flag-modal
-  send-gems-modal
-  b-navbar.topbar.navbar-inverse.static-top(toggleable="lg", type="dark", :class="navbarZIndexClass")
-    b-navbar-brand.brand(aria-label="Habitica")
-      .logo.svg-icon.d-none.d-xl-block(v-html="icons.logo")
-      .svg-icon.gryphon.d-xs-block.d-xl-none
-    b-navbar-toggle(target='menu_collapse').menu-toggle
-    .quick-menu.mobile-only.form-inline
-      a.item-with-icon(@click="sync", v-b-tooltip.hover.bottom="$t('sync')", :aria-label="$t('sync')")
-        .top-menu-icon.svg-icon(v-html="icons.sync")
-      notification-menu.item-with-icon
-      user-dropdown.item-with-icon
-    b-collapse#menu_collapse(v-model="menuIsOpen").collapse.navbar-collapse
-      b-navbar-nav.menu-list
-        b-nav-item.topbar-item(:class="{'active': $route.path === '/'}" tag="li", :to="{name: 'tasks'}", exact) {{ $t('tasks') }}
-        li.topbar-item(:class="{'active': $route.path.startsWith('/inventory'), 'down': $route.path.startsWith('/inventory') && this.isDesktop()}").droppable
-          .chevron.rotate(@click='dropdownMobile($event)')
-            .chevron-icon-down(v-html="icons.chevronDown", v-once)
-          router-link.nav-link(:to="{name: 'items'}") {{ $t('inventory') }}
-          .topbar-dropdown
-            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'items'}", exact) {{ $t('items') }}
-            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'equipment'}") {{ $t('equipment') }}
-            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'stable'}") {{ $t('stable') }}
-        li.topbar-item(:class="{'active': $route.path.startsWith('/shop'), 'down': $route.path.startsWith('/shop') && this.isDesktop()}").droppable
-          .chevron.rotate(@click='dropdownMobile($event)')
-            .chevron-icon-down(v-html="icons.chevronDown", v-once)
-          router-link.nav-link(:to="{name: 'market'}") {{ $t('shops') }}
-          .topbar-dropdown
-            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'market'}", exact) {{ $t('market') }}
-            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'quests'}") {{ $t('quests') }}
-            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'seasonal'}") {{ $t('titleSeasonalShop') }}
-            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'time'}") {{ $t('titleTimeTravelers') }}
-        b-nav-item.topbar-item(:class="{'active': $route.path.startsWith('/party')}" tag="li", :to="{name: 'party'}", v-if='this.user.party._id') {{ $t('party') }}
-        b-nav-item.topbar-item(:class="{'active': $route.path.startsWith('/party')}" @click='openPartyModal()', v-if='!this.user.party._id') {{ $t('party') }}
-        li.topbar-item(:class="{'active': $route.path.startsWith('/groups'), 'down': $route.path.startsWith('/groups') && this.isDesktop()}").droppable
-          .chevron.rotate(@click='dropdownMobile($event)')
-            .chevron-icon-down(v-html="icons.chevronDown", v-once)
-          router-link.nav-link(:to="{name: 'tavern'}") {{ $t('guilds') }}
-          .topbar-dropdown
-            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'tavern'}") {{ $t('tavern') }}
-            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'myGuilds'}") {{ $t('myGuilds') }}
-            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'guildsDiscovery'}") {{ $t('guildsDiscovery') }}
-        li.topbar-item(:class="{'active': $route.path.startsWith('/group-plans'), 'down': $route.path.startsWith('/group-plans') && this.isDesktop()}").droppable
-          .chevron.rotate(v-if="groupPlans.length > 0", @click='dropdownMobile($event)')
-            .chevron-icon-down(v-html="icons.chevronDown", v-once)
-          router-link.nav-link(:to="{name: 'groupPlan'}") {{ $t('group') }}
-          .topbar-dropdown
-            router-link.topbar-dropdown-item.dropdown-item(v-for='group in groupPlans', :key='group._id', :to="{name: 'groupPlanDetailTaskInformation', params: {groupId: group._id}}") {{ group.name }}
-        li.topbar-item(:class="{'active': $route.path.startsWith('/challenges'), 'down': $route.path.startsWith('/challenges') && this.isDesktop()}").droppable
-          .chevron.rotate(@click='dropdownMobile($event)')
-            .chevron-icon-down(v-html="icons.chevronDown", v-once)
-          router-link.nav-link(:to="{name: 'myChallenges'}") {{ $t('challenges') }}
-          .topbar-dropdown
-            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'myChallenges'}") {{ $t('myChallenges') }}
-            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'findChallenges'}") {{ $t('findChallenges') }}
-        li.topbar-item(:class="{'active': $route.path.startsWith('/help'), 'down': $route.path.startsWith('/help') && this.isDesktop()}").droppable
-          .chevron.rotate(@click='dropdownMobile($event)')
-            .chevron-icon-down(v-html="icons.chevronDown", v-once)
-          router-link.nav-link(:to="{name: 'faq'}") {{ $t('help') }}
-          .topbar-dropdown
-            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'faq'}") {{ $t('faq') }}
-            router-link.topbar-dropdown-item.dropdown-item(:to="{name: 'overview'}") {{ $t('overview') }}
-            router-link.topbar-dropdown-item.dropdown-item(to="/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac") {{ $t('reportBug') }}
-            router-link.topbar-dropdown-item.dropdown-item(to="/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a") {{ $t('askAQuestion') }}
-            a.topbar-dropdown-item.dropdown-item(href="https://trello.com/c/odmhIqyW/440-read-first-table-of-contents", target='_blank') {{ $t('requestAF') }}
-            a.topbar-dropdown-item.dropdown-item(href="http://habitica.fandom.com/wiki/Contributing_to_Habitica", target='_blank') {{ $t('contributing') }}
-            a.topbar-dropdown-item.dropdown-item(href="http://habitica.fandom.com/wiki/Habitica_Wiki", target='_blank') {{ $t('wiki') }}
-            a.topbar-dropdown-item.dropdown-item(@click='modForm()') {{ $t('contactForm') }}
-      .currency-tray.form-inline
-        .item-with-icon(v-if="userHourglasses > 0")
-          .top-menu-icon.svg-icon(v-html="icons.hourglasses", v-b-tooltip.hover.bottom="$t('mysticHourglassesTooltip')")
-          span {{ userHourglasses }}
-        .item-with-icon
-          a.top-menu-icon.svg-icon.gem(:aria-label="$t('gems')", href="#buy-gems" v-html="icons.gem", @click.prevent='showBuyGemsModal("gems")', v-b-tooltip.hover.bottom="$t('gems')")
-          span {{userGems}}
-        .item-with-icon.gold
-          .top-menu-icon.svg-icon(:aria-label="$t('gold')", v-html="icons.gold", v-b-tooltip.hover.bottom="$t('gold')")
-          span {{Math.floor(user.stats.gp * 100) / 100}}
-      .form-inline.desktop-only
-        a.item-with-icon(@click="sync", @keyup.enter="sync", role="link", :aria-label="$t('sync')", tabindex="0", v-b-tooltip.hover.bottom="$t('sync')")
-          .top-menu-icon.svg-icon(v-html="icons.sync")
-        notification-menu.item-with-icon
-        user-dropdown.item-with-icon
+<template>
+  <div>
+    <inbox-modal /><creator-intro /><profileModal /><report-flag-modal /><send-gems-modal /><b-navbar
+      class="topbar navbar-inverse static-top"
+      toggleable="lg"
+      type="dark"
+      :class="navbarZIndexClass"
+    >
+      <b-navbar-brand
+        class="brand"
+        aria-label="Habitica"
+      >
+        <div
+          class="logo svg-icon d-none d-xl-block"
+          v-html="icons.logo"
+        ></div><div class="svg-icon gryphon d-xs-block d-xl-none"></div>
+      </b-navbar-brand><b-navbar-toggle
+        class="menu-toggle"
+        target="menu_collapse"
+      /><div class="quick-menu mobile-only form-inline">
+        <a
+          v-b-tooltip.hover.bottom="$t('sync')"
+          class="item-with-icon"
+          :aria-label="$t('sync')"
+          @click="sync"
+        ><div
+          class="top-menu-icon svg-icon"
+          v-html="icons.sync"
+        ></div></a><notification-menu class="item-with-icon" /><user-dropdown class="item-with-icon" />
+      </div><b-collapse
+        id="menu_collapse"
+        v-model="menuIsOpen"
+        class="collapse navbar-collapse"
+      >
+        <b-navbar-nav class="menu-list">
+          <b-nav-item
+            class="topbar-item"
+            :class="{'active': $route.path === '/'}"
+            tag="li"
+            :to="{name: 'tasks'}"
+            exact="exact"
+          >
+            {{ $t('tasks') }}
+          </b-nav-item><li
+            class="topbar-item droppable"
+            :class="{'active': $route.path.startsWith('/inventory'), 'down': $route.path.startsWith('/inventory') && this.isDesktop()}"
+          >
+            <div
+              class="chevron rotate"
+              @click="dropdownMobile($event)"
+            >
+              <div
+                v-once
+                class="chevron-icon-down"
+                v-html="icons.chevronDown"
+              ></div>
+            </div><router-link
+              class="nav-link"
+              :to="{name: 'items'}"
+            >
+              {{ $t('inventory') }}
+            </router-link><div class="topbar-dropdown">
+              <router-link
+                class="topbar-dropdown-item dropdown-item"
+                :to="{name: 'items'}"
+                exact="exact"
+              >
+                {{ $t('items') }}
+              </router-link><router-link
+                class="topbar-dropdown-item dropdown-item"
+                :to="{name: 'equipment'}"
+              >
+                {{ $t('equipment') }}
+              </router-link><router-link
+                class="topbar-dropdown-item dropdown-item"
+                :to="{name: 'stable'}"
+              >
+                {{ $t('stable') }}
+              </router-link>
+            </div>
+          </li><li
+            class="topbar-item droppable"
+            :class="{'active': $route.path.startsWith('/shop'), 'down': $route.path.startsWith('/shop') && this.isDesktop()}"
+          >
+            <div
+              class="chevron rotate"
+              @click="dropdownMobile($event)"
+            >
+              <div
+                v-once
+                class="chevron-icon-down"
+                v-html="icons.chevronDown"
+              ></div>
+            </div><router-link
+              class="nav-link"
+              :to="{name: 'market'}"
+            >
+              {{ $t('shops') }}
+            </router-link><div class="topbar-dropdown">
+              <router-link
+                class="topbar-dropdown-item dropdown-item"
+                :to="{name: 'market'}"
+                exact="exact"
+              >
+                {{ $t('market') }}
+              </router-link><router-link
+                class="topbar-dropdown-item dropdown-item"
+                :to="{name: 'quests'}"
+              >
+                {{ $t('quests') }}
+              </router-link><router-link
+                class="topbar-dropdown-item dropdown-item"
+                :to="{name: 'seasonal'}"
+              >
+                {{ $t('titleSeasonalShop') }}
+              </router-link><router-link
+                class="topbar-dropdown-item dropdown-item"
+                :to="{name: 'time'}"
+              >
+                {{ $t('titleTimeTravelers') }}
+              </router-link>
+            </div>
+          </li><b-nav-item
+            v-if="this.user.party._id"
+            class="topbar-item"
+            :class="{'active': $route.path.startsWith('/party')}"
+            tag="li"
+            :to="{name: 'party'}"
+          >
+            {{ $t('party') }}
+          </b-nav-item><b-nav-item
+            v-if="!this.user.party._id"
+            class="topbar-item"
+            :class="{'active': $route.path.startsWith('/party')}"
+            @click="openPartyModal()"
+          >
+            {{ $t('party') }}
+          </b-nav-item><li
+            class="topbar-item droppable"
+            :class="{'active': $route.path.startsWith('/groups'), 'down': $route.path.startsWith('/groups') && this.isDesktop()}"
+          >
+            <div
+              class="chevron rotate"
+              @click="dropdownMobile($event)"
+            >
+              <div
+                v-once
+                class="chevron-icon-down"
+                v-html="icons.chevronDown"
+              ></div>
+            </div><router-link
+              class="nav-link"
+              :to="{name: 'tavern'}"
+            >
+              {{ $t('guilds') }}
+            </router-link><div class="topbar-dropdown">
+              <router-link
+                class="topbar-dropdown-item dropdown-item"
+                :to="{name: 'tavern'}"
+              >
+                {{ $t('tavern') }}
+              </router-link><router-link
+                class="topbar-dropdown-item dropdown-item"
+                :to="{name: 'myGuilds'}"
+              >
+                {{ $t('myGuilds') }}
+              </router-link><router-link
+                class="topbar-dropdown-item dropdown-item"
+                :to="{name: 'guildsDiscovery'}"
+              >
+                {{ $t('guildsDiscovery') }}
+              </router-link>
+            </div>
+          </li><li
+            class="topbar-item droppable"
+            :class="{'active': $route.path.startsWith('/group-plans'), 'down': $route.path.startsWith('/group-plans') && this.isDesktop()}"
+          >
+            <div
+              v-if="groupPlans.length > 0"
+              class="chevron rotate"
+              @click="dropdownMobile($event)"
+            >
+              <div
+                v-once
+                class="chevron-icon-down"
+                v-html="icons.chevronDown"
+              ></div>
+            </div><router-link
+              class="nav-link"
+              :to="{name: 'groupPlan'}"
+            >
+              {{ $t('group') }}
+            </router-link><div class="topbar-dropdown">
+              <router-link
+                v-for="group in groupPlans"
+                :key="group._id"
+                class="topbar-dropdown-item dropdown-item"
+                :to="{name: 'groupPlanDetailTaskInformation', params: {groupId: group._id}}"
+              >
+                {{ group.name }}
+              </router-link>
+            </div>
+          </li><li
+            class="topbar-item droppable"
+            :class="{'active': $route.path.startsWith('/challenges'), 'down': $route.path.startsWith('/challenges') && this.isDesktop()}"
+          >
+            <div
+              class="chevron rotate"
+              @click="dropdownMobile($event)"
+            >
+              <div
+                v-once
+                class="chevron-icon-down"
+                v-html="icons.chevronDown"
+              ></div>
+            </div><router-link
+              class="nav-link"
+              :to="{name: 'myChallenges'}"
+            >
+              {{ $t('challenges') }}
+            </router-link><div class="topbar-dropdown">
+              <router-link
+                class="topbar-dropdown-item dropdown-item"
+                :to="{name: 'myChallenges'}"
+              >
+                {{ $t('myChallenges') }}
+              </router-link><router-link
+                class="topbar-dropdown-item dropdown-item"
+                :to="{name: 'findChallenges'}"
+              >
+                {{ $t('findChallenges') }}
+              </router-link>
+            </div>
+          </li><li
+            class="topbar-item droppable"
+            :class="{'active': $route.path.startsWith('/help'), 'down': $route.path.startsWith('/help') && this.isDesktop()}"
+          >
+            <div
+              class="chevron rotate"
+              @click="dropdownMobile($event)"
+            >
+              <div
+                v-once
+                class="chevron-icon-down"
+                v-html="icons.chevronDown"
+              ></div>
+            </div><router-link
+              class="nav-link"
+              :to="{name: 'faq'}"
+            >
+              {{ $t('help') }}
+            </router-link><div class="topbar-dropdown">
+              <router-link
+                class="topbar-dropdown-item dropdown-item"
+                :to="{name: 'faq'}"
+              >
+                {{ $t('faq') }}
+              </router-link><router-link
+                class="topbar-dropdown-item dropdown-item"
+                :to="{name: 'overview'}"
+              >
+                {{ $t('overview') }}
+              </router-link><router-link
+                class="topbar-dropdown-item dropdown-item"
+                to="/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac"
+              >
+                {{ $t('reportBug') }}
+              </router-link><router-link
+                class="topbar-dropdown-item dropdown-item"
+                to="/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a"
+              >
+                {{ $t('askAQuestion') }}
+              </router-link><a
+                class="topbar-dropdown-item dropdown-item"
+                href="https://trello.com/c/odmhIqyW/440-read-first-table-of-contents"
+                target="_blank"
+              >{{ $t('requestAF') }}</a><a
+                class="topbar-dropdown-item dropdown-item"
+                href="http://habitica.fandom.com/wiki/Contributing_to_Habitica"
+                target="_blank"
+              >{{ $t('contributing') }}</a><a
+                class="topbar-dropdown-item dropdown-item"
+                href="http://habitica.fandom.com/wiki/Habitica_Wiki"
+                target="_blank"
+              >{{ $t('wiki') }}</a><a
+                class="topbar-dropdown-item dropdown-item"
+                @click="modForm()"
+              >{{ $t('contactForm') }}</a>
+            </div>
+          </li>
+        </b-navbar-nav><div class="currency-tray form-inline">
+          <div
+            v-if="userHourglasses > 0"
+            class="item-with-icon"
+          >
+            <div
+              v-b-tooltip.hover.bottom="$t('mysticHourglassesTooltip')"
+              class="top-menu-icon svg-icon"
+              v-html="icons.hourglasses"
+            ></div><span>{{ userHourglasses }}</span>
+          </div><div class="item-with-icon">
+            <a
+              v-b-tooltip.hover.bottom="$t('gems')"
+              class="top-menu-icon svg-icon gem"
+              :aria-label="$t('gems')"
+              href="#buy-gems"
+              @click.prevent="showBuyGemsModal('gems')"
+              v-html="icons.gem"
+            ></a><span>{{ userGems }}</span>
+          </div><div class="item-with-icon gold">
+            <div
+              v-b-tooltip.hover.bottom="$t('gold')"
+              class="top-menu-icon svg-icon"
+              :aria-label="$t('gold')"
+              v-html="icons.gold"
+            ></div><span>{{ Math.floor(user.stats.gp * 100) / 100 }}</span>
+          </div>
+        </div><div class="form-inline desktop-only">
+          <a
+            class="item-with-icon"
+            v-b-tooltip.hover.bottom="$t('sync')"
+            role="link"
+            :aria-label="$t('sync')"
+            tabindex="0"
+            @click="sync"
+            @keyup.enter="sync"
+          ><div
+            class="top-menu-icon svg-icon"
+            v-html="icons.sync"
+          ></div></a><notification-menu class="item-with-icon" /><user-dropdown class="item-with-icon" />
+        </div>
+      </b-collapse>
+    </b-navbar>
+  </div>
 </template>
 
 <style lang="scss" scoped>

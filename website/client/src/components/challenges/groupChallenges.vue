@@ -1,16 +1,43 @@
-<template lang="pug">
-div
-  challenge-modal(:groupId='groupId', v-on:createChallenge='challengeCreated')
-  .row.no-quest-section(v-if='challenges.length === 0')
-    .col-12.text-center
-      .svg-icon.challenge-icon(v-html="icons.challengeIcon")
-      h4(v-once) {{ $t('haveNoChallenges') }}
-      p(v-once) {{ $t('challengeDetails') }}
-      button.btn.btn-secondary(@click='createChallenge()') {{ $t('createChallenge') }}
-  template(v-else)
-    challenge-item(v-for='challenge in challenges',:challenge='challenge',:key='challenge._id',:fullLayout='false')
-    .col-12.text-center
-      button.btn.btn-secondary(@click='createChallenge()') {{ $t('createChallenge') }}
+<template>
+  <div>
+    <challenge-modal
+      :group-id="groupId"
+      @createChallenge="challengeCreated"
+    /><div
+      v-if="challenges.length === 0"
+      class="row no-quest-section"
+    >
+      <div class="col-12 text-center">
+        <div
+          class="svg-icon challenge-icon"
+          v-html="icons.challengeIcon"
+        ></div><h4 v-once>
+          {{ $t('haveNoChallenges') }}
+        </h4><p v-once>
+          {{ $t('challengeDetails') }}
+        </p><button
+          class="btn btn-secondary"
+          @click="createChallenge()"
+        >
+          {{ $t('createChallenge') }}
+        </button>
+      </div>
+    </div><template v-else>
+      <challenge-item
+        v-for="challenge in challenges"
+        :key="challenge._id"
+        :challenge="challenge"
+        :full-layout="false"
+      /><div class="col-12 text-center">
+        <button
+          class="btn btn-secondary"
+          @click="createChallenge()"
+        >
+          {{ $t('createChallenge') }}
+        </button>
+      </div>
+    </template>
+  </div>
 </template>
 
 <style lang="scss" scoped>

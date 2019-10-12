@@ -1,15 +1,21 @@
-<template lang="pug">
-.header-tabs
-  ul.drawer-tab-container
-    li.drawer-tab(v-for="(tab, index) in tabs")
-      a.drawer-tab-text(
-        @click="changeTab(index)",
-        :class="{'drawer-tab-text-active': selectedTabPosition === index}",
-        :title="tab.label"
-      ) {{ tab.label }}
-
-  aside.help-item
-    slot(name="right-item")
+<template>
+  <div class="header-tabs">
+    <ul class="drawer-tab-container">
+      <li
+        v-for="(tab, index) in tabs"
+        class="drawer-tab"
+      >
+        <a
+          class="drawer-tab-text"
+          :class="{'drawer-tab-text-active': selectedTabPosition === index}"
+          :title="tab.label"
+          @click="changeTab(index)"
+        >{{ tab.label }}</a>
+      </li>
+    </ul><aside class="help-item">
+      <slot name="right-item"></slot>
+    </aside>
+  </div>
 </template>
 
 <style lang="scss" scoped>

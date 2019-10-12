@@ -1,6 +1,18 @@
-<template lang="pug">
-  b-modal#profile(size='lg', :hide-footer="true", :hide-header="true", @hidden="onHidden", @shown="onShown()")
-    profile(:userId='userId', :startingPage='startingPage', style="margin-top:24px;")
+<template>
+  <b-modal
+    id="profile"
+    size="lg"
+    :hide-footer="true"
+    :hide-header="true"
+    @hidden="onHidden"
+    @shown="onShown()"
+  >
+    <profile
+      :user-id="userId"
+      :starting-page="startingPage"
+      style="margin-top:24px;"
+    />
+  </b-modal>
 </template>
 
 <style lang="scss" scoped>

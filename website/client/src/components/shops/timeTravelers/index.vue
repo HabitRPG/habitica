@@ -1,100 +1,167 @@
-<template lang="pug">
-  .row.timeTravelers
-    .standard-sidebar.d-none.d-sm-block(v-if="!closed")
-      .form-group
-        input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
-
-      .form
-        h2(v-once) {{ $t('filter') }}
-        .form-group
-          .form-check(
-            v-for="category in categories",
-            :key="category.identifier",
-          )
-            .custom-control.custom-checkbox
-              input.custom-control-input(type="checkbox", v-model="viewOptions[category.identifier].selected", :id="`category-${category.identifier}`")
-              label.custom-control-label(v-once, :for="`category-${category.identifier}`") {{ category.text }}
-
-        div.form-group.clearfix
-          h3.float-left(v-once) {{ $t('hidePinned') }}
-          toggle-switch.float-right(
-            v-model="hidePinned",
-          )
-    .standard-page
-      div.featuredItems
-        .background(:class="{'background-closed': closed, 'background-open': !closed }")
-          div.npc(:class="{'closed': closed }")
-            div.featured-label
-              span.rectangle
-              span.text(v-once) {{ $t('timeTravelers') }}
-              span.rectangle
-          div.content(v-if="closed")
-            div.featured-label.with-border.closed
-              span.rectangle
-              span.text(v-once) {{ $t('timeTravelersPopoverNoSubMobile') }}
-              span.rectangle
-
-      .clearfix(v-if="!closed")
-        div.float-right
-          span.dropdown-label {{ $t('sortBy') }}
-          b-dropdown(:text="$t(selectedSortItemsBy)", right=true)
-            b-dropdown-item(
-              v-for="sort in sortItemsBy",
-              @click="selectedSortItemsBy = sort",
-              :active="selectedSortItemsBy === sort",
+<template>
+  <div class="row timeTravelers">
+    <div
+      v-if="!closed"
+      class="standard-sidebar d-none d-sm-block"
+    >
+      <div class="form-group">
+        <input
+          v-model="searchText"
+          class="form-control input-search"
+          type="text"
+          :placeholder="$t('search')"
+        >
+      </div><div class="form">
+        <h2 v-once>
+          {{ $t('filter') }}
+        </h2><div class="form-group">
+          <div
+            v-for="category in categories"
+            :key="category.identifier"
+            class="form-check"
+          >
+            <div class="custom-control custom-checkbox">
+              <input
+                :id="`category-${category.identifier}`"
+                v-model="viewOptions[category.identifier].selected"
+                class="custom-control-input"
+                type="checkbox"
+              ><label
+                v-once
+                class="custom-control-label"
+                :for="`category-${category.identifier}`"
+              >{{ category.text }}</label>
+            </div>
+          </div>
+        </div><div class="form-group clearfix">
+          <h3
+            v-once
+            class="float-left"
+          >
+            {{ $t('hidePinned') }}
+          </h3><toggle-switch
+            v-model="hidePinned"
+            class="float-right"
+          />
+        </div>
+      </div>
+    </div><div class="standard-page">
+      <div class="featuredItems">
+        <div
+          class="background"
+          :class="{'background-closed': closed, 'background-open': !closed }"
+        >
+          <div
+            class="npc"
+            :class="{'closed': closed }"
+          >
+            <div class="featured-label">
+              <span class="rectangle"></span><span
+                v-once
+                class="text"
+              >{{ $t('timeTravelers') }}</span><span class="rectangle"></span>
+            </div>
+          </div><div
+            v-if="closed"
+            class="content"
+          >
+            <div class="featured-label with-border closed">
+              <span class="rectangle"></span><span
+                v-once
+                class="text"
+              >{{ $t('timeTravelersPopoverNoSubMobile') }}</span><span class="rectangle"></span>
+            </div>
+          </div>
+        </div>
+      </div><div
+        v-if="!closed"
+        class="clearfix"
+      >
+        <div class="float-right">
+          <span class="dropdown-label">{{ $t('sortBy') }}</span><b-dropdown
+            :text="$t(selectedSortItemsBy)"
+            right="right"
+          >
+            <b-dropdown-item
+              v-for="sort in sortItemsBy"
               :key="sort"
-            ) {{ $t(sort) }}
-
-
-      div(
-        v-for="category in categories",
-        v-if="!anyFilterSelected  || (!closed && viewOptions[category.identifier].selected)",
+              :active="selectedSortItemsBy === sort"
+              @click="selectedSortItemsBy = sort"
+            >
+              {{ $t(sort) }}
+            </b-dropdown-item>
+          </b-dropdown>
+        </div>
+      </div><div
+        v-for="category in categories"
+        v-if="!anyFilterSelected || (!closed && viewOptions[category.identifier].selected)"
         :class="category.identifier"
-      )
-        h2.mb-3 {{ category.text }}
-
-        itemRows(
-          :items="travelersItems(category, selectedSortItemsBy, searchTextThrottled, hidePinned)",
-          :itemWidth=94,
-          :itemMargin=24,
-          :type="category.identifier",
-        )
-          template(slot="item", slot-scope="ctx")
-            shopItem(
-              :key="ctx.item.key",
-              :item="ctx.item",
-              :price="ctx.item.value",
-              :priceType="ctx.item.currency",
-              :emptyItem="false",
+      >
+        <h2 class="mb-3">
+          {{ category.text }}
+        </h2><itemRows
+          :items="travelersItems(category, selectedSortItemsBy, searchTextThrottled, hidePinned)"
+          :item-width="94"
+          :item-margin="24"
+          :type="category.identifier"
+        >
+          <template
+            slot="item"
+            slot-scope="ctx"
+          >
+            <shopItem
+              :key="ctx.item.key"
+              :item="ctx.item"
+              :price="ctx.item.value"
+              :price-type="ctx.item.currency"
+              :empty-item="false"
               @click="selectItemToBuy(ctx.item)"
-            )
-              span(slot="popoverContent", slot-scope="ctx", v-if="category !== 'quests'")
-                div
-                  h4.popover-content-title {{ ctx.item.text }}
-              span(slot="popoverContent", slot-scope="ctx", v-if="category === 'quests'")
-                div.questPopover
-                  h4.popover-content-title {{ item.text }}
-                  questInfo(:quest="item")
-
-              template(slot="itemBadge", slot-scope="ctx")
-                span.badge.badge-pill.badge-item.badge-svg(
-                  v-if="ctx.item.pinType !== 'IGNORE'",
-                  :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
+            >
+              <span
+                v-if="category !== 'quests'"
+                slot="popoverContent"
+                slot-scope="ctx"
+              ><div><h4 class="popover-content-title">{{ ctx.item.text }}</h4></div></span><span
+                v-if="category === 'quests'"
+                slot="popoverContent"
+                slot-scope="ctx"
+              ><div class="questPopover"><h4 class="popover-content-title">{{ item.text }}</h4><questInfo :quest="item" /></div></span><template
+                slot="itemBadge"
+                slot-scope="ctx"
+              >
+                <span
+                  v-if="ctx.item.pinType !== 'IGNORE'"
+                  class="badge badge-pill badge-item badge-svg"
+                  :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}"
                   @click.prevent.stop="togglePinned(ctx.item)"
-                )
-                  span.svg-icon.inline.icon-12.color(v-html="icons.pin")
-    buyQuestModal(
-      :item="selectedItemToBuy || {}",
-      :priceType="selectedItemToBuy ? selectedItemToBuy.currency : ''",
-      :withPin="true",
-      @change="resetItemToBuy($event)",
-    )
-      template(slot="item", slot-scope="ctx")
-        item.flat(
-          :item="ctx.item",
-          :itemContentClass="ctx.item.class",
-          :showPopover="false"
-        )
+                ><span
+                  class="svg-icon inline icon-12 color"
+                  v-html="icons.pin"
+                ></span></span>
+              </template>
+            </shopItem>
+          </template>
+        </itemRows>
+      </div>
+    </div><buyQuestModal
+      :item="selectedItemToBuy || {}"
+      :price-type="selectedItemToBuy ? selectedItemToBuy.currency : ''"
+      :with-pin="true"
+      @change="resetItemToBuy($event)"
+    >
+      <template
+        slot="item"
+        slot-scope="ctx"
+      >
+        <item
+          class="flat"
+          :item="ctx.item"
+          :item-content-class="ctx.item.class"
+          :show-popover="false"
+        />
+      </template>
+    </buyQuestModal>
+  </div>
 </template>
 
 <style lang="scss">

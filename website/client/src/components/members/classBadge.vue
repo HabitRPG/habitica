@@ -1,6 +1,10 @@
-<template lang="pug">
-.class-badge.d-flex.justify-content-center
-  .align-self-center.svg-icon(v-html="icons[memberClass]")
+<template>
+  <div class="class-badge d-flex justify-content-center">
+    <div
+      class="align-self-center svg-icon"
+      v-html="icons[memberClass]"
+    ></div>
+  </div>
 </template>
 
 <style lang="scss" scoped>

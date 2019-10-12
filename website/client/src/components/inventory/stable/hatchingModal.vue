@@ -1,17 +1,40 @@
-<template lang="pug">
-b-modal#hatching-modal()
-  div.content(v-if="hatchablePet")
-    div.potionEggGroup
-      div.potionEggBackground
-        div(:class="'Pet_HatchingPotion_'+hatchablePet.potionKey")
-      div.potionEggBackground
-        div(:class="'Pet_Egg_'+hatchablePet.eggKey")
-    h4.title {{ hatchablePet.name }}
-    div.text(v-html="$t('hatchDialogText', { potionName: hatchablePet.potionName, eggName: hatchablePet.eggName, petName: hatchablePet.name })")
-  span.svg-icon.icon-10(v-html="icons.close", slot="modal-header", @click="closeHatchPetDialog()")
-  div(slot="modal-footer")
-    button.btn.btn-primary(@click="hatchPet(hatchablePet)") {{ $t('hatch') }}
-    button.btn.btn-secondary.btn-flat(@click="closeHatchPetDialog()") {{ $t('cancel') }}
+<template>
+  <b-modal id="hatching-modal">
+    <div
+      v-if="hatchablePet"
+      class="content"
+    >
+      <div class="potionEggGroup">
+        <div class="potionEggBackground">
+          <div :class="'Pet_HatchingPotion_'+hatchablePet.potionKey"></div>
+        </div><div class="potionEggBackground">
+          <div :class="'Pet_Egg_'+hatchablePet.eggKey"></div>
+        </div>
+      </div><h4 class="title">
+        {{ hatchablePet.name }}
+      </h4><div
+        class="text"
+        v-html="$t('hatchDialogText', { potionName: hatchablePet.potionName, eggName: hatchablePet.eggName, petName: hatchablePet.name })"
+      ></div>
+    </div><span
+      slot="modal-header"
+      class="svg-icon icon-10"
+      @click="closeHatchPetDialog()"
+      v-html="icons.close"
+    ></span><div slot="modal-footer">
+      <button
+        class="btn btn-primary"
+        @click="hatchPet(hatchablePet)"
+      >
+        {{ $t('hatch') }}
+      </button><button
+        class="btn btn-secondary btn-flat"
+        @click="closeHatchPetDialog()"
+      >
+        {{ $t('cancel') }}
+      </button>
+    </div>
+  </b-modal>
 </template>
 
 <style lang="scss">

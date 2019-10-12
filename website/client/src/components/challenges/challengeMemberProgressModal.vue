@@ -1,14 +1,32 @@
-<template lang="pug">
-  b-modal#challenge-member-modal(title="User Progress", size='lg')
-    .row.award-row(v-if='isLeader || isAdmin')
-      .col-12.text-center
-        button.btn.btn-primary(v-once, @click='closeChallenge()') {{ $t('awardWinners') }}
-    .row
-      task-column.col-6(
-        v-for="column in columns",
-        :type="column",
-        :key="column",
-        :taskListOverride='tasksByType[column]')
+<template>
+  <b-modal
+    id="challenge-member-modal"
+    title="User Progress"
+    size="lg"
+  >
+    <div
+      v-if="isLeader || isAdmin"
+      class="row award-row"
+    >
+      <div class="col-12 text-center">
+        <button
+          v-once
+          class="btn btn-primary"
+          @click="closeChallenge()"
+        >
+          {{ $t('awardWinners') }}
+        </button>
+      </div>
+    </div><div class="row">
+      <task-column
+        v-for="column in columns"
+        :key="column"
+        class="col-6"
+        :type="column"
+        :task-list-override="tasksByType[column]"
+      />
+    </div>
+  </b-modal>
 </template>
 
 <style scoped>

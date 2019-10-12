@@ -1,14 +1,39 @@
-<template lang="pug">
-  .container-fluid(role="tablist")
-    .row
-      .col-12.col-md-6.offset-md-3
-        h1#faq-heading {{ $t('frequentlyAskedQuestions') }}
-        .faq-question(v-for='(heading, index) in headings', :key="index")
-          h2(role="tab", v-b-toggle="heading", @click="handleClick($event)", variant="info") {{ $t(`faqQuestion${index}`) }}
-          b-collapse(:id="heading", :visible="isVisible(heading)", accordion="faq", role="tabpanel")
-            div.card-body(v-markdown="$t('webFaqAnswer' + index, replacements)")
-        hr
-        p(v-markdown="$t('webFaqStillNeedHelp')")
+<template>
+  <div
+    class="container-fluid"
+    role="tablist"
+  >
+    <div class="row">
+      <div class="col-12 col-md-6 offset-md-3">
+        <h1 id="faq-heading">
+          {{ $t('frequentlyAskedQuestions') }}
+        </h1><div
+          v-for="(heading, index) in headings"
+          :key="index"
+          class="faq-question"
+        >
+          <h2
+            v-b-toggle="heading"
+            role="tab"
+            variant="info"
+            @click="handleClick($event)"
+          >
+            {{ $t(`faqQuestion${index}`) }}
+          </h2><b-collapse
+            :id="heading"
+            :visible="isVisible(heading)"
+            accordion="faq"
+            role="tabpanel"
+          >
+            <div
+              v-markdown="$t('webFaqAnswer' + index, replacements)"
+              class="card-body"
+            ></div>
+          </b-collapse>
+        </div><hr><p v-markdown="$t('webFaqStillNeedHelp')"></p>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style lang='scss' scoped>

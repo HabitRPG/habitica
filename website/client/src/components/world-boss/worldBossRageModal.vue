@@ -1,32 +1,57 @@
-<template lang="pug">
-  b-modal#world-boss-rage(title="", :hide-footer="true", :hide-header="true")
-    div(v-if="npc === 'seasonalShop'")
-      .modal-header.d-flex.align-items-center.justify-content-center
-        .reduce {{ $t('seasonalShopRageStrikeHeader') }}
-      img.npc-background(src='~@/assets/images/npc/broken/rage-strike-seasonalShop-scaled@2x.png')
-      .modal-body
-        .row
-          .col-12.text-center.padding-24
-            h2 {{ $t('seasonalShopRageStrikeLead') }}
-            p {{ $t('seasonalShopRageStrikeRecap') }}
-    div(v-if="npc === 'market'")
-      .modal-header.d-flex.align-items-center.justify-content-center
-        .reduce {{ $t('marketRageStrikeHeader') }}
-      img.npc-background(src='~@/assets/images/npc/broken/rage-strike-market-scaled@2x.png')
-      .modal-body
-        .row
-          .col-12.text-center.padding-24
-            h2 {{ $t('marketRageStrikeLead') }}
-            p {{ $t('marketRageStrikeRecap') }}
-    div(v-if="npc === 'quests'")
-      .modal-header.d-flex.align-items-center.justify-content-center
-        .reduce {{ $t('questsRageStrikeHeader') }}
-      img.npc-background(src='~@/assets/images/npc/broken/rage-strike-quests-scaled@2x.png')
-      .modal-body
-        .row
-          .col-12.text-center.padding-24
-            h2 {{ $t('questsRageStrikeLead') }}
-            p {{ $t('questsRageStrikeRecap') }}
+<template>
+  <b-modal
+    id="world-boss-rage"
+    title=""
+    :hide-footer="true"
+    :hide-header="true"
+  >
+    <div v-if="npc === 'seasonalShop'">
+      <div class="modal-header d-flex align-items-center justify-content-center">
+        <div class="reduce">
+          {{ $t('seasonalShopRageStrikeHeader') }}
+        </div>
+      </div><img
+        class="npc-background"
+        src="~@/assets/images/npc/broken/rage-strike-seasonalShop-scaled@2x.png"
+      ><div class="modal-body">
+        <div class="row">
+          <div class="col-12 text-center padding-24">
+            <h2>{{ $t('seasonalShopRageStrikeLead') }}</h2><p>{{ $t('seasonalShopRageStrikeRecap') }}</p>
+          </div>
+        </div>
+      </div>
+    </div><div v-if="npc === 'market'">
+      <div class="modal-header d-flex align-items-center justify-content-center">
+        <div class="reduce">
+          {{ $t('marketRageStrikeHeader') }}
+        </div>
+      </div><img
+        class="npc-background"
+        src="~@/assets/images/npc/broken/rage-strike-market-scaled@2x.png"
+      ><div class="modal-body">
+        <div class="row">
+          <div class="col-12 text-center padding-24">
+            <h2>{{ $t('marketRageStrikeLead') }}</h2><p>{{ $t('marketRageStrikeRecap') }}</p>
+          </div>
+        </div>
+      </div>
+    </div><div v-if="npc === 'quests'">
+      <div class="modal-header d-flex align-items-center justify-content-center">
+        <div class="reduce">
+          {{ $t('questsRageStrikeHeader') }}
+        </div>
+      </div><img
+        class="npc-background"
+        src="~@/assets/images/npc/broken/rage-strike-quests-scaled@2x.png"
+      ><div class="modal-body">
+        <div class="row">
+          <div class="col-12 text-center padding-24">
+            <h2>{{ $t('questsRageStrikeLead') }}</h2><p>{{ $t('questsRageStrikeRecap') }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </b-modal>
 </template>
 
 <style>

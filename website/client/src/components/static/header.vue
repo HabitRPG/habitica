@@ -1,35 +1,125 @@
-<template lang="pug">
-  nav.navbar.navbar-inverse.fixed-top.navbar-expand-sm
-    .navbar-header
-      router-link.nav-item(:to='!isUserLoggedIn ? "/static/home" : "/"')
-        .logo.svg-icon(v-html='icons.purpleLogo', v-if='this.$route.name === "plans"')
-        .logo.svg-icon(v-html='icons.logo', v-else)
-    .collapse.navbar-collapse
-      ul.navbar-nav.mr-auto(v-if='$route.name !== "home"')
-        router-link.nav-item(tag='li', to='/static/features')
-          a.nav-link(v-once) {{ $t('companyAbout') }}
-        router-link.nav-item(tag='li', to='/static/plans')
-          a.nav-link(v-once) {{ $t('groupPlans') }}
-        li.nav-item
-          a.nav-link(href='https://habitica.wordpress.com/', target='_blank') {{ $t('companyBlog') }}
-        li.nav-item
-          a.nav-link(href='http://blog.habitrpg.com/', target='_blank') {{ $t('tumblr') }}
-        router-link.nav-item(tag='li', to='/static/press-kit')
-          a.nav-link(v-once) {{ $t('presskit') }}
-        router-link.nav-item(tag='li', to='/static/contact')
-          a.nav-link(v-once) {{ $t('contactUs') }}
-      ul.navbar-nav.mr-auto(v-else)
-        router-link.nav-item(tag='li', to='/register')
-          a.nav-link(v-once) {{ $t('getStarted') }}
-        li.nav-item
-          a.nav-link(@click='scrollToMobileApp') {{ $t('mobileApps') }}
-        li.nav-item.dropdown
-          a.nav-link.dropdown-toggle(v-once) {{ $t('learnMore') }}
-          .dropdown-menu
-            router-link.dropdown-item(to='/static/faq') {{ $t('faq') }}
-            router-link.dropdown-item(to='/static/plans') {{ $t('groupPlans') }}
-      button.btn.btn-primary.pull-right(@click='playButtonClick()', v-if='$route.name !== "home"') {{ $t('playButtonFull') }}
-    router-link.btn.btn-primary.login-button.pull-right(to='/login', v-if='$route.name === "home"') {{ $t('login') }}
+<template>
+  <nav class="navbar navbar-inverse fixed-top navbar-expand-sm">
+    <div class="navbar-header">
+      <router-link
+        class="nav-item"
+        :to="!isUserLoggedIn ? '/static/home' : '/'"
+      >
+        <div
+          v-if="this.$route.name === 'plans'"
+          class="logo svg-icon"
+          v-html="icons.purpleLogo"
+        ></div><div
+          v-else
+          class="logo svg-icon"
+          v-html="icons.logo"
+        ></div>
+      </router-link>
+    </div><div class="collapse navbar-collapse">
+      <ul
+        v-if="$route.name !== 'home'"
+        class="navbar-nav mr-auto"
+      >
+        <router-link
+          class="nav-item"
+          tag="li"
+          to="/static/features"
+        >
+          <a
+            v-once
+            class="nav-link"
+          >{{ $t('companyAbout') }}</a>
+        </router-link><router-link
+          class="nav-item"
+          tag="li"
+          to="/static/plans"
+        >
+          <a
+            v-once
+            class="nav-link"
+          >{{ $t('groupPlans') }}</a>
+        </router-link><li class="nav-item">
+          <a
+            class="nav-link"
+            href="https://habitica.wordpress.com/"
+            target="_blank"
+          >{{ $t('companyBlog') }}</a>
+        </li><li class="nav-item">
+          <a
+            class="nav-link"
+            href="http://blog.habitrpg.com/"
+            target="_blank"
+          >{{ $t('tumblr') }}</a>
+        </li><router-link
+          class="nav-item"
+          tag="li"
+          to="/static/press-kit"
+        >
+          <a
+            v-once
+            class="nav-link"
+          >{{ $t('presskit') }}</a>
+        </router-link><router-link
+          class="nav-item"
+          tag="li"
+          to="/static/contact"
+        >
+          <a
+            v-once
+            class="nav-link"
+          >{{ $t('contactUs') }}</a>
+        </router-link>
+      </ul><ul
+        v-else
+        class="navbar-nav mr-auto"
+      >
+        <router-link
+          class="nav-item"
+          tag="li"
+          to="/register"
+        >
+          <a
+            v-once
+            class="nav-link"
+          >{{ $t('getStarted') }}</a>
+        </router-link><li class="nav-item">
+          <a
+            class="nav-link"
+            @click="scrollToMobileApp"
+          >{{ $t('mobileApps') }}</a>
+        </li><li class="nav-item dropdown">
+          <a
+            v-once
+            class="nav-link dropdown-toggle"
+          >{{ $t('learnMore') }}</a><div class="dropdown-menu">
+            <router-link
+              class="dropdown-item"
+              to="/static/faq"
+            >
+              {{ $t('faq') }}
+            </router-link><router-link
+              class="dropdown-item"
+              to="/static/plans"
+            >
+              {{ $t('groupPlans') }}
+            </router-link>
+          </div>
+        </li>
+      </ul><button
+        v-if="$route.name !== 'home'"
+        class="btn btn-primary pull-right"
+        @click="playButtonClick()"
+      >
+        {{ $t('playButtonFull') }}
+      </button>
+    </div><router-link
+      v-if="$route.name === 'home'"
+      class="btn btn-primary login-button pull-right"
+      to="/login"
+    >
+      {{ $t('login') }}
+    </router-link>
+  </nav>
 </template>
 
 <style lang='scss' scoped>

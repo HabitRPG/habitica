@@ -1,93 +1,263 @@
-<template lang="pug">
-.form-wrapper
-  #top-background
-    .seamless_stars_varied_opacity_repeat
-
-  form#login-form(
-    @submit.prevent='handleSubmit',
-    @keyup.enter="handleSubmit",
-    v-if="!forgotPassword && !resetPasswordSetNewOne",
-  )
-    .text-center
-      div
-        .svg-icon.gryphon
-      div
-        .svg-icon.habitica-logo(v-html="icons.habiticaIcon")
-    .form-group.row.text-center
-      .col-12.col-md-6
-        .btn.btn-secondary.social-button(@click='socialAuth("facebook")')
-          .svg-icon.social-icon(v-html="icons.facebookIcon")
-          .text {{registering ? $t('signUpWithSocial', {social: 'Facebook'}) : $t('loginWithSocial', {social: 'Facebook'})}}
-      .col-12.col-md-6
-        .btn.btn-secondary.social-button(@click='socialAuth("google")')
-          .svg-icon.social-icon(v-html="icons.googleIcon")
-          .text {{registering ? $t('signUpWithSocial', {social: 'Google'}) : $t('loginWithSocial', {social: 'Google'})}}
-    .form-group(v-if='registering')
-      label(for='usernameInput', v-once) {{$t('username')}}
-      input#usernameInput.form-control(type='text', :placeholder='$t("usernamePlaceholder")', v-model='username', :class='{"input-valid": usernameValid, "input-invalid": usernameInvalid}')
-      .input-error(v-for="issue in usernameIssues") {{ issue }}
-    .form-group(v-if='!registering')
-      label(for='usernameInput', v-once) {{$t('emailOrUsername')}}
-      input#usernameInput.form-control(type='text', :placeholder='$t("emailOrUsername")', v-model='username')
-    .form-group(v-if='registering')
-      label(for='emailInput', v-once) {{$t('email')}}
-      input#emailInput.form-control(type='email', :placeholder='$t("emailPlaceholder")', v-model='email', :class='{"input-invalid": emailInvalid, "input-valid": emailValid}')
-    .form-group
-      label(for='passwordInput', v-once) {{$t('password')}}
-      a.float-right.forgot-password(v-once, v-if='!registering', @click='forgotPassword = true') {{$t('forgotPassword')}}
-      input#passwordInput.form-control(type='password', :placeholder='$t(registering ? "passwordPlaceholder" : "password")', v-model='password')
-    .form-group(v-if='registering')
-      label(for='confirmPasswordInput', v-once) {{$t('confirmPassword')}}
-      input#confirmPasswordInput.form-control(type='password', :placeholder='$t("confirmPasswordPlaceholder")', v-model='passwordConfirm', :class='{"input-invalid": passwordConfirmInvalid, "input-valid": passwordConfirmValid}')
-      small.form-text(v-once, v-html="$t('termsAndAgreement')")
-    .text-center
-      .btn.btn-info(@click='register()', v-if='registering', v-once) {{$t('joinHabitica')}}
-      .btn.btn-info(@click='login()', v-if='!registering', v-once) {{$t('login')}}
-      .toggle-links
-        router-link(:to="{name: 'login'}", v-if='registering', exact)
-          a.toggle-link(v-once, v-html="$t('alreadyHaveAccountLogin')")
-        router-link(:to="{name: 'register'}",  v-if='!registering', exact)
-          a.toggle-link(v-once, v-html="$t('dontHaveAccountSignup')")
-
-  form#forgot-form(v-on:submit.prevent='handleSubmit', @keyup.enter="handleSubmit", v-if='forgotPassword')
-    .text-center
-      div
-        .svg-icon.gryphon
-      div
-        .svg-icon.habitica-logo(v-html="icons.habiticaIcon")
-      .header
-        h2(v-once) {{ $t('emailNewPass') }}
-        p(v-once) {{ $t('forgotPasswordSteps') }}
-    .form-group.row.text-center
-      label(for='usernameInput', v-once) {{$t('email')}}
-      input#usernameInput.form-control(type='text', :placeholder='$t("emailPlaceholder")', v-model='username')
-    .text-center
-      .btn.btn-info(@click='forgotPasswordLink()', v-once) {{$t('sendLink')}}
-
-  form#reset-password-set-new-one-form(v-on:submit.prevent='handleSubmit', @keyup.enter="handleSubmit", v-if='resetPasswordSetNewOne')
-    .text-center
-      div
-        .svg-icon.gryphon
-      div
-        .svg-icon.habitica-logo(v-html="icons.habiticaIcon")
-      .header
-        h2 {{ $t('passwordResetPage') }}
-    .form-group
-      label(for='passwordInput', v-once) {{$t('newPass')}}
-      input#passwordInput.form-control(type='password', :placeholder="$t('password')", v-model='password')
-    .form-group
-      label(for='confirmPasswordInput', v-once) {{$t('confirmPass')}}
-      input#confirmPasswordInput.form-control(type='password', :placeholder='$t("confirmPasswordPlaceholder")', v-model='passwordConfirm')
-    .text-center
-      .btn.btn-info(
-        @click='resetPasswordSetNewOneLink()',
-        :enabled="!resetPasswordSetNewOneData.hasError"
-      )  {{$t('setNewPass')}}
-
-  #bottom-wrap(:class="`bottom-wrap-${!registering ? 'login' : 'register'}`")
-    #bottom-background
-      .seamless_mountains_demo_repeat
-      .midground_foreground_extended2
+<template>
+  <div class="form-wrapper">
+    <div id="top-background">
+      <div class="seamless_stars_varied_opacity_repeat"></div>
+    </div><form
+      v-if="!forgotPassword && !resetPasswordSetNewOne"
+      id="login-form"
+      @submit.prevent="handleSubmit"
+      @keyup.enter="handleSubmit"
+    >
+      <div class="text-center">
+        <div><div class="svg-icon gryphon"></div></div><div>
+          <div
+            class="svg-icon habitica-logo"
+            v-html="icons.habiticaIcon"
+          ></div>
+        </div>
+      </div><div class="form-group row text-center">
+        <div class="col-12 col-md-6">
+          <div
+            class="btn btn-secondary social-button"
+            @click="socialAuth('facebook')"
+          >
+            <div
+              class="svg-icon social-icon"
+              v-html="icons.facebookIcon"
+            ></div><div class="text">
+              {{ registering ? $t('signUpWithSocial', {social: 'Facebook'}) : $t('loginWithSocial', {social: 'Facebook'}) }}
+            </div>
+          </div>
+        </div><div class="col-12 col-md-6">
+          <div
+            class="btn btn-secondary social-button"
+            @click="socialAuth('google')"
+          >
+            <div
+              class="svg-icon social-icon"
+              v-html="icons.googleIcon"
+            ></div><div class="text">
+              {{ registering ? $t('signUpWithSocial', {social: 'Google'}) : $t('loginWithSocial', {social: 'Google'}) }}
+            </div>
+          </div>
+        </div>
+      </div><div
+        v-if="registering"
+        class="form-group"
+      >
+        <label
+          v-once
+          for="usernameInput"
+        >{{ $t('username') }}</label><input
+          id="usernameInput"
+          v-model="username"
+          class="form-control"
+          type="text"
+          :placeholder="$t('usernamePlaceholder')"
+          :class="{'input-valid': usernameValid, 'input-invalid': usernameInvalid}"
+        ><div
+          v-for="issue in usernameIssues"
+          class="input-error"
+        >
+          {{ issue }}
+        </div>
+      </div><div
+        v-if="!registering"
+        class="form-group"
+      >
+        <label
+          v-once
+          for="usernameInput"
+        >{{ $t('emailOrUsername') }}</label><input
+          id="usernameInput"
+          v-model="username"
+          class="form-control"
+          type="text"
+          :placeholder="$t('emailOrUsername')"
+        >
+      </div><div
+        v-if="registering"
+        class="form-group"
+      >
+        <label
+          v-once
+          for="emailInput"
+        >{{ $t('email') }}</label><input
+          id="emailInput"
+          v-model="email"
+          class="form-control"
+          type="email"
+          :placeholder="$t('emailPlaceholder')"
+          :class="{'input-invalid': emailInvalid, 'input-valid': emailValid}"
+        >
+      </div><div class="form-group">
+        <label
+          v-once
+          for="passwordInput"
+        >{{ $t('password') }}</label><a
+          v-if="!registering"
+          v-once
+          class="float-right forgot-password"
+          @click="forgotPassword = true"
+        >{{ $t('forgotPassword') }}</a><input
+          id="passwordInput"
+          v-model="password"
+          class="form-control"
+          type="password"
+          :placeholder="$t(registering ? 'passwordPlaceholder' : 'password')"
+        >
+      </div><div
+        v-if="registering"
+        class="form-group"
+      >
+        <label
+          v-once
+          for="confirmPasswordInput"
+        >{{ $t('confirmPassword') }}</label><input
+          id="confirmPasswordInput"
+          v-model="passwordConfirm"
+          class="form-control"
+          type="password"
+          :placeholder="$t('confirmPasswordPlaceholder')"
+          :class="{'input-invalid': passwordConfirmInvalid, 'input-valid': passwordConfirmValid}"
+        ><small
+          v-once
+          class="form-text"
+          v-html="$t('termsAndAgreement')"
+        ></small>
+      </div><div class="text-center">
+        <div
+          v-if="registering"
+          v-once
+          class="btn btn-info"
+          @click="register()"
+        >
+          {{ $t('joinHabitica') }}
+        </div><div
+          v-if="!registering"
+          v-once
+          class="btn btn-info"
+          @click="login()"
+        >
+          {{ $t('login') }}
+        </div><div class="toggle-links">
+          <router-link
+            v-if="registering"
+            :to="{name: 'login'}"
+            exact="exact"
+          >
+            <a
+              v-once
+              class="toggle-link"
+              v-html="$t('alreadyHaveAccountLogin')"
+            ></a>
+          </router-link><router-link
+            v-if="!registering"
+            :to="{name: 'register'}"
+            exact="exact"
+          >
+            <a
+              v-once
+              class="toggle-link"
+              v-html="$t('dontHaveAccountSignup')"
+            ></a>
+          </router-link>
+        </div>
+      </div>
+    </form><form
+      v-if="forgotPassword"
+      id="forgot-form"
+      @submit.prevent="handleSubmit"
+      @keyup.enter="handleSubmit"
+    >
+      <div class="text-center">
+        <div><div class="svg-icon gryphon"></div></div><div>
+          <div
+            class="svg-icon habitica-logo"
+            v-html="icons.habiticaIcon"
+          ></div>
+        </div><div class="header">
+          <h2 v-once>
+            {{ $t('emailNewPass') }}
+          </h2><p v-once>
+            {{ $t('forgotPasswordSteps') }}
+          </p>
+        </div>
+      </div><div class="form-group row text-center">
+        <label
+          v-once
+          for="usernameInput"
+        >{{ $t('email') }}</label><input
+          id="usernameInput"
+          v-model="username"
+          class="form-control"
+          type="text"
+          :placeholder="$t('emailPlaceholder')"
+        >
+      </div><div class="text-center">
+        <div
+          v-once
+          class="btn btn-info"
+          @click="forgotPasswordLink()"
+        >
+          {{ $t('sendLink') }}
+        </div>
+      </div>
+    </form><form
+      v-if="resetPasswordSetNewOne"
+      id="reset-password-set-new-one-form"
+      @submit.prevent="handleSubmit"
+      @keyup.enter="handleSubmit"
+    >
+      <div class="text-center">
+        <div><div class="svg-icon gryphon"></div></div><div>
+          <div
+            class="svg-icon habitica-logo"
+            v-html="icons.habiticaIcon"
+          ></div>
+        </div><div class="header">
+          <h2>{{ $t('passwordResetPage') }}</h2>
+        </div>
+      </div><div class="form-group">
+        <label
+          v-once
+          for="passwordInput"
+        >{{ $t('newPass') }}</label><input
+          id="passwordInput"
+          v-model="password"
+          class="form-control"
+          type="password"
+          :placeholder="$t('password')"
+        >
+      </div><div class="form-group">
+        <label
+          v-once
+          for="confirmPasswordInput"
+        >{{ $t('confirmPass') }}</label><input
+          id="confirmPasswordInput"
+          v-model="passwordConfirm"
+          class="form-control"
+          type="password"
+          :placeholder="$t('confirmPasswordPlaceholder')"
+        >
+      </div><div class="text-center">
+        <div
+          class="btn btn-info"
+          :enabled="!resetPasswordSetNewOneData.hasError"
+          @click="resetPasswordSetNewOneLink()"
+        >
+          {{ $t('setNewPass') }}
+        </div>
+      </div>
+    </form><div
+      id="bottom-wrap"
+      :class="`bottom-wrap-${!registering ? 'login' : 'register'}`"
+    >
+      <div id="bottom-background">
+        <div class="seamless_mountains_demo_repeat"></div><div class="midground_foreground_extended2"></div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style>

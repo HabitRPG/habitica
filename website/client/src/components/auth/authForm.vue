@@ -1,34 +1,124 @@
-<template lang="pug">
-.form
-  .form-group.row.text-center
-    .col-12.col-md-6
-      .btn.btn-secondary.social-button(@click='socialAuth("facebook")')
-        .svg-icon.social-icon(v-html="icons.facebookIcon")
-        span {{registering ? $t('signUpWithSocial', {social: 'Facebook'}) : $t('loginWithSocial', {social: 'Facebook'})}}
-    .col-12.col-md-6
-      .btn.btn-secondary.social-button(@click='socialAuth("google")')
-        .svg-icon.social-icon(v-html="icons.googleIcon")
-        span {{registering ? $t('signUpWithSocial', {social: 'Google'}) : $t('loginWithSocial', {social: 'Google'})}}
-  .form-group(v-if='registering')
-    label(for='usernameInput', v-once) {{$t('username')}}
-    input#usernameInput.form-control(type='text', :placeholder='$t("usernamePlaceholder")', v-model='username', :class='{"input-valid": usernameValid, "input-invalid": usernameInvalid}')
-  .form-group(v-if='!registering')
-    label(for='usernameInput', v-once) {{$t('emailOrUsername')}}
-    input#usernameInput.form-control(type='text', :placeholder='$t("emailOrUsername")', v-model='username')
-  .form-group(v-if='registering')
-    label(for='emailInput', v-once) {{$t('email')}}
-    input#emailInput.form-control(type='email', :placeholder='$t("emailPlaceholder")', v-model='email', :class='{"input-invalid": emailInvalid, "input-valid": emailValid}')
-  .form-group
-    label(for='passwordInput', v-once) {{$t('password')}}
-    a.float-right.forgot-password(v-once, v-if='!registering', @click='forgotPassword = true') {{$t('forgotPassword')}}
-    input#passwordInput.form-control(type='password', :placeholder='$t(registering ? "passwordPlaceholder" : "password")', v-model='password')
-  .form-group(v-if='registering')
-    label(for='confirmPasswordInput', v-once) {{$t('confirmPassword')}}
-    input#confirmPasswordInput.form-control(type='password', :placeholder='$t("confirmPasswordPlaceholder")', v-model='passwordConfirm', :class='{"input-invalid": passwordConfirmInvalid, "input-valid": passwordConfirmValid}')
-    small.form-text(v-once, v-html="$t('termsAndAgreement')")
-  .text-center
-    .btn.btn-info(@click='register()', v-if='registering', v-once) {{$t('joinHabitica')}}
-    .btn.btn-info(@click='login()', v-if='!registering', v-once) {{$t('login')}}
+<template>
+  <div class="form">
+    <div class="form-group row text-center">
+      <div class="col-12 col-md-6">
+        <div
+          class="btn btn-secondary social-button"
+          @click="socialAuth('facebook')"
+        >
+          <div
+            class="svg-icon social-icon"
+            v-html="icons.facebookIcon"
+          ></div><span>{{ registering ? $t('signUpWithSocial', {social: 'Facebook'}) : $t('loginWithSocial', {social: 'Facebook'}) }}</span>
+        </div>
+      </div><div class="col-12 col-md-6">
+        <div
+          class="btn btn-secondary social-button"
+          @click="socialAuth('google')"
+        >
+          <div
+            class="svg-icon social-icon"
+            v-html="icons.googleIcon"
+          ></div><span>{{ registering ? $t('signUpWithSocial', {social: 'Google'}) : $t('loginWithSocial', {social: 'Google'}) }}</span>
+        </div>
+      </div>
+    </div><div
+      v-if="registering"
+      class="form-group"
+    >
+      <label
+        v-once
+        for="usernameInput"
+      >{{ $t('username') }}</label><input
+        id="usernameInput"
+        v-model="username"
+        class="form-control"
+        type="text"
+        :placeholder="$t('usernamePlaceholder')"
+        :class="{'input-valid': usernameValid, 'input-invalid': usernameInvalid}"
+      >
+    </div><div
+      v-if="!registering"
+      class="form-group"
+    >
+      <label
+        v-once
+        for="usernameInput"
+      >{{ $t('emailOrUsername') }}</label><input
+        id="usernameInput"
+        v-model="username"
+        class="form-control"
+        type="text"
+        :placeholder="$t('emailOrUsername')"
+      >
+    </div><div
+      v-if="registering"
+      class="form-group"
+    >
+      <label
+        v-once
+        for="emailInput"
+      >{{ $t('email') }}</label><input
+        id="emailInput"
+        v-model="email"
+        class="form-control"
+        type="email"
+        :placeholder="$t('emailPlaceholder')"
+        :class="{'input-invalid': emailInvalid, 'input-valid': emailValid}"
+      >
+    </div><div class="form-group">
+      <label
+        v-once
+        for="passwordInput"
+      >{{ $t('password') }}</label><a
+        v-if="!registering"
+        v-once
+        class="float-right forgot-password"
+        @click="forgotPassword = true"
+      >{{ $t('forgotPassword') }}</a><input
+        id="passwordInput"
+        v-model="password"
+        class="form-control"
+        type="password"
+        :placeholder="$t(registering ? 'passwordPlaceholder' : 'password')"
+      >
+    </div><div
+      v-if="registering"
+      class="form-group"
+    >
+      <label
+        v-once
+        for="confirmPasswordInput"
+      >{{ $t('confirmPassword') }}</label><input
+        id="confirmPasswordInput"
+        v-model="passwordConfirm"
+        class="form-control"
+        type="password"
+        :placeholder="$t('confirmPasswordPlaceholder')"
+        :class="{'input-invalid': passwordConfirmInvalid, 'input-valid': passwordConfirmValid}"
+      ><small
+        v-once
+        class="form-text"
+        v-html="$t('termsAndAgreement')"
+      ></small>
+    </div><div class="text-center">
+      <div
+        v-if="registering"
+        v-once
+        class="btn btn-info"
+        @click="register()"
+      >
+        {{ $t('joinHabitica') }}
+      </div><div
+        v-if="!registering"
+        v-once
+        class="btn btn-info"
+        @click="login()"
+      >
+        {{ $t('login') }}
+      </div>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>

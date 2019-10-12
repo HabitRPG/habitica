@@ -1,32 +1,92 @@
-<template lang="pug">
-.create-group-modal-pages
-  .col-12(v-if='activePage === PAGES.CREATE_GROUP')
-    h2 {{ $t('nameYourGroup') }}
-    .form-group
-      label.control-label(for='new-group-name') {{ $t('name') }}
-      input.form-control#new-group-name.input-medium.option-content(required, type='text', :placeholder="$t('exampleGroupName')", v-model='newGroup.name')
-    .form-group
-      label(for='new-group-description') {{ $t('description') }}
-      textarea.form-control#new-group-description.option-content(cols='3', :placeholder="$t('exampleGroupDesc')", v-model='newGroup.description')
-    .form-group.text-left(v-if='newGroup.type === "guild"')
-      .custom-control.custom-radio
-        input.custom-control-input(type='radio', name='new-group-privacy', value='private', v-model='newGroup.privacy')
-        label.custom-control-label {{ $t('thisGroupInviteOnly') }}
-    .form-group.text-left
-      .custom-control.custom-checkbox
-        input.custom-control-input(type='checkbox', v-model='newGroup.leaderOnly.challenges' id='create-group-leaderOnlyChallenges-checkbox')
-        label.custom-control-label(for='create-group-leaderOnlyChallenges-checkbox') {{ $t('leaderOnlyChallenges') }}
-    .form-group(v-if='newGroup.type === "party"')
-      button.btn.btn-secondary.form-control(@click='createGroup()', :value="$t('createGroupPlan')")
-    .form-group
-      button.btn.btn-primary.btn-lg.btn-block(@click="createGroup()", :disabled="!newGroupIsReady") {{ $t('createGroupPlan') }}
-  .col-12(v-if='activePage === PAGES.PAY')
-    h2 {{ $t('choosePaymentMethod') }}
-    .payments-column
-      button.purchase.btn.btn-primary.payment-button.payment-item(@click='pay(PAYMENTS.STRIPE)')
-        .svg-icon.credit-card-icon(v-html="icons.creditCardIcon")
-        | {{ $t('card') }}
-      amazon-button.payment-item(:amazon-data="pay(PAYMENTS.AMAZON)")
+<template>
+  <div class="create-group-modal-pages">
+    <div
+      v-if="activePage === PAGES.CREATE_GROUP"
+      class="col-12"
+    >
+      <h2>{{ $t('nameYourGroup') }}</h2><div class="form-group">
+        <label
+          class="control-label"
+          for="new-group-name"
+        >{{ $t('name') }}</label><input
+          id="new-group-name"
+          v-model="newGroup.name"
+          class="form-control input-medium option-content"
+          required="required"
+          type="text"
+          :placeholder="$t('exampleGroupName')"
+        >
+      </div><div class="form-group">
+        <label for="new-group-description">{{ $t('description') }}</label><textarea
+          id="new-group-description"
+          v-model="newGroup.description"
+          class="form-control option-content"
+          cols="3"
+          :placeholder="$t('exampleGroupDesc')"
+        ></textarea>
+      </div><div
+        v-if="newGroup.type === 'guild'"
+        class="form-group text-left"
+      >
+        <div class="custom-control custom-radio">
+          <input
+            v-model="newGroup.privacy"
+            class="custom-control-input"
+            type="radio"
+            name="new-group-privacy"
+            value="private"
+          ><label class="custom-control-label">{{ $t('thisGroupInviteOnly') }}</label>
+        </div>
+      </div><div class="form-group text-left">
+        <div class="custom-control custom-checkbox">
+          <input
+            id="create-group-leaderOnlyChallenges-checkbox"
+            v-model="newGroup.leaderOnly.challenges"
+            class="custom-control-input"
+            type="checkbox"
+          ><label
+            class="custom-control-label"
+            for="create-group-leaderOnlyChallenges-checkbox"
+          >{{ $t('leaderOnlyChallenges') }}</label>
+        </div>
+      </div><div
+        v-if="newGroup.type === 'party'"
+        class="form-group"
+      >
+        <button
+          class="btn btn-secondary form-control"
+          :value="$t('createGroupPlan')"
+          @click="createGroup()"
+        ></button>
+      </div><div class="form-group">
+        <button
+          class="btn btn-primary btn-lg btn-block"
+          :disabled="!newGroupIsReady"
+          @click="createGroup()"
+        >
+          {{ $t('createGroupPlan') }}
+        </button>
+      </div>
+    </div><div
+      v-if="activePage === PAGES.PAY"
+      class="col-12"
+    >
+      <h2>{{ $t('choosePaymentMethod') }}</h2><div class="payments-column">
+        <button
+          class="purchase btn btn-primary payment-button payment-item"
+          @click="pay(PAYMENTS.STRIPE)"
+        >
+          <div
+            class="svg-icon credit-card-icon"
+            v-html="icons.creditCardIcon"
+          ></div>{{ $t('card') }}
+        </button><amazon-button
+          class="payment-item"
+          :amazon-data="pay(PAYMENTS.AMAZON)"
+        />
+      </div>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>

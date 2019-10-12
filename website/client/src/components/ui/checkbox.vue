@@ -1,8 +1,18 @@
-<template lang="pug">
-  .form-check
-    .custom-control.custom-checkbox
-      input.custom-control-input(type="checkbox", v-model="isChecked", :id="id")
-      label.custom-control-label(v-once, :for="id") {{ text }}
+<template>
+  <div class="form-check">
+    <div class="custom-control custom-checkbox">
+      <input
+        :id="id"
+        v-model="isChecked"
+        class="custom-control-input"
+        type="checkbox"
+      ><label
+        v-once
+        class="custom-control-label"
+        :for="id"
+      >{{ text }}</label>
+    </div>
+  </div>
 </template>
 
 <script>

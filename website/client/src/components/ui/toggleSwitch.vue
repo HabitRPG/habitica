@@ -1,25 +1,39 @@
-<template lang="pug">
-.popover-box
-  .clearfix(:id="containerId")
-    .float-left.toggle-switch-description(v-if="label", :class="hoverText ? 'hasPopOver' : ''") {{ label }}
-    .toggle-switch.float-left
-      input.toggle-switch-checkbox(
-        type='checkbox', :id="toggleId",
-        @change="handleChange",
-        :checked="isChecked",
-        :value="value",
-      )
-      label.toggle-switch-label(:for="toggleId")
-        span.toggle-switch-inner
-        span.toggle-switch-switch
-
-  b-popover(
-    v-if="hoverText"
-    :target="containerId"
-    triggers="hover",
-    placement="top"
-  )
-    .popover-content-text {{ hoverText }}
+<template>
+  <div class="popover-box">
+    <div
+      :id="containerId"
+      class="clearfix"
+    >
+      <div
+        v-if="label"
+        class="float-left toggle-switch-description"
+        :class="hoverText ? 'hasPopOver' : ''"
+      >
+        {{ label }}
+      </div><div class="toggle-switch float-left">
+        <input
+          :id="toggleId"
+          class="toggle-switch-checkbox"
+          type="checkbox"
+          :checked="isChecked"
+          :value="value"
+          @change="handleChange"
+        ><label
+          class="toggle-switch-label"
+          :for="toggleId"
+        ><span class="toggle-switch-inner"></span><span class="toggle-switch-switch"></span></label>
+      </div>
+    </div><b-popover
+      v-if="hoverText"
+      :target="containerId"
+      triggers="hover"
+      placement="top"
+    >
+      <div class="popover-content-text">
+        {{ hoverText }}
+      </div>
+    </b-popover>
+  </div>
 </template>
 
 <style lang="scss" scoped>

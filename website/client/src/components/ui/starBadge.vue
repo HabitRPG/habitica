@@ -1,9 +1,10 @@
-<template lang="pug">
-span.badge.badge-pill.badge-item.badge-star(
-  :class="{'item-selected-badge': selected === true}",
-  @click.stop="click",
-  v-if="show",
-) &#9733;
+<template>
+  <span
+    v-if="show"
+    class="badge badge-pill badge-item badge-star"
+    :class="{'item-selected-badge': selected === true}"
+    @click.stop="click"
+  >&#9733;</span>
 </template>
 
 <style lang="scss">

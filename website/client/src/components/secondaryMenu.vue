@@ -1,6 +1,7 @@
-<template lang="pug">
-nav.nav.d-flex.justify-content-center.secondary-menu
-  slot
+<template>
+  <nav class="nav d-flex justify-content-center secondary-menu">
+    <slot></slot>
+  </nav>
 </template>
 
 <style lang="scss" scoped>

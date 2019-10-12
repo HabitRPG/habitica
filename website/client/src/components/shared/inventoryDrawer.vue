@@ -1,42 +1,59 @@
-<template lang="pug">
-drawer.inventoryDrawer(
-  :title="$t('quickInventory')"
-  :errorMessage="inventoryDrawerErrorMessage(selectedDrawerItemType)"
-)
-  div(slot="drawer-header")
-    drawer-header-tabs(
-      :tabs="filteredTabs",
-      @changedPosition="tabSelected($event)"
-    )
-      div(slot="right-item")
-        #petLikeToEatMarket.drawer-help-text(v-once)
-          | {{ $t('petLikeToEat') + ' ' }}
-          span.svg-icon.inline.icon-16(v-html="icons.information")
-        b-popover(
-          target="petLikeToEatMarket",
-          :placement="'top'",
-        )
-          .popover-content-text(v-html="$t('petLikeToEatText')", v-once)
-
-  drawer-slider(
-    v-if="hasOwnedItemsForType(selectedDrawerItemType)"
-    :items="ownedItems(selectedDrawerItemType) || []",
-    slot="drawer-slider",
-    :itemWidth=94,
-    :itemMargin=24,
-    :itemType="selectedDrawerTab"
-  )
-    template(slot="item", slot-scope="ctx")
-      slot(
-        name="item",
-        :item="ctx.item",
-        :itemClass="getItemClass(selectedDrawerContentType, ctx.item.key)",
-        :itemCount="userItems[selectedDrawerContentType][ctx.item.key] || 0",
-        :itemName="getItemName(selectedDrawerItemType, ctx.item)",
-        :itemType="selectedDrawerItemType"
-      )
-
-
+<template>
+  <drawer
+    class="inventoryDrawer"
+    :title="$t('quickInventory')"
+    :error-message="inventoryDrawerErrorMessage(selectedDrawerItemType)"
+  >
+    <div slot="drawer-header">
+      <drawer-header-tabs
+        :tabs="filteredTabs"
+        @changedPosition="tabSelected($event)"
+      >
+        <div slot="right-item">
+          <div
+            v-once
+            id="petLikeToEatMarket"
+            class="drawer-help-text"
+          >
+            {{ $t('petLikeToEat') + ' ' }}<span
+              class="svg-icon inline icon-16"
+              v-html="icons.information"
+            ></span>
+          </div><b-popover
+            target="petLikeToEatMarket"
+            :placement="'top'"
+          >
+            <div
+              v-once
+              class="popover-content-text"
+              v-html="$t('petLikeToEatText')"
+            ></div>
+          </b-popover>
+        </div>
+      </drawer-header-tabs>
+    </div><drawer-slider
+      v-if="hasOwnedItemsForType(selectedDrawerItemType)"
+      slot="drawer-slider"
+      :items="ownedItems(selectedDrawerItemType) || []"
+      :item-width="94"
+      :item-margin="24"
+      :item-type="selectedDrawerTab"
+    >
+      <template
+        slot="item"
+        slot-scope="ctx"
+      >
+        <slot
+          name="item"
+          :item="ctx.item"
+          :itemClass="getItemClass(selectedDrawerContentType, ctx.item.key)"
+          :itemCount="userItems[selectedDrawerContentType][ctx.item.key] || 0"
+          :itemName="getItemName(selectedDrawerItemType, ctx.item)"
+          :itemType="selectedDrawerItemType"
+        ></slot>
+      </template>
+    </drawer-slider>
+  </drawer>
 </template>
 
 <script>

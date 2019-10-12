@@ -1,37 +1,107 @@
-<template lang="pug">
-div
-  .mentioned-icon(v-if='isUserMentioned')
-  .message-hidden(v-if='!inbox && user.contributor.admin && msg.flagCount') {{flagCountDescription}}
-  .card-body
-    user-link(:userId="msg.uuid", :name="msg.user", :backer="msg.backer", :contributor="msg.contributor")
-    p.time
-      span.mr-1(v-if="msg.username") @{{ msg.username }}
-      span.mr-1(v-if="msg.username") •
-      span(v-b-tooltip="", :title="msg.timestamp | date") {{ msg.timestamp | timeAgo }}&nbsp;
-      span(v-if="msg.client && user.contributor.level >= 4")  ({{ msg.client }})
-    .text(v-html='atHighlight(parseMarkdown(msg.text))')
-    .reported(v-if="isMessageReported && (inbox === true)")
-      span(v-once) {{ $t('reportedMessage')}}
-      br
-      span(v-once) {{ $t('canDeleteNow') }}
-    hr
-    .d-flex(v-if='msg.id')
-      .action.d-flex.align-items-center(v-if='!inbox', @click='copyAsTodo(msg)')
-        .svg-icon(v-html="icons.copy")
-        div {{$t('copyAsTodo')}}
-      .action.d-flex.align-items-center(v-if='(inbox || (user.flags.communityGuidelinesAccepted && msg.uuid !== "system")) && (!isMessageReported || user.contributor.admin)', @click='report(msg)')
-        .svg-icon(v-html="icons.report", v-once)
-        div(v-once) {{$t('report')}}
-      .action.d-flex.align-items-center(v-if='msg.uuid === user._id || inbox || user.contributor.admin', @click='remove()')
-        .svg-icon(v-html="icons.delete", v-once)
-        div(v-once) {{$t('delete')}}
-      .ml-auto.d-flex(v-b-tooltip="{title: likeTooltip(msg.likes[user._id])}", v-if='!inbox')
-        .action.d-flex.align-items-center.mr-0(@click='like()', v-if='likeCount > 0', :class='{activeLike: msg.likes[user._id]}')
-          .svg-icon(v-html="icons.liked", :title='$t("liked")')
-          | +{{ likeCount }}
-        .action.d-flex.align-items-center.mr-0(@click='like()', v-if='likeCount === 0', :class='{activeLike: msg.likes[user._id]}')
-          .svg-icon(v-html="icons.like", :title='$t("like")')
-      span(v-if='!msg.likes[user._id] && !inbox') {{ $t('like') }}
+<template>
+  <div>
+    <div
+      v-if="isUserMentioned"
+      class="mentioned-icon"
+    ></div><div
+      v-if="!inbox && user.contributor.admin && msg.flagCount"
+      class="message-hidden"
+    >
+      {{ flagCountDescription }}
+    </div><div class="card-body">
+      <user-link
+        :user-id="msg.uuid"
+        :name="msg.user"
+        :backer="msg.backer"
+        :contributor="msg.contributor"
+      /><p class="time">
+        <span
+          v-if="msg.username"
+          class="mr-1"
+        >@{{ msg.username }}</span><span
+          v-if="msg.username"
+          class="mr-1"
+        >•</span><span
+          v-b-tooltip=""
+          :title="msg.timestamp | date"
+        >{{ msg.timestamp | timeAgo }}&nbsp;</span><span v-if="msg.client && user.contributor.level >= 4"> ({{ msg.client }})</span>
+      </p><div
+        class="text"
+        v-html="atHighlight(parseMarkdown(msg.text))"
+      ></div><div
+        v-if="isMessageReported && (inbox === true)"
+        class="reported"
+      >
+        <span v-once>{{ $t('reportedMessage') }}</span><br><span v-once>{{ $t('canDeleteNow') }}</span>
+      </div><hr><div
+        v-if="msg.id"
+        class="d-flex"
+      >
+        <div
+          v-if="!inbox"
+          class="action d-flex align-items-center"
+          @click="copyAsTodo(msg)"
+        >
+          <div
+            class="svg-icon"
+            v-html="icons.copy"
+          ></div><div>{{ $t('copyAsTodo') }}</div>
+        </div><div
+          v-if="(inbox || (user.flags.communityGuidelinesAccepted && msg.uuid !== 'system')) && (!isMessageReported || user.contributor.admin)"
+          class="action d-flex align-items-center"
+          @click="report(msg)"
+        >
+          <div
+            v-once
+            class="svg-icon"
+            v-html="icons.report"
+          ></div><div v-once>
+            {{ $t('report') }}
+          </div>
+        </div><div
+          v-if="msg.uuid === user._id || inbox || user.contributor.admin"
+          class="action d-flex align-items-center"
+          @click="remove()"
+        >
+          <div
+            v-once
+            class="svg-icon"
+            v-html="icons.delete"
+          ></div><div v-once>
+            {{ $t('delete') }}
+          </div>
+        </div><div
+          v-if="!inbox"
+          v-b-tooltip="{title: likeTooltip(msg.likes[user._id])}"
+          class="ml-auto d-flex"
+        >
+          <div
+            v-if="likeCount > 0"
+            class="action d-flex align-items-center mr-0"
+            :class="{activeLike: msg.likes[user._id]}"
+            @click="like()"
+          >
+            <div
+              class="svg-icon"
+              :title="$t('liked')"
+              v-html="icons.liked"
+            ></div>+{{ likeCount }}
+          </div><div
+            v-if="likeCount === 0"
+            class="action d-flex align-items-center mr-0"
+            :class="{activeLike: msg.likes[user._id]}"
+            @click="like()"
+          >
+            <div
+              class="svg-icon"
+              :title="$t('like')"
+              v-html="icons.like"
+            ></div>
+          </div>
+        </div><span v-if="!msg.likes[user._id] && !inbox">{{ $t('like') }}</span>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style lang="scss">

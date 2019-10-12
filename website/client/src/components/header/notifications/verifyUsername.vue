@@ -1,20 +1,29 @@
-<template lang="pug">
-  base-notification(
-  :can-remove="false",
-  :has-icon="false",
-  :read-after-click="false",
-  :notification="{}",
-  @click="action",
-  )
-    div.text-center(slot="content")
-      div.username-notification-title {{ $t('setUsernameNotificationTitle') }}
-      div {{ $t('setUsernameNotificationBody') }}
-      div.current-username-container.mx-auto
-        label.font-weight-bold {{ $t('currentUsername') + " " }}
-        label @
-        label {{ user.auth.local.username }}
-      .notifications-buttons
-        .btn.btn-small.btn-secondary(@click.stop="changeUsername()") {{ $t('goToSettings') }}
+<template>
+  <base-notification
+    :can-remove="false"
+    :has-icon="false"
+    :read-after-click="false"
+    :notification="{}"
+    @click="action"
+  >
+    <div
+      slot="content"
+      class="text-center"
+    >
+      <div class="username-notification-title">
+        {{ $t('setUsernameNotificationTitle') }}
+      </div><div>{{ $t('setUsernameNotificationBody') }}</div><div class="current-username-container mx-auto">
+        <label class="font-weight-bold">{{ $t('currentUsername') + " " }}</label><label>@</label><label>{{ user.auth.local.username }}</label>
+      </div><div class="notifications-buttons">
+        <div
+          class="btn btn-small btn-secondary"
+          @click.stop="changeUsername()"
+        >
+          {{ $t('goToSettings') }}
+        </div>
+      </div>
+    </div>
+  </base-notification>
 </template>
 <style lang='scss'>
   @import '../../../assets/scss/colors.scss';

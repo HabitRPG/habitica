@@ -1,34 +1,76 @@
-<template lang="pug">
-transition(name="fade")
-  .notification.callout.animated(:class="classes", v-if='show', @click='handleOnClick()')
-    .row(v-if='notification.type === "error"')
-      .text.col-12
-        div(v-html='notification.text')
-    .row(v-if='notification.type === "streak"')
-      .text.col-7.offset-1
-        div {{message}}
-      .icon.col-4
-        div.svg-icon(v-html="icons.gold")
-        div(v-html='notification.text')
-    .row(v-if='["hp", "gp", "xp", "mp"].indexOf(notification.type) !== -1')
-      .text.col-7.offset-1
-        div
-          | {{message}}
-      .icon.col-4.d-flex.align-items-center
-        div.svg-icon(v-html="icons.health", v-if='notification.type === "hp"')
-        div.svg-icon(v-html="icons.gold", v-if='notification.type === "gp"')
-        div.svg-icon(v-html="icons.star", v-if='notification.type === "xp"')
-        div.svg-icon(v-html="icons.mana", v-if='notification.type === "mp"')
-        div(v-html='notification.text')
-    .row(v-if='["info", "success", "crit", "lvl"].indexOf(notification.type) !== -1')
-      .text.col-12
-        div(v-html='notification.text')
-    .row(v-if='notification.type === "drop"')
-      .col-3
-        .icon-item
-          div(:class='notification.icon')
-      .text.col-8
-        div(v-html='notification.text')
+<template>
+  <transition name="fade">
+    <div
+      v-if="show"
+      class="notification callout animated"
+      :class="classes"
+      @click="handleOnClick()"
+    >
+      <div
+        v-if="notification.type === 'error'"
+        class="row"
+      >
+        <div class="text col-12">
+          <div v-html="notification.text"></div>
+        </div>
+      </div><div
+        v-if="notification.type === 'streak'"
+        class="row"
+      >
+        <div class="text col-7 offset-1">
+          <div>{{ message }}</div>
+        </div><div class="icon col-4">
+          <div
+            class="svg-icon"
+            v-html="icons.gold"
+          ></div><div v-html="notification.text"></div>
+        </div>
+      </div><div
+        v-if="['hp', 'gp', 'xp', 'mp'].indexOf(notification.type) !== -1"
+        class="row"
+      >
+        <div class="text col-7 offset-1">
+          <div>{{ message }}</div>
+        </div><div class="icon col-4 d-flex align-items-center">
+          <div
+            v-if="notification.type === 'hp'"
+            class="svg-icon"
+            v-html="icons.health"
+          ></div><div
+            v-if="notification.type === 'gp'"
+            class="svg-icon"
+            v-html="icons.gold"
+          ></div><div
+            v-if="notification.type === 'xp'"
+            class="svg-icon"
+            v-html="icons.star"
+          ></div><div
+            v-if="notification.type === 'mp'"
+            class="svg-icon"
+            v-html="icons.mana"
+          ></div><div v-html="notification.text"></div>
+        </div>
+      </div><div
+        v-if="['info', 'success', 'crit', 'lvl'].indexOf(notification.type) !== -1"
+        class="row"
+      >
+        <div class="text col-12">
+          <div v-html="notification.text"></div>
+        </div>
+      </div><div
+        v-if="notification.type === 'drop'"
+        class="row"
+      >
+        <div class="col-3">
+          <div class="icon-item">
+            <div :class="notification.icon"></div>
+          </div>
+        </div><div class="text col-8">
+          <div v-html="notification.text"></div>
+        </div>
+      </div>
+    </div>
+  </transition>
 </template>
 
 <style lang="scss" scoped>

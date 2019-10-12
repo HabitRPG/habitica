@@ -1,6 +1,14 @@
-<template lang="pug">
-  .claim-top-message.d-flex.align-content-center(v-if='message', :class="{'approval-action': userIsAdmin, 'approval-pending': !userIsAdmin}")
-    .m-auto(v-html='message')
+<template>
+  <div
+    v-if="message"
+    class="claim-top-message d-flex align-content-center"
+    :class="{'approval-action': userIsAdmin, 'approval-pending': !userIsAdmin}"
+  >
+    <div
+      class="m-auto"
+      v-html="message"
+    ></div>
+  </div>
 </template>
 
 <style lang="scss" scoped>

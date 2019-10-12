@@ -1,20 +1,32 @@
-<template lang="pug">
-.row
-  small.muted {{ $t('blurbHallPatrons') }}
-  .table-responsive
-    table.table.table-striped(infinite-scroll="loadMore()")
-      thead
-        tr
-          th {{ $t('name') }}
-          th(v-if='user.contributor.admin') {{ $t('UUID') }}
-          th {{ $t('backerTier') }}
-      tbody
-        tr(v-for='patron in patrons')
-          td
-            a.label.label-default(v-class='userLevelStyle(patron)', @click='clickMember(patron._id, true)')
-            | {{patron.profile.name}}
-          td(v-if='user.contributor.admin') {{patron._id}}
-          td {{patron.backer.tier}}
+<template>
+  <div class="row">
+    <small class="muted">{{ $t('blurbHallPatrons') }}</small><div class="table-responsive">
+      <table
+        class="table table-striped"
+        infinite-scroll="loadMore()"
+      >
+        <thead>
+          <tr>
+            <th>{{ $t('name') }}</th><th v-if="user.contributor.admin">
+              {{ $t('UUID') }}
+            </th><th>{{ $t('backerTier') }}</th>
+          </tr>
+        </thead><tbody>
+          <tr v-for="patron in patrons">
+            <td>
+              <a
+                v-class="userLevelStyle(patron)"
+                class="label label-default"
+                @click="clickMember(patron._id, true)"
+              ></a>{{ patron.profile.name }}
+            </td><td v-if="user.contributor.admin">
+              {{ patron._id }}
+            </td><td>{{ patron.backer.tier }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </template>
 
 <script>

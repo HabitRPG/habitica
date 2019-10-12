@@ -1,22 +1,34 @@
-<template lang="pug">
-  b-modal#subscription-canceled-modal(
-    size='sm',
-    :hideFooter="true",
-    :modalClass="['modal-hidden-footer']"
-  )
-    div(slot="modal-header")
-      .svg-icon.close(v-html="icons.close", v-once, @click="close()")
-      .icon-container.check-container.d-flex.align-items-center.justify-content-center
-        .svg-icon.check(v-html="icons.check", v-once)
-    .row
-      .col-12.modal-body-col
-        h2 {{ $t(isGroup ? 'canceledGroupPlan' : 'subCanceledTitle') }}
-        .details-block
-            span
-              | {{ $t('subWillBecomeInactive') }}
-              br
-              strong {{ isGroup ? groupDateTerminated : dateTerminated }}
-        span.auto-renew.small-text(v-once) {{ $t('paymentCanceledDisputes') }}
+<template>
+  <b-modal
+    id="subscription-canceled-modal"
+    size="sm"
+    :hide-footer="true"
+    :modal-class="['modal-hidden-footer']"
+  >
+    <div slot="modal-header">
+      <div
+        v-once
+        class="svg-icon close"
+        @click="close()"
+        v-html="icons.close"
+      ></div><div class="icon-container check-container d-flex align-items-center justify-content-center">
+        <div
+          v-once
+          class="svg-icon check"
+          v-html="icons.check"
+        ></div>
+      </div>
+    </div><div class="row">
+      <div class="col-12 modal-body-col">
+        <h2>{{ $t(isGroup ? 'canceledGroupPlan' : 'subCanceledTitle') }}</h2><div class="details-block">
+          <span>{{ $t('subWillBecomeInactive') }}<br><strong>{{ isGroup ? groupDateTerminated : dateTerminated }}</strong></span>
+        </div><span
+          v-once
+          class="auto-renew small-text"
+        >{{ $t('paymentCanceledDisputes') }}</span>
+      </div>
+    </div>
+  </b-modal>
 </template>
 
 <style lang="scss">

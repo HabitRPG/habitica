@@ -1,16 +1,28 @@
-<template lang="pug">
-  b-modal#card(:title="$t(cardType + 'Card')", size='md', :hide-footer="true")
-    .modal-header
-      .pull-right(:class='`inventory_special_${cardType}`')
-      h4 {{ $t(cardType + 'Card') }}
-    .modal-body
-      div(style='padding:10px')
-        p {{ $t('toAndFromCard', { toName: user.profile.name, fromName}) }}
-        hr
-        div(v-markdown='cardMessage')
-    .modal-footer
-      small.pull-left {{ $t(cardType + 'CardExplanation')}}
-      button.btn.btn-secondary(@click='readCard()') {{ $t('ok') }}
+<template>
+  <b-modal
+    id="card"
+    :title="$t(cardType + 'Card')"
+    size="md"
+    :hide-footer="true"
+  >
+    <div class="modal-header">
+      <div
+        class="pull-right"
+        :class="`inventory_special_${cardType}`"
+      ></div><h4>{{ $t(cardType + 'Card') }}</h4>
+    </div><div class="modal-body">
+      <div style="padding:10px">
+        <p>{{ $t('toAndFromCard', { toName: user.profile.name, fromName}) }}</p><hr><div v-markdown="cardMessage"></div>
+      </div>
+    </div><div class="modal-footer">
+      <small class="pull-left">{{ $t(cardType + 'CardExplanation') }}</small><button
+        class="btn btn-secondary"
+        @click="readCard()"
+      >
+        {{ $t('ok') }}
+      </button>
+    </div>
+  </b-modal>
 </template>
 
 <style scoped>

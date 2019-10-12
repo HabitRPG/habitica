@@ -1,165 +1,279 @@
-<template lang="pug">
-.row(v-mousePosition="30", @mouseMoved="mouseMoved($event)")
-  .standard-sidebar.d-none.d-sm-block
-    .form-group
-      input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
-
-    .form
-      h2(v-once) {{ $t('filter') }}
-      h3(v-once) {{ $t('equipmentType') }}
-      .form-group
-        .form-check(
-          v-for="group in groups",
-          :key="group.key",
-        )
-          .custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox", v-model="group.selected", :id="group.key")
-            label.custom-control-label(v-once, :for="group.key") {{ $t(group.key) }}
-  .standard-page
-    .clearfix
-      h1.float-left.mb-4.page-header(v-once) {{ $t('items') }}
-      .float-right
-        span.dropdown-label {{ $t('sortBy') }}
-        b-dropdown(:text="$t(sortBy)", right=true)
-          b-dropdown-item(@click="sortBy = 'quantity'", :active="sortBy === 'quantity'") {{ $t('quantity') }}
-          b-dropdown-item(@click="sortBy = 'AZ'", :active="sortBy === 'AZ'") {{ $t('AZ') }}
-    div(
-      v-for="group in groups",
-      v-if="!anyFilterSelected || group.selected",
-      :key="group.key",
-    )
-      h2.mb-3
-       | {{ $t(group.key) }}
-       |
-       span.badge.badge-pill.badge-default(v-if="group.key != 'special'") {{group.quantity}}
-
-
-      itemRows(
-        v-if="group.key === 'eggs'",
-        :items="items[group.key]",
-        :itemWidth=94,
-        :itemMargin=24,
-        :type="group.key",
-        :noItemsLabel="$t('noGearItemsOfType', { type: $t(group.key) })"
-      )
-        template(slot="item", slot-scope="context")
-          item(
-            :item="context.item",
-            :key="context.item.key",
-            :itemContentClass="context.item.class",
-            :showPopover="currentDraggingEgg == null",
-            :active="currentDraggingEgg == context.item",
-            :highlightBorder="isHatchable(currentDraggingPotion, context.item)",
-            v-drag.drop.hatch="context.item.key",
-
-            @itemDragOver="onDragOver($event, context.item)",
-            @itemDropped="onDrop($event, context.item)",
-            @itemDragLeave="onDragLeave()",
-
-            @click="onEggClicked($event, context.item)",
-          )
-            template(slot="popoverContent", slot-scope="context")
-              h4.popover-content-title {{ context.item.text }}
-              .popover-content-text(v-if="currentDraggingPotion == null") {{ context.item.notes }}
-            template(slot="itemBadge", slot-scope="context")
-              countBadge(
-                :show="true",
-                :count="context.item.quantity"
-              )
-
-      itemRows(
-        v-else-if="group.key === 'hatchingPotions'",
-        :items="items[group.key]",
-        :itemWidth=94,
-        :itemMargin=24,
-        :type="group.key",
-        :noItemsLabel="$t('noGearItemsOfType', { type: $t(group.key) })"
-      )
-        template(slot="item", slot-scope="context")
-          item(
-            :item="context.item",
-            :key="context.item.key",
-            :itemContentClass="context.item.class",
-            :showPopover="currentDraggingPotion == null",
-            :active="currentDraggingPotion == context.item",
-            :highlightBorder="isHatchable(context.item, currentDraggingEgg)",
-            v-drag.hatch="context.item.key",
-
-            @itemDragEnd="onDragEnd($event, context.item)",
-            @itemDragStart="onDragStart($event, context.item)",
-
-            @click="onPotionClicked($event, context.item)"
-          )
-            template(slot="popoverContent", slot-scope="context")
-              h4.popover-content-title {{ context.item.text }}
-              .popover-content-text {{ context.item.notes }}
-            template(slot="itemBadge", slot-scope="context")
-              countBadge(
-                :show="true",
-                :count="context.item.quantity"
-              )
-
-      itemRows(
-        v-else,
-        :items="items[group.key]",
-        :itemWidth=94,
-        :itemMargin=24,
-        :type="group.key",
-        :noItemsLabel="$t('noGearItemsOfType', { type: $t(group.key) })"
-      )
-        template(slot="item", slot-scope="context")
-          item(
-            :item="context.item",
-            :key="context.item.key",
-            :itemContentClass="context.item.class",
-            :showPopover="currentDraggingPotion == null",
-            @click="itemClicked(group.key, context.item)",
-          )
-            template(slot="popoverContent", slot-scope="context")
-              div.questPopover(v-if="group.key === 'quests'")
-                h4.popover-content-title {{ context.item.text }}
-                questInfo(:quest="context.item")
-
-              div(v-else)
-                h4.popover-content-title {{ context.item.text }}
-                .popover-content-text(v-html="context.item.notes")
-            template(slot="itemBadge", slot-scope="context")
-              countBadge(
-                :show="true",
-                :count="context.item.quantity"
-              )
-
-  hatchedPetDialog()
-
-  div.eggInfo(ref="draggingEggInfo")
-    div(v-if="currentDraggingEgg != null")
-      div.potion-icon(:class="'Pet_Egg_'+currentDraggingEgg.key")
-      div.popover
-        div.popover-content {{ $t('dragThisEgg', {eggName: currentDraggingEgg.text }) }}
-
-  div.eggInfo.mouse(ref="clickEggInfo", v-if="eggClickMode")
-    div(v-if="currentDraggingEgg != null")
-      div.potion-icon(:class="'Pet_Egg_'+currentDraggingEgg.key")
-      div.popover
-        div.popover-content {{ $t('clickOnPotionToHatch', {eggName: currentDraggingEgg.text }) }}
-
-  div.hatchingPotionInfo(ref="draggingPotionInfo")
-    div(v-if="currentDraggingPotion != null")
-      div.potion-icon(:class="'Pet_HatchingPotion_'+currentDraggingPotion.key")
-      div.popover
-        div.popover-content {{ $t('dragThisPotion', {potionName: currentDraggingPotion.text }) }}
-
-  div.hatchingPotionInfo.mouse(ref="clickPotionInfo", v-if="potionClickMode")
-    div(v-if="currentDraggingPotion != null")
-      div.potion-icon(:class="'Pet_HatchingPotion_'+currentDraggingPotion.key")
-      div.popover
-        div.popover-content {{ $t('clickOnEggToHatch', {potionName: currentDraggingPotion.text }) }}
-
-  startQuestModal(
-    :group="user.party"
-  )
-
-  cards-modal(:card-options='cardOptions')
+<template>
+  <div
+    v-mousePosition="30"
+    class="row"
+    @mouseMoved="mouseMoved($event)"
+  >
+    <div class="standard-sidebar d-none d-sm-block">
+      <div class="form-group">
+        <input
+          v-model="searchText"
+          class="form-control input-search"
+          type="text"
+          :placeholder="$t('search')"
+        >
+      </div><div class="form">
+        <h2 v-once>
+          {{ $t('filter') }}
+        </h2><h3 v-once>
+          {{ $t('equipmentType') }}
+        </h3><div class="form-group">
+          <div
+            v-for="group in groups"
+            :key="group.key"
+            class="form-check"
+          >
+            <div class="custom-control custom-checkbox">
+              <input
+                :id="group.key"
+                v-model="group.selected"
+                class="custom-control-input"
+                type="checkbox"
+              ><label
+                v-once
+                class="custom-control-label"
+                :for="group.key"
+              >{{ $t(group.key) }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><div class="standard-page">
+      <div class="clearfix">
+        <h1
+          v-once
+          class="float-left mb-4 page-header"
+        >
+          {{ $t('items') }}
+        </h1><div class="float-right">
+          <span class="dropdown-label">{{ $t('sortBy') }}</span><b-dropdown
+            :text="$t(sortBy)"
+            right="right"
+          >
+            <b-dropdown-item
+              :active="sortBy === 'quantity'"
+              @click="sortBy = 'quantity'"
+            >
+              {{ $t('quantity') }}
+            </b-dropdown-item><b-dropdown-item
+              :active="sortBy === 'AZ'"
+              @click="sortBy = 'AZ'"
+            >
+              {{ $t('AZ') }}
+            </b-dropdown-item>
+          </b-dropdown>
+        </div>
+      </div><div
+        v-for="group in groups"
+        v-if="!anyFilterSelected || group.selected"
+        :key="group.key"
+      >
+        <h2 class="mb-3">
+          {{ $t(group.key) }}
+          <span
+            v-if="group.key != 'special'"
+            class="badge badge-pill badge-default"
+          >{{ group.quantity }}</span>
+        </h2><itemRows
+          v-if="group.key === 'eggs'"
+          :items="items[group.key]"
+          :item-width="94"
+          :item-margin="24"
+          :type="group.key"
+          :no-items-label="$t('noGearItemsOfType', { type: $t(group.key) })"
+        >
+          <template
+            slot="item"
+            slot-scope="context"
+          >
+            <item
+              :key="context.item.key"
+              v-drag.drop.hatch="context.item.key"
+              :item="context.item"
+              :item-content-class="context.item.class"
+              :show-popover="currentDraggingEgg == null"
+              :active="currentDraggingEgg == context.item"
+              :highlight-border="isHatchable(currentDraggingPotion, context.item)"
+              @itemDragOver="onDragOver($event, context.item)"
+@itemDropped="onDrop($event, context.item)" @itemDragLeave="onDragLeave()" @click="onEggClicked($event, context.item)"
+            >
+              <template
+                slot="popoverContent"
+                slot-scope="context"
+              >
+                <h4 class="popover-content-title">
+                  {{ context.item.text }}
+                </h4><div
+                  v-if="currentDraggingPotion == null"
+                  class="popover-content-text"
+                >
+                  {{ context.item.notes }}
+                </div>
+              </template><template
+                slot="itemBadge"
+                slot-scope="context"
+              >
+                <countBadge
+                  :show="true"
+                  :count="context.item.quantity"
+                />
+              </template>
+            </item>
+          </template>
+        </itemRows><itemRows
+          v-else-if="group.key === 'hatchingPotions'"
+          :items="items[group.key]"
+          :item-width="94"
+          :item-margin="24"
+          :type="group.key"
+          :no-items-label="$t('noGearItemsOfType', { type: $t(group.key) })"
+        >
+          <template
+            slot="item"
+            slot-scope="context"
+          >
+            <item
+              :key="context.item.key"
+              v-drag.hatch="context.item.key"
+              :item="context.item"
+              :item-content-class="context.item.class"
+              :show-popover="currentDraggingPotion == null"
+              :active="currentDraggingPotion == context.item"
+              :highlight-border="isHatchable(context.item, currentDraggingEgg)"
+              @itemDragEnd="onDragEnd($event, context.item)"
+@itemDragStart="onDragStart($event, context.item)" @click="onPotionClicked($event, context.item)"
+            >
+              <template
+                slot="popoverContent"
+                slot-scope="context"
+              >
+                <h4 class="popover-content-title">
+                  {{ context.item.text }}
+                </h4><div class="popover-content-text">
+                  {{ context.item.notes }}
+                </div>
+              </template><template
+                slot="itemBadge"
+                slot-scope="context"
+              >
+                <countBadge
+                  :show="true"
+                  :count="context.item.quantity"
+                />
+              </template>
+            </item>
+          </template>
+        </itemRows><itemRows
+          v-else
+          :items="items[group.key]"
+          :item-width="94"
+          :item-margin="24"
+          :type="group.key"
+          :no-items-label="$t('noGearItemsOfType', { type: $t(group.key) })"
+        >
+          <template
+            slot="item"
+            slot-scope="context"
+          >
+            <item
+              :key="context.item.key"
+              :item="context.item"
+              :item-content-class="context.item.class"
+              :show-popover="currentDraggingPotion == null"
+              @click="itemClicked(group.key, context.item)"
+            >
+              <template
+                slot="popoverContent"
+                slot-scope="context"
+              >
+                <div
+                  v-if="group.key === 'quests'"
+                  class="questPopover"
+                >
+                  <h4 class="popover-content-title">
+                    {{ context.item.text }}
+                  </h4><questInfo :quest="context.item" />
+                </div><div v-else>
+                  <h4 class="popover-content-title">
+                    {{ context.item.text }}
+                  </h4><div
+                    class="popover-content-text"
+                    v-html="context.item.notes"
+                  ></div>
+                </div>
+              </template><template
+                slot="itemBadge"
+                slot-scope="context"
+              >
+                <countBadge
+                  :show="true"
+                  :count="context.item.quantity"
+                />
+              </template>
+            </item>
+          </template>
+        </itemRows>
+      </div>
+    </div><hatchedPetDialog /><div
+      ref="draggingEggInfo"
+      class="eggInfo"
+    >
+      <div v-if="currentDraggingEgg != null">
+        <div
+          class="potion-icon"
+          :class="'Pet_Egg_'+currentDraggingEgg.key"
+        ></div><div class="popover">
+          <div class="popover-content">
+            {{ $t('dragThisEgg', {eggName: currentDraggingEgg.text }) }}
+          </div>
+        </div>
+      </div>
+    </div><div
+      v-if="eggClickMode"
+      ref="clickEggInfo"
+      class="eggInfo mouse"
+    >
+      <div v-if="currentDraggingEgg != null">
+        <div
+          class="potion-icon"
+          :class="'Pet_Egg_'+currentDraggingEgg.key"
+        ></div><div class="popover">
+          <div class="popover-content">
+            {{ $t('clickOnPotionToHatch', {eggName: currentDraggingEgg.text }) }}
+          </div>
+        </div>
+      </div>
+    </div><div
+      ref="draggingPotionInfo"
+      class="hatchingPotionInfo"
+    >
+      <div v-if="currentDraggingPotion != null">
+        <div
+          class="potion-icon"
+          :class="'Pet_HatchingPotion_'+currentDraggingPotion.key"
+        ></div><div class="popover">
+          <div class="popover-content">
+            {{ $t('dragThisPotion', {potionName: currentDraggingPotion.text }) }}
+          </div>
+        </div>
+      </div>
+    </div><div
+      v-if="potionClickMode"
+      ref="clickPotionInfo"
+      class="hatchingPotionInfo mouse"
+    >
+      <div v-if="currentDraggingPotion != null">
+        <div
+          class="potion-icon"
+          :class="'Pet_HatchingPotion_'+currentDraggingPotion.key"
+        ></div><div class="popover">
+          <div class="popover-content">
+            {{ $t('clickOnEggToHatch', {potionName: currentDraggingPotion.text }) }}
+          </div>
+        </div>
+      </div>
+    </div><startQuestModal :group="user.party" /><cards-modal :card-options="cardOptions" />
+  </div>
 </template>
 
 <style lang="scss" scoped>

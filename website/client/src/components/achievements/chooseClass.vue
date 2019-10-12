@@ -1,54 +1,89 @@
-<template lang="pug">
-  b-modal#choose-class(
-    size='lg',
-    :hide-header='true',
-    :hide-footer='true',
-    :no-close-on-esc='true',
-    :no-close-on-backdrop='true',
-  )
-    .modal-body.select-class
-      h1.header-purple.text-center {{ $t('chooseClass') }}
-      .container-fluid
-        br
-        .row
-          .col-md-3(v-for='heroClass in classes')
-            div(@click='selectedClass = heroClass')
-              avatar(
-                :member='user',
-                :avatarOnly='true',
-                :withBackground='false',
-                :overrideAvatarGear='classGear(heroClass)',
-                :hideClassBadge='true',
-                :spritesMargin='"1.8em 1.5em"',
-                :overrideTopPadding='"0px"',
-                :showVisualBuffs='false',
-                :class='selectionBox(selectedClass, heroClass)',
-              )
-        br
-        .d-flex.justify-content-center(v-for='heroClass in classes')
-          .d-inline-flex(v-if='selectedClass === heroClass')
-            .class-badge.d-flex.justify-content-center
-              .svg-icon.align-self-center(v-html='icons[heroClass]')
-            .class-name(:class='`${heroClass}-color`') {{ $t(heroClass) }}
-        div(v-for='heroClass in classes')
-          .class-explanation.text-center(
-            v-if='selectedClass === heroClass'
-          ) {{ $t(`${heroClass}Text`) }}
-        .text-center(v-markdown='$t("chooseClassLearnMarkdown")')
-        .modal-actions.text-center
-          button.btn.btn-primary.d-inline-block(
-            v-if='!selectedClass',
-            :disabled='true'
-          ) {{ $t('select') }}
-          button.btn.btn-primary.d-inline-block(
-            v-else,
-            @click='clickSelectClass(selectedClass); close();'
-          ) {{ $t('selectClass', {heroClass: $t(selectedClass)}) }}
-          .opt-out-wrapper
-            span#classOptOutBtn.danger(
-              @click='clickDisableClasses(); close();'
-            ) {{ $t('optOutOfClasses') }}
-          span.opt-out-description {{ $t('optOutOfClassesText') }}
+<template>
+  <b-modal
+    id="choose-class"
+    size="lg"
+    :hide-header="true"
+    :hide-footer="true"
+    :no-close-on-esc="true"
+    :no-close-on-backdrop="true"
+  >
+    <div class="modal-body select-class">
+      <h1 class="header-purple text-center">
+        {{ $t('chooseClass') }}
+      </h1><div class="container-fluid">
+        <br><div class="row">
+          <div
+            v-for="heroClass in classes"
+            class="col-md-3"
+          >
+            <div @click="selectedClass = heroClass">
+              <avatar
+                :member="user"
+                :avatar-only="true"
+                :with-background="false"
+                :override-avatar-gear="classGear(heroClass)"
+                :hide-class-badge="true"
+                :sprites-margin="'1.8em 1.5em'"
+                :override-top-padding="'0px'"
+                :show-visual-buffs="false"
+                :class="selectionBox(selectedClass, heroClass)"
+              />
+            </div>
+          </div>
+        </div><br><div
+          v-for="heroClass in classes"
+          class="d-flex justify-content-center"
+        >
+          <div
+            v-if="selectedClass === heroClass"
+            class="d-inline-flex"
+          >
+            <div class="class-badge d-flex justify-content-center">
+              <div
+                class="svg-icon align-self-center"
+                v-html="icons[heroClass]"
+              ></div>
+            </div><div
+              class="class-name"
+              :class="`${heroClass}-color`"
+            >
+              {{ $t(heroClass) }}
+            </div>
+          </div>
+        </div><div v-for="heroClass in classes">
+          <div
+            v-if="selectedClass === heroClass"
+            class="class-explanation text-center"
+          >
+            {{ $t(`${heroClass}Text`) }}
+          </div>
+        </div><div
+          v-markdown="$t('chooseClassLearnMarkdown')"
+          class="text-center"
+        ></div><div class="modal-actions text-center">
+          <button
+            v-if="!selectedClass"
+            class="btn btn-primary d-inline-block"
+            :disabled="true"
+          >
+            {{ $t('select') }}
+          </button><button
+            v-else
+            class="btn btn-primary d-inline-block"
+            @click="clickSelectClass(selectedClass); close();"
+          >
+            {{ $t('selectClass', {heroClass: $t(selectedClass)}) }}
+          </button><div class="opt-out-wrapper">
+            <span
+              id="classOptOutBtn"
+              class="danger"
+              @click="clickDisableClasses(); close();"
+            >{{ $t('optOutOfClasses') }}</span>
+          </div><span class="opt-out-description">{{ $t('optOutOfClassesText') }}</span>
+        </div>
+      </div>
+    </div>
+  </b-modal>
 </template>
 
 <style lang="scss" scoped>

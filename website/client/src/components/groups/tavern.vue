@@ -1,164 +1,392 @@
-<template lang="pug">
-.row
-  world-boss-info-modal
-  world-boss-rage-modal
-  .col-12.col-sm-8.clearfix.standard-page
-    .row
-      .col-6.title-details
-        h1(v-once) {{ $t('welcomeToTavern') }}
-
-    chat(
-      :label="$t('tavernChat')",
-      :group="group",
-      :placeholder="$t('tavernCommunityGuidelinesPlaceholder')",
-      @fetchRecentMessages="fetchRecentMessages()"
-    )
-  .col-12.col-sm-4.sidebar
-    .section
-      .grassy-meadow-backdrop
-        .daniel_front
-
-      .boss-section
-        .world-boss(v-if='group && group.quest && group.quest.active', :style="{background: questData.colors.dark, 'border-color': questData.colors.extralight, 'outline-color': questData.colors.light}")
-          .corner-decoration(:style="{top: '-2px', right: '-2px'}")
-          .corner-decoration(:style="{top: '-2px', left: '-2px'}")
-          .corner-decoration(:style="{bottom: '-2px', right: '-2px'}")
-          .corner-decoration(:style="{bottom: '-2px', left: '-2px'}")
-          .text-center.float-bar.d-flex.align-items-center
-            span.diamond
-            span.strong.reduce(:style="{background: questData.colors.dark}") {{ $t('worldBossEvent') }}
-            span.diamond
-          .boss-gradient.pb-3.pt-3
-            p.text-center.reduce(:style="{color: questData.colors.extralight}") {{ $t(`${questData.key}ArtCredit`) }}
-            .quest-boss(:class="'background_' + questData.key")
-              .quest-boss(:class="'quest_' + questData.key")
-              .quest-boss(:class="'phobia_' + questData.key", :style="{display: 'none'}")
-          .p-3
-            .row.d-flex.align-items-center.mb-2
-              .col-sm-6
-                strong.float-left {{ questData.boss.name() }}
-              .col-sm-6
-                span.d-flex.float-right
-                  .svg-icon.boss-icon(v-html="icons.swordIcon")
-                  span.ml-1.reduce(:style="{color: questData.colors.extralight}") {{ $t('pendingDamage', {damage: pendingDamage()}) }}
-            .grey-progress-bar.mb-1
-              .boss-health-bar(:style="{width: (group.quest.progress.hp / questData.boss.hp) * 100 + '%'}")
-            span.d-flex.align-items-center
-              .svg-icon.boss-icon(v-html="icons.healthIcon")
-              span.reduce.ml-1.pt-1 {{ $t('bossHealth', {currentHealth: bossCurrentHealth(), maxHealth: questData.boss.hp.toLocaleString()}) }}
-            .mt-3.mb-2
-              strong.mr-1 {{ $t('rageAttack') }}
-              span {{ questData.boss.rage.title() }}
-            .grey-progress-bar.mb-1
-              .boss-health-bar.rage-bar(:style="{width: (group.quest.progress.rage / questData.boss.rage.value) * 100 + '%'}")
-            span.d-flex.align-items-center
-              .svg-icon.boss-icon(v-html="icons.rageIcon")
-              span.reduce.ml-1.pt-1 {{ $t('bossRage', {currentRage: bossCurrentRage(), maxRage: questData.boss.rage.value.toLocaleString()}) }}
-            .row.d-flex.align-items-center.mb-2.mt-2
-              .col-sm-4.d-flex
-                strong.mr-2 {{ $t('rageStrikes') }}
-                .svg-icon.boss-icon.information-icon.m-auto(v-html="icons.informationIcon", v-b-tooltip.hover.top="questData.boss.rage.description()")
-              .col-sm-8.d-flex.align-items-center.justify-content-center
-                .m-auto(@click="showWorldBossRage('seasonalShop')")
-                  img.rage-strike(src="~@/assets/images/world-boss/rage_strike@2x.png", v-if="!group.quest.extra.worldDmg.seasonalShop")
-                  img.rage-strike-active(src="~@/assets/images/world-boss/rage_strike-seasonalShop@2x.png", v-if="group.quest.extra.worldDmg.seasonalShop")
-                .m-auto(@click="showWorldBossRage('market')")
-                  img.rage-strike(src="~@/assets/images/world-boss/rage_strike@2x.png", v-if="!group.quest.extra.worldDmg.market")
-                  img.rage-strike-active(src="~@/assets/images/world-boss/rage_strike-market@2x.png", v-if="group.quest.extra.worldDmg.market")
-                .m-auto(@click="showWorldBossRage('quests')")
-                  img.rage-strike(src="~@/assets/images/world-boss/rage_strike@2x.png", v-if="!group.quest.extra.worldDmg.quests")
-                  img.rage-strike-active(src="~@/assets/images/world-boss/rage_strike-quests@2x.png", v-if="group.quest.extra.worldDmg.quests")
-            .boss-description.p-3(:style="{'border-color': questData.colors.extralight}", @click="sections.worldBoss = !sections.worldBoss")
-              strong.float-left {{ $t('worldBossDescription') }}
-              .float-right
-                .toggle-down(v-if="!sections.worldBoss")
-                  .svg-icon.boss-icon(v-html="icons.chevronIcon")
-                .toggle-up(v-if="sections.worldBoss")
-                  .svg-icon.boss-icon.reverse(v-html="icons.chevronIcon")
-            .mt-3(v-if="sections.worldBoss", v-html="questData.notes()")
-        // .text-center.mt-4
-          .world-boss-info-button(@click="showWorldBossInfo()") {{$t('whatIsWorldBoss') }}
-
-      .sleep.below-header-sections
-        strong(v-once) {{ $t('sleepDescription') }}
-        ul
-          li(v-once) {{ $t('sleepBullet1') }}
-          li(v-once) {{ $t('sleepBullet2') }}
-          li(v-once) {{ $t('sleepBullet3') }}
-          li(v-once) {{ $t('sleepBullet4') }}
-        button.btn.btn-secondary.pause-button(v-if='!user.preferences.sleep', @click='toggleSleep()', v-once) {{ $t('pauseDailies') }}
-        button.btn.btn-secondary.pause-button(v-if='user.preferences.sleep', @click='toggleSleep()', v-once) {{ $t('unpauseDailies') }}
-    .px-3
-      sidebar-section(:title="$t('staffAndModerators')")
-        .row
-          .col-4.staff(v-for='user in staff', :class='{staff: user.type === "Staff", moderator: user.type === "Moderator", bailey: user.name === "It\'s Bailey"}')
-            div
-              router-link.title(:to="{'name': 'userProfile', 'params': {'userId': user.uuid}}") {{user.name}}
-              .svg-icon.staff-icon(v-html="icons.tierStaff", v-if='user.type === "Staff"')
-              .svg-icon.mod-icon(v-html="icons.tierMod", v-if='user.type === "Moderator" && user.name !== "It\'s Bailey"')
-              .svg-icon.npc-icon(v-html="icons.tierNPC", v-if='user.name === "It\'s Bailey"')
-            .type {{user.type}}
-
-      sidebar-section(:title="$t('helpfulLinks')")
-        ul
-          li
-            a(href='', @click.prevent='modForm()') {{ $t('contactForm') }}
-          li
-           router-link(to='/static/community-guidelines', v-once) {{ $t('communityGuidelinesLink') }}
-          li
-            router-link(to="/groups/guild/f2db2a7f-13c5-454d-b3ee-ea1f5089e601") {{ $t('lookingForGroup') }}
-          li
-           router-link(to='/static/faq', v-once) {{ $t('faq') }}
-          li
-            a(href='', v-html="$t('glossary')")
-          li
-            a(href='http://habitica.fandom.com/wiki/Habitica_Wiki' target='_blank', v-once) {{ $t('wiki') }}
-          li
-            a(href='https://oldgods.net/habitrpg/habitrpg_user_data_display.html', target='_blank', v-once) {{ $t('dataDisplayTool') }}
-          li
-            router-link(to="/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac") {{ $t('reportProblem') }}
-          li
-            a(href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents', target='_blank', v-once) {{ $t('requestFeature') }}
-          li
-            a(href='', v-html="$t('communityForum')")
-          li
-            router-link(to="/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a") {{ $t('askQuestionGuild') }}
-
-      sidebar-section(:title="$t('playerTiers')")
-        .row
-          .col-12
-            p(v-once) {{ $t('playerTiersDesc') }}
-            ul.tier-list
-              li.tier1(v-once)
-               | {{ $t('tier1') }}
-               .svg-icon.tier1-icon(v-html="icons.tier1")
-              li.tier2(v-once)
-                | {{ $t('tier2') }}
-                .svg-icon.tier2-icon(v-html="icons.tier2")
-              li.tier3(v-once)
-                | {{ $t('tier3') }}
-                .svg-icon.tier3-icon(v-html="icons.tier3")
-              li.tier4(v-once)
-                | {{ $t('tier4') }}
-                .svg-icon.tier4-icon(v-html="icons.tier4")
-              li.tier5(v-once)
-                | {{ $t('tier5') }}
-                .svg-icon.tier5-icon(v-html="icons.tier5")
-              li.tier6(v-once)
-                | {{ $t('tier6') }}
-                .svg-icon.tier6-icon(v-html="icons.tier6")
-              li.tier7(v-once)
-                | {{ $t('tier7') }}
-                .svg-icon.tier7-icon(v-html="icons.tier7")
-              li.moderator(v-once)
-                | {{ $t('tierModerator') }}
-                .svg-icon.mod-icon(v-html="icons.tierMod")
-              li.staff(v-once)
-                | {{ $t('tierStaff') }}
-                .svg-icon.staff-icon(v-html="icons.tierStaff")
-              li.npc(v-once)
-                | {{ $t('tierNPC') }}
-                .svg-icon.npc-icon(v-html="icons.tierNPC")
+<template>
+  <div class="row">
+    <world-boss-info-modal /><world-boss-rage-modal /><div class="col-12 col-sm-8 clearfix standard-page">
+      <div class="row">
+        <div class="col-6 title-details">
+          <h1 v-once>
+            {{ $t('welcomeToTavern') }}
+          </h1>
+        </div>
+      </div><chat
+        :label="$t('tavernChat')"
+        :group="group"
+        :placeholder="$t('tavernCommunityGuidelinesPlaceholder')"
+        @fetchRecentMessages="fetchRecentMessages()"
+      />
+    </div><div class="col-12 col-sm-4 sidebar">
+      <div class="section">
+        <div class="grassy-meadow-backdrop">
+          <div class="daniel_front"></div>
+        </div><div class="boss-section">
+          <div
+            v-if="group && group.quest && group.quest.active"
+            class="world-boss"
+            :style="{background: questData.colors.dark, 'border-color': questData.colors.extralight, 'outline-color': questData.colors.light}"
+          >
+            <div
+              class="corner-decoration"
+              :style="{top: '-2px', right: '-2px'}"
+            ></div><div
+              class="corner-decoration"
+              :style="{top: '-2px', left: '-2px'}"
+            ></div><div
+              class="corner-decoration"
+              :style="{bottom: '-2px', right: '-2px'}"
+            ></div><div
+              class="corner-decoration"
+              :style="{bottom: '-2px', left: '-2px'}"
+            ></div><div class="text-center float-bar d-flex align-items-center">
+              <span class="diamond"></span><span
+                class="strong reduce"
+                :style="{background: questData.colors.dark}"
+              >{{ $t('worldBossEvent') }}</span><span class="diamond"></span>
+            </div><div class="boss-gradient pb-3 pt-3">
+              <p
+                class="text-center reduce"
+                :style="{color: questData.colors.extralight}"
+              >
+                {{ $t(`${questData.key}ArtCredit`) }}
+              </p><div
+                class="quest-boss"
+                :class="'background_' + questData.key"
+              >
+                <div
+                  class="quest-boss"
+                  :class="'quest_' + questData.key"
+                ></div><div
+                  class="quest-boss"
+                  :class="'phobia_' + questData.key"
+                  :style="{display: 'none'}"
+                ></div>
+              </div>
+            </div><div class="p-3">
+              <div class="row d-flex align-items-center mb-2">
+                <div class="col-sm-6">
+                  <strong class="float-left">{{ questData.boss.name() }}</strong>
+                </div><div class="col-sm-6">
+                  <span class="d-flex float-right"><div
+                    class="svg-icon boss-icon"
+                    v-html="icons.swordIcon"
+                  ></div><span
+                    class="ml-1 reduce"
+                    :style="{color: questData.colors.extralight}"
+                  >{{ $t('pendingDamage', {damage: pendingDamage()}) }}</span></span>
+                </div>
+              </div><div class="grey-progress-bar mb-1">
+                <div
+                  class="boss-health-bar"
+                  :style="{width: (group.quest.progress.hp / questData.boss.hp) * 100 + '%'}"
+                ></div>
+              </div><span class="d-flex align-items-center"><div
+                class="svg-icon boss-icon"
+                v-html="icons.healthIcon"
+              ></div><span class="reduce ml-1 pt-1">{{ $t('bossHealth', {currentHealth: bossCurrentHealth(), maxHealth: questData.boss.hp.toLocaleString()}) }}</span></span><div class="mt-3 mb-2">
+                <strong class="mr-1">{{ $t('rageAttack') }}</strong><span>{{ questData.boss.rage.title() }}</span>
+              </div><div class="grey-progress-bar mb-1">
+                <div
+                  class="boss-health-bar rage-bar"
+                  :style="{width: (group.quest.progress.rage / questData.boss.rage.value) * 100 + '%'}"
+                ></div>
+              </div><span class="d-flex align-items-center"><div
+                class="svg-icon boss-icon"
+                v-html="icons.rageIcon"
+              ></div><span class="reduce ml-1 pt-1">{{ $t('bossRage', {currentRage: bossCurrentRage(), maxRage: questData.boss.rage.value.toLocaleString()}) }}</span></span><div class="row d-flex align-items-center mb-2 mt-2">
+                <div class="col-sm-4 d-flex">
+                  <strong class="mr-2">{{ $t('rageStrikes') }}</strong><div
+                    v-b-tooltip.hover.top="questData.boss.rage.description()"
+                    class="svg-icon boss-icon information-icon m-auto"
+                    v-html="icons.informationIcon"
+                  ></div>
+                </div><div class="col-sm-8 d-flex align-items-center justify-content-center">
+                  <div
+                    class="m-auto"
+                    @click="showWorldBossRage('seasonalShop')"
+                  >
+                    <img
+                      v-if="!group.quest.extra.worldDmg.seasonalShop"
+                      class="rage-strike"
+                      src="~@/assets/images/world-boss/rage_strike@2x.png"
+                    ><img
+                      v-if="group.quest.extra.worldDmg.seasonalShop"
+                      class="rage-strike-active"
+                      src="~@/assets/images/world-boss/rage_strike-seasonalShop@2x.png"
+                    >
+                  </div><div
+                    class="m-auto"
+                    @click="showWorldBossRage('market')"
+                  >
+                    <img
+                      v-if="!group.quest.extra.worldDmg.market"
+                      class="rage-strike"
+                      src="~@/assets/images/world-boss/rage_strike@2x.png"
+                    ><img
+                      v-if="group.quest.extra.worldDmg.market"
+                      class="rage-strike-active"
+                      src="~@/assets/images/world-boss/rage_strike-market@2x.png"
+                    >
+                  </div><div
+                    class="m-auto"
+                    @click="showWorldBossRage('quests')"
+                  >
+                    <img
+                      v-if="!group.quest.extra.worldDmg.quests"
+                      class="rage-strike"
+                      src="~@/assets/images/world-boss/rage_strike@2x.png"
+                    ><img
+                      v-if="group.quest.extra.worldDmg.quests"
+                      class="rage-strike-active"
+                      src="~@/assets/images/world-boss/rage_strike-quests@2x.png"
+                    >
+                  </div>
+                </div>
+              </div><div
+                class="boss-description p-3"
+                :style="{'border-color': questData.colors.extralight}"
+                @click="sections.worldBoss = !sections.worldBoss"
+              >
+                <strong class="float-left">{{ $t('worldBossDescription') }}</strong><div class="float-right">
+                  <div
+                    v-if="!sections.worldBoss"
+                    class="toggle-down"
+                  >
+                    <div
+                      class="svg-icon boss-icon"
+                      v-html="icons.chevronIcon"
+                    ></div>
+                  </div><div
+                    v-if="sections.worldBoss"
+                    class="toggle-up"
+                  >
+                    <div
+                      class="svg-icon boss-icon reverse"
+                      v-html="icons.chevronIcon"
+                    ></div>
+                  </div>
+                </div>
+              </div><div
+                v-if="sections.worldBoss"
+                class="mt-3"
+                v-html="questData.notes()"
+              ></div>
+            </div>
+          </div><!-- .text-center.mt-4.world-boss-info-button(@click="showWorldBossInfo()") {{$t('whatIsWorldBoss') }}
+-->
+        </div><div class="sleep below-header-sections">
+          <strong v-once>{{ $t('sleepDescription') }}</strong><ul>
+            <li v-once>
+              {{ $t('sleepBullet1') }}
+            </li><li v-once>
+              {{ $t('sleepBullet2') }}
+            </li><li v-once>
+              {{ $t('sleepBullet3') }}
+            </li><li v-once>
+              {{ $t('sleepBullet4') }}
+            </li>
+          </ul><button
+            v-if="!user.preferences.sleep"
+            v-once
+            class="btn btn-secondary pause-button"
+            @click="toggleSleep()"
+          >
+            {{ $t('pauseDailies') }}
+          </button><button
+            v-if="user.preferences.sleep"
+            v-once
+            class="btn btn-secondary pause-button"
+            @click="toggleSleep()"
+          >
+            {{ $t('unpauseDailies') }}
+          </button>
+        </div>
+      </div><div class="px-3">
+        <sidebar-section :title="$t('staffAndModerators')">
+          <div class="row">
+            <div
+              v-for="user in staff"
+              class="col-4 staff"
+              :class="{staff: user.type === 'Staff', moderator: user.type === 'Moderator', bailey: user.name === 'It's Bailey'}"
+            >
+              <div>
+                <router-link
+                  class="title"
+                  :to="{'name': 'userProfile', 'params': {'userId': user.uuid}}"
+                >
+                  {{ user.name }}
+                </router-link><div
+                  v-if="user.type === 'Staff'"
+                  class="svg-icon staff-icon"
+                  v-html="icons.tierStaff"
+                ></div><div
+                  v-if="user.type === 'Moderator' && user.name !== 'It's Bailey'"
+                  class="svg-icon mod-icon"
+                  v-html="icons.tierMod"
+                ></div><div
+                  v-if="user.name === 'It's Bailey'"
+                  class="svg-icon npc-icon"
+                  v-html="icons.tierNPC"
+                ></div>
+              </div><div class="type">
+                {{ user.type }}
+              </div>
+            </div>
+          </div>
+        </sidebar-section><sidebar-section :title="$t('helpfulLinks')">
+          <ul>
+            <li>
+              <a
+                href=""
+                @click.prevent="modForm()"
+              >{{ $t('contactForm') }}</a>
+            </li><li>
+              <router-link
+                v-once
+                to="/static/community-guidelines"
+              >
+                {{ $t('communityGuidelinesLink') }}
+              </router-link>
+            </li><li>
+              <router-link to="/groups/guild/f2db2a7f-13c5-454d-b3ee-ea1f5089e601">
+                {{ $t('lookingForGroup') }}
+              </router-link>
+            </li><li>
+              <router-link
+                v-once
+                to="/static/faq"
+              >
+                {{ $t('faq') }}
+              </router-link>
+            </li><li>
+              <a
+                href=""
+                v-html="$t('glossary')"
+              ></a>
+            </li><li>
+              <a
+                v-once
+                href="http://habitica.fandom.com/wiki/Habitica_Wiki"
+                target="_blank"
+              >{{ $t('wiki') }}</a>
+            </li><li>
+              <a
+                v-once
+                href="https://oldgods.net/habitrpg/habitrpg_user_data_display.html"
+                target="_blank"
+              >{{ $t('dataDisplayTool') }}</a>
+            </li><li>
+              <router-link to="/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac">
+                {{ $t('reportProblem') }}
+              </router-link>
+            </li><li>
+              <a
+                v-once
+                href="https://trello.com/c/odmhIqyW/440-read-first-table-of-contents"
+                target="_blank"
+              >{{ $t('requestFeature') }}</a>
+            </li><li>
+              <a
+                href=""
+                v-html="$t('communityForum')"
+              ></a>
+            </li><li>
+              <router-link to="/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a">
+                {{ $t('askQuestionGuild') }}
+              </router-link>
+            </li>
+          </ul>
+        </sidebar-section><sidebar-section :title="$t('playerTiers')">
+          <div class="row">
+            <div class="col-12">
+              <p v-once>
+                {{ $t('playerTiersDesc') }}
+              </p><ul class="tier-list">
+                <li
+                  v-once
+                  class="tier1"
+                >
+                  {{ $t('tier1') }}<div
+                    class="svg-icon tier1-icon"
+                    v-html="icons.tier1"
+                  ></div>
+                </li><li
+                  v-once
+                  class="tier2"
+                >
+                  {{ $t('tier2') }}<div
+                    class="svg-icon tier2-icon"
+                    v-html="icons.tier2"
+                  ></div>
+                </li><li
+                  v-once
+                  class="tier3"
+                >
+                  {{ $t('tier3') }}<div
+                    class="svg-icon tier3-icon"
+                    v-html="icons.tier3"
+                  ></div>
+                </li><li
+                  v-once
+                  class="tier4"
+                >
+                  {{ $t('tier4') }}<div
+                    class="svg-icon tier4-icon"
+                    v-html="icons.tier4"
+                  ></div>
+                </li><li
+                  v-once
+                  class="tier5"
+                >
+                  {{ $t('tier5') }}<div
+                    class="svg-icon tier5-icon"
+                    v-html="icons.tier5"
+                  ></div>
+                </li><li
+                  v-once
+                  class="tier6"
+                >
+                  {{ $t('tier6') }}<div
+                    class="svg-icon tier6-icon"
+                    v-html="icons.tier6"
+                  ></div>
+                </li><li
+                  v-once
+                  class="tier7"
+                >
+                  {{ $t('tier7') }}<div
+                    class="svg-icon tier7-icon"
+                    v-html="icons.tier7"
+                  ></div>
+                </li><li
+                  v-once
+                  class="moderator"
+                >
+                  {{ $t('tierModerator') }}<div
+                    class="svg-icon mod-icon"
+                    v-html="icons.tierMod"
+                  ></div>
+                </li><li
+                  v-once
+                  class="staff"
+                >
+                  {{ $t('tierStaff') }}<div
+                    class="svg-icon staff-icon"
+                    v-html="icons.tierStaff"
+                  ></div>
+                </li><li
+                  v-once
+                  class="npc"
+                >
+                  {{ $t('tierNPC') }}<div
+                    class="svg-icon npc-icon"
+                    v-html="icons.tierNPC"
+                  ></div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </sidebar-section>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style lang='scss' scoped>

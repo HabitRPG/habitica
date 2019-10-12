@@ -1,25 +1,45 @@
-<template lang="pug">
-  .section
-      .section-header.d-flex.align-items-center
-        h3.mb-0(v-once)
-          | {{ title }}
-        .section-info.mx-1(
-          v-if="tooltip !== null"
-        )
-          .svg-icon(
-            v-html='icons.information',
-            :id="tooltipId",
-            :title="tooltip"
-          )
-          b-tooltip(
-            :title="tooltip",
-            :target="tooltipId",
-          )
-        .section-toggle.ml-auto(@click="toggle")
-          .svg-icon(v-html="icons.upIcon", v-if="visible")
-          .svg-icon(v-html="icons.downIcon", v-else)
-      .section-body(v-show="visible")
-        slot
+<template>
+  <div class="section">
+    <div class="section-header d-flex align-items-center">
+      <h3
+        v-once
+        class="mb-0"
+      >
+        {{ title }}
+      </h3><div
+        v-if="tooltip !== null"
+        class="section-info mx-1"
+      >
+        <div
+          :id="tooltipId"
+          class="svg-icon"
+          :title="tooltip"
+          v-html="icons.information"
+        ></div><b-tooltip
+          :title="tooltip"
+          :target="tooltipId"
+        />
+      </div><div
+        class="section-toggle ml-auto"
+        @click="toggle"
+      >
+        <div
+          v-if="visible"
+          class="svg-icon"
+          v-html="icons.upIcon"
+        ></div><div
+          v-else
+          class="svg-icon"
+          v-html="icons.downIcon"
+        ></div>
+      </div>
+    </div><div
+      v-show="visible"
+      class="section-body"
+    >
+      <slot></slot>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>

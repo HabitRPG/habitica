@@ -1,36 +1,48 @@
-<template lang="pug">
-div.featuredItems
-  .background(:class="{broken: broken}")
-  .background(:class="{cracked: broken, broken: broken}")
-    div.npc
-      div.featured-label
-        span.rectangle
-        span.text {{npcName}}
-        span.rectangle
-    div.content
-      div.featured-label.with-border
-        span.rectangle
-        span.text {{ featuredText }}
-        span.rectangle
-
-      div.items.margin-center
-        shopItem(
-          v-for="item in featuredItems",
-          :key="item.key",
-          :item="item",
-          :price="item.value",
-          :itemContentClass="'shop_'+item.key",
-          :emptyItem="false",
-          :popoverPosition="'top'",
-          @click="featuredItemSelected(item)"
-        )
-          template(slot="itemBadge", slot-scope="ctx")
-            span.badge.badge-pill.badge-item.badge-svg(
-              :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
-              @click.prevent.stop="togglePinned(ctx.item)"
-            )
-              span.svg-icon.inline.icon-12.color(v-html="icons.pin")
-
+<template>
+  <div class="featuredItems">
+    <div
+      class="background"
+      :class="{broken: broken}"
+    ></div><div
+      class="background"
+      :class="{cracked: broken, broken: broken}"
+    >
+      <div class="npc">
+        <div class="featured-label">
+          <span class="rectangle"></span><span class="text">{{ npcName }}</span><span class="rectangle"></span>
+        </div>
+      </div><div class="content">
+        <div class="featured-label with-border">
+          <span class="rectangle"></span><span class="text">{{ featuredText }}</span><span class="rectangle"></span>
+        </div><div class="items margin-center">
+          <shopItem
+            v-for="item in featuredItems"
+            :key="item.key"
+            :item="item"
+            :price="item.value"
+            :item-content-class="'shop_'+item.key"
+            :empty-item="false"
+            :popover-position="'top'"
+            @click="featuredItemSelected(item)"
+          >
+            <template
+              slot="itemBadge"
+              slot-scope="ctx"
+            >
+              <span
+                class="badge badge-pill badge-item badge-svg"
+                :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}"
+                @click.prevent.stop="togglePinned(ctx.item)"
+              ><span
+                class="svg-icon inline icon-12 color"
+                v-html="icons.pin"
+              ></span></span>
+            </template>
+          </shopItem>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>

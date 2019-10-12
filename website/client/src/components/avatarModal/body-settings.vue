@@ -1,23 +1,31 @@
-<template lang="pug">
-  #body.section.customize-section
-    sub-menu.text-center(:items="items", :activeSubPage="activeSubPage", @changeSubPage="changeSubPage($event)")
-    div(v-if='activeSubPage === "size"')
-      customize-options(
-        :items="sizes",
-        :currentValue="user.preferences.size"
-      )
-    div(v-if='activeSubPage === "shirt"')
-      customize-options(
-        :items="freeShirts",
-        :currentValue="user.preferences.shirt"
-      )
-      customize-options(
-        v-if='editing',
-        :items='specialShirts',
-        :currentValue="user.preferences.shirt",
-        :fullSet='!userOwnsSet("shirt", specialShirtKeys)',
-        @unlock='unlock(`shirt.${specialShirtKeys.join(",shirt.")}`)'
-      )
+<template>
+  <div
+    id="body"
+    class="section customize-section"
+  >
+    <sub-menu
+      class="text-center"
+      :items="items"
+      :active-sub-page="activeSubPage"
+      @changeSubPage="changeSubPage($event)"
+    /><div v-if="activeSubPage === 'size'">
+      <customize-options
+        :items="sizes"
+        :current-value="user.preferences.size"
+      />
+    </div><div v-if="activeSubPage === 'shirt'">
+      <customize-options
+        :items="freeShirts"
+        :current-value="user.preferences.shirt"
+      /><customize-options
+        v-if="editing"
+        :items="specialShirts"
+        :current-value="user.preferences.shirt"
+        :full-set="!userOwnsSet('shirt', specialShirtKeys)"
+        @unlock="unlock(`shirt.${specialShirtKeys.join(',shirt.')}`)"
+      />
+    </div>
+  </div>
 </template>
 
 <script>

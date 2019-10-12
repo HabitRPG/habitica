@@ -1,16 +1,27 @@
-<template lang="pug">
-  b-modal#contributor(:title="$t('modalContribAchievement')", size='md', :hide-footer="true")
-    .modal-body
-      .col-12
-        achievement-avatar.avatar
-      .col-6.offset-3.text-center
-        | {{ $t('contribModal', {name: user.profile.name, level: user.contributor.level}) }}
-        br
-        a(:href="$t('conRewardsURL')", target='_blank') {{ $t('contribLink') }}
-        br
-        button.btn.btn-primary(style='margin-top:1em' @click='close()') {{ $t('huzzah') }}
-        br
-    achievement-footer
+<template>
+  <b-modal
+    id="contributor"
+    :title="$t('modalContribAchievement')"
+    size="md"
+    :hide-footer="true"
+  >
+    <div class="modal-body">
+      <div class="col-12">
+        <achievement-avatar class="avatar" />
+      </div><div class="col-6 offset-3 text-center">
+        {{ $t('contribModal', {name: user.profile.name, level: user.contributor.level}) }}<br><a
+          :href="$t('conRewardsURL')"
+          target="_blank"
+        >{{ $t('contribLink') }}</a><br><button
+          class="btn btn-primary"
+          style="margin-top:1em"
+          @click="close()"
+        >
+          {{ $t('huzzah') }}
+        </button><br>
+      </div>
+    </div><achievement-footer />
+  </b-modal>
 </template>
 
 <style scoped>

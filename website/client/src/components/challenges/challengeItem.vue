@@ -1,42 +1,84 @@
-<template lang="pug">
-.challenge
-  .challenge-prize
-    .number
-      span.svg-icon(v-html="icons.gemIcon")
-      span.value {{challenge.prize}}
-    .label {{ $t('prize') }}
-  .challenge-header
-    router-link(
-      :to="{ name: 'challenge', params: { challengeId: challenge._id } }"
-    )
-      h3.challenge-title(v-markdown='challenge.name')
-    .meta-info
-      .member-count
-        .svg-icon.user-icon(v-html="icons.memberIcon")
-        span.count-label {{challenge.memberCount}}
-      .divider
-      .official(v-if="isOfficial")
-        .svg-icon.user-icon(v-html="icons.officialIcon")
-      .owner(v-if="fullLayout")
-        .owner-item
-          strong {{ $t('createdBy') }}:
-          user-link.mx-1(:user="challenge.leader")
-        .owner-item(v-if="challenge.group && !isTavern(challenge.group)")
-          strong {{ $t(challenge.group.type) }}:
-          group-link.mx-1(:group="challenge.group")
-  category-tags.challenge-categories(
-    :categories="challenge.categories",
-    :owner="isOwner",
-    :member="isMember",
-  )
-  .challenge-description(v-markdown='challenge.summary')
-  .well-wrapper(v-if="fullLayout")
-    .well
-      div(v-for="task in tasksData", :class="{'muted': task.value === 0}")
-        .number
-          .svg-icon(v-html="task.icon", :class="task.label + '-icon'")
-          span.value {{ task.value }}
-        .label {{$t(task.label)}}
+<template>
+  <div class="challenge">
+    <div class="challenge-prize">
+      <div class="number">
+        <span
+          class="svg-icon"
+          v-html="icons.gemIcon"
+        ></span><span class="value">{{ challenge.prize }}</span>
+      </div><div class="label">
+        {{ $t('prize') }}
+      </div>
+    </div><div class="challenge-header">
+      <router-link :to="{ name: 'challenge', params: { challengeId: challenge._id } }">
+        <h3
+          v-markdown="challenge.name"
+          class="challenge-title"
+        ></h3>
+      </router-link><div class="meta-info">
+        <div class="member-count">
+          <div
+            class="svg-icon user-icon"
+            v-html="icons.memberIcon"
+          ></div><span class="count-label">{{ challenge.memberCount }}</span>
+        </div><div class="divider"></div><div
+          v-if="isOfficial"
+          class="official"
+        >
+          <div
+            class="svg-icon user-icon"
+            v-html="icons.officialIcon"
+          ></div>
+        </div><div
+          v-if="fullLayout"
+          class="owner"
+        >
+          <div class="owner-item">
+            <strong>{{ $t('createdBy') }}:</strong><user-link
+              class="mx-1"
+              :user="challenge.leader"
+            />
+          </div><div
+            v-if="challenge.group && !isTavern(challenge.group)"
+            class="owner-item"
+          >
+            <strong>{{ $t(challenge.group.type) }}:</strong><group-link
+              class="mx-1"
+              :group="challenge.group"
+            />
+          </div>
+        </div>
+      </div>
+    </div><category-tags
+      class="challenge-categories"
+      :categories="challenge.categories"
+      :owner="isOwner"
+      :member="isMember"
+    /><div
+      v-markdown="challenge.summary"
+      class="challenge-description"
+    ></div><div
+      v-if="fullLayout"
+      class="well-wrapper"
+    >
+      <div class="well">
+        <div
+          v-for="task in tasksData"
+          :class="{'muted': task.value === 0}"
+        >
+          <div class="number">
+            <div
+              class="svg-icon"
+              :class="task.label + '-icon'"
+              v-html="task.icon"
+            ></div><span class="value">{{ task.value }}</span>
+          </div><div class="label">
+            {{ $t(task.label) }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style lang="scss">

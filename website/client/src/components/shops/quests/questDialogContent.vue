@@ -1,11 +1,18 @@
-<template lang="pug">
-  div.quest-content
-    .quest-image(:class="'quest_' + item.key")
-
-    h4.title {{ itemText }}
-    div.text(v-html="itemNotes")
-
-    questInfo.questInfo(:quest="item")
+<template>
+  <div class="quest-content">
+    <div
+      class="quest-image"
+      :class="'quest_' + item.key"
+    ></div><h4 class="title">
+      {{ itemText }}
+    </h4><div
+      class="text"
+      v-html="itemNotes"
+    ></div><questInfo
+      class="questInfo"
+      :quest="item"
+    />
+  </div>
 </template>
 
 

@@ -1,28 +1,57 @@
-<template lang="pug">
-  .standard-page.container
-    .row(v-for='(category, key) in achievements')
-      h2.col-12 {{ $t(key+'Achievs') }}
-      .col-3.text-center(v-for='achievment in category.achievements')
-        div.achievement-container(:data-popover-html='achievment.title + achievment.text',
-          popover-placement='achievPopoverPlacement',
-          popover-append-to-body='achievAppendToBody')
-          div(popover-trigger='mouseenter',
-            :data-popover-html='achievment.title + achievment.text',
-            popover-placement='achievPopoverPlacement',
-            popover-append-to-body='achievAppendToBody')
-              .achievement(:class='achievment.icon + "2x"', v-if='achievment.earned')
-               .counter.badge.badge-info.stack-count(v-if='achievment.optionalCount') {{achievment.optionalCount}}
-              .achievement(class='achievement-unearned2x', v-if='!achievment.earned')
-    .row
-      .col-6
-        h2 Challeges Won
-        div(v-for='chal in user.achievements.challenges')
-          span {{chal}}
-      .col-6
-        h2 Quests Completed
-        div(v-for='(value, key) in user.achievements.quests')
-          span {{ content.quests[k].text() }}
-          span {{ value }}
+<template>
+  <div class="standard-page container">
+    <div
+      v-for="(category, key) in achievements"
+      class="row"
+    >
+      <h2 class="col-12">
+        {{ $t(key+'Achievs') }}
+      </h2><div
+        v-for="achievment in category.achievements"
+        class="col-3 text-center"
+      >
+        <div
+          class="achievement-container"
+          :data-popover-html="achievment.title + achievment.text"
+          popover-placement="achievPopoverPlacement"
+          popover-append-to-body="achievAppendToBody"
+        >
+          <div
+            popover-trigger="mouseenter"
+            :data-popover-html="achievment.title + achievment.text"
+            popover-placement="achievPopoverPlacement"
+            popover-append-to-body="achievAppendToBody"
+          >
+            <div
+              v-if="achievment.earned"
+              class="achievement"
+              :class="achievment.icon + '2x'"
+            >
+              <div
+                v-if="achievment.optionalCount"
+                class="counter badge badge-info stack-count"
+              >
+                {{ achievment.optionalCount }}
+              </div>
+            </div><div
+              v-if="!achievment.earned"
+              class="achievement achievement-unearned2x"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div><div class="row">
+      <div class="col-6">
+        <h2>Challeges Won</h2><div v-for="chal in user.achievements.challenges">
+          <span>{{ chal }}</span>
+        </div>
+      </div><div class="col-6">
+        <h2>Quests Completed</h2><div v-for="(value, key) in user.achievements.quests">
+          <span>{{ content.quests[k].text() }}</span><span>{{ value }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>

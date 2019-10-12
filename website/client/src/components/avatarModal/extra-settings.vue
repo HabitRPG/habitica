@@ -1,38 +1,53 @@
-<template lang="pug">
-  #extra.section.container.customize-section
-    sub-menu.text-center(:items="extraSubMenuItems", :activeSubPage="activeSubPage", @changeSubPage="changeSubPage($event)")
-
-    #hair-color(v-if='activeSubPage === "glasses"')
-      customize-options(
-        :items="eyewear"
-      )
-
-    #animal-ears(v-if='activeSubPage === "ears"')
-      customize-options(
-        :items="animalItems('headAccessory')",
-        :fullSet='!animalItemsOwned("headAccessory")',
-        @unlock='unlock(animalItemsUnlockString("headAccessory"))'
-      )
-
-    #animal-tails(v-if='activeSubPage === "tails"')
-      customize-options(
-        :items="animalItems('back')",
-        :fullSet='!animalItemsOwned("back")',
-        @unlock='unlock(animalItemsUnlockString("back"))'
-      )
-    #headband(v-if='activeSubPage === "headband"')
-      customize-options(
-        :items="headbands",
-      )
-
-    #wheelchairs(v-if='activeSubPage === "wheelchair"')
-      customize-options(
-        :items="chairs",
-      )
-    #flowers(v-if='activeSubPage === "flower"')
-      customize-options(
-        :items="flowers",
-      )
+<template>
+  <div
+    id="extra"
+    class="section container customize-section"
+  >
+    <sub-menu
+      class="text-center"
+      :items="extraSubMenuItems"
+      :active-sub-page="activeSubPage"
+      @changeSubPage="changeSubPage($event)"
+    /><div
+      v-if="activeSubPage === 'glasses'"
+      id="hair-color"
+    >
+      <customize-options :items="eyewear" />
+    </div><div
+      v-if="activeSubPage === 'ears'"
+      id="animal-ears"
+    >
+      <customize-options
+        :items="animalItems('headAccessory')"
+        :full-set="!animalItemsOwned('headAccessory')"
+        @unlock="unlock(animalItemsUnlockString('headAccessory'))"
+      />
+    </div><div
+      v-if="activeSubPage === 'tails'"
+      id="animal-tails"
+    >
+      <customize-options
+        :items="animalItems('back')"
+        :full-set="!animalItemsOwned('back')"
+        @unlock="unlock(animalItemsUnlockString('back'))"
+      />
+    </div><div
+      v-if="activeSubPage === 'headband'"
+      id="headband"
+    >
+      <customize-options :items="headbands" />
+    </div><div
+      v-if="activeSubPage === 'wheelchair'"
+      id="wheelchairs"
+    >
+      <customize-options :items="chairs" />
+    </div><div
+      v-if="activeSubPage === 'flower'"
+      id="flowers"
+    >
+      <customize-options :items="flowers" />
+    </div>
+  </div>
 </template>
 
 <script>

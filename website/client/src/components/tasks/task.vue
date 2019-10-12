@@ -1,113 +1,287 @@
-<template lang="pug">
-.task-wrapper
-  .task(@click='castEnd($event, task)', :class="[{'groupTask': task.group.id}, `type_${task.type}`]")
-    approval-header(:task='task', v-if='task.group.id', :group='group')
-    .d-flex(:class="{'task-not-scoreable': isUser !== true}")
-      // Habits left side control
-      .left-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="[{'control-bottom-box': this.task.group.id, 'control-top-box': approvalsClass}, controlClass.up.bg]")
-        .task-control.habit-control(:class="controlClass.up.inner", @click="(isUser && task.up) ? score('up') : null")
-          .svg-icon.lock(v-if="this.task.group.id && !isUser", v-html="icons.lock", :class="controlClass.up.icon")
-          .svg-icon.positive(v-else, v-html="icons.positive")
-      // Dailies and todos left side control
-      .left-control.d-flex.justify-content-center(v-if="task.type === 'daily' || task.type === 'todo'", :class="[{'control-bottom-box': this.task.group.id, 'control-top-box': approvalsClass}, controlClass.bg]")
-        .task-control.daily-todo-control(:class="controlClass.inner", @click="isUser ? score(task.completed ? 'down' : 'up') : null")
-          .svg-icon.lock(v-html="icons.lock", v-if="this.task.group.id && !isUser && !task.completed", :class="controlClass.icon")
-          .svg-icon.check(v-else, v-html="icons.check", :class="{'display-check-icon': task.completed, [controlClass.checkbox]: true}")
-      // Task title, description and icons
-      .task-content(:class="contentClass")
-        .task-clickable-area(@click="edit($event, task)", :class="{'task-clickable-area-user': isUser}")
-          .d-flex.justify-content-between
-            h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
-            menu-dropdown.task-dropdown(
-              v-if="!isRunningYesterdailies && showOptions",
-              :right="task.type === 'reward'",
-              ref="taskDropdown",
-              v-b-tooltip.hover.top="$t('options')"
-            )
-              div(slot="dropdown-toggle", draggable=false)
-                .svg-icon.dropdown-icon(v-html="icons.menu")
-              div(slot="dropdown-content", draggable=false)
-                .dropdown-item.edit-task-item(ref="editTaskItem")
-                  span.dropdown-icon-item
-                    span.svg-icon.inline.edit-icon(v-html="icons.edit")
-                    span.text {{ $t('edit') }}
-                .dropdown-item(v-if='isUser', @click="moveToTop")
-                  span.dropdown-icon-item
-                    span.svg-icon.inline.push-to-top(v-html="icons.top")
-                    span.text {{ $t('taskToTop') }}
-                .dropdown-item(v-if='isUser', @click="moveToBottom")
-                  span.dropdown-icon-item
-                    span.svg-icon.inline.push-to-bottom(v-html="icons.bottom")
-                    span.text {{ $t('taskToBottom') }}
-                .dropdown-item(@click="destroy", v-if="canDelete(task)")
-                  span.dropdown-icon-item.delete-task-item
-                    span.svg-icon.inline.delete(v-html="icons.delete")
-                    span.text {{ $t('delete') }}
-
-          .task-notes.small-text(
-            v-markdown="task.notes",
-            :class="{'has-checklist': task.notes && hasChecklist}",
-          )
-        .checklist(v-if="canViewchecklist", :class="{isOpen: !task.collapseChecklist}")
-          .d-inline-flex
-            .collapse-checklist.d-flex.align-items-center.expand-toggle(
-              v-if="isUser",
-              @click="collapseChecklist(task)",
-              :class="{open: !task.collapseChecklist}",
-              v-b-tooltip.hover.bottom="$t(`${task.collapseChecklist ? 'expand': 'collapse'}Checklist`)",
-            )
-              .svg-icon(v-html="icons.checklist")
-              span {{ checklistProgress }}
-          .custom-control.custom-checkbox.checklist-item(
-            v-if='!task.collapseChecklist',
-            v-for="item in task.checklist", :class="{'checklist-item-done': item.completed}",
-          )
-            input.custom-control-input(
-              type="checkbox",
-              :checked="item.completed",
-              @change="toggleChecklistItem(item)",
-              :disabled="castingSpell || !isUser",
-              :id="`checklist-${item.id}-${random}`"
-            )
-            label.custom-control-label(v-markdown="item.text", :for="`checklist-${item.id}-${random}`")
-        .icons.small-text.d-flex.align-items-center
-          .d-flex.align-items-center(v-if="task.type === 'todo' && task.date", :class="{'due-overdue': isDueOverdue}")
-            .svg-icon.calendar(v-html="icons.calendar", v-b-tooltip.hover.bottom="$t('dueDate')")
-            span {{dueIn}}
-          .icons-right.d-flex.justify-content-end
-            .d-flex.align-items-center(v-if="showStreak")
-              .svg-icon.streak(v-html="icons.streak", v-b-tooltip.hover.bottom="$t('streakCounter')")
-              span(v-if="task.type === 'daily'") {{task.streak}}
-              span(v-if="task.type === 'habit'")
-                span.m-0(v-if="task.up") +{{task.counterUp}}
-                span.m-0(v-if="task.up && task.down") &nbsp;|&nbsp;
-                span.m-0(v-if="task.down") -{{task.counterDown}}
-            .d-flex.align-items-center(v-if="task.challenge && task.challenge.id")
-              .svg-icon.challenge(v-html="icons.challenge", v-if='!task.challenge.broken', v-b-tooltip.hover.bottom="shortName")
-              .svg-icon.challenge.broken(v-html="icons.brokenChallengeIcon", v-if='task.challenge.broken', @click='handleBrokenTask(task)', v-b-tooltip.hover.bottom="$t('brokenChaLink')")
-            .d-flex.align-items-center(v-if="hasTags", :id="`tags-icon-${task._id}`")
-              .svg-icon.tags(v-html="icons.tags")
-            b-popover(
-              v-if="hasTags",
-              :target="`tags-icon-${task._id}`",
-              triggers="hover",
-              placement="bottom",
-            )
-              .tags-popover
-                .d-flex.align-items-center.tags-container
-                  .tags-popover-title(v-once) {{ `${$t('tags')}:` }}
-                  .tag-label(v-for="tag in getTagsFor(task)", v-markdown="tag")
-
-      // Habits right side control
-      .right-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="[{'control-bottom-box': this.task.group.id, 'control-top-box': approvalsClass}, controlClass.down.bg]")
-        .task-control.habit-control(:class="controlClass.down.inner", @click="(isUser && task.down) ? score('down') : null")
-          .svg-icon.lock(v-if="this.task.group.id && !isUser", v-html="icons.lock", :class="controlClass.down.icon")
-          .svg-icon.negative(v-else, v-html="icons.negative")
-      // Rewards right side control
-      .right-control.d-flex.align-items-center.justify-content-center.reward-control(v-if="task.type === 'reward'", :class="controlClass.bg", @click="isUser ? score('down') : null")
-        .svg-icon(v-html="icons.gold")
-        .small-text {{task.value}}
-    approval-footer(:task='task', v-if='task.group.id', :group='group')
+<template>
+  <div class="task-wrapper">
+    <div
+      class="task"
+      :class="[{'groupTask': task.group.id}, `type_${task.type}`]"
+      @click="castEnd($event, task)"
+    >
+      <approval-header
+        v-if="task.group.id"
+        :task="task"
+        :group="group"
+      /><div
+        class="d-flex"
+        :class="{'task-not-scoreable': isUser !== true}"
+      >
+        <!-- Habits left side control--><div
+          v-if="task.type === 'habit'"
+          class="left-control d-flex align-items-center justify-content-center"
+          :class="[{'control-bottom-box': this.task.group.id, 'control-top-box': approvalsClass}, controlClass.up.bg]"
+        >
+          <div
+            class="task-control habit-control"
+            :class="controlClass.up.inner"
+            @click="(isUser && task.up) ? score('up') : null"
+          >
+            <div
+              v-if="this.task.group.id && !isUser"
+              class="svg-icon lock"
+              :class="controlClass.up.icon"
+              v-html="icons.lock"
+            ></div><div
+              v-else
+              class="svg-icon positive"
+              v-html="icons.positive"
+            ></div>
+          </div>
+        </div><!-- Dailies and todos left side control--><div
+          v-if="task.type === 'daily' || task.type === 'todo'"
+          class="left-control d-flex justify-content-center"
+          :class="[{'control-bottom-box': this.task.group.id, 'control-top-box': approvalsClass}, controlClass.bg]"
+        >
+          <div
+            class="task-control daily-todo-control"
+            :class="controlClass.inner"
+            @click="isUser ? score(task.completed ? 'down' : 'up') : null"
+          >
+            <div
+              v-if="this.task.group.id && !isUser && !task.completed"
+              class="svg-icon lock"
+              :class="controlClass.icon"
+              v-html="icons.lock"
+            ></div><div
+              v-else
+              class="svg-icon check"
+              :class="{'display-check-icon': task.completed, [controlClass.checkbox]: true}"
+              v-html="icons.check"
+            ></div>
+          </div>
+        </div><!-- Task title, description and icons--><div
+          class="task-content"
+          :class="contentClass"
+        >
+          <div
+            class="task-clickable-area"
+            :class="{'task-clickable-area-user': isUser}"
+            @click="edit($event, task)"
+          >
+            <div class="d-flex justify-content-between">
+              <h3
+                v-markdown="task.text"
+                class="task-title"
+                :class="{ 'has-notes': task.notes }"
+              ></h3><menu-dropdown
+                v-if="!isRunningYesterdailies && showOptions"
+                ref="taskDropdown"
+                v-b-tooltip.hover.top="$t('options')"
+                class="task-dropdown"
+                :right="task.type === 'reward'"
+              >
+                <div slot="dropdown-toggle">
+                  <div
+                    class="svg-icon dropdown-icon"
+                    v-html="icons.menu"
+                  ></div>
+                </div><div slot="dropdown-content">
+                  <div
+                    ref="editTaskItem"
+                    class="dropdown-item edit-task-item"
+                  >
+                    <span class="dropdown-icon-item"><span
+                      class="svg-icon inline edit-icon"
+                      v-html="icons.edit"
+                    ></span><span class="text">{{ $t('edit') }}</span></span>
+                  </div><div
+                    v-if="isUser"
+                    class="dropdown-item"
+                    @click="moveToTop"
+                  >
+                    <span class="dropdown-icon-item"><span
+                      class="svg-icon inline push-to-top"
+                      v-html="icons.top"
+                    ></span><span class="text">{{ $t('taskToTop') }}</span></span>
+                  </div><div
+                    v-if="isUser"
+                    class="dropdown-item"
+                    @click="moveToBottom"
+                  >
+                    <span class="dropdown-icon-item"><span
+                      class="svg-icon inline push-to-bottom"
+                      v-html="icons.bottom"
+                    ></span><span class="text">{{ $t('taskToBottom') }}</span></span>
+                  </div><div
+                    v-if="canDelete(task)"
+                    class="dropdown-item"
+                    @click="destroy"
+                  >
+                    <span class="dropdown-icon-item delete-task-item"><span
+                      class="svg-icon inline delete"
+                      v-html="icons.delete"
+                    ></span><span class="text">{{ $t('delete') }}</span></span>
+                  </div>
+                </div>
+              </menu-dropdown>
+            </div><div
+              v-markdown="task.notes"
+              class="task-notes small-text"
+              :class="{'has-checklist': task.notes && hasChecklist}"
+            ></div>
+          </div><div
+            v-if="canViewchecklist"
+            class="checklist"
+            :class="{isOpen: !task.collapseChecklist}"
+          >
+            <div class="d-inline-flex">
+              <div
+                v-if="isUser"
+                v-b-tooltip.hover.bottom="$t(`${task.collapseChecklist ? 'expand': 'collapse'}Checklist`)"
+                class="collapse-checklist d-flex align-items-center expand-toggle"
+                :class="{open: !task.collapseChecklist}"
+                @click="collapseChecklist(task)"
+              >
+                <div
+                  class="svg-icon"
+                  v-html="icons.checklist"
+                ></div><span>{{ checklistProgress }}</span>
+              </div>
+            </div><div
+              v-for="item in task.checklist"
+              v-if="!task.collapseChecklist"
+              class="custom-control custom-checkbox checklist-item"
+              :class="{'checklist-item-done': item.completed}"
+            >
+              <input
+                :id="`checklist-${item.id}-${random}`"
+                class="custom-control-input"
+                type="checkbox"
+                :checked="item.completed"
+                :disabled="castingSpell || !isUser"
+                @change="toggleChecklistItem(item)"
+              ><label
+                v-markdown="item.text"
+                class="custom-control-label"
+                :for="`checklist-${item.id}-${random}`"
+              ></label>
+            </div>
+          </div><div class="icons small-text d-flex align-items-center">
+            <div
+              v-if="task.type === 'todo' && task.date"
+              class="d-flex align-items-center"
+              :class="{'due-overdue': isDueOverdue}"
+            >
+              <div
+                v-b-tooltip.hover.bottom="$t('dueDate')"
+                class="svg-icon calendar"
+                v-html="icons.calendar"
+              ></div><span>{{ dueIn }}</span>
+            </div><div class="icons-right d-flex justify-content-end">
+              <div
+                v-if="showStreak"
+                class="d-flex align-items-center"
+              >
+                <div
+                  v-b-tooltip.hover.bottom="$t('streakCounter')"
+                  class="svg-icon streak"
+                  v-html="icons.streak"
+                ></div><span v-if="task.type === 'daily'">{{ task.streak }}</span><span v-if="task.type === 'habit'"><span
+                  v-if="task.up"
+                  class="m-0"
+                >+{{ task.counterUp }}</span><span
+                  v-if="task.up && task.down"
+                  class="m-0"
+                >&nbsp;|&nbsp;</span><span
+                  v-if="task.down"
+                  class="m-0"
+                >-{{ task.counterDown }}</span></span>
+              </div><div
+                v-if="task.challenge && task.challenge.id"
+                class="d-flex align-items-center"
+              >
+                <div
+                  v-if="!task.challenge.broken"
+                  v-b-tooltip.hover.bottom="shortName"
+                  class="svg-icon challenge"
+                  v-html="icons.challenge"
+                ></div><div
+                  v-if="task.challenge.broken"
+                  v-b-tooltip.hover.bottom="$t('brokenChaLink')"
+                  class="svg-icon challenge broken"
+                  @click="handleBrokenTask(task)"
+                  v-html="icons.brokenChallengeIcon"
+                ></div>
+              </div><div
+                v-if="hasTags"
+                :id="`tags-icon-${task._id}`"
+                class="d-flex align-items-center"
+              >
+                <div
+                  class="svg-icon tags"
+                  v-html="icons.tags"
+                ></div>
+              </div><b-popover
+                v-if="hasTags"
+                :target="`tags-icon-${task._id}`"
+                triggers="hover"
+                placement="bottom"
+              >
+                <div class="tags-popover">
+                  <div class="d-flex align-items-center tags-container">
+                    <div
+                      v-once
+                      class="tags-popover-title"
+                    >
+                      {{ `${$t('tags')}:` }}
+                    </div><div
+                      v-for="tag in getTagsFor(task)"
+                      v-markdown="tag"
+                      class="tag-label"
+                    ></div>
+                  </div>
+                </div>
+              </b-popover>
+            </div>
+          </div>
+        </div><!-- Habits right side control--><div
+          v-if="task.type === 'habit'"
+          class="right-control d-flex align-items-center justify-content-center"
+          :class="[{'control-bottom-box': this.task.group.id, 'control-top-box': approvalsClass}, controlClass.down.bg]"
+        >
+          <div
+            class="task-control habit-control"
+            :class="controlClass.down.inner"
+            @click="(isUser && task.down) ? score('down') : null"
+          >
+            <div
+              v-if="this.task.group.id && !isUser"
+              class="svg-icon lock"
+              :class="controlClass.down.icon"
+              v-html="icons.lock"
+            ></div><div
+              v-else
+              class="svg-icon negative"
+              v-html="icons.negative"
+            ></div>
+          </div>
+        </div><!-- Rewards right side control--><div
+          v-if="task.type === 'reward'"
+          class="right-control d-flex align-items-center justify-content-center reward-control"
+          :class="controlClass.bg"
+          @click="isUser ? score('down') : null"
+        >
+          <div
+            class="svg-icon"
+            v-html="icons.gold"
+          ></div><div class="small-text">
+            {{ task.value }}
+          </div>
+        </div>
+      </div><approval-footer
+        v-if="task.group.id"
+        :task="task"
+        :group="group"
+      />
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>

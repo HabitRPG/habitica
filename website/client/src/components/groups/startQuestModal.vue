@@ -1,31 +1,65 @@
-<template lang="pug">
-  b-modal#start-quest-modal(title="Empty", size='md', :hide-footer="true", :hide-header="true")
-    .left-panel.content
-      h3.text-center Quests
-      .row
-        .col-4.quest-col(
-          v-for='(value, key, index) in user.items.quests',
-          @click='selectQuest({key})',
-          :class="{selected: key === selectedQuest}", v-if='value > 0')
-          .quest-wrapper
-            b-popover(
+<template>
+  <b-modal
+    id="start-quest-modal"
+    title="Empty"
+    size="md"
+    :hide-footer="true"
+    :hide-header="true"
+  >
+    <div class="left-panel content">
+      <h3 class="text-center">
+        Quests
+      </h3><div class="row">
+        <div
+          v-for="(value, key, index) in user.items.quests"
+          v-if="value > 0"
+          class="col-4 quest-col"
+          :class="{selected: key === selectedQuest}"
+          @click="selectQuest({key})"
+        >
+          <div class="quest-wrapper">
+            <b-popover
               :target="`inventory_quest_scroll_${key}`"
-               placement="top"
-               triggers="hover")
-                 h4.popover-content-title {{ quests.quests[key].text() }}
-                 questInfo(:quest="quests.quests[key]")
-            .quest(:class="`inventory_quest_scroll_${key}`", :id="`inventory_quest_scroll_${key}`")
-      .row
-        .col-10.offset-1.text-center
-          span.description(v-once) {{ $t('noQuestToStart') }}
-    div(v-if='questData')
-      questDialogContent(:item="questData")
-    div.text-center
-      button.btn.btn-primary(@click='questInit()', :disabled="!Boolean(selectedQuest) || loading") {{$t('inviteToPartyOrQuest')}}
-    div.text-center
-      p {{$t('inviteInformation')}}
-    .side-panel(v-if='questData')
-      questDialogDrops(:item="questData")
+              placement="top"
+              triggers="hover"
+            >
+              <h4 class="popover-content-title">
+                {{ quests.quests[key].text() }}
+              </h4><questInfo :quest="quests.quests[key]" />
+            </b-popover><div
+              :id="`inventory_quest_scroll_${key}`"
+              class="quest"
+              :class="`inventory_quest_scroll_${key}`"
+            ></div>
+          </div>
+        </div>
+      </div><div class="row">
+        <div class="col-10 offset-1 text-center">
+          <span
+            v-once
+            class="description"
+          >{{ $t('noQuestToStart') }}</span>
+        </div>
+      </div>
+    </div><div v-if="questData">
+      <questDialogContent :item="questData" />
+    </div><div class="text-center">
+      <button
+        class="btn btn-primary"
+        :disabled="!Boolean(selectedQuest) || loading"
+        @click="questInit()"
+      >
+        {{ $t('inviteToPartyOrQuest') }}
+      </button>
+    </div><div class="text-center">
+      <p>{{ $t('inviteInformation') }}</p>
+    </div><div
+      v-if="questData"
+      class="side-panel"
+    >
+      <questDialogDrops :item="questData" />
+    </div>
+  </b-modal>
 </template>
 
 <style lang='scss' scoped>

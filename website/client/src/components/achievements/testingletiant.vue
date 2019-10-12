@@ -1,18 +1,34 @@
-<template lang="pug">
-  b-modal#testingletiant(:title="$t('guildReminderTitle')", size='lg', :hide-footer="true")
-    .modal-content
-    .modal-body.text-center
-      br
-      .scene_guilds
-      br
-      h4 {{ $t('guildReminderText2') }}
-    .modal-footer
-      .container-fluid
-        .row
-          .col-6.text-center
-            button.btn.btn-secondary(@click='close()') {{ $t('guildReminderDismiss') }}
-          .col-6.text-center
-            .btn.btn-primary(@click='takeMethere()') {{ $t('guildReminderCTA') }}
+<template>
+  <b-modal
+    id="testingletiant"
+    :title="$t('guildReminderTitle')"
+    size="lg"
+    :hide-footer="true"
+  >
+    <div class="modal-content"></div><div class="modal-body text-center">
+      <br><div class="scene_guilds"></div><br><h4>{{ $t('guildReminderText2') }}</h4>
+    </div><div class="modal-footer">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-6 text-center">
+            <button
+              class="btn btn-secondary"
+              @click="close()"
+            >
+              {{ $t('guildReminderDismiss') }}
+            </button>
+          </div><div class="col-6 text-center">
+            <div
+              class="btn btn-primary"
+              @click="takeMethere()"
+            >
+              {{ $t('guildReminderCTA') }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </b-modal>
 </template>
 
 <style scoped>

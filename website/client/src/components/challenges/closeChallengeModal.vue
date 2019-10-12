@@ -1,26 +1,63 @@
-<template lang="pug">
-div
-  b-modal#close-challenge-modal(:title="$t('createGuild')", size='md')
-    .header-wrap(slot="modal-header")
-      h2.text-center(v-once) {{$t('endChallenge')}}
-    .row.text-center
-      .col-12
-        .support-habitica
-          // @TODO: Add challenge achievement badge here
-      .col-12
-        strong(v-once) {{$t('selectChallengeWinnersDescription')}}
-      .col-12
-        member-search-dropdown(:text='winnerText', :members='members', :challengeId='challengeId', @member-selected='selectMember')
-      .col-12
-        button.btn.btn-primary(v-once, @click='closeChallenge') {{$t('awardWinners')}}
-      .col-12
-        hr
-        .or {{$t('or')}}
-      .col-12
-        strong(v-once) {{$t('doYouWantedToDeleteChallenge')}}
-      .col-12
-        button.btn.btn-danger(v-once, @click='deleteChallenge()') {{$t('deleteChallenge')}}
-    .footer-wrap(slot="modal-footer")
+<template>
+  <div>
+    <b-modal
+      id="close-challenge-modal"
+      :title="$t('createGuild')"
+      size="md"
+    >
+      <div
+        slot="modal-header"
+        class="header-wrap"
+      >
+        <h2
+          v-once
+          class="text-center"
+        >
+          {{ $t('endChallenge') }}
+        </h2>
+      </div><div class="row text-center">
+        <div class="col-12">
+          <div class="support-habitica">
+          <!-- @TODO: Add challenge achievement badge here-->
+          </div>
+        </div><div class="col-12">
+          <strong v-once>{{ $t('selectChallengeWinnersDescription') }}</strong>
+        </div><div class="col-12">
+          <member-search-dropdown
+            :text="winnerText"
+            :members="members"
+            :challenge-id="challengeId"
+            @member-selected="selectMember"
+          />
+        </div><div class="col-12">
+          <button
+            v-once
+            class="btn btn-primary"
+            @click="closeChallenge"
+          >
+            {{ $t('awardWinners') }}
+          </button>
+        </div><div class="col-12">
+          <hr><div class="or">
+            {{ $t('or') }}
+          </div>
+        </div><div class="col-12">
+          <strong v-once>{{ $t('doYouWantedToDeleteChallenge') }}</strong>
+        </div><div class="col-12">
+          <button
+            v-once
+            class="btn btn-danger"
+            @click="deleteChallenge()"
+          >
+            {{ $t('deleteChallenge') }}
+          </button>
+        </div>
+      </div><div
+        slot="modal-footer"
+        class="footer-wrap"
+      ></div>
+    </b-modal>
+  </div>
 </template>
 
 <style lang='scss'>

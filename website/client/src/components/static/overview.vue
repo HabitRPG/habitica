@@ -1,14 +1,13 @@
-<template lang="pug">
-.container-fluid.static-view
-  .row
-    .col-md-6.offset-3
-      h1 {{ $t('overview') }}
-      p {{ $t('needTips') }}
-      div(v-for='step in stepsNum')
-        h3 {{ $t('step'+step) }}
-        p(v-markdown="$t('webStep'+step+'Text', stepVars[step])")
-        hr
-      p(v-markdown="$t('overviewQuestions', {faqUrl: '/static/faq/', helpGuildUrl: '/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a'})")
+<template>
+  <div class="container-fluid static-view">
+    <div class="row">
+      <div class="col-md-6 offset-3">
+        <h1>{{ $t('overview') }}</h1><p>{{ $t('needTips') }}</p><div v-for="step in stepsNum">
+          <h3>{{ $t('step'+step) }}</h3><p v-markdown="$t('webStep'+step+'Text', stepVars[step])"></p><hr>
+        </div><p v-markdown="$t('overviewQuestions', {faqUrl: '/static/faq/', helpGuildUrl: '/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a'})"></p>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style lang='scss'>

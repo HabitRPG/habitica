@@ -1,9 +1,14 @@
-<template lang="pug">
-.row
-  .standard-sidebar.d-none.d-sm-block(v-if="showSidebar")
-    slot(name="sidebar")
-  .standard-page
-    slot(name="page")
+<template>
+  <div class="row">
+    <div
+      v-if="showSidebar"
+      class="standard-sidebar d-none d-sm-block"
+    >
+      <slot name="sidebar"></slot>
+    </div><div class="standard-page">
+      <slot name="page"></slot>
+    </div>
+  </div>
 </template>
 
 <script>

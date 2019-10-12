@@ -1,148 +1,327 @@
-<template lang="pug">
-.profile(v-if='user')
-  .header
-    .profile-actions
-      button.btn.btn-secondary.message-icon(@click='sendMessage()', v-b-tooltip.hover.left="$t('sendMessage')")
-        .svg-icon.message-icon(v-html="icons.message")
-      button.btn.btn-secondary.gift-icon(@click='openSendGemsModal()', v-b-tooltip.hover.bottom="$t('sendGems')")
-        .svg-icon.gift-icon(v-html="icons.gift")
-      button.btn.btn-secondary.remove-icon(v-if='user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) === -1',
-        @click="blockUser()", v-b-tooltip.hover.right="$t('blockWarning')")
-        .svg-icon.remove-icon(v-html="icons.remove")
-      button.btn.btn-secondary.positive-icon(v-if='user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) !== -1',
-        @click="unblockUser()", v-b-tooltip.hover.right="$t('unblock')")
-        .svg-icon.positive-icon(v-html="icons.positive")
-      button.btn.btn-secondary.positive-icon(v-if='this.userLoggedIn.contributor.admin',
-        @click="toggleAdminTools()", v-b-tooltip.hover.right="'Admin - Toggle Tools'")
-        .svg-icon.positive-icon(v-html="icons.staff")
-    .row.admin-profile-actions(v-if='this.userLoggedIn.contributor.admin && adminToolsLoaded')
-      .col-12.text-right
-        span.admin-action(v-if='!hero.flags || (hero.flags && !hero.flags.chatShadowMuted)',
-          @click="adminTurnOnShadowMuting()", v-b-tooltip.hover.bottom="'Turn on Shadow Muting'")
-          | shadow-mute
-        span.admin-action(v-if='hero.flags && hero.flags.chatShadowMuted',
-          @click="adminTurnOffShadowMuting()", v-b-tooltip.hover.bottom="'Turn off Shadow Muting'")
-          | un-shadow-mute
-        span.admin-action(v-if='!hero.flags || (hero.flags && !hero.flags.chatRevoked)',
-          @click="adminRevokeChat()", v-b-tooltip.hover.bottom="'Revoke Chat Privileges'")
-          | mute
-        span.admin-action(v-if='hero.flags && hero.flags.chatRevoked',
-          @click="adminReinstateChat()", v-b-tooltip.hover.bottom="'Reinstate Chat Privileges'")
-          | un-mute
-        span.admin-action(v-if='!hero.auth.blocked',
-          @click="adminBlockUser()", v-b-tooltip.hover.bottom="'Ban User'")
-          | ban
-        span.admin-action(v-if='hero.auth.blocked',
-          @click="adminUnblockUser()", v-b-tooltip.hover.bottom="'Un-Ban User'")
-          | un-ban
-    .row
-      .col-12
-        member-details(:member="user")
-  .row
-    .col-12.col-md-6.offset-md-3.text-center.nav
-      .nav-item(@click='selectPage("profile")', :class="{active: selectedPage === 'profile'}") {{ $t('profile') }}
-      .nav-item(@click='selectPage("stats")', :class="{active: selectedPage === 'stats'}") {{ $t('stats') }}
-      .nav-item(@click='selectPage("achievements")', :class="{active: selectedPage === 'achievements'}") {{ $t('achievements') }}
-  #userProfile.standard-page(v-show='selectedPage === "profile"', v-if='user.profile')
-    .row
-      .col-12.col-md-8
-        .header.mb-3
-          h1 {{user.profile.name}}
-          .name(v-if='user.auth && user.auth.local && user.auth.local.username') @{{ user.auth.local.username }}
-      .col-12.col-md-4
-        button.btn.btn-secondary(v-if='user._id === userLoggedIn._id', @click='editing = !editing', style='float:right;') {{ $t('edit') }}
-    .row(v-if='!editing')
-      .col-12.col-md-8
-        .about.profile-section
-          h2 {{ $t('about') }}
-          p(v-if='user.profile.blurb', v-markdown='user.profile.blurb')
-          p(v-else) {{ $t('noDescription') }}
-        .photo.profile-section
-          h2 {{ $t('photo') }}
-          img.img-rendering-auto(v-if='user.profile.imageUrl', :src='user.profile.imageUrl')
-          p(v-else) {{ $t('noPhoto') }}
-
-      .col-12.col-md-4
-        .info.profile-section
-          h2 {{ $t('info') }}
-          .info-item
-            .info-item-label {{ $t('joined') }}:
-            .info-item-value {{userJoinedDate}}
-          .info-item
-            .info-item-label  {{ $t('totalLogins') }}:
-            .info-item-value {{ user.loginIncentives }}
-          .info-item
-            .info-item-label  {{ $t('latestCheckin') }}:
-            .info-item-value {{userLastLoggedIn}}
-          .info-item
-            | {{getProgressDisplay()}}
-            .progress
-              .progress-bar(role='progressbar', :aria-valuenow='incentivesProgress', aria-valuemin='0', aria-valuemax='100', :style='{width: incentivesProgress + "%"}')
-                span.sr-only {{ incentivesProgress }}% {{$t('complete')}}
-        // @TODO: Implement in V2 .social
-
-    .row(v-if='editing')
-      h1 {{$t('editProfile')}}
-      .col-12
-        .alert.alert-info.alert-sm(v-html='$t("communityGuidelinesWarning", managerEmail)')
-
-        // TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak
-        .form-group
-          label {{ $t('displayName') }}
-          input.form-control(type='text', :placeholder="$t('fullName')", v-model='editingProfile.name')
-        .form-group
-          label {{ $t('photoUrl') }}
-          input.form-control(type='url', v-model='editingProfile.imageUrl', :placeholder="$t('imageUrl')")
-        .form-group
-          label {{ $t('about') }}
-          textarea.form-control(rows=5, :placeholder="$t('displayBlurbPlaceholder')", v-model='editingProfile.blurb')
-          // include ../../shared/formatting-help
-        //- .form-group
-        //-   label Facebook
-        //-   input.form-control(type='text', placeholder="Paste your link here", v-model='editingProfile.facebook')
-        //- .form-group
-        //-   label Instagram
-        //-   input.form-control(type='text', placeholder="Paste your link here", v-model='editingProfile.instagram')
-        //- .form-group
-        //-   label Twitter
-        //-   input.form-control(type='text', placeholder="Paste your link here", v-model='editingProfile.twitter')
-
-      .col-12.text-center
-        button.btn.btn-primary(@click='save()') {{ $t("save") }}
-        button.btn.btn-warning(@click='editing = false') {{ $t("cancel") }}
-  #achievements.standard-page.container(v-show='selectedPage === "achievements"', v-if='user.achievements')
-    .row(v-for='(category, key) in achievements')
-      h2.col-12.text-center {{ $t(key+'Achievs') }}
-      .col-12.col-md-3.text-center(v-for='(achievement, key) in category.achievements')
-        .box.achievement-container(:id='key + "-achievement"', :class='{"achievement-unearned": !achievement.earned}')
-          b-popover(
-            :target="'#' + key + '-achievement'",
-            triggers="hover",
-            placement="top",
-          )
-            h4.popover-content-title {{ achievement.title }}
-            div.popover-content-text(v-html="achievement.text")
-          .achievement(:class='achievement.icon + "2x"', v-if='achievement.earned')
-            .counter.badge.badge-info.stack-count(v-if='achievement.optionalCount') {{achievement.optionalCount}}
-          .achievement.achievement-unearned(class='achievement-unearned2x', v-if='!achievement.earned')
-    hr.col-12
-    .row
-      .col-12.col-md-6(v-if='user.achievements.challenges')
-        .achievement-icon.achievement-karaoke
-        h2.text-center {{$t('challengesWon')}}
-        div(v-for='chal in user.achievements.challenges')
-          span(v-markdown='chal')
-          hr
-      .col-12.col-md-6(v-if='user.achievements.quests')
-        .achievement-icon.achievement-alien
-        h2.text-center {{$t('questsCompleted')}}
-        div(v-for='(value, key) in user.achievements.quests')
-          span {{ content.quests[key].text() }} ({{ value }})
-  profileStats(
-    :user='user',
-    v-show='selectedPage === "stats"',
-    :showAllocation='showAllocation()',
-    v-if='user.preferences')
+<template>
+  <div
+    v-if="user"
+    class="profile"
+  >
+    <div class="header">
+      <div class="profile-actions">
+        <button
+          v-b-tooltip.hover.left="$t('sendMessage')"
+          class="btn btn-secondary message-icon"
+          @click="sendMessage()"
+        >
+          <div
+            class="svg-icon message-icon"
+            v-html="icons.message"
+          ></div>
+        </button><button
+          v-b-tooltip.hover.bottom="$t('sendGems')"
+          class="btn btn-secondary gift-icon"
+          @click="openSendGemsModal()"
+        >
+          <div
+            class="svg-icon gift-icon"
+            v-html="icons.gift"
+          ></div>
+        </button><button
+          v-if="user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) === -1"
+          v-b-tooltip.hover.right="$t('blockWarning')"
+          class="btn btn-secondary remove-icon"
+          @click="blockUser()"
+        >
+          <div
+            class="svg-icon remove-icon"
+            v-html="icons.remove"
+          ></div>
+        </button><button
+          v-if="user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) !== -1"
+          v-b-tooltip.hover.right="$t('unblock')"
+          class="btn btn-secondary positive-icon"
+          @click="unblockUser()"
+        >
+          <div
+            class="svg-icon positive-icon"
+            v-html="icons.positive"
+          ></div>
+        </button><button
+          v-if="this.userLoggedIn.contributor.admin"
+          v-b-tooltip.hover.right="'Admin - Toggle Tools'"
+          class="btn btn-secondary positive-icon"
+          @click="toggleAdminTools()"
+        >
+          <div
+            class="svg-icon positive-icon"
+            v-html="icons.staff"
+          ></div>
+        </button>
+      </div><div
+        v-if="this.userLoggedIn.contributor.admin && adminToolsLoaded"
+        class="row admin-profile-actions"
+      >
+        <div class="col-12 text-right">
+          <span
+            v-if="!hero.flags || (hero.flags && !hero.flags.chatShadowMuted)"
+            v-b-tooltip.hover.bottom="'Turn on Shadow Muting'"
+            class="admin-action"
+            @click="adminTurnOnShadowMuting()"
+          >shadow-mute</span><span
+            v-if="hero.flags && hero.flags.chatShadowMuted"
+            v-b-tooltip.hover.bottom="'Turn off Shadow Muting'"
+            class="admin-action"
+            @click="adminTurnOffShadowMuting()"
+          >un-shadow-mute</span><span
+            v-if="!hero.flags || (hero.flags && !hero.flags.chatRevoked)"
+            v-b-tooltip.hover.bottom="'Revoke Chat Privileges'"
+            class="admin-action"
+            @click="adminRevokeChat()"
+          >mute</span><span
+            v-if="hero.flags && hero.flags.chatRevoked"
+            v-b-tooltip.hover.bottom="'Reinstate Chat Privileges'"
+            class="admin-action"
+            @click="adminReinstateChat()"
+          >un-mute</span><span
+            v-if="!hero.auth.blocked"
+            v-b-tooltip.hover.bottom="'Ban User'"
+            class="admin-action"
+            @click="adminBlockUser()"
+          >ban</span><span
+            v-if="hero.auth.blocked"
+            v-b-tooltip.hover.bottom="'Un-Ban User'"
+            class="admin-action"
+            @click="adminUnblockUser()"
+          >un-ban</span>
+        </div>
+      </div><div class="row">
+        <div class="col-12">
+          <member-details :member="user" />
+        </div>
+      </div>
+    </div><div class="row">
+      <div class="col-12 col-md-6 offset-md-3 text-center nav">
+        <div
+          class="nav-item"
+          :class="{active: selectedPage === 'profile'}"
+          @click="selectPage('profile')"
+        >
+          {{ $t('profile') }}
+        </div><div
+          class="nav-item"
+          :class="{active: selectedPage === 'stats'}"
+          @click="selectPage('stats')"
+        >
+          {{ $t('stats') }}
+        </div><div
+          class="nav-item"
+          :class="{active: selectedPage === 'achievements'}"
+          @click="selectPage('achievements')"
+        >
+          {{ $t('achievements') }}
+        </div>
+      </div>
+    </div><div
+      v-show="selectedPage === 'profile'"
+      v-if="user.profile"
+      id="userProfile"
+      class="standard-page"
+    >
+      <div class="row">
+        <div class="col-12 col-md-8">
+          <div class="header mb-3">
+            <h1>{{ user.profile.name }}</h1><div
+              v-if="user.auth && user.auth.local && user.auth.local.username"
+              class="name"
+            >
+              @{{ user.auth.local.username }}
+            </div>
+          </div>
+        </div><div class="col-12 col-md-4">
+          <button
+            v-if="user._id === userLoggedIn._id"
+            class="btn btn-secondary"
+            style="float:right;"
+            @click="editing = !editing"
+          >
+            {{ $t('edit') }}
+          </button>
+        </div>
+      </div><div
+        v-if="!editing"
+        class="row"
+      >
+        <div class="col-12 col-md-8">
+          <div class="about profile-section">
+            <h2>{{ $t('about') }}</h2><p
+              v-if="user.profile.blurb"
+              v-markdown="user.profile.blurb"
+            ></p><p v-else>
+              {{ $t('noDescription') }}
+            </p>
+          </div><div class="photo profile-section">
+            <h2>{{ $t('photo') }}</h2><img
+              v-if="user.profile.imageUrl"
+              class="img-rendering-auto"
+              :src="user.profile.imageUrl"
+            ><p v-else>
+              {{ $t('noPhoto') }}
+            </p>
+          </div>
+        </div><div class="col-12 col-md-4">
+          <div class="info profile-section">
+            <h2>{{ $t('info') }}</h2><div class="info-item">
+              <div class="info-item-label">
+                {{ $t('joined') }}:
+              </div><div class="info-item-value">
+                {{ userJoinedDate }}
+              </div>
+            </div><div class="info-item">
+              <div class="info-item-label">
+                {{ $t('totalLogins') }}:
+              </div><div class="info-item-value">
+                {{ user.loginIncentives }}
+              </div>
+            </div><div class="info-item">
+              <div class="info-item-label">
+                {{ $t('latestCheckin') }}:
+              </div><div class="info-item-value">
+                {{ userLastLoggedIn }}
+              </div>
+            </div><div class="info-item">
+              {{ getProgressDisplay() }}<div class="progress">
+                <div
+                  class="progress-bar"
+                  role="progressbar"
+                  :aria-valuenow="incentivesProgress"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  :style="{width: incentivesProgress + '%'}"
+                >
+                  <span class="sr-only">{{ incentivesProgress }}% {{ $t('complete') }}</span>
+                </div>
+              </div>
+            </div>
+          </div><!-- @TODO: Implement in V2 .social-->
+        </div>
+      </div><div
+        v-if="editing"
+        class="row"
+      >
+        <h1>{{ $t('editProfile') }}</h1><div class="col-12">
+          <div
+            class="alert alert-info alert-sm"
+            v-html="$t('communityGuidelinesWarning', managerEmail)"
+          ></div><!-- TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak--><div class="form-group">
+            <label>{{ $t('displayName') }}</label><input
+              v-model="editingProfile.name"
+              class="form-control"
+              type="text"
+              :placeholder="$t('fullName')"
+            >
+          </div><div class="form-group">
+            <label>{{ $t('photoUrl') }}</label><input
+              v-model="editingProfile.imageUrl"
+              class="form-control"
+              type="url"
+              :placeholder="$t('imageUrl')"
+            >
+          </div><div class="form-group">
+            <label>{{ $t('about') }}</label><textarea
+              v-model="editingProfile.blurb"
+              class="form-control"
+              rows="5"
+              :placeholder="$t('displayBlurbPlaceholder')"
+            ></textarea><!-- include ../../shared/formatting-help-->
+          </div>
+        </div><div class="col-12 text-center">
+          <button
+            class="btn btn-primary"
+            @click="save()"
+          >
+            {{ $t("save") }}
+          </button><button
+            class="btn btn-warning"
+            @click="editing = false"
+          >
+            {{ $t("cancel") }}
+          </button>
+        </div>
+      </div>
+    </div><div
+      v-show="selectedPage === 'achievements'"
+      v-if="user.achievements"
+      id="achievements"
+      class="standard-page container"
+    >
+      <div
+        v-for="(category, key) in achievements"
+        class="row"
+      >
+        <h2 class="col-12 text-center">
+          {{ $t(key+'Achievs') }}
+        </h2><div
+          v-for="(achievement, key) in category.achievements"
+          class="col-12 col-md-3 text-center"
+        >
+          <div
+            :id="key + '-achievement'"
+            class="box achievement-container"
+            :class="{'achievement-unearned': !achievement.earned}"
+          >
+            <b-popover
+              :target="'#' + key + '-achievement'"
+              triggers="hover"
+              placement="top"
+            >
+              <h4 class="popover-content-title">
+                {{ achievement.title }}
+              </h4><div
+                class="popover-content-text"
+                v-html="achievement.text"
+              ></div>
+            </b-popover><div
+              v-if="achievement.earned"
+              class="achievement"
+              :class="achievement.icon + '2x'"
+            >
+              <div
+                v-if="achievement.optionalCount"
+                class="counter badge badge-info stack-count"
+              >
+                {{ achievement.optionalCount }}
+              </div>
+            </div><div
+              v-if="!achievement.earned"
+              class="achievement achievement-unearned achievement-unearned2x"
+            ></div>
+          </div>
+        </div>
+      </div><hr class="col-12"><div class="row">
+        <div
+          v-if="user.achievements.challenges"
+          class="col-12 col-md-6"
+        >
+          <div class="achievement-icon achievement-karaoke"></div><h2 class="text-center">
+            {{ $t('challengesWon') }}
+          </h2><div v-for="chal in user.achievements.challenges">
+            <span v-markdown="chal"></span><hr>
+          </div>
+        </div><div
+          v-if="user.achievements.quests"
+          class="col-12 col-md-6"
+        >
+          <div class="achievement-icon achievement-alien"></div><h2 class="text-center">
+            {{ $t('questsCompleted') }}
+          </h2><div v-for="(value, key) in user.achievements.quests">
+            <span>{{ content.quests[key].text() }} ({{ value }})</span>
+          </div>
+        </div>
+      </div>
+    </div><profileStats
+      v-show="selectedPage === 'stats'"
+      v-if="user.preferences"
+      :user="user"
+      :show-allocation="showAllocation()"
+    />
+  </div>
 </template>
 
 <style lang="scss" >

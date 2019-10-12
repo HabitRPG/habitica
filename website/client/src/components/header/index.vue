@@ -1,40 +1,62 @@
-<template lang="pug">
-div
-  invite-modal(:group='inviteModalGroup', :groupType='inviteModalGroupType')
-  create-party-modal
-  #app-header.row(:class="{'hide-header': $route.name === 'groupPlan'}")
-    members-modal(:hide-badge="true")
-    member-details(
-      :member="user",
-      :class-badge-position="'next-to-name'",
-      :is-header="true",
-    )
-    .view-party.d-flex.align-items-center(
-      v-if="hasParty",
-    )
-      button.btn.btn-primary.view-party-button(@click='showPartyMembers()') {{ $t('viewParty') }}
-    .party-members.d-flex(
-      v-if="hasParty",
-      v-resize="1500",
-      @resized="setPartyMembersWidth($event)"
-    )
-      member-details(
-        v-for="(member, $index) in sortedPartyMembers",
-        :key="member._id",
-        v-if="member._id !== user._id && $index < membersToShow",
-        :member="member",
-        condensed=true,
-        @onHover="expandMember(member._id)",
-        :expanded="member._id === expandedMember",
-        :is-header="true",
-        :class-badge-position="'hidden'",
-      )
-    .no-party.d-flex.justify-content-center.text-center(v-else)
-      .align-self-center
-        h3 {{ $t('battleWithFriends') }}
-        span.small-text(v-html="$t('inviteFriendsParty')")
-        br
-        button.btn.btn-primary(@click='createOrInviteParty()') {{ user.party._id ? $t('inviteFriends') : $t('startAParty') }}
+<template>
+  <div>
+    <invite-modal
+      :group="inviteModalGroup"
+      :group-type="inviteModalGroupType"
+    /><create-party-modal /><div
+      id="app-header"
+      class="row"
+      :class="{'hide-header': $route.name === 'groupPlan'}"
+    >
+      <members-modal :hide-badge="true" /><member-details
+        :member="user"
+        :class-badge-position="'next-to-name'"
+        :is-header="true"
+      /><div
+        v-if="hasParty"
+        class="view-party d-flex align-items-center"
+      >
+        <button
+          class="btn btn-primary view-party-button"
+          @click="showPartyMembers()"
+        >
+          {{ $t('viewParty') }}
+        </button>
+      </div><div
+        v-if="hasParty"
+        v-resize="1500"
+        class="party-members d-flex"
+        @resized="setPartyMembersWidth($event)"
+      >
+        <member-details
+          v-for="(member, $index) in sortedPartyMembers"
+          v-if="member._id !== user._id && $index < membersToShow"
+          :key="member._id"
+          :member="member"
+          condensed="condensed"
+          :expanded="member._id === expandedMember"
+          :is-header="true"
+          :class-badge-position="'hidden'"
+          @onHover="expandMember(member._id)"
+        />
+      </div><div
+        v-else
+        class="no-party d-flex justify-content-center text-center"
+      >
+        <div class="align-self-center">
+          <h3>{{ $t('battleWithFriends') }}</h3><span
+            class="small-text"
+            v-html="$t('inviteFriendsParty')"
+          ></span><br><button
+            class="btn btn-primary"
+            @click="createOrInviteParty()"
+          >
+            {{ user.party._id ? $t('inviteFriends') : $t('startAParty') }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>

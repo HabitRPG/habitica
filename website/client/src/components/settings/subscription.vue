@@ -1,95 +1,186 @@
-<template lang="pug">
-  .standard-page
-    h1 {{ $t('subscription') }}
-    .row
-      .col-6
-        h2 {{ $t('benefits') }}
-        ul
-          li
-            span.hint(:popover="$t('buyGemsGoldText', {gemCostTranslation})",
-              popover-trigger='mouseenter',
-              popover-placement='right') {{ $t('buyGemsGold') }}
-            span.badge.badge-success(v-if='subscription.key !== "basic_earned"') {{ $t('buyGemsGoldCap', buyGemsGoldCap) }}
-          li
-            span.hint(:popover="$t('retainHistoryText')", popover-trigger='mouseenter', popover-placement='right') {{ $t('retainHistory') }}
-          li
-            span.hint(:popover="$t('doubleDropsText')", popover-trigger='mouseenter', popover-placement='right') {{ $t('doubleDrops') }}
-          li
-            span.hint(:popover="$t('mysteryItemText')", popover-trigger='mouseenter', popover-placement='right') {{ $t('mysteryItem') }}
-            div(v-if='subscription.key !== "basic_earned"')
-              .badge.badge-success {{ $t('mysticHourglass', mysticHourglass) }}
-              .small.muted {{ $t('mysticHourglassText') }}
-          li
-            span.hint(:popover="$t('exclusiveJackalopePetText')", popover-trigger='mouseenter', popover-placement='right') {{ $t('exclusiveJackalopePet') }}
-          li
-            span.hint(:popover="$t('supportDevsText')", popover-trigger='mouseenter', popover-placement='right') {{ $t('supportDevs') }}
-
-      .col-6
-        h2 Plan
-        table.table.alert.alert-info(v-if='hasSubscription')
-          tr(v-if='hasCanceledSubscription'): td.alert.alert-warning
-            span.noninteractive-button.btn-danger {{ $t('canceledSubscription') }}
-            i.glyphicon.glyphicon-time
-            |  {{ $t('subCanceled') }} &nbsp;
-            strong {{dateTerminated}}
-          tr(v-if='!hasCanceledSubscription'): td
-            h4 {{ $t('subscribed') }}
-            p(v-if='hasPlan && !hasGroupPlan') {{ $t('purchasedPlanId', purchasedPlanIdInfo) }}
-            p(v-if='hasGroupPlan') {{ $t('youHaveGroupPlan') }}
-          tr(v-if='user.purchased.plan.extraMonths'): td
-            span.glyphicon.glyphicon-credit-card
-            | &nbsp; {{ $t('purchasedPlanExtraMonths', purchasedPlanExtraMonthsDetails) }}
-          tr(v-if='hasConsecutiveSubscription'): td
-            span.glyphicon.glyphicon-forward
-            | &nbsp; {{ $t('consecutiveSubscription') }}
-            ul.list-unstyled
-              li {{ $t('consecutiveMonths') }} {{user.purchased.plan.consecutive.count + user.purchased.plan.consecutive.offset}}
-              li {{ $t('gemCapExtra') }} {{user.purchased.plan.consecutive.gemCapExtra}}
-              li {{ $t('mysticHourglasses') }} {{user.purchased.plan.consecutive.trinkets}}
-
-        div(v-if='!hasSubscription || hasCanceledSubscription')
-          h4(v-if='hasCanceledSubscription') {{ $t("resubscribe") }}
-          .form-group.reduce-top-margin
-            .radio(v-for='block in subscriptionBlocksOrdered', v-if="block.target !== 'group' && block.canSubscribe === true")
-              label
-                input(type="radio", name="subRadio", :value="block.key", v-model='subscription.key')
-                span(v-if='block.original')
-                  span.label.label-success.line-through
-                    | ${{block.original }}
-                  | {{ $t('subscriptionRateText', {price: block.price, months: block.months}) }}
-                span(v-if='!block.original')
-                  | {{ $t('subscriptionRateText', {price: block.price, months: block.months}) }}
-
-          .form-inline
-            .form-group
-              input.form-control(type='text', v-model='subscription.coupon', :placeholder="$t('couponPlaceholder')")
-            .form-group
-              button.btn.btn-primary(type='button', @click='applyCoupon(subscription.coupon)') {{ $t("apply") }}
-
-        div(v-if='hasSubscription')
-          .btn.btn-primary(v-if='canEditCardDetails', @click='showStripeEdit()') {{ $t('subUpdateCard') }}
-          .btn.btn-sm.btn-danger(v-if='canCancelSubscription && !loading', @click='cancelSubscriptionConfirm()') {{ $t('cancelSub') }}
-          small(v-if='!canCancelSubscription && !hasCanceledSubscription', v-html='getCancelSubInfo()')
-
-        .subscribe-pay(v-if='!hasSubscription || hasCanceledSubscription')
-          h3 {{ $t('subscribeUsing') }}
-          .payments-column
-            button.purchase.btn.btn-primary.payment-button.payment-item(@click='showStripe({subscription:subscription.key, coupon:subscription.coupon})', :disabled='!subscription.key')
-              .svg-icon.credit-card-icon(v-html="icons.creditCardIcon")
-              | {{ $t('card') }}
-            button.btn.payment-item.paypal-checkout.payment-button(@click="openPaypal(paypalPurchaseLink, 'subscription')", :disabled='!subscription.key')
-              | &nbsp;
-              img(src='~@/assets/images/paypal-checkout.png', :alt="$t('paypal')")
-              | &nbsp;
-            amazon-button.payment-item(:amazon-data="{type: 'subscription', subscription: this.subscription.key, coupon: this.subscription.coupon}")
-    .row
-      .col-6
-        h2(v-once) {{ $t('giftSubscription') }}
-        ol
-          li(v-once) {{ $t('giftSubscriptionText1') }}
-          li(v-once) {{ $t('giftSubscriptionText2') }}
-          li(v-once) {{ $t('giftSubscriptionText3') }}
-        h4(v-once) {{ $t('giftSubscriptionText4') }}
+<template>
+  <div class="standard-page">
+    <h1>{{ $t('subscription') }}</h1><div class="row">
+      <div class="col-6">
+        <h2>{{ $t('benefits') }}</h2><ul>
+          <li>
+            <span
+              class="hint"
+              :popover="$t('buyGemsGoldText', {gemCostTranslation})"
+              popover-trigger="mouseenter"
+              popover-placement="right"
+            >{{ $t('buyGemsGold') }}</span><span
+              v-if="subscription.key !== 'basic_earned'"
+              class="badge badge-success"
+            >{{ $t('buyGemsGoldCap', buyGemsGoldCap) }}</span>
+          </li><li>
+            <span
+              class="hint"
+              :popover="$t('retainHistoryText')"
+              popover-trigger="mouseenter"
+              popover-placement="right"
+            >{{ $t('retainHistory') }}</span>
+          </li><li>
+            <span
+              class="hint"
+              :popover="$t('doubleDropsText')"
+              popover-trigger="mouseenter"
+              popover-placement="right"
+            >{{ $t('doubleDrops') }}</span>
+          </li><li>
+            <span
+              class="hint"
+              :popover="$t('mysteryItemText')"
+              popover-trigger="mouseenter"
+              popover-placement="right"
+            >{{ $t('mysteryItem') }}</span><div v-if="subscription.key !== 'basic_earned'">
+              <div class="badge badge-success">
+                {{ $t('mysticHourglass', mysticHourglass) }}
+              </div><div class="small muted">
+                {{ $t('mysticHourglassText') }}
+              </div>
+            </div>
+          </li><li>
+            <span
+              class="hint"
+              :popover="$t('exclusiveJackalopePetText')"
+              popover-trigger="mouseenter"
+              popover-placement="right"
+            >{{ $t('exclusiveJackalopePet') }}</span>
+          </li><li>
+            <span
+              class="hint"
+              :popover="$t('supportDevsText')"
+              popover-trigger="mouseenter"
+              popover-placement="right"
+            >{{ $t('supportDevs') }}</span>
+          </li>
+        </ul>
+      </div><div class="col-6">
+        <h2>Plan</h2><table
+          v-if="hasSubscription"
+          class="table alert alert-info"
+        >
+          <tr v-if="hasCanceledSubscription">
+            <td class="alert alert-warning">
+              <span class="noninteractive-button btn-danger">{{ $t('canceledSubscription') }}</span><i class="glyphicon glyphicon-time"></i> {{ $t('subCanceled') }} &nbsp;<strong>{{ dateTerminated }}</strong>
+            </td>
+          </tr><tr v-if="!hasCanceledSubscription">
+            <td>
+              <h4>{{ $t('subscribed') }}</h4><p v-if="hasPlan && !hasGroupPlan">
+                {{ $t('purchasedPlanId', purchasedPlanIdInfo) }}
+              </p><p v-if="hasGroupPlan">
+                {{ $t('youHaveGroupPlan') }}
+              </p>
+            </td>
+          </tr><tr v-if="user.purchased.plan.extraMonths">
+            <td><span class="glyphicon glyphicon-credit-card"></span>&nbsp; {{ $t('purchasedPlanExtraMonths', purchasedPlanExtraMonthsDetails) }}</td>
+          </tr><tr v-if="hasConsecutiveSubscription">
+            <td>
+              <span class="glyphicon glyphicon-forward"></span>&nbsp; {{ $t('consecutiveSubscription') }}<ul class="list-unstyled">
+                <li>{{ $t('consecutiveMonths') }} {{ user.purchased.plan.consecutive.count + user.purchased.plan.consecutive.offset }}</li><li>{{ $t('gemCapExtra') }} {{ user.purchased.plan.consecutive.gemCapExtra }}</li><li>{{ $t('mysticHourglasses') }} {{ user.purchased.plan.consecutive.trinkets }}</li>
+              </ul>
+            </td>
+          </tr>
+        </table><div v-if="!hasSubscription || hasCanceledSubscription">
+          <h4 v-if="hasCanceledSubscription">
+            {{ $t("resubscribe") }}
+          </h4><div class="form-group reduce-top-margin">
+            <div
+              v-for="block in subscriptionBlocksOrdered"
+              v-if="block.target !== 'group' && block.canSubscribe === true"
+              class="radio"
+            >
+              <label><input
+                v-model="subscription.key"
+                type="radio"
+                name="subRadio"
+                :value="block.key"
+              ><span v-if="block.original"><span class="label label-success line-through">${{ block.original }}</span>{{ $t('subscriptionRateText', {price: block.price, months: block.months}) }}</span><span v-if="!block.original">{{ $t('subscriptionRateText', {price: block.price, months: block.months}) }}</span></label>
+            </div>
+          </div><div class="form-inline">
+            <div class="form-group">
+              <input
+                v-model="subscription.coupon"
+                class="form-control"
+                type="text"
+                :placeholder="$t('couponPlaceholder')"
+              >
+            </div><div class="form-group">
+              <button
+                class="btn btn-primary"
+                type="button"
+                @click="applyCoupon(subscription.coupon)"
+              >
+                {{ $t("apply") }}
+              </button>
+            </div>
+          </div>
+        </div><div v-if="hasSubscription">
+          <div
+            v-if="canEditCardDetails"
+            class="btn btn-primary"
+            @click="showStripeEdit()"
+          >
+            {{ $t('subUpdateCard') }}
+          </div><div
+            v-if="canCancelSubscription && !loading"
+            class="btn btn-sm btn-danger"
+            @click="cancelSubscriptionConfirm()"
+          >
+            {{ $t('cancelSub') }}
+          </div><small
+            v-if="!canCancelSubscription && !hasCanceledSubscription"
+            v-html="getCancelSubInfo()"
+          ></small>
+        </div><div
+          v-if="!hasSubscription || hasCanceledSubscription"
+          class="subscribe-pay"
+        >
+          <h3>{{ $t('subscribeUsing') }}</h3><div class="payments-column">
+            <button
+              class="purchase btn btn-primary payment-button payment-item"
+              :disabled="!subscription.key"
+              @click="showStripe({subscription:subscription.key, coupon:subscription.coupon})"
+            >
+              <div
+                class="svg-icon credit-card-icon"
+                v-html="icons.creditCardIcon"
+              ></div>{{ $t('card') }}
+            </button><button
+              class="btn payment-item paypal-checkout payment-button"
+              :disabled="!subscription.key"
+              @click="openPaypal(paypalPurchaseLink, 'subscription')"
+            >
+              &nbsp;<img
+                src="~@/assets/images/paypal-checkout.png"
+                :alt="$t('paypal')"
+              >&nbsp;
+            </button><amazon-button
+              class="payment-item"
+              :amazon-data="{type: 'subscription', subscription: this.subscription.key, coupon: this.subscription.coupon}"
+            />
+          </div>
+        </div>
+      </div>
+    </div><div class="row">
+      <div class="col-6">
+        <h2 v-once>
+          {{ $t('giftSubscription') }}
+        </h2><ol>
+          <li v-once>
+            {{ $t('giftSubscriptionText1') }}
+          </li><li v-once>
+            {{ $t('giftSubscriptionText2') }}
+          </li><li v-once>
+            {{ $t('giftSubscriptionText3') }}
+          </li>
+        </ol><h4 v-once>
+          {{ $t('giftSubscriptionText4') }}
+        </h4>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped lang="scss">

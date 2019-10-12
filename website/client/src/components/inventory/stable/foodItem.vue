@@ -1,24 +1,38 @@
-<template lang="pug">
-div
-  .item-wrapper(@click="click($event)", :id="itemId")
-    .item(:class="{'item-active': active }")
-      countBadge(
-        :show="true",
-        :count="itemCount"
-      )
-      span.item-content(
-        :class="'Pet_Food_'+item.key",
-        v-drag.food="item.key",
-        @itemDragEnd="dragend($event)",
-        @itemDragStart="dragstart($event)"
-      )
-  b-popover(
-    :target="itemId",
-    triggers="hover",
-    placement="top",
-  )
-    h4.popover-content-title {{ itemName || item.text() }}
-    div.popover-content-text(v-html="item.notes()")
+<template>
+  <div>
+    <div
+      :id="itemId"
+      class="item-wrapper"
+      @click="click($event)"
+    >
+      <div
+        class="item"
+        :class="{'item-active': active }"
+      >
+        <countBadge
+          :show="true"
+          :count="itemCount"
+        /><span
+          v-drag.food="item.key"
+          class="item-content"
+          :class="'Pet_Food_'+item.key"
+          @itemDragEnd="dragend($event)"
+          @itemDragStart="dragstart($event)"
+        ></span>
+      </div>
+    </div><b-popover
+      :target="itemId"
+      triggers="hover"
+      placement="top"
+    >
+      <h4 class="popover-content-title">
+        {{ itemName || item.text() }}
+      </h4><div
+        class="popover-content-text"
+        v-html="item.notes()"
+      ></div>
+    </b-popover>
+  </div>
 </template>
 
 <script>

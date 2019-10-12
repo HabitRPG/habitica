@@ -1,53 +1,80 @@
-<template lang="pug">
-  b-modal#buy-quest-modal(
-    :hide-header="true",
+<template>
+  <b-modal
+    id="buy-quest-modal"
+    :hide-header="true"
     @change="onChange($event)"
-  )
-    span.badge.badge-pill.badge-dialog(
-      :class="{'item-selected-badge': isPinned}",
-      v-if="withPin",
+  >
+    <span
+      v-if="withPin"
+      class="badge badge-pill badge-dialog"
+      :class="{'item-selected-badge': isPinned}"
       @click.prevent.stop="togglePinned()"
-    )
-      span.svg-icon.inline.color.icon-10(v-html="icons.pin")
-
-    div.close
-      span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close", @click="hideDialog()")
-
-    div.content(v-if="item != null")
-
-      div.inner-content
-        questDialogContent(:item="item")
-
-        .purchase-amount
-          .how-many-to-buy
-            strong {{ $t('howManyToBuy') }}
-          .box
-            input(type='number', min='0', step='1', v-model.number='selectedAmountToBuy')
-          span.svg-icon.inline.icon-32(aria-hidden="true", v-html="currencyIcon")
-          span.value(:class="priceType") {{ item.value }}
-
-        button.btn.btn-primary(
-          @click="purchaseGems()",
+    ><span
+      class="svg-icon inline color icon-10"
+      v-html="icons.pin"
+    ></span></span><div class="close">
+      <span
+        class="svg-icon inline icon-10"
+        aria-hidden="true"
+        @click="hideDialog()"
+        v-html="icons.close"
+      ></span>
+    </div><div
+      v-if="item != null"
+      class="content"
+    >
+      <div class="inner-content">
+        <questDialogContent :item="item" /><div class="purchase-amount">
+          <div class="how-many-to-buy">
+            <strong>{{ $t('howManyToBuy') }}</strong>
+          </div><div class="box">
+            <input
+              v-model.number="selectedAmountToBuy"
+              type="number"
+              min="0"
+              step="1"
+            >
+          </div><span
+            class="svg-icon inline icon-32"
+            aria-hidden="true"
+            v-html="currencyIcon"
+          ></span><span
+            class="value"
+            :class="priceType"
+          >{{ item.value }}</span>
+        </div><button
           v-if="priceType === 'gems' && !this.enoughCurrency(priceType, item.value * selectedAmountToBuy)"
-        ) {{ $t('purchaseGems') }}
-
-        button.btn.btn-primary(
-          @click="buyItem()",
-          v-else,
-          :class="{'notEnough': !this.enoughCurrency(priceType, item.value * selectedAmountToBuy)}",
-          :disabled='numberInvalid',
-        ) {{ $t('buyNow') }}
-
-    div.right-sidebar(v-if="item.drop")
-      questDialogDrops(:item="item")
-
-    div.clearfix(slot="modal-footer")
-      span.balance.float-left {{ $t('yourBalance') }}
-      balanceInfo(
-        :withHourglass="priceType === 'hourglasses'",
-        :currencyNeeded="priceType",
-        :amountNeeded="item.value"
-      ).float-right
+          class="btn btn-primary"
+          @click="purchaseGems()"
+        >
+          {{ $t('purchaseGems') }}
+        </button><button
+          v-else
+          class="btn btn-primary"
+          :class="{'notEnough': !this.enoughCurrency(priceType, item.value * selectedAmountToBuy)}"
+          :disabled="numberInvalid"
+          @click="buyItem()"
+        >
+          {{ $t('buyNow') }}
+        </button>
+      </div>
+    </div><div
+      v-if="item.drop"
+      class="right-sidebar"
+    >
+      <questDialogDrops :item="item" />
+    </div><div
+      slot="modal-footer"
+      class="clearfix"
+    >
+      <span class="balance float-left">{{ $t('yourBalance') }}</span><balanceInfo
+        class="float-right"
+        :with-hourglass="priceType === 'hourglasses'"
+        :currency-needed="priceType"
+        :amount-needed="item.value"
+      />
+    </div>
+  </b-modal>
 </template>
 
 <style lang="scss">

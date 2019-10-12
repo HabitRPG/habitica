@@ -1,103 +1,206 @@
-<template lang="pug">
-  b-modal#guild-form(:title="title", :hide-footer="true", size='lg')
-    form(@submit.stop.prevent="submit")
-      .form-group
-        label
-          strong(v-once) {{$t('name')}} *
-        b-form-input(type="text", :placeholder="$t('newGuildPlaceholder')", v-model="workingGroup.name")
-      .form-group
-        label
-          strong(v-once) {{$t('privacySettings')}} *
-        br
-        .custom-control.custom-checkbox
-          input.custom-control-input#onlyLeaderCreatesChallenges(type="checkbox", v-model="workingGroup.onlyLeaderCreatesChallenges")
-          label.custom-control-label(v-once, for="onlyLeaderCreatesChallenges") {{ $t('onlyLeaderCreatesChallenges') }}
-          #groupPrivateDescription1.icon(:title="$t('privateDescription')")
-            .svg-icon(v-html='icons.information')
-          b-tooltip(
-            :title="$t('onlyLeaderCreatesChallengesDetail')",
-            target="groupPrivateDescription1",
-          )
-
-        // br
-        // @TODO Implement in V2 .custom-control.custom-checkbox
-          input.custom-control-input(type="checkbox", v-model="workingGroup.guildLeaderCantBeMessaged")
-          label.custom-control-label(v-once) {{ $t('guildLeaderCantBeMessaged') }}
-          // "guildLeaderCantBeMessaged": "Leader can not be messaged directly",
-          // @TODO discuss the impact of this with moderators before implementing
-
-        br
-        .custom-control.custom-checkbox(v-if='!isParty && !this.workingGroup.id')
-          input.custom-control-input#privateGuild(type="checkbox", v-model="workingGroup.privateGuild")
-          label.custom-control-label(v-once, for="privateGuild") {{ $t('privateGuild') }}
-          #groupPrivateDescription2.icon(:title="$t('privateDescription')")
-            .svg-icon(v-html='icons.information')
-          b-tooltip(
-            :title="$t('privateDescription')",
-            target="groupPrivateDescription2",
-          )
-
-        // br
-        // @TODO: Implement in v2 .custom-control.custom-checkbox(v-if='!creatingParty')
-          input.custom-control-input(type="checkbox", v-model="workingGroup.allowGuildInvitationsFromNonMembers")
-          label.custom-control-label(v-once) {{ $t('allowGuildInvitationsFromNonMembers') }}
-          // "allowGuildInvitationsFromNonMembers": "Allow Guild invitations from non-members",
-
-      .form-group(v-if='!isParty')
-        label
-          strong(v-once) {{$t('guildSummary')}} *
-        div.summary-count {{ $t('charactersRemaining', {characters: charactersRemaining}) }}
-        textarea.form-control.summary-textarea(:placeholder="isParty ? $t('partyDescriptionPlaceholder') : $t('guildSummaryPlaceholder')", v-model="workingGroup.summary")
-        // @TODO: need summary only for PUBLIC GUILDS, not for tavern, private guilds, or party
-
-      .form-group
-        label
-          strong(v-once) {{$t('groupDescription')}} *
-        a.float-right(v-markdown='$t("markdownFormattingHelp")')
-        textarea.form-control.description-textarea(type="text", textarea, :placeholder="isParty ? $t('partyDescriptionPlaceholder') : $t('guildDescriptionPlaceholder')", v-model="workingGroup.description")
-
-      .form-group(v-if='creatingParty && !workingGroup.id')
-        span
-          toggleSwitch(:label="$t('inviteMembersNow')", v-model='inviteMembers')
-
-      .form-group(style='position: relative;', v-if='!creatingParty && !isParty')
-        label
-          strong(v-once) {{$t('categories')}} *
-        div.category-wrap(@click.prevent="toggleCategorySelect")
-          span.category-select(v-if='workingGroup.categories.length === 0') {{$t('none')}}
-          .category-label(v-for='category in workingGroup.categories') {{$t(categoriesHashByKey[category])}}
-        .category-box(v-if="showCategorySelect")
-          .form-check(
-            v-for="group in categoryOptions",
-            :key="group.key",
-            v-if='group.key !== "habitica_official" || user.contributor.admin'
-          )
-            .custom-control.custom-checkbox
-              input.custom-control-input(:id="`category-${group.key}`", type="checkbox", :value="group.key", v-model="workingGroup.categories")
-              label.custom-control-label(v-once, :for="`category-${group.key}`") {{ $t(group.label) }}
-          button.btn.btn-primary(@click.prevent="toggleCategorySelect") {{$t('close')}}
-        // @TODO: need categories only for PUBLIC GUILDS, not for tavern, private guilds, or party
-
-      .form-group(v-if='inviteMembers && !workingGroup.id')
-        label
-          strong(v-once) Invite via Email or User ID
-          p(v-once) {{$t('inviteMembersHowTo')}} *
-
-        div
-          div(v-for='(member, index) in membersToInvite')
-            input(type='text', v-model='member.value')
-            button(@click.prevent='removeMemberToInvite(index)') Remove
-          div
-            input(type='text', placeholder='Email address or User ID', v-model='newMemberToInvite.value')
-            button(@click.prevent='addMemberToInvite()') Add
-
-      .form-group.text-center
-        div.item-with-icon(v-if='!this.workingGroup.id')
-          .svg-icon(v-html="icons.gem")
-          span.count 4
-        button.btn.btn-primary.btn-md(v-if='!workingGroup.id', :disabled='!workingGroup.name || !workingGroup.description') {{ creatingParty ? $t('createParty') : $t('createGuild') }}
-        button.btn.btn-primary.btn-md(v-if='workingGroup.id', :disabled='!workingGroup.name || !workingGroup.description') {{ isParty ? $t('updateParty') : $t('updateGuild') }}
-        .gem-description(v-once, v-if='!this.workingGroup.id') {{ $t('guildGemCostInfo') }}
+<template>
+  <b-modal
+    id="guild-form"
+    :title="title"
+    :hide-footer="true"
+    size="lg"
+  >
+    <form @submit.stop.prevent="submit">
+      <div class="form-group">
+        <label><strong v-once>{{ $t('name') }} *</strong></label><b-form-input
+          v-model="workingGroup.name"
+          type="text"
+          :placeholder="$t('newGuildPlaceholder')"
+        />
+      </div><div class="form-group">
+        <label><strong v-once>{{ $t('privacySettings') }} *</strong></label><br><div class="custom-control custom-checkbox">
+          <input
+            id="onlyLeaderCreatesChallenges"
+            v-model="workingGroup.onlyLeaderCreatesChallenges"
+            class="custom-control-input"
+            type="checkbox"
+          ><label
+            v-once
+            class="custom-control-label"
+            for="onlyLeaderCreatesChallenges"
+          >{{ $t('onlyLeaderCreatesChallenges') }}</label><div
+            id="groupPrivateDescription1"
+            class="icon"
+            :title="$t('privateDescription')"
+          >
+            <div
+              class="svg-icon"
+              v-html="icons.information"
+            ></div>
+          </div><b-tooltip
+            :title="$t('onlyLeaderCreatesChallengesDetail')"
+            target="groupPrivateDescription1"
+          />
+        </div><!-- br--><!-- @TODO Implement in V2 .custom-control.custom-checkboxinput.custom-control-input(type="checkbox", v-model="workingGroup.guildLeaderCantBeMessaged")
+label.custom-control-label(v-once) {{ $t('guildLeaderCantBeMessaged') }}
+// "guildLeaderCantBeMessaged": "Leader can not be messaged directly",
+// @TODO discuss the impact of this with moderators before implementing
+--><br><div
+v-if="!isParty && !this.workingGroup.id"
+class="custom-control custom-checkbox"
+>
+<input
+id="privateGuild"
+v-model="workingGroup.privateGuild"
+class="custom-control-input"
+type="checkbox"
+><label
+v-once
+class="custom-control-label"
+for="privateGuild"
+>{{ $t('privateGuild') }}</label><div
+id="groupPrivateDescription2"
+class="icon"
+:title="$t('privateDescription')"
+>
+<div
+class="svg-icon"
+v-html="icons.information"
+></div>
+</div><b-tooltip
+:title="$t('privateDescription')"
+                                                                                 target="groupPrivateDescription2"
+/>
+        </div><!-- br--><!-- @TODO: Implement in v2 .custom-control.custom-checkbox(v-if='!creatingParty')input.custom-control-input(type="checkbox", v-model="workingGroup.allowGuildInvitationsFromNonMembers")
+label.custom-control-label(v-once) {{ $t('allowGuildInvitationsFromNonMembers') }}
+// "allowGuildInvitationsFromNonMembers": "Allow Guild invitations from non-members",
+-->
+      </div><div
+        v-if="!isParty"
+        class="form-group"
+      >
+        <label><strong v-once>{{ $t('guildSummary') }} *</strong></label><div class="summary-count">
+          {{ $t('charactersRemaining', {characters: charactersRemaining}) }}
+        </div><textarea
+          v-model="workingGroup.summary"
+          class="form-control summary-textarea"
+          :placeholder="isParty ? $t('partyDescriptionPlaceholder') : $t('guildSummaryPlaceholder')"
+        ></textarea><!-- @TODO: need summary only for PUBLIC GUILDS, not for tavern, private guilds, or party-->
+      </div><div class="form-group">
+        <label><strong v-once>{{ $t('groupDescription') }} *</strong></label><a
+          v-markdown="$t('markdownFormattingHelp')"
+          class="float-right"
+        ></a><textarea
+          v-model="workingGroup.description"
+          class="form-control description-textarea"
+          type="text"
+          textarea="textarea"
+          :placeholder="isParty ? $t('partyDescriptionPlaceholder') : $t('guildDescriptionPlaceholder')"
+        ></textarea>
+      </div><div
+        v-if="creatingParty && !workingGroup.id"
+        class="form-group"
+      >
+        <span><toggleSwitch
+          v-model="inviteMembers"
+          :label="$t('inviteMembersNow')"
+        /></span>
+      </div><div
+        v-if="!creatingParty && !isParty"
+        class="form-group"
+        style="position: relative;"
+      >
+        <label><strong v-once>{{ $t('categories') }} *</strong></label><div
+          class="category-wrap"
+          @click.prevent="toggleCategorySelect"
+        >
+          <span
+            v-if="workingGroup.categories.length === 0"
+            class="category-select"
+          >{{ $t('none') }}</span><div
+            v-for="category in workingGroup.categories"
+            class="category-label"
+          >
+            {{ $t(categoriesHashByKey[category]) }}
+          </div>
+        </div><div
+          v-if="showCategorySelect"
+          class="category-box"
+        >
+          <div
+            v-for="group in categoryOptions"
+            v-if="group.key !== 'habitica_official' || user.contributor.admin"
+            :key="group.key"
+            class="form-check"
+          >
+            <div class="custom-control custom-checkbox">
+              <input
+                :id="`category-${group.key}`"
+                v-model="workingGroup.categories"
+                class="custom-control-input"
+                type="checkbox"
+                :value="group.key"
+              ><label
+                v-once
+                class="custom-control-label"
+                :for="`category-${group.key}`"
+              >{{ $t(group.label) }}</label>
+            </div>
+          </div><button
+            class="btn btn-primary"
+            @click.prevent="toggleCategorySelect"
+          >
+            {{ $t('close') }}
+          </button>
+        </div><!-- @TODO: need categories only for PUBLIC GUILDS, not for tavern, private guilds, or party-->
+      </div><div
+        v-if="inviteMembers && !workingGroup.id"
+        class="form-group"
+      >
+        <label><strong v-once>Invite via Email or User ID</strong><p v-once>{{ $t('inviteMembersHowTo') }} *</p></label><div>
+          <div v-for="(member, index) in membersToInvite">
+            <input
+              v-model="member.value"
+              type="text"
+            ><button @click.prevent="removeMemberToInvite(index)">
+              Remove
+            </button>
+          </div><div>
+            <input
+              v-model="newMemberToInvite.value"
+              type="text"
+              placeholder="Email address or User ID"
+            ><button @click.prevent="addMemberToInvite()">
+              Add
+            </button>
+          </div>
+        </div>
+      </div><div class="form-group text-center">
+        <div
+          v-if="!this.workingGroup.id"
+          class="item-with-icon"
+        >
+          <div
+            class="svg-icon"
+            v-html="icons.gem"
+          ></div><span class="count">4</span>
+        </div><button
+          v-if="!workingGroup.id"
+          class="btn btn-primary btn-md"
+          :disabled="!workingGroup.name || !workingGroup.description"
+        >
+          {{ creatingParty ? $t('createParty') : $t('createGuild') }}
+        </button><button
+          v-if="workingGroup.id"
+          class="btn btn-primary btn-md"
+          :disabled="!workingGroup.name || !workingGroup.description"
+        >
+          {{ isParty ? $t('updateParty') : $t('updateGuild') }}
+        </button><div
+          v-if="!this.workingGroup.id"
+          v-once
+          class="gem-description"
+        >
+          {{ $t('guildGemCostInfo') }}
+        </div>
+      </div>
+    </form>
+  </b-modal>
 </template>
 
 <style lang="scss" scoped>

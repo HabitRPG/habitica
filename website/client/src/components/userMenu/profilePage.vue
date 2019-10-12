@@ -1,7 +1,12 @@
-<template lang="pug">
-  .container
-    .standard-page
-      profile(:userId='userId', :startingPage='startingPage')
+<template>
+  <div class="container">
+    <div class="standard-page">
+      <profile
+        :user-id="userId"
+        :starting-page="startingPage"
+      />
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>

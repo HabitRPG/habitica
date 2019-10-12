@@ -1,29 +1,58 @@
-<template lang="pug">
-  b-modal#low-health(:title="$t('losingHealthWarning')", size='md', :hide-footer="true")
-    .modal-body
-      .col-12.text-center
-        .meter-label(:tooltip="$t('health')")
-          span.glyphicon.glyphicon-heart
-        .meter.health(:tooltip='Math.round(user.stats.hp * 100) / 100')
-          .bar(:style='barStyle')
-          span.meter-text.value
-            | {{healthLeft}}
-      .col-12
-        avatar(:member='user', :avatarOnly='true', :withBackground='true')
-      .col-12
-        p {{ $t('losingHealthWarning2') }}
-        h4 {{ $t('toRegainHealth') }}
-        ul
-          li.spaced {{ $t('lowHealthTips1') }}
-          li.spaced {{ $t('lowHealthTips2') }}
-        h4 {{ $t('losingHealthQuickly') }}
-        ul
-          li.spaced {{ $t('lowHealthTips3') }}
-          li.spaced {{ $t('lowHealthTips4') }}
-        h4 {{ $t('goodLuck') }}
-    .modal-footer
-      .col-12.text-center
-        button.btn.btn-primary(@click='acknowledgeHealthWarning()') {{ $t('ok') }}
+<template>
+  <b-modal
+    id="low-health"
+    :title="$t('losingHealthWarning')"
+    size="md"
+    :hide-footer="true"
+  >
+    <div class="modal-body">
+      <div class="col-12 text-center">
+        <div
+          class="meter-label"
+          :tooltip="$t('health')"
+        >
+          <span class="glyphicon glyphicon-heart"></span>
+        </div><div
+          class="meter health"
+          :tooltip="Math.round(user.stats.hp * 100) / 100"
+        >
+          <div
+            class="bar"
+            :style="barStyle"
+          ></div><span class="meter-text value">{{ healthLeft }}</span>
+        </div>
+      </div><div class="col-12">
+        <avatar
+          :member="user"
+          :avatar-only="true"
+          :with-background="true"
+        />
+      </div><div class="col-12">
+        <p>{{ $t('losingHealthWarning2') }}</p><h4>{{ $t('toRegainHealth') }}</h4><ul>
+          <li class="spaced">
+            {{ $t('lowHealthTips1') }}
+          </li><li class="spaced">
+            {{ $t('lowHealthTips2') }}
+          </li>
+        </ul><h4>{{ $t('losingHealthQuickly') }}</h4><ul>
+          <li class="spaced">
+            {{ $t('lowHealthTips3') }}
+          </li><li class="spaced">
+            {{ $t('lowHealthTips4') }}
+          </li>
+        </ul><h4>{{ $t('goodLuck') }}</h4>
+      </div>
+    </div><div class="modal-footer">
+      <div class="col-12 text-center">
+        <button
+          class="btn btn-primary"
+          @click="acknowledgeHealthWarning()"
+        >
+          {{ $t('ok') }}
+        </button>
+      </div>
+    </div>
+  </b-modal>
 </template>
 
 <style scoped>

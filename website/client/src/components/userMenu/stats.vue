@@ -1,206 +1,276 @@
-<template lang="pug">
-  .standard-page
-    h1 Stats
-    .row
-      .col-6
-        h2.text-center Equipment
-        .well.row
-          .col-4
-      .col-6
-        h2.text-center Costume
-    .row
-      .col-6
-        h2.text-center Pet
-      .col-6
-        h2.text-center Mount
-    .row
-      hr.col-12
-      h2.col-12 Attributes
-      .col-6
-      .col-6
-    .row
-      .col-6
-      .col-6
-
-    .row
-      .col-4
-        div
-          h3 Basics
-          ul
-            li Health: {{user.stats.hp}}/{{user.stats.maxHealth}}
-            li Mana: {{user.stats.mp}}/{{user.stats.maxMP}}
-            li Gold: {{user.stats.gp}}
-            li Level: {{user.stats.lvl}}
-            li Experience: {{user.stats.exp}}
-
-        div(v-if='user.flags.itemsEnabled')
-          h3 Battle Gear
-          ul
-            li(v-for='(key, itemType) in user.items.gear.equipped', v-if='flatGear[key]')
-              strong {{ flatGear[key].text() }}
-              strong(
-                v-if='flatGear[key].str || flatGear[key].con || flatGear[key].per || flatGear[key].int'
-              ) :&nbsp;
-                span(
-                  v-for='stat in ["str","con","per","int"]',
-                  v-if='flatGear[key][stat]'
-                ) {{flatGear[key][stat]}} {{ $t(stat) }}&nbsp;
-
-        div(v-if='user.preferences.costume')
-          h4(v-once) {{ $t('costume') }}
-          div
-            div(ng-repeat='(key, itemType) in user.items.gear.costume')
-              strong {{flatGear[key].text()}}
-
-        div
-          h3 Background
-          ul
-            li(v-if='!user.preferences.background') None
-            li(v-if='user.preferences.background') {{ user.preferences.background }}
-
-        div(ng-if='user.flags.dropsEnabled')
-          h3(v-once) {{ $t('pets') }}
-          ul
-            li(ng-if='user.items.currentPet')
-              | {{ $t('activePet') }}:
-              | {{ formatAnimal(user.items.currentPet, 'pet') }}
-            li
-              | {{ $t('petsFound') }}:
-              | {{ totalCount(user.items.pets) }}
-            li
-              | {{ $t('beastMasterProgress') }}:
-              | {{ beastMasterProgress(user.items.pets) }}
-
-          h3(v-once) {{ $t('mounts') }}
-          ul
-            li(v-if='user.items.currentMount')
-              | {{ $t('activeMount') }}:
-              | {{ formatAnimal(user.items.currentMount, 'mount') }}
-            li
-              | {{ $t('mountsTamed') }}:
-              | {{ totalCount(user.items.mounts) }}
-            li
-              | {{ $t('mountMasterProgress') }}:
-              | {{ mountMasterProgress(user.items.mounts) }}
-
-      .col-4
-        h3(v-once) {{ $t('attributes') }}
-        .row(v-for="(statInfo, stat) in stats")
-          .col-4
-            span.hint(:popover-title='$t(statInfo.title)', popover-placement='right',
-              :popover='$t(statInfo.popover)', popover-trigger='mouseenter')
-              strong {{ $t(statInfo.title) }}
-            strong : {{ statsComputed[stat] }}
-          .col-6
-            ul.bonus-stats
-              li
-                | {{ $t('levelBonus') }}
-                | {{statsComputed.levelBonus[stat]}}
-              li
-                | {{ $t('gearBonus') }}
-                |  {{statsComputed.gearBonus[stat]}}
-              li
-                | {{ $t('classBonus') }}
-                |  {{statsComputed.classBonus[stat]}}
-              li
-                | {{ $t('allocatedPoints') }}
-                |  {{user.stats[stat]}}
-              li
-                | {{ $t('buffs') }}
-                | {{user.stats.buffs[stat]}}
-
-        div(v-if='user.stats.buffs.stealth')
-          strong.hint(:popover-title="$t('stealth')", popover-trigger='mouseenter',
-            popover-placement='right', :popover="$t('stealthNewDay')", v-once)
-            | {{ $t('stealth') }}
-          strong : {{user.stats.buffs.stealth}}&nbsp;
-
-        div(v-if='user.stats.buffs.streaks')
-          div
-            strong.hint(popover-title="$t('streaksFrozen')", popover-trigger='mouseenter',
-              popover-placement='right', :popover="$t('streaksFrozenText')")
-            | {{ $t('streaksFrozen') }}
-
-      .col-4(v-if='hasClass')
-          h3(v-once) {{ $t('characterBuild') }}
-          h4(v-once) {{ $t('class') + ': ' }}
-            span {{ classText }}&nbsp;
-            button.btn.btn-danger.btn-xs(@click='changeClass(null)', v-once) {{ $t('changeClass') }}
-            small.cost 3
-              span.Pet_Currency_Gem1x.inline-gems
-
-          div
-            div
-              p(v-if='userLevel100Plus', v-once) {{ $t('noMoreAllocate') }}
-              p(v-if='user.stats.points || userLevel100Plus')
-                strong.inline
-                  | {{user.stats.points}}&nbsp;
-                strong.hint(popover-trigger='mouseenter',
-                  popover-placement='right', :popover="$t('levelPopover')") {{ $t('unallocated') }}
-            div
-              fieldset.auto-allocate
-                  .checkbox
-                    label
-                      input(type='checkbox', v-model='user.preferences.automaticAllocation',
-                        @change='set({"preferences.automaticAllocation": user.preferences.automaticAllocation, "preferences.allocationMode": "taskbased"})')
-                      span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('autoAllocationPop')") {{ $t('autoAllocation') }}
-                  form(v-if='user.preferences.automaticAllocation', style='margin-left:1em')
-                    .radio
-                      label
-                        input(type='radio', name='allocationMode', value='flat', v-model='user.preferences.allocationMode',
-                          @change='set({"preferences.allocationMode": "flat"})')
-                        span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('evenAllocationPop')") {{ $t('evenAllocation') }}
-                    .radio
-                      label
-                        input(
-                          type='radio',
-                          name='allocationMode',
-                          value='classbased',
-                          v-model='user.preferences.allocationMode',
-                          @change='set({"preferences.allocationMode": "classbased"})'
-                        )
-                        span.hint(
-                          popover-trigger='mouseenter',
-                          popover-placement='right',
-                          :popover="$t('classAllocationPop')"
-                        ) {{ $t('classAllocation') }}
-                    .radio
-                      label
-                        input(
-                          type='radio',
-                          name='allocationMode',
-                          value='taskbased',
-                          v-model='user.preferences.allocationMode',
-                          @change='set({"preferences.allocationMode": "taskbased"})'
-                        )
-                        span.hint(
-                          popover-trigger='mouseenter',
-                          popover-placement='right',
-                          :popover="$t('taskAllocationPop')"
-                        ) {{ $t('taskAllocation') }}
-                  div(
-                    v-if='user.preferences.automaticAllocation && !(user.preferences.allocationMode === "taskbased") && (user.stats.points > 0)'
-                  )
-                    button.btn.btn-primary.btn-xs(
-                      @click='allocateNow({})',
-                      popover-trigger='mouseenter',
-                      popover-placement='right',
-                      :popover="$t('distributePointsPop')"
-                    )
-                      span.glyphicon.glyphicon-download
-                      |&nbsp;
-                      | {{ $t('distributePoints') }}
-            .row(v-for='(statInfo, stat) in allocateStatsList')
-              .col-8
-                span.hint(
-                  popover-trigger='mouseenter',
-                  popover-placement='right',
-                  :popover='$t(statInfo.popover)'
-                )
-                | {{ $t(statInfo.title) + user.stats[stat] }}
-              .col-4(v-if='user.stats.points', @click='allocate(stat)')
-                 button.btn.btn-primary(popover-trigger='mouseenter', popover-placement='right',
-                  :popover='$t(statInfo.allocatepop)') +
+<template>
+  <div class="standard-page">
+    <h1>Stats</h1><div class="row">
+      <div class="col-6">
+        <h2 class="text-center">
+          Equipment
+        </h2><div class="well row">
+          <div class="col-4"></div>
+        </div>
+      </div><div class="col-6">
+        <h2 class="text-center">
+          Costume
+        </h2>
+      </div>
+    </div><div class="row">
+      <div class="col-6">
+        <h2 class="text-center">
+          Pet
+        </h2>
+      </div><div class="col-6">
+        <h2 class="text-center">
+          Mount
+        </h2>
+      </div>
+    </div><div class="row">
+      <hr class="col-12"><h2 class="col-12">
+        Attributes
+      </h2><div class="col-6"></div><div class="col-6"></div>
+    </div><div class="row">
+      <div class="col-6"></div><div class="col-6"></div>
+    </div><div class="row">
+      <div class="col-4">
+        <div><h3>Basics</h3><ul><li>Health: {{ user.stats.hp }}/{{ user.stats.maxHealth }}</li><li>Mana: {{ user.stats.mp }}/{{ user.stats.maxMP }}</li><li>Gold: {{ user.stats.gp }}</li><li>Level: {{ user.stats.lvl }}</li><li>Experience: {{ user.stats.exp }}</li></ul></div><div v-if="user.flags.itemsEnabled">
+          <h3>Battle Gear</h3><ul>
+            <li
+              v-for="(key, itemType) in user.items.gear.equipped"
+              v-if="flatGear[key]"
+            >
+              <strong>{{ flatGear[key].text() }}</strong><strong v-if="flatGear[key].str || flatGear[key].con || flatGear[key].per || flatGear[key].int">:&nbsp;<span
+                v-for="stat in ['str','con','per','int']"
+                v-if="flatGear[key][stat]"
+              >{{ flatGear[key][stat] }} {{ $t(stat) }}&nbsp;</span></strong>
+            </li>
+          </ul>
+        </div><div v-if="user.preferences.costume">
+          <h4 v-once>
+            {{ $t('costume') }}
+          </h4><div>
+            <div ng-repeat="(key, itemType) in user.items.gear.costume">
+              <strong>{{ flatGear[key].text() }}</strong>
+            </div>
+          </div>
+        </div><div>
+          <h3>Background</h3><ul>
+            <li v-if="!user.preferences.background">
+              None
+            </li><li v-if="user.preferences.background">
+              {{ user.preferences.background }}
+            </li>
+          </ul>
+        </div><div ng-if="user.flags.dropsEnabled">
+          <h3 v-once>
+            {{ $t('pets') }}
+          </h3><ul>
+            <li ng-if="user.items.currentPet">
+              {{ $t('activePet') }}:
+              {{ formatAnimal(user.items.currentPet, 'pet') }}
+            </li><li>
+              {{ $t('petsFound') }}:
+              {{ totalCount(user.items.pets) }}
+            </li><li>
+              {{ $t('beastMasterProgress') }}:
+              {{ beastMasterProgress(user.items.pets) }}
+            </li>
+          </ul><h3 v-once>
+            {{ $t('mounts') }}
+          </h3><ul>
+            <li v-if="user.items.currentMount">
+              {{ $t('activeMount') }}:
+              {{ formatAnimal(user.items.currentMount, 'mount') }}
+            </li><li>
+              {{ $t('mountsTamed') }}:
+              {{ totalCount(user.items.mounts) }}
+            </li><li>
+              {{ $t('mountMasterProgress') }}:
+              {{ mountMasterProgress(user.items.mounts) }}
+            </li>
+          </ul>
+        </div>
+      </div><div class="col-4">
+        <h3 v-once>
+          {{ $t('attributes') }}
+        </h3><div
+          v-for="(statInfo, stat) in stats"
+          class="row"
+        >
+          <div class="col-4">
+            <span
+              class="hint"
+              :popover-title="$t(statInfo.title)"
+              popover-placement="right"
+              :popover="$t(statInfo.popover)"
+              popover-trigger="mouseenter"
+            ><strong>{{ $t(statInfo.title) }}</strong></span><strong>: {{ statsComputed[stat] }}</strong>
+          </div><div class="col-6">
+            <ul class="bonus-stats">
+              <li>
+                {{ $t('levelBonus') }}
+                {{ statsComputed.levelBonus[stat] }}
+              </li><li>
+                {{ $t('gearBonus') }}
+                {{ statsComputed.gearBonus[stat] }}
+              </li><li>
+                {{ $t('classBonus') }}
+                {{ statsComputed.classBonus[stat] }}
+              </li><li>
+                {{ $t('allocatedPoints') }}
+                {{ user.stats[stat] }}
+              </li><li>
+                {{ $t('buffs') }}
+                {{ user.stats.buffs[stat] }}
+              </li>
+            </ul>
+          </div>
+        </div><div v-if="user.stats.buffs.stealth">
+          <strong
+            v-once
+            class="hint"
+            :popover-title="$t('stealth')"
+            popover-trigger="mouseenter"
+            popover-placement="right"
+            :popover="$t('stealthNewDay')"
+          >{{ $t('stealth') }}</strong><strong>: {{ user.stats.buffs.stealth }}&nbsp;</strong>
+        </div><div v-if="user.stats.buffs.streaks">
+          <div>
+            <strong
+              class="hint"
+              popover-title="$t('streaksFrozen')"
+              popover-trigger="mouseenter"
+              popover-placement="right"
+              :popover="$t('streaksFrozenText')"
+            ></strong>{{ $t('streaksFrozen') }}
+          </div>
+        </div>
+      </div><div
+        v-if="hasClass"
+        class="col-4"
+      >
+        <h3 v-once>
+          {{ $t('characterBuild') }}
+        </h3><h4 v-once>
+          {{ $t('class') + ': ' }}<span>{{ classText }}&nbsp;</span><button
+            v-once
+            class="btn btn-danger btn-xs"
+            @click="changeClass(null)"
+          >
+            {{ $t('changeClass') }}
+          </button><small class="cost">3<span class="Pet_Currency_Gem1x inline-gems"></span></small>
+        </h4><div>
+          <div>
+            <p
+              v-if="userLevel100Plus"
+              v-once
+            >
+              {{ $t('noMoreAllocate') }}
+            </p><p v-if="user.stats.points || userLevel100Plus">
+              <strong class="inline">{{ user.stats.points }}&nbsp;</strong><strong
+                class="hint"
+                popover-trigger="mouseenter"
+                popover-placement="right"
+                :popover="$t('levelPopover')"
+              >{{ $t('unallocated') }}</strong>
+            </p>
+          </div><div>
+            <fieldset class="auto-allocate">
+              <div class="checkbox">
+                <label><input
+                  v-model="user.preferences.automaticAllocation"
+                  type="checkbox"
+                  @change="set({'preferences.automaticAllocation': user.preferences.automaticAllocation, 'preferences.allocationMode': 'taskbased'})"
+                ><span
+                  class="hint"
+                  popover-trigger="mouseenter"
+                  popover-placement="right"
+                  :popover="$t('autoAllocationPop')"
+                >{{ $t('autoAllocation') }}</span></label>
+              </div><form
+                v-if="user.preferences.automaticAllocation"
+                style="margin-left:1em"
+              >
+                <div class="radio">
+                  <label><input
+                    v-model="user.preferences.allocationMode"
+                    type="radio"
+                    name="allocationMode"
+                    value="flat"
+                    @change="set({'preferences.allocationMode': 'flat'})"
+                  ><span
+                    class="hint"
+                    popover-trigger="mouseenter"
+                    popover-placement="right"
+                    :popover="$t('evenAllocationPop')"
+                  >{{ $t('evenAllocation') }}</span></label>
+                </div><div class="radio">
+                  <label><input
+                    v-model="user.preferences.allocationMode"
+                    type="radio"
+                    name="allocationMode"
+                    value="classbased"
+                    @change="set({'preferences.allocationMode': 'classbased'})"
+                  ><span
+                    class="hint"
+                    popover-trigger="mouseenter"
+                    popover-placement="right"
+                    :popover="$t('classAllocationPop')"
+                  >{{ $t('classAllocation') }}</span></label>
+                </div><div class="radio">
+                  <label><input
+                    v-model="user.preferences.allocationMode"
+                    type="radio"
+                    name="allocationMode"
+                    value="taskbased"
+                    @change="set({'preferences.allocationMode': 'taskbased'})"
+                  ><span
+                    class="hint"
+                    popover-trigger="mouseenter"
+                    popover-placement="right"
+                    :popover="$t('taskAllocationPop')"
+                  >{{ $t('taskAllocation') }}</span></label>
+                </div>
+              </form><div v-if="user.preferences.automaticAllocation && !(user.preferences.allocationMode === 'taskbased') && (user.stats.points > 0)">
+                <button
+                  class="btn btn-primary btn-xs"
+                  popover-trigger="mouseenter"
+                  popover-placement="right"
+                  :popover="$t('distributePointsPop')"
+                  @click="allocateNow({})"
+                >
+                  <span class="glyphicon glyphicon-download"></span>&nbsp;
+                  {{ $t('distributePoints') }}
+                </button>
+              </div>
+            </fieldset>
+          </div><div
+            v-for="(statInfo, stat) in allocateStatsList"
+            class="row"
+          >
+            <div class="col-8">
+              <span
+                class="hint"
+                popover-trigger="mouseenter"
+                popover-placement="right"
+                :popover="$t(statInfo.popover)"
+              ></span>{{ $t(statInfo.title) + user.stats[stat] }}
+            </div><div
+              v-if="user.stats.points"
+              class="col-4"
+              @click="allocate(stat)"
+            >
+              <button
+                class="btn btn-primary"
+                popover-trigger="mouseenter"
+                popover-placement="right"
+                :popover="$t(statInfo.allocatepop)"
+              >
+                +
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>

@@ -1,66 +1,152 @@
-<template lang="pug">
-  b-modal#challenge-modal(:title="title", size='lg', @shown="shown")
-    .form
-      .form-group
-        label
-          strong(v-once) {{$t('name')}} *
-        b-form-input(type="text", :placeholder="$t('challengeNamePlaceholder')", v-model="workingChallenge.name")
-      .form-group
-        label
-          strong(v-once) {{$t('shortName')}} *
-        b-form-input(type="text", :placeholder="$t('shortNamePlaceholder')", v-model="workingChallenge.shortName")
-      .form-group
-        label
-          strong(v-once) {{$t('challengeSummary')}} *
-        div.summary-count {{ $t('charactersRemaining', {characters: charactersRemaining}) }}
-        textarea.summary-textarea.form-control(:placeholder="$t('challengeSummaryPlaceholder')", v-model="workingChallenge.summary")
-      .form-group
-        label
-          strong(v-once) {{$t('challengeDescription')}} *
-        a.float-right(v-markdown='$t("markdownFormattingHelp")')
-        textarea.description-textarea.form-control(:placeholder="$t('challengeDescriptionPlaceholder')", v-model="workingChallenge.description")
-      .form-group(v-if='creating')
-        label
-          strong(v-once) {{$t('challengeGuild')}} *
-        select.form-control(v-model='workingChallenge.group')
-          option(v-for='group in groups', :value='group._id') {{group.name}}
-      .form-group(v-if='workingChallenge.categories')
-        label
-          strong(v-once) {{$t('categories')}} *
-        div.category-wrap(@click.prevent="toggleCategorySelect")
-          span.category-select(v-if='workingChallenge.categories.length === 0') {{$t('none')}}
-          .category-label(v-for='category in workingChallenge.categories') {{$t(categoriesHashByKey[category])}}
-        .category-box(v-if="showCategorySelect && creating")
-          .form-check(
-            v-for="group in categoryOptions",
-            :key="group.key",
-            v-if='group.key !== "habitica_official" || user.contributor.admin'
-          )
-            .custom-control.custom-checkbox
-              input.custom-control-input(type="checkbox",
-                :value="group.key",
-                :id="`challenge-modal-cat-${group.key}`",
-                 v-model="workingChallenge.categories")
-              label.custom-control-label(v-once, :for="`challenge-modal-cat-${group.key}`") {{ $t(group.label) }}
-          button.btn.btn-primary(@click.prevent="toggleCategorySelect") {{$t('close')}}
-      // @TODO: Implement in V2 .form-group
-        label
-          strong(v-once) {{$t('endDate')}}
-        b-form-input.end-date-input
-      .form-group(v-if='creating')
-        label
-          strong(v-once) {{$t('prize')}}
-        input(type='number', :min='minPrize', :max='maxPrize', v-model="workingChallenge.prize")
-      .row.footer-wrap
-        .col-12.text-center.submit-button-wrapper
-          .alert.alert-warning(v-if='insufficientGemsForTavernChallenge') You do not have enough gems to create a Tavern challenge
-          // @TODO if buy gems button is added, add analytics tracking to it
-          // see https://github.com/HabitRPG/habitica/blob/develop/website/views/options/social/challenges.jade#L134
-          button.btn.btn-primary(v-if='creating && !cloning', @click='createChallenge()', :disabled='loading') {{$t('createChallengeAddTasks')}}
-          button.btn.btn-primary(v-once, v-if='cloning', @click='createChallenge()', :disabled='loading') {{$t('createChallengeCloneTasks')}}
-          button.btn.btn-primary(v-once, v-if='!creating && !cloning', @click='updateChallenge()') {{$t('updateChallenge')}}
-        .col-12.text-center
-          p(v-once) {{$t('challengeMinimum')}}
+<template>
+  <b-modal
+    id="challenge-modal"
+    :title="title"
+    size="lg"
+    @shown="shown"
+  >
+    <div class="form">
+      <div class="form-group">
+        <label><strong v-once>{{ $t('name') }} *</strong></label><b-form-input
+          v-model="workingChallenge.name"
+          type="text"
+          :placeholder="$t('challengeNamePlaceholder')"
+        />
+      </div><div class="form-group">
+        <label><strong v-once>{{ $t('shortName') }} *</strong></label><b-form-input
+          v-model="workingChallenge.shortName"
+          type="text"
+          :placeholder="$t('shortNamePlaceholder')"
+        />
+      </div><div class="form-group">
+        <label><strong v-once>{{ $t('challengeSummary') }} *</strong></label><div class="summary-count">
+          {{ $t('charactersRemaining', {characters: charactersRemaining}) }}
+        </div><textarea
+          v-model="workingChallenge.summary"
+          class="summary-textarea form-control"
+          :placeholder="$t('challengeSummaryPlaceholder')"
+        ></textarea>
+      </div><div class="form-group">
+        <label><strong v-once>{{ $t('challengeDescription') }} *</strong></label><a
+          v-markdown="$t('markdownFormattingHelp')"
+          class="float-right"
+        ></a><textarea
+          v-model="workingChallenge.description"
+          class="description-textarea form-control"
+          :placeholder="$t('challengeDescriptionPlaceholder')"
+        ></textarea>
+      </div><div
+        v-if="creating"
+        class="form-group"
+      >
+        <label><strong v-once>{{ $t('challengeGuild') }} *</strong></label><select
+          v-model="workingChallenge.group"
+          class="form-control"
+        >
+          <option
+            v-for="group in groups"
+            :value="group._id"
+          >
+            {{ group.name }}
+          </option>
+        </select>
+      </div><div
+        v-if="workingChallenge.categories"
+        class="form-group"
+      >
+        <label><strong v-once>{{ $t('categories') }} *</strong></label><div
+          class="category-wrap"
+          @click.prevent="toggleCategorySelect"
+        >
+          <span
+            v-if="workingChallenge.categories.length === 0"
+            class="category-select"
+          >{{ $t('none') }}</span><div
+            v-for="category in workingChallenge.categories"
+            class="category-label"
+          >
+            {{ $t(categoriesHashByKey[category]) }}
+          </div>
+        </div><div
+          v-if="showCategorySelect && creating"
+          class="category-box"
+        >
+          <div
+            v-for="group in categoryOptions"
+            v-if="group.key !== 'habitica_official' || user.contributor.admin"
+            :key="group.key"
+            class="form-check"
+          >
+            <div class="custom-control custom-checkbox">
+              <input
+                :id="`challenge-modal-cat-${group.key}`"
+                v-model="workingChallenge.categories"
+                class="custom-control-input"
+                type="checkbox"
+                :value="group.key"
+              ><label
+                v-once
+                class="custom-control-label"
+                :for="`challenge-modal-cat-${group.key}`"
+              >{{ $t(group.label) }}</label>
+            </div>
+          </div><button
+            class="btn btn-primary"
+            @click.prevent="toggleCategorySelect"
+          >
+            {{ $t('close') }}
+          </button>
+        </div>
+      </div><!-- @TODO: Implement in V2 .form-grouplabel
+  strong(v-once) {{$t('endDate')}}
+b-form-input.end-date-input--><div
+v-if="creating"
+class="form-group"
+>
+<label><strong v-once>{{ $t('prize') }}</strong></label><input
+v-model="workingChallenge.prize"
+type="number"
+:min="minPrize"
+:max="maxPrize"
+>
+      </div><div class="row footer-wrap">
+        <div class="col-12 text-center submit-button-wrapper">
+          <div
+            v-if="insufficientGemsForTavernChallenge"
+            class="alert alert-warning"
+          >
+            You do not have enough gems to create a Tavern challenge
+          </div><!-- @TODO if buy gems button is added, add analytics tracking to it--><!-- see https://github.com/HabitRPG/habitica/blob/develop/website/views/options/social/challenges.jade#L134--><button
+            v-if="creating && !cloning"
+            class="btn btn-primary"
+            :disabled="loading"
+            @click="createChallenge()"
+          >
+            {{ $t('createChallengeAddTasks') }}
+          </button><button
+            v-if="cloning"
+            v-once
+            class="btn btn-primary"
+            :disabled="loading"
+            @click="createChallenge()"
+          >
+            {{ $t('createChallengeCloneTasks') }}
+          </button><button
+            v-if="!creating && !cloning"
+            v-once
+            class="btn btn-primary"
+            @click="updateChallenge()"
+          >
+            {{ $t('updateChallenge') }}
+          </button>
+        </div><div class="col-12 text-center">
+          <p v-once>
+            {{ $t('challengeMinimum') }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </b-modal>
 </template>
 
 <style lang='scss'>
@@ -245,8 +331,8 @@ export default {
       return this.$t('editingChallenge');
     },
     charactersRemaining () {
-      const currentLength = this.workingChallenge.summary 
-        ? this.workingChallenge.summary.length 
+      const currentLength = this.workingChallenge.summary
+        ? this.workingChallenge.summary.length
         : 0;
       return MAX_SUMMARY_SIZE_FOR_CHALLENGES - currentLength;
     },

@@ -1,15 +1,42 @@
-<template lang="pug">
-  b-modal#approval-modal(:title="$t('approveTask')", size='md', :hide-footer="true")
-    .modal-body
-      .row.approval(v-for='(approval, index) in task.approvals')
-        .col-8
-          strong {{approval.userId.profile.name}}
-        .col-2
-          button.btn.btn-primary(@click='approve(index)') {{ $t('approve') }}
-        .col-2
-          button.btn.btn-secondary(@click='needsWork(index)') {{ $t('needsWork') }}
-    .modal-footer
-      button.btn.btn-secondary(@click='close()') {{$t('close')}}
+<template>
+  <b-modal
+    id="approval-modal"
+    :title="$t('approveTask')"
+    size="md"
+    :hide-footer="true"
+  >
+    <div class="modal-body">
+      <div
+        v-for="(approval, index) in task.approvals"
+        class="row approval"
+      >
+        <div class="col-8">
+          <strong>{{ approval.userId.profile.name }}</strong>
+        </div><div class="col-2">
+          <button
+            class="btn btn-primary"
+            @click="approve(index)"
+          >
+            {{ $t('approve') }}
+          </button>
+        </div><div class="col-2">
+          <button
+            class="btn btn-secondary"
+            @click="needsWork(index)"
+          >
+            {{ $t('needsWork') }}
+          </button>
+        </div>
+      </div>
+    </div><div class="modal-footer">
+      <button
+        class="btn btn-secondary"
+        @click="close()"
+      >
+        {{ $t('close') }}
+      </button>
+    </div>
+  </b-modal>
 </template>
 
 <style scoped>

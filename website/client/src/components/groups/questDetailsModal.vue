@@ -1,26 +1,74 @@
-<template lang="pug">
-  b-modal#quest-details(title="Empty", size='md', :hide-footer="true", :hide-header="true")
-    .left-panel.content
-      h3.text-center {{ $t('participantsTitle') }}
-      .row
-        .col-10.offset-1.text-center
-          span.description(v-once) {{ $t('participantDesc') }}
-      .row
-        .col-12.member(v-for='member in members')
-          strong(:class="{'declined-name': member.accepted === false}") {{member.name}}
-          .accepted.float-right(v-if='member.accepted === true') {{ $t('accepted') }}
-          .declined.float-right(v-if='member.accepted === false') {{ $t('declined') }}
-          .pending.float-right(v-if='member.accepted === null') {{ $t('pending') }}
-    div(v-if='questData')
-      questDialogContent(:item="questData")
-    div.text-center.actions(v-if='canEditQuest')
-      div
-        button.btn.btn-secondary(v-once, @click="questConfirm()") {{ $t('begin') }}
-        // @TODO don't allow the party leader to start the quest until the leader has accepted or rejected the invitation (users get confused and think "begin" means "join quest")
-      div
-        .cancel(v-once, @click="questCancel()") {{ $t('cancel') }}
-    .side-panel(v-if='questData')
-      questDialogDrops(:item="questData")
+<template>
+  <b-modal
+    id="quest-details"
+    title="Empty"
+    size="md"
+    :hide-footer="true"
+    :hide-header="true"
+  >
+    <div class="left-panel content">
+      <h3 class="text-center">
+        {{ $t('participantsTitle') }}
+      </h3><div class="row">
+        <div class="col-10 offset-1 text-center">
+          <span
+            v-once
+            class="description"
+          >{{ $t('participantDesc') }}</span>
+        </div>
+      </div><div class="row">
+        <div
+          v-for="member in members"
+          class="col-12 member"
+        >
+          <strong :class="{'declined-name': member.accepted === false}">{{ member.name }}</strong><div
+            v-if="member.accepted === true"
+            class="accepted float-right"
+          >
+            {{ $t('accepted') }}
+          </div><div
+            v-if="member.accepted === false"
+            class="declined float-right"
+          >
+            {{ $t('declined') }}
+          </div><div
+            v-if="member.accepted === null"
+            class="pending float-right"
+          >
+            {{ $t('pending') }}
+          </div>
+        </div>
+      </div>
+    </div><div v-if="questData">
+      <questDialogContent :item="questData" />
+    </div><div
+      v-if="canEditQuest"
+      class="text-center actions"
+    >
+      <div>
+        <button
+          v-once
+          class="btn btn-secondary"
+          @click="questConfirm()"
+        >
+          {{ $t('begin') }}
+        </button><!-- @TODO don't allow the party leader to start the quest until the leader has accepted or rejected the invitation (users get confused and think "begin" means "join quest")-->
+      </div><div>
+        <div
+          v-once
+          class="cancel"
+          @click="questCancel()"
+        >
+          {{ $t('cancel') }}
+        </div>
+      </div>
+    </div><div
+      v-if="questData"
+      class="side-panel"
+    >
+      <questDialogDrops :item="questData" />
+    </div>
+  </b-modal>
 </template>
 
 <style lang='scss' scoped>

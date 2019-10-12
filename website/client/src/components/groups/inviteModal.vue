@@ -1,24 +1,52 @@
-<template lang="pug">
-  b-modal#invite-modal(:title='$t(`inviteTo${groupType}`)', :hide-footer='true')
-    div
-      strong {{ $t('inviteEmailUsername') }}
-      .small {{ $t('inviteEmailUsernameInfo') }}
-      div(v-for='(invite, index) in invites')
-        .input-group
-          .d-flex.align-items-center.justify-content-center(v-if='index === invites.length - 1 && invite.text.length === 0')
-            .svg-icon.positive-icon(v-html='icons.positiveIcon')
-          input.form-control(
-            type='text',
-            :placeholder='$t("emailOrUsernameInvite")',
-            v-model='invite.text',
-            v-on:keyup='expandInviteList',
-            v-on:change='checkInviteList',
-            :class='{"input-valid": invite.valid, "is-invalid input-invalid": invite.valid === false}',
-          )
-        .input-error.text-center.mt-2(v-if="invite.error") {{ invite.error }}
-    .modal-footer.d-flex.justify-content-center
-      a.mr-3(@click='close()') {{ $t('cancel') }}
-      button.btn.btn-primary(@click='sendInvites()', :class='{disabled: cannotSubmit}', :disabled='cannotSubmit') {{ $t('sendInvitations') }}
+<template>
+  <b-modal
+    id="invite-modal"
+    :title="$t(`inviteTo${groupType}`)"
+    :hide-footer="true"
+  >
+    <div>
+      <strong>{{ $t('inviteEmailUsername') }}</strong><div class="small">
+        {{ $t('inviteEmailUsernameInfo') }}
+      </div><div v-for="(invite, index) in invites">
+        <div class="input-group">
+          <div
+            v-if="index === invites.length - 1 && invite.text.length === 0"
+            class="d-flex align-items-center justify-content-center"
+          >
+            <div
+              class="svg-icon positive-icon"
+              v-html="icons.positiveIcon"
+            ></div>
+          </div><input
+            v-model="invite.text"
+            class="form-control"
+            type="text"
+            :placeholder="$t('emailOrUsernameInvite')"
+            :class="{'input-valid': invite.valid, 'is-invalid input-invalid': invite.valid === false}"
+            @keyup="expandInviteList"
+            @change="checkInviteList"
+          >
+        </div><div
+          v-if="invite.error"
+          class="input-error text-center mt-2"
+        >
+          {{ invite.error }}
+        </div>
+      </div>
+    </div><div class="modal-footer d-flex justify-content-center">
+      <a
+        class="mr-3"
+        @click="close()"
+      >{{ $t('cancel') }}</a><button
+        class="btn btn-primary"
+        :class="{disabled: cannotSubmit}"
+        :disabled="cannotSubmit"
+        @click="sendInvites()"
+      >
+        {{ $t('sendInvitations') }}
+      </button>
+    </div>
+  </b-modal>
 </template>
 
 <style lang="scss">

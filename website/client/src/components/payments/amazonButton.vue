@@ -1,5 +1,8 @@
-<template lang="pug">
-  .amazon-pay-button(:id="buttonId")
+<template>
+  <div
+    :id="buttonId"
+    class="amazon-pay-button"
+  ></div>
 </template>
 
 <script>

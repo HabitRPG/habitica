@@ -1,44 +1,65 @@
-<template lang="pug">
-  #hair.section.customize-section
-    sub-menu.text-center(:items="hairSubMenuItems", :activeSubPage="activeSubPage", @changeSubPage="changeSubPage($event)")
-
-    #hair-color(v-if='activeSubPage === "color"')
-      customize-options(
-        :items="freeHairColors",
-        :currentValue="user.preferences.hair.color"
-      )
-
-      div(v-if='editing && set.key !== "undefined"', v-for='set in seasonalHairColors')
-        customize-options(
-          :items='set.options',
-          :currentValue="user.preferences.skin",
-          :fullSet='!hideSet(set) && !userOwnsSet("hair", set.keys, "color")',
-          @unlock='unlock(`hair.color.${set.keys.join(",hair.color.")}`)'
-        )
-
-    #style(v-if='activeSubPage === "style"')
-      div(v-for='set in styleSets')
-        customize-options(
-          :items='set.options',
-          :fullSet='set.fullSet',
-          @unlock='set.unlock()'
-        )
-    #bangs(v-if='activeSubPage === "bangs"')
-      customize-options(
-        :items='hairBangs',
-        :currentValue="user.preferences.hair.bangs"
-      )
-    #facialhair(v-if='activeSubPage === "facialhair"')
-      customize-options(
-        v-if='editing',
-        :items='mustacheList'
-      )
-      customize-options(
-        v-if='editing',
-        :items='beardList',
-        :fullSet='isPurchaseAllNeeded("hair", ["baseHair5", "baseHair6"], ["mustache", "beard"])',
-        @unlock='unlock(`hair.mustache.${baseHair5Keys.join(",hair.mustache.")},hair.beard.${baseHair6Keys.join(",hair.beard.")}`)'
-      )
+<template>
+  <div
+    id="hair"
+    class="section customize-section"
+  >
+    <sub-menu
+      class="text-center"
+      :items="hairSubMenuItems"
+      :active-sub-page="activeSubPage"
+      @changeSubPage="changeSubPage($event)"
+    /><div
+      v-if="activeSubPage === 'color'"
+      id="hair-color"
+    >
+      <customize-options
+        :items="freeHairColors"
+        :current-value="user.preferences.hair.color"
+      /><div
+        v-for="set in seasonalHairColors"
+        v-if="editing && set.key !== 'undefined'"
+      >
+        <customize-options
+          :items="set.options"
+          :current-value="user.preferences.skin"
+          :full-set="!hideSet(set) && !userOwnsSet('hair', set.keys, 'color')"
+          @unlock="unlock(`hair.color.${set.keys.join(',hair.color.')}`)"
+        />
+      </div>
+    </div><div
+      v-if="activeSubPage === 'style'"
+      id="style"
+    >
+      <div v-for="set in styleSets">
+        <customize-options
+          :items="set.options"
+          :full-set="set.fullSet"
+          @unlock="set.unlock()"
+        />
+      </div>
+    </div><div
+      v-if="activeSubPage === 'bangs'"
+      id="bangs"
+    >
+      <customize-options
+        :items="hairBangs"
+        :current-value="user.preferences.hair.bangs"
+      />
+    </div><div
+      v-if="activeSubPage === 'facialhair'"
+      id="facialhair"
+    >
+      <customize-options
+        v-if="editing"
+        :items="mustacheList"
+      /><customize-options
+        v-if="editing"
+        :items="beardList"
+        :full-set="isPurchaseAllNeeded('hair', ['baseHair5', 'baseHair6'], ['mustache', 'beard'])"
+        @unlock="unlock(`hair.mustache.${baseHair5Keys.join(',hair.mustache.')},hair.beard.${baseHair6Keys.join(',hair.beard.')}`)"
+      />
+    </div>
+  </div>
 </template>
 
 <script>

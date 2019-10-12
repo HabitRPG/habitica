@@ -1,16 +1,32 @@
-<template lang="pug">
-base-notification(
-  :can-remove="canRemove",
-  :has-icon="false",
-  :notification="notification",
-  @click="action",
-)
-  div(slot="content")
-    .message(v-html="$t('invitedToQuest', {quest: questName})")
-    quest-info(:quest="questData", :small-version="true")
-    .notifications-buttons
-      .btn.btn-small.btn-success(@click.stop="questAccept()") {{ $t('accept') }}
-      .btn.btn-small.btn-danger(@click.stop="questReject()") {{ $t('reject') }}
+<template>
+  <base-notification
+    :can-remove="canRemove"
+    :has-icon="false"
+    :notification="notification"
+    @click="action"
+  >
+    <div slot="content">
+      <div
+        class="message"
+        v-html="$t('invitedToQuest', {quest: questName})"
+      ></div><quest-info
+        :quest="questData"
+        :small-version="true"
+      /><div class="notifications-buttons">
+        <div
+          class="btn btn-small btn-success"
+          @click.stop="questAccept()"
+        >
+          {{ $t('accept') }}
+        </div><div
+          class="btn btn-small btn-danger"
+          @click.stop="questReject()"
+        >
+          {{ $t('reject') }}
+        </div>
+      </div>
+    </div>
+  </base-notification>
 </template>
 
 <style lang="scss">

@@ -1,163 +1,259 @@
-<template lang="pug">
-.row.stable(v-mousePosition="30", @mouseMoved="mouseMoved($event)")
-  .standard-sidebar.d-none.d-sm-block
-    div
-      #npmMattStable.npc_matt
-      b-popover(
-        triggers="hover",
-        placement="right",
-        target="npmMattStable"
-      )
-        h4.popover-content-title(v-once) {{ $t('mattBoch') }}
-        .popover-content-text(v-once) {{ $t('mattBochText1') }}
-    .form-group
-      input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
-    .form
-      h2(v-once) {{ $t('filter') }}
-      h3(v-once) {{ $t('pets') }}
-      .form-group
-        .form-check(
-          v-for="petGroup in petGroups",
-          :key="petGroup.key"
-        )
-          .custom-control.custom-checkbox
-            input.custom-control-input(
-              type="checkbox",
-              v-model="viewOptions[petGroup.key].selected",
-              :disabled="viewOptions[petGroup.key].animalCount == 0",
-              :id="petGroup.key",
-            )
-            label.custom-control-label(v-once, :for="petGroup.key") {{ petGroup.label }}
-      h3(v-once) {{ $t('mounts') }}
-      .form-group
-        .form-check(
-          v-for="mountGroup in mountGroups",
-          :key="mountGroup.key"
-        )
-          .custom-control.custom-checkbox
-            input.custom-control-input(
-              type="checkbox",
-              v-model="viewOptions[mountGroup.key].selected",
-              :disabled="viewOptions[mountGroup.key].animalCount == 0",
-              :id="mountGroup.key",
-            )
-            label.custom-control-label(v-once, :for="mountGroup.key") {{ mountGroup.label }}
-
-      div.form-group.clearfix
-        h3.float-left {{ $t('hideMissing') }}
-        toggle-switch.float-right(
-          :checked="hideMissing",
-          @change="updateHideMissing"
-        )
-  .standard-page
-    .clearfix
-      h1.float-left.mb-4.page-header(v-once) {{ $t('stable') }}
-
-      div.float-right
-        span.dropdown-label {{ $t('sortBy') }}
-        b-dropdown(:text="$t(selectedSortBy)", right=true)
-          b-dropdown-item(
-            v-for="sort in sortByItems",
-            @click="selectedSortBy = sort",
-            :active="selectedSortBy === sort",
-            :key="sort"
-          ) {{ $t(sort) }}
-
-    h2.mb-3
-      | {{ $t('pets') }}
-      |
-      span.badge.badge-pill.badge-default {{countOwnedAnimals(petGroups[0], 'pet')}}
-
-    div(v-for="(petGroup, index) in petGroups",
-      v-if="!anyFilterSelected || viewOptions[petGroup.key].selected",
-      :key="petGroup.key")
-      h4(v-if="viewOptions[petGroup.key].animalCount !== 0") {{ petGroup.label }}
-
-      .pet-row.d-flex(
-        v-for="(group, key, index) in pets(petGroup, hideMissing, selectedSortBy, searchTextThrottled)",
-        v-if='index === 0 || $_openedItemRows_isToggled(petGroup.key)')
-        .pet-group(
-          v-for='item in group'
-          v-drag.drop.food="item.key",
-          @itemDragOver="onDragOver($event, item)",
-          @itemDropped="onDrop($event, item)",
-          @itemDragLeave="onDragLeave()",
-          :class="{'last': item.isLastInRow}"
-        )
-          petItem(
-            :item="item",
-            :popoverPosition="'top'",
-            :showPopover="currentDraggingFood == null",
-            :highlightBorder="highlightPet == item.key",
-            @click="petClicked(item)"
-          )
-            template(slot="itemBadge", slot-scope="context")
-              starBadge(
-                :selected="context.item.key === currentPet",
-                :show="isOwned('pet', context.item)",
-                @click="selectPet(context.item)"
-              )
-
-      .btn.btn-flat.btn-show-more(@click="setShowMore(petGroup.key)", v-if='petGroup.key !== "specialPets" && petGroup.key !== "wackyPets"')
-        | {{ $_openedItemRows_isToggled(petGroup.key) ? $t('showLess') : $t('showMore') }}
-
-    h2
-      | {{ $t('mounts') }}
-      |
-      span.badge.badge-pill.badge-default {{countOwnedAnimals(mountGroups[0], 'mount')}}
-
-    div(v-for="mountGroup in mountGroups",
-      v-if="!anyFilterSelected || viewOptions[mountGroup.key].selected",
-      :key="mountGroup.key")
-      h4(v-if="viewOptions[mountGroup.key].animalCount != 0") {{ mountGroup.label }}
-
-      .pet-row.d-flex(v-for="(group, key, index) in mounts(mountGroup, hideMissing, selectedSortBy, searchTextThrottled)"
-        v-if='index === 0 || $_openedItemRows_isToggled(mountGroup.key)')
-        .pet-group(v-for='item in group')
-          mountItem(
-            :item="item",
-            :key="item.key",
-            :popoverPosition="'top'",
-            :showPopover="true",
-            @click="selectMount(item)"
-          )
-            span(slot="popoverContent")
-              h4.popover-content-title {{ item.name }}
-            template(slot="itemBadge", slot-scope="context")
-              starBadge(
-                :selected="item.key === currentMount",
-                :show="isOwned('mount', item)",
-                @click="selectMount(item)",
-              )
-
-      .btn.btn-flat.btn-show-more(@click="setShowMore(mountGroup.key)", v-if='mountGroup.key !== "specialMounts"')
-        | {{ $_openedItemRows_isToggled(mountGroup.key) ? $t('showLess') : $t('showMore') }}
-
-    inventoryDrawer
-      template(slot="item", slot-scope="ctx")
-        foodItem(
-          :item="ctx.item",
-          :itemCount="ctx.itemCount",
-          :itemContentClass="ctx.itemClass",
-          :active="currentDraggingFood === ctx.item",
-          @itemDragEnd="onDragEnd()",
-          @itemDragStart="onDragStart($event, ctx.item)",
-          @itemClick="onFoodClicked($event, ctx.item)"
-        )
-  hatchedPetDialog(:hideText="true")
-  div.foodInfo(ref="dragginFoodInfo")
-    div(v-if="currentDraggingFood != null")
-      div.food-icon(:class="'Pet_Food_'+currentDraggingFood.key")
-      div.popover
-        div.popover-content {{ $t('dragThisFood', {foodName: currentDraggingFood.text() }) }}
-  div.foodInfo.mouse(ref="clickFoodInfo", v-if="foodClickMode")
-    div(v-if="currentDraggingFood != null")
-      div.food-icon(:class="'Pet_Food_'+currentDraggingFood.key")
-      div.popover
-        div.popover-content {{ $t('clickOnPetToFeed', {foodName: currentDraggingFood.text() }) }}
-  mount-raised-modal
-  welcome-modal
-  hatching-modal(:hatchablePet.sync='hatchablePet')
+<template>
+  <div
+    v-mousePosition="30"
+    class="row stable"
+    @mouseMoved="mouseMoved($event)"
+  >
+    <div class="standard-sidebar d-none d-sm-block">
+      <div>
+        <div
+          id="npmMattStable"
+          class="npc_matt"
+        ></div><b-popover
+          triggers="hover"
+          placement="right"
+          target="npmMattStable"
+        >
+          <h4
+            v-once
+            class="popover-content-title"
+          >
+            {{ $t('mattBoch') }}
+          </h4><div
+            v-once
+            class="popover-content-text"
+          >
+            {{ $t('mattBochText1') }}
+          </div>
+        </b-popover>
+      </div><div class="form-group">
+        <input
+          v-model="searchText"
+          class="form-control input-search"
+          type="text"
+          :placeholder="$t('search')"
+        >
+      </div><div class="form">
+        <h2 v-once>
+          {{ $t('filter') }}
+        </h2><h3 v-once>
+          {{ $t('pets') }}
+        </h3><div class="form-group">
+          <div
+            v-for="petGroup in petGroups"
+            :key="petGroup.key"
+            class="form-check"
+          >
+            <div class="custom-control custom-checkbox">
+              <input
+                :id="petGroup.key"
+                v-model="viewOptions[petGroup.key].selected"
+                class="custom-control-input"
+                type="checkbox"
+                :disabled="viewOptions[petGroup.key].animalCount == 0"
+              ><label
+                v-once
+                class="custom-control-label"
+                :for="petGroup.key"
+              >{{ petGroup.label }}</label>
+            </div>
+          </div>
+        </div><h3 v-once>
+          {{ $t('mounts') }}
+        </h3><div class="form-group">
+          <div
+            v-for="mountGroup in mountGroups"
+            :key="mountGroup.key"
+            class="form-check"
+          >
+            <div class="custom-control custom-checkbox">
+              <input
+                :id="mountGroup.key"
+                v-model="viewOptions[mountGroup.key].selected"
+                class="custom-control-input"
+                type="checkbox"
+                :disabled="viewOptions[mountGroup.key].animalCount == 0"
+              ><label
+                v-once
+                class="custom-control-label"
+                :for="mountGroup.key"
+              >{{ mountGroup.label }}</label>
+            </div>
+          </div>
+        </div><div class="form-group clearfix">
+          <h3 class="float-left">
+            {{ $t('hideMissing') }}
+          </h3><toggle-switch
+            class="float-right"
+            :checked="hideMissing"
+            @change="updateHideMissing"
+          />
+        </div>
+      </div>
+    </div><div class="standard-page">
+      <div class="clearfix">
+        <h1
+          v-once
+          class="float-left mb-4 page-header"
+        >
+          {{ $t('stable') }}
+        </h1><div class="float-right">
+          <span class="dropdown-label">{{ $t('sortBy') }}</span><b-dropdown
+            :text="$t(selectedSortBy)"
+            right="right"
+          >
+            <b-dropdown-item
+              v-for="sort in sortByItems"
+              :key="sort"
+              :active="selectedSortBy === sort"
+              @click="selectedSortBy = sort"
+            >
+              {{ $t(sort) }}
+            </b-dropdown-item>
+          </b-dropdown>
+        </div>
+      </div><h2 class="mb-3">
+        {{ $t('pets') }}
+        <span class="badge badge-pill badge-default">{{ countOwnedAnimals(petGroups[0], 'pet') }}</span>
+      </h2><div
+        v-for="(petGroup, index) in petGroups"
+        v-if="!anyFilterSelected || viewOptions[petGroup.key].selected"
+        :key="petGroup.key"
+      >
+        <h4 v-if="viewOptions[petGroup.key].animalCount !== 0">
+          {{ petGroup.label }}
+        </h4><div
+          v-for="(group, key, index) in pets(petGroup, hideMissing, selectedSortBy, searchTextThrottled)"
+          v-if="index === 0 || $_openedItemRows_isToggled(petGroup.key)"
+          class="pet-row d-flex"
+        >
+          <div
+            v-for="item in group"
+            v-drag.drop.food="item.key"
+            class="pet-group"
+            :class="{'last': item.isLastInRow}"
+            @itemDragOver="onDragOver($event, item)"
+            @itemDropped="onDrop($event, item)"
+            @itemDragLeave="onDragLeave()"
+          >
+            <petItem
+              :item="item"
+              :popover-position="'top'"
+              :show-popover="currentDraggingFood == null"
+              :highlight-border="highlightPet == item.key"
+              @click="petClicked(item)"
+            >
+              <template
+                slot="itemBadge"
+                slot-scope="context"
+              >
+                <starBadge
+                  :selected="context.item.key === currentPet"
+                  :show="isOwned('pet', context.item)"
+                  @click="selectPet(context.item)"
+                />
+              </template>
+            </petItem>
+          </div>
+        </div><div
+          v-if="petGroup.key !== 'specialPets' && petGroup.key !== 'wackyPets'"
+          class="btn btn-flat btn-show-more"
+          @click="setShowMore(petGroup.key)"
+        >
+          {{ $_openedItemRows_isToggled(petGroup.key) ? $t('showLess') : $t('showMore') }}
+        </div>
+      </div><h2>
+        {{ $t('mounts') }}
+        <span class="badge badge-pill badge-default">{{ countOwnedAnimals(mountGroups[0], 'mount') }}</span>
+      </h2><div
+        v-for="mountGroup in mountGroups"
+        v-if="!anyFilterSelected || viewOptions[mountGroup.key].selected"
+        :key="mountGroup.key"
+      >
+        <h4 v-if="viewOptions[mountGroup.key].animalCount != 0">
+          {{ mountGroup.label }}
+        </h4><div
+          v-for="(group, key, index) in mounts(mountGroup, hideMissing, selectedSortBy, searchTextThrottled)"
+          v-if="index === 0 || $_openedItemRows_isToggled(mountGroup.key)"
+          class="pet-row d-flex"
+        >
+          <div
+            v-for="item in group"
+            class="pet-group"
+          >
+            <mountItem
+              :key="item.key"
+              :item="item"
+              :popover-position="'top'"
+              :show-popover="true"
+              @click="selectMount(item)"
+            >
+              <span slot="popoverContent"><h4 class="popover-content-title">{{ item.name }}</h4></span><template
+                slot="itemBadge"
+                slot-scope="context"
+              >
+                <starBadge
+                  :selected="item.key === currentMount"
+                  :show="isOwned('mount', item)"
+                  @click="selectMount(item)"
+                />
+              </template>
+            </mountItem>
+          </div>
+        </div><div
+          v-if="mountGroup.key !== 'specialMounts'"
+          class="btn btn-flat btn-show-more"
+          @click="setShowMore(mountGroup.key)"
+        >
+          {{ $_openedItemRows_isToggled(mountGroup.key) ? $t('showLess') : $t('showMore') }}
+        </div>
+      </div><inventoryDrawer>
+        <template
+          slot="item"
+          slot-scope="ctx"
+        >
+          <foodItem
+            :item="ctx.item"
+            :item-count="ctx.itemCount"
+            :item-content-class="ctx.itemClass"
+            :active="currentDraggingFood === ctx.item"
+            @itemDragEnd="onDragEnd()"
+            @itemDragStart="onDragStart($event, ctx.item)"
+            @itemClick="onFoodClicked($event, ctx.item)"
+          />
+        </template>
+      </inventoryDrawer>
+    </div><hatchedPetDialog :hide-text="true" /><div
+      ref="dragginFoodInfo"
+      class="foodInfo"
+    >
+      <div v-if="currentDraggingFood != null">
+        <div
+          class="food-icon"
+          :class="'Pet_Food_'+currentDraggingFood.key"
+        ></div><div class="popover">
+          <div class="popover-content">
+            {{ $t('dragThisFood', {foodName: currentDraggingFood.text() }) }}
+          </div>
+        </div>
+      </div>
+    </div><div
+      v-if="foodClickMode"
+      ref="clickFoodInfo"
+      class="foodInfo mouse"
+    >
+      <div v-if="currentDraggingFood != null">
+        <div
+          class="food-icon"
+          :class="'Pet_Food_'+currentDraggingFood.key"
+        ></div><div class="popover">
+          <div class="popover-content">
+            {{ $t('clickOnPetToFeed', {foodName: currentDraggingFood.text() }) }}
+          </div>
+        </div>
+      </div>
+    </div><mount-raised-modal /><welcome-modal /><hatching-modal :hatchable-pet.sync="hatchablePet" />
+  </div>
 </template>
 
 <style lang='scss' scoped>

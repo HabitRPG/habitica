@@ -1,34 +1,58 @@
-<template lang="pug">
-.row
-  sidebar(@search="updateSearch", @filter="updateFilters")
-
-  .standard-page
-    .header.row
-      .col-8
-        h1.page-header.float-left(v-once) {{ $t('publicGuilds') }}
-      .col-4
-        // @TODO: Add when we implement recent activity .float-right
-          span.dropdown-label {{ $t('sortBy') }}
-          b-dropdown(:text="$t('sort')", right=true)
-            b-dropdown-item(v-for='sortOption in sortOptions', :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}
-        button.btn.btn-secondary.create-group-button.float-right(@click='createGroup()')
-          .svg-icon.positive-icon(v-html="icons.positiveIcon")
-          span(v-once) {{$t('createGuild2')}}
-
-    .row
-      .no-guilds.text-center.col-md-6.offset-md-3(v-if='!loading && filteredGuilds.length === 0')
-        h2(v-once) {{$t('noGuildsMatchFilters')}}
-
-    .row
-      .col-md-12
-        public-guild-item(v-for="guild in filteredGuilds", :key='guild._id', :guild="guild", :display-leave='true')
-        mugen-scroll(
-          :handler="fetchGuilds",
-          :should-handle="!loading && !this.hasLoadedAllGuilds",
-          :handle-on-mount="true",
-          v-show="loading",
-        )
-          span(v-once) {{ $t('loading') }}
+<template>
+  <div class="row">
+    <sidebar
+      @search="updateSearch"
+      @filter="updateFilters"
+    /><div class="standard-page">
+      <div class="header row">
+        <div class="col-8">
+          <h1
+            v-once
+            class="page-header float-left"
+          >
+            {{ $t('publicGuilds') }}
+          </h1>
+        </div><div class="col-4">
+<!-- @TODO: Add when we implement recent activity .float-rightspan.dropdown-label {{ $t('sortBy') }}
+b-dropdown(:text="$t('sort')", right=true)
+  b-dropdown-item(v-for='sortOption in sortOptions', :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}--><button
+class="btn btn-secondary create-group-button float-right"
+@click="createGroup()"
+>
+<div
+class="svg-icon positive-icon"
+v-html="icons.positiveIcon"
+></div><span v-once>{{ $t('createGuild2') }}</span>
+</button>
+        </div>
+      </div><div class="row">
+        <div
+          v-if="!loading && filteredGuilds.length === 0"
+          class="no-guilds text-center col-md-6 offset-md-3"
+        >
+          <h2 v-once>
+            {{ $t('noGuildsMatchFilters') }}
+          </h2>
+        </div>
+      </div><div class="row">
+        <div class="col-md-12">
+          <public-guild-item
+            v-for="guild in filteredGuilds"
+            :key="guild._id"
+            :guild="guild"
+            :display-leave="true"
+          /><mugen-scroll
+            v-show="loading"
+            :handler="fetchGuilds"
+            :should-handle="!loading && !this.hasLoadedAllGuilds"
+            :handle-on-mount="true"
+          >
+            <span v-once>{{ $t('loading') }}</span>
+          </mugen-scroll>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>

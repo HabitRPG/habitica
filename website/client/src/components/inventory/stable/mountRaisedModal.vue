@@ -1,13 +1,34 @@
-<template lang="pug">
-b-modal#mount-raised-modal(:hide-header="true")
-  div.content(v-if="mount != null")
-    div.dialog-header.title {{ $t('raisedPet', {pet: mount.text()}) }}
-    div.inner-content
-      div.pet-background
-        .mount(:class="`Mount_Icon_${mount.key}`")
-      h4.title {{ mount.text() }}
-      button.btn.btn-primary.onward(@click="close()") {{ $t('onward') }}
-  div.clearfix(slot="modal-footer")
+<template>
+  <b-modal
+    id="mount-raised-modal"
+    :hide-header="true"
+  >
+    <div
+      v-if="mount != null"
+      class="content"
+    >
+      <div class="dialog-header title">
+        {{ $t('raisedPet', {pet: mount.text()}) }}
+      </div><div class="inner-content">
+        <div class="pet-background">
+          <div
+            class="mount"
+            :class="`Mount_Icon_${mount.key}`"
+          ></div>
+        </div><h4 class="title">
+          {{ mount.text() }}
+        </h4><button
+          class="btn btn-primary onward"
+          @click="close()"
+        >
+          {{ $t('onward') }}
+        </button>
+      </div>
+    </div><div
+      slot="modal-footer"
+      class="clearfix"
+    ></div>
+  </b-modal>
 </template>
 
 

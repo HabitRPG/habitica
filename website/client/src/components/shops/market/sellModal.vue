@@ -1,48 +1,72 @@
-<template lang="pug">
-  b-modal#sell-modal(
-    :hide-header="true",
+<template>
+  <b-modal
+    id="sell-modal"
+    :hide-header="true"
     @change="onChange($event)"
-  )
-    div.close
-      span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close", @click="hideDialog()")
-
-    div.content(v-if="item")
-      div.inner-content
-        item.flat(
-          :item="item",
-          :itemContentClass="itemContextToSell.itemClass",
-          :showPopover="false"
-        )
-          countBadge(
-            slot="itemBadge",
-            :show="true",
+  >
+    <div class="close">
+      <span
+        class="svg-icon inline icon-10"
+        aria-hidden="true"
+        @click="hideDialog()"
+        v-html="icons.close"
+      ></span>
+    </div><div
+      v-if="item"
+      class="content"
+    >
+      <div class="inner-content">
+        <item
+          class="flat"
+          :item="item"
+          :item-content-class="itemContextToSell.itemClass"
+          :show-popover="false"
+        >
+          <countBadge
+            slot="itemBadge"
+            :show="true"
             :count="itemContextToSell.itemCount"
-          )
-
-        h4.title {{ itemContextToSell.itemName }}
-
-        div(v-if="item.key === 'Saddle'")
-          div.text {{ item.sellWarningNote() }}
-          br
-
-        div(v-else)
-          div
-            div.text {{ item.notes() }}
-
-            div
-              b.how-many-to-sell {{ $t('howManyToSell') }}
-
-            div
-              b-input.itemsToSell(type="number", v-model="selectedAmountToSell", :max="itemContextToSell.itemCount", min="1", @keyup.native="preventNegative($event)", step="1")
-
-              span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons.gold")
-              span.value {{ item.value }}
-
-            button.btn.btn-primary(@click="sellItems()") {{ $t('sell') }}
-
-    div.clearfix(slot="modal-footer")
-      span.balance.float-left {{ $t('yourBalance') }}
-      balanceInfo.float-right
+          />
+        </item><h4 class="title">
+          {{ itemContextToSell.itemName }}
+        </h4><div v-if="item.key === 'Saddle'">
+          <div class="text">
+            {{ item.sellWarningNote() }}
+          </div><br>
+        </div><div v-else>
+          <div>
+            <div class="text">
+              {{ item.notes() }}
+            </div><div><b class="how-many-to-sell">{{ $t('howManyToSell') }}</b></div><div>
+              <b-input
+                v-model="selectedAmountToSell"
+                class="itemsToSell"
+                type="number"
+                :max="itemContextToSell.itemCount"
+                min="1"
+                step="1"
+                @keyup.native="preventNegative($event)"
+              /><span
+                class="svg-icon inline icon-32"
+                aria-hidden="true"
+                v-html="icons.gold"
+              ></span><span class="value">{{ item.value }}</span>
+            </div><button
+              class="btn btn-primary"
+              @click="sellItems()"
+            >
+              {{ $t('sell') }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div><div
+      slot="modal-footer"
+      class="clearfix"
+    >
+      <span class="balance float-left">{{ $t('yourBalance') }}</span><balanceInfo class="float-right" />
+    </div>
+  </b-modal>
 </template>
 <style lang="scss">
 

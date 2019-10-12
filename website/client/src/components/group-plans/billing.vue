@@ -1,35 +1,52 @@
-<template lang="pug">
-.row.standard-page(v-if='groupIsSubscribed && isLeader')
-  .col-12.col-md-6.offset-md-3
-    table.table.alert.alert-info
-      tr(v-if='group.purchased.plan.dateTerminated')
-        td.alert.alert-warning
-          span.noninteractive-button.btn-danger {{ $t('canceledGroupPlan') }}
-          i.glyphicon.glyphicon-time {{ $t('groupPlanCanceled') }}
-          strong {{dateTerminated}}
-      tr(v-if='!group.purchased.plan.dateTerminated')
-        td
-          h3 {{ $t('paymentDetails') }}
-          p(v-if='group.purchased.plan.planId') {{ $t('groupSubscriptionPrice') }}
-      tr(v-if='group.purchased.plan.extraMonths')
-        td
-          span.glyphicon.glyphicon-credit-card
-          | {{ $t('purchasedGroupPlanPlanExtraMonths', purchasedGroupPlanPlanExtraMonths) }}
-      tr(v-if='group.purchased.plan.consecutive.count || group.purchased.plan.consecutive.offset')
-        td
-          span.glyphicon.glyphicon-forward
-          | {{ $t('consecutiveSubscription') }}
-          ul.list-unstyled
-            li {{ $t('consecutiveMonths') }} {{group.purchased.plan.consecutive.count + group.purchased.plan.consecutive.offset}}
-            li {{ $t('gemCapExtra') }} {{group.purchased.plan.consecutive.gemCapExtra}}
-                li {{ $t('mysticHourglasses') }} {{group.purchased.plan.consecutive.trinkets}}
-  .col-12.col-md-6.offset-md-3
-    button.btn.btn-success(class='btn-success', v-if='group.purchased.plan.dateTerminated', @click='upgradeGroup()')
-      | {{ $t('upgrade') }}
-    .btn.btn-primary(v-if='!group.purchased.plan.dateTerminated && group.purchased.plan.paymentMethod === "Stripe"',
-      @click='showStripeEdit({groupId: group.id})') {{ $t('subUpdateCard') }}
-    .btn.btn-sm.btn-danger(v-if='!group.purchased.plan.dateTerminated',
-      @click='cancelSubscriptionConfirm({group: group})') {{ $t('cancelGroupSub') }}
+<template>
+  <div
+    v-if="groupIsSubscribed && isLeader"
+    class="row standard-page"
+  >
+    <div class="col-12 col-md-6 offset-md-3">
+      <table class="table alert alert-info">
+        <tr v-if="group.purchased.plan.dateTerminated">
+          <td class="alert alert-warning">
+            <span class="noninteractive-button btn-danger">{{ $t('canceledGroupPlan') }}</span><i class="glyphicon glyphicon-time">{{ $t('groupPlanCanceled') }}</i><strong>{{ dateTerminated }}</strong>
+          </td>
+        </tr><tr v-if="!group.purchased.plan.dateTerminated">
+          <td>
+            <h3>{{ $t('paymentDetails') }}</h3><p v-if="group.purchased.plan.planId">
+              {{ $t('groupSubscriptionPrice') }}
+            </p>
+          </td>
+        </tr><tr v-if="group.purchased.plan.extraMonths">
+          <td><span class="glyphicon glyphicon-credit-card"></span>{{ $t('purchasedGroupPlanPlanExtraMonths', purchasedGroupPlanPlanExtraMonths) }}</td>
+        </tr><tr v-if="group.purchased.plan.consecutive.count || group.purchased.plan.consecutive.offset">
+          <td>
+            <span class="glyphicon glyphicon-forward"></span>{{ $t('consecutiveSubscription') }}<ul class="list-unstyled">
+              <li>{{ $t('consecutiveMonths') }} {{ group.purchased.plan.consecutive.count + group.purchased.plan.consecutive.offset }}</li><li>{{ $t('gemCapExtra') }} {{ group.purchased.plan.consecutive.gemCapExtra }}</li><li>{{ $t('mysticHourglasses') }} {{ group.purchased.plan.consecutive.trinkets }}</li></li>
+            </ul>
+          </td>
+        </tr>
+      </table>
+    </div><div class="col-12 col-md-6 offset-md-3">
+      <button
+        v-if="group.purchased.plan.dateTerminated"
+        class="btn btn-success btn-success"
+        @click="upgradeGroup()"
+      >
+        {{ $t('upgrade') }}
+      </button><div
+        v-if="!group.purchased.plan.dateTerminated && group.purchased.plan.paymentMethod === 'Stripe'"
+        class="btn btn-primary"
+        @click="showStripeEdit({groupId: group.id})"
+      >
+        {{ $t('subUpdateCard') }}
+      </div><div
+        v-if="!group.purchased.plan.dateTerminated"
+        class="btn btn-sm btn-danger"
+        @click="cancelSubscriptionConfirm({group: group})"
+      >
+        {{ $t('cancelGroupSub') }}
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -52,7 +69,7 @@ export default {
       return this.user._id === this.group.leader._id;
     },
     groupIsSubscribed () {
-      return this.group.purchased && this.group.purchased.plan 
+      return this.group.purchased && this.group.purchased.plan
         && this.group.purchased.plan.customerId;
     },
     dateTerminated () {

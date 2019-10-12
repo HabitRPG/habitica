@@ -1,12 +1,23 @@
-<template lang="pug">
-  b-modal#generic-achievement(:title='data.message', size='md', :hide-footer='true')
-    .modal-body
-      .col-12
-        achievement-avatar.avatar
-      .col-6.offset-3.text-center
-        p(v-html='data.modalText')
-        button.btn.btn-primary(@click='close()') {{ $t('huzzah') }}
-    achievement-footer
+<template>
+  <b-modal
+    id="generic-achievement"
+    :title="data.message"
+    size="md"
+    :hide-footer="true"
+  >
+    <div class="modal-body">
+      <div class="col-12">
+        <achievement-avatar class="avatar" />
+      </div><div class="col-6 offset-3 text-center">
+        <p v-html="data.modalText"></p><button
+          class="btn btn-primary"
+          @click="close()"
+        >
+          {{ $t('huzzah') }}
+        </button>
+      </div>
+    </div><achievement-footer />
+  </b-modal>
 </template>
 
 <style scoped>

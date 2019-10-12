@@ -1,23 +1,45 @@
-<template lang="pug">
-  div.questRewards
-    h3.text-center(v-once) {{ $t('rewards') }}
-    div.reward-item
-      span.svg-icon.inline.icon(v-html="icons.experience")
-      span.reward-text {{ $t('amountExperience', { amount: item.drop.exp }) }}
-    div.reward-item(v-if="item.drop.gp != 0")
-      span.svg-icon.inline.icon(v-html="icons.gold")
-      span.reward-text {{ $t('amountGold', { amount: item.drop.gp }) }}
-    div.reward-item(v-for='drop in getDropsList(item.drop.items, false)')
-      span.icon
-        div(:class="getDropIcon(drop)")
-      span.reward-text {{ getDropName(drop) }}
-    div.reward-item.text-center(v-if='item.drop.unlock')
-      span.reward-text {{ item.drop.unlock() }}
-    h3.text-center(v-if='getDropsList(item.drop.items, true).length > 0') {{$t('questOwnerRewards')}}
-    div.reward-item(v-for='drop in getDropsList(item.drop.items, true)')
-      span.icon
-        div(:class="getDropIcon(drop)")
-      span.reward-text {{ getDropName(drop) }}
+<template>
+  <div class="questRewards">
+    <h3
+      v-once
+      class="text-center"
+    >
+      {{ $t('rewards') }}
+    </h3><div class="reward-item">
+      <span
+        class="svg-icon inline icon"
+        v-html="icons.experience"
+      ></span><span class="reward-text">{{ $t('amountExperience', { amount: item.drop.exp }) }}</span>
+    </div><div
+      v-if="item.drop.gp != 0"
+      class="reward-item"
+    >
+      <span
+        class="svg-icon inline icon"
+        v-html="icons.gold"
+      ></span><span class="reward-text">{{ $t('amountGold', { amount: item.drop.gp }) }}</span>
+    </div><div
+      v-for="drop in getDropsList(item.drop.items, false)"
+      class="reward-item"
+    >
+      <span class="icon"><div :class="getDropIcon(drop)"></div></span><span class="reward-text">{{ getDropName(drop) }}</span>
+    </div><div
+      v-if="item.drop.unlock"
+      class="reward-item text-center"
+    >
+      <span class="reward-text">{{ item.drop.unlock() }}</span>
+    </div><h3
+      v-if="getDropsList(item.drop.items, true).length > 0"
+      class="text-center"
+    >
+      {{ $t('questOwnerRewards') }}
+    </h3><div
+      v-for="drop in getDropsList(item.drop.items, true)"
+      class="reward-item"
+    >
+      <span class="icon"><div :class="getDropIcon(drop)"></div></span><span class="reward-text">{{ getDropName(drop) }}</span>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>

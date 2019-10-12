@@ -1,41 +1,61 @@
-<template lang="pug">
-  b-modal#equipgear-modal(
-    :visible="true",
-    v-if="item != null",
-    :hide-header="true",
+<template>
+  <b-modal
+    v-if="item != null"
+    id="equipgear-modal"
+    :visible="true"
+    :hide-header="true"
     @change="onChange($event)"
-  )
-    div.close
-      span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close", @click="hideDialog()")
-
-    div.content(v-if="item != null")
-
-      div.inner-content
-        avatar(
-          :member="user",
-          :avatarOnly="true",
-          :withBackground="true",
-          :overrideAvatarGear="memberOverrideAvatarGear(item)",
-          :spritesMargin='"0px auto auto -1px"',
-          :showVisualBuffs="false",
-        )
-
-        h4.title {{ itemText }}
-        div.text(v-html="itemNotes")
-
-        span.classTag(v-if="showClassTag")
-          span.svg-icon.inline.icon-24(v-html="icons[itemClass]")
-          span.className.textCondensed(:class="itemClass") {{ getClassName(itemClass) }}
-
-        attributesGrid.attributesGrid(
-          :user="user",
-          :item="item",
+  >
+    <div class="close">
+      <span
+        class="svg-icon inline icon-10"
+        aria-hidden="true"
+        @click="hideDialog()"
+        v-html="icons.close"
+      ></span>
+    </div><div
+      v-if="item != null"
+      class="content"
+    >
+      <div class="inner-content">
+        <avatar
+          :member="user"
+          :avatar-only="true"
+          :with-background="true"
+          :override-avatar-gear="memberOverrideAvatarGear(item)"
+          :sprites-margin="'0px auto auto -1px'"
+          :show-visual-buffs="false"
+        /><h4 class="title">
+          {{ itemText }}
+        </h4><div
+          class="text"
+          v-html="itemNotes"
+        ></div><span
+          v-if="showClassTag"
+          class="classTag"
+        ><span
+          class="svg-icon inline icon-24"
+          v-html="icons[itemClass]"
+        ></span><span
+          class="className textCondensed"
+          :class="itemClass"
+        >{{ getClassName(itemClass) }}</span></span><attributesGrid
           v-if="attributesGridVisible"
-        )
-
-        button.btn.btn-primary(@click="equipItem()") {{ $t(isEquipped ? 'unequip' : 'equip') }}
-
-    div.clearfix(slot="modal-footer")
+          class="attributesGrid"
+          :user="user"
+          :item="item"
+        /><button
+          class="btn btn-primary"
+          @click="equipItem()"
+        >
+          {{ $t(isEquipped ? 'unequip' : 'equip') }}
+        </button>
+      </div>
+    </div><div
+      slot="modal-footer"
+      class="clearfix"
+    ></div>
+  </b-modal>
 </template>
 
 <style lang="scss">

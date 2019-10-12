@@ -1,12 +1,23 @@
-<template lang="pug">
-  b-modal#lost-masterclasser(:title='title', size='md', :hide-footer='true')
-    .modal-body
-      .col-12
-        achievement-avatar.avatar
-      .col-6.offset-3.text-center
-        p {{ $t('achievementLostMasterclasserModalText') }}
-        button.btn.btn-primary(@click='close()') {{ $t('huzzah') }}
-    achievement-footer
+<template>
+  <b-modal
+    id="lost-masterclasser"
+    :title="title"
+    size="md"
+    :hide-footer="true"
+  >
+    <div class="modal-body">
+      <div class="col-12">
+        <achievement-avatar class="avatar" />
+      </div><div class="col-6 offset-3 text-center">
+        <p>{{ $t('achievementLostMasterclasserModalText') }}</p><button
+          class="btn btn-primary"
+          @click="close()"
+        >
+          {{ $t('huzzah') }}
+        </button>
+      </div>
+    </div><achievement-footer />
+  </b-modal>
 </template>
 
 <style scoped>

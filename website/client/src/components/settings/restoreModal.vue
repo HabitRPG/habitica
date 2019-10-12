@@ -1,49 +1,96 @@
-<template lang="pug">
-  b-modal#restore(:title="$t('fixValues')", :hide-footer='true' size='lg')
-    p {{ $t('fixValuesText1') }}
-    p {{ $t('fixValuesText2') }}
-    .form-horizontal
-      h3 {{ $t('stats') }}
-      .form-group.row
-        .col-sm-3
-          label.control-label {{ $t('health') }}
-        .col-sm-9
-          input.form-control(type='number', step="any", data-for='stats.hp', v-model='restoreValues.stats.hp')
-      .form-group.row
-        .col-sm-3
-          label.control-label {{ $t('experience') }}
-        .col-sm-9
-          input.form-control(type='number', step="any", data-for='stats.exp', v-model='restoreValues.stats.exp')
-      .form-group.row
-        .col-sm-3
-          label.control-label {{ $t('gold') }}
-        .col-sm-9
-          input.form-control(type='number', step="any", data-for='stats.gp', v-model='restoreValues.stats.gp')
-        //input.form-control(type='number', step="any", data-for='stats.gp', v-model='restoreValues.stats.gp',disabled)
-        //-p.alert
-          small {{ $t('disabledWinterEvent') }}
-      .form-group.row
-        .col-sm-3
-          label.control-label {{ $t('mana') }}
-        .col-sm-9
-          input.form-control(type='number', step="any", data-for='stats.mp', v-model='restoreValues.stats.mp')
-      .form-group.row
-        .col-sm-3
-          label.control-label {{ $t('level') }}
-        .col-sm-9
-          input.form-control(type='number', data-for='stats.lvl', v-model='restoreValues.stats.lvl')
-      h3 {{ $t('achievements') }}
-      .form-group.row
-        .col-sm-3
-          label.control-label {{ $t('fix21Streaks') }}
-        .col-sm-9
-          input.form-control(type='number', data-for='achievements.streak', v-model='restoreValues.achievements.streak')
-    //- This is causing too many problems for users
-      h3 {{ $t('other') }}
-      a.btn.btn-sm.btn-warning(ng-controller='FooterCtrl', ng-click='addMissedDay(1)') {{ $t('triggerDay') }}
-    .modal-footer
-      button.btn.btn-danger(@click='close()') {{ $t('discardChanges') }}
-      button.btn.btn-primary(@click='restore()') {{ $t('saveAndClose') }}
+<template>
+  <b-modal
+    id="restore"
+    :title="$t('fixValues')"
+    :hide-footer="true"
+    size="lg"
+  >
+    <p>{{ $t('fixValuesText1') }}</p><p>{{ $t('fixValuesText2') }}</p><div class="form-horizontal">
+      <h3>{{ $t('stats') }}</h3><div class="form-group row">
+        <div class="col-sm-3">
+          <label class="control-label">{{ $t('health') }}</label>
+        </div><div class="col-sm-9">
+          <input
+            v-model="restoreValues.stats.hp"
+            class="form-control"
+            type="number"
+            step="any"
+            data-for="stats.hp"
+          >
+        </div>
+      </div><div class="form-group row">
+        <div class="col-sm-3">
+          <label class="control-label">{{ $t('experience') }}</label>
+        </div><div class="col-sm-9">
+          <input
+            v-model="restoreValues.stats.exp"
+            class="form-control"
+            type="number"
+            step="any"
+            data-for="stats.exp"
+          >
+        </div>
+      </div><div class="form-group row">
+        <div class="col-sm-3">
+          <label class="control-label">{{ $t('gold') }}</label>
+        </div><div class="col-sm-9">
+          <input
+            v-model="restoreValues.stats.gp"
+            class="form-control"
+            type="number"
+            step="any"
+            data-for="stats.gp"
+          >
+        </div><!--input.form-control(type='number', step="any", data-for='stats.gp', v-model='restoreValues.stats.gp',disabled)-->
+      </div><div class="form-group row">
+        <div class="col-sm-3">
+          <label class="control-label">{{ $t('mana') }}</label>
+        </div><div class="col-sm-9">
+          <input
+            v-model="restoreValues.stats.mp"
+            class="form-control"
+            type="number"
+            step="any"
+            data-for="stats.mp"
+          >
+        </div>
+      </div><div class="form-group row">
+        <div class="col-sm-3">
+          <label class="control-label">{{ $t('level') }}</label>
+        </div><div class="col-sm-9">
+          <input
+            v-model="restoreValues.stats.lvl"
+            class="form-control"
+            type="number"
+            data-for="stats.lvl"
+          >
+        </div>
+      </div><h3>{{ $t('achievements') }}</h3><div class="form-group row">
+        <div class="col-sm-3">
+          <label class="control-label">{{ $t('fix21Streaks') }}</label>
+        </div><div class="col-sm-9">
+          <input
+            v-model="restoreValues.achievements.streak"
+            class="form-control"
+            type="number"
+            data-for="achievements.streak"
+          >
+        </div>
+      </div>
+    </div><div class="modal-footer">
+      <button
+        class="btn btn-danger"
+        @click="close()"
+      >
+        {{ $t('discardChanges') }}
+      </button><button
+        class="btn btn-primary"
+        @click="restore()"
+      >
+        {{ $t('saveAndClose') }}
+      </button>
+    </div>
+  </b-modal>
 </template>
 
 <script>

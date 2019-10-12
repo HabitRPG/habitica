@@ -1,14 +1,30 @@
-<template lang="pug">
-div
-  div(v-if='item.locked')
-    h4.popover-content-title {{ `${$t('lockedItem')}` }}
-    .popover-content-text(v-if='item.specialClass') {{ `${$t('classLockedItem')}` }}
-    .popover-content-text(v-else) {{ `${$t('tierLockedItem')}` }}
-    p
-  div(v-else)
-    h4.popover-content-title {{ itemText }}
-    .popover-content-text {{ itemNotes }}
-    attributesGrid(:user="user", :item="item")
+<template>
+  <div>
+    <div v-if="item.locked">
+      <h4 class="popover-content-title">
+        {{ `${$t('lockedItem')}` }}
+      </h4><div
+        v-if="item.specialClass"
+        class="popover-content-text"
+      >
+        {{ `${$t('classLockedItem')}` }}
+      </div><div
+        v-else
+        class="popover-content-text"
+      >
+        {{ `${$t('tierLockedItem')}` }}
+      </div><p></p>
+    </div><div v-else>
+      <h4 class="popover-content-title">
+        {{ itemText }}
+      </h4><div class="popover-content-text">
+        {{ itemNotes }}
+      </div><attributesGrid
+        :user="user"
+        :item="item"
+      />
+    </div>
+  </div>
 </template>
 
 <style scoped>

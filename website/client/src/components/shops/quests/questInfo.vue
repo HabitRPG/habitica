@@ -1,22 +1,33 @@
-<template lang="pug">
-.row(:class="{'small-version': smallVersion}")
-  .table-row(v-if="quest.collect")
-    dt {{ $t('collect') + ':' }}
-    dd
-      div(v-for="(collect, key) of quest.collect")
-        span {{ collect.count }} {{ getCollectText(collect) }}
-
-  .table-row(v-if="quest.boss")
-    dt {{ $t('bossHP') + ':' }}
-    dd {{ quest.boss.hp }}
-
-  .table-row
-    dt {{ $t('difficulty') + ':' }}
-    dd
-      .svg-icon.inline(
-        v-for="star of stars()", v-html="icons[star]",
-        :class="smallVersion ? 'icon-12' : 'icon-16'",
-      )
+<template>
+  <div
+    class="row"
+    :class="{'small-version': smallVersion}"
+  >
+    <div
+      v-if="quest.collect"
+      class="table-row"
+    >
+      <dt>{{ $t('collect') + ':' }}</dt><dd>
+        <div v-for="(collect, key) of quest.collect">
+          <span>{{ collect.count }} {{ getCollectText(collect) }}</span>
+        </div>
+      </dd>
+    </div><div
+      v-if="quest.boss"
+      class="table-row"
+    >
+      <dt>{{ $t('bossHP') + ':' }}</dt><dd>{{ quest.boss.hp }}</dd>
+    </div><div class="table-row">
+      <dt>{{ $t('difficulty') + ':' }}</dt><dd>
+        <div
+          v-for="star of stars()"
+          class="svg-icon inline"
+          :class="smallVersion ? 'icon-12' : 'icon-16'"
+          v-html="icons[star]"
+        ></div>
+      </dd>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>

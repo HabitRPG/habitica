@@ -2,12 +2,25 @@
 A simplified dropdown component that doesn't rely on buttons as toggles  like bootstrap-vue
 -->
 
-<template lang="pug">
-.habitica-menu-dropdown.dropdown(@click="toggleDropdown()", @keypress.enter.space.stop.prevent="toggleDropdown()", role="button", tabindex="0", :class="{open: isOpen}", :aria-pressed="isPressed")
-  .habitica-menu-dropdown-toggle
-    slot(name="dropdown-toggle")
-  .dropdown-menu(:class="{'dropdown-menu-right': right}")
-    slot(name="dropdown-content")
+<template>
+  <div
+    class="habitica-menu-dropdown dropdown"
+    role="button"
+    tabindex="0"
+    :class="{open: isOpen}"
+    :aria-pressed="isPressed"
+    @click="toggleDropdown()"
+    @keypress.enter.space.stop.prevent="toggleDropdown()"
+  >
+    <div class="habitica-menu-dropdown-toggle">
+      <slot name="dropdown-toggle"></slot>
+    </div><div
+      class="dropdown-menu"
+      :class="{'dropdown-menu-right': right}"
+    >
+      <slot name="dropdown-content"></slot>
+    </div>
+  </div>
 </template>
 
 <style lang="scss">

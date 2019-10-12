@@ -1,18 +1,34 @@
-<template lang="pug">
-div
-  .item-wrapper(@click="click()", :id="itemId")
-    .item.pet-slot(
-      :class="{'item-empty': !isOwned()}",
-    )
-      slot(name="itemBadge", :item="item")
-      span.item-content(:class="itemClass()")
-  b-popover(
-    :target="itemId",
-    v-if="showPopover",
-    triggers="hover",
-    :placement="popoverPosition",
-  )
-    slot(name="popoverContent", :item="item")
+<template>
+  <div>
+    <div
+      :id="itemId"
+      class="item-wrapper"
+      @click="click()"
+    >
+      <div
+        class="item pet-slot"
+        :class="{'item-empty': !isOwned()}"
+      >
+        <slot
+          name="itemBadge"
+          :item="item"
+        ></slot><span
+          class="item-content"
+          :class="itemClass()"
+        ></span>
+      </div>
+    </div><b-popover
+      v-if="showPopover"
+      :target="itemId"
+      triggers="hover"
+      :placement="popoverPosition"
+    >
+      <slot
+        name="popoverContent"
+        :item="item"
+      ></slot>
+    </b-popover>
+  </div>
 </template>
 
 <script>

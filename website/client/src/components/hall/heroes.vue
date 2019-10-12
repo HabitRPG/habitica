@@ -1,102 +1,195 @@
-<template lang="pug">
-.row.standard-page
-  small.muted(v-html="$t('blurbHallContributors')")
-  .well
-    div(v-if='user.contributor.admin')
-      h2 Reward User
-
-      .row
-        .form.col-6(v-if='!hero.profile')
-          .form-group
-            input.form-control(type='text', v-model='heroID', :placeholder="'User ID or Username'")
-          .form-group
-            button.btn.btn-secondary(@click='loadHero(heroID)')
-              | Load User
-
-      .row
-        .form.col-6(v-if='hero && hero.profile', submit='saveHero(hero)')
-          router-link(:to="{'name': 'userProfile', 'params': {'userId': hero._id}}")
-            h3 @{{hero.auth.local.username}} &nbsp; / &nbsp; {{hero.profile.name}}
-          .form-group
-            label Contributor Title
-            input.form-control(type='text', v-model='hero.contributor.text')
-            small Common titles: <strong>Ambassador, Artisan, Bard, Blacksmith, Challenger, Comrade, Fletcher, Linguist, Linguistic Scribe, Scribe, Socialite, Storyteller</strong>. Rare titles: Advisor, Chamberlain, Designer, Mathematician, Shirtster, Spokesperson, Statistician, Tinker, Transcriber, Troubadour.
-          .form-group
-            label Contributor Tier
-            input.form-control(type='number', v-model='hero.contributor.level')
-            small 1-7 for normal contributors, 8 for moderators, 9 for staff. This determines which items, pets, and mounts are available, and name-tag coloring. Tiers 8 and 9 are automatically given admin status.
-              |&nbsp;
-              a(target='_blank', href='https://trello.com/c/wkFzONhE/277-contributor-gear') More details (1-7)
-              |,&nbsp;
-              a(target='_blank', href='https://github.com/HabitRPG/habitica/issues/3801') more details (8-9)
-          .form-group
-            label Contributions
-            textarea.form-control(cols=5, v-model='hero.contributor.contributions')
-
-          .form-group
-            label Balance
-            input.form-control(type='number', step="any", v-model='hero.balance')
-            small
-              span '{{ hero.balance }}' is in USD, <em>not</em> in Gems. E.g., if this number is 1, it means 4 Gems. Only use this option when manually granting Gems to players, don't use it when granting contributor tiers. Contrib tiers will automatically add Gems.
-          .accordion
-            .accordion-group(heading='Items')
-              h4.expand-toggle(:class="{'open': expandItems}", @click="expandItems = !expandItems") Update Item
-              .form-group.well(v-if="expandItems")
-                input.form-control(type='text',placeholder='Path (eg, items.pets.BearCub-Base)',v-model='hero.itemPath')
-                small.muted Enter the <strong>item path</strong>. E.g., <code>items.pets.BearCub-Zombie</code> or <code>items.gear.owned.head_special_0</code> or <code>items.gear.equipped.head</code>. You can find all the item paths below.
-                br
-                input.form-control(type='text',placeholder='Value (eg, 5)',v-model='hero.itemVal')
-                small.muted Enter the <strong>item value</strong>. E.g., <code>5</code> or <code>false</code> or <code>head_warrior_3</code>. All values are listed in the All Item Paths section below.
-                .accordion
-                  .accordion-group(heading='All Item Paths')
-                    pre {{allItemPaths}}
-                  .accordion-group(heading='Current Items')
-                    pre {{hero.items}}
-            .accordion-group(heading='Auth')
-              h4.expand-toggle(:class="{'open': expandAuth}", @click="expandAuth = !expandAuth") Auth
-              div(v-if="expandAuth")
-                pre {{hero.auth}}
-                .form-group
-                  .checkbox
-                    label
-                      input(type='checkbox', v-if='hero.flags', v-model='hero.flags.chatShadowMuted')
-                      strong Chat Shadow Muting On
-                .form-group
-                  .checkbox
-                    label
-                      input(type='checkbox', v-if='hero.flags', v-model='hero.flags.chatRevoked')
-                      strong Chat Privileges Revoked
-                .form-group
-                  .checkbox
-                    label
-                      input(type='checkbox', v-model='hero.auth.blocked')
-                      | Blocked
-
-          // h4 Backer Status
-          // Add backer stuff like tier, disable adds, etcs
-          .form-group
-            button.form-control.btn.btn-primary(@click='saveHero()')
-              | Save
-
-    .table-responsive
-      table.table.table-striped
-        thead
-          tr
-            th {{ $t('name') }}
-            th(v-if='user.contributor && user.contributor.admin') {{ $t('UUID') }}
-            th {{ $t('contribLevel') }}
-            th {{ $t('title') }}
-            th {{ $t('contributions') }}
-        tbody
-          tr(v-for='(hero, index) in heroes')
-            td
-              user-link(v-if='hero.contributor && hero.contributor.admin', :user='hero', :popover="$t('gamemaster')", popover-trigger='mouseenter', popover-placement='right')
-              user-link(v-if='!hero.contributor || !hero.contributor.admin', :user='hero')
-            td(v-if='user.contributor.admin', @click='populateContributorInput(hero._id, index)').btn-link {{hero._id}}
-            td {{hero.contributor.level}}
-            td {{hero.contributor.text}}
-            td
-              div(v-markdown='hero.contributor.contributions', target='_blank')
+<template>
+  <div class="row standard-page">
+    <small
+      class="muted"
+      v-html="$t('blurbHallContributors')"
+    ></small><div class="well">
+      <div v-if="user.contributor.admin">
+        <h2>Reward User</h2><div class="row">
+          <div
+            v-if="!hero.profile"
+            class="form col-6"
+          >
+            <div class="form-group">
+              <input
+                v-model="heroID"
+                class="form-control"
+                type="text"
+                :placeholder="'User ID or Username'"
+              >
+            </div><div class="form-group">
+              <button
+                class="btn btn-secondary"
+                @click="loadHero(heroID)"
+              >
+                Load User
+              </button>
+            </div>
+          </div>
+        </div><div class="row">
+          <div
+            v-if="hero && hero.profile"
+            class="form col-6"
+            submit="saveHero(hero)"
+          >
+            <router-link :to="{'name': 'userProfile', 'params': {'userId': hero._id}}">
+              <h3>@{{ hero.auth.local.username }} &nbsp; / &nbsp; {{ hero.profile.name }}</h3>
+            </router-link><div class="form-group">
+              <label>Contributor Title</label><input
+                v-model="hero.contributor.text"
+                class="form-control"
+                type="text"
+              ><small>Common titles: <strong>Ambassador, Artisan, Bard, Blacksmith, Challenger, Comrade, Fletcher, Linguist, Linguistic Scribe, Scribe, Socialite, Storyteller</strong>. Rare titles: Advisor, Chamberlain, Designer, Mathematician, Shirtster, Spokesperson, Statistician, Tinker, Transcriber, Troubadour.</small>
+            </div><div class="form-group">
+              <label>Contributor Tier</label><input
+                v-model="hero.contributor.level"
+                class="form-control"
+                type="number"
+              ><small>1-7 for normal contributors, 8 for moderators, 9 for staff. This determines which items, pets, and mounts are available, and name-tag coloring. Tiers 8 and 9 are automatically given admin status.&nbsp;<a
+                target="_blank"
+                href="https://trello.com/c/wkFzONhE/277-contributor-gear"
+              >More details (1-7)</a>,&nbsp;<a
+                target="_blank"
+                href="https://github.com/HabitRPG/habitica/issues/3801"
+              >more details (8-9)</a></small>
+            </div><div class="form-group">
+              <label>Contributions</label><textarea
+                v-model="hero.contributor.contributions"
+                class="form-control"
+                cols="5"
+              ></textarea>
+            </div><div class="form-group">
+              <label>Balance</label><input
+                v-model="hero.balance"
+                class="form-control"
+                type="number"
+                step="any"
+              ><small><span>'{{ hero.balance }}' is in USD, <em>not</em> in Gems. E.g., if this number is 1, it means 4 Gems. Only use this option when manually granting Gems to players, don't use it when granting contributor tiers. Contrib tiers will automatically add Gems.</span></small>
+            </div><div class="accordion">
+              <div
+                class="accordion-group"
+                heading="Items"
+              >
+                <h4
+                  class="expand-toggle"
+                  :class="{'open': expandItems}"
+                  @click="expandItems = !expandItems"
+                >
+                  Update Item
+                </h4><div
+                  v-if="expandItems"
+                  class="form-group well"
+                >
+                  <input
+                    v-model="hero.itemPath"
+                    class="form-control"
+                    type="text"
+                    placeholder="Path (eg, items.pets.BearCub-Base)"
+                  ><small class="muted">Enter the <strong>item path</strong>. E.g., <code>items.pets.BearCub-Zombie</code> or <code>items.gear.owned.head_special_0</code> or <code>items.gear.equipped.head</code>. You can find all the item paths below.</small><br><input
+                    v-model="hero.itemVal"
+                    class="form-control"
+                    type="text"
+                    placeholder="Value (eg, 5)"
+                  ><small class="muted">Enter the <strong>item value</strong>. E.g., <code>5</code> or <code>false</code> or <code>head_warrior_3</code>. All values are listed in the All Item Paths section below.</small><div class="accordion">
+                    <div
+                      class="accordion-group"
+                      heading="All Item Paths"
+                    >
+                      <pre>{{ allItemPaths }}</pre>
+                    </div><div
+                      class="accordion-group"
+                      heading="Current Items"
+                    >
+                      <pre>{{ hero.items }}</pre>
+                    </div>
+                  </div>
+                </div>
+              </div><div
+                class="accordion-group"
+                heading="Auth"
+              >
+                <h4
+                  class="expand-toggle"
+                  :class="{'open': expandAuth}"
+                  @click="expandAuth = !expandAuth"
+                >
+                  Auth
+                </h4><div v-if="expandAuth">
+                  <pre>{{ hero.auth }}</pre><div class="form-group">
+                    <div class="checkbox">
+                      <label><input
+                        v-if="hero.flags"
+                        v-model="hero.flags.chatShadowMuted"
+                        type="checkbox"
+                      ><strong>Chat Shadow Muting On</strong></label>
+                    </div>
+                  </div><div class="form-group">
+                    <div class="checkbox">
+                      <label><input
+                        v-if="hero.flags"
+                        v-model="hero.flags.chatRevoked"
+                        type="checkbox"
+                      ><strong>Chat Privileges Revoked</strong></label>
+                    </div>
+                  </div><div class="form-group">
+                    <div class="checkbox">
+                      <label><input
+                        v-model="hero.auth.blocked"
+                        type="checkbox"
+                      >Blocked</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div><!-- h4 Backer Status--><!-- Add backer stuff like tier, disable adds, etcs--><div class="form-group">
+              <button
+                class="form-control btn btn-primary"
+                @click="saveHero()"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      </div><div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>{{ $t('name') }}</th><th v-if="user.contributor && user.contributor.admin">
+                {{ $t('UUID') }}
+              </th><th>{{ $t('contribLevel') }}</th><th>{{ $t('title') }}</th><th>{{ $t('contributions') }}</th>
+            </tr>
+          </thead><tbody>
+            <tr v-for="(hero, index) in heroes">
+              <td>
+                <user-link
+                  v-if="hero.contributor && hero.contributor.admin"
+                  :user="hero"
+                  :popover="$t('gamemaster')"
+                  popover-trigger="mouseenter"
+                  popover-placement="right"
+                /><user-link
+                  v-if="!hero.contributor || !hero.contributor.admin"
+                  :user="hero"
+                />
+              </td><td
+                v-if="user.contributor.admin"
+                class="btn-link"
+                @click="populateContributorInput(hero._id, index)"
+              >
+                {{ hero._id }}
+              </td><td>{{ hero.contributor.level }}</td><td>{{ hero.contributor.text }}</td><td>
+                <div
+                  v-markdown="hero.contributor.contributions"
+                  target="_blank"
+                ></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>

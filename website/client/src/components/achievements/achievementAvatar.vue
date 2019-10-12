@@ -1,7 +1,11 @@
-<template lang="pug">
-  div(:class='achievementClass')
-    //- +generatedAvatar({sleep: false})
-    avatar(:member='user', :avatarOnly='true', :withBackground='true')
+<template>
+  <div :class="achievementClass">
+    <avatar
+      :member="user"
+      :avatar-only="true"
+      :with-background="true"
+    />
+  </div>
 </template>
 
 <script>

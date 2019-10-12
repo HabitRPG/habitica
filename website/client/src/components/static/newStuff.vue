@@ -1,5 +1,8 @@
-<template lang='pug'>
-  .static-view(v-html="html")
+<template>
+  <div
+    class="static-view"
+    v-html="html"
+  ></div>
 </template>
 
 <style lang='scss'>

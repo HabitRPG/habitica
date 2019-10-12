@@ -1,19 +1,27 @@
-<template lang="pug">
-.notification.dropdown-item.dropdown-separated.d-flex.justify-content-between(
-  @click="clicked"
-)
-  .notification-icon.d-flex.justify-content-center.align-items-center(
-    v-if="hasIcon",
-    :class="{'is-not-bailey': isNotBailey}",
-  )
-    slot(name="icon")
-  .notification-content
-    slot(name="content")
-  .notification-remove(@click.stop="canRemove ? remove() : null",)
-    .svg-icon(
-      v-if="canRemove",
-      v-html="icons.close",
-    )
+<template>
+  <div
+    class="notification dropdown-item dropdown-separated d-flex justify-content-between"
+    @click="clicked"
+  >
+    <div
+      v-if="hasIcon"
+      class="notification-icon d-flex justify-content-center align-items-center"
+      :class="{'is-not-bailey': isNotBailey}"
+    >
+      <slot name="icon"></slot>
+    </div><div class="notification-content">
+      <slot name="content"></slot>
+    </div><div
+      class="notification-remove"
+      @click.stop="canRemove ? remove() : null"
+    >
+      <div
+        v-if="canRemove"
+        class="svg-icon"
+        v-html="icons.close"
+      ></div>
+    </div>
+  </div>
 </template>
 
 <style lang="scss"> // Not scoped because the classes could be used in i18n strings

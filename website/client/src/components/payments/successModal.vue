@@ -1,41 +1,69 @@
-<template lang="pug">
-  b-modal#payments-success-modal(
-    :title="$t('accountSuspendedTitle')",
-    size='sm',
-    :hideFooter="isFromBalance",
-    :modalClass="isFromBalance ? ['modal-hidden-footer'] : []"
-  )
-    div(slot="modal-header")
-      .check-container.d-flex.align-items-center.justify-content-center
-        .svg-icon.check(v-html="icons.check", v-once)
-      h2 {{ $t(isFromBalance ? 'success' : 'paymentSuccessful') }}
-    div(slot="modal-footer")
-      .small-text(v-once) {{ $t('giftSubscriptionText4') }}
-    .row
-      .col-12.modal-body-col
-        template(v-if="paymentData.paymentType === 'gems'")
-          strong(v-once) {{ $t('paymentYouReceived') }}
-          .details-block.gems
-            .svg-icon(v-html="icons.gem", v-once)
-            span 20
-        template(v-if="paymentData.paymentType === 'gift-gems' || paymentData.paymentType === 'gift-gems-balance'")
-          span(v-html="$t('paymentYouSentGems', {name: paymentData.giftReceiver})")
-          .details-block.gems
-            .svg-icon(v-html="icons.gem", v-once)
-            span {{ paymentData.gift.gems.amount }}
-        template(v-if="paymentData.paymentType === 'gift-subscription'")
-          span(v-html="$t('paymentYouSentSubscription', {name: paymentData.giftReceiver, months: paymentData.subscription.months})")
-        template(v-if="paymentData.paymentType === 'subscription'")
-          strong(v-once) {{ $t('nowSubscribed') }}
-          .details-block
-            span(v-html="$t('paymentSubBilling', {amount: paymentData.subscription.price, months: paymentData.subscription.months})")
-        template(v-if="paymentData.paymentType === 'groupPlan'")
-          span(v-html="$t(paymentData.newGroup ? 'groupPlanCreated' : 'groupPlanUpgraded', {groupName: paymentData.group.name})")
-          .details-block
-            span(v-html="$t('paymentSubBilling', {amount: groupPlanCost, months: paymentData.subscription.months})")
-        template(v-if="paymentData.paymentType === 'groupPlan' || paymentData.paymentType === 'subscription'")
-          span.small-text.auto-renew(v-once) {{ $t('paymentAutoRenew') }}
-        button.btn.btn-primary(@click='close()', v-once) {{$t('onwards')}}
+<template>
+  <b-modal
+    id="payments-success-modal"
+    :title="$t('accountSuspendedTitle')"
+    size="sm"
+    :hide-footer="isFromBalance"
+    :modal-class="isFromBalance ? ['modal-hidden-footer'] : []"
+  >
+    <div slot="modal-header">
+      <div class="check-container d-flex align-items-center justify-content-center">
+        <div
+          v-once
+          class="svg-icon check"
+          v-html="icons.check"
+        ></div>
+      </div><h2>{{ $t(isFromBalance ? 'success' : 'paymentSuccessful') }}</h2>
+    </div><div slot="modal-footer">
+      <div
+        v-once
+        class="small-text"
+      >
+        {{ $t('giftSubscriptionText4') }}
+      </div>
+    </div><div class="row">
+      <div class="col-12 modal-body-col">
+        <template v-if="paymentData.paymentType === 'gems'">
+          <strong v-once>{{ $t('paymentYouReceived') }}</strong><div class="details-block gems">
+            <div
+              v-once
+              class="svg-icon"
+              v-html="icons.gem"
+            ></div><span>20</span>
+          </div>
+        </template><template v-if="paymentData.paymentType === 'gift-gems' || paymentData.paymentType === 'gift-gems-balance'">
+          <span v-html="$t('paymentYouSentGems', {name: paymentData.giftReceiver})"></span><div class="details-block gems">
+            <div
+              v-once
+              class="svg-icon"
+              v-html="icons.gem"
+            ></div><span>{{ paymentData.gift.gems.amount }}</span>
+          </div>
+        </template><template v-if="paymentData.paymentType === 'gift-subscription'">
+          <span v-html="$t('paymentYouSentSubscription', {name: paymentData.giftReceiver, months: paymentData.subscription.months})"></span>
+        </template><template v-if="paymentData.paymentType === 'subscription'">
+          <strong v-once>{{ $t('nowSubscribed') }}</strong><div class="details-block">
+            <span v-html="$t('paymentSubBilling', {amount: paymentData.subscription.price, months: paymentData.subscription.months})"></span>
+          </div>
+        </template><template v-if="paymentData.paymentType === 'groupPlan'">
+          <span v-html="$t(paymentData.newGroup ? 'groupPlanCreated' : 'groupPlanUpgraded', {groupName: paymentData.group.name})"></span><div class="details-block">
+            <span v-html="$t('paymentSubBilling', {amount: groupPlanCost, months: paymentData.subscription.months})"></span>
+          </div>
+        </template><template v-if="paymentData.paymentType === 'groupPlan' || paymentData.paymentType === 'subscription'">
+          <span
+            v-once
+            class="small-text auto-renew"
+          >{{ $t('paymentAutoRenew') }}</span>
+        </template><button
+          v-once
+          class="btn btn-primary"
+          @click="close()"
+        >
+          {{ $t('onwards') }}
+        </button>
+      </div>
+    </div>
+  </b-modal>
 </template>
 
 <style lang="scss">

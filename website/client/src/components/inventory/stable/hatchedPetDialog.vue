@@ -1,14 +1,38 @@
-<template lang="pug">
-b-modal#hatchedPet-modal(:hide-header="true")
-  div.content(v-if="pet != null")
-    div.dialog-header.title(v-once) {{ $t('hatchedPetGeneric') }}
-    div.inner-content
-      div.pet-background
-        div(:class="pet.class")
-      h4.title {{ pet.name }}
-      div.text(v-if="!hideText", v-markdown="$t('hatchedPetHowToUse', { stableUrl: '/inventory/stable' })")
-      button.btn.btn-primary(@click="close()") {{ $t('onward') }}
-  div.clearfix(slot="modal-footer")
+<template>
+  <b-modal
+    id="hatchedPet-modal"
+    :hide-header="true"
+  >
+    <div
+      v-if="pet != null"
+      class="content"
+    >
+      <div
+        v-once
+        class="dialog-header title"
+      >
+        {{ $t('hatchedPetGeneric') }}
+      </div><div class="inner-content">
+        <div class="pet-background">
+          <div :class="pet.class"></div>
+        </div><h4 class="title">
+          {{ pet.name }}
+        </h4><div
+          v-if="!hideText"
+          v-markdown="$t('hatchedPetHowToUse', { stableUrl: '/inventory/stable' })"
+          class="text"
+        ></div><button
+          class="btn btn-primary"
+          @click="close()"
+        >
+          {{ $t('onward') }}
+        </button>
+      </div>
+    </div><div
+      slot="modal-footer"
+      class="clearfix"
+    ></div>
+  </b-modal>
 </template>
 
 <style lang="scss">

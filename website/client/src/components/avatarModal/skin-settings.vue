@@ -1,18 +1,28 @@
-<template lang="pug">
-  #skin.section.customize-section
-    sub-menu.text-center(:items="skinSubMenuItems", :activeSubPage="activeSubPage", @changeSubPage="changeSubPage($event)")
-    customize-options(
-      :items="freeSkins",
-      :currentValue="user.preferences.skin"
-    )
-
-    div(v-if='editing && set.key !== "undefined"', v-for='set in seasonalSkins')
-      customize-options(
-        :items='set.options',
-        :currentValue="user.preferences.skin",
-        :fullSet='!hideSet(set) && !userOwnsSet("skin", set.keys)',
-        @unlock='unlock(`skin.${set.keys.join(",skin.")}`)'
-      )
+<template>
+  <div
+    id="skin"
+    class="section customize-section"
+  >
+    <sub-menu
+      class="text-center"
+      :items="skinSubMenuItems"
+      :active-sub-page="activeSubPage"
+      @changeSubPage="changeSubPage($event)"
+    /><customize-options
+      :items="freeSkins"
+      :current-value="user.preferences.skin"
+    /><div
+      v-for="set in seasonalSkins"
+      v-if="editing && set.key !== 'undefined'"
+    >
+      <customize-options
+        :items="set.options"
+        :current-value="user.preferences.skin"
+        :full-set="!hideSet(set) && !userOwnsSet('skin', set.keys)"
+        @unlock="unlock(`skin.${set.keys.join(',skin.')}`)"
+      />
+    </div>
+  </div>
 </template>
 
 <script>

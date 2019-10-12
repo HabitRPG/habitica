@@ -1,17 +1,25 @@
-<template lang="pug">
-div
-  static-header(v-if='showContentWrap', :class='{"home-header": ["home", "front"].indexOf($route.name) !== -1, "white-header": this.$route.name === "plans"}')
-
-  .static-wrapper
-    router-view
-
-  div(:id='footerId', v-if='showContentWrap')
-    app-footer
-
-  #bottom-wrap.purple-4(v-if='showContentWrap && footerId')
-    #bottom-background
-      .seamless_mountains_demo_repeat
-      .midground_foreground_extended2
+<template>
+  <div>
+    <static-header
+      v-if="showContentWrap"
+      :class="{'home-header': ['home', 'front'].indexOf($route.name) !== -1, 'white-header': this.$route.name === 'plans'}"
+    /><div class="static-wrapper">
+      <router-view />
+    </div><div
+      v-if="showContentWrap"
+      :id="footerId"
+    >
+      <app-footer />
+    </div><div
+      v-if="showContentWrap && footerId"
+      id="bottom-wrap"
+      class="purple-4"
+    >
+      <div id="bottom-background">
+        <div class="seamless_mountains_demo_repeat"></div><div class="midground_foreground_extended2"></div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style lang="scss">

@@ -1,16 +1,31 @@
-<template lang="pug">
-.autocomplete-selection(v-if='searchResults.length > 0', :style='autocompleteStyle')
-  .autocomplete-results.d-flex.align-items-center(
-    v-for='result in searchResults',
-    @click='select(result)',
-    @mouseenter='setHover(result)',
-    @mouseleave='resetSelection()',
-    :class='{"hover-background": result.hover}',
-  )
-    span
-      h3.profile-name(:class='userLevelStyle(result.msg)') {{ result.displayName }}
-      .svg-icon(v-html="tierIcon(result.msg)", v-if='showTierStyle(result.msg)')
-    span.username.ml-2(v-if='result.username', :class='{"hover-foreground": result.hover}') @{{ result.username }}
+<template>
+  <div
+    v-if="searchResults.length > 0"
+    class="autocomplete-selection"
+    :style="autocompleteStyle"
+  >
+    <div
+      v-for="result in searchResults"
+      class="autocomplete-results d-flex align-items-center"
+      :class="{'hover-background': result.hover}"
+      @click="select(result)"
+      @mouseenter="setHover(result)"
+      @mouseleave="resetSelection()"
+    >
+      <span><h3
+        class="profile-name"
+        :class="userLevelStyle(result.msg)"
+      >{{ result.displayName }}</h3><div
+        v-if="showTierStyle(result.msg)"
+        class="svg-icon"
+        v-html="tierIcon(result.msg)"
+      ></div></span><span
+        v-if="result.username"
+        class="username ml-2"
+        :class="{'hover-foreground': result.hover}"
+      >@{{ result.username }}</span>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>

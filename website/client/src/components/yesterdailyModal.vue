@@ -1,24 +1,34 @@
-<template lang="pug">
-  b-modal#yesterdaily(
-    size="m",
-    :hide-header="true",
-    :hide-footer="true",
-    :no-close-on-backdrop="true",
-    :no-close-on-esc="true",
-    @hide="$emit('hide')",
-  )
-    h1.header-welcome.text-center {{ $t('welcomeBack') }}
-    p.call-to-action.text-center {{ $t('checkOffYesterDailies') }}
-    .tasks-list
-      task(
-        v-for="task in tasksByType.daily",
-        :key="task.id",
-        :task="task",
-        :isUser="true",
-        :dueDate="dueDate",
-      )
-    .start-day.text-center
-      button.btn.btn-primary(@click='close()') {{ $t('yesterDailiesCallToAction') }}
+<template>
+  <b-modal
+    id="yesterdaily"
+    size="m"
+    :hide-header="true"
+    :hide-footer="true"
+    :no-close-on-backdrop="true"
+    :no-close-on-esc="true"
+    @hide="$emit('hide')"
+  >
+    <h1 class="header-welcome text-center">
+      {{ $t('welcomeBack') }}
+    </h1><p class="call-to-action text-center">
+      {{ $t('checkOffYesterDailies') }}
+    </p><div class="tasks-list">
+      <task
+        v-for="task in tasksByType.daily"
+        :key="task.id"
+        :task="task"
+        :is-user="true"
+        :due-date="dueDate"
+      />
+    </div><div class="start-day text-center">
+      <button
+        class="btn btn-primary"
+        @click="close()"
+      >
+        {{ $t('yesterDailiesCallToAction') }}
+      </button>
+    </div>
+  </b-modal>
 </template>
 
 <style lang="scss">

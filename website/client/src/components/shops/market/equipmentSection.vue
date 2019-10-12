@@ -1,49 +1,68 @@
-<template lang="pug">
-layout-section(:title="$t('equipment')")
-  div(slot="filters")
-    filter-dropdown(
-      :label="$t('class')",
-      :initialItem="selectedGearCategory",
-      :items="marketGearCategories",
-      :withIcon="true",
-      @selected="selectedGroupGearByClass = $event.id"
-    )
-      span(slot="item", slot-scope="ctx")
-        span.svg-icon.inline.icon-16(v-html="icons[ctx.item.id]")
-        span.text {{ getClassName(ctx.item.id) }}
-
-    filter-dropdown(
-      :label="$t('sortBy')",
-      :initialItem="selectedSortGearBy",
-      :items="sortGearBy",
-      @selected="selectedSortGearBy = $event"
-    )
-      span(slot="item", slot-scope="ctx")
-        span.text {{ $t(ctx.item.id) }}
-
-  itemRows.equipment-rows(
-    :items="sortedGearItems",
-    :itemWidth=94,
-    :itemMargin=24,
-    :type="'gear'",
-    :noItemsLabel="$t('noGearItemsOfClass')",
-    slot="content"
-  )
-    template(slot="item", slot-scope="ctx")
-      shopItem(
-        :key="ctx.item.key",
-        :item="ctx.item",
-        :emptyItem="userItems.gear[ctx.item.key] === undefined",
-        :popoverPosition="'top'",
-        @click="gearSelected(ctx.item)"
-      )
-
-        template(slot="itemBadge", slot-scope="ctx")
-          span.badge.badge-pill.badge-item.badge-svg(
-            :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
-            @click.prevent.stop="togglePinned(ctx.item)"
-          )
-            span.svg-icon.inline.icon-12.color(v-html="icons.pin")
+<template>
+  <layout-section :title="$t('equipment')">
+    <div slot="filters">
+      <filter-dropdown
+        :label="$t('class')"
+        :initial-item="selectedGearCategory"
+        :items="marketGearCategories"
+        :with-icon="true"
+        @selected="selectedGroupGearByClass = $event.id"
+      >
+        <span
+          slot="item"
+          slot-scope="ctx"
+        ><span
+          class="svg-icon inline icon-16"
+          v-html="icons[ctx.item.id]"
+        ></span><span class="text">{{ getClassName(ctx.item.id) }}</span></span>
+      </filter-dropdown><filter-dropdown
+        :label="$t('sortBy')"
+        :initial-item="selectedSortGearBy"
+        :items="sortGearBy"
+        @selected="selectedSortGearBy = $event"
+      >
+        <span
+          slot="item"
+          slot-scope="ctx"
+        ><span class="text">{{ $t(ctx.item.id) }}</span></span>
+      </filter-dropdown>
+    </div><itemRows
+      slot="content"
+      class="equipment-rows"
+      :items="sortedGearItems"
+      :item-width="94"
+      :item-margin="24"
+      :type="'gear'"
+      :no-items-label="$t('noGearItemsOfClass')"
+    >
+      <template
+        slot="item"
+        slot-scope="ctx"
+      >
+        <shopItem
+          :key="ctx.item.key"
+          :item="ctx.item"
+          :empty-item="userItems.gear[ctx.item.key] === undefined"
+          :popover-position="'top'"
+          @click="gearSelected(ctx.item)"
+        >
+          <template
+            slot="itemBadge"
+            slot-scope="ctx"
+          >
+            <span
+              class="badge badge-pill badge-item badge-svg"
+              :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}"
+              @click.prevent.stop="togglePinned(ctx.item)"
+            ><span
+              class="svg-icon inline icon-12 color"
+              v-html="icons.pin"
+            ></span></span>
+          </template>
+        </shopItem>
+      </template>
+    </itemRows>
+  </layout-section>
 </template>
 
 <script>
@@ -66,7 +85,7 @@ import svgHealer from '@/assets/svg/healer.svg';
 import pinUtils from '../../../mixins/pinUtils';
 
 const sortGearTypes = [
-  'sortByType', 'sortByPrice', 'sortByCon', 
+  'sortByType', 'sortByPrice', 'sortByCon',
   'sortByPer', 'sortByStr', 'sortByInt',
 ].map(g => ({ id: g }));
 

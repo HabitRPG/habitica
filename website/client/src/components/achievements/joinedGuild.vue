@@ -1,14 +1,23 @@
-<template lang="pug">
-  b-modal#joined-guild(:title="$t('modalAchievement')", size='md', :hide-footer="true")
-    .modal-body
-      .col-12
-        // @TODO: +achievementAvatar('guild',0)
-        achievement-avatar.avatar
-      .col-6.offset-3.text-center
-        p {{ $t('joinedGuildText') }}
-        br
-        button.btn.btn-primary(@click='close()') {{ $t('huzzah') }}
-    achievement-footer
+<template>
+  <b-modal
+    id="joined-guild"
+    :title="$t('modalAchievement')"
+    size="md"
+    :hide-footer="true"
+  >
+    <div class="modal-body">
+      <div class="col-12">
+        <!-- @TODO: +achievementAvatar('guild',0)--><achievement-avatar class="avatar" />
+      </div><div class="col-6 offset-3 text-center">
+        <p>{{ $t('joinedGuildText') }}</p><br><button
+          class="btn btn-primary"
+          @click="close()"
+        >
+          {{ $t('huzzah') }}
+        </button>
+      </div>
+    </div><achievement-footer />
+  </b-modal>
 </template>
 
 <style scoped>

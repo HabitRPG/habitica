@@ -43,7 +43,6 @@
     "eslint-plugin-vue": "^5.0.0",
     "inspectpack": "^4.2.2",
     "pug": "^2.0.4",
-    "pug-plain-loader": "^1.0.0",
     "sass": "^1.19.0",
     "sass-loader": "^8.0.0",
     "svg-inline-loader": "^0.8.0",

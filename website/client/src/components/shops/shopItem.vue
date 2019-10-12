@@ -1,44 +1,100 @@
-<template lang="pug">
-div
-  .item-wrapper(@click="click()", :id="itemId")
-    .item(:class="getItemClasses()")
-      slot(name="itemBadge", :item="item", :emptyItem="emptyItem")
-
-      span.badge.badge-pill.badge-item.badge-clock(
-        v-if="item.event && item.owned == null && showEventBadge",
-      )
-        span.svg-icon.inline.clock(v-html="icons.clock")
-
-      div.shop-content
-        span.svg-icon.inline.lock(v-if="item.locked" v-html="icons.lock")
-        span.suggestedDot(v-if="item.isSuggested")
-
-        div.image
-          div(:class="item.class", v-once)
-          slot(name="itemImage", :item="item")
-
-        div.price
-          span.svg-icon.inline.icon-16(v-html="icons[currencyClass]", v-once)
-          span.price-label(:class="currencyClass", v-once) {{ getPrice() }}
-  b-popover(
-    :target="itemId",
-    v-if="showPopover",
-    triggers="hover",
-    :placement="popoverPosition",
-  )
-    slot(name="popoverContent", :item="item")
-      equipmentAttributesPopover(
-        v-if="item.purchaseType === 'gear'",
+<template>
+  <div>
+    <div
+      :id="itemId"
+      class="item-wrapper"
+      @click="click()"
+    >
+      <div
+        class="item"
+        :class="getItemClasses()"
+      >
+        <slot
+          name="itemBadge"
+          :item="item"
+          :emptyItem="emptyItem"
+        ></slot><span
+          v-if="item.event && item.owned == null && showEventBadge"
+          class="badge badge-pill badge-item badge-clock"
+        ><span
+          class="svg-icon inline clock"
+          v-html="icons.clock"
+        ></span></span><div class="shop-content">
+          <span
+            v-if="item.locked"
+            class="svg-icon inline lock"
+            v-html="icons.lock"
+          ></span><span
+            v-if="item.isSuggested"
+            class="suggestedDot"
+          ></span><div class="image">
+            <div
+              v-once
+              :class="item.class"
+            ></div><slot
+              name="itemImage"
+              :item="item"
+            ></slot>
+          </div><div class="price">
+            <span
+              v-once
+              class="svg-icon inline icon-16"
+              v-html="icons[currencyClass]"
+            ></span><span
+              v-once
+              class="price-label"
+              :class="currencyClass"
+            >{{ getPrice() }}</span>
+          </div>
+        </div>
+      </div>
+    </div><b-popover
+      v-if="showPopover"
+      :target="itemId"
+      triggers="hover"
+      :placement="popoverPosition"
+    >
+      <slot
+        name="popoverContent"
         :item="item"
-      )
-      div.questPopover(v-else-if="item.purchaseType === 'quests'")
-        h4.popover-content-title {{ item.text }}
-        questInfo(:quest="item")
-      div(v-else)
-        h4.popover-content-title(v-once) {{ item.text }}
-        .popover-content-text(v-if='showNotes && item.key !== "armoire"', v-once) {{ item.notes }}
-        .popover-content-text(v-if='showNotes && item.key === "armoire"') {{ item.notes }}
-      div.mt-4(v-if="item.event") {{ limitedString }}
+      >
+        <equipmentAttributesPopover
+          v-if="item.purchaseType === 'gear'"
+          :item="item"
+        /><div
+          v-else-if="item.purchaseType === 'quests'"
+          class="questPopover"
+        >
+          <h4 class="popover-content-title">
+            {{ item.text }}
+          </h4><questInfo :quest="item" />
+        </div><div v-else>
+          <h4
+            v-once
+            class="popover-content-title"
+          >
+            {{ item.text }}
+          </h4><div
+            v-if="showNotes && item.key !== 'armoire'"
+            v-once
+            class="popover-content-text"
+          >
+            {{ item.notes }}
+          </div><div
+            v-if="showNotes && item.key === 'armoire'"
+            class="popover-content-text"
+          >
+            {{ item.notes }}
+          </div>
+        </div><div
+          v-if="item.event"
+          class="mt-4"
+        >
+          {{ limitedString }}
+        </div>
+      </slot>
+    </b-popover>
+  </div>
 </template>
 
 <style lang="scss" scoped>

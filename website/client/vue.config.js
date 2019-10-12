@@ -55,31 +55,14 @@ module.exports = {
         .set(dep, path.resolve(__dirname, `./node_modules/${dep}`));
     });
 
-    const pugRule = config.module.rule('pug');
     const svgRule = config.module.rule('svg');
 
     // clear all existing loaders.
     // if you don't do this, the loader below will be appended to
     // existing loaders of the rule.
-    pugRule.uses.clear();
     svgRule.uses.clear();
 
     // add replacement loader(s)
-    pugRule
-      .test(/\.pug$/)
-      // this applies to <template lang="pug"> in Vue components
-      .oneOf('vue-loader')
-      .resourceQuery(/^\?vue/)
-      .use('pug-plain')
-      .loader('pug-plain-loader')
-      .end()
-      .end();
-
-
-    // clear all existing loaders.
-    // if you don't do this, the loader below will be appended to
-    // existing loaders of the rule.
-
     svgRule
       .test(/\.svg$/)
       .oneOf('normal')

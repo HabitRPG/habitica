@@ -1,53 +1,93 @@
-<template lang="pug">
-.container-fluid(ref="container")
-  .row
-    .col-12
-      copy-as-todo-modal(:group-type='groupType', :group-name='groupName', :group-id='groupId')
-  .row.loadmore
-    div(v-if="canLoadMore")
-      .loadmore-divider
-      button.btn.btn-secondary(@click='triggerLoad()') {{ $t('loadEarlierMessages') }}
-      .loadmore-divider
-    h2.col-12.loading(v-show="isLoading") {{ $t('loading') }}
-  div(v-for="(msg, index) in messages", v-if='chat && canViewFlag(msg)', :class='{row: inbox}')
-    .d-flex(v-if='user._id !== msg.uuid', :class='{"flex-grow-1": inbox}')
-      avatar.avatar-left(
-        v-if='msg.userStyles || (cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected)',
-        :member="msg.userStyles || cachedProfileData[msg.uuid]",
-        :avatarOnly="true",
-        :overrideTopPadding='"14px"',
-        :hideClassBadge='true',
-        @click.native="showMemberModal(msg.uuid)",
-        :class='{"inbox-avatar-left": inbox}'
-      )
-      .card(:class='{"col-10": inbox}')
-        chat-card(
-          :msg='msg',
-          :inbox='inbox',
-          :groupId='groupId',
-          @message-liked='messageLiked',
-          @message-removed='messageRemoved',
-          @show-member-modal='showMemberModal',
-          @chat-card-mounted='itemWasMounted')
-    .d-flex(v-if='user._id === msg.uuid', :class='{"flex-grow-1": inbox}')
-      .card(:class='{"col-10": inbox}')
-        chat-card(
-          :msg='msg',
-          :inbox='inbox',
-          :groupId='groupId',
-          @message-liked='messageLiked',
-          @message-removed='messageRemoved',
-          @show-member-modal='showMemberModal',
-          @chat-card-mounted='itemWasMounted')
-      avatar(
-        v-if='msg.userStyles || (cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected)',
-        :member="msg.userStyles || cachedProfileData[msg.uuid]",
-        :avatarOnly="true",
-        :hideClassBadge='true',
-        :overrideTopPadding='"14px"',
-        @click.native="showMemberModal(msg.uuid)",
-        :class='{"inbox-avatar-right": inbox}'
-      )
+<template>
+  <div
+    ref="container"
+    class="container-fluid"
+  >
+    <div class="row">
+      <div class="col-12">
+        <copy-as-todo-modal
+          :group-type="groupType"
+          :group-name="groupName"
+          :group-id="groupId"
+        />
+      </div>
+    </div><div class="row loadmore">
+      <div v-if="canLoadMore">
+        <div class="loadmore-divider"></div><button
+          class="btn btn-secondary"
+          @click="triggerLoad()"
+        >
+          {{ $t('loadEarlierMessages') }}
+        </button><div class="loadmore-divider"></div>
+      </div><h2
+        v-show="isLoading"
+        class="col-12 loading"
+      >
+        {{ $t('loading') }}
+      </h2>
+    </div><div
+      v-for="(msg, index) in messages"
+      v-if="chat && canViewFlag(msg)"
+      :class="{row: inbox}"
+    >
+      <div
+        v-if="user._id !== msg.uuid"
+        class="d-flex"
+        :class="{'flex-grow-1': inbox}"
+      >
+        <avatar
+          v-if="msg.userStyles || (cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected)"
+          class="avatar-left"
+          :member="msg.userStyles || cachedProfileData[msg.uuid]"
+          :avatar-only="true"
+          :override-top-padding="'14px'"
+          :hide-class-badge="true"
+          :class="{'inbox-avatar-left': inbox}"
+          @click.native="showMemberModal(msg.uuid)"
+        /><div
+          class="card"
+          :class="{'col-10': inbox}"
+        >
+          <chat-card
+            :msg="msg"
+            :inbox="inbox"
+            :group-id="groupId"
+            @message-liked="messageLiked"
+            @message-removed="messageRemoved"
+            @show-member-modal="showMemberModal"
+            @chat-card-mounted="itemWasMounted"
+          />
+        </div>
+      </div><div
+        v-if="user._id === msg.uuid"
+        class="d-flex"
+        :class="{'flex-grow-1': inbox}"
+      >
+        <div
+          class="card"
+          :class="{'col-10': inbox}"
+        >
+          <chat-card
+            :msg="msg"
+            :inbox="inbox"
+            :group-id="groupId"
+            @message-liked="messageLiked"
+            @message-removed="messageRemoved"
+            @show-member-modal="showMemberModal"
+            @chat-card-mounted="itemWasMounted"
+          />
+        </div><avatar
+          v-if="msg.userStyles || (cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected)"
+          :member="msg.userStyles || cachedProfileData[msg.uuid]"
+          :avatar-only="true"
+          :hide-class-badge="true"
+          :override-top-padding="'14px'"
+          :class="{'inbox-avatar-right': inbox}"
+          @click.native="showMemberModal(msg.uuid)"
+        />
+      </div>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>

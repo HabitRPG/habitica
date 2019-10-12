@@ -1,108 +1,228 @@
-<template lang="pug">
-// @TODO: Move to group plans folder
-div
-  div
-    .header
-      h1.text-center Need more for your Group?
-      .row
-        .col-8.offset-2.text-center
-          h2.sub-text {{ $t('groupBenefitsDescription') }}
-    .container.benefits
-      .row
-        .col-4
-          .box
-            img.box1(src='~@/assets/images/group-plans/group-14@3x.png')
-            hr
-            h2 {{ $t('teamBasedTasks') }}
-            p Set up an easily-viewed shared task list for the group. Assign tasks to your fellow group members, or let them claim their own tasks to make it clear what everyone is working on!
-
-        .col-4
-          .box
-            img.box2(src='~@/assets/images/group-plans/group-12@3x.png')
-            hr
-            h2 Group Management Controls
-            p Use task approvals to verify that a task that was really completed, add Group Managers to share responsibilities, and enjoy a private group chat for all team members.
-
-        .col-4
-          .box
-            img.box3(src='~@/assets/images/group-plans/group-13@3x.png')
-            hr
-            h2 In-Game Benefits
-            p Group members get an exclusive Jackalope Mount, as well as full subscription benefits, including special monthly equipment sets and the ability to buy gems with gold.
-
-    #upgrading-group.container.payment-options(v-if='upgradingGroup._id')
-      h1.text-center.purple-header Are you ready to upgrade?
-      .row
-        .col-12.text-center
-          .purple-box
-            .amount-section
-              .dollar $
-              .number 9
-              .name Group Owner Subscription
-            .plus
-              .svg-icon(v-html="icons.positiveIcon")
-            .amount-section
-              .dollar $
-              .number 3
-              .name Each Individual Group Member
-
-          .box.payment-providers
-            h3 Choose your payment method
-            .payments-column
-              button.purchase.btn.btn-primary.payment-button.payment-item(@click='pay(PAYMENTS.STRIPE)')
-                .svg-icon.credit-card-icon(v-html="icons.creditCardIcon")
-                | {{ $t('card') }}
-              amazon-button.payment-item(:amazon-data="pay(PAYMENTS.AMAZON)")
-    .container.col-6.offset-3.create-option(v-if='!upgradingGroup._id')
-      .row
-        h1.col-12.text-center.purple-header Create your Group today!
-      .row
-        .col-12.text-center
-          button.btn.btn-primary.create-group(@click='launchModal("create")') Create Your New Group
-      .row.pricing
-        .col-5
-          .dollar $
-          .number 9
-          .name
-            div Group Owner
-            div Subscription
-        .col-1
-          .plus +
-        .col-6
-          .dollar $
-          .number 3
-          .name
-            div Each Additional
-            div Member
-
-  b-modal#group-plan-modal(title="Select Payment", size='md', hide-footer=true)
-    .col-12(v-if='activePage === PAGES.CREATE_GROUP')
-      .form-group
-        label.control-label(for='new-group-name') Name
-        input.form-control#new-group-name.input-medium.option-content(required, type='text', placeholder="Name", v-model='newGroup.name')
-      .form-group
-        label(for='new-group-description') {{ $t('description') }}
-        textarea.form-control#new-group-description.option-content(cols='3', :placeholder="$t('description')", v-model='newGroup.description')
-      .form-group(v-if='type === "guild"')
-        .custom-control.custom-radio
-          input.custom-control-input(type='radio', name='new-group-privacy', value='private', v-model='newGroup.privacy')
-          label.custom-control-label {{ $t('inviteOnly') }}
-      .form-group
-        .custom-control.custom-checkbox
-          input.custom-control-input(type='checkbox', v-model='newGroup.leaderOnly.challenges' id='create-group-leaderOnlyChallenges-checkbox')
-          label.custom-control-label(for='create-group-leaderOnlyChallenges-checkbox') {{ $t('leaderOnlyChallenges') }}
-      .form-group(v-if='type === "party"')
-        button.btn.btn-secondary.form-control(@click='createGroup()', :value="$t('createGroupPlan')")
-      .form-group
-        button.btn.btn-primary.btn-lg.btn-block(@click="createGroup()", :disabled="!newGroupIsReady") {{ $t('createGroupPlan') }}
-    .col-12(v-if='activePage === PAGES.PAY')
-      .text-center
-        h3 Choose your payment method
-        .payments-column.mx-auto
-          button.purchase.btn.btn-primary.payment-button.payment-item(@click='pay(PAYMENTS.STRIPE)')
-            .svg-icon.credit-card-icon(v-html="icons.creditCardIcon")
-            | {{ $t('card') }}
-          amazon-button.payment-item(:amazon-data="pay(PAYMENTS.AMAZON)")
+<template>
+  <!-- @TODO: Move to group plans folder--><div>
+    <div>
+      <div class="header">
+        <h1 class="text-center">
+          Need more for your Group?
+        </h1><div class="row">
+          <div class="col-8 offset-2 text-center">
+            <h2 class="sub-text">
+              {{ $t('groupBenefitsDescription') }}
+            </h2>
+          </div>
+        </div>
+      </div><div class="container benefits">
+        <div class="row">
+          <div class="col-4">
+            <div class="box">
+              <img
+                class="box1"
+                src="~@/assets/images/group-plans/group-14@3x.png"
+              ><hr><h2>{{ $t('teamBasedTasks') }}</h2><p>Set up an easily-viewed shared task list for the group. Assign tasks to your fellow group members, or let them claim their own tasks to make it clear what everyone is working on!</p>
+            </div>
+          </div><div class="col-4">
+            <div class="box">
+              <img
+                class="box2"
+                src="~@/assets/images/group-plans/group-12@3x.png"
+              ><hr><h2>Group Management Controls</h2><p>Use task approvals to verify that a task that was really completed, add Group Managers to share responsibilities, and enjoy a private group chat for all team members.</p>
+            </div>
+          </div><div class="col-4">
+            <div class="box">
+              <img
+                class="box3"
+                src="~@/assets/images/group-plans/group-13@3x.png"
+              ><hr><h2>In-Game Benefits</h2><p>Group members get an exclusive Jackalope Mount, as well as full subscription benefits, including special monthly equipment sets and the ability to buy gems with gold.</p>
+            </div>
+          </div>
+        </div>
+      </div><div
+        v-if="upgradingGroup._id"
+        id="upgrading-group"
+        class="container payment-options"
+      >
+        <h1 class="text-center purple-header">
+          Are you ready to upgrade?
+        </h1><div class="row">
+          <div class="col-12 text-center">
+            <div class="purple-box">
+              <div class="amount-section">
+                <div class="dollar">
+                  $
+                </div><div class="number">
+                  9
+                </div><div class="name">
+                  Group Owner Subscription
+                </div>
+              </div><div class="plus">
+                <div
+                  class="svg-icon"
+                  v-html="icons.positiveIcon"
+                ></div>
+              </div><div class="amount-section">
+                <div class="dollar">
+                  $
+                </div><div class="number">
+                  3
+                </div><div class="name">
+                  Each Individual Group Member
+                </div>
+              </div>
+            </div><div class="box payment-providers">
+              <h3>Choose your payment method</h3><div class="payments-column">
+                <button
+                  class="purchase btn btn-primary payment-button payment-item"
+                  @click="pay(PAYMENTS.STRIPE)"
+                >
+                  <div
+                    class="svg-icon credit-card-icon"
+                    v-html="icons.creditCardIcon"
+                  ></div>{{ $t('card') }}
+                </button><amazon-button
+                  class="payment-item"
+                  :amazon-data="pay(PAYMENTS.AMAZON)"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><div
+        v-if="!upgradingGroup._id"
+        class="container col-6 offset-3 create-option"
+      >
+        <div class="row">
+          <h1 class="col-12 text-center purple-header">
+            Create your Group today!
+          </h1>
+        </div><div class="row">
+          <div class="col-12 text-center">
+            <button
+              class="btn btn-primary create-group"
+              @click="launchModal('create')"
+            >
+              Create Your New Group
+            </button>
+          </div>
+        </div><div class="row pricing">
+          <div class="col-5">
+            <div class="dollar">
+              $
+            </div><div class="number">
+              9
+            </div><div class="name">
+              <div>Group Owner</div><div>Subscription</div>
+            </div>
+          </div><div class="col-1">
+            <div class="plus">
+              +
+            </div>
+          </div><div class="col-6">
+            <div class="dollar">
+              $
+            </div><div class="number">
+              3
+            </div><div class="name">
+              <div>Each Additional</div><div>Member</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><b-modal
+      id="group-plan-modal"
+      title="Select Payment"
+      size="md"
+      hide-footer="hide-footer"
+    >
+      <div
+        v-if="activePage === PAGES.CREATE_GROUP"
+        class="col-12"
+      >
+        <div class="form-group">
+          <label
+            class="control-label"
+            for="new-group-name"
+          >Name</label><input
+            id="new-group-name"
+            v-model="newGroup.name"
+            class="form-control input-medium option-content"
+            required="required"
+            type="text"
+            placeholder="Name"
+          >
+        </div><div class="form-group">
+          <label for="new-group-description">{{ $t('description') }}</label><textarea
+            id="new-group-description"
+            v-model="newGroup.description"
+            class="form-control option-content"
+            cols="3"
+            :placeholder="$t('description')"
+          ></textarea>
+        </div><div
+          v-if="type === 'guild'"
+          class="form-group"
+        >
+          <div class="custom-control custom-radio">
+            <input
+              v-model="newGroup.privacy"
+              class="custom-control-input"
+              type="radio"
+              name="new-group-privacy"
+              value="private"
+            ><label class="custom-control-label">{{ $t('inviteOnly') }}</label>
+          </div>
+        </div><div class="form-group">
+          <div class="custom-control custom-checkbox">
+            <input
+              id="create-group-leaderOnlyChallenges-checkbox"
+              v-model="newGroup.leaderOnly.challenges"
+              class="custom-control-input"
+              type="checkbox"
+            ><label
+              class="custom-control-label"
+              for="create-group-leaderOnlyChallenges-checkbox"
+            >{{ $t('leaderOnlyChallenges') }}</label>
+          </div>
+        </div><div
+          v-if="type === 'party'"
+          class="form-group"
+        >
+          <button
+            class="btn btn-secondary form-control"
+            :value="$t('createGroupPlan')"
+            @click="createGroup()"
+          ></button>
+        </div><div class="form-group">
+          <button
+            class="btn btn-primary btn-lg btn-block"
+            :disabled="!newGroupIsReady"
+            @click="createGroup()"
+          >
+            {{ $t('createGroupPlan') }}
+          </button>
+        </div>
+      </div><div
+        v-if="activePage === PAGES.PAY"
+        class="col-12"
+      >
+        <div class="text-center">
+          <h3>Choose your payment method</h3><div class="payments-column mx-auto">
+            <button
+              class="purchase btn btn-primary payment-button payment-item"
+              @click="pay(PAYMENTS.STRIPE)"
+            >
+              <div
+                class="svg-icon credit-card-icon"
+                v-html="icons.creditCardIcon"
+              ></div>{{ $t('card') }}
+            </button><amazon-button
+              class="payment-item"
+              :amazon-data="pay(PAYMENTS.AMAZON)"
+            />
+          </div>
+        </div>
+      </div>
+    </b-modal>
+  </div>
 </template>
 
 <style lang="scss" scoped>

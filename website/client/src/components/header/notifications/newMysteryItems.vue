@@ -1,13 +1,19 @@
-<template lang="pug">
-base-notification(
-  :can-remove="canRemove",
-  :has-icon="true",
-  :notification="notification",
-  :read-after-click="true",
-  @click="action"
-)
-  div(slot="content", v-html="$t('newSubscriberItem')")
-  div(slot="icon", :class="mysteryClass")
+<template>
+  <base-notification
+    :can-remove="canRemove"
+    :has-icon="true"
+    :notification="notification"
+    :read-after-click="true"
+    @click="action"
+  >
+    <div
+      slot="content"
+      v-html="$t('newSubscriberItem')"
+    ></div><div
+      slot="icon"
+      :class="mysteryClass"
+    ></div>
+  </base-notification>
 </template>
 
 <script>

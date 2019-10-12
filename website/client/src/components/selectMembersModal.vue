@@ -1,34 +1,73 @@
-<template lang="pug">
-div
-  b-modal#select-member-modal(
-    size='lg',
-    :hideFooter="true",
-    @change="onChange($event)"
-  )
-    .header-wrap(slot="modal-header")
-      .row
-        .col-6
-          h1(v-once) {{$t('selectPartyMember')}}
-        .col-6
-          button(type="button" aria-label="Close" class="close", @click='close()')
-            span(aria-hidden="true") ×
-      .row
-        .form-group.col-6
-          input.form-control.search(type="text", :placeholder="$t('search')", v-model='searchTerm')
-        .col-4.offset-2
-          span.dropdown-label {{ $t('sortBy') }}
-          b-dropdown(:text="$t('sort')", right=true)
-            b-dropdown-item(
-              v-for='sortOption in sortOptions',
-              @click='sort(sortOption.value)',
-              :key='sortOption.value'
-            ) {{sortOption.text}}
-    .row(v-for='member in sortedMembers')
-      .col-10
-        member-details(:member='member')
-      .col-2.actions
-        button.btn.btn-primary(@click="selectMember(member)") {{ $t('select') }}
-    .row.gradient(v-if='members.length > 3')
+<template>
+  <div>
+    <b-modal
+      id="select-member-modal"
+      size="lg"
+      :hide-footer="true"
+      @change="onChange($event)"
+    >
+      <div
+        slot="modal-header"
+        class="header-wrap"
+      >
+        <div class="row">
+          <div class="col-6">
+            <h1 v-once>
+              {{ $t('selectPartyMember') }}
+            </h1>
+          </div><div class="col-6">
+            <button
+              class="close"
+              type="button"
+              aria-label="Close"
+              @click="close()"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+        </div><div class="row">
+          <div class="form-group col-6">
+            <input
+              v-model="searchTerm"
+              class="form-control search"
+              type="text"
+              :placeholder="$t('search')"
+            >
+          </div><div class="col-4 offset-2">
+            <span class="dropdown-label">{{ $t('sortBy') }}</span><b-dropdown
+              :text="$t('sort')"
+              right="right"
+            >
+              <b-dropdown-item
+                v-for="sortOption in sortOptions"
+                :key="sortOption.value"
+                @click="sort(sortOption.value)"
+              >
+                {{ sortOption.text }}
+              </b-dropdown-item>
+            </b-dropdown>
+          </div>
+        </div>
+      </div><div
+        v-for="member in sortedMembers"
+        class="row"
+      >
+        <div class="col-10">
+          <member-details :member="member" />
+        </div><div class="col-2 actions">
+          <button
+            class="btn btn-primary"
+            @click="selectMember(member)"
+          >
+            {{ $t('select') }}
+          </button>
+        </div>
+      </div><div
+        v-if="members.length > 3"
+        class="row gradient"
+      ></div>
+    </b-modal>
+  </div>
 </template>
 
 <style lang='scss'>

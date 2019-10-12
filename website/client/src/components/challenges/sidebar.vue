@@ -1,36 +1,81 @@
-<template lang="pug">
-.standard-sidebar.d-none.d-sm-block
-  .form-group
-    input.form-control.search(type="text", :placeholder="$t('search')", v-model='searchTerm')
-  form
-    h2(v-once) {{ $t('filter') }}
-    .form-group
-      h3 {{ $t('category') }}
-      .form-check(
-        v-for="group in categoryOptions",
-        :key="group.key",
-      )
-        .custom-control.custom-checkbox
-          input.custom-control-input(type="checkbox", :value='group.key' v-model="categoryFilters", :id="group.key")
-          label.custom-control-label(v-once, :for="group.key") {{ $t(group.label) }}
-    .form-group(v-if='$route.name !== "findChallenges"')
-      h3 {{ $t('membership') }}
-      .form-check(
-        v-for="group in roleOptions",
-        :key="group.key",
-      )
-        .custom-control.custom-checkbox
-          input.custom-control-input(type="checkbox", :value='group.key' v-model="roleFilters", :id="group.key")
-          label.custom-control-label(v-once, :for="group.key") {{ $t(group.label) }}
-    .form-group
-      h3 {{ $t('ownership') }}
-      .form-check(
-        v-for="group in ownershipOptions",
-        :key="group.key",
-      )
-        .custom-control.custom-checkbox
-          input.custom-control-input(type="checkbox", :value='group.key' v-model="ownershipFilters", :id="group.key")
-          label.custom-control-label(v-once, :for="group.key") {{ $t(group.label) }}
+<template>
+  <div class="standard-sidebar d-none d-sm-block">
+    <div class="form-group">
+      <input
+        v-model="searchTerm"
+        class="form-control search"
+        type="text"
+        :placeholder="$t('search')"
+      >
+    </div><form>
+      <h2 v-once>
+        {{ $t('filter') }}
+      </h2><div class="form-group">
+        <h3>{{ $t('category') }}</h3><div
+          v-for="group in categoryOptions"
+          :key="group.key"
+          class="form-check"
+        >
+          <div class="custom-control custom-checkbox">
+            <input
+              :id="group.key"
+              v-model="categoryFilters"
+              class="custom-control-input"
+              type="checkbox"
+              :value="group.key"
+            ><label
+              v-once
+              class="custom-control-label"
+              :for="group.key"
+            >{{ $t(group.label) }}</label>
+          </div>
+        </div>
+      </div><div
+        v-if="$route.name !== 'findChallenges'"
+        class="form-group"
+      >
+        <h3>{{ $t('membership') }}</h3><div
+          v-for="group in roleOptions"
+          :key="group.key"
+          class="form-check"
+        >
+          <div class="custom-control custom-checkbox">
+            <input
+              :id="group.key"
+              v-model="roleFilters"
+              class="custom-control-input"
+              type="checkbox"
+              :value="group.key"
+            ><label
+              v-once
+              class="custom-control-label"
+              :for="group.key"
+            >{{ $t(group.label) }}</label>
+          </div>
+        </div>
+      </div><div class="form-group">
+        <h3>{{ $t('ownership') }}</h3><div
+          v-for="group in ownershipOptions"
+          :key="group.key"
+          class="form-check"
+        >
+          <div class="custom-control custom-checkbox">
+            <input
+              :id="group.key"
+              v-model="ownershipFilters"
+              class="custom-control-input"
+              type="checkbox"
+              :value="group.key"
+            ><label
+              v-once
+              class="custom-control-label"
+              :for="group.key"
+            >{{ $t(group.label) }}</label>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
 </template>
 
 <script>

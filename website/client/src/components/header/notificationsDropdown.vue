@@ -1,34 +1,57 @@
-<template lang="pug">
-menu-dropdown.item-notifications(:right="true", @toggled="handleOpenStatusChange", :openStatus="openStatus")
-  div(slot="dropdown-toggle")
-    div(:aria-label="$t('notifications')", v-b-tooltip.hover.bottom="$t('notifications')")
-      message-count(
-        v-if='notificationsCount > 0',
-        :count="notificationsCount",
-        :top="true",
-        :gray="!hasUnseenNotifications",
-      )
-      .top-menu-icon.svg-icon.notifications(v-html="icons.notifications")
-  div(slot="dropdown-content")
-    .dropdown-item.dropdown-separated.d-flex.justify-content-between.dropdown-inactive.align-items-center(
-      @click.stop=""
-    )
-      h4.dropdown-title(v-once) {{ $t('notifications') }}
-      a.small-link.standard-link(@click="dismissAll", :disabled="notificationsCount === 0") {{ $t('dismissAll') }}
-    world-boss
-    component(
-      :is="notification.type",
-      :key="notification.id",
-      v-for="notification in notifications",
-      :notification="notification",
-      :can-remove="!isActionable(notification)",
-    )
-    .dropdown-item.dropdown-separated.d-flex.justify-content-center.dropdown-inactive.no-notifications.flex-column(
-      v-if="notificationsCount === 0"
-    )
-      .svg-icon(v-html="icons.success")
-      h2 {{ $t('noNotifications') }}
-      p {{ $t('noNotificationsText') }}
+<template>
+  <menu-dropdown
+    class="item-notifications"
+    :right="true"
+    :open-status="openStatus"
+    @toggled="handleOpenStatusChange"
+  >
+    <div slot="dropdown-toggle">
+      <div
+        v-b-tooltip.hover.bottom="$t('notifications')"
+        :aria-label="$t('notifications')"
+      >
+        <message-count
+          v-if="notificationsCount > 0"
+          :count="notificationsCount"
+          :top="true"
+          :gray="!hasUnseenNotifications"
+        /><div
+          class="top-menu-icon svg-icon notifications"
+          v-html="icons.notifications"
+        ></div>
+      </div>
+    </div><div slot="dropdown-content">
+      <div
+        class="dropdown-item dropdown-separated d-flex justify-content-between dropdown-inactive align-items-center"
+        @click.stop=""
+      >
+        <h4
+          v-once
+          class="dropdown-title"
+        >
+          {{ $t('notifications') }}
+        </h4><a
+          class="small-link standard-link"
+          :disabled="notificationsCount === 0"
+          @click="dismissAll"
+        >{{ $t('dismissAll') }}</a>
+      </div><world-boss /><component
+        :is="notification.type"
+        v-for="notification in notifications"
+        :key="notification.id"
+        :notification="notification"
+        :can-remove="!isActionable(notification)"
+      /><div
+        v-if="notificationsCount === 0"
+        class="dropdown-item dropdown-separated d-flex justify-content-center dropdown-inactive no-notifications flex-column"
+      >
+        <div
+          class="svg-icon"
+          v-html="icons.success"
+        ></div><h2>{{ $t('noNotifications') }}</h2><p>{{ $t('noNotificationsText') }}</p>
+      </div>
+    </div>
+  </menu-dropdown>
 </template>
 
 <style lang='scss' scoped>

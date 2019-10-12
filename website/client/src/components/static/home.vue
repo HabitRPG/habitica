@@ -1,122 +1,270 @@
-<template lang="pug">
-  #front.static-view
-    noscript.banner {{ $t('jsDisabledHeadingFull') }}
-      br
-      a(href='http://www.enable-javascript.com/', target='_blank') {{ $t('jsDisabledLink') }}
-
-    #intro-signup.purple-1
-      .container
-        .row
-          .col-12.col-md-6.col-lg-6
-            img(src='~@/assets/images/home/home-main@3x.png', width='357px')
-            h1 {{$t('motivateYourself')}}
-            p.section-main {{$t('timeToGetThingsDone', {userCountInMillions})}}
-          .col-12.col-md-6.col-lg-6
-            h3.text-center {{$t('singUpForFree')}}
-            div.text-center
-              button.social-button(@click='socialAuth("facebook")')
-                .svg-icon.social-icon(v-html="icons.facebookIcon")
-                span {{$t('signUpWithSocial', {social: 'Facebook'})}}
-              button.social-button(@click='socialAuth("google")')
-                .svg-icon.social-icon(v-html="icons.googleIcon")
-                span {{$t('signUpWithSocial', {social: 'Google'})}}
-            .strike
-              span {{$t('or')}}
-            .form(@keyup.enter="register()")
-              p.form-text {{$t('usernameLimitations')}}
-              input#usernameInput.form-control(type='text', :placeholder='$t("username")', v-model='username', :class='{"input-valid": usernameValid, "input-invalid": usernameInvalid}')
-              .input-error(v-for="issue in usernameIssues") {{ issue }}
-              input.form-control(type='email', :placeholder='$t("email")', v-model='email', :class='{"input-invalid": emailInvalid, "input-valid": emailValid}')
-              input.form-control(type='password', :placeholder='$t("password")', v-model='password', :class='{"input-valid": password.length > 3}')
-              input.form-control(type='password', :placeholder='$t("confirmPassword")', v-model='passwordConfirm', :class='{"input-invalid": passwordConfirmInvalid, "input-valid": passwordConfirmValid}')
-              p.form-text(v-once, v-html="$t('termsAndAgreement')")
-              button.sign-up(@click="register()") {{$t('signup')}}
-          .col-12
-            .spacer.svg-icon(v-html='icons.spacer')
-
-    #gamify-life.purple-2
-      .container-fluid
-        .pixel-horizontal.svg-icon(v-html='icons.pixelHorizontal')
-      .container
-        .row
-          .col-12.col-sm-6.col-md-6.col-lg-6.offset-sm-3.text-center
-            h2 {{$t('gamifyYourLife')}}
-            p.section-main {{$t('aboutHabitica')}}
-        .row
-          .col-12.col-md-4
-            img.track-habits(src='~@/assets/images/home/track-habits@3x.png', width='354px', height='228px')
-            strong {{$t('trackYourGoals')}}
-            p {{$t('trackYourGoalsDesc')}}
-          .col-12.col-md-4
-            img(src='~@/assets/images/home/earn-rewards@3x.png', width='316px', height='244px')
-            strong {{$t('earnRewards')}}
-            p {{$t('earnRewardsDesc')}}
-          .col-12.col-md-4
-            img(src='~@/assets/images/home/battle-monsters@3x.png', width='303px', height='244px')
-            strong {{$t('battleMonsters')}}
-            p {{$t('battleMonstersDesc')}}
-      .col-12
-        .spacer.svg-icon(v-html='icons.spacer')
-
-    #use-cases.purple-2
-      .container.text-center
-        .row
-          .col-12
-            h2 {{$t('playersUseToImprove')}}
-        .row
-          .col-12.col-sm-4
-            img(src='~@/assets/images/home/health-fitness@3x.png', width='300px', height='300px')
-            strong {{$t('healthAndFitness')}}
-            p {{$t('healthAndFitnessDesc')}}
-          .col-12.col-sm-4
-            img(src='~@/assets/images/home/school-work@3x.png', width='300px', height='300px')
-            strong {{$t('schoolAndWork')}}
-            p {{$t('schoolAndWorkDesc')}}
-          .col-12.col-sm-4
-            img(src='~@/assets/images/home/much-more@3x.png', width='300px', height='300px')
-            strong {{$t('muchmuchMore')}}
-            p {{$t('muchmuchMoreDesc')}}
-      .col-12
-        .spacer.svg-icon(v-html='icons.spacer')
-      .container-fluid
-        .pixel-horizontal-2.svg-icon(v-html='icons.pixelHorizontal2')
-
-    #level-up-anywhere.purple-3
-      .container
-        .row
-          .col-12.col-md-6.col-lg-6
-            .iphones
-          .col-12.col-md-6.col-lg-6.text-column
-            h2 {{ $t('levelUpAnywhere') }}
-            p {{ $t('levelUpAnywhereDesc') }}
-            a.app.svg-icon(v-html='icons.googlePlay', href='https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica', target='_blank')
-            a.app.svg-icon(v-html='icons.iosAppStore', href='https://itunes.apple.com/us/app/habitica-gamified-task-manager/id994882113?mt=8', target='_blank')
-      .container-fluid
-        .pixel-horizontal-3.svg-icon(v-html='icons.pixelHorizontal3')
-
-    #call-to-action.purple-4
-      .container.featured
-        .row.text-center
-          h3.col-12 {{ $t('joinMany') }}
-        .row
-          .col-12.text-center
-            button.btn.btn-primary.join-button(@click='playButtonClick()') {{ $t('joinToday') }}
-        .row.featured
-          .col-12.text-center
-            strong {{ $t('featuredIn') }}
-      .container-fluid.featured
-        .row
-          .col-12.text-center
-            .lifehacker.svg-icon(v-html='icons.lifehacker')
-            .thenewyorktimes.svg-icon(v-html='icons.thenewyorktimes')
-            .makeuseof.svg-icon(v-html='icons.makeuseof')
-            .forbes.svg-icon(v-html='icons.forbes')
-            .cnet.svg-icon(v-html='icons.cnet')
-            .kickstarter.svg-icon(v-html='icons.kickstarter')
-            .fast-company.svg-icon(v-html='icons.fastCompany')
-            .discover.svg-icon(v-html='icons.discover')
-      .container-fluid
-        .row.seamless_stars_varied_opacity_repeat
+<template>
+  <div
+    id="front"
+    class="static-view"
+  >
+    <noscript class="banner">{{ $t('jsDisabledHeadingFull') }}<br/><a href="http://www.enable-javascript.com/" target="_blank">{{ $t('jsDisabledLink') }}</a></noscript><div
+      id="intro-signup"
+      class="purple-1"
+    >
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-6 col-lg-6">
+            <img
+              src="~@/assets/images/home/home-main@3x.png"
+              width="357px"
+            ><h1>{{ $t('motivateYourself') }}</h1><p class="section-main">
+              {{ $t('timeToGetThingsDone', {userCountInMillions}) }}
+            </p>
+          </div><div class="col-12 col-md-6 col-lg-6">
+            <h3 class="text-center">
+              {{ $t('singUpForFree') }}
+            </h3><div class="text-center">
+              <button
+                class="social-button"
+                @click="socialAuth('facebook')"
+              >
+                <div
+                  class="svg-icon social-icon"
+                  v-html="icons.facebookIcon"
+                ></div><span>{{ $t('signUpWithSocial', {social: 'Facebook'}) }}</span>
+              </button><button
+                class="social-button"
+                @click="socialAuth('google')"
+              >
+                <div
+                  class="svg-icon social-icon"
+                  v-html="icons.googleIcon"
+                ></div><span>{{ $t('signUpWithSocial', {social: 'Google'}) }}</span>
+              </button>
+            </div><div class="strike">
+              <span>{{ $t('or') }}</span>
+            </div><div
+              class="form"
+              @keyup.enter="register()"
+            >
+              <p class="form-text">
+                {{ $t('usernameLimitations') }}
+              </p><input
+                id="usernameInput"
+                v-model="username"
+                class="form-control"
+                type="text"
+                :placeholder="$t('username')"
+                :class="{'input-valid': usernameValid, 'input-invalid': usernameInvalid}"
+              ><div
+                v-for="issue in usernameIssues"
+                class="input-error"
+              >
+                {{ issue }}
+              </div><input
+                v-model="email"
+                class="form-control"
+                type="email"
+                :placeholder="$t('email')"
+                :class="{'input-invalid': emailInvalid, 'input-valid': emailValid}"
+              ><input
+                v-model="password"
+                class="form-control"
+                type="password"
+                :placeholder="$t('password')"
+                :class="{'input-valid': password.length > 3}"
+              ><input
+                v-model="passwordConfirm"
+                class="form-control"
+                type="password"
+                :placeholder="$t('confirmPassword')"
+                :class="{'input-invalid': passwordConfirmInvalid, 'input-valid': passwordConfirmValid}"
+              ><p
+                v-once
+                class="form-text"
+                v-html="$t('termsAndAgreement')"
+              ></p><button
+                class="sign-up"
+                @click="register()"
+              >
+                {{ $t('signup') }}
+              </button>
+            </div>
+          </div><div class="col-12">
+            <div
+              class="spacer svg-icon"
+              v-html="icons.spacer"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div><div
+      id="gamify-life"
+      class="purple-2"
+    >
+      <div class="container-fluid">
+        <div
+          class="pixel-horizontal svg-icon"
+          v-html="icons.pixelHorizontal"
+        ></div>
+      </div><div class="container">
+        <div class="row">
+          <div class="col-12 col-sm-6 col-md-6 col-lg-6 offset-sm-3 text-center">
+            <h2>{{ $t('gamifyYourLife') }}</h2><p class="section-main">
+              {{ $t('aboutHabitica') }}
+            </p>
+          </div>
+        </div><div class="row">
+          <div class="col-12 col-md-4">
+            <img
+              class="track-habits"
+              src="~@/assets/images/home/track-habits@3x.png"
+              width="354px"
+              height="228px"
+            ><strong>{{ $t('trackYourGoals') }}</strong><p>{{ $t('trackYourGoalsDesc') }}</p>
+          </div><div class="col-12 col-md-4">
+            <img
+              src="~@/assets/images/home/earn-rewards@3x.png"
+              width="316px"
+              height="244px"
+            ><strong>{{ $t('earnRewards') }}</strong><p>{{ $t('earnRewardsDesc') }}</p>
+          </div><div class="col-12 col-md-4">
+            <img
+              src="~@/assets/images/home/battle-monsters@3x.png"
+              width="303px"
+              height="244px"
+            ><strong>{{ $t('battleMonsters') }}</strong><p>{{ $t('battleMonstersDesc') }}</p>
+          </div>
+        </div>
+      </div><div class="col-12">
+        <div
+          class="spacer svg-icon"
+          v-html="icons.spacer"
+        ></div>
+      </div>
+    </div><div
+      id="use-cases"
+      class="purple-2"
+    >
+      <div class="container text-center">
+        <div class="row">
+          <div class="col-12">
+            <h2>{{ $t('playersUseToImprove') }}</h2>
+          </div>
+        </div><div class="row">
+          <div class="col-12 col-sm-4">
+            <img
+              src="~@/assets/images/home/health-fitness@3x.png"
+              width="300px"
+              height="300px"
+            ><strong>{{ $t('healthAndFitness') }}</strong><p>{{ $t('healthAndFitnessDesc') }}</p>
+          </div><div class="col-12 col-sm-4">
+            <img
+              src="~@/assets/images/home/school-work@3x.png"
+              width="300px"
+              height="300px"
+            ><strong>{{ $t('schoolAndWork') }}</strong><p>{{ $t('schoolAndWorkDesc') }}</p>
+          </div><div class="col-12 col-sm-4">
+            <img
+              src="~@/assets/images/home/much-more@3x.png"
+              width="300px"
+              height="300px"
+            ><strong>{{ $t('muchmuchMore') }}</strong><p>{{ $t('muchmuchMoreDesc') }}</p>
+          </div>
+        </div>
+      </div><div class="col-12">
+        <div
+          class="spacer svg-icon"
+          v-html="icons.spacer"
+        ></div>
+      </div><div class="container-fluid">
+        <div
+          class="pixel-horizontal-2 svg-icon"
+          v-html="icons.pixelHorizontal2"
+        ></div>
+      </div>
+    </div><div
+      id="level-up-anywhere"
+      class="purple-3"
+    >
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-6 col-lg-6">
+            <div class="iphones"></div>
+          </div><div class="col-12 col-md-6 col-lg-6 text-column">
+            <h2>{{ $t('levelUpAnywhere') }}</h2><p>{{ $t('levelUpAnywhereDesc') }}</p><a
+              class="app svg-icon"
+              href="https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica"
+              target="_blank"
+              v-html="icons.googlePlay"
+            ></a><a
+              class="app svg-icon"
+              href="https://itunes.apple.com/us/app/habitica-gamified-task-manager/id994882113?mt=8"
+              target="_blank"
+              v-html="icons.iosAppStore"
+            ></a>
+          </div>
+        </div>
+      </div><div class="container-fluid">
+        <div
+          class="pixel-horizontal-3 svg-icon"
+          v-html="icons.pixelHorizontal3"
+        ></div>
+      </div>
+    </div><div
+      id="call-to-action"
+      class="purple-4"
+    >
+      <div class="container featured">
+        <div class="row text-center">
+          <h3 class="col-12">
+            {{ $t('joinMany') }}
+          </h3>
+        </div><div class="row">
+          <div class="col-12 text-center">
+            <button
+              class="btn btn-primary join-button"
+              @click="playButtonClick()"
+            >
+              {{ $t('joinToday') }}
+            </button>
+          </div>
+        </div><div class="row featured">
+          <div class="col-12 text-center">
+            <strong>{{ $t('featuredIn') }}</strong>
+          </div>
+        </div>
+      </div><div class="container-fluid featured">
+        <div class="row">
+          <div class="col-12 text-center">
+            <div
+              class="lifehacker svg-icon"
+              v-html="icons.lifehacker"
+            ></div><div
+              class="thenewyorktimes svg-icon"
+              v-html="icons.thenewyorktimes"
+            ></div><div
+              class="makeuseof svg-icon"
+              v-html="icons.makeuseof"
+            ></div><div
+              class="forbes svg-icon"
+              v-html="icons.forbes"
+            ></div><div
+              class="cnet svg-icon"
+              v-html="icons.cnet"
+            ></div><div
+              class="kickstarter svg-icon"
+              v-html="icons.kickstarter"
+            ></div><div
+              class="fast-company svg-icon"
+              v-html="icons.fastCompany"
+            ></div><div
+              class="discover svg-icon"
+              v-html="icons.discover"
+            ></div>
+          </div>
+        </div>
+      </div><div class="container-fluid">
+        <div class="row seamless_stars_varied_opacity_repeat"></div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style lang='scss'>

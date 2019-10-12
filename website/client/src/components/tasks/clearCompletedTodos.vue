@@ -1,7 +1,14 @@
-<template lang="pug">
-.text-center.delete-completed
-  .help-text {{ $t('clearCompletedDescription') }}
-  .btn.btn-danger(@click='clearTodos()') {{ $t('clearCompleted') }}
+<template>
+  <div class="text-center delete-completed">
+    <div class="help-text">
+      {{ $t('clearCompletedDescription') }}
+    </div><div
+      class="btn btn-danger"
+      @click="clearTodos()"
+    >
+      {{ $t('clearCompleted') }}
+    </div>
+  </div>
 </template>
 
 <style lang="scss">

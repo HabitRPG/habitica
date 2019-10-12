@@ -1,10 +1,24 @@
-<template lang="pug">
-  b-modal#reset(:title="$t('resetAccount')", :hide-footer='true' size='md')
-    p {{ $t('resetText1') }}
-    p {{ $t('resetText2') }}
-    .modal-footer
-      button.btn.btn-primary(@click='close()') {{ $t('neverMind') }}
-      button.btn.btn-danger(@click='reset()') {{ $t('resetDo') }}
+<template>
+  <b-modal
+    id="reset"
+    :title="$t('resetAccount')"
+    :hide-footer="true"
+    size="md"
+  >
+    <p>{{ $t('resetText1') }}</p><p>{{ $t('resetText2') }}</p><div class="modal-footer">
+      <button
+        class="btn btn-primary"
+        @click="close()"
+      >
+        {{ $t('neverMind') }}
+      </button><button
+        class="btn btn-danger"
+        @click="reset()"
+      >
+        {{ $t('resetDo') }}
+      </button>
+    </div>
+  </b-modal>
 </template>
 
 <script>

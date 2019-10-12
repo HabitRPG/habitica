@@ -1,31 +1,42 @@
-<template lang="pug">
-  div.slider-root
-    div.slider-button-area.left-button(
-      v-if="scrollButtonsVisible()",
+<template>
+  <div class="slider-root">
+    <div
+      v-if="scrollButtonsVisible()"
+      class="slider-button-area left-button"
       @mousedown.left="shiftRight"
-    )
-      a.slider-button
-        .svg-icon(v-html="icons.previous")
-    div.slider-button-area.right-button(
-      v-if="scrollButtonsVisible()",
+    >
+      <a class="slider-button"><div
+        class="svg-icon"
+        v-html="icons.previous"
+      ></div></a>
+    </div><div
+      v-if="scrollButtonsVisible()"
+      class="slider-button-area right-button"
       @mousedown.left="shiftLeft"
-    )
-      a.slider-button
-        .svg-icon(v-html="icons.next")
-
-    // 120 = width of the left/right buttons
-    div.sliding-content(v-resize="500", @resized="currentWidth = $event.width - 120")
-      .items.items-one-line
-        template(v-for="item in showItems")
-          div.vertical-divider(
+    >
+      <a class="slider-button"><div
+        class="svg-icon"
+        v-html="icons.next"
+      ></div></a>
+    </div><!-- 120 = width of the left/right buttons--><div
+      v-resize="500"
+      class="sliding-content"
+      @resized="currentWidth = $event.width - 120"
+    >
+      <div class="items items-one-line">
+        <template v-for="item in showItems">
+          <div
             v-if="shouldAddVerticalLine(item)"
-            v-bind:style="dividerMargins"
-          )
-
-          slot(
-            name="item",
-            :item="item",
-          )
+            class="vertical-divider"
+            :style="dividerMargins"
+          ></div><slot
+            name="item"
+            :item="item"
+          ></slot>
+        </template>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style lang="scss">

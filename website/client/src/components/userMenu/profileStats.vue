@@ -1,152 +1,240 @@
-<template lang="pug">
-  #stats.standard-page
-    .row
-      .col-12.col-md-6
-        h2.text-center {{$t('equipment')}}
-        .well
-          .col-12.col-md-4.item-wrapper(v-for="(label, key) in equipTypes")
-            .box(
-              :id="key",
-              v-if="label !== 'skip'",
-              :class='{white: equippedItems[key] && equippedItems[key].indexOf("base_0") === -1}'
-            )
-              div(:class="`shop_${equippedItems[key]}`")
-            b-popover(
-              v-if="label !== 'skip' && equippedItems[key] && equippedItems[key].indexOf('base_0') === -1",
-              :target="key",
-              triggers="hover",
-              :placement="'bottom'",
-              :preventOverflow="false",
-            )
-              h4.popover-title-only {{ getGearTitle(equippedItems[key]) }}
-              attributesGrid.attributesGrid(
-                :item="content.gear.flat[equippedItems[key]]",
+<template>
+  <div
+    id="stats"
+    class="standard-page"
+  >
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <h2 class="text-center">
+          {{ $t('equipment') }}
+        </h2><div class="well">
+          <div
+            v-for="(label, key) in equipTypes"
+            class="col-12 col-md-4 item-wrapper"
+          >
+            <div
+              v-if="label !== 'skip'"
+              :id="key"
+              class="box"
+              :class="{white: equippedItems[key] && equippedItems[key].indexOf('base_0') === -1}"
+            >
+              <div :class="`shop_${equippedItems[key]}`"></div>
+            </div><b-popover
+              v-if="label !== 'skip' && equippedItems[key] && equippedItems[key].indexOf('base_0') === -1"
+              :target="key"
+              triggers="hover"
+              :placement="'bottom'"
+              :prevent-overflow="false"
+            >
+              <h4 class="popover-title-only">
+                {{ getGearTitle(equippedItems[key]) }}
+              </h4><attributesGrid
+                class="attributesGrid"
+                :item="content.gear.flat[equippedItems[key]]"
                 :user="user"
-              )
-
-            h3(v-if="label !== 'skip'") {{ label }}
-      .col-12.col-md-6
-        h2.text-center {{$t('costume')}}
-        .well
-          // Use similar for loop for costume items, except show background if label is 'skip'.
-          .col-12.col-md-4.item-wrapper(v-for="(label, key) in equipTypes")
-            // Append a "C" to the key name since HTML IDs have to be unique.
-            .box(
-              :id="key + 'C'",
-              v-if="label !== 'skip'",
-              :class='{white: costumeItems[key] && costumeItems[key].indexOf("base_0") === -1}'
-            )
-              div(:class="`shop_${costumeItems[key]}`")
-            // Show background on 8th tile rather than a piece of equipment.
-            .box(v-if="label === 'skip'",
-              :class='{white: user.preferences.background}', style="overflow:hidden"
-            )
-              div(:class="'icon_background_' + user.preferences.background")
-            b-popover(
-              v-if="label !== 'skip' && costumeItems[key] && costumeItems[key].indexOf('base_0') === -1",
-              :target="key + 'C'",
-              triggers="hover",
-              :placement="'bottom'",
-              :preventOverflow="false",
-            )
-              h4.popover-title-only {{ getGearTitle(costumeItems[key]) }}
-              attributesGrid.attributesGrid(
-               :item="content.gear.flat[costumeItems[key]]",
-               :user="user"
-              )
-
-            h3(v-if="label !== 'skip'") {{ label }}
-            h3(v-else) {{ $t('background') }}
-    .row.pet-mount-row
-      .col-12.col-md-6
-        h2.text-center(v-once) {{ $t('pets') }}
-        .well.pet-mount-well
-          .row.col-12
-            .col-12.col-md-4
-              .box(:class='{white: user.items.currentPet}')
-                .Pet(:class="`Pet-${user.items.currentPet}`")
-            .col-12.col-md-8
-              div
-                | {{ formatAnimal(user.items.currentPet, 'pet') }}
-              div
-                strong {{ $t('petsFound') }}:
-                | {{ totalCount(user.items.pets) }}
-              div
-                strong {{ $t('beastMasterProgress') }}:
-                | {{ beastMasterProgress(user.items.pets) }}
-      .col-12.col-md-6
-        h2.text-center(v-once) {{ $t('mounts') }}
-        .well.pet-mount-well
-          .row.col-12
-            .col-12.col-md-4
-              .box(:class='{white: user.items.currentMount}')
-                .mount(:class="`Mount_Icon_${user.items.currentMount}`")
-            .col-12.col-md-8
-              div
-                | {{ formatAnimal(user.items.currentMount, 'mount') }}
-              div
-                strong {{ $t('mountsTamed') }}:
-                span {{ totalCount(user.items.mounts) }}
-              div
-                strong {{ $t('mountMasterProgress') }}:
-                span {{ mountMasterProgress(user.items.mounts) }}
-    #attributes.row
-      hr.col-12
-      h2.col-12 {{$t('attributes')}}
-      .col-12.col-md-6(v-for="(statInfo, stat) in stats")
-        .row.col-12.stats-column
-          .col-12.col-md-4.attribute-label
-            span.hint(:popover-title='$t(statInfo.title)', popover-placement='right',
-              :popover='$t(statInfo.popover)', popover-trigger='mouseenter')
-            .stat-title(:class='stat') {{ $t(statInfo.title) }}
-            strong.number {{totalStatPoints(stat) | floorWholeNumber}}
-          .col-12.col-md-6
-            ul.bonus-stats
-              li
-                strong {{$t('level')}}:
-                | {{statsComputed.levelBonus[stat]}}
-              li
-                strong {{$t('equipment')}}:
-                | {{statsComputed.gearBonus[stat]}}
-              li
-                strong {{$t('class')}}:
-                | {{statsComputed.classBonus[stat]}}
-              li
-                strong {{$t('allocated')}}:
-                | {{totalAllocatedStats(stat)}}
-              li
-                strong {{$t('buffs')}}:
-                | {{user.stats.buffs[stat]}}
-    #allocation(v-if='showAllocation')
-      .row.title-row
-        .col-12.col-md-6
-          h3(v-if='userLevel100Plus', v-once, v-html="$t('noMoreAllocate')")
-          h3
-            | {{$t('statPoints')}}
-            .counter.badge.badge-pill(v-if='user.stats.points || userLevel100Plus')
-              | {{pointsRemaining}}
-        .col-12.col-md-6
-          .float-right
-            toggle-switch(
-              :label="$t('autoAllocation')",
-              v-model='user.preferences.automaticAllocation',
-              @change='setAutoAllocate()'
-            )
-      .row
-        .col-12.col-md-3(v-for='(statInfo, stat) in allocateStatsList')
-          .box.white.row.col-12
-            .col-9
-              div(:class='stat') {{ $t(stats[stat].title) }}
-              .number {{totalAllocatedStats(stat)}}
-              .points {{$t('pts')}}
-            .col-3
-              div
-                .up(v-if='showStatsSave', @click='allocate(stat)')
-              div
-                .down(v-if='showStatsSave', @click='deallocate(stat)')
-      .row.save-row(v-if='showStatsSave')
-        .col-12.col-md-6.offset-md-3.text-center
-          button.btn.btn-primary(@click='saveAttributes()', :disabled='loading') {{ this.loading ?  $t('loading') : $t('save') }}
+              />
+            </b-popover><h3 v-if="label !== 'skip'">
+              {{ label }}
+            </h3>
+          </div>
+        </div>
+      </div><div class="col-12 col-md-6">
+        <h2 class="text-center">
+          {{ $t('costume') }}
+        </h2><div class="well">
+          <!-- Use similar for loop for costume items, except show background if label is 'skip'.--><div
+            v-for="(label, key) in equipTypes"
+            class="col-12 col-md-4 item-wrapper"
+          >
+            <!-- Append a "C" to the key name since HTML IDs have to be unique.--><div
+              v-if="label !== 'skip'"
+              :id="key + 'C'"
+              class="box"
+              :class="{white: costumeItems[key] && costumeItems[key].indexOf('base_0') === -1}"
+            >
+              <div :class="`shop_${costumeItems[key]}`"></div>
+            </div><!-- Show background on 8th tile rather than a piece of equipment.--><div
+              v-if="label === 'skip'"
+              class="box"
+              :class="{white: user.preferences.background}"
+              style="overflow:hidden"
+            >
+              <div :class="'icon_background_' + user.preferences.background"></div>
+            </div><b-popover
+              v-if="label !== 'skip' && costumeItems[key] && costumeItems[key].indexOf('base_0') === -1"
+              :target="key + 'C'"
+              triggers="hover"
+              :placement="'bottom'"
+              :prevent-overflow="false"
+            >
+              <h4 class="popover-title-only">
+                {{ getGearTitle(costumeItems[key]) }}
+              </h4><attributesGrid
+                class="attributesGrid"
+                :item="content.gear.flat[costumeItems[key]]"
+                :user="user"
+              />
+            </b-popover><h3 v-if="label !== 'skip'">
+              {{ label }}
+            </h3><h3 v-else>
+              {{ $t('background') }}
+            </h3>
+          </div>
+        </div>
+      </div>
+    </div><div class="row pet-mount-row">
+      <div class="col-12 col-md-6">
+        <h2
+          v-once
+          class="text-center"
+        >
+          {{ $t('pets') }}
+        </h2><div class="well pet-mount-well">
+          <div class="row col-12">
+            <div class="col-12 col-md-4">
+              <div
+                class="box"
+                :class="{white: user.items.currentPet}"
+              >
+                <div
+                  class="Pet"
+                  :class="`Pet-${user.items.currentPet}`"
+                ></div>
+              </div>
+            </div><div class="col-12 col-md-8">
+              <div>{{ formatAnimal(user.items.currentPet, 'pet') }}</div><div><strong>{{ $t('petsFound') }}:</strong>{{ totalCount(user.items.pets) }}</div><div><strong>{{ $t('beastMasterProgress') }}:</strong>{{ beastMasterProgress(user.items.pets) }}</div>
+            </div>
+          </div>
+        </div>
+      </div><div class="col-12 col-md-6">
+        <h2
+          v-once
+          class="text-center"
+        >
+          {{ $t('mounts') }}
+        </h2><div class="well pet-mount-well">
+          <div class="row col-12">
+            <div class="col-12 col-md-4">
+              <div
+                class="box"
+                :class="{white: user.items.currentMount}"
+              >
+                <div
+                  class="mount"
+                  :class="`Mount_Icon_${user.items.currentMount}`"
+                ></div>
+              </div>
+            </div><div class="col-12 col-md-8">
+              <div>{{ formatAnimal(user.items.currentMount, 'mount') }}</div><div><strong>{{ $t('mountsTamed') }}:</strong><span>{{ totalCount(user.items.mounts) }}</span></div><div><strong>{{ $t('mountMasterProgress') }}:</strong><span>{{ mountMasterProgress(user.items.mounts) }}</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><div
+      id="attributes"
+      class="row"
+    >
+      <hr class="col-12"><h2 class="col-12">
+        {{ $t('attributes') }}
+      </h2><div
+        v-for="(statInfo, stat) in stats"
+        class="col-12 col-md-6"
+      >
+        <div class="row col-12 stats-column">
+          <div class="col-12 col-md-4 attribute-label">
+            <span
+              class="hint"
+              :popover-title="$t(statInfo.title)"
+              popover-placement="right"
+              :popover="$t(statInfo.popover)"
+              popover-trigger="mouseenter"
+            ></span><div
+              class="stat-title"
+              :class="stat"
+            >
+              {{ $t(statInfo.title) }}
+            </div><strong class="number">{{ totalStatPoints(stat) | floorWholeNumber }}</strong>
+          </div><div class="col-12 col-md-6">
+            <ul class="bonus-stats">
+              <li><strong>{{ $t('level') }}:</strong>{{ statsComputed.levelBonus[stat] }}</li><li><strong>{{ $t('equipment') }}:</strong>{{ statsComputed.gearBonus[stat] }}</li><li><strong>{{ $t('class') }}:</strong>{{ statsComputed.classBonus[stat] }}</li><li><strong>{{ $t('allocated') }}:</strong>{{ totalAllocatedStats(stat) }}</li><li><strong>{{ $t('buffs') }}:</strong>{{ user.stats.buffs[stat] }}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div><div
+      v-if="showAllocation"
+      id="allocation"
+    >
+      <div class="row title-row">
+        <div class="col-12 col-md-6">
+          <h3
+            v-if="userLevel100Plus"
+            v-once
+            v-html="$t('noMoreAllocate')"
+          ></h3><h3>
+            {{ $t('statPoints') }}<div
+              v-if="user.stats.points || userLevel100Plus"
+              class="counter badge badge-pill"
+            >
+              {{ pointsRemaining }}
+            </div>
+          </h3>
+        </div><div class="col-12 col-md-6">
+          <div class="float-right">
+            <toggle-switch
+              v-model="user.preferences.automaticAllocation"
+              :label="$t('autoAllocation')"
+              @change="setAutoAllocate()"
+            />
+          </div>
+        </div>
+      </div><div class="row">
+        <div
+          v-for="(statInfo, stat) in allocateStatsList"
+          class="col-12 col-md-3"
+        >
+          <div class="box white row col-12">
+            <div class="col-9">
+              <div :class="stat">
+                {{ $t(stats[stat].title) }}
+              </div><div class="number">
+                {{ totalAllocatedStats(stat) }}
+              </div><div class="points">
+                {{ $t('pts') }}
+              </div>
+            </div><div class="col-3">
+              <div>
+                <div
+                  v-if="showStatsSave"
+                  class="up"
+                  @click="allocate(stat)"
+                ></div>
+              </div><div>
+                <div
+                  v-if="showStatsSave"
+                  class="down"
+                  @click="deallocate(stat)"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><div
+        v-if="showStatsSave"
+        class="row save-row"
+      >
+        <div class="col-12 col-md-6 offset-md-3 text-center">
+          <button
+            class="btn btn-primary"
+            :disabled="loading"
+            @click="saveAttributes()"
+          >
+            {{ this.loading ? $t('loading') : $t('save') }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>

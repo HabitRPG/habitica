@@ -1,8 +1,10 @@
-<template lang="pug">
-  b-link(
-    v-if='group',
-    @click.prevent='goToGroup'
-    ) {{group.name}}
+<template>
+  <b-link
+    v-if="group"
+    @click.prevent="goToGroup"
+  >
+    {{ group.name }}
+  </b-link>
 </template>
 
 <script>

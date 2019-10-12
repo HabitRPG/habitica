@@ -1,15 +1,17 @@
-<template lang="pug">
-  .categories
-    span.category-label.category-label-blue(v-if='owner')
-      | {{ $t('owned') }}
-    span.category-label.category-label-green(v-if='member')
-      | {{ $t('joined') }}
-    span.category-label(
-      v-for='category in categories',
+<template>
+  <div class="categories">
+    <span
+      v-if="owner"
+      class="category-label category-label-blue"
+    >{{ $t('owned') }}</span><span
+      v-if="member"
+      class="category-label category-label-green"
+    >{{ $t('joined') }}</span><span
+      v-for="category in categories"
+      class="category-label"
       :class="{'category-label-purple':isOfficial(category)}"
-    )
-     | {{ $t(category.name) }}
-    slot
+    >{{ $t(category.name) }}</span><slot></slot>
+  </div>
 </template>
 
 <script>

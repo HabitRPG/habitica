@@ -1,29 +1,28 @@
-<template lang="pug">
-.keys-wrap
-  shopItem(
-    :key="keysToPets.key",
-    :item="keysToPets",
-    :emptyItem="false",
-    popoverPosition="'top'",
-    @click="releasePets()",
-    v-if='userHasAllPets'
-  )
-  shopItem(
-    :key="keysToMounts.key",
-    :item="keysToMounts",
-    :emptyItem="false",
-    popoverPosition="'top'",
-    @click="releaseMounts()",
-    v-if='userHasAllMounts'
-  )
-  shopItem(
-    :key="keysToBoth.key",
-    :item="keysToBoth",
-    :emptyItem="false",
-    popoverPosition="'top'",
-    @click="releaseBoth()",
-    v-if='userHasAllPets && userHasAllMounts'
-  )
+<template>
+  <div class="keys-wrap">
+    <shopItem
+      v-if="userHasAllPets"
+      :key="keysToPets.key"
+      :item="keysToPets"
+      :empty-item="false"
+      popover-position="'top'"
+      @click="releasePets()"
+    /><shopItem
+      v-if="userHasAllMounts"
+      :key="keysToMounts.key"
+      :item="keysToMounts"
+      :empty-item="false"
+      popover-position="'top'"
+      @click="releaseMounts()"
+    /><shopItem
+      v-if="userHasAllPets && userHasAllMounts"
+      :key="keysToBoth.key"
+      :item="keysToBoth"
+      :empty-item="false"
+      popover-position="'top'"
+      @click="releaseBoth()"
+    />
+  </div>
 </template>
 
 <style lang="scss" scoped>

@@ -1,15 +1,36 @@
-<template lang="pug">
-.drawer-container
-  .drawer-title(@click="toggle()")
-    | {{title}}
-    .drawer-toggle-icon.svg-icon.icon-10(v-html="isOpen ? icons.minimize : icons.expand", :class="{ closed: !isOpen }")
-  transition(name="slide-up", @afterLeave="adjustPagePadding", @afterEnter="adjustPagePadding")
-    .drawer-content(v-show="isOpen")
-      slot(name="drawer-header")
-      .drawer-slider
-        slot(name="drawer-slider")
-        div.message(v-if="errorMessage != null")
-          .content {{ errorMessage }}
+<template>
+  <div class="drawer-container">
+    <div
+      class="drawer-title"
+      @click="toggle()"
+    >
+      {{ title }}<div
+        class="drawer-toggle-icon svg-icon icon-10"
+        :class="{ closed: !isOpen }"
+        v-html="isOpen ? icons.minimize : icons.expand"
+      ></div>
+    </div><transition
+      name="slide-up"
+      @afterLeave="adjustPagePadding"
+      @afterEnter="adjustPagePadding"
+    >
+      <div
+        v-show="isOpen"
+        class="drawer-content"
+      >
+        <slot name="drawer-header"></slot><div class="drawer-slider">
+          <slot name="drawer-slider"></slot><div
+            v-if="errorMessage != null"
+            class="message"
+          >
+            <div class="content">
+              {{ errorMessage }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
+  </div>
 </template>
 
 <style lang="scss">
