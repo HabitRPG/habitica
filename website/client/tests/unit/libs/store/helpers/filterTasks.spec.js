@@ -2,7 +2,7 @@ import {
   getTypeLabel,
   getFilterLabels,
   getActiveFilter,
-} from '@/libs/store/helpers/filterTasks.js';
+} from '@/libs/store/helpers/filterTasks';
 
 describe('Filter Category for Tasks', () => {
   describe('getTypeLabel', () => {

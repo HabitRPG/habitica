@@ -140,16 +140,16 @@ describe('Store', () => {
         data: {
           title: 'internal',
         },
+        created () {
+          expect(this.getName('123')).to.deep.equal(['test', '123']);
+          expect(this.getNameRenamed('123')).to.deep.equal(['test', '123']);
+          done();
+        },
         methods: {
           ...mapActions(['getName']),
           ...mapActions({
             getNameRenamed: 'getName',
           }),
-        },
-        created () {
-          expect(this.getName('123')).to.deep.equal(['test', '123']);
-          expect(this.getNameRenamed('123')).to.deep.equal(['test', '123']);
-          done();
         },
       });
     });

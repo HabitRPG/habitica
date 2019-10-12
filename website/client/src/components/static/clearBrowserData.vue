@@ -4,7 +4,7 @@
       <div class="col-md-6 offset-3">
         <h1>{{ $t('clearBrowserData') }}</h1>
         <p v-html="$t('localStorageTryFirst', localStorageTryFirst) "></p>
-        <br >
+        <br>
         <p class="text-center">
           <button
             class="btn btn-lg btn-danger"
@@ -12,10 +12,10 @@
             :popover="$t('localStorageClearExplanation')"
             @click="clearLocalStorage()"
           >
-{{ $t('localStorageClear') }}
-</button>
+            {{ $t('localStorageClear') }}
+          </button>
         </p>
-        <br >
+        <br>
         <p v-html="$t('localStorageTryNext', localStorageTryNext) "></p>
       </div>
     </div>

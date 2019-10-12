@@ -64,7 +64,8 @@ describe('Notifications', () => {
 
       const userExpBefore = 10;
       const userExpAfter = 12;
-      wrapper.vm.displayUserExpAndLvlNotifications(userExpAfter, userExpBefore, userLevel, userLevel);
+      wrapper.vm
+        .displayUserExpAndLvlNotifications(userExpAfter, userExpBefore, userLevel, userLevel);
 
       expect(expSpy).to.be.calledWith(userExpAfter - userExpBefore);
       expSpy.restore();
@@ -80,7 +81,10 @@ describe('Notifications', () => {
       const expEarned = 5;
       const userExpBefore = toNextLevel(userLevelBefore) - expEarned;
       const userExpAfter = 0;
-      wrapper.vm.displayUserExpAndLvlNotifications(userExpAfter, userExpBefore, userLevelAfter, userLevelBefore);
+      wrapper.vm
+        .displayUserExpAndLvlNotifications(
+          userExpAfter, userExpBefore, userLevelAfter, userLevelBefore,
+        );
 
       expect(expSpy).to.be.calledWith(expEarned);
       expSpy.restore();
@@ -97,7 +101,9 @@ describe('Notifications', () => {
       const expNeeded = 5;
       const userExpBefore = toNextLevel(userLevelBefore) - expNeeded;
       const userExpAfter = 5;
-      wrapper.vm.displayUserExpAndLvlNotifications(userExpAfter, userExpBefore, userLevelAfter, userLevelBefore);
+      wrapper.vm.displayUserExpAndLvlNotifications(
+        userExpAfter, userExpBefore, userLevelAfter, userLevelBefore,
+      );
 
       expect(expSpy).to.be.calledWith(expEarned);
       expSpy.restore();
@@ -114,7 +120,9 @@ describe('Notifications', () => {
       const expNeeded = -5;
       const userExpBefore = toNextLevel(userLevelBefore) - expNeeded;
       const userExpAfter = 15;
-      wrapper.vm.displayUserExpAndLvlNotifications(userExpAfter, userExpBefore, userLevelAfter, userLevelBefore);
+      wrapper.vm.displayUserExpAndLvlNotifications(
+        userExpAfter, userExpBefore, userLevelAfter, userLevelBefore,
+      );
 
       expect(expSpy).to.be.calledWith(expEarned);
       expSpy.restore();
@@ -131,7 +139,9 @@ describe('Notifications', () => {
       const expNeeded = 5;
       const userExpBefore = toNextLevel(userLevelBefore) - expNeeded;
       const userExpAfter = 5;
-      wrapper.vm.displayUserExpAndLvlNotifications(userExpAfter, userExpBefore, userLevelAfter, userLevelBefore);
+      wrapper.vm.displayUserExpAndLvlNotifications(
+        userExpAfter, userExpBefore, userLevelAfter, userLevelBefore,
+      );
 
       expect(expSpy).to.be.calledWith(expEarned);
       expSpy.restore();
@@ -145,7 +155,9 @@ describe('Notifications', () => {
 
       const userExpBefore = 10;
       const userExpAfter = 5;
-      wrapper.vm.displayUserExpAndLvlNotifications(userExpAfter, userExpBefore, userLevel, userLevel);
+      wrapper.vm.displayUserExpAndLvlNotifications(
+        userExpAfter, userExpBefore, userLevel, userLevel,
+      );
 
       expect(expSpy).to.be.calledWith(userExpAfter - userExpBefore);
       expSpy.restore();
@@ -159,7 +171,9 @@ describe('Notifications', () => {
 
       const userExpBefore = 5;
       const userExpAfter = -3;
-      wrapper.vm.displayUserExpAndLvlNotifications(userExpAfter, userExpBefore, userLevel, userLevel);
+      wrapper.vm.displayUserExpAndLvlNotifications(
+        userExpAfter, userExpBefore, userLevel, userLevel,
+      );
 
       expect(expSpy).to.be.calledWith(userExpAfter - userExpBefore);
       expSpy.restore();
@@ -175,7 +189,9 @@ describe('Notifications', () => {
       const expEarned = -20;
       const userExpBefore = 20;
       const userExpAfter = 0;
-      wrapper.vm.displayUserExpAndLvlNotifications(userExpAfter, userExpBefore, userLevelAfter, userLevelBefore);
+      wrapper.vm.displayUserExpAndLvlNotifications(
+        userExpAfter, userExpBefore, userLevelAfter, userLevelBefore,
+      );
 
       expect(expSpy).to.be.calledWith(expEarned);
       expSpy.restore();

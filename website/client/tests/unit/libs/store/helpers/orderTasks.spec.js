@@ -2,7 +2,7 @@ import shuffle from 'lodash/shuffle';
 import {
   orderSingleTypeTasks,
   // orderMultipleTypeTasks,
-} from '@/libs/store/helpers/orderTasks.js';
+} from '@/libs/store/helpers/orderTasks';
 
 
 describe('Task Order Helper Function', () => {
