@@ -31,13 +31,23 @@
               .svg-icon.align-self-center(v-html='icons[heroClass]')
             .class-name(:class='`${heroClass}-color`') {{ $t(heroClass) }}
         div(v-for='heroClass in classes')
-          .class-explanation.text-center(v-if='selectedClass === heroClass') {{ $t(`${heroClass}Text`) }}
+          .class-explanation.text-center(
+            v-if='selectedClass === heroClass'
+          ) {{ $t(`${heroClass}Text`) }}
         .text-center(v-markdown='$t("chooseClassLearnMarkdown")')
         .modal-actions.text-center
-          button.btn.btn-primary.d-inline-block(v-if='!selectedClass', :disabled='true') {{ $t('select') }}
-          button.btn.btn-primary.d-inline-block(v-else, @click='clickSelectClass(selectedClass); close();') {{ $t('selectClass', {heroClass: $t(selectedClass)}) }}
+          button.btn.btn-primary.d-inline-block(
+            v-if='!selectedClass',
+            :disabled='true'
+          ) {{ $t('select') }}
+          button.btn.btn-primary.d-inline-block(
+            v-else,
+            @click='clickSelectClass(selectedClass); close();'
+          ) {{ $t('selectClass', {heroClass: $t(selectedClass)}) }}
           .opt-out-wrapper
-            span#classOptOutBtn.danger(@click='clickDisableClasses(); close();') {{ $t('optOutOfClasses') }}
+            span#classOptOutBtn.danger(
+              @click='clickDisableClasses(); close();'
+            ) {{ $t('optOutOfClasses') }}
           span.opt-out-description {{ $t('optOutOfClassesText') }}
 </template>
 

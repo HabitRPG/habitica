@@ -36,7 +36,9 @@
           li
             router-link(to='/hall/contributors') {{ $t('hall') }}
           li
-            router-link(to='/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac') {{ $t('reportBug') }}
+            router-link(
+              to='/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac'
+            ) {{ $t('reportBug') }}
           li
             a(href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents', target='_blank') {{ $t('requestFeature') }}
           li(v-html='$t("communityExtensions")')
@@ -97,7 +99,10 @@
             a.btn.btn-secondary(@click="addLevelsAndGold()") +Exp +GP +MP
             a.btn.btn-secondary(@click="addExp()") +Exp
             a.btn.btn-secondary(@click="addOneLevel()") +1 Level
-            a.btn.btn-secondary(@click="addQuestProgress()", tooltip="+1000 to boss quests. 300 items to collection quests") Quest Progress Up
+            a.btn.btn-secondary(
+              @click="addQuestProgress()",
+              tooltip="+1000 to boss quests. 300 items to collection quests"
+            ) Quest Progress Up
             a.btn.btn-secondary(@click="makeAdmin()") Make Admin
             a.btn.btn-secondary(@click="openModifyInventoryModal()") Modify Inventory
       .col-12.col-md-2.text-center
@@ -316,7 +321,7 @@ export default {
       });
     },
     async addMissedDay (numberOfDays) {
-      if (!confirm(`Are you sure you want to reset the day by ${numberOfDays} day(s)?`)) return;
+      if (!window.confirm(`Are you sure you want to reset the day by ${numberOfDays} day(s)?`)) return;
 
       const date = moment(this.user.lastCron).subtract(numberOfDays, 'days').toDate();
 

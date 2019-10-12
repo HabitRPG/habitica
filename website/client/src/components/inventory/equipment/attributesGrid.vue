@@ -2,12 +2,24 @@
   div.attributes-group
     .popover-content-attr(v-for="attr in ATTRIBUTES", :key="attr")
       .group-content
-        span.popover-content-attr-cell.key(:class="{'hasValue': hasSumValue(attr) }") {{ `${$t(attr)}: ` }}
-        span.popover-content-attr-cell.label.value(:class="{'green': hasSumValue(attr) }") {{ `${stats.sum[attr]}` }}
-        span.popover-content-attr-cell.label.bold(:class="{'hasValue': hasGearValue(attr) }") {{ $t('gear') }}:
-        span.popover-content-attr-cell.label(:class="{'hasValue': hasGearValue(attr) }") {{ stats.gear[attr] }}
-        span.popover-content-attr-cell.label.bold(:class="{'hasValue': hasClassBonus(attr) }") {{ $t('classEquipBonus') }}:
-        span.popover-content-attr-cell.label(:class="{'hasValue': hasClassBonus(attr) }") {{ `${stats.classBonus[attr]}` }}
+        span.popover-content-attr-cell.key(
+          :class="{'hasValue': hasSumValue(attr) }"
+        ) {{ `${$t(attr)}: ` }}
+        span.popover-content-attr-cell.label.value(
+          :class="{'green': hasSumValue(attr) }"
+        ) {{ `${stats.sum[attr]}` }}
+        span.popover-content-attr-cell.label.bold(
+          :class="{'hasValue': hasGearValue(attr) }"
+        ) {{ $t('gear') }}:
+        span.popover-content-attr-cell.label(
+          :class="{'hasValue': hasGearValue(attr) }"
+        ) {{ stats.gear[attr] }}
+        span.popover-content-attr-cell.label.bold(
+          :class="{'hasValue': hasClassBonus(attr) }"
+        ) {{ $t('classEquipBonus') }}:
+        span.popover-content-attr-cell.label(
+          :class="{'hasValue': hasClassBonus(attr) }"
+        ) {{ `${stats.classBonus[attr]}` }}
 </template>
 
 <style lang="scss">

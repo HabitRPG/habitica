@@ -5,7 +5,12 @@
     img.not-found-img(src='~@/assets/images/404.png')
     h1.not-found Sometimes even the bravest adventurer gets lost.
     h2.not-found Looks like this link is broken or the page may have moved, sorry!
-    h2.not-found Head back to the <router-link to="/">Homepage</router-link> or <router-link :to="contactUsLink">Contact Us</router-link> about the issue.
+    h2.not-found
+      | Head back to the
+      <router-link to="/">Homepage</router-link>
+      | or
+      <router-link :to="contactUsLink">Contact Us</router-link>
+      | about the issue.
 </template>
 
 <script>

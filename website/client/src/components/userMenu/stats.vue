@@ -38,8 +38,13 @@
           ul
             li(v-for='(key, itemType) in user.items.gear.equipped', v-if='flatGear[key]')
               strong {{ flatGear[key].text() }}
-              strong(v-if='flatGear[key].str || flatGear[key].con || flatGear[key].per || flatGear[key].int') :&nbsp;
-                span(v-for='stat in ["str","con","per","int"]', v-if='flatGear[key][stat]') {{flatGear[key][stat]}} {{ $t(stat) }}&nbsp;
+              strong(
+                v-if='flatGear[key].str || flatGear[key].con || flatGear[key].per || flatGear[key].int'
+              ) :&nbsp;
+                span(
+                  v-for='stat in ["str","con","per","int"]',
+                  v-if='flatGear[key][stat]'
+                ) {{flatGear[key][stat]}} {{ $t(stat) }}&nbsp;
 
         div(v-if='user.preferences.costume')
           h4(v-once) {{ $t('costume') }}
@@ -147,21 +152,51 @@
                         span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('evenAllocationPop')") {{ $t('evenAllocation') }}
                     .radio
                       label
-                        input(type='radio', name='allocationMode', value='classbased',
-                          v-model='user.preferences.allocationMode', @change='set({"preferences.allocationMode": "classbased"})')
-                        span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('classAllocationPop')") {{ $t('classAllocation') }}
+                        input(
+                          type='radio',
+                          name='allocationMode',
+                          value='classbased',
+                          v-model='user.preferences.allocationMode',
+                          @change='set({"preferences.allocationMode": "classbased"})'
+                        )
+                        span.hint(
+                          popover-trigger='mouseenter',
+                          popover-placement='right',
+                          :popover="$t('classAllocationPop')"
+                        ) {{ $t('classAllocation') }}
                     .radio
                       label
-                        input(type='radio', name='allocationMode', value='taskbased', v-model='user.preferences.allocationMode', @change='set({"preferences.allocationMode": "taskbased"})')
-                        span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('taskAllocationPop')") {{ $t('taskAllocation') }}
-                  div(v-if='user.preferences.automaticAllocation && !(user.preferences.allocationMode === "taskbased") && (user.stats.points > 0)')
-                    button.btn.btn-primary.btn-xs(@click='allocateNow({})', popover-trigger='mouseenter', popover-placement='right', :popover="$t('distributePointsPop')")
+                        input(
+                          type='radio',
+                          name='allocationMode',
+                          value='taskbased',
+                          v-model='user.preferences.allocationMode',
+                          @change='set({"preferences.allocationMode": "taskbased"})'
+                        )
+                        span.hint(
+                          popover-trigger='mouseenter',
+                          popover-placement='right',
+                          :popover="$t('taskAllocationPop')"
+                        ) {{ $t('taskAllocation') }}
+                  div(
+                    v-if='user.preferences.automaticAllocation && !(user.preferences.allocationMode === "taskbased") && (user.stats.points > 0)'
+                  )
+                    button.btn.btn-primary.btn-xs(
+                      @click='allocateNow({})',
+                      popover-trigger='mouseenter',
+                      popover-placement='right',
+                      :popover="$t('distributePointsPop')"
+                    )
                       span.glyphicon.glyphicon-download
                       |&nbsp;
                       | {{ $t('distributePoints') }}
             .row(v-for='(statInfo, stat) in allocateStatsList')
               .col-8
-                span.hint(popover-trigger='mouseenter', popover-placement='right', :popover='$t(statInfo.popover)')
+                span.hint(
+                  popover-trigger='mouseenter',
+                  popover-placement='right',
+                  :popover='$t(statInfo.popover)'
+                )
                 | {{ $t(statInfo.title) + user.stats[stat] }}
               .col-4(v-if='user.stats.points', @click='allocate(stat)')
                  button.btn.btn-primary(popover-trigger='mouseenter', popover-placement='right',

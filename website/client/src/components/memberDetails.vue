@@ -20,7 +20,9 @@
           .is-buffed(v-if="isBuffed", v-b-tooltip.hover.bottom="$t('buffed')")
             .svg-icon(v-html="icons.buff")
         .small-text.character-level
-          span.mr-1(v-if="member.auth && member.auth.local && member.auth.local.username") @{{ member.auth.local.username }}
+          span.mr-1(
+            v-if="member.auth && member.auth.local && member.auth.local.username"
+          ) @{{ member.auth.local.username }}
           span.mr-1(v-if="member.auth && member.auth.local && member.auth.local.username") •
           span {{ characterLevel }}
     stats-bar(

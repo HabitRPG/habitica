@@ -18,7 +18,11 @@ div
         .col-4.offset-2
           span.dropdown-label {{ $t('sortBy') }}
           b-dropdown(:text="$t('sort')", right=true)
-            b-dropdown-item(v-for='sortOption in sortOptions', @click='sort(sortOption.value)', :key='sortOption.value') {{sortOption.text}}
+            b-dropdown-item(
+              v-for='sortOption in sortOptions',
+              @click='sort(sortOption.value)',
+              :key='sortOption.value'
+            ) {{sortOption.text}}
     .row(v-for='member in sortedMembers')
       .col-10
         member-details(:member='member')
@@ -147,13 +151,13 @@ export default {
       sortBy(this.members, [member => {
         if (this.sortOption === 'tier') {
           if (!member.contributor) return;
-          return member.contributor.level;
+          return member.contributor.level; // eslint-disable-line consistent-return
         } if (this.sortOption === 'name') {
-          return member.profile.name;
+          return member.profile.name; // eslint-disable-line consistent-return
         } if (this.sortOption === 'lvl') {
-          return member.stats.lvl;
+          return member.stats.lvl; // eslint-disable-line consistent-return
         } if (this.sortOption === 'class') {
-          return member.stats.class;
+          return member.stats.class; // eslint-disable-line consistent-return
         }
       }]);
 

@@ -1,5 +1,13 @@
+<!-- eslint-disable -->
 <template lang="pug">
-b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true', :hide-footer='true', :modal-class="{'page-2':modalPage > 1 && !editing}")
+<!-- eslint-disable -->
+b-modal#avatar-modal(
+  title="",
+  :size='editing ? "lg" : "md"',
+  :hide-header='true',
+  :hide-footer='true',
+  :modal-class="{'page-2':modalPage > 1 && !editing}",
+)
   .section.row.welcome-section(v-if='modalPage === 1 && !editing')
     .col-6.offset-3.text-center
       h3(v-once) {{$t('welcomeTo')}}
@@ -16,27 +24,43 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
         button.btn.btn-secondary(v-once) {{$t('randomize')}}
     #options-nav.container.section.text-center.customize-menu
       .row
-        .menu-container(@click='changeTopPage("body", "size")', :class='{"col-3": !editing, "col-2 offset-1": editing, active: activeTopPage === "body"}')
+        .menu-container(
+          @click='changeTopPage("body", "size")',
+          :class='{"col-3": !editing, "col-2 offset-1": editing, active: activeTopPage === "body"}'
+        )
           .menu-item
             .svg-icon(v-html='icons.bodyIcon')
           strong(v-once) {{$t('bodyBody')}}
           .indicator
-        .menu-container(@click='changeTopPage("skin", "color")', :class='{"col-3": !editing, "col-2": editing, active: activeTopPage === "skin"}')
+        .menu-container(
+          @click='changeTopPage("skin", "color")',
+          :class='{"col-3": !editing, "col-2": editing, active: activeTopPage === "skin"}'
+        )
           .menu-item
             .svg-icon(v-html='icons.skinIcon')
           strong(v-once) {{$t('skin')}}
           .indicator
-        .menu-container(@click='changeTopPage("hair", "color")', :class='{"col-3": !editing, "col-2": editing, active: activeTopPage === "hair"}')
+        .menu-container(
+          @click='changeTopPage("hair", "color")',
+          :class='{"col-3": !editing, "col-2": editing, active: activeTopPage === "hair"}'
+        )
           .menu-item
             .svg-icon(v-html='icons.hairIcon')
           strong(v-once) {{$t('hair')}}
           .indicator
-        .menu-container(@click='changeTopPage("extra", "glasses")', :class='{"col-3": !editing, "col-2": editing, active: activeTopPage === "extra"}')
+        .menu-container(
+          @click='changeTopPage("extra", "glasses")',
+          :class='{"col-3": !editing, "col-2": editing, active: activeTopPage === "extra"}'
+        )
           .menu-item
             .svg-icon(v-html='icons.accessoriesIcon')
           strong(v-once) {{$t('extra')}}
           .indicator
-        .menu-container.col-2(@click='changeTopPage("backgrounds", "2019")', v-if='editing', :class='{active: activeTopPage === "backgrounds"}')
+        .menu-container.col-2(
+          @click='changeTopPage("backgrounds", "2019")',
+          v-if='editing',
+          :class='{active: activeTopPage === "backgrounds"}'
+        )
           .menu-item
             .svg-icon(v-html='icons.backgroundsIcon')
           strong(v-once) {{$t('backgrounds')}}
@@ -64,11 +88,16 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
 
     #backgrounds.section.container.customize-section(v-if='activeTopPage === "backgrounds"')
       .row.title-row
-        toggle-switch.backgroundFilterToggle(:label="'Hide locked backgrounds'", v-model='filterBackgrounds')
+        toggle-switch.backgroundFilterToggle(
+          :label="'Hide locked backgrounds'",
+          v-model='filterBackgrounds',
+        )
       .row.text-center.title-row(v-if='!filterBackgrounds')
         strong {{backgroundShopSets[0].text}}
       .row.title-row(v-if='!filterBackgrounds')
-        .col-12(v-if='showPlainBackgroundBlurb(backgroundShopSets[0].identifier, backgroundShopSets[0].items)') {{ $t('incentiveBackgroundsUnlockedWithCheckins') }}
+        .col-12(
+          v-if='showPlainBackgroundBlurb(backgroundShopSets[0].identifier, backgroundShopSets[0].items)'
+        ) {{ $t('incentiveBackgroundsUnlockedWithCheckins') }}
         .col-2(v-for='bg in backgroundShopSets[0].items',
           @click='unlock("background." + bg.key)',
           :popover-title='bg.text',
@@ -76,16 +105,22 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
           popover-trigger='mouseenter')
           .incentive-background(:class='[`background_${bg.key}`]')
             .small-rectangle
-      sub-menu.text-center(:items="bgSubMenuItems", :activeSubPage="activeSubPage", @changeSubPage="changeSubPage($event)")
+      sub-menu.text-center(
+        :items="bgSubMenuItems",
+        :activeSubPage="activeSubPage",
+        @changeSubPage="changeSubPage($event)"
+      )
       .row.customize-menu(v-if='!filterBackgrounds' v-for='(sets, key) in backgroundShopSetsByYear')
         .row.background-set(v-for='set in sets', v-if='activeSubPage === key')
           .col-8.offset-2.text-center.set-title
             strong {{set.text}}
-          .col-4.text-center.customize-option.background-button(v-for='bg in set.items',
+          .col-4.text-center.customize-option.background-button(
+            v-for='bg in set.items',
             @click='!user.purchased.background[bg.key] ? backgroundSelected(bg) : unlock("background." + bg.key)',
             :popover-title='bg.text',
             :popover='bg.notes',
-            popover-trigger='mouseenter')
+            popover-trigger='mouseenter'
+          )
             .background(:class='[`background_${bg.key}`, backgroundLockedStatus(bg.key)]')
             i.glyphicon.glyphicon-lock(v-if='!user.purchased.background[bg.key]')
             .purchase-background.single(v-if='!user.purchased.background[bg.key]')
@@ -97,7 +132,10 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
               v-if='!user.purchased.background[bg.key]'
             )
               span.svg-icon.inline.icon-12.color(v-html="icons.pin")
-          .purchase-background.set(v-if='!ownsSet("background", set.items) && set.identifier !== "incentiveBackgrounds"' @click='unlock(setKeys("background", set.items))')
+          .purchase-background.set(
+            v-if='!ownsSet("background", set.items) && set.identifier !== "incentiveBackgrounds"',
+            @click='unlock(setKeys("background", set.items))'
+          )
             span.label {{ $t('purchaseAll') }}
             .svg-icon.gem(v-html='icons.gem')
             span.price 15
@@ -122,31 +160,58 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             label.custom-control-label(v-once, for="work") {{ $t('work') }}
         .task-option
           .custom-control.custom-checkbox
-            input.custom-control-input#excercise(type="checkbox", value='exercise', v-model='taskCategories')
+            input.custom-control-input#excercise(
+              type="checkbox",
+              value='exercise',
+              v-model='taskCategories'
+            )
             label.custom-control-label(v-once, for="excercise") {{ $t('exercise') }}
         .task-option
           .custom-control.custom-checkbox
-            input.custom-control-input#health_wellness(type="checkbox", value='health_wellness', v-model='taskCategories')
+            input.custom-control-input#health_wellness(
+              type="checkbox",
+              value='health_wellness',
+              v-model='taskCategories'
+            )
             label.custom-control-label(v-once, for="health_wellness") {{ $t('health_wellness') }}
         .task-option
           .custom-control.custom-checkbox
-            input.custom-control-input#school(type="checkbox", value='school', v-model='taskCategories')
+            input.custom-control-input#school(
+              type="checkbox",
+              value='school',
+              v-model='taskCategories'
+            )
             label.custom-control-label(v-once, for="school") {{ $t('school') }}
       .col-6
         .task-option
           .custom-control.custom-checkbox
-            input.custom-control-input#chores(type="checkbox", value='chores', v-model='taskCategories')
+            input.custom-control-input#chores(
+              type="checkbox",
+              value='chores',
+              v-model='taskCategories'
+            )
             label.custom-control-label(v-once, for="chores") {{ $t('chores') }}
         .task-option
           .custom-control.custom-checkbox
-            input.custom-control-input#creativity(type="checkbox", value='creativity', v-model='taskCategories')
+            input.custom-control-input#creativity(
+              type="checkbox",
+              value='creativity',
+              v-model='taskCategories'
+            )
             label.custom-control-label(v-once, for="creativity") {{ $t('creativity') }}
         .task-option
           .custom-control.custom-checkbox
-            input.custom-control-input#self_care(type="checkbox", value='self_care', v-model='taskCategories')
+            input.custom-control-input#self_care(
+              type="checkbox",
+              value='self_care',
+              v-model='taskCategories'
+            )
             label.custom-control-label(v-once, for="self_care") {{ $t('self_care') }}
 
-  .section.d-flex.justify-content-center.justin-outer-section(:class='{top: modalPage > 1}', v-if='!editing')
+  .section.d-flex.justify-content-center.justin-outer-section(
+    :class='{top: modalPage > 1}',
+    v-if='!editing'
+  )
     .justin-section.d-flex.align-items-center
       .featured-label
         span.rectangle
@@ -182,7 +247,11 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       div.next-outer(v-if='modalPage < 3', @click='next()')
         .next(v-once) {{$t('next')}}
         .next-arrow.svg-icon(v-html='icons.arrowRight')
-      div.next-outer(v-if='modalPage === 3 && !loading', @click='done()', :class="{disabled: taskCategories.length === 0}")
+      div.next-outer(
+        v-if='modalPage === 3 && !loading',
+        @click='done()',
+        :class="{disabled: taskCategories.length === 0}"
+      )
         .next(v-once) {{$t('finish')}}
         .next-arrow.svg-icon(v-html='icons.arrowRight')
 </template>

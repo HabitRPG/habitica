@@ -10,7 +10,8 @@
       button.btn.btn-primary(@click='close()') {{ $t('onwards') }}
       br
       // @TODO: Keep this? .checkbox
-        input(type='checkbox', v-model='user.preferences.suppressModals.levelUp', @change='changeLevelupSuppress()')
+        input(type='checkbox', v-model=
+        'user.preferences.suppressModals.levelUp', @change='changeLevelupSuppress()')
         label(style='display:inline-block') {{ $t('dontShowAgain') }}
 
     .container-fluid.share-buttons
