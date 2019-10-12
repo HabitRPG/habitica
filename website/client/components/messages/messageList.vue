@@ -125,6 +125,11 @@
     }
   }
 
+  .loading {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
   .message-row {
     margin-left: 12px;
     margin-right: 12px;

@@ -92,10 +92,6 @@
       }
     }
 
-    h2 {
-      margin-bottom: 0rem;
-    }
-
     .modal-body {
       padding: 0rem;
     }
