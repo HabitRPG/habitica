@@ -40,8 +40,8 @@
 
 <style lang="scss">
 
-  @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/modal.scss';
+  @import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/modal.scss';
 
   #equipgear-modal {
     @include centeredModal();
@@ -105,7 +105,7 @@
       margin: 0 auto;
 
       .character-sprites span {
-        left: 25px;
+        left: 24px;
       }
     }
 
@@ -117,16 +117,16 @@
 </style>
 
 <script>
-import { mapState } from '@/libs/store';
+import { mapState } from 'client/libs/store';
 
-import svgClose from '@/assets/svg/close.svg';
-import svgWarrior from '@/assets/svg/warrior.svg';
-import svgWizard from '@/assets/svg/wizard.svg';
-import svgRogue from '@/assets/svg/rogue.svg';
-import svgHealer from '@/assets/svg/healer.svg';
+import svgClose from 'assets/svg/close.svg';
+import svgWarrior from 'assets/svg/warrior.svg';
+import svgWizard from 'assets/svg/wizard.svg';
+import svgRogue from 'assets/svg/rogue.svg';
+import svgHealer from 'assets/svg/healer.svg';
 
-import Avatar from '@/components/avatar';
-import attributesGrid from '@/components/inventory/equipment/attributesGrid.vue';
+import Avatar from 'client/components/avatar';
+import attributesGrid from 'client/components/inventory/equipment/attributesGrid.vue';
 
 export default {
   components: {
