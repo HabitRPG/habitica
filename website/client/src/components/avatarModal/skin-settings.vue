@@ -8,10 +8,12 @@
       :items="skinSubMenuItems"
       :active-sub-page="activeSubPage"
       @changeSubPage="changeSubPage($event)"
-    /><customize-options
+    />
+    <customize-options
       :items="freeSkins"
       :current-value="user.preferences.skin"
-    /><div
+    />
+    <div
       v-for="set in seasonalSkins"
       v-if="editing && set.key !== 'undefined'"
     >

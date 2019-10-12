@@ -3,14 +3,17 @@
     <span
       v-if="owner"
       class="category-label category-label-blue"
-    >{{ $t('owned') }}</span><span
+    >{{ $t('owned') }}</span>
+    <span
       v-if="member"
       class="category-label category-label-green"
-    >{{ $t('joined') }}</span><span
+    >{{ $t('joined') }}</span>
+    <span
       v-for="category in categories"
       class="category-label"
       :class="{'category-label-purple':isOfficial(category)}"
-    >{{ $t(category.name) }}</span><slot></slot>
+    >{{ $t(category.name) }}</span>
+    <slot></slot>
   </div>
 </template>
 

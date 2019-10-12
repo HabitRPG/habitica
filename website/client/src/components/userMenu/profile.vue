@@ -14,7 +14,8 @@
             class="svg-icon message-icon"
             v-html="icons.message"
           ></div>
-        </button><button
+        </button>
+        <button
           v-b-tooltip.hover.bottom="$t('sendGems')"
           class="btn btn-secondary gift-icon"
           @click="openSendGemsModal()"
@@ -23,7 +24,8 @@
             class="svg-icon gift-icon"
             v-html="icons.gift"
           ></div>
-        </button><button
+        </button>
+        <button
           v-if="user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) === -1"
           v-b-tooltip.hover.right="$t('blockWarning')"
           class="btn btn-secondary remove-icon"
@@ -33,7 +35,8 @@
             class="svg-icon remove-icon"
             v-html="icons.remove"
           ></div>
-        </button><button
+        </button>
+        <button
           v-if="user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) !== -1"
           v-b-tooltip.hover.right="$t('unblock')"
           class="btn btn-secondary positive-icon"
@@ -43,7 +46,8 @@
             class="svg-icon positive-icon"
             v-html="icons.positive"
           ></div>
-        </button><button
+        </button>
+        <button
           v-if="this.userLoggedIn.contributor.admin"
           v-b-tooltip.hover.right="'Admin - Toggle Tools'"
           class="btn btn-secondary positive-icon"
@@ -54,7 +58,8 @@
             v-html="icons.staff"
           ></div>
         </button>
-      </div><div
+      </div>
+      <div
         v-if="this.userLoggedIn.contributor.admin && adminToolsLoaded"
         class="row admin-profile-actions"
       >
@@ -64,39 +69,46 @@
             v-b-tooltip.hover.bottom="'Turn on Shadow Muting'"
             class="admin-action"
             @click="adminTurnOnShadowMuting()"
-          >shadow-mute</span><span
+          >shadow-mute</span>
+          <span
             v-if="hero.flags && hero.flags.chatShadowMuted"
             v-b-tooltip.hover.bottom="'Turn off Shadow Muting'"
             class="admin-action"
             @click="adminTurnOffShadowMuting()"
-          >un-shadow-mute</span><span
+          >un-shadow-mute</span>
+          <span
             v-if="!hero.flags || (hero.flags && !hero.flags.chatRevoked)"
             v-b-tooltip.hover.bottom="'Revoke Chat Privileges'"
             class="admin-action"
             @click="adminRevokeChat()"
-          >mute</span><span
+          >mute</span>
+          <span
             v-if="hero.flags && hero.flags.chatRevoked"
             v-b-tooltip.hover.bottom="'Reinstate Chat Privileges'"
             class="admin-action"
             @click="adminReinstateChat()"
-          >un-mute</span><span
+          >un-mute</span>
+          <span
             v-if="!hero.auth.blocked"
             v-b-tooltip.hover.bottom="'Ban User'"
             class="admin-action"
             @click="adminBlockUser()"
-          >ban</span><span
+          >ban</span>
+          <span
             v-if="hero.auth.blocked"
             v-b-tooltip.hover.bottom="'Un-Ban User'"
             class="admin-action"
             @click="adminUnblockUser()"
           >un-ban</span>
         </div>
-      </div><div class="row">
+      </div>
+      <div class="row">
         <div class="col-12">
           <member-details :member="user" />
         </div>
       </div>
-    </div><div class="row">
+    </div>
+    <div class="row">
       <div class="col-12 col-md-6 offset-md-3 text-center nav">
         <div
           class="nav-item"
@@ -104,13 +116,15 @@
           @click="selectPage('profile')"
         >
           {{ $t('profile') }}
-        </div><div
+        </div>
+        <div
           class="nav-item"
           :class="{active: selectedPage === 'stats'}"
           @click="selectPage('stats')"
         >
           {{ $t('stats') }}
-        </div><div
+        </div>
+        <div
           class="nav-item"
           :class="{active: selectedPage === 'achievements'}"
           @click="selectPage('achievements')"
@@ -118,7 +132,8 @@
           {{ $t('achievements') }}
         </div>
       </div>
-    </div><div
+    </div>
+    <div
       v-show="selectedPage === 'profile'"
       v-if="user.profile"
       id="userProfile"
@@ -127,14 +142,16 @@
       <div class="row">
         <div class="col-12 col-md-8">
           <div class="header mb-3">
-            <h1>{{ user.profile.name }}</h1><div
+            <h1>{{ user.profile.name }}</h1>
+            <div
               v-if="user.auth && user.auth.local && user.auth.local.username"
               class="name"
             >
               @{{ user.auth.local.username }}
             </div>
           </div>
-        </div><div class="col-12 col-md-4">
+        </div>
+        <div class="col-12 col-md-4">
           <button
             v-if="user._id === userLoggedIn._id"
             class="btn btn-secondary"
@@ -144,49 +161,64 @@
             {{ $t('edit') }}
           </button>
         </div>
-      </div><div
+      </div>
+      <div
         v-if="!editing"
         class="row"
       >
         <div class="col-12 col-md-8">
           <div class="about profile-section">
-            <h2>{{ $t('about') }}</h2><p
+            <h2>{{ $t('about') }}</h2>
+            <p
               v-if="user.profile.blurb"
               v-markdown="user.profile.blurb"
-            ></p><p v-else>
+            ></p>
+            <p v-else>
               {{ $t('noDescription') }}
             </p>
-          </div><div class="photo profile-section">
-            <h2>{{ $t('photo') }}</h2><img
+          </div>
+          <div class="photo profile-section">
+            <h2>{{ $t('photo') }}</h2>
+            <img
               v-if="user.profile.imageUrl"
               class="img-rendering-auto"
               :src="user.profile.imageUrl"
-            ><p v-else>
+            >
+            <p v-else>
               {{ $t('noPhoto') }}
             </p>
           </div>
-        </div><div class="col-12 col-md-4">
+        </div>
+        <div class="col-12 col-md-4">
           <div class="info profile-section">
-            <h2>{{ $t('info') }}</h2><div class="info-item">
+            <h2>{{ $t('info') }}</h2>
+            <div class="info-item">
               <div class="info-item-label">
                 {{ $t('joined') }}:
-              </div><div class="info-item-value">
+              </div>
+              <div class="info-item-value">
                 {{ userJoinedDate }}
               </div>
-            </div><div class="info-item">
+            </div>
+            <div class="info-item">
               <div class="info-item-label">
                 {{ $t('totalLogins') }}:
-              </div><div class="info-item-value">
+              </div>
+              <div class="info-item-value">
                 {{ user.loginIncentives }}
               </div>
-            </div><div class="info-item">
+            </div>
+            <div class="info-item">
               <div class="info-item-label">
                 {{ $t('latestCheckin') }}:
-              </div><div class="info-item-value">
+              </div>
+              <div class="info-item-value">
                 {{ userLastLoggedIn }}
               </div>
-            </div><div class="info-item">
-              {{ getProgressDisplay() }}<div class="progress">
+            </div>
+            <div class="info-item">
+              {{ getProgressDisplay() }}
+              <div class="progress">
                 <div
                   class="progress-bar"
                   role="progressbar"
@@ -199,45 +231,58 @@
                 </div>
               </div>
             </div>
-          </div><!-- @TODO: Implement in V2 .social-->
+          </div>
+          <!-- @TODO: Implement in V2 .social-->
         </div>
-      </div><div
+      </div>
+      <div
         v-if="editing"
         class="row"
       >
-        <h1>{{ $t('editProfile') }}</h1><div class="col-12">
+        <h1>{{ $t('editProfile') }}</h1>
+        <div class="col-12">
           <div
             class="alert alert-info alert-sm"
             v-html="$t('communityGuidelinesWarning', managerEmail)"
-          ></div><!-- TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak--><div class="form-group">
-            <label>{{ $t('displayName') }}</label><input
+          ></div>
+          <!-- TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak-->
+          <div class="form-group">
+            <label>{{ $t('displayName') }}</label>
+            <input
               v-model="editingProfile.name"
               class="form-control"
               type="text"
               :placeholder="$t('fullName')"
             >
-          </div><div class="form-group">
-            <label>{{ $t('photoUrl') }}</label><input
+          </div>
+          <div class="form-group">
+            <label>{{ $t('photoUrl') }}</label>
+            <input
               v-model="editingProfile.imageUrl"
               class="form-control"
               type="url"
               :placeholder="$t('imageUrl')"
             >
-          </div><div class="form-group">
-            <label>{{ $t('about') }}</label><textarea
+          </div>
+          <div class="form-group">
+            <label>{{ $t('about') }}</label>
+            <textarea
               v-model="editingProfile.blurb"
               class="form-control"
               rows="5"
               :placeholder="$t('displayBlurbPlaceholder')"
-            ></textarea><!-- include ../../shared/formatting-help-->
+            ></textarea>
+            <!-- include ../../shared/formatting-help-->
           </div>
-        </div><div class="col-12 text-center">
+        </div>
+        <div class="col-12 text-center">
           <button
             class="btn btn-primary"
             @click="save()"
           >
             {{ $t("save") }}
-          </button><button
+          </button>
+          <button
             class="btn btn-warning"
             @click="editing = false"
           >
@@ -245,7 +290,8 @@
           </button>
         </div>
       </div>
-    </div><div
+    </div>
+    <div
       v-show="selectedPage === 'achievements'"
       v-if="user.achievements"
       id="achievements"
@@ -257,7 +303,8 @@
       >
         <h2 class="col-12 text-center">
           {{ $t(key+'Achievs') }}
-        </h2><div
+        </h2>
+        <div
           v-for="(achievement, key) in category.achievements"
           class="col-12 col-md-3 text-center"
         >
@@ -273,11 +320,13 @@
             >
               <h4 class="popover-content-title">
                 {{ achievement.title }}
-              </h4><div
+              </h4>
+              <div
                 class="popover-content-text"
                 v-html="achievement.text"
               ></div>
-            </b-popover><div
+            </b-popover>
+            <div
               v-if="achievement.earned"
               class="achievement"
               :class="achievement.icon + '2x'"
@@ -288,34 +337,44 @@
               >
                 {{ achievement.optionalCount }}
               </div>
-            </div><div
+            </div>
+            <div
               v-if="!achievement.earned"
               class="achievement achievement-unearned achievement-unearned2x"
             ></div>
           </div>
         </div>
-      </div><hr class="col-12"><div class="row">
+      </div>
+      <hr class="col-12">
+      <div class="row">
         <div
           v-if="user.achievements.challenges"
           class="col-12 col-md-6"
         >
-          <div class="achievement-icon achievement-karaoke"></div><h2 class="text-center">
+          <div class="achievement-icon achievement-karaoke"></div>
+          <h2 class="text-center">
             {{ $t('challengesWon') }}
-          </h2><div v-for="chal in user.achievements.challenges">
-            <span v-markdown="chal"></span><hr>
+          </h2>
+          <div v-for="chal in user.achievements.challenges">
+            <span v-markdown="chal"></span>
+            <hr>
           </div>
-        </div><div
+        </div>
+        <div
           v-if="user.achievements.quests"
           class="col-12 col-md-6"
         >
-          <div class="achievement-icon achievement-alien"></div><h2 class="text-center">
+          <div class="achievement-icon achievement-alien"></div>
+          <h2 class="text-center">
             {{ $t('questsCompleted') }}
-          </h2><div v-for="(value, key) in user.achievements.quests">
+          </h2>
+          <div v-for="(value, key) in user.achievements.quests">
             <span>{{ content.quests[key].text() }} ({{ value }})</span>
           </div>
         </div>
       </div>
-    </div><profileStats
+    </div>
+    <profileStats
       v-show="selectedPage === 'stats'"
       v-if="user.preferences"
       :user="user"

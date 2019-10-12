@@ -1,32 +1,49 @@
 <template>
   <div class="row">
-    <challenge-modal @updatedChallenge="updatedChallenge" /><leave-challenge-modal :challenge-id="challenge._id" /><close-challenge-modal
+    <challenge-modal @updatedChallenge="updatedChallenge" />
+    <leave-challenge-modal :challenge-id="challenge._id" />
+    <close-challenge-modal
       :members="members"
       :challenge-id="challenge._id"
       :prize="challenge.prize"
-    /><challenge-member-progress-modal :challenge-id="challenge._id" /><div class="col-12 col-md-8 standard-page">
+    />
+    <challenge-member-progress-modal :challenge-id="challenge._id" />
+    <div class="col-12 col-md-8 standard-page">
       <div class="row">
         <div class="col-12 col-md-6">
-          <h1 v-markdown="challenge.name"></h1><div>
-            <span class="mr-1 ml-0 d-block"><strong v-once>{{ $t('createdBy') }}:</strong><user-link
-              class="mx-1"
-              :user="challenge.leader"
-            /></span><span
+          <h1 v-markdown="challenge.name"></h1>
+          <div>
+            <span class="mr-1 ml-0 d-block">
+              <strong v-once>{{ $t('createdBy') }}:</strong>
+              <user-link
+                class="mx-1"
+                :user="challenge.leader"
+              />
+            </span>
+            <span
               v-if="challenge.group && challenge.group.name !== 'Tavern'"
               class="mr-1 ml-0 d-block"
-            ><strong v-once>{{ $t(challenge.group.type) }}:</strong><group-link
-              class="mx-1"
-              :group="challenge.group"
-            /></span><!-- @TODO: make challenge.author a variable inside the createdBy string (helps with RTL languages)--><!-- @TODO: Implement in V2 strong.margin-left(v-once).svg-icon.calendar-icon(v-html="icons.calendarIcon")
+            >
+              <strong v-once>{{ $t(challenge.group.type) }}:</strong>
+              <group-link
+                class="mx-1"
+                :group="challenge.group"
+              />
+            </span>
+            <!-- @TODO: make challenge.author a variable inside the createdBy string (helps with RTL languages)-->
+            <!-- @TODO: Implement in V2 strong.margin-left(v-once).svg-icon.calendar-icon(v-html="icons.calendarIcon")
 | {{$t('endDate')}}
-// "endDate": "End Date: <% endDate %>",--><!-- span {{challenge.endDate}}-->
-          </div><div class="tags">
+            // "endDate": "End Date: <% endDate %>",-->
+            <!-- span {{challenge.endDate}}-->
+          </div>
+          <div class="tags">
             <span
               v-for="tag in challenge.tags"
               class="tag"
             >{{ tag }}</span>
           </div>
-        </div><div class="col-12 col-md-6 text-right">
+        </div>
+        <div class="col-12 col-md-6 text-right">
           <div
             class="box"
             @click="showMemberModal()"
@@ -34,17 +51,22 @@
             <div
               class="svg-icon member-icon"
               v-html="icons.memberIcon"
-            ></div>{{ challenge.memberCount }}<div
+            ></div>
+            {{ challenge.memberCount }}
+            <div
               v-once
               class="details"
             >
               {{ $t('participantsTitle') }}
             </div>
-          </div><div class="box">
+          </div>
+          <div class="box">
             <div
               class="svg-icon gem-icon"
               v-html="icons.gemIcon"
-            ></div>{{ challenge.prize }}<div
+            ></div>
+            {{ challenge.prize }}
+            <div
               v-once
               class="details"
             >
@@ -52,35 +74,44 @@
             </div>
           </div>
         </div>
-      </div><div class="row challenge-actions">
+      </div>
+      <div class="row challenge-actions">
         <div class="col-12 col-md-6">
-          <strong class="view-progress">{{ $t('viewProgressOf') }}</strong><member-search-dropdown
+          <strong class="view-progress">{{ $t('viewProgressOf') }}</strong>
+          <member-search-dropdown
             :text="$t('selectParticipant')"
             :members="members"
             :challenge-id="challengeId"
             @member-selected="openMemberProgressModal"
           />
-        </div><div class="col-12 col-md-6 text-right">
-          <span v-if="isLeader || isAdmin"><b-dropdown
-            class="create-dropdown"
-            :text="$t('addTaskToChallenge')"
-            :variant="'success'"
-          ><b-dropdown-item
-            v-for="type in columns"
-            :key="type"
-            @click="createTask(type)"
-          >{{ $t(type) }}</b-dropdown-item></b-dropdown><task-modal
-            ref="taskModal"
-            :task="workingTask"
-            :purpose="taskFormPurpose"
-            :challenge-id="challengeId"
-            @cancel="cancelTaskModal()"
-            @taskCreated="taskCreated"
-            @taskEdited="taskEdited"
-            @taskDestroyed="taskDestroyed"
-          /></span>
         </div>
-      </div><div class="row">
+        <div class="col-12 col-md-6 text-right">
+          <span v-if="isLeader || isAdmin">
+            <b-dropdown
+              class="create-dropdown"
+              :text="$t('addTaskToChallenge')"
+              :variant="'success'"
+            >
+              <b-dropdown-item
+                v-for="type in columns"
+                :key="type"
+                @click="createTask(type)"
+              >{{ $t(type) }}</b-dropdown-item>
+            </b-dropdown>
+            <task-modal
+              ref="taskModal"
+              :task="workingTask"
+              :purpose="taskFormPurpose"
+              :challenge-id="challengeId"
+              @cancel="cancelTaskModal()"
+              @taskCreated="taskCreated"
+              @taskEdited="taskEdited"
+              @taskDestroyed="taskDestroyed"
+            />
+          </span>
+        </div>
+      </div>
+      <div class="row">
         <task-column
           v-for="column in columns"
           v-if="tasksByType[column].length > 0"
@@ -90,10 +121,11 @@
           :task-list-override="tasksByType[column]"
           :show-options="showOptions"
           @editTask="editTask"
-@taskDestroyed="taskDestroyed"
+          @taskDestroyed="taskDestroyed"
         />
       </div>
-    </div><div class="col-12 col-md-4 sidebar standard-page">
+    </div>
+    <div class="col-12 col-md-4 sidebar standard-page">
       <div
         v-if="canJoin"
         class="button-container"
@@ -105,7 +137,8 @@
         >
           {{ $t('joinChallenge') }}
         </button>
-      </div><div
+      </div>
+      <div
         v-if="isLeader || isAdmin"
         class="button-container"
       >
@@ -116,7 +149,8 @@
         >
           {{ $t('editChallenge') }}
         </button>
-      </div><div
+      </div>
+      <div
         v-if="isLeader || isAdmin"
         class="button-container"
       >
@@ -127,7 +161,8 @@
         >
           {{ $t('clone') }}
         </button>
-      </div><div
+      </div>
+      <div
         v-if="isLeader || isAdmin"
         class="button-container"
       >
@@ -138,7 +173,8 @@
         >
           {{ $t('exportChallengeCsv') }}
         </button>
-      </div><div
+      </div>
+      <div
         v-if="isLeader || isAdmin"
         class="button-container"
       >
@@ -149,13 +185,16 @@
         >
           {{ $t('endChallenge') }}
         </button>
-      </div><div>
+      </div>
+      <div>
         <sidebar-section :title="$t('challengeSummary')">
           <p v-markdown="challenge.summary"></p>
-        </sidebar-section><sidebar-section :title="$t('challengeDescription')">
+        </sidebar-section>
+        <sidebar-section :title="$t('challengeDescription')">
           <p v-markdown="challenge.description"></p>
         </sidebar-section>
-      </div><div
+      </div>
+      <div
         v-if="isMember"
         class="text-center"
       >

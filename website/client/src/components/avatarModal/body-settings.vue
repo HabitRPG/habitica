@@ -8,16 +8,19 @@
       :items="items"
       :active-sub-page="activeSubPage"
       @changeSubPage="changeSubPage($event)"
-    /><div v-if="activeSubPage === 'size'">
+    />
+    <div v-if="activeSubPage === 'size'">
       <customize-options
         :items="sizes"
         :current-value="user.preferences.size"
       />
-    </div><div v-if="activeSubPage === 'shirt'">
+    </div>
+    <div v-if="activeSubPage === 'shirt'">
       <customize-options
         :items="freeShirts"
         :current-value="user.preferences.shirt"
-      /><customize-options
+      />
+      <customize-options
         v-if="editing"
         :items="specialShirts"
         :current-value="user.preferences.shirt"

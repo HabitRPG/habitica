@@ -6,13 +6,15 @@
     :hide-footer="true"
   >
     <div class="modal-body">
-      <h2>{{ $t('confirmKeepChallengeTasks') }}</h2><div>
+      <h2>{{ $t('confirmKeepChallengeTasks') }}</h2>
+      <div>
         <button
           class="btn btn-primary"
           @click="leaveChallenge('keep')"
         >
           {{ $t('keepThem') }}
-        </button><button
+        </button>
+        <button
           class="btn btn-danger"
           @click="leaveChallenge('remove-all')"
         >

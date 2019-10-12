@@ -12,14 +12,20 @@
     <div
       class="nametag-header"
       v-html="icons.helloNametag"
-    ></div><h2 class="text-center">
+    ></div>
+    <h2 class="text-center">
       {{ $t('usernameTime') }}
-    </h2><p
+    </h2>
+    <p
       class="text-center"
       v-html="$t('usernameInfo')"
-    ></p><username-form /><div class="scene_veteran_pets center-block"></div><div class="small text-center mb-3">
+    ></p>
+    <username-form />
+    <div class="scene_veteran_pets center-block"></div>
+    <div class="small text-center mb-3">
       {{ $t('verifyUsernameVeteranPet') }}
-    </div><div
+    </div>
+    <div
       class="small text-center tos-footer"
       v-html="$t('usernameTOSRequirements')"
     ></div>

@@ -5,23 +5,30 @@
         <span
           class="svg-icon"
           v-html="icons.gemIcon"
-        ></span><span class="value">{{ challenge.prize }}</span>
-      </div><div class="label">
+        ></span>
+        <span class="value">{{ challenge.prize }}</span>
+      </div>
+      <div class="label">
         {{ $t('prize') }}
       </div>
-    </div><div class="challenge-header">
+    </div>
+    <div class="challenge-header">
       <router-link :to="{ name: 'challenge', params: { challengeId: challenge._id } }">
         <h3
           v-markdown="challenge.name"
           class="challenge-title"
         ></h3>
-      </router-link><div class="meta-info">
+      </router-link>
+      <div class="meta-info">
         <div class="member-count">
           <div
             class="svg-icon user-icon"
             v-html="icons.memberIcon"
-          ></div><span class="count-label">{{ challenge.memberCount }}</span>
-        </div><div class="divider"></div><div
+          ></div>
+          <span class="count-label">{{ challenge.memberCount }}</span>
+        </div>
+        <div class="divider"></div>
+        <div
           v-if="isOfficial"
           class="official"
         >
@@ -29,35 +36,42 @@
             class="svg-icon user-icon"
             v-html="icons.officialIcon"
           ></div>
-        </div><div
+        </div>
+        <div
           v-if="fullLayout"
           class="owner"
         >
           <div class="owner-item">
-            <strong>{{ $t('createdBy') }}:</strong><user-link
+            <strong>{{ $t('createdBy') }}:</strong>
+            <user-link
               class="mx-1"
               :user="challenge.leader"
             />
-          </div><div
+          </div>
+          <div
             v-if="challenge.group && !isTavern(challenge.group)"
             class="owner-item"
           >
-            <strong>{{ $t(challenge.group.type) }}:</strong><group-link
+            <strong>{{ $t(challenge.group.type) }}:</strong>
+            <group-link
               class="mx-1"
               :group="challenge.group"
             />
           </div>
         </div>
       </div>
-    </div><category-tags
+    </div>
+    <category-tags
       class="challenge-categories"
       :categories="challenge.categories"
       :owner="isOwner"
       :member="isMember"
-    /><div
+    />
+    <div
       v-markdown="challenge.summary"
       class="challenge-description"
-    ></div><div
+    ></div>
+    <div
       v-if="fullLayout"
       class="well-wrapper"
     >
@@ -71,8 +85,10 @@
               class="svg-icon"
               :class="task.label + '-icon'"
               v-html="task.icon"
-            ></div><span class="value">{{ task.value }}</span>
-          </div><div class="label">
+            ></div>
+            <span class="value">{{ task.value }}</span>
+          </div>
+          <div class="label">
             {{ $t(task.label) }}
           </div>
         </div>

@@ -8,12 +8,14 @@
       :items="extraSubMenuItems"
       :active-sub-page="activeSubPage"
       @changeSubPage="changeSubPage($event)"
-    /><div
+    />
+    <div
       v-if="activeSubPage === 'glasses'"
       id="hair-color"
     >
       <customize-options :items="eyewear" />
-    </div><div
+    </div>
+    <div
       v-if="activeSubPage === 'ears'"
       id="animal-ears"
     >
@@ -22,7 +24,8 @@
         :full-set="!animalItemsOwned('headAccessory')"
         @unlock="unlock(animalItemsUnlockString('headAccessory'))"
       />
-    </div><div
+    </div>
+    <div
       v-if="activeSubPage === 'tails'"
       id="animal-tails"
     >
@@ -31,17 +34,20 @@
         :full-set="!animalItemsOwned('back')"
         @unlock="unlock(animalItemsUnlockString('back'))"
       />
-    </div><div
+    </div>
+    <div
       v-if="activeSubPage === 'headband'"
       id="headband"
     >
       <customize-options :items="headbands" />
-    </div><div
+    </div>
+    <div
       v-if="activeSubPage === 'wheelchair'"
       id="wheelchairs"
     >
       <customize-options :items="chairs" />
-    </div><div
+    </div>
+    <div
       v-if="activeSubPage === 'flower'"
       id="flowers"
     >

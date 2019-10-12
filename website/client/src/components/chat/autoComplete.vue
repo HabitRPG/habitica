@@ -12,14 +12,18 @@
       @mouseenter="setHover(result)"
       @mouseleave="resetSelection()"
     >
-      <span><h3
-        class="profile-name"
-        :class="userLevelStyle(result.msg)"
-      >{{ result.displayName }}</h3><div
-        v-if="showTierStyle(result.msg)"
-        class="svg-icon"
-        v-html="tierIcon(result.msg)"
-      ></div></span><span
+      <span>
+        <h3
+          class="profile-name"
+          :class="userLevelStyle(result.msg)"
+        >{{ result.displayName }}</h3>
+        <div
+          v-if="showTierStyle(result.msg)"
+          class="svg-icon"
+          v-html="tierIcon(result.msg)"
+        ></div>
+      </span>
+      <span
         v-if="result.username"
         class="username ml-2"
         :class="{'hover-foreground': result.hover}"

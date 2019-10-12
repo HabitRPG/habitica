@@ -7,7 +7,8 @@
       v-model="searchTerm"
       class="form-control"
       type="text"
-    ><b-dropdown-item
+    >
+    <b-dropdown-item
       v-for="member in memberResults"
       :key="member._id"
       @click="selectMember(member)"

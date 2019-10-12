@@ -8,13 +8,15 @@
     <div class="text-center">
       <h2 class="col-12">
         {{ $t('sureKick') }}
-      </h2><div
+      </h2>
+      <div
         v-if="memberToRemove.profile"
         class="col-12 removing-member"
       >
         {{ memberToRemove.profile.name }}
       </div>
-    </div><div class="modal-body">
+    </div>
+    <div class="modal-body">
       <textarea
         v-model="removeMessage"
         class="form-control"
@@ -22,13 +24,15 @@
         rows="5"
         :placeholder="$t('optionalMessage')"
       ></textarea>
-    </div><div class="modal-footer">
+    </div>
+    <div class="modal-footer">
       <button
         class="pull-left btn btn-danger"
         @click="confirmRemoveMember()"
       >
         {{ $t('yesRemove') }}
-      </button><button
+      </button>
+      <button
         class="btn btn-secondary"
         @click="close()"
       >

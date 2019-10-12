@@ -1,19 +1,31 @@
 <template>
-  <span><span class="dropdown-label">{{ label }}</span><b-dropdown right="right"><span
-    slot="text"
-    :class="{'dropdown-icon-item': withIcon}"
-  ><slot
-    name="item"
-    :item="selectedItem"
-  ></slot></span><b-dropdown-item
-    v-for="item in items"
-    :key="item.id"
-    :active="selectedItem.id === item.id"
-    @click="selectItem(item)"
-  ><span :class="{'dropdown-icon-item': withIcon}"><slot
-    name="item"
-    :item="item"
-  ></slot></span></b-dropdown-item></b-dropdown></span>
+  <span>
+    <span class="dropdown-label">{{ label }}</span>
+    <b-dropdown right="right">
+      <span
+        slot="text"
+        :class="{'dropdown-icon-item': withIcon}"
+      >
+        <slot
+          name="item"
+          :item="selectedItem"
+        ></slot>
+      </span>
+      <b-dropdown-item
+        v-for="item in items"
+        :key="item.id"
+        :active="selectedItem.id === item.id"
+        @click="selectItem(item)"
+      >
+        <span :class="{'dropdown-icon-item': withIcon}">
+          <slot
+            name="item"
+            :item="item"
+          ></slot>
+        </span>
+      </b-dropdown-item>
+    </b-dropdown>
+  </span>
 </template>
 
 <script>

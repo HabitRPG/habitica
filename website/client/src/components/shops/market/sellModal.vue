@@ -11,7 +11,8 @@
         @click="hideDialog()"
         v-html="icons.close"
       ></span>
-    </div><div
+    </div>
+    <div
       v-if="item"
       class="content"
     >
@@ -27,17 +28,25 @@
             :show="true"
             :count="itemContextToSell.itemCount"
           />
-        </item><h4 class="title">
+        </item>
+        <h4 class="title">
           {{ itemContextToSell.itemName }}
-        </h4><div v-if="item.key === 'Saddle'">
+        </h4>
+        <div v-if="item.key === 'Saddle'">
           <div class="text">
             {{ item.sellWarningNote() }}
-          </div><br>
-        </div><div v-else>
+          </div>
+          <br>
+        </div>
+        <div v-else>
           <div>
             <div class="text">
               {{ item.notes() }}
-            </div><div><b class="how-many-to-sell">{{ $t('howManyToSell') }}</b></div><div>
+            </div>
+            <div>
+              <b class="how-many-to-sell">{{ $t('howManyToSell') }}</b>
+            </div>
+            <div>
               <b-input
                 v-model="selectedAmountToSell"
                 class="itemsToSell"
@@ -46,12 +55,15 @@
                 min="1"
                 step="1"
                 @keyup.native="preventNegative($event)"
-              /><span
+              />
+              <span
                 class="svg-icon inline icon-32"
                 aria-hidden="true"
                 v-html="icons.gold"
-              ></span><span class="value">{{ item.value }}</span>
-            </div><button
+              ></span>
+              <span class="value">{{ item.value }}</span>
+            </div>
+            <button
               class="btn btn-primary"
               @click="sellItems()"
             >
@@ -60,11 +72,13 @@
           </div>
         </div>
       </div>
-    </div><div
+    </div>
+    <div
       slot="modal-footer"
       class="clearfix"
     >
-      <span class="balance float-left">{{ $t('yourBalance') }}</span><balanceInfo class="float-right" />
+      <span class="balance float-left">{{ $t('yourBalance') }}</span>
+      <balanceInfo class="float-right" />
     </div>
   </b-modal>
 </template>

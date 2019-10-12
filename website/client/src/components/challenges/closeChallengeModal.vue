@@ -15,21 +15,25 @@
         >
           {{ $t('endChallenge') }}
         </h2>
-      </div><div class="row text-center">
+      </div>
+      <div class="row text-center">
         <div class="col-12">
           <div class="support-habitica">
-          <!-- @TODO: Add challenge achievement badge here-->
+            <!-- @TODO: Add challenge achievement badge here-->
           </div>
-        </div><div class="col-12">
+        </div>
+        <div class="col-12">
           <strong v-once>{{ $t('selectChallengeWinnersDescription') }}</strong>
-        </div><div class="col-12">
+        </div>
+        <div class="col-12">
           <member-search-dropdown
             :text="winnerText"
             :members="members"
             :challenge-id="challengeId"
             @member-selected="selectMember"
           />
-        </div><div class="col-12">
+        </div>
+        <div class="col-12">
           <button
             v-once
             class="btn btn-primary"
@@ -37,13 +41,17 @@
           >
             {{ $t('awardWinners') }}
           </button>
-        </div><div class="col-12">
-          <hr><div class="or">
+        </div>
+        <div class="col-12">
+          <hr>
+          <div class="or">
             {{ $t('or') }}
           </div>
-        </div><div class="col-12">
+        </div>
+        <div class="col-12">
           <strong v-once>{{ $t('doYouWantedToDeleteChallenge') }}</strong>
-        </div><div class="col-12">
+        </div>
+        <div class="col-12">
           <button
             v-once
             class="btn btn-danger"
@@ -52,7 +60,8 @@
             {{ $t('deleteChallenge') }}
           </button>
         </div>
-      </div><div
+      </div>
+      <div
         slot="modal-footer"
         class="footer-wrap"
       ></div>

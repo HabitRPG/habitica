@@ -12,9 +12,14 @@
     >
       <div class="username-notification-title">
         {{ $t('setUsernameNotificationTitle') }}
-      </div><div>{{ $t('setUsernameNotificationBody') }}</div><div class="current-username-container mx-auto">
-        <label class="font-weight-bold">{{ $t('currentUsername') + " " }}</label><label>@</label><label>{{ user.auth.local.username }}</label>
-      </div><div class="notifications-buttons">
+      </div>
+      <div>{{ $t('setUsernameNotificationBody') }}</div>
+      <div class="current-username-container mx-auto">
+        <label class="font-weight-bold">{{ $t('currentUsername') + " " }}</label>
+        <label>@</label>
+        <label>{{ user.auth.local.username }}</label>
+      </div>
+      <div class="notifications-buttons">
         <div
           class="btn btn-small btn-secondary"
           @click.stop="changeUsername()"

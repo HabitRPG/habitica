@@ -8,10 +8,12 @@
           type="text"
           :placeholder="$t('search')"
         >
-      </div><div class="form">
+      </div>
+      <div class="form">
         <h2 v-once>
           {{ $t('filter') }}
-        </h2><div class="form-group">
+        </h2>
+        <div class="form-group">
           <checkbox
             v-for="category in filterCategories"
             :id="`category-${category.key}`"
@@ -19,19 +21,22 @@
             :checked.sync="viewOptions[category.key].selected"
             :text="category.value"
           />
-        </div><div class="form-group clearfix">
+        </div>
+        <div class="form-group clearfix">
           <h3
             v-once
             class="float-left"
           >
             {{ $t('hidePinned') }}
-          </h3><toggle-switch
+          </h3>
+          <toggle-switch
             v-model="hidePinned"
             class="float-right"
           />
         </div>
       </div>
-    </div><div class="standard-page">
+    </div>
+    <div class="standard-page">
       <div class="featuredItems">
         <div
           class="background"
@@ -39,23 +44,30 @@
         >
           <div class="npc">
             <div class="featured-label">
-              <span class="rectangle"></span><span class="text">Leslie</span><span class="rectangle"></span>
+              <span class="rectangle"></span>
+              <span class="text">Leslie</span>
+              <span class="rectangle"></span>
             </div>
-          </div><div
+          </div>
+          <div
             v-if="!seasonal.opened"
             class="content"
           >
             <div class="featured-label with-border closed">
-              <span class="rectangle"></span><span
+              <span class="rectangle"></span>
+              <span
                 v-if="!broken"
                 class="text"
                 v-html="seasonal.notes"
-              ></span><span
+              ></span>
+              <span
                 v-if="broken"
                 class="text"
-              >{{ $t('seasonalShopBrokenText') }}</span><span class="rectangle"></span>
+              >{{ $t('seasonalShopBrokenText') }}</span>
+              <span class="rectangle"></span>
             </div>
-          </div><div
+          </div>
+          <div
             v-else-if="seasonal.featured.items.length !== 0"
             class="content"
           >
@@ -63,19 +75,25 @@
               v-if="!featuredGearBought"
               class="featured-label with-border"
             >
-              <span class="rectangle"></span><span
+              <span class="rectangle"></span>
+              <span
                 v-once
                 class="text"
-              >{{ $t('featuredset', { name: seasonal.featured.text }) }}</span><span class="rectangle"></span>
-            </div><div
+              >{{ $t('featuredset', { name: seasonal.featured.text }) }}</span>
+              <span class="rectangle"></span>
+            </div>
+            <div
               v-else
               class="featured-label with-border"
             >
-              <span class="rectangle"></span><span
+              <span class="rectangle"></span>
+              <span
                 v-once
                 class="text"
-              >{{ $t('featuredItems') }}</span><span class="rectangle"></span>
-            </div><div class="items margin-center">
+              >{{ $t('featuredItems') }}</span>
+              <span class="rectangle"></span>
+            </div>
+            <div class="items margin-center">
               <shopItem
                 v-for="item in seasonal.featured.items"
                 :key="item.key"
@@ -89,20 +107,24 @@
             </div>
           </div>
         </div>
-      </div><h1
+      </div>
+      <h1
         v-if="seasonal.opened"
         v-once
         class="mb-4 page-header"
       >
         {{ $t('seasonalShop') }}
-      </h1><div
+      </h1>
+      <div
         v-if="seasonal.opened"
         class="clearfix"
       >
         <h2 class="float-left mb-3">
           {{ $t('classArmor') }}
-        </h2><div class="float-right">
-          <span class="dropdown-label">{{ $t('sortBy') }}</span><b-dropdown
+        </h2>
+        <div class="float-right">
+          <span class="dropdown-label">{{ $t('sortBy') }}</span>
+          <b-dropdown
             :text="$t(selectedSortItemsBy)"
             right="right"
           >
@@ -116,7 +138,8 @@
             </b-dropdown-item>
           </b-dropdown>
         </div>
-      </div><div v-for="(groupSets, categoryGroup) in getGroupedCategories(categories)">
+      </div>
+      <div v-for="(groupSets, categoryGroup) in getGroupedCategories(categories)">
         <h3
           v-if="categoryGroup !== 'spells' && categoryGroup !== 'quests'"
           class="classgroup"
@@ -124,16 +147,19 @@
           <span
             class="svg-icon inline"
             v-html="icons[categoryGroup]"
-          ></span><span
+          ></span>
+          <span
             class="name"
             :class="categoryGroup"
           >{{ getClassName(categoryGroup) }}</span>
-        </h3><div class="grouped-parent">
+        </h3>
+        <div class="grouped-parent">
           <div
             v-for="category in groupSets"
             class="group"
           >
-            <h3>{{ category.text }}</h3><div class="items">
+            <h3>{{ category.text }}</h3>
+            <div class="items">
               <shopItem
                 v-for="item in seasonalItems(category, selectedSortItemsBy, searchTextThrottled, viewOptions, hidePinned)"
                 :key="item.key"
@@ -152,10 +178,12 @@
                     class="badge badge-pill badge-item badge-svg"
                     :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}"
                     @click.prevent.stop="togglePinned(ctx.item)"
-                  ><span
-                    class="svg-icon inline icon-12 color"
-                    v-html="icons.pin"
-                  ></span></span>
+                  >
+                    <span
+                      class="svg-icon inline icon-12 color"
+                      v-html="icons.pin"
+                    ></span>
+                  </span>
                 </template>
               </shopItem>
             </div>

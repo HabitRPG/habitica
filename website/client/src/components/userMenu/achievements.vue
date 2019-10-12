@@ -6,7 +6,8 @@
     >
       <h2 class="col-12">
         {{ $t(key+'Achievs') }}
-      </h2><div
+      </h2>
+      <div
         v-for="achievment in category.achievements"
         class="col-3 text-center"
       >
@@ -33,21 +34,27 @@
               >
                 {{ achievment.optionalCount }}
               </div>
-            </div><div
+            </div>
+            <div
               v-if="!achievment.earned"
               class="achievement achievement-unearned2x"
             ></div>
           </div>
         </div>
       </div>
-    </div><div class="row">
+    </div>
+    <div class="row">
       <div class="col-6">
-        <h2>Challeges Won</h2><div v-for="chal in user.achievements.challenges">
+        <h2>Challeges Won</h2>
+        <div v-for="chal in user.achievements.challenges">
           <span>{{ chal }}</span>
         </div>
-      </div><div class="col-6">
-        <h2>Quests Completed</h2><div v-for="(value, key) in user.achievements.quests">
-          <span>{{ content.quests[k].text() }}</span><span>{{ value }}</span>
+      </div>
+      <div class="col-6">
+        <h2>Quests Completed</h2>
+        <div v-for="(value, key) in user.achievements.quests">
+          <span>{{ content.quests[k].text() }}</span>
+          <span>{{ value }}</span>
         </div>
       </div>
     </div>

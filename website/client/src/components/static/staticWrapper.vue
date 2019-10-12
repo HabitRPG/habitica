@@ -3,20 +3,24 @@
     <static-header
       v-if="showContentWrap"
       :class="{'home-header': ['home', 'front'].indexOf($route.name) !== -1, 'white-header': this.$route.name === 'plans'}"
-    /><div class="static-wrapper">
+    />
+    <div class="static-wrapper">
       <router-view />
-    </div><div
+    </div>
+    <div
       v-if="showContentWrap"
       :id="footerId"
     >
       <app-footer />
-    </div><div
+    </div>
+    <div
       v-if="showContentWrap && footerId"
       id="bottom-wrap"
       class="purple-4"
     >
       <div id="bottom-background">
-        <div class="seamless_mountains_demo_repeat"></div><div class="midground_foreground_extended2"></div>
+        <div class="seamless_mountains_demo_repeat"></div>
+        <div class="midground_foreground_extended2"></div>
       </div>
     </div>
   </div>

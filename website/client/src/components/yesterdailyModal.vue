@@ -10,9 +10,11 @@
   >
     <h1 class="header-welcome text-center">
       {{ $t('welcomeBack') }}
-    </h1><p class="call-to-action text-center">
+    </h1>
+    <p class="call-to-action text-center">
       {{ $t('checkOffYesterDailies') }}
-    </p><div class="tasks-list">
+    </p>
+    <div class="tasks-list">
       <task
         v-for="task in tasksByType.daily"
         :key="task.id"
@@ -20,7 +22,8 @@
         :is-user="true"
         :due-date="dueDate"
       />
-    </div><div class="start-day text-center">
+    </div>
+    <div class="start-day text-center">
       <button
         class="btn btn-primary"
         @click="close()"

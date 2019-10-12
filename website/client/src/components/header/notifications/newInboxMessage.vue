@@ -7,7 +7,8 @@
     @click="action"
   >
     <div slot="content">
-      <span v-html="$t('userSentMessage', {user: notification.data.sender.name})"></span><div class="notification-small notification-ellipses">
+      <span v-html="$t('userSentMessage', {user: notification.data.sender.name})"></span>
+      <div class="notification-small notification-ellipses">
         {{ notification.data.excerpt }}
       </div>
     </div>

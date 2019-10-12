@@ -3,7 +3,33 @@
     <yesterdaily-modal
       :yester-dailies="yesterDailies"
       @run-cron="runYesterDailiesAction()"
-    /><armoire-empty /><new-stuff /><death /><low-health /><level-up /><choose-class /><testing /><testingletiant /><rebirth-enabled /><drops-enabled /><contributor /><won-challenge /><ultimate-gear /><streak /><rebirth /><joined-guild /><joined-challenge /><invited-friend /><login-incentives :data="notificationData" /><quest-completed /><quest-invitation /><verify-username /><generic-achievement :data="notificationData" /><just-add-water /><lost-masterclasser /><mind-over-matter />
+    />
+    <armoire-empty />
+    <new-stuff />
+    <death />
+    <low-health />
+    <level-up />
+    <choose-class />
+    <testing />
+    <testingletiant />
+    <rebirth-enabled />
+    <drops-enabled />
+    <contributor />
+    <won-challenge />
+    <ultimate-gear />
+    <streak />
+    <rebirth />
+    <joined-guild />
+    <joined-challenge />
+    <invited-friend />
+    <login-incentives :data="notificationData" />
+    <quest-completed />
+    <quest-invitation />
+    <verify-username />
+    <generic-achievement :data="notificationData" />
+    <just-add-water />
+    <lost-masterclasser />
+    <mind-over-matter />
   </div>
 </template>
 

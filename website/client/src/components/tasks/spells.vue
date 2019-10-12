@@ -9,17 +9,21 @@
         <div class="col-8 details">
           <p class="title">
             {{ spell.text() }}
-          </p><p class="notes">
+          </p>
+          <p class="notes">
             {{ `Click on a ${spell.target} to cast!` }}
-          </p><!-- @TODO make that translatable-->
-        </div><div class="col-4 mana">
+          </p>
+          <!-- @TODO make that translatable-->
+        </div>
+        <div class="col-4 mana">
           <div
             class="img"
             :class="`shop_${spell.key} shop-sprite item-img`"
           ></div>
         </div>
       </div>
-    </div><div class="drawer-wrapper d-flex justify-content-center">
+    </div>
+    <div class="drawer-wrapper d-flex justify-content-center">
       <drawer
         v-if="user.stats.class && !user.preferences.disableClasses"
         v-mousePosition="30"
@@ -40,16 +44,20 @@
               >
                 <div class="spell col-12 row">
                   <div class="col-8 details">
-                    <a :class="{'disabled': spellDisabled(key)}"></a><div
+                    <a :class="{'disabled': spellDisabled(key)}"></a>
+                    <div
                       class="img"
                       :class="`shop_${skill.key} shop-sprite item-img`"
-                    ></div><span class="title">{{ skill.text() }}</span>
-                  </div><div class="col-4 mana">
+                    ></div>
+                    <span class="title">{{ skill.text() }}</span>
+                  </div>
+                  <div class="col-4 mana">
                     <div class="mana-text">
                       <div
                         class="svg-icon"
                         v-html="icons.mana"
-                      ></div><div>{{ skill.mana }}</div>
+                      ></div>
+                      <div>{{ skill.mana }}</div>
                     </div>
                   </div>
                 </div>

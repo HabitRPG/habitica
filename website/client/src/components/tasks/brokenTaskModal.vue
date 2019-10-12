@@ -9,53 +9,65 @@
       v-if="brokenChallengeTask && brokenChallengeTask.challenge"
       class="modal-body"
     >
-      <div v-if="brokenChallengeTask.challenge.broken === 'TASK_DELETED' || brokenChallengeTask.challenge.broken === 'CHALLENGE_TASK_NOT_FOUND'">
-        <h2>{{ $t('brokenTask') }}</h2><div>
+      <div
+        v-if="brokenChallengeTask.challenge.broken === 'TASK_DELETED' || brokenChallengeTask.challenge.broken === 'CHALLENGE_TASK_NOT_FOUND'"
+      >
+        <h2>{{ $t('brokenTask') }}</h2>
+        <div>
           <button
             class="btn btn-primary"
             @click="unlink('keep')"
           >
             {{ $t('keepIt') }}
-          </button><button
+          </button>
+          <button
             class="btn btn-danger"
             @click="removeTask(obj)"
           >
             {{ $t('removeIt') }}
           </button>
         </div>
-      </div><div v-if="brokenChallengeTask.challenge.broken === 'CHALLENGE_DELETED'">
-        <h2>{{ $t('brokenChallenge') }}</h2><div>
+      </div>
+      <div v-if="brokenChallengeTask.challenge.broken === 'CHALLENGE_DELETED'">
+        <h2>{{ $t('brokenChallenge') }}</h2>
+        <div>
           <button
             class="btn btn-primary"
             @click="unlink('keep-all')"
           >
             {{ $t('keepThem') }}
-          </button><button
+          </button>
+          <button
             class="btn btn-danger"
             @click="unlink('remove-all')"
           >
             {{ $t('removeThem') }}
           </button>
         </div>
-      </div><div v-if="brokenChallengeTask.challenge.broken === 'CHALLENGE_CLOSED'">
-        <h2 v-html="$t('challengeCompleted', {user: brokenChallengeTask.challenge.winner})"></h2><div>
+      </div>
+      <div v-if="brokenChallengeTask.challenge.broken === 'CHALLENGE_CLOSED'">
+        <h2 v-html="$t('challengeCompleted', {user: brokenChallengeTask.challenge.winner})"></h2>
+        <div>
           <button
             class="btn btn-primary"
             @click="unlink('keep-all')"
           >
             {{ $t('keepThem') }}
-          </button><button
+          </button>
+          <button
             class="btn btn-danger"
             @click="unlink('remove-all')"
           >
             {{ $t('removeThem') }}
           </button>
         </div>
-      </div><!-- @TODO: I ported this over, but do we use it anymore?--><!--div(v-if='brokenChallengeTask.challenge.broken === "UNSUBSCRIBED"')p {{ $t('unsubChallenge') }}
+      </div>
+      <!-- @TODO: I ported this over, but do we use it anymore?-->
+      <!--div(v-if='brokenChallengeTask.challenge.broken === "UNSUBSCRIBED"')p {{ $t('unsubChallenge') }}
 p
   a(@click="unlink('keep-all')") {{ $t('keepThem') }}
   | &nbsp;|&nbsp;
-  a(@click="unlink('remove-all')") {{ $t('removeThem') }}-->
+      a(@click="unlink('remove-all')") {{ $t('removeThem') }}-->
     </div>
   </b-modal>
 </template>

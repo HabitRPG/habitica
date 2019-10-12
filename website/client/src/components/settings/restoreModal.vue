@@ -5,11 +5,15 @@
     :hide-footer="true"
     size="lg"
   >
-    <p>{{ $t('fixValuesText1') }}</p><p>{{ $t('fixValuesText2') }}</p><div class="form-horizontal">
-      <h3>{{ $t('stats') }}</h3><div class="form-group row">
+    <p>{{ $t('fixValuesText1') }}</p>
+    <p>{{ $t('fixValuesText2') }}</p>
+    <div class="form-horizontal">
+      <h3>{{ $t('stats') }}</h3>
+      <div class="form-group row">
         <div class="col-sm-3">
           <label class="control-label">{{ $t('health') }}</label>
-        </div><div class="col-sm-9">
+        </div>
+        <div class="col-sm-9">
           <input
             v-model="restoreValues.stats.hp"
             class="form-control"
@@ -18,10 +22,12 @@
             data-for="stats.hp"
           >
         </div>
-      </div><div class="form-group row">
+      </div>
+      <div class="form-group row">
         <div class="col-sm-3">
           <label class="control-label">{{ $t('experience') }}</label>
-        </div><div class="col-sm-9">
+        </div>
+        <div class="col-sm-9">
           <input
             v-model="restoreValues.stats.exp"
             class="form-control"
@@ -30,10 +36,12 @@
             data-for="stats.exp"
           >
         </div>
-      </div><div class="form-group row">
+      </div>
+      <div class="form-group row">
         <div class="col-sm-3">
           <label class="control-label">{{ $t('gold') }}</label>
-        </div><div class="col-sm-9">
+        </div>
+        <div class="col-sm-9">
           <input
             v-model="restoreValues.stats.gp"
             class="form-control"
@@ -41,11 +49,14 @@
             step="any"
             data-for="stats.gp"
           >
-        </div><!--input.form-control(type='number', step="any", data-for='stats.gp', v-model='restoreValues.stats.gp',disabled)-->
-      </div><div class="form-group row">
+        </div>
+        <!--input.form-control(type='number', step="any", data-for='stats.gp', v-model='restoreValues.stats.gp',disabled)-->
+      </div>
+      <div class="form-group row">
         <div class="col-sm-3">
           <label class="control-label">{{ $t('mana') }}</label>
-        </div><div class="col-sm-9">
+        </div>
+        <div class="col-sm-9">
           <input
             v-model="restoreValues.stats.mp"
             class="form-control"
@@ -54,10 +65,12 @@
             data-for="stats.mp"
           >
         </div>
-      </div><div class="form-group row">
+      </div>
+      <div class="form-group row">
         <div class="col-sm-3">
           <label class="control-label">{{ $t('level') }}</label>
-        </div><div class="col-sm-9">
+        </div>
+        <div class="col-sm-9">
           <input
             v-model="restoreValues.stats.lvl"
             class="form-control"
@@ -65,10 +78,13 @@
             data-for="stats.lvl"
           >
         </div>
-      </div><h3>{{ $t('achievements') }}</h3><div class="form-group row">
+      </div>
+      <h3>{{ $t('achievements') }}</h3>
+      <div class="form-group row">
         <div class="col-sm-3">
           <label class="control-label">{{ $t('fix21Streaks') }}</label>
-        </div><div class="col-sm-9">
+        </div>
+        <div class="col-sm-9">
           <input
             v-model="restoreValues.achievements.streak"
             class="form-control"
@@ -77,13 +93,15 @@
           >
         </div>
       </div>
-    </div><div class="modal-footer">
+    </div>
+    <div class="modal-footer">
       <button
         class="btn btn-danger"
         @click="close()"
       >
         {{ $t('discardChanges') }}
-      </button><button
+      </button>
+      <button
         class="btn btn-primary"
         @click="restore()"
       >

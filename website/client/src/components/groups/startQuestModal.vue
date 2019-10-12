@@ -9,7 +9,8 @@
     <div class="left-panel content">
       <h3 class="text-center">
         Quests
-      </h3><div class="row">
+      </h3>
+      <div class="row">
         <div
           v-for="(value, key, index) in user.items.quests"
           v-if="value > 0"
@@ -25,15 +26,18 @@
             >
               <h4 class="popover-content-title">
                 {{ quests.quests[key].text() }}
-              </h4><questInfo :quest="quests.quests[key]" />
-            </b-popover><div
+              </h4>
+              <questInfo :quest="quests.quests[key]" />
+            </b-popover>
+            <div
               :id="`inventory_quest_scroll_${key}`"
               class="quest"
               :class="`inventory_quest_scroll_${key}`"
             ></div>
           </div>
         </div>
-      </div><div class="row">
+      </div>
+      <div class="row">
         <div class="col-10 offset-1 text-center">
           <span
             v-once
@@ -41,9 +45,11 @@
           >{{ $t('noQuestToStart') }}</span>
         </div>
       </div>
-    </div><div v-if="questData">
+    </div>
+    <div v-if="questData">
       <questDialogContent :item="questData" />
-    </div><div class="text-center">
+    </div>
+    <div class="text-center">
       <button
         class="btn btn-primary"
         :disabled="!Boolean(selectedQuest) || loading"
@@ -51,9 +57,11 @@
       >
         {{ $t('inviteToPartyOrQuest') }}
       </button>
-    </div><div class="text-center">
+    </div>
+    <div class="text-center">
       <p>{{ $t('inviteInformation') }}</p>
-    </div><div
+    </div>
+    <div
       v-if="questData"
       class="side-panel"
     >

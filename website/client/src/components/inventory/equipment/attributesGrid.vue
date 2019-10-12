@@ -9,19 +9,24 @@
         <span
           class="popover-content-attr-cell key"
           :class="{'hasValue': hasSumValue(attr) }"
-        >{{ `${$t(attr)}: ` }}</span><span
+        >{{ `${$t(attr)}: ` }}</span>
+        <span
           class="popover-content-attr-cell label value"
           :class="{'green': hasSumValue(attr) }"
-        >{{ `${stats.sum[attr]}` }}</span><span
+        >{{ `${stats.sum[attr]}` }}</span>
+        <span
           class="popover-content-attr-cell label bold"
           :class="{'hasValue': hasGearValue(attr) }"
-        >{{ $t('gear') }}:</span><span
+        >{{ $t('gear') }}:</span>
+        <span
           class="popover-content-attr-cell label"
           :class="{'hasValue': hasGearValue(attr) }"
-        >{{ stats.gear[attr] }}</span><span
+        >{{ stats.gear[attr] }}</span>
+        <span
           class="popover-content-attr-cell label bold"
           :class="{'hasValue': hasClassBonus(attr) }"
-        >{{ $t('classEquipBonus') }}:</span><span
+        >{{ $t('classEquipBonus') }}:</span>
+        <span
           class="popover-content-attr-cell label"
           :class="{'hasValue': hasClassBonus(attr) }"
         >{{ `${stats.classBonus[attr]}` }}</span>

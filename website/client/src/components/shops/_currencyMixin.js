@@ -1,4 +1,4 @@
-import { mapState, mapGetters } from '@/libs/store';
+import { mapGetters, mapState } from '@/libs/store';
 
 export default {
   computed: {

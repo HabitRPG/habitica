@@ -17,7 +17,8 @@
           {{ $t('awardWinners') }}
         </button>
       </div>
-    </div><div class="row">
+    </div>
+    <div class="row">
       <task-column
         v-for="column in columns"
         :key="column"

@@ -12,14 +12,16 @@
       >
         <div class="col-8">
           <strong>{{ approval.userId.profile.name }}</strong>
-        </div><div class="col-2">
+        </div>
+        <div class="col-2">
           <button
             class="btn btn-primary"
             @click="approve(index)"
           >
             {{ $t('approve') }}
           </button>
-        </div><div class="col-2">
+        </div>
+        <div class="col-2">
           <button
             class="btn btn-secondary"
             @click="needsWork(index)"
@@ -28,7 +30,8 @@
           </button>
         </div>
       </div>
-    </div><div class="modal-footer">
+    </div>
+    <div class="modal-footer">
       <button
         class="btn btn-secondary"
         @click="close()"

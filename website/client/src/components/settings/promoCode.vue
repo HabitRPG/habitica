@@ -1,7 +1,8 @@
 <template>
   <div class="row standard-page">
     <div class="col-md-6">
-      <h2>{{ $t('promoCode') }}</h2><div
+      <h2>{{ $t('promoCode') }}</h2>
+      <div
         class="form-inline"
         role="form"
       >
@@ -10,14 +11,21 @@
           class="form-control"
           type="text"
           :placeholder="$t('promoPlaceholder')"
-        ><button
+        >
+        <button
           class="btn btn-primary"
           @click="enterCoupon()"
         >
           {{ $t('submit') }}
         </button>
-      </div><div><small>{{ $t('couponText') }}</small></div><div v-if="user.contributor.sudo">
-        <hr><h4>{{ $t('generateCodes') }}</h4><div
+      </div>
+      <div>
+        <small>{{ $t('couponText') }}</small>
+      </div>
+      <div v-if="user.contributor.sudo">
+        <hr>
+        <h4>{{ $t('generateCodes') }}</h4>
+        <div
           class="form"
           role="form"
         >
@@ -28,21 +36,24 @@
               type="text"
               placeholder="Event code (eg, 'wondercon')"
             >
-          </div><div class="form-group">
+          </div>
+          <div class="form-group">
             <input
               v-model="codes.count"
               class="form-control"
               type="number"
               placeholder="Number of codes to generate (eg, 250)"
             >
-          </div><div class="form-group">
+          </div>
+          <div class="form-group">
             <button
               class="btn btn-primary"
               type="submit"
               @click="generateCodes(codes)"
             >
               {{ $t('generate') }}
-            </button><a
+            </button>
+            <a
               class="btn btn-secondary"
               :href="getCodesUrl"
             >{{ $t('getCodes') }}</a>

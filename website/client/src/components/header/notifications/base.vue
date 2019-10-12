@@ -9,9 +9,11 @@
       :class="{'is-not-bailey': isNotBailey}"
     >
       <slot name="icon"></slot>
-    </div><div class="notification-content">
+    </div>
+    <div class="notification-content">
       <slot name="content"></slot>
-    </div><div
+    </div>
+    <div
       class="notification-remove"
       @click.stop="canRemove ? remove() : null"
     >

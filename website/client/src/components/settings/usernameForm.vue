@@ -5,7 +5,8 @@
         <label
           class="mr-3"
           for="displayName"
-        >{{ $t('displayName') }}</label><div class="flex-grow-1">
+        >{{ $t('displayName') }}</label>
+        <div class="flex-grow-1">
           <input
             id="displayName"
             v-model="temporaryDisplayName"
@@ -17,7 +18,8 @@
           >
         </div>
       </div>
-    </div><div
+    </div>
+    <div
       v-if="displayNameIssues.length > 0"
       class="mb-3"
     >
@@ -27,14 +29,17 @@
       >
         {{ issue }}
       </div>
-    </div><div class="form-group">
+    </div>
+    <div class="form-group">
       <div class="d-flex align-items-center">
         <label
           class="mr-3"
           for="username"
-        >{{ $t('username') }}</label><div class="flex-grow-1">
+        >{{ $t('username') }}</label>
+        <div class="flex-grow-1">
           <div class="input-group-prepend input-group-text">
-            @<input
+            @
+            <input
               id="username"
               v-model="temporaryUsername"
               class="form-control"
@@ -46,7 +51,8 @@
           </div>
         </div>
       </div>
-    </div><div
+    </div>
+    <div
       v-if="usernameIssues.length > 0"
       class="mb-3"
     >
@@ -56,12 +62,14 @@
       >
         {{ issue }}
       </div>
-    </div><div
+    </div>
+    <div
       v-if="!avatarIntro"
       class="small text-center mb-3"
     >
       {{ $t('usernameLimitations') }}
-    </div><div class="row justify-content-center">
+    </div>
+    <div class="row justify-content-center">
       <button
         class="btn btn-primary"
         type="submit"

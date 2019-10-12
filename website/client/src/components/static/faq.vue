@@ -7,7 +7,8 @@
       <div class="col-12 col-md-6 offset-md-3">
         <h1 id="faq-heading">
           {{ $t('frequentlyAskedQuestions') }}
-        </h1><div
+        </h1>
+        <div
           v-for="(heading, index) in headings"
           :key="index"
           class="faq-question"
@@ -19,7 +20,8 @@
             @click="handleClick($event)"
           >
             {{ $t(`faqQuestion${index}`) }}
-          </h2><b-collapse
+          </h2>
+          <b-collapse
             :id="heading"
             :visible="isVisible(heading)"
             accordion="faq"
@@ -30,7 +32,9 @@
               class="card-body"
             ></div>
           </b-collapse>
-        </div><hr><p v-markdown="$t('webFaqStillNeedHelp')"></p>
+        </div>
+        <hr>
+        <p v-markdown="$t('webFaqStillNeedHelp')"></p>
       </div>
     </div>
   </div>

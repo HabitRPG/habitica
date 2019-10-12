@@ -8,7 +8,11 @@
       :popover-position="'top'"
       @click="itemSelected(item)"
     >
-      <span slot="popoverContent"><strong v-if="item.key === 'gem' && gemsLeft === 0">{{ $t('maxBuyGems') }}</strong><h4 class="popover-content-title">{{ item.text }}</h4></span><template
+      <span slot="popoverContent">
+        <strong v-if="item.key === 'gem' && gemsLeft === 0">{{ $t('maxBuyGems') }}</strong>
+        <h4 class="popover-content-title">{{ item.text }}</h4>
+      </span>
+      <template
         slot="itemBadge"
         slot-scope="ctx"
       >

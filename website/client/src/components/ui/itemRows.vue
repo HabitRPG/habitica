@@ -11,17 +11,20 @@
           :item="item"
         ></slot>
       </template>
-    </div><div v-if="items.length === 0">
+    </div>
+    <div v-if="items.length === 0">
       <p v-once>
         {{ noItemsLabel }}
       </p>
-    </div><div
+    </div>
+    <div
       v-if="items.length > itemsPerRow"
       class="btn btn-flat btn-show-more"
       @click="toggleItemsToShow()"
     >
       {{ showAll ? $t('showLess') : $t('showMore') }}
-    </div><div
+    </div>
+    <div
       v-else
       class="fill-height"
     ></div>

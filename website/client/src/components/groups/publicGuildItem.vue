@@ -15,35 +15,42 @@
                 v-if="guild.memberCount >= 1000"
                 class="svg-icon shield"
                 v-html="icons.goldGuildBadge"
-              ></div><div
+              ></div>
+              <div
                 v-if="guild.memberCount >= 100 && guild.memberCount < 1000"
                 class="svg-icon shield"
                 v-html="icons.silverGuildBadgeIcon"
-              ></div><div
+              ></div>
+              <div
                 v-if="guild.memberCount < 100"
                 class="svg-icon shield"
                 v-html="icons.bronzeGuildBadgeIcon"
-              ></div><div class="member-count">
+              ></div>
+              <div class="member-count">
                 {{ guild.memberCount | abbrNum }}
               </div>
             </div>
-          </div><div class="col-md-10">
+          </div>
+          <div class="col-md-10">
             <div class="row">
               <div class="col-md-8">
                 <router-link :to="{ name: 'guild', params: { groupId: guild._id } }">
                   <h3>{{ guild.name }}</h3>
-                </router-link><p
+                </router-link>
+                <p
                   v-if="guild.summary"
                   class="summary"
                 >
                   {{ guild.summary.substr(0, MAX_SUMMARY_SIZE_FOR_GUILDS) }}
-                </p><p
+                </p>
+                <p
                   v-else
                   class="summary"
                 >
                   {{ guild.name }}
                 </p>
-              </div><div class="col-md-2 cta-container">
+              </div>
+              <div class="col-md-2 cta-container">
                 <button
                   v-if="isMember && displayLeave"
                   v-once
@@ -51,22 +58,26 @@
                   @click.prevent="leave()"
                 >
                   {{ $t('leave') }}
-                </button><button
+                </button>
+                <button
                   v-if="!isMember"
                   v-once
                   class="btn btn-success"
                   @click="join()"
                 >
                   {{ $t('join') }}
-                </button><div
+                </button>
+                <div
                   v-if="displayGemBank"
                   class="item-with-icon gem-bank"
                 >
                   <div
                     class="svg-icon gem"
                     v-html="icons.gem"
-                  ></div><span class="count">{{ guild.balance * 4 }}</span>
-                </div><div
+                  ></div>
+                  <span class="count">{{ guild.balance * 4 }}</span>
+                </div>
+                <div
                   v-if="displayGemBank"
                   v-once
                   class="guild-bank"
@@ -74,7 +85,8 @@
                   {{ $t('guildBank') }}
                 </div>
               </div>
-            </div><div class="row">
+            </div>
+            <div class="row">
               <category-tags
                 v-once
                 class="col-md-12"
@@ -84,7 +96,7 @@
                 <span
                   v-if="showSuggested(guild._id)"
                   class="recommend-text"
-                > {{ $t('suggestedGroup') }}</span>
+                >{{ $t('suggestedGroup') }}</span>
               </category-tags>
             </div>
           </div>

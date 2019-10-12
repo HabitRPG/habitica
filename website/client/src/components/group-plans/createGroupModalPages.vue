@@ -4,11 +4,13 @@
       v-if="activePage === PAGES.CREATE_GROUP"
       class="col-12"
     >
-      <h2>{{ $t('nameYourGroup') }}</h2><div class="form-group">
+      <h2>{{ $t('nameYourGroup') }}</h2>
+      <div class="form-group">
         <label
           class="control-label"
           for="new-group-name"
-        >{{ $t('name') }}</label><input
+        >{{ $t('name') }}</label>
+        <input
           id="new-group-name"
           v-model="newGroup.name"
           class="form-control input-medium option-content"
@@ -16,15 +18,18 @@
           type="text"
           :placeholder="$t('exampleGroupName')"
         >
-      </div><div class="form-group">
-        <label for="new-group-description">{{ $t('description') }}</label><textarea
+      </div>
+      <div class="form-group">
+        <label for="new-group-description">{{ $t('description') }}</label>
+        <textarea
           id="new-group-description"
           v-model="newGroup.description"
           class="form-control option-content"
           cols="3"
           :placeholder="$t('exampleGroupDesc')"
         ></textarea>
-      </div><div
+      </div>
+      <div
         v-if="newGroup.type === 'guild'"
         class="form-group text-left"
       >
@@ -35,21 +40,25 @@
             type="radio"
             name="new-group-privacy"
             value="private"
-          ><label class="custom-control-label">{{ $t('thisGroupInviteOnly') }}</label>
+          >
+          <label class="custom-control-label">{{ $t('thisGroupInviteOnly') }}</label>
         </div>
-      </div><div class="form-group text-left">
+      </div>
+      <div class="form-group text-left">
         <div class="custom-control custom-checkbox">
           <input
             id="create-group-leaderOnlyChallenges-checkbox"
             v-model="newGroup.leaderOnly.challenges"
             class="custom-control-input"
             type="checkbox"
-          ><label
+          >
+          <label
             class="custom-control-label"
             for="create-group-leaderOnlyChallenges-checkbox"
           >{{ $t('leaderOnlyChallenges') }}</label>
         </div>
-      </div><div
+      </div>
+      <div
         v-if="newGroup.type === 'party'"
         class="form-group"
       >
@@ -58,7 +67,8 @@
           :value="$t('createGroupPlan')"
           @click="createGroup()"
         ></button>
-      </div><div class="form-group">
+      </div>
+      <div class="form-group">
         <button
           class="btn btn-primary btn-lg btn-block"
           :disabled="!newGroupIsReady"
@@ -67,11 +77,13 @@
           {{ $t('createGroupPlan') }}
         </button>
       </div>
-    </div><div
+    </div>
+    <div
       v-if="activePage === PAGES.PAY"
       class="col-12"
     >
-      <h2>{{ $t('choosePaymentMethod') }}</h2><div class="payments-column">
+      <h2>{{ $t('choosePaymentMethod') }}</h2>
+      <div class="payments-column">
         <button
           class="purchase btn btn-primary payment-button payment-item"
           @click="pay(PAYMENTS.STRIPE)"
@@ -79,8 +91,10 @@
           <div
             class="svg-icon credit-card-icon"
             v-html="icons.creditCardIcon"
-          ></div>{{ $t('card') }}
-        </button><amazon-button
+          ></div>
+          {{ $t('card') }}
+        </button>
+        <amazon-button
           class="payment-item"
           :amazon-data="pay(PAYMENTS.AMAZON)"
         />

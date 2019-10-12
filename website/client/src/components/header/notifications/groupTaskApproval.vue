@@ -6,13 +6,15 @@
     @click="action"
   >
     <div slot="content">
-      <div v-html="notification.data.message"></div><div class="notifications-buttons">
+      <div v-html="notification.data.message"></div>
+      <div class="notifications-buttons">
         <div
           class="btn btn-small btn-success"
           @click.stop="approve()"
         >
           {{ $t('approve') }}
-        </div><div
+        </div>
+        <div
           class="btn btn-small btn-warning"
           @click.stop="needsWork()"
         >

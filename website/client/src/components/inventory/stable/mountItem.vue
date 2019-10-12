@@ -12,12 +12,14 @@
         <slot
           name="itemBadge"
           :item="item"
-        ></slot><span
+        ></slot>
+        <span
           class="item-content"
           :class="itemClass()"
         ></span>
       </div>
-    </div><b-popover
+    </div>
+    <b-popover
       v-if="showPopover"
       :target="itemId"
       triggers="hover"

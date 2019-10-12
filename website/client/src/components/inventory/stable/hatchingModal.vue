@@ -7,27 +7,33 @@
       <div class="potionEggGroup">
         <div class="potionEggBackground">
           <div :class="'Pet_HatchingPotion_'+hatchablePet.potionKey"></div>
-        </div><div class="potionEggBackground">
+        </div>
+        <div class="potionEggBackground">
           <div :class="'Pet_Egg_'+hatchablePet.eggKey"></div>
         </div>
-      </div><h4 class="title">
+      </div>
+      <h4 class="title">
         {{ hatchablePet.name }}
-      </h4><div
+      </h4>
+      <div
         class="text"
         v-html="$t('hatchDialogText', { potionName: hatchablePet.potionName, eggName: hatchablePet.eggName, petName: hatchablePet.name })"
       ></div>
-    </div><span
+    </div>
+    <span
       slot="modal-header"
       class="svg-icon icon-10"
       @click="closeHatchPetDialog()"
       v-html="icons.close"
-    ></span><div slot="modal-footer">
+    ></span>
+    <div slot="modal-footer">
       <button
         class="btn btn-primary"
         @click="hatchPet(hatchablePet)"
       >
         {{ $t('hatch') }}
-      </button><button
+      </button>
+      <button
         class="btn btn-secondary btn-flat"
         @click="closeHatchPetDialog()"
       >

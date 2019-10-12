@@ -9,46 +9,56 @@
       class="badge badge-pill badge-dialog"
       :class="{'item-selected-badge': isPinned}"
       @click.prevent.stop="togglePinned()"
-    ><span
-      class="svg-icon inline color icon-10"
-      v-html="icons.pin"
-    ></span></span><div class="close">
+    >
+      <span
+        class="svg-icon inline color icon-10"
+        v-html="icons.pin"
+      ></span>
+    </span>
+    <div class="close">
       <span
         class="svg-icon inline icon-10"
         aria-hidden="true"
         @click="hideDialog()"
         v-html="icons.close"
       ></span>
-    </div><div
+    </div>
+    <div
       v-if="item != null"
       class="content"
     >
       <div class="inner-content">
-        <questDialogContent :item="item" /><div class="purchase-amount">
+        <questDialogContent :item="item" />
+        <div class="purchase-amount">
           <div class="how-many-to-buy">
             <strong>{{ $t('howManyToBuy') }}</strong>
-          </div><div class="box">
+          </div>
+          <div class="box">
             <input
               v-model.number="selectedAmountToBuy"
               type="number"
               min="0"
               step="1"
             >
-          </div><span
+          </div>
+          <span
             class="svg-icon inline icon-32"
             aria-hidden="true"
             v-html="currencyIcon"
-          ></span><span
+          ></span>
+          <span
             class="value"
             :class="priceType"
           >{{ item.value }}</span>
-        </div><button
+        </div>
+        <button
           v-if="priceType === 'gems' && !this.enoughCurrency(priceType, item.value * selectedAmountToBuy)"
           class="btn btn-primary"
           @click="purchaseGems()"
         >
           {{ $t('purchaseGems') }}
-        </button><button
+        </button>
+        <button
           v-else
           class="btn btn-primary"
           :class="{'notEnough': !this.enoughCurrency(priceType, item.value * selectedAmountToBuy)}"
@@ -58,16 +68,19 @@
           {{ $t('buyNow') }}
         </button>
       </div>
-    </div><div
+    </div>
+    <div
       v-if="item.drop"
       class="right-sidebar"
     >
       <questDialogDrops :item="item" />
-    </div><div
+    </div>
+    <div
       slot="modal-footer"
       class="clearfix"
     >
-      <span class="balance float-left">{{ $t('yourBalance') }}</span><balanceInfo
+      <span class="balance float-left">{{ $t('yourBalance') }}</span>
+      <balanceInfo
         class="float-right"
         :with-hourglass="priceType === 'hourglasses'"
         :currency-needed="priceType"

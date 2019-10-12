@@ -5,7 +5,8 @@
       class="standard-sidebar d-none d-sm-block"
     >
       <slot name="sidebar"></slot>
-    </div><div class="standard-page">
+    </div>
+    <div class="standard-page">
       <slot name="page"></slot>
     </div>
   </div>

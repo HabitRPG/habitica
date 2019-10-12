@@ -9,13 +9,15 @@
           v-if="this.$route.name === 'plans'"
           class="logo svg-icon"
           v-html="icons.purpleLogo"
-        ></div><div
+        ></div>
+        <div
           v-else
           class="logo svg-icon"
           v-html="icons.logo"
         ></div>
       </router-link>
-    </div><div class="collapse navbar-collapse">
+    </div>
+    <div class="collapse navbar-collapse">
       <ul
         v-if="$route.name !== 'home'"
         class="navbar-nav mr-auto"
@@ -29,7 +31,8 @@
             v-once
             class="nav-link"
           >{{ $t('companyAbout') }}</a>
-        </router-link><router-link
+        </router-link>
+        <router-link
           class="nav-item"
           tag="li"
           to="/static/plans"
@@ -38,19 +41,22 @@
             v-once
             class="nav-link"
           >{{ $t('groupPlans') }}</a>
-        </router-link><li class="nav-item">
+        </router-link>
+        <li class="nav-item">
           <a
             class="nav-link"
             href="https://habitica.wordpress.com/"
             target="_blank"
           >{{ $t('companyBlog') }}</a>
-        </li><li class="nav-item">
+        </li>
+        <li class="nav-item">
           <a
             class="nav-link"
             href="http://blog.habitrpg.com/"
             target="_blank"
           >{{ $t('tumblr') }}</a>
-        </li><router-link
+        </li>
+        <router-link
           class="nav-item"
           tag="li"
           to="/static/press-kit"
@@ -59,7 +65,8 @@
             v-once
             class="nav-link"
           >{{ $t('presskit') }}</a>
-        </router-link><router-link
+        </router-link>
+        <router-link
           class="nav-item"
           tag="li"
           to="/static/contact"
@@ -69,7 +76,8 @@
             class="nav-link"
           >{{ $t('contactUs') }}</a>
         </router-link>
-      </ul><ul
+      </ul>
+      <ul
         v-else
         class="navbar-nav mr-auto"
       >
@@ -82,22 +90,26 @@
             v-once
             class="nav-link"
           >{{ $t('getStarted') }}</a>
-        </router-link><li class="nav-item">
+        </router-link>
+        <li class="nav-item">
           <a
             class="nav-link"
             @click="scrollToMobileApp"
           >{{ $t('mobileApps') }}</a>
-        </li><li class="nav-item dropdown">
+        </li>
+        <li class="nav-item dropdown">
           <a
             v-once
             class="nav-link dropdown-toggle"
-          >{{ $t('learnMore') }}</a><div class="dropdown-menu">
+          >{{ $t('learnMore') }}</a>
+          <div class="dropdown-menu">
             <router-link
               class="dropdown-item"
               to="/static/faq"
             >
               {{ $t('faq') }}
-            </router-link><router-link
+            </router-link>
+            <router-link
               class="dropdown-item"
               to="/static/plans"
             >
@@ -105,14 +117,16 @@
             </router-link>
           </div>
         </li>
-      </ul><button
+      </ul>
+      <button
         v-if="$route.name !== 'home'"
         class="btn btn-primary pull-right"
         @click="playButtonClick()"
       >
         {{ $t('playButtonFull') }}
       </button>
-    </div><router-link
+    </div>
+    <router-link
       v-if="$route.name === 'home'"
       class="btn btn-primary login-button pull-right"
       to="/login"

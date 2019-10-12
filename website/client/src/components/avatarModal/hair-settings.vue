@@ -8,14 +8,16 @@
       :items="hairSubMenuItems"
       :active-sub-page="activeSubPage"
       @changeSubPage="changeSubPage($event)"
-    /><div
+    />
+    <div
       v-if="activeSubPage === 'color'"
       id="hair-color"
     >
       <customize-options
         :items="freeHairColors"
         :current-value="user.preferences.hair.color"
-      /><div
+      />
+      <div
         v-for="set in seasonalHairColors"
         v-if="editing && set.key !== 'undefined'"
       >
@@ -26,7 +28,8 @@
           @unlock="unlock(`hair.color.${set.keys.join(',hair.color.')}`)"
         />
       </div>
-    </div><div
+    </div>
+    <div
       v-if="activeSubPage === 'style'"
       id="style"
     >
@@ -37,7 +40,8 @@
           @unlock="set.unlock()"
         />
       </div>
-    </div><div
+    </div>
+    <div
       v-if="activeSubPage === 'bangs'"
       id="bangs"
     >
@@ -45,14 +49,16 @@
         :items="hairBangs"
         :current-value="user.preferences.hair.bangs"
       />
-    </div><div
+    </div>
+    <div
       v-if="activeSubPage === 'facialhair'"
       id="facialhair"
     >
       <customize-options
         v-if="editing"
         :items="mustacheList"
-      /><customize-options
+      />
+      <customize-options
         v-if="editing"
         :items="beardList"
         :full-set="isPurchaseAllNeeded('hair', ['baseHair5', 'baseHair6'], ['mustache', 'beard'])"

@@ -1,45 +1,73 @@
 <template>
   <div class="row standard-page">
     <div class="col-6">
-      <h2>{{ $t('API') }}</h2><p>{{ $t('APIText') }}</p><div class="section">
-        <h6>{{ $t('userId') }}</h6><pre class="prettyprint">{{ user.id }}</pre><h6>{{ $t('APIToken') }}</h6><div class="d-flex align-items-center mb-3">
+      <h2>{{ $t('API') }}</h2>
+      <p>{{ $t('APIText') }}</p>
+      <div class="section">
+        <h6>{{ $t('userId') }}</h6>
+        <pre class="prettyprint">{{ user.id }}</pre>
+        <h6>{{ $t('APIToken') }}</h6>
+        <div class="d-flex align-items-center mb-3">
           <button
             class="btn btn-secondary"
             @click="showApiToken = !showApiToken"
           >
             {{ $t(`${showApiToken ? 'hide' : 'show'}APIToken`) }}
-          </button><pre
+          </button>
+          <pre
             v-if="showApiToken"
             class="prettyprint ml-4 mb-0"
           >{{ apiToken }}</pre>
-        </div><p v-html="$t('APITokenWarning', { hrefTechAssistanceEmail })"></p>
-      </div><div class="section">
-        <h3>{{ $t('thirdPartyApps') }}</h3><ul>
+        </div>
+        <p v-html="$t('APITokenWarning', { hrefTechAssistanceEmail })"></p>
+      </div>
+      <div class="section">
+        <h3>{{ $t('thirdPartyApps') }}</h3>
+        <ul>
           <li>
             <a
               target="_blank"
               href="https://www.beeminder.com/habitica"
-            >{{ $t('beeminder') }}</a><br>{{ $t('beeminderDesc') }}
-          </li><li>
+            >{{ $t('beeminder') }}</a>
+            <br>
+            {{ $t('beeminderDesc') }}
+          </li>
+          <li>
             <a
               target="_blank"
               href="https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb"
-            >{{ $t('chromeChatExtension') }}</a><br>{{ $t('chromeChatExtensionDesc') }}
-          </li><li>
+            >{{ $t('chromeChatExtension') }}</a>
+            <br>
+            {{ $t('chromeChatExtensionDesc') }}
+          </li>
+          <li>
             <a
               target="_blank"
               :href="`https://oldgods.net/habitica/habitrpg_user_data_display.html?uuid=` + user._id"
-            >{{ $t('dataTool') }}</a><br>{{ $t('dataToolDesc') }}
-          </li><li v-html="$t('otherExtensions')">
-            <br>{{ $t('otherDesc') }}
+            >{{ $t('dataTool') }}</a>
+            <br>
+            {{ $t('dataToolDesc') }}
           </li>
-        </ul><hr>
+          <li v-html="$t('otherExtensions')">
+            <br>
+            {{ $t('otherDesc') }}
+          </li>
+        </ul>
+        <hr>
       </div>
-    </div><div class="col-6">
-      <h2>{{ $t('webhooks') }}</h2><p v-html="$t('webhooksInfo')"></p><table class="table table-striped">
+    </div>
+    <div class="col-6">
+      <h2>{{ $t('webhooks') }}</h2>
+      <p v-html="$t('webhooksInfo')"></p>
+      <table class="table table-striped">
         <thead v-if="user.webhooks.length">
-          <tr><th>{{ $t('enabled') }}</th><th>{{ $t('webhookURL') }}</th><th></th></tr>
-        </thead><tbody>
+          <tr>
+            <th>{{ $t('enabled') }}</th>
+            <th>{{ $t('webhookURL') }}</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
           <tr v-for="(webhook, index) in user.webhooks">
             <td>
               <input
@@ -47,25 +75,31 @@
                 type="checkbox"
                 @change="saveWebhook(webhook, index)"
               >
-            </td><td>
+            </td>
+            <td>
               <input
                 v-model="webhook.url"
                 class="form-control"
                 type="url"
               >
-            </td><td>
+            </td>
+            <td>
               <a
                 class="btn btn-warning checklist-icons"
                 @click="deleteWebhook(webhook, index)"
-              ><span
-                class="glyphicon glyphicon-trash"
-                :tooltip="$t('delete')"
-              >Delete</span></a><a
+              >
+                <span
+                  class="glyphicon glyphicon-trash"
+                  :tooltip="$t('delete')"
+                >Delete</span>
+              </a>
+              <a
                 class="btn btn-success checklist-icons"
                 @click="saveWebhook(webhook, index)"
               >Update</a>
             </td>
-          </tr><tr>
+          </tr>
+          <tr>
             <td colspan="2">
               <div class="form-horizontal">
                 <div class="form-group col-sm-10">
@@ -75,7 +109,8 @@
                     type="url"
                     :placeholder="$t('webhookURL')"
                   >
-                </div><div class="col-sm-2">
+                </div>
+                <div class="col-sm-2">
                   <button
                     class="btn btn-sm btn-primary"
                     type="submit"

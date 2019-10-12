@@ -3,12 +3,15 @@
     <div
       class="quest-image"
       :class="'quest_' + item.key"
-    ></div><h4 class="title">
+    ></div>
+    <h4 class="title">
       {{ itemText }}
-    </h4><div
+    </h4>
+    <div
       class="text"
       v-html="itemNotes"
-    ></div><questInfo
+    ></div>
+    <questInfo
       class="questInfo"
       :quest="item"
     />

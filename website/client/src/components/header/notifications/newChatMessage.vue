@@ -1,5 +1,6 @@
 <template>
-  <!-- Read automatically from the group page mounted hook--><base-notification
+  <!-- Read automatically from the group page mounted hook-->
+  <base-notification
     :can-remove="canRemove"
     :has-icon="false"
     :notification="notification"

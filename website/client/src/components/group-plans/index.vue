@@ -1,6 +1,7 @@
 <template>
   <div class="row">
-    <group-form-modal /><secondary-menu class="col-12">
+    <group-form-modal />
+    <secondary-menu class="col-12">
       <router-link
         class="nav-link"
         :to="{name: 'groupPlanDetailTaskInformation', params: {groupId}}"
@@ -8,14 +9,16 @@
         :class="{'active': $route.name === 'groupPlanDetailTaskInformation'}"
       >
         {{ $t('groupTaskBoard') }}
-      </router-link><router-link
+      </router-link>
+      <router-link
         class="nav-link"
         :to="{name: 'groupPlanDetailInformation', params: {groupId}}"
         exact="exact"
         :class="{'active': $route.name === 'groupPlanDetailInformation'}"
       >
         {{ $t('groupInformation') }}
-      </router-link><router-link
+      </router-link>
+      <router-link
         v-if="isLeader"
         class="nav-link"
         :to="{name: 'groupPlanBilling', params: {groupId}}"
@@ -24,7 +27,8 @@
       >
         {{ $t('groupBilling') }}
       </router-link>
-    </secondary-menu><div class="col-12">
+    </secondary-menu>
+    <div class="col-12">
       <router-view />
     </div>
   </div>

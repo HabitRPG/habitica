@@ -1,21 +1,27 @@
 <template>
   <b-modal
     id="world-boss-info"
-    title=""
+    title
     size="md"
     :hide-footer="true"
     :hide-header="true"
   >
     <div class="modal-header d-flex">
-      <div class="left-hearts"></div><div class="quest_dysheartener_modal"></div><div class="phobia_dysheartener_modal"></div><div class="right-hearts"></div>
-    </div><div class="modal-body">
+      <div class="left-hearts"></div>
+      <div class="quest_dysheartener_modal"></div>
+      <div class="phobia_dysheartener_modal"></div>
+      <div class="right-hearts"></div>
+    </div>
+    <div class="modal-body">
       <div class="row">
         <div class="col-12 text-center">
-          <h2>{{ $t('whatIsWorldBoss') }}</h2><p class="text-center">
+          <h2>{{ $t('whatIsWorldBoss') }}</h2>
+          <p class="text-center">
             {{ $t('worldBossDesc') }}
           </p>
         </div>
-      </div><div class="row">
+      </div>
+      <div class="row">
         <div class="col-12">
           <div
             v-for="bullet in bullets"
@@ -26,13 +32,15 @@
                 class="svg-icon red-check"
                 v-html="icons.redCheck"
               ></div>
-            </div><div class="info">
+            </div>
+            <div class="info">
               {{ $t(bullet) }}
             </div>
           </div>
         </div>
       </div>
-    </div><div class="row">
+    </div>
+    <div class="row">
       <div class="col-12 text-center">
         <a
           class="footer-link"

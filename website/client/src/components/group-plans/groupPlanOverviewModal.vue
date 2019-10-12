@@ -12,10 +12,12 @@
     >
       <h2 v-once>
         {{ $t('gettingStarted') }}
-      </h2><p v-once>
+      </h2>
+      <p v-once>
         {{ $t('congratsOnGroupPlan') }}
       </p>
-    </div><div class="row">
+    </div>
+    <div class="row">
       <div class="col-12">
         <div
           class="card"
@@ -24,9 +26,11 @@
           <div class="question-head">
             <div class="q">
               Q.
-            </div><div class="title">
+            </div>
+            <div class="title">
               {{ $t('whatsIncludedGroup') }}
-            </div><div
+            </div>
+            <div
               class="arrow float-right"
               @click="toggle('question1')"
             >
@@ -34,20 +38,23 @@
                 v-if="expandedQuestions.question1"
                 class="svg-icon"
                 v-html="icons.upIcon"
-              ></div><div
+              ></div>
+              <div
                 v-else
                 class="svg-icon"
                 v-html="icons.downIcon"
               ></div>
             </div>
-          </div><div
+          </div>
+          <div
             v-if="expandedQuestions.question1"
             class="question-body"
           >
             <p>{{ $t('whatsIncludedGroupDesc') }}</p>
           </div>
         </div>
-      </div><div class="col-12">
+      </div>
+      <div class="col-12">
         <div
           class="card"
           :class="{expanded: expandedQuestions.question2}"
@@ -55,9 +62,11 @@
           <div class="question-head">
             <div class="q">
               Q.
-            </div><div class="title">
+            </div>
+            <div class="title">
               {{ $t('howDoesBillingWork') }}
-            </div><div
+            </div>
+            <div
               class="arrow float-right"
               @click="toggle('question2')"
             >
@@ -65,20 +74,23 @@
                 v-if="expandedQuestions.question2"
                 class="svg-icon"
                 v-html="icons.upIcon"
-              ></div><div
+              ></div>
+              <div
                 v-else
                 class="svg-icon"
                 v-html="icons.downIcon"
               ></div>
             </div>
-          </div><div
+          </div>
+          <div
             v-if="expandedQuestions.question2"
             class="question-body"
           >
             <p>{{ $t('howDoesBillingWorkDesc') }}</p>
           </div>
         </div>
-      </div><div class="col-12">
+      </div>
+      <div class="col-12">
         <div
           class="card"
           :class="{expanded: expandedQuestions.question3}"
@@ -86,9 +98,11 @@
           <div class="question-head">
             <div class="q">
               Q.
-            </div><div class="title">
+            </div>
+            <div class="title">
               {{ $t('howToAssignTask') }}
-            </div><div
+            </div>
+            <div
               class="arrow float-right"
               @click="toggle('question3')"
             >
@@ -96,20 +110,24 @@
                 v-if="expandedQuestions.question3"
                 class="svg-icon"
                 v-html="icons.upIcon"
-              ></div><div
+              ></div>
+              <div
                 v-else
                 class="svg-icon"
                 v-html="icons.downIcon"
               ></div>
             </div>
-          </div><div
+          </div>
+          <div
             v-if="expandedQuestions.question3"
             class="question-body"
           >
-            <p>{{ $t('howToAssignTaskDesc') }}</p><div class="assign-tasks image-example"></div>
+            <p>{{ $t('howToAssignTaskDesc') }}</p>
+            <div class="assign-tasks image-example"></div>
           </div>
         </div>
-      </div><div class="col-12">
+      </div>
+      <div class="col-12">
         <div
           class="card"
           :class="{expanded: expandedQuestions.question4}"
@@ -117,9 +135,11 @@
           <div class="question-head">
             <div class="q">
               Q.
-            </div><div class="title">
+            </div>
+            <div class="title">
               {{ $t('howToRequireApproval') }}
-            </div><div
+            </div>
+            <div
               class="arrow float-right"
               @click="toggle('question4')"
             >
@@ -127,20 +147,26 @@
                 v-if="expandedQuestions.question4"
                 class="svg-icon"
                 v-html="icons.upIcon"
-              ></div><div
+              ></div>
+              <div
                 v-else
                 class="svg-icon"
                 v-html="icons.downIcon"
               ></div>
             </div>
-          </div><div
+          </div>
+          <div
             v-if="expandedQuestions.question4"
             class="question-body"
           >
-            <p>{{ $t('howToRequireApprovalDesc') }}</p><div class="requires-approval image-example"></div><p>{{ $t('howToRequireApprovalDesc2') }}</p><div class="approval-requested image-example"></div>
+            <p>{{ $t('howToRequireApprovalDesc') }}</p>
+            <div class="requires-approval image-example"></div>
+            <p>{{ $t('howToRequireApprovalDesc2') }}</p>
+            <div class="approval-requested image-example"></div>
           </div>
         </div>
-      </div><div class="col-12">
+      </div>
+      <div class="col-12">
         <div
           class="card"
           :class="{expanded: expandedQuestions.question5}"
@@ -148,9 +174,11 @@
           <div class="question-head">
             <div class="q">
               Q.
-            </div><div class="title">
+            </div>
+            <div class="title">
               {{ $t('whatIsGroupManager') }}
-            </div><div
+            </div>
+            <div
               class="arrow float-right"
               @click="toggle('question5')"
             >
@@ -158,20 +186,24 @@
                 v-if="expandedQuestions.question5"
                 class="svg-icon"
                 v-html="icons.upIcon"
-              ></div><div
+              ></div>
+              <div
                 v-else
                 class="svg-icon"
                 v-html="icons.downIcon"
               ></div>
             </div>
-          </div><div
+          </div>
+          <div
             v-if="expandedQuestions.question5"
             class="question-body"
           >
-            <p>{{ $t('whatIsGroupManagerDesc') }}</p><div class="promote-leader image-example"></div>
+            <p>{{ $t('whatIsGroupManagerDesc') }}</p>
+            <div class="promote-leader image-example"></div>
           </div>
         </div>
-      </div><div class="col-12 text-center">
+      </div>
+      <div class="col-12 text-center">
         <button
           class="btn btn-primary close-button"
           @click="close()"

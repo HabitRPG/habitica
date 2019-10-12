@@ -6,7 +6,12 @@
     size="md"
   >
     <div class="modal-body">
-      <br><strong v-if="user.auth.local.email">{{ $t('deleteLocalAccountText') }}</strong><strong v-if="!user.auth.local.email">{{ $t('deleteSocialAccountText', {magicWord: 'DELETE'}) }}</strong><div class="row mt-3">
+      <br>
+      <strong v-if="user.auth.local.email">{{ $t('deleteLocalAccountText') }}</strong>
+      <strong
+        v-if="!user.auth.local.email"
+      >{{ $t('deleteSocialAccountText', {magicWord: 'DELETE'}) }}</strong>
+      <div class="row mt-3">
         <div class="col-6">
           <input
             v-model="password"
@@ -14,25 +19,29 @@
             type="password"
           >
         </div>
-      </div><div class="row mt-3">
+      </div>
+      <div class="row mt-3">
         <div
           id="feedback"
           class="col-12 form-group"
         >
-          <label for="feedbackTextArea">{{ $t('feedback') }}</label><textarea
+          <label for="feedbackTextArea">{{ $t('feedback') }}</label>
+          <textarea
             id="feedbackTextArea"
             v-model="feedback"
             class="form-control"
           ></textarea>
         </div>
       </div>
-    </div><div class="modal-footer">
+    </div>
+    <div class="modal-footer">
       <button
         class="btn btn-primary"
         @click="close()"
       >
         {{ $t('neverMind') }}
-      </button><button
+      </button>
+      <button
         class="btn btn-danger"
         :disabled="!password"
         @click="deleteAccount()"

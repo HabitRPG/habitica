@@ -8,11 +8,14 @@
         <div
           class="svg-icon"
           v-html="icons.questIcon"
-        ></div><h4 v-once>
+        ></div>
+        <h4 v-once>
           {{ $t('youAreNotOnQuest') }}
-        </h4><p v-once>
+        </h4>
+        <p v-once>
           {{ $t('questDescription') }}
-        </p><button
+        </p>
+        <button
           v-once
           class="btn btn-secondary"
           @click="openStartQuestModal()"
@@ -20,7 +23,8 @@
           {{ $t('startAQuest') }}
         </button>
       </div>
-    </div><div
+    </div>
+    <div
       v-if="onPendingQuest && !onActiveQuest"
       class="row quest-active-section"
     >
@@ -29,9 +33,12 @@
           class="quest"
           :class="`inventory_quest_scroll_${questData.key}`"
         ></div>
-      </div><div class="col-6 titles">
-        <strong>{{ questData.text() }}</strong><p>{{ acceptedCount }} / {{ group.memberCount }}</p>
-      </div><div class="col-4">
+      </div>
+      <div class="col-6 titles">
+        <strong>{{ questData.text() }}</strong>
+        <p>{{ acceptedCount }} / {{ group.memberCount }}</p>
+      </div>
+      <div class="col-4">
         <button
           class="btn btn-secondary"
           @click="openQuestDetails()"
@@ -39,22 +46,26 @@
           {{ $t('details') }}
         </button>
       </div>
-    </div><div
+    </div>
+    <div
       v-if="user.party.quest && user.party.quest.RSVPNeeded"
       class="row quest-active-section quest-invite"
     >
-      <span>{{ $t('wouldYouParticipate') }}</span><button
+      <span>{{ $t('wouldYouParticipate') }}</span>
+      <button
         class="btn btn-primary accept"
         @click="questAccept(group._id)"
       >
         {{ $t('accept') }}
-      </button><button
+      </button>
+      <button
         class="btn btn-primary reject"
         @click="questReject(group._id)"
       >
         {{ $t('reject') }}
       </button>
-    </div><div
+    </div>
+    <div
       v-if="!onPendingQuest && onActiveQuest"
       class="row quest-active-section"
     >
@@ -62,9 +73,11 @@
         <div
           class="quest-boss"
           :class="'quest_' + questData.key"
-        ></div><h3 v-once>
+        ></div>
+        <h3 v-once>
           {{ questData.text() }}
-        </h3><div class="quest-box">
+        </h3>
+        <div class="quest-box">
           <div
             v-if="questData.collect"
             class="collect-info"
@@ -76,27 +89,33 @@
                   @click="openParticipantList()"
                 >{{ $t('participantsTitle') }}</a>
               </div>
-            </div><div
+            </div>
+            <div
               v-for="(value, key) in questData.collect"
               class="row"
             >
               <div class="col-2">
                 <div :class="'quest_' + questData.key + '_' + key"></div>
-              </div><div class="col-10">
-                <strong>{{ value.text() }}</strong><div class="grey-progress-bar">
+              </div>
+              <div class="col-10">
+                <strong>{{ value.text() }}</strong>
+                <div class="grey-progress-bar">
                   <div
                     class="collect-progress-bar"
                     :style="{width: (group.quest.progress.collect[key] / value.count) * 100 + '%'}"
                   ></div>
-                </div><strong>{{ group.quest.progress.collect[key] }} / {{ value.count }}</strong>
+                </div>
+                <strong>{{ group.quest.progress.collect[key] }} / {{ value.count }}</strong>
               </div>
-            </div><div
+            </div>
+            <div
               v-if="userIsOnQuest"
               class="text-right"
             >
               {{ parseFloat(user.party.quest.progress.collectedItems) || 0 }} items found
             </div>
-          </div><div
+          </div>
+          <div
             v-if="questData.boss"
             class="boss-info"
           >
@@ -108,13 +127,15 @@
                 >
                   {{ questData.boss.name() }}
                 </h4>
-              </div><div class="col-6">
+              </div>
+              <div class="col-6">
                 <a
                   class="float-right"
                   @click="openParticipantList()"
                 >{{ $t('participantsTitle') }}</a>
               </div>
-            </div><div class="row">
+            </div>
+            <div class="row">
               <div class="col-12">
                 <div class="grey-progress-bar">
                   <div
@@ -123,16 +144,26 @@
                   ></div>
                 </div>
               </div>
-            </div><div class="row boss-details">
+            </div>
+            <div class="row boss-details">
               <div class="col-6">
-                <span class="float-left">{{ Math.ceil(parseFloat(group.quest.progress.hp) * 100) / 100 }} / {{ parseFloat(questData.boss.hp).toFixed(2) }}<!-- current boss hp uses ceil so you don't underestimate damage needed to end quest--></span>
-              </div><div
+                <span class="float-left">
+                  {{ Math.ceil(parseFloat(group.quest.progress.hp) * 100) / 100 }} / {{ parseFloat(questData.boss.hp).toFixed(2) }}
+                  <!-- current boss hp uses ceil so you don't underestimate damage needed to end quest-->
+                </span>
+              </div>
+              <div
                 v-if="userIsOnQuest"
                 class="col-6"
               >
-                <!-- @TODO: Why do we not sync quest progress on the group doc? Each user could have different progress.--><span class="float-right">{{ user.party.quest.progress.up | floor(10) }} {{ $t('pendingDamageLabel') }}</span><!-- player's pending damage uses floor so you don't overestimate damage you've already done-->
+                <!-- @TODO: Why do we not sync quest progress on the group doc? Each user could have different progress.-->
+                <span
+                  class="float-right"
+                >{{ user.party.quest.progress.up | floor(10) }} {{ $t('pendingDamageLabel') }}</span>
+                <!-- player's pending damage uses floor so you don't overestimate damage you've already done-->
               </div>
-            </div><div
+            </div>
+            <div
               v-if="questData.boss.rage"
               class="row rage-bar-row"
             >
@@ -144,16 +175,20 @@
                   ></div>
                 </div>
               </div>
-            </div><div
+            </div>
+            <div
               v-if="questData.boss.rage"
               class="row boss-details rage-details"
             >
               <div class="col-6">
-                <span class="float-left">{{ $t('rage') }} {{ parseFloat(group.quest.progress.rage).toFixed(2) }} / {{ questData.boss.rage.value }}</span>
+                <span
+                  class="float-left"
+                >{{ $t('rage') }} {{ parseFloat(group.quest.progress.rage).toFixed(2) }} / {{ questData.boss.rage.value }}</span>
               </div>
             </div>
           </div>
-        </div><button
+        </div>
+        <button
           v-if="canEditQuest"
           v-once
           class="btn btn-secondary"

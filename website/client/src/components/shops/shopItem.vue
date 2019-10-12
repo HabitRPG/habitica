@@ -13,34 +13,43 @@
           name="itemBadge"
           :item="item"
           :emptyItem="emptyItem"
-        ></slot><span
+        ></slot>
+        <span
           v-if="item.event && item.owned == null && showEventBadge"
           class="badge badge-pill badge-item badge-clock"
-        ><span
-          class="svg-icon inline clock"
-          v-html="icons.clock"
-        ></span></span><div class="shop-content">
+        >
+          <span
+            class="svg-icon inline clock"
+            v-html="icons.clock"
+          ></span>
+        </span>
+        <div class="shop-content">
           <span
             v-if="item.locked"
             class="svg-icon inline lock"
             v-html="icons.lock"
-          ></span><span
+          ></span>
+          <span
             v-if="item.isSuggested"
             class="suggestedDot"
-          ></span><div class="image">
+          ></span>
+          <div class="image">
             <div
               v-once
               :class="item.class"
-            ></div><slot
+            ></div>
+            <slot
               name="itemImage"
               :item="item"
             ></slot>
-          </div><div class="price">
+          </div>
+          <div class="price">
             <span
               v-once
               class="svg-icon inline icon-16"
               v-html="icons[currencyClass]"
-            ></span><span
+            ></span>
+            <span
               v-once
               class="price-label"
               :class="currencyClass"
@@ -48,7 +57,8 @@
           </div>
         </div>
       </div>
-    </div><b-popover
+    </div>
+    <b-popover
       v-if="showPopover"
       :target="itemId"
       triggers="hover"
@@ -61,32 +71,38 @@
         <equipmentAttributesPopover
           v-if="item.purchaseType === 'gear'"
           :item="item"
-        /><div
+        />
+        <div
           v-else-if="item.purchaseType === 'quests'"
           class="questPopover"
         >
           <h4 class="popover-content-title">
             {{ item.text }}
-          </h4><questInfo :quest="item" />
-        </div><div v-else>
+          </h4>
+          <questInfo :quest="item" />
+        </div>
+        <div v-else>
           <h4
             v-once
             class="popover-content-title"
           >
             {{ item.text }}
-          </h4><div
+          </h4>
+          <div
             v-if="showNotes && item.key !== 'armoire'"
             v-once
             class="popover-content-text"
           >
             {{ item.notes }}
-          </div><div
+          </div>
+          <div
             v-if="showNotes && item.key === 'armoire'"
             class="popover-content-text"
           >
             {{ item.notes }}
           </div>
-        </div><div
+        </div>
+        <div
           v-if="item.event"
           class="mt-4"
         >

@@ -11,11 +11,15 @@
         <span
           slot="item"
           slot-scope="ctx"
-        ><span
-          class="svg-icon inline icon-16"
-          v-html="icons[ctx.item.id]"
-        ></span><span class="text">{{ getClassName(ctx.item.id) }}</span></span>
-      </filter-dropdown><filter-dropdown
+        >
+          <span
+            class="svg-icon inline icon-16"
+            v-html="icons[ctx.item.id]"
+          ></span>
+          <span class="text">{{ getClassName(ctx.item.id) }}</span>
+        </span>
+      </filter-dropdown>
+      <filter-dropdown
         :label="$t('sortBy')"
         :initial-item="selectedSortGearBy"
         :items="sortGearBy"
@@ -24,9 +28,12 @@
         <span
           slot="item"
           slot-scope="ctx"
-        ><span class="text">{{ $t(ctx.item.id) }}</span></span>
+        >
+          <span class="text">{{ $t(ctx.item.id) }}</span>
+        </span>
       </filter-dropdown>
-    </div><itemRows
+    </div>
+    <itemRows
       slot="content"
       class="equipment-rows"
       :items="sortedGearItems"
@@ -54,10 +61,12 @@
               class="badge badge-pill badge-item badge-svg"
               :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}"
               @click.prevent.stop="togglePinned(ctx.item)"
-            ><span
-              class="svg-icon inline icon-12 color"
-              v-html="icons.pin"
-            ></span></span>
+            >
+              <span
+                class="svg-icon inline icon-12 color"
+                v-html="icons.pin"
+              ></span>
+            </span>
           </template>
         </shopItem>
       </template>

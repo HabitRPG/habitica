@@ -9,16 +9,19 @@
       <div
         class="message"
         v-html="$t('invitedToQuest', {quest: questName})"
-      ></div><quest-info
+      ></div>
+      <quest-info
         :quest="questData"
         :small-version="true"
-      /><div class="notifications-buttons">
+      />
+      <div class="notifications-buttons">
         <div
           class="btn btn-small btn-success"
           @click.stop="questAccept()"
         >
           {{ $t('accept') }}
-        </div><div
+        </div>
+        <div
           class="btn btn-small btn-danger"
           @click.stop="questReject()"
         >

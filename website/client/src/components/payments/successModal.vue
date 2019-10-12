@@ -13,48 +13,75 @@
           class="svg-icon check"
           v-html="icons.check"
         ></div>
-      </div><h2>{{ $t(isFromBalance ? 'success' : 'paymentSuccessful') }}</h2>
-    </div><div slot="modal-footer">
+      </div>
+      <h2>{{ $t(isFromBalance ? 'success' : 'paymentSuccessful') }}</h2>
+    </div>
+    <div slot="modal-footer">
       <div
         v-once
         class="small-text"
       >
         {{ $t('giftSubscriptionText4') }}
       </div>
-    </div><div class="row">
+    </div>
+    <div class="row">
       <div class="col-12 modal-body-col">
         <template v-if="paymentData.paymentType === 'gems'">
-          <strong v-once>{{ $t('paymentYouReceived') }}</strong><div class="details-block gems">
+          <strong v-once>{{ $t('paymentYouReceived') }}</strong>
+          <div class="details-block gems">
             <div
               v-once
               class="svg-icon"
               v-html="icons.gem"
-            ></div><span>20</span>
+            ></div>
+            <span>20</span>
           </div>
-        </template><template v-if="paymentData.paymentType === 'gift-gems' || paymentData.paymentType === 'gift-gems-balance'">
-          <span v-html="$t('paymentYouSentGems', {name: paymentData.giftReceiver})"></span><div class="details-block gems">
+        </template>
+        <template
+          v-if="paymentData.paymentType === 'gift-gems' || paymentData.paymentType === 'gift-gems-balance'"
+        >
+          <span v-html="$t('paymentYouSentGems', {name: paymentData.giftReceiver})"></span>
+          <div class="details-block gems">
             <div
               v-once
               class="svg-icon"
               v-html="icons.gem"
-            ></div><span>{{ paymentData.gift.gems.amount }}</span>
+            ></div>
+            <span>{{ paymentData.gift.gems.amount }}</span>
           </div>
-        </template><template v-if="paymentData.paymentType === 'gift-subscription'">
-          <span v-html="$t('paymentYouSentSubscription', {name: paymentData.giftReceiver, months: paymentData.subscription.months})"></span>
-        </template><template v-if="paymentData.paymentType === 'subscription'">
-          <strong v-once>{{ $t('nowSubscribed') }}</strong><div class="details-block">
-            <span v-html="$t('paymentSubBilling', {amount: paymentData.subscription.price, months: paymentData.subscription.months})"></span>
+        </template>
+        <template v-if="paymentData.paymentType === 'gift-subscription'">
+          <span
+            v-html="$t('paymentYouSentSubscription', {name: paymentData.giftReceiver, months: paymentData.subscription.months})"
+          ></span>
+        </template>
+        <template v-if="paymentData.paymentType === 'subscription'">
+          <strong v-once>{{ $t('nowSubscribed') }}</strong>
+          <div class="details-block">
+            <span
+              v-html="$t('paymentSubBilling', {amount: paymentData.subscription.price, months: paymentData.subscription.months})"
+            ></span>
           </div>
-        </template><template v-if="paymentData.paymentType === 'groupPlan'">
-          <span v-html="$t(paymentData.newGroup ? 'groupPlanCreated' : 'groupPlanUpgraded', {groupName: paymentData.group.name})"></span><div class="details-block">
-            <span v-html="$t('paymentSubBilling', {amount: groupPlanCost, months: paymentData.subscription.months})"></span>
+        </template>
+        <template v-if="paymentData.paymentType === 'groupPlan'">
+          <span
+            v-html="$t(paymentData.newGroup ? 'groupPlanCreated' : 'groupPlanUpgraded', {groupName: paymentData.group.name})"
+          ></span>
+          <div class="details-block">
+            <span
+              v-html="$t('paymentSubBilling', {amount: groupPlanCost, months: paymentData.subscription.months})"
+            ></span>
           </div>
-        </template><template v-if="paymentData.paymentType === 'groupPlan' || paymentData.paymentType === 'subscription'">
+        </template>
+        <template
+          v-if="paymentData.paymentType === 'groupPlan' || paymentData.paymentType === 'subscription'"
+        >
           <span
             v-once
             class="small-text auto-renew"
           >{{ $t('paymentAutoRenew') }}</span>
-        </template><button
+        </template>
+        <button
           v-once
           class="btn btn-primary"
           @click="close()"

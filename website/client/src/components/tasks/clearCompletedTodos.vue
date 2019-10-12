@@ -2,7 +2,8 @@
   <div class="text-center delete-completed">
     <div class="help-text">
       {{ $t('clearCompletedDescription') }}
-    </div><div
+    </div>
+    <div
       class="btn btn-danger"
       @click="clearTodos()"
     >

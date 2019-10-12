@@ -5,39 +5,53 @@
       class="text-center"
     >
       {{ $t('rewards') }}
-    </h3><div class="reward-item">
+    </h3>
+    <div class="reward-item">
       <span
         class="svg-icon inline icon"
         v-html="icons.experience"
-      ></span><span class="reward-text">{{ $t('amountExperience', { amount: item.drop.exp }) }}</span>
-    </div><div
+      ></span>
+      <span class="reward-text">{{ $t('amountExperience', { amount: item.drop.exp }) }}</span>
+    </div>
+    <div
       v-if="item.drop.gp != 0"
       class="reward-item"
     >
       <span
         class="svg-icon inline icon"
         v-html="icons.gold"
-      ></span><span class="reward-text">{{ $t('amountGold', { amount: item.drop.gp }) }}</span>
-    </div><div
+      ></span>
+      <span class="reward-text">{{ $t('amountGold', { amount: item.drop.gp }) }}</span>
+    </div>
+    <div
       v-for="drop in getDropsList(item.drop.items, false)"
       class="reward-item"
     >
-      <span class="icon"><div :class="getDropIcon(drop)"></div></span><span class="reward-text">{{ getDropName(drop) }}</span>
-    </div><div
+      <span class="icon">
+        <div :class="getDropIcon(drop)"></div>
+      </span>
+      <span class="reward-text">{{ getDropName(drop) }}</span>
+    </div>
+    <div
       v-if="item.drop.unlock"
       class="reward-item text-center"
     >
       <span class="reward-text">{{ item.drop.unlock() }}</span>
-    </div><h3
+    </div>
+    <h3
       v-if="getDropsList(item.drop.items, true).length > 0"
       class="text-center"
     >
       {{ $t('questOwnerRewards') }}
-    </h3><div
+    </h3>
+    <div
       v-for="drop in getDropsList(item.drop.items, true)"
       class="reward-item"
     >
-      <span class="icon"><div :class="getDropIcon(drop)"></div></span><span class="reward-text">{{ getDropName(drop) }}</span>
+      <span class="icon">
+        <div :class="getDropIcon(drop)"></div>
+      </span>
+      <span class="reward-text">{{ getDropName(drop) }}</span>
     </div>
   </div>
 </template>

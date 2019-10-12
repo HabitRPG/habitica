@@ -12,58 +12,77 @@
           v-if="user.inbox.newMessages > 0"
           :count="user.inbox.newMessages"
           :top="true"
-        /><div
+        />
+        <div
           class="top-menu-icon svg-icon user"
           v-html="icons.user"
         ></div>
       </div>
-    </div><div
+    </div>
+    <div
       slot="dropdown-content"
       class="user-dropdown"
     >
       <a
         class="dropdown-item edit-avatar dropdown-separated"
         @click="showAvatar('body', 'size')"
-      ><h3>{{ user.profile.name }}</h3><span class="small-text">{{ $t('editAvatar') }}</span></a><a
+      >
+        <h3>{{ user.profile.name }}</h3>
+        <span class="small-text">{{ $t('editAvatar') }}</span>
+      </a>
+      <a
         class="nav-link dropdown-item dropdown-separated d-flex justify-content-between align-items-center"
         @click.prevent="showInbox()"
-      ><div>{{ $t('messages') }}</div><message-count
-        v-if="user.inbox.newMessages > 0"
-        :count="user.inbox.newMessages"
-      /></a><a
+      >
+        <div>{{ $t('messages') }}</div>
+        <message-count
+          v-if="user.inbox.newMessages > 0"
+          :count="user.inbox.newMessages"
+        />
+      </a>
+      <a
         class="dropdown-item"
         @click="showAvatar('backgrounds', '2019')"
-      >{{ $t('backgrounds') }}</a><a
+      >{{ $t('backgrounds') }}</a>
+      <a
         class="dropdown-item"
         @click="showProfile('stats')"
-      >{{ $t('stats') }}</a><a
+      >{{ $t('stats') }}</a>
+      <a
         class="dropdown-item"
         @click="showProfile('achievements')"
-      >{{ $t('achievements') }}</a><a
+      >{{ $t('achievements') }}</a>
+      <a
         class="dropdown-item dropdown-separated"
         @click="showProfile('profile')"
-      >{{ $t('profile') }}</a><router-link
+      >{{ $t('profile') }}</a>
+      <router-link
         class="dropdown-item"
         :to="{name: 'site'}"
       >
         {{ $t('settings') }}
-      </router-link><router-link
+      </router-link>
+      <router-link
         class="dropdown-item dropdown-separated"
         :to="{name: 'subscription'}"
       >
         {{ $t('subscription') }}
-      </router-link><a
+      </router-link>
+      <a
         class="nav-link dropdown-item dropdown-separated"
         @click.prevent="logout()"
-      >{{ $t('logout') }}</a><li
+      >{{ $t('logout') }}</a>
+      <li
         v-if="!this.user.purchased.plan.customerId"
         @click="showBuyGemsModal('subscribe')"
       >
         <div class="dropdown-item text-center">
           <h3 class="purple">
             {{ $t('needMoreGems') }}
-          </h3><span class="small-text">{{ $t('needMoreGemsInfo') }}</span>
-        </div><div class="learn-background py-2 text-center">
+          </h3>
+          <span class="small-text">{{ $t('needMoreGemsInfo') }}</span>
+        </div>
+        <div class="learn-background py-2 text-center">
           <button class="btn btn-primary btn-lg learn-button">
             {{ $t('learnMore') }}
           </button>

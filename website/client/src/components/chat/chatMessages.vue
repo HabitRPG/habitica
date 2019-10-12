@@ -11,21 +11,26 @@
           :group-id="groupId"
         />
       </div>
-    </div><div class="row loadmore">
+    </div>
+    <div class="row loadmore">
       <div v-if="canLoadMore">
-        <div class="loadmore-divider"></div><button
+        <div class="loadmore-divider"></div>
+        <button
           class="btn btn-secondary"
           @click="triggerLoad()"
         >
           {{ $t('loadEarlierMessages') }}
-        </button><div class="loadmore-divider"></div>
-      </div><h2
+        </button>
+        <div class="loadmore-divider"></div>
+      </div>
+      <h2
         v-show="isLoading"
         class="col-12 loading"
       >
         {{ $t('loading') }}
       </h2>
-    </div><div
+    </div>
+    <div
       v-for="(msg, index) in messages"
       v-if="chat && canViewFlag(msg)"
       :class="{row: inbox}"
@@ -44,7 +49,8 @@
           :hide-class-badge="true"
           :class="{'inbox-avatar-left': inbox}"
           @click.native="showMemberModal(msg.uuid)"
-        /><div
+        />
+        <div
           class="card"
           :class="{'col-10': inbox}"
         >
@@ -58,7 +64,8 @@
             @chat-card-mounted="itemWasMounted"
           />
         </div>
-      </div><div
+      </div>
+      <div
         v-if="user._id === msg.uuid"
         class="d-flex"
         :class="{'flex-grow-1': inbox}"
@@ -76,7 +83,8 @@
             @show-member-modal="showMemberModal"
             @chat-card-mounted="itemWasMounted"
           />
-        </div><avatar
+        </div>
+        <avatar
           v-if="msg.userStyles || (cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected)"
           :member="msg.userStyles || cachedProfileData[msg.uuid]"
           :avatar-only="true"

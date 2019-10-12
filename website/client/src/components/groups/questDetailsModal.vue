@@ -9,29 +9,34 @@
     <div class="left-panel content">
       <h3 class="text-center">
         {{ $t('participantsTitle') }}
-      </h3><div class="row">
+      </h3>
+      <div class="row">
         <div class="col-10 offset-1 text-center">
           <span
             v-once
             class="description"
           >{{ $t('participantDesc') }}</span>
         </div>
-      </div><div class="row">
+      </div>
+      <div class="row">
         <div
           v-for="member in members"
           class="col-12 member"
         >
-          <strong :class="{'declined-name': member.accepted === false}">{{ member.name }}</strong><div
+          <strong :class="{'declined-name': member.accepted === false}">{{ member.name }}</strong>
+          <div
             v-if="member.accepted === true"
             class="accepted float-right"
           >
             {{ $t('accepted') }}
-          </div><div
+          </div>
+          <div
             v-if="member.accepted === false"
             class="declined float-right"
           >
             {{ $t('declined') }}
-          </div><div
+          </div>
+          <div
             v-if="member.accepted === null"
             class="pending float-right"
           >
@@ -39,9 +44,11 @@
           </div>
         </div>
       </div>
-    </div><div v-if="questData">
+    </div>
+    <div v-if="questData">
       <questDialogContent :item="questData" />
-    </div><div
+    </div>
+    <div
       v-if="canEditQuest"
       class="text-center actions"
     >
@@ -52,8 +59,10 @@
           @click="questConfirm()"
         >
           {{ $t('begin') }}
-        </button><!-- @TODO don't allow the party leader to start the quest until the leader has accepted or rejected the invitation (users get confused and think "begin" means "join quest")-->
-      </div><div>
+        </button>
+        <!-- @TODO don't allow the party leader to start the quest until the leader has accepted or rejected the invitation (users get confused and think "begin" means "join quest")-->
+      </div>
+      <div>
         <div
           v-once
           class="cancel"
@@ -62,7 +71,8 @@
           {{ $t('cancel') }}
         </div>
       </div>
-    </div><div
+    </div>
+    <div
       v-if="questData"
       class="side-panel"
     >

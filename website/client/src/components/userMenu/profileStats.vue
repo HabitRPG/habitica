@@ -7,7 +7,8 @@
       <div class="col-12 col-md-6">
         <h2 class="text-center">
           {{ $t('equipment') }}
-        </h2><div class="well">
+        </h2>
+        <div class="well">
           <div
             v-for="(label, key) in equipTypes"
             class="col-12 col-md-4 item-wrapper"
@@ -19,7 +20,8 @@
               :class="{white: equippedItems[key] && equippedItems[key].indexOf('base_0') === -1}"
             >
               <div :class="`shop_${equippedItems[key]}`"></div>
-            </div><b-popover
+            </div>
+            <b-popover
               v-if="label !== 'skip' && equippedItems[key] && equippedItems[key].indexOf('base_0') === -1"
               :target="key"
               triggers="hover"
@@ -28,39 +30,48 @@
             >
               <h4 class="popover-title-only">
                 {{ getGearTitle(equippedItems[key]) }}
-              </h4><attributesGrid
+              </h4>
+              <attributesGrid
                 class="attributesGrid"
                 :item="content.gear.flat[equippedItems[key]]"
                 :user="user"
               />
-            </b-popover><h3 v-if="label !== 'skip'">
+            </b-popover>
+            <h3 v-if="label !== 'skip'">
               {{ label }}
             </h3>
           </div>
         </div>
-      </div><div class="col-12 col-md-6">
+      </div>
+      <div class="col-12 col-md-6">
         <h2 class="text-center">
           {{ $t('costume') }}
-        </h2><div class="well">
-          <!-- Use similar for loop for costume items, except show background if label is 'skip'.--><div
+        </h2>
+        <div class="well">
+          <!-- Use similar for loop for costume items, except show background if label is 'skip'.-->
+          <div
             v-for="(label, key) in equipTypes"
             class="col-12 col-md-4 item-wrapper"
           >
-            <!-- Append a "C" to the key name since HTML IDs have to be unique.--><div
+            <!-- Append a "C" to the key name since HTML IDs have to be unique.-->
+            <div
               v-if="label !== 'skip'"
               :id="key + 'C'"
               class="box"
               :class="{white: costumeItems[key] && costumeItems[key].indexOf('base_0') === -1}"
             >
               <div :class="`shop_${costumeItems[key]}`"></div>
-            </div><!-- Show background on 8th tile rather than a piece of equipment.--><div
+            </div>
+            <!-- Show background on 8th tile rather than a piece of equipment.-->
+            <div
               v-if="label === 'skip'"
               class="box"
               :class="{white: user.preferences.background}"
               style="overflow:hidden"
             >
               <div :class="'icon_background_' + user.preferences.background"></div>
-            </div><b-popover
+            </div>
+            <b-popover
               v-if="label !== 'skip' && costumeItems[key] && costumeItems[key].indexOf('base_0') === -1"
               :target="key + 'C'"
               triggers="hover"
@@ -69,27 +80,32 @@
             >
               <h4 class="popover-title-only">
                 {{ getGearTitle(costumeItems[key]) }}
-              </h4><attributesGrid
+              </h4>
+              <attributesGrid
                 class="attributesGrid"
                 :item="content.gear.flat[costumeItems[key]]"
                 :user="user"
               />
-            </b-popover><h3 v-if="label !== 'skip'">
+            </b-popover>
+            <h3 v-if="label !== 'skip'">
               {{ label }}
-            </h3><h3 v-else>
+            </h3>
+            <h3 v-else>
               {{ $t('background') }}
             </h3>
           </div>
         </div>
       </div>
-    </div><div class="row pet-mount-row">
+    </div>
+    <div class="row pet-mount-row">
       <div class="col-12 col-md-6">
         <h2
           v-once
           class="text-center"
         >
           {{ $t('pets') }}
-        </h2><div class="well pet-mount-well">
+        </h2>
+        <div class="well pet-mount-well">
           <div class="row col-12">
             <div class="col-12 col-md-4">
               <div
@@ -101,18 +117,29 @@
                   :class="`Pet-${user.items.currentPet}`"
                 ></div>
               </div>
-            </div><div class="col-12 col-md-8">
-              <div>{{ formatAnimal(user.items.currentPet, 'pet') }}</div><div><strong>{{ $t('petsFound') }}:</strong>{{ totalCount(user.items.pets) }}</div><div><strong>{{ $t('beastMasterProgress') }}:</strong>{{ beastMasterProgress(user.items.pets) }}</div>
+            </div>
+            <div class="col-12 col-md-8">
+              <div>{{ formatAnimal(user.items.currentPet, 'pet') }}</div>
+              <div>
+                <strong>{{ $t('petsFound') }}:</strong>
+                {{ totalCount(user.items.pets) }}
+              </div>
+              <div>
+                <strong>{{ $t('beastMasterProgress') }}:</strong>
+                {{ beastMasterProgress(user.items.pets) }}
+              </div>
             </div>
           </div>
         </div>
-      </div><div class="col-12 col-md-6">
+      </div>
+      <div class="col-12 col-md-6">
         <h2
           v-once
           class="text-center"
         >
           {{ $t('mounts') }}
-        </h2><div class="well pet-mount-well">
+        </h2>
+        <div class="well pet-mount-well">
           <div class="row col-12">
             <div class="col-12 col-md-4">
               <div
@@ -124,19 +151,31 @@
                   :class="`Mount_Icon_${user.items.currentMount}`"
                 ></div>
               </div>
-            </div><div class="col-12 col-md-8">
-              <div>{{ formatAnimal(user.items.currentMount, 'mount') }}</div><div><strong>{{ $t('mountsTamed') }}:</strong><span>{{ totalCount(user.items.mounts) }}</span></div><div><strong>{{ $t('mountMasterProgress') }}:</strong><span>{{ mountMasterProgress(user.items.mounts) }}</span></div>
+            </div>
+            <div class="col-12 col-md-8">
+              <div>{{ formatAnimal(user.items.currentMount, 'mount') }}</div>
+              <div>
+                <strong>{{ $t('mountsTamed') }}:</strong>
+                <span>{{ totalCount(user.items.mounts) }}</span>
+              </div>
+              <div>
+                <strong>{{ $t('mountMasterProgress') }}:</strong>
+                <span>{{ mountMasterProgress(user.items.mounts) }}</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div><div
+    </div>
+    <div
       id="attributes"
       class="row"
     >
-      <hr class="col-12"><h2 class="col-12">
+      <hr class="col-12">
+      <h2 class="col-12">
         {{ $t('attributes') }}
-      </h2><div
+      </h2>
+      <div
         v-for="(statInfo, stat) in stats"
         class="col-12 col-md-6"
       >
@@ -148,20 +187,43 @@
               popover-placement="right"
               :popover="$t(statInfo.popover)"
               popover-trigger="mouseenter"
-            ></span><div
+            ></span>
+            <div
               class="stat-title"
               :class="stat"
             >
               {{ $t(statInfo.title) }}
-            </div><strong class="number">{{ totalStatPoints(stat) | floorWholeNumber }}</strong>
-          </div><div class="col-12 col-md-6">
+            </div>
+            <strong class="number">{{ totalStatPoints(stat) | floorWholeNumber }}</strong>
+          </div>
+          <div class="col-12 col-md-6">
             <ul class="bonus-stats">
-              <li><strong>{{ $t('level') }}:</strong>{{ statsComputed.levelBonus[stat] }}</li><li><strong>{{ $t('equipment') }}:</strong>{{ statsComputed.gearBonus[stat] }}</li><li><strong>{{ $t('class') }}:</strong>{{ statsComputed.classBonus[stat] }}</li><li><strong>{{ $t('allocated') }}:</strong>{{ totalAllocatedStats(stat) }}</li><li><strong>{{ $t('buffs') }}:</strong>{{ user.stats.buffs[stat] }}</li>
+              <li>
+                <strong>{{ $t('level') }}:</strong>
+                {{ statsComputed.levelBonus[stat] }}
+              </li>
+              <li>
+                <strong>{{ $t('equipment') }}:</strong>
+                {{ statsComputed.gearBonus[stat] }}
+              </li>
+              <li>
+                <strong>{{ $t('class') }}:</strong>
+                {{ statsComputed.classBonus[stat] }}
+              </li>
+              <li>
+                <strong>{{ $t('allocated') }}:</strong>
+                {{ totalAllocatedStats(stat) }}
+              </li>
+              <li>
+                <strong>{{ $t('buffs') }}:</strong>
+                {{ user.stats.buffs[stat] }}
+              </li>
             </ul>
           </div>
         </div>
       </div>
-    </div><div
+    </div>
+    <div
       v-if="showAllocation"
       id="allocation"
     >
@@ -171,15 +233,18 @@
             v-if="userLevel100Plus"
             v-once
             v-html="$t('noMoreAllocate')"
-          ></h3><h3>
-            {{ $t('statPoints') }}<div
+          ></h3>
+          <h3>
+            {{ $t('statPoints') }}
+            <div
               v-if="user.stats.points || userLevel100Plus"
               class="counter badge badge-pill"
             >
               {{ pointsRemaining }}
             </div>
           </h3>
-        </div><div class="col-12 col-md-6">
+        </div>
+        <div class="col-12 col-md-6">
           <div class="float-right">
             <toggle-switch
               v-model="user.preferences.automaticAllocation"
@@ -188,7 +253,8 @@
             />
           </div>
         </div>
-      </div><div class="row">
+      </div>
+      <div class="row">
         <div
           v-for="(statInfo, stat) in allocateStatsList"
           class="col-12 col-md-3"
@@ -197,19 +263,23 @@
             <div class="col-9">
               <div :class="stat">
                 {{ $t(stats[stat].title) }}
-              </div><div class="number">
+              </div>
+              <div class="number">
                 {{ totalAllocatedStats(stat) }}
-              </div><div class="points">
+              </div>
+              <div class="points">
                 {{ $t('pts') }}
               </div>
-            </div><div class="col-3">
+            </div>
+            <div class="col-3">
               <div>
                 <div
                   v-if="showStatsSave"
                   class="up"
                   @click="allocate(stat)"
                 ></div>
-              </div><div>
+              </div>
+              <div>
                 <div
                   v-if="showStatsSave"
                   class="down"
@@ -219,7 +289,8 @@
             </div>
           </div>
         </div>
-      </div><div
+      </div>
+      <div
         v-if="showStatsSave"
         class="row save-row"
       >

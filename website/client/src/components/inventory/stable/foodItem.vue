@@ -12,7 +12,8 @@
         <countBadge
           :show="true"
           :count="itemCount"
-        /><span
+        />
+        <span
           v-drag.food="item.key"
           class="item-content"
           :class="'Pet_Food_'+item.key"
@@ -20,14 +21,16 @@
           @itemDragStart="dragstart($event)"
         ></span>
       </div>
-    </div><b-popover
+    </div>
+    <b-popover
       :target="itemId"
       triggers="hover"
       placement="top"
     >
       <h4 class="popover-content-title">
         {{ itemName || item.text() }}
-      </h4><div
+      </h4>
+      <div
         class="popover-content-text"
         v-html="item.notes()"
       ></div>

@@ -3,23 +3,29 @@
     <div v-if="item.locked">
       <h4 class="popover-content-title">
         {{ `${$t('lockedItem')}` }}
-      </h4><div
+      </h4>
+      <div
         v-if="item.specialClass"
         class="popover-content-text"
       >
         {{ `${$t('classLockedItem')}` }}
-      </div><div
+      </div>
+      <div
         v-else
         class="popover-content-text"
       >
         {{ `${$t('tierLockedItem')}` }}
-      </div><p></p>
-    </div><div v-else>
+      </div>
+      <p></p>
+    </div>
+    <div v-else>
       <h4 class="popover-content-title">
         {{ itemText }}
-      </h4><div class="popover-content-text">
+      </h4>
+      <div class="popover-content-text">
         {{ itemNotes }}
-      </div><attributesGrid
+      </div>
+      <attributesGrid
         :user="user"
         :item="item"
       />

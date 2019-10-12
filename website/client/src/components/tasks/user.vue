@@ -1,11 +1,13 @@
 <template>
   <div class="row user-tasks-page">
-    <broken-task-modal /><task-modal
+    <broken-task-modal />
+    <task-modal
       ref="taskModal"
       :task="editingTask || creatingTask"
       :purpose="creatingTask !== null ? 'create' : 'edit'"
       @cancel="cancelTaskModal()"
-    /><div class="col-12">
+    />
+    <div class="col-12">
       <div class="row tasks-navigation">
         <div class="col-12 col-md-4 offset-md-4">
           <div class="d-flex">
@@ -14,7 +16,8 @@
               class="form-control input-search"
               type="text"
               :placeholder="$t('search')"
-            ><button
+            >
+            <button
               class="btn btn-secondary dropdown-toggle ml-2 d-flex align-items-center search-button"
               type="button"
               :class="{active: selectedTags.length > 0}"
@@ -23,9 +26,11 @@
               <div
                 class="svg-icon filter-icon mr-2"
                 v-html="icons.filter"
-              ></div><span v-once>{{ $t('tags') }}</span>
+              ></div>
+              <span v-once>{{ $t('tags') }}</span>
             </button>
-          </div><div
+          </div>
+          <div
             v-if="isFilterPanelOpen"
             class="filter-panel"
             @mouseleave="checkMouseOver"
@@ -37,12 +42,14 @@
               class="tags-category d-flex"
             >
               <div class="tags-header">
-                <strong v-once>{{ $t(tagsType.key) }}</strong><a
+                <strong v-once>{{ $t(tagsType.key) }}</strong>
+                <a
                   v-if="tagsType.key !== 'groups' && !editingTags"
                   class="d-block"
                   @click="editTags(tagsType.key)"
                 >{{ $t('editTags2') }}</a>
-              </div><div class="tags-list container">
+              </div>
+              <div class="tags-list container">
                 <div
                   class="row"
                   :class="{'no-gutters': !editingTags}"
@@ -61,11 +68,13 @@
                           <div
                             class="svg-icon inline drag"
                             v-html="icons.drag"
-                          ></div><input
+                          ></div>
+                          <input
                             v-model="tag.name"
                             class="tag-edit-input inline-edit-input form-control"
                             type="text"
-                          ><div
+                          >
+                          <div
                             class="input-group-append"
                             @click="removeTag(tagIndex, tagsType.key)"
                           >
@@ -75,7 +84,8 @@
                             ></div>
                           </div>
                         </div>
-                      </div><div class="col-6 dragSpace">
+                      </div>
+                      <div class="col-6 dragSpace">
                         <input
                           v-model="newTag"
                           class="new-tag-item edit-tag-item inline-edit-input form-control"
@@ -85,7 +95,8 @@
                         >
                       </div>
                     </draggable>
-                  </template><template v-if="editingTags && tagsType.key === 'challenges'">
+                  </template>
+                  <template v-if="editingTags && tagsType.key === 'challenges'">
                     <div
                       v-for="(tag, tagIndex) in tagsSnap[tagsType.key]"
                       class="col-6"
@@ -95,7 +106,8 @@
                           v-model="tag.name"
                           class="tag-edit-input inline-edit-input form-control"
                           type="text"
-                        ><div
+                        >
+                        <div
                           class="input-group-append"
                           @click="removeTag(tagIndex, tagsType.key)"
                         >
@@ -106,7 +118,8 @@
                         </div>
                       </div>
                     </div>
-                  </template><template v-if="!editingTags || tagsType.key === 'groups'">
+                  </template>
+                  <template v-if="!editingTags || tagsType.key === 'groups'">
                     <div
                       v-for="(tag, tagIndex) in tagsType.tags"
                       class="col-6"
@@ -118,7 +131,8 @@
                           type="checkbox"
                           :checked="isTagSelected(tag)"
                           @change="toggleTag(tag)"
-                        ><label
+                        >
+                        <label
                           v-markdown="tag.name"
                           class="custom-control-label"
                           :for="`tag-${tag.id}`"
@@ -128,27 +142,31 @@
                   </template>
                 </div>
               </div>
-            </div><div class="filter-panel-footer clearfix">
+            </div>
+            <div class="filter-panel-footer clearfix">
               <template v-if="editingTags === true">
                 <div class="text-center">
                   <a
                     v-once
                     class="mr-3 btn-filters-primary"
                     @click="saveTags()"
-                  >{{ $t('saveEdits') }}</a><a
+                  >{{ $t('saveEdits') }}</a>
+                  <a
                     v-once
                     class="btn-filters-secondary"
                     @click="cancelTagsEditing()"
                   >{{ $t('cancel') }}</a>
                 </div>
-              </template><template v-else>
+              </template>
+              <template v-else>
                 <div class="float-left">
                   <a
                     v-once
                     class="btn-filters-danger"
                     @click="resetFilters()"
                   >{{ $t('resetFilters') }}</a>
-                </div><div class="float-right">
+                </div>
+                <div class="float-right">
                   <a
                     v-once
                     class="btn-filters-secondary"
@@ -158,7 +176,8 @@
               </template>
             </div>
           </div>
-        </div><div class="create-task-area d-flex">
+        </div>
+        <div class="create-task-area d-flex">
           <transition name="slide-tasks-btns">
             <div
               v-if="openCreateBtn"
@@ -178,7 +197,8 @@
                 ></div>
               </div>
             </div>
-          </transition><div
+          </transition>
+          <div
             id="create-task-btn"
             class="create-btn diamond-btn btn btn-success"
             :class="{open: openCreateBtn}"
@@ -188,7 +208,8 @@
               class="svg-icon"
               v-html="icons.positive"
             ></div>
-          </div><b-tooltip
+          </div>
+          <b-tooltip
             v-if="!openCreateBtn"
             target="create-task-btn"
             placement="bottom"
@@ -196,7 +217,8 @@
             {{ $t('addTaskToUser') }}
           </b-tooltip>
         </div>
-      </div><div class="row tasks-columns">
+      </div>
+      <div class="row tasks-columns">
         <task-column
           v-for="column in columns"
           :key="column"
@@ -209,7 +231,8 @@
           @openBuyDialog="openBuyDialog($event)"
         />
       </div>
-    </div><spells />
+    </div>
+    <spells />
   </div>
 </template>
 

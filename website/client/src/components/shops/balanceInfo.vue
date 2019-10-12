@@ -3,10 +3,13 @@
     <span
       v-for="currency of currencies"
       :key="currency.key"
-    ><div
-      class="svg-icon"
-      v-html="currency.icon"
-    ></div><span :class="{'notEnough': currency.notEnough}">{{ currency.value | roundBigNumber }}</span></span>
+    >
+      <div
+        class="svg-icon"
+        v-html="currency.icon"
+      ></div>
+      <span :class="{'notEnough': currency.notEnough}">{{ currency.value | roundBigNumber }}</span>
+    </span>
   </div>
 </template>
 

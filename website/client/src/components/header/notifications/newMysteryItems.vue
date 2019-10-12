@@ -9,7 +9,8 @@
     <div
       slot="content"
       v-html="$t('newSubscriberItem')"
-    ></div><div
+    ></div>
+    <div
       slot="icon"
       :class="mysteryClass"
     ></div>

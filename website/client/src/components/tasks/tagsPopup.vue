@@ -8,7 +8,8 @@
     >
       <div class="tags-header">
         <strong v-once>{{ $t(tagsType.key) }}</strong>
-      </div><div class="tags-list container">
+      </div>
+      <div class="tags-list container">
         <div class="row">
           <div
             v-for="(tag, tagIndex) in tagsType.tags"
@@ -21,7 +22,8 @@
                 class="custom-control-input"
                 type="checkbox"
                 :value="tag.id"
-              ><label
+              >
+              <label
                 v-markdown="tag.name"
                 class="custom-control-label"
                 :title="tag.name"
@@ -31,11 +33,13 @@
           </div>
         </div>
       </div>
-    </div><div class="tags-footer">
+    </div>
+    <div class="tags-footer">
       <span
         class="clear-tags"
         @click="clearTags()"
-      >{{ $t("clearTags") }}</span><span
+      >{{ $t("clearTags") }}</span>
+      <span
         class="close-tags"
         @click="close()"
       >{{ $t("close") }}</span>

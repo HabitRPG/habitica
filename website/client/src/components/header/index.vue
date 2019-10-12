@@ -3,16 +3,20 @@
     <invite-modal
       :group="inviteModalGroup"
       :group-type="inviteModalGroupType"
-    /><create-party-modal /><div
+    />
+    <create-party-modal />
+    <div
       id="app-header"
       class="row"
       :class="{'hide-header': $route.name === 'groupPlan'}"
     >
-      <members-modal :hide-badge="true" /><member-details
+      <members-modal :hide-badge="true" />
+      <member-details
         :member="user"
         :class-badge-position="'next-to-name'"
         :is-header="true"
-      /><div
+      />
+      <div
         v-if="hasParty"
         class="view-party d-flex align-items-center"
       >
@@ -22,7 +26,8 @@
         >
           {{ $t('viewParty') }}
         </button>
-      </div><div
+      </div>
+      <div
         v-if="hasParty"
         v-resize="1500"
         class="party-members d-flex"
@@ -39,15 +44,19 @@
           :class-badge-position="'hidden'"
           @onHover="expandMember(member._id)"
         />
-      </div><div
+      </div>
+      <div
         v-else
         class="no-party d-flex justify-content-center text-center"
       >
         <div class="align-self-center">
-          <h3>{{ $t('battleWithFriends') }}</h3><span
+          <h3>{{ $t('battleWithFriends') }}</h3>
+          <span
             class="small-text"
             v-html="$t('inviteFriendsParty')"
-          ></span><br><button
+          ></span>
+          <br>
+          <button
             class="btn btn-primary"
             @click="createOrInviteParty()"
           >

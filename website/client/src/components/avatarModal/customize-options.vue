@@ -22,32 +22,39 @@
             <div class="redline"></div>
           </div>
         </div>
-      </div><div
+      </div>
+      <div
         v-if="option.gemLocked"
         class="gem-lock"
       >
         <div
           class="svg-icon gem"
           v-html="icons.gem"
-        ></div><span>{{ option.gem }}</span>
-      </div><div
+        ></div>
+        <span>{{ option.gem }}</span>
+      </div>
+      <div
         v-if="option.goldLocked"
         class="gold-lock"
       >
         <div
           class="svg-icon gold"
           v-html="icons.gold"
-        ></div><span>{{ option.gold }}</span>
+        ></div>
+        <span>{{ option.gold }}</span>
       </div>
-    </div><div
+    </div>
+    <div
       v-if="fullSet"
       class="purchase-set"
       @click="unlock()"
     >
-      <span class="label">{{ $t('purchaseAll') }}</span><div
+      <span class="label">{{ $t('purchaseAll') }}</span>
+      <div
         class="svg-icon gem"
         v-html="icons.gem"
-      ></div><span class="price">5</span>
+      ></div>
+      <span class="price">5</span>
     </div>
   </div>
 </template>

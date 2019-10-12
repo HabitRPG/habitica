@@ -7,7 +7,8 @@
       v-once
       class="col col-sm-12 col-xl-8"
       v-html="$t('communityGuidelinesIntro')"
-    ></div><div class="col-md-auto col-md-12 col-xl-4">
+    ></div>
+    <div class="col-md-auto col-md-12 col-xl-4">
       <button
         v-once
         class="btn btn-info btn-follow-guidelines"

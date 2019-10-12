@@ -11,24 +11,29 @@
         class="form-control"
         type="text"
       >
-    </div><div class="form-group">
+    </div>
+    <div class="form-group">
       <textarea
         v-model="task.notes"
         class="form-control"
         rows="5"
         focus-element="true"
       ></textarea>
-    </div><hr><task
+    </div>
+    <hr>
+    <task
       v-if="task._id"
       :is-user="isUser"
       :task="task"
-    /><div class="modal-footer">
+    />
+    <div class="modal-footer">
       <button
         class="btn btn-secondary"
         @click="close()"
       >
         {{ $t('close') }}
-      </button><button
+      </button>
+      <button
         class="btn btn-primary"
         @click="saveTodo()"
       >

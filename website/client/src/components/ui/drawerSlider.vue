@@ -5,20 +5,27 @@
       class="slider-button-area left-button"
       @mousedown.left="shiftRight"
     >
-      <a class="slider-button"><div
-        class="svg-icon"
-        v-html="icons.previous"
-      ></div></a>
-    </div><div
+      <a class="slider-button">
+        <div
+          class="svg-icon"
+          v-html="icons.previous"
+        ></div>
+      </a>
+    </div>
+    <div
       v-if="scrollButtonsVisible()"
       class="slider-button-area right-button"
       @mousedown.left="shiftLeft"
     >
-      <a class="slider-button"><div
-        class="svg-icon"
-        v-html="icons.next"
-      ></div></a>
-    </div><!-- 120 = width of the left/right buttons--><div
+      <a class="slider-button">
+        <div
+          class="svg-icon"
+          v-html="icons.next"
+        ></div>
+      </a>
+    </div>
+    <!-- 120 = width of the left/right buttons-->
+    <div
       v-resize="500"
       class="sliding-content"
       @resized="currentWidth = $event.width - 120"
@@ -29,7 +36,8 @@
             v-if="shouldAddVerticalLine(item)"
             class="vertical-divider"
             :style="dividerMargins"
-          ></div><slot
+          ></div>
+          <slot
             name="item"
             :item="item"
           ></slot>

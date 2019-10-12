@@ -3,10 +3,13 @@
     <div class="clearfix">
       <h2 class="float-left mb-3 filters-title">
         {{ title }}
-      </h2><div class="filters float-right">
+      </h2>
+      <div class="filters float-right">
         <slot name="filters"></slot>
       </div>
-    </div><br><slot name="content"></slot>
+    </div>
+    <br>
+    <slot name="content"></slot>
   </div>
 </template>
 

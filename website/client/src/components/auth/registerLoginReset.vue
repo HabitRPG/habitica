@@ -2,20 +2,25 @@
   <div class="form-wrapper">
     <div id="top-background">
       <div class="seamless_stars_varied_opacity_repeat"></div>
-    </div><form
+    </div>
+    <form
       v-if="!forgotPassword && !resetPasswordSetNewOne"
       id="login-form"
       @submit.prevent="handleSubmit"
       @keyup.enter="handleSubmit"
     >
       <div class="text-center">
-        <div><div class="svg-icon gryphon"></div></div><div>
+        <div>
+          <div class="svg-icon gryphon"></div>
+        </div>
+        <div>
           <div
             class="svg-icon habitica-logo"
             v-html="icons.habiticaIcon"
           ></div>
         </div>
-      </div><div class="form-group row text-center">
+      </div>
+      <div class="form-group row text-center">
         <div class="col-12 col-md-6">
           <div
             class="btn btn-secondary social-button"
@@ -24,11 +29,15 @@
             <div
               class="svg-icon social-icon"
               v-html="icons.facebookIcon"
-            ></div><div class="text">
+            ></div>
+            <div
+              class="text"
+            >
               {{ registering ? $t('signUpWithSocial', {social: 'Facebook'}) : $t('loginWithSocial', {social: 'Facebook'}) }}
             </div>
           </div>
-        </div><div class="col-12 col-md-6">
+        </div>
+        <div class="col-12 col-md-6">
           <div
             class="btn btn-secondary social-button"
             @click="socialAuth('google')"
@@ -36,53 +45,63 @@
             <div
               class="svg-icon social-icon"
               v-html="icons.googleIcon"
-            ></div><div class="text">
+            ></div>
+            <div
+              class="text"
+            >
               {{ registering ? $t('signUpWithSocial', {social: 'Google'}) : $t('loginWithSocial', {social: 'Google'}) }}
             </div>
           </div>
         </div>
-      </div><div
+      </div>
+      <div
         v-if="registering"
         class="form-group"
       >
         <label
           v-once
           for="usernameInput"
-        >{{ $t('username') }}</label><input
+        >{{ $t('username') }}</label>
+        <input
           id="usernameInput"
           v-model="username"
           class="form-control"
           type="text"
           :placeholder="$t('usernamePlaceholder')"
           :class="{'input-valid': usernameValid, 'input-invalid': usernameInvalid}"
-        ><div
+        >
+        <div
           v-for="issue in usernameIssues"
           class="input-error"
         >
           {{ issue }}
         </div>
-      </div><div
+      </div>
+      <div
         v-if="!registering"
         class="form-group"
       >
         <label
           v-once
           for="usernameInput"
-        >{{ $t('emailOrUsername') }}</label><input
+        >{{ $t('emailOrUsername') }}</label>
+        <input
           id="usernameInput"
           v-model="username"
           class="form-control"
           type="text"
           :placeholder="$t('emailOrUsername')"
         >
-      </div><div
+      </div>
+      <div
         v-if="registering"
         class="form-group"
       >
         <label
           v-once
           for="emailInput"
-        >{{ $t('email') }}</label><input
+        >{{ $t('email') }}</label>
+        <input
           id="emailInput"
           v-model="email"
           class="form-control"
@@ -90,42 +109,49 @@
           :placeholder="$t('emailPlaceholder')"
           :class="{'input-invalid': emailInvalid, 'input-valid': emailValid}"
         >
-      </div><div class="form-group">
+      </div>
+      <div class="form-group">
         <label
           v-once
           for="passwordInput"
-        >{{ $t('password') }}</label><a
+        >{{ $t('password') }}</label>
+        <a
           v-if="!registering"
           v-once
           class="float-right forgot-password"
           @click="forgotPassword = true"
-        >{{ $t('forgotPassword') }}</a><input
+        >{{ $t('forgotPassword') }}</a>
+        <input
           id="passwordInput"
           v-model="password"
           class="form-control"
           type="password"
           :placeholder="$t(registering ? 'passwordPlaceholder' : 'password')"
         >
-      </div><div
+      </div>
+      <div
         v-if="registering"
         class="form-group"
       >
         <label
           v-once
           for="confirmPasswordInput"
-        >{{ $t('confirmPassword') }}</label><input
+        >{{ $t('confirmPassword') }}</label>
+        <input
           id="confirmPasswordInput"
           v-model="passwordConfirm"
           class="form-control"
           type="password"
           :placeholder="$t('confirmPasswordPlaceholder')"
           :class="{'input-invalid': passwordConfirmInvalid, 'input-valid': passwordConfirmValid}"
-        ><small
+        >
+        <small
           v-once
           class="form-text"
           v-html="$t('termsAndAgreement')"
         ></small>
-      </div><div class="text-center">
+      </div>
+      <div class="text-center">
         <div
           v-if="registering"
           v-once
@@ -133,14 +159,16 @@
           @click="register()"
         >
           {{ $t('joinHabitica') }}
-        </div><div
+        </div>
+        <div
           v-if="!registering"
           v-once
           class="btn btn-info"
           @click="login()"
         >
           {{ $t('login') }}
-        </div><div class="toggle-links">
+        </div>
+        <div class="toggle-links">
           <router-link
             v-if="registering"
             :to="{name: 'login'}"
@@ -151,7 +179,8 @@
               class="toggle-link"
               v-html="$t('alreadyHaveAccountLogin')"
             ></a>
-          </router-link><router-link
+          </router-link>
+          <router-link
             v-if="!registering"
             :to="{name: 'register'}"
             exact="exact"
@@ -164,37 +193,46 @@
           </router-link>
         </div>
       </div>
-    </form><form
+    </form>
+    <form
       v-if="forgotPassword"
       id="forgot-form"
       @submit.prevent="handleSubmit"
       @keyup.enter="handleSubmit"
     >
       <div class="text-center">
-        <div><div class="svg-icon gryphon"></div></div><div>
+        <div>
+          <div class="svg-icon gryphon"></div>
+        </div>
+        <div>
           <div
             class="svg-icon habitica-logo"
             v-html="icons.habiticaIcon"
           ></div>
-        </div><div class="header">
+        </div>
+        <div class="header">
           <h2 v-once>
             {{ $t('emailNewPass') }}
-          </h2><p v-once>
+          </h2>
+          <p v-once>
             {{ $t('forgotPasswordSteps') }}
           </p>
         </div>
-      </div><div class="form-group row text-center">
+      </div>
+      <div class="form-group row text-center">
         <label
           v-once
           for="usernameInput"
-        >{{ $t('email') }}</label><input
+        >{{ $t('email') }}</label>
+        <input
           id="usernameInput"
           v-model="username"
           class="form-control"
           type="text"
           :placeholder="$t('emailPlaceholder')"
         >
-      </div><div class="text-center">
+      </div>
+      <div class="text-center">
         <div
           v-once
           class="btn btn-info"
@@ -203,44 +241,54 @@
           {{ $t('sendLink') }}
         </div>
       </div>
-    </form><form
+    </form>
+    <form
       v-if="resetPasswordSetNewOne"
       id="reset-password-set-new-one-form"
       @submit.prevent="handleSubmit"
       @keyup.enter="handleSubmit"
     >
       <div class="text-center">
-        <div><div class="svg-icon gryphon"></div></div><div>
+        <div>
+          <div class="svg-icon gryphon"></div>
+        </div>
+        <div>
           <div
             class="svg-icon habitica-logo"
             v-html="icons.habiticaIcon"
           ></div>
-        </div><div class="header">
+        </div>
+        <div class="header">
           <h2>{{ $t('passwordResetPage') }}</h2>
         </div>
-      </div><div class="form-group">
+      </div>
+      <div class="form-group">
         <label
           v-once
           for="passwordInput"
-        >{{ $t('newPass') }}</label><input
+        >{{ $t('newPass') }}</label>
+        <input
           id="passwordInput"
           v-model="password"
           class="form-control"
           type="password"
           :placeholder="$t('password')"
         >
-      </div><div class="form-group">
+      </div>
+      <div class="form-group">
         <label
           v-once
           for="confirmPasswordInput"
-        >{{ $t('confirmPass') }}</label><input
+        >{{ $t('confirmPass') }}</label>
+        <input
           id="confirmPasswordInput"
           v-model="passwordConfirm"
           class="form-control"
           type="password"
           :placeholder="$t('confirmPasswordPlaceholder')"
         >
-      </div><div class="text-center">
+      </div>
+      <div class="text-center">
         <div
           class="btn btn-info"
           :enabled="!resetPasswordSetNewOneData.hasError"
@@ -249,12 +297,14 @@
           {{ $t('setNewPass') }}
         </div>
       </div>
-    </form><div
+    </form>
+    <div
       id="bottom-wrap"
       :class="`bottom-wrap-${!registering ? 'login' : 'register'}`"
     >
       <div id="bottom-background">
-        <div class="seamless_mountains_demo_repeat"></div><div class="midground_foreground_extended2"></div>
+        <div class="seamless_mountains_demo_repeat"></div>
+        <div class="midground_foreground_extended2"></div>
       </div>
     </div>
   </div>

@@ -9,7 +9,8 @@
     <div
       slot="content"
       v-html="$t('unallocatedStatsPoints', {points: notification.data.points})"
-    ></div><div
+    ></div>
+    <div
       slot="icon"
       class="svg-icon"
       v-html="icons.sparkles"

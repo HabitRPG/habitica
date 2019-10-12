@@ -1,6 +1,7 @@
 <template>
   <div class="standard-page">
-    <group-plan-overview-modal /><task-modal
+    <group-plan-overview-modal />
+    <task-modal
       ref="taskModal"
       :task="workingTask"
       :purpose="taskFormPurpose"
@@ -9,17 +10,21 @@
       @taskCreated="taskCreated"
       @taskEdited="taskEdited"
       @taskDestroyed="taskDestroyed"
-    /><div class="row tasks-navigation">
+    />
+    <div class="row tasks-navigation">
       <div class="col-12 col-md-4">
         <h1>{{ $t('groupTasksTitle') }}</h1>
-      </div><!-- @TODO: Abstract to component!--><div class="col-12 col-md-4">
+      </div>
+      <!-- @TODO: Abstract to component!-->
+      <div class="col-12 col-md-4">
         <input
           v-model="searchText"
           class="form-control input-search"
           type="text"
           :placeholder="$t('search')"
         >
-      </div><div
+      </div>
+      <div
         v-if="canCreateTasks"
         class="create-task-area d-flex"
       >
@@ -42,7 +47,8 @@
               ></div>
             </div>
           </div>
-        </transition><div
+        </transition>
+        <div
           id="create-task-btn"
           class="create-btn diamond-btn btn btn-success"
           :class="{open: openCreateBtn}"
@@ -52,7 +58,8 @@
             class="svg-icon"
             v-html="icons.positive"
           ></div>
-        </div><b-tooltip
+        </div>
+        <b-tooltip
           v-if="!openCreateBtn"
           target="create-task-btn"
           placement="bottom"
@@ -60,7 +67,8 @@
           {{ $t('addTaskToGroupPlan') }}
         </b-tooltip>
       </div>
-    </div><div class="row">
+    </div>
+    <div class="row">
       <task-column
         v-for="column in columns"
         :key="column"
@@ -71,7 +79,8 @@
         :group="group"
         :search-text="searchText"
         @editTask="editTask"
-@loadGroupCompletedTodos="loadGroupCompletedTodos" @taskDestroyed="taskDestroyed"
+        @loadGroupCompletedTodos="loadGroupCompletedTodos"
+        @taskDestroyed="taskDestroyed"
       />
     </div>
   </div>

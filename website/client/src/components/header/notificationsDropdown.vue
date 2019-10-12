@@ -15,40 +15,48 @@
           :count="notificationsCount"
           :top="true"
           :gray="!hasUnseenNotifications"
-        /><div
+        />
+        <div
           class="top-menu-icon svg-icon notifications"
           v-html="icons.notifications"
         ></div>
       </div>
-    </div><div slot="dropdown-content">
+    </div>
+    <div slot="dropdown-content">
       <div
         class="dropdown-item dropdown-separated d-flex justify-content-between dropdown-inactive align-items-center"
-        @click.stop=""
+        @click.stop
       >
         <h4
           v-once
           class="dropdown-title"
         >
           {{ $t('notifications') }}
-        </h4><a
+        </h4>
+        <a
           class="small-link standard-link"
           :disabled="notificationsCount === 0"
           @click="dismissAll"
         >{{ $t('dismissAll') }}</a>
-      </div><world-boss /><component
+      </div>
+      <world-boss />
+      <component
         :is="notification.type"
         v-for="notification in notifications"
         :key="notification.id"
         :notification="notification"
         :can-remove="!isActionable(notification)"
-      /><div
+      />
+      <div
         v-if="notificationsCount === 0"
         class="dropdown-item dropdown-separated d-flex justify-content-center dropdown-inactive no-notifications flex-column"
       >
         <div
           class="svg-icon"
           v-html="icons.success"
-        ></div><h2>{{ $t('noNotifications') }}</h2><p>{{ $t('noNotificationsText') }}</p>
+        ></div>
+        <h2>{{ $t('noNotifications') }}</h2>
+        <p>{{ $t('noNotificationsText') }}</p>
       </div>
     </div>
   </menu-dropdown>

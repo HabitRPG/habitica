@@ -7,14 +7,16 @@
       :empty-item="false"
       popover-position="'top'"
       @click="releasePets()"
-    /><shopItem
+    />
+    <shopItem
       v-if="userHasAllMounts"
       :key="keysToMounts.key"
       :item="keysToMounts"
       :empty-item="false"
       popover-position="'top'"
       @click="releaseMounts()"
-    /><shopItem
+    />
+    <shopItem
       v-if="userHasAllPets && userHasAllMounts"
       :key="keysToBoth.key"
       :item="keysToBoth"

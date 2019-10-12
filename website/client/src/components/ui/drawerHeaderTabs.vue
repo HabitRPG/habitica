@@ -12,7 +12,8 @@
           @click="changeTab(index)"
         >{{ tab.label }}</a>
       </li>
-    </ul><aside class="help-item">
+    </ul>
+    <aside class="help-item">
       <slot name="right-item"></slot>
     </aside>
   </div>

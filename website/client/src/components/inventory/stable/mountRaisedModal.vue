@@ -9,22 +9,26 @@
     >
       <div class="dialog-header title">
         {{ $t('raisedPet', {pet: mount.text()}) }}
-      </div><div class="inner-content">
+      </div>
+      <div class="inner-content">
         <div class="pet-background">
           <div
             class="mount"
             :class="`Mount_Icon_${mount.key}`"
           ></div>
-        </div><h4 class="title">
+        </div>
+        <h4 class="title">
           {{ mount.text() }}
-        </h4><button
+        </h4>
+        <button
           class="btn btn-primary onward"
           @click="close()"
         >
           {{ $t('onward') }}
         </button>
       </div>
-    </div><div
+    </div>
+    <div
       slot="modal-footer"
       class="clearfix"
     ></div>

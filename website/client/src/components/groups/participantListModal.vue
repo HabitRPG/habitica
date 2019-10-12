@@ -13,7 +13,8 @@
           <h1 v-once>
             {{ $t('participantsTitle') }}
           </h1>
-        </div><div class="col-6">
+        </div>
+        <div class="col-6">
           <button
             class="close"
             type="button"
@@ -24,14 +25,16 @@
           </button>
         </div>
       </div>
-    </div><div
+    </div>
+    <div
       v-for="member in participants"
       class="row"
     >
       <div class="col-12 no-padding-left">
         <member-details :member="member" />
       </div>
-    </div><div class="modal-footer">
+    </div>
+    <div class="modal-footer">
       <button
         class="btn btn-primary"
         @click="close()"

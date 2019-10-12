@@ -13,51 +13,62 @@
         <div class="text col-12">
           <div v-html="notification.text"></div>
         </div>
-      </div><div
+      </div>
+      <div
         v-if="notification.type === 'streak'"
         class="row"
       >
         <div class="text col-7 offset-1">
           <div>{{ message }}</div>
-        </div><div class="icon col-4">
+        </div>
+        <div class="icon col-4">
           <div
             class="svg-icon"
             v-html="icons.gold"
-          ></div><div v-html="notification.text"></div>
+          ></div>
+          <div v-html="notification.text"></div>
         </div>
-      </div><div
+      </div>
+      <div
         v-if="['hp', 'gp', 'xp', 'mp'].indexOf(notification.type) !== -1"
         class="row"
       >
         <div class="text col-7 offset-1">
           <div>{{ message }}</div>
-        </div><div class="icon col-4 d-flex align-items-center">
+        </div>
+        <div class="icon col-4 d-flex align-items-center">
           <div
             v-if="notification.type === 'hp'"
             class="svg-icon"
             v-html="icons.health"
-          ></div><div
+          ></div>
+          <div
             v-if="notification.type === 'gp'"
             class="svg-icon"
             v-html="icons.gold"
-          ></div><div
+          ></div>
+          <div
             v-if="notification.type === 'xp'"
             class="svg-icon"
             v-html="icons.star"
-          ></div><div
+          ></div>
+          <div
             v-if="notification.type === 'mp'"
             class="svg-icon"
             v-html="icons.mana"
-          ></div><div v-html="notification.text"></div>
+          ></div>
+          <div v-html="notification.text"></div>
         </div>
-      </div><div
+      </div>
+      <div
         v-if="['info', 'success', 'crit', 'lvl'].indexOf(notification.type) !== -1"
         class="row"
       >
         <div class="text col-12">
           <div v-html="notification.text"></div>
         </div>
-      </div><div
+      </div>
+      <div
         v-if="notification.type === 'drop'"
         class="row"
       >
@@ -65,7 +76,8 @@
           <div class="icon-item">
             <div :class="notification.icon"></div>
           </div>
-        </div><div class="text col-8">
+        </div>
+        <div class="text col-8">
           <div v-html="notification.text"></div>
         </div>
       </div>

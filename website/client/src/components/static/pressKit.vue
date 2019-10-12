@@ -1,21 +1,27 @@
 <template>
   <div class="container-fluid">
-    <h1>{{ $t('presskit') }}</h1><p>{{ $t('presskitText', { pressEnquiryEmail : PRESS_ENQUIRY_EMAIL }) }}</p><p>
+    <h1>{{ $t('presskit') }}</h1>
+    <p>{{ $t('presskitText', { pressEnquiryEmail : PRESS_ENQUIRY_EMAIL }) }}</p>
+    <p>
       <a
         class="btn btn-lg btn-success"
         href="/static/presskit/presskit.zip"
       >presskit.zip</a>
-    </p><div v-for="(images, category) in imgs">
-      <h2>{{ $t('pk' + category) }}</h2><div v-if="Array.isArray(images)">
+    </p>
+    <div v-for="(images, category) in imgs">
+      <h2>{{ $t('pk' + category) }}</h2>
+      <div v-if="Array.isArray(images)">
         <div v-for="img in images">
           <img
             class="img-fluid img-rendering-auto press-img"
             :src="`/static/presskit/${category}/${img}`"
           >
         </div>
-      </div><div v-else>
+      </div>
+      <div v-else>
         <div v-for="(images, secondaryCategory) in images">
-          <h3>{{ $t('pk' + secondaryCategory) }}</h3><div v-for="img in images">
+          <h3>{{ $t('pk' + secondaryCategory) }}</h3>
+          <div v-for="img in images">
             <img
               class="img-fluid img-rendering-auto press-img"
               :src="`/static/presskit/${category}/${secondaryCategory}/${img}`"
@@ -23,7 +29,9 @@
           </div>
         </div>
       </div>
-    </div><h1>{{ $t('FAQ') }}</h1><div
+    </div>
+    <h1>{{ $t('FAQ') }}</h1>
+    <div
       id="faq"
       role="tablist"
     >
@@ -36,7 +44,8 @@
           tabindex="0"
           role="button"
           v-html="$t(QA.question)"
-        ></h2><b-collapse
+        ></h2>
+        <b-collapse
           :id="QA.question"
           accordion="pkAccordian"
           role="tabpanel"
@@ -44,7 +53,8 @@
           <p v-html="$t(QA.answer)"></p>
         </b-collapse>
       </div>
-    </div><p>{{ $t('pkMoreQuestions') }}</p>
+    </div>
+    <p>{{ $t('pkMoreQuestions') }}</p>
   </div>
 </template>
 

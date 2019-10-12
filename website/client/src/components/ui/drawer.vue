@@ -4,12 +4,14 @@
       class="drawer-title"
       @click="toggle()"
     >
-      {{ title }}<div
+      {{ title }}
+      <div
         class="drawer-toggle-icon svg-icon icon-10"
         :class="{ closed: !isOpen }"
         v-html="isOpen ? icons.minimize : icons.expand"
       ></div>
-    </div><transition
+    </div>
+    <transition
       name="slide-up"
       @afterLeave="adjustPagePadding"
       @afterEnter="adjustPagePadding"
@@ -18,8 +20,10 @@
         v-show="isOpen"
         class="drawer-content"
       >
-        <slot name="drawer-header"></slot><div class="drawer-slider">
-          <slot name="drawer-slider"></slot><div
+        <slot name="drawer-header"></slot>
+        <div class="drawer-slider">
+          <slot name="drawer-slider"></slot>
+          <div
             v-if="errorMessage != null"
             class="message"
           >

@@ -1,27 +1,33 @@
 <template>
   <div class="row">
-    <challenge-modal @createChallenge="challengeCreated" /><sidebar
+    <challenge-modal @createChallenge="challengeCreated" />
+    <sidebar
       @search="updateSearch"
       @filter="updateFilters"
-    /><div class="col-10 standard-page">
+    />
+    <div class="col-10 standard-page">
       <div class="row header-row">
         <div class="col-md-8 text-left">
           <h1 v-once>
             {{ $t('myChallenges') }}
           </h1>
-        </div><div class="col-md-4">
-<!-- @TODO: implement sorting span.dropdown-label {{ $t('sortBy') }}b-dropdown(:text="$t('sort')", right=true)
-  b-dropdown-item(v-for='sortOption in sortOptions', :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}--><button
-class="btn btn-secondary create-challenge-button float-right"
-@click="createChallenge()"
->
-<div
-class="svg-icon positive-icon"
-v-html="icons.positiveIcon"
-></div><span v-once>{{ $t('createChallenge') }}</span>
-</button>
         </div>
-      </div><div class="row">
+        <div class="col-md-4">
+          <!-- @TODO: implement sorting span.dropdown-label {{ $t('sortBy') }}b-dropdown(:text="$t('sort')", right=true)
+          b-dropdown-item(v-for='sortOption in sortOptions', :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}-->
+          <button
+            class="btn btn-secondary create-challenge-button float-right"
+            @click="createChallenge()"
+          >
+            <div
+              class="svg-icon positive-icon"
+              v-html="icons.positiveIcon"
+            ></div>
+            <span v-once>{{ $t('createChallenge') }}</span>
+          </button>
+        </div>
+      </div>
+      <div class="row">
         <div
           v-if="!loading && challenges.length === 0"
           class="no-challenges text-center col-md-6 offset-3"
@@ -29,15 +35,19 @@ v-html="icons.positiveIcon"
           <div
             class="svg-icon"
             v-html="icons.challengeIcon"
-          ></div><h2 v-once>
+          ></div>
+          <h2 v-once>
             {{ $t('noChallengeTitle') }}
-          </h2><p v-once>
+          </h2>
+          <p v-once>
             {{ $t('challengeDescription1') }}
-          </p><p v-once>
+          </p>
+          <p v-once>
             {{ $t('challengeDescription2') }}
           </p>
         </div>
-      </div><div class="row">
+      </div>
+      <div class="row">
         <div
           v-if="!loading && challenges.length > 0 && filteredChallenges.length === 0"
           class="no-challenges text-center col-md-6 offset-3"
@@ -46,13 +56,15 @@ v-html="icons.positiveIcon"
             {{ $t('noChallengeMatchFilters') }}
           </h2>
         </div>
-      </div><div class="row">
+      </div>
+      <div class="row">
         <div
           v-for="challenge in filteredChallenges"
           class="col-12 col-md-6"
         >
           <challenge-item :challenge="challenge" />
-        </div><mugen-scroll
+        </div>
+        <mugen-scroll
           v-show="loading"
           :handler="infiniteScrollTrigger"
           :should-handle="!loading && canLoadMore"

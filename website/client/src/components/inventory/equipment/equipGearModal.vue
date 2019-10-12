@@ -13,7 +13,8 @@
         @click="hideDialog()"
         v-html="icons.close"
       ></span>
-    </div><div
+    </div>
+    <div
       v-if="item != null"
       class="content"
     >
@@ -25,33 +26,42 @@
           :override-avatar-gear="memberOverrideAvatarGear(item)"
           :sprites-margin="'0px auto auto -1px'"
           :show-visual-buffs="false"
-        /><h4 class="title">
+        />
+        <h4 class="title">
           {{ itemText }}
-        </h4><div
+        </h4>
+        <div
           class="text"
           v-html="itemNotes"
-        ></div><span
+        ></div>
+        <span
           v-if="showClassTag"
           class="classTag"
-        ><span
-          class="svg-icon inline icon-24"
-          v-html="icons[itemClass]"
-        ></span><span
-          class="className textCondensed"
-          :class="itemClass"
-        >{{ getClassName(itemClass) }}</span></span><attributesGrid
+        >
+          <span
+            class="svg-icon inline icon-24"
+            v-html="icons[itemClass]"
+          ></span>
+          <span
+            class="className textCondensed"
+            :class="itemClass"
+          >{{ getClassName(itemClass) }}</span>
+        </span>
+        <attributesGrid
           v-if="attributesGridVisible"
           class="attributesGrid"
           :user="user"
           :item="item"
-        /><button
+        />
+        <button
           class="btn btn-primary"
           @click="equipItem()"
         >
           {{ $t(isEquipped ? 'unequip' : 'equip') }}
         </button>
       </div>
-    </div><div
+    </div>
+    <div
       slot="modal-footer"
       class="clearfix"
     ></div>

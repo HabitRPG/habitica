@@ -1,7 +1,7 @@
 <template>
   <b-modal
     id="inbox-modal"
-    title=""
+    title
     :hide-footer="true"
     size="lg"
     @shown="onModalShown"
@@ -19,7 +19,8 @@
                 class="svg-icon envelope"
                 v-html="icons.messageIcon"
               ></div>
-            </div><div class="col-6">
+            </div>
+            <div class="col-6">
               <h2
                 v-once
                 class="text-center"
@@ -28,7 +29,8 @@
               </h2>
             </div>
           </div>
-        </div><div class="col-4 offset-3">
+        </div>
+        <div class="col-4 offset-3">
           <toggle-switch
             class="float-right"
             :label="optTextSet.switchDescription"
@@ -36,7 +38,8 @@
             :hover-text="optTextSet.popoverText"
             @change="toggleOpt()"
           />
-        </div><div class="col-1">
+        </div>
+        <div class="col-1">
           <div class="close">
             <span
               class="svg-icon inline icon-10"
@@ -47,26 +50,31 @@
           </div>
         </div>
       </div>
-    </div><div class="row">
+    </div>
+    <div class="row">
       <div class="col-4 sidebar">
         <div class="search-section">
           <b-form-input
             v-model="search"
             :placeholder="$t('search')"
           />
-        </div><div
+        </div>
+        <div
           v-if="filtersConversations.length === 0"
           class="empty-messages text-center"
         >
           <div
             class="svg-icon envelope"
             v-html="icons.messageIcon"
-          ></div><h4 v-once>
+          ></div>
+          <h4 v-once>
             {{ $t('emptyMessagesLine1') }}
-          </h4><p v-if="!user.flags.chatRevoked">
+          </h4>
+          <p v-if="!user.flags.chatRevoked">
             {{ $t('emptyMessagesLine2') }}
           </p>
-        </div><div
+        </div>
+        <div
           v-if="filtersConversations.length > 0"
           class="conversations"
         >
@@ -78,22 +86,29 @@
           >
             <div>
               <h3 :class="userLevelStyle(conversation)">
-                {{ conversation.name }}<div
+                {{ conversation.name }}
+                <div
                   class="svg-icon"
                   v-html="tierIcon(conversation)"
                 ></div>
               </h3>
-            </div><div class="time">
+            </div>
+            <div class="time">
               <span
                 v-if="conversation.username"
                 class="mr-1"
-              >@{{ conversation.username }} •</span><span v-if="conversation.date">{{ conversation.date | timeAgo }}</span>
-            </div><div class="messagePreview">
+              >@{{ conversation.username }} •</span>
+              <span v-if="conversation.date">{{ conversation.date | timeAgo }}</span>
+            </div>
+            <div
+              class="messagePreview"
+            >
               {{ conversation.lastMessageText ? removeTags(parseMarkdown(conversation.lastMessageText)) : '' }}
             </div>
           </div>
         </div>
-      </div><div class="col-8 messages d-flex flex-column justify-content-between">
+      </div>
+      <div class="col-8 messages d-flex flex-column justify-content-between">
         <div
           v-if="!selectedConversation.key"
           class="empty-messages text-center"
@@ -101,13 +116,17 @@
           <div
             class="svg-icon envelope"
             v-html="icons.messageIcon"
-          ></div><h4>{{ placeholderTexts.title }}</h4><p v-html="placeholderTexts.description"></p>
-        </div><div
+          ></div>
+          <h4>{{ placeholderTexts.title }}</h4>
+          <p v-html="placeholderTexts.description"></p>
+        </div>
+        <div
           v-if="selectedConversation && selectedConversationMessages.length === 0"
           class="empty-messages text-center"
         >
           <p>{{ $t('beginningOfConversation', {userName: selectedConversation.name}) }}</p>
-        </div><chat-messages
+        </div>
+        <chat-messages
           v-if="selectedConversation && selectedConversationMessages.length > 0"
           ref="chatscroll"
           class="message-scroll"
@@ -116,13 +135,16 @@
           :can-load-more="canLoadMore"
           :is-loading="messagesLoading"
           @message-removed="messageRemoved"
-@triggerLoad="infiniteScrollTrigger"
-        /><div
+          @triggerLoad="infiniteScrollTrigger"
+        />
+        <div
           v-if="user.inbox.optOut && selectedConversation.key"
           class="pm-disabled-caption text-center"
         >
-          <h4>{{ $t('PMDisabledCaptionTitle') }}</h4><p>{{ $t('PMDisabledCaptionText') }}</p>
-        </div><div
+          <h4>{{ $t('PMDisabledCaptionTitle') }}</h4>
+          <p>{{ $t('PMDisabledCaptionText') }}</p>
+        </div>
+        <div
           v-if="selectedConversation.key && !user.flags.chatRevoked"
           class="new-message-row"
         >
@@ -130,12 +152,14 @@
             v-model="newMessage"
             maxlength="3000"
             @keyup.ctrl.enter="sendPrivateMessage()"
-          ></textarea><button
+          ></textarea>
+          <button
             class="btn btn-secondary"
             @click="sendPrivateMessage()"
           >
             {{ $t('send') }}
-          </button><div class="row">
+          </button>
+          <div class="row">
             <span class="ml-3">{{ currentLength }} / 3000</span>
           </div>
         </div>

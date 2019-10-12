@@ -1,17 +1,23 @@
 <template>
   <div class="row">
     <div class="col-12 text-center">
-      <!-- @TODO i18n. How to setup the strings with the router-link inside?--><img
+      <!-- @TODO i18n. How to setup the strings with the router-link inside?-->
+      <img
         class="not-found-img"
         src="~@/assets/images/404.png"
-      ><h1 class="not-found">
+      >
+      <h1 class="not-found">
         Sometimes even the bravest adventurer gets lost.
-      </h1><h2 class="not-found">
+      </h1>
+      <h2 class="not-found">
         Looks like this link is broken or the page may have moved, sorry!
-      </h2><h2 class="not-found">
-        Head back to the<router-link to="/">
+      </h2>
+      <h2 class="not-found">
+        Head back to the
+        <router-link to="/">
           Homepage
-        </router-link>or<router-link :to="contactUsLink">
+        </router-link>or
+        <router-link :to="contactUsLink">
           Contact Us
         </router-link>about the issue.
       </h2>

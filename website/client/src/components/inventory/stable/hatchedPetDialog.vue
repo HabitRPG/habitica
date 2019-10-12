@@ -12,23 +12,28 @@
         class="dialog-header title"
       >
         {{ $t('hatchedPetGeneric') }}
-      </div><div class="inner-content">
+      </div>
+      <div class="inner-content">
         <div class="pet-background">
           <div :class="pet.class"></div>
-        </div><h4 class="title">
+        </div>
+        <h4 class="title">
           {{ pet.name }}
-        </h4><div
+        </h4>
+        <div
           v-if="!hideText"
           v-markdown="$t('hatchedPetHowToUse', { stableUrl: '/inventory/stable' })"
           class="text"
-        ></div><button
+        ></div>
+        <button
           class="btn btn-primary"
           @click="close()"
         >
           {{ $t('onward') }}
         </button>
       </div>
-    </div><div
+    </div>
+    <div
       slot="modal-footer"
       class="clearfix"
     ></div>

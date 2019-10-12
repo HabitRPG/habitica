@@ -11,18 +11,26 @@
         class="svg-icon close"
         @click="close()"
         v-html="icons.close"
-      ></div><div class="icon-container check-container d-flex align-items-center justify-content-center">
+      ></div>
+      <div class="icon-container check-container d-flex align-items-center justify-content-center">
         <div
           v-once
           class="svg-icon check"
           v-html="icons.check"
         ></div>
       </div>
-    </div><div class="row">
+    </div>
+    <div class="row">
       <div class="col-12 modal-body-col">
-        <h2>{{ $t(isGroup ? 'canceledGroupPlan' : 'subCanceledTitle') }}</h2><div class="details-block">
-          <span>{{ $t('subWillBecomeInactive') }}<br><strong>{{ isGroup ? groupDateTerminated : dateTerminated }}</strong></span>
-        </div><span
+        <h2>{{ $t(isGroup ? 'canceledGroupPlan' : 'subCanceledTitle') }}</h2>
+        <div class="details-block">
+          <span>
+            {{ $t('subWillBecomeInactive') }}
+            <br>
+            <strong>{{ isGroup ? groupDateTerminated : dateTerminated }}</strong>
+          </span>
+        </div>
+        <span
           v-once
           class="auto-renew small-text"
         >{{ $t('paymentCanceledDisputes') }}</span>

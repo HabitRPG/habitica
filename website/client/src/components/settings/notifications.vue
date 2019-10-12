@@ -2,34 +2,60 @@
   <div class="row standard-page">
     <div class="col-12">
       <h1>{{ $t('notifications') }}</h1>
-    </div><div class="col-12">
+    </div>
+    <div class="col-12">
       <div class="checkbox">
-        <label><input
-          v-model="user.preferences.pushNotifications.unsubscribeFromAll"
-          type="checkbox"
-          @change="set('pushNotifications', 'unsubscribeFromAll')"
-        ><span>{{ $t('unsubscribeAllPush') }}</span></label>
-      </div><br><div class="checkbox">
-        <label><input
-          v-model="user.preferences.emailNotifications.unsubscribeFromAll"
-          type="checkbox"
-          @change="set('emailNotifications', 'unsubscribeFromAll')"
-        ><span>{{ $t('unsubscribeAllEmails') }}</span></label>
-      </div><small>{{ $t('unsubscribeAllEmailsText') }}</small>
-    </div><div class="col-8">
-      <table class="table"></table><tr><td></td><th><span>{{ $t('email') }}</span></th><th><span>{{ $t('push') }}</span></th></tr><tr v-for="notification in notificationsIds">
-        <td><span>{{ $t(notification) }}</span></td><td>
+        <label>
+          <input
+            v-model="user.preferences.pushNotifications.unsubscribeFromAll"
+            type="checkbox"
+            @change="set('pushNotifications', 'unsubscribeFromAll')"
+          >
+          <span>{{ $t('unsubscribeAllPush') }}</span>
+        </label>
+      </div>
+      <br>
+      <div class="checkbox">
+        <label>
+          <input
+            v-model="user.preferences.emailNotifications.unsubscribeFromAll"
+            type="checkbox"
+            @change="set('emailNotifications', 'unsubscribeFromAll')"
+          >
+          <span>{{ $t('unsubscribeAllEmails') }}</span>
+        </label>
+      </div>
+      <small>{{ $t('unsubscribeAllEmailsText') }}</small>
+    </div>
+    <div class="col-8">
+      <table class="table"></table>
+      <tr>
+        <td></td>
+        <th>
+          <span>{{ $t('email') }}</span>
+        </th>
+        <th>
+          <span>{{ $t('push') }}</span>
+        </th>
+      </tr>
+      <tr v-for="notification in notificationsIds">
+        <td>
+          <span>{{ $t(notification) }}</span>
+        </td>
+        <td>
           <input
             v-model="user.preferences.emailNotifications[notification]"
             type="checkbox"
             @change="set('emailNotifications', notification)"
           >
-        </td><td v-if="onlyEmailsIds.indexOf(notification) === -1">
+        </td>
+        <td v-if="onlyEmailsIds.indexOf(notification) === -1">
           <input
             v-model="user.preferences.pushNotifications[notification]"
             type="checkbox"
             @change="set('pushNotifications', notification)"
-          ><hr>
+          >
+          <hr>
         </td>
       </tr>
     </div>

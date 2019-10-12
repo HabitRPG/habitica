@@ -1,10 +1,12 @@
 <template>
-  <!-- @TODO: Move this to a member directory--><div>
+  <!-- @TODO: Move this to a member directory-->
+  <div>
     <remove-member-modal
       :member-to-remove="memberToRemove"
       :group-id="this.groupId"
       @member-removed="memberRemoved"
-    /><b-modal
+    />
+    <b-modal
       id="members-modal"
       :title="$t('createGuild')"
       size="md"
@@ -19,7 +21,8 @@
             <h1 v-once>
               {{ $t('members') }}
             </h1>
-          </div><div class="col-6">
+          </div>
+          <div class="col-6">
             <button
               class="close"
               type="button"
@@ -29,7 +32,8 @@
               <span aria-hidden="true">×</span>
             </button>
           </div>
-        </div><div class="row d-flex align-items-center">
+        </div>
+        <div class="row d-flex align-items-center">
           <div class="col-4">
             <input
               v-model="searchTerm"
@@ -37,7 +41,8 @@
               type="text"
               :placeholder="$t('search')"
             >
-          </div><div class="col">
+          </div>
+          <div class="col">
             <select
               class="form-control"
               @change="changeSortOption($event)"
@@ -49,7 +54,8 @@
                 {{ sortOption.text }}
               </option>
             </select>
-          </div><div class="col-3">
+          </div>
+          <div class="col-3">
             <select
               class="form-control"
               @change="changeSortDirection($event)"
@@ -63,12 +69,14 @@
             </select>
           </div>
         </div>
-      </div><div
+      </div>
+      <div
         v-if="sortDirty && group.type === 'party'"
         class="row apply-options d-flex justify-content-center"
       >
         <a @click="applySortOptions()">{{ $t('applySortToHeader') }}</a>
-      </div><div
+      </div>
+      <div
         v-if="invites.length > 0"
         class="row"
       >
@@ -79,7 +87,8 @@
             @click="viewMembers()"
           >
             {{ $t('members') }}
-          </div><div
+          </div>
+          <div
             class="nav-item"
             :class="{active: selectedPage === 'invites'}"
             @click="viewInvites()"
@@ -87,65 +96,91 @@
             {{ $t('invites') }}
           </div>
         </div>
-      </div><div v-if="selectedPage === 'members'">
+      </div>
+      <div v-if="selectedPage === 'members'">
         <div
           v-for="(member, index) in sortedMembers"
           class="row"
         >
           <div class="col-11 no-padding-left">
             <member-details :member="member" />
-          </div><div class="col-1 actions">
+          </div>
+          <div class="col-1 actions">
             <b-dropdown right="right">
               <div
                 slot="button-content"
                 class="svg-icon inline dots"
                 v-html="icons.dots"
-              ></div><b-dropdown-item @click="sendMessage(member)">
-                <span class="dropdown-icon-item"><div
-                  class="svg-icon inline"
-                  v-html="icons.messageIcon"
-                ></div><span class="text">{{ $t('sendMessage') }}</span></span>
-              </b-dropdown-item><b-dropdown-item
+              ></div>
+              <b-dropdown-item @click="sendMessage(member)">
+                <span class="dropdown-icon-item">
+                  <div
+                    class="svg-icon inline"
+                    v-html="icons.messageIcon"
+                  ></div>
+                  <span class="text">{{ $t('sendMessage') }}</span>
+                </span>
+              </b-dropdown-item>
+              <b-dropdown-item
                 v-if="shouldShowLeaderFunctions(member._id)"
                 @click="promoteToLeader(member)"
               >
-                <span class="dropdown-icon-item"><div
-                  class="svg-icon inline"
-                  v-html="icons.starIcon"
-                ></div><span class="text">{{ $t('promoteToLeader') }}</span></span>
-              </b-dropdown-item><b-dropdown-item
+                <span class="dropdown-icon-item">
+                  <div
+                    class="svg-icon inline"
+                    v-html="icons.starIcon"
+                  ></div>
+                  <span class="text">{{ $t('promoteToLeader') }}</span>
+                </span>
+              </b-dropdown-item>
+              <b-dropdown-item
                 v-if="shouldShowAddManager(member._id)"
                 @click="addManager(member._id)"
               >
-                <span class="dropdown-icon-item"><div
-                  class="svg-icon inline"
-                  v-html="icons.starIcon"
-                ></div><span class="text">{{ $t('addManager') }}</span></span>
-              </b-dropdown-item><b-dropdown-item
+                <span class="dropdown-icon-item">
+                  <div
+                    class="svg-icon inline"
+                    v-html="icons.starIcon"
+                  ></div>
+                  <span class="text">{{ $t('addManager') }}</span>
+                </span>
+              </b-dropdown-item>
+              <b-dropdown-item
                 v-if="shouldShowRemoveManager(member._id)"
                 @click="removeManager(member._id)"
               >
-                <span class="dropdown-icon-item"><div
-                  class="svg-icon inline"
-                  v-html="icons.removeIcon"
-                ></div><span class="text">{{ $t('removeManager2') }}</span></span>
-              </b-dropdown-item><b-dropdown-item
+                <span class="dropdown-icon-item">
+                  <div
+                    class="svg-icon inline"
+                    v-html="icons.removeIcon"
+                  ></div>
+                  <span class="text">{{ $t('removeManager2') }}</span>
+                </span>
+              </b-dropdown-item>
+              <b-dropdown-item
                 v-if="challengeId"
                 @click="viewProgress(member)"
               >
-                <span class="dropdown-icon-item"><span class="text">{{ $t('viewProgress') }}</span></span>
-              </b-dropdown-item><b-dropdown-item
+                <span class="dropdown-icon-item">
+                  <span class="text">{{ $t('viewProgress') }}</span>
+                </span>
+              </b-dropdown-item>
+              <b-dropdown-item
                 v-if="shouldShowLeaderFunctions(member._id)"
                 @click="removeMember(member, index)"
               >
-                <span class="dropdown-icon-item"><div
-                  class="svg-icon inline"
-                  v-html="icons.removeIcon"
-                ></div><span class="text">{{ $t('removeMember') }}</span></span>
+                <span class="dropdown-icon-item">
+                  <div
+                    class="svg-icon inline"
+                    v-html="icons.removeIcon"
+                  ></div>
+                  <span class="text">{{ $t('removeMember') }}</span>
+                </span>
               </b-dropdown-item>
             </b-dropdown>
           </div>
-        </div><div
+        </div>
+        <div
           v-if="isLoadMoreAvailable"
           class="row"
         >
@@ -157,37 +192,45 @@
               {{ $t('loadMore') }}
             </button>
           </div>
-        </div><div
+        </div>
+        <div
           v-if="members.length > 3"
           class="row gradient"
         ></div>
-      </div><div v-if="selectedPage === 'invites'">
+      </div>
+      <div v-if="selectedPage === 'invites'">
         <div
           v-for="(member, index) in invites"
           class="row"
         >
           <div class="col-11 no-padding-left">
             <member-details :member="member" />
-          </div><div class="col-1 actions">
+          </div>
+          <div class="col-1 actions">
             <b-dropdown right="right">
               <div
                 slot="button-content"
                 class="svg-icon inline dots"
                 v-html="icons.dots"
-              ></div><b-dropdown-item
+              ></div>
+              <b-dropdown-item
                 v-if="isLeader"
                 @click="removeInvite(member, index)"
               >
-                <span class="dropdown-icon-item"><div
-                  v-if="isLeader"
-                  class="svg-icon inline"
-                  v-html="icons.removeIcon"
-                ></div><span class="text">{{ $t('removeInvite') }}</span></span>
+                <span class="dropdown-icon-item">
+                  <div
+                    v-if="isLeader"
+                    class="svg-icon inline"
+                    v-html="icons.removeIcon"
+                  ></div>
+                  <span class="text">{{ $t('removeInvite') }}</span>
+                </span>
               </b-dropdown-item>
             </b-dropdown>
           </div>
         </div>
-      </div><div class="modal-footer">
+      </div>
+      <div class="modal-footer">
         <button
           class="btn btn-primary"
           @click="close()"

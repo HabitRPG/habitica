@@ -9,17 +9,21 @@
       class="badge badge-pill badge-dialog"
       :class="{'item-selected-badge': isPinned}"
       @click.prevent.stop="togglePinned()"
-    ><span
-      class="svg-icon inline color icon-10"
-      v-html="icons.pin"
-    ></span></span><div class="close">
+    >
+      <span
+        class="svg-icon inline color icon-10"
+        v-html="icons.pin"
+      ></span>
+    </span>
+    <div class="close">
       <span
         class="svg-icon inline icon-10"
         aria-hidden="true"
         @click="hideDialog()"
         v-html="icons.close"
       ></span>
-    </div><div
+    </div>
+    <div
       v-if="item != null"
       class="content"
     >
@@ -38,19 +42,23 @@
               :override-avatar-gear="getAvatarOverrides(item)"
               :sprites-margin="'0px auto 0px -24px'"
             />
-          </div><item
+          </div>
+          <item
             v-else-if="item.key != 'gem'"
             class="flat bordered-item"
             :item="item"
             :item-content-class="item.class"
             :show-popover="false"
           />
-        </slot><h4 class="title">
+        </slot>
+        <h4 class="title">
           {{ itemText }}
-        </h4><div
+        </h4>
+        <div
           class="text"
           v-html="itemNotes"
-        ></div><slot
+        ></div>
+        <slot
           name="additionalInfo"
           :item="item"
         >
@@ -60,7 +68,8 @@
             :item="item"
             :user="user"
           />
-        </slot><div
+        </slot>
+        <div
           v-if="item.value > 0"
           class="purchase-amount"
         >
@@ -69,7 +78,8 @@
             class="how-many-to-buy"
           >
             <strong>{{ $t('howManyToBuy') }}</strong>
-          </div><div v-if="showAmountToBuy(item)">
+          </div>
+          <div v-if="showAmountToBuy(item)">
             <div class="box">
               <input
                 v-model.number="selectedAmountToBuy"
@@ -77,38 +87,49 @@
                 min="0"
                 step="1"
               >
-            </div><span :class="{'notEnough': notEnoughCurrency}"><span
-              class="svg-icon inline icon-32"
-              aria-hidden="true"
-              v-html="icons[getPriceClass()]"
-            ></span><span
-              class="cost"
-              :class="getPriceClass()"
-            >{{ item.value }}</span></span>
-          </div><div v-else>
+            </div>
+            <span :class="{'notEnough': notEnoughCurrency}">
+              <span
+                class="svg-icon inline icon-32"
+                aria-hidden="true"
+                v-html="icons[getPriceClass()]"
+              ></span>
+              <span
+                class="cost"
+                :class="getPriceClass()"
+              >{{ item.value }}</span>
+            </span>
+          </div>
+          <div v-else>
             <span
               class="svg-icon inline icon-32"
               aria-hidden="true"
               v-html="icons[getPriceClass()]"
-            ></span><span
+            ></span>
+            <span
               class="cost"
               :class="getPriceClass()"
             >{{ item.value }}</span>
           </div>
-        </div><div
+        </div>
+        <div
           v-if="item.key === 'gem'"
           class="gems-left"
         >
-          <strong v-if="gemsLeft > 0">{{ gemsLeft }} {{ $t('gemsRemaining') }}</strong><strong v-if="gemsLeft === 0">{{ $t('maxBuyGems') }}</strong>
-        </div><div v-if="attemptingToPurchaseMoreGemsThanAreLeft">
+          <strong v-if="gemsLeft > 0">{{ gemsLeft }} {{ $t('gemsRemaining') }}</strong>
+          <strong v-if="gemsLeft === 0">{{ $t('maxBuyGems') }}</strong>
+        </div>
+        <div v-if="attemptingToPurchaseMoreGemsThanAreLeft">
           {{ $t('notEnoughGemsToBuy') }}
-        </div><button
+        </div>
+        <button
           v-if="getPriceClass() === 'gems' && !this.enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)"
           class="btn btn-primary"
           @click="purchaseGems()"
         >
           {{ $t('purchaseGems') }}
-        </button><button
+        </button>
+        <button
           v-else
           class="btn btn-primary"
           :disabled="item.key === 'gem' && gemsLeft === 0 || attemptingToPurchaseMoreGemsThanAreLeft || numberInvalid"
@@ -118,15 +139,18 @@
           {{ $t('buyNow') }}
         </button>
       </div>
-    </div><div
+    </div>
+    <div
       v-if="item.event && item.owned == null"
       class="limitedTime"
     >
       <span
         class="svg-icon inline icon-16 clock-icon"
         v-html="icons.clock"
-      ></span><span class="limitedString">{{ limitedString }}</span>
-    </div><div
+      ></span>
+      <span class="limitedString">{{ limitedString }}</span>
+    </div>
+    <div
       v-if="item.key === 'rebirth_orb' && item.value > 0 && user.stats.lvl >= 100"
       class="free-rebirth d-flex align-items-center"
     >
@@ -134,13 +158,16 @@
         <span
           class="svg-icon inline icon-16 mr-2 pt-015"
           v-html="icons.whiteClock"
-        ></span><span v-html="$t('nextFreeRebirth', {days: nextFreeRebirth})"></span>
+        ></span>
+        <span v-html="$t('nextFreeRebirth', {days: nextFreeRebirth})"></span>
       </div>
-    </div><div
+    </div>
+    <div
       slot="modal-footer"
       class="clearfix"
     >
-      <span class="balance float-left">{{ $t('yourBalance') }}</span><balanceInfo
+      <span class="balance float-left">{{ $t('yourBalance') }}</span>
+      <balanceInfo
         class="float-right"
         :with-hourglass="getPriceClass() === 'hourglasses'"
         :currency-needed="getPriceClass()"

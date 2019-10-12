@@ -1,53 +1,63 @@
 <template>
   <div class="standard-page">
-    <h1>{{ $t('subscription') }}</h1><div class="row">
+    <h1>{{ $t('subscription') }}</h1>
+    <div class="row">
       <div class="col-6">
-        <h2>{{ $t('benefits') }}</h2><ul>
+        <h2>{{ $t('benefits') }}</h2>
+        <ul>
           <li>
             <span
               class="hint"
               :popover="$t('buyGemsGoldText', {gemCostTranslation})"
               popover-trigger="mouseenter"
               popover-placement="right"
-            >{{ $t('buyGemsGold') }}</span><span
+            >{{ $t('buyGemsGold') }}</span>
+            <span
               v-if="subscription.key !== 'basic_earned'"
               class="badge badge-success"
             >{{ $t('buyGemsGoldCap', buyGemsGoldCap) }}</span>
-          </li><li>
+          </li>
+          <li>
             <span
               class="hint"
               :popover="$t('retainHistoryText')"
               popover-trigger="mouseenter"
               popover-placement="right"
             >{{ $t('retainHistory') }}</span>
-          </li><li>
+          </li>
+          <li>
             <span
               class="hint"
               :popover="$t('doubleDropsText')"
               popover-trigger="mouseenter"
               popover-placement="right"
             >{{ $t('doubleDrops') }}</span>
-          </li><li>
+          </li>
+          <li>
             <span
               class="hint"
               :popover="$t('mysteryItemText')"
               popover-trigger="mouseenter"
               popover-placement="right"
-            >{{ $t('mysteryItem') }}</span><div v-if="subscription.key !== 'basic_earned'">
+            >{{ $t('mysteryItem') }}</span>
+            <div v-if="subscription.key !== 'basic_earned'">
               <div class="badge badge-success">
                 {{ $t('mysticHourglass', mysticHourglass) }}
-              </div><div class="small muted">
+              </div>
+              <div class="small muted">
                 {{ $t('mysticHourglassText') }}
               </div>
             </div>
-          </li><li>
+          </li>
+          <li>
             <span
               class="hint"
               :popover="$t('exclusiveJackalopePetText')"
               popover-trigger="mouseenter"
               popover-placement="right"
             >{{ $t('exclusiveJackalopePet') }}</span>
-          </li><li>
+          </li>
+          <li>
             <span
               class="hint"
               :popover="$t('supportDevsText')"
@@ -56,49 +66,78 @@
             >{{ $t('supportDevs') }}</span>
           </li>
         </ul>
-      </div><div class="col-6">
-        <h2>Plan</h2><table
+      </div>
+      <div class="col-6">
+        <h2>Plan</h2>
+        <table
           v-if="hasSubscription"
           class="table alert alert-info"
         >
           <tr v-if="hasCanceledSubscription">
             <td class="alert alert-warning">
-              <span class="noninteractive-button btn-danger">{{ $t('canceledSubscription') }}</span><i class="glyphicon glyphicon-time"></i> {{ $t('subCanceled') }} &nbsp;<strong>{{ dateTerminated }}</strong>
+              <span class="noninteractive-button btn-danger">{{ $t('canceledSubscription') }}</span>
+              <i class="glyphicon glyphicon-time"></i>
+              {{ $t('subCanceled') }} &nbsp;
+              <strong>{{ dateTerminated }}</strong>
             </td>
-          </tr><tr v-if="!hasCanceledSubscription">
+          </tr>
+          <tr v-if="!hasCanceledSubscription">
             <td>
-              <h4>{{ $t('subscribed') }}</h4><p v-if="hasPlan && !hasGroupPlan">
+              <h4>{{ $t('subscribed') }}</h4>
+              <p v-if="hasPlan && !hasGroupPlan">
                 {{ $t('purchasedPlanId', purchasedPlanIdInfo) }}
-              </p><p v-if="hasGroupPlan">
+              </p>
+              <p v-if="hasGroupPlan">
                 {{ $t('youHaveGroupPlan') }}
               </p>
             </td>
-          </tr><tr v-if="user.purchased.plan.extraMonths">
-            <td><span class="glyphicon glyphicon-credit-card"></span>&nbsp; {{ $t('purchasedPlanExtraMonths', purchasedPlanExtraMonthsDetails) }}</td>
-          </tr><tr v-if="hasConsecutiveSubscription">
+          </tr>
+          <tr v-if="user.purchased.plan.extraMonths">
             <td>
-              <span class="glyphicon glyphicon-forward"></span>&nbsp; {{ $t('consecutiveSubscription') }}<ul class="list-unstyled">
-                <li>{{ $t('consecutiveMonths') }} {{ user.purchased.plan.consecutive.count + user.purchased.plan.consecutive.offset }}</li><li>{{ $t('gemCapExtra') }} {{ user.purchased.plan.consecutive.gemCapExtra }}</li><li>{{ $t('mysticHourglasses') }} {{ user.purchased.plan.consecutive.trinkets }}</li>
+              <span class="glyphicon glyphicon-credit-card"></span>
+              &nbsp; {{ $t('purchasedPlanExtraMonths', purchasedPlanExtraMonthsDetails) }}
+            </td>
+          </tr>
+          <tr v-if="hasConsecutiveSubscription">
+            <td>
+              <span class="glyphicon glyphicon-forward"></span>
+              &nbsp; {{ $t('consecutiveSubscription') }}
+              <ul class="list-unstyled">
+                <li>{{ $t('consecutiveMonths') }} {{ user.purchased.plan.consecutive.count + user.purchased.plan.consecutive.offset }}</li>
+                <li>{{ $t('gemCapExtra') }} {{ user.purchased.plan.consecutive.gemCapExtra }}</li>
+                <li>{{ $t('mysticHourglasses') }} {{ user.purchased.plan.consecutive.trinkets }}</li>
               </ul>
             </td>
           </tr>
-        </table><div v-if="!hasSubscription || hasCanceledSubscription">
+        </table>
+        <div v-if="!hasSubscription || hasCanceledSubscription">
           <h4 v-if="hasCanceledSubscription">
             {{ $t("resubscribe") }}
-          </h4><div class="form-group reduce-top-margin">
+          </h4>
+          <div class="form-group reduce-top-margin">
             <div
               v-for="block in subscriptionBlocksOrdered"
               v-if="block.target !== 'group' && block.canSubscribe === true"
               class="radio"
             >
-              <label><input
-                v-model="subscription.key"
-                type="radio"
-                name="subRadio"
-                :value="block.key"
-              ><span v-if="block.original"><span class="label label-success line-through">${{ block.original }}</span>{{ $t('subscriptionRateText', {price: block.price, months: block.months}) }}</span><span v-if="!block.original">{{ $t('subscriptionRateText', {price: block.price, months: block.months}) }}</span></label>
+              <label>
+                <input
+                  v-model="subscription.key"
+                  type="radio"
+                  name="subRadio"
+                  :value="block.key"
+                >
+                <span v-if="block.original">
+                  <span class="label label-success line-through">${{ block.original }}</span>
+                  {{ $t('subscriptionRateText', {price: block.price, months: block.months}) }}
+                </span>
+                <span
+                  v-if="!block.original"
+                >{{ $t('subscriptionRateText', {price: block.price, months: block.months}) }}</span>
+              </label>
             </div>
-          </div><div class="form-inline">
+          </div>
+          <div class="form-inline">
             <div class="form-group">
               <input
                 v-model="subscription.coupon"
@@ -106,7 +145,8 @@
                 type="text"
                 :placeholder="$t('couponPlaceholder')"
               >
-            </div><div class="form-group">
+            </div>
+            <div class="form-group">
               <button
                 class="btn btn-primary"
                 type="button"
@@ -116,28 +156,33 @@
               </button>
             </div>
           </div>
-        </div><div v-if="hasSubscription">
+        </div>
+        <div v-if="hasSubscription">
           <div
             v-if="canEditCardDetails"
             class="btn btn-primary"
             @click="showStripeEdit()"
           >
             {{ $t('subUpdateCard') }}
-          </div><div
+          </div>
+          <div
             v-if="canCancelSubscription && !loading"
             class="btn btn-sm btn-danger"
             @click="cancelSubscriptionConfirm()"
           >
             {{ $t('cancelSub') }}
-          </div><small
+          </div>
+          <small
             v-if="!canCancelSubscription && !hasCanceledSubscription"
             v-html="getCancelSubInfo()"
           ></small>
-        </div><div
+        </div>
+        <div
           v-if="!hasSubscription || hasCanceledSubscription"
           class="subscribe-pay"
         >
-          <h3>{{ $t('subscribeUsing') }}</h3><div class="payments-column">
+          <h3>{{ $t('subscribeUsing') }}</h3>
+          <div class="payments-column">
             <button
               class="purchase btn btn-primary payment-button payment-item"
               :disabled="!subscription.key"
@@ -146,36 +191,45 @@
               <div
                 class="svg-icon credit-card-icon"
                 v-html="icons.creditCardIcon"
-              ></div>{{ $t('card') }}
-            </button><button
+              ></div>
+              {{ $t('card') }}
+            </button>
+            <button
               class="btn payment-item paypal-checkout payment-button"
               :disabled="!subscription.key"
               @click="openPaypal(paypalPurchaseLink, 'subscription')"
             >
-              &nbsp;<img
+              &nbsp;
+              <img
                 src="~@/assets/images/paypal-checkout.png"
                 :alt="$t('paypal')"
               >&nbsp;
-            </button><amazon-button
+            </button>
+            <amazon-button
               class="payment-item"
               :amazon-data="{type: 'subscription', subscription: this.subscription.key, coupon: this.subscription.coupon}"
             />
           </div>
         </div>
       </div>
-    </div><div class="row">
+    </div>
+    <div class="row">
       <div class="col-6">
         <h2 v-once>
           {{ $t('giftSubscription') }}
-        </h2><ol>
+        </h2>
+        <ol>
           <li v-once>
             {{ $t('giftSubscriptionText1') }}
-          </li><li v-once>
+          </li>
+          <li v-once>
             {{ $t('giftSubscriptionText2') }}
-          </li><li v-once>
+          </li>
+          <li v-once>
             {{ $t('giftSubscriptionText3') }}
           </li>
-        </ol><h4 v-once>
+        </ol>
+        <h4 v-once>
           {{ $t('giftSubscriptionText4') }}
         </h4>
       </div>

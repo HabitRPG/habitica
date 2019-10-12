@@ -6,7 +6,8 @@
         v-model="isChecked"
         class="custom-control-input"
         type="checkbox"
-      ><label
+      >
+      <label
         v-once
         class="custom-control-label"
         :for="id"

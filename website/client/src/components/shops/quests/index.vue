@@ -8,10 +8,12 @@
           type="text"
           :placeholder="$t('search')"
         >
-      </div><div class="form">
+      </div>
+      <div class="form">
         <h2 v-once>
           {{ $t('filter') }}
-        </h2><div class="form-group">
+        </h2>
+        <div class="form-group">
           <div
             v-for="category in categories"
             :key="category.identifier"
@@ -23,52 +25,65 @@
                 v-model="viewOptions[category.identifier].selected"
                 class="custom-control-input"
                 type="checkbox"
-              ><label
+              >
+              <label
                 v-once
                 class="custom-control-label"
                 :for="`category-${category.identifier}`"
               >{{ category.text }}</label>
             </div>
           </div>
-        </div><div class="form-group clearfix">
+        </div>
+        <div class="form-group clearfix">
           <h3
             v-once
             class="float-left"
           >
             {{ $t('hideLocked') }}
-          </h3><toggle-switch
+          </h3>
+          <toggle-switch
             v-model="hideLocked"
             class="float-right"
           />
-        </div><div class="form-group clearfix">
+        </div>
+        <div class="form-group clearfix">
           <h3
             v-once
             class="float-left"
           >
             {{ $t('hidePinned') }}
-          </h3><toggle-switch
+          </h3>
+          <toggle-switch
             v-model="hidePinned"
             class="float-right"
           />
         </div>
       </div>
-    </div><div class="standard-page">
+    </div>
+    <div class="standard-page">
       <div class="featuredItems">
         <div
           class="background"
           :class="{broken: broken}"
-        ></div><div
+        ></div>
+        <div
           class="background"
           :class="{cracked: broken, broken: broken}"
         >
           <div class="npc">
             <div class="featured-label">
-              <span class="rectangle"></span><span class="text">Ian</span><span class="rectangle"></span>
+              <span class="rectangle"></span>
+              <span class="text">Ian</span>
+              <span class="rectangle"></span>
             </div>
-          </div><div class="content">
+          </div>
+          <div class="content">
             <div class="featured-label with-border">
-              <span class="rectangle"></span><span class="text">{{ shop.featured.text }}</span><span class="rectangle"></span>
-            </div><div class="items margin-center">
+              <span class="rectangle"></span>
+              <span class="text">{{ shop.featured.text }}</span>
+              <span class="rectangle"></span>
+            </div>
+            <div class="items margin-center">
               <shopItem
                 v-for="item in shop.featured.items"
                 :key="item.key"
@@ -88,23 +103,28 @@
                     class="badge badge-pill badge-item badge-svg"
                     :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}"
                     @click.prevent.stop="togglePinned(ctx.item)"
-                  ><span
-                    class="svg-icon inline icon-12 color"
-                    v-html="icons.pin"
-                  ></span></span>
+                  >
+                    <span
+                      class="svg-icon inline icon-12 color"
+                      v-html="icons.pin"
+                    ></span>
+                  </span>
                 </template>
               </shopItem>
             </div>
           </div>
         </div>
-      </div><h1
+      </div>
+      <h1
         v-once
         class="mb-4 page-header"
       >
         {{ $t('quests') }}
-      </h1><div class="clearfix">
+      </h1>
+      <div class="clearfix">
         <div class="float-right">
-          <span class="dropdown-label">{{ $t('sortBy') }}</span><b-dropdown
+          <span class="dropdown-label">{{ $t('sortBy') }}</span>
+          <b-dropdown
             :text="$t(selectedSortItemsBy)"
             right="right"
           >
@@ -118,13 +138,15 @@
             </b-dropdown-item>
           </b-dropdown>
         </div>
-      </div><div
+      </div>
+      <div
         v-for="category in categories"
         v-if="!anyFilterSelected || viewOptions[category.identifier].selected"
       >
         <h2 class="mb-3">
           {{ category.text }}
-        </h2><itemRows
+        </h2>
+        <itemRows
           v-if="category.identifier === 'pet'"
           :items="questItems(category, selectedSortItemsBy, searchTextThrottled, hideLocked, hidePinned)"
           :item-width="94"
@@ -147,7 +169,13 @@
               <span
                 slot="popoverContent"
                 slot-scope="ctx"
-              ><div class="questPopover"><h4 class="popover-content-title">{{ ctx.item.text }}</h4><questInfo :quest="ctx.item" /></div></span><template
+              >
+                <div class="questPopover">
+                  <h4 class="popover-content-title">{{ ctx.item.text }}</h4>
+                  <questInfo :quest="ctx.item" />
+                </div>
+              </span>
+              <template
                 slot="itemBadge"
                 slot-scope="ctx"
               >
@@ -155,17 +183,21 @@
                   class="badge badge-pill badge-item badge-svg"
                   :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}"
                   @click.prevent.stop="togglePinned(ctx.item)"
-                ><span
-                  class="svg-icon inline icon-12 color"
-                  v-html="icons.pin"
-                ></span></span><countBadge
+                >
+                  <span
+                    class="svg-icon inline icon-12 color"
+                    v-html="icons.pin"
+                  ></span>
+                </span>
+                <countBadge
                   :show="userItems.quests[ctx.item.key] > 0"
                   :count="userItems.quests[ctx.item.key] || 0"
                 />
               </template>
             </shopItem>
           </template>
-        </itemRows><div
+        </itemRows>
+        <div
           v-else-if="category.identifier === 'unlockable' || category.identifier === 'gold'"
           class="grouped-parent"
         >
@@ -174,7 +206,8 @@
             v-if="key !== 'questGroupEarnable'"
             class="group"
           >
-            <h3>{{ $t(key) }}</h3><div class="items">
+            <h3>{{ $t(key) }}</h3>
+            <div class="items">
               <shopItem
                 v-for="item in items"
                 :key="item.key"
@@ -184,28 +217,40 @@
                 :popover-position="'top'"
                 @click="selectItem(item)"
               >
-                <span slot="popoverContent"><div class="questPopover"><div></div><h4
-                  v-if="item.locked"
-                  class="popover-content-title"
-                >{{ `${$t('lockedItem')}` }}</h4><h4
-                  v-else
-                  class="popover-content-title"
-                >{{ item.text }}</h4><div
-                  v-if="item.locked && item.key === 'lostMasterclasser1'"
-                  class="popover-content-text"
-                >{{ `${$t('questUnlockLostMasterclasser')}` }}</div><div
-                  v-if="item.locked && item.unlockCondition && item.unlockCondition.incentiveThreshold"
-                  class="popover-content-text"
-                >{{ `${$t('loginIncentiveQuest', {count: item.unlockCondition.incentiveThreshold})}` }}</div><div
-                  v-if="item.locked && item.previous && isBuyingDependentOnPrevious(item)"
-                  class="popover-content-text"
-                >{{ `${$t('unlockByQuesting', {title: item.previous})}` }}</div><div
-                  v-if="item.lvl > user.stats.lvl"
-                  class="popover-content-text"
-                >{{ `${$t('mustLvlQuest', {level: item.lvl})}` }}</div><questInfo
-                  v-if="!item.locked"
-                  :quest="item"
-                /></div></span><template
+                <span slot="popoverContent">
+                  <div class="questPopover">
+                    <div></div>
+                    <h4
+                      v-if="item.locked"
+                      class="popover-content-title"
+                    >{{ `${$t('lockedItem')}` }}</h4>
+                    <h4
+                      v-else
+                      class="popover-content-title"
+                    >{{ item.text }}</h4>
+                    <div
+                      v-if="item.locked && item.key === 'lostMasterclasser1'"
+                      class="popover-content-text"
+                    >{{ `${$t('questUnlockLostMasterclasser')}` }}</div>
+                    <div
+                      v-if="item.locked && item.unlockCondition && item.unlockCondition.incentiveThreshold"
+                      class="popover-content-text"
+                    >{{ `${$t('loginIncentiveQuest', {count: item.unlockCondition.incentiveThreshold})}` }}</div>
+                    <div
+                      v-if="item.locked && item.previous && isBuyingDependentOnPrevious(item)"
+                      class="popover-content-text"
+                    >{{ `${$t('unlockByQuesting', {title: item.previous})}` }}</div>
+                    <div
+                      v-if="item.lvl > user.stats.lvl"
+                      class="popover-content-text"
+                    >{{ `${$t('mustLvlQuest', {level: item.lvl})}` }}</div>
+                    <questInfo
+                      v-if="!item.locked"
+                      :quest="item"
+                    />
+                  </div>
+                </span>
+                <template
                   slot="itemBadge"
                   slot-scope="ctx"
                 >
@@ -213,10 +258,13 @@
                     class="badge badge-pill badge-item badge-svg"
                     :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}"
                     @click.prevent.stop="togglePinned(ctx.item)"
-                  ><span
-                    class="svg-icon inline icon-12 color"
-                    v-html="icons.pin"
-                  ></span></span><countBadge
+                  >
+                    <span
+                      class="svg-icon inline icon-12 color"
+                      v-html="icons.pin"
+                    ></span>
+                  </span>
+                  <countBadge
                     :show="userItems.quests[ctx.item.key] > 0"
                     :count="userItems.quests[ctx.item.key] || 0"
                   />
@@ -224,7 +272,8 @@
               </shopItem>
             </div>
           </div>
-        </div><div
+        </div>
+        <div
           v-else
           class="items"
         >
@@ -237,7 +286,13 @@
             :popover-position="'top'"
             @click="selectItem(item)"
           >
-            <span slot="popoverContent"><div class="questPopover"><h4 class="popover-content-title">{{ item.text }}</h4><questInfo :quest="item" /></div></span><template
+            <span slot="popoverContent">
+              <div class="questPopover">
+                <h4 class="popover-content-title">{{ item.text }}</h4>
+                <questInfo :quest="item" />
+              </div>
+            </span>
+            <template
               slot="itemBadge"
               slot-scope="ctx"
             >
@@ -245,10 +300,13 @@
                 class="badge badge-pill badge-item badge-svg"
                 :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}"
                 @click.prevent.stop="togglePinned(ctx.item)"
-              ><span
-                class="svg-icon inline icon-12 color"
-                v-html="icons.pin"
-              ></span></span><countBadge
+              >
+                <span
+                  class="svg-icon inline icon-12 color"
+                  v-html="icons.pin"
+                ></span>
+              </span>
+              <countBadge
                 :show="userItems.quests[ctx.item.key] > 0"
                 :count="userItems.quests[ctx.item.key] || 0"
               />
@@ -256,7 +314,8 @@
           </shopItem>
         </div>
       </div>
-    </div><buyModal
+    </div>
+    <buyModal
       :item="selectedItemToBuy || {}"
       :price-type="selectedItemToBuy ? selectedItemToBuy.currency : ''"
       :with-pin="true"

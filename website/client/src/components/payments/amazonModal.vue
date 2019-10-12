@@ -7,16 +7,21 @@
   >
     <h2 class="text-center">
       Continue with Amazon
-    </h2><div
+    </h2>
+    <div
       v-if="amazonPayments.loggedIn"
       id="AmazonPayWallet"
       style="width: 400px; height: 228px;"
-    ></div><template v-if="amazonPayments.loggedIn && amazonPayments.type === 'subscription'">
-      <br><p v-html="$t('amazonPaymentsRecurring')"></p><div
+    ></div>
+    <template v-if="amazonPayments.loggedIn && amazonPayments.type === 'subscription'">
+      <br>
+      <p v-html="$t('amazonPaymentsRecurring')"></p>
+      <div
         id="AmazonPayRecurring"
         style="width: 400px; height: 140px;"
       ></div>
-    </template><div class="modal-footer">
+    </template>
+    <div class="modal-footer">
       <div class="text-center">
         <button
           v-if="amazonPaymentsCanCheckout"

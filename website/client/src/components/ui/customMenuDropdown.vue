@@ -14,7 +14,8 @@ A simplified dropdown component that doesn't rely on buttons as toggles  like bo
   >
     <div class="habitica-menu-dropdown-toggle">
       <slot name="dropdown-toggle"></slot>
-    </div><div
+    </div>
+    <div
       class="dropdown-menu"
       :class="{'dropdown-menu-right': right}"
     >

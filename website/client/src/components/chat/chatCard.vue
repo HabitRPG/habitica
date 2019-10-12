@@ -3,37 +3,49 @@
     <div
       v-if="isUserMentioned"
       class="mentioned-icon"
-    ></div><div
+    ></div>
+    <div
       v-if="!inbox && user.contributor.admin && msg.flagCount"
       class="message-hidden"
     >
       {{ flagCountDescription }}
-    </div><div class="card-body">
+    </div>
+    <div class="card-body">
       <user-link
         :user-id="msg.uuid"
         :name="msg.user"
         :backer="msg.backer"
         :contributor="msg.contributor"
-      /><p class="time">
+      />
+      <p class="time">
         <span
           v-if="msg.username"
           class="mr-1"
-        >@{{ msg.username }}</span><span
+        >@{{ msg.username }}</span>
+        <span
           v-if="msg.username"
           class="mr-1"
-        >•</span><span
-          v-b-tooltip=""
+        >•</span>
+        <span
+          v-b-tooltip
           :title="msg.timestamp | date"
-        >{{ msg.timestamp | timeAgo }}&nbsp;</span><span v-if="msg.client && user.contributor.level >= 4"> ({{ msg.client }})</span>
-      </p><div
+        >{{ msg.timestamp | timeAgo }}&nbsp;</span>
+        <span v-if="msg.client && user.contributor.level >= 4">({{ msg.client }})</span>
+      </p>
+      <div
         class="text"
         v-html="atHighlight(parseMarkdown(msg.text))"
-      ></div><div
+      ></div>
+      <div
         v-if="isMessageReported && (inbox === true)"
         class="reported"
       >
-        <span v-once>{{ $t('reportedMessage') }}</span><br><span v-once>{{ $t('canDeleteNow') }}</span>
-      </div><hr><div
+        <span v-once>{{ $t('reportedMessage') }}</span>
+        <br>
+        <span v-once>{{ $t('canDeleteNow') }}</span>
+      </div>
+      <hr>
+      <div
         v-if="msg.id"
         class="d-flex"
       >
@@ -45,8 +57,10 @@
           <div
             class="svg-icon"
             v-html="icons.copy"
-          ></div><div>{{ $t('copyAsTodo') }}</div>
-        </div><div
+          ></div>
+          <div>{{ $t('copyAsTodo') }}</div>
+        </div>
+        <div
           v-if="(inbox || (user.flags.communityGuidelinesAccepted && msg.uuid !== 'system')) && (!isMessageReported || user.contributor.admin)"
           class="action d-flex align-items-center"
           @click="report(msg)"
@@ -55,10 +69,12 @@
             v-once
             class="svg-icon"
             v-html="icons.report"
-          ></div><div v-once>
+          ></div>
+          <div v-once>
             {{ $t('report') }}
           </div>
-        </div><div
+        </div>
+        <div
           v-if="msg.uuid === user._id || inbox || user.contributor.admin"
           class="action d-flex align-items-center"
           @click="remove()"
@@ -67,10 +83,12 @@
             v-once
             class="svg-icon"
             v-html="icons.delete"
-          ></div><div v-once>
+          ></div>
+          <div v-once>
             {{ $t('delete') }}
           </div>
-        </div><div
+        </div>
+        <div
           v-if="!inbox"
           v-b-tooltip="{title: likeTooltip(msg.likes[user._id])}"
           class="ml-auto d-flex"
@@ -85,8 +103,10 @@
               class="svg-icon"
               :title="$t('liked')"
               v-html="icons.liked"
-            ></div>+{{ likeCount }}
-          </div><div
+            ></div>
+            +{{ likeCount }}
+          </div>
+          <div
             v-if="likeCount === 0"
             class="action d-flex align-items-center mr-0"
             :class="{activeLike: msg.likes[user._id]}"
@@ -98,7 +118,8 @@
               v-html="icons.like"
             ></div>
           </div>
-        </div><span v-if="!msg.likes[user._id] && !inbox">{{ $t('like') }}</span>
+        </div>
+        <span v-if="!msg.likes[user._id] && !inbox">{{ $t('like') }}</span>
       </div>
     </div>
   </div>

@@ -15,7 +15,8 @@
             <h1 v-once>
               {{ $t('selectPartyMember') }}
             </h1>
-          </div><div class="col-6">
+          </div>
+          <div class="col-6">
             <button
               class="close"
               type="button"
@@ -25,7 +26,8 @@
               <span aria-hidden="true">×</span>
             </button>
           </div>
-        </div><div class="row">
+        </div>
+        <div class="row">
           <div class="form-group col-6">
             <input
               v-model="searchTerm"
@@ -33,8 +35,10 @@
               type="text"
               :placeholder="$t('search')"
             >
-          </div><div class="col-4 offset-2">
-            <span class="dropdown-label">{{ $t('sortBy') }}</span><b-dropdown
+          </div>
+          <div class="col-4 offset-2">
+            <span class="dropdown-label">{{ $t('sortBy') }}</span>
+            <b-dropdown
               :text="$t('sort')"
               right="right"
             >
@@ -48,13 +52,15 @@
             </b-dropdown>
           </div>
         </div>
-      </div><div
+      </div>
+      <div
         v-for="member in sortedMembers"
         class="row"
       >
         <div class="col-10">
           <member-details :member="member" />
-        </div><div class="col-2 actions">
+        </div>
+        <div class="col-2 actions">
           <button
             class="btn btn-primary"
             @click="selectMember(member)"
@@ -62,7 +68,8 @@
             {{ $t('select') }}
           </button>
         </div>
-      </div><div
+      </div>
+      <div
         v-if="members.length > 3"
         class="row gradient"
       ></div>

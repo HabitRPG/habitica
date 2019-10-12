@@ -3,18 +3,25 @@
     <div
       class="background"
       :class="{broken: broken}"
-    ></div><div
+    ></div>
+    <div
       class="background"
       :class="{cracked: broken, broken: broken}"
     >
       <div class="npc">
         <div class="featured-label">
-          <span class="rectangle"></span><span class="text">{{ npcName }}</span><span class="rectangle"></span>
+          <span class="rectangle"></span>
+          <span class="text">{{ npcName }}</span>
+          <span class="rectangle"></span>
         </div>
-      </div><div class="content">
+      </div>
+      <div class="content">
         <div class="featured-label with-border">
-          <span class="rectangle"></span><span class="text">{{ featuredText }}</span><span class="rectangle"></span>
-        </div><div class="items margin-center">
+          <span class="rectangle"></span>
+          <span class="text">{{ featuredText }}</span>
+          <span class="rectangle"></span>
+        </div>
+        <div class="items margin-center">
           <shopItem
             v-for="item in featuredItems"
             :key="item.key"
@@ -33,10 +40,12 @@
                 class="badge badge-pill badge-item badge-svg"
                 :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}"
                 @click.prevent.stop="togglePinned(ctx.item)"
-              ><span
-                class="svg-icon inline icon-12 color"
-                v-html="icons.pin"
-              ></span></span>
+              >
+                <span
+                  class="svg-icon inline icon-12 color"
+                  v-html="icons.pin"
+                ></span>
+              </span>
             </template>
           </shopItem>
         </div>

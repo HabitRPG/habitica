@@ -3,7 +3,12 @@
     id="front"
     class="static-view"
   >
-    <noscript class="banner">{{ $t('jsDisabledHeadingFull') }}<br/><a href="http://www.enable-javascript.com/" target="_blank">{{ $t('jsDisabledLink') }}</a></noscript><div
+    <noscript class="banner">
+      {{ $t('jsDisabledHeadingFull') }}
+      <br />
+      <a href="http://www.enable-javascript.com/" target="_blank">{{ $t('jsDisabledLink') }}</a>
+    </noscript>
+    <div
       id="intro-signup"
       class="purple-1"
     >
@@ -13,13 +18,17 @@
             <img
               src="~@/assets/images/home/home-main@3x.png"
               width="357px"
-            ><h1>{{ $t('motivateYourself') }}</h1><p class="section-main">
+            >
+            <h1>{{ $t('motivateYourself') }}</h1>
+            <p class="section-main">
               {{ $t('timeToGetThingsDone', {userCountInMillions}) }}
             </p>
-          </div><div class="col-12 col-md-6 col-lg-6">
+          </div>
+          <div class="col-12 col-md-6 col-lg-6">
             <h3 class="text-center">
               {{ $t('singUpForFree') }}
-            </h3><div class="text-center">
+            </h3>
+            <div class="text-center">
               <button
                 class="social-button"
                 @click="socialAuth('facebook')"
@@ -27,66 +36,79 @@
                 <div
                   class="svg-icon social-icon"
                   v-html="icons.facebookIcon"
-                ></div><span>{{ $t('signUpWithSocial', {social: 'Facebook'}) }}</span>
-              </button><button
+                ></div>
+                <span>{{ $t('signUpWithSocial', {social: 'Facebook'}) }}</span>
+              </button>
+              <button
                 class="social-button"
                 @click="socialAuth('google')"
               >
                 <div
                   class="svg-icon social-icon"
                   v-html="icons.googleIcon"
-                ></div><span>{{ $t('signUpWithSocial', {social: 'Google'}) }}</span>
+                ></div>
+                <span>{{ $t('signUpWithSocial', {social: 'Google'}) }}</span>
               </button>
-            </div><div class="strike">
+            </div>
+            <div class="strike">
               <span>{{ $t('or') }}</span>
-            </div><div
+            </div>
+            <div
               class="form"
               @keyup.enter="register()"
             >
               <p class="form-text">
                 {{ $t('usernameLimitations') }}
-              </p><input
+              </p>
+              <input
                 id="usernameInput"
                 v-model="username"
                 class="form-control"
                 type="text"
                 :placeholder="$t('username')"
                 :class="{'input-valid': usernameValid, 'input-invalid': usernameInvalid}"
-              ><div
+              >
+              <div
                 v-for="issue in usernameIssues"
                 class="input-error"
               >
                 {{ issue }}
-              </div><input
+              </div>
+              <input
                 v-model="email"
                 class="form-control"
                 type="email"
                 :placeholder="$t('email')"
                 :class="{'input-invalid': emailInvalid, 'input-valid': emailValid}"
-              ><input
+              >
+              <input
                 v-model="password"
                 class="form-control"
                 type="password"
                 :placeholder="$t('password')"
                 :class="{'input-valid': password.length > 3}"
-              ><input
+              >
+              <input
                 v-model="passwordConfirm"
                 class="form-control"
                 type="password"
                 :placeholder="$t('confirmPassword')"
                 :class="{'input-invalid': passwordConfirmInvalid, 'input-valid': passwordConfirmValid}"
-              ><p
+              >
+              <p
                 v-once
                 class="form-text"
                 v-html="$t('termsAndAgreement')"
-              ></p><button
+              ></p>
+              <button
                 class="sign-up"
                 @click="register()"
               >
                 {{ $t('signup') }}
               </button>
             </div>
-          </div><div class="col-12">
+          </div>
+          <div class="col-12">
             <div
               class="spacer svg-icon"
               v-html="icons.spacer"
@@ -94,7 +116,8 @@
           </div>
         </div>
       </div>
-    </div><div
+    </div>
+    <div
       id="gamify-life"
       class="purple-2"
     >
@@ -103,42 +126,55 @@
           class="pixel-horizontal svg-icon"
           v-html="icons.pixelHorizontal"
         ></div>
-      </div><div class="container">
+      </div>
+      <div class="container">
         <div class="row">
           <div class="col-12 col-sm-6 col-md-6 col-lg-6 offset-sm-3 text-center">
-            <h2>{{ $t('gamifyYourLife') }}</h2><p class="section-main">
+            <h2>{{ $t('gamifyYourLife') }}</h2>
+            <p class="section-main">
               {{ $t('aboutHabitica') }}
             </p>
           </div>
-        </div><div class="row">
+        </div>
+        <div class="row">
           <div class="col-12 col-md-4">
             <img
               class="track-habits"
               src="~@/assets/images/home/track-habits@3x.png"
               width="354px"
               height="228px"
-            ><strong>{{ $t('trackYourGoals') }}</strong><p>{{ $t('trackYourGoalsDesc') }}</p>
-          </div><div class="col-12 col-md-4">
+            >
+            <strong>{{ $t('trackYourGoals') }}</strong>
+            <p>{{ $t('trackYourGoalsDesc') }}</p>
+          </div>
+          <div class="col-12 col-md-4">
             <img
               src="~@/assets/images/home/earn-rewards@3x.png"
               width="316px"
               height="244px"
-            ><strong>{{ $t('earnRewards') }}</strong><p>{{ $t('earnRewardsDesc') }}</p>
-          </div><div class="col-12 col-md-4">
+            >
+            <strong>{{ $t('earnRewards') }}</strong>
+            <p>{{ $t('earnRewardsDesc') }}</p>
+          </div>
+          <div class="col-12 col-md-4">
             <img
               src="~@/assets/images/home/battle-monsters@3x.png"
               width="303px"
               height="244px"
-            ><strong>{{ $t('battleMonsters') }}</strong><p>{{ $t('battleMonstersDesc') }}</p>
+            >
+            <strong>{{ $t('battleMonsters') }}</strong>
+            <p>{{ $t('battleMonstersDesc') }}</p>
           </div>
         </div>
-      </div><div class="col-12">
+      </div>
+      <div class="col-12">
         <div
           class="spacer svg-icon"
           v-html="icons.spacer"
         ></div>
       </div>
-    </div><div
+    </div>
+    <div
       id="use-cases"
       class="purple-2"
     >
@@ -147,39 +183,51 @@
           <div class="col-12">
             <h2>{{ $t('playersUseToImprove') }}</h2>
           </div>
-        </div><div class="row">
+        </div>
+        <div class="row">
           <div class="col-12 col-sm-4">
             <img
               src="~@/assets/images/home/health-fitness@3x.png"
               width="300px"
               height="300px"
-            ><strong>{{ $t('healthAndFitness') }}</strong><p>{{ $t('healthAndFitnessDesc') }}</p>
-          </div><div class="col-12 col-sm-4">
+            >
+            <strong>{{ $t('healthAndFitness') }}</strong>
+            <p>{{ $t('healthAndFitnessDesc') }}</p>
+          </div>
+          <div class="col-12 col-sm-4">
             <img
               src="~@/assets/images/home/school-work@3x.png"
               width="300px"
               height="300px"
-            ><strong>{{ $t('schoolAndWork') }}</strong><p>{{ $t('schoolAndWorkDesc') }}</p>
-          </div><div class="col-12 col-sm-4">
+            >
+            <strong>{{ $t('schoolAndWork') }}</strong>
+            <p>{{ $t('schoolAndWorkDesc') }}</p>
+          </div>
+          <div class="col-12 col-sm-4">
             <img
               src="~@/assets/images/home/much-more@3x.png"
               width="300px"
               height="300px"
-            ><strong>{{ $t('muchmuchMore') }}</strong><p>{{ $t('muchmuchMoreDesc') }}</p>
+            >
+            <strong>{{ $t('muchmuchMore') }}</strong>
+            <p>{{ $t('muchmuchMoreDesc') }}</p>
           </div>
         </div>
-      </div><div class="col-12">
+      </div>
+      <div class="col-12">
         <div
           class="spacer svg-icon"
           v-html="icons.spacer"
         ></div>
-      </div><div class="container-fluid">
+      </div>
+      <div class="container-fluid">
         <div
           class="pixel-horizontal-2 svg-icon"
           v-html="icons.pixelHorizontal2"
         ></div>
       </div>
-    </div><div
+    </div>
+    <div
       id="level-up-anywhere"
       class="purple-3"
     >
@@ -187,13 +235,17 @@
         <div class="row">
           <div class="col-12 col-md-6 col-lg-6">
             <div class="iphones"></div>
-          </div><div class="col-12 col-md-6 col-lg-6 text-column">
-            <h2>{{ $t('levelUpAnywhere') }}</h2><p>{{ $t('levelUpAnywhereDesc') }}</p><a
+          </div>
+          <div class="col-12 col-md-6 col-lg-6 text-column">
+            <h2>{{ $t('levelUpAnywhere') }}</h2>
+            <p>{{ $t('levelUpAnywhereDesc') }}</p>
+            <a
               class="app svg-icon"
               href="https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica"
               target="_blank"
               v-html="icons.googlePlay"
-            ></a><a
+            ></a>
+            <a
               class="app svg-icon"
               href="https://itunes.apple.com/us/app/habitica-gamified-task-manager/id994882113?mt=8"
               target="_blank"
@@ -201,13 +253,15 @@
             ></a>
           </div>
         </div>
-      </div><div class="container-fluid">
+      </div>
+      <div class="container-fluid">
         <div
           class="pixel-horizontal-3 svg-icon"
           v-html="icons.pixelHorizontal3"
         ></div>
       </div>
-    </div><div
+    </div>
+    <div
       id="call-to-action"
       class="purple-4"
     >
@@ -216,7 +270,8 @@
           <h3 class="col-12">
             {{ $t('joinMany') }}
           </h3>
-        </div><div class="row">
+        </div>
+        <div class="row">
           <div class="col-12 text-center">
             <button
               class="btn btn-primary join-button"
@@ -225,42 +280,52 @@
               {{ $t('joinToday') }}
             </button>
           </div>
-        </div><div class="row featured">
+        </div>
+        <div class="row featured">
           <div class="col-12 text-center">
             <strong>{{ $t('featuredIn') }}</strong>
           </div>
         </div>
-      </div><div class="container-fluid featured">
+      </div>
+      <div class="container-fluid featured">
         <div class="row">
           <div class="col-12 text-center">
             <div
               class="lifehacker svg-icon"
               v-html="icons.lifehacker"
-            ></div><div
+            ></div>
+            <div
               class="thenewyorktimes svg-icon"
               v-html="icons.thenewyorktimes"
-            ></div><div
+            ></div>
+            <div
               class="makeuseof svg-icon"
               v-html="icons.makeuseof"
-            ></div><div
+            ></div>
+            <div
               class="forbes svg-icon"
               v-html="icons.forbes"
-            ></div><div
+            ></div>
+            <div
               class="cnet svg-icon"
               v-html="icons.cnet"
-            ></div><div
+            ></div>
+            <div
               class="kickstarter svg-icon"
               v-html="icons.kickstarter"
-            ></div><div
+            ></div>
+            <div
               class="fast-company svg-icon"
               v-html="icons.fastCompany"
-            ></div><div
+            ></div>
+            <div
               class="discover svg-icon"
               v-html="icons.discover"
             ></div>
           </div>
         </div>
-      </div><div class="container-fluid">
+      </div>
+      <div class="container-fluid">
         <div class="row seamless_stars_varied_opacity_repeat"></div>
       </div>
     </div>

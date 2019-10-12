@@ -12,12 +12,15 @@
           type="text"
           :placeholder="$t('search')"
         >
-      </div><div class="form">
+      </div>
+      <div class="form">
         <h2 v-once>
           {{ $t('filter') }}
-        </h2><h3 v-once>
+        </h2>
+        <h3 v-once>
           {{ $t('equipmentType') }}
-        </h3><div class="form-group">
+        </h3>
+        <div class="form-group">
           <div
             v-for="group in groups"
             :key="group.key"
@@ -29,7 +32,8 @@
                 v-model="group.selected"
                 class="custom-control-input"
                 type="checkbox"
-              ><label
+              >
+              <label
                 v-once
                 class="custom-control-label"
                 :for="group.key"
@@ -38,15 +42,18 @@
           </div>
         </div>
       </div>
-    </div><div class="standard-page">
+    </div>
+    <div class="standard-page">
       <div class="clearfix">
         <h1
           v-once
           class="float-left mb-4 page-header"
         >
           {{ $t('items') }}
-        </h1><div class="float-right">
-          <span class="dropdown-label">{{ $t('sortBy') }}</span><b-dropdown
+        </h1>
+        <div class="float-right">
+          <span class="dropdown-label">{{ $t('sortBy') }}</span>
+          <b-dropdown
             :text="$t(sortBy)"
             right="right"
           >
@@ -55,7 +62,8 @@
               @click="sortBy = 'quantity'"
             >
               {{ $t('quantity') }}
-            </b-dropdown-item><b-dropdown-item
+            </b-dropdown-item>
+            <b-dropdown-item
               :active="sortBy === 'AZ'"
               @click="sortBy = 'AZ'"
             >
@@ -63,7 +71,8 @@
             </b-dropdown-item>
           </b-dropdown>
         </div>
-      </div><div
+      </div>
+      <div
         v-for="group in groups"
         v-if="!anyFilterSelected || group.selected"
         :key="group.key"
@@ -74,7 +83,8 @@
             v-if="group.key != 'special'"
             class="badge badge-pill badge-default"
           >{{ group.quantity }}</span>
-        </h2><itemRows
+        </h2>
+        <itemRows
           v-if="group.key === 'eggs'"
           :items="items[group.key]"
           :item-width="94"
@@ -95,7 +105,9 @@
               :active="currentDraggingEgg == context.item"
               :highlight-border="isHatchable(currentDraggingPotion, context.item)"
               @itemDragOver="onDragOver($event, context.item)"
-@itemDropped="onDrop($event, context.item)" @itemDragLeave="onDragLeave()" @click="onEggClicked($event, context.item)"
+              @itemDropped="onDrop($event, context.item)"
+              @itemDragLeave="onDragLeave()"
+              @click="onEggClicked($event, context.item)"
             >
               <template
                 slot="popoverContent"
@@ -103,13 +115,15 @@
               >
                 <h4 class="popover-content-title">
                   {{ context.item.text }}
-                </h4><div
+                </h4>
+                <div
                   v-if="currentDraggingPotion == null"
                   class="popover-content-text"
                 >
                   {{ context.item.notes }}
                 </div>
-              </template><template
+              </template>
+              <template
                 slot="itemBadge"
                 slot-scope="context"
               >
@@ -120,7 +134,8 @@
               </template>
             </item>
           </template>
-        </itemRows><itemRows
+        </itemRows>
+        <itemRows
           v-else-if="group.key === 'hatchingPotions'"
           :items="items[group.key]"
           :item-width="94"
@@ -141,7 +156,8 @@
               :active="currentDraggingPotion == context.item"
               :highlight-border="isHatchable(context.item, currentDraggingEgg)"
               @itemDragEnd="onDragEnd($event, context.item)"
-@itemDragStart="onDragStart($event, context.item)" @click="onPotionClicked($event, context.item)"
+              @itemDragStart="onDragStart($event, context.item)"
+              @click="onPotionClicked($event, context.item)"
             >
               <template
                 slot="popoverContent"
@@ -149,10 +165,12 @@
               >
                 <h4 class="popover-content-title">
                   {{ context.item.text }}
-                </h4><div class="popover-content-text">
+                </h4>
+                <div class="popover-content-text">
                   {{ context.item.notes }}
                 </div>
-              </template><template
+              </template>
+              <template
                 slot="itemBadge"
                 slot-scope="context"
               >
@@ -163,7 +181,8 @@
               </template>
             </item>
           </template>
-        </itemRows><itemRows
+        </itemRows>
+        <itemRows
           v-else
           :items="items[group.key]"
           :item-width="94"
@@ -192,16 +211,20 @@
                 >
                   <h4 class="popover-content-title">
                     {{ context.item.text }}
-                  </h4><questInfo :quest="context.item" />
-                </div><div v-else>
+                  </h4>
+                  <questInfo :quest="context.item" />
+                </div>
+                <div v-else>
                   <h4 class="popover-content-title">
                     {{ context.item.text }}
-                  </h4><div
+                  </h4>
+                  <div
                     class="popover-content-text"
                     v-html="context.item.notes"
                   ></div>
                 </div>
-              </template><template
+              </template>
+              <template
                 slot="itemBadge"
                 slot-scope="context"
               >
@@ -214,7 +237,9 @@
           </template>
         </itemRows>
       </div>
-    </div><hatchedPetDialog /><div
+    </div>
+    <hatchedPetDialog />
+    <div
       ref="draggingEggInfo"
       class="eggInfo"
     >
@@ -222,13 +247,15 @@
         <div
           class="potion-icon"
           :class="'Pet_Egg_'+currentDraggingEgg.key"
-        ></div><div class="popover">
+        ></div>
+        <div class="popover">
           <div class="popover-content">
             {{ $t('dragThisEgg', {eggName: currentDraggingEgg.text }) }}
           </div>
         </div>
       </div>
-    </div><div
+    </div>
+    <div
       v-if="eggClickMode"
       ref="clickEggInfo"
       class="eggInfo mouse"
@@ -237,13 +264,17 @@
         <div
           class="potion-icon"
           :class="'Pet_Egg_'+currentDraggingEgg.key"
-        ></div><div class="popover">
-          <div class="popover-content">
+        ></div>
+        <div class="popover">
+          <div
+            class="popover-content"
+          >
             {{ $t('clickOnPotionToHatch', {eggName: currentDraggingEgg.text }) }}
           </div>
         </div>
       </div>
-    </div><div
+    </div>
+    <div
       ref="draggingPotionInfo"
       class="hatchingPotionInfo"
     >
@@ -251,13 +282,17 @@
         <div
           class="potion-icon"
           :class="'Pet_HatchingPotion_'+currentDraggingPotion.key"
-        ></div><div class="popover">
-          <div class="popover-content">
+        ></div>
+        <div class="popover">
+          <div
+            class="popover-content"
+          >
             {{ $t('dragThisPotion', {potionName: currentDraggingPotion.text }) }}
           </div>
         </div>
       </div>
-    </div><div
+    </div>
+    <div
       v-if="potionClickMode"
       ref="clickPotionInfo"
       class="hatchingPotionInfo mouse"
@@ -266,13 +301,18 @@
         <div
           class="potion-icon"
           :class="'Pet_HatchingPotion_'+currentDraggingPotion.key"
-        ></div><div class="popover">
-          <div class="popover-content">
+        ></div>
+        <div class="popover">
+          <div
+            class="popover-content"
+          >
             {{ $t('clickOnEggToHatch', {potionName: currentDraggingPotion.text }) }}
           </div>
         </div>
       </div>
-    </div><startQuestModal :group="user.party" /><cards-modal :card-options="cardOptions" />
+    </div>
+    <startQuestModal :group="user.party" />
+    <cards-modal :card-options="cardOptions" />
   </div>
 </template>
 

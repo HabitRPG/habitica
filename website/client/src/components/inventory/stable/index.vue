@@ -9,7 +9,8 @@
         <div
           id="npmMattStable"
           class="npc_matt"
-        ></div><b-popover
+        ></div>
+        <b-popover
           triggers="hover"
           placement="right"
           target="npmMattStable"
@@ -19,26 +20,31 @@
             class="popover-content-title"
           >
             {{ $t('mattBoch') }}
-          </h4><div
+          </h4>
+          <div
             v-once
             class="popover-content-text"
           >
             {{ $t('mattBochText1') }}
           </div>
         </b-popover>
-      </div><div class="form-group">
+      </div>
+      <div class="form-group">
         <input
           v-model="searchText"
           class="form-control input-search"
           type="text"
           :placeholder="$t('search')"
         >
-      </div><div class="form">
+      </div>
+      <div class="form">
         <h2 v-once>
           {{ $t('filter') }}
-        </h2><h3 v-once>
+        </h2>
+        <h3 v-once>
           {{ $t('pets') }}
-        </h3><div class="form-group">
+        </h3>
+        <div class="form-group">
           <div
             v-for="petGroup in petGroups"
             :key="petGroup.key"
@@ -51,16 +57,19 @@
                 class="custom-control-input"
                 type="checkbox"
                 :disabled="viewOptions[petGroup.key].animalCount == 0"
-              ><label
+              >
+              <label
                 v-once
                 class="custom-control-label"
                 :for="petGroup.key"
               >{{ petGroup.label }}</label>
             </div>
           </div>
-        </div><h3 v-once>
+        </div>
+        <h3 v-once>
           {{ $t('mounts') }}
-        </h3><div class="form-group">
+        </h3>
+        <div class="form-group">
           <div
             v-for="mountGroup in mountGroups"
             :key="mountGroup.key"
@@ -73,32 +82,38 @@
                 class="custom-control-input"
                 type="checkbox"
                 :disabled="viewOptions[mountGroup.key].animalCount == 0"
-              ><label
+              >
+              <label
                 v-once
                 class="custom-control-label"
                 :for="mountGroup.key"
               >{{ mountGroup.label }}</label>
             </div>
           </div>
-        </div><div class="form-group clearfix">
+        </div>
+        <div class="form-group clearfix">
           <h3 class="float-left">
             {{ $t('hideMissing') }}
-          </h3><toggle-switch
+          </h3>
+          <toggle-switch
             class="float-right"
             :checked="hideMissing"
             @change="updateHideMissing"
           />
         </div>
       </div>
-    </div><div class="standard-page">
+    </div>
+    <div class="standard-page">
       <div class="clearfix">
         <h1
           v-once
           class="float-left mb-4 page-header"
         >
           {{ $t('stable') }}
-        </h1><div class="float-right">
-          <span class="dropdown-label">{{ $t('sortBy') }}</span><b-dropdown
+        </h1>
+        <div class="float-right">
+          <span class="dropdown-label">{{ $t('sortBy') }}</span>
+          <b-dropdown
             :text="$t(selectedSortBy)"
             right="right"
           >
@@ -112,17 +127,22 @@
             </b-dropdown-item>
           </b-dropdown>
         </div>
-      </div><h2 class="mb-3">
+      </div>
+      <h2 class="mb-3">
         {{ $t('pets') }}
-        <span class="badge badge-pill badge-default">{{ countOwnedAnimals(petGroups[0], 'pet') }}</span>
-      </h2><div
+        <span
+          class="badge badge-pill badge-default"
+        >{{ countOwnedAnimals(petGroups[0], 'pet') }}</span>
+      </h2>
+      <div
         v-for="(petGroup, index) in petGroups"
         v-if="!anyFilterSelected || viewOptions[petGroup.key].selected"
         :key="petGroup.key"
       >
         <h4 v-if="viewOptions[petGroup.key].animalCount !== 0">
           {{ petGroup.label }}
-        </h4><div
+        </h4>
+        <div
           v-for="(group, key, index) in pets(petGroup, hideMissing, selectedSortBy, searchTextThrottled)"
           v-if="index === 0 || $_openedItemRows_isToggled(petGroup.key)"
           class="pet-row d-flex"
@@ -155,24 +175,30 @@
               </template>
             </petItem>
           </div>
-        </div><div
+        </div>
+        <div
           v-if="petGroup.key !== 'specialPets' && petGroup.key !== 'wackyPets'"
           class="btn btn-flat btn-show-more"
           @click="setShowMore(petGroup.key)"
         >
           {{ $_openedItemRows_isToggled(petGroup.key) ? $t('showLess') : $t('showMore') }}
         </div>
-      </div><h2>
+      </div>
+      <h2>
         {{ $t('mounts') }}
-        <span class="badge badge-pill badge-default">{{ countOwnedAnimals(mountGroups[0], 'mount') }}</span>
-      </h2><div
+        <span
+          class="badge badge-pill badge-default"
+        >{{ countOwnedAnimals(mountGroups[0], 'mount') }}</span>
+      </h2>
+      <div
         v-for="mountGroup in mountGroups"
         v-if="!anyFilterSelected || viewOptions[mountGroup.key].selected"
         :key="mountGroup.key"
       >
         <h4 v-if="viewOptions[mountGroup.key].animalCount != 0">
           {{ mountGroup.label }}
-        </h4><div
+        </h4>
+        <div
           v-for="(group, key, index) in mounts(mountGroup, hideMissing, selectedSortBy, searchTextThrottled)"
           v-if="index === 0 || $_openedItemRows_isToggled(mountGroup.key)"
           class="pet-row d-flex"
@@ -188,7 +214,10 @@
               :show-popover="true"
               @click="selectMount(item)"
             >
-              <span slot="popoverContent"><h4 class="popover-content-title">{{ item.name }}</h4></span><template
+              <span slot="popoverContent">
+                <h4 class="popover-content-title">{{ item.name }}</h4>
+              </span>
+              <template
                 slot="itemBadge"
                 slot-scope="context"
               >
@@ -200,14 +229,16 @@
               </template>
             </mountItem>
           </div>
-        </div><div
+        </div>
+        <div
           v-if="mountGroup.key !== 'specialMounts'"
           class="btn btn-flat btn-show-more"
           @click="setShowMore(mountGroup.key)"
         >
           {{ $_openedItemRows_isToggled(mountGroup.key) ? $t('showLess') : $t('showMore') }}
         </div>
-      </div><inventoryDrawer>
+      </div>
+      <inventoryDrawer>
         <template
           slot="item"
           slot-scope="ctx"
@@ -223,7 +254,9 @@
           />
         </template>
       </inventoryDrawer>
-    </div><hatchedPetDialog :hide-text="true" /><div
+    </div>
+    <hatchedPetDialog :hide-text="true" />
+    <div
       ref="dragginFoodInfo"
       class="foodInfo"
     >
@@ -231,13 +264,17 @@
         <div
           class="food-icon"
           :class="'Pet_Food_'+currentDraggingFood.key"
-        ></div><div class="popover">
-          <div class="popover-content">
+        ></div>
+        <div class="popover">
+          <div
+            class="popover-content"
+          >
             {{ $t('dragThisFood', {foodName: currentDraggingFood.text() }) }}
           </div>
         </div>
       </div>
-    </div><div
+    </div>
+    <div
       v-if="foodClickMode"
       ref="clickFoodInfo"
       class="foodInfo mouse"
@@ -246,13 +283,19 @@
         <div
           class="food-icon"
           :class="'Pet_Food_'+currentDraggingFood.key"
-        ></div><div class="popover">
-          <div class="popover-content">
+        ></div>
+        <div class="popover">
+          <div
+            class="popover-content"
+          >
             {{ $t('clickOnPetToFeed', {foodName: currentDraggingFood.text() }) }}
           </div>
         </div>
       </div>
-    </div><mount-raised-modal /><welcome-modal /><hatching-modal :hatchable-pet.sync="hatchablePet" />
+    </div>
+    <mount-raised-modal />
+    <welcome-modal />
+    <hatching-modal :hatchable-pet.sync="hatchablePet" />
   </div>
 </template>
 

@@ -15,11 +15,13 @@
             id="petLikeToEatMarket"
             class="drawer-help-text"
           >
-            {{ $t('petLikeToEat') + ' ' }}<span
+            {{ $t('petLikeToEat') + ' ' }}
+            <span
               class="svg-icon inline icon-16"
               v-html="icons.information"
             ></span>
-          </div><b-popover
+          </div>
+          <b-popover
             target="petLikeToEatMarket"
             :placement="'top'"
           >
@@ -31,7 +33,8 @@
           </b-popover>
         </div>
       </drawer-header-tabs>
-    </div><drawer-slider
+    </div>
+    <drawer-slider
       v-if="hasOwnedItemsForType(selectedDrawerItemType)"
       slot="drawer-slider"
       :items="ownedItems(selectedDrawerItemType) || []"

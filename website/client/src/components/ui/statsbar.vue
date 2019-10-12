@@ -8,13 +8,16 @@
     <div
       class="svg-icon"
       v-html="icon"
-    ></div><div class="progress">
+    ></div>
+    <div class="progress">
       <div
         class="progress-bar"
         :class="progressClass"
         :style="{width: `${percent(value, maxValue)}%`}"
       ></div>
-    </div><span class="small-text">{{ value | statFloor }} / {{ maxValue }}</span><b-tooltip
+    </div>
+    <span class="small-text">{{ value | statFloor }} / {{ maxValue }}</span>
+    <b-tooltip
       class="myClass"
       :target="() => $refs.container"
       :container="elementId"

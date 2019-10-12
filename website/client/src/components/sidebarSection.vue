@@ -6,7 +6,8 @@
         class="mb-0"
       >
         {{ title }}
-      </h3><div
+      </h3>
+      <div
         v-if="tooltip !== null"
         class="section-info mx-1"
       >
@@ -15,11 +16,13 @@
           class="svg-icon"
           :title="tooltip"
           v-html="icons.information"
-        ></div><b-tooltip
+        ></div>
+        <b-tooltip
           :title="tooltip"
           :target="tooltipId"
         />
-      </div><div
+      </div>
+      <div
         class="section-toggle ml-auto"
         @click="toggle"
       >
@@ -27,13 +30,15 @@
           v-if="visible"
           class="svg-icon"
           v-html="icons.upIcon"
-        ></div><div
+        ></div>
+        <div
           v-else
           class="svg-icon"
           v-html="icons.downIcon"
         ></div>
       </div>
-    </div><div
+    </div>
+    <div
       v-show="visible"
       class="section-body"
     >

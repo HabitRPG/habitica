@@ -8,10 +8,13 @@
           type="text"
           :placeholder="$t('search')"
         >
-      </div><div class="form">
+      </div>
+      <div class="form">
         <h2 v-once>
           {{ $t('filter') }}
-        </h2><h3>{{ this.groupBy === 'type' ? $t('equipmentType') : $t('class') }}</h3><div class="form-group">
+        </h2>
+        <h3>{{ this.groupBy === 'type' ? $t('equipmentType') : $t('class') }}</h3>
+        <div class="form-group">
           <div
             v-for="group in itemsGroups"
             :key="group.key"
@@ -23,7 +26,8 @@
                 v-model="viewOptions[group.key].selected"
                 class="custom-control-input"
                 type="checkbox"
-              ><label
+              >
+              <label
                 v-once
                 class="custom-control-label"
                 :for="groupBy + group.key"
@@ -32,15 +36,18 @@
           </div>
         </div>
       </div>
-    </div><div class="standard-page">
+    </div>
+    <div class="standard-page">
       <div class="clearfix">
         <h1
           v-once
           class="float-left mb-4 page-header"
         >
           {{ $t('equipment') }}
-        </h1><div class="float-right">
-          <span class="dropdown-label">{{ $t('sortBy') }}</span><b-dropdown
+        </h1>
+        <div class="float-right">
+          <span class="dropdown-label">{{ $t('sortBy') }}</span>
+          <b-dropdown
             :text="$t(selectedSortGearBy)"
             right="right"
           >
@@ -52,7 +59,9 @@
             >
               {{ $t(sort) }}
             </b-dropdown-item>
-          </b-dropdown><span class="dropdown-label">{{ $t('groupBy2') }}</span><b-dropdown
+          </b-dropdown>
+          <span class="dropdown-label">{{ $t('groupBy2') }}</span>
+          <b-dropdown
             :text="$t(groupBy === 'type' ? 'equipmentType' : 'class')"
             right="right"
           >
@@ -61,7 +70,8 @@
               @click="groupBy = 'type'"
             >
               {{ $t('equipmentType') }}
-            </b-dropdown-item><b-dropdown-item
+            </b-dropdown-item>
+            <b-dropdown-item
               :active="groupBy === 'class'"
               @click="groupBy = 'class'"
             >
@@ -69,7 +79,8 @@
             </b-dropdown-item>
           </b-dropdown>
         </div>
-      </div><drawer
+      </div>
+      <drawer
         :title="$t('equipment')"
         :error-message="(costumeMode && !user.preferences.costume) ? $t('costumeDisabled') : null"
         :open-status="openStatus"
@@ -83,14 +94,16 @@
                 :class="{'drawer-tab-text-active': !costumeMode}"
                 @click="selectDrawerTab('equipment')"
               >{{ $t('equipment') }}</a>
-            </div><div class="clearfix">
+            </div>
+            <div class="clearfix">
               <div class="drawer-tab float-left">
                 <a
                   class="drawer-tab-text"
                   :class="{'drawer-tab-text-active': costumeMode}"
                   @click="selectDrawerTab('costume')"
                 >{{ $t('costume') }}</a>
-              </div><toggle-switch
+              </div>
+              <toggle-switch
                 class="float-right align-with-tab"
                 :label="$t(costumeMode ? 'useCostume' : 'autoEquipBattleGear')"
                 :checked="user.preferences[drawerPreference]"
@@ -99,7 +112,8 @@
               />
             </div>
           </div>
-        </div><div
+        </div>
+        <div
           slot="drawer-slider"
           class="items items-one-line"
         >
@@ -113,14 +127,15 @@
             :label="label"
             :popover-position="'top'"
             :show-popover="flatGear[activeItems[group]] && Boolean(flatGear[activeItems[group]].text)"
-@click="equipItem(flatGear[activeItems[group]])"
+            @click="equipItem(flatGear[activeItems[group]])"
           >
             <template
               slot="popoverContent"
               slot-scope="context"
             >
               <equipmentAttributesPopover :item="context.item" />
-            </template><template
+            </template>
+            <template
               slot="itemBadge"
               slot-scope="context"
             >
@@ -132,7 +147,8 @@
             </template>
           </item>
         </div>
-      </drawer><div
+      </drawer>
+      <div
         v-for="group in itemsGroups"
         v-if="!anyFilterSelected || viewOptions[group.key].selected"
         :key="group.key"
@@ -140,8 +156,11 @@
       >
         <h2 class="mb-3">
           {{ group.label }}
-          <span class="badge badge-pill badge-default">{{ items[group.key].length }}</span>
-        </h2><itemRows
+          <span
+            class="badge badge-pill badge-default"
+          >{{ items[group.key].length }}</span>
+        </h2>
+        <itemRows
           :items="sortItems(items[group.key], selectedSortGearBy)"
           :item-width="94"
           :item-margin="24"
@@ -168,7 +187,8 @@
                   :show="!costumeMode || user.preferences.costume"
                   @click="equipItem(context.item)"
                 />
-              </template><template
+              </template>
+              <template
                 slot="popoverContent"
                 slot-scope="context"
               >
@@ -178,7 +198,8 @@
           </template>
         </itemRows>
       </div>
-    </div><equipGearModal
+    </div>
+    <equipGearModal
       :item="gearToEquip"
       :costume-mode="costumeMode"
       :is-equipped="gearToEquip == null ? false : activeItems[gearToEquip.type] === gearToEquip.key"

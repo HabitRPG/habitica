@@ -9,9 +9,11 @@
           <div
             class="svg-icon social-icon"
             v-html="icons.facebookIcon"
-          ></div><span>{{ registering ? $t('signUpWithSocial', {social: 'Facebook'}) : $t('loginWithSocial', {social: 'Facebook'}) }}</span>
+          ></div>
+          <span>{{ registering ? $t('signUpWithSocial', {social: 'Facebook'}) : $t('loginWithSocial', {social: 'Facebook'}) }}</span>
         </div>
-      </div><div class="col-12 col-md-6">
+      </div>
+      <div class="col-12 col-md-6">
         <div
           class="btn btn-secondary social-button"
           @click="socialAuth('google')"
@@ -19,17 +21,20 @@
           <div
             class="svg-icon social-icon"
             v-html="icons.googleIcon"
-          ></div><span>{{ registering ? $t('signUpWithSocial', {social: 'Google'}) : $t('loginWithSocial', {social: 'Google'}) }}</span>
+          ></div>
+          <span>{{ registering ? $t('signUpWithSocial', {social: 'Google'}) : $t('loginWithSocial', {social: 'Google'}) }}</span>
         </div>
       </div>
-    </div><div
+    </div>
+    <div
       v-if="registering"
       class="form-group"
     >
       <label
         v-once
         for="usernameInput"
-      >{{ $t('username') }}</label><input
+      >{{ $t('username') }}</label>
+      <input
         id="usernameInput"
         v-model="username"
         class="form-control"
@@ -37,28 +42,32 @@
         :placeholder="$t('usernamePlaceholder')"
         :class="{'input-valid': usernameValid, 'input-invalid': usernameInvalid}"
       >
-    </div><div
+    </div>
+    <div
       v-if="!registering"
       class="form-group"
     >
       <label
         v-once
         for="usernameInput"
-      >{{ $t('emailOrUsername') }}</label><input
+      >{{ $t('emailOrUsername') }}</label>
+      <input
         id="usernameInput"
         v-model="username"
         class="form-control"
         type="text"
         :placeholder="$t('emailOrUsername')"
       >
-    </div><div
+    </div>
+    <div
       v-if="registering"
       class="form-group"
     >
       <label
         v-once
         for="emailInput"
-      >{{ $t('email') }}</label><input
+      >{{ $t('email') }}</label>
+      <input
         id="emailInput"
         v-model="email"
         class="form-control"
@@ -66,42 +75,49 @@
         :placeholder="$t('emailPlaceholder')"
         :class="{'input-invalid': emailInvalid, 'input-valid': emailValid}"
       >
-    </div><div class="form-group">
+    </div>
+    <div class="form-group">
       <label
         v-once
         for="passwordInput"
-      >{{ $t('password') }}</label><a
+      >{{ $t('password') }}</label>
+      <a
         v-if="!registering"
         v-once
         class="float-right forgot-password"
         @click="forgotPassword = true"
-      >{{ $t('forgotPassword') }}</a><input
+      >{{ $t('forgotPassword') }}</a>
+      <input
         id="passwordInput"
         v-model="password"
         class="form-control"
         type="password"
         :placeholder="$t(registering ? 'passwordPlaceholder' : 'password')"
       >
-    </div><div
+    </div>
+    <div
       v-if="registering"
       class="form-group"
     >
       <label
         v-once
         for="confirmPasswordInput"
-      >{{ $t('confirmPassword') }}</label><input
+      >{{ $t('confirmPassword') }}</label>
+      <input
         id="confirmPasswordInput"
         v-model="passwordConfirm"
         class="form-control"
         type="password"
         :placeholder="$t('confirmPasswordPlaceholder')"
         :class="{'input-invalid': passwordConfirmInvalid, 'input-valid': passwordConfirmValid}"
-      ><small
+      >
+      <small
         v-once
         class="form-text"
         v-html="$t('termsAndAgreement')"
       ></small>
-    </div><div class="text-center">
+    </div>
+    <div class="text-center">
       <div
         v-if="registering"
         v-once
@@ -109,7 +125,8 @@
         @click="register()"
       >
         {{ $t('joinHabitica') }}
-      </div><div
+      </div>
+      <div
         v-if="!registering"
         v-once
         class="btn btn-info"

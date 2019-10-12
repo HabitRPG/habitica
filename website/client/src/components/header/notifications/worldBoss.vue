@@ -13,27 +13,37 @@
       <div class="text">
         <div class="title">
           {{ $t('worldBoss') }}
-        </div><div class="sub-title">
+        </div>
+        <div class="sub-title">
           {{ $t('questDysheartenerText') }}
         </div>
-      </div><div class="d-flex align-items-center justify-content-left">
-        <div><div class="left-hearts"></div></div><div class="float-right">
-          <div class="quest_dysheartener_notification"></div><div class="phobia_dysheartener_notification"></div>
+      </div>
+      <div class="d-flex align-items-center justify-content-left">
+        <div>
+          <div class="left-hearts"></div>
         </div>
-      </div><div class="health-bar d-flex align-items-center justify-content-center">
+        <div class="float-right">
+          <div class="quest_dysheartener_notification"></div>
+          <div class="phobia_dysheartener_notification"></div>
+        </div>
+      </div>
+      <div class="health-bar d-flex align-items-center justify-content-center">
         <div
           class="svg-icon"
           v-html="icons.health"
-        ></div><div class="boss-health-wrap">
+        ></div>
+        <div class="boss-health-wrap">
           <div
             class="boss-health-bar"
             :style="{width: (parseInt(bossHp) / questData.boss.hp) * 100 + '%'}"
           ></div>
-        </div><div class="pending-damage">
+        </div>
+        <div class="pending-damage">
           <div
             class="svg-icon"
             v-html="icons.sword"
-          ></div><span>+{{ parseInt(user.party.quest.progress.up) || 0 }}</span>
+          ></div>
+          <span>+{{ parseInt(user.party.quest.progress.up) || 0 }}</span>
         </div>
       </div>
     </div>

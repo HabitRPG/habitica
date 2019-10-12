@@ -6,7 +6,8 @@
     :to="{'name': 'userProfile', 'params': {'userId': id}}"
     :class="levelStyle()"
   >
-    {{ displayName }}<div
+    {{ displayName }}
+    <div
       class="svg-icon"
       v-html="tierIcon()"
     ></div>

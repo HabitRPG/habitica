@@ -9,7 +9,8 @@
     <div
       slot="content"
       v-html="$t('cardReceived', {card: cardString})"
-    ></div><div
+    ></div>
+    <div
       slot="icon"
       :class="cardClass"
     ></div>

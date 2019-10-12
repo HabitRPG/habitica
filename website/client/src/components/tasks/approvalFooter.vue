@@ -1,13 +1,15 @@
 <template>
   <div>
-    <approval-modal :task="task" /><div
+    <approval-modal :task="task" />
+    <div
       v-if="!approvalRequested && !multipleApprovalsRequested"
       class="claim-bottom-message d-flex align-items-center"
     >
       <div
         class="mr-auto ml-2"
         v-html="message"
-      ></div><div
+      ></div>
+      <div
         v-if="!userIsAssigned"
         class="ml-auto mr-2"
       >
@@ -15,7 +17,8 @@
           class="claim-color"
           @click="claim()"
         >{{ $t('claim') }}</a>
-      </div><div
+      </div>
+      <div
         v-if="userIsAssigned"
         class="ml-auto mr-2"
       >
@@ -24,15 +27,18 @@
           @click="unassign()"
         >{{ $t('removeClaim') }}</a>
       </div>
-    </div><div
+    </div>
+    <div
       v-if="approvalRequested && userIsManager"
       class="claim-bottom-message d-flex align-items-center justify-content-around"
     >
       <a
         class="approve-color"
         @click="approve()"
-      >{{ $t('approveTask') }}</a><a @click="needsWork()">{{ $t('needsWork') }}</a>
-    </div><div
+      >{{ $t('approveTask') }}</a>
+      <a @click="needsWork()">{{ $t('needsWork') }}</a>
+    </div>
+    <div
       v-if="multipleApprovalsRequested && userIsManager"
       class="claim-bottom-message d-flex align-items-center"
     >

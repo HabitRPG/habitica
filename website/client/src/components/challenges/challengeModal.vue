@@ -7,39 +7,62 @@
   >
     <div class="form">
       <div class="form-group">
-        <label><strong v-once>{{ $t('name') }} *</strong></label><b-form-input
+        <label>
+          <strong v-once>{{ $t('name') }} *</strong>
+        </label>
+        <b-form-input
           v-model="workingChallenge.name"
           type="text"
           :placeholder="$t('challengeNamePlaceholder')"
         />
-      </div><div class="form-group">
-        <label><strong v-once>{{ $t('shortName') }} *</strong></label><b-form-input
+      </div>
+      <div class="form-group">
+        <label>
+          <strong v-once>{{ $t('shortName') }} *</strong>
+        </label>
+        <b-form-input
           v-model="workingChallenge.shortName"
           type="text"
           :placeholder="$t('shortNamePlaceholder')"
         />
-      </div><div class="form-group">
-        <label><strong v-once>{{ $t('challengeSummary') }} *</strong></label><div class="summary-count">
+      </div>
+      <div class="form-group">
+        <label>
+          <strong v-once>{{ $t('challengeSummary') }} *</strong>
+        </label>
+        <div
+          class="summary-count"
+        >
           {{ $t('charactersRemaining', {characters: charactersRemaining}) }}
-        </div><textarea
+        </div>
+        <textarea
           v-model="workingChallenge.summary"
           class="summary-textarea form-control"
           :placeholder="$t('challengeSummaryPlaceholder')"
         ></textarea>
-      </div><div class="form-group">
-        <label><strong v-once>{{ $t('challengeDescription') }} *</strong></label><a
+      </div>
+      <div class="form-group">
+        <label>
+          <strong v-once>{{ $t('challengeDescription') }} *</strong>
+        </label>
+        <a
           v-markdown="$t('markdownFormattingHelp')"
           class="float-right"
-        ></a><textarea
+        ></a>
+        <textarea
           v-model="workingChallenge.description"
           class="description-textarea form-control"
           :placeholder="$t('challengeDescriptionPlaceholder')"
         ></textarea>
-      </div><div
+      </div>
+      <div
         v-if="creating"
         class="form-group"
       >
-        <label><strong v-once>{{ $t('challengeGuild') }} *</strong></label><select
+        <label>
+          <strong v-once>{{ $t('challengeGuild') }} *</strong>
+        </label>
+        <select
           v-model="workingChallenge.group"
           class="form-control"
         >
@@ -50,24 +73,30 @@
             {{ group.name }}
           </option>
         </select>
-      </div><div
+      </div>
+      <div
         v-if="workingChallenge.categories"
         class="form-group"
       >
-        <label><strong v-once>{{ $t('categories') }} *</strong></label><div
+        <label>
+          <strong v-once>{{ $t('categories') }} *</strong>
+        </label>
+        <div
           class="category-wrap"
           @click.prevent="toggleCategorySelect"
         >
           <span
             v-if="workingChallenge.categories.length === 0"
             class="category-select"
-          >{{ $t('none') }}</span><div
+          >{{ $t('none') }}</span>
+          <div
             v-for="category in workingChallenge.categories"
             class="category-label"
           >
             {{ $t(categoriesHashByKey[category]) }}
           </div>
-        </div><div
+        </div>
+        <div
           v-if="showCategorySelect && creating"
           class="category-box"
         >
@@ -84,46 +113,58 @@
                 class="custom-control-input"
                 type="checkbox"
                 :value="group.key"
-              ><label
+              >
+              <label
                 v-once
                 class="custom-control-label"
                 :for="`challenge-modal-cat-${group.key}`"
               >{{ $t(group.label) }}</label>
             </div>
-          </div><button
+          </div>
+          <button
             class="btn btn-primary"
             @click.prevent="toggleCategorySelect"
           >
             {{ $t('close') }}
           </button>
         </div>
-      </div><!-- @TODO: Implement in V2 .form-grouplabel
+      </div>
+      <!-- @TODO: Implement in V2 .form-grouplabel
   strong(v-once) {{$t('endDate')}}
-b-form-input.end-date-input--><div
-v-if="creating"
-class="form-group"
->
-<label><strong v-once>{{ $t('prize') }}</strong></label><input
-v-model="workingChallenge.prize"
-type="number"
-:min="minPrize"
-:max="maxPrize"
->
-      </div><div class="row footer-wrap">
+      b-form-input.end-date-input-->
+      <div
+        v-if="creating"
+        class="form-group"
+      >
+        <label>
+          <strong v-once>{{ $t('prize') }}</strong>
+        </label>
+        <input
+          v-model="workingChallenge.prize"
+          type="number"
+          :min="minPrize"
+          :max="maxPrize"
+        >
+      </div>
+      <div class="row footer-wrap">
         <div class="col-12 text-center submit-button-wrapper">
           <div
             v-if="insufficientGemsForTavernChallenge"
             class="alert alert-warning"
           >
             You do not have enough gems to create a Tavern challenge
-          </div><!-- @TODO if buy gems button is added, add analytics tracking to it--><!-- see https://github.com/HabitRPG/habitica/blob/develop/website/views/options/social/challenges.jade#L134--><button
+          </div>
+          <!-- @TODO if buy gems button is added, add analytics tracking to it-->
+          <!-- see https://github.com/HabitRPG/habitica/blob/develop/website/views/options/social/challenges.jade#L134-->
+          <button
             v-if="creating && !cloning"
             class="btn btn-primary"
             :disabled="loading"
             @click="createChallenge()"
           >
             {{ $t('createChallengeAddTasks') }}
-          </button><button
+          </button>
+          <button
             v-if="cloning"
             v-once
             class="btn btn-primary"
@@ -131,7 +172,8 @@ type="number"
             @click="createChallenge()"
           >
             {{ $t('createChallengeCloneTasks') }}
-          </button><button
+          </button>
+          <button
             v-if="!creating && !cloning"
             v-once
             class="btn btn-primary"
@@ -139,7 +181,8 @@ type="number"
           >
             {{ $t('updateChallenge') }}
           </button>
-        </div><div class="col-12 text-center">
+        </div>
+        <div class="col-12 text-center">
           <p v-once>
             {{ $t('challengeMinimum') }}
           </p>

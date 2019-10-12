@@ -1,10 +1,15 @@
 <template>
   <div class="row standard-page">
-    <restore-modal /><reset-modal /><delete-modal /><h1 class="col-12">
+    <restore-modal />
+    <reset-modal />
+    <delete-modal />
+    <h1 class="col-12">
       {{ $t('settings') }}
-    </h1><div class="col-sm-6">
+    </h1>
+    <div class="col-sm-6">
       <div class="form-horizontal">
-        <h5>{{ $t('language') }}</h5><select
+        <h5>{{ $t('language') }}</h5>
+        <select
           class="form-control"
           :value="user.preferences.language"
           @change="changeLanguage($event)"
@@ -15,9 +20,17 @@
           >
             {{ lang.name }}
           </option>
-        </select><small>{{ $t('americanEnglishGovern') }}<br><strong v-html="$t('helpWithTranslation')"></strong></small>
-      </div><hr><div class="form-horizontal">
-        <h5>{{ $t('dateFormat') }}</h5><select
+        </select>
+        <small>
+          {{ $t('americanEnglishGovern') }}
+          <br>
+          <strong v-html="$t('helpWithTranslation')"></strong>
+        </small>
+      </div>
+      <hr>
+      <div class="form-horizontal">
+        <h5>{{ $t('dateFormat') }}</h5>
+        <select
           v-model="user.preferences.dateFormat"
           class="form-control"
           @change="set('dateFormat')"
@@ -29,9 +42,12 @@
             {{ dateFormat }}
           </option>
         </select>
-      </div><hr><div class="form-horizontal">
+      </div>
+      <hr>
+      <div class="form-horizontal">
         <div class="form-group">
-          <h5>{{ $t('audioTheme') }}</h5><select
+          <h5>{{ $t('audioTheme') }}</h5>
+          <select
             v-model="user.preferences.sound"
             class="form-control"
             @change="changeAudioTheme"
@@ -43,88 +59,122 @@
               {{ $t(`audioTheme_${sound}`) }}
             </option>
           </select>
-        </div><button
+        </div>
+        <button
           v-once
           class="btn btn-primary btn-xs"
           @click="playAudio"
         >
           {{ $t('demo') }}
         </button>
-      </div><hr><div
+      </div>
+      <hr>
+      <div
         v-if="hasClass"
         class="form-horizontal"
       >
-        <h5>{{ $t('characterBuild') }}</h5><h6 v-once>
-          {{ $t('class') + ': ' }}<!-- @TODO: what is classText--><!-- span(v-if='classText') {{ classText }}&nbsp;--><button
+        <h5>{{ $t('characterBuild') }}</h5>
+        <h6 v-once>
+          {{ $t('class') + ': ' }}
+          <!-- @TODO: what is classText-->
+          <!-- span(v-if='classText') {{ classText }}&nbsp;-->
+          <button
             v-once
             class="btn btn-danger btn-xs"
             @click="changeClassForUser(true)"
           >
             {{ $t('changeClass') }}
-          </button><small class="cost">&nbsp; 3 {{ $t('gems') }}<!-- @TODO add icon span.Pet_Currency_Gem1x.inline-gems--></small>
-        </h6><hr>
-      </div><div>
+          </button>
+          <small class="cost">
+            &nbsp; 3 {{ $t('gems') }}
+            <!-- @TODO add icon span.Pet_Currency_Gem1x.inline-gems-->
+          </small>
+        </h6>
+        <hr>
+      </div>
+      <div>
         <div class="checkbox">
-          <label><input
-            v-model="user.preferences.advancedCollapsed"
-            type="checkbox"
-            @change="set('advancedCollapsed')"
-          ><span
-            class="hint"
-            popover-trigger="mouseenter"
-            popover-placement="right"
-            :popover="$t('startAdvCollapsedPop')"
-          >{{ $t('startAdvCollapsed') }}</span></label>
-        </div><div class="checkbox">
-          <label><input
-            v-model="user.preferences.dailyDueDefaultView"
-            type="checkbox"
-            @change="set('dailyDueDefaultView')"
-          ><span
-            class="hint"
-            popover-trigger="mouseenter"
-            popover-placement="right"
-            :popover="$t('dailyDueDefaultViewPop')"
-          >{{ $t('dailyDueDefaultView') }}</span></label>
-        </div><div
+          <label>
+            <input
+              v-model="user.preferences.advancedCollapsed"
+              type="checkbox"
+              @change="set('advancedCollapsed')"
+            >
+            <span
+              class="hint"
+              popover-trigger="mouseenter"
+              popover-placement="right"
+              :popover="$t('startAdvCollapsedPop')"
+            >{{ $t('startAdvCollapsed') }}</span>
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input
+              v-model="user.preferences.dailyDueDefaultView"
+              type="checkbox"
+              @change="set('dailyDueDefaultView')"
+            >
+            <span
+              class="hint"
+              popover-trigger="mouseenter"
+              popover-placement="right"
+              :popover="$t('dailyDueDefaultViewPop')"
+            >{{ $t('dailyDueDefaultView') }}</span>
+          </label>
+        </div>
+        <div
           v-if="party.memberCount === 1"
           class="checkbox"
         >
-          <label><input
-            v-model="user.preferences.displayInviteToPartyWhenPartyIs1"
-            type="checkbox"
-            @change="set('displayInviteToPartyWhenPartyIs1')"
-          ><span
-            class="hint"
-            popover-trigger="mouseenter"
-            popover-placement="right"
-            :popover="$t('displayInviteToPartyWhenPartyIs1')"
-          >{{ $t('displayInviteToPartyWhenPartyIs1') }}</span></label>
-        </div><div class="checkbox">
+          <label>
+            <input
+              v-model="user.preferences.displayInviteToPartyWhenPartyIs1"
+              type="checkbox"
+              @change="set('displayInviteToPartyWhenPartyIs1')"
+            >
+            <span
+              class="hint"
+              popover-trigger="mouseenter"
+              popover-placement="right"
+              :popover="$t('displayInviteToPartyWhenPartyIs1')"
+            >{{ $t('displayInviteToPartyWhenPartyIs1') }}</span>
+          </label>
+        </div>
+        <div class="checkbox">
           <input
             v-model="user.preferences.suppressModals.levelUp"
             type="checkbox"
             @change="set('suppressModals', 'levelUp')"
-          ><label>{{ $t('suppressLevelUpModal') }}</label>
-        </div><div class="checkbox">
+          >
+          <label>{{ $t('suppressLevelUpModal') }}</label>
+        </div>
+        <div class="checkbox">
           <input
             v-model="user.preferences.suppressModals.hatchPet"
             type="checkbox"
             @change="set('suppressModals', 'hatchPet')"
-          ><label>{{ $t('suppressHatchPetModal') }}</label>
-        </div><div class="checkbox">
+          >
+          <label>{{ $t('suppressHatchPetModal') }}</label>
+        </div>
+        <div class="checkbox">
           <input
             v-model="user.preferences.suppressModals.raisePet"
             type="checkbox"
             @change="set('suppressModals', 'raisePet')"
-          ><label>{{ $t('suppressRaisePetModal') }}</label>
-        </div><div class="checkbox">
+          >
+          <label>{{ $t('suppressRaisePetModal') }}</label>
+        </div>
+        <div class="checkbox">
           <input
             v-model="user.preferences.suppressModals.streak"
             type="checkbox"
             @change="set('suppressModals', 'streak')"
-          ><label>{{ $t('suppressStreakModal') }}</label>
-        </div><hr><button
+          >
+          <label>{{ $t('suppressStreakModal') }}</label>
+        </div>
+        <hr>
+        <button
           class="btn btn-primary mr-2 mb-2"
           popover-trigger="mouseenter"
           popover-placement="right"
@@ -132,7 +182,8 @@
           @click="showBailey()"
         >
           {{ $t('showBailey') }}
-        </button><button
+        </button>
+        <button
           class="btn btn-primary mr-2 mb-2"
           popover-trigger="mouseenter"
           popover-placement="right"
@@ -140,7 +191,8 @@
           @click="openRestoreModal()"
         >
           {{ $t('fixVal') }}
-        </button><button
+        </button>
+        <button
           v-if="user.preferences.disableClasses == true"
           class="btn btn-primary mb-2"
           popover-trigger="mouseenter"
@@ -149,10 +201,14 @@
           @click="changeClassForUser(false)"
         >
           {{ $t('enableClass') }}
-        </button><hr><div>
-          <h5>{{ $t('customDayStart') }}</h5><div class="alert alert-warning">
+        </button>
+        <hr>
+        <div>
+          <h5>{{ $t('customDayStart') }}</h5>
+          <div class="alert alert-warning">
             {{ $t('customDayStartInfo1') }}
-          </div><div class="form-horizontal">
+          </div>
+          <div class="form-horizontal">
             <div class="form-group">
               <div class="col-7">
                 <select
@@ -166,7 +222,8 @@
                     {{ option.name }}
                   </option>
                 </select>
-              </div><div class="col-5">
+              </div>
+              <div class="col-5">
                 <button
                   class="btn btn-block btn-primary mt-1"
                   :disabled="newDayStart === user.preferences.dayStart"
@@ -176,17 +233,23 @@
                 </button>
               </div>
             </div>
-          </div><hr>
-        </div><h5>{{ $t('timezone') }}</h5><div class="form-horizontal">
+          </div>
+          <hr>
+        </div>
+        <h5>{{ $t('timezone') }}</h5>
+        <div class="form-horizontal">
           <div class="form-group">
             <div class="col-12">
-              <p v-html="$t('timezoneUTC', {utc: timezoneOffsetToUtc})"></p><p v-html="$t('timezoneInfo')"></p>
+              <p v-html="$t('timezoneUTC', {utc: timezoneOffsetToUtc})"></p>
+              <p v-html="$t('timezoneInfo')"></p>
             </div>
           </div>
         </div>
       </div>
-    </div><div class="col-sm-6">
-      <h2>{{ $t('registration') }}</h2><div class="panel-body">
+    </div>
+    <div class="col-sm-6">
+      <h2>{{ $t('registration') }}</h2>
+      <div class="panel-body">
         <div>
           <ul class="list-inline">
             <li v-for="network in SOCIAL_AUTH_NETWORKS">
@@ -196,13 +259,15 @@
                 @click="socialAuth(network.key, user)"
               >
                 {{ $t('registerWithSocial', {network: network.name}) }}
-              </button><button
+              </button>
+              <button
                 v-if="!hasBackupAuthOption(network.key) && user.auth[network.key].id"
                 class="btn btn-primary mb-2"
                 disabled="disabled"
               >
                 {{ $t('registeredWithSocial', {network: network.name}) }}
-              </button><button
+              </button>
+              <button
                 v-if="hasBackupAuthOption(network.key) && user.auth[network.key].id"
                 class="btn btn-danger"
                 @click="deleteSocialAuth(network)"
@@ -210,8 +275,11 @@
                 {{ $t('detachSocial', {network: network.name}) }}
               </button>
             </li>
-          </ul><hr><div v-if="!user.auth.local.email">
-            <p>{{ $t('addLocalAuth') }}</p><div
+          </ul>
+          <hr>
+          <div v-if="!user.auth.local.email">
+            <p>{{ $t('addLocalAuth') }}</p>
+            <div
               class="form"
               name="localAuth"
               novalidate="novalidate"
@@ -224,7 +292,8 @@
                   :placeholder="$t('email')"
                   required="required"
                 >
-              </div><div class="form-group">
+              </div>
+              <div class="form-group">
                 <input
                   v-model="localAuth.password"
                   class="form-control"
@@ -232,7 +301,8 @@
                   :placeholder="$t('password')"
                   required="required"
                 >
-              </div><div class="form-group">
+              </div>
+              <div class="form-group">
                 <input
                   v-model="localAuth.confirmPassword"
                   class="form-control"
@@ -240,7 +310,8 @@
                   :placeholder="$t('confirmPass')"
                   required="required"
                 >
-              </div><button
+              </div>
+              <button
                 class="btn btn-primary"
                 type="submit"
                 @click="addLocalAuth()"
@@ -249,8 +320,10 @@
               </button>
             </div>
           </div>
-        </div><div class="usersettings">
-          <h5>{{ $t('changeDisplayName') }}</h5><div
+        </div>
+        <div class="usersettings">
+          <h5>{{ $t('changeDisplayName') }}</h5>
+          <div
             class="form"
             name="changeDisplayName"
             novalidate="novalidate"
@@ -263,7 +336,8 @@
                 type="text"
                 :placeholder="$t('newDisplayName')"
                 :class="{'is-invalid input-invalid': displayNameInvalid}"
-              ><div
+              >
+              <div
                 v-if="displayNameIssues.length > 0"
                 class="mb-3"
               >
@@ -274,7 +348,8 @@
                   {{ issue }}
                 </div>
               </div>
-            </div><button
+            </div>
+            <button
               class="btn btn-primary"
               type="submit"
               :disabled="displayNameCannotSubmit"
@@ -282,7 +357,9 @@
             >
               {{ $t('submit') }}
             </button>
-          </div><h5>{{ $t('changeUsername') }}</h5><div
+          </div>
+          <h5>{{ $t('changeUsername') }}</h5>
+          <div
             class="form"
             name="changeUsername"
             novalidate="novalidate"
@@ -292,14 +369,16 @@
               class="iconalert iconalert-success"
             >
               {{ $t('usernameVerifiedConfirmation', {'username': user.auth.local.username}) }}
-            </div><div
+            </div>
+            <div
               v-else
               class="iconalert iconalert-warning"
             >
               <div class="align-middle">
                 <span>{{ $t('usernameNotVerified') }}</span>
               </div>
-            </div><div class="form-group">
+            </div>
+            <div class="form-group">
               <input
                 id="changeUsername"
                 v-model="usernameUpdates.username"
@@ -308,13 +387,16 @@
                 :placeholder="$t('newUsername')"
                 :class="{'is-invalid input-invalid': usernameInvalid}"
                 @blur="restoreEmptyUsername()"
-              ><div
+              >
+              <div
                 v-for="issue in usernameIssues"
                 class="input-error"
               >
                 {{ issue }}
-              </div><small class="form-text text-muted">{{ $t('changeUsernameDisclaimer') }}</small>
-            </div><button
+              </div>
+              <small class="form-text text-muted">{{ $t('changeUsernameDisclaimer') }}</small>
+            </div>
+            <button
               class="btn btn-primary"
               type="submit"
               :disabled="usernameCannotSubmit"
@@ -322,9 +404,11 @@
             >
               {{ $t('saveAndConfirm') }}
             </button>
-          </div><h5 v-if="user.auth.local.email">
+          </div>
+          <h5 v-if="user.auth.local.email">
             {{ $t('changeEmail') }}
-          </h5><div
+          </h5>
+          <div
             v-if="user.auth.local.email"
             class="form"
             name="changeEmail"
@@ -338,23 +422,27 @@
                 type="text"
                 :placeholder="$t('newEmail')"
               >
-            </div><div class="form-group">
+            </div>
+            <div class="form-group">
               <input
                 v-model="emailUpdates.password"
                 class="form-control"
                 type="password"
                 :placeholder="$t('password')"
               >
-            </div><button
+            </div>
+            <button
               class="btn btn-primary"
               type="submit"
               @click="changeUser('email', emailUpdates)"
             >
               {{ $t('submit') }}
             </button>
-          </div><h5 v-if="user.auth.local.email">
+          </div>
+          <h5 v-if="user.auth.local.email">
             {{ $t('changePass') }}
-          </h5><div
+          </h5>
+          <div
             v-if="user.auth.local.email"
             class="form"
             name="changePassword"
@@ -368,30 +456,36 @@
                 type="password"
                 :placeholder="$t('oldPass')"
               >
-            </div><div class="form-group">
+            </div>
+            <div class="form-group">
               <input
                 v-model="passwordUpdates.newPassword"
                 class="form-control"
                 type="password"
                 :placeholder="$t('newPass')"
               >
-            </div><div class="form-group">
+            </div>
+            <div class="form-group">
               <input
                 v-model="passwordUpdates.confirmPassword"
                 class="form-control"
                 type="password"
                 :placeholder="$t('confirmPass')"
               >
-            </div><button
+            </div>
+            <button
               class="btn btn-primary"
               type="submit"
               @click="changeUser('password', passwordUpdates)"
             >
               {{ $t('submit') }}
             </button>
-          </div><hr>
-        </div><div>
-          <h5>{{ $t('dangerZone') }}</h5><div>
+          </div>
+          <hr>
+        </div>
+        <div>
+          <h5>{{ $t('dangerZone') }}</h5>
+          <div>
             <button
               v-b-popover.hover.auto="$t('resetAccPop')"
               class="btn btn-danger mr-2 mb-2"
@@ -400,7 +494,8 @@
               @click="openResetModal()"
             >
               {{ $t('resetAccount') }}
-            </button><button
+            </button>
+            <button
               v-b-popover.hover.auto="$t('deleteAccPop')"
               class="btn btn-danger mb-2"
               popover-trigger="mouseenter"

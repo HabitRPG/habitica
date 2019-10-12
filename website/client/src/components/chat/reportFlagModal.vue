@@ -6,24 +6,34 @@
     :hide-footer="true"
   >
     <div class="modal-body">
-      <strong v-html="$t('abuseFlagModalHeading', reportData)"></strong><blockquote><div v-markdown="abuseObject.text"></div></blockquote><div>
-        <strong>{{ $t('whyReportingPost') }}</strong><span class="optional">{{ $t('optional') }}</span><textarea
+      <strong v-html="$t('abuseFlagModalHeading', reportData)"></strong>
+      <blockquote>
+        <div v-markdown="abuseObject.text"></div>
+      </blockquote>
+      <div>
+        <strong>{{ $t('whyReportingPost') }}</strong>
+        <span class="optional">{{ $t('optional') }}</span>
+        <textarea
           v-model="reportComment"
           class="form-control"
           :placeholder="$t('whyReportingPostPlaceholder')"
         ></textarea>
-      </div><small v-html="$t('abuseFlagModalBody', abuseFlagModalBody)"></small>
-    </div><div class="footer text-center">
+      </div>
+      <small v-html="$t('abuseFlagModalBody', abuseFlagModalBody)"></small>
+    </div>
+    <div class="footer text-center">
       <button
         v-if="user.contributor.admin && abuseObject.flagCount > 0"
         class="pull-left btn btn-danger"
         @click="clearFlagCount()"
       >
         Reset Flag Count
-      </button><a
+      </button>
+      <a
         class="cancel-link"
         @click.prevent="close()"
-      >{{ $t('cancel') }}</a><button
+      >{{ $t('cancel') }}</a>
+      <button
         class="btn btn-danger"
         @click="reportAbuse()"
       >

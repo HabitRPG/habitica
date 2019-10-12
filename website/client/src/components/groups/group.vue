@@ -3,16 +3,26 @@
     v-if="group._id"
     class="row"
   >
-    <group-form-modal v-if="isParty" /><start-quest-modal :group="this.group" /><quest-details-modal :group="this.group" /><participant-list-modal :group="this.group" /><group-gems-modal /><div class="col-12 col-sm-8 standard-page">
+    <group-form-modal v-if="isParty" />
+    <start-quest-modal :group="this.group" />
+    <quest-details-modal :group="this.group" />
+    <participant-list-modal :group="this.group" />
+    <group-gems-modal />
+    <div class="col-12 col-sm-8 standard-page">
       <div class="row">
         <div class="col-12 col-md-6 title-details">
-          <h1>{{ group.name }}</h1><div>
-            <span class="mr-1 ml-0"><strong v-once>{{ $t('groupLeader') }}:</strong><user-link
-              class="mx-1"
-              :user="group.leader"
-            /></span>
+          <h1>{{ group.name }}</h1>
+          <div>
+            <span class="mr-1 ml-0">
+              <strong v-once>{{ $t('groupLeader') }}:</strong>
+              <user-link
+                class="mx-1"
+                :user="group.leader"
+              />
+            </span>
           </div>
-        </div><div class="col-12 col-md-6">
+        </div>
+        <div class="col-12 col-md-6">
           <div class="row icon-row">
             <div
               class="col-4 offset-4"
@@ -26,22 +36,27 @@
                   v-if="group.memberCount > 1000"
                   class="svg-icon shield"
                   v-html="icons.goldGuildBadgeIcon"
-                ></div><div
+                ></div>
+                <div
                   v-if="group.memberCount > 100 && group.memberCount < 999"
                   class="svg-icon shield"
                   v-html="icons.silverGuildBadgeIcon"
-                ></div><div
+                ></div>
+                <div
                   v-if="group.memberCount < 100"
                   class="svg-icon shield"
                   v-html="icons.bronzeGuildBadgeIcon"
-                ></div><span class="number">{{ group.memberCount | abbrNum }}</span><div
+                ></div>
+                <span class="number">{{ group.memberCount | abbrNum }}</span>
+                <div
                   v-once
                   class="member-list label"
                 >
                   {{ $t('memberList') }}
                 </div>
               </div>
-            </div><div
+            </div>
+            <div
               v-if="!isParty"
               class="col-4"
             >
@@ -52,7 +67,9 @@
                 <div
                   class="svg-icon gem"
                   v-html="icons.gem"
-                ></div><span class="number">{{ group.balance * 4 }}</span><div
+                ></div>
+                <span class="number">{{ group.balance * 4 }}</span>
+                <div
                   v-once
                   class="label"
                 >
@@ -62,7 +79,8 @@
             </div>
           </div>
         </div>
-      </div><chat
+      </div>
+      <chat
         :label="$t('chat')"
         :group="group"
         :placeholder="!isParty ? $t('chatPlaceholder') : $t('partyChatPlaceholder')"
@@ -79,7 +97,8 @@
           </div>
         </template>
       </chat>
-    </div><div class="col-12 col-sm-4 sidebar">
+    </div>
+    <div class="col-12 col-sm-4 sidebar">
       <div
         class="row"
         :class="{'guild-background': !isParty}"
@@ -93,7 +112,8 @@
             >
               {{ $t('upgrade') }}
             </button>
-          </div><div class="button-container">
+          </div>
+          <div class="button-container">
             <button
               v-if="isLeader || isAdmin"
               v-once
@@ -103,7 +123,8 @@
             >
               {{ $t('edit') }}
             </button>
-          </div><div class="button-container">
+          </div>
+          <div class="button-container">
             <button
               v-if="!isMember"
               class="btn btn-success btn-success"
@@ -111,38 +132,47 @@
             >
               {{ $t('join') }}
             </button>
-          </div><div class="button-container">
+          </div>
+          <div class="button-container">
             <button
               v-once
               class="btn btn-primary"
               @click="showInviteModal()"
             >
               {{ $t('invite') }}
-            </button><!-- @TODO: hide the invitation button if there's an active group plan and the player is not the leader-->
-          </div><div class="button-container">
+            </button>
+            <!-- @TODO: hide the invitation button if there's an active group plan and the player is not the leader-->
+          </div>
+          <div class="button-container">
             <!-- @TODO: V2 button.btn.btn-primary(v-once, v-if='!isLeader') {{$t('messageGuildLeader')}} // Suggest making the button visible to the leader too - useful for them to test how the feature works or to send a note to themself. -- Alys-->
-          </div><div class="button-container">
+          </div>
+          <div class="button-container">
             <!-- @TODO: V2 button.btn.btn-primary(v-once, v-if='isMember && !isParty') {{$t('donateGems')}} // Suggest removing the isMember restriction - it's okay if non-members donate to a public guild. Also probably allow it for parties if parties can buy imagery. -- Alys-->
           </div>
         </div>
-      </div><div>
+      </div>
+      <div>
         <quest-sidebar-section
           v-if="isParty"
           :group="group"
-        /><sidebar-section
+        />
+        <sidebar-section
           v-if="!isParty"
           :title="$t('guildSummary')"
         >
           <p v-markdown="group.summary"></p>
-        </sidebar-section><sidebar-section :title="$t('groupDescription')">
+        </sidebar-section>
+        <sidebar-section :title="$t('groupDescription')">
           <p v-markdown="group.description"></p>
-        </sidebar-section><sidebar-section
+        </sidebar-section>
+        <sidebar-section
           :title="$t('challenges')"
           :tooltip="$t('challengeDetails')"
         >
           <group-challenges :group-id="searchId" />
         </sidebar-section>
-      </div><div class="text-center">
+      </div>
+      <div class="text-center">
         <button
           v-if="isMember"
           class="btn btn-danger"

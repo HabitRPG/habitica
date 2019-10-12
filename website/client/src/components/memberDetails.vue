@@ -12,7 +12,8 @@
         @mouseover.native="$emit('onHover')"
         @mouseout.native="$emit('onHover')"
       />
-    </div><div
+    </div>
+    <div
       class="member-stats"
       :class="{'col-8': !expanded && !isHeader}"
     >
@@ -20,9 +21,11 @@
         <class-badge
           v-if="classBadgePosition === 'next-to-name'"
           :member-class="member.stats.class"
-        /><div class="d-flex flex-column profile-name-character">
+        />
+        <div class="d-flex flex-column profile-name-character">
           <h3 class="character-name">
-            {{ member.profile.name }}<div
+            {{ member.profile.name }}
+            <div
               v-if="isBuffed"
               v-b-tooltip.hover.bottom="$t('buffed')"
               class="is-buffed"
@@ -32,31 +35,37 @@
                 v-html="icons.buff"
               ></div>
             </div>
-          </h3><div class="small-text character-level">
+          </h3>
+          <div class="small-text character-level">
             <span
               v-if="member.auth && member.auth.local && member.auth.local.username"
               class="mr-1"
-            >@{{ member.auth.local.username }}</span><span
+            >@{{ member.auth.local.username }}</span>
+            <span
               v-if="member.auth && member.auth.local && member.auth.local.username"
               class="mr-1"
-            >•</span><span>{{ characterLevel }}</span>
+            >•</span>
+            <span>{{ characterLevel }}</span>
           </div>
         </div>
-      </div><stats-bar
+      </div>
+      <stats-bar
         :icon="icons.health"
         :value="member.stats.hp"
         :max-value="MAX_HEALTH"
         :tooltip="$t('health')"
         progress-class="bg-health"
         :condensed="condensed"
-      /><stats-bar
+      />
+      <stats-bar
         :icon="icons.experience"
         :value="member.stats.exp"
         :max-value="toNextLevel"
         :tooltip="$t('experience')"
         progress-class="bg-experience"
         :condensed="condensed"
-      /><stats-bar
+      />
+      <stats-bar
         v-if="hasClass"
         :icon="icons.mana"
         :value="member.stats.mp"

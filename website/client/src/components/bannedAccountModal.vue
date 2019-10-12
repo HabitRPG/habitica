@@ -11,7 +11,8 @@
           <p v-markdown="bannedMessage"></p>
         </div>
       </div>
-    </div><div class="modal-footer">
+    </div>
+    <div class="modal-footer">
       <div class="col-12 text-center">
         <button
           class="btn btn-primary"

@@ -1,73 +1,107 @@
 <template>
   <div class="group-plan-static text-center">
-    <amazon-payments-modal /><div class="container">
+    <amazon-payments-modal />
+    <div class="container">
       <div class="row top">
-        <div class="top-left"></div><div class="col-6 offset-3">
+        <div class="top-left"></div>
+        <div class="col-6 offset-3">
           <img
             class="party"
             src="../../assets/images/group-plans-static/party@3x.png"
-          ><h1>{{ $t('groupPlanTitle') }}</h1><p>{{ $t('groupPlanDesc') }}</p><div class="pricing">
-            <span>Just</span><span class="number">$9</span><span class="bold">per month +</span><span class="number">$3</span><span class="bold">per member*</span>
-          </div><div class="text-center">
+          >
+          <h1>{{ $t('groupPlanTitle') }}</h1>
+          <p>{{ $t('groupPlanDesc') }}</p>
+          <div class="pricing">
+            <span>Just</span>
+            <span class="number">$9</span>
+            <span class="bold">per month +</span>
+            <span class="number">$3</span>
+            <span class="bold">per member*</span>
+          </div>
+          <div class="text-center">
             <button
               class="btn btn-primary cta-button"
               @click="goToNewGroupPage()"
             >
               {{ $t('getStarted') }}
             </button>
-          </div><small>{{ $t('billedMonthly') }}</small>
-        </div><div class="top-right"></div>
-      </div><div class="row">
+          </div>
+          <small>{{ $t('billedMonthly') }}</small>
+        </div>
+        <div class="top-right"></div>
+      </div>
+      <div class="row">
         <div class="text-col col-12 col-md-6 text-left">
-          <h2>{{ $t('teamBasedTasksList') }}</h2><p>{{ $t('teamBasedTasksListDesc') }}</p>
-        </div><div class="col-12 col-md-6">
+          <h2>{{ $t('teamBasedTasksList') }}</h2>
+          <p>{{ $t('teamBasedTasksListDesc') }}</p>
+        </div>
+        <div class="col-12 col-md-6">
           <div
             class="team-based"
             v-html="svg.teamBased"
           ></div>
         </div>
-      </div><div class="row">
+      </div>
+      <div class="row">
         <div class="col-12 col-md-6">
           <div
             class="group-management"
             v-html="svg.groupManagement"
           ></div>
-        </div><div class="text-col col-12 col-md-6 text-left">
-          <h2>{{ $t('groupManagementControls') }}</h2><p>{{ $t('groupManagementControlsDesc') }}</p>
         </div>
-      </div><div class="row">
+        <div class="text-col col-12 col-md-6 text-left">
+          <h2>{{ $t('groupManagementControls') }}</h2>
+          <p>{{ $t('groupManagementControlsDesc') }}</p>
+        </div>
+      </div>
+      <div class="row">
         <div class="col-12 col-md-6 offset-md-3 text-center">
           <img
             class="big-gem"
             src="../../assets/images/group-plans-static/big-gem@3x.png"
-          ><h2>{{ $t('inGameBenefits') }}</h2><p>{{ $t('inGameBenefitsDesc') }}</p>
+          >
+          <h2>{{ $t('inGameBenefits') }}</h2>
+          <p>{{ $t('inGameBenefitsDesc') }}</p>
         </div>
-      </div><div class="row">
-        <div class="bot-left"></div><div class="col-6 offset-3">
+      </div>
+      <div class="row">
+        <div class="bot-left"></div>
+        <div class="col-6 offset-3">
           <h2 class="purple">
             {{ $t('inspireYourParty') }}
-          </h2><div class="pricing">
-            <span>Just</span><span class="number">$9</span><span class="bold">per month +</span><span class="number">$3</span><span class="bold">per member*</span>
-          </div><div class="text-center">
+          </h2>
+          <div class="pricing">
+            <span>Just</span>
+            <span class="number">$9</span>
+            <span class="bold">per month +</span>
+            <span class="number">$3</span>
+            <span class="bold">per member*</span>
+          </div>
+          <div class="text-center">
             <button
               class="btn btn-primary cta-button"
               @click="goToNewGroupPage()"
             >
               {{ $t('getStarted') }}
             </button>
-          </div><small>{{ $t('billedMonthly') }}</small>
-        </div><div class="bot-right"></div>
+          </div>
+          <small>{{ $t('billedMonthly') }}</small>
+        </div>
+        <div class="bot-right"></div>
       </div>
-    </div><b-modal
+    </div>
+    <b-modal
       id="group-plan"
-      title=""
+      title
       size="md"
       :hide-footer="true"
       :hide-header="true"
     >
       <div v-if="modalPage === 'account'">
-        <h2>{{ $t('letsMakeAccount') }}</h2><auth-form @authenticate="authenticate()" />
-      </div><div v-if="modalPage === 'purchaseGroup'">
+        <h2>{{ $t('letsMakeAccount') }}</h2>
+        <auth-form @authenticate="authenticate()" />
+      </div>
+      <div v-if="modalPage === 'purchaseGroup'">
         <create-group-modal-pages />
       </div>
     </b-modal>

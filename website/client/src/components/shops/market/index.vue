@@ -8,29 +8,34 @@
           type="text"
           :placeholder="$t('search')"
         >
-      </div><market-filter
+      </div>
+      <market-filter
         :hide-locked.sync="hideLocked"
         :hide-pinned.sync="hidePinned"
         :view-options="viewOptions"
       />
-    </div><div slot="page">
+    </div>
+    <div slot="page">
       <featured-items-header
         :broken="broken"
         :npc-name="'Alex'"
         :featured-text="market.featured.text"
         :featured-items="market.featured.items"
         @featuredItemSelected="featuredItemSelected($event)"
-      /><h1
+      />
+      <h1
         v-once
         class="mb-4 page-header"
       >
         {{ $t('market') }}
-      </h1><equipment-section
+      </h1>
+      <equipment-section
         v-if="!anyFilterSelected || viewOptions['equipment'].selected"
         :hide-pinned="hidePinned"
         :hide-locked="hideLocked"
         :search-by="searchTextThrottled"
-      /><layout-section :title="$t('items')">
+      />
+      <layout-section :title="$t('items')">
         <div slot="filters">
           <filter-dropdown
             :label="$t('sortBy')"
@@ -41,21 +46,28 @@
             <span
               slot="item"
               slot-scope="ctx"
-            ><span class="text">{{ $t(ctx.item.id) }}</span></span>
+            >
+              <span class="text">{{ $t(ctx.item.id) }}</span>
+            </span>
           </filter-dropdown>
         </div>
-      </layout-section><div
+      </layout-section>
+      <div
         v-for="category in categories"
         v-if="!anyFilterSelected || viewOptions[category.identifier].selected"
       >
-        <h4>{{ category.text }}</h4><category-row
+        <h4>{{ category.text }}</h4>
+        <category-row
           :hide-pinned="hidePinned"
           :hide-locked="hideLocked"
           :search-by="searchTextThrottled"
           :sort-by="selectedSortItemsBy.id"
           :category="category"
-        /><keys-to-kennel v-if="category.identifier === 'special'" /><div class="fill-height"></div>
-      </div><inventoryDrawer
+        />
+        <keys-to-kennel v-if="category.identifier === 'special'" />
+        <div class="fill-height"></div>
+      </div>
+      <inventoryDrawer
         :show-eggs="true"
         :show-potions="true"
       >
@@ -73,7 +85,8 @@
               slot="itemBadge"
               :show="true"
               :count="ctx.itemCount"
-            /><h4
+            />
+            <h4
               slot="popoverContent"
               class="popover-content-title"
             >
@@ -81,7 +94,8 @@
             </h4>
           </item>
         </template>
-      </inventoryDrawer><sellModal />
+      </inventoryDrawer>
+      <sellModal />
     </div>
   </page-layout>
 </template>

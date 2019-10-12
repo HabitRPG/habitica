@@ -1,7 +1,7 @@
 <template>
   <b-modal
     id="world-boss-rage"
-    title=""
+    title
     :hide-footer="true"
     :hide-header="true"
   >
@@ -10,43 +10,54 @@
         <div class="reduce">
           {{ $t('seasonalShopRageStrikeHeader') }}
         </div>
-      </div><img
+      </div>
+      <img
         class="npc-background"
         src="~@/assets/images/npc/broken/rage-strike-seasonalShop-scaled@2x.png"
-      ><div class="modal-body">
+      >
+      <div class="modal-body">
         <div class="row">
           <div class="col-12 text-center padding-24">
-            <h2>{{ $t('seasonalShopRageStrikeLead') }}</h2><p>{{ $t('seasonalShopRageStrikeRecap') }}</p>
+            <h2>{{ $t('seasonalShopRageStrikeLead') }}</h2>
+            <p>{{ $t('seasonalShopRageStrikeRecap') }}</p>
           </div>
         </div>
       </div>
-    </div><div v-if="npc === 'market'">
+    </div>
+    <div v-if="npc === 'market'">
       <div class="modal-header d-flex align-items-center justify-content-center">
         <div class="reduce">
           {{ $t('marketRageStrikeHeader') }}
         </div>
-      </div><img
+      </div>
+      <img
         class="npc-background"
         src="~@/assets/images/npc/broken/rage-strike-market-scaled@2x.png"
-      ><div class="modal-body">
+      >
+      <div class="modal-body">
         <div class="row">
           <div class="col-12 text-center padding-24">
-            <h2>{{ $t('marketRageStrikeLead') }}</h2><p>{{ $t('marketRageStrikeRecap') }}</p>
+            <h2>{{ $t('marketRageStrikeLead') }}</h2>
+            <p>{{ $t('marketRageStrikeRecap') }}</p>
           </div>
         </div>
       </div>
-    </div><div v-if="npc === 'quests'">
+    </div>
+    <div v-if="npc === 'quests'">
       <div class="modal-header d-flex align-items-center justify-content-center">
         <div class="reduce">
           {{ $t('questsRageStrikeHeader') }}
         </div>
-      </div><img
+      </div>
+      <img
         class="npc-background"
         src="~@/assets/images/npc/broken/rage-strike-quests-scaled@2x.png"
-      ><div class="modal-body">
+      >
+      <div class="modal-body">
         <div class="row">
           <div class="col-12 text-center padding-24">
-            <h2>{{ $t('questsRageStrikeLead') }}</h2><p>{{ $t('questsRageStrikeRecap') }}</p>
+            <h2>{{ $t('questsRageStrikeLead') }}</h2>
+            <p>{{ $t('questsRageStrikeRecap') }}</p>
           </div>
         </div>
       </div>

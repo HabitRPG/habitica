@@ -8,16 +8,19 @@
       slot="modal-header"
       class="header-wrap"
     >
-      <div class="quest_screen"></div><div class="row heading">
+      <div class="quest_screen"></div>
+      <div class="row heading">
         <div class="col-12 text-center pr-5 pl-5">
           <h2 v-once>
             {{ $t('playInPartyTitle') }}
-          </h2><p
+          </h2>
+          <p
             v-once
             class="mb-4"
           >
             {{ $t('playInPartyDescription') }}
-          </p><button
+          </p>
+          <button
             v-once
             class="btn btn-primary"
             @click="createParty()"
@@ -26,11 +29,15 @@
           </button>
         </div>
       </div>
-    </div><div class="row grey-row">
+    </div>
+    <div class="row grey-row">
       <div class="col-12 text-center">
-        <div class="join-party"></div><h2 v-once>
+        <div class="join-party"></div>
+        <h2 v-once>
           {{ $t('wantToJoinPartyTitle') }}
-        </h2><p v-html="$t('wantToJoinPartyDescription')"></p><div
+        </h2>
+        <p v-html="$t('wantToJoinPartyDescription')"></p>
+        <div
           class="form-group"
           @click="copyUsername"
         >
@@ -38,14 +45,18 @@
             <label
               v-once
               class="mr-3"
-            >{{ $t('username') }}</label><div class="flex-grow-1">
+            >{{ $t('username') }}</label>
+            <div class="flex-grow-1">
               <div class="input-group-prepend input-group-text">
-                @<div class="text">
+                @
+                <div class="text">
                   {{ user.auth.local.username }}
-                </div><div
+                </div>
+                <div
                   class="svg-icon copy-icon"
                   v-html="icons.copy"
-                ></div><div
+                ></div>
+                <div
                   v-once
                   class="small"
                 >

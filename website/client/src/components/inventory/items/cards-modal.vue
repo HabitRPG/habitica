@@ -9,13 +9,19 @@
       <div
         class="pull-right"
         :class="`inventory_special_${cardType}`"
-      ></div><h4>{{ $t(cardType + 'Card') }}</h4>
-    </div><div class="modal-body">
+      ></div>
+      <h4>{{ $t(cardType + 'Card') }}</h4>
+    </div>
+    <div class="modal-body">
       <div style="padding:10px">
-        <p>{{ $t('toAndFromCard', { toName: user.profile.name, fromName}) }}</p><hr><div v-markdown="cardMessage"></div>
+        <p>{{ $t('toAndFromCard', { toName: user.profile.name, fromName}) }}</p>
+        <hr>
+        <div v-markdown="cardMessage"></div>
       </div>
-    </div><div class="modal-footer">
-      <small class="pull-left">{{ $t(cardType + 'CardExplanation') }}</small><button
+    </div>
+    <div class="modal-footer">
+      <small class="pull-left">{{ $t(cardType + 'CardExplanation') }}</small>
+      <button
         class="btn btn-secondary"
         @click="readCard()"
       >

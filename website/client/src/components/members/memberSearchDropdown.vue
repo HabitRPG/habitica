@@ -13,7 +13,8 @@
         class="form-control"
         type="text"
       >
-    </b-dropdown-form><b-dropdown-item
+    </b-dropdown-form>
+    <b-dropdown-item
       v-for="member in memberResults"
       :key="member._id"
       @click="selectMember(member)"

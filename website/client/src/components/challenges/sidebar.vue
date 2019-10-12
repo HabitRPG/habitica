@@ -7,11 +7,14 @@
         type="text"
         :placeholder="$t('search')"
       >
-    </div><form>
+    </div>
+    <form>
       <h2 v-once>
         {{ $t('filter') }}
-      </h2><div class="form-group">
-        <h3>{{ $t('category') }}</h3><div
+      </h2>
+      <div class="form-group">
+        <h3>{{ $t('category') }}</h3>
+        <div
           v-for="group in categoryOptions"
           :key="group.key"
           class="form-check"
@@ -23,18 +26,21 @@
               class="custom-control-input"
               type="checkbox"
               :value="group.key"
-            ><label
+            >
+            <label
               v-once
               class="custom-control-label"
               :for="group.key"
             >{{ $t(group.label) }}</label>
           </div>
         </div>
-      </div><div
+      </div>
+      <div
         v-if="$route.name !== 'findChallenges'"
         class="form-group"
       >
-        <h3>{{ $t('membership') }}</h3><div
+        <h3>{{ $t('membership') }}</h3>
+        <div
           v-for="group in roleOptions"
           :key="group.key"
           class="form-check"
@@ -46,15 +52,18 @@
               class="custom-control-input"
               type="checkbox"
               :value="group.key"
-            ><label
+            >
+            <label
               v-once
               class="custom-control-label"
               :for="group.key"
             >{{ $t(group.label) }}</label>
           </div>
         </div>
-      </div><div class="form-group">
-        <h3>{{ $t('ownership') }}</h3><div
+      </div>
+      <div class="form-group">
+        <h3>{{ $t('ownership') }}</h3>
+        <div
           v-for="group in ownershipOptions"
           :key="group.key"
           class="form-check"
@@ -66,7 +75,8 @@
               class="custom-control-input"
               type="checkbox"
               :value="group.key"
-            ><label
+            >
+            <label
               v-once
               class="custom-control-label"
               :for="group.key"

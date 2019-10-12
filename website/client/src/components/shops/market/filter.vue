@@ -2,7 +2,8 @@
   <div class="form">
     <h2 v-once>
       {{ $t('filter') }}
-    </h2><div class="form-group">
+    </h2>
+    <div class="form-group">
       <checkbox
         v-for="viewOptionKey in Object.keys(viewOptions)"
         :id="`category-${viewOptionKey}`"
@@ -10,24 +11,28 @@
         :checked.sync="viewOptions[viewOptionKey].selected"
         :text="viewOptions[viewOptionKey].text"
       />
-    </div><div class="form-group clearfix">
+    </div>
+    <div class="form-group clearfix">
       <h3
         v-once
         class="float-left"
       >
         {{ $t('hideLocked') }}
-      </h3><toggle-switch
+      </h3>
+      <toggle-switch
         v-model="lockedChecked"
         class="float-right"
         @change="$emit('update:hideLocked', $event)"
       />
-    </div><div class="form-group clearfix">
+    </div>
+    <div class="form-group clearfix">
       <h3
         v-once
         class="float-left"
       >
         {{ $t('hidePinned') }}
-      </h3><toggle-switch
+      </h3>
+      <toggle-switch
         v-model="pinnedChecked"
         class="float-right"
         @change="$emit('update:hidePinned', $event)"

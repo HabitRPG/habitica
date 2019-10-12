@@ -9,8 +9,10 @@
     <div slot="content">
       <div class="notification-bold-purple">
         {{ $t('newBaileyUpdate') }}
-      </div><div>{{ notification.data.title }}</div>
-    </div><div
+      </div>
+      <div>{{ notification.data.title }}</div>
+    </div>
+    <div
       slot="icon"
       class="npc_bailey"
     ></div>

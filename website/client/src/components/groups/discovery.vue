@@ -3,7 +3,8 @@
     <sidebar
       @search="updateSearch"
       @filter="updateFilters"
-    /><div class="standard-page">
+    />
+    <div class="standard-page">
       <div class="header row">
         <div class="col-8">
           <h1
@@ -12,20 +13,24 @@
           >
             {{ $t('publicGuilds') }}
           </h1>
-        </div><div class="col-4">
-<!-- @TODO: Add when we implement recent activity .float-rightspan.dropdown-label {{ $t('sortBy') }}
-b-dropdown(:text="$t('sort')", right=true)
-  b-dropdown-item(v-for='sortOption in sortOptions', :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}--><button
-class="btn btn-secondary create-group-button float-right"
-@click="createGroup()"
->
-<div
-class="svg-icon positive-icon"
-v-html="icons.positiveIcon"
-></div><span v-once>{{ $t('createGuild2') }}</span>
-</button>
         </div>
-      </div><div class="row">
+        <div class="col-4">
+          <!-- @TODO: Add when we implement recent activity .float-rightspan.dropdown-label {{ $t('sortBy') }}
+b-dropdown(:text="$t('sort')", right=true)
+          b-dropdown-item(v-for='sortOption in sortOptions', :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}-->
+          <button
+            class="btn btn-secondary create-group-button float-right"
+            @click="createGroup()"
+          >
+            <div
+              class="svg-icon positive-icon"
+              v-html="icons.positiveIcon"
+            ></div>
+            <span v-once>{{ $t('createGuild2') }}</span>
+          </button>
+        </div>
+      </div>
+      <div class="row">
         <div
           v-if="!loading && filteredGuilds.length === 0"
           class="no-guilds text-center col-md-6 offset-md-3"
@@ -34,14 +39,16 @@ v-html="icons.positiveIcon"
             {{ $t('noGuildsMatchFilters') }}
           </h2>
         </div>
-      </div><div class="row">
+      </div>
+      <div class="row">
         <div class="col-md-12">
           <public-guild-item
             v-for="guild in filteredGuilds"
             :key="guild._id"
             :guild="guild"
             :display-leave="true"
-          /><mugen-scroll
+          />
+          <mugen-scroll
             v-show="loading"
             :handler="fetchGuilds"
             :should-handle="!loading && !this.hasLoadedAllGuilds"

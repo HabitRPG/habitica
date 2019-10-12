@@ -5,9 +5,11 @@
     :hide-footer="true"
   >
     <div>
-      <strong>{{ $t('inviteEmailUsername') }}</strong><div class="small">
+      <strong>{{ $t('inviteEmailUsername') }}</strong>
+      <div class="small">
         {{ $t('inviteEmailUsernameInfo') }}
-      </div><div v-for="(invite, index) in invites">
+      </div>
+      <div v-for="(invite, index) in invites">
         <div class="input-group">
           <div
             v-if="index === invites.length - 1 && invite.text.length === 0"
@@ -17,7 +19,8 @@
               class="svg-icon positive-icon"
               v-html="icons.positiveIcon"
             ></div>
-          </div><input
+          </div>
+          <input
             v-model="invite.text"
             class="form-control"
             type="text"
@@ -26,18 +29,21 @@
             @keyup="expandInviteList"
             @change="checkInviteList"
           >
-        </div><div
+        </div>
+        <div
           v-if="invite.error"
           class="input-error text-center mt-2"
         >
           {{ invite.error }}
         </div>
       </div>
-    </div><div class="modal-footer d-flex justify-content-center">
+    </div>
+    <div class="modal-footer d-flex justify-content-center">
       <a
         class="mr-3"
         @click="close()"
-      >{{ $t('cancel') }}</a><button
+      >{{ $t('cancel') }}</a>
+      <button
         class="btn btn-primary"
         :class="{disabled: cannotSubmit}"
         :disabled="cannotSubmit"

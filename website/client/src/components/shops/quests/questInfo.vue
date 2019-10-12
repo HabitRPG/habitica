@@ -7,18 +7,23 @@
       v-if="quest.collect"
       class="table-row"
     >
-      <dt>{{ $t('collect') + ':' }}</dt><dd>
+      <dt>{{ $t('collect') + ':' }}</dt>
+      <dd>
         <div v-for="(collect, key) of quest.collect">
           <span>{{ collect.count }} {{ getCollectText(collect) }}</span>
         </div>
       </dd>
-    </div><div
+    </div>
+    <div
       v-if="quest.boss"
       class="table-row"
     >
-      <dt>{{ $t('bossHP') + ':' }}</dt><dd>{{ quest.boss.hp }}</dd>
-    </div><div class="table-row">
-      <dt>{{ $t('difficulty') + ':' }}</dt><dd>
+      <dt>{{ $t('bossHP') + ':' }}</dt>
+      <dd>{{ quest.boss.hp }}</dd>
+    </div>
+    <div class="table-row">
+      <dt>{{ $t('difficulty') + ':' }}</dt>
+      <dd>
         <div
           v-for="star of stars()"
           class="svg-icon inline"

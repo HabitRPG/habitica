@@ -10,7 +10,8 @@
         :class="hoverText ? 'hasPopOver' : ''"
       >
         {{ label }}
-      </div><div class="toggle-switch float-left">
+      </div>
+      <div class="toggle-switch float-left">
         <input
           :id="toggleId"
           class="toggle-switch-checkbox"
@@ -18,12 +19,17 @@
           :checked="isChecked"
           :value="value"
           @change="handleChange"
-        ><label
+        >
+        <label
           class="toggle-switch-label"
           :for="toggleId"
-        ><span class="toggle-switch-inner"></span><span class="toggle-switch-switch"></span></label>
+        >
+          <span class="toggle-switch-inner"></span>
+          <span class="toggle-switch-switch"></span>
+        </label>
       </div>
-    </div><b-popover
+    </div>
+    <b-popover
       v-if="hoverText"
       :target="containerId"
       triggers="hover"

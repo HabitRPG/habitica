@@ -14,9 +14,16 @@
       >
         <h3 class="panel-heading clearfix">
           <div class="float-right">
-            <span v-if="gift.gems.fromBalance">{{ $t('sendGiftGemsBalance', {number: userLoggedIn.balance * 4}) }}</span><span v-if="!gift.gems.fromBalance">{{ $t('sendGiftCost', {cost: gift.gems.amount / 4}) }}</span>
-          </div>{{ $t('gemsPopoverTitle') }}
-        </h3><div class="panel-body">
+            <span
+              v-if="gift.gems.fromBalance"
+            >{{ $t('sendGiftGemsBalance', {number: userLoggedIn.balance * 4}) }}</span>
+            <span
+              v-if="!gift.gems.fromBalance"
+            >{{ $t('sendGiftCost', {cost: gift.gems.amount / 4}) }}</span>
+          </div>
+          {{ $t('gemsPopoverTitle') }}
+        </h3>
+        <div class="panel-body">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
@@ -29,7 +36,8 @@
                   :max="gift.gems.fromBalance ? userLoggedIn.balance * 4 : 9999"
                 >
               </div>
-            </div><div class="col-md-6">
+            </div>
+            <div class="col-md-6">
               <div class="btn-group">
                 <button
                   class="btn btn-secondary"
@@ -37,7 +45,8 @@
                   @click="gift.gems.fromBalance = true"
                 >
                   {{ $t('sendGiftFromBalance') }}
-                </button><button
+                </button>
+                <button
                   class="btn btn-secondary"
                   :class="{active: !gift.gems.fromBalance}"
                   @click="gift.gems.fromBalance = false"
@@ -46,7 +55,8 @@
                 </button>
               </div>
             </div>
-          </div><div class="row">
+          </div>
+          <div class="row">
             <div class="col-md-12">
               <p
                 class="small"
@@ -55,14 +65,16 @@
             </div>
           </div>
         </div>
-      </div><div
+      </div>
+      <div
         class="panel panel-default"
         :class="gift.type=='subscription' ? 'panel-primary' : 'transparent'"
         @click="gift.type = 'subscription'"
       >
         <h3 class="panel-heading">
           {{ $t('subscription') }}
-        </h3><div class="panel-body">
+        </h3>
+        <div class="panel-body">
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">
@@ -71,24 +83,30 @@
                   v-if="block.target !== 'group' && block.canSubscribe === true"
                   class="radio"
                 >
-                  <label><input
-                    v-model="gift.subscription.key"
-                    type="radio"
-                    name="subRadio"
-                    :value="block.key"
-                  >{{ $t('sendGiftSubscription', {price: block.price, months: block.months}) }}</label>
+                  <label>
+                    <input
+                      v-model="gift.subscription.key"
+                      type="radio"
+                      name="subRadio"
+                      :value="block.key"
+                    >
+                    {{ $t('sendGiftSubscription', {price: block.price, months: block.months}) }}
+                  </label>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div><textarea
+      </div>
+      <textarea
         v-model="gift.message"
         class="form-control"
         rows="3"
         :placeholder="$t('sendGiftMessagePlaceholder')"
-      ></textarea><!--include ../formatting-help-->
-    </div><div class="modal-footer">
+      ></textarea>
+      <!--include ../formatting-help-->
+    </div>
+    <div class="modal-footer">
       <button
         v-if="fromBal"
         class="btn btn-primary"
@@ -96,7 +114,8 @@
         @click="sendGift()"
       >
         {{ $t("send") }}
-      </button><div
+      </button>
+      <div
         v-else
         class="payments-column mx-auto"
         :class="{'payments-disabled': !gift.subscription.key && gift.gems.amount < 1}"
@@ -109,17 +128,21 @@
           <div
             class="svg-icon credit-card-icon"
             v-html="icons.creditCardIcon"
-          ></div>{{ $t('card') }}
-        </button><button
+          ></div>
+          {{ $t('card') }}
+        </button>
+        <button
           class="btn payment-item paypal-checkout payment-button"
           :disabled="!gift.subscription.key && gift.gems.amount < 1"
           @click="openPaypalGift({gift: gift, giftedTo: userReceivingGems._id, receiverName})"
         >
-          &nbsp;<img
+          &nbsp;
+          <img
             src="~@/assets/images/paypal-checkout.png"
             :alt="$t('paypal')"
           >&nbsp;
-        </button><amazon-button
+        </button>
+        <amazon-button
           class="payment-item mb-0"
           :amazon-data="{type: 'single', gift, giftedTo: userReceivingGems._id, receiverName}"
           :amazon-disabled="!gift.subscription.key && gift.gems.amount < 1"
