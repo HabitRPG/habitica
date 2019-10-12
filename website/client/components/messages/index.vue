@@ -389,41 +389,29 @@
       faceAvatar,
     },
     async mounted () {
-      this.$root.$on('habitica::new-private-message', (data) => {
-        this.$root.$emit('bv::show::modal', 'messages-modal');
-
-        // Wait for messages to be loaded
-        const unwatchLoaded = this.$watch('loaded', (loaded) => {
-          if (!loaded) return;
-
-          const conversation = this.conversations.find(convo => {
-            return convo.key === data.userIdToMessage;
-          });
-          if (loaded) setImmediate(() => unwatchLoaded());
-
-          if (conversation) {
-            this.selectConversation(data.userIdToMessage);
-            return;
-          }
-
-          this.initiatedConversation = {
-            uuid: data.userIdToMessage,
-            user: data.displayName,
-            username: data.username,
-            backer: data.backer,
-            contributor: data.contributor,
-          };
-
-          this.selectConversation(data.userIdToMessage);
-        }, {immediate: true});
-      });
-
       this.loaded = false;
 
       const conversationRes = await axios.get('/api/v4/inbox/conversations');
       this.loadedConversations = conversationRes.data.data;
 
       this.loaded = true;
+
+
+      const data = this.$store.state.privateMessageOptions;
+
+      if (data && data.userIdToMessage) {
+        this.initiatedConversation = {
+          uuid: data.userIdToMessage,
+          user: data.displayName,
+          username: data.username,
+          backer: data.backer,
+          contributor: data.contributor,
+        };
+
+        this.$store.state.privateMessageOptions = {};
+
+        this.selectConversation(this.initiatedConversation.uuid);
+      }
     },
     destroyed () {
       this.$root.$off('habitica::new-private-message');

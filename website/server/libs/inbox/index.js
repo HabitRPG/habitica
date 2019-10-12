@@ -1,6 +1,7 @@
-import {mapInboxMessage, inboxModel as Inbox} from '../../models/message';
+import {mapInboxMessage, inboxModel as Inbox, setUserStyles} from '../../models/message';
 import {getUserInfo, sendTxn as sendTxnEmail} from '../email';
 import {sendNotification as sendPushNotification} from '../pushNotifications';
+import { model as User } from '../../models/user';
 
 const PM_PER_PAGE = 10;
 
@@ -82,7 +83,7 @@ async function usersMapByConversations (owner, users) {
         $match: {
           ownerId: owner._id,
           uuid: { $in: users },
-          sent: false,
+          sent: false, // only messages the other user sent to you
         },
       },
       {
@@ -101,6 +102,37 @@ async function usersMapByConversations (owner, users) {
 
   for (const usr of usersAr) {
     usersMap[usr._id] = usr;
+  }
+
+  // if a conversation doesn't have a response of the chat-partner,
+  // those won't be listed by the query above
+  const usersStillNeedToBeLoaded = users.filter(userId => !usersMap[userId]);
+
+  if (usersStillNeedToBeLoaded.length > 0) {
+    const usersQuery = {
+      _id: {$in: usersStillNeedToBeLoaded },
+    };
+
+    const loadedUsers = await User.find(usersQuery,  {
+      _id: 1,
+      contributor: 1,
+      backer: 1,
+      items: 1,
+      preferences: 1,
+      stats: 1,
+    }).exec();
+
+    for (const usr of loadedUsers) {
+      const loadedUserConversation = {
+        _id: usr._id,
+        backer: usr.backer,
+        contributor: usr.contributor,
+      };
+      // map user values to conversation properties
+      setUserStyles(loadedUserConversation, usr);
+
+      usersMap[usr._id] = loadedUserConversation;
+    }
   }
 
   return usersMap;

@@ -75,6 +75,7 @@
       width: 100%;
       height: 30px;
       margin-right: 40px;
+      margin-top: 4px;
       font-size: 12px;
       font-weight: normal;
       font-style: normal;
