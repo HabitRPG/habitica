@@ -59,7 +59,7 @@ export async function join (store, payload) {
   try {
     response = await axios.post(`/api/v4/groups/${groupId}/join`);
   } catch (err) {
-    alert(err.response.data.message);
+    window.alert(err.response.data.message);
     return null;
   }
 

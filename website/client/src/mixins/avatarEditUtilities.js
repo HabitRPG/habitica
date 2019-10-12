@@ -23,7 +23,9 @@ export const avatarEditorUtilies = { // eslint-disable-line import/prefer-defaul
       return moment(appearanceSets[set.key].availableUntil).isBefore(moment());
     },
     mapKeysToFreeOption (key, type, subType) {
-      const userPreference = subType ? this.user.preferences[type][subType] : this.user.preferences[type];
+      const userPreference = subType
+        ? this.user.preferences[type][subType]
+        : this.user.preferences[type];
       const pathKey = subType ? `${type}.${subType}` : `${type}`;
 
       const option = {};
@@ -37,7 +39,9 @@ export const avatarEditorUtilies = { // eslint-disable-line import/prefer-defaul
     mapKeysToOption (key, type, subType, set) {
       const option = this.mapKeysToFreeOption(key, type, subType);
 
-      const userPurchased = subType ? this.user.purchased[type][subType] : this.user.purchased[type];
+      const userPurchased = subType
+        ? this.user.purchased[type][subType]
+        : this.user.purchased[type];
       const locked = !userPurchased || !userPurchased[key];
       let hide = false;
 
@@ -90,7 +94,11 @@ export const avatarEditorUtilies = { // eslint-disable-line import/prefer-defaul
 
       setKeys.forEach(key => {
         if (subType) {
-          if (!this.user.purchased[type] || !this.user.purchased[type][subType] || !this.user.purchased[type][subType][key]) owns = false;
+          if (
+            !this.user.purchased[type]
+            || !this.user.purchased[type][subType]
+            || !this.user.purchased[type][subType][key]
+          ) owns = false;
           return;
         }
         if (!this.user.purchased[type][key]) owns = false;
@@ -106,8 +114,10 @@ export const avatarEditorUtilies = { // eslint-disable-line import/prefer-defaul
     },
     /**
      * For gem-unlockable preferences, (a) if owned, select preference (b) else, purchase
-     * @param path: User.preferences <-> User.purchased maps like User.preferences.skin=abc <-> User.purchased.skin.abc.
-     *  Pass in this paramater as "skin.abc". Alternatively, pass as an array ["skin.abc", "skin.xyz"] to unlock sets
+     * @param path: User.preferences <-> User.purchased maps like
+     *User.preferences.skin=abc <-> User.purchased.skin.abc.
+     *  Pass in this paramater as "skin.abc". Alternatively, pass as an
+     * array ["skin.abc", "skin.xyz"] to unlock sets
      */
     async unlock (path) {
       const fullSet = path.indexOf(',') !== -1;
@@ -132,11 +142,11 @@ export const avatarEditorUtilies = { // eslint-disable-line import/prefer-defaul
 
       if (loginIncentives.indexOf(path) === -1) {
         if (fullSet) {
-          if (confirm(this.$t('purchaseFor', { cost: cost * 4 })) !== true) return;
+          if (window.confirm(this.$t('purchaseFor', { cost: cost * 4 })) !== true) return;
           // @TODO: implement gem modal
           // if (this.user.balance < cost) return $rootScope.openModal('buyGems');
         } else if (!get(this.user, `purchased.${path}`)) {
-          if (confirm(this.$t('purchaseFor', { cost: cost * 4 })) !== true) return;
+          if (window.confirm(this.$t('purchaseFor', { cost: cost * 4 })) !== true) return;
           // @TODO: implement gem modal
           // if (this.user.balance < cost) return $rootScope.openModal('buyGems');
         }
@@ -151,7 +161,7 @@ export const avatarEditorUtilies = { // eslint-disable-line import/prefer-defaul
         });
         this.backgroundUpdate = new Date();
       } catch (e) {
-        alert(e.message);
+        window.alert(e.message);
       }
     },
     async buy (item) {
@@ -169,7 +179,7 @@ export const avatarEditorUtilies = { // eslint-disable-line import/prefer-defaul
         });
         this.backgroundUpdate = new Date();
       } catch (e) {
-        alert(e.message);
+        window.alert(e.message);
       }
     },
   },

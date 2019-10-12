@@ -109,7 +109,7 @@ export default {
         ]],
       };
 
-      for (const key in this.chapters) {
+      for (const key of Object.keys(this.chapters)) {
         const chapter = this.chapters[key][0][0];
         chapter.intro = `
           <div class='featured-label'>
@@ -126,7 +126,8 @@ export default {
     },
     routeChange () {
       this.initTour();
-      switch (this.$route.name) {
+
+      switch (this.$route.name) { // eslint-disable-line default-case
         // case 'options.profile.avatar':   return goto('intro', 5);
         case 'stats': return this.goto('stats', 0);
         case 'tavern': return this.goto('tavern', 0);
@@ -139,6 +140,8 @@ export default {
         // @TODO: same page now case 'stable':     return this.goto('mounts', 0);
         case 'equipment': return this.goto('equipment', 0);
       }
+
+      return null;
     },
     hoyo (user) {
       // @TODO: What is was the timeout for?
@@ -151,13 +154,13 @@ export default {
         // @TODO: Add dispatch User.set({'flags.welcomed': true});
       }
       if (chapter === 'classes' && this.user.flags.tour.classes === -2) return;
-      if (page === -1) page = 0;
+      if (page === -1) page = 0; // eslint-disable-line no-param-reassign
       const curr = this.user.flags.tour[chapter];
       if (page !== curr + 1 && !force) return;
 
       const opts = {}; // @TODO: chap._options;
       opts.steps = [];
-      page += 1;
+      page += 1; // eslint-disable-line no-param-reassign
       times(page, p => {
         opts.steps = opts.steps.concat(this.chapters[chapter][p]);
       });

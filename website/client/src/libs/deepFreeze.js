@@ -6,7 +6,7 @@ export default function deepFreeze (obj) {
   const propNamesLength = propNames.length;
 
   // Freeze properties before freezing self
-  for (let i = 0; i < propNamesLength; i++) {
+  for (let i = 0; i < propNamesLength; i += 1) {
     const prop = obj[propNames[i]];
 
     // Freeze prop if it is an object

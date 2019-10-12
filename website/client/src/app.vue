@@ -6,6 +6,7 @@
     >
       <div class="row">
         <div class="col-12 text-center">
+          <!-- eslint-disable max-len -->
           <svg
             id="melior"
             xmlns="http://www.w3.org/2000/svg"
@@ -17,6 +18,7 @@
               fill="#fff"
             ></path>
           </svg>
+          <!-- eslint-enable max-len -->
         </div>
         <div class="col-12 text-center">
           <h2>{{ $t('tipTitle', {tipNumber: currentTipNumber}) }}</h2>

@@ -3,9 +3,9 @@ import moment from 'moment';
 
 export function setUpAxios (AUTH_SETTINGS) { // eslint-disable-line import/prefer-default-export
   if (!AUTH_SETTINGS) {
-    AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings');
+    AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings'); // eslint-disable-line no-param-reassign, max-len
     if (!AUTH_SETTINGS) return false;
-    AUTH_SETTINGS = JSON.parse(AUTH_SETTINGS);
+    AUTH_SETTINGS = JSON.parse(AUTH_SETTINGS); // eslint-disable-line no-param-reassign
   }
 
   const browserTimezoneOffset = moment().zone();

@@ -20,6 +20,7 @@
       <template v-for="(klass, item) in visualBuffs">
         <span
           v-if="member.stats.buffs[item] && showVisualBuffs"
+          :key="item"
           :class="klass"
         ></span>
       </template>
@@ -31,17 +32,25 @@
         <span :class="['chair_' + member.preferences.chair, specialMountClass]"></span>
         <span :class="[getGearClass('back'), specialMountClass]"></span>
         <span :class="[skinClass, specialMountClass]"></span>
+        <!-- eslint-disable max-len-->
         <span
           :class="[member.preferences.size + '_shirt_' + member.preferences.shirt, specialMountClass]"
         ></span>
+        <!-- eslint-enable max-len-->
         <span :class="['head_0', specialMountClass]"></span>
+        <!-- eslint-disable max-len-->
         <span :class="[member.preferences.size + '_' + getGearClass('armor'), specialMountClass]"></span>
+        <!-- eslint-enable max-len-->
         <span :class="[getGearClass('back_collar'), specialMountClass]"></span>
-        <template v-for="type in ['bangs', 'base', 'mustache', 'beard']">
-          <!-- eslint-disable-next-line max-len-->
+        <template
+          v-for="type in ['bangs', 'base', 'mustache', 'beard']"
+        >
+          <!-- eslint-disable max-len-->
           <span
+            :key="type"
             :class="['hair_' + type + '_' + member.preferences.hair[type] + '_' + member.preferences.hair.color, specialMountClass]"
           ></span>
+          <!-- eslint-enable max-len-->
         </template>
         <span :class="[getGearClass('body'), specialMountClass]"></span>
         <span :class="[getGearClass('eyewear'), specialMountClass]"></span>

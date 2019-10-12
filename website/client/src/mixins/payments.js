@@ -10,7 +10,7 @@ import { CONSTANTS, setLocalSetting } from '@/libs/userlocalManager';
 
 const { STRIPE_PUB_KEY } = process.env;
 
-const habiticaUrl = `${location.protocol}//${location.host}`;
+const habiticaUrl = `${window.location.protocol}//${window.location.host}`;
 
 export default {
   mixins: [notificationsMixin],
@@ -33,8 +33,11 @@ export default {
       return `/paypal/subscribe?sub=${this.subscription.key}${couponString}`;
     },
     dateTerminated () {
-      if (!this.user.preferences || !this.user.preferences.dateFormat) return this.user.purchased.plan.dateTerminated;
-      return moment(this.user.purchased.plan.dateTerminated).format(this.user.preferences.dateFormat.toUpperCase());
+      if (!this.user.preferences || !this.user.preferences.dateFormat) {
+        return this.user.purchased.plan.dateTerminated;
+      }
+      return moment(this.user.purchased.plan.dateTerminated)
+        .format(this.user.preferences.dateFormat.toUpperCase());
     },
   },
   methods: {
@@ -96,7 +99,7 @@ export default {
 
       let amount = 500; // 500 = $5
       if (sub) amount = sub.price * 100;
-      if (data.gift && data.gift.type === 'gems') amount = data.gift.gems.amount / 4 * 100;
+      if (data.gift && data.gift.type === 'gems') amount = (data.gift.gems.amount / 4) * 100;
       if (data.group) amount = (sub.price + 3 * (data.group.memberCount - 1)) * 100;
 
       let paymentType;
@@ -133,7 +136,7 @@ export default {
           // @TODO handle with normal notifications?
           const responseStatus = response.status;
           if (responseStatus >= 400) {
-            alert(`Error: ${response.message}`);
+            window.alert(`Error: ${response.message}`);
             return;
           }
 
@@ -214,7 +217,7 @@ export default {
           // Success
           window.location.reload(true);
           // error
-          alert(response.message);
+          window.alert(response.message);
         },
       });
     },
@@ -257,7 +260,7 @@ export default {
       this.amazonPayments.type = data.type;
     },
     amazonOnError (error) {
-      alert(error.getErrorMessage());
+      window.alert(error.getErrorMessage());
       this.reset();
     },
     reset () {
@@ -291,7 +294,9 @@ export default {
         group = config.group;
       }
 
-      let paymentMethod = group ? group.purchased.plan.paymentMethod : this.user.purchased.plan.paymentMethod;
+      let paymentMethod = group
+        ? group.purchased.plan.paymentMethod
+        : this.user.purchased.plan.paymentMethod;
       paymentMethod = paymentMethod === 'Amazon Payments' ? 'amazon' : paymentMethod.toLowerCase();
 
       const queryParams = {
@@ -322,7 +327,7 @@ export default {
 
         this.loading = false;
       } catch (e) {
-        alert(e.response.data.message);
+        window.alert(e.response.data.message);
       }
     },
   },

@@ -430,7 +430,7 @@ router.beforeEach((to, from, next) => {
     router.app.$root.$emit('bv::hide::modal', 'profile');
   }
 
-  next();
+  return next();
 });
 
 export default router;

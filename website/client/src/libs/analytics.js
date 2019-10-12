@@ -26,17 +26,23 @@ const ALLOWED_HIT_TYPES = [
 function _doesNotHaveRequiredFields (properties) {
   if (!isEqual(keys(pick(properties, REQUIRED_FIELDS)), REQUIRED_FIELDS)) {
     // @TODO: Log with Winston?
-    // console.log('Analytics tracking calls must include the following properties: ' + JSON.stringify(REQUIRED_FIELDS));
+    // console.log('Analytics tracking calls must include
+    // the following properties: ' + JSON.stringify(REQUIRED_FIELDS));
     return true;
   }
+
+  return false;
 }
 
 function _doesNotHaveAllowedHitType (properties) {
   if (!includes(ALLOWED_HIT_TYPES, properties.hitType)) {
     // @TODO: Log with Winston?
-    // console.log('Hit type of Analytics event must be one of the following: ' + JSON.stringify(ALLOWED_HIT_TYPES));
+    // console.log('Hit type of Analytics event must be one
+    // of the following: ' + JSON.stringify(ALLOWED_HIT_TYPES));
     return true;
   }
+
+  return false;
 }
 
 function _gatherUserStats (properties) {
@@ -79,19 +85,17 @@ export function setUser () {
 export function track (properties) {
   // Use nextTick to avoid blocking the UI
   Vue.nextTick(() => {
-    if (_doesNotHaveRequiredFields(properties)) return false;
-    if (_doesNotHaveAllowedHitType(properties)) return false;
+    if (_doesNotHaveRequiredFields(properties)) return;
+    if (_doesNotHaveAllowedHitType(properties)) return;
 
     amplitude.getInstance().logEvent(properties.eventAction, properties);
     window.ga('send', properties);
   });
 }
 
-export function updateUser (properties) {
+export function updateUser (properties = {}) {
   // Use nextTick to avoid blocking the UI
   Vue.nextTick(() => {
-    properties = properties || {};
-
     _gatherUserStats(properties);
 
     forEach(properties, (value, key) => {
@@ -127,7 +131,7 @@ export function load () {
   let firstScript = document.getElementsByTagName('script')[0];
   // Google Analytics
   const gaScript = document.createElement('script');
-  firstScript = document.getElementsByTagName('script')[0];
+  [firstScript] = document.getElementsByTagName('script');
   gaScript.async = 1;
   gaScript.src = '//www.google-analytics.com/analytics.js';
   firstScript.parentNode.insertBefore(gaScript, firstScript);

@@ -484,14 +484,12 @@ import facebook from '@/assets/svg/facebook.svg';
 import instagram from '@/assets/svg/instagram.svg';
 import heart from '@/assets/svg/heart.svg';
 
-import modifyInventory from './modifyInventory';
 import buyGemsModal from './payments/buyGemsModal';
 
 const IS_PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
 
 export default {
   components: {
-    modifyInventory,
     buyGemsModal,
   },
   data () {

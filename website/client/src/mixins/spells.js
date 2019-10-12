@@ -26,7 +26,9 @@ export default {
 
       if (spell.target === 'self') {
         return this.castEnd(null, spell.target);
-      } if (spell.target === 'party') {
+      }
+
+      if (spell.target === 'party') {
         if (!this.user.party._id) {
           const party = [this.user];
           return this.castEnd(party, spell.target);
@@ -36,8 +38,10 @@ export default {
         if (!isArray(partyMembers)) {
           partyMembers = [this.user];
         }
-        this.castEnd(partyMembers, spell.target);
-      } else if (spell.target === 'tasks') {
+        return this.castEnd(partyMembers, spell.target);
+      }
+
+      if (spell.target === 'tasks') {
         const userTasks = this.$store.state.tasks.data;
         // exclude rewards
         let tasks = userTasks.habits
@@ -50,7 +54,9 @@ export default {
           return true;
         });
         return this.castEnd(tasks, spell.target);
-      } else if (spell.target === 'user') {
+      }
+
+      if (spell.target === 'user') {
         const result = await this.castEnd(member, spell.target);
 
         if (member.id === this.user.id) {
@@ -58,16 +64,16 @@ export default {
         }
 
         return result;
-      } else {
-        // If the cast target has to be selected (and can be cancelled)
-        document.addEventListener('keyup', this.handleCastCancelKeyUp);
-
-        this.$root.$on('castEnd', (target, type, $event) => {
-          this.castEnd(target, type, $event);
-        });
-
-        return null;
       }
+
+      // If the cast target has to be selected (and can be cancelled)
+      document.addEventListener('keyup', this.handleCastCancelKeyUp);
+
+      this.$root.$on('castEnd', (target, type, $event) => {
+        this.castEnd(target, type, $event);
+      });
+
+      return null;
     },
     async castEnd (target, type) {
       if (!this.$store.state.spellOptions.castingSpell) return null;

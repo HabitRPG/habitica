@@ -39,7 +39,7 @@ export default {
       };
 
       const purchaseForKey = currencyToPurchaseForKey[currency];
-      return confirm(this.$t(purchaseForKey, { cost }));
+      return window.confirm(this.$t(purchaseForKey, { cost }));
     },
   },
 };

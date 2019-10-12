@@ -5,21 +5,21 @@ export default {
     // https://stackoverflow.com/questions/2685911/is-there-a-way-to-round-numbers-into-a-reader-friendly-format-e-g-1-1k
     abbrNum: number => {
       let decPlaces = 1;
-      decPlaces = Math.pow(10, decPlaces);
+      decPlaces = 10 ** decPlaces;
 
       const abbrev = ['k', 'm', 'b', 't'];
-      for (let i = abbrev.length - 1; i >= 0; i--) {
-        const size = Math.pow(10, (i + 1) * 3);
+      for (let i = abbrev.length - 1; i >= 0; i -= 1) {
+        const size = 10 ** ((i + 1) * 3);
 
         if (size <= number) {
-          number = Math.floor(number * decPlaces / size) / decPlaces;
+          number = Math.floor((number * decPlaces) / size) / decPlaces; // eslint-disable-line no-param-reassign, max-len
 
           if (number === 1000 && i < abbrev.length - 1) {
-            number = 1;
-            i++;
+            number = 1; // eslint-disable-line no-param-reassign
+            i += 1;
           }
 
-          number += abbrev[i];
+          number += abbrev[i]; // eslint-disable-line no-param-reassign
           break;
         }
       }

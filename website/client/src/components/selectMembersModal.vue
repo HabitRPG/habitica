@@ -55,6 +55,7 @@
       </div>
       <div
         v-for="member in sortedMembers"
+        :key="member._id"
         class="row"
       >
         <div class="col-10">

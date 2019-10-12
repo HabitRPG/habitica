@@ -1,3 +1,5 @@
+<!-- eslint-disable -->
+<!-- TODO re-enable when used again -->
 <template>
   <b-modal
     v-if="user.profile"

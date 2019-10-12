@@ -170,7 +170,6 @@
 import Avatar from './avatar';
 import ClassBadge from './members/classBadge';
 import { mapState } from '@/libs/store';
-import Profile from './userMenu/profile';
 import StatsBar from './ui/statsbar';
 
 import { toNextLevel } from '@/../../common/script/statHelpers';
@@ -185,7 +184,6 @@ import manaIcon from '@/assets/svg/mana.svg';
 export default {
   components: {
     Avatar,
-    Profile,
     ClassBadge,
     StatsBar,
   },

@@ -23,7 +23,7 @@ export function setup () { // eslint-disable-line import/prefer-default-export
 
   // Stripe
   const stripeScript = document.createElement('script');
-  firstScript = document.getElementsByTagName('script')[0];
+  [firstScript] = document.getElementsByTagName('script');
   stripeScript.async = true;
   stripeScript.src = '//checkout.stripe.com/v2/checkout.js';
   firstScript.parentNode.insertBefore(stripeScript, firstScript);

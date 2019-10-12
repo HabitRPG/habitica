@@ -27,8 +27,8 @@ export default {
       }
     }
 
-    Vue.prototype.$t = function translateString () {
-      return i18n.t.apply(null, arguments);
+    Vue.prototype.$t = function translateString (...args) {
+      return i18n.t.apply(null, ...args);
     };
   },
 };

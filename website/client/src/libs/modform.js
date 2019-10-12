@@ -9,6 +9,8 @@ function getApiKey () {
       return AUTH_SETTINGS.auth.apiToken;
     }
   }
+
+  return null;
 }
 
 export function goToModForm (user) { // eslint-disable-line import/prefer-default-export
@@ -18,8 +20,7 @@ export function goToModForm (user) { // eslint-disable-line import/prefer-defaul
   if (!apiKey) return;
 
   const tenMins = 10 * 60 * 1000;
-  let dateTime;
-  dateTime = new Date();
+  const dateTime = new Date();
   dateTime.setTime(dateTime.getTime() + tenMins);
   const expires = `expires=${dateTime.toGMTString()}`;
 
