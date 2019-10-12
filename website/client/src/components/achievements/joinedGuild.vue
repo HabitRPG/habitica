@@ -7,16 +7,21 @@
   >
     <div class="modal-body">
       <div class="col-12">
-        <!-- @TODO: +achievementAvatar('guild',0)--><achievement-avatar class="avatar" />
-      </div><div class="col-6 offset-3 text-center">
-        <p>{{ $t('joinedGuildText') }}</p><br><button
+        <!-- @TODO: +achievementAvatar('guild',0)-->
+        <achievement-avatar class="avatar" />
+      </div>
+      <div class="col-6 offset-3 text-center">
+        <p>{{ $t('joinedGuildText') }}</p>
+        <br>
+        <button
           class="btn btn-primary"
           @click="close()"
         >
           {{ $t('huzzah') }}
         </button>
       </div>
-    </div><achievement-footer />
+    </div>
+    <achievement-footer />
   </b-modal>
 </template>
 

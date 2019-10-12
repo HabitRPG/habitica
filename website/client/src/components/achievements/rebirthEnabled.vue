@@ -7,9 +7,13 @@
   >
     <div class="modal-body">
       <div class="col-12">
-        <div class="rebirth_orb"></div><p><span>{{ $t('rebirthUnlock') }}</span></p>
+        <div class="rebirth_orb"></div>
+        <p>
+          <span>{{ $t('rebirthUnlock') }}</span>
+        </p>
       </div>
-    </div><div class="modal-footer">
+    </div>
+    <div class="modal-footer">
       <div class="col-12 text-center">
         <button
           class="btn btn-primary"

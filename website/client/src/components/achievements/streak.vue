@@ -7,26 +7,38 @@
   >
     <div class="modal-body">
       <div class="col-12">
-        <!-- @TODO: +achievementAvatar('thermometer',2.5)--><achievement-avatar class="avatar" />
-      </div><div class="col-6 offset-3 text-center">
+        <!-- @TODO: +achievementAvatar('thermometer',2.5)-->
+        <achievement-avatar class="avatar" />
+      </div>
+      <div class="col-6 offset-3 text-center">
         <h3 v-if="user.achievements.streak === 1">
           {{ $t('firstStreakAchievement') }}
-        </h3><h3 v-if="user.achievements.streak > 1">
+        </h3>
+        <h3
+          v-if="user.achievements.streak > 1"
+        >
           {{ $t('streakAchievementCount', {streaks: user.achievements.streak}) }}
-        </h3><p>{{ $t('twentyOneDays') }}</p><p>{{ $t('dontBreakStreak') }}</p><br><button
+        </h3>
+        <p>{{ $t('twentyOneDays') }}</p>
+        <p>{{ $t('dontBreakStreak') }}</p>
+        <br>
+        <button
           class="btn btn-primary"
           @click="close()"
         >
           {{ $t('dontStop') }}
-        </button><div class="checkbox">
+        </button>
+        <div class="checkbox">
           <input
             v-model="user.preferences.suppressModals.streak"
             type="checkbox"
             @change="suppressModals"
-          ><label>{{ $t('dontShowAgain') }}</label>
+          >
+          <label>{{ $t('dontShowAgain') }}</label>
         </div>
       </div>
-    </div><achievement-footer />
+    </div>
+    <achievement-footer />
   </b-modal>
 </template>
 

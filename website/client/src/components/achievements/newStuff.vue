@@ -12,17 +12,20 @@
         class="static-view"
         v-html="html"
       ></div>
-    </div><div class="modal-footer">
+    </div>
+    <div class="modal-footer">
       <a
         class="btn btn-info"
         href="http://habitica.fandom.com/wiki/Whats_New"
         target="_blank"
-      >{{ this.$t('newsArchive') }}</a><button
+      >{{ this.$t('newsArchive') }}</a>
+      <button
         class="btn btn-secondary"
         @click="tellMeLater()"
       >
         {{ this.$t('tellMeLater') }}
-      </button><button
+      </button>
+      <button
         class="btn btn-warning"
         @click="dismissAlert();"
       >

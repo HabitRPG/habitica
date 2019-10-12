@@ -7,39 +7,53 @@
     :hide-header="true"
   >
     <div class="modal-body text-center">
-      <h2>{{ $t('reachedLevel', {level: user.stats.lvl}) }}</h2><avatar
+      <h2>{{ $t('reachedLevel', {level: user.stats.lvl}) }}</h2>
+      <avatar
         class="avatar"
         :member="user"
-      /><p class="text">
+      />
+      <p class="text">
         {{ $t('levelup') }}
-      </p><button
+      </p>
+      <button
         class="btn btn-primary"
         @click="close()"
       >
         {{ $t('onwards') }}
-      </button><br><!-- @TODO: Keep this? .checkboxinput(type='checkbox', v-model=
+      </button>
+      <br>
+      <!-- @TODO: Keep this? .checkboxinput(type='checkbox', v-model=
 'user.preferences.suppressModals.levelUp', @change='changeLevelupSuppress()')
 label(style='display:inline-block') {{ $t('dontShowAgain') }}
--->
-    </div><div class="container-fluid share-buttons">
+      -->
+    </div>
+    <div class="container-fluid share-buttons">
       <div class="row">
         <div class="col-12 text-center">
           <a
             class="twitter-share-button share-button"
             :href="twitterLink"
             target="_blank"
-          ><div
-            class="social-icon twitter svg-icon"
-            v-html="icons.twitter"
-          ></div>{{ $t('tweet') }}</a><a
+          >
+            <div
+              class="social-icon twitter svg-icon"
+              v-html="icons.twitter"
+            ></div>
+            {{ $t('tweet') }}
+          </a>
+          <a
             class="fb-share-button share-button"
             :href="facebookLink"
             target="_blank"
-          ><div
-            class="social-icon facebook svg-icon"
-            v-html="icons.facebook"
-          ></div>{{ $t('share') }}</a>
-        </div><!-- @TODO: Still want this? .col-4a.tumblr-share-button(:data-href='socialLevelLink', data-notes='none')-->
+          >
+            <div
+              class="social-icon facebook svg-icon"
+              v-html="icons.facebook"
+            ></div>
+            {{ $t('share') }}
+          </a>
+        </div>
+        <!-- @TODO: Still want this? .col-4a.tumblr-share-button(:data-href='socialLevelLink', data-notes='none')-->
       </div>
     </div>
   </b-modal>

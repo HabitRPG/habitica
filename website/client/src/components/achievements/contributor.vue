@@ -8,19 +8,26 @@
     <div class="modal-body">
       <div class="col-12">
         <achievement-avatar class="avatar" />
-      </div><div class="col-6 offset-3 text-center">
-        {{ $t('contribModal', {name: user.profile.name, level: user.contributor.level}) }}<br><a
+      </div>
+      <div class="col-6 offset-3 text-center">
+        {{ $t('contribModal', {name: user.profile.name, level: user.contributor.level}) }}
+        <br>
+        <a
           :href="$t('conRewardsURL')"
           target="_blank"
-        >{{ $t('contribLink') }}</a><br><button
+        >{{ $t('contribLink') }}</a>
+        <br>
+        <button
           class="btn btn-primary"
           style="margin-top:1em"
           @click="close()"
         >
           {{ $t('huzzah') }}
-        </button><br>
+        </button>
+        <br>
       </div>
-    </div><achievement-footer />
+    </div>
+    <achievement-footer />
   </b-modal>
 </template>
 

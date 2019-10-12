@@ -13,15 +13,19 @@
       <div
         class="quest"
         :class="`quest_${user.party.quest.completed}`"
-      ></div><p
+      ></div>
+      <p
         v-if="questData.completion && typeof questData.completion === 'function'"
         v-html="questData.completion()"
-      ></p><div class="quest-rewards text-center">
+      ></p>
+      <div class="quest-rewards text-center">
         <h3 v-once>
           {{ $t('paymentYouReceived') }}
-        </h3><questDialogDrops :item="questData" />
+        </h3>
+        <questDialogDrops :item="questData" />
       </div>
-    </div><div class="modal-footer">
+    </div>
+    <div class="modal-footer">
       <button
         class="btn btn-primary"
         @click="setQuestCompleted()"

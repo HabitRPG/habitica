@@ -12,37 +12,49 @@
           :tooltip="$t('health')"
         >
           <span class="glyphicon glyphicon-heart"></span>
-        </div><div
+        </div>
+        <div
           class="meter health"
           :tooltip="Math.round(user.stats.hp * 100) / 100"
         >
           <div
             class="bar"
             :style="barStyle"
-          ></div><span class="meter-text value">{{ healthLeft }}</span>
+          ></div>
+          <span class="meter-text value">{{ healthLeft }}</span>
         </div>
-      </div><div class="col-12">
+      </div>
+      <div class="col-12">
         <avatar
           :member="user"
           :avatar-only="true"
           :with-background="true"
         />
-      </div><div class="col-12">
-        <p>{{ $t('losingHealthWarning2') }}</p><h4>{{ $t('toRegainHealth') }}</h4><ul>
+      </div>
+      <div class="col-12">
+        <p>{{ $t('losingHealthWarning2') }}</p>
+        <h4>{{ $t('toRegainHealth') }}</h4>
+        <ul>
           <li class="spaced">
             {{ $t('lowHealthTips1') }}
-          </li><li class="spaced">
+          </li>
+          <li class="spaced">
             {{ $t('lowHealthTips2') }}
           </li>
-        </ul><h4>{{ $t('losingHealthQuickly') }}</h4><ul>
+        </ul>
+        <h4>{{ $t('losingHealthQuickly') }}</h4>
+        <ul>
           <li class="spaced">
             {{ $t('lowHealthTips3') }}
-          </li><li class="spaced">
+          </li>
+          <li class="spaced">
             {{ $t('lowHealthTips4') }}
           </li>
-        </ul><h4>{{ $t('goodLuck') }}</h4>
+        </ul>
+        <h4>{{ $t('goodLuck') }}</h4>
       </div>
-    </div><div class="modal-footer">
+    </div>
+    <div class="modal-footer">
       <div class="col-12 text-center">
         <button
           class="btn btn-primary"

@@ -11,17 +11,25 @@
             class="twitter-share-button share-button"
             :href="twitterLink"
             target="_blank"
-          ><div
-            class="social-icon twitter svg-icon"
-            v-html="icons.twitter"
-          ></div>{{ $t('tweet') }}</a><a
+          >
+            <div
+              class="social-icon twitter svg-icon"
+              v-html="icons.twitter"
+            ></div>
+            {{ $t('tweet') }}
+          </a>
+          <a
             class="fb-share-button share-button"
             :href="facebookLink"
             target="_blank"
-          ><div
-            class="social-icon facebook svg-icon"
-            v-html="icons.facebook"
-          ></div>{{ $t('share') }}</a><!-- @TODO: Still want this? .col-4a.tumblr-share-button(:data-href='socialLevelLink', data-notes='none')-->
+          >
+            <div
+              class="social-icon facebook svg-icon"
+              v-html="icons.facebook"
+            ></div>
+            {{ $t('share') }}
+          </a>
+          <!-- @TODO: Still want this? .col-4a.tumblr-share-button(:data-href='socialLevelLink', data-notes='none')-->
         </div>
       </div>
     </div>

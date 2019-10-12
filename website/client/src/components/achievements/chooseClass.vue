@@ -10,8 +10,10 @@
     <div class="modal-body select-class">
       <h1 class="header-purple text-center">
         {{ $t('chooseClass') }}
-      </h1><div class="container-fluid">
-        <br><div class="row">
+      </h1>
+      <div class="container-fluid">
+        <br>
+        <div class="row">
           <div
             v-for="heroClass in classes"
             class="col-md-3"
@@ -30,7 +32,9 @@
               />
             </div>
           </div>
-        </div><br><div
+        </div>
+        <br>
+        <div
           v-for="heroClass in classes"
           class="d-flex justify-content-center"
         >
@@ -43,43 +47,50 @@
                 class="svg-icon align-self-center"
                 v-html="icons[heroClass]"
               ></div>
-            </div><div
+            </div>
+            <div
               class="class-name"
               :class="`${heroClass}-color`"
             >
               {{ $t(heroClass) }}
             </div>
           </div>
-        </div><div v-for="heroClass in classes">
+        </div>
+        <div v-for="heroClass in classes">
           <div
             v-if="selectedClass === heroClass"
             class="class-explanation text-center"
           >
             {{ $t(`${heroClass}Text`) }}
           </div>
-        </div><div
+        </div>
+        <div
           v-markdown="$t('chooseClassLearnMarkdown')"
           class="text-center"
-        ></div><div class="modal-actions text-center">
+        ></div>
+        <div class="modal-actions text-center">
           <button
             v-if="!selectedClass"
             class="btn btn-primary d-inline-block"
             :disabled="true"
           >
             {{ $t('select') }}
-          </button><button
+          </button>
+          <button
             v-else
             class="btn btn-primary d-inline-block"
             @click="clickSelectClass(selectedClass); close();"
           >
             {{ $t('selectClass', {heroClass: $t(selectedClass)}) }}
-          </button><div class="opt-out-wrapper">
+          </button>
+          <div class="opt-out-wrapper">
             <span
               id="classOptOutBtn"
               class="danger"
               @click="clickDisableClasses(); close();"
             >{{ $t('optOutOfClasses') }}</span>
-          </div><span class="opt-out-description">{{ $t('optOutOfClassesText') }}</span>
+          </div>
+          <span class="opt-out-description">{{ $t('optOutOfClassesText') }}</span>
         </div>
       </div>
     </div>

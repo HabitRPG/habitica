@@ -8,10 +8,13 @@
     <div class="modal-body">
       <div class="row">
         <div class="col-6 offset-3">
-          <div class="shop_armoire"></div><p>{{ $t('armoireLastItem') }}</p><p>{{ $t('armoireNotesEmpty') }}</p>
+          <div class="shop_armoire"></div>
+          <p>{{ $t('armoireLastItem') }}</p>
+          <p>{{ $t('armoireNotesEmpty') }}</p>
         </div>
       </div>
-    </div><div class="modal-footer">
+    </div>
+    <div class="modal-footer">
       <div class="col-12 text-center">
         <button
           class="btn btn-primary"

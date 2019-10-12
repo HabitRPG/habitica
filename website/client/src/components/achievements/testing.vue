@@ -6,8 +6,12 @@
     :hide-footer="true"
   >
     <div class="modal-body text-center">
-      <br><div class="scene_guilds"></div><br><h4>{{ $t('guildReminderText1') }}</h4>
-    </div><div class="modal-footer">
+      <br>
+      <div class="scene_guilds"></div>
+      <br>
+      <h4>{{ $t('guildReminderText1') }}</h4>
+    </div>
+    <div class="modal-footer">
       <div class="container-fluid">
         <div class="row">
           <div class="col-6 text-center">
@@ -17,7 +21,8 @@
             >
               {{ $t('guildReminderDismiss') }}
             </button>
-          </div><div
+          </div>
+          <div
             class="col-6 text-center"
             @click="close()"
           >

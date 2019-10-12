@@ -8,15 +8,18 @@
     <div class="modal-body">
       <div class="col-12">
         <achievement-avatar class="avatar" />
-      </div><div class="col-6 offset-3 text-center">
-        <p v-html="data.modalText"></p><button
+      </div>
+      <div class="col-6 offset-3 text-center">
+        <p v-html="data.modalText"></p>
+        <button
           class="btn btn-primary"
           @click="close()"
         >
           {{ $t('huzzah') }}
         </button>
       </div>
-    </div><achievement-footer />
+    </div>
+    <achievement-footer />
   </b-modal>
 </template>
 

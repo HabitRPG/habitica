@@ -13,7 +13,8 @@
         >
           {{ $t('unlockedReward', {reward: data.rewardText}) }}
         </h3>
-      </div><div class="row reward-row">
+      </div>
+      <div class="row reward-row">
         <div class="col-12">
           <avatar
             class="avatar"
@@ -21,7 +22,8 @@
             :avatar-only="true"
             :with-background="true"
           />
-        </div><div
+        </div>
+        <div
           v-if="nextReward"
           class="text-center col-12"
         >
@@ -32,48 +34,56 @@
             <div
               v-if="nextReward.rewardKey.length === 1"
               :class="nextReward.rewardKey[0]"
-            ></div><div
+            ></div>
+            <div
               v-for="reward in nextReward.rewardKey"
               v-if="nextReward.rewardKey.length > 1"
               class="reward"
               :class="reward"
             ></div>
-          </div><div
+          </div>
+          <div
             v-if="data.rewardText"
             class="reward-wrap"
           >
             <div
               v-if="data.rewardKey.length === 1"
               :class="data.rewardKey[0]"
-            ></div><div
+            ></div>
+            <div
               v-for="reward in data.rewardKey"
               v-if="data.rewardKey.length > 1"
               class="reward"
               :class="reward"
             ></div>
           </div>
-        </div><div
+        </div>
+        <div
           v-if="data && data.nextRewardAt"
           class="col-12 text-center"
         >
           <h4>{{ $t('countLeft', {count: data.nextRewardAt - user.loginIncentives}) }}</h4>
         </div>
-      </div><div class="row">
+      </div>
+      <div class="row">
         <div
           v-if="data.rewardText"
           class="col-12 text-center"
         >
           <p>{{ $t('earnedRewardForDevotion', {reward: data.rewardText}) }}</p>
-        </div><div class="col-12 text-center">
+        </div>
+        <div class="col-12 text-center">
           <p>{{ $t('incentivesDescription') }}</p>
-        </div><div
+        </div>
+        <div
           v-if="data && data.nextRewardAt"
           class="col-12 text-center"
         >
           <h3>{{ $t('nextRewardUnlocksIn', {numberOfCheckinsLeft: data.nextRewardAt - user.loginIncentives}) }}</h3>
         </div>
       </div>
-    </div><div class="modal-footer">
+    </div>
+    <div class="modal-footer">
       <div class="col-12 text-center">
         <button
           class="btn btn-primary"

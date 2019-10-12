@@ -15,7 +15,8 @@
             :tooltip="$t('health')"
           >
             <span class="glyphicon glyphicon-heart"></span>
-          </div><div
+          </div>
+          <div
             class="meter health"
             :tooltip="Math.round(user.stats.hp * 100) / 100"
           >
@@ -23,28 +24,36 @@
               class="bar"
               :style="barStyle"
             ></div>
-          </div><!-- span.meter-text.value| {{Math.ceil(user.stats.hp)}} / {{maxHealth}}--><avatar
+          </div>
+          <!-- span.meter-text.value| {{Math.ceil(user.stats.hp)}} / {{maxHealth}}-->
+          <avatar
             :member="user"
             :sleep="true"
             :avatar-only="true"
             :with-background="true"
-          /><!-- @TOOD: Sleep +generatedAvatar({sleep:true})--><span class="knockout"></span>
+          />
+          <!-- @TOOD: Sleep +generatedAvatar({sleep:true})-->
+          <span class="knockout"></span>
         </div>
-      </div><div class="col-6 offset-3">
+      </div>
+      <div class="col-6 offset-3">
         <h4 class="dont-despair">
           {{ $t('dontDespair') }}
-        </h4><p class="death-penalty">
+        </h4>
+        <p class="death-penalty">
           {{ $t('deathPenaltyDetails') }}
         </p>
       </div>
-    </div><div class="modal-footer">
+    </div>
+    <div class="modal-footer">
       <div class="col-12 text-center">
         <button
           class="btn btn-danger"
           @click="revive()"
         >
           {{ $t('refillHealthTryAgain') }}
-        </button><h4
+        </button>
+        <h4
           class="text-center"
           v-html="$t('dyingOftenTips')"
         ></h4>

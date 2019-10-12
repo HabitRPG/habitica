@@ -7,9 +7,15 @@
   >
     <div class="modal-body">
       <div class="col-6 offset-3 text-center">
-        <p></p><div class="item-drop-icon Pet_Egg_Wolf"></div><span v-html="firstDropText"></span></p><p></p><div class="item-drop-icon Pet_Currency_Gem"></div><span v-html="$t('useGems')"></span></p>
+        <p></p>
+        <div class="item-drop-icon Pet_Egg_Wolf"></div>
+        <span v-html="firstDropText"></span>
+        <p></p>
+        <div class="item-drop-icon Pet_Currency_Gem"></div>
+        <span v-html="$t('useGems')"></span>
       </div>
-    </div><div class="modal-footer">
+    </div>
+    <div class="modal-footer">
       <div class="col-12 text-center">
         <button
           class="btn btn-primary"

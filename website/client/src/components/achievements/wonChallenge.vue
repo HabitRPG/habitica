@@ -6,31 +6,40 @@
     :hide-footer="true"
   >
     <div class="modal-body text-center">
-      <h4 v-markdown="user.achievements.challenges[user.achievements.challenges.length - 1]"></h4><div class="row">
+      <h4 v-markdown="user.achievements.challenges[user.achievements.challenges.length - 1]"></h4>
+      <div class="row">
         <div class="col-4">
           <div class="achievement-karaoke-2x"></div>
-        </div><div class="col-4">
-          <!-- @TODO: +generatedAvatar({sleep: false})--><avatar
+        </div>
+        <div class="col-4">
+          <!-- @TODO: +generatedAvatar({sleep: false})-->
+          <avatar
             class="avatar"
             :member="user"
             :avatar-only="true"
           />
-        </div><div class="col-4">
+        </div>
+        <div class="col-4">
           <div class="achievement-karaoke-2x"></div>
         </div>
-      </div><p>{{ $t('congratulations') }}</p><br><button
+      </div>
+      <p>{{ $t('congratulations') }}</p>
+      <br>
+      <button
         class="btn btn-primary"
         @click="close()"
       >
         {{ $t('hurray') }}
       </button>
-    </div><div class="modal-footer">
+    </div>
+    <div class="modal-footer">
       <div class="col-3">
         <a
           class="twitter-share-button"
           href="https://twitter.com/intent/tweet?text=#{tweet}&via=habitica&url=#{env.BASE_URL}/social/won-challenge&count=none"
         >{{ $t('tweet') }}</a>
-      </div><div
+      </div>
+      <div
         class="col-4"
         style="margin-left:.8em"
       >
@@ -39,7 +48,8 @@
           data-href="#{env.BASE_URL}/social/won-challenge"
           data-layout="button"
         ></div>
-      </div><div
+      </div>
+      <div
         class="col-4"
         style="margin-left:.8em"
       >
