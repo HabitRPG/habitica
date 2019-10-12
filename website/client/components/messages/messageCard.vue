@@ -164,5 +164,8 @@
         return habiticaMarkdown.render(String(text));
       },
     },
+    mounted () {
+      this.$emit('message-card-mounted');
+    },
   };
 </script>

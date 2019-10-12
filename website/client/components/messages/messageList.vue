@@ -1,7 +1,7 @@
 <template lang="pug">
-  .container-fluid(ref="container")
+  perfect-scrollbar.container-fluid(ref="container")
     .row.loadmore
-      div(v-if="canLoadMore")
+      div(v-if="canLoadMore && !isLoading")
         .loadmore-divider
         button.btn.btn-secondary(@click='triggerLoad()') {{ $t('loadEarlierMessages') }}
         .loadmore-divider
@@ -21,14 +21,14 @@
             :msg='msg',
             @message-removed='messageRemoved',
             @show-member-modal='showMemberModal',
-            @chat-card-mounted='itemWasMounted')
+            @message-card-mounted='itemWasMounted')
       .d-flex.flex-grow-1(v-if='user._id === msg.uuid')
         .card.card-left
           message-card(
             :msg='msg',
             @message-removed='messageRemoved',
             @show-member-modal='showMemberModal',
-            @chat-card-mounted='itemWasMounted')
+            @message-card-mounted='itemWasMounted')
         avatar.avatar-right(
           v-if='msg.userStyles || (cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected)',
           :member="msg.userStyles || cachedProfileData[msg.uuid]",
@@ -41,6 +41,7 @@
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
+  @import '~vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css';
 
   .avatar {
     width: 15%;
@@ -134,10 +135,10 @@
   import axios from 'axios';
   import { mapState } from 'client/libs/store';
   import debounce from 'lodash/debounce';
-  import findIndex from 'lodash/findIndex';
 
   import Avatar from '../avatar';
   import messageCard from './messageCard';
+  import { PerfectScrollbar } from 'vue2-perfect-scrollbar';
 
   export default {
     props: {
@@ -148,6 +149,7 @@
     components: {
       Avatar,
       messageCard,
+      PerfectScrollbar,
     },
     mounted () {
       this.loadProfileCache();
@@ -183,16 +185,20 @@
         this.loadProfileCache(window.scrollY / 1000);
       },
       async triggerLoad () {
-        const container = this.$refs.container;
+        const container = this.$refs.container.$el;
 
         // get current offset
         this.lastOffset = container.scrollTop - (container.scrollHeight - container.clientHeight);
         // disable scroll
-        container.style.overflowY = 'hidden';
+        // container.style.overflowY = 'hidden';
 
-        const canLoadMore = this.inbox && !this.isLoading && this.canLoadMore;
+        const canLoadMore = !this.isLoading && this.canLoadMore;
+
         if (canLoadMore) {
-          await this.$emit('triggerLoad');
+          const triggerLoadResult = this.$emit('triggerLoad');
+
+          await triggerLoadResult;
+
           this.handleScrollBack = true;
         }
       },
@@ -285,26 +291,18 @@
         if (this.handleScrollBack) {
           this.handleScrollBack = false;
 
-          const container = this.$refs.container;
+          const container = this.$refs.container.$el;
           const offset = container.scrollHeight - container.clientHeight;
 
           const newOffset = offset + this.lastOffset;
 
           container.scrollTo(0, newOffset);
           // enable scroll again
-          container.style.overflowY = 'scroll';
+          // container.style.overflowY = 'scroll';
         }
       }, 50),
       messageRemoved (message) {
-        if (this.inbox) {
-          this.$emit('message-removed', message);
-          return;
-        }
-
-        const chatIndex = findIndex(this.chat, chatMessage => {
-          return chatMessage.id === message.id;
-        });
-        this.chat.splice(chatIndex, 1);
+        this.$emit('message-removed', message);
       },
     },
   };

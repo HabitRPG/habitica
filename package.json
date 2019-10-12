@@ -108,6 +108,7 @@
     "vue-router": "^3.0.0",
     "vue-style-loader": "^4.1.0",
     "vue-template-compiler": "^2.6.10",
+    "vue2-perfect-scrollbar": "^1.2.1",
     "vuedraggable": "^2.20.0",
     "vuejs-datepicker": "git://github.com/habitrpg/vuejs-datepicker.git#5d237615463a84a23dd6f3f77c6ab577d68593ec",
     "webpack": "^3.12.0",
