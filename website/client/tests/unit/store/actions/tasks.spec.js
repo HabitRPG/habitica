@@ -9,7 +9,7 @@ describe('tasks actions', () => {
   });
 
   describe('fetchUserTasks', () => {
-    xit('fetches user tasks', async () => {
+    it('fetches user tasks', async () => {
       expect(store.state.tasks.loadingStatus).to.equal('NOT_LOADED');
       const tasks = [{ _id: 1 }];
       sandbox.stub(axios, 'get').withArgs('/api/v4/tasks/user').returns(Promise.resolve({ data: { data: tasks } }));
@@ -36,7 +36,7 @@ describe('tasks actions', () => {
       expect(store.state.tasks.loadingStatus).to.equal('LOADED');
     });
 
-    xit('can reload tasks if forceLoad is true', async () => {
+    it('can reload tasks if forceLoad is true', async () => {
       store.state.tasks = {
         loadingStatus: 'LOADED',
         data: [{ _id: 1 }],

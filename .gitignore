@@ -20,8 +20,6 @@ TODO
 *.log
 src/*/*.map
 src/*/*/*.map
-test/*.js
-test/*.map
 *.sublime-workspace
 coverage
 coverage.html

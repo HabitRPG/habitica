@@ -40,6 +40,8 @@
     "babel-eslint": "^10.0.1",
     "chai": "^4.1.2",
     "eslint": "^5.16.0",
+    "eslint-config-habitrpg": "^6.0.8",
+    "eslint-plugin-mocha": "^5.3.0",
     "eslint-plugin-vue": "^5.0.0",
     "inspectpack": "^4.2.2",
     "nconf": "^0.10.0",
