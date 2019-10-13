@@ -6,6 +6,7 @@
     :hide-footer="true"
   >
     <div class="modal-body">
+      <!-- eslint-disable-next-line vue/require-v-for-key -->
       <div
         v-for="(approval, index) in task.approvals"
         class="row approval"

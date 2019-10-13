@@ -28,6 +28,7 @@
     </div>
     <div
       v-for="member in participants"
+      :key="member._id"
       class="row"
     >
       <div class="col-12 no-padding-left">

@@ -28,9 +28,11 @@
             ></div>
             <span v-once>{{ $t('createGuild2') }}</span>
           </button>
-          <!-- @TODO: Add when we implement recent activity .float-rightspan.dropdown-label {{ $t('sortBy') }}
+          <!-- @TODO: Add when we implement recent activity
+          .float-rightspan.dropdown-label {{ $t('sortBy') }}
 b-dropdown(:text="$t('sort')", right=true)
-  b-dropdown-item(v-for='sortOption in sortOptions', :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}
+  b-dropdown-item(v-for='sortOption in sortOptions',
+   :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}
           -->
         </div>
       </div>
@@ -107,7 +109,6 @@ b-dropdown(:text="$t('sort')", right=true)
 </style>
 
 <script>
-import MugenScroll from 'vue-mugen-scroll';
 import { mapState } from '@/libs/store';
 import groupUtilities from '@/mixins/groupsUtilities';
 
@@ -119,7 +120,7 @@ import greyBadgeIcon from '@/assets/svg/grey-badge.svg';
 import positiveIcon from '@/assets/svg/positive.svg';
 
 export default {
-  components: { PublicGuildItem, MugenScroll, Sidebar },
+  components: { PublicGuildItem, Sidebar },
   mixins: [groupUtilities],
   data () {
     return {

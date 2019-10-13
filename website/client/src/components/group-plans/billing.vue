@@ -33,7 +33,7 @@
             <span class="glyphicon glyphicon-forward"></span>
             {{ $t('consecutiveSubscription') }}
             <ul class="list-unstyled">
-              <li>{{ $t('consecutiveMonths') }} {{ group.purchased.plan.consecutive.count + group.purchased.plan.consecutive.offset }}</li>
+              <li>{{ $t('consecutiveMonths') }} {{ group.purchased.plan.consecutive.count + group.purchased.plan.consecutive.offset }}</li> <!-- eslint-disable-line max-len -->
               <li>{{ $t('gemCapExtra') }} {{ group.purchased.plan.consecutive.gemCapExtra }}</li>
               <li>{{ $t('mysticHourglasses') }} {{ group.purchased.plan.consecutive.trinkets }}</li>
             </ul>
@@ -50,7 +50,8 @@
         {{ $t('upgrade') }}
       </button>
       <div
-        v-if="!group.purchased.plan.dateTerminated && group.purchased.plan.paymentMethod === 'Stripe'"
+        v-if="!group.purchased.plan.dateTerminated
+          && group.purchased.plan.paymentMethod === 'Stripe'"
         class="btn btn-primary"
         @click="showStripeEdit({groupId: group.id})"
       >

@@ -31,9 +31,12 @@
       @resized="currentWidth = $event.width - 120"
     >
       <div class="items items-one-line">
-        <template v-for="item in showItems">
+        <template
+          v-for="item in showItems"
+        >
           <div
             v-if="shouldAddVerticalLine(item)"
+            :key="item.key"
             class="vertical-divider"
             :style="dividerMargins"
           ></div>

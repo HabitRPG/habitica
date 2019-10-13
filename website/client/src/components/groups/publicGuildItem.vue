@@ -9,7 +9,9 @@
           <div class="col-md-2 badge-column">
             <div
               class="shield-wrap"
-              :class="{gold: guild.memberCount >= 1000, silver: guild.memberCount >= 100 && guild.memberCount < 1000}"
+              :class="{
+                gold: guild.memberCount >= 1000,
+                silver: guild.memberCount >= 100 && guild.memberCount < 1000}"
             >
               <div
                 v-if="guild.memberCount >= 1000"

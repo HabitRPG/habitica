@@ -48,7 +48,7 @@
               >
               <small>
                 Common titles:
-                <strong>Ambassador, Artisan, Bard, Blacksmith, Challenger, Comrade, Fletcher, Linguist, Linguistic Scribe, Scribe, Socialite, Storyteller</strong>. Rare titles: Advisor, Chamberlain, Designer, Mathematician, Shirtster, Spokesperson, Statistician, Tinker, Transcriber, Troubadour.
+                <strong>Ambassador, Artisan, Bard, Blacksmith, Challenger, Comrade, Fletcher, Linguist, Linguistic Scribe, Scribe, Socialite, Storyteller</strong>. Rare titles: Advisor, Chamberlain, Designer, Mathematician, Shirtster, Spokesperson, Statistician, Tinker, Transcriber, Troubadour. <!-- eslint-disable-line max-len -->
               </small>
             </div>
             <div class="form-group">
@@ -59,7 +59,7 @@
                 type="number"
               >
               <small>
-                1-7 for normal contributors, 8 for moderators, 9 for staff. This determines which items, pets, and mounts are available, and name-tag coloring. Tiers 8 and 9 are automatically given admin status.&nbsp;
+                1-7 for normal contributors, 8 for moderators, 9 for staff. This determines which items, pets, and mounts are available, and name-tag coloring. Tiers 8 and 9 are automatically given admin status.&nbsp; <!-- eslint-disable-line max-len -->
                 <a
                   target="_blank"
                   href="https://trello.com/c/wkFzONhE/277-contributor-gear"
@@ -89,7 +89,7 @@
               <small>
                 <span>
                   '{{ hero.balance }}' is in USD,
-                  <em>not</em> in Gems. E.g., if this number is 1, it means 4 Gems. Only use this option when manually granting Gems to players, don't use it when granting contributor tiers. Contrib tiers will automatically add Gems.
+                  <em>not</em> in Gems. E.g., if this number is 1, it means 4 Gems. Only use this option when manually granting Gems to players, don't use it when granting contributor tiers. Contrib tiers will automatically add Gems. <!-- eslint-disable-line max-len -->
                 </span>
               </small>
             </div>
@@ -134,7 +134,7 @@
                     <strong>item value</strong>. E.g.,
                     <code>5</code> or
                     <code>false</code> or
-                    <code>head_warrior_3</code>. All values are listed in the All Item Paths section below.
+                    <code>head_warrior_3</code>. All values are listed in the All Item Paths section below. <!-- eslint-disable-line max-len -->
                   </small>
                   <div class="accordion">
                     <div
@@ -229,7 +229,10 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(hero, index) in heroes">
+            <tr
+              v-for="(hero, index) in heroes"
+              :key="hero._id"
+            >
               <td>
                 <user-link
                   v-if="hero.contributor && hero.contributor.admin"

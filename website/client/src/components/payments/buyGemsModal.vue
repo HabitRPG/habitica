@@ -546,16 +546,16 @@
   }
 
   .gem-count {
-		font-family: Roboto;
-		font-size: 40px;
-		font-weight: bold;
-		color: #2995cd;
+    font-family: Roboto;
+    font-size: 40px;
+    font-weight: bold;
+    color: #2995cd;
   }
 
   .gem-text {
-		font-family: Roboto;
-		font-size: 16px;
-		color: #a5a1ac;
+    font-family: Roboto;
+    font-size: 16px;
+    color: #a5a1ac;
     margin-bottom: 1em;
   }
 
@@ -608,10 +608,10 @@
   }
 
   .subscription-price {
-		font-family: Roboto Condensed;
-		font-size: 48px;
-		font-weight: bold;
-		color: #1ca372;
+    font-family: Roboto Condensed;
+    font-size: 48px;
+    font-weight: bold;
+    color: #1ca372;
   }
 
   .superscript {
@@ -670,7 +670,6 @@ import amazonButton from '@/components/payments/amazonButton';
 
 export default {
   components: {
-    planGemLimits,
     amazonButton,
   },
   directives: {
@@ -705,7 +704,8 @@ export default {
     },
     userReachedGemCap () {
       return this.user.purchased.plan.customerId
-        && this.user.purchased.plan.gemsBought >= this.user.purchased.plan.consecutive.gemCapExtra + this.planGemLimits.convCap;
+        && this.user.purchased.plan.gemsBought
+        >= (this.user.purchased.plan.consecutive.gemCapExtra + this.planGemLimits.convCap);
     },
   },
   watch: {

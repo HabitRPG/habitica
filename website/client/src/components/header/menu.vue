@@ -57,7 +57,9 @@
           </b-nav-item>
           <li
             class="topbar-item droppable"
-            :class="{'active': $route.path.startsWith('/inventory'), 'down': $route.path.startsWith('/inventory') && this.isDesktop()}"
+            :class="{
+              'active': $route.path.startsWith('/inventory'),
+              'down': $route.path.startsWith('/inventory') && isDesktop()}"
           >
             <div
               class="chevron rotate"
@@ -99,7 +101,9 @@
           </li>
           <li
             class="topbar-item droppable"
-            :class="{'active': $route.path.startsWith('/shop'), 'down': $route.path.startsWith('/shop') && this.isDesktop()}"
+            :class="{
+              'active': $route.path.startsWith('/shop'),
+              'down': $route.path.startsWith('/shop') && isDesktop()}"
           >
             <div
               class="chevron rotate"
@@ -146,7 +150,7 @@
             </div>
           </li>
           <b-nav-item
-            v-if="this.user.party._id"
+            v-if="user.party._id"
             class="topbar-item"
             :class="{'active': $route.path.startsWith('/party')}"
             tag="li"
@@ -155,7 +159,7 @@
             {{ $t('party') }}
           </b-nav-item>
           <b-nav-item
-            v-if="!this.user.party._id"
+            v-if="!user.party._id"
             class="topbar-item"
             :class="{'active': $route.path.startsWith('/party')}"
             @click="openPartyModal()"
@@ -164,7 +168,9 @@
           </b-nav-item>
           <li
             class="topbar-item droppable"
-            :class="{'active': $route.path.startsWith('/groups'), 'down': $route.path.startsWith('/groups') && this.isDesktop()}"
+            :class="{
+              'active': $route.path.startsWith('/groups'),
+              'down': $route.path.startsWith('/groups') && isDesktop()}"
           >
             <div
               class="chevron rotate"
@@ -205,7 +211,9 @@
           </li>
           <li
             class="topbar-item droppable"
-            :class="{'active': $route.path.startsWith('/group-plans'), 'down': $route.path.startsWith('/group-plans') && this.isDesktop()}"
+            :class="{
+              'active': $route.path.startsWith('/group-plans'),
+              'down': $route.path.startsWith('/group-plans') && isDesktop()}"
           >
             <div
               v-if="groupPlans.length > 0"
@@ -237,7 +245,9 @@
           </li>
           <li
             class="topbar-item droppable"
-            :class="{'active': $route.path.startsWith('/challenges'), 'down': $route.path.startsWith('/challenges') && this.isDesktop()}"
+            :class="{
+              'active': $route.path.startsWith('/challenges'),
+              'down': $route.path.startsWith('/challenges') && isDesktop()}"
           >
             <div
               class="chevron rotate"
@@ -272,7 +282,9 @@
           </li>
           <li
             class="topbar-item droppable"
-            :class="{'active': $route.path.startsWith('/help'), 'down': $route.path.startsWith('/help') && this.isDesktop()}"
+            :class="{
+              'active': $route.path.startsWith('/help'),
+              'down': $route.path.startsWith('/help') && isDesktop()}"
           >
             <div
               class="chevron rotate"

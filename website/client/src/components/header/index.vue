@@ -33,6 +33,7 @@
         class="party-members d-flex"
         @resized="setPartyMembersWidth($event)"
       >
+        <!-- eslint-disable vue/no-use-v-if-with-v-for -->
         <member-details
           v-for="(member, $index) in sortedPartyMembers"
           v-if="member._id !== user._id && $index < membersToShow"
@@ -44,6 +45,7 @@
           :class-badge-position="'hidden'"
           @onHover="expandMember(member._id)"
         />
+        <!-- eslint-enable vue/no-use-v-if-with-v-for -->
       </div>
       <div
         v-else

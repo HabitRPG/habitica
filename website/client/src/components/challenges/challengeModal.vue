@@ -68,6 +68,7 @@
         >
           <option
             v-for="group in groups"
+            :key="group._id"
             :value="group._id"
           >
             {{ group.name }}
@@ -91,6 +92,7 @@
           >{{ $t('none') }}</span>
           <div
             v-for="category in workingChallenge.categories"
+            :key="category"
             class="category-label"
           >
             {{ $t(categoriesHashByKey[category]) }}
@@ -100,12 +102,14 @@
           v-if="showCategorySelect && creating"
           class="category-box"
         >
+          <!-- eslint-disable vue/no-use-v-if-with-v-for -->
           <div
             v-for="group in categoryOptions"
             v-if="group.key !== 'habitica_official' || user.contributor.admin"
             :key="group.key"
             class="form-check"
           >
+            <!-- eslint-enable vue/no-use-v-if-with-v-for -->
             <div class="custom-control custom-checkbox">
               <input
                 :id="`challenge-modal-cat-${group.key}`"

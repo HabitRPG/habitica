@@ -52,10 +52,13 @@
           </filter-dropdown>
         </div>
       </layout-section>
+      <!-- eslint-disable vue/no-use-v-if-with-v-for -->
       <div
         v-for="category in categories"
         v-if="!anyFilterSelected || viewOptions[category.identifier].selected"
+        :key="category.identifier"
       >
+        <!-- eslint-disable vue/no-use-v-if-with-v-for -->
         <h4>{{ category.text }}</h4>
         <category-row
           :hide-pinned="hidePinned"
@@ -160,14 +163,11 @@ import _map from 'lodash/map';
 import _throttle from 'lodash/throttle';
 import { mapState } from '@/libs/store';
 
-import ShopItem from '../shopItem';
 import KeysToKennel from './keysToKennel';
 import EquipmentSection from './equipmentSection';
 import CategoryRow from './categoryRow';
 import Item from '@/components/inventory/item';
 import CountBadge from '@/components/ui/countBadge';
-import ItemRows from '@/components/ui/itemRows';
-import Avatar from '@/components/avatar';
 import InventoryDrawer from '@/components/shared/inventoryDrawer';
 import FeaturedItemsHeader from '../featuredItemsHeader';
 import PageLayout from '@/components/ui/pageLayout';
@@ -176,8 +176,6 @@ import FilterDropdown from '@/components/ui/filterDropdown';
 import MarketFilter from './filter';
 
 import SellModal from './sellModal.vue';
-import EquipmentAttributesGrid from '../../inventory/equipment/attributesGrid.vue';
-import SelectMembersModal from '@/components/selectMembersModal.vue';
 
 import svgPin from '@/assets/svg/pin.svg';
 import svgGem from '@/assets/svg/gem.svg';
@@ -197,16 +195,11 @@ const sortItems = ['AZ', 'sortByNumber'].map(g => ({ id: g }));
 
 export default {
   components: {
-    ShopItem,
     KeysToKennel,
     Item,
     CountBadge,
 
-    ItemRows,
-
     SellModal,
-    EquipmentAttributesGrid,
-    Avatar,
 
     InventoryDrawer,
     FeaturedItemsHeader,
@@ -216,8 +209,6 @@ export default {
     EquipmentSection,
     CategoryRow,
     MarketFilter,
-
-    SelectMembersModal,
   },
   mixins: [notifications, buyMixin, currencyMixin, inventoryUtils, pinUtils],
   data () {

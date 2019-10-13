@@ -186,8 +186,17 @@
         <ul>
           <li>{{ $t('commGuideAKA', {habitName: 'Beffymaroo', realName: 'Beth'}) }}</li>
           <li>{{ $t('commGuideAKA', {habitName: 'Viirus', realName: 'Phillip'}) }}</li>
-          <li>{{ $t('commGuideAKA', {habitName: 'redphoenix', realName: 'Vicky'}) }} ({{ $t('commGuideOnTrello', {trelloName: 'caffeinatedvee'}) }}, {{ $t('commGuideOnGitHub', {gitHubName: 'veeeeeee'}) }})</li>
-          <li>{{ $t('commGuideAKA', {habitName: 'Lemoness', realName: 'Leslie'}) }} ({{ $t('commGuideOnTrello', {trelloName: 'lemonesstree'}) }})</li>
+          <li>
+            {{ $t('commGuideAKA', {
+              habitName: 'redphoenix', realName: 'Vicky'}) }} ({{ $t('commGuideOnTrello', {
+              trelloName: 'caffeinatedvee'}) }}, {{ $t('commGuideOnGitHub', {
+              gitHubName: 'veeeeeee'}) }})
+          </li>
+          <li>
+            {{ $t('commGuideAKA', {
+              habitName: 'Lemoness', realName: 'Leslie'}) }} ({{ $t('commGuideOnTrello', {
+              trelloName: 'lemonesstree'}) }})
+          </li>
           <li>{{ $t('commGuideAKA', {habitName: 'SabreCat', realName: 'Sabe'}) }}</li>
           <li>{{ $t('commGuideAKA', {habitName: 'paglias', realName: 'Matteo'}) }}</li>
           <li>{{ $t('commGuideAKA', {habitName: 'TheHollidayInn', realName: 'Keith'}) }}</li>

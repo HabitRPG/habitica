@@ -55,19 +55,26 @@
         <div v-if="user.flags.itemsEnabled">
           <h3>Battle Gear</h3>
           <ul>
+            <!-- eslint-disable vue/no-use-v-if-with-v-for -->
             <li
-              v-for="(key, itemType) in user.items.gear.equipped"
+              v-for="(key) in user.items.gear.equipped"
               v-if="flatGear[key]"
+              :key="key"
             >
+              <!-- eslint-enable vue/no-use-v-if-with-v-for -->
               <strong>{{ flatGear[key].text() }}</strong>
               <strong
-                v-if="flatGear[key].str || flatGear[key].con || flatGear[key].per || flatGear[key].int"
+                v-if="flatGear[key].str
+                  || flatGear[key].con || flatGear[key].per || flatGear[key].int"
               >
                 :&nbsp;
+                <!-- eslint-disable vue/no-use-v-if-with-v-for -->
                 <span
                   v-for="stat in ['str','con','per','int']"
                   v-if="flatGear[key][stat]"
+                  :key="stat"
                 >{{ flatGear[key][stat] }} {{ $t(stat) }}&nbsp;</span>
+                <!-- eslint-enable vue/no-use-v-if-with-v-for -->
               </strong>
             </li>
           </ul>
@@ -136,6 +143,7 @@
         </h3>
         <div
           v-for="(statInfo, stat) in stats"
+          :key="stat"
           class="row"
         >
           <div class="col-4">
@@ -246,7 +254,10 @@
                   <input
                     v-model="user.preferences.automaticAllocation"
                     type="checkbox"
-                    @change="set({'preferences.automaticAllocation': user.preferences.automaticAllocation, 'preferences.allocationMode': 'taskbased'})"
+                    @change="set({
+                      'preferences.automaticAllocation': user.preferences.automaticAllocation,
+                      'preferences.allocationMode': 'taskbased'
+                    })"
                   >
                   <span
                     class="hint"
@@ -313,7 +324,8 @@
                 </div>
               </form>
               <div
-                v-if="user.preferences.automaticAllocation && !(user.preferences.allocationMode === 'taskbased') && (user.stats.points > 0)"
+                v-if="user.preferences.automaticAllocation
+                  && !(user.preferences.allocationMode === 'taskbased') && (user.stats.points > 0)"
               >
                 <button
                   class="btn btn-primary btn-xs"
@@ -331,6 +343,7 @@
           </div>
           <div
             v-for="(statInfo, stat) in allocateStatsList"
+            :key="stat"
             class="row"
           >
             <div class="col-8">

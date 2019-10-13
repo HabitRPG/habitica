@@ -113,6 +113,7 @@
           >
             <div
               v-for="(item, $index) in checklist"
+              :key="item.id"
               class="inline-edit-input-group checklist-group input-group"
             >
               <span class="grippy"></span>
@@ -455,6 +456,7 @@
                 >
                   <div
                     v-for="tagName in truncatedSelectedTags"
+                    :key="tagName"
                     v-markdown="tagName"
                     class="category-label"
                     :title="tagName"
@@ -512,7 +514,8 @@
               :text="$t(sharedCompletion)"
             >
               <b-dropdown-item
-                v-for="completionOption in ['recurringCompletion', 'singleCompletion', 'allAssignedCompletion']"
+                v-for="completionOption in [
+                  'recurringCompletion', 'singleCompletion', 'allAssignedCompletion']"
                 :key="completionOption"
                 :class="{active: sharedCompletion === completionOption}"
                 @click="sharedCompletion = completionOption"
@@ -541,6 +544,7 @@
                 >
                   <span
                     v-for="memberId in assignedMembers"
+                    :key="memberId"
                     class="mr-1"
                   >{{ memberNamesById[memberId] }}</span>
                 </span>
@@ -640,7 +644,8 @@
                 </div>
               </div>
               <div
-                v-if="task.type === 'habit' && isUserTask && purpose === 'edit' && (task.up || task.down)"
+                v-if="task.type === 'habit'
+                  && isUserTask && purpose === 'edit' && (task.up || task.down)"
                 class="option"
               >
                 <div class="form-group">
@@ -692,11 +697,17 @@
               <!--.option(v-if="isUserTask && task.type !== 'reward'").form-group
   label(v-once)
     span.float-left {{ $t('attributeAllocation') }}
-    .svg-icon.info-icon(v-html="icons.information", v-b-tooltip.hover.righttop.html="$t('attributeAllocationHelp')")
+    .svg-icon.info-icon(v-html="ic
+    ons.information", v-b-tooltip.hover.righttop.html="$t('attributeAllocationHelp')")
   .attributes
-    .custom-control.custom-radio.custom-control-inline(v-for="attr in ATTRIBUTES", :key="attr")
-      input.custom-control-input(:id="`attribute-${attr}`", type="radio", :value="attr", v-model="task.attribute", :disabled="user.preferences.allocationMode !== 'taskbased'")
-              label.custom-control-label.attr-description(:for="`attribute-${attr}`", v-once, v-b-popover.hover="$t(`${attr}Text`)") {{ $t(attributesStrings[attr]) }}-->
+    .custom-control.custom-radio.custom-
+    control-inline(v-for="attr in ATTRIBUTES", :key="attr")
+      input.custom-control-input(:id="`attribute-${a
+      ttr}`", type="radio", :value="attr", v-model="task.attribute", :disabled="us
+      er.preferences.allocationMode !== 'taskbased'")
+              label.custom-control-label.attr-
+              description(:for="`attribute-${attr}`", v-once, v-b-pop
+              over.hover="$t(`${attr}Text`)") {{ $t(attributesStrings[attr]) }}-->
             </div>
           </b-collapse>
         </div>

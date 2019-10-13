@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable max-len -->
   <div class="container-fluid">
     <h1>Privacy Policy</h1>
     <p class="pagemeta">
@@ -317,4 +318,5 @@
       <a href="mailto:admin@habitica.com">admin@habitica.com</a>
     </address>
   </div>
+  <!-- eslint-enable max-len -->
 </template>

@@ -25,6 +25,7 @@
         <div class="col-12">
           <div
             v-for="bullet in bullets"
+            :key="bullet"
             class="bullet-point d-flex align-items-center justify-content-left"
           >
             <div class="check-icon">

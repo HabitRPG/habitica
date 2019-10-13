@@ -123,7 +123,8 @@
           {{ $t('notEnoughGemsToBuy') }}
         </div>
         <button
-          v-if="getPriceClass() === 'gems' && !this.enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)"
+          v-if="getPriceClass() === 'gems'
+            && !enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)"
           class="btn btn-primary"
           @click="purchaseGems()"
         >
@@ -132,8 +133,10 @@
         <button
           v-else
           class="btn btn-primary"
-          :disabled="item.key === 'gem' && gemsLeft === 0 || attemptingToPurchaseMoreGemsThanAreLeft || numberInvalid"
-          :class="{'notEnough': !preventHealthPotion || !this.enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)}"
+          :disabled="item.key === 'gem' && gemsLeft === 0 ||
+            attemptingToPurchaseMoreGemsThanAreLeft || numberInvalid"
+          :class="{'notEnough': !preventHealthPotion ||
+            !enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)}"
           @click="buyItem()"
         >
           {{ $t('buyNow') }}
@@ -406,6 +409,21 @@ export default {
     Avatar,
   },
   mixins: [buyMixin, currencyMixin, notifications, numberInvalid, spellsMixin],
+  props: {
+    item: {
+      type: Object,
+    },
+    priceType: {
+      type: String,
+    },
+    withPin: {
+      type: Boolean,
+    },
+    genericPurchase: {
+      type: Boolean,
+      default: true,
+    },
+  },
   data () {
     return {
       icons: Object.freeze({
@@ -593,21 +611,6 @@ export default {
       }
 
       return {};
-    },
-  },
-  props: {
-    item: {
-      type: Object,
-    },
-    priceType: {
-      type: String,
-    },
-    withPin: {
-      type: Boolean,
-    },
-    genericPurchase: {
-      type: Boolean,
-      default: true,
     },
   },
 };

@@ -6,6 +6,7 @@
   >
     <div
       v-for="result in searchResults"
+      :key="result.username"
       class="autocomplete-results d-flex align-items-center"
       :class="{'hover-background': result.hover}"
       @click="select(result)"
@@ -134,7 +135,11 @@ export default {
       this.currentSearch = this.currentSearch.substring(1, this.currentSearch.length); // eslint-disable-line vue/no-side-effects-in-computed-properties, max-len
 
       return this.tmpSelections
-        .filter(option => option.displayName.toLowerCase().indexOf(this.currentSearch.toLowerCase()) !== -1 || option.username && option.username.toLowerCase().indexOf(this.currentSearch.toLowerCase()) !== -1)
+        .filter(option => { // eslint-disable-line arrow-body-style
+          return option.displayName.toLowerCase().indexOf(this.currentSearch.toLowerCase()) !== -1
+            || (option.username
+              && option.username.toLowerCase().indexOf(this.currentSearch.toLowerCase()) !== -1);
+        })
         .slice(0, 4);
     },
 

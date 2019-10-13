@@ -78,11 +78,14 @@
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">
+                <!-- eslint-disable vue/no-use-v-if-with-v-for -->
                 <div
                   v-for="block in subscriptionBlocks"
                   v-if="block.target !== 'group' && block.canSubscribe === true"
+                  :key="block.key"
                   class="radio"
                 >
+                  <!-- eslint-disable vue/no-use-v-if-with-v-for -->
                   <label>
                     <input
                       v-model="gift.subscription.key"

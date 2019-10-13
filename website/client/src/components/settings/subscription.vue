@@ -103,9 +103,9 @@
               <span class="glyphicon glyphicon-forward"></span>
               &nbsp; {{ $t('consecutiveSubscription') }}
               <ul class="list-unstyled">
-                <li>{{ $t('consecutiveMonths') }} {{ user.purchased.plan.consecutive.count + user.purchased.plan.consecutive.offset }}</li>
+                <li>{{ $t('consecutiveMonths') }} {{ user.purchased.plan.consecutive.count + user.purchased.plan.consecutive.offset }}</li> <!-- eslint-disable-line max-len -->
                 <li>{{ $t('gemCapExtra') }} {{ user.purchased.plan.consecutive.gemCapExtra }}</li>
-                <li>{{ $t('mysticHourglasses') }} {{ user.purchased.plan.consecutive.trinkets }}</li>
+                <li>{{ $t('mysticHourglasses') }} {{ user.purchased.plan.consecutive.trinkets }}</li> <!-- eslint-disable-line max-len -->
               </ul>
             </td>
           </tr>
@@ -115,11 +115,14 @@
             {{ $t("resubscribe") }}
           </h4>
           <div class="form-group reduce-top-margin">
+            <!-- eslint-disable vue/no-use-v-if-with-v-for -->
             <div
               v-for="block in subscriptionBlocksOrdered"
               v-if="block.target !== 'group' && block.canSubscribe === true"
+              :key="block.key"
               class="radio"
             >
+              <!-- eslint-enable vue/no-use-v-if-with-v-for -->
               <label>
                 <input
                   v-model="subscription.key"
@@ -207,7 +210,8 @@
             </button>
             <amazon-button
               class="payment-item"
-              :amazon-data="{type: 'subscription', subscription: this.subscription.key, coupon: this.subscription.coupon}"
+              :amazon-data="{
+                type: 'subscription', subscription: subscription.key, coupon: subscription.coupon}"
             />
           </div>
         </div>

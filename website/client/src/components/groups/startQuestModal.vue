@@ -11,13 +11,16 @@
         Quests
       </h3>
       <div class="row">
+        <!-- eslint-disable vue/no-use-v-if-with-v-for -->
         <div
-          v-for="(value, key, index) in user.items.quests"
+          v-for="(value, key) in user.items.quests"
           v-if="value > 0"
+          :key="key"
           class="col-4 quest-col"
           :class="{selected: key === selectedQuest}"
           @click="selectQuest({key})"
         >
+          <!-- eslint-enable vue/no-use-v-if-with-v-for -->
           <div class="quest-wrapper">
             <b-popover
               :target="`inventory_quest_scroll_${key}`"

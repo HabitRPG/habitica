@@ -31,7 +31,8 @@
         <span class="small-text">{{ $t('editAvatar') }}</span>
       </a>
       <a
-        class="nav-link dropdown-item dropdown-separated d-flex justify-content-between align-items-center"
+        class="nav-link dropdown-item
+         dropdown-separated d-flex justify-content-between align-items-center"
         @click.prevent="showInbox()"
       >
         <div>{{ $t('messages') }}</div>
@@ -73,7 +74,7 @@
         @click.prevent="logout()"
       >{{ $t('logout') }}</a>
       <li
-        v-if="!this.user.purchased.plan.customerId"
+        v-if="!user.purchased.plan.customerId"
         @click="showBuyGemsModal('subscribe')"
       >
         <div class="dropdown-item text-center">

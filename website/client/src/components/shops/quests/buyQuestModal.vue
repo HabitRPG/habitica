@@ -52,7 +52,8 @@
           >{{ item.value }}</span>
         </div>
         <button
-          v-if="priceType === 'gems' && !this.enoughCurrency(priceType, item.value * selectedAmountToBuy)"
+          v-if="priceType === 'gems'
+            && !enoughCurrency(priceType, item.value * selectedAmountToBuy)"
           class="btn btn-primary"
           @click="purchaseGems()"
         >
@@ -61,7 +62,7 @@
         <button
           v-else
           class="btn btn-primary"
-          :class="{'notEnough': !this.enoughCurrency(priceType, item.value * selectedAmountToBuy)}"
+          :class="{'notEnough': !enoughCurrency(priceType, item.value * selectedAmountToBuy)}"
           :disabled="numberInvalid"
           @click="buyItem()"
         >
@@ -247,7 +248,6 @@ import svgHourglasses from '@/assets/svg/hourglass.svg';
 
 import BalanceInfo from '../balanceInfo.vue';
 import currencyMixin from '../_currencyMixin';
-import QuestInfo from './questInfo.vue';
 import notifications from '@/mixins/notifications';
 import buyMixin from '@/mixins/buy';
 import numberInvalid from '@/mixins/numberInvalid';
@@ -258,7 +258,6 @@ import questDialogContent from './questDialogContent';
 export default {
   components: {
     BalanceInfo,
-    QuestInfo,
     questDialogDrops,
     questDialogContent,
   },

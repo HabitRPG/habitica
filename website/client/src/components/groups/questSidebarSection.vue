@@ -92,6 +92,7 @@
             </div>
             <div
               v-for="(value, key) in questData.collect"
+              :key="key"
               class="row"
             >
               <div class="col-2">
@@ -148,19 +149,22 @@
             <div class="row boss-details">
               <div class="col-6">
                 <span class="float-left">
-                  {{ Math.ceil(parseFloat(group.quest.progress.hp) * 100) / 100 }} / {{ parseFloat(questData.boss.hp).toFixed(2) }}
-                  <!-- current boss hp uses ceil so you don't underestimate damage needed to end quest-->
+                  {{ Math.ceil(parseFloat(group.quest.progress.hp) * 100) / 100 }} / {{ parseFloat(questData.boss.hp).toFixed(2) }} <!-- eslint-disable-line max-len -->
+                  <!-- current boss hp uses ceil so
+                    you don't underestimate damage needed to end quest-->
                 </span>
               </div>
               <div
                 v-if="userIsOnQuest"
                 class="col-6"
               >
-                <!-- @TODO: Why do we not sync quest progress on the group doc? Each user could have different progress.-->
+                <!-- @TODO: Why do we not sync quest
+                  progress on the group doc? Each user could have different progress.-->
                 <span
                   class="float-right"
-                >{{ user.party.quest.progress.up | floor(10) }} {{ $t('pendingDamageLabel') }}</span>
-                <!-- player's pending damage uses floor so you don't overestimate damage you've already done-->
+                >{{ user.party.quest.progress.up | floor(10) }} {{ $t('pendingDamageLabel') }}</span> <!-- eslint-disable-line max-len -->
+                <!-- player's pending damage uses floor so you
+                  don't overestimate damage you've already done-->
               </div>
             </div>
             <div
@@ -171,7 +175,8 @@
                 <div class="grey-progress-bar">
                   <div
                     class="boss-health-bar rage-bar"
-                    :style="{width: (group.quest.progress.rage / questData.boss.rage.value) * 100 + '%'}"
+                    :style="{
+                      width: (group.quest.progress.rage / questData.boss.rage.value) * 100 + '%'}"
                   ></div>
                 </div>
               </div>
@@ -183,7 +188,7 @@
               <div class="col-6">
                 <span
                   class="float-left"
-                >{{ $t('rage') }} {{ parseFloat(group.quest.progress.rage).toFixed(2) }} / {{ questData.boss.rage.value }}</span>
+                >{{ $t('rage') }} {{ parseFloat(group.quest.progress.rage).toFixed(2) }} / {{ questData.boss.rage.value }}</span> <!-- eslint-disable-line max-len -->
               </div>
             </div>
           </div>

@@ -1,3 +1,3 @@
-<template lang="pug" functional>
-div {{ props.notification }}
+<template functional>
+  <div>{{ props.notification }}</div>
 </template>

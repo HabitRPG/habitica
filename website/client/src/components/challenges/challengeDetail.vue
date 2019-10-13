@@ -30,8 +30,10 @@
                 :group="challenge.group"
               />
             </span>
-            <!-- @TODO: make challenge.author a variable inside the createdBy string (helps with RTL languages)-->
-            <!-- @TODO: Implement in V2 strong.margin-left(v-once).svg-icon.calendar-icon(v-html="icons.calendarIcon")
+            <!-- @TODO: make challenge.author a variable inside the
+             createdBy string (helps with RTL languages)-->
+            <!-- @TODO: Implement in V2 strong.margin-left
+            (v-once).svg-icon.calendar-icon(v-html="icons.calendarIcon")
 | {{$t('endDate')}}
             // "endDate": "End Date: <% endDate %>",-->
             <!-- span {{challenge.endDate}}-->
@@ -39,6 +41,7 @@
           <div class="tags">
             <span
               v-for="tag in challenge.tags"
+              :key="tag"
               class="tag"
             >{{ tag }}</span>
           </div>
@@ -112,6 +115,7 @@
         </div>
       </div>
       <div class="row">
+        <!-- eslint-disable vue/no-use-v-if-with-v-for -->
         <task-column
           v-for="column in columns"
           v-if="tasksByType[column].length > 0"
@@ -123,6 +127,7 @@
           @editTask="editTask"
           @taskDestroyed="taskDestroyed"
         />
+        <!-- eslint-enable vue/no-use-v-if-with-v-for -->
       </div>
     </div>
     <div class="col-12 col-md-4 sidebar standard-page">

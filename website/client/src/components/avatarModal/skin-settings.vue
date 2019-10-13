@@ -13,10 +13,13 @@
       :items="freeSkins"
       :current-value="user.preferences.skin"
     />
+    <!-- eslint-disable vue/no-use-v-if-with-v-for -->
     <div
       v-for="set in seasonalSkins"
       v-if="editing && set.key !== 'undefined'"
+      :key="set.key"
     >
+      <!-- eslint-enable vue/no-use-v-if-with-v-for -->
       <customize-options
         :items="set.options"
         :current-value="user.preferences.skin"

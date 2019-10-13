@@ -9,6 +9,7 @@
       <div class="small">
         {{ $t('inviteEmailUsernameInfo') }}
       </div>
+      <!-- eslint-disable-next-line vue/require-v-for-key -->
       <div v-for="(invite, index) in invites">
         <div class="input-group">
           <div
@@ -25,7 +26,8 @@
             class="form-control"
             type="text"
             :placeholder="$t('emailOrUsernameInvite')"
-            :class="{'input-valid': invite.valid, 'is-invalid input-invalid': invite.valid === false}"
+            :class="{
+              'input-valid': invite.valid, 'is-invalid input-invalid': invite.valid === false}"
             @keyup="expandInviteList"
             @change="checkInviteList"
           >

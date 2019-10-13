@@ -8,7 +8,7 @@ const pkg = require('./package.json');
 const configFile = path.join(path.resolve(__dirname, '../../config.json'));
 
 // TODO abstract from server
-setupNconf(configFile);
+setupNconf(configFile, nconf);
 
 const DEV_BASE_URL = nconf.get('BASE_URL');
 
@@ -99,6 +99,16 @@ module.exports = {
           { removeViewBox: false },
           { convertPathData: { noSpaceAfterFlags: false } },
         ],
+      });
+
+    // Disable eslint warnings when running the server
+    config.module
+      .rule('eslint')
+      .use('eslint-loader')
+      .loader('eslint-loader')
+      .tap(options => {
+        options.quiet = true;
+        return options;
       });
   },
 

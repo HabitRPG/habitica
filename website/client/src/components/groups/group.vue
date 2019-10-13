@@ -4,9 +4,9 @@
     class="row"
   >
     <group-form-modal v-if="isParty" />
-    <start-quest-modal :group="this.group" />
-    <quest-details-modal :group="this.group" />
-    <participant-list-modal :group="this.group" />
+    <start-quest-modal :group="group" />
+    <quest-details-modal :group="group" />
+    <participant-list-modal :group="group" />
     <group-gems-modal />
     <div class="col-12 col-sm-8 standard-page">
       <div class="row">
@@ -141,13 +141,22 @@
             >
               {{ $t('invite') }}
             </button>
-            <!-- @TODO: hide the invitation button if there's an active group plan and the player is not the leader-->
+            <!-- @TODO: hide the invitation button
+              if there's an active group plan and the player is not the leader-->
           </div>
           <div class="button-container">
-            <!-- @TODO: V2 button.btn.btn-primary(v-once, v-if='!isLeader') {{$t('messageGuildLeader')}} // Suggest making the button visible to the leader too - useful for them to test how the feature works or to send a note to themself. -- Alys-->
+            <!-- @TODO: V2 button.btn.btn-primary(v-once, v-if='!isLeader')
+             {{$t('messageGuildLeader')}} // Suggest making the button
+              visible to the leader too - useful for them to test how
+               the feature works or to send a note to themself. -- Alys-->
           </div>
           <div class="button-container">
-            <!-- @TODO: V2 button.btn.btn-primary(v-once, v-if='isMember && !isParty') {{$t('donateGems')}} // Suggest removing the isMember restriction - it's okay if non-members donate to a public guild. Also probably allow it for parties if parties can buy imagery. -- Alys-->
+            <!-- @TODO: V2 button.btn.btn-primary(v-once,
+              v-if='isMember && !isParty') {{$t('donateGems')}}
+              // Suggest removing the isMember restriction
+               - it's okay if non-members donate to a public
+               guild. Also probably allow it for parties
+               if parties can buy imagery. -- Alys-->
           </div>
         </div>
       </div>
@@ -379,7 +388,6 @@ import groupUtilities from '@/mixins/groupsUtilities';
 import styleHelper from '@/mixins/styleHelper';
 import { mapState } from '@/libs/store';
 import * as Analytics from '@/libs/analytics';
-import membersModal from './membersModal';
 import startQuestModal from './startQuestModal';
 import questDetailsModal from './questDetailsModal';
 import participantListModal from './participantListModal';
@@ -406,7 +414,6 @@ import bronzeGuildBadgeIcon from '@/assets/svg/bronze-guild-badge-small.svg';
 
 export default {
   components: {
-    membersModal,
     startQuestModal,
     groupFormModal,
     groupChallenges,

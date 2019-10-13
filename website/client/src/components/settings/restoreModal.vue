@@ -50,7 +50,8 @@
             data-for="stats.gp"
           >
         </div>
-        <!--input.form-control(type='number', step="any", data-for='stats.gp', v-model='restoreValues.stats.gp',disabled)-->
+        <!--input.form-control(type='number',
+         step="any", data-for='stats.gp', v-model='restoreValues.stats.gp',disabled)-->
       </div>
       <div class="form-group row">
         <div class="col-sm-3">

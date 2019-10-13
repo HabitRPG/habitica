@@ -16,6 +16,7 @@
         <div class="row">
           <div
             v-for="heroClass in classes"
+            :key="heroClass"
             class="col-md-3"
           >
             <div @click="selectedClass = heroClass">
@@ -36,6 +37,7 @@
         <br>
         <div
           v-for="heroClass in classes"
+          :key="heroClass"
           class="d-flex justify-content-center"
         >
           <div
@@ -56,7 +58,10 @@
             </div>
           </div>
         </div>
-        <div v-for="heroClass in classes">
+        <div
+          v-for="heroClass in classes"
+          :key="heroClass"
+        >
           <div
             v-if="selectedClass === heroClass"
             class="class-explanation text-center"

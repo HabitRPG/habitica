@@ -30,18 +30,22 @@
         {{ $t('loading') }}
       </h2>
     </div>
+    <!-- eslint-disable vue/no-use-v-if-with-v-for -->
     <div
-      v-for="(msg, index) in messages"
+      v-for="msg in messages"
       v-if="chat && canViewFlag(msg)"
+      :key="msg.id"
       :class="{row: inbox}"
     >
+      <!-- eslint-enable vue/no-use-v-if-with-v-for -->
       <div
         v-if="user._id !== msg.uuid"
         class="d-flex"
         :class="{'flex-grow-1': inbox}"
       >
         <avatar
-          v-if="msg.userStyles || (cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected)"
+          v-if="msg.userStyles
+            || (cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected)"
           class="avatar-left"
           :member="msg.userStyles || cachedProfileData[msg.uuid]"
           :avatar-only="true"
@@ -85,7 +89,8 @@
           />
         </div>
         <avatar
-          v-if="msg.userStyles || (cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected)"
+          v-if="msg.userStyles
+            || (cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected)"
           :member="msg.userStyles || cachedProfileData[msg.uuid]"
           :avatar-only="true"
           :hide-class-badge="true"

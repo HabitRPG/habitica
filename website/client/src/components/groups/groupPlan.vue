@@ -24,7 +24,7 @@
               >
               <hr>
               <h2>{{ $t('teamBasedTasks') }}</h2>
-              <p>Set up an easily-viewed shared task list for the group. Assign tasks to your fellow group members, or let them claim their own tasks to make it clear what everyone is working on!</p>
+              <p>Set up an easily-viewed shared task list for the group. Assign tasks to your fellow group members, or let them claim their own tasks to make it clear what everyone is working on!</p><!-- eslint-disable-line max-len -->
             </div>
           </div>
           <div class="col-4">
@@ -35,7 +35,7 @@
               >
               <hr>
               <h2>Group Management Controls</h2>
-              <p>Use task approvals to verify that a task that was really completed, add Group Managers to share responsibilities, and enjoy a private group chat for all team members.</p>
+              <p>Use task approvals to verify that a task that was really completed, add Group Managers to share responsibilities, and enjoy a private group chat for all team members.</p><!-- eslint-disable-line max-len -->
             </div>
           </div>
           <div class="col-4">
@@ -46,7 +46,7 @@
               >
               <hr>
               <h2>In-Game Benefits</h2>
-              <p>Group members get an exclusive Jackalope Mount, as well as full subscription benefits, including special monthly equipment sets and the ability to buy gems with gold.</p>
+              <p>Group members get an exclusive Jackalope Mount, as well as full subscription benefits, including special monthly equipment sets and the ability to buy gems with gold.</p><!-- eslint-disable-line max-len -->
             </div>
           </div>
         </div>

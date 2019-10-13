@@ -49,14 +49,15 @@
           />
         </div>
         <!-- br-->
-        <!-- @TODO Implement in V2 .custom-control.custom-checkboxinput.custom-control-input(type="checkbox", v-model="workingGroup.guildLeaderCantBeMessaged")
+        <!-- @TODO Implement in V2 .custom-control.custom-checkboxinput.custom
+        -control-input(type="checkbox", v-model="workingGroup.guildLeaderCantBeMessaged")
 label.custom-control-label(v-once) {{ $t('guildLeaderCantBeMessaged') }}
 // "guildLeaderCantBeMessaged": "Leader can not be messaged directly",
 // @TODO discuss the impact of this with moderators before implementing
         -->
         <br>
         <div
-          v-if="!isParty && !this.workingGroup.id"
+          v-if="!isParty && !workingGroup.id"
           class="custom-control custom-checkbox"
         >
           <input
@@ -86,7 +87,9 @@ label.custom-control-label(v-once) {{ $t('guildLeaderCantBeMessaged') }}
           />
         </div>
         <!-- br-->
-        <!-- @TODO: Implement in v2 .custom-control.custom-checkbox(v-if='!creatingParty')input.custom-control-input(type="checkbox", v-model="workingGroup.allowGuildInvitationsFromNonMembers")
+        <!-- @TODO: Implement in v2 .custom-control.custom-checkbox(v-if='!creatingParty')
+        input.custom-control-input(type="checkbox", v-model="workingGroup.allowG
+        uildInvitationsFromNonMembers")
 label.custom-control-label(v-once) {{ $t('allowGuildInvitationsFromNonMembers') }}
 // "allowGuildInvitationsFromNonMembers": "Allow Guild invitations from non-members",
         -->
@@ -123,7 +126,8 @@ label.custom-control-label(v-once) {{ $t('allowGuildInvitationsFromNonMembers') 
           class="form-control description-textarea"
           type="text"
           textarea="textarea"
-          :placeholder="isParty ? $t('partyDescriptionPlaceholder') : $t('guildDescriptionPlaceholder')"
+          :placeholder="isParty
+            ? $t('partyDescriptionPlaceholder') : $t('guildDescriptionPlaceholder')"
         ></textarea>
       </div>
       <div
@@ -155,6 +159,7 @@ label.custom-control-label(v-once) {{ $t('allowGuildInvitationsFromNonMembers') 
           >{{ $t('none') }}</span>
           <div
             v-for="category in workingGroup.categories"
+            :key="category"
             class="category-label"
           >
             {{ $t(categoriesHashByKey[category]) }}
@@ -164,12 +169,14 @@ label.custom-control-label(v-once) {{ $t('allowGuildInvitationsFromNonMembers') 
           v-if="showCategorySelect"
           class="category-box"
         >
+          <!-- eslint-disable vue/no-use-v-if-with-v-for -->
           <div
             v-for="group in categoryOptions"
             v-if="group.key !== 'habitica_official' || user.contributor.admin"
             :key="group.key"
             class="form-check"
           >
+            <!-- eslint-enable vue/no-use-v-if-with-v-for -->
             <div class="custom-control custom-checkbox">
               <input
                 :id="`category-${group.key}`"
@@ -192,7 +199,8 @@ label.custom-control-label(v-once) {{ $t('allowGuildInvitationsFromNonMembers') 
             {{ $t('close') }}
           </button>
         </div>
-        <!-- @TODO: need categories only for PUBLIC GUILDS, not for tavern, private guilds, or party-->
+        <!-- @TODO: need categories only for PUBLIC GUILDS,
+         not for tavern, private guilds, or party-->
       </div>
       <div
         v-if="inviteMembers && !workingGroup.id"
@@ -203,6 +211,7 @@ label.custom-control-label(v-once) {{ $t('allowGuildInvitationsFromNonMembers') 
           <p v-once>{{ $t('inviteMembersHowTo') }} *</p>
         </label>
         <div>
+          <!-- eslint-disable-next-line vue/require-v-for-key -->
           <div v-for="(member, index) in membersToInvite">
             <input
               v-model="member.value"
@@ -226,7 +235,7 @@ label.custom-control-label(v-once) {{ $t('allowGuildInvitationsFromNonMembers') 
       </div>
       <div class="form-group text-center">
         <div
-          v-if="!this.workingGroup.id"
+          v-if="!workingGroup.id"
           class="item-with-icon"
         >
           <div
@@ -250,7 +259,7 @@ label.custom-control-label(v-once) {{ $t('allowGuildInvitationsFromNonMembers') 
           {{ isParty ? $t('updateParty') : $t('updateGuild') }}
         </button>
         <div
-          v-if="!this.workingGroup.id"
+          v-if="!workingGroup.id"
           v-once
           class="gem-description"
         >
@@ -324,7 +333,6 @@ label.custom-control-label(v-once) {{ $t('allowGuildInvitationsFromNonMembers') 
 <script>
 import { mapState } from '@/libs/store';
 import toggleSwitch from '@/components/ui/toggleSwitch';
-import groupMemberSearchDropdown from '@/components/members/groupMemberSearchDropdown';
 import markdownDirective from '@/directives/markdown';
 import gemIcon from '@/assets/svg/gem.svg';
 import informationIcon from '@/assets/svg/information.svg';
@@ -340,7 +348,6 @@ import { MAX_SUMMARY_SIZE_FOR_GUILDS } from '@/../../common/script/constants';
 export default {
   components: {
     toggleSwitch,
-    groupMemberSearchDropdown,
   },
   directives: {
     markdown: markdownDirective,

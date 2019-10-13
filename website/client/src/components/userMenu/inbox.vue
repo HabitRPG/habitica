@@ -34,7 +34,7 @@
           <toggle-switch
             class="float-right"
             :label="optTextSet.switchDescription"
-            :checked="!this.user.inbox.optOut"
+            :checked="!user.inbox.optOut"
             :hover-text="optTextSet.popoverText"
             @change="toggleOpt()"
           />
@@ -80,6 +80,7 @@
         >
           <div
             v-for="conversation in filtersConversations"
+            :key="conversation.key"
             class="conversation"
             :class="{active: selectedConversation.key === conversation.key}"
             @click="selectConversation(conversation.key)"
@@ -103,7 +104,8 @@
             <div
               class="messagePreview"
             >
-              {{ conversation.lastMessageText ? removeTags(parseMarkdown(conversation.lastMessageText)) : '' }}
+              {{ conversation.lastMessageText
+                ? removeTags(parseMarkdown(conversation.lastMessageText)) : '' }}
             </div>
           </div>
         </div>
@@ -421,12 +423,14 @@ export default {
       }
       // Create conversation objects
       const convos = [];
-      for (const key in inboxGroup) {
+      for (const key of Object.keys(inboxGroup)) {
         const recentMessage = inboxGroup[key][0];
 
         const convoModel = {
           key: recentMessage.uuid,
-          name: recentMessage.user, // Handles case where from user sent the only message or the to user sent the only message
+          // Handles case where from user sent
+          // the only message or the to user sent the only message
+          name: recentMessage.user,
           username: !recentMessage.text ? recentMessage.username : recentMessage.toUserName,
           date: recentMessage.timestamp,
           lastMessageText: recentMessage.text,
@@ -439,14 +443,15 @@ export default {
 
       return convos;
     },
-    // Separate from selectedConversation which is not computed so messages don't update automatically
+    // Separate from selectedConversation which
+    // is not computed so messages don't update automatically
     selectedConversationMessages () {
       // Vue-subscribe to changes
       const subScribeToUpdate = this.messagesLoading || this.updateConversionsCounter > -1;
 
       const selectedConversationKey = this.selectedConversation.key;
       const selectedConversation = this.messagesByConversation[selectedConversationKey];
-      this.messages = selectedConversation || []; // eslint-disable-line vue/no-side-effects-in-computed-properties
+      this.messages = selectedConversation || []; // eslint-disable-line vue/no-side-effects-in-computed-properties, max-len
 
       const ordered = orderBy(this.messages, [m => m.timestamp], ['asc']);
 
@@ -462,7 +467,10 @@ export default {
 
       const filtered = subScribeToUpdate && !this.search
         ? this.conversations
-        : filter(this.conversations, conversation => conversation.name.toLowerCase().indexOf(this.search.toLowerCase()) !== -1);
+        : filter(
+          this.conversations,
+          conversation => conversation.name.toLowerCase().indexOf(this.search.toLowerCase()) !== -1,
+        );
 
       const ordered = orderBy(filtered, [o => moment(o.date).toDate()], ['desc']);
 
@@ -677,9 +685,9 @@ export default {
       const res = await axios.get(requestUrl);
       const loadedMessages = res.data.data;
 
-      this.messagesByConversation[this.selectedConversation.key] = this.messagesByConversation[this.selectedConversation.key] || [];
+      this.messagesByConversation[this.selectedConversation.key] = this.messagesByConversation[this.selectedConversation.key] || []; // eslint-disable-line max-len
       const loadedMessagesToAdd = loadedMessages
-        .filter(m => this.messagesByConversation[this.selectedConversation.key].findIndex(mI => mI.id === m.id) === -1);
+        .filter(m => this.messagesByConversation[this.selectedConversation.key].findIndex(mI => mI.id === m.id) === -1); // eslint-disable-line max-len
       this.messagesByConversation[this.selectedConversation.key].push(...loadedMessagesToAdd);
 
       // only show the load more Button if the max count was returned

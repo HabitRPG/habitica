@@ -68,10 +68,12 @@
                 :placeholder="$t('username')"
                 :class="{'input-valid': usernameValid, 'input-invalid': usernameInvalid}"
               >
+              <!-- eslint-disable vue/require-v-for-key -->
               <div
                 v-for="issue in usernameIssues"
                 class="input-error"
               >
+                <!-- eslint-enable vue/require-v-for-key -->
                 {{ issue }}
               </div>
               <input
@@ -93,7 +95,9 @@
                 class="form-control"
                 type="password"
                 :placeholder="$t('confirmPassword')"
-                :class="{'input-invalid': passwordConfirmInvalid, 'input-valid': passwordConfirmValid}"
+                :class="{
+                  'input-invalid': passwordConfirmInvalid,
+                  'input-valid': passwordConfirmValid}"
               >
               <p
                 v-once

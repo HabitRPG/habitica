@@ -16,6 +16,7 @@
         >
           <option
             v-for="lang in availableLanguages"
+            :key="lang.code"
             :value="lang.code"
           >
             {{ lang.name }}
@@ -37,6 +38,7 @@
         >
           <option
             v-for="dateFormat in availableFormats"
+            :key="dateFormat"
             :value="dateFormat"
           >
             {{ dateFormat }}
@@ -54,6 +56,7 @@
           >
             <option
               v-for="sound in availableAudioThemes"
+              :key="sound"
               :value="sound"
             >
               {{ $t(`audioTheme_${sound}`) }}
@@ -217,6 +220,7 @@
                 >
                   <option
                     v-for="option in dayStartOptions"
+                    :key="option.value"
                     :value="option.value"
                   >
                     {{ option.name }}
@@ -252,7 +256,10 @@
       <div class="panel-body">
         <div>
           <ul class="list-inline">
-            <li v-for="network in SOCIAL_AUTH_NETWORKS">
+            <li
+              v-for="network in SOCIAL_AUTH_NETWORKS"
+              :key="network.key"
+            >
               <button
                 v-if="!user.auth[network.key].id"
                 class="btn btn-primary mb-2"
@@ -343,6 +350,7 @@
               >
                 <div
                   v-for="issue in displayNameIssues"
+                  :key="issue"
                   class="input-error"
                 >
                   {{ issue }}
@@ -390,6 +398,7 @@
               >
               <div
                 v-for="issue in usernameIssues"
+                :key="issue"
                 class="input-error"
               >
                 {{ issue }}
@@ -754,10 +763,10 @@ export default {
         return true;
       }
 
-      return find(this.SOCIAL_AUTH_NETWORKS, network => {
+      return this.SOCIAL_AUTH_NETWORKS.find(network => {
         if (network.key !== networkKeyToCheck) {
           if (this.user.auth[network.key]) {
-            return this.user.auth[network.key].id;
+            return !!this.user.auth[network.key].id;
           }
         }
 

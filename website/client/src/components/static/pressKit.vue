@@ -8,10 +8,16 @@
         href="/static/presskit/presskit.zip"
       >presskit.zip</a>
     </p>
-    <div v-for="(images, category) in imgs">
+    <div
+      v-for="(images, category) in imgs"
+      :key="category"
+    >
       <h2>{{ $t('pk' + category) }}</h2>
       <div v-if="Array.isArray(images)">
-        <div v-for="img in images">
+        <div
+          v-for="img in images"
+          :key="img"
+        >
           <img
             class="img-fluid img-rendering-auto press-img"
             :src="`/static/presskit/${category}/${img}`"
@@ -19,9 +25,15 @@
         </div>
       </div>
       <div v-else>
-        <div v-for="(images, secondaryCategory) in images">
+        <div
+          v-for="(images, secondaryCategory) in images"
+          :key="secondaryCategory"
+        >
           <h3>{{ $t('pk' + secondaryCategory) }}</h3>
-          <div v-for="img in images">
+          <div
+            v-for="img in images"
+            :key="img"
+          >
             <img
               class="img-fluid img-rendering-auto press-img"
               :src="`/static/presskit/${category}/${secondaryCategory}/${img}`"
@@ -37,6 +49,7 @@
     >
       <div
         v-for="(QA, index) in faq"
+        :key="index"
         class="faq-question"
       >
         <h2
@@ -70,7 +83,7 @@ const PRESS_ENQUIRY_EMAIL = 'admin@habitica.com';
 
 export default {
   data () {
-    return {
+    return Object.freeze({
       PRESS_ENQUIRY_EMAIL,
       imgs: {
         Promo: [
@@ -157,7 +170,7 @@ export default {
           answer: 'pkAnswer8',
         },
       ],
-    };
+    });
   },
 };
 </script>

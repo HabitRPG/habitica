@@ -17,7 +17,9 @@
       </h4>
       <div
         class="text"
-        v-html="$t('hatchDialogText', { potionName: hatchablePet.potionName, eggName: hatchablePet.eggName, petName: hatchablePet.name })"
+        v-html="$t('hatchDialogText', {
+          potionName: hatchablePet.potionName,
+          eggName: hatchablePet.eggName, petName: hatchablePet.name })"
       ></div>
     </div>
     <span

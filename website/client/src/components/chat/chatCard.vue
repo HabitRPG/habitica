@@ -61,7 +61,8 @@
           <div>{{ $t('copyAsTodo') }}</div>
         </div>
         <div
-          v-if="(inbox || (user.flags.communityGuidelinesAccepted && msg.uuid !== 'system')) && (!isMessageReported || user.contributor.admin)"
+          v-if="(inbox || (user.flags.communityGuidelinesAccepted && msg.uuid !== 'system'))
+            && (!isMessageReported || user.contributor.admin)"
           class="action d-flex align-items-center"
           @click="report(msg)"
         >
@@ -273,7 +274,10 @@ export default {
       const messageText = message.text.toLowerCase();
       const displayName = user.profile.name;
       const username = user.auth.local && user.auth.local.username;
-      const mentioned = max([messageText.indexOf(username.toLowerCase()), messageText.indexOf(displayName.toLowerCase())]);
+      const mentioned = max([
+        messageText.indexOf(username.toLowerCase()),
+        messageText.indexOf(displayName.toLowerCase()),
+      ]);
       if (mentioned === -1) return message.highlight;
 
       const escapedDisplayName = escapeRegExp(displayName);

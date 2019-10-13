@@ -53,7 +53,8 @@ label(style='display:inline-block') {{ $t('dontShowAgain') }}
             {{ $t('share') }}
           </a>
         </div>
-        <!-- @TODO: Still want this? .col-4a.tumblr-share-button(:data-href='socialLevelLink', data-notes='none')-->
+        <!-- @TODO: Still want this? .col-4a.tumblr
+          -share-button(:data-href='socialLevelLink', data-notes='none')-->
       </div>
     </div>
   </b-modal>

@@ -16,7 +16,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="patron in patrons">
+          <tr
+            v-for="patron in patrons"
+            :key="patron._id"
+          >
             <td>
               <a
                 v-class="userLevelStyle(patron)"

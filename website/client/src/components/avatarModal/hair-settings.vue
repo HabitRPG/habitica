@@ -17,10 +17,13 @@
         :items="freeHairColors"
         :current-value="user.preferences.hair.color"
       />
+      <!-- eslint-disable vue/no-use-v-if-with-v-for -->
       <div
         v-for="set in seasonalHairColors"
         v-if="editing && set.key !== 'undefined'"
+        :key="set.key"
       >
+        <!-- eslint-enable vue/no-use-v-if-with-v-for -->
         <customize-options
           :items="set.options"
           :current-value="user.preferences.skin"
@@ -33,6 +36,7 @@
       v-if="activeSubPage === 'style'"
       id="style"
     >
+      <!-- eslint-disable vue/require-v-for-key NO KEY AVAILABLE HERE -->
       <div v-for="set in styleSets">
         <customize-options
           :items="set.options"
@@ -40,6 +44,7 @@
           @unlock="set.unlock()"
         />
       </div>
+      <!-- eslint-enable vue/require-v-for-key -->
     </div>
     <div
       v-if="activeSubPage === 'bangs'"
@@ -58,12 +63,14 @@
         v-if="editing"
         :items="mustacheList"
       />
+      <!-- eslint-disable max-len -->
       <customize-options
         v-if="editing"
         :items="beardList"
         :full-set="isPurchaseAllNeeded('hair', ['baseHair5', 'baseHair6'], ['mustache', 'beard'])"
         @unlock="unlock(`hair.mustache.${baseHair5Keys.join(',hair.mustache.')},hair.beard.${baseHair6Keys.join(',hair.beard.')}`)"
       />
+      <!-- eslint-enable max-len -->
     </div>
   </div>
 </template>

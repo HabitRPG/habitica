@@ -139,7 +139,10 @@
           </b-dropdown>
         </div>
       </div>
-      <div v-for="(groupSets, categoryGroup) in getGroupedCategories(categories)">
+      <div
+        v-for="(groupSets, categoryGroup) in getGroupedCategories(categories)"
+        :key="categoryGroup"
+      >
         <h3
           v-if="categoryGroup !== 'spells' && categoryGroup !== 'quests'"
           class="classgroup"
@@ -156,10 +159,12 @@
         <div class="grouped-parent">
           <div
             v-for="category in groupSets"
+            :key="category.identifier"
             class="group"
           >
             <h3>{{ category.text }}</h3>
             <div class="items">
+              <!-- eslint-disable max-len -->
               <shopItem
                 v-for="item in seasonalItems(category, selectedSortItemsBy, searchTextThrottled, viewOptions, hidePinned)"
                 :key="item.key"
@@ -170,6 +175,7 @@
                 :show-event-badge="false"
                 @click="itemSelected(item)"
               >
+                <!-- eslint-enable max-len -->
                 <template
                   slot="itemBadge"
                   slot-scope="ctx"
@@ -194,6 +200,7 @@
   </div>
 </template>
 
+<!-- eslint-disable max-len -->
 <style lang="scss">
   @import '~@/assets/scss/colors.scss';
   @import '~@/assets/scss/variables.scss';
@@ -366,6 +373,7 @@
     }
   }
 </style>
+<!-- eslint-enable max-len -->
 
 <style scoped>
   .margin-center {
@@ -385,12 +393,8 @@ import _reverse from 'lodash/reverse';
 import { mapState } from '@/libs/store';
 
 import ShopItem from '../shopItem';
-import Item from '@/components/inventory/item';
-import CountBadge from '@/components/ui/countBadge';
-import ItemRows from '@/components/ui/itemRows';
 import Checkbox from '@/components/ui/checkbox';
 import toggleSwitch from '@/components/ui/toggleSwitch';
-import Avatar from '@/components/avatar';
 import buyMixin from '@/mixins/buy';
 import currencyMixin from '../_currencyMixin';
 import pinUtils from '@/mixins/pinUtils';
@@ -412,13 +416,8 @@ import shops from '@/../../common/script/libs/shops';
 export default {
   components: {
     ShopItem,
-    Item,
-    CountBadge,
-    ItemRows,
     toggleSwitch,
     Checkbox,
-
-    Avatar,
   },
   mixins: [buyMixin, currencyMixin, pinUtils],
   data () {

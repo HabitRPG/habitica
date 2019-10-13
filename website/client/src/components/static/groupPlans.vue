@@ -249,7 +249,6 @@
 import * as Analytics from '@/libs/analytics';
 import { setup as setupPayments } from '@/libs/payments';
 import amazonPaymentsModal from '@/components/payments/amazonModal';
-import StaticHeader from './header.vue';
 import AuthForm from '../auth/authForm.vue';
 import CreateGroupModalPages from '../group-plans/createGroupModalPages.vue';
 
@@ -257,7 +256,6 @@ import party from '../../assets/images/group-plans-static/party.svg';
 
 export default {
   components: {
-    StaticHeader,
     AuthForm,
     CreateGroupModalPages,
     amazonPaymentsModal,

@@ -13,7 +13,7 @@
         <h2 v-once>
           {{ $t('filter') }}
         </h2>
-        <h3>{{ this.groupBy === 'type' ? $t('equipmentType') : $t('class') }}</h3>
+        <h3>{{ groupBy === 'type' ? $t('equipmentType') : $t('class') }}</h3>
         <div class="form-group">
           <div
             v-for="group in itemsGroups"
@@ -122,11 +122,14 @@
             :key="flatGear[activeItems[group]] ? flatGear[activeItems[group]].key : group"
             class="pointer"
             :item="flatGear[activeItems[group]]"
-            :item-content-class="flatGear[activeItems[group]] ? 'shop_' + flatGear[activeItems[group]].key : null"
-            :empty-item="!flatGear[activeItems[group]] || flatGear[activeItems[group]].key.indexOf('_base_0') !== -1"
+            :item-content-class="flatGear[activeItems[group]]
+              ? 'shop_' + flatGear[activeItems[group]].key : null"
+            :empty-item="!flatGear[activeItems[group]]
+              || flatGear[activeItems[group]].key.indexOf('_base_0') !== -1"
             :label="label"
             :popover-position="'top'"
-            :show-popover="flatGear[activeItems[group]] && Boolean(flatGear[activeItems[group]].text)"
+            :show-popover="flatGear[activeItems[group]]
+              && Boolean(flatGear[activeItems[group]].text)"
             @click="equipItem(flatGear[activeItems[group]])"
           >
             <template
@@ -148,12 +151,14 @@
           </item>
         </div>
       </drawer>
+      <!-- eslint-disable vue/no-use-v-if-with-v-for -->
       <div
         v-for="group in itemsGroups"
         v-if="!anyFilterSelected || viewOptions[group.key].selected"
         :key="group.key"
         :class="group.key"
       >
+        <!-- eslint-enable vue/no-use-v-if-with-v-for -->
         <h2 class="mb-3">
           {{ group.label }}
           <span

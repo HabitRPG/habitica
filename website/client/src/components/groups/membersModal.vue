@@ -3,7 +3,7 @@
   <div>
     <remove-member-modal
       :member-to-remove="memberToRemove"
-      :group-id="this.groupId"
+      :group-id="groupId"
       @member-removed="memberRemoved"
     />
     <b-modal
@@ -49,6 +49,7 @@
             >
               <option
                 v-for="sortOption in sortOptions"
+                :key="sortOption.value"
                 :value="sortOption.value"
               >
                 {{ sortOption.text }}
@@ -62,6 +63,7 @@
             >
               <option
                 v-for="sortDirection in sortDirections"
+                :key="sortDirection.value"
                 :value="sortDirection.value"
               >
                 {{ sortDirection.text }}
@@ -100,6 +102,7 @@
       <div v-if="selectedPage === 'members'">
         <div
           v-for="(member, index) in sortedMembers"
+          :key="member._id"
           class="row"
         >
           <div class="col-11 no-padding-left">
@@ -201,6 +204,7 @@
       <div v-if="selectedPage === 'invites'">
         <div
           v-for="(member, index) in invites"
+          :key="member._id"
           class="row"
         >
           <div class="col-11 no-padding-left">

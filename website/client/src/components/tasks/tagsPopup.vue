@@ -1,18 +1,21 @@
 <template>
   <div class="tags-popup">
+    <!-- eslint-disable vue/no-use-v-if-with-v-for -->
     <div
       v-for="tagsType in tagsByType"
       v-if="tagsType.tags.length > 0 || tagsType.key === 'tags'"
       :key="tagsType.key"
       class="tags-category d-flex"
     >
+      <!-- eslint-enable vue/no-use-v-if-with-v-for -->
       <div class="tags-header">
         <strong v-once>{{ $t(tagsType.key) }}</strong>
       </div>
       <div class="tags-list container">
         <div class="row">
           <div
-            v-for="(tag, tagIndex) in tagsType.tags"
+            v-for="(tag) in tagsType.tags"
+            :key="tag.id"
             class="col-4"
           >
             <div class="custom-control custom-checkbox">

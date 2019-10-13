@@ -26,7 +26,7 @@
           ></div>
         </button>
         <button
-          v-if="user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) === -1"
+          v-if="user._id !== userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) === -1"
           v-b-tooltip.hover.right="$t('blockWarning')"
           class="btn btn-secondary remove-icon"
           @click="blockUser()"
@@ -37,7 +37,7 @@
           ></div>
         </button>
         <button
-          v-if="user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) !== -1"
+          v-if="user._id !== userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) !== -1"
           v-b-tooltip.hover.right="$t('unblock')"
           class="btn btn-secondary positive-icon"
           @click="unblockUser()"
@@ -48,7 +48,7 @@
           ></div>
         </button>
         <button
-          v-if="this.userLoggedIn.contributor.admin"
+          v-if="userLoggedIn.contributor.admin"
           v-b-tooltip.hover.right="'Admin - Toggle Tools'"
           class="btn btn-secondary positive-icon"
           @click="toggleAdminTools()"
@@ -60,7 +60,7 @@
         </button>
       </div>
       <div
-        v-if="this.userLoggedIn.contributor.admin && adminToolsLoaded"
+        v-if="userLoggedIn.contributor.admin && adminToolsLoaded"
         class="row admin-profile-actions"
       >
         <div class="col-12 text-right">
@@ -299,22 +299,24 @@
     >
       <div
         v-for="(category, key) in achievements"
+        :key="key"
         class="row"
       >
         <h2 class="col-12 text-center">
           {{ $t(key+'Achievs') }}
         </h2>
         <div
-          v-for="(achievement, key) in category.achievements"
+          v-for="(achievement, achievKey) in category.achievements"
+          :key="achievKey"
           class="col-12 col-md-3 text-center"
         >
           <div
-            :id="key + '-achievement'"
+            :id="achievKey + '-achievement'"
             class="box achievement-container"
             :class="{'achievement-unearned': !achievement.earned}"
           >
             <b-popover
-              :target="'#' + key + '-achievement'"
+              :target="'#' + achievKey + '-achievement'"
               triggers="hover"
               placement="top"
             >
@@ -355,7 +357,10 @@
           <h2 class="text-center">
             {{ $t('challengesWon') }}
           </h2>
-          <div v-for="chal in user.achievements.challenges">
+          <div
+            v-for="chal in user.achievements.challenges"
+            :key="chal"
+          >
             <span v-markdown="chal"></span>
             <hr>
           </div>
@@ -368,7 +373,10 @@
           <h2 class="text-center">
             {{ $t('questsCompleted') }}
           </h2>
-          <div v-for="(value, key) in user.achievements.quests">
+          <div
+            v-for="(value, key) in user.achievements.quests"
+            :key="key"
+          >
             <span>{{ content.quests[key].text() }} ({{ value }})</span>
           </div>
         </div>
@@ -781,7 +789,7 @@ export default {
     },
     selectPage (page) {
       this.selectedPage = page;
-      history.replaceState(null, null, '');
+      window.history.replaceState(null, null, '');
     },
     sendMessage () {
       this.$root.$emit('habitica::new-inbox-message', {
@@ -810,7 +818,8 @@ export default {
       if (!currentLoginDay) return 0;
       const previousRewardDay = currentLoginDay.prevRewardKey;
       const { nextRewardAt } = currentLoginDay;
-      return ((this.user.loginIncentives - previousRewardDay) / (nextRewardAt - previousRewardDay)) * 100;
+      return ((this.user.loginIncentives - previousRewardDay)
+        / (nextRewardAt - previousRewardDay)) * 100;
     },
     save () {
       const values = {};

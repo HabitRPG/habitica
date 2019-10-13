@@ -7,7 +7,12 @@
       v-for="option in items"
       :key="option.key"
       class="outer-option-background"
-      :class="{locked: option.gemLocked || option.goldLocked, premium: Boolean(option.gem), active: option.active || currentValue === option.key, none: option.none, hide: option.hide }"
+      :class="{
+        locked: option.gemLocked || option.goldLocked,
+        premium: Boolean(option.gem),
+        active: option.active || currentValue === option.key,
+        none: option.none,
+        hide: option.hide }"
       @click="option.click(option)"
     >
       <div class="option">

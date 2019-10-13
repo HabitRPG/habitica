@@ -33,7 +33,9 @@
             <div
               class="text"
             >
-              {{ registering ? $t('signUpWithSocial', {social: 'Facebook'}) : $t('loginWithSocial', {social: 'Facebook'}) }}
+              {{ registering
+                ? $t('signUpWithSocial', {social: 'Facebook'})
+                : $t('loginWithSocial', {social: 'Facebook'}) }}
             </div>
           </div>
         </div>
@@ -49,7 +51,9 @@
             <div
               class="text"
             >
-              {{ registering ? $t('signUpWithSocial', {social: 'Google'}) : $t('loginWithSocial', {social: 'Google'}) }}
+              {{ registering
+                ? $t('signUpWithSocial', {social: 'Google'})
+                : $t('loginWithSocial', {social: 'Google'}) }}
             </div>
           </div>
         </div>
@@ -72,6 +76,7 @@
         >
         <div
           v-for="issue in usernameIssues"
+          :key="issue"
           class="input-error"
         >
           {{ issue }}

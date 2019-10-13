@@ -29,7 +29,8 @@
             ></div>
             {{ $t('share') }}
           </a>
-          <!-- @TODO: Still want this? .col-4a.tumblr-share-button(:data-href='socialLevelLink', data-notes='none')-->
+          <!-- @TODO: Still want this?
+            .col-4a.tumblr-share-button(:data-href='socialLevelLink', data-notes='none')-->
         </div>
       </div>
     </div>

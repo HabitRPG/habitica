@@ -25,6 +25,7 @@
     </div>
     <div
       v-for="drop in getDropsList(item.drop.items, false)"
+      :key="drop.key"
       class="reward-item"
     >
       <span class="icon">
@@ -46,6 +47,7 @@
     </h3>
     <div
       v-for="drop in getDropsList(item.drop.items, true)"
+      :key="drop.key"
       class="reward-item"
     >
       <span class="icon">

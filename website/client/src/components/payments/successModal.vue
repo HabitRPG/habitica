@@ -38,7 +38,8 @@
           </div>
         </template>
         <template
-          v-if="paymentData.paymentType === 'gift-gems' || paymentData.paymentType === 'gift-gems-balance'"
+          v-if="paymentData.paymentType === 'gift-gems'
+            || paymentData.paymentType === 'gift-gems-balance'"
         >
           <span v-html="$t('paymentYouSentGems', {name: paymentData.giftReceiver})"></span>
           <div class="details-block gems">
@@ -52,29 +53,34 @@
         </template>
         <template v-if="paymentData.paymentType === 'gift-subscription'">
           <span
-            v-html="$t('paymentYouSentSubscription', {name: paymentData.giftReceiver, months: paymentData.subscription.months})"
+            v-html="$t('paymentYouSentSubscription', {
+              name: paymentData.giftReceiver, months: paymentData.subscription.months})"
           ></span>
         </template>
         <template v-if="paymentData.paymentType === 'subscription'">
           <strong v-once>{{ $t('nowSubscribed') }}</strong>
           <div class="details-block">
             <span
-              v-html="$t('paymentSubBilling', {amount: paymentData.subscription.price, months: paymentData.subscription.months})"
+              v-html="$t('paymentSubBilling', {
+                amount: paymentData.subscription.price, months: paymentData.subscription.months})"
             ></span>
           </div>
         </template>
         <template v-if="paymentData.paymentType === 'groupPlan'">
           <span
-            v-html="$t(paymentData.newGroup ? 'groupPlanCreated' : 'groupPlanUpgraded', {groupName: paymentData.group.name})"
+            v-html="$t(paymentData.newGroup
+              ? 'groupPlanCreated' : 'groupPlanUpgraded', {groupName: paymentData.group.name})"
           ></span>
           <div class="details-block">
             <span
-              v-html="$t('paymentSubBilling', {amount: groupPlanCost, months: paymentData.subscription.months})"
+              v-html="$t('paymentSubBilling', {
+                amount: groupPlanCost, months: paymentData.subscription.months})"
             ></span>
           </div>
         </template>
         <template
-          v-if="paymentData.paymentType === 'groupPlan' || paymentData.paymentType === 'subscription'"
+          v-if="paymentData.paymentType === 'groupPlan'
+            || paymentData.paymentType === 'subscription'"
         >
           <span
             v-once

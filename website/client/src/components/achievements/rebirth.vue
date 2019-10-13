@@ -10,7 +10,9 @@
         <!-- @TODO: +achievementAvatar('sun',0)--><achievement-avatar class="avatar" />
       </div><div class="col-6 offset-3 text-center">
         <div v-if="user.achievements.rebirthLevel < 100">
-          {{ $t('rebirthAchievement', {number: user.achievements.rebirths, level: user.achievements.rebirthLevel}) }}
+          {{ $t('rebirthAchievement', {
+            number: user.achievements.rebirths,
+            level: user.achievements.rebirthLevel}) }}
         </div><div v-if="user.achievements.rebirthLevel >= 100">
           {{ $t('rebirthAchievement100', {number: user.achievements.rebirths}) }}
         </div><br><button

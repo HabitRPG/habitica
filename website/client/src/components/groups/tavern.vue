@@ -26,7 +26,10 @@
           <div
             v-if="group && group.quest && group.quest.active"
             class="world-boss"
-            :style="{background: questData.colors.dark, 'border-color': questData.colors.extralight, 'outline-color': questData.colors.light}"
+            :style="{
+              background: questData.colors.dark,
+              'border-color': questData.colors.extralight,
+              'outline-color': questData.colors.light}"
           >
             <div
               class="corner-decoration"
@@ -105,7 +108,9 @@
                 ></div>
                 <span
                   class="reduce ml-1 pt-1"
-                >{{ $t('bossHealth', {currentHealth: bossCurrentHealth(), maxHealth: questData.boss.hp.toLocaleString()}) }}</span>
+                >{{ $t('bossHealth', {
+                  currentHealth: bossCurrentHealth(),
+                  maxHealth: questData.boss.hp.toLocaleString()}) }}</span>
               </span>
               <div class="mt-3 mb-2">
                 <strong class="mr-1">{{ $t('rageAttack') }}</strong>
@@ -114,7 +119,8 @@
               <div class="grey-progress-bar mb-1">
                 <div
                   class="boss-health-bar rage-bar"
-                  :style="{width: (group.quest.progress.rage / questData.boss.rage.value) * 100 + '%'}"
+                  :style="{
+                    width: (group.quest.progress.rage / questData.boss.rage.value) * 100 + '%'}"
                 ></div>
               </div>
               <span class="d-flex align-items-center">
@@ -124,7 +130,9 @@
                 ></div>
                 <span
                   class="reduce ml-1 pt-1"
-                >{{ $t('bossRage', {currentRage: bossCurrentRage(), maxRage: questData.boss.rage.value.toLocaleString()}) }}</span>
+                >{{ $t('bossRage', {
+                  currentRage: bossCurrentRage(),
+                  maxRage: questData.boss.rage.value.toLocaleString()}) }}</span>
               </span>
               <div class="row d-flex align-items-center mb-2 mt-2">
                 <div class="col-sm-4 d-flex">
@@ -217,7 +225,8 @@
               ></div>
             </div>
           </div>
-          <!-- .text-center.mt-4.world-boss-info-button(@click="showWorldBossInfo()") {{$t('whatIsWorldBoss') }}
+          <!-- .text-center.mt-4.world-boss
+          -info-button(@click="showWorldBossInfo()") {{$t('whatIsWorldBoss') }}
           -->
         </div>
         <div class="sleep below-header-sections">
@@ -259,8 +268,12 @@
           <div class="row">
             <div
               v-for="user in staff"
+              :key="user.uuid"
               class="col-4 staff"
-              :class="{staff: user.type === 'Staff', moderator: user.type === 'Moderator', bailey: user.name === 'It's Bailey'}"
+              :class="{
+                staff: user.type === 'Staff',
+                moderator: user.type === 'Moderator',
+                bailey: user.name === 'It\'s Bailey'}"
             >
               <div>
                 <router-link
@@ -275,12 +288,12 @@
                   v-html="icons.tierStaff"
                 ></div>
                 <div
-                  v-if="user.type === 'Moderator' && user.name !== 'It's Bailey'"
+                  v-if="user.type === 'Moderator' && user.name !== 'It\'s Bailey'"
                   class="svg-icon mod-icon"
                   v-html="icons.tierMod"
                 ></div>
                 <div
-                  v-if="user.name === 'It's Bailey'"
+                  v-if="user.name === 'It\'s Bailey'"
                   class="svg-icon npc-icon"
                   v-html="icons.tierNPC"
                 ></div>

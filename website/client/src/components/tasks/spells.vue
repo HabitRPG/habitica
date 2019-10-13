@@ -35,13 +35,16 @@
         <div slot="drawer-slider">
           <div class="container spell-container">
             <div class="row">
+              <!-- eslint-disable vue/no-use-v-if-with-v-for -->
               <div
                 v-for="(skill, key) in spells[user.stats.class]"
                 v-if="user.stats.lvl >= skill.lvl"
+                :key="key"
                 v-b-popover.hover.auto="skill.notes()"
                 class="col-12 col-md-3"
                 @click="castStart(skill)"
               >
+                <!-- eslint-enable vue/no-use-v-if-with-v-for -->
                 <div class="spell col-12 row">
                   <div class="col-8 details">
                     <a :class="{'disabled': spellDisabled(key)}"></a>

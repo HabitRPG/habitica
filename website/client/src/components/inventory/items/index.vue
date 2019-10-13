@@ -72,11 +72,14 @@
           </b-dropdown>
         </div>
       </div>
+
+      <!-- eslint-disable vue/no-use-v-if-with-v-for -->
       <div
         v-for="group in groups"
         v-if="!anyFilterSelected || group.selected"
         :key="group.key"
       >
+        <!-- eslint-enable vue/no-use-v-if-with-v-for -->
         <h2 class="mb-3">
           {{ $t(group.key) }}
           <span
@@ -472,7 +475,7 @@ export default {
         quantity: this.user.purchased.plan.mysteryItems.length,
       });
 
-      for (const type in this.content.cardTypes) {
+      for (const type of Object.keys(this.content.cardTypes)) {
         const card = this.user.items.special[`${type}Received`] || [];
         if (this.user.items.special[type] > 0 || card.length > 0) {
           specialArray.push({

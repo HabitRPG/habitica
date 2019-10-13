@@ -11,8 +11,8 @@ export default {
     }),
   },
   methods: {
-    enoughCurrency (currency, amount) {
-      switch (currency) {
+    enoughCurrency (currency, amount) { // eslint-disable-line consistent-return
+      switch (currency) { // eslint-disable-line default-case
         case 'gold':
           return this.userGold >= amount;
         case 'gems':

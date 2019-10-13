@@ -3,9 +3,11 @@
     <div class="row">
       <div class="col-md-6 offset-3">
         <h1>{{ $t('merch') }}</h1>
-        <!-- @TODO: Visual experience: Separate each merch items with new line? Or to show items in a table?-->
+        <!-- @TODO: Visual experience: Separate each
+          merch items with new line? Or to show items in a table?-->
         <div
-          v-for="(merchant, index) in merchants"
+          v-for="(merchant) in merchants"
+          :key="merchant.key"
           class="col-lg-6 col-md-6 col-sm-12"
         >
           <div class="merch-block">

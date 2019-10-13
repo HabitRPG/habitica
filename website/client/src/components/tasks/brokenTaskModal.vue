@@ -10,7 +10,8 @@
       class="modal-body"
     >
       <div
-        v-if="brokenChallengeTask.challenge.broken === 'TASK_DELETED' || brokenChallengeTask.challenge.broken === 'CHALLENGE_TASK_NOT_FOUND'"
+        v-if="brokenChallengeTask.challenge.broken === 'TASK_DELETED'
+          || brokenChallengeTask.challenge.broken === 'CHALLENGE_TASK_NOT_FOUND'"
       >
         <h2>{{ $t('brokenTask') }}</h2>
         <div>
@@ -63,7 +64,8 @@
         </div>
       </div>
       <!-- @TODO: I ported this over, but do we use it anymore?-->
-      <!--div(v-if='brokenChallengeTask.challenge.broken === "UNSUBSCRIBED"')p {{ $t('unsubChallenge') }}
+      <!--div(v-if='brokenChallengeTask.challenge.broken
+      === "UNSUBSCRIBED"')p {{ $t('unsubChallenge') }}
 p
   a(@click="unlink('keep-all')") {{ $t('keepThem') }}
   | &nbsp;|&nbsp;

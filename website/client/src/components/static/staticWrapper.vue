@@ -2,7 +2,10 @@
   <div>
     <static-header
       v-if="showContentWrap"
-      :class="{'home-header': ['home', 'front'].indexOf($route.name) !== -1, 'white-header': this.$route.name === 'plans'}"
+      :class="{
+        'home-header': ['home', 'front'].indexOf($route.name) !== -1,
+        'white-header': this.$route.name === 'plans'
+      }"
     />
     <div class="static-wrapper">
       <router-view />

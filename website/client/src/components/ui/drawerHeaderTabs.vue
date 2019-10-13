@@ -3,6 +3,7 @@
     <ul class="drawer-tab-container">
       <li
         v-for="(tab, index) in tabs"
+        :key="tab.key"
         class="drawer-tab"
       >
         <a

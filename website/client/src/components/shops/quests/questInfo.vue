@@ -9,7 +9,10 @@
     >
       <dt>{{ $t('collect') + ':' }}</dt>
       <dd>
-        <div v-for="(collect, key) of quest.collect">
+        <div
+          v-for="(collect, key) of quest.collect"
+          :key="key"
+        >
           <span>{{ collect.count }} {{ getCollectText(collect) }}</span>
         </div>
       </dd>
@@ -26,6 +29,7 @@
       <dd>
         <div
           v-for="star of stars()"
+          :key="star"
           class="svg-icon inline"
           :class="smallVersion ? 'icon-12' : 'icon-16'"
           v-html="icons[star]"

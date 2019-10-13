@@ -10,6 +10,7 @@
     >{{ $t('joined') }}</span>
     <span
       v-for="category in categories"
+      :key="category.slug"
       class="category-label"
       :class="{'category-label-purple':isOfficial(category)}"
     >{{ $t(category.name) }}</span>

@@ -92,11 +92,15 @@
             </b-dropdown-item>
           </b-dropdown>
         </div>
-      </div><div
+      </div>
+      <!-- eslint-disable vue/no-use-v-if-with-v-for -->
+      <div
         v-for="category in categories"
         v-if="!anyFilterSelected || (!closed && viewOptions[category.identifier].selected)"
+        :key="category.identifier"
         :class="category.identifier"
       >
+        <!-- eslint-enable vue/no-use-v-if-with-v-for -->
         <h2 class="mb-3">
           {{ category.text }}
         </h2><itemRows
@@ -121,11 +125,15 @@
                 v-if="category !== 'quests'"
                 slot="popoverContent"
                 slot-scope="ctx"
-              ><div><h4 class="popover-content-title">{{ ctx.item.text }}</h4></div></span><span
+              ><div><h4 class="popover-content-title">{{ ctx.item.text }}</h4></div></span>
+              <span
                 v-if="category === 'quests'"
                 slot="popoverContent"
-                slot-scope="ctx"
-              ><div class="questPopover"><h4 class="popover-content-title">{{ item.text }}</h4><questInfo :quest="item" /></div></span><template
+              ><div class="questPopover">
+                <h4 class="popover-content-title">{{ item.text }}</h4>
+                <questInfo :quest="item" />
+              </div></span>
+              <template
                 slot="itemBadge"
                 slot-scope="ctx"
               >
@@ -164,6 +172,7 @@
   </div>
 </template>
 
+<!-- eslint-disable max-len -->
 <style lang="scss">
   @import '~@/assets/scss/colors.scss';
   @import '~@/assets/scss/variables.scss';
@@ -297,7 +306,7 @@
 
   }
 </style>
-
+<!-- eslint-enable max-len -->
 
 <script>
 import _filter from 'lodash/filter';
@@ -309,13 +318,10 @@ import { mapState } from '@/libs/store';
 
 import ShopItem from '../shopItem';
 import Item from '@/components/inventory/item';
-import CountBadge from '@/components/ui/countBadge';
 import ItemRows from '@/components/ui/itemRows';
 import toggleSwitch from '@/components/ui/toggleSwitch';
-import Avatar from '@/components/avatar';
 import QuestInfo from '../quests/questInfo.vue';
 
-import BuyModal from '../buyModal.vue';
 import BuyQuestModal from '../quests/buyQuestModal.vue';
 
 import svgPin from '@/assets/svg/pin.svg';
@@ -331,13 +337,10 @@ export default {
   components: {
     ShopItem,
     Item,
-    CountBadge,
     ItemRows,
     toggleSwitch,
     QuestInfo,
 
-    Avatar,
-    BuyModal,
     BuyQuestModal,
   },
   mixins: [pinUtils],

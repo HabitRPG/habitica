@@ -21,6 +21,7 @@
       <div class="row">
         <div
           v-for="member in members"
+          :key="member._id"
           class="col-12 member"
         >
           <strong :class="{'declined-name': member.accepted === false}">{{ member.name }}</strong>
@@ -60,7 +61,9 @@
         >
           {{ $t('begin') }}
         </button>
-        <!-- @TODO don't allow the party leader to start the quest until the leader has accepted or rejected the invitation (users get confused and think "begin" means "join quest")-->
+        <!-- @TODO don't allow the party leader to
+         start the quest until the leader has accepted
+        or rejected the invitation (users get confused and think "begin" means "join quest")-->
       </div>
       <div>
         <div
@@ -243,6 +246,7 @@ export default {
       return partyMembers.map(member => ({
         name: member.profile.name,
         accepted: this.group.quest.members[member._id],
+        _id: member._id,
       }));
     },
     canEditQuest () {

@@ -78,6 +78,7 @@
       <div class="well">
         <div
           v-for="task in tasksData"
+          :key="task.label"
           :class="{'muted': task.value === 0}"
         >
           <div class="number">
@@ -413,7 +414,8 @@ export default {
       return this.user.challenges.indexOf(this.challenge._id) !== -1;
     },
     isOfficial () {
-      return this.challenge.official || this.challenge.categories.map(category => category.slug).includes('habitica_official');
+      return this.challenge.official
+        || this.challenge.categories.map(category => category.slug).includes('habitica_official');
     },
     tasksData () {
       return [

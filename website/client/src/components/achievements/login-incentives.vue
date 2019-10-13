@@ -35,12 +35,15 @@
               v-if="nextReward.rewardKey.length === 1"
               :class="nextReward.rewardKey[0]"
             ></div>
+            <!-- eslint-disable vue/no-use-v-if-with-v-for -->
             <div
               v-for="reward in nextReward.rewardKey"
               v-if="nextReward.rewardKey.length > 1"
+              :key="reward"
               class="reward"
               :class="reward"
             ></div>
+            <!-- eslint-enable vue/no-use-v-if-with-v-for -->
           </div>
           <div
             v-if="data.rewardText"
@@ -50,12 +53,15 @@
               v-if="data.rewardKey.length === 1"
               :class="data.rewardKey[0]"
             ></div>
+            <!-- eslint-disable vue/no-use-v-if-with-v-for -->
             <div
               v-for="reward in data.rewardKey"
               v-if="data.rewardKey.length > 1"
+              :key="reward"
               class="reward"
               :class="reward"
             ></div>
+            <!-- eslint-enable vue/no-use-v-if-with-v-for -->
           </div>
         </div>
         <div
@@ -79,7 +85,10 @@
           v-if="data && data.nextRewardAt"
           class="col-12 text-center"
         >
-          <h3>{{ $t('nextRewardUnlocksIn', {numberOfCheckinsLeft: data.nextRewardAt - user.loginIncentives}) }}</h3>
+          <h3>
+            {{ $t('nextRewardUnlocksIn', {
+              numberOfCheckinsLeft: data.nextRewardAt - user.loginIncentives}) }}
+          </h3>
         </div>
       </div>
     </div>

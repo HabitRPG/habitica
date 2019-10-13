@@ -11,6 +11,7 @@
         <div class="well">
           <div
             v-for="(label, key) in equipTypes"
+            :key="key"
             class="col-12 col-md-4 item-wrapper"
           >
             <div
@@ -22,7 +23,8 @@
               <div :class="`shop_${equippedItems[key]}`"></div>
             </div>
             <b-popover
-              v-if="label !== 'skip' && equippedItems[key] && equippedItems[key].indexOf('base_0') === -1"
+              v-if="label !== 'skip'
+                && equippedItems[key] && equippedItems[key].indexOf('base_0') === -1"
               :target="key"
               triggers="hover"
               :placement="'bottom'"
@@ -51,6 +53,7 @@
           <!-- Use similar for loop for costume items, except show background if label is 'skip'.-->
           <div
             v-for="(label, key) in equipTypes"
+            :key="key"
             class="col-12 col-md-4 item-wrapper"
           >
             <!-- Append a "C" to the key name since HTML IDs have to be unique.-->
@@ -72,7 +75,8 @@
               <div :class="'icon_background_' + user.preferences.background"></div>
             </div>
             <b-popover
-              v-if="label !== 'skip' && costumeItems[key] && costumeItems[key].indexOf('base_0') === -1"
+              v-if="label !== 'skip'
+                && costumeItems[key] && costumeItems[key].indexOf('base_0') === -1"
               :target="key + 'C'"
               triggers="hover"
               :placement="'bottom'"
@@ -177,6 +181,7 @@
       </h2>
       <div
         v-for="(statInfo, stat) in stats"
+        :key="stat"
         class="col-12 col-md-6"
       >
         <div class="row col-12 stats-column">
@@ -257,6 +262,7 @@
       <div class="row">
         <div
           v-for="(statInfo, stat) in allocateStatsList"
+          :key="stat"
           class="col-12 col-md-3"
         >
           <div class="box white row col-12">
@@ -300,7 +306,7 @@
             :disabled="loading"
             @click="saveAttributes()"
           >
-            {{ this.loading ? $t('loading') : $t('save') }}
+            {{ loading ? $t('loading') : $t('save') }}
           </button>
         </div>
       </div>
@@ -424,21 +430,23 @@ export default {
     },
     formatAnimal (animalName, type) {
       if (type === 'pet') {
-        if (Content.petInfo.hasOwnProperty(animalName)) {
+        if (Content.petInfo[animalName]) {
           return Content.petInfo[animalName].text();
         }
         return this.$t('noActivePet');
       } if (type === 'mount') {
-        if (Content.mountInfo.hasOwnProperty(animalName)) {
+        if (Content.mountInfo[animalName]) {
           return Content.mountInfo[animalName].text();
         }
         return this.$t('noActiveMount');
       }
+
+      return null;
     },
     formatBackground (background) {
       const bg = Content.appearances.background;
 
-      if (bg.hasOwnProperty(background)) {
+      if (bg[background]) {
         return `${bg[background].text()} (${this.$t(bg[background].set.text)})`;
       }
 

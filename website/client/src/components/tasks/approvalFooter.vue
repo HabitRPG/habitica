@@ -47,7 +47,7 @@
   </div>
 </template>
 
-<style lang="scss", scoped>
+<style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
   .claim-bottom-message {
     background-color: $gray-700;

@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit --opts ../../test/mocha.opts",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint --quiet"
   },
   "dependencies": {
     "amplitude-js": "^5.3.1",
@@ -42,7 +42,7 @@
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "inspectpack": "^4.2.2",
-    "pug": "^2.0.4",
+    "nconf": "^0.10.0",
     "sass": "^1.19.0",
     "sass-loader": "^8.0.0",
     "svg-inline-loader": "^0.8.0",

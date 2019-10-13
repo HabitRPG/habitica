@@ -50,6 +50,7 @@
   </base-notification>
 </template>
 
+<!-- eslint-disable max-len -->
 <style lang="scss" scoped>
   .background {
     position: relative;
@@ -157,6 +158,7 @@
     color: #fff;
   }
 </style>
+<!-- eslint-enable max-len -->
 
 <script>
 import * as quests from '@/../../common/script/content/quests';
@@ -183,10 +185,6 @@ export default {
       worldBoss: {},
     };
   },
-  async mounted () {
-    const result = await this.$store.dispatch('worldState:getWorldState');
-    this.worldBoss = result.worldBoss;
-  },
   computed: {
     ...mapState({ user: 'user.data' }),
     bossHp () {
@@ -195,6 +193,10 @@ export default {
       }
       return this.questData.boss.hp.toLocaleString();
     },
+  },
+  async mounted () {
+    const result = await this.$store.dispatch('worldState:getWorldState');
+    this.worldBoss = result.worldBoss;
   },
   methods: {
     action () {

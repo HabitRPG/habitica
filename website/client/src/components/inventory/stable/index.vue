@@ -134,21 +134,27 @@
           class="badge badge-pill badge-default"
         >{{ countOwnedAnimals(petGroups[0], 'pet') }}</span>
       </h2>
+      <!-- eslint-disable vue/no-use-v-if-with-v-for -->
       <div
-        v-for="(petGroup, index) in petGroups"
+        v-for="(petGroup) in petGroups"
         v-if="!anyFilterSelected || viewOptions[petGroup.key].selected"
         :key="petGroup.key"
       >
+        <!-- eslint-enable vue/no-use-v-if-with-v-for -->
         <h4 v-if="viewOptions[petGroup.key].animalCount !== 0">
           {{ petGroup.label }}
         </h4>
+        <!-- eslint-disable vue/no-use-v-if-with-v-for, max-len -->
         <div
           v-for="(group, key, index) in pets(petGroup, hideMissing, selectedSortBy, searchTextThrottled)"
           v-if="index === 0 || $_openedItemRows_isToggled(petGroup.key)"
+          :key="key"
           class="pet-row d-flex"
         >
+          <!-- eslint-enable vue/no-use-v-if-with-v-for -->
           <div
             v-for="item in group"
+            :key="item.key"
             v-drag.drop.food="item.key"
             class="pet-group"
             :class="{'last': item.isLastInRow}"
@@ -190,21 +196,27 @@
           class="badge badge-pill badge-default"
         >{{ countOwnedAnimals(mountGroups[0], 'mount') }}</span>
       </h2>
+      <!-- eslint-disable vue/no-use-v-if-with-v-for -->
       <div
         v-for="mountGroup in mountGroups"
         v-if="!anyFilterSelected || viewOptions[mountGroup.key].selected"
         :key="mountGroup.key"
       >
+        <!-- eslint-enable vue/no-use-v-if-with-v-for -->
         <h4 v-if="viewOptions[mountGroup.key].animalCount != 0">
           {{ mountGroup.label }}
         </h4>
+        <!-- eslint-disable vue/no-use-v-if-with-v-for, max-len -->
         <div
           v-for="(group, key, index) in mounts(mountGroup, hideMissing, selectedSortBy, searchTextThrottled)"
           v-if="index === 0 || $_openedItemRows_isToggled(mountGroup.key)"
+          :key="key"
           class="pet-row d-flex"
         >
+          <!-- eslint-enable vue/no-use-v-if-with-v-for -->
           <div
             v-for="item in group"
+            :key="item.key"
             class="pet-group"
           >
             <mountItem
@@ -219,7 +231,6 @@
               </span>
               <template
                 slot="itemBadge"
-                slot-scope="context"
               >
                 <starBadge
                   :selected="item.key === currentMount"
@@ -459,8 +470,6 @@ import _throttle from 'lodash/throttle';
 import groupBy from 'lodash/groupBy';
 import { mapState } from '@/libs/store';
 
-import Item from '../item';
-import ItemRows from '@/components/ui/itemRows';
 import PetItem from './petItem';
 import MountItem from './mountItem.vue';
 import FoodItem from './foodItem';
@@ -468,11 +477,8 @@ import HatchedPetDialog from './hatchedPetDialog';
 import MountRaisedModal from './mountRaisedModal';
 import WelcomeModal from './welcomeModal';
 import HatchingModal from './hatchingModal';
-import Drawer from '@/components/ui/drawer';
 import toggleSwitch from '@/components/ui/toggleSwitch';
 import StarBadge from '@/components/ui/starBadge';
-import CountBadge from '@/components/ui/countBadge';
-import DrawerSlider from '@/components/ui/drawerSlider';
 import InventoryDrawer from '@/components/shared/inventoryDrawer';
 
 import ResizeDirective from '@/directives/resize.directive';
@@ -500,15 +506,10 @@ let lastMouseMoveEvent = {};
 export default {
   components: {
     PetItem,
-    Item,
-    ItemRows,
     FoodItem,
     MountItem,
-    Drawer,
     toggleSwitch,
     StarBadge,
-    CountBadge,
-    DrawerSlider,
     HatchedPetDialog,
     MountRaisedModal,
     WelcomeModal,

@@ -38,7 +38,10 @@
           <span>{{ $t('push') }}</span>
         </th>
       </tr>
-      <tr v-for="notification in notificationsIds">
+      <tr
+        v-for="notification in notificationsIds"
+        :key="notification"
+      >
         <td>
           <span>{{ $t(notification) }}</span>
         </td>

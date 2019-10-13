@@ -2,13 +2,15 @@
   <div class="standard-page container">
     <div
       v-for="(category, key) in achievements"
+      :key="key"
       class="row"
     >
       <h2 class="col-12">
         {{ $t(key+'Achievs') }}
       </h2>
       <div
-        v-for="achievment in category.achievements"
+        v-for="(achievment, achievmentKey) in category.achievements"
+        :key="achievmentKey"
         class="col-3 text-center"
       >
         <div
@@ -46,13 +48,19 @@
     <div class="row">
       <div class="col-6">
         <h2>Challeges Won</h2>
-        <div v-for="chal in user.achievements.challenges">
+        <div
+          v-for="chal in user.achievements.challenges"
+          :key="chal"
+        >
           <span>{{ chal }}</span>
         </div>
       </div>
       <div class="col-6">
         <h2>Quests Completed</h2>
-        <div v-for="(value, key) in user.achievements.quests">
+        <div
+          v-for="(value, key) in user.achievements.quests"
+          :key="key"
+        >
           <span>{{ content.quests[k].text() }}</span>
           <span>{{ value }}</span>
         </div>

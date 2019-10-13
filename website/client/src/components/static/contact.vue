@@ -18,7 +18,7 @@
             target="_blank"
             href="https://github.com/HabitRPG/habitica/issues?q=is%3Aopen"
           >GitHub</a>
-          <span v-if="this.user">
+          <span v-if="user">
             <br>
             {{ $t('reportCommunityIssues') }}
             &colon;&nbsp;

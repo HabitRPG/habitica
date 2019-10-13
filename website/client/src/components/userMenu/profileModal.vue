@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     onShown () {
-      history.pushState('', null, this.path);
+      window.history.pushState('', null, this.path);
     },
     onHidden () {
       if (this.$route.path !== window.location.pathname) {

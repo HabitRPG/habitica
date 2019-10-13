@@ -15,9 +15,11 @@
           </h1>
         </div>
         <div class="col-4">
-          <!-- @TODO: Add when we implement recent activity .float-rightspan.dropdown-label {{ $t('sortBy') }}
+          <!-- @TODO: Add when we implement recent activity
+           .float-rightspan.dropdown-label {{ $t('sortBy') }}
 b-dropdown(:text="$t('sort')", right=true)
-          b-dropdown-item(v-for='sortOption in sortOptions', :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}-->
+          b-dropdown-item(v-for='sortOption in sortOptions',
+           :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}-->
           <button
             class="btn btn-secondary create-group-button float-right"
             @click="createGroup()"
@@ -51,7 +53,7 @@ b-dropdown(:text="$t('sort')", right=true)
           <mugen-scroll
             v-show="loading"
             :handler="fetchGuilds"
-            :should-handle="!loading && !this.hasLoadedAllGuilds"
+            :should-handle="!loading && !hasLoadedAllGuilds"
             :handle-on-mount="true"
           >
             <span v-once>{{ $t('loading') }}</span>

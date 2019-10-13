@@ -81,7 +81,7 @@ export default {
         return;
       }
 
-      if (!confirm(this.$t('confirmNeedsWork'))) return;
+      if (!window.confirm(this.$t('confirmNeedsWork'))) return;
 
       await this.$store.dispatch('tasks:needsWork', {
         taskId: this.notification.data.groupTaskId,

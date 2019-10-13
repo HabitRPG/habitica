@@ -24,6 +24,7 @@
       <div class="filters d-flex justify-content-end">
         <div
           v-for="filter in typeFilters"
+          :key="filter"
           class="filter small-text"
           :class="{active: activeFilter.label === filter}"
           @click="activateFilter(type, filter)"
@@ -341,7 +342,7 @@ import {
   getTypeLabel,
   getFilterLabels,
   getActiveFilter,
-} from '@/libs/store/helpers/filterTasks.js';
+} from '@/libs/store/helpers/filterTasks';
 
 import svgPin from '@/assets/svg/pin.svg';
 import habitIcon from '@/assets/svg/habit.svg';
@@ -484,7 +485,11 @@ export default {
           return this.taskList.length;
         } if (this.activeFilter.label === 'all') {
           return this.taskList
-            .reduce((count, t) => (!t.completed && shouldDo(new Date(), t, this.getUserPreferences) ? count + 1 : count), 0);
+            .reduce(
+              (count, t) => (!t.completed
+                && shouldDo(new Date(), t, this.getUserPreferences) ? count + 1 : count),
+              0,
+            );
         }
       }
 
@@ -700,14 +705,15 @@ export default {
         filteredTaskList = taskList.filter(
           task =>
             // eslint rule disabled for block to allow nested binary expression
-            /* eslint-disable no-extra-parens */
+            /* eslint-disable no-extra-parens, implicit-arrow-linebreak, max-len */
             (
               task.text.toLowerCase().indexOf(searchTextLowerCase) > -1
               || (task.notes && task.notes.toLowerCase().indexOf(searchTextLowerCase) > -1)
               || (task.checklist && task.checklist.length > 0
-                && task.checklist.some(checkItem => checkItem.text.toLowerCase().indexOf(searchTextLowerCase) > -1))
+                && task.checklist
+                  .some(checkItem => checkItem.text.toLowerCase().indexOf(searchTextLowerCase) > -1))
             ),
-          /* eslint-enable no-extra-parens */
+          /* eslint-enable no-extra-parens, implicit-arrow-linebreak, max-len */
         );
       }
       return filteredTaskList;

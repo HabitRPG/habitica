@@ -29,7 +29,7 @@
         <div ng-if="quests[user.party.quest.key].collect">
           <p ng-repeat="(k,v) in quests[user.party.quest.key].collect">
             <strong>{{ $t('collect') }} + ': '</strong>
-            {{ quests[user.party.quest.key].collect[k].count }} {{ quests[user.party.quest.key].collect[k].text() }}
+            {{ quests[user.party.quest.key].collect[k].count }} {{ quests[user.party.quest.key].collect[k].text() }} <!-- eslint-disable-line max-len -->
           </p>
         </div>
       </div>

@@ -10,7 +10,9 @@
             class="svg-icon social-icon"
             v-html="icons.facebookIcon"
           ></div>
-          <span>{{ registering ? $t('signUpWithSocial', {social: 'Facebook'}) : $t('loginWithSocial', {social: 'Facebook'}) }}</span>
+          <span>{{ registering
+            ? $t('signUpWithSocial', {social: 'Facebook'})
+            : $t('loginWithSocial', {social: 'Facebook'}) }}</span>
         </div>
       </div>
       <div class="col-12 col-md-6">
@@ -22,7 +24,9 @@
             class="svg-icon social-icon"
             v-html="icons.googleIcon"
           ></div>
-          <span>{{ registering ? $t('signUpWithSocial', {social: 'Google'}) : $t('loginWithSocial', {social: 'Google'}) }}</span>
+          <span>{{ registering
+            ? $t('signUpWithSocial', {social: 'Google'})
+            : $t('loginWithSocial', {social: 'Google'}) }}</span>
         </div>
       </div>
     </div>

@@ -139,13 +139,17 @@
           </b-dropdown>
         </div>
       </div>
+      <!-- eslint-disable vue/no-use-v-if-with-v-for -->
       <div
         v-for="category in categories"
         v-if="!anyFilterSelected || viewOptions[category.identifier].selected"
+        :key="category.identifier"
       >
+        <!-- eslint-enable vue/no-use-v-if-with-v-for -->
         <h2 class="mb-3">
           {{ category.text }}
         </h2>
+        <!-- eslint-disable max-len -->
         <itemRows
           v-if="category.identifier === 'pet'"
           :items="questItems(category, selectedSortItemsBy, searchTextThrottled, hideLocked, hidePinned)"
@@ -153,6 +157,7 @@
           :item-margin="24"
           :type="'pet_quests'"
         >
+          <!-- eslint-enable max-len -->
           <template
             slot="item"
             slot-scope="ctx"
@@ -201,11 +206,14 @@
           v-else-if="category.identifier === 'unlockable' || category.identifier === 'gold'"
           class="grouped-parent"
         >
+          <!-- eslint-disable vue/no-use-v-if-with-v-for, max-len -->
           <div
-            v-for="(items, key) in getGrouped(questItems(category, selectedSortItemsBy, searchTextThrottled, hideLocked, hidePinned))"
+            v-for="(items, key) in getGrouped(questItems(category, selectedSortItemsBy,searchTextThrottled, hideLocked, hidePinned))"
             v-if="key !== 'questGroupEarnable'"
+            :key="key"
             class="group"
           >
+            <!-- eslint-enable vue/no-use-v-if-with-v-for, max-len -->
             <h3>{{ $t(key) }}</h3>
             <div class="items">
               <shopItem
@@ -233,9 +241,11 @@
                       class="popover-content-text"
                     >{{ `${$t('questUnlockLostMasterclasser')}` }}</div>
                     <div
-                      v-if="item.locked && item.unlockCondition && item.unlockCondition.incentiveThreshold"
+                      v-if="item.locked && item.unlockCondition
+                        && item.unlockCondition.incentiveThreshold"
                       class="popover-content-text"
-                    >{{ `${$t('loginIncentiveQuest', {count: item.unlockCondition.incentiveThreshold})}` }}</div>
+                    >{{ `${$t('loginIncentiveQuest', {
+                      count: item.unlockCondition.incentiveThreshold})}` }}</div>
                     <div
                       v-if="item.locked && item.previous && isBuyingDependentOnPrevious(item)"
                       class="popover-content-text"
@@ -278,7 +288,8 @@
           class="items"
         >
           <shopItem
-            v-for="item in questItems(category, selectedSortItemsBy, searchTextThrottled, hideLocked, hidePinned)"
+            v-for="item in questItems(category, selectedSortItemsBy,
+                                      searchTextThrottled, hideLocked, hidePinned)"
             :key="item.key"
             :item="item"
             :price="item.value"
@@ -484,7 +495,6 @@ import Item from '@/components/inventory/item';
 import CountBadge from '@/components/ui/countBadge';
 import ItemRows from '@/components/ui/itemRows';
 import toggleSwitch from '@/components/ui/toggleSwitch';
-import Avatar from '@/components/avatar';
 import buyMixin from '@/mixins/buy';
 import pinUtils from '@/mixins/pinUtils';
 import currencyMixin from '../_currencyMixin';
@@ -507,7 +517,6 @@ export default {
     ItemRows,
     toggleSwitch,
 
-    Avatar,
     BuyModal,
     QuestInfo,
   },

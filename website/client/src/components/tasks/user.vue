@@ -35,12 +35,14 @@
             class="filter-panel"
             @mouseleave="checkMouseOver"
           >
+            <!-- eslint-disable vue/no-use-v-if-with-v-for -->
             <div
               v-for="tagsType in tagsByType"
               v-if="tagsType.tags.length > 0 || tagsType.key === 'tags'"
               :key="tagsType.key"
               class="tags-category d-flex"
             >
+              <!-- eslint-enable vue/no-use-v-if-with-v-for -->
               <div class="tags-header">
                 <strong v-once>{{ $t(tagsType.key) }}</strong>
                 <a
@@ -62,6 +64,7 @@
                     >
                       <div
                         v-for="(tag, tagIndex) in tagsSnap[tagsType.key]"
+                        :key="tag.id"
                         class="col-6"
                       >
                         <div class="inline-edit-input-group tag-edit-item input-group">
@@ -99,6 +102,7 @@
                   <template v-if="editingTags && tagsType.key === 'challenges'">
                     <div
                       v-for="(tag, tagIndex) in tagsSnap[tagsType.key]"
+                      :key="tag.id"
                       class="col-6"
                     >
                       <div class="inline-edit-input-group tag-edit-item input-group">
@@ -121,7 +125,8 @@
                   </template>
                   <template v-if="!editingTags || tagsType.key === 'groups'">
                     <div
-                      v-for="(tag, tagIndex) in tagsType.tags"
+                      v-for="(tag) in tagsType.tags"
+                      :key="tag.id"
                       class="col-6"
                     >
                       <div class="custom-control custom-checkbox">
@@ -414,13 +419,10 @@ import { mapState, mapActions } from '@/libs/store';
 import taskDefaults from '@/../../common/script/libs/taskDefaults';
 import brokenTaskModal from './brokenTaskModal';
 
-import Item from '@/components/inventory/item.vue';
-
 export default {
   components: {
     TaskColumn,
     TaskModal,
-    Item,
     spells,
     brokenTaskModal,
     draggable,

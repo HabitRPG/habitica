@@ -24,7 +24,8 @@
     </div>
     <div slot="dropdown-content">
       <div
-        class="dropdown-item dropdown-separated d-flex justify-content-between dropdown-inactive align-items-center"
+        class="dropdown-item dropdown-separated
+         d-flex justify-content-between dropdown-inactive align-items-center"
         @click.stop
       >
         <h4
@@ -49,7 +50,8 @@
       />
       <div
         v-if="notificationsCount === 0"
-        class="dropdown-item dropdown-separated d-flex justify-content-center dropdown-inactive no-notifications flex-column"
+        class="dropdown-item dropdown-separated
+         d-flex justify-content-center dropdown-inactive no-notifications flex-column"
       >
         <div
           class="svg-icon"

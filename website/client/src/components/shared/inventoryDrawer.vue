@@ -65,16 +65,12 @@ import { mapState } from '@/libs/store';
 import inventoryUtils from '@/mixins/inventoryUtils';
 import svgInformation from '@/assets/svg/information.svg';
 
-import CountBadge from '@/components/ui/countBadge';
-import Item from '@/components/inventory/item';
 import Drawer from '@/components/ui/drawer';
 import DrawerSlider from '@/components/ui/drawerSlider';
 import DrawerHeaderTabs from '@/components/ui/drawerHeaderTabs';
 
 export default {
   components: {
-    Item,
-    CountBadge,
     Drawer,
     DrawerSlider,
     DrawerHeaderTabs,

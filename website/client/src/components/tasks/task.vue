@@ -18,7 +18,10 @@
         <div
           v-if="task.type === 'habit'"
           class="left-control d-flex align-items-center justify-content-center"
-          :class="[{'control-bottom-box': this.task.group.id, 'control-top-box': approvalsClass}, controlClass.up.bg]"
+          :class="[{
+            'control-bottom-box': task.group.id,
+            'control-top-box': approvalsClass
+          }, controlClass.up.bg]"
         >
           <div
             class="task-control habit-control"
@@ -26,7 +29,7 @@
             @click="(isUser && task.up) ? score('up') : null"
           >
             <div
-              v-if="this.task.group.id && !isUser"
+              v-if="task.group.id && !isUser"
               class="svg-icon lock"
               :class="controlClass.up.icon"
               v-html="icons.lock"
@@ -42,7 +45,9 @@
         <div
           v-if="task.type === 'daily' || task.type === 'todo'"
           class="left-control d-flex justify-content-center"
-          :class="[{'control-bottom-box': this.task.group.id, 'control-top-box': approvalsClass}, controlClass.bg]"
+          :class="[{
+            'control-bottom-box': task.group.id,
+            'control-top-box': approvalsClass}, controlClass.bg]"
         >
           <div
             class="task-control daily-todo-control"
@@ -50,7 +55,7 @@
             @click="isUser ? score(task.completed ? 'down' : 'up') : null"
           >
             <div
-              v-if="this.task.group.id && !isUser && !task.completed"
+              v-if="task.group.id && !isUser && !task.completed"
               class="svg-icon lock"
               :class="controlClass.icon"
               v-html="icons.lock"
@@ -161,7 +166,8 @@
             <div class="d-inline-flex">
               <div
                 v-if="isUser"
-                v-b-tooltip.hover.bottom="$t(`${task.collapseChecklist ? 'expand': 'collapse'}Checklist`)"
+                v-b-tooltip.hover.bottom="$t(`${task.collapseChecklist
+                  ? 'expand': 'collapse'}Checklist`)"
                 class="collapse-checklist d-flex align-items-center expand-toggle"
                 :class="{open: !task.collapseChecklist}"
                 @click="collapseChecklist(task)"
@@ -173,12 +179,15 @@
                 <span>{{ checklistProgress }}</span>
               </div>
             </div>
+            <!-- eslint-disable vue/no-use-v-if-with-v-for -->
             <div
               v-for="item in task.checklist"
               v-if="!task.collapseChecklist"
+              :key="item.id"
               class="custom-control custom-checkbox checklist-item"
               :class="{'checklist-item-done': item.completed}"
             >
+              <!-- eslint-enable vue/no-use-v-if-with-v-for -->
               <input
                 :id="`checklist-${item.id}-${random}`"
                 class="custom-control-input"
@@ -277,6 +286,7 @@
                     </div>
                     <div
                       v-for="tag in getTagsFor(task)"
+                      :key="tag"
                       v-markdown="tag"
                       class="tag-label"
                     ></div>
@@ -290,7 +300,9 @@
         <div
           v-if="task.type === 'habit'"
           class="right-control d-flex align-items-center justify-content-center"
-          :class="[{'control-bottom-box': this.task.group.id, 'control-top-box': approvalsClass}, controlClass.down.bg]"
+          :class="[{
+            'control-bottom-box': task.group.id,
+            'control-top-box': approvalsClass}, controlClass.down.bg]"
         >
           <div
             class="task-control habit-control"
@@ -298,7 +310,7 @@
             @click="(isUser && task.down) ? score('down') : null"
           >
             <div
-              v-if="this.task.group.id && !isUser"
+              v-if="task.group.id && !isUser"
               class="svg-icon lock"
               :class="controlClass.down.icon"
               v-html="icons.lock"
@@ -335,6 +347,7 @@
   </div>
 </template>
 
+<!-- eslint-disable max-len -->
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
@@ -769,7 +782,7 @@
     }
   }
 </style>
-
+<!-- eslint-enable max-len -->
 
 <script>
 import moment from 'moment';
@@ -992,7 +1005,7 @@ export default {
         return;
       }
 
-      switch (this.task.type) {
+      switch (this.task.type) { // eslint-disable-line default-case
         case 'habit':
           this.$root.$emit('playSound', direction === 'up' ? 'Plus_Habit' : 'Minus_Habit');
           break;
@@ -1010,7 +1023,8 @@ export default {
 
       Analytics.updateUser();
       const response = await axios.post(`/api/v4/tasks/${task._id}/score/${direction}`);
-      const tmp = response.data.data._tmp || {}; // used to notify drops, critical hits and other bonuses
+      // used to notify drops, critical hits and other bonuses
+      const tmp = response.data.data._tmp || {};
       const { crit } = tmp;
       const { drop } = tmp;
       const { quest } = tmp;
@@ -1025,7 +1039,7 @@ export default {
         if (quest.progressDelta && userQuest.boss) {
           this.quest('questDamage', quest.progressDelta.toFixed(1));
         } else if (quest.collection && userQuest.collect) {
-          user.party.quest.progress.collectedItems++;
+          user.party.quest.progress.collectedItems += 1;
           this.quest('questCollection', quest.collection);
         }
       }
@@ -1052,7 +1066,7 @@ export default {
           if (!user.items[type][drop.key]) {
             Vue.set(user, `items.${type}.${drop.key}`, 0);
           }
-          user.items[type][drop.key]++;
+          user.items[type][drop.key] += 1;
         }
 
         if (drop.type === 'HatchingPotion') {

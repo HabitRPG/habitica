@@ -1,7 +1,8 @@
-<template lang="pug" functional>
-span.message-count(
-  :class="{'top-count': props.top === true, 'top-count-gray': props.gray === true}"
-) {{props.count}}
+<template functional>
+  <span
+    class="message-count"
+    :class="{'top-count': props.top === true, 'top-count-gray': props.gray === true}"
+  > {{ props.count }} </span>
 </template>
 
 <style lang="scss">

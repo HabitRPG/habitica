@@ -13,7 +13,9 @@
             class="form-control"
             type="text"
             :placeholder="$t('newDisplayName')"
-            :class="{'is-invalid input-invalid': displayNameInvalid, 'input-valid': displayNameValid, 'text-darker': temporaryDisplayName.length > 0}"
+            :class="{
+              'is-invalid input-invalid': displayNameInvalid,
+              'input-valid': displayNameValid, 'text-darker': temporaryDisplayName.length > 0}"
             @blur="restoreEmptyDisplayName()"
           >
         </div>
@@ -25,6 +27,7 @@
     >
       <div
         v-for="issue in displayNameIssues"
+        :key="issue"
         class="input-error text-center"
       >
         {{ issue }}
@@ -45,7 +48,9 @@
               class="form-control"
               type="text"
               :placeholder="$t('newUsername')"
-              :class="{'is-invalid input-invalid': usernameInvalid, 'input-valid': usernameValid, 'text-darker': temporaryUsername.length > 0}"
+              :class="{
+                'is-invalid input-invalid': usernameInvalid,
+                'input-valid': usernameValid, 'text-darker': temporaryUsername.length > 0}"
               @blur="restoreEmptyUsername()"
             >
           </div>
@@ -58,6 +63,7 @@
     >
       <div
         v-for="issue in usernameIssues"
+        :key="issue"
         class="input-error text-center"
       >
         {{ issue }}

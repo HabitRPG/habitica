@@ -68,7 +68,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(webhook, index) in user.webhooks">
+          <tr
+            v-for="(webhook, index) in user.webhooks"
+            :key="webhook.id"
+          >
             <td>
               <input
                 v-model="webhook.enabled"
