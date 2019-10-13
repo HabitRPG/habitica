@@ -91,7 +91,7 @@ api.removePushDevice = {
     }
 
     // Concurrency safe update
-    const pullQuery = { $pull: { pushDevices: { $elemMatch: { regId } } } };
+    const pullQuery = { $pull: { pushDevices: { regId } } };
     await user.update(pullQuery).exec();
 
     // Update the response

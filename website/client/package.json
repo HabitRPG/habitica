@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit --opts ../../test/mocha.opts",
-    "lint": "vue-cli-service lint --quiet"
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "amplitude-js": "^5.3.1",
