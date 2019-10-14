@@ -113,7 +113,7 @@ export async function createTasks (req, res, options = {}) {
 
     // Otherwise update the user/challenge/group
     if (!taskOrderToAdd[`${taskType}s`]) taskOrderToAdd[`${taskType}s`] = [];
-    if (!owner.tasksOrder[`${taskType}s`].includes(newTask._id) & !taskOrderToAdd[`${taskType}s`].includes(newTask._id)) taskOrderToAdd[`${taskType}s`].unshift(newTask._id);
+    if (!owner.tasksOrder[`${taskType}s`].includes(newTask._id)) taskOrderToAdd[`${taskType}s`].unshift(newTask._id);
 
     return newTask;
   });
