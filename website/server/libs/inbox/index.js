@@ -76,6 +76,14 @@ export async function getUserInbox (user, options = {asArray: true, page: 0, con
   }
 }
 
+/**
+ * Get the users for conversations
+ * 1. Get the user data of last sent message by conversation
+ * 2. If the target user hasn't replied yet ( 'sent:true' ) , list user data by users directly
+ * @param owner
+ * @param users
+ * @returns {Promise<void>}
+ */
 async function usersMapByConversations (owner, users) {
   let query = Inbox
     .aggregate([
@@ -167,13 +175,22 @@ export async function listConversations (owner) {
   // get user-info based on conversations
   const usersMap = await usersMapByConversations(owner, userIdList);
 
-  const conversations = conversationsList.map((res) => ({
-    uuid: res._id,
-    ...res,
-    userStyles: usersMap[res._id].userStyles,
-    contributor: usersMap[res._id].contributor,
-    backer: usersMap[res._id].backer,
-  }));
+  const conversations = conversationsList.map((res) => {
+    const uuid = res._id;
+
+    const conversation = {
+      uuid,
+      ...res,
+    };
+
+    if (usersMap[uuid]) {
+      conversation.userStyles = usersMap[uuid].userStyles;
+      conversation.contributor = usersMap[uuid].contributor;
+      conversation.backer = usersMap[uuid].backer;
+    }
+
+    return conversation;
+  });
 
   return conversations;
 }
