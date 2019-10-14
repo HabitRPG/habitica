@@ -578,28 +578,29 @@ schema.methods.sendChat = function sendChat (options = {}) {
   if (this.type === 'party' && user) {
     sendChatPushNotifications(user, this, newChatMessage, mentions, translate);
   }
-  mentionedMembers.forEach((member) => {
-    if (member._id === user._id) return;
-    const pushNotifPrefs = member.preferences.pushNotifications;
-    if (this.type === 'party') {
-      if (pushNotifPrefs.mentionParty !== true) {
-        return;
+  if (mentionedMembers) {
+    mentionedMembers.forEach((member) => {
+      if (member._id === user._id) return;
+      const pushNotifPrefs = member.preferences.pushNotifications;
+      if (this.type === 'party') {
+        if (pushNotifPrefs.mentionParty !== true) {
+          return;
+        }
+      } else if (member.guilds && member.guilds.includes(this._id)) {
+        if (pushNotifPrefs.mentionJoinedGuild !== true) {
+          return;
+        }
+      } else {
+        if (this.privacy !== 'public') {
+          return;
+        }
+        if (pushNotifPrefs.mentionUnjoinedGuild !== true) {
+          return;
+        }
       }
-    } else if (member.guilds && member.guilds.includes(this._id)) {
-      if (pushNotifPrefs.mentionJoinedGuild !== true) {
-        return;
-      }
-    } else {
-      if (this.privacy !== 'public') {
-        return;
-      }
-      if (pushNotifPrefs.mentionUnjoinedGuild !== true) {
-        return;
-      }
-    }
-    sendPushNotification(member, {identifier: 'chatMention', title: `${user.profile.name} mentioned you in ${this.name}`, message});
-  });
-
+      sendPushNotification(member, {identifier: 'chatMention', title: `${user.profile.name} mentioned you in ${this.name}`, message});
+    });
+  }
   return newChatMessage;
 };
 
