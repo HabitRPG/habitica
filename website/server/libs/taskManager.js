@@ -112,8 +112,8 @@ export async function createTasks (req, res, options = {}) {
     if (validationErrors) throw validationErrors;
 
     // Otherwise update the user/challenge/group
-    if (!taskOrderToAdd[`${taskType}s`]) taskOrderToAdd[`${taskType}s`] = new Set();
-    if (!owner.tasksOrder[`${taskType}s`].includes(newTask._id)) taskOrderToAdd[`${taskType}s`].add(newTask._id);
+    if (!taskOrderToAdd[`${taskType}s`]) taskOrderToAdd[`${taskType}s`] = [];
+    if (!owner.tasksOrder[`${taskType}s`].includes(newTask._id) & !taskOrderToAdd[`${taskType}s`].includes(newTask._id)) taskOrderToAdd[`${taskType}s`].unshift(newTask._id);
 
     return newTask;
   });
@@ -122,7 +122,7 @@ export async function createTasks (req, res, options = {}) {
   let taskOrderUpdateQuery = {$push: {}};
   for (let taskType in taskOrderToAdd) {
     taskOrderUpdateQuery.$push[`tasksOrder.${taskType}`] = {
-      $each: [...taskOrderToAdd[taskType]].reverse(),
+      $each: taskOrderToAdd[taskType],
       $position: 0,
     };
   }
