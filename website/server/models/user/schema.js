@@ -469,7 +469,6 @@ let schema = new Schema({
     reverseChatOrder: {$type: Boolean, default: false},
     background: String,
     displayInviteToPartyWhenPartyIs1: {$type: Boolean, default: true},
-    searchableUsername: {$type: Boolean, default: false},
     webhooks: {$type: Schema.Types.Mixed, default: () => {
       return {};
     }},
