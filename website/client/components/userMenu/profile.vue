@@ -391,7 +391,6 @@
 
 <script>
 import moment from 'moment';
-import axios from 'axios';
 import each from 'lodash/each';
 import { mapState } from 'client/libs/store';
 import cloneDeep from 'lodash/cloneDeep';
