@@ -92,7 +92,7 @@ module.exports = {
       .loader('svg-url-loader')
       .options({
         limit: 4000,
-        name: 'svg/[contenthash].[ext]',
+        name: 'static/svg/[contenthash].[ext]',
       })
       .end()
       .use('svgo-loader')
