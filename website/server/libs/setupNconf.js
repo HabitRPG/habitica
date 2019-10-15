@@ -1,3 +1,4 @@
+/* eslint-disable import/no-commonjs */
 // NOTE es5 requires/exports to allow import from webpack
 const nconfDefault = require('nconf');
 const { join, resolve } = require('path');

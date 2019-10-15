@@ -104,4 +104,4 @@ async function fixGroupPlanMembers () {
   });
 }
 
-module.exports = fixGroupPlanMembers;
+export default fixGroupPlanMembers;

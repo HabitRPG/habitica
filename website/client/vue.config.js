@@ -1,3 +1,4 @@
+/* eslint-disable import/no-commonjs */
 const path = require('path');
 const webpack = require('webpack');
 const nconf = require('nconf');

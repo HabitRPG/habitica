@@ -1,3 +1,4 @@
+/* eslint-disable import/no-commonjs */
 const logger = require('./logger');
 
 class Timer {

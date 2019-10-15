@@ -33,7 +33,7 @@ async function updateUser (user) {
   return User.update({ _id: user._id }, { $set: set, $push: push, $addToSet: addToSet }).exec();
 }
 
-module.exports = async function processUsers () {
+export default async function processUsers () {
   const query = {
     migration: { $ne: MIGRATION_NAME },
     'purchased.plan.customerId': { $ne: null },
@@ -69,4 +69,4 @@ module.exports = async function processUsers () {
 
     await Promise.all(users.map(updateUser)); // eslint-disable-line no-await-in-loop
   }
-};
+}

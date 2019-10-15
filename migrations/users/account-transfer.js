@@ -8,12 +8,12 @@ let authorUuid = ''; // ... own data is done
  * This migraition will copy user data from prod to test
  */
 
-const monk = require('monk'); // eslint-disable-line import/no-extraneous-dependencies
+import monk from 'monk'; // eslint-disable-line import/no-extraneous-dependencies
 
 const connectionString = '';
 const Users = monk(connectionString).get('users', { castIds: false });
 
-module.exports = async function accountTransfer () {
+export default async function accountTransfer () {
   const fromAccountId = '';
   const toAccountId = '';
 
@@ -34,4 +34,4 @@ module.exports = async function accountTransfer () {
     .then(result => {
       console.log(result);
     });
-};
+}

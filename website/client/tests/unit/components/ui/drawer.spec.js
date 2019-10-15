@@ -16,6 +16,6 @@ describe('DrawerComponent', () => {
       },
     }).$mount();
 
-    expect(vm.$el.textContent).to.be.equal('My title');
+    expect(vm.$el.textContent.trim()).to.be.equal('My title');
   });
 });

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-commonjs */
 const chalk = require('chalk'); // eslint-disable-line import/no-extraneous-dependencies
 
 function loggerGenerator (type, color) {

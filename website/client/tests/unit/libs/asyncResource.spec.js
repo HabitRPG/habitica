@@ -12,6 +12,10 @@ describe('async resource', () => {
   });
 
   describe('loadAsyncResource', () => {
+    afterEach(() => {
+      if (axios.get && axios.get.restore) axios.get.restore();
+    });
+
     context('errors', () => {
       it('store is missing', () => {
         expect(() => loadAsyncResource({})).to.throw;

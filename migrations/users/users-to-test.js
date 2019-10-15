@@ -1,3 +1,4 @@
+/* eslint-disable import/no-commonjs */
 /*
 let migrationName = 'UserFromProdToTest';
 let authorName = 'TheHollidayInn'; // in case script author needs to know when their ...
@@ -98,9 +99,9 @@ function processTasks () {
     });
 }
 
-module.exports = async function prodToTest () {
+export default async function prodToTest () {
   await processUsers();
   await processGroups();
   await processChallenges();
   await processTasks();
-};
+}

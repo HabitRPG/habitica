@@ -1,3 +1,4 @@
+/* eslint-disable import/no-commonjs */
 const migrationName = 'restock_armoire.js';
 const authorName = 'Sabe'; // in case script author needs to know when their ...
 const authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; // ... own data is done

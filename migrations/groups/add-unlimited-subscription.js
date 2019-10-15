@@ -31,7 +31,7 @@ async function addUnlimitedSubscription (groupId, dateTerminated) {
   return group.save();
 }
 
-module.exports = async function addUnlimitedSubscriptionCreator () {
+export default async function addUnlimitedSubscriptionCreator () {
   const groupId = process.argv[2];
 
   if (!groupId) throw Error('Group ID is required');
@@ -39,4 +39,4 @@ module.exports = async function addUnlimitedSubscriptionCreator () {
   const dateTerminated = process.argv[3];
 
   await addUnlimitedSubscription(groupId, dateTerminated);
-};
+}

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-commonjs */
 const base = require('../../../../test/.eslintrc.js');
 
 base.rules = base.rules || {};

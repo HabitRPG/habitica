@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console, import/no-commonjs */
 import axios from 'axios'; // eslint-disable-line import/no-extraneous-dependencies
 import nconf from 'nconf';
 import { model as User } from '../website/server/models/user';

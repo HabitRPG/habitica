@@ -8,6 +8,10 @@ describe('user actions', () => {
     store = generateStore();
   });
 
+  afterEach(() => {
+    if (axios.get && axios.get.restore) axios.get.restore();
+  });
+
   describe('fetch', () => {
     it('loads the user', async () => {
       expect(store.state.user.loadingStatus).to.equal('NOT_LOADED');

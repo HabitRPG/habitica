@@ -1,4 +1,4 @@
-/* eslint-disable prefer-template, no-shadow, func-names */
+/* eslint-disable prefer-template, no-shadow, func-names, import/no-commonjs */
 
 const expect = require('expect.js');
 

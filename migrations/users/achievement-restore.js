@@ -8,7 +8,7 @@ const authorUuid = ''; // ... own data is done
  * This migraition will copy user data from prod to test
  */
 
-const monk = require('monk'); // eslint-disable-line import/no-extraneous-dependencies
+import monk from 'monk'; // eslint-disable-line import/no-extraneous-dependencies
 
 const connectionString = 'mongodb://localhost/new-habit';
 const Users = monk(connectionString).get('users', { castIds: false });
@@ -75,7 +75,7 @@ function getAchievementUpdate (newUser, oldUser) {
   return achievementsUpdate;
 }
 
-module.exports = async function achievementRestore () {
+export default async function achievementRestore () {
   const userIds = [
   ];
 
@@ -93,4 +93,4 @@ module.exports = async function achievementRestore () {
     );
     console.log(`Updated ${userId}`);
   })()));
-};
+}

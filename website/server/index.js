@@ -1,5 +1,4 @@
-
-/* eslint-disable global-require, no-process-env */
+/* eslint-disable global-require, no-process-env, import/no-commonjs */
 
 // Register babel hook so we can write the real entry file (server.js) in ES6
 // In production, the es6 code is pre-transpiled so it doesn't need it

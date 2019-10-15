@@ -1,3 +1,5 @@
+import monk from 'monk'; // eslint-disable-line import/no-extraneous-dependencies
+
 const migrationName = 'remove-social-users-extra-data.js';
 const authorName = 'paglias'; // in case script author needs to know when their ...
 const authorUuid = 'ed4c688c-6652-4a92-9d03-a5a79844174a'; // ... own data is done
@@ -7,7 +9,6 @@ const authorUuid = 'ed4c688c-6652-4a92-9d03-a5a79844174a'; // ... own data is do
  */
 const connectionString = 'mongodb://localhost:27017/habitrpg?auto_reconnect=true'; // FOR TEST DATABASE
 
-const monk = require('monk'); // eslint-disable-line import/no-extraneous-dependencies
 
 const dbUsers = monk(connectionString).get('users', { castIds: false });
 
@@ -108,4 +109,4 @@ function exiting (code, msg) {
   process.exit(code);
 }
 
-module.exports = processUsers;
+export default processUsers;

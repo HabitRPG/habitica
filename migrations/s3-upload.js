@@ -1,3 +1,4 @@
+/* eslint-disable import/no-commonjs */
 const request = require('superagent');
 const last = require('lodash/last');
 const AWS = require('aws-sdk');

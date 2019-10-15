@@ -1,3 +1,4 @@
+/* eslint-disable import/no-commonjs */
 const { MongoClient } = require('mongodb'); // eslint-disable-line import/no-extraneous-dependencies
 const logger = require('./logger');
 

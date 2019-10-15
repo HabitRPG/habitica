@@ -1,3 +1,4 @@
+/* eslint-disable import/no-commonjs */
 /* let migrationName = 'restore_profile_data.js'; */
 const authorName = 'ThehollidayInn'; // in case script author needs to know when their ...
 const authorUuid = ''; // ... own data is done

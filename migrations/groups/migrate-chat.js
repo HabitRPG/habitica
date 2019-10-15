@@ -49,4 +49,4 @@ async function moveGroupChatToModel (skip = 0) {
   moveGroupChatToModel(skip + 50);
 }
 
-module.exports = moveGroupChatToModel;
+export default moveGroupChatToModel;

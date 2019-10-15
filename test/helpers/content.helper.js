@@ -1,7 +1,8 @@
 import i18n from '../../website/common/script/i18n';
+import './globals.helper';
+import { translations } from '../../website/server/libs/i18n';
 
-require('./globals.helper');
-i18n.translations = require('../../website/server/libs/i18n').translations;
+i18n.translations = translations;
 
 export const STRING_ERROR_MSG = /^Error processing the string ".*". Please see Help > Report a Bug.$/;
 export const STRING_DOES_NOT_EXIST_MSG = /^String '.*' not found.$/;

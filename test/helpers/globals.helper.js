@@ -1,3 +1,4 @@
+/* eslint-disable import/no-commonjs */
 /* eslint-disable no-undef */
 /* eslint-disable global-require */
 /* eslint-disable no-process-env */

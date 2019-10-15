@@ -17,11 +17,11 @@ async function createGroup (name, privacy, type, leaderId) {
   return Promise.all([group.save(), user.save()]);
 }
 
-module.exports = async function groupCreator () {
+export default async function groupCreator () {
   const name = process.argv[2];
   const privacy = process.argv[3];
   const type = process.argv[4];
   const leaderId = process.argv[5];
 
   await createGroup(name, privacy, type, leaderId);
-};
+}

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-commonjs */
 // const migrationName = 'habits-one-history-entry-per-day';
 // const authorName = 'paglias'; // in case script author needs to know when their ...
 // const authorUuid = 'ed4c688c-6652-4a92-9d03-a5a79844174a'; // ... own data is done
@@ -135,4 +136,4 @@ function exiting (code, msg) {
   process.exit(code);
 }
 
-module.exports = processChallengeHabits;
+export default processChallengeHabits;

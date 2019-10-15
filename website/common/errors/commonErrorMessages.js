@@ -1,5 +1,5 @@
 // When this file grows, it can be split into multiple ones.
-module.exports = {
+export default {
   invalidAttribute: '"<%= attr %>" is not a valid Stat.',
 
   statsObjectRequired: '"stats" object is required',

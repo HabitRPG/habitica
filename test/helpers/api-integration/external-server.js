@@ -1,7 +1,6 @@
-
-const express = require('express');
-const uuid = require('uuid');
-const bodyParser = require('body-parser');
+import express from 'express';
+import uuid from 'uuid';
+import bodyParser from 'body-parser';
 
 const app = express();
 const server = require('http').createServer(app);
@@ -62,7 +61,7 @@ function getWebhookData (id) {
   return webhookData[id].pop();
 }
 
-module.exports = {
+export default {
   start,
   close,
   getWebhookData,

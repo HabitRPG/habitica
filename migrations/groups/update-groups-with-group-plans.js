@@ -28,4 +28,4 @@ async function updateGroupsWithGroupPlans () {
   cursor.on('close', async () => Promise.all(promises));
 }
 
-module.exports = updateGroupsWithGroupPlans;
+export default updateGroupsWithGroupPlans;

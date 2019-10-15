@@ -40,4 +40,4 @@ async function handOutJackalopes () {
   });
 }
 
-module.exports = handOutJackalopes;
+export default handOutJackalopes;

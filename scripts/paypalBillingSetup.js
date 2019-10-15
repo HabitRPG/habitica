@@ -1,3 +1,4 @@
+/* eslint-disable import/no-commonjs */
 require('@babel/register'); // eslint-disable-line import/no-extraneous-dependencies
 
 // This file is used for creating paypal billing plans.

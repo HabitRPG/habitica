@@ -6,6 +6,7 @@
  * directory, and it will automatically be included.
  */
 
+/* eslint-disable import/no-commonjs */
 require('@babel/register');
 
 const gulp = require('gulp');

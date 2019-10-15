@@ -1,3 +1,4 @@
+/* eslint-disable import/no-commonjs */
 module.exports = {
   root: false,
   rules: {

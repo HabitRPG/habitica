@@ -88,4 +88,4 @@ function processTasks (lastId) {
     });
 }
 
-module.exports = processTasks;
+export default processTasks;

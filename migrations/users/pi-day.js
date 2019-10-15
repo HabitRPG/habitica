@@ -41,7 +41,7 @@ async function updateUser (user) {
     .exec();
 }
 
-module.exports = async function processUsers () {
+export default async function processUsers () {
   const query = {
     migration: { $ne: MIGRATION_NAME },
     'auth.timestamps.loggedin': { $gt: new Date('2019-02-15') },
@@ -73,4 +73,4 @@ module.exports = async function processUsers () {
 
     await Promise.all(users.map(updateUser)); // eslint-disable-line no-await-in-loop
   }
-};
+}

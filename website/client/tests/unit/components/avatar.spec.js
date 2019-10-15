@@ -168,7 +168,7 @@ context('avatar.vue', () => {
         items: {},
       };
 
-      expect(vm.specialMountClass).to.equal(undefined);
+      expect(vm.specialMountClass).to.equal(null);
 
       vm.member.items = {
         currentMount: ['Kangaroo'],

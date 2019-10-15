@@ -22,7 +22,7 @@ const browserTimezoneOffset = moment().zone();
 
 axios.defaults.headers.common['x-client'] = 'habitica-web';
 
-let AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings');
+let AUTH_SETTINGS = window.localStorage.getItem('habit-mobile-settings');
 if (AUTH_SETTINGS) {
   AUTH_SETTINGS = JSON.parse(AUTH_SETTINGS);
   isUserLoggedIn = setUpAxios(AUTH_SETTINGS);

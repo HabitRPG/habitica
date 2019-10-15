@@ -1,3 +1,4 @@
+import monk from 'monk'; // eslint-disable-line import/no-extraneous-dependencies
 /* let migrationName = 'tasks-set-everyX'; */
 const authorName = 'Sabe'; // in case script author needs to know when their ...
 const authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; // ... own data is done
@@ -6,8 +7,6 @@ const authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; // ... own data is do
  * Iterates over all tasks and sets invalid everyX values
  * (less than 0 or more than 9999 or not an int) field to 0
  */
-
-const monk = require('monk'); // eslint-disable-line import/no-extraneous-dependencies
 
 const connectionString = 'mongodb://localhost:27017/habitrpg?auto_reconnect=true';
 const dbTasks = monk(connectionString).get('tasks', { castIds: false });
@@ -91,4 +90,4 @@ function exiting (code, msg) {
   process.exit(code);
 }
 
-module.exports = processTasks;
+export default processTasks;

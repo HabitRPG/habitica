@@ -42,4 +42,4 @@ async function syncChallenges (lastChallengeDate) {
   return syncedChallenges;
 }
 
-module.exports = syncChallenges;
+export default syncChallenges;

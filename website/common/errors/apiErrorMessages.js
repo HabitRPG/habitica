@@ -1,5 +1,5 @@
 // When this file grows, it can be split into multiple ones.
-module.exports = {
+export default {
   taskIdRequired: 'req.params.taskId must contain a task id.',
   keepOrRemove: 'req.query.keep must be either "keep" or "remove".',
   keepOrRemoveAll: 'req.query.keep must be either "keep-all" or "remove-all".',
