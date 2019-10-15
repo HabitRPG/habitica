@@ -191,8 +191,8 @@ const NOTIFICATIONS = {
     modalId: 'generic-achievement',
     data: {
       message: ($t) => $t('achievement'),
-      modalText: ($t) => $t('mountAchievement')
-    }
+      modalText: ($t) => $t('mountAchievement'),
+    },
   },
   ACHIEVEMENT_MOUNT_MASTER: {
     achievement: true,
@@ -200,8 +200,8 @@ const NOTIFICATIONS = {
     modalId: 'generic-achievement',
     data: {
       message: ($t) => $t('achievement'),
-      modalText: ($t) => $t('mountAchievement')
-    }
+      modalText: ($t) => $t('mountAchievement'),
+    },
   },
   ACHIEVEMENT_TRIAD_BINGO: {
     achievement: true,
@@ -209,7 +209,7 @@ const NOTIFICATIONS = {
     modalId: 'generic-achievement',
     data: {
       message: ($t) => $t('achievement'),
-      modalText: ($t) => $t('triadBingoAchievement')
+      modalText: ($t) => $t('triadBingoAchievement'),
     },
   },
 };
@@ -268,7 +268,7 @@ export default {
       'CHALLENGE_JOINED_ACHIEVEMENT', 'INVITED_FRIEND_ACHIEVEMENT', 'NEW_CONTRIBUTOR_LEVEL',
       'CRON', 'SCORED_TASK', 'LOGIN_INCENTIVE', 'ACHIEVEMENT_ALL_YOUR_BASE', 'ACHIEVEMENT_BACK_TO_BASICS',
       'GENERIC_ACHIEVEMENT', 'ACHIEVEMENT_PARTY_UP', 'ACHIEVEMENT_PARTY_ON', 'ACHIEVEMENT_BEAST_MASTER',
-      'ACHIEVEMENT_MOUNT_MASTER', 'ACHIEVEMENT_TRIAD_BINGO', 'ACHIEVEMENT_DUST_DEVIL', 'ACHIEVEMENT_ARID_AUTHORITY', 
+      'ACHIEVEMENT_MOUNT_MASTER', 'ACHIEVEMENT_TRIAD_BINGO', 'ACHIEVEMENT_DUST_DEVIL', 'ACHIEVEMENT_ARID_AUTHORITY',
     ].forEach(type => {
       handledNotifications[type] = true;
     });
@@ -425,16 +425,16 @@ export default {
         this.playSound(config.sound);
       }
 
-      let data = {}
+      let data = {};
       if (notification.data) {
         data = notification.data;
       }
 
       if (!data.modalText && config.data.modalText) {
-        data.modalText = config.data.modalText(this.$t)
+        data.modalText = config.data.modalText(this.$t);
       }
       if (!data.message && config.data.message) {
-        data.message = config.data.message(this.$t)
+        data.message = config.data.message(this.$t);
       }
 
       this.notificationData = data;
@@ -442,7 +442,7 @@ export default {
         this.$root.$emit('bv::show::modal', config.modalId);
       } else {
         this.text(config.label(this.$t), () => {
-          this.notificationData = data
+          this.notificationData = data;
           this.$root.$emit('bv::show::modal', config.modalId);
         }, false);
       }
