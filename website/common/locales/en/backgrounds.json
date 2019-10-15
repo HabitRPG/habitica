@@ -521,5 +521,21 @@
   "backgroundGiantDandelionsText": "Giant Dandelions",
   "backgroundGiantDandelionsNotes": "Dally among Giant Dandelions.",
   "backgroundTreehouseText": "Treehouse",
-  "backgroundTreehouseNotes": "Hang out in an arboreal hideaway all to yourself, in your very own Treehouse."
+  "backgroundTreehouseNotes": "Hang out in an arboreal hideaway all to yourself, in your very own Treehouse.",
+
+  "backgrounds092019": "SET 64: Released September 2019",
+  "backgroundAutumnFlowerGardenText": "Autumn Flower Garden",
+  "backgroundAutumnFlowerGardenNotes": "Take in the warmth of an Autumn Flower Garden.",
+  "backgroundInAnAncientTombText": "Ancient Tomb",
+  "backgroundInAnAncientTombNotes": "Brave the mysteries of an Ancient Tomb.",
+  "backgroundInAClassroomText": "Classroom",
+  "backgroundInAClassroomNotes": "Absorb knowledge from your mentors in a Classroom.",
+
+  "backgrounds102019": "SET 65: Released October 2019",
+  "backgroundFoggyMoorText": "Foggy Moor",
+  "backgroundFoggyMoorNotes": "Watch your step traversing a Foggy Moor.",
+  "backgroundPumpkinCarriageText": "Pumpkin Carriage",
+  "backgroundPumpkinCarriageNotes": "Ride in an enchanted Pumpkin Carriage before the clock strikes midnight.",
+  "backgroundMonsterMakersWorkshopText": "Monster Maker's Workshop",
+  "backgroundMonsterMakersWorkshopNotes": "Experiment with discredited sciences in a Monster Maker's Workshop."
 }

@@ -19,7 +19,7 @@ if (APN_ENABLED) {
       keyId: nconf.get('PUSH_CONFIGS_APN_KEY_ID'),
       teamId: nconf.get('PUSH_CONFIGS_APN_TEAM_ID'),
     },
-    production: nconf.get('IS_PROD'),
+    production: true,
   }) : undefined;
 }
 
@@ -56,7 +56,9 @@ function sendNotification (user, details = {}) {
       case 'ios':
         if (apnProvider) {
           const notification = new apn.Notification({
-            alert: details.message,
+            alert: {title: details.title,
+                    body: details.message,
+            },
             sound: 'default',
             category: details.category,
             topic: 'com.habitrpg.ios.Habitica',

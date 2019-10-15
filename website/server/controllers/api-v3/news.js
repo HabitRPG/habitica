@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'HABITICA KICKSTARTER UPDATE!';
+const LAST_ANNOUNCEMENT_TITLE = 'SUPERNATURAL SKINS AND HAUNTED HAIR COLORS';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,15 +30,15 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>8/23/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>10/8/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <img src="https://habitica-assets.s3.amazonaws.com/mobileApp/images/promo_kickstarter_funded.png" class="center-block mw-100 h-auto"></img>
-        <h3>Habitica Class Pins Kickstarter Update</h3>
-        <p>Hello Habiticans! We're so excited to say that our <a href='https://www.kickstarter.com/projects/habitica/habitica-class-pins' target='_blank'>Kickstarter campaign</a> for class pins has been fully funded and all of our stretch goals have been met, much more quickly than we expected. We're blown away by all the support you've given us!</p>
-        <p>All nine pins as well as the animated pet and mount are now unlocked! If you've been waiting to see if we'd reach all our goals, now's the time to pledge. Thank you all so much for backing us, it means a lot to the team!</p>
-        <div class="small mb-3">by The Habitica Team</div>
+        <div class="promo_fall_skins center-block"></div>
+        <p>The Seasonal Edition Haunted Hair Colors are now available for purchase! Now you can dye your avatar's hair Pumpkin, Midnight, Candy Corn, Ghost White, Zombie, or Halloween. Get them before October 31st!</p>
+        <p>The Supernatural Skin Set is also available until October 31st! Now your avatar can become an Ogre, Skeleton, Pumpkin, Candy Corn, Reptile, or Dread Shade.</p>
+        <p>Seasonal Edition items recur unchanged every year, but they are only available to purchase during a short period of time. Find these exciting skins and hair colors in User>Edit Avatar. Get them now, or you'll have to wait until next year!</p>
+        <div class="small mb-3">by Lemoness, mariahm, and crystalphoenix</div>
       </div>
       `,
     });

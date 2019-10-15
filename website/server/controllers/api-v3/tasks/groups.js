@@ -200,13 +200,25 @@ api.assignTask = {
     if (canNotEditTasks(group, user, assignedUserId)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
     let promises = [];
+    const taskText = task.text;
+    const userName = user.profile.name;
 
-    if (user._id !== assignedUserId) {
-      const taskText = task.text;
-      const managerName = user.profile.name;
-
+    if (user._id === assignedUserId) {
+      const managerIds = Object.keys(group.managers);
+      managerIds.push(group.leader);
+      const managers = await User.find({_id: managerIds}, 'notifications preferences').exec();
+      managers.forEach((manager) => {
+        if (manager._id === user._id) return;
+        manager.addNotification('GROUP_TASK_CLAIMED', {
+          message: res.t('taskClaimed', {userName, taskText}, manager.preferences.language),
+          groupId: group._id,
+          taskId: task._id,
+        });
+        promises.push(manager.save());
+      });
+    } else {
       assignedUser.addNotification('GROUP_TASK_ASSIGNED', {
-        message: res.t('youHaveBeenAssignedTask', {managerName, taskText}),
+        message: res.t('youHaveBeenAssignedTask', {managerName: userName, taskText}),
         taskId: task._id,
       });
     }
@@ -504,15 +516,26 @@ api.getGroupApprovals = {
     let group = await Group.getGroup({user, groupId, fields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
-
-    let approvals = await Tasks.Task.find({
-      'group.id': groupId,
-      'group.approval.approved': false,
-      'group.approval.requested': true,
-    }, 'userId group text')
-      .populate('userId', 'profile')
-      .exec();
+    let approvals;
+    if (canNotEditTasks(group, user)) {
+      approvals = await Tasks.Task.find({
+        'group.id': groupId,
+        'group.approval.approved': false,
+        'group.approval.requested': true,
+        'group.assignedUsers': user._id,
+        userId: user._id,
+      }, 'userId group text')
+        .populate('userId', 'profile')
+        .exec();
+    } else {
+      approvals = await Tasks.Task.find({
+        'group.id': groupId,
+        'group.approval.approved': false,
+        'group.approval.requested': true,
+      }, 'userId group text')
+        .populate('userId', 'profile')
+        .exec();
+    }
 
     res.respond(200, approvals);
   },

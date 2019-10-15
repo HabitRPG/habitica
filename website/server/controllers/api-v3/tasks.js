@@ -567,41 +567,48 @@ api.scoreTask = {
     }
 
     if (task.group.approval.required && !task.group.approval.approved) {
-      if (task.group.approval.requested) {
-        throw new NotAuthorized(res.t('taskRequiresApproval'));
-      }
-
-      task.group.approval.requested = true;
-      task.group.approval.requestedDate = new Date();
-
       let fields = requiredGroupFields.concat(' managers');
       let group = await Group.getGroup({user, groupId: task.group.id, fields});
 
-      // @TODO: we can use the User.pushNotification function because we need to ensure notifications are translated
       let managerIds = Object.keys(group.managers);
       managerIds.push(group.leader);
-      let managers = await User.find({_id: managerIds}, 'notifications preferences').exec(); // Use this method so we can get access to notifications
 
-      let managerPromises = [];
-      managers.forEach((manager) => {
-        manager.addNotification('GROUP_TASK_APPROVAL', {
-          message: res.t('userHasRequestedTaskApproval', {
-            user: user.profile.name,
-            taskName: task.text,
-          }, manager.preferences.language),
-          groupId: group._id,
-          taskId: task._id, // user task id, used to match the notification when the task is approved
-          userId: user._id,
-          groupTaskId: task.group.taskId, // the original task id
-          direction,
+      if (managerIds.indexOf(user._id) !== -1) {
+        task.group.approval.approved = true;
+        task.group.approval.requested = true;
+        task.group.approval.requestedDate = new Date();
+      } else {
+        if (task.group.approval.requested) {
+          throw new NotAuthorized(res.t('taskRequiresApproval'));
+        }
+
+        task.group.approval.requested = true;
+        task.group.approval.requestedDate = new Date();
+
+        let managers = await User.find({_id: managerIds}, 'notifications preferences').exec(); // Use this method so we can get access to notifications
+
+        // @TODO: we can use the User.pushNotification function because we need to ensure notifications are translated
+        let managerPromises = [];
+        managers.forEach((manager) => {
+          manager.addNotification('GROUP_TASK_APPROVAL', {
+            message: res.t('userHasRequestedTaskApproval', {
+              user: user.profile.name,
+              taskName: task.text,
+            }, manager.preferences.language),
+            groupId: group._id,
+            taskId: task._id, // user task id, used to match the notification when the task is approved
+            userId: user._id,
+            groupTaskId: task.group.taskId, // the original task id
+            direction,
+          });
+          managerPromises.push(manager.save());
         });
-        managerPromises.push(manager.save());
-      });
 
-      managerPromises.push(task.save());
-      await Promise.all(managerPromises);
+        managerPromises.push(task.save());
+        await Promise.all(managerPromises);
 
-      throw new NotAuthorized(res.t('taskApprovalHasBeenRequested'));
+        throw new NotAuthorized(res.t('taskApprovalHasBeenRequested'));
+      }
     }
 
     let wasCompleted = task.completed;

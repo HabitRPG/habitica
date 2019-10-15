@@ -4,7 +4,6 @@
     v-if="item != null",
     :hide-header="true",
     @change="onChange($event)"
-    @hide="fixDocBody()"
   )
     div.close
       span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close", @click="hideDialog()")
@@ -106,7 +105,7 @@
       margin: 0 auto;
 
       .character-sprites span {
-        left: 25px;
+        left: 24px;
       }
     }
 

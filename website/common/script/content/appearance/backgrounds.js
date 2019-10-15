@@ -885,6 +885,34 @@ let backgrounds = {
       notes: t('backgroundTreehouseNotes'),
     },
   },
+  backgrounds092019: {
+    autumn_flower_garden: {
+      text: t('backgroundAutumnFlowerGardenText'),
+      notes: t('backgroundAutumnFlowerGardenNotes'),
+    },
+    in_an_ancient_tomb: {
+      text: t('backgroundInAnAncientTombText'),
+      notes: t('backgroundInAnAncientTombNotes'),
+    },
+    in_a_classroom: {
+      text: t('backgroundInAClassroomText'),
+      notes: t('backgroundInAClassroomNotes'),
+    },
+  },
+  backgrounds102019: {
+    foggy_moor: {
+      text: t('backgroundFoggyMoorText'),
+      notes: t('backgroundFoggyMoorNotes'),
+    },
+    monster_makers_workshop: {
+      text: t('backgroundMonsterMakersWorkshopText'),
+      notes: t('backgroundMonsterMakersWorkshopNotes'),
+    },
+    pumpkin_carriage: {
+      text: t('backgroundPumpkinCarriageText'),
+      notes: t('backgroundPumpkinCarriageNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),

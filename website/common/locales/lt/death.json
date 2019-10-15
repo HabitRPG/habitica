@@ -1,0 +1,17 @@
+{
+    "lostAllHealth": "Tavo Gyvybingumas išseko!",
+    "dontDespair": "Neprarask vilties!",
+    "deathPenaltyDetails": "Praradai Lygį, sukauptą auksą ir vieną aprangos dalį, bet visa tai gali atgaut įdėjus truputį pastangų! Sėkmės--tau seksis puikiai.",
+    "refillHealthTryAgain": "Atstatyk gyvybingumą ir bandyk dar kartą",
+    "dyingOftenTips": "Ar tai nutinka dažnai? <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>Čia yra patarimų!</a>",
+    "losingHealthWarning": "Atsargiai - tavo gyvybingumas senka!",
+    "losingHealthWarning2": "Neleisk tavo gyvybingumui nukristi iki nulio! Jei taip nutiks, prarasi lygį, sukauptą auksą ir vieną iš savo aprangos dalių.",
+    "toRegainHealth": "Kad atgytum gyvybingumą:",
+    "lowHealthTips1": "Pakilk lygiu kad pilnai atsigautum!",
+    "lowHealthTips2": "Nusipirk Sveikatos Eliksyrą iš Atlygių stulpelio, kad atgytum 15 Gyvybės taškų.",
+    "losingHealthQuickly": "Prarandi Gyvybingumą per greitai?",
+    "lowHealthTips3": "Nepadarytos Dienos Užduotys padaro tau žalos per naktį, todėl pasistenk pradžioje nepridėti jų per daug.",
+    "lowHealthTips4": "Jei kurią nors savaitės dieną dienos užduoties planuoji nedaryti, gali tą dieną išjungti paspaudus ant pieštuko.",
+    "goodLuck": "Sekmės!",
+    "cannotRevive": "Negali prisikelti, kai tavo veikėjas nėra miręs"
+}

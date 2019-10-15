@@ -68,9 +68,13 @@
               :emptyItem="false",
               @click="selectItemToBuy(ctx.item)"
             )
-              span(slot="popoverContent", slot-scope="ctx")
+              span(slot="popoverContent", slot-scope="ctx", v-if="category !== 'quests'")
                 div
                   h4.popover-content-title {{ ctx.item.text }}
+              span(slot="popoverContent", slot-scope="ctx", v-if="category === 'quests'")
+                div.questPopover
+                  h4.popover-content-title {{ item.text }}
+                  questInfo(:quest="item")
 
               template(slot="itemBadge", slot-scope="ctx")
                 span.badge.badge-pill.badge-item.badge-svg(
@@ -79,6 +83,18 @@
                   @click.prevent.stop="togglePinned(ctx.item)"
                 )
                   span.svg-icon.inline.icon-12.color(v-html="icons.pin")
+    buyQuestModal(
+      :item="selectedItemToBuy || {}",
+      :priceType="selectedItemToBuy ? selectedItemToBuy.currency : ''",
+      :withPin="true",
+      @change="resetItemToBuy($event)",
+    )
+      template(slot="item", slot-scope="ctx")
+        item.flat(
+          :item="ctx.item",
+          :itemContentClass="ctx.item.class",
+          :showPopover="false"
+        )
 </template>
 
 <style lang="scss">
@@ -225,8 +241,10 @@
   import ItemRows from 'client/components/ui/itemRows';
   import toggleSwitch from 'client/components/ui/toggleSwitch';
   import Avatar from 'client/components/avatar';
+  import QuestInfo from '../quests/questInfo.vue';
 
   import BuyModal from '../buyModal.vue';
+  import BuyQuestModal from '../quests/buyQuestModal.vue';
 
   import svgPin from 'assets/svg/pin.svg';
   import svgHourglass from 'assets/svg/hourglass.svg';
@@ -250,9 +268,11 @@
       CountBadge,
       ItemRows,
       toggleSwitch,
+      QuestInfo,
 
       Avatar,
       BuyModal,
+      BuyQuestModal,
     },
     watch: {
       searchText: _throttle(function throttleSearch () {
@@ -273,6 +293,8 @@
 
         sortItemsBy: ['AZ', 'sortByNumber'],
         selectedSortItemsBy: 'AZ',
+
+        selectedItemToBuy: null,
 
         hidePinned: false,
 
@@ -303,11 +325,11 @@
         let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
 
         let normalGroups = _filter(apiCategories, (c) => {
-          return c.identifier === 'mounts' || c.identifier === 'pets';
+          return c.identifier === 'mounts' || c.identifier === 'pets' || c.identifier === 'quests';
         });
 
         let setGroups = _filter(apiCategories, (c) => {
-          return c.identifier !== 'mounts' && c.identifier !== 'pets';
+          return c.identifier !== 'mounts' && c.identifier !== 'pets' && c.identifier !== 'quests';
         });
 
         let setCategory = {
@@ -375,7 +397,18 @@
         return _groupBy(entries, 'group');
       },
       selectItemToBuy (item) {
-        this.$root.$emit('buyModal::showItem', item);
+        if (item.purchaseType === 'quests') {
+          this.selectedItemToBuy = item;
+
+          this.$root.$emit('bv::show::modal', 'buy-quest-modal');
+        } else {
+          this.$root.$emit('buyModal::showItem', item);
+        }
+      },
+      resetItemToBuy ($event) {
+        if (!$event) {
+          this.selectedItemToBuy = null;
+        }
       },
     },
     created () {

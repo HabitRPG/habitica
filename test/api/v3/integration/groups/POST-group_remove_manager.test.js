@@ -21,13 +21,13 @@ describe('POST /group/:groupId/remove-manager', () => {
         type: groupType,
         privacy: 'public',
       },
-      members: 1,
+      members: 2,
     });
 
     groupToUpdate = group;
     leader = groupLeader;
     nonLeader = members[0];
-    nonManager = members[0];
+    nonManager = members[1];
   });
 
   it('returns an error when a non group leader tries to add member', async () => {
@@ -71,10 +71,10 @@ describe('POST /group/:groupId/remove-manager', () => {
       type: 'todo',
       requiresApproval: true,
     });
-    await nonLeader.post(`/tasks/${task._id}/assign/${leader._id}`);
-    let memberTasks = await leader.get('/tasks/user');
+    await nonLeader.post(`/tasks/${task._id}/assign/${nonManager._id}`);
+    let memberTasks = await nonManager.get('/tasks/user');
     let syncedTask = find(memberTasks, findAssignedTask);
-    await expect(leader.post(`/tasks/${syncedTask._id}/score/up`))
+    await expect(nonManager.post(`/tasks/${syncedTask._id}/score/up`))
       .to.eventually.be.rejected.and.to.eql({
         code: 401,
         error: 'NotAuthorized',

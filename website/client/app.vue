@@ -161,7 +161,7 @@ div
     overflow-y: scroll !important;
   }
 
-  .modal-backdrop.show {
+  .modal-backdrop {
     opacity: .9 !important;
     background-color: $purple-100 !important;
   }
@@ -657,5 +657,6 @@ export default {
 <style src="assets/css/sprites/spritesmith-main-23.css"></style>
 <style src="assets/css/sprites/spritesmith-main-24.css"></style>
 <style src="assets/css/sprites/spritesmith-main-25.css"></style>
+<style src="assets/css/sprites/spritesmith-main-26.css"></style>
 <style src="assets/css/sprites.css"></style>
 <style src="smartbanner.js/dist/smartbanner.min.css"></style>

@@ -11,6 +11,8 @@
       span.icon
         div(:class="getDropIcon(drop)")
       span.reward-text {{ getDropName(drop) }}
+    div.reward-item.text-center(v-if='item.drop.unlock')
+      span.reward-text {{ item.drop.unlock() }}
     h3.text-center(v-if='getDropsList(item.drop.items, true).length > 0') {{$t('questOwnerRewards')}}
     div.reward-item(v-for='drop in getDropsList(item.drop.items, true)')
       span.icon

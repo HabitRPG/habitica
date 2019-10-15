@@ -24,7 +24,6 @@
 
 .row {
   display: table;
-  color: #E1E0E3;
   margin: 0;
 }
 
@@ -75,6 +74,13 @@ dt {
     color: inherit;
     font-size: 1em;
     white-space: nowrap;
+  }
+}
+
+// popover used in quest selection modal
+.popover-body {
+  dt {
+    color: inherit;
   }
 }
 

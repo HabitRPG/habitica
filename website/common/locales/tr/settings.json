@@ -93,7 +93,7 @@
     "enterNumber": "Lütfen 0 ile 24 arasında bir sayı gir",
     "fillAll": "Lütfen bütün alanları doldur",
     "invalidPasswordResetCode": "Girilen şifre sıfırlama kodu geçersiz veya süresi dolmuş.",
-    "passwordChangeSuccess": "Şifren yeni seçtiğinle başarıyla değiştirildi. Artık bu şifre ile hesabına giriş yapabilirsin. ",
+    "passwordChangeSuccess": "Şifren yeni seçtiğinle başarıyla değiştirildi. Artık bu şifre ile hesabına giriş yapabilirsin.",
     "passwordSuccess": "Şifre başarıyla değiştirildi",
     "usernameSuccess": "Kullanıcı Adı başarıyla değiştirildi",
     "displayNameSuccess": "Görünen Ad başarıyla değiştirildi",
@@ -129,7 +129,7 @@
     "invitedQuest": "Göreve Davet Edildin",
     "kickedGroup": "Gruptan atıldın",
     "remindersToLogin": "Habitica'yı kontrol etmek için hatırlatıcılar",
-    "subscribeUsing": "Abonelik metodu:",
+    "subscribeUsing": "Abonelik metodu",
     "unsubscribedSuccessfully": "Aboneliğin başarıyla iptal edildi!",
     "unsubscribedTextUsers": "Tüm Habitica maillerine aboneliğin başarıyla iptal edildi. <a href=\"/user/settings/notifications\">Ayarlar > &gt; Bildirimler</a> sekmesinden yalnızca almak istediğin mailleri aktif hale getirebilirsin (giriş yapmanı gerektirir).",
     "unsubscribedTextOthers": "Habitica'dan başka e-posta almayacaksın.",
@@ -204,5 +204,6 @@
     "usernameVerifiedConfirmation": "Kullanıcı adın, <%= username %>, onaylandı!",
     "usernameNotVerified": "Lütfen kullanıcı adınızı onaylayın.",
     "changeUsernameDisclaimer": "Yakında giriş adlarını özgün ve aleni kullanıcı adlarına dönüştüreceğiz. Bu kullanıcı adı davetler, sohbetlerdeki @bahisler ve mesajlaşmalar için kullanılacak.",
-    "verifyUsernameVeteranPet": "Onayladıktan sonra bu Kıdemli Hayvanlardan biri seni bekliyor olacak!"
+    "verifyUsernameVeteranPet": "Onayladıktan sonra bu Kıdemli Hayvanlardan biri seni bekliyor olacak!",
+    "newPMNotificationTitle": "<%= name %> 'den yeni mesaj"
 }

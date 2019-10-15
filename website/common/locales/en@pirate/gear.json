@@ -1181,7 +1181,7 @@
     "headArmoireRancherHatText": "Rancher Hat",
     "headArmoireRancherHatNotes": "Round up yer pets and wrangle yer mounts while wearin' this magical Rancher Hat! Increases Strength by <%= str %>, Perception by <%= per %>, an' Intelligence by <%= int %>. Enchanted Armoire: Rancher Set (Item 1 o' 3).",
     "headArmoireBlueHairbowText": "Blue Hairbow",
-    "headArmoireBlueHairbowNotes": "Become perceptive, tough, an' smart while wearin' this beautiful Blue Hairbow! Increases Perception by <%= per %>, Constitution by <%= con %>, an' Intelligence by <%= int %>. Enchanted Armoire: Independent Item.",
+    "headArmoireBlueHairbowNotes": "Become perceptive, tough, an' smart while wearin' this beautiful Blue Hairbow! Increases Perception by <%= per %>, Constitution by <%= con %>, an' Intelligence by <%= int %>. Enchanted Armoire: Blue Hairbow Set (Item 1 of 2).",
     "headArmoireRoyalCrownText": "Royal Crown",
     "headArmoireRoyalCrownNotes": "Ahoy for th' ruler, mighty and strong! Increases Strength by <%= str %>. Enchanted Armoire: Royal Set (Item 1 of 3).",
     "headArmoireGoldenLaurelsText": "Golden Laurels",
@@ -1763,7 +1763,7 @@
     "shieldMystery201902Text": "Cryptic Confetti",
     "shieldMystery201902Notes": "This glittery paper forms magic hearts that slowly drift n' dance in th' air. It don't benefit ye. February 2019 Subscriber Item",
     "shieldArmoireMightyPizzaText": "Mighty Pizza",
-    "shieldArmoireMightyPizzaNotes": "Sure, it's a pretty good shield, but we strongly suggest ye eat this fine, fine pizza. Increases Perception by <%= per %>. Enchanted Chest: Chef Set (Item 4 o' 4). ",
+    "shieldArmoireMightyPizzaNotes": "Sure, it's a pretty good shield, but we strongly suggest ye eat this fine, fine pizza. Increases Perception by <%= per %>. Enchanted Chest: Chef Set (Item 4 o' 4).",
     "eyewearMystery201902Text": "Cryptic Crush Mask",
     "eyewearMystery201902Notes": "This mysterious mask hides yer identity but not yer winning smile. It don't benefit ye. February 2019 Subscriber Item."
 }

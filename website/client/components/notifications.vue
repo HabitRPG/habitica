@@ -165,6 +165,16 @@ const NOTIFICATIONS = {
     label: ($t) => `${$t('achievement')}: ${$t('achievementBackToBasics')}`,
     modalId: 'generic-achievement',
   },
+  ACHIEVEMENT_DUST_DEVIL: {
+    achievement: true,
+    label: ($t) => `${$t('achievement')}: ${$t('achievementDustDevil')}`,
+    modalId: 'generic-achievement',
+  },
+  ACHIEVEMENT_ARID_AUTHORITY: {
+    achievement: true,
+    label: ($t) => `${$t('achievement')}: ${$t('achievementAridAuthority')}`,
+    modalId: 'generic-achievement',
+  },
   ACHIEVEMENT_PARTY_UP: {
     achievement: true,
     label: ($t) => `${$t('achievement')}: ${$t('achievementPartyUp')}`,
@@ -258,7 +268,7 @@ export default {
       'CHALLENGE_JOINED_ACHIEVEMENT', 'INVITED_FRIEND_ACHIEVEMENT', 'NEW_CONTRIBUTOR_LEVEL',
       'CRON', 'SCORED_TASK', 'LOGIN_INCENTIVE', 'ACHIEVEMENT_ALL_YOUR_BASE', 'ACHIEVEMENT_BACK_TO_BASICS',
       'GENERIC_ACHIEVEMENT', 'ACHIEVEMENT_PARTY_UP', 'ACHIEVEMENT_PARTY_ON', 'ACHIEVEMENT_BEAST_MASTER',
-      'ACHIEVEMENT_MOUNT_MASTER', 'ACHIEVEMENT_TRIAD_BINGO',
+      'ACHIEVEMENT_MOUNT_MASTER', 'ACHIEVEMENT_TRIAD_BINGO', 'ACHIEVEMENT_DUST_DEVIL', 'ACHIEVEMENT_ARID_AUTHORITY', 
     ].forEach(type => {
       handledNotifications[type] = true;
     });
@@ -642,6 +652,8 @@ export default {
           case 'NEW_CONTRIBUTOR_LEVEL':
           case 'ACHIEVEMENT_ALL_YOUR_BASE':
           case 'ACHIEVEMENT_BACK_TO_BASICS':
+          case 'ACHIEVEMENT_DUST_DEVIL':
+          case 'ACHIEVEMENT_ARID_AUTHORITY':
           case 'ACHIEVEMENT_PARTY_UP':
           case 'ACHIEVEMENT_PARTY_ON':
           case 'ACHIEVEMENT_BEAST_MASTER':

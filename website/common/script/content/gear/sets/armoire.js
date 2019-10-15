@@ -490,6 +490,14 @@ let armor = {
     set: 'detective',
     canOwn: ownsItem('armor_armoire_invernessCape'),
   },
+  shadowMastersRobe: {
+    text: t('armorArmoireShadowMastersRobeText'),
+    notes: t('armorArmoireShadowMastersRobeNotes', { con: 12 }),
+    value: 100,
+    con: 12,
+    set: 'shadowMaster',
+    canOwn: ownsItem('armor_armoire_shadowMastersRobe'),
+  },
 };
 
 let body = {
@@ -1003,6 +1011,15 @@ let head = {
     set: 'detective',
     canOwn: ownsItem('head_armoire_deerstalkerCap'),
   },
+  shadowMastersHood: {
+    text: t('headArmoireShadowMastersHoodText'),
+    notes: t('headArmoireShadowMastersHoodNotes', { attrs: 5 }),
+    value: 100,
+    per: 5,
+    con: 5,
+    set: 'shadowMaster',
+    canOwn: ownsItem('head_armoire_shadowMastersHood'),
+  },
 };
 
 let shield = {
@@ -1265,6 +1282,22 @@ let shield = {
     int: 7,
     set: 'detective',
     canOwn: ownsItem('shield_armoire_trustyUmbrella'),
+  },
+  polishedPocketwatch: {
+    text: t('shieldArmoirePolishedPocketwatchText'),
+    notes: t('shieldArmoirePolishedPocketwatchNotes', { int: 9 }),
+    value: 100,
+    int: 9,
+    canOwn: ownsItem('shield_armoire_polishedPocketwatch'),
+  },
+  masteredShadow: {
+    text: t('shieldArmoireMasteredShadowText'),
+    notes: t('shieldArmoireMasteredShadowNotes', { attrs: 5 }),
+    value: 100,
+    per: 5,
+    con: 5,
+    set: 'shadowMaster',
+    canOwn: ownsItem('shield_armoire_masteredShadow'),
   },
 };
 
@@ -1689,6 +1722,28 @@ let weapon = {
     per: 7,
     set: 'detective',
     canOwn: ownsItem('weapon_armoire_magnifyingGlass'),
+  },
+  floridFan: {
+    text: t('weaponArmoireFloridFanText'),
+    notes: t('weaponArmoireFloridFanNotes', { con: 9 }),
+    value: 100,
+    con: 9,
+    canOwn: ownsItem('weapon_armoire_floridFan'),
+  },
+  resplendentRapier: {
+    text: t('weaponArmoireResplendentRapierText'),
+    notes: t('weaponArmoireResplendentRapierNotes', { per: 9 }),
+    value: 100,
+    per: 9,
+    canOwn: ownsItem('weapon_armoire_resplendentRapier'),
+  },
+  shadowMastersMace: {
+    text: t('weaponArmoireShadowMastersMaceText'),
+    notes: t('weaponArmoireShadowMastersMaceNotes', { per: 12 }),
+    value: 100,
+    per: 12,
+    set: 'shadowMaster',
+    canOwn: ownsItem('weapon_armoire_shadowMastersMace'),
   },
 };
 
