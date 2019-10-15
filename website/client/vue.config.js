@@ -38,6 +38,7 @@ envVars
   });
 
 module.exports = {
+  assetsDir: 'static',
   configureWebpack: {
     plugins: [
       new DuplicatesPlugin({
@@ -90,7 +91,8 @@ module.exports = {
       .use('svg-in-css')
       .loader('svg-url-loader')
       .options({
-        limit: 10000,
+        limit: 4000,
+        name: 'svg/[contenthash].[ext]',
       })
       .end()
       .use('svgo-loader')
