@@ -3,5 +3,5 @@
 --timeout 8000
 --check-leaks
 --require @babel/register
---require ./helpers/globals.helper.js
+--require ./test/helpers/globals.helper
 --exit
