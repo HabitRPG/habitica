@@ -166,6 +166,17 @@
     margin-left: 12px;
   }
 
+  .input-search {
+    background-repeat: no-repeat;
+    background-position: center left 16px;
+    background-size: 16px 16px;
+    background-image: url(~client/assets/svg/for-css/search_gray.svg) !important;
+    padding-left: 40px;
+
+    color: $gray-200 !important;
+    height: 40px;
+  }
+
   .selected-conversion {
     justify-content: center;
   }
