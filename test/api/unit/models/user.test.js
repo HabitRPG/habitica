@@ -384,6 +384,7 @@ describe('User Model', () => {
       user = await user.save();
       // verify that it's been awarded
       expect(user.achievements.beastMaster).to.equal(true);
+      expect(user.notifications.find(notification => notification.type === 'ACHIEVEMENT_BEAST_MASTER')).to.exist;
 
       // reset the user
       user.achievements.beastMasterCount = 0;
@@ -412,6 +413,25 @@ describe('User Model', () => {
       user.achievements.beastMasterCount = 3;
       user = await user.save();
       expect(user.achievements.beastMaster).to.not.equal(true);
+    });
+
+    it('adds achievements to notification list', async () => {
+      let user = new User();
+      user = await user.save(); // necessary for user.isSelected to work correctly
+
+      // Create conditions for achievements to be awarded
+      user.achievements.beastMasterCount = 3;
+      user.achievements.mountMasterCount = 3;
+      user.achievements.triadBingoCount = 3;
+      expect(user.achievements.beastMaster).to.not.equal(true); // verify that it was not awarded initially
+      expect(user.achievements.mountMaster).to.not.equal(true); // verify that it was not awarded initially
+      expect(user.achievements.triadBingo).to.not.equal(true); // verify that it was not awarded initially
+
+      user = await user.save();
+      // verify that it's been awarded
+      expect(user.notifications.find(notification => notification.type === 'ACHIEVEMENT_BEAST_MASTER')).to.exist;
+      expect(user.notifications.find(notification => notification.type === 'ACHIEVEMENT_MOUNT_MASTER')).to.exist;
+      expect(user.notifications.find(notification => notification.type === 'ACHIEVEMENT_TRIAD_BINGO')).to.exist;
     });
 
     context('manage unallocated stats points notifications', () => {
