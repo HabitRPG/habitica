@@ -163,3 +163,14 @@ export async function userLookup (store, params) {
   }
   return response;
 }
+
+export function block (store, params) {
+  store.state.user.data.inbox.blocks.push(params.uuid);
+  return axios.post(`/api/v4/user/block/${params.uuid}`);
+}
+
+export function unblock (store, params) {
+  let index = store.state.user.data.inbox.blocks.indexOf(params.uuid);
+  store.state.user.data.inbox.blocks.splice(index, 1);
+  return axios.post(`/api/v4/user/block/${params.uuid}`);
+}

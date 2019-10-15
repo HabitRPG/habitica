@@ -594,13 +594,14 @@ export default {
       this.editing = false;
     },
     blockUser () {
-      this.userLoggedIn.inbox.blocks.push(this.user._id);
-      axios.post(`/api/v4/user/block/${this.user._id}`);
+      this.$store.dispatch('user:block', {
+        uuid: this.user._id,
+      });
     },
     unblockUser () {
-      let index = this.userLoggedIn.inbox.blocks.indexOf(this.user._id);
-      this.userLoggedIn.inbox.blocks.splice(index, 1);
-      axios.post(`/api/v4/user/block/${this.user._id}`);
+      this.$store.dispatch('user:unblock', {
+        uuid: this.user._id,
+      });
     },
     openSendGemsModal () {
       this.$root.$emit('habitica::send-gems', this.user);
