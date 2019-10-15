@@ -583,10 +583,10 @@ schema.methods.sendChat = function sendChat (options = {}) {
       if (member._id === user._id) return;
       const pushNotifPrefs = member.preferences.pushNotifications;
       if (this.type === 'party') {
-        if (pushNotifPrefs.mentionParty !== true) {
+        if (pushNotifPrefs.mentionParty !== true || !this.isMember(member)) {
           return;
         }
-      } else if (member.guilds && member.guilds.includes(this._id)) {
+      } else if (this.isMember(member)) {
         if (pushNotifPrefs.mentionJoinedGuild !== true) {
           return;
         }
