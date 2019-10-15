@@ -7,7 +7,7 @@
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit --require ./tests/unit/helpers.js",
     "lint": "vue-cli-service lint",
-    "postinstall": "if [ -n \"$npm_config_production\" ]; then npm run build-for-production; fi"
+    "postinstall": "if [ -n \"$npm_config_production\" ]; then npm run build; fi"
   },
   "dependencies": {
     "amplitude-js": "^5.3.1",
