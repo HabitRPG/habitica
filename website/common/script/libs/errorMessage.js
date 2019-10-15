@@ -3,7 +3,7 @@
 import _clone from 'lodash/clone';
 import _template from 'lodash/template';
 
-import messages from '../../errors/commonErrorMessages';
+import messages from '../errors/commonErrorMessages';
 
 export default function (msgKey, vars = {}) {
   const message = messages[msgKey];

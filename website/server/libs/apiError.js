@@ -3,8 +3,10 @@
 
 import _ from 'lodash';
 
-import commonErrors from '../../common/errors/commonErrorMessages';
-import apiErrors from '../../common/errors/apiErrorMessages';
+import common from '../../common';
+
+const commonErrors = common.errorMessages.common;
+const apiErrors = common.errorMessages.api;
 
 export default function (msgKey, vars = {}) {
   let message = apiErrors[msgKey];

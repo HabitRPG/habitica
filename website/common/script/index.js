@@ -6,6 +6,9 @@ import content from './content/index';
 import * as errors from './libs/errors';
 import i18n from './i18n';
 
+import commonErrors from './errors/commonErrorMessages';
+import apiErrors from './errors/apiErrorMessages';
+
 // TODO under api.libs.cron?
 import { shouldDo, daysSince, DAY_MAPPING } from './cron';
 
@@ -194,6 +197,11 @@ api.ops = {
   reset,
   markPmsRead,
   pinnedGearUtils,
+};
+
+api.errorMessages = {
+  common: commonErrors,
+  api: apiErrors,
 };
 
 export default api;

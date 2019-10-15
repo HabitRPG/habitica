@@ -6,7 +6,7 @@ describe('Store', () => {
   let store;
 
   beforeEach(() => {
-    store = new StoreModule({ // eslint-disable-line babel/new-cap
+    store = new StoreModule({
       state: {
         name: 'test',
         nested: {
