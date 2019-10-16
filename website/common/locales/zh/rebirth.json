@@ -25,5 +25,6 @@
     "rebirthName": "重生球",
     "reborn": "重生, 最高级别 <%= reLevel %>",
     "confirmReborn": "你确定吗？",
-    "rebirthComplete": "你已经重生了！"
+    "rebirthComplete": "你已经重生了！",
+    "nextFreeRebirth": "距离下个<strong>免费</strong>的重生球还有<strong><%= days %>天</strong>"
 }

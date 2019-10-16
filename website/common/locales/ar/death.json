@@ -1,0 +1,17 @@
+{
+    "lostAllHealth": "لقد نفدت صحتك!",
+    "dontDespair": "لا تيأس!",
+    "deathPenaltyDetails": "لقد فقدت مستوى، كل ذهبك، وقطعة من معداتك الخاصة، ولكن يمكنك إعادة كل منهم مع العمل الجاد! حظاً موفقاً--سوف تبلو بلاءً حسناً.",
+    "refillHealthTryAgain": "عبئ صحتك وحاول مرةً أخرى",
+    "dyingOftenTips": "هل هذا يحدث بشكل مكرر؟ <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'> إليك بعض النصائح!</a>",
+    "losingHealthWarning": "احذر، أنت تفقد صحتك!",
+    "losingHealthWarning2": "لا تدع صحتك تهبط إلى صفر! إذا فعلت، ستخسر مستوى وذهبك وقطعة من معداتك.",
+    "toRegainHealth": "لتستعيد صحتك:",
+    "lowHealthTips1": "تقدم بالمستوى لتستعيد كامل صحتك!",
+    "lowHealthTips2": "اشتري جرعة صحة من لائحة المكافآت لتستعيد 15 نقاط صحة.",
+    "losingHealthQuickly": "تفقد صحتك بسرعة؟",
+    "lowHealthTips3": "اليوميات غير المنجزة تؤذيك خلال الليل، لذا كن حذراً في إضافة الكثير منها في البداية!",
+    "lowHealthTips4": "إذا كانت يومية غير مستحقة في يوم معين، تستطيع تعطيلها بالضغط على رمز القلم.",
+    "goodLuck": "حظاً موفقاً!",
+    "cannotRevive": "لا يمكن الإنعاش إذا ليس ميّت"
+}

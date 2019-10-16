@@ -103,7 +103,7 @@
     "donationDesc": "20 Sapphires, Donation to Habitica",
     "payWithCard": "Pay with Card",
     "payNote": "Ahoy! PayPal sometimes be takin' a long time to clear.  Payin' with yer card be better.",
-    "card": "Credit Card (usin' Stripe)",
+    "card": "Credit Card",
     "amazonInstructions": "Click the button to pay usin' Amazon Payments",
     "paymentMethods": "Purchase usin'",
     "paymentSuccessful": "Yer payment was successful!",

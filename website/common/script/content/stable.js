@@ -103,6 +103,7 @@ let specialPets = {
   'Hippogriff-Hopeful': 'hopefulHippogriffPet',
   'Fox-Veteran': 'veteranFox',
   'JackOLantern-Glow': 'glowJackolantern',
+  'Gryphon-Gryphatrice': 'gryphatrice',
 };
 
 let specialMounts = {
@@ -121,6 +122,7 @@ let specialMounts = {
   'Aether-Invisible': 'invisibleAether',
   'JackOLantern-Ghost': 'ghostJackolantern',
   'Hippogriff-Hopeful': 'hopefulHippogriffMount',
+  'Gryphon-Gryphatrice': 'gryphatrice',
 };
 
 each(specialPets, (translationString, key) => {

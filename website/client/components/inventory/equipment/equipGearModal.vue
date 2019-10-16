@@ -105,7 +105,7 @@
       margin: 0 auto;
 
       .character-sprites span {
-        left: 25px;
+        left: 24px;
       }
     }
 

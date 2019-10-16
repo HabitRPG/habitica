@@ -349,25 +349,6 @@ export default {
     isMember () {
       return this.isMemberOfGroup(this.user, this.group);
     },
-    memberProfileName (memberId) {
-      let foundMember = find(this.group.members, function findMember (member) {
-        return member._id === memberId;
-      });
-      return foundMember.profile.name;
-    },
-    isManager (memberId, group) {
-      return Boolean(group.managers[memberId]);
-    },
-    userCanApprove (userId, group) {
-      if (!group) return false;
-      let leader = group.leader._id === userId;
-      let userIsManager = Boolean(group.managers[userId]);
-      return leader || userIsManager;
-    },
-    hasChallenges () {
-      if (!this.group.challenges) return false;
-      return this.group.challenges.length === 0;
-    },
     showNoNotificationsMessage () {
       return this.group.memberCount > this.$store.state.constants.LARGE_GROUP_COUNT_MESSAGE_CUTOFF;
     },

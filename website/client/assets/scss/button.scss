@@ -74,10 +74,10 @@
 }
 
 .btn-success {
-  background: $green-10;
+  background: $green-100;
 
   &:disabled {
-    background: $green-10;
+    background: $green-100;
   }
 
   &:hover:not(:disabled), &:active, &.active {

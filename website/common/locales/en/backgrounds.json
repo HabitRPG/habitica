@@ -529,5 +529,13 @@
   "backgroundInAnAncientTombText": "Ancient Tomb",
   "backgroundInAnAncientTombNotes": "Brave the mysteries of an Ancient Tomb.",
   "backgroundInAClassroomText": "Classroom",
-  "backgroundInAClassroomNotes": "Absorb knowledge from your mentors in a Classroom."
+  "backgroundInAClassroomNotes": "Absorb knowledge from your mentors in a Classroom.",
+
+  "backgrounds102019": "SET 65: Released October 2019",
+  "backgroundFoggyMoorText": "Foggy Moor",
+  "backgroundFoggyMoorNotes": "Watch your step traversing a Foggy Moor.",
+  "backgroundPumpkinCarriageText": "Pumpkin Carriage",
+  "backgroundPumpkinCarriageNotes": "Ride in an enchanted Pumpkin Carriage before the clock strikes midnight.",
+  "backgroundMonsterMakersWorkshopText": "Monster Maker's Workshop",
+  "backgroundMonsterMakersWorkshopNotes": "Experiment with discredited sciences in a Monster Maker's Workshop."
 }

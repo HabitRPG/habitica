@@ -188,6 +188,8 @@ function _getBasicAchievements (user, language) {
   _addSimple(result, user, {path: 'justAddWater', language});
   _addSimple(result, user, {path: 'backToBasics', language});
   _addSimple(result, user, {path: 'allYourBase', language});
+  _addSimple(result, user, {path: 'dustDevil', language});
+  _addSimple(result, user, {path: 'aridAuthority', language});
 
   _addSimpleWithMasterCount(result, user, {path: 'beastMaster', language});
   _addSimpleWithMasterCount(result, user, {path: 'mountMaster', language});
@@ -296,6 +298,10 @@ function _getSpecialAchievements (user, language) {
 
   if (user.achievements.originalUser) {
     _addSimple(result, user, {path: 'originalUser', language});
+  }
+
+  if (user.achievements.kickstarter2019) {
+    _addSimple(result, user, {path: 'kickstarter2019', language});
   }
 
   return result;

@@ -37,6 +37,7 @@ export const EVENTS = {
   winter2019: { start: '2018-12-19', end: '2019-02-02' },
   spring2019: { start: '2019-03-19', end: '2019-05-02' },
   summer2019: { start: '2019-06-18', end: '2019-08-02' },
+  fall2019:   { start: '2019-09-24', end: '2019-11-02' },
 };
 
 export const SEASONAL_SETS = {
@@ -181,6 +182,12 @@ export const SEASONAL_SETS = {
     'fall2018CandymancerMageSet',
     'fall2018CarnivorousPlantSet',
     'fall2018AlterEgoSet',
+
+    // fall 2019
+    'fall2019CyclopsSet',
+    'fall2019LichSet',
+    'fall2019OperaticSpecterSet',
+    'fall2019RavenSet',
   ],
 };
 
@@ -256,14 +263,7 @@ export const QUEST_SERIES_ACHIEVEMENTS = {
   ],
 };
 
-export const BASE_PETS_MOUNTS = [
-  'Wolf-Base',
-  'TigerCub-Base',
-  'PandaCub-Base',
-  'LionCub-Base',
-  'Fox-Base',
-  'FlyingPig-Base',
-  'Dragon-Base',
-  'Cactus-Base',
-  'BearCub-Base',
+export const ANIMAL_COLOR_ACHIEVEMENTS = [
+  {color: 'Base', petAchievement: 'backToBasics', petNotificationType: 'ACHIEVEMENT_BACK_TO_BASICS', mountAchievement: 'allYourBase', mountNotificationType: 'ACHIEVEMENT_ALL_YOUR_BASE'},
+  {color: 'Desert', petAchievement: 'dustDevil', petNotificationType: 'ACHIEVEMENT_DUST_DEVIL', mountAchievement: 'aridAuthority', mountNotificationType: 'ACHIEVEMENT_ARID_AUTHORITY'},
 ];

@@ -34,5 +34,51 @@
   "defaultTag4": "School",
   "defaultTag5": "Teams",
   "defaultTag6": "Chores",
-  "defaultTag7": "Creativity"
+  "defaultTag7": "Creativity",
+
+  "workHabitMail": "Process email",
+  "workDailyImportantTask": "Most important task >> Worked on today’s most important task",
+  "workDailyImportantTaskNotes": "Tap to specify your most important task",
+  "workTodoProject": "Work project >> Complete work project",
+  "workTodoProjectNotes": "Tap to specify the name of your current project + set a due date!",
+
+  "exerciseHabit": "10 min cardio >> + 10 minutes cardio",
+  "exerciseDailyText": "Stretching >> Daily workout routine",
+  "exerciseDailyNotes": "Tap to choose your schedule and specify exercises!",
+  "exerciseTodoText": "Set up workout schedule",
+  "exerciseTodoNotes": "Tap to add a checklist!",
+
+  "healthHabit": "Eat Health/Junk Food",
+  "healthDailyText": "Floss",
+  "healthDailyNotes": "Tap to make any changes!",
+
+  "healthTodoText": "Schedule check-up >> Brainstorm a healthy change",
+  "healthTodoNotes": "Tap to add checklists!",
+
+  "schoolHabit": "Study/Procrastinate",
+  "schoolDailyText": "Finish homework",
+  "schoolDailyNotes": "Tap to choose your homework schedule!",
+  "schoolTodoText": "Finish assignment for class",
+  "schoolTodoNotes": "Tap to name the assignment and choose a due date!]",
+
+  "selfCareHabit": "Take a short break",
+  "selfCareDailyText": "5 minutes of quiet breathing",
+  "selfCareDailyNotes": "Tap to choose your schedule!",
+  "selfCareTodoText": "Engage in a fun activity",
+  "selfCareTodoNotes": "Tap to specify what you plan to do!",
+
+  "choresHabit": "10 minutes cleaning",
+  "choresDailyText": "Wash dishes",
+  "choresDailyNotes": "Tap to choose your schedule!",
+  "choresTodoText": "Organize closet >> Organize clutter",
+  "choresTodoNotes": "Tap to specify the cluttered area!",
+
+  "creativityHabit": "Study a master of the craft >> + Practiced a new creative technique",
+  "creativityDailyText": "Work on creative project",
+  "creativityDailyNotes": "Tap to specify the name of your current project + set the schedule!",
+  "creativityTodoText": "Finish creative project",
+  "creativityTodoNotes": "Tap to specify the name of your project",
+
+  "defaultHabitText": "Click here to edit this into a bad habit you'd like to quit",
+  "defaultHabitNotes": "Or delete from the edit screen"
 }
