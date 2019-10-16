@@ -6,7 +6,7 @@ describe('canEdit getter', () => {
 
 
     const task = {userId: 1, challenge: {id: 2}};
-    expect(store.getters['tasks:canEdit'](task, 'challenge', true, null, null)).to.equal(false);
+    expect(store.getters['tasks:canEdit'](task, 'challenge', true, null, null)).to.equal(true);
   });
 
   it('can Edit broken challenge task', () => {
