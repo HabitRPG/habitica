@@ -11,7 +11,7 @@
       // Dailies and todos left side control
       .left-control.d-flex.justify-content-center(v-if="task.type === 'daily' || task.type === 'todo'", :class="[{'control-bottom-box': this.task.group.id, 'control-top-box': approvalsClass}, controlClass.bg]")
         .task-control.daily-todo-control(:class="controlClass.inner", @click="isUser ? score(task.completed ? 'down' : 'up') : null")
-          .svg-icon.lock(v-html="icons.lock", v-if="this.task.group.id && !isUser && !task.completed", :class="controlClass.icon")
+          .svg-icon.lock(v-html="icons.lock", v-if="this.task.group.id && !isUser && !task.completed", :class="controlClass.checkbox")
           .svg-icon.check(v-else, v-html="icons.check", :class="{'display-check-icon': task.completed, [controlClass.checkbox]: true}")
       // Task title, description and icons
       .task-content(:class="contentClass")
