@@ -136,5 +136,6 @@
     "chatItemQuestFinish": "Tout les objets ont été trouvés ! L'équipe reçoit sa récompense.",
     "chatQuestAborted": "<%= username %> a interrompu la quête <%= questName %>.",
     "chatQuestCancelled": "<%= username %> a annulé la quête en équipe <%= questName %>.",
-    "tavernBossTired": "<%= bossName %> essaye de lancer <%= rageName %> mais est trop fatigué pour ça."
+    "tavernBossTired": "<%= bossName %> essaye de lancer <%= rageName %> mais est trop fatigué pour ça.",
+    "questInvitationNotificationInfo": "Vous avez reçu une invitation à une quête"
 }

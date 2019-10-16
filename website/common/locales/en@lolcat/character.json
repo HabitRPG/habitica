@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Plz keep in mind dat ur Display Naym, profiel footo, an blurb must comply wif teh <a href='https://habitica.com/static/community-guidelines' target='_blank'> Commeownity Guidelines</a> (e.g. no profanity, no adult topicz, no insults, etc), Srsly. If u haz any queshuns bout whefr or not somefin iz appropriaet, feelz free 2 email <%= hrefBlankCommunityManagerEmail %>! ",
+    "communityGuidelinesWarning": "Plz keep in mind dat ur Display Naym, profiel footo, an blurb must comply wif teh <a href='https://habitica.com/static/community-guidelines' target='_blank'> Commeownity Guidelines</a> (e.g. no profanity, no adult topicz, no insults, etc), Srsly. If u haz any queshuns bout whefr or not somefin iz appropriaet, feelz free 2 email <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "MAH INFOS",
     "avatar": "KUZTOMIZE UR AVATAR",
     "editAvatar": "Edit Avatar",
@@ -42,7 +42,7 @@
     "hairBase": "HAIRS BASE",
     "hairSet1": "HAIRS SET 1",
     "hairSet2": "HAIRS SET TOO",
-    "hairSet3": "Hairstyel Set 3   ",
+    "hairSet3": "Hairstyel Set 3",
     "bodyFacialHair": "FACE FUR",
     "beard": "BEARD FUR",
     "mustache": "MUSTACHE FUR",
@@ -175,7 +175,7 @@
     "youCast": "U CAST <%= spell %>.",
     "youCastTarget": "U CAST <%= spell %> ON <%= target %>.",
     "youCastParty": "U CAST <%= spell %> FOR TEH PARTEE.",
-    "critBonus": "CRITICAL HIT! BONUS:",
+    "critBonus": "CRITICAL HIT! BONUS: ",
     "gainedGold": "You gained some Gold",
     "gainedMana": "You gained some Mana",
     "gainedHealth": "You gained some Health",
@@ -186,7 +186,7 @@
     "lostExperience": "You lost some Experience",
     "displayNameDescription1": "This is what appears in messages you post in the Tavern, guilds, and party chat, along with what is displayed on your avatar. To change it, click the Edit button above. If instead you want to change your username, go to",
     "displayNameDescription2": "SETTINGZ->SITE",
-    "displayNameDescription3": "an look in teh Registration secshun.         ",
+    "displayNameDescription3": "an look n teh Registration secshun.",
     "unequipBattleGear": "TAKE OFF BATTLE GEARS",
     "unequipCostume": "TAKE OFF COSTOOM",
     "equip": "Equip",
@@ -224,5 +224,9 @@
     "mainHand": "Main-Hand",
     "offHand": "Off-Hand",
     "statPoints": "Stat Points",
-    "pts": "pts"
+    "pts": "pts",
+    "chatCastSpellUser": "<%= username %> castz <%= spell %> on <%= target %>.",
+    "chatCastSpellParty": "<%= username %> castz <%= spell %> 4 teh party.",
+    "purchasePetItemConfirm": "Dis perchis wil exseed teh numbr ov items u ned 2 hatch al posibl <%= itemText %> petz. R u sure?",
+    "purchaseForGold": "Perchis 4 <%= cost %> Gold?"
 }

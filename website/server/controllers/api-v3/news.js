@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'SUPERNATURAL SKINS AND HAUNTED HAIR COLORS';
+const LAST_ANNOUNCEMENT_TITLE = 'DISCOUNTED PET QUEST BUNDLE: WITCHY FAMILIARS';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,15 +30,16 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>10/8/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>10/15/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_fall_skins center-block"></div>
-        <p>The Seasonal Edition Haunted Hair Colors are now available for purchase! Now you can dye your avatar's hair Pumpkin, Midnight, Candy Corn, Ghost White, Zombie, or Halloween. Get them before October 31st!</p>
-        <p>The Supernatural Skin Set is also available until October 31st! Now your avatar can become an Ogre, Skeleton, Pumpkin, Candy Corn, Reptile, or Dread Shade.</p>
-        <p>Seasonal Edition items recur unchanged every year, but they are only available to purchase during a short period of time. Find these exciting skins and hair colors in User>Edit Avatar. Get them now, or you'll have to wait until next year!</p>
-        <div class="small mb-3">by Lemoness, mariahm, and crystalphoenix</div>
+        <div class="promo_witchy_familiars center-block"></div>
+        <p>If you're looking to add some pets to your Habitica stable to match your Fall Festival gear, you're in luck! From now until October 31, you can purchase the Witchy Familiars Pet Quest Bundle and receive the Rat, Spider, and Frog quests, all for only 7 Gems! That's a discount of 5 Gems from the price of purchasing them separately. Check it out in the <a href='/shops/quests'>Quest Shop</a> today!</p>
+        <div class="small">by Lemoness and SabreCat</div>
+        <div class="small">Art by Pandah, UncommonCriminal, Arcosine, starsystemic, RosemonkeyCT, Jon Arjinborn, and Breadstrings</div>
+        <div class="small mb-3">Writing by Token, Arcosine, and Fluitare</div>
+        <p>If rats and/or spiders are something you'd prefer not to see in Habitica due to a phobia, check out the <a href='http://habitica.wikia.com/wiki/Phobia_Protection_Extension' target='_blank'>Phobia Protection Extension</a> which will hide any pets, mounts, backgrounds, quest bosses, or equipment featuring spiders and/or rats (as well as snakes, bees, zombies, skeletons, or any combination thereof). We hope that it helps make everyone's Habitica experience fun!</p>
       </div>
       `,
     });

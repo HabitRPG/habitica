@@ -1918,7 +1918,7 @@
     "armorSpecialFall2019HealerNotes": "Es heißt, diese Robe sei aus reiner Nacht gemacht. Nutze die dunkle Macht weise! Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2019 Herbstausrüstung.",
     "armorSpecialFall2019HealerText": "Robe der Dunkelheit",
     "armorSpecialFall2019WarriorText": "Schwingen der Nacht",
-    "armorSpecialFall2019RogueText": "Opernkutte mit Kapuze",
+    "armorSpecialFall2019RogueText": "Operncut mit Cape",
     "weaponSpecialFall2019HealerText": "Furchterregendes Phylakterium",
     "weaponSpecialFall2019MageNotes": "Sei es die Beschwörung von Blitz und Donner, das Hochziehen von Barrikaden oder schlichtweg die Verbreitung von Angst und Schrecken unter den Sterblichen, dieser Stab verleiht Dir die Kraft der Giganten, um Wunder zu bewirken. Erhöht Intelligenz um <%= int %> und Wahrnehmung um <%= per %>. Limitierte Ausgabe 2019 Herbstausrüstung.",
     "eyewearSpecialFall2019HealerText": "Dunkles Antlitz",
@@ -1936,5 +1936,14 @@
     "headSpecialKS2019Text": "Mythischer Greifenhelm",
     "armorSpecialFall2019MageNotes": "Sein Namensvetter wurde von einem schrecklichen Schicksal ereilt. Aber Dich legt man nicht so leicht rein! Gewande Dich mit diesem Mantel aus Legenden und niemand wird Dich übertreffen. Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe 2019 Herbstausrüstung.",
     "armorSpecialKS2019Text": "Mytische Greifenrüstung",
-    "weaponSpecialKS2019Text": "Mythische Greifenglefe"
+    "weaponSpecialKS2019Text": "Mythische Greifenglefe",
+    "armorArmoireShadowMastersRobeNotes": "Der Stoff dieser fließenden Robe wird aus den dunkelsten Schatten in den tiefsten Höhlen Habiticas gewoben. Erhöht Ausdauer um <%= con %>. Verzauberter Schrank: Schattenmeister Set (Gegenstand 1 von 4).",
+    "armorSpecialFall2019WarriorNotes": "Diese gefiederte Robe befähigt zum Fliegen, sie erlaubt Dir Dich über alle Kämpfe zu erheben. Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2019 Herbstausrüstung.",
+    "armorSpecialKS2019Notes": "Von innen heraus strahlend wie das noble Herz eines Greifes, ermutigt Dich diese prächtige Rüstung dazu stolz auf Deine Errungenschaften zu sein. Erhöht Ausdauer um <%= con %>.",
+    "weaponArmoireShadowMastersMaceNotes": "Kreaturen der Dunkelheit werden jedem Deiner Befehle folgen, wenn Du diesen leuchtenden Streitkolben schwingst. Erhöht Wahrnehmung um <%= per %>. Verzauberter Schrank: Schattenmeister Set (Gegenstand 3 von 4).",
+    "headArmoireShadowMastersHoodText": "Kapuze des Schattenmeisters",
+    "armorArmoireShadowMastersRobeText": "Robe des Schattenmeisters",
+    "weaponArmoireShadowMastersMaceText": "Streitkolben des Schattenmeisters",
+    "weaponSpecialFall2019HealerNotes": "Dieses Phylakterium kann die Geister längst niedergestreckter Aufgaben anrufen und ihre Heilkraft nutzen. Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe 2019 Herbstausrüstung.",
+    "weaponSpecialKS2019Notes": "Gebogen wie des Greifen Schnabel und Krallen, erinnert Dich diese verzierte Stangenwaffe daran Dich durchzubeißen, wenn die bevorstehende Aufgabe einschüchternd wirkt. Erhöht Stärke um <%= str %>."
 }

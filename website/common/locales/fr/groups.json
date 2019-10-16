@@ -147,7 +147,7 @@
     "pm-reply": "Répondre",
     "inbox": "Boîte de réception",
     "messageRequired": "Un message est requis.",
-    "toUserIDRequired": "Un ID d'utilisateur est requis",
+    "toUserIDRequired": "Un identifiant est requis",
     "gemAmountRequired": "Un nombre de gemmes est requis",
     "notAuthorizedToSendMessageToThisUser": "Vous ne pouvez pas envoyer de message à ce membre, car il ou elle a décidé de bloquer les messages.",
     "privateMessageGiftGemsMessage": "Bonjour <%= receiverName %>, <%= senderName %> vous a envoyé <%= gemAmount %> gemmes !",
@@ -168,7 +168,7 @@
     "needsTextPlaceholder": "Écrivez votre message ici.",
     "copyMessageAsToDo": "Copier le message comme A Faire",
     "copyAsTodo": "Copier comme tâche à faire",
-    "messageAddedAsToDo": "Message copié comme A Faire.",
+    "messageAddedAsToDo": "Message copié comme tâche à faire.",
     "messageWroteIn": "<%= user %> a écrit dans <%= group %>",
     "msgPreviewHeading": "Aperçu du message",
     "leaderOnlyChallenges": "Seul le responsable du groupe peut créer des défis",
@@ -180,7 +180,7 @@
     "inviteMembersHowTo": "Invitez des personnes en utilisant une adresse mail valide ou un ID d'Utilisateur à 36 chiffres. Si l'adresse courriel n'est liée à aucun compte existant, nous inviterons son propriétaire à rejoindre Habitica.",
     "inviteFriendsNow": "Inviter des amis maintenant",
     "inviteFriendsLater": "Inviter des amis plus tard",
-    "inviteAlertInfo": "Si vous avez des amis qui utilisent déjà Habitica, invitez-les avec leur <a href='http://habitica.fandom.com/fr/wiki/Options_API' target='_blank'>ID d'utilisateur</a> ici.",
+    "inviteAlertInfo": "Si vous avez des amis qui utilisent déjà Habitica, invitez-les avec leur <a href='http://habitica.fandom.com/fr/wiki/Options_API' target='_blank'>identifiant</a> ici.",
     "inviteExistUser": "Inviter des membres existants",
     "byColon": "Invité par :",
     "inviteNewUsers": "Inviter de nouveaux membres",
@@ -483,5 +483,6 @@
     "pmReported": "Merci d'avoir signalé ce message.",
     "suggestedGroup": "Suggérer parce que vous venez d'arriver sur Habitica.",
     "taskClaimed": "<%= userName %> a revendiqué la tâche <span class=\"notification-bold\"><%= taskText %></span>.",
-    "youHaveBeenAssignedTask": "<%= managerName %> vous a assigné la tâche <span class=\"notification-bold\"><%= taskText %></span>."
+    "youHaveBeenAssignedTask": "<%= managerName %> vous a assigné la tâche <span class=\"notification-bold\"><%= taskText %></span>.",
+    "groupActivityNotificationTitle": "<%= user %> a écrit dans <%= group %>"
 }

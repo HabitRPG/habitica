@@ -483,5 +483,6 @@
     "pmReported": "Danke dass Du diese Nachricht gemeldet hast.",
     "suggestedGroup": "Vorgeschlagen weil Du bei Habitica neu bist.",
     "taskClaimed": "<%= userName %> hat die Aufgabe  <span class=\"notification-bold\"><%= taskText %></span> übernommen.",
-    "youHaveBeenAssignedTask": "<%= managerName %> hat Dir die Aufgabe <span class=\"notification-bold\"><%= taskText %></span> zugeteilt."
+    "youHaveBeenAssignedTask": "<%= managerName %> hat Dir die Aufgabe <span class=\"notification-bold\"><%= taskText %></span> zugeteilt.",
+    "groupActivityNotificationTitle": "<%= user %> hat in <%= group %> gepostet"
 }

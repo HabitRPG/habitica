@@ -198,6 +198,7 @@ let premium = {
     text: t('hatchingPotionBronze'),
     limited: true,
     canBuy: hasQuestAchievementFunction('bronze'),
+    _addlNotes: t('premiumPotionUnlimitedNotes'),
   },
   Watery: {
     value: 2,
@@ -210,6 +211,7 @@ let premium = {
     text: t('hatchingPotionSilver'),
     limited: true,
     canBuy: hasQuestAchievementFunction('silver'),
+    _addlNotes: t('premiumPotionUnlimitedNotes'),
   },
   Shadow: {
     value: 2,
