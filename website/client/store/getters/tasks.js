@@ -74,11 +74,15 @@ export function canEdit (store) {
     const user = store.state.user.data;
     switch (taskCategory) {
       case 'challenge':
-        if (challenge && !isTaskFromUserDashboard) {
-          let isUserChallenge = user.id === challenge.leader.id;
-          isUserCanEditTask = isUserChallenge || task.challenge.broken;
+        if (!isTaskFromUserDashboard) {
+          if (challenge) {
+            let isUserChallenge = user.id === challenge.leader.id;
+            isUserCanEditTask = isUserChallenge || task.challenge.broken;
+          } else {
+            isUserCanEditTask = task.challenge.broken;
+          }
         } else {
-          isUserCanEditTask = task.challenge.broken;
+          isUserCanEditTask = true;
         }
         break;
       case 'group':
