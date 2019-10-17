@@ -305,7 +305,7 @@
     "alreadyHaveAccountLogin": "已經擁有 Habitica 的帳號？<strong>按此登入</strong>",
     "dontHaveAccountSignup": "還沒有 Habitica 的帳號？<strong>立即註冊</strong>",
     "motivateYourself": "激勵自己完成目標。",
-    "timeToGetThingsDone": "是時候在完成目標時來點有趣的玩意！一同加入超過<%= userCountInMillions %>百萬 Habitica 鄉民的一份子吧！一次一個任務慢慢地改善您的生活。",
+    "timeToGetThingsDone": "是時候在完成目標時來點有趣的玩意！一同加入超過 <%= userCountInMillions %> 百萬 Habitica 鄉民的一份子吧！一次一個任務慢慢地改善您的生活。",
     "singUpForFree": "免費註冊",
     "or": "或是",
     "gamifyYourLife": "遊戲化您的生活",
