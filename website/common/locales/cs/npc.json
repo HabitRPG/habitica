@@ -91,7 +91,7 @@
     "unlocked": "Předměty byly odemčeny",
     "alreadyUnlocked": "Celý set je již odemčen.",
     "alreadyUnlockedPart": "Celý set je již částečně odemčen.",
-    "invalidQuantity": "Nákupní kvantita musí být číslo.",
+    "invalidQuantity": "Množství k nákupu musí být kladné celé číslo.",
     "USD": "(USD)",
     "newStuff": "Nové věci od Bailey",
     "newBaileyUpdate": "Nový Bailey update!",
@@ -103,7 +103,7 @@
     "donationDesc": "20 drahokamů, Příspěvek vývojářům",
     "payWithCard": "Zaplatit kartou",
     "payNote": "Poznámka: Zpracování platby přes PayPal někdy trvá delší dobu. Doporučujeme platit kartou.",
-    "card": "Platební kartou (za použití proužku)",
+    "card": "Platební kartou",
     "amazonInstructions": "Klikni pro zaplacení přes Amazon platby",
     "paymentMethods": "Platební metody",
     "paymentSuccessful": "Your payment was successful!",
@@ -167,5 +167,7 @@
     "welcome4": "Vyvaruj se zlozvyků, které ti ubírají Zdraví (HP), nebo tvůj avatar zemře!",
     "welcome5": "Nyní si upravíš svůj avatar a zadáš úkoly...",
     "imReady": "Vstup do země Habitica",
-    "limitedOffer": "Dostupné do <%= date %>"
+    "limitedOffer": "Dostupné do <%= date %>",
+    "paymentCanceledDisputes": "Na váš e-mail jsme zaslali potvrzení o zrušení. Pokud e-mail nevidíte, kontaktujte nás, abychom předešli budoucím sporům o fakturaci.",
+    "paymentAutoRenew": "Toto předplatné se automaticky obnoví, dokud nebude zrušeno. Pokud potřebujete předplatné zrušit, můžete tak učinit z nastavení."
 }
