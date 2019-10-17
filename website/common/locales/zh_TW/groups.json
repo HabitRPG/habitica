@@ -483,5 +483,6 @@
     "pmReported": "感謝您舉報此訊息。",
     "youHaveBeenAssignedTask": "<%= managerName %> 已指派你完成「<span class=\"notification-bold\"><%= taskText %></span>」任務。",
     "suggestedGroup": "由於你仍新到 Habitica。",
-    "taskClaimed": "<%= userName %> 已認領了任務：<span class=\"notification-bold\"><%= taskText %></span>。"
+    "taskClaimed": "<%= userName %> 已認領了任務：<span class=\"notification-bold\"><%= taskText %></span>。",
+    "groupActivityNotificationTitle": "<%= user %> 在 <%= group %> 貼文"
 }

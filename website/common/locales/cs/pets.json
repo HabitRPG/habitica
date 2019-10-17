@@ -19,7 +19,7 @@
     "veteranTiger": "Tygr veterán",
     "veteranLion": "Lev veterán",
     "veteranBear": "Medvěd Veterán",
-    "veteranFox": "Veteran Fox",
+    "veteranFox": "Liška Veterán",
     "cerberusPup": "Štěně Kerbera",
     "hydra": "Hydra",
     "mantisShrimp": "Strašek paví",
@@ -142,5 +142,8 @@
     "clickOnPotionToHatch": "Klikni na líhnoucí lektvar pro jeho použití na tvé <%= eggName %> a vylíhne se nový mazlíček!",
     "notEnoughPets": "Nenasbíral jsi dostatek Mazlíčků",
     "notEnoughMounts": "Nenasbíral jsi dostatek Osedlaných mazlíčků",
-    "notEnoughPetsMounts": "Nenasbíral jsi dostatek Mazlíčků a Osedlaných mazlíčků"
+    "notEnoughPetsMounts": "Nenasbíral jsi dostatek Mazlíčků a Osedlaných mazlíčků",
+    "filterByWacky": "Šílené",
+    "gryphatrice": "Gryfatrice",
+    "wackyPets": "Šílená zvířátka"
 }
