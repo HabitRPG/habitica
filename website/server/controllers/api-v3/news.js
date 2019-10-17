@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'DISCOUNTED PET QUEST BUNDLE: WITCHY FAMILIARS';
+const LAST_ANNOUNCEMENT_TITLE = 'HABITICA HIRING ANDROID DEVELOPER! AND BLOG POST ON THE QUEST SHOP';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,16 +30,17 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>10/15/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>10/17/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_witchy_familiars center-block"></div>
-        <p>If you're looking to add some pets to your Habitica stable to match your Fall Festival gear, you're in luck! From now until October 31, you can purchase the Witchy Familiars Pet Quest Bundle and receive the Rat, Spider, and Frog quests, all for only 7 Gems! That's a discount of 5 Gems from the price of purchasing them separately. Check it out in the <a href='/shops/quests'>Quest Shop</a> today!</p>
-        <div class="small">by Lemoness and SabreCat</div>
-        <div class="small">Art by Pandah, UncommonCriminal, Arcosine, starsystemic, RosemonkeyCT, Jon Arjinborn, and Breadstrings</div>
-        <div class="small mb-3">Writing by Token, Arcosine, and Fluitare</div>
-        <p>If rats and/or spiders are something you'd prefer not to see in Habitica due to a phobia, check out the <a href='http://habitica.wikia.com/wiki/Phobia_Protection_Extension' target='_blank'>Phobia Protection Extension</a> which will hide any pets, mounts, backgrounds, quest bosses, or equipment featuring spiders and/or rats (as well as snakes, bees, zombies, skeletons, or any combination thereof). We hope that it helps make everyone's Habitica experience fun!</p>
+        <h3>Habitica is Hiring! Android Developer Position</h3>
+        <p>Want to join the Habitica team? We’re looking to hire a new developer to help with our Android app! Our ideal candidate is a mobile developer with experience in Kotlin who is capable of supporting existing legacy code and working with our team to continue improving the user experience. You'll make major contributions that help serve and grow an audience of millions of users!</p>
+        <p>If this sounds like a job you'll love, check out the <a href='https://forms.gle/rdyDPTRD8ZjE2qLG8' target='_blank'>full job posting</a> for more information and to fill out an application. </p>
+        <div class="scene_quest_shop center-block"></div>
+        <h3>Blog Post: Quest Shop</h3>
+        <p>This month's <a href='https://habitica.wordpress.com/2019/10/16/quest-shop/' target='_blank'>featured Wiki article</a> is about the Quest Shop! We hope that it will help you as you look for additional ways to keep your Habitica adventure fun and motivating. Be sure to check it out, and let us know what you think by reaching out on <a href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a href='https://facebook.com/habitica' target='_blank'>Facebook</a>.</p>
+        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
       </div>
       `,
     });
