@@ -26,6 +26,7 @@ import payments from '../../libs/payments/payments';
 import stripePayments from '../../libs/payments/stripe';
 import amzLib from '../../libs/payments/amazon';
 import apiError from '../../libs/apiError';
+import { model as UserNotification } from '../../models/userNotification';
 
 const MAX_EMAIL_INVITES_BY_USER = 200;
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS_TECH_ASSISTANCE_EMAIL');
@@ -630,6 +631,8 @@ api.joinGroup = {
 
     if (group.type === 'party' && inviter) {
       if (group.memberCount > 1) {
+        const notif = new UserNotification({ type: 'ACHIEVEMENT_PARTY_UP' });
+
         promises.push(User.update(
           {
             $or: [{ 'party._id': group._id }, { _id: user._id }],
@@ -637,7 +640,7 @@ api.joinGroup = {
           },
           {
             $set: { 'achievements.partyUp': true },
-            $push: { notifications: { type: 'ACHIEVEMENT_PARTY_UP' } },
+            $push: { notifications: notif },
           },
           { multi: true },
         ).exec());
@@ -652,6 +655,8 @@ api.joinGroup = {
       }
 
       if (group.memberCount > 3) {
+        const notif = new UserNotification({ type: 'ACHIEVEMENT_PARTY_ON' });
+
         promises.push(User.update(
           {
             $or: [{ 'party._id': group._id }, { _id: user._id }],
@@ -659,7 +664,7 @@ api.joinGroup = {
           },
           {
             $set: { 'achievements.partyOn': true },
-            $push: { notifications: { type: 'ACHIEVEMENT_PARTY_ON' } },
+            $push: { notifications: notif },
           },
           { multi: true },
         ).exec());
