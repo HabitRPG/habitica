@@ -180,7 +180,7 @@
     "karma-spec-reporter": "0.0.32",
     "karma-webpack": "^3.0.0",
     "mocha": "^5.1.1",
-    "monk": "^6.0.6",
+    "monk": "^7.1.1",
     "nightwatch": "^1.0.16",
     "puppeteer": "^1.14.0",
     "require-again": "^2.0.0",
