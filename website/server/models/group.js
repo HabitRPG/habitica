@@ -541,9 +541,12 @@ schema.methods.getMemberCount = async function getMemberCount () {
 
 schema.methods.sendChat = function sendChat (options = {}) {
   const {
-    message, user, metaData, client, flagCount = 0, info = {}, translate,
+    message, user, metaData,
+    client, flagCount = 0, info = {},
+    translate, mentions, mentionedMembers,
   } = options;
   const newMessage = messageDefaults(message, user, client, flagCount, info);
+
   let newChatMessage = new Chat();
   newChatMessage = Object.assign(newChatMessage, newMessage);
   newChatMessage.groupId = this._id;
@@ -609,9 +612,31 @@ schema.methods.sendChat = function sendChat (options = {}) {
   });
 
   if (this.type === 'party' && user) {
-    sendChatPushNotifications(user, this, newChatMessage, translate);
+    sendChatPushNotifications(user, this, newChatMessage, mentions, translate);
   }
-
+  if (mentionedMembers) {
+    mentionedMembers.forEach(member => {
+      if (member._id === user._id) return;
+      const pushNotifPrefs = member.preferences.pushNotifications;
+      if (this.type === 'party') {
+        if (pushNotifPrefs.mentionParty !== true || !this.isMember(member)) {
+          return;
+        }
+      } else if (this.isMember(member)) {
+        if (pushNotifPrefs.mentionJoinedGuild !== true) {
+          return;
+        }
+      } else {
+        if (this.privacy !== 'public') {
+          return;
+        }
+        if (pushNotifPrefs.mentionUnjoinedGuild !== true) {
+          return;
+        }
+      }
+      sendPushNotification(member, { identifier: 'chatMention', title: `${user.profile.name} mentioned you in ${this.name}`, message });
+    });
+  }
   return newChatMessage;
 };
 

@@ -190,23 +190,35 @@ schema.pre('save', true, function preSaveUser (next, done) {
     // Determines if Beast Master should be awarded
     const beastMasterProgress = common.count.beastMasterProgress(this.items.pets);
 
-    if (beastMasterProgress >= 90 || this.achievements.beastMasterCount > 0) {
+    if (
+      (beastMasterProgress >= 90 || this.achievements.beastMasterCount > 0)
+      && this.achievements.beastMaster !== true
+    ) {
       this.achievements.beastMaster = true;
+      this.addNotification('ACHIEVEMENT_BEAST_MASTER');
     }
 
     // Determines if Mount Master should be awarded
     const mountMasterProgress = common.count.mountMasterProgress(this.items.mounts);
 
-    if (mountMasterProgress >= 90 || this.achievements.mountMasterCount > 0) {
+    if (
+      (mountMasterProgress >= 90 || this.achievements.mountMasterCount > 0)
+      && this.achievements.mountMaster !== true
+    ) {
       this.achievements.mountMaster = true;
+      this.addNotification('ACHIEVEMENT_MOUNT_MASTER');
     }
 
     // Determines if Triad Bingo should be awarded
     const dropPetCount = common.count.dropPetsCurrentlyOwned(this.items.pets);
     const qualifiesForTriad = dropPetCount >= 90 && mountMasterProgress >= 90;
 
-    if (qualifiesForTriad || this.achievements.triadBingoCount > 0) {
+    if (
+      (qualifiesForTriad || this.achievements.triadBingoCount > 0)
+      && this.achievements.triadBingo !== true
+    ) {
       this.achievements.triadBingo = true;
+      this.addNotification('ACHIEVEMENT_TRIAD_BINGO');
     }
 
     // EXAMPLE CODE for allowing all existing and new players to be

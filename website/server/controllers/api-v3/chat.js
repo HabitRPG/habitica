@@ -19,6 +19,7 @@ import guildsAllowingBannedWords from '../../libs/guildsAllowingBannedWords';
 import { getMatchesByWordArray } from '../../libs/stringUtils';
 import bannedSlurs from '../../libs/bannedSlurs';
 import apiError from '../../libs/apiError';
+import { highlightMentions } from '../../libs/highlightMentions';
 
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map(email => ({ email, canSend: true }));
 
@@ -89,7 +90,6 @@ function getBannedWordsFromText (message) {
 }
 
 
-const mentionRegex = new RegExp('\\B@[-\\w]+', 'g');
 /**
  * @api {post} /api/v3/groups/:groupId/chat Post chat message to a group
  * @apiName PostChat
@@ -187,6 +187,7 @@ api.postChat = {
       throw new NotAuthorized(res.t('messageGroupChatSpam'));
     }
 
+    const [message, mentions, mentionedMembers] = await highlightMentions(req.body.message);
     let client = req.headers['x-client'] || '3rd Party';
     if (client) {
       client = client.replace('habitica-', '');
@@ -195,7 +196,6 @@ api.postChat = {
     let flagCount = 0;
     if (group.privacy === 'public' && user.flags.chatShadowMuted) {
       flagCount = common.constants.CHAT_FLAG_FROM_SHADOW_MUTE;
-      const { message } = req.body;
 
       // Email the mods
       const authorEmail = getUserInfo(user, ['email']).email;
@@ -228,7 +228,14 @@ api.postChat = {
     }
 
     const newChatMessage = group.sendChat({
-      message: req.body.message, user, flagCount, metaData: null, client, translate: res.t,
+      message: req.body.message,
+      user,
+      flagCount,
+      metaData: null,
+      client,
+      translate: res.t,
+      mentions,
+      mentionedMembers,
     });
     const toSave = [newChatMessage.save()];
 
@@ -236,6 +243,7 @@ api.postChat = {
       user.party.lastMessageSeen = newChatMessage.id;
       toSave.push(user.save());
     }
+
 
     await Promise.all(toSave);
 
@@ -248,7 +256,6 @@ api.postChat = {
       headers: req.headers,
     };
 
-    const mentions = req.body.message.match(mentionRegex);
     if (mentions) {
       analyticsObject.mentionsCount = mentions.length;
     } else {

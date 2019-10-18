@@ -178,7 +178,6 @@
 
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/tiers.scss';
 
   .header-wrap {
     padding: 0.5em;

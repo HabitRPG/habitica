@@ -318,6 +318,7 @@ describe('POST /group/:groupId/join', () => {
         name: 'Testing Party',
         type: 'party',
       });
+
       await leader.post(`/groups/${party._id}/invite`, {
         uuids: [member._id],
       });
@@ -329,7 +330,9 @@ describe('POST /group/:groupId/join', () => {
       await leader.sync();
 
       expect(member).to.have.nested.property('achievements.partyUp', true);
+      expect(member.notifications.find(notification => notification.type === 'ACHIEVEMENT_PARTY_UP')).to.exist;
       expect(leader).to.have.nested.property('achievements.partyUp', true);
+      expect(leader.notifications.find(notification => notification.type === 'ACHIEVEMENT_PARTY_UP')).to.exist;
     });
 
     it('does not award Party On achievement to party of size 2', async () => {
@@ -353,7 +356,9 @@ describe('POST /group/:groupId/join', () => {
       await leader.sync();
 
       expect(member).to.have.nested.property('achievements.partyOn', true);
+      expect(member.notifications.find(notification => notification.type === 'ACHIEVEMENT_PARTY_ON')).to.exist;
       expect(leader).to.have.nested.property('achievements.partyOn', true);
+      expect(leader.notifications.find(notification => notification.type === 'ACHIEVEMENT_PARTY_ON')).to.exist;
     });
   });
 });

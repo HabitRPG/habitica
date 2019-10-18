@@ -33,6 +33,7 @@
         <span v-if="msg.client && user.contributor.level >= 4">({{ msg.client }})</span>
       </p>
       <div
+        ref="markdownContainer"
         class="text"
         v-html="atHighlight(parseMarkdown(msg.text))"
       ></div>
@@ -139,7 +140,6 @@
 
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/tiers.scss';
 
   .mentioned-icon {
     width: 16px;
@@ -313,6 +313,16 @@ export default {
     },
   },
   mounted () {
+    const links = this.$refs.markdownContainer.getElementsByTagName('a');
+    for (let i = 0; i < links.length; i += 1) {
+      const link = links[i];
+      if (links[i].getAttribute('href').startsWith('/profile/')) {
+        links[i].onclick = ev => {
+          ev.preventDefault();
+          this.$router.push({ path: link.getAttribute('href') });
+        };
+      }
+    }
     this.CHAT_FLAG_LIMIT_FOR_HIDING = CHAT_FLAG_LIMIT_FOR_HIDING;
     this.CHAT_FLAG_FROM_SHADOW_MUTE = CHAT_FLAG_FROM_SHADOW_MUTE;
     this.$emit('chat-card-mounted', this.msg.id);
