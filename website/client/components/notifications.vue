@@ -175,6 +175,43 @@ const NOTIFICATIONS = {
     label: ($t) => `${$t('achievement')}: ${$t('achievementAridAuthority')}`,
     modalId: 'generic-achievement',
   },
+  ACHIEVEMENT_PARTY_UP: {
+    achievement: true,
+    label: ($t) => `${$t('achievement')}: ${$t('achievementPartyUp')}`,
+    modalId: 'generic-achievement',
+  },
+  ACHIEVEMENT_PARTY_ON: {
+    achievement: true,
+    label: ($t) => `${$t('achievement')}: ${$t('achievementPartyOn')}`,
+    modalId: 'generic-achievement',
+  },
+  ACHIEVEMENT_BEAST_MASTER: {
+    achievement: true,
+    label: ($t) => `${$t('achievement')}: ${$t('beastAchievement')}`,
+    modalId: 'generic-achievement',
+    data: {
+      message: ($t) => $t('achievement'),
+      modalText: ($t) => $t('mountAchievement'),
+    },
+  },
+  ACHIEVEMENT_MOUNT_MASTER: {
+    achievement: true,
+    label: ($t) => `${$t('achievement')}: ${$t('mountAchievement')}`,
+    modalId: 'generic-achievement',
+    data: {
+      message: ($t) => $t('achievement'),
+      modalText: ($t) => $t('mountAchievement'),
+    },
+  },
+  ACHIEVEMENT_TRIAD_BINGO: {
+    achievement: true,
+    label: ($t) => `${$t('achievement')}: ${$t('triadBingoAchievement')}`,
+    modalId: 'generic-achievement',
+    data: {
+      message: ($t) => $t('achievement'),
+      modalText: ($t) => $t('triadBingoAchievement'),
+    },
+  },
 };
 
 export default {
@@ -230,7 +267,8 @@ export default {
       'ULTIMATE_GEAR_ACHIEVEMENT', 'REBIRTH_ACHIEVEMENT', 'GUILD_JOINED_ACHIEVEMENT',
       'CHALLENGE_JOINED_ACHIEVEMENT', 'INVITED_FRIEND_ACHIEVEMENT', 'NEW_CONTRIBUTOR_LEVEL',
       'CRON', 'SCORED_TASK', 'LOGIN_INCENTIVE', 'ACHIEVEMENT_ALL_YOUR_BASE', 'ACHIEVEMENT_BACK_TO_BASICS',
-      'ACHIEVEMENT_DUST_DEVIL', 'ACHIEVEMENT_ARID_AUTHORITY', 'GENERIC_ACHIEVEMENT',
+      'GENERIC_ACHIEVEMENT', 'ACHIEVEMENT_PARTY_UP', 'ACHIEVEMENT_PARTY_ON', 'ACHIEVEMENT_BEAST_MASTER',
+      'ACHIEVEMENT_MOUNT_MASTER', 'ACHIEVEMENT_TRIAD_BINGO', 'ACHIEVEMENT_DUST_DEVIL', 'ACHIEVEMENT_ARID_AUTHORITY',
     ].forEach(type => {
       handledNotifications[type] = true;
     });
@@ -381,21 +419,30 @@ export default {
       if (!config) {
         return;
       }
-
       if (config.achievement) {
         this.playSound('Achievement_Unlocked');
       } else if (config.sound) {
         this.playSound(config.sound);
       }
 
+      let data = {};
       if (notification.data) {
-        this.notificationData = notification.data;
+        data = notification.data;
       }
 
+      if (!data.modalText && config.data.modalText) {
+        data.modalText = config.data.modalText(this.$t);
+      }
+      if (!data.message && config.data.message) {
+        data.message = config.data.message(this.$t);
+      }
+
+      this.notificationData = data;
       if (forceToModal) {
         this.$root.$emit('bv::show::modal', config.modalId);
       } else {
         this.text(config.label(this.$t), () => {
+          this.notificationData = data;
           this.$root.$emit('bv::show::modal', config.modalId);
         }, false);
       }
@@ -607,6 +654,11 @@ export default {
           case 'ACHIEVEMENT_BACK_TO_BASICS':
           case 'ACHIEVEMENT_DUST_DEVIL':
           case 'ACHIEVEMENT_ARID_AUTHORITY':
+          case 'ACHIEVEMENT_PARTY_UP':
+          case 'ACHIEVEMENT_PARTY_ON':
+          case 'ACHIEVEMENT_BEAST_MASTER':
+          case 'ACHIEVEMENT_MOUNT_MASTER':
+          case 'ACHIEVEMENT_TRIAD_BINGO':
           case 'GENERIC_ACHIEVEMENT':
             this.showNotificationWithModal(notification);
             break;

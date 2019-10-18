@@ -440,7 +440,6 @@ export default {
       if (this.isParty) {
         await this.$store.dispatch('party:getParty', true);
         this.group = this.$store.state.party.data;
-        this.checkForAchievements();
       } else {
         const group = await this.$store.dispatch('guilds:getGroup', {groupId: this.searchId});
         this.$set(this, 'group', group);
@@ -461,21 +460,6 @@ export default {
       return this.user.notifications.some(n => {
         return n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === groupId;
       });
-    },
-    checkForAchievements () {
-      // Checks if user's party has reached 2 players for the first time.
-      if (!this.user.achievements.partyUp && this.group.memberCount >= 2) {
-        // @TODO
-        // User.set({'achievements.partyUp':true});
-        // Achievement.displayAchievement('partyUp');
-      }
-
-      // Checks if user's party has reached 4 players for the first time.
-      if (!this.user.achievements.partyOn && this.group.memberCount >= 4) {
-        // @TODO
-        // User.set({'achievements.partyOn':true});
-        // Achievement.displayAchievement('partyOn');
-      }
     },
     async join () {
       if (this.group.cancelledPlan && !confirm(this.$t('aboutToJoinCancelledGroupPlan'))) {
