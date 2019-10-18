@@ -1,6 +1,6 @@
 import t from '../../translation';
 
-let armor = {
+const armor = {
   1: {
     text: t('armorWizard1Text'),
     notes: t('armorWizard1Notes', { int: 2 }),
@@ -34,7 +34,7 @@ let armor = {
   },
 };
 
-let head = {
+const head = {
   1: {
     text: t('headWizard1Text'),
     notes: t('headWizard1Notes', { per: 2 }),
@@ -68,18 +68,20 @@ let head = {
   },
 };
 
-let shield = {
+const shield = {
   // Wizard's weapons are two handed
   // And thus do not have shields
   // But the content structure still expects an object
 };
 
-let weapon = {
+const weapon = {
 
   0: {
     twoHanded: true,
     text: t('weaponWizard0Text'),
-    notes: t('weaponWizard0Notes'), value: 0 },
+    notes: t('weaponWizard0Notes'),
+    value: 0,
+  },
   1: {
     twoHanded: true,
     text: t('weaponWizard1Text'),
@@ -131,11 +133,9 @@ let weapon = {
   },
 };
 
-let wizardSet = {
+export {
   armor,
   head,
   shield,
   weapon,
 };
-
-module.exports = wizardSet;

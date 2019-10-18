@@ -14,11 +14,12 @@ const TOP_LEVEL_ROUTES = [
   '/export',
   '/email',
   '/qr-code',
-  // logout, old-client and /static/user/auth/local/reset-password-set-new-one don't need the not found
+  // logout, old-client
+  // and /static/user/auth/local/reset-password-set-new-one don't need the not found
   // handler because they don't have any child route
 ];
 
-module.exports = function NotFoundMiddleware (req, res, next) {
+export default function NotFoundMiddleware (req, res, next) {
   const reqUrl = req.originalUrl;
 
   const isExistingRoute = TOP_LEVEL_ROUTES.find(routeRoot => {
@@ -28,7 +29,6 @@ module.exports = function NotFoundMiddleware (req, res, next) {
 
   if (isExistingRoute || req.method !== 'GET') {
     return next(new NotFound());
-  } else {
-    serveClient(res);
   }
-};
+  serveClient(res);
+}

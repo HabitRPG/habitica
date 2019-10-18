@@ -1,10 +1,10 @@
+import { v4 as generateUUID } from 'uuid';
 import {
   generateUser,
   generateGroup,
   generateChallenge,
   translate as t,
 } from '../../../../../helpers/api-integration/v3';
-import { v4 as generateUUID } from 'uuid';
 
 describe('POST /tasks/:taskId/checklist/', () => {
   let user;
@@ -29,12 +29,12 @@ describe('POST /tasks/:taskId/checklist/', () => {
   });
 
   it('returns error when user is not a member of the challenge', async () => {
-    let task = await user.post(`/tasks/challenge/${challenge._id}`, {
+    const task = await user.post(`/tasks/challenge/${challenge._id}`, {
       type: 'daily',
       text: 'Daily with checklist',
     });
 
-    let anotherUser = await generateUser();
+    const anotherUser = await generateUser();
 
     await expect(anotherUser.post(`/tasks/${task._id}/checklist`, {
       text: 'Checklist Item 1',
@@ -49,12 +49,12 @@ describe('POST /tasks/:taskId/checklist/', () => {
   });
 
   it('adds a checklist item to a daily', async () => {
-    let task = await user.post(`/tasks/challenge/${challenge._id}`, {
+    const task = await user.post(`/tasks/challenge/${challenge._id}`, {
       type: 'daily',
       text: 'Daily with checklist',
     });
 
-    let savedTask = await user.post(`/tasks/${task._id}/checklist`, {
+    const savedTask = await user.post(`/tasks/${task._id}/checklist`, {
       text: 'Checklist Item 1',
       ignored: false,
       _id: 123,
@@ -69,12 +69,12 @@ describe('POST /tasks/:taskId/checklist/', () => {
   });
 
   it('adds a checklist item to a todo', async () => {
-    let task = await user.post(`/tasks/challenge/${challenge._id}`, {
+    const task = await user.post(`/tasks/challenge/${challenge._id}`, {
       type: 'todo',
       text: 'Todo with checklist',
     });
 
-    let savedTask = await user.post(`/tasks/${task._id}/checklist`, {
+    const savedTask = await user.post(`/tasks/${task._id}/checklist`, {
       text: 'Checklist Item 1',
       ignored: false,
       _id: 123,
@@ -89,7 +89,7 @@ describe('POST /tasks/:taskId/checklist/', () => {
   });
 
   it('does not add a checklist to habits', async () => {
-    let habit = await user.post(`/tasks/challenge/${challenge._id}`, {
+    const habit = await user.post(`/tasks/challenge/${challenge._id}`, {
       type: 'habit',
       text: 'habit with checklist',
     });
@@ -104,7 +104,7 @@ describe('POST /tasks/:taskId/checklist/', () => {
   });
 
   it('does not add a checklist to rewards', async () => {
-    let reward = await user.post(`/tasks/challenge/${challenge._id}`, {
+    const reward = await user.post(`/tasks/challenge/${challenge._id}`, {
       type: 'reward',
       text: 'reward with checklist',
     });

@@ -18,7 +18,7 @@ describe('shared.ops.disableClasses', () => {
     user.preferences.autoAllocate = false;
     user.stats.points = 2;
 
-    let [data] = disableClasses(user);
+    const [data] = disableClasses(user);
     expect(data).to.eql({
       preferences: user.preferences,
       stats: user.stats,

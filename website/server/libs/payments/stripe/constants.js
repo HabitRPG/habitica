@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   // CURRENCY_CODE: 'USD',
   // SELLER_NOTE: 'Habitica Payment',
   // SELLER_NOTE_SUBSCRIPTION: 'Habitica Subscription',
