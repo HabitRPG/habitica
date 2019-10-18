@@ -9,7 +9,7 @@ div
       span.mr-1(v-if="msg.username") •
       span(v-b-tooltip="", :title="msg.timestamp | date") {{ msg.timestamp | timeAgo }}&nbsp;
       span(v-if="msg.client && user.contributor.level >= 4")  ({{ msg.client }})
-    .text(v-html='atHighlight(parseMarkdown(msg.text))')
+    .text(v-html='atHighlight(parseMarkdown(msg.text))', ref='markdownContainer')
     .reported(v-if="isMessageReported && (inbox === true)")
       span(v-once) {{ $t('reportedMessage')}}
       br
@@ -47,7 +47,6 @@ div
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
-  @import '~client/assets/scss/tiers.scss';
 
   .mentioned-icon {
     width: 16px;
@@ -217,6 +216,21 @@ export default {
       return 'Message hidden (shadow-muted)';
     },
   },
+  mounted () {
+    const links = this.$refs.markdownContainer.getElementsByTagName('a');
+    for (let i = 0; i < links.length; i++) {
+      const link = links[i];
+      if (links[i].getAttribute('href').startsWith('/profile/')) {
+        links[i].onclick = (ev) => {
+          ev.preventDefault();
+          this.$router.push({ path: link.getAttribute('href')});
+        };
+      }
+    }
+    this.CHAT_FLAG_LIMIT_FOR_HIDING = CHAT_FLAG_LIMIT_FOR_HIDING;
+    this.CHAT_FLAG_FROM_SHADOW_MUTE = CHAT_FLAG_FROM_SHADOW_MUTE;
+    this.$emit('chat-card-mounted', this.msg.id);
+  },
   methods: {
     async like () {
       let message = cloneDeep(this.msg);
@@ -278,11 +292,6 @@ export default {
       if (!text) return;
       return habiticaMarkdown.render(String(text));
     },
-  },
-  mounted () {
-    this.CHAT_FLAG_LIMIT_FOR_HIDING = CHAT_FLAG_LIMIT_FOR_HIDING;
-    this.CHAT_FLAG_FROM_SHADOW_MUTE = CHAT_FLAG_FROM_SHADOW_MUTE;
-    this.$emit('chat-card-mounted', this.msg.id);
   },
 };
 </script>

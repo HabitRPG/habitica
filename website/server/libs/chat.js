@@ -18,15 +18,18 @@ export async function getAuthorEmailFromMessage (message) {
   }
 }
 
-export async function sendChatPushNotifications (user, group, message, translate) {
+export async function sendChatPushNotifications (user, group, message, mentions, translate) {
   let members = await User.find({
     'party._id': group._id,
     _id: {$ne: user._id},
   })
-    .select('preferences.pushNotifications preferences.language profile.name pushDevices')
+    .select('preferences.pushNotifications preferences.language profile.name pushDevices auth.local.username')
     .exec();
   members.forEach(member => {
     if (member.preferences.pushNotifications.partyActivity !== false) {
+      if (mentions && mentions.includes(`@${member.auth.local.username}`) && member.preferences.pushNotifications.mentionParty !== false) {
+        return;
+      }
       sendPushNotification(
         member,
         {
