@@ -122,7 +122,7 @@ api.bundles = {
       'frog',
     ],
     canBuy () {
-      return moment().isBetween('2017-10-10', '2017-11-02');
+      return moment().isBetween('2019-10-15', '2019-11-02');
     },
     type: 'quests',
     value: 7,

@@ -4,7 +4,8 @@ const api = {};
 
 // @TODO export this const, cannot export it
 // from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'SUPERNATURAL SKINS AND HAUNTED HAIR COLORS';
+const LAST_ANNOUNCEMENT_TITLE = 'HABITICA HIRING ANDROID DEVELOPER! AND BLOG POST ON THE QUEST SHOP';
+
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,15 +32,17 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>10/8/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>10/17/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_fall_skins center-block"></div>
-        <p>The Seasonal Edition Haunted Hair Colors are now available for purchase! Now you can dye your avatar's hair Pumpkin, Midnight, Candy Corn, Ghost White, Zombie, or Halloween. Get them before October 31st!</p>
-        <p>The Supernatural Skin Set is also available until October 31st! Now your avatar can become an Ogre, Skeleton, Pumpkin, Candy Corn, Reptile, or Dread Shade.</p>
-        <p>Seasonal Edition items recur unchanged every year, but they are only available to purchase during a short period of time. Find these exciting skins and hair colors in User>Edit Avatar. Get them now, or you'll have to wait until next year!</p>
-        <div class="small mb-3">by Lemoness, mariahm, and crystalphoenix</div>
+        <h3>Habitica is Hiring! Android Developer Position</h3>
+        <p>Want to join the Habitica team? We’re looking to hire a new developer to help with our Android app! Our ideal candidate is a mobile developer with experience in Kotlin who is capable of supporting existing legacy code and working with our team to continue improving the user experience. You'll make major contributions that help serve and grow an audience of millions of users!</p>
+        <p>If this sounds like a job you'll love, check out the <a href='https://forms.gle/rdyDPTRD8ZjE2qLG8' target='_blank'>full job posting</a> for more information and to fill out an application. </p>
+        <div class="scene_quest_shop center-block"></div>
+        <h3>Blog Post: Quest Shop</h3>
+        <p>This month's <a href='https://habitica.wordpress.com/2019/10/16/quest-shop/' target='_blank'>featured Wiki article</a> is about the Quest Shop! We hope that it will help you as you look for additional ways to keep your Habitica adventure fun and motivating. Be sure to check it out, and let us know what you think by reaching out on <a href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a href='https://facebook.com/habitica' target='_blank'>Facebook</a>.</p>
+        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
       </div>
       `,
     });

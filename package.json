@@ -1,7 +1,7 @@
 {
   "name": "habitica",
   "description": "A habit tracker app which treats your goals like a Role Playing Game.",
-  "version": "4.116.6",
+  "version": "4.116.8",
   "main": "./website/server/index.js",
   "dependencies": {
     "@google-cloud/trace-agent": "^4.0.0",
@@ -108,7 +108,7 @@
     "expect.js": "^0.3.1",
     "istanbul": "^1.1.0-alpha.1",
     "mocha": "^5.1.1",
-    "monk": "^6.0.6",
+    "monk": "^7.1.1",
     "require-again": "^2.0.0",
     "sinon": "^7.2.4",
     "sinon-chai": "^3.0.0",
