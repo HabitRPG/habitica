@@ -1,26 +1,24 @@
+import moment from 'moment';
 import {
   generateUser,
 } from '../../../../helpers/api-integration/v3';
 import {
   updateDocument,
 } from '../../../../helpers/mongo';
-import moment from 'moment';
 
 describe('GET /export/history.csv', () => {
   // TODO disabled because it randomly causes the build to fail
   xit('should return a valid CSV file with tasks history data', async () => {
-    let user = await generateUser();
+    const user = await generateUser();
     let tasks = await user.post('/tasks/user', [
-      {type: 'daily', text: 'daily 1'},
-      {type: 'habit', text: 'habit 1'},
-      {type: 'habit', text: 'habit 2'},
-      {type: 'todo', text: 'todo 1'},
+      { type: 'daily', text: 'daily 1' },
+      { type: 'habit', text: 'habit 1' },
+      { type: 'habit', text: 'habit 2' },
+      { type: 'todo', text: 'todo 1' },
     ]);
 
     // to handle occasional inconsistency in task creation order
-    tasks.sort(function (a, b) {
-      return a.text.localeCompare(b.text);
-    });
+    tasks.sort((a, b) => a.text.localeCompare(b.text));
 
     // score all the tasks twice
     await user.post(`/tasks/${tasks[0]._id}/score/up`);
@@ -35,16 +33,14 @@ describe('GET /export/history.csv', () => {
 
     // adding an history entry to daily 1 manually because cron didn't run yet
     await updateDocument('tasks', tasks[0], {
-      history: [{value: 3.2, date: Number(new Date())}],
+      history: [{ value: 3.2, date: Number(new Date()) }],
     });
 
     // get updated tasks
-    tasks = await Promise.all(tasks.map(task => {
-      return user.get(`/tasks/${task._id}`);
-    }));
+    tasks = await Promise.all(tasks.map(task => user.get(`/tasks/${task._id}`)));
 
-    let res = await user.get('/export/history.csv');
-    let splitRes = res.split('\n');
+    const res = await user.get('/export/history.csv');
+    const splitRes = res.split('\n');
 
     expect(splitRes[0]).to.equal('Task Name,Task ID,Task Type,Date,Value');
     expect(splitRes[1]).to.equal(`daily 1,${tasks[0]._id},daily,${moment(tasks[0].history[0].date).format('YYYY-MM-DD HH:mm:ss')},${tasks[0].history[0].value}`);

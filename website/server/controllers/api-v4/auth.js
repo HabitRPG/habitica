@@ -3,7 +3,7 @@ import {
 } from '../../middlewares/auth';
 import * as authLib from '../../libs/auth';
 import { model as User } from '../../models/user';
-import {verifyUsername} from '../../libs/user/validation';
+import { verifyUsername } from '../../libs/user/validation';
 
 const api = {};
 
@@ -16,14 +16,14 @@ api.verifyUsername = {
   async handler (req, res) {
     req.checkBody({
       username: {
-        notEmpty: {errorMessage: res.t('missingUsername')},
+        notEmpty: { errorMessage: res.t('missingUsername') },
       },
     });
 
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    const user = res.locals.user;
+    const { user } = res.locals;
     const chosenUsername = req.body.username;
 
     const issues = verifyUsername(chosenUsername, res);
@@ -31,10 +31,10 @@ api.verifyUsername = {
     if (issues.length < 1) {
       const existingUser = await User.findOne({
         'auth.local.lowerCaseUsername': chosenUsername.toLowerCase(),
-      }, {auth: 1}).exec();
+      }, { auth: 1 }).exec();
 
       if (existingUser) {
-        if (!user ||  existingUser._id !== user._id) issues.push(res.t('usernameTaken'));
+        if (!user || existingUser._id !== user._id) issues.push(res.t('usernameTaken'));
       }
     }
 
@@ -56,16 +56,20 @@ api.verifyUsername = {
 
 /**
  * @api {post} /api/v4/user/auth/local/register Register
- * @apiDescription Register a new user with email, login name, and password or attach local auth to a social user
+ * @apiDescription Register a new user with email, login name, and password
+ * or attach local auth to a social user
  * @apiName UserRegisterLocal
  * @apiGroup User
  *
- * @apiParam (Body) {String} username Login name of the new user. Must be 1-36 characters, containing only a-z, 0-9, hyphens (-), or underscores (_).
+ * @apiParam (Body) {String} username Login name of the new user.
+ *                                    Must be 1-36 characters, containing only
+ *                                    a-z, 0-9, hyphens (-), or underscores (_).
  * @apiParam (Body) {String} email Email address of the new user
  * @apiParam (Body) {String} password Password for the new user
  * @apiParam (Body) {String} confirmPassword Password confirmation
  *
- * @apiSuccess {Object} data The user object, if local auth was just attached to a social user then only user.auth.local
+ * @apiSuccess {Object} data The user object, if local auth was just
+ *                           attached to a social user then only user.auth.local
  */
 api.registerLocal = {
   method: 'POST',
@@ -78,4 +82,4 @@ api.registerLocal = {
   },
 };
 
-module.exports = api;
+export default api;

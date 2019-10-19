@@ -9,7 +9,7 @@ import common from '../../common';
 import {
   model as Group,
 } from '../models/group';
-import apiError from '../libs/apiError';
+import apiError from './apiError';
 
 const partyMembersFields = 'profile.name stats achievements items.special notifications flags';
 // Excluding notifications and flags from the list of public fields to return.
@@ -76,9 +76,10 @@ async function castSelfSpell (req, user, spell, quantity = 1) {
 
 async function castPartySpell (req, party, partyMembers, user, spell, quantity = 1) {
   if (!party) {
-    partyMembers = [user]; // Act as solo party
+    // Act as solo party
+    partyMembers = [user]; // eslint-disable-line no-param-reassign
   } else {
-    partyMembers = await User
+    partyMembers = await User // eslint-disable-line no-param-reassign
       .find({
         'party._id': party._id,
         _id: { $ne: user._id }, // add separately
@@ -99,18 +100,18 @@ async function castPartySpell (req, party, partyMembers, user, spell, quantity =
 
 async function castUserSpell (res, req, party, partyMember, targetId, user, spell, quantity = 1) {
   if (!party && (!targetId || user._id === targetId)) {
-    partyMember = user;
+    partyMember = user; // eslint-disable-line no-param-reassign
   } else {
     if (!targetId) throw new BadRequest(res.t('targetIdUUID'));
     if (!party) throw new NotFound(res.t('partyNotFound'));
-    partyMember = await User
-      .findOne({_id: targetId, 'party._id': party._id})
+    partyMember = await User // eslint-disable-line no-param-reassign
+      .findOne({ _id: targetId, 'party._id': party._id })
       // We need all fields due to adding debuf spell to pinned items of target of the spell
       // .select(partyMembersFields)
       .exec();
   }
 
-  if (!partyMember) throw new NotFound(res.t('userWithIDNotFound', {userId: targetId}));
+  if (!partyMember) throw new NotFound(res.t('userWithIDNotFound', { userId: targetId }));
 
   for (let i = 0; i < quantity; i += 1) {
     spell.cast(user, partyMember, req);
@@ -130,27 +131,27 @@ async function castUserSpell (res, req, party, partyMember, targetId, user, spel
   return partyMember;
 }
 
-async function castSpell (req, res, {isV3 = false}) {
-  const user = res.locals.user;
-  const spellId = req.params.spellId;
-  const targetId = req.query.targetId;
+async function castSpell (req, res, { isV3 = false }) {
+  const { user } = res.locals;
+  const { spellId } = req.params;
+  const { targetId } = req.query;
   const quantity = req.body.quantity || 1;
 
   // optional because not required by all targetTypes, presence is checked later if necessary
   req.checkQuery('targetId', res.t('targetIdUUID')).optional().isUUID();
 
-  let reqValidationErrors = req.validationErrors();
+  const reqValidationErrors = req.validationErrors();
   if (reqValidationErrors) throw reqValidationErrors;
 
-  let klass = common.content.spells.special[spellId] ? 'special' : user.stats.class;
-  let spell = common.content.spells[klass][spellId];
+  const klass = common.content.spells.special[spellId] ? 'special' : user.stats.class;
+  const spell = common.content.spells[klass][spellId];
 
-  if (!spell) throw new NotFound(apiError('spellNotFound', {spellId}));
+  if (!spell) throw new NotFound(apiError('spellNotFound', { spellId }));
   if (spell.mana > user.stats.mp) throw new NotAuthorized(res.t('notEnoughMana'));
   if (spell.value > user.stats.gp && !spell.previousPurchase) throw new NotAuthorized(res.t('messageNotEnoughGold'));
-  if (spell.lvl > user.stats.lvl) throw new NotAuthorized(res.t('spellLevelTooHigh', {level: spell.lvl}));
+  if (spell.lvl > user.stats.lvl) throw new NotAuthorized(res.t('spellLevelTooHigh', { level: spell.lvl }));
 
-  let targetType = spell.target;
+  const targetType = spell.target;
 
   if (targetType === 'task') {
     const results = await castTaskSpell(res, req, targetId, user, spell, quantity);
@@ -176,23 +177,28 @@ async function castSpell (req, res, {isV3 = false}) {
     if (isV3) response.user = await response.user.toJSONWithInbox();
     res.respond(200, response);
   } else if (targetType === 'party' || targetType === 'user') {
-    const party = await Group.getGroup({groupId: 'party', user});
+    const party = await Group.getGroup({ groupId: 'party', user });
     // arrays of users when targetType is 'party' otherwise single users
     let partyMembers;
 
     if (targetType === 'party') {
       partyMembers = await castPartySpell(req, party, partyMembers, user, spell, quantity);
     } else {
-      partyMembers = await castUserSpell(res, req, party, partyMembers, targetId, user, spell, quantity);
+      partyMembers = await castUserSpell(
+        res, req, party, partyMembers,
+        targetId, user, spell, quantity,
+      );
     }
 
     let partyMembersRes = Array.isArray(partyMembers) ? partyMembers : [partyMembers];
 
     // Only return some fields.
     // We can't just return the selected fields because they're private
-    partyMembersRes = partyMembersRes.map(partyMember => {
-      return common.pickDeep(partyMember.toJSON(), common.$w(partyMembersPublicFields));
-    });
+    partyMembersRes = partyMembersRes
+      .map(partyMember => common.pickDeep(
+        partyMember.toJSON(),
+        common.$w(partyMembersPublicFields),
+      ));
 
     let userToJson = user;
     if (isV3) userToJson = await userToJson.toJSONWithInbox();
@@ -205,7 +211,7 @@ async function castSpell (req, res, {isV3 = false}) {
     if (party && !spell.silent) {
       if (targetType === 'user') {
         const newChatMessage = party.sendChat({
-          message: `\`${common.i18n.t('chatCastSpellUser', {username: user.profile.name, spell: spell.text(), target: partyMembers.profile.name}, 'en')}\``,
+          message: `\`${common.i18n.t('chatCastSpellUser', { username: user.profile.name, spell: spell.text(), target: partyMembers.profile.name }, 'en')}\``,
           info: {
             type: 'spell_cast_user',
             user: user.profile.name,
@@ -217,7 +223,7 @@ async function castSpell (req, res, {isV3 = false}) {
         await newChatMessage.save();
       } else {
         const newChatMessage = party.sendChat({
-          message: `\`${common.i18n.t('chatCastSpellParty', {username: user.profile.name, spell: spell.text()}, 'en')}\``,
+          message: `\`${common.i18n.t('chatCastSpellParty', { username: user.profile.name, spell: spell.text() }, 'en')}\``,
           info: {
             type: 'spell_cast_party',
             user: user.profile.name,

@@ -1,9 +1,9 @@
+import superagent from 'superagent';
+import nconf from 'nconf';
 import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-import superagent from 'superagent';
-import nconf from 'nconf';
 
 const API_TEST_SERVER_PORT = nconf.get('PORT');
 xdescribe('GET /qr-code/user/:memberId', () => {
@@ -22,8 +22,8 @@ xdescribe('GET /qr-code/user/:memberId', () => {
   });
 
   it('redirects to profile page', async () => {
-    let url = `http://localhost:${API_TEST_SERVER_PORT}/qr-code/user/${user._id}`;
-    let response = await superagent.get(url).end(function (err, res) {
+    const url = `http://localhost:${API_TEST_SERVER_PORT}/qr-code/user/${user._id}`;
+    const response = await superagent.get(url).end((err, res) => {
       expect(err).to.be(undefined);
       return res;
     });

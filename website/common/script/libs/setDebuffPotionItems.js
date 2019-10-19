@@ -1,7 +1,7 @@
 import getDebuffPotionItems from './getDebuffPotionItems';
 
 
-module.exports = function setDebuffPotionItems (user) {
+export default function setDebuffPotionItems (user) {
   const debuffPotionItems = getDebuffPotionItems(user);
 
   if (debuffPotionItems.length) {
@@ -19,12 +19,8 @@ module.exports = function setDebuffPotionItems (user) {
       user.pinnedItems.push(...debuffPotionItems);
     }
   } else {
-    user.pinnedItems = user.pinnedItems.filter(item => {
-      return item.type !== 'debuffPotion';
-    });
+    user.pinnedItems = user.pinnedItems.filter(item => item.type !== 'debuffPotion');
   }
 
   return user;
-};
-
-
+}

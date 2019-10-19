@@ -13,18 +13,19 @@ describe('getDebuffPotionItems', () => {
     user = generateUser();
   });
 
-  for (let key in TRANSFORMATION_DEBUFFS_LIST) {
+  for (const key of Object.keys(TRANSFORMATION_DEBUFFS_LIST)) {
     const debuff = TRANSFORMATION_DEBUFFS_LIST[key];
-    // Here we itterate whole object to dynamicaly create test suites as it described in dock of mocha
+    // Here we itterate whole object to dynamicaly create
+    // test suites as it described in dock of mocha
     // https://mochajs.org/#dynamically-generating-tests
     // That's why we have eslint-disable here
     // eslint-disable-next-line no-loop-func
     it(`Should return the ${debuff} on ${key} buff`, () => {
       user.stats.buffs[key] = true;
 
-      let result = getDebuffPotionItems(user);
+      const result = getDebuffPotionItems(user);
 
-      expect(result).to.be.an('array').that.deep.includes({path: `spells.special.${debuff}`, type: 'debuffPotion'});
+      expect(result).to.be.an('array').that.deep.includes({ path: `spells.special.${debuff}`, type: 'debuffPotion' });
     });
   }
 
@@ -35,13 +36,13 @@ describe('getDebuffPotionItems', () => {
     user.stats.buffs.shinySeed = true;
 
 
-    let result = getDebuffPotionItems(user);
+    const result = getDebuffPotionItems(user);
 
     expect(result).to.be.an('array').that.deep.include.members([
-      {path: 'spells.special.sand', type: 'debuffPotion'},
-      {path: 'spells.special.petalFreePotion', type: 'debuffPotion'},
-      {path: 'spells.special.salt', type: 'debuffPotion'},
-      {path: 'spells.special.opaquePotion', type: 'debuffPotion'},
+      { path: 'spells.special.sand', type: 'debuffPotion' },
+      { path: 'spells.special.petalFreePotion', type: 'debuffPotion' },
+      { path: 'spells.special.salt', type: 'debuffPotion' },
+      { path: 'spells.special.opaquePotion', type: 'debuffPotion' },
     ]);
   });
 });

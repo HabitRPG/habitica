@@ -3,14 +3,16 @@ import paypalPayments from '../../../../../../website/server/libs/payments/paypa
 import payments from '../../../../../../website/server/libs/payments/payments';
 import {
   generateGroup,
-} from '../../../../../helpers/api-unit.helper.js';
+} from '../../../../../helpers/api-unit.helper';
 import { model as User } from '../../../../../../website/server/models/user';
 import common from '../../../../../../website/common';
 
 describe('subscribeSuccess', () => {
   const subKey = 'basic_3mo';
-  let user, group, block, groupId, token, headers, customerId;
-  let paypalBillingAgreementExecuteStub, paymentsCreateSubscritionStub;
+  let user; let group; let block; let groupId; let token; let headers; let
+    customerId;
+  let paypalBillingAgreementExecuteStub; let
+    paymentsCreateSubscritionStub;
 
   beforeEach(async () => {
     user = new User();
@@ -40,7 +42,9 @@ describe('subscribeSuccess', () => {
   });
 
   it('creates a user subscription', async () => {
-    await paypalPayments.subscribeSuccess({user, block, groupId, token, headers});
+    await paypalPayments.subscribeSuccess({
+      user, block, groupId, token, headers,
+    });
 
     expect(paypalBillingAgreementExecuteStub).to.be.calledOnce;
     expect(paypalBillingAgreementExecuteStub).to.be.calledWith(token, {});
@@ -59,7 +63,9 @@ describe('subscribeSuccess', () => {
   it('create a group subscription', async () => {
     groupId = group._id;
 
-    await paypalPayments.subscribeSuccess({user, block, groupId, token, headers});
+    await paypalPayments.subscribeSuccess({
+      user, block, groupId, token, headers,
+    });
 
     expect(paypalBillingAgreementExecuteStub).to.be.calledOnce;
     expect(paypalBillingAgreementExecuteStub).to.be.calledWith(token, {});

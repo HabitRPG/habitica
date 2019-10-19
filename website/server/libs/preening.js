@@ -12,12 +12,14 @@ function _aggregate (history, aggregateBy, timezoneOffset, dayStart) {
     .toPairs() // [key, entry]
     .sortBy(([key]) => key) // sort by date
     .map(keyEntryPair => {
-      let entries = keyEntryPair[1]; // 1 is entry, 0 is key
+      const entries = keyEntryPair[1]; // 1 is entry, 0 is key
       return {
         date: Number(entries[0].date),
-        value: _.reduce(entries, (previousValue, entry) => {
-          return previousValue + entry.value;
-        }, 0) / entries.length,
+        value: _.reduce(
+          entries,
+          (previousValue, entry) => previousValue + entry.value,
+          0,
+        ) / entries.length,
       };
     })
     .value();
@@ -40,7 +42,7 @@ export function preenHistory (history, isSubscribed, timezoneOffset = 0, dayStar
   const cutOff = now.subtract(isSubscribed ? 365 : 60, 'days').startOf('day');
 
   // Keep uncompressed entries (modifies history and returns removed items)
-  let newHistory = _.remove(history, entry => {
+  const newHistory = _.remove(history, entry => {
     if (!entry) return true; // sometimes entries are `null`
     const entryDate = moment(entry.date).zone(timezoneOffset);
     if (entryDate.hour() < dayStart) entryDate.subtract(1, 'day');
@@ -48,8 +50,8 @@ export function preenHistory (history, isSubscribed, timezoneOffset = 0, dayStar
   });
 
   // Date after which to begin compressing data by year
-  let monthsCutOff = cutOff.subtract(isSubscribed ? 12 : 10, 'months').startOf('day');
-  let aggregateByMonth = _.remove(history, entry => {
+  const monthsCutOff = cutOff.subtract(isSubscribed ? 12 : 10, 'months').startOf('day');
+  const aggregateByMonth = _.remove(history, entry => {
     if (!entry) return true; // sometimes entries are `null`
     const entryDate = moment(entry.date).zone(timezoneOffset);
     if (entryDate.hour() < dayStart) entryDate.subtract(1, 'day');
@@ -64,10 +66,10 @@ export function preenHistory (history, isSubscribed, timezoneOffset = 0, dayStar
 
 // Preen history for users and tasks.
 export function preenUserHistory (user, tasksByType) {
-  let isSubscribed = user.isSubscribed();
-  let timezoneOffset = user.preferences.timezoneOffset;
-  let dayStart = user.preferences.dayStart;
-  let minHistoryLength = isSubscribed ? 365 : 60;
+  const isSubscribed = user.isSubscribed();
+  const { timezoneOffset } = user.preferences;
+  const { dayStart } = user.preferences;
+  const minHistoryLength = isSubscribed ? 365 : 60;
 
   function _processTask (task) {
     if (task.history && task.history.length > minHistoryLength) {

@@ -8,7 +8,7 @@ describe('POST /user/revive', () => {
 
   beforeEach(async () => {
     user = await generateUser({
-      'user.items.gear.owned': {weaponKey: true},
+      'user.items.gear.owned': { weaponKey: true },
     });
   });
 

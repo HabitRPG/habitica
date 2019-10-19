@@ -1,10 +1,10 @@
-import common from '../../../common';
 import _ from 'lodash';
-import { langCodes } from '../../libs/i18n';
 import fsCallback from 'fs';
 import path from 'path';
-import logger from '../../libs/logger';
 import util from 'util';
+import logger from '../../libs/logger';
+import { langCodes } from '../../libs/i18n';
+import common from '../../../common';
 
 // Transform fs methods that accept callbacks in ones that return promises
 const fs = {
@@ -14,22 +14,26 @@ const fs = {
   mkdir: util.promisify(fsCallback.mkdir).bind(fsCallback),
 };
 
-let api = {};
+const api = {};
 
 function walkContent (obj, lang) {
   _.each(obj, (item, key, source) => {
-    if (_.isPlainObject(item) || _.isArray(item)) return walkContent(item, lang);
-    if (_.isFunction(item) && item.i18nLangFunc) source[key] = item(lang);
+    if (_.isPlainObject(item) || _.isArray(item)) {
+      walkContent(item, lang);
+    } else if (_.isFunction(item) && item.i18nLangFunc) {
+      source[key] = item(lang);
+    }
   });
 }
 
 // After the getContent route is called the first time for a certain language
-// the response is saved on disk and subsequentially served directly from there to reduce computation.
+// the response is saved on disk and subsequentially served
+// directly from there to reduce computation.
 // Example: if `cachedContentResponses.en` is true it means that the response is cached
-let cachedContentResponses = {};
+const cachedContentResponses = {};
 
 // Language key set to true while the cache file is being written
-let cacheBeingWritten = {};
+const cacheBeingWritten = {};
 
 _.each(langCodes, code => {
   cachedContentResponses[code] = false;
@@ -43,19 +47,20 @@ async function saveContentToDisk (language, content) {
   try {
     cacheBeingWritten[language] = true;
 
-    await fs.stat(CONTENT_CACHE_PATH); // check if the directory exists, if it doesn't an error is thrown
+    // check if the directory exists, if it doesn't an error is thrown
+    await fs.stat(CONTENT_CACHE_PATH);
     await fs.writeFile(`${CONTENT_CACHE_PATH}${language}.json`, content, 'utf8');
 
     cacheBeingWritten[language] = false;
     cachedContentResponses[language] = true;
   } catch (err) {
-    if (err.code === 'ENOENT' && err.syscall === 'stat') { // the directory doesn't exists, create it and retry
+    // the directory doesn't exists, create it and retry
+    if (err.code === 'ENOENT' && err.syscall === 'stat') {
       await fs.mkdir(CONTENT_CACHE_PATH);
-      return saveContentToDisk(language, content);
+      saveContentToDisk(language, content);
     } else {
       cacheBeingWritten[language] = false;
       logger.error(err);
-      return;
     }
   }
 }
@@ -66,7 +71,15 @@ async function saveContentToDisk (language, content) {
  * @apiName ContentGet
  * @apiGroup Content
  *
- * @apiParam (Query) {String="bg","cs","da","de","en","en@pirate","en_GB","es","es_419","fr","he","hu","id","it","ja","nl","pl","pt","pt_BR","ro","ru","sk","sr","sv","uk","zh","zh_TW"} [language=en]  Language code used for the items' strings. If the authenticated user makes the request, the content will return with the user's configured language.
+ * @apiParam (Query) {String="bg","cs","da","de",
+ *                   "en","en@pirate","en_GB",
+ *                    "es","es_419","fr","he","hu",
+ *                    "id","it","ja","nl","pl","pt","pt_BR",
+ *                    "ro","ru","sk","sr","sv",
+ *                    "uk","zh","zh_TW"} [language=en] Language code used for the items'
+ *                                                     strings. If the authenticated user makes
+ *                                                     the request, the content will return with
+ *                                                     the user's configured language.
  *
  * @apiSuccess {Object} data Various data about the content of Habitica. The content route
  * contains many keys, but the data listed below are the recomended data to use.
@@ -79,8 +92,9 @@ async function saveContentToDisk (language, content) {
  * @apiSuccess {Object} data.armoire Data about the armoire.
  * @apiSuccess {Array} data.classes The available classes.
  * @apiSuccess {Object} data.eggs All available eggs.
- * @apiSuccess {Object} data.timeTravelStable The animals available in the Time Traveler's stable, separated
- * into pets and mounts.
+ * @apiSuccess {Object} data.timeTravelStable The animals available
+ *                                            in the Time Traveler's stable, separated
+ *                                            into pets and mounts.
  * @apiSuccess {Object} data.hatchingPotions All the hatching potions.
  * @apiSuccess {Object} data.petInfo All the pets with extra info.
  * @apiSuccess {Object} data.mountInfo All the mounts with extra info.
@@ -104,7 +118,7 @@ api.getContent = {
   noLanguage: true,
   async handler (req, res) {
     let language = 'en';
-    let proposedLang = req.query.language && req.query.language.toString();
+    const proposedLang = req.query.language && req.query.language.toString();
 
     if (proposedLang in cachedContentResponses) {
       language = proposedLang;
@@ -125,7 +139,7 @@ api.getContent = {
       'Content-Type': 'application/json',
     });
 
-    let jsonResString = `{"success": true, "data": ${content}}`;
+    const jsonResString = `{"success": true, "data": ${content}}`;
     res.status(200).send(jsonResString);
 
     // save the file in background unless it's already cached or being written right now
@@ -135,4 +149,4 @@ api.getContent = {
   },
 };
 
-module.exports = api;
+export default api;

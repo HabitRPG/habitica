@@ -7,15 +7,16 @@ import {
   NotFound,
 } from '../errors';
 import { sendTxn } from '../email';
-import slack from '../slack';
+import * as slack from '../slack';
 import { model as Group } from '../../models/group';
 import { chatModel as Chat } from '../../models/message';
 import apiError from '../apiError';
 
 const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS_COMMUNITY_MANAGER_EMAIL');
-const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
-  return { email, canSend: true };
-});
+const FLAG_REPORT_EMAILS = nconf
+  .get('FLAG_REPORT_EMAIL')
+  .split(',')
+  .map(email => ({ email, canSend: true }));
 const USER_AGE_FOR_FLAGGING = 3; // accounts less than this many days old don't increment flagCount
 
 export default class GroupChatReporter extends ChatReporter {
@@ -30,29 +31,29 @@ export default class GroupChatReporter extends ChatReporter {
     this.req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
     this.req.checkParams('chatId', apiError('chatIdRequired')).notEmpty();
 
-    let validationErrors = this.req.validationErrors();
+    const validationErrors = this.req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({
+    const group = await Group.getGroup({
       user: this.user,
       groupId: this.groupId,
       optionalMembership: this.user.contributor.admin,
     });
     if (!group) throw new NotFound(this.res.t('groupNotFound'));
 
-    const message = await Chat.findOne({_id: this.req.params.chatId}).exec();
+    const message = await Chat.findOne({ _id: this.req.params.chatId }).exec();
     if (!message) throw new NotFound(this.res.t('messageGroupChatNotFound'));
-    if (message.uuid === 'system') throw new BadRequest(this.res.t('messageCannotFlagSystemMessages', {communityManagerEmail: COMMUNITY_MANAGER_EMAIL}));
+    if (message.uuid === 'system') throw new BadRequest(this.res.t('messageCannotFlagSystemMessages', { communityManagerEmail: COMMUNITY_MANAGER_EMAIL }));
 
     const userComment = this.req.body.comment;
 
-    return {message, group, userComment};
+    return { message, group, userComment };
   }
 
   async notify (group, message, userComment, automatedComment = '') {
     let emailVariables = await this.getMessageVariables(group, message);
     emailVariables = emailVariables.concat([
-      {name: 'REPORTER_COMMENT', content: userComment || ''},
+      { name: 'REPORTER_COMMENT', content: userComment || '' },
     ]);
 
     sendTxn(FLAG_REPORT_EMAILS, 'flag-report-to-mods-with-comments', emailVariables);
@@ -81,14 +82,14 @@ export default class GroupChatReporter extends ChatReporter {
       // Arbitrary amount, higher than 2
       message.flagCount = 5;
     } else if (increaseFlagCount) {
-      message.flagCount++;
+      message.flagCount += 1;
     }
 
     await message.save();
   }
 
   async flag () {
-    let {message, group, userComment} = await this.validate();
+    const { message, group, userComment } = await this.validate();
 
     let increaseFlagCount = true;
     let automatedComment = '';

@@ -10,16 +10,14 @@ describe('DELETE /tags/:tagId', () => {
   });
 
   it('deletes a tag given it\'s id', async () => {
-    let tagName = 'Tag 1';
-    let tag = await user.post('/tags', {name: tagName});
-    let numberOfTags = (await user.get('/tags')).length;
+    const tagName = 'Tag 1';
+    const tag = await user.post('/tags', { name: tagName });
+    const numberOfTags = (await user.get('/tags')).length;
 
     await user.del(`/tags/${tag.id}`);
 
-    let tags = await user.get('/tags');
-    let tagNames = tags.map((t) => {
-      return t.name;
-    });
+    const tags = await user.get('/tags');
+    const tagNames = tags.map(t => t.name);
 
     expect(tags.length).to.equal(numberOfTags - 1);
     expect(tagNames).to.not.include(tagName);

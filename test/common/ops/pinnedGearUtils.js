@@ -1,7 +1,7 @@
 import {
   generateUser,
 } from '../../helpers/common.helper';
-import {addPinnedGear} from '../../../website/common/script/ops/pinnedGearUtils';
+import { addPinnedGear } from '../../../website/common/script/ops/pinnedGearUtils';
 
 describe('shared.ops.pinnedGearUtils.addPinnedGear', () => {
   let user;

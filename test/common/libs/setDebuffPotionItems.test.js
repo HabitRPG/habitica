@@ -16,7 +16,7 @@ describe('setDebuffPotionItems', () => {
     user.stats.buffs.spookySparkles = true;
     const previousPinnedItemsLength = user.pinnedItems.length;
 
-    let result = setDebuffPotionItems(user);
+    const result = setDebuffPotionItems(user);
 
     expect(result.pinnedItems.length).to.be.greaterThan(previousPinnedItemsLength);
   });

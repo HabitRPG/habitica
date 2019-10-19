@@ -1,16 +1,17 @@
 import '../../website/server/libs/i18n';
 import mongoose from 'mongoose';
 import defaultsDeep from 'lodash/defaultsDeep';
+import moment from 'moment';
 import { model as User } from '../../website/server/models/user';
 import { model as Group } from '../../website/server/models/group';
 import { model as Challenge } from '../../website/server/models/challenge';
 import mongo from './mongo'; // eslint-disable-line
-import moment from 'moment';
 import i18n from '../../website/common/script/i18n';
 import * as Tasks from '../../website/server/models/task';
+
 export { translationCheck } from './translate';
 
-afterEach((done) => {
+afterEach(done => {
   sandbox.restore();
   mongoose.connection.dropDatabase(done);
 });
@@ -30,7 +31,7 @@ export function generateChallenge (options = {}) {
 }
 
 export function generateRes (options = {}) {
-  let defaultRes = {
+  const defaultRes = {
     json: sandbox.stub(),
     locals: {
       user: generateUser(options.localsUser),
@@ -51,7 +52,7 @@ export function generateRes (options = {}) {
 }
 
 export function generateReq (options = {}) {
-  let defaultReq = {
+  const defaultReq = {
     body: {},
     query: {},
     headers: {},
@@ -71,43 +72,43 @@ export function generateNext (func) {
 }
 
 export function generateHistory (days) {
-  let history = [];
-  let now = Number(moment().toDate());
+  const history = [];
+  const now = Number(moment().toDate());
 
   while (days > 0) {
     history.push({
       value: days,
       date: Number(moment(now).subtract(days, 'days').toDate()),
     });
-    days--;
+    days -= 1; // eslint-disable-line no-param-reassign
   }
 
   return history;
 }
 
 export function generateTodo (user) {
-  let todo = {
+  const todo = {
     text: 'test todo',
     type: 'todo',
     value: 0,
     completed: false,
   };
 
-  let task = new Tasks.todo(Tasks.Task.sanitize(todo)); // eslint-disable-line new-cap
+  const task = new Tasks.todo(Tasks.Task.sanitize(todo)); // eslint-disable-line new-cap
   task.userId = user._id;
 
   return task;
 }
 
 export function generateDaily (user) {
-  let daily = {
+  const daily = {
     text: 'test daily',
     type: 'daily',
     value: 0,
     completed: false,
   };
 
-  let task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line new-cap
+  const task = new Tasks.daily(Tasks.Task.sanitize(daily)); // eslint-disable-line new-cap
   task.userId = user._id;
 
   return task;
@@ -117,7 +118,7 @@ export function defer () {
   let resolve;
   let reject;
 
-  let promise = new Promise((resolveParam, rejectParam) => {
+  const promise = new Promise((resolveParam, rejectParam) => {
     resolve = resolveParam;
     reject = rejectParam;
   });

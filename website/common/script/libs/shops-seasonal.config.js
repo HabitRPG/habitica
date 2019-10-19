@@ -1,6 +1,6 @@
 import { SEASONAL_SETS } from '../content/constants';
 
-module.exports = {
+export default {
   opened: true,
 
   currentSeason: 'Fall',

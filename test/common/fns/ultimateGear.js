@@ -8,24 +8,22 @@ describe('shared.fns.ultimateGear', () => {
 
   beforeEach(() => {
     user = generateUser();
-    user.achievements.ultimateGearSets.toObject = function () {
+    user.achievements.ultimateGearSets.toObject = function toIbject () {
       return this;
     };
     user.addNotification = sinon.spy();
   });
 
   it('sets armoirEnabled when partial achievement already achieved', () => {
-    let items = {
+    const items = {
       gear: {
         owned: {
-          toObject: () => {
-            return {
-              armor_warrior_5: true, // eslint-disable-line camelcase
-              shield_warrior_5: true, // eslint-disable-line camelcase
-              head_warrior_5: true, // eslint-disable-line camelcase
-              weapon_warrior_6: true, // eslint-disable-line camelcase
-            };
-          },
+          toObject: () => ({
+            armor_warrior_5: true, // eslint-disable-line camelcase
+            shield_warrior_5: true, // eslint-disable-line camelcase
+            head_warrior_5: true, // eslint-disable-line camelcase
+            weapon_warrior_6: true, // eslint-disable-line camelcase
+          }),
         },
       },
     };
@@ -40,17 +38,15 @@ describe('shared.fns.ultimateGear', () => {
 
   it('does not set armoireEnabled when gear is not owned', () => {
     user.flags.armoireEnabled = false;
-    let items = {
+    const items = {
       gear: {
         owned: {
-          toObject: () => {
-            return {
-              armor_warrior_5: true, // eslint-disable-line camelcase
-              shield_warrior_5: true, // eslint-disable-line camelcase
-              head_warrior_5: true, // eslint-disable-line camelcase
-              weapon_warrior_6: false, // eslint-disable-line camelcase
-            };
-          },
+          toObject: () => ({
+            armor_warrior_5: true, // eslint-disable-line camelcase
+            shield_warrior_5: true, // eslint-disable-line camelcase
+            head_warrior_5: true, // eslint-disable-line camelcase
+            weapon_warrior_6: false, // eslint-disable-line camelcase
+          }),
         },
       },
     };
