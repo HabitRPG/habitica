@@ -105,10 +105,11 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: cp config.json.example config.json
-    - run: cd website/client
     - name: npm install
       run: |
         npm ci
       env:
         CI: true
+      working-directory: ./website/client
     - run: npm run test:unit
+      working-directory: ./website/client
