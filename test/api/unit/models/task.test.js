@@ -3,7 +3,6 @@ import { model as Challenge } from '../../../../website/server/models/challenge'
 import { model as Group } from '../../../../website/server/models/group';
 import { model as User } from '../../../../website/server/models/user';
 import * as Tasks from '../../../../website/server/models/task';
-import { InternalServerError } from '../../../../website/server/libs/errors';
 import { generateHistory } from '../../../helpers/api-unit.helper';
 
 describe('Task Model', () => {
@@ -99,7 +98,8 @@ describe('Task Model', () => {
           throw new Error('No exception when Id is None');
         } catch (err) {
           expect(err).to.exist;
-          expect(err).to.eql(new Error('Task identifier is a required argument'));
+          expect(err).to.be.an.instanceOf(Error);
+          expect(err).to.eql('Task identifier is a required argument');
         }
       });
 
@@ -109,7 +109,8 @@ describe('Task Model', () => {
           throw new Error('No exception when user_id is undefined');
         } catch (err) {
           expect(err).to.exist;
-          expect(err).to.eql(new Error('User identifier is a required argument'));
+          expect(err).to.be.an.instanceOf(Error);
+          expect(err.message).to.eql('User identifier is a required argument');
         }
       });
 
