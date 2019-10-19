@@ -16,7 +16,7 @@ describe('shared.ops.blockUser', () => {
     expect(user.inbox.blocks).to.eql([]);
   });
 
-  it('validates uuid', (done) => {
+  it('validates uuid', done => {
     try {
       blockUser(user, { params: { uuid: '1' } });
     } catch (error) {
@@ -25,7 +25,7 @@ describe('shared.ops.blockUser', () => {
     }
   });
 
-  it('validates user can\'t block himself', (done) => {
+  it('validates user can\'t block himself', done => {
     try {
       blockUser(user, { params: { uuid: user._id } });
     } catch (error) {
@@ -46,7 +46,7 @@ describe('shared.ops.blockUser', () => {
   it('blocks, then unblocks user', () => {
     blockUser(user, { params: { uuid: blockedUser._id } });
     expect(user.inbox.blocks).to.eql([blockedUser._id]);
-    let [result] = blockUser(user, { params: { uuid: blockedUser._id } });
+    const [result] = blockUser(user, { params: { uuid: blockedUser._id } });
     expect(user.inbox.blocks).to.eql([]);
     expect(result).to.eql([]);
   });

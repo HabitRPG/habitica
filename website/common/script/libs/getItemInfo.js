@@ -1,13 +1,13 @@
+import _mapValues from 'lodash/mapValues';
 import i18n from '../i18n';
 import content from '../content/index';
 import { BadRequest } from './errors';
-import count from '../count';
+import * as count from '../count';
 
 import isPinned from './isPinned';
 import isFreeRebirth from './isFreeRebirth';
 import getOfficialPinnedItems from './getOfficialPinnedItems';
 
-import _mapValues from 'lodash/mapValues';
 
 function lockQuest (quest, user) {
   if (quest.key === 'lostMasterclasser1') return !(user.achievements.quests.dilatoryDistress3 && user.achievements.quests.mayhemMistiflying3 && user.achievements.quests.stoikalmCalamity3 && user.achievements.quests.taskwoodsTerror3);
@@ -20,7 +20,7 @@ function lockQuest (quest, user) {
 }
 
 function isItemSuggested (officialPinnedItems, itemInfo) {
-  return officialPinnedItems.findIndex(officialItem => {
+  return officialPinnedItems.findIndex(officialItem => { // eslint-disable-line arrow-body-style
     return officialItem.type === itemInfo.pinType && officialItem.path === itemInfo.path;
   }) > -1;
 }
@@ -46,18 +46,18 @@ function getDefaultGearProps (item, language) {
   };
 }
 
-module.exports = function getItemInfo (user, type, item, officialPinnedItems, language = 'en') {
+export default function getItemInfo (user, type, item, officialPinnedItems, language = 'en') {
   if (officialPinnedItems === undefined) {
-    officialPinnedItems = getOfficialPinnedItems(user);
+    officialPinnedItems = getOfficialPinnedItems(user); // eslint-disable-line no-param-reassign
   }
 
   let itemInfo;
 
-  switch (type) {
+  switch (type) { // eslint-disable-line default-case
     case 'eggs':
       itemInfo = {
         key: item.key,
-        text: i18n.t('egg', {eggType: item.text(language)}, language),
+        text: i18n.t('egg', { eggType: item.text(language) }, language),
         notes: item.notes(language),
         value: item.value,
         class: `Pet_Egg_${item.key}`,
@@ -71,7 +71,7 @@ module.exports = function getItemInfo (user, type, item, officialPinnedItems, la
     case 'hatchingPotions':
       itemInfo = {
         key: item.key,
-        text: i18n.t('potion', {potionType: item.text(language)}),
+        text: i18n.t('potion', { potionType: item.text(language) }),
         notes: item.notes(language),
         class: `Pet_HatchingPotion_${item.key}`,
         value: item.value,
@@ -85,7 +85,7 @@ module.exports = function getItemInfo (user, type, item, officialPinnedItems, la
     case 'premiumHatchingPotion':
       itemInfo = {
         key: item.key,
-        text: i18n.t('potion', {potionType: item.text(language)}),
+        text: i18n.t('potion', { potionType: item.text(language) }),
         notes: `${item.notes(language)} ${item._addlNotes(language)}`,
         class: `Pet_HatchingPotion_${item.key}`,
         value: item.value,
@@ -124,7 +124,7 @@ module.exports = function getItemInfo (user, type, item, officialPinnedItems, la
       };
       break;
     case 'quests': // eslint-disable-line no-case-declarations
-      const locked = lockQuest(item, user);
+      const locked = lockQuest(item, user); // eslint-disable-line no-case-declarations
 
       itemInfo = {
         key: item.key,
@@ -132,24 +132,30 @@ module.exports = function getItemInfo (user, type, item, officialPinnedItems, la
         notes: item.notes(language),
         group: item.group,
         value: item.goldValue ? item.goldValue : item.value,
-        currency: item.goldValue ? 'gold' : 'gems',
         locked,
-        previous: content.quests[item.previous] ? content.quests[item.previous].text(language) : null,
+        previous: content.quests[item.previous]
+          ? content.quests[item.previous].text(language)
+          : null,
         unlockCondition: item.unlockCondition,
         drop: item.drop,
         boss: item.boss,
-        collect: item.collect ? _mapValues(item.collect, (o) => {
-          return {
-            count: o.count,
-            text: o.text(),
-          };
-        }) : undefined,
+        collect: item.collect ? _mapValues(item.collect, o => ({
+          count: o.count,
+          text: o.text(),
+        })) : undefined,
         lvl: item.lvl,
         class: locked ? `inventory_quest_scroll_${item.key}_locked` : `inventory_quest_scroll_${item.key}`,
         purchaseType: 'quests',
         path: `quests.${item.key}`,
         pinType: 'quests',
       };
+      if (item.goldValue) {
+        itemInfo.currency = 'gold';
+      } else if (item.category === 'timeTravelers') {
+        itemInfo.currency = 'hourglasses';
+      } else {
+        itemInfo.currency = 'gems';
+      }
 
       break;
     case 'timeTravelers':
@@ -258,7 +264,7 @@ module.exports = function getItemInfo (user, type, item, officialPinnedItems, la
       };
       break;
     case 'card': {
-      let spellInfo = content.spells.special[item.key];
+      const spellInfo = content.spells.special[item.key];
 
       itemInfo = {
         key: item.key,
@@ -341,8 +347,8 @@ module.exports = function getItemInfo (user, type, item, officialPinnedItems, la
     itemInfo.isSuggested = isItemSuggested(officialPinnedItems, itemInfo);
     itemInfo.pinned = isPinned(user, itemInfo, officialPinnedItems);
   } else {
-    throw new BadRequest(i18n.t('wrongItemType', {type}, language));
+    throw new BadRequest(i18n.t('wrongItemType', { type }, language));
   }
 
   return itemInfo;
-};
+}

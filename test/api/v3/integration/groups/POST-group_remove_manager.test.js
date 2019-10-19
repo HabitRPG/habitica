@@ -1,13 +1,14 @@
+import { find } from 'lodash';
 import {
   createAndPopulateGroup,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-import { find } from 'lodash';
 
 describe('POST /group/:groupId/remove-manager', () => {
-  let leader, nonLeader, groupToUpdate;
-  let groupName = 'Test Public Guild';
-  let groupType = 'guild';
+  let leader; let nonLeader; let
+    groupToUpdate;
+  const groupName = 'Test Public Guild';
+  const groupType = 'guild';
   let nonManager;
 
   function findAssignedTask (memberTask) {
@@ -15,19 +16,19 @@ describe('POST /group/:groupId/remove-manager', () => {
   }
 
   beforeEach(async () => {
-    let { group, groupLeader, members } = await createAndPopulateGroup({
+    const { group, groupLeader, members } = await createAndPopulateGroup({
       groupDetails: {
         name: groupName,
         type: groupType,
         privacy: 'public',
       },
-      members: 1,
+      members: 2,
     });
 
     groupToUpdate = group;
     leader = groupLeader;
-    nonLeader = members[0];
-    nonManager = members[0];
+    nonLeader = members[0]; // eslint-disable-line prefer-destructuring
+    nonManager = members[1]; // eslint-disable-line prefer-destructuring
   });
 
   it('returns an error when a non group leader tries to add member', async () => {
@@ -55,7 +56,7 @@ describe('POST /group/:groupId/remove-manager', () => {
       managerId: nonLeader._id,
     });
 
-    let updatedGroup = await leader.post(`/groups/${groupToUpdate._id}/remove-manager`, {
+    const updatedGroup = await leader.post(`/groups/${groupToUpdate._id}/remove-manager`, {
       managerId: nonLeader._id,
     });
 
@@ -66,22 +67,22 @@ describe('POST /group/:groupId/remove-manager', () => {
     await leader.post(`/groups/${groupToUpdate._id}/add-manager`, {
       managerId: nonLeader._id,
     });
-    let task = await leader.post(`/tasks/group/${groupToUpdate._id}`, {
+    const task = await leader.post(`/tasks/group/${groupToUpdate._id}`, {
       text: 'test todo',
       type: 'todo',
       requiresApproval: true,
     });
-    await nonLeader.post(`/tasks/${task._id}/assign/${leader._id}`);
-    let memberTasks = await leader.get('/tasks/user');
-    let syncedTask = find(memberTasks, findAssignedTask);
-    await expect(leader.post(`/tasks/${syncedTask._id}/score/up`))
+    await nonLeader.post(`/tasks/${task._id}/assign/${nonManager._id}`);
+    const memberTasks = await nonManager.get('/tasks/user');
+    const syncedTask = find(memberTasks, findAssignedTask);
+    await expect(nonManager.post(`/tasks/${syncedTask._id}/score/up`))
       .to.eventually.be.rejected.and.to.eql({
         code: 401,
         error: 'NotAuthorized',
         message: t('taskApprovalHasBeenRequested'),
       });
 
-    let updatedGroup = await leader.post(`/groups/${groupToUpdate._id}/remove-manager`, {
+    const updatedGroup = await leader.post(`/groups/${groupToUpdate._id}/remove-manager`, {
       managerId: nonLeader._id,
     });
 

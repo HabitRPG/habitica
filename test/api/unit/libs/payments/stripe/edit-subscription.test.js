@@ -2,17 +2,18 @@ import stripeModule from 'stripe';
 
 import {
   generateGroup,
-} from '../../../../../helpers/api-unit.helper.js';
+} from '../../../../../helpers/api-unit.helper';
 import { model as User } from '../../../../../../website/server/models/user';
 import stripePayments from '../../../../../../website/server/libs/payments/stripe';
 import common from '../../../../../../website/common';
 
-const i18n = common.i18n;
+const { i18n } = common;
 
 describe('edit subscription', () => {
   const subKey = 'basic_3mo';
   const stripe = stripeModule('test');
-  let user, groupId, group, token;
+  let user; let groupId; let group; let
+    token;
 
   beforeEach(async () => {
     user = new User();
@@ -76,7 +77,7 @@ describe('edit subscription', () => {
   });
 
   it('throws an error if user is not the group leader', async () => {
-    let nonLeader = new User();
+    const nonLeader = new User();
     nonLeader.guilds.push(groupId);
     await nonLeader.save();
 
@@ -93,21 +94,22 @@ describe('edit subscription', () => {
   });
 
   describe('success', () => {
-    let stripeListSubscriptionStub, stripeUpdateSubscriptionStub, subscriptionId;
+    let stripeListSubscriptionStub; let stripeUpdateSubscriptionStub; let
+      subscriptionId;
 
     beforeEach(() => {
       subscriptionId = 'subId';
-      stripeListSubscriptionStub = sinon.stub(stripe.customers, 'listSubscriptions')
+      stripeListSubscriptionStub = sinon.stub(stripe.subscriptions, 'list')
         .resolves({
-          data: [{id: subscriptionId}],
+          data: [{ id: subscriptionId }],
         });
 
-      stripeUpdateSubscriptionStub = sinon.stub(stripe.customers, 'updateSubscription').resolves({});
+      stripeUpdateSubscriptionStub = sinon.stub(stripe.subscriptions, 'update').resolves({});
     });
 
     afterEach(() => {
-      stripe.customers.listSubscriptions.restore();
-      stripe.customers.updateSubscription.restore();
+      stripe.subscriptions.list.restore();
+      stripe.subscriptions.update.restore();
     });
 
     it('edits a user subscription', async () => {
@@ -118,12 +120,13 @@ describe('edit subscription', () => {
       }, stripe);
 
       expect(stripeListSubscriptionStub).to.be.calledOnce;
-      expect(stripeListSubscriptionStub).to.be.calledWith(user.purchased.plan.customerId);
+      expect(stripeListSubscriptionStub).to.be.calledWith({
+        customer: user.purchased.plan.customerId,
+      });
       expect(stripeUpdateSubscriptionStub).to.be.calledOnce;
       expect(stripeUpdateSubscriptionStub).to.be.calledWith(
-        user.purchased.plan.customerId,
         subscriptionId,
-        { card: token }
+        { card: token },
       );
     });
 
@@ -135,12 +138,13 @@ describe('edit subscription', () => {
       }, stripe);
 
       expect(stripeListSubscriptionStub).to.be.calledOnce;
-      expect(stripeListSubscriptionStub).to.be.calledWith(group.purchased.plan.customerId);
+      expect(stripeListSubscriptionStub).to.be.calledWith({
+        customer: group.purchased.plan.customerId,
+      });
       expect(stripeUpdateSubscriptionStub).to.be.calledOnce;
       expect(stripeUpdateSubscriptionStub).to.be.calledWith(
-        group.purchased.plan.customerId,
         subscriptionId,
-        { card: token }
+        { card: token },
       );
     });
   });

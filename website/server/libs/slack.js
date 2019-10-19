@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
 import { IncomingWebhook } from '@slack/client';
-import logger from './logger';
-import { TAVERN_ID } from '../models/group';
 import nconf from 'nconf';
 import moment from 'moment';
+import logger from './logger';
+import { TAVERN_ID } from '../models/group'; // eslint-disable-line import/no-cycle
 
 const SLACK_FLAGGING_URL = nconf.get('SLACK_FLAGGING_URL');
 const SLACK_FLAGGING_FOOTER_LINK = nconf.get('SLACK_FLAGGING_FOOTER_LINK');
@@ -24,11 +24,12 @@ try {
   logger.error(err);
 
   if (!IS_PRODUCTION) {
-    flagSlack = subscriptionSlack = {
+    subscriptionSlack = {
       send (data) {
         logger.info('Data sent to slack', data);
       },
     };
+    flagSlack = subscriptionSlack;
   }
 }
 
@@ -115,17 +116,16 @@ function sendInboxFlagNotification ({
   if (SKIP_FLAG_METHODS) {
     return;
   }
-  let titleLink = '';
-  let authorName;
-  let title = `Flag in ${flagger.profile.name}'s Inbox`;
+  const titleLink = '';
+  const title = `Flag in ${flagger.profile.name}'s Inbox`;
   let text = `${flagger.profile.name} (${flagger.id}; language: ${flagger.preferences.language}) flagged a PM`;
-  let footer = '';
+  const footer = '';
 
   if (userComment) {
     text += ` and commented: ${userComment}`;
   }
 
-  let messageText = message.text;
+  const messageText = message.text;
   let sender = '';
   let recipient = '';
 
@@ -150,7 +150,7 @@ function sendInboxFlagNotification ({
     recipient = flaggerFormat;
   }
 
-  authorName = `${sender} wrote this message to ${recipient}.`;
+  const authorName = `${sender} wrote this message to ${recipient}.`;
 
   flagSlack.send({
     text,
@@ -180,7 +180,7 @@ function sendSubscriptionNotification ({
     return;
   }
   let text;
-  let timestamp = new Date();
+  const timestamp = new Date();
   if (recipient.id) {
     text = `${buyer.name} ${buyer.id} ${buyer.email} bought a ${months}-month gift subscription for ${recipient.name} ${recipient.id} ${recipient.email} using ${paymentMethod} on ${timestamp}`;
   } else if (groupId) {
@@ -203,18 +203,17 @@ function sendShadowMutedPostNotification ({
   if (SKIP_FLAG_METHODS) {
     return;
   }
-  let titleLink;
-  let authorName;
-  let title = `Shadow-Muted Post in ${group.name}`;
-  let text = `@${author.auth.local.username} / ${author.profile.name} posted while shadow-muted`;
+  const title = `Shadow-Muted Post in ${group.name}`;
+  const text = `@${author.auth.local.username} / ${author.profile.name} posted while shadow-muted`;
 
+  let titleLink;
   if (group.id === TAVERN_ID) {
     titleLink = `${BASE_URL}/groups/tavern`;
   } else {
     titleLink = `${BASE_URL}/groups/guild/${group.id}`;
   }
 
-  authorName = formatUser({
+  const authorName = formatUser({
     name: author.auth.local.username,
     displayName: author.profile.name,
     email: authorEmail,
@@ -246,10 +245,10 @@ function sendSlurNotification ({
   if (SKIP_FLAG_METHODS) {
     return;
   }
+  const text = `${author.profile.name} (${author._id}) tried to post a slur`;
+
   let titleLink;
-  let authorName;
   let title = `Slur in ${group.name}`;
-  let text = `${author.profile.name} (${author._id}) tried to post a slur`;
 
   if (group.id === TAVERN_ID) {
     titleLink = `${BASE_URL}/groups/tavern`;
@@ -259,7 +258,7 @@ function sendSlurNotification ({
     title += ` - (${group.privacy} ${group.type})`;
   }
 
-  authorName = formatUser({
+  const authorName = formatUser({
     name: author.auth.local.username,
     displayName: author.profile.name,
     email: authorEmail,
@@ -282,7 +281,7 @@ function sendSlurNotification ({
   });
 }
 
-module.exports = {
+export {
   sendFlagNotification,
   sendInboxFlagNotification,
   sendSubscriptionNotification,

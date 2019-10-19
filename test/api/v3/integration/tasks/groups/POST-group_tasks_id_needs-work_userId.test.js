@@ -1,18 +1,19 @@
+import { find } from 'lodash';
 import {
   createAndPopulateGroup,
   translate as t,
 } from '../../../../../helpers/api-integration/v3';
-import { find } from 'lodash';
 
 describe('POST /tasks/:id/needs-work/:userId', () => {
-  let user, guild, member, member2, task;
+  let user; let guild; let member; let member2; let
+    task;
 
   function findAssignedTask (memberTask) {
     return memberTask.group.id === guild._id;
   }
 
   beforeEach(async () => {
-    let {group, members, groupLeader} = await createAndPopulateGroup({
+    const { group, members, groupLeader } = await createAndPopulateGroup({
       groupDetails: {
         name: 'Test Guild',
         type: 'guild',
@@ -22,8 +23,8 @@ describe('POST /tasks/:id/needs-work/:userId', () => {
 
     guild = group;
     user = groupLeader;
-    member = members[0];
-    member2 = members[1];
+    member = members[0]; // eslint-disable-line prefer-destructuring
+    member2 = members[1]; // eslint-disable-line prefer-destructuring
 
     task = await user.post(`/tasks/group/${guild._id}`, {
       text: 'test todo',
@@ -84,7 +85,7 @@ describe('POST /tasks/:id/needs-work/:userId', () => {
     const taskText = syncedTask.text;
     const managerName = user.profile.name;
 
-    expect(notification.data.message).to.equal(t('taskNeedsWork', {taskText, managerName}));
+    expect(notification.data.message).to.equal(t('taskNeedsWork', { taskText, managerName }));
 
     expect(notification.data.task.id).to.equal(syncedTask._id);
     expect(notification.data.task.text).to.equal(taskText);
@@ -98,8 +99,8 @@ describe('POST /tasks/:id/needs-work/:userId', () => {
     // Check that the managers' GROUP_TASK_APPROVAL notifications have been removed
     await user.sync();
 
-    expect(user.notifications.find(n => {
-      n.data.taskId === syncedTask._id && n.type === 'GROUP_TASK_APPROVAL';
+    expect(user.notifications.find(n => { // eslint-disable-line arrow-body-style
+      return n.data.taskId === syncedTask._id && n.type === 'GROUP_TASK_APPROVAL';
     })).to.equal(undefined);
   });
 
@@ -138,7 +139,7 @@ describe('POST /tasks/:id/needs-work/:userId', () => {
     const taskText = syncedTask.text;
     const managerName = member2.profile.name;
 
-    expect(notification.data.message).to.equal(t('taskNeedsWork', {taskText, managerName}));
+    expect(notification.data.message).to.equal(t('taskNeedsWork', { taskText, managerName }));
 
     expect(notification.data.task.id).to.equal(syncedTask._id);
     expect(notification.data.task.text).to.equal(taskText);
@@ -152,12 +153,12 @@ describe('POST /tasks/:id/needs-work/:userId', () => {
     // Check that the managers' GROUP_TASK_APPROVAL notifications have been removed
     await Promise.all([user.sync(), member2.sync()]);
 
-    expect(user.notifications.find(n => {
-      n.data.taskId === syncedTask._id && n.type === 'GROUP_TASK_APPROVAL';
+    expect(user.notifications.find(n => { // eslint-disable-line arrow-body-style
+      return n.data.taskId === syncedTask._id && n.type === 'GROUP_TASK_APPROVAL';
     })).to.equal(undefined);
 
-    expect(member2.notifications.find(n => {
-      n.data.taskId === syncedTask._id && n.type === 'GROUP_TASK_APPROVAL';
+    expect(member2.notifications.find(n => { // eslint-disable-line arrow-body-style
+      return n.data.taskId === syncedTask._id && n.type === 'GROUP_TASK_APPROVAL';
     })).to.equal(undefined);
   });
 
@@ -168,8 +169,8 @@ describe('POST /tasks/:id/needs-work/:userId', () => {
 
     await member2.post(`/tasks/${task._id}/assign/${member._id}`);
 
-    let memberTasks = await member.get('/tasks/user');
-    let syncedTask = find(memberTasks, findAssignedTask);
+    const memberTasks = await member.get('/tasks/user');
+    const syncedTask = find(memberTasks, findAssignedTask);
 
     await expect(member.post(`/tasks/${syncedTask._id}/score/up`))
       .to.eventually.be.rejected.and.to.eql({

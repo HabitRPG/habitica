@@ -3,11 +3,12 @@ import amzLib from '../../../../../../website/server/libs/payments/amazon';
 import payments from '../../../../../../website/server/libs/payments/payments';
 import common from '../../../../../../website/common';
 
-const i18n = common.i18n;
+const { i18n } = common;
 
 describe('Amazon Payments - Checkout', () => {
   const subKey = 'basic_3mo';
-  let user, orderReferenceId, headers;
+  let user; let orderReferenceId; let
+    headers;
   let setOrderReferenceDetailsSpy;
   let confirmOrderReferenceSpy;
   let authorizeSpy;
@@ -62,7 +63,7 @@ describe('Amazon Payments - Checkout', () => {
     expect(closeOrderReferenceSpy).to.be.calledWith({ AmazonOrderReferenceId: orderReferenceId });
   }
 
-  beforeEach(function () {
+  beforeEach(() => {
     user = new User();
     headers = {};
     orderReferenceId = 'orderReferenceId';
@@ -88,7 +89,7 @@ describe('Amazon Payments - Checkout', () => {
     sinon.stub(common, 'uuid').returns('uuid-generated');
   });
 
-  afterEach(function () {
+  afterEach(() => {
     amzLib.setOrderReferenceDetails.restore();
     amzLib.confirmOrderReference.restore();
     amzLib.authorize.restore();
@@ -101,7 +102,7 @@ describe('Amazon Payments - Checkout', () => {
   function expectBuyGemsStub (paymentMethod, gift) {
     expect(paymentBuyGemsStub).to.be.calledOnce;
 
-    let expectedArgs = {
+    const expectedArgs = {
       user,
       paymentMethod,
       headers,
@@ -112,7 +113,7 @@ describe('Amazon Payments - Checkout', () => {
 
   it('should purchase gems', async () => {
     sinon.stub(user, 'canGetGems').resolves(true);
-    await amzLib.checkout({user, orderReferenceId, headers});
+    await amzLib.checkout({ user, orderReferenceId, headers });
 
     expectBuyGemsStub(amzLib.constants.PAYMENT_METHOD);
     expectAmazonStubs();
@@ -121,9 +122,9 @@ describe('Amazon Payments - Checkout', () => {
   });
 
   it('should error if gem amount is too low', async () => {
-    let receivingUser = new User();
+    const receivingUser = new User();
     receivingUser.save();
-    let gift = {
+    const gift = {
       type: 'gems',
       gems: {
         amount: 0,
@@ -131,7 +132,9 @@ describe('Amazon Payments - Checkout', () => {
       },
     };
 
-    await expect(amzLib.checkout({gift, user, orderReferenceId, headers}))
+    await expect(amzLib.checkout({
+      gift, user, orderReferenceId, headers,
+    }))
       .to.eventually.be.rejected.and.to.eql({
         httpCode: 400,
         message: 'Amount must be at least 1.',
@@ -141,18 +144,19 @@ describe('Amazon Payments - Checkout', () => {
 
   it('should error if user cannot get gems gems', async () => {
     sinon.stub(user, 'canGetGems').resolves(false);
-    await expect(amzLib.checkout({user, orderReferenceId, headers})).to.eventually.be.rejected.and.to.eql({
-      httpCode: 401,
-      message: i18n.t('groupPolicyCannotGetGems'),
-      name: 'NotAuthorized',
-    });
+    await expect(amzLib.checkout({ user, orderReferenceId, headers }))
+      .to.eventually.be.rejected.and.to.eql({
+        httpCode: 401,
+        message: i18n.t('groupPolicyCannotGetGems'),
+        name: 'NotAuthorized',
+      });
     user.canGetGems.restore();
   });
 
   it('should gift gems', async () => {
-    let receivingUser = new User();
+    const receivingUser = new User();
     await receivingUser.save();
-    let gift = {
+    const gift = {
       type: 'gems',
       uuid: receivingUser._id,
       gems: {
@@ -160,16 +164,18 @@ describe('Amazon Payments - Checkout', () => {
       },
     };
     amount = 16 / 4;
-    await amzLib.checkout({gift, user, orderReferenceId, headers});
+    await amzLib.checkout({
+      gift, user, orderReferenceId, headers,
+    });
 
     expectBuyGemsStub(amzLib.constants.PAYMENT_METHOD_GIFT, gift);
     expectAmazonStubs();
   });
 
   it('should gift a subscription', async () => {
-    let receivingUser = new User();
+    const receivingUser = new User();
     receivingUser.save();
-    let gift = {
+    const gift = {
       type: 'subscription',
       subscription: {
         key: subKey,
@@ -178,7 +184,9 @@ describe('Amazon Payments - Checkout', () => {
     };
     amount = common.content.subscriptionBlocks[subKey].price;
 
-    await amzLib.checkout({user, orderReferenceId, headers, gift});
+    await amzLib.checkout({
+      user, orderReferenceId, headers, gift,
+    });
 
     gift.member = receivingUser;
     expect(paymentCreateSubscritionStub).to.be.calledOnce;

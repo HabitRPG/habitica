@@ -5,7 +5,7 @@ import { generateUser } from '../../helpers/common.helper';
 
 describe('taskDefaults', () => {
   it('applies defaults to undefined type or habit', () => {
-    let task = taskDefaults({}, generateUser());
+    const task = taskDefaults({}, generateUser());
     expect(task.type).to.eql('habit');
     expect(task._id).to.exist;
     expect(task.text).to.eql(task._id);
@@ -21,7 +21,7 @@ describe('taskDefaults', () => {
   });
 
   it('applies defaults to a daily', () => {
-    let task = taskDefaults({ type: 'daily' }, generateUser());
+    const task = taskDefaults({ type: 'daily' }, generateUser());
     expect(task.type).to.eql('daily');
     expect(task._id).to.exist;
     expect(task.text).to.eql(task._id);
@@ -45,7 +45,7 @@ describe('taskDefaults', () => {
   });
 
   it('applies defaults a reward', () => {
-    let task = taskDefaults({ type: 'reward' }, generateUser());
+    const task = taskDefaults({ type: 'reward' }, generateUser());
     expect(task.type).to.eql('reward');
     expect(task._id).to.exist;
     expect(task.text).to.eql(task._id);
@@ -55,7 +55,7 @@ describe('taskDefaults', () => {
   });
 
   it('applies defaults a todo', () => {
-    let task = taskDefaults({ type: 'todo' }, generateUser());
+    const task = taskDefaults({ type: 'todo' }, generateUser());
     expect(task.type).to.eql('todo');
     expect(task._id).to.exist;
     expect(task.text).to.eql(task._id);
@@ -67,15 +67,15 @@ describe('taskDefaults', () => {
 
   it('starts a task yesterday if user cron is later today', () => {
     // Configure to have a day start that's *always* tomorrow.
-    let user = generateUser({'preferences.dayStart': 25});
-    let task = taskDefaults({ type: 'daily' }, user);
+    const user = generateUser({ 'preferences.dayStart': 25 });
+    const task = taskDefaults({ type: 'daily' }, user);
 
     expect(task.startDate).to.eql(
       moment()
         .zone(user.preferences.timezoneOffset, 'hour')
         .startOf('day')
         .subtract(1, 'day')
-        .toDate()
+        .toDate(),
     );
   });
 });

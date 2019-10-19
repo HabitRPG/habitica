@@ -1,0 +1,8 @@
+{
+  "noItemsAvailableForType": "Du har ingen <%= type %>.",
+  "foodItemType": "Mat",
+  "eggsItemType": "Egg",
+  "hatchingPotionsItemType": "Klekke-elikser",
+  "specialItemType": "Spesielle ting",
+  "lockedItem": "Locked Item"
+}

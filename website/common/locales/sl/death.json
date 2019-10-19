@@ -1,0 +1,17 @@
+{
+    "lostAllHealth": "Zmanjkalo vam je zdravja!",
+    "dontDespair": "Ne obupajte!",
+    "deathPenaltyDetails": "Izgubili ste izkustveno stopnjo, vse zlato in en kos opreme, a si s trdim delom lahko vse to prislužite nazaj! Srečno, verjamemo, da vam bo uspelo.",
+    "refillHealthTryAgain": "Obnovi zdravje in poskusi znova",
+    "dyingOftenTips": "Se vam to pogosto dogaja? <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>Tukaj je par nasvetov!</a>",
+    "losingHealthWarning": "Previdno — izgubljate zdravje!",
+    "losingHealthWarning2": "Ne pustite, da vam zdravje pade na nič! Sicer boste izgubili eno izkušenjsko stopnjo, vse zlato in en kos opreme.",
+    "toRegainHealth": "Za obnovitev zdravja:",
+    "lowHealthTips1": "Pridobite nov izkustveni nivo in se v celoti ozdravite!",
+    "lowHealthTips2": "Kupite zdravilni napoj preko stolpca za nagrade in si povrnite 15 točk zdravja.",
+    "losingHealthQuickly": "Hitro izgubljate zdravje?",
+    "lowHealthTips3": "Nedokončane dnevne naloge čez noč povzročijo škodo, zato bodite previdni in jih sprva ne dodajte preveč!",
+    "lowHealthTips4": "Če dnevna naloga na določen dan ni na vrsti, jo lahko onemogočite s klikom na ikono svinčnika.",
+    "goodLuck": "Srečno!",
+    "cannotRevive": "Oživitev živih ni možna."
+}

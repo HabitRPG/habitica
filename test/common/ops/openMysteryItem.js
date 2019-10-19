@@ -15,7 +15,7 @@ describe('shared.ops.openMysteryItem', () => {
     user = generateUser();
   });
 
-  it('returns error when item key is empty', (done) => {
+  it('returns error when item key is empty', done => {
     try {
       openMysteryItem(user);
     } catch (err) {
@@ -26,17 +26,19 @@ describe('shared.ops.openMysteryItem', () => {
   });
 
   it('opens mystery item', () => {
-    let mysteryItemKey = 'eyewear_special_summerRogue';
+    const mysteryItemKey = 'eyewear_special_summerRogue';
 
     user.purchased.plan.mysteryItems = [mysteryItemKey];
-    user.notifications.push({type: 'NEW_MYSTERY_ITEMS', data: {items: [mysteryItemKey]}});
+    user.notifications.push({ type: 'NEW_MYSTERY_ITEMS', data: { items: [mysteryItemKey] } });
     expect(user.notifications.length).to.equal(1);
 
-    let [data, message] = openMysteryItem(user);
+    const [data, message] = openMysteryItem(user);
 
     expect(user.items.gear.owned[mysteryItemKey]).to.be.true;
     expect(message).to.equal(i18n.t('mysteryItemOpened'));
-    expect(data).to.eql(content.gear.flat[mysteryItemKey]);
+    const item = _.cloneDeep(content.gear.flat[mysteryItemKey]);
+    item.text = content.gear.flat[mysteryItemKey].text();
+    expect(data).to.eql(item);
     expect(user.notifications.length).to.equal(0);
   });
 });

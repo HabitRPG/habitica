@@ -14,18 +14,18 @@ import * as Tasks from '../../../../website/server/models/task';
 // , you can do so by passing in the full path as a string:
 // { 'items.eggs.Wolf': 10 }
 export async function generateUser (update = {}) {
-  let username = (Date.now() + generateUUID()).substring(0, 20);
-  let password = 'password';
-  let email = `${username}@example.com`;
+  const username = (Date.now() + generateUUID()).substring(0, 20);
+  const password = 'password';
+  const email = `${username}@example.com`;
 
-  let user = await requester().post('/user/auth/local/register', {
+  const user = await requester().post('/user/auth/local/register', {
     username,
     email,
     password,
     confirmPassword: password,
   });
 
-  let apiUser = new ApiUser(user);
+  const apiUser = new ApiUser(user);
 
   await apiUser.update(update);
 
@@ -33,29 +33,29 @@ export async function generateUser (update = {}) {
 }
 
 export async function generateHabit (update = {}) {
-  let type = 'habit';
-  let task = new Tasks[type](update);
+  const type = 'habit';
+  const task = new Tasks[type](update);
   await task.save({ validateBeforeSave: false });
   return task;
 }
 
 export async function generateDaily (update = {}) {
-  let type = 'daily';
-  let task = new Tasks[type](update);
+  const type = 'daily';
+  const task = new Tasks[type](update);
   await task.save({ validateBeforeSave: false });
   return task;
 }
 
 export async function generateReward (update = {}) {
-  let type = 'reward';
-  let task = new Tasks[type](update);
+  const type = 'reward';
+  const task = new Tasks[type](update);
   await task.save({ validateBeforeSave: false });
   return task;
 }
 
 export async function generateTodo (update = {}) {
-  let type = 'todo';
-  let task = new Tasks[type](update);
+  const type = 'todo';
+  const task = new Tasks[type](update);
   await task.save({ validateBeforeSave: false });
   return task;
 }
@@ -69,8 +69,8 @@ export async function generateGroup (leader, details = {}, update = {}) {
   details.privacy = details.privacy || 'private';
   details.name = details.name || 'test group';
 
-  let group = await leader.post('/groups', details);
-  let apiGroup = new ApiGroup(group);
+  const group = await leader.post('/groups', details);
+  const apiGroup = new ApiGroup(group);
 
   await apiGroup.update(update);
 
@@ -80,7 +80,8 @@ export async function generateGroup (leader, details = {}, update = {}) {
 // This is generate group + the ability to create
 // real users to populate it. The settings object
 // takes in:
-// members: Number - the number of group members to create. Defaults to 0. Does not include group leader.
+// members: Number - the number of group members to create.
+// Defaults to 0. Does not include group leader.
 // inivtes: Number - the number of users to create and invite to the group. Defaults to 0.
 // groupDetails: Object - how to initialize the group
 // leaderDetails: Object - defaults for the leader, defaults with a gem balance so the user
@@ -92,42 +93,36 @@ export async function generateGroup (leader, details = {}, update = {}) {
 // leader: the leader user object
 // group: the group object
 export async function createAndPopulateGroup (settings = {}) {
-  let numberOfMembers = settings.members || 0;
-  let numberOfInvites = settings.invites || 0;
-  let groupDetails = settings.groupDetails;
-  let leaderDetails = settings.leaderDetails || { balance: 10 };
+  const numberOfMembers = settings.members || 0;
+  const numberOfInvites = settings.invites || 0;
+  const { groupDetails } = settings;
+  const leaderDetails = settings.leaderDetails || { balance: 10 };
 
-  let groupLeader = await generateUser(leaderDetails);
-  let group = await generateGroup(groupLeader, groupDetails);
+  const groupLeader = await generateUser(leaderDetails);
+  const group = await generateGroup(groupLeader, groupDetails);
 
   const groupMembershipTypes = {
-    party: { 'party._id': group._id},
+    party: { 'party._id': group._id },
     guild: { guilds: [group._id] },
   };
 
-  let members = await Promise.all(
-    times(numberOfMembers, () => {
-      return generateUser(groupMembershipTypes[group.type]);
-    })
+  const members = await Promise.all(
+    times(numberOfMembers, () => generateUser(groupMembershipTypes[group.type])),
   );
 
-  await group.update({ memberCount: numberOfMembers + 1});
+  await group.update({ memberCount: numberOfMembers + 1 });
 
-  let invitees = await Promise.all(
-    times(numberOfInvites, () => {
-      return generateUser();
-    })
+  const invitees = await Promise.all(
+    times(numberOfInvites, () => generateUser()),
   );
 
-  let invitationPromises = invitees.map((invitee) => {
-    return groupLeader.post(`/groups/${group._id}/invite`, {
-      uuids: [invitee._id],
-    });
-  });
+  const invitationPromises = invitees.map(invitee => groupLeader.post(`/groups/${group._id}/invite`, {
+    uuids: [invitee._id],
+  }));
 
   await Promise.all(invitationPromises);
 
-  await Promise.all(invitees.map((invitee) => invitee.sync()));
+  await Promise.all(invitees.map(invitee => invitee.sync()));
 
   return {
     groupLeader,
@@ -149,8 +144,8 @@ export async function generateChallenge (challengeCreator, group, details = {}, 
   details.prize = details.prize || 0;
   details.official = details.official || false;
 
-  let challenge = await challengeCreator.post('/challenges', details);
-  let apiChallenge = new ApiChallenge(challenge);
+  const challenge = await challengeCreator.post('/challenges', details);
+  const apiChallenge = new ApiChallenge(challenge);
 
   await apiChallenge.update(update);
 

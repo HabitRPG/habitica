@@ -24,9 +24,9 @@ describe('POST /user/buy-mystery-set/:key', () => {
   });
 
   it('buys a mystery set', async () => {
-    let key = 301404;
+    const key = 301404;
 
-    let res = await user.post(`/user/buy-mystery-set/${key}`);
+    const res = await user.post(`/user/buy-mystery-set/${key}`);
     await user.sync();
 
     expect(res.data).to.eql({

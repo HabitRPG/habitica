@@ -82,7 +82,7 @@
     "gearAchievement": "Zyskałeś odznaczenie \"Uzbrojony po zęby\" za zdobycie najpotężniejszego uzbrojenia dla swojej klasy! Zdobyłeś następujące zestawy:",
     "gearAchievementNotification": "Zdobyłeś osiągnięcie \"Uzbrojony po zęby\" za ulepszenie wyposażenia do najwyższego poziomu!",
     "moreGearAchievements": "By zdobyć więcej osiągnięć Uzbrojony po zęby, zmień klasę na <a href='/user/settings/site' target='_blank'>stronie ustawień</a> i kup wyposażenie dla swojej nowej klasy!",
-    "armoireUnlocked": "Jeśli chcesz więcej wyposażenia, sprawdź <strong>Zaczarowaną Szafę!</strong> Kliknij na Nagrodę Zaczarowanej Szafy, aby dostać szansę na specjalne wyposażenie! Możesz również otrzymać punkty doświadczenia lub jedzenie.",
+    "armoireUnlocked": "Jeśli chcesz więcej wyposażenia, sprawdź <strong>Zaczarowaną Skrzynię!</strong> Kliknij na Nagrodę Zaczarowanej Skrzyni, aby dostać szansę na specjalne wyposażenie! Możesz również otrzymać punkty doświadczenia lub jedzenie.",
     "ultimGearName": "Uzbrojony po zęby - <%= ultClass %>",
     "ultimGearText": "Broń i zbroja  dla klasy <%= ultClass %> zostały maksymalnie ulepszone.",
     "level": "Poziom",
@@ -168,7 +168,7 @@
     "youDied": "Zginąłeś!",
     "dieText": "Straciłeś jeden Poziom, losowo wybrany przedmiot z Ekwipunku oraz całe Złoto. A teraz powstań, dzielny Habitaninie, i jeszcze raz spróbuj sił w walce! Okiełznaj złe Nawyki, czujnie dopełniaj Codzienne, a jeśli zasłabniesz, wymknij się śmierci zażywając Eliksiru Zdrowia!",
     "sureReset": "Na pewno? Ta opcja zresetuje klasę twojej postaci oraz przydzielone punkty (dostaniesz je z powrotem do ponownego rozdzielenia) oraz kosztuje 3 Klejnoty.",
-    "purchaseFor": "Kupić za <%= cost %> klejnoty?",
+    "purchaseFor": "Kupić za <%= cost %> klejnot(y)(ów)?",
     "purchaseForHourglasses": "Kupić za <%= cost %> Mistycznych Klepsydr?",
     "notEnoughMana": "Masz za mało many.",
     "invalidTarget": "Nie możesz rzucić na to zaklęcia.",
@@ -224,5 +224,9 @@
     "mainHand": "Główna ręka",
     "offHand": "Druga ręka",
     "statPoints": "Punkty Statystyk",
-    "pts": "pkt"
+    "pts": "pkt",
+    "chatCastSpellUser": "<%= username %> rzuca zaklęcie <%= spell %> na <%= target %>.",
+    "chatCastSpellParty": "<%= username %> rzuca zaklęcie <%= spell %> dla drużyny.",
+    "purchasePetItemConfirm": "Ten zakup przekroczyłby liczbę przedmiotów potrzebnych do wyklucia wszystkich możliwych <%= itemText %> chowańców. Czy nadal chcesz kupić?",
+    "purchaseForGold": "Kupić za <%= cost %> szt. złota?"
 }

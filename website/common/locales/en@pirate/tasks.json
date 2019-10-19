@@ -199,7 +199,7 @@
     "monthlyRepeatHelpContent": "This task be due ev'ry X months",
     "yearlyRepeatHelpContent": "This task be due ev'ry X years",
     "resets": "Resets",
-    "summaryStart": "Repeats <%= frequency %> every <%= everyX %> <%= frequencyPlural %>. ",
+    "summaryStart": "Repeats <%= frequency %> ev'ry <%= ev'ryX %> <%= frequencyPlural %>. ",
     "nextDue": "Next Due Dates",
     "checkOffYesterDailies": "Check off any Dailies ye did yesterday:",
     "yesterDailiesTitle": "Ye left these Dailies unchecked yesterday! Do ye wants t' check off any o' them now?",

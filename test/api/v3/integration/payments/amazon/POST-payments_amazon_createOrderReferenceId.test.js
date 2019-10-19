@@ -3,7 +3,7 @@ import {
 } from '../../../../../helpers/api-integration/v3';
 
 describe('payments - amazon - #createOrderReferenceId', () => {
-  let endpoint = '/amazon/createOrderReferenceId';
+  const endpoint = '/amazon/createOrderReferenceId';
   let user;
 
   beforeEach(async () => {

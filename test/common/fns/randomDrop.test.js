@@ -113,8 +113,9 @@ describe('common.fns.randomDrop', () => {
         randomDrop(user, { task, predictableRandom });
         expect(user._tmp.drop.type).to.eql('HatchingPotion');
         expect(user._tmp.drop.value).to.eql(4);
-        let acceptableDrops = ['Zombie', 'CottonCandyPink', 'CottonCandyBlue'];
-        expect(acceptableDrops).to.contain(user._tmp.drop.key); // deterministically 'CottonCandyBlue'
+        const acceptableDrops = ['Zombie', 'CottonCandyPink', 'CottonCandyBlue'];
+        // deterministically 'CottonCandyBlue'
+        expect(acceptableDrops).to.contain(user._tmp.drop.key);
       });
 
       it('drops an uncommon potion', () => {
@@ -123,7 +124,7 @@ describe('common.fns.randomDrop', () => {
         randomDrop(user, { task, predictableRandom });
         expect(user._tmp.drop.type).to.eql('HatchingPotion');
         expect(user._tmp.drop.value).to.eql(3);
-        let acceptableDrops = ['Red', 'Shade', 'Skeleton'];
+        const acceptableDrops = ['Red', 'Shade', 'Skeleton'];
         expect(acceptableDrops).to.contain(user._tmp.drop.key); // always skeleton
       });
 
@@ -133,7 +134,7 @@ describe('common.fns.randomDrop', () => {
         randomDrop(user, { task, predictableRandom });
         expect(user._tmp.drop.type).to.eql('HatchingPotion');
         expect(user._tmp.drop.value).to.eql(2);
-        let acceptableDrops = ['Base', 'White', 'Desert'];
+        const acceptableDrops = ['Base', 'White', 'Desert'];
         expect(acceptableDrops).to.contain(user._tmp.drop.key); // always Desert
       });
     });

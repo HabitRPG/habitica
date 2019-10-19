@@ -11,7 +11,7 @@ describe('GET /shops/seasonal', () => {
   });
 
   it('returns a valid shop object', async () => {
-    let shop = await user.get('/shops/seasonal');
+    const shop = await user.get('/shops/seasonal');
 
     expect(shop.identifier).to.equal('seasonalShop');
     expect(shop.text).to.eql(t('seasonalShop'));

@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import extendableBuiltin from './extendableBuiltin';
 
 // Base class for custom application errors

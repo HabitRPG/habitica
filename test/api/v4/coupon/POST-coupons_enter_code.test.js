@@ -36,7 +36,7 @@ describe('POST /coupons/enter/:code', () => {
   });
 
   it('returns an error if coupon has been used', async () => {
-    let [coupon] = await sudoUser.post('/coupons/generate/wondercon?count=1');
+    const [coupon] = await sudoUser.post('/coupons/generate/wondercon?count=1');
     await user.post(`/coupons/enter/${coupon._id}`); // use coupon
 
     await expect(user.post(`/coupons/enter/${coupon._id}`)).to.eventually.be.rejected.and.eql({
@@ -47,8 +47,8 @@ describe('POST /coupons/enter/:code', () => {
   });
 
   it('should apply the coupon to the user', async () => {
-    let [coupon] = await sudoUser.post('/coupons/generate/wondercon?count=1');
-    let userRes = await user.post(`/coupons/enter/${coupon._id}`);
+    const [coupon] = await sudoUser.post('/coupons/generate/wondercon?count=1');
+    const userRes = await user.post(`/coupons/enter/${coupon._id}`);
     expect(userRes._id).to.equal(user._id);
     expect(userRes.items.gear.owned.eyewear_special_wondercon_red).to.be.true;
     expect(userRes.items.gear.owned.eyewear_special_wondercon_black).to.be.true;
@@ -57,6 +57,6 @@ describe('POST /coupons/enter/:code', () => {
     expect(userRes.items.gear.owned.body_special_wondercon_red).to.be.true;
     expect(userRes.items.gear.owned.body_special_wondercon_black).to.be.true;
     expect(userRes.items.gear.owned.body_special_wondercon_gold).to.be.true;
-    expect(userRes.extra).to.eql({signupEvent: 'wondercon'});
+    expect(userRes.extra).to.eql({ signupEvent: 'wondercon' });
   });
 });

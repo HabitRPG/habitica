@@ -12,17 +12,17 @@ const ENDPOINT = '/user/auth/update-password';
 
 describe('PUT /user/auth/update-password', async () => {
   let user;
-  let password = 'password'; // from habitrpg/test/helpers/api-integration/v3/object-generators.js
-  let wrongPassword = 'wrong-password';
-  let newPassword = 'new-password';
+  const password = 'password'; // from habitrpg/test/helpers/api-integration/v3/object-generators.js
+  const wrongPassword = 'wrong-password';
+  const newPassword = 'new-password';
 
   beforeEach(async () => {
     user = await generateUser();
   });
 
   it('successfully changes the password', async () => {
-    let previousHashedPassword = user.auth.local.hashed_password;
-    let response = await user.put(ENDPOINT, {
+    const previousHashedPassword = user.auth.local.hashed_password;
+    const response = await user.put(ENDPOINT, {
       password,
       newPassword,
       confirmPassword: newPassword,
@@ -57,7 +57,7 @@ describe('PUT /user/auth/update-password', async () => {
   });
 
   it('returns an error when password is missing', async () => {
-    let body = {
+    const body = {
       newPassword,
       confirmPassword: newPassword,
     };
@@ -70,7 +70,7 @@ describe('PUT /user/auth/update-password', async () => {
   });
 
   it('returns an error when newPassword is missing', async () => {
-    let body = {
+    const body = {
       password,
       confirmPassword: newPassword,
     };
@@ -83,7 +83,7 @@ describe('PUT /user/auth/update-password', async () => {
   });
 
   it('returns an error when confirmPassword is missing', async () => {
-    let body = {
+    const body = {
       password,
       newPassword,
     };
@@ -96,9 +96,9 @@ describe('PUT /user/auth/update-password', async () => {
   });
 
   it('converts user with SHA1 encrypted password to bcrypt encryption', async () => {
-    let textPassword = 'mySecretPassword';
-    let salt = sha1MakeSalt();
-    let sha1HashedPassword = sha1EncryptPassword(textPassword, salt);
+    const textPassword = 'mySecretPassword';
+    const salt = sha1MakeSalt();
+    const sha1HashedPassword = sha1EncryptPassword(textPassword, salt);
 
     await user.update({
       'auth.local.hashed_password': sha1HashedPassword,
@@ -123,7 +123,7 @@ describe('PUT /user/auth/update-password', async () => {
     expect(user.auth.local.salt).to.be.undefined;
     expect(user.auth.local.hashed_password).not.to.equal(sha1HashedPassword);
 
-    let isValidPassword = await bcryptCompare(newPassword, user.auth.local.hashed_password);
+    const isValidPassword = await bcryptCompare(newPassword, user.auth.local.hashed_password);
     expect(isValidPassword).to.equal(true);
   });
 });

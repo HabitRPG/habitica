@@ -91,7 +91,7 @@
     "unlocked": "Les objets ont été débloqués",
     "alreadyUnlocked": "Ensemble complet déjà débloqué.",
     "alreadyUnlockedPart": "Ensemble déjà partiellement débloqué.",
-    "invalidQuantity": "La quantité à acheter doit être un nombre.",
+    "invalidQuantity": "La quantité à acheter doit être un nombre entier positif.",
     "USD": "(USD)",
     "newStuff": "Nouveautés par Bailey",
     "newBaileyUpdate": "Nouvelles informations de Bailey !",
@@ -118,10 +118,10 @@
     "autoAllocate": "Distribution automatique",
     "autoAllocateText": "Si \"attribution automatique\" est sélectionné, votre avatar gagne en attributs automatiquement selon les attributs de vos tâches, que vous pouvez trouver dans <strong>TÂCHES > Modifier > Paramètres avancés > Attributs</strong>. Par exemple, si vous allez souvent à la salle de sport et que votre Quotidienne \"Sport\" est définie sur \"Force\", vous gagnerez de la Force automatiquement.",
     "spells": "Compétences",
-    "spellsText": "Vous pouvez maintenant débloquer des compétences spécifiques à votre classe. Vous verrez votre première compétence au niveau 11. Votre barre de mana se remplit de 10 points par jour, plus 1 point par <a target='_blank' href='http://fr.habitica.fandom.com/wiki/À_Faire'>tâche À Faire</a> complétée.",
+    "spellsText": "Vous pouvez maintenant débloquer des compétences spécifiques à votre classe. Vous verrez votre première compétence au niveau 11. Votre barre de mana se remplit de 10 points par jour, plus 1 point par <a target='_blank' href='https://habitica.fandom.com/fr/wiki/À_Faire'>tâche À Faire</a> complétée.",
     "skillsTitle": "Compétences",
     "toDo": "À faire",
-    "moreClass": "Pour en apprendre plus sur le système de classe, consultez <a href='http://fr.habitica.fandom.com/wiki/Système_de_Classe' target='_blank'>Wikia</a>.",
+    "moreClass": "Pour en apprendre plus sur le système de classe, consultez <a href='https://habitica.fandom.com/fr/wiki/Système_de_Classe' target='_blank'>Wikia</a>.",
     "tourWelcome": "Bienvenue à Habitica ! Ceci est votre liste de Tâches. Cochez une tâche pour continuer !",
     "tourExp": "Beau travail ! Valider une tâche vous rapportera de l'expérience et de l'or !",
     "tourDailies": "Cette colonne regroupe les tâches quotidiennes. Pour commencer, renseignez une tâches que vous devriez faire tous les jours ! <strong>Exemple de tâches quotidiennes</strong> : <strong>Faire son lit</strong>, <strong>Se brosser les dents</strong>, <strong>Vérifier ses courriels professionnels</strong>",
@@ -168,5 +168,6 @@
     "welcome5": "Maintenant, vous allez personnaliser votre avatar et définissez vos tâches ...",
     "imReady": "Entrez dans Habitica",
     "limitedOffer": "Disponible jusqu'au <%= date %>",
-    "paymentAutoRenew": "Cet abonnement se renouvellera automatiquement jusqu'à son annulation. Si vous devez annuler cet abonnement, vous pouvez le faire depuis les paramètres."
+    "paymentAutoRenew": "Cet abonnement se renouvellera automatiquement jusqu'à son annulation. Si vous devez annuler cet abonnement, vous pouvez le faire depuis les paramètres.",
+    "paymentCanceledDisputes": "Nous avons envoyé la confirmation d'annulation à votre adresse email. Si vous ne recevez pas cet email, veuillez nous contacter pour éviter de futurs problèmes de facturation."
 }

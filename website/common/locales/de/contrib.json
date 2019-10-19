@@ -20,7 +20,7 @@
     "championFifth": "Wenn das <strong>fünfte</strong> Bündel Deiner Beiträge angenommen wurde, kannst Du den <strong>Kristallschild</strong> im Belohnungs-Shop kaufen. Als Belohnung Deiner fortwährenden Arbeit erhältst Du außerdem <strong>4 Edelsteine</strong>.",
     "championSixth": "Wenn das <strong>sechste</strong> Bündel Deiner Beiträge angenommen wurde, erhältst Du ein <strong>Hydra-Haustier</strong>. Außerdem erhältst Du <strong>4 Edelsteine</strong>.",
     "legendary": "Legendär",
-    "legSeventh": "Wenn Dein <strong>siebtes</strong> Bündel Deiner Beiträge angenommen wurde, erhältst Du <strong>4 Edelsteine</strong> und wirst ein Mitglied der ehrenhaften Mitwirkenden-Gilde. Du wirst in geheime \"Behind-the-Scenes-Details\" von Habitica eingeweiht! Weitere Beiträge werden Deinen Rang nicht erhöhen, allerdings wirst Du vielleicht Edelstein-Belohnungen und Ehrentitel erringen.",
+    "legSeventh": "Wenn das <strong>siebte</strong> Bündel Deiner Beiträge angenommen wurde, erhältst Du <strong>4 Edelsteine</strong> und wirst ein Mitglied der ehrenhaften Mitwirkenden-Gilde. Du wirst in geheime \"Behind-the-Scenes-Details\" von Habitica eingeweiht! Weitere Beiträge werden Deinen Rang nicht erhöhen, allerdings wirst Du vielleicht Edelstein-Belohnungen und Ehrentitel erringen.",
     "moderator": "Moderator",
     "guardian": "Wächter",
     "guardianText": "Moderatoren werden sorgfältig aus den höheren Mitwirkenden-Rängen ausgesucht, also bitte zeige ihnen gegenüber Respekt und höre auf ihre Vorschläge.",
@@ -41,7 +41,7 @@
     "helpedText2": "dieser Befragung.",
     "hall": "Halle der Helden",
     "contribTitle": "Mitwirkenden-Titel (z. B. \"Schmied\")",
-    "contribLevel": "Mitwirkender-Level",
+    "contribLevel": "Mitwirkenden-Level",
     "contribHallText": "1-7 für normale Mitwirkende, 8 für Moderatoren, 9 für Mitarbeiter. Diese Stufe entscheidet, welche Gegenstände, Haustiere und Reittiere verfügbar sind und welche Farbe das Namensschild hat. Stufe 8 und 9 erhalten automatisch den Administratorstatus.",
     "hallContributors": "Halle der Mitwirkenden",
     "hallPatrons": "Halle der Schirmherren",
@@ -74,7 +74,7 @@
     "surveyWhen": "Das Abzeichen wird gegen Ende März verliehen, wenn alle Umfragen bearbeitet wurden.",
     "blurbInbox": "Hier werden Deine persönlichen Nachrichten gespeichert! Du kannst jemandem eine Nachricht schicken, indem Du auf das Umschlagssymbol neben dessen Namen klickst, im Tavernen-, Gruppen- oder Gilden-Chat. Wenn Du eine unangebrachte Nachricht erhältst, solltest Du eine E-Mail mit einem Screenshot davon an Lemoness schicken (<%= hrefCommunityManagerEmail %>)",
     "blurbGuildsPage": "Gilden sind Chatgruppen mit einem gemeinsamen Interesse. Sie sind von Spielern für Spieler erstellt worden. Durchblättere die Liste und tritt den Gilden bei, die Dich interessieren!",
-    "blurbChallenges": "Wettbewerbe werden von anderen Spielern erstellt. Wenn Du einem Wettbewerb beitrittst, werden seine Aufgaben Deinem Aufgabenmenü hinzugefügt, und wenn Du einen Wettbewerb gewinnst erhältst Du einen Erfolg und oft auch einen Edelstein-Preis!",
+    "blurbChallenges": "Wettbewerbe werden von anderen Spielern erstellt. Wenn Du einem Wettbewerb beitrittst, werden seine Aufgaben Deinem Aufgabenmenü hinzugefügt, und wenn Du einen Wettbewerb gewinnst, erhältst Du einen Erfolg und oft auch einen Edelstein-Preis!",
     "blurbHallPatrons": "Dies ist die Halle der Schirmherren, in der wir die edlen Abenteurer ehren, die Habiticas ursprüngliche Kickstarter-Kampagne unterstützt haben. Wir danken ihnen für die Hilfe Habitica zum Leben zu erwecken!",
     "blurbHallContributors": "Dies ist die Halle der Mitwirkenden, in der Open-Source-Unterstützer von Habitica geehrt werden. Durch Code, Kunst, Musik, Schreiben, oder auch nur Hilfsbereitschaft haben sie <a href='http://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'> Edelsteine, exklusive Ausrüstung</a> und <a href='http://habitica.fandom.com/wiki/Contributor_Titles' target='_blank'>angesehene Titel</a> verdient. Auch Du kannst Habitica unterstützen! <a href='http://habitica.fandom.com/wiki/Contributing_to_Habitica' target='_blank'> Hier erfährst Du mehr dazu.</a>"
 }
