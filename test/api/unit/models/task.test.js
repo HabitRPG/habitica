@@ -99,7 +99,7 @@ describe('Task Model', () => {
         } catch (err) {
           expect(err).to.exist;
           expect(err).to.be.an.instanceOf(Error);
-          expect(err).to.eql('Task identifier is a required argument');
+          expect(err.message).to.eql('Task identifier is a required argument');
         }
       });
 
