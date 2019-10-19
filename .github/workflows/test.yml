@@ -19,6 +19,7 @@ jobs:
         npm ci
       env:
         CI: true
+    - run: cp config.json.example config.json
     - run: npm run lint
   apidoc:
     runs-on: ubuntu-latest
@@ -36,4 +37,5 @@ jobs:
         npm ci
       env:
         CI: true
+    - run: cp config.json.example config.json
     - run: npm run apidoc
