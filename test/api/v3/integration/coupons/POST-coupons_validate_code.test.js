@@ -5,7 +5,7 @@ import {
 } from '../../../../helpers/api-integration/v3';
 
 describe('POST /coupons/validate/:code', () => {
-  let api = requester();
+  const api = requester();
 
   before(async () => {
     await resetHabiticaDB();
@@ -20,17 +20,17 @@ describe('POST /coupons/validate/:code', () => {
   });
 
   it('returns true if coupon code is valid', async () => {
-    let sudoUser = await generateUser({
+    const sudoUser = await generateUser({
       'contributor.sudo': true,
     });
 
-    let [coupon] = await sudoUser.post('/coupons/generate/wondercon?count=1');
-    let res = await api.post(`/coupons/validate/${coupon._id}`);
-    expect(res).to.eql({valid: true});
+    const [coupon] = await sudoUser.post('/coupons/generate/wondercon?count=1');
+    const res = await api.post(`/coupons/validate/${coupon._id}`);
+    expect(res).to.eql({ valid: true });
   });
 
   it('returns false if coupon code is valid', async () => {
-    let res = await api.post('/coupons/validate/notValid');
-    expect(res).to.eql({valid: false});
+    const res = await api.post('/coupons/validate/notValid');
+    expect(res).to.eql({ valid: false });
   });
 });

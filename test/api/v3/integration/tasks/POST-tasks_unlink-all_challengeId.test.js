@@ -9,7 +9,7 @@ describe('POST /tasks/unlink-all/:challengeId', () => {
   let user;
   let guild;
   let challenge;
-  let tasksToTest = {
+  const tasksToTest = {
     habit: {
       text: 'test habit',
       type: 'habit',

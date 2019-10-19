@@ -3,7 +3,7 @@ import validator from 'validator';
 import baseModel from '../libs/baseModel';
 
 // A collection used to store mailing list unsubscription for non registered email addresses
-export let schema = new mongoose.Schema({
+export const schema = new mongoose.Schema({
   email: {
     $type: String,
     required: true,
@@ -22,4 +22,4 @@ schema.plugin(baseModel, {
   timestamps: true,
 });
 
-export let model = mongoose.model('EmailUnsubscription', schema);
+export const model = mongoose.model('EmailUnsubscription', schema);

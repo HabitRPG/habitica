@@ -16,13 +16,13 @@ describe('shared.ops.spells', () => {
     user = generateUser();
   });
 
-  it('returns an error when healer tries to cast Healing Light with full health', (done) => {
+  it('returns an error when healer tries to cast Healing Light with full health', done => {
     user.stats.class = 'healer';
     user.stats.lvl = 11;
     user.stats.hp = 50;
     user.stats.mp = 200;
 
-    let spell = spells.healer.heal;
+    const spell = spells.healer.heal;
 
     try {
       spell.cast(user);

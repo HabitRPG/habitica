@@ -15,7 +15,7 @@ describe('POST /user/purchase-hourglass/:type/:key', () => {
   // More tests in common code unit tests
 
   it('buys an hourglass pet', async () => {
-    let response = await user.post('/user/purchase-hourglass/pets/MantisShrimp-Base');
+    const response = await user.post('/user/purchase-hourglass/pets/MantisShrimp-Base');
     await user.sync();
 
     expect(response.message).to.eql(t('hourglassPurchase'));
@@ -24,7 +24,7 @@ describe('POST /user/purchase-hourglass/:type/:key', () => {
   });
 
   it('buys an hourglass quest', async () => {
-    let response = await user.post('/user/purchase-hourglass/quests/robot');
+    const response = await user.post('/user/purchase-hourglass/quests/robot');
     await user.sync();
 
     expect(response.message).to.eql(t('hourglassPurchase'));
@@ -33,7 +33,7 @@ describe('POST /user/purchase-hourglass/:type/:key', () => {
   });
 
   it('buys multiple hourglass quests', async () => {
-    let response = await user.post('/user/purchase-hourglass/quests/robot', {quantity: 2});
+    const response = await user.post('/user/purchase-hourglass/quests/robot', { quantity: 2 });
     await user.sync();
 
     expect(response.message).to.eql(t('hourglassPurchase'));

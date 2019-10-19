@@ -1,7 +1,7 @@
 import { ownsItem } from '../gear-helper';
 import t from '../../translation';
 
-let armor = {
+const armor = {
   lunarArmor: {
     text: t('armorArmoireLunarArmorText'),
     notes: t('armorArmoireLunarArmorNotes', { str: 7, int: 7 }),
@@ -490,9 +490,17 @@ let armor = {
     set: 'detective',
     canOwn: ownsItem('armor_armoire_invernessCape'),
   },
+  shadowMastersRobe: {
+    text: t('armorArmoireShadowMastersRobeText'),
+    notes: t('armorArmoireShadowMastersRobeNotes', { con: 12 }),
+    value: 100,
+    con: 12,
+    set: 'shadowMaster',
+    canOwn: ownsItem('armor_armoire_shadowMastersRobe'),
+  },
 };
 
-let body = {
+const body = {
   cozyScarf: {
     text: t('bodyArmoireCozyScarfText'),
     notes: t('bodyArmoireCozyScarfNotes', { attrs: 5 }),
@@ -504,7 +512,7 @@ let body = {
   },
 };
 
-let eyewear = {
+const eyewear = {
   plagueDoctorMask: {
     text: t('eyewearArmoirePlagueDoctorMaskText'),
     notes: t('eyewearArmoirePlagueDoctorMaskNotes', { attrs: 5 }),
@@ -523,7 +531,7 @@ let eyewear = {
   },
 };
 
-let head = {
+const head = {
   lunarCrown: {
     text: t('headArmoireLunarCrownText'),
     notes: t('headArmoireLunarCrownNotes', { con: 7, per: 7 }),
@@ -1003,9 +1011,18 @@ let head = {
     set: 'detective',
     canOwn: ownsItem('head_armoire_deerstalkerCap'),
   },
+  shadowMastersHood: {
+    text: t('headArmoireShadowMastersHoodText'),
+    notes: t('headArmoireShadowMastersHoodNotes', { attrs: 5 }),
+    value: 100,
+    per: 5,
+    con: 5,
+    set: 'shadowMaster',
+    canOwn: ownsItem('head_armoire_shadowMastersHood'),
+  },
 };
 
-let shield = {
+const shield = {
   gladiatorShield: {
     text: t('shieldArmoireGladiatorShieldText'),
     notes: t('shieldArmoireGladiatorShieldNotes', { con: 5, str: 5 }),
@@ -1273,9 +1290,18 @@ let shield = {
     int: 9,
     canOwn: ownsItem('shield_armoire_polishedPocketwatch'),
   },
+  masteredShadow: {
+    text: t('shieldArmoireMasteredShadowText'),
+    notes: t('shieldArmoireMasteredShadowNotes', { attrs: 5 }),
+    value: 100,
+    per: 5,
+    con: 5,
+    set: 'shadowMaster',
+    canOwn: ownsItem('shield_armoire_masteredShadow'),
+  },
 };
 
-let headAccessory = {
+const headAccessory = {
   comicalArrow: {
     text: t('headAccessoryArmoireComicalArrowText'),
     notes: t('headAccessoryArmoireComicalArrowNotes', { str: 10 }),
@@ -1293,7 +1319,7 @@ let headAccessory = {
   },
 };
 
-let weapon = {
+const weapon = {
   basicCrossbow: {
     text: t('weaponArmoireBasicCrossbowText'),
     notes: t('weaponArmoireBasicCrossbowNotes', { str: 5, per: 5, con: 5 }),
@@ -1711,9 +1737,17 @@ let weapon = {
     per: 9,
     canOwn: ownsItem('weapon_armoire_resplendentRapier'),
   },
+  shadowMastersMace: {
+    text: t('weaponArmoireShadowMastersMaceText'),
+    notes: t('weaponArmoireShadowMastersMaceNotes', { per: 12 }),
+    value: 100,
+    per: 12,
+    set: 'shadowMaster',
+    canOwn: ownsItem('weapon_armoire_shadowMastersMace'),
+  },
 };
 
-let armoireSet = {
+export {
   armor,
   body,
   eyewear,
@@ -1722,5 +1756,3 @@ let armoireSet = {
   shield,
   weapon,
 };
-
-module.exports = armoireSet;

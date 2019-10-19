@@ -10,11 +10,12 @@ import {
 import common from '../../../../website/common';
 import { model as User } from '../../../../website/server/models/user';
 
-const i18n = common.i18n;
+const { i18n } = common;
 
 describe('language middleware', () => {
   describe('res.t', () => {
-    let res, req, next;
+    let res; let req; let
+      next;
 
     beforeEach(() => {
       res = generateRes();
@@ -46,9 +47,10 @@ describe('language middleware', () => {
   });
 
   describe('getUserLanguage', () => {
-    let res, req, next;
+    let res; let req; let
+      next;
 
-    let checkResT = (resToCheck) => {
+    const checkResT = resToCheck => {
       expect(resToCheck.t).to.be.a('function');
       expect(resToCheck.t('help')).to.equal(i18n.t('help', req.language));
     };
@@ -119,7 +121,7 @@ describe('language middleware', () => {
         checkResT(res);
       });
 
-      it('falls back to english if the user preferred language is not avalaible', (done) => {
+      it('falls back to english if the user preferred language is not avalaible', done => {
         req.locals = {
           user: {
             preferences: {
@@ -155,7 +157,7 @@ describe('language middleware', () => {
     });
 
     context('request with session', () => {
-      it('uses the user preferred language if avalaible', (done) => {
+      it('uses the user preferred language if avalaible', done => {
         sandbox.stub(User, 'findOne').returns({
           lean () {
             return this;
@@ -182,7 +184,7 @@ describe('language middleware', () => {
     });
 
     context('browser fallback', () => {
-      it('uses browser specificed language', (done) => {
+      it('uses browser specificed language', done => {
         req.headers['accept-language'] = 'pt';
 
         getUserLanguage(req, res, () => {
@@ -192,7 +194,7 @@ describe('language middleware', () => {
         });
       });
 
-      it('uses first language in series if browser specifies multiple', (done) => {
+      it('uses first language in series if browser specifies multiple', done => {
         req.headers['accept-language'] = 'he, pt, it';
 
         getUserLanguage(req, res, () => {
@@ -202,7 +204,7 @@ describe('language middleware', () => {
         });
       });
 
-      it('skips invalid lanaguages and uses first language in series if browser specifies multiple', (done) => {
+      it('skips invalid lanaguages and uses first language in series if browser specifies multiple', done => {
         req.headers['accept-language'] = 'blah, he, pt, it';
 
         getUserLanguage(req, res, () => {
@@ -212,7 +214,7 @@ describe('language middleware', () => {
         });
       });
 
-      it('uses normal version of language if specialized locale is passed in', (done) => {
+      it('uses normal version of language if specialized locale is passed in', done => {
         req.headers['accept-language'] = 'fr-CA';
 
         getUserLanguage(req, res, () => {
@@ -222,7 +224,7 @@ describe('language middleware', () => {
         });
       });
 
-      it('uses normal version of language if specialized locale is passed in', (done) => {
+      it('uses normal version of language if specialized locale is passed in', done => {
         req.headers['accept-language'] = 'fr-CA';
 
         getUserLanguage(req, res, () => {
@@ -232,7 +234,7 @@ describe('language middleware', () => {
         });
       });
 
-      it('uses es if es is passed in', (done) => {
+      it('uses es if es is passed in', done => {
         req.headers['accept-language'] = 'es';
 
         getUserLanguage(req, res, () => {
@@ -242,7 +244,7 @@ describe('language middleware', () => {
         });
       });
 
-      it('uses es_419 if applicable es-languages are passed in', (done) => {
+      it('uses es_419 if applicable es-languages are passed in', done => {
         req.headers['accept-language'] = 'es-mx';
 
         getUserLanguage(req, res, () => {
@@ -252,7 +254,7 @@ describe('language middleware', () => {
         });
       });
 
-      it('uses es_419 if multiple es languages are passed in', (done) => {
+      it('uses es_419 if multiple es languages are passed in', done => {
         req.headers['accept-language'] = 'es-GT, es-MX, es-CR';
 
         getUserLanguage(req, res, () => {
@@ -262,7 +264,7 @@ describe('language middleware', () => {
         });
       });
 
-      it('zh', (done) => {
+      it('zh', done => {
         req.headers['accept-language'] = 'zh-TW';
 
         getUserLanguage(req, res, () => {
@@ -272,7 +274,7 @@ describe('language middleware', () => {
         });
       });
 
-      it('uses english if browser specified language is not compatible', (done) => {
+      it('uses english if browser specified language is not compatible', done => {
         req.headers['accept-language'] = 'blah';
 
         getUserLanguage(req, res, () => {
@@ -282,7 +284,7 @@ describe('language middleware', () => {
         });
       });
 
-      it('uses english if browser does not specify', (done) => {
+      it('uses english if browser does not specify', done => {
         req.headers['accept-language'] = '';
 
         getUserLanguage(req, res, () => {
@@ -292,7 +294,7 @@ describe('language middleware', () => {
         });
       });
 
-      it('uses english if browser does not supply an accept-language header', (done) => {
+      it('uses english if browser does not supply an accept-language header', done => {
         delete req.headers['accept-language'];
 
         getUserLanguage(req, res, () => {

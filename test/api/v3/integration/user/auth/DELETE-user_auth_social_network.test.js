@@ -38,7 +38,7 @@ describe('DELETE social registration', () => {
         'auth.facebook.id': 'some-fb-id',
       });
 
-      let response = await user.del('/user/auth/social/facebook');
+      const response = await user.del('/user/auth/social/facebook');
       expect(response).to.eql({});
       await user.sync();
       expect(user.auth.facebook).to.be.undefined;
@@ -51,7 +51,7 @@ describe('DELETE social registration', () => {
         'auth.local': { ok: true },
       });
 
-      let response = await user.del('/user/auth/social/facebook');
+      const response = await user.del('/user/auth/social/facebook');
       expect(response).to.eql({});
       await user.sync();
       expect(user.auth.facebook).to.be.undefined;
@@ -76,7 +76,7 @@ describe('DELETE social registration', () => {
         'auth.google.id': 'some-google-id',
       });
 
-      let response = await user.del('/user/auth/social/google');
+      const response = await user.del('/user/auth/social/google');
       expect(response).to.eql({});
       await user.sync();
       expect(user.auth.google).to.be.undefined;
@@ -89,7 +89,7 @@ describe('DELETE social registration', () => {
         'auth.local': { ok: true },
       });
 
-      let response = await user.del('/user/auth/social/google');
+      const response = await user.del('/user/auth/social/google');
       expect(response).to.eql({});
       await user.sync();
       expect(user.auth.goodl).to.be.undefined;

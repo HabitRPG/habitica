@@ -15,7 +15,7 @@ describe('shared.ops.addTask', () => {
   });
 
   it('adds an habit', () => {
-    let habit = addTask(user, {
+    const habit = addTask(user, {
       body: {
         type: 'habit',
         text: 'habit',
@@ -39,7 +39,7 @@ describe('shared.ops.addTask', () => {
   });
 
   it('adds a habit when type is invalid', () => {
-    let habit = addTask(user, {
+    const habit = addTask(user, {
       body: {
         type: 'invalid',
         text: 'habit',
@@ -60,7 +60,7 @@ describe('shared.ops.addTask', () => {
   });
 
   it('adds a daily', () => {
-    let daily = addTask(user, {
+    const daily = addTask(user, {
       body: {
         type: 'daily',
         text: 'daily',
@@ -80,7 +80,7 @@ describe('shared.ops.addTask', () => {
   });
 
   it('adds a todo', () => {
-    let todo = addTask(user, {
+    const todo = addTask(user, {
       body: {
         type: 'todo',
         text: 'todo',
@@ -99,7 +99,7 @@ describe('shared.ops.addTask', () => {
   });
 
   it('adds a reward', () => {
-    let reward = addTask(user, {
+    const reward = addTask(user, {
       body: {
         type: 'reward',
         text: 'reward',

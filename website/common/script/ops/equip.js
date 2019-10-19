@@ -1,3 +1,4 @@
+import get from 'lodash/get';
 import content from '../content/index';
 import i18n from '../i18n';
 import handleTwoHanded from '../fns/handleTwoHanded';
@@ -5,14 +6,13 @@ import {
   NotFound,
   BadRequest,
 } from '../libs/errors';
-import get from 'lodash/get';
 import errorMessage from '../libs/errorMessage';
 
-module.exports = function equip (user, req = {}) {
+export default function equip (user, req = {}) {
   // Being type a parameter followed by another parameter
   // when using the API it must be passes specifically in the URL, it's won't default to equipped
-  let type = get(req, 'params.type', 'equipped');
-  let key = get(req, 'params.key');
+  const type = get(req, 'params.type', 'equipped');
+  const key = get(req, 'params.key');
 
   if (!key || !type) throw new BadRequest(errorMessage('missingTypeKeyEquip'));
   if (['mount', 'pet', 'costume', 'equipped'].indexOf(type) === -1) {
@@ -21,7 +21,7 @@ module.exports = function equip (user, req = {}) {
 
   let message;
 
-  switch (type) {
+  switch (type) { // eslint-disable-line default-case
     case 'mount': {
       if (!user.items.mounts[key]) {
         throw new NotFound(i18n.t('mountNotOwned', req.language));
@@ -44,25 +44,33 @@ module.exports = function equip (user, req = {}) {
         throw new NotFound(i18n.t('gearNotOwned', req.language));
       }
 
-      let item = content.gear.flat[key];
+      const item = content.gear.flat[key];
 
       if (user.items.gear[type][item.type] === key) {
-        user.items.gear[type] = Object.assign(
-          {},
-          user.items.gear[type].toObject ? user.items.gear[type].toObject() : user.items.gear[type],
-          {[item.type]: `${item.type}_base_0`}
-        );
+        user.items.gear[type] = {
+
+          ...(
+            user.items.gear[type].toObject
+              ? user.items.gear[type].toObject()
+              : user.items.gear[type]
+          ),
+          [item.type]: `${item.type}_base_0`,
+        };
         if (user.markModified && type === 'owned') user.markModified('items.gear.owned');
 
         message = i18n.t('messageUnEquipped', {
           itemText: item.text(req.language),
         }, req.language);
       } else {
-        user.items.gear[type] = Object.assign(
-          {},
-          user.items.gear[type].toObject ? user.items.gear[type].toObject() : user.items.gear[type],
-          {[item.type]: item.key}
-        );
+        user.items.gear[type] = {
+
+          ...(
+            user.items.gear[type].toObject
+              ? user.items.gear[type].toObject()
+              : user.items.gear[type]
+          ),
+          [item.type]: item.key,
+        };
         if (user.markModified && type === 'owned') user.markModified('items.gear.owned');
 
         message = handleTwoHanded(user, item, type, req);
@@ -71,7 +79,7 @@ module.exports = function equip (user, req = {}) {
     }
   }
 
-  let res = [user.items];
+  const res = [user.items];
   if (message) res.push(message);
   return res;
-};
+}

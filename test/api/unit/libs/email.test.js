@@ -31,20 +31,20 @@ function getUser () {
 }
 
 describe('emails', () => {
-  let pathToEmailLib = '../../../../website/server/libs/email';
+  const pathToEmailLib = '../../../../website/server/libs/email';
 
   describe('getUserInfo', () => {
     it('returns an empty object if no field request', () => {
-      let attachEmail = requireAgain(pathToEmailLib);
-      let getUserInfo = attachEmail.getUserInfo;
+      const attachEmail = requireAgain(pathToEmailLib);
+      const { getUserInfo } = attachEmail;
       expect(getUserInfo({}, [])).to.be.empty;
     });
 
     it('returns correct user data', () => {
-      let attachEmail = requireAgain(pathToEmailLib);
-      let getUserInfo = attachEmail.getUserInfo;
-      let user = getUser();
-      let data = getUserInfo(user, ['name', 'email', '_id', 'canSend']);
+      const attachEmail = requireAgain(pathToEmailLib);
+      const { getUserInfo } = attachEmail;
+      const user = getUser();
+      const data = getUserInfo(user, ['name', 'email', '_id', 'canSend']);
 
       expect(data).to.have.property('name', user.auth.local.username);
       expect(data).to.have.property('email', user.auth.local.email);
@@ -53,13 +53,13 @@ describe('emails', () => {
     });
 
     it('returns correct user data [facebook users]', () => {
-      let attachEmail = requireAgain(pathToEmailLib);
-      let getUserInfo = attachEmail.getUserInfo;
-      let user = getUser();
+      const attachEmail = requireAgain(pathToEmailLib);
+      const { getUserInfo } = attachEmail;
+      const user = getUser();
       delete user.profile.name;
       delete user.auth.local.email;
 
-      let data = getUserInfo(user, ['name', 'email', '_id', 'canSend']);
+      const data = getUserInfo(user, ['name', 'email', '_id', 'canSend']);
 
       expect(data).to.have.property('name', user.auth.local.username);
       expect(data).to.have.property('email', user.auth.facebook.emails[0].value);
@@ -68,13 +68,13 @@ describe('emails', () => {
     });
 
     it('has fallbacks for missing data', () => {
-      let attachEmail = requireAgain(pathToEmailLib);
-      let getUserInfo = attachEmail.getUserInfo;
-      let user = getUser();
+      const attachEmail = requireAgain(pathToEmailLib);
+      const { getUserInfo } = attachEmail;
+      const user = getUser();
       delete user.auth.local.email;
       delete user.auth.facebook;
 
-      let data = getUserInfo(user, ['name', 'email', '_id', 'canSend']);
+      const data = getUserInfo(user, ['name', 'email', '_id', 'canSend']);
 
       expect(data).to.have.property('name', user.auth.local.username);
       expect(data).not.to.have.property('email');
@@ -85,18 +85,18 @@ describe('emails', () => {
 
   describe('getGroupUrl', () => {
     it('returns correct url if group is the tavern', () => {
-      let getGroupUrl = require(pathToEmailLib).getGroupUrl;
-      expect(getGroupUrl({_id: TAVERN_ID, type: 'guild'})).to.eql('/groups/tavern');
+      const { getGroupUrl } = require(pathToEmailLib); // eslint-disable-line import/no-dynamic-require, max-len
+      expect(getGroupUrl({ _id: TAVERN_ID, type: 'guild' })).to.eql('/groups/tavern');
     });
 
     it('returns correct url if group is a guild', () => {
-      let getGroupUrl = require(pathToEmailLib).getGroupUrl;
-      expect(getGroupUrl({_id: 'random _id', type: 'guild'})).to.eql('/groups/guild/random _id');
+      const { getGroupUrl } = require(pathToEmailLib); // eslint-disable-line import/no-dynamic-require, max-len
+      expect(getGroupUrl({ _id: 'random _id', type: 'guild' })).to.eql('/groups/guild/random _id');
     });
 
     it('returns correct url if group is a party', () => {
-      let getGroupUrl = require(pathToEmailLib).getGroupUrl;
-      expect(getGroupUrl({_id: 'random _id', type: 'party'})).to.eql('party');
+      const { getGroupUrl } = require(pathToEmailLib); // eslint-disable-line import/no-dynamic-require, max-len
+      expect(getGroupUrl({ _id: 'random _id', type: 'party' })).to.eql('party');
     });
   });
 
@@ -111,10 +111,10 @@ describe('emails', () => {
 
     it('can send a txn email to one recipient', () => {
       sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
-      let attachEmail = requireAgain(pathToEmailLib);
-      let sendTxnEmail = attachEmail.sendTxn;
-      let emailType = 'an email type';
-      let mailingInfo = {
+      const attachEmail = requireAgain(pathToEmailLib);
+      const sendTxnEmail = attachEmail.sendTxn;
+      const emailType = 'an email type';
+      const mailingInfo = {
         name: 'my name',
         email: 'my@email',
       };
@@ -125,9 +125,7 @@ describe('emails', () => {
         body: {
           data: {
             emailType: sinon.match.same(emailType),
-            to: sinon.match((value) => {
-              return Array.isArray(value) && value[0].name === mailingInfo.name;
-            }, 'matches mailing info array'),
+            to: sinon.match(value => Array.isArray(value) && value[0].name === mailingInfo.name, 'matches mailing info array'),
           },
         },
       }));
@@ -135,10 +133,10 @@ describe('emails', () => {
 
     it('does not send email if address is missing', () => {
       sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
-      let attachEmail = requireAgain(pathToEmailLib);
-      let sendTxnEmail = attachEmail.sendTxn;
-      let emailType = 'an email type';
-      let mailingInfo = {
+      const attachEmail = requireAgain(pathToEmailLib);
+      const sendTxnEmail = attachEmail.sendTxn;
+      const emailType = 'an email type';
+      const mailingInfo = {
         name: 'my name',
         // email: 'my@email',
       };
@@ -149,10 +147,10 @@ describe('emails', () => {
 
     it('uses getUserInfo in case of user data', () => {
       sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
-      let attachEmail = requireAgain(pathToEmailLib);
-      let sendTxnEmail = attachEmail.sendTxn;
-      let emailType = 'an email type';
-      let mailingInfo = getUser();
+      const attachEmail = requireAgain(pathToEmailLib);
+      const sendTxnEmail = attachEmail.sendTxn;
+      const emailType = 'an email type';
+      const mailingInfo = getUser();
 
       sendTxnEmail(mailingInfo, emailType);
       expect(got.post).to.be.calledWith('undefined/job', sinon.match({
@@ -168,28 +166,24 @@ describe('emails', () => {
 
     it('sends email with some default variables', () => {
       sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
-      let attachEmail = requireAgain(pathToEmailLib);
-      let sendTxnEmail = attachEmail.sendTxn;
-      let emailType = 'an email type';
-      let mailingInfo = {
+      const attachEmail = requireAgain(pathToEmailLib);
+      const sendTxnEmail = attachEmail.sendTxn;
+      const emailType = 'an email type';
+      const mailingInfo = {
         name: 'my name',
         email: 'my@email',
       };
-      let variables = [1, 2, 3];
+      const variables = [1, 2, 3];
 
       sendTxnEmail(mailingInfo, emailType, variables);
       expect(got.post).to.be.calledWith('undefined/job', sinon.match({
         json: true,
         body: {
           data: {
-            variables: sinon.match((value) => {
-              return value[0].name === 'BASE_URL';
-            }, 'matches variables'),
-            personalVariables: sinon.match((value) => {
-              return value[0].rcpt === mailingInfo.email &&
-                value[0].vars[0].name === 'RECIPIENT_NAME' &&
-                value[0].vars[1].name === 'RECIPIENT_UNSUB_URL';
-            }, 'matches personal variables'),
+            variables: sinon.match(value => value[0].name === 'BASE_URL', 'matches variables'),
+            personalVariables: sinon.match(value => value[0].rcpt === mailingInfo.email
+                && value[0].vars[0].name === 'RECIPIENT_NAME'
+                && value[0].vars[1].name === 'RECIPIENT_UNSUB_URL', 'matches personal variables'),
           },
         },
       }));

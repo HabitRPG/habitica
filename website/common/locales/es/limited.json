@@ -155,5 +155,17 @@
     "spring2019OrchidWarriorSet": "Orquídea (Guerrero)",
     "spring2019AmberMageSet": "Ámbar (Mago)",
     "spring2019RobinHealerSet": "Petirrojo (Sanador)",
-    "spring2019CloudRogueSet": "Nube (Pícaro)"
+    "spring2019CloudRogueSet": "Nube (Pícaro)",
+    "september2018": "Septiembre del 2018",
+    "september2017": "Septiembre del 2017",
+    "june2018": "Junio 2018",
+    "eventAvailabilityReturning": "Disponible para su compra hasta <%= availableDate(locale) %>. Esta poción estuvo disponible por última vez el <%= previousDate(locale) %>.",
+    "fall2019RavenSet": "Cuervo (Guerrero)",
+    "fall2019LichSet": "Liche (Sanador)",
+    "fall2019CyclopsSet": "Cíclope (Mago)",
+    "fall2019OperaticSpecterSet": "Espectro Operístico (Pícaro)",
+    "summer2019HammerheadRogueSet": "Cabeza de Martillo (Pícaro)",
+    "summer2019ConchHealerSet": "Caracola (Sanador)",
+    "summer2019WaterLilyMageSet": "Nenúfar (Mago)",
+    "summer2019SeaTurtleWarriorSet": "Tortuga Marina (Guerrero)"
 }

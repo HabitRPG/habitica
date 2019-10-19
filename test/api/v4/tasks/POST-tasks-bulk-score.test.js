@@ -1,10 +1,10 @@
+import { v4 as generateUUID } from 'uuid';
 import {
   generateUser,
   sleep,
   translate as t,
   server,
 } from '../../../helpers/api-integration/v4';
-import { v4 as generateUUID } from 'uuid';
 
 describe('POST /tasks/bulk-score', () => {
   let user;
@@ -17,31 +17,31 @@ describe('POST /tasks/bulk-score', () => {
 
   context('all', () => {
     it('can use an id to identify the task', async () => {
-      let todo = await user.post('/tasks/user', {
+      const todo = await user.post('/tasks/user', {
         text: 'test todo',
         type: 'todo',
         alias: 'alias',
       });
 
-      let res = await user.post('/tasks/bulk-score', [{id: todo.id, direction: 'up'}]);
+      const res = await user.post('/tasks/bulk-score', [{ id: todo.id, direction: 'up' }]);
 
       expect(res).to.be.ok;
     });
 
     it('can use a alias in place of the id', async () => {
-      let todo = await user.post('/tasks/user', {
+      const todo = await user.post('/tasks/user', {
         text: 'test todo',
         type: 'todo',
         alias: 'alias',
       });
 
-      let res = await user.post('/tasks/bulk-score', [{id: todo.alias, direction: 'up'}]);
+      const res = await user.post('/tasks/bulk-score', [{ id: todo.alias, direction: 'up' }]);
 
       expect(res).to.be.ok;
     });
 
     it('sends task scored webhooks', async () => {
-      let uuid = generateUUID();
+      const uuid = generateUUID();
       await server.start();
 
       await user.post('/user/webhook', {
@@ -54,18 +54,18 @@ describe('POST /tasks/bulk-score', () => {
         },
       });
 
-      let task = await user.post('/tasks/user', {
+      const task = await user.post('/tasks/user', {
         text: 'test habit',
         type: 'habit',
       });
 
-      await user.post('/tasks/bulk-score', [{id: task.id, direction: 'up'}]);
+      await user.post('/tasks/bulk-score', [{ id: task.id, direction: 'up' }]);
 
       await sleep();
 
       await server.close();
 
-      let body = server.getWebhookData(uuid);
+      const body = server.getWebhookData(uuid);
 
       expect(body.user).to.have.all.keys('_id', '_tmp', 'stats');
       expect(body.user.stats).to.have.all.keys('hp', 'mp', 'exp', 'gp', 'lvl', 'class', 'points', 'str', 'con', 'int', 'per', 'buffs', 'training', 'maxHealth', 'maxMP', 'toNextLevel');
@@ -84,7 +84,7 @@ describe('POST /tasks/bulk-score', () => {
       });
 
       it('sends user activity webhook when the user levels up', async () => {
-        let uuid = generateUUID();
+        const uuid = generateUUID();
 
         await user.post('/user/webhook', {
           url: `http://localhost:${server.port}/webhooks/${uuid}`,
@@ -100,16 +100,16 @@ describe('POST /tasks/bulk-score', () => {
         await user.update({
           'stats.exp': 3000,
         });
-        let task = await user.post('/tasks/user', {
+        const task = await user.post('/tasks/user', {
           text: 'test habit',
           type: 'habit',
         });
 
-        await user.post('/tasks/bulk-score', [{id: task.id, direction: 'up'}]);
+        await user.post('/tasks/bulk-score', [{ id: task.id, direction: 'up' }]);
         await user.sync();
         await sleep();
 
-        let body = server.getWebhookData(uuid);
+        const body = server.getWebhookData(uuid);
 
         expect(body.type).to.eql('leveledUp');
         expect(body.initialLvl).to.eql(initialLvl);
@@ -129,51 +129,52 @@ describe('POST /tasks/bulk-score', () => {
     });
 
     it('completes todo when direction is up', async () => {
-      await user.post('/tasks/bulk-score', [{id: todo.id, direction: 'up'}]);
-      let task = await user.get(`/tasks/${todo._id}`);
+      await user.post('/tasks/bulk-score', [{ id: todo.id, direction: 'up' }]);
+      const task = await user.get(`/tasks/${todo._id}`);
 
       expect(task.completed).to.equal(true);
       expect(task.dateCompleted).to.be.a('string'); // date gets converted to a string as json doesn't have a Date type
     });
 
     it('moves completed todos out of user.tasksOrder.todos', async () => {
-      let getUser = await user.get('/user');
+      const getUser = await user.get('/user');
       expect(getUser.tasksOrder.todos.indexOf(todo._id)).to.not.equal(-1);
 
-      await user.post('/tasks/bulk-score', [{id: todo.id, direction: 'up'}]);
-      let updatedTask = await user.get(`/tasks/${todo._id}`);
+      await user.post('/tasks/bulk-score', [{ id: todo.id, direction: 'up' }]);
+      const updatedTask = await user.get(`/tasks/${todo._id}`);
       expect(updatedTask.completed).to.equal(true);
 
-      let updatedUser = await user.get('/user');
+      const updatedUser = await user.get('/user');
       expect(updatedUser.tasksOrder.todos.indexOf(todo._id)).to.equal(-1);
     });
 
     it('moves un-completed todos back into user.tasksOrder.todos', async () => {
-      let getUser = await user.get('/user');
+      const getUser = await user.get('/user');
       expect(getUser.tasksOrder.todos.indexOf(todo._id)).to.not.equal(-1);
 
-      await user.post('/tasks/bulk-score', [{id: todo.id, direction: 'up'}]);
-      await user.post('/tasks/bulk-score', [{id: todo.id, direction: 'down'}]);
+      await user.post('/tasks/bulk-score', [{ id: todo.id, direction: 'up' }]);
+      await user.post('/tasks/bulk-score', [{ id: todo.id, direction: 'down' }]);
 
-      let updatedTask = await user.get(`/tasks/${todo._id}`);
+      const updatedTask = await user.get(`/tasks/${todo._id}`);
       expect(updatedTask.completed).to.equal(false);
 
-      let updatedUser = await user.get('/user');
-      let l = updatedUser.tasksOrder.todos.length;
+      const updatedUser = await user.get('/user');
+      const l = updatedUser.tasksOrder.todos.length;
       expect(updatedUser.tasksOrder.todos.indexOf(todo._id)).not.to.equal(-1);
-      expect(updatedUser.tasksOrder.todos.indexOf(todo._id)).to.equal(l - 1); // Check that it was pushed at the bottom
+      // Check that it was pushed at the bottom
+      expect(updatedUser.tasksOrder.todos.indexOf(todo._id)).to.equal(l - 1);
     });
 
     it('uncompletes todo when direction is down', async () => {
-      await user.post('/tasks/bulk-score', [{id: todo.id, direction: 'up'}, {id: todo.id, direction: 'down'}]);
-      let updatedTask = await user.get(`/tasks/${todo._id}`);
+      await user.post('/tasks/bulk-score', [{ id: todo.id, direction: 'up' }, { id: todo.id, direction: 'down' }]);
+      const updatedTask = await user.get(`/tasks/${todo._id}`);
 
       expect(updatedTask.completed).to.equal(false);
       expect(updatedTask.dateCompleted).to.be.a('undefined');
     });
 
     it('doesn\'t let a todo be uncompleted twice', async () => {
-      await expect(user.post('/tasks/bulk-score', [{id: todo.id, direction: 'down'}])).to.eventually.be.rejected.and.eql({
+      await expect(user.post('/tasks/bulk-score', [{ id: todo.id, direction: 'down' }])).to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
         message: t('sessionOutdated'),
@@ -184,7 +185,7 @@ describe('POST /tasks/bulk-score', () => {
       let updatedUser;
 
       beforeEach(async () => {
-        await user.post('/tasks/bulk-score', [{id: todo.id, direction: 'up'}]);
+        await user.post('/tasks/bulk-score', [{ id: todo.id, direction: 'up' }]);
         updatedUser = await user.get('/user');
       });
 
@@ -202,12 +203,13 @@ describe('POST /tasks/bulk-score', () => {
     });
 
     context('user stats when direction is down', () => {
-      let updatedUser, initialUser;
+      let updatedUser; let
+        initialUser;
 
       beforeEach(async () => {
-        await user.post('/tasks/bulk-score', [{id: todo.id, direction: 'up'}]);
+        await user.post('/tasks/bulk-score', [{ id: todo.id, direction: 'up' }]);
         initialUser = await user.get('/user');
-        await user.post('/tasks/bulk-score', [{id: todo.id, direction: 'down'}]);
+        await user.post('/tasks/bulk-score', [{ id: todo.id, direction: 'down' }]);
         updatedUser = await user.get('/user');
       });
 
@@ -236,29 +238,29 @@ describe('POST /tasks/bulk-score', () => {
     });
 
     it('completes daily when direction is up', async () => {
-      await user.post('/tasks/bulk-score', [{id: daily.id, direction: 'up'}]);
-      let task = await user.get(`/tasks/${daily._id}`);
+      await user.post('/tasks/bulk-score', [{ id: daily.id, direction: 'up' }]);
+      const task = await user.get(`/tasks/${daily._id}`);
 
       expect(task.completed).to.equal(true);
     });
 
     it('uncompletes daily when direction is down', async () => {
-      await user.post('/tasks/bulk-score', [{id: daily.id, direction: 'up'}, {id: daily.id, direction: 'down'}]);
-      let task = await user.get(`/tasks/${daily._id}`);
+      await user.post('/tasks/bulk-score', [{ id: daily.id, direction: 'up' }, { id: daily.id, direction: 'down' }]);
+      const task = await user.get(`/tasks/${daily._id}`);
 
       expect(task.completed).to.equal(false);
     });
 
     it('computes isDue', async () => {
-      await user.post('/tasks/bulk-score', [{id: daily.id, direction: 'up'}]);
-      let task = await user.get(`/tasks/${daily._id}`);
+      await user.post('/tasks/bulk-score', [{ id: daily.id, direction: 'up' }]);
+      const task = await user.get(`/tasks/${daily._id}`);
 
       expect(task.isDue).to.equal(true);
     });
 
     it('computes nextDue', async () => {
-      await user.post('/tasks/bulk-score', [{id: daily.id, direction: 'up'}]);
-      let task = await user.get(`/tasks/${daily._id}`);
+      await user.post('/tasks/bulk-score', [{ id: daily.id, direction: 'up' }]);
+      const task = await user.get(`/tasks/${daily._id}`);
 
       expect(task.nextDue.length).to.eql(6);
     });
@@ -267,7 +269,7 @@ describe('POST /tasks/bulk-score', () => {
       let updatedUser;
 
       beforeEach(async () => {
-        await user.post('/tasks/bulk-score', [{id: daily.id, direction: 'up'}]);
+        await user.post('/tasks/bulk-score', [{ id: daily.id, direction: 'up' }]);
         updatedUser = await user.get('/user');
       });
 
@@ -285,12 +287,13 @@ describe('POST /tasks/bulk-score', () => {
     });
 
     context('user stats when direction is down', () => {
-      let updatedUser, initialUser;
+      let updatedUser; let
+        initialUser;
 
       beforeEach(async () => {
-        await user.post('/tasks/bulk-score', [{id: daily.id, direction: 'up'}]);
+        await user.post('/tasks/bulk-score', [{ id: daily.id, direction: 'up' }]);
         initialUser = await user.get('/user');
-        await user.post('/tasks/bulk-score', [{id: daily.id, direction: 'down'}]);
+        await user.post('/tasks/bulk-score', [{ id: daily.id, direction: 'down' }]);
         updatedUser = await user.get('/user');
       });
 
@@ -309,7 +312,8 @@ describe('POST /tasks/bulk-score', () => {
   });
 
   context('habits', () => {
-    let habit, minusHabit, plusHabit, neitherHabit; // eslint-disable-line no-unused-vars
+    let habit; let minusHabit; let plusHabit; let
+      neitherHabit; // eslint-disable-line no-unused-vars
 
     beforeEach(async () => {
       habit = await user.post('/tasks/user', {
@@ -338,11 +342,11 @@ describe('POST /tasks/bulk-score', () => {
     });
 
     it('increases user\'s mp when direction is up', async () => {
-      await user.post('/tasks/bulk-score', [{id: habit.id, direction: 'up'}, {
+      await user.post('/tasks/bulk-score', [{ id: habit.id, direction: 'up' }, {
         id: plusHabit.id,
         direction: 'up',
       }]);
-      let updatedUser = await user.get('/user');
+      const updatedUser = await user.get('/user');
 
       expect(updatedUser.stats.mp).to.be.greaterThan(user.stats.mp);
     });
@@ -355,7 +359,7 @@ describe('POST /tasks/bulk-score', () => {
         id: minusHabit.id,
         direction: 'down',
       }]);
-      let updatedUser = await user.get('/user');
+      const updatedUser = await user.get('/user');
 
       expect(updatedUser.stats.mp).to.be.lessThan(user.stats.mp);
     });
@@ -368,7 +372,7 @@ describe('POST /tasks/bulk-score', () => {
         id: plusHabit.id,
         direction: 'up',
       }]);
-      let updatedUser = await user.get('/user');
+      const updatedUser = await user.get('/user');
 
       expect(updatedUser.stats.exp).to.be.greaterThan(user.stats.exp);
     });
@@ -381,7 +385,7 @@ describe('POST /tasks/bulk-score', () => {
         id: plusHabit.id,
         direction: 'up',
       }]);
-      let updatedUser = await user.get('/user');
+      const updatedUser = await user.get('/user');
 
       expect(updatedUser.stats.gp).to.be.greaterThan(user.stats.gp);
     });
@@ -413,7 +417,8 @@ describe('POST /tasks/bulk-score', () => {
   });
 
   context('mixed', () => {
-    let habit, daily, todo;
+    let habit; let daily; let
+      todo;
     beforeEach(async () => {
       habit = await user.post('/tasks/user', {
         text: 'test habit',
@@ -430,9 +435,9 @@ describe('POST /tasks/bulk-score', () => {
     });
 
     it('scores habits, dailies, todos', async () => {
-      await user.post('/tasks/bulk-score', [{id: habit.id, direction: 'down'},
-                                            {id: daily.id, direction: 'up'},
-                                            {id: todo.id, direction: 'up'},
+      await user.post('/tasks/bulk-score', [{ id: habit.id, direction: 'down' },
+        { id: daily.id, direction: 'up' },
+        { id: todo.id, direction: 'up' },
       ]);
       const updatedHabit = await user.get(`/tasks/${habit._id}`);
       const updatedDaily = await user.get(`/tasks/${daily._id}`);
@@ -446,7 +451,8 @@ describe('POST /tasks/bulk-score', () => {
   });
 
   context('reward', () => {
-    let reward, updatedUser;
+    let reward; let
+      updatedUser;
 
     beforeEach(async () => {
       reward = await user.post('/tasks/user', {
@@ -455,7 +461,7 @@ describe('POST /tasks/bulk-score', () => {
         value: 5,
       });
 
-      await user.post('/tasks/bulk-score', [{id: reward.id, direction: 'up'}]);
+      await user.post('/tasks/bulk-score', [{ id: reward.id, direction: 'up' }]);
       updatedUser = await user.get('/user');
     });
 

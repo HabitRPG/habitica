@@ -1,0 +1,56 @@
+.iconalert {
+  position: relative;
+  padding: $alert-padding-y $alert-padding-x;
+  margin-bottom: $alert-margin-bottom;
+  border-radius: 2px;
+  color: white;
+  font-family: Roboto;
+  font-size: 14px;
+  line-height: 1.43;
+  padding-left: 60px
+}
+
+.iconalert::before {
+  height:100%;
+  content:' ';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 44px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  margin-right: $alert-padding-x;
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+
+.iconalert-success {
+  background-color: #24cc8f;
+}
+
+.iconalert-success::before {
+  background-image: url(~@/assets/svg/for-css/checkbox-white.svg);
+  background-size: 13px 10px;
+  background-color: #1ca372;
+}
+
+.iconalert-warning::before, .iconalert-error::before {
+  background-image: url(~@/assets/svg/for-css/alert-white.svg);
+  background-size: 16px 16px;
+}
+
+.iconalert-warning {
+  background-color: #ffa623;
+}
+
+.iconalert-warning::before {
+  background-color: #ee9109;
+}
+
+.iconalert-error {
+  background-color: #f74e52;
+}
+
+.iconalert-error::before {
+  background-color: #de3f3f;
+}

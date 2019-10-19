@@ -6,8 +6,9 @@ import {
 import amzLib from '../../../../../../website/server/libs/payments/amazon';
 
 describe('payments : amazon #subscribeCancel', () => {
-  let endpoint = '/amazon/subscribe/cancel?noRedirect=true';
-  let user, group, amazonSubscribeCancelStub;
+  const endpoint = '/amazon/subscribe/cancel?noRedirect=true';
+  let user; let group; let
+    amazonSubscribeCancelStub;
 
   beforeEach(async () => {
     user = await generateUser();

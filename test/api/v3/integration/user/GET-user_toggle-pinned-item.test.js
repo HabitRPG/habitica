@@ -20,7 +20,7 @@ describe('GET /user/toggle-pinned-item', () => {
   });
 
   it('can pin shield_rogue_5', async () => {
-    let result = await user.get('/user/toggle-pinned-item/marketGear/gear.flat.shield_rogue_5');
+    const result = await user.get('/user/toggle-pinned-item/marketGear/gear.flat.shield_rogue_5');
 
     expect(result.pinnedItems.length).to.be.eql(user.pinnedItems.length + 1);
   });

@@ -2,24 +2,25 @@ import isString from 'lodash/isString';
 import clone from 'lodash/clone';
 import template from 'lodash/template';
 
-let i18n = {
+const i18n = {
   strings: null,
   translations: {},
   t, // eslint-disable-line no-use-before-define
 };
 
 function t (stringName) {
-  let vars = arguments[1];
+  const args = Array.from(arguments); // eslint-disable-line prefer-rest-params
+  let vars = args[1];
   let locale;
 
-  if (isString(arguments[1])) {
+  if (isString(args[1])) {
     vars = null;
-    locale = arguments[1];
-  } else if (arguments[2]) {
-    locale = arguments[2];
+    locale = args[1]; // eslint-disable-line prefer-destructuring
+  } else if (args[2]) {
+    locale = args[2]; // eslint-disable-line prefer-destructuring
   }
 
-  let i18nNotSetup = !i18n.strings && !i18n.translations[locale];
+  const i18nNotSetup = !i18n.strings && !i18n.translations[locale];
 
   if (!locale || i18nNotSetup) {
     locale = 'en';
@@ -33,7 +34,7 @@ function t (stringName) {
     string = i18n.translations[locale] && i18n.translations[locale][stringName];
   }
 
-  let clonedVars = clone(vars) || {};
+  const clonedVars = clone(vars) || {};
 
   clonedVars.locale = locale;
 
@@ -62,4 +63,4 @@ function t (stringName) {
   }
 }
 
-module.exports = i18n;
+export default i18n;

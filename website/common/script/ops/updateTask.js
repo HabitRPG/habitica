@@ -2,8 +2,8 @@ import merge from 'lodash/merge';
 import omit from 'lodash/omit';
 
 // From server pass task.toObject() not the task document directly
-module.exports = function updateTask (task, req = {}) {
-  let body = req.body || {};
+export default function updateTask (task, req = {}) {
+  const body = req.body || {};
 
   // If reminders are updated -> replace the original ones
   if (body.reminders) {
@@ -32,4 +32,4 @@ module.exports = function updateTask (task, req = {}) {
   }
 
   return [task];
-};
+}
