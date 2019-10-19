@@ -39,6 +39,60 @@ jobs:
       env:
         CI: true
     - run: npm run apidoc
+  sanity:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: cp config.json.example config.json
+    - name: npm install
+      run: |
+        npm ci
+      env:
+        CI: true
+    - run: npm run test:sanity
+  common:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: cp config.json.example config.json
+    - name: npm install
+      run: |
+        npm ci
+      env:
+        CI: true
+    - run: npm run test:common
+  content:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: cp config.json.example config.json
+    - name: npm install
+      run: |
+        npm ci
+      env:
+        CI: true
+    - run: npm run test:content
   client-unit:
     runs-on: ubuntu-latest
     strategy:
