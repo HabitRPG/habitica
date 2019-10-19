@@ -99,7 +99,7 @@ describe('Task Model', () => {
           throw new Error('No exception when Id is None');
         } catch (err) {
           expect(err).to.exist;
-          expect(err).to.eql(new InternalServerError('Task identifier is a required argument'));
+          expect(err).to.eql(new Error('Task identifier is a required argument'));
         }
       });
 
@@ -109,7 +109,7 @@ describe('Task Model', () => {
           throw new Error('No exception when user_id is undefined');
         } catch (err) {
           expect(err).to.exist;
-          expect(err).to.eql(new InternalServerError('User identifier is a required argument'));
+          expect(err).to.eql(new Error('User identifier is a required argument'));
         }
       });
 
