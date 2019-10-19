@@ -110,6 +110,5 @@ jobs:
         npm ci
       env:
         CI: true
-      working-directory: ./website/client
     - run: npm run test:unit
       working-directory: ./website/client
