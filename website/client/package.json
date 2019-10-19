@@ -10,7 +10,7 @@
     "postinstall": "if [ -n \"$npm_config_production\" ]; then npm run build; fi"
   },
   "dependencies": {
-    "@vue/cli-plugin-babel": "^4.0.0",
+    "@vue/cli-plugin-babel": "^4.0.4",
     "@vue/cli-plugin-eslint": "^4.0.1",
     "@vue/cli-plugin-router": "^4.0.4",
     "@vue/cli-plugin-unit-mocha": "^4.0.0",
