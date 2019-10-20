@@ -1,13 +1,13 @@
 import moment from 'moment';
 import _ from 'lodash';
 import validator from 'validator';
-import * as Tasks from '../models/task';
+import * as Tasks from '../models/task'; // eslint-disable-line import/no-cycle
 import {
   BadRequest,
   NotAuthorized,
   NotFound,
 } from './errors';
-import {
+import { // eslint-disable-line import/no-cycle
   SHARED_COMPLETION,
   handleSharedCompletion,
 } from './groupTasks';
@@ -262,7 +262,11 @@ export async function getTasks (req, res, options = {}) {
 export function syncableAttrs (task) {
   const t = task.toObject(); // lodash doesn't seem to like _.omit on Document
   // only sync/compare important attrs
-  const omitAttrs = ['_id', 'userId', 'challenge', 'history', 'tags', 'completed', 'streak', 'notes', 'updatedAt', 'createdAt', 'group', 'checklist', 'attribute'];
+  const omitAttrs = [
+    '_id', '__v', 'userId', 'challenge', 'history', 'tags',
+    'completed', 'streak', 'notes', 'updatedAt', 'createdAt',
+    'group', 'checklist', 'attribute',
+  ];
   if (t.type !== 'reward') omitAttrs.push('value');
   return _.omit(t, omitAttrs);
 }
@@ -311,6 +315,11 @@ async function scoreTask (user, task, direction, req, res) {
     } else if (!task.completed && direction === 'down') {
       throw new NotAuthorized(res.t('sessionOutdated'));
     }
+  }
+
+  // Set whether we're scoring a yesterdaily from the RYA dialog
+  if (req.params.yesterdaily && req.params.yesterdaily === 'yesterdaily') {
+    task.yesterDailyScored = true;
   }
 
   if (task.group.approval.required && !task.group.approval.approved) {

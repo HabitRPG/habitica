@@ -121,6 +121,7 @@ export const TaskSchema = new Schema({
     broken: { $type: String, enum: ['GROUP_DELETED', 'TASK_DELETED', 'UNSUBSCRIBED'] },
     assignedUsers: [{ $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid.'] }],
     assignedDate: { $type: Date },
+    claimedUsers: [{ $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid.'] }],
     taskId: { $type: String, ref: 'Task', validate: [v => validator.isUUID(v), 'Invalid uuid.'] },
     approval: {
       required: { $type: Boolean, default: false },
@@ -135,6 +136,7 @@ export const TaskSchema = new Schema({
       enum: _.values(SHARED_COMPLETION),
       default: SHARED_COMPLETION.single,
     },
+    managerNotes: { $type: String, default: '' },
   },
 
   reminders: [reminderSchema],

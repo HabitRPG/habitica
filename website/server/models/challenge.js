@@ -3,7 +3,7 @@ import validator from 'validator';
 import _ from 'lodash';
 import { TaskQueue } from 'cwait';
 import baseModel from '../libs/baseModel';
-import * as Tasks from './task';
+import * as Tasks from './task'; // eslint-disable-line import/no-cycle
 import { model as User } from './user'; // eslint-disable-line import/no-cycle
 import { // eslint-disable-line import/no-cycle
   model as Group,

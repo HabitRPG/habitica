@@ -2,6 +2,7 @@ import moment from 'moment';
 import _ from 'lodash';
 import cloneDeep from 'lodash/cloneDeep';
 import nconf from 'nconf';
+import { SHARED_COMPLETION, groupTaskCompleted, groupTaskNewDay } from './groupTasks';
 import { model as User } from '../models/user';
 import common from '../../common';
 import { preenUserHistory } from './preening';
@@ -274,7 +275,7 @@ function awardLoginIncentives (user) {
 }
 
 // Perform various beginning-of-day reset actions.
-export function cron (options = {}) {
+export async function cron (options = {}) {
   const {
     user, tasksByType, analytics, now = new Date(), daysMissed, timezoneOffsetFromUserPrefs,
   } = options;
@@ -342,6 +343,7 @@ export function cron (options = {}) {
   let dailyChecked = 0; // how many dailies were checked?
   let dailyDueUnchecked = 0; // how many dailies were un-checked?
   let atLeastOneDailyDue = false; // were any dailies due?
+  const groupSharedSingleDailies = [];
   if (!user.party.quest.progress.down) user.party.quest.progress.down = 0;
 
   tasksByType.dailys.forEach(task => {
@@ -436,7 +438,25 @@ export function cron (options = {}) {
       });
     }
 
-    task.completed = false;
+    // If this is a shared task, check if another user completed it
+    // in the "same" day the user is "starting"
+    if (task.group && task.group.sharedCompletion === SHARED_COMPLETION.single) {
+      // @REVIEW This introduces an async call into this cron function.
+      // The function is called from ../middlewares/cron.js asyncCron(),
+      // which is async and suggests this is okay
+      // Does this cause issues?
+      // Pushing these closures to an array of Promises outside the forEach
+      // This allows both sequential processing and async checking for shared completion
+      groupSharedSingleDailies.push(async function determineGroupCompletion (
+        memberTask, memberUser, memberTime,
+      ) {
+        memberTask.completed = await groupTaskCompleted(memberTask, memberUser, memberTime);
+      }(task, user, now));
+    } else {
+      task.completed = false;
+      if (task.group && task.group.id) groupSharedSingleDailies.push(groupTaskNewDay(task, user));
+    }
+
     setIsDueNextDue(task, user, now);
 
     if (completed || scheduleMisses > 0) {
@@ -452,6 +472,8 @@ export function cron (options = {}) {
       task.group.approval.requestedDate = null;
     }
   });
+
+  await Promise.all(groupSharedSingleDailies);
 
   resetHabitCounters(user, tasksByType, now, daysMissed);
 

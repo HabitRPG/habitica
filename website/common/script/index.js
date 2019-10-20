@@ -10,7 +10,9 @@ import commonErrors from './errors/commonErrorMessages';
 import apiErrors from './errors/apiErrorMessages';
 
 // TODO under api.libs.cron?
-import { shouldDo, daysSince, DAY_MAPPING } from './cron';
+import {
+  shouldDo, daysSince, startOfDay, sanitizeOptions, DAY_MAPPING,
+} from './cron';
 
 import {
   MAX_HEALTH,
@@ -119,6 +121,8 @@ api.errors = errors;
 api.i18n = i18n;
 api.shouldDo = shouldDo;
 api.daysSince = daysSince;
+api.startOfDay = startOfDay;
+api.sanitizeOptions = sanitizeOptions;
 api.DAY_MAPPING = DAY_MAPPING;
 
 api.setDebuffPotionItems = setDebuffPotionItems;

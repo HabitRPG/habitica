@@ -116,7 +116,6 @@ describe('getTaskClasses getter', () => {
       bg: 'task-good-control-bg',
       checkbox: 'task-good-control-checkbox',
       inner: 'task-good-control-inner-daily-todo',
-      icon: 'task-good-control-icon',
     });
   });
 
@@ -133,12 +132,12 @@ describe('getTaskClasses getter', () => {
       up: {
         bg: 'task-good-control-bg',
         inner: 'task-good-control-inner-habit',
-        icon: 'task-good-control-icon',
+        icon: 'task-good-control-checkbox',
       },
       down: {
         bg: 'task-disabled-habit-control-bg',
         inner: 'task-disabled-habit-control-inner',
-        icon: 'task-good-control-icon',
+        icon: 'task-good-control-checkbox',
       },
     });
   });
@@ -149,7 +148,6 @@ describe('getTaskClasses getter', () => {
       bg: 'task-good-control-bg-noninteractive',
       checkbox: 'task-good-control-checkbox',
       inner: 'task-good-control-inner-daily-todo',
-      icon: 'task-good-control-icon',
     });
   });
 });

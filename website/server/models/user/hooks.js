@@ -2,7 +2,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import common from '../../../common';
 import baseModel from '../../libs/baseModel';
-import * as Tasks from '../task';
+import * as Tasks from '../task'; // eslint-disable-line import/no-cycle
 import {
   model as UserNotification,
 } from '../userNotification';

@@ -14,7 +14,7 @@ import {
   setUserStyles,
   messageDefaults,
 } from './message';
-import * as Tasks from './task';
+import * as Tasks from './task'; // eslint-disable-line import/no-cycle
 import { removeFromArray } from '../libs/collectionManipulators';
 import payments from '../libs/payments/payments'; // eslint-disable-line import/no-cycle
 import { // eslint-disable-line import/no-cycle
@@ -1477,10 +1477,6 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
   const group = this;
   const toSave = [];
 
-  if (taskToSync.group.assignedUsers.indexOf(user._id) === -1) {
-    taskToSync.group.assignedUsers.push(user._id);
-  }
-
   // Sync tags
   const userTags = user.tags;
   const i = _.findIndex(userTags, { id: group._id });
@@ -1540,7 +1536,16 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
   // add tag if missing
   if (matchingTask.tags.indexOf(group._id) === -1) matchingTask.tags.push(group._id);
 
-  toSave.push(matchingTask.save(), taskToSync.save(), user.save());
+  toSave.push(matchingTask.save(), user.save());
+  return Promise.all(toSave);
+};
+
+schema.methods.linkTask = async function groupLinkTask (linkingTask, user) {
+  const toSave = [];
+  if (linkingTask.group.assignedUsers.indexOf(user._id) === -1) {
+    linkingTask.group.assignedUsers.push(user._id);
+  }
+  toSave.push(linkingTask.save(), this.syncTask(linkingTask, user));
   return Promise.all(toSave);
 };
 

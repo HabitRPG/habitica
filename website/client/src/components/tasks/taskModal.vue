@@ -109,6 +109,7 @@
           <draggable
             v-model="checklist"
             :options="{handle: '.grippy', filter: '.task-dropdown'}"
+            :disabled="groupAccessRequiredAndOnPersonalPage"
             @update="sortedChecklist"
           >
             <div
@@ -116,13 +117,18 @@
               :key="item.id"
               class="inline-edit-input-group checklist-group input-group"
             >
-              <span class="grippy"></span>
+              <span
+                v-if="!groupAccessRequiredAndOnPersonalPage"
+                class="grippy"
+              ></span>
               <input
                 v-model="item.text"
+                :disabled="groupAccessRequiredAndOnPersonalPage"
                 class="inline-edit-input checklist-item form-control"
                 type="text"
               >
               <span
+                v-if="!groupAccessRequiredAndOnPersonalPage"
                 class="input-group-append"
                 @click="removeChecklistItem($index)"
               >
@@ -131,9 +137,14 @@
                   v-html="icons.destroy"
                 ></div>
               </span>
+              <span
+                v-else
+                class="input-group-append no-pointer"
+              ></span>
             </div>
           </draggable>
           <input
+            v-if="!groupAccessRequiredAndOnPersonalPage"
             v-model="newChecklistItem"
             class="inline-edit-input checklist-item form-control"
             type="text"
@@ -521,7 +532,7 @@
           class="option group-options"
         >
           <div
-            v-if="task.type === 'todo'"
+            v-if="task.type === 'todo' || task.type === 'daily'"
             class="form-group"
           >
             <label v-once>{{ $t('sharedCompletion') }}</label>
@@ -1165,6 +1176,10 @@
   .gold {
     width: 24px;
     margin: 0 7px;
+  }
+
+  .no-pointer {
+    cursor: default;
   }
 </style>
 
