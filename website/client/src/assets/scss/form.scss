@@ -192,6 +192,54 @@ $bg-disabled-control: #34303a;
   }
 }
 
+.form-check-inline.weekday-check {
+  .custom-checkbox {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+  }
+  .custom-control-input {
+    display: none;
+    + .custom-control-label {
+      border: 1px solid $gray-400;
+      border-left-width: 0;
+      text-align: center;
+      padding-top: .5em;
+      padding-bottom: .5em;
+      transition: none;
+      &::before,
+      &::after {
+        display: none;
+      }
+      &:hover,
+      &:focus,
+      &:active {
+        cursor: pointer;
+      }
+      &:hover {
+        color: $purple-300;
+      }
+      &:focus {
+        border-color: $purple-400;
+      }
+    }
+    &:checked + .custom-control-label {
+      background-color: $purple-300;
+      border-color: $purple-100;
+      color: white;
+    }
+  }
+  &:first-of-type .custom-control-label {
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-left-width: 1px;
+  }
+  &:last-of-type .custom-control-label {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+  }
+}
+
 .inline-edit-input-group {
   .input-group-append, .input-group-prepend {
     cursor: pointer;
