@@ -22,7 +22,7 @@ describe('GET /user/webhook', () => {
   });
 
   it('returns users webhooks', async () => {
-    let response = await user.get('/user/webhook');
+    const response = await user.get('/user/webhook');
 
     expect(response).to.eql(user.webhooks.map(w => {
       w.createdAt = w.createdAt.toISOString();

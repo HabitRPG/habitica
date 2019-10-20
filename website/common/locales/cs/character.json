@@ -7,7 +7,7 @@
     "noPhoto": "Tento Habiťan nepřidal fotku.",
     "other": "Další",
     "fullName": "Celé jméno",
-    "displayName": "Display name",
+    "displayName": "Zobrazovaný název",
     "changeDisplayName": "Změnit zobrazované jméno",
     "newDisplayName": "Nové zobrazované jméno",
     "displayPhoto": "Fotografie",
@@ -227,5 +227,6 @@
     "pts": "Body",
     "purchaseForGold": "Koupit za <%= cost %> zlata?",
     "chatCastSpellParty": "<%= username %> použil/a <%= spell %> pro skupinu.",
-    "chatCastSpellUser": "<%= username %> použil/a <%= spell %> na <%= target %>."
+    "chatCastSpellUser": "<%= username %> použil/a <%= spell %> na <%= target %>.",
+    "purchasePetItemConfirm": "Tento nákup by překročil počet položek, které potřebujete k vylíhnutí všech možných <%=itemText %> domácích zvířátek. Jsi si jistá?"
 }

@@ -13,11 +13,11 @@ describe('shared.fns.handleTwoHanded', () => {
   });
 
   it('uses "messageTwoHandedUnequip" message if item is a shield and current weapon is two handed (and sets the user\'s weapon to the base one)', () => {
-    let item = content.gear.tree.shield.warrior['2'];
-    let currentWeapon = content.gear.tree.weapon.armoire.rancherLasso;
+    const item = content.gear.tree.shield.warrior['2'];
+    const currentWeapon = content.gear.tree.weapon.armoire.rancherLasso;
     user.items.gear.equipped.weapon = 'weapon_armoire_rancherLasso';
 
-    let message = handleTwoHanded(user, item);
+    const message = handleTwoHanded(user, item);
     expect(message).to.equal(i18n.t('messageTwoHandedUnequip', {
       twoHandedText: currentWeapon.text(), offHandedText: item.text(),
     }));
@@ -25,11 +25,11 @@ describe('shared.fns.handleTwoHanded', () => {
   });
 
   it('uses "messageTwoHandedEquip" message if item is two handed and currentShield exists but is not "shield_base_0" (and sets the user\'s shield to the base one)', () => {
-    let item = content.gear.tree.weapon.armoire.rancherLasso;
-    let currentShield = content.gear.tree.shield.armoire.gladiatorShield;
+    const item = content.gear.tree.weapon.armoire.rancherLasso;
+    const currentShield = content.gear.tree.shield.armoire.gladiatorShield;
     user.items.gear.equipped.shield = 'shield_armoire_gladiatorShield';
 
-    let message = handleTwoHanded(user, item);
+    const message = handleTwoHanded(user, item);
     expect(message).to.equal(i18n.t('messageTwoHandedEquip', {
       twoHandedText: item.text(), offHandedText: currentShield.text(),
     }));

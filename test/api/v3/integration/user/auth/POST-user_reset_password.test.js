@@ -1,14 +1,14 @@
+import moment from 'moment';
 import {
   generateUser,
   translate as t,
 } from '../../../../../helpers/api-integration/v3';
-import moment from 'moment';
 import {
   decrypt,
 } from '../../../../../../website/server/libs/encryption';
 
 describe('POST /user/reset-password', async () => {
-  let endpoint = '/user/reset-password';
+  const endpoint = '/user/reset-password';
   let user;
 
   beforeEach(async () => {
@@ -16,8 +16,8 @@ describe('POST /user/reset-password', async () => {
   });
 
   it('resets password', async () => {
-    let previousPassword = user.auth.local.hashed_password;
-    let response = await user.post(endpoint, {
+    const previousPassword = user.auth.local.hashed_password;
+    const response = await user.post(endpoint, {
       email: user.auth.local.email,
     });
     expect(response).to.eql({ data: {}, message: t('passwordReset') });
@@ -26,7 +26,7 @@ describe('POST /user/reset-password', async () => {
   });
 
   it('same message on error as on success', async () => {
-    let response = await user.post(endpoint, {
+    const response = await user.post(endpoint, {
       email: 'nonExistent@email.com',
     });
     expect(response).to.eql({ data: {}, message: t('passwordReset') });
@@ -50,8 +50,8 @@ describe('POST /user/reset-password', async () => {
     await user.sync();
 
     expect(user.auth.local.passwordResetCode).to.be.a.string;
-    let decryptedCode = JSON.parse(decrypt(user.auth.local.passwordResetCode));
+    const decryptedCode = JSON.parse(decrypt(user.auth.local.passwordResetCode));
     expect(decryptedCode.userId).to.equal(user._id);
-    expect(moment(decryptedCode.expiresAt).isAfter(moment().add({hours: 23}))).to.equal(true);
+    expect(moment(decryptedCode.expiresAt).isAfter(moment().add({ hours: 23 }))).to.equal(true);
   });
 });

@@ -1,8 +1,8 @@
 {
     "clearCompleted": "Voltooide taken verwijderen",
-    "clearCompletedDescription": "Voltooide taken worden na 30 dagen verwijderd zonder abonnement, met een abonnement worden ze na 90 dagen verwijderd.",
-    "clearCompletedConfirm": "Weet je zeker dat je je voldooide taken wilt verwijderen?",
-    "sureDeleteCompletedTodos": "Weet je zeker dat je je voltooide to-do's wilt verwijderen?",
+    "clearCompletedDescription": "Voltooide To-Do's worden na 30 dagen voor niet-abonnees, voor abonnees worden ze na 90 dagen verwijderd.",
+    "clearCompletedConfirm": "Weet je zeker dat je je voldooide To-Do's wilt verwijderen?",
+    "sureDeleteCompletedTodos": "Weet je zeker dat je je voltooide To-Do's wilt verwijderen?",
     "lotOfToDos": "Je meest recente 30 voltooide To-do's worden hier getoond. Je kan oudere voltooide To-do's zien via Gegevens > Gegevens weergeven of Gegevens > Gegevens exporteren > Gebruikersgegevens.",
     "deleteToDosExplanation": "Met de onderstaande knop worden al je voltooide To-do's en gearchiveerde To-do's voorgoed verwijderd, behalve de To-do's van actieve uitdagingen en groepsplannen. Exporteer ze eerst als je ze wil bewaren.",
     "addMultipleTip": "<strong>Tip:</strong> Om meerdere <%= taskType %> toe te voegen, kun je ze scheiden met  een 'line break' (Shift + Enter), druk daarna op 'Enter'",

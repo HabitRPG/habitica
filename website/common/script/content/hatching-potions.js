@@ -6,13 +6,11 @@ import t from './translation';
 const CURRENT_SEASON = 'October';
 
 function hasQuestAchievementFunction (key) {
-  return (user) => {
-    return user.achievements.quests &&
-      user.achievements.quests[key] > 0;
-  };
+  return user => user.achievements.quests
+      && user.achievements.quests[key] > 0;
 }
 
-let drops = {
+const drops = {
   Base: {
     value: 2,
     text: t('hatchingPotionBase'),
@@ -55,7 +53,7 @@ let drops = {
   },
 };
 
-let premium = {
+const premium = {
   RoyalPurple: {
     value: 2,
     text: t('hatchingPotionRoyalPurple'),
@@ -198,6 +196,7 @@ let premium = {
     text: t('hatchingPotionBronze'),
     limited: true,
     canBuy: hasQuestAchievementFunction('bronze'),
+    _addlNotes: t('premiumPotionUnlimitedNotes'),
   },
   Watery: {
     value: 2,
@@ -210,6 +209,7 @@ let premium = {
     text: t('hatchingPotionSilver'),
     limited: true,
     canBuy: hasQuestAchievementFunction('silver'),
+    _addlNotes: t('premiumPotionUnlimitedNotes'),
   },
   Shadow: {
     value: 2,
@@ -279,9 +279,9 @@ each(wacky, (pot, key) => {
   });
 });
 
-let all = assign({}, drops, premium, wacky);
+const all = assign({}, drops, premium, wacky);
 
-module.exports = {
+export {
   drops,
   premium,
   wacky,

@@ -20,7 +20,7 @@ describe('shared.ops.allocateBulk', () => {
     });
   });
 
-  it('throws an error if an invalid attribute is supplied', (done) => {
+  it('throws an error if an invalid attribute is supplied', done => {
     try {
       allocateBulk(user, {
         body: {
@@ -32,12 +32,12 @@ describe('shared.ops.allocateBulk', () => {
       });
     } catch (err) {
       expect(err).to.be.an.instanceof(BadRequest);
-      expect(err.message).to.equal(errorMessage('invalidAttribute', {attr: 'invalid'}));
+      expect(err.message).to.equal(errorMessage('invalidAttribute', { attr: 'invalid' }));
       done();
     }
   });
 
-  it('throws an error if the stats are not supplied', (done) => {
+  it('throws an error if the stats are not supplied', done => {
     try {
       allocateBulk(user);
     } catch (err) {
@@ -47,7 +47,7 @@ describe('shared.ops.allocateBulk', () => {
     }
   });
 
-  it('throws an error if the user is below lvl 10', (done) => {
+  it('throws an error if the user is below lvl 10', done => {
     user.stats.lvl = 9;
     try {
       allocateBulk(user, {
@@ -65,7 +65,7 @@ describe('shared.ops.allocateBulk', () => {
     }
   });
 
-  it('throws an error if the user hasn\'t selected class', (done) => {
+  it('throws an error if the user hasn\'t selected class', done => {
     user.flags.classSelected = false;
     try {
       allocateBulk(user, {
@@ -83,7 +83,7 @@ describe('shared.ops.allocateBulk', () => {
     }
   });
 
-  it('throws an error if the user has disabled classes', (done) => {
+  it('throws an error if the user has disabled classes', done => {
     user.preferences.disableClasses = true;
     try {
       allocateBulk(user, {
@@ -101,7 +101,7 @@ describe('shared.ops.allocateBulk', () => {
     }
   });
 
-  it('throws an error if the user doesn\'t have attribute points', (done) => {
+  it('throws an error if the user doesn\'t have attribute points', done => {
     try {
       allocateBulk(user, {
         body: {
@@ -118,7 +118,7 @@ describe('shared.ops.allocateBulk', () => {
     }
   });
 
-  it('throws an error if the user doesn\'t have enough attribute points', (done) => {
+  it('throws an error if the user doesn\'t have enough attribute points', done => {
     user.stats.points = 1;
     try {
       allocateBulk(user, {

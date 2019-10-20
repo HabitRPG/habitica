@@ -341,8 +341,8 @@
     "leaderCannotLeaveGroupWithActiveGroup": "组长不能在付费订阅尚未过期时离开小组",
     "youHaveGroupPlan": "因為你的小组擁有小组計畫, 所以你現在就有免費的訂閱. 如果你離開了小组, 你的訂閱便會被取消. 你購買的訂閱會加在小组計畫後.",
     "cancelGroupSub": "取消团队套餐",
-    "confirmCancelGroupPlan": "你确定要取消组内订购计划，并取消所有成员的免费订购的权利吗？",
-    "canceledGroupPlan": "已取消的团队套餐",
+    "confirmCancelGroupPlan": "你确定要取消组内订购计划吗？组内所有成员会失去他们的订阅与收益。",
+    "canceledGroupPlan": "团队计划已取消",
     "groupPlanCanceled": "团队套餐将失效于",
     "purchasedGroupPlanPlanExtraMonths": "你有 <%= months %> 个月额外的组内订购的月数。",
     "addManager": "分配管理员",
@@ -483,5 +483,6 @@
     "pmReported": "感谢您的举报。",
     "taskClaimed": "<%= userName %>已经领取了任务<span class=\"notification-bold\"><%= taskText %></span>。",
     "youHaveBeenAssignedTask": "<％= managerName％>为您分配了任务<％= taskText％> 。",
-    "suggestedGroup": "由于你仍新到 Habitica。"
+    "suggestedGroup": "由于你仍新到 Habitica。",
+    "groupActivityNotificationTitle": "<%= user %>发布在<%= group %>"
 }

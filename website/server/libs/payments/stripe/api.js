@@ -11,4 +11,4 @@ function getStripeApi () {
   return stripe;
 }
 
-module.exports = { getStripeApi, setStripeApi };
+export { getStripeApi, setStripeApi };

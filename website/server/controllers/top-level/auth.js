@@ -1,6 +1,6 @@
 import { validatePasswordResetCodeAndFindUser } from '../../libs/password';
 
-let api = {};
+const api = {};
 
 // Internal authentication routes
 
@@ -10,7 +10,7 @@ api.resetPasswordSetNewOne = {
   url: '/static/user/auth/local/reset-password-set-new-one',
   runCron: false,
   async handler (req, res) {
-    const code = req.query.code;
+    const { code } = req.query;
     const user = await validatePasswordResetCodeAndFindUser(code);
     const isValidCode = Boolean(user);
 
@@ -32,4 +32,4 @@ api.logout = {
   },
 };
 
-module.exports = api;
+export default api;

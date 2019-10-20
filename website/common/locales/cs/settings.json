@@ -119,8 +119,8 @@
     "giftedSubscriptionInfo": "<%= name %> ti daroval <%= months %> měsíční předplatné",
     "giftedSubscriptionFull": "Ahoj <%= username %>, <%= sender %> ti poslal <%= monthCount %> měsíce předplatného!",
     "giftedSubscriptionWinterPromo": "Hello <%= username %>, you received <%= monthCount %> months of subscription as part of our holiday gift-giving promotion!",
-    "invitedParty": "Pozván do Družiny",
-    "invitedGuild": "Pozván do Cechu",
+    "invitedParty": "Byli jste pozváni do Družiny",
+    "invitedGuild": "Byli jste pozváni do  Cechu",
     "importantAnnouncements": "Reminders to check in to complete tasks and receive prizes",
     "weeklyRecaps": "Shrnutí aktivity tvého účtu za poslední týden (Poznámka: momentálně vypnuto kvůli problémům s výkonem, ale doufáme že se to vyřeší a budeme brzy znovu posílat e-maily!)",
     "onboarding": "Guidance with setting up your Habitica account",
@@ -177,7 +177,7 @@
     "mysticHourglass": "<%= amount %> Mystických přesýpacích hodin",
     "mysticHourglassText": "Mystické přesýpací hodiny ti umožní koupit si záhadné sety předmětů z předchozích měsíců.",
     "purchasedPlanId": "Opakovaně $<%= price %> každé <%= months %> měsíce (<%= plan %>)",
-    "purchasedPlanExtraMonths": "Máš <%= months %> měsíců dalšího kreditu předlatného",
+    "purchasedPlanExtraMonths": "Máš <%= months %> měsíců dalšího kreditu předplatného.",
     "consecutiveSubscription": "Nepřetržité předplatné",
     "consecutiveMonths": "Počet po sobě jdoucích měsíců:",
     "gemCapExtra": "Strop drahokamů extra:",
@@ -205,5 +205,6 @@
     "usernameNotVerified": "Please confirm your username.",
     "changeUsernameDisclaimer": "We will be transitioning login names to unique, public usernames soon. This username will be used for invitations, @mentions in chat, and messaging.",
     "verifyUsernameVeteranPet": "One of these Veteran Pets will be waiting for you after you've finished confirming!",
-    "subscriptionReminders": "Připomenutí pro předplatitele"
+    "subscriptionReminders": "Připomenutí pro předplatitele",
+    "newPMNotificationTitle": "Nová zpráva od <%= name %>"
 }
