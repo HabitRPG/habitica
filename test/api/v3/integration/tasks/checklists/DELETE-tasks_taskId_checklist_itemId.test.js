@@ -1,8 +1,8 @@
+import { v4 as generateUUID } from 'uuid';
 import {
   generateUser,
   translate as t,
 } from '../../../../../helpers/api-integration/v3';
-import { v4 as generateUUID } from 'uuid';
 
 describe('DELETE /tasks/:taskId/checklist/:itemId', () => {
   let user;
@@ -12,12 +12,12 @@ describe('DELETE /tasks/:taskId/checklist/:itemId', () => {
   });
 
   it('deletes a checklist item', async () => {
-    let task = await user.post('/tasks/user', {
+    const task = await user.post('/tasks/user', {
       type: 'daily',
       text: 'Daily with checklist',
     });
 
-    let savedTask = await user.post(`/tasks/${task._id}/checklist`, {text: 'Checklist Item 1', completed: false});
+    let savedTask = await user.post(`/tasks/${task._id}/checklist`, { text: 'Checklist Item 1', completed: false });
 
     await user.del(`/tasks/${task._id}/checklist/${savedTask.checklist[0].id}`);
     savedTask = await user.get(`/tasks/${task._id}`);
@@ -26,13 +26,13 @@ describe('DELETE /tasks/:taskId/checklist/:itemId', () => {
   });
 
   it('deletes a checklist item using task alias', async () => {
-    let task = await user.post('/tasks/user', {
+    const task = await user.post('/tasks/user', {
       type: 'daily',
       text: 'Daily with checklist',
       alias: 'daily-with-alias',
     });
 
-    let savedTask = await user.post(`/tasks/${task._id}/checklist`, {text: 'Checklist Item 1', completed: false});
+    let savedTask = await user.post(`/tasks/${task._id}/checklist`, { text: 'Checklist Item 1', completed: false });
 
     await user.del(`/tasks/${task.alias}/checklist/${savedTask.checklist[0].id}`);
     savedTask = await user.get(`/tasks/${task._id}`);
@@ -41,7 +41,7 @@ describe('DELETE /tasks/:taskId/checklist/:itemId', () => {
   });
 
   it('does not work with habits', async () => {
-    let habit = await user.post('/tasks/user', {
+    const habit = await user.post('/tasks/user', {
       type: 'habit',
       text: 'habit with checklist',
     });
@@ -54,7 +54,7 @@ describe('DELETE /tasks/:taskId/checklist/:itemId', () => {
   });
 
   it('does not work with rewards', async () => {
-    let reward = await user.post('/tasks/user', {
+    const reward = await user.post('/tasks/user', {
       type: 'reward',
       text: 'reward with checklist',
     });
@@ -75,7 +75,7 @@ describe('DELETE /tasks/:taskId/checklist/:itemId', () => {
   });
 
   it('fails on checklist item not found', async () => {
-    let createdTask = await user.post('/tasks/user', {
+    const createdTask = await user.post('/tasks/user', {
       type: 'daily',
       text: 'daily with checklist',
     });

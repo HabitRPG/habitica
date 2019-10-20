@@ -7,35 +7,36 @@ import {
   RewardSchema,
   TodoSchema,
 } from '../../website/server/models/task';
-export {translate} from './translate';
+
+export { translate } from './translate';
 
 
 export function generateUser (options = {}) {
-  let user = new User(options).toObject();
+  const user = new User(options).toObject();
 
   return user;
 }
 
 export function generateDaily (options = {}) {
-  let Daily = mongoose.model('Daily', DailySchema);
+  const Daily = mongoose.model('Daily', DailySchema);
 
   return new Daily(options).toObject();
 }
 
 export function generateHabit (options = {}) {
-  let Habit = mongoose.model('Habit', HabitSchema);
+  const Habit = mongoose.model('Habit', HabitSchema);
 
   return new Habit(options).toObject();
 }
 
 export function generateReward (options = {}) {
-  let Reward = mongoose.model('Reward', RewardSchema);
+  const Reward = mongoose.model('Reward', RewardSchema);
 
   return new Reward(options).toObject();
 }
 
 export function generateTodo (options = {}) {
-  let Todo = mongoose.model('Todo', TodoSchema);
+  const Todo = mongoose.model('Todo', TodoSchema);
 
   return new Todo(options).toObject();
 }

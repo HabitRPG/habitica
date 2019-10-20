@@ -13,14 +13,10 @@ describe('GET /user/inventory/buy', () => {
   // More tests in common code unit tests
 
   it('returns the gear items available for purchase', async () => {
-    let buyList = await user.get('/user/inventory/buy');
+    const buyList = await user.get('/user/inventory/buy');
 
-    expect(_.find(buyList, item => {
-      return item.text === t('armorWarrior1Text');
-    })).to.exist;
+    expect(_.find(buyList, item => item.text === t('armorWarrior1Text'))).to.exist;
 
-    expect(_.find(buyList, item => {
-      return item.text === t('armorWarrior2Text');
-    })).to.not.exist;
+    expect(_.find(buyList, item => item.text === t('armorWarrior2Text'))).to.not.exist;
   });
 });

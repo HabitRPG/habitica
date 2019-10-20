@@ -1,15 +1,16 @@
+import { v4 as generateUUID } from 'uuid';
 import {
   createAndPopulateGroup,
   generateUser,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-import { v4 as generateUUID } from 'uuid';
 
 describe('DELETE /groups/:groupId/chat/:chatId', () => {
-  let groupWithChat, message, user, userThatDidNotCreateChat, admin;
+  let groupWithChat; let message; let user; let userThatDidNotCreateChat; let
+    admin;
 
   before(async () => {
-    let { group, groupLeader } = await createAndPopulateGroup({
+    const { group, groupLeader } = await createAndPopulateGroup({
       groupDetails: {
         type: 'guild',
         privacy: 'public',
@@ -21,12 +22,12 @@ describe('DELETE /groups/:groupId/chat/:chatId', () => {
     message = await user.post(`/groups/${groupWithChat._id}/chat`, { message: 'Some message' });
     message = message.message;
     userThatDidNotCreateChat = await generateUser();
-    admin = await generateUser({'contributor.admin': true});
+    admin = await generateUser({ 'contributor.admin': true });
   });
 
   context('Chat errors', () => {
     it('returns an error is message does not exist', async () => {
-      let fakeChatId = generateUUID();
+      const fakeChatId = generateUUID();
       await expect(user.del(`/groups/${groupWithChat._id}/chat/${fakeChatId}`)).to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
@@ -55,9 +56,9 @@ describe('DELETE /groups/:groupId/chat/:chatId', () => {
       await user.del(`/groups/${groupWithChat._id}/chat/${nextMessage.id}`);
 
       const returnedMessages = await user.get(`/groups/${groupWithChat._id}/chat/`);
-      const messageFromUser = returnedMessages.find(returnedMessage => {
-        return returnedMessage.id === nextMessage.id;
-      });
+      const messageFromUser = returnedMessages.find(
+        returnedMessage => returnedMessage.id === nextMessage.id,
+      );
 
       expect(returnedMessages).is.an('array');
       expect(messageFromUser).to.not.exist;
@@ -67,9 +68,9 @@ describe('DELETE /groups/:groupId/chat/:chatId', () => {
       await admin.del(`/groups/${groupWithChat._id}/chat/${nextMessage.id}`);
 
       const returnedMessages = await user.get(`/groups/${groupWithChat._id}/chat/`);
-      const messageFromUser = returnedMessages.find(returnedMessage => {
-        return returnedMessage.id === nextMessage.id;
-      });
+      const messageFromUser = returnedMessages.find(
+        returnedMessage => returnedMessage.id === nextMessage.id,
+      );
 
       expect(returnedMessages).is.an('array');
       expect(messageFromUser).to.not.exist;

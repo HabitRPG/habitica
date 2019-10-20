@@ -12,15 +12,15 @@ const ENDPOINT = '/user/auth/update-username';
 
 describe('PUT /user/auth/update-username', async () => {
   let user;
-  let password = 'password'; // from habitrpg/test/helpers/api-integration/v4/object-generators.js
+  const password = 'password'; // from habitrpg/test/helpers/api-integration/v4/object-generators.js
 
   beforeEach(async () => {
     user = await generateUser();
   });
 
   it('successfully changes username with password', async () => {
-    let newUsername = 'new-username';
-    let response = await user.put(ENDPOINT, {
+    const newUsername = 'new-username';
+    const response = await user.put(ENDPOINT, {
       username: newUsername,
       password,
     });
@@ -30,8 +30,8 @@ describe('PUT /user/auth/update-username', async () => {
   });
 
   it('successfully changes username without password', async () => {
-    let newUsername = 'new-username-nopw';
-    let response = await user.put(ENDPOINT, {
+    const newUsername = 'new-username-nopw';
+    const response = await user.put(ENDPOINT, {
       username: newUsername,
     });
     expect(response).to.eql({ username: newUsername });
@@ -40,8 +40,8 @@ describe('PUT /user/auth/update-username', async () => {
   });
 
   it('successfully changes username containing number and underscore', async () => {
-    let newUsername = 'new_username9';
-    let response = await user.put(ENDPOINT, {
+    const newUsername = 'new_username9';
+    const response = await user.put(ENDPOINT, {
       username: newUsername,
     });
     expect(response).to.eql({ username: newUsername });
@@ -52,8 +52,8 @@ describe('PUT /user/auth/update-username', async () => {
   it('sets verifiedUsername when changing username', async () => {
     user.flags.verifiedUsername = false;
     await user.sync();
-    let newUsername = 'new-username-verify';
-    let response = await user.put(ENDPOINT, {
+    const newUsername = 'new-username-verify';
+    const response = await user.put(ENDPOINT, {
       username: newUsername,
     });
     expect(response).to.eql({ username: newUsername });
@@ -62,10 +62,10 @@ describe('PUT /user/auth/update-username', async () => {
   });
 
   it('converts user with SHA1 encrypted password to bcrypt encryption', async () => {
-    let myNewUsername = 'my-new-username';
-    let textPassword = 'mySecretPassword';
-    let salt = sha1MakeSalt();
-    let sha1HashedPassword = sha1EncryptPassword(textPassword, salt);
+    const myNewUsername = 'my-new-username';
+    const textPassword = 'mySecretPassword';
+    const salt = sha1MakeSalt();
+    const sha1HashedPassword = sha1EncryptPassword(textPassword, salt);
 
     await user.update({
       'auth.local.hashed_password': sha1HashedPassword,
@@ -79,7 +79,7 @@ describe('PUT /user/auth/update-username', async () => {
     expect(user.auth.local.hashed_password).to.equal(sha1HashedPassword);
 
     // update email
-    let response = await user.put(ENDPOINT, {
+    const response = await user.put(ENDPOINT, {
       username: myNewUsername,
       password: textPassword,
     });
@@ -92,14 +92,14 @@ describe('PUT /user/auth/update-username', async () => {
     expect(user.auth.local.salt).to.be.undefined;
     expect(user.auth.local.hashed_password).not.to.equal(sha1HashedPassword);
 
-    let isValidPassword = await bcryptCompare(textPassword, user.auth.local.hashed_password);
+    const isValidPassword = await bcryptCompare(textPassword, user.auth.local.hashed_password);
     expect(isValidPassword).to.equal(true);
   });
 
   context('errors', async () => {
     it('prevents username update if new username is already taken', async () => {
-      let existingUsername = 'existing-username';
-      await generateUser({'auth.local.username': existingUsername, 'auth.local.lowerCaseUsername': existingUsername });
+      const existingUsername = 'existing-username';
+      await generateUser({ 'auth.local.username': existingUsername, 'auth.local.lowerCaseUsername': existingUsername });
 
       await expect(user.put(ENDPOINT, {
         username: existingUsername,
@@ -112,7 +112,7 @@ describe('PUT /user/auth/update-username', async () => {
     });
 
     it('errors if password is wrong', async () => {
-      let newUsername = 'new-username';
+      const newUsername = 'new-username';
       await expect(user.put(ENDPOINT, {
         username: newUsername,
         password: 'wrong-password',

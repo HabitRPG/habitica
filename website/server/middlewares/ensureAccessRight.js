@@ -4,21 +4,21 @@ import {
 import apiError from '../libs/apiError';
 
 export function ensureAdmin (req, res, next) {
-  let user = res.locals.user;
+  const { user } = res.locals;
 
   if (!user.contributor.admin) {
     return next(new NotAuthorized(res.t('noAdminAccess')));
   }
 
-  next();
+  return next();
 }
 
 export function ensureSudo (req, res, next) {
-  let user = res.locals.user;
+  const { user } = res.locals;
 
   if (!user.contributor.sudo) {
     return next(new NotAuthorized(apiError('noSudoAccess')));
   }
 
-  next();
+  return next();
 }

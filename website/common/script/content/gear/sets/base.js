@@ -1,6 +1,6 @@
 import t from '../../translation';
 
-let armor = {
+const armor = {
   0: {
     text: t('armorBase0Text'),
     notes: t('armorBase0Notes'),
@@ -8,7 +8,7 @@ let armor = {
   },
 };
 
-let back = {
+const back = {
   0: {
     text: t('backBase0Text'),
     notes: t('backBase0Notes'),
@@ -16,7 +16,7 @@ let back = {
   },
 };
 
-let body = {
+const body = {
   0: {
     text: t('bodyBase0Text'),
     notes: t('bodyBase0Notes'),
@@ -24,7 +24,7 @@ let body = {
   },
 };
 
-let eyewear = {
+const eyewear = {
   0: {
     text: t('eyewearBase0Text'),
     notes: t('eyewearBase0Notes'),
@@ -33,7 +33,7 @@ let eyewear = {
   },
 };
 
-let head = {
+const head = {
   0: {
     text: t('headBase0Text'),
     notes: t('headBase0Notes'),
@@ -41,7 +41,7 @@ let head = {
   },
 };
 
-let headAccessory = {
+const headAccessory = {
   0: {
     text: t('headAccessoryBase0Text'),
     notes: t('headAccessoryBase0Notes'),
@@ -50,7 +50,7 @@ let headAccessory = {
   },
 };
 
-let shield = {
+const shield = {
   0: {
     text: t('shieldBase0Text'),
     notes: t('shieldBase0Notes'),
@@ -58,7 +58,7 @@ let shield = {
   },
 };
 
-let weapon = {
+const weapon = {
   0: {
     text: t('weaponBase0Text'),
     notes: t('weaponBase0Notes'),
@@ -66,7 +66,7 @@ let weapon = {
   },
 };
 
-let baseSet = {
+export {
   armor,
   back,
   body,
@@ -76,5 +76,3 @@ let baseSet = {
   shield,
   weapon,
 };
-
-module.exports = baseSet;

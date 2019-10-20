@@ -11,14 +11,10 @@ describe('GET /user/in-app-rewards', () => {
   });
 
   it('returns the reward items available for purchase', async () => {
-    let buyList = await user.get('/user/in-app-rewards');
+    const buyList = await user.get('/user/in-app-rewards');
 
-    expect(_.find(buyList, item => {
-      return item.text === t('armorWarrior1Text');
-    })).to.exist;
+    expect(_.find(buyList, item => item.text === t('armorWarrior1Text'))).to.exist;
 
-    expect(_.find(buyList, item => {
-      return item.text === t('armorWarrior2Text');
-    })).to.not.exist;
+    expect(_.find(buyList, item => item.text === t('armorWarrior2Text'))).to.not.exist;
   });
 });

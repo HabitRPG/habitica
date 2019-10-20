@@ -1,17 +1,17 @@
+import { find } from 'lodash';
 import {
   createAndPopulateGroup,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-import { find } from 'lodash';
 
 describe('POST /chat/:chatId/like', () => {
   let user;
   let groupWithChat;
-  let testMessage = 'Test Message';
+  const testMessage = 'Test Message';
   let anotherUser;
 
   before(async () => {
-    let { group, groupLeader, members } = await createAndPopulateGroup({
+    const { group, groupLeader, members } = await createAndPopulateGroup({
       groupDetails: {
         name: 'Test Guild',
         type: 'guild',
@@ -22,7 +22,7 @@ describe('POST /chat/:chatId/like', () => {
 
     user = groupLeader;
     groupWithChat = group;
-    anotherUser = members[0];
+    anotherUser = members[0]; // eslint-disable-line prefer-destructuring
   });
 
   it('Returns an error when chat message is not found', async () => {
@@ -35,7 +35,7 @@ describe('POST /chat/:chatId/like', () => {
   });
 
   it('Returns an error when user tries to like their own message', async () => {
-    let message = await user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage});
+    const message = await user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage });
 
     await expect(user.post(`/groups/${groupWithChat._id}/chat/${message.message.id}/like`))
       .to.eventually.be.rejected.and.eql({
@@ -46,30 +46,30 @@ describe('POST /chat/:chatId/like', () => {
   });
 
   it('Likes a chat', async () => {
-    let message = await anotherUser.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage});
+    const message = await anotherUser.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage });
 
-    let likeResult = await user.post(`/groups/${groupWithChat._id}/chat/${message.message.id}/like`);
+    const likeResult = await user.post(`/groups/${groupWithChat._id}/chat/${message.message.id}/like`);
 
     expect(likeResult.likes[user._id]).to.equal(true);
 
-    let groupWithChatLikes = await user.get(`/groups/${groupWithChat._id}`);
+    const groupWithChatLikes = await user.get(`/groups/${groupWithChat._id}`);
 
-    let messageToCheck = find(groupWithChatLikes.chat, {id: message.message.id});
+    const messageToCheck = find(groupWithChatLikes.chat, { id: message.message.id });
     expect(messageToCheck.likes[user._id]).to.equal(true);
   });
 
   it('Unlikes a chat', async () => {
-    let message = await anotherUser.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage});
+    const message = await anotherUser.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage });
 
-    let likeResult = await user.post(`/groups/${groupWithChat._id}/chat/${message.message.id}/like`);
+    const likeResult = await user.post(`/groups/${groupWithChat._id}/chat/${message.message.id}/like`);
     expect(likeResult.likes[user._id]).to.equal(true);
 
-    let unlikeResult = await user.post(`/groups/${groupWithChat._id}/chat/${message.message.id}/like`);
+    const unlikeResult = await user.post(`/groups/${groupWithChat._id}/chat/${message.message.id}/like`);
     expect(unlikeResult.likes[user._id]).to.equal(false);
 
-    let groupWithoutChatLikes = await user.get(`/groups/${groupWithChat._id}`);
+    const groupWithoutChatLikes = await user.get(`/groups/${groupWithChat._id}`);
 
-    let messageToCheck = find(groupWithoutChatLikes.chat, {id: message.message.id});
+    const messageToCheck = find(groupWithoutChatLikes.chat, { id: message.message.id });
     expect(messageToCheck.likes[user._id]).to.equal(false);
   });
 });

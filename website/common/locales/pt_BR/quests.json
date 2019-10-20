@@ -136,5 +136,6 @@
     "chatItemQuestFinish": "Todos os itens foram encontrados! Todos os membros do Grupo que participaram desta missão receberam suas recompensas.",
     "chatFindItems": "<%= username %> encontrou <%= items %>.",
     "chatBossDefeated": "Você derrotou o(a) <%= bossName %>! Todos os membros do Grupo que participaram desta missão receberam recompensas por esta vitória.",
-    "chatBossDamage": "<%= username %> atacaou <%= bossName %> e causou <%= userDamage %> de dano. <%= bossName %> atacou o Grupo e causou <%= bossDamage %> de dano."
+    "chatBossDamage": "<%= username %> atacaou <%= bossName %> e causou <%= userDamage %> de dano. <%= bossName %> atacou o Grupo e causou <%= bossDamage %> de dano.",
+    "questInvitationNotificationInfo": "Você foi convidado(a) parar participar de uma missão"
 }

@@ -52,5 +52,14 @@
     "selfCareHabit": "短短地休息一下",
     "schoolTodoNotes": "点击以命名任务并选择一个截止日期！]",
     "schoolTodoText": "为课堂完成任务",
-    "schoolDailyNotes": "点击以选择你的作业日程！"
+    "schoolDailyNotes": "点击以选择你的作业日程！",
+    "defaultHabitNotes": "或者从编辑界面将其删去",
+    "defaultHabitText": "点击此处将其编辑为一个你想要戒掉的坏习惯",
+    "creativityTodoNotes": "点击以指定你项目的名称",
+    "creativityTodoText": "完成创造性项目",
+    "creativityDailyNotes": "点击以指定你目前项目的名称 + 设定计划！",
+    "creativityDailyText": "在创意项目上工作",
+    "creativityHabit": "学习大师工艺 >> + 练习一项新的创造性技术",
+    "choresTodoNotes": "点击以指定要清理的区域！",
+    "choresTodoText": "整理衣橱 >> 清理杂乱"
 }

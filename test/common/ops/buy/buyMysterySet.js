@@ -14,7 +14,7 @@ import errorMessage from '../../../../website/common/script/libs/errorMessage';
 
 describe('shared.ops.buyMysterySet', () => {
   let user;
-  let analytics = {track () {}};
+  const analytics = { track () {} };
 
   beforeEach(() => {
     user = generateUser({
@@ -35,9 +35,9 @@ describe('shared.ops.buyMysterySet', () => {
 
   context('Mystery Sets', () => {
     context('failure conditions', () => {
-      it('does not grant mystery sets without Mystic Hourglasses', (done) => {
+      it('does not grant mystery sets without Mystic Hourglasses', done => {
         try {
-          buyMysterySet(user, {params: {key: '201501'}});
+          buyMysterySet(user, { params: { key: '201501' } });
         } catch (err) {
           expect(err).to.be.an.instanceof(NotAuthorized);
           expect(err.message).to.eql(i18n.t('notEnoughHourglasses'));
@@ -46,7 +46,7 @@ describe('shared.ops.buyMysterySet', () => {
         }
       });
 
-      it('does not grant mystery set that has already been purchased', (done) => {
+      it('does not grant mystery set that has already been purchased', done => {
         user.purchased.plan.consecutive.trinkets = 1;
         user.items.gear.owned = {
           weapon_warrior_0: true,
@@ -57,7 +57,7 @@ describe('shared.ops.buyMysterySet', () => {
         };
 
         try {
-          buyMysterySet(user, {params: {key: '301404'}});
+          buyMysterySet(user, { params: { key: '301404' } });
         } catch (err) {
           expect(err).to.be.an.instanceof(NotFound);
           expect(err.message).to.eql(i18n.t('mysterySetNotFound'));
@@ -66,7 +66,7 @@ describe('shared.ops.buyMysterySet', () => {
         }
       });
 
-      it('returns error when key is not provided', (done) => {
+      it('returns error when key is not provided', done => {
         try {
           buyMysterySet(user);
         } catch (err) {
@@ -80,7 +80,7 @@ describe('shared.ops.buyMysterySet', () => {
     context('successful purchases', () => {
       it('buys Steampunk Accessories Set', () => {
         user.purchased.plan.consecutive.trinkets = 1;
-        buyMysterySet(user, {params: {key: '301404'}}, analytics);
+        buyMysterySet(user, { params: { key: '301404' } }, analytics);
 
         expect(user.purchased.plan.consecutive.trinkets).to.eql(0);
         expect(user.items.gear.owned).to.have.property('weapon_warrior_0', true);

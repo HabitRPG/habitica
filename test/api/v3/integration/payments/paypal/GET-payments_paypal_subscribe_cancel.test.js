@@ -5,7 +5,7 @@ import {
 import paypalPayments from '../../../../../../website/server/libs/payments/paypal';
 
 describe('payments : paypal #subscribeCancel', () => {
-  let endpoint = '/paypal/subscribe/cancel';
+  const endpoint = '/paypal/subscribe/cancel';
   let user;
 
   beforeEach(async () => {

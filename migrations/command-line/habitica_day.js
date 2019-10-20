@@ -1,5 +1,5 @@
 db.users.update(
   {},
-  {$inc: {'achievements.habiticaDays': 1}},
-  {multi: 1}
+  { $inc: { 'achievements.habiticaDays': 1 } },
+  { multi: 1 },
 );

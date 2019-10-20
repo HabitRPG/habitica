@@ -1,20 +1,20 @@
 import mongoose from 'mongoose';
-import { TAVERN_ID } from '../../website/server/models/group';
 import { get } from 'lodash';
+import { TAVERN_ID } from '../../website/server/models/group';
 
 // Useful for checking things that have been deleted,
 // but you no longer have access to,
 // like private parties or users
 export async function checkExistence (collectionName, id) {
   return new Promise((resolve, reject) => {
-    let collection = mongoose.connection.db.collection(collectionName);
+    const collection = mongoose.connection.db.collection(collectionName);
 
-    collection.find({_id: id}, {_id: 1}).limit(1).toArray((findError, docs) => {
+    collection.find({ _id: id }, { _id: 1 }).limit(1).toArray((findError, docs) => {
       if (findError) return reject(findError);
 
-      let exists = docs.length > 0;
+      const exists = docs.length > 0;
 
-      resolve(exists);
+      return resolve(exists);
     });
   });
 }
@@ -23,12 +23,12 @@ export async function checkExistence (collectionName, id) {
 // and thus unavailable to the client
 export async function getProperty (collectionName, id, path) {
   return new Promise((resolve, reject) => {
-    let collection = mongoose.connection.db.collection(collectionName);
+    const collection = mongoose.connection.db.collection(collectionName);
 
-    collection.find({_id: id}, {[path]: 1}).limit(1).toArray((findError, docs) => {
+    collection.find({ _id: id }, { [path]: 1 }).limit(1).toArray((findError, docs) => {
       if (findError) return reject(findError);
 
-      resolve(get(docs[0], path));
+      return resolve(get(docs[0], path));
     });
   });
 }
@@ -37,17 +37,17 @@ export async function getProperty (collectionName, id, path) {
 // resets the db to an empty state and creates a tavern document
 export async function resetHabiticaDB () {
   return new Promise((resolve, reject) => {
-    mongoose.connection.dropDatabase((dbErr) => {
+    mongoose.connection.dropDatabase(dbErr => {
       if (dbErr) return reject(dbErr);
-      let groups = mongoose.connection.db.collection('groups');
-      let users = mongoose.connection.db.collection('users');
+      const groups = mongoose.connection.db.collection('groups');
+      const users = mongoose.connection.db.collection('users');
 
-      users.count({_id: '7bde7864-ebc5-4ee2-a4b7-1070d464cdb0'}, (err, count) => {
+      return users.count({ _id: '7bde7864-ebc5-4ee2-a4b7-1070d464cdb0' }, (err, count) => {
         if (err) return reject(err);
         if (count > 0) return resolve();
 
         // create the leader for the tavern
-        users.insertOne({
+        return users.insertOne({
           _id: '7bde7864-ebc5-4ee2-a4b7-1070d464cdb0',
           apiToken: TAVERN_ID,
           auth: {
@@ -59,15 +59,15 @@ export async function resetHabiticaDB () {
               passwordHashMethod: 'bcrypt',
             },
           },
-        }, (insertErr) => {
+        }, insertErr => {
           if (insertErr) return reject(insertErr);
 
           // For some mysterious reason after a dropDatabase there can still be a group...
-          groups.count({_id: TAVERN_ID}, (err2, count2) => {
+          return groups.count({ _id: TAVERN_ID }, (err2, count2) => {
             if (err2) return reject(err2);
             if (count2 > 0) return resolve();
 
-            groups.insertOne({
+            return groups.insertOne({
               _id: TAVERN_ID,
               chat: [],
               leader: '7bde7864-ebc5-4ee2-a4b7-1070d464cdb0', // Siena Leslie
@@ -75,10 +75,10 @@ export async function resetHabiticaDB () {
               type: 'guild',
               privacy: 'public',
               memberCount: 0,
-            }, (insertErr2) => {
+            }, insertErr2 => {
               if (insertErr2) return reject(insertErr2);
 
-              resolve();
+              return resolve();
             });
           });
         });
@@ -88,10 +88,10 @@ export async function resetHabiticaDB () {
 }
 
 export async function updateDocument (collectionName, doc, update) {
-  let collection = mongoose.connection.db.collection(collectionName);
+  const collection = mongoose.connection.db.collection(collectionName);
 
-  return new Promise((resolve) => {
-    collection.updateOne({ _id: doc._id }, { $set: update }, (updateErr) => {
+  return new Promise(resolve => {
+    collection.updateOne({ _id: doc._id }, { $set: update }, updateErr => {
       if (updateErr) throw new Error(`Error updating ${collectionName}: ${updateErr}`);
       resolve();
     });
@@ -101,10 +101,10 @@ export async function updateDocument (collectionName, doc, update) {
 // Unset a property in the database.
 // Useful for testing.
 export async function unsetDocument (collectionName, doc, update) {
-  let collection = mongoose.connection.db.collection(collectionName);
+  const collection = mongoose.connection.db.collection(collectionName);
 
-  return new Promise((resolve) => {
-    collection.updateOne({ _id: doc._id }, { $unset: update }, (updateErr) => {
+  return new Promise(resolve => {
+    collection.updateOne({ _id: doc._id }, { $unset: update }, updateErr => {
       if (updateErr) throw new Error(`Error updating ${collectionName}: ${updateErr}`);
       resolve();
     });
@@ -112,9 +112,9 @@ export async function unsetDocument (collectionName, doc, update) {
 }
 
 export async function getDocument (collectionName, doc) {
-  let collection = mongoose.connection.db.collection(collectionName);
+  const collection = mongoose.connection.db.collection(collectionName);
 
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     collection.findOne({ _id: doc._id }, (lookupErr, found) => {
       if (lookupErr) throw new Error(`Error looking up ${collectionName}: ${lookupErr}`);
       resolve(found);
@@ -122,18 +122,16 @@ export async function getDocument (collectionName, doc) {
   });
 }
 
-before((done) => {
-  mongoose.connection.on('open', (err) => {
+before(done => {
+  mongoose.connection.on('open', err => {
     if (err) return done(err);
-    resetHabiticaDB()
+    return resetHabiticaDB()
       .then(() => done())
       .catch(done);
   });
 });
 
-after((done) => {
-  mongoose.connection.dropDatabase((err) => {
-    if (err) return done(err);
-    mongoose.connection.close(done);
-  });
-});
+after(done => mongoose.connection.dropDatabase(err => {
+  if (err) return done(err);
+  return mongoose.connection.close(done);
+}));

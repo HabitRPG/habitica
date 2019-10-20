@@ -3,19 +3,22 @@ import cc from 'coupon-code';
 
 import {
   generateGroup,
-} from '../../../../../helpers/api-unit.helper.js';
+} from '../../../../../helpers/api-unit.helper';
 import { model as User } from '../../../../../../website/server/models/user';
 import { model as Coupon } from '../../../../../../website/server/models/coupon';
 import stripePayments from '../../../../../../website/server/libs/payments/stripe';
 import payments from '../../../../../../website/server/libs/payments/payments';
 import common from '../../../../../../website/common';
 
-const i18n = common.i18n;
+const { i18n } = common;
 
 describe('checkout with subscription', () => {
   const subKey = 'basic_3mo';
   const stripe = stripeModule('test');
-  let user, group, data, gift, sub, groupId, email, headers, coupon, customerIdResponse, subscriptionId, token;
+  let user; let group; let data; let gift; let sub;
+  let groupId; let email; let headers; let coupon;
+  let customerIdResponse; let subscriptionId; let
+    token;
   let spy;
   let stripeCreateCustomerSpy;
   let stripePaymentsCreateSubSpy;
@@ -57,10 +60,10 @@ describe('checkout with subscription', () => {
     spy.resolves;
 
     stripeCreateCustomerSpy = sinon.stub(stripe.customers, 'create');
-    let stripCustomerResponse = {
+    const stripCustomerResponse = {
       id: customerIdResponse,
       subscriptions: {
-        data: [{id: subscriptionId}],
+        data: [{ id: subscriptionId }],
       },
     };
     stripeCreateCustomerSpy.resolves(stripCustomerResponse);
@@ -72,7 +75,7 @@ describe('checkout with subscription', () => {
     data.sub.quantity = 3;
   });
 
-  afterEach(function () {
+  afterEach(() => {
     stripe.subscriptions.update.restore();
     stripe.customers.create.restore();
     payments.createSubscription.restore();
@@ -120,7 +123,7 @@ describe('checkout with subscription', () => {
     sub.key = 'google_6mo';
     coupon = 'example-coupon';
 
-    let couponModel = new Coupon();
+    const couponModel = new Coupon();
     couponModel.event = 'google_6mo';
     await couponModel.save();
 
@@ -149,9 +152,9 @@ describe('checkout with subscription', () => {
     sub.key = 'google_6mo';
     coupon = 'example-coupon';
 
-    let couponModel = new Coupon();
+    const couponModel = new Coupon();
     couponModel.event = 'google_6mo';
-    let updatedCouponModel = await couponModel.save();
+    const updatedCouponModel = await couponModel.save();
 
     sinon.stub(cc, 'validate').returns(updatedCouponModel._id);
 

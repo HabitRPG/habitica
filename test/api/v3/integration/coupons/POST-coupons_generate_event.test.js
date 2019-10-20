@@ -1,9 +1,9 @@
+import couponCode from 'coupon-code';
 import {
   generateUser,
   translate as t,
   resetHabiticaDB,
 } from '../../../../helpers/api-integration/v3';
-import couponCode from 'coupon-code';
 import apiError from '../../../../../website/server/libs/apiError';
 
 describe('POST /coupons/generate/:event', () => {
@@ -51,7 +51,7 @@ describe('POST /coupons/generate/:event', () => {
       'contributor.sudo': true,
     });
 
-    let coupons = await user.post('/coupons/generate/wondercon?count=2');
+    const coupons = await user.post('/coupons/generate/wondercon?count=2');
     expect(coupons.length).to.equal(2);
     expect(coupons[0].event).to.equal('wondercon');
     expect(couponCode.validate(coupons[1]._id)).to.not.equal(''); // '' means invalid

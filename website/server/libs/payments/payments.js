@@ -1,18 +1,18 @@
-import {
+import { // eslint-disable-line import/no-cycle
   addSubscriptionToGroupUsers,
   addSubToGroupUser,
   cancelGroupUsersSubscription,
   cancelGroupSubscriptionForUser,
 } from './groupPayments';
-import {
+import { // eslint-disable-line import/no-cycle
   createSubscription,
   cancelSubscription,
 } from './subscriptions';
-import {
+import { // eslint-disable-line import/no-cycle
   buyGems,
 } from './gems';
 
-let api = {};
+const api = {};
 
 api.constants = {
   UNLIMITED_CUSTOMER_ID: 'habitrpg', // Users with the customerId have an unlimted free subscription
@@ -36,4 +36,4 @@ api.cancelSubscription = cancelSubscription;
 
 api.buyGems = buyGems;
 
-module.exports = api;
+export default api;

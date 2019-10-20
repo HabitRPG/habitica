@@ -1,22 +1,21 @@
-'use strict';
+import express from 'express';
+import uuid from 'uuid';
+import bodyParser from 'body-parser';
 
-let express = require('express');
-let uuid = require('uuid');
-let bodyParser = require('body-parser');
-let app = express();
-let server = require('http').createServer(app);
+const app = express();
+const server = require('http').createServer(app);
 
 const PORT = process.env.TEST_WEBHOOK_APP_PORT || 3099; // eslint-disable-line no-process-env
 
-let webhookData = {};
+const webhookData = {};
 
 app.use(bodyParser.urlencoded({
   extended: true,
 }));
 app.use(bodyParser.json());
 
-app.post('/webhooks/:id', function (req, res) {
-  let id = req.params.id;
+app.post('/webhooks/:id', (req, res) => {
+  const { id } = req.params;
 
   if (!webhookData[id]) {
     webhookData[id] = [];
@@ -29,9 +28,9 @@ app.post('/webhooks/:id', function (req, res) {
 
 // Helps close down server from within mocha test
 // See http://stackoverflow.com/a/37054753/2601552
-let sockets = {};
-server.on('connection', (socket) => {
-  let id = uuid.v4();
+const sockets = {};
+server.on('connection', socket => {
+  const id = uuid.v4();
   sockets[id] = socket;
 
   socket.once('close', () => {
@@ -40,16 +39,16 @@ server.on('connection', (socket) => {
 });
 
 function start () {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     server.listen(PORT, resolve);
   });
 }
 
 function close () {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     server.close(resolve);
 
-    Object.keys(sockets).forEach((socket) => {
+    Object.keys(sockets).forEach(socket => {
       sockets[socket].end();
     });
   });
@@ -62,7 +61,7 @@ function getWebhookData (id) {
   return webhookData[id].pop();
 }
 
-module.exports = {
+export default {
   start,
   close,
   getWebhookData,
