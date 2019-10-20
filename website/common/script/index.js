@@ -45,6 +45,10 @@ import updateStore from './libs/updateStore';
 
 import inAppRewards from './libs/inAppRewards';
 
+import setDebuffPotionItems from './libs/setDebuffPotionItems';
+
+import getDebuffPotionItems from './libs/getDebuffPotionItems';
+
 import uuid from './libs/uuid';
 
 import taskDefaults from './libs/taskDefaults';
@@ -116,6 +120,9 @@ api.i18n = i18n;
 api.shouldDo = shouldDo;
 api.daysSince = daysSince;
 api.DAY_MAPPING = DAY_MAPPING;
+
+api.setDebuffPotionItems = setDebuffPotionItems;
+api.getDebuffPotionItems = getDebuffPotionItems;
 
 api.constants = {
   MAX_INCENTIVES,

@@ -502,8 +502,10 @@ export function cron (options = {}) {
     user.stats.buffs = _.cloneDeep(CLEAR_BUFFS);
   }
 
+  common.setDebuffPotionItems(user);
+
   // Add 10 MP, or 10% of max MP if that'd be more.
-  // Perform this after Perfect Day for maximum benefit
+  // Perform this after Perfect Day for maximum benefit.
   // Adjust for fraction of dailies completed
   if (!user.preferences.sleep) {
     if (dailyDueUnchecked === 0 && dailyChecked === 0) dailyChecked = 1;
