@@ -6,11 +6,6 @@ import pkg from '../package.json';
 gulp.task('nodemon', done => {
   nodemon({
     script: pkg.main,
-    ignore: [
-      'website/client-old/*',
-      'website/views/*',
-      'common/dist/script/content/*',
-    ],
   });
   done();
 });
