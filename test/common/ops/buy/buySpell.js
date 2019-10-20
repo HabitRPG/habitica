@@ -1,4 +1,4 @@
-import {BuySpellOperation} from '../../../../website/common/script/ops/buy/buySpell';
+import { BuySpellOperation } from '../../../../website/common/script/ops/buy/buySpell';
 import {
   BadRequest,
   NotFound,
@@ -13,7 +13,7 @@ import errorMessage from '../../../../website/common/script/libs/errorMessage';
 
 describe('shared.ops.buySpecialSpell', () => {
   let user;
-  let analytics = {track () {}};
+  const analytics = { track () {} };
 
   function buySpecialSpell (_user, _req, _analytics) {
     const buyOp = new BuySpellOperation(_user, _req, _analytics);
@@ -29,7 +29,7 @@ describe('shared.ops.buySpecialSpell', () => {
     analytics.track.restore();
   });
 
-  it('throws an error if params.key is missing', (done) => {
+  it('throws an error if params.key is missing', done => {
     try {
       buySpecialSpell(user);
     } catch (err) {
@@ -39,7 +39,7 @@ describe('shared.ops.buySpecialSpell', () => {
     }
   });
 
-  it('throws an error if the spell doesn\'t exists', (done) => {
+  it('throws an error if the spell doesn\'t exists', done => {
     try {
       buySpecialSpell(user, {
         params: {
@@ -48,12 +48,12 @@ describe('shared.ops.buySpecialSpell', () => {
       });
     } catch (err) {
       expect(err).to.be.an.instanceof(NotFound);
-      expect(err.message).to.equal(errorMessage('spellNotFound', {spellId: 'notExisting'}));
+      expect(err.message).to.equal(errorMessage('spellNotFound', { spellId: 'notExisting' }));
       done();
     }
   });
 
-  it('throws an error if the user doesn\'t have enough gold', (done) => {
+  it('throws an error if the user doesn\'t have enough gold', done => {
     user.stats.gp = 1;
     try {
       buySpecialSpell(user, {
@@ -70,9 +70,9 @@ describe('shared.ops.buySpecialSpell', () => {
 
   it('buys an item', () => {
     user.stats.gp = 11;
-    let item = content.special.thankyou;
+    const item = content.special.thankyou;
 
-    let [data, message] = buySpecialSpell(user, {
+    const [data, message] = buySpecialSpell(user, {
       params: {
         key: 'thankyou',
       },

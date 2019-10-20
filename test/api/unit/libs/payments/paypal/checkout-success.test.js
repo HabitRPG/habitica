@@ -5,8 +5,10 @@ import { model as User } from '../../../../../../website/server/models/user';
 
 describe('checkout success', () => {
   const subKey = 'basic_3mo';
-  let user, gift, customerId, paymentId;
-  let paypalPaymentExecuteStub, paymentBuyGemsStub, paymentsCreateSubscritionStub;
+  let user; let gift; let customerId; let
+    paymentId;
+  let paypalPaymentExecuteStub; let paymentBuyGemsStub; let
+    paymentsCreateSubscritionStub;
 
   beforeEach(() => {
     user = new User();
@@ -25,7 +27,9 @@ describe('checkout success', () => {
   });
 
   it('purchases gems', async () => {
-    await paypalPayments.checkoutSuccess({user, gift, paymentId, customerId});
+    await paypalPayments.checkoutSuccess({
+      user, gift, paymentId, customerId,
+    });
 
     expect(paypalPaymentExecuteStub).to.be.calledOnce;
     expect(paypalPaymentExecuteStub).to.be.calledWith(paymentId, { payer_id: customerId });
@@ -38,7 +42,7 @@ describe('checkout success', () => {
   });
 
   it('gifts gems', async () => {
-    let receivingUser = new User();
+    const receivingUser = new User();
     await receivingUser.save();
     gift = {
       type: 'gems',
@@ -48,7 +52,9 @@ describe('checkout success', () => {
       },
     };
 
-    await paypalPayments.checkoutSuccess({user, gift, paymentId, customerId});
+    await paypalPayments.checkoutSuccess({
+      user, gift, paymentId, customerId,
+    });
 
     expect(paypalPaymentExecuteStub).to.be.calledOnce;
     expect(paypalPaymentExecuteStub).to.be.calledWith(paymentId, { payer_id: customerId });
@@ -62,7 +68,7 @@ describe('checkout success', () => {
   });
 
   it('gifts subscription', async () => {
-    let receivingUser = new User();
+    const receivingUser = new User();
     await receivingUser.save();
     gift = {
       type: 'subscription',
@@ -72,7 +78,9 @@ describe('checkout success', () => {
       },
     };
 
-    await paypalPayments.checkoutSuccess({user, gift, paymentId, customerId});
+    await paypalPayments.checkoutSuccess({
+      user, gift, paymentId, customerId,
+    });
 
     expect(paypalPaymentExecuteStub).to.be.calledOnce;
     expect(paypalPaymentExecuteStub).to.be.calledWith(paymentId, { payer_id: customerId });

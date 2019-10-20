@@ -12,20 +12,23 @@ const BASE_URL_HOST = url.parse(BASE_URL).hostname;
 
 function isHTTP (req) {
   return ( // eslint-disable-line no-extra-parens
-    req.header('x-forwarded-proto') &&
-    req.header('x-forwarded-proto') === 'http' &&
-    IS_PROD &&
-    BASE_URL.indexOf('https') === 0
+    req.header('x-forwarded-proto')
+    && req.header('x-forwarded-proto') === 'http'
+    && IS_PROD
+    && BASE_URL.indexOf('https') === 0
   );
 }
 
 export function forceSSL (req, res, next) {
-  const skipSSLCheck = req.query.skipSSLCheck;
-  if (isHTTP(req) && (!SKIP_SSL_CHECK_KEY || !skipSSLCheck || skipSSLCheck !== SKIP_SSL_CHECK_KEY)) {
+  const { skipSSLCheck } = req.query;
+  if (
+    isHTTP(req)
+    && (!SKIP_SSL_CHECK_KEY || !skipSSLCheck || skipSSLCheck !== SKIP_SSL_CHECK_KEY)
+  ) {
     return res.redirect(BASE_URL + req.originalUrl);
   }
 
-  next();
+  return next();
 }
 
 // Redirect to habitica for non-api urls
@@ -39,5 +42,5 @@ export function forceHabitica (req, res, next) {
     return res.redirect(301, BASE_URL + req.url);
   }
 
-  next();
+  return next();
 }

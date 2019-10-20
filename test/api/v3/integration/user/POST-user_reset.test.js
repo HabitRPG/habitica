@@ -1,10 +1,10 @@
+import { find } from 'lodash';
 import {
   generateUser,
   generateGroup,
   generateChallenge,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-import { find } from 'lodash';
 
 describe('POST /user/reset', () => {
   let user;
@@ -16,7 +16,7 @@ describe('POST /user/reset', () => {
   // More tests in common code unit tests
 
   it('resets user\'s habits', async () => {
-    let task = await user.post('/tasks/user', {
+    const task = await user.post('/tasks/user', {
       text: 'test habit',
       type: 'habit',
     });
@@ -34,7 +34,7 @@ describe('POST /user/reset', () => {
   });
 
   it('resets user\'s dailys', async () => {
-    let task = await user.post('/tasks/user', {
+    const task = await user.post('/tasks/user', {
       text: 'test daily',
       type: 'daily',
     });
@@ -52,7 +52,7 @@ describe('POST /user/reset', () => {
   });
 
   it('resets user\'s todos', async () => {
-    let task = await user.post('/tasks/user', {
+    const task = await user.post('/tasks/user', {
       text: 'test todo',
       type: 'todo',
     });
@@ -70,7 +70,7 @@ describe('POST /user/reset', () => {
   });
 
   it('resets user\'s rewards', async () => {
-    let task = await user.post('/tasks/user', {
+    const task = await user.post('/tasks/user', {
       text: 'test reward',
       type: 'reward',
     });
@@ -88,15 +88,15 @@ describe('POST /user/reset', () => {
   });
 
   it('does not delete challenge or group tasks', async () => {
-    let guild = await generateGroup(user);
-    let challenge = await generateChallenge(user, guild);
+    const guild = await generateGroup(user);
+    const challenge = await generateChallenge(user, guild);
     await user.post(`/challenges/${challenge._id}/join`);
     await user.post(`/tasks/challenge/${challenge._id}`, {
       text: 'test challenge habit',
       type: 'habit',
     });
 
-    let groupTask = await user.post(`/tasks/group/${guild._id}`, {
+    const groupTask = await user.post(`/tasks/group/${guild._id}`, {
       text: 'todo group',
       type: 'todo',
     });
@@ -105,15 +105,14 @@ describe('POST /user/reset', () => {
     await user.post('/user/reset');
     await user.sync();
 
-    let memberTasks = await user.get('/tasks/user');
+    const memberTasks = await user.get('/tasks/user');
 
-    let syncedGroupTask = find(memberTasks, function findAssignedTask (memberTask) {
-      return memberTask.group.id === guild._id;
-    });
+    const syncedGroupTask = find(memberTasks, memberTask => memberTask.group.id === guild._id);
 
-    let userChallengeTask = find(memberTasks, function findAssignedTask (memberTask) {
-      return memberTask.challenge.id === challenge._id;
-    });
+    const userChallengeTask = find(
+      memberTasks,
+      memberTask => memberTask.challenge.id === challenge._id,
+    );
 
     expect(userChallengeTask).to.exist;
     expect(syncedGroupTask).to.exist;

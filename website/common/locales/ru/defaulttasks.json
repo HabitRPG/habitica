@@ -31,5 +31,7 @@
     "healthTodoNotes": "Нажмите, чтобы добавить списки!",
     "exerciseTodoNotes": "Нажмите, чтобы добавить список!",
     "exerciseTodoText": "Установить расписание тренировок",
-    "workHabitMail": "Проверить почту"
+    "workHabitMail": "Проверить почту",
+    "workTodoProject": "Рабочий проект >> Завершить рабочий проект",
+    "workDailyImportantTaskNotes": "Нажмите, чтобы указать наиболее важную задачу"
 }

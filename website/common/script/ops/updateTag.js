@@ -1,14 +1,14 @@
-import i18n from '../i18n';
 import get from 'lodash/get';
 import findIndex from 'lodash/findIndex';
+import i18n from '../i18n';
 import { NotFound } from '../libs/errors';
 
 // TODO used only in client, move there?
 
-module.exports = function updateTag (user, req = {}) {
-  let tid = get(req, 'params.id');
+export default function updateTag (user, req = {}) {
+  const tid = get(req, 'params.id');
 
-  let index = findIndex(user.tags, {
+  const index = findIndex(user.tags, {
     id: tid,
   });
 
@@ -18,4 +18,4 @@ module.exports = function updateTag (user, req = {}) {
 
   user.tags[index].name = get(req, 'body.name');
   return user.tags[index];
-};
+}
