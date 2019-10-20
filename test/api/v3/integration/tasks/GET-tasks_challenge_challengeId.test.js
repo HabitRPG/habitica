@@ -1,18 +1,18 @@
+import { each } from 'lodash';
+import { v4 as generateUUID } from 'uuid';
 import {
   generateUser,
   generateGroup,
   generateChallenge,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-import { each } from 'lodash';
-import { v4 as generateUUID } from 'uuid';
 
 describe('GET /tasks/:taskId', () => {
   let user;
   let guild;
   let challenge;
   let task;
-  let tasksToTest = {
+  const tasksToTest = {
     habit: {
       text: 'test habit',
       type: 'habit',
@@ -58,12 +58,12 @@ describe('GET /tasks/:taskId', () => {
       });
 
       it('gets challenge task', async () => {
-        let getTask = await user.get(`/tasks/${task._id}`);
+        const getTask = await user.get(`/tasks/${task._id}`);
         expect(getTask).to.eql(task);
       });
 
       it('returns error when user is not a member of the challenge', async () => {
-        let anotherUser = await generateUser();
+        const anotherUser = await generateUser();
 
         await expect(anotherUser.get(`/tasks/${task._id}`)).to.eventually.be.rejected.and.eql({
           code: 404,

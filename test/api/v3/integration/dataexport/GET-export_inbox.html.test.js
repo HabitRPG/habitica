@@ -6,7 +6,7 @@ describe('GET /export/inbox.html', () => {
   let user;
 
   before(async () => {
-    let otherUser = await generateUser({
+    const otherUser = await generateUser({
       'profile.name': 'Other User',
     });
     user = await generateUser({
@@ -30,13 +30,13 @@ describe('GET /export/inbox.html', () => {
   });
 
   it('returns an html page', async () => {
-    let res = await user.get('/export/inbox.html');
+    const res = await user.get('/export/inbox.html');
 
     expect(res.substring(0, 100).indexOf('<!DOCTYPE html>')).to.equal(0);
   });
 
   it('renders the markdown messages as html', async () => {
-    let res = await user.get('/export/inbox.html');
+    const res = await user.get('/export/inbox.html');
 
     expect(res).to.include('img class="habitica-emoji"');
     expect(res).to.include('<h1>Hello!</h1>');
@@ -44,11 +44,11 @@ describe('GET /export/inbox.html', () => {
   });
 
   it('sorts messages from newest to oldest', async () => {
-    let res = await user.get('/export/inbox.html');
+    const res = await user.get('/export/inbox.html');
 
-    let emojiPosition = res.indexOf('img class="habitica-emoji"');
-    let headingPosition = res.indexOf('<h1>Hello!</h1>');
-    let listPosition = res.indexOf('<li>list 1</li>');
+    const emojiPosition = res.indexOf('img class="habitica-emoji"');
+    const headingPosition = res.indexOf('<h1>Hello!</h1>');
+    const listPosition = res.indexOf('<li>list 1</li>');
 
     expect(emojiPosition).to.be.greaterThan(headingPosition);
     expect(headingPosition).to.be.greaterThan(listPosition);

@@ -214,5 +214,7 @@
     "purchaseAll": "Acquista Set",
     "gemsPurchaseNote": "Gli abbonati possono comprare gemme con oro nel Mercato! Per facile accesso ad esse, puoi anche fissare la Gemma alla tua colonna delle Ricompense.",
     "gemsRemaining": "gemme rimanenti",
-    "notEnoughGemsToBuy": "Non puoi comprare quella quantità di gemme"
+    "notEnoughGemsToBuy": "Non puoi comprare quella quantità di gemme",
+    "subWillBecomeInactive": "Diventerà inattivo",
+    "confirmCancelSub": "Sei sicuro di voler cancellare il tuo abbonamento? Perderai tutti i tuoi benefici."
 }

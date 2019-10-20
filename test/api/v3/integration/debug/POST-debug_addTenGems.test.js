@@ -17,7 +17,7 @@ describe('POST /debug/add-ten-gems', () => {
   it('adds ten gems to the current user', async () => {
     await userToGainTenGems.post('/debug/add-ten-gems');
 
-    let userWithTenGems = await userToGainTenGems.get('/user');
+    const userWithTenGems = await userToGainTenGems.get('/user');
 
     expect(userWithTenGems.balance).to.equal(2.5);
   });

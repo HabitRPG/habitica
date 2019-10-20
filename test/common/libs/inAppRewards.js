@@ -1,7 +1,7 @@
 import {
   generateUser,
 } from '../../helpers/common.helper';
-import getOfficialPinnedItems from '../../../website/common/script/libs/getOfficialPinnedItems.js';
+import getOfficialPinnedItems from '../../../website/common/script/libs/getOfficialPinnedItems';
 import inAppRewards from '../../../website/common/script/libs/inAppRewards';
 
 describe('inAppRewards', () => {
@@ -16,7 +16,8 @@ describe('inAppRewards', () => {
     officialPinnedItems = getOfficialPinnedItems(user);
 
     officialPinnedItemPaths = [];
-    // officialPinnedItems are returned in { type: ..., path:... } format but we just need the paths for testPinnedItemsOrder
+    // officialPinnedItems are returned in { type: ..., path:... } format
+    // but we just need the paths for testPinnedItemsOrder
     if (officialPinnedItems.length > 0) {
       officialPinnedItemPaths = officialPinnedItems.map(item => item.path);
     }
@@ -56,7 +57,7 @@ describe('inAppRewards', () => {
     user.pinnedItems = testPinnedItems;
     user.pinnedItemsOrder = testPinnedItemsOrder;
 
-    let result = inAppRewards(user);
+    const result = inAppRewards(user);
 
     expect(result[2].path).to.eql('armoire');
     expect(result[9].path).to.eql('potion');
@@ -68,7 +69,7 @@ describe('inAppRewards', () => {
     user.pinnedItems.push(undefined);
     user.pinnedItemsOrder = testPinnedItemsOrder;
 
-    let result = inAppRewards(user);
+    const result = inAppRewards(user);
 
     expect(result[2].path).to.eql('armoire');
     expect(result[9].path).to.eql('potion');
@@ -79,18 +80,18 @@ describe('inAppRewards', () => {
       return; // if no seasonal items, this test is not applicable
     }
 
-    let testUnpinnedItem = officialPinnedItems[0];
-    let testUnpinnedPath = testUnpinnedItem.path;
-    let testUnpinnedItems = [
-      { type: testUnpinnedItem.type, path: testUnpinnedPath},
+    const testUnpinnedItem = officialPinnedItems[0];
+    const testUnpinnedPath = testUnpinnedItem.path;
+    const testUnpinnedItems = [
+      { type: testUnpinnedItem.type, path: testUnpinnedPath },
     ];
 
     user.pinnedItems = testPinnedItems;
     user.pinnedItemsOrder = testPinnedItemsOrder;
     user.unpinnedItems = testUnpinnedItems;
 
-    let result = inAppRewards(user);
-    let itemPaths = result.map(item => item.path);
+    const result = inAppRewards(user);
+    const itemPaths = result.map(item => item.path);
     expect(itemPaths).to.not.include(testUnpinnedPath);
   });
 });

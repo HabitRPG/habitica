@@ -1,11 +1,11 @@
-import { exec }                   from 'child_process';
-import psTree                     from 'ps-tree';
-import nconf                      from 'nconf';
-import net                        from 'net';
-import { post }                   from 'superagent';
-import { sync as glob }           from 'glob';
-import Mocha                      from 'mocha';
-import { resolve }                from 'path';
+import { exec } from 'child_process';
+import psTree from 'ps-tree';
+import nconf from 'nconf';
+import net from 'net';
+import { post } from 'superagent';
+import { sync as glob } from 'glob';
+import Mocha from 'mocha'; // eslint-disable-line import/no-extraneous-dependencies
+import { resolve } from 'path';
 
 /*
  * Get access to configruable values
@@ -19,15 +19,15 @@ export const conf = nconf;
  * its tasks.
  */
 export function kill (proc) {
-  let killProcess = (pid) => {
+  const killProcess = pid => {
     psTree(pid, (_, pids) => {
       if (pids.length) {
         pids.forEach(kill); return;
       }
       try {
-        exec(/^win/.test(process.platform) ?
-          `taskkill /PID ${pid} /T /F` :
-          `kill -9 ${pid}`);
+        exec(/^win/.test(process.platform)
+          ? `taskkill /PID ${pid} /T /F`
+          : `kill -9 ${pid}`);
       } catch (e) {
         console.log(e); // eslint-disable-line no-console
       }
@@ -46,16 +46,15 @@ export function kill (proc) {
 export function awaitPort (port, max = 60) {
   return new Promise((rej, res) => {
     let socket;
-    let timeout;
     let interval;
 
-    timeout = setTimeout(() => {
+    const timeout = setTimeout(() => {
       clearInterval(interval);
       rej(`Timed out after ${max} seconds`);
     }, max * 1000);
 
     interval = setInterval(() => {
-      socket = net.connect({port}, () => {
+      socket = net.connect({ port }, () => {
         clearInterval(interval);
         clearTimeout(timeout);
         socket.destroy();
@@ -71,10 +70,10 @@ export function awaitPort (port, max = 60) {
  * Pipe the child's stdin and stderr to the parent process.
  */
 export function pipe (child) {
-  child.stdout.on('data', (data) => {
+  child.stdout.on('data', data => {
     process.stdout.write(data);
   });
-  child.stderr.on('data', (data) => {
+  child.stderr.on('data', data => {
     process.stderr.write(data);
   });
 }
@@ -83,7 +82,7 @@ export function pipe (child) {
  * Post request to notify configured slack channel
  */
 export function postToSlack (msg, config = {}) {
-  let slackUrl = nconf.get('SLACK_URL');
+  const slackUrl = nconf.get('SLACK_URL');
 
   if (!slackUrl) {
     console.error('No slack post url specified. Your message was:'); // eslint-disable-line no-console
@@ -99,7 +98,7 @@ export function postToSlack (msg, config = {}) {
       text: msg,
       icon_emoji: `:${config.emoji || 'gulp'}:`, // eslint-disable-line camelcase
     })
-    .end((err) => {
+    .end(err => {
       if (err) console.error('Unable to post to slack', err); // eslint-disable-line no-console
     });
 }
@@ -107,15 +106,15 @@ export function postToSlack (msg, config = {}) {
 export function runMochaTests (files, server, cb) {
   require('../test/helpers/globals.helper'); // eslint-disable-line global-require
 
-  let mocha = new Mocha({reporter: 'spec'});
-  let tests = glob(files);
+  const mocha = new Mocha({ reporter: 'spec' });
+  const tests = glob(files);
 
-  tests.forEach((test) => {
+  tests.forEach(test => {
     delete require.cache[resolve(test)];
     mocha.addFile(test);
   });
 
-  mocha.run((numberOfFailures) => {
+  mocha.run(numberOfFailures => {
     if (!process.env.RUN_INTEGRATION_TEST_FOREVER) { // eslint-disable-line no-process-env
       if (server) kill(server);
       process.exit(numberOfFailures);

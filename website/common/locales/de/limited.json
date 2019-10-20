@@ -160,6 +160,12 @@
     "summer2019WaterLilyMageSet": "Seerose (Magier)",
     "summer2019ConchHealerSet": "Trompetenschnecke (Heiler)",
     "summer2019HammerheadRogueSet": "Hammerkopf (Schurke)",
-    "eventAvailabilityReturning": "Zum Kauf verfügbar bis zum <%= availableDate(locale) %>. Dieser Trank wurde früher veröffentlicht, im <%= previousDate(locale) %>.",
-    "june2018": "Juni 2018"
+    "eventAvailabilityReturning": "Zum Kauf verfügbar bis zum <%= availableDate(locale) %>. Dieser Trank war zuletzt im <%= previousDate(locale) %> verfügbar.",
+    "june2018": "Juni 2018",
+    "fall2019LichSet": "Lich (Heiler)",
+    "september2018": "September 2018",
+    "september2017": "September 2017",
+    "fall2019RavenSet": "Rabe (Krieger)",
+    "fall2019CyclopsSet": "Zyklop (Magier)",
+    "fall2019OperaticSpecterSet": "Opernhaftes Gespenst (Schurke)"
 }

@@ -9,11 +9,12 @@ import {
   generateUser,
   generateGroup,
   generateChallenge,
-} from '../../../helpers/api-unit.helper.js';
+} from '../../../helpers/api-unit.helper';
 
 describe('taskManager', () => {
-  let user, group, challenge;
-  let testHabit = {
+  let user; let group; let
+    challenge;
+  const testHabit = {
     text: 'test habit',
     type: 'habit',
     up: false,
@@ -47,8 +48,8 @@ describe('taskManager', () => {
     req.body = testHabit;
     res.t = i18n.t;
 
-    let newTasks = await createTasks(req, res, {user});
-    let newTask = newTasks[0];
+    const newTasks = await createTasks(req, res, { user });
+    const newTask = newTasks[0];
 
     expect(newTask.text).to.equal(testHabit.text);
     expect(newTask.type).to.equal(testHabit.type);
@@ -61,15 +62,15 @@ describe('taskManager', () => {
     req.body = testHabit;
     res.t = i18n.t;
 
-    await createTasks(req, res, {user});
+    await createTasks(req, res, { user });
 
     req.body = {};
     req.query = {
       type: 'habits',
     };
 
-    let tasks = await getTasks(req, res, {user});
-    let task = tasks[0];
+    const tasks = await getTasks(req, res, { user });
+    const task = tasks[0];
 
     expect(task.text).to.equal(testHabit.text);
     expect(task.type).to.equal(testHabit.type);
@@ -82,8 +83,8 @@ describe('taskManager', () => {
     req.body = testHabit;
     res.t = i18n.t;
 
-    let newTasks = await createTasks(req, res, {user, group});
-    let newTask = newTasks[0];
+    const newTasks = await createTasks(req, res, { user, group });
+    const newTask = newTasks[0];
 
     expect(newTask.text).to.equal(testHabit.text);
     expect(newTask.type).to.equal(testHabit.type);
@@ -97,15 +98,15 @@ describe('taskManager', () => {
     req.body = testHabit;
     res.t = i18n.t;
 
-    await createTasks(req, res, {user, group});
+    await createTasks(req, res, { user, group });
 
     req.body = {};
     req.query = {
       type: 'habits',
     };
 
-    let tasks = await getTasks(req, res, {user, group});
-    let task = tasks[0];
+    const tasks = await getTasks(req, res, { user, group });
+    const task = tasks[0];
 
     expect(task.text).to.equal(testHabit.text);
     expect(task.type).to.equal(testHabit.type);
@@ -119,8 +120,8 @@ describe('taskManager', () => {
     req.body = testHabit;
     res.t = i18n.t;
 
-    let newTasks = await createTasks(req, res, {user, challenge});
-    let newTask = newTasks[0];
+    const newTasks = await createTasks(req, res, { user, challenge });
+    const newTask = newTasks[0];
 
     expect(newTask.text).to.equal(testHabit.text);
     expect(newTask.type).to.equal(testHabit.type);
@@ -134,15 +135,15 @@ describe('taskManager', () => {
     req.body = testHabit;
     res.t = i18n.t;
 
-    await createTasks(req, res, {user, challenge});
+    await createTasks(req, res, { user, challenge });
 
     req.body = {};
     req.query = {
       type: 'habits',
     };
 
-    let tasks = await getTasks(req, res, {user, challenge});
-    let task = tasks[0];
+    const tasks = await getTasks(req, res, { user, challenge });
+    const task = tasks[0];
 
     expect(task.text).to.equal(testHabit.text);
     expect(task.type).to.equal(testHabit.type);
@@ -156,9 +157,9 @@ describe('taskManager', () => {
     req.body = testHabit;
     res.t = i18n.t;
 
-    let tasks = await createTasks(req, res, {user, challenge});
+    const tasks = await createTasks(req, res, { user, challenge });
 
-    let syncableTask = syncableAttrs(tasks[0]);
+    const syncableTask = syncableAttrs(tasks[0]);
 
     expect(syncableTask._id).to.not.exist;
     expect(syncableTask.userId).to.not.exist;
@@ -172,7 +173,7 @@ describe('taskManager', () => {
   });
 
   it('moves tasks to a specified position', async () => {
-    let order = ['task-id-1', 'task-id-2'];
+    const order = ['task-id-1', 'task-id-2'];
 
     moveTask(order, 'task-id-2', 0);
 
@@ -180,7 +181,7 @@ describe('taskManager', () => {
   });
 
   it('moves tasks to a specified position out of length', async () => {
-    let order = ['task-id-1'];
+    const order = ['task-id-1'];
 
     moveTask(order, 'task-id-2', 2);
 

@@ -1,19 +1,19 @@
 import cloneDeep from 'lodash/cloneDeep';
 
-import {shield as baseShield} from './sets/base';
+import { shield as baseShield } from './sets/base';
 
-import {shield as healerShield} from './sets/healer';
-import {weapon as rogueWeapon} from './sets/rogue';
-import {shield as warriorShield} from './sets/warrior';
-import {shield as wizardShield} from './sets/wizard';
+import { shield as healerShield } from './sets/healer';
+import { weapon as rogueWeapon } from './sets/rogue';
+import { shield as warriorShield } from './sets/warrior';
+import { shield as wizardShield } from './sets/wizard';
 
-import {shield as armoireShield} from './sets/armoire';
-import {shield as mysteryShield} from './sets/mystery';
-import {shield as specialShield} from './sets/special';
+import { shield as armoireShield } from './sets/armoire';
+import { shield as mysteryShield } from './sets/mystery';
+import { shield as specialShield } from './sets/special';
 
-let rogueShield = cloneDeep(rogueWeapon);
+const rogueShield = cloneDeep(rogueWeapon);
 
-let shield = {
+const shield = {
   base: baseShield,
 
   warrior: warriorShield,
@@ -26,4 +26,4 @@ let shield = {
   armoire: armoireShield,
 };
 
-module.exports = shield;
+export default shield;

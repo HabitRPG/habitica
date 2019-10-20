@@ -1,59 +1,27 @@
-/* eslint-disable prefer-template, no-shadow, func-names */
+/* eslint-disable prefer-template, no-shadow, func-names, import/no-commonjs */
 
-let expect = require('expect.js');
+const expect = require('expect.js');
 
 module.exports.addCustomMatchers = function () {
-  let Assertion;
-
-  Assertion = expect.Assertion;
+  const { Assertion } = expect;
   Assertion.prototype.toHaveGP = function (gp) {
-    let actual;
-
-    actual = this.obj.stats.gp;
-    return this.assert(actual === gp, () => {
-      return 'expected user to have ' + gp + ' gp, but got ' + actual;
-    }, () => {
-      return 'expected user to not have ' + gp + ' gp';
-    });
+    const actual = this.obj.stats.gp;
+    return this.assert(actual === gp, () => 'expected user to have ' + gp + ' gp, but got ' + actual, () => 'expected user to not have ' + gp + ' gp');
   };
   Assertion.prototype.toHaveHP = function (hp) {
-    let actual;
-
-    actual = this.obj.stats.hp;
-    return this.assert(actual === hp, () => {
-      return 'expected user to have ' + hp + ' hp, but got ' + actual;
-    }, () => {
-      return 'expected user to not have ' + hp + ' hp';
-    });
+    const actual = this.obj.stats.hp;
+    return this.assert(actual === hp, () => 'expected user to have ' + hp + ' hp, but got ' + actual, () => 'expected user to not have ' + hp + ' hp');
   };
   Assertion.prototype.toHaveExp = function (exp) {
-    let actual;
-
-    actual = this.obj.stats.exp;
-    return this.assert(actual === exp, () => {
-      return 'expected user to have ' + exp + ' experience points, but got ' + actual;
-    }, () => {
-      return 'expected user to not have ' + exp + ' experience points';
-    });
+    const actual = this.obj.stats.exp;
+    return this.assert(actual === exp, () => 'expected user to have ' + exp + ' experience points, but got ' + actual, () => 'expected user to not have ' + exp + ' experience points');
   };
   Assertion.prototype.toHaveLevel = function (lvl) {
-    let actual;
-
-    actual = this.obj.stats.lvl;
-    return this.assert(actual === lvl, () => {
-      return 'expected user to be level ' + lvl + ', but got ' + actual;
-    }, () => {
-      return 'expected user to not be level ' + lvl;
-    });
+    const actual = this.obj.stats.lvl;
+    return this.assert(actual === lvl, () => 'expected user to be level ' + lvl + ', but got ' + actual, () => 'expected user to not be level ' + lvl);
   };
   Assertion.prototype.toHaveMaxMP = function (mp) {
-    let actual;
-
-    actual = this.obj._statsComputed.maxMP;
-    return this.assert(actual === mp, () => {
-      return 'expected user to have ' + mp + ' max mp, but got ' + actual;
-    }, () => {
-      return 'expected user to not have ' + mp + ' max mp';
-    });
+    const actual = this.obj._statsComputed.maxMP;
+    return this.assert(actual === mp, () => 'expected user to have ' + mp + ' max mp, but got ' + actual, () => 'expected user to not have ' + mp + ' max mp');
   };
 };

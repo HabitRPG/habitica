@@ -1,6 +1,6 @@
 import t from '../../translation';
 
-let armor = {
+const armor = {
   1: {
     text: t('armorWarrior1Text'),
     notes: t('armorWarrior1Notes', { con: 3 }),
@@ -34,7 +34,7 @@ let armor = {
   },
 };
 
-let head = {
+const head = {
   1: {
     text: t('headWarrior1Text'),
     notes: t('headWarrior1Notes', { str: 2 }),
@@ -68,7 +68,7 @@ let head = {
   },
 };
 
-let shield = {
+const shield = {
   1: {
     text: t('shieldWarrior1Text'),
     notes: t('shieldWarrior1Notes', { con: 2 }),
@@ -102,10 +102,12 @@ let shield = {
   },
 };
 
-let weapon = {
+const weapon = {
   0: {
     text: t('weaponWarrior0Text'),
-    notes: t('weaponWarrior0Notes'), value: 1 },
+    notes: t('weaponWarrior0Notes'),
+    value: 1,
+  },
   1: {
     text: t('weaponWarrior1Text'),
     notes: t('weaponWarrior1Notes', { str: 3 }),
@@ -145,11 +147,9 @@ let weapon = {
   },
 };
 
-let warriorSet = {
+export {
   armor,
   head,
   shield,
   weapon,
 };
-
-module.exports = warriorSet;

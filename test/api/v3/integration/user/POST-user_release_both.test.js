@@ -6,21 +6,21 @@ import content from '../../../../../website/common/script/content/index';
 
 describe('POST /user/release-both', () => {
   let user;
-  let animal = 'Wolf-Base';
+  const animal = 'Wolf-Base';
   const loadPets = () => {
-    let pets = {};
-    for (let p in content.pets) {
+    const pets = {};
+    Object.keys(content.pets).forEach(p => {
       pets[p] = content.pets[p];
       pets[p] = 5;
-    }
+    });
     return pets;
   };
   const loadMounts = () => {
-    let mounts = {};
-    for (let m in content.pets) {
+    const mounts = {};
+    Object.keys(content.pets).forEach(m => {
       mounts[m] = content.pets[m];
       mounts[m] = true;
-    }
+    });
     return mounts;
   };
 
@@ -49,7 +49,7 @@ describe('POST /user/release-both', () => {
   it('grants triad bingo with gems', async () => {
     await user.update();
 
-    let response = await user.post('/user/release-both');
+    const response = await user.post('/user/release-both');
     await user.sync();
 
     expect(response.message).to.equal(t('mountsAndPetsReleased'));
