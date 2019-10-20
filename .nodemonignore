@@ -7,3 +7,4 @@ test/**
 *.swp
 *.swx
 website/raw_sprites/**
+content_cache/**
