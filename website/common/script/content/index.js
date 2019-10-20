@@ -2,7 +2,7 @@ import defaults from 'lodash/defaults';
 import each from 'lodash/each';
 import moment from 'moment';
 import t from './translation';
-import {tasksByCategory} from './tasks';
+import { tasksByCategory } from './tasks';
 
 import {
   CLASSES,
@@ -12,13 +12,11 @@ import {
   ANIMAL_COLOR_ACHIEVEMENTS,
 } from './constants';
 
-let api = module.exports;
-
 import achievements from './achievements';
 
-import eggs from './eggs';
-import hatchingPotions from './hatching-potions';
-import stable from './stable';
+import * as eggs from './eggs';
+import * as hatchingPotions from './hatching-potions';
+import * as stable from './stable';
 import gear from './gear';
 import {
   quests,
@@ -27,8 +25,8 @@ import {
 } from './quests';
 
 import appearances from './appearance';
-import {backgroundsTree, backgroundsFlat} from './appearance/backgrounds';
-import spells from './spells';
+import { backgroundsTree, backgroundsFlat } from './appearance/backgrounds';
+import spells from './spells'; // eslint-disable-line import/no-cycle
 import subscriptionBlocks from './subscriptionBlocks';
 import faq from './faq';
 import timeTravelers from './time-travelers';
@@ -36,6 +34,8 @@ import timeTravelers from './time-travelers';
 import loginIncentives from './loginIncentives';
 
 import officialPinnedItems from './officialPinnedItems';
+
+const api = {};
 
 api.achievements = achievements;
 api.questSeriesAchievements = QUEST_SERIES_ACHIEVEMENTS;
@@ -122,7 +122,7 @@ api.bundles = {
       'frog',
     ],
     canBuy () {
-      return moment().isBetween('2017-10-10', '2017-11-02');
+      return moment().isBetween('2019-10-15', '2019-11-02');
     },
     type: 'quests',
     value: 7,
@@ -810,17 +810,15 @@ api.food = {
   /* eslint-enable camelcase */
 };
 
-each(api.food, (food, key) => {
-  return defaults(food, {
-    value: 1,
-    key,
-    notes: t('foodNotes'),
-    canBuy () {
-      return false;
-    },
-    canDrop: false,
-  });
-});
+each(api.food, (food, key) => defaults(food, {
+  value: 1,
+  key,
+  notes: t('foodNotes'),
+  canBuy () {
+    return false;
+  },
+  canDrop: false,
+}));
 
 api.appearances = appearances;
 
@@ -837,9 +835,9 @@ api.userDefaults = {
       down: false,
       attribute: 'per',
       tags: [
-        t('defaultTag1'),  // Work
-        t('defaultTag4'),  // School
-        t('defaultTag6'),  // Chores
+        t('defaultTag1'), // Work
+        t('defaultTag4'), // School
+        t('defaultTag6'), // Chores
       ],
     }, {
       type: 'habit',
@@ -849,7 +847,7 @@ api.userDefaults = {
       down: true,
       attribute: 'str',
       tags: [
-        t('defaultTag3'),  // Health + Wellness
+        t('defaultTag3'), // Health + Wellness
       ],
     }, {
       type: 'habit',
@@ -859,8 +857,8 @@ api.userDefaults = {
       down: true,
       attribute: 'str',
       tags: [
-        t('defaultTag2'),  // Exercise
-        t('defaultTag3'),  // Health + Wellness
+        t('defaultTag2'), // Exercise
+        t('defaultTag3'), // Health + Wellness
       ],
     },
   ],
@@ -912,3 +910,5 @@ api.userDefaultsMobile = {
 api.faq = faq;
 
 api.loginIncentives = loginIncentives(api);
+
+export default api;

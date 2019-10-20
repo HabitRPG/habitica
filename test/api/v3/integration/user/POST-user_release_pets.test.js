@@ -6,14 +6,14 @@ import content from '../../../../../website/common/script/content/index';
 
 describe('POST /user/release-pets', () => {
   let user;
-  let animal = 'Wolf-Base';
+  const animal = 'Wolf-Base';
 
   const loadPets = () => {
-    let pets = {};
-    for (let p in content.pets) {
+    const pets = {};
+    Object.keys(content.pets).forEach(p => {
       pets[p] = content.pets[p];
       pets[p] = 5;
-    }
+    });
     return pets;
   };
 
@@ -40,7 +40,7 @@ describe('POST /user/release-pets', () => {
       balance: 1,
     });
 
-    let response = await user.post('/user/release-pets');
+    const response = await user.post('/user/release-pets');
     await user.sync();
 
     expect(response.message).to.equal(t('petsReleased'));

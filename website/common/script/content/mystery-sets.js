@@ -1,7 +1,7 @@
 import each from 'lodash/each';
 import t from './translation';
 
-let mysterySets = {
+const mysterySets = {
   201402: {
     start: '2014-02-22',
     end: '2014-02-28',
@@ -303,4 +303,4 @@ each(mysterySets, (value, key) => {
   value.class = `shop_set_mystery_${key}`;
 });
 
-module.exports = mysterySets;
+export default mysterySets;

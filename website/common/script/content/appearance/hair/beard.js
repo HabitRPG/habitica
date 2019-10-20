@@ -1,9 +1,9 @@
-import sets from '../sets.js';
-import prefill from '../prefill.js';
+import sets from '../sets';
+import prefill from '../prefill';
 
-module.exports = prefill({
+export default prefill({
   0: {},
-  1: {price: 2, set: sets.facialHair},
-  2: {price: 2, set: sets.facialHair},
-  3: {price: 2, set: sets.facialHair},
+  1: { price: 2, set: sets.facialHair },
+  2: { price: 2, set: sets.facialHair },
+  3: { price: 2, set: sets.facialHair },
 });

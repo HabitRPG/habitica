@@ -22,9 +22,6 @@ RUN git clone --branch release --depth 1 https://github.com/HabitRPG/habitica.gi
 RUN npm install
 RUN gulp build:prod --force
 
-# Create Build dir
-RUN mkdir -p ./website/build
-
 # Start Habitica
 EXPOSE 3000
 CMD ["node", "./website/transpiled-babel/index.js"]

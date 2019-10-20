@@ -1,4 +1,4 @@
-import prefill from './prefill.js';
+import prefill from './prefill';
 
 export default prefill({
   none: {},

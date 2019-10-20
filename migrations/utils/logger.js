@@ -1,10 +1,11 @@
-'use strict';
-
-const chalk = require('chalk');
+/* eslint-disable import/no-commonjs */
+const chalk = require('chalk'); // eslint-disable-line import/no-extraneous-dependencies
 
 function loggerGenerator (type, color) {
   return function logger () {
-    let args = Array.from(arguments).map(arg => chalk[color](arg));
+    const args = Array
+      .from(arguments) // eslint-disable-line prefer-rest-params
+      .map(arg => chalk[color](arg));
     console[type].apply(null, args);
   };
 }

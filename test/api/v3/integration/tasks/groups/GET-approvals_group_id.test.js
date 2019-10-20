@@ -1,17 +1,18 @@
+import { find } from 'lodash';
 import {
   createAndPopulateGroup,
 } from '../../../../../helpers/api-integration/v3';
-import { find } from 'lodash';
 
 describe('GET /approvals/group/:groupId', () => {
-  let user, guild, member, addlMember, task, syncedTask, addlSyncedTask;
+  let user; let guild; let member; let addlMember; let task; let syncedTask; let
+    addlSyncedTask;
 
   function findAssignedTask (memberTask) {
     return memberTask.group.id === guild._id;
   }
 
   beforeEach(async () => {
-    let {group, members, groupLeader} = await createAndPopulateGroup({
+    const { group, members, groupLeader } = await createAndPopulateGroup({
       groupDetails: {
         name: 'Test Guild',
         type: 'guild',
@@ -21,8 +22,8 @@ describe('GET /approvals/group/:groupId', () => {
 
     guild = group;
     user = groupLeader;
-    member = members[0];
-    addlMember = members[1];
+    member = members[0]; // eslint-disable-line prefer-destructuring
+    addlMember = members[1]; // eslint-disable-line prefer-destructuring
 
     task = await user.post(`/tasks/group/${guild._id}`, {
       text: 'test todo',
@@ -33,10 +34,10 @@ describe('GET /approvals/group/:groupId', () => {
     await user.post(`/tasks/${task._id}/assign/${member._id}`);
     await user.post(`/tasks/${task._id}/assign/${addlMember._id}`);
 
-    let memberTasks = await member.get('/tasks/user');
+    const memberTasks = await member.get('/tasks/user');
     syncedTask = find(memberTasks, findAssignedTask);
 
-    let addlMemberTasks = await addlMember.get('/tasks/user');
+    const addlMemberTasks = await addlMember.get('/tasks/user');
     addlSyncedTask = find(addlMemberTasks, findAssignedTask);
 
     try {
@@ -53,13 +54,13 @@ describe('GET /approvals/group/:groupId', () => {
   });
 
   it('provides only user\'s own tasks when user is not the group leader', async () => {
-    let approvals = await member.get(`/approvals/group/${guild._id}`);
+    const approvals = await member.get(`/approvals/group/${guild._id}`);
     expect(approvals[0]._id).to.equal(syncedTask._id);
     expect(approvals[1]).to.not.exist;
   });
 
   it('allows group leaders to get a list of tasks that need approval', async () => {
-    let approvals = await user.get(`/approvals/group/${guild._id}`);
+    const approvals = await user.get(`/approvals/group/${guild._id}`);
     expect(approvals[0]._id).to.equal(syncedTask._id);
     expect(approvals[1]._id).to.equal(addlSyncedTask._id);
   });
@@ -69,7 +70,7 @@ describe('GET /approvals/group/:groupId', () => {
       managerId: member._id,
     });
 
-    let approvals = await member.get(`/approvals/group/${guild._id}`);
+    const approvals = await member.get(`/approvals/group/${guild._id}`);
     expect(approvals[0]._id).to.equal(syncedTask._id);
     expect(approvals[1]._id).to.equal(addlSyncedTask._id);
   });

@@ -1,21 +1,23 @@
+/* eslint-disable import/no-commonjs */
 // const migrationName = 'habits-one-history-entry-per-day';
 // const authorName = 'paglias'; // in case script author needs to know when their ...
 // const authorUuid = 'ed4c688c-6652-4a92-9d03-a5a79844174a'; // ... own data is done
 
 /*
- * Iterates over all habits and condense multiple history entries for the same day into a single entry
+ * Iterates over all habits and condense multiple history entries for the same day into a single one
  */
 
-const monk = require('monk');
+const monk = require('monk'); // eslint-disable-line import/no-extraneous-dependencies
 const _ = require('lodash');
 const moment = require('moment');
+
 const connectionString = 'mongodb://localhost:27017/habitrpg?auto_reconnect=true'; // FOR TEST DATABASE
 const dbTasks = monk(connectionString).get('tasks', { castIds: false });
 
 function processChallengeHabits (lastId) {
-  let query = {
-    'challenge.id': {$exists: true},
-    userId: {$exists: false},
+  const query = {
+    'challenge.id': { $exists: true },
+    userId: { $exists: false },
     type: 'habit',
   };
 
@@ -26,37 +28,35 @@ function processChallengeHabits (lastId) {
   }
 
   dbTasks.find(query, {
-    sort: {_id: 1},
+    sort: { _id: 1 },
     limit: 500,
   })
     .then(updateChallengeHabits)
-    .catch((err) => {
+    .catch(err => {
       console.log(err);
-      return exiting(1, `ERROR! ${  err}`);
+      return exiting(1, `ERROR! ${err}`);
     });
 }
 
-let progressCount = 1000;
+const progressCount = 1000;
 let count = 0;
 
 function updateChallengeHabits (habits) {
   if (!habits || habits.length === 0) {
     console.warn('All appropriate challenge habits found and modified.');
     displayData();
-    return;
+    return null;
   }
 
-  let habitsPromises = habits.map(updateChallengeHabit);
-  let lastHabit = habits[habits.length - 1];
+  const habitsPromises = habits.map(updateChallengeHabit);
+  const lastHabit = habits[habits.length - 1];
 
   return Promise.all(habitsPromises)
-    .then(() => {
-      return processChallengeHabits(lastHabit._id);
-    });
+    .then(() => processChallengeHabits(lastHabit._id));
 }
 
 function updateChallengeHabit (habit) {
-  count++;
+  count += 1;
 
   if (habit && habit.history && habit.history.length > 0) {
     // First remove missing entries
@@ -76,13 +76,12 @@ function updateChallengeHabit (habit) {
           entry.scoreDirection = entry.value > previousValue ? 'up' : 'down';
         }
       })
-      .groupBy(entry => { // group entries by aggregateBy
-        return moment(entry.date).format('YYYYMMDD');
-      })
+      // group entries by aggregateBy
+      .groupBy(entry => moment(entry.date).format('YYYYMMDD'))
       .toPairs() // [key, entry]
       .sortBy(([key]) => key) // sort by date
       .map(keyEntryPair => {
-        let entries = keyEntryPair[1]; // 1 is entry, 0 is key
+        const entries = keyEntryPair[1]; // 1 is entry, 0 is key
         let scoredUp = 0;
         let scoredDown = 0;
 
@@ -107,32 +106,34 @@ function updateChallengeHabit (habit) {
       })
       .value();
 
-    return dbTasks.update({_id: habit._id}, {
-      $set: {history: habit.history},
+    return dbTasks.update({ _id: habit._id }, {
+      $set: { history: habit.history },
     });
   }
 
-  if (count % progressCount === 0) console.warn(`${count  } habits processed`);
+  if (count % progressCount === 0) console.warn(`${count} habits processed`);
+  return null;
 }
 
 function displayData () {
-  console.warn(`\n${  count  } tasks processed\n`);
+  console.warn(`\n${count} tasks processed\n`);
   return exiting(0);
 }
 
 function exiting (code, msg) {
-  code = code || 0; // 0 = success
+  // 0 = success
+  code = code || 0; // eslint-disable-line no-param-reassign
   if (code && !msg) {
-    msg = 'ERROR!';
+    msg = 'ERROR!'; // eslint-disable-line no-param-reassign
   }
   if (msg) {
     if (code) {
       console.error(msg);
-    } else      {
+    } else {
       console.log(msg);
     }
   }
   process.exit(code);
 }
 
-module.exports = processChallengeHabits;
+export default processChallengeHabits;

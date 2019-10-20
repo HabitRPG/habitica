@@ -11,7 +11,7 @@ describe('GET /shops/market', () => {
   });
 
   it('returns a valid shop object', async () => {
-    let shop = await user.get('/shops/market');
+    const shop = await user.get('/shops/market');
 
     expect(shop.identifier).to.equal('market');
     expect(shop.text).to.eql(t('market'));
@@ -19,7 +19,7 @@ describe('GET /shops/market', () => {
     expect(shop.imageName).to.be.a('string');
     expect(shop.categories).to.be.an('array');
 
-    let categories = shop.categories.map(cat => cat.identifier);
+    const categories = shop.categories.map(cat => cat.identifier);
 
     expect(categories).to.include('eggs');
     expect(categories).to.include('hatchingPotions');
@@ -32,22 +32,22 @@ describe('GET /shops/market', () => {
       'stats.gp': 99999999,
     });
 
-    let shop = await user.get('/shops/market');
-    let items = shop.categories.reduce((array, category) => {
-      category.items.forEach((item) => {
+    const shop = await user.get('/shops/market');
+    const items = shop.categories.reduce((array, category) => {
+      category.items.forEach(item => {
         array.push(item);
       });
 
       return array;
     }, []);
 
-    let results = await Promise.all(items.map((item) => {
-      let { purchaseType, key } = item;
+    const results = await Promise.all(items.map(item => {
+      const { purchaseType, key } = item;
       return user.post(`/user/purchase/${purchaseType}/${key}`);
     }));
 
     expect(results.length).to.be.greaterThan(0);
-    items.forEach((item) => {
+    items.forEach(item => {
       expect(item).to.include.keys('key', 'text', 'notes', 'class', 'value', 'currency');
     });
   });

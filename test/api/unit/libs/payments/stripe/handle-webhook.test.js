@@ -1,25 +1,25 @@
 import stripeModule from 'stripe';
 
+import { v4 as uuid } from 'uuid';
+import moment from 'moment';
 import {
   generateGroup,
-} from '../../../../../helpers/api-unit.helper.js';
+} from '../../../../../helpers/api-unit.helper';
 import { model as User } from '../../../../../../website/server/models/user';
 import stripePayments from '../../../../../../website/server/libs/payments/stripe';
 import payments from '../../../../../../website/server/libs/payments/payments';
 import common from '../../../../../../website/common';
 import logger from '../../../../../../website/server/libs/logger';
-import { v4 as uuid } from 'uuid';
-import moment from 'moment';
 
-const i18n = common.i18n;
+const { i18n } = common;
 
 describe('Stripe - Webhooks', () => {
   const stripe = stripeModule('test');
 
   describe('all events', () => {
     const eventType = 'account.updated';
-    const event = {id: 123};
-    const eventRetrieved = {type: eventType};
+    const event = { id: 123 };
+    const eventRetrieved = { type: eventType };
 
     beforeEach(() => {
       sinon.stub(stripe.events, 'retrieve').resolves(eventRetrieved);
@@ -33,7 +33,7 @@ describe('Stripe - Webhooks', () => {
 
     it('logs an error if an unsupported webhook event is passed', async () => {
       const error = new Error(`Missing handler for Stripe webhook ${eventType}`);
-      await stripePayments.handleWebhooks({requestBody: event}, stripe);
+      await stripePayments.handleWebhooks({ requestBody: event }, stripe);
       expect(logger.error).to.have.been.calledOnce;
 
       const calledWith = logger.error.getCall(0).args;
@@ -42,7 +42,7 @@ describe('Stripe - Webhooks', () => {
     });
 
     it('retrieves and validates the event from Stripe', async () => {
-      await stripePayments.handleWebhooks({requestBody: event}, stripe);
+      await stripePayments.handleWebhooks({ requestBody: event }, stripe);
       expect(stripe.events.retrieve).to.have.been.calledOnce;
       expect(stripe.events.retrieve).to.have.been.calledWith(event.id);
     });
@@ -68,7 +68,7 @@ describe('Stripe - Webhooks', () => {
         request: 123,
       });
 
-      await stripePayments.handleWebhooks({requestBody: {}}, stripe);
+      await stripePayments.handleWebhooks({ requestBody: {} }, stripe);
 
       expect(stripe.events.retrieve).to.have.been.calledOnce;
       expect(stripe.customers.del).to.not.have.been.called;
@@ -93,11 +93,12 @@ describe('Stripe - Webhooks', () => {
           request: null,
         });
 
-        await expect(stripePayments.handleWebhooks({requestBody: {}}, stripe)).to.eventually.be.rejectedWith({
-          message: i18n.t('userNotFound'),
-          httpCode: 404,
-          name: 'NotFound',
-        });
+        await expect(stripePayments.handleWebhooks({ requestBody: {} }, stripe))
+          .to.eventually.be.rejectedWith({
+            message: i18n.t('userNotFound'),
+            httpCode: 404,
+            name: 'NotFound',
+          });
 
         expect(stripe.customers.del).to.not.have.been.called;
         expect(payments.cancelSubscription).to.not.have.been.called;
@@ -108,7 +109,7 @@ describe('Stripe - Webhooks', () => {
       it('deletes the customer on Stripe and calls payments.cancelSubscription', async () => {
         const customerId = '456';
 
-        let subscriber = new User();
+        const subscriber = new User();
         subscriber.purchased.plan.customerId = customerId;
         subscriber.purchased.plan.paymentMethod = 'Stripe';
         await subscriber.save();
@@ -127,13 +128,13 @@ describe('Stripe - Webhooks', () => {
           request: null,
         });
 
-        await stripePayments.handleWebhooks({requestBody: {}}, stripe);
+        await stripePayments.handleWebhooks({ requestBody: {} }, stripe);
 
         expect(stripe.customers.del).to.have.been.calledOnce;
         expect(stripe.customers.del).to.have.been.calledWith(customerId);
         expect(payments.cancelSubscription).to.have.been.calledOnce;
 
-        let cancelSubscriptionOpts = payments.cancelSubscription.lastCall.args[0];
+        const cancelSubscriptionOpts = payments.cancelSubscription.lastCall.args[0];
         expect(cancelSubscriptionOpts.user._id).to.equal(subscriber._id);
         expect(cancelSubscriptionOpts.paymentMethod).to.equal('Stripe');
         expect(Math.round(moment(cancelSubscriptionOpts.nextBill).diff(new Date(), 'days', true))).to.equal(3);
@@ -160,11 +161,12 @@ describe('Stripe - Webhooks', () => {
           request: null,
         });
 
-        await expect(stripePayments.handleWebhooks({requestBody: {}}, stripe)).to.eventually.be.rejectedWith({
-          message: i18n.t('groupNotFound'),
-          httpCode: 404,
-          name: 'NotFound',
-        });
+        await expect(stripePayments.handleWebhooks({ requestBody: {} }, stripe))
+          .to.eventually.be.rejectedWith({
+            message: i18n.t('groupNotFound'),
+            httpCode: 404,
+            name: 'NotFound',
+          });
 
         expect(stripe.customers.del).to.not.have.been.called;
         expect(payments.cancelSubscription).to.not.have.been.called;
@@ -175,7 +177,7 @@ describe('Stripe - Webhooks', () => {
       it('throws an error if the group leader is not found', async () => {
         const customerId = 456;
 
-        let subscriber = generateGroup({
+        const subscriber = generateGroup({
           name: 'test group',
           type: 'guild',
           privacy: 'public',
@@ -199,11 +201,12 @@ describe('Stripe - Webhooks', () => {
           request: null,
         });
 
-        await expect(stripePayments.handleWebhooks({requestBody: {}}, stripe)).to.eventually.be.rejectedWith({
-          message: i18n.t('userNotFound'),
-          httpCode: 404,
-          name: 'NotFound',
-        });
+        await expect(stripePayments.handleWebhooks({ requestBody: {} }, stripe))
+          .to.eventually.be.rejectedWith({
+            message: i18n.t('userNotFound'),
+            httpCode: 404,
+            name: 'NotFound',
+          });
 
         expect(stripe.customers.del).to.not.have.been.called;
         expect(payments.cancelSubscription).to.not.have.been.called;
@@ -214,10 +217,10 @@ describe('Stripe - Webhooks', () => {
       it('deletes the customer on Stripe and calls payments.cancelSubscription', async () => {
         const customerId = '456';
 
-        let leader = new User();
+        const leader = new User();
         await leader.save();
 
-        let subscriber = generateGroup({
+        const subscriber = generateGroup({
           name: 'test group',
           type: 'guild',
           privacy: 'public',
@@ -241,13 +244,13 @@ describe('Stripe - Webhooks', () => {
           request: null,
         });
 
-        await stripePayments.handleWebhooks({requestBody: {}}, stripe);
+        await stripePayments.handleWebhooks({ requestBody: {} }, stripe);
 
         expect(stripe.customers.del).to.have.been.calledOnce;
         expect(stripe.customers.del).to.have.been.calledWith(customerId);
         expect(payments.cancelSubscription).to.have.been.calledOnce;
 
-        let cancelSubscriptionOpts = payments.cancelSubscription.lastCall.args[0];
+        const cancelSubscriptionOpts = payments.cancelSubscription.lastCall.args[0];
         expect(cancelSubscriptionOpts.user._id).to.equal(leader._id);
         expect(cancelSubscriptionOpts.paymentMethod).to.equal('Stripe');
         expect(Math.round(moment(cancelSubscriptionOpts.nextBill).diff(new Date(), 'days', true))).to.equal(3);

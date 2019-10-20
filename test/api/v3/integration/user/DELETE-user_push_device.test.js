@@ -5,8 +5,8 @@ import {
 
 describe('DELETE /user/push-devices', () => {
   let user;
-  let regId = '10';
-  let type = 'ios';
+  const regId = '10';
+  const type = 'ios';
 
   beforeEach(async () => {
     user = await generateUser();
@@ -22,8 +22,8 @@ describe('DELETE /user/push-devices', () => {
   });
 
   it('removes a push device from the user', async () => {
-    await user.post('/user/push-devices', {type, regId});
-    let response = await user.del(`/user/push-devices/${regId}`);
+    await user.post('/user/push-devices', { type, regId });
+    const response = await user.del(`/user/push-devices/${regId}`);
     await user.sync();
 
     expect(response.message).to.equal(t('pushDeviceRemoved'));

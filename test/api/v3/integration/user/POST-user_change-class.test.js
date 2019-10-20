@@ -15,7 +15,7 @@ describe('POST /user/change-class', () => {
   // More tests in common code unit tests
 
   it('changes class', async () => {
-    let res = await user.post('/user/change-class?class=rogue');
+    const res = await user.post('/user/change-class?class=rogue');
     await user.sync();
 
     expect(res).to.eql(JSON.parse(
@@ -24,7 +24,7 @@ describe('POST /user/change-class', () => {
         stats: user.stats,
         flags: user.flags,
         items: user.items,
-      })
+      }),
     ));
   });
 });

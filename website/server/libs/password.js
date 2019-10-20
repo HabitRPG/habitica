@@ -1,8 +1,8 @@
 // Utilities for working with passwords
 import crypto from 'crypto';
 import bcrypt from 'bcrypt';
-import { decrypt } from './encryption';
 import moment from 'moment';
+import { decrypt } from './encryption';
 import { model as User } from '../models/user';
 
 const BCRYPT_SALT_ROUNDS = 10;
@@ -41,18 +41,17 @@ export function sha1MakeSalt (len = 10) {
 export async function compare (user, passwordToCheck) {
   if (!user || !passwordToCheck) throw new Error('user and passwordToCheck are required parameters.');
 
-  let passwordHashMethod = user.auth.local.passwordHashMethod;
-  let passwordHash = user.auth.local.hashed_password;
-  let passwordSalt = user.auth.local.salt; // Only used for SHA1
+  const { passwordHashMethod } = user.auth.local;
+  const passwordHash = user.auth.local.hashed_password;
+  const passwordSalt = user.auth.local.salt; // Only used for SHA1
 
   if (passwordHashMethod === 'bcrypt') {
-    return await bcryptCompare(passwordToCheck, passwordHash);
+    return bcryptCompare(passwordToCheck, passwordHash);
   // default to sha1 if the user has a salt but no passwordHashMethod
-  } else if (passwordHashMethod === 'sha1' || !passwordHashMethod && passwordSalt) {
+  } if (passwordHashMethod === 'sha1' || (!passwordHashMethod && passwordSalt)) {
     return passwordHash === sha1Encrypt(passwordToCheck, passwordSalt);
-  } else {
-    throw new Error('Invalid password hash method.');
   }
+  throw new Error('Invalid password hash method.');
 }
 
 // Convert an user to use bcrypt from sha1 for password hashing
@@ -64,7 +63,7 @@ export async function convertToBcrypt (user, plainTextPassword) {
 
   user.auth.local.salt = undefined;
   user.auth.local.passwordHashMethod = 'bcrypt';
-  user.auth.local.hashed_password = await bcryptHash(plainTextPassword); // eslint-disable-line camelcase
+  user.auth.local.hashed_password = await bcryptHash(plainTextPassword); // eslint-disable-line camelcase, max-len
 }
 
 // Returns the user if a valid password reset code is supplied, otherwise false
@@ -79,7 +78,7 @@ export async function validatePasswordResetCodeAndFindUser (code) {
   try {
     decryptedPasswordResetCode = JSON.parse(decrypt(code || 'invalid')); // also catches missing code
     userId = decryptedPasswordResetCode.userId;
-    let expiresAt = decryptedPasswordResetCode.expiresAt;
+    const { expiresAt } = decryptedPasswordResetCode;
 
     if (moment(expiresAt).isBefore(moment())) throw new Error();
   } catch (err) {

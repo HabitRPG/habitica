@@ -6,7 +6,7 @@ import shared from '../../../../../../website/common';
 import apiError from '../../../../../../website/server/libs/apiError';
 
 describe('payments : paypal #subscribe', () => {
-  let endpoint = '/paypal/subscribe';
+  const endpoint = '/paypal/subscribe';
   let user;
 
   beforeEach(async () => {
@@ -33,8 +33,8 @@ describe('payments : paypal #subscribe', () => {
     });
 
     it('makes a purchase', async () => {
-      let subKey = 'basic_3mo';
-      let sub = shared.content.subscriptionBlocks[subKey];
+      const subKey = 'basic_3mo';
+      const sub = shared.content.subscriptionBlocks[subKey];
 
       user = await generateUser({
         'profile.name': 'sender',
