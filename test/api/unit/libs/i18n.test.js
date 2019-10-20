@@ -5,11 +5,11 @@ import {
 } from '../../../../website/server/libs/i18n';
 
 describe('i18n', () => {
-  let listOfLocales = approvedLanguages.sort();
+  const listOfLocales = approvedLanguages.sort();
 
   describe('translations', () => {
     it('includes a translation object for each locale', () => {
-      listOfLocales.forEach((locale) => {
+      listOfLocales.forEach(locale => {
         expect(translations[locale]).to.be.an('object');
       });
     });

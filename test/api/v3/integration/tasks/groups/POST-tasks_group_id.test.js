@@ -1,18 +1,19 @@
+import { v4 as generateUUID } from 'uuid';
 import {
   generateUser,
   createAndPopulateGroup,
   translate as t,
 } from '../../../../../helpers/api-integration/v3';
-import { v4 as generateUUID } from 'uuid';
 
 describe('POST /tasks/group/:groupid', () => {
-  let user, guild, manager;
-  let groupName = 'Test Public Guild';
-  let groupType = 'guild';
+  let user; let guild; let
+    manager;
+  const groupName = 'Test Public Guild';
+  const groupType = 'guild';
 
   beforeEach(async () => {
-    user = await generateUser({balance: 1});
-    let { group, groupLeader, members } = await createAndPopulateGroup({
+    user = await generateUser({ balance: 1 });
+    const { group, groupLeader, members } = await createAndPopulateGroup({
       groupDetails: {
         name: groupName,
         type: groupType,
@@ -23,7 +24,7 @@ describe('POST /tasks/group/:groupid', () => {
 
     guild = group;
     user = groupLeader;
-    manager = members[0];
+    manager = members[0]; // eslint-disable-line prefer-destructuring
   });
 
   it('returns error when group is not found', async () => {
@@ -41,7 +42,7 @@ describe('POST /tasks/group/:groupid', () => {
   });
 
   it('returns error when user is not a member of the group', async () => {
-    let userWithoutChallenge = await generateUser();
+    const userWithoutChallenge = await generateUser();
 
     await expect(userWithoutChallenge.post(`/tasks/group/${guild._id}`, {
       text: 'test habit',
@@ -57,7 +58,7 @@ describe('POST /tasks/group/:groupid', () => {
   });
 
   it('returns error when non leader tries to create a task', async () => {
-    let userThatIsNotLeaderOfGroup = await generateUser({
+    const userThatIsNotLeaderOfGroup = await generateUser({
       guilds: [guild._id],
     });
 
@@ -75,7 +76,7 @@ describe('POST /tasks/group/:groupid', () => {
   });
 
   it('creates a habit', async () => {
-    let task = await user.post(`/tasks/group/${guild._id}`, {
+    const task = await user.post(`/tasks/group/${guild._id}`, {
       text: 'test habit',
       type: 'habit',
       up: false,
@@ -83,7 +84,7 @@ describe('POST /tasks/group/:groupid', () => {
       notes: 1976,
     });
 
-    let groupTask = await user.get(`/tasks/group/${guild._id}`);
+    const groupTask = await user.get(`/tasks/group/${guild._id}`);
 
     expect(groupTask[0].group.id).to.equal(guild._id);
     expect(task.text).to.eql('test habit');
@@ -94,13 +95,13 @@ describe('POST /tasks/group/:groupid', () => {
   });
 
   it('creates a todo', async () => {
-    let task = await user.post(`/tasks/group/${guild._id}`, {
+    const task = await user.post(`/tasks/group/${guild._id}`, {
       text: 'test todo',
       type: 'todo',
       notes: 1976,
     });
 
-    let groupTask = await user.get(`/tasks/group/${guild._id}`);
+    const groupTask = await user.get(`/tasks/group/${guild._id}`);
 
     expect(groupTask[0].group.id).to.equal(guild._id);
     expect(task.text).to.eql('test todo');
@@ -109,8 +110,8 @@ describe('POST /tasks/group/:groupid', () => {
   });
 
   it('creates a daily', async () => {
-    let now = new Date();
-    let task = await user.post(`/tasks/group/${guild._id}`, {
+    const now = new Date();
+    const task = await user.post(`/tasks/group/${guild._id}`, {
       text: 'test daily',
       type: 'daily',
       notes: 1976,
@@ -119,7 +120,7 @@ describe('POST /tasks/group/:groupid', () => {
       startDate: now,
     });
 
-    let groupTask = await user.get(`/tasks/group/${guild._id}`);
+    const groupTask = await user.get(`/tasks/group/${guild._id}`);
 
     expect(groupTask[0].group.id).to.equal(guild._id);
     expect(task.text).to.eql('test daily');
@@ -135,7 +136,7 @@ describe('POST /tasks/group/:groupid', () => {
       managerId: manager._id,
     });
 
-    let task = await manager.post(`/tasks/group/${guild._id}`, {
+    const task = await manager.post(`/tasks/group/${guild._id}`, {
       text: 'test habit',
       type: 'habit',
       up: false,
@@ -143,7 +144,7 @@ describe('POST /tasks/group/:groupid', () => {
       notes: 1976,
     });
 
-    let groupTask = await manager.get(`/tasks/group/${guild._id}`);
+    const groupTask = await manager.get(`/tasks/group/${guild._id}`);
 
     expect(groupTask[0].group.id).to.equal(guild._id);
     expect(task.text).to.eql('test habit');

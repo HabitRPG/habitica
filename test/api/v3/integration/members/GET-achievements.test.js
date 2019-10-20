@@ -1,8 +1,8 @@
+import { v4 as generateUUID } from 'uuid';
 import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-import { v4 as generateUUID } from 'uuid';
 
 describe('GET /members/:memberId/achievements', () => {
   let user;
@@ -20,11 +20,11 @@ describe('GET /members/:memberId/achievements', () => {
   });
 
   it('returns achievements based on given user', async () => {
-    let member = await generateUser({
-      contributor: {level: 1},
-      backer: {tier: 3},
+    const member = await generateUser({
+      contributor: { level: 1 },
+      backer: { tier: 3 },
     });
-    let achievementsRes = await user.get(`/members/${member._id}/achievements`);
+    const achievementsRes = await user.get(`/members/${member._id}/achievements`);
 
     expect(achievementsRes.special.achievements.contributor.earned).to.equal(true);
     expect(achievementsRes.special.achievements.contributor.value).to.equal(1);
@@ -34,11 +34,11 @@ describe('GET /members/:memberId/achievements', () => {
   });
 
   it('handles non-existing members', async () => {
-    let dummyId = generateUUID();
+    const dummyId = generateUUID();
     await expect(user.get(`/members/${dummyId}/achievements`)).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
-      message: t('userWithIDNotFound', {userId: dummyId}),
+      message: t('userWithIDNotFound', { userId: dummyId }),
     });
   });
 });

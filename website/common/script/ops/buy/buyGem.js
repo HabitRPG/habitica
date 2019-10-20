@@ -1,39 +1,36 @@
 import pick from 'lodash/pick';
+import get from 'lodash/get';
 import splitWhitespace from '../../libs/splitWhitespace';
 import {
   BadRequest,
   NotAuthorized,
 } from '../../libs/errors';
-import {AbstractGoldItemOperation} from './abstractBuyOperation';
-import get from 'lodash/get';
+import { AbstractGoldItemOperation } from './abstractBuyOperation';
 import planGemLimits from '../../libs/planGemLimits';
 
-export class BuyGemOperation extends AbstractGoldItemOperation {
-  constructor (user, req, analytics) {
-    super(user, req, analytics);
-  }
-
-  multiplePurchaseAllowed () {
+export class BuyGemOperation extends AbstractGoldItemOperation { // eslint-disable-line import/prefer-default-export, max-len
+  multiplePurchaseAllowed () { // eslint-disable-line class-methods-use-this
     return true;
   }
 
-  getItemValue () {
+  getItemValue () { // eslint-disable-line class-methods-use-this
     return planGemLimits.convRate;
   }
 
-  getItemKey () {
+  getItemKey () { // eslint-disable-line class-methods-use-this
     return 'gem';
   }
 
-  getItemType () {
+  getItemType () { // eslint-disable-line class-methods-use-this
     return 'gems';
   }
 
   extractAndValidateParams (user, req) {
-    let key = this.key = get(req, 'params.key');
+    this.key = get(req, 'params.key');
+    const { key } = this;
     if (!key) throw new BadRequest(this.i18n('missingKeyParam'));
 
-    let convCap = planGemLimits.convCap;
+    let { convCap } = planGemLimits;
     convCap += user.purchased.plan.consecutive.gemCapExtra;
 
     // todo better name?
@@ -50,7 +47,7 @@ export class BuyGemOperation extends AbstractGoldItemOperation {
     super.canUserPurchase(user, item);
 
     if (user.purchased.plan.gemsBought >= this.convCap) {
-      throw new NotAuthorized(this.i18n('reachedGoldToGemCap', {convCap: this.convCap}));
+      throw new NotAuthorized(this.i18n('reachedGoldToGemCap', { convCap: this.convCap }));
     }
 
     if (user.purchased.plan.gemsBought + this.quantity > this.convCap) {
@@ -69,11 +66,11 @@ export class BuyGemOperation extends AbstractGoldItemOperation {
 
     return [
       pick(user, splitWhitespace('stats balance')),
-      this.i18n('plusGem', {count: this.quantity}),
+      this.i18n('plusGem', { count: this.quantity }),
     ];
   }
 
-  analyticsLabel () {
+  analyticsLabel () { // eslint-disable-line class-methods-use-this
     return 'purchase gems';
   }
 }

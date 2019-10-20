@@ -5,7 +5,7 @@ import {
 
 describe('POST /user/read-card/:cardType', () => {
   let user;
-  let cardType = 'greeting';
+  const cardType = 'greeting';
 
   beforeEach(async () => {
     user = await generateUser();
@@ -28,17 +28,17 @@ describe('POST /user/read-card/:cardType', () => {
       'flags.cardReceived': true,
       notifications: [{
         type: 'CARD_RECEIVED',
-        data: {card: cardType},
+        data: { card: cardType },
       }],
     });
 
     await user.sync();
     expect(user.notifications.length).to.equal(1);
 
-    let response = await user.post(`/user/read-card/${cardType}`);
+    const response = await user.post(`/user/read-card/${cardType}`);
     await user.sync();
 
-    expect(response.message).to.equal(t('readCard', {cardType}));
+    expect(response.message).to.equal(t('readCard', { cardType }));
     expect(user.items.special[`${cardType}Received`]).to.be.empty;
     expect(user.flags.cardReceived).to.be.false;
     expect(user.notifications.length).to.equal(0);

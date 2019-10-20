@@ -1,14 +1,14 @@
+import { v4 as generateUUID } from 'uuid';
 import {
   generateUser,
   createAndPopulateGroup,
   generateChallenge,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-import { v4 as generateUUID } from 'uuid';
 
 describe('GET /challenges/:challengeId', () => {
   it('fails if challenge doesn\'t exists', async () => {
-    let user = await generateUser();
+    const user = await generateUser();
     await expect(user.get(`/challenges/${generateUUID()}`)).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
@@ -25,8 +25,8 @@ describe('GET /challenges/:challengeId', () => {
     beforeEach(async () => {
       user = await generateUser();
 
-      let populatedGroup = await createAndPopulateGroup({
-        groupDetails: {type: 'guild', privacy: 'public'},
+      const populatedGroup = await createAndPopulateGroup({
+        groupDetails: { type: 'guild', privacy: 'public' },
       });
 
       groupLeader = populatedGroup.groupLeader;
@@ -38,7 +38,7 @@ describe('GET /challenges/:challengeId', () => {
 
     it('should return challenge data', async () => {
       await challenge.sync();
-      let chal = await user.get(`/challenges/${challenge._id}`);
+      const chal = await user.get(`/challenges/${challenge._id}`);
       expect(chal.memberCount).to.equal(challenge.memberCount);
       expect(chal.name).to.equal(challenge.name);
       expect(chal._id).to.equal(challenge._id);
@@ -46,7 +46,7 @@ describe('GET /challenges/:challengeId', () => {
       expect(chal.leader).to.eql({
         _id: groupLeader._id,
         id: groupLeader._id,
-        profile: {name: groupLeader.profile.name},
+        profile: { name: groupLeader.profile.name },
         auth: {
           local: {
             username: groupLeader.auth.local.username,
@@ -81,8 +81,8 @@ describe('GET /challenges/:challengeId', () => {
     beforeEach(async () => {
       nonMember = await generateUser();
 
-      let populatedGroup = await createAndPopulateGroup({
-        groupDetails: {type: 'guild', privacy: 'private'},
+      const populatedGroup = await createAndPopulateGroup({
+        groupDetails: { type: 'guild', privacy: 'private' },
         members: 2,
       });
 
@@ -90,8 +90,8 @@ describe('GET /challenges/:challengeId', () => {
       group = populatedGroup.group;
       members = populatedGroup.members;
 
-      challengeLeader = members[0];
-      otherMember = members[1];
+      challengeLeader = members[0]; // eslint-disable-line prefer-destructuring
+      otherMember = members[1]; // eslint-disable-line prefer-destructuring
 
       challenge = await generateChallenge(challengeLeader, group);
     });
@@ -105,14 +105,14 @@ describe('GET /challenges/:challengeId', () => {
     });
 
     it('returns challenge data for any user in the guild', async () => {
-      let chal = await otherMember.get(`/challenges/${challenge._id}`);
+      const chal = await otherMember.get(`/challenges/${challenge._id}`);
       expect(chal.name).to.equal(challenge.name);
       expect(chal._id).to.equal(challenge._id);
 
       expect(chal.leader).to.eql({
         _id: challengeLeader._id,
         id: challengeLeader._id,
-        profile: {name: challengeLeader.profile.name},
+        profile: { name: challengeLeader.profile.name },
         auth: {
           local: {
             username: challengeLeader.auth.local.username,
@@ -139,14 +139,14 @@ describe('GET /challenges/:challengeId', () => {
       await challengeLeader.sync();
       expect(challengeLeader.guilds).to.be.empty; // check that leaving worked
 
-      let chal = await challengeLeader.get(`/challenges/${challenge._id}`);
+      const chal = await challengeLeader.get(`/challenges/${challenge._id}`);
       expect(chal.name).to.equal(challenge.name);
       expect(chal._id).to.equal(challenge._id);
 
       expect(chal.leader).to.eql({
         _id: challengeLeader._id,
         id: challengeLeader._id,
-        profile: {name: challengeLeader.profile.name},
+        profile: { name: challengeLeader.profile.name },
         auth: {
           local: {
             username: challengeLeader.auth.local.username,
@@ -171,8 +171,8 @@ describe('GET /challenges/:challengeId', () => {
     beforeEach(async () => {
       nonMember = await generateUser();
 
-      let populatedGroup = await createAndPopulateGroup({
-        groupDetails: {type: 'party', privacy: 'private'},
+      const populatedGroup = await createAndPopulateGroup({
+        groupDetails: { type: 'party', privacy: 'private' },
         members: 2,
       });
 
@@ -180,8 +180,8 @@ describe('GET /challenges/:challengeId', () => {
       group = populatedGroup.group;
       members = populatedGroup.members;
 
-      challengeLeader = members[0];
-      otherMember = members[1];
+      challengeLeader = members[0]; // eslint-disable-line prefer-destructuring
+      otherMember = members[1]; // eslint-disable-line prefer-destructuring
 
       challenge = await generateChallenge(challengeLeader, group);
     });
@@ -195,14 +195,14 @@ describe('GET /challenges/:challengeId', () => {
     });
 
     it('returns challenge data for any user in the party', async () => {
-      let chal = await otherMember.get(`/challenges/${challenge._id}`);
+      const chal = await otherMember.get(`/challenges/${challenge._id}`);
       expect(chal.name).to.equal(challenge.name);
       expect(chal._id).to.equal(challenge._id);
 
       expect(chal.leader).to.eql({
         _id: challengeLeader._id,
         id: challengeLeader._id,
-        profile: {name: challengeLeader.profile.name},
+        profile: { name: challengeLeader.profile.name },
         auth: {
           local: {
             username: challengeLeader.auth.local.username,
@@ -229,14 +229,14 @@ describe('GET /challenges/:challengeId', () => {
       await challengeLeader.sync();
       expect(challengeLeader.party._id).to.be.undefined; // check that leaving worked
 
-      let chal = await challengeLeader.get(`/challenges/${challenge._id}`);
+      const chal = await challengeLeader.get(`/challenges/${challenge._id}`);
       expect(chal.name).to.equal(challenge.name);
       expect(chal._id).to.equal(challenge._id);
 
       expect(chal.leader).to.eql({
         _id: challengeLeader._id,
         id: challengeLeader._id,
-        profile: {name: challengeLeader.profile.name},
+        profile: { name: challengeLeader.profile.name },
         auth: {
           local: {
             username: challengeLeader.auth.local.username,

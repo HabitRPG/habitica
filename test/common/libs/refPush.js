@@ -1,10 +1,10 @@
-import shared from '../../../website/common';
 import { v4 as generateUUID } from 'uuid';
+import shared from '../../../website/common';
 
 describe('refPush', () => {
   it('it hashes one object into another by its id', () => {
-    let referenceObject = {};
-    let objectToHash = {
+    const referenceObject = {};
+    const objectToHash = {
       a: 1,
       id: generateUUID(),
     };
@@ -17,16 +17,14 @@ describe('refPush', () => {
   });
 
   it('it hashes one object into another by a uuid when object does not have an id', () => {
-    let referenceObject = {};
-    let objectToHash = {
+    const referenceObject = {};
+    const objectToHash = {
       a: 1,
     };
 
     shared.refPush(referenceObject, objectToHash);
 
-    let hashedObject = _.find(referenceObject, (hashedItem) => {
-      return objectToHash.a === hashedItem.a;
-    });
+    const hashedObject = _.find(referenceObject, hashedItem => objectToHash.a === hashedItem.a);
 
     expect(hashedObject.a).to.equal(objectToHash.a);
     expect(hashedObject.id).to.equal(objectToHash.id);
@@ -34,17 +32,15 @@ describe('refPush', () => {
   });
 
   it('it hashes one object into another by a id and gives it the highest sort value', () => {
-    let referenceObject = {};
+    const referenceObject = {};
     referenceObject[generateUUID()] = { b: 2, sort: 1 };
-    let objectToHash = {
+    const objectToHash = {
       a: 1,
     };
 
     shared.refPush(referenceObject, objectToHash);
 
-    let hashedObject = _.find(referenceObject, (hashedItem) => {
-      return objectToHash.a === hashedItem.a;
-    });
+    const hashedObject = _.find(referenceObject, hashedItem => objectToHash.a === hashedItem.a);
 
     expect(hashedObject.a).to.equal(objectToHash.a);
     expect(hashedObject.id).to.equal(objectToHash.id);

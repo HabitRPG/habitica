@@ -1,1 +1,1 @@
-db.users.update({_id: ''}, {$inc: {balance: 5}});
+db.users.update({ _id: '' }, { $inc: { balance: 5 } });

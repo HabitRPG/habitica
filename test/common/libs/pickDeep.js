@@ -6,7 +6,7 @@ describe('pickDeep', () => {
   });
 
   it('returns an object of properties taken from the input object', () => {
-    let obj = {
+    const obj = {
       a: true,
       b: [1, 2, 3],
       c: {
@@ -19,7 +19,7 @@ describe('pickDeep', () => {
       d: false,
     };
 
-    let res = pickDeep(obj, ['a', 'b[0]', 'c.nested.two.times']);
+    const res = pickDeep(obj, ['a', 'b[0]', 'c.nested.two.times']);
     expect(res.a).to.be.true;
     expect(res.b).to.eql([1]);
     expect(res.c).to.eql({

@@ -1,10 +1,10 @@
-import taskDefaults from '../libs/taskDefaults';
 import clone from 'lodash/clone';
+import taskDefaults from '../libs/taskDefaults';
 
 // TODO move to client since it's only used there?
 
-module.exports = function addTask (user, req = {body: {}}) {
-  let task = taskDefaults(req.body, user);
+export default function addTask (user, req = { body: {} }) {
+  const task = taskDefaults(req.body, user);
   user.tasksOrder[`${task.type}s`].unshift(task._id);
   user[`${task.type}s`].unshift(task);
 
@@ -15,4 +15,4 @@ module.exports = function addTask (user, req = {body: {}}) {
   task._advanced = !user.preferences.advancedCollapsed;
 
   return task;
-};
+}

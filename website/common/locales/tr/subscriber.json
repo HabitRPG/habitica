@@ -80,7 +80,7 @@
     "buyGemsAllow1": "Bu ay",
     "buyGemsAllow2": "Elmas daha satın alabilirsin",
     "purchaseGemsSeparately": "Ek Elmas Satın Al",
-    "subFreeGemsHow": "Habitica oyuncuları Elmas ödüllü <a href=\"/challenges/findChallenges\">mücadeleleri</a> kazanarak veya <a href=\"http://habitica.fandom.com/wiki/Contributing_to_Habitica\">Habitica'nın gelişimine yardımcı olup katılımcı ödülü olarak</a> ücretsiz Elmas kazanabilirler.",
+    "subFreeGemsHow": "Habitica oyuncuları Elmas ödüllü <a href=\"/challenges/findChallenges\">mücadeleleri</a> kazanarak veya <a href=\"http://habitica.fandom.com/wiki/Contributing_to_Habitica\">Habitica'nın gelişimine yardımcı olup katılımcı ödülü olarak.</a> ücretsiz Elmas kazanabilirler",
     "seeSubscriptionDetails": "<a href='/user/settings/subscription'>Ayarlar &gt; Abonelik</a> sekmesine giderek abonelik detaylarını görebilirsin!",
     "timeTravelers": "Zaman Yolcuları",
     "timeTravelersTitleNoSub": "<%= linkStartTyler %>Tyler<%= linkEnd %> ve <%= linkStartVicky %>Vicky<%= linkEnd %>",

@@ -1,24 +1,25 @@
-import {
-  generateUser,
-  translate as t,
-} from '../../../../helpers/api-integration/v3';
 import { find } from 'lodash';
 import moment from 'moment';
 import nconf from 'nconf';
 import { IncomingWebhook } from '@slack/client';
+import {
+  generateUser,
+  translate as t,
+} from '../../../../helpers/api-integration/v3';
 
 const BASE_URL = nconf.get('BASE_URL');
 
 describe('POST /chat/:chatId/flag', () => {
-  let user, admin, anotherUser, newUser, group;
+  let user; let admin; let anotherUser; let newUser; let
+    group;
   const TEST_MESSAGE = 'Test Message';
   const USER_AGE_FOR_FLAGGING = 3;
 
   beforeEach(async () => {
-    user = await generateUser({balance: 1, 'auth.timestamps.created': moment().subtract(USER_AGE_FOR_FLAGGING + 1, 'days').toDate()});
-    admin = await generateUser({balance: 1, 'contributor.admin': true});
-    anotherUser = await generateUser({'auth.timestamps.created': moment().subtract(USER_AGE_FOR_FLAGGING + 1, 'days').toDate()});
-    newUser = await generateUser({'auth.timestamps.created': moment().subtract(1, 'days').toDate()});
+    user = await generateUser({ balance: 1, 'auth.timestamps.created': moment().subtract(USER_AGE_FOR_FLAGGING + 1, 'days').toDate() });
+    admin = await generateUser({ balance: 1, 'contributor.admin': true });
+    anotherUser = await generateUser({ 'auth.timestamps.created': moment().subtract(USER_AGE_FOR_FLAGGING + 1, 'days').toDate() });
+    newUser = await generateUser({ 'auth.timestamps.created': moment().subtract(1, 'days').toDate() });
     sandbox.stub(IncomingWebhook.prototype, 'send');
 
     group = await user.post('/groups', {
@@ -42,20 +43,20 @@ describe('POST /chat/:chatId/flag', () => {
   });
 
   it('Allows players to flag their own message', async () => {
-    let message = await user.post(`/groups/${group._id}/chat`, {message: TEST_MESSAGE});
+    const message = await user.post(`/groups/${group._id}/chat`, { message: TEST_MESSAGE });
     await expect(user.post(`/groups/${group._id}/chat/${message.message.id}/flag`)).to.eventually.be.ok;
   });
 
   it('Flags a chat and sends normal message to moderator Slack when user is not new', async () => {
-    let { message } = await anotherUser.post(`/groups/${group._id}/chat`, {message: TEST_MESSAGE});
+    const { message } = await anotherUser.post(`/groups/${group._id}/chat`, { message: TEST_MESSAGE });
 
-    let flagResult = await user.post(`/groups/${group._id}/chat/${message.id}/flag`);
+    const flagResult = await user.post(`/groups/${group._id}/chat/${message.id}/flag`);
     expect(flagResult.flags[user._id]).to.equal(true);
     expect(flagResult.flagCount).to.equal(1);
 
-    let groupWithFlags = await admin.get(`/groups/${group._id}`);
+    const groupWithFlags = await admin.get(`/groups/${group._id}`);
 
-    let messageToCheck = find(groupWithFlags.chat, {id: message.id});
+    const messageToCheck = find(groupWithFlags.chat, { id: message.id });
     expect(messageToCheck.flags[user._id]).to.equal(true);
 
     // Slack message to mods
@@ -81,16 +82,16 @@ describe('POST /chat/:chatId/flag', () => {
   });
 
   it('Does not increment message flag count and sends different message to moderator Slack when user is new', async () => {
-    let automatedComment = `The post's flag count has not been increased because the flagger's account is less than ${USER_AGE_FOR_FLAGGING} days old.`;
-    let { message } = await newUser.post(`/groups/${group._id}/chat`, {message: TEST_MESSAGE});
+    const automatedComment = `The post's flag count has not been increased because the flagger's account is less than ${USER_AGE_FOR_FLAGGING} days old.`;
+    const { message } = await newUser.post(`/groups/${group._id}/chat`, { message: TEST_MESSAGE });
 
-    let flagResult = await newUser.post(`/groups/${group._id}/chat/${message.id}/flag`);
+    const flagResult = await newUser.post(`/groups/${group._id}/chat/${message.id}/flag`);
     expect(flagResult.flags[newUser._id]).to.equal(true);
     expect(flagResult.flagCount).to.equal(0);
 
-    let groupWithFlags = await admin.get(`/groups/${group._id}`);
+    const groupWithFlags = await admin.get(`/groups/${group._id}`);
 
-    let messageToCheck = find(groupWithFlags.chat, {id: message.id});
+    const messageToCheck = find(groupWithFlags.chat, { id: message.id });
     expect(messageToCheck.flags[newUser._id]).to.equal(true);
 
     // Slack message to mods
@@ -116,38 +117,38 @@ describe('POST /chat/:chatId/flag', () => {
   });
 
   it('Flags a chat when the author\'s account was deleted', async () => {
-    let deletedUser = await generateUser();
-    let { message } = await deletedUser.post(`/groups/${group._id}/chat`, {message: TEST_MESSAGE});
+    const deletedUser = await generateUser();
+    const { message } = await deletedUser.post(`/groups/${group._id}/chat`, { message: TEST_MESSAGE });
     await deletedUser.del('/user', {
       password: 'password',
     });
 
-    let flagResult = await user.post(`/groups/${group._id}/chat/${message.id}/flag`);
+    const flagResult = await user.post(`/groups/${group._id}/chat/${message.id}/flag`);
     expect(flagResult.flags[user._id]).to.equal(true);
     expect(flagResult.flagCount).to.equal(1);
 
-    let groupWithFlags = await admin.get(`/groups/${group._id}`);
+    const groupWithFlags = await admin.get(`/groups/${group._id}`);
 
-    let messageToCheck = find(groupWithFlags.chat, {id: message.id});
+    const messageToCheck = find(groupWithFlags.chat, { id: message.id });
     expect(messageToCheck.flags[user._id]).to.equal(true);
   });
 
   it('Flags a chat with a higher flag acount when an admin flags the message', async () => {
-    let { message } = await user.post(`/groups/${group._id}/chat`, {message: TEST_MESSAGE});
+    const { message } = await user.post(`/groups/${group._id}/chat`, { message: TEST_MESSAGE });
 
-    let flagResult = await admin.post(`/groups/${group._id}/chat/${message.id}/flag`);
+    const flagResult = await admin.post(`/groups/${group._id}/chat/${message.id}/flag`);
     expect(flagResult.flags[admin._id]).to.equal(true);
     expect(flagResult.flagCount).to.equal(5);
 
-    let groupWithFlags = await admin.get(`/groups/${group._id}`);
+    const groupWithFlags = await admin.get(`/groups/${group._id}`);
 
-    let messageToCheck = find(groupWithFlags.chat, {id: message.id});
+    const messageToCheck = find(groupWithFlags.chat, { id: message.id });
     expect(messageToCheck.flags[admin._id]).to.equal(true);
     expect(messageToCheck.flagCount).to.equal(5);
   });
 
   it('allows admin to flag a message in a private group', async () => {
-    let privateGroup = await user.post('/groups', {
+    const privateGroup = await user.post('/groups', {
       name: 'Test party',
       type: 'party',
       privacy: 'private',
@@ -156,26 +157,26 @@ describe('POST /chat/:chatId/flag', () => {
       uuids: [anotherUser._id],
     });
     await anotherUser.post(`/groups/${privateGroup._id}/join`);
-    let { message } = await user.post(`/groups/${privateGroup._id}/chat`, {message: TEST_MESSAGE});
+    const { message } = await user.post(`/groups/${privateGroup._id}/chat`, { message: TEST_MESSAGE });
 
-    let flagResult = await admin.post(`/groups/${privateGroup._id}/chat/${message.id}/flag`);
+    const flagResult = await admin.post(`/groups/${privateGroup._id}/chat/${message.id}/flag`);
 
     expect(flagResult.flags[admin._id]).to.equal(true);
     expect(flagResult.flagCount).to.equal(5);
 
-    let groupWithFlags = await anotherUser.get(`/groups/${privateGroup._id}`);
-    let messageToCheck = find(groupWithFlags.chat, {id: message.id});
+    const groupWithFlags = await anotherUser.get(`/groups/${privateGroup._id}`);
+    const messageToCheck = find(groupWithFlags.chat, { id: message.id });
 
     expect(messageToCheck).to.not.exist;
   });
 
   it('does not allow non member to flag message in private group', async () => {
-    let privateGroup = await user.post('/groups', {
+    const privateGroup = await user.post('/groups', {
       name: 'Test party',
       type: 'party',
       privacy: 'private',
     });
-    let { message } = await user.post(`/groups/${privateGroup._id}/chat`, {message: TEST_MESSAGE});
+    const { message } = await user.post(`/groups/${privateGroup._id}/chat`, { message: TEST_MESSAGE });
 
     await expect(anotherUser.post(`/groups/${privateGroup._id}/chat/${message.id}/flag`))
       .to.eventually.be.rejected.and.eql({
@@ -186,7 +187,7 @@ describe('POST /chat/:chatId/flag', () => {
   });
 
   it('Returns an error when user tries to flag a message that they already flagged', async () => {
-    let { message } = await anotherUser.post(`/groups/${group._id}/chat`, {message: TEST_MESSAGE});
+    const { message } = await anotherUser.post(`/groups/${group._id}/chat`, { message: TEST_MESSAGE });
 
     await user.post(`/groups/${group._id}/chat/${message.id}/flag`);
 
@@ -199,17 +200,17 @@ describe('POST /chat/:chatId/flag', () => {
   });
 
   it('shows a hidden message to the original poster', async () => {
-    let { message } = await user.post(`/groups/${group._id}/chat`, {message: TEST_MESSAGE});
+    const { message } = await user.post(`/groups/${group._id}/chat`, { message: TEST_MESSAGE });
 
     await admin.post(`/groups/${group._id}/chat/${message.id}/flag`);
 
-    let groupWithFlags = await user.get(`/groups/${group._id}`);
-    let messageToCheck = find(groupWithFlags.chat, {id: message.id});
+    const groupWithFlags = await user.get(`/groups/${group._id}`);
+    const messageToCheck = find(groupWithFlags.chat, { id: message.id });
 
     expect(messageToCheck).to.exist;
 
-    let auGroupWithFlags = await anotherUser.get(`/groups/${group._id}`);
-    let auMessageToCheck = find(auGroupWithFlags.chat, {id: message.id});
+    const auGroupWithFlags = await anotherUser.get(`/groups/${group._id}`);
+    const auMessageToCheck = find(auGroupWithFlags.chat, { id: message.id });
 
     expect(auMessageToCheck).to.not.exist;
   });

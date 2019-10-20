@@ -1,6 +1,6 @@
-import fs       from 'fs';
-import _        from 'lodash';
-import gulp     from 'gulp';
+import fs from 'fs';
+import _ from 'lodash';
+import gulp from 'gulp';
 import { postToSlack, conf } from './taskHelper';
 
 const SLACK_CONFIG = {
@@ -14,7 +14,7 @@ const ENGLISH_LOCALE = `${LOCALES}en/`;
 
 
 function getArrayOfLanguages () {
-  let languages = fs.readdirSync(LOCALES);
+  const languages = fs.readdirSync(LOCALES);
   languages.shift(); // Remove README.md from array of languages
 
   return languages;
@@ -23,18 +23,16 @@ function getArrayOfLanguages () {
 const ALL_LANGUAGES = getArrayOfLanguages();
 
 function stripOutNonJsonFiles (collection) {
-  let onlyJson = _.filter(collection, (file) => {
-    return file.match(/[a-zA-Z]*\.json/);
-  });
+  const onlyJson = _.filter(collection, file => file.match(/[a-zA-Z]*\.json/));
 
   return onlyJson;
 }
 
 function eachTranslationFile (languages, cb) {
-  let jsonFiles = stripOutNonJsonFiles(fs.readdirSync(ENGLISH_LOCALE));
+  const jsonFiles = stripOutNonJsonFiles(fs.readdirSync(ENGLISH_LOCALE));
 
-  _.each(languages, (lang) => {
-    _.each(jsonFiles, (filename) => {
+  _.each(languages, lang => {
+    _.each(jsonFiles, filename => {
       let parsedTranslationFile;
       try {
         const translationFile = fs.readFileSync(`${LOCALES}${lang}/${filename}`);
@@ -43,10 +41,10 @@ function eachTranslationFile (languages, cb) {
         return cb(err);
       }
 
-      let englishFile = fs.readFileSync(ENGLISH_LOCALE + filename);
-      let parsedEnglishFile = JSON.parse(englishFile);
+      const englishFile = fs.readFileSync(ENGLISH_LOCALE + filename);
+      const parsedEnglishFile = JSON.parse(englishFile);
 
-      cb(null, lang, filename, parsedEnglishFile, parsedTranslationFile);
+      return cb(null, lang, filename, parsedEnglishFile, parsedTranslationFile);
     });
   });
 }
@@ -71,9 +69,9 @@ function formatMessageForPosting (msg, items) {
 }
 
 function getStringsWith (json, interpolationRegex) {
-  let strings = {};
+  const strings = {};
 
-  _.each(json, (fileName) => {
+  _.each(json, fileName => {
     const rawFile = fs.readFileSync(ENGLISH_LOCALE + fileName);
     const parsedJson = JSON.parse(rawFile);
 
@@ -93,66 +91,69 @@ const malformedStringExceptions = {
   feedPet: true,
 };
 
-gulp.task('transifex:missingFiles', (done) => {
-  let missingStrings = [];
+gulp.task('transifex:missingFiles', done => {
+  const missingStrings = [];
 
-  eachTranslationFile(ALL_LANGUAGES, (error) => {
+  eachTranslationFile(ALL_LANGUAGES, error => {
     if (error) {
       missingStrings.push(error.path);
     }
   });
 
   if (!_.isEmpty(missingStrings)) {
-    let message = 'the following files were missing from the translations folder';
-    let formattedMessage = formatMessageForPosting(message, missingStrings);
+    const message = 'the following files were missing from the translations folder';
+    const formattedMessage = formatMessageForPosting(message, missingStrings);
     postToSlack(formattedMessage, SLACK_CONFIG);
   }
   done();
 });
 
-gulp.task('transifex:missingStrings', (done) => {
-  let missingStrings = [];
+gulp.task('transifex:missingStrings', done => {
+  const missingStrings = [];
 
-  eachTranslationString(ALL_LANGUAGES, (language, filename, key, englishString, translationString) => {
+  eachTranslationString(ALL_LANGUAGES, (lang, filename, key, englishString, translationString) => {
     if (!translationString) {
-      let errorString = `${language} - ${filename} - ${key} - ${englishString}`;
+      const errorString = `${lang} - ${filename} - ${key} - ${englishString}`;
       missingStrings.push(errorString);
     }
   });
 
   if (!_.isEmpty(missingStrings)) {
-    let message = 'The following strings are not translated';
-    let formattedMessage = formatMessageForPosting(message, missingStrings);
+    const message = 'The following strings are not translated';
+    const formattedMessage = formatMessageForPosting(message, missingStrings);
     postToSlack(formattedMessage, SLACK_CONFIG);
   }
   done();
 });
 
-gulp.task('transifex:malformedStrings', (done) => {
-  let jsonFiles = stripOutNonJsonFiles(fs.readdirSync(ENGLISH_LOCALE));
-  let interpolationRegex = /<%= [a-zA-Z]* %>/g;
-  let stringsToLookFor = getStringsWith(jsonFiles, interpolationRegex);
+gulp.task('transifex:malformedStrings', done => {
+  const jsonFiles = stripOutNonJsonFiles(fs.readdirSync(ENGLISH_LOCALE));
+  const interpolationRegex = /<%= [a-zA-Z]* %>/g;
+  const stringsToLookFor = getStringsWith(jsonFiles, interpolationRegex);
 
-  let stringsWithMalformedInterpolations = [];
-  let stringsWithIncorrectNumberOfInterpolations = [];
+  const stringsWithMalformedInterpolations = [];
+  const stringsWithIncorrectNumberOfInterpolations = [];
 
-  _.each(ALL_LANGUAGES, (lang) => {
+  _.each(ALL_LANGUAGES, lang => {
     _.each(stringsToLookFor, (strings, filename) => {
-      let translationFile = fs.readFileSync(`${LOCALES}${lang}/${filename}`);
-      let parsedTranslationFile = JSON.parse(translationFile);
+      const translationFile = fs.readFileSync(`${LOCALES}${lang}/${filename}`);
+      const parsedTranslationFile = JSON.parse(translationFile);
 
       _.each(strings, (value, key) => { // eslint-disable-line max-nested-callbacks
-        let translationString = parsedTranslationFile[key];
+        const translationString = parsedTranslationFile[key];
         if (!translationString) return;
 
-        let englishOccurences = stringsToLookFor[filename][key];
-        let translationOccurences = translationString.match(interpolationRegex);
+        const englishOccurences = stringsToLookFor[filename][key];
+        const translationOccurences = translationString.match(interpolationRegex);
 
         if (!translationOccurences) {
-          let malformedString = `${lang} - ${filename} - ${key} - ${translationString}`;
+          const malformedString = `${lang} - ${filename} - ${key} - ${translationString}`;
           stringsWithMalformedInterpolations.push(malformedString);
-        } else if (englishOccurences.length !== translationOccurences.length && !malformedStringExceptions[key]) {
-          let missingInterpolationString = `${lang} - ${filename} - ${key} - ${translationString}`;
+        } else if (
+          englishOccurences.length !== translationOccurences.length
+           && !malformedStringExceptions[key]
+        ) {
+          const missingInterpolationString = `${lang} - ${filename} - ${key} - ${translationString}`;
           stringsWithIncorrectNumberOfInterpolations.push(missingInterpolationString);
         }
       });
@@ -160,14 +161,17 @@ gulp.task('transifex:malformedStrings', (done) => {
   });
 
   if (!_.isEmpty(stringsWithMalformedInterpolations)) {
-    let message = 'The following strings have malformed or missing interpolations';
-    let formattedMessage = formatMessageForPosting(message, stringsWithMalformedInterpolations);
+    const message = 'The following strings have malformed or missing interpolations';
+    const formattedMessage = formatMessageForPosting(message, stringsWithMalformedInterpolations);
     postToSlack(formattedMessage, SLACK_CONFIG);
   }
 
   if (!_.isEmpty(stringsWithIncorrectNumberOfInterpolations)) {
-    let message = 'The following strings have a different number of string interpolations';
-    let formattedMessage = formatMessageForPosting(message, stringsWithIncorrectNumberOfInterpolations);
+    const message = 'The following strings have a different number of string interpolations';
+    const formattedMessage = formatMessageForPosting(
+      message,
+      stringsWithIncorrectNumberOfInterpolations,
+    );
     postToSlack(formattedMessage, SLACK_CONFIG);
   }
   done();
@@ -176,5 +180,5 @@ gulp.task('transifex:malformedStrings', (done) => {
 gulp.task(
   'transifex',
   gulp.series('transifex:missingFiles', 'transifex:missingStrings', 'transifex:malformedStrings'),
-  (done) => done()
+  done => done(),
 );

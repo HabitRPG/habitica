@@ -1,3 +1,4 @@
+import { v4 as generateUUID } from 'uuid';
 import {
   generateUser,
   createAndPopulateGroup,
@@ -5,7 +6,6 @@ import {
   translate as t,
   sleep,
 } from '../../../../helpers/api-integration/v3';
-import { v4 as generateUUID } from 'uuid';
 
 describe('GET /challenges/:challengeId/export/csv', () => {
   let groupLeader;
@@ -15,7 +15,7 @@ describe('GET /challenges/:challengeId/export/csv', () => {
   let user;
 
   beforeEach(async () => {
-    let populatedGroup = await createAndPopulateGroup({
+    const populatedGroup = await createAndPopulateGroup({
       members: 3,
     });
 
@@ -30,8 +30,8 @@ describe('GET /challenges/:challengeId/export/csv', () => {
     await members[2].post(`/challenges/${challenge._id}/join`);
 
     await groupLeader.post(`/tasks/challenge/${challenge._id}`, [
-      {type: 'habit', text: 'Task 1'},
-      {type: 'todo', text: 'Task 2'},
+      { type: 'habit', text: 'Task 1' },
+      { type: 'todo', text: 'Task 2' },
     ]);
     await sleep(0.5); // Make sure tasks are synced to the users
     await members[0].sync();
@@ -74,7 +74,7 @@ describe('GET /challenges/:challengeId/export/csv', () => {
   });
 
   it('should successfully return when it contains erroneous residue user data', async () => {
-    await members[0].update({challenges: []});
+    await members[0].update({ challenges: [] });
     const res = await members[1].get(`/challenges/${challenge._id}/export/csv`);
     const sortedMembers = _.sortBy([members[1], members[2], groupLeader], '_id');
     const splitRes = res.split('\n');

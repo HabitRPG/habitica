@@ -11,7 +11,7 @@ describe('GET /shops/time-travelers', () => {
   });
 
   it('returns a valid shop object', async () => {
-    let shop = await user.get('/shops/time-travelers');
+    const shop = await user.get('/shops/time-travelers');
 
     expect(shop.identifier).to.equal('timeTravelersShop');
     expect(shop.text).to.eql(t('timeTravelers'));
@@ -19,17 +19,17 @@ describe('GET /shops/time-travelers', () => {
     expect(shop.imageName).to.be.a('string');
     expect(shop.categories).to.be.an('array');
 
-    let categories = shop.categories.map(cat => cat.identifier);
+    const categories = shop.categories.map(cat => cat.identifier);
 
     expect(categories).to.include('pets');
     expect(categories).to.include('mounts');
     expect(categories).to.include('201606');
 
-    let mammothPet = shop.categories
+    const mammothPet = shop.categories
       .find(cat => cat.identifier === 'pets')
       .items
       .find(pet => pet.key === 'Mammoth-Base');
-    let mantisShrimp = shop.categories
+    const mantisShrimp = shop.categories
       .find(cat => cat.identifier === 'mounts')
       .items
       .find(pet => pet.key === 'MantisShrimp-Base');
@@ -43,14 +43,14 @@ describe('GET /shops/time-travelers', () => {
       'purchased.plan.consecutive.trinkets': 1,
     });
 
-    let shop = await user.get('/shops/time-travelers');
+    const shop = await user.get('/shops/time-travelers');
 
     expect(shop.notes).to.eql(t('timeTravelersPopover'));
     expect(shop.imageName).to.eql('npc_timetravelers_active');
   });
 
   it('returns inactive shop notes and imageName if user has trinkets', async () => {
-    let shop = await user.get('/shops/time-travelers');
+    const shop = await user.get('/shops/time-travelers');
 
     expect(shop.notes).to.eql(t('timeTravelersPopoverNoSubMobile'));
     expect(shop.imageName).to.eql('npc_timetravelers');
@@ -64,9 +64,9 @@ describe('GET /shops/time-travelers', () => {
       },
     });
 
-    let shop = await user.get('/shops/time-travelers');
+    const shop = await user.get('/shops/time-travelers');
 
-    let categories = shop.categories.map(cat => cat.identifier);
+    const categories = shop.categories.map(cat => cat.identifier);
 
     expect(categories).to.not.include('201606');
   });
@@ -81,13 +81,13 @@ describe('GET /shops/time-travelers', () => {
       },
     });
 
-    let shop = await user.get('/shops/time-travelers');
+    const shop = await user.get('/shops/time-travelers');
 
-    let mammothPet = shop.categories
+    const mammothPet = shop.categories
       .find(cat => cat.identifier === 'pets')
       .items
       .find(pet => pet.key === 'Mammoth-Base');
-    let mantisShrimp = shop.categories
+    const mantisShrimp = shop.categories
       .find(cat => cat.identifier === 'mounts')
       .items
       .find(pet => pet.key === 'MantisShrimp-Base');

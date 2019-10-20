@@ -6,8 +6,9 @@ import {
 import stripePayments from '../../../../../../website/server/libs/payments/stripe';
 
 describe('payments - stripe - #subscribeCancel', () => {
-  let endpoint = '/stripe/subscribe/cancel?noRedirect=true';
-  let user, group, stripeCancelSubscriptionStub;
+  const endpoint = '/stripe/subscribe/cancel?noRedirect=true';
+  let user; let group; let
+    stripeCancelSubscriptionStub;
 
   beforeEach(async () => {
     user = await generateUser();

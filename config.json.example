@@ -33,6 +33,7 @@
   "LOGGLY_TOKEN": "example-token",
   "MAINTENANCE_MODE": "false",
   "NODE_DB_URI": "mongodb://localhost/habitrpg",
+  "MONGODB_POOL_SIZE": "10",
   "NODE_ENV": "development",
   "PATH": "bin:node_modules/.bin:/usr/local/bin:/usr/bin:/bin",
   "PAYPAL_BILLING_PLANS_basic_12mo": "basic_12mo",

@@ -1,11 +1,11 @@
-import content from '../content/index';
 import get from 'lodash/get';
+import content from '../content/index';
 
-module.exports = function getItemByPathAndType (type, path) {
+export default function getItemByPathAndType (type, path) {
   let item = get(content, path);
 
   if (type === 'timeTravelersStable') {
-    let [, animalType, key] = path.split('.');
+    const [, animalType, key] = path.split('.');
 
     item = {
       key,
@@ -14,4 +14,4 @@ module.exports = function getItemByPathAndType (type, path) {
   }
 
   return item;
-};
+}

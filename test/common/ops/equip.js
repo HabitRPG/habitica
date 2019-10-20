@@ -28,58 +28,58 @@ describe('shared.ops.equip', () => {
           },
         },
       },
-      stats: {gp: 200},
+      stats: { gp: 200 },
     });
   });
 
   context('Gear', () => {
     it('should not send a message if a weapon is equipped while only having zero or one weapons equipped', () => {
-      equip(user, {params: {key: 'weapon_warrior_1'}});
+      equip(user, { params: { key: 'weapon_warrior_1' } });
 
       // one-handed to one-handed
-      let [, message] = equip(user, {params: {key: 'weapon_warrior_2'}});
+      let [, message] = equip(user, { params: { key: 'weapon_warrior_2' } });
       expect(message).to.not.exist;
 
       // one-handed to two-handed
-      [, message] = equip(user, {params: {key: 'weapon_wizard_1'}});
+      [, message] = equip(user, { params: { key: 'weapon_wizard_1' } });
       expect(message).to.not.exist;
 
       // two-handed to two-handed
-      [, message] = equip(user, {params: {key: 'weapon_wizard_2'}});
+      [, message] = equip(user, { params: { key: 'weapon_wizard_2' } });
       expect(message).to.not.exist;
 
       // two-handed to one-handed
-      [, message] = equip(user, {params: {key: 'weapon_warrior_2'}});
+      [, message] = equip(user, { params: { key: 'weapon_warrior_2' } });
       expect(message).to.not.exist;
     });
 
     it('should send messages if equipping a two-hander causes the off-hander to be unequipped', () => {
-      equip(user, {params: {key: 'weapon_warrior_1'}});
-      equip(user, {params: {key: 'shield_warrior_1'}});
+      equip(user, { params: { key: 'weapon_warrior_1' } });
+      equip(user, { params: { key: 'shield_warrior_1' } });
 
       // equipping two-hander
-      let [data, message] = equip(user, {params: {key: 'weapon_wizard_1'}});
-      let weapon = content.gear.flat.weapon_wizard_1;
-      let item = content.gear.flat.shield_warrior_1;
+      const [data, message] = equip(user, { params: { key: 'weapon_wizard_1' } });
+      const weapon = content.gear.flat.weapon_wizard_1;
+      const item = content.gear.flat.shield_warrior_1;
 
-      let res = {data, message};
+      const res = { data, message };
       expect(res).to.eql({
-        message: i18n.t('messageTwoHandedEquip', {twoHandedText: weapon.text(), offHandedText: item.text()}),
+        message: i18n.t('messageTwoHandedEquip', { twoHandedText: weapon.text(), offHandedText: item.text() }),
         data: user.items,
       });
     });
 
     it('should send messages if equipping an off-hand item causes a two-handed weapon to be unequipped', () => {
       // equipping two-hander
-      equip(user, {params: {key: 'weapon_wizard_1'}});
-      let weapon = content.gear.flat.weapon_wizard_1;
-      let shield = content.gear.flat.shield_warrior_1;
+      equip(user, { params: { key: 'weapon_wizard_1' } });
+      const weapon = content.gear.flat.weapon_wizard_1;
+      const shield = content.gear.flat.shield_warrior_1;
 
-      let [data, message] = equip(user, {params: {key: 'shield_warrior_1'}});
+      const [data, message] = equip(user, { params: { key: 'shield_warrior_1' } });
 
-      let res = {data, message};
+      const res = { data, message };
       expect(res).to.eql({
-        message: i18n.t('messageTwoHandedUnequip', {twoHandedText: weapon.text(), offHandedText: shield.text()}),
+        message: i18n.t('messageTwoHandedUnequip', { twoHandedText: weapon.text(), offHandedText: shield.text() }),
         data: user.items,
       });
     });

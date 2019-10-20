@@ -2,16 +2,17 @@ import uuid from 'uuid';
 
 import {
   generateGroup,
-} from '../../../../../helpers/api-unit.helper.js';
+} from '../../../../../helpers/api-unit.helper';
 import { model as User } from '../../../../../../website/server/models/user';
 import { model as Group } from '../../../../../../website/server/models/group';
 import amzLib from '../../../../../../website/server/libs/payments/amazon';
 import payments from '../../../../../../website/server/libs/payments/payments';
 
 describe('#upgradeGroupPlan', () => {
-  let spy, data, user, group, uuidString;
+  let spy; let data; let user; let group; let
+    uuidString;
 
-  beforeEach(async function () {
+  beforeEach(async () => {
     user = new User();
     user.profile.name = 'sender';
 
@@ -46,7 +47,7 @@ describe('#upgradeGroupPlan', () => {
     data.sub.quantity = 3;
   });
 
-  afterEach(function () {
+  afterEach(() => {
     amzLib.authorizeOnBillingAgreement.restore();
     uuid.v4.restore();
   });
@@ -55,7 +56,7 @@ describe('#upgradeGroupPlan', () => {
     data.paymentMethod = amzLib.constants.PAYMENT_METHOD;
     await payments.createSubscription(data);
 
-    let updatedGroup = await Group.findById(group._id).exec();
+    const updatedGroup = await Group.findById(group._id).exec();
 
     updatedGroup.memberCount += 1;
     await updatedGroup.save();

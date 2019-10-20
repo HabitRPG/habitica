@@ -1,6 +1,6 @@
 import t from './translation';
 
-export const tasksByCategory = {
+export const tasksByCategory = { // eslint-disable-line import/prefer-default-export
   work: [
     {
       type: 'habit',

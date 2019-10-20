@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
 import baseModel from '../libs/baseModel';
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
-export let schema = new Schema({
-  regId: {$type: String, required: true},
-  type: {$type: String, required: true, enum: ['ios', 'android']},
+export const schema = new Schema({
+  regId: { $type: String, required: true },
+  type: { $type: String, required: true, enum: ['ios', 'android'] },
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
@@ -19,4 +19,4 @@ schema.plugin(baseModel, {
   _id: false,
 });
 
-export let model = mongoose.model('PushDevice', schema);
+export const model = mongoose.model('PushDevice', schema);

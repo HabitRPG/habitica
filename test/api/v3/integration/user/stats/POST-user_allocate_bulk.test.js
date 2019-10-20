@@ -32,7 +32,7 @@ describe('POST /user/allocate-bulk', () => {
   });
 
   it('returns an error if user has not selected class', async () => {
-    await user.update({'flags.classSelected': false});
+    await user.update({ 'flags.classSelected': false });
     await expect(user.post('/user/allocate-bulk', statsUpdate))
       .to.eventually.be.rejected.and.eql({
         code: 401,
@@ -42,7 +42,7 @@ describe('POST /user/allocate-bulk', () => {
   });
 
   it('allocates attribute points', async () => {
-    await user.update({'stats.points': 3});
+    await user.update({ 'stats.points': 3 });
 
     await user.post('/user/allocate-bulk', statsUpdate);
     await user.sync();

@@ -119,8 +119,8 @@
     "giftedSubscriptionInfo": "<%= name %> presentou você com <%= months %> meses de assinatura",
     "giftedSubscriptionFull": "Olá <%= username %>, <%= sender %> te envou <%= monthCount %> meses de assinatura!",
     "giftedSubscriptionWinterPromo": "Olá, <%= username %>, você recebeu <%= monthCount %> meses de assinatura como parte de nossa promoção de presentes de Natal!",
-    "invitedParty": "Te convidaram para um Grupo",
-    "invitedGuild": "Te convidaram para uma Guilda",
+    "invitedParty": "Você foi convidado(a) para um Grupo",
+    "invitedGuild": "Você foi convidado(a) para uma Guilda",
     "importantAnnouncements": "Lembretes de fazer check-in para completar tarefas e receber recompensas",
     "weeklyRecaps": "Resumos de atividades da sua conta na semana passada (Nota: Atualmente está desativado devido a problemas de desempenho, mas esperamos ter isto funcionando e enviando e-mails novamente em breve!)",
     "onboarding": "Orientações em como preparar sua conta no Habitica",
@@ -205,5 +205,6 @@
     "usernameNotVerified": "Por favor, confirme seu nome de usuário.",
     "changeUsernameDisclaimer": "Faremos a transição dos nomes de login para nomes de usuários públicos exclusivos em breve. Este nome de usuário será usado para convites, @menções em bate-papo e mensagens.",
     "verifyUsernameVeteranPet": "Um desses Mascotes Veteranos estará esperando por você assim que estiver terminado de confirmar!",
-    "subscriptionReminders": "Lembretes de inscrições"
+    "subscriptionReminders": "Lembretes de inscrições",
+    "newPMNotificationTitle": "Nova Mensagem de <%= name %>"
 }
