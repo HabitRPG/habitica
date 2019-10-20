@@ -1,8 +1,8 @@
 import bannedSlurs from '../bannedSlurs';
-import {getMatchesByWordArray} from '../stringUtils';
+import { getMatchesByWordArray } from '../stringUtils';
 import forbiddenUsernames from '../forbiddenUsernames';
 
-const bannedSlurRegexs = bannedSlurs.map((word) => new RegExp(`.*${word}.*`, 'i'));
+const bannedSlurRegexs = bannedSlurs.map(word => new RegExp(`.*${word}.*`, 'i'));
 
 export function nameContainsSlur (username) {
   for (let i = 0; i < bannedSlurRegexs.length; i += 1) {
@@ -22,12 +22,12 @@ function usernameIsForbidden (username) {
 
 const invalidCharsRegex = new RegExp('[^a-z0-9_-]', 'i');
 function usernameContainsInvalidCharacters (username) {
-  let match = username.match(invalidCharsRegex);
+  const match = username.match(invalidCharsRegex);
   return match !== null && match[0] !== null;
 }
 
 export function verifyDisplayName (displayName, res) {
-  let issues = [];
+  const issues = [];
   if (displayName.length < 1 || displayName.length > 30) issues.push(res.t('displaynameIssueLength'));
   if (nameContainsSlur(displayName)) issues.push(res.t('displaynameIssueSlur'));
 
@@ -35,7 +35,7 @@ export function verifyDisplayName (displayName, res) {
 }
 
 export function verifyUsername (username, res) {
-  let issues = [];
+  const issues = [];
   if (username.length < 1 || username.length > 20) issues.push(res.t('usernameIssueLength'));
   if (usernameContainsInvalidCharacters(username)) issues.push(res.t('usernameIssueInvalidCharacters'));
   if (nameContainsSlur(username)) issues.push(res.t('usernameIssueSlur'));

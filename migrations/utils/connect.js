@@ -1,6 +1,5 @@
-'use strict';
-
-const MongoClient = require('mongodb').MongoClient;
+/* eslint-disable import/no-commonjs */
+const { MongoClient } = require('mongodb'); // eslint-disable-line import/no-extraneous-dependencies
 const logger = require('./logger');
 
 let dbConnection;
@@ -17,7 +16,7 @@ function connectToDb (dbUri) {
 
       logger.success(`Connected to ${dbUri}`);
 
-      resolve(database);
+      return resolve(database);
     });
   });
 }

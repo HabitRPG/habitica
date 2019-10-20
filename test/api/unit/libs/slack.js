@@ -1,11 +1,11 @@
 /* eslint-disable camelcase */
 import { IncomingWebhook } from '@slack/client';
 import requireAgain from 'require-again';
-import slack from '../../../../website/server/libs/slack';
-import logger from '../../../../website/server/libs/logger';
-import { TAVERN_ID } from '../../../../website/server/models/group';
 import nconf from 'nconf';
 import moment from 'moment';
+import * as slack from '../../../../website/server/libs/slack';
+import logger from '../../../../website/server/libs/logger';
+import { TAVERN_ID } from '../../../../website/server/models/group';
 
 describe('slack', () => {
   describe('sendFlagNotification', () => {
@@ -113,7 +113,7 @@ describe('slack', () => {
     it('noops if no flagging url is provided', () => {
       sandbox.stub(nconf, 'get').withArgs('SLACK_FLAGGING_URL').returns('');
       sandbox.stub(logger, 'error');
-      let reRequiredSlack = requireAgain('../../../../website/server/libs/slack');
+      const reRequiredSlack = requireAgain('../../../../website/server/libs/slack');
 
       expect(logger.error).to.be.calledOnce;
 

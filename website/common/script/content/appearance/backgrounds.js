@@ -2,7 +2,7 @@ import forOwn from 'lodash/forOwn';
 import t from '../translation';
 
 /* eslint-disable camelcase */
-let backgrounds = {
+const backgrounds = {
   backgrounds062014: {
     beach: {
       text: t('backgroundBeachText'),
@@ -948,10 +948,10 @@ let backgrounds = {
 };
 /* eslint-enable quote-props */
 
-let flat = {};
+const flat = {};
 
-forOwn(backgrounds, function prefillBackgroundSet (backgroundsInSet, set) {
-  forOwn(backgroundsInSet, function prefillBackground (background, bgKey) {
+forOwn(backgrounds, (backgroundsInSet, set) => {
+  forOwn(backgroundsInSet, (background, bgKey) => {
     background.key = bgKey;
     background.set = set;
     background.price = 7;

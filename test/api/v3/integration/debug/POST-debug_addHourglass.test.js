@@ -17,7 +17,7 @@ describe('POST /debug/add-hourglass', () => {
   it('adds Hourglass to the current user', async () => {
     await userToGetHourGlass.post('/debug/add-hourglass');
 
-    let userWithHourGlass = await userToGetHourGlass.get('/user');
+    const userWithHourGlass = await userToGetHourGlass.get('/user');
 
     expect(userWithHourGlass.purchased.plan.consecutive.trinkets).to.equal(1);
   });

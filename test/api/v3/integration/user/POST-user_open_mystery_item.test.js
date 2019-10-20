@@ -6,16 +6,16 @@ import content from '../../../../../website/common/script/content/index';
 
 describe('POST /user/open-mystery-item', () => {
   let user;
-  let mysteryItemKey = 'eyewear_special_summerRogue';
-  let mysteryItemIndex = content.gear.flat[mysteryItemKey].index;
-  let mysteryItemType = content.gear.flat[mysteryItemKey].type;
-  let mysteryItemText = content.gear.flat[mysteryItemKey].text();
+  const mysteryItemKey = 'eyewear_special_summerRogue';
+  const mysteryItemIndex = content.gear.flat[mysteryItemKey].index;
+  const mysteryItemType = content.gear.flat[mysteryItemKey].type;
+  const mysteryItemText = content.gear.flat[mysteryItemKey].text();
 
   beforeEach(async () => {
     user = await generateUser({
       'purchased.plan.mysteryItems': [mysteryItemKey],
       notifications: [
-        {type: 'NEW_MYSTERY_ITEMS', data: { items: [mysteryItemKey] }},
+        { type: 'NEW_MYSTERY_ITEMS', data: { items: [mysteryItemKey] } },
       ],
     });
   });
@@ -24,7 +24,7 @@ describe('POST /user/open-mystery-item', () => {
 
   it('opens a mystery item', async () => {
     expect(user.notifications.length).to.equal(1);
-    let response = await user.post('/user/open-mystery-item');
+    const response = await user.post('/user/open-mystery-item');
     await user.sync();
 
     expect(user.notifications.length).to.equal(0);

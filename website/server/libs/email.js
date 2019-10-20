@@ -1,7 +1,7 @@
 import nconf from 'nconf';
-import { TAVERN_ID } from '../models/group';
-import { encrypt } from './encryption';
 import got from 'got';
+import { TAVERN_ID } from '../models/group'; // eslint-disable-line import/no-cycle
+import { encrypt } from './encryption';
 import logger from './logger';
 import common from '../../common';
 
@@ -16,7 +16,7 @@ const EMAIL_SERVER = {
 const BASE_URL = nconf.get('BASE_URL');
 
 export function getUserInfo (user, fields = []) {
-  let info = {};
+  const info = {};
 
   if (fields.indexOf('name') !== -1) {
     info.name = user.auth && user.auth.local.username;
@@ -27,7 +27,12 @@ export function getUserInfo (user, fields = []) {
       info.email = user.auth.local.email;
     } else {
       common.constants.SUPPORTED_SOCIAL_NETWORKS.forEach(network => {
-        if (user.auth[network.key] && user.auth[network.key].emails && user.auth[network.key].emails[0] && user.auth[network.key].emails[0].value) {
+        if (
+          user.auth[network.key]
+          && user.auth[network.key].emails
+          && user.auth[network.key].emails[0]
+          && user.auth[network.key].emails[0].value
+        ) {
           info.email = user.auth[network.key].emails[0].value;
         }
       });
@@ -62,54 +67,52 @@ export function getGroupUrl (group) {
 
 // Send a transactional email using Mandrill through the external email server
 export function sendTxn (mailingInfoArray, emailType, variables, personalVariables) {
-  mailingInfoArray = Array.isArray(mailingInfoArray) ? mailingInfoArray : [mailingInfoArray];
+  mailingInfoArray = Array.isArray(mailingInfoArray) ? mailingInfoArray : [mailingInfoArray]; // eslint-disable-line no-param-reassign, max-len
 
-  variables = [
-    {name: 'BASE_URL', content: BASE_URL},
+  variables = [ // eslint-disable-line no-param-reassign, max-len
+    { name: 'BASE_URL', content: BASE_URL },
   ].concat(variables || []);
 
-  // It's important to pass at least a user with its `preferences` as we need to check if he unsubscribed
-  mailingInfoArray = mailingInfoArray.map((mailingInfo) => {
-    return mailingInfo._id ? getUserInfo(mailingInfo, ['_id', 'email', 'name', 'canSend']) : mailingInfo;
-  }).filter((mailingInfo) => {
+  // It's important to pass at least a user with its `preferences`
+  // as we need to check if he unsubscribed
+  mailingInfoArray = mailingInfoArray // eslint-disable-line no-param-reassign, max-len
+    .map(mailingInfo => (mailingInfo._id ? getUserInfo(mailingInfo, ['_id', 'email', 'name', 'canSend']) : mailingInfo))
     // Always send reset-password emails
     // Don't check canSend for non registered users as already checked before
-    return mailingInfo.email && (!mailingInfo._id || mailingInfo.canSend || emailType === 'reset-password');
-  });
+    .filter(mailingInfo => mailingInfo.email
+        && (!mailingInfo._id || mailingInfo.canSend || emailType === 'reset-password'));
 
   // Personal variables are personal to each email recipient, if they are missing
   // we manually create a structure for them with RECIPIENT_NAME and RECIPIENT_UNSUB_URL
   // otherwise we just add RECIPIENT_NAME and RECIPIENT_UNSUB_URL to the existing personal variables
   if (!personalVariables || personalVariables.length === 0) {
-    personalVariables = mailingInfoArray.map((mailingInfo) => {
-      return {
-        rcpt: mailingInfo.email,
-        vars: [
-          {
-            name: 'RECIPIENT_NAME',
-            content: mailingInfo.name,
-          },
-          {
-            name: 'RECIPIENT_UNSUB_URL',
-            content: `/email/unsubscribe?code=${encrypt(JSON.stringify({
-              _id: mailingInfo._id,
-              email: mailingInfo.email,
-            }))}`,
-          },
-        ],
-      };
-    });
+    personalVariables = mailingInfoArray.map(mailingInfo => ({ // eslint-disable-line no-param-reassign, max-len
+      rcpt: mailingInfo.email,
+      vars: [
+        {
+          name: 'RECIPIENT_NAME',
+          content: mailingInfo.name,
+        },
+        {
+          name: 'RECIPIENT_UNSUB_URL',
+          content: `/email/unsubscribe?code=${encrypt(JSON.stringify({
+            _id: mailingInfo._id,
+            email: mailingInfo.email,
+          }))}`,
+        },
+      ],
+    }));
   } else {
-    let temporaryPersonalVariables = {};
+    const temporaryPersonalVariables = {};
 
-    mailingInfoArray.forEach((mailingInfo) => {
+    mailingInfoArray.forEach(mailingInfo => {
       temporaryPersonalVariables[mailingInfo.email] = {
         name: mailingInfo.name,
         _id: mailingInfo._id,
       };
     });
 
-    personalVariables.forEach((singlePersonalVariables) => {
+    personalVariables.forEach(singlePersonalVariables => {
       singlePersonalVariables.vars.push(
         {
           name: 'RECIPIENT_NAME',
@@ -121,7 +124,7 @@ export function sendTxn (mailingInfoArray, emailType, variables, personalVariabl
             _id: temporaryPersonalVariables[singlePersonalVariables.rcpt]._id,
             email: singlePersonalVariables.rcpt,
           }))}`,
-        }
+        },
       );
     });
   }
@@ -141,9 +144,9 @@ export function sendTxn (mailingInfoArray, emailType, variables, personalVariabl
         options: {
           priority: 'high',
           attempts: 5,
-          backoff: {delay: 10 * 60 * 1000, type: 'fixed'},
+          backoff: { delay: 10 * 60 * 1000, type: 'fixed' },
         },
       },
-    }).catch((err) => logger.error(err));
+    }).catch(err => logger.error(err));
   }
 }

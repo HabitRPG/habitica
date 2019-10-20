@@ -173,7 +173,7 @@
     "habitCounterDown": "Negativní počítadlo (Resetuje se <%= frequency %>)",
     "taskRequiresApproval": "Tento úkol musí být schválen před dokončením. O schválení bylo již zažádáno",
     "taskApprovalHasBeenRequested": "Bylo požádáno schválení",
-    "taskApprovalWasNotRequested": "Pouze úkol, který čeká na schválení, může být označen jako potřebující více práce",
+    "taskApprovalWasNotRequested": "Pro tento úkol nebylo požadováno schválení.",
     "approvals": "Schválení",
     "approvalRequired": "Potřebuje schválení",
     "repeatZero": "Denní úkol nikdy nemá splatnost",
