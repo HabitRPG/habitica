@@ -1,4 +1,4 @@
-import generateStore from 'client/store';
+import generateStore from '@/store';
 
 describe('canEdit getter', () => {
   it('cannot Edit active challenge task', () => {
