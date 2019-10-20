@@ -1,12 +1,14 @@
 /* eslint-disable camelcase */
+import { each, camelCase } from 'lodash';
 import {
   expectValidTranslationString,
 } from '../helpers/content.helper';
-import { each, camelCase } from 'lodash';
 
-import { tree as allGear } from '../../website/common/script/content/gear';
-import backerGear from '../../website/common/script/content/gear/sets/special/special-backer';
-import contributorGear from '../../website/common/script/content/gear/sets/special/special-contributor';
+import gearData from '../../website/common/script/content/gear';
+import * as backerGear from '../../website/common/script/content/gear/sets/special/special-backer';
+import * as contributorGear from '../../website/common/script/content/gear/sets/special/special-contributor';
+
+const allGear = gearData.tree;
 
 describe('Gear', () => {
   each(allGear, (piece, gearType) => {
@@ -14,7 +16,7 @@ describe('Gear', () => {
       each(piece, (items, klass) => {
         context(`${klass} ${gearType}s`, () => {
           it('have a value of at least 0 for each stat', () => {
-            each(items, (gear) => {
+            each(items, gear => {
               expect(gear.con).to.be.at.least(0);
               expect(gear.int).to.be.at.least(0);
               expect(gear.per).to.be.at.least(0);
@@ -23,26 +25,26 @@ describe('Gear', () => {
           });
 
           it('have a purchase value of at least 0', () => {
-            each(items, (gear) => {
+            each(items, gear => {
               expect(gear.value).to.be.at.least(0);
             });
           });
 
           it('has a canBuy function', () => {
-            each(items, (gear) => {
+            each(items, gear => {
               expect(gear.canBuy).to.be.a('function');
             });
           });
 
           it('have valid translation strings for text and notes', () => {
-            each(items, (gear) => {
+            each(items, gear => {
               expectValidTranslationString(gear.text);
               expectValidTranslationString(gear.notes);
             });
           });
 
           it('has a set attribue', () => {
-            each(items, (gear) => {
+            each(items, gear => {
               expect(gear.set).to.exist;
             });
           });
@@ -61,7 +63,7 @@ describe('Gear', () => {
       };
     });
 
-    let cases = {
+    const cases = {
       armor_special_0: 45,
       armor_special_2: 300,
       head_special_0: 45,
@@ -73,7 +75,7 @@ describe('Gear', () => {
 
     each(cases, (tierRequirement, key) => {
       context(key, () => {
-        let camelCaseKey = camelCase(key);
+        const camelCaseKey = camelCase(key);
 
         it(`canOwn returns true if user has a backer tier of ${tierRequirement} or higher`, () => {
           user.backer.tier = tierRequirement;
@@ -110,7 +112,7 @@ describe('Gear', () => {
       };
     });
 
-    let cases = {
+    const cases = {
       armor_special_1: 2,
       head_special_1: 3,
       shield_special_1: 5,
@@ -119,7 +121,7 @@ describe('Gear', () => {
 
     each(cases, (tierRequirement, key) => {
       context(key, () => {
-        let camelCaseKey = camelCase(key);
+        const camelCaseKey = camelCase(key);
 
         it(`canOwn returns true if user has a contributor tier of ${tierRequirement} or higher`, () => {
           user.contributor.level = tierRequirement;

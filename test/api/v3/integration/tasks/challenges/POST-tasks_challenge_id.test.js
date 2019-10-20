@@ -1,11 +1,11 @@
+import { v4 as generateUUID } from 'uuid';
+import { find } from 'lodash';
 import {
   generateUser,
   generateGroup,
   generateChallenge,
   translate as t,
 } from '../../../../../helpers/api-integration/v3';
-import { v4 as generateUUID } from 'uuid';
-import { find } from 'lodash';
 
 describe('POST /tasks/challenge/:challengeId', () => {
   let user;
@@ -17,14 +17,14 @@ describe('POST /tasks/challenge/:challengeId', () => {
   }
 
   beforeEach(async () => {
-    user = await generateUser({balance: 1});
+    user = await generateUser({ balance: 1 });
     guild = await generateGroup(user);
     challenge = await generateChallenge(user, guild);
     await user.post(`/challenges/${challenge._id}/join`);
   });
 
   it('returns error when challenge is not found', async () => {
-    let fakeChallengeId = generateUUID();
+    const fakeChallengeId = generateUUID();
 
     await expect(user.post(`/tasks/challenge/${fakeChallengeId}`, {
       text: 'test habit',
@@ -41,7 +41,7 @@ describe('POST /tasks/challenge/:challengeId', () => {
 
   it('allows leader to add tasks to a challenge when not a member', async () => {
     await user.post(`/challenges/${challenge._id}/leave`);
-    let task = await user.post(`/tasks/challenge/${challenge._id}`, {
+    const task = await user.post(`/tasks/challenge/${challenge._id}`, {
       text: 'test habit',
       type: 'habit',
       up: false,
@@ -49,14 +49,14 @@ describe('POST /tasks/challenge/:challengeId', () => {
       notes: 1976,
     });
 
-    let {tasksOrder} =  await user.get(`/challenges/${challenge._id}`);
+    const { tasksOrder } = await user.get(`/challenges/${challenge._id}`);
 
     expect(tasksOrder.habits).to.include(task.id);
   });
 
   it('allows non-leader admin to add tasks to a challenge when not a member', async () => {
-    const admin = await generateUser({'contributor.admin': true});
-    let task = await admin.post(`/tasks/challenge/${challenge._id}`, {
+    const admin = await generateUser({ 'contributor.admin': true });
+    const task = await admin.post(`/tasks/challenge/${challenge._id}`, {
       text: 'test habit from admin',
       type: 'habit',
       up: false,
@@ -64,7 +64,7 @@ describe('POST /tasks/challenge/:challengeId', () => {
       notes: 1976,
     });
 
-    let {tasksOrder} =  await user.get(`/challenges/${challenge._id}`);
+    const { tasksOrder } = await user.get(`/challenges/${challenge._id}`);
 
     expect(tasksOrder.habits).to.include(task.id);
   });
@@ -82,7 +82,7 @@ describe('POST /tasks/challenge/:challengeId', () => {
   });
 
   it('returns error when non leader tries to edit challenge', async () => {
-    let userThatIsNotLeaderOfChallenge = await generateUser({
+    const userThatIsNotLeaderOfChallenge = await generateUser({
       challenges: [challenge._id],
     });
 
@@ -100,17 +100,17 @@ describe('POST /tasks/challenge/:challengeId', () => {
   });
 
   it('creates a habit', async () => {
-    let task = await user.post(`/tasks/challenge/${challenge._id}`, {
+    const task = await user.post(`/tasks/challenge/${challenge._id}`, {
       text: 'test habit',
       type: 'habit',
       up: false,
       down: true,
       notes: 1976,
     });
-    let challengeWithTask = await user.get(`/challenges/${challenge._id}`);
+    const challengeWithTask = await user.get(`/challenges/${challenge._id}`);
 
-    let memberTasks = await user.get('/tasks/user');
-    let userChallengeTask = find(memberTasks, findUserChallengeTask);
+    const memberTasks = await user.get('/tasks/user');
+    const userChallengeTask = find(memberTasks, findUserChallengeTask);
 
     expect(challengeWithTask.tasksOrder.habits.indexOf(task._id)).to.be.above(-1);
     expect(task.challenge.id).to.equal(challenge._id);
@@ -124,15 +124,15 @@ describe('POST /tasks/challenge/:challengeId', () => {
   });
 
   it('creates a todo', async () => {
-    let task = await user.post(`/tasks/challenge/${challenge._id}`, {
+    const task = await user.post(`/tasks/challenge/${challenge._id}`, {
       text: 'test todo',
       type: 'todo',
       notes: 1976,
     });
-    let challengeWithTask = await user.get(`/challenges/${challenge._id}`);
+    const challengeWithTask = await user.get(`/challenges/${challenge._id}`);
 
-    let memberTasks = await user.get('/tasks/user');
-    let userChallengeTask = find(memberTasks, findUserChallengeTask);
+    const memberTasks = await user.get('/tasks/user');
+    const userChallengeTask = find(memberTasks, findUserChallengeTask);
 
     expect(challengeWithTask.tasksOrder.todos.indexOf(task._id)).to.be.above(-1);
     expect(task.challenge.id).to.equal(challenge._id);
@@ -144,8 +144,8 @@ describe('POST /tasks/challenge/:challengeId', () => {
   });
 
   it('creates a daily', async () => {
-    let now = new Date();
-    let task = await user.post(`/tasks/challenge/${challenge._id}`, {
+    const now = new Date();
+    const task = await user.post(`/tasks/challenge/${challenge._id}`, {
       text: 'test daily',
       type: 'daily',
       notes: 1976,
@@ -153,10 +153,10 @@ describe('POST /tasks/challenge/:challengeId', () => {
       everyX: 5,
       startDate: now,
     });
-    let challengeWithTask = await user.get(`/challenges/${challenge._id}`);
+    const challengeWithTask = await user.get(`/challenges/${challenge._id}`);
 
-    let memberTasks = await user.get('/tasks/user');
-    let userChallengeTask = find(memberTasks, findUserChallengeTask);
+    const memberTasks = await user.get('/tasks/user');
+    const userChallengeTask = find(memberTasks, findUserChallengeTask);
 
     expect(challengeWithTask.tasksOrder.dailys.indexOf(task._id)).to.be.above(-1);
     expect(task.challenge.id).to.equal(challenge._id);

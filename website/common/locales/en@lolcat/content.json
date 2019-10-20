@@ -306,5 +306,14 @@
     "foodSaddleText": "Saddul",
     "foodSaddleNotes": "Raisez wun of ur petz into maunt in wun tiem.",
     "foodSaddleSellWarningNote": "Hey! This is a pretty useful item! Are you familiar with how to use a Saddle with your Pets?",
-    "foodNotes": "Feed dis 2 an pet an it gro into an sturdeh steed maebeh."
+    "foodNotes": "Feed dis 2 an pet an it gro into an sturdeh steed maebeh.",
+    "hatchingPotionSilver": "Silvr",
+    "hatchingPotionSunshine": "Sunshien",
+    "hatchingPotionRoseQuartz": "Roes Kwartz",
+    "questEggRobotAdjective": "a futuristic",
+    "questEggRobotMountText": "Robot",
+    "questEggRobotText": "Robot",
+    "questEggDolphinAdjective": "a chippr",
+    "questEggDolphinMountText": "Dolfin",
+    "questEggDolphinText": "Dolfin"
 }

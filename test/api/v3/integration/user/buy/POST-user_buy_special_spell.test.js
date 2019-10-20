@@ -5,7 +5,7 @@ import {
 import shared from '../../../../../../website/common/script';
 import apiError from '../../../../../../website/server/libs/apiError';
 
-let content = shared.content;
+const { content } = shared;
 
 describe('POST /user/buy-special-spell/:key', () => {
   let user;
@@ -21,16 +21,16 @@ describe('POST /user/buy-special-spell/:key', () => {
       .to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
-        message: apiError('spellNotFound', {spellId: 'notExisting'}),
+        message: apiError('spellNotFound', { spellId: 'notExisting' }),
       });
   });
 
   it('buys a special spell', async () => {
-    let key = 'thankyou';
-    let item = content.special[key];
+    const key = 'thankyou';
+    const item = content.special[key];
 
-    await user.update({'stats.gp': 250});
-    let res = await user.post(`/user/buy-special-spell/${key}`);
+    await user.update({ 'stats.gp': 250 });
+    const res = await user.post(`/user/buy-special-spell/${key}`);
     await user.sync();
 
     expect(res.data).to.eql({
@@ -43,7 +43,7 @@ describe('POST /user/buy-special-spell/:key', () => {
   });
 
   it('returns an error if user does not have enough gold', async () => {
-    let key = 'thankyou';
+    const key = 'thankyou';
 
     await user.update({
       'stats.gp': 5,

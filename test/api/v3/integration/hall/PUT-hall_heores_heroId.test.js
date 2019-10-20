@@ -1,20 +1,20 @@
+import { v4 as generateUUID } from 'uuid';
 import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-import { v4 as generateUUID } from 'uuid';
 
 describe('PUT /heroes/:heroId', () => {
   let user;
 
   before(async () => {
     user = await generateUser({
-      contributor: {admin: true},
+      contributor: { admin: true },
     });
   });
 
   it('requires the caller to be an admin', async () => {
-    let nonAdmin = await generateUser();
+    const nonAdmin = await generateUser();
 
     await expect(nonAdmin.put(`/hall/heroes/${user._id}`)).to.eventually.be.rejected.and.eql({
       code: 401,
@@ -32,22 +32,22 @@ describe('PUT /heroes/:heroId', () => {
   });
 
   it('handles non-existing heroes', async () => {
-    let dummyId = generateUUID();
+    const dummyId = generateUUID();
     await expect(user.put(`/hall/heroes/${dummyId}`)).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
-      message: t('userWithIDNotFound', {userId: dummyId}),
+      message: t('userWithIDNotFound', { userId: dummyId }),
     });
   });
 
   it('change contributor level, balance, ads', async () => {
-    let hero = await generateUser();
-    let prevBlockState = hero.auth.blocked;
-    let prevSleepState = hero.preferences.sleep;
-    let heroRes = await user.put(`/hall/heroes/${hero._id}`, {
+    const hero = await generateUser();
+    const prevBlockState = hero.auth.blocked;
+    const prevSleepState = hero.preferences.sleep;
+    const heroRes = await user.put(`/hall/heroes/${hero._id}`, {
       balance: 3,
-      contributor: {level: 1},
-      purchased: {ads: true},
+      contributor: { level: 1 },
+      purchased: { ads: true },
     });
 
     // test response
@@ -74,10 +74,10 @@ describe('PUT /heroes/:heroId', () => {
   });
 
   it('block a user', async () => {
-    let hero = await generateUser();
-    let heroRes = await user.put(`/hall/heroes/${hero._id}`, {
-      auth: {blocked: true},
-      preferences: {sleep: true},
+    const hero = await generateUser();
+    const heroRes = await user.put(`/hall/heroes/${hero._id}`, {
+      auth: { blocked: true },
+      preferences: { sleep: true },
     });
 
     // test response values
@@ -89,10 +89,10 @@ describe('PUT /heroes/:heroId', () => {
   });
 
   it('unblock a user', async () => {
-    let hero = await generateUser();
-    let prevSleepState = hero.preferences.sleep;
-    let heroRes = await user.put(`/hall/heroes/${hero._id}`, {
-      auth: {blocked: false},
+    const hero = await generateUser();
+    const prevSleepState = hero.preferences.sleep;
+    const heroRes = await user.put(`/hall/heroes/${hero._id}`, {
+      auth: { blocked: false },
     });
 
     // test response values
@@ -104,29 +104,29 @@ describe('PUT /heroes/:heroId', () => {
   });
 
   it('updates chatRevoked flag', async () => {
-    let hero = await generateUser();
+    const hero = await generateUser();
     await user.put(`/hall/heroes/${hero._id}`, {
-      flags: {chatRevoked: true},
+      flags: { chatRevoked: true },
     });
     await hero.sync();
     expect(hero.flags.chatRevoked).to.eql(true);
   });
 
   it('updates chatShadowMuted flag', async () => {
-    let hero = await generateUser();
+    const hero = await generateUser();
     await user.put(`/hall/heroes/${hero._id}`, {
-      flags: {chatShadowMuted: true},
+      flags: { chatShadowMuted: true },
     });
     await hero.sync();
     expect(hero.flags.chatShadowMuted).to.eql(true);
   });
 
   it('updates contributor level', async () => {
-    let hero = await generateUser({
-      contributor: {level: 5},
+    const hero = await generateUser({
+      contributor: { level: 5 },
     });
-    let heroRes = await user.put(`/hall/heroes/${hero._id}`, {
-      contributor: {level: 6},
+    const heroRes = await user.put(`/hall/heroes/${hero._id}`, {
+      contributor: { level: 6 },
     });
 
     // test response
@@ -149,11 +149,11 @@ describe('PUT /heroes/:heroId', () => {
   });
 
   it('updates contributor data', async () => {
-    let hero = await generateUser({
-      contributor: {level: 5},
+    const hero = await generateUser({
+      contributor: { level: 5 },
     });
-    let heroRes = await user.put(`/hall/heroes/${hero._id}`, {
-      contributor: {text: 'Astronaut'},
+    const heroRes = await user.put(`/hall/heroes/${hero._id}`, {
+      contributor: { text: 'Astronaut' },
     });
 
     // test response
@@ -174,8 +174,8 @@ describe('PUT /heroes/:heroId', () => {
   });
 
   it('updates items', async () => {
-    let hero = await generateUser();
-    let heroRes = await user.put(`/hall/heroes/${hero._id}`, {
+    const hero = await generateUser();
+    const heroRes = await user.put(`/hall/heroes/${hero._id}`, {
       itemPath: 'items.special.snowball',
       itemVal: 5,
     });

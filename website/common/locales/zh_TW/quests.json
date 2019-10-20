@@ -25,7 +25,7 @@
     "questInvitation": "副本邀請： ",
     "questInvitationTitle": "副本邀請",
     "questInvitationInfo": "〈<%= quest %>〉副本的邀請",
-    "invitedToQuest": "您受邀加入<span class=\"notification-bold-blue\">〈<%= quest %>〉</span>副本",
+    "invitedToQuest": "您受邀參與<span class=\"notification-bold-blue\">〈<%= quest %>〉</span>副本",
     "askLater": "稍後再問",
     "questLater": "等會再進行副本",
     "buyQuest": "購買副本",
@@ -136,5 +136,6 @@
     "chatItemQuestFinish": "已經找齊所有物品！隊伍因此獲得了獎賞。",
     "chatQuestAborted": "<%= username %> 放棄了隊伍副本〈<%= questName %>〉。",
     "chatQuestCancelled": "<%= username %> 取消了隊伍副本〈<%= questName %>〉。",
-    "tavernBossTired": "<%= bossName %> 試圖解放 <%= rageName %>，但因為實在太累而失敗了。"
+    "tavernBossTired": "<%= bossName %> 試圖解放 <%= rageName %>，但因為實在太累而失敗了。",
+    "questInvitationNotificationInfo": "您受邀參與副本"
 }

@@ -11,7 +11,7 @@ describe('API Messages', () => {
   });
 
   it('clones the passed variables', () => {
-    let vars = {a: 1};
+    const vars = { a: 1 };
     sandbox.stub(_, 'clone').returns({});
     apiError('guildsOnlyPaginate', vars);
     expect(_.clone).to.have.been.calledOnce;
@@ -19,8 +19,8 @@ describe('API Messages', () => {
   });
 
   it('pass the message through _.template', () => {
-    let vars = {a: 1};
-    let stub = sinon.stub().returns('string');
+    const vars = { a: 1 };
+    const stub = sinon.stub().returns('string');
     sandbox.stub(_, 'template').returns(stub);
     apiError('guildsOnlyPaginate', vars);
     expect(_.template).to.have.been.calledOnce;

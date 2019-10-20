@@ -1,7 +1,7 @@
 import { authWithHeaders } from '../../middlewares/auth';
 import cron from '../../middlewares/cron';
 
-let api = {};
+const api = {};
 
 /**
  * @api {post} /api/v3/cron Runs cron
@@ -19,4 +19,4 @@ api.cron = {
   },
 };
 
-module.exports = api;
+export default api;

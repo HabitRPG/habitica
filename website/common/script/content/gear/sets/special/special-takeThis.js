@@ -1,8 +1,8 @@
 import t from '../../../translation';
 
-let armorSpecialTakeThis = {
+const armorSpecialTakeThis = {
   text: t('armorSpecialTakeThisText'),
-  notes: t('armorSpecialTakeThisNotes', {attrs: 5}),
+  notes: t('armorSpecialTakeThisNotes', { attrs: 5 }),
   value: 0,
   con: 5,
   int: 5,
@@ -10,9 +10,9 @@ let armorSpecialTakeThis = {
   str: 5,
 };
 
-let backSpecialTakeThis = {
+const backSpecialTakeThis = {
   text: t('backSpecialTakeThisText'),
-  notes: t('backSpecialTakeThisNotes', {attrs: 1}),
+  notes: t('backSpecialTakeThisNotes', { attrs: 1 }),
   value: 0,
   con: 1,
   int: 1,
@@ -20,9 +20,9 @@ let backSpecialTakeThis = {
   str: 1,
 };
 
-let bodySpecialTakeThis = {
+const bodySpecialTakeThis = {
   text: t('bodySpecialTakeThisText'),
-  notes: t('bodySpecialTakeThisNotes', {attrs: 1}),
+  notes: t('bodySpecialTakeThisNotes', { attrs: 1 }),
   value: 0,
   con: 1,
   int: 1,
@@ -30,9 +30,9 @@ let bodySpecialTakeThis = {
   str: 1,
 };
 
-let headSpecialTakeThis = {
+const headSpecialTakeThis = {
   text: t('headSpecialTakeThisText'),
-  notes: t('headSpecialTakeThisNotes', {attrs: 5}),
+  notes: t('headSpecialTakeThisNotes', { attrs: 5 }),
   value: 0,
   con: 5,
   int: 5,
@@ -40,9 +40,9 @@ let headSpecialTakeThis = {
   str: 5,
 };
 
-let shieldSpecialTakeThis = {
+const shieldSpecialTakeThis = {
   text: t('shieldSpecialTakeThisText'),
-  notes: t('shieldSpecialTakeThisNotes', {attrs: 5}),
+  notes: t('shieldSpecialTakeThisNotes', { attrs: 5 }),
   value: 0,
   con: 5,
   int: 5,
@@ -50,9 +50,9 @@ let shieldSpecialTakeThis = {
   str: 5,
 };
 
-let weaponSpecialTakeThis = {
+const weaponSpecialTakeThis = {
   text: t('weaponSpecialTakeThisText'),
-  notes: t('weaponSpecialTakeThisNotes', {attrs: 5}),
+  notes: t('weaponSpecialTakeThisNotes', { attrs: 5 }),
   value: 0,
   con: 5,
   int: 5,
@@ -60,7 +60,7 @@ let weaponSpecialTakeThis = {
   str: 5,
 };
 
-let takeThisSet = {
+export {
   armorSpecialTakeThis,
   backSpecialTakeThis,
   bodySpecialTakeThis,
@@ -68,5 +68,3 @@ let takeThisSet = {
   shieldSpecialTakeThis,
   weaponSpecialTakeThis,
 };
-
-module.exports = takeThisSet;

@@ -1,0 +1,32 @@
+@import '~@/assets/scss/colors.scss';
+
+.container-fluid.static-view {
+  margin: 5em 2em 0 2em;
+}
+
+.static-view {
+  h1, h2 {
+    margin-top: 0.5em;
+    color: $purple-200;
+  }
+
+  h3, h4 {
+    color: $purple-200;
+  }
+
+  li, p {
+    font-size: 16px;
+  }
+
+  .media img {
+    margin: 1em;
+  }
+
+  .strong {
+    font-weight: bold;
+  }
+
+  .center-block {
+    margin: 0 auto 1em auto;
+  }
+}

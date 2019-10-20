@@ -1,5 +1,5 @@
 {
-    "playerTiersDesc": "The colored usernames you see in chat represent a person's contributor tier. The higher the tier, the more the person has contributed to habitica through art, code, the community, or more!",
+    "playerTiersDesc": "Teh colrd usrnaemz u see n chat r 4 pplz contributr teer. Teh highr teh teer, teh moar teh persun haz helpd Habitica thru art, code, teh community, an moar!",
     "tier1": "Teer 1 (Fren)",
     "tier2": "Teer 2 (Fren)",
     "tier3": "Teer 3 (1337)",
@@ -72,8 +72,8 @@
     "surveysMultiple": "Helpd Habitica groah on <%= count %> ocashunz, eithr by filin out survai or helpin wif majur testin efort. Thx!",
     "currentSurvey": "Curent Survai",
     "surveyWhen": "Teh badge wil be award 2 al participantz wen survais haz been proces, n laet March.",
-    "blurbInbox": "This is where your private messages are stored! You can send someone a message by clicking on the envelope icon next to their name in Tavern, Party, or Guild Chat. If you've received an inappropriate PM, you should email a screenshot of it to Lemoness (<%= hrefCommunityManagerEmail %>)",
-    "blurbGuildsPage": "Guilds are common-interest chat groups created by the players, for players. Browse through the list and join the Guilds that interest you!",
+    "blurbInbox": "Dis ar wer ur privet mesagez r stored! U can sen sumwun mesage by clikin on teh envelope icon next 2 there naem n Tavern, Party, or Gild Chat. If uve gotd inappropriet PM, u shud email picchur ov it 2 Lemoness (<%= hrefCommunityManagerEmail %>)",
+    "blurbGuildsPage": "Gildz r commn-interest chat grupz creatd by teh playrz, 4 teh playrz. Brows thru teh list an join teh Gildz u liek!",
     "blurbChallenges": "Chalengez r creatd by ur felow playrz. Joinin Chalenge wil ad itz taskz 2 ur task dashbord, an winin Chalenge meenz u can haz acheevment an mayb even gem praiz!",
     "blurbHallPatrons": "Dis is teh Hal ov Patronz, where we honr teh nobl aventururz hoo backd Habiticaz originul Kickstarter. We thank dem 4 helpin us bring Habitica 2 laif!",
     "blurbHallContributors": "This is the Hall of Contributors, where open-source contributors to Habitica are honored. Whether through code, art, music, writing, or even just helpfulness, they have earned <a href='http://habitica.wikia.com/wiki/Contributor_Rewards' target='_blank'> gems, exclusive equipment</a>, and <a href='http://habitica.wikia.com/wiki/Contributor_Titles' target='_blank'>prestigious titles</a>. You can contribute to Habitica, too! <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'> Find out more here. </a>"

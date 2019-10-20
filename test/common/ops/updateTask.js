@@ -5,8 +5,8 @@ import {
 
 describe('shared.ops.updateTask', () => {
   it('updates a task', () => {
-    let now = new Date();
-    let habit = generateHabit({
+    const now = new Date();
+    const habit = generateHabit({
       tags: [
         '123',
         '456',
@@ -19,7 +19,7 @@ describe('shared.ops.updateTask', () => {
       }],
     });
 
-    let [res] = updateTask(habit, {
+    const [res] = updateTask(habit, {
       body: {
         text: 'updated',
         id: '123',
