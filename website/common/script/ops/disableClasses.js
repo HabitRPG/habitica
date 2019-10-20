@@ -1,8 +1,8 @@
+import pick from 'lodash/pick';
 import splitWhitespace from '../libs/splitWhitespace';
 import { capByLevel } from '../statHelpers';
-import pick from 'lodash/pick';
 
-module.exports = function disableClasses (user) {
+export default function disableClasses (user) {
   user.stats.class = 'warrior';
   user.flags.classSelected = true;
   user.preferences.disableClasses = true;
@@ -13,4 +13,4 @@ module.exports = function disableClasses (user) {
   return [
     pick(user, splitWhitespace('stats flags preferences')),
   ];
-};
+}

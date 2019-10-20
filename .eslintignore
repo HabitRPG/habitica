@@ -3,6 +3,8 @@ coverage/
 database_reports/
 website/build/
 website/transpiled-babel/
+# Has its own linter
+website/client/
 website/common/transpiled-babel/
 dist/
 dist-client/

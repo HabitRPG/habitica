@@ -3,20 +3,16 @@ import {
   NotAuthorized,
 } from '../../libs/errors';
 
-import { AbstractGoldItemOperation} from './abstractBuyOperation';
+import { AbstractGoldItemOperation } from './abstractBuyOperation';
 
-export class BuyHealthPotionOperation extends AbstractGoldItemOperation {
-  constructor (user, req, analytics) {
-    super(user, req, analytics);
-  }
-
-  multiplePurchaseAllowed () {
+export class BuyHealthPotionOperation extends AbstractGoldItemOperation { // eslint-disable-line import/prefer-default-export, max-len
+  multiplePurchaseAllowed () { // eslint-disable-line class-methods-use-this
     return true;
   }
 
   extractAndValidateParams (user) {
-    let item = content.potion;
-    let userHp = user.stats.hp;
+    const item = content.potion;
+    const userHp = user.stats.hp;
 
     super.canUserPurchase(user, item);
 
@@ -37,7 +33,7 @@ export class BuyHealthPotionOperation extends AbstractGoldItemOperation {
 
     this.subtractCurrency(user, item, this.quantity);
 
-    let message = this.i18n('messageBought', {
+    const message = this.i18n('messageBought', {
       itemText: this.item.text(this.req.language),
     });
 

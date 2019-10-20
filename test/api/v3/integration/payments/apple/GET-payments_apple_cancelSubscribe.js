@@ -1,8 +1,8 @@
-import {generateUser} from '../../../../../helpers/api-integration/v3';
+import { generateUser } from '../../../../../helpers/api-integration/v3';
 import applePayments from '../../../../../../website/server/libs/payments/apple';
 
 describe('payments : apple #cancelSubscribe', () => {
-  let endpoint = '/iap/ios/subscribe/cancel?noRedirect=true';
+  const endpoint = '/iap/ios/subscribe/cancel?noRedirect=true';
   let user;
 
   beforeEach(async () => {

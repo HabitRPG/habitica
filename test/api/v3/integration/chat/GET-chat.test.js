@@ -15,7 +15,7 @@ describe('GET /groups/:groupId/chat', () => {
     let group;
 
     before(async () => {
-      let leader = await generateUser({balance: 2});
+      const leader = await generateUser({ balance: 2 });
 
       group = await generateGroup(leader, {
         name: 'test group',
@@ -23,8 +23,8 @@ describe('GET /groups/:groupId/chat', () => {
         privacy: 'public',
       }, {
         chat: [
-          {text: 'Hello', flags: {}, id: 1},
-          {text: 'Welcome to the Guild', flags: {}, id: 2},
+          { text: 'Hello', flags: {}, id: 1 },
+          { text: 'Welcome to the Guild', flags: {}, id: 2 },
         ],
       });
     });
@@ -41,7 +41,7 @@ describe('GET /groups/:groupId/chat', () => {
     let group;
 
     before(async () => {
-      let leader = await generateUser({balance: 2});
+      const leader = await generateUser({ balance: 2 });
 
       group = await generateGroup(leader, {
         name: 'test group',

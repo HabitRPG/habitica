@@ -214,5 +214,16 @@
     "purchaseAll": "Purchase Set",
     "gemsPurchaseNote": "Předplatitelé mohou zakoupit drahokamy za zlato na Trhu! Pro jednoduchý přístup si můžeš drahokamy také připnout do tvého sloupečku s Odměnami.",
     "gemsRemaining": "zbývající drahokamy",
-    "notEnoughGemsToBuy": "Nemůžeš zakoupit toto množství drahokamů"
+    "notEnoughGemsToBuy": "Nemůžeš zakoupit toto množství drahokamů",
+    "subCanceledTitle": "Předplatné bylo zrušeno",
+    "mysterySet201909": "Sada Spolehlivých žaludů",
+    "mysterySet201908": "Footloose Faun sada",
+    "mysterySet201907": "Sada plážového kámoše",
+    "mysterySet201906": "Laskavá Koi sada",
+    "mysterySet201905": "Oslňující dračí sada",
+    "mysterySet201904": "Opulentní sada opálů",
+    "mysterySet201903": "Egg-squisite sada",
+    "mysterySet201902": "Cryptic Crush sada",
+    "subWillBecomeInactive": "Stane se neaktivní",
+    "confirmCancelSub": "Opravdu chcete zrušit předplatné? Ztratíte všechny své předplacené benefity."
 }

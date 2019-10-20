@@ -18,7 +18,7 @@ describe('shared.ops.revive', () => {
     user.stats.hp = 0;
   });
 
-  it('returns an error when user is not dead', (done) => {
+  it('returns an error when user is not dead', done => {
     user.stats.hp = 10;
 
     try {
@@ -56,28 +56,26 @@ describe('shared.ops.revive', () => {
   });
 
   it('it decreases a random stat from str, con, per, int by one', () => {
-    let stats = ['str', 'con', 'per', 'int'];
+    const stats = ['str', 'con', 'per', 'int'];
 
-    _.each(stats, (s) => {
+    _.each(stats, s => {
       user.stats[s] = 1;
     });
 
     revive(user);
 
-    let statSum = _.reduce(stats, (m, k) => {
-      return m + user.stats[k];
-    }, 0);
+    const statSum = _.reduce(stats, (m, k) => m + user.stats[k], 0);
 
     expect(statSum).to.equal(3);
   });
 
   it('removes a random item from user gear owned', () => {
-    let weaponKey = 'weapon_warrior_0';
+    const weaponKey = 'weapon_warrior_0';
     user.items.gear.owned[weaponKey] = true;
 
-    let [, message] = revive(user);
+    const [, message] = revive(user);
 
-    expect(message).to.equal(i18n.t('messageLostItem', { itemText: content.gear.flat[weaponKey].text()}));
+    expect(message).to.equal(i18n.t('messageLostItem', { itemText: content.gear.flat[weaponKey].text() }));
     expect(user.items.gear.owned[weaponKey]).to.be.false;
   });
 
@@ -96,67 +94,67 @@ describe('shared.ops.revive', () => {
       weapon_warrior_0: true,
     };
 
-    let weaponKey = 'weapon_warrior_0';
+    const weaponKey = 'weapon_warrior_0';
 
-    let [, message] = revive(user);
+    const [, message] = revive(user);
 
-    expect(message).to.equal(i18n.t('messageLostItem', { itemText: content.gear.flat[weaponKey].text()}));
+    expect(message).to.equal(i18n.t('messageLostItem', { itemText: content.gear.flat[weaponKey].text() }));
     expect(user.items.gear.owned[weaponKey]).to.be.false;
   });
 
   it('does not remove items of a different class', () => {
-    let weaponKey = 'weapon_wizard_1';
+    const weaponKey = 'weapon_wizard_1';
     user.items.gear.owned[weaponKey] = true;
 
-    let [, message] = revive(user);
+    const [, message] = revive(user);
 
     expect(message).to.equal('');
     expect(user.items.gear.owned[weaponKey]).to.be.true;
   });
 
   it('removes "special" items', () => {
-    let weaponKey = 'weapon_special_1';
+    const weaponKey = 'weapon_special_1';
     user.items.gear.owned[weaponKey] = true;
 
-    let [, message] = revive(user);
+    const [, message] = revive(user);
 
-    expect(message).to.equal(i18n.t('messageLostItem', { itemText: content.gear.flat[weaponKey].text()}));
+    expect(message).to.equal(i18n.t('messageLostItem', { itemText: content.gear.flat[weaponKey].text() }));
     expect(user.items.gear.owned[weaponKey]).to.be.false;
   });
 
   it('removes "armoire" items', () => {
-    let weaponKey = 'armor_armoire_goldenToga';
+    const weaponKey = 'armor_armoire_goldenToga';
     user.items.gear.owned[weaponKey] = true;
 
-    let [, message] = revive(user);
+    const [, message] = revive(user);
 
-    expect(message).to.equal(i18n.t('messageLostItem', { itemText: content.gear.flat[weaponKey].text()}));
+    expect(message).to.equal(i18n.t('messageLostItem', { itemText: content.gear.flat[weaponKey].text() }));
     expect(user.items.gear.owned[weaponKey]).to.be.false;
   });
 
   it('dequips lost item from user if user had it equipped', () => {
-    let weaponKey = 'weapon_warrior_0';
-    let itemToLose = content.gear.flat[weaponKey];
+    const weaponKey = 'weapon_warrior_0';
+    const itemToLose = content.gear.flat[weaponKey];
 
     user.items.gear.owned[weaponKey] = true;
     user.items.gear.equipped[itemToLose.type] = itemToLose.key;
 
-    let [, message] = revive(user);
+    const [, message] = revive(user);
 
-    expect(message).to.equal(i18n.t('messageLostItem', { itemText: itemToLose.text()}));
+    expect(message).to.equal(i18n.t('messageLostItem', { itemText: itemToLose.text() }));
     expect(user.items.gear.equipped[itemToLose.type]).to.equal(`${itemToLose.type}_base_0`);
   });
 
   it('dequips lost item from user costume if user was using it in costume', () => {
-    let weaponKey = 'weapon_warrior_0';
-    let itemToLose = content.gear.flat[weaponKey];
+    const weaponKey = 'weapon_warrior_0';
+    const itemToLose = content.gear.flat[weaponKey];
 
     user.items.gear.owned[weaponKey] = true;
     user.items.gear.costume[itemToLose.type] = itemToLose.key;
 
-    let [, message] = revive(user);
+    const [, message] = revive(user);
 
-    expect(message).to.equal(i18n.t('messageLostItem', { itemText: itemToLose.text()}));
+    expect(message).to.equal(i18n.t('messageLostItem', { itemText: itemToLose.text() }));
     expect(user.items.gear.costume[itemToLose.type]).to.equal(`${itemToLose.type}_base_0`);
   });
 });

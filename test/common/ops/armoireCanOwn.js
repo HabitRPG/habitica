@@ -1,9 +1,9 @@
-import armoireSet from '../../../website/common/script/content/gear/sets/armoire';
+import * as armoireSet from '../../../website/common/script/content/gear/sets/armoire';
 
 describe('armoireSet items', () => {
   it('checks if canOwn has the same id', () => {
-    for (const type of Object.keys(armoireSet)) {
-      for (const itemKey of Object.keys(armoireSet[type])) {
+    Object.keys(armoireSet).forEach(type => {
+      Object.keys(armoireSet[type]).forEach(itemKey => {
         const ownedKey = `${type}_armoire_${itemKey}`;
 
         expect(armoireSet[type][itemKey].canOwn({
@@ -15,7 +15,7 @@ describe('armoireSet items', () => {
             },
           },
         }), `${ownedKey} canOwn is broken`).to.eq(true);
-      }
-    }
+      });
+    });
   });
 });

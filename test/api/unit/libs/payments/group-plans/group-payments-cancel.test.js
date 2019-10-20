@@ -1,16 +1,17 @@
 import moment from 'moment';
 
 import * as sender from '../../../../../../website/server/libs/email';
-import * as api from '../../../../../../website/server/libs/payments/payments';
+import api from '../../../../../../website/server/libs/payments/payments';
 import { model as User } from '../../../../../../website/server/models/user';
 import { model as Group } from '../../../../../../website/server/models/group';
 import {
   generateGroup,
-} from '../../../../../helpers/api-unit.helper.js';
+} from '../../../../../helpers/api-unit.helper';
 import i18n from '../../../../../../website/common/script/i18n';
 
 describe('Canceling a subscription for group', () => {
-  let plan, group, user, data;
+  let plan; let group; let user; let
+    data;
 
   beforeEach(async () => {
     user = new User();
@@ -67,9 +68,9 @@ describe('Canceling a subscription for group', () => {
     data.groupId = group._id;
     await api.cancelSubscription(data);
 
-    let now = new Date();
-    let updatedGroup = await Group.findById(group._id).exec();
-    let daysTillTermination = moment(updatedGroup.purchased.plan.dateTerminated).diff(now, 'days');
+    const now = new Date();
+    const updatedGroup = await Group.findById(group._id).exec();
+    const daysTillTermination = moment(updatedGroup.purchased.plan.dateTerminated).diff(now, 'days');
 
     expect(daysTillTermination).to.be.within(29, 30); // 1 month +/- 1 days
   });
@@ -81,9 +82,9 @@ describe('Canceling a subscription for group', () => {
 
     await api.cancelSubscription(data);
 
-    let now = new Date();
-    let updatedGroup = await Group.findById(group._id).exec();
-    let daysTillTermination = moment(updatedGroup.purchased.plan.dateTerminated).diff(now, 'days');
+    const now = new Date();
+    const updatedGroup = await Group.findById(group._id).exec();
+    const daysTillTermination = moment(updatedGroup.purchased.plan.dateTerminated).diff(now, 'days');
 
     expect(daysTillTermination).to.be.within(89, 90); // 3 months +/- 1 days
   });
@@ -95,9 +96,9 @@ describe('Canceling a subscription for group', () => {
 
     await api.cancelSubscription(data);
 
-    let now = new Date();
-    let updatedGroup = await Group.findById(group._id).exec();
-    let daysTillTermination = moment(updatedGroup.purchased.plan.dateTerminated).diff(now, 'days');
+    const now = new Date();
+    const updatedGroup = await Group.findById(group._id).exec();
+    const daysTillTermination = moment(updatedGroup.purchased.plan.dateTerminated).diff(now, 'days');
 
     expect(daysTillTermination).to.be.within(38, 39); // should be about 1 month + 1/3 month
   });
@@ -108,9 +109,9 @@ describe('Canceling a subscription for group', () => {
 
     await api.cancelSubscription(data);
 
-    let now = new Date();
-    let updatedGroup = await Group.findById(group._id).exec();
-    let daysTillTermination = moment(updatedGroup.purchased.plan.dateTerminated).diff(now, 'days');
+    const now = new Date();
+    const updatedGroup = await Group.findById(group._id).exec();
+    const daysTillTermination = moment(updatedGroup.purchased.plan.dateTerminated).diff(now, 'days');
 
     expect(daysTillTermination).to.be.within(13, 15);
   });
@@ -122,7 +123,7 @@ describe('Canceling a subscription for group', () => {
 
     await api.cancelSubscription(data);
 
-    let updatedGroup = await Group.findById(group._id).exec();
+    const updatedGroup = await Group.findById(group._id).exec();
     expect(updatedGroup.purchased.plan.extraMonths).to.eql(0);
   });
 
@@ -134,12 +135,12 @@ describe('Canceling a subscription for group', () => {
     expect(sender.sendTxn.firstCall.args[0]._id).to.equal(user._id);
     expect(sender.sendTxn.firstCall.args[1]).to.equal('group-cancel-subscription');
     expect(sender.sendTxn.firstCall.args[2]).to.eql([
-      {name: 'GROUP_NAME', content: group.name},
+      { name: 'GROUP_NAME', content: group.name },
     ]);
   });
 
   it('prevents non group leader from managing subscription', async () => {
-    let groupMember = new User();
+    const groupMember = new User();
     data.user = groupMember;
     data.groupId = group._id;
 
@@ -160,7 +161,7 @@ describe('Canceling a subscription for group', () => {
     await api.createSubscription(data);
 
     let updatedGroup = await Group.findById(group._id).exec();
-    let newLeader = new User();
+    const newLeader = new User();
     updatedGroup.leader = newLeader._id;
     await updatedGroup.save();
 
@@ -192,15 +193,15 @@ describe('Canceling a subscription for group', () => {
 
     await api.cancelSubscription(data);
 
-    let now = new Date();
+    const now = new Date();
     now.setHours(0, 0, 0, 0);
-    let updatedLeader = await User.findById(user._id).exec();
-    let daysTillTermination = moment(updatedLeader.purchased.plan.dateTerminated).diff(now, 'days');
+    const updatedLeader = await User.findById(user._id).exec();
+    const daysTillTermination = moment(updatedLeader.purchased.plan.dateTerminated).diff(now, 'days');
     expect(daysTillTermination).to.be.within(2, 3); // only a few days
   });
 
   it('sends an email to members of group', async () => {
-    let recipient = new User();
+    const recipient = new User();
     recipient.profile.name = 'recipient';
     recipient.guilds.push(group._id);
     await recipient.save();
@@ -214,8 +215,8 @@ describe('Canceling a subscription for group', () => {
     expect(sender.sendTxn.thirdCall.args[0]._id).to.equal(recipient._id);
     expect(sender.sendTxn.thirdCall.args[1]).to.equal('group-member-cancel');
     expect(sender.sendTxn.thirdCall.args[2]).to.eql([
-      {name: 'LEADER', content: user.profile.name},
-      {name: 'GROUP_NAME', content: group.name},
+      { name: 'LEADER', content: user.profile.name },
+      { name: 'GROUP_NAME', content: group.name },
     ]);
   });
 
@@ -223,7 +224,7 @@ describe('Canceling a subscription for group', () => {
     plan.key = 'basic_earned';
     plan.customerId = api.constants.UNLIMITED_CUSTOMER_ID;
 
-    let recipient = new User();
+    const recipient = new User();
     recipient.profile.name = 'recipient';
     recipient.purchased.plan = plan;
     recipient.guilds.push(group._id);
@@ -233,12 +234,12 @@ describe('Canceling a subscription for group', () => {
 
     await api.cancelSubscription(data);
 
-    let updatedLeader = await User.findById(user._id).exec();
+    const updatedLeader = await User.findById(user._id).exec();
     expect(updatedLeader.purchased.plan.dateTerminated).to.not.exist;
   });
 
   it('does not cancel a user subscription if they are still in another active group plan', async () => {
-    let recipient = new User();
+    const recipient = new User();
     recipient.profile.name = 'recipient';
     plan.key = 'basic_earned';
     recipient.purchased.plan = plan;
@@ -252,10 +253,10 @@ describe('Canceling a subscription for group', () => {
     await api.createSubscription(data);
 
     let updatedUser = await User.findById(recipient._id).exec();
-    let firstDateCreated = updatedUser.purchased.plan.dateCreated;
-    let extraMonthsBeforeSecond = updatedUser.purchased.plan.extraMonths;
+    const firstDateCreated = updatedUser.purchased.plan.dateCreated;
+    const extraMonthsBeforeSecond = updatedUser.purchased.plan.extraMonths;
 
-    let group2 = generateGroup({
+    const group2 = generateGroup({
       name: 'test group2',
       type: 'guild',
       privacy: 'public',
@@ -291,10 +292,10 @@ describe('Canceling a subscription for group', () => {
     await api.createSubscription(data);
 
     let updatedUser = await User.findById(user._id).exec();
-    let firstDateCreated = updatedUser.purchased.plan.dateCreated;
-    let extraMonthsBeforeSecond = updatedUser.purchased.plan.extraMonths;
+    const firstDateCreated = updatedUser.purchased.plan.dateCreated;
+    const extraMonthsBeforeSecond = updatedUser.purchased.plan.extraMonths;
 
-    let group2 = generateGroup({
+    const group2 = generateGroup({
       name: 'test group2',
       type: 'guild',
       privacy: 'public',

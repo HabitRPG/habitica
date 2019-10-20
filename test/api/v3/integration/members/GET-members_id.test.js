@@ -1,8 +1,8 @@
+import { v4 as generateUUID } from 'uuid';
 import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-import { v4 as generateUUID } from 'uuid';
 import common from '../../../../../website/common';
 
 describe('GET /members/:memberId', () => {
@@ -21,15 +21,16 @@ describe('GET /members/:memberId', () => {
   });
 
   it('returns a member public data only', async () => {
-    let member = await generateUser({ // make sure user has all the fields that can be returned by the getMember call
-      contributor: {level: 1},
-      backer: {tier: 3},
+    // make sure user has all the fields that can be returned by the getMember call
+    const member = await generateUser({
+      contributor: { level: 1 },
+      backer: { tier: 3 },
       preferences: {
         costume: false,
         background: 'volcano',
       },
     });
-    let memberRes = await user.get(`/members/${member._id}`);
+    const memberRes = await user.get(`/members/${member._id}`);
     expect(memberRes).to.have.all.keys([ // works as: object has all and only these keys
       '_id', 'id', 'preferences', 'profile', 'stats', 'achievements', 'party',
       'backer', 'contributor', 'auth', 'items', 'inbox', 'loginIncentives', 'flags',
@@ -48,11 +49,11 @@ describe('GET /members/:memberId', () => {
   });
 
   it('handles non-existing members', async () => {
-    let dummyId = generateUUID();
+    const dummyId = generateUUID();
     await expect(user.get(`/members/${dummyId}`)).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
-      message: t('userWithIDNotFound', {userId: dummyId}),
+      message: t('userWithIDNotFound', { userId: dummyId }),
     });
   });
 });

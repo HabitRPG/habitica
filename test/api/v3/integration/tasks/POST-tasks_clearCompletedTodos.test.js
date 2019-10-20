@@ -6,18 +6,18 @@ import {
 
 describe('POST /tasks/clearCompletedTodos', () => {
   it('deletes all completed todos except the ones from a challenge and group', async () => {
-    let user = await generateUser({balance: 1});
-    let guild = await generateGroup(user);
-    let challenge = await generateChallenge(user, guild);
+    const user = await generateUser({ balance: 1 });
+    const guild = await generateGroup(user);
+    const challenge = await generateChallenge(user, guild);
     await user.post(`/challenges/${challenge._id}/join`);
 
-    let initialTodoCount = user.tasksOrder.todos.length;
+    const initialTodoCount = user.tasksOrder.todos.length;
     await user.post('/tasks/user', [
-      {text: 'todo 1', type: 'todo'},
-      {text: 'todo 2', type: 'todo'},
-      {text: 'todo 3', type: 'todo'},
-      {text: 'todo 4', type: 'todo'},
-      {text: 'todo 5', type: 'todo'},
+      { text: 'todo 1', type: 'todo' },
+      { text: 'todo 2', type: 'todo' },
+      { text: 'todo 3', type: 'todo' },
+      { text: 'todo 4', type: 'todo' },
+      { text: 'todo 5', type: 'todo' },
     ]);
 
     await user.post(`/tasks/challenge/${challenge._id}`, {
@@ -25,26 +25,27 @@ describe('POST /tasks/clearCompletedTodos', () => {
       type: 'todo',
     });
 
-    let groupTask = await user.post(`/tasks/group/${guild._id}`, {
+    const groupTask = await user.post(`/tasks/group/${guild._id}`, {
       text: 'todo 7',
       type: 'todo',
     });
     await user.post(`/tasks/${groupTask._id}/assign/${user._id}`);
 
-    let tasks = await user.get('/tasks/user?type=todos');
+    const tasks = await user.get('/tasks/user?type=todos');
     expect(tasks.length).to.equal(initialTodoCount + 7);
 
-    for (let task of tasks) {
+    for (const task of tasks) { // eslint-disable-line
       if (['todo 2', 'todo 3', 'todo 6'].indexOf(task.text) !== -1) {
         await user.post(`/tasks/${task._id}/score/up`); // eslint-disable-line no-await-in-loop
       }
     }
 
     await user.post('/tasks/clearCompletedTodos');
-    let completedTodos = await user.get('/tasks/user?type=completedTodos');
-    let todos = await user.get('/tasks/user?type=todos');
-    let allTodos = todos.concat(completedTodos);
-    expect(allTodos.length).to.equal(initialTodoCount + 5); // + 7 - 3 completed (but one is from challenge)
+    const completedTodos = await user.get('/tasks/user?type=completedTodos');
+    const todos = await user.get('/tasks/user?type=todos');
+    const allTodos = todos.concat(completedTodos);
+    // + 7 - 3 completed (but one is from challenge)
+    expect(allTodos.length).to.equal(initialTodoCount + 5);
     expect(allTodos[allTodos.length - 1].text).to.equal('todo 6'); // last completed todo
   });
 });

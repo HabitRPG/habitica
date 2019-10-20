@@ -1,9 +1,9 @@
-import {generateUser, translate as t} from '../../../../../helpers/api-integration/v3';
+import { generateUser, translate as t } from '../../../../../helpers/api-integration/v3';
 import googlePayments from '../../../../../../website/server/libs/payments/google';
 
 describe('payments : google #norenewsubscribe', () => {
-  let endpoint = '/iap/android/norenew-subscribe';
-  let sku = 'com.habitrpg.android.habitica.subscription.3month';
+  const endpoint = '/iap/android/norenew-subscribe';
+  const sku = 'com.habitrpg.android.habitica.subscription.3month';
   let user;
 
   beforeEach(async () => {

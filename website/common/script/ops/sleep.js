@@ -1,4 +1,4 @@
-module.exports = function sleep (user, req = {}, analytics) {
+export default function sleep (user, req = {}, analytics) {
   user.preferences.sleep = !user.preferences.sleep;
 
   if (analytics) {
@@ -11,4 +11,4 @@ module.exports = function sleep (user, req = {}, analytics) {
   }
 
   return [user.preferences.sleep];
-};
+}

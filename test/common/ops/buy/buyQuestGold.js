@@ -1,7 +1,7 @@
 import {
   generateUser,
 } from '../../../helpers/common.helper';
-import {BuyQuestWithGoldOperation} from '../../../../website/common/script/ops/buy/buyQuestGold';
+import { BuyQuestWithGoldOperation } from '../../../../website/common/script/ops/buy/buyQuestGold';
 import {
   BadRequest,
   NotAuthorized,
@@ -12,7 +12,7 @@ import errorMessage from '../../../../website/common/script/libs/errorMessage';
 
 describe('shared.ops.buyQuest', () => {
   let user;
-  let analytics = {track () {}};
+  const analytics = { track () {} };
 
   function buyQuest (_user, _req, _analytics) {
     const buyOp = new BuyQuestWithGoldOperation(_user, _req, _analytics);
@@ -45,10 +45,10 @@ describe('shared.ops.buyQuest', () => {
 
   it('if a user\'s count of a quest scroll is negative, it will be reset to 0 before incrementing when they buy a new one.', () => {
     user.stats.gp = 205;
-    let key = 'dilatoryDistress1';
+    const key = 'dilatoryDistress1';
     user.items.quests[key] = -1;
     buyQuest(user, {
-      params: {key},
+      params: { key },
     }, analytics);
     expect(user.items.quests[key]).to.equal(1);
     expect(user.stats.gp).to.equal(5);
@@ -74,7 +74,7 @@ describe('shared.ops.buyQuest', () => {
     });
   });
 
-  it('does not buy a Quest scroll when an invalid quantity is passed', (done) => {
+  it('does not buy a Quest scroll when an invalid quantity is passed', done => {
     user.stats.gp = 1000;
     try {
       buyQuest(user, {
@@ -92,7 +92,7 @@ describe('shared.ops.buyQuest', () => {
     }
   });
 
-  it('does not buy Quests without enough Gold', (done) => {
+  it('does not buy Quests without enough Gold', done => {
     user.stats.gp = 1;
     try {
       buyQuest(user, {
@@ -109,7 +109,7 @@ describe('shared.ops.buyQuest', () => {
     }
   });
 
-  it('does not buy nonexistent Quests', (done) => {
+  it('does not buy nonexistent Quests', done => {
     user.stats.gp = 9999;
     try {
       buyQuest(user, {
@@ -119,14 +119,14 @@ describe('shared.ops.buyQuest', () => {
       });
     } catch (err) {
       expect(err).to.be.an.instanceof(NotFound);
-      expect(err.message).to.equal(errorMessage('questNotFound', {key: 'snarfblatter'}));
+      expect(err.message).to.equal(errorMessage('questNotFound', { key: 'snarfblatter' }));
       expect(user.items.quests).to.eql({});
       expect(user.stats.gp).to.equal(9999);
       done();
     }
   });
 
-  it('does not buy the Mystery of the Masterclassers', (done) => {
+  it('does not buy the Mystery of the Masterclassers', done => {
     try {
       buyQuest(user, {
         params: {
@@ -142,7 +142,7 @@ describe('shared.ops.buyQuest', () => {
   });
 
 
-  it('does not buy Gem-premium Quests', (done) => {
+  it('does not buy Gem-premium Quests', done => {
     user.stats.gp = 9999;
     try {
       buyQuest(user, {
@@ -152,14 +152,14 @@ describe('shared.ops.buyQuest', () => {
       });
     } catch (err) {
       expect(err).to.be.an.instanceof(NotAuthorized);
-      expect(err.message).to.equal(i18n.t('questNotGoldPurchasable', {key: 'kraken'}));
+      expect(err.message).to.equal(i18n.t('questNotGoldPurchasable', { key: 'kraken' }));
       expect(user.items.quests).to.eql({});
       expect(user.stats.gp).to.equal(9999);
       done();
     }
   });
 
-  it('returns error when key is not provided', (done) => {
+  it('returns error when key is not provided', done => {
     try {
       buyQuest(user);
     } catch (err) {
@@ -169,7 +169,7 @@ describe('shared.ops.buyQuest', () => {
     }
   });
 
-  it('does not buy a quest without completing previous quests', (done) => {
+  it('does not buy a quest without completing previous quests', done => {
     try {
       buyQuest(user, {
         params: {
@@ -178,7 +178,7 @@ describe('shared.ops.buyQuest', () => {
       });
     } catch (err) {
       expect(err).to.be.an.instanceof(NotAuthorized);
-      expect(err.message).to.equal(i18n.t('mustComplete', {quest: 'dilatoryDistress2'}));
+      expect(err.message).to.equal(i18n.t('mustComplete', { quest: 'dilatoryDistress2' }));
       expect(user.items.quests).to.eql({});
       done();
     }

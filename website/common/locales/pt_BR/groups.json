@@ -483,5 +483,6 @@
     "pmReported": "Obrigado por denunciar esta mensagem.",
     "youHaveBeenAssignedTask": "<%= managerName %> atribuiu a você a tarefa <span class=\"notification-bold\"><%= taskText %></span>.",
     "suggestedGroup": "Sugerido porque você é novo no Habitica.",
-    "taskClaimed": "<%= userName %> reivindicou a tarefa <span class=\"notification-bold\"><%= taskText %></span>."
+    "taskClaimed": "<%= userName %> reivindicou a tarefa <span class=\"notification-bold\"><%= taskText %></span>.",
+    "groupActivityNotificationTitle": "<%= user %> postou em <%= group %>"
 }

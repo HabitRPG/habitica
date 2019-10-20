@@ -1,9 +1,9 @@
+import { v4 as generateUUID } from 'uuid';
 import {
   createAndPopulateGroup,
   translate as t,
   generateUser,
 } from '../../../../helpers/api-integration/v3';
-import { v4 as generateUUID } from 'uuid';
 import { model as Group } from '../../../../../website/server/models/group';
 
 describe('POST /groups/:groupId/quests/cancel', () => {
@@ -15,7 +15,7 @@ describe('POST /groups/:groupId/quests/cancel', () => {
   const PET_QUEST = 'whale';
 
   beforeEach(async () => {
-    let { group, groupLeader, members } = await createAndPopulateGroup({
+    const { group, groupLeader, members } = await createAndPopulateGroup({
       groupDetails: { type: 'party', privacy: 'private' },
       members: 2,
     });
@@ -50,7 +50,7 @@ describe('POST /groups/:groupId/quests/cancel', () => {
     });
 
     it('returns an error when group is a guild', async () => {
-      let { group: guild, groupLeader: guildLeader } = await createAndPopulateGroup({
+      const { group: guild, groupLeader: guildLeader } = await createAndPopulateGroup({
         groupDetails: { type: 'guild', privacy: 'private' },
       });
 
@@ -103,9 +103,9 @@ describe('POST /groups/:groupId/quests/cancel', () => {
     // partyMembers[1] hasn't accepted the invitation, because if he accepts, invitation phase ends.
     // The cancel command can be done only in the invitation phase.
 
-    let stub = sandbox.spy(Group.prototype, 'sendChat');
+    const stub = sandbox.spy(Group.prototype, 'sendChat');
 
-    let res = await leader.post(`/groups/${questingGroup._id}/quests/cancel`);
+    const res = await leader.post(`/groups/${questingGroup._id}/quests/cancel`);
 
     await Promise.all([
       leader.sync(),
@@ -114,7 +114,7 @@ describe('POST /groups/:groupId/quests/cancel', () => {
       questingGroup.sync(),
     ]);
 
-    let clean = {
+    const clean = {
       key: null,
       progress: {
         up: 0,

@@ -6,10 +6,11 @@ import {
 } from '../../../../helpers/api-integration/v3';
 
 describe('PUT /challenges/:challengeId', () => {
-  let privateGuild, user, nonMember, challenge, member;
+  let privateGuild; let user; let nonMember; let challenge; let
+    member;
 
   beforeEach(async () => {
-    let { group, groupLeader, members } = await createAndPopulateGroup({
+    const { group, groupLeader, members } = await createAndPopulateGroup({
       groupDetails: {
         name: 'TestPrivateGuild',
         type: 'guild',
@@ -22,7 +23,7 @@ describe('PUT /challenges/:challengeId', () => {
     user = groupLeader;
 
     nonMember = await generateUser();
-    member = members[0];
+    member = members[0]; // eslint-disable-line prefer-destructuring
 
     challenge = await generateChallenge(user, group);
     await user.post(`/challenges/${challenge._id}/join`);
@@ -48,7 +49,7 @@ describe('PUT /challenges/:challengeId', () => {
   });
 
   it('only updates allowed fields', async () => {
-    let res = await user.put(`/challenges/${challenge._id}`, {
+    const res = await user.put(`/challenges/${challenge._id}`, {
       // ignored
       prize: 33,
       group: 'blabla',
@@ -78,7 +79,7 @@ describe('PUT /challenges/:challengeId', () => {
     expect(res.leader).to.eql({
       _id: user._id,
       id: user._id,
-      profile: {name: user.profile.name},
+      profile: { name: user.profile.name },
       auth: {
         local: {
           username: user.auth.local.username,

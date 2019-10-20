@@ -1,14 +1,15 @@
+import { v4 as generateUUID } from 'uuid';
 import {
   createAndPopulateGroup,
   translate as t,
 } from '../../../../../../helpers/api-integration/v3';
-import { v4 as generateUUID } from 'uuid';
 
 describe('POST group /tasks/:taskId/checklist/', () => {
-  let user, guild, task;
+  let user; let guild; let
+    task;
 
   before(async () => {
-    let {group, groupLeader} = await createAndPopulateGroup({
+    const { group, groupLeader } = await createAndPopulateGroup({
       groupDetails: {
         name: 'Test Guild',
         type: 'guild',
@@ -32,8 +33,8 @@ describe('POST group /tasks/:taskId/checklist/', () => {
       _id: 123,
     });
 
-    let updatedTasks = await user.get(`/tasks/group/${guild._id}`);
-    let updatedTask = updatedTasks[0];
+    const updatedTasks = await user.get(`/tasks/group/${guild._id}`);
+    const updatedTask = updatedTasks[0];
 
     expect(updatedTask.checklist.length).to.equal(1);
     expect(updatedTask.checklist[0].text).to.equal('Checklist Item 1');
@@ -44,7 +45,7 @@ describe('POST group /tasks/:taskId/checklist/', () => {
   });
 
   it('does not add a checklist to habits', async () => {
-    let habit = await user.post(`/tasks/group/${guild._id}`, {
+    const habit = await user.post(`/tasks/group/${guild._id}`, {
       type: 'habit',
       text: 'habit with checklist',
     });
@@ -59,7 +60,7 @@ describe('POST group /tasks/:taskId/checklist/', () => {
   });
 
   it('does not add a checklist to rewards', async () => {
-    let reward = await user.post(`/tasks/group/${guild._id}`, {
+    const reward = await user.post(`/tasks/group/${guild._id}`, {
       type: 'reward',
       text: 'reward with checklist',
     });

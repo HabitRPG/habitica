@@ -4,31 +4,31 @@ import {
 } from '../../helpers/common.helper';
 
 describe('shops', () => {
-  let user = generateUser();
+  const user = generateUser();
 
   describe('market', () => {
-    let shopCategories = shared.shops.getMarketCategories(user);
+    const shopCategories = shared.shops.getMarketCategories(user);
 
     it('contains at least the 3 default categories', () => {
       expect(shopCategories.length).to.be.greaterThan(2);
     });
 
     it('does not contain an empty category', () => {
-      _.each(shopCategories, (category) => {
+      _.each(shopCategories, category => {
         expect(category.items.length).to.be.greaterThan(0);
       });
     });
 
     it('does not duplicate identifiers', () => {
-      let identifiers = Array.from(new Set(shopCategories.map(cat => cat.identifier)));
+      const identifiers = Array.from(new Set(shopCategories.map(cat => cat.identifier)));
 
       expect(identifiers.length).to.eql(shopCategories.length);
     });
 
     it('items contain required fields', () => {
-      _.each(shopCategories, (category) => {
-        _.each(category.items, (item) => {
-          _.each(['key', 'text', 'notes', 'value', 'currency', 'locked', 'purchaseType', 'class'], (key) => {
+      _.each(shopCategories, category => {
+        _.each(category.items, item => {
+          _.each(['key', 'text', 'notes', 'value', 'currency', 'locked', 'purchaseType', 'class'], key => {
             expect(_.has(item, key)).to.eql(true);
           });
         });
@@ -36,7 +36,7 @@ describe('shops', () => {
     });
 
     it('shows relevant non class gear in special category', () => {
-      let contributor = generateUser({
+      const contributor = generateUser({
         contributor: {
           level: 7,
           critical: true,
@@ -50,18 +50,18 @@ describe('shops', () => {
         },
       });
 
-      let gearCategories = shared.shops.getMarketGearCategories(contributor);
-      let specialCategory = gearCategories.find(o => o.identifier === 'none');
-      expect(specialCategory.items.find((item) => item.key === 'weapon_special_1'));
-      expect(specialCategory.items.find((item) => item.key === 'armor_special_1'));
-      expect(specialCategory.items.find((item) => item.key === 'head_special_1'));
-      expect(specialCategory.items.find((item) => item.key === 'shield_special_1'));
-      expect(specialCategory.items.find((item) => item.key === 'weapon_special_critical'));
-      expect(specialCategory.items.find((item) => item.key === 'weapon_armoire_basicCrossbow'));// eslint-disable-line camelcase
+      const gearCategories = shared.shops.getMarketGearCategories(contributor);
+      const specialCategory = gearCategories.find(o => o.identifier === 'none');
+      expect(specialCategory.items.find(item => item.key === 'weapon_special_1'));
+      expect(specialCategory.items.find(item => item.key === 'armor_special_1'));
+      expect(specialCategory.items.find(item => item.key === 'head_special_1'));
+      expect(specialCategory.items.find(item => item.key === 'shield_special_1'));
+      expect(specialCategory.items.find(item => item.key === 'weapon_special_critical'));
+      expect(specialCategory.items.find(item => item.key === 'weapon_armoire_basicCrossbow'));// eslint-disable-line camelcase
     });
 
     it('does not show gear when it is all owned', () => {
-      let userWithItems = generateUser({
+      const userWithItems = generateUser({
         stats: {
           class: 'wizard',
         },
@@ -91,12 +91,12 @@ describe('shops', () => {
       });
 
 
-      let shopWizardItems = shared.shops.getMarketGearCategories(userWithItems).find(x => x.identifier === 'wizard').items.filter(x => x.klass === 'wizard' && (x.owned === false || x.owned === undefined));
+      const shopWizardItems = shared.shops.getMarketGearCategories(userWithItems).find(x => x.identifier === 'wizard').items.filter(x => x.klass === 'wizard' && (x.owned === false || x.owned === undefined));
       expect(shopWizardItems.length).to.eql(0);
     });
 
     it('shows available gear not yet purchased and previously owned', () => {
-      let userWithItems = generateUser({
+      const userWithItems = generateUser({
         stats: {
           class: 'wizard',
         },
@@ -123,7 +123,7 @@ describe('shops', () => {
       });
 
 
-      let shopWizardItems = shared.shops.getMarketGearCategories(userWithItems).find(x => x.identifier === 'wizard').items.filter(x => x.klass === 'wizard' && (x.owned === false || x.owned === undefined));
+      const shopWizardItems = shared.shops.getMarketGearCategories(userWithItems).find(x => x.identifier === 'wizard').items.filter(x => x.klass === 'wizard' && (x.owned === false || x.owned === undefined));
       expect(shopWizardItems.find(item => item.key === 'weapon_wizard_5').locked).to.eql(false);
       expect(shopWizardItems.find(item => item.key === 'weapon_wizard_6').locked).to.eql(true);
       expect(shopWizardItems.find(item => item.key === 'armor_wizard_3').locked).to.eql(false);
@@ -134,31 +134,31 @@ describe('shops', () => {
   });
 
   describe('questShop', () => {
-    let shopCategories = shared.shops.getQuestShopCategories(user);
+    const shopCategories = shared.shops.getQuestShopCategories(user);
 
     it('does not contain an empty category', () => {
-      _.each(shopCategories, (category) => {
+      _.each(shopCategories, category => {
         expect(category.items.length).to.be.greaterThan(0);
       });
     });
 
     it('does not duplicate identifiers', () => {
-      let identifiers = Array.from(new Set(shopCategories.map(cat => cat.identifier)));
+      const identifiers = Array.from(new Set(shopCategories.map(cat => cat.identifier)));
 
       expect(identifiers.length).to.eql(shopCategories.length);
     });
 
     it('items contain required fields', () => {
-      _.each(shopCategories, (category) => {
+      _.each(shopCategories, category => {
         if (category.identifier === 'bundle') {
-          _.each(category.items, (item) => {
-            _.each(['key', 'text', 'notes', 'value', 'currency', 'purchaseType', 'class'], (key) => {
+          _.each(category.items, item => {
+            _.each(['key', 'text', 'notes', 'value', 'currency', 'purchaseType', 'class'], key => {
               expect(_.has(item, key)).to.eql(true);
             });
           });
         } else {
-          _.each(category.items, (item) => {
-            _.each(['key', 'text', 'notes', 'value', 'currency', 'locked', 'purchaseType', 'boss', 'class', 'collect', 'drop', 'unlockCondition', 'lvl'], (key) => {
+          _.each(category.items, item => {
+            _.each(['key', 'text', 'notes', 'value', 'currency', 'locked', 'purchaseType', 'boss', 'class', 'collect', 'drop', 'unlockCondition', 'lvl'], key => {
               expect(_.has(item, key)).to.eql(true);
             });
           });
@@ -168,24 +168,24 @@ describe('shops', () => {
   });
 
   describe('timeTravelers', () => {
-    let shopCategories = shared.shops.getTimeTravelersCategories(user);
+    const shopCategories = shared.shops.getTimeTravelersCategories(user);
 
     it('does not contain an empty category', () => {
-      _.each(shopCategories, (category) => {
+      _.each(shopCategories, category => {
         expect(category.items.length).to.be.greaterThan(0);
       });
     });
 
     it('does not duplicate identifiers', () => {
-      let identifiers = Array.from(new Set(shopCategories.map(cat => cat.identifier)));
+      const identifiers = Array.from(new Set(shopCategories.map(cat => cat.identifier)));
 
       expect(identifiers.length).to.eql(shopCategories.length);
     });
 
     it('items contain required fields', () => {
-      _.each(shopCategories, (category) => {
-        _.each(category.items, (item) => {
-          _.each(['key', 'text', 'value', 'currency', 'locked', 'purchaseType', 'class', 'notes', 'class'], (key) => {
+      _.each(shopCategories, category => {
+        _.each(category.items, item => {
+          _.each(['key', 'text', 'value', 'currency', 'locked', 'purchaseType', 'class', 'notes', 'class'], key => {
             expect(_.has(item, key)).to.eql(true);
           });
         });
@@ -194,24 +194,24 @@ describe('shops', () => {
   });
 
   describe('seasonalShop', () => {
-    let shopCategories = shared.shops.getSeasonalShopCategories(user);
+    const shopCategories = shared.shops.getSeasonalShopCategories(user);
 
     it('does not contain an empty category', () => {
-      _.each(shopCategories, (category) => {
+      _.each(shopCategories, category => {
         expect(category.items.length).to.be.greaterThan(0);
       });
     });
 
     it('does not duplicate identifiers', () => {
-      let identifiers = Array.from(new Set(shopCategories.map(cat => cat.identifier)));
+      const identifiers = Array.from(new Set(shopCategories.map(cat => cat.identifier)));
 
       expect(identifiers.length).to.eql(shopCategories.length);
     });
 
     it('items contain required fields', () => {
-      _.each(shopCategories, (category) => {
-        _.each(category.items, (item) => {
-          _.each(['key', 'text', 'notes', 'value', 'currency', 'locked', 'purchaseType', 'type'], (key) => {
+      _.each(shopCategories, category => {
+        _.each(category.items, item => {
+          _.each(['key', 'text', 'notes', 'value', 'currency', 'locked', 'purchaseType', 'type'], key => {
             expect(_.has(item, key)).to.eql(true);
           });
         });
