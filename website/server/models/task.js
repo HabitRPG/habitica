@@ -300,11 +300,13 @@ TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta
 export const Task = mongoose.model('Task', TaskSchema);
 
 // habits and dailies shared fields
-// Schema for history not defined because it causes serious perf problems
+
+// History Schema not defined because it causes serious perf problems.
+// Expected `history` structure is an array of objects, with each object having
+// one each of `date`, `value`, `scoredUp`, and `scoredDown` attributes.
 // date is a date stored as a Number value
 // value is a Number
-// scoredUp and scoredDown only exist for habits and are numbers
-
+// scoredUp and scoredDown only exist for Habits and are numbers
 const habitDailySchema = () => ({ history: Array });
 
 // dailys and todos shared fields
@@ -342,6 +344,8 @@ export const DailySchema = new Schema(_.defaults({
       'Valid everyX values are integers from 0 to 9999',
     ],
   },
+  repeatAfterCompletion: { $type: Boolean, default: false },
+  lastCompleted: Date,
   startDate: {
     $type: Date,
     default () {

@@ -363,6 +363,22 @@
               </div>
             </div>
           </div>
+          <template v-if="task.frequency === 'daily'">
+            <div class="form-check">
+              <div class="custom-control custom-checkbox custom-control-inline">
+                <input
+                  id="repeatAfterCompletion"
+                  v-model="task.repeatAfterCompletion"
+                  class="custom-control-input"
+                  type="checkbox"
+                >
+                <label
+                  class="custom-control-label"
+                  for="repeatAfterCompletion"
+                >{{ $t('repeatAfterCompletionTitle', {everyX: task.everyX}) }}</label>
+              </div>
+            </div>
+          </template>
           <template v-if="task.frequency === 'weekly'">
             <div class="form-group">
               <label
